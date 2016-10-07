@@ -6,10 +6,10 @@
 }
 
 .ubicacion_web {
-    width: 100%!important;
-    max-width: 1189px!important;
-    position: relative!important;
-    z-index: 6!important;
+    width: 100% !important;
+    max-width: 1189px !important;
+    position: relative !important;
+    z-index: 6 !important;
     /*margin-top: 83px!important;*/
 }
 
@@ -204,4 +204,26 @@
     .pedido_ingreso_datos.campo_descripcion_producto {
         width: 29.1% !important;
     }
+}
+
+.btn_animado {
+    display: none;
+    position: absolute;
+    /*width: 70px;
+    height: 30px;
+    background: red;*/
+    z-index: 1000;
+    text-align: center;
+}
+
+.no_mostrar {
+    display: none;
+}
+
+.campana:hover .info_cam {
+    display: none;
+}
+
+.optRechazoSelect {
+    background-color: silver;
 }

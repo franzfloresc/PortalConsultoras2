@@ -286,6 +286,9 @@ namespace Portal.Consultoras.Web.Controllers
                     {
                         lst = sv.GetPermisosByRol(PaisID, RolID).ToList();
                     }
+
+                    string strpaises = ConfigurationManager.AppSettings.Get("Permisos_CCC");
+                    if (!strpaises.Contains(userData.CodigoISO)) lst.Remove(lst.FirstOrDefault(p => p.UrlItem.ToLower() == "consultoraonline/index"));
                     if (userData.IndicadorPermisoFIC == 0) lst.Remove(lst.FirstOrDefault(p => p.UrlItem.ToLower() == "pedidofic/index"));
 
                     List<PermisoModel> lstModel = new List<PermisoModel>();
@@ -1369,6 +1372,24 @@ namespace Portal.Consultoras.Web.Controllers
         {
             if (paisID == 4) return new Converter<decimal, string>(p => p.ToString("n0", new System.Globalization.CultureInfo("es-CO")));
             return new Converter<decimal, string>(p => p.ToString("n2", new System.Globalization.CultureInfo("es-PE")));
+        }
+
+        protected int AddCampaniaAndNumero(int campania, int numero)
+        {
+            int nroCampanias = userData.NroCampanias;
+
+            int anioCampania = campania / 100;
+            int nroCampania = campania % 100;
+            int sumNroCampania = (nroCampania + numero) - 1;
+            int anioCampaniaResult = anioCampania + (sumNroCampania / userData.NroCampanias);
+            int nroCampaniaResult = (sumNroCampania % userData.NroCampanias) + 1;
+
+            if (nroCampaniaResult < 1)
+            {
+                anioCampaniaResult = anioCampaniaResult - 1;
+                nroCampaniaResult = nroCampaniaResult + userData.NroCampanias;
+            }
+            return (anioCampaniaResult * 100) + nroCampaniaResult;
         }
 
         public string FormatearHora(TimeSpan hora)
