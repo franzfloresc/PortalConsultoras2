@@ -8662,6 +8662,7 @@ span.title-app-b {
     font-size:12px;
     font-weight:700;
     text-decoration:none;
+    text-transform:uppercase;
 }
 .facturado_pendiente:hover{
     text-decoration:none;
@@ -8792,4 +8793,12 @@ a{
     }
 .opcion_rechazo:last-child{
     border-bottom:0;
+}
+.titulo_pedido_cancelado{
+    font-family:'LAto';
+    font-size:13px;
+    color:black;
+    font-weight:700;
+    text-transform:uppercase;
+    margin-bottom:10px;
 }
