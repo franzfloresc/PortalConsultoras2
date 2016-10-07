@@ -5,6 +5,15 @@ namespace Portal.Consultoras.Web.Models
 {
     public class ClienteOnlineModel
     {
+        public ClienteOnlineModel()
+        {
+            this.Detalles = new List<ClienteOnlineDetalleModel>();
+            this.MotivosRechazo = new List<MisPedidosMotivoRechazoModel>();
+            this.EstadoDesc = "";
+            this.Cliente = "";
+            this.MensajeDelCliente = "";
+        }
+     
         public long SolicitudClienteID { get; set; }
         public int MarcaID { get; set; }
         public bool ClienteNuevo { get; set; }
