@@ -132,24 +132,21 @@ $(document).ready(function () {
         $('.popupPendientesPORTAL').hide();
     });
 
-    $('#rechazarPendientesPORTAL').on('click', function () {
-        $('#dialog_confirmacionRechazo').show();
-    });
+    //$('#rechazarPendientesPORTAL').on('click', function () {
+    //    $('#dialog_confirmacionRechazo').show();
+    //});
 
-    $('#aceptarPendientesPORTAL').on('click', function () {
-        $('#dialog_aceptasPendientes').show();
-    });
+    //$('#aceptarPendientesPORTAL').on('click', function () {
+    //    $('#dialog_aceptasPendientes').show();
+    //});
 
-    $('.paginador_pedidos.mostrarPaginadorPedidos.inferior').hide();
+    //$('.paginador_pedidos.mostrarPaginadorPedidos').hide();
+    //$('.paginador_pedidos.mostrarPaginadorPedidos.inferior').hide();
 
     CargarPedidosPend();
 });
 
 function CargarPedidosPend(page, rows) {
-
-    //if ($('ul.paginador_notificaciones').is(':visible')) {
-        $('ul.paginador_notificaciones').hide();
-    //}
 
     $('#divPedidosPend').html('<div style="text-align: center;">Cargando Pedidos Pendientes<br><img src="' + urlLoad + '" /></div>');
 
@@ -168,10 +165,8 @@ function CargarPedidosPend(page, rows) {
         data: JSON.stringify(obj),
         async: true,
         success: function (response) {
-
             if (response.success) {
                 var data = response.data;
-
                 if (data.RegistrosTotal > 0) {
 
                     $('#cont1PedidosPend').text(data.RegistrosTotal);
@@ -193,8 +188,7 @@ function CargarPedidosPend(page, rows) {
 
                     $('#penmostreo').show();
 
-                    if (lanzarTabConsultoraOnline == '1')
-                    {
+                    if (lanzarTabConsultoraOnline == '1') {
                         $('.content_T_T').addClass("fondo_lateral");
                         $(".fondo_pendiente").fadeIn();
                         $(".bloque_left").fadeIn();
@@ -214,10 +208,6 @@ function CargarPedidosPend(page, rows) {
                         $('#pedmostreo').addClass('cambio_bk_pendientes');
                         $('.datos_para_movil').hide();
                     }
-
-                    //if ($('ul.paginador_notificaciones').is(':visible')) {
-                        $('ul.paginador_notificaciones').hide();
-                   //}
                 }
                 else {
 
@@ -282,11 +272,9 @@ function CargarPopupPedidoPend(pedidoId) {
         data: JSON.stringify(obj),
         async: true,
         success: function (response) {
-
             CerrarSplash();
             if (response.success) {
                 var data = response.data;
-
                 if (data.RegistrosTotal > 0) {
 
                     var row = $('#pedidopend_' + pedidoId).val();
@@ -362,10 +350,10 @@ function ShowPopupRechazoPedido(pedidoId, tipo) {
     $('#hdePedidoIdRechazo').val(pedidoId);
 }
 
-function ShowPopupAceptoPedido(pedidoId, tipo) {
-    $('#dialog_aceptasPendientes').show();
-    $('#hdePedidoIdAcepto').val(pedidoId);
-}
+//function ShowPopupAceptoPedido(pedidoId, tipo) {
+//    $('#dialog_aceptasPendientes').show();
+//    $('#hdePedidoIdAcepto').val(pedidoId);
+//}
 
 function ShowPopupMotivoRechazo() {
     var id = $('#hdePedidoIdRechazo').val();
@@ -415,10 +403,8 @@ function RechazarPedido() {
         contentType: 'application/json',
         data: JSON.stringify(obj),
         success: function (data) {
-
             if (checkTimeout(data)) {
                 CerrarSplash();
-
                 if (data.success == true) {
                     //$('#modal_rechazar_pedido').fuzemodal('close');
                     //$('#modal_rechazar_pedido').fuzemodal('close');
@@ -432,7 +418,7 @@ function RechazarPedido() {
                     //updateCantidadPedidos();
 
                     $('#btnRechazarPedido').prop('disabled', false);
-                    $('#dialog_motivoRechazo').hide();
+                    //$('#dialog_motivoRechazo').hide();
                     $('#dialog_mensajeRechazado').show();
                 }
                 else {
@@ -454,6 +440,8 @@ function RechazarPedido() {
 
 function CerrarMensajeRechazado() {
     $('#dialog_mensajeRechazado').hide();
+    $('#popup_pendientes').hide();
+    $('#popup2_pendientes').hide();
     CargarPedidosPend();
 }
 
@@ -504,7 +492,6 @@ function AceptarPedido(pedidoId, tipo) {
     //console.log(detalle);
 
     if (isOk) {
-
         var pedido = {
             id: pedidoId,
             ListaDetalleModel: detalle,
@@ -520,7 +507,6 @@ function AceptarPedido(pedidoId, tipo) {
             data: JSON.stringify(pedido),
             async: true,
             success: function (response) {
-
                 CerrarSplash();
                 if (response.success) {
                     //alert(response.message);
@@ -551,8 +537,10 @@ function AceptarPedido(pedidoId, tipo) {
 function CerrarMensajeAceptado(tipo) {
     if (tipo == 1) {
         $('#dialog_aceptasPendientes').hide();
+        $('#popup_pendientes').hide();
     } else {
         $('#dialog2_aceptasPendientes').hide();
+        $('#popup2_pendientes').hide();
     }
 
     CargarDetallePedido();
