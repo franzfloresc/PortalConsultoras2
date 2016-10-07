@@ -3172,6 +3172,7 @@
     <Content Include="Web References\ServiceCatalogosIssuu\MulticatalogoWebService.disco" />
     <Content Include="WebPages\AppCatalogoTyC\CL_AppCatalogoTyC.html" />
     <Content Include="WebPages\AppCatalogoTyC\CO_AppCatalogoTyC.HTML" />
+    <Content Include="WebPages\AppCatalogoTyC\CR_AppCatalogoTyC.HTML" />
     <Content Include="WebPages\AppCatalogoTyC\EC_AppCatalogoTyC.HTML" />
     <Content Include="WebPages\AppCatalogoTyC\MX_AppCatalogoTyC.HTML" />
     <Content Include="WebPages\AppCatalogoTyC\PE_AppCatalogoTyC.HTML" />
