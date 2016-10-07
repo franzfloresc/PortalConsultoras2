@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Portal.Consultoras.Web.Models
 {
@@ -22,5 +23,8 @@ namespace Portal.Consultoras.Web.Models
         public string Direccion { get; set; }
         public string Email { get; set; }
         public string MensajeDelCliente { get; set; }
+        public bool PuedeCancelar { get; set; }
+        public List<ClienteOnlineDetalleModel> Detalles { get; set; }
+        public List<MisPedidosMotivoRechazoModel> MotivosRechazo { get; set; }
     }
 }
