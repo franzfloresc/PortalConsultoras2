@@ -1230,7 +1230,7 @@ function AgregarProductoDestacado(popup, tipoEstrategiaImagen) {
                     success: function (data) {
                         if (checkTimeout(data)) {
                             waitingDialog();
-                            MostrarBarra(data.DataBarra, '1');
+                            MostrarBarra(data, '1');
                             CargarCarouselEstrategias(cuv);
                             CargarResumenCampaniaHeader(true);
                             TagManagerClickAgregarProducto();
@@ -1638,7 +1638,7 @@ function AgregarProductoLiquidacion(contenedor) {
                         async: true,
                         success: function (data) {
                             if (data.success == true) {
-                                MostrarBarra(data.DataBarra, '1');
+                                MostrarBarra(data, '1');
                                 CargarResumenCampaniaHeader(true);
                                 TrackingJetloreAdd(item.Cantidad, $("#hdCampaniaCodigo").val(), item.CUV);
                                 TagManagerClickAgregarProductoLiquidacion(item);
@@ -1874,7 +1874,7 @@ function InsertarPedidoCuvBanner(CUVpedido, CantCUVpedido) {
             if (checkTimeout(result)) {
                 if (result.success == true) {
 
-                    MostrarBarra(result.DataBarra, '1');
+                    MostrarBarra(result, '1');
 
                     CargarResumenCampaniaHeader(true);
 
@@ -3212,7 +3212,7 @@ function AgregarProducto(url, item, otraFunct) {
         async: true,
         success: function (data) {
             if (data.success == true) {
-                MostrarBarra(data.DataBarra, '1');
+                MostrarBarra(data, '1');
                 CargarResumenCampaniaHeader(true);
 
                 TrackingJetloreAdd(item.Cantidad, $("#hdCampaniaCodigo").val(), item.CUV);
