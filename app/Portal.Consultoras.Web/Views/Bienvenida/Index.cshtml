@@ -217,7 +217,7 @@
                 else if (Model.PrefijoPais == Constantes.CodigosISOPais.Chile)
                 {
                     cabezaEscala = "Comisión y ahorro total*";
-                    pieEscala = "*Comisión = Ganancia estimada proveniente de tus descuentos por compras en catálogo; <br>Ahorro = Ahorro estimado proveniente de compras de Guía de Negocio y Otros.";
+                    pieEscala = "*Comisión = Ganancia estimada proveniente de tus descuentos por compras en catálogo; Ahorro = Ahorro estimado proveniente de compras de Guía de Negocio y Otros.";
                 }
                 else if (Model.PrefijoPais == Constantes.CodigosISOPais.Mexico || Model.PrefijoPais == Constantes.CodigosISOPais.Panama)
                 {
@@ -2114,6 +2114,7 @@
         var viewBagVioTutorialSalvavidas = '@Model.VioTutorialSalvavidas';
         var constanteVioVideo = '@Constantes.TipoTutorial.Video';
         var constanteVioTutorialDesktop = '@Constantes.TipoTutorial.Desktop';
+        var constanteVioTutorialSalvavidas = '@Constantes.TipoTutorial.Salvavidas';
     </script>
     
     @System.Web.Optimization.Scripts.Render("~/bundles/JsSB2-Bienvenida")
