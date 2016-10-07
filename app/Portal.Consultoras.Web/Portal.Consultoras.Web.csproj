@@ -214,6 +214,7 @@
     <Compile Include="Areas\Mobile\Helpers\StringsHelper.cs" />
     <Compile Include="Areas\Mobile\MobileAreaRegistration.cs" />
     <Compile Include="Areas\Mobile\Models\BienvenidaModel.cs" />
+    <Compile Include="Areas\Mobile\Models\ConsultoraOnlineHistorialMobileModel.cs" />
     <Compile Include="Areas\Mobile\Models\MiAsesorBellezaModel.cs" />
     <Compile Include="Areas\Mobile\Models\CatalogoClienteModel.cs" />
     <Compile Include="Areas\Mobile\Models\CatalogoMobileModel.cs" />
@@ -2378,6 +2379,8 @@
     <Content Include="Scripts\PortalConsultoras\MisBeneficios\Index.js" />
     <Content Include="Scripts\PortalConsultoras\Mobile\CatalogoPersonalizado\Index.js" />
     <Content Include="Scripts\PortalConsultoras\MisPedidos\ClienteOnline.js" />
+    <Content Include="Scripts\PortalConsultoras\Mobile\ConsultoraOnline\DetallePedidoHistorial.js" />
+    <Content Include="Scripts\PortalConsultoras\Mobile\ConsultoraOnline\Historial.js" />
     <Content Include="Scripts\PortalConsultoras\Mobile\Catalogo\Index.js" />
     <Content Include="Scripts\PortalConsultoras\Mobile\MiAsesorBelleza\Index.js" />
     <Content Include="Scripts\PortalConsultoras\Mobile\Pedido\Validado.js" />
@@ -2582,6 +2585,10 @@
     <Content Include="Areas\Mobile\Views\CatalogoPersonalizado\Index.cshtml">
       <SubType>Code</SubType>
     </Content>
+    <Content Include="Areas\Mobile\Views\ConsultoraOnline\Historial.cshtml" />
+    <Content Include="Areas\Mobile\Views\ConsultoraOnline\PedidosPendientes.cshtml" />
+    <Content Include="Areas\Mobile\Views\ConsultoraOnline\DetallePedidoHistorial.cshtml" />
+    <Content Include="Areas\Mobile\Views\ConsultoraOnline\DetallePedidoPendiente.cshtml" />
     <None Include="Service References\ServiceProductoCatalogoPersonalizado\configuration91.svcinfo" />
     <None Include="Service References\ServiceProductoCatalogoPersonalizado\configuration.svcinfo" />
     <None Include="Service References\ServiceProductoCatalogoPersonalizado\ProductoService1.wsdl" />

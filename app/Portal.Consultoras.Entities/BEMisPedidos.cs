@@ -136,13 +136,10 @@ namespace Portal.Consultoras.Entities
         public double PrecioTotal { get; set; }
         [DataMember]
         public string MedioContacto { get; set; }
-
         [DataMember]
         public int EstaEnRevista { get; set; }
-
         [DataMember]
         public int TieneStock { get; set; }
-
         [DataMember]
         public string MensajeValidacion { get; set; }
 
