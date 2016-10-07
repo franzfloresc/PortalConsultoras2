@@ -706,11 +706,10 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     mensaje.AppendFormat("{0}</p><br/>", mensajeaCliente);
                     mensaje.Append("<br/>Saludos,<br/><br />");
                     mensaje.Append("<table><tr><td><img src=\"cid:{0}\" /></td>");
-                mensaje.AppendFormat("<td><p style='text-align: center;'><strong>{0}<br/>{1}<br/>Consultora</strong></p></td></tr></table>", userData.NombreConsultora, userData.EMail);
+                    mensaje.AppendFormat("<td><p style='text-align: center;'><strong>{0}<br/>{1}<br/>Consultora</strong></p></td></tr></table>", userData.NombreConsultora, userData.EMail);
                     try
-                    {
-                    string emailDe = ConfigurationManager.AppSettings["ConsultoraOnlineEmailDe"];
-                    Util.EnviarMail3Mobile(emailDe, pedido.Email, titulo, mensaje.ToString(), true, string.Empty);
+                    {                    
+                        Util.EnviarMail3Mobile(emailDe, pedido.Email, titulo, mensaje.ToString(), true, string.Empty);
                         message = "El pedido fue aceptado.";
                     }
                     catch (Exception ex)

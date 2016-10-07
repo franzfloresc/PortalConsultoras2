@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://tempuri.org/" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="SACService" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://tempuri.org/" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="SACService" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
   <wsp:Policy wsu:Id="BasicHttpsBinding_ISACService_policy">
     <wsp:ExactlyOne>
       <wsp:All>
@@ -166,6 +166,12 @@
   <wsdl:message name="ISACService_UpdSolicitudCliente_OutputMessage">
     <wsdl:part name="parameters" element="tns:UpdSolicitudClienteResponse" />
   </wsdl:message>
+  <wsdl:message name="ISACService_UpdSolicitudClienteDetalle_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdSolicitudClienteDetalle" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_UpdSolicitudClienteDetalle_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdSolicitudClienteDetalleResponse" />
+  </wsdl:message>
   <wsdl:message name="ISACService_RechazarSolicitudCliente_InputMessage">
     <wsdl:part name="parameters" element="tns:RechazarSolicitudCliente" />
   </wsdl:message>
@@ -183,6 +189,18 @@
   </wsdl:message>
   <wsdl:message name="ISACService_CancelarSolicitudCliente_OutputMessage">
     <wsdl:part name="parameters" element="tns:CancelarSolicitudClienteResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_CancelarSolicitudClienteYRemoverPedido_InputMessage">
+    <wsdl:part name="parameters" element="tns:CancelarSolicitudClienteYRemoverPedido" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_CancelarSolicitudClienteYRemoverPedido_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CancelarSolicitudClienteYRemoverPedidoResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_GetMotivosRechazo_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetMotivosRechazo" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_GetMotivosRechazo_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetMotivosRechazoResponse" />
   </wsdl:message>
   <wsdl:message name="ISACService_EnviarSolicitudClienteaGZ_InputMessage">
     <wsdl:part name="parameters" element="tns:EnviarSolicitudClienteaGZ" />
@@ -297,390 +315,6 @@
   </wsdl:message>
   <wsdl:message name="ISACService_GetProveedorDespachoCobranzaBYiD_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetProveedorDespachoCobranzaBYiDResponse" />
-  </wsdl:message>
-  <wsdl:message name="ISACService_UpdatePedidoWebEstimadoGanancia_InputMessage">
-    <wsdl:part name="parameters" element="tns:UpdatePedidoWebEstimadoGanancia" />
-  </wsdl:message>
-  <wsdl:message name="ISACService_UpdatePedidoWebEstimadoGanancia_OutputMessage">
-    <wsdl:part name="parameters" element="tns:UpdatePedidoWebEstimadoGananciaResponse" />
-  </wsdl:message>
-  <wsdl:message name="ISACService_GetFactorGananciaSiguienteEscala_InputMessage">
-    <wsdl:part name="parameters" element="tns:GetFactorGananciaSiguienteEscala" />
-  </wsdl:message>
-  <wsdl:message name="ISACService_GetFactorGananciaSiguienteEscala_OutputMessage">
-    <wsdl:part name="parameters" element="tns:GetFactorGananciaSiguienteEscalaResponse" />
-  </wsdl:message>
-  <wsdl:message name="ISACService_GetFactorGananciaEscalaDescuento_InputMessage">
-    <wsdl:part name="parameters" element="tns:GetFactorGananciaEscalaDescuento" />
-  </wsdl:message>
-  <wsdl:message name="ISACService_GetFactorGananciaEscalaDescuento_OutputMessage">
-    <wsdl:part name="parameters" element="tns:GetFactorGananciaEscalaDescuentoResponse" />
-  </wsdl:message>
-  <wsdl:message name="ISACService_GetRegionZonaDiasDuracionCronograma_InputMessage">
-    <wsdl:part name="parameters" element="tns:GetRegionZonaDiasDuracionCronograma" />
-  </wsdl:message>
-  <wsdl:message name="ISACService_GetRegionZonaDiasDuracionCronograma_OutputMessage">
-    <wsdl:part name="parameters" element="tns:GetRegionZonaDiasDuracionCronogramaResponse" />
-  </wsdl:message>
-  <wsdl:message name="ISACService_UpdConfiguracionValidacionZonaCronograma_InputMessage">
-    <wsdl:part name="parameters" element="tns:UpdConfiguracionValidacionZonaCronograma" />
-  </wsdl:message>
-  <wsdl:message name="ISACService_UpdConfiguracionValidacionZonaCronograma_OutputMessage">
-    <wsdl:part name="parameters" element="tns:UpdConfiguracionValidacionZonaCronogramaResponse" />
-  </wsdl:message>
-  <wsdl:message name="ISACService_GetLogModificacionCronograma_InputMessage">
-    <wsdl:part name="parameters" element="tns:GetLogModificacionCronograma" />
-  </wsdl:message>
-  <wsdl:message name="ISACService_GetLogModificacionCronograma_OutputMessage">
-    <wsdl:part name="parameters" element="tns:GetLogModificacionCronogramaResponse" />
-  </wsdl:message>
-  <wsdl:message name="ISACService_InsLogModificacionCronogramaMasivo_InputMessage">
-    <wsdl:part name="parameters" element="tns:InsLogModificacionCronogramaMasivo" />
-  </wsdl:message>
-  <wsdl:message name="ISACService_InsLogModificacionCronogramaMasivo_OutputMessage">
-    <wsdl:part name="parameters" element="tns:InsLogModificacionCronogramaMasivoResponse" />
-  </wsdl:message>
-  <wsdl:message name="ISACService_GetConfiguracionValidacionZona_InputMessage">
-    <wsdl:part name="parameters" element="tns:GetConfiguracionValidacionZona" />
-  </wsdl:message>
-  <wsdl:message name="ISACService_GetConfiguracionValidacionZona_OutputMessage">
-    <wsdl:part name="parameters" element="tns:GetConfiguracionValidacionZonaResponse" />
-  </wsdl:message>
-  <wsdl:message name="ISACService_SelectLugarPago_InputMessage">
-    <wsdl:part name="parameters" element="tns:SelectLugarPago" />
-  </wsdl:message>
-  <wsdl:message name="ISACService_SelectLugarPago_OutputMessage">
-    <wsdl:part name="parameters" element="tns:SelectLugarPagoResponse" />
-  </wsdl:message>
-  <wsdl:message name="ISACService_GetLugarPagoById_InputMessage">
-    <wsdl:part name="parameters" element="tns:GetLugarPagoById" />
-  </wsdl:message>
-  <wsdl:message name="ISACService_GetLugarPagoById_OutputMessage">
-    <wsdl:part name="parameters" element="tns:GetLugarPagoByIdResponse" />
-  </wsdl:message>
-  <wsdl:message name="ISACService_InsertLugarPago_InputMessage">
-    <wsdl:part name="parameters" element="tns:InsertLugarPago" />
-  </wsdl:message>
-  <wsdl:message name="ISACService_InsertLugarPago_OutputMessage">
-    <wsdl:part name="parameters" element="tns:InsertLugarPagoResponse" />
-  </wsdl:message>
-  <wsdl:message name="ISACService_UpdateLugarPago_InputMessage">
-    <wsdl:part name="parameters" element="tns:UpdateLugarPago" />
-  </wsdl:message>
-  <wsdl:message name="ISACService_UpdateLugarPago_OutputMessage">
-    <wsdl:part name="parameters" element="tns:UpdateLugarPagoResponse" />
-  </wsdl:message>
-  <wsdl:message name="ISACService_DeleteLugarPago_InputMessage">
-    <wsdl:part name="parameters" element="tns:DeleteLugarPago" />
-  </wsdl:message>
-  <wsdl:message name="ISACService_DeleteLugarPago_OutputMessage">
-    <wsdl:part name="parameters" element="tns:DeleteLugarPagoResponse" />
-  </wsdl:message>
-  <wsdl:message name="ISACService_SelectIncentivos_InputMessage">
-    <wsdl:part name="parameters" element="tns:SelectIncentivos" />
-  </wsdl:message>
-  <wsdl:message name="ISACService_SelectIncentivos_OutputMessage">
-    <wsdl:part name="parameters" element="tns:SelectIncentivosResponse" />
-  </wsdl:message>
-  <wsdl:message name="ISACService_InsertIncentivo_InputMessage">
-    <wsdl:part name="parameters" element="tns:InsertIncentivo" />
-  </wsdl:message>
-  <wsdl:message name="ISACService_InsertIncentivo_OutputMessage">
-    <wsdl:part name="parameters" element="tns:InsertIncentivoResponse" />
-  </wsdl:message>
-  <wsdl:message name="ISACService_UpdateIncentivo_InputMessage">
-    <wsdl:part name="parameters" element="tns:UpdateIncentivo" />
-  </wsdl:message>
-  <wsdl:message name="ISACService_UpdateIncentivo_OutputMessage">
-    <wsdl:part name="parameters" element="tns:UpdateIncentivoResponse" />
-  </wsdl:message>
-  <wsdl:message name="ISACService_DeleteIncentivo_InputMessage">
-    <wsdl:part name="parameters" element="tns:DeleteIncentivo" />
-  </wsdl:message>
-  <wsdl:message name="ISACService_DeleteIncentivo_OutputMessage">
-    <wsdl:part name="parameters" element="tns:DeleteIncentivoResponse" />
-  </wsdl:message>
-  <wsdl:message name="ISACService_SelectBelcorpNoticias_InputMessage">
-    <wsdl:part name="parameters" element="tns:SelectBelcorpNoticias" />
-  </wsdl:message>
-  <wsdl:message name="ISACService_SelectBelcorpNoticias_OutputMessage">
-    <wsdl:part name="parameters" element="tns:SelectBelcorpNoticiasResponse" />
-  </wsdl:message>
-  <wsdl:message name="ISACService_GetBelcorpNoticiaById_InputMessage">
-    <wsdl:part name="parameters" element="tns:GetBelcorpNoticiaById" />
-  </wsdl:message>
-  <wsdl:message name="ISACService_GetBelcorpNoticiaById_OutputMessage">
-    <wsdl:part name="parameters" element="tns:GetBelcorpNoticiaByIdResponse" />
-  </wsdl:message>
-  <wsdl:message name="ISACService_InsertBelcorpNoticia_InputMessage">
-    <wsdl:part name="parameters" element="tns:InsertBelcorpNoticia" />
-  </wsdl:message>
-  <wsdl:message name="ISACService_InsertBelcorpNoticia_OutputMessage">
-    <wsdl:part name="parameters" element="tns:InsertBelcorpNoticiaResponse" />
-  </wsdl:message>
-  <wsdl:message name="ISACService_UpdateBelcorpNoticia_InputMessage">
-    <wsdl:part name="parameters" element="tns:UpdateBelcorpNoticia" />
-  </wsdl:message>
-  <wsdl:message name="ISACService_UpdateBelcorpNoticia_OutputMessage">
-    <wsdl:part name="parameters" element="tns:UpdateBelcorpNoticiaResponse" />
-  </wsdl:message>
-  <wsdl:message name="ISACService_DeleteBelcorpNoticia_InputMessage">
-    <wsdl:part name="parameters" element="tns:DeleteBelcorpNoticia" />
-  </wsdl:message>
-  <wsdl:message name="ISACService_DeleteBelcorpNoticia_OutputMessage">
-    <wsdl:part name="parameters" element="tns:DeleteBelcorpNoticiaResponse" />
-  </wsdl:message>
-  <wsdl:message name="ISACService_GetTablaLogicaDatos_InputMessage">
-    <wsdl:part name="parameters" element="tns:GetTablaLogicaDatos" />
-  </wsdl:message>
-  <wsdl:message name="ISACService_GetTablaLogicaDatos_OutputMessage">
-    <wsdl:part name="parameters" element="tns:GetTablaLogicaDatosResponse" />
-  </wsdl:message>
-  <wsdl:message name="ISACService_SelectFeErratas_InputMessage">
-    <wsdl:part name="parameters" element="tns:SelectFeErratas" />
-  </wsdl:message>
-  <wsdl:message name="ISACService_SelectFeErratas_OutputMessage">
-    <wsdl:part name="parameters" element="tns:SelectFeErratasResponse" />
-  </wsdl:message>
-  <wsdl:message name="ISACService_InsertFeErratas_InputMessage">
-    <wsdl:part name="parameters" element="tns:InsertFeErratas" />
-  </wsdl:message>
-  <wsdl:message name="ISACService_InsertFeErratas_OutputMessage">
-    <wsdl:part name="parameters" element="tns:InsertFeErratasResponse" />
-  </wsdl:message>
-  <wsdl:message name="ISACService_UpdateFeErratas_InputMessage">
-    <wsdl:part name="parameters" element="tns:UpdateFeErratas" />
-  </wsdl:message>
-  <wsdl:message name="ISACService_UpdateFeErratas_OutputMessage">
-    <wsdl:part name="parameters" element="tns:UpdateFeErratasResponse" />
-  </wsdl:message>
-  <wsdl:message name="ISACService_DeleteFeErratas_InputMessage">
-    <wsdl:part name="parameters" element="tns:DeleteFeErratas" />
-  </wsdl:message>
-  <wsdl:message name="ISACService_DeleteFeErratas_OutputMessage">
-    <wsdl:part name="parameters" element="tns:DeleteFeErratasResponse" />
-  </wsdl:message>
-  <wsdl:message name="ISACService_SelectFeErratasEntradas_InputMessage">
-    <wsdl:part name="parameters" element="tns:SelectFeErratasEntradas" />
-  </wsdl:message>
-  <wsdl:message name="ISACService_SelectFeErratasEntradas_OutputMessage">
-    <wsdl:part name="parameters" element="tns:SelectFeErratasEntradasResponse" />
-  </wsdl:message>
-  <wsdl:message name="ISACService_SaveChangesFeErratas_InputMessage">
-    <wsdl:part name="parameters" element="tns:SaveChangesFeErratas" />
-  </wsdl:message>
-  <wsdl:message name="ISACService_SaveChangesFeErratas_OutputMessage">
-    <wsdl:part name="parameters" element="tns:SaveChangesFeErratasResponse" />
-  </wsdl:message>
-  <wsdl:message name="ISACService_InsCuvAutomatico_InputMessage">
-    <wsdl:part name="parameters" element="tns:InsCuvAutomatico" />
-  </wsdl:message>
-  <wsdl:message name="ISACService_InsCuvAutomatico_OutputMessage">
-    <wsdl:part name="parameters" element="tns:InsCuvAutomaticoResponse" />
-  </wsdl:message>
-  <wsdl:message name="ISACService_GetProductoCuvAutomatico_InputMessage">
-    <wsdl:part name="parameters" element="tns:GetProductoCuvAutomatico" />
-  </wsdl:message>
-  <wsdl:message name="ISACService_GetProductoCuvAutomatico_OutputMessage">
-    <wsdl:part name="parameters" element="tns:GetProductoCuvAutomaticoResponse" />
-  </wsdl:message>
-  <wsdl:message name="ISACService_DelCUVAutomatico_InputMessage">
-    <wsdl:part name="parameters" element="tns:DelCUVAutomatico" />
-  </wsdl:message>
-  <wsdl:message name="ISACService_DelCUVAutomatico_OutputMessage">
-    <wsdl:part name="parameters" element="tns:DelCUVAutomaticoResponse" />
-  </wsdl:message>
-  <wsdl:message name="ISACService_InsOfertaFIC_InputMessage">
-    <wsdl:part name="parameters" element="tns:InsOfertaFIC" />
-  </wsdl:message>
-  <wsdl:message name="ISACService_InsOfertaFIC_OutputMessage">
-    <wsdl:part name="parameters" element="tns:InsOfertaFICResponse" />
-  </wsdl:message>
-  <wsdl:message name="ISACService_GetProductoOfertaFIC_InputMessage">
-    <wsdl:part name="parameters" element="tns:GetProductoOfertaFIC" />
-  </wsdl:message>
-  <wsdl:message name="ISACService_GetProductoOfertaFIC_OutputMessage">
-    <wsdl:part name="parameters" element="tns:GetProductoOfertaFICResponse" />
-  </wsdl:message>
-  <wsdl:message name="ISACService_DelOfertaFIC_InputMessage">
-    <wsdl:part name="parameters" element="tns:DelOfertaFIC" />
-  </wsdl:message>
-  <wsdl:message name="ISACService_DelOfertaFIC_OutputMessage">
-    <wsdl:part name="parameters" element="tns:DelOfertaFICResponse" />
-  </wsdl:message>
-  <wsdl:message name="ISACService_SelectBannerPedido_InputMessage">
-    <wsdl:part name="parameters" element="tns:SelectBannerPedido" />
-  </wsdl:message>
-  <wsdl:message name="ISACService_SelectBannerPedido_OutputMessage">
-    <wsdl:part name="parameters" element="tns:SelectBannerPedidoResponse" />
-  </wsdl:message>
-  <wsdl:message name="ISACService_InsertBannerPedido_InputMessage">
-    <wsdl:part name="parameters" element="tns:InsertBannerPedido" />
-  </wsdl:message>
-  <wsdl:message name="ISACService_InsertBannerPedido_OutputMessage">
-    <wsdl:part name="parameters" element="tns:InsertBannerPedidoResponse" />
-  </wsdl:message>
-  <wsdl:message name="ISACService_UpdateBannerPedido_InputMessage">
-    <wsdl:part name="parameters" element="tns:UpdateBannerPedido" />
-  </wsdl:message>
-  <wsdl:message name="ISACService_UpdateBannerPedido_OutputMessage">
-    <wsdl:part name="parameters" element="tns:UpdateBannerPedidoResponse" />
-  </wsdl:message>
-  <wsdl:message name="ISACService_DeleteBannerPedido_InputMessage">
-    <wsdl:part name="parameters" element="tns:DeleteBannerPedido" />
-  </wsdl:message>
-  <wsdl:message name="ISACService_DeleteBannerPedido_OutputMessage">
-    <wsdl:part name="parameters" element="tns:DeleteBannerPedidoResponse" />
-  </wsdl:message>
-  <wsdl:message name="ISACService_GetSolicitudCreditos_InputMessage">
-    <wsdl:part name="parameters" element="tns:GetSolicitudCreditos" />
-  </wsdl:message>
-  <wsdl:message name="ISACService_GetSolicitudCreditos_OutputMessage">
-    <wsdl:part name="parameters" element="tns:GetSolicitudCreditosResponse" />
-  </wsdl:message>
-  <wsdl:message name="ISACService_ValidarSolicitudPendiente_InputMessage">
-    <wsdl:part name="parameters" element="tns:ValidarSolicitudPendiente" />
-  </wsdl:message>
-  <wsdl:message name="ISACService_ValidarSolicitudPendiente_OutputMessage">
-    <wsdl:part name="parameters" element="tns:ValidarSolicitudPendienteResponse" />
-  </wsdl:message>
-  <wsdl:message name="ISACService_InsertarSolicitudCredito_InputMessage">
-    <wsdl:part name="parameters" element="tns:InsertarSolicitudCredito" />
-  </wsdl:message>
-  <wsdl:message name="ISACService_InsertarSolicitudCredito_OutputMessage">
-    <wsdl:part name="parameters" element="tns:InsertarSolicitudCreditoResponse" />
-  </wsdl:message>
-  <wsdl:message name="ISACService_GetCiudades_InputMessage">
-    <wsdl:part name="parameters" element="tns:GetCiudades" />
-  </wsdl:message>
-  <wsdl:message name="ISACService_GetCiudades_OutputMessage">
-    <wsdl:part name="parameters" element="tns:GetCiudadesResponse" />
-  </wsdl:message>
-  <wsdl:message name="ISACService_BuscarSolicitudCredito_InputMessage">
-    <wsdl:part name="parameters" element="tns:BuscarSolicitudCredito" />
-  </wsdl:message>
-  <wsdl:message name="ISACService_BuscarSolicitudCredito_OutputMessage">
-    <wsdl:part name="parameters" element="tns:BuscarSolicitudCreditoResponse" />
-  </wsdl:message>
-  <wsdl:message name="ISACService_BuscarSolicitudCreditoPorID_InputMessage">
-    <wsdl:part name="parameters" element="tns:BuscarSolicitudCreditoPorID" />
-  </wsdl:message>
-  <wsdl:message name="ISACService_BuscarSolicitudCreditoPorID_OutputMessage">
-    <wsdl:part name="parameters" element="tns:BuscarSolicitudCreditoPorIDResponse" />
-  </wsdl:message>
-  <wsdl:message name="ISACService_ObtenerInfoActDatos_InputMessage">
-    <wsdl:part name="parameters" element="tns:ObtenerInfoActDatos" />
-  </wsdl:message>
-  <wsdl:message name="ISACService_ObtenerInfoActDatos_OutputMessage">
-    <wsdl:part name="parameters" element="tns:ObtenerInfoActDatosResponse" />
-  </wsdl:message>
-  <wsdl:message name="ISACService_DescargaSolicitudes_InputMessage">
-    <wsdl:part name="parameters" element="tns:DescargaSolicitudes" />
-  </wsdl:message>
-  <wsdl:message name="ISACService_DescargaSolicitudes_OutputMessage">
-    <wsdl:part name="parameters" element="tns:DescargaSolicitudesResponse" />
-  </wsdl:message>
-  <wsdl:message name="ISACService_ReporteSolidCreditDia_InputMessage">
-    <wsdl:part name="parameters" element="tns:ReporteSolidCreditDia" />
-  </wsdl:message>
-  <wsdl:message name="ISACService_ReporteSolidCreditDia_OutputMessage">
-    <wsdl:part name="parameters" element="tns:ReporteSolidCreditDiaResponse" />
-  </wsdl:message>
-  <wsdl:message name="ISACService_GetComunicadoByConsultora_InputMessage">
-    <wsdl:part name="parameters" element="tns:GetComunicadoByConsultora" />
-  </wsdl:message>
-  <wsdl:message name="ISACService_GetComunicadoByConsultora_OutputMessage">
-    <wsdl:part name="parameters" element="tns:GetComunicadoByConsultoraResponse" />
-  </wsdl:message>
-  <wsdl:message name="ISACService_ObtenerComunicadoPorConsultora_InputMessage">
-    <wsdl:part name="parameters" element="tns:ObtenerComunicadoPorConsultora" />
-  </wsdl:message>
-  <wsdl:message name="ISACService_ObtenerComunicadoPorConsultora_OutputMessage">
-    <wsdl:part name="parameters" element="tns:ObtenerComunicadoPorConsultoraResponse" />
-  </wsdl:message>
-  <wsdl:message name="ISACService_UpdComunicadoByConsultora_InputMessage">
-    <wsdl:part name="parameters" element="tns:UpdComunicadoByConsultora" />
-  </wsdl:message>
-  <wsdl:message name="ISACService_UpdComunicadoByConsultora_OutputMessage">
-    <wsdl:part name="parameters" element="tns:UpdComunicadoByConsultoraResponse" />
-  </wsdl:message>
-  <wsdl:message name="ISACService_InsertarComunicadoVisualizado_InputMessage">
-    <wsdl:part name="parameters" element="tns:InsertarComunicadoVisualizado" />
-  </wsdl:message>
-  <wsdl:message name="ISACService_InsertarComunicadoVisualizado_OutputMessage">
-    <wsdl:part name="parameters" element="tns:InsertarComunicadoVisualizadoResponse" />
-  </wsdl:message>
-  <wsdl:message name="ISACService_InsertarDonacionConsultora_InputMessage">
-    <wsdl:part name="parameters" element="tns:InsertarDonacionConsultora" />
-  </wsdl:message>
-  <wsdl:message name="ISACService_InsertarDonacionConsultora_OutputMessage">
-    <wsdl:part name="parameters" element="tns:InsertarDonacionConsultoraResponse" />
-  </wsdl:message>
-  <wsdl:message name="ISACService_GetEstadoCuentaConsultora_InputMessage">
-    <wsdl:part name="parameters" element="tns:GetEstadoCuentaConsultora" />
-  </wsdl:message>
-  <wsdl:message name="ISACService_GetEstadoCuentaConsultora_OutputMessage">
-    <wsdl:part name="parameters" element="tns:GetEstadoCuentaConsultoraResponse" />
-  </wsdl:message>
-  <wsdl:message name="ISACService_GetPedidosFacturadosCabecera_InputMessage">
-    <wsdl:part name="parameters" element="tns:GetPedidosFacturadosCabecera" />
-  </wsdl:message>
-  <wsdl:message name="ISACService_GetPedidosFacturadosCabecera_OutputMessage">
-    <wsdl:part name="parameters" element="tns:GetPedidosFacturadosCabeceraResponse" />
-  </wsdl:message>
-  <wsdl:message name="ISACService_GetPedidosFacturadosDetalle_InputMessage">
-    <wsdl:part name="parameters" element="tns:GetPedidosFacturadosDetalle" />
-  </wsdl:message>
-  <wsdl:message name="ISACService_GetPedidosFacturadosDetalle_OutputMessage">
-    <wsdl:part name="parameters" element="tns:GetPedidosFacturadosDetalleResponse" />
-  </wsdl:message>
-  <wsdl:message name="ISACService_GetConfiguracionValidacionNuevoPROL_InputMessage">
-    <wsdl:part name="parameters" element="tns:GetConfiguracionValidacionNuevoPROL" />
-  </wsdl:message>
-  <wsdl:message name="ISACService_GetConfiguracionValidacionNuevoPROL_OutputMessage">
-    <wsdl:part name="parameters" element="tns:GetConfiguracionValidacionNuevoPROLResponse" />
-  </wsdl:message>
-  <wsdl:message name="ISACService_InsConfiguracionValidacionNuevoPROL_InputMessage">
-    <wsdl:part name="parameters" element="tns:InsConfiguracionValidacionNuevoPROL" />
-  </wsdl:message>
-  <wsdl:message name="ISACService_InsConfiguracionValidacionNuevoPROL_OutputMessage">
-    <wsdl:part name="parameters" element="tns:InsConfiguracionValidacionNuevoPROLResponse" />
-  </wsdl:message>
-  <wsdl:message name="ISACService_GetConfiguracionTipoProcesoCargaPedidos_InputMessage">
-    <wsdl:part name="parameters" element="tns:GetConfiguracionTipoProcesoCargaPedidos" />
-  </wsdl:message>
-  <wsdl:message name="ISACService_GetConfiguracionTipoProcesoCargaPedidos_OutputMessage">
-    <wsdl:part name="parameters" element="tns:GetConfiguracionTipoProcesoCargaPedidosResponse" />
-  </wsdl:message>
-  <wsdl:message name="ISACService_InsConfiguracionTipoProcesoCargaPedidos_InputMessage">
-    <wsdl:part name="parameters" element="tns:InsConfiguracionTipoProcesoCargaPedidos" />
-  </wsdl:message>
-  <wsdl:message name="ISACService_InsConfiguracionTipoProcesoCargaPedidos_OutputMessage">
-    <wsdl:part name="parameters" element="tns:InsConfiguracionTipoProcesoCargaPedidosResponse" />
-  </wsdl:message>
-  <wsdl:message name="ISACService_GetCampaniasActivasConfiguracionParametroCarga_InputMessage">
-    <wsdl:part name="parameters" element="tns:GetCampaniasActivasConfiguracionParametroCarga" />
-  </wsdl:message>
-  <wsdl:message name="ISACService_GetCampaniasActivasConfiguracionParametroCarga_OutputMessage">
-    <wsdl:part name="parameters" element="tns:GetCampaniasActivasConfiguracionParametroCargaResponse" />
-  </wsdl:message>
-  <wsdl:message name="ISACService_InsConfiguracionParametroCarga_InputMessage">
-    <wsdl:part name="parameters" element="tns:InsConfiguracionParametroCarga" />
-  </wsdl:message>
-  <wsdl:message name="ISACService_InsConfiguracionParametroCarga_OutputMessage">
-    <wsdl:part name="parameters" element="tns:InsConfiguracionParametroCargaResponse" />
-  </wsdl:message>
-  <wsdl:message name="ISACService_UpdConfiguracionParametroCarga_InputMessage">
-    <wsdl:part name="parameters" element="tns:UpdConfiguracionParametroCarga" />
-  </wsdl:message>
-  <wsdl:message name="ISACService_UpdConfiguracionParametroCarga_OutputMessage">
-    <wsdl:part name="parameters" element="tns:UpdConfiguracionParametroCargaResponse" />
-  </wsdl:message>
-  <wsdl:message name="ISACService_DelConfiguracionParametroCarga_InputMessage">
-    <wsdl:part name="parameters" element="tns:DelConfiguracionParametroCarga" />
-  </wsdl:message>
-  <wsdl:message name="ISACService_DelConfiguracionParametroCarga_OutputMessage">
-    <wsdl:part name="parameters" element="tns:DelConfiguracionParametroCargaResponse" />
   </wsdl:message>
   <wsdl:message name="ISACService_GetCronogramaByCampania_InputMessage">
     <wsdl:part name="parameters" element="tns:GetCronogramaByCampania" />
@@ -1066,6 +700,390 @@
   <wsdl:message name="ISACService_GetIndicadorDescuentoByPedidoWebDetalle_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetIndicadorDescuentoByPedidoWebDetalleResponse" />
   </wsdl:message>
+  <wsdl:message name="ISACService_UpdatePedidoWebEstimadoGanancia_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdatePedidoWebEstimadoGanancia" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_UpdatePedidoWebEstimadoGanancia_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdatePedidoWebEstimadoGananciaResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_GetFactorGananciaSiguienteEscala_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetFactorGananciaSiguienteEscala" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_GetFactorGananciaSiguienteEscala_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetFactorGananciaSiguienteEscalaResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_GetFactorGananciaEscalaDescuento_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetFactorGananciaEscalaDescuento" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_GetFactorGananciaEscalaDescuento_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetFactorGananciaEscalaDescuentoResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_GetRegionZonaDiasDuracionCronograma_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetRegionZonaDiasDuracionCronograma" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_GetRegionZonaDiasDuracionCronograma_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetRegionZonaDiasDuracionCronogramaResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_UpdConfiguracionValidacionZonaCronograma_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdConfiguracionValidacionZonaCronograma" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_UpdConfiguracionValidacionZonaCronograma_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdConfiguracionValidacionZonaCronogramaResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_GetLogModificacionCronograma_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetLogModificacionCronograma" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_GetLogModificacionCronograma_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetLogModificacionCronogramaResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_InsLogModificacionCronogramaMasivo_InputMessage">
+    <wsdl:part name="parameters" element="tns:InsLogModificacionCronogramaMasivo" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_InsLogModificacionCronogramaMasivo_OutputMessage">
+    <wsdl:part name="parameters" element="tns:InsLogModificacionCronogramaMasivoResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_GetConfiguracionValidacionZona_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetConfiguracionValidacionZona" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_GetConfiguracionValidacionZona_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetConfiguracionValidacionZonaResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_SelectLugarPago_InputMessage">
+    <wsdl:part name="parameters" element="tns:SelectLugarPago" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_SelectLugarPago_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SelectLugarPagoResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_GetLugarPagoById_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetLugarPagoById" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_GetLugarPagoById_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetLugarPagoByIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_InsertLugarPago_InputMessage">
+    <wsdl:part name="parameters" element="tns:InsertLugarPago" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_InsertLugarPago_OutputMessage">
+    <wsdl:part name="parameters" element="tns:InsertLugarPagoResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_UpdateLugarPago_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateLugarPago" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_UpdateLugarPago_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateLugarPagoResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_DeleteLugarPago_InputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteLugarPago" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_DeleteLugarPago_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteLugarPagoResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_SelectIncentivos_InputMessage">
+    <wsdl:part name="parameters" element="tns:SelectIncentivos" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_SelectIncentivos_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SelectIncentivosResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_InsertIncentivo_InputMessage">
+    <wsdl:part name="parameters" element="tns:InsertIncentivo" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_InsertIncentivo_OutputMessage">
+    <wsdl:part name="parameters" element="tns:InsertIncentivoResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_UpdateIncentivo_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateIncentivo" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_UpdateIncentivo_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateIncentivoResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_DeleteIncentivo_InputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteIncentivo" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_DeleteIncentivo_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteIncentivoResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_SelectBelcorpNoticias_InputMessage">
+    <wsdl:part name="parameters" element="tns:SelectBelcorpNoticias" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_SelectBelcorpNoticias_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SelectBelcorpNoticiasResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_GetBelcorpNoticiaById_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetBelcorpNoticiaById" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_GetBelcorpNoticiaById_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetBelcorpNoticiaByIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_InsertBelcorpNoticia_InputMessage">
+    <wsdl:part name="parameters" element="tns:InsertBelcorpNoticia" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_InsertBelcorpNoticia_OutputMessage">
+    <wsdl:part name="parameters" element="tns:InsertBelcorpNoticiaResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_UpdateBelcorpNoticia_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateBelcorpNoticia" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_UpdateBelcorpNoticia_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateBelcorpNoticiaResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_DeleteBelcorpNoticia_InputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteBelcorpNoticia" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_DeleteBelcorpNoticia_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteBelcorpNoticiaResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_GetTablaLogicaDatos_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetTablaLogicaDatos" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_GetTablaLogicaDatos_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetTablaLogicaDatosResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_SelectFeErratas_InputMessage">
+    <wsdl:part name="parameters" element="tns:SelectFeErratas" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_SelectFeErratas_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SelectFeErratasResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_InsertFeErratas_InputMessage">
+    <wsdl:part name="parameters" element="tns:InsertFeErratas" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_InsertFeErratas_OutputMessage">
+    <wsdl:part name="parameters" element="tns:InsertFeErratasResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_UpdateFeErratas_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateFeErratas" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_UpdateFeErratas_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateFeErratasResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_DeleteFeErratas_InputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteFeErratas" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_DeleteFeErratas_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteFeErratasResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_SelectFeErratasEntradas_InputMessage">
+    <wsdl:part name="parameters" element="tns:SelectFeErratasEntradas" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_SelectFeErratasEntradas_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SelectFeErratasEntradasResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_SaveChangesFeErratas_InputMessage">
+    <wsdl:part name="parameters" element="tns:SaveChangesFeErratas" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_SaveChangesFeErratas_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SaveChangesFeErratasResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_InsCuvAutomatico_InputMessage">
+    <wsdl:part name="parameters" element="tns:InsCuvAutomatico" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_InsCuvAutomatico_OutputMessage">
+    <wsdl:part name="parameters" element="tns:InsCuvAutomaticoResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_GetProductoCuvAutomatico_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetProductoCuvAutomatico" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_GetProductoCuvAutomatico_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetProductoCuvAutomaticoResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_DelCUVAutomatico_InputMessage">
+    <wsdl:part name="parameters" element="tns:DelCUVAutomatico" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_DelCUVAutomatico_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DelCUVAutomaticoResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_InsOfertaFIC_InputMessage">
+    <wsdl:part name="parameters" element="tns:InsOfertaFIC" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_InsOfertaFIC_OutputMessage">
+    <wsdl:part name="parameters" element="tns:InsOfertaFICResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_GetProductoOfertaFIC_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetProductoOfertaFIC" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_GetProductoOfertaFIC_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetProductoOfertaFICResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_DelOfertaFIC_InputMessage">
+    <wsdl:part name="parameters" element="tns:DelOfertaFIC" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_DelOfertaFIC_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DelOfertaFICResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_SelectBannerPedido_InputMessage">
+    <wsdl:part name="parameters" element="tns:SelectBannerPedido" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_SelectBannerPedido_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SelectBannerPedidoResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_InsertBannerPedido_InputMessage">
+    <wsdl:part name="parameters" element="tns:InsertBannerPedido" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_InsertBannerPedido_OutputMessage">
+    <wsdl:part name="parameters" element="tns:InsertBannerPedidoResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_UpdateBannerPedido_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateBannerPedido" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_UpdateBannerPedido_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateBannerPedidoResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_DeleteBannerPedido_InputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteBannerPedido" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_DeleteBannerPedido_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteBannerPedidoResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_GetSolicitudCreditos_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetSolicitudCreditos" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_GetSolicitudCreditos_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetSolicitudCreditosResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_ValidarSolicitudPendiente_InputMessage">
+    <wsdl:part name="parameters" element="tns:ValidarSolicitudPendiente" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_ValidarSolicitudPendiente_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ValidarSolicitudPendienteResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_InsertarSolicitudCredito_InputMessage">
+    <wsdl:part name="parameters" element="tns:InsertarSolicitudCredito" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_InsertarSolicitudCredito_OutputMessage">
+    <wsdl:part name="parameters" element="tns:InsertarSolicitudCreditoResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_GetCiudades_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetCiudades" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_GetCiudades_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetCiudadesResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_BuscarSolicitudCredito_InputMessage">
+    <wsdl:part name="parameters" element="tns:BuscarSolicitudCredito" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_BuscarSolicitudCredito_OutputMessage">
+    <wsdl:part name="parameters" element="tns:BuscarSolicitudCreditoResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_BuscarSolicitudCreditoPorID_InputMessage">
+    <wsdl:part name="parameters" element="tns:BuscarSolicitudCreditoPorID" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_BuscarSolicitudCreditoPorID_OutputMessage">
+    <wsdl:part name="parameters" element="tns:BuscarSolicitudCreditoPorIDResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_ObtenerInfoActDatos_InputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenerInfoActDatos" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_ObtenerInfoActDatos_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenerInfoActDatosResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_DescargaSolicitudes_InputMessage">
+    <wsdl:part name="parameters" element="tns:DescargaSolicitudes" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_DescargaSolicitudes_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DescargaSolicitudesResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_ReporteSolidCreditDia_InputMessage">
+    <wsdl:part name="parameters" element="tns:ReporteSolidCreditDia" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_ReporteSolidCreditDia_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ReporteSolidCreditDiaResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_GetComunicadoByConsultora_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetComunicadoByConsultora" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_GetComunicadoByConsultora_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetComunicadoByConsultoraResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_ObtenerComunicadoPorConsultora_InputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenerComunicadoPorConsultora" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_ObtenerComunicadoPorConsultora_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenerComunicadoPorConsultoraResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_UpdComunicadoByConsultora_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdComunicadoByConsultora" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_UpdComunicadoByConsultora_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdComunicadoByConsultoraResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_InsertarComunicadoVisualizado_InputMessage">
+    <wsdl:part name="parameters" element="tns:InsertarComunicadoVisualizado" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_InsertarComunicadoVisualizado_OutputMessage">
+    <wsdl:part name="parameters" element="tns:InsertarComunicadoVisualizadoResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_InsertarDonacionConsultora_InputMessage">
+    <wsdl:part name="parameters" element="tns:InsertarDonacionConsultora" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_InsertarDonacionConsultora_OutputMessage">
+    <wsdl:part name="parameters" element="tns:InsertarDonacionConsultoraResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_GetEstadoCuentaConsultora_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetEstadoCuentaConsultora" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_GetEstadoCuentaConsultora_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetEstadoCuentaConsultoraResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_GetPedidosFacturadosCabecera_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetPedidosFacturadosCabecera" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_GetPedidosFacturadosCabecera_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetPedidosFacturadosCabeceraResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_GetPedidosFacturadosDetalle_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetPedidosFacturadosDetalle" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_GetPedidosFacturadosDetalle_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetPedidosFacturadosDetalleResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_GetConfiguracionValidacionNuevoPROL_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetConfiguracionValidacionNuevoPROL" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_GetConfiguracionValidacionNuevoPROL_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetConfiguracionValidacionNuevoPROLResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_InsConfiguracionValidacionNuevoPROL_InputMessage">
+    <wsdl:part name="parameters" element="tns:InsConfiguracionValidacionNuevoPROL" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_InsConfiguracionValidacionNuevoPROL_OutputMessage">
+    <wsdl:part name="parameters" element="tns:InsConfiguracionValidacionNuevoPROLResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_GetConfiguracionTipoProcesoCargaPedidos_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetConfiguracionTipoProcesoCargaPedidos" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_GetConfiguracionTipoProcesoCargaPedidos_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetConfiguracionTipoProcesoCargaPedidosResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_InsConfiguracionTipoProcesoCargaPedidos_InputMessage">
+    <wsdl:part name="parameters" element="tns:InsConfiguracionTipoProcesoCargaPedidos" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_InsConfiguracionTipoProcesoCargaPedidos_OutputMessage">
+    <wsdl:part name="parameters" element="tns:InsConfiguracionTipoProcesoCargaPedidosResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_GetCampaniasActivasConfiguracionParametroCarga_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetCampaniasActivasConfiguracionParametroCarga" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_GetCampaniasActivasConfiguracionParametroCarga_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetCampaniasActivasConfiguracionParametroCargaResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_InsConfiguracionParametroCarga_InputMessage">
+    <wsdl:part name="parameters" element="tns:InsConfiguracionParametroCarga" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_InsConfiguracionParametroCarga_OutputMessage">
+    <wsdl:part name="parameters" element="tns:InsConfiguracionParametroCargaResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_UpdConfiguracionParametroCarga_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdConfiguracionParametroCarga" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_UpdConfiguracionParametroCarga_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdConfiguracionParametroCargaResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_DelConfiguracionParametroCarga_InputMessage">
+    <wsdl:part name="parameters" element="tns:DelConfiguracionParametroCarga" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_DelConfiguracionParametroCarga_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DelConfiguracionParametroCargaResponse" />
+  </wsdl:message>
   <wsdl:portType name="ISACService">
     <wsdl:operation name="GetRegionZonaDiasParametroCarga">
       <wsdl:input wsaw:Action="http://tempuri.org/ISACService/GetRegionZonaDiasParametroCarga" message="tns:ISACService_GetRegionZonaDiasParametroCarga_InputMessage" />
@@ -1155,6 +1173,10 @@
       <wsdl:input wsaw:Action="http://tempuri.org/ISACService/UpdSolicitudCliente" message="tns:ISACService_UpdSolicitudCliente_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ISACService/UpdSolicitudClienteResponse" message="tns:ISACService_UpdSolicitudCliente_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="UpdSolicitudClienteDetalle">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/UpdSolicitudClienteDetalle" message="tns:ISACService_UpdSolicitudClienteDetalle_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/UpdSolicitudClienteDetalleResponse" message="tns:ISACService_UpdSolicitudClienteDetalle_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="RechazarSolicitudCliente">
       <wsdl:input wsaw:Action="http://tempuri.org/ISACService/RechazarSolicitudCliente" message="tns:ISACService_RechazarSolicitudCliente_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ISACService/RechazarSolicitudClienteResponse" message="tns:ISACService_RechazarSolicitudCliente_OutputMessage" />
@@ -1166,6 +1188,14 @@
     <wsdl:operation name="CancelarSolicitudCliente">
       <wsdl:input wsaw:Action="http://tempuri.org/ISACService/CancelarSolicitudCliente" message="tns:ISACService_CancelarSolicitudCliente_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ISACService/CancelarSolicitudClienteResponse" message="tns:ISACService_CancelarSolicitudCliente_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="CancelarSolicitudClienteYRemoverPedido">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/CancelarSolicitudClienteYRemoverPedido" message="tns:ISACService_CancelarSolicitudClienteYRemoverPedido_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/CancelarSolicitudClienteYRemoverPedidoResponse" message="tns:ISACService_CancelarSolicitudClienteYRemoverPedido_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetMotivosRechazo">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/GetMotivosRechazo" message="tns:ISACService_GetMotivosRechazo_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/GetMotivosRechazoResponse" message="tns:ISACService_GetMotivosRechazo_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="EnviarSolicitudClienteaGZ">
       <wsdl:input wsaw:Action="http://tempuri.org/ISACService/EnviarSolicitudClienteaGZ" message="tns:ISACService_EnviarSolicitudClienteaGZ_InputMessage" />
@@ -1242,262 +1272,6 @@
     <wsdl:operation name="GetProveedorDespachoCobranzaBYiD">
       <wsdl:input wsaw:Action="http://tempuri.org/ISACService/GetProveedorDespachoCobranzaBYiD" message="tns:ISACService_GetProveedorDespachoCobranzaBYiD_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ISACService/GetProveedorDespachoCobranzaBYiDResponse" message="tns:ISACService_GetProveedorDespachoCobranzaBYiD_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="UpdatePedidoWebEstimadoGanancia">
-      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/UpdatePedidoWebEstimadoGanancia" message="tns:ISACService_UpdatePedidoWebEstimadoGanancia_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/UpdatePedidoWebEstimadoGananciaResponse" message="tns:ISACService_UpdatePedidoWebEstimadoGanancia_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="GetFactorGananciaSiguienteEscala">
-      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/GetFactorGananciaSiguienteEscala" message="tns:ISACService_GetFactorGananciaSiguienteEscala_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/GetFactorGananciaSiguienteEscalaResponse" message="tns:ISACService_GetFactorGananciaSiguienteEscala_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="GetFactorGananciaEscalaDescuento">
-      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/GetFactorGananciaEscalaDescuento" message="tns:ISACService_GetFactorGananciaEscalaDescuento_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/GetFactorGananciaEscalaDescuentoResponse" message="tns:ISACService_GetFactorGananciaEscalaDescuento_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="GetRegionZonaDiasDuracionCronograma">
-      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/GetRegionZonaDiasDuracionCronograma" message="tns:ISACService_GetRegionZonaDiasDuracionCronograma_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/GetRegionZonaDiasDuracionCronogramaResponse" message="tns:ISACService_GetRegionZonaDiasDuracionCronograma_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="UpdConfiguracionValidacionZonaCronograma">
-      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/UpdConfiguracionValidacionZonaCronograma" message="tns:ISACService_UpdConfiguracionValidacionZonaCronograma_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/UpdConfiguracionValidacionZonaCronogramaResponse" message="tns:ISACService_UpdConfiguracionValidacionZonaCronograma_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="GetLogModificacionCronograma">
-      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/GetLogModificacionCronograma" message="tns:ISACService_GetLogModificacionCronograma_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/GetLogModificacionCronogramaResponse" message="tns:ISACService_GetLogModificacionCronograma_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="InsLogModificacionCronogramaMasivo">
-      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/InsLogModificacionCronogramaMasivo" message="tns:ISACService_InsLogModificacionCronogramaMasivo_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/InsLogModificacionCronogramaMasivoResponse" message="tns:ISACService_InsLogModificacionCronogramaMasivo_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="GetConfiguracionValidacionZona">
-      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/GetConfiguracionValidacionZona" message="tns:ISACService_GetConfiguracionValidacionZona_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/GetConfiguracionValidacionZonaResponse" message="tns:ISACService_GetConfiguracionValidacionZona_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="SelectLugarPago">
-      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/SelectLugarPago" message="tns:ISACService_SelectLugarPago_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/SelectLugarPagoResponse" message="tns:ISACService_SelectLugarPago_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="GetLugarPagoById">
-      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/GetLugarPagoById" message="tns:ISACService_GetLugarPagoById_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/GetLugarPagoByIdResponse" message="tns:ISACService_GetLugarPagoById_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="InsertLugarPago">
-      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/InsertLugarPago" message="tns:ISACService_InsertLugarPago_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/InsertLugarPagoResponse" message="tns:ISACService_InsertLugarPago_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="UpdateLugarPago">
-      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/UpdateLugarPago" message="tns:ISACService_UpdateLugarPago_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/UpdateLugarPagoResponse" message="tns:ISACService_UpdateLugarPago_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="DeleteLugarPago">
-      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/DeleteLugarPago" message="tns:ISACService_DeleteLugarPago_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/DeleteLugarPagoResponse" message="tns:ISACService_DeleteLugarPago_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="SelectIncentivos">
-      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/SelectIncentivos" message="tns:ISACService_SelectIncentivos_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/SelectIncentivosResponse" message="tns:ISACService_SelectIncentivos_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="InsertIncentivo">
-      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/InsertIncentivo" message="tns:ISACService_InsertIncentivo_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/InsertIncentivoResponse" message="tns:ISACService_InsertIncentivo_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="UpdateIncentivo">
-      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/UpdateIncentivo" message="tns:ISACService_UpdateIncentivo_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/UpdateIncentivoResponse" message="tns:ISACService_UpdateIncentivo_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="DeleteIncentivo">
-      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/DeleteIncentivo" message="tns:ISACService_DeleteIncentivo_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/DeleteIncentivoResponse" message="tns:ISACService_DeleteIncentivo_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="SelectBelcorpNoticias">
-      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/SelectBelcorpNoticias" message="tns:ISACService_SelectBelcorpNoticias_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/SelectBelcorpNoticiasResponse" message="tns:ISACService_SelectBelcorpNoticias_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="GetBelcorpNoticiaById">
-      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/GetBelcorpNoticiaById" message="tns:ISACService_GetBelcorpNoticiaById_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/GetBelcorpNoticiaByIdResponse" message="tns:ISACService_GetBelcorpNoticiaById_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="InsertBelcorpNoticia">
-      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/InsertBelcorpNoticia" message="tns:ISACService_InsertBelcorpNoticia_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/InsertBelcorpNoticiaResponse" message="tns:ISACService_InsertBelcorpNoticia_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="UpdateBelcorpNoticia">
-      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/UpdateBelcorpNoticia" message="tns:ISACService_UpdateBelcorpNoticia_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/UpdateBelcorpNoticiaResponse" message="tns:ISACService_UpdateBelcorpNoticia_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="DeleteBelcorpNoticia">
-      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/DeleteBelcorpNoticia" message="tns:ISACService_DeleteBelcorpNoticia_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/DeleteBelcorpNoticiaResponse" message="tns:ISACService_DeleteBelcorpNoticia_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="GetTablaLogicaDatos">
-      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/GetTablaLogicaDatos" message="tns:ISACService_GetTablaLogicaDatos_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/GetTablaLogicaDatosResponse" message="tns:ISACService_GetTablaLogicaDatos_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="SelectFeErratas">
-      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/SelectFeErratas" message="tns:ISACService_SelectFeErratas_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/SelectFeErratasResponse" message="tns:ISACService_SelectFeErratas_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="InsertFeErratas">
-      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/InsertFeErratas" message="tns:ISACService_InsertFeErratas_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/InsertFeErratasResponse" message="tns:ISACService_InsertFeErratas_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="UpdateFeErratas">
-      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/UpdateFeErratas" message="tns:ISACService_UpdateFeErratas_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/UpdateFeErratasResponse" message="tns:ISACService_UpdateFeErratas_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="DeleteFeErratas">
-      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/DeleteFeErratas" message="tns:ISACService_DeleteFeErratas_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/DeleteFeErratasResponse" message="tns:ISACService_DeleteFeErratas_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="SelectFeErratasEntradas">
-      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/SelectFeErratasEntradas" message="tns:ISACService_SelectFeErratasEntradas_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/SelectFeErratasEntradasResponse" message="tns:ISACService_SelectFeErratasEntradas_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="SaveChangesFeErratas">
-      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/SaveChangesFeErratas" message="tns:ISACService_SaveChangesFeErratas_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/SaveChangesFeErratasResponse" message="tns:ISACService_SaveChangesFeErratas_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="InsCuvAutomatico">
-      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/InsCuvAutomatico" message="tns:ISACService_InsCuvAutomatico_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/InsCuvAutomaticoResponse" message="tns:ISACService_InsCuvAutomatico_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="GetProductoCuvAutomatico">
-      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/GetProductoCuvAutomatico" message="tns:ISACService_GetProductoCuvAutomatico_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/GetProductoCuvAutomaticoResponse" message="tns:ISACService_GetProductoCuvAutomatico_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="DelCUVAutomatico">
-      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/DelCUVAutomatico" message="tns:ISACService_DelCUVAutomatico_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/DelCUVAutomaticoResponse" message="tns:ISACService_DelCUVAutomatico_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="InsOfertaFIC">
-      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/InsOfertaFIC" message="tns:ISACService_InsOfertaFIC_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/InsOfertaFICResponse" message="tns:ISACService_InsOfertaFIC_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="GetProductoOfertaFIC">
-      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/GetProductoOfertaFIC" message="tns:ISACService_GetProductoOfertaFIC_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/GetProductoOfertaFICResponse" message="tns:ISACService_GetProductoOfertaFIC_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="DelOfertaFIC">
-      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/DelOfertaFIC" message="tns:ISACService_DelOfertaFIC_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/DelOfertaFICResponse" message="tns:ISACService_DelOfertaFIC_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="SelectBannerPedido">
-      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/SelectBannerPedido" message="tns:ISACService_SelectBannerPedido_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/SelectBannerPedidoResponse" message="tns:ISACService_SelectBannerPedido_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="InsertBannerPedido">
-      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/InsertBannerPedido" message="tns:ISACService_InsertBannerPedido_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/InsertBannerPedidoResponse" message="tns:ISACService_InsertBannerPedido_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="UpdateBannerPedido">
-      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/UpdateBannerPedido" message="tns:ISACService_UpdateBannerPedido_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/UpdateBannerPedidoResponse" message="tns:ISACService_UpdateBannerPedido_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="DeleteBannerPedido">
-      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/DeleteBannerPedido" message="tns:ISACService_DeleteBannerPedido_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/DeleteBannerPedidoResponse" message="tns:ISACService_DeleteBannerPedido_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="GetSolicitudCreditos">
-      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/GetSolicitudCreditos" message="tns:ISACService_GetSolicitudCreditos_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/GetSolicitudCreditosResponse" message="tns:ISACService_GetSolicitudCreditos_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="ValidarSolicitudPendiente">
-      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/ValidarSolicitudPendiente" message="tns:ISACService_ValidarSolicitudPendiente_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/ValidarSolicitudPendienteResponse" message="tns:ISACService_ValidarSolicitudPendiente_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="InsertarSolicitudCredito">
-      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/InsertarSolicitudCredito" message="tns:ISACService_InsertarSolicitudCredito_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/InsertarSolicitudCreditoResponse" message="tns:ISACService_InsertarSolicitudCredito_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="GetCiudades">
-      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/GetCiudades" message="tns:ISACService_GetCiudades_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/GetCiudadesResponse" message="tns:ISACService_GetCiudades_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="BuscarSolicitudCredito">
-      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/BuscarSolicitudCredito" message="tns:ISACService_BuscarSolicitudCredito_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/BuscarSolicitudCreditoResponse" message="tns:ISACService_BuscarSolicitudCredito_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="BuscarSolicitudCreditoPorID">
-      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/BuscarSolicitudCreditoPorID" message="tns:ISACService_BuscarSolicitudCreditoPorID_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/BuscarSolicitudCreditoPorIDResponse" message="tns:ISACService_BuscarSolicitudCreditoPorID_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="ObtenerInfoActDatos">
-      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/ObtenerInfoActDatos" message="tns:ISACService_ObtenerInfoActDatos_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/ObtenerInfoActDatosResponse" message="tns:ISACService_ObtenerInfoActDatos_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="DescargaSolicitudes">
-      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/DescargaSolicitudes" message="tns:ISACService_DescargaSolicitudes_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/DescargaSolicitudesResponse" message="tns:ISACService_DescargaSolicitudes_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="ReporteSolidCreditDia">
-      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/ReporteSolidCreditDia" message="tns:ISACService_ReporteSolidCreditDia_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/ReporteSolidCreditDiaResponse" message="tns:ISACService_ReporteSolidCreditDia_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="GetComunicadoByConsultora">
-      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/GetComunicadoByConsultora" message="tns:ISACService_GetComunicadoByConsultora_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/GetComunicadoByConsultoraResponse" message="tns:ISACService_GetComunicadoByConsultora_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="ObtenerComunicadoPorConsultora">
-      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/ObtenerComunicadoPorConsultora" message="tns:ISACService_ObtenerComunicadoPorConsultora_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/ObtenerComunicadoPorConsultoraResponse" message="tns:ISACService_ObtenerComunicadoPorConsultora_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="UpdComunicadoByConsultora">
-      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/UpdComunicadoByConsultora" message="tns:ISACService_UpdComunicadoByConsultora_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/UpdComunicadoByConsultoraResponse" message="tns:ISACService_UpdComunicadoByConsultora_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="InsertarComunicadoVisualizado">
-      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/InsertarComunicadoVisualizado" message="tns:ISACService_InsertarComunicadoVisualizado_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/InsertarComunicadoVisualizadoResponse" message="tns:ISACService_InsertarComunicadoVisualizado_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="InsertarDonacionConsultora">
-      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/InsertarDonacionConsultora" message="tns:ISACService_InsertarDonacionConsultora_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/InsertarDonacionConsultoraResponse" message="tns:ISACService_InsertarDonacionConsultora_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="GetEstadoCuentaConsultora">
-      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/GetEstadoCuentaConsultora" message="tns:ISACService_GetEstadoCuentaConsultora_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/GetEstadoCuentaConsultoraResponse" message="tns:ISACService_GetEstadoCuentaConsultora_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="GetPedidosFacturadosCabecera">
-      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/GetPedidosFacturadosCabecera" message="tns:ISACService_GetPedidosFacturadosCabecera_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/GetPedidosFacturadosCabeceraResponse" message="tns:ISACService_GetPedidosFacturadosCabecera_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="GetPedidosFacturadosDetalle">
-      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/GetPedidosFacturadosDetalle" message="tns:ISACService_GetPedidosFacturadosDetalle_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/GetPedidosFacturadosDetalleResponse" message="tns:ISACService_GetPedidosFacturadosDetalle_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="GetConfiguracionValidacionNuevoPROL">
-      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/GetConfiguracionValidacionNuevoPROL" message="tns:ISACService_GetConfiguracionValidacionNuevoPROL_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/GetConfiguracionValidacionNuevoPROLResponse" message="tns:ISACService_GetConfiguracionValidacionNuevoPROL_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="InsConfiguracionValidacionNuevoPROL">
-      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/InsConfiguracionValidacionNuevoPROL" message="tns:ISACService_InsConfiguracionValidacionNuevoPROL_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/InsConfiguracionValidacionNuevoPROLResponse" message="tns:ISACService_InsConfiguracionValidacionNuevoPROL_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="GetConfiguracionTipoProcesoCargaPedidos">
-      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/GetConfiguracionTipoProcesoCargaPedidos" message="tns:ISACService_GetConfiguracionTipoProcesoCargaPedidos_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/GetConfiguracionTipoProcesoCargaPedidosResponse" message="tns:ISACService_GetConfiguracionTipoProcesoCargaPedidos_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="InsConfiguracionTipoProcesoCargaPedidos">
-      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/InsConfiguracionTipoProcesoCargaPedidos" message="tns:ISACService_InsConfiguracionTipoProcesoCargaPedidos_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/InsConfiguracionTipoProcesoCargaPedidosResponse" message="tns:ISACService_InsConfiguracionTipoProcesoCargaPedidos_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="GetCampaniasActivasConfiguracionParametroCarga">
-      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/GetCampaniasActivasConfiguracionParametroCarga" message="tns:ISACService_GetCampaniasActivasConfiguracionParametroCarga_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/GetCampaniasActivasConfiguracionParametroCargaResponse" message="tns:ISACService_GetCampaniasActivasConfiguracionParametroCarga_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="InsConfiguracionParametroCarga">
-      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/InsConfiguracionParametroCarga" message="tns:ISACService_InsConfiguracionParametroCarga_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/InsConfiguracionParametroCargaResponse" message="tns:ISACService_InsConfiguracionParametroCarga_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="UpdConfiguracionParametroCarga">
-      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/UpdConfiguracionParametroCarga" message="tns:ISACService_UpdConfiguracionParametroCarga_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/UpdConfiguracionParametroCargaResponse" message="tns:ISACService_UpdConfiguracionParametroCarga_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="DelConfiguracionParametroCarga">
-      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/DelConfiguracionParametroCarga" message="tns:ISACService_DelConfiguracionParametroCarga_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/DelConfiguracionParametroCargaResponse" message="tns:ISACService_DelConfiguracionParametroCarga_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="GetCronogramaByCampania">
       <wsdl:input wsaw:Action="http://tempuri.org/ISACService/GetCronogramaByCampania" message="tns:ISACService_GetCronogramaByCampania_InputMessage" />
@@ -1755,6 +1529,262 @@
       <wsdl:input wsaw:Action="http://tempuri.org/ISACService/GetIndicadorDescuentoByPedidoWebDetalle" message="tns:ISACService_GetIndicadorDescuentoByPedidoWebDetalle_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ISACService/GetIndicadorDescuentoByPedidoWebDetalleResponse" message="tns:ISACService_GetIndicadorDescuentoByPedidoWebDetalle_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="UpdatePedidoWebEstimadoGanancia">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/UpdatePedidoWebEstimadoGanancia" message="tns:ISACService_UpdatePedidoWebEstimadoGanancia_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/UpdatePedidoWebEstimadoGananciaResponse" message="tns:ISACService_UpdatePedidoWebEstimadoGanancia_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetFactorGananciaSiguienteEscala">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/GetFactorGananciaSiguienteEscala" message="tns:ISACService_GetFactorGananciaSiguienteEscala_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/GetFactorGananciaSiguienteEscalaResponse" message="tns:ISACService_GetFactorGananciaSiguienteEscala_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetFactorGananciaEscalaDescuento">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/GetFactorGananciaEscalaDescuento" message="tns:ISACService_GetFactorGananciaEscalaDescuento_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/GetFactorGananciaEscalaDescuentoResponse" message="tns:ISACService_GetFactorGananciaEscalaDescuento_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetRegionZonaDiasDuracionCronograma">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/GetRegionZonaDiasDuracionCronograma" message="tns:ISACService_GetRegionZonaDiasDuracionCronograma_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/GetRegionZonaDiasDuracionCronogramaResponse" message="tns:ISACService_GetRegionZonaDiasDuracionCronograma_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdConfiguracionValidacionZonaCronograma">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/UpdConfiguracionValidacionZonaCronograma" message="tns:ISACService_UpdConfiguracionValidacionZonaCronograma_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/UpdConfiguracionValidacionZonaCronogramaResponse" message="tns:ISACService_UpdConfiguracionValidacionZonaCronograma_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetLogModificacionCronograma">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/GetLogModificacionCronograma" message="tns:ISACService_GetLogModificacionCronograma_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/GetLogModificacionCronogramaResponse" message="tns:ISACService_GetLogModificacionCronograma_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="InsLogModificacionCronogramaMasivo">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/InsLogModificacionCronogramaMasivo" message="tns:ISACService_InsLogModificacionCronogramaMasivo_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/InsLogModificacionCronogramaMasivoResponse" message="tns:ISACService_InsLogModificacionCronogramaMasivo_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetConfiguracionValidacionZona">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/GetConfiguracionValidacionZona" message="tns:ISACService_GetConfiguracionValidacionZona_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/GetConfiguracionValidacionZonaResponse" message="tns:ISACService_GetConfiguracionValidacionZona_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SelectLugarPago">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/SelectLugarPago" message="tns:ISACService_SelectLugarPago_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/SelectLugarPagoResponse" message="tns:ISACService_SelectLugarPago_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetLugarPagoById">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/GetLugarPagoById" message="tns:ISACService_GetLugarPagoById_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/GetLugarPagoByIdResponse" message="tns:ISACService_GetLugarPagoById_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="InsertLugarPago">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/InsertLugarPago" message="tns:ISACService_InsertLugarPago_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/InsertLugarPagoResponse" message="tns:ISACService_InsertLugarPago_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateLugarPago">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/UpdateLugarPago" message="tns:ISACService_UpdateLugarPago_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/UpdateLugarPagoResponse" message="tns:ISACService_UpdateLugarPago_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteLugarPago">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/DeleteLugarPago" message="tns:ISACService_DeleteLugarPago_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/DeleteLugarPagoResponse" message="tns:ISACService_DeleteLugarPago_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SelectIncentivos">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/SelectIncentivos" message="tns:ISACService_SelectIncentivos_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/SelectIncentivosResponse" message="tns:ISACService_SelectIncentivos_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="InsertIncentivo">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/InsertIncentivo" message="tns:ISACService_InsertIncentivo_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/InsertIncentivoResponse" message="tns:ISACService_InsertIncentivo_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateIncentivo">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/UpdateIncentivo" message="tns:ISACService_UpdateIncentivo_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/UpdateIncentivoResponse" message="tns:ISACService_UpdateIncentivo_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteIncentivo">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/DeleteIncentivo" message="tns:ISACService_DeleteIncentivo_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/DeleteIncentivoResponse" message="tns:ISACService_DeleteIncentivo_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SelectBelcorpNoticias">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/SelectBelcorpNoticias" message="tns:ISACService_SelectBelcorpNoticias_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/SelectBelcorpNoticiasResponse" message="tns:ISACService_SelectBelcorpNoticias_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetBelcorpNoticiaById">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/GetBelcorpNoticiaById" message="tns:ISACService_GetBelcorpNoticiaById_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/GetBelcorpNoticiaByIdResponse" message="tns:ISACService_GetBelcorpNoticiaById_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="InsertBelcorpNoticia">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/InsertBelcorpNoticia" message="tns:ISACService_InsertBelcorpNoticia_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/InsertBelcorpNoticiaResponse" message="tns:ISACService_InsertBelcorpNoticia_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateBelcorpNoticia">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/UpdateBelcorpNoticia" message="tns:ISACService_UpdateBelcorpNoticia_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/UpdateBelcorpNoticiaResponse" message="tns:ISACService_UpdateBelcorpNoticia_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteBelcorpNoticia">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/DeleteBelcorpNoticia" message="tns:ISACService_DeleteBelcorpNoticia_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/DeleteBelcorpNoticiaResponse" message="tns:ISACService_DeleteBelcorpNoticia_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetTablaLogicaDatos">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/GetTablaLogicaDatos" message="tns:ISACService_GetTablaLogicaDatos_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/GetTablaLogicaDatosResponse" message="tns:ISACService_GetTablaLogicaDatos_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SelectFeErratas">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/SelectFeErratas" message="tns:ISACService_SelectFeErratas_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/SelectFeErratasResponse" message="tns:ISACService_SelectFeErratas_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="InsertFeErratas">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/InsertFeErratas" message="tns:ISACService_InsertFeErratas_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/InsertFeErratasResponse" message="tns:ISACService_InsertFeErratas_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateFeErratas">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/UpdateFeErratas" message="tns:ISACService_UpdateFeErratas_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/UpdateFeErratasResponse" message="tns:ISACService_UpdateFeErratas_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteFeErratas">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/DeleteFeErratas" message="tns:ISACService_DeleteFeErratas_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/DeleteFeErratasResponse" message="tns:ISACService_DeleteFeErratas_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SelectFeErratasEntradas">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/SelectFeErratasEntradas" message="tns:ISACService_SelectFeErratasEntradas_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/SelectFeErratasEntradasResponse" message="tns:ISACService_SelectFeErratasEntradas_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SaveChangesFeErratas">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/SaveChangesFeErratas" message="tns:ISACService_SaveChangesFeErratas_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/SaveChangesFeErratasResponse" message="tns:ISACService_SaveChangesFeErratas_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="InsCuvAutomatico">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/InsCuvAutomatico" message="tns:ISACService_InsCuvAutomatico_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/InsCuvAutomaticoResponse" message="tns:ISACService_InsCuvAutomatico_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetProductoCuvAutomatico">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/GetProductoCuvAutomatico" message="tns:ISACService_GetProductoCuvAutomatico_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/GetProductoCuvAutomaticoResponse" message="tns:ISACService_GetProductoCuvAutomatico_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DelCUVAutomatico">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/DelCUVAutomatico" message="tns:ISACService_DelCUVAutomatico_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/DelCUVAutomaticoResponse" message="tns:ISACService_DelCUVAutomatico_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="InsOfertaFIC">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/InsOfertaFIC" message="tns:ISACService_InsOfertaFIC_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/InsOfertaFICResponse" message="tns:ISACService_InsOfertaFIC_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetProductoOfertaFIC">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/GetProductoOfertaFIC" message="tns:ISACService_GetProductoOfertaFIC_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/GetProductoOfertaFICResponse" message="tns:ISACService_GetProductoOfertaFIC_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DelOfertaFIC">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/DelOfertaFIC" message="tns:ISACService_DelOfertaFIC_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/DelOfertaFICResponse" message="tns:ISACService_DelOfertaFIC_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SelectBannerPedido">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/SelectBannerPedido" message="tns:ISACService_SelectBannerPedido_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/SelectBannerPedidoResponse" message="tns:ISACService_SelectBannerPedido_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="InsertBannerPedido">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/InsertBannerPedido" message="tns:ISACService_InsertBannerPedido_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/InsertBannerPedidoResponse" message="tns:ISACService_InsertBannerPedido_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateBannerPedido">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/UpdateBannerPedido" message="tns:ISACService_UpdateBannerPedido_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/UpdateBannerPedidoResponse" message="tns:ISACService_UpdateBannerPedido_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteBannerPedido">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/DeleteBannerPedido" message="tns:ISACService_DeleteBannerPedido_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/DeleteBannerPedidoResponse" message="tns:ISACService_DeleteBannerPedido_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetSolicitudCreditos">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/GetSolicitudCreditos" message="tns:ISACService_GetSolicitudCreditos_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/GetSolicitudCreditosResponse" message="tns:ISACService_GetSolicitudCreditos_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ValidarSolicitudPendiente">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/ValidarSolicitudPendiente" message="tns:ISACService_ValidarSolicitudPendiente_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/ValidarSolicitudPendienteResponse" message="tns:ISACService_ValidarSolicitudPendiente_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="InsertarSolicitudCredito">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/InsertarSolicitudCredito" message="tns:ISACService_InsertarSolicitudCredito_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/InsertarSolicitudCreditoResponse" message="tns:ISACService_InsertarSolicitudCredito_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCiudades">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/GetCiudades" message="tns:ISACService_GetCiudades_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/GetCiudadesResponse" message="tns:ISACService_GetCiudades_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="BuscarSolicitudCredito">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/BuscarSolicitudCredito" message="tns:ISACService_BuscarSolicitudCredito_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/BuscarSolicitudCreditoResponse" message="tns:ISACService_BuscarSolicitudCredito_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="BuscarSolicitudCreditoPorID">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/BuscarSolicitudCreditoPorID" message="tns:ISACService_BuscarSolicitudCreditoPorID_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/BuscarSolicitudCreditoPorIDResponse" message="tns:ISACService_BuscarSolicitudCreditoPorID_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerInfoActDatos">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/ObtenerInfoActDatos" message="tns:ISACService_ObtenerInfoActDatos_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/ObtenerInfoActDatosResponse" message="tns:ISACService_ObtenerInfoActDatos_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DescargaSolicitudes">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/DescargaSolicitudes" message="tns:ISACService_DescargaSolicitudes_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/DescargaSolicitudesResponse" message="tns:ISACService_DescargaSolicitudes_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ReporteSolidCreditDia">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/ReporteSolidCreditDia" message="tns:ISACService_ReporteSolidCreditDia_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/ReporteSolidCreditDiaResponse" message="tns:ISACService_ReporteSolidCreditDia_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetComunicadoByConsultora">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/GetComunicadoByConsultora" message="tns:ISACService_GetComunicadoByConsultora_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/GetComunicadoByConsultoraResponse" message="tns:ISACService_GetComunicadoByConsultora_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerComunicadoPorConsultora">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/ObtenerComunicadoPorConsultora" message="tns:ISACService_ObtenerComunicadoPorConsultora_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/ObtenerComunicadoPorConsultoraResponse" message="tns:ISACService_ObtenerComunicadoPorConsultora_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdComunicadoByConsultora">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/UpdComunicadoByConsultora" message="tns:ISACService_UpdComunicadoByConsultora_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/UpdComunicadoByConsultoraResponse" message="tns:ISACService_UpdComunicadoByConsultora_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="InsertarComunicadoVisualizado">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/InsertarComunicadoVisualizado" message="tns:ISACService_InsertarComunicadoVisualizado_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/InsertarComunicadoVisualizadoResponse" message="tns:ISACService_InsertarComunicadoVisualizado_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="InsertarDonacionConsultora">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/InsertarDonacionConsultora" message="tns:ISACService_InsertarDonacionConsultora_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/InsertarDonacionConsultoraResponse" message="tns:ISACService_InsertarDonacionConsultora_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetEstadoCuentaConsultora">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/GetEstadoCuentaConsultora" message="tns:ISACService_GetEstadoCuentaConsultora_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/GetEstadoCuentaConsultoraResponse" message="tns:ISACService_GetEstadoCuentaConsultora_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPedidosFacturadosCabecera">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/GetPedidosFacturadosCabecera" message="tns:ISACService_GetPedidosFacturadosCabecera_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/GetPedidosFacturadosCabeceraResponse" message="tns:ISACService_GetPedidosFacturadosCabecera_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPedidosFacturadosDetalle">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/GetPedidosFacturadosDetalle" message="tns:ISACService_GetPedidosFacturadosDetalle_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/GetPedidosFacturadosDetalleResponse" message="tns:ISACService_GetPedidosFacturadosDetalle_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetConfiguracionValidacionNuevoPROL">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/GetConfiguracionValidacionNuevoPROL" message="tns:ISACService_GetConfiguracionValidacionNuevoPROL_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/GetConfiguracionValidacionNuevoPROLResponse" message="tns:ISACService_GetConfiguracionValidacionNuevoPROL_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="InsConfiguracionValidacionNuevoPROL">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/InsConfiguracionValidacionNuevoPROL" message="tns:ISACService_InsConfiguracionValidacionNuevoPROL_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/InsConfiguracionValidacionNuevoPROLResponse" message="tns:ISACService_InsConfiguracionValidacionNuevoPROL_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetConfiguracionTipoProcesoCargaPedidos">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/GetConfiguracionTipoProcesoCargaPedidos" message="tns:ISACService_GetConfiguracionTipoProcesoCargaPedidos_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/GetConfiguracionTipoProcesoCargaPedidosResponse" message="tns:ISACService_GetConfiguracionTipoProcesoCargaPedidos_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="InsConfiguracionTipoProcesoCargaPedidos">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/InsConfiguracionTipoProcesoCargaPedidos" message="tns:ISACService_InsConfiguracionTipoProcesoCargaPedidos_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/InsConfiguracionTipoProcesoCargaPedidosResponse" message="tns:ISACService_InsConfiguracionTipoProcesoCargaPedidos_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCampaniasActivasConfiguracionParametroCarga">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/GetCampaniasActivasConfiguracionParametroCarga" message="tns:ISACService_GetCampaniasActivasConfiguracionParametroCarga_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/GetCampaniasActivasConfiguracionParametroCargaResponse" message="tns:ISACService_GetCampaniasActivasConfiguracionParametroCarga_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="InsConfiguracionParametroCarga">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/InsConfiguracionParametroCarga" message="tns:ISACService_InsConfiguracionParametroCarga_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/InsConfiguracionParametroCargaResponse" message="tns:ISACService_InsConfiguracionParametroCarga_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdConfiguracionParametroCarga">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/UpdConfiguracionParametroCarga" message="tns:ISACService_UpdConfiguracionParametroCarga_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/UpdConfiguracionParametroCargaResponse" message="tns:ISACService_UpdConfiguracionParametroCarga_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DelConfiguracionParametroCarga">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/DelConfiguracionParametroCarga" message="tns:ISACService_DelConfiguracionParametroCarga_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/DelConfiguracionParametroCargaResponse" message="tns:ISACService_DelConfiguracionParametroCarga_OutputMessage" />
+    </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_ISACService" type="tns:ISACService">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
@@ -1956,6 +1986,15 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="UpdSolicitudClienteDetalle">
+      <soap:operation soapAction="http://tempuri.org/ISACService/UpdSolicitudClienteDetalle" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="RechazarSolicitudCliente">
       <soap:operation soapAction="http://tempuri.org/ISACService/RechazarSolicitudCliente" style="document" />
       <wsdl:input>
@@ -1976,6 +2015,24 @@
     </wsdl:operation>
     <wsdl:operation name="CancelarSolicitudCliente">
       <soap:operation soapAction="http://tempuri.org/ISACService/CancelarSolicitudCliente" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CancelarSolicitudClienteYRemoverPedido">
+      <soap:operation soapAction="http://tempuri.org/ISACService/CancelarSolicitudClienteYRemoverPedido" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetMotivosRechazo">
+      <soap:operation soapAction="http://tempuri.org/ISACService/GetMotivosRechazo" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -2147,582 +2204,6 @@
     </wsdl:operation>
     <wsdl:operation name="GetProveedorDespachoCobranzaBYiD">
       <soap:operation soapAction="http://tempuri.org/ISACService/GetProveedorDespachoCobranzaBYiD" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="UpdatePedidoWebEstimadoGanancia">
-      <soap:operation soapAction="http://tempuri.org/ISACService/UpdatePedidoWebEstimadoGanancia" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetFactorGananciaSiguienteEscala">
-      <soap:operation soapAction="http://tempuri.org/ISACService/GetFactorGananciaSiguienteEscala" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetFactorGananciaEscalaDescuento">
-      <soap:operation soapAction="http://tempuri.org/ISACService/GetFactorGananciaEscalaDescuento" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetRegionZonaDiasDuracionCronograma">
-      <soap:operation soapAction="http://tempuri.org/ISACService/GetRegionZonaDiasDuracionCronograma" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="UpdConfiguracionValidacionZonaCronograma">
-      <soap:operation soapAction="http://tempuri.org/ISACService/UpdConfiguracionValidacionZonaCronograma" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetLogModificacionCronograma">
-      <soap:operation soapAction="http://tempuri.org/ISACService/GetLogModificacionCronograma" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="InsLogModificacionCronogramaMasivo">
-      <soap:operation soapAction="http://tempuri.org/ISACService/InsLogModificacionCronogramaMasivo" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetConfiguracionValidacionZona">
-      <soap:operation soapAction="http://tempuri.org/ISACService/GetConfiguracionValidacionZona" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="SelectLugarPago">
-      <soap:operation soapAction="http://tempuri.org/ISACService/SelectLugarPago" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetLugarPagoById">
-      <soap:operation soapAction="http://tempuri.org/ISACService/GetLugarPagoById" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="InsertLugarPago">
-      <soap:operation soapAction="http://tempuri.org/ISACService/InsertLugarPago" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="UpdateLugarPago">
-      <soap:operation soapAction="http://tempuri.org/ISACService/UpdateLugarPago" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="DeleteLugarPago">
-      <soap:operation soapAction="http://tempuri.org/ISACService/DeleteLugarPago" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="SelectIncentivos">
-      <soap:operation soapAction="http://tempuri.org/ISACService/SelectIncentivos" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="InsertIncentivo">
-      <soap:operation soapAction="http://tempuri.org/ISACService/InsertIncentivo" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="UpdateIncentivo">
-      <soap:operation soapAction="http://tempuri.org/ISACService/UpdateIncentivo" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="DeleteIncentivo">
-      <soap:operation soapAction="http://tempuri.org/ISACService/DeleteIncentivo" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="SelectBelcorpNoticias">
-      <soap:operation soapAction="http://tempuri.org/ISACService/SelectBelcorpNoticias" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetBelcorpNoticiaById">
-      <soap:operation soapAction="http://tempuri.org/ISACService/GetBelcorpNoticiaById" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="InsertBelcorpNoticia">
-      <soap:operation soapAction="http://tempuri.org/ISACService/InsertBelcorpNoticia" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="UpdateBelcorpNoticia">
-      <soap:operation soapAction="http://tempuri.org/ISACService/UpdateBelcorpNoticia" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="DeleteBelcorpNoticia">
-      <soap:operation soapAction="http://tempuri.org/ISACService/DeleteBelcorpNoticia" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetTablaLogicaDatos">
-      <soap:operation soapAction="http://tempuri.org/ISACService/GetTablaLogicaDatos" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="SelectFeErratas">
-      <soap:operation soapAction="http://tempuri.org/ISACService/SelectFeErratas" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="InsertFeErratas">
-      <soap:operation soapAction="http://tempuri.org/ISACService/InsertFeErratas" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="UpdateFeErratas">
-      <soap:operation soapAction="http://tempuri.org/ISACService/UpdateFeErratas" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="DeleteFeErratas">
-      <soap:operation soapAction="http://tempuri.org/ISACService/DeleteFeErratas" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="SelectFeErratasEntradas">
-      <soap:operation soapAction="http://tempuri.org/ISACService/SelectFeErratasEntradas" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="SaveChangesFeErratas">
-      <soap:operation soapAction="http://tempuri.org/ISACService/SaveChangesFeErratas" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="InsCuvAutomatico">
-      <soap:operation soapAction="http://tempuri.org/ISACService/InsCuvAutomatico" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetProductoCuvAutomatico">
-      <soap:operation soapAction="http://tempuri.org/ISACService/GetProductoCuvAutomatico" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="DelCUVAutomatico">
-      <soap:operation soapAction="http://tempuri.org/ISACService/DelCUVAutomatico" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="InsOfertaFIC">
-      <soap:operation soapAction="http://tempuri.org/ISACService/InsOfertaFIC" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetProductoOfertaFIC">
-      <soap:operation soapAction="http://tempuri.org/ISACService/GetProductoOfertaFIC" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="DelOfertaFIC">
-      <soap:operation soapAction="http://tempuri.org/ISACService/DelOfertaFIC" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="SelectBannerPedido">
-      <soap:operation soapAction="http://tempuri.org/ISACService/SelectBannerPedido" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="InsertBannerPedido">
-      <soap:operation soapAction="http://tempuri.org/ISACService/InsertBannerPedido" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="UpdateBannerPedido">
-      <soap:operation soapAction="http://tempuri.org/ISACService/UpdateBannerPedido" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="DeleteBannerPedido">
-      <soap:operation soapAction="http://tempuri.org/ISACService/DeleteBannerPedido" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetSolicitudCreditos">
-      <soap:operation soapAction="http://tempuri.org/ISACService/GetSolicitudCreditos" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="ValidarSolicitudPendiente">
-      <soap:operation soapAction="http://tempuri.org/ISACService/ValidarSolicitudPendiente" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="InsertarSolicitudCredito">
-      <soap:operation soapAction="http://tempuri.org/ISACService/InsertarSolicitudCredito" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetCiudades">
-      <soap:operation soapAction="http://tempuri.org/ISACService/GetCiudades" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="BuscarSolicitudCredito">
-      <soap:operation soapAction="http://tempuri.org/ISACService/BuscarSolicitudCredito" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="BuscarSolicitudCreditoPorID">
-      <soap:operation soapAction="http://tempuri.org/ISACService/BuscarSolicitudCreditoPorID" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="ObtenerInfoActDatos">
-      <soap:operation soapAction="http://tempuri.org/ISACService/ObtenerInfoActDatos" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="DescargaSolicitudes">
-      <soap:operation soapAction="http://tempuri.org/ISACService/DescargaSolicitudes" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="ReporteSolidCreditDia">
-      <soap:operation soapAction="http://tempuri.org/ISACService/ReporteSolidCreditDia" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetComunicadoByConsultora">
-      <soap:operation soapAction="http://tempuri.org/ISACService/GetComunicadoByConsultora" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="ObtenerComunicadoPorConsultora">
-      <soap:operation soapAction="http://tempuri.org/ISACService/ObtenerComunicadoPorConsultora" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="UpdComunicadoByConsultora">
-      <soap:operation soapAction="http://tempuri.org/ISACService/UpdComunicadoByConsultora" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="InsertarComunicadoVisualizado">
-      <soap:operation soapAction="http://tempuri.org/ISACService/InsertarComunicadoVisualizado" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="InsertarDonacionConsultora">
-      <soap:operation soapAction="http://tempuri.org/ISACService/InsertarDonacionConsultora" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetEstadoCuentaConsultora">
-      <soap:operation soapAction="http://tempuri.org/ISACService/GetEstadoCuentaConsultora" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetPedidosFacturadosCabecera">
-      <soap:operation soapAction="http://tempuri.org/ISACService/GetPedidosFacturadosCabecera" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetPedidosFacturadosDetalle">
-      <soap:operation soapAction="http://tempuri.org/ISACService/GetPedidosFacturadosDetalle" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetConfiguracionValidacionNuevoPROL">
-      <soap:operation soapAction="http://tempuri.org/ISACService/GetConfiguracionValidacionNuevoPROL" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="InsConfiguracionValidacionNuevoPROL">
-      <soap:operation soapAction="http://tempuri.org/ISACService/InsConfiguracionValidacionNuevoPROL" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetConfiguracionTipoProcesoCargaPedidos">
-      <soap:operation soapAction="http://tempuri.org/ISACService/GetConfiguracionTipoProcesoCargaPedidos" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="InsConfiguracionTipoProcesoCargaPedidos">
-      <soap:operation soapAction="http://tempuri.org/ISACService/InsConfiguracionTipoProcesoCargaPedidos" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetCampaniasActivasConfiguracionParametroCarga">
-      <soap:operation soapAction="http://tempuri.org/ISACService/GetCampaniasActivasConfiguracionParametroCarga" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="InsConfiguracionParametroCarga">
-      <soap:operation soapAction="http://tempuri.org/ISACService/InsConfiguracionParametroCarga" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="UpdConfiguracionParametroCarga">
-      <soap:operation soapAction="http://tempuri.org/ISACService/UpdConfiguracionParametroCarga" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="DelConfiguracionParametroCarga">
-      <soap:operation soapAction="http://tempuri.org/ISACService/DelConfiguracionParametroCarga" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -3299,6 +2780,582 @@
     </wsdl:operation>
     <wsdl:operation name="GetIndicadorDescuentoByPedidoWebDetalle">
       <soap:operation soapAction="http://tempuri.org/ISACService/GetIndicadorDescuentoByPedidoWebDetalle" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdatePedidoWebEstimadoGanancia">
+      <soap:operation soapAction="http://tempuri.org/ISACService/UpdatePedidoWebEstimadoGanancia" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetFactorGananciaSiguienteEscala">
+      <soap:operation soapAction="http://tempuri.org/ISACService/GetFactorGananciaSiguienteEscala" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetFactorGananciaEscalaDescuento">
+      <soap:operation soapAction="http://tempuri.org/ISACService/GetFactorGananciaEscalaDescuento" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetRegionZonaDiasDuracionCronograma">
+      <soap:operation soapAction="http://tempuri.org/ISACService/GetRegionZonaDiasDuracionCronograma" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdConfiguracionValidacionZonaCronograma">
+      <soap:operation soapAction="http://tempuri.org/ISACService/UpdConfiguracionValidacionZonaCronograma" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetLogModificacionCronograma">
+      <soap:operation soapAction="http://tempuri.org/ISACService/GetLogModificacionCronograma" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InsLogModificacionCronogramaMasivo">
+      <soap:operation soapAction="http://tempuri.org/ISACService/InsLogModificacionCronogramaMasivo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetConfiguracionValidacionZona">
+      <soap:operation soapAction="http://tempuri.org/ISACService/GetConfiguracionValidacionZona" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SelectLugarPago">
+      <soap:operation soapAction="http://tempuri.org/ISACService/SelectLugarPago" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetLugarPagoById">
+      <soap:operation soapAction="http://tempuri.org/ISACService/GetLugarPagoById" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InsertLugarPago">
+      <soap:operation soapAction="http://tempuri.org/ISACService/InsertLugarPago" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateLugarPago">
+      <soap:operation soapAction="http://tempuri.org/ISACService/UpdateLugarPago" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteLugarPago">
+      <soap:operation soapAction="http://tempuri.org/ISACService/DeleteLugarPago" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SelectIncentivos">
+      <soap:operation soapAction="http://tempuri.org/ISACService/SelectIncentivos" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InsertIncentivo">
+      <soap:operation soapAction="http://tempuri.org/ISACService/InsertIncentivo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateIncentivo">
+      <soap:operation soapAction="http://tempuri.org/ISACService/UpdateIncentivo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteIncentivo">
+      <soap:operation soapAction="http://tempuri.org/ISACService/DeleteIncentivo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SelectBelcorpNoticias">
+      <soap:operation soapAction="http://tempuri.org/ISACService/SelectBelcorpNoticias" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetBelcorpNoticiaById">
+      <soap:operation soapAction="http://tempuri.org/ISACService/GetBelcorpNoticiaById" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InsertBelcorpNoticia">
+      <soap:operation soapAction="http://tempuri.org/ISACService/InsertBelcorpNoticia" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateBelcorpNoticia">
+      <soap:operation soapAction="http://tempuri.org/ISACService/UpdateBelcorpNoticia" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteBelcorpNoticia">
+      <soap:operation soapAction="http://tempuri.org/ISACService/DeleteBelcorpNoticia" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTablaLogicaDatos">
+      <soap:operation soapAction="http://tempuri.org/ISACService/GetTablaLogicaDatos" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SelectFeErratas">
+      <soap:operation soapAction="http://tempuri.org/ISACService/SelectFeErratas" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InsertFeErratas">
+      <soap:operation soapAction="http://tempuri.org/ISACService/InsertFeErratas" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateFeErratas">
+      <soap:operation soapAction="http://tempuri.org/ISACService/UpdateFeErratas" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteFeErratas">
+      <soap:operation soapAction="http://tempuri.org/ISACService/DeleteFeErratas" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SelectFeErratasEntradas">
+      <soap:operation soapAction="http://tempuri.org/ISACService/SelectFeErratasEntradas" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SaveChangesFeErratas">
+      <soap:operation soapAction="http://tempuri.org/ISACService/SaveChangesFeErratas" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InsCuvAutomatico">
+      <soap:operation soapAction="http://tempuri.org/ISACService/InsCuvAutomatico" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetProductoCuvAutomatico">
+      <soap:operation soapAction="http://tempuri.org/ISACService/GetProductoCuvAutomatico" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DelCUVAutomatico">
+      <soap:operation soapAction="http://tempuri.org/ISACService/DelCUVAutomatico" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InsOfertaFIC">
+      <soap:operation soapAction="http://tempuri.org/ISACService/InsOfertaFIC" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetProductoOfertaFIC">
+      <soap:operation soapAction="http://tempuri.org/ISACService/GetProductoOfertaFIC" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DelOfertaFIC">
+      <soap:operation soapAction="http://tempuri.org/ISACService/DelOfertaFIC" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SelectBannerPedido">
+      <soap:operation soapAction="http://tempuri.org/ISACService/SelectBannerPedido" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InsertBannerPedido">
+      <soap:operation soapAction="http://tempuri.org/ISACService/InsertBannerPedido" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateBannerPedido">
+      <soap:operation soapAction="http://tempuri.org/ISACService/UpdateBannerPedido" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteBannerPedido">
+      <soap:operation soapAction="http://tempuri.org/ISACService/DeleteBannerPedido" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSolicitudCreditos">
+      <soap:operation soapAction="http://tempuri.org/ISACService/GetSolicitudCreditos" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ValidarSolicitudPendiente">
+      <soap:operation soapAction="http://tempuri.org/ISACService/ValidarSolicitudPendiente" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InsertarSolicitudCredito">
+      <soap:operation soapAction="http://tempuri.org/ISACService/InsertarSolicitudCredito" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCiudades">
+      <soap:operation soapAction="http://tempuri.org/ISACService/GetCiudades" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BuscarSolicitudCredito">
+      <soap:operation soapAction="http://tempuri.org/ISACService/BuscarSolicitudCredito" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BuscarSolicitudCreditoPorID">
+      <soap:operation soapAction="http://tempuri.org/ISACService/BuscarSolicitudCreditoPorID" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerInfoActDatos">
+      <soap:operation soapAction="http://tempuri.org/ISACService/ObtenerInfoActDatos" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DescargaSolicitudes">
+      <soap:operation soapAction="http://tempuri.org/ISACService/DescargaSolicitudes" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ReporteSolidCreditDia">
+      <soap:operation soapAction="http://tempuri.org/ISACService/ReporteSolidCreditDia" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetComunicadoByConsultora">
+      <soap:operation soapAction="http://tempuri.org/ISACService/GetComunicadoByConsultora" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerComunicadoPorConsultora">
+      <soap:operation soapAction="http://tempuri.org/ISACService/ObtenerComunicadoPorConsultora" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdComunicadoByConsultora">
+      <soap:operation soapAction="http://tempuri.org/ISACService/UpdComunicadoByConsultora" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InsertarComunicadoVisualizado">
+      <soap:operation soapAction="http://tempuri.org/ISACService/InsertarComunicadoVisualizado" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InsertarDonacionConsultora">
+      <soap:operation soapAction="http://tempuri.org/ISACService/InsertarDonacionConsultora" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetEstadoCuentaConsultora">
+      <soap:operation soapAction="http://tempuri.org/ISACService/GetEstadoCuentaConsultora" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPedidosFacturadosCabecera">
+      <soap:operation soapAction="http://tempuri.org/ISACService/GetPedidosFacturadosCabecera" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPedidosFacturadosDetalle">
+      <soap:operation soapAction="http://tempuri.org/ISACService/GetPedidosFacturadosDetalle" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetConfiguracionValidacionNuevoPROL">
+      <soap:operation soapAction="http://tempuri.org/ISACService/GetConfiguracionValidacionNuevoPROL" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InsConfiguracionValidacionNuevoPROL">
+      <soap:operation soapAction="http://tempuri.org/ISACService/InsConfiguracionValidacionNuevoPROL" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetConfiguracionTipoProcesoCargaPedidos">
+      <soap:operation soapAction="http://tempuri.org/ISACService/GetConfiguracionTipoProcesoCargaPedidos" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InsConfiguracionTipoProcesoCargaPedidos">
+      <soap:operation soapAction="http://tempuri.org/ISACService/InsConfiguracionTipoProcesoCargaPedidos" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCampaniasActivasConfiguracionParametroCarga">
+      <soap:operation soapAction="http://tempuri.org/ISACService/GetCampaniasActivasConfiguracionParametroCarga" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InsConfiguracionParametroCarga">
+      <soap:operation soapAction="http://tempuri.org/ISACService/InsConfiguracionParametroCarga" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdConfiguracionParametroCarga">
+      <soap:operation soapAction="http://tempuri.org/ISACService/UpdConfiguracionParametroCarga" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DelConfiguracionParametroCarga">
+      <soap:operation soapAction="http://tempuri.org/ISACService/DelConfiguracionParametroCarga" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -3508,6 +3565,15 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="UpdSolicitudClienteDetalle">
+      <soap:operation soapAction="http://tempuri.org/ISACService/UpdSolicitudClienteDetalle" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="RechazarSolicitudCliente">
       <soap:operation soapAction="http://tempuri.org/ISACService/RechazarSolicitudCliente" style="document" />
       <wsdl:input>
@@ -3528,6 +3594,24 @@
     </wsdl:operation>
     <wsdl:operation name="CancelarSolicitudCliente">
       <soap:operation soapAction="http://tempuri.org/ISACService/CancelarSolicitudCliente" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CancelarSolicitudClienteYRemoverPedido">
+      <soap:operation soapAction="http://tempuri.org/ISACService/CancelarSolicitudClienteYRemoverPedido" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetMotivosRechazo">
+      <soap:operation soapAction="http://tempuri.org/ISACService/GetMotivosRechazo" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -3699,582 +3783,6 @@
     </wsdl:operation>
     <wsdl:operation name="GetProveedorDespachoCobranzaBYiD">
       <soap:operation soapAction="http://tempuri.org/ISACService/GetProveedorDespachoCobranzaBYiD" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="UpdatePedidoWebEstimadoGanancia">
-      <soap:operation soapAction="http://tempuri.org/ISACService/UpdatePedidoWebEstimadoGanancia" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetFactorGananciaSiguienteEscala">
-      <soap:operation soapAction="http://tempuri.org/ISACService/GetFactorGananciaSiguienteEscala" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetFactorGananciaEscalaDescuento">
-      <soap:operation soapAction="http://tempuri.org/ISACService/GetFactorGananciaEscalaDescuento" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetRegionZonaDiasDuracionCronograma">
-      <soap:operation soapAction="http://tempuri.org/ISACService/GetRegionZonaDiasDuracionCronograma" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="UpdConfiguracionValidacionZonaCronograma">
-      <soap:operation soapAction="http://tempuri.org/ISACService/UpdConfiguracionValidacionZonaCronograma" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetLogModificacionCronograma">
-      <soap:operation soapAction="http://tempuri.org/ISACService/GetLogModificacionCronograma" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="InsLogModificacionCronogramaMasivo">
-      <soap:operation soapAction="http://tempuri.org/ISACService/InsLogModificacionCronogramaMasivo" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetConfiguracionValidacionZona">
-      <soap:operation soapAction="http://tempuri.org/ISACService/GetConfiguracionValidacionZona" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="SelectLugarPago">
-      <soap:operation soapAction="http://tempuri.org/ISACService/SelectLugarPago" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetLugarPagoById">
-      <soap:operation soapAction="http://tempuri.org/ISACService/GetLugarPagoById" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="InsertLugarPago">
-      <soap:operation soapAction="http://tempuri.org/ISACService/InsertLugarPago" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="UpdateLugarPago">
-      <soap:operation soapAction="http://tempuri.org/ISACService/UpdateLugarPago" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="DeleteLugarPago">
-      <soap:operation soapAction="http://tempuri.org/ISACService/DeleteLugarPago" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="SelectIncentivos">
-      <soap:operation soapAction="http://tempuri.org/ISACService/SelectIncentivos" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="InsertIncentivo">
-      <soap:operation soapAction="http://tempuri.org/ISACService/InsertIncentivo" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="UpdateIncentivo">
-      <soap:operation soapAction="http://tempuri.org/ISACService/UpdateIncentivo" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="DeleteIncentivo">
-      <soap:operation soapAction="http://tempuri.org/ISACService/DeleteIncentivo" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="SelectBelcorpNoticias">
-      <soap:operation soapAction="http://tempuri.org/ISACService/SelectBelcorpNoticias" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetBelcorpNoticiaById">
-      <soap:operation soapAction="http://tempuri.org/ISACService/GetBelcorpNoticiaById" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="InsertBelcorpNoticia">
-      <soap:operation soapAction="http://tempuri.org/ISACService/InsertBelcorpNoticia" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="UpdateBelcorpNoticia">
-      <soap:operation soapAction="http://tempuri.org/ISACService/UpdateBelcorpNoticia" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="DeleteBelcorpNoticia">
-      <soap:operation soapAction="http://tempuri.org/ISACService/DeleteBelcorpNoticia" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetTablaLogicaDatos">
-      <soap:operation soapAction="http://tempuri.org/ISACService/GetTablaLogicaDatos" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="SelectFeErratas">
-      <soap:operation soapAction="http://tempuri.org/ISACService/SelectFeErratas" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="InsertFeErratas">
-      <soap:operation soapAction="http://tempuri.org/ISACService/InsertFeErratas" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="UpdateFeErratas">
-      <soap:operation soapAction="http://tempuri.org/ISACService/UpdateFeErratas" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="DeleteFeErratas">
-      <soap:operation soapAction="http://tempuri.org/ISACService/DeleteFeErratas" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="SelectFeErratasEntradas">
-      <soap:operation soapAction="http://tempuri.org/ISACService/SelectFeErratasEntradas" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="SaveChangesFeErratas">
-      <soap:operation soapAction="http://tempuri.org/ISACService/SaveChangesFeErratas" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="InsCuvAutomatico">
-      <soap:operation soapAction="http://tempuri.org/ISACService/InsCuvAutomatico" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetProductoCuvAutomatico">
-      <soap:operation soapAction="http://tempuri.org/ISACService/GetProductoCuvAutomatico" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="DelCUVAutomatico">
-      <soap:operation soapAction="http://tempuri.org/ISACService/DelCUVAutomatico" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="InsOfertaFIC">
-      <soap:operation soapAction="http://tempuri.org/ISACService/InsOfertaFIC" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetProductoOfertaFIC">
-      <soap:operation soapAction="http://tempuri.org/ISACService/GetProductoOfertaFIC" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="DelOfertaFIC">
-      <soap:operation soapAction="http://tempuri.org/ISACService/DelOfertaFIC" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="SelectBannerPedido">
-      <soap:operation soapAction="http://tempuri.org/ISACService/SelectBannerPedido" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="InsertBannerPedido">
-      <soap:operation soapAction="http://tempuri.org/ISACService/InsertBannerPedido" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="UpdateBannerPedido">
-      <soap:operation soapAction="http://tempuri.org/ISACService/UpdateBannerPedido" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="DeleteBannerPedido">
-      <soap:operation soapAction="http://tempuri.org/ISACService/DeleteBannerPedido" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetSolicitudCreditos">
-      <soap:operation soapAction="http://tempuri.org/ISACService/GetSolicitudCreditos" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="ValidarSolicitudPendiente">
-      <soap:operation soapAction="http://tempuri.org/ISACService/ValidarSolicitudPendiente" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="InsertarSolicitudCredito">
-      <soap:operation soapAction="http://tempuri.org/ISACService/InsertarSolicitudCredito" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetCiudades">
-      <soap:operation soapAction="http://tempuri.org/ISACService/GetCiudades" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="BuscarSolicitudCredito">
-      <soap:operation soapAction="http://tempuri.org/ISACService/BuscarSolicitudCredito" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="BuscarSolicitudCreditoPorID">
-      <soap:operation soapAction="http://tempuri.org/ISACService/BuscarSolicitudCreditoPorID" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="ObtenerInfoActDatos">
-      <soap:operation soapAction="http://tempuri.org/ISACService/ObtenerInfoActDatos" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="DescargaSolicitudes">
-      <soap:operation soapAction="http://tempuri.org/ISACService/DescargaSolicitudes" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="ReporteSolidCreditDia">
-      <soap:operation soapAction="http://tempuri.org/ISACService/ReporteSolidCreditDia" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetComunicadoByConsultora">
-      <soap:operation soapAction="http://tempuri.org/ISACService/GetComunicadoByConsultora" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="ObtenerComunicadoPorConsultora">
-      <soap:operation soapAction="http://tempuri.org/ISACService/ObtenerComunicadoPorConsultora" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="UpdComunicadoByConsultora">
-      <soap:operation soapAction="http://tempuri.org/ISACService/UpdComunicadoByConsultora" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="InsertarComunicadoVisualizado">
-      <soap:operation soapAction="http://tempuri.org/ISACService/InsertarComunicadoVisualizado" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="InsertarDonacionConsultora">
-      <soap:operation soapAction="http://tempuri.org/ISACService/InsertarDonacionConsultora" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetEstadoCuentaConsultora">
-      <soap:operation soapAction="http://tempuri.org/ISACService/GetEstadoCuentaConsultora" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetPedidosFacturadosCabecera">
-      <soap:operation soapAction="http://tempuri.org/ISACService/GetPedidosFacturadosCabecera" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetPedidosFacturadosDetalle">
-      <soap:operation soapAction="http://tempuri.org/ISACService/GetPedidosFacturadosDetalle" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetConfiguracionValidacionNuevoPROL">
-      <soap:operation soapAction="http://tempuri.org/ISACService/GetConfiguracionValidacionNuevoPROL" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="InsConfiguracionValidacionNuevoPROL">
-      <soap:operation soapAction="http://tempuri.org/ISACService/InsConfiguracionValidacionNuevoPROL" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetConfiguracionTipoProcesoCargaPedidos">
-      <soap:operation soapAction="http://tempuri.org/ISACService/GetConfiguracionTipoProcesoCargaPedidos" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="InsConfiguracionTipoProcesoCargaPedidos">
-      <soap:operation soapAction="http://tempuri.org/ISACService/InsConfiguracionTipoProcesoCargaPedidos" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetCampaniasActivasConfiguracionParametroCarga">
-      <soap:operation soapAction="http://tempuri.org/ISACService/GetCampaniasActivasConfiguracionParametroCarga" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="InsConfiguracionParametroCarga">
-      <soap:operation soapAction="http://tempuri.org/ISACService/InsConfiguracionParametroCarga" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="UpdConfiguracionParametroCarga">
-      <soap:operation soapAction="http://tempuri.org/ISACService/UpdConfiguracionParametroCarga" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="DelConfiguracionParametroCarga">
-      <soap:operation soapAction="http://tempuri.org/ISACService/DelConfiguracionParametroCarga" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -4851,6 +4359,582 @@
     </wsdl:operation>
     <wsdl:operation name="GetIndicadorDescuentoByPedidoWebDetalle">
       <soap:operation soapAction="http://tempuri.org/ISACService/GetIndicadorDescuentoByPedidoWebDetalle" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdatePedidoWebEstimadoGanancia">
+      <soap:operation soapAction="http://tempuri.org/ISACService/UpdatePedidoWebEstimadoGanancia" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetFactorGananciaSiguienteEscala">
+      <soap:operation soapAction="http://tempuri.org/ISACService/GetFactorGananciaSiguienteEscala" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetFactorGananciaEscalaDescuento">
+      <soap:operation soapAction="http://tempuri.org/ISACService/GetFactorGananciaEscalaDescuento" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetRegionZonaDiasDuracionCronograma">
+      <soap:operation soapAction="http://tempuri.org/ISACService/GetRegionZonaDiasDuracionCronograma" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdConfiguracionValidacionZonaCronograma">
+      <soap:operation soapAction="http://tempuri.org/ISACService/UpdConfiguracionValidacionZonaCronograma" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetLogModificacionCronograma">
+      <soap:operation soapAction="http://tempuri.org/ISACService/GetLogModificacionCronograma" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InsLogModificacionCronogramaMasivo">
+      <soap:operation soapAction="http://tempuri.org/ISACService/InsLogModificacionCronogramaMasivo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetConfiguracionValidacionZona">
+      <soap:operation soapAction="http://tempuri.org/ISACService/GetConfiguracionValidacionZona" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SelectLugarPago">
+      <soap:operation soapAction="http://tempuri.org/ISACService/SelectLugarPago" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetLugarPagoById">
+      <soap:operation soapAction="http://tempuri.org/ISACService/GetLugarPagoById" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InsertLugarPago">
+      <soap:operation soapAction="http://tempuri.org/ISACService/InsertLugarPago" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateLugarPago">
+      <soap:operation soapAction="http://tempuri.org/ISACService/UpdateLugarPago" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteLugarPago">
+      <soap:operation soapAction="http://tempuri.org/ISACService/DeleteLugarPago" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SelectIncentivos">
+      <soap:operation soapAction="http://tempuri.org/ISACService/SelectIncentivos" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InsertIncentivo">
+      <soap:operation soapAction="http://tempuri.org/ISACService/InsertIncentivo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateIncentivo">
+      <soap:operation soapAction="http://tempuri.org/ISACService/UpdateIncentivo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteIncentivo">
+      <soap:operation soapAction="http://tempuri.org/ISACService/DeleteIncentivo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SelectBelcorpNoticias">
+      <soap:operation soapAction="http://tempuri.org/ISACService/SelectBelcorpNoticias" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetBelcorpNoticiaById">
+      <soap:operation soapAction="http://tempuri.org/ISACService/GetBelcorpNoticiaById" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InsertBelcorpNoticia">
+      <soap:operation soapAction="http://tempuri.org/ISACService/InsertBelcorpNoticia" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateBelcorpNoticia">
+      <soap:operation soapAction="http://tempuri.org/ISACService/UpdateBelcorpNoticia" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteBelcorpNoticia">
+      <soap:operation soapAction="http://tempuri.org/ISACService/DeleteBelcorpNoticia" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTablaLogicaDatos">
+      <soap:operation soapAction="http://tempuri.org/ISACService/GetTablaLogicaDatos" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SelectFeErratas">
+      <soap:operation soapAction="http://tempuri.org/ISACService/SelectFeErratas" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InsertFeErratas">
+      <soap:operation soapAction="http://tempuri.org/ISACService/InsertFeErratas" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateFeErratas">
+      <soap:operation soapAction="http://tempuri.org/ISACService/UpdateFeErratas" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteFeErratas">
+      <soap:operation soapAction="http://tempuri.org/ISACService/DeleteFeErratas" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SelectFeErratasEntradas">
+      <soap:operation soapAction="http://tempuri.org/ISACService/SelectFeErratasEntradas" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SaveChangesFeErratas">
+      <soap:operation soapAction="http://tempuri.org/ISACService/SaveChangesFeErratas" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InsCuvAutomatico">
+      <soap:operation soapAction="http://tempuri.org/ISACService/InsCuvAutomatico" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetProductoCuvAutomatico">
+      <soap:operation soapAction="http://tempuri.org/ISACService/GetProductoCuvAutomatico" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DelCUVAutomatico">
+      <soap:operation soapAction="http://tempuri.org/ISACService/DelCUVAutomatico" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InsOfertaFIC">
+      <soap:operation soapAction="http://tempuri.org/ISACService/InsOfertaFIC" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetProductoOfertaFIC">
+      <soap:operation soapAction="http://tempuri.org/ISACService/GetProductoOfertaFIC" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DelOfertaFIC">
+      <soap:operation soapAction="http://tempuri.org/ISACService/DelOfertaFIC" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SelectBannerPedido">
+      <soap:operation soapAction="http://tempuri.org/ISACService/SelectBannerPedido" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InsertBannerPedido">
+      <soap:operation soapAction="http://tempuri.org/ISACService/InsertBannerPedido" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateBannerPedido">
+      <soap:operation soapAction="http://tempuri.org/ISACService/UpdateBannerPedido" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteBannerPedido">
+      <soap:operation soapAction="http://tempuri.org/ISACService/DeleteBannerPedido" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSolicitudCreditos">
+      <soap:operation soapAction="http://tempuri.org/ISACService/GetSolicitudCreditos" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ValidarSolicitudPendiente">
+      <soap:operation soapAction="http://tempuri.org/ISACService/ValidarSolicitudPendiente" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InsertarSolicitudCredito">
+      <soap:operation soapAction="http://tempuri.org/ISACService/InsertarSolicitudCredito" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCiudades">
+      <soap:operation soapAction="http://tempuri.org/ISACService/GetCiudades" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BuscarSolicitudCredito">
+      <soap:operation soapAction="http://tempuri.org/ISACService/BuscarSolicitudCredito" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BuscarSolicitudCreditoPorID">
+      <soap:operation soapAction="http://tempuri.org/ISACService/BuscarSolicitudCreditoPorID" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerInfoActDatos">
+      <soap:operation soapAction="http://tempuri.org/ISACService/ObtenerInfoActDatos" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DescargaSolicitudes">
+      <soap:operation soapAction="http://tempuri.org/ISACService/DescargaSolicitudes" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ReporteSolidCreditDia">
+      <soap:operation soapAction="http://tempuri.org/ISACService/ReporteSolidCreditDia" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetComunicadoByConsultora">
+      <soap:operation soapAction="http://tempuri.org/ISACService/GetComunicadoByConsultora" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerComunicadoPorConsultora">
+      <soap:operation soapAction="http://tempuri.org/ISACService/ObtenerComunicadoPorConsultora" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdComunicadoByConsultora">
+      <soap:operation soapAction="http://tempuri.org/ISACService/UpdComunicadoByConsultora" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InsertarComunicadoVisualizado">
+      <soap:operation soapAction="http://tempuri.org/ISACService/InsertarComunicadoVisualizado" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InsertarDonacionConsultora">
+      <soap:operation soapAction="http://tempuri.org/ISACService/InsertarDonacionConsultora" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetEstadoCuentaConsultora">
+      <soap:operation soapAction="http://tempuri.org/ISACService/GetEstadoCuentaConsultora" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPedidosFacturadosCabecera">
+      <soap:operation soapAction="http://tempuri.org/ISACService/GetPedidosFacturadosCabecera" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPedidosFacturadosDetalle">
+      <soap:operation soapAction="http://tempuri.org/ISACService/GetPedidosFacturadosDetalle" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetConfiguracionValidacionNuevoPROL">
+      <soap:operation soapAction="http://tempuri.org/ISACService/GetConfiguracionValidacionNuevoPROL" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InsConfiguracionValidacionNuevoPROL">
+      <soap:operation soapAction="http://tempuri.org/ISACService/InsConfiguracionValidacionNuevoPROL" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetConfiguracionTipoProcesoCargaPedidos">
+      <soap:operation soapAction="http://tempuri.org/ISACService/GetConfiguracionTipoProcesoCargaPedidos" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InsConfiguracionTipoProcesoCargaPedidos">
+      <soap:operation soapAction="http://tempuri.org/ISACService/InsConfiguracionTipoProcesoCargaPedidos" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCampaniasActivasConfiguracionParametroCarga">
+      <soap:operation soapAction="http://tempuri.org/ISACService/GetCampaniasActivasConfiguracionParametroCarga" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InsConfiguracionParametroCarga">
+      <soap:operation soapAction="http://tempuri.org/ISACService/InsConfiguracionParametroCarga" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdConfiguracionParametroCarga">
+      <soap:operation soapAction="http://tempuri.org/ISACService/UpdConfiguracionParametroCarga" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DelConfiguracionParametroCarga">
+      <soap:operation soapAction="http://tempuri.org/ISACService/DelConfiguracionParametroCarga" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
