@@ -103,7 +103,7 @@
             <a class="btn_acepto_pedido" onclick="NoAceptarConfirmacionCancelado();">NO, DÉJAME VERLO</a>
         </div>
         <div class="col-xs-12 col-sm-6">
-            <a class="btn_rechazo_pedido" onclick="AceptarConfirmacionCancelado();">SI, RECHAZO EL PEDIDO</a>
+            <a class="btn_rechazo_pedido" onclick="AceptarConfirmacionCancelado();">SI, CANCELO EL PEDIDO</a>
         </div>
 
     </div>
@@ -116,8 +116,8 @@
             <img src="/Content/Images/mobile/Esika/cerrar_04.png" alt="-">
         </a>
         <hr class="clear">
-        <div class="titulo_compartir"> <b>CUÉNTANOS PORQUÉ LO RECHAZASTE</b></div>
-        <div class="mensaje_alerta">Si rechazas el pedido vas a perderlo</div>
+        <div class="titulo_compartir"> <b>CUÉNTANOS PORQUÉ LO CANCELASTE</b></div>
+        <div class="mensaje_alerta">Si cancelas el pedido vas a perderlo</div>
         <div>
             @foreach (var motivoRechazo in Model.MotivosRechazo)
             {
