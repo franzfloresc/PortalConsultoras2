@@ -1,5 +1,8 @@
 ﻿using AutoMapper;
+using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
+using Portal.Consultoras.Web.ServiceODS;
+using Portal.Consultoras.Web.ServiceProductoCatalogoPersonalizado;
 using Portal.Consultoras.Web.ServiceUsuario;
 using Portal.Consultoras.Web.ServiceZonificacion;
 using System;
@@ -351,6 +354,7 @@ namespace Portal.Consultoras.Web.Controllers
                     model.FechaLimPago = oBEUsuario.FechaLimPago;
                     model.VioVideoModelo = oBEUsuario.VioVideo;
                     model.VioTutorialModelo = oBEUsuario.VioTutorial;
+                    model.VioTutorialDesktop = oBEUsuario.VioTutorialDesktop;
                     model.HabilitarRestriccionHoraria = oBEUsuario.HabilitarRestriccionHoraria;
                     model.IndicadorPermisoFIC = oBEUsuario.IndicadorPermisoFIC;
                     model.HorasDuracionRestriccion = oBEUsuario.HorasDuracionRestriccion;
@@ -487,8 +491,9 @@ namespace Portal.Consultoras.Web.Controllers
                     model.OfertaFinal = oBEUsuario.OfertaFinal;
                     model.EsOfertaFinalZonaValida = oBEUsuario.EsOfertaFinalZonaValida;
                     model.CatalogoPersonalizado = oBEUsuario.CatalogoPersonalizado;
+                    model.EsCatalogoPersonalizadoZonaValida = oBEUsuario.EsCatalogoPersonalizadoZonaValida;
 
-                    if (model.RolID == 1) this.CrearUsuarioMiAcademia(model);
+                    //if (model.RolID == 1) this.CrearUsuarioMiAcademia(model);
                 }
 
                 pasoLog = "Agregar usuario en session";
@@ -680,6 +685,6 @@ namespace Portal.Consultoras.Web.Controllers
                 }
             }
             catch { }
-        }
+        }        
     }
 }

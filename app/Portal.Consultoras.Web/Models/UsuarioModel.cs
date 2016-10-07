@@ -109,6 +109,8 @@ namespace Portal.Consultoras.Web.Models
 
         public int VioTutorialModelo { get; set; }
 
+        public int VioTutorialDesktop { get; set; }
+
         public int PedidoID { get; set; }
         public string CodigorRegion { get; set; }
         public string CodigoZona { get; set; }
@@ -264,5 +266,7 @@ namespace Portal.Consultoras.Web.Models
         public int CatalogoPersonalizado { get; set; }
 
         public bool EjecutaProl { get; set; }
+
+        public bool EsCatalogoPersonalizadoZonaValida { get; set; }
     }
 }

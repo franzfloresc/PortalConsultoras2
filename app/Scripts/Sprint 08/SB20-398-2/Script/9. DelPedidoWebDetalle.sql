@@ -123,7 +123,7 @@ DELETE FROM dbo.PedidoWebDetalle
 WHERE CampaniaID = @CampaniaID AND  
 	  PedidoID = @PedidoID AND  
 	  PedidoDetalleID = @PedidoDetalleID
-
+  
 /*consultora online*/
 IF (EXISTS(SELECT 1 FROM dbo.SolicitudClienteDetalle WHERE PedidoWebID = @PedidoID AND PedidoWebDetalleID = @PedidoDetalleID))
 begin
@@ -143,7 +143,7 @@ begin
 	END
 END
 /*consultora online*/
-  
+
 INSERT INTO PedidoWebDetalleSeguimiento
 VALUES
 (
@@ -183,6 +183,7 @@ BEGIN
 		NULL
 	)
 END
+
 
 /*end*/
 
@@ -217,7 +218,7 @@ DELETE FROM dbo.PedidoWebDetalle
 WHERE CampaniaID = @CampaniaID AND  
 	  PedidoID = @PedidoID AND  
 	  PedidoDetalleID = @PedidoDetalleID
-
+  
 /*consultora online*/
 IF (EXISTS(SELECT 1 FROM dbo.SolicitudClienteDetalle WHERE PedidoWebID = @PedidoID AND PedidoWebDetalleID = @PedidoDetalleID))
 begin
@@ -237,7 +238,7 @@ begin
 	END
 END
 /*consultora online*/
-  
+
 INSERT INTO PedidoWebDetalleSeguimiento
 VALUES
 (
@@ -277,6 +278,7 @@ BEGIN
 		NULL
 	)
 END
+
 /*end*/
 
 USE BelcorpMexico
@@ -330,7 +332,7 @@ begin
 	END
 END
 /*consultora online*/
-  
+
 INSERT INTO PedidoWebDetalleSeguimiento
 VALUES
 (
@@ -404,7 +406,7 @@ DELETE FROM dbo.PedidoWebDetalle
 WHERE CampaniaID = @CampaniaID AND  
 	  PedidoID = @PedidoID AND  
 	  PedidoDetalleID = @PedidoDetalleID
-
+  
 /*consultora online*/
 IF (EXISTS(SELECT 1 FROM dbo.SolicitudClienteDetalle WHERE PedidoWebID = @PedidoID AND PedidoWebDetalleID = @PedidoDetalleID))
 begin
@@ -424,7 +426,7 @@ begin
 	END
 END
 /*consultora online*/
-  
+
 INSERT INTO PedidoWebDetalleSeguimiento
 VALUES
 (
@@ -464,6 +466,7 @@ BEGIN
 		NULL
 	)
 END
+
 
 /*end*/
 
@@ -498,7 +501,7 @@ DELETE FROM dbo.PedidoWebDetalle
 WHERE CampaniaID = @CampaniaID AND  
 	  PedidoID = @PedidoID AND  
 	  PedidoDetalleID = @PedidoDetalleID
-
+  
 /*consultora online*/
 IF (EXISTS(SELECT 1 FROM dbo.SolicitudClienteDetalle WHERE PedidoWebID = @PedidoID AND PedidoWebDetalleID = @PedidoDetalleID))
 begin
@@ -518,7 +521,7 @@ begin
 	END
 END
 /*consultora online*/
-  
+
 INSERT INTO PedidoWebDetalleSeguimiento
 VALUES
 (
@@ -558,6 +561,7 @@ BEGIN
 		NULL
 	)
 END
+
 
 /*end*/
 
@@ -593,7 +597,7 @@ DELETE FROM dbo.PedidoWebDetalle
 WHERE CampaniaID = @CampaniaID AND  
 	  PedidoID = @PedidoID AND  
 	  PedidoDetalleID = @PedidoDetalleID
-
+  
 /*consultora online*/
 IF (EXISTS(SELECT 1 FROM dbo.SolicitudClienteDetalle WHERE PedidoWebID = @PedidoID AND PedidoWebDetalleID = @PedidoDetalleID))
 begin
@@ -613,7 +617,7 @@ begin
 	END
 END
 /*consultora online*/
-  
+
 INSERT INTO PedidoWebDetalleSeguimiento
 VALUES
 (
@@ -687,7 +691,7 @@ DELETE FROM dbo.PedidoWebDetalle
 WHERE CampaniaID = @CampaniaID AND  
 	  PedidoID = @PedidoID AND  
 	  PedidoDetalleID = @PedidoDetalleID
-
+  
 /*consultora online*/
 IF (EXISTS(SELECT 1 FROM dbo.SolicitudClienteDetalle WHERE PedidoWebID = @PedidoID AND PedidoWebDetalleID = @PedidoDetalleID))
 begin
@@ -707,7 +711,7 @@ begin
 	END
 END
 /*consultora online*/
-  
+
 INSERT INTO PedidoWebDetalleSeguimiento
 VALUES
 (
@@ -748,6 +752,7 @@ BEGIN
 	)
 END
 
+
 /*end*/
 
 USE BelcorpGuatemala
@@ -781,7 +786,7 @@ DELETE FROM dbo.PedidoWebDetalle
 WHERE CampaniaID = @CampaniaID AND  
 	  PedidoID = @PedidoID AND  
 	  PedidoDetalleID = @PedidoDetalleID
-
+  
 /*consultora online*/
 IF (EXISTS(SELECT 1 FROM dbo.SolicitudClienteDetalle WHERE PedidoWebID = @PedidoID AND PedidoWebDetalleID = @PedidoDetalleID))
 begin
@@ -801,7 +806,7 @@ begin
 	END
 END
 /*consultora online*/
-  
+
 INSERT INTO PedidoWebDetalleSeguimiento
 VALUES
 (
@@ -875,7 +880,7 @@ DELETE FROM dbo.PedidoWebDetalle
 WHERE CampaniaID = @CampaniaID AND  
 	  PedidoID = @PedidoID AND  
 	  PedidoDetalleID = @PedidoDetalleID
-
+  
 /*consultora online*/
 IF (EXISTS(SELECT 1 FROM dbo.SolicitudClienteDetalle WHERE PedidoWebID = @PedidoID AND PedidoWebDetalleID = @PedidoDetalleID))
 begin
@@ -895,7 +900,7 @@ begin
 	END
 END
 /*consultora online*/
-  
+
 INSERT INTO PedidoWebDetalleSeguimiento
 VALUES
 (
@@ -935,6 +940,8 @@ BEGIN
 		NULL
 	)
 END
+
+
 
 /*end*/
 
@@ -969,7 +976,7 @@ DELETE FROM dbo.PedidoWebDetalle
 WHERE CampaniaID = @CampaniaID AND  
 	  PedidoID = @PedidoID AND  
 	  PedidoDetalleID = @PedidoDetalleID
-
+  
 /*consultora online*/
 IF (EXISTS(SELECT 1 FROM dbo.SolicitudClienteDetalle WHERE PedidoWebID = @PedidoID AND PedidoWebDetalleID = @PedidoDetalleID))
 begin
@@ -989,7 +996,7 @@ begin
 	END
 END
 /*consultora online*/
-  
+
 INSERT INTO PedidoWebDetalleSeguimiento
 VALUES
 (
@@ -1029,6 +1036,8 @@ BEGIN
 		NULL
 	)
 END
+
+
 
 /*end*/
 
@@ -1063,7 +1072,7 @@ DELETE FROM dbo.PedidoWebDetalle
 WHERE CampaniaID = @CampaniaID AND  
 	  PedidoID = @PedidoID AND  
 	  PedidoDetalleID = @PedidoDetalleID
-
+  
 /*consultora online*/
 IF (EXISTS(SELECT 1 FROM dbo.SolicitudClienteDetalle WHERE PedidoWebID = @PedidoID AND PedidoWebDetalleID = @PedidoDetalleID))
 begin
@@ -1083,7 +1092,7 @@ begin
 	END
 END
 /*consultora online*/
-  
+
 INSERT INTO PedidoWebDetalleSeguimiento
 VALUES
 (
@@ -1123,6 +1132,7 @@ BEGIN
 		NULL
 	)
 END
+
 
 /*end*/
 
@@ -1157,7 +1167,7 @@ DELETE FROM dbo.PedidoWebDetalle
 WHERE CampaniaID = @CampaniaID AND  
 	  PedidoID = @PedidoID AND  
 	  PedidoDetalleID = @PedidoDetalleID
-
+  
 /*consultora online*/
 IF (EXISTS(SELECT 1 FROM dbo.SolicitudClienteDetalle WHERE PedidoWebID = @PedidoID AND PedidoWebDetalleID = @PedidoDetalleID))
 begin
@@ -1177,7 +1187,7 @@ begin
 	END
 END
 /*consultora online*/
-  
+
 INSERT INTO PedidoWebDetalleSeguimiento
 VALUES
 (
@@ -1217,3 +1227,4 @@ BEGIN
 		NULL
 	)
 END
+

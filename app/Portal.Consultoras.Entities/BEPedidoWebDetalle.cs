@@ -228,6 +228,9 @@ namespace Portal.Consultoras.Entities
                 MontoAhorroCatalogo = row["MontoAhorroCatalogo"] == DBNull.Value ? 0 : Convert.ToDecimal(row["MontoAhorroCatalogo"]);
             if (DataRecord.HasColumn(row, "MontoAhorroRevista"))
                 MontoAhorroRevista = row["MontoAhorroRevista"] == DBNull.Value ? 0 : Convert.ToDecimal(row["MontoAhorroRevista"]);
+
+            if (DataRecord.HasColumn(row, "OrigenPedidoWeb"))
+                OrigenPedidoWeb = row["OrigenPedidoWeb"] == DBNull.Value ? 0 : Convert.ToInt32(row["OrigenPedidoWeb"]);
         }
 
         public BEPedidoWebDetalle(IDataRecord row, string Consultora)
@@ -333,6 +336,9 @@ namespace Portal.Consultoras.Entities
                 MontoAhorroCatalogo = row["MontoAhorroCatalogo"] == DBNull.Value ? 0 : Convert.ToDecimal(row["MontoAhorroCatalogo"]);
             if (DataRecord.HasColumn(row, "MontoAhorroRevista"))
                 MontoAhorroRevista = row["MontoAhorroRevista"] == DBNull.Value ? 0 : Convert.ToDecimal(row["MontoAhorroRevista"]);
+
+            if (DataRecord.HasColumn(row, "OrigenPedidoWeb"))
+                OrigenPedidoWeb = row["OrigenPedidoWeb"] == DBNull.Value ? 0 : Convert.ToInt32(row["OrigenPedidoWeb"]);
         }
     }
 }

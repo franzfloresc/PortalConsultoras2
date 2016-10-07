@@ -218,10 +218,8 @@ namespace Portal.Consultoras.Web.Controllers
 
             ds.Tables.Add(dt);
 
-            string ambiente = ConfigurationManager.AppSettings["Ambiente"] ?? "";
-            var isoPais = userData.CodigoISO ?? "";
-            isoPais = ambiente.ToLower() == "QA".ToLower() ? "" : ("_" + isoPais);
-            var keyWeb = ambiente + "_Prol_ServicesCalculos" + isoPais;
+            var ambiente = ConfigurationManager.AppSettings["Ambiente"] ?? "";
+            var keyWeb = ambiente.ToUpper() == "QA" ? "QA_Prol_ServicesCalculos" : "PR_Prol_ServicesCalculos";
 
             var rtpa = new List<ObjMontosProl>();
             using (var sv = new ServicesCalculosPROL.ServicesCalculoPrecioNiveles())
@@ -601,6 +599,7 @@ namespace Portal.Consultoras.Web.Controllers
                 ViewBag.Simbolo = model.Simbolo;
                 string paisesConTrackingJetlore = ConfigurationManager.AppSettings.Get("PaisesConTrackingJetlore") ?? "";
                 ViewBag.PaisesConTrackingJetlore = paisesConTrackingJetlore.Contains(model.CodigoISO) ? "1" : "0";
+                ViewBag.EsCatalogoPersonalizadoZonaValida = model.EsCatalogoPersonalizadoZonaValida;
 
                 return model;
 
@@ -831,6 +830,7 @@ namespace Portal.Consultoras.Web.Controllers
                 ViewBag.Simbolo = model.Simbolo;
                 string paisesConTrackingJetlore = ConfigurationManager.AppSettings.Get("PaisesConTrackingJetlore") ?? "";
                 ViewBag.PaisesConTrackingJetlore = paisesConTrackingJetlore.Contains(model.CodigoISO) ? "1" : "0";
+                ViewBag.EsCatalogoPersonalizadoZonaValida = model.EsCatalogoPersonalizadoZonaValida;
 
                 return model;
 
@@ -901,6 +901,7 @@ namespace Portal.Consultoras.Web.Controllers
                 model.FechaLimPago = oBEUsuario.FechaLimPago;
                 model.VioVideoModelo = oBEUsuario.VioVideo;
                 model.VioTutorialModelo = oBEUsuario.VioTutorial;
+                model.VioTutorialDesktop = oBEUsuario.VioTutorialDesktop;
                 model.HabilitarRestriccionHoraria = oBEUsuario.HabilitarRestriccionHoraria;
                 model.IndicadorPermisoFIC = oBEUsuario.IndicadorPermisoFIC;
                 model.HorasDuracionRestriccion = oBEUsuario.HorasDuracionRestriccion;
@@ -986,6 +987,7 @@ namespace Portal.Consultoras.Web.Controllers
                 model.ZonaNuevoPROL = oBEUsuario.ZonaNuevoPROL;
                 model.EMailActivo = oBEUsuario.EMailActivo;
                 model.EMail = oBEUsuario.EMail;
+                model.EstadoSimplificacionCUV = oBEUsuario.EstadoSimplificacionCUV;
                 model.EsquemaDAConsultora = oBEUsuario.EsquemaDAConsultora;
 
                 List<TipoLinkModel> lista = GetLinksPorPais(model.PaisID);
@@ -1011,6 +1013,7 @@ namespace Portal.Consultoras.Web.Controllers
                 model.OfertaFinal = oBEUsuario.OfertaFinal;
                 model.EsOfertaFinalZonaValida = oBEUsuario.EsOfertaFinalZonaValida;
                 model.CatalogoPersonalizado = oBEUsuario.CatalogoPersonalizado;
+                model.EsCatalogoPersonalizadoZonaValida = oBEUsuario.EsCatalogoPersonalizadoZonaValida;
             }
             Session["UserData"] = model;
 
@@ -1153,10 +1156,11 @@ namespace Portal.Consultoras.Web.Controllers
             return Tiene;
         }
 
-        private void CargarEntidadesShowRoom(UsuarioModel model)
+        protected void CargarEntidadesShowRoom(UsuarioModel model)
         {
-            if (model == null) return;
             if (model.CargoEntidadesShowRoom) return;
+
+            Session["EsShowRoom"] = "0";
 
             var paisesShowRoom = ConfigurationManager.AppSettings["PaisesShowRoom"];
             if (paisesShowRoom.Contains(model.CodigoISO))
@@ -1167,6 +1171,31 @@ namespace Portal.Consultoras.Web.Controllers
                     {
                         model.BeShowRoomConsultora = sv.GetShowRoomConsultora(model.PaisID, model.CampaniaID, model.CodigoConsultora);
                         model.BeShowRoom = sv.GetShowRoomEventoByCampaniaID(model.PaisID, model.CampaniaID);
+
+                        if (model.BeShowRoom != null)
+                        {
+                            var carpetaPais = Globals.UrlMatriz + "/" + model.CodigoISO;
+
+                            model.BeShowRoom.Imagen1 = string.IsNullOrEmpty(model.BeShowRoom.Imagen1)
+                                ? "" : ConfigS3.GetUrlFileS3(carpetaPais, model.BeShowRoom.Imagen1, Globals.RutaImagenesMatriz + "/" + model.CodigoISO);
+                            model.BeShowRoom.Imagen2 = string.IsNullOrEmpty(model.BeShowRoom.Imagen2)
+                                ? "" : ConfigS3.GetUrlFileS3(carpetaPais, model.BeShowRoom.Imagen2, Globals.RutaImagenesMatriz + "/" + model.CodigoISO);
+                            model.BeShowRoom.ImagenCabeceraProducto = string.IsNullOrEmpty(model.BeShowRoom.ImagenCabeceraProducto)
+                                ? "" : ConfigS3.GetUrlFileS3(carpetaPais, model.BeShowRoom.ImagenCabeceraProducto, Globals.RutaImagenesMatriz + "/" + model.CodigoISO);
+                            model.BeShowRoom.ImagenVentaSetPopup = string.IsNullOrEmpty(model.BeShowRoom.ImagenVentaSetPopup)
+                                ? "" : ConfigS3.GetUrlFileS3(carpetaPais, model.BeShowRoom.ImagenVentaSetPopup, Globals.RutaImagenesMatriz + "/" + model.CodigoISO);
+                            model.BeShowRoom.ImagenVentaTagLateral = string.IsNullOrEmpty(model.BeShowRoom.ImagenVentaTagLateral)
+                                ? "" : ConfigS3.GetUrlFileS3(carpetaPais, model.BeShowRoom.ImagenVentaTagLateral, Globals.RutaImagenesMatriz + "/" + model.CodigoISO);
+                            model.BeShowRoom.ImagenPestaniaShowRoom = string.IsNullOrEmpty(model.BeShowRoom.ImagenPestaniaShowRoom)
+                                ? "" : ConfigS3.GetUrlFileS3(carpetaPais, model.BeShowRoom.ImagenPestaniaShowRoom, Globals.RutaImagenesMatriz + "/" + model.CodigoISO);
+                            model.BeShowRoom.ImagenPreventaDigital = string.IsNullOrEmpty(model.BeShowRoom.ImagenPreventaDigital)
+                                ? "" : ConfigS3.GetUrlFileS3(carpetaPais, model.BeShowRoom.ImagenPreventaDigital, Globals.RutaImagenesMatriz + "/" + model.CodigoISO);
+
+                            if (model.BeShowRoomConsultora != null)
+                            {
+                                Session["EsShowRoom"] = "1";
+                            }
+                        }
                     }
                     model.CargoEntidadesShowRoom = true;
                 }

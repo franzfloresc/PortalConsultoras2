@@ -320,6 +320,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     #region foreach
                     string mailBody = string.Empty;
+
                     mailBody += "<table width=\"100%\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\">";
                     mailBody += "<tr>";
                     mailBody += "<td width=\"100%\" style=\"height: 50px; background:#6C207F;\">&nbsp;</td>";
@@ -493,7 +494,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                             #endregion
 
-                        else 
+                        else
                             mailBody += "<td width=\"98\" style=\"text-align:center;\"><a href=\"" + "http://www.lbel.com" + "\" style=\"color:#333;\">LBel</a></td>";
                     }
                     if (item.Esika == "1")

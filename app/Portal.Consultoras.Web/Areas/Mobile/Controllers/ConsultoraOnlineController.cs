@@ -461,7 +461,8 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             var consultoraOnlineMisPedidos = (MisPedidosModel)Session["objMisPedidos"];
 
             var pedido = consultoraOnlineMisPedidos.ListaPedidos.FirstOrDefault(p => p.PedidoId == pedidoId);
-            ViewBag.Simbolo = UserData().Simbolo;
+            ViewBag.Simbolo = userData.Simbolo;
+            ViewBag.NombreCompleto = userData.NombreConsultora;
 
             return View("DetallePedido", pedido);
         }
@@ -493,9 +494,9 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             }
 
             #region AceptarPedido
-
+                        
             int paisId = UserData().PaisID;
-            string MensajeaCliente = "Gracias por haberme escogido como tu Consultora. Me pondré en contacto contigo para coordinar la hora y lugar de entrega.";
+            var mensajeaCliente = string.Format("Gracias por haber escogido a {0} como tu Consultora. Pronto se pondrá en contacto contigo para coordinar la hora y lugar de entrega.",userData.NombreConsultora);
             try
             {
                 using (ServiceSAC.SACServiceClient sc = new ServiceSAC.SACServiceClient())
@@ -649,6 +650,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 }
 
                 //Inicio GR-1385
+                string emailDe = ConfigurationManager.AppSettings["ConsultoraOnlineEmailDe"];
 
                 if (pedido.FlagMedio == "01")
                 {
@@ -788,8 +790,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
                     try
                     {
-                        Common.Util.EnviarMail3(UserData().EMail, pedido.Email, titulocliente,
-                            mensajecliente.ToString(), true, pedido.Email);
+                        Common.Util.EnviarMail3Mobile(emailDe, pedido.Email, titulocliente, mensajecliente.ToString(), true, pedido.Email);
                     }
                     catch (Exception ex)
                     {
@@ -798,25 +799,23 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 }
                 else
                 {
-                    //R2548 - CS
-                    String titulo = "(" + UserData().CodigoISO + ") Consultora que atenderá tu pedido de " + HttpUtility.HtmlDecode(marcaPedido); //Marca
-                    StringBuilder mensaje = new StringBuilder();
+                    var titulo = "(" + userData.CodigoISO + ") Consultora que atenderá tu pedido de " + HttpUtility.HtmlDecode(marcaPedido); //Marca
+                    var mensaje = new StringBuilder();
                     mensaje.AppendFormat("<p>Hola {0},</br><br /><br />", HttpUtility.HtmlDecode(pedido.Cliente));
-                    mensaje.AppendFormat("{0}</p><br/>", MensajeaCliente);
+                    mensaje.AppendFormat("{0}</p><br/>", mensajeaCliente);
                     mensaje.Append("<br/>Saludos,<br/><br />");
                     mensaje.Append("<table><tr><td><img src=\"cid:{0}\" /></td>");
-                    mensaje.AppendFormat("<td><p style='text-align: center;'><strong>{0}<br/>Consultora</strong></p></td></tr></table>", UserData().NombreConsultora);
+                    mensaje.AppendFormat("<td><p style='text-align: center;'><strong>{0}<br/>{1}<br/>Consultora</strong></p></td></tr></table>", userData.NombreConsultora, userData.EMail);
 
                     try
-                    {
-                        Common.Util.EnviarMail3(UserData().EMail, pedido.Email, titulo, mensaje.ToString(), true, string.Empty);
+                    {                    
+                        Util.EnviarMail3Mobile(emailDe, pedido.Email, titulo, mensaje.ToString(), true, string.Empty);
                     }
                     catch (Exception ex)
                     {
                         LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
                     }
                 }
-
                 return Json(new
                 {
                     success = true,
