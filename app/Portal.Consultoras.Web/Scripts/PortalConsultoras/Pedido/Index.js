@@ -26,10 +26,9 @@ $(document).ready(function () {
 
     AnalyticsBannersInferioresImpression();
     $('#salvavidaTutorial').show();
-    $(".abrir_tutorial").click(function () {
-        abrir_popup_tutorial();
+    $("#salvavidaTutorial").click(function () {
+        abrir_popup_tutorial(true);
     });
-
     $(".cerrar_tutorial").click(function () {
         cerrar_popup_tutorial();
     });
