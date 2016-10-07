@@ -1915,7 +1915,7 @@ function InsertarPedidoCuvBanner(CUVpedido, CantCUVpedido) {
         url: baseUrl + 'Pedido/InsertarPedidoCuvBanner',
         dataType: 'json',
         contentType: 'application/json; charset=utf-8',
-        |: JSON.stringify(item),
+        data: JSON.stringify(item),
         async: true,
         success: function (result) {
             if (!checkTimeout(result)) {

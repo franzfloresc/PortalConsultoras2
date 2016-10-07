@@ -809,7 +809,7 @@ function AgregarProductoZonaEstrategia(tipoEstrategiaImagen) {
 
             if (data.success != true) {
                 CerrarSplash();
-                alert_msg_pedido(data.message);
+                alert_msg(data.message);
                 return false;
             }
             
@@ -2293,7 +2293,7 @@ function AgregarProductoDestacado(popup, tipoEstrategiaImagen) {
 
                         if (data.success != true) {
                             CerrarSplash();
-                            alert_msg_pedido(data.message);
+                            alert_msg(data.message);
                             return false;
                         }
 
