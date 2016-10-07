@@ -20,7 +20,7 @@ $(document).ready(function() {
 
     $('#salvavidaTutorial').show();
 
-    $(".abrir_tutorial").click(function() {
+    $("#salvavidaTutorial").click(function () {
         abrir_popup_tutorial(true);
     });
     $(".cerrar_tutorial").click(function() {
