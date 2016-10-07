@@ -32,6 +32,10 @@
 <div class="content_belcorp">
     <div class="pestana_lbel"></div><!--PESTAÑA PARA DARLE ESTILO CON LBEL-->
     <div class="content_left_pagos">
+        @using (Html.BeginForm("", "", FormMethod.Post, new { id = "frmConsultoraOnline" }))
+        {
+            <input type="hidden" name="lanzarTabConsultoraOnline" value="true">
+        }
 
         <!--CONTENIDO DE TITULO -->
         <a role="menu" region="Superior" title="Notificaciones" id="lnk-sup-notificacion" style="cursor:default!important;">
@@ -40,7 +44,6 @@
         </a>
         @if (sinLeer > 0)
         {
-
             <div class="aviso_mensajes">TIENES <span class="js-notificaciones2">@sinLeer</span> MENSAJES SIN LEER</div>
         }
         else
@@ -183,8 +186,9 @@
 </div>
 
 @section scripts{
-    <script type="text/javascript">
-        var urlMisPedidos = '@Url.Action("MisPedidos", "ConsultoraOnline")'; //GR-723
+    <script>
+        var urlPedidoConsultoraOnline = '@Url.Action("", "Pedido")';
+        var urlMisPedidosClienteOnline = '@Url.Action("", "MisPedidos")';
     </script>
     <script src="@Url.Content("~/Scripts/PortalConsultoras/Notificaciones/Index.js")"></script>
 }

@@ -166,6 +166,18 @@ namespace Portal.Consultoras.Data
             Context.ExecuteReader(command);
         }
 
+
+        public void UpdSolicitudClienteDetalle(long solicitudClienteDetalleId, int tipoAtencion, int pedidoWebID, int pedidoWebDetalleID)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.UpdSolicitudClienteDetalle_SB2");
+            Context.Database.AddInParameter(command, "@SolicitudDetalleId", DbType.Int64, solicitudClienteDetalleId);
+            Context.Database.AddInParameter(command, "@TipoAtencion", DbType.Int32, tipoAtencion);
+            Context.Database.AddInParameter(command, "@PedidoWebID", DbType.Int32, pedidoWebID);
+            Context.Database.AddInParameter(command, "@PedidoWebDetalleID", DbType.Int32, pedidoWebDetalleID);
+
+            Context.ExecuteReader(command);
+        }
+
         public void RechazarSolicitudCliente(long solicitudId, bool definitivo, int opcionRechazo, string razonMotivoRechazo)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.UpdRechazarSolicitud");
@@ -193,13 +205,19 @@ namespace Portal.Consultoras.Data
 
         public void CancelarSolicitudCliente(long solicitudId, int opcionCancelacion, string razonMotivoCancelacion)
         {
-            DbCommand command = Context.Database.GetStoredProcCommand("dbo.CancelarSolicitudCliente");
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.CancelarSolicitudCliente_SB2");
             Context.Database.AddInParameter(command, "@SolicitudId", DbType.Int64, solicitudId);
             Context.Database.AddInParameter(command, "@MotivoSolicitudId", DbType.Int32, opcionCancelacion);
             Context.Database.AddInParameter(command, "@RazonMotivoSolicitud", DbType.String, razonMotivoCancelacion);
             
             Context.ExecuteReader(command);
-        } 
+        }
+
+        public IDataReader GetMotivosRechazo()
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetMotivosRechazo_SB2");
+            return Context.ExecuteReader(command);
+        }
 
 
         /* R2319 - AAHA 02022015 - Parte 6 - Inicio */

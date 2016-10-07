@@ -2661,6 +2661,12 @@ namespace Portal.Consultoras.Web.ServiceODS {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IODSService/GetConsultoraIdByCodigo", ReplyAction="http://tempuri.org/IODSService/GetConsultoraIdByCodigoResponse")]
         System.Threading.Tasks.Task<long> GetConsultoraIdByCodigoAsync(int paisID, string CodigoConsultora);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IODSService/GetValidarCUVMisPedidos", ReplyAction="http://tempuri.org/IODSService/GetValidarCUVMisPedidosResponse")]
+        Portal.Consultoras.Web.ServiceODS.BEProducto[] GetValidarCUVMisPedidos(int PaisID, int Campania, string InputCUV, int RegionID, int ZonaID, string CodigoRegion, string CodigoZona);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IODSService/GetValidarCUVMisPedidos", ReplyAction="http://tempuri.org/IODSService/GetValidarCUVMisPedidosResponse")]
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceODS.BEProducto[]> GetValidarCUVMisPedidosAsync(int PaisID, int Campania, string InputCUV, int RegionID, int ZonaID, string CodigoRegion, string CodigoZona);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IODSService/SelectConsultoraDatos", ReplyAction="http://tempuri.org/IODSService/SelectConsultoraDatosResponse")]
         Portal.Consultoras.Web.ServiceODS.BEConsultoraDD[] SelectConsultoraDatos(int paisID, string codigoZona, string codigoSeccion, string codigoConsultora, string nombreConsultora);
         
@@ -2887,6 +2893,14 @@ namespace Portal.Consultoras.Web.ServiceODS {
         
         public System.Threading.Tasks.Task<long> GetConsultoraIdByCodigoAsync(int paisID, string CodigoConsultora) {
             return base.Channel.GetConsultoraIdByCodigoAsync(paisID, CodigoConsultora);
+        }
+        
+        public Portal.Consultoras.Web.ServiceODS.BEProducto[] GetValidarCUVMisPedidos(int PaisID, int Campania, string InputCUV, int RegionID, int ZonaID, string CodigoRegion, string CodigoZona) {
+            return base.Channel.GetValidarCUVMisPedidos(PaisID, Campania, InputCUV, RegionID, ZonaID, CodigoRegion, CodigoZona);
+        }
+        
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceODS.BEProducto[]> GetValidarCUVMisPedidosAsync(int PaisID, int Campania, string InputCUV, int RegionID, int ZonaID, string CodigoRegion, string CodigoZona) {
+            return base.Channel.GetValidarCUVMisPedidosAsync(PaisID, Campania, InputCUV, RegionID, ZonaID, CodigoRegion, CodigoZona);
         }
         
         public Portal.Consultoras.Web.ServiceODS.BEConsultoraDD[] SelectConsultoraDatos(int paisID, string codigoZona, string codigoSeccion, string codigoConsultora, string nombreConsultora) {

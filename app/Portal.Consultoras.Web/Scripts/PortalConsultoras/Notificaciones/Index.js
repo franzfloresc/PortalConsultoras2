@@ -4,20 +4,15 @@
 function VisualizarPopup(ProcesoId, Observaciones, Estado, FacturaHoy, DiaFact, MesFact, Visualizado, Asunto, Proceso, EsMontoMinimo, obj) {
     waitingDialog({});
 
-    var TipoOrigen = 1;
-    if (Proceso == "VALAUTO")
-        TipoOrigen = 1;
-    else
-        if (Proceso == "VALMOVIL")
-            TipoOrigen = 2;
-        else
-            TipoOrigen = 3;
-    //R2319 - JLCS
-    if (Proceso == "BUSCACONS")
-        TipoOrigen = 4;
-
-    if (Proceso == "CATALOGO")
-        TipoOrigen = 5;
+    var TipoOrigen;
+    switch (Proceso)
+    {
+        case "VALAUTO": TipoOrigen = 1; break;
+        case "VALMOVIL": TipoOrigen = 2; break;
+        case "BUSCACONS": TipoOrigen = 4; break;
+        case "CATALOGO": TipoOrigen = 5; break;
+        default: TipoOrigen = 3; break;
+    }
 
     if (Visualizado == "False") {
         $.ajaxSetup({ cache: false });
@@ -35,7 +30,9 @@ function VisualizarPopup(ProcesoId, Observaciones, Estado, FacturaHoy, DiaFact, 
 
     //R2319 - JLCS
     if (TipoOrigen == 4) {
-        location.href = urlMisPedidos; //GR-723
+        var frmConsultoraOnline = $('#frmConsultoraOnline');
+        frmConsultoraOnline.attr("action", Estado == 0 ? urlPedidoConsultoraOnline : urlMisPedidosClienteOnline);
+        frmConsultoraOnline.submit();
     }
     else if (TipoOrigen == 5) {
         $.ajaxSetup({ cache: false });
@@ -104,7 +101,6 @@ function VisualizarPopup(ProcesoId, Observaciones, Estado, FacturaHoy, DiaFact, 
                 closeWaitingDialog();
             }
         }).error(function (jqXHR, textStatus, errorThrown) { closeWaitingDialog(); });
-
     }
 
 }
