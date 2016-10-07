@@ -29029,15 +29029,19 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
 .sub_descripcion_oferta {
     width: 55%;
     height: 55px;
-    line-height: 55px;
+    /*line-height: 55px;*/
     text-align:left;
     /* padding-top: 8%; */
     /* padding-bottom: 8%; */
     border-bottom: 1px solid #dadada;
-    float: left;
+    /*float: left;*/
     font-family: 'Lato';
     font-size: 13px;
-    color: black
+    color: black;    
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    flex-direction: column;
 }
 .item1_oferta_personalizada  .sub_descripcion_oferta:last-child{
     border-bottom:0;

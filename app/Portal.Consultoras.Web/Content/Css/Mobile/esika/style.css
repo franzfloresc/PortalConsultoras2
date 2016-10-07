@@ -8624,6 +8624,10 @@ a:focus, a:hover {
     font-family:'Lato';
     font-size:13px;
     color:black;
+    /*display: flex;
+    justify-content: center;
+    align-content: center;
+    flex-direction: column;*/
     }
 .left_70{
     float:left;
