@@ -1347,8 +1347,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                     try
                     {
-                        Common.Util.EnviarMail3(emailDe, pedido.Email, titulocliente,
-                            mensajecliente.ToString(), true, pedido.Email);
+                        Common.Util.EnviarMail3(emailDe, pedido.Email, titulocliente,mensajecliente.ToString(), true, pedido.Email);
                     }
                     catch (Exception ex)
                     {

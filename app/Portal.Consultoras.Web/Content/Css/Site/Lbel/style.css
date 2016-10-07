@@ -2679,7 +2679,7 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido{
 }
 
 .bordespacive{
-    border-bottom: 2px solid white;
+    /*border-bottom: 2px solid white;*/
     border-left: 1px solid;
     border-right: 1px solid;
     border-top: 1px solid;
@@ -2851,7 +2851,7 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido{
 .paginador_pedidos{
     display:block;
     width:100%;
-    height:30px;
+    /*height:30px;*/
     margin-top:25px;
     margin-bottom:100px;
 }
@@ -3506,7 +3506,7 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
 .boton_elegirAgregar{
     display:block;
     margin:0 auto;
-    width:139px;
+    width:138px;
     height:45px;
     line-height:43px;
     background:#FFF;
@@ -20202,7 +20202,7 @@ label.checkpop.c_on {
      color:#f11935 !important;   
 }
 .agotado_carrusel {
-        width: 100%;
+    width:100%;
     height: 75px;
     font-size: 14px;
     font-family: 'Lato';
@@ -21499,19 +21499,7 @@ label.checkpop.c_on {
     box-sizing: border-box;
     /* padding-left: 5%; */
 }
-.imagen_2_lugares{
-    background: url("../../../Images/Lbel/lugares_pago.png") no-repeat !important;
-    background-position: 18% 7px !important;
-}
-.imagen_3_factura{
-    background: url("../../../Images/Lbel/facturacion_electronica.png") no-repeat !important;
-    background-position: 9% 7px !important;
-}
 
-.imagen_4_percepciones{
-    background: url("../../../Images/Lbel/icono_percepciones.png") no-repeat !important;
-    background-position: 18% 7px !important;
-}
 
 .tabs_pagos li a img{
   display: inline-block;
@@ -21521,23 +21509,23 @@ label.checkpop.c_on {
 
 
 .two:hover ~ hr {
-  margin-left: 25.6%;
+  margin-left: 25%;
 }
 
 .three:hover ~ hr {
-  margin-left: 49.9%;
+  margin-left: 50%;
 }
 
 .four:hover ~ hr {
-  margin-left: 74.2%;
+  margin-left: 75%;
 }
 
 hr{
   height: .25rem;
   /*width: 30%;*/
-  width:24%;
+  width:25%;
   text-align: left;
-  margin: 0 0 0 1.35%;
+  margin:0;
   background: #693484;
   border: none;
   transition: .3s ease-in-out;
@@ -21548,7 +21536,7 @@ hr{
     position: absolute;
     background: #693484;
     width: 100%;
-    left:5.5%;
+    left:0;
     height: 4px;
     bottom: -4px;
 }
@@ -30336,4 +30324,3 @@ h1#penmostreo .campana {
 
 
 }
-

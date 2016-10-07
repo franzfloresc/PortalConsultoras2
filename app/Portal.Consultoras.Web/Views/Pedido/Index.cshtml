@@ -897,9 +897,9 @@
                 <div class="bloque_descripciones">
                     <h6 class="descripcion_principal"><b><span id="spnSubTituloOfertaFinal">Consigue más ganancias agregando uno de estos productos</span></b></h6>
                     @*<span class="enlace_catalogos">
-                            También puedes buscarlo en tus
-                            <a href="#" title="Tus Catálogos">TUS CATÁLOGOS</a>
-                        </span>*@
+                        También puedes buscarlo en tus
+                        <a href="#" title="Tus Catálogos">TUS CATÁLOGOS</a>
+                    </span>*@
                     <button name="btn_noGracias_agregarProductos" class="btn_noGracias_agregarProductos" id="btnNoGraciasOfertaFinal">
                         NO, GRACIAS
                     </button>
@@ -952,12 +952,12 @@
         <div class="popup_agregarUnidades">
             
             <div class="btn_cerrar_agregarUnidades">
-                <a id="aceptandoPendientes_aaa" onclick="$('#dialog_mensajeComoAtender').hide()">
+                <a id="aceptandoPendientes_1" onclick="$('#dialog_mensajeComoAtender').hide()">
                     <img src="/Content/Images/btn_cerrar_popup.svg" alt="Cerrar">
                 </a>
             </div>
             <div class="contenido_popUp aceptaPedido">
-                <div class="icono_exclamacion" id="apro_o_excla_aaa"></div>
+                <div class="icono_exclamacion" id="apro_o_excla_1"></div>
                 <h1 class="titulo_agregarUnidades"><b>IMPORTANTE</b></h1>
                 <span class="mensaje_agregarUnidades">Por favor elige cómo atenderas todos los productos del pedido.</span>
                 <button type="button" class="btn_ok ok_aceptaPedido" onclick="$('#dialog_mensajeComoAtender').hide()">
@@ -1488,11 +1488,11 @@
             	{{else if_eq OrigenPedidoWeb '@Constantes.OrigenPedidoWeb.MobilePedidoOfertaFinal'}}
             	{{else if_eq ConfiguracionOfertaID '@Constantes.TipoOferta.Liquidacion'}}
             	<span class="texto_pedidos_ofertas">
-                	<label>OFERTA LIQUIDACIÓN</label>
-	            </span>
-	            {{else if_eq ConfiguracionOfertaID '@Constantes.TipoOferta.Flexipago'}}
-            	<span class="texto_pedidos_ofertas">
-                	<label>OFERTA FLEXIPLAGO</label>
+                <label>OFERTA LIQUIDACIÓN</label>
+            </span>
+            {{else if_eq ConfiguracionOfertaID '@Constantes.TipoOferta.Flexipago'}}
+            <span class="texto_pedidos_ofertas">
+                <label>OFERTA FLEXIPLAGO</label>
             	</span>
             	{{else if_eq TipoOfertaSisID '@Constantes.ConfiguracionOferta.ShowRoom'}}
             	<span class="texto_pedidos_ofertas">
@@ -1507,7 +1507,7 @@
                 	{{/iff}}
             	</span>
             	{{/IsNullOrEmpty}}
-            	{{/if_eq}}
+            {{/if_eq}}
             {{/if_eq}}
 
             {{#if_eq TipoPedido 'M'}}

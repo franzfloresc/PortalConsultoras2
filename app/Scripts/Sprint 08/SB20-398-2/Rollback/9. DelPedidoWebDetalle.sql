@@ -30,26 +30,6 @@ WHERE CampaniaID = @CampaniaID AND
 	  PedidoID = @PedidoID AND  
 	  PedidoDetalleID = @PedidoDetalleID
 
-/*consultora online*/
-IF (EXISTS(SELECT 1 FROM dbo.SolicitudClienteDetalle WHERE PedidoWebID = @PedidoID AND PedidoWebDetalleID = @PedidoDetalleID))
-begin
-	UPDATE dbo.SolicitudClienteDetalle 
-	SET PedidoWebID = 0, PedidoWebDetalleID = 0 
-	WHERE PedidoWebID = @PedidoID AND PedidoWebDetalleID = @PedidoDetalleID
-	
-	DECLARE @restan INT
-
-	SET @restan = (
-		SELECT ISNULL(count(PedidoWebID),0) FROM SolicitudClienteDetalle 
-		WHERE PedidoWebID = @PedidoID AND ISNULL(PedidoWebDetalleID,0) <> 0)
-
-	IF (@restan = 0)
-	BEGIN
-		UPDATE SolicitudCliente SET PedidoWebID = 0 WHERE PedidoWebID = @PedidoID
-	END
-END
-/*consultora online*/
-  
 INSERT INTO PedidoWebDetalleSeguimiento
 VALUES
 (
@@ -124,26 +104,6 @@ WHERE CampaniaID = @CampaniaID AND
 	  PedidoID = @PedidoID AND  
 	  PedidoDetalleID = @PedidoDetalleID
   
-/*consultora online*/
-IF (EXISTS(SELECT 1 FROM dbo.SolicitudClienteDetalle WHERE PedidoWebID = @PedidoID AND PedidoWebDetalleID = @PedidoDetalleID))
-begin
-	UPDATE dbo.SolicitudClienteDetalle 
-	SET PedidoWebID = 0, PedidoWebDetalleID = 0 
-	WHERE PedidoWebID = @PedidoID AND PedidoWebDetalleID = @PedidoDetalleID
-	
-	DECLARE @restan INT
-
-	SET @restan = (
-		SELECT ISNULL(count(PedidoWebID),0) FROM SolicitudClienteDetalle 
-		WHERE PedidoWebID = @PedidoID AND ISNULL(PedidoWebDetalleID,0) <> 0)
-
-	IF (@restan = 0)
-	BEGIN
-		UPDATE SolicitudCliente SET PedidoWebID = 0 WHERE PedidoWebID = @PedidoID
-	END
-END
-/*consultora online*/
-
 INSERT INTO PedidoWebDetalleSeguimiento
 VALUES
 (
@@ -218,27 +178,7 @@ DELETE FROM dbo.PedidoWebDetalle
 WHERE CampaniaID = @CampaniaID AND  
 	  PedidoID = @PedidoID AND  
 	  PedidoDetalleID = @PedidoDetalleID
-  
-/*consultora online*/
-IF (EXISTS(SELECT 1 FROM dbo.SolicitudClienteDetalle WHERE PedidoWebID = @PedidoID AND PedidoWebDetalleID = @PedidoDetalleID))
-begin
-	UPDATE dbo.SolicitudClienteDetalle 
-	SET PedidoWebID = 0, PedidoWebDetalleID = 0 
-	WHERE PedidoWebID = @PedidoID AND PedidoWebDetalleID = @PedidoDetalleID
-	
-	DECLARE @restan INT
-
-	SET @restan = (
-		SELECT ISNULL(count(PedidoWebID),0) FROM SolicitudClienteDetalle 
-		WHERE PedidoWebID = @PedidoID AND ISNULL(PedidoWebDetalleID,0) <> 0)
-
-	IF (@restan = 0)
-	BEGIN
-		UPDATE SolicitudCliente SET PedidoWebID = 0 WHERE PedidoWebID = @PedidoID
-	END
-END
-/*consultora online*/
-
+ 
 INSERT INTO PedidoWebDetalleSeguimiento
 VALUES
 (
@@ -313,26 +253,6 @@ WHERE CampaniaID = @CampaniaID AND
 	  PedidoID = @PedidoID AND  
 	  PedidoDetalleID = @PedidoDetalleID
 
-/*consultora online*/
-IF (EXISTS(SELECT 1 FROM dbo.SolicitudClienteDetalle WHERE PedidoWebID = @PedidoID AND PedidoWebDetalleID = @PedidoDetalleID))
-begin
-	UPDATE dbo.SolicitudClienteDetalle 
-	SET PedidoWebID = 0, PedidoWebDetalleID = 0 
-	WHERE PedidoWebID = @PedidoID AND PedidoWebDetalleID = @PedidoDetalleID
-	
-	DECLARE @restan INT
-
-	SET @restan = (
-		SELECT ISNULL(count(PedidoWebID),0) FROM SolicitudClienteDetalle 
-		WHERE PedidoWebID = @PedidoID AND ISNULL(PedidoWebDetalleID,0) <> 0)
-
-	IF (@restan = 0)
-	BEGIN
-		UPDATE SolicitudCliente SET PedidoWebID = 0 WHERE PedidoWebID = @PedidoID
-	END
-END
-/*consultora online*/
-
 INSERT INTO PedidoWebDetalleSeguimiento
 VALUES
 (
@@ -406,26 +326,6 @@ DELETE FROM dbo.PedidoWebDetalle
 WHERE CampaniaID = @CampaniaID AND  
 	  PedidoID = @PedidoID AND  
 	  PedidoDetalleID = @PedidoDetalleID
-  
-/*consultora online*/
-IF (EXISTS(SELECT 1 FROM dbo.SolicitudClienteDetalle WHERE PedidoWebID = @PedidoID AND PedidoWebDetalleID = @PedidoDetalleID))
-begin
-	UPDATE dbo.SolicitudClienteDetalle 
-	SET PedidoWebID = 0, PedidoWebDetalleID = 0 
-	WHERE PedidoWebID = @PedidoID AND PedidoWebDetalleID = @PedidoDetalleID
-	
-	DECLARE @restan INT
-
-	SET @restan = (
-		SELECT ISNULL(count(PedidoWebID),0) FROM SolicitudClienteDetalle 
-		WHERE PedidoWebID = @PedidoID AND ISNULL(PedidoWebDetalleID,0) <> 0)
-
-	IF (@restan = 0)
-	BEGIN
-		UPDATE SolicitudCliente SET PedidoWebID = 0 WHERE PedidoWebID = @PedidoID
-	END
-END
-/*consultora online*/
 
 INSERT INTO PedidoWebDetalleSeguimiento
 VALUES
@@ -502,26 +402,6 @@ WHERE CampaniaID = @CampaniaID AND
 	  PedidoID = @PedidoID AND  
 	  PedidoDetalleID = @PedidoDetalleID
   
-/*consultora online*/
-IF (EXISTS(SELECT 1 FROM dbo.SolicitudClienteDetalle WHERE PedidoWebID = @PedidoID AND PedidoWebDetalleID = @PedidoDetalleID))
-begin
-	UPDATE dbo.SolicitudClienteDetalle 
-	SET PedidoWebID = 0, PedidoWebDetalleID = 0 
-	WHERE PedidoWebID = @PedidoID AND PedidoWebDetalleID = @PedidoDetalleID
-	
-	DECLARE @restan INT
-
-	SET @restan = (
-		SELECT ISNULL(count(PedidoWebID),0) FROM SolicitudClienteDetalle 
-		WHERE PedidoWebID = @PedidoID AND ISNULL(PedidoWebDetalleID,0) <> 0)
-
-	IF (@restan = 0)
-	BEGIN
-		UPDATE SolicitudCliente SET PedidoWebID = 0 WHERE PedidoWebID = @PedidoID
-	END
-END
-/*consultora online*/
-
 INSERT INTO PedidoWebDetalleSeguimiento
 VALUES
 (
@@ -598,26 +478,6 @@ WHERE CampaniaID = @CampaniaID AND
 	  PedidoID = @PedidoID AND  
 	  PedidoDetalleID = @PedidoDetalleID
   
-/*consultora online*/
-IF (EXISTS(SELECT 1 FROM dbo.SolicitudClienteDetalle WHERE PedidoWebID = @PedidoID AND PedidoWebDetalleID = @PedidoDetalleID))
-begin
-	UPDATE dbo.SolicitudClienteDetalle 
-	SET PedidoWebID = 0, PedidoWebDetalleID = 0 
-	WHERE PedidoWebID = @PedidoID AND PedidoWebDetalleID = @PedidoDetalleID
-	
-	DECLARE @restan INT
-
-	SET @restan = (
-		SELECT ISNULL(count(PedidoWebID),0) FROM SolicitudClienteDetalle 
-		WHERE PedidoWebID = @PedidoID AND ISNULL(PedidoWebDetalleID,0) <> 0)
-
-	IF (@restan = 0)
-	BEGIN
-		UPDATE SolicitudCliente SET PedidoWebID = 0 WHERE PedidoWebID = @PedidoID
-	END
-END
-/*consultora online*/
-
 INSERT INTO PedidoWebDetalleSeguimiento
 VALUES
 (
@@ -692,26 +552,6 @@ WHERE CampaniaID = @CampaniaID AND
 	  PedidoID = @PedidoID AND  
 	  PedidoDetalleID = @PedidoDetalleID
   
-/*consultora online*/
-IF (EXISTS(SELECT 1 FROM dbo.SolicitudClienteDetalle WHERE PedidoWebID = @PedidoID AND PedidoWebDetalleID = @PedidoDetalleID))
-begin
-	UPDATE dbo.SolicitudClienteDetalle 
-	SET PedidoWebID = 0, PedidoWebDetalleID = 0 
-	WHERE PedidoWebID = @PedidoID AND PedidoWebDetalleID = @PedidoDetalleID
-	
-	DECLARE @restan INT
-
-	SET @restan = (
-		SELECT ISNULL(count(PedidoWebID),0) FROM SolicitudClienteDetalle 
-		WHERE PedidoWebID = @PedidoID AND ISNULL(PedidoWebDetalleID,0) <> 0)
-
-	IF (@restan = 0)
-	BEGIN
-		UPDATE SolicitudCliente SET PedidoWebID = 0 WHERE PedidoWebID = @PedidoID
-	END
-END
-/*consultora online*/
-
 INSERT INTO PedidoWebDetalleSeguimiento
 VALUES
 (
@@ -787,26 +627,6 @@ WHERE CampaniaID = @CampaniaID AND
 	  PedidoID = @PedidoID AND  
 	  PedidoDetalleID = @PedidoDetalleID
   
-/*consultora online*/
-IF (EXISTS(SELECT 1 FROM dbo.SolicitudClienteDetalle WHERE PedidoWebID = @PedidoID AND PedidoWebDetalleID = @PedidoDetalleID))
-begin
-	UPDATE dbo.SolicitudClienteDetalle 
-	SET PedidoWebID = 0, PedidoWebDetalleID = 0 
-	WHERE PedidoWebID = @PedidoID AND PedidoWebDetalleID = @PedidoDetalleID
-	
-	DECLARE @restan INT
-
-	SET @restan = (
-		SELECT ISNULL(count(PedidoWebID),0) FROM SolicitudClienteDetalle 
-		WHERE PedidoWebID = @PedidoID AND ISNULL(PedidoWebDetalleID,0) <> 0)
-
-	IF (@restan = 0)
-	BEGIN
-		UPDATE SolicitudCliente SET PedidoWebID = 0 WHERE PedidoWebID = @PedidoID
-	END
-END
-/*consultora online*/
-
 INSERT INTO PedidoWebDetalleSeguimiento
 VALUES
 (
@@ -881,26 +701,6 @@ WHERE CampaniaID = @CampaniaID AND
 	  PedidoID = @PedidoID AND  
 	  PedidoDetalleID = @PedidoDetalleID
   
-/*consultora online*/
-IF (EXISTS(SELECT 1 FROM dbo.SolicitudClienteDetalle WHERE PedidoWebID = @PedidoID AND PedidoWebDetalleID = @PedidoDetalleID))
-begin
-	UPDATE dbo.SolicitudClienteDetalle 
-	SET PedidoWebID = 0, PedidoWebDetalleID = 0 
-	WHERE PedidoWebID = @PedidoID AND PedidoWebDetalleID = @PedidoDetalleID
-	
-	DECLARE @restan INT
-
-	SET @restan = (
-		SELECT ISNULL(count(PedidoWebID),0) FROM SolicitudClienteDetalle 
-		WHERE PedidoWebID = @PedidoID AND ISNULL(PedidoWebDetalleID,0) <> 0)
-
-	IF (@restan = 0)
-	BEGIN
-		UPDATE SolicitudCliente SET PedidoWebID = 0 WHERE PedidoWebID = @PedidoID
-	END
-END
-/*consultora online*/
-
 INSERT INTO PedidoWebDetalleSeguimiento
 VALUES
 (
@@ -977,26 +777,6 @@ WHERE CampaniaID = @CampaniaID AND
 	  PedidoID = @PedidoID AND  
 	  PedidoDetalleID = @PedidoDetalleID
   
-/*consultora online*/
-IF (EXISTS(SELECT 1 FROM dbo.SolicitudClienteDetalle WHERE PedidoWebID = @PedidoID AND PedidoWebDetalleID = @PedidoDetalleID))
-begin
-	UPDATE dbo.SolicitudClienteDetalle 
-	SET PedidoWebID = 0, PedidoWebDetalleID = 0 
-	WHERE PedidoWebID = @PedidoID AND PedidoWebDetalleID = @PedidoDetalleID
-	
-	DECLARE @restan INT
-
-	SET @restan = (
-		SELECT ISNULL(count(PedidoWebID),0) FROM SolicitudClienteDetalle 
-		WHERE PedidoWebID = @PedidoID AND ISNULL(PedidoWebDetalleID,0) <> 0)
-
-	IF (@restan = 0)
-	BEGIN
-		UPDATE SolicitudCliente SET PedidoWebID = 0 WHERE PedidoWebID = @PedidoID
-	END
-END
-/*consultora online*/
-
 INSERT INTO PedidoWebDetalleSeguimiento
 VALUES
 (
@@ -1073,26 +853,6 @@ WHERE CampaniaID = @CampaniaID AND
 	  PedidoID = @PedidoID AND  
 	  PedidoDetalleID = @PedidoDetalleID
   
-/*consultora online*/
-IF (EXISTS(SELECT 1 FROM dbo.SolicitudClienteDetalle WHERE PedidoWebID = @PedidoID AND PedidoWebDetalleID = @PedidoDetalleID))
-begin
-	UPDATE dbo.SolicitudClienteDetalle 
-	SET PedidoWebID = 0, PedidoWebDetalleID = 0 
-	WHERE PedidoWebID = @PedidoID AND PedidoWebDetalleID = @PedidoDetalleID
-	
-	DECLARE @restan INT
-
-	SET @restan = (
-		SELECT ISNULL(count(PedidoWebID),0) FROM SolicitudClienteDetalle 
-		WHERE PedidoWebID = @PedidoID AND ISNULL(PedidoWebDetalleID,0) <> 0)
-
-	IF (@restan = 0)
-	BEGIN
-		UPDATE SolicitudCliente SET PedidoWebID = 0 WHERE PedidoWebID = @PedidoID
-	END
-END
-/*consultora online*/
-
 INSERT INTO PedidoWebDetalleSeguimiento
 VALUES
 (
@@ -1168,26 +928,6 @@ WHERE CampaniaID = @CampaniaID AND
 	  PedidoID = @PedidoID AND  
 	  PedidoDetalleID = @PedidoDetalleID
   
-/*consultora online*/
-IF (EXISTS(SELECT 1 FROM dbo.SolicitudClienteDetalle WHERE PedidoWebID = @PedidoID AND PedidoWebDetalleID = @PedidoDetalleID))
-begin
-	UPDATE dbo.SolicitudClienteDetalle 
-	SET PedidoWebID = 0, PedidoWebDetalleID = 0 
-	WHERE PedidoWebID = @PedidoID AND PedidoWebDetalleID = @PedidoDetalleID
-	
-	DECLARE @restan INT
-
-	SET @restan = (
-		SELECT ISNULL(count(PedidoWebID),0) FROM SolicitudClienteDetalle 
-		WHERE PedidoWebID = @PedidoID AND ISNULL(PedidoWebDetalleID,0) <> 0)
-
-	IF (@restan = 0)
-	BEGIN
-		UPDATE SolicitudCliente SET PedidoWebID = 0 WHERE PedidoWebID = @PedidoID
-	END
-END
-/*consultora online*/
-
 INSERT INTO PedidoWebDetalleSeguimiento
 VALUES
 (
