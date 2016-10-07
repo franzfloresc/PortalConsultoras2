@@ -7375,8 +7375,7 @@ input[type="checkbox"]:checked + span:after {
 }
 
     .contenedor-tutorial-esika .opciones-tutorial div {
-        font-weight;
-        bold;
+        font-weight: bold;
         font-size: 12px;
         cursor: pointer;
     }
