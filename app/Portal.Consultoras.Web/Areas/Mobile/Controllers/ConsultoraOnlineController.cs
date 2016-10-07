@@ -504,7 +504,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     ServiceSAC.BESolicitudCliente beSolicitudCliente = new ServiceSAC.BESolicitudCliente();
                     beSolicitudCliente.SolicitudClienteID = _pedidoId;
                     beSolicitudCliente.CodigoConsultora = UserData().ConsultoraID.ToString();
-                    beSolicitudCliente.MensajeaCliente = MensajeaCliente;
+                    beSolicitudCliente.MensajeaCliente = mensajeaCliente;
                     beSolicitudCliente.UsuarioModificacion = UserData().CodigoUsuario;
                     beSolicitudCliente.Estado = "A";
                     sc.UpdSolicitudCliente(paisId, beSolicitudCliente);
