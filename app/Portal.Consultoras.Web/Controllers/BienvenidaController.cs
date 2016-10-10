@@ -1543,14 +1543,6 @@ namespace Portal.Consultoras.Web.Controllers
                 });
             }
         }
-        /* SB20-834 - FIN */
-        
-        [HttpPost]
-        public JsonResult CerrarMensajeEstadoPedido()
-        {
-            userData.CerrarRechazado = 1;
-            SetUserData(userData);
-            return Json(userData.CerrarRechazado);
-        }
+        /* SB20-834 - FIN */                
     }
 }
