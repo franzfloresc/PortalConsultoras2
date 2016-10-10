@@ -92,6 +92,8 @@ namespace Portal.Consultoras.Web.WebPages
 
         protected void gridDatos_RowDataBound(object sender, GridViewRowEventArgs e)
         {
+            string paisISO = Convert.ToString(ViewState["PAISISO"]);
+
             Image boton = new Image();
             boton = (Image)e.Row.FindControl("imgMuestra");
 
@@ -113,6 +115,11 @@ namespace Portal.Consultoras.Web.WebPages
             LinkButton botonSegPed = new LinkButton();
             botonSegPed = (LinkButton)e.Row.FindControl("imgSegPed");
 
+            Label lblTextoValorTurno = new Label();
+            lblTextoValorTurno = (Label)e.Row.FindControl("lblTextoValorTurno");
+            if (lblTextoValorTurno != null)
+                lblTextoValorTurno.ForeColor = System.Drawing.ColorTranslator.FromHtml((System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(paisISO)) ? "#e81c36" : "#b75d9f"); 
+
             if (boton != null)
             {
                 BETracking tracking = e.Row.DataItem as BETracking;
@@ -120,6 +127,12 @@ namespace Portal.Consultoras.Web.WebPages
                 if (tracking == null) return;
 
                 string strSituacion = tracking.Situacion;
+                /*SB20-964 - INICIO */
+                if (strSituacion.Contains("<br/>"))
+                {
+                    strSituacion = strSituacion.Substring(0, strSituacion.IndexOf("<br/>"));
+                }
+                /*SB20-964 - FIN */
 
                 string strFecha = string.Empty;
 
@@ -435,6 +448,23 @@ namespace Portal.Consultoras.Web.WebPages
 
                         item.CodigoConsultora = strFecha;
                         item.NumeroPedido = strTexto;
+                         /*SB20-964 - INICIO */
+                        if (item.Etapa == 6 && !string.IsNullOrEmpty(item.ValorTurno))
+                        {                          
+                            if (item.ValorTurno.ToUpper() == "AM")
+                            {
+                                item.ValorTurno = "<b>En la mañana</b>";
+                            }
+                            else if (item.ValorTurno.ToUpper() == "PM")
+                            {
+                                item.ValorTurno = "<b>En la tarde</b>";
+                            }
+                            else
+                            {                               
+                                item.ValorTurno = string.Empty;
+                            }
+                        }
+                        /*SB20-964 - FIN */
                     }
 
                     lblNovCampania.Text = campana;

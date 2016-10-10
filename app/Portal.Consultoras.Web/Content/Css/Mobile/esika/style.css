@@ -2295,7 +2295,10 @@ h4.re3 {
     .block-seguimiento-content .seg-active .seg-fecha {
         color: black;
     }
-
+        .block-seguimiento-content .seg-active .seg-fecha .texto_valorTurno{
+            text-transform: lowercase;
+            color:#e81c36;
+        }
     .block-seguimiento-content .seg-active .seg-hora {
         color: black;
     }
@@ -8831,3 +8834,7 @@ span.icon-advertencia{
 }
 
 /* FIN POPUP OFERTA FINAL */
+.texto_valorTurno {
+    text-transform: lowercase;
+    color:#e81c36;
+} 

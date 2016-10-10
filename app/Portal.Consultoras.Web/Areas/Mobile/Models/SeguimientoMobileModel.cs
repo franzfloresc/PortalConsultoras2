@@ -15,6 +15,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Models
         public DateTime? Fecha { get; set; }
         public string DiaMes { get; set; }
         public string HoraMinuto { get; set; }
-        public List<SeguimientoMobileModel> ListaEstadoSeguimiento { get; set; } 
+        public List<SeguimientoMobileModel> ListaEstadoSeguimiento { get; set; }
+        public string ValorTurno { get; set; }
     }
 }
