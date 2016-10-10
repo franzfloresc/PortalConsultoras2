@@ -24,6 +24,8 @@ namespace Portal.Consultoras.Entities
         public bool RequiereGestion { get; set; }
         [DataMember]
         public bool Procesado { get; set; }
+        [DataMember]
+        public bool Rechazado { get; set; }
 
         public BEPedidoRechazado()
         { }
@@ -46,6 +48,8 @@ namespace Portal.Consultoras.Entities
                 RequiereGestion = Convert.ToBoolean(row["RequiereGestion"]);
             if (DataRecord.HasColumn(row, "Procesado"))
                 Procesado = Convert.ToBoolean(row["Procesado"]);
+            if (DataRecord.HasColumn(row, "Rechazado"))
+                Rechazado = Convert.ToBoolean(row["Rechazado"]);
         }
     }
 }

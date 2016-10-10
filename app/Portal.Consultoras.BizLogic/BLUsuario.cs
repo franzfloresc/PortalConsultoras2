@@ -221,7 +221,7 @@ namespace Portal.Consultoras.BizLogic
                         usuario.HoraCierreZonaDemAntiCierre = configuracion.HoraCierreZonaDemAntiCierre; //R20151126
                         usuario.ValidacionInteractiva = configuracion.ValidacionInteractiva; //R20160306
                         usuario.MensajeValidacionInteractiva = configuracion.MensajeValidacionInteractiva; //R20160306
-                        //usuario.IndicadorEnviado = configuracion.IndicadorEnviado;
+                        usuario.IndicadorEnviado = configuracion.IndicadorEnviado;
                         usuario.IndicadorRechazado = configuracion.IndicadorRechazado;
                     }
                 }

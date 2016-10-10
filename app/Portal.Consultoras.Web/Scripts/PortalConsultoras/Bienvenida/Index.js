@@ -1228,18 +1228,28 @@ function AgregarProductoDestacado(popup, tipoEstrategiaImagen) {
                     data: JSON.stringify(param),
                     async: true,
                     success: function (data) {
-                        if (checkTimeout(data)) {
-                            waitingDialog();
-                            MostrarBarra(data, '1');
-                            CargarCarouselEstrategias(cuv);
-                            CargarResumenCampaniaHeader(true);
-                            TagManagerClickAgregarProducto();
-                            TrackingJetloreAdd(cantidad, $("#hdCampaniaCodigo").val(), cuv);
+                        if (!checkTimeout(data)) {
                             closeWaitingDialog();
-                            if (popup) {
-                                HidePopupEstrategiasEspeciales();
-                            }
+                            return false;
                         }
+
+                        if (data.success != true) {
+                            alert_msg_pedido(data.message);
+                            closeWaitingDialog();
+                            return false;
+                        }
+
+                        waitingDialog({});
+                        ActualizarGanancia(data.DataBarra);
+                        CargarCarouselEstrategias(cuv);
+                        CargarResumenCampaniaHeader(true);
+                        TagManagerClickAgregarProducto();
+                        TrackingJetloreAdd(cantidad, $("#hdCampaniaCodigo").val(), cuv);
+                        closeWaitingDialog();
+                        if (popup) {
+                            HidePopupEstrategiasEspeciales();
+                        }
+                        
                     },
                     error: function (data, error) {
                         if (checkTimeout(data)) {
@@ -1637,15 +1647,23 @@ function AgregarProductoLiquidacion(contenedor) {
                         data: JSON.stringify(item),
                         async: true,
                         success: function (data) {
-                            if (data.success == true) {
-                                MostrarBarra(data, '1');
-                                CargarResumenCampaniaHeader(true);
-                                TrackingJetloreAdd(item.Cantidad, $("#hdCampaniaCodigo").val(), item.CUV);
-                                TagManagerClickAgregarProductoLiquidacion(item);
+
+                            if (!checkTimeout(data)) {
+                                closeWaitingDialog();
+                                return false;
                             }
-                            else {
+
+                            if (data.success != true) {
                                 alert_msg_pedido(data.message);
+                                closeWaitingDialog();
+                                return false;
                             }
+
+                            ActualizarGanancia(data.DataBarra);
+                            CargarResumenCampaniaHeader(true);
+                            TrackingJetloreAdd(item.Cantidad, $("#hdCampaniaCodigo").val(), item.CUV);
+                            TagManagerClickAgregarProductoLiquidacion(item);
+                           
                             closeWaitingDialog();
                             HidePopupTonosTallas();
                         },
@@ -1871,55 +1889,60 @@ function InsertarPedidoCuvBanner(CUVpedido, CantCUVpedido) {
         data: JSON.stringify(item),
         async: true,
         success: function (result) {
-            if (checkTimeout(result)) {
-                if (result.success == true) {
-
-                    MostrarBarra(result, '1');
-
-                    CargarResumenCampaniaHeader(true);
-
-                    //alert_unidadesAgregadas(result.message, 1);
-
-                    if (result.oPedidoDetalle.DescripcionEstrategia == null || result.oPedidoDetalle.DescripcionEstrategia == "") {
-                        variantcad = "Estándar";
-                    } else {
-                        variantcad = result.oPedidoDetalle.DescripcionEstrategia;
-                    }
-                    if (result.oPedidoDetalle.Categoria == null || result.oPedidoDetalle.Categoria == "") {
-                        categoriacad = "Sin Categoría";
-                    } else {
-                        categoriacad = result.oPedidoDetalle.Categoria;
-                    }
-
-                    TrackingJetloreAdd(CantCUVpedido, $("#hdCampaniaCodigo").val(), CUVpedido);
-
-                    dataLayer.push({
-                        'event': 'addToCart',
-                        'ecommerce': {
-                            'add': {
-                                'actionField': { 'list': 'Banner marquesina' },
-                                'products': [
-                                    {
-                                        'name': result.oPedidoDetalle.DescripcionProd,
-                                        'price': result.oPedidoDetalle.PrecioUnidad.toString(),
-                                        'brand': result.oPedidoDetalle.DescripcionLarga,
-                                        'id': CUVpedido,
-                                        'category': categoriacad,
-                                        'variant': variantcad,
-                                        'quantity': parseInt(CantCUVpedido),
-                                        'position': 1
-                                    }
-                                ]
-                            }
-                        }
-                    });
-
-                    closeWaitingDialog();
-                } else {
-                    alert_unidadesAgregadas('Error al realizar proceso, inténtelo más tarde.', 2);
-                    closeWaitingDialog();
-                }
+            if (!checkTimeout(result)) {
+                closeWaitingDialog();
+                return false;
             }
+
+            if (result.success != true) {
+                if (result.message == "")
+                    result.message = 'Error al realizar proceso, intentelo mas tarde.';
+                alert_unidadesAgregadas('Error al realizar proceso, inténtelo más tarde.', 2);
+                closeWaitingDialog();
+                return false;
+            }
+
+            MostrarBarra(result, '1');
+
+            CargarResumenCampaniaHeader(true);
+
+            //alert_unidadesAgregadas(result.message, 1);
+
+            if (result.oPedidoDetalle.DescripcionEstrategia == null || result.oPedidoDetalle.DescripcionEstrategia == "") {
+                variantcad = "Estándar";
+            } else {
+                variantcad = result.oPedidoDetalle.DescripcionEstrategia;
+            }
+            if (result.oPedidoDetalle.Categoria == null || result.oPedidoDetalle.Categoria == "") {
+                categoriacad = "Sin Categoría";
+            } else {
+                categoriacad = result.oPedidoDetalle.Categoria;
+            }
+
+            TrackingJetloreAdd(CantCUVpedido, $("#hdCampaniaCodigo").val(), CUVpedido);
+
+            dataLayer.push({
+                'event': 'addToCart',
+                'ecommerce': {
+                    'add': {
+                        'actionField': { 'list': 'Banner marquesina' },
+                        'products': [
+                            {
+                                'name': result.oPedidoDetalle.DescripcionProd,
+                                'price': result.oPedidoDetalle.PrecioUnidad.toString(),
+                                'brand': result.oPedidoDetalle.DescripcionLarga,
+                                'id': CUVpedido,
+                                'category': categoriacad,
+                                'variant': variantcad,
+                                'quantity': parseInt(CantCUVpedido),
+                                'position': 1
+                            }
+                        ]
+                    }
+                }
+            });
+
+            closeWaitingDialog();
         },
         error: function (data, error) {
             if (checkTimeout(data)) {
@@ -3211,22 +3234,26 @@ function AgregarProducto(url, item, otraFunct) {
         data: JSON.stringify(item),
         async: true,
         success: function (data) {
-            if (data.success == true) {
-                MostrarBarra(data, '1');
-                CargarResumenCampaniaHeader(true);
-
-                TrackingJetloreAdd(item.Cantidad, $("#hdCampaniaCodigo").val(), item.CUV);
-
-                if (typeof (otraFunct) == 'function') {
-                    setTimeout(otraFunct, 50);
-                }
-                else if (typeof (otraFunct) == 'string') {
-                    setTimeout(otraFunct, 50);
-                }
+            if (!checkTimeout(data)) {
+                closeWaitingDialog();
+                return false;
             }
-            else {
+
+            if (data.success != true) {
                 alert_msg_pedido(data.message);
+                closeWaitingDialog();
+                return false;
             }
+
+            ActualizarGanancia(data.DataBarra);                
+            CargarResumenCampaniaHeader(true);
+
+            TrackingJetloreAdd(item.Cantidad, $("#hdCampaniaCodigo").val(), item.CUV);
+
+            if (typeof (otraFunct) == 'function' || typeof (otraFunct) == 'string') {
+                setTimeout(otraFunct, 50);
+            }
+            
             closeWaitingDialog();
         },
         error: function (data, error) {

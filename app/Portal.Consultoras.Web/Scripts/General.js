@@ -74,10 +74,10 @@ jQuery(document).ready(function () {
 
     String.prototype.CodificarHtmlToAnsi = function () {
         var newStr = this;
-        var ansi = new Array('Á', 'á', 'É', 'é', 'Í', 'í', 'Ó', 'ó', 'Ú', 'ú');
-        var html = new Array('&#193;', '&#225;', '&#201;', '&#233;', '&#205;', '&#237;', '&#211;', '&#243;', '&#218;', '&#250;');
+        var ansi = new Array('Á', 'á', 'É', 'é', 'Í', 'í', 'Ó', 'ó', 'Ú', 'ú', '<', '>', "'");
+        var html = new Array('&#193;', '&#225;', '&#201;', '&#233;', '&#205;', '&#237;', '&#211;', '&#243;', '&#218;', '&#250;', '&lt;', '&gt;', '&#39;');
         for (var i = 0; i < html.length; i++) {
-            newStr = newStr.replace(html[i], ansi[i]);
+            newStr = newStr.ReplaceAll(html[i], ansi[i]);
         }
         return newStr;
     };
@@ -636,8 +636,9 @@ function MensajeEstadoPedido() {
 
     if (indicadorEnviadoDescarga != 1)
         return false;
-
-    $("#bloquemensajesPedido").find(".mensaje_horarioIngresoPedido").html(motivoRechazo || "");
+    
+    $("#bloquemensajesPedido").find(".mensaje_horarioIngresoPedido").html("");
+    $("#bloquemensajesPedido").find(".mensaje_horarioIngresoPedido").append((motivoRechazo || "").CodificarHtmlToAnsi());
     if (estaRechazado == '1') {
         $("#bloquemensajesPedido").find(".mensaje_estadoActualPedido").html("TU PEDIDO HA SIDO RECHAZADO");
     }

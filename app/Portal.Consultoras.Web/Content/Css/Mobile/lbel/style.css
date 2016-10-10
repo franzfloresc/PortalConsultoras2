@@ -3123,7 +3123,6 @@ table > thead > tr > th {
     box-shadow: 0 2px 13px 0 rgba(126, 126, 126, 0.5) !important;
     -webkit-box-shadow: 0 2px 13px 0 rgba(126, 126, 126, 0.5) !important;
     -moz-box-shadow: 0 2px 13px 0 rgba(126, 126, 126, 0.5) !important;
-    
 }
 .sombra_m {
     width:100%;
@@ -3265,7 +3264,7 @@ width:100%;
     bottom: -45px;
     /*border-radius: 5px;*/
     margin-top: 15px;
-     -ms-border-radius: 5px;
+    /*-ms-border-radius: 5px;*/
 }
 .boton_cerrar_mobile a {
     color:white;
@@ -3437,7 +3436,6 @@ width:100%;
     font-size: 13px;
     line-height: 20px;
     color: black;
-    
     margin-top:17px;
 }
 .titulo_showroom_mobile a{
@@ -3542,7 +3540,6 @@ width:100%;
     text-decoration:none;
     /*margin-left: 22px;*/
     cursor: pointer;
-
 }
 .showroom_menos_mobile:hover{
     text-decoration:none;
@@ -7754,6 +7751,7 @@ span.title-app-b {
     color: initial;
     text-decoration: underline;
 }*/
+
 /*SHOWROOM*/
 .divShowRoom{
     margin-top: 63px;

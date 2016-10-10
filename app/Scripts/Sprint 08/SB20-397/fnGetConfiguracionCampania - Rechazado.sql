@@ -342,7 +342,7 @@ BEGIN
 	
 	declare @esRechazado int = -1
 	declare @IndicadorEnviado bit = 0
-
+	 
 	--Valida UltimaCampaniaFacturada
 	IF (@UltimaCampanaFacturada = @Campania)
 	BEGIN
@@ -354,32 +354,11 @@ BEGIN
 	END
 	ELSE
 	BEGIN
-  
-		Select @IndicadorEnviado  = IndicadorEnviado
-		From pedidoweb (nolock)
-		Where CampaniaID = @campania and consultoraid = ISNULL(@ConsultoraIdAsociada,@consultoraid)
+			
+			SELECT @esRechazado = esRechazado, @IndicadorEnviado = IndicadorEnviado
+			FROM  EsPedidoRechazado_SB2(@ConsultoraID, @Campania)
 
-		If(@IndicadorEnviado = 1)
-		BEGIN
-			set @esRechazado = 0
-
-			SELECT @esRechazado = esRechazado
-			FROM  EsPedidoRechazado_SB2(@ConsultoraID, @Campania, @esRechazado)
-
-			if @esRechazado = 1
-			begin
-				
-				declare @fechaFin datetime
-				select @fechaFin = c.FechaInicioReFacturacion
-				FROM [ods].[Cronograma] c (nolock)
-				INNER JOIN [ods].[Campania] ca (nolock) ON c.CampaniaID = ca.CampaniaID
-				WHERE c.ZonaID = @ZonaID AND c.RegionID = @RegionID  AND ca.Codigo = @Campania
-
-				if @fechaFin < getdate()
-					set @esRechazado = 2 -- continua con el proceso
-			end
-
-			if @esRechazado = 2
+			if @esRechazado = 2 -- no rechazado (sigue con el proceso normal=> cambio de campaña)
 			begin
 				SET @Campania = @Campania - @Anio
 				IF(@Campania = @NroCampanias)
@@ -388,9 +367,9 @@ BEGIN
 					SET @Campania = @Anio + @Campania + 1
 			END
 			ELSE
-				SET @AceptacionConsultoraDA = -1
+				SET @AceptacionConsultoraDA = -1 -- mas arriba se cambia, lo vuelvo a su valor normal
 
-		END
+		-- FIN
 	END
 
 	-- Pedido FIC
