@@ -79,3 +79,30 @@
         </div>
     </div>
 }
+else
+{
+    <div class="div-3">
+        <div class="titC">Numero</div>
+        <div class="selectP2 borde_redondeado">
+            @Html.TextBoxFor(m => Model.Numero, new { @class = "numero field_85", @placeholder = "Ejm: 100", @maxlength = 5 })
+        </div>
+    </div>
+    <div class="div-3">
+        <div class="validation_clear"></div>
+        <div class="validation">
+            @Html.ValidationMessageFor(m => Model.Numero)
+        </div>
+    </div>
+    <div class="div-3">
+        <div class="titC">Referencia</div>
+        <div class="selectP2 borde_redondeado">
+            @Html.TextBoxFor(m => Model.Referencia, new { @class = "field_85", @placeholder = "Ej. entre calle 1 y calle 3" })
+        </div>
+    </div>
+    <div class="div-3">
+        <div class="validation_clear"></div>
+        <div class="validation">
+            @Html.ValidationMessageFor(m => Model.Referencia)
+        </div>
+    </div>
+}

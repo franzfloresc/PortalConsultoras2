@@ -18,7 +18,7 @@ namespace Portal.Consultoras.Web.Models
         public string CalleOAvenida { get; set; }
 
         //[Required(ErrorMessage = "Este campo es obligatorio")]
-        [RequiredIf("CodigoPais", "MX", ErrorMessage = "Este campo es obligatorio")]
+        [RequiredIf("CodigoPais", "MX,CL", ErrorMessage = "Este campo es obligatorio")]
         //[MaxLength(8, ErrorMessage = "Máximo 8 caractéres")]
         [ExpressionRequiredIf("CodigoPais", "MX", Expresion = @"^[0-9]{5}$", ErrorMessage = "Máximo 5 caractéres")]
         public string Numero { get; set; }
