@@ -298,13 +298,13 @@ function AgregarProductoCatalogoPersonalizado(item) {
     var OrigenPedidoWeb = $(divPadre).find(".OrigenPedidoWeb").val();
 
     if (!isInt(cantidad)) {
-        alert_msg_com("La cantidad ingresada debe ser un número mayor que cero, verifique");
+        messageInfo("La cantidad ingresada debe ser un número mayor que cero, verifique");
         CloseLoading();
         return false;
     }
 
     if (cantidad <= 0) {
-        alert_msg_com("La cantidad ingresada debe ser mayor que cero, verifique");
+        messageInfo("La cantidad ingresada debe ser mayor que cero, verifique");
         CloseLoading();
         return false;
     }

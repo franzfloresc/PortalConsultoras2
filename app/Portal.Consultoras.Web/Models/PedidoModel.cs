@@ -166,6 +166,7 @@ namespace Portal.Consultoras.Web.Models
         public bool TieneOfertaEnRevista { get; set; }
 
         public bool TieneLanzamientoCatalogoPersonalizado { get; set; }
+
         public string TipoOfertaRevista { get; set; }
     }
 

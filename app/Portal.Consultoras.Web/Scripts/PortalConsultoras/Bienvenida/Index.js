@@ -359,6 +359,8 @@ $(document).ready(function() {
         waitingDialog({});
         var $contenedor = $(this).parents('.contiene-productos');
         var cuv = $contenedor.find('.hdItemCuv').val();
+        var tipoOfertaRevista = $contenedor.find('.hdItemTipoOfertaRevista').val().trim();
+
         var obj = {
             UrlImagen: $contenedor.find('.producto_img_home>img').attr('src'),
             CUV: $contenedor.find('.hdItemCuv').val(),
@@ -376,44 +378,42 @@ $(document).ready(function() {
             type: 'POST',
             url: baseUrl + 'CatalogoPersonalizado/ObtenerOfertaRevista',
             dataType: 'json',
-            data: JSON.stringify({ cuv: cuv }),
+            data: JSON.stringify({ cuv: cuv, tipoOfertaRevista: tipoOfertaRevista }),
             contentType: 'application/json; charset=utf-8',
             success: function(response) {
                 if (response.success) {
                     response.data.dataPROL.Simbolo = viewBagSimbolo;
                     var settings = $.extend({}, response.data.dataPROL, obj);
                     settings.productoRevista = response.data.producto;
-
+                    TrackingJetloreView(cuv, $("#hdCampaniaCodigo").val())
                     if (response.data.dataPROL != undefined && response.data.dataPROL != null) {
-                        settings.precio_catalogo = DecimalToStringFormat(settings.precio_catalogo);
-                        settings.precio_revista = DecimalToStringFormat(settings.precio_revista);
-                        settings.ganancia = DecimalToStringFormat(settings.ganancia);
-                        var html = SetHandlebars("#template-mod-ofer1", settings);
-                        $('.mod-ofer1').html(html).show();
-                            TrackingJetloreView(cuv, $("#hdCampaniaCodigo").val())
-                    }
+                        switch (settings.tipo_oferta) {
+                            case '003':
+                                settings.precio_catalogo = DecimalToStringFormat(settings.precio_catalogo);
+                                settings.precio_revista = DecimalToStringFormat(settings.precio_revista);
+                                settings.ganancia = DecimalToStringFormat(settings.ganancia);
+                                var html = SetHandlebars("#template-mod-ofer1", settings);
+                                $('.mod-ofer1').html(html).show();
+                                break;
+                            case '048':
+                                if (settings.lista_ObjNivel.length > 0) {
+                                    settings.lista_ObjNivel = RemoverRepetidos(settings.lista_ObjNivel);
+                                    var html = SetHandlebars("#template-mod-ofer2", settings);
+                                    $('.mod-ofer2').html(html).show();
+                                }
+                                else if (settings.lista_oObjPack.length > 0) {
+                                    settings.lista_oObjPack = RemoverRepetidos(settings.lista_oObjPack);
+                                    var html = SetHandlebars("#template-mod-ofer3", settings);
+                                    $('.mod-ofer3').html(html).show();
+                                }
+                                break;
+                        }
 
-                    //switch (settings.tipo_oferta) {
-                    //    case '003':
-                    //        settings.precio_catalogo = DecimalToStringFormat(settings.precio_catalogo);
-                    //        settings.precio_revista = DecimalToStringFormat(settings.precio_revista);
-                    //        settings.ganancia = DecimalToStringFormat(settings.ganancia);
-                    //        var html = SetHandlebars("#template-mod-ofer1", settings);
-                    //        $('.mod-ofer1').html(html).show();
-                    //        break;
-                    //    case '048':
-                    //        //var html = SetHandlebars("#template-mod-ofer2", settings);
-                    //        //$('.mod-ofer2').html(html).show();
-                    //        break;
-                    //    case '049':
-                    //        //var html = SetHandlebars("#template-mod-ofer3", settings);
-                    //        //$('.mod-ofer3').html(html).show();
-                    //        break;
-                    //}
-                } else {
+                    } else {
                     //console.log(response.message);
+                    }
+                    closeWaitingDialog();
                 }
-                closeWaitingDialog();
             },
             error: function(response, error) {
                 //console.log(error);
@@ -426,7 +426,7 @@ $(document).ready(function() {
             return false;
 
         var contenedor = $(this).parents(".cuerpo-mod");
-        var cantidad = $(this).siblings('.liquidacion_rango_home').find('#txtCantidad').val();
+        var cantidad = $(this).siblings('.liquidacion_rango_home, .ofertarevista_rango_home').find('#txtCantidad').val();
         var tipoCUV = $(this).attr('data-cuv');
 
         AgregarProductoOfertaRevista(contenedor, cantidad, tipoCUV);
@@ -3100,8 +3100,10 @@ function CargarCatalogoPersonalizado() {
         type: 'POST',
         url: baseUrl + 'CatalogoPersonalizado/ObtenerProductosCatalogoPersonalizadoHome',
         dataType: 'json',
+        data: null,
         contentType: 'application/json; charset=utf-8',
         success: function (data) {
+            data.data = data.data || new Array();
             if (data.success) {
                 $("#divCatalogoPersonalizado").html("");
                 $("#linea_separadoraCP").show();
@@ -3161,13 +3163,13 @@ function AgregarProductoCatalogoPersonalizado(item) {
     var OrigenPedidoWeb = $(divPadre).find(".OrigenPedidoWeb").val();
 
     if (!isInt(cantidad)) {
-        alert_msg_com("La cantidad ingresada debe ser un número mayor que cero, verifique");
+        alert_msg_pedido("La cantidad ingresada debe ser un número mayor que cero, verifique");
         closeWaitingDialog();
         return false;
     }
 
     if (cantidad <= 0) {
-        alert_msg_com("La cantidad ingresada debe ser mayor que cero, verifique");
+        alert_msg_pedido("La cantidad ingresada debe ser mayor que cero, verifique");
         closeWaitingDialog();
         return false;
     }
@@ -3566,12 +3568,28 @@ function playVideo() {
 
 function AgregarProductoOfertaRevista(item, cantidad, tipoCUV) {
     waitingDialog();
-    var hidden;
+    var hidden = "";
 
     if (tipoCUV == 'revista') {
         hidden = $(item).find('#hiddenRevista');
     } else if (tipoCUV == 'catalogo') {
         hidden = $(item).find('#hiddenCatalogo');
+    }
+
+    if (hidden.length == 0) {
+        return false;
+    }
+
+    if (!isInt(cantidad)) {
+        alert_msg_pedido("La cantidad ingresada debe ser un número mayor que cero, verifique");
+        closeWaitingDialog();
+        return false;
+    }
+
+    if (cantidad <= 0) {
+        alert_msg_pedido("La cantidad ingresada debe ser mayor que cero, verifique");
+        closeWaitingDialog();
+        return false;
     }
 
     var model = {
@@ -3591,18 +3609,6 @@ function AgregarProductoOfertaRevista(item, cantidad, tipoCUV) {
         EsSugerido: false,
         OrigenPedidoWeb: $(hidden).find(".OrigenPedidoWeb").val()
     };
-
-    if (!isInt(cantidad)) {
-        alert_msg_com("La cantidad ingresada debe ser un número mayor que cero, verifique");
-        closeWaitingDialog();
-        return false;
-    }
-
-    if (cantidad <= 0) {
-        alert_msg_com("La cantidad ingresada debe ser mayor que cero, verifique");
-        closeWaitingDialog();
-        return false;
-        }
 
     var imagenProducto = $('#imagenAnimacion>img', item);
 

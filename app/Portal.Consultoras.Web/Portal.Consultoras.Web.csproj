@@ -3198,6 +3198,9 @@
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </Content>
+    <Content Include="Views\CatalogoPersonalizado\Index.cshtml">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="Web References\ServiceCatalogosIssuu\MulticatalogoWebService.disco" />
     <Content Include="WebPages\AppCatalogoTyC\CL_AppCatalogoTyC.html" />
     <Content Include="WebPages\AppCatalogoTyC\CO_AppCatalogoTyC.HTML" />
@@ -3514,7 +3517,6 @@
     <None Include="Service References\ValidacionesUnete\ValidacionesUnete4.xsd">
       <SubType>Designer</SubType>
     </None>
-    <Content Include="Views\CatalogoPersonalizado\Index.cshtml" />
     <Content Include="Views\Unete\GestionParametros.cshtml" />
     <Content Include="Views\Unete\_ConsultarValidacionTelefonica.cshtml" />
     <Content Include="Views\Unete\ValidacionTelefonica.cshtml" />
