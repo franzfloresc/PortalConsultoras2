@@ -2679,7 +2679,7 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido{
 }
 
 .bordespacive{
-    border-bottom: 2px solid white;
+    /*border-bottom: 2px solid white;*/
     border-left: 1px solid;
     border-right: 1px solid;
     border-top: 1px solid;
@@ -2851,7 +2851,7 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido{
 .paginador_pedidos{
     display:block;
     width:100%;
-    height:30px;
+    /*height:30px;*/
     margin-top:25px;
     margin-bottom:100px;
 }
@@ -3506,7 +3506,7 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
 .boton_elegirAgregar{
     display:block;
     margin:0 auto;
-    width:139px;
+    width:138px;
     height:45px;
     line-height:43px;
     background:#FFF;
@@ -20202,7 +20202,7 @@ label.checkpop.c_on {
      color:#f11935 !important;   
 }
 .agotado_carrusel {
-        width: 100%;
+    width:100%;
     height: 75px;
     font-size: 14px;
     font-family: 'Lato';
@@ -21042,7 +21042,7 @@ label.checkpop.c_on {
     vertical-align:middle;
     height: 45px;
     line-height: 42px;
-    background: #FFF;
+    /*background: #FFF;*/
     color: #000;
     text-align: center;
     border: 2px solid #000;
@@ -21499,19 +21499,7 @@ label.checkpop.c_on {
     box-sizing: border-box;
     /* padding-left: 5%; */
 }
-.imagen_2_lugares{
-    background: url("../../../Images/Lbel/lugares_pago.png") no-repeat !important;
-    background-position: 18% 7px !important;
-}
-.imagen_3_factura{
-    background: url("../../../Images/Lbel/facturacion_electronica.png") no-repeat !important;
-    background-position: 9% 7px !important;
-}
 
-.imagen_4_percepciones{
-    background: url("../../../Images/Lbel/icono_percepciones.png") no-repeat !important;
-    background-position: 18% 7px !important;
-}
 
 .tabs_pagos li a img{
   display: inline-block;
@@ -21521,23 +21509,23 @@ label.checkpop.c_on {
 
 
 .two:hover ~ hr {
-  margin-left: 25.6%;
+  margin-left: 25%;
 }
 
 .three:hover ~ hr {
-  margin-left: 49.9%;
+  margin-left: 50%;
 }
 
 .four:hover ~ hr {
-  margin-left: 74.2%;
+  margin-left: 75%;
 }
 
 hr{
   height: .25rem;
   /*width: 30%;*/
-  width:24%;
+  width:25%;
   text-align: left;
-  margin: 0 0 0 1.35%;
+  margin:0;
   background: #693484;
   border: none;
   transition: .3s ease-in-out;
@@ -21548,7 +21536,7 @@ hr{
     position: absolute;
     background: #693484;
     width: 100%;
-    left:5.5%;
+    left:0;
     height: 4px;
     bottom: -4px;
 }
@@ -28266,7 +28254,6 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
 
 /* FIN PROCESO CARGA FOTO */
 
-/*SB20-863* Inicio*/
 /*MICHAEL*/
 .popup_Pendientes {
     display: block;
@@ -29214,13 +29201,18 @@ h1#penmostreo .campana {
 .mod-ofer2 .cuerpo-mod{
     display: block;
     position: relative;
-    width: 710px;
-    max-width: 1230px;
-    height: auto;
+    width: 971px;
+    /* max-width: 1230px; */
+    height: 636px;
+    top: 50%;
     background: #FFF;
-    margin: 4% auto 1.5% auto;
+    margin: -318px auto auto auto;
     z-index: 3;
-    padding-top: 50px;
+   padding-left: 40px;
+    padding-right: 40px;
+    padding-top: 40px;
+    text-align:center;
+    /*overflow:hidden;*/
 }
 .mod-ofer2 .sombrio{
         position: relative;
@@ -29240,11 +29232,11 @@ h1#penmostreo .campana {
     margin-top: -31px;
 }
 
-.mod-ofer2 .liquidacion_rango_home{
+/*.mod-ofer2 .liquidacion_rango_home{
     position: absolute;
     z-index: 9;
     margin-left: -80px;
-}
+}*/
 
 .mod-ofer2 .pos-baja .boton_Agregalo_home{
     background-color: transparent;
@@ -29259,10 +29251,10 @@ h1#penmostreo .campana {
     color: white;
 }
 
-.mod-ofer2 .boton_Agregalo_home {
+/*.mod-ofer2 .boton_Agregalo_home {
     z-index: 9;
     position: absolute;
-}
+}*/
 
 .mod-ofer2 .pos-baja{
     height: 90px;
@@ -29299,10 +29291,13 @@ h1#penmostreo .campana {
 }
 
 .mod-ofer2 .mod-cantidades.metido{
-        position: relative;
+    position: relative;
     margin: 0 auto;
-    margin-left: 204px;
-    margin-top: -70px;
+    /* OVERFLOW: HIDDEN; */
+    /* HEIGHT: 50px; */
+    width: 300px;
+    margin-left: 450px;
+    /* margin-top: -70px; */
 }
 
 .mod-ofer2 .cuerpo-mod .contiene-productos .producto_img_home.mini{
@@ -29350,7 +29345,8 @@ h1#penmostreo .campana {
     position: absolute;
     right: 0;
     margin-right: -37px;
-    margin-top: -49px;
+    /*margin-top: -49px;*/
+    top:0;
     cursor: pointer;
 }
 
@@ -29420,13 +29416,18 @@ h1#penmostreo .campana {
 .mod-ofer3 .cuerpo-mod{
     display: block;
     position: relative;
-    width: 835px;
-    max-width: 1230px;
-    height: auto;
+    width: 971px;
+    /* max-width: 1230px; */
+    height: 618px;
+    top: 50%;
     background: #FFF;
-    margin: .5% auto 1.5% auto;
+    margin: -309px auto auto auto;
     z-index: 3;
-    padding-top: 50px;
+   padding-left: 40px;
+    padding-right: 40px;
+    padding-top: 40px;
+    /*overflow:hidden;*/
+    text-align:center;
 }
 
 .mod-ofer3 .sombrio {
@@ -29447,11 +29448,11 @@ h1#penmostreo .campana {
     margin-top: -31px;
 }
 
-.mod-ofer3 .liquidacion_rango_home{
+/*.mod-ofer3 .liquidacion_rango_home{
     position: absolute;
     z-index: 9;
     margin-left: -80px;
-}
+}*/
 
 .mod-ofer3 .pos-baja .boton_Agregalo_home{
     background-color: transparent;
@@ -29466,10 +29467,10 @@ h1#penmostreo .campana {
     color: white;
 }
 
-.mod-ofer3 .boton_Agregalo_home {
+/*.mod-ofer3 .boton_Agregalo_home {
     z-index: 9;
     position: absolute;
-}
+}*/
 
 .mod-ofer3 .pos-baja{
     height: 90px;
@@ -29728,6 +29729,224 @@ h1#penmostreo .campana {
     position:relative;
 }
 
+/*POP UP CATALOGO PERSONALIZADO*/
+
+.mod-ofer2 .linea_encabezado_popupCatalogoPersonalizado {
+    display: inline-block;
+    background: #000;
+    height: 1px;
+    width: 300px;
+}
+.mod-ofer3 .linea_encabezado_popupCatalogoPersonalizado {
+    display: inline-block;
+    background: #000;
+    height: 1px;
+    width: 300px;
+}
+.item1_oferta_personalizada{
+    display:inline-block;
+    width:22.5%;
+    height:auto;
+    margin-right:25px;  
+    vertical-align: top;  
+}
+.item1_oferta_personalizada:last-child{
+    margin-right:0px;
+}
+.content_precio_set{
+    width:100%;
+    height:89px;   
+    border-bottom:1px solid #cfcfcf;
+}
+.compra_set{
+    font-family:'Lato';
+    font-size:16px;
+    color:black;
+    text-transform:uppercase;
+    text-align:center;
+    line-height: 19px;
+}
+.gananecia_set{
+    font-family:'Lato';
+    font-size:11px;
+    font-weight:700;
+    color:#e81c36;
+    text-transform:uppercase;
+    text-align:center;
+    margin-top:3px;
+}
+.gratis_set{
+     font-family:'Lato';
+    font-size:11px;
+    font-weight:700;
+    color:black;
+    text-transform:uppercase;
+    text-align:center;
+    margin-top:10px;
+}
+.mod-ofer2 .encabezado_popupCatalogoPersonalizado {
+    display: block;
+    text-align: center;
+    margin-bottom: 25px;
+}
+.content_sub_items {
+    overflow: hidden;
+    padding-top: 12px;
+    height: 233px;
+    border-bottom: 1px solid #dadada;
+}
+
+.sub_imagen_oferta {
+    width: 24%;
+    margin-right: 5%;
+    height: auto;
+    /* border: 1px solid #dadada; */
+    float: left;
+    margin-left: 5%;
+}
+.sub_imagen_oferta img {
+    width: 100%;
+}
+.sub_descripcion_oferta {
+    width: 55%;
+    height: 55px;
+    /*line-height: 55px;*/
+    text-align:left;
+    /* padding-top: 8%; */
+    /* padding-bottom: 8%; */
+    border-bottom: 1px solid #dadada;
+    /*float: left;*/
+    font-family: 'Lato';
+    font-size: 13px;
+    color: black;    
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    flex-direction: column;
+}
+.item1_oferta_personalizada  .sub_descripcion_oferta:last-child{
+    border-bottom:0;
+}
+.texto_mencion{
+    width:100%;
+    text-align:center;
+    font-family:'Lato';
+    font-weight:700;
+    font-size:15px;
+    color:black;
+    margin-top:26px;
+}
+.sombra_oferta {
+    width: 100%;
+    height: 78px;
+    margin-top:35px;
+    padding-left: 15px;
+    padding-right: 15px;
+    position: relative;
+    background: #ededed url(../../../Images/Mobile/Esika/fondo_oferta.png) top repeat-x;
+}
+.row_40{
+    margin-left:-40px;
+    margin-right:-40px;
+}
+.texto_sombra{    
+    font-family:'Lato';
+    font-weight:700;
+    font-size:11px;
+    color:black;
+    width:305px;
+    float:left;
+    text-align:center;
+    margin-left:200px;
+    margin-top:23px;
+}
+.texto_sombra  span{
+    font-size:15px;
+}
+.item_pack_personalizado{
+    width:33%;
+    display:inline-block;
+    margin-top:20px;
+    vertical-align: top;
+}
+.content_item_pack{
+    width:100%;
+    height:340px;
+    overflow: hidden;
+}
+.img_principal_pack{
+    width:149px;
+    height:149px;
+    margin:0 auto;
+    margin-top:41px;
+    margin-bottom:16px;
+    border:1px solid #cfcfcf;
+}
+.img_principal_pack img{
+    width:100%;
+    }
+.titulo_pack{
+    font-family:'Lato';
+    font-weight:700;
+    font-size:16px;
+    color:black;
+    margin-top:-6px;
+    text-align:center;
+    height:38px;
+}
+.texto_unidad_pack{
+    font-family:'Lato';
+    font-weight:700;
+    font-size:12px;
+    color:black;
+     text-align:center;
+}
+.texto_ganancia_pack{
+    font-family:'Lato';
+    font-weight:700;
+    font-size:11px;
+    color:#613c87;
+    text-align:center;
+    text-transform:uppercase;
+}
+.fondo_negro_pack {
+    height:41px;
+    background:black;
+    color:white;
+    font-family:'Lato';
+    line-height:41px;
+    font-size:16px;
+    text-align:center;
+    width:82%;
+    position:relative;
+}
+.fondo_negro_pack:before {
+    content: "";
+    width: 0;
+    height: 0;
+    right: -24px;
+    position: absolute;
+    border-right: 12px solid transparent;
+    border-top: 21px solid transparent;
+    border-left: 12px solid black;
+    border-bottom: 20px solid black;
+    }
+.pack_inter {
+    width: 78%;
+    margin-top:13px;
+    border-left: 1px solid #cfcfcf;
+    overflow:hidden;
+}
+.content_item_pack .content_sub_items {
+    overflow: hidden;
+    padding-top: 12px;
+    height: 248px;
+    border-bottom:0;
+}
+.pack_inter .content_sub_items .sub_descripcion_oferta:nth-child(2) {
+     border-top:1px solid #dadada;
+    }
+    
 /* ACTUALIZAR CONTRASEÑA */
 
 .titulo_interiores.tituloCambioContrasenia{
@@ -30336,4 +30555,3 @@ h1#penmostreo .campana {
 
 
 }
-

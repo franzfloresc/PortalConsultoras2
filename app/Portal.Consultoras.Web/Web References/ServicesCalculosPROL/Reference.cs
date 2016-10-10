@@ -159,23 +159,24 @@ namespace Portal.Consultoras.Web.ServicesCalculosPROL {
         
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/Ofertas_catalogo", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
-        public ObjOfertaCatalogos Ofertas_catalogo(string pais, string periodo, string codvta, string codigoconsultora, string zona) {
+        public ObjOfertaCatalogos Ofertas_catalogo(string pais, string periodo, string codvta, string codigoconsultora, string zona, string tipo_oferta) {
             object[] results = this.Invoke("Ofertas_catalogo", new object[] {
                         pais,
                         periodo,
                         codvta,
                         codigoconsultora,
-                        zona});
+                        zona,
+                        tipo_oferta});
             return ((ObjOfertaCatalogos)(results[0]));
         }
         
         /// <remarks/>
-        public void Ofertas_catalogoAsync(string pais, string periodo, string codvta, string codigoconsultora, string zona) {
-            this.Ofertas_catalogoAsync(pais, periodo, codvta, codigoconsultora, zona, null);
+        public void Ofertas_catalogoAsync(string pais, string periodo, string codvta, string codigoconsultora, string zona, string tipo_oferta) {
+            this.Ofertas_catalogoAsync(pais, periodo, codvta, codigoconsultora, zona, tipo_oferta, null);
         }
         
         /// <remarks/>
-        public void Ofertas_catalogoAsync(string pais, string periodo, string codvta, string codigoconsultora, string zona, object userState) {
+        public void Ofertas_catalogoAsync(string pais, string periodo, string codvta, string codigoconsultora, string zona, string tipo_oferta, object userState) {
             if ((this.Ofertas_catalogoOperationCompleted == null)) {
                 this.Ofertas_catalogoOperationCompleted = new System.Threading.SendOrPostCallback(this.OnOfertas_catalogoOperationCompleted);
             }
@@ -184,7 +185,8 @@ namespace Portal.Consultoras.Web.ServicesCalculosPROL {
                         periodo,
                         codvta,
                         codigoconsultora,
-                        zona}, this.Ofertas_catalogoOperationCompleted, userState);
+                        zona,
+                        tipo_oferta}, this.Ofertas_catalogoOperationCompleted, userState);
         }
         
         private void OnOfertas_catalogoOperationCompleted(object arg) {

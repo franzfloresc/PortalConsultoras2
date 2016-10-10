@@ -546,7 +546,9 @@ namespace Portal.Consultoras.Web.Controllers
                 return Json(new
                 {
                     success = !errorServer,
-                    message = !errorServer ? "OK" : "Ocurrió un error al ejecutar la operación.",
+                    message = !errorServer ? "OK"
+                        : tipo.Length > 1 ? tipo
+                        : "Ocurrió un error al ejecutar la operación.",
                     data = pedidoWebDetalleModel,
                     total,
                     formatoTotal,
@@ -725,7 +727,9 @@ namespace Portal.Consultoras.Web.Controllers
                 Total_Cliente = Util.DecimalToStringFormat(totalCliente, userData.CodigoISO);
             }
 
-            message = ErrorServer ? "Hubo un problema al intentar actualizar el registro. Por favor inténtelo nuevamente." : "El registro ha sido actualizado de manera exitosa.";
+            message = !ErrorServer ? "El registro ha sido actualizado de manera exitosa."
+                        : tipo.Length > 1 ? tipo
+                        : "Hubo un problema al intentar actualizar el registro. Por favor inténtelo nuevamente.";
 
             return Json(new
             {
@@ -737,11 +741,12 @@ namespace Portal.Consultoras.Web.Controllers
                 model.ClienteID_,
                 userData.Simbolo,
                 extra = "",
+                tipo,
                 DataBarra = !ErrorServer ? GetDataBarra() : new BarraConsultoraModel(),
             }, JsonRequestBehavior.AllowGet);
         }
 
-        public PedidoDetalleModel DeletePedido(BEPedidoWebDetalle obe)
+        private PedidoDetalleModel DeletePedido(BEPedidoWebDetalle obe)
         {
             string mensaje = string.Empty;
             PedidoDetalleModel PedidoModelo = new PedidoDetalleModel();
@@ -859,14 +864,19 @@ namespace Portal.Consultoras.Web.Controllers
                 listaCliente.Insert(0, new BECliente { ClienteID = -1, Nombre = "-- TODOS --" });
                 Session["ListadoEstrategiaPedido"] = null;
 
+                var message = !ErrorServer ? "OK"
+                            : tipo.Length > 1 ? tipo
+                            : "Ocurrió un error al ejecutar la operación.";
+
                 return Json(new
                 {
                     success = !ErrorServer,
-                    message = !ErrorServer ? "OK" : "Ocurrió un error al ejecutar la operación.",
+                    message,
                     formatoTotal,
                     total,
                     formatoTotalCliente,
                     listaCliente,
+                    tipo,
                     DataBarra = !ErrorServer ? GetDataBarra() : new BarraConsultoraModel(),
                     data = new
                     {
@@ -905,11 +915,9 @@ namespace Portal.Consultoras.Web.Controllers
                 var noPasa = ReservadoEnHorarioRestringido(out message);
                 if (noPasa)
                 {
-                    ErrorServer = true;
-
                     return Json(new
                     {
-                        success = ErrorServer,
+                        success = false,
                         message = message,
                         extra = ""
                     }, JsonRequestBehavior.AllowGet);
@@ -1513,7 +1521,6 @@ namespace Portal.Consultoras.Web.Controllers
                 oBEPedidoWebDetalle.PrecioUnidad = olstProducto[0].PrecioCatalogo;
                 oBEPedidoWebDetalle.CUV = olstProducto[0].CUV.Trim();
 
-
                 oBEPedidoWebDetalle.DescripcionProd = olstProducto[0].Descripcion.Trim();
                 oBEPedidoWebDetalle.ImporteTotal = oBEPedidoWebDetalle.Cantidad * oBEPedidoWebDetalle.PrecioUnidad;
                 oBEPedidoWebDetalle.Nombre = oUsuarioModel.NombreConsultora;
@@ -1547,9 +1554,11 @@ namespace Portal.Consultoras.Web.Controllers
                 return Json(new
                 {
                     success = !ErrorServer,
-                    message = "Has agregado " + Convert.ToString(CantCUVpedido) + " unidad(es) del producto a tu pedido.",
+                    message = !ErrorServer ? ("Has agregado " + Convert.ToString(CantCUVpedido) + " unidad(es) del producto a tu pedido.")
+                    : tipo.Length > 1 ? tipo : "Ocurrió un error al ejecutar la operación.",
                     oPedidoDetalle = oBEPedidoWebDetalle,
-                    DataBarra = !ErrorServer ? GetDataBarra() : new BarraConsultoraModel()
+                    DataBarra = !ErrorServer ? GetDataBarra() : new BarraConsultoraModel(),
+                    tipo
                 }, JsonRequestBehavior.AllowGet);
 
             }
@@ -3724,16 +3733,14 @@ namespace Portal.Consultoras.Web.Controllers
 
             try
             {
-                // Confirmar => al modificar tu pedido llama PedidoValidadoDeshacerReserva => Mantiene el pedido en estado Procesado
-                // ReservadoEnHorarioRestringido => llama al  metodo ValidarPedidoReservado (tre como si estuviera validado)
-                //var mensaje = "";
-                //var noPasa = ReservadoEnHorarioRestringido(out mensaje);
-                //if (noPasa)
-                //{
-                //    ErrorServer = true;
-                //    tipo = "";
-                //    return olstTempListado;
-                //}
+                var mensaje = "";
+                var noPasa = ReservadoEnHorarioRestringido(out mensaje);
+                if (noPasa)
+                {
+                    ErrorServer = true;
+                    tipo = mensaje ?? " ";// No puede Ingresar
+                    return olstTempListado;
+                }
 
                 var pedidoWebDetalleNula = Session["PedidoWebDetalle"] == null;
 
@@ -3973,69 +3980,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }, JsonRequestBehavior.AllowGet);
             }
         }
-
-        private bool ReservadoEnHorarioRestringido(out string mensaje)
-        {
-            mensaje = "";
-            var result = ValidarSession();
-            if (result != null) return true;
-
-            bool estado = ValidarPedidoReservado(out mensaje);
-            if (!estado)
-                estado = ValidarHorarioRestringido(out mensaje);
-            return estado;
-        }
-
-        private ActionResult ValidarSession()
-        {
-            ActionResult Result = null;
-
-            if (HttpContext.Session != null)
-            {
-                if (HttpContext.Session.IsNewSession)
-                {
-                    var sessionCookie = HttpContext.Request.Headers["Cookie"];
-                    if ((sessionCookie != null) && (sessionCookie.IndexOf("ASP.NET_SessionId") >= 0))
-                    {
-                        // loggear datos de variable de sesion clave
-                        UsuarioModel usuario = (UsuarioModel)HttpContext.Session["UserData"];
-                        if (usuario != null)
-                        {
-                            LogManager.LogManager.LogErrorWebServicesBus(new ApplicationException("Si existe Session[UserData]"), usuario.CodigoConsultora, usuario.CodigoISO);
-                        }
-                        else
-                        {
-                            LogManager.LogManager.LogErrorWebServicesBus(new ApplicationException("No existe Session[UserData]"), string.Empty, string.Empty);
-                        }
-                        // loggear datos de variable de sesion clave
-
-                        CerrarSesion();
-
-                        // version 2
-                        if (HttpContext.Request.IsAjaxRequest())
-                        {
-                            Result = new JsonResult { Data = "_Logon_", JsonRequestBehavior = JsonRequestBehavior.AllowGet };
-                        }
-                        else
-                        {
-                            //string URLSignOut = "https://stsqa.somosbelcorp.com/adfs/ls/?wa=wsignout1.0";
-                            string URLSignOut = "/SesionExpirada.html";
-                            //filterContext.Result = new RedirectResult(URLSignOut);
-                            Result = new RedirectResult(URLSignOut);
-                        }
-                        // version 2
-                    }
-                }
-            }
-            return Result;
-        }
-
-        private void CerrarSesion()
-        {
-            HttpContext.Session["UserData"] = null;
-            HttpContext.Session.Abandon();
-        }
-
+        
         [HttpGet]
         public JsonResult JsonConsultarEstrategias(string cuv)
         {
@@ -4157,73 +4102,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             return lst;
         }
-
-        private bool ValidarHorarioRestringido(out string mensaje)
-        {
-            bool enHorarioRestringido = false;
-            mensaje = string.Empty;
-            UsuarioModel usuario = (UsuarioModel)Session["UserData"];
-            DateTime FechaHoraActual = DateTime.Now.AddHours(usuario.ZonaHoraria);
-
-            if (!usuario.DiaPROL || !usuario.HabilitarRestriccionHoraria)
-                return false;
-            else
-            {
-                // rango de dias prol
-                if (FechaHoraActual > usuario.FechaInicioCampania &&
-                    FechaHoraActual < usuario.FechaFinCampania.AddDays(1))
-                {
-                    TimeSpan HoraNow = new TimeSpan(FechaHoraActual.Hour, FechaHoraActual.Minute, 0);
-                    TimeSpan HoraAdicional = TimeSpan.Parse(usuario.HorasDuracionRestriccion.ToString() + ":00");
-                    // si no es demanda anticipada se usa la hora de cierre normal
-                    if (usuario.EsZonaDemAnti == 0)
-                    {
-                        if (HoraNow > usuario.HoraCierreZonaNormal && HoraNow < usuario.HoraCierreZonaNormal + HoraAdicional)
-                            enHorarioRestringido = true;
-                        else
-                            enHorarioRestringido = false;
-                    }
-                    else // sino se usa la hora de cierre de demanda anticipada
-                    {
-                        if (HoraNow > usuario.HoraCierreZonaDemAnti)
-                            enHorarioRestringido = true;
-                        else
-                            enHorarioRestringido = false;
-                    }
-                }
-                // si no es horario restringido se devuelve el resultado false , sino se prepara el mensaje correspondiente
-                if (!enHorarioRestringido)
-                    return false;
-                else
-                {
-                    TimeSpan HoraCierrePais = usuario.EsZonaDemAnti == 0 ? usuario.HoraCierreZonaNormal : usuario.HoraCierreZonaDemAnti;
-                    if (usuario.IngresoPedidoCierre)
-                        mensaje = string.Format("Lamentablemente el rango de fechas para ingresar o modificar tu pedido ha concluido. Te recomendamos que en la siguiente campaña lo hagas antes de las {0}:{1} horas de tu día de facturación.", HoraCierrePais.Hours.ToString().PadLeft(2, '0'), HoraCierrePais.Minutes.ToString().PadLeft(2, '0'));
-                    else
-                        mensaje = string.Format("Se ha cerrado el período de facturación a las {0}:{1} horas. Todos los códigos ingresados hasta esa hora han sido registrados en el sistema. Gracias", HoraCierrePais.Hours.ToString().PadLeft(2, '0'), HoraCierrePais.Minutes.ToString().PadLeft(2, '0'));
-                    return true;
-                }
-            }
-        }
-
-        private bool ValidarPedidoReservado(out string mensaje)
-        {
-            mensaje = string.Empty;
-
-            BEConfiguracionCampania oBEConfiguracionCampania = null;
-            using (PedidoServiceClient sv = new PedidoServiceClient())
-            {
-                oBEConfiguracionCampania = sv.GetEstadoPedido(userData.PaisID, userData.CampaniaID, userData.ConsultoraID, userData.ZonaID, userData.RegionID);
-            }
-            if (oBEConfiguracionCampania != null && oBEConfiguracionCampania.EstadoPedido == Constantes.EstadoPedido.Procesado &&
-                !oBEConfiguracionCampania.ModificaPedidoReservado && !oBEConfiguracionCampania.ValidacionAbierta)
-            {
-                mensaje = "Ya tienes un pedido reservado para esta campaña.";
-                return true;
-            }
-            return false;
-        }
-
+                
         public JsonResult ObtenerProductosRecomendados(string CUV)
         {
             List<BECrossSellingProducto> lst = new List<BECrossSellingProducto>();
@@ -4462,7 +4341,7 @@ namespace Portal.Consultoras.Web.Controllers
             return lst;
         }
 
-        public void AgregarKitNuevas()
+        private void AgregarKitNuevas()
         {
             if (userData.CodigoISO == "MX" && new List<string> { "53", "63", "71" }.Contains(userData.CodigorRegion)) return;
             if (Session["ConfiguracionProgramaNuevas"] != null) return;
@@ -4669,7 +4548,6 @@ namespace Portal.Consultoras.Web.Controllers
 
             return listaParametriaOfertaFinal;
         }
-
         #endregion        
         
         public JsonResult ObtenerProductosOfertaFinal(int tipoOfertaFinal)

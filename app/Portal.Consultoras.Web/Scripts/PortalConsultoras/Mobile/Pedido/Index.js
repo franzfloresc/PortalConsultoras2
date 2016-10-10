@@ -400,7 +400,7 @@ function InsertarProductoSugerido(marcaID, cuv, precioUnidad, descripcion, canti
 
     jQuery.ajax({
         type: 'POST',
-        url: urlInsertar,
+        url: urlPedidoInsert,
         dataType: 'json',
         contentType: 'application/json; charset=utf-8',
         data: JSON.stringify({
@@ -420,6 +420,12 @@ function InsertarProductoSugerido(marcaID, cuv, precioUnidad, descripcion, canti
                 CloseLoading();
                 return false;
             }
+            if (data.success != true) {
+                messageInfo(data.message);
+                CloseLoading();
+                return false;
+            }
+
             ActualizarGanancia(data.DataBarra);
             var existeError = $(data).filter("input[id=hdErrorInsertarProducto]").val();
             if (existeError == "1") {
@@ -427,6 +433,7 @@ function InsertarProductoSugerido(marcaID, cuv, precioUnidad, descripcion, canti
                 CloseLoading();
                 return false;
             }
+
             CloseLoading();
             //$("#divMensajeProductoAgregado").show();
             
@@ -551,7 +558,7 @@ function alert_msg(message, fnClose) {
 };
 function InsertarProducto() {
     var esOfertaNueva = $("#hdfValorFlagNueva").val() === "1";
-    var urlInsertar = esOfertaNueva ? urlInsertOfertaNueva : urlInsert;
+    var urlInsertar = esOfertaNueva ? urlPedidoInsertZe : urlPedidoInsert;
     var model;
        
     if (!esOfertaNueva) {
@@ -607,63 +614,65 @@ function InsertarProducto() {
                 return false;
             }
 
-            CloseLoading();
-
-            if (data.success == true) {
-                setTimeout(function () {
-                    //$("#divMensajeProductoAgregado").show();
-                }, 2000);
-
-                ActualizarGanancia(data.DataBarra);
-                var existeError = $(data).filter("input[id=hdErrorInsertarProducto]").val();
-                if (existeError == "1") {
-                    $("#divProductoObservaciones").html('<div class="alert-top-icon text-danger" style="margin-top: 0;"><i class="icon-exclamation-circle"></i><br/>Ocurrió un error al ejecutar la operación.</div>');
-                    $("#btnAgregarProducto").show();
-                    $("#btnAgregarProducto").removeAttr("disabled");
-                    CloseLoading();
-                    return false;
-                }
-                $('#divMensajeCUV').hide();
-                $("#divProductoObservaciones").html("");
-                $("#divProductoMantenedor").hide();
-                $("#btnAgregarProducto").hide();
-                VisibleEstrategias(true);
-                $("#divResumenPedido").show();
-                $("footer").show();
-                $(".footer-page").css({ "margin-bottom": "0px" });
-
-                var cuv = $("#hdfCUV").val();
-                CargarCarouselEstrategias(cuv);
-
-                PedidoOnSuccess();
-
-                $("#hdCuvEnSession").val("");
-
-                TrackingJetloreAdd(model.Cantidad, $("#hdCampaniaCodigo").val(), model.CUV);
-                dataLayer.push({
-                    'event': 'addToCart',
-                    'ecommerce': {
-                        'add': {
-                            'actionField': { 'list': 'Estándar' },
-                            'products': [{
-                                'name': data.data.DescripcionProd,
-                                'price': String(data.data.PrecioUnidad),
-                                'brand': data.data.DescripcionLarga,
-                                'id': data.data.CUV,
-                                'category': 'NO DISPONIBLE',
-                                'variant': data.data.DescripcionOferta == "" ? "Estándar" : data.data.DescripcionOferta,
-                                'quantity': Number(model.Cantidad),
-                                'position': 1
-                            }]
-                        }
-                    }
-                });
-
-            } else {
+            if (data.success != true) {
                 $("#btnAgregarProducto").removeAttr("disabled", "disabled");
                 $("#btnAgregarProducto").show();
-                messageInfoMalo(data.message);
+                messageInfo(data.message);
+                CloseLoading();
+                return false;
             }
+
+            CloseLoading();
+
+            setTimeout(function () {
+                //$("#divMensajeProductoAgregado").show();
+            }, 2000);
+
+            ActualizarGanancia(data.DataBarra);
+            var existeError = $(data).filter("input[id=hdErrorInsertarProducto]").val();
+            if (existeError == "1") {
+                $("#divProductoObservaciones").html('<div class="alert-top-icon text-danger" style="margin-top: 0;"><i class="icon-exclamation-circle"></i><br/>Ocurrió un error al ejecutar la operación.</div>');
+                $("#btnAgregarProducto").show();
+                $("#btnAgregarProducto").removeAttr("disabled");
+                CloseLoading();
+                return false;
+            }
+            $('#divMensajeCUV').hide();
+            $("#divProductoObservaciones").html("");
+            $("#divProductoMantenedor").hide();
+            $("#btnAgregarProducto").hide();
+            VisibleEstrategias(true);
+            $("#divResumenPedido").show();
+            $("footer").show();
+            $(".footer-page").css({ "margin-bottom": "0px" });
+
+            var cuv = $("#hdfCUV").val();
+            CargarCarouselEstrategias(cuv);
+
+            PedidoOnSuccess();
+
+            $("#hdCuvEnSession").val("");
+
+            TrackingJetloreAdd(model.Cantidad, $("#hdCampaniaCodigo").val(), model.CUV);
+            dataLayer.push({
+                'event': 'addToCart',
+                'ecommerce': {
+                    'add': {
+                        'actionField': { 'list': 'Estándar' },
+                        'products': [{
+                            'name': data.data.DescripcionProd,
+                            'price': String(data.data.PrecioUnidad),
+                            'brand': data.data.DescripcionLarga,
+                            'id': data.data.CUV,
+                            'category': 'NO DISPONIBLE',
+                            'variant': data.data.DescripcionOferta == "" ? "Estándar" : data.data.DescripcionOferta,
+                            'quantity': Number(model.Cantidad),
+                            'position': 1
+                        }]
+                    }
+                }
+            });
+
         },
         error: function (data, error) {
             CloseLoading();
@@ -1299,20 +1308,30 @@ function AgregarProductoDestacado(tipoEstrategiaImagen) {
             } else {
                 jQuery.ajax({
                     type: 'POST',
-                    url: urlAgregarProducto,
+                    url: urlPedidoInsertZe,
                     dataType: 'html',
                     contentType: 'application/json; charset=utf-8',
                     data: JSON.stringify(param),
                     async: true,
                     success: function (data) {
-                        if (checkTimeout(data)) {
-                            ActualizarGanancia(JSON.parse(data).DataBarra);
-                            ShowLoading();                            
-                            CargarCarouselEstrategias(cuv);
-                            TrackingJetloreAdd(cantidad, $("#hdCampaniaCodigo").val(), cuv);
-                            TagManagerClickAgregarProducto();
+
+                        if (!checkTimeout(data)) {
                             CloseLoading();
+                            return false;
                         }
+
+                        if (data.success != true) {
+                            messageInfo(data.message);
+                            CloseLoading();
+                            return false;
+                        }
+
+                        ActualizarGanancia(JSON.parse(data).DataBarra);
+                        ShowLoading();
+                        CargarCarouselEstrategias(cuv);
+                        TrackingJetloreAdd(cantidad, $("#hdCampaniaCodigo").val(), cuv);
+                        TagManagerClickAgregarProducto();
+                        CloseLoading();                        
                     },
                     error: function (data, error) {
                         if (checkTimeout(data)) {

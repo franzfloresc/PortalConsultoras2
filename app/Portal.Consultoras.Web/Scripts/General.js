@@ -74,10 +74,10 @@ jQuery(document).ready(function () {
 
     String.prototype.CodificarHtmlToAnsi = function () {
         var newStr = this;
-        var ansi = new Array('Á', 'á', 'É', 'é', 'Í', 'í', 'Ó', 'ó', 'Ú', 'ú');
-        var html = new Array('&#193;', '&#225;', '&#201;', '&#233;', '&#205;', '&#237;', '&#211;', '&#243;', '&#218;', '&#250;');
+        var ansi = new Array('Á', 'á', 'É', 'é', 'Í', 'í', 'Ó', 'ó', 'Ú', 'ú', '<', '>', "'");
+        var html = new Array('&#193;', '&#225;', '&#201;', '&#233;', '&#205;', '&#237;', '&#211;', '&#243;', '&#218;', '&#250;', '&lt;', '&gt;', '&#39;');
         for (var i = 0; i < html.length; i++) {
-            newStr = newStr.replace(html[i], ansi[i]);
+            newStr = newStr.ReplaceAll(html[i], ansi[i]);
         }
         return newStr;
     };
@@ -105,13 +105,25 @@ jQuery(document).ready(function () {
     Array.prototype.Find = function (campo, valor) {
         var array = new Array();
         $.each(this, function (index, item) {
-            if (item[campo] == valor) {
-                try {
-                    array.push(Clone(item));
-                } catch (e) {
-                    array.push(item);
+            if (typeof (campo) == "string") {
+                if (item[campo] == valor) {
+                    try {
+                        array.push(Clone(item));
+                    } catch (e) {
+                        array.push(item);
+                    }
                 }
             }
+            else if (typeof (campo) == "object") {
+                if (JSON.stringify(item) == JSON.stringify(campo)) {
+                    try {
+                        array.push(Clone(item));
+                    } catch (e) {
+                        array.push(item);
+                    }
+                }
+            }
+            
         });
         return array;
     };
@@ -276,6 +288,31 @@ jQuery(document).ready(function () {
             $(".loadingScreenWindow").css("top", (($(window).height() / 2) + $(document).scrollTop() - $(".loadingScreenWindow").height()) + "px");
         } catch (e) { }        
     });
+    
+    RemoverRepetidos = function (lista, campo) {
+        campo = $.trim(campo);
+        var newLista = new Array();
+        var arrAux = new Array();
+        $.each(lista, function (ind, item) {
+            arrAux = new Array();
+            if (campo != "") {
+                arrAux = newLista.Find(campo, item[campo]);
+            }
+            else {
+                arrAux = newLista.Find(item)
+            }
+            if (arrAux.length == 0) {
+                try {
+                    newLista.push(Clone(item));
+                } catch (e) {
+                    newLista.push(item);
+                }
+            }
+        });
+
+        return newLista;
+    };
+
 })(jQuery);
 
 function showDialog(dialogId) {
@@ -636,8 +673,9 @@ function MensajeEstadoPedido() {
 
     if (indicadorEnviadoDescarga != 1)
         return false;
-
-    $("#bloquemensajesPedido").find(".mensaje_horarioIngresoPedido").html(motivoRechazo || "");
+    
+    $("#bloquemensajesPedido").find(".mensaje_horarioIngresoPedido").html("");
+    $("#bloquemensajesPedido").find(".mensaje_horarioIngresoPedido").append((motivoRechazo || "").CodificarHtmlToAnsi());
     if (estaRechazado == '1') {
         $("#bloquemensajesPedido").find(".mensaje_estadoActualPedido").html("TU PEDIDO HA SIDO RECHAZADO");
     }

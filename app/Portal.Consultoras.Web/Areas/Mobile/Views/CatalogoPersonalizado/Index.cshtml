@@ -308,7 +308,7 @@
                         <b>{{Descripcion}}</b>
                     </p>
                     <div class="producto_precio" style="margin-bottom: 2px !important;">
-                        @*<span class="producto_precio_normal">{{Simbolo}} {{PrecioValorizadoString}}</span>*@
+                        <span class="producto_precio_normal">{{Simbolo}} {{PrecioValorizadoString}}</span>
                         <span class="producto_precio_oferta"><b>{{Simbolo}} {{PrecioCatalogoString}}</b></span>
                     </div>
                     <div style="min-height:38px">
@@ -348,7 +348,7 @@
     <script type="text/javascript">
         var urlObtenerOfertaRevista = '@Url.Action("ObtenerOfertaRevista", "CatalogoPersonalizado", new { area = "" })';
         var urlObtenerProductosCatalogoPersonalizado = '@Url.Action("ObtenerProductosCatalogoPersonalizado", "CatalogoPersonalizado", new { area = "" })';
-        var urlAgregarProducto = '@Url.Action("Insert", "Pedido", new { area = "" })';
+        var urlPedidoInsert = '@Url.Action("Insert", "Pedido", new { area = "" })';
         var urlReservadoOEnHorarioRestringido = '@Url.Action("ReservadoOEnHorarioRestringido", "Pedido", new { area = "" })';
         var urlPedidoValidado = '@Url.Action("Validado", "Pedido", new { area = "Mobile" })';
     </script>   

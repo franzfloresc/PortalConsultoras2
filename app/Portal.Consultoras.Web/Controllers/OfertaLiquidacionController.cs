@@ -187,6 +187,18 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpPost]
         public JsonResult InsertOfertaWebPortal(PedidoDetalleModel model)
         {
+            var mensaje = "";
+            var noPasa = ReservadoEnHorarioRestringido(out mensaje);
+            if (noPasa)
+            {
+                return Json(new
+                {
+                    success = false,
+                    message = mensaje,
+                    extra = ""
+                });
+            }
+
             try
             {
                 Mapper.CreateMap<PedidoDetalleModel, BEPedidoWebDetalle>()

@@ -807,16 +807,15 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 }
                 else
                 {
-
                     var titulo = "(" + userData.CodigoISO + ") Consultora que atenderá tu pedido de " + HttpUtility.HtmlDecode(marcaPedido); //Marca
                     var mensaje = new StringBuilder();
                     mensaje.AppendFormat("<p>Hola {0},</br><br /><br />", HttpUtility.HtmlDecode(pedido.Cliente));
                     mensaje.AppendFormat("{0}</p><br/>", mensajeaCliente);
                     mensaje.Append("<br/>Saludos,<br/><br />");
                     mensaje.Append("<table><tr><td><img src=\"cid:{0}\" /></td>");
-                    mensaje.AppendFormat("<td><p style='text-align: center;'><strong>{0}<br/>Consultora</strong></p></td></tr></table>", userData.NombreConsultora);
+                    mensaje.AppendFormat("<td><p style='text-align: center;'><strong>{0}<br/>{1}<br/>Consultora</strong></p></td></tr></table>", userData.NombreConsultora, userData.EMail);
                     try
-                    {
+                    {                    
                         Util.EnviarMail3Mobile(emailDe, pedido.Email, titulo, mensaje.ToString(), true, string.Empty);
                     }
                     catch (Exception ex)
@@ -824,7 +823,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                         LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
                     }
                 }
-
                 return Json(new
                 {
                     success = true,
@@ -2063,6 +2061,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                         (modelDetalle.TipoAtencion == (int)(Enumeradores.ConsultoraOnlineTipoAtencion.Agotado) ? Constantes.COTipoAtencionMensaje.Agotado : ""));
                 });
 
+                model.EstadoDesc = model.Estado == "A" ? "Aceptado" : "Cancelado";
                 model.Cliente = Util.ReemplazarSaltoLinea(model.Cliente, " ");
                 model.Direccion = Util.ReemplazarSaltoLinea(model.Direccion, " ");
                 model.Telefono = Util.ReemplazarSaltoLinea(model.Telefono, " ");

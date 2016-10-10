@@ -126,7 +126,7 @@ namespace Portal.Consultoras.BizLogic
         }
 
         #endregion
-
+        
         public BEResultadoSolicitud InsertarSolicitudCliente(int paisID, BEEntradaSolicitudCliente entidadSolicitud)
         {
             BEResultadoSolicitud resultado = null;
@@ -177,7 +177,7 @@ namespace Portal.Consultoras.BizLogic
                 return resultado;
             }
         }
-
+        
         //JLCS
         public BESolicitudCliente GetSolicitudClienteBySolicitudId(int paisID, long solicitudClienteId)
         {
