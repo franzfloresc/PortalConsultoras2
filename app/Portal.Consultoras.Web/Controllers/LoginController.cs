@@ -588,7 +588,6 @@ namespace Portal.Consultoras.Web.Controllers
                     model.CatalogoPersonalizado = oBEUsuario.CatalogoPersonalizado;
                     model.EsCatalogoPersonalizadoZonaValida = oBEUsuario.EsCatalogoPersonalizadoZonaValida;
                     model.VioTutorialSalvavidas = oBEUsuario.VioTutorialSalvavidas;
-                    if (model.RolID == 1) this.CrearUsuarioMiAcademia(model);
                 }
 
                 pasoLog = "Agregar usuario en session";
