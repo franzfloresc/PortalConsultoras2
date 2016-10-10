@@ -2366,6 +2366,7 @@
     <Content Include="Scripts\PortalConsultoras\Mobile\ConsultoraOnline\Historial.js" />
     <Content Include="Scripts\PortalConsultoras\Mobile\Catalogo\Index.js" />
     <Content Include="Scripts\PortalConsultoras\Mobile\MiAsesorBelleza\Index.js" />
+    <Content Include="Scripts\PortalConsultoras\Mobile\Pedido\ConsultoraOnline.js" />
     <Content Include="Scripts\PortalConsultoras\Mobile\Pedido\Validado.js" />
     <Content Include="Scripts\PortalConsultoras\Mobile\Pedido\Detalle.js" />
     <Content Include="Scripts\PortalConsultoras\Mobile\OfertaLiquidacion\Index.js" />
@@ -2565,7 +2566,7 @@
     <Content Include="Content\Css\Site\fonts\slick.woff" />
     <Content Include="Areas\Mobile\Views\Catalogo\EnterateMas.cshtml" />
     <Content Include="Areas\Mobile\Views\ConsultoraOnline\Historial.cshtml" />
-    <Content Include="Areas\Mobile\Views\ConsultoraOnline\PedidosPendientes.cshtml" />
+    <Content Include="Areas\Mobile\Views\ConsultoraOnline\Pendientes.cshtml" />
     <Content Include="Areas\Mobile\Views\ConsultoraOnline\DetallePedidoHistorial.cshtml" />
     <Content Include="Areas\Mobile\Views\ConsultoraOnline\DetallePedidoPendiente.cshtml" />
     <None Include="Service References\ServiceProductoCatalogoPersonalizado\ProductoService.disco" />
