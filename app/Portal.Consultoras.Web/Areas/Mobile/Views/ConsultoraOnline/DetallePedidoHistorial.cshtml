@@ -118,7 +118,6 @@
         </a>
         <hr class="clear">
         <div class="titulo_compartir"> <b>CUÉNTANOS PORQUÉ LO CANCELASTE</b></div>
-        <div class="mensaje_alerta">Si cancelas el pedido vas a perderlo</div>
         <div>
             @foreach (var motivoRechazo in Model.MotivosRechazo)
             {
@@ -137,8 +136,8 @@
             <img src="/Content/Images/mobile/Esika/cerrar_04.png" alt="-">
         </a>
         <hr class="clear">
-        <div class="icono_alerta check_icono_mobile"></div>
-        <div class="titulo_compartir">PEDIDO <b>CANCELADO</b></div>
+        <div class="icono_alerta exclamacion_icono_mobile"></div>
+        <div class="titulo_compartir"><b>CANCELASTE</b> EL PEDIDO</div>
         <div class="mensaje_alerta spnMensajeSolicitudCancelada"></div>
         <a class="btn_ok_mobile" onclick="CerrarMensajeCancelado();">OK</a>
     </div>
