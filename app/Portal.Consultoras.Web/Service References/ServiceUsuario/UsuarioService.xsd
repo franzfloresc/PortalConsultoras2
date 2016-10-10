@@ -390,6 +390,7 @@
       <xs:element minOccurs="0" name="Cantidad" type="xs:int" />
       <xs:element minOccurs="0" name="EstaEnRevista" type="xs:int" />
       <xs:element minOccurs="0" name="Marca" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="MarcaID" type="xs:int" />
       <xs:element minOccurs="0" name="MedioContacto" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="MensajeValidacion" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="PedidoDetalleId" type="xs:long" />
