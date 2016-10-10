@@ -1475,6 +1475,10 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 direccion = string.Format("{0} {1} {2}", model.NombreLugarNivel3, model.CalleOAvenida, model.Numero);
             }
+            else if (CodigoISO == "EC")
+            {
+                direccion = string.Format("{0} {1} {2}", model.NombreLugarNivel3, model.NombreLugarNivel4, model.NombreLugarNivel3);
+            }
             else if (CodigoISO == "PE")
             {
                 direccion = string.Format("{0} {1} {2}", model.NombreLugarNivel3, model.NombreLugarNivel4, model.CalleOAvenida);
@@ -1508,6 +1512,8 @@ namespace Portal.Consultoras.Web.Controllers
                             ? model.NombreLugarNivel3 + "|" + model.NombreLugarNivel4 + "|" + model.CalleOAvenida
                             : model.CodigoPais == Constantes.CodigosISOPais.Salvador
                             ? model.NombreLugarNivel3 + "|" + model.NombreLugarNivel4 + "|" + model.CalleOAvenida
+                            :model.CodigoPais == Constantes.CodigosISOPais.Ecuador
+                            ? model.NombreLugarNivel3 + "|" +  model.NombreLugarNivel4 + "|" + model.NombreLugarNivel5
                             : model.CalleOAvenida + "|" + model.Numero,
 
                 NombreRegion = CodigoISO == "PE" ? model.NombreLugarNivel2 : model.NombreLugarNivel1,
@@ -1517,7 +1523,7 @@ namespace Portal.Consultoras.Web.Controllers
             if (ModelState.IsValid)
             {
                 
-                if (CodigoISO == "CL" || CodigoISO == "MX" || CodigoISO == "PE" )
+                if (CodigoISO == "CL" || CodigoISO == "MX" || CodigoISO == "PE" || CodigoISO == Constantes.CodigosISOPais.Ecuador)
                 {
                     try
                     {

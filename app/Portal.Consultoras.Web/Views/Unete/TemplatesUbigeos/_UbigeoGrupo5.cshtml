@@ -1,0 +1,115 @@
+﻿@using System.Collections.Generic
+@using Portal.Consultoras.Web.Models
+@using Portal.Consultoras.Common
+@model Portal.Consultoras.Web.Models.EditarDireccionModel
+@* Template para Ecuador  *@
+
+<div class="div-3">
+    <div class="titC">@Dictionaries.LabelLugar1[Model.CodigoPais]</div>
+    <div class="selectP2 borde_redondeado">
+        @Html.DropDownListFor(m => Model.LugarNivel1, Model.LugaresNivel1, "-- Seleccionar --", new { @class = "field_85" })
+    </div>
+</div>
+<div class="div-3">
+    <div class="validation_clear"></div>
+    <div class="validation">
+        @Html.ValidationMessageFor(m => Model.LugarNivel1)
+    </div>
+</div>
+<div class="div-3">
+    <div class="titC">@Dictionaries.LabelLugar2[Model.CodigoPais]</div>
+    <div class="selectP2 borde_redondeado">
+        @Html.DropDownListFor(m => Model.LugarNivel2, new List<SelectListItem>(), "-- Seleccionar --", new { @class = "field_85" })
+    </div>
+</div>
+<div class="div-3">
+    <div class="validation_clear"></div>
+    <div class="validation">
+        @Html.ValidationMessageFor(m => Model.LugarNivel2)
+    </div>
+</div>
+@*<div class="div-3">
+    <div class="titC">@Dictionaries.LabelLugar3[Model.CodigoPais]</div>
+    <div class="selectP2 borde_redondeado">
+        @Html.DropDownListFor(m => Model.LugarNivel3, new List<SelectListItem>(), "-- Seleccionar --", new { @class = "field_85" })
+    </div>
+</div>
+<div class="div-3">
+    <div class="validation_clear"></div>
+    <div class="validation">
+        @Html.ValidationMessageFor(m => Model.LugarNivel3)
+    </div>
+</div>
+<div class="div-3" id="centroPoblado">
+    <div class="titC">@Dictionaries.LabelLugar4[Model.CodigoPais]</div>
+    <div class="selectP2 borde_redondeado">
+        @Html.DropDownListFor(m => Model.LugarNivel4, new List<SelectListItem>(), "-- Seleccionar --", new { @class = "field_85" })
+    </div>
+</div>
+<div class="div-3">
+    <div class="validation_clear"></div>
+    <div class="validation">
+        @Html.ValidationMessageFor(m => Model.LugarNivel4)
+    </div>
+</div>*@
+<div class="div-3">
+    <div class="titC">@Dictionaries.LabelLugar3[Model.CodigoPais]</div>
+    <div class="selectP2 borde_redondeado">
+        @Html.TextBoxFor(m => Model.NombreLugarNivel3, new { @class = "field_85"})
+    </div>
+</div>
+<div class="div-3">
+    <div class="validation_clear"></div>
+    <div class="validation">
+        @Html.ValidationMessageFor(m => Model.NombreLugarNivel3)
+    </div>
+</div>
+<div class="div-3">
+    <div class="titC">@Dictionaries.LabelLugar4[Model.CodigoPais]</div>
+    <div class="selectP2 borde_redondeado">
+        @Html.TextBoxFor(m => Model.NombreLugarNivel4, new { @class = "field_85", @placeholder = "Ejm: Av. Castellana 100" })
+    </div>
+</div>
+<div class="div-3">
+    <div class="validation_clear"></div>
+    <div class="validation">
+        @Html.ValidationMessageFor(m => Model.NombreLugarNivel4)
+    </div>
+</div>
+@*<div class="div-3">
+    <div class="titC">Dirección</div>
+    <div class="selectP2 borde_redondeado">
+        @Html.TextBoxFor(m => Model.CalleOAvenida, new { @class = "field_85", @placeholder = "Ejm: Av. Castellana 100" })
+    </div>
+</div>
+<div class="div-3">
+    <div class="validation_clear"></div>
+    <div class="validation">
+        @Html.ValidationMessageFor(m => Model.CalleOAvenida)
+    </div>
+</div>*@
+<div class="div-3">
+    <div class="titC">@Dictionaries.LabelLugar5[Model.CodigoPais]</div>
+    <div class="selectP2 borde_redondeado">
+        @Html.TextBoxFor(m => Model.NombreLugarNivel5, new { @class = "field_85" })
+    </div>
+</div>
+<div class="div-3">
+    <div class="validation_clear"></div>
+    <div class="validation">    
+        @Html.ValidationMessageFor(m => Model.NombreLugarNivel5)
+    </div>
+</div>
+<div class="div-3">
+    <div class="titC">Referencia</div>
+    <div class="selectP2 borde_redondeado">
+        @Html.TextBoxFor(m => Model.Referencia, new { @class = "field_85", @placeholder = "Ej. entre calle 1 y calle 3" })
+    </div>
+</div>
+<div class="div-3">
+    <div class="validation_clear"></div>
+    <div class="validation">
+        @Html.ValidationMessageFor(m => Model.Referencia)
+    </div>
+</div>
+
