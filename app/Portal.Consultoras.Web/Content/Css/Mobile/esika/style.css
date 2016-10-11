@@ -4122,6 +4122,35 @@ table > thead > tr > th {
         text-decoration: none;
     }
 
+.btn_ws_showroom{
+    float: left;
+    display: block;
+    text-align: center;
+    width: 49%;
+    height: 34px;
+    line-height: 34px;
+    background: rgb(105,182,103);
+    text-align: center;
+    margin-top: 10px;
+    margin-right: 2%;
+    margin-bottom: 25px;
+}
+.btn_facebook_showroom{
+    float: left;
+    display: block;
+    text-align: center;
+    width: 49%;
+    height: 34px;
+    line-height: 34px;
+    background: #336699;
+    text-align: center;
+    margin-top: 10px;
+    margin-bottom: 25px;    
+}
+.btn_agregar_mobile{
+margin-bottom:0px !important;
+}
+
 .texto_pedido_m {
     font-family: 'Lato';
     font-size: 18px;
