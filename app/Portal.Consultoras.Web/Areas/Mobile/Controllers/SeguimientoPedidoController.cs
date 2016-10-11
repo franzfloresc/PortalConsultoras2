@@ -101,6 +101,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                             estadoSeguimiento.Etapa = item.Etapa;
                             estadoSeguimiento.Situacion = item.Situacion;
                             estadoSeguimiento.Fecha = item.Fecha;
+                            estadoSeguimiento.ValorTurno = item.ValorTurno; //SB20-964
 
                             var strFecha = string.Empty;
                             var strDiaMes = string.Empty;
