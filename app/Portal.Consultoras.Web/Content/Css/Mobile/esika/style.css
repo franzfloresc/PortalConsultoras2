@@ -9172,6 +9172,23 @@ span.icon-advertencia{
     font-weight:700;
     top:0;
 }
+
+.notificaciones_menu_mobile2{
+    position:absolute;
+    left:20px;
+    width:100px;
+    height:20px;
+    /*border-radius:100px;*/
+    /*background:#e81c36;
+    color:white;*/
+    line-height:19px;
+    font-family:'Lato';
+    font-size:10px;
+    text-align:center;
+    font-weight:700;
+    top:0;
+}
+
 .menu_subHeader{
     position:relative
 }
@@ -9327,7 +9344,7 @@ a{
     font-size:13px;
     color:black;
 }
-.opcion_rechazo:hover, .opcion_rechazo.opcion_rechazo-select{
+.opcion_rechazo:hover, .opcion_rechazo.opcion_rechazo_select{
         background: #f7f7f7 url(../../../Images/icono_check.png) no-repeat;
         background-position:10px 18px;
     }

@@ -49,7 +49,14 @@
                 <a role="menu" region="Menú Lateral" parent="@subItem.MenuPadreDescripcion" title="@subItem.Descripcion" 
                    class="menu_subHeader" href="@url" id="lnk-prin-@subItem.Descripcion.GenerateLinkForGoogleTagManager()" target="@target">@subItem.Descripcion 
 
-                    @if (ViewBag.TipoMenuConsultoraOnline == 2)
+                    @if (ViewBag.TipoMenuConsultoraOnline == 1)
+                    {
+                        if (subItem.MenuMobileID == ViewBag.MenuHijoIDConsultoraOnline)
+                        {
+                            <div class="notificaciones_menu_mobile"2>!Afiliate¡</div>
+                        }
+                    }
+                    else if (ViewBag.TipoMenuConsultoraOnline == 2)
                     {
                         if (subItem.MenuPadreID == ViewBag.MenuPadreIDConsultoraOnline && subItem.Descripcion.ToLower().Trim() == "pedidos pendientes")
                         {
@@ -59,7 +66,6 @@
                             }
                         }
                     }
-                    
                 </a>
             }
         </div>

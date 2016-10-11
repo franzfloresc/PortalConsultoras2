@@ -474,9 +474,8 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             ViewBag.NombreCompleto = userData.NombreConsultora;
 
             return View("DetallePedido", pedido);
-        }
-
-                        
+        }          
+            
           
         public JsonResult RechazarPedido(long SolicitudId, int NumIteracion, string CodigoUbigeo, string Campania, int MarcaId, int OpcionRechazo, string RazonMotivoRechazo)
         {
@@ -1574,19 +1573,24 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                         //model.RegistrosTotal = pag.RecordCount.ToString();
                         //model.Pagina = pag.CurrentPage.ToString();
                         //model.PaginaDe = pag.PageCount.ToString();
+                        model.RegistrosTotal = model.ListaPedidos.Count.ToString();
                     }
                     else
                     {
                         model.RegistrosTotal = "0";
-                        model.Pagina = "0";
-                        model.PaginaDe = "0";
+                        //model.Pagina = "0";
+                        //model.PaginaDe = "0";
+
+                        return RedirectToAction("Detalle", "ConsultoraOnline");
                     }
                 }
                 else
                 {
                     model.RegistrosTotal = "0";
-                    model.Pagina = "0";
-                    model.PaginaDe = "0";
+                    //model.Pagina = "0";
+                    //model.PaginaDe = "0";
+
+                    return RedirectToAction("Detalle", "ConsultoraOnline");
                 }
 
                 //return Json(new
@@ -1707,14 +1711,15 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     //model.RegistrosTotal = pag.RecordCount.ToString();
                     //model.Pagina = pag.CurrentPage.ToString();
                     //model.PaginaDe = pag.PageCount.ToString();
+                    model.RegistrosTotal = model.ListaDetalle.Count.ToString();
                 }
                 else
                 {
                     //PedidoModelo.Registros = "0";
                     //PedidoModelo.RegistrosDe = "0";
                     model.RegistrosTotal = "0";
-                    model.Pagina = "0";
-                    model.PaginaDe = "0";
+                    //model.Pagina = "0";
+                    //model.PaginaDe = "0";
                 }
 
                 //return Json(new
