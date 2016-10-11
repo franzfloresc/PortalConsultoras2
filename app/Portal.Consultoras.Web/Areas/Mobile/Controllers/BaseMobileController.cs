@@ -9,6 +9,8 @@ using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.Areas.Mobile.Models;
 using System.Configuration;
 
+using Portal.Consultoras.Web.ServiceUsuario;
+
 namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 {
     public class BaseMobileController : BaseController
@@ -51,29 +53,37 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     if (!strpaises.Contains(userData.CodigoISO)) lst.Remove(lst.FirstOrDefault(p => p.UrlItem.ToLower() == "mobile/consultoraonline"));
 
                     // SB20-463 - INICIO
-                    var EsConsultoraOnline = 1;
-                    var CantPedidosPendientes = 3;
+                    var EsConsultoraOnline = -1;
+                    using (var sv = new UsuarioServiceClient())
+                    {
+                        EsConsultoraOnline = sv.GetCantidadPedidosConsultoraOnline(userData.PaisID, userData.ConsultoraID);
+                        if (EsConsultoraOnline >= 0)
+                        {
+                            ViewBag.CantPedidosPendientes = sv.GetCantidadSolicitudesPedido(userData.PaisID, userData.ConsultoraID, userData.CampaniaID);
+                            ViewBag.TeQuedanConsultoraOnline = sv.GetSaldoHorasSolicitudesPedido(userData.PaisID, userData.ConsultoraID, userData.CampaniaID);
+                        }
+                    }
 
                     var menup = lst.Where(m => m.Descripcion.ToLower().Trim() == "consultora online" && m.MenuPadreID == 0).FirstOrDefault();
                     var menuh = lst.Where(m => m.Descripcion.ToLower().Trim() == "consultora online" && m.MenuPadreID != 0).FirstOrDefault();
-                    ViewBag.EsConsultora = EsConsultoraOnline;
-                    ViewBag.CantPedidosPendientes = CantPedidosPendientes;
+                    //ViewBag.CantPedidosPendientes = 3;
+                    //ViewBag.TeQuedanConsultoraOnline = "5:30:27";
                     ViewBag.MenuPadreIDConsultoraOnline = menup.MenuMobileID;
-                    ViewBag.TeQuedanConsultoraOnline = "5:30:27";
+                    ViewBag.MenuHijoIDConsultoraOnline = menuh.MenuMobileID;
 
-                    if (EsConsultoraOnline == 0)
+                    if (EsConsultoraOnline <= 0)
                     {
                         if (menup != null && menuh != null)
                         {
                             var lstTmp = lst.Where(m => m.MenuPadreID != menup.MenuMobileID).ToList();
                             lst = lstTmp.Where(m => m.MenuMobileID != menup.MenuMobileID).ToList();
-                            lst.Where(m => m.MenuMobileID == menuh.MenuMobileID).First().Descripcion += " <b>!Afiliate¡</b>";
+                            //lst.Where(m => m.MenuMobileID == menuh.MenuMobileID).First().Descripcion += " <b>!Afiliate¡</b>";
                             ViewBag.TipoMenuConsultoraOnline = 1;
                         }
                     }
                     else
                     {
-                        if (menup != null && menuh != null)
+                        if (menuh != null)
                         {
                             var lstTmp = lst.Where(m => m.MenuMobileID != menuh.MenuMobileID).ToList();
                             lst = lstTmp;

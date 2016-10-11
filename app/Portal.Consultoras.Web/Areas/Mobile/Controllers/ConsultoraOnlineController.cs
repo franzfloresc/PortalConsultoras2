@@ -474,19 +474,8 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             ViewBag.NombreCompleto = userData.NombreConsultora;
 
             return View("DetallePedido", pedido);
-        }
-
-                        
-            var mensajeaCliente = string.Format("Gracias por haber escogido a {0} como tu Consultora. Pronto se pondrá en contacto contigo para coordinar la hora y lugar de entrega.",userData.NombreConsultora);
-                    beSolicitudCliente.MensajeaCliente = mensajeaCliente;
-                string emailDe = ConfigurationManager.AppSettings["ConsultoraOnlineEmailDe"];
-                        Common.Util.EnviarMail3Mobile(emailDe, pedido.Email, titulocliente, mensajecliente.ToString(), true, pedido.Email);
-                    var titulo = "(" + userData.CodigoISO + ") Consultora que atenderá tu pedido de " + HttpUtility.HtmlDecode(marcaPedido); //Marca
-                    var mensaje = new StringBuilder();
-                    mensaje.AppendFormat("{0}</p><br/>", mensajeaCliente);
-                    mensaje.AppendFormat("<td><p style='text-align: center;'><strong>{0}<br/>{1}<br/>Consultora</strong></p></td></tr></table>", userData.NombreConsultora, userData.EMail);
-                    {                    
-                        Util.EnviarMail3Mobile(emailDe, pedido.Email, titulo, mensaje.ToString(), true, string.Empty);
+        }          
+            
         public JsonResult RechazarPedido(long SolicitudId, int NumIteracion, string CodigoUbigeo, string Campania, int MarcaId, int OpcionRechazo, string RazonMotivoRechazo)
         {
             UsuarioModel Consultora = UserData();
@@ -1583,19 +1572,24 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                         //model.RegistrosTotal = pag.RecordCount.ToString();
                         //model.Pagina = pag.CurrentPage.ToString();
                         //model.PaginaDe = pag.PageCount.ToString();
+                        model.RegistrosTotal = model.ListaPedidos.Count.ToString();
                     }
                     else
                     {
                         model.RegistrosTotal = "0";
-                        model.Pagina = "0";
-                        model.PaginaDe = "0";
+                        //model.Pagina = "0";
+                        //model.PaginaDe = "0";
+
+                        return RedirectToAction("Detalle", "ConsultoraOnline");
                     }
                 }
                 else
                 {
                     model.RegistrosTotal = "0";
-                    model.Pagina = "0";
-                    model.PaginaDe = "0";
+                    //model.Pagina = "0";
+                    //model.PaginaDe = "0";
+
+                    return RedirectToAction("Detalle", "ConsultoraOnline");
                 }
 
                 //return Json(new
@@ -1716,14 +1710,15 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     //model.RegistrosTotal = pag.RecordCount.ToString();
                     //model.Pagina = pag.CurrentPage.ToString();
                     //model.PaginaDe = pag.PageCount.ToString();
+                    model.RegistrosTotal = model.ListaDetalle.Count.ToString();
                 }
                 else
                 {
                     //PedidoModelo.Registros = "0";
                     //PedidoModelo.RegistrosDe = "0";
                     model.RegistrosTotal = "0";
-                    model.Pagina = "0";
-                    model.PaginaDe = "0";
+                    //model.Pagina = "0";
+                    //model.PaginaDe = "0";
                 }
 
                 //return Json(new

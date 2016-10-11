@@ -766,6 +766,38 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+  <xs:element name="GetCantidadSolicitudesPedido">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="PaisID" type="xs:int" />
+        <xs:element minOccurs="0" name="ConsultoraId" type="xs:long" />
+        <xs:element minOccurs="0" name="Campania" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetCantidadSolicitudesPedidoResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="GetCantidadSolicitudesPedidoResult" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetSaldoHorasSolicitudesPedido">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="PaisID" type="xs:int" />
+        <xs:element minOccurs="0" name="ConsultoraId" type="xs:long" />
+        <xs:element minOccurs="0" name="Campania" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetSaldoHorasSolicitudesPedidoResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="GetSaldoHorasSolicitudesPedidoResult" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
   <xs:element name="GetMisPedidosClienteOnline">
     <xs:complexType>
       <xs:sequence>

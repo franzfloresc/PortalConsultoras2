@@ -39,6 +39,7 @@
 
     @{
         var solicitud = Model.MiPedido;
+        var tiposoli = (solicitud.MarcaID == 0) ? 1 : 2;
     }
 
     <input type="hidden" id="solped_@solicitud.PedidoId" value="@solicitud.PedidoId|@solicitud.MarcaID|@solicitud.Campania|@solicitud.Cliente|@solicitud.Telefono|@solicitud.Direccion|@solicitud.Email||@solicitud.Leido|@solicitud.NumIteracion|@solicitud.CodigoUbigeo|@solicitud.FechaSolicitud|@solicitud.MedioContacto|@solicitud.FormatoPrecioTotal|@solicitud.SaldoHoras|@solicitud.FlagConsultora" />
@@ -245,21 +246,35 @@
     </div>
     <hr class="clear" />
     <div class="linea_separadora_roja" style="margin-top:20px;"></div>
-    <a class="btn_acepto_pedido" href="javascript:;" onclick="AceptarPedido('@solicitud.PedidoId')">ACEPTO TODO EL PEDIDO</a>
+    <a class="btn_acepto_pedido" href="javascript:;" onclick="AceptarPedido('@solicitud.PedidoId', '@tiposoli')">ACEPTO TODO EL PEDIDO</a>
     <a class="btn_rechazo_pedido" href="javascript:;" onclick="javascript: $('#PedidoRechazado').show();">RECHAZO EL PEDIDO</a>
+</div>
+
+<!--POP UP COMO LO ATENDERA -->
+<div id="MensajeComoAtendera" class="MensajeAlertaMobile">
+    <div class="content_mensajeAlerta">
+        <a class="cerrar_popMobile" href="javascript:;" onclick="javascript: $('#MensajeComoAtendera').hide();">
+            <img src="/Content/Images/mobile/Esika/cerrar_04.png" alt="-">
+        </a>
+        <hr class="clear">
+        <div class="icono_alerta check_icono_mobile"></div>
+        <div class="titulo_compartir"><b>IMPORTANTE</b></div>
+        <div class="mensaje_alerta">Por favor elige comó atenderas todos los productos del pedido</div>
+        <a class="btn_ok_mobile" onclick="javascript: $('#MensajeComoAtendera').hide();">OK</a>
+    </div>
 </div>
 
 <!--POP UP PEDIDO ACEPTADO-->
 <div id="PedidoAceptado" class="MensajeAlertaMobile">
     <div class="content_mensajeAlerta">
-        <a class="cerrar_popMobile" href="javascript:;" onclick="javascript: $('#PedidoAceptado').hide();">
+        <a class="cerrar_popMobile" href="javascript:;" onclick="CerrarMensajeAceptado();">
             <img src="/Content/Images/mobile/Esika/cerrar_04.png" alt="-">
         </a>
         <hr class="clear">
         <div class="icono_alerta check_icono_mobile"></div>
         <div class="titulo_compartir">¡PEDIDO <b>ACEPTADO</b>!</div>
-        <div class="mensaje_alerta">Has agregado 12 productos a tu pedido</div>
-        <a class="btn_ok_mobile" onclick="javascript: $('#PedidoAceptado').hide();">OK</a>
+        <div class="mensaje_alerta" id="detallePedidoAceptado">Has agregado 12 productos a tu pedido</div>
+        <a class="btn_ok_mobile" onclick="CerrarMensajeAceptado();">OK</a>
     </div>
 </div>
 
@@ -308,6 +323,20 @@
         </div>
         <textarea rows="10" class="comentario_rechazados" id="txtOtrosRechazo"> Otros:</textarea>
         <a class="btn_acepto_pedido" href="#" onclick="RechazarPedido(@solicitud.PedidoId);">ENVIAR</a>
+    </div>
+</div>
+
+<!--POP UP MENSAJE PEDIDO RECHAZADO -->
+<div id="MensajePedidoRechazado" class="MensajeAlertaMobile">
+    <div class="content_mensajeAlerta">
+        <a class="cerrar_popMobile" href="javascript:;" onclick="CerrarMensajeRechazado();">
+            <img src="/Content/Images/mobile/Esika/cerrar_04.png" alt="-">
+        </a>
+        <hr class="clear">
+        <div class="icono_alerta check_icono_mobile"></div>
+        <div class="titulo_compartir"><b>RECHAZASTES</b> EL PEDIDO</div>
+        <div class="mensaje_alerta">Ya está eliminado de tu lista de pendientes</div>
+        <a class="btn_ok_mobile" onclick="CerrarMensajeRechazado();">OK</a>
     </div>
 </div>
 
@@ -400,7 +429,8 @@
 @section scripts {
     <script type="text/javascript">
         var urlLoad = '@Url.Content("~/Content/Images/Loading.gif")';
+        var urlPendientes = '@Url.Action("Pendientes","ConsultoraOnline")';
     </script>
 
-    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Mobile/Pedido/ConsultoraOnline.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Mobile/ConsultoraOnline/DetallePedidoPendiente.js")"></script>
 }
