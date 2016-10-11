@@ -32,8 +32,7 @@
 </div>
 <!-- FIN POPUP MENSAJE -->
 
-<div class="mod-ofer1">
-</div>
+<div data-oferta=""></div>
 <div class="mod-ofer2">
     <div class="cuerpo-mod">
         <div class="cerrar-mod" onclick="$('.mod-ofer2').hide()"><img src="@Url.Content("/Content/Images/btn_cerrar_popupPercepcion.png")" /></div>
@@ -347,7 +346,7 @@
                 <input type="hidden" class="hdItemDescripcionEstrategia" value="{{productoRevista.DescripcionEstrategia}}" />
                 <input type="hidden" class="OrigenPedidoWeb" value="@Portal.Consultoras.Common.Constantes.OrigenPedidoWeb.DesktopCatalogoPersonalizadoPopUp"/>
         </div>
-        <div class="cerrar-mod" onclick="$('.mod-ofer1').hide()"><img src="@Url.Content("/Content/Images/btn_cerrar_popupPercepcion.png")" /></div>
+        <div class="cerrar-mod" data-close=""><img src="@Url.Content("/Content/Images/btn_cerrar_popupPercepcion.png")" /></div>
         <div class="encabezado_popupCatalogoPersonalizado">
             <div class="linea_encabezado_popupCatalogoPersonalizado"></div>
             <div class="titulo_popupCatalogoPersonalizado">OFERTA EN GUÍA DE NEGOCIO</div>
@@ -355,7 +354,6 @@
         </div>
         <div class="contiene-productos">
             <div class="producto_img_home mini" id="imagenAnimacion">
-
                 <img src="{{UrlImagen}}"/>
             </div>
 
@@ -373,7 +371,7 @@
             <hr class="clear">
             <div class="mod-cantidades metido">
                 <div class="liquidacion_rango_home">
-                    <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" class="liquidacion_rango_cantidad_pedido ValidaNumeral">
+                    <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" class="liquidacion_rango_cantidad_pedido ValidaNumeral" data-cantidad-input="revista">
                     <div class="liquidacion_rango_right_pedido">
                         <a class="mas"><img src="/Content/Images/Esika/mas.png" alt=""></a>
                         <a class="menos"><img src="/Content/Images/Esika/menos.png" alt=""></a>
@@ -393,7 +391,7 @@
 
             <div class="mod-cantidades">
                 <div class="liquidacion_rango_home">
-                    <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" class="liquidacion_rango_cantidad_pedido ValidaNumeral">
+                    <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" class="liquidacion_rango_cantidad_pedido ValidaNumeral" data-cantidad-input="catalogo">
                     <div class="liquidacion_rango_right_pedido">
                         <a class="mas"><img src="/Content/Images/Esika/mas.png" alt=""></a>
                         <a class="menos"><img src="/Content/Images/Esika/menos.png" alt=""></a>
@@ -403,7 +401,6 @@
             </div>
 
         </div>
-
     </div>
 </script>
 <script id="template-mod-ofer2A" type="text/x-handlebars-template">
@@ -542,7 +539,7 @@
             <input type="hidden" class="hdItemDescripcionEstrategia" value="{{productoRevista.DescripcionEstrategia}}" />
             <input type="hidden" class="OrigenPedidoWeb" value="@Portal.Consultoras.Common.Constantes.OrigenPedidoWeb.DesktopCatalogoPersonalizadoPopUp" />
         </div>
-        <div class="cerrar-mod" onclick="$('.mod-ofer2').hide()"><img src="@Url.Content("/Content/Images/btn_cerrar_popupPercepcion.png")" /></div>
+        <div class="cerrar-mod" data-close=""><img src="@Url.Content("/Content/Images/btn_cerrar_popupPercepcion.png")" /></div>
         <div class="encabezado_popupCatalogoPersonalizado">
             <div class="linea_encabezado_popupCatalogoPersonalizado"></div>
             <div class="titulo_popupCatalogoPersonalizado">OFERTA EN GUÍA DE NEGOCIO</div>
@@ -566,7 +563,7 @@
                     {{#each ../lista_oObjGratis as |item|}}
                     {{#if_eq nivel.escala_nivel item.escala_nivel_gratis}}
                     <div class="sub_imagen_oferta"><img src="{{../../UrlImagen}}" alt=""></div>
-                    <div class="sub_descripcion_oferta">{{item.cantidad}} {{item.descripcion_gratis}} {{item.codsap_nivel_gratis}}</div>
+                    <div class="sub_descripcion_oferta">{{item.cantidad}} {{item.descripcion_gratis}}</div>
                     {{/if_eq}}
                     {{/each}}
                 </div>
@@ -576,7 +573,7 @@
         <div class="texto_mencion">Elige la cantidad y el sistema te ofrecerá la mejor combinación</div>
         <div style="width:215px; margin:0 auto; margin-top:10px;">
             <div class="liquidacion_rango_home js-no-popup">
-                <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral js-no-popup" tabindex="0">
+                <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral js-no-popup" tabindex="0" data-cantidad-input="revista">
                 <div class="liquidacion_rango_right_pedido js-no-popup">
                     <a class="mas js-no-popup" tabindex="0"><img class="js-no-popup" src="/Content/Images/Esika/mas.png" alt=""></a>
                     <a class="menos js-no-popup" tabindex="0"><img class="js-no-popup" src="/Content/Images/Esika/menos.png" alt=""></a>
@@ -589,8 +586,8 @@
                 <div class="texto_sombra">También puedes comprarlo con el precio catálogo: <br /><span>{{Simbolo}} {{precio_catalogo}}</span></div>
                 <div style="width:215px; float:left; margin-top:12px;">
                     <div class="liquidacion_rango_home js-no-popup">
-                        <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" 
-                               class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral js-no-popup" tabindex="0">
+                        <input type="text" value="1" size="2" maxlength="2" id="txtCantidad"
+                               class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral js-no-popup" tabindex="0" data-cantidad-input="catalogo">
                         <div class="liquidacion_rango_right_pedido js-no-popup">
                             <a class="mas js-no-popup" tabindex="0"><img class="js-no-popup" src="/Content/Images/Esika/mas.png" alt=""></a>
                             <a class="menos js-no-popup" tabindex="0"><img class="js-no-popup" src="/Content/Images/Esika/menos.png" alt=""></a>
@@ -709,7 +706,7 @@
 </script>
 <script id="template-mod-ofer3" type="text/x-handlebars-template">
     <div class="cuerpo-mod">
-        <div class="cerrar-mod" onclick="$('.mod-ofer3').hide()"><img src="@Url.Content("/Content/Images/btn_cerrar_popupPercepcion.png")" /></div>
+        <div class="cerrar-mod" data-close=""><img src="@Url.Content("/Content/Images/btn_cerrar_popupPercepcion.png")" /></div>
         <div class="encabezado_popupCatalogoPersonalizado">
             <div class="linea_encabezado_popupCatalogoPersonalizado"></div>
             <div class="titulo_popupCatalogoPersonalizado">OFERTA EN GUÍA DE NEGOCIO</div>
@@ -759,7 +756,7 @@
             </div>
             <div style="width:215px; margin:0 auto; margin-top:10px;">
                 <div class="liquidacion_rango_home js-no-popup">
-                    <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral js-no-popup" tabindex="0">
+                    <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral js-no-popup" tabindex="0" data-cantidad-input="revista">
                     <div class="liquidacion_rango_right_pedido js-no-popup">
                         <a class="mas js-no-popup" tabindex="0"><img class="js-no-popup" src="/Content/Images/Esika/mas.png" alt=""></a>
                         <a class="menos js-no-popup" tabindex="0"><img class="js-no-popup" src="/Content/Images/Esika/menos.png" alt=""></a>
@@ -774,7 +771,7 @@
             <input type="hidden" class="hdItemPackCuv" value="{{pack.cuv_pack}}" />
             <input type="hidden" class="hdItemPackvalorizado" value="{{pack.valorizado}}" />
             <div class="content_item_pack">
-                <div class="fondo_negro_pack">PACK GANANCIA</div>
+                <div class="fondo_negro_pack">PACK {{#if_eq pack.EsUltimo "1"}}MÁXIMA {{/if_eq}}GANANCIA</div>
                 <div class="pack_inter">
                     <div class="titulo_pack" style="height:auto">{{../Simbolo}} {{pack.valorizado}}</div>
                     <div class="texto_ganancia_pack">GANANCIA: {{../Simbolo}} {{pack.ganancia_pack}}</div>
@@ -782,7 +779,7 @@
                         {{#each ../lista_oObjItemPack as |item|}}
                         {{#if_eq pack.cuv_pack item.cuv_pack_item}}
                         <div class="sub_imagen_oferta"><img src="{{../../UrlImagen}}" alt=""></div>
-                        <div class="sub_descripcion_oferta">{{item.cantidad_item_pack}} {{item.descripcion_item_pack}} {{item.cuv_pack_item}} {{item.cuv_item}}</div>
+                        <div class="sub_descripcion_oferta">{{item.cantidad_item_pack}} {{item.descripcion_item_pack}}</div>
                         <hr class="clear" />
                         {{/if_eq}}
                         {{/each}}
@@ -791,7 +788,7 @@
             </div>
             <div style="width:215px; margin:0 auto; margin-top:10px;" data-cantidad-contenedor="">
                 <div class="liquidacion_rango_home js-no-popup">
-                    <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral js-no-popup" tabindex="0">
+                    <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral js-no-popup" tabindex="0" data-cantidad-input="pack">
                     <div class="liquidacion_rango_right_pedido js-no-popup">
                         <a class="mas js-no-popup" tabindex="0"><img class="js-no-popup" src="/Content/Images/Esika/mas.png" alt=""></a>
                         <a class="menos js-no-popup" tabindex="0"><img class="js-no-popup" src="/Content/Images/Esika/menos.png" alt=""></a>
@@ -806,7 +803,7 @@
                 <div class="texto_sombra">También puedes comprarlo con el precio catálogo: <br /><span>{{Simbolo}} {{precio_catalogo}}</span></div>
                 <div style="width:215px; float:left; margin-top:12px;">
                     <div class="liquidacion_rango_home js-no-popup">
-                        <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral js-no-popup" tabindex="0">
+                        <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral js-no-popup" tabindex="0" data-cantidad-input="catalogo">
                         <div class="liquidacion_rango_right_pedido js-no-popup">
                             <a class="mas js-no-popup" tabindex="0"><img class="js-no-popup" src="/Content/Images/Esika/mas.png" alt=""></a>
                             <a class="menos js-no-popup" tabindex="0"><img class="js-no-popup" src="/Content/Images/Esika/menos.png" alt=""></a>
@@ -824,6 +821,14 @@
 <script type="text/javascript">
     var urlLoad = '@Url.Content("~/Content/Images/Loading.gif")';
     var viewBagSimbolo = '@Html.Raw(ViewBag.Simbolo)';
+    var urlObtenerProductosCatalogoPersonalizado = '@Url.Action("ObtenerProductosCatalogoPersonalizado", "CatalogoPersonalizado", new { area = "" })';
+    var urlReservadoOEnHorarioRestringido = '@Url.Action("ReservadoOEnHorarioRestringido", "Pedido", new { area = "" })';
+    var urlPedidoValidado = '@Url.Action("PedidoValidado", "Pedido", new { area = "" })';
+    var cantidadRegistros = 12;
+    var offsetRegistros = 0;
+    var cargandoRegistros = false;
+    var tipoOrigen = "1";
 </script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/CatalogoPersonalizado/index.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/CatalogoPersonalizado/CatalogoPersonalizado.js")"></script>
 }
