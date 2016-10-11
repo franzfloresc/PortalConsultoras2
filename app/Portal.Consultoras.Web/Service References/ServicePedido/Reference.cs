@@ -10290,6 +10290,9 @@ namespace Portal.Consultoras.Web.ServicePedido {
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string SituacionField;
         
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ValorTurnoField;
+        
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
             get {
@@ -10400,6 +10403,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((object.ReferenceEquals(this.SituacionField, value) != true)) {
                     this.SituacionField = value;
                     this.RaisePropertyChanged("Situacion");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string ValorTurno {
+            get {
+                return this.ValorTurnoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ValorTurnoField, value) != true)) {
+                    this.ValorTurnoField = value;
+                    this.RaisePropertyChanged("ValorTurno");
                 }
             }
         }
