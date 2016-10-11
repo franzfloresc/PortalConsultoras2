@@ -31,8 +31,7 @@
         {
             <a role="menu" region="Menú Lateral" parent="@item.MenuPadreDescripcion" title="@item.Descripcion" 
                class="menu_mobile_belcorp" href="@url" @onclickF id="lnk-prin-@item.Descripcion.GenerateLinkForGoogleTagManager()" target="@target">
-                @item.Descripcion
-            </a>
+                @item.Descripcion</a> 
         }
     }
     else
@@ -48,7 +47,20 @@
                     : subItem.UrlItem.StartsWith("http") ? subItem.UrlItem : string.Format("{0}{1}", urlDomain, subItem.UrlItem);
 
                 <a role="menu" region="Menú Lateral" parent="@subItem.MenuPadreDescripcion" title="@subItem.Descripcion" 
-                   class="menu_subHeader" href="@url" id="lnk-prin-@subItem.Descripcion.GenerateLinkForGoogleTagManager()" target="@target">@subItem.Descripcion</a>
+                   class="menu_subHeader" href="@url" id="lnk-prin-@subItem.Descripcion.GenerateLinkForGoogleTagManager()" target="@target">@subItem.Descripcion 
+
+                    @if (ViewBag.TipoMenuConsultoraOnline == 2)
+                    {
+                        if (subItem.MenuPadreID == ViewBag.MenuPadreIDConsultoraOnline && subItem.Descripcion.ToLower().Trim() == "pedidos pendientes")
+                        {
+                            if (ViewBag.CantPedidosPendientes > 0)
+                            {
+                                <div class="notificaciones_menu_mobile">@ViewBag.CantPedidosPendientes</div>
+                            }
+                        }
+                    }
+                    
+                </a>
             }
         </div>
     }

@@ -682,6 +682,10 @@ function CargarDetallePedido(page, rows) {
 
             MostrarBarra(response);
             CargarAutocomplete();
+
+            if ($('#penmostreo').css('display') !== 'none') {
+                $('ul.paginador_notificaciones').hide();
+            }
         },
         error: function (error) {
             //alert(error);

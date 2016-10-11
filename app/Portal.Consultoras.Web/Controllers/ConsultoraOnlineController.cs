@@ -724,7 +724,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                             // Difference in days, hours, and minutes.
                             TimeSpan ts = endDate - starDate;
-                            model.FechaPedidoReciente = ts.Hours.ToString() + ":" + ts.Minutes.ToString() + ":" + ts.Seconds.ToString();
+                            model.FechaPedidoReciente = ts.Hours.ToString().PadLeft(2,'0') + ":" + ts.Minutes.ToString().PadLeft(2,'0') + ":" + ts.Seconds.ToString().PadLeft(2,'0');
 
                         }
 
@@ -1154,7 +1154,8 @@ namespace Portal.Consultoras.Web.Controllers
                                     model.IndicadorMontoMinimo = productoVal.IndicadorMontoMinimo.ToString();
                                     model.EsSugerido = false;
                                     model.EsKitNueva = false;
-                                    model.MarcaID = pedido.MarcaID;
+                                    //model.MarcaID = pedido.MarcaID;
+                                    model.MarcaID = pedidoDetalle.MarcaID;
                                     model.Cantidad = pedidoDetalle.Cantidad.ToString();
                                     model.PrecioUnidad = Convert.ToDecimal(pedidoDetalle.PrecioUnitario);
                                     model.CUV = pedidoDetalle.CUV;
@@ -1170,7 +1171,7 @@ namespace Portal.Consultoras.Web.Controllers
                                     {
                                         using (ServiceSAC.SACServiceClient svc = new ServiceSAC.SACServiceClient())
                                         {
-                                            bePedidoWebDetalle = olstPedidoWebDetalle.Where(x => x.CUV == pedidoDetalle.CUV).FirstOrDefault();
+                                            bePedidoWebDetalle = olstPedidoWebDetalle.Where(x => x.CUV == pedidoDetalle.CUV && x.MarcaID == pedidoDetalle.MarcaID && x.ClienteID == clienteId).FirstOrDefault();
 
                                             if (bePedidoWebDetalle != null)
                                             {
@@ -1206,6 +1207,8 @@ namespace Portal.Consultoras.Web.Controllers
 
                     }// foreach
                 }
+
+                Session["PedidoWebDetalle"] = null;
 
                 //Inicio GR-1385
                 string emailDe = ConfigurationManager.AppSettings["ConsultoraOnlineEmailDe"];

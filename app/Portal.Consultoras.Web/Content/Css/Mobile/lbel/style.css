@@ -5895,22 +5895,20 @@ input[type="checkbox"]:checked + span:after {
 .MensajeAlertaMobile{
     position:fixed;
     z-index:2010;    
+    display:none;
     width:100%;
     height:100%;
     padding:15px;
     top:0;
-    background:url(../../../images/bg_popups.png) repeat center center;
-    overflow:auto;
+    background:rgba(0,0,0,0.5)
 }
 
 .content_mensajeAlerta{
-        width: 100%;
-    /* max-width: 400px; */
+    width: 100%;
     height: 100%;
     /* height: 0; */
     margin: 0 auto;
     position: relative;
-    /* top: 3%; */
     background: white;
     padding: 15px 15px;
     overflow-y: auto;
@@ -6035,6 +6033,7 @@ input[type="checkbox"]:checked + span:after {
     }
     .titulo_compartir{
         font-size:19px;
+            line-height: 28px;
     }
 }
 /*CAMBIO FOOTER*/
@@ -7729,10 +7728,424 @@ span.title-app-b {
 }
 
 /* FIN PROCESO CARGA FOTO */
-
-a:focus, a:hover {
+/*a:focus, a:hover {
     color: initial;
     text-decoration: underline;
+}*/
+/*CONSULTORA ONLINE*/
+.content_pendiente{
+    margin: 0 auto;
+    margin-top: 24px;
+   
+    padding-bottom: 23px;
+    max-width: 500px;
+}
+
+.titulo_pendiente{
+    font-family:'Lato';
+    color:#613c87;
+    font-weight:700;
+    font-size:13px;
+    text-transform:uppercase;
+    /*padding-left: 10px;*/
+}
+.nombre_cliente_pendiente{
+    font-family:'Lato';
+    color:black;
+    font-size:13px;  
+    /*padding-left: 10px;*/ 
+}
+.descripcion_pendiente{
+  font-family:'Lato'; 
+  font-size: 13px;
+  color: #606061;
+  /*padding-left: 10px;
+  padding-right: 10px;*/
+  overflow: hidden;
+}
+.descripcion_pendiente span{
+    display:block;
+}
+.precio_pendiente{
+  font-family:'Lato'; 
+  font-size: 13px;
+  color: black;
+  font-weight:700;
+  margin-top:5px;
+  width:100%;
+  /*padding-left: 10px;
+  padding-right: 10px;*/
+  overflow: hidden;
+}
+
+.tooltip_pendiente{
+    position:relative;
+    width:100%;
+    padding:6px;
+   
+    height:auto;
+    margin-top:20px;
+    border-radius:4px;
+    -webkit-border-radius:4px;
+    -o-border-radius:4px;
+    background:white;
+    -webkit-box-shadow: 0px 3px 28px 0px rgba(0,0,0,0.31);
+    -moz-box-shadow: 0px 3px 28px 0px rgba(0,0,0,0.31);
+    box-shadow: 0px 3px 28px 0px rgba(0,0,0,0.31);
+}
+.tooltip_pendiente::after{
+    bottom: 100%;
+	left: 50%;
+	border: solid transparent;
+	content: " ";
+	height: 0;
+	width: 0;
+	position: absolute;
+	pointer-events: none;
+	border-color: rgba(255, 253, 252, 0);
+	border-bottom-color: #ffffff;
+	border-width: 13px;
+	margin-left: -13px;
+}
+.tooltip_pendiente .titulo_tooltip_p{
+    margin-top:0px;
+} 
+.titulo_tooltip_p{
+   font-family:'Lato'; 
+   font-size: 13px;
+   color: #613c87;
+   font-weight:700;
+   margin-top:-7px;
+}
+.hora_tooltip_p{
+   font-family:'Lato'; 
+   font-size: 13px;
+   color: black;
+   font-weight:400;
+}
+.hora_tooltip_p b{
+   font-size: 15px;
+}
+.btn_revisalo_pendiente{
+    display:block;
+    width:80px;
+    height:45px;
+    background:#613c87;
+    height:100%;
+    font-family:'Lato'; 
+    text-align:center;
+    line-height:45px;
+    font-size: 13px;
+    color: white !important;
+    /*font-weight:700;*/
+    text-decoration:none;
+    cursor:pointer;
+}
+.btn_revisalo_pendiente:hover{
+     text-decoration:none;
+}
+.icono_pendiente{
+    width:20px;
+    height:20px;
+    background: url(../../../Images/Lbel/icono_advertencia_notificacion.svg) no-repeat center center;
+    background-size: cover;
+    float:left;
+    margin-top:23px;
+}
+.texto_advertencia_pendiente{
+    font-family:'Lato'; 
+    line-height:14px;
+    font-size: 11px;
+    color: black;
+    float:left;
+    width: 90%;
+    margin-left: 12px;
+    margin-top:23px;
+}
+.texto_revisa_pendientes{
+    font-family:'Lato'; 
+    font-size: 13px;
+    color: black;
+    font-weight:700;
+    margin-top:25px;
+    margin-bottom:7px;
+}
+.btn_historial_pedido{
+    font-family:'Lato'; 
+    font-size: 14px;
+    color: black;
+    text-decoration:underline;
+    margin-bottom:60px;
+    display:block;
+}
+/*HISTORIAL*/
+.content_dato_historial{
+    font-family:'Lato';
+    font-size:13px;
+    font-weight:300;
+    margin-bottom:5px;
+    overflow:hidden;
+    
+    margin:0 auto;
+}
+.nom_his{
+    display:block;
+    width:40%;
+
+    float:left;
+}
+.nom_his_2{
+    display:block;
+    width:60%;
+    float:left;
+
+}
+.content_dato_historial:first-child{
+    margin-top:25px;
+}
+.content_dato_historial:last-child{
+    margin-bottom:25px;
+}
+/*.triang_pe{
+    position:relative;
+}
+.triang_pe:after{
+    top: 100%;
+	left: 50%;
+	border: solid transparent;
+	content: " ";
+	height: 0;
+	width: 0;
+	position: absolute;
+	pointer-events: none;
+	border-color: rgba(136, 183, 213, 0);
+	border-top-color: #f2f2f2;
+	border-width: 15px;
+	margin-left: -15px;
+}*/
+.btn_ingreso_pedido{
+    display:block;
+    border:1px solid #808080;
+    color:#808080;
+    font-family:'Lato';
+    font-size:13px;
+    background:white;
+    width:100%;
+    height:45px;
+    line-height:45px;
+    margin-top:20px;
+    padding-left:20px;
+    text-decoration:none;
+}
+.btn_ingreso_pedido:hover {
+      text-decoration:none;
+}
+.btn_cancelar_pendientes{
+    display:block;
+    border:1px solid black;
+    width:100%;
+    height:45px;
+    line-height:45px;
+    font-family:'Lato';
+    font-size:13px;
+    font-weight:700;
+    margin-top:20px;
+    margin-bottom:50px;
+    text-align:center;
+}
+.btn_cancelar_pendientes:hover{
+    color:white;
+    background:black;
+    text-decoration:none;
+}
+.titulo_tooltip_p span{
+    font-weight:900;
+}
+.notificaciones_menu_mobile{
+    position:absolute;
+    right:30px;
+    width:20px;
+    height:20px;
+    border-radius:100px;
+    background:#613c87;
+    color:white;
+    line-height:19px;
+    font-family:'Lato';
+    font-size:10px;
+    text-align:center;
+    font-weight:700;
+    top:0;
+}
+.menu_subHeader{
+    position:relative
+}
+/*HISTORIAL PEDIDO PENDIENTE*/
+.texto_historial{
+    font-family:'Lato';
+    font-size:13px;
+    color:black;
+    /*text-align:center;*/
+    margin-top:15px;
+    margin-bottom:15px;
+}
+.content_historial_pedido{
+   border-top:1px solid #bababa;
+   padding-top:20px;
+   padding-bottom:26px;
+}
+.facturado_pendiente{
+    display:block;
+    background:#a18328;
+    color:white;
+    width:90px;
+    height:25px;
+    line-height:25px;
+    text-align:center;
+    float:right;
+    font-family:'Lato';
+    font-size:12px;
+    font-weight:700;
+    text-decoration:none;
+    text-transform:uppercase;
+}
+.facturado_pendiente:hover{
+    text-decoration:none;
+    color:white;
+}
+.cancelado_pendiente{
+    color:black;
+    background:#e7e7e7;
+}
+.cancelado_pendiente:hover{
+    color:black;
+    background:#e7e7e7;
+}
+.lupa_pendiente{
+    width:19px;
+    height:19px;
+    margin-top:3px;
+    float:right;
+    margin-right:10px;
+}
+.lupa_pendiente img{
+    width:100%;
+}
+.content_historial_pedido:last-child{
+    margin-bottom:30px;
+}
+
+/*DETALLE PEDIDO PENDIENTE*/
+.tiempo_restante{
+    font-family:'Lato';
+    font-size:15px;
+    color:#613c87;
+    font-weight:700;
+    margin-bottom:10px;
+}
+.contacte_cliente{
+     font-family:'Lato';
+    font-size:17px;
+    color:black;   
+}
+.texto_detalle_pedido{
+     font-family:'Lato';
+    font-size:13px;
+    color:black;   
+    font-weight:300;
+    line-height:18px;
+    margin-top:7px;
+    margin-bottom:20px;
+}
+.select_detalle{
+    width:100%;
+    height:45px;
+    border:1px solid black;
+    padding:10px;
+    color:black;
+    font-family:'Lato';
+    font-size:13px;
+    margin-top: 20px;
+    font-weight: 600;
+}
+
+.linea_separadora_roja{
+    width:100%;
+    height:1px;
+    background:#613c87;
+}
+.btn_acepto_pedido{
+    margin:0 auto;
+    width:100%;
+    height:45px;
+    line-height:45px;
+    font-family:'Lato';
+    font-size:13px;
+    margin-top: 17px;
+    font-weight: 700;
+    color:white;
+    text-align:center;
+   
+    display:block;
+    background:#613c87;
+    display:block;
+}
+
+a{
+    text-decoration:none;
+}
+.btn_rechazo_pedido{
+     margin:0 auto;
+     width:100%;
+    height:45px;
+    line-height:45px;
+    font-family:'Lato';
+    font-size:13px;
+    margin-top:17px;
+    margin-bottom: 40px;
+    font-weight: 700;
+    color:black;
+    text-align:center;
+    border:1px solid black;
+    display:block; 
+    
+}
+.btn_rechazo_pedido:hover{    
+    color:white;
+    background:black;   
+}
+.comentario_rechazados{
+    width:100%;
+    border:1px solid #c9c9c9;
+    padding:13px;
+    font-family:'Lato';
+    font-size:13px;
+    color:black;
+    height:70px;
+}
+.opcion_rechazo{
+    border-bottom:1px solid #c9c9c9;
+    width:100%;
+    padding-left:32px;
+    padding-top:15px;
+    padding-bottom:15px;
+    font-family:'Lato';
+    font-size:13px;
+    color:black;
+}
+.opcion_rechazo:hover, .opcion_rechazo.opcion_rechazo-select {
+        background: #f7f7f7 url(../../../Images/icono_check.png) no-repeat;
+        background-position:10px 18px;
+    }
+.opcion_rechazo:last-child{
+    border-bottom:0;
+}
+.titulo_pedido_cancelado{
+    font-family:'LAto';
+    font-size:13px;
+    color:black;
+    font-weight:700;
+    text-transform:uppercase;
+    margin-bottom:10px;
 }
 /*SHOWROOM*/
 .divShowRoom{

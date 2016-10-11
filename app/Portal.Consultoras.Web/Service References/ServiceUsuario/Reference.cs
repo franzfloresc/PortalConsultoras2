@@ -4169,6 +4169,12 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         private string MarcaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int MarcaIDField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string MedioContactoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string MensajeValidacionField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -4259,6 +4265,32 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
                 if ((object.ReferenceEquals(this.MarcaField, value) != true)) {
                     this.MarcaField = value;
                     this.RaisePropertyChanged("Marca");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int MarcaID {
+            get {
+                return this.MarcaIDField;
+            }
+            set {
+                if ((this.MarcaIDField.Equals(value) != true)) {
+                    this.MarcaIDField = value;
+                    this.RaisePropertyChanged("MarcaID");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string MedioContacto {
+            get {
+                return this.MedioContactoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.MedioContactoField, value) != true)) {
+                    this.MedioContactoField = value;
+                    this.RaisePropertyChanged("MedioContacto");
                 }
             }
         }
@@ -5377,6 +5409,14 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetMisPedidosClienteOnline", ReplyAction="http://tempuri.org/IUsuarioService/GetMisPedidosClienteOnlineResponse")]
         System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BEMisPedidos[]> GetMisPedidosClienteOnlineAsync(int paisID, long consultoraId, int campania);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetPedidoClienteOnlineBySolicitudClienteId", ReplyAction="http://tempuri.org/IUsuarioService/GetPedidoClienteOnlineBySolicitudClienteIdResp" +
+            "onse")]
+        Portal.Consultoras.Web.ServiceUsuario.BEMisPedidos GetPedidoClienteOnlineBySolicitudClienteId(int paisID, long solicitudClienteId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetPedidoClienteOnlineBySolicitudClienteId", ReplyAction="http://tempuri.org/IUsuarioService/GetPedidoClienteOnlineBySolicitudClienteIdResp" +
+            "onse")]
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BEMisPedidos> GetPedidoClienteOnlineBySolicitudClienteIdAsync(int paisID, long solicitudClienteId);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/UpdNotificacionesConsultoraVisualizacion", ReplyAction="http://tempuri.org/IUsuarioService/UpdNotificacionesConsultoraVisualizacionRespon" +
             "se")]
         void UpdNotificacionesConsultoraVisualizacion(int PaisID, long ValAutomaticaPROLLogId, int TipoOrigen);
@@ -5951,6 +5991,14 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         
         public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BEMisPedidos[]> GetMisPedidosClienteOnlineAsync(int paisID, long consultoraId, int campania) {
             return base.Channel.GetMisPedidosClienteOnlineAsync(paisID, consultoraId, campania);
+        }
+        
+        public Portal.Consultoras.Web.ServiceUsuario.BEMisPedidos GetPedidoClienteOnlineBySolicitudClienteId(int paisID, long solicitudClienteId) {
+            return base.Channel.GetPedidoClienteOnlineBySolicitudClienteId(paisID, solicitudClienteId);
+        }
+        
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BEMisPedidos> GetPedidoClienteOnlineBySolicitudClienteIdAsync(int paisID, long solicitudClienteId) {
+            return base.Channel.GetPedidoClienteOnlineBySolicitudClienteIdAsync(paisID, solicitudClienteId);
         }
         
         public void UpdNotificacionesConsultoraVisualizacion(int PaisID, long ValAutomaticaPROLLogId, int TipoOrigen) {
