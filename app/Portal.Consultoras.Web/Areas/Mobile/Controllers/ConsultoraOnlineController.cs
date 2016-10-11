@@ -470,11 +470,23 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             var consultoraOnlineMisPedidos = (MisPedidosModel)Session["objMisPedidos"];
 
             var pedido = consultoraOnlineMisPedidos.ListaPedidos.FirstOrDefault(p => p.PedidoId == pedidoId);
-            ViewBag.Simbolo = UserData().Simbolo;
+            ViewBag.Simbolo = userData.Simbolo;
+            ViewBag.NombreCompleto = userData.NombreConsultora;
 
             return View("DetallePedido", pedido);
         }
 
+                        
+            var mensajeaCliente = string.Format("Gracias por haber escogido a {0} como tu Consultora. Pronto se pondrá en contacto contigo para coordinar la hora y lugar de entrega.",userData.NombreConsultora);
+                    beSolicitudCliente.MensajeaCliente = mensajeaCliente;
+                string emailDe = ConfigurationManager.AppSettings["ConsultoraOnlineEmailDe"];
+                        Common.Util.EnviarMail3Mobile(emailDe, pedido.Email, titulocliente, mensajecliente.ToString(), true, pedido.Email);
+                    var titulo = "(" + userData.CodigoISO + ") Consultora que atenderá tu pedido de " + HttpUtility.HtmlDecode(marcaPedido); //Marca
+                    var mensaje = new StringBuilder();
+                    mensaje.AppendFormat("{0}</p><br/>", mensajeaCliente);
+                    mensaje.AppendFormat("<td><p style='text-align: center;'><strong>{0}<br/>{1}<br/>Consultora</strong></p></td></tr></table>", userData.NombreConsultora, userData.EMail);
+                    {                    
+                        Util.EnviarMail3Mobile(emailDe, pedido.Email, titulo, mensaje.ToString(), true, string.Empty);
         public JsonResult RechazarPedido(long SolicitudId, int NumIteracion, string CodigoUbigeo, string Campania, int MarcaId, int OpcionRechazo, string RazonMotivoRechazo)
         {
             UsuarioModel Consultora = UserData();

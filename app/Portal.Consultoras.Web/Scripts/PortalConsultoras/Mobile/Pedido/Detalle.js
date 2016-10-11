@@ -1,4 +1,11 @@
-﻿$(document).ready(function () {
+﻿var tipoOfertaFinal_Log = "";
+var gap_Log = 0;
+var tipoOrigen = '2';
+
+var esPedidoValidado = false; /* SB20-565 */
+
+$(document).ready(function () {
+
     ReservadoOEnHorarioRestringido(false);
     $('body').on('click', ".icono_kitNuevas a", function (e) {
         var mostrar = $(this).next();
@@ -7,7 +14,91 @@
     });
 
     ValidarKitNuevas();
+
+    /* SB20-565 - INICIO */
+
+    $("#suma, #resta").click(function (event) {
+        if (!ValidarPermiso(this)) {
+            event.preventDefault();
+            return false;
+        }
+        var cambio = $(this).attr("id") == "suma" ? +1 : -1;
+        var numactual = $("#txtCantidad").val();
+        numactual = Number(numactual) + cambio;
+        numactual = numactual < 1 ? 1 : numactual > 99 ? 99 : numactual;
+        $("#txtCantidad").val(numactual);
+    });
+
+    $("body").on("click", ".agregarOfertaFinal", function () {
+        ShowLoading();
+
+        var divPadre = $(this).parents("[data-item='ofertaFinal']").eq(0);
+        var cuv = $(divPadre).find(".hdOfertaFinalCuv").val();
+        var cantidad = $(divPadre).find("[data-input='cantidad']").val();
+        var tipoOfertaSisID = $(divPadre).find(".hdOfertaFinalTipoOfertaSisID").val();
+        var configuracionOfertaID = $(divPadre).find(".hdOfertaFinalConfiguracionOfertaID").val();
+        var indicadorMontoMinimo = $(divPadre).find(".hdOfertaFinalIndicadorMontoMinimo").val();
+        var tipo = $(divPadre).find(".hdOfertaFinalTipo").val();
+        var marcaID = $(divPadre).find(".hdOfertaFinalMarcaID").val();
+        var precioUnidad = $(divPadre).find(".hdOfertaFinalPrecioUnidad").val();
+        var descripcionProd = $(divPadre).find(".hdOfertaFinalDescripcionProd").val();
+        var pagina = $(divPadre).find(".hdOfertaFinalPagina").val();
+        var descripcionCategoria = $(divPadre).find(".hdOfertaFinalDescripcionCategoria").val();
+        var descripcionMarca = $(divPadre).find(".hdOfertaFinalDescripcionMarca").val();
+        var descripcionEstrategia = $(divPadre).find(".hdOfertaFinalDescripcionEstrategia").val();
+
+        if (!isInt(cantidad)) {
+            alert_msg("La cantidad ingresada debe ser un número mayor que cero, verifique");
+            CloseLoading();
+            return false;
+        }
+
+        if (cantidad <= 0) {
+            alert_msg("La cantidad ingresada debe ser mayor que cero, verifique");
+            CloseLoading();
+            return false;
+        }
+
+        var model = {
+            TipoOfertaSisID: tipoOfertaSisID,
+            ConfiguracionOfertaID: configuracionOfertaID,
+            IndicadorMontoMinimo: indicadorMontoMinimo,
+            MarcaID: marcaID,
+            Cantidad: cantidad,
+            PrecioUnidad: precioUnidad,
+            CUV: cuv,
+            Tipo: tipo,
+            DescripcionProd: descripcionProd,
+            Pagina: pagina,
+            DescripcionCategoria: descripcionCategoria,
+            DescripcionMarca: descripcionMarca,
+            DescripcionEstrategia: descripcionEstrategia,
+            EsSugerido: false,
+            OrigenPedidoWeb: MobilePedidoOfertaFinal
+        };
+
+        InsertarProducto(model);
+
+        setTimeout(function () {
+            $("#popupOfertaFinal").hide();
+            EjecutarServicioPROLSinOfertaFinal();
+        }, 1000);
+        
+    });
+
+    $('#btnNoGraciasOfertaFinal, #lnkCerrarPopupOfertaFinal').click(function () {
+        var esMontoMinimo = $("#divIconoOfertaFinal").attr("class") == "icono_exclamacion";
+
+        $("#popupOfertaFinal").hide();
+        if (!esMontoMinimo) {
+            var data = $("#btnNoGraciasOfertaFinal")[0].data;
+            MostrarMensajeProl(data);
+        }
+    });
+
+    /* SB20-565 - FIN */
 });
+
 
 function ValidarKitNuevas() {
     jQuery.ajax({
@@ -799,7 +890,7 @@ function EjecutarPROL() {
         }
         EjecutarServicioPROL();
     } else {
-        messageInfoMalo('<h3>No existen productos en su Pedido.</h3>');
+        messageInfoMalo('No existen productos en su Pedido.');
     }
 }
 
@@ -814,74 +905,7 @@ function EjecutarServicioPROL() {
         async: true,
         cache: false,
         success: function (response) {
-            var model = response.data;
-            CloseLoading();
-
-            if (!model.ValidacionInteractiva) {
-                messageInfoMalo('<h3 class="">' + model.MensajeValidacionInteractiva + '</h3>');
-                return false;
-            }
-
-            $("hdfPROLSinStock").val(model.ProlSinStock == true ? "1" : "0");
-            $("hdfModificaPedido").val(model.EsModificacion == true ? "1" : "0");
-
-            var mensajePedidoCheckout = ConstruirObservacionesPROL(model);
-
-            $('#btnGuardarPedido').text(model.Prol);
-            var tooltips = model.ProlTooltip.split('|');
-            $('.tooltip_noOlvidesGuardarTuPedido')[0].children[0].innerHTML = tooltips[0];
-            $('.tooltip_noOlvidesGuardarTuPedido')[0].children[1].innerHTML = tooltips[1];
-
-            if (model.Reserva != true) {
-                $('#modal-prol-botonesAceptarCancelar').hide();
-                $('#modal-prol-botoneAceptar').show();                 
-                $('#popup-observaciones-prol').show();
-                
-                CargarPedido();
-                return true;
-            }
-
-            if (model.ZonaValida == true) {
-                if (model.ObservacionInformativa == false) {
-                    if (model.ProlSinStock == true) {
-                        messageInfoBueno('<h3>Tu pedido se guardó con éxito</h3>');
-                        CargarPedido();
-                        return true;
-                    }
-
-                    messageInfoBueno('<h3>Tu pedido fue validado con éxito</h3><p>Tus productos fueron reservados.</p>');
-                    //PEDIDO VALIDADO
-                    AnalyticsGuardarValidar(response);
-                    AnalyticsPedidoValidado(response);
-                    setTimeout(function () {
-                        location.href = urlPedidoValidado;
-                    }, 2000);                    
-                    return true;
-                }
-
-                $('#modal-prol-botonesAceptarCancelar').show();
-                $('#modal-prol-botoneAceptar').hide();
-                $('#popup-observaciones-prol').show();
-
-                CargarPedido();                
-                return true;
-            }
-
-            var msg = ""
-            if (model.CodigoIso == "VE" && model.ZonaNuevoProlM) {
-                msg = '<h3>Tu pedido se guardó con éxito</h3>';
-                msg += '<p class="text-small">Te recordamos que el monto mínimo para pasar pedido es de Bs.700.</p>';
-                msg += '<p class="text-small">Los productos EXPOFERTAS e IMPERDIBLES CYZONE no suman para el monto mínimo.</p>';
-            } else if (model.CodigoIso == "CO" && model.ZonaNuevoProlM) {
-                msg = '<h3>Tu pedido se guardó con éxito</h3>';
-                msg += '<p>' + mensajeGuardarCO + '</p>';
-            } else {
-                msg = '<h3>Tu pedido se guardó con éxito</h3>';
-            }
-            messageInfoBueno(msg);
-            AnalyticsGuardarValidar(response);
-            CargarPedido();
-            return true;
+            RespuestaEjecutarServicioPROL(response);
         },
         error: function (data, error) {
             CloseLoading();
@@ -896,6 +920,150 @@ function EjecutarServicioPROL() {
         }
     });
 }
+
+function EjecutarServicioPROLSinOfertaFinal() {
+    ShowLoading();
+
+    jQuery.ajax({
+        type: 'POST',
+        url: urlEjecutarServicioPROL,
+        dataType: 'json',
+        contentType: 'application/json; charset=utf-8',
+        async: true,
+        cache: false,
+        success: function (response) {
+            RespuestaEjecutarServicioPROL(response, false);
+        },
+        error: function (data, error) {
+            CloseLoading();
+            if (checkTimeout(data)) {
+                var mensaje_ = "Por favor, vuelva a intentarlo";
+                if (data.mensaje != undefined || data.mensaje != null) {
+                    mensaje_ = data.mensaje;
+                }
+                messageInfoMalo('<h3>' + mensaje_ + '</h3>')
+                console.error(data);
+            }
+        }
+    });
+}
+
+function RespuestaEjecutarServicioPROL(response, inicio) {
+    inicio = inicio == null || inicio == undefined ? true : inicio;
+    var model = response.data;
+
+    CloseLoading();
+
+    if (!model.ValidacionInteractiva) {
+        messageInfoMalo('<h3 class="">' + model.MensajeValidacionInteractiva + '</h3>');
+        return false;
+    }
+
+    $("hdfPROLSinStock").val(model.ProlSinStock == true ? "1" : "0");
+    $("hdfModificaPedido").val(model.EsModificacion == true ? "1" : "0");
+
+    var mensajePedidoCheckout = ConstruirObservacionesPROL(model);
+
+    $('#btnGuardarPedido').text(model.Prol);
+    var tooltips = model.ProlTooltip.split('|');
+    $('.tooltip_noOlvidesGuardarTuPedido')[0].children[0].innerHTML = tooltips[0];
+    $('.tooltip_noOlvidesGuardarTuPedido')[0].children[1].innerHTML = tooltips[1];
+
+    var codigoMensajeProl = "";
+    var cumpleOferta = { resultado: false };
+
+    if (inicio) {
+        $("#btnNoGraciasOfertaFinal")[0].data = response.data;
+        codigoMensajeProl = response.data.CodigoMensajeProl;
+    }   
+
+
+    if (model.Reserva != true) {
+        if (inicio) {
+            var tipoMensaje = codigoMensajeProl == "00" ? 1 : 2;
+            cumpleOferta = CumpleOfertaFinalMostrar(response.data.MontoEscala, tipoMensaje, codigoMensajeProl, response.data.ListaObservacionesProl);
+        }        
+        if (!cumpleOferta.resultado) {
+            $('#modal-prol-botonesAceptarCancelar').hide();
+            $('#modal-prol-botoneAceptar').show();
+            $('#popup-observaciones-prol').show();
+            AnalyticsGuardarValidar(response);
+        }
+
+        CargarPedido();
+        return true;
+    }
+
+    if (model.ZonaValida == true) {
+
+        if (model.ObservacionInformativa == false) {
+            if (inicio) {
+                cumpleOferta = CumpleOfertaFinalMostrar(response.data.MontoEscala, 1, codigoMensajeProl, response.data.ListaObservacionesProl);
+            }
+
+            if (cumpleOferta.resultado) {
+                esPedidoValidado = response.data.ProlSinStock != true;
+            } else {
+                if (response.data.ProlSinStock == true) {
+                    messageInfoBueno('<h3>Tu pedido se guardó con éxito</h3>');
+                    AnalyticsGuardarValidar(response);
+                    CargarPedido();
+                    return true;
+                }
+
+                messageInfoBueno('<h3>Tu pedido fue validado con éxito</h3><p>Tus productos fueron reservados.</p>');
+                //PEDIDO VALIDADO
+                AnalyticsGuardarValidar(response);
+                AnalyticsPedidoValidado(response);
+                setTimeout(function () {
+                    location.href = urlPedidoValidado;
+                }, 2000);
+
+                return true;
+            }
+        }
+
+        if (inicio) {
+            var tipoMensaje = codigoMensajeProl == "00" ? 1 : 2;
+            cumpleOferta = CumpleOfertaFinalMostrar(response.data.MontoEscala, tipoMensaje, codigoMensajeProl, response.data.ListaObservacionesProl);
+        }
+        
+        if (cumpleOferta.resultado) {
+            esPedidoValidado = response.data.ProlSinStock != true;
+        } else {
+            $('#modal-prol-botonesAceptarCancelar').show();
+            $('#modal-prol-botoneAceptar').hide();
+            $('#popup-observaciones-prol').show();
+        }
+        AnalyticsGuardarValidar(response);
+        CargarPedido();
+        return true;
+    }
+    if (inicio) {
+        cumpleOferta = CumpleOfertaFinalMostrar(response.data.MontoEscala, 1, codigoMensajeProl, response.data.ListaObservacionesProl);
+    }
+    
+    if (!cumpleOferta.resultado) {
+        var msg = ""
+        if (model.CodigoIso == "VE" && model.ZonaNuevoProlM) {
+            msg = '<h3>Tu pedido se guardó con éxito</h3>';
+            msg += '<p class="text-small">Te recordamos que el monto mínimo para pasar pedido es de Bs.700.</p>';
+            msg += '<p class="text-small">Los productos EXPOFERTAS e IMPERDIBLES CYZONE no suman para el monto mínimo.</p>';
+        } else if (model.CodigoIso == "CO" && model.ZonaNuevoProlM) {
+            msg = '<h3>Tu pedido se guardó con éxito</h3>';
+            msg += '<p>' + mensajeGuardarCO + '</p>';
+        } else {
+            msg = '<h3>Tu pedido se guardó con éxito</h3>';
+        }
+        messageInfoBueno(msg);
+        AnalyticsGuardarValidar(response);
+    }
+
+    CargarPedido();
+    return true;
+}
+
+/* SB20-565 - FIN */
 
 function ConstruirObservacionesPROL(model) {
 
@@ -1050,7 +1218,7 @@ function AnalyticsGuardarValidar(data) {
             'price': value.price.toString(),
             'brand': value.brand,
             'category': 'NO DISPONIBLE',
-            'variant': value.variant,
+            'variant': value.variant == "" ? "Estándar" : value.variant,
             'quantity': value.quantity
         };
         arrayEstrategiasAnalytics.push(estrategia);
@@ -1081,7 +1249,7 @@ function AnalyticsPedidoValidado(data) {
             'price': value.price.toString(),
             'brand': value.brand,
             'category': 'NO DISPONIBLE',
-            'variant': value.variant,
+            'variant': value.variant == "" ? "Estándar" : value.variant,
             'quantity': value.quantity
         };
         arrayEstrategiasAnalytics.push(estrategia);
@@ -1114,3 +1282,130 @@ function MostrarDetalleGanancia() {
 
     $('#popupGanancias').show();
 }
+
+
+/* SB20-565 - INICIO */
+
+function InsertarProducto(model) {
+    jQuery.ajax({
+        type: 'POST',
+        url: urlInsertar,
+        dataType: 'json',
+        contentType: 'application/json; charset=utf-8',
+        data: JSON.stringify(model),
+        async: true,
+        cache: false,
+        success: function (data) {
+            if (!checkTimeout(data)) {
+                CloseLoading();
+                return false;
+            }
+
+            CloseLoading();
+
+            if (data.success == true) {
+                setTimeout(function () {
+                    //$("#divMensajeProductoAgregado").show();
+                }, 2000);
+
+                ActualizarGanancia(data.DataBarra);
+                
+                TrackingJetloreAdd(model.Cantidad, $("#hdCampaniaCodigo").val(), model.CUV);
+                dataLayer.push({
+                    'event': 'addToCart',
+                    'ecommerce': {
+                        'add': {
+                            'actionField': { 'list': 'Estándar' },
+                            'products': [{
+                                'name': data.data.DescripcionProd,
+                                'price': String(data.data.PrecioUnidad),
+                                'brand': data.data.DescripcionLarga,
+                                'id': data.data.CUV,
+                                'category': 'NO DISPONIBLE',
+                                'variant': data.data.DescripcionOferta,
+                                'quantity': Number(model.Cantidad),
+                                'position': 1
+                            }]
+                        }
+                    }
+                });
+
+                CargarPedido();
+
+            } else {
+                messageInfoMalo(data.message);
+            }
+        },
+        error: function (data, error) {
+            CloseLoading();
+            if (checkTimeout(data)) {
+                console.error(data);
+            }
+        }
+    });
+
+};
+
+function MostrarMensajeProl(data) {
+
+    if (data.Reserva != true) {
+        $('#modal-prol-botonesAceptarCancelar').hide();
+        $('#modal-prol-botoneAceptar').show();
+        $('#popup-observaciones-prol').show();
+
+        CargarPedido();
+        return true;
+    }
+
+    if (data.ZonaValida == true) {
+        if (data.ObservacionInformativa == false) {
+            if (data.ProlSinStock == true) {
+                messageInfoBueno('<h3>Tu pedido se guardó con éxito</h3>');
+                CargarPedido();
+                return true;
+            }
+
+            messageInfoBueno('<h3>Tu pedido fue validado con éxito</h3><p>Tus productos fueron reservados.</p>');
+            //PEDIDO VALIDADO
+            //AnalyticsGuardarValidar(response);
+            //AnalyticsPedidoValidado(response);
+            setTimeout(function () {
+                location.href = urlPedidoValidado;
+            }, 2000);
+            return true;
+        }
+
+        $('#modal-prol-botonesAceptarCancelar').show();
+        $('#modal-prol-botoneAceptar').hide();
+        $('#popup-observaciones-prol').show();
+
+        CargarPedido();
+        return true;
+    }
+
+    var msg = ""
+    if (data.CodigoIso == "VE" && data.ZonaNuevoProlM) {
+        msg = '<h3>Tu pedido se guardó con éxito</h3>';
+        msg += '<p class="text-small">Te recordamos que el monto mínimo para pasar pedido es de Bs.700.</p>';
+        msg += '<p class="text-small">Los productos EXPOFERTAS e IMPERDIBLES CYZONE no suman para el monto mínimo.</p>';
+    } else if (data.CodigoIso == "CO" && data.ZonaNuevoProlM) {
+        msg = '<h3>Tu pedido se guardó con éxito</h3>';
+        msg += '<p>' + mensajeGuardarCO + '</p>';
+    } else {
+        msg = '<h3>Tu pedido se guardó con éxito</h3>';
+    }
+    messageInfoBueno(msg);
+    //AnalyticsGuardarValidar(response);
+    CargarPedido();
+    return true;
+}
+
+function ValidarPermiso(obj) {
+    var permiso = $(obj).attr("disabled") || "";
+    if (permiso != "") {
+        return false;
+    }
+    return true;
+};
+
+/* SB20-565 - FIN */

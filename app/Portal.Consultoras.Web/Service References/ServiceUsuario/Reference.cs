@@ -128,6 +128,9 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         private bool EMailActivoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool EsCatalogoPersonalizadoZonaValidaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int EsJovenField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -357,6 +360,9 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int VioTutorialField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int VioTutorialDesktopField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int VioVideoField;
@@ -864,6 +870,19 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
                 if ((this.EMailActivoField.Equals(value) != true)) {
                     this.EMailActivoField = value;
                     this.RaisePropertyChanged("EMailActivo");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool EsCatalogoPersonalizadoZonaValida {
+            get {
+                return this.EsCatalogoPersonalizadoZonaValidaField;
+            }
+            set {
+                if ((this.EsCatalogoPersonalizadoZonaValidaField.Equals(value) != true)) {
+                    this.EsCatalogoPersonalizadoZonaValidaField = value;
+                    this.RaisePropertyChanged("EsCatalogoPersonalizadoZonaValida");
                 }
             }
         }
@@ -1865,6 +1884,19 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
                 if ((this.VioTutorialField.Equals(value) != true)) {
                     this.VioTutorialField = value;
                     this.RaisePropertyChanged("VioTutorial");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int VioTutorialDesktop {
+            get {
+                return this.VioTutorialDesktopField;
+            }
+            set {
+                if ((this.VioTutorialDesktopField.Equals(value) != true)) {
+                    this.VioTutorialDesktopField = value;
+                    this.RaisePropertyChanged("VioTutorialDesktop");
                 }
             }
         }
@@ -4137,6 +4169,9 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         private string MarcaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int MarcaIDField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string MedioContactoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -4230,6 +4265,19 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
                 if ((object.ReferenceEquals(this.MarcaField, value) != true)) {
                     this.MarcaField = value;
                     this.RaisePropertyChanged("Marca");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int MarcaID {
+            get {
+                return this.MarcaIDField;
+            }
+            set {
+                if ((this.MarcaIDField.Equals(value) != true)) {
+                    this.MarcaIDField = value;
+                    this.RaisePropertyChanged("MarcaID");
                 }
             }
         }
@@ -5099,6 +5147,12 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/setUsuarioVerTutorial", ReplyAction="http://tempuri.org/IUsuarioService/setUsuarioVerTutorialResponse")]
         System.Threading.Tasks.Task<int> setUsuarioVerTutorialAsync(int paisID, string codigoUsuario);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/SetUsuarioVerTutorialDesktop", ReplyAction="http://tempuri.org/IUsuarioService/SetUsuarioVerTutorialDesktopResponse")]
+        int SetUsuarioVerTutorialDesktop(int paisID, string codigoUsuario);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/SetUsuarioVerTutorialDesktop", ReplyAction="http://tempuri.org/IUsuarioService/SetUsuarioVerTutorialDesktopResponse")]
+        System.Threading.Tasks.Task<int> SetUsuarioVerTutorialDesktopAsync(int paisID, string codigoUsuario);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/Insert", ReplyAction="http://tempuri.org/IUsuarioService/InsertResponse")]
         void Insert(Portal.Consultoras.Web.ServiceUsuario.BEUsuario usuario);
         
@@ -5593,6 +5647,14 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         
         public System.Threading.Tasks.Task<int> setUsuarioVerTutorialAsync(int paisID, string codigoUsuario) {
             return base.Channel.setUsuarioVerTutorialAsync(paisID, codigoUsuario);
+        }
+        
+        public int SetUsuarioVerTutorialDesktop(int paisID, string codigoUsuario) {
+            return base.Channel.SetUsuarioVerTutorialDesktop(paisID, codigoUsuario);
+        }
+        
+        public System.Threading.Tasks.Task<int> SetUsuarioVerTutorialDesktopAsync(int paisID, string codigoUsuario) {
+            return base.Channel.SetUsuarioVerTutorialDesktopAsync(paisID, codigoUsuario);
         }
         
         public void Insert(Portal.Consultoras.Web.ServiceUsuario.BEUsuario usuario) {

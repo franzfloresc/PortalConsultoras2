@@ -1171,9 +1171,9 @@ namespace Portal.Consultoras.Service
 
         #region VAL PROL - R2073
 
-        public int GetEstadoProcesoPROLAuto(int paisID)
+        public int GetEstadoProcesoPROLAuto(int paisID, DateTime FechaHoraFacturacion)
         {
-            return BLValidacionAutomatica.GetEstadoProcesoPROLAuto(paisID);
+            return BLValidacionAutomatica.GetEstadoProcesoPROLAuto(paisID, FechaHoraFacturacion);
         }
 
         public List<BEValidacionAutomatica> GetEstadoProcesoPROLAutoDetalle(int paisID)
@@ -1651,6 +1651,11 @@ namespace Portal.Consultoras.Service
         public string GetImagenOfertaPersonalizadaOF(int paisID, int campaniaID, string cuv)
         {
             return new BLEstrategia().GetImagenOfertaPersonalizadaOF(paisID, campaniaID, cuv);
+        }
+
+        public void InsLogOfertaFinal(int PaisID, int CampaniaID, string CodigoConsultora, string CUV, int cantidad, string tipoOfertaFinal, decimal GAP)
+        {
+            BLPedidoWeb.InsLogOfertaFinal(PaisID, CampaniaID, CodigoConsultora, CUV, cantidad, tipoOfertaFinal, GAP);
         }
     }
 }

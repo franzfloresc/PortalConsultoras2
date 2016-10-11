@@ -7,6 +7,18 @@
     Layout = "~/Areas/Mobile/Views/Shared/_MobileLayout.cshtml";
 }
 
+<link href="@Url.Content("~/Content/Css/Site/slick-pedido.css")" rel="stylesheet" />
+
+<!--SB20-565 - INICIO -->
+<input type="hidden" id="hdEsFacturacion" value="@Model.EsFacturacion.ToString()" />
+<input type="hidden" id="hdOfertaFinal" value="@Model.OfertaFinal" />
+<input type="hidden" id="hdEsOfertaFinalZonaValida" value="@Model.EsOfertaFinalZonaValida.ToString()" />
+<input type="hidden" id="hdListaParametriaOfertaFinal" value="@Newtonsoft.Json.JsonConvert.SerializeObject(Model.ListaParametriaOfertaFinal)" />
+<input type="hidden" id="hdEsConsultoraNueva" value="@Model.EsConsultoraNueva.ToString()" />
+<input type="hidden" id="hdListaEscala" value="@Newtonsoft.Json.JsonConvert.SerializeObject(Model.DataBarra.ListaEscalaDescuento)" />
+<input type="hidden" id="hdMontoMinimo" value="@Model.MontoMinimo" />
+<!--SB20-565 - FIN -->
+
 <div class="contenedor_producto">
     <div class="content_320 ingresoPedidom">
         <input id="hdAccionBotonProl" type="hidden" value="@ViewBag.AccionBoton" />
@@ -79,6 +91,48 @@
     </div>
 </div>
 
+<!-- POPUP OFERTA FINAL -->
+
+<div class="contenedor_fondo_popup" id="popupOfertaFinal" style="display: none;">
+    <div class="popup_ofertaFinal">
+        <a class="cerrar_popMobile" href="javascript:;" id="lnkCerrarPopupOfertaFinal">
+            <img src="/Content/Images/mobile/Esika/cerrar_04.png" alt="Cerrar">
+        </a>
+        <div id="divIconoOfertaFinal">
+        </div>
+        <h1 class="ofertaFinal_titulo">
+            <span id="spnTituloOfertaFinal">GUARDASTE TU <b>PEDIDO CON ÉXITO !</b></span>
+        </h1>
+
+        <div class="ofertaFinal_descripcion">
+            Agrega <span>@Model.Simbolo </span><span id="spnMontoFaltanteOfertaFinal"></span>
+            <span id="spnMensajeOfertaFinal">para ganar más esta campaña.</span>
+        </div>
+
+        <div class="contenedor_carruselOfertaFinal">
+            
+            <div class="ofertaFinal_info">
+                <span id="spnSubTituloOfertaFinal">Gana mas con estas ofertas que tenemos solo para ti</span>
+            </div>
+
+            <div class="bloque_carousel">
+                @*<div class="btn_controles_carousel btn_control_atras">
+                    <img src="@Url.Content("~/Content/Images/mobile/flecha-left.png")" alt="Atrás" />
+                </div>*@
+                <div class="slider center" id="divCarruselOfertaFinal" style="width: 100%">
+                    
+                </div>
+            </div>
+
+            <a href="#" title="NO, GRACIAS" class="enlace_btnNoGracias" id="btnNoGraciasOfertaFinal">
+                NO, GRACIAS
+            </a>
+            
+        </div>
+    </div>
+</div>
+
+<!-- FIN POPUP OFERTA FINAL -->
 @*<div id="popup-eliminar-mensaje" class="modal fade" data-backdrop="static" data-keyboard="false">
         <div class="modal-dialog modal-alert ">
             <div class="modal-content">
@@ -238,7 +292,7 @@
                         lbl1Ganancia = "Mis descuentos";
                         lbl2Ganancia = "Oportunidad de ahorro *(Revista y otros)";
                     }                                                                                                 
-                }
+             }
                 
                 <input type="hidden" id="hdeCabezaEscala" value="@cabezaEscala" />
                 <input type="hidden" id="hdePieEscala" value="@pieEscala" />
@@ -253,7 +307,7 @@
                 </div>
         </div>
         <div class="montos_resumen">
-            <span><b data-cantidadproducto="">{{this.TotalProductos}}</b>&nbsp;&nbsp;PRODUCTOS</span>
+            <span><b data-cantidadproducto="">{{this.TotalProductos}}</b>&nbsp;&nbsp;UNIDADES</span>
             <!--SB20-483 - INICIO -->
             @*<span><b>{{Simbolo}} {{FormatoTotal}}</b></span>
             <span style="margin-bottom:27px;"><b>{{Simbolo}} {{FormatoMontoDescuento}}</b></span>*@
@@ -261,7 +315,7 @@
             <span><b>{{Simbolo}}&nbsp;&nbsp;</b><b data-pedidocondescuento="">{{FormatoTotalConDescuento}}</b></span>
             <span class="mi_ganancia"><b>{{Simbolo}}&nbsp;&nbsp;</b><b class="lblDescripcionGanancia" data-ganancia="">{{FormatoMontoGanancia}}</b></span>
         </div>
-    </div>
+    @*</div>*@
 
         <div class="detalle_pedido_ingresado">
             <span class="titulo_detalle">DETALLE</span>
@@ -283,7 +337,9 @@
                             <span>App móvil</span>
                             {{/iff}}
 
-                            {{#iff detalle.ConfiguracionOfertaID '==' @Constantes.TipoOferta.Liquidacion}}
+                            {{#iff OrigenPedidoWeb '==' '@Constantes.OrigenPedidoWeb.DesktopPedidoOfertaFinal'}}
+                            {{else if_eq OrigenPedidoWeb '@Constantes.OrigenPedidoWeb.MobilePedidoOfertaFinal'}}
+                            {{else iff detalle.ConfiguracionOfertaID '==' @Constantes.TipoOferta.Liquidacion}}
                             <br />
                             <span>Oferta Liquidación</span>
                             {{else iff detalle.ConfiguracionOfertaID '==' @Constantes.TipoOferta.Flexipago}}
@@ -295,7 +351,10 @@
                             {{else}}
                             {{#IsNullOrEmpty detalle.DescripcionOferta '!='}}
                             <br />
+                            {{#iff (UpperCase DescripcionOferta) 'Contains' 'OFERTA PARA TI'}}
+                            {{else}}
                             <label for="{{detalle.DescripcionOferta}}">{{Replace (Replace detalle.DescripcionOferta '[' '') ']' ''}}</label>
+                            {{/iff}}
                             {{/IsNullOrEmpty}}
                             {{/iff}}
                         </span>
@@ -410,9 +469,9 @@
                         </span>
                         <span class="precio_oferta_pedido">
                             <!-- ICONO ADVERTENCIA -->
+                            {{#if ../EstadoSimplificacionCuv}}
                             {{#if detalle.IndicadorOfertaCUV}}
-                            {{#if detalle.PedidoConDescuentoCuv}}
-                            <span class="icono_advertencia_notificacion"></span>
+                            <span class="icon-advertencia"></span>
                             {{/if}}
                             {{/if}}
                             <!-- FIN ICONO ADVERTENCIA -->
@@ -498,7 +557,7 @@
             </div>
 
             <div class="montos_resumen">
-                <span><b data-cantidadproducto="">{{TotalProductos}}</b>&nbsp;&nbsp;PRODUCTOS</span>
+                <span><b data-cantidadproducto="">{{TotalProductos}}</b>&nbsp;&nbsp;UNIDADES</span>
                 <!-- SB20-483 - INICIO -->
                 @*<span><b>{{Simbolo}} {{FormatoTotal}}</b></span>
                 <span style="margin-bottom:27px;"><b>{{Simbolo}} {{FormatoMontoDescuento}}</b></span>*@
@@ -525,8 +584,75 @@
         </div>
 </script>
 
+
+<!--SB20-565 - INICIO -->
+
+<script id="ofertaFinal-template" type="text/x-handlebars-template">
+    {{#each this}}
+    <div class="content_item_carrusel_ofertaFinal" data-item="ofertaFinal">
+        <div style="display: none;">
+            <input type="hidden" class="hdOfertaFinalCuv" value="{{CUV}}" />
+            <input type="hidden" class="hdOfertaFinalTipoOfertaSisID" value="{{TipoOfertaSisID}}" />
+            <input type="hidden" class="hdOfertaFinalConfiguracionOfertaID" value="{{ConfiguracionOfertaID}}" />
+            <input type="hidden" class="hdOfertaFinalIndicadorMontoMinimo" value="{{IndicadorMontoMinimo}}" />
+            <input type="hidden" class="hdOfertaFinalTipo" value="1" />
+            <input type="hidden" class="hdOfertaFinalMarcaID" value="{{MarcaID}}" />
+            <input type="hidden" class="hdOfertaFinalPrecioUnidad" value="{{PrecioCatalogo}}" />
+            <input type="hidden" class="hdOfertaFinalDescripcionProd" value="{{Descripcion}}" />
+            <input type="hidden" class="hdOfertaFinalPagina" value="0" />
+            <input type="hidden" class="hdOfertaFinalDescripcionCategoria" value="{{DescripcionCategoria}}" />
+            <input type="hidden" class="hdOfertaFinalDescripcionMarca" value="{{DescripcionMarca}}" />
+            <input type="hidden" class="hdOfertaFinalDescripcionEstrategia" value="{{DescripcionEstrategia}}" />
+        </div>
+        <div class="contenido_item_ofertaFinal">
+            <div class="producto_img_home">
+                <img src="{{ImagenProductoSugerido}}">
+            </div>
+            <div class="etiqueta_producto">
+            </div>
+            <div class="producto_nombre_descripcion">
+                <h6>{{DescripcionMarca}}</h6>
+                <p class="nombre_producto">
+                    <b>{{Descripcion}}</b>
+                </p>
+                <div class="producto_precio">
+                    <span class="producto_precio_normal" style="display:none;">{{Simbolo}} {{PrecioValorizadoString}}</span>
+                    <span class="producto_precio_oferta"><b>{{Simbolo}} {{PrecioCatalogoString}}</b></span>
+                </div>
+                <div class="contenedor_cantidadProductos">
+                    <span class="textoCantidad">CANTIDAD:</span>
+                    <div>
+                        @*<span class="signo_menos restar-uno" onclick="sumarUno(this);">
+                            <img src="/Content/Images/Mobile/Esika/menos.png">
+                        </span>
+                        <div class="campo_cantidadProductos">
+                            <input type="tel" name="cantidad" value="1" id="txtCantidad" min="1" max="99" maxlength="2" oninput="maxLengthCheck(this,2)" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" data-input="cantidad">
+                        </div>
+                        <span class="signo_mas sumar-uno" onclick="sumarUno(this);">
+                            <img src="/Content/Images/Mobile/Esika/mas.png">
+                        </span>*@
+                        <a class="cantidad_menos_home"><img src="/Content/Images/Mobile/Esika/menos.png" alt=""></a>
+                        <input type="tel" value="1" size="2" maxlength="2" id="txtCantidad" class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" data-input="cantidad">
+                        <a class="cantidad_mas_home"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
+                        <div class="clear"></div>
+                    </div>
+                </div>
+                <a class="boton_Agregalo_home agregarOfertaFinal">
+                    AGRÉGALO
+                </a>
+                <div class="clear"></div>
+            </div>
+        </div>
+    </div>
+    {{/each}}
+</script>
+<!--SB20-565 - FIN -->
+
+
 @section Scripts{
     <script type="text/javascript" src="@Url.Content("~/Scripts/handlebars.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/slick.min.js")"></script>
+
     <script type="text/javascript">
 
         var codigoIsoPais = '@Model.CodigoISO';
@@ -560,6 +686,17 @@
         var urlReservadoOEnHorarioRestringido = '@Url.Action("ReservadoOEnHorarioRestringido", "Pedido", new { area = "" })';
         var fnEliminarProducto = null;
 
+        /* SB20-565 - INICIO */
+        var listaEscalaDescuento = JSON.parse($("#hdListaEscala").val());
+        var listaParametriaOfertaFinal = JSON.parse($("#hdListaParametriaOfertaFinal").val());
+
+        var urlLoad = '@Url.Content("~/Content/Images/Loading.gif")';
+        var viewBagPaisID = '@Model.PaisID';
+        var viewBagNombrePais = '@ViewBag.NombrePais';
+        var urlInsertar = '@Url.Action("Insert", "Pedido", new {area = ""})';
+        /* SB20-565 - FIN */
+
     </script>
-    <script src="@Url.Content("~/Scripts/PortalConsultoras/Mobile/Pedido/Detalle.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Mobile/Pedido/Detalle.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Pedido/ofertaFinal.js")"></script>
 }

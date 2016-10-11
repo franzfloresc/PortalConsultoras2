@@ -51,9 +51,12 @@
       <xs:element minOccurs="0" name="MarcaID" type="xs:int" />
       <xs:element minOccurs="0" name="PrecioCatalogo" type="xs:decimal" />
       <xs:element minOccurs="0" name="PrecioValorizado" type="xs:decimal" />
+      <xs:element minOccurs="0" name="TieneLanzamientoCatalogoPersonalizado" type="xs:boolean" />
+      <xs:element minOccurs="0" name="TieneOfertaRevista" type="xs:boolean" />
       <xs:element minOccurs="0" name="TieneStock" type="xs:boolean" />
       <xs:element minOccurs="0" name="TieneSugerido" type="xs:int" />
       <xs:element minOccurs="0" name="TipoEstrategiaID" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TipoOfertaRevista" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="TipoOfertaSisID" type="xs:int" />
     </xs:sequence>
   </xs:complexType>

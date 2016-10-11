@@ -77,7 +77,12 @@ function ConfirmarModificar() {
         success: function (data) {
             if (checkTimeout(data)) {
                 if (data.success == true) {
-
+                    dataLayer.push({
+                        'event': 'virtualEvent',
+                        'category': 'Ecommerce',
+                        'action': 'Modificar Pedido',
+                        'label': '(not available)'
+                    });
                     location.href = baseUrl + 'Pedido/Index';
                 }
                 else {
@@ -229,7 +234,7 @@ function ModificarPedido() {
 
 function CargarListado(page, rows) {
 
-    $('#divListado').html('<div style="text-align: center;">Cargando Listado<br><img src="' + urlLoad + '" /></div>');
+    $('#divListado').html('<div style="text-align: center; margin-top:20px; margin-bottom:17px;">Cargando Listado<br><img src="' + urlLoad + '" /></div>');
 
     var obj = {
         sidx: "",
