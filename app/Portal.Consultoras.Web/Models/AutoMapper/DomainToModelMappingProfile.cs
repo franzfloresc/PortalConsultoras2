@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
 using Portal.Consultoras.Web.ServicePedido;
+using Portal.Consultoras.Web.ServicePedidoRechazado;
+using Portal.Consultoras.Web.ServiceUsuario;
 using System.Collections.Generic;
 
 namespace Portal.Consultoras.Web.Models.AutoMapper
@@ -75,6 +77,15 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
             Mapper.CreateMap<BEEstrategia, EstrategiaPedidoModel>();
 
             Mapper.CreateMap<BEPedidoFICDetalle, PedidoWebDetalleModel>();
+
+            Mapper.CreateMap<BENotificacionesDetallePedido, NotificacionesModelDetallePedido>();
+
+            Mapper.CreateMap<BELogGPRValidacion, NotificacionesModel>()
+                .ForMember(t => t.Descuento, f => f.MapFrom(c => -c.Descuento))
+                .ForMember(t => t.FechaValidacion, f => f.MapFrom(c => c.FechaFinValidacion));
+
+            Mapper.CreateMap<BELogGPRValidacionDetalle, NotificacionesModelDetallePedido>()
+                .ForMember(t => t.IndicadorOferta, f => f.MapFrom(c => c.IndicadorOferta ? 1 : 0));
         }
     }
 }

@@ -1020,6 +1020,19 @@
       <xs:sequence />
     </xs:complexType>
   </xs:element>
+  <xs:element name="UpdNotificacionPedidoRechazadoVisualizacion">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="paisID" type="xs:int" />
+        <xs:element minOccurs="0" name="procesoId" type="xs:long" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdNotificacionPedidoRechazadoVisualizacionResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
   <xs:element name="ObtenerDetalleNotificacion">
     <xs:complexType>
       <xs:sequence>

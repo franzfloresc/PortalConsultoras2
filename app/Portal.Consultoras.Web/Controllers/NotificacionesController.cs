@@ -1,5 +1,7 @@
-﻿using Portal.Consultoras.Common;
+﻿using AutoMapper;
+using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
+using Portal.Consultoras.Web.ServicePedidoRechazado;
 using Portal.Consultoras.Web.ServiceUsuario;
 using System;
 using System.Collections.Generic;
@@ -62,43 +64,23 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                var PaisId = userData.PaisID;
+                var paisId = userData.PaisID;
                 using (UsuarioServiceClient sv = new UsuarioServiceClient())
                 {
-                    //R2319 - JLCS
-                    if (TipoOrigen == 4)
-                    {
-                        sv.UpdNotificacionSolicitudClienteVisualizacion(PaisId, ProcesoId);
-                    }//R20150802
-                    if (TipoOrigen == 5)
-                    {
-                        sv.UpdNotificacionSolicitudClienteCatalogoVisualizacion(PaisId, ProcesoId);// Revisar  debería ir el CodigoConsultora.
-                    }
-                    else
-                    {
-                        sv.UpdNotificacionesConsultoraVisualizacion(PaisId, ProcesoId, TipoOrigen); //R2073
-                    }
+                    if (TipoOrigen == 6) sv.UpdNotificacionPedidoRechazadoVisualizacion(paisId, ProcesoId);
+                    else if (TipoOrigen == 5) sv.UpdNotificacionSolicitudClienteCatalogoVisualizacion(paisId, ProcesoId);
+                    else if (TipoOrigen == 4) sv.UpdNotificacionSolicitudClienteVisualizacion(paisId, ProcesoId);
+                    else sv.UpdNotificacionesConsultoraVisualizacion(paisId, ProcesoId, TipoOrigen);
                 }
                 SessionKeys.ClearSessionCantidadNotificaciones();
-                var data = new
-                {
-                    success = true,
-                    message = "Se actualizo con exito la notificacion"
-                };
-
-                return Json(data, JsonRequestBehavior.AllowGet);
+                return Json(new { success = true }, JsonRequestBehavior.AllowGet);
             }
-            catch(Exception e)
+            catch(Exception ex)
             {
-                var data = new
-                {
-                    success = true,
-                    message = e.Message
-                };
-
-                return Json(data, JsonRequestBehavior.AllowGet);
-            }
-            
+                var usuarioModel = userData ?? new UsuarioModel();
+                LogManager.LogManager.LogErrorWebServicesBus(ex, usuarioModel.CodigoConsultora, usuarioModel.CodigoISO);
+                return Json(new { success = false }, JsonRequestBehavior.AllowGet);
+            }            
         }
 
         //R2319 - JLCS
@@ -295,7 +277,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
             model.ListaNotificacionesDetalle = olstObservaciones;
-            model.ListaNotificacionesDetallePedido = olstObservacionesPedido;
+            model.ListaNotificacionesDetallePedido = Mapper.Map<List<NotificacionesModelDetallePedido>>(olstObservacionesPedido);
             model.NombreConsultora = UserData().NombreConsultora;
             model.Origen = TipoOrigen;//R2133
             return PartialView("ListadoObservaciones", model);//R2133
@@ -319,10 +301,39 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
             model.ListaNotificacionesDetalle = olstObservaciones;
-            model.ListaNotificacionesDetallePedido = olstObservacionesPedido;
+            model.ListaNotificacionesDetallePedido = Mapper.Map<List<NotificacionesModelDetallePedido>>(olstObservacionesPedido);
             model.NombreConsultora = UserData().NombreConsultora;
             model.Origen = 3;
             return PartialView("ListadoObservaciones", model);
+        }
+        public ActionResult ListarDetallePedidoRechazado(long ProcesoId)
+        {
+            NotificacionesModel model = new NotificacionesModel();
+            BELogGPRValidacion logGPRValidacion;
+            List<BELogGPRValidacionDetalle> lstLogGPRValidacionDetalle = new List<BELogGPRValidacionDetalle>();
+
+            using (PedidoRechazadoServiceClient sv = new PedidoRechazadoServiceClient())
+            {
+                logGPRValidacion = sv.GetBELogGPRValidacionByGetLogGPRValidacionId(userData.PaisID, ProcesoId);
+                lstLogGPRValidacionDetalle = sv.GetListBELogGPRValidacionDetalleBELogGPRValidacionByLogGPRValidacionId(userData.PaisID, ProcesoId).ToList();
+            }
+
+            model = Mapper.Map<NotificacionesModel>(logGPRValidacion);
+            model.NombreConsultora = userData.NombreConsultora;
+            model.Total = model.SubTotal + model.Descuento;
+            model.SubTotalString = Util.DecimalToStringFormat(model.SubTotal, userData.CodigoISO);
+            model.DescuentoString = Util.DecimalToStringFormat(model.Descuento, userData.CodigoISO);
+            model.TotalString = Util.DecimalToStringFormat(model.Total, userData.CodigoISO);
+            model.TieneDescuentoCuv = logGPRValidacion.EstadoSimplificacionCUV && lstLogGPRValidacionDetalle.Any(p => p.IndicadorOferta);
+
+            model.ListaNotificacionesDetallePedido = Mapper.Map<List<NotificacionesModelDetallePedido>>(lstLogGPRValidacionDetalle);
+            model.ListaNotificacionesDetallePedido.Update(detalle =>
+            {
+                detalle.PrecioUnidadString = Util.DecimalToStringFormat(detalle.PrecioUnidad, userData.CodigoISO);
+                detalle.ImporteTotalString = Util.DecimalToStringFormat(detalle.ImporteTotal, userData.CodigoISO);
+            });
+
+            return PartialView("ListadoDetallePedidoRechazado", model);
         }
 
         [HttpPost]

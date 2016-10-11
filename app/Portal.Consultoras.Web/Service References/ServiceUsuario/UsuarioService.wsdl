@@ -429,6 +429,12 @@
   <wsdl:message name="IUsuarioService_UpdNotificacionSolicitudClienteCatalogoVisualizacion_OutputMessage">
     <wsdl:part name="parameters" element="tns:UpdNotificacionSolicitudClienteCatalogoVisualizacionResponse" />
   </wsdl:message>
+  <wsdl:message name="IUsuarioService_UpdNotificacionPedidoRechazadoVisualizacion_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdNotificacionPedidoRechazadoVisualizacion" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_UpdNotificacionPedidoRechazadoVisualizacion_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdNotificacionPedidoRechazadoVisualizacionResponse" />
+  </wsdl:message>
   <wsdl:message name="IUsuarioService_ObtenerDetalleNotificacion_InputMessage">
     <wsdl:part name="parameters" element="tns:ObtenerDetalleNotificacion" />
   </wsdl:message>
@@ -717,6 +723,10 @@
     <wsdl:operation name="UpdNotificacionSolicitudClienteCatalogoVisualizacion">
       <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/UpdNotificacionSolicitudClienteCatalogoVisualizacion" message="tns:IUsuarioService_UpdNotificacionSolicitudClienteCatalogoVisualizacion_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/UpdNotificacionSolicitudClienteCatalogoVisualizacionResponse" message="tns:IUsuarioService_UpdNotificacionSolicitudClienteCatalogoVisualizacion_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdNotificacionPedidoRechazadoVisualizacion">
+      <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/UpdNotificacionPedidoRechazadoVisualizacion" message="tns:IUsuarioService_UpdNotificacionPedidoRechazadoVisualizacion_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/UpdNotificacionPedidoRechazadoVisualizacionResponse" message="tns:IUsuarioService_UpdNotificacionPedidoRechazadoVisualizacion_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="ObtenerDetalleNotificacion">
       <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/ObtenerDetalleNotificacion" message="tns:IUsuarioService_ObtenerDetalleNotificacion_InputMessage" />
@@ -1324,6 +1334,15 @@
     </wsdl:operation>
     <wsdl:operation name="UpdNotificacionSolicitudClienteCatalogoVisualizacion">
       <soap:operation soapAction="http://tempuri.org/IUsuarioService/UpdNotificacionSolicitudClienteCatalogoVisualizacion" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdNotificacionPedidoRechazadoVisualizacion">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/UpdNotificacionPedidoRechazadoVisualizacion" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -1958,6 +1977,15 @@
     </wsdl:operation>
     <wsdl:operation name="UpdNotificacionSolicitudClienteCatalogoVisualizacion">
       <soap:operation soapAction="http://tempuri.org/IUsuarioService/UpdNotificacionSolicitudClienteCatalogoVisualizacion" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdNotificacionPedidoRechazadoVisualizacion">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/UpdNotificacionPedidoRechazadoVisualizacion" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

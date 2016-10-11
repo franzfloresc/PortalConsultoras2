@@ -83,48 +83,28 @@ else
 
 
 @section scripts{
-
     <script type="text/javascript">
-
         function VisualizarPopup(ProcesoId, Observaciones, Estado, FacturaHoy, DiaFact, MesFact, Visualizado, Asunto, Proceso) {
-
             ShowLoading();
 
-            var TipoOrigen = 1;
-            if (Proceso == "VALAUTO")
-                TipoOrigen = 1;
-            else
-                if (Proceso == "VALMOVIL")
-                    TipoOrigen = 2;
-                else
-                    TipoOrigen = 3;
-
-            if (Proceso == "BUSCACONS")
-                TipoOrigen = 4
-
-            if (Proceso == "CATALOGO")
-                TipoOrigen = 5;
-
-            if (Visualizado == "False") {
-                $.post('@Url.Action("ActualizarLeidoSolicitud", "Notificaciones", new { area = "Mobile" })' + "?ProcesoId=" + ProcesoId + "&TipoOrigen=" + TipoOrigen, function (data) {
-
-                    data.mensaje = data.mensaje || "";
-                    if (data.mensaje != '') {
-                        console.log(data.mensaje);
-                    }
-                });
+            var TipoOrigen;
+            switch (Proceso) {
+                case "VALAUTO": TipoOrigen = 1; break;
+                case "VALMOVIL": TipoOrigen = 2; break;
+                case "BUSCACONS": TipoOrigen = 4; break;
+                case "CATALOGO": TipoOrigen = 5; break;
+                case "PEDREC": TipoOrigen = 6; break;
+                default: TipoOrigen = 3; break;
             }
 
-            if (TipoOrigen == 5) {
-                location.href = '@Url.Action("DetalleSolicitudClienteCatalogo", "Notificaciones", new { area = "Mobile" })' + "?SolicitudId=" + ProcesoId;
-            } else if (TipoOrigen == 4) {
+            if (TipoOrigen == 6) location.href = '@Url.Action("DetallePedidoRechazado", "Notificaciones", new { area = "Mobile" })' + "?ProcesoId=" + ProcesoId;
+            else if (TipoOrigen == 5) location.href = '@Url.Action("DetalleSolicitudClienteCatalogo", "Notificaciones", new { area = "Mobile" })' + "?SolicitudId=" + ProcesoId;
+            else if (TipoOrigen == 4) {
                 location.href = '@Url.Action("DetallePedido", "ConsultoraOnline", new { area = "Mobile" })' + "?pedidoId=" + ProcesoId; //GR-723
                 //location.href = '@Url.Action("DetalleSolicitudCliente", "Notificaciones", new { area = "Mobile" })' + "?SolicitudId=" + ProcesoId;
-            } else if (TipoOrigen != 3) {
-                location.href = '@Url.Action("ListarObservaciones", "Notificaciones", new { area = "Mobile" })' + "?ProcesoId=" + ProcesoId + "&TipoOrigen=" + TipoOrigen;
-            } else {
-                location.href = '@Url.Action("ListarObservacionesStock", "Notificaciones", new { area = "Mobile" })' + "?ValStockId=" + Observaciones;
-            }
+            } 
+            else if (TipoOrigen != 3) location.href = '@Url.Action("ListarObservaciones", "Notificaciones", new { area = "Mobile" })' + "?ProcesoId=" + ProcesoId + "&TipoOrigen=" + TipoOrigen;
+            else location.href = '@Url.Action("ListarObservacionesStock", "Notificaciones", new { area = "Mobile" })' + "?ValStockId=" + Observaciones;
         }
-    </script>
+</script>
 }

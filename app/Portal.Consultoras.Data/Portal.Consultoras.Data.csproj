@@ -106,6 +106,8 @@
     <Compile Include="DAFormularioDato.cs" />
     <Compile Include="DAIncentivo.cs" />
     <Compile Include="DAItemCarruselInicio.cs" />
+    <Compile Include="DALogGPRValidacion.cs" />
+    <Compile Include="DALogGPRValidacionDetalle.cs" />
     <Compile Include="DALogCabeceraEnvioCorreo.cs" />
     <Compile Include="DALogDetalleEnvioCorreo.cs" />
     <Compile Include="DALogModificacionCronograma.cs" />
