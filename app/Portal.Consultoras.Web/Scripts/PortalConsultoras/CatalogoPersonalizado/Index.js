@@ -255,25 +255,30 @@ function AgregarProducto(url, item, otraFunct) {
         data: JSON.stringify(item),
         async: true,
         success: function (data) {
-            if (data.success == true) {
-                ActualizarGanancia(data.DataBarra);
-                CargarResumenCampaniaHeader(true);
-                TrackingJetloreAdd(item.Cantidad, $("#hdCampaniaCodigo").val(), item.CUV);
+            if (!checkTimeout(data)) {
+                closeWaitingDialog();
+                return false;
+            }
 
-                if (typeof (otraFunct) == 'function') {
-                    setTimeout(otraFunct, 50);
-                }
-                else if (typeof (otraFunct) == 'string') {
-                    setTimeout(otraFunct, 50);
-                }
-            }
-            else {
+            if (data.success != true) {
                 alert_msg_pedido(data.message);
+                closeWaitingDialog();
+                return false;
             }
+
+            ActualizarGanancia(data.DataBarra);
+            CargarResumenCampaniaHeader(true);
+            TrackingJetloreAdd(item.Cantidad, $("#hdCampaniaCodigo").val(), item.CUV);
+
+            if (typeof (otraFunct) == 'function' || typeof (otraFunct) == 'string') {
+                setTimeout(otraFunct, 50);
+            }
+            
             closeWaitingDialog();
         },
         error: function (data, error) {
             tieneMicroefecto = false;
+            closeWaitingDialog();
             AjaxError(data, error);
         }
     });

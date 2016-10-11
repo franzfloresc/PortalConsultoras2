@@ -335,27 +335,29 @@ function AgregarProducto(url, item, otraFunct) {
 
     jQuery.ajax({
         type: 'POST',
-        url: urlAgregarProducto,
+        url: urlPedidoInsert,
         dataType: 'json',
         contentType: 'application/json; charset=utf-8',
         data: JSON.stringify(item),
         async: true,
         success: function (data) {
-            if (data.success == true) {
-                ActualizarGanancia(data.DataBarra);
-                CargarCantidadProductosPedidos();
-                TrackingJetloreAdd(item.Cantidad, $("#hdCampaniaCodigo").val(), item.CUV);
-
-                if (typeof (otraFunct) == 'function') {
-                    setTimeout(otraFunct, 50);
-                }
-                else if (typeof (otraFunct) == 'string') {
-                    setTimeout(otraFunct, 50);
-                }
+            if (!checkTimeout(data)) {
+                CloseLoading();
+                return false;
             }
-            else {
+            if (data.success != true) {
                 messageInfo(data.message);
+                CloseLoading();
+                return false;
             }
+
+            ActualizarGanancia(data.DataBarra);
+            CargarCantidadProductosPedidos();
+            TrackingJetloreAdd(item.Cantidad, $("#hdCampaniaCodigo").val(), item.CUV);
+
+            if (typeof (otraFunct) == 'function' || typeof (otraFunct) == 'string') {
+                setTimeout(otraFunct, 50);
+            }       
             CloseLoading();
         },
         error: function (data, error) {

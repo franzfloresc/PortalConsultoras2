@@ -74,10 +74,10 @@ jQuery(document).ready(function () {
 
     String.prototype.CodificarHtmlToAnsi = function () {
         var newStr = this;
-        var ansi = new Array('Á', 'á', 'É', 'é', 'Í', 'í', 'Ó', 'ó', 'Ú', 'ú');
-        var html = new Array('&#193;', '&#225;', '&#201;', '&#233;', '&#205;', '&#237;', '&#211;', '&#243;', '&#218;', '&#250;');
+        var ansi = new Array('Á', 'á', 'É', 'é', 'Í', 'í', 'Ó', 'ó', 'Ú', 'ú', '<', '>', "'");
+        var html = new Array('&#193;', '&#225;', '&#201;', '&#233;', '&#205;', '&#237;', '&#211;', '&#243;', '&#218;', '&#250;', '&lt;', '&gt;', '&#39;');
         for (var i = 0; i < html.length; i++) {
-            newStr = newStr.replace(html[i], ansi[i]);
+            newStr = newStr.ReplaceAll(html[i], ansi[i]);
         }
         return newStr;
     };
@@ -724,4 +724,89 @@ function InfoCommerceGoogleDestacadoProductClick(name, id, category, variant, po
         }
     });
 };
+
+// Pedido Rechazado
+function MensajeEstadoPedido() {
+    //indicadorEnviadoDescarga = "1";
+
+    xMensajeEstadoPedido(false);
+    if (cerrarRechazado == '1')
+        return false;
+
+    if (indicadorEnviadoDescarga != 1)
+        return false;
+    
+    $("#bloquemensajesPedido").find(".mensaje_horarioIngresoPedido").html("");
+    $("#bloquemensajesPedido").find(".mensaje_horarioIngresoPedido").append((motivoRechazo || "").CodificarHtmlToAnsi());
+    if (estaRechazado == '1') {
+        $("#bloquemensajesPedido").find(".mensaje_estadoActualPedido").html("TU PEDIDO HA SIDO RECHAZADO");
+    }
+    else if (estaRechazado == '0') {
+        $("#bloquemensajesPedido").find(".mensaje_estadoActualPedido").html("NOS ENCONTRAMOS FACTURANDO TU PEDIDO");
+    }
+    xMensajeEstadoPedido(true);
+    return true;    
+}
+
+function xMensajeEstadoPedido(estado) {
+    //mostrarMensajeEstadoPedido = function () {
+    //    var topx = $("header").height() + 22;
+    //    $(".ubicacion_web").animate({ "margin-top": topx + "px" });
+    //}
+    var url = location.href.toLowerCase();
+    var identi = url.indexOf("/mobile/") > 0;
+    if (estado) {
+        $("#bloquemensajesPedido").slideDown("slow", function () { });
+        if (identi) {
+            $("[data-content]").animate({ "top": "77px" });
+            $(".footer-page").animate({ "top": "77px" });
+        }
+        else {
+            identi = url.indexOf("/bienvenida") > 0;
+            if (identi) {
+                $("[data-content]").animate({ "top": "56px" });
+            }
+            else {
+                $(".ubicacion_web").animate({ "margin-top": "139px" });
+            }
+        }    
+    }
+    else {
+        $("#bloquemensajesPedido").slideUp();
+        if (identi) {
+            $("[data-content]").animate({ "top": "0px" });
+            $(".footer-page").animate({ "top": "0px" });
+        }
+        else {
+            identi = url.indexOf("/bienvenida") > 0;
+            if (identi) {
+                $("[data-content]").animate({ "top": "0px" });
+            }
+            else {
+                $(".ubicacion_web").animate({ "margin-top": "83px" });
+            }
+        }
+    }
+
+}
+
+function cerrarMensajeEstadoPedido() {
+    $.ajax({
+        type: 'Post',
+        url: baseUrl + 'Bienvenida/CerrarMensajeEstadoPedido',
+        data: '',
+        cache: false,
+        dataType: 'json',
+        contentType: 'application/json; charset=utf-8',
+        success: function (data) {
+            cerrarRechazado = data || '0';
+            MensajeEstadoPedido();
+        },
+        error: function (data, error) {
+            cerrarRechazado = '0';
+        }
+    });
+}
+
+// FIN Pedido Rechazado
 

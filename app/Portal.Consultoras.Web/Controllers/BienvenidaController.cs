@@ -223,6 +223,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 model.VisualizoComunicado = Visualizado;
                 model.VisualizoComunicadoConfigurable = ComunicadoVisualizado;
+
                 model.EsCatalogoPersonalizadoZonaValida = userData.EsCatalogoPersonalizadoZonaValida;
             }
             catch (FaultException ex)
@@ -1421,7 +1422,15 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         #endregion
-
+        
+        [HttpPost]
+        public JsonResult CerrarMensajeEstadoPedido()
+        {
+            userData.CerrarRechazado = 1;
+            SetUserData(userData);
+            return Json(userData.CerrarRechazado);
+        }
+        
         /* SB20-834 - INICIO */
         public JsonResult ObtenerComunicadosPopUps()
         {

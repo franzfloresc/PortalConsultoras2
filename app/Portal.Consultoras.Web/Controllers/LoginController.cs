@@ -21,6 +21,7 @@ using Portal.Consultoras.Web.ServiceSAC;
 using System.Text.RegularExpressions;
 using Portal.Consultoras.Web.ServiceLMS;
 using System.Data;
+using Portal.Consultoras.Web.ServicePedido;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -317,6 +318,100 @@ namespace Portal.Consultoras.Web.Controllers
                 if (oBEUsuario != null)
                 {
                     model = new UsuarioModel();
+
+                    #region Obtener Respuesta del SSiCC
+                    model.MotivoRechazo = "Si quieres ingresar pedido, lo puedes hacer desde mañana a las 7 a.m.";
+                    if (oBEUsuario.IndicadorEnviado == 1 && oBEUsuario.IndicadorRechazado == 1)
+                    {
+                        var procesoRechazado = new BEProcesoPedidoRechazado();
+                        try
+                        {
+                            using (PedidoServiceClient sv = new PedidoServiceClient())
+                            {
+                                procesoRechazado = sv.ObtenerProcesoPedidoRechazadoGPR(oBEUsuario.PaisID, oBEUsuario.CampaniaID, oBEUsuario.ConsultoraID);
+                            }
+                        }
+                        catch (Exception) { procesoRechazado = new BEProcesoPedidoRechazado(); }
+
+                        if (procesoRechazado.IdProcesoPedidoRechazado > 0)
+                        {
+                            model.EstaRechazado = 2;
+                            var listaRechazo = procesoRechazado.olstBEPedidoRechazado != null ? procesoRechazado.olstBEPedidoRechazado.ToList() : new List<BEPedidoRechazado>();
+                            if (listaRechazo.Any())
+                            {
+                                model.EstaRechazado = 0;
+                                listaRechazo = listaRechazo.Where(r => r.Rechazado).ToList();
+                                //listaRechazo = listaRechazo.Where(r => r.RequiereGestion).ToList();
+                                //var d = listaRechazo.Where(r => r.Procesado).ToList();
+                                if (listaRechazo.Any())
+                                {
+                                    model.EstaRechazado = 1;
+                                    model.MotivoRechazo = "";
+                                    string valor = oBEUsuario.Simbolo + " ";
+                                    string valorx = "";
+
+                                    // deuda, monto mínimo/máximo/MinStock
+                                    
+                                    listaRechazo.Update(p=>p.MotivoRechazo = Util.SubStr(p.MotivoRechazo, 0).ToLower());
+                                    listaRechazo = listaRechazo.Where(p=>p.MotivoRechazo != "").ToList();
+                                                                        
+                                    var listaMotivox = listaRechazo.Where(p => p.MotivoRechazo == "deuda").ToList();
+                                    if (listaMotivox.Any())
+                                    {
+                                        valorx = valor + listaMotivox[0].Valor;
+                                        model.MotivoRechazo = "Tiene una deuda de " + valorx + " que debes regularizar. <a href='javascript:;' onclick=RedirectMenu('Index','MisPagos',0,'') >MIRA LOS LUGARES DE PAGO</a>";
+                                    }
+                                    
+                                    listaMotivox = listaRechazo.Where(p => p.MotivoRechazo == "minimo").ToList();
+                                    if (listaMotivox.Any())
+                                    {
+                                        if (model.MotivoRechazo != "")
+                                        {
+                                            model.MotivoRechazo = "Te falta cancelar una deuda de " + valorx;
+                                            valorx = valor + listaMotivox[0].Valor;
+                                            model.MotivoRechazo += ". Además debes llegar al monto mínimo de " + valorx + ". <a href='javascript:;' onclick=RedirectMenu('Index','Pedido',0,'Pedido') >MODIFICA TU PEDIDO</a>";
+	                                    }
+                                        else
+                                        {
+                                            valorx = valor + listaMotivox[0].Valor;
+                                            model.MotivoRechazo = "No llegaste al monto mínimo de " + valorx + ". <a href='javascript:;' onclick=RedirectMenu('Index','Pedido',0,'Pedido') >MODIFICA TU PEDIDO</a>";
+                                        }
+                                    }
+                                    else
+                                    {
+                                        listaMotivox = listaRechazo.Where(p => p.MotivoRechazo == "maximo").ToList();
+                                        if (listaMotivox.Any())
+                                        {
+                                            if (model.MotivoRechazo != "")
+                                            {
+                                                model.MotivoRechazo = "Te falta cancelar una deuda de " + valorx;
+                                                valorx = valor + listaMotivox[0].Valor;
+                                                model.MotivoRechazo += ". Además superaste tu línea de crédito de " + valorx + ". <a href='javascript:;' onclick=RedirectMenu('Index','Pedido',0,'Pedido') >MODIFICA TU PEDIDO</a>";
+                                            }
+                                            else
+                                            {
+                                                valorx = valor + listaMotivox[0].Valor;
+                                                model.MotivoRechazo = "Superaste tu línea de crédito de " + valorx + ". <a href='javascript:;' onclick=RedirectMenu('Index','Pedido',0,'Pedido') >MODIFICA TU PEDIDO</a>";
+                                            }
+                                        }
+                                    }
+
+
+                                    listaMotivox = listaRechazo.Where(p => p.MotivoRechazo == "minstock").ToList();
+                                    if (listaMotivox.Any())
+                                    {
+                                        model.MotivoRechazo = "No contamos con stock en algunos productos. <a href='javascript:;' onclick=RedirectMenu('Index','Pedido',0,'Pedido') >MODIFICA TU PEDIDO</a>";
+                                    }
+                                }
+                                
+                                // llamar al maestro de mensajes
+                            }
+                        }
+                    }
+                    #endregion
+                    model.MotivoRechazo = model.MotivoRechazo.Trim();
+                    model.IndicadorEnviado = oBEUsuario.IndicadorEnviado;
+                    model.IndicadorRechazado = oBEUsuario.IndicadorRechazado;
                     model.NombrePais = oBEUsuario.NombrePais;
                     model.PaisID = oBEUsuario.PaisID;
                     model.CodigoISO = oBEUsuario.CodigoISO;

@@ -326,6 +326,11 @@ namespace Portal.Consultoras.Entities
                 CatalogoPersonalizado = Convert.ToInt32(row["CatalogoPersonalizado"]);
             if (DataRecord.HasColumn(row, "EsCatalogoPersonalizadoZonaValida") && row["EsCatalogoPersonalizadoZonaValida"] != DBNull.Value)
                 EsCatalogoPersonalizadoZonaValida = Convert.ToBoolean(row["EsCatalogoPersonalizadoZonaValida"]);
+
+            if (DataRecord.HasColumn(row, "IndicadorEnviado") && row["IndicadorEnviado"] != DBNull.Value)
+                IndicadorEnviado = Convert.ToInt32(row["IndicadorEnviado"]);
+            if (DataRecord.HasColumn(row, "IndicadorRechazado") && row["IndicadorRechazado"] != DBNull.Value)
+                IndicadorRechazado = Convert.ToInt32(row["IndicadorRechazado"]);
         }
 
         [DataMember]
@@ -967,7 +972,10 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         private string msRpta4 { get; set; }
 
-
+        [DataMember]
+        public int IndicadorEnviado { get; set; }
+        [DataMember]
+        public int IndicadorRechazado { get; set; }
 
         public BEUsuario(IDataRecord row, string tipo1, string tipo2)
         {

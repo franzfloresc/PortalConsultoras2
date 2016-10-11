@@ -1144,6 +1144,7 @@ h4.re3 {
      padding-bottom: 17px;
     
     /*margin-bottom: 54px;*/
+    position: relative;
    }
 .list-inline-border {
     margin: 0;
@@ -2392,7 +2393,6 @@ table > thead > tr > th {
 }
 .slick-arrow img{
     width:100%;
-
 }
 .slick-prev {
     left: -5px;
@@ -3123,7 +3123,6 @@ table > thead > tr > th {
     box-shadow: 0 2px 13px 0 rgba(126, 126, 126, 0.5) !important;
     -webkit-box-shadow: 0 2px 13px 0 rgba(126, 126, 126, 0.5) !important;
     -moz-box-shadow: 0 2px 13px 0 rgba(126, 126, 126, 0.5) !important;
-    
 }
 .sombra_m {
     width:100%;
@@ -3265,7 +3264,7 @@ width:100%;
     bottom: -45px;
     /*border-radius: 5px;*/
     margin-top: 15px;
-     -ms-border-radius: 5px;
+    /*-ms-border-radius: 5px;*/
 }
 .boton_cerrar_mobile a {
     color:white;
@@ -3422,7 +3421,6 @@ width:100%;
     font-size: 13px;
     line-height: 20px;
     color: black;
-    
     margin-top:17px;
 }
 .titulo_showroom_mobile span {
@@ -3521,7 +3519,6 @@ width:100%;
     text-decoration:none;
     /*margin-left: 22px;*/
     cursor: pointer;
-
 }
 .showroom_menos_mobile:hover{
     text-decoration:none;
@@ -3945,6 +3942,7 @@ width:100%;
 }
 #content{
     margin-top:66px;
+    position:relative;
 }
 .wrapper_resumen_mobile{
     width:100%;
@@ -8148,6 +8146,92 @@ a{
     text-transform:uppercase;
     margin-bottom:10px;
 }
+
+/* MENSAJES PEDIDO RECHAZADO */
+
+.bloque_mensajesPedido{
+    background: #a18328;
+    width: 100%;
+    height: 77px;
+    display: none;
+    padding: 11px 11px;
+    text-align: left;
+    position: relative;
+    top: -9px;
+}
+
+.icono_cerrar_mensaje{
+    display: block;
+    position: absolute;
+    top: 6px;
+    right: 10px;
+    width: 15px;
+}
+
+.icono_cerrar_mensaje span{
+    display:block;
+}
+
+.icono_cerrar_mensaje span img{
+    width:100%;
+    height:auto;
+}
+
+.icono_cerrar_mensaje span:nth-child(2){
+    font-family:'Lato';
+    font-size:10px;
+    text-align:center;
+    color:#FFF;
+    margin-left:-9px;
+}
+
+.icono_estadoPedido, .mensajes_estadoPedido{
+    display:inline-block;
+    vertical-align:middle;
+}
+
+.icono_estadoPedido{
+    width: 32px;
+    height: 32px!important;
+    margin-right: 5.8px;
+    padding-top: 1px;
+}
+
+.icono_estadoPedido img{
+    width:100%;
+    height:auto;
+}
+
+.mensajes_estadoPedido {
+    color: #FFF;
+    font-family: 'Lato';
+    line-height:19px;
+}
+
+.mensaje_estadoActualPedido, .mensaje_horarioIngresoPedido{
+    display:block;
+    text-align:left;
+}
+
+.mensaje_estadoActualPedido{
+    font-size:14px;
+    font-weight:700;
+}
+
+.mensaje_horarioIngresoPedido{
+    font-size:12px;
+    font-weight:normal;
+}
+
+.mensaje_horarioIngresoPedido a{
+    display: block;
+    margin-left: 2px;
+    color: #FFF;
+    text-decoration:underline;
+}
+
+/* FIN MENSAJES PEDIDO RECHAZADO */
+
 /*SHOWROOM*/
 .divShowRoom{
     margin-top: 63px;

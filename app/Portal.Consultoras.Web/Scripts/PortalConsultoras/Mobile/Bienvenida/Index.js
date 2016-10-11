@@ -1,7 +1,7 @@
 ﻿var arrayOfertasParaTi = [];
 
 $(document).ready(function () {
-
+    
     $('.flexsliderTutorialMobile').flexslider({
         animation: "slide"
     });
@@ -660,20 +660,31 @@ function AgregarProductoDestacado(tipoEstrategiaImagen) {
             } else {
                 jQuery.ajax({
                     type: 'POST',
-                    url: urlAgregarProducto,
+                    url: urlPedidoInsertZe,
                     dataType: 'html',
                     contentType: 'application/json; charset=utf-8',
                     data: JSON.stringify(param),
                     async: true,
                     success: function (data) {
-                        if (checkTimeout(data)) {
-                            ShowLoading();
-                            ActualizarGanancia(JSON.parse(data).DataBarra);
-                            CargarCarouselEstrategias(cuv);
-                            TrackingJetloreAdd(cantidad, $("#hdCampaniaCodigo").val(), cuv);
-                            TagManagerClickAgregarProducto();
+
+                        if (!checkTimeout(data)) {
                             CloseLoading();
+                            return false;
                         }
+
+                        if (data.success != true) {
+                            messageInfo(data.message);
+                            CloseLoading();
+                            return false;
+                        }
+
+                        ShowLoading();
+                        ActualizarGanancia(JSON.parse(data).DataBarra);
+                        CargarCarouselEstrategias(cuv);
+                        TrackingJetloreAdd(cantidad, $("#hdCampaniaCodigo").val(), cuv);
+                        TagManagerClickAgregarProducto();
+                           
+                        CloseLoading();
                     },
                     error: function (data, error) {
                         if (checkTimeout(data)) {
