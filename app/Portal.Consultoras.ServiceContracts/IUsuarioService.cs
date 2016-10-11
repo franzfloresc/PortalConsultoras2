@@ -226,6 +226,8 @@ namespace Portal.Consultoras.ServiceContracts
         /*20150802*/
         [OperationContract]
         void UpdNotificacionSolicitudClienteCatalogoVisualizacion(int paisID, long SolicitudClienteCatalogoId);
+        [OperationContract]
+        void UpdNotificacionPedidoRechazadoVisualizacion(int paisID, long procesoId);
 
         [OperationContract]
         BENotificacionesDetalleCatalogo ObtenerDetalleNotificacion(int PaisID, long SolicitudClienteCatalogoId);

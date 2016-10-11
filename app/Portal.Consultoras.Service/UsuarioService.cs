@@ -517,6 +517,12 @@ namespace Portal.Consultoras.Service
             BLSolicitudClienteCatalogo.UpdNotificacionSolicitudClienteCatalogoVisualizacion(paisID, SolicitudClienteCatalogoId);
         }
 
+        public void UpdNotificacionPedidoRechazadoVisualizacion(int paisID, long procesoId)
+        {
+            var bLPedidoRechazado = new BLPedidoRechazado();
+            bLPedidoRechazado.UpdatePedidoRechazadoVisualizado(paisID, procesoId);
+        }
+
         public BENotificacionesDetalleCatalogo ObtenerDetalleNotificacion(int PaisID, long SolicitudClienteCatalogoId)
         {
             BLSolicitudClienteCatalogo SolicitudClienteCatalogo = new BLSolicitudClienteCatalogo();

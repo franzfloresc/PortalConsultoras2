@@ -84,6 +84,8 @@
     <Compile Include="BEConfiguracionValidacion.cs" />
     <Compile Include="BEConfiguracionValidacionNuevoPROL.cs" />
     <Compile Include="BEConfiguracionValidacionZona.cs" />
+    <Compile Include="BELogGPRValidacion.cs" />
+    <Compile Include="BELogGPRValidacionDetalle.cs" />
     <Compile Include="BELogConfirmacionEntrega.cs" />
     <Compile Include="BEConfirmacionEntrega.cs" />
     <Compile Include="BEConfirmacionRecojo.cs" />

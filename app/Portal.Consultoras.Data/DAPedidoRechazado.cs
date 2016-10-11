@@ -18,5 +18,12 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@PedidoRechazoXml", DbType.Xml, xml);
             return Context.ExecuteNonQuery(command);
         }
+
+        public int UpdatePedidoRechazadoVisualizado(long logGPRValidacionId)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("GPR.UpdLogGPRValidacionVisualizado");
+            Context.Database.AddInParameter(command, "@LogGPRValidacionId", DbType.Int64, logGPRValidacionId);
+            return Context.ExecuteNonQuery(command);
+        }
     }
 }

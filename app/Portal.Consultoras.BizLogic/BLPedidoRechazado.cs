@@ -46,6 +46,26 @@ namespace Portal.Consultoras.BizLogic
             return 0;
         }
 
+        public void UpdatePedidoRechazadoVisualizado(int paisID, long logGPRValidacionId)
+        {
+            DAPedidoRechazado dAPedidoRechazado = new DAPedidoRechazado(paisID);
+            dAPedidoRechazado.UpdatePedidoRechazadoVisualizado(logGPRValidacionId);
+        }
+
+        public BELogGPRValidacion GetBELogGPRValidacionByGetLogGPRValidacionId(int paisID, long logGPRValidacionId)
+        {
+            DALogGPRValidacion dALogGPRValidacion = new DALogGPRValidacion(paisID);
+            return dALogGPRValidacion.GetByLogGPRValidacionId(logGPRValidacionId);
+        }
+
+        public List<BELogGPRValidacionDetalle> GetListBELogGPRValidacionDetalleBELogGPRValidacionByLogGPRValidacionId(int paisID, long logGPRValidacionId)
+        {
+            DALogGPRValidacionDetalle dALogGPRValidacionDetalle = new DALogGPRValidacionDetalle(paisID);
+            return dALogGPRValidacionDetalle.GetListByLogGPRValidacionId(logGPRValidacionId);
+        }
+
+        #region Private Functions
+
         private string CrearClienteXML(List<BEPedidoRechazado> obj)
         {
             StringBuilder sb = new StringBuilder();
@@ -61,5 +81,7 @@ namespace Portal.Consultoras.BizLogic
             }
             return String.Format("<ROOT>{0}</ROOT>", sb.ToString());
         }
+
+        #endregion
     }
 }
