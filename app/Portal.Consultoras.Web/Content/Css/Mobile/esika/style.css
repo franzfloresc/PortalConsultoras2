@@ -6582,7 +6582,7 @@ input[type="checkbox"]:checked + span:after {
 /*MENSAJES DE ALERTA CATÁLOGOS*/
 .MensajeAlertaMobile {
     position: fixed;
-    z-index: 2010;    
+    z-index: 2010;   
     display:none;
     width: 100%;
     height: 100%;
@@ -8559,7 +8559,7 @@ span.title-app-b {
     width:80%;
     margin:0 auto;
     padding-top:30px;
-    padding-bottom:50px;
+    padding-bottom:38px;
     font-family:'Lato';
 }
 .content_imagen_oferta{
@@ -8625,6 +8625,10 @@ span.title-app-b {
     font-family:'Lato';
     font-size:13px;
     color:black;
+    /*display: flex;
+    justify-content: center;
+    align-content: center;
+    flex-direction: column;*/
     }
 .left_70{
     float:left;
@@ -9250,4 +9254,23 @@ a{
     font-weight:700;
     text-transform:uppercase;
     margin-bottom:10px;
+}
+
+.content_pack_niveles{
+    border-top:1px solid #979797;
+    width:100%;
+    height:auto;
+    padding-top:30px;
+    padding-bottom: 25px;
+}
+.Subtitulo_oferta{
+    font-family: 'Lato';
+    font-size: 16px;
+    text-align: center;
+    color: black;
+    line-height: 19px;
+    margin-bottom: 4px;    
+}
+.content_pack_niveles .sub_descripcion_oferta:nth-child(2){
+    border-top:0px;    
 }

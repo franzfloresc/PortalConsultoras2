@@ -85,6 +85,7 @@
             <s:element minOccurs="0" maxOccurs="1" name="codvta" type="s:string" />
             <s:element minOccurs="0" maxOccurs="1" name="codigoconsultora" type="s:string" />
             <s:element minOccurs="0" maxOccurs="1" name="zona" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="tipo_oferta" type="s:string" />
           </s:sequence>
         </s:complexType>
       </s:element>
