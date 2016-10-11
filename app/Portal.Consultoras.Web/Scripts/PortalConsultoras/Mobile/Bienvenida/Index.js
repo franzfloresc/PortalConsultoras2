@@ -998,3 +998,15 @@ function TagManagerCarruselSiguiente() {
     });
 
 }
+
+//MENSAJE PEDIDO RECHAZADO
+
+function PedidoRechazadoMobile() {
+    $("#bloquemensajesPedido").css("display", "");
+
+    setTimeout(function () {
+        $(".oscurecer_animacion").fadeOut(1500);
+        var elem = $(".oscurecer_animacion");
+        $(elem).remove();
+    }, 3000);
+}
