@@ -823,6 +823,10 @@
                 </div>
                 <div class="grupo_input_actualizarMisDatos">
                     <div>
+                        <label><span class="asterisco_actualizar_datos">(*)&nbsp;</span>Teléfono de trabajo</label>
+                        <input type="text" name="m_txtTelefonoTrabajo" id="m_txtTelefonoTrabajo" class="requerido" maxlength="10" placeholder="Número incluye lada (10 dígitos)" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" value="@Model.TelefonoTrabajo" />
+                    </div>
+                    <div>
                         <label><span class="asterisco_actualizar_datos">(*)&nbsp;</span>Correo electrónico</label>
                         <input type="email" name="email" id="m_txtEMail" class="requerido" />
                     </div>
@@ -856,20 +860,27 @@
             <h1 class="titulo_actualizarMisDatos" id="tituloActualizarDatos"></h1>
             <form class="formulario_actualizar_datos">
                 <div class="grupo_input_actualizarMisDatos">
-                    <div>
-                        <label>Nombres</label>
-                        <input type="text" name="nombres" id="" value="@Model.NombreCompleto" />
-                    </div>
+                    <div></div>
                     <a href="javascript:;" class="cambiar_contrasenia" id="lnkCambiarContrasena">CAMBIAR CONTRASEÑA</a>
                 </div>
                 <div class="grupo_input_actualizarMisDatos">
                     <div>
+                        <label>Nombres</label>
+                        <input type="text" name="nombres" id="" value="@Model.NombreCompleto" />
+                    </div>
+                    <div>
                         <label>Teléfono</label>
                         <input type="text" name="telefono" id="txtTelefono" value="@Model.Telefono" />
                     </div>
+                </div>
+                <div class="grupo_input_actualizarMisDatos">
                     <div>
                         <label>Celular</label>
                         <input type="text" name="celular" id="txtCelular" value="@Model.Celular" />
+                    </div>
+                    <div>
+                        <label>Teléfono de trabajo</label>
+                        <input type="text" name="telefonoTrabajo" id="txtTelefonoTrabajo" value="@Model.TelefonoTrabajo" />
                     </div>
                 </div>
                 <div class="grupo_input_actualizarMisDatos">
@@ -1067,6 +1078,12 @@
                     <div>
                         <label><span class="asterisco_actualizar_datos">(*)&nbsp;</span>Tu celular:</label>
                         <input type="text" name="txtCelularMD" id="txtCelularMD" />
+                    </div>
+                </div>
+                <div class="grupo_input_actualizarMisDatos campos_actualizarDatos">
+                    <div>
+                        <label><span class="asterisco_actualizar_datos"></span>Tu teléfono de trabajo:</label>
+                        <input type="text" name="txtTelefonoTrabajoMD" id="txtTelefonoTrabajoMD" />
                     </div>
                 </div>
                 <div class="grupo_input_actualizarMisDatos campos_actualizarDatos">

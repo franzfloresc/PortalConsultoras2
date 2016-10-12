@@ -69,6 +69,7 @@ namespace Portal.Consultoras.Web.Models
 
         public string Celular { get; set; }
         public string Telefono { get; set; }
+        public string TelefonoTrabajo { get; set; }
         public int CambioClave { get; set; }
         public int ConsultoraNueva { get; set; }
         public string NombrePais { get; set; }

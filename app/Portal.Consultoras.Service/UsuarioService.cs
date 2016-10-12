@@ -92,10 +92,10 @@ namespace Portal.Consultoras.Service
             BLUsuario.UpdateDatos(usuario, CorreoAnterior);
         }
 
-        public int UpdateDatosPrimeraVez(int PaisID, string CodigoUsuario, string Email, string Telefono, string Celular, string CorreoAnterior, bool AceptoContrato)
+        public int UpdateDatosPrimeraVez(int paisID, string codigoUsuario, string email, string telefono, string telefonoTrabajo, string celular, string correoAnterior, bool aceptoContrato)
         {
             var BLUsuario = new BLUsuario();
-            return BLUsuario.UpdateDatosPrimeraVez(PaisID, CodigoUsuario, Email, Telefono, Celular, CorreoAnterior, AceptoContrato);
+            return BLUsuario.UpdateDatosPrimeraVez(paisID, codigoUsuario, email, telefono, telefonoTrabajo, celular, correoAnterior, aceptoContrato);
         }
 
         public void UpdatePassword(int paisID, string codigoUsuario, string claveSecreta, bool cambioClave)
@@ -381,10 +381,10 @@ namespace Portal.Consultoras.Service
         }
 
         //R2116
-        public int UpdateDatosPrimeraVezMexico(int PaisID, string CodigoUsuario, string Nombre, string Apellidos, string Telefono, string Celular, string Email, long IdConsultora, string CodigoConsultora, int CampaniaID_Actual, int CampaniaID_UltimaF, int RegionID, int ZonaID, string EmailAnterior)
+        public int UpdateDatosPrimeraVezMexico(int PaisID, string CodigoUsuario, string Nombre, string Apellidos, string Telefono, string TelefonoTrabajo, string Celular, string Email, long IdConsultora, string CodigoConsultora, int CampaniaID_Actual, int CampaniaID_UltimaF, int RegionID, int ZonaID, string EmailAnterior)
         {
             var BLUsuario = new BLUsuario();
-            return BLUsuario.UpdateDatosPrimeraVezMexico(PaisID, CodigoUsuario, Nombre, Apellidos, Telefono, Celular, Email, IdConsultora, CodigoConsultora, CampaniaID_Actual, CampaniaID_UltimaF, RegionID, ZonaID, EmailAnterior);
+            return BLUsuario.UpdateDatosPrimeraVezMexico(PaisID, CodigoUsuario, Nombre, Apellidos, Telefono, TelefonoTrabajo, Celular, Email, IdConsultora, CodigoConsultora, CampaniaID_Actual, CampaniaID_UltimaF, RegionID, ZonaID, EmailAnterior);
         }
         public int SelectDatosActualizados(int paisID, string codigoUsuario)
         {
@@ -508,11 +508,6 @@ namespace Portal.Consultoras.Service
         {
             var BLNotificaciones = new BLNotificaciones();
             BLNotificaciones.UpdNotificacionSolicitudClienteVisualizacion(paisID, SolicitudClienteId);
-        }
-
-        public int UpdateDatosPrimeraVez(int PaisID, string CodigoUsuario, string Email, string Telefono, string Celular, string CorreoAnterior)
-        {
-            throw new NotImplementedException();
         }
 
         #region Miembros de IUsuarioService
