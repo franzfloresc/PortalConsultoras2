@@ -495,6 +495,12 @@
   <wsdl:message name="IUsuarioService_GuardarContrasenia_OutputMessage">
     <wsdl:part name="parameters" element="tns:GuardarContraseniaResponse" />
   </wsdl:message>
+  <wsdl:message name="IUsuarioService_UpdateUsuarioTutoriales_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateUsuarioTutoriales" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_UpdateUsuarioTutoriales_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateUsuarioTutorialesResponse" />
+  </wsdl:message>
   <wsdl:portType name="IUsuarioService">
     <wsdl:operation name="Select">
       <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/Select" message="tns:IUsuarioService_Select_InputMessage" />
@@ -803,6 +809,10 @@
     <wsdl:operation name="GuardarContrasenia">
       <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/GuardarContrasenia" message="tns:IUsuarioService_GuardarContrasenia_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/GuardarContraseniaResponse" message="tns:IUsuarioService_GuardarContrasenia_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateUsuarioTutoriales">
+      <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/UpdateUsuarioTutoriales" message="tns:IUsuarioService_UpdateUsuarioTutoriales_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/UpdateUsuarioTutorialesResponse" message="tns:IUsuarioService_UpdateUsuarioTutoriales_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IUsuarioService" type="tns:IUsuarioService">
@@ -1500,6 +1510,15 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="UpdateUsuarioTutoriales">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/UpdateUsuarioTutoriales" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
   </wsdl:binding>
   <wsdl:binding name="BasicHttpsBinding_IUsuarioService" type="tns:IUsuarioService">
     <wsp:PolicyReference URI="#BasicHttpsBinding_IUsuarioService_policy" />
@@ -2190,6 +2209,15 @@
     </wsdl:operation>
     <wsdl:operation name="GuardarContrasenia">
       <soap:operation soapAction="http://tempuri.org/IUsuarioService/GuardarContrasenia" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateUsuarioTutoriales">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/UpdateUsuarioTutoriales" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
