@@ -1,12 +1,8 @@
-﻿$(document).ready(function () {
-});
-
-function VisualizarPopup(ProcesoId, Observaciones, Estado, FacturaHoy, DiaFact, MesFact, Visualizado, Asunto, Proceso, EsMontoMinimo, obj) {
+﻿function VisualizarPopup(ProcesoId, Observaciones, Estado, FacturaHoy, DiaFact, MesFact, Visualizado, Asunto, Proceso, EsMontoMinimo, obj) {
     waitingDialog({});
 
     var TipoOrigen;
-    switch (Proceso)
-    {
+    switch (Proceso) {
         case "VALAUTO": TipoOrigen = 1; break;
         case "VALMOVIL": TipoOrigen = 2; break;
         case "BUSCACONS": TipoOrigen = 4; break;
@@ -17,18 +13,22 @@ function VisualizarPopup(ProcesoId, Observaciones, Estado, FacturaHoy, DiaFact, 
 
     if (Visualizado == "False") {
         $.ajaxSetup({ cache: false });
-        $.get(baseUrl + "Notificaciones/ActualizarEstadoNotificacion?ProcesoId=" + ProcesoId + "&TipoOrigen=" + TipoOrigen).success(function (data) {
-            if (checkTimeout(data)) {
-                if (data.success) $(obj).removeClass("no_leido");
-            }
-        }).error(function (jqXHR, textStatus, errorThrown) { closeWaitingDialog(); });
+        $.get(baseUrl + "Notificaciones/ActualizarEstadoNotificacion?ProcesoId=" + ProcesoId + "&TipoOrigen=" + TipoOrigen)
+            .success(function (data){ if (checkTimeout(data) && data.success) $(obj).removeClass("no_leido"); });
     }
 
     //R2319 - JLCS
-    if (TipoOrigen == 4) {
-        var frmConsultoraOnline = $('#frmConsultoraOnline');
-        frmConsultoraOnline.attr("action", Estado == 0 ? urlPedidoConsultoraOnline : urlMisPedidosClienteOnline);
-        frmConsultoraOnline.submit();
+    if (TipoOrigen == 6) {
+        $.ajaxSetup({ cache: false });
+        $.get(baseUrl + "Notificaciones/ListarDetallePedidoRechazado?ProcesoId=" + ProcesoId).success(function (data) {
+            if (checkTimeout(data)) {
+                $('#divDetalleNotificacionCatalogo').html(data);
+                $('#divNotificacionCatalogo').show();
+                $('.content_left_pagos').hide();
+                CargarCantidadNotificacionesSinLeer();
+                closeWaitingDialog();
+            }
+        }).error(function (jqXHR, textStatus, errorThrown) { closeWaitingDialog(); });
     }
     else if (TipoOrigen == 5) {
         $.ajaxSetup({ cache: false });
@@ -42,19 +42,24 @@ function VisualizarPopup(ProcesoId, Observaciones, Estado, FacturaHoy, DiaFact, 
             }
         }).error(function (jqXHR, textStatus, errorThrown) { closeWaitingDialog(); });
     }
-    else if (TipoOrigen == 6) {
+    else if (TipoOrigen == 4) {
+        var frmConsultoraOnline = $('#frmConsultoraOnline');
+        frmConsultoraOnline.attr("action", Estado == 0 ? urlPedidoConsultoraOnline : urlMisPedidosClienteOnline);
+        frmConsultoraOnline.submit();
+    }
+    else if (TipoOrigen == 3) {
         $.ajaxSetup({ cache: false });
-        $.get(baseUrl + "Notificaciones/ListarDetallePedidoRechazado?ProcesoId=" + ProcesoId).success(function (data) {
+        $.get(baseUrl + "Notificaciones/ListarObservacionesStock?ValStockId=" + Observaciones).success(function (data) {
             if (checkTimeout(data)) {
-                $('#divDetalleNotificacionCatalogo').html(data);
-                $('#divNotificacionCatalogo').show();
+                $('#divListadoObservaciones').html(data);
+                $('#divObservaciones').show();
                 $('.content_left_pagos').hide();
-                CargarCantidadNotificacionesSinLeer();
+                CargarCantidadNotificacionesSinLeer()
                 closeWaitingDialog();
             }
         }).error(function (jqXHR, textStatus, errorThrown) { closeWaitingDialog(); });
     }
-    else if (TipoOrigen != 3) {
+    else {
         $.ajaxSetup({ cache: false });
         $.get(baseUrl + "Notificaciones/ListarObservaciones?ProcesoId=" + ProcesoId + "&TipoOrigen=" + TipoOrigen).success(function (data) {
             if (checkTimeout(data)) {
@@ -97,18 +102,6 @@ function VisualizarPopup(ProcesoId, Observaciones, Estado, FacturaHoy, DiaFact, 
             }
         })
         .error(function (jqXHR, textStatus, errorThrown) { closeWaitingDialog(); });
-    }
-    else {
-        $.ajaxSetup({ cache: false });
-        $.get(baseUrl + "Notificaciones/ListarObservacionesStock?ValStockId=" + Observaciones).success(function (data) {
-            if (checkTimeout(data)) {
-                $('#divListadoObservaciones').html(data);
-                $('#divObservaciones').show();
-                $('.content_left_pagos').hide();
-                CargarCantidadNotificacionesSinLeer()
-                closeWaitingDialog();
-            }
-        }).error(function (jqXHR, textStatus, errorThrown) { closeWaitingDialog(); });
     }
 }
 function DescripcionFacturacion(FacturaHoy, DiaFact, MesFact) {
