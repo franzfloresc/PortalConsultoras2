@@ -461,9 +461,10 @@ function MostrarBarra(datax, destino) {
     }
     var valPor = listaLimite[indPuntoLimite].valPor || "";
     var valorMonto = vbSimbolo + " " + DecimalToStringFormat(parseFloat(vLimite - vLogro));
+    var valorMontoEsacalaDescuento = vbSimbolo + " " + DecimalToStringFormat(parseFloat(listaLimite[indPuntoLimite].valor - me)); //EPD-1099
     $("#divBarra #divBarraMensajeLogrado").show();
     $("#divBarra #divBarraMensajeLogrado .mensaje_barra").html(objMsg.Titulo.replace("#porcentaje", valPor).replace("#valor", valorMonto));
-    $("#divBarra #divBarraMensajeLogrado .agrega_barra").html(objMsg.Mensaje.replace("#porcentaje", valPor).replace("#valor", valorMonto));
+    $("#divBarra #divBarraMensajeLogrado .agrega_barra").html(objMsg.Mensaje.replace("#porcentaje", valPor).replace("#valor", (mt < mn ? valorMonto : valorMontoEsacalaDescuento)));
     $("#divBarraMensajeLogrado").css("width", "");
     var wMsgTexto = $("#divBarra #divBarraMensajeLogrado > div").width() + 1;
     wMsgTexto = wLogro + wMsgTexto >= wTotal ? wTotal : (wLogro + wMsgTexto);
