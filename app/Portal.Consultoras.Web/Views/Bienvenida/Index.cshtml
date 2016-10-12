@@ -2332,6 +2332,11 @@
         var dataBarra = JSON.parse($("#hdDataBarra").val());
         $("#hdDataBarra").val("");
         var urlPedidoValidado = '@Url.Action("PedidoValidado", "Pedido", new { area = "" })';
+        var viewBagVioTutorialSalvavidas = '@Model.VioTutorialSalvavidas';
+        var constanteVioVideo = '@Constantes.TipoTutorial.Video';
+        var constanteVioTutorialDesktop = '@Constantes.TipoTutorial.Desktop';
+        var constanteVioTutorialSalvavidas = '@Constantes.TipoTutorial.Salvavidas';        
+        
         var cantidadRegistros = 8;
     </script>
     

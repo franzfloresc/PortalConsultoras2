@@ -1187,4 +1187,20 @@
       <xs:sequence />
     </xs:complexType>
   </xs:element>
+  <xs:element name="UpdateUsuarioTutoriales">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="paisID" type="xs:int" />
+        <xs:element minOccurs="0" name="codigoUsuario" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="tipo" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdateUsuarioTutorialesResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="UpdateUsuarioTutorialesResult" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
 </xs:schema>

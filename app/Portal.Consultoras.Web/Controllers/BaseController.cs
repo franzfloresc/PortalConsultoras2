@@ -1017,6 +1017,7 @@ namespace Portal.Consultoras.Web.Controllers
                 model.EsOfertaFinalZonaValida = oBEUsuario.EsOfertaFinalZonaValida;
                 model.CatalogoPersonalizado = oBEUsuario.CatalogoPersonalizado;
                 model.EsCatalogoPersonalizadoZonaValida = oBEUsuario.EsCatalogoPersonalizadoZonaValida;
+                model.VioTutorialSalvavidas = oBEUsuario.VioTutorialSalvavidas;
             }
             Session["UserData"] = model;
 

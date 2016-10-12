@@ -225,6 +225,7 @@ namespace Portal.Consultoras.Web.Controllers
                 model.VisualizoComunicadoConfigurable = ComunicadoVisualizado;
 
                 model.EsCatalogoPersonalizadoZonaValida = userData.EsCatalogoPersonalizadoZonaValida;
+                model.VioTutorialSalvavidas = userData.VioTutorialSalvavidas;
                 model.DataBarra = GetDataBarra();
             }
             catch (FaultException ex)
@@ -500,32 +501,31 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 lista = model
             }, JsonRequestBehavior.AllowGet);
-        }
+        }        
 
-        [HttpGet]
-        public JsonResult JSONSetUsuarioVideo()
+        [HttpPost]
+        public JsonResult JSONUpdateUsuarioTutoriales(int tipo)
         {
             int retorno;
             using (UsuarioServiceClient sv = new UsuarioServiceClient())
             {
-                retorno = sv.setUsuarioVideoIntroductorio(userData.PaisID, userData.CodigoUsuario);
-                userData.VioVideoModelo = retorno;
-            }
-            SetUserData(userData);
-            return Json(new
-            {
-                result = retorno
-            }, JsonRequestBehavior.AllowGet);
-        }
-        
-        [HttpGet]
-        public JsonResult JSONSetUsuarioTutorialDesktop()
-        {
-            int retorno;
-            using (UsuarioServiceClient sv = new UsuarioServiceClient())
-            {
-                retorno = sv.SetUsuarioVerTutorialDesktop(userData.PaisID, userData.CodigoUsuario);
-                userData.VioTutorialDesktop = retorno;
+                retorno = sv.UpdateUsuarioTutoriales(userData.PaisID, userData.CodigoUsuario, tipo);
+
+                switch (tipo)
+                {
+                    case Constantes.TipoTutorial.Video:
+                        userData.VioVideoModelo = retorno;
+                        break;
+                    case Constantes.TipoTutorial.Desktop:
+                        userData.VioTutorialDesktop = retorno;
+                        break;
+                    case Constantes.TipoTutorial.Salvavidas:
+                        userData.VioTutorialSalvavidas = retorno;
+                        break;
+                    case Constantes.TipoTutorial.Mobile:
+                        userData.VioTutorialModelo = retorno;
+                        break;
+                }
             }
             SetUserData(userData);
             return Json(new

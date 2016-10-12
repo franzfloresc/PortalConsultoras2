@@ -18,11 +18,11 @@ $(document).ready(function () {
     $('#imgFotoUsuario').error(function() {
         $('#imgFotoUsuario').hide();
         $('#imgFotoUsuarioDefault').show();
-    })
+    });
 
     $('#salvavidaTutorial').show();
 
-    $(".abrir_tutorial").click(function () {
+    $("#salvavidaTutorial").click(function () {
         abrir_popup_tutorial(true);
     });
     $(".cerrar_tutorial").click(function () {
@@ -159,7 +159,8 @@ $(document).ready(function () {
     
     $("#cerrarVideoIntroductorio").click(function () {
         if (primeraVezVideo) {
-            abrir_popup_tutorial();
+            mostrarUbicacionTutorial(true, true);            
+            //abrir_popup_tutorial();
             //setInterval(AnimacionTutorial, 800);
             //setTimeout(ocultarAnimacionTutorial, 9000);
         }
@@ -536,22 +537,47 @@ function agregarProductoAlCarrito(o) {
 }
 
 //MICROEFECTO RESALTAR ICONO TUTORIAL
-function mostrarUbicacionTutorial() {
-    $(".fondo_oscuro").fadeIn(300, function () {
-        $(".mensaje_header").addClass("opcionTutorial");
-        $(".tooltip_tutorial").fadeIn();
-        mostrarIconoTutorial();
-    });
 
-    setTimeout(function () {
-        $(".tooltip_tutorial").fadeOut();
-        $(".tooltip_tutorial").stop();
-        $(".fondo_oscuro").delay(500);
-        $(".fondo_oscuro").fadeOut(300, function () {
-            $(".mensaje_header").removeClass("opcionTutorial");
+function mostrarUbicacionTutorial(tieneFondoNegro, mostrarPopupTutorial) {
+    tieneFondoNegro = tieneFondoNegro == undefined ? false : tieneFondoNegro;
+    mostrarPopupTutorial = mostrarPopupTutorial == undefined ? false : mostrarPopupTutorial;
+    
+    if (tieneFondoNegro) {
+        $(".fondo_oscuro").fadeIn(300, function() {
+            //$(".mensaje_header").addClass("opcionTutorial");
+            $(".tooltip_tutorial").fadeIn();
+            $(".contenedor_circulosTutorial").fadeIn();
+            mostrarIconoTutorial();
         });
-    }, 9000);
+    } else {
+        $(".tooltip_tutorial").fadeIn();
+        $(".contenedor_circulosTutorial").fadeIn();
+        mostrarIconoTutorial();
+    }
+
+    UpdateUsuarioTutoriales(constanteVioTutorialSalvavidas);
+    viewBagVioTutorialSalvavidas = 1;
+
+    setTimeout(function() {
+        ocultarUbicacionTutorial();
+        if (mostrarPopupTutorial)
+            abrir_popup_tutorial();
+        else {
+            if (viewBagVerComunicado == '-1') {
+                //console.log(viewBagVerComunicado);
+                waitingDialog();
+            } else {
+                mostrarComunicadosPopup();
+
+                if (viewBagVerComunicado != '1') {
+                    //CargarPopupsConsultora();
+                }
+            }
+        }
+    }, 4000);
+
 }
+
 function mostrarIconoTutorial() {
 
     $(".tooltip_tutorial").animate({
@@ -562,6 +588,17 @@ function mostrarIconoTutorial() {
     }, 400, 'swing', mostrarIconoTutorial);
 
 }
+
+function ocultarUbicacionTutorial() {
+
+    $(".contenedor_circulosTutorial").fadeOut();
+    $(".tooltip_tutorial").fadeOut();
+    $(".tooltip_tutorial").stop();
+    $(".fondo_oscuro").delay(500);
+    $(".fondo_oscuro").fadeOut(300);
+
+}
+
 // FIN MICROEFECTO RESALTAR ICONO TUTORIAL
 
 function mostrarVideoIntroductorio() {
@@ -575,25 +612,31 @@ function mostrarVideoIntroductorio() {
              }
              $("#videoIntroductorio").show();
              setTimeout(function () { playVideo(); }, 1000);
-             UpdateUsuarioVideo();
+             UpdateUsuarioTutoriales(constanteVioVideo);
              contadorFondoPopUp++;
          } else {
              if (viewBagVioTutorial == 0) {
-                 abrir_popup_tutorial();
+                 if (viewBagVioTutorialSalvavidas == '0') {
+                     mostrarUbicacionTutorial(false, true);
+                 } else {
+                     abrir_popup_tutorial();
+                 }
                  primeraVezVideo = false;
-             }
-             else {
-                 if (viewBagVerComunicado == '-1') {
-                    //console.log(viewBagVerComunicado);
-                     waitingDialog();
-                 }
-                 else {
-                     mostrarComunicadosPopup();
- 
-                     if (viewBagVerComunicado != '1') {
-                         //CargarPopupsConsultora();
+             } else {
+                 if (viewBagVioTutorialSalvavidas == '0') {
+                     mostrarUbicacionTutorial(false, false);
+                 } else {
+                     if (viewBagVerComunicado == '-1') {
+                         //console.log(viewBagVerComunicado);
+                         waitingDialog();
+                     } else {
+                         mostrarComunicadosPopup();
+
+                         if (viewBagVerComunicado != '1') {
+                             //CargarPopupsConsultora();
+                         }
                      }
-                 }
+                 }                
              }
          }
      } catch (e) {
@@ -601,35 +644,26 @@ function mostrarVideoIntroductorio() {
      }
 }
 
-function UpdateUsuarioTutorial() {
-    //viewBagVioTutorial = 1;
-    $.ajax({
-        type: 'GET',
-        url: baseUrl + 'Bienvenida/JSONSetUsuarioTutorialDesktop',
-        data: '',
-        dataType: 'Json',
-        contentType: 'application/json; charset=utf-8',
-        success: function (data) {
-            //viewBagVioTutorial = data.result;
-        },
-        error: function (data) {}
-    });
-}
+function UpdateUsuarioTutoriales(tipo) {
+    //tipo ===> 1: Video, 2: TutorialDesktop, 3: TutorialSalvavidas, 4: TutorialMobile
 
-function UpdateUsuarioVideo() {
+    var item = {
+        tipo: tipo
+    };
+
     $.ajax({
-        type: 'GET',
-        url: baseUrl + 'Bienvenida/JSONSetUsuarioVideo',
-        data: '',
-        dataType: 'Json',
+        type: 'POST',
+        url: baseUrl + 'Bienvenida/JSONUpdateUsuarioTutoriales',
+        data: JSON.stringify(item),
+        dataType: 'json',
         contentType: 'application/json; charset=utf-8',
         success: function (data) {
-            //viewBagVioVideo = data.result;
+            //viewBagVioTutorialSalvavidas = data.result;
         },
         error: function (data) {
         }
     });
-};
+}
 
 function CrearDialogs() {
     $('#DialogMensajes').dialog({
@@ -3805,7 +3839,7 @@ function abrir_popup_tutorial(obligado) {
         if (viewBagVioTutorial == 1) {
             return false;
         }
-        UpdateUsuarioTutorial();
+        UpdateUsuarioTutoriales(constanteVioTutorialDesktop);
     }
     
     $('#popup_tutorial_home').fadeIn();
@@ -3941,7 +3975,7 @@ function armarComunicadosPopup(response) {
 }
 
 function mostrarComunicadosPopup() {
-    if (viewBagVerComunicado != '1' || viewBagVioTutorial == 0 || viewBagVioVideo == 0) {
+    if (viewBagVerComunicado != '1' || viewBagVioTutorial == 0 || viewBagVioVideo == 0 || viewBagVioTutorialSalvavidas == 0) {
         $('#popupComunicados').hide();
         return true;
     }

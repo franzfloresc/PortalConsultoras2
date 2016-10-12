@@ -2734,8 +2734,7 @@ table > thead > tr > th {
     background-size: 100% 100%;
 }
 .slick-arrow img{
-    width:100%;
-
+    /*width:100%;*/
 }
 
 .slick-prev {
