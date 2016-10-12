@@ -26,7 +26,7 @@ $(document).ready(function () {
     $(document).on('click', '.agregar-ofertarevista', function () {
         if (ReservadoOEnHorarioRestringido())
             return false;
-        
+        agregarProductoAlCarrito(this);
         AgregarProductoOfertaRevista(this);
     });
 
@@ -136,12 +136,12 @@ function CargarCatalogoPersonalizado() {
                     return false;
                 }
 
-                //data.data[0].TieneOfertaEnRevista = true;
-                //data.data[0].TipoOfertaRevista = '048';
-                //data.data[0].CUV = '10989';
-                //data.data[1].TieneOfertaEnRevista = true;
-                //data.data[1].TipoOfertaRevista = '048';
-                //data.data[1].CUV = '11791';
+                data.data[0].TieneOfertaEnRevista = true;
+                data.data[0].TipoOfertaRevista = '048';
+                data.data[0].CUV = '10989';
+                data.data[1].TieneOfertaEnRevista = true;
+                data.data[1].TipoOfertaRevista = '048';
+                data.data[1].CUV = '11791';
 
                 if (data.data.length > 0) {
                     var htmlDiv = SetHandlebars("#template-catalogopersonalizado", data.data);
@@ -256,9 +256,7 @@ function AgregarProductoCatalogoPersonalizado(item) {
     }
 
     AgregarProducto('Insert', model, function () { $(divPadre).find(".product-add").show(); });
-    if (tipoOrigen != '2') {
-        TrackingJetloreAdd(cantidad, $("#hdCampaniaCodigo").val(), cuv);
-    }    
+    //TrackingJetloreAdd(cantidad, $("#hdCampaniaCodigo").val(), cuv);    
 }
 function AgregarProducto(url, item, otraFunct) {
     DialogLoadingAbrir();
@@ -463,11 +461,11 @@ function AgregarProductoOfertaRevista(btn) {
     }
 
     AgregarProducto('Insert', model, function () {
-        $(".contiene-productos:has(.hdItemCuv[value='" + $(item).find('#hiddenCatalogo').find(".hdItemCuv").val() + "'])").find(".product-add").show();
+        $("[data-item='catalogopersonalizado']:has(.hdItemCuv[value='" + cuvAdd + "'])").find(".product-add").show();
         //$('[class^=mod-ofer]').hide();
         $('[data-oferta]').attr("class", "").hide();
     });
-    TrackingJetloreAdd(model.Cantidad, $("#hdCampaniaCodigo").val(), model.CUV);
+    //TrackingJetloreAdd(model.Cantidad, $("#hdCampaniaCodigo").val(), model.CUV);
 }
 
 function agregarProductoAlCarrito(o) {

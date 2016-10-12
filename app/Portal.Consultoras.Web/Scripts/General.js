@@ -217,6 +217,10 @@ jQuery(document).ready(function () {
         if (!Handlebars.helpers.iff)
             HandlebarsRegisterHelper();
 
+        if ($(idTemplate).length == 0) {
+            return false;
+        }
+
         var source = $(idTemplate).html();
         var template = Handlebars.compile(source);
         var htmlDiv = template(data);

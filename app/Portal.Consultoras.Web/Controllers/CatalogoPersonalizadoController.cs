@@ -193,6 +193,91 @@ namespace Portal.Consultoras.Web.Controllers
                     sv.Url = ConfigurationManager.AppSettings[keyWeb];
                     dataPROL = sv.Ofertas_catalogo(userData.CodigoISO, userData.CampaniaID.ToString(), cuv, userData.CodigoConsultora, userData.ZonaID.ToString(), tipoOfertaRevista);
                 }
+                dataPROL = dataPROL ?? new ObjOfertaCatalogos();
+
+                #region para la imagen
+
+                string listaSap = "|"; // "0000000|00000000|000003"
+                string caracterSepara = "|";
+
+                dataPROL.lista_oObjGratis = dataPROL.lista_oObjGratis ?? new ObjGratis[0];
+                dataPROL.lista_oObjItemPack = dataPROL.lista_oObjItemPack ?? new ObjItemPack[0];
+
+                if (dataPROL.lista_oObjGratis.Length > 0)
+                {
+                    foreach (var objGrati in dataPROL.lista_oObjGratis)
+                    {
+                        objGrati.codsap_nivel_gratis = Util.SubStr(objGrati.codsap_nivel_gratis, 0);
+                        if (objGrati.codsap_nivel_gratis == "")
+                            continue;
+
+                        var add = listaSap.Contains(caracterSepara + objGrati.codsap_nivel_gratis + caracterSepara);
+                        listaSap += !add ? objGrati.codsap_nivel_gratis + caracterSepara : "";
+                    }
+                }
+
+                if (dataPROL.lista_oObjItemPack.Length > 0)
+                {
+                    foreach (var objItemPack in dataPROL.lista_oObjItemPack)
+                    {
+                        objItemPack.codsap_item_pack = Util.SubStr(objItemPack.codsap_item_pack, 0);
+                        if (objItemPack.codsap_item_pack == "")
+                            continue;
+
+                        var add = listaSap.Contains(caracterSepara + objItemPack.codsap_item_pack + caracterSepara);
+                        listaSap += !add ? objItemPack.codsap_item_pack + caracterSepara : "";
+                    }
+                }
+
+                if (listaSap.Length > 2)
+                {
+                    listaSap = Util.SubStr(listaSap, 1, listaSap.Length - 2);
+
+                    var listaProductoBySap = new List<Producto>();
+                    using (ProductoServiceClient ps = new ProductoServiceClient())
+                    {
+                        listaProductoBySap = ps.ObtenerProductosByCodigoSap(userData.CodigoISO, userData.CampaniaID, listaSap).ToList();
+                    }
+                    listaProductoBySap = listaProductoBySap ?? new List<Producto>();
+
+                    foreach (var itemSap in listaProductoBySap)
+                    {
+
+                        if (dataPROL.lista_oObjGratis.Length > 0)
+                        {
+                            foreach (var objGrati in dataPROL.lista_oObjGratis)
+                            {
+                                objGrati.codsap_nivel_gratis = Util.SubStr(objGrati.codsap_nivel_gratis, 0);
+                                if (objGrati.codsap_nivel_gratis == "")
+                                    continue;
+
+                                if (objGrati.codsap_nivel_gratis == itemSap.CodigoSap)
+                                {
+                                    objGrati.imagen_gratis = itemSap.Imagen;
+                                    objGrati.descripcion_gratis = itemSap.NombreComercial;
+                                }
+                            }
+                        }
+
+                        if (dataPROL.lista_oObjItemPack.Length > 0)
+                        {
+                            foreach (var objItemPack in dataPROL.lista_oObjItemPack)
+                            {
+                                objItemPack.codsap_item_pack = Util.SubStr(objItemPack.codsap_item_pack, 0);
+                                if (objItemPack.codsap_item_pack == "")
+                                    continue;
+
+                                if (objItemPack.codsap_item_pack == itemSap.CodigoSap)
+                                {
+                                    objItemPack.imagen_item_pack = itemSap.Imagen;
+                                    objItemPack.descripcion_item_pack = itemSap.NombreComercial;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                #endregion
                 using (ODSServiceClient sv = new ODSServiceClient())
                 {
                     producto = sv.SelectProductoByCodigoDescripcionSearchRegionZona(userData.PaisID, userData.CampaniaID, dataPROL.cuv_revista,
