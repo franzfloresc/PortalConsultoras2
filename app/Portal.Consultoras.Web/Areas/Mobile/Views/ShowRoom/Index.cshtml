@@ -119,7 +119,7 @@
         </div>
         <div>
             @{
-                var urlWs = "whatsapp://send?text" + item.Descripcion + "%20(" + subTitulo + ").%20" + item.ImagenProducto;
+                var urlWs = "whatsapp://send?text=" + item.Descripcion + "%20(" + subTitulo + ").%20" + item.ImagenProducto;
                 var descripcionF = item.Descripcion.Replace("'", "\'");
                 var subtituloF = subTitulo.Replace("'", "\'");
                 var imagenF = item.ImagenProducto.Replace("'", "\'");
