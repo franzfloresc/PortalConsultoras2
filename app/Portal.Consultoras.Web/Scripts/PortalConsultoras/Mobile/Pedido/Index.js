@@ -19,12 +19,12 @@ $(document).ready(function () {
         $('#PopSugerido').hide();
 
         if (codigo == "") {
-            $("#divListaEstrategias").show();
+            VisibleEstrategias(true);
             $("#divResumenPedido").show();
             $("footer").show();
             $(".footer-page").css({ "margin-bottom": "0px" });
         } else {
-            $("#divListaEstrategias").hide();
+            VisibleEstrategias(false);
             $("footer").hide();
         };
 
@@ -135,8 +135,8 @@ $(document).ready(function () {
 
     CargarCarouselEstrategias("");
 
-    var CuvEnSession = $("#hdCuvEnSession").val();
-    if (CuvEnSession != null) {
+    var CuvEnSession = $.trim($("#hdCuvEnSession").val());
+    if (CuvEnSession != "") {
         $("#txtCodigoProducto").val(CuvEnSession);
         $("#txtCodigoProducto").keyup();
     }
@@ -438,7 +438,7 @@ function InsertarProductoSugerido(marcaID, cuv, precioUnidad, descripcion, canti
             //$("#divMensajeProductoAgregado").show();
             
             $("#divProductoObservaciones").html("");
-            $("#divListaEstrategias").show();
+            VisibleEstrategias(true);
             $("#divResumenPedido").show();
             $("footer").show();
             $(".footer-page").css({ "margin-bottom": "0px" });
@@ -641,7 +641,7 @@ function InsertarProducto() {
             $("#divProductoObservaciones").html("");
             $("#divProductoMantenedor").hide();
             $("#btnAgregarProducto").hide();
-            $("#divListaEstrategias").show();
+            VisibleEstrategias(true);
             $("#divResumenPedido").show();
             $("footer").show();
             $(".footer-page").css({ "margin-bottom": "0px" });
@@ -684,7 +684,20 @@ function InsertarProducto() {
 
 };
 
+function VisibleEstrategias(accion) {
+    accion == accion || false;
+    if (accion) {
+        if ($.trim($('#divContenidoEstrategias').html()).length > 0) {
+            $("#divListaEstrategias").show();
+        }
+    }
+    else {
+        $("#divListaEstrategias").hide();
+    }
+}
+
 function CargarCarouselEstrategias(cuv) {
+    VisibleEstrategias(false);
     $('#slick-prev').remove();
     $('#slick-next').remove();
     $('#divContenidoEstrategias.slick-initialized').slick('unslick');
@@ -711,14 +724,14 @@ function CargarCarouselEstrategias(cuv) {
     });
 };
 function ArmarCarouselEstrategias(data) {
+    VisibleEstrategias(false);
     data = EstructurarDataCarousel(data);
     arrayOfertasParaTi = data;
 
     SetHandlebars("#estrategia-template", data, "#divContenidoEstrategias");
-
-    if ($.trim($('#divContenidoEstrategias').html()).length == 0) {
-        $('.fondo_gris').hide();
-    } else {
+    
+    if ($.trim($('#divContenidoEstrategias').html()).length > 0) {
+        VisibleEstrategias(true);
         $('#divContenidoEstrategias').slick({
             slidesToShow: 4,
             slidesToScroll: 1,

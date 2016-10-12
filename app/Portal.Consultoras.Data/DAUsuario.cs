@@ -511,5 +511,13 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@Contrasenia", DbType.String, contrasenia);
             Context.ExecuteNonQuery(command);
         }
+
+        public int UpdateUsuarioTutoriales(string CodigoUsuario, int tipo)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.UpdateUsuarioTutoriales_SB2");
+            Context.Database.AddInParameter(command, "@codigoUsuario", DbType.AnsiString, CodigoUsuario);
+            Context.Database.AddInParameter(command, "@tipo", DbType.AnsiString, tipo);
+            return Convert.ToInt32(Context.ExecuteScalar(command));
+        }
     }
 }

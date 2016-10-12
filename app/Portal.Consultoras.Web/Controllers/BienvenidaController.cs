@@ -63,45 +63,45 @@ namespace Portal.Consultoras.Web.Controllers
 
                 #region Rangos de Escala de Descuento
 
-                model.ListaEscalaDescuento = GetListaEscalaDescuento() ?? new List<BEEscalaDescuento>();
+                //model.ListaEscalaDescuento = GetListaEscalaDescuento() ?? new List<BEEscalaDescuento>();
 
-                var pos = -1;
-                int nro = 4;
-                var listaEscala = new List<BEEscalaDescuento>();
-                var tamano = model.ListaEscalaDescuento.Count;
-                int montoEscalaDescuento = Convert.ToInt32(bePedidoWeb.MontoEscala);
+                //var pos = -1;
+                //int nro = 4;
+                //var listaEscala = new List<BEEscalaDescuento>();
+                //var tamano = model.ListaEscalaDescuento.Count;
+                //int montoEscalaDescuento = Convert.ToInt32(bePedidoWeb.MontoEscala);
 
-                for (int i = 0; i < tamano; i++)
-                {
-                    var objEscala = model.ListaEscalaDescuento[i];
-                    if (userData.MontoMinimo > objEscala.MontoHasta)
-                    {
-                        continue;
-                    }
+                //for (int i = 0; i < tamano; i++)
+                //{
+                //    var objEscala = model.ListaEscalaDescuento[i];
+                //    if (userData.MontoMinimo > objEscala.MontoHasta)
+                //    {
+                //        continue;
+                //    }
 
-                    objEscala.MontoDesde = listaEscala.Count() == 0 ? userData.MontoMinimo : model.ListaEscalaDescuento[i - 1].MontoHasta;
+                //    objEscala.MontoDesde = listaEscala.Count() == 0 ? userData.MontoMinimo : model.ListaEscalaDescuento[i - 1].MontoHasta;
 
-                    if (objEscala.MontoDesde <= montoEscalaDescuento && montoEscalaDescuento < objEscala.MontoHasta)
-                    {
-                        objEscala.Seleccionado = true;
-                        pos = i;
-                    }
-                    listaEscala.Add(objEscala);
-                }
+                //    if (objEscala.MontoDesde <= montoEscalaDescuento && montoEscalaDescuento < objEscala.MontoHasta)
+                //    {
+                //        objEscala.Seleccionado = true;
+                //        pos = i;
+                //    }
+                //    listaEscala.Add(objEscala);
+                //}
 
-                model.ListaEscalaDescuento = new List<BEEscalaDescuento>();
-                if (listaEscala.Any())
-                {
-                    int posMin, posMax, tamX = listaEscala.Count - 1;
-                    posMax = tamX >= pos + nro - 1 ? (pos + nro - 1) : tamX;
-                    posMin = posMax > (nro - 1) ? (posMax - (nro - 1)) : 0;
-                    posMin = pos < 0 ? 0 : posMin;
-                    posMax = pos < 0 ? Math.Min(listaEscala.Count() - 1, nro - 1) : posMax;
-                    for (int i = posMin; i <= posMax; i++)
-                    {
-                        model.ListaEscalaDescuento.Add(listaEscala[i]);
-                    }
-                }
+                //model.ListaEscalaDescuento = new List<BEEscalaDescuento>();
+                //if (listaEscala.Any())
+                //{
+                //    int posMin, posMax, tamX = listaEscala.Count - 1;
+                //    posMax = tamX >= pos + nro - 1 ? (pos + nro - 1) : tamX;
+                //    posMin = posMax > (nro - 1) ? (posMax - (nro - 1)) : 0;
+                //    posMin = pos < 0 ? 0 : posMin;
+                //    posMax = pos < 0 ? Math.Min(listaEscala.Count() - 1, nro - 1) : posMax;
+                //    for (int i = posMin; i <= posMax; i++)
+                //    {
+                //        model.ListaEscalaDescuento.Add(listaEscala[i]);
+                //    }
+                //}
 
                 #endregion Rangos de Escala de Descuento
 
@@ -225,6 +225,8 @@ namespace Portal.Consultoras.Web.Controllers
                 model.VisualizoComunicadoConfigurable = ComunicadoVisualizado;
 
                 model.EsCatalogoPersonalizadoZonaValida = userData.EsCatalogoPersonalizadoZonaValida;
+                model.VioTutorialSalvavidas = userData.VioTutorialSalvavidas;
+                model.DataBarra = GetDataBarra();
             }
             catch (FaultException ex)
             {
@@ -499,32 +501,31 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 lista = model
             }, JsonRequestBehavior.AllowGet);
-        }
+        }        
 
-        [HttpGet]
-        public JsonResult JSONSetUsuarioVideo()
+        [HttpPost]
+        public JsonResult JSONUpdateUsuarioTutoriales(int tipo)
         {
             int retorno;
             using (UsuarioServiceClient sv = new UsuarioServiceClient())
             {
-                retorno = sv.setUsuarioVideoIntroductorio(userData.PaisID, userData.CodigoUsuario);
-                userData.VioVideoModelo = retorno;
-            }
-            SetUserData(userData);
-            return Json(new
-            {
-                result = retorno
-            }, JsonRequestBehavior.AllowGet);
-        }
-        
-        [HttpGet]
-        public JsonResult JSONSetUsuarioTutorialDesktop()
-        {
-            int retorno;
-            using (UsuarioServiceClient sv = new UsuarioServiceClient())
-            {
-                retorno = sv.SetUsuarioVerTutorialDesktop(userData.PaisID, userData.CodigoUsuario);
-                userData.VioTutorialDesktop = retorno;
+                retorno = sv.UpdateUsuarioTutoriales(userData.PaisID, userData.CodigoUsuario, tipo);
+
+                switch (tipo)
+                {
+                    case Constantes.TipoTutorial.Video:
+                        userData.VioVideoModelo = retorno;
+                        break;
+                    case Constantes.TipoTutorial.Desktop:
+                        userData.VioTutorialDesktop = retorno;
+                        break;
+                    case Constantes.TipoTutorial.Salvavidas:
+                        userData.VioTutorialSalvavidas = retorno;
+                        break;
+                    case Constantes.TipoTutorial.Mobile:
+                        userData.VioTutorialModelo = retorno;
+                        break;
+                }
             }
             SetUserData(userData);
             return Json(new
