@@ -23,21 +23,16 @@
     </style>
 }
 
-<div class="row">
-    <div class="col-xs-12">
-        <ol class="breadcrumb-next upper">
-            <li>
-                <a href="@Request.UrlReferrer"><i class="icon-angle-left"></i> Volver </a>
-            </li>
-            <li>|</li>
-            <li>
-                CONSULTORA ONLINE
-            </li>
-        </ol>
-    </div>
+<div class="titulo_mobile">
+    <a href="@Request.UrlReferrer" class="enlace_regresar catalogosR" title="Regresar"></a>
+    &nbsp;&nbsp;&nbsp;&nbsp;CONSULTORA ONLINE
 </div>
+<div class="pestana_esika"></div><!--PESTANA ESIKA-->
+<div class="pestana_lbel"></div><!--PESTANA LBEL-->
 
-<div class="row">
+
+<div style="overflow:hidden;">
+    <br/>
     @if (!Model.Afiliado && !Model.EmailActivo && !Model.Email.Equals(""))
     {
         <div class="col-xs-12">
@@ -102,7 +97,7 @@
     </div>
 </div>
 
-<div class="row bg-gray posr over-hidden">
+<div class="bg-gray posr over-hidden">
     <img src="@Url.Content("~/Content/Images/mobile/img-consultoraonline/bg-slide-landing.png")" alt="¿TIENES MÁS PREGUNTAS?" class="img-landing-bg-left-bottom" />
     <div class="col-xs-12">
         <h3 class="title-landing text-center">¿TIENES MÁS PREGUNTAS?</h3>
