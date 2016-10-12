@@ -1486,10 +1486,10 @@ namespace Portal.Consultoras.Web.Controllers
                 var listaEscalaDescuento = new List<BEEscalaDescuento>();
                 if (inEscala)
                 {
-                    if (objR.MontoMaximoStr == "")
-                    {
+                    //if (objR.MontoMaximoStr == "")
+                    //{
                         listaEscalaDescuento = GetListaEscalaDescuento() ?? new List<BEEscalaDescuento>();
-                    }
+                    //}
                 }
 
                 foreach (var escala in listaEscalaDescuento)

@@ -383,6 +383,8 @@ $(document).ready(function () {
     CrearPopShow();
     MostrarShowRoom();
     //Fin ShowRoom
+
+    MostrarBarra(null, '1');
 });
 
 function CargarCamara() {
@@ -1151,6 +1153,7 @@ function AgregarProductoDestacado(popup, tipoEstrategiaImagen) {
                         }
 
                         waitingDialog({});
+                        MostrarBarra(data, '1');
                         ActualizarGanancia(data.DataBarra);
                         CargarCarouselEstrategias(cuv);
                         CargarResumenCampaniaHeader(true);
@@ -1569,7 +1572,7 @@ function AgregarProductoLiquidacion(contenedor) {
                                 closeWaitingDialog();
                                 return false;
                             }
-
+                            MostrarBarra(data, '1');
                             ActualizarGanancia(data.DataBarra);
                             CargarResumenCampaniaHeader(true);
                             TrackingJetloreAdd(item.Cantidad, $("#hdCampaniaCodigo").val(), item.CUV);
@@ -1813,6 +1816,7 @@ function InsertarPedidoCuvBanner(CUVpedido, CantCUVpedido) {
                 return false;
             }
 
+            MostrarBarra(result, '1');
             ActualizarGanancia(result.DataBarra);
 
             CargarResumenCampaniaHeader(true);
@@ -3197,6 +3201,7 @@ function AgregarSuenio() {
 //        async: true,
 //        success: function (data) {
 //            if (data.success == true) {
+//                MostrarBarra(data, '1');
 //                ActualizarGanancia(data.DataBarra);                
 //                CargarResumenCampaniaHeader(true);
 
