@@ -261,7 +261,7 @@
 </div>
 
 <!--CAROUSEL OFERTAS PARA TI-->
-<div class="fondo_gris">
+<div class="fondo_gris" id="divListaEstrategias" style="display:none;">
     <div class="content_belcorp" style="text-align:center;">
         <div class="titulo_ofertas_home">
             OFERTAS <b>PARA TI @(Model.NombreConsultora.ToUpper())</b>
@@ -280,7 +280,7 @@
 <!--CATALOGO PERSONALIZADO-->
 @if (Model.CatalogoPersonalizadoDesktop != 0 && Model.EsCatalogoPersonalizadoZonaValida)
 {
-    <div class="content-favclientes content_carrusel_agregado" id="divMainCatalogoPersonalizado">
+    <div class="content-favclientes content_carrusel_agregado" id="divMainCatalogoPersonalizado" style="display:none;">
         <div class="pestania"><h5><b>LOS FAVORITOS</b> DE TUS CLIENTES ESTA CAMPAÑA</h5><div class="imagen-curvatura"></div></div>
         <a class="ver_mas_favoritos" style="z-index:inherit;" href="@Url.Action("Index", "CatalogoPersonalizado")">Ver más +</a>
         <div id="divCatalogoPersonalizado"></div>
