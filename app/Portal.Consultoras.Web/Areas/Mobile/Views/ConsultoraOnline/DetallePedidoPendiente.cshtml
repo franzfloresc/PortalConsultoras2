@@ -211,17 +211,17 @@
                 }
                 else
                 {
-                    <span>AGOTADO</span>
+                    <span class="agotado_consultora">AGOTADO</span>
                 }
             }
 
             @if (item.TieneStock == 0)
             {
-                <span>@item.MensajeValidacion</span>
+                <span class="mensaje_validacion_consultora">@item.MensajeValidacion</span>
             }
             else if (item.EstaEnRevista == 1)
             {
-                <span>@item.MensajeValidacion</span>
+                <span class="mensaje_validacion_consultora">@item.MensajeValidacion</span>
             }
         </div>
     }
