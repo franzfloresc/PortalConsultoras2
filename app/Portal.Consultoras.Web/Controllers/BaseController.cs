@@ -1017,6 +1017,7 @@ namespace Portal.Consultoras.Web.Controllers
                 model.EsOfertaFinalZonaValida = oBEUsuario.EsOfertaFinalZonaValida;
                 model.CatalogoPersonalizado = oBEUsuario.CatalogoPersonalizado;
                 model.EsCatalogoPersonalizadoZonaValida = oBEUsuario.EsCatalogoPersonalizadoZonaValida;
+                model.VioTutorialSalvavidas = oBEUsuario.VioTutorialSalvavidas;
             }
             Session["UserData"] = model;
 
@@ -1486,10 +1487,10 @@ namespace Portal.Consultoras.Web.Controllers
                 var listaEscalaDescuento = new List<BEEscalaDescuento>();
                 if (inEscala)
                 {
-                    if (objR.MontoMaximoStr == "")
-                    {
+                    //if (objR.MontoMaximoStr == "")
+                    //{
                         listaEscalaDescuento = GetListaEscalaDescuento() ?? new List<BEEscalaDescuento>();
-                    }
+                    //}
                 }
 
                 foreach (var escala in listaEscalaDescuento)

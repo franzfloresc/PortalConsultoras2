@@ -209,7 +209,7 @@
                     Model.PrefijoPais == Constantes.CodigosISOPais.Guatemala ||
                     Model.PrefijoPais == Constantes.CodigosISOPais.Salvador ||
                     Model.PrefijoPais == Constantes.CodigosISOPais.Dominicana ||
-                    Model.PrefijoPais == Constantes.CodigosISOPais.PuertoRico) 
+                    Model.PrefijoPais == Constantes.CodigosISOPais.PuertoRico)
                 {
                     cabezaEscala = "Ganancia estimada total*";
                     pieEscala = "*Ganancia Total = Ahorro estimado proveniente de tus descuentos por compras en catálogo + ahorro estimado proveniente de compras en Guía de Negocio y Otros.";
@@ -240,48 +240,16 @@
             <span>Pedido ingresado: <span id="spanPedidoIngresado"></span></span>
         </div>
         <!--ESCALA DE DESCUENTO-->
-        <div class="content_escala" data-divescala="cuadrado">
-            @{
-                string padding = "eg_padding_inactivo";
-                string numerosGrandes = "";
-                if (Model.ListaEscalaDescuento != null && Model.ListaEscalaDescuento.Count > 0)
-                {
-                    padding = Model.ListaEscalaDescuento.Where(x => x.Seleccionado).ToList().Count > 0 ? "eg_padding_activo" : "eg_padding_inactivo";
-
-                    foreach (var item in Model.ListaEscalaDescuento)
-                    {
-                        int index = Model.ListaEscalaDescuento.IndexOf(item) + 1;
-                        string clase = (item.Seleccionado ? "escala_select" : "") +
-                                       (index == Model.ListaEscalaDescuento.Count ? " border-right " : "");
-                        numerosGrandes = item.MontoHasta >= 10000 ? "font-size: 5.9px; transform: scaleY(1.8);" : "";
-                        <div class="escala_ganancia @(clase) @(padding)">
-
-                            @if (item.Seleccionado)
-                            {
-                                <div class="indicador_escala"></div>
-                            }
-
-                            <div style="overflow:hidden">
-                                <div class="home_porcentaje">@item.PorDescuento</div>
-                                <div class="texto_dscto">%<span>DSCTO</span></div>
-                            </div>
-                            @if (item.Seleccionado)
-                            {
-                                if (index == Model.ListaEscalaDescuento.Count)
-                                {
-                                    <div class="precio_ganancia" style="@(numerosGrandes)">De @Model.Simbolo @Convert.ToInt32(item.MontoDesde) <br>a más.</div>
-                                }
-                                else
-                                {
-                                    <div class="precio_ganancia" style="@(numerosGrandes)">De @Model.Simbolo @Convert.ToInt32(item.MontoDesde) <br>a @Model.Simbolo @Convert.ToInt32(item.MontoHasta)</div>
-                                }
-                            }
-
-                        </div>
-                    }
-                }
-            }
-
+        <div class="content_escala" data-divescala="cuadrado" data-barra-width="">
+            <div id="divBarra">
+                <div id="divBarraLimite"></div>
+                <hr class="clear" />
+                <div id="divBarraPosicion" class="BarraPosicion">
+                    <span id="divBarraEspacioLimite" class="BarraLimite">
+                        <span id="divBarraEspacioLogrado" class="BarraLogrado"></span>
+                    </span>
+                </div>
+            </div>
         </div>
         <!--FIN ESCALA DE DESCUENTO-->
     </div>
@@ -293,7 +261,7 @@
 </div>
 
 <!--CAROUSEL OFERTAS PARA TI-->
-<div class="fondo_gris">
+<div class="fondo_gris" id="divListaEstrategias" style="display:none;">
     <div class="content_belcorp" style="text-align:center;">
         <div class="titulo_ofertas_home">
             OFERTAS <b>PARA TI @(Model.NombreConsultora.ToUpper())</b>
@@ -312,7 +280,7 @@
 <!--CATALOGO PERSONALIZADO-->
 @if (Model.CatalogoPersonalizadoDesktop != 0 && Model.EsCatalogoPersonalizadoZonaValida)
 {
-    <div class="content-favclientes content_carrusel_agregado" id="divMainCatalogoPersonalizado">
+    <div class="content-favclientes content_carrusel_agregado" id="divMainCatalogoPersonalizado" style="display:none;">
         <div class="pestania"><h5><b>LOS FAVORITOS</b> DE TUS CLIENTES ESTA CAMPAÑA</h5><div class="imagen-curvatura"></div></div>
         <a class="ver_mas_favoritos" style="z-index:inherit;" href="@Url.Action("Index", "CatalogoPersonalizado")">Ver más +</a>
         <div id="divCatalogoPersonalizado"></div>
@@ -2308,6 +2276,7 @@
 
 </script>
 
+<input type="hidden" id="hdDataBarra" value="@Newtonsoft.Json.JsonConvert.SerializeObject(Model.DataBarra)" />
 <div id="popupMostrarComumnicado" class="popup_actualizarMisDatos" style="display: none;">
 </div>
 <!-- SB20-834 - FIN -->
@@ -2319,6 +2288,7 @@
     <script type="text/javascript" src="@Url.Content("~/Scripts/slick.min.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.easy-pie-chart.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/CatalogoPersonalizado/CatalogoPersonalizado.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Pedido/barra.js")"></script>
     <script type="text/javascript">
         var viewBagInscritaFlexipago = '@Model.InscritaFlexipago';
         var viewBagPrimeraVezSession = '@Model.PrimeraVezSession';
@@ -2359,7 +2329,14 @@
         var viewBagVerComunicado = '-1';
         var urlObtenerProductosCatalogoPersonalizado = '@Url.Action("ObtenerProductosCatalogoPersonalizadoHome", "CatalogoPersonalizado", new { area = "" })';
         var urlReservadoOEnHorarioRestringido = '@Url.Action("ReservadoOEnHorarioRestringido", "Pedido", new { area = "" })';
+        var dataBarra = JSON.parse($("#hdDataBarra").val());
+        $("#hdDataBarra").val("");
         var urlPedidoValidado = '@Url.Action("PedidoValidado", "Pedido", new { area = "" })';
+        var viewBagVioTutorialSalvavidas = '@Model.VioTutorialSalvavidas';
+        var constanteVioVideo = '@Constantes.TipoTutorial.Video';
+        var constanteVioTutorialDesktop = '@Constantes.TipoTutorial.Desktop';
+        var constanteVioTutorialSalvavidas = '@Constantes.TipoTutorial.Salvavidas';        
+        
         var cantidadRegistros = 8;
     </script>
     
