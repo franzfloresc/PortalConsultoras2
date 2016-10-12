@@ -333,6 +333,11 @@ namespace Portal.Consultoras.Entities
                 IndicadorEnviado = Convert.ToInt32(row["IndicadorEnviado"]);
             if (DataRecord.HasColumn(row, "IndicadorRechazado") && row["IndicadorRechazado"] != DBNull.Value)
                 IndicadorRechazado = Convert.ToInt32(row["IndicadorRechazado"]);
+
+            // SB20-907
+            if (DataRecord.HasColumn(row, "GerenteZona") && row["GerenteZona"] != DBNull.Value)
+                NombreGerenteZona = Convert.ToString(row["GerenteZona"]);
+
         }
 
         [DataMember]
@@ -982,6 +987,8 @@ namespace Portal.Consultoras.Entities
         public int IndicadorEnviado { get; set; }
         [DataMember]
         public int IndicadorRechazado { get; set; }
+        [DataMember]
+        public string NombreGerenteZona { get; set; }
 
         public BEUsuario(IDataRecord row, string tipo1, string tipo2)
         {

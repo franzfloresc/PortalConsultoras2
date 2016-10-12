@@ -266,6 +266,9 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         private string NombreField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string NombreGerenteZonaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string NombrePaisField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -1477,6 +1480,19 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
                 if ((object.ReferenceEquals(this.NombreField, value) != true)) {
                     this.NombreField = value;
                     this.RaisePropertyChanged("Nombre");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string NombreGerenteZona {
+            get {
+                return this.NombreGerenteZonaField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.NombreGerenteZonaField, value) != true)) {
+                    this.NombreGerenteZonaField = value;
+                    this.RaisePropertyChanged("NombreGerenteZona");
                 }
             }
         }
