@@ -472,6 +472,7 @@ namespace Portal.Consultoras.Web.Controllers
                 model.CodigoUsuario = userData.CodigoUsuario + " (Zona: " + userData.CodigoZona + ")";
                 model.NombreCompleto = beusuario.Nombre;
                 model.EMail = beusuario.EMail;
+                model.NombreGerenteZonal = userData.NombreGerenteZonal;     //SB20-907
                 model.Telefono = beusuario.Telefono;
                 model.TelefonoTrabajo = beusuario.TelefonoTrabajo;
                 model.Celular = beusuario.Celular;

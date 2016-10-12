@@ -491,15 +491,15 @@ h4.re3 {
 }
 .btn-action-hover {
     padding: 4px 35px;
-    background: #722789;
-    border: 1px solid #722789;
+    background: #613c87;
+    border: 1px solid #613c87;
     color: #fff;
     line-height: 2;
     vertical-align: middle;
 }
     .btn-action-hover:hover,
     .btn-action-hover:focus {
-        background: #511c61;
+        background: #613c87;
         /*border: 1px solid @pcolor;*/
         color: #fff;
     }
@@ -2822,16 +2822,16 @@ table > thead > tr > th {
   margin-bottom: 5px;
   font-size: 14px;
   text-transform: uppercase;
-  color: #722789;
+  color: black;
 }
 .title-dark {
-  color: #415261;
+  color: black;
 }
 .title-success {
-  color: #35bdb2;
+  color: black;
 }
 .title-info {
-  color: #0eaade;
+  color: black;
 }
 .icon-cart-list-pedidos {
   background-image: url(../../../Images/mobile/img-consultoraonline/icon-cart-plus-pedidos.png);
@@ -7889,13 +7889,13 @@ span.title-app-b {
 }
 .nom_his{
     display:block;
-    width:40%;
+    width:36%;
 
     float:left;
 }
 .nom_his_2{
     display:block;
-    width:60%;
+    width:64%;
     float:left;
 
 }
@@ -7975,6 +7975,21 @@ span.title-app-b {
     font-weight:700;
     top:0;
 }
+
+.notificaciones_menu_mobile2{
+   position: absolute;
+    left: 161px;
+    /* width: 100px; */
+    height: 20px;
+    /* border-radius: 100px; */
+    line-height: 19px;
+    font-family: 'Lato';
+    font-size: 14px;
+    /* text-align: center; */
+    font-weight: 700;
+    top: 0px;
+}
+
 .menu_subHeader{
     position:relative
 }
@@ -8632,4 +8647,21 @@ span.icon-advertencia{
 }
 .content_pack_niveles .sub_descripcion_oferta:nth-child(2){
     border-top:0px;    
+}
+
+/**/
+.mensaje_validacion_consultora{
+    display:block;
+    margin-top:18px;
+    font-family: 'Lato';
+    font-size: 13px;
+    color:black;
+}
+.agotado_consultora{
+    display:block;
+    font-family: 'Lato';
+    font-size: 16px;
+    color: black;
+    font-weight:700;
+    margin-top: 20px;
 }

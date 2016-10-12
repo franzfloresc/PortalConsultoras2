@@ -1370,7 +1370,8 @@ namespace Portal.Consultoras.Web.Controllers
                 return Json(new
                 {
                     success = true,
-                    message = "OK"
+                    message = "OK",
+                    DataBarra = GetDataBarra()
                 }, JsonRequestBehavior.AllowGet); 
 
                 //Fín GR-1385

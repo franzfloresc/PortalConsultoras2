@@ -132,64 +132,12 @@
     <a href="#" onclick="CerrarMensajeAceptado();" class="btn_historial_pedido">Historial de Pedidos</a>
 </div>
 
-@*<script id="pedidopend-template" type="text/x-handlebars-template">
-    {{#each this}}
-
-    <div class="content_pendiente">
-        <input type="hidden" id="pedidopend_{{PedidoId}}" value="{{PedidoId}}|{{MarcaID}}|{{Campania}}|{{Cliente}}|{{Telefono}}|{{Direccion}}|{{Email}}|{{Mensaje}}|{{Leido}}|{{NumIteracion}}|{{CodigoUbigeo}}|{{FechaSolicitud}}|{{MedioContacto}}|{{FormatoPrecioTotal}}|{{SaldoHoras}}|{{FlagConsultora}}" />
-        <div class="titulo_pendiente">
-            {{#if FlagConsultora}}
-            <label> CLIENTE EXISTENTE </label>
-            {{else}}
-            <label> NUEVO CLIENTE </label>
-            {{/if}}
-        </div>
-        <div class="nombre_cliente_pendiente">{{Cliente}}</div>
-        <div class="descripcion_pendiente">
-            <span style="float:left;">Origen</span>
-            <span style="float: right;">
-                {{#if_eq MarcaID '0'}}
-                {{MedioContacto}}
-                {{else}}
-                Portal {{Marca}}
-                {{/if_eq}}
-            </span>
-        </div>
-        <hr class="clear" />
-        <div class="precio_pendiente">
-            <span style="float:left;">PRECIO TOTAL</span>
-            <span style="float: right;">@ViewBag.Simbolo {{FormatoPrecioTotal}}</span>
-        </div>
-        <hr class="clear" />
-        <div class="tooltip_pendiente">
-            <div style="float:left;">
-                <div class="titulo_tooltip_p">¡No pierdas esta oportunidad!</div>
-                <div class="hora_tooltip_p">
-                    {{#if FlagConsultora}}
-                    Te quedan <b>24:00:00</b> horas
-                    {{else}}
-                    Te quedan <b>{{SaldoHoras}}</b> horas
-                    {{/if}}
-                </div>
-            </div>
-            <div style="float:right;">
-                <a class="btn_revisalo_pendiente" onclick="CargarPopupPedidoPend('{{PedidoId}}');">REVÍSALO</a>
-            </div>
-            <hr class="clear" />
-        </div>
-    </div>
-
-    {{/each}}
-</script>*@
-
 <div style="display: none;">
     @using (Html.BeginForm("", "", FormMethod.Post, new { id = "frmConsultoraOnline" }))
     {
         <input type="hidden" name="lanzarTabConsultoraOnline" value="true">
     }
 </div>
-
-
 
 @section scripts {
     <script type="text/javascript">

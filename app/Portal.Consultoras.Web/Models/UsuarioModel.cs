@@ -10,7 +10,7 @@ namespace Portal.Consultoras.Web.Models
     public class UsuarioModel
     {
         public UsuarioModel()
-        {            
+        {
             this.ClaveSecreta = string.Empty;
             this.CodigoISO = string.Empty;
             this.NombreConsultora = string.Empty;
@@ -28,7 +28,7 @@ namespace Portal.Consultoras.Web.Models
             this.CodigoFuente = string.Empty;
             this.NombrePais = string.Empty;
             this.Celular = string.Empty;
-            this.Telefono = string.Empty;           
+            this.Telefono = string.Empty;
             this.DiasAntes = 0;
             this.DiasDuracionCronograma = 1;
             this.HabilitarRestriccionHoraria = false;
@@ -86,20 +86,28 @@ namespace Portal.Consultoras.Web.Models
         public string CodigoConsultora { get; set; }
         public string CodigoUsuario { get; set; }
         public int CampaniaID { get; set; }
-        public string CampaniaAnio { get {
-            if (CampaniaID > 999)
+        public string CampaniaAnio
+        {
+            get
             {
-                return CampaniaID.ToString().Substring(0, 4);
+                if (CampaniaID > 999)
+                {
+                    return CampaniaID.ToString().Substring(0, 4);
+                }
+                return "";
             }
-            return "";
-        } }
-        public string CampaniaNro { get {
-            if (CampaniaID > 99999)
+        }
+        public string CampaniaNro
+        {
+            get
             {
-                return CampaniaID.ToString().Substring(4, 2);
+                if (CampaniaID > 99999)
+                {
+                    return CampaniaID.ToString().Substring(4, 2);
+                }
+                return "";
             }
-            return "";   
-        } }
+        }
         public string NombreCorto { get; set; }
         public int DiasCampania { get; set; }
         public DateTime FechaFacturacion { get; set; }
@@ -133,7 +141,7 @@ namespace Portal.Consultoras.Web.Models
         public List<BEProductoFaltante> ListaProductoFaltante { get; set; }
         public string UrlAyuda { get; set; }
         public string UrlCapedevi { get; set; }
-        public string UrlTerminos { get; set; }       
+        public string UrlTerminos { get; set; }
         public TimeSpan HoraCierreZonaNormal { get; set; }
         public TimeSpan HoraCierreZonaDemAnti { get; set; }
         public int HorasDuracionRestriccion { get; set; }
@@ -202,7 +210,7 @@ namespace Portal.Consultoras.Web.Models
         public bool IngresoPedidoCierre { get; set; }//20150811 
         public bool EsquemaDAConsultora { get; set; }
         public TimeSpan HoraCierreZonaDemAntiCierre { get; set; } //R20151123
-        
+
         public string TipoCasoPromesa { get; set; }
         public int DiasCasoPromesa { get; set; }
 
@@ -270,7 +278,7 @@ namespace Portal.Consultoras.Web.Models
 
         public bool EsCatalogoPersonalizadoZonaValida { get; set; }
         public int VioTutorialSalvavidas { get; set; }
-        
+
         public int IndicadorEnviado { get; set; }
         public int IndicadorRechazado { get; set; }
         public string MotivoRechazo { get; set; }
@@ -280,5 +288,6 @@ namespace Portal.Consultoras.Web.Models
         public int EstaRechazado { get; set; }
 
         public int CerrarRechazado { get; set; }
+        public string NombreGerenteZonal { get; set; }  // SB20-907
     }
 }
