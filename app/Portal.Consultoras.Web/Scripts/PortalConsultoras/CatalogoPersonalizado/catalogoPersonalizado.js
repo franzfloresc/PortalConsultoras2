@@ -132,6 +132,9 @@ function CargarCatalogoPersonalizado() {
                 if (tipoOrigen == '3') {
                     $("#linea_separadoraCP").show();
                 }
+                if (data.data.length == 0) {
+                    return false;
+                }
 
                 //data.data[0].TieneOfertaEnRevista = true;
                 //data.data[0].TipoOfertaRevista = '048';
@@ -303,10 +306,10 @@ function ObtenerOfertaRevista(item) {
     var $contenedor = item;
     var cuv = $contenedor.find('.hdItemCuv').val();
     // 11791 (mucha data) "10989" (niveles);// 
-    var tipoOfertaRevista = $contenedor.find('.hdItemTipoOfertaRevista').val().trim();
+    var tipoOfertaRevista = $.trim($contenedor.find('.hdItemTipoOfertaRevista').val());
 
     var obj = {
-        UrlImagen: $contenedor.find('.producto_img_home>img').attr('src'),
+        UrlImagen: $contenedor.find('[data-img]>img').attr('src'),
         CUV: $contenedor.find('.hdItemCuv').val(),
         TipoOfertaSisID: $contenedor.find('.hdItemTipoOfertaSisID').val(),
         ConfiguracionOfertaID: $contenedor.find('.hdItemConfiguracionOfertaID').val(),
@@ -326,11 +329,14 @@ function ObtenerOfertaRevista(item) {
         contentType: 'application/json; charset=utf-8',
         success: function (response) {
             $('[data-oferta]').attr("class", "").hide();
+            if (tipoOrigen == '2') {
+                $('[data-oferta]').addClass("MensajeAlertaMobile")
+            }
             if (!response.success) {
                 DialogLoadingCerrar();
                 return false;
             }
-            response.data.dataPROL.Simbolo = viewBagSimbolo;
+            response.data.dataPROL.Simbolo = vbSimbolo;
             var settings = $.extend({}, response.data.dataPROL, obj);
             settings.productoRevista = response.data.producto;
             TrackingJetloreView(cuv, $("#hdCampaniaCodigo").val())
@@ -374,7 +380,7 @@ function ObtenerOfertaRevista(item) {
 function AgregarProductoOfertaRevista(btn) {
 
     var tipoCUV = $(btn).attr('data-cuv');
-    var item = $(btn).parents(".cuerpo-mod");
+    var item = $(btn).parents("[data-oferta-popup]");
 
     DialogLoadingAbrir();
     var hidden = "";

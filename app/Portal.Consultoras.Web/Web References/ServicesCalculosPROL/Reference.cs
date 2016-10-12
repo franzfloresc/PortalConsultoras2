@@ -469,6 +469,8 @@ namespace Portal.Consultoras.Web.ServicesCalculosPROL {
         
         private string precio_nivelField;
         
+        private string ganancia_nivelField;
+        
         /// <comentarios/>
         public string escala_nivel {
             get {
@@ -496,6 +498,16 @@ namespace Portal.Consultoras.Web.ServicesCalculosPROL {
             }
             set {
                 this.precio_nivelField = value;
+            }
+        }
+        
+        /// <comentarios/>
+        public string ganancia_nivel {
+            get {
+                return this.ganancia_nivelField;
+            }
+            set {
+                this.ganancia_nivelField = value;
             }
         }
     }

@@ -2401,6 +2401,7 @@
     <Content Include="Scripts\PortalConsultoras\Pedido\barra.js" />
     <Content Include="Scripts\PortalConsultoras\Pedido\ConsultoraOnline.js" />
     <Content Include="Scripts\PortalConsultoras\Pedido\ofertafinal.js" />
+    <Content Include="Scripts\PortalConsultoras\Shared\TrackingJetlore.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\slick.js" />
     <Content Include="Scripts\slick.min.js" />
@@ -2601,7 +2602,7 @@
     <Content Include="Areas\Mobile\Views\Notificaciones\ListadoPedidoRechazadoDetalle.cshtml" />
     <None Include="Service References\ServicePedidoRechazado\PedidoRechazadoService.wsdl" />
     <None Include="Service References\ServicePedidoRechazado\PedidoRechazadoService.xsd">
-      <SubType>Designer</SubType>    
+      <SubType>Designer</SubType>
     </None>
     <None Include="Service References\ServicePedidoRechazado\PedidoRechazadoService1.xsd">
       <SubType>Designer</SubType>

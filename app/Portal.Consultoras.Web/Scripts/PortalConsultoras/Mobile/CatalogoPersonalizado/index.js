@@ -1,8 +1,8 @@
-﻿var cantidadRegistros = 12;
-var offsetRegistros = 0;
-var cargandoRegistros = false;
-var divPadreOfertaRevista;
-var tipoOrigen = '2';
+﻿//var cantidadRegistros = 12;
+//var offsetRegistros = 0;
+//var cargandoRegistros = false;
+//var divPadreOfertaRevista;
+//var tipoOrigen = '2';
 
 $(document).ready(function () {
     //$(document).on('click', '[data-btn-agregar-catalogopersonalizado]', function () {
@@ -117,7 +117,6 @@ $(document).ready(function () {
 //    ValidarCargaCatalogoPersonalizado();
 //    LinkCargarCatalogoToScroll();
 //}
-}
 
 //function IniDialog() {
 //    $('#DialogMensajes').dialog({
@@ -345,11 +344,11 @@ $(document).ready(function () {
 //                ActualizarGanancia(data.DataBarra);
 //                CargarCantidadProductosPedidos();
 //                TrackingJetloreAdd(item.Cantidad, $("#hdCampaniaCodigo").val(), item.CUV);
-            if (data.success != true) {
-                messageInfo(data.message);
-                CloseLoading();
-                return false;
-            }
+            //if (data.success != true) {
+            //    messageInfo(data.message);
+            //    CloseLoading();
+            //    return false;
+            //}
 
 
 //                if (typeof (otraFunct) == 'function') {

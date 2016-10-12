@@ -1726,7 +1726,7 @@
                 <input type="hidden" class="hdItemTipoOfertaRevista" value="{{TipoOfertaRevista}}" />                
                 <input type="hidden" class="OrigenPedidoWeb" value="@Portal.Consultoras.Common.Constantes.OrigenPedidoWeb.DesktopHomeCatalogoPersonalizado"/>
             </div>
-            <div class="producto_img_home mini" id="imagenAnimacion">
+            <div class="producto_img_home mini" id="imagenAnimacion" data-img="">
                 <img src="{{ImagenProductoSugerido}}" style="width: auto; height: 100%;" class="imagen_producto">
             </div>
             {{#if item.TieneLanzamientoCatalogoPersonalizado}}
@@ -2073,7 +2073,7 @@
     </div>
 </script>
 <script id="template-mod-ofer2" type="text/x-handlebars-template">
-    <div class="cuerpo-mod">
+    <div class="cuerpo-mod" data-oferta-popup="">
         <div style="display:none;" id="hiddenCatalogo">
             <input type="hidden" class="hdItemCuv" value="{{CUV}}" />
             <input type="hidden" class="hdItemTipoOfertaSisID" value="{{TipoOfertaSisID}}" />
@@ -2166,7 +2166,7 @@
     </div>
 </script>
 <script id="template-mod-ofer3" type="text/x-handlebars-template">
-    <div class="cuerpo-mod">
+    <div class="cuerpo-mod" data-oferta-popup="">
         <div class="cerrar-mod" data-close=""><img src="@Url.Content("/Content/Images/btn_cerrar_popupPercepcion.png")" /></div>
         <div class="encabezado_popupCatalogoPersonalizado">
             <div class="linea_encabezado_popupCatalogoPersonalizado"></div>
@@ -2318,7 +2318,6 @@
     <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.flexslider.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/slick.min.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.easy-pie-chart.js")"></script>
-    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/CatalogoPersonalizado/CatalogoPersonalizado.js")"></script>
     <script type="text/javascript">
         var viewBagInscritaFlexipago = '@Model.InscritaFlexipago';
         var viewBagPrimeraVezSession = '@Model.PrimeraVezSession';
