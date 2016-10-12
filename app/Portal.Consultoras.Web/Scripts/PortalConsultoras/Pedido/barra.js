@@ -160,7 +160,7 @@ function MostrarBarra(datax, destino) {
 
     var indPuntoLimite = 0;
     // obtener el punto limite actual
-    console.log(listaLimite);
+    //console.log(listaLimite);
     listaLimite = listaLimite || new Array();
     $.each(listaLimite, function (ind, limite) {
         if (ind > 0 ) {
@@ -249,13 +249,13 @@ function MostrarBarra(datax, destino) {
                     txtDetalle = "DSCTO";
                 }
                 else {
-                    txtDscto = indPuntoLimite - 1 != ind ? "DSCTO" : "";
+                    txtDscto = "DSCTO"; //indPuntoLimite - 1 != ind ? "DSCTO" : "";
                     txtDetalle = indPuntoLimite - 1 != ind ? "" :
                     (vbSimbolo + "" + limite.MontoDesdeStr + " a " + vbSimbolo + "" + limite.MontoHastaStr);
                 }
             }
             else {
-                txtDscto = indPuntoLimite != ind ? "DSCTO" : "";
+                txtDscto = "DSCTO"; //indPuntoLimite != ind ? "DSCTO" : "";
                 txtDetalle = indPuntoLimite != ind ? "" :
                 (vbSimbolo + "" + limite.MontoDesdeStr + " a más");
             }
@@ -405,6 +405,23 @@ function MostrarBarra(datax, destino) {
     }
     wLimiteAnterior = wLimiteAnterior < 0 ? 0 : wLimiteAnterior;
     wAreaMover = wLimite - wLimiteAnterior;
+
+    // por si se logro eliminar algun punto
+    listaLimite = listaLimite || new Array();
+    $.each(listaLimite, function (ind, limite) {
+        if (ind > 0) {
+            var valBack = listaLimite[ind - 1].valor;
+            if (valBack < vLogro && vLogro < limite.valor) {
+                indPuntoLimite = ind;
+            }
+            else if (vLogro >= limite.valor) {
+                indPuntoLimite = ind;
+            }
+            else if (valBack == vLogro && vLogro > 0) {
+                indPuntoLimite = ind;
+            }
+        }
+    });
 
     // ancho de logrado
     var vLimiteAnterior = indPuntoLimite > 0 ? listaLimite[indPuntoLimite - 1].valor : 0;
