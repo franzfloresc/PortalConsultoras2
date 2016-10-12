@@ -7975,6 +7975,23 @@ span.title-app-b {
     font-weight:700;
     top:0;
 }
+
+.notificaciones_menu_mobile2{
+    position:absolute;
+    left:140px;
+    width:100px;
+    height:20px;
+    /*border-radius:100px;*/
+    /*background:#e81c36;
+    color:white;*/
+    line-height:19px;
+    font-family:'Lato';
+    font-size:14px;
+    text-align:center;
+    font-weight:bold;
+    top:0;
+}
+
 .menu_subHeader{
     position:relative
 }
