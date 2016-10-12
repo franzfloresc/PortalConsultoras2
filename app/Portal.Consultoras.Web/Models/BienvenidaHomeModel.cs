@@ -80,6 +80,9 @@ namespace Portal.Consultoras.Web.Models
 
         public string ImagenUsuario { get; set; }
 
+        public BarraConsultoraModel DataBarra { get; set; }
         public bool EsCatalogoPersonalizadoZonaValida { get; set; }
+
+        public int VioTutorialSalvavidas { get; set; }
     }
 }

@@ -28,39 +28,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             return View(model);
         }
 
-        [HttpPost]
-        public JsonResult ActualizarLeidoSolicitud(long ProcesoId, int TipoOrigen)
-        {
-            var mensaje = string.Empty;
-            try
-            {
-                var userData = UserData();
-
-                using (var service = new UsuarioServiceClient())
-                {
-                    if (TipoOrigen == 4)
-                    {
-                        service.UpdNotificacionSolicitudClienteVisualizacion(userData.PaisID, ProcesoId);
-                    }
-                    if (TipoOrigen == 5)
-                    {
-                        service.UpdNotificacionSolicitudClienteCatalogoVisualizacion(userData.PaisID, ProcesoId);
-                    }
-                    else
-                    {
-                        service.UpdNotificacionesConsultoraVisualizacion(userData.PaisID, ProcesoId, TipoOrigen);
-                    }
-                }
-
-                SessionKeys.ClearSessionCantidadNotificaciones();
-            }
-            catch (Exception ex)
-            {
-                mensaje = ex.Message;
-            }
-            return Json(new { mensaje }, JsonRequestBehavior.AllowGet);
-        }
-
         public ActionResult DetalleSolicitudCliente(long SolicitudId)
         {
             var userData = UserData();
