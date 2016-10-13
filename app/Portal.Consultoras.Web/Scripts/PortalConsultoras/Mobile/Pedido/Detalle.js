@@ -78,7 +78,9 @@ $(document).ready(function () {
         };
 
         InsertarProducto(model);
-
+        AgregarOfertaFinalLog(cuv, cantidad, tipoOfertaFinal_Log, gap_Log, 1);
+        TrackingJetloreAdd(cantidad, $("#hdCampaniaCodigo").val(), cuv);
+        
         setTimeout(function () {
             $("#popupOfertaFinal").hide();
             EjecutarServicioPROLSinOfertaFinal();

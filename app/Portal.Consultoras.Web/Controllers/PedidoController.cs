@@ -1364,6 +1364,8 @@ namespace Portal.Consultoras.Web.Controllers
                     foreach (var beProducto in listaProduto)
                         codigoSap += beProducto.CodigoProducto + "|";
 
+                    codigoSap = codigoSap == "" ? "" : codigoSap.Substring(0, codigoSap.Length - 1);
+
                     try
                     {
                         using (var sv = new ServicePROLConsultas.wsConsulta())
@@ -4038,11 +4040,13 @@ namespace Portal.Consultoras.Web.Controllers
                 foreach (var beEstrategia in listaTemporal)
                     codigoSap += beEstrategia.CodigoProducto + "|";
 
+                codigoSap = codigoSap == "" ? "" : codigoSap.Substring(0, codigoSap.Length - 1);
+
                 var listaTieneStock = new List<Lista>();
 
                 try
                 {
-                    using (var sv = new ServicePROLConsultas.wsConsulta())
+                    using (var sv = new wsConsulta())
                     {
                         sv.Url = ConfigurationManager.AppSettings["RutaServicePROLConsultas"];
                         listaTieneStock = sv.ConsultaStock(codigoSap, userData.CodigoISO).ToList();
@@ -4619,13 +4623,13 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         [HttpPost]
-        public JsonResult InsertarOfertaFinalLog(string CUV, int cantidad, string tipoOfertaFinal_Log, decimal gap_Log)
+        public JsonResult InsertarOfertaFinalLog(string CUV, int cantidad, string tipoOfertaFinal_Log, decimal gap_Log, int tipoRegistro)
         {
             try 
             {
                 using (PedidoServiceClient svp = new PedidoServiceClient())
                 {
-                    svp.InsLogOfertaFinal(userData.PaisID, userData.CampaniaID, userData.CodigoConsultora, CUV, cantidad, tipoOfertaFinal_Log, gap_Log);
+                    svp.InsLogOfertaFinal(userData.PaisID, userData.CampaniaID, userData.CodigoConsultora, CUV, cantidad, tipoOfertaFinal_Log, gap_Log, tipoRegistro);
                 }
                 return Json(new
                     {
