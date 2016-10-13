@@ -52,7 +52,7 @@ function MostrarPopupOfertaFinal(cumpleOferta, tipoPopupMostrar) {
     
     var contenedorMostrarInicial = $(".content_item_carrusel_ofertaFinal.slick-active")[0];
     var cuvMostrado = $(contenedorMostrarInicial).find(".hdOfertaFinalCuv").val();
-    AgregarOfertaFinalLog(cuvMostrado, 0, tipoOfertaFinal_Log, gap_Log);
+    AgregarOfertaFinalLog(cuvMostrado, 0, tipoOfertaFinal_Log, gap_Log, 2);
 }
 
 function CargandoValoresPopupOfertaFinal(tipoPopupMostrar, montoFaltante, porcentajeDescuento) {
@@ -308,4 +308,31 @@ function ObtenerProductosOfertaFinal(tipoOfertaFinal) {
         lista: lista,
         limite: limite
     };
+}
+
+function AgregarOfertaFinalLog(cuv, cantidad, tipoOfertaFinal_log, gap_Log, tipoRegistro) {
+    var param = {
+        CUV: cuv,
+        cantidad: cantidad,
+        tipoOfertaFinal_Log: tipoOfertaFinal_log,
+        gap_Log: gap_Log,
+        tipoRegistro: tipoRegistro
+    };
+
+    jQuery.ajax({
+        type: 'POST',
+        url: baseUrl + 'Pedido/InsertarOfertaFinalLog',
+        dataType: 'json',
+        contentType: 'application/json; charset=utf-8',
+        data: JSON.stringify(param),
+        async: true,
+        success: function (response) {
+            if (response.success == true) {
+                //console.log(response.result);
+            }
+        },
+        error: function (data, error) {
+            AjaxError(data, error);
+        }
+    });
 }
