@@ -326,7 +326,6 @@ namespace Portal.Consultoras.BizLogic
                 //if (ConfigurationManager.AppSettings["OrderDownloadIncludeDatosConsultora"] == "1" && !isFox && tipoCronograma == 1)
                 if (ConfigurationManager.AppSettings["OrderDownloadIncludeDatosConsultora"] == "1" && tipoCronograma == 1) //VVA 2450 CGI //CO528
                 {
-
                     actdatosTemplate = ParseTemplate(ConfigurationManager.AppSettings[element.ActDatosTemplate]);
                     if (string.IsNullOrEmpty(ErrorCoDat))
                     {
@@ -1203,6 +1202,9 @@ namespace Portal.Consultoras.BizLogic
                     case "TELEFONO":
                         item = row["Telefono"].ToString().Length > 15 ? row["Telefono"].ToString().Substring(0, 15) : row["Telefono"].ToString();
                         break;
+                    case "TELEFONOTRABAJO":
+                        item = row["TelefonoTrabajo"].ToString().Length > 15 ? row["TelefonoTrabajo"].ToString().Substring(0, 15) : row["TelefonoTrabajo"].ToString();
+                        break;
                     case "TELEFONOMOVIL":
                         item = row["Celular"].ToString().Length > 15 ? row["Celular"].ToString().Substring(0, 15) : row["Celular"].ToString();
                         break;
@@ -1218,6 +1220,12 @@ namespace Portal.Consultoras.BizLogic
                     case "CAMPANIAACTIVACIONEMAIL":
                         item = row["CampaniaActivacionEmail"].ToString().Length > 6 ? row["CampaniaActivacionEmail"].ToString().Substring(0, 6) : row["CampaniaActivacionEmail"].ToString();
                         break;
+                    case "LATITUD":
+                        item = row["Latitud"].ToString().Length > 30 ? row["Latitud"].ToString().Substring(0, 30) : row["Latitud"].ToString();
+                        break;
+                    case "LONGITUD":
+                        item = row["Longitud"].ToString().Length > 30 ? row["Longitud"].ToString().Substring(0, 30) : row["Longitud"].ToString();
+                        break;
                     default: item = string.Empty; break;
                 }
 
@@ -1228,11 +1236,17 @@ namespace Portal.Consultoras.BizLogic
 
         private TemplateField[] ParseTemplate(string templateText)
         {
+            bool descargaActDatosv2 = ConfigurationManager.AppSettings["DescargaActDatosv2"] == "1";
+            List<string> CamposActDatosv2 = new List<string>{ "TELEFONOTRABAJO", "LATITUD", "LONGITUD"};
             string[] parts = templateText.Split(';');
             var template = new TemplateField[parts.Length];
+            TemplateField templateField;
+
             for (int index = 0; index < parts.Length; index++)
             {
-                template[index] = new TemplateField(parts[index]);
+                templateField = new TemplateField(parts[index]);
+                if(!descargaActDatosv2 && CamposActDatosv2.Contains(templateField.FieldName)) continue;
+                template[index] = templateField;
             }
             return template;
         }
