@@ -133,6 +133,9 @@ function CargarCatalogoPersonalizado() {
                     $("#linea_separadoraCP").show();
                 }
                 if (data.data.length == 0) {
+                    if (tipoOrigen == '3') {
+                        $("#divMainCatalogoPersonalizado").remove();
+                    }
                     return false;
                 }
 
@@ -143,9 +146,11 @@ function CargarCatalogoPersonalizado() {
                 //data.data[1].TipoOfertaRevista = '048';
                 //data.data[1].CUV = '11791';
 
-                if (data.data.length > 0) {
-                    var htmlDiv = SetHandlebars("#template-catalogopersonalizado", data.data);
-                    $('#divCatalogoPersonalizado').append(htmlDiv);
+                var htmlDiv = SetHandlebars("#template-catalogopersonalizado", data.data);
+                $('#divCatalogoPersonalizado').append(htmlDiv);
+                
+                if (tipoOrigen == '3') {
+                    $("#divMainCatalogoPersonalizado").show();
                 }
 
                 if (tipoOrigen == '1') {
