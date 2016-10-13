@@ -20443,10 +20443,6 @@ label.checkpop.c_on {
 
 /*HEADER SECCION INGRESA TU PEDIDO*/
 
-/*.content{
-    background:#000;
-    height:280px;
-}*/
 
 /*ESTILOS PARA LIQUIDACIÓN*/
 .wrapper_home_interiores{
@@ -21871,7 +21867,8 @@ hr{
     display:block;
 }
 .content{
-   background: white;
+   position:relative;
+   background: white;      
 }
 body{
     background: #f9f9f9;
