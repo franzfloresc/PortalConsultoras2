@@ -440,7 +440,7 @@ $(document).ready(function () {
             };
 
             AgregarProducto('Insert', model, "", false);
-            AgregarOfertaFinalLog(cuv, cantidad, tipoOfertaFinal_Log, gap_Log)
+            AgregarOfertaFinalLog(cuv, cantidad, tipoOfertaFinal_Log, gap_Log);
             TrackingJetloreAdd(cantidad, $("#hdCampaniaCodigo").val(), cuv);
             setTimeout(function () {
                 $("#divOfertaFinal").hide();

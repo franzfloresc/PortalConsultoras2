@@ -49,7 +49,10 @@ function MostrarPopupOfertaFinal(cumpleOferta, tipoPopupMostrar) {
     $('#divCarruselOfertaFinal').prepend($(".js-slick-next-" + aux));
     
     CargandoValoresPopupOfertaFinal(tipoPopupMostrar, cumpleOferta.montoFaltante, cumpleOferta.porcentajeDescuento);
-
+    
+    var contenedorMostrarInicial = $(".content_item_carrusel_ofertaFinal.slick-active")[0];
+    var cuvMostrado = $(contenedorMostrarInicial).find(".hdOfertaFinalCuv").val();
+    AgregarOfertaFinalLog(cuvMostrado, 0, tipoOfertaFinal_Log, gap_Log);
 }
 
 function CargandoValoresPopupOfertaFinal(tipoPopupMostrar, montoFaltante, porcentajeDescuento) {
