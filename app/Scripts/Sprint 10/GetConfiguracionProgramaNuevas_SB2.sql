@@ -34,23 +34,40 @@ BEGIN
 	from ods.ConfiguracionProgramaNuevasUA
 	where codigoprograma = @CodigoPrograma
 	
+	set @add = 1
 	if @ExisteRegistro > 0
 	begin
+			set @add = 0
+
 			select @CodigoRegionx = isnull(CodigoRegion, '')
 				, @CodigoZonax = isnull(CodigoZona, '')
 			from ods.ConfiguracionProgramaNuevasUA
 			where codigoprograma = @CodigoPrograma
 				and CodigoRegion = @CodigoRegion
 				--and (CodigoZona = @CodigoZona or CodigoZona is null)
-	end
 
-	if @ExisteRegistro = 0
-		set @add = 1
-	else if @CodigoRegionx != '' or  @CodigoZonax != ''
-		set @add = 1
-	else
-		set @add = 0
-		
+			if @CodigoRegionx != ''
+			begin
+			
+				set @add = 1
+				if @CodigoZonax != ''
+				begin
+					set @add = 0
+			
+					select @CodigoRegionx = isnull(CodigoRegion, '')
+						, @CodigoZonax = isnull(CodigoZona, '')
+					from ods.ConfiguracionProgramaNuevasUA
+					where codigoprograma = @CodigoPrograma
+						and CodigoRegion = @CodigoRegion
+						and CodigoZona = @CodigoZona
+					
+					if @CodigoZonax != ''
+						set @add = 1
+
+				end
+			end
+	end
+			
 	if @add = 1
 	begin
 			select 
