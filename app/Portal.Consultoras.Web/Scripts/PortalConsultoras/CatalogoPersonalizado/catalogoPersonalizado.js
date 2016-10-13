@@ -136,12 +136,12 @@ function CargarCatalogoPersonalizado() {
                     return false;
                 }
 
-                data.data[0].TieneOfertaEnRevista = true;
-                data.data[0].TipoOfertaRevista = '048';
-                data.data[0].CUV = '10989';
-                data.data[1].TieneOfertaEnRevista = true;
-                data.data[1].TipoOfertaRevista = '048';
-                data.data[1].CUV = '11791';
+                //data.data[0].TieneOfertaEnRevista = true;
+                //data.data[0].TipoOfertaRevista = '048';
+                //data.data[0].CUV = '10989';
+                //data.data[1].TieneOfertaEnRevista = true;
+                //data.data[1].TipoOfertaRevista = '048';
+                //data.data[1].CUV = '11791';
 
                 if (data.data.length > 0) {
                     var htmlDiv = SetHandlebars("#template-catalogopersonalizado", data.data);
