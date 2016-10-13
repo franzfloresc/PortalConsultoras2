@@ -23,6 +23,10 @@ namespace Portal.Consultoras.Entities
         public string CuponKit { get; set; }
         [DataMember]
         public string CUVKit { get; set; }
+        [DataMember]
+        public string CodigoZona { get; set; }
+        [DataMember]
+        public string CodigoRegion { get; set; }
 
 
         public BEConfiguracionProgramaNuevas(IDataRecord datarec)
@@ -41,6 +45,10 @@ namespace Portal.Consultoras.Entities
                 CuponKit = DbConvert.ToString(datarec["CuponKit"]);
             if (DataRecord.HasColumn(datarec, "CUVKit") && datarec["CUVKit"] != DBNull.Value)
                 CUVKit = DbConvert.ToString(datarec["CUVKit"]);
+            if (DataRecord.HasColumn(datarec, "CodigoZona") && datarec["CodigoZona"] != DBNull.Value)
+                CodigoZona = DbConvert.ToString(datarec["CodigoZona"]);
+            if (DataRecord.HasColumn(datarec, "CodigoRegion") && datarec["CodigoRegion"] != DBNull.Value)
+                CodigoRegion = DbConvert.ToString(datarec["CodigoRegion"]);
         }
     }
 }

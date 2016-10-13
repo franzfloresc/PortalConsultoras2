@@ -2313,6 +2313,7 @@
         <xs:element minOccurs="0" name="cantidad" type="xs:int" />
         <xs:element minOccurs="0" name="tipoOfertaFinal" nillable="true" type="xs:string" />
         <xs:element minOccurs="0" name="GAP" type="xs:decimal" />
+        <xs:element minOccurs="0" name="tipoRegistro" type="xs:int" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

@@ -1356,6 +1356,8 @@ namespace Portal.Consultoras.Web.Controllers
                     foreach (var beProducto in listaProduto)
                         codigoSap += beProducto.CodigoProducto + "|";
 
+                    codigoSap = codigoSap == "" ? "" : codigoSap.Substring(0, codigoSap.Length - 1);
+
                     try
                     {
                         using (var sv = new ServicePROLConsultas.wsConsulta())
@@ -4003,11 +4005,13 @@ namespace Portal.Consultoras.Web.Controllers
                 foreach (var beEstrategia in listaTemporal)
                     codigoSap += beEstrategia.CodigoProducto + "|";
 
+                codigoSap = codigoSap == "" ? "" : codigoSap.Substring(0, codigoSap.Length - 1);
+
                 var listaTieneStock = new List<Lista>();
 
                 try
                 {
-                    using (var sv = new ServicePROLConsultas.wsConsulta())
+                    using (var sv = new wsConsulta())
                     {
                         sv.Url = ConfigurationManager.AppSettings["RutaServicePROLConsultas"];
                         listaTieneStock = sv.ConsultaStock(codigoSap, userData.CodigoISO).ToList();
@@ -4308,7 +4312,6 @@ namespace Portal.Consultoras.Web.Controllers
 
         private void AgregarKitNuevas()
         {
-            if (userData.CodigoISO == "MX" && new List<string> { "53", "63", "71" }.Contains(userData.CodigorRegion)) return;
             if (Session["ConfiguracionProgramaNuevas"] != null) return;
 
             if (!(userData.ConsultoraNueva == Constantes.EstadoActividadConsultora.Registrada
@@ -4317,9 +4320,11 @@ namespace Portal.Consultoras.Web.Controllers
                 Session["ConfiguracionProgramaNuevas"] = new BEConfiguracionProgramaNuevas();
                 return;
             }
-
+            
             BEConfiguracionProgramaNuevas oBEConfiguracionProgramaNuevas = new BEConfiguracionProgramaNuevas();
             oBEConfiguracionProgramaNuevas.CampaniaInicio = userData.CampaniaID.ToString();
+            oBEConfiguracionProgramaNuevas.CodigoRegion = userData.CodigorRegion;
+            oBEConfiguracionProgramaNuevas.CodigoZona = userData.CodigoZona;
             using (PedidoServiceClient sv = new PedidoServiceClient())
             {
                 try
@@ -4335,13 +4340,11 @@ namespace Portal.Consultoras.Web.Controllers
                     Session["ConfiguracionProgramaNuevas"] = oBEConfiguracionProgramaNuevas;
                     if (oBEConfiguracionProgramaNuevas.IndProgObli != "1") return;
 
-                    var listaTempListado = (List<BEPedidoWebDetalle>)Session["PedidoWebDetalle"];
+                    var listaTempListado = ObtenerPedidoWebDetalle();
 
-                    BEPedidoWebDetalle det;
+                    BEPedidoWebDetalle det = new BEPedidoWebDetalle();
                     if (listaTempListado != null)
                         det = listaTempListado.FirstOrDefault(d => d.CUV == oBEConfiguracionProgramaNuevas.CUVKit) ?? new BEPedidoWebDetalle();
-                    else
-                        det = new BEPedidoWebDetalle();
 
                     if (det.PedidoDetalleID > 0) return;
 
@@ -4585,13 +4588,13 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         [HttpPost]
-        public JsonResult InsertarOfertaFinalLog(string CUV, int cantidad, string tipoOfertaFinal_Log, decimal gap_Log)
+        public JsonResult InsertarOfertaFinalLog(string CUV, int cantidad, string tipoOfertaFinal_Log, decimal gap_Log, int tipoRegistro)
         {
             try 
             {
                 using (PedidoServiceClient svp = new PedidoServiceClient())
                 {
-                    svp.InsLogOfertaFinal(userData.PaisID, userData.CampaniaID, userData.CodigoConsultora, CUV, cantidad, tipoOfertaFinal_Log, gap_Log);
+                    svp.InsLogOfertaFinal(userData.PaisID, userData.CampaniaID, userData.CodigoConsultora, CUV, cantidad, tipoOfertaFinal_Log, gap_Log, tipoRegistro);
                 }
                 return Json(new
                     {

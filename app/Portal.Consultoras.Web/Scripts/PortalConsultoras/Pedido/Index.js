@@ -440,7 +440,7 @@ $(document).ready(function () {
             };
 
             AgregarProducto('Insert', model, "", false);
-            AgregarOfertaFinalLog(cuv, cantidad, tipoOfertaFinal_Log, gap_Log)
+            AgregarOfertaFinalLog(cuv, cantidad, tipoOfertaFinal_Log, gap_Log, 1);
             TrackingJetloreAdd(cantidad, $("#hdCampaniaCodigo").val(), cuv);
             setTimeout(function () {
                 $("#divOfertaFinal").hide();
@@ -3893,32 +3893,6 @@ function CambioPagina(obj) {
     }
     CargarDetallePedido(rpt.page, rpt.rows);
     return true;
-}
-
-function AgregarOfertaFinalLog(cuv, cantidad, tipoOfertaFinal_log, gap_Log) {
-    var param = {
-        CUV: cuv,
-        cantidad: cantidad,
-        tipoOfertaFinal_Log: tipoOfertaFinal_log,
-        gap_Log: gap_Log
-    };
-
-    jQuery.ajax({
-        type: 'POST',
-        url: baseUrl + 'Pedido/InsertarOfertaFinalLog',
-        dataType: 'json',
-        contentType: 'application/json; charset=utf-8',
-        data: JSON.stringify(param),
-        async: true,
-        success: function (response) {            
-            if (response.success == true) {
-                console.log(response.result);
-            }           
-        },
-        error: function (data, error) {           
-            AjaxError(data, error);
-        }
-    });
 }
 
 function AgregarProducto(url, model, divDialog, cerrarSplash) {
