@@ -1,4 +1,4 @@
-Use BelcorpPeru
+Use BelcorpDominicana
 go
 
 if (select COUNT(*) from dbo.sysobjects inner join dbo.syscolumns on SYSOBJECTS.ID = SYSCOLUMNS.ID 
