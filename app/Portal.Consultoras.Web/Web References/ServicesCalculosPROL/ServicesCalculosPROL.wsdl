@@ -136,7 +136,6 @@
           <s:element minOccurs="1" maxOccurs="1" name="cantidad" type="s:int" />
           <s:element minOccurs="0" maxOccurs="1" name="codsap_nivel_gratis" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="descripcion_gratis" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="imagen_gratis" type="s:string" />
         </s:sequence>
       </s:complexType>
       <s:complexType name="ArrayOfObjPack">
@@ -165,7 +164,6 @@
           <s:element minOccurs="0" maxOccurs="1" name="descripcion_item_pack" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="cantidad_item_pack" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="codsap_item_pack" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="imagen_item_pack" type="s:string" />
         </s:sequence>
       </s:complexType>
     </s:schema>
