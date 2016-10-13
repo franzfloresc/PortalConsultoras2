@@ -275,9 +275,9 @@ namespace Portal.Consultoras.Web.ServicesCalculosPROL {
         private string descripcion_item_packField;
         
         private string cantidad_item_packField;
-
+        
         private string codsap_item_packField;
-
+        
         private string imagen_item_packField;
         
         /// <comentarios/>
@@ -331,14 +331,11 @@ namespace Portal.Consultoras.Web.ServicesCalculosPROL {
         }
         
         /// <comentarios/>
-        public string imagen_item_pack
-        {
-            get
-            {
+        public string imagen_item_pack {
+            get {
                 return this.imagen_item_packField;
             }
-            set
-            {
+            set {
                 this.imagen_item_packField = value;
             }
         }
@@ -426,9 +423,9 @@ namespace Portal.Consultoras.Web.ServicesCalculosPROL {
         private int cantidadField;
         
         private string codsap_nivel_gratisField;
-
+        
         private string descripcion_gratisField;
-
+        
         private string imagen_gratisField;
         
         /// <comentarios/>
@@ -472,14 +469,11 @@ namespace Portal.Consultoras.Web.ServicesCalculosPROL {
         }
         
         /// <comentarios/>
-        public string imagen_gratis
-        {
-            get
-            {
+        public string imagen_gratis {
+            get {
                 return this.imagen_gratisField;
             }
-            set
-            {
+            set {
                 this.imagen_gratisField = value;
             }
         }
