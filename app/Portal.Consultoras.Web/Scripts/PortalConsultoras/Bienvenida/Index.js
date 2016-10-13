@@ -2020,6 +2020,7 @@ function CargarMisDatos() {
             $('#txtSobrenombreMD').val(temp.Sobrenombre);
             $('#txtEMailMD').val(temp.EMail);
             $('#txtTelefonoMD').val(temp.Telefono);
+            $('#txtTelefonoTrabajoMD').val(temp.TelefonoTrabajo);
             $('#txtCelularMD').val(temp.Celular);
             $('#popupMisDatos').show();
             closeWaitingDialog();
@@ -2135,6 +2136,7 @@ function ActualizarMD() {
         CodigoUsuario: jQuery('#hdn_CodigoUsuarioMD').val(),
         EMail: $.trim(jQuery('#txtEMailMD').val()),
         Telefono: jQuery('#txtTelefonoMD').val(),
+        TelefonoTrabajo: jQuery('#txtTelefonoTrabajoMD').val(),
         Celular: jQuery('#txtCelularMD').val(),
         Sobrenombre: jQuery('#txtSobrenombreMD').val(),
         CorreoAnterior: $.trim(jQuery('#hdn_CorreoMD').val()),
@@ -2345,6 +2347,7 @@ function ActualizarDatos() {
 
     var item = {
         Telefono: jQuery('#txtTelefono').val(),
+        TelefonoTrabajo: jQuery('#txtTelefonoTrabajo').val(),
         Celular: jQuery('#txtCelular').val(),
         Email: $.trim(jQuery('#txtEMail').val()),
         ActualizarClave: ClaveSecreta,
@@ -2447,14 +2450,6 @@ function CerrarPopupActualizacionDatos() {
         alert('Las claves ingresadas no coinciden');
         return false;
     }
-    var item = {
-        Telefono: jQuery('#txtTelefono').val(),
-        Celular: jQuery('#txtCelular').val(),
-        Email: jQuery('#txtEMail').val(),
-        ActualizarClave: ClaveSecreta,
-        ConfirmarClave: ConfirmarClaveSecreta,
-        CorreoAnterior: jQuery('#hdn_Correo').val(),
-    };
     waitingDialog({});
 
     jQuery.ajax({
@@ -2462,7 +2457,6 @@ function CerrarPopupActualizacionDatos() {
         url: baseUrl + 'ActualizarDatos/Cancelar',
         dataType: 'json',
         contentType: 'application/json; charset=utf-8',
-        data: JSON.stringify(item),
         async: true,
         success: function (data) {
             if (checkTimeout(data)) {

@@ -166,7 +166,8 @@
             <!-- AÑADIR LA CLASES "mt_47" PARA CENTRAR LA INFORMACIÓN -->
             Mi deuda actual es:
             <div class="deuda_home" id="spanDeuda">
-                @Model.Simbolo @Util.DecimalToStringFormat(Model.MontoDeuda, Model.PrefijoPais)
+                @Model.Simbolo 
+                <span>@Util.DecimalToStringFormat(Model.MontoDeuda, Model.PrefijoPais)</span>
             </div>
             <span>Vencimiento: <span id="spanVencimiento">@Model.FechaVencimiento</span></span>
         </div>
@@ -217,7 +218,7 @@
                 else if (Model.PrefijoPais == Constantes.CodigosISOPais.Chile)
                 {
                     cabezaEscala = "Comisión y ahorro total*";
-                    pieEscala = "*Comisión = Ganancia estimada proveniente de tus descuentos por compras en catálogo; <br>Ahorro = Ahorro estimado proveniente de compras de Guía de Negocio y Otros.";
+                    pieEscala = "*Comisión = Ganancia estimada proveniente de tus descuentos por compras en catálogo; Ahorro = Ahorro estimado proveniente de compras de Guía de Negocio y Otros.";
                 }
                 else if (Model.PrefijoPais == Constantes.CodigosISOPais.Mexico || Model.PrefijoPais == Constantes.CodigosISOPais.Panama)
                 {
@@ -823,6 +824,10 @@
                 </div>
                 <div class="grupo_input_actualizarMisDatos">
                     <div>
+                        <label><span class="asterisco_actualizar_datos">(*)&nbsp;</span>Teléfono de trabajo</label>
+                        <input type="text" name="m_txtTelefonoTrabajo" id="m_txtTelefonoTrabajo" class="requerido" maxlength="10" placeholder="Número incluye lada (10 dígitos)" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" value="@Model.TelefonoTrabajo" />
+                    </div>
+                    <div>
                         <label><span class="asterisco_actualizar_datos">(*)&nbsp;</span>Correo electrónico</label>
                         <input type="email" name="email" id="m_txtEMail" class="requerido" />
                     </div>
@@ -856,20 +861,27 @@
             <h1 class="titulo_actualizarMisDatos" id="tituloActualizarDatos"></h1>
             <form class="formulario_actualizar_datos">
                 <div class="grupo_input_actualizarMisDatos">
-                    <div>
-                        <label>Nombres</label>
-                        <input type="text" name="nombres" id="" value="@Model.NombreCompleto" />
-                    </div>
+                    <div></div>
                     <a href="javascript:;" class="cambiar_contrasenia" id="lnkCambiarContrasena">CAMBIAR CONTRASEÑA</a>
                 </div>
                 <div class="grupo_input_actualizarMisDatos">
                     <div>
+                        <label>Nombres</label>
+                        <input type="text" name="nombres" id="" value="@Model.NombreCompleto" />
+                    </div>
+                    <div>
                         <label>Teléfono</label>
                         <input type="text" name="telefono" id="txtTelefono" value="@Model.Telefono" />
                     </div>
+                </div>
+                <div class="grupo_input_actualizarMisDatos">
                     <div>
                         <label>Celular</label>
                         <input type="text" name="celular" id="txtCelular" value="@Model.Celular" />
+                    </div>
+                    <div>
+                        <label>Teléfono de trabajo</label>
+                        <input type="text" name="telefonoTrabajo" id="txtTelefonoTrabajo" value="@Model.TelefonoTrabajo" />
                     </div>
                 </div>
                 <div class="grupo_input_actualizarMisDatos">
@@ -1071,6 +1083,12 @@
                     <div>
                         <label><span class="asterisco_actualizar_datos">(*)&nbsp;</span>Tu celular:</label>
                         <input type="text" name="txtCelularMD" id="txtCelularMD" />
+                    </div>
+                </div>
+                <div class="grupo_input_actualizarMisDatos campos_actualizarDatos">
+                    <div>
+                        <label><span class="asterisco_actualizar_datos"></span>Tu teléfono de trabajo:</label>
+                        <input type="text" name="txtTelefonoTrabajoMD" id="txtTelefonoTrabajoMD" />
                     </div>
                 </div>
                 <div class="grupo_input_actualizarMisDatos campos_actualizarDatos">
@@ -1698,7 +1716,7 @@
                 <input type="hidden" class="hdItemTipoOfertaRevista" value="{{TipoOfertaRevista}}" />                
                 <input type="hidden" class="OrigenPedidoWeb" value="@Portal.Consultoras.Common.Constantes.OrigenPedidoWeb.DesktopHomeCatalogoPersonalizado"/>
             </div>
-            <div class="producto_img_home mini" id="imagenAnimacion">
+            <div class="producto_img_home mini" id="imagenAnimacion" data-img="">
                 <img src="{{ImagenProductoSugerido}}" style="width: auto; height: 100%;" class="imagen_producto">
             </div>
             {{#if item.TieneLanzamientoCatalogoPersonalizado}}
@@ -1745,7 +1763,7 @@
 </script>
 
 <script id="template-mod-ofer1" type="text/x-handlebars-template">
-    <div class="cuerpo-mod">
+    <div class="cuerpo-mod" data-oferta-popup="">
         <div style="display:none;" id="hiddenCatalogo">
             <input type="hidden" class="hdItemCuv" value="{{CUV}}" />
             <input type="hidden" class="hdItemTipoOfertaSisID" value="{{TipoOfertaSisID}}" />
@@ -1759,22 +1777,22 @@
             <input type="hidden" class="hdItemDescripcionCategoria" value="{{DescripcionCategoria}}" />
             <input type="hidden" class="hdItemDescripcionMarca" value="{{DescripcionMarca}}" />
             <input type="hidden" class="hdItemDescripcionEstrategia" value="{{DescripcionEstrategia}}" />
-            <input type="hidden" class="OrigenPedidoWeb" value="@Portal.Consultoras.Common.Constantes.OrigenPedidoWeb.DesktopHomeCatalogoPersonalizadoPopUp"/>
+            <input type="hidden" class="OrigenPedidoWeb" value="@Portal.Consultoras.Common.Constantes.OrigenPedidoWeb.DesktopHomeCatalogoPersonalizadoPopUp" />
         </div>
         <div style="display:none;" id="hiddenRevista">
-                <input type="hidden" class="hdItemCuv" value="{{productoRevista.CUV}}" />
-                <input type="hidden" class="hdItemTipoOfertaSisID" value="{{productoRevista.TipoOfertaSisID}}" />
-                <input type="hidden" class="hdItemConfiguracionOfertaID" value="{{productoRevista.ConfiguracionOfertaID}}" />
-                <input type="hidden" class="hdItemIndicadorMontoMinimo" value="{{productoRevista.IndicadorMontoMinimo}}" />
-                <input type="hidden" class="hdItemTipo" value="1" />
-                <input type="hidden" class="hdItemMarcaID" value="{{productoRevista.MarcaID}}" />
-                <input type="hidden" class="hdItemPrecioUnidad" value="{{productoRevista.PrecioCatalogo}}" />
-                <input type="hidden" class="hdItemDescripcionProd" value="{{productoRevista.Descripcion}}" />
-                <input type="hidden" class="hdItemPagina" value="0" />
-                <input type="hidden" class="hdItemDescripcionCategoria" value="{{productoRevista.DescripcionCategoria}}" />
-                <input type="hidden" class="hdItemDescripcionMarca" value="{{productoRevista.DescripcionMarca}}" />
-                <input type="hidden" class="hdItemDescripcionEstrategia" value="{{productoRevista.DescripcionEstrategia}}" />
-                <input type="hidden" class="OrigenPedidoWeb" value="@Portal.Consultoras.Common.Constantes.OrigenPedidoWeb.DesktopCatalogoPersonalizadoPopUp"/>
+            <input type="hidden" class="hdItemCuv" value="{{productoRevista.CUV}}" />
+            <input type="hidden" class="hdItemTipoOfertaSisID" value="{{productoRevista.TipoOfertaSisID}}" />
+            <input type="hidden" class="hdItemConfiguracionOfertaID" value="{{productoRevista.ConfiguracionOfertaID}}" />
+            <input type="hidden" class="hdItemIndicadorMontoMinimo" value="{{productoRevista.IndicadorMontoMinimo}}" />
+            <input type="hidden" class="hdItemTipo" value="1" />
+            <input type="hidden" class="hdItemMarcaID" value="{{productoRevista.MarcaID}}" />
+            <input type="hidden" class="hdItemPrecioUnidad" value="{{productoRevista.PrecioCatalogo}}" />
+            <input type="hidden" class="hdItemDescripcionProd" value="{{productoRevista.Descripcion}}" />
+            <input type="hidden" class="hdItemPagina" value="0" />
+            <input type="hidden" class="hdItemDescripcionCategoria" value="{{productoRevista.DescripcionCategoria}}" />
+            <input type="hidden" class="hdItemDescripcionMarca" value="{{productoRevista.DescripcionMarca}}" />
+            <input type="hidden" class="hdItemDescripcionEstrategia" value="{{productoRevista.DescripcionEstrategia}}" />
+            <input type="hidden" class="OrigenPedidoWeb" value="@Portal.Consultoras.Common.Constantes.OrigenPedidoWeb.DesktopCatalogoPersonalizadoPopUp" />
         </div>
         <div class="cerrar-mod" data-close=""><img src="@Url.Content("/Content/Images/btn_cerrar_popupPercepcion.png")" /></div>
         <div class="encabezado_popupCatalogoPersonalizado">
@@ -1784,7 +1802,7 @@
         </div>
         <div class="contiene-productos">
             <div class="producto_img_home mini" id="imagenAnimacion">
-                <img src="{{UrlImagen}}"/>
+                <img src="{{UrlImagen}}" />
             </div>
 
             <div class="producto_nombre_descripcion">
@@ -1833,219 +1851,8 @@
         </div>
     </div>
 </script>
-<script id="template-mod-ofer2A" type="text/x-handlebars-template">
-    <div class="cuerpo-mod">
-        <div style="display:none;" id="hiddenCatalogo">
-            <input type="hidden" class="hdItemCuv" value="{{CUV}}" />
-            <input type="hidden" class="hdItemTipoOfertaSisID" value="{{TipoOfertaSisID}}" />
-            <input type="hidden" class="hdItemConfiguracionOfertaID" value="{{ConfiguracionOfertaID}}" />
-            <input type="hidden" class="hdItemIndicadorMontoMinimo" value="{{IndicadorMontoMinimo}}" />
-            <input type="hidden" class="hdItemTipo" value="1" />
-            <input type="hidden" class="hdItemMarcaID" value="{{MarcaID}}" />
-            <input type="hidden" class="hdItemPrecioUnidad" value="{{PrecioCatalogo}}" />
-            <input type="hidden" class="hdItemDescripcionProd" value="{{Descripcion}}" />
-            <input type="hidden" class="hdItemPagina" value="0" />
-            <input type="hidden" class="hdItemDescripcionCategoria" value="{{DescripcionCategoria}}" />
-            <input type="hidden" class="hdItemDescripcionMarca" value="{{DescripcionMarca}}" />
-            <input type="hidden" class="hdItemDescripcionEstrategia" value="{{DescripcionEstrategia}}" />
-            <input type="hidden" class="OrigenPedidoWeb" value="@Portal.Consultoras.Common.Constantes.OrigenPedidoWeb.DesktopCatalogoPersonalizadoPopUp"/>
-        </div>
-        <div style="display:none;" id="hiddenRevista">
-                <input type="hidden" class="hdItemCuv" value="{{productoRevista.CUV}}" />
-                <input type="hidden" class="hdItemTipoOfertaSisID" value="{{productoRevista.TipoOfertaSisID}}" />
-                <input type="hidden" class="hdItemConfiguracionOfertaID" value="{{productoRevista.ConfiguracionOfertaID}}" />
-                <input type="hidden" class="hdItemIndicadorMontoMinimo" value="{{productoRevista.IndicadorMontoMinimo}}" />
-                <input type="hidden" class="hdItemTipo" value="1" />
-                <input type="hidden" class="hdItemMarcaID" value="{{productoRevista.MarcaID}}" />
-                <input type="hidden" class="hdItemPrecioUnidad" value="{{productoRevista.PrecioCatalogo}}" />
-                <input type="hidden" class="hdItemDescripcionProd" value="{{productoRevista.Descripcion}}" />
-                <input type="hidden" class="hdItemPagina" value="0" />
-                <input type="hidden" class="hdItemDescripcionCategoria" value="{{productoRevista.DescripcionCategoria}}" />
-                <input type="hidden" class="hdItemDescripcionMarca" value="{{productoRevista.DescripcionMarca}}" />
-                <input type="hidden" class="hdItemDescripcionEstrategia" value="{{productoRevista.DescripcionEstrategia}}" />
-                <input type="hidden" class="OrigenPedidoWeb" value="@Portal.Consultoras.Common.Constantes.OrigenPedidoWeb.DesktopCatalogoPersonalizadoPopUp"/>
-        </div>
-        <div class="cerrar-mod" onclick="$('.mod-ofer2').hide()"><img src="@Url.Content("/Content/Images/btn_cerrar_popupPercepcion.png")" /></div>
-        <div class="contiene-productos">
-            <span class="mencion">Elige la cantidad y el sistema te ofrecerá la mejor combinación</span>
-            <hr class="clear">
-            <div class="producto_img_home mini" id="imagenAnimacion">
-                <img src="{{UrlImagen}}" />
-                <span class="inc">{{Descripcion}}</span>
-            </div>            
-
-            <div class="compras">
-                <div class="columnas">
-                    <span></span>
-                    <span>Compra 1 x {{Simbolo}} {{precio_revista}}</span>
-                    <span>Gana:  {{Simbolo}} {{ganancia}}</span>
-                </div>
-                {{#each lista_ObjNivel as |nivel|}}
-                <div class="columnas">
-                    <span></span>
-                    <span>Compra {{nivel.escala_nivel}} x {{../Simbolo}} {{nivel.precio_nivel}}</span>
-                    <span>Gana:  {{../Simbolo}} Not Found</span>
-                    {{#each ../lista_oObjGratis as |item|}}
-                    {{#if_eq nivel.escala_nivel item.escala_nivel_gratis}}
-                        <p>{{cantidad}} {{descripcion_gratis}}</p>
-                    {{/if_eq}}
-                    {{/each}}
-                </div>
-                {{/each}}               
-            </div>
-            <hr class="clear">
-            <div class="mod-cantidades metido">
-                <div class="liquidacion_rango_home">
-                    <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" class="liquidacion_rango_cantidad_pedido ValidaNumeral">
-                    <div class="liquidacion_rango_right_pedido">
-                        <a class="mas"><img src="/Content/Images/Esika/mas.png" alt=""></a>
-                        <a class="menos"><img src="/Content/Images/Esika/menos.png" alt=""></a>
-                    </div>
-                </div>
-                <a class="boton_Agregalo_home agregar-ofertarevista" data-cuv="revista">
-                    AGRÉGALO
-                </a>
-            </div>
-            <div class="sombrio">
-                <div style="width: 50%;"></div>
-            </div>
-        </div>
-        <div class="pos-baja">
-
-            <div class="informa">
-                <h6>También puedes comprarlo con el precio catálogo:</h6>
-                <span>{{Simbolo}} {{precio_catalogo}}</span>
-            </div>
-
-            <div class="mod-cantidades">
-                <div class="liquidacion_rango_home">
-                    <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" class="liquidacion_rango_cantidad_pedido ValidaNumeral">
-                    <div class="liquidacion_rango_right_pedido">
-                        <a class="mas"><img src="/Content/Images/Esika/mas.png" alt=""></a>
-                        <a class="menos"><img src="/Content/Images/Esika/menos.png" alt=""></a>
-                    </div>
-                </div>
-                <a class="boton_Agregalo_home  agregar-ofertarevista" data-cuv="catalogo">
-                    AGRÉGALO
-                </a>
-            </div>
-
-        </div>
-
-    </div>
-</script>
-<script id="template-mod-ofer3A" type="text/x-handlebars-template">
-    <div class="cuerpo-mod">
-        <div class="cerrar-mod" onclick="$('.mod-ofer3').hide()"><img src="@Url.Content("/Content/Images/btn_cerrar_popupPercepcion.png")" /></div>
-        <div class="contiene-productos">
-            <div style="display:none;" id="hiddenCatalogo">
-                <input type="hidden" class="hdItemCuv" value="{{CUV}}" />
-                <input type="hidden" class="hdItemTipoOfertaSisID" value="{{TipoOfertaSisID}}" />
-                <input type="hidden" class="hdItemConfiguracionOfertaID" value="{{ConfiguracionOfertaID}}" />
-                <input type="hidden" class="hdItemIndicadorMontoMinimo" value="{{IndicadorMontoMinimo}}" />
-                <input type="hidden" class="hdItemTipo" value="1" />
-                <input type="hidden" class="hdItemMarcaID" value="{{MarcaID}}" />
-                <input type="hidden" class="hdItemPrecioUnidad" value="{{PrecioCatalogo}}" />
-                <input type="hidden" class="hdItemDescripcionProd" value="{{Descripcion}}" />
-                <input type="hidden" class="hdItemPagina" value="0" />
-                <input type="hidden" class="hdItemDescripcionCategoria" value="{{DescripcionCategoria}}" />
-                <input type="hidden" class="hdItemDescripcionMarca" value="{{DescripcionMarca}}" />
-                <input type="hidden" class="hdItemDescripcionEstrategia" value="{{DescripcionEstrategia}}" />
-                <input type="hidden" class="OrigenPedidoWeb" value="@Portal.Consultoras.Common.Constantes.OrigenPedidoWeb.DesktopCatalogoPersonalizadoPopUp"/>
-            </div>
-            <div style="display:none;" id="hiddenRevista">
-                    <input type="hidden" class="hdItemCuv" value="{{productoRevista.CUV}}" />
-                    <input type="hidden" class="hdItemTipoOfertaSisID" value="{{productoRevista.TipoOfertaSisID}}" />
-                    <input type="hidden" class="hdItemConfiguracionOfertaID" value="{{productoRevista.ConfiguracionOfertaID}}" />
-                    <input type="hidden" class="hdItemIndicadorMontoMinimo" value="{{productoRevista.IndicadorMontoMinimo}}" />
-                    <input type="hidden" class="hdItemTipo" value="1" />
-                    <input type="hidden" class="hdItemMarcaID" value="{{productoRevista.MarcaID}}" />
-                    <input type="hidden" class="hdItemPrecioUnidad" value="{{productoRevista.PrecioCatalogo}}" />
-                    <input type="hidden" class="hdItemDescripcionProd" value="{{productoRevista.Descripcion}}" />
-                    <input type="hidden" class="hdItemPagina" value="0" />
-                    <input type="hidden" class="hdItemDescripcionCategoria" value="{{productoRevista.DescripcionCategoria}}" />
-                    <input type="hidden" class="hdItemDescripcionMarca" value="{{productoRevista.DescripcionMarca}}" />
-                    <input type="hidden" class="hdItemDescripcionEstrategia" value="{{productoRevista.DescripcionEstrategia}}" />
-                    <input type="hidden" class="OrigenPedidoWeb" value="@Portal.Consultoras.Common.Constantes.OrigenPedidoWeb.DesktopCatalogoPersonalizadoPopUp"/>
-            </div>
-            <div class="compras">
-                <div class="columnas c1">
-                    <div style="display: block;height: 242px;" id="imagenAnimacion">
-                        <img src="{{UrlImagen}}" style="height: 100%;width: auto;"/>
-                    </div>
-                    <span>{{Descripcion}}</span>
-                    <span>Precio revista: {{Simbolo}} {{precio_revista}}</span>
-                    <span>Gana:  {{Simbolo}} {{ganancia}}</span>
-                    <div class="opciones-paralelas">
-                        <div class="ofertarevista_rango_home">
-                            <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" class="liquidacion_rango_cantidad_pedido ValidaNumeral">
-                            <div class="liquidacion_rango_right_pedido">
-                                <a class="mas"><img src="/Content/Images/Esika/mas.png" alt=""></a>
-                                <a class="menos"><img src="/Content/Images/Esika/menos.png" alt=""></a>
-                            </div>
-                        </div>
-                        <a class="boton_Agregalo_home agregar-ofertarevista" data-cuv="revista">
-                            AGRÉGALO
-                        </a>
-                    </div>
-                </div>
-                {{#each lista_oObjPack as |item|}}
-                <div class="columnas">
-                    <div class="marquer">{{item.nombre_pack}}</div>
-                    <span></span>
-                    <span>{{../Simbolo}} {{item.valorizado}}</span>
-                    <span>GANA: {{../Simbolo}} {{item.ganancia_pack}}</span>
-                    <h5>INCLUYE:</h5>
-                    {{#each ../lista_oObjItemPack as |item|}}
-                    <h6><img class="miniaturaproducto" src="{{../../UrlImagen}}" />{{item.cantidad_item_pack}} {{item.descripcion_item_pack}}</h6>
-                    {{/each}}                  
-                    <div class="opciones-paralelas">
-                        <div class="ofertarevista_rango_home">
-                            <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" class="liquidacion_rango_cantidad_pedido ValidaNumeral">
-                            <div class="liquidacion_rango_right_pedido">
-                                <a class="mas"><img src="/Content/Images/Esika/mas.png" alt=""></a>
-                                <a class="menos"><img src="/Content/Images/Esika/menos.png" alt=""></a>
-                            </div>
-                        </div>
-                        <a class="boton_Agregalo_home agregar_off48Packs">
-                            AGRÉGALO
-                        </a>
-                    </div>
-                </div>
-                {{/each}}
-            </div>
-            <hr class="clear">
-
-            <div class="sombrio">
-                <div style="width: 50%;"></div>
-            </div>
-        </div>
-        <div class="pos-baja">
-
-            <div class="informa">
-                <h6>También puedes comprarlo con el precio catálogo:</h6>
-                <span>{{Simbolo}} {{precio_catalogo}}</span>
-            </div>
-
-            <div class="mod-cantidades">
-                <div class="liquidacion_rango_home">
-                    <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" class="liquidacion_rango_cantidad_pedido ValidaNumeral">
-                    <div class="liquidacion_rango_right_pedido">
-                        <a class="mas"><img src="/Content/Images/Esika/mas.png" alt=""></a>
-                        <a class="menos"><img src="/Content/Images/Esika/menos.png" alt=""></a>
-                    </div>
-                </div>
-                <a class="boton_Agregalo_home agregar-ofertarevista" data-cuv="revista">
-                    AGRÉGALO
-                </a>
-            </div>
-
-        </div>
-
-    </div>
-</script>
 <script id="template-mod-ofer2" type="text/x-handlebars-template">
-    <div class="cuerpo-mod">
+    <div class="cuerpo-mod" data-oferta-popup="">
         <div style="display:none;" id="hiddenCatalogo">
             <input type="hidden" class="hdItemCuv" value="{{CUV}}" />
             <input type="hidden" class="hdItemTipoOfertaSisID" value="{{TipoOfertaSisID}}" />
@@ -2099,7 +1906,7 @@
                 <div class="content_sub_items">
                     {{#each ../lista_oObjGratis as |item|}}
                     {{#if_eq nivel.escala_nivel item.escala_nivel_gratis}}
-                    <div class="sub_imagen_oferta"><img src="{{../../UrlImagen}}" alt=""></div>
+                    <div class="sub_imagen_oferta"><img src="{{item.imagen_gratis}}" alt=""></div>
                     <div class="sub_descripcion_oferta">{{item.cantidad}} {{item.descripcion_gratis}}</div>
                     {{/if_eq}}
                     {{/each}}
@@ -2138,7 +1945,7 @@
     </div>
 </script>
 <script id="template-mod-ofer3" type="text/x-handlebars-template">
-    <div class="cuerpo-mod">
+    <div class="cuerpo-mod" data-oferta-popup="">
         <div class="cerrar-mod" data-close=""><img src="@Url.Content("/Content/Images/btn_cerrar_popupPercepcion.png")" /></div>
         <div class="encabezado_popupCatalogoPersonalizado">
             <div class="linea_encabezado_popupCatalogoPersonalizado"></div>
@@ -2211,7 +2018,7 @@
                     <div class="content_sub_items">
                         {{#each ../lista_oObjItemPack as |item|}}
                         {{#if_eq pack.cuv_pack item.cuv_pack_item}}
-                        <div class="sub_imagen_oferta"><img src="{{../../UrlImagen}}" alt=""></div>
+                        <div class="sub_imagen_oferta"><img src="{{item.imagen_item_pack}}" alt=""></div>
                         <div class="sub_descripcion_oferta">{{item.cantidad_item_pack}} {{item.descripcion_item_pack}}</div>
                         <hr class="clear" />
                         {{/if_eq}}
@@ -2291,8 +2098,6 @@
     <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.flexslider.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/slick.min.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.easy-pie-chart.js")"></script>
-    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/CatalogoPersonalizado/CatalogoPersonalizado.js")"></script>
-    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Pedido/barra.js")"></script>
     <script type="text/javascript">
         var viewBagInscritaFlexipago = '@Model.InscritaFlexipago';
         var viewBagPrimeraVezSession = '@Model.PrimeraVezSession';

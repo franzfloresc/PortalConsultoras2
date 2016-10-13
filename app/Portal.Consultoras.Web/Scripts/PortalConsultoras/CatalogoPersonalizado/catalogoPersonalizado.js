@@ -26,7 +26,7 @@ $(document).ready(function () {
     $(document).on('click', '.agregar-ofertarevista', function () {
         if (ReservadoOEnHorarioRestringido())
             return false;
-        
+        agregarProductoAlCarrito(this);
         AgregarProductoOfertaRevista(this);
     });
 
@@ -132,6 +132,12 @@ function CargarCatalogoPersonalizado() {
                 if (tipoOrigen == '3') {
                     $("#linea_separadoraCP").show();
                 }
+                if (data.data.length == 0) {
+                    if (tipoOrigen == '3') {
+                        $("#divMainCatalogoPersonalizado").remove();
+                    }
+                    return false;
+                }
 
                 //data.data[0].TieneOfertaEnRevista = true;
                 //data.data[0].TipoOfertaRevista = '048';
@@ -140,9 +146,11 @@ function CargarCatalogoPersonalizado() {
                 //data.data[1].TipoOfertaRevista = '048';
                 //data.data[1].CUV = '11791';
 
-                if (data.data.length > 0) {
-                    var htmlDiv = SetHandlebars("#template-catalogopersonalizado", data.data);
-                    $('#divCatalogoPersonalizado').append(htmlDiv);
+                var htmlDiv = SetHandlebars("#template-catalogopersonalizado", data.data);
+                $('#divCatalogoPersonalizado').append(htmlDiv);
+                
+                if (tipoOrigen == '3') {
+                    $("#divMainCatalogoPersonalizado").show();
                 }
 
                 if (tipoOrigen == '1') {
@@ -253,9 +261,7 @@ function AgregarProductoCatalogoPersonalizado(item) {
     }
 
     AgregarProducto('Insert', model, function () { $(divPadre).find(".product-add").show(); });
-    if (tipoOrigen != '2') {
-        TrackingJetloreAdd(cantidad, $("#hdCampaniaCodigo").val(), cuv);
-    }    
+    //TrackingJetloreAdd(cantidad, $("#hdCampaniaCodigo").val(), cuv);    
 }
 function AgregarProducto(url, item, otraFunct) {
     DialogLoadingAbrir();
@@ -303,10 +309,10 @@ function ObtenerOfertaRevista(item) {
     var $contenedor = item;
     var cuv = $contenedor.find('.hdItemCuv').val();
     // 11791 (mucha data) "10989" (niveles);// 
-    var tipoOfertaRevista = $contenedor.find('.hdItemTipoOfertaRevista').val().trim();
+    var tipoOfertaRevista = $.trim($contenedor.find('.hdItemTipoOfertaRevista').val());
 
     var obj = {
-        UrlImagen: $contenedor.find('.producto_img_home>img').attr('src'),
+        UrlImagen: $contenedor.find('[data-img]>img').attr('src'),
         CUV: $contenedor.find('.hdItemCuv').val(),
         TipoOfertaSisID: $contenedor.find('.hdItemTipoOfertaSisID').val(),
         ConfiguracionOfertaID: $contenedor.find('.hdItemConfiguracionOfertaID').val(),
@@ -326,11 +332,14 @@ function ObtenerOfertaRevista(item) {
         contentType: 'application/json; charset=utf-8',
         success: function (response) {
             $('[data-oferta]').attr("class", "").hide();
+            if (tipoOrigen == '2') {
+                $('[data-oferta]').addClass("MensajeAlertaMobile")
+            }
             if (!response.success) {
                 DialogLoadingCerrar();
                 return false;
             }
-            response.data.dataPROL.Simbolo = viewBagSimbolo;
+            response.data.dataPROL.Simbolo = vbSimbolo;
             var settings = $.extend({}, response.data.dataPROL, obj);
             settings.productoRevista = response.data.producto;
             TrackingJetloreView(cuv, $("#hdCampaniaCodigo").val())
@@ -374,7 +383,7 @@ function ObtenerOfertaRevista(item) {
 function AgregarProductoOfertaRevista(btn) {
 
     var tipoCUV = $(btn).attr('data-cuv');
-    var item = $(btn).parents(".cuerpo-mod");
+    var item = $(btn).parents("[data-oferta-popup]");
 
     DialogLoadingAbrir();
     var hidden = "";
@@ -457,11 +466,11 @@ function AgregarProductoOfertaRevista(btn) {
     }
 
     AgregarProducto('Insert', model, function () {
-        $(".contiene-productos:has(.hdItemCuv[value='" + $(item).find('#hiddenCatalogo').find(".hdItemCuv").val() + "'])").find(".product-add").show();
+        $("[data-item='catalogopersonalizado']:has(.hdItemCuv[value='" + cuvAdd + "'])").find(".product-add").show();
         //$('[class^=mod-ofer]').hide();
         $('[data-oferta]').attr("class", "").hide();
     });
-    TrackingJetloreAdd(model.Cantidad, $("#hdCampaniaCodigo").val(), model.CUV);
+    //TrackingJetloreAdd(model.Cantidad, $("#hdCampaniaCodigo").val(), model.CUV);
 }
 
 function agregarProductoAlCarrito(o) {

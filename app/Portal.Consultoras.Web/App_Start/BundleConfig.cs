@@ -173,7 +173,10 @@ namespace Portal.Consultoras.Web
                 ));
 
             bundles.Add(new ScriptBundle("~/bundles/JsSB2-Bienvenida").Include(
-                "~/Scripts/PortalConsultoras/Bienvenida/Index.js"
+                "~/Scripts/PortalConsultoras/Bienvenida/Index.js",
+                "~/Scripts/PortalConsultoras/Pedido/barra.js",
+                "~/Scripts/PortalConsultoras/CatalogoPersonalizado/CatalogoPersonalizado.js",
+                "~/Scripts/PortalConsultoras/Shared/TrackingJetlore.js"
                 ));
 
             bundles.Add(new ScriptBundle("~/bundles/JsSB2-Pedido").Include(

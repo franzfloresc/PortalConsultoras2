@@ -275,8 +275,10 @@ namespace Portal.Consultoras.Web.ServicesCalculosPROL {
         private string descripcion_item_packField;
         
         private string cantidad_item_packField;
-        
+
         private string codsap_item_packField;
+
+        private string imagen_item_packField;
         
         /// <comentarios/>
         public string cuv_pack_item {
@@ -325,6 +327,19 @@ namespace Portal.Consultoras.Web.ServicesCalculosPROL {
             }
             set {
                 this.codsap_item_packField = value;
+            }
+        }
+        
+        /// <comentarios/>
+        public string imagen_item_pack
+        {
+            get
+            {
+                return this.imagen_item_packField;
+            }
+            set
+            {
+                this.imagen_item_packField = value;
             }
         }
     }
@@ -411,8 +426,10 @@ namespace Portal.Consultoras.Web.ServicesCalculosPROL {
         private int cantidadField;
         
         private string codsap_nivel_gratisField;
-        
+
         private string descripcion_gratisField;
+
+        private string imagen_gratisField;
         
         /// <comentarios/>
         public string escala_nivel_gratis {
@@ -453,6 +470,19 @@ namespace Portal.Consultoras.Web.ServicesCalculosPROL {
                 this.descripcion_gratisField = value;
             }
         }
+        
+        /// <comentarios/>
+        public string imagen_gratis
+        {
+            get
+            {
+                return this.imagen_gratisField;
+            }
+            set
+            {
+                this.imagen_gratisField = value;
+            }
+        }
     }
     
     /// <comentarios/>
@@ -468,6 +498,8 @@ namespace Portal.Consultoras.Web.ServicesCalculosPROL {
         private string nombre_nivelField;
         
         private string precio_nivelField;
+        
+        private string ganancia_nivelField;
         
         /// <comentarios/>
         public string escala_nivel {
@@ -496,6 +528,16 @@ namespace Portal.Consultoras.Web.ServicesCalculosPROL {
             }
             set {
                 this.precio_nivelField = value;
+            }
+        }
+        
+        /// <comentarios/>
+        public string ganancia_nivel {
+            get {
+                return this.ganancia_nivelField;
+            }
+            set {
+                this.ganancia_nivelField = value;
             }
         }
     }
