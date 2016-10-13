@@ -4655,6 +4655,10 @@ namespace Portal.Consultoras.Web.Controllers
                     if (imagenUrl == "")
                         continue;
 
+                    var precio = userData.OfertaFinal == Constantes.TipoOfertaFinalCatalogoPersonalizado.Arp ? Util.DecimalToStringFormat(producto.PrecioValorizado, userData.CodigoISO)
+                        : userData.OfertaFinal == Constantes.TipoOfertaFinalCatalogoPersonalizado.Jetlore && tipoProductoMostrar == 1 ? Util.DecimalToStringFormat(producto.PrecioValorizado, userData.CodigoISO)
+                        : "";
+
                     listaProductoModel.Add(new ProductoModel()
                     {
                         CUV = olstProducto[0].CUV.Trim(),
@@ -4681,7 +4685,7 @@ namespace Portal.Consultoras.Web.Controllers
                         CodigoProducto = olstProducto[0].CodigoProducto,
                         TieneStockPROL = true,
                         PrecioValorizado = olstProducto[0].PrecioValorizado,
-                        PrecioValorizadoString = Util.DecimalToStringFormat(olstProducto[0].PrecioValorizado, userData.CodigoISO),
+                        PrecioValorizadoString = precio, // Util.DecimalToStringFormat(olstProducto[0].PrecioValorizado, userData.CodigoISO),
                         Simbolo = userData.Simbolo
                     });
 
