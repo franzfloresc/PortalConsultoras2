@@ -2602,6 +2602,7 @@
     <Content Include="Areas\Mobile\Views\ConsultoraOnline\DetallePedidoHistorial.cshtml" />
     <Content Include="Areas\Mobile\Views\ConsultoraOnline\DetallePedidoPendiente.cshtml" />
     <Content Include="Areas\Mobile\Views\Notificaciones\ListadoPedidoRechazadoDetalle.cshtml" />
+    <Content Include="Content\FAQ\politicas_post_venta_CO.pdf" />
     <None Include="Service References\ServicePedidoRechazado\PedidoRechazadoService.wsdl" />
     <None Include="Service References\ServicePedidoRechazado\PedidoRechazadoService.xsd">
       <SubType>Designer</SubType>
