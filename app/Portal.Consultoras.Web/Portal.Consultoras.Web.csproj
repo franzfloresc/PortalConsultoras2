@@ -1623,6 +1623,7 @@
     <Content Include="Content\Images\Esika\mobile.png" />
     <Content Include="Content\Images\Esika\mobile2.png" />
     <Content Include="Content\Images\Esika\next.png" />
+    <Content Include="Content\Images\Esika\notificaciones-header.png" />
     <Content Include="Content\Images\Esika\notificaciones.png" />
     <Content Include="Content\Images\Esika\oferta.png" />
     <Content Include="Content\Images\Esika\ofertasparati_1.png" />
