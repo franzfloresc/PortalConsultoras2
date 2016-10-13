@@ -44,13 +44,11 @@ BEGIN
 	,r.CodigoConsultora
 	,r.MotivoRechazo
 	,r.Valor
-	,r.RequiereGestion
 	,r.Procesado
 	,r.Rechazado
 	from GPR.ProcesoPedidoRechazado p
 		LEFT join GPR.PedidoRechazado r
 			on r.IdProcesoPedidoRechazado = p.IdProcesoPedidoRechazado
-				and RequiereGestion = 1
 				and r.Campania = @CampaniaID 
 				and r.CodigoConsultora = @CodigoConsultora
 	where p.IdProcesoPedidoRechazado = @IdProceso 
