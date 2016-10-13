@@ -4312,7 +4312,6 @@ namespace Portal.Consultoras.Web.Controllers
 
         private void AgregarKitNuevas()
         {
-            if (userData.CodigoISO == "MX" && new List<string> { "53", "63", "71" }.Contains(userData.CodigorRegion)) return;
             if (Session["ConfiguracionProgramaNuevas"] != null) return;
 
             if (!(userData.ConsultoraNueva == Constantes.EstadoActividadConsultora.Registrada
@@ -4321,9 +4320,11 @@ namespace Portal.Consultoras.Web.Controllers
                 Session["ConfiguracionProgramaNuevas"] = new BEConfiguracionProgramaNuevas();
                 return;
             }
-
+            
             BEConfiguracionProgramaNuevas oBEConfiguracionProgramaNuevas = new BEConfiguracionProgramaNuevas();
             oBEConfiguracionProgramaNuevas.CampaniaInicio = userData.CampaniaID.ToString();
+            oBEConfiguracionProgramaNuevas.CodigoRegion = userData.CodigorRegion;
+            oBEConfiguracionProgramaNuevas.CodigoZona = userData.CodigoZona;
             using (PedidoServiceClient sv = new PedidoServiceClient())
             {
                 try
@@ -4339,13 +4340,11 @@ namespace Portal.Consultoras.Web.Controllers
                     Session["ConfiguracionProgramaNuevas"] = oBEConfiguracionProgramaNuevas;
                     if (oBEConfiguracionProgramaNuevas.IndProgObli != "1") return;
 
-                    var listaTempListado = (List<BEPedidoWebDetalle>)Session["PedidoWebDetalle"];
+                    var listaTempListado = ObtenerPedidoWebDetalle();
 
-                    BEPedidoWebDetalle det;
+                    BEPedidoWebDetalle det = new BEPedidoWebDetalle();
                     if (listaTempListado != null)
                         det = listaTempListado.FirstOrDefault(d => d.CUV == oBEConfiguracionProgramaNuevas.CUVKit) ?? new BEPedidoWebDetalle();
-                    else
-                        det = new BEPedidoWebDetalle();
 
                     if (det.PedidoDetalleID > 0) return;
 
