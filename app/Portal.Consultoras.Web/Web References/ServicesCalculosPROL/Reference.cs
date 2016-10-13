@@ -278,6 +278,8 @@ namespace Portal.Consultoras.Web.ServicesCalculosPROL {
         
         private string codsap_item_packField;
         
+        private string imagen_item_packField;
+        
         /// <remarks/>
         public string cuv_pack_item {
             get {
@@ -325,6 +327,16 @@ namespace Portal.Consultoras.Web.ServicesCalculosPROL {
             }
             set {
                 this.codsap_item_packField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public string imagen_item_pack {
+            get {
+                return this.imagen_item_packField;
+            }
+            set {
+                this.imagen_item_packField = value;
             }
         }
     }
@@ -414,6 +426,8 @@ namespace Portal.Consultoras.Web.ServicesCalculosPROL {
         
         private string descripcion_gratisField;
         
+        private string imagen_gratisField;
+        
         /// <remarks/>
         public string escala_nivel_gratis {
             get {
@@ -451,6 +465,16 @@ namespace Portal.Consultoras.Web.ServicesCalculosPROL {
             }
             set {
                 this.descripcion_gratisField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public string imagen_gratis {
+            get {
+                return this.imagen_gratisField;
+            }
+            set {
+                this.imagen_gratisField = value;
             }
         }
     }

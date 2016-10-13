@@ -11,6 +11,7 @@ var closeComunicadosPopup = false;
 var fotoCroppie;
 var origenPedidoWebEstrategia = 0;
 var tipoOrigen = '3';
+var timeoutTooltipTutorial;
 $(document).ready(function() {
 
     //$('.contenedor_img_perfil').on('click', CargarCamara);
@@ -23,7 +24,13 @@ $(document).ready(function() {
 
     $("#salvavidaTutorial").click(function () {
         abrir_popup_tutorial(true);
+        ocultarUbicacionTutorial();
     });
+
+    $("#salvavidaTutorial .tooltip_tutorial").click(function (e) {
+        e.stopPropagation();
+    });
+
     $(".cerrar_tutorial").click(function() {
         cerrar_popup_tutorial();
     });         
@@ -547,7 +554,7 @@ function mostrarUbicacionTutorial(tieneFondoNegro, mostrarPopupTutorial) {
     UpdateUsuarioTutoriales(constanteVioTutorialSalvavidas);
     viewBagVioTutorialSalvavidas = 1;
 
-    setTimeout(function() {
+    timeoutTooltipTutorial = setTimeout(function () {
         ocultarUbicacionTutorial();
         if (mostrarPopupTutorial)
             abrir_popup_tutorial();
@@ -585,7 +592,8 @@ function ocultarUbicacionTutorial() {
     $(".tooltip_tutorial").stop();
     $(".fondo_oscuro").delay(500);
     $(".fondo_oscuro").fadeOut(300);
-
+    
+    clearTimeout(timeoutTooltipTutorial);
 }
 
 // FIN MICROEFECTO RESALTAR ICONO TUTORIAL

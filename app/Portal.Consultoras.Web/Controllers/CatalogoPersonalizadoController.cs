@@ -253,7 +253,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                                 if (objGrati.codsap_nivel_gratis == itemSap.CodigoSap)
                                 {
-                                    //objGrati.imagen_gratis = itemSap.Imagen;
+                                    objGrati.imagen_gratis = itemSap.Imagen;  
                                     objGrati.descripcion_gratis = itemSap.NombreComercial;
                                 }
                             }
@@ -269,7 +269,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                                 if (objItemPack.codsap_item_pack == itemSap.CodigoSap)
                                 {
-                                    //objItemPack.imagen_item_pack = itemSap.Imagen;
+                                    objItemPack.imagen_item_pack = itemSap.Imagen;  
                                     objItemPack.descripcion_item_pack = itemSap.NombreComercial;
                                 }
                             }
