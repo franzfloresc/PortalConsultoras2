@@ -47,7 +47,7 @@ else
             {
                 var estilo = item.Visualizado ? "" : "no_leido";
 
-                <li class="@estilo" onclick="VisualizarPopup('@item.ProcesoId','@item.Observaciones','@item.Estado','@item.FacturaHoy.ToString()','@item.FechaFacturacion.Day','@item.FechaFacturacion.Month','@item.Visualizado.ToString()','@item.Asunto','@item.Proceso')">
+                <li class="@estilo" onclick="VisualizarPopup('@item.ProcesoId','@item.Observaciones','@item.Estado','@item.FacturaHoy.ToString()','@item.FechaFacturacion.Day','@item.FechaFacturacion.Month','@item.Visualizado.ToString()','@item.Asunto','@item.Proceso', this)">
 
                     <div class="text-noti">
                         <div class="upper">
@@ -84,8 +84,13 @@ else
 
 @section scripts{
     <script>
+        var urlActualizarEstadoNotificacion = '@Url.Action("ActualizarEstadoNotificacion", "Notificaciones", new { area = "" })';
+        var urlDetallePedidoRechazado = '@Url.Action("DetallePedidoRechazado", "Notificaciones", new { area = "Mobile" })';
+        var urlDetalleSolicitudClienteCatalogo = '@Url.Action("DetalleSolicitudClienteCatalogo", "Notificaciones", new { area = "Mobile" })';
         var urlConsultoraOnlinePendientes = '@Url.Action("Pendientes", "ConsultoraOnline", new { Area = "Mobile" })';
         var urlConsultoraOnlineHistorial = '@Url.Action("Historial", "ConsultoraOnline", new { Area = "Mobile" })';
+        var urlListarObservacionesStock = '@Url.Action("ListarObservacionesStock", "Notificaciones", new { area = "Mobile" })';
+        var urlListarObservaciones = '@Url.Action("ListarObservaciones", "Notificaciones", new { area = "Mobile" })';
     </script>
     <script src="@Url.Content("~/Scripts/PortalConsultoras/Mobile/Notificaciones/Index.js")"></script>
 }

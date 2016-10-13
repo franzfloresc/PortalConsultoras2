@@ -262,7 +262,7 @@ function CargarPopupPedidoPend(pedidoId) {
         pedidoId: pedidoId
     };
 
-    AbrirSplash();
+    waitingDialog({});
 
     $.ajax({
         type: 'POST',
@@ -272,7 +272,7 @@ function CargarPopupPedidoPend(pedidoId) {
         data: JSON.stringify(obj),
         async: true,
         success: function (response) {
-            CerrarSplash();
+            closeWaitingDialog();
             if (response.success) {
                 var data = response.data;
                 if (data.RegistrosTotal > 0) {
@@ -373,7 +373,7 @@ function ShowPopupMotivoRechazo() {
 
 function RechazarPedido() {
 
-    $('#dialog_motivoRechazo').hide();
+    //$('#dialog_motivoRechazo').hide();
     $('#btnRechazarPedido').prop('disabled', true);
 
     //var opc = $('input[name=checkbox]:checked', '#frmRechazoPedido').val();
@@ -390,11 +390,12 @@ function RechazarPedido() {
         Campania: $("#Campania").val(),
         MarcaId: $("#MarcaID").val(),
         OpcionRechazo: opt,
-        RazonMotivoRechazo: $("#txtOtrosRechazo").val()
+        RazonMotivoRechazo: $("#txtOtrosRechazo").val(),
+        typeAction: '1'     // desktop
     };
 
     //console.log(obj);
-    AbrirSplash();
+    waitingDialog({});
 
     $.ajax({
         type: "POST",
@@ -404,7 +405,7 @@ function RechazarPedido() {
         data: JSON.stringify(obj),
         success: function (data) {
             if (checkTimeout(data)) {
-                CerrarSplash();
+                closeWaitingDialog();
                 if (data.success == true) {
                     //$('#modal_rechazar_pedido').fuzemodal('close');
                     //$('#modal_rechazar_pedido').fuzemodal('close');
@@ -418,7 +419,7 @@ function RechazarPedido() {
                     //updateCantidadPedidos();
 
                     $('#btnRechazarPedido').prop('disabled', false);
-                    //$('#dialog_motivoRechazo').hide();
+                    $('#dialog_motivoRechazo').hide();
                     $('#dialog_mensajeRechazado').show();
                 }
                 else {
@@ -445,13 +446,13 @@ function CerrarMensajeRechazado() {
     CargarPedidosPend();
 }
 
-function AbrirSplash() {
-    waitingDialog({});
-}
+//function AbrirSplash() {
+//    waitingDialog({});
+//}
 
-function CerrarSplash() {
-    closeWaitingDialog();
-}
+//function CerrarSplash() {
+//    closeWaitingDialog();
+//}
 
 function AceptarPedido(pedidoId, tipo) {
 
@@ -483,7 +484,8 @@ function AceptarPedido(pedidoId, tipo) {
 
         var d = {
             PedidoDetalleId: val1,
-            OpcionAcepta: opt
+            OpcionAcepta: opt,
+            typeAction: '1'     // desktop
         }
 
         detalle.push(d);
@@ -493,11 +495,11 @@ function AceptarPedido(pedidoId, tipo) {
 
     if (isOk) {
         var pedido = {
-            id: pedidoId,
+            pedidoId: pedidoId,
             ListaDetalleModel: detalle,
         }
 
-        AbrirSplash();
+        waitingDialog({});
 
         $.ajax({
             type: 'POST',
@@ -507,7 +509,7 @@ function AceptarPedido(pedidoId, tipo) {
             data: JSON.stringify(pedido),
             async: true,
             success: function (response) {
-                CerrarSplash();
+                closeWaitingDialog();
                 if (response.success) {
                     //alert(response.message);
 

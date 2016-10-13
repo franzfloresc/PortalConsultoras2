@@ -112,10 +112,10 @@ namespace Portal.Consultoras.BizLogic
             DAUsuario.UpdUsuarioDatos(usuario, CorreoAnterior);
         }
 
-        public int UpdateDatosPrimeraVez(int PaisID, string CodigoUsuario, string Email, string Telefono, string Celular, string CorreoAnterior, bool AceptoContrato)
+        public int UpdateDatosPrimeraVez(int paisID, string codigoUsuario, string email, string telefono, string telefonoTrabajo, string celular, string correoAnterior, bool aceptoContrato)
         {
-            var DAUsuario = new DAUsuario(PaisID);
-            return DAUsuario.UpdUsuarioDatosPrimeraVez(CodigoUsuario, Email, Telefono, Celular, CorreoAnterior, AceptoContrato); //2532 EGL
+            var DAUsuario = new DAUsuario(paisID);
+            return DAUsuario.UpdUsuarioDatosPrimeraVez(codigoUsuario, email, telefono, telefonoTrabajo, celular, correoAnterior, aceptoContrato);
         }
 
         public int UpdUsuarioDatosPrimeraVezEstado(int PaisID, string CodigoUsuario)
@@ -958,10 +958,10 @@ namespace Portal.Consultoras.BizLogic
             }
             return tiempo;
         }
-        public int UpdateDatosPrimeraVezMexico(int PaisID, string CodigoUsuario, string Nombre, string Apellidos, string Telefono, string Celular, string Email, long IdConsultora, string CodigoConsultora, int CampaniaID_Actual, int CampaniaID_UltimaF, int RegionID, int ZonaID, string EmailAnterior)
+        public int UpdateDatosPrimeraVezMexico(int PaisID, string CodigoUsuario, string Nombre, string Apellidos, string Telefono, string TelefonoTrabajo, string Celular, string Email, long IdConsultora, string CodigoConsultora, int CampaniaID_Actual, int CampaniaID_UltimaF, int RegionID, int ZonaID, string EmailAnterior)
         {
             var DAUsuario = new DAUsuario(PaisID);
-            return DAUsuario.UpdUsuarioDatosPrimeraVezMexico(CodigoUsuario, Nombre, Apellidos, Telefono, Celular, Email, IdConsultora, CodigoConsultora, CampaniaID_Actual, CampaniaID_UltimaF, RegionID, ZonaID, EmailAnterior);
+            return DAUsuario.UpdUsuarioDatosPrimeraVezMexico(CodigoUsuario, Nombre, Apellidos, Telefono, TelefonoTrabajo, Celular, Email, IdConsultora, CodigoConsultora, CampaniaID_Actual, CampaniaID_UltimaF, RegionID, ZonaID, EmailAnterior);
         }
         /*2116-fin */
 

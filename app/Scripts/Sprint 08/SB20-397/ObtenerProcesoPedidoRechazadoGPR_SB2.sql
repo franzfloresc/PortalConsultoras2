@@ -1,5 +1,15 @@
+IF EXISTS(
+	SELECT *
+	FROM INFORMATION_SCHEMA.ROUTINES 
+	WHERE SPECIFIC_NAME = 'ObtenerProcesoPedidoRechazadoGPR_SB2' AND SPECIFIC_SCHEMA = 'dbo' AND Routine_Type = 'PROCEDURE'
+)
+BEGIN
+    DROP PROCEDURE dbo.ObtenerProcesoPedidoRechazadoGPR_SB2
+END
 
-ALTER PROCEDURE dbo.ObtenerProcesoPedidoRechazadoGPR_SB2
+GO
+
+CREATE PROCEDURE dbo.ObtenerProcesoPedidoRechazadoGPR_SB2
 	@ConsultoraID bigint
 	, @CampaniaID int
 AS

@@ -198,6 +198,7 @@
         <xs:element minOccurs="0" name="CodigoUsuario" nillable="true" type="xs:string" />
         <xs:element minOccurs="0" name="Email" nillable="true" type="xs:string" />
         <xs:element minOccurs="0" name="Telefono" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="TelefonoTrabajo" nillable="true" type="xs:string" />
         <xs:element minOccurs="0" name="Celular" nillable="true" type="xs:string" />
         <xs:element minOccurs="0" name="CorreoAnterior" nillable="true" type="xs:string" />
         <xs:element minOccurs="0" name="AceptoContrato" type="xs:boolean" />
@@ -766,6 +767,38 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+  <xs:element name="GetCantidadSolicitudesPedido">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="PaisID" type="xs:int" />
+        <xs:element minOccurs="0" name="ConsultoraId" type="xs:long" />
+        <xs:element minOccurs="0" name="Campania" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetCantidadSolicitudesPedidoResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="GetCantidadSolicitudesPedidoResult" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetSaldoHorasSolicitudesPedido">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="PaisID" type="xs:int" />
+        <xs:element minOccurs="0" name="ConsultoraId" type="xs:long" />
+        <xs:element minOccurs="0" name="Campania" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetSaldoHorasSolicitudesPedidoResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="GetSaldoHorasSolicitudesPedidoResult" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
   <xs:element name="GetMisPedidosClienteOnline">
     <xs:complexType>
       <xs:sequence>
@@ -883,6 +916,7 @@
         <xs:element minOccurs="0" name="Nombre" nillable="true" type="xs:string" />
         <xs:element minOccurs="0" name="Apellidos" nillable="true" type="xs:string" />
         <xs:element minOccurs="0" name="Telefono" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="TelefonoTrabajo" nillable="true" type="xs:string" />
         <xs:element minOccurs="0" name="Celular" nillable="true" type="xs:string" />
         <xs:element minOccurs="0" name="Email" nillable="true" type="xs:string" />
         <xs:element minOccurs="0" name="IdConsultora" type="xs:long" />
@@ -1078,6 +1112,19 @@
     </xs:complexType>
   </xs:element>
   <xs:element name="UpdNotificacionSolicitudClienteCatalogoVisualizacionResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdNotificacionPedidoRechazadoVisualizacion">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="paisID" type="xs:int" />
+        <xs:element minOccurs="0" name="procesoId" type="xs:long" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdNotificacionPedidoRechazadoVisualizacionResponse">
     <xs:complexType>
       <xs:sequence />
     </xs:complexType>
