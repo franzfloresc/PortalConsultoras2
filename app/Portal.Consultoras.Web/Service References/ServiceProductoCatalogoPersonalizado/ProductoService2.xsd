@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xs:schema xmlns:tns="http://tempuri.org/" elementFormDefault="qualified" targetNamespace="http://tempuri.org/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
-  <xs:import schemaLocation="http://localhost:36239/ProductoService.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.ServiceCatalogoPersonalizado.Entities" />
+  <xs:import schemaLocation="http://internal-qaielbserviciosconsultoras-253844361.us-east-1.elb.amazonaws.com/CatalogoWCF/ProductoService.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.ServiceCatalogoPersonalizado.Entities" />
   <xs:element name="ObtenerProductos">
     <xs:complexType>
       <xs:sequence>
@@ -42,6 +42,22 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/Portal.Consultoras.ServiceCatalogoPersonalizado.Entities" minOccurs="0" name="ObtenerTodosProductosResult" nillable="true" type="q2:ArrayOfProducto" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ObtenerProductosByCodigoSap">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="codigoIso" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="campaniaId" type="xs:int" />
+        <xs:element minOccurs="0" name="codigoSap" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ObtenerProductosByCodigoSapResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/Portal.Consultoras.ServiceCatalogoPersonalizado.Entities" minOccurs="0" name="ObtenerProductosByCodigoSapResult" nillable="true" type="q3:ArrayOfProducto" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

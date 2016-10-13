@@ -20677,16 +20677,17 @@ label.checkpop.c_on {
    
 }
 .info_centro span{
-    font-weight:300;
+    font-weight:400;
 }
 .deuda_home{
     font-family:'lato';
-    font-size:34px;
+    font-size:21px;
     font-weight:300;
     color:black;
 }
 .deuda_home span{
     font-size:34px;
+    font-weight:300;
 }
 .btn_paga_online{
     width: 169px;
@@ -22007,6 +22008,7 @@ body{
  }
  .content_escala{
      text-align:center;
+     margin-top: 10px;
  }
   /*MIS CATALOGOS*/
  .titulo_central{
@@ -30555,3 +30557,90 @@ h1#penmostreo .campana {
 
 
 }
+
+/* MENSAJES PEDIDO RECHAZADO */
+
+.bloque_mensajesPedido{
+    background: #a18328;
+    width:100%;
+    height: 56px;
+    display: none;
+    padding: 9px 84px;
+    text-align:center;
+    position:relative;
+}
+
+.icono_cerrar_mensaje{
+    display: block;
+    position: absolute;
+    top: 8px;
+    right: 23px;
+    width: 21px;
+}
+
+.icono_cerrar_mensaje span{
+    display:block;
+}
+
+.icono_cerrar_mensaje span img{
+    width:100%;
+    height:auto;
+}
+
+.icono_cerrar_mensaje span:nth-child(2){
+    font-family:'Lato';
+    font-size:10px;
+    text-align:center;
+    color:#FFF;
+    margin-left:-9px;
+}
+
+.icono_estadoPedido, .mensajes_estadoPedido{
+    display:inline-block;
+    vertical-align:top;
+}
+
+.icono_estadoPedido{
+    width:32px;
+    height:32px;
+    margin-right:16.8px;
+    padding-top:1px;
+}
+
+.icono_estadoPedido img{
+    width:100%;
+    height:auto;
+}
+
+.mensajes_estadoPedido {
+    color: #FFF;
+    font-family: 'Lato';
+    line-height:19px;
+}
+
+.mensaje_estadoActualPedido, .mensaje_horarioIngresoPedido{
+    display:block;
+    text-align:left;
+}
+
+.mensaje_estadoActualPedido{
+    font-size:15px;
+    font-weight:700;
+}
+
+.mensaje_horarioIngresoPedido{
+    font-size:12px;
+    font-weight:normal;
+}
+
+.mensaje_horarioIngresoPedido a{
+    display: inline-block;
+    margin-left: 2px;
+    text-decoration:underline;
+}
+
+.mensaje_horarioIngresoPedido a:hover{
+    text-decoration:underline;
+}
+
+/* FIN MENSAJES PEDIDO RECHAZADO */

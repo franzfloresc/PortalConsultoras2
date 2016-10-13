@@ -10,6 +10,8 @@ namespace Portal.Consultoras.Web.Models
     {
         public List<BEMisPedidosDetalle> ListaDetalle { get; set; }
 
+        public BEMisPedidos MiPedido { get; set; }
+
         public string Registros { get; set; }
         public string RegistrosDe { get; set; }
         public string RegistrosTotal { get; set; }

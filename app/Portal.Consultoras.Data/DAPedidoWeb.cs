@@ -653,7 +653,7 @@ namespace Portal.Consultoras.Data
             return Context.ExecuteReader(command);
         }
 
-        public void InsLogOfertaFinal(int CampaniaID, string CodigoConsultora, string CUV, int cantidad, string tipoOfertaFinal, decimal GAP)
+        public void InsLogOfertaFinal(int CampaniaID, string CodigoConsultora, string CUV, int cantidad, string tipoOfertaFinal, decimal GAP, int tipoRegistro)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.registrarLogOfertaFinal_SB2");
             Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, CampaniaID);
@@ -662,6 +662,7 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@Cantidad", DbType.Int32, cantidad);
             Context.Database.AddInParameter(command, "@TipoOfertaFinal", DbType.String, tipoOfertaFinal);
             Context.Database.AddInParameter(command, "@GAP", DbType.Decimal, GAP);
+            Context.Database.AddInParameter(command, "@TipoRegistro", DbType.Int32, tipoRegistro);
 
             Context.ExecuteNonQuery(command);
         }                    

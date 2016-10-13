@@ -121,6 +121,7 @@ namespace Portal.Consultoras.Web.Controllers
                 model.NombreCompleto = userData.NombreConsultora;
                 model.EMail = userData.EMail;
                 model.Telefono = userData.Telefono;
+                model.TelefonoTrabajo = userData.TelefonoTrabajo;
                 model.Celular = userData.Celular;
 
                 string carpetaPais = WebConfigurationManager.AppSettings["CarpetaImagenCompartirCatalogo"] + userData.CodigoISO;
@@ -225,8 +226,8 @@ namespace Portal.Consultoras.Web.Controllers
                 model.VisualizoComunicadoConfigurable = ComunicadoVisualizado;
 
                 model.EsCatalogoPersonalizadoZonaValida = userData.EsCatalogoPersonalizadoZonaValida;
-                model.DataBarra = GetDataBarra();
                 model.VioTutorialSalvavidas = userData.VioTutorialSalvavidas;
+                model.DataBarra = GetDataBarra();
             }
             catch (FaultException ex)
             {
@@ -472,7 +473,9 @@ namespace Portal.Consultoras.Web.Controllers
                 model.NombreCompleto = beusuario.Nombre;
                 model.NombreGerenteZonal = userData.NombreGerenteZonal;     //SB20-907
                 model.EMail = beusuario.EMail;
+                model.NombreGerenteZonal = userData.NombreGerenteZonal;     //SB20-907
                 model.Telefono = beusuario.Telefono;
+                model.TelefonoTrabajo = beusuario.TelefonoTrabajo;
                 model.Celular = beusuario.Celular;
                 model.Sobrenombre = beusuario.Sobrenombre;
                 model.CompartirDatos = beusuario.CompartirDatos;

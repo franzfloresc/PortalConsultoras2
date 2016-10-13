@@ -20743,16 +20743,17 @@ label.checkpop.c_on {
    
 }
 .info_centro span{
-    font-weight:300;
+    font-weight:500;
 }
 .deuda_home{
     font-family:'lato';
-    font-size:34px;
+    font-size:21px;
     font-weight:300;
     color:black;
 }
 .deuda_home span{
     font-size:34px;
+    font-weight:300;
 }
 .btn_paga_online{
     width: 169px;
@@ -22079,6 +22080,7 @@ body{
  }
  .content_escala{
      text-align:center;
+     margin-top: 10px;
  }
  /*MIS CATALOGOS*/
  .titulo_central{
