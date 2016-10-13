@@ -5684,6 +5684,7 @@ body {
     bottom: -2px;
     z-index: 2;
     padding: 18px 20px 15px 20px;
+    color:#d20000;
 }
 
     .notificacion_productoAgotado:before {
@@ -8844,7 +8845,7 @@ span.icon-advertencia{
     height: auto;
     padding: 15px;
     position: relative;
-    background: #f3f3f3;
+    background: #fee5e7;
 }
 .stock_content:after {
 	bottom: 100%;
@@ -8856,7 +8857,7 @@ span.icon-advertencia{
 	position: absolute;
 	pointer-events: none;
 	border-color: rgba(136, 183, 213, 0);
-	border-bottom-color: #f3f3f3;
+	border-bottom-color: #fee5e7;
 	border-width: 12px;
 	margin-left: -12px;
     z-index: 20;
@@ -8872,11 +8873,12 @@ span.icon-advertencia{
     margin-top: 2px;  
 }
 .texto_stock{
-    width: 87%;
+    width: 100%;
     display: inline-block;
     vertical-align: top;
     font-family: 'LAto';
     font-size: 14px;
+    color:#d20000;
 }
 .btn_no_stock{
     font-family:'LAto';
@@ -8904,4 +8906,26 @@ span.icon-advertencia{
 }
 .btn_si_stock:hover{
     color:white;
+}
+.stock_content_agotado{
+    width: 100%;
+    height: auto;
+    padding: 15px;
+    position: relative;
+    background: #f3f3f3;
+}
+.stock_content_agotado:after {
+	bottom: 100%;
+	left: 30px;
+	border: solid transparent;
+	content: " ";
+	height: 0;
+	width: 0;
+	position: absolute;
+	pointer-events: none;
+	border-color: rgba(136, 183, 213, 0);
+	border-bottom-color: #f3f3f3;
+	border-width: 12px;
+	margin-left: -12px;
+    z-index: 20;
 }

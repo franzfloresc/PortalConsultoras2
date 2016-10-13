@@ -503,15 +503,19 @@
                     </small>
                 </div>
                 {{/IsNullOrEmpty}}
-                <div class="row">
+                
                     <div class="stock_content">
-                        <div class="icono_stock"></div>
+                        @*<div class="icono_stock"></div>*@
                         <div class="texto_stock">No tenemos stock en este momento. ¿Te lo enviamos la siguiente campaña al mismo precio?</div>
                         <a class="btn_no_stock">NO, GRACIAS</a>
                         <a class="btn_si_stock" href="#">¡SI, POR FAVOR!</a>
                         <hr class="clear" />
                     </div>
-                </div>
+                <!--SI ACEPTA EL STOCK-->
+                    <div class="stock_content_agotado">                      
+                        <div class="texto_stock" style="color:black"><b>No tenemos stock en este momento. ¿Te lo enviamos la siguiente campaña al mismo precio?</b></div>
+                        
+                    </div>
                 
 
             </div>

@@ -8123,7 +8123,7 @@ span.icon-advertencia{
     height: auto;
     padding: 15px;
     position: relative;
-    background: #f3f3f3;
+    background: #e5dcea;
 }
 .stock_content:after {
 	bottom: 100%;
@@ -8135,7 +8135,7 @@ span.icon-advertencia{
 	position: absolute;
 	pointer-events: none;
 	border-color: rgba(136, 183, 213, 0);
-	border-bottom-color: #f3f3f3;
+	border-bottom-color: #e5dcea;
 	border-width: 12px;
 	margin-left: -12px;
     z-index: 20;
@@ -8183,4 +8183,26 @@ span.icon-advertencia{
 }
 .btn_si_stock:hover{
     color:white;
+}
+.stock_content_agotado{
+    width: 100%;
+    height: auto;
+    padding: 15px;
+    position: relative;
+    background: #f3f3f3;
+}
+.stock_content_agotado:after {
+	bottom: 100%;
+	left: 30px;
+	border: solid transparent;
+	content: " ";
+	height: 0;
+	width: 0;
+	position: absolute;
+	pointer-events: none;
+	border-color: rgba(136, 183, 213, 0);
+	border-bottom-color: #f3f3f3;
+	border-width: 12px;
+	margin-left: -12px;
+    z-index: 20;
 }

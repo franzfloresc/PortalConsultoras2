@@ -2569,7 +2569,7 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido{
     padding-left: 21.5px;
     padding-top: 7px;
     text-align: left;
-    color: #d20000;
+    color: black;
     height: auto;
     line-height: 20px;
 }
@@ -2587,7 +2587,7 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido{
 
 .celda_iconos_acciones{
     text-align:center;
-    /*/*padding-right:1.5%;*/*/
+    /*padding-right:1.5%;*/
 }
 
 .cabecera_producto{
@@ -30248,7 +30248,7 @@ h1#penmostreo .campana {
     height: auto;
     padding: 25px 43px;
     position: relative;
-    background: #f3f3f3;
+    background: #e5dcea;
     margin-bottom: 22px;
 }
 .stock_content:after {
@@ -30261,7 +30261,7 @@ h1#penmostreo .campana {
 	position: absolute;
 	pointer-events: none;
 	border-color: rgba(136, 183, 213, 0);
-	border-bottom-color: #f3f3f3;
+	border-bottom-color: #e5dcea;
 	border-width: 12px;
 	margin-left: -12px;
     z-index: 20;
@@ -30280,12 +30280,13 @@ h1#penmostreo .campana {
     vertical-align:middle;
     font-family:'LAto';
     font-size:14px;
+    color:black;
 }
 .btn_no_stock{
     font-family:'LAto';
     font-size:13px;
     float:left;
-    margin-left:7%;
+    /*margin-left:7%;*/
     display:block;
     text-decoration:underline;
     
@@ -30304,4 +30305,27 @@ h1#penmostreo .campana {
     color: white;
     background: #613c87;
     line-height: 45px;
+}
+.stock_content_aceptado{
+    width: 100%;
+    height: auto;
+    padding: 25px 43px;
+    position: relative;
+    background: #f3f3f3;
+    margin-bottom: 22px;
+}
+.stock_content_aceptado:after {
+	bottom: 100%;
+	left: 10%;
+	border: solid transparent;
+	content: " ";
+	height: 0;
+	width: 0;
+	position: absolute;
+	pointer-events: none;
+	border-color: rgba(136, 183, 213, 0);
+	border-bottom-color: #f3f3f3;
+	border-width: 12px;
+	margin-left: -12px;
+    z-index: 20;
 }
