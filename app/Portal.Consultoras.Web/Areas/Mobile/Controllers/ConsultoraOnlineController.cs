@@ -156,7 +156,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
                     using (var sv = new UsuarioServiceClient())
                     {
-                        result = sv.UpdateDatosPrimeraVez(userData.PaisID, userData.CodigoUsuario, model.Email, model.Telefono, model.Celular, model.CorreoAnterior, model.AceptoContrato);
+                        result = sv.UpdateDatosPrimeraVez(userData.PaisID, userData.CodigoUsuario, model.Email, model.Telefono, "", model.Celular, model.CorreoAnterior, model.AceptoContrato);
 
                         if (result == 0)
                         {

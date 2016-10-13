@@ -886,6 +886,7 @@ namespace Portal.Consultoras.Web.Controllers
                 model.CambioClave = Convert.ToInt32(oBEUsuario.CambioClave);
                 model.ConsultoraNueva = oBEUsuario.ConsultoraNueva;
                 model.Telefono = oBEUsuario.Telefono;
+                model.TelefonoTrabajo = oBEUsuario.TelefonoTrabajo;
                 model.Celular = oBEUsuario.Celular;
                 model.IndicadorDupla = oBEUsuario.IndicadorDupla;
                 model.UsuarioPrueba = oBEUsuario.UsuarioPrueba;
@@ -1018,6 +1019,7 @@ namespace Portal.Consultoras.Web.Controllers
                 model.CatalogoPersonalizado = oBEUsuario.CatalogoPersonalizado;
                 model.EsCatalogoPersonalizadoZonaValida = oBEUsuario.EsCatalogoPersonalizadoZonaValida;
                 model.VioTutorialSalvavidas = oBEUsuario.VioTutorialSalvavidas;
+                model.NombreGerenteZonal = oBEUsuario.NombreGerenteZona;  // SB20-907
             }
             Session["UserData"] = model;
 

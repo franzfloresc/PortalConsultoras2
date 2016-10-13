@@ -84,6 +84,7 @@
       <xs:element minOccurs="0" name="NivelEducacion" type="xs:int" />
       <xs:element minOccurs="0" name="NivelLider" type="xs:int" />
       <xs:element minOccurs="0" name="Nombre" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NombreGerenteZona" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="NombrePais" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="NroCampanias" type="xs:int" />
       <xs:element minOccurs="0" name="NuevoPROL" type="xs:boolean" />
@@ -112,6 +113,7 @@
       <xs:element minOccurs="0" name="Simbolo" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Sobrenombre" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Telefono" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TelefonoTrabajo" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="TerritorioID" type="xs:int" />
       <xs:element minOccurs="0" name="TipoOferta2" type="xs:int" />
       <xs:element minOccurs="0" name="TipoUsuario" type="xs:unsignedByte" />

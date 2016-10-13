@@ -121,6 +121,7 @@ namespace Portal.Consultoras.Web.Controllers
                 model.NombreCompleto = userData.NombreConsultora;
                 model.EMail = userData.EMail;
                 model.Telefono = userData.Telefono;
+                model.TelefonoTrabajo = userData.TelefonoTrabajo;
                 model.Celular = userData.Celular;
 
                 string carpetaPais = WebConfigurationManager.AppSettings["CarpetaImagenCompartirCatalogo"] + userData.CodigoISO;
@@ -471,7 +472,9 @@ namespace Portal.Consultoras.Web.Controllers
                 model.CodigoUsuario = userData.CodigoUsuario + " (Zona: " + userData.CodigoZona + ")";
                 model.NombreCompleto = beusuario.Nombre;
                 model.EMail = beusuario.EMail;
+                model.NombreGerenteZonal = userData.NombreGerenteZonal;     //SB20-907
                 model.Telefono = beusuario.Telefono;
+                model.TelefonoTrabajo = beusuario.TelefonoTrabajo;
                 model.Celular = beusuario.Celular;
                 model.Sobrenombre = beusuario.Sobrenombre;
                 model.CompartirDatos = beusuario.CompartirDatos;

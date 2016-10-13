@@ -53,7 +53,7 @@ namespace Portal.Consultoras.ServiceContracts
         //1796 Fin
 
         [OperationContract]
-        int UpdateDatosPrimeraVez(int PaisID, string CodigoUsuario, string Email, string Telefono, string Celular, string CorreoAnterior, bool AceptoContrato);
+        int UpdateDatosPrimeraVez(int PaisID, string CodigoUsuario, string Email, string Telefono, string TelefonoTrabajo, string Celular, string CorreoAnterior, bool AceptoContrato);
 
         [OperationContract]
         void UpdatePassword(int paisID, string codigoUsuario, string claveSecreta, bool cambioClave);
@@ -200,7 +200,7 @@ namespace Portal.Consultoras.ServiceContracts
 
         //R2116 INICIO
         [OperationContract]
-        int UpdateDatosPrimeraVezMexico(int PaisID, string CodigoUsuario, string Nombre, string Apellidos, string Telefono, string Celular, string Email, long IdConsultora, string CodigoConsultora, int CampaniaID_Actual, int CampaniaID_UltimaF, int RegionID, int ZonaID, string EmailAnterior);
+        int UpdateDatosPrimeraVezMexico(int PaisID, string CodigoUsuario, string Nombre, string Apellidos, string Telefono, string TelefonoTrabajo, string Celular, string Email, long IdConsultora, string CodigoConsultora, int CampaniaID_Actual, int CampaniaID_UltimaF, int RegionID, int ZonaID, string EmailAnterior);
         [OperationContract]
         int SelectDatosActualizados(int paisID, string codigoUsuario);
         [OperationContract]
