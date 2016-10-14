@@ -55,11 +55,11 @@ namespace Portal.Consultoras.Web.Models
 
         public string NombreLugarNivel1 { get; set; }
         public string NombreLugarNivel2 { get; set; }
-        [RequiredIf("CodigoPais", "EC", ErrorMessage = "Este campo es obligatorio")]
+        //[RequiredIf("CodigoPais", "EC", ErrorMessage = "Este campo es obligatorio")]
         public string NombreLugarNivel3 { get; set; }
-        [RequiredIf("CodigoPais", "EC", ErrorMessage = "Este campo es obligatorio")]
+        //[RequiredIf("CodigoPais", "EC", ErrorMessage = "Este campo es obligatorio")]
         public string NombreLugarNivel4 { get; set; }
-        [RequiredIf("CodigoPais", "EC", ErrorMessage = "Este campo es obligatorio")]
+       // [RequiredIf("CodigoPais", "EC", ErrorMessage = "Este campo es obligatorio")]
         public string NombreLugarNivel5 { get; set; }
 
         public SelectList LugaresNivel1 { get; set; }
