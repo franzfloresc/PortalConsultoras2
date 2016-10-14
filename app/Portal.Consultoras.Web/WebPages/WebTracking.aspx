@@ -246,9 +246,16 @@
                                                         <RowStyle HorizontalAlign="Center" />
 
                                                     </asp:GridView>
-                                                </asp:Panel>
-
-
+                                                </asp:Panel>                                                                                       
+                                                
+                                                <asp:HyperLink ID="lnkPoliticasVenta" runat="server" 
+                                                    NavigateUrl="../Content/FAQ/politicas_post_venta_CO.pdf" Target="_blank"
+                                                    Style="padding-left: 2%; font-size: 14px; display: inline-block;
+                                                        vertical-align: top; width: 49%; background: url(../Content/Images/Esika/indicador_pedido.png) no-repeat;
+                                                        background-position: 0px 5px; font-family: 'lato'; color: black;
+                                                        margin-top: 25px; font-weight: 700;">
+                                                    Políticas Post Venta
+                                                </asp:HyperLink>
 
                                                 <asp:Panel ID="pPostVenta" runat="server" Width="100%"
                                                     ForeColor="#666666" GroupingText="Mis postventas"
