@@ -29,6 +29,10 @@
         var trackingJetloreAccessToken = '@System.Configuration.ConfigurationManager.AppSettings.Get("TrackingJetloreAccessToken")';
         var tipoOfertaFinalCatalogoPersonalizado = '@Constantes.TipoOfertaFinalCatalogoPersonalizado.Jetlore';
         var esPaisTrackingJetlore = '@ViewBag.PaisesConTrackingJetlore';
+        var indicadorEnviadoDescarga = '@ViewBag.IndicadorEnviado';
+        var estaRechazado = '@ViewBag.EstaRechazado';
+        var cerrarRechazado = '@ViewBag.CerrarRechazado';
+        var motivoRechazo = '@ViewBag.MotivoRechazo';
     </script>
 
     @RenderSection("styles", required: false)
@@ -116,8 +120,29 @@
     }
     <!-- cabecera -->
     <header>
+        <div class="bloque_mensajesPedido" id="bloquemensajesPedido">
+            <div class="icono_cerrar_mensaje">
+                <span>
+                    <a href="javascript:void();" id="cerrarMensajeEstadoPedido" title="Cerrar" onclick="cerrarMensajeEstadoPedido();">
+                        <img src="/Content/Images/btn_cerrar_popup.svg" alt="Cerrar">
+                    </a>
+                </span>
+                <span>CERRAR</span>
+            </div>
+            <div class="icono_estadoPedido">
+                <img src="@Url.Content("~/Content/Images/icono_exclamacion_estado_pedido.svg")" alt="Icono Estado Pedido" />
+            </div>
+            <div class="mensajes_estadoPedido">
+                @*<span class="mensaje_estadoActualPedido">NOS ENCONTRAMOS FACTURANDO TU PEDIDO</span>
+                <span class="mensaje_horarioIngresoPedido">Si quieres ingresar pedido, lo puedes hacer desde mañana a las 7 a.m.</span>*@
+                <span class="mensaje_estadoActualPedido">TU PEDIDO HA SIDO RECHAZADO</span>
+                <span class="mensaje_horarioIngresoPedido">
+                    Tienes una deuda de S/. <span>200</span> que debes regularizar.
+                    <a href="#" title="MIRA LOS LUGARES DE PAGO">MIRA LOS LUGARES DE PAGO</a>
+                </span>
+            </div>
+        </div>
         <div class="wrapper_header">
-            <div class="fondo_oscuro"></div>
             <div class="logo_esika">
                 <a href="@Url.Action("Index", "Bienvenida")"></a>
             </div>
@@ -180,13 +205,22 @@
 
                 <div class="borde_c"></div>
                 <div class="mensaje_header" id="salvavidaTutorial" style="display:none;">
-                    <a href="#" class="abrir_tutorial">
-                        <div class="campana_svg tutoriales_svg">
-                            <div class="tooltip_tutorial">
-                                <span><b>Haciendo clic en el salvavidas</b>, podrás conocer cómo navegar en las páginas de Somos Belcorp</span>
-                            </div>
+                    <div class="campana_svg tutoriales_svg">
+                        <div class="contenedor_circulosTutorial">
+                            <div class="circulo-1 iniciarTransicion"></div>
+                            <div class="circulo-2 iniciarTransicion"></div>
+                            <div class="circulo-3 iniciarTransicion"></div>
                         </div>
-                    </a>
+                        <div class="tooltip_tutorial">
+                            <div class="cerrar_tooltipTutorial">
+                                <a href="javascript:void();" onclick="ocultarUbicacionTutorial();" title="Cerrar">
+                                    <img src="@Url.Content("~/Content/Images/btn_cerrar_popup_color_negro.svg")" alt="Cerrar" />
+                                </a>
+                            </div>
+                            <span class="titulo_necesitasAyuda">¿Necesitas ayuda?</span>
+                            <span class="descripcion_necesitasAyuda">Hoy te brindamos este salvavidas que te ayudará a comprender la sección en donde te encuentres</span>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="boton_cam">
@@ -210,14 +244,14 @@
         </div>
         <div class="clear"></div>
     </header>
-
+    <div class="fondo_oscuro"></div>
     <div class="ubicacion_web @(controllerAction == "BienvenidaIndex" ? "oculto" : "")">
         <span><a href="@Url.Action("Index", "Bienvenida")">Home</a></span> <span> | @ViewBag.Title</span>
     </div>
 
     <!-- end cabecera -->
     <!-- contenedor -->
-    <div class="content">
+    <div class="content" data-content="">
         @RenderBody()
 
         @if (ViewBag.TerminoMostrar == 1)

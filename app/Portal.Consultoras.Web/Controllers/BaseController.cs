@@ -268,7 +268,141 @@ namespace Portal.Consultoras.Web.Controllers
                 ObtenerPedidoWeb();
             }
         }
+        
+        protected bool ReservadoEnHorarioRestringido(out string mensaje)
+        {
+            mensaje = "";
+            if (userData.IndicadorEnviado == 1 && userData.EstaRechazado == 0)
+            {
+                mensaje = "NOS ENCONTRAMOS FACTURANDO TU PEDIDO. En este momento no puedes realizar ninguna modificación.";
+                return true;
+            }
 
+            var result = ValidarSession();
+            if (result != null) return true;
+
+            bool estado = ValidarPedidoReservado(out mensaje);
+            
+            if (!estado)
+                estado = ValidarHorarioRestringido(out mensaje);
+            return estado;
+        }
+
+        protected ActionResult ValidarSession()
+        {
+            ActionResult Result = null;
+
+            if (HttpContext.Session != null)
+            {
+                if (HttpContext.Session.IsNewSession)
+                {
+                    var sessionCookie = HttpContext.Request.Headers["Cookie"];
+                    if ((sessionCookie != null) && (sessionCookie.IndexOf("ASP.NET_SessionId") >= 0))
+                    {
+                        // loggear datos de variable de sesion clave
+                        UsuarioModel usuario = (UsuarioModel)HttpContext.Session["UserData"];
+                        if (usuario != null)
+                        {
+                            LogManager.LogManager.LogErrorWebServicesBus(new ApplicationException("Si existe Session[UserData]"), usuario.CodigoConsultora, usuario.CodigoISO);
+                        }
+                        else
+                        {
+                            LogManager.LogManager.LogErrorWebServicesBus(new ApplicationException("No existe Session[UserData]"), string.Empty, string.Empty);
+                        }
+                        // loggear datos de variable de sesion clave
+
+                        CerrarSesion();
+
+                        // version 2
+                        if (HttpContext.Request.IsAjaxRequest())
+                        {
+                            Result = new JsonResult { Data = "_Logon_", JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+                        }
+                        else
+                        {
+                            //string URLSignOut = "https://stsqa.somosbelcorp.com/adfs/ls/?wa=wsignout1.0";
+                            string URLSignOut = "/SesionExpirada.html";
+                            //filterContext.Result = new RedirectResult(URLSignOut);
+                            Result = new RedirectResult(URLSignOut);
+                        }
+                        // version 2
+                    }
+                }
+            }
+            return Result;
+        }
+
+        protected void CerrarSesion()
+        {
+            HttpContext.Session["UserData"] = null;
+            HttpContext.Session.Abandon();
+        }
+
+        protected bool ValidarPedidoReservado(out string mensaje)
+        {
+            mensaje = string.Empty;
+
+            BEConfiguracionCampania oBEConfiguracionCampania = null;
+            using (PedidoServiceClient sv = new PedidoServiceClient())
+            {
+                oBEConfiguracionCampania = sv.GetEstadoPedido(userData.PaisID, userData.CampaniaID, userData.ConsultoraID, userData.ZonaID, userData.RegionID);
+            }
+            if (oBEConfiguracionCampania != null && oBEConfiguracionCampania.EstadoPedido == Constantes.EstadoPedido.Procesado &&
+                !oBEConfiguracionCampania.ModificaPedidoReservado && !oBEConfiguracionCampania.ValidacionAbierta)
+            {
+                mensaje = "Ya tienes un pedido reservado para esta campaña.";
+                return true;
+            }
+            return false;
+        }
+
+        protected bool ValidarHorarioRestringido(out string mensaje)
+        {
+            bool enHorarioRestringido = false;
+            mensaje = string.Empty;
+            UsuarioModel usuario = (UsuarioModel)Session["UserData"];
+            DateTime FechaHoraActual = DateTime.Now.AddHours(usuario.ZonaHoraria);
+
+            if (!usuario.DiaPROL || !usuario.HabilitarRestriccionHoraria)
+                return false;
+            else
+            {
+                // rango de dias prol
+                if (FechaHoraActual > usuario.FechaInicioCampania &&
+                    FechaHoraActual < usuario.FechaFinCampania.AddDays(1))
+                {
+                    TimeSpan HoraNow = new TimeSpan(FechaHoraActual.Hour, FechaHoraActual.Minute, 0);
+                    TimeSpan HoraAdicional = TimeSpan.Parse(usuario.HorasDuracionRestriccion.ToString() + ":00");
+                    // si no es demanda anticipada se usa la hora de cierre normal
+                    if (usuario.EsZonaDemAnti == 0)
+                    {
+                        if (HoraNow > usuario.HoraCierreZonaNormal && HoraNow < usuario.HoraCierreZonaNormal + HoraAdicional)
+                            enHorarioRestringido = true;
+                        else
+                            enHorarioRestringido = false;
+                    }
+                    else // sino se usa la hora de cierre de demanda anticipada
+                    {
+                        if (HoraNow > usuario.HoraCierreZonaDemAnti)
+                            enHorarioRestringido = true;
+                        else
+                            enHorarioRestringido = false;
+                    }
+                }
+                // si no es horario restringido se devuelve el resultado false , sino se prepara el mensaje correspondiente
+                if (!enHorarioRestringido)
+                    return false;
+                else
+                {
+                    TimeSpan HoraCierrePais = usuario.EsZonaDemAnti == 0 ? usuario.HoraCierreZonaNormal : usuario.HoraCierreZonaDemAnti;
+                    if (usuario.IngresoPedidoCierre)
+                        mensaje = string.Format("Lamentablemente el rango de fechas para ingresar o modificar tu pedido ha concluido. Te recomendamos que en la siguiente campaña lo hagas antes de las {0}:{1} horas de tu día de facturación.", HoraCierrePais.Hours.ToString().PadLeft(2, '0'), HoraCierrePais.Minutes.ToString().PadLeft(2, '0'));
+                    else
+                        mensaje = string.Format("Se ha cerrado el período de facturación a las {0}:{1} horas. Todos los códigos ingresados hasta esa hora han sido registrados en el sistema. Gracias", HoraCierrePais.Hours.ToString().PadLeft(2, '0'), HoraCierrePais.Minutes.ToString().PadLeft(2, '0'));
+                    return true;
+                }
+            }
+        }
         #endregion
 
         #region Menú
@@ -425,190 +559,13 @@ namespace Portal.Consultoras.Web.Controllers
             string Url = Request == null ? "" :
                 (Request.Url.Scheme + "://" + Request.Url.Authority + (Request.ApplicationPath.ToString().Equals("/") ? "/" : (Request.ApplicationPath + "/")) + "WebPages/");
 
-            if (Session["UserData"] != null)
+            bool isNull = false;
+
+            if (Session["UserData"] == null)
             {
-                #region  Session["UserData"] != null
+                isNull = true;
 
-                model = (UsuarioModel)Session["UserData"];
-                if (model != null)  this.CargarEntidadesShowRoom(model);
-
-                ViewBag.Usuario = "Hola, " + (string.IsNullOrEmpty(model.Sobrenombre) ? model.NombreConsultora : model.Sobrenombre);
-                ViewBag.Rol = model.RolID;
-                ViewBag.ListaProductoFaltante = model.ListaProductoFaltante;
-                ViewBag.Campania = NombreCampania(model.NombreCorto);
-                ViewBag.CampaniaCodigo = model.CampaniaID;
-                ViewBag.BanderaImagen = model.BanderaImagen;
-                ViewBag.NombrePais = model.NombrePais;
-                ViewBag.CambioClave = model.CambioClave;
-                ViewBag.UrlAyuda = string.IsNullOrEmpty(model.UrlAyuda) ? string.Empty : model.UrlAyuda;
-                ViewBag.UrlCapedevi = string.IsNullOrEmpty(model.UrlCapedevi) ? string.Empty : model.UrlCapedevi;
-                ViewBag.UrlTerminos = string.IsNullOrEmpty(model.UrlTerminos) ? string.Empty : Url + model.UrlTerminos;
-                ViewBag.CodigoZonaConsultora = model.CodigoZona;
-                ViewBag.RolAnalytics = model.RolDescripcion;
-                ViewBag.EdadAnalytics = Util.Edad(model.FechaNacimiento);
-                ViewBag.ZonaAnalytics = model.CodigoZona;
-                ViewBag.PaisAnalytics = model.CodigoISO;
-                ViewBag.CodigoISODL = model.CodigoISO;
-                ViewBag.MensajeAniversario = string.Empty;
-                ViewBag.MensajeCumpleanos = string.Empty;
-                ViewBag.IndicadorPermisoFIC = model.IndicadorPermisoFIC;
-                ViewBag.IndicadorPermisoFlexipago = model.IndicadorPermisoFlexipago;
-                ViewBag.HorasDuracionRestriccion = model.HorasDuracionRestriccion;
-
-                ViewBag.RegionAnalytics = model.CodigorRegion;
-                ViewBag.SegmentoAnalytics = model.Segmento != null && model.Segmento != "" ?
-                    (string.IsNullOrEmpty(model.Segmento) ? string.Empty : model.Segmento.ToString().Trim()) : "(not available)";
-
-                ViewBag.esConsultoraLiderAnalytics = model.esConsultoraLider == true ? "Socia" : model.RolDescripcion;
-                ViewBag.SeccionAnalytics = model.SeccionAnalytics != null && model.SeccionAnalytics != "" ? model.SeccionAnalytics : "(not available)";
-                ViewBag.CodigoConsultoraDL = model.CodigoConsultora != null && model.CodigoConsultora != "" ? model.CodigoConsultora : "(not available)";
-                ViewBag.SegmentoConstancia = model.SegmentoConstancia != null && model.SegmentoConstancia != "" ? model.SegmentoConstancia.Trim() : "(not available)";
-                ViewBag.DescripcionNivelAnalytics = model.DescripcionNivel != null && model.DescripcionNivel != "" ? model.DescripcionNivel : "(not available)";
-                ViewBag.ConsultoraAsociada = model.ConsultoraAsociada;
-
-                if (model.RolID == Portal.Consultoras.Common.Constantes.Rol.Consultora)
-                {
-                    if (model.ConsultoraNueva != Constantes.ConsultoraNueva.Sicc &&
-                        model.ConsultoraNueva != Constantes.ConsultoraNueva.Fox)
-                    {
-                        if (model.NombreCorto != null &&
-                            model.AnoCampaniaIngreso.Trim() != "")
-                        {
-                            int campaniaActual = int.Parse(model.NombreCorto);
-                            int campaniaIngreso = int.Parse(model.AnoCampaniaIngreso);
-                            int diferencia = campaniaActual - campaniaIngreso;
-                            if (diferencia >= 12)
-                            {
-                                if (model.AnoCampaniaIngreso.Trim().EndsWith(model.NombreCorto.Trim().Substring(4)))
-                                {
-                                    ViewBag.MensajeAniversario = string.Format("!Feliz Aniversario {0}!", (string.IsNullOrEmpty(model.Sobrenombre) ? model.PrimerNombre + " " + model.PrimerApellido : model.Sobrenombre));
-                                }
-                            }
-                        }
-                    }
-
-                    if (model.FechaNacimiento.Date != DateTime.Now.Date)
-                    {
-                        if (model.FechaNacimiento.Month == DateTime.Now.Month &&
-                            model.FechaNacimiento.Day == DateTime.Now.Day)
-                        {
-                            ViewBag.MensajeCumpleanos = string.Format("!Feliz Cumpleaños {0}!", (string.IsNullOrEmpty(model.Sobrenombre) ? model.PrimerNombre + " " + model.PrimerApellido : model.Sobrenombre));
-                        }
-                    }
-                }
-
-                DateTime fechaHoy = DateTime.Now.AddHours(model.ZonaHoraria).Date;
-                ViewBag.FechaActualPais = fechaHoy.ToShortDateString();
-                ViewBag.Dias = fechaHoy >= model.FechaInicioCampania.Date && fechaHoy <= model.FechaFinCampania.Date ? 0 : (model.FechaInicioCampania.Subtract(DateTime.Now.AddHours(model.ZonaHoraria)).Days + 1);
-                ViewBag.PeriodoAnalytics = fechaHoy >= model.FechaInicioCampania.Date && fechaHoy <= model.FechaFinCampania.Date ? "Facturacion" : "Venta";
-                ViewBag.SemanaAnalytics = ObtenerSemanaAnalytics();
-
-                DateTime FechaHoraActual = DateTime.Now.AddHours(model.ZonaHoraria);
-                TimeSpan HoraCierrePortal = model.EsZonaDemAnti == 0 ? model.HoraCierreZonaNormal : model.HoraCierreZonaDemAnti;
-
-                //Mensaje Cierre Campania y Fecha Promesa
-                var TextoPromesaEspecial = false;
-                var TextoPromesa = ".";
-                var TextoNuevoPROL = "";
-                
-                if (model.ZonaValida)
-                {
-                    if (!model.DiaPROL)
-                    {
-                        if (model.NuevoPROL && model.ZonaNuevoPROL)
-                        {
-                            ViewBag.MensajeCierreCampania = "Pasa tu pedido hasta el <b>" + model.FechaFacturacion.Day + " de " + NombreMes(model.FechaFacturacion.Month) + "</b> a las <b>" + FormatearHora(HoraCierrePortal) + "</b>";
-                            if (!("BO CL VE").Contains(model.CodigoISO))
-                                TextoNuevoPROL = " Revisa tus notificaciones o correo y verifica que tu pedido esté completo.";                               
-                        }                            
-                        else
-                        {
-                            ViewBag.MensajeCierreCampania = "El <b>" + model.FechaFacturacion.Day + " de " + NombreMes(model.FechaFacturacion.Month) + "</b> desde las <b>" + FormatearHora(model.HoraFacturacion) + "</b> hasta las <b>" + FormatearHora(HoraCierrePortal) + "</b> podrás validar los productos que te llegarán en el pedido";
-                        }
-                            
-                    }
-                    else
-                    {
-                        if (model.DiasCampania != 0 && FechaHoraActual < model.FechaInicioCampania)
-                        {
-                            ViewBag.MensajeCierreCampania = "Pasa tu pedido hasta el <b>" + model.FechaInicioCampania.Day + " de " + NombreMes(model.FechaInicioCampania.Month) + "</b> a las <b>" + FormatearHora(HoraCierrePortal) + "</b>";
-                        }
-                        else
-                        {
-                            if (model.NuevoPROL && model.ZonaNuevoPROL)
-                            {
-                                ViewBag.MensajeCierreCampania = "Pasa o modifica tu pedido hasta el día de <b>hoy a las " + FormatearHora(HoraCierrePortal) + "</b>";
-                            }
-                            else
-                            {
-                                ViewBag.MensajeCierreCampania = "Recuerda que tienes hasta las <b>" + FormatearHora(HoraCierrePortal) + "</b> para validar lo que vas a recibir en el pedido";
-                                TextoPromesaEspecial = true;
-                            }                                
-                        }
-                    }
-                }
-                else
-                {
-                    ViewBag.MensajeCierreCampania = "Pasa tu pedido hasta el <b>" + model.FechaFacturacion.Day + " de " + NombreMes(model.FechaFacturacion.Month) + "</b> a las <b>" + FormatearHora(HoraCierrePortal) + "</b>";
-                }
-
-                if (model.TipoCasoPromesa != "0")
-                {
-                    if (model.TipoCasoPromesa == "1" && model.DiasCasoPromesa != -1)
-                    {
-                        TextoPromesa = " y recíbelo en ";
-                        TextoPromesa += model.DiasCasoPromesa.ToString() + (model.DiasCasoPromesa == 1 ? " día." : " días.");
-
-                    }
-                    else if (("2 3 4").Contains(model.TipoCasoPromesa) && model.DiasCasoPromesa != -1) //casos 2,3 y 4
-                    {
-                        model.FechaPromesaEntrega = FechaHoraActual.AddDays(model.DiasCasoPromesa);
-                        if (TextoPromesaEspecial)
-                            TextoPromesa = " Recibirás tu pedido el <b>" + model.FechaPromesaEntrega.Day + " de " + NombreMes(model.FechaPromesaEntrega.Month) + "</b>.";
-                        
-                        else
-                            TextoPromesa = " y recíbelo el <b>" + model.FechaPromesaEntrega.Day + " de " + NombreMes(model.FechaPromesaEntrega.Month) + "</b>.";                        
-                    }
-                }
-
-                ViewBag.MensajeCierreCampania = ViewBag.MensajeCierreCampania + TextoPromesa + TextoNuevoPROL;
-                //*******
-
-                ViewBag.FechaFacturacionPedido = model.FechaFacturacion.Day + " de " + NombreMes(model.FechaFacturacion.Month); 
-                ViewBag.QSBR = string.Format("NOMB={0}&PAIS={1}&CODI={2}&CORR={3}&TELF={4}", model.NombreConsultora.ToUpper(), model.CodigoISO, model.CodigoConsultora, model.EMail, model.Telefono.Trim() + (model.Celular.Trim() == string.Empty ? "" : "; " + model.Celular.Trim()));
-
-                model.MenuNotificaciones = 1;
-                ViewBag.TieneNotificaciones = model.TieneNotificaciones;
-                ViewBag.TieneFechaPromesa = 0;
-                ViewBag.MensajeFechaPromesa = string.Empty;
-                ViewBag.DiaFechaPromesa = 0;
-                ViewBag.EsUsuarioComunidad = model.EsUsuarioComunidad ? 1 : 0;
-                ViewBag.NombreC = model.PrimerNombre;
-                ViewBag.ApellidoC = model.PrimerApellido;
-                ViewBag.CorreoC = model.EMail;
-                ViewBag.Lider = model.Lider;
-                ViewBag.PortalLideres = model.PortalLideres;
-                ViewBag.LogOutComunidad = ConfigurationManager.AppSettings["URL_COM_LO"] + "&dest_url=" + ConfigurationManager.AppSettings["URL_SB"] + "/WebPages/ComunidadLogout.aspx";
-                ViewBag.LogOutSB = ConfigurationManager.AppSettings["URL_SB"] + "/WebPages/ComunidadLogout.aspx";
-                ViewBag.TokenAtento = ConfigurationManager.AppSettings["TokenAtento_" + model.CodigoISO];
-                ViewBag.IdbelcorpChat = "belcorpChat" + model.CodigoISO;
-                ViewBag.EstadoSimplificacionCUV = model.EstadoSimplificacionCUV;
-                ViewBag.FormatDecimalPais = GetFormatDecimalPais(model.CodigoISO);
-                ViewBag.OfertaFinal = model.OfertaFinal;
-                ViewBag.CatalogoPersonalizado = model.CatalogoPersonalizado;
-                ViewBag.Simbolo = model.Simbolo;
-                string paisesConTrackingJetlore = ConfigurationManager.AppSettings.Get("PaisesConTrackingJetlore") ?? "";
-                ViewBag.PaisesConTrackingJetlore = paisesConTrackingJetlore.Contains(model.CodigoISO) ? "1" : "0";
-                ViewBag.EsCatalogoPersonalizadoZonaValida = model.EsCatalogoPersonalizadoZonaValida;
-
-                return model;
-
-                #endregion
-            }
-            else
-            {
-                #region Session["UserData"] == null
-
+                #region null true
                 ClaimsPrincipal claimsPrincipal = User as ClaimsPrincipal;
                 Claim FederationClaimName = claimsPrincipal.FindFirst(ClaimTypes.Name);
                 string claimUser = FederationClaimName == null ? "" : FederationClaimName.Value.ToUpper();
@@ -662,180 +619,226 @@ namespace Portal.Consultoras.Web.Controllers
                         GetUserData(PaisModel.PaisID, Codigo, Tipo);
                 }
 
-                model = (UsuarioModel)Session["UserData"];
-                if (model == null) return model;
+                #endregion
+            }
+
+            #region
+
+            model = (UsuarioModel)Session["UserData"];
+            if (isNull)
+            {
+               if (model == null) return model;
+            }
+
+            if (model != null)
                 this.CargarEntidadesShowRoom(model);
 
-                ViewBag.Usuario = "Hola, " + (string.IsNullOrEmpty(model.Sobrenombre) ? model.NombreConsultora : model.Sobrenombre);
-                ViewBag.Rol = model.RolID;
-                ViewBag.ListaProductoFaltante = model.ListaProductoFaltante;
-                ViewBag.Campania = NombreCampania(model.NombreCorto);
-                ViewBag.CampaniaCodigo = model.CampaniaID;
-                ViewBag.BanderaImagen = model.BanderaImagen;
-                ViewBag.NombrePais = model.NombrePais;
-                ViewBag.CambioClave = model.CambioClave;
-                ViewBag.UrlAyuda = string.IsNullOrEmpty(model.UrlAyuda) ? string.Empty : model.UrlAyuda;
-                ViewBag.UrlCapedevi = string.IsNullOrEmpty(model.UrlCapedevi) ? string.Empty : model.UrlCapedevi;
-                ViewBag.UrlTerminos = string.IsNullOrEmpty(model.UrlTerminos) ? string.Empty : Url + model.UrlTerminos;
-                ViewBag.CodigoZonaConsultora = model.CodigoZona;
-                ViewBag.RolAnalytics = model.RolDescripcion;
-                ViewBag.EdadAnalytics = Util.Edad(model.FechaNacimiento);
-                ViewBag.ZonaAnalytics = model.CodigoZona;
-                ViewBag.PaisAnalytics = model.CodigoISO;
-                ViewBag.CodigoISODL = model.CodigoISO;
-                ViewBag.MensajeAniversario = string.Empty;
-                ViewBag.MensajeCumpleanos = string.Empty;
-                ViewBag.IndicadorPermisoFIC = model.IndicadorPermisoFIC;
-                ViewBag.IndicadorPermisoFlexipago = model.IndicadorPermisoFlexipago;
-                ViewBag.HorasDuracionRestriccion = model.HorasDuracionRestriccion;
+            ViewBag.Usuario = "Hola, " + (string.IsNullOrEmpty(model.Sobrenombre) ? model.NombreConsultora : model.Sobrenombre);
+            ViewBag.Rol = model.RolID;
+            ViewBag.ListaProductoFaltante = model.ListaProductoFaltante;
+            ViewBag.Campania = NombreCampania(model.NombreCorto);
+            ViewBag.CampaniaCodigo = model.CampaniaID;
+            ViewBag.BanderaImagen = model.BanderaImagen;
+            ViewBag.NombrePais = model.NombrePais;
+            ViewBag.CambioClave = model.CambioClave;
+            ViewBag.UrlAyuda = string.IsNullOrEmpty(model.UrlAyuda) ? string.Empty : model.UrlAyuda;
+            ViewBag.UrlCapedevi = string.IsNullOrEmpty(model.UrlCapedevi) ? string.Empty : model.UrlCapedevi;
+            ViewBag.UrlTerminos = string.IsNullOrEmpty(model.UrlTerminos) ? string.Empty : Url + model.UrlTerminos;
+            ViewBag.CodigoZonaConsultora = model.CodigoZona;
+            ViewBag.RolAnalytics = model.RolDescripcion;
+            ViewBag.EdadAnalytics = Util.Edad(model.FechaNacimiento);
+            ViewBag.ZonaAnalytics = model.CodigoZona;
+            ViewBag.PaisAnalytics = model.CodigoISO;
+            ViewBag.CodigoISODL = model.CodigoISO;
+            ViewBag.MensajeAniversario = string.Empty;
+            ViewBag.MensajeCumpleanos = string.Empty;
+            ViewBag.IndicadorPermisoFIC = model.IndicadorPermisoFIC;
+            ViewBag.IndicadorPermisoFlexipago = model.IndicadorPermisoFlexipago;
+            ViewBag.HorasDuracionRestriccion = model.HorasDuracionRestriccion;
 
+            if (isNull)
+            {
                 ViewBag.SegmentoAnalytics = string.IsNullOrEmpty(model.Segmento) ? string.Empty : model.Segmento.ToString().Trim();
                 ViewBag.CodigoConsultoraDL = model.CodigoConsultora;
-
                 ViewBag.CampanaInvitada = model.CampanaInvitada;
                 ViewBag.InscritaFlexipago = model.InscritaFlexipago;
                 ViewBag.InvitacionRechazada = model.InvitacionRechazada;
-
-                if (model.RolID == Portal.Consultoras.Common.Constantes.Rol.Consultora)
+            }
+            else
+            {
+                ViewBag.RegionAnalytics = model.CodigorRegion;
+                ViewBag.SegmentoAnalytics = model.Segmento != null && model.Segmento != "" ?
+                    (string.IsNullOrEmpty(model.Segmento) ? string.Empty : model.Segmento.ToString().Trim()) : "(not available)";
+                ViewBag.esConsultoraLiderAnalytics = model.esConsultoraLider == true ? "Socia" : model.RolDescripcion;
+                ViewBag.SeccionAnalytics = model.SeccionAnalytics != null && model.SeccionAnalytics != "" ? model.SeccionAnalytics : "(not available)";
+                ViewBag.CodigoConsultoraDL = model.CodigoConsultora != null && model.CodigoConsultora != "" ? model.CodigoConsultora : "(not available)";
+                ViewBag.SegmentoConstancia = model.SegmentoConstancia != null && model.SegmentoConstancia != "" ? model.SegmentoConstancia.Trim() : "(not available)";
+                ViewBag.DescripcionNivelAnalytics = model.DescripcionNivel != null && model.DescripcionNivel != "" ? model.DescripcionNivel : "(not available)";
+                ViewBag.ConsultoraAsociada = model.ConsultoraAsociada;
+            }
+            
+            if (model.RolID == Portal.Consultoras.Common.Constantes.Rol.Consultora)
+            {
+                if (model.ConsultoraNueva != Constantes.ConsultoraNueva.Sicc &&
+                    model.ConsultoraNueva != Constantes.ConsultoraNueva.Fox)
                 {
-                    if (model.ConsultoraNueva != Constantes.ConsultoraNueva.Sicc &&
-                        model.ConsultoraNueva != Constantes.ConsultoraNueva.Fox)
+                    if (model.NombreCorto != null &&
+                        model.AnoCampaniaIngreso.Trim() != "")
                     {
-                        if (model.NombreCorto != null &&
-                            model.AnoCampaniaIngreso.Trim() != "")
+                        int campaniaActual = int.Parse(model.NombreCorto);
+                        int campaniaIngreso = int.Parse(model.AnoCampaniaIngreso);
+                        int diferencia = campaniaActual - campaniaIngreso;
+                        if (diferencia >= 12)
                         {
-                            int campaniaActual = int.Parse(model.NombreCorto);
-                            int campaniaIngreso = int.Parse(model.AnoCampaniaIngreso);
-                            int diferencia = campaniaActual - campaniaIngreso;
-                            if (diferencia >= 12)
+                            if (model.AnoCampaniaIngreso.Trim().EndsWith(model.NombreCorto.Trim().Substring(4)))
                             {
-                                if (model.AnoCampaniaIngreso.Trim().EndsWith(model.NombreCorto.Trim().Substring(4)))
-                                {
-                                    ViewBag.MensajeAniversario = string.Format("!Feliz Aniversario {0}!", (string.IsNullOrEmpty(model.Sobrenombre) ? model.PrimerNombre + " " + model.PrimerApellido : model.Sobrenombre));
-                                }
+                                ViewBag.MensajeAniversario = string.Format("!Feliz Aniversario {0}!", (string.IsNullOrEmpty(model.Sobrenombre) ? model.PrimerNombre + " " + model.PrimerApellido : model.Sobrenombre));
                             }
-                        }
-                    }
-
-                    if (model.FechaNacimiento.Date != DateTime.Now.Date)
-                    {
-                        if (model.FechaNacimiento.Month == DateTime.Now.Month &&
-                            model.FechaNacimiento.Day == DateTime.Now.Day)
-                        {
-                            ViewBag.MensajeCumpleanos = string.Format("!Feliz Cumpleaños {0}!", (string.IsNullOrEmpty(model.Sobrenombre) ? model.PrimerNombre + " " + model.PrimerApellido : model.Sobrenombre));
                         }
                     }
                 }
 
-                DateTime fechaHoy = DateTime.Now.AddHours(model.ZonaHoraria).Date;
-                ViewBag.FechaActualPais = fechaHoy.ToShortDateString();
-                ViewBag.Dias = fechaHoy >= model.FechaInicioCampania.Date && fechaHoy <= model.FechaFinCampania.Date ? 0 : (model.FechaInicioCampania.Subtract(DateTime.Now.AddHours(model.ZonaHoraria)).Days + 1);
-
-                DateTime FechaHoraActual = DateTime.Now.AddHours(model.ZonaHoraria);
-                TimeSpan HoraCierrePortal = model.EsZonaDemAnti == 0 ? model.HoraCierreZonaNormal : model.HoraCierreZonaDemAnti;
-
-                //Mensaje Cierre Campania y Fecha Promesa
-                var TextoPromesaEspecial = false;
-                var TextoPromesa = ".";
-                var TextoNuevoPROL = "";
-
-                if (model.ZonaValida)
+                if (model.FechaNacimiento.Date != DateTime.Now.Date)
                 {
-                    if (!model.DiaPROL)
+                    if (model.FechaNacimiento.Month == DateTime.Now.Month &&
+                        model.FechaNacimiento.Day == DateTime.Now.Day)
                     {
-                        if (model.NuevoPROL && model.ZonaNuevoPROL)
-                        {
-                            ViewBag.MensajeCierreCampania = "Pasa tu pedido hasta el <b>" + model.FechaFacturacion.Day + " de " + NombreMes(model.FechaFacturacion.Month) + "</b> a las <b>" + FormatearHora(HoraCierrePortal) + "</b>";
-                            if (!("BO CL VE").Contains(model.CodigoISO))
-                                TextoNuevoPROL = " Revisa tus notificaciones o correo y verifica que tu pedido esté completo.";
-                        }
-                        else
-                        {
-                            ViewBag.MensajeCierreCampania = "El <b>" + model.FechaFacturacion.Day + " de " + NombreMes(model.FechaFacturacion.Month) + "</b> desde las <b>" + FormatearHora(model.HoraFacturacion) + "</b> hasta las <b>" + FormatearHora(HoraCierrePortal) + "</b> podrás validar los productos que te llegarán en el pedido";
-                        }
+                        ViewBag.MensajeCumpleanos = string.Format("!Feliz Cumpleaños {0}!", (string.IsNullOrEmpty(model.Sobrenombre) ? model.PrimerNombre + " " + model.PrimerApellido : model.Sobrenombre));
+                    }
+                }
+            }
 
+            DateTime fechaHoy = DateTime.Now.AddHours(model.ZonaHoraria).Date;
+            ViewBag.FechaActualPais = fechaHoy.ToShortDateString();
+            ViewBag.Dias = fechaHoy >= model.FechaInicioCampania.Date && fechaHoy <= model.FechaFinCampania.Date ? 0 : (model.FechaInicioCampania.Subtract(DateTime.Now.AddHours(model.ZonaHoraria)).Days + 1);
+
+            if (!isNull)
+            {
+                ViewBag.PeriodoAnalytics = fechaHoy >= model.FechaInicioCampania.Date && fechaHoy <= model.FechaFinCampania.Date ? "Facturacion" : "Venta";
+                ViewBag.SemanaAnalytics = ObtenerSemanaAnalytics();
+            }
+
+            DateTime FechaHoraActual = DateTime.Now.AddHours(model.ZonaHoraria);
+            TimeSpan HoraCierrePortal = model.EsZonaDemAnti == 0 ? model.HoraCierreZonaNormal : model.HoraCierreZonaDemAnti;
+
+            //Mensaje Cierre Campania y Fecha Promesa
+            var TextoPromesaEspecial = false;
+            var TextoPromesa = ".";
+            var TextoNuevoPROL = "";
+
+            if (model.ZonaValida)
+            {
+                if (!model.DiaPROL)
+                {
+                    if (model.NuevoPROL && model.ZonaNuevoPROL)
+                    {
+                        ViewBag.MensajeCierreCampania = "Pasa tu pedido hasta el <b>" + model.FechaFacturacion.Day + " de " + NombreMes(model.FechaFacturacion.Month) + "</b> a las <b>" + FormatearHora(HoraCierrePortal) + "</b>";
+                        if (!("BO CL VE").Contains(model.CodigoISO))
+                            TextoNuevoPROL = " Revisa tus notificaciones o correo y verifica que tu pedido esté completo.";
                     }
                     else
                     {
-                        if (model.DiasCampania != 0 && FechaHoraActual < model.FechaInicioCampania)
-                        {
-                            ViewBag.MensajeCierreCampania = "Pasa tu pedido hasta el <b>" + model.FechaInicioCampania.Day + " de " + NombreMes(model.FechaInicioCampania.Month) + "</b> a las <b>" + FormatearHora(HoraCierrePortal) + "</b>";
-                        }
-                        else
-                        {
-                            if (model.NuevoPROL && model.ZonaNuevoPROL)
-                            {
-                                ViewBag.MensajeCierreCampania = "Pasa o modifica tu pedido hasta el día de <b>hoy a las " + FormatearHora(HoraCierrePortal) + "</b>";
-                            }
-                            else
-                            {
-                                ViewBag.MensajeCierreCampania = "Recuerda que tienes hasta las <b>" + FormatearHora(HoraCierrePortal) + "</b> para validar lo que vas a recibir en el pedido";
-                                TextoPromesaEspecial = true;
-                            }
-                        }
+                        ViewBag.MensajeCierreCampania = "El <b>" + model.FechaFacturacion.Day + " de " + NombreMes(model.FechaFacturacion.Month) + "</b> desde las <b>" + FormatearHora(model.HoraFacturacion) + "</b> hasta las <b>" + FormatearHora(HoraCierrePortal) + "</b> podrás validar los productos que te llegarán en el pedido";
                     }
+
                 }
                 else
                 {
-                    ViewBag.MensajeCierreCampania = "Pasa tu pedido hasta el <b>" + model.FechaFacturacion.Day + " de " + NombreMes(model.FechaFacturacion.Month) + "</b> a las <b>" + FormatearHora(HoraCierrePortal) + "</b>";
-                }
-
-                if (model.TipoCasoPromesa != "0")
-                {
-                    if (model.TipoCasoPromesa == "1" && model.DiasCasoPromesa != -1)
+                    if (model.DiasCampania != 0 && FechaHoraActual < model.FechaInicioCampania)
                     {
-                        TextoPromesa = " y recíbelo en ";
-                        TextoPromesa += model.DiasCasoPromesa.ToString() + (model.DiasCasoPromesa == 1 ? " día." : " días.");
-
+                        ViewBag.MensajeCierreCampania = "Pasa tu pedido hasta el <b>" + model.FechaInicioCampania.Day + " de " + NombreMes(model.FechaInicioCampania.Month) + "</b> a las <b>" + FormatearHora(HoraCierrePortal) + "</b>";
                     }
-                    else if (("2 3 4").Contains(model.TipoCasoPromesa) && model.DiasCasoPromesa != -1) //casos 2,3 y 4
+                    else
                     {
-                        model.FechaPromesaEntrega = FechaHoraActual.AddDays(model.DiasCasoPromesa);
-                        if (TextoPromesaEspecial)
-                            TextoPromesa = " Recibirás tu pedido el <b>" + model.FechaPromesaEntrega.Day + " de " + NombreMes(model.FechaPromesaEntrega.Month) + "</b>.";
-
+                        if (model.NuevoPROL && model.ZonaNuevoPROL)
+                        {
+                            ViewBag.MensajeCierreCampania = "Pasa o modifica tu pedido hasta el día de <b>hoy a las " + FormatearHora(HoraCierrePortal) + "</b>";
+                        }
                         else
-                            TextoPromesa = " y recíbelo el <b>" + model.FechaPromesaEntrega.Day + " de " + NombreMes(model.FechaPromesaEntrega.Month) + "</b>.";
+                        {
+                            ViewBag.MensajeCierreCampania = "Recuerda que tienes hasta las <b>" + FormatearHora(HoraCierrePortal) + "</b> para validar lo que vas a recibir en el pedido";
+                            TextoPromesaEspecial = true;
+                        }
                     }
                 }
+            }
+            else
+            {
+                ViewBag.MensajeCierreCampania = "Pasa tu pedido hasta el <b>" + model.FechaFacturacion.Day + " de " + NombreMes(model.FechaFacturacion.Month) + "</b> a las <b>" + FormatearHora(HoraCierrePortal) + "</b>";
+            }
 
-                ViewBag.MensajeCierreCampania = ViewBag.MensajeCierreCampania + TextoPromesa + TextoNuevoPROL;
-                //*******
+            if (model.TipoCasoPromesa != "0")
+            {
+                if (model.TipoCasoPromesa == "1" && model.DiasCasoPromesa != -1)
+                {
+                    TextoPromesa = " y recíbelo en ";
+                    TextoPromesa += model.DiasCasoPromesa.ToString() + (model.DiasCasoPromesa == 1 ? " día." : " días.");
 
+                }
+                else if (("2 3 4").Contains(model.TipoCasoPromesa) && model.DiasCasoPromesa != -1) //casos 2,3 y 4
+                {
+                    model.FechaPromesaEntrega = FechaHoraActual.AddDays(model.DiasCasoPromesa);
+                    if (TextoPromesaEspecial)
+                        TextoPromesa = " Recibirás tu pedido el <b>" + model.FechaPromesaEntrega.Day + " de " + NombreMes(model.FechaPromesaEntrega.Month) + "</b>.";
+
+                    else
+                        TextoPromesa = " y recíbelo el <b>" + model.FechaPromesaEntrega.Day + " de " + NombreMes(model.FechaPromesaEntrega.Month) + "</b>.";
+                }
+            }
+
+            ViewBag.MensajeCierreCampania = ViewBag.MensajeCierreCampania + TextoPromesa + TextoNuevoPROL;
+
+            if (isNull)
+            {
                 ViewBag.Permiso = BuildMenu();
                 ViewBag.Servicio = BuildMenuService();
-                //MenuBelcorpResponde();
                 ViewBag.ServiceController = ConfigurationManager.AppSettings["ServiceController"].ToString();
                 ViewBag.ServiceAction = ConfigurationManager.AppSettings["ServiceAction"].ToString();
-                ViewBag.FechaFacturacionPedido = model.FechaFacturacion.Day + " de " + NombreMes(model.FechaFacturacion.Month); 
-                ViewBag.QSBR = string.Format("NOMB={0}&PAIS={1}&CODI={2}&CORR={3}&TELF={4}", model.NombreConsultora.ToUpper(), model.CodigoISO, model.CodigoConsultora, model.EMail, model.Telefono.Trim() + (model.Celular.Trim() == string.Empty ? "" : "; " + model.Celular.Trim()));
+            }
 
+            ViewBag.FechaFacturacionPedido = model.FechaFacturacion.Day + " de " + NombreMes(model.FechaFacturacion.Month);
+            ViewBag.QSBR = string.Format("NOMB={0}&PAIS={1}&CODI={2}&CORR={3}&TELF={4}", model.NombreConsultora.ToUpper(), model.CodigoISO, model.CodigoConsultora, model.EMail, model.Telefono.Trim() + (model.Celular.Trim() == string.Empty ? "" : "; " + model.Celular.Trim()));
+
+            if (isNull)
+            {
                 ViewBag.MenuNotificaciones = model.MenuNotificaciones;
-                ViewBag.TieneNotificaciones = model.TieneNotificaciones;
-                ViewBag.EsUsuarioComunidad = model.EsUsuarioComunidad ? 1 : 0;
-                ViewBag.NombreC = model.PrimerNombre;
-                ViewBag.ApellidoC = model.PrimerApellido;
-                ViewBag.CorreoC = model.EMail;
-                ViewBag.Lider = model.Lider;
-                ViewBag.PortalLideres = model.PortalLideres;
-                ViewBag.LogOutComunidad = ConfigurationManager.AppSettings["URL_COM_LO"] + "&dest_url=" + ConfigurationManager.AppSettings["URL_SB"] + "/WebPages/ComunidadLogout.aspx";
-                ViewBag.LogOutSB = ConfigurationManager.AppSettings["URL_SB"] + "/WebPages/ComunidadLogout.aspx";
-                ViewBag.TokenAtento = ConfigurationManager.AppSettings["TokenAtento_" + model.CodigoISO];
-                ViewBag.IdbelcorpChat = "belcorpChat" + model.CodigoISO;
-                ViewBag.EstadoSimplificacionCUV = model.EstadoSimplificacionCUV;
-
-                ViewBag.FormatDecimalPais = GetFormatDecimalPais(model.CodigoISO);
-                ViewBag.OfertaFinal = model.OfertaFinal;
-                ViewBag.CatalogoPersonalizado = model.CatalogoPersonalizado;
-                ViewBag.Simbolo = model.Simbolo;
-                string paisesConTrackingJetlore = ConfigurationManager.AppSettings.Get("PaisesConTrackingJetlore") ?? "";
-                ViewBag.PaisesConTrackingJetlore = paisesConTrackingJetlore.Contains(model.CodigoISO) ? "1" : "0";
+            }
+            else
+            {
+                model.MenuNotificaciones = 1;
+                ViewBag.TieneFechaPromesa = 0;
+                ViewBag.MensajeFechaPromesa = string.Empty;
+                ViewBag.DiaFechaPromesa = 0;
+            }
+            
+            ViewBag.TieneNotificaciones = model.TieneNotificaciones;
+            ViewBag.EsUsuarioComunidad = model.EsUsuarioComunidad ? 1 : 0;
+            ViewBag.NombreC = model.PrimerNombre;
+            ViewBag.ApellidoC = model.PrimerApellido;
+            ViewBag.CorreoC = model.EMail;
+            ViewBag.Lider = model.Lider;
+            ViewBag.PortalLideres = model.PortalLideres;
+            ViewBag.LogOutComunidad = ConfigurationManager.AppSettings["URL_COM_LO"] + "&dest_url=" + ConfigurationManager.AppSettings["URL_SB"] + "/WebPages/ComunidadLogout.aspx";
+            ViewBag.LogOutSB = ConfigurationManager.AppSettings["URL_SB"] + "/WebPages/ComunidadLogout.aspx";
+            ViewBag.TokenAtento = ConfigurationManager.AppSettings["TokenAtento_" + model.CodigoISO];
+            ViewBag.IdbelcorpChat = "belcorpChat" + model.CodigoISO;
+            ViewBag.EstadoSimplificacionCUV = model.EstadoSimplificacionCUV;
+            ViewBag.FormatDecimalPais = GetFormatDecimalPais(model.CodigoISO);
+            ViewBag.OfertaFinal = model.OfertaFinal;
+            ViewBag.CatalogoPersonalizado = model.CatalogoPersonalizado;
+            ViewBag.Simbolo = model.Simbolo;
+            string paisesConTrackingJetlore = ConfigurationManager.AppSettings.Get("PaisesConTrackingJetlore") ?? "";
+            ViewBag.PaisesConTrackingJetlore = paisesConTrackingJetlore.Contains(model.CodigoISO) ? "1" : "0";
                 ViewBag.EsCatalogoPersonalizadoZonaValida = model.EsCatalogoPersonalizadoZonaValida;
 
-                return model;
+            ViewBag.IndicadorEnviado = model.IndicadorEnviado;
+            ViewBag.EstaRechazado = model.EstaRechazado;
+            ViewBag.CerrarRechazado = model.CerrarRechazado;
+            ViewBag.MotivoRechazo = model.MotivoRechazo;
 
-                #endregion
-            }
+            return model;
+
+            #endregion
         }
 
         private string ObtenerSemanaAnalytics()
@@ -883,6 +886,7 @@ namespace Portal.Consultoras.Web.Controllers
                 model.CambioClave = Convert.ToInt32(oBEUsuario.CambioClave);
                 model.ConsultoraNueva = oBEUsuario.ConsultoraNueva;
                 model.Telefono = oBEUsuario.Telefono;
+                model.TelefonoTrabajo = oBEUsuario.TelefonoTrabajo;
                 model.Celular = oBEUsuario.Celular;
                 model.IndicadorDupla = oBEUsuario.IndicadorDupla;
                 model.UsuarioPrueba = oBEUsuario.UsuarioPrueba;
@@ -1014,6 +1018,8 @@ namespace Portal.Consultoras.Web.Controllers
                 model.EsOfertaFinalZonaValida = oBEUsuario.EsOfertaFinalZonaValida;
                 model.CatalogoPersonalizado = oBEUsuario.CatalogoPersonalizado;
                 model.EsCatalogoPersonalizadoZonaValida = oBEUsuario.EsCatalogoPersonalizadoZonaValida;
+                model.VioTutorialSalvavidas = oBEUsuario.VioTutorialSalvavidas;
+                model.NombreGerenteZonal = oBEUsuario.NombreGerenteZona;  // SB20-907
             }
             Session["UserData"] = model;
 
@@ -1158,6 +1164,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         protected void CargarEntidadesShowRoom(UsuarioModel model)
         {
+            if (model == null) return;
             if (model.CargoEntidadesShowRoom) return;
 
             Session["EsShowRoom"] = "0";
@@ -1482,10 +1489,10 @@ namespace Portal.Consultoras.Web.Controllers
                 var listaEscalaDescuento = new List<BEEscalaDescuento>();
                 if (inEscala)
                 {
-                    if (objR.MontoMaximoStr == "")
-                    {
+                    //if (objR.MontoMaximoStr == "")
+                    //{
                         listaEscalaDescuento = GetListaEscalaDescuento() ?? new List<BEEscalaDescuento>();
-                    }
+                    //}
                 }
 
                 foreach (var escala in listaEscalaDescuento)

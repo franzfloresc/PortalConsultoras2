@@ -337,6 +337,11 @@
                             <span>App móvil</span>
                             {{/iff}}
 
+                            {{#if_eq FlagConsultoraOnline '1'}}
+                            <br />
+                            <span>CLIENTE ONLINE</span>
+                            {{else}}
+
                             {{#iff OrigenPedidoWeb '==' '@Constantes.OrigenPedidoWeb.DesktopPedidoOfertaFinal'}}
                             {{else if_eq OrigenPedidoWeb '@Constantes.OrigenPedidoWeb.MobilePedidoOfertaFinal'}}
                             {{else iff detalle.ConfiguracionOfertaID '==' @Constantes.TipoOferta.Liquidacion}}
@@ -357,6 +362,8 @@
                             {{/iff}}
                             {{/IsNullOrEmpty}}
                             {{/iff}}
+
+                            {{/if_eq}}
                         </span>
                         <span class="cod_prod">{{detalle.CUV}}</span>
                         <span class="desc_prod">
@@ -708,7 +715,7 @@
         var urlLoad = '@Url.Content("~/Content/Images/Loading.gif")';
         var viewBagPaisID = '@Model.PaisID';
         var viewBagNombrePais = '@ViewBag.NombrePais';
-        var urlInsertar = '@Url.Action("Insert", "Pedido", new {area = ""})';
+        var urlPedidoInsert = '@Url.Action("Insert", "Pedido", new {area = ""})';
         /* SB20-565 - FIN */
 
     </script>

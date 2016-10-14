@@ -127,7 +127,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 using (var sv = new UsuarioServiceClient())
                 {
                     model.IsConsultoraOnline = sv.GetCantidadPedidosConsultoraOnline(userData.PaisID, userData.ConsultoraID);
-
                 }
 
                 model.UrlImagenAppCatalogo = ConfigS3.GetUrlFileS3("Mobile/AppCatalogo/" + userData.CodigoISO, "app.png", String.Empty);
@@ -135,7 +134,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 model.UrlImagenLiquidaciones = ConfigS3.GetUrlFileS3("Mobile/Liquidaciones/" + userData.CodigoISO, "liquidaciones.png", String.Empty);
                 model.UrlImagenCatalogoPersonalizado = ConfigS3.GetUrlFileS3("Mobile/CatalogoPersonalizado/" + userData.CodigoISO, "catalogo.png", String.Empty);
                 model.EsCatalogoPersonalizadoZonaValida = userData.EsCatalogoPersonalizadoZonaValida;
-
             }
             catch (FaultException ex)
             {

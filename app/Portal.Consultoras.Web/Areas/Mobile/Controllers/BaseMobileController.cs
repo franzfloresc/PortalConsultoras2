@@ -9,6 +9,8 @@ using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.Areas.Mobile.Models;
 using System.Configuration;
 
+using Portal.Consultoras.Web.ServiceUsuario;
+
 namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 {
     public class BaseMobileController : BaseController
@@ -49,6 +51,47 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     
                     string strpaises = ConfigurationManager.AppSettings.Get("Permisos_CCC");
                     if (!strpaises.Contains(userData.CodigoISO)) lst.Remove(lst.FirstOrDefault(p => p.UrlItem.ToLower() == "mobile/consultoraonline"));
+
+                    // SB20-463 - INICIO
+                    var EsConsultoraOnline = -1;
+                    using (var sv = new UsuarioServiceClient())
+                    {
+                        EsConsultoraOnline = sv.GetCantidadPedidosConsultoraOnline(userData.PaisID, userData.ConsultoraID);
+                        if (EsConsultoraOnline >= 0)
+                        {
+                            ViewBag.CantPedidosPendientes = sv.GetCantidadSolicitudesPedido(userData.PaisID, userData.ConsultoraID, userData.CampaniaID);
+                            ViewBag.TeQuedanConsultoraOnline = sv.GetSaldoHorasSolicitudesPedido(userData.PaisID, userData.ConsultoraID, userData.CampaniaID);
+                        }
+                    }
+
+                    var menup = lst.Where(m => m.Descripcion.ToLower().Trim() == "consultora online" && m.MenuPadreID == 0).FirstOrDefault();
+                    var menuh = lst.Where(m => m.Descripcion.ToLower().Trim() == "consultora online" && m.MenuPadreID != 0).FirstOrDefault();
+                    //ViewBag.CantPedidosPendientes = 3;
+                    //ViewBag.TeQuedanConsultoraOnline = "5:30:27";
+                    ViewBag.MenuPadreIDConsultoraOnline = menup.MenuMobileID;
+                    ViewBag.MenuHijoIDConsultoraOnline = menuh.MenuMobileID;
+
+                    if (EsConsultoraOnline <= 0)
+                    {
+                        if (menup != null && menuh != null)
+                        {
+                            var lstTmp = lst.Where(m => m.MenuPadreID != menup.MenuMobileID).ToList();
+                            lst = lstTmp.Where(m => m.MenuMobileID != menup.MenuMobileID).ToList();
+                            //lst.Where(m => m.MenuMobileID == menuh.MenuMobileID).First().Descripcion += " <b>!Afiliate¡</b>";
+                            ViewBag.TipoMenuConsultoraOnline = 1;
+                        }
+                    }
+                    else
+                    {
+                        if (menuh != null)
+                        {
+                            var lstTmp = lst.Where(m => m.MenuMobileID != menuh.MenuMobileID).ToList();
+                            lst = lstTmp;
+                            ViewBag.TipoMenuConsultoraOnline = 2;
+                        }
+                    }
+
+                    // SB20-463 - FIN
 
                     //Agregamos los menú Padre
                     foreach (var item in lst.Where(item => item.MenuPadreID == 0).OrderBy(item => item.OrdenItem))
@@ -91,7 +134,9 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     }
                 }
             }
+
             ViewBag.MenuMobile = lstModel;
+            
         }
 
         private void CargarValoresGenerales(UsuarioModel userData)

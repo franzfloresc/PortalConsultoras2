@@ -7,6 +7,7 @@
         public string NombreCompleto { get; set; }
         public string EMail { get; set; }
         public string Telefono { get; set; }
+        public string TelefonoTrabajo { get; set; }
         public string Celular { get; set; }
         public string Sobrenombre { get; set; }
         public bool CompartirDatos { get; set; }

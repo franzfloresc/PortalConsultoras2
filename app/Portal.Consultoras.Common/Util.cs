@@ -2751,13 +2751,7 @@ namespace Portal.Consultoras.Common
 
             var importe = string.Format("{0:#,##0.00}", valor);
             string listaPaises = ParseString(ConfigurationManager.AppSettings["KeyPaisFormatDecimal"] ?? "");
-            if (listaPaises.Contains(pais))
-                importe = importe.Split('.')[0].Replace(",", ".");
-            
-            //if (pais == Constantes.CodigosISOPais.Colombia || pais == Constantes.CodigosISOPais.Chile || pais == Constantes.CodigosISOPais.CostaRica)
-            //{
-            //    importe = importe.Split('.')[0].Replace(",", ".");
-            //}
+            if (listaPaises.Contains(pais)) importe = importe.Split('.')[0].Replace(",", ".");
 
             return importe;
         }
