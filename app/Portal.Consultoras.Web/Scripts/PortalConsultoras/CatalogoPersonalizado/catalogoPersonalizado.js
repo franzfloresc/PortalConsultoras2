@@ -151,9 +151,7 @@ function CargarCatalogoPersonalizado() {
                 
                 if (tipoOrigen == '3') {
                     $("#divMainCatalogoPersonalizado").show();
-                }
-
-                if (tipoOrigen == '1') {
+                } else {
                     if (data.data.length < cantidadRegistros) UnlinkCargarCatalogoToScroll();
                     offsetRegistros += cantidadRegistros;
                 }
@@ -340,6 +338,8 @@ function ObtenerOfertaRevista(item) {
                 return false;
             }
             response.data.dataPROL.Simbolo = vbSimbolo;
+            response.data.dataPROL.TxtGanancia = response.data.txtGanancia;
+            response.data.dataPROL.TxtRecibeGratis = response.data.txtRecibeGratis;
             var settings = $.extend({}, response.data.dataPROL, obj);
             settings.productoRevista = response.data.producto;
             TrackingJetloreView(cuv, $("#hdCampaniaCodigo").val())
@@ -366,6 +366,11 @@ function ObtenerOfertaRevista(item) {
                             settings.lista_oObjGratis = RemoverRepetidos(settings.lista_oObjGratis);
                             settings.lista_ObjNivel.splice(3, settings.lista_ObjNivel.length);
                             SetHandlebars("#template-mod-ofer2", settings, '[data-oferta]');
+                            $.each($('[data-oferta] .item1_oferta_personalizada'), function (ind, nivel) {
+                                if ($.trim($(nivel).find(".content_sub_items").html()) == "") {
+                                    $(nivel).find(".gratis_set").html("");
+                                }
+                            });
                             $('[data-oferta]').addClass('mod-ofer2').show();
                         }
                         break;
