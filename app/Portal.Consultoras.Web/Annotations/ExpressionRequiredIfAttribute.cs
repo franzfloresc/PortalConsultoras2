@@ -47,20 +47,44 @@ namespace Portal.Consultoras.Web.Annotations
                 throw new ArgumentNullException("validationContext");
             }
 
-            PropertyInfo otherProperty = validationContext.ObjectType.GetProperty(this.OtherProperty);
-            if (otherProperty == null)
+            var otherProperties = this.OtherProperty.Split('|');
+            var otherValueProperties = OtherPropertyValue.ToString().Split('|');
+            int validateCount = 0;
+
+            for (int i = 0; i < otherProperties.Length; i++)
             {
-                return new ValidationResult(
-                    string.Format(CultureInfo.CurrentCulture, "Could not find a property named '{0}'.", this.OtherProperty));
+                var itemProperty = otherProperties[i];
+                var itemValue = otherValueProperties[i];
+                PropertyInfo otherProperty = validationContext.ObjectType.GetProperty(itemProperty);
+
+
+                if (otherProperty == null)
+                {
+                    return new ValidationResult(
+                        string.Format(CultureInfo.CurrentCulture, "Could not find a property named '{0}'.", this.OtherProperty));
+                }
+
+                object otherValue = otherProperty.GetValue(validationContext.ObjectInstance);
+
+                if (otherValue != null)
+                {
+                    otherValue = otherValue.ToString();
+
+                }
+                var listaValores = itemValue.Split(',');
+
+
+                // check if this value is actually required and validate it
+                if (!this.IsInverted && listaValores.Contains(otherValue) ||
+                    this.IsInverted && !listaValores.Contains(otherValue))
+                {
+                    validateCount++;
+
+                 
+                }
             }
 
-            object otherValue = otherProperty.GetValue(validationContext.ObjectInstance);
-
-            var listaValores = OtherPropertyValue.ToString().Split(',');
-
-            // check if this value is actually required and validate it
-            if (!this.IsInverted && listaValores.Contains(otherValue) ||
-                this.IsInverted && !listaValores.Contains(otherValue))
+            if (validateCount == otherProperties.Length)
             {
                 var expresionActual = Expresion;
                 var mensajeErrorActual = ErrorMessage;
@@ -72,8 +96,8 @@ namespace Portal.Consultoras.Web.Annotations
                     return new ValidationResult(mensajeErrorActual);
                 }
             }
-
-            return ValidationResult.Success;
+            
+                return ValidationResult.Success;
         }
 
         public IEnumerable<ModelClientValidationRule> GetClientValidationRules(ModelMetadata metadata, ControllerContext context)

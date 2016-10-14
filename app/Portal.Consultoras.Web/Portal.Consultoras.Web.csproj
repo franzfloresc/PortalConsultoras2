@@ -472,6 +472,7 @@
     <Compile Include="Models\ProveedorDespachoCobranzaModel.cs" />
     <Compile Include="Models\RechazoModel.cs" />
     <Compile Include="Models\RegionModel.cs" />
+    <Compile Include="Models\ReporteConsolidadoModel.cs" />
     <Compile Include="Models\ReportePedidoCampaniaModel.cs" />
     <Compile Include="Models\ReportePedidoDDWebModel.cs" />
     <Compile Include="Models\ReportePedidoFICModel.cs" />
@@ -2602,6 +2603,7 @@
     <Content Include="Areas\Mobile\Views\ConsultoraOnline\DetallePedidoHistorial.cshtml" />
     <Content Include="Areas\Mobile\Views\ConsultoraOnline\DetallePedidoPendiente.cshtml" />
     <Content Include="Areas\Mobile\Views\Notificaciones\ListadoPedidoRechazadoDetalle.cshtml" />
+    <Content Include="Content\FAQ\politicas_post_venta_CO.pdf" />
     <None Include="Service References\ServicePedidoRechazado\PedidoRechazadoService.wsdl" />
     <None Include="Service References\ServicePedidoRechazado\PedidoRechazadoService.xsd">
       <SubType>Designer</SubType>
@@ -3512,6 +3514,8 @@
     <Content Include="Views\SolicitudCliente\ReportePedidos.cshtml" />
     <Content Include="Views\MiAcademia\Index.cshtml" />
     <Content Include="Views\Notificaciones\ListadoDetallePedidoRechazado.cshtml" />
+    <Content Include="Views\Unete\TemplatesUbigeos\_UbigeoGrupo5.cshtml" />
+
     <None Include="Web References\ServiceLMS\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>

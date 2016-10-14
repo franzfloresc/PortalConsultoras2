@@ -44,9 +44,17 @@ namespace Portal.Consultoras.Web.Models
         [Required(ErrorMessage = "Este campo es obligatorio")]
         [ExpressionRequiredIf("CodigoPais", "CL", Expresion = @"\d{8}\-[a-zA-Z0-9]", ErrorMessage = "Formato incorrecto")]
         [ExpressionRequiredIf("CodigoPais", "CO", Expresion = @"^\d{4,10}$", ErrorMessage = "Formato incorrecto")]
-        [ExpressionRequiredIf("TipoDocumento", "1", Expresion = @"^(?:[0-9]{8}|)$", ErrorMessage = "Formato incorrecto")]
-        [ExpressionRequiredIf("TipoDocumento", "2,3,5", Expresion = @"^(?:[0-9]{12}|)$", ErrorMessage = "Formato incorrecto")]
-        [ExpressionRequiredIf("TipoDocumento", "4", Expresion = @"^(?:(20|10)[0-9]{9}|)$", ErrorMessage = "Formato incorrecto")]
+       //[ExpressionRequiredIf("TipoDocumento", "1", Expresion = @"^(?:[0-9]{8}|)$", ErrorMessage = "Formato incorrecto")]
+       //[ExpressionRequiredIf("TipoDocumento", "2,3,5", Expresion = @"^(?:[0-9]{12}|)$", ErrorMessage = "Formato incorrecto")]
+       //[ExpressionRequiredIf("TipoDocumento", "4", Expresion = @"^(?:(20|10)[0-9]{9}|)$", ErrorMessage = "Formato incorrecto")]
+
+        [ExpressionRequiredIf("TipoDocumento|CodigoPais", "1|PE", Expresion = @"^(?:[0-9]{8}|)$", ErrorMessage = "Formato incorrecto")]
+        [ExpressionRequiredIf("TipoDocumento|CodigoPais", "2,3,5|PE", Expresion = @"^(?:[a-zA-Z0-9]{7,10}|)$", ErrorMessage = "Formato incorrecto")]
+        [ExpressionRequiredIf("TipoDocumento|CodigoPais", "4|PE", Expresion = @"^(?:(20|10)[0-9]{9}|)$", ErrorMessage = "Formato incorrecto")]
+        [ExpressionRequiredIf("TipoDocumento|CodigoPais", "1|EC", Expresion = @"^[0-9]{10}$", ErrorMessage = "Debe tener 10 dígitos")]
+        [ExpressionRequiredIf("TipoDocumento|CodigoPais", "2|EC", Expresion = @"^[0-9]{13}$", ErrorMessage = "Debe tener 13 dígitos")]
+        [ExpressionRequiredIf("TipoDocumento|CodigoPais", "3|EC", Expresion = @"^[a-zA-ZñáéíóúÑÁÉÍÓÚüÄÜ0-9]{6,15}$", ErrorMessage = "Debe tener 6 a 15 caracteres")]
+
         public string NumeroDocumento { get; set; }
 
         [Required(ErrorMessage = "Este campo es obligatorio")]

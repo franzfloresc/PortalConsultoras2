@@ -19,13 +19,14 @@ namespace Portal.Consultoras.Web.WebPages
 
             var dataQueryString = Request.QueryString["data"];
             if (dataQueryString != null)
-            {
+            {                
                 CargarSessionConsultora(dataQueryString);
 
                 var campania = Request.QueryString["campania"];
+                int paisID = Convert.ToInt32(ViewState["PAIS"]);
+
                 if (campania != null)
-                {
-                    int paisID = Convert.ToInt32(ViewState["PAIS"]);
+                {                    
                     string codigoConsultora = Convert.ToString(ViewState["CODIGO"]);
                     string paisISO = Convert.ToString(ViewState["PAISISO"]);
 
@@ -38,10 +39,12 @@ namespace Portal.Consultoras.Web.WebPages
                     pnlNovedadesEntrega.Visible = true;
                     pnlNovedadesPostVenta.Visible = false;
                     HtmlTableCell row1 = (HtmlTableCell)vTracking.FindControl("cellPedidos");
-                    row1.Style.Add("display", "none");
+                    row1.Style.Add("display", "none");                    
 
                     CargarSeguimientoPedido(paisID, codigoConsultora, campania, bETracking.Fecha.HasValue ? bETracking.Fecha.Value : DateTime.Now, bETracking.NumeroPedido, paisISO, bETracking.Estado);
                 }
+
+                lnkPoliticasVenta.Visible = paisID == Util.GetPaisID("CO");
             }
             else Response.Redirect("~/WebPages/UserUnknownLogin.aspx");
 

@@ -19,6 +19,7 @@ using CORP.BEL.Unete.Utils.ServicioLocal;
 using Portal.Consultoras.Web.GestionPasos;
 using Portal.Consultoras.Web.ServiceZonificacion;
 using ParametroUneteBE = Portal.Consultoras.Web.HojaInscripcionBelcorpPais.ParametroUneteBE;
+using Pais = Portal.Consultoras.Common.Constantes.CodigosISOPais; 
 using System.ServiceModel;
 using System.Web;
 
@@ -83,6 +84,34 @@ namespace Portal.Consultoras.Web.Controllers
             ViewBag.CodigoISO = CodigoISO;
 
             return View(new GestionaPostulanteModel { CodigoIso = CodigoISO });
+        }
+
+        public ActionResult ReporteConsolidado()
+        {
+            return View(new ReporteConsolidadoModel { CodigoIso = CodigoISO });
+        }
+
+
+        //TODO: Pendiente terminar la consulta para cargar la grilla del Reporte Consolidado.
+        [HttpPost]
+        public JsonResult ConsultarReporteConsolidado(ReporteConsolidadoModel model)
+        {
+            var grid = new BEGrid
+            {
+                PageSize = model.rows,
+                CurrentPage = model.page,
+                SortColumn = model.sidx,
+                SortOrder = model.sord
+            };
+            var data = new
+            {
+                //total = pag.PageCount,
+                //page = pag.CurrentPage,
+                //records = pag.RecordCount,
+            };
+
+            //  var pag = Paginador(grid, solicitudes);
+            return Json(data, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
@@ -255,7 +284,7 @@ namespace Portal.Consultoras.Web.Controllers
                         string.IsNullOrWhiteSpace(i.CodigoTerritorio) ? string.Empty : i.CodigoTerritorio.ToUpper(),//8
                         string.IsNullOrWhiteSpace(i.Direccion)
                             ? string.Empty
-                            : i.CodigoPais == "PE" ? (i.LugarPadre.ToUpper() + ", " + i.LugarHijo.ToUpper() + ", " +
+                            : i.CodigoPais == Pais.Peru? (i.LugarPadre.ToUpper() + ", " + i.LugarHijo.ToUpper() + ", " +
                               i.Direccion.Replace("|", " ").ToUpper() + ", " + i.Referencia.ToUpper())  :  i.LugarPadre.ToUpper() + ", " + i.LugarHijo.ToUpper() + ", " +
                               i.Direccion.Replace("|", " ").ToUpper(),//9
                         string.IsNullOrEmpty(i.CodigoConsultora) ? string.Empty : i.CodigoConsultora,//10
@@ -408,21 +437,23 @@ namespace Portal.Consultoras.Web.Controllers
                     var direccion = solicitudPostulante.Direccion.Split('|');
 
                     model.DireccionCadena =
-                        CodigoISO == "CL"
+                        CodigoISO == Pais.Chile
                             ? direccion[0] + " " + direccion[1]
-                            : CodigoISO == "CO"
+                            : CodigoISO == Pais.Colombia
                                 ? direccion[1] + " " + direccion[2] + " " + direccion[0]
-                                : CodigoISO == "MX"
+                                : CodigoISO == Pais.Mexico
                                     ? direccion[0] + " " + direccion[1]
-                                    : CodigoISO == "PE"
-                                    ? direccion[0] + " " + direccion[1] + " " + direccion[2]
-                                    : solicitudPostulante.Direccion;
+                                    : CodigoISO == Pais.Peru
+                                        ? direccion[0] + " " + direccion[1] + " " + direccion[2]
+                                        : CodigoISO == Pais.Ecuador
+                                            ? direccion[0] + " " + direccion[1] + " " + direccion[2]
+                                            : solicitudPostulante.Direccion;
 
                     model.Direccion = solicitudPostulante.Direccion;
                     model.NombreRegion = solicitudPostulante.LugarPadre;
                     model.NombreComuna = solicitudPostulante.LugarHijo;
 
-                    if (CodigoISO == "CL" || CodigoISO == "MX" || CodigoISO == "PE" || CodigoISO == "GT")
+                    if (CodigoISO == Pais.Chile || CodigoISO == Pais.Mexico || CodigoISO == Pais.Peru || CodigoISO == Pais.Guatemala || CodigoISO == Pais.Ecuador)
                     {
                         try
                         {
@@ -430,8 +461,8 @@ namespace Portal.Consultoras.Web.Controllers
                             {
                                 direccion = model.DireccionCadena,
                                 pais = CodigoISO,
-                                ciudad = CodigoISO == "PE" ? solicitudPostulante.LugarHijo : solicitudPostulante.LugarPadre,
-                                area = CodigoISO == "PE" ? direccion[0] : solicitudPostulante.LugarHijo,
+                                ciudad = CodigoISO == Pais.Peru ? solicitudPostulante.LugarHijo : solicitudPostulante.LugarPadre,
+                                area = CodigoISO == Pais.Peru ? direccion[0] : solicitudPostulante.LugarHijo,
                                 aplicacion = 1
                             }, "ObtenerPuntosPorDireccion");
 
@@ -532,7 +563,7 @@ namespace Portal.Consultoras.Web.Controllers
                         }
                     }
 
-                    else if (CodigoISO == "CO")
+                    else if (CodigoISO == Pais.Colombia)
                     {
 
                         var zonaEncontrada = default(string);
@@ -621,7 +652,7 @@ namespace Portal.Consultoras.Web.Controllers
                 solicitudPostulante.LugarPadre = region;
                 solicitudPostulante.LugarHijo = comuna;
 
-                if (CodigoISO == "CL" || CodigoISO == "MX" || CodigoISO == "PE")
+                if (CodigoISO == Pais.Chile || CodigoISO == Pais.Mexico || CodigoISO == Pais.Peru || CodigoISO == Pais.Ecuador)
                 {
                     try
                     {
@@ -669,7 +700,7 @@ namespace Portal.Consultoras.Web.Controllers
                     }
 
                 }
-                else if (CodigoISO == "CO")
+                else if (CodigoISO == Pais.Colombia)
                 {
                     try
                     {
@@ -896,7 +927,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         public ActionResult NivelesRiesgo()
         {
-            return View(new NivelesRiesgoModel { CodigoISO = "PE" });
+            return View(new NivelesRiesgoModel { CodigoISO = CodigoISO /* Pais.Peru */});
         }
 
         [HttpPost]
@@ -1005,7 +1036,7 @@ namespace Portal.Consultoras.Web.Controllers
         public string NivelesRiesgoInsertar(HttpPostedFileBase uplArchivo, NivelesRiesgoModel model)
         {
             string message = string.Empty;
-            model.CodigoISO = "PE";
+            model.CodigoISO = CodigoISO; //Pais.Peru;
             try
             {
                 // valida que el archivo exista
@@ -1049,19 +1080,48 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     foreach (var item in lista)
                     {
-                        var parametroTodos = new ServiceUnete.ParametroUnete
+
+                        if (CodigoISO == Pais.Peru)
                         {
-                            Nombre = item.ZonaSeccion,
-                            Descripcion = item.NivelRiesgo,
-                            Valor = string.IsNullOrWhiteSpace(item.NivelRiesgo) ? Enumeradores.TipoNivelesRiesgo.Otro.ToInt()
-                                                                            : item.NivelRiesgo.ToUpper() == Constantes.TipoNivelesRiesgo.Bajo ? Enumeradores.TipoNivelesRiesgo.Bajo.ToInt()
-                                                                            : item.NivelRiesgo.ToUpper() == Constantes.TipoNivelesRiesgo.Medio ? Enumeradores.TipoNivelesRiesgo.Medio.ToInt()
-                                                                            : item.NivelRiesgo.ToUpper() == Constantes.TipoNivelesRiesgo.Alto ? Enumeradores.TipoNivelesRiesgo.Alto.ToInt()
-                                                                            : Enumeradores.TipoNivelesRiesgo.Otro.ToInt(),
-                            FK_IdTipoParametro = EnumsTipoParametro.TipoNivelesRiesgo.ToInt(),
-                            Estado = 1
-                        };
-                        listafinal.Add(parametroTodos);
+                            var parametroTodos = new ServiceUnete.ParametroUnete
+                            {
+                                Nombre = item.ZonaSeccion,
+                                Descripcion = item.NivelRiesgo,
+                                Valor = string.IsNullOrWhiteSpace(item.NivelRiesgo) ? Enumeradores.TipoNivelesRiesgo.Otro.ToInt()
+                                                                  : item.NivelRiesgo.ToUpper() == Constantes.TipoNivelesRiesgo.Bajo ? Enumeradores.TipoNivelesRiesgo.Bajo.ToInt()
+                                                                  : item.NivelRiesgo.ToUpper() == Constantes.TipoNivelesRiesgo.Medio ? Enumeradores.TipoNivelesRiesgo.Medio.ToInt()
+                                                                  : item.NivelRiesgo.ToUpper() == Constantes.TipoNivelesRiesgo.Alto ? Enumeradores.TipoNivelesRiesgo.Alto.ToInt()
+                                                                  : Enumeradores.TipoNivelesRiesgo.Otro.ToInt(),
+                                FK_IdTipoParametro = EnumsTipoParametro.TipoNivelesRiesgo.ToInt(),
+                                Estado = 1
+                            };
+                            listafinal.Add(parametroTodos);
+
+                        } else if (CodigoISO == Pais.Ecuador)
+                        {
+
+                            var parametroTodos = new ServiceUnete.ParametroUnete
+                            {
+                                Nombre = item.ZonaSeccion,
+                                Descripcion = item.NivelRiesgo,
+                                //string.IsNullOrWhiteSpace(item.NivelRiesgo)? null
+                                //                                : item.NivelRiesgo.ToInt() == Enumeradores.TipoNivelesRiesgo.Bajo.ToInt() ? Constantes.TipoNivelesRiesgo.Bajo
+                                //                                : item.NivelRiesgo.ToInt() == Enumeradores.TipoNivelesRiesgo.Medio.ToInt() ? Constantes.TipoNivelesRiesgo.Medio
+                                //                                : item.NivelRiesgo.ToInt() == Enumeradores.TipoNivelesRiesgo.Alto.ToInt() ? Constantes.TipoNivelesRiesgo.Alto
+                                //                                : Enumeradores.TipoNivelesRiesgo.Otro.ToString(),
+
+                                Valor = string.IsNullOrWhiteSpace(item.NivelRiesgo) ? Enumeradores.TipoNivelesRiesgo.Otro.ToInt()
+                                                                 : item.NivelRiesgo.ToInt() == Enumeradores.TipoNivelesRiesgo.Bajo.ToInt() ? Enumeradores.TipoNivelesRiesgo.Bajo.ToInt()
+                                                                 : item.NivelRiesgo.ToInt() == Enumeradores.TipoNivelesRiesgo.Medio.ToInt() ? Enumeradores.TipoNivelesRiesgo.Medio.ToInt()
+                                                                 : item.NivelRiesgo.ToInt() == Enumeradores.TipoNivelesRiesgo.Alto.ToInt() ? Enumeradores.TipoNivelesRiesgo.Alto.ToInt()
+                                                                 : Enumeradores.TipoNivelesRiesgo.Otro.ToInt(),
+                                FK_IdTipoParametro = EnumsTipoParametro.TipoNivelesRiesgo.ToInt(),
+                                Estado = 1
+                            };
+                            listafinal.Add(parametroTodos);
+                        }
+              
+                     
                     }
                     if (listafinal.Count > 0)
                     {
@@ -1419,8 +1479,9 @@ namespace Portal.Consultoras.Web.Controllers
 
                     Mapper.Map<SolicitudPostulanteModel, Portal.Consultoras.Web.ServiceUnete.SolicitudPostulante>(
                         model, solicitudPostulante);
-                    solicitudPostulante.NumeroDocumento =
-                        AplicarFormatoNumeroDocumentoPorPais(CodigoISO, model.NumeroDocumento).ToUpper();
+
+                    //solicitudPostulante.NumeroDocumento =
+                    //    AplicarFormatoNumeroDocumentoPorPais(CodigoISO, model.NumeroDocumento).ToUpper();
 
                     sv.ActualizarSolicitudPostulante(CodigoISO, solicitudPostulante);
                 }
@@ -1442,7 +1503,7 @@ namespace Portal.Consultoras.Web.Controllers
                 var lugaresNivel1 = sv.ObtenerParametrosUnete(CodigoISO, EnumsTipoParametro.LugarNivel1, 0);
                 model.LugaresNivel1 = new SelectList(lugaresNivel1, "IdParametroUnete", "Nombre");
 
-                if (CodigoISO == "CO")
+                if (CodigoISO == Pais.Colombia)
                 {
                     var direccionesCo = sv.ObtenerParametrosUnete(CodigoISO, EnumsTipoParametro.LugarNivel3, 0);
                     model.LugaresNivel3 = new SelectList(direccionesCo, "IdParametroUnete", "Nombre");
@@ -1460,28 +1521,33 @@ namespace Portal.Consultoras.Web.Controllers
         {
             string direccion = null;
 
-            if (CodigoISO == "CL")
+            if (CodigoISO == Pais.Chile)
             {
                 direccion = model.CalleOAvenida;
 
             }
-            else if (CodigoISO == "CO")
+            else if (CodigoISO == Pais.Colombia)
             {
                 direccion = string.Format("{0} {1} {2}", model.NombreLugarNivel3, model.NombreDireccionEdicion,
                     model.CalleOAvenida);
             }
 
-            else if (CodigoISO == "MX")
+            else if (CodigoISO == Pais.Mexico)
             {
                 direccion = string.Format("{0} {1} {2}", model.NombreLugarNivel3, model.CalleOAvenida, model.Numero);
             }
-            else if (CodigoISO == "PE")
+            else if (CodigoISO == Pais.Ecuador)
+            {
+                //direccion = string.Format("{0} {1} {2}", model.LugarNivel3, model.CalleOAvenida, model.LugarNivel4);
+                direccion = string.Format("{0} ",model.CalleOAvenida);
+            }
+            else if (CodigoISO == Pais.Peru)
             {
                 direccion = string.Format("{0} {1} {2}", model.NombreLugarNivel3, model.NombreLugarNivel4, model.CalleOAvenida);
                 model.Numero = default(string);
                 model.NombreDireccionEdicion = default(string);
             }
-            else if (CodigoISO == "GT")
+            else if (CodigoISO == Pais.Guatemala)
             {
                 direccion = string.Format("{0} {1} {2} {3}", model.NombreLugarNivel3, model.NombreLugarNivel4, model.NombreLugarNivel5, model.CalleOAvenida);
                 model.Numero = default(string);
@@ -1492,32 +1558,34 @@ namespace Portal.Consultoras.Web.Controllers
                 SolicitudPostulanteID = model.SolicitudPostulanteID,
 
                 DireccionCadena = direccion,
-                Direccion = model.CodigoPais == "CL"
+                Direccion = model.CodigoPais == Pais.Chile
                     ? model.CalleOAvenida + "|" + model.Numero
-                    : model.CodigoPais == "CO"
+                    : model.CodigoPais == Pais.Colombia
                         ? model.CalleOAvenida + "|" + model.NombreLugarNivel3 + "|" + model.NombreDireccionEdicion
-                        : model.CodigoPais == "MX"
+                        : model.CodigoPais == Pais.Mexico
                             ? model.NombreLugarNivel3 + "|" + model.CalleOAvenida + "|" + model.Numero
-                            : model.CodigoPais == "PE"
+                            : model.CodigoPais == Pais.Peru
                             ? model.NombreLugarNivel3 + "|" + model.NombreLugarNivel4 + "|" + model.CalleOAvenida 
-                             : model.CodigoPais == "GT"
+                             : model.CodigoPais == Pais.Guatemala
                             ? model.NombreLugarNivel3 + "|" + model.NombreLugarNivel4 + "|" + model.NombreLugarNivel5 + "|" + model.CalleOAvenida
-                            : model.CodigoPais == Constantes.CodigosISOPais.CostaRica
+                            : model.CodigoPais == Pais.CostaRica
                             ? model.NombreLugarNivel3 + "|" + model.NombreLugarNivel4 + "|" + model.CalleOAvenida
-                            :model.CodigoPais == Constantes.CodigosISOPais.Panama
+                            :model.CodigoPais == Pais.Panama
                             ? model.NombreLugarNivel3 + "|" + model.NombreLugarNivel4 + "|" + model.CalleOAvenida
-                            : model.CodigoPais == Constantes.CodigosISOPais.Salvador
+                            : model.CodigoPais == Pais.Salvador
                             ? model.NombreLugarNivel3 + "|" + model.NombreLugarNivel4 + "|" + model.CalleOAvenida
+                            :model.CodigoPais == Pais.Ecuador
+                            ? model.LugarNivel3 + "|" +  model.CalleOAvenida + "|" + model.LugarNivel4
                             : model.CalleOAvenida + "|" + model.Numero,
 
-                NombreRegion = CodigoISO == "PE" ? model.NombreLugarNivel2 : model.NombreLugarNivel1,
-                NombreComuna = CodigoISO == "PE" ? model.NombreLugarNivel3 : model.NombreLugarNivel2
+                NombreRegion = CodigoISO == Pais.Peru ? model.NombreLugarNivel2 : model.NombreLugarNivel1,
+                NombreComuna = CodigoISO == Pais.Peru ? model.NombreLugarNivel3 : model.NombreLugarNivel2
             };
 
             if (ModelState.IsValid)
             {
                 
-                if (CodigoISO == "CL" || CodigoISO == "MX" || CodigoISO == "PE" )
+                if (CodigoISO == Pais.Chile || CodigoISO == Pais.Mexico || CodigoISO == Pais.Peru || CodigoISO == Pais.Ecuador)
                 {
                     try
                     {
@@ -1525,8 +1593,8 @@ namespace Portal.Consultoras.Web.Controllers
                         {
                             direccion = direccion,
                             pais = CodigoISO,
-                            ciudad = CodigoISO == "PE" ? model.NombreLugarNivel2 : model.NombreLugarNivel1,
-                            area = CodigoISO == "PE" ? model.NombreLugarNivel3 : model.NombreLugarNivel2,
+                            ciudad = CodigoISO == Pais.Peru ? model.NombreLugarNivel2 : model.NombreLugarNivel1,
+                            area = CodigoISO == Pais.Peru ? model.NombreLugarNivel3 : model.NombreLugarNivel2,
                             aplicacion = 1
                         }, "ObtenerPuntosPorDireccion");
 
@@ -1621,7 +1689,7 @@ namespace Portal.Consultoras.Web.Controllers
                     {
                     }
                 }
-                else if (CodigoISO == "CO")
+                else if (CodigoISO == Pais.Colombia)
                 {
 
                     var zonaEncontrada = default(string);
@@ -1700,10 +1768,10 @@ namespace Portal.Consultoras.Web.Controllers
                     solicitudPostulante.CodigoPostal = model.Numero;
 
                     // Activacion de la geolocalización para CAM 
-                    if (CodigoISO == Constantes.CodigosISOPais.CostaRica || CodigoISO == Constantes.CodigosISOPais.Guatemala || CodigoISO==Constantes.CodigosISOPais.Panama || CodigoISO==Constantes.CodigosISOPais.Salvador )
+                    if (CodigoISO == Pais.CostaRica || CodigoISO == Pais.Guatemala || CodigoISO==Pais.Panama || CodigoISO==Pais.Salvador )
                     {
                         BelcorpPaisServiceClient svPaises = new BelcorpPaisServiceClient();
-                        var codigoLugarNivel = CodigoISO ==Constantes.CodigosISOPais.Guatemala? model.LugarNivel5.ToInt(): model.LugarNivel4.ToInt();
+                        var codigoLugarNivel = CodigoISO == Pais.Guatemala? model.LugarNivel5.ToInt(): model.LugarNivel4.ToInt();
                         var parametro = svPaises.ObtenerParametroUnete(CodigoISO, codigoLugarNivel);
                         var resultado = parametro.Descripcion;
 
