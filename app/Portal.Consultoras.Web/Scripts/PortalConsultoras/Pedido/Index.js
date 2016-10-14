@@ -1248,10 +1248,18 @@ function ArmarCarouselEstrategias(data) {
     }
 
     cierreCarouselEstrategias();
-    if ($.trim($('#divListadoEstrategia').html()).length == 0) {
-        $('#divListaEstrategias').hide();
-    } else {
+
+    $("[data-barra-width]").css("width", indicadorFlexiPago == 1 ? "68%" : "100%");
+
+    $('#divListaEstrategias').hide();
+    $('.caja_pedidos').addClass('sinOfertasParaTi');
+    if ($.trim($('#divListadoEstrategia').html()).length > 0) {
+        $("[data-barra-width]").css("width", "100%");
         $('#divListaEstrategias').show();
+        if (indicadorFlexiPago == 1) {
+            $('#divListaEstrategias').css("margin-top", ($(".flexiPago_belcorp").outerHeight() + 50)+ "px");
+        }        
+        $('.caja_pedidos').removeClass('sinOfertasParaTi');
         var hCar = $($("#divListadoEstrategia").find("[data-item]").get(0)).height();
         var cant = parseInt(heightReference / hCar);
         cant = cant < 3 ? 3 : cant > 5 ? 5 : cant;
@@ -1350,6 +1358,8 @@ function ArmarCarouselEstrategias(data) {
             $('#cierreCarousel').show();
         }
     }
+
+    MostrarBarra();
 
 };
 function EstructurarDataCarousel(array) {

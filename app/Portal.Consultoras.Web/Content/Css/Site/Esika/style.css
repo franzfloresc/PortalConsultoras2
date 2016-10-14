@@ -3185,12 +3185,14 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido{
 }
 
 .flexiPago_belcorp {
-    display: block;
+   display: block;
     width: 28.1%;
     height: auto;
     margin-top: 27px;
     /*max-width: 334px;*/
     float: right;
+    position: absolute;
+    right: 0px;
 }
 
 .flexiPago_img{

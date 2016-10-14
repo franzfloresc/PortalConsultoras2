@@ -117,35 +117,39 @@
     </div>
     <div class="clear"></div>
 
-    <div class="caja_pedidos"><!--SIN OFERTAS PARA TI AÑADIR ESTILO "sinOfertasParaTi"-->
+    <div class="caja_pedidos">
+        <!--SIN OFERTAS PARA TI AÑADIR ESTILO "sinOfertasParaTi"-->
         <!-- DIV BARRA -->
-        <div id="divBarra">
-            <div id="divBarraMensaje">
-                <div id="divBarraMensajeLogrado" style="display:none;">
-                    <div style="float:right;">
-                        <div class="content_BarrMensaje">
-                            <div class="mensaje_barra" style="display: inline;"></div>
-                            <div class="agrega_barra"></div>
+        <div data-barra-width="">
+            <div id="divBarra">
+                <div id="divBarraMensaje">
+                    <div id="divBarraMensajeLogrado" style="display:none;">
+                        <div style="float:right;">
+                            <div class="content_BarrMensaje">
+                                <div class="mensaje_barra" style="display: inline;"></div>
+                                <div class="agrega_barra"></div>
+                            </div>
+                            <hr class="clear" />
+                            <div class="flechita_barra"></div>
                         </div>
                         <hr class="clear" />
-                        <div class="flechita_barra"></div>
                     </div>
-                    <hr class="clear" />
                 </div>
-            </div>
-            <hr class="clear" />
-            <div id="divBarraLimite">
+                <hr class="clear" />
+                <div id="divBarraLimite">
 
+                </div>
+                <hr class="clear" />
+                <div id="divBarraPosicion" class="BarraPosicion">
+                    <span id="divBarraEspacioLimite" class="BarraLimite">
+                        <span id="divBarraEspacioLogrado" class="BarraLogrado"></span>
+                    </span>
+                </div>
+                <div class="informacion_barra">*Información referencial. Todo pedido realizado a través de la web está sujeto a stock. Algunos productos no suman a la escala de comisión. Guarda tu pedido para actualizar tu barra.</div>
             </div>
-            <hr class="clear" />
-            <div id="divBarraPosicion" class="BarraPosicion">
-                <span id="divBarraEspacioLimite" class="BarraLimite">
-                    <span id="divBarraEspacioLogrado" class="BarraLogrado"></span>
-                </span>
-            </div>
-            <div class="informacion_barra">*Información referencial. Todo pedido realizado a través de la web está sujeto a stock. Algunos productos no suman a la escala de comisión. Guarda tu pedido para actualizar tu barra.</div>
+            <div class="clear"></div>
         </div>
-        <div class="clear"></div>
+       
         <!-- FIN DIV BARRA -->
 
         <input type="hidden" id="hdValidarPROL" value="@Model.FlagValidacionPedido" />
@@ -458,7 +462,7 @@
                 <div style="display: none;">
                     @using (Html.BeginForm("", "", FormMethod.Post, new { id = "frmConsultoraOnline" }))
                         {
-                        <input type="hidden" name="lanzarTabConsultoraOnline" value="true">
+                    <input type="hidden" name="lanzarTabConsultoraOnline" value="true">
                         }
                 </div>
             </div>
@@ -1967,6 +1971,7 @@
 
         var lanzarTabConsultoraOnline = '@ViewBag.LanzarTabConsultoraOnline';
         var urlMisPedidosClienteOnline = '@Url.Action("", "MisPedidos")';
+        var indicadorFlexiPago = '@Model.IndicadorFlexiPago';
 
     </script>
     @System.Web.Optimization.Scripts.Render("~/bundles/JsSB2-Pedido")
