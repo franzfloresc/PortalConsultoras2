@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://tempuri.org/" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="Service" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://tempuri.org/Imports">
+      <xsd:import schemaLocation="http://pents62:8089/Service.svc?xsd=xsd0" namespace="http://tempuri.org/" />
+      <xsd:import schemaLocation="http://pents62:8089/Service.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+      <xsd:import schemaLocation="http://pents62:8089/Service.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/WcfService_Hana" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="IService_ObtenerCuentaCorrienteConsultora_InputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenerCuentaCorrienteConsultora" />
+  </wsdl:message>
+  <wsdl:message name="IService_ObtenerCuentaCorrienteConsultora_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenerCuentaCorrienteConsultoraResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService_ObtenerPedidoConsultora_InputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenerPedidoConsultora" />
+  </wsdl:message>
+  <wsdl:message name="IService_ObtenerPedidoConsultora_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenerPedidoConsultoraResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService_ObtenerDetallePedidoFacturado_InputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenerDetallePedidoFacturado" />
+  </wsdl:message>
+  <wsdl:message name="IService_ObtenerDetallePedidoFacturado_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenerDetallePedidoFacturadoResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService_ObtenerFaltanteAnunciado_InputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenerFaltanteAnunciado" />
+  </wsdl:message>
+  <wsdl:message name="IService_ObtenerFaltanteAnunciado_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenerFaltanteAnunciadoResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService_ObteneInformacionOnlineConsultora_InputMessage">
+    <wsdl:part name="parameters" element="tns:ObteneInformacionOnlineConsultora" />
+  </wsdl:message>
+  <wsdl:message name="IService_ObteneInformacionOnlineConsultora_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ObteneInformacionOnlineConsultoraResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService_ObtenerConsultoraProgramaNuevas_InputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenerConsultoraProgramaNuevas" />
+  </wsdl:message>
+  <wsdl:message name="IService_ObtenerConsultoraProgramaNuevas_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenerConsultoraProgramaNuevasResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService_ObtenerComprobantePercepcion_InputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenerComprobantePercepcion" />
+  </wsdl:message>
+  <wsdl:message name="IService_ObtenerComprobantePercepcion_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenerComprobantePercepcionResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService_ObtenerEscalaDescuento_InputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenerEscalaDescuento" />
+  </wsdl:message>
+  <wsdl:message name="IService_ObtenerEscalaDescuento_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenerEscalaDescuentoResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService_ObtenerConfiguracionProgramaNuevas_InputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenerConfiguracionProgramaNuevas" />
+  </wsdl:message>
+  <wsdl:message name="IService_ObtenerConfiguracionProgramaNuevas_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenerConfiguracionProgramaNuevasResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService_HanaTest_InputMessage">
+    <wsdl:part name="parameters" element="tns:HanaTest" />
+  </wsdl:message>
+  <wsdl:message name="IService_HanaTest_OutputMessage">
+    <wsdl:part name="parameters" element="tns:HanaTestResponse" />
+  </wsdl:message>
+  <wsdl:portType name="IService">
+    <wsdl:operation name="ObtenerCuentaCorrienteConsultora">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService/ObtenerCuentaCorrienteConsultora" message="tns:IService_ObtenerCuentaCorrienteConsultora_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService/ObtenerCuentaCorrienteConsultoraResponse" message="tns:IService_ObtenerCuentaCorrienteConsultora_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerPedidoConsultora">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService/ObtenerPedidoConsultora" message="tns:IService_ObtenerPedidoConsultora_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService/ObtenerPedidoConsultoraResponse" message="tns:IService_ObtenerPedidoConsultora_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerDetallePedidoFacturado">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService/ObtenerDetallePedidoFacturado" message="tns:IService_ObtenerDetallePedidoFacturado_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService/ObtenerDetallePedidoFacturadoResponse" message="tns:IService_ObtenerDetallePedidoFacturado_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerFaltanteAnunciado">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService/ObtenerFaltanteAnunciado" message="tns:IService_ObtenerFaltanteAnunciado_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService/ObtenerFaltanteAnunciadoResponse" message="tns:IService_ObtenerFaltanteAnunciado_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ObteneInformacionOnlineConsultora">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService/ObteneInformacionOnlineConsultora" message="tns:IService_ObteneInformacionOnlineConsultora_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService/ObteneInformacionOnlineConsultoraResponse" message="tns:IService_ObteneInformacionOnlineConsultora_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerConsultoraProgramaNuevas">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService/ObtenerConsultoraProgramaNuevas" message="tns:IService_ObtenerConsultoraProgramaNuevas_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService/ObtenerConsultoraProgramaNuevasResponse" message="tns:IService_ObtenerConsultoraProgramaNuevas_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerComprobantePercepcion">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService/ObtenerComprobantePercepcion" message="tns:IService_ObtenerComprobantePercepcion_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService/ObtenerComprobantePercepcionResponse" message="tns:IService_ObtenerComprobantePercepcion_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerEscalaDescuento">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService/ObtenerEscalaDescuento" message="tns:IService_ObtenerEscalaDescuento_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService/ObtenerEscalaDescuentoResponse" message="tns:IService_ObtenerEscalaDescuento_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerConfiguracionProgramaNuevas">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService/ObtenerConfiguracionProgramaNuevas" message="tns:IService_ObtenerConfiguracionProgramaNuevas_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService/ObtenerConfiguracionProgramaNuevasResponse" message="tns:IService_ObtenerConfiguracionProgramaNuevas_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="HanaTest">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService/HanaTest" message="tns:IService_HanaTest_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService/HanaTestResponse" message="tns:IService_HanaTest_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:service name="Service" />
+</wsdl:definitions>

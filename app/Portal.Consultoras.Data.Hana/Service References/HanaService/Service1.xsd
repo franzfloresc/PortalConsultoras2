@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://tempuri.org/" elementFormDefault="qualified" targetNamespace="http://tempuri.org/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://pents62:8089/Service.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/WcfService_Hana" />
+  <xs:element name="ObtenerCuentaCorrienteConsultora">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="isoPais" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="oidConsultora" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="cantidadRegistros" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ObtenerCuentaCorrienteConsultoraResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/WcfService_Hana" minOccurs="0" name="ObtenerCuentaCorrienteConsultoraResult" nillable="true" type="q1:ArrayOfCuentaCorriente" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ObtenerPedidoConsultora">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="isoPais" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="codigoConsultora" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ObtenerPedidoConsultoraResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/WcfService_Hana" minOccurs="0" name="ObtenerPedidoConsultoraResult" nillable="true" type="q2:ArrayOfPedido" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ObtenerDetallePedidoFacturado">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="isoPais" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="oidPedido" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ObtenerDetallePedidoFacturadoResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/WcfService_Hana" minOccurs="0" name="ObtenerDetallePedidoFacturadoResult" nillable="true" type="q3:ArrayOfPedidoDetalle" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ObtenerFaltanteAnunciado">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="isoPais" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="codigoCampania" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ObtenerFaltanteAnunciadoResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/WcfService_Hana" minOccurs="0" name="ObtenerFaltanteAnunciadoResult" nillable="true" type="q4:ArrayOfFaltanteAnunciado" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ObteneInformacionOnlineConsultora">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="isoPais" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="codigoConsultora" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="codigoCampania" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ObteneInformacionOnlineConsultoraResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/WcfService_Hana" minOccurs="0" name="ObteneInformacionOnlineConsultoraResult" nillable="true" type="q5:ArrayOfConsultoraOnline" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ObtenerConsultoraProgramaNuevas">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="isoPais" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="codigoConsultora" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ObtenerConsultoraProgramaNuevasResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q6="http://schemas.datacontract.org/2004/07/WcfService_Hana" minOccurs="0" name="ObtenerConsultoraProgramaNuevasResult" nillable="true" type="q6:ArrayOfConsultoraProgramaNuevas" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ObtenerComprobantePercepcion">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="isoPais" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="prefijoPais" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="oidConsultora" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="fechaInicioPercepcion" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="fechaFinPercepcion" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ObtenerComprobantePercepcionResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q7="http://schemas.datacontract.org/2004/07/WcfService_Hana" minOccurs="0" name="ObtenerComprobantePercepcionResult" nillable="true" type="q7:ArrayOfComprobantePercepcion" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ObtenerEscalaDescuento">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="isoPais" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ObtenerEscalaDescuentoResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q8="http://schemas.datacontract.org/2004/07/WcfService_Hana" minOccurs="0" name="ObtenerEscalaDescuentoResult" nillable="true" type="q8:ArrayOfEscalaDescuentos" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ObtenerConfiguracionProgramaNuevas">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="isoPais" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="codigoCampania" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ObtenerConfiguracionProgramaNuevasResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q9="http://schemas.datacontract.org/2004/07/WcfService_Hana" minOccurs="0" name="ObtenerConfiguracionProgramaNuevasResult" nillable="true" type="q9:ArrayOfConfiguracionProgramaNuevas" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="HanaTest">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="HanaTestResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="HanaTestResult" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>
