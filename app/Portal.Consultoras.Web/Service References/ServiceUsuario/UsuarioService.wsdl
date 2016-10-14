@@ -81,6 +81,12 @@
   <wsdl:message name="IUsuarioService_setUsuarioVerTutorial_OutputMessage">
     <wsdl:part name="parameters" element="tns:setUsuarioVerTutorialResponse" />
   </wsdl:message>
+  <wsdl:message name="IUsuarioService_SetUsuarioVerTutorialDesktop_InputMessage">
+    <wsdl:part name="parameters" element="tns:SetUsuarioVerTutorialDesktop" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_SetUsuarioVerTutorialDesktop_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SetUsuarioVerTutorialDesktopResponse" />
+  </wsdl:message>
   <wsdl:message name="IUsuarioService_Insert_InputMessage">
     <wsdl:part name="parameters" element="tns:Insert" />
   </wsdl:message>
@@ -327,11 +333,29 @@
   <wsdl:message name="IUsuarioService_GetMisPedidosDetalleConsultoraOnline_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetMisPedidosDetalleConsultoraOnlineResponse" />
   </wsdl:message>
+  <wsdl:message name="IUsuarioService_GetCantidadSolicitudesPedido_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetCantidadSolicitudesPedido" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_GetCantidadSolicitudesPedido_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetCantidadSolicitudesPedidoResponse" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_GetSaldoHorasSolicitudesPedido_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetSaldoHorasSolicitudesPedido" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_GetSaldoHorasSolicitudesPedido_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetSaldoHorasSolicitudesPedidoResponse" />
+  </wsdl:message>
   <wsdl:message name="IUsuarioService_GetMisPedidosClienteOnline_InputMessage">
     <wsdl:part name="parameters" element="tns:GetMisPedidosClienteOnline" />
   </wsdl:message>
   <wsdl:message name="IUsuarioService_GetMisPedidosClienteOnline_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetMisPedidosClienteOnlineResponse" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_GetPedidoClienteOnlineBySolicitudClienteId_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetPedidoClienteOnlineBySolicitudClienteId" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_GetPedidoClienteOnlineBySolicitudClienteId_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetPedidoClienteOnlineBySolicitudClienteIdResponse" />
   </wsdl:message>
   <wsdl:message name="IUsuarioService_UpdNotificacionesConsultoraVisualizacion_InputMessage">
     <wsdl:part name="parameters" element="tns:UpdNotificacionesConsultoraVisualizacion" />
@@ -441,6 +465,12 @@
   <wsdl:message name="IUsuarioService_UpdNotificacionSolicitudClienteCatalogoVisualizacion_OutputMessage">
     <wsdl:part name="parameters" element="tns:UpdNotificacionSolicitudClienteCatalogoVisualizacionResponse" />
   </wsdl:message>
+  <wsdl:message name="IUsuarioService_UpdNotificacionPedidoRechazadoVisualizacion_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdNotificacionPedidoRechazadoVisualizacion" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_UpdNotificacionPedidoRechazadoVisualizacion_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdNotificacionPedidoRechazadoVisualizacionResponse" />
+  </wsdl:message>
   <wsdl:message name="IUsuarioService_ObtenerDetalleNotificacion_InputMessage">
     <wsdl:part name="parameters" element="tns:ObtenerDetalleNotificacion" />
   </wsdl:message>
@@ -464,6 +494,12 @@
   </wsdl:message>
   <wsdl:message name="IUsuarioService_GuardarContrasenia_OutputMessage">
     <wsdl:part name="parameters" element="tns:GuardarContraseniaResponse" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_UpdateUsuarioTutoriales_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateUsuarioTutoriales" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_UpdateUsuarioTutoriales_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateUsuarioTutorialesResponse" />
   </wsdl:message>
   <wsdl:portType name="IUsuarioService">
     <wsdl:operation name="Select">
@@ -497,6 +533,10 @@
     <wsdl:operation name="setUsuarioVerTutorial">
       <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/setUsuarioVerTutorial" message="tns:IUsuarioService_setUsuarioVerTutorial_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/setUsuarioVerTutorialResponse" message="tns:IUsuarioService_setUsuarioVerTutorial_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SetUsuarioVerTutorialDesktop">
+      <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/SetUsuarioVerTutorialDesktop" message="tns:IUsuarioService_SetUsuarioVerTutorialDesktop_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/SetUsuarioVerTutorialDesktopResponse" message="tns:IUsuarioService_SetUsuarioVerTutorialDesktop_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="Insert">
       <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/Insert" message="tns:IUsuarioService_Insert_InputMessage" />
@@ -662,9 +702,21 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/GetMisPedidosDetalleConsultoraOnline" message="tns:IUsuarioService_GetMisPedidosDetalleConsultoraOnline_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/GetMisPedidosDetalleConsultoraOnlineResponse" message="tns:IUsuarioService_GetMisPedidosDetalleConsultoraOnline_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="GetCantidadSolicitudesPedido">
+      <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/GetCantidadSolicitudesPedido" message="tns:IUsuarioService_GetCantidadSolicitudesPedido_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/GetCantidadSolicitudesPedidoResponse" message="tns:IUsuarioService_GetCantidadSolicitudesPedido_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetSaldoHorasSolicitudesPedido">
+      <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/GetSaldoHorasSolicitudesPedido" message="tns:IUsuarioService_GetSaldoHorasSolicitudesPedido_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/GetSaldoHorasSolicitudesPedidoResponse" message="tns:IUsuarioService_GetSaldoHorasSolicitudesPedido_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="GetMisPedidosClienteOnline">
       <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/GetMisPedidosClienteOnline" message="tns:IUsuarioService_GetMisPedidosClienteOnline_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/GetMisPedidosClienteOnlineResponse" message="tns:IUsuarioService_GetMisPedidosClienteOnline_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPedidoClienteOnlineBySolicitudClienteId">
+      <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/GetPedidoClienteOnlineBySolicitudClienteId" message="tns:IUsuarioService_GetPedidoClienteOnlineBySolicitudClienteId_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/GetPedidoClienteOnlineBySolicitudClienteIdResponse" message="tns:IUsuarioService_GetPedidoClienteOnlineBySolicitudClienteId_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="UpdNotificacionesConsultoraVisualizacion">
       <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/UpdNotificacionesConsultoraVisualizacion" message="tns:IUsuarioService_UpdNotificacionesConsultoraVisualizacion_InputMessage" />
@@ -738,6 +790,10 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/UpdNotificacionSolicitudClienteCatalogoVisualizacion" message="tns:IUsuarioService_UpdNotificacionSolicitudClienteCatalogoVisualizacion_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/UpdNotificacionSolicitudClienteCatalogoVisualizacionResponse" message="tns:IUsuarioService_UpdNotificacionSolicitudClienteCatalogoVisualizacion_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="UpdNotificacionPedidoRechazadoVisualizacion">
+      <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/UpdNotificacionPedidoRechazadoVisualizacion" message="tns:IUsuarioService_UpdNotificacionPedidoRechazadoVisualizacion_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/UpdNotificacionPedidoRechazadoVisualizacionResponse" message="tns:IUsuarioService_UpdNotificacionPedidoRechazadoVisualizacion_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="ObtenerDetalleNotificacion">
       <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/ObtenerDetalleNotificacion" message="tns:IUsuarioService_ObtenerDetalleNotificacion_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/ObtenerDetalleNotificacionResponse" message="tns:IUsuarioService_ObtenerDetalleNotificacion_OutputMessage" />
@@ -753,6 +809,10 @@
     <wsdl:operation name="GuardarContrasenia">
       <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/GuardarContrasenia" message="tns:IUsuarioService_GuardarContrasenia_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/GuardarContraseniaResponse" message="tns:IUsuarioService_GuardarContrasenia_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateUsuarioTutoriales">
+      <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/UpdateUsuarioTutoriales" message="tns:IUsuarioService_UpdateUsuarioTutoriales_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/UpdateUsuarioTutorialesResponse" message="tns:IUsuarioService_UpdateUsuarioTutoriales_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IUsuarioService" type="tns:IUsuarioService">
@@ -822,6 +882,15 @@
     </wsdl:operation>
     <wsdl:operation name="setUsuarioVerTutorial">
       <soap:operation soapAction="http://tempuri.org/IUsuarioService/setUsuarioVerTutorial" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetUsuarioVerTutorialDesktop">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/SetUsuarioVerTutorialDesktop" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -1198,8 +1267,35 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GetCantidadSolicitudesPedido">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/GetCantidadSolicitudesPedido" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSaldoHorasSolicitudesPedido">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/GetSaldoHorasSolicitudesPedido" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetMisPedidosClienteOnline">
       <soap:operation soapAction="http://tempuri.org/IUsuarioService/GetMisPedidosClienteOnline" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPedidoClienteOnlineBySolicitudClienteId">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/GetPedidoClienteOnlineBySolicitudClienteId" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -1369,6 +1465,15 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="UpdNotificacionPedidoRechazadoVisualizacion">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/UpdNotificacionPedidoRechazadoVisualizacion" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="ObtenerDetalleNotificacion">
       <soap:operation soapAction="http://tempuri.org/IUsuarioService/ObtenerDetalleNotificacion" style="document" />
       <wsdl:input>
@@ -1398,6 +1503,15 @@
     </wsdl:operation>
     <wsdl:operation name="GuardarContrasenia">
       <soap:operation soapAction="http://tempuri.org/IUsuarioService/GuardarContrasenia" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateUsuarioTutoriales">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/UpdateUsuarioTutoriales" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -1481,6 +1595,15 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="SetUsuarioVerTutorialDesktop">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/SetUsuarioVerTutorialDesktop" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="Insert">
       <soap:operation soapAction="http://tempuri.org/IUsuarioService/Insert" style="document" />
       <wsdl:input>
@@ -1850,8 +1973,35 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GetCantidadSolicitudesPedido">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/GetCantidadSolicitudesPedido" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSaldoHorasSolicitudesPedido">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/GetSaldoHorasSolicitudesPedido" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetMisPedidosClienteOnline">
       <soap:operation soapAction="http://tempuri.org/IUsuarioService/GetMisPedidosClienteOnline" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPedidoClienteOnlineBySolicitudClienteId">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/GetPedidoClienteOnlineBySolicitudClienteId" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -2021,6 +2171,15 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="UpdNotificacionPedidoRechazadoVisualizacion">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/UpdNotificacionPedidoRechazadoVisualizacion" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="ObtenerDetalleNotificacion">
       <soap:operation soapAction="http://tempuri.org/IUsuarioService/ObtenerDetalleNotificacion" style="document" />
       <wsdl:input>
@@ -2050,6 +2209,15 @@
     </wsdl:operation>
     <wsdl:operation name="GuardarContrasenia">
       <soap:operation soapAction="http://tempuri.org/IUsuarioService/GuardarContrasenia" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateUsuarioTutoriales">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/UpdateUsuarioTutoriales" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

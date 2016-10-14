@@ -34,7 +34,10 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         int setUsuarioVerTutorial(int paisID, string codigoUsuario);
-        
+
+        [OperationContract]
+        int SetUsuarioVerTutorialDesktop(int paisID, string codigoUsuario);
+
         [OperationContract]
         void Insert(BEUsuario usuario);
 
@@ -50,7 +53,7 @@ namespace Portal.Consultoras.ServiceContracts
         //1796 Fin
 
         [OperationContract]
-        int UpdateDatosPrimeraVez(int PaisID, string CodigoUsuario, string Email, string Telefono, string Celular, string CorreoAnterior, bool AceptoContrato);
+        int UpdateDatosPrimeraVez(int PaisID, string CodigoUsuario, string Email, string Telefono, string TelefonoTrabajo, string Celular, string CorreoAnterior, bool AceptoContrato);
 
         [OperationContract]
         void UpdatePassword(int paisID, string codigoUsuario, string claveSecreta, bool cambioClave);
@@ -161,10 +164,19 @@ namespace Portal.Consultoras.ServiceContracts
         IList<BEMisPedidos> GetMisPedidosConsultoraOnline(int PaisID, long ConsultoraId, int Campania);
 
         [OperationContract]
-        IList<BEMisPedidosDetalle> GetMisPedidosDetalleConsultoraOnline(int PaisID, int PedidoID);
+        IList<BEMisPedidosDetalle> GetMisPedidosDetalleConsultoraOnline(int PaisID, long PedidoID);
+
+        [OperationContract]
+        int GetCantidadSolicitudesPedido(int PaisID, long ConsultoraId, int Campania);
+
+        [OperationContract]
+        string GetSaldoHorasSolicitudesPedido(int PaisID, long ConsultoraId, int Campania);
 
         [OperationContract]
         IList<BEMisPedidos> GetMisPedidosClienteOnline(int paisID, long consultoraId, int campania);
+
+        [OperationContract]
+        BEMisPedidos GetPedidoClienteOnlineBySolicitudClienteId(int paisID, long solicitudClienteId);
 
         //[OperationContract]
         //IList<BEProducto> GetValidarCUVMisPedidos(int PaisID, int Campania, string InputCUV, int RegionID, int ZonaID, string CodigoRegion, string CodigoZona);
@@ -188,7 +200,7 @@ namespace Portal.Consultoras.ServiceContracts
 
         //R2116 INICIO
         [OperationContract]
-        int UpdateDatosPrimeraVezMexico(int PaisID, string CodigoUsuario, string Nombre, string Apellidos, string Telefono, string Celular, string Email, long IdConsultora, string CodigoConsultora, int CampaniaID_Actual, int CampaniaID_UltimaF, int RegionID, int ZonaID, string EmailAnterior);
+        int UpdateDatosPrimeraVezMexico(int PaisID, string CodigoUsuario, string Nombre, string Apellidos, string Telefono, string TelefonoTrabajo, string Celular, string Email, long IdConsultora, string CodigoConsultora, int CampaniaID_Actual, int CampaniaID_UltimaF, int RegionID, int ZonaID, string EmailAnterior);
         [OperationContract]
         int SelectDatosActualizados(int paisID, string codigoUsuario);
         [OperationContract]
@@ -220,6 +232,8 @@ namespace Portal.Consultoras.ServiceContracts
         /*20150802*/
         [OperationContract]
         void UpdNotificacionSolicitudClienteCatalogoVisualizacion(int paisID, long SolicitudClienteCatalogoId);
+        [OperationContract]
+        void UpdNotificacionPedidoRechazadoVisualizacion(int paisID, long procesoId);
 
         [OperationContract]
         BENotificacionesDetalleCatalogo ObtenerDetalleNotificacion(int PaisID, long SolicitudClienteCatalogoId);
@@ -234,5 +248,8 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         void GuardarContrasenia(string paisISO, string codigoUsuario, string contrasenia);
+
+        [OperationContract]
+        int UpdateUsuarioTutoriales(int paisID, string codigoUsuario, int tipo);
     }
 }

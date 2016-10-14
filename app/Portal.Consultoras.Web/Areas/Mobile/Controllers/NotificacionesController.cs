@@ -1,7 +1,9 @@
-﻿using Portal.Consultoras.Common;
+﻿using AutoMapper;
+using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Areas.Mobile.Models;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.ServiceCliente;
+using Portal.Consultoras.Web.ServicePedidoRechazado;
 using Portal.Consultoras.Web.ServiceSAC;
 using Portal.Consultoras.Web.ServiceUsuario;
 using System;
@@ -24,39 +26,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             var model = new NotificacionesModel();
             model.ListaNotificaciones = ObtenerNotificaciones();
             return View(model);
-        }
-
-        [HttpPost]
-        public JsonResult ActualizarLeidoSolicitud(long ProcesoId, int TipoOrigen)
-        {
-            var mensaje = string.Empty;
-            try
-            {
-                var userData = UserData();
-
-                using (var service = new UsuarioServiceClient())
-                {
-                    if (TipoOrigen == 4)
-                    {
-                        service.UpdNotificacionSolicitudClienteVisualizacion(userData.PaisID, ProcesoId);
-                    }
-                    if (TipoOrigen == 5)
-                    {
-                        service.UpdNotificacionSolicitudClienteCatalogoVisualizacion(userData.PaisID, ProcesoId);
-                    }
-                    else
-                    {
-                        service.UpdNotificacionesConsultoraVisualizacion(userData.PaisID, ProcesoId, TipoOrigen);
-                    }
-                }
-
-                SessionKeys.ClearSessionCantidadNotificaciones();
-            }
-            catch (Exception ex)
-            {
-                mensaje = ex.Message;
-            }
-            return Json(new { mensaje }, JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult DetalleSolicitudCliente(long SolicitudId)
@@ -316,6 +285,38 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             ViewBag.Simbolo = userData.Simbolo;
 
             return View("DetalleSolicitudClienteCatalogo", model);
+        }
+
+        public ActionResult DetallePedidoRechazado(long ProcesoId)
+        {
+            NotificacionesModel model = new NotificacionesModel();
+            BELogGPRValidacion logGPRValidacion;
+            List<BELogGPRValidacionDetalle> lstLogGPRValidacionDetalle = new List<BELogGPRValidacionDetalle>();
+
+            using (PedidoRechazadoServiceClient sv = new PedidoRechazadoServiceClient())
+            {
+                logGPRValidacion = sv.GetBELogGPRValidacionByGetLogGPRValidacionId(userData.PaisID, ProcesoId);
+                lstLogGPRValidacionDetalle = sv.GetListBELogGPRValidacionDetalleBELogGPRValidacionByLogGPRValidacionId(userData.PaisID, ProcesoId).ToList();
+            }
+
+            model = Mapper.Map<NotificacionesModel>(logGPRValidacion);
+            model.NombreConsultora = userData.NombreConsultora;
+            model.CampaniaDescripcion = model.Campania.Substring(4) + " " + model.Campania.Substring(0, 4);
+            model.FechaValidacionString = model.FechaValidacion.ToString("dd/MM/yyyy hh:mm tt");
+            model.Total = model.SubTotal + model.Descuento;
+            model.SubTotalString = userData.Simbolo + " " + Util.DecimalToStringFormat(model.SubTotal, userData.CodigoISO);
+            model.DescuentoString = userData.Simbolo + " " + Util.DecimalToStringFormat(model.Descuento, userData.CodigoISO);
+            model.TotalString = userData.Simbolo + " " + Util.DecimalToStringFormat(model.Total, userData.CodigoISO);
+            model.TieneDescuentoCuv = logGPRValidacion.EstadoSimplificacionCUV && lstLogGPRValidacionDetalle.Any(p => p.IndicadorOferta);
+
+            model.ListaNotificacionesDetallePedido = Mapper.Map<List<NotificacionesModelDetallePedido>>(lstLogGPRValidacionDetalle);
+            model.ListaNotificacionesDetallePedido.Update(detalle =>
+            {
+                detalle.PrecioUnidadString = userData.Simbolo + " " + Util.DecimalToStringFormat(detalle.PrecioUnidad, userData.CodigoISO);
+                detalle.ImporteTotalString = userData.Simbolo + " " + Util.DecimalToStringFormat(detalle.ImporteTotal, userData.CodigoISO);
+            });
+
+            return View("ListadoPedidoRechazadoDetalle", model);
         }
 
         #endregion

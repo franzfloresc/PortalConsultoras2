@@ -218,10 +218,8 @@ namespace Portal.Consultoras.Web.Controllers
 
             ds.Tables.Add(dt);
 
-            string ambiente = ConfigurationManager.AppSettings["Ambiente"] ?? "";
-            var isoPais = userData.CodigoISO ?? "";
-            isoPais = ambiente.ToLower() == "QA".ToLower() ? "" : ("_" + isoPais);
-            var keyWeb = ambiente + "_Prol_ServicesCalculos" + isoPais;
+            var ambiente = ConfigurationManager.AppSettings["Ambiente"] ?? "";
+            var keyWeb = ambiente.ToUpper() == "QA" ? "QA_Prol_ServicesCalculos" : "PR_Prol_ServicesCalculos";
 
             var rtpa = new List<ObjMontosProl>();
             using (var sv = new ServicesCalculosPROL.ServicesCalculoPrecioNiveles())
@@ -271,6 +269,140 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
+        protected bool ReservadoEnHorarioRestringido(out string mensaje)
+        {
+            mensaje = "";
+            if (userData.IndicadorEnviado == 1 && userData.EstaRechazado == 0)
+            {
+                mensaje = "NOS ENCONTRAMOS FACTURANDO TU PEDIDO. En este momento no puedes realizar ninguna modificación.";
+                return true;
+            }
+
+            var result = ValidarSession();
+            if (result != null) return true;
+
+            bool estado = ValidarPedidoReservado(out mensaje);
+            
+            if (!estado)
+                estado = ValidarHorarioRestringido(out mensaje);
+            return estado;
+        }
+
+        protected ActionResult ValidarSession()
+        {
+            ActionResult Result = null;
+
+            if (HttpContext.Session != null)
+            {
+                if (HttpContext.Session.IsNewSession)
+                {
+                    var sessionCookie = HttpContext.Request.Headers["Cookie"];
+                    if ((sessionCookie != null) && (sessionCookie.IndexOf("ASP.NET_SessionId") >= 0))
+                    {
+                        // loggear datos de variable de sesion clave
+                        UsuarioModel usuario = (UsuarioModel)HttpContext.Session["UserData"];
+                        if (usuario != null)
+                        {
+                            LogManager.LogManager.LogErrorWebServicesBus(new ApplicationException("Si existe Session[UserData]"), usuario.CodigoConsultora, usuario.CodigoISO);
+                        }
+                        else
+                        {
+                            LogManager.LogManager.LogErrorWebServicesBus(new ApplicationException("No existe Session[UserData]"), string.Empty, string.Empty);
+                        }
+                        // loggear datos de variable de sesion clave
+
+                        CerrarSesion();
+
+                        // version 2
+                        if (HttpContext.Request.IsAjaxRequest())
+                        {
+                            Result = new JsonResult { Data = "_Logon_", JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+                        }
+                        else
+                        {
+                            //string URLSignOut = "https://stsqa.somosbelcorp.com/adfs/ls/?wa=wsignout1.0";
+                            string URLSignOut = "/SesionExpirada.html";
+                            //filterContext.Result = new RedirectResult(URLSignOut);
+                            Result = new RedirectResult(URLSignOut);
+                        }
+                        // version 2
+                    }
+                }
+            }
+            return Result;
+        }
+
+        protected void CerrarSesion()
+        {
+            HttpContext.Session["UserData"] = null;
+            HttpContext.Session.Abandon();
+        }
+
+        protected bool ValidarPedidoReservado(out string mensaje)
+        {
+            mensaje = string.Empty;
+
+            BEConfiguracionCampania oBEConfiguracionCampania = null;
+            using (PedidoServiceClient sv = new PedidoServiceClient())
+            {
+                oBEConfiguracionCampania = sv.GetEstadoPedido(userData.PaisID, userData.CampaniaID, userData.ConsultoraID, userData.ZonaID, userData.RegionID);
+            }
+            if (oBEConfiguracionCampania != null && oBEConfiguracionCampania.EstadoPedido == Constantes.EstadoPedido.Procesado &&
+                !oBEConfiguracionCampania.ModificaPedidoReservado && !oBEConfiguracionCampania.ValidacionAbierta)
+            {
+                mensaje = "Ya tienes un pedido reservado para esta campaña.";
+                return true;
+            }
+            return false;
+        }
+
+        protected bool ValidarHorarioRestringido(out string mensaje)
+        {
+            bool enHorarioRestringido = false;
+            mensaje = string.Empty;
+            UsuarioModel usuario = (UsuarioModel)Session["UserData"];
+            DateTime FechaHoraActual = DateTime.Now.AddHours(usuario.ZonaHoraria);
+
+            if (!usuario.DiaPROL || !usuario.HabilitarRestriccionHoraria)
+                return false;
+            else
+            {
+                // rango de dias prol
+                if (FechaHoraActual > usuario.FechaInicioCampania &&
+                    FechaHoraActual < usuario.FechaFinCampania.AddDays(1))
+                {
+                    TimeSpan HoraNow = new TimeSpan(FechaHoraActual.Hour, FechaHoraActual.Minute, 0);
+                    TimeSpan HoraAdicional = TimeSpan.Parse(usuario.HorasDuracionRestriccion.ToString() + ":00");
+                    // si no es demanda anticipada se usa la hora de cierre normal
+                    if (usuario.EsZonaDemAnti == 0)
+                    {
+                        if (HoraNow > usuario.HoraCierreZonaNormal && HoraNow < usuario.HoraCierreZonaNormal + HoraAdicional)
+                            enHorarioRestringido = true;
+                        else
+                            enHorarioRestringido = false;
+                    }
+                    else // sino se usa la hora de cierre de demanda anticipada
+                    {
+                        if (HoraNow > usuario.HoraCierreZonaDemAnti)
+                            enHorarioRestringido = true;
+                        else
+                            enHorarioRestringido = false;
+                    }
+                }
+                // si no es horario restringido se devuelve el resultado false , sino se prepara el mensaje correspondiente
+                if (!enHorarioRestringido)
+                    return false;
+                else
+                {
+                    TimeSpan HoraCierrePais = usuario.EsZonaDemAnti == 0 ? usuario.HoraCierreZonaNormal : usuario.HoraCierreZonaDemAnti;
+                    if (usuario.IngresoPedidoCierre)
+                        mensaje = string.Format("Lamentablemente el rango de fechas para ingresar o modificar tu pedido ha concluido. Te recomendamos que en la siguiente campaña lo hagas antes de las {0}:{1} horas de tu día de facturación.", HoraCierrePais.Hours.ToString().PadLeft(2, '0'), HoraCierrePais.Minutes.ToString().PadLeft(2, '0'));
+                    else
+                        mensaje = string.Format("Se ha cerrado el período de facturación a las {0}:{1} horas. Todos los códigos ingresados hasta esa hora han sido registrados en el sistema. Gracias", HoraCierrePais.Hours.ToString().PadLeft(2, '0'), HoraCierrePais.Minutes.ToString().PadLeft(2, '0'));
+                    return true;
+                }
+            }
+        }
         #endregion
 
         #region Menú
@@ -288,6 +420,9 @@ namespace Portal.Consultoras.Web.Controllers
                     {
                         lst = sv.GetPermisosByRol(PaisID, RolID).ToList();
                     }
+
+                    string strpaises = ConfigurationManager.AppSettings.Get("Permisos_CCC");
+                    if (!strpaises.Contains(userData.CodigoISO)) lst.Remove(lst.FirstOrDefault(p => p.UrlItem.ToLower() == "consultoraonline/index"));
                     if (userData.IndicadorPermisoFIC == 0) lst.Remove(lst.FirstOrDefault(p => p.UrlItem.ToLower() == "pedidofic/index"));
 
                     List<PermisoModel> lstModel = new List<PermisoModel>();
@@ -748,6 +883,7 @@ namespace Portal.Consultoras.Web.Controllers
                 model.CambioClave = Convert.ToInt32(oBEUsuario.CambioClave);
                 model.ConsultoraNueva = oBEUsuario.ConsultoraNueva;
                 model.Telefono = oBEUsuario.Telefono;
+                model.TelefonoTrabajo = oBEUsuario.TelefonoTrabajo;
                 model.Celular = oBEUsuario.Celular;
                 model.IndicadorDupla = oBEUsuario.IndicadorDupla;
                 model.UsuarioPrueba = oBEUsuario.UsuarioPrueba;
@@ -766,6 +902,7 @@ namespace Portal.Consultoras.Web.Controllers
                 model.FechaLimPago = oBEUsuario.FechaLimPago;
                 model.VioVideoModelo = oBEUsuario.VioVideo;
                 model.VioTutorialModelo = oBEUsuario.VioTutorial;
+                model.VioTutorialDesktop = oBEUsuario.VioTutorialDesktop;
                 model.HabilitarRestriccionHoraria = oBEUsuario.HabilitarRestriccionHoraria;
                 model.IndicadorPermisoFIC = oBEUsuario.IndicadorPermisoFIC;
                 model.HorasDuracionRestriccion = oBEUsuario.HorasDuracionRestriccion;
@@ -878,7 +1015,7 @@ namespace Portal.Consultoras.Web.Controllers
                 model.EsOfertaFinalZonaValida = oBEUsuario.EsOfertaFinalZonaValida;
                 model.CatalogoPersonalizado = oBEUsuario.CatalogoPersonalizado;
                 model.EsCatalogoPersonalizadoZonaValida = oBEUsuario.EsCatalogoPersonalizadoZonaValida;
-
+                model.VioTutorialSalvavidas = oBEUsuario.VioTutorialSalvavidas;
                 model.NombreGerenteZonal = oBEUsuario.NombreGerenteZona;  // SB20-907
             }
             Session["UserData"] = model;
@@ -1026,6 +1163,8 @@ namespace Portal.Consultoras.Web.Controllers
         {
             if (model.CargoEntidadesShowRoom) return;
 
+            Session["EsShowRoom"] = "0";
+
             var paisesShowRoom = ConfigurationManager.AppSettings["PaisesShowRoom"];
             if (paisesShowRoom.Contains(model.CodigoISO))
             {
@@ -1054,6 +1193,11 @@ namespace Portal.Consultoras.Web.Controllers
                                 ? "" : ConfigS3.GetUrlFileS3(carpetaPais, model.BeShowRoom.ImagenPestaniaShowRoom, Globals.RutaImagenesMatriz + "/" + model.CodigoISO);
                             model.BeShowRoom.ImagenPreventaDigital = string.IsNullOrEmpty(model.BeShowRoom.ImagenPreventaDigital)
                                 ? "" : ConfigS3.GetUrlFileS3(carpetaPais, model.BeShowRoom.ImagenPreventaDigital, Globals.RutaImagenesMatriz + "/" + model.CodigoISO);
+
+                            if (model.BeShowRoomConsultora != null)
+                            {
+                                Session["EsShowRoom"] = "1";
+                            }
                         }
                     }
                     model.CargoEntidadesShowRoom = true;
@@ -1341,10 +1485,10 @@ namespace Portal.Consultoras.Web.Controllers
                 var listaEscalaDescuento = new List<BEEscalaDescuento>();
                 if (inEscala)
                 {
-                    if (objR.MontoMaximoStr == "")
-                    {
+                    //if (objR.MontoMaximoStr == "")
+                    //{
                         listaEscalaDescuento = GetListaEscalaDescuento() ?? new List<BEEscalaDescuento>();
-                    }
+                    //}
                 }
 
                 foreach (var escala in listaEscalaDescuento)

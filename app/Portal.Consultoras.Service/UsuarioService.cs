@@ -60,6 +60,12 @@ namespace Portal.Consultoras.Service
             return BLUsuario.setUsuarioVerTutorial(paisID, codigoUsuario);
         }
 
+        public int SetUsuarioVerTutorialDesktop(int paisID, string codigoUsuario)
+        {
+            var BLUsuario = new BLUsuario();
+            return BLUsuario.SetUsuarioVerTutorialDesktop(paisID, codigoUsuario);
+        }
+
         public void Insert(BEUsuario usuario)
         {
             var BLUsuario = new BLUsuario();
@@ -86,10 +92,10 @@ namespace Portal.Consultoras.Service
             BLUsuario.UpdateDatos(usuario, CorreoAnterior);
         }
 
-        public int UpdateDatosPrimeraVez(int PaisID, string CodigoUsuario, string Email, string Telefono, string Celular, string CorreoAnterior, bool AceptoContrato)
+        public int UpdateDatosPrimeraVez(int paisID, string codigoUsuario, string email, string telefono, string telefonoTrabajo, string celular, string correoAnterior, bool aceptoContrato)
         {
             var BLUsuario = new BLUsuario();
-            return BLUsuario.UpdateDatosPrimeraVez(PaisID, CodigoUsuario, Email, Telefono, Celular, CorreoAnterior, AceptoContrato);
+            return BLUsuario.UpdateDatosPrimeraVez(paisID, codigoUsuario, email, telefono, telefonoTrabajo, celular, correoAnterior, aceptoContrato);
         }
 
         public void UpdatePassword(int paisID, string codigoUsuario, string claveSecreta, bool cambioClave)
@@ -308,15 +314,34 @@ namespace Portal.Consultoras.Service
             return BLMisPedidos.GetMisPedidos(PaisID, ConsultoraId, Campania);
         }
 
-        public IList<BEMisPedidosDetalle> GetMisPedidosDetalleConsultoraOnline(int PaisID, int PedidoID)
+        public IList<BEMisPedidosDetalle> GetMisPedidosDetalleConsultoraOnline(int PaisID, long PedidoID)
         {
             var BLMisPedidos = new BLConsultoraOnline();
             return BLMisPedidos.GetMisPedidosDetalle(PaisID, PedidoID);
         }
 
+        /* SB20-463 - INICIO */
+        public int GetCantidadSolicitudesPedido(int PaisID, long ConsultoraId, int Campania)
+        {
+            var BLMisPedidos = new BLConsultoraOnline();
+            return BLMisPedidos.GetCantidadSolicitudesPedido(PaisID, ConsultoraId, Campania);
+        }
+
+        public string GetSaldoHorasSolicitudesPedido(int PaisID, long ConsultoraId, int Campania)
+        {
+            var BLMisPedidos = new BLConsultoraOnline();
+            return BLMisPedidos.GetSaldoHorasSolicitudesPedido(PaisID, ConsultoraId, Campania);
+        }
+        /* SB20-463 - FIN */
+
         public IList<BEMisPedidos> GetMisPedidosClienteOnline(int paisID, long consultoraId, int campania)
         {
             return new BLConsultoraOnline().GetMisPedidosClienteOnline(paisID, consultoraId, campania);
+        }
+
+        public BEMisPedidos GetPedidoClienteOnlineBySolicitudClienteId(int paisID, long solicitudClienteId)
+        {
+            return new BLConsultoraOnline().GetPedidoClienteOnlineBySolicitudClienteId(paisID, solicitudClienteId);
         }
 
         //R2073
@@ -355,10 +380,10 @@ namespace Portal.Consultoras.Service
         }
 
         //R2116
-        public int UpdateDatosPrimeraVezMexico(int PaisID, string CodigoUsuario, string Nombre, string Apellidos, string Telefono, string Celular, string Email, long IdConsultora, string CodigoConsultora, int CampaniaID_Actual, int CampaniaID_UltimaF, int RegionID, int ZonaID, string EmailAnterior)
+        public int UpdateDatosPrimeraVezMexico(int PaisID, string CodigoUsuario, string Nombre, string Apellidos, string Telefono, string TelefonoTrabajo, string Celular, string Email, long IdConsultora, string CodigoConsultora, int CampaniaID_Actual, int CampaniaID_UltimaF, int RegionID, int ZonaID, string EmailAnterior)
         {
             var BLUsuario = new BLUsuario();
-            return BLUsuario.UpdateDatosPrimeraVezMexico(PaisID, CodigoUsuario, Nombre, Apellidos, Telefono, Celular, Email, IdConsultora, CodigoConsultora, CampaniaID_Actual, CampaniaID_UltimaF, RegionID, ZonaID, EmailAnterior);
+            return BLUsuario.UpdateDatosPrimeraVezMexico(PaisID, CodigoUsuario, Nombre, Apellidos, Telefono, TelefonoTrabajo, Celular, Email, IdConsultora, CodigoConsultora, CampaniaID_Actual, CampaniaID_UltimaF, RegionID, ZonaID, EmailAnterior);
         }
         public int SelectDatosActualizados(int paisID, string codigoUsuario)
         {
@@ -484,11 +509,6 @@ namespace Portal.Consultoras.Service
             BLNotificaciones.UpdNotificacionSolicitudClienteVisualizacion(paisID, SolicitudClienteId);
         }
 
-        public int UpdateDatosPrimeraVez(int PaisID, string CodigoUsuario, string Email, string Telefono, string Celular, string CorreoAnterior)
-        {
-            throw new NotImplementedException();
-        }
-
         #region Miembros de IUsuarioService
 
         /* R2520 - JICM - LIDERES - INI */
@@ -504,6 +524,12 @@ namespace Portal.Consultoras.Service
         {
             var BLSolicitudClienteCatalogo = new BLSolicitudClienteCatalogo();
             BLSolicitudClienteCatalogo.UpdNotificacionSolicitudClienteCatalogoVisualizacion(paisID, SolicitudClienteCatalogoId);
+        }
+
+        public void UpdNotificacionPedidoRechazadoVisualizacion(int paisID, long procesoId)
+        {
+            var bLPedidoRechazado = new BLPedidoRechazado();
+            bLPedidoRechazado.UpdatePedidoRechazadoVisualizado(paisID, procesoId);
         }
 
         public BENotificacionesDetalleCatalogo ObtenerDetalleNotificacion(int PaisID, long SolicitudClienteCatalogoId)
@@ -524,6 +550,12 @@ namespace Portal.Consultoras.Service
 
             BLUsuario BLUsuario = new BLUsuario();
             BLUsuario.GuardarContrasenia(paisID, codigoUsuario, contrasenia);
+        }
+
+        public int UpdateUsuarioTutoriales(int paisID, string codigoUsuario, int tipo)
+        {
+            var BLUsuario = new BLUsuario();
+            return BLUsuario.UpdateUsuarioTutoriales(paisID, codigoUsuario, tipo);
         }
     }
 }

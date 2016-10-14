@@ -19,13 +19,14 @@ namespace Portal.Consultoras.Web.WebPages
 
             var dataQueryString = Request.QueryString["data"];
             if (dataQueryString != null)
-            {
+            {                
                 CargarSessionConsultora(dataQueryString);
 
                 var campania = Request.QueryString["campania"];
+                int paisID = Convert.ToInt32(ViewState["PAIS"]);
+
                 if (campania != null)
-                {
-                    int paisID = Convert.ToInt32(ViewState["PAIS"]);
+                {                    
                     string codigoConsultora = Convert.ToString(ViewState["CODIGO"]);
                     string paisISO = Convert.ToString(ViewState["PAISISO"]);
 
@@ -38,10 +39,12 @@ namespace Portal.Consultoras.Web.WebPages
                     pnlNovedadesEntrega.Visible = true;
                     pnlNovedadesPostVenta.Visible = false;
                     HtmlTableCell row1 = (HtmlTableCell)vTracking.FindControl("cellPedidos");
-                    row1.Style.Add("display", "none");
+                    row1.Style.Add("display", "none");                    
 
                     CargarSeguimientoPedido(paisID, codigoConsultora, campania, bETracking.Fecha.HasValue ? bETracking.Fecha.Value : DateTime.Now, bETracking.NumeroPedido, paisISO, bETracking.Estado);
                 }
+
+                lnkPoliticasVenta.Visible = paisID == Util.GetPaisID("CO");
             }
             else Response.Redirect("~/WebPages/UserUnknownLogin.aspx");
 
@@ -92,6 +95,8 @@ namespace Portal.Consultoras.Web.WebPages
 
         protected void gridDatos_RowDataBound(object sender, GridViewRowEventArgs e)
         {
+            string paisISO = Convert.ToString(ViewState["PAISISO"]);
+
             Image boton = new Image();
             boton = (Image)e.Row.FindControl("imgMuestra");
 
@@ -112,6 +117,11 @@ namespace Portal.Consultoras.Web.WebPages
 
             LinkButton botonSegPed = new LinkButton();
             botonSegPed = (LinkButton)e.Row.FindControl("imgSegPed");
+          
+            Label lblTextoValorTurno = new Label();
+            lblTextoValorTurno = (Label)e.Row.FindControl("lblTextoValorTurno");
+            if (lblTextoValorTurno != null)
+                lblTextoValorTurno.ForeColor = System.Drawing.ColorTranslator.FromHtml((System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(paisISO)) ? "#e81c36" : "#b75d9f"); 
 
             if (boton != null)
             {
@@ -444,14 +454,18 @@ namespace Portal.Consultoras.Web.WebPages
 
                         /*SB20-964 - INICIO */
                         if (item.Etapa == 6 && !string.IsNullOrEmpty(item.ValorTurno))
-                        {
+                        {                          
                             if (item.ValorTurno.ToUpper() == "AM")
                             {
-                                item.Situacion += "<br/><b>En la mañana</b>";
+                                item.ValorTurno = "<b>En la mañana</b>";
                             }
                             else if (item.ValorTurno.ToUpper() == "PM")
                             {
-                                item.Situacion += "<br/><b>En la tarde</b>";
+                                item.ValorTurno = "<b>En la tarde</b>";
+                            }
+                            else
+                            {                               
+                                item.ValorTurno = string.Empty;
                             }
                         }
                         /*SB20-964 - FIN */

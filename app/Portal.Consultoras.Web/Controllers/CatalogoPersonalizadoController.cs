@@ -80,10 +80,11 @@ namespace Portal.Consultoras.Web.Controllers
                         }
                         if (olstProducto.Count == 0) continue;
 
-                        string descripcion = "", imagenUrl = "";
-                        bool add = false;
+                        string descripcion = producto.NombreComercial, imagenUrl = producto.Imagen;
+                        bool add = olstProducto[0].TieneStock;
                         if (userData.CatalogoPersonalizado == Constantes.TipoOfertaFinalCatalogoPersonalizado.Arp)
                         {
+                            add = false;
                             string infoEstrategia;
                             using (PedidoServiceClient sv = new PedidoServiceClient())
                             {
@@ -103,21 +104,13 @@ namespace Portal.Consultoras.Web.Controllers
                                     add = true;
                                 }
                             }
-                            
-                        }
-                        else
-                        {
-                            descripcion = producto.NombreComercial;
-                            imagenUrl = producto.Imagen;
-                            if (olstProducto[0].TieneStock)
-                            {
-                                add = true;
-                            }
-                            //add = true;
                         }
 
                         if (add)
                         {
+                            decimal preciotachado = userData.CatalogoPersonalizado == 2 && tipoProductoMostrar == 1
+                                ? producto.PrecioValorizado : olstProducto[0].PrecioValorizado;
+
                             listaProductoModel.Add(new ProductoModel()
                             {
                                 CUV = olstProducto[0].CUV.Trim(),
@@ -143,8 +136,8 @@ namespace Portal.Consultoras.Web.Controllers
                                 ImagenProductoSugerido = imagenUrl,
                                 CodigoProducto = olstProducto[0].CodigoProducto,
                                 TieneStockPROL = true,
-                                PrecioValorizado = olstProducto[0].PrecioValorizado,
-                                PrecioValorizadoString = Util.DecimalToStringFormat(olstProducto[0].PrecioValorizado, userData.CodigoISO),
+                                PrecioValorizado = preciotachado,
+                                PrecioValorizadoString = Util.DecimalToStringFormat(preciotachado, userData.CodigoISO),
                                 Simbolo = userData.Simbolo,
                                 Sello = producto.Sello,
                                 IsAgregado = false,
@@ -183,17 +176,108 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-        public JsonResult ObtenerOfertaRevista(string cuv)
+        public JsonResult ObtenerOfertaRevista(string cuv, string tipoOfertaRevista)
         {
             try
             {
                 BEProducto producto = new BEProducto();
+                BEProducto productPack = new BEProducto();
+                BEProducto productNivel = new BEProducto();
+
+                var ambiente = ConfigurationManager.AppSettings["Ambiente"] ?? "";
+                var keyWeb = ambiente.ToUpper() == "QA" ? "QA_Prol_ServicesCalculos" : "PR_Prol_ServicesCalculos";
 
                 ObjOfertaCatalogos dataPROL;
                 using (var sv = new ServicesCalculoPrecioNiveles())
                 {
-                    dataPROL = sv.Ofertas_catalogo(userData.CodigoISO, userData.CampaniaID.ToString(), cuv, userData.CodigoConsultora, userData.ZonaID.ToString());
+                    sv.Url = ConfigurationManager.AppSettings[keyWeb];
+                    dataPROL = sv.Ofertas_catalogo(userData.CodigoISO, userData.CampaniaID.ToString(), cuv, userData.CodigoConsultora, userData.ZonaID.ToString(), tipoOfertaRevista);
                 }
+                dataPROL = dataPROL ?? new ObjOfertaCatalogos();
+
+                #region para la imagen
+
+                string listaSap = "|"; // "0000000|00000000|000003"
+                string caracterSepara = "|";
+
+                dataPROL.lista_oObjGratis = dataPROL.lista_oObjGratis ?? new ObjGratis[0];
+                dataPROL.lista_oObjItemPack = dataPROL.lista_oObjItemPack ?? new ObjItemPack[0];
+
+                if (dataPROL.lista_oObjGratis.Length > 0)
+                {
+                    foreach (var objGrati in dataPROL.lista_oObjGratis)
+                    {
+                        objGrati.codsap_nivel_gratis = Util.SubStr(objGrati.codsap_nivel_gratis, 0);
+                        if (objGrati.codsap_nivel_gratis == "")
+                            continue;
+
+                        var add = listaSap.Contains(caracterSepara + objGrati.codsap_nivel_gratis + caracterSepara);
+                        listaSap += !add ? objGrati.codsap_nivel_gratis + caracterSepara : "";
+                    }
+                }
+
+                if (dataPROL.lista_oObjItemPack.Length > 0)
+                {
+                    foreach (var objItemPack in dataPROL.lista_oObjItemPack)
+                    {
+                        objItemPack.codsap_item_pack = Util.SubStr(objItemPack.codsap_item_pack, 0);
+                        if (objItemPack.codsap_item_pack == "")
+                            continue;
+
+                        var add = listaSap.Contains(caracterSepara + objItemPack.codsap_item_pack + caracterSepara);
+                        listaSap += !add ? objItemPack.codsap_item_pack + caracterSepara : "";
+                    }
+                }
+
+                if (listaSap.Length > 2)
+                {
+                    listaSap = Util.SubStr(listaSap, 1, listaSap.Length - 2);
+
+                    var listaProductoBySap = new List<Producto>();
+                    using (ProductoServiceClient ps = new ProductoServiceClient())
+                    {
+                        listaProductoBySap = ps.ObtenerProductosByCodigoSap(userData.CodigoISO, userData.CampaniaID, listaSap).ToList();
+                    }
+                    listaProductoBySap = listaProductoBySap ?? new List<Producto>();
+
+                    foreach (var itemSap in listaProductoBySap)
+                    {
+
+                        if (dataPROL.lista_oObjGratis.Length > 0)
+                        {
+                            foreach (var objGrati in dataPROL.lista_oObjGratis)
+                            {
+                                objGrati.codsap_nivel_gratis = Util.SubStr(objGrati.codsap_nivel_gratis, 0);
+                                if (objGrati.codsap_nivel_gratis == "")
+                                    continue;
+
+                                if (objGrati.codsap_nivel_gratis == itemSap.CodigoSap)
+                                {
+                                    objGrati.imagen_gratis = itemSap.Imagen;  
+                                    objGrati.descripcion_gratis = itemSap.NombreComercial;
+                                }
+                            }
+                        }
+
+                        if (dataPROL.lista_oObjItemPack.Length > 0)
+                        {
+                            foreach (var objItemPack in dataPROL.lista_oObjItemPack)
+                            {
+                                objItemPack.codsap_item_pack = Util.SubStr(objItemPack.codsap_item_pack, 0);
+                                if (objItemPack.codsap_item_pack == "")
+                                    continue;
+
+                                if (objItemPack.codsap_item_pack == itemSap.CodigoSap)
+                                {
+                                    objItemPack.imagen_item_pack = itemSap.Imagen;  
+                                    objItemPack.descripcion_item_pack = itemSap.NombreComercial;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                #endregion
                 using (ODSServiceClient sv = new ODSServiceClient())
                 {
                     producto = sv.SelectProductoByCodigoDescripcionSearchRegionZona(userData.PaisID, userData.CampaniaID, dataPROL.cuv_revista,

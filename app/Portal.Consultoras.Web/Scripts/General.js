@@ -74,10 +74,10 @@ jQuery(document).ready(function () {
 
     String.prototype.CodificarHtmlToAnsi = function () {
         var newStr = this;
-        var ansi = new Array('Á', 'á', 'É', 'é', 'Í', 'í', 'Ó', 'ó', 'Ú', 'ú');
-        var html = new Array('&#193;', '&#225;', '&#201;', '&#233;', '&#205;', '&#237;', '&#211;', '&#243;', '&#218;', '&#250;');
+        var ansi = new Array('Á', 'á', 'É', 'é', 'Í', 'í', 'Ó', 'ó', 'Ú', 'ú', '<', '>', "'");
+        var html = new Array('&#193;', '&#225;', '&#201;', '&#233;', '&#205;', '&#237;', '&#211;', '&#243;', '&#218;', '&#250;', '&lt;', '&gt;', '&#39;');
         for (var i = 0; i < html.length; i++) {
-            newStr = newStr.replace(html[i], ansi[i]);
+            newStr = newStr.ReplaceAll(html[i], ansi[i]);
         }
         return newStr;
     };
@@ -105,13 +105,25 @@ jQuery(document).ready(function () {
     Array.prototype.Find = function (campo, valor) {
         var array = new Array();
         $.each(this, function (index, item) {
-            if (item[campo] == valor) {
-                try {
-                    array.push(Clone(item));
-                } catch (e) {
-                    array.push(item);
+            if (typeof (campo) == "string") {
+                if (item[campo] == valor) {
+                    try {
+                        array.push(Clone(item));
+                    } catch (e) {
+                        array.push(item);
+                    }
                 }
             }
+            else if (typeof (campo) == "object") {
+                if (JSON.stringify(item) == JSON.stringify(campo)) {
+                    try {
+                        array.push(Clone(item));
+                    } catch (e) {
+                        array.push(item);
+                    }
+                }
+            }
+            
         });
         return array;
     };
@@ -194,12 +206,20 @@ jQuery(document).ready(function () {
             Handlebars.registerHelper('JSON2string', function (context) {
                 return JSON.stringify(context);
             });
+            
+            Handlebars.registerHelper('UpperCase', function (context) {
+                return context.toUpperCase();
+            });
         }
     }
 
     SetHandlebars = function (idTemplate, data, idHtml) {
         if (!Handlebars.helpers.iff)
             HandlebarsRegisterHelper();
+
+        if ($(idTemplate).length == 0) {
+            return false;
+        }
 
         var source = $(idTemplate).html();
         var template = Handlebars.compile(source);
@@ -272,6 +292,31 @@ jQuery(document).ready(function () {
             $(".loadingScreenWindow").css("top", (($(window).height() / 2) + $(document).scrollTop() - $(".loadingScreenWindow").height()) + "px");
         } catch (e) { }        
     });
+    
+    RemoverRepetidos = function (lista, campo) {
+        campo = $.trim(campo);
+        var newLista = new Array();
+        var arrAux = new Array();
+        $.each(lista, function (ind, item) {
+            arrAux = new Array();
+            if (campo != "") {
+                arrAux = newLista.Find(campo, item[campo]);
+            }
+            else {
+                arrAux = newLista.Find(item)
+            }
+            if (arrAux.length == 0) {
+                try {
+                    newLista.push(Clone(item));
+                } catch (e) {
+                    newLista.push(item);
+                }
+            }
+        });
+
+        return newLista;
+    };
+
 })(jQuery);
 
 function showDialog(dialogId) {
@@ -510,76 +555,7 @@ function ActualizarGanancia(data) {
 
     $(".num-menu-shop").html(data.CantidadProductos);
     $(".js-span-pedidoingresado").html(data.TotalPedidoStr);
-
-    // actualizar el area de escala en los rangos de escala
-    var tieneAreaEscala = $("[data-divescala]");
-    if (tieneAreaEscala.length > 0) {
-        data.ListaEscalaDescuento = data.ListaEscalaDescuento || new Array();
-        var montoEscala = data.MontoEscala || 0;
-        var pos = -1;
-        var nro = 4;
-        var listaEscala = new Array();
-        var contTemp = 0;
-        $.each(data.ListaEscalaDescuento, function (ind, objEscala) {
-            if (data.MontoMinimo <= objEscala.MontoHasta)
-            {
-                //objEscala.MontoDesde = listaEscala.length == 0 || ind < 1 ? data.MontoMinimo : listaEscala[ind - 1].MontoHasta;
-                objEscala.MontoDesde = listaEscala.length == 0 || ind < 1 ? data.MontoMinimo : listaEscala[contTemp - 1].MontoHasta;
-                objEscala.MontoDesdeStr = DecimalToStringFormat(objEscala.MontoDesde);
-                objEscala.MontoHastaStr = DecimalToStringFormat(objEscala.MontoHasta);
-
-                if (objEscala.MontoDesde <= montoEscala && montoEscala < objEscala.MontoHasta) {
-                    objEscala.Seleccionado = true;
-                    pos = ind;
-                }
-                listaEscala.push(objEscala);
-                contTemp++;
-            }
-        });
-
-        if (listaEscala.length > 0)
-        {
-            var listaAdd = new Array();
-            var posMin, posMax, tamX = listaEscala.length - 1;
-            posMax = tamX >= pos + nro - 1 ? (pos + nro - 1) : tamX;
-            posMin = posMax > (nro - 1) ? (posMax - (nro - 1)) : 0;
-            posMin = pos < 0 ? 0 : posMin;
-            posMax = pos < 0 ? listaEscala.length - 1 > nro - 1 ? nro - 1 : listaEscala.length - 1 : posMax;
-            while (posMin <= posMax) {
-                listaAdd.push(listaEscala[posMin]);
-                posMin++;
-            }
-
-            var htmlIconSelect = '<div class="indicador_escala"></div>';
-            var htmlMontosEscala = '<div class="precio_ganancia">{}</div>';
-            tieneAreaEscala.find(".escala_ganancia.escala_select").find(".indicador_escala").remove();
-            tieneAreaEscala.find(".escala_ganancia.escala_select").find(".precio_ganancia").remove();
-            tieneAreaEscala.find(".escala_ganancia").removeClass("escala_select");
-            tieneAreaEscala.find(".escala_ganancia").removeClass("eg_padding_inactivo");
-            tieneAreaEscala.find(".escala_ganancia").addClass("eg_padding_activo");
-            $.each(tieneAreaEscala.find(".escala_ganancia"), function (ind, objHtmlEscala) {               
-                if (listaAdd.length > ind) {
-                    $(objHtmlEscala).find(".home_porcentaje").html(listaAdd[ind].PorDescuento);
-                    if (listaAdd[ind].Seleccionado == true) {
-                        $(objHtmlEscala).addClass("escala_select");
-                        $(objHtmlEscala).prepend(htmlIconSelect);
-                        var montodesdeAux = DecimalToStringFormat(Math.ceil(listaAdd[ind].MontoDesde), true);
-                        var montodesdeAux2 = DecimalToStringFormat(Math.ceil(listaAdd[ind].MontoHasta), true);
-                        if (ind == listaAdd.length - 1) {
-                            $(objHtmlEscala).append(htmlMontosEscala.replace("{}", "De " + vbSimbolo + " " + montodesdeAux + " <br>a más."));
-                        }
-                        else {
-                            $(objHtmlEscala).append(htmlMontosEscala.replace("{}","De "+ vbSimbolo + " " + montodesdeAux + "<br> a " + vbSimbolo + " " + montodesdeAux2));
-                        }
-                        
-                    }
-                }                
-            });
-        }
-
-        
-    }
-
+    
     setTimeout(function () {
         $('.num-menu-shop').addClass('microefecto_color');
         $('[data-cantidadproducto]').parent().addClass('microefecto_color');
@@ -701,8 +677,9 @@ function MensajeEstadoPedido() {
 
     if (indicadorEnviadoDescarga != 1)
         return false;
-
-    $("#bloquemensajesPedido").find(".mensaje_horarioIngresoPedido").html(motivoRechazo || "");
+    
+    $("#bloquemensajesPedido").find(".mensaje_horarioIngresoPedido").html("");
+    $("#bloquemensajesPedido").find(".mensaje_horarioIngresoPedido").append((motivoRechazo || "").CodificarHtmlToAnsi());
     if (estaRechazado == '1') {
         $("#bloquemensajesPedido").find(".mensaje_estadoActualPedido").html("TU PEDIDO HA SIDO RECHAZADO");
     }

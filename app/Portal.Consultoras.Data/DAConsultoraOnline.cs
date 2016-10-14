@@ -26,10 +26,10 @@ namespace Portal.Consultoras.Data
             return Context.ExecuteReader(command);
         }
 
-        public IDataReader GetSolicitudesPedidoDetalle(int PedidoID)
+        public IDataReader GetSolicitudesPedidoDetalle(long PedidoID)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetSolicitudesPedidoDetalle_SB2");
-            Context.Database.AddInParameter(command, "@SolicitudClienteID", DbType.Int32, PedidoID);
+            Context.Database.AddInParameter(command, "@SolicitudClienteID", DbType.Int64, PedidoID);
 
             return Context.ExecuteReader(command);
         }
@@ -39,6 +39,13 @@ namespace Portal.Consultoras.Data
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetMisPedidosClienteOnline_SB2");
             Context.Database.AddInParameter(command, "@ConsultoraId", DbType.Int64, ConsultoraId);
             Context.Database.AddInParameter(command, "@Campania", DbType.Int32, Campania);
+            return Context.ExecuteReader(command);
+        }
+
+        public IDataReader GetPedidoClienteOnlineBySolicitudClienteId(long solicitudClienteId)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetPedidoClienteOnlineBySolicitudClienteId_SB2");
+            Context.Database.AddInParameter(command, "@SolicitudClienteId", DbType.Int64, solicitudClienteId);
             return Context.ExecuteReader(command);
         }
 		
@@ -62,5 +69,25 @@ namespace Portal.Consultoras.Data
 
             return Context.ExecuteReader(command);
         }
+
+        /* SB20-463 - INICIO */
+        public IDataReader GetCantidadSolicitudesPedido(long ConsultoraId, int Campania)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetCantidadSolicitudesPedido_SB2");
+            Context.Database.AddInParameter(command, "@ConsultoraId", DbType.Int64, ConsultoraId);
+            Context.Database.AddInParameter(command, "@Campania", DbType.Int32, Campania);
+
+            return Context.ExecuteReader(command);
+        }
+
+        public IDataReader GetSaldoHorasSolicitudesPedido(long ConsultoraId, int Campania)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetSaldoHorasSolicitudesPedido_SB2");
+            Context.Database.AddInParameter(command, "@ConsultoraId", DbType.Int64, ConsultoraId);
+            Context.Database.AddInParameter(command, "@Campania", DbType.Int32, Campania);
+
+            return Context.ExecuteReader(command);
+        }
+        /* SB20-463 - FIN */
     }
 }

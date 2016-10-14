@@ -166,7 +166,8 @@
             <!-- AÑADIR LA CLASES "mt_47" PARA CENTRAR LA INFORMACIÓN -->
             Mi deuda actual es:
             <div class="deuda_home" id="spanDeuda">
-                @Model.Simbolo @Util.DecimalToStringFormat(Model.MontoDeuda, Model.PrefijoPais)
+                @Model.Simbolo 
+                <span>@Util.DecimalToStringFormat(Model.MontoDeuda, Model.PrefijoPais)</span>
             </div>
             <span>Vencimiento: <span id="spanVencimiento">@Model.FechaVencimiento</span></span>
         </div>
@@ -209,7 +210,7 @@
                     Model.PrefijoPais == Constantes.CodigosISOPais.Guatemala ||
                     Model.PrefijoPais == Constantes.CodigosISOPais.Salvador ||
                     Model.PrefijoPais == Constantes.CodigosISOPais.Dominicana ||
-                    Model.PrefijoPais == Constantes.CodigosISOPais.PuertoRico) 
+                    Model.PrefijoPais == Constantes.CodigosISOPais.PuertoRico)
                 {
                     cabezaEscala = "Ganancia estimada total*";
                     pieEscala = "*Ganancia Total = Ahorro estimado proveniente de tus descuentos por compras en catálogo + ahorro estimado proveniente de compras en Guía de Negocio y Otros.";
@@ -217,7 +218,7 @@
                 else if (Model.PrefijoPais == Constantes.CodigosISOPais.Chile)
                 {
                     cabezaEscala = "Comisión y ahorro total*";
-                    pieEscala = "*Comisión = Ganancia estimada proveniente de tus descuentos por compras en catálogo; <br>Ahorro = Ahorro estimado proveniente de compras de Guía de Negocio y Otros.";
+                    pieEscala = "*Comisión = Ganancia estimada proveniente de tus descuentos por compras en catálogo; Ahorro = Ahorro estimado proveniente de compras de Guía de Negocio y Otros.";
                 }
                 else if (Model.PrefijoPais == Constantes.CodigosISOPais.Mexico || Model.PrefijoPais == Constantes.CodigosISOPais.Panama)
                 {
@@ -240,48 +241,16 @@
             <span>Pedido ingresado: <span id="spanPedidoIngresado"></span></span>
         </div>
         <!--ESCALA DE DESCUENTO-->
-        <div class="content_escala" data-divescala="cuadrado">
-            @{
-                string padding = "eg_padding_inactivo";
-                string numerosGrandes = "";
-                if (Model.ListaEscalaDescuento != null && Model.ListaEscalaDescuento.Count > 0)
-                {
-                    padding = Model.ListaEscalaDescuento.Where(x => x.Seleccionado).ToList().Count > 0 ? "eg_padding_activo" : "eg_padding_inactivo";
-
-                    foreach (var item in Model.ListaEscalaDescuento)
-                    {
-                        int index = Model.ListaEscalaDescuento.IndexOf(item) + 1;
-                        string clase = (item.Seleccionado ? "escala_select" : "") +
-                                       (index == Model.ListaEscalaDescuento.Count ? " border-right " : "");
-                        numerosGrandes = item.MontoHasta >= 10000 ? "font-size: 5.9px; transform: scaleY(1.8);" : "";
-                        <div class="escala_ganancia @(clase) @(padding)">
-
-                            @if (item.Seleccionado)
-                            {
-                                <div class="indicador_escala"></div>
-                            }
-
-                            <div style="overflow:hidden">
-                                <div class="home_porcentaje">@item.PorDescuento</div>
-                                <div class="texto_dscto">%<span>DSCTO</span></div>
-                            </div>
-                            @if (item.Seleccionado)
-                            {
-                                if (index == Model.ListaEscalaDescuento.Count)
-                                {
-                                    <div class="precio_ganancia" style="@(numerosGrandes)">De @Model.Simbolo @Convert.ToInt32(item.MontoDesde) <br>a más.</div>
-                                }
-                                else
-                                {
-                                    <div class="precio_ganancia" style="@(numerosGrandes)">De @Model.Simbolo @Convert.ToInt32(item.MontoDesde) <br>a @Model.Simbolo @Convert.ToInt32(item.MontoHasta)</div>
-                                }
-                            }
-
-                        </div>
-                    }
-                }
-            }
-
+        <div class="content_escala" data-divescala="cuadrado" data-barra-width="">
+            <div id="divBarra">
+                <div id="divBarraLimite"></div>
+                <hr class="clear" />
+                <div id="divBarraPosicion" class="BarraPosicion">
+                    <span id="divBarraEspacioLimite" class="BarraLimite">
+                        <span id="divBarraEspacioLogrado" class="BarraLogrado"></span>
+                    </span>
+                </div>
+            </div>
         </div>
         <!--FIN ESCALA DE DESCUENTO-->
     </div>
@@ -293,7 +262,7 @@
 </div>
 
 <!--CAROUSEL OFERTAS PARA TI-->
-<div class="fondo_gris">
+<div class="fondo_gris" id="divListaEstrategias" style="display:none;">
     <div class="content_belcorp" style="text-align:center;">
         <div class="titulo_ofertas_home">
             OFERTAS <b>PARA TI @(Model.NombreConsultora.ToUpper())</b>
@@ -312,7 +281,7 @@
 <!--CATALOGO PERSONALIZADO-->
 @if (Model.CatalogoPersonalizadoDesktop != 0 && Model.EsCatalogoPersonalizadoZonaValida)
 {
-    <div class="content-favclientes content_carrusel_agregado" id="divMainCatalogoPersonalizado">
+    <div class="content-favclientes content_carrusel_agregado" id="divMainCatalogoPersonalizado" style="display:none;">
         <div class="pestania"><h5><b>LOS FAVORITOS</b> DE TUS CLIENTES ESTA CAMPAÑA</h5><div class="imagen-curvatura"></div></div>
         <a class="ver_mas_favoritos" style="z-index:inherit;" href="@Url.Action("Index", "CatalogoPersonalizado")">Ver más +</a>
         <div id="divCatalogoPersonalizado"></div>
@@ -758,9 +727,24 @@
                     player = new YT.Player("divPlayer", {
                         width: "100%",
                         videoId: videoIdMostrar,
-                        playerVars: { rel: 0 }
+                        playerVars: { rel: 0 },
+                        events: {
+                            'onStateChange': onPlayerStateChange
+                        }
                     });
                 };
+
+                function onPlayerStateChange(event) {
+                    // track when video ends
+                    if (event.data == YT.PlayerState.ENDED) {
+                        dataLayer.push({
+                            'event': 'virtualEvent',
+                            'category': 'Home',
+                            'action': 'Video de Bienvenida: Finalizar video',
+                            'label': 'SomosBelcorp.com ¡se renueva para ti!'
+                        });
+                    }
+                }
             </script>
         </div>
         <div class="btn_cerrar_actualizarMisDatos">
@@ -840,6 +824,10 @@
                 </div>
                 <div class="grupo_input_actualizarMisDatos">
                     <div>
+                        <label><span class="asterisco_actualizar_datos">(*)&nbsp;</span>Teléfono de trabajo</label>
+                        <input type="text" name="m_txtTelefonoTrabajo" id="m_txtTelefonoTrabajo" class="requerido" maxlength="10" placeholder="Número incluye lada (10 dígitos)" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" value="@Model.TelefonoTrabajo" />
+                    </div>
+                    <div>
                         <label><span class="asterisco_actualizar_datos">(*)&nbsp;</span>Correo electrónico</label>
                         <input type="email" name="email" id="m_txtEMail" class="requerido" />
                     </div>
@@ -873,20 +861,27 @@
             <h1 class="titulo_actualizarMisDatos" id="tituloActualizarDatos"></h1>
             <form class="formulario_actualizar_datos">
                 <div class="grupo_input_actualizarMisDatos">
-                    <div>
-                        <label>Nombres</label>
-                        <input type="text" name="nombres" id="" value="@Model.NombreCompleto" />
-                    </div>
+                    <div></div>
                     <a href="javascript:;" class="cambiar_contrasenia" id="lnkCambiarContrasena">CAMBIAR CONTRASEÑA</a>
                 </div>
                 <div class="grupo_input_actualizarMisDatos">
                     <div>
+                        <label>Nombres</label>
+                        <input type="text" name="nombres" id="" value="@Model.NombreCompleto" />
+                    </div>
+                    <div>
                         <label>Teléfono</label>
                         <input type="text" name="telefono" id="txtTelefono" value="@Model.Telefono" />
                     </div>
+                </div>
+                <div class="grupo_input_actualizarMisDatos">
                     <div>
                         <label>Celular</label>
                         <input type="text" name="celular" id="txtCelular" value="@Model.Celular" />
+                    </div>
+                    <div>
+                        <label>Teléfono de trabajo</label>
+                        <input type="text" name="telefonoTrabajo" id="txtTelefonoTrabajo" value="@Model.TelefonoTrabajo" />
                     </div>
                 </div>
                 <div class="grupo_input_actualizarMisDatos">
@@ -1091,6 +1086,12 @@
                     </div>
                 </div>
                 <div class="grupo_input_actualizarMisDatos campos_actualizarDatos">
+                    <div>
+                        <label><span class="asterisco_actualizar_datos"></span>Tu teléfono de trabajo:</label>
+                        <input type="text" name="txtTelefonoTrabajoMD" id="txtTelefonoTrabajoMD" />
+                    </div>
+                </div>
+                <div class="grupo_input_actualizarMisDatos campos_actualizarDatos">
                     <div class="checkbox_condiciones">
                         <input type="checkbox" name="condiciones" id="chkAceptoContratoMD" />
                         <label for="chkAceptoContratoMD" class="texto_terminosCondiciones">
@@ -1241,41 +1242,7 @@
 
 <!-- POPUP FIN IMAGEN PERFIL -->
 
-<div class="mod-ofer1">
-</div>
-<div class="mod-ofer2">
-</div>
-<div class="mod-ofer3">
-</div>
-
-<!-- POPUP COMUNICADOS -->
-<!-- SB20-834 - INICIO -->
-<div class="fondo_popupComunicados" id="popupComunicados" style="display:none;">
-    @*<div class="popup_comunicados">
-            <div class="btn_cerrar_actualizarMisDatos">
-                <a href="javascript:void();" onclick="return $('#popupComunicados').fadeOut();" title="Cerrar">
-                    <img src="@Url.Content("~/Content/Images/btn_cerrar_popup.svg")" alt="Cerrar" />
-                    <span class="texto_btn_cerrar">CERRAR</span>
-                </a>
-            </div>
-            <div class="contenedor_imagen_comunicado">
-                <img src="@Url.Content("~/Content/Images/Esika/tutorialHome/tutorial-home-esika1.jpg")" alt="Alternate Text" />
-            </div>
-            <div class="franja_noVolverMostrar">
-                <form>
-                    <div class="checkbox_condiciones">
-                        <input type="checkbox" name="condiciones" id="noMostrarPopupComunicado" />
-                        <label for="noMostrarPopupComunicado" class="texto_terminosCondiciones">
-                            <span style="display:inline-block; margin-top:1px;">No volver a mostrar</span>
-                        </label>
-                    </div>
-                </form>
-            </div>
-        </div>*@
-</div>
-
-<!-- FIN POPUP COMUNICADOS -->
-<!-- SB20-834 - FIN -->
+<div data-oferta=""></div>
 
 <!-- POP UP SHOWROOM HTML-->
 <div id="DialogoMensajeBannerShowRoom" class="fondo_popupShowRoom" style="display: none;">
@@ -1357,6 +1324,37 @@
 
     </div>
 </div>
+
+<!-- POPUP COMUNICADOS -->
+
+<!-- SB20-834 - INICIO -->
+<div class="fondo_popupComunicados" id="popupComunicados" style="display:none;">
+    @*<div class="popup_comunicados">
+        <div class="btn_cerrar_actualizarMisDatos">
+            <a href="javascript:void();" onclick="return $('#popupComunicados').fadeOut();" title="Cerrar">
+                <img src="@Url.Content("~/Content/Images/btn_cerrar_popup.svg")" alt="Cerrar" />
+                <span class="texto_btn_cerrar">CERRAR</span>
+            </a>
+        </div>
+        <div class="contenedor_imagen_comunicado">
+            <img src="@Url.Content("~/Content/Images/Esika/tutorialHome/tutorial-home-esika1.jpg")" alt="Alternate Text" />
+        </div>
+        <div class="franja_noVolverMostrar">
+            <form>
+                <div class="checkbox_condiciones">
+                    <input type="checkbox" name="condiciones" id="noMostrarPopupComunicado" />
+                    <label for="noMostrarPopupComunicado" class="texto_terminosCondiciones">
+                        <span style="display:inline-block; margin-top:1px;">No volver a mostrar</span>
+                    </label>
+                </div>
+            </form>
+        </div>
+    </div>*@
+</div>
+
+<!-- FIN POPUP COMUNICADOS -->
+
+<!-- SB20-834 - FIN -->
 
 <script id="estrategia-template" type="text/x-handlebars-template">
     {{#each this as |item|}}
@@ -1715,9 +1713,10 @@
                 <input type="hidden" class="hdItemDescripcionCategoria" value="{{DescripcionCategoria}}" />
                 <input type="hidden" class="hdItemDescripcionMarca" value="{{DescripcionMarca}}" />
                 <input type="hidden" class="hdItemDescripcionEstrategia" value="{{DescripcionEstrategia}}" />
+                <input type="hidden" class="hdItemTipoOfertaRevista" value="{{TipoOfertaRevista}}" />                
                 <input type="hidden" class="OrigenPedidoWeb" value="@Portal.Consultoras.Common.Constantes.OrigenPedidoWeb.DesktopHomeCatalogoPersonalizado"/>
             </div>
-            <div class="producto_img_home mini" id="imagenAnimacion">
+            <div class="producto_img_home mini" id="imagenAnimacion" data-img="">
                 <img src="{{ImagenProductoSugerido}}" style="width: auto; height: 100%;" class="imagen_producto">
             </div>
             {{#if item.TieneLanzamientoCatalogoPersonalizado}}
@@ -1731,7 +1730,7 @@
                     <b>{{Descripcion}}</b>
                 </p>
                 <div class="producto_precio" style="margin-bottom:28px;">
-                    @*<span class="producto_precio_normal">{{Simbolo}} {{PrecioValorizadoString}}</span>*@
+                    <span class="producto_precio_normal">{{Simbolo}} {{PrecioValorizadoString}}</span>
                     <span class="producto_precio_oferta"><b>{{Simbolo}} {{PrecioCatalogoString}}</b></span>
                 </div>
                 {{#if TieneOfertaEnRevista}}
@@ -1764,7 +1763,7 @@
 </script>
 
 <script id="template-mod-ofer1" type="text/x-handlebars-template">
-    <div class="cuerpo-mod">
+    <div class="cuerpo-mod" data-oferta-popup="">
         <div style="display:none;" id="hiddenCatalogo">
             <input type="hidden" class="hdItemCuv" value="{{CUV}}" />
             <input type="hidden" class="hdItemTipoOfertaSisID" value="{{TipoOfertaSisID}}" />
@@ -1778,7 +1777,7 @@
             <input type="hidden" class="hdItemDescripcionCategoria" value="{{DescripcionCategoria}}" />
             <input type="hidden" class="hdItemDescripcionMarca" value="{{DescripcionMarca}}" />
             <input type="hidden" class="hdItemDescripcionEstrategia" value="{{DescripcionEstrategia}}" />
-            <input type="hidden" class="OrigenPedidoWeb" value="@Portal.Consultoras.Common.Constantes.OrigenPedidoWeb.DesktopHomeCatalogoPersonalizadoPopUp"/>
+            <input type="hidden" class="OrigenPedidoWeb" value="@Portal.Consultoras.Common.Constantes.OrigenPedidoWeb.DesktopHomeCatalogoPersonalizadoPopUp" />
         </div>
         <div style="display:none;" id="hiddenRevista">
             <input type="hidden" class="hdItemCuv" value="{{productoRevista.CUV}}" />
@@ -1793,9 +1792,9 @@
             <input type="hidden" class="hdItemDescripcionCategoria" value="{{productoRevista.DescripcionCategoria}}" />
             <input type="hidden" class="hdItemDescripcionMarca" value="{{productoRevista.DescripcionMarca}}" />
             <input type="hidden" class="hdItemDescripcionEstrategia" value="{{productoRevista.DescripcionEstrategia}}" />
-            <input type="hidden" class="OrigenPedidoWeb" value="@Portal.Consultoras.Common.Constantes.OrigenPedidoWeb.DesktopHomeCatalogoPersonalizadoPopUp"/>
+            <input type="hidden" class="OrigenPedidoWeb" value="@Portal.Consultoras.Common.Constantes.OrigenPedidoWeb.DesktopCatalogoPersonalizadoPopUp" />
         </div>
-        <div class="cerrar-mod" onclick="$('.mod-ofer1').hide()"><img src="@Url.Content("/Content/Images/btn_cerrar_popupPercepcion.png")" /></div>
+        <div class="cerrar-mod" data-close=""><img src="@Url.Content("/Content/Images/btn_cerrar_popupPercepcion.png")" /></div>
         <div class="encabezado_popupCatalogoPersonalizado">
             <div class="linea_encabezado_popupCatalogoPersonalizado"></div>
             <div class="titulo_popupCatalogoPersonalizado">OFERTA EN GUÍA DE NEGOCIO</div>
@@ -1803,7 +1802,6 @@
         </div>
         <div class="contiene-productos">
             <div class="producto_img_home mini" id="imagenAnimacion">
-
                 <img src="{{UrlImagen}}" />
             </div>
 
@@ -1814,29 +1812,26 @@
                 <h6></h6>
                 <span>{{Descripcion}}</span>
                 <span>{{Simbolo}} {{precio_revista}}</span>
-                <span>GANA: {{Simbolo}} {{ganancia}}</span>
+                <span>Gana: {{Simbolo}} {{ganancia}}</span>
                 <hr class="clear">
                 <div class="clear"></div>
             </div>
             <hr class="clear">
             <div class="mod-cantidades metido">
                 <div class="liquidacion_rango_home">
-                    <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" class="liquidacion_rango_cantidad_pedido ValidaNumeral">
+                    <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" class="liquidacion_rango_cantidad_pedido ValidaNumeral" data-cantidad-input="revista">
                     <div class="liquidacion_rango_right_pedido">
                         <a class="mas"><img src="/Content/Images/Esika/mas.png" alt=""></a>
                         <a class="menos"><img src="/Content/Images/Esika/menos.png" alt=""></a>
                     </div>
                 </div>
-                <a class="boton_Agregalo_home agregar-ofertarevista" data-cuv="revista">
-                    AGRÉGALO
-                </a>
+                <a class="boton_Agregalo_home agregar-ofertarevista" data-cuv="revista">AGRÉGALO</a>
             </div>
             <div class="sombrio">
                 <div style="width: 50%;"></div>
             </div>
         </div>
         <div class="pos-baja">
-
             <div class="informa">
                 <h6>También puedes comprarlo con el precio catálogo:</h6>
                 <span>{{Simbolo}} {{precio_catalogo}}</span>
@@ -1844,208 +1839,230 @@
 
             <div class="mod-cantidades">
                 <div class="liquidacion_rango_home">
-                    <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" class="liquidacion_rango_cantidad_pedido ValidaNumeral">
+                    <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" class="liquidacion_rango_cantidad_pedido ValidaNumeral" data-cantidad-input="catalogo">
                     <div class="liquidacion_rango_right_pedido">
                         <a class="mas"><img src="/Content/Images/Esika/mas.png" alt=""></a>
                         <a class="menos"><img src="/Content/Images/Esika/menos.png" alt=""></a>
                     </div>
                 </div>
-                <a class="boton_Agregalo_home agregar-ofertarevista" data-cuv="catalogo">
-                    AGRÉGALO
-                </a>
+                <a class="boton_Agregalo_home agregar-ofertarevista" data-cuv="catalogo">AGRÉGALO</a>
             </div>
 
         </div>
-
     </div>
 </script>
 <script id="template-mod-ofer2" type="text/x-handlebars-template">
-    <div class="cuerpo-mod">
-        <div class="cerrar-mod" onclick="$('.mod-ofer2').hide()"><img src="@Url.Content("/Content/Images/btn_cerrar_popupPercepcion.png")" /></div>
-        <div class="contiene-productos">
-            <span class="mencion">Elige la cantidad y el sistema te ofrecerá la mejor combinación</span>
-            <hr class="clear">
-            <div class="producto_img_home mini">
-
-                <img src="http://S3.amazonaws.com/consultorasQAS/SomosBelcorp/Matriz/PE/PE_200064288_20131041749_01_rrdhiqdnya.png" />
-                <span class="inc">Dorsay 100 ml</span>
-            </div>
-
-            <div class="producto_nombre_descripcion">
-                <div class="etiqueta_producto nuevofavorito">
-                    <img src="/Content/Images/ofertarevista.png" alt="Etiqueta Producto">
-                </div>
-            </div>
-
-            <div class="compras">
-                <div class="columnas c1">
-                    <span></span>
-                    <span>Compra 1x $ 29.900</span>
-                    <span>GANANCIA:  $ 9.500</span>
-                </div>
-                <div class="columnas c2">
-                    <span></span>
-                    <span>Compra 2x $ 99.900</span>
-                    <span>GANANCIA:  $ 29.500</span>
-                    <img src="http://S3.amazonaws.com/consultorasQAS/SomosBelcorp/Matriz/PE/PE_200064288_20131041749_01_rrdhiqdnya.png" />
-                </div>
-                <div class="columnas c3">
-                    <span></span>
-                    <span>Compra 4x $ 189.900</span>
-                    <span>GANANCIA:  $ 59.500</span>
-                    <img src="http://S3.amazonaws.com/consultorasQAS/SomosBelcorp/Matriz/PE/PE_200064288_20131041749_01_rrdhiqdnya.png" />
-                </div>
-                <div class="columnas c4">
-                    <span></span>
-                    <span>Compra 6x $ 249.900</span>
-                    <span>GANANCIA:  $ 99.500</span>
-                    <img src="http://S3.amazonaws.com/consultorasQAS/SomosBelcorp/Matriz/PE/PE_200064288_20131041749_01_rrdhiqdnya.png" />
-                </div>
-            </div>
-            <hr class="clear">
-            <div class="mod-cantidades metido">
-                <div class="liquidacion_rango_home">
-                    <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" class="liquidacion_rango_cantidad_pedido ValidaNumeral">
-                    <div class="liquidacion_rango_right_pedido">
-                        <a class="mas"><img src="/Content/Images/Esika/mas.png" alt=""></a>
-                        <a class="menos"><img src="/Content/Images/Esika/menos.png" alt=""></a>
-                    </div>
-                </div>
-                <a class="boton_Agregalo_home">
-                    AGRÉGALO
-                </a>
-            </div>
-            <div class="sombrio">
-                <div style="width: 50%;"></div>
-            </div>
+    <div class="cuerpo-mod" data-oferta-popup="">
+        <div style="display:none;" id="hiddenCatalogo">
+            <input type="hidden" class="hdItemCuv" value="{{CUV}}" />
+            <input type="hidden" class="hdItemTipoOfertaSisID" value="{{TipoOfertaSisID}}" />
+            <input type="hidden" class="hdItemConfiguracionOfertaID" value="{{ConfiguracionOfertaID}}" />
+            <input type="hidden" class="hdItemIndicadorMontoMinimo" value="{{IndicadorMontoMinimo}}" />
+            <input type="hidden" class="hdItemTipo" value="1" />
+            <input type="hidden" class="hdItemMarcaID" value="{{MarcaID}}" />
+            <input type="hidden" class="hdItemPrecioUnidad" value="{{PrecioCatalogo}}" />
+            <input type="hidden" class="hdItemDescripcionProd" value="{{Descripcion}}" />
+            <input type="hidden" class="hdItemPagina" value="0" />
+            <input type="hidden" class="hdItemDescripcionCategoria" value="{{DescripcionCategoria}}" />
+            <input type="hidden" class="hdItemDescripcionMarca" value="{{DescripcionMarca}}" />
+            <input type="hidden" class="hdItemDescripcionEstrategia" value="{{DescripcionEstrategia}}" />
+            <input type="hidden" class="OrigenPedidoWeb" value="@Portal.Consultoras.Common.Constantes.OrigenPedidoWeb.DesktopCatalogoPersonalizadoPopUp" />
         </div>
-        <div class="pos-baja">
-
-            <div class="informa">
-                <h6>También puedes comprarlo con el precio catálogo:</h6>
-                <span>$ 39.900</span>
-            </div>
-
-            <div class="mod-cantidades">
-                <div class="liquidacion_rango_home">
-                    <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" class="liquidacion_rango_cantidad_pedido ValidaNumeral">
-                    <div class="liquidacion_rango_right_pedido">
-                        <a class="mas"><img src="/Content/Images/Esika/mas.png" alt=""></a>
-                        <a class="menos"><img src="/Content/Images/Esika/menos.png" alt=""></a>
-                    </div>
+        <div style="display:none;" id="hiddenRevista">
+            <input type="hidden" class="hdItemCuv" value="{{productoRevista.CUV}}" />
+            <input type="hidden" class="hdItemTipoOfertaSisID" value="{{productoRevista.TipoOfertaSisID}}" />
+            <input type="hidden" class="hdItemConfiguracionOfertaID" value="{{productoRevista.ConfiguracionOfertaID}}" />
+            <input type="hidden" class="hdItemIndicadorMontoMinimo" value="{{productoRevista.IndicadorMontoMinimo}}" />
+            <input type="hidden" class="hdItemTipo" value="1" />
+            <input type="hidden" class="hdItemMarcaID" value="{{productoRevista.MarcaID}}" />
+            <input type="hidden" class="hdItemPrecioUnidad" value="{{productoRevista.PrecioCatalogo}}" />
+            <input type="hidden" class="hdItemDescripcionProd" value="{{productoRevista.Descripcion}}" />
+            <input type="hidden" class="hdItemPagina" value="0" />
+            <input type="hidden" class="hdItemDescripcionCategoria" value="{{productoRevista.DescripcionCategoria}}" />
+            <input type="hidden" class="hdItemDescripcionMarca" value="{{productoRevista.DescripcionMarca}}" />
+            <input type="hidden" class="hdItemDescripcionEstrategia" value="{{productoRevista.DescripcionEstrategia}}" />
+            <input type="hidden" class="OrigenPedidoWeb" value="@Portal.Consultoras.Common.Constantes.OrigenPedidoWeb.DesktopCatalogoPersonalizadoPopUp" />
+        </div>
+        <div class="cerrar-mod" data-close=""><img src="@Url.Content("/Content/Images/btn_cerrar_popupPercepcion.png")" /></div>
+        <div class="encabezado_popupCatalogoPersonalizado">
+            <div class="linea_encabezado_popupCatalogoPersonalizado"></div>
+            <div class="titulo_popupCatalogoPersonalizado">OFERTA EN GUÍA DE NEGOCIO</div>
+            <div class="linea_encabezado_popupCatalogoPersonalizado"></div>
+        </div>
+        <div>
+            <div class="item1_oferta_personalizada">
+                <div class="content_precio_set">
+                    <div class="compra_set">COMPRA 1X<br />{{Simbolo}} {{precio_revista}}</div>
+                    <div class="gananecia_set">GANANCIA: {{Simbolo}} {{ganancia}}</div>
                 </div>
-                <a class="boton_Agregalo_home">
-                    AGRÉGALO
-                </a>
+            </div>
+            {{#each lista_ObjNivel as |nivel|}}
+            <div class="item1_oferta_personalizada">
+                <div class="content_precio_set">
+                    <div class="compra_set">COMPRA {{nivel.escala_nivel}}X<br />{{../Simbolo}} {{nivel.precio_nivel}}</div>
+                    <div class="gananecia_set">GANANCIA: {{../Simbolo}} {{nivel.ganancia_nivel}} </div>
+                    <div class="gratis_set">RECIBE GRATIS:</div>
+                </div>
+                <div class="content_sub_items">
+                    {{#each ../lista_oObjGratis as |item|}}
+                    {{#if_eq nivel.escala_nivel item.escala_nivel_gratis}}
+                    <div class="sub_imagen_oferta"><img src="{{item.imagen_gratis}}" alt=""></div>
+                    <div class="sub_descripcion_oferta">{{item.cantidad}} {{item.descripcion_gratis}}</div>
+                    {{/if_eq}}
+                    {{/each}}
+                </div>
+            </div>
+            {{/each}}
+        </div>
+        <div class="texto_mencion">Elige la cantidad y el sistema te ofrecerá la mejor combinación</div>
+        <div style="width:215px; margin:0 auto; margin-top:10px;">
+            <div class="liquidacion_rango_home js-no-popup">
+                <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral js-no-popup" tabindex="0" data-cantidad-input="revista">
+                <div class="liquidacion_rango_right_pedido js-no-popup">
+                    <a class="mas js-no-popup" tabindex="0"><img class="js-no-popup" src="/Content/Images/Esika/mas.png" alt=""></a>
+                    <a class="menos js-no-popup" tabindex="0"><img class="js-no-popup" src="/Content/Images/Esika/menos.png" alt=""></a>
+                </div>
+            </div>
+            <a class="boton_Agregalo_home agregar-ofertarevista" data-cuv="revista">AGRÉGALO</a>
+        </div>
+        <div class="row_40">
+            <div class="sombra_oferta">
+                <div class="texto_sombra">También puedes comprarlo con el precio catálogo: <br /><span>{{Simbolo}} {{precio_catalogo}}</span></div>
+                <div style="width:215px; float:left; margin-top:12px;">
+                    <div class="liquidacion_rango_home js-no-popup">
+                        <input type="text" value="1" size="2" maxlength="2" id="txtCantidad"
+                               class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral js-no-popup" tabindex="0" data-cantidad-input="catalogo">
+                        <div class="liquidacion_rango_right_pedido js-no-popup">
+                            <a class="mas js-no-popup" tabindex="0"><img class="js-no-popup" src="/Content/Images/Esika/mas.png" alt=""></a>
+                            <a class="menos js-no-popup" tabindex="0"><img class="js-no-popup" src="/Content/Images/Esika/menos.png" alt=""></a>
+                        </div>
+                    </div>
+                    <a class="boton_Agregalo_home agregar-ofertarevista" data-cuv="catalogo">AGRÉGALO</a>
+                </div>
             </div>
 
         </div>
-
     </div>
 </script>
 <script id="template-mod-ofer3" type="text/x-handlebars-template">
-    <div class="cuerpo-mod">
-        <div class="cerrar-mod" onclick="$('.mod-ofer3').hide()"><img src="@Url.Content("/Content/Images/btn_cerrar_popupPercepcion.png")" /></div>
-        <div class="contiene-productos">
-            <div class="etiqueta_producto nuevofavorito">
-                <img src="/Content/Images/ofertarevista.png" alt="Etiqueta Producto">
+    <div class="cuerpo-mod" data-oferta-popup="">
+        <div class="cerrar-mod" data-close=""><img src="@Url.Content("/Content/Images/btn_cerrar_popupPercepcion.png")" /></div>
+        <div class="encabezado_popupCatalogoPersonalizado">
+            <div class="linea_encabezado_popupCatalogoPersonalizado"></div>
+            <div class="titulo_popupCatalogoPersonalizado">OFERTA EN GUÍA DE NEGOCIO</div>
+            <div class="linea_encabezado_popupCatalogoPersonalizado"></div>
+        </div>
+        <div>
+            <div style="display:none;" id="hiddenCatalogo">
+                <input type="hidden" class="hdItemCuv" value="{{CUV}}" />
+                <input type="hidden" class="hdItemTipoOfertaSisID" value="{{TipoOfertaSisID}}" />
+                <input type="hidden" class="hdItemConfiguracionOfertaID" value="{{ConfiguracionOfertaID}}" />
+                <input type="hidden" class="hdItemIndicadorMontoMinimo" value="{{IndicadorMontoMinimo}}" />
+                <input type="hidden" class="hdItemTipo" value="1" />
+                <input type="hidden" class="hdItemMarcaID" value="{{MarcaID}}" />
+                <input type="hidden" class="hdItemPrecioUnidad" value="{{PrecioCatalogo}}" />
+                <input type="hidden" class="hdItemDescripcionProd" value="{{Descripcion}}" />
+                <input type="hidden" class="hdItemPagina" value="0" />
+                <input type="hidden" class="hdItemDescripcionCategoria" value="{{DescripcionCategoria}}" />
+                <input type="hidden" class="hdItemDescripcionMarca" value="{{DescripcionMarca}}" />
+                <input type="hidden" class="hdItemDescripcionEstrategia" value="{{DescripcionEstrategia}}" />
+                <input type="hidden" class="OrigenPedidoWeb" value="@Portal.Consultoras.Common.Constantes.OrigenPedidoWeb.DesktopCatalogoPersonalizadoPopUp" />
             </div>
-            <div class="compras">
-                <div class="columnas c1">
-                    <img src="http://S3.amazonaws.com/consultorasQAS/SomosBelcorp/Matriz/PE/PE_200064288_20131041749_01_rrdhiqdnya.png" />
-                    <span>Pulso 100 ml</span>
-                    <span>Precio revista $ 29.900</span>
-                    <span>GANANCIA:  $ 10.000</span>
-                    <div class="opciones-paralelas">
-                        <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" class="liquidacion_rango_cantidad_pedido ValidaNumeral">
-                        <div class="liquidacion_rango_right_pedido">
-                            <a class="mas"><img src="/Content/Images/Esika/mas.png" alt=""></a>
-                            <a class="menos"><img src="/Content/Images/Esika/menos.png" alt=""></a>
-                        </div>
-                        <a class="boton_Agregalo_home">
-                            AGRÉGALO
-                        </a>
-                    </div>
-                </div>
-                <div class="columnas c2">
-                    <div class="marquer">PACK GANANCIA</div>
-                    <span></span>
-                    <span>$ 189.900</span>
-                    <span>GANANCIA:  $ 289.500</span>
-                    <h5>INCLUYE:</h5>
-                    <h6><img class="miniaturaproducto" src="http://S3.amazonaws.com/consultorasQAS/SomosBelcorp/Matriz/PE/PE_200064288_20131041749_01_rrdhiqdnya.png" />3 Pulso 100ml</h6>
-                    <h6><img class="miniaturaproducto" src="http://S3.amazonaws.com/consultorasQAS/SomosBelcorp/Matriz/PE/PE_200064288_20131041749_01_rrdhiqdnya.png" />1 Élanie 50 ml</h6>
-                    <h6><img class="miniaturaproducto" src="http://S3.amazonaws.com/consultorasQAS/SomosBelcorp/Matriz/PE/PE_200064288_20131041749_01_rrdhiqdnya.png" />1 Vanilla Hombre 100ml</h6>
-                    <div class="opciones-paralelas">
-                        <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" class="liquidacion_rango_cantidad_pedido ValidaNumeral">
-                        <div class="liquidacion_rango_right_pedido">
-                            <a class="mas"><img src="/Content/Images/Esika/mas.png" alt=""></a>
-                            <a class="menos"><img src="/Content/Images/Esika/menos.png" alt=""></a>
-                        </div>
-                        <a class="boton_Agregalo_home">
-                            AGRÉGALO
-                        </a>
-                    </div>
-
-                </div>
-                <div class="columnas c3">
-                    <div class="marquer">PACK MÁXIMA GANANCIA</div>
-                    <span></span>
-                    <span>$ 249.900</span>
-                    <span>GANANCIA:  $ 469.200</span>
-                    <h5>INCLUYE:</h5>
-                    <h6><img class="miniaturaproducto" src="http://S3.amazonaws.com/consultorasQAS/SomosBelcorp/Matriz/PE/PE_200064288_20131041749_01_rrdhiqdnya.png" />2 Pulso 100ml</h6>
-                    <h6><img class="miniaturaproducto" src="http://S3.amazonaws.com/consultorasQAS/SomosBelcorp/Matriz/PE/PE_200064288_20131041749_01_rrdhiqdnya.png" />1 Bravío 100ml</h6>
-                    <h6><img class="miniaturaproducto" src="http://S3.amazonaws.com/consultorasQAS/SomosBelcorp/Matriz/PE/PE_200064288_20131041749_01_rrdhiqdnya.png" />1 Sexy Gold 50ml</h6>
-                    <h6><img class="miniaturaproducto" src="http://S3.amazonaws.com/consultorasQAS/SomosBelcorp/Matriz/PE/PE_200064288_20131041749_01_rrdhiqdnya.png" />1 Strong Musk 50ml</h6>
-                    <div class="opciones-paralelas">
-                        <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" class="liquidacion_rango_cantidad_pedido ValidaNumeral">
-                        <div class="liquidacion_rango_right_pedido">
-                            <a class="mas"><img src="/Content/Images/Esika/mas.png" alt=""></a>
-                            <a class="menos"><img src="/Content/Images/Esika/menos.png" alt=""></a>
-                        </div>
-                        <a class="boton_Agregalo_home">
-                            AGRÉGALO
-                        </a>
-                    </div>
-
-                </div>
-            </div>
-            <hr class="clear">
-
-            <div class="sombrio">
-                <div style="width: 50%;"></div>
+            <div style="display:none;" id="hiddenRevista">
+                <input type="hidden" class="hdItemCuv" value="{{productoRevista.CUV}}" />
+                <input type="hidden" class="hdItemTipoOfertaSisID" value="{{productoRevista.TipoOfertaSisID}}" />
+                <input type="hidden" class="hdItemConfiguracionOfertaID" value="{{productoRevista.ConfiguracionOfertaID}}" />
+                <input type="hidden" class="hdItemIndicadorMontoMinimo" value="{{productoRevista.IndicadorMontoMinimo}}" />
+                <input type="hidden" class="hdItemTipo" value="1" />
+                <input type="hidden" class="hdItemMarcaID" value="{{productoRevista.MarcaID}}" />
+                <input type="hidden" class="hdItemPrecioUnidad" value="{{productoRevista.PrecioCatalogo}}" />
+                <input type="hidden" class="hdItemDescripcionProd" value="{{productoRevista.Descripcion}}" />
+                <input type="hidden" class="hdItemPagina" value="0" />
+                <input type="hidden" class="hdItemDescripcionCategoria" value="{{productoRevista.DescripcionCategoria}}" />
+                <input type="hidden" class="hdItemDescripcionMarca" value="{{productoRevista.DescripcionMarca}}" />
+                <input type="hidden" class="hdItemDescripcionEstrategia" value="{{productoRevista.DescripcionEstrategia}}" />
+                <input type="hidden" class="OrigenPedidoWeb" value="@Portal.Consultoras.Common.Constantes.OrigenPedidoWeb.DesktopCatalogoPersonalizadoPopUp" />
             </div>
         </div>
-        <div class="pos-baja">
-
-            <div class="informa">
-                <h6>También puedes comprarlo con el precio catálogo:</h6>
-                <span>$ 39.900</span>
+        <!--ITEM 1-->
+        <div class="item_pack_personalizado">
+            <div class="content_item_pack">
+                <div class="img_principal_pack">
+                    <img src="{{UrlImagen}}" alt="">
+                </div>
+                <div class="titulo_pack">{{Descripcion}}</div>
+                <div class="texto_unidad_pack">Precio por unidad {{Simbolo}} {{precio_revista}}</div>
+                <div class="texto_ganancia_pack">GANANCIA: {{Simbolo}} {{ganancia}}</div>
             </div>
-
-            <div class="mod-cantidades">
-                <div class="liquidacion_rango_home">
-                    <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" class="liquidacion_rango_cantidad_pedido ValidaNumeral">
-                    <div class="liquidacion_rango_right_pedido">
-                        <a class="mas"><img src="/Content/Images/Esika/mas.png" alt=""></a>
-                        <a class="menos"><img src="/Content/Images/Esika/menos.png" alt=""></a>
+            <div style="width:215px; margin:0 auto; margin-top:10px;">
+                <div class="liquidacion_rango_home js-no-popup">
+                    <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral js-no-popup" tabindex="0" data-cantidad-input="revista">
+                    <div class="liquidacion_rango_right_pedido js-no-popup">
+                        <a class="mas js-no-popup" tabindex="0"><img class="js-no-popup" src="/Content/Images/Esika/mas.png" alt=""></a>
+                        <a class="menos js-no-popup" tabindex="0"><img class="js-no-popup" src="/Content/Images/Esika/menos.png" alt=""></a>
                     </div>
                 </div>
-                <a class="boton_Agregalo_home">
-                    AGRÉGALO
-                </a>
+                <a class="boton_Agregalo_home agregar-ofertarevista" data-cuv="revista">AGRÉGALO</a>
+            </div>
+        </div>
+        <!--ITEM 2-->
+        {{#each lista_oObjPack as |pack|}}
+        <div class="item_pack_personalizado">
+            <input type="hidden" class="hdItemPackCuv" value="{{pack.cuv_pack}}" />
+            <input type="hidden" class="hdItemPackValorizado" value="{{pack.valorizado}}" />
+            <div class="content_item_pack">
+                <div class="fondo_negro_pack">PACK {{#if_eq pack.EsUltimo "1"}}MÁXIMA {{/if_eq}}GANANCIA</div>
+                <div class="pack_inter">
+                    <div class="titulo_pack" style="height:auto">{{../Simbolo}} {{pack.valorizado}}</div>
+                    <div class="texto_ganancia_pack">GANANCIA: {{../Simbolo}} {{pack.ganancia_pack}}</div>
+                    <div class="content_sub_items">
+                        {{#each ../lista_oObjItemPack as |item|}}
+                        {{#if_eq pack.cuv_pack item.cuv_pack_item}}
+                        <div class="sub_imagen_oferta"><img src="{{item.imagen_item_pack}}" alt=""></div>
+                        <div class="sub_descripcion_oferta">{{item.cantidad_item_pack}} {{item.descripcion_item_pack}}</div>
+                        <hr class="clear" />
+                        {{/if_eq}}
+                        {{/each}}
+                    </div>
+                </div>
+            </div>
+            <div style="width:215px; margin:0 auto; margin-top:10px;" data-cantidad-contenedor="">
+                <div class="liquidacion_rango_home js-no-popup">
+                    <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral js-no-popup" tabindex="0" data-cantidad-input="pack">
+                    <div class="liquidacion_rango_right_pedido js-no-popup">
+                        <a class="mas js-no-popup" tabindex="0"><img class="js-no-popup" src="/Content/Images/Esika/mas.png" alt=""></a>
+                        <a class="menos js-no-popup" tabindex="0"><img class="js-no-popup" src="/Content/Images/Esika/menos.png" alt=""></a>
+                    </div>
+                </div>
+                <a class="boton_Agregalo_home agregar-ofertarevista" data-cuv="pack" data-cuvadd="{{pack.cuv_pack}}">AGRÉGALO</a>
+            </div>
+        </div>
+        {{/each}}
+        <div class="row_40">
+            <div class="sombra_oferta">
+                <div class="texto_sombra">También puedes comprarlo con el precio catálogo: <br /><span>{{Simbolo}} {{precio_catalogo}}</span></div>
+                <div style="width:215px; float:left; margin-top:12px;">
+                    <div class="liquidacion_rango_home js-no-popup">
+                        <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral js-no-popup" tabindex="0" data-cantidad-input="catalogo">
+                        <div class="liquidacion_rango_right_pedido js-no-popup">
+                            <a class="mas js-no-popup" tabindex="0"><img class="js-no-popup" src="/Content/Images/Esika/mas.png" alt=""></a>
+                            <a class="menos js-no-popup" tabindex="0"><img class="js-no-popup" src="/Content/Images/Esika/menos.png" alt=""></a>
+                        </div>
+                    </div>
+                    <a class="boton_Agregalo_home agregar-ofertarevista" data-cuv="catalogo">AGRÉGALO</a>
+                </div>
             </div>
 
         </div>
-
     </div>
 </script>
+<input type="hidden" id="hdDataBarra" value="@Newtonsoft.Json.JsonConvert.SerializeObject(Model.DataBarra)" />
 
 <!-- SB20-834 - INICIO -->
 @*<input  type="hidden" id="totalComuSinMostrar" value="0" />*@
 
 <script id="template-comunicado" type="text/x-handlebars-template">
+
     <div class="popup_comunicados" id="{{id}}" style="display:none;" data-cerrado="0">
         <div class="btn_cerrar_actualizarMisDatos">
             <a href="javascript:void(0);" title="Cerrar" data-comunicado="{{idComunicado}}" data-id="{{id}}" onclick="clickCerrarComunicado(this);">
@@ -2113,12 +2130,23 @@
         var cantProdCarouselLiquidaciones = '@Model.CantProductosCarouselLiq';
         var contadorFondoPopUp = 0;
         var viewBagVioVideo = '@Model.VioVideoBienvenidaModel';
+        var viewBagVioTutorial = '@Model.VioTutorialDesktop';
         var sessionIsContrato = '@Session["IsContrato"]';
         var paisISO = '@ViewBag.CodigoISODL';
         var UrlImgMiAcademia = '@ViewBag.UrlImgMiAcademia';
         var primeraVezVideo = true;
         var viewBagRol = '@ViewBag.Rol';
         var viewBagVerComunicado = '-1';
+        var urlObtenerProductosCatalogoPersonalizado = '@Url.Action("ObtenerProductosCatalogoPersonalizadoHome", "CatalogoPersonalizado", new { area = "" })';
+        var urlReservadoOEnHorarioRestringido = '@Url.Action("ReservadoOEnHorarioRestringido", "Pedido", new { area = "" })';
+        var dataBarra = JSON.parse($("#hdDataBarra").val());
+        $("#hdDataBarra").val("");
+        var urlPedidoValidado = '@Url.Action("PedidoValidado", "Pedido", new { area = "" })';
+        var viewBagVioTutorialSalvavidas = '@Model.VioTutorialSalvavidas';
+        var constanteVioVideo = '@Constantes.TipoTutorial.Video';
+        var constanteVioTutorialDesktop = '@Constantes.TipoTutorial.Desktop';
+        var constanteVioTutorialSalvavidas = '@Constantes.TipoTutorial.Salvavidas';
+        var cantidadRegistros = 8;
     </script>
     
     @System.Web.Optimization.Scripts.Render("~/bundles/JsSB2-Bienvenida")

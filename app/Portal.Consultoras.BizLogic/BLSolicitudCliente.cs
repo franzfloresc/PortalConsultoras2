@@ -26,13 +26,13 @@ namespace Portal.Consultoras.BizLogic
 
         private void EnviarEmailSolicitudCliente(int paisID, BEConsultoraSolicitudCliente consultoraSolicitudCliente, BEResultadoSolicitud resultado)
         {
-            BESolicitudCliente solicitudCliente = GetSolicitudClienteWithoutMarcaBySolicitudId(paisID, resultado.Resultado);            
+            BESolicitudCliente solicitudCliente = GetSolicitudClienteWithoutMarcaBySolicitudId(paisID, resultado.Resultado);
             // SACService ServiceSAC = new SACService();            
             var TablaLogDatos = new BLTablaLogicaDatos();
-               // List<BETablaLogicaDatos> TablaLogicaDatosMail = TablaLogDatos.GetTablaLogicaDatos(paisID, 57);
+            // List<BETablaLogicaDatos> TablaLogicaDatosMail = TablaLogDatos.GetTablaLogicaDatos(paisID, 57);
             List<BETablaLogicaDatos> tablalogicaDatos = TablaLogDatos.GetTablaLogicaDatos(paisID, 56);
 
-                String emailOculto = string.Empty;// TablaLogicaDatosMail.FirstOrDefault(x => x.TablaLogicaDatosID == 5701).Descripcion;
+            String emailOculto = string.Empty;// TablaLogicaDatosMail.FirstOrDefault(x => x.TablaLogicaDatosID == 5701).Descripcion;
             String horas = tablalogicaDatos.First(x => x.TablaLogicaDatosID == 5603).Codigo;
 
             if (consultoraSolicitudCliente != null)
@@ -166,9 +166,9 @@ namespace Portal.Consultoras.BizLogic
                 {
                     while (reader.Read()) { resultado = new BEResultadoSolicitud(reader); }
                 }
-
-                BEConsultoraSolicitudCliente consultoraSolicitudCliente = GetConsultoraSolicitudCliente(paisID, int.Parse(entidadSolicitud.ConsultoraID.ToString()), entidadSolicitud.CodigoConsultora, 0);
-                this.EnviarEmailSolicitudCliente(paisID, consultoraSolicitudCliente, resultado);
+                //EPD902 - Quitar envio de correo. 03102016
+                //BEConsultoraSolicitudCliente consultoraSolicitudCliente = GetConsultoraSolicitudCliente(paisID, int.Parse(entidadSolicitud.ConsultoraID.ToString()), entidadSolicitud.CodigoConsultora, 0);
+                //this.EnviarEmailSolicitudCliente(paisID, consultoraSolicitudCliente, resultado); 
                 return resultado;
             }
             catch (Exception ex)
@@ -239,7 +239,7 @@ namespace Portal.Consultoras.BizLogic
             }
             return consultorasolicitudCliente;
         }
-        
+
         /*R2613-LR*/
         public void EnviarEmail(string From, String To, String CCO, String Subject, String Message, bool isHTML)
         {
@@ -285,33 +285,24 @@ namespace Portal.Consultoras.BizLogic
         public void CancelarSolicitudCliente(int paisID, long solicitudId, int opcionCancelacion, string razonMotivoCancelacion)
         {
             var DASolicitudCliente = new DASolicitudCliente(paisID);
-            DASolicitudCliente.CancelarSolicitudCliente(solicitudId,opcionCancelacion,razonMotivoCancelacion);
+            DASolicitudCliente.CancelarSolicitudCliente(solicitudId, opcionCancelacion, razonMotivoCancelacion);
         }
 
         public string CancelarSolicitudClienteYRemoverPedido(int paisID, int campaniaID, long consultoraID, string codigoUsuario, long solicitudId, int opcionCancelacion, string razonMotivoCancelacion)
         {
-            string error = "";
             try
             {
+                BEMisPedidos miPedido = new BLConsultoraOnline().GetPedidoClienteOnlineBySolicitudClienteId(paisID, solicitudId);
+                if (Convert.ToInt32(miPedido.Campania) != campaniaID) return "Este pedido no pertenece a la campaña vigente. Sólo se pueden cancelar los pedidos de la campaña vigente";
+                if (miPedido.Estado != "A") return "Este pedido no se encuentra aceptado.";
+
                 DAPedidoWeb dAPedidoWeb = new DAPedidoWeb(paisID);
                 DAPedidoWebDetalle dAPedidoWebDetalle = new DAPedidoWebDetalle(paisID);
 
                 List<BEPedidoWebDetalle> olstPedidoWebDetalle = new BLPedidoWebDetalle().GetPedidoWebDetalleByCampania(paisID, campaniaID, consultoraID, "").ToList();
-                //    new List<BEPedidoWebDetalle>();
-                //using (IDataReader reader = dAPedidoWebDetalle.GetPedidoWebDetalleByCampania(campaniaID, consultoraID))
-                //{
-                //    while (reader.Read())
-                //    {
-                //        var entidad = new BEPedidoWebDetalle(reader, "");
-                //        entidad.PaisID = paisID;
-                //        olstPedidoWebDetalle.Add(entidad);
-                //    }
-                //    reader.Close();
-                //}
-
                 List<BEMisPedidosDetalle> listDetallesClienteOnline = new BLConsultoraOnline().GetMisPedidosDetalle(paisID, solicitudId.ToInt()).ToList();
                 listDetallesClienteOnline = listDetallesClienteOnline.Where(d => d.PedidoWebDetalleID != 0).ToList();
-                
+
                 TransactionOptions transactionOptions = new TransactionOptions { IsolationLevel = System.Transactions.IsolationLevel.ReadCommitted };
                 using (TransactionScope transactionScope = new TransactionScope(TransactionScopeOption.Required, transactionOptions))
                 {
@@ -369,13 +360,31 @@ namespace Portal.Consultoras.BizLogic
                     transactionScope.Complete();
                 }
             }
-            catch (Exception ex) { 
+            catch (Exception ex)
+            {
                 LogManager.SaveLog(ex, "", paisID.ToString());
-                error = "Ocurrió un error al intentar cancelar la solicutd de pedido";
+                return "Ocurrió un error al intentar cancelar la solicutd de pedido";
             }
-            return error;
+            return "";
         }
 
+        public List<BEMotivoSolicitud> GetMotivosRechazo(int paisID)
+        {
+            List<BEMotivoSolicitud> motivosRechazos = (List<BEMotivoSolicitud>)CacheManager<BEMotivoSolicitud>.GetData(paisID, ECacheItem.MotivoSolicitud);
+            if (motivosRechazos == null || motivosRechazos.Count == 0)
+            {
+                motivosRechazos = new List<BEMotivoSolicitud>();
+
+                var DASolicitudCliente = new DASolicitudCliente(paisID);
+
+                using (IDataReader reader = DASolicitudCliente.GetMotivosRechazo())
+                {
+                    while (reader.Read()) motivosRechazos.Add(new BEMotivoSolicitud(reader));
+                }
+                CacheManager<BEMotivoSolicitud>.AddData(paisID, ECacheItem.MotivoSolicitud, motivosRechazos);
+            }
+            return motivosRechazos;
+        }
 
         /* R2319 - AAHA 02022015 - Parte 6 - Inicio */
         public int EnviarSolicitudClienteaGZ(int paisID, BESolicitudCliente entidadSolicitudCliente)
@@ -454,19 +463,19 @@ namespace Portal.Consultoras.BizLogic
             {
                 while (reader.Read())
                 {
-                    var reporteAfiliados = new  BEReporteAfiliados(reader);
+                    var reporteAfiliados = new BEReporteAfiliados(reader);
                     listaReporteAfiliados.Add(reporteAfiliados);
                 }
             }
 
-             return listaReporteAfiliados;
-        }      
+            return listaReporteAfiliados;
+        }
 
-        public List<BEReportePedidos> GetReportePedidos(DateTime FechaIni, DateTime FechaFin, int estado, string marca, string campania,int paisID)
+        public List<BEReportePedidos> GetReportePedidos(DateTime FechaIni, DateTime FechaFin, int estado, string marca, string campania, int paisID)
         {
             List<BEReportePedidos> listaReportePedidos = new List<BEReportePedidos>();
             DASolicitudCliente DASolicitudCliente = new DASolicitudCliente(paisID);
-             using (IDataReader reader =  DASolicitudCliente.ReportePedidos(FechaIni, FechaFin,estado,marca,campania))
+            using (IDataReader reader = DASolicitudCliente.ReportePedidos(FechaIni, FechaFin, estado, marca, campania))
             {
                 while (reader.Read())
                 {
@@ -476,7 +485,7 @@ namespace Portal.Consultoras.BizLogic
             }
 
             return listaReportePedidos;
-        }      
+        }
 
 
     }

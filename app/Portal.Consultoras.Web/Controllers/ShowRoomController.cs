@@ -1440,6 +1440,18 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
+                var mensaje = "";
+                var noPasa = ReservadoEnHorarioRestringido(out mensaje);
+                if (noPasa)
+                {
+                    return Json(new
+                    {
+                        success = false,
+                        message = mensaje,
+                        extra = ""
+                    });
+                }
+
                 Mapper.CreateMap<PedidoDetalleModel, BEPedidoWebDetalle>()
                     .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID))
                     .ForMember(t => t.CampaniaID, f => f.MapFrom(c => c.CampaniaID))

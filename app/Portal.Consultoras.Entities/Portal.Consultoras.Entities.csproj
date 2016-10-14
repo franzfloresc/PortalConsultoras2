@@ -84,6 +84,8 @@
     <Compile Include="BEConfiguracionValidacion.cs" />
     <Compile Include="BEConfiguracionValidacionNuevoPROL.cs" />
     <Compile Include="BEConfiguracionValidacionZona.cs" />
+    <Compile Include="BELogGPRValidacion.cs" />
+    <Compile Include="BELogGPRValidacionDetalle.cs" />
     <Compile Include="BELogConfirmacionEntrega.cs" />
     <Compile Include="BEConfirmacionEntrega.cs" />
     <Compile Include="BEConfirmacionRecojo.cs" />
@@ -150,6 +152,7 @@
     <Compile Include="BEMensajeMetaConsultora.cs" />
     <Compile Include="BEMenuMobile.cs" />
     <Compile Include="BEMisPedidos.cs" />
+    <Compile Include="BEMotivoSolicitud.cs" />
     <Compile Include="BENavidadConsultora.cs" />
     <Compile Include="BENotificaciones.cs" />
     <Compile Include="BEOferta.cs" />

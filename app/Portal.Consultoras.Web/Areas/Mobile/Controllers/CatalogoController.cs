@@ -10,6 +10,7 @@ using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.ServiceModel;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
 
@@ -855,35 +856,26 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         {
             var url = string.Empty;
             var urlNotFound = Url.Content("~/Content/Images/revista_no_disponible.jpg");
+
             try
             {
-                var request = WebRequest.CreateHttp(string.Format("https://issuu.com/oembed?url=https://issuu.com/somosbelcorp/docs/{0}", codigoRevista));
-                request.Accept = "application/json";
-                request.Headers.Add(HttpRequestHeader.AcceptEncoding, "gzip,deflate,sdch");
-
-                var json = string.Empty;
-                using (var response = request.GetResponse())
-                {
-                    using (var reader = new StreamReader(response.GetResponseStream()))
-                    {
-                        json = reader.ReadToEnd();
-                    }
-                }
-                var jsonSerializer = new JavaScriptSerializer();
-                var dictionary = jsonSerializer.DeserializeObject(json) as Dictionary<string, object>;
-
-                if (dictionary.Count > 0 && dictionary.ContainsKey("thumbnail_url"))
-                {
-                    url = dictionary["thumbnail_url"].ToString();
-                    url = url.Replace("medium", "large");
-                }
-                else
-                    url = urlNotFound;
+                WebClient client = new WebClient();
+                string getString = client.DownloadString(string.Format("https://issuu.com/oembed?url=https://issuu.com/somosbelcorp/docs/{0}", codigoRevista));
+                JavaScriptSerializer serializer = new JavaScriptSerializer();
+                dynamic item = serializer.Deserialize<object>(getString);
+                url = item["thumbnail_url"];
             }
-            catch (Exception)
+            catch (FaultException faulException)
             {
+                LogManager.LogManager.LogErrorWebServicesPortal(faulException, userData.CodigoConsultora, userData.CodigoISO + " - " + "ObtenerPortadaRevista");
                 url = urlNotFound;
             }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO + " - " + "ObtenerPortadaRevista");
+                url = urlNotFound;
+            }
+
             return Json(url);
         }
 

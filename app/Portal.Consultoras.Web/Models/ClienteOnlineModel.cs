@@ -1,9 +1,19 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Portal.Consultoras.Web.Models
 {
     public class ClienteOnlineModel
     {
+        public ClienteOnlineModel()
+        {
+            this.Detalles = new List<ClienteOnlineDetalleModel>();
+            this.MotivosRechazo = new List<MisPedidosMotivoRechazoModel>();
+            this.EstadoDesc = "";
+            this.Cliente = "";
+            this.MensajeDelCliente = "";
+        }
+     
         public long SolicitudClienteID { get; set; }
         public int MarcaID { get; set; }
         public bool ClienteNuevo { get; set; }
@@ -22,5 +32,8 @@ namespace Portal.Consultoras.Web.Models
         public string Direccion { get; set; }
         public string Email { get; set; }
         public string MensajeDelCliente { get; set; }
+        public bool PuedeCancelar { get; set; }
+        public List<ClienteOnlineDetalleModel> Detalles { get; set; }
+        public List<MisPedidosMotivoRechazoModel> MotivosRechazo { get; set; }
     }
 }

@@ -292,7 +292,7 @@
                         lbl1Ganancia = "Mis descuentos";
                         lbl2Ganancia = "Oportunidad de ahorro *(Revista y otros)";
                     }                                                                                                 
-                }
+             }
                 
                 <input type="hidden" id="hdeCabezaEscala" value="@cabezaEscala" />
                 <input type="hidden" id="hdePieEscala" value="@pieEscala" />
@@ -337,6 +337,11 @@
                             <span>App móvil</span>
                             {{/iff}}
 
+                            {{#if_eq FlagConsultoraOnline '1'}}
+                            <br />
+                            <span>CLIENTE ONLINE</span>
+                            {{else}}
+
                             {{#iff OrigenPedidoWeb '==' '@Constantes.OrigenPedidoWeb.DesktopPedidoOfertaFinal'}}
                             {{else if_eq OrigenPedidoWeb '@Constantes.OrigenPedidoWeb.MobilePedidoOfertaFinal'}}
                             {{else iff detalle.ConfiguracionOfertaID '==' @Constantes.TipoOferta.Liquidacion}}
@@ -351,9 +356,14 @@
                             {{else}}
                             {{#IsNullOrEmpty detalle.DescripcionOferta '!='}}
                             <br />
+                            {{#iff (UpperCase DescripcionOferta) 'Contains' 'OFERTA PARA TI'}}
+                            {{else}}
                             <label for="{{detalle.DescripcionOferta}}">{{Replace (Replace detalle.DescripcionOferta '[' '') ']' ''}}</label>
+                            {{/iff}}
                             {{/IsNullOrEmpty}}
                             {{/iff}}
+
+                            {{/if_eq}}
                         </span>
                         <span class="cod_prod">
                             {{#if detalle.EstadoSimplificacionCuv}}
@@ -698,7 +708,7 @@
         var urlLoad = '@Url.Content("~/Content/Images/Loading.gif")';
         var viewBagPaisID = '@Model.PaisID';
         var viewBagNombrePais = '@ViewBag.NombrePais';
-        var urlInsertar = '@Url.Action("Insert", "Pedido", new {area = ""})';
+        var urlPedidoInsert = '@Url.Action("Insert", "Pedido", new {area = ""})';
         /* SB20-565 - FIN */
 
     </script>

@@ -18,12 +18,13 @@ using SC = Portal.Consultoras.Web.ServiceCliente;
 using Portal.Consultoras.Web.ServiceUsuario;
 using AutoMapper;
 using System.Globalization;
+using Portal.Consultoras.Common;
 
 namespace Portal.Consultoras.Web.Controllers
 {
     public class MisPedidosController : BaseController
     {
-        public ActionResult Index()
+        public ActionResult Index(bool lanzarTabConsultoraOnline = false)
         {
             var model = new MisPedidosSb2Model();
             var pedidoActual = new BEPedidoWeb();
@@ -33,7 +34,6 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 using (PedidoServiceClient sv = new PedidoServiceClient())
                 {
-                    //pedidoActual = sv.GetPedidosWebByConsultoraCampania(userData.PaisID, Convert.ToInt32(userData.ConsultoraID), userData.CampaniaID);
                     listaPedidoFacturados = sv.GetPedidosIngresadoFacturado(userData.PaisID, Convert.ToInt32(userData.ConsultoraID), userData.CampaniaID).ToList();
                 }
                 using (sc.ClienteServiceClient sv = new sc.ClienteServiceClient())
@@ -53,32 +53,20 @@ namespace Portal.Consultoras.Web.Controllers
                     });
                     model.ListaFacturados = listaPedidoFacturados;
                 }
-                else
-                    model.ListaFacturados = new List<BEPedidoWeb>();
+                else model.ListaFacturados = new List<BEPedidoWeb>();
 
                 model.TienePercepcion = userData.CodigoISO == Constantes.CodigosISOPais.Peru;
                 model.Simbolo = userData.Simbolo;
                 model.UserIso = userData.CodigoISO;
-
-
+                
                 BEUsuario usuario;
-
                 using (UsuarioServiceClient sv = new UsuarioServiceClient())
                 {
                     usuario = sv.Select(UserData().PaisID, UserData().CodigoUsuario);
                 }
 
                 string paisID = usuario.PaisID.ToString();
-
-                string codigoConsultora;
-                if (UserData().UsuarioPrueba == 1)
-                {
-                    codigoConsultora = UserData().ConsultoraAsociada;
-                }
-                else
-                {
-                    codigoConsultora = usuario.CodigoConsultora;
-                }
+                string codigoConsultora = userData.UsuarioPrueba == 1 ? userData.ConsultoraAsociada : usuario.CodigoConsultora;
                 string mostrarAyudaWebTracking = Convert.ToInt32(usuario.MostrarAyudaWebTraking).ToString();
                 string paisISO = UserData().CodigoISO.Trim();
                 string campanhaID = UserData().CampaniaID.ToString();
@@ -88,23 +76,25 @@ namespace Portal.Consultoras.Web.Controllers
                 ViewBag.URLWebTracking = url;
                 ViewBag.PaisISO = userData.CodigoISO;
 
+                string mostrarPedidosPendientes = ConfigurationManager.AppSettings.Get("MostrarPedidosPendientes");
                 string strpaises = ConfigurationManager.AppSettings.Get("Permisos_CCC");
-                model.MostrarClienteOnline = strpaises.Contains(UserData().CodigoISO);
+                model.MostrarClienteOnline = (mostrarPedidosPendientes == "1" && strpaises.Contains(userData.CodigoISO));
                 if (model.MostrarClienteOnline)
                 {
-                    model.CampaniasConsultoraOnline = new List<CampaniaModel> { new CampaniaModel{
-                        CampaniaID = userData.CampaniaID,
-                        NombreCorto = userData.CampaniaID.ToString().Substring(0, 4) + "-" + userData.CampaniaID.ToString().Substring(4, 2)
-                    }};
-                    foreach (var facturado in model.ListaFacturados)
+                    model.CampaniasConsultoraOnline = new List<CampaniaModel>();
+                    for(int i = 0; i <= 4; i++)
                     {
-                        model.CampaniasConsultoraOnline.Add(new CampaniaModel
-                        {
-                            CampaniaID = facturado.CampaniaID,
-                            NombreCorto = facturado.CampaniaID.ToString().Substring(0, 4) + "-" + facturado.CampaniaID.ToString().Substring(4, 2)
-                        });
+                        model.CampaniasConsultoraOnline.Add(new CampaniaModel { CampaniaID = AddCampaniaAndNumero(userData.CampaniaID, -i) });
                     }
+                    model.CampaniasConsultoraOnline.Update(campania => campania.NombreCorto = campania.CampaniaID.ToString().Substring(0, 4) + "-" + campania.CampaniaID.ToString().Substring(4, 2));
                     model.CampaniaActualConsultoraOnline = userData.CampaniaID;
+                    
+                    using (SACServiceClient sv = new SACServiceClient())
+                    {
+                        List<BEMotivoSolicitud> motivoSolicitud = sv.GetMotivosRechazo(userData.PaisID).ToList();
+                        model.MotivosRechazo = Mapper.Map<List<MisPedidosMotivoRechazoModel>>(motivoSolicitud);
+                    }
+                    model.LanzarTabClienteOnline = lanzarTabConsultoraOnline;
                 }
             }
             catch (FaultException ex)
@@ -114,37 +104,44 @@ namespace Portal.Consultoras.Web.Controllers
 
             return View(model);
         }
-        public JsonResult ClienteOnline(int campania)
+        public JsonResult ClienteOnline(int[] campanias)
         {
             var listPedidosClienteOnline = new List<BEMisPedidos>();
             var listModel = new List<ClienteOnlineModel>();
+            int campaniaResultado = 0;
 
             try
             {
                 using (UsuarioServiceClient sv = new UsuarioServiceClient())
                 {
-                    listPedidosClienteOnline = sv.GetMisPedidosClienteOnline(userData.PaisID, userData.ConsultoraID, campania).ToList();
-                    if (listPedidosClienteOnline == null || listPedidosClienteOnline.Count == 0)
+                    foreach(int campania in campanias)
                     {
-                        campania = AddCampaniaAndNumero(campania, -1);
+                        campaniaResultado = campania;
                         listPedidosClienteOnline = sv.GetMisPedidosClienteOnline(userData.PaisID, userData.ConsultoraID, campania).ToList();
+                        if (listPedidosClienteOnline.Count != 0) break;
                     }
                 }
                 listModel = Mapper.Map<List<ClienteOnlineModel>>(listPedidosClienteOnline);
                 listModel.Update(model => {
-                    model.TipoCliente = model.ClienteNuevo ? "CLIENTE NUEVO" : "CLIENTE EXISTENTE";
+                    model.TipoCliente = model.ClienteNuevo ? "NUEVO CLIENTE" : "CLIENTE EXISTENTE";
                     model.Origen = model.MarcaID == 0 ? "App Catálogos" : string.Format("Portal {0}", model.Marca);
-                    model.Campania = campania.ToString().Substring(0, 4) + "-" + campania.ToString().Substring(4, 2);
+                    model.Campania = campaniaResultado.ToString().Substring(0, 4) + "-" + campaniaResultado.ToString().Substring(4, 2);
                     model.FechaSolicitudString = model.FechaSolicitud.ToString("dd \\de MMMM", CultureInfo.GetCultureInfo("es-PE"));
                     model.PrecioTotalString = string.Format("{0} {1}", userData.Simbolo, Util.DecimalToStringFormat(model.PrecioTotal, userData.CodigoISO));
                     model.EstadoDesc = model.Estado == "A" ? "Aceptado" : "Cancelado";
+                    model.Cliente = Util.ReemplazarSaltoLinea(model.Cliente, " ");
+                    model.Direccion = Util.ReemplazarSaltoLinea(model.Direccion, " ");
+                    model.Telefono = Util.ReemplazarSaltoLinea(model.Telefono, " ");
+                    model.Email = Util.ReemplazarSaltoLinea(model.Email, " ");
+                    model.MensajeDelCliente = Util.ReemplazarSaltoLinea(model.MensajeDelCliente, " ");
                 });
                 
                 return Json(new
                 {
                     success = true,
-                    message = listModel.Count == 0 ? "No tiene pedidos de Clientes Online para esta campaña, con el filtro en la campaña actual." : "",
-                    listaPedidosClienteOnline = listModel
+                    message = listModel.Count == 0 ? "No tiene pedidos de Consultora Online para esta campaña, con el filtro en la campaña actual." : "",
+                    listaPedidosClienteOnline = listModel,
+                    campaniaResultado = campaniaResultado
                 });
             }
             catch (FaultException ex)
@@ -162,10 +159,11 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 success = false,
                 message = "Ocurrió un error al intentar cargar la información para esta campaña",
-                listaCliente = ""
+                listaCliente = "",
+                campaniaResultado = campaniaResultado
             });
         }
-        public JsonResult ClienteOnlineDetalle(int solicitudClienteId)
+        public JsonResult ClienteOnlineDetalle(long solicitudClienteId)
         {
             var listDetallesClienteOnline = new List<BEMisPedidosDetalle>();
             var listModel = new List<ClienteOnlineDetalleModel>();
@@ -181,7 +179,9 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     model.PrecioUnitarioString = string.Format("{0} {1}", userData.Simbolo, Util.DecimalToStringFormat(model.PrecioUnitario.ToDecimal(), userData.CodigoISO));
                     model.PrecioTotalString = string.Format("{0} {1}", userData.Simbolo, Util.DecimalToStringFormat(model.PrecioTotal.ToDecimal(), userData.CodigoISO));
-                    model.TipoAtencionString = model.TipoAtencion == 2 ? "Ya lo tengo" : (model.TipoAtencion == 1 ? "Ingresado al Pedido" : "Agotado");
+                    model.TipoAtencionString = model.TipoAtencion == (int)(Enumeradores.ConsultoraOnlineTipoAtencion.YaTengo) ? Constantes.COTipoAtencionMensaje.YaTengo :
+                        (model.TipoAtencion == (int)(Enumeradores.ConsultoraOnlineTipoAtencion.IngresadoPedido) ? Constantes.COTipoAtencionMensaje.IngresadoPedido :
+                        (model.TipoAtencion == (int)(Enumeradores.ConsultoraOnlineTipoAtencion.Agotado) ? Constantes.COTipoAtencionMensaje.Agotado : ""));
                 });
 
                 return Json(new
@@ -220,16 +220,23 @@ namespace Portal.Consultoras.Web.Controllers
                     sc.CancelarSolicitudClienteYRemoverPedido(userData.PaisID, userData.CampaniaID, userData.ConsultoraID, userData.CodigoConsultora, solicitudClienteId, motivoSolicitudId ?? 0, razonMotivoSolicitud);
                 }
 
-                Session["ObservacionesPROL"] = null;
-                Session["PedidoWebDetalle"] = null;
-                UpdPedidoWebMontosPROL();
+                BarraConsultoraModel dataBarra = new BarraConsultoraModel();
+                try
+                {
+                    Session["ObservacionesPROL"] = null;
+                    Session["PedidoWebDetalle"] = null;
+                    UpdPedidoWebMontosPROL();
+                    dataBarra = GetDataBarra();
+                }
+                catch { }
 
-                return Json(new { success = true, message = "" });
+                return Json(new { success = true, message = "", dataBarra = dataBarra });
             }
             catch (FaultException ex)
             {
                 UsuarioModel userModel = userData ?? new UsuarioModel();
                 LogManager.LogManager.LogErrorWebServicesPortal(ex, userModel.CodigoConsultora, userModel.CodigoISO);
+                return Json(new { success = false, message = ex.Message });
             }
             catch (Exception ex)
             {

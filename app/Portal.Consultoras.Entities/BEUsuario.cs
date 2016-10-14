@@ -22,6 +22,7 @@ namespace Portal.Consultoras.Entities
         private string msEMail;
         private bool mbEMailActivo;
         private string msTelefono;
+        private string msTelefonoTrabajo;
         private string msCelular;
         private string msSobrenombre;
         private bool mbCompartirDatos;
@@ -95,6 +96,8 @@ namespace Portal.Consultoras.Entities
             miTipoUsuario = (byte)row["TipoUsuario"];
             mbCambioClave = Convert.ToBoolean(row["CambioClave"]);
 
+            if (DataRecord.HasColumn(row, "TelefonoTrabajo") && row["TelefonoTrabajo"] != DBNull.Value)
+                msTelefonoTrabajo = Convert.ToString(row["TelefonoTrabajo"]);  
             if (DataRecord.HasColumn(row, "AceptoContrato") && row["AceptoContrato"] != DBNull.Value)
                 this.AceptoContrato = Convert.ToBoolean(row["AceptoContrato"]);
             if (DataRecord.HasColumn(row, "MostrarAyudaWebTraking") && row["MostrarAyudaWebTraking"] != DBNull.Value)
@@ -165,6 +168,7 @@ namespace Portal.Consultoras.Entities
             mSegmento = Convert.ToString(row["Segmento"]);
             msSobrenombre = Convert.ToString(row["Sobrenombre"]) == string.Empty ? Convert.ToString(row["PrimerNombre"]) : Convert.ToString(row["Sobrenombre"]);
             //EMailActivo = Convert.ToBoolean(row["EMailActivo"]);//2532 EGL
+
             if (DataRecord.HasColumn(row, "IndicadorDupla") && row["IndicadorDupla"] != DBNull.Value)
                 IndicadorDupla = Convert.ToInt32(row["IndicadorDupla"]);
             if (DataRecord.HasColumn(row, "UsuarioPrueba") && row["UsuarioPrueba"] != DBNull.Value)
@@ -195,10 +199,14 @@ namespace Portal.Consultoras.Entities
                 VioVideo = Convert.ToInt32(row["VioVideo"]);
             if (DataRecord.HasColumn(row, "VioTutorial") && row["VioTutorial"] != DBNull.Value) // SB20-344
                 VioTutorial = Convert.ToInt32(row["VioTutorial"]);
+            if (DataRecord.HasColumn(row, "VioTutorialDesktop") && row["VioTutorialDesktop"] != DBNull.Value)
+                VioTutorialDesktop = Convert.ToInt32(row["VioTutorialDesktop"]);
             if (DataRecord.HasColumn(row, "Nivel") && row["Nivel"] != DBNull.Value)
                 Nivel = Convert.ToString(row["Nivel"]);
             if (DataRecord.HasColumn(row, "Direccion") && row["Direccion"] != DBNull.Value)
                 Direccion = Convert.ToString(row["Direccion"]);
+            if (DataRecord.HasColumn(row, "TelefonoTrabajo") && row["TelefonoTrabajo"] != DBNull.Value)
+                msTelefonoTrabajo = Convert.ToString(row["TelefonoTrabajo"]);            
             if (DataRecord.HasColumn(row, "AnoCampanaIngreso") && row["AnoCampanaIngreso"] != DBNull.Value)
                 AnoCampaniaIngreso = Convert.ToString(row["AnoCampanaIngreso"]);
             if (DataRecord.HasColumn(row, "PrimerNombre") && row["PrimerNombre"] != DBNull.Value)
@@ -324,6 +332,8 @@ namespace Portal.Consultoras.Entities
                 CatalogoPersonalizado = Convert.ToInt32(row["CatalogoPersonalizado"]);
             if (DataRecord.HasColumn(row, "EsCatalogoPersonalizadoZonaValida") && row["EsCatalogoPersonalizadoZonaValida"] != DBNull.Value)
                 EsCatalogoPersonalizadoZonaValida = Convert.ToBoolean(row["EsCatalogoPersonalizadoZonaValida"]);
+            if (DataRecord.HasColumn(row, "VioTutorialSalvavidas") && row["VioTutorialSalvavidas"] != DBNull.Value)
+                VioTutorialSalvavidas = Convert.ToInt32(row["VioTutorialSalvavidas"]);            
 
             if (DataRecord.HasColumn(row, "IndicadorEnviado") && row["IndicadorEnviado"] != DBNull.Value)
                 IndicadorEnviado = Convert.ToInt32(row["IndicadorEnviado"]);
@@ -333,6 +343,7 @@ namespace Portal.Consultoras.Entities
             // SB20-907
             if (DataRecord.HasColumn(row, "GerenteZona") && row["GerenteZona"] != DBNull.Value)
                 NombreGerenteZona = Convert.ToString(row["GerenteZona"]);
+
         }
 
         [DataMember]
@@ -377,6 +388,8 @@ namespace Portal.Consultoras.Entities
         public int VioVideo { get; set; }
         [DataMember]
         public int VioTutorial { get; set; }
+        [DataMember]
+        public int VioTutorialDesktop { get; set; }
         [DataMember]
         public String Nivel { get; set; }
         [DataMember]
@@ -491,6 +504,12 @@ namespace Portal.Consultoras.Entities
         {
             get { return msTelefono; }
             set { msTelefono = value; }
+        }
+        [DataMember]
+        public string TelefonoTrabajo
+        {
+            get { return msTelefonoTrabajo; }
+            set { msTelefonoTrabajo = value; }
         }
         [DataMember]
         public string Celular
@@ -883,6 +902,10 @@ namespace Portal.Consultoras.Entities
 
         [DataMember]
         public bool EsCatalogoPersonalizadoZonaValida { get; set; }
+
+        [DataMember]
+        public int VioTutorialSalvavidas { get; set; }
+
         public BEUsuario(IDataRecord row, string Lider)
         {
             if (DataRecord.HasColumn(row, "Nombre") && row["Nombre"] != DBNull.Value)

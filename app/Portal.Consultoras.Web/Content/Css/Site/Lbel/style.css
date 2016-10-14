@@ -160,6 +160,7 @@ header {
     /* padding-left: 4px; */
     height: 40px;
     margin-right: 12px;
+    cursor:pointer;
 }
 
 .cart_compras{
@@ -2583,7 +2584,7 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido{
 
 .celda_iconos_acciones{
     text-align:center;
-    /*/*padding-right:1.5%;*/*/
+    /*padding-right:1.5%;*/
 }
 
 .cabecera_producto{
@@ -2661,30 +2662,32 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido{
 }
 
 .titulo_mis_pedidos h1 {
-    text-align: left;
-    font-size: 22px;
-    letter-spacing: 3px;
+       text-align: center;
+    font-weight: 300 !important;
+    font-size: 17px;
+    letter-spacing: 2.5px;
     color: #000;
     font-family: 'Lato';
-
+    height: 65px;
+    line-height: 65px;
     float: left;
     margin-bottom: -2px;
-    padding: 18px;
-    padding-left: 33px;
-    padding-right: 33px;
+    /* padding: 19px; */
+    /* padding-left: 33px; */
+    /* padding-right: 33px;*/
     
 }
 
 .bordespacive{
-    border-bottom: 2px solid white;
+    /*border-bottom: 2px solid white;*/
     border-left: 1px solid;
     border-right: 1px solid;
     border-top: 1px solid;
 }
 
-.titulo_mis_pedidos h1 b{
+/*.titulo_mis_pedidos h1 b{
     font-size:21px;
-}
+}*/
 
 .mis_pedidos span{
     font-size: 13px;
@@ -2848,7 +2851,7 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido{
 .paginador_pedidos{
     display:block;
     width:100%;
-    height:30px;
+    /*height:30px;*/
     margin-top:25px;
     margin-bottom:100px;
 }
@@ -3503,7 +3506,7 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
 .boton_elegirAgregar{
     display:block;
     margin:0 auto;
-    width:139px;
+    width:138px;
     height:45px;
     line-height:43px;
     background:#FFF;
@@ -5228,7 +5231,7 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
 
 .titulo_actualizarMisDatos{
     width: 78%;
-    margin: 0 auto 50px auto;
+    margin: 0 auto 40px auto;
     padding: 0;
     font-family: 'Lato';
     font-size: 26px;
@@ -5471,7 +5474,7 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
     width:100%;
     height:100%;
     position:fixed;
-    z-index:899;
+    z-index:300;
     top:0%;
     left:0%;
 }
@@ -12422,7 +12425,7 @@ ol {
         display: block;
         font-size: 12px;
         color: #e51437;
-        font: Arial;
+        font-family: Arial;
         padding: 0px 0px 2px 0px;
     }
 
@@ -20199,7 +20202,7 @@ label.checkpop.c_on {
      color:#f11935 !important;   
 }
 .agotado_carrusel {
-        width: 100%;
+    width:100%;
     height: 75px;
     font-size: 14px;
     font-family: 'Lato';
@@ -20253,7 +20256,7 @@ label.checkpop.c_on {
     /*margin: 0 auto;*/
     margin: 0 ;
     /*max-width: 1228px;*/
-    max-width: 100%
+    max-width: 100%;
     /*padding-top: 20px;
     padding-bottom: 20px;*/
     position: relative;
@@ -20674,16 +20677,17 @@ label.checkpop.c_on {
    
 }
 .info_centro span{
-    font-weight:300;
+    font-weight:400;
 }
 .deuda_home{
     font-family:'lato';
-    font-size:34px;
+    font-size:21px;
     font-weight:300;
     color:black;
 }
 .deuda_home span{
     font-size:34px;
+    font-weight:300;
 }
 .btn_paga_online{
     width: 169px;
@@ -21039,7 +21043,7 @@ label.checkpop.c_on {
     vertical-align:middle;
     height: 45px;
     line-height: 42px;
-    background: #FFF;
+    /*background: #FFF;*/
     color: #000;
     text-align: center;
     border: 2px solid #000;
@@ -21470,42 +21474,33 @@ label.checkpop.c_on {
     float:left;
 }
 .tabs_pagos li {
-  display: inline;
+  /*display: inline;*/
   text-align: center;
+  width:25%;
+  float:left;
+
 }
 
 .tabs_pagos li a {
     display: inline-block;
     /* vertical-align: middle; */
-    /*width: 30%;*/
-    width:24%;
-    padding-top:13px;
-    padding-bottom:14px;
+    /* width: 30%; */
+    width: 100%;
+    padding-top: 8px;
+    padding-bottom: 7px;
     margin: 0;
     text-decoration: none;
-     font-family: 'lato';
+    font-family: 'lato';
     font-size: 10pt;
     font-weight: 300;
     color: black;
     position: relative;
-    /*background: url("../../../Images/Lbel/estado_cuenta.png") no-repeat;*/
-    background-position: 18% 7px;
+    /* background: url(../../../Images/Esika/estado_cuenta.png) no-repeat; */
+    /* background-position: 18% 7px; */
     box-sizing: border-box;
-    padding-left: 5%;
-}
-.imagen_2_lugares{
-    background: url("../../../Images/Lbel/lugares_pago.png") no-repeat !important;
-    background-position: 18% 7px !important;
-}
-.imagen_3_factura{
-    background: url("../../../Images/Lbel/facturacion_electronica.png") no-repeat !important;
-    background-position: 9% 7px !important;
+    /* padding-left: 5%; */
 }
 
-.imagen_4_percepciones{
-    background: url("../../../Images/Lbel/icono_percepciones.png") no-repeat !important;
-    background-position: 18% 7px !important;
-}
 
 .tabs_pagos li a img{
   display: inline-block;
@@ -21515,23 +21510,23 @@ label.checkpop.c_on {
 
 
 .two:hover ~ hr {
-  margin-left: 25.6%;
+  margin-left: 25%;
 }
 
 .three:hover ~ hr {
-  margin-left: 49.9%;
+  margin-left: 50%;
 }
 
 .four:hover ~ hr {
-  margin-left: 74.2%;
+  margin-left: 75%;
 }
 
 hr{
   height: .25rem;
   /*width: 30%;*/
-  width:24%;
+  width:25%;
   text-align: left;
-  margin: 0 0 0 1.35%;
+  margin:0;
   background: #693484;
   border: none;
   transition: .3s ease-in-out;
@@ -21542,7 +21537,7 @@ hr{
     position: absolute;
     background: #693484;
     width: 100%;
-    left:5.5%;
+    left:0;
     height: 4px;
     bottom: -4px;
 }
@@ -21838,10 +21833,14 @@ body{
     position:relative;
 }
 
-.contenedor_circulos{
+.contenedor_circulos, .contenedor_circulosTutorial{
     display:none;
     position: absolute;
     z-index:500;
+}
+
+.contenedor_circulosTutorial{
+    left:5px;
 }
 
 .circulo-1, .circulo-2, .circulo-3{
@@ -21897,29 +21896,55 @@ body{
 }
 
 .tooltip_tutorial{
-    display: none;
+    display: block;
     background: #FFF;
-    width: 245px;
+    width: 204px;
     height: auto;
     position: absolute;
     top: 41px;
-    left: -110px;
-    border-radius: 5px;
+    left: -89px;
+    border-radius: 3px;
+    border: 1px solid #DDD;
     z-index: 1000;
-    box-shadow:0 1px 18px 1px rgba(0,0,0,.31);
-    -moz-box-shadow:0 1px 18px 1px rgba(0,0,0,.31);
-    -o-box-shadow:0 1px 18px 1px rgba(0,0,0,.31);
-    -ms-box-shadow:0 1px 18px 1px rgba(0,0,0,.31);
-    -webkit-box-shadow:0 1px 18px 1px rgba(0,0,0,.31);
+    box-shadow: 0 1px 18px 1px rgba(0,0,0,.31);
+    -moz-box-shadow: 0 1px 18px 1px rgba(0,0,0,.31);
+    -o-box-shadow: 0 1px 18px 1px rgba(0,0,0,.31);
+    -ms-box-shadow: 0 1px 18px 1px rgba(0,0,0,.31);
+    -webkit-box-shadow: 0 1px 18px 1px rgba(0,0,0,.31);
     opacity:0;
 }
 
-.tooltip_tutorial span{
+.cerrar_tooltipTutorial {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    right: 7px;
+    top: 7px;
+}
+
+.cerrar_tooltipTutorial img{
+    width:100%;
+    height:auto;
+}
+
+.titulo_necesitasAyuda{
     display: block;
     width: 100%;
-    padding:11px 9px 10px 9px;
+    margin: 0 auto;
+    text-align: center;
     font-family: 'Lato';
+    margin-top: 11px;
+    color: #642f80;
     font-size: 13px;
+    font-weight: 700;
+}
+
+.descripcion_necesitasAyuda{
+    display: block;
+    width: 100%;
+    padding: 4px 10px 12px 10px;
+    font-family: 'Lato';
+    font-size: 12px;
     line-height: 17px;
     font-weight: 400;
     color: #000;
@@ -21952,9 +21977,9 @@ body{
     margin-left: -10px;
 }
 
-.tutoriales_svg:hover{
+/*.tutoriales_svg:hover{
     opacity:0.7;
-}
+}*/
 
  /*.tutoriales_svg:hover{
         background: url(../../../Images/Lbel/tutorial.png) no-repeat;
@@ -21983,6 +22008,7 @@ body{
  }
  .content_escala{
      text-align:center;
+     margin-top: 10px;
  }
   /*MIS CATALOGOS*/
  .titulo_central{
@@ -22216,10 +22242,10 @@ body{
     background-position: 2% 7px !important;
     padding-left: 4% !important;
     }
-    .tabs_pagos li a{
+    /*.tabs_pagos li a{
         background-position:8% 7px;
         padding-left: 3%;
-    }
+    }*/
     .boton_cerrar_s a{
         padding-left:8px;
     }
@@ -22267,7 +22293,7 @@ body{
 .content_mis_pedidos{
     width:100%;
     height:auto;
-    margin-top:20px;
+    margin-top:45px;
 }
 
 .icono_campanias{
@@ -22886,7 +22912,7 @@ body{
 .texto_gris_popup{
     color: #666565;
     font-weight: 300;
-    font-size: 11pt;
+    font-size: 14px!important;
     line-height:14pt;
 }
 
@@ -23209,7 +23235,7 @@ body{
 }
 
 .content_datos_pedidosIngresados .importePago_prod{
-    margin-left:23px,
+    margin-left: 23px;
 }
 
 .content_datos_pedidosIngresados .codigo_prod,
@@ -25022,13 +25048,16 @@ img
 .cont_correo_direc
 {
 	position:absolute;
-	display:none;
+	/*display:none;*/
 	background-color:#e9e9e9;
 	padding:10px;
 	box-sizing:border-box;
 	max-width:246px;
     left: -285px;
     top: 0px;
+}
+.ocultarHide {
+    display:none;
 }
 .ic_pregunta
 {
@@ -27515,10 +27544,7 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
     z-index: 21;
 }
 
-.titulo_interiores {
-    width: 37%;
-    border-bottom: 1px solid;
-}
+
 
 /*.imagen-curvatura {
     background: transparent url(../../../Images/Lbel/pestana_lbel.png) no-repeat;
@@ -28230,65 +28256,25 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
 
 /* FIN PROCESO CARGA FOTO */
 
-/*SB20-863* Inicio*/
-
-.producto_precio2 {
-        width: 100%;
-        padding-left: 16px;
-        padding-right: 16px;
-        font-family: 'Lato';
-        letter-spacing: 0.2px;
-        color: #000;
-        margin-bottom: 16px;
-        margin-top: 35px;
-        }
-
-        .nombre_producto2 {
-            height: 40px;
-            padding-left: 10px;
-            padding-right: 10px;
-        }
-        
-        .nombre_producto22 {
-            /*padding: 0px;*/
-            padding-left: 6px;
-            padding-right: 6px;
-            font-size: 13px;
-            margin: 0 auto;
-            width: 100%;
-            /* height: auto; */
-            max-width: 500px;
-            height: auto;
-            /*max-height: 40px;*/
-            margin-bottom:10px;
-            margin-top: 5px;
-        }
-
-
-/*Sb20-863 - Fín*/
-
-/* Consultora Online */
-
 /*MICHAEL*/
 .popup_Pendientes {
     display: block;
     position: relative;
-    width: 72%;
+    width: 960px;
     max-width: 1230px;
     height: auto;
     background: #FFF;
     margin: 3.2% auto 1.5% auto;
     z-index: 3;
     padding-top: 30px;
-    padding-left: 75px;
-    padding-right: 75px;
+    padding-left: 36px;
+    padding-right: 36px;
     padding-bottom: 75px;
 }
 
 .content_popUp_Pendientes {
     width: 100%;
     max-width: 1189px;
-    margin: 0 auto;
     box-sizing: border-box;
     font-family: 'Lato';
     position: relative;
@@ -28297,48 +28283,11 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
 /*información adicional*/
 .mensajes_deAtencion span {
     width: 50%;
-    color: #e81c36;
+    color: #642f80;
     font-weight: 700;
     font-size: 16px;
     margin-left: 20px;
 }
-
-/*SB20-863* Inicio*/
-
-.producto_precio2 {
-        width: 100%;
-        padding-left: 16px;
-        padding-right: 16px;
-        font-family: 'Lato';
-        letter-spacing: 0.2px;
-        color: #000;
-        margin-bottom: 16px;
-        margin-top: 35px;
-        }
-
-        .nombre_producto2 {
-            height: 40px;
-            padding-left: 10px;
-            padding-right: 10px;
-        }
-        
-        .nombre_producto22 {
-            /*padding: 0px;*/
-            padding-left: 6px;
-            padding-right: 6px;
-            font-size: 13px;
-            margin: 0 auto;
-            width: 100%;
-            /* height: auto; */
-            max-width: 500px;
-            height: auto;
-            /*max-height: 40px;*/
-            margin-bottom:10px;
-            margin-top: 5px;
-        }
-
-
-/*Sb20-863 - Fín*/
 .mensajes_deAtencion span:first-child {
     float: left;
     text-align: left;
@@ -28346,10 +28295,11 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
     letter-spacing: -0.2px;
 }
 
-.mensajes_deAtencion span:last-child {
+.mensajes_deAtencion span:nth-child(2) {
+    width:40%;
     float: right;
     text-align: right;
-    margin-right: -60px;
+    /*margin-right: -60px;*/
     font-size: 15px;
     padding-right: 20px;
 }
@@ -28422,6 +28372,50 @@ span.datoPedidoCliente {
     width: 78%;
 }
 
+.tiempo_atencionPedido {
+    display: block;
+    margin-top: 25px;
+    margin-bottom: 44px;
+    font-family: 'Lato';
+    font-size: 11px;
+    color: #1a1a1a;
+    font-weight: normal;
+    padding-left:16px;
+}
+
+.tiempo_atencionPedido span:last-child{
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.revision_pedidosAceptados {
+    display: block;
+    font-family: 'Lato';
+    font-size: 13px;
+    font-weight: normal;
+    padding-left:16px;
+    padding-bottom:40px;
+}
+
+.revision_pedidosAceptados .texto_revisaPedidos{
+    display: block;
+    margin-bottom: 10px;
+}
+
+.icono_consultoraOnline, .texto_misPedidosClientesOnline{
+    display:inline-block;
+    vertical-align:middle;
+    font-weight: 300;
+    font-size: 14px;
+}
+
+.icono_consultoraOnline{
+    width:34px;
+    height:34px;
+    margin-right:6px;
+    background:url(../../../Images/Lbel/online.png) no-repeat center center;
+}
+
 .content_datos_pendientes {
     width: 100%;
     height: auto;
@@ -28442,7 +28436,7 @@ span.datoPedidoCliente {
     display: inline-block;
     vertical-align: middle;
     text-align: center;
-    font-size: 14px;
+    font-size: 13px;
 }
 
 .dinamicostablemini{
@@ -28451,7 +28445,7 @@ span.datoPedidoCliente {
     padding-left: 0px;
     display: inline-block;
     vertical-align: middle;
-    font-size: 14px;
+    font-size: 13px;
 }
 
 .dinamicostablemedio{
@@ -28460,7 +28454,7 @@ span.datoPedidoCliente {
     padding-left: 0px;
     display: inline-block;
     vertical-align: middle;
-    font-size: 14px;
+    font-size: 13px;
 }
 
 .dinamicostablegrande{
@@ -28488,13 +28482,43 @@ span.datoPedidoCliente {
 .dinamicostablegrande.izq{
     text-align: left;
 }
-
 .oscurece {
     color: black;
     font-weight: 700;
     padding: 8px;
     padding-top: 15px;
     padding-bottom: 15px;
+    font-size:13px;
+}
+
+@media screen and (max-width:1137px){
+
+    .oscurece {
+        color: black;
+        font-weight: 700;
+        /* padding: 8px; */
+        padding-top: 15px;
+        padding-left: 14px;
+        padding-bottom: 15px;
+        font-size: 12px;
+        width: 110%;
+    }
+
+}
+
+@media screen and (max-width:1100px){
+
+    .oscurece {
+        color: black;
+        font-weight: 700;
+        /* padding: 8px; */
+        padding-top: 15px;
+        padding-left: 4px;
+        padding-bottom: 15px;
+        font-size: 12px;
+        width: 124%;
+    }
+
 }
 
 .notiPendientes{
@@ -28701,7 +28725,7 @@ a#cierreMotivoRechazo img {
     margin-bottom: 5px;
     font-weight: bold;
     font-family:'Lato';
-    text-transform: uppercase;
+    /*text-transform: uppercase;*/
 }
 
 .grillaPendientes{
@@ -28783,7 +28807,6 @@ a#cierreMotivoRechazo img {
     background: #f0f0f0;
 }
 
-
 .optionsRechazo {
     width: 71%;
     padding: 10px;
@@ -28797,9 +28820,9 @@ a#cierreMotivoRechazo img {
     padding-left: 35px;
     cursor: pointer;
 }
-
-.optionsRechazo:hover, .optionsRechazo.optionsSeleccionado{
-    background: #f0f0f0;
+.optionsRechazo:hover, .optionsRechazoSelect{
+    background: url(../../../Images/icono_check.png) no-repeat #f0f0f0;
+    background-position: 15px 15px;
 }
 
 .mrechaza{
@@ -28848,7 +28871,8 @@ div.motivoRechazo textarea {
 
 
 .cambio_bk_pendientes{
-    background-color: #D6D6D6;
+    background-color: #efefef;
+    border-bottom:1px solid black;
 }
 
 .truco_bloqueo.sim1 {
@@ -28872,9 +28896,9 @@ div.motivoRechazo textarea {
 }
 
 .truco_bloqueo.sim3 {
-        width: 80px;
+    width: 6%;
     top: 457px;
-    height: 57px;
+    height: 63px;
     left: 0;
     opacity: .2;
     position: absolute;
@@ -28885,9 +28909,9 @@ div.motivoRechazo textarea {
 .truco_bloqueo.sim4{
     position: absolute;
     top: 457px;
-    width: 389px;
-    height: 57px;
-    left: 546px;
+   width: 22.7%;
+    height: 63px;
+    left: 46.6%;
     opacity: .2;
     display: none;
 }
@@ -28912,7 +28936,7 @@ div.motivoRechazo textarea {
 .info_tiempo_oportunidad.inicial {
     height: 67px;
     padding-top: 5px;
-    margin-top: -57px;
+    margin-top: -74px;
     padding: 10px;
     cursor: pointer;
 }
@@ -28923,7 +28947,7 @@ div.motivoRechazo textarea {
 
 .info_tiempo_oportunidad.inicial * {
     font-size: 12px;
-    letter-spacing: 1px;
+    letter-spacing: 0px;
 }
 
 .info_tiempo_oportunidad.inicial h6 {
@@ -28934,7 +28958,7 @@ div.motivoRechazo textarea {
 }
 
 .info_tiempo_oportunidad.inicial .tiempos_P {
-    width: 264px;
+    width: 225px;
 }
 
 .info_tiempo_oportunidad.inicial .noticia{
@@ -29179,13 +29203,18 @@ h1#penmostreo .campana {
 .mod-ofer2 .cuerpo-mod{
     display: block;
     position: relative;
-    width: 710px;
-    max-width: 1230px;
-    height: auto;
+    width: 971px;
+    /* max-width: 1230px; */
+    height: 636px;
+    top: 50%;
     background: #FFF;
-    margin: 4% auto 1.5% auto;
+    margin: -318px auto auto auto;
     z-index: 3;
-    padding-top: 50px;
+   padding-left: 40px;
+    padding-right: 40px;
+    padding-top: 40px;
+    text-align:center;
+    /*overflow:hidden;*/
 }
 .mod-ofer2 .sombrio{
         position: relative;
@@ -29205,11 +29234,11 @@ h1#penmostreo .campana {
     margin-top: -31px;
 }
 
-.mod-ofer2 .liquidacion_rango_home{
+/*.mod-ofer2 .liquidacion_rango_home{
     position: absolute;
     z-index: 9;
     margin-left: -80px;
-}
+}*/
 
 .mod-ofer2 .pos-baja .boton_Agregalo_home{
     background-color: transparent;
@@ -29224,10 +29253,10 @@ h1#penmostreo .campana {
     color: white;
 }
 
-.mod-ofer2 .boton_Agregalo_home {
+/*.mod-ofer2 .boton_Agregalo_home {
     z-index: 9;
     position: absolute;
-}
+}*/
 
 .mod-ofer2 .pos-baja{
     height: 90px;
@@ -29264,10 +29293,13 @@ h1#penmostreo .campana {
 }
 
 .mod-ofer2 .mod-cantidades.metido{
-        position: relative;
+    position: relative;
     margin: 0 auto;
-    margin-left: 204px;
-    margin-top: -70px;
+    /* OVERFLOW: HIDDEN; */
+    /* HEIGHT: 50px; */
+    width: 300px;
+    margin-left: 450px;
+    /* margin-top: -70px; */
 }
 
 .mod-ofer2 .cuerpo-mod .contiene-productos .producto_img_home.mini{
@@ -29315,7 +29347,8 @@ h1#penmostreo .campana {
     position: absolute;
     right: 0;
     margin-right: -37px;
-    margin-top: -49px;
+    /*margin-top: -49px;*/
+    top:0;
     cursor: pointer;
 }
 
@@ -29385,13 +29418,18 @@ h1#penmostreo .campana {
 .mod-ofer3 .cuerpo-mod{
     display: block;
     position: relative;
-    width: 835px;
-    max-width: 1230px;
-    height: auto;
+    width: 971px;
+    /* max-width: 1230px; */
+    height: 618px;
+    top: 50%;
     background: #FFF;
-    margin: .5% auto 1.5% auto;
+    margin: -309px auto auto auto;
     z-index: 3;
-    padding-top: 50px;
+   padding-left: 40px;
+    padding-right: 40px;
+    padding-top: 40px;
+    /*overflow:hidden;*/
+    text-align:center;
 }
 
 .mod-ofer3 .sombrio {
@@ -29412,11 +29450,11 @@ h1#penmostreo .campana {
     margin-top: -31px;
 }
 
-.mod-ofer3 .liquidacion_rango_home{
+/*.mod-ofer3 .liquidacion_rango_home{
     position: absolute;
     z-index: 9;
     margin-left: -80px;
-}
+}*/
 
 .mod-ofer3 .pos-baja .boton_Agregalo_home{
     background-color: transparent;
@@ -29431,10 +29469,10 @@ h1#penmostreo .campana {
     color: white;
 }
 
-.mod-ofer3 .boton_Agregalo_home {
+/*.mod-ofer3 .boton_Agregalo_home {
     z-index: 9;
     position: absolute;
-}
+}*/
 
 .mod-ofer3 .pos-baja{
     height: 90px;
@@ -29693,6 +29731,224 @@ h1#penmostreo .campana {
     position:relative;
 }
 
+/*POP UP CATALOGO PERSONALIZADO*/
+
+.mod-ofer2 .linea_encabezado_popupCatalogoPersonalizado {
+    display: inline-block;
+    background: #000;
+    height: 1px;
+    width: 300px;
+}
+.mod-ofer3 .linea_encabezado_popupCatalogoPersonalizado {
+    display: inline-block;
+    background: #000;
+    height: 1px;
+    width: 300px;
+}
+.item1_oferta_personalizada{
+    display:inline-block;
+    width:22.5%;
+    height:auto;
+    margin-right:25px;  
+    vertical-align: top;  
+}
+.item1_oferta_personalizada:last-child{
+    margin-right:0px;
+}
+.content_precio_set{
+    width:100%;
+    height:89px;   
+    border-bottom:1px solid #cfcfcf;
+}
+.compra_set{
+    font-family:'Lato';
+    font-size:16px;
+    color:black;
+    text-transform:uppercase;
+    text-align:center;
+    line-height: 19px;
+}
+.gananecia_set{
+    font-family:'Lato';
+    font-size:11px;
+    font-weight:700;
+    color:#e81c36;
+    text-transform:uppercase;
+    text-align:center;
+    margin-top:3px;
+}
+.gratis_set{
+     font-family:'Lato';
+    font-size:11px;
+    font-weight:700;
+    color:black;
+    text-transform:uppercase;
+    text-align:center;
+    margin-top:10px;
+}
+.mod-ofer2 .encabezado_popupCatalogoPersonalizado {
+    display: block;
+    text-align: center;
+    margin-bottom: 25px;
+}
+.content_sub_items {
+    overflow: hidden;
+    padding-top: 12px;
+    height: 233px;
+    border-bottom: 1px solid #dadada;
+}
+
+.sub_imagen_oferta {
+    width: 24%;
+    margin-right: 5%;
+    height: auto;
+    /* border: 1px solid #dadada; */
+    float: left;
+    margin-left: 5%;
+}
+.sub_imagen_oferta img {
+    width: 100%;
+}
+.sub_descripcion_oferta {
+    width: 55%;
+    height: 55px;
+    /*line-height: 55px;*/
+    text-align:left;
+    /* padding-top: 8%; */
+    /* padding-bottom: 8%; */
+    border-bottom: 1px solid #dadada;
+    /*float: left;*/
+    font-family: 'Lato';
+    font-size: 13px;
+    color: black;    
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    flex-direction: column;
+}
+.item1_oferta_personalizada  .sub_descripcion_oferta:last-child{
+    border-bottom:0;
+}
+.texto_mencion{
+    width:100%;
+    text-align:center;
+    font-family:'Lato';
+    font-weight:700;
+    font-size:15px;
+    color:black;
+    margin-top:26px;
+}
+.sombra_oferta {
+    width: 100%;
+    height: 78px;
+    margin-top:35px;
+    padding-left: 15px;
+    padding-right: 15px;
+    position: relative;
+    background: #ededed url(../../../Images/Mobile/Esika/fondo_oferta.png) top repeat-x;
+}
+.row_40{
+    margin-left:-40px;
+    margin-right:-40px;
+}
+.texto_sombra{    
+    font-family:'Lato';
+    font-weight:700;
+    font-size:11px;
+    color:black;
+    width:305px;
+    float:left;
+    text-align:center;
+    margin-left:200px;
+    margin-top:23px;
+}
+.texto_sombra  span{
+    font-size:15px;
+}
+.item_pack_personalizado{
+    width:33%;
+    display:inline-block;
+    margin-top:20px;
+    vertical-align: top;
+}
+.content_item_pack{
+    width:100%;
+    height:340px;
+    overflow: hidden;
+}
+.img_principal_pack{
+    width:149px;
+    height:149px;
+    margin:0 auto;
+    margin-top:41px;
+    margin-bottom:16px;
+    border:1px solid #cfcfcf;
+}
+.img_principal_pack img{
+    width:100%;
+    }
+.titulo_pack{
+    font-family:'Lato';
+    font-weight:700;
+    font-size:16px;
+    color:black;
+    margin-top:-6px;
+    text-align:center;
+    height:38px;
+}
+.texto_unidad_pack{
+    font-family:'Lato';
+    font-weight:700;
+    font-size:12px;
+    color:black;
+     text-align:center;
+}
+.texto_ganancia_pack{
+    font-family:'Lato';
+    font-weight:700;
+    font-size:11px;
+    color:#613c87;
+    text-align:center;
+    text-transform:uppercase;
+}
+.fondo_negro_pack {
+    height:41px;
+    background:black;
+    color:white;
+    font-family:'Lato';
+    line-height:41px;
+    font-size:16px;
+    text-align:center;
+    width:82%;
+    position:relative;
+}
+.fondo_negro_pack:before {
+    content: "";
+    width: 0;
+    height: 0;
+    right: -24px;
+    position: absolute;
+    border-right: 12px solid transparent;
+    border-top: 21px solid transparent;
+    border-left: 12px solid black;
+    border-bottom: 20px solid black;
+    }
+.pack_inter {
+    width: 78%;
+    margin-top:13px;
+    border-left: 1px solid #cfcfcf;
+    overflow:hidden;
+}
+.content_item_pack .content_sub_items {
+    overflow: hidden;
+    padding-top: 12px;
+    height: 248px;
+    border-bottom:0;
+}
+.pack_inter .content_sub_items .sub_descripcion_oferta:nth-child(2) {
+     border-top:1px solid #dadada;
+    }
+    
 /* ACTUALIZAR CONTRASEÑA */
 
 .titulo_interiores.tituloCambioContrasenia{
@@ -29950,18 +30206,18 @@ h1#penmostreo .campana {
     box-sizing: border-box;
 }
 .imagen_1{
-    background: url(../../../Images/Esika/estado_cuenta.png) no-repeat; 
+    background: url(../../../Images/Lbel/estado_cuenta.png) no-repeat; 
 }
 .imagen_2{
-    background: url("../../../Images/Esika/lugares_pago.png") no-repeat !important;
+    background: url("../../../Images/Lbel/lugares_pago.png") no-repeat !important;
    
 }
 .imagen_3{
-    background: url("../../../Images/Esika/facturacion_electronica.png") no-repeat !important;    
+    background: url("../../../Images/Lbel/facturacion_electronica.png") no-repeat !important;    
 }
 
 .imagen_4 {
-    background: url("../../../Images/Esika/icono_percepciones.png") no-repeat !important;
+    background: url("../../../Images/Lbel/icono_percepciones.png") no-repeat !important;
 }
 .ultima_campana{
      background: url("../../../Images/Lbel/ultima_campana.png") no-repeat;
@@ -29996,7 +30252,7 @@ h1#penmostreo .campana {
   width:34%;
   text-align: left;
   margin: 0;
-  background: #e81c36;
+  background: #613c87;
   border: none;
   transition: .3s ease-in-out;
 }
@@ -30005,7 +30261,7 @@ h1#penmostreo .campana {
     width:34px;
     height:34px;
     margin-right:10px;   
-    background: url("../../../Images/Esika/online.png") no-repeat !important;
+    background: url("../../../Images/Lbel/online.png") no-repeat !important;
     margin-top:50px;
 
 }
@@ -30098,7 +30354,7 @@ h1#penmostreo .campana {
     filter: alpha(opacity=60);
 }
 .tipo_cliente{
-    color:#e81c36;
+    color:#642f80;
     display:block;
     font-size:11px;
     font-weight:700;
@@ -30227,8 +30483,22 @@ h1#penmostreo .campana {
     background-color:#FFF;
     background-repeat:repeat-x;
     height:100%;
-    right:-36px;
+    right:-36px; 
+    -webkit-animation: opacidad-fondo 1000ms linear 0ms 1 normal;
+    -moz-animation: opacidad-fondo 1000ms linear 0ms 1 normal;
+    -ms-animation: opacidad-fondo 1000ms linear 0ms 1 normal;
+    animation: opacidad-fondo 1000ms linear 0ms 1 normal;
+    }
+ @keyframes opacidad-fondo {
+    0% {
+        opacity:0;
+    
+    }
+    100% {
+        opacity:1;
+    }
 }
+
  .fondo_lateral::after{
     content: "";
     position: absolute;
@@ -30273,4 +30543,104 @@ h1#penmostreo .campana {
     right: -30px;
     }
 }
+@media screen and (max-width: 1138px){
+ .mis_pagos_tabs .tabs_pagos li{
+         width: 38%;
+    }
+    .mis_pagos_tabs hr {
+        width: 38%;
+    }
+   
+  .mis_pagos_tabs  .two:hover ~ hr {
+  margin-left: 38%;
+    }
 
+
+}
+
+/* MENSAJES PEDIDO RECHAZADO */
+
+.bloque_mensajesPedido{
+    background: #a18328;
+    width:100%;
+    height: 56px;
+    display: none;
+    padding: 9px 84px;
+    text-align:center;
+    position:relative;
+}
+
+.icono_cerrar_mensaje{
+    display: block;
+    position: absolute;
+    top: 8px;
+    right: 23px;
+    width: 21px;
+}
+
+.icono_cerrar_mensaje span{
+    display:block;
+}
+
+.icono_cerrar_mensaje span img{
+    width:100%;
+    height:auto;
+}
+
+.icono_cerrar_mensaje span:nth-child(2){
+    font-family:'Lato';
+    font-size:10px;
+    text-align:center;
+    color:#FFF;
+    margin-left:-9px;
+}
+
+.icono_estadoPedido, .mensajes_estadoPedido{
+    display:inline-block;
+    vertical-align:top;
+}
+
+.icono_estadoPedido{
+    width:32px;
+    height:32px;
+    margin-right:16.8px;
+    padding-top:1px;
+}
+
+.icono_estadoPedido img{
+    width:100%;
+    height:auto;
+}
+
+.mensajes_estadoPedido {
+    color: #FFF;
+    font-family: 'Lato';
+    line-height:19px;
+}
+
+.mensaje_estadoActualPedido, .mensaje_horarioIngresoPedido{
+    display:block;
+    text-align:left;
+}
+
+.mensaje_estadoActualPedido{
+    font-size:15px;
+    font-weight:700;
+}
+
+.mensaje_horarioIngresoPedido{
+    font-size:12px;
+    font-weight:normal;
+}
+
+.mensaje_horarioIngresoPedido a{
+    display: inline-block;
+    margin-left: 2px;
+    text-decoration:underline;
+}
+
+.mensaje_horarioIngresoPedido a:hover{
+    text-decoration:underline;
+}
+
+/* FIN MENSAJES PEDIDO RECHAZADO */

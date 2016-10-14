@@ -14,16 +14,21 @@ function CargarEventosClienteOnline() {
         }
     });
     $('#ddlCampania').on('change', function () {
+        var campanias = [$('#ddlCampania').val()];
+        var campaniaAnterior = $('#ddlCampania option:selected').first().next().val();
+        if (campaniaAnterior != null && campaniaAnterior != '') campanias.push(campaniaAnterior);
+
         waitingDialog();
         jQuery.ajax({
             type: 'POST',
             url: urlClienteOnline,
             dataType: 'json',
             contentType: 'application/json; charset=utf-8',
-            data: JSON.stringify({ campania: $('#ddlCampania').val() }),
+            data: JSON.stringify({ campanias: campanias }),
             success: function (data) {
                 if (!checkTimeout(data)) return false;
 
+                if (data.success) $('#ddlCampania').val(data.campaniaResultado);
                 if (data.success && data.listaPedidosClienteOnline.length > 0) {
                     var tablaClientesOnline = SetHandlebars("#html-clientes-online", data.listaPedidosClienteOnline);
                     $('#divTablaClientesOnline').html(tablaClientesOnline);
@@ -31,16 +36,18 @@ function CargarEventosClienteOnline() {
                 else $('#divTablaClientesOnline').html(data.message);
             },
             error: function (data) {
-                $('#divTablaClientesOnline').html('Hubieron problemas de conexion al intentar cargar los datos Clientes Online, inténtelo más tarde.');
+                $('#divTablaClientesOnline').html('Hubieron problemas de conexion al intentar cargar los pedidos de Consultora Online, inténtelo más tarde.');
                 console.log(data);
             },
             complete: closeWaitingDialog
         });
     });
     $('#dialog_motivoCancelado .optionsRechazo').on('click', function () {
-        $('#dialog_motivoCancelado .optionsRechazo').removeClass('optionsSeleccionado');
-        $(this).addClass('optionsSeleccionado');
+        $('#dialog_motivoCancelado .optionsRechazo').removeClass('optionsRechazoSelect');
+        $(this).addClass('optionsRechazoSelect');
     });
+
+    if (lanzarTabClienteOnline) $('ul[data-tab="tab"]>li>a[data-tag="PedidosClientesOnline"]').trigger('click');
 }
 function CargarDetallleClienteOnline(solicitudClienteId, marcaId, nombre, direccion, telefono, email, estado, estadoDesc, mensaje, total) {
     waitingDialog();
@@ -57,6 +64,9 @@ function CargarDetallleClienteOnline(solicitudClienteId, marcaId, nombre, direcc
                 return false;
             }
 
+            $('#txtOtrosCancelado').val('');
+            $('#dialog_motivoCancelado .optionsRechazo').removeClass('optionsRechazoSelect');
+
             var titulo = "pedido " + estadoDesc + " de " + nombre;
             $('#popup_cliente_online_detalle .spnClienteOnlineTitulo').html(titulo.toUpperCase());
             $('#popup_cliente_online_detalle .spnClienteOnlineTotal').html(total);
@@ -65,7 +75,7 @@ function CargarDetallleClienteOnline(solicitudClienteId, marcaId, nombre, direcc
                 $('#popup_cliente_online_detalle .solo-cliente-online-aceptado').show();
             }
             else {
-                $('#popup_cliente_online_detalle .popup_Pendientes').css('padding-bottom', '0px');
+                $('#popup_cliente_online_detalle .popup_Pendientes').css('padding-bottom', '14px');
                 $('#popup_cliente_online_detalle .solo-cliente-online-aceptado').hide();
             }
 
@@ -76,7 +86,9 @@ function CargarDetallleClienteOnline(solicitudClienteId, marcaId, nombre, direcc
             $('#popup_cliente_online_detalle .spnClienteOnlineEstado').html(estadoDesc);
             $('#popup_cliente_online_detalle .spnClienteOnlineMensaje').html(mensaje);
             
-            var template = marcaId == 0 ? '#html-clientes-online-detalle-catalogos' : '#html-clientes-online-detalle-marcas'
+            $('#popup_cliente_online_detalle .divClienteOnlineMensaje').css('display', marcaId == 0 ? 'none' : 'block');
+            $('#popup_cliente_online_detalle .cubre').css('height', marcaId == 0 ? '160px' : '');
+            var template = marcaId == 0 ? '#html-clientes-online-detalle-catalogos' : '#html-clientes-online-detalle-marcas';
             var tablaClientesOnlineDetalle = SetHandlebars(template, data.listaDetallesClienteOnline);
             $('#divTablaClienteOnlineDetalles').html(tablaClientesOnlineDetalle);
 
@@ -85,7 +97,7 @@ function CargarDetallleClienteOnline(solicitudClienteId, marcaId, nombre, direcc
             marcaIdActual = marcaId;
         },
         error: function (data) {
-            alert_msg('Hubieron problemas de conexion al intentar cargar los datos Clientes Online, inténtelo más tarde.');
+            alert_msg('Hubieron problemas de conexion al intentar cargar los datos del pedido de Consultora Online, inténtelo más tarde.');
             console.log(data);
         },
         complete: closeWaitingDialog
@@ -117,7 +129,7 @@ function CancelarSolicitud() {
                 contentType: 'application/json; charset=utf-8',
                 data: JSON.stringify({
                     solicitudClienteId: solicitudClienteIdActual,
-                    motivoSolicitudId: $('#dialog_motivoCancelado .optionsRechazo.optionsSeleccionado').first().attr('data-id'),
+                    motivoSolicitudId: $('#dialog_motivoCancelado .optionsRechazo.optionsRechazoSelect').first().attr('data-id'),
                     razonMotivoSolicitud: $('#txtOtrosCancelado').val()
                 }),
                 success: function (data) {
@@ -126,17 +138,15 @@ function CancelarSolicitud() {
                         MensajeErrorCancelado(data.message);
                         return false;
                     }
-
-                    $('#txtOtrosCancelado').val('');
-                    $('#dialog_motivoCancelado .optionsRechazo').removeClass('optionsSeleccionado');
+                                        
                     $('#dialog_motivoCancelado').hide();
-
-                    if (marcaIdActual == 0) $('#dialog_mensajeCancelado .spnMensajeSolicitudCancelada').html('Se retiraron de tu pedido los productos de este cliente.');
-                    else $('#dialog_mensajeCancelado .spnMensajeSolicitudCancelada').html('No te olvides comunicarte con tu cliente.');
+                    if (marcaIdActual == 0) $('#dialog_mensajeCancelado .spnMensajeSolicitudCancelada').html(mensajeCanceladoPortal);
+                    else $('#dialog_mensajeCancelado .spnMensajeSolicitudCancelada').html(mensajeCanceladoMarcas);
                     $('#dialog_mensajeCancelado').show();
 
                     solicitudClienteIdActual = 0;
                     marcaIdActual = 0;
+                    ActualizarGanancia(data.dataBarra);
                 },
                 error: function (data) {
                     MensajeErrorCancelado('Hubieron problemas de conexion al intentar cancelar su solicitud, inténtelo más tarde.');
@@ -178,7 +188,7 @@ function ReservadoOEnHorarioRestringidoAsync(mostrarAlerta, fnRestringido, fnNoR
 
             if (data.pedidoReservado && !mostrarAlerta) {
                 waitingDialog();
-                location.href = location.href = baseUrl + 'Pedido/PedidoValidado';
+                location.href = baseUrl + 'Pedido/PedidoValidado';
                 return false;
             }
 

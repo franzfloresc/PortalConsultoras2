@@ -98,7 +98,18 @@
                 <a class="btn_agregar_mobile btnAgregarOfertaShowRoom">AGREGAR A MI PEDIDO</a>
             }
         </div>
-    </div>
+        <div>
+            @{
+                var urlWs = "whatsapp://send?text=" + item.Descripcion + "%20(" + subTitulo + ").%20" + item.ImagenProducto;
+                var descripcionF = item.Descripcion.Replace("'", "\'");
+                var subtituloF = subTitulo.Replace("'", "\'");
+                var imagenF = item.ImagenProducto.Replace("'", "\'");
+            }
+            <a class="btn_ws_showroom" href="@urlWs" data-action="share/whatsapp/share"><img src="@Url.Content("~/Content/Images/mobile/Esika/catalogo_ws.png")" alt="-" /></a>
+            <a class="btn_facebook_showroom" href="" data-accion="face" onclick='CompartirFacebook("@descripcionF","@subtituloF","@imagenF");'><img src="@Url.Content("~/Content/Images/mobile/Esika/catalogo_facebook.png")" alt="-" /></a>
+            <hr class="clear" />
+        </div>
+    </div>    
             {
                 posicion++;
             }
@@ -416,6 +427,16 @@
                     }
                 }
             });
+        }
+        
+        function CompartirFacebook(titulo, subtitulo, imagen) {
+            var popWwidth = 570;
+            var popHeight = 420;
+            var left = (screen.width / 2) - (popWwidth / 2);
+            var top = (screen.height / 2) - (popHeight / 2);
+            var url = "http://www.facebook.com/sharer/sharer.php?u=" + imagen + "&t=" + titulo;                        
+
+            window.open(url, 'Facebook', "width=" + popWwidth + ",height=" + popHeight + ",menubar=0,toolbar=0,directories=0,scrollbars=no,resizable=no,left=" + left + ",top=" + top + "");
         }
     </script>
 }

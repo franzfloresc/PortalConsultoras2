@@ -2751,13 +2751,7 @@ namespace Portal.Consultoras.Common
 
             var importe = string.Format("{0:#,##0.00}", valor);
             string listaPaises = ParseString(ConfigurationManager.AppSettings["KeyPaisFormatDecimal"] ?? "");
-            if (listaPaises.Contains(pais))
-                importe = importe.Split('.')[0].Replace(",", ".");
-            
-            //if (pais == Constantes.CodigosISOPais.Colombia || pais == Constantes.CodigosISOPais.Chile || pais == Constantes.CodigosISOPais.CostaRica)
-            //{
-            //    importe = importe.Split('.')[0].Replace(",", ".");
-            //}
+            if (listaPaises.Contains(pais)) importe = importe.Split('.')[0].Replace(",", ".");
 
             return importe;
         }
@@ -2810,6 +2804,11 @@ namespace Portal.Consultoras.Common
             var str = SubStr(cadena, 0, cant);
             str = str == cadena && cadena != "" ? str + strFin : (str + "...");
             return str;
+        }
+
+        public static string ReemplazarSaltoLinea(string cadena, string saltoLinea)
+        {
+            return cadena.Replace("\r\n", saltoLinea).Replace("\n", saltoLinea).Replace("\r", saltoLinea);
         }
     }
 
