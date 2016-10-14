@@ -30702,3 +30702,38 @@ h1#penmostreo .campana {
 	margin-left: -12px;
     z-index: 20;
 }
+
+.sinOfertasParaTi{
+    width:100%!important;
+    margin-right:0 !important;
+}
+.sinOfertasParaTi .fondo_lateral::before{
+    width:100%;
+    right:-100%;
+}
+.sinOfertasParaTi .info_tiempo_oportunidad {    
+    margin-left: 13%;
+}
+.sinOfertasParaTi .dinamicostablegrande{
+    width:20%;
+}
+@media screen and (max-width: 1311px) {
+    .sinOfertasParaTi .dinamicostablegrande{
+    width:18%;
+    }
+    .sinOfertasParaTi .w_40 {
+        width:30%;
+    }
+    .sinOfertasParaTi .w_25 {
+        width:30%;
+    }
+    .sinOfertasParaTi .tab_pendiente_es{
+        width: 69% !important;
+    }
+    .sinOfertasParaTi .bloque_left {
+    width: 40%;
+    }
+    .sinOfertasParaTi .info_tiempo_oportunidad.inicial{
+        margin-left: 15%;
+    }
+}
