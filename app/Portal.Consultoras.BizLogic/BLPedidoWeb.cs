@@ -326,7 +326,8 @@ namespace Portal.Consultoras.BizLogic
                 //if (ConfigurationManager.AppSettings["OrderDownloadIncludeDatosConsultora"] == "1" && !isFox && tipoCronograma == 1)
                 if (ConfigurationManager.AppSettings["OrderDownloadIncludeDatosConsultora"] == "1" && tipoCronograma == 1) //VVA 2450 CGI //CO528
                 {
-                    actdatosTemplate = ParseTemplate(ConfigurationManager.AppSettings[element.ActDatosTemplate]);
+                    bool descargaActDatosv2 = ConfigurationManager.AppSettings["DescargaActDatosv2"] == "1";
+                    actdatosTemplate = ParseTemplate(ConfigurationManager.AppSettings[element.ActDatosTemplate], descargaActDatosv2);
                     if (string.IsNullOrEmpty(ErrorCoDat))
                     {
                         try
@@ -1234,21 +1235,20 @@ namespace Portal.Consultoras.BizLogic
             return line;
         }
 
-        private TemplateField[] ParseTemplate(string templateText)
+        private TemplateField[] ParseTemplate(string templateText, bool descargaActDatosv2 = true)
         {
-            bool descargaActDatosv2 = ConfigurationManager.AppSettings["DescargaActDatosv2"] == "1";
             List<string> CamposActDatosv2 = new List<string>{ "TELEFONOTRABAJO", "LATITUD", "LONGITUD"};
             string[] parts = templateText.Split(';');
-            var template = new TemplateField[parts.Length];
+            var listTemplate = new List<TemplateField>();
             TemplateField templateField;
 
             for (int index = 0; index < parts.Length; index++)
             {
                 templateField = new TemplateField(parts[index]);
                 if(!descargaActDatosv2 && CamposActDatosv2.Contains(templateField.FieldName)) continue;
-                template[index] = templateField;
+                listTemplate.Add(templateField);
             }
-            return template;
+            return listTemplate.ToArray();
         }
 
         public BEConfiguracionCampania GetEstadoPedido(int PaisID, int CampaniaID, long ConsultoraID, int ZonaID, int RegionID)
