@@ -123,7 +123,7 @@ html[xmlns] .slides {display: block;}
 .flex-control-paging li a { padding:0;width: 11px; height: 11px; display: block; background: white; 
   cursor: pointer; text-indent: -9999px; -webkit-border-radius: 20px; -moz-border-radius: 20px; -o-border-radius: 20px; border-radius: 20px; border:1px solid black; }
 .flex-control-paging li a:hover {background: black;}
-.flex-control-paging li a.flex-active { background: black; background: black; cursor: default; }
+.flex-control-paging li a.flex-active { background: black; cursor: default; border: 1px solid #dadada; }
 
 .flex-control-thumbs {margin: 5px 0 0; position: static; overflow: hidden;}
 .flex-control-thumbs li {width: 25%; float: left; margin: 0;}

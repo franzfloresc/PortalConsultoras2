@@ -2084,7 +2084,7 @@ h4.re3 {
     right: 0;
     bottom: 0;
     left: 0;
-    background: rgba(164, 181, 196, 0.6);
+    background: rgba(210, 208, 208, 0.6);
     z-index: 99999;
     display: none;
 }
@@ -4123,7 +4123,7 @@ width:100%;
 .btn_seguirp_mobile.ver_video_introductorio {
     margin-top: 15px;
     margin-bottom: 5px;
-    width:114px;
+   width: 114px;
 }
 
 .linea_separadora_mobile{
@@ -4683,6 +4683,7 @@ body{
 .mi_ganancia {
     color:#642f80;
     font-weight:700;
+    text-transform:uppercase;
 }
 
 @media screen and (min-width:0px) and (max-width:407px){
@@ -5704,6 +5705,7 @@ body{
     background:black;
     text-align:center;
     margin-top:30px;   
+    cursor:pointer;
 }
 .content_revistas_mobile{
     width:216px;
@@ -8699,7 +8701,7 @@ span.icon-advertencia{
     margin-top: 2px;  
 }
 .texto_stock{
-    width: 87%;
+    width: 100%;
     display: inline-block;
     vertical-align: top;
     font-family: 'LAto';

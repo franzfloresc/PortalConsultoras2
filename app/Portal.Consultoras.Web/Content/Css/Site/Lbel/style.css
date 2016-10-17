@@ -683,25 +683,23 @@ header {
     position: relative;
     display: block;
     overflow: hidden;
-    border: 1px solid black;
+    /* border: 1px solid black; */
     border-right: 0;
-    width: 58px;
+    width: 82px;
+    height:60px;
     display: inline-block;
     vertical-align: baseline;
-    padding-top: 32px;
-    padding-bottom: 5px;
-    padding-left: 2px;
-    padding-right: 2px;
     text-align: center;
     letter-spacing: -1px;
     color: black;
     font-family: 'lato';
-    font-weight:300;
+    font-weight: 300;
     font-size: 10pt;
     line-height: 11.2pt;
-    color:black;
-    background: #FFF url("../../../Images/Esika/ayuda.png") no-repeat;
-    background-position: 18px 4px;
+    color: black;
+    background: url(../../../Images/boton-home.png) no-repeat;
+    /* background-position: 18px 4px; */
+    background-size: cover;
 }
 
     .boton-home::after {
@@ -2337,9 +2335,11 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido{
 
 /*tool tip => info sobre el icono*/
 .info_copy{
-    float:left;
-    margin-right:8px;
-    position:relative;
+    float: left;
+    margin-right: 7px;
+    height: 22px;
+    margin-top: 3px;
+    position: relative;
 }
 .info_copy .tooltip_importe{
     display:none;
@@ -2389,6 +2389,7 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido{
 .info_copy .datos_Reservado span{
     display:block;
     margin: 0;
+    float:none;
 }
 /* fin tool tip => info sobre el icono*/
 
@@ -3450,7 +3451,7 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
     margin: 0 auto;
     width:100%;
     max-width: 177px;
-    max-height: 40px;
+    height: 40px;
     overflow: hidden;
 }
 
@@ -22015,7 +22016,7 @@ body{
      color:black;
      letter-spacing:0.25px;
      font-weight:700;
-     margin-top:40px;
+     margin-top:25px;
      margin-bottom:28px;
  }
  .arrow_catalogo{
@@ -26981,9 +26982,12 @@ position: relative; float: left;
     margin-top:10px;
     margin-bottom:30px;
     text-align:right;
+   
 }
 .pago_pedido_carrito span{
-    margin-left:15px;
+    margin-left:18px;
+    display:block;
+    float:right;
 }
 .linea_blanca{
     position:absolute;
@@ -27401,7 +27405,8 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
     width: 100%;
     text-decoration: none;
     position: absolute;
-    top: 247px;
+    /*top: 247px;*/
+    top:279px;
 }
 
 .enlace_popupCatalogoPersonalizado:hover{
@@ -30714,4 +30719,18 @@ h1#penmostreo .campana {
     .sinOfertasParaTi .info_tiempo_oportunidad.inicial{
         margin-left: 15%;
     }
+}
+
+#divCatalogoPersonalizado .nombre_producto {
+    padding: 0;
+    font-size: 13px;
+    margin: 0 auto;
+    width: 100%;
+    max-width: 177px;
+    overflow: hidden;
+    height:76px;
+    display:flex;
+    justify-content: center;
+    align-content: center;
+    flex-direction: column;
 }
