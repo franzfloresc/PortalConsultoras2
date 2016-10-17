@@ -1901,6 +1901,7 @@ namespace Portal.Consultoras.Web.Controllers
             DateTime diaActual = DateTime.Today.Add(HoraCierrePortal);
             var fechaFacturacionFormat = userData.FechaInicioCampania.Day + " de " + NombreMes(userData.FechaInicioCampania.Month);
 
+            #region  Btn 
             if (!userData.DiaPROL)  // Periodo de venta
             {
                 model.Prol = "GUARDA TU PEDIDO";
@@ -1992,6 +1993,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }
             }
             /* SB20-287 - FIN */
+            #endregion
 
             model.EsDiaProl = usuario.DiaPROL;
             model.ProlSinStock = usuario.PROLSinStock;
