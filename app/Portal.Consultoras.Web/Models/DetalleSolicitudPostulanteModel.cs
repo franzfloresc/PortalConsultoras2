@@ -71,16 +71,18 @@ namespace Portal.Consultoras.Web.Models
 
         public string Referencia { get; set; }
 
-        [RequiredIfPropertiesNotNull("CodigoPais", "CL,PE", "Telefono,Celular", true, ErrorMessage = "Debe ingresar al menos un teléfono")]
-        [RequiredIf("CodigoPais", "MX", ErrorMessage = "Campo obligatorio")]
+        [RequiredIfPropertiesNotNull("CodigoPais", "CL,PE,EC", "Telefono,Celular", true, ErrorMessage = "Debe ingresar al menos un teléfono")]
+        [RequiredIf("CodigoPais", "MX,EC", ErrorMessage = "Campo obligatorio")]
         [ExpressionRequiredIf("CodigoPais", "MX", Expresion = @"(\d)\1{5,}", RegexNotMatch = true, ErrorMessage = "Formato Incorrecto")]
         [ExpressionRequiredIf("CodigoPais", "CO", Expresion = @"^(?:[0-9]{7}|)$", RegexNotMatch = false, ErrorMessage = "Formato Incorrecto")]
+        [ExpressionRequiredIf("CodigoPais", "EC", Expresion = @"^(?:[0-9]{9}|)$", RegexNotMatch = false, ErrorMessage = "Formato Incorrecto")]
         public string Telefono { get; set; }
 
-        [RequiredIf("CodigoPais", "CO,MX", ErrorMessage = "Campo obligatorio")]
+        [RequiredIf("CodigoPais", "CO,MX,EC", ErrorMessage = "Campo obligatorio")]
         [ExpressionRequiredIf("CodigoPais", "MX", Expresion = @"(\d)\1{5,}", RegexNotMatch = true, ErrorMessage = "Formato Incorrecto")]
         [ExpressionRequiredIf("CodigoPais", "CO", Expresion = @"^(?:(3)[0-9]{9}|)$", RegexNotMatch = false, ErrorMessage = "Formato Incorrecto")]
         [ExpressionRequiredIf("CodigoPais", "CL", Expresion = @"^(9)[0-9]{8}$", RegexNotMatch = false, ErrorMessage = "Formato Incorrecto")]
+        [ExpressionRequiredIf("CodigoPais", "EC", Expresion = @"^(?:[0-9]{10})$", RegexNotMatch = false, ErrorMessage = "Formato Incorrecto")]
         public string Celular { get; set; }
 
         [EmailAddress(ErrorMessage = "No es un correo válido")]

@@ -96,6 +96,8 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpPost]
         public JsonResult ConsultarReporteConsolidado(ReporteConsolidadoModel model)
         {
+            List<ReporteConsolidadoBE> resultados = ObtenerReporteConsolidadoFiltro(model);
+
             var grid = new BEGrid
             {
                 PageSize = model.rows,
@@ -103,14 +105,35 @@ namespace Portal.Consultoras.Web.Controllers
                 SortColumn = model.sidx,
                 SortOrder = model.sord
             };
+
+            IEnumerable<ReporteConsolidadoBE> items = resultados;
+
+            //TODO: pendiente Ordenar la lista ASC y DESC
+
+            items = items.ToList().Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
+
+            var pag = Paginador(grid, resultados);
+
             var data = new
             {
-                //total = pag.PageCount,
-                //page = pag.CurrentPage,
-                //records = pag.RecordCount,
+                total = pag.PageCount,
+                page = pag.CurrentPage,
+                records = pag.RecordCount,
+                rows = items.Select(i => new
+                {
+                    cell = new string[]
+                    {
+                        i.Descripcion.ToString(),
+                        i.Totales.ToString(),
+                        i.MovilSE.ToString(),
+                        i.PortalGZ.ToString(),
+                        i.UB.ToString(),
+                        i.ACC.ToString()
+                        
+                    }
+                })
             };
 
-            //  var pag = Paginador(grid, solicitudes);
             return Json(data, JsonRequestBehavior.AllowGet);
         }
 
@@ -1073,6 +1096,21 @@ namespace Portal.Consultoras.Web.Controllers
                 NivelesRiesgoModel prod = new NivelesRiesgoModel();
                 IList<NivelesRiesgoModel> lista = Util.ReadXmlFile(finalPath, prod, false, ref IsCorrect);
 
+                //var toRemove = new HashSet<NivelesRiesgoModel>();
+                foreach (var item    in lista.ToList())
+                {
+                    if (item.NivelRiesgo == null && item.ZonaSeccion == null)
+                    {
+                        lista.Remove(item);
+                    }
+
+                }
+
+                if (lista.Count == 0)
+                {
+                    IsCorrect = false; 
+                }
+                
                 //elimina el documento, una vez que haya sido procesado
                 System.IO.File.Delete(finalPath);
                 List<ServiceUnete.ParametroUnete> listafinal = new List<ServiceUnete.ParametroUnete>();
@@ -2420,6 +2458,35 @@ namespace Portal.Consultoras.Web.Controllers
                 solicitudes = sv.ObtenerSolicitudesPostulanteV2(objSolicitudPostulanteParameter);
             }
             return solicitudes;
+        }
+
+        //TODO: pendiente desarrollo 
+
+        private List<ReporteConsolidadoBE> ObtenerReporteConsolidadoFiltro(ReporteConsolidadoModel model)
+        {
+            List<ReporteConsolidadoBE> listaReporteConsolidado;
+
+            DateTime? fechaDesde = string.IsNullOrWhiteSpace(model.FechaDesde)
+              ? default(DateTime?)
+              : DateTime.ParseExact(model.FechaDesde, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+            DateTime? fechaHasta = string.IsNullOrWhiteSpace(model.FechaHasta)
+                ? default(DateTime?)
+                : DateTime.ParseExact(model.FechaHasta, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+
+
+            ReporteConsolidadoParameter objReporteConsolidadoParameter = new ReporteConsolidadoParameter
+            {
+                Aplicacion = EnumsAplicacion.HerramientaGestionSAC,
+                CodigoIso = CodigoISO,
+                FechaDesde = fechaDesde,
+                FechaHasta = fechaHasta
+            };
+
+            using (var sv = new PortalServiceClient())
+            {
+                listaReporteConsolidado = sv.ObtenerReporteConsolidado(objReporteConsolidadoParameter);
+            }
+            return listaReporteConsolidado;
         }
     }
 }
