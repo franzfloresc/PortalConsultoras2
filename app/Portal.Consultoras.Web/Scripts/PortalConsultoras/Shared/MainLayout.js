@@ -135,7 +135,7 @@
     });
 
     Scrolling();
-    MostrarShowRoomBannerLateral();
+    MostrarShowRoomBannerLateral();        
 });
 
 function alert_msg(message, titulo) {
@@ -781,3 +781,15 @@ function SetMarcaGoogleAnalyticsTermino() {
 /* Tracking Jetlore */
 // Se creo un JS => TrackingJetlore.js
 /* Fin Tracking Jetlore */
+
+//MENSAJE PEDIDO RECHAZADO
+
+function MostrarMensajePedidoRechazado() {
+    $("#bloquemensajesPedido").css("display", "");
+
+    setTimeout(function () {
+        $(".oscurecer_animacion").fadeOut(1500);
+        var elem = $(".oscurecer_animacion");
+        $(elem).remove();
+    }, 3000);    
+}
