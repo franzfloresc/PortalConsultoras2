@@ -228,11 +228,17 @@
             <div class="content_imagen_oferta">
                 <img src="{{UrlImagen}}" alt="">
                 <div class="titulo_producto_oferta" id="titulo">{{Descripcion}}</div>
-                <div class="sub_texto_oferta">En Revista:  {{Simbolo}} {{precio_revista}}</div>
+                <div class="sub_texto_oferta">En Revista: {{Simbolo}} {{precio_revista}}</div>
                 <div class="texto_ganancia_oferta">{{TxtGanancia}}: {{Simbolo}} {{ganancia}}</div>
             </div>
         </div>
         <div style="width:80%; margin:0 auto;">
+            <div class="content_pack_niveles">
+                <div class="Subtitulo_oferta">COMPRA 1X<br />{{Simbolo}} {{precio_revista}}</div>
+                <div class="texto_ganancia_oferta" style="font-size:11px">{{TxtGanancia}}: {{Simbolo}} {{ganancia}}</div>
+                <hr class="clear" />
+            </div>
+
             {{#each lista_ObjNivel as |nivel|}}
 
             <div class="content_pack_niveles">
