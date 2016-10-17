@@ -680,6 +680,7 @@ function MensajeEstadoPedido() {
         $("#bloquemensajesPedido").find(".mensaje_estadoActualPedido").html("NOS ENCONTRAMOS FACTURANDO TU PEDIDO");
     }
     xMensajeEstadoPedido(true);
+    MostrarMensajePedidoRechazado();
     return true;    
 }
 
@@ -741,6 +742,17 @@ function cerrarMensajeEstadoPedido() {
             cerrarRechazado = '0';
         }
     });
+}
+
+function MostrarMensajePedidoRechazado() {
+    if (location.pathname.toLowerCase().indexOf("/bienvenida") >= 0) {
+        setTimeout(function () {
+            $(".oscurecer_animacion").remove();
+        }, 1500);
+    }
+    else {
+        $(".oscurecer_animacion").remove();
+    }
 }
 
 // FIN Pedido Rechazado
