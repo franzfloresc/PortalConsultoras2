@@ -53,6 +53,8 @@ BEGIN
 	if @ExisteRegistro > 0
 	begin
 			set @add = 0
+			set @CodigoRegionx = ''
+			set @CodigoZonax = ''
 
 			select @CodigoRegionx = isnull(CodigoRegion, '')
 				, @CodigoZonax = isnull(CodigoZona, '')
@@ -68,6 +70,8 @@ BEGIN
 				if @CodigoZonax != ''
 				begin
 					set @add = 0
+					set @CodigoRegionx = ''
+					set @CodigoZonax = ''
 			
 					select @CodigoRegionx = isnull(CodigoRegion, '')
 						, @CodigoZonax = isnull(CodigoZona, '')
@@ -100,6 +104,5 @@ BEGIN
 	end
 
 END
-
 
 go
