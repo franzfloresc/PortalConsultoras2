@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/WcfService_Hana" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/WcfService_Hana" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:complexType name="ArrayOfCuentaCorriente">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="CuentaCorriente" nillable="true" type="tns:CuentaCorriente" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfCuentaCorriente" nillable="true" type="tns:ArrayOfCuentaCorriente" />
+  <xs:complexType name="CuentaCorriente">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="anoCampanaCargo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="codUni" type="xs:int" />
+      <xs:element minOccurs="0" name="codigo" type="xs:int" />
+      <xs:element minOccurs="0" name="consultoraID" type="xs:int" />
+      <xs:element minOccurs="0" name="cuentaCorrienteID" type="xs:int" />
+      <xs:element minOccurs="0" name="descripcionOperacion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="estadoActivo" type="xs:int" />
+      <xs:element minOccurs="0" name="estadoOperacionCargo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="fechaLiquidacion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="fechaOperacion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="fechaRegistro" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="fechaVencimiento" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="glosa" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="idNumeroCarga" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="montoOperacion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="montoSaldo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="numeroCarga" type="xs:int" />
+      <xs:element minOccurs="0" name="tipoCargoAbono" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="tipoOri" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="CuentaCorriente" nillable="true" type="tns:CuentaCorriente" />
+  <xs:complexType name="ArrayOfPedido">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Pedido" nillable="true" type="tns:Pedido" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfPedido" nillable="true" type="tns:ArrayOfPedido" />
+  <xs:complexType name="Pedido">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="codCliente" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="codPeri" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="estadoPedido" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="fechaEstimada" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="fechaFacturacion" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="montoPedido" type="xs:decimal" />
+      <xs:element minOccurs="0" name="motivoEstado" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="numeroroPedido" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="oidCliente" type="xs:int" />
+      <xs:element minOccurs="0" name="oidPedido" type="xs:int" />
+      <xs:element minOccurs="0" name="oidPeriodo" type="xs:int" />
+      <xs:element minOccurs="0" name="origen" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Pedido" nillable="true" type="tns:Pedido" />
+  <xs:complexType name="ArrayOfPedidoDetalle">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="PedidoDetalle" nillable="true" type="tns:PedidoDetalle" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfPedidoDetalle" nillable="true" type="tns:ArrayOfPedidoDetalle" />
+  <xs:complexType name="PedidoDetalle">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="cantidad" type="xs:int" />
+      <xs:element minOccurs="0" name="cuv" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="factorRepeticion" type="xs:int" />
+      <xs:element minOccurs="0" name="indicadorDigitable" type="xs:int" />
+      <xs:element minOccurs="0" name="indicadorPedido" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="montoDescuento" type="xs:decimal" />
+      <xs:element minOccurs="0" name="montoPagar" type="xs:decimal" />
+      <xs:element minOccurs="0" name="pedidoDetalleId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="pedidoId" type="xs:int" />
+      <xs:element minOccurs="0" name="perdOidPeri" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="precioTotal" type="xs:decimal" />
+      <xs:element minOccurs="0" name="precioUnidad" type="xs:decimal" />
+      <xs:element minOccurs="0" name="tipoSolicitud" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="PedidoDetalle" nillable="true" type="tns:PedidoDetalle" />
+  <xs:complexType name="ArrayOfFaltanteAnunciado">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="FaltanteAnunciado" nillable="true" type="tns:FaltanteAnunciado" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfFaltanteAnunciado" nillable="true" type="tns:ArrayOfFaltanteAnunciado" />
+  <xs:complexType name="FaltanteAnunciado">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="codigoRegion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="codigoVenta" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="codigoZona" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="estadoActivo" type="xs:int" />
+      <xs:element minOccurs="0" name="idCampana" type="xs:int" />
+      <xs:element minOccurs="0" name="idFaltanteAnunciado" type="xs:int" />
+      <xs:element minOccurs="0" name="idPais" type="xs:int" />
+      <xs:element minOccurs="0" name="indicadorCierreDiario" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="FaltanteAnunciado" nillable="true" type="tns:FaltanteAnunciado" />
+  <xs:complexType name="ArrayOfConsultoraOnline">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="ConsultoraOnline" nillable="true" type="tns:ConsultoraOnline" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfConsultoraOnline" nillable="true" type="tns:ArrayOfConsultoraOnline" />
+  <xs:complexType name="ConsultoraOnline">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="AutorizaPedido" type="xs:int" />
+      <xs:element minOccurs="0" name="COD_CAMP" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="COD_CLIE" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ConsultoraID" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FEC_CREA" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IMP_MONT_MINI" type="xs:decimal" />
+      <xs:element minOccurs="0" name="IMP_SALD_CAMP" type="xs:decimal" />
+      <xs:element minOccurs="0" name="Indicador_Activa" type="xs:int" />
+      <xs:element minOccurs="0" name="Invitada" type="xs:int" />
+      <xs:element minOccurs="0" name="MontoMaximoPedido" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="MontoMinimoPedido" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ConsultoraOnline" nillable="true" type="tns:ConsultoraOnline" />
+  <xs:complexType name="ArrayOfConsultoraProgramaNuevas">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="ConsultoraProgramaNuevas" nillable="true" type="tns:ConsultoraProgramaNuevas" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfConsultoraProgramaNuevas" nillable="true" type="tns:ArrayOfConsultoraProgramaNuevas" />
+  <xs:complexType name="ConsultoraProgramaNuevas">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="MOTIVO_fin" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="camp" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="cod_cons" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="cod_prog" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="mont_vent_exig" type="xs:decimal" />
+      <xs:element minOccurs="0" name="participa_fin" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ConsultoraProgramaNuevas" nillable="true" type="tns:ConsultoraProgramaNuevas" />
+  <xs:complexType name="ArrayOfComprobantePercepcion">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="ComprobantePercepcion" nillable="true" type="tns:ComprobantePercepcion" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfComprobantePercepcion" nillable="true" type="tns:ArrayOfComprobantePercepcion" />
+  <xs:complexType name="ComprobantePercepcion">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="consultoraId" type="xs:int" />
+      <xs:element minOccurs="0" name="fechaEmision" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="fechaEmisionDocumento" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="idComprobantePercepcion" type="xs:int" />
+      <xs:element minOccurs="0" name="idNumeroAutorizacion" type="xs:int" />
+      <xs:element minOccurs="0" name="importePercepcion" type="xs:decimal" />
+      <xs:element minOccurs="0" name="monto" type="xs:decimal" />
+      <xs:element minOccurs="0" name="montoTotal" type="xs:decimal" />
+      <xs:element minOccurs="0" name="numeroComprobanteCorrelativo" type="xs:int" />
+      <xs:element minOccurs="0" name="numeroComprobanteSerie" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="numeroDocumentoCorrelativo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="numeroDoducmentoSerie" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="numeroLote" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="porcentajePercepcion" type="xs:decimal" />
+      <xs:element minOccurs="0" name="tipoDocumento" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ComprobantePercepcion" nillable="true" type="tns:ComprobantePercepcion" />
+  <xs:complexType name="ArrayOfEscalaDescuentos">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="EscalaDescuentos" nillable="true" type="tns:EscalaDescuentos" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfEscalaDescuentos" nillable="true" type="tns:ArrayOfEscalaDescuentos" />
+  <xs:complexType name="EscalaDescuentos">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Monto_Hasta" type="xs:decimal" />
+      <xs:element minOccurs="0" name="Por_Descuento" type="xs:decimal" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="EscalaDescuentos" nillable="true" type="tns:EscalaDescuentos" />
+  <xs:complexType name="ArrayOfConfiguracionProgramaNuevas">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="ConfiguracionProgramaNuevas" nillable="true" type="tns:ConfiguracionProgramaNuevas" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfConfiguracionProgramaNuevas" nillable="true" type="tns:ArrayOfConfiguracionProgramaNuevas" />
+  <xs:complexType name="ConfiguracionProgramaNuevas">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="cam_fin" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="cam_inic" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="cod_prog" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="cupon_kit" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="cuv_kit" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ind_exig_vent" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ind_prog_obli" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ConfiguracionProgramaNuevas" nillable="true" type="tns:ConfiguracionProgramaNuevas" />
+</xs:schema>

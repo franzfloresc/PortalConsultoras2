@@ -42,6 +42,9 @@ namespace Portal.Consultoras.Entities
 		[DataMember]
         public int Orden { get; set; }
 
+        [DataMember]
+        public int TipoOperacion { get; set; }
+
         public BEEstadoCuenta()
         { }
 
