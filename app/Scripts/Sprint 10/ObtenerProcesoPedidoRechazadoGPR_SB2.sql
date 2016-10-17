@@ -42,7 +42,7 @@ BEGIN
 	,r.IdPedidoRechazado
 	,r.Campania
 	,r.CodigoConsultora
-	,r.MotivoRechazo
+	,r.CodigoRechazoSomosBelcorp as MotivoRechazo
 	,r.Valor
 	,r.Procesado
 	,r.Rechazado
