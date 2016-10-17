@@ -1335,6 +1335,8 @@ namespace Portal.Consultoras.Web.Controllers
                     foreach (var beProducto in listaProduto)
                         codigoSap += beProducto.CodigoProducto + "|";
 
+                    codigoSap = codigoSap == "" ? "" : codigoSap.Substring(0, codigoSap.Length - 1);
+
                     try
                     {
                         using (var sv = new ServicePROLConsultas.wsConsulta())
@@ -4021,6 +4023,8 @@ namespace Portal.Consultoras.Web.Controllers
                 string codigoSap = "";
                 foreach (var beEstrategia in listaTemporal)
                     codigoSap += beEstrategia.CodigoProducto + "|";
+
+                codigoSap = codigoSap == "" ? "" : codigoSap.Substring(0, codigoSap.Length - 1);
 
                 var listaTieneStock = new List<Lista>();
 
