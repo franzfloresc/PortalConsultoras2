@@ -584,7 +584,8 @@ function BuscarByCUV(CUV) {
         AbrirSplash();
         jQuery.ajax({
             type: 'POST',
-            url: baseUrl + 'Pedido/FindByCUV',
+            //url: baseUrl + 'Pedido/FindByCUV',
+            url: baseUrl + 'PedidoFIC/FindByCUV',
             dataType: 'json',
             contentType: 'application/json; charset=utf-8',
             data: JSON.stringify(item),
