@@ -3659,12 +3659,16 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
                 var mensaje = "";
-                var noPasa = ReservadoEnHorarioRestringido(out mensaje);
-                if (noPasa)
+                if (!(oBEPedidoWebDetalle.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.DesktopPedidoOfertaFinal
+                    || oBEPedidoWebDetalle.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.MobilePedidoOfertaFinal))
                 {
-                    ErrorServer = true;
-                    tipo = mensaje ?? " ";// No puede Ingresar
-                    return olstTempListado;
+                    var noPasa = ReservadoEnHorarioRestringido(out mensaje);
+                    if (noPasa)
+                    {
+                        ErrorServer = true;
+                        tipo = mensaje ?? " ";// No puede Ingresar
+                        return olstTempListado;
+                    }
                 }
 
                 var pedidoWebDetalleNula = Session["PedidoWebDetalle"] == null;
