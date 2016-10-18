@@ -346,9 +346,9 @@ function ObtenerOfertaRevista(item) {
             if (response.data.dataPROL != undefined && response.data.dataPROL != null) {
                 switch (settings.tipo_oferta) {
                     case '003':
-                        settings.precio_catalogo = DecimalToStringFormat(settings.precio_catalogo);
-                        settings.precio_revista = DecimalToStringFormat(settings.precio_revista);
-                        settings.ganancia = DecimalToStringFormat(settings.ganancia);
+                        //settings.precio_catalogo = DecimalToStringFormat(settings.precio_catalogo);
+                        //settings.precio_revista = DecimalToStringFormat(settings.precio_revista);
+                        //settings.ganancia = DecimalToStringFormat(settings.ganancia);
                         SetHandlebars("#template-mod-ofer1", settings, '[data-oferta]');
                         $('[data-oferta]').addClass('mod-ofer1').show();
                         break;
