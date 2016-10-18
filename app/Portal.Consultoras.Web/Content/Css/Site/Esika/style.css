@@ -3490,14 +3490,17 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
 }
 
 .producto_nombre_descripcion .nombre_producto, .producto_nombre_descripcion .producto_gramos_onzas{
-    padding: 0px;
+    padding: 0;
     font-size: 13px;
     margin: 0 auto;
     width: 100%;
-    /*height: auto;*/
     max-width: 177px;
     overflow: hidden;
-    max-height: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    flex-direction: column;
 }
 
 .producto_precio{
@@ -27429,7 +27432,8 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
     width: 100%;
     text-decoration: none;
     position: absolute;
-    top: 247px;
+    /*top: 247px;*/
+    top:279px;
 }
 
 .enlace_popupCatalogoPersonalizado:hover{
@@ -30656,4 +30660,18 @@ h1#penmostreo .campana {
         
         
     }
+}
+
+#divCatalogoPersonalizado .nombre_producto {
+    padding: 0;
+    font-size: 13px;
+    margin: 0 auto;
+    width: 100%;
+    max-width: 177px;
+    overflow: hidden;
+    height:76px;
+    display:flex;
+    justify-content: center;
+    align-content: center;
+    flex-direction: column;
 }
