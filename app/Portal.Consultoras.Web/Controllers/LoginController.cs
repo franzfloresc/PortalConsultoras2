@@ -32,7 +32,6 @@ namespace Portal.Consultoras.Web.Controllers
         public ActionResult Index()
         {
             return Login();
-
             //return View(new LoginModel() { listaPaises = DropDowListPaises() });
         }
 
@@ -321,7 +320,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                     #region Obtener Respuesta del SSiCC
 
-                    model.MotivoRechazo = "A partir de mañana podrás ingresar tu pedido de C" + CalcularCampaniaSiguiente(oBEUsuario.CampaniaID.ToString(), oBEUsuario.NroCampanias).Substring(4, 2);
+                    model.MotivoRechazo = "A partir de mañana podrás ingresar tu pedido de C" + CalcularNroCampaniaSiguiente(oBEUsuario.CampaniaID.ToString(), oBEUsuario.NroCampanias);
                     if (oBEUsuario.IndicadorEnviado == 1 && oBEUsuario.IndicadorRechazado == 1)
                     {
                         var procesoRechazado = new BEProcesoPedidoRechazado();
@@ -784,13 +783,16 @@ namespace Portal.Consultoras.Web.Controllers
             catch { }
         }
 
-        private string CalcularCampaniaSiguiente(string CampaniaActual, int nroCampanias)
+        private string CalcularNroCampaniaSiguiente(string CampaniaActual, int nroCampanias)
         {
+            CampaniaActual = CampaniaActual ?? "";
+            CampaniaActual = CampaniaActual.Trim();
+            if (CampaniaActual.Length < 6)
+                return "";            
+
             var campAct = CampaniaActual.Substring(4, 2);
-            if (campAct == nroCampanias.ToString())
-                return (Convert.ToInt32(CampaniaActual.Substring(0, 4)) + 1).ToString() + "01";
-            else
-                return CampaniaActual.Substring(0, 4) + (Convert.ToInt32(campAct) + 1).ToString().PadLeft(2, '0');
+            if (campAct == nroCampanias.ToString()) return "01";
+            return (Convert.ToInt32(campAct) + 1).ToString().PadLeft(2, '0');
         }
     }
 }
