@@ -21,6 +21,7 @@ using Portal.Consultoras.Web.ServiceSAC;
 using System.Text.RegularExpressions;
 using Portal.Consultoras.Web.ServiceLMS;
 using System.Data;
+using Portal.Consultoras.Web.ServicePedido;
 
 namespace Portal.Consultoras.Web.Controllers
 {
