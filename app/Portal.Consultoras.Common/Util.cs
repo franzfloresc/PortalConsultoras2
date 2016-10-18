@@ -1339,7 +1339,7 @@ namespace Portal.Consultoras.Common
                                                 prop.SetValue(entity, changed, null);
                                             }
                                         }
-                                        list.Add(entity);
+                                            list.Add(entity);
                                         //firstCellValue = Convert.ToString(reader["ZONA"]);
                                     }
                                 }
@@ -1357,9 +1357,9 @@ namespace Portal.Consultoras.Common
             }
             return list;
         }
-
         /// <summary>
-        /// Metodo que exporta una lista a documento Excel.
+        /// Metodo que exporta una
+        ///  lista a documento Excel.
         /// </summary>
         /// <typeparam name="V">Tipo de entidad</typeparam>
         /// <param name="filename">nombre del archivo sin la extension</param>
