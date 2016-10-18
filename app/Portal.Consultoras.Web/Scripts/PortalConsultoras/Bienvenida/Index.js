@@ -735,7 +735,7 @@ function CargarPopupsConsultora() {
             $("#popupActualizarMisDatosMexico").show();
             contadorFondoPopUp++;
         } else {
-            if (viewBagPrimeraVez == "0" && viewBagPrimeraVezSession == "0") {
+            if (viewBagPrimeraVez == "0" || viewBagPrimeraVezSession == "0") {
                 if (viewBagPaisID == 11) { //Peru
                     $('#tituloActualizarDatos').html('<b>ACTUALIZACIÓN Y AUTORIZACIÓN</b> DE USO DE DATOS PERSONALES');
                 } else {
