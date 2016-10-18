@@ -1,4 +1,19 @@
 
+--sinonimo
+go
+
+IF EXISTS ( SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[ods].[ConfiguracionProgramaNuevasUA]') AND (type = N'SN') )
+	DROP SYNONYM [ods].[ConfiguracionProgramaNuevasUA]
+GO
+
+declare @PrefijoPais varchar(2), @cadenaSYNONYMConfiguracionProgramaNuevasUA varchar(1000)
+select @PrefijoPais = PrefijoPais from pais where EstadoActivo = 1
+set @cadenaSYNONYMConfiguracionProgramaNuevasUA = 'CREATE SYNONYM ods.ConfiguracionProgramaNuevasUA FOR ODS_'+@PrefijoPais+'.dbo.ConfiguracionProgramaNuevasUA'
+exec (@cadenaSYNONYMConfiguracionProgramaNuevasUA)
+
+--CREATE SYNONYM [ods].[ConfiguracionProgramaNuevasUA] FOR [ODS_PE].[dbo].[ConfiguracionProgramaNuevasUA]
+GO
+
 go
 
 IF EXISTS(
@@ -38,6 +53,8 @@ BEGIN
 	if @ExisteRegistro > 0
 	begin
 			set @add = 0
+			set @CodigoRegionx = ''
+			set @CodigoZonax = ''
 
 			select @CodigoRegionx = isnull(CodigoRegion, '')
 				, @CodigoZonax = isnull(CodigoZona, '')
@@ -53,6 +70,8 @@ BEGIN
 				if @CodigoZonax != ''
 				begin
 					set @add = 0
+					set @CodigoRegionx = ''
+					set @CodigoZonax = ''
 			
 					select @CodigoRegionx = isnull(CodigoRegion, '')
 						, @CodigoZonax = isnull(CodigoZona, '')
@@ -85,6 +104,5 @@ BEGIN
 	end
 
 END
-
 
 go

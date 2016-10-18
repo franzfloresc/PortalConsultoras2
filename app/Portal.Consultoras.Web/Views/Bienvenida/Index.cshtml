@@ -1812,7 +1812,7 @@
                 <h6></h6>
                 <span>{{Descripcion}}</span>
                 <span>{{Simbolo}} {{precio_revista}}</span>
-                <span>Gana: {{Simbolo}} {{ganancia}}</span>
+                <span>{{TxtGanancia}}: {{Simbolo}} {{ganancia}}</span>
                 <hr class="clear">
                 <div class="clear"></div>
             </div>
@@ -1893,15 +1893,15 @@
             <div class="item1_oferta_personalizada">
                 <div class="content_precio_set">
                     <div class="compra_set">COMPRA 1X<br />{{Simbolo}} {{precio_revista}}</div>
-                    <div class="gananecia_set">GANANCIA: {{Simbolo}} {{ganancia}}</div>
+                    <div class="gananecia_set">{{TxtGanancia}}: {{Simbolo}} {{ganancia}}</div>
                 </div>
             </div>
             {{#each lista_ObjNivel as |nivel|}}
             <div class="item1_oferta_personalizada">
                 <div class="content_precio_set">
                     <div class="compra_set">COMPRA {{nivel.escala_nivel}}X<br />{{../Simbolo}} {{nivel.precio_nivel}}</div>
-                    <div class="gananecia_set">GANANCIA: {{../Simbolo}} {{nivel.ganancia_nivel}} </div>
-                    <div class="gratis_set">RECIBE GRATIS:</div>
+                    <div class="gananecia_set">{{../TxtGanancia}}: {{../Simbolo}} {{nivel.ganancia_nivel}} </div>
+                    <div class="gratis_set">{{../TxtRecibeGratis}}:</div>
                 </div>
                 <div class="content_sub_items">
                     {{#each ../lista_oObjGratis as |item|}}
@@ -1992,7 +1992,7 @@
                 </div>
                 <div class="titulo_pack">{{Descripcion}}</div>
                 <div class="texto_unidad_pack">Precio por unidad {{Simbolo}} {{precio_revista}}</div>
-                <div class="texto_ganancia_pack">GANANCIA: {{Simbolo}} {{ganancia}}</div>
+                <div class="texto_ganancia_pack">{{TxtGanancia}}: {{Simbolo}} {{ganancia}}</div>
             </div>
             <div style="width:215px; margin:0 auto; margin-top:10px;">
                 <div class="liquidacion_rango_home js-no-popup">
@@ -2014,7 +2014,7 @@
                 <div class="fondo_negro_pack">PACK {{#if_eq pack.EsUltimo "1"}}MÁXIMA {{/if_eq}}GANANCIA</div>
                 <div class="pack_inter">
                     <div class="titulo_pack" style="height:auto">{{../Simbolo}} {{pack.valorizado}}</div>
-                    <div class="texto_ganancia_pack">GANANCIA: {{../Simbolo}} {{pack.ganancia_pack}}</div>
+                    <div class="texto_ganancia_pack">{{../TxtGanancia}}: {{../Simbolo}} {{pack.ganancia_pack}}</div>
                     <div class="content_sub_items">
                         {{#each ../lista_oObjItemPack as |item|}}
                         {{#if_eq pack.cuv_pack item.cuv_pack_item}}

@@ -21,7 +21,7 @@
             <div class="terminos_content_2">
                 <div class="border-wrapper">
                     <div class="terminos">
-                        <span>Sírvase leer cuidadosamente estos términos, políticas y condiciones de uso antes de usar este sitio electrónico. La página Web My-Ebel.com (en adelante la “página Web”) es administrada y es propiedad de <b>Grupo Transbel C.A.</b> y sólo puede ser accedida por Consultoras de Belleza.</span>
+                        <span>Sírvase leer cuidadosamente estos términos, políticas y condiciones de uso antes de usar este sitio electrónico. La página Web Somosbelcorp.com (en adelante la “página Web”) es administrada y es propiedad de <b>Grupo Transbel C.A.</b> y sólo puede ser accedida por Consultoras de Belleza.</span>
                         <p>
                             El acceso a la página Web, significa que usted acepta que su ingreso y uso están sujetos a los términos, políticas y condiciones aquí descritos, y a la normatividad nacional y supranacional aplicable. A través de su ingreso a la página Web, usted acepta los presentes términos, políticas y condiciones de uso y las consecuencias que éstos pudiesen implicar. Estos términos, políticas y condiciones de uso podrán variar en cualquier momento, actualizándose dichos cambios periódicamente en la presente página de "Términos, Políticas y Condiciones de Uso" de la página Web.
                         </p>

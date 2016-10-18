@@ -3444,13 +3444,17 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
 }
 
 .producto_nombre_descripcion .nombre_producto, .producto_nombre_descripcion .producto_gramos_onzas{
-    padding:0px;
-    font-size:13px;
+    padding: 0;
+    font-size: 13px;
     margin: 0 auto;
-    width:100%;
+    width: 100%;
     max-width: 177px;
-    max-height: 40px;
     overflow: hidden;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    flex-direction: column;
 }
 
 .producto_precio{
@@ -27400,7 +27404,8 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
     width: 100%;
     text-decoration: none;
     position: absolute;
-    top: 247px;
+    /*top: 247px;*/
+    top:279px;
 }
 
 .enlace_popupCatalogoPersonalizado:hover{
@@ -30509,14 +30514,29 @@ h1#penmostreo .campana {
 
 /* MENSAJES PEDIDO RECHAZADO */
 
+#divCatalogoPersonalizado .nombre_producto {
+    padding: 0;
+    font-size: 13px;
+    margin: 0 auto;
+    width: 100%;
+    max-width: 177px;
+    overflow: hidden;
+    height:76px;
+    display:flex;
+    justify-content: center;
+    align-content: center;
+    flex-direction: column;
+}
+
 .bloque_mensajesPedido{
-    background: #a18328;
+    background: #82c7bf;
     width:100%;
-    height: 56px;
+    height: 64px;
     display: none;
-    padding: 9px 84px;
+    padding: 11px 84px;
     text-align:center;
     position:relative;
+    z-index: 5;
 }
 
 .icono_cerrar_mensaje{
@@ -30550,10 +30570,11 @@ h1#penmostreo .campana {
 }
 
 .icono_estadoPedido{
-    width:32px;
-    height:32px;
+    width:44px;
+    height:46px;
     margin-right:16.8px;
     padding-top:1px;
+    margin-top: -3px;
 }
 
 .icono_estadoPedido img{
@@ -30564,7 +30585,7 @@ h1#penmostreo .campana {
 .mensajes_estadoPedido {
     color: #FFF;
     font-family: 'Lato';
-    line-height:19px;
+    line-height:21px;
 }
 
 .mensaje_estadoActualPedido, .mensaje_horarioIngresoPedido{
@@ -30573,12 +30594,13 @@ h1#penmostreo .campana {
 }
 
 .mensaje_estadoActualPedido{
-    font-size:15px;
+    font-size:20px;
     font-weight:700;
+    letter-spacing:0.5px;
 }
 
 .mensaje_horarioIngresoPedido{
-    font-size:12px;
+    font-size:12.5px;
     font-weight:normal;
 }
 
@@ -30593,3 +30615,43 @@ h1#penmostreo .campana {
 }
 
 /* FIN MENSAJES PEDIDO RECHAZADO */
+
+.oscurecer_animacion{
+    position:fixed;
+    z-index:1;
+    width:100%;
+    height:100%;
+    -webkit-animation: opacidad-gestion-pedido 1500ms linear 0ms 1 normal;
+    -moz-animation: opacidad-gestion-pedido 1500ms linear 0ms 1 normal;
+    -ms-animation: opacidad-gestion-pedido 1500ms linear 0ms 1 normal;
+    animation: opacidad-gestion-pedido 1500ms linear 0ms 1 normal;
+   
+}
+/*.oscurecer_animacion::after{
+    content:"";
+    position:fixed;
+    width:100%;
+    height:100%;
+    z-index:1;
+    left:0;
+    -webkit-animation: opacidad-gestion-pedido 1500ms linear 0ms 1 normal;
+    -moz-animation: opacidad-gestion-pedido 1500ms linear 0ms 1 normal;
+    -ms-animation: opacidad-gestion-pedido 1500ms linear 0ms 1 normal;
+    animation: opacidad-gestion-pedido 1500ms linear 0ms 1 normal;
+}
+ */
+@keyframes opacidad-gestion-pedido {
+    0% {
+        background:rgba(0,0,0,0.8);
+        
+    }
+    45% {
+        background:rgba(0,0,0,0.8);
+        
+    }
+    100% {
+        background:rgba(0,0,0,0.0);
+        
+        
+    }
+}

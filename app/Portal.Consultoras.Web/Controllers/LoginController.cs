@@ -32,7 +32,6 @@ namespace Portal.Consultoras.Web.Controllers
         public ActionResult Index()
         {
             return Login();
-
             //return View(new LoginModel() { listaPaises = DropDowListPaises() });
         }
 
@@ -320,7 +319,8 @@ namespace Portal.Consultoras.Web.Controllers
                     model = new UsuarioModel();
 
                     #region Obtener Respuesta del SSiCC
-                    model.MotivoRechazo = "Si quieres ingresar pedido, lo puedes hacer desde mañana a las 7 a.m.";
+
+                    model.MotivoRechazo = "A partir de mañana podrás ingresar tu pedido de C" + CalcularNroCampaniaSiguiente(oBEUsuario.CampaniaID.ToString(), oBEUsuario.NroCampanias);
                     if (oBEUsuario.IndicadorEnviado == 1 && oBEUsuario.IndicadorRechazado == 1)
                     {
                         var procesoRechazado = new BEProcesoPedidoRechazado();
@@ -359,7 +359,7 @@ namespace Portal.Consultoras.Web.Controllers
                                     if (listaMotivox.Any())
                                     {
                                         valorx = valor + listaMotivox[0].Valor;
-                                        model.MotivoRechazo = "Tiene una deuda de " + valorx + " que debes regularizar. <a href='javascript:;' onclick=RedirectMenu('Index','MisPagos',0,'') >MIRA LOS LUGARES DE PAGO</a>";
+                                        model.MotivoRechazo = "Tienes una deuda de " + valorx + " que debes regularizar. <a href='javascript:;' onclick=RedirectMenu('Index','MisPagos',0,'') >MIRA LOS LUGARES DE PAGO</a>";
                                     }
                                     
                                     listaMotivox = listaRechazo.Where(p => p.MotivoRechazo == "minimo").ToList();
@@ -367,14 +367,14 @@ namespace Portal.Consultoras.Web.Controllers
                                     {
                                         if (model.MotivoRechazo != "")
                                         {
-                                            model.MotivoRechazo = "Te falta cancelar una deuda de " + valorx;
+                                            model.MotivoRechazo = "Tienes una deuda pendiente de " + valorx;
                                             valorx = valor + listaMotivox[0].Valor;
-                                            model.MotivoRechazo += ". Además debes llegar al monto mínimo de " + valorx + ". <a href='javascript:;' onclick=RedirectMenu('Index','Pedido',0,'Pedido') >MODIFICA TU PEDIDO</a>";
+                                            model.MotivoRechazo += ". Además, para pasar pedido debes alcanzar el monto mínimo de " + valorx + ". <a href='javascript:;' onclick=RedirectMenu('Index','Pedido',0,'Pedido') >MODIFICA TU PEDIDO</a>";
 	                                    }
                                         else
                                         {
                                             valorx = valor + listaMotivox[0].Valor;
-                                            model.MotivoRechazo = "No llegaste al monto mínimo de " + valorx + ". <a href='javascript:;' onclick=RedirectMenu('Index','Pedido',0,'Pedido') >MODIFICA TU PEDIDO</a>";
+                                            model.MotivoRechazo = "No llegaste al mínimo de " + valorx + ". <a href='javascript:;' onclick=RedirectMenu('Index','Pedido',0,'Pedido') >MODIFICA TU PEDIDO</a>";
                                         }
                                     }
                                     else
@@ -384,9 +384,9 @@ namespace Portal.Consultoras.Web.Controllers
                                         {
                                             if (model.MotivoRechazo != "")
                                             {
-                                                model.MotivoRechazo = "Te falta cancelar una deuda de " + valorx;
+                                                model.MotivoRechazo = "Tienes una deuda pendiente de " + valorx;
                                                 valorx = valor + listaMotivox[0].Valor;
-                                                model.MotivoRechazo += ". Además superaste tu línea de crédito de " + valorx + ". <a href='javascript:;' onclick=RedirectMenu('Index','Pedido',0,'Pedido') >MODIFICA TU PEDIDO</a>";
+                                                model.MotivoRechazo += ". Además, superaste tu línea de crédito de " + valorx + ". <a href='javascript:;' onclick=RedirectMenu('Index','Pedido',0,'Pedido') >MODIFICA TU PEDIDO</a>";
                                             }
                                             else
                                             {
@@ -400,7 +400,8 @@ namespace Portal.Consultoras.Web.Controllers
                                     listaMotivox = listaRechazo.Where(p => p.MotivoRechazo == "minstock").ToList();
                                     if (listaMotivox.Any())
                                     {
-                                        model.MotivoRechazo = "No contamos con stock en algunos productos. <a href='javascript:;' onclick=RedirectMenu('Index','Pedido',0,'Pedido') >MODIFICA TU PEDIDO</a>";
+                                        valorx = valor + listaMotivox[0].Valor;
+                                        model.MotivoRechazo = "No llegaste al mínimo de " + valorx + ". <a href='javascript:;' onclick=RedirectMenu('Index','Pedido',0,'Pedido') >MODIFICA TU PEDIDO</a>";
                                     }
                                 }
                                 
@@ -780,6 +781,18 @@ namespace Portal.Consultoras.Web.Controllers
                 }
             }
             catch { }
-        }        
+        }
+
+        private string CalcularNroCampaniaSiguiente(string CampaniaActual, int nroCampanias)
+        {
+            CampaniaActual = CampaniaActual ?? "";
+            CampaniaActual = CampaniaActual.Trim();
+            if (CampaniaActual.Length < 6)
+                return "";            
+
+            var campAct = CampaniaActual.Substring(4, 2);
+            if (campAct == nroCampanias.ToString()) return "01";
+            return (Convert.ToInt32(campAct) + 1).ToString().PadLeft(2, '0');
+        }
     }
 }
