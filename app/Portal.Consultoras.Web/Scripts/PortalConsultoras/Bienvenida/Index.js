@@ -1722,7 +1722,7 @@ function CargarBanners() {
 
                         switch (dataResult.data[count].GrupoBannerID) {
                             case 150: // Seccion Principal SB2.0
-                                var iniHtmlLink = ((dataResult.data[count].URL.length > 0 && dataResult.data[count].TipoAccion == 0) || dataResult.data[count].TipoAccion == 1 || dataResult.data[count].TipoAccion == 2) ? "<a id='bannerMicroefecto" + dataResult.data[count].BannerID + "' href='javascript:void();' onclick=\"return EnlaceBanner('" + dataResult.data[count].URL + "','" + dataResult.data[count].Titulo + "','" + dataResult.data[count].TipoAccion + "','" + dataResult.data[count].CuvPedido + "','" + dataResult.data[count].CantCuvPedido + "','" + dataResult.data[count].BannerID + "','" + Posicion + "','" + dataResult.data[count].Titulo + "', this);\" rel='marquesina' >" : "";
+                                var iniHtmlLink = ((dataResult.data[count].URL.length > 0 && dataResult.data[count].TipoAccion == 0) || dataResult.data[count].TipoAccion == 1 || dataResult.data[count].TipoAccion == 2) ? "<a id='bannerMicroefecto" + dataResult.data[count].BannerID + "' href='javascript:;' onclick=\"return EnlaceBanner('" + dataResult.data[count].URL + "','" + dataResult.data[count].Titulo + "','" + dataResult.data[count].TipoAccion + "','" + dataResult.data[count].CuvPedido + "','" + dataResult.data[count].CantCuvPedido + "','" + dataResult.data[count].BannerID + "','" + Posicion + "','" + dataResult.data[count].Titulo + "', this);\" rel='marquesina' >" : "";
                                 var finHtmlLink = ((dataResult.data[count].URL.length > 0 && dataResult.data[count].TipoAccion == 0) || dataResult.data[count].TipoAccion == 1 || dataResult.data[count].TipoAccion == 2) ? '</a>' : '';
 
                                 $('.flexslider ul.slides').append('<li><div><div>' + iniHtmlLink + '<img class="imagen_producto" src="' + fileName + '"data-object-fit="none">' + finHtmlLink + '</div></div></li>');
@@ -1821,11 +1821,10 @@ function EnlaceBanner(URL, TrackText, TipoAccion, CUVpedido, CantCUVpedido, Id, 
     if (TipoAccion == 1) {
         if (ReservadoOEnHorarioRestringido())
             return false;
-        else
-            var objBannerCarrito = $("#" + $(link).attr("id"));
-            agregarProductoAlCarrito(objBannerCarrito);
-            InsertarPedidoCuvBanner(CUVpedido, CantCUVpedido);
-
+        
+        var objBannerCarrito = $("#" + $(link).attr("id"));
+        agregarProductoAlCarrito(objBannerCarrito);
+        InsertarPedidoCuvBanner(CUVpedido, CantCUVpedido);
         SetGoogleAnalyticsPromotionClick(Id, Posicion, Titulo);
 
         return false;
@@ -1855,8 +1854,8 @@ function InsertarPedidoCuvBanner(CUVpedido, CantCUVpedido) {
 
             if (result.success != true) {
                 if (result.message == "")
-                    result.message = 'Error al realizar proceso, intentelo mas tarde.';
-                alert_unidadesAgregadas('Error al realizar proceso, inténtelo más tarde.', 2);
+                    result.message = 'Error al realizar proceso, inténtelo más tarde.';
+                alert_unidadesAgregadas(result.message, 2);
                 closeWaitingDialog();
                 return false;
             }
