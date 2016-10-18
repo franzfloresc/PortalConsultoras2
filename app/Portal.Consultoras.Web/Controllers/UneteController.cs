@@ -124,12 +124,11 @@ namespace Portal.Consultoras.Web.Controllers
                     cell = new string[]
                     {
                         i.Descripcion.ToString(),
-                        i.Totales.ToString(),
                         i.MovilSE.ToString(),
                         i.PortalGZ.ToString(),
                         i.UB.ToString(),
-                        i.ACC.ToString()
-                        
+                        i.ACC.ToString(),
+                        i.Totales.ToString()
                     }
                 })
             };
@@ -469,7 +468,7 @@ namespace Portal.Consultoras.Web.Controllers
                                     : CodigoISO == Pais.Peru
                                         ? direccion[0] + " " + direccion[1] + " " + direccion[2]
                                         : CodigoISO == Pais.Ecuador
-                                            ? direccion[0] + " " + direccion[1] + " " + direccion[2]
+                                            ?  direccion[1]// + " " + direccion[2]
                                             : solicitudPostulante.Direccion;
 
                     model.Direccion = solicitudPostulante.Direccion;
@@ -485,7 +484,10 @@ namespace Portal.Consultoras.Web.Controllers
                                 direccion = model.DireccionCadena,
                                 pais = CodigoISO,
                                 ciudad = CodigoISO == Pais.Peru ? solicitudPostulante.LugarHijo : solicitudPostulante.LugarPadre,
-                                area = CodigoISO == Pais.Peru ? direccion[0] : solicitudPostulante.LugarHijo,
+                                area = CodigoISO == Pais.Peru ? direccion[0] 
+                                               : CodigoISO == Pais.Ecuador
+                                               ? direccion[0]
+                                                    :  solicitudPostulante.LugarHijo,
                                 aplicacion = 1
                             }, "ObtenerPuntosPorDireccion");
 
@@ -1632,7 +1634,10 @@ namespace Portal.Consultoras.Web.Controllers
                             direccion = direccion,
                             pais = CodigoISO,
                             ciudad = CodigoISO == Pais.Peru ? model.NombreLugarNivel2 : model.NombreLugarNivel1,
-                            area = CodigoISO == Pais.Peru ? model.NombreLugarNivel3 : model.NombreLugarNivel2,
+                            area = CodigoISO == Pais.Peru ? model.NombreLugarNivel3 
+                                        : CodigoISO == Pais.Ecuador
+                                        ? model.LugarNivel3
+                                            :model.NombreLugarNivel2,
                             aplicacion = 1
                         }, "ObtenerPuntosPorDireccion");
 
@@ -2487,6 +2492,27 @@ namespace Portal.Consultoras.Web.Controllers
                 listaReporteConsolidado = sv.ObtenerReporteConsolidado(objReporteConsolidadoParameter);
             }
             return listaReporteConsolidado;
+        }
+
+        public ActionResult ExportarExcelReporteConsolidado(string PrefijoISOPais, string FechaDesde, string FechaHasta)
+        {
+            var resultado = ObtenerReporteConsolidadoFiltro(new ReporteConsolidadoModel
+            {
+                CodigoIso = PrefijoISOPais,
+                FechaDesde = FechaDesde,
+                FechaHasta = FechaHasta
+
+            });
+
+            Dictionary<string,string> dic = new Dictionary<string, string>();
+            dic.Add("Descripción", "Descripcion");
+            dic.Add("MovilSE", "MovilSE");
+            dic.Add("PortalGZ", "PortalGZ");
+            dic.Add("UB", "UB");
+            dic.Add("ACC", "ACC");
+            dic.Add("Totales", "Totales");
+            Util.ExportToExcel("ReporteConsolidado", resultado, dic);
+            return null;
         }
     }
 }
