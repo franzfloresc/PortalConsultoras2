@@ -140,7 +140,7 @@
     });
     
     Scrolling();
-    MostrarShowRoomBannerLateral();
+    MostrarShowRoomBannerLateral();        
 });
 
 function alert_msg(message, titulo) {
