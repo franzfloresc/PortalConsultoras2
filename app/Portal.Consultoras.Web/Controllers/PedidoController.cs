@@ -3228,6 +3228,17 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
+                var mensaje = "";
+                if (EstaProcesoFacturacion(out mensaje))
+                {
+                    return Json(new
+                    {
+                        success = false,
+                        message = mensaje,
+                        extra = ""
+                    }, JsonRequestBehavior.AllowGet);
+                }
+
                 bool valida = false;
 
                 if (!userData.NuevoPROL && !userData.ZonaNuevoPROL && Tipo == "PV")

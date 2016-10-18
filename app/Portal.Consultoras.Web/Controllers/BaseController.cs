@@ -272,12 +272,10 @@ namespace Portal.Consultoras.Web.Controllers
         protected bool ReservadoEnHorarioRestringido(out string mensaje)
         {
             mensaje = "";
-            if (userData.IndicadorEnviado == 1 && userData.EstaRechazado == 0)
-            {
-                mensaje = "En este momento nos encontramos facturando tu pedido de C" + userData.CampaniaID.ToString().Substring(4, 2) + ", inténtalo más tarde";
+            var esta = EstaProcesoFacturacion(out mensaje);
+            if (esta)
                 return true;
-            }
-
+            
             var result = ValidarSession();
             if (result != null) return true;
 
@@ -286,6 +284,17 @@ namespace Portal.Consultoras.Web.Controllers
             if (!estado)
                 estado = ValidarHorarioRestringido(out mensaje);
             return estado;
+        }
+
+        protected bool EstaProcesoFacturacion(out string mensaje)
+        {
+            mensaje = "";
+            if (userData.IndicadorEnviado == 1 && userData.EstaRechazado == 0)
+            {
+                mensaje = "En este momento nos encontramos facturando tu pedido de C" + userData.CampaniaID.ToString().Substring(4, 2) + ", inténtalo más tarde";
+                return true;
+            }
+            return false;
         }
 
         protected ActionResult ValidarSession()
