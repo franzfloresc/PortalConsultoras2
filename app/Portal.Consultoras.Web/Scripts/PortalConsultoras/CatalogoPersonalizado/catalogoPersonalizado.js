@@ -366,12 +366,20 @@ function ObtenerOfertaRevista(item) {
                             settings.lista_oObjGratis = RemoverRepetidos(settings.lista_oObjGratis);
                             settings.lista_ObjNivel.splice(3, settings.lista_ObjNivel.length);
                             SetHandlebars("#template-mod-ofer2", settings, '[data-oferta]');
+                            var cantNo = 0;
                             $.each($('[data-oferta] .item1_oferta_personalizada'), function (ind, nivel) {
                                 if ($.trim($(nivel).find(".content_sub_items").html()) == "") {
                                     $(nivel).find(".gratis_set").html("");
+                                    $(nivel).find(".content_sub_items").remove("");
+                                    cantNo++;
                                 }
                             });
                             $('[data-oferta]').addClass('mod-ofer2').show();
+                            if (cantNo == $('[data-oferta] .item1_oferta_personalizada').length) {
+                                $('[data-oferta] .item1_oferta_personalizada .content_sub_items').remove();
+                                var marginP = $("[data-oferta] [data-oferta-popup]").height() / 2;
+                                $("[data-oferta] [data-oferta-popup]").css('margin', '-' + marginP + 'px auto auto auto');
+                            }
                         }
                         break;
                 }
