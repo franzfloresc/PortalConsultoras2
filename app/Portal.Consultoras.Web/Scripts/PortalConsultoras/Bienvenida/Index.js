@@ -735,7 +735,7 @@ function CargarPopupsConsultora() {
             $("#popupActualizarMisDatosMexico").show();
             contadorFondoPopUp++;
         } else {
-            if (viewBagPrimeraVez == "0" || viewBagPrimeraVezSession == "0") {
+            if (viewBagPrimeraVez == "0" && viewBagPrimeraVezSession == "0") {
                 if (viewBagPaisID == 11) { //Peru
                     $('#tituloActualizarDatos').html('<b>ACTUALIZACIÓN Y AUTORIZACIÓN</b> DE USO DE DATOS PERSONALES');
                 } else {
@@ -2304,7 +2304,7 @@ function GetCursoMarquesina(id) {
 
 // Métodos ActualizarDatos
 function ActualizarDatos() {
-    var Result = false;
+    var result = false;
     var ClaveSecreta = $('#txtActualizarClaveSecreta').val();
     var ConfirmarClaveSecreta = $('#txtConfirmarClaveSecreta').val();
     var telefono = $('#txtTelefono').val();
@@ -2374,7 +2374,7 @@ function ActualizarDatos() {
         success: function (data) {
             if (checkTimeout(data)) {
                 closeWaitingDialog();
-                Result = data.success;
+                result = data.success;
 
                 if (data.message && data.message != "" && data.message != null) {
                     var mensajeHtml = "";
@@ -2387,7 +2387,7 @@ function ActualizarDatos() {
                         $("#fondoComunPopUp").hide();
                     }
                     contadorFondoPopUp--;
-                    alert_unidadesAgregadas(mensajeHtml, 1);
+                    alert_unidadesAgregadas(mensajeHtml, result ? 1 : 0);
                 }
                 if (data.success) {
                     dataLayer.push({
@@ -2401,7 +2401,7 @@ function ActualizarDatos() {
         },
         error: function (data, error) {
             if (checkTimeout(data)) {
-                Result = false;
+                result = false;
                 closeWaitingDialog();
                 if (data.message && data.message != "" && data.message != null) {
                     var aMensaje = data.message.split("-");
@@ -2416,7 +2416,7 @@ function ActualizarDatos() {
         }
     });
 
-    return Result;
+    return result;
 };
 function DownloadAttachPDFTerminos() {
     var iframe_ = document.createElement("iframe");
