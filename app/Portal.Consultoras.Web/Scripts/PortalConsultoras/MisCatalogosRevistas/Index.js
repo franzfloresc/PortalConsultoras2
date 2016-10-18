@@ -176,7 +176,7 @@ function CargarCarruselCatalogo() {
 
     $("#divCatalogo").html("");
 
-    var objCheckCata = $("#divCheckbox > div")[0];
+    var objCheckCata = $($("#divCheckbox > div")[0]).clone();
     $("#divCheckbox").html("");
 
     for (var i = 0; i < totalItem; i++) {
