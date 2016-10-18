@@ -50,9 +50,9 @@ function MostrarPopupOfertaFinal(cumpleOferta, tipoPopupMostrar) {
     
     CargandoValoresPopupOfertaFinal(tipoPopupMostrar, cumpleOferta.montoFaltante, cumpleOferta.porcentajeDescuento);
     
-    var contenedorMostrarInicial = $(".content_item_carrusel_ofertaFinal.slick-active")[0];
-    var cuvMostrado = $(contenedorMostrarInicial).find(".hdOfertaFinalCuv").val();
-    AgregarOfertaFinalLog(cuvMostrado, 0, tipoOfertaFinal_Log, gap_Log, 2);
+    //var contenedorMostrarInicial = $(".content_item_carrusel_ofertaFinal.slick-active")[0];
+    //var cuvMostrado = $(contenedorMostrarInicial).find(".hdOfertaFinalCuv").val();
+    AgregarOfertaFinalLog("", 0, tipoOfertaFinal_Log, gap_Log, 2);
 }
 
 function CargandoValoresPopupOfertaFinal(tipoPopupMostrar, montoFaltante, porcentajeDescuento) {
@@ -103,7 +103,7 @@ function CumpleOfertaFinalMostrar(monto, tipoPopupMostrar, codigoMensajeProl, li
 }
 
 function CumpleOfertaFinal(monto, tipoPopupMostrar, codigoMensajeProl, listaObservacionesProl) {
-    var resultado = false;
+
     var productosMostrar = new Array();
     var montoFaltante = 0;
     var porcentajeDescuento = 0;
@@ -112,17 +112,14 @@ function CumpleOfertaFinal(monto, tipoPopupMostrar, codigoMensajeProl, listaObse
     var esOfertaFinalZonaValida = $("#hdEsOfertaFinalZonaValida").val();
     var esFacturacion = $("#hdEsFacturacion").val();
 
-    if (tipoOfertaFinal == "1" || tipoOfertaFinal == "2")
-        resultado = true;
+    var resultado = tipoOfertaFinal == "1" || tipoOfertaFinal == "2";
 
     if (resultado) {
-        if (esFacturacion == "True" && esOfertaFinalZonaValida == "True")
-            resultado = true;
-        else
-            resultado = false;
+        resultado = esFacturacion == "True" && esOfertaFinalZonaValida == "True";
     }
 
     if (resultado) {
+        resultado = false;
         var cumpleParametria = CumpleParametriaOfertaFinal(monto, tipoPopupMostrar, codigoMensajeProl, listaObservacionesProl);
         if (cumpleParametria.resultado) {
             montoFaltante = cumpleParametria.montoFaltante;
@@ -137,24 +134,15 @@ function CumpleOfertaFinal(monto, tipoPopupMostrar, codigoMensajeProl, listaObse
                     if (value.PrecioCatalogo >= montoFaltante && value.PrecioCatalogo > cumpleParametria.precioMinimoOfertaFinal) {
                         productosMostrar.push(value);
                         contador++;
-                        //return false;
 
                         if (contador >= limite)
                             return false;
                     }
                 });
 
-                if (productosMostrar.length == 0) {
-                    resultado = false;
-                } else {
-                    resultado = true;
-                }
-            } else {
-                resultado = false;
+                resultado = productosMostrar.length > 0;               
             }
         }
-        else
-            resultado = false;
     }
 
     return {
@@ -183,7 +171,7 @@ function CumpleParametriaOfertaFinal(monto, tipoPopupMostrar, codigoMensajeProl,
                     if (value.MontoHasta >= monto) {
                         escalaDescuento = value;
 
-                        if (index <= listaEscalaDescuento.length - 1) {
+                        if (index < listaEscalaDescuento.length - 1) {
                             escalaDescuentoSiguiente = listaEscalaDescuento[index + 1];
                         } else {
                             escalaDescuentoSiguiente = null;
@@ -193,9 +181,7 @@ function CumpleParametriaOfertaFinal(monto, tipoPopupMostrar, codigoMensajeProl,
                     }
                 });
 
-                if (escalaDescuento == null) {
-                    resultado = false;
-                } else {
+                if (!(escalaDescuento == null || escalaDescuentoSiguiente == null)) {
                     
                     escalaDescuento.MontoHasta = Math.ceil(escalaDescuento.MontoHasta);
 
@@ -210,11 +196,7 @@ function CumpleParametriaOfertaFinal(monto, tipoPopupMostrar, codigoMensajeProl,
                             tipoOfertaFinal_Log = "E" + escalaDescuentoSiguiente.PorDescuento;
                             gap_Log = montoFaltante;
                             resultado = true;
-                        } else {
-                            resultado = false;
                         }
-                    } else {
-                        resultado = false;
                     }
                 }
             }
@@ -244,21 +226,10 @@ function CumpleParametriaOfertaFinal(monto, tipoPopupMostrar, codigoMensajeProl,
                                 gap_Log = montoFaltante;                                
 
                                 resultado = true;
-                            } else {
-                                resultado = false;
                             }
-                        } else {
-                            resultado = false;
                         }
-                    } else {
-                        resultado = false;
                     }
-                } else {
-                    resultado = false;
                 }
-            }
-            else {
-                resultado = false;
             }
         }
     }

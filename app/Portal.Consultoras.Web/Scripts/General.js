@@ -677,32 +677,34 @@ function MensajeEstadoPedido() {
         $("#bloquemensajesPedido").find(".mensaje_estadoActualPedido").html("TU PEDIDO HA SIDO RECHAZADO");
     }
     else if (estaRechazado == '0') {
-        $("#bloquemensajesPedido").find(".mensaje_estadoActualPedido").html("NOS ENCONTRAMOS FACTURANDO TU PEDIDO");
+        $("#bloquemensajesPedido").find(".mensaje_estadoActualPedido").html("NOS ENCONTRAMOS FACTURANDO TU PEDIDO C" + $.trim($("#hdCampaniaCodigo").val()).substring(4, 6));
     }
     xMensajeEstadoPedido(true);
+    MostrarMensajePedidoRechazado();
+
+    
     return true;    
 }
 
 function xMensajeEstadoPedido(estado) {
-    //mostrarMensajeEstadoPedido = function () {
-    //    var topx = $("header").height() + 22;
-    //    $(".ubicacion_web").animate({ "margin-top": topx + "px" });
-    //}
     var url = location.href.toLowerCase();
     var identi = url.indexOf("/mobile/") > 0;
     if (estado) {
         $("#bloquemensajesPedido").slideDown("slow", function () { });
+        ResizeMensajeEstadoPedido();
+        var wtop = $("#bloquemensajesPedido").height();
         if (identi) {
-            $("[data-content]").animate({ "top": "77px" });
-            $(".footer-page").animate({ "top": "77px" });
+            $("[data-content]").animate({ "top": wtop + "px" });
+            $(".footer-page").animate({ "top": wtop + "px" });
         }
         else {
             identi = url.indexOf("/bienvenida") > 0;
             if (identi) {
-                $("[data-content]").animate({ "top": "56px" });
+                $("[data-content]").animate({ "top": wtop + "px" });
             }
             else {
-                $(".ubicacion_web").animate({ "margin-top": "139px" });
+                wtop = $("header").height();
+                $(".ubicacion_web").animate({ "margin-top": (wtop + 22) + "px" });
             }
         }    
     }
@@ -725,6 +727,31 @@ function xMensajeEstadoPedido(estado) {
 
 }
 
+function ResizeMensajeEstadoPedido() {
+    $("#bloquemensajesPedido").css("height", "");
+    $("#bloquemensajesPedido > div").css("height", "");
+    $("#bloquemensajesPedido .mensajes_estadoPedido").css("width", "");
+
+    var wt = $(window).width() - ($("#bloquemensajesPedido .icono_cerrar_mensaje").width() + $("#bloquemensajesPedido .icono_estadoPedido").width());
+    var pad = parseInt($.trim($("#bloquemensajesPedido .bloque_mensajesPedido").css("padding-left")).replace("px", "")) + parseInt($.trim($("#bloquemensajesPedido .bloque_mensajesPedido").css("padding-right")).replace("px", ""));
+    wt = wt - pad;
+    var wtx = $("#bloquemensajesPedido .mensajes_estadoPedido").width();
+    if (wtx > wt) {
+        $("#bloquemensajesPedido .mensajes_estadoPedido").css("width", (wt - 13) + "px");
+    }
+
+    var ht = $("#bloquemensajesPedido").height() - 22;
+    var htx = $("#bloquemensajesPedido .mensajes_estadoPedido").height();
+    if (htx > ht) {
+        $("#bloquemensajesPedido").css("height", (htx + 22) + "px");
+        $("#bloquemensajesPedido > div").css("height", (htx + 22) + "px");
+    }
+    else {
+        $("#bloquemensajesPedido").css("height", (ht + 22) + "px");
+        $("#bloquemensajesPedido > div").css("height", (ht + 22) + "px");
+    }
+}
+
 function cerrarMensajeEstadoPedido() {
     $.ajax({
         type: 'Post',
@@ -741,6 +768,17 @@ function cerrarMensajeEstadoPedido() {
             cerrarRechazado = '0';
         }
     });
+}
+
+function MostrarMensajePedidoRechazado() {
+    if (location.pathname.toLowerCase().indexOf("/bienvenida") >= 0) {
+        setTimeout(function () {
+            $(".oscurecer_animacion").remove();
+        }, 1500);
+    }
+    else {
+        $(".oscurecer_animacion").remove();
+    }
 }
 
 // FIN Pedido Rechazado

@@ -429,7 +429,7 @@ h4.re3 {
     color: #fff;
     position: fixed;
     width: 100%;
-    padding: 9px 0 11px;
+    /*padding: 9px 0 11px;*/
     background:white;
     box-shadow: 0 4px 4px 0 rgba(126, 126, 126, 0.5) !important;
     -webkit-box-shadow: 0 4px 4px 0 rgba(126, 126, 126, 0.5) !important;
@@ -8167,20 +8167,21 @@ a{
 /* MENSAJES PEDIDO RECHAZADO */
 
 .bloque_mensajesPedido{
-    background: #a18328;
+    background: #82c7bf;
     width: 100%;
     height: 77px;
-    display: none;
+   
     padding: 11px 11px;
     text-align: left;
     position: relative;
-    top: -9px;
+    top: -5px;
+    z-index:5;
 }
 
 .icono_cerrar_mensaje{
     display: block;
     position: absolute;
-    top: 6px;
+    top: 10px;
     right: 10px;
     width: 15px;
 }
@@ -8755,4 +8756,44 @@ span.icon-advertencia{
 	border-width: 12px;
 	margin-left: -12px;
     z-index: 20;
+}
+
+.oscurecer_animacion{
+    position:fixed;
+    z-index:1;
+    width:100%;
+    height:100%;
+    -webkit-animation: opacidad-gestion-pedido 1500ms linear 0ms 1 normal;
+    -moz-animation: opacidad-gestion-pedido 1500ms linear 0ms 1 normal;
+    -ms-animation: opacidad-gestion-pedido 1500ms linear 0ms 1 normal;
+    animation: opacidad-gestion-pedido 1500ms linear 0ms 1 normal;
+   
+}
+/*.oscurecer_animacion::after{
+    content:"";
+    position:fixed;
+    width:100%;
+    height:100%;
+    z-index:1;
+    left:0;
+    -webkit-animation: opacidad-gestion-pedido 1500ms linear 0ms 1 normal;
+    -moz-animation: opacidad-gestion-pedido 1500ms linear 0ms 1 normal;
+    -ms-animation: opacidad-gestion-pedido 1500ms linear 0ms 1 normal;
+    animation: opacidad-gestion-pedido 1500ms linear 0ms 1 normal;
+}
+ */
+@keyframes opacidad-gestion-pedido {
+    0% {
+        background:rgba(0,0,0,0.8);
+        
+    }
+    45% {
+        background:rgba(0,0,0,0.8);
+        
+    }
+    100% {
+        background:rgba(0,0,0,0.0);
+        
+        
+    }
 }
