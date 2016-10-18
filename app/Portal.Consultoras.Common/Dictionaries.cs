@@ -376,7 +376,7 @@ namespace Portal.Consultoras.Common
             { "CO", "Cédula"},
             { "CR", "DNI/RUC" },
             { "DO", "" },
-            { "EC", "Cédula" },
+            { "EC", "DNI" },
             { "GT", "DNI/RUC" },
             { "MX", "IFE" },
             { "PA", "DNI/RUC" },
@@ -386,6 +386,39 @@ namespace Portal.Consultoras.Common
             { "VE", "" }
         };
 
+        public static Dictionary<string, string> CabeceraComprobanteDomicilio = new Dictionary<string, string>
+        {
+            { "BO", "" },
+            { "CL", "Comprobante Domicilio" },
+            { "CO", "Comprobante Domicilio"},
+            { "CR", "Comprobante Domicilio" },
+            { "DO", "" },
+            { "EC", "Recibo de Pago" },
+            { "GT", "Comprobante Domicilio" },
+            { "MX", "Comprobante Domicilio" },
+            { "PA", "Comprobante Domicilio" },
+            { "PE", "Comprobante Domicilio" },
+            { "PR", "Comprobante Domicilio" },
+            { "SV", "Comprobante Domicilio" },
+            { "VE", "" }
+        };
+
+        public static Dictionary<string, string> CabeceraDniAval = new Dictionary<string, string>
+        {
+            { "BO", "" },
+            { "CL", "DNI Aval" },
+            { "CO", "DNI Aval"},
+            { "CR", "DNI Aval" },
+            { "DO", "" },
+            { "EC", "DNI Reverso" },
+            { "GT", "DNI Aval" },
+            { "MX", "DNI Aval" },
+            { "PA", "DNI Aval" },
+            { "PE", "DNI Aval" },
+            { "PR", "DNI Aval" },
+            { "SV", "DNI Aval" },
+            { "VE", "" }
+        };
         public static Dictionary<string, string> TemplateUbigeos = new Dictionary<string, string>
         {
             { "BO", "" },
