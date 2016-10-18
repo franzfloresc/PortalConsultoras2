@@ -210,6 +210,10 @@ jQuery(document).ready(function () {
             Handlebars.registerHelper('UpperCase', function (context) {
                 return context.toUpperCase();
             });
+
+            Handlebars.registerHelper('DecimalToStringFormat', function (context) {
+                return DecimalToStringFormat(context);
+            });
         }
     }
 
