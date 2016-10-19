@@ -2305,7 +2305,7 @@ function GetCursoMarquesina(id) {
 
 // Métodos ActualizarDatos
 function ActualizarDatos() {
-    var Result = false;
+    var result = false;
     var ClaveSecreta = $('#txtActualizarClaveSecreta').val();
     var ConfirmarClaveSecreta = $('#txtConfirmarClaveSecreta').val();
     var telefono = $('#txtTelefono').val();
@@ -2375,7 +2375,7 @@ function ActualizarDatos() {
         success: function (data) {
             if (checkTimeout(data)) {
                 closeWaitingDialog();
-                Result = data.success;
+                result = data.success;
 
                 if (data.message && data.message != "" && data.message != null) {
                     var mensajeHtml = "";
@@ -2388,7 +2388,7 @@ function ActualizarDatos() {
                         $("#fondoComunPopUp").hide();
                     }
                     contadorFondoPopUp--;
-                    alert_unidadesAgregadas(mensajeHtml, 1);
+                    alert_unidadesAgregadas(mensajeHtml, result ? 1 : 0);
                 }
                 if (data.success) {
                     dataLayer.push({
@@ -2402,7 +2402,7 @@ function ActualizarDatos() {
         },
         error: function (data, error) {
             if (checkTimeout(data)) {
-                Result = false;
+                result = false;
                 closeWaitingDialog();
                 if (data.message && data.message != "" && data.message != null) {
                     var aMensaje = data.message.split("-");
@@ -2417,7 +2417,7 @@ function ActualizarDatos() {
         }
     });
 
-    return Result;
+    return result;
 };
 function DownloadAttachPDFTerminos() {
     var iframe_ = document.createElement("iframe");
@@ -2495,9 +2495,14 @@ function ActualizarDatosMexico() {
     var m_nombre = $('#m_txtNombre').val();
     var m_apellidos = $('#m_txtApellidos').val();
     var m_telefonoCasa = '';
+    var m_telefonoTrabajo = '';
     var m_telefonoCelular = '';
+
     if ($('#m_txtTelefonoCasa').val() != '' && $('#m_txtTelefonoCasa').val() != $('#m_txtTelefonoCasa').attr('placeholder')) {
         m_telefonoCasa = $('#m_txtTelefonoCasa').val();
+    }
+    if ($('#m_txtTelefonoTrabajo').val() != '' && $('#m_txtTelefonoTrabajo').val() != null && $('#m_txtTelefonoTrabajo').val() != $('#m_txtTelefonoTrabajo').attr('placeholder')) {
+        m_telefonoTrabajo = $('#m_txtTelefonoTrabajo').val();
     }
     if ($('#m_txtTelefonoCelular').val() != '' && $('#m_txtTelefonoCelular').val() != $('#m_txtTelefonoCelular').attr('placeholder')) {
         m_telefonoCelular = $('#m_txtTelefonoCelular').val();
@@ -2513,22 +2518,12 @@ function ActualizarDatosMexico() {
         if ($(elem).val() == '' || typeof ($(elem).val()) == 'undefined') {
             $(elem).css({ 'border': '1px solid red' });
             m_error++;
-            if (elem.id == 'm_txtNombre') {
-                m_mensaje += '* Debe ingresar su nombre<br />';
-            }
-            if (elem.id == 'm_txtApellidos') {
-                m_mensaje += '* Debe ingresar su apellido<br />';
-            }
-            if (elem.id == 'm_txtTelefonoCasa') {
-                m_mensaje += '* Debe ingresar teléfono de casa<br />';
-            }
-            if (elem.id == 'm_txtTelefonoCelular') {
-                m_mensaje += '* Debe ingresar teléfono celular<br />';
-            }
-            if (elem.id == 'm_txtEMail') {
-                m_mensaje += '* Debe ingresar correo electrónico<br />';
-            }
 
+            if (elem.id == 'm_txtNombre') m_mensaje += '* Debe ingresar su nombre<br />';
+            if (elem.id == 'm_txtApellidos') m_mensaje += '* Debe ingresar su apellido<br />';
+            if (elem.id == 'm_txtTelefonoCasa') m_mensaje += '* Debe ingresar teléfono de casa<br />';
+            if (elem.id == 'm_txtTelefonoCelular') m_mensaje += '* Debe ingresar teléfono celular<br />';
+            if (elem.id == 'm_txtEMail') m_mensaje += '* Debe ingresar correo electrónico<br />';
         } else {
             if (elem.id == 'm_txtTelefonoCasa') {
                 $(elem).css({ 'border': '1px solid red' });
@@ -2566,9 +2561,17 @@ function ActualizarDatosMexico() {
         }
     });
 
-    if (m_error > 0) {
-        m_mensaje += '</font><br />';
+    $('#m_txtTelefonoTrabajo').css({ 'border': '' });
+    if (m_telefonoTrabajo != '')
+    {
+        if (m_telefonoTrabajo.length != 10) {
+            m_error++;
+            $('#m_txtTelefonoTrabajo').css({ 'border': '1px solid red' });
+            m_mensaje += '* Debe digitar 10 dígitos en el campo teléfono de trabajo<br />';
+        }
     }
+
+    if (m_error > 0) m_mensaje += '</font><br />';
 
     if (m_email != '') {
         var emailReg = /^[-a-z0-9~!$%^&*_=+}{\'?]+(\.[-a-z0-9~!$%^&*_=+}{\'?]+)*@([a-z0-9_][-a-z0-9_]*(\.[-a-z0-9_]+)*\.(aero|arpa|biz|com|coop|edu|gov|info|int|mil|museum|name|net|org|pro|travel|mobi|[a-z][a-z])|([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}))(:[0-9]{1,5})?$/i;
@@ -2589,11 +2592,15 @@ function ActualizarDatosMexico() {
         $('#aviso').html('');
 
         var item = {
-            m_Nombre: m_nombre, m_Apellidos: m_apellidos, Telefono: m_telefonoCasa, Celular: m_telefonoCelular, Email: m_email
+            m_Nombre: m_nombre,
+            m_Apellidos: m_apellidos,
+            Telefono: m_telefonoCasa,
+            TelefonoTrabajo: m_telefonoTrabajo,
+            Celular: m_telefonoCelular,
+            Email: m_email
         };
 
         waitingDialog({});
-
         jQuery.ajax({
             type: 'POST',
             url: baseUrl + 'ActualizarDatos/RegistrarMexico',

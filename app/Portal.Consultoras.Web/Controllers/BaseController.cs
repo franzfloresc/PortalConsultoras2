@@ -274,7 +274,7 @@ namespace Portal.Consultoras.Web.Controllers
             mensaje = "";
             if (userData.IndicadorEnviado == 1 && userData.EstaRechazado == 0)
             {
-                mensaje = "NOS ENCONTRAMOS FACTURANDO TU PEDIDO. En este momento no puedes realizar ninguna modificación.";
+                mensaje = "En este momento nos encontramos facturando tu pedido de C" + userData.CampaniaID.ToString().Substring(4, 2) + ", inténtalo más tarde";
                 return true;
             }
 
@@ -421,8 +421,10 @@ namespace Portal.Consultoras.Web.Controllers
                         lst = sv.GetPermisosByRol(PaisID, RolID).ToList();
                     }
 
+                    string mostrarPedidosPendientes = ConfigurationManager.AppSettings.Get("MostrarPedidosPendientes");
                     string strpaises = ConfigurationManager.AppSettings.Get("Permisos_CCC");
-                    if (!strpaises.Contains(userData.CodigoISO)) lst.Remove(lst.FirstOrDefault(p => p.UrlItem.ToLower() == "consultoraonline/index"));
+                    bool mostrarClienteOnline = (mostrarPedidosPendientes == "1" && strpaises.Contains(userData.CodigoISO));
+                    if (!mostrarClienteOnline) lst.Remove(lst.FirstOrDefault(p => p.UrlItem.ToLower() == "consultoraonline/index"));
                     if (userData.IndicadorPermisoFIC == 0) lst.Remove(lst.FirstOrDefault(p => p.UrlItem.ToLower() == "pedidofic/index"));
 
                     List<PermisoModel> lstModel = new List<PermisoModel>();

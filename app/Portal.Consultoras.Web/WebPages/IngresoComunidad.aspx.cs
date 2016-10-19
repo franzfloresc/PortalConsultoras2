@@ -179,7 +179,8 @@ namespace Portal.Consultoras.Web.WebPages
                     sb.Append("</tr></tbody></table></td></tr>");
                     sb.Append("</tbody></table></td></tr></table></td></tr></table>");
 
-                    Util.EnviarMail("comunidadsomosbelcorp@belcorp.biz", datos["Correo"].ToString(), "Bienvenida a la Comunidad SomosBelcorp", sb.ToString(), true, "Comunidad SomosBelcorp");
+                    //Util.EnviarMail("comunidadsomosbelcorp@belcorp.biz", datos["Correo"].ToString(), "Bienvenida a la Comunidad SomosBelcorp", sb.ToString(), true, "Comunidad SomosBelcorp");
+                    Util.EnviarMail("comunidadsomosbelcorp@somosbelcorp.com", datos["Correo"].ToString(), "Bienvenida a la Comunidad SomosBelcorp", sb.ToString(), true, "Comunidad SomosBelcorp");
 
                     using (ComunidadServiceClient sv = new ComunidadServiceClient())
                     {

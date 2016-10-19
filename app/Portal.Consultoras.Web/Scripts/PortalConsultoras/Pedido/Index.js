@@ -800,7 +800,7 @@ function InsertarProducto(form) {
                     }
                 });
             } else {
-                alert(response.message);
+                alert_msg(response.message);
             }
 
             PedidoOnSuccess();
