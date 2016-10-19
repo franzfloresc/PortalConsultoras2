@@ -284,12 +284,23 @@ namespace Portal.Consultoras.Web.Controllers
                             userData.RegionID, userData.ZonaID, userData.CodigorRegion, userData.CodigoZona, 1, 1).FirstOrDefault();
                 }
 
+                var txtGanancia = userData.CodigoISO == Constantes.CodigosISOPais.Peru ? "Gana" :
+                    userData.CodigoISO == Constantes.CodigosISOPais.Chile ? "Gana" :
+                    "Ganancia";
+                var txtRecibeGratis = userData.CodigoISO == Constantes.CodigosISOPais.Peru ? "BONIFICACIÓN" :
+                    userData.CodigoISO == Constantes.CodigosISOPais.Chile ? "INCLUYE" :
+                    "RECIBE GRATIS";
                 return Json(new
                 {
                     success = true,
                     message = "",
-                    data = new { dataPROL = dataPROL,
-                                 producto = producto }
+                    data = new
+                    {
+                        dataPROL = dataPROL,
+                        producto = producto,
+                        txtGanancia,
+                        txtRecibeGratis
+                    }
                 });
             }
             catch(Exception ex)

@@ -428,7 +428,7 @@ h4.re3 {
     color: #fff;
     position: fixed;
     width: 100%;
-    padding: 9px 0 11px;
+    /*padding: 9px 0 11px;*/
     background: white;
     box-shadow: 0 4px 4px 0 rgba(126, 126, 126, 0.5) !important;
     -webkit-box-shadow: 0 4px 4px 0 rgba(126, 126, 126, 0.5) !important;
@@ -2386,7 +2386,7 @@ h4.re3 {
     right: 0;
     bottom: 0;
     left: 0;
-    background: rgba(164, 181, 196, 0.6);
+    background: rgba(240, 240, 240, 0.3);
     z-index: 99999;
     display: none;
 }
@@ -4692,8 +4692,8 @@ table > thead > tr > th {
     background: #f5f5f5;
     width: 100%;
     padding-bottom: 10px;
-    padding-left: 34px;
-    padding-right: 34px;
+    padding-left: 14px;
+    padding-right: 14px;
     font-family: 'lato';
     font-size: 12px;
     line-height: 15px;
@@ -4744,7 +4744,7 @@ table > thead > tr > th {
 .btn_seguirp_mobile.ver_video_introductorio {
     margin-top: 15px;
     margin-bottom: 5px;
-    width:114px;
+    width: 114px;
 }
 
 .linea_separadora_mobile {
@@ -6390,6 +6390,7 @@ body {
     background: black;
     text-align: center;
     margin-top: 30px;
+    cursor:pointer;
 }
 
 .content_revistas_mobile {
@@ -8453,20 +8454,21 @@ span.title-app-b {
 /* MENSAJES PEDIDO RECHAZADO */
 
 .bloque_mensajesPedido{
-    background: #a18328;
+    background: #82c7bf;
     width: 100%;
     height: 77px;
-    display: none;
+    /*display: none;*/
     padding: 11px 11px;
     text-align: left;
     position: relative;
-    top: -9px;
+    top: -5px;
+    z-index:5;
 }
 
 .icono_cerrar_mensaje{
     display: block;
     position: absolute;
-    top: 6px;
+    top: 10px;
     right: 10px;
     width: 15px;
 }
@@ -9485,4 +9487,44 @@ a{
 	border-width: 12px;
 	margin-left: -12px;
     z-index: 20;
+}
+
+.oscurecer_animacion{
+    position:fixed;
+    z-index:1;
+    width:100%;
+    height:100%;
+    -webkit-animation: opacidad-gestion-pedido 1500ms linear 0ms 1 normal;
+    -moz-animation: opacidad-gestion-pedido 1500ms linear 0ms 1 normal;
+    -ms-animation: opacidad-gestion-pedido 1500ms linear 0ms 1 normal;
+    animation: opacidad-gestion-pedido 1500ms linear 0ms 1 normal;
+   
+}
+/*.oscurecer_animacion::after{
+    content:"";
+    position:fixed;
+    width:100%;
+    height:100%;
+    z-index:1;
+    left:0;
+    -webkit-animation: opacidad-gestion-pedido 1500ms linear 0ms 1 normal;
+    -moz-animation: opacidad-gestion-pedido 1500ms linear 0ms 1 normal;
+    -ms-animation: opacidad-gestion-pedido 1500ms linear 0ms 1 normal;
+    animation: opacidad-gestion-pedido 1500ms linear 0ms 1 normal;
+}
+ */
+@keyframes opacidad-gestion-pedido {
+    0% {
+        background:rgba(0,0,0,0.8);
+        
+    }
+    45% {
+        background:rgba(0,0,0,0.8);
+        
+    }
+    100% {
+        background:rgba(0,0,0,0.0);
+        
+        
+    }
 }

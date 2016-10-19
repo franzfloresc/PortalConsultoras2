@@ -100,6 +100,8 @@
             var url_ = ObtenerByIdurl;
             var parametros = { codigoConsultora: iditem };
 
+            $('#btnguardar').prop('disabled', true);
+
             $.getJSON(url_,
                  parametros,
                  function (resultado) {
@@ -115,7 +117,9 @@
                          $('#chkparticipa')[0].checked = false;
                          $('#txtcodigoconsultoraedit').val("");
                          $('#txtcodigoconsultoraedit').focus();
+                         $('#btnguardar').prop('disabled', false);
                          return false;
+
                      }
                      else {
 
@@ -172,13 +176,14 @@
 
                          }
                          $('#divzona').removeClass('hide');
-
+                         $('#btnguardar').prop('disabled', false);
                      }
 
 
                  }).fail(function (jqxhr, textStatus, error) {
                      var err = textStatus + ", " + error;
                      alert("Request Failed: " + err);
+                     $('#btnguardar').prop('disabled', false);
                  });
 
         });

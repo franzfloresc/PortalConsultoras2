@@ -6,14 +6,15 @@
     <a href="@Request.UrlReferrer" class="enlace_regresar catalogosR" title="Regresar"></a>
     PEDIDO FACTURADO
 </div>
+
 @if (Model.ListaPedidoCliente.Count == 0)
 {
     <div class="">
         <div class="pestana_esika"></div><!--PESTANA ESIKA-->
         <div class="pestana_lbel"></div><!--PESTANA LBEL-->
-        <div class="alert-top-icon text-success">
-            <i class="icon-exclamation-circle"></i>
-            <div>Hasta el momento no tienes ningún pedido facturado.</div>
+        <div class="col-xs-12">
+            <div class="icono_alerta exclamacion_icono_mobile"></div>
+            <div class="mensaje_alerta">Hasta el momento no tienes ningún pedido facturado.</div>
         </div>
     </div>
 }

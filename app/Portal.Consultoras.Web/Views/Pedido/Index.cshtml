@@ -1934,7 +1934,9 @@
                     <b>{{Descripcion}}</b>
                 </p>
                 <div class="producto_precio">
-                    @*<span class="producto_precio_normal">{{Simbolo}} {{PrecioValorizadoString}}</span>*@
+                    {{#iff PrecioValorizadoString '!=' ''}}
+                    <span class="producto_precio_normal">{{Simbolo}} {{PrecioValorizadoString}}</span>
+                    {{/iff}}
                     <span class="producto_precio_oferta"><b>{{Simbolo}} {{PrecioCatalogoString}}</b></span>
                 </div>
                 <div class="liquidacion_rango_home">
