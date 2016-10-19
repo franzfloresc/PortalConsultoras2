@@ -359,6 +359,9 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         private int TerritorioIDField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int TieneHanaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int TipoOferta2Field;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -1886,6 +1889,19 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
                 if ((this.TerritorioIDField.Equals(value) != true)) {
                     this.TerritorioIDField = value;
                     this.RaisePropertyChanged("TerritorioID");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int TieneHana {
+            get {
+                return this.TieneHanaField;
+            }
+            set {
+                if ((this.TieneHanaField.Equals(value) != true)) {
+                    this.TieneHanaField = value;
+                    this.RaisePropertyChanged("TieneHana");
                 }
             }
         }

@@ -590,6 +590,7 @@ namespace Portal.Consultoras.Web.Controllers
                     model.CatalogoPersonalizado = oBEUsuario.CatalogoPersonalizado;
                     model.EsCatalogoPersonalizadoZonaValida = oBEUsuario.EsCatalogoPersonalizadoZonaValida;
                     model.VioTutorialSalvavidas = oBEUsuario.VioTutorialSalvavidas;
+                    model.TieneHana = oBEUsuario.TieneHana;
                 }
 
                 pasoLog = "Agregar usuario en session";

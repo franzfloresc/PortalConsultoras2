@@ -982,6 +982,7 @@
       <xs:element minOccurs="0" name="Movimiento" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Orden" type="xs:int" />
       <xs:element minOccurs="0" name="Pedido" type="xs:decimal" />
+      <xs:element minOccurs="0" name="TipoOperacion" type="xs:int" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="BEEstadoCuenta" nillable="true" type="tns:BEEstadoCuenta" />

@@ -139,31 +139,16 @@ namespace Portal.Consultoras.Web.Controllers
                                     "<th bgcolor='666666' width='100px' align='center'><font color='#FFFFFF'>Abonos</th>" +
                                 "</tr>";
 
-                if (userData.PaisID == 4) // validación para colombia req. 1478
+                for (int i = 0; i < lst.Count - 1; i++)
                 {
+                    cadena = cadena + "<tr>" +
+                                        "<td align='center'>" + lst[i].Fecha.ToString("dd/MM/yyyy") + "</td>" +
+                                        "<td align='left'>" + lst[i].Glosa + "</td>" +
+                                        "<td align='right'>" + Util.DecimalToStringFormat(lst[i].Cargo, userData.CodigoISO) + "</td>" +
+                                        "<td align='right'>" + Util.DecimalToStringFormat(lst[i].Abono, userData.CodigoISO) + "</td>" +
+                                      "</tr>";
+                }
 
-                    for (int i = 0; i < lst.Count - 1; i++)
-                    {
-                        cadena = cadena + "<tr>" +
-                                            "<td align='center'>" + lst[i].Fecha.ToString("dd/MM/yyyy") + "</td>" +
-                                            "<td align='left'>" + lst[i].Glosa + "</td>" +
-                                            "<td align='right'>" + string.Format("{0:#,##0}", lst[i].Cargo).Replace(',', '.') + "</td>" +
-                                            "<td align='right'>" + string.Format("{0:#,##0}", lst[i].Abono).Replace(',', '.') + "</td>" +
-                                          "</tr>";
-                    }
-                }
-                else
-                {
-                    for (int i = 0; i < lst.Count - 1; i++)
-                    {
-                        cadena = cadena + "<tr>" +
-                                            "<td align='center'>" + lst[i].Fecha.ToString("dd/MM/yyyy") + "</td>" +
-                                            "<td align='left'>" + lst[i].Glosa + "</td>" +
-                                            "<td align='right'>" + lst[i].Cargo.ToString("0.00") + "</td>" +
-                                            "<td align='right'>" + lst[i].Abono.ToString("0.00") + "</td>" +
-                                          "</tr>";
-                    }
-                }
                 //R2524 - JICM - Eliminando FEcha Vencimiento,Por ahora Si no existen movimientos no se mostrará 0 en la etiqueta
                 //Total a pagar si no que mostrará el valor del Monto Total a Pagar.
                 if (lst.Count > 0)
@@ -710,47 +695,7 @@ namespace Portal.Consultoras.Web.Controllers
             };
 
             return lugaresPagoModel;
-        }
-
-        private List<EstadoCuentaModel> ObtenerEstadoCuenta()
-        {
-            List<EstadoCuentaModel> lst = new List<EstadoCuentaModel>();
-
-            if (Session["ListadoEstadoCuenta"] == null)
-            {
-                List<BEEstadoCuenta> EstadoCuenta = new List<BEEstadoCuenta>();
-                try
-                {
-                    using (SACServiceClient client = new SACServiceClient())
-                    {
-                        EstadoCuenta = client.GetEstadoCuentaConsultora(userData.PaisID, userData.UsuarioPrueba == 1 ? userData.ConsultoraAsociada : userData.CodigoConsultora).ToList();
-                    }
-                }
-                catch (Exception ex)
-                {
-                    LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                }
-
-                foreach (var ec in EstadoCuenta)
-                {
-                    lst.Add(new EstadoCuentaModel
-                    {
-                        Fecha = ec.FechaRegistro,
-                        Glosa = ec.DescripcionOperacion,
-                        Cargo = ec.Cargo,
-                        Abono = ec.Abono
-                    });
-                }
-
-                Session["ListadoEstadoCuenta"] = lst;
-            }
-            else
-            {
-                lst = Session["ListadoEstadoCuenta"] as List<EstadoCuentaModel>;
-            }
-
-            return lst;
-        }
+        }        
 
         private void ExportToExcelEstadoCuenta(string filename, List<EstadoCuentaModel> SourceDetails, List<KeyValuePair<int, string>> columnHeaderDefinition,
            Dictionary<string, string> columnDetailDefinition, string[] arrTotal, decimal cargoTotal, decimal abonoTotal)

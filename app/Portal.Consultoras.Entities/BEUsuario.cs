@@ -333,7 +333,9 @@ namespace Portal.Consultoras.Entities
             if (DataRecord.HasColumn(row, "EsCatalogoPersonalizadoZonaValida") && row["EsCatalogoPersonalizadoZonaValida"] != DBNull.Value)
                 EsCatalogoPersonalizadoZonaValida = Convert.ToBoolean(row["EsCatalogoPersonalizadoZonaValida"]);
             if (DataRecord.HasColumn(row, "VioTutorialSalvavidas") && row["VioTutorialSalvavidas"] != DBNull.Value)
-                VioTutorialSalvavidas = Convert.ToInt32(row["VioTutorialSalvavidas"]);            
+                VioTutorialSalvavidas = Convert.ToInt32(row["VioTutorialSalvavidas"]);
+            if (DataRecord.HasColumn(row, "TieneHana") && row["TieneHana"] != DBNull.Value)
+                TieneHana = Convert.ToInt32(row["TieneHana"]);
 
             if (DataRecord.HasColumn(row, "IndicadorEnviado") && row["IndicadorEnviado"] != DBNull.Value)
                 IndicadorEnviado = Convert.ToInt32(row["IndicadorEnviado"]);
@@ -905,6 +907,9 @@ namespace Portal.Consultoras.Entities
 
         [DataMember]
         public int VioTutorialSalvavidas { get; set; }
+
+        [DataMember]
+        public int TieneHana { get; set; }
 
         public BEUsuario(IDataRecord row, string Lider)
         {

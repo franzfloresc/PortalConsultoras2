@@ -9070,6 +9070,9 @@ namespace Portal.Consultoras.Web.ServiceSAC {
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private decimal PedidoField;
         
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int TipoOperacionField;
+        
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
             get {
@@ -9206,6 +9209,19 @@ namespace Portal.Consultoras.Web.ServiceSAC {
                 if ((this.PedidoField.Equals(value) != true)) {
                     this.PedidoField = value;
                     this.RaisePropertyChanged("Pedido");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int TipoOperacion {
+            get {
+                return this.TipoOperacionField;
+            }
+            set {
+                if ((this.TipoOperacionField.Equals(value) != true)) {
+                    this.TipoOperacionField = value;
+                    this.RaisePropertyChanged("TipoOperacion");
                 }
             }
         }
@@ -10648,10 +10664,10 @@ namespace Portal.Consultoras.Web.ServiceSAC {
         System.Threading.Tasks.Task InsertarDonacionConsultoraAsync(int PaisId, string CodigoISO, string CodigoConsultora, string Campania, string IPUsuario);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/GetEstadoCuentaConsultora", ReplyAction="http://tempuri.org/ISACService/GetEstadoCuentaConsultoraResponse")]
-        Portal.Consultoras.Web.ServiceSAC.BEEstadoCuenta[] GetEstadoCuentaConsultora(int PaisId, string CodigoConsultora);
+        Portal.Consultoras.Web.ServiceSAC.BEEstadoCuenta[] GetEstadoCuentaConsultora(int PaisId, long consultoraId);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/GetEstadoCuentaConsultora", ReplyAction="http://tempuri.org/ISACService/GetEstadoCuentaConsultoraResponse")]
-        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BEEstadoCuenta[]> GetEstadoCuentaConsultoraAsync(int PaisId, string CodigoConsultora);
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BEEstadoCuenta[]> GetEstadoCuentaConsultoraAsync(int PaisId, long consultoraId);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/GetPedidosFacturadosCabecera", ReplyAction="http://tempuri.org/ISACService/GetPedidosFacturadosCabeceraResponse")]
         Portal.Consultoras.Web.ServiceSAC.BEPedidoFacturado[] GetPedidosFacturadosCabecera(int PaisId, string CodigoConsultora);
@@ -12055,12 +12071,12 @@ namespace Portal.Consultoras.Web.ServiceSAC {
             return base.Channel.InsertarDonacionConsultoraAsync(PaisId, CodigoISO, CodigoConsultora, Campania, IPUsuario);
         }
         
-        public Portal.Consultoras.Web.ServiceSAC.BEEstadoCuenta[] GetEstadoCuentaConsultora(int PaisId, string CodigoConsultora) {
-            return base.Channel.GetEstadoCuentaConsultora(PaisId, CodigoConsultora);
+        public Portal.Consultoras.Web.ServiceSAC.BEEstadoCuenta[] GetEstadoCuentaConsultora(int PaisId, long consultoraId) {
+            return base.Channel.GetEstadoCuentaConsultora(PaisId, consultoraId);
         }
         
-        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BEEstadoCuenta[]> GetEstadoCuentaConsultoraAsync(int PaisId, string CodigoConsultora) {
-            return base.Channel.GetEstadoCuentaConsultoraAsync(PaisId, CodigoConsultora);
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BEEstadoCuenta[]> GetEstadoCuentaConsultoraAsync(int PaisId, long consultoraId) {
+            return base.Channel.GetEstadoCuentaConsultoraAsync(PaisId, consultoraId);
         }
         
         public Portal.Consultoras.Web.ServiceSAC.BEPedidoFacturado[] GetPedidosFacturadosCabecera(int PaisId, string CodigoConsultora) {

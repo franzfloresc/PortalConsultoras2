@@ -445,7 +445,7 @@ namespace Portal.Consultoras.ServiceContracts
 
         //R2073
         [OperationContract]
-        List<BEEstadoCuenta> GetEstadoCuentaConsultora(int PaisId, string CodigoConsultora);
+        List<BEEstadoCuenta> GetEstadoCuentaConsultora(int PaisId, long consultoraId);
 
         #endregion
 

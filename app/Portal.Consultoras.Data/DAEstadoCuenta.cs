@@ -17,10 +17,10 @@ namespace Portal.Consultoras.Data
 
         }
 
-        public IDataReader GetEstadoCuentaConsultora(string CodigoConsultora)
+        public IDataReader GetEstadoCuentaConsultora(long consultoraId)
         {
-            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetEstadoCuentaConsultora");
-            Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.AnsiString, CodigoConsultora);
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetEstadoCuentaConsultora_SB2");
+            Context.Database.AddInParameter(command, "@ConsultoraID", DbType.Int32, consultoraId);
             return Context.ExecuteReader(command);
         }
     }
