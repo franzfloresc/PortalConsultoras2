@@ -217,11 +217,11 @@
 
             @if (item.TieneStock == 0)
             {
-                <span class="mensaje_validacion_consultora">@item.MensajeValidacion</span>
+                <span class="agotado_consultora" style="font-size: 12px;">@item.MensajeValidacion</span>
             }
             else if (item.EstaEnRevista == 1)
             {
-                <span class="mensaje_validacion_consultora">@item.MensajeValidacion</span>
+                <span class="agotado_consultora" style="font-size: 12px;">@item.MensajeValidacion</span>
             }
         </div>
     }

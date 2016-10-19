@@ -6,7 +6,14 @@
 }
 
 <div class="titulo_mobile">
-    <a href="@Request.UrlReferrer" class="enlace_regresar catalogosR" title="Regresar"></a>
+    @if (TempData["clearPedidoId"] != null && Request.UrlReferrer.ToString().IndexOf(TempData["clearPedidoId"].ToString()) >= 0)
+    {
+        <a href="@Url.Action("Index", "Bienvenida", new { area = "Mobile" })" class="enlace_regresar catalogosR" title="Regresar"></a>
+    }
+    else
+    {
+        <a href="@Request.UrlReferrer" class="enlace_regresar catalogosR" title="Regresar"></a>
+    }
     &nbsp;&nbsp;&nbsp;&nbsp;PENDIENTES
 </div>
 <div class="pestana_esika"></div><!--PESTANA ESIKA-->
@@ -129,14 +136,7 @@
     <div class="texto_advertencia_pendiente">Sólo tienes 24 horas para atender los pedidos. No pierdas esta oportunidad de hacer nuevos clientes. </div>
     <hr class="clear" />
     <div class="texto_revisa_pendientes">Revisa tus pedidos aceptados en:</div>
-    <a href="#" onclick="MostrarMisPedidosConsultoraOnline();" class="btn_historial_pedido">Historial de Pedidos</a>
-</div>
-
-<div style="display: none;">
-    @using (Html.BeginForm("", "", FormMethod.Post, new { id = "frmConsultoraOnline" }))
-    {
-        <input type="hidden" name="lanzarTabConsultoraOnline" value="true">
-    }
+    <a href="@Url.Action("Historial", "ConsultoraOnline", new { area = "Mobile" })" class="btn_historial_pedido">Historial de Pedidos</a>
 </div>
 
 @section scripts {

@@ -188,8 +188,3 @@ function CerrarMensajeAceptado() {
     document.location.href = urlPendientes;
 }
 
-function MostrarMisPedidosConsultoraOnline() {
-    var frmConsultoraOnline = $('#frmConsultoraOnline');
-    frmConsultoraOnline.attr("action", urlMisPedidosClienteOnline);
-    frmConsultoraOnline.submit();
-}
