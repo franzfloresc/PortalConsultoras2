@@ -428,7 +428,7 @@ function AgregarProductoOfertaRevista(btn) {
 
     var precioUnidadAdd = $(hidden).find(".hdItemPrecioUnidad").val();
     if (tipoCUV == 'pack') {
-        precioUnidadAdd = $(btn).parents(".item_pack_personalizado").find('.hdItemPackValorizado').val();
+        precioUnidadAdd = $(btn).parents(".item_pack_personalizado").find('.hdItemPackPrecio').val();
     }
 
     var cuvAdd = tipoCUV == 'pack' ? $(btn).attr("data-cuvadd") : $(hidden).find(".hdItemCuv").val();
