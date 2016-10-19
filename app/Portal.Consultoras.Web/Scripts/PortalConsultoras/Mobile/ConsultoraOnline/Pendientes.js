@@ -34,7 +34,7 @@ function RechazarPedido(id) {
         RazonMotivoRechazo: $("#txtOtrosRechazo").val()
     };
 
-    console.log(obj);
+    //console.log(obj);
     //return;
 
     //$('#PedidoRechazado').hide();
@@ -90,6 +90,10 @@ function RechazarPedido(id) {
     //$('#dialog_confirmacionRechazo').hide();
 };
 
+function alert_msg(message, fnClose) {
+    messageInfoValidado('<h3>' + message + '</h3>', fnClose);
+}
+
 function AceptarPedido(id, tipo) {
 
     var isOk = true;
@@ -127,7 +131,7 @@ function AceptarPedido(id, tipo) {
         detalle.push(d);
     });
 
-    console.log(detalle);
+    //console.log(detalle);
     //return;
 
     if (isOk) {

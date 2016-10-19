@@ -5,6 +5,12 @@ $(document).ready(function () {
     $('.opcion_rechazo').on('click', function () {
         $('.opcion_rechazo').removeClass('opcion_rechazo_select');
         $(this).addClass('opcion_rechazo_select');
+        if ($(this).data('id') == 11) {
+            $('#txtOtrosRechazo').prop('readonly', false);
+        }
+        else {
+            $('#txtOtrosRechazo').prop('readonly', true);
+        }
     });
 
 });
@@ -23,6 +29,10 @@ function RechazarPedido(id) {
 
     var solval = $('#solped_' + id).val();
     var solarr = solval.split('|');
+    var obsr = $("#txtOtrosRechazo").val();
+    if (optr != 11) {
+        obsr = '';
+    }
 
     var obj = {
         SolicitudId: solarr[0],
@@ -31,11 +41,11 @@ function RechazarPedido(id) {
         Campania: solarr[2],
         MarcaId: solarr[1],
         OpcionRechazo: optr,
-        RazonMotivoRechazo: $("#txtOtrosRechazo").val(),
+        RazonMotivoRechazo: obsr,
         typeAction: '2'     // mobile
     };
 
-    console.log(obj);
+    //console.log(obj);
     //return;
 
     //$('#PedidoRechazado').hide();
@@ -75,6 +85,8 @@ function RechazarPedido(id) {
                     $('#MensajePedidoRechazado').show();
                 }
                 else {
+                    $('#PedidoRechazado').hide();
+                    $('#PedidoRechazadoDetalle').hide();
                     alert_msg(data.message);
                 }
             }
@@ -82,6 +94,8 @@ function RechazarPedido(id) {
         error: function (data, error) {
             if (checkTimeout(data)) {
                 CloseLoading();
+                $('#PedidoRechazado').hide();
+                $('#PedidoRechazadoDetalle').hide();
                 alert_msg("Ocurrió un error inesperado al momento de desafiliarte. Consulte con su administrador del sistema para obtener mayor información");
             }
         }
@@ -90,6 +104,10 @@ function RechazarPedido(id) {
     //$('#modal_cancelar_pedido').fuzemodal('close');
     //$('#dialog_confirmacionRechazo').hide();
 };
+
+function alert_msg(message, fnClose) {
+    messageInfoValidado('<h3>' + message + '</h3>', fnClose);
+}
 
 function AceptarPedido(id, tipo) {
 
@@ -128,7 +146,7 @@ function AceptarPedido(id, tipo) {
         detalle.push(d);
     });
 
-    console.log(detalle);
+    //console.log(detalle);
     //return;
 
     if (isOk) {
@@ -154,7 +172,7 @@ function AceptarPedido(id, tipo) {
 
                     if (tipo == 1) {
                         //$('#popup_pendientes').hide();
-                        $('#detallePedidoAceptado').text('Has agregado ' + totIng + ' productos a tu pedido');
+                        $('#detallePedidoAceptado').text('Has agregado ' + totIng + ' producto(s) a tu pedido');
                         //$('#dialog_aceptasPendientes').show();
                     }
                     else {
