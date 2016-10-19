@@ -2014,7 +2014,7 @@
             <div class="content_item_pack">
                 <div class="fondo_negro_pack">PACK {{#if_eq pack.EsUltimo "1"}}MÁXIMA {{/if_eq}}GANANCIA</div>
                 <div class="pack_inter">
-                    <div class="titulo_pack" style="height:auto">{{../Simbolo}} {{DecimalToStringFormat pack.precio_pack}}</div>
+                    <div class="titulo_pack" style="height:auto"><span class="texto_unidad_pack">Precio para ti: </span>{{../Simbolo}} {{DecimalToStringFormat pack.precio_pack}}</div>
                     <div class="texto_ganancia_pack">{{../TxtGanancia}}: {{../Simbolo}} {{DecimalToStringFormat pack.ganancia_pack}}</div>
                     <div class="content_sub_items">
                         {{#each ../lista_oObjItemPack as |item|}}
