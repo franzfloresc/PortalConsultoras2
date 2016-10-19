@@ -777,11 +777,11 @@ function cerrarMensajeEstadoPedido() {
 function MostrarMensajePedidoRechazado() {
     if (location.pathname.toLowerCase().indexOf("/bienvenida") >= 0) {
         setTimeout(function () {
-            $(".oscurecer_animacion").remove();
+            $(".oscurecer_animacion").hide();
         }, 1500);
     }
     else {
-        $(".oscurecer_animacion").remove();
+        $(".oscurecer_animacion").hide();
     }
 }
 
