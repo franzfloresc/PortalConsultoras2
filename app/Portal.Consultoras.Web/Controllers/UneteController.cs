@@ -148,9 +148,13 @@ namespace Portal.Consultoras.Web.Controllers
                 SortOrder = model.sord
             };
             ServiceUnete.ParametroUneteCollection lstSelect;
+            ServiceUnete.ParametroUneteCollection lstSelectGZ;
+            ServiceUnete.ParametroUneteCollection lstSelectSE;
             using (var sv = new PortalServiceClient())
             {
                 lstSelect = sv.ObtenerParametrosUnete(CodigoISO, EnumsTipoParametro.TipoRechazoSAC, 0);
+                lstSelectSE = sv.ObtenerParametrosUnete(CodigoISO, EnumsTipoParametro.TipoRechazoSociaEmpresaria, 0);
+                lstSelectGZ = sv.ObtenerParametrosUnete(CodigoISO, EnumsTipoParametro.TipoRechazo, 0);
             }
             IEnumerable<SolicitudPostulanteBE> items = solicitudes;
             SolicitudPostulanteBE obj = new SolicitudPostulanteBE();
@@ -291,47 +295,78 @@ namespace Portal.Consultoras.Web.Controllers
                 total = pag.PageCount,
                 page = pag.CurrentPage,
                 records = pag.RecordCount,
-                rows = items.Select(i => new
+                rows = items.Select(i =>
                 {
-                    cell = new string[]
+                    ServiceUnete.ParametroUneteBE parametro = null;
+                    string tipoRechazoNombre = string.Empty;
+
+                    if (!string.IsNullOrEmpty(i.TipoRechazo))
                     {
-                        i.SolicitudPostulanteID.ToString(),//0
-                        i.FechaCreacion.ToString(),//1
-                        string.IsNullOrWhiteSpace(i.TipoSolicitud) ? string.Empty : i.TipoSolicitud.ToUpper(),//2
-                        string.IsNullOrWhiteSpace(i.FuenteIngreso) ? string.Empty : i.FuenteIngreso.ToUpper(),//3
-                        string.IsNullOrWhiteSpace(i.NombreCompleto) ? string.Empty : i.NombreCompleto.ToUpper(),//4
-                        string.IsNullOrWhiteSpace(i.NumeroDocumento) ? string.Empty : i.NumeroDocumento.ToUpper(),//5
-                        string.IsNullOrWhiteSpace(i.CodigoZona) ? string.Empty : i.CodigoZona.ToUpper(),//6
-                        string.IsNullOrWhiteSpace(i.CodigoSeccion) ? string.Empty : i.CodigoSeccion.ToUpper(),//7
-                        string.IsNullOrWhiteSpace(i.CodigoTerritorio) ? string.Empty : i.CodigoTerritorio.ToUpper(),//8
-                        string.IsNullOrWhiteSpace(i.Direccion)
-                            ? string.Empty
-                            : i.CodigoPais == Pais.Peru? (i.LugarPadre.ToUpper() + ", " + i.LugarHijo.ToUpper() + ", " +
-                              i.Direccion.Replace("|", " ").ToUpper() + ", " + i.Referencia.ToUpper())  :  i.LugarPadre.ToUpper() + ", " + i.LugarHijo.ToUpper() + ", " +
-                              i.Direccion.Replace("|", " ").ToUpper(),//9
-                        string.IsNullOrEmpty(i.CodigoConsultora) ? string.Empty : i.CodigoConsultora,//10
-                        i.FechaIngreso,//11
-                        i.EstadoGEOID.ToString(),//12
-                        i.EstadoBuroCrediticioID.ToString(),//13
-                        string.IsNullOrWhiteSpace(i.EstadoTelefonico) ? string.Empty : i.EstadoTelefonico.ToString(),//14
-                        string.IsNullOrWhiteSpace(i.EstadoPostulante) ? string.Empty : i.EstadoPostulante.ToUpper(),//15
-                        i.SolicitudPostulanteID.ToString(),//16
-                        i.SolicitudPostulanteID.ToString(),//17
-                        i.SolicitudPostulanteID.ToString(),//18
-                        i.IndicadorActivo.ToString(),//19
-                        i.IndicadorOptin.ToString(),//20
-                        string.IsNullOrWhiteSpace(i.ImagenIFE) ? string.Empty : i.ImagenIFE.ToString(),//21
-                        string.IsNullOrWhiteSpace(i.ImagenCDD) ? string.Empty : i.ImagenCDD.ToString(),//22
-                        string.IsNullOrWhiteSpace(i.ImagenContrato) ? string.Empty : i .ImagenContrato.ToString(),//23
-                        string.IsNullOrWhiteSpace(i.ImagenPagare) ? string.Empty : i.ImagenPagare.ToString(),//24
-                        string.IsNullOrWhiteSpace(i.ImagenDniAval) ? string.Empty : i.ImagenDniAval.ToString(),//25
-                        string.IsNullOrWhiteSpace(i.MotivoRechazo) ? string.Empty : i.MotivoRechazo.ToString(),//26
-                        string.IsNullOrWhiteSpace(i.TipoRechazo) ? string.Empty :  lstSelect.Where(x => x.Valor == i.TipoRechazo.ToInt()).FirstOrDefault() != null
-                                                                 ? lstSelect.Where(x => x.Valor == i.TipoRechazo.ToInt()).FirstOrDefault().Nombre
-                                                                 : string.Empty //27
+                        if (i.SubEstadoPostulante == Enumeradores.TipoSubEstadoPostulanteRechazada.RechazadoSAC.ToInt())
+                        {
+                            parametro = lstSelect.FirstOrDefault(x => x.Valor == i.TipoRechazo.ToInt());
+                        } else if (i.SubEstadoPostulante == Enumeradores.TipoSubEstadoPostulanteRechazada.RechazadoGZ.ToInt())
+                        {
+                            parametro = lstSelectGZ.FirstOrDefault(x => x.Valor == i.TipoRechazo.ToInt());
+                        }
+                        else if (i.SubEstadoPostulante == Enumeradores.TipoSubEstadoPostulanteRechazada.RechazadoSE.ToInt())
+                        {
+                            parametro = lstSelectSE.FirstOrDefault(x => x.Valor == i.TipoRechazo.ToInt());
+                        }
                     }
+                    if (parametro != null)
+                    {
+                        tipoRechazoNombre = parametro.Nombre;
+                    }
+                    
+                    return new
+                    {
+
+                        cell = new string[]
+                        {
+                            i.SolicitudPostulanteID.ToString(), //0
+                            i.FechaCreacion.ToString(), //1
+                            string.IsNullOrWhiteSpace(i.TipoSolicitud) ? string.Empty : i.TipoSolicitud.ToUpper(), //2
+                            string.IsNullOrWhiteSpace(i.FuenteIngreso) ? string.Empty : i.FuenteIngreso.ToUpper(), //3
+                            string.IsNullOrWhiteSpace(i.NombreCompleto) ? string.Empty : i.NombreCompleto.ToUpper(), //4
+                            string.IsNullOrWhiteSpace(i.NumeroDocumento) ? string.Empty : i.NumeroDocumento.ToUpper(),
+                            //5
+                            string.IsNullOrWhiteSpace(i.CodigoZona) ? string.Empty : i.CodigoZona.ToUpper(), //6
+                            string.IsNullOrWhiteSpace(i.CodigoSeccion) ? string.Empty : i.CodigoSeccion.ToUpper(), //7
+                            string.IsNullOrWhiteSpace(i.CodigoTerritorio) ? string.Empty : i.CodigoTerritorio.ToUpper(),
+                            //8
+                            string.IsNullOrWhiteSpace(i.Direccion)
+                                ? string.Empty
+                                : i.CodigoPais == Pais.Peru
+                                    ? (i.LugarPadre.ToUpper() + ", " + i.LugarHijo.ToUpper() + ", " +
+                                       i.Direccion.Replace("|", " ").ToUpper() + ", " + i.Referencia.ToUpper())
+                                    : i.LugarPadre.ToUpper() + ", " + i.LugarHijo.ToUpper() + ", " +
+                                      i.Direccion.Replace("|", " ").ToUpper(), //9
+                            string.IsNullOrEmpty(i.CodigoConsultora) ? string.Empty : i.CodigoConsultora, //10
+                            i.FechaIngreso, //11
+                            i.EstadoGEOID.ToString(), //12
+                            i.EstadoBuroCrediticioID.ToString(), //13
+                            string.IsNullOrWhiteSpace(i.EstadoTelefonico) ? string.Empty : i.EstadoTelefonico.ToString(),
+                            //14
+                            string.IsNullOrWhiteSpace(i.EstadoPostulante) ? string.Empty : i.EstadoPostulante.ToUpper(),
+                            //15
+                            i.SolicitudPostulanteID.ToString(), //16
+                            i.SolicitudPostulanteID.ToString(), //17
+                            i.SolicitudPostulanteID.ToString(), //18
+                            i.IndicadorActivo.ToString(), //19
+                            i.IndicadorOptin.ToString(), //20
+                            string.IsNullOrWhiteSpace(i.ImagenIFE) ? string.Empty : i.ImagenIFE.ToString(), //21
+                            string.IsNullOrWhiteSpace(i.ImagenCDD) ? string.Empty : i.ImagenCDD.ToString(), //22
+                            string.IsNullOrWhiteSpace(i.ImagenContrato) ? string.Empty : i.ImagenContrato.ToString(),
+                            //23
+                            string.IsNullOrWhiteSpace(i.ImagenPagare) ? string.Empty : i.ImagenPagare.ToString(), //24
+                            string.IsNullOrWhiteSpace(i.ImagenDniAval) ? string.Empty : i.ImagenDniAval.ToString(), //25
+                            string.IsNullOrWhiteSpace(i.MotivoRechazo) ? string.Empty : i.MotivoRechazo.ToString(), //26
+                            tipoRechazoNombre //27
+                        }
+                    };
                 })
-            };
+        };
 
             return Json(data, JsonRequestBehavior.AllowGet);
         }
@@ -1101,7 +1136,7 @@ namespace Portal.Consultoras.Web.Controllers
                 //var toRemove = new HashSet<NivelesRiesgoModel>();
                 foreach (var item    in lista.ToList())
                 {
-                    if (item.NivelRiesgo == null && item.ZonaSeccion == null)
+                    if (item.NivelRiesgo == null || item.ZonaSeccion == null)
                     {
                         lista.Remove(item);
                     }
@@ -2053,7 +2088,27 @@ namespace Portal.Consultoras.Web.Controllers
                 DocumentoIdentidad = DocumentoIdentidad
             });
 
-            Dictionary<string, string> dic = new Dictionary<string, string>();
+            var resultado = from c in solicitudes
+                select new SolicitudPostulanteBE
+                {
+                    FechaCreacion = c.FechaCreacion,
+                    TipoSolicitud = c.TipoSolicitud,
+                    FuenteIngreso = c.FuenteIngreso,
+                    NombreCompleto = c.NombreCompleto,
+                    NumeroDocumento = c.NumeroDocumento,
+                    CodigoZona = c.CodigoZona,
+                    CodigoSeccion = c.CodigoSeccion,
+                    CodigoTerritorio = c.CodigoTerritorio,
+                    Direccion =  string.Format("{0}, {1}, {2}, {3}", c.LugarPadre, c.LugarHijo,c.Direccion.Replace("|", ", ") , c.Referencia),
+                    LugarPadre = c.LugarPadre,
+                    LugarHijo = c.LugarHijo,
+                    TelefonoCelular = c.TelefonoCelular,
+                    TelefonoFijo = c.TelefonoFijo,
+                    EstadoPostulante = c.EstadoPostulante
+                };
+
+
+            Dictionary< string, string> dic = new Dictionary<string, string>();
             dic.Add("Fecha Registro", "FechaCreacion");
             dic.Add("Tipo", "TipoSolicitud");
             dic.Add("Fuente", "FuenteIngreso");
@@ -2062,14 +2117,15 @@ namespace Portal.Consultoras.Web.Controllers
             dic.Add("Zona", "CodigoZona");
             dic.Add("Sección", "CodigoSeccion");
             dic.Add("Territorio", "CodigoTerritorio");
-            dic.Add("Dirección", "DireccionCompleta");
-            dic.Add("Region", "LugarPadre");
-            dic.Add("Comuna", "LugarHijo");
+            dic.Add("Dirección", "Direccion"); //dic.Add("Dirección", "DireccionCompleta");
+            dic.Add(Dictionaries.LabelLugar1[CodigoISO], "LugarPadre"); //  dic.Add("Region", "LugarPadre");   
+            dic.Add(Dictionaries.LabelLugar2[CodigoISO], "LugarHijo"); //dic.Add("Comuna", "LugarHijo");
             dic.Add("Telefono Celular", "TelefonoCelular");
             dic.Add("Telefono Red Fija", "TelefonoFijo");
             dic.Add("Estado", "EstadoPostulante");
-            Util.ExportToExcel("ReportePostulantes", solicitudes, dic);
+            Util.ExportToExcel("ReportePostulantes", resultado.ToList(), dic);
             return View();
+            
         }
 
 
