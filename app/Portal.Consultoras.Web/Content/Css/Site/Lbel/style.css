@@ -29609,7 +29609,7 @@ h1#penmostreo .campana {
     position: relative;
     width: 971px;
     /* max-width: 1230px; */
-    height: 636px;
+    max-height: 636px;
     top: 50%;
     background: #FFF;
     margin: -318px auto auto auto;
