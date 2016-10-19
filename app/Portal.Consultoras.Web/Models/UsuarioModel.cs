@@ -279,6 +279,7 @@ namespace Portal.Consultoras.Web.Models
         public bool EsCatalogoPersonalizadoZonaValida { get; set; }
         public int VioTutorialSalvavidas { get; set; }
 
+        public int TieneHana { get; set; }
         public int IndicadorEnviado { get; set; }
         public int IndicadorRechazado { get; set; }
         public string MotivoRechazo { get; set; }
