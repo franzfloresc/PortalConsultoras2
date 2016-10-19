@@ -366,33 +366,39 @@
         </div>
         <!--FIN-->
         {{#each lista_oObjPack as |pack|}}
-        <div class="row_20">
-            <div class="titulo_mobile">PACK {{#if_eq pack.EsUltimo "1"}}MÁXIMA {{/if_eq}}GANANCIA</div>
-            <div class="pestana_esika"></div><!--PESTANA ESIKA-->
-            <div class="pestana_lbel"></div><!--PESTANA LBEL-->
-        </div>
-        <div class="content_item_oferta">
-            <div class="titulo_producto_oferta">{{../Simbolo}} {{DecimalToStringFormat pack.valorizado}}</div>
-            <div class="texto_ganancia_oferta" style="font-size:11px">{{../TxtGanancia}}: {{../Simbolo}} {{DecimalToStringFormat pack.ganancia_pack}}</div>
-            <div class="left_70"><div class="titulo_producto_oferta" style="font-size:11px; text-align:left">INCLUYE</div></div>
-            <hr class="clear" />
-            {{#each ../lista_oObjItemPack as |item|}}
-            {{#if_eq pack.cuv_pack item.cuv_pack_item}}
-            <div class="content_sub_items">
-                <div class="sub_imagen_oferta"><img src="{{item.imagen_item_pack}}" alt=""></div>
-                <div class="sub_descripcion_oferta">{{item.cantidad_item_pack}} {{item.descripcion_item_pack}}</div>
+        <div class="item_pack_personalizado">
+            <input type="hidden" class="hdItemPackCuv" value="{{pack.cuv_pack}}" />
+            <input type="hidden" class="hdItemPackValorizado" value="{{pack.valorizado}}" />
+            <input type="hidden" class="hdItemPackPrecio" value="{{pack.precio_pack}}" />
+
+            <div class="row_20">
+                <div class="titulo_mobile">PACK {{#if_eq pack.EsUltimo "1"}}MÁXIMA {{/if_eq}}GANANCIA</div>
+                <div class="pestana_esika"></div><!--PESTANA ESIKA-->
+                <div class="pestana_lbel"></div><!--PESTANA LBEL-->
             </div>
-            <hr class="clear" />
-            {{/if_eq}}
-            {{/each}}
-            <br />
-            <div class="liquidacion_rango_home">
-                <a class="cantidad_menos_home" tabindex="0"><img src="/Content/Images/Mobile/Esika/menos.png" alt=""></a>
-                <input type="tel" value="1" size="2" maxlength="2" id="txtCantidad" class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" tabindex="0" data-cantidad-input="pack">
-                <a class="cantidad_mas_home" tabindex="0"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
+            <div class="content_item_oferta">
+                <div class="titulo_producto_oferta"><span class="texto_unidad_pack">Precio para ti: </span>{{../Simbolo}} {{DecimalToStringFormat pack.precio_pack}}</div>
+                <div class="texto_ganancia_oferta" style="font-size:11px">{{../TxtGanancia}}: {{../Simbolo}} {{DecimalToStringFormat pack.ganancia_pack}}</div>
+                <div class="left_70"><div class="titulo_producto_oferta" style="font-size:11px; text-align:left">INCLUYE</div></div>
+                <hr class="clear" />
+                {{#each ../lista_oObjItemPack as |item|}}
+                {{#if_eq pack.cuv_pack item.cuv_pack_item}}
+                <div class="content_sub_items">
+                    <div class="sub_imagen_oferta"><img src="{{item.imagen_item_pack}}" alt=""></div>
+                    <div class="sub_descripcion_oferta">{{item.cantidad_item_pack}} {{item.descripcion_item_pack}}</div>
+                </div>
+                <hr class="clear" />
+                {{/if_eq}}
+                {{/each}}
+                <br />
+                <div class="liquidacion_rango_home">
+                    <a class="cantidad_menos_home" tabindex="0"><img src="/Content/Images/Mobile/Esika/menos.png" alt=""></a>
+                    <input type="tel" value="1" size="2" maxlength="2" id="txtCantidad" class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" tabindex="0" data-cantidad-input="pack">
+                    <a class="cantidad_mas_home" tabindex="0"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
+                </div>
+                <div class="clear"></div>
+                <a class="boton_Agregalo_home agregar-ofertarevista" data-cuv="pack" data-cuvadd="{{pack.cuv_pack}}" tabindex="0">AGRÉGALO</a>
             </div>
-            <div class="clear"></div>
-            <a class="boton_Agregalo_home agregar-ofertarevista" data-cuv="pack" data-cuvadd="{{pack.cuv_pack}}" tabindex="0">AGRÉGALO</a>
         </div>
         {{/each}}
         <!--ULTIMO-->

@@ -142,8 +142,11 @@
 
 <!--FIN-->
 <div class="fondo_faf5e6">
+    @if (ViewBag.CantPedidosPendientes <= 0)
+    {
     <div class="pestana_lbel"></div><!--PESTAÑA PARA DARLE ESTILO CON LBEL--> <!--QUITAR LAS PESTAÑAS SI HAY CONSULTORA ONLINE-->
     <div class="triangulo_home"></div><!--PESTAÑA PARA DARLE ESTILO CON ESIKA--> <!--QUITAR LAS PESTAÑAS SI HAY CONSULTORA ONLINE-->
+    }
     @(Html.Raw(ViewBag.MensajeCierreCampania))
     <br />
     <a role="link" region="Central" parent="Seguimiento a tu Pedido" title="Seguimiento a tu Pedido"

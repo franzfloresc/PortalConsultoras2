@@ -903,6 +903,11 @@
         }
 
         function messageInfo(message, fnAceptar) {
+            message = $.trim(message);
+            if (message == "") {
+                return false;
+            }
+
             $('#mensajeInformacion').html(message);
             $('#popupInformacion').show();
             if ($.isFunction(fnAceptar)) {

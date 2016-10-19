@@ -1057,7 +1057,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             try
             {
-                using (ServiceSAC.SACServiceClient sc = new ServiceSAC.SACServiceClient())
+                using (ServiceSAC.SACServiceClient svc = new ServiceSAC.SACServiceClient())
                 {
                     ServiceSAC.BESolicitudCliente beSolicitudCliente = new ServiceSAC.BESolicitudCliente();
                     beSolicitudCliente.SolicitudClienteID = _pedidoId;
@@ -1065,7 +1065,7 @@ namespace Portal.Consultoras.Web.Controllers
                     beSolicitudCliente.MensajeaCliente = mensajeaCliente;
                     beSolicitudCliente.UsuarioModificacion = UserData().CodigoUsuario;
                     beSolicitudCliente.Estado = "A";
-                    sc.UpdSolicitudCliente(paisId, beSolicitudCliente);
+                    svc.UpdSolicitudCliente(paisId, beSolicitudCliente);
                 }
 
                 List<BEMisPedidos> refresh = new List<BEMisPedidos>();
@@ -1084,18 +1084,28 @@ namespace Portal.Consultoras.Web.Controllers
                 refreshMisPedidos.ListaPedidos = refresh;
                 Session["objMisPedidos"] = refreshMisPedidos;
 
-                int clienteId = 0;
+                string clienteId = string.Empty;
 
-                using (ServiceCliente.ClienteServiceClient sc = new ServiceCliente.ClienteServiceClient())
+                using (ServiceCliente.ClienteServiceClient svc = new ServiceCliente.ClienteServiceClient())
                 {
-                    ServiceCliente.BECliente beCliente = new ServiceCliente.BECliente();
-                    beCliente.ConsultoraID = UserData().ConsultoraID;
-                    beCliente.eMail = pedido.Email;//emailCliente;
-                    beCliente.Nombre = pedido.Cliente;// NombreCliente;
-                    beCliente.PaisID = UserData().PaisID;
-                    beCliente.Activo = true;
-                    clienteId = sc.Insert(beCliente);
-                    //clienteId = beCliente.ClienteID;
+                    int vValidation = svc.CheckClienteByConsultora(userData.PaisID, userData.ConsultoraID, pedido.Cliente);
+
+                    if (vValidation == 0)
+                    {
+                        ServiceCliente.BECliente beCliente = new ServiceCliente.BECliente();
+                        beCliente.ConsultoraID = UserData().ConsultoraID;
+                        beCliente.eMail = pedido.Email;//emailCliente;
+                        beCliente.Nombre = pedido.Cliente;// NombreCliente;
+                        beCliente.PaisID = UserData().PaisID;
+                        beCliente.Activo = true;
+                        //clienteId = beCliente.ClienteID;
+                        clienteId = svc.InsertById(beCliente).ToString();
+                    }
+                    else
+                    {
+                        var _cliente = svc.SelectByNombre(userData.PaisID, userData.ConsultoraID, pedido.Cliente).First();
+                        clienteId = _cliente.ClienteID.ToString();
+                    }
                 }
 
                 if (tipo == 1)  // solo para App Catalogos
@@ -1124,7 +1134,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                                     model.TipoOfertaSisID = productoVal.TipoOfertaSisID;
                                     model.ConfiguracionOfertaID = productoVal.ConfiguracionOfertaID;
-                                    model.ClienteID = clienteId.ToString();
+                                    model.ClienteID = clienteId;
                                     model.OfertaWeb = false;
                                     model.IndicadorMontoMinimo = productoVal.IndicadorMontoMinimo.ToString();
                                     model.EsSugerido = false;
@@ -1146,7 +1156,7 @@ namespace Portal.Consultoras.Web.Controllers
                                     {
                                         using (ServiceSAC.SACServiceClient svc = new ServiceSAC.SACServiceClient())
                                         {
-                                            bePedidoWebDetalle = olstPedidoWebDetalle.Where(x => x.CUV == pedidoDetalle.CUV && x.MarcaID == pedidoDetalle.MarcaID && x.ClienteID == clienteId).FirstOrDefault();
+                                            bePedidoWebDetalle = olstPedidoWebDetalle.Where( x => x.CUV == pedidoDetalle.CUV && x.MarcaID == pedidoDetalle.MarcaID && x.ClienteID == Convert.ToInt16(clienteId) ).FirstOrDefault();
 
                                             if (bePedidoWebDetalle != null)
                                             {
@@ -1366,6 +1376,8 @@ namespace Portal.Consultoras.Web.Controllers
                         LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                     }
                 }
+
+                TempData["clearPedidoId"] = pedido.PedidoId;
 
                 return Json(new
                 {
@@ -1781,6 +1793,7 @@ namespace Portal.Consultoras.Web.Controllers
                     try
                     {
                         ServiceSAC.BESolicitudNuevaConsultora nuevaConsultora = sv.ReasignarSolicitudCliente(PaisId, SolicitudId, CodigoUbigeo, Campania, MarcaId, OpcionRechazo, RazonMotivoRechazo); //new ServiceSAC.BESolicitudNuevaConsultora();//
+
                         if (nuevaConsultora != null)
                         {
                             ServiceSAC.BESolicitudCliente beSolicitudCliente = sv.GetSolicitudCliente(PaisId, SolicitudId);
@@ -1810,6 +1823,7 @@ namespace Portal.Consultoras.Web.Controllers
                             MisPedidosModel refreshMisPedidos = new MisPedidosModel();
                             refreshMisPedidos.ListaPedidos = refresh;
                             Session["objMisPedidos"] = refreshMisPedidos;
+                            
                         }
                     }
                     catch (FaultException ex)
@@ -1824,6 +1838,8 @@ namespace Portal.Consultoras.Web.Controllers
                         return Json(dataError, JsonRequestBehavior.AllowGet);
                     }
                 }
+
+                TempData["clearPedidoId"] = SolicitudId;
             }
 
             var data = new
