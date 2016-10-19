@@ -1,0 +1,120 @@
+﻿@{
+    ViewBag.Title = "Cambios y devoluciones";
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+}
+
+<div class="fondo_f9f9f9">
+    <div class="content_belcorp">
+        <div class="fondo_negro_lateral"></div>
+        <div class="titulo_interiores"> <span>CAMBIOS</span> Y DEVOLUCIONES</div>
+    </div>
+    <hr class="clear">
+    <div class="linea_separadora" style="margin-top:-1px"></div>
+</div>
+<div class="content_belcorp">
+    <div class="pestana_lbel"></div><!--PESTAÑA PARA DARLE ESTILO CON LBEL-->
+    <div class="texto_titulo_reclamos">Queremos verte siempre satisfecha con nuestros productos y servicio <br/> 
+        <span>Si tuviste inconvenientes con algún producto y estás dentro del plazo permitido sigue estos pasos:</span>
+    </div>
+    <div class="content_pasos">
+        <div class="paso_reclamo paso_active_reclamo" id="Selector1"><span>1</span></div>
+        <div class="paso_reclamo" id="Selector2"><span>2</span></div>
+        <div class="paso_reclamo" id="Selector3"><span>3</span></div>
+        <div class="paso_reclamo" id="Selector4"><span>4</span></div>
+    </div>
+    <div class="content_reclamo" id="Paso1">
+        <div class="subtitulo_reclamo">¿Con qué producto has tenido el inconveniente?</div>
+        <select class="select_reclamo">
+            <option>¿En qué campaña lo solicitaste?</option>
+            <option>¿En qué campaña lo solicitaste?</option>
+        </select>
+        <input type="text" placeholder="Código" class="codigo_reclamo"/>
+        <input type="text" placeholder="Descripción del producto" class="descripcion_reclamo" />
+        <div class="rango_reclamo">
+            <input type="text" name="Cantidad" id="txtCantidad" value="1" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral valid" onkeypress="PreValidarCUV();" onfocus="SeleccionarContenido(this)">
+            <div class="liquidacion_rango_right_pedido">
+                <a class="mas"><img src="/Content/Images/Esika/mas.png" alt=""></a>
+                <a class="menos"><img src="/Content/Images/Esika/menos.png" alt=""></a>
+            </div>
+        </div>
+       <hr class="clear" /> 
+        <br/> 
+        <br /> 
+        <br /> 
+        <div class="linea_separadora_roja" style="height:2px;"></div>
+        <a class="btn_no_stock">CAMBIAR PRODUCTO</a>
+        <a class="btn_si_stock" href="#" style="width:296px;" id="IrPAso2">SIGUIENTE</a>
+        <hr class="clear" />
+        <br />
+        <br />
+        <br /> 
+    </div>
+    <div class="content_reclamo" id="Paso2" style="display:none;">
+        <div class="subtitulo_reclamo">¿Cuál fué el inconveniente?</div>
+        <div>
+            <div class="content_motivo_select">
+                <div class="reclamo_motivo_select">Me llegó en mal estado</div>
+                <div class="reclamo_motivo_select">No le gustó a mi cliente</div>
+                <div class="reclamo_motivo_select">Me equivoqué al solicitarlo</div>
+            </div>
+            <div class="content_motivo_select">
+                <div class="reclamo_motivo_select">La promoción me llegó incompleta</div>
+                <div class="reclamo_motivo_select">No solicité el producto</div>
+                <div class="reclamo_motivo_select">Me llegó muy tarde / no me llegó</div>
+            </div>            
+        </div>      
+        <hr class="clear" />  
+        <div class="linea_separadora_roja" style="height:2px;"></div>
+        <a class="btn_si_stock" href="#" style="width:296px;" id="IrPAso3">SIGUIENTE</a>
+        <hr class="clear" />
+        <br />
+        <br />
+        <br /> 
+    </div>
+    <div class="content_reclamo" id="Paso3_1" style="display:none; max-width:890px;">
+        <div class="subtitulo_reclamo" style="margin-bottom:40px:">Escoge una solución</div>
+        <div>
+            <a class="btn_solución_reclamo" href="#">REENVÍO DEL MISMO PRODUCTO</a>
+            <a class="btn_solución_reclamo" href="#" id="CambioProducto">CAMBIARLO POR OTRO PRODUCTO</a>
+            <a class="btn_solución_reclamo" href="#">DEVOLUCIÓN DEL DINERO</a>
+        </div>
+        <hr class="clear" />
+        <br/>
+        <br />
+        <br />
+    </div>
+    <div class="content_reclamo" id="Paso3_2" style="display:none;">
+        <div class="subtitulo_reclamo">Escjajjajaja</div>
+        
+
+    </div>
+    <div class="content_reclamo" id="Paso4" style="display:none;">
+        <div class="subtitulo_reclamo">Probando</div>
+        
+    </div>
+</div>
+@section scripts{
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#IrPAso2").on("click", function () {
+            $("#Selector2").addClass("paso_active_reclamo");           
+            $('#Paso1').hide(); //muestro mediante id 
+            $('#Paso2').show(); //oculto mediante id              
+            
+        });
+        $("#IrPAso3").on("click", function () {
+            $("#Selector3").addClass("paso_active_reclamo");
+            $('#Paso2').hide(); //muestro mediante id             
+            $('#Paso3_1').show(); //oculto mediante id  
+            
+        });
+        $("#CambioProducto").on("click", function () {
+            $("#Selector3").addClass("paso_active_reclamo");
+            $('#Paso3_1').hide(); //muestro mediante id             
+            $('#Paso3_2').show(); //oculto mediante id  
+
+        });
+    });
+</script>
+}
+
