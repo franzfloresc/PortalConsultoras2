@@ -558,6 +558,15 @@ function CrearDialogs() {
         draggable: true
     });
 
+    $('#divBackOrderModificado').dialog({
+        autoOpen: false,
+        resizable: false,
+        modal: true,
+        closeOnEscape: false,
+        width: 400,
+        draggable: true
+    });
+
     $('#divReservaSatisfactoriaVE').dialog({
         autoOpen: false,
         resizable: false,
@@ -2562,6 +2571,45 @@ function DeletePedido(campaniaId, pedidoId, pedidoDetalleId, tipoOfertaSisId, cu
     });
 }
 
+function AceptarBackOrder(campaniaId, pedidoId, pedidoDetalleId, clienteId) {
+    var param = {
+        CampaniaID: campaniaId,
+        PedidoID: pedidoId,
+        PedidoDetalleID: pedidoDetalleId,
+        ClienteID_: clienteId
+    };
+
+    AbrirSplash();
+    jQuery.ajax({
+        type: 'POST',
+        url: baseUrl + 'Pedido/AceptarBackOrder',
+        dataType: 'json',
+        contentType: 'application/json; charset=utf-8',
+        data: JSON.stringify(param),
+        async: true,
+        success: function (data) {
+            CerrarSplash();
+            if (!checkTimeout(data)) return false;
+            if (data.success != true) {
+                alert_msg(data.message);
+                return false;
+            }
+
+            AbrirSplash();
+            CargarDetallePedido();
+            MostrarBarra(data);
+            CargarResumenCampaniaHeader(true);
+            CerrarSplash();
+        },
+        error: function (data, error) {
+            if (checkTimeout(data)) {
+                HideDialog("divVistaPrevia");
+                CerrarSplash();
+            }
+        }
+    });
+}
+
 function CargandoProductos() {
     $('#tbobyDetallePedido').html('<tr><td colspan="7"><div style="text-align: center;">Cargando Detalle de Productos<br><img src="' + urlLoad + '" /></div></td></tr>');
 }
@@ -3246,7 +3294,7 @@ function UpdateConCantidad(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion
     });
 }
 
-function Update(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion, CUV) {
+function Update(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion, CUV, esBackOrder, modificoBackOrder) {
     var val = ValidarUpdate(PedidoDetalleID, FlagValidacion);
     if (!val) {
         return false;
@@ -3329,6 +3377,10 @@ function Update(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion, CUV) {
 
             MostrarBarra(data);
             CargarResumenCampaniaHeader();
+            if (esBackOrder == 'true' && modificoBackOrder == 'false') {
+                showDialog('divBackOrderModificado');
+                CargarDetallePedido();
+            }
 
             var diferenciaCantidades = parseInt(Cantidad) - parseInt(CantidadAnti);
             if (diferenciaCantidades > 0)
@@ -3345,7 +3397,7 @@ function Update(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion, CUV) {
     });
 }
 
-function UpdateLiquidacion(CampaniaID, PedidoID, PedidoDetalleID, TipoOfertaSisID, CUV, FlagValidacion, CantidadModi) {
+function UpdateLiquidacion(CampaniaID, PedidoID, PedidoDetalleID, TipoOfertaSisID, CUV, FlagValidacion, CantidadModi, esBackOrder, modificoBackOrder) {
     AbrirSplash();
     if (HorarioRestringido()) {
         CerrarSplash();
@@ -3477,12 +3529,8 @@ function UpdateLiquidacion(CampaniaID, PedidoID, PedidoDetalleID, TipoOfertaSisI
                             data: JSON.stringify(item),
                             async: true,
                             success: function (data) {
-
                                 CerrarSplash();
-
-                                if (!checkTimeout(data))
-                                    return false;
-
+                                if (!checkTimeout(data)) return false;
                                 if (data.success != true) {
                                     alert_msg(data.message);
                                     return false;
@@ -3494,8 +3542,7 @@ function UpdateLiquidacion(CampaniaID, PedidoID, PedidoDetalleID, TipoOfertaSisI
                                     $('#hdfLPCliDes' + PedidoDetalleID).val($('#hdfNomConsultora').val());
                                     $('#txtLPCli' + PedidoDetalleID).val($('#hdfNomConsultora').val());
                                 }
-                                if (PROL == "0")
-                                    $('#txtLPTempCant' + PedidoDetalleID).val($('#txtLPCant' + PedidoDetalleID).val());
+                                if (PROL == "0") $('#txtLPTempCant' + PedidoDetalleID).val($('#txtLPCant' + PedidoDetalleID).val());
 
                                 var nomCli = $("#ddlClientes option:selected").text();
                                 var simbolo = data.Simbolo;
@@ -3523,6 +3570,10 @@ function UpdateLiquidacion(CampaniaID, PedidoID, PedidoDetalleID, TipoOfertaSisI
                                 
                                 MostrarBarra(data);
                                 CargarResumenCampaniaHeader();
+                                if (esBackOrder == 'true' && modificoBackOrder == 'false') {
+                                    showDialog('divBackOrderModificado');
+                                    CargarDetallePedido();
+                                }
                             },
                             error: function (data, error) {
                                 CerrarSplash();
@@ -3656,10 +3707,7 @@ function UpdateLiquidacion(CampaniaID, PedidoID, PedidoDetalleID, TipoOfertaSisI
                                 async: true,
                                 success: function (data) {
                                     CerrarSplash();
-
-                                    if (!checkTimeout(data))
-                                        return false;
-
+                                    if (!checkTimeout(data)) return false;
                                     if (data.success != true) {
                                         alert_msg(data.message);
                                         return false;
@@ -3670,8 +3718,7 @@ function UpdateLiquidacion(CampaniaID, PedidoID, PedidoDetalleID, TipoOfertaSisI
                                         $('#hdfLPCliDes' + PedidoDetalleID).val($('#hdfNomConsultora').val());
                                         $('#txtLPCli' + PedidoDetalleID).val($('#hdfNomConsultora').val());
                                     }
-                                    if (PROL == "0")
-                                        $('#txtLPTempCant' + PedidoDetalleID).val($('#txtLPCant' + PedidoDetalleID).val());
+                                    if (PROL == "0") $('#txtLPTempCant' + PedidoDetalleID).val($('#txtLPCant' + PedidoDetalleID).val());
 
                                     var nomCli = $("#ddlClientes option:selected").text();
                                     var simbolo = data.Simbolo;
@@ -3699,6 +3746,10 @@ function UpdateLiquidacion(CampaniaID, PedidoID, PedidoDetalleID, TipoOfertaSisI
                                     
                                     MostrarBarra(data);
                                     CargarResumenCampaniaHeader();
+                                    if (esBackOrder == 'true' && modificoBackOrder == 'false') {
+                                        showDialog('divBackOrderModificado');
+                                        CargarDetallePedido();
+                                    }
                                 },
                                 error: function (data, error) {
                                     if (checkTimeout(data)) {
@@ -3738,7 +3789,7 @@ function UpdateLiquidacion(CampaniaID, PedidoID, PedidoDetalleID, TipoOfertaSisI
                         $('#txtLPCant' + PedidoDetalleID).val(CantidadAnti);
                         return false;
                     } else {
-                        Update(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion, CUV);
+                        Update(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion, CUV, esBackOrder, modificoBackOrder);
                     }
                 },
                 error: function (data, error) {
@@ -3752,7 +3803,7 @@ function UpdateLiquidacion(CampaniaID, PedidoID, PedidoDetalleID, TipoOfertaSisI
     }
 }
 
-function BlurF(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion, CUV) {
+function BlurF(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion, CUV, esBackOrder, modificoBackOrder) {
     if (isShown)
         return true;
 
@@ -3767,7 +3818,7 @@ function BlurF(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion, CUV) {
         return true;
     }
 
-    Update(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion, CUV);
+    Update(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion, CUV, esBackOrder, modificoBackOrder);
 }
 function InfoCommerceGoogleProductoRecomendados() {
     var cantidadProductosRecomendado = $("#hdCantItemRecomendado").val();

@@ -133,6 +133,12 @@ namespace Portal.Consultoras.Entities
         public decimal MontoAhorroRevista { get; set; }
         [DataMember]
         public int OrigenPedidoWeb { get; set; }
+        [DataMember]
+        public bool EsBackOrder { get; set; }
+        [DataMember]
+        public bool AceptoBackOrder { get; set; }
+        [DataMember]
+        public bool ModificoBackOrder { get; set; }
 
         public BEPedidoWebDetalle()
         { }
@@ -231,6 +237,12 @@ namespace Portal.Consultoras.Entities
 
             if (DataRecord.HasColumn(row, "OrigenPedidoWeb"))
                 OrigenPedidoWeb = row["OrigenPedidoWeb"] == DBNull.Value ? 0 : Convert.ToInt32(row["OrigenPedidoWeb"]);
+            if (DataRecord.HasColumn(row, "EsBackOrder"))
+                this.EsBackOrder = row["EsBackOrder"] == DBNull.Value ? false : Convert.ToBoolean(row["EsBackOrder"]);
+            if (DataRecord.HasColumn(row, "AceptoBackOrder"))
+                this.AceptoBackOrder = row["AceptoBackOrder"] == DBNull.Value ? false : Convert.ToBoolean(row["AceptoBackOrder"]);
+            if (DataRecord.HasColumn(row, "ModificoBackOrder"))
+                this.ModificoBackOrder = row["ModificoBackOrder"] == DBNull.Value ? false : Convert.ToBoolean(row["ModificoBackOrder"]);            
         }
 
         public BEPedidoWebDetalle(IDataRecord row, string Consultora)
@@ -339,6 +351,12 @@ namespace Portal.Consultoras.Entities
 
             if (DataRecord.HasColumn(row, "OrigenPedidoWeb"))
                 OrigenPedidoWeb = row["OrigenPedidoWeb"] == DBNull.Value ? 0 : Convert.ToInt32(row["OrigenPedidoWeb"]);
+            if (DataRecord.HasColumn(row, "EsBackOrder"))
+                this.EsBackOrder = row["EsBackOrder"] == DBNull.Value ? false : Convert.ToBoolean(row["EsBackOrder"]);
+            if (DataRecord.HasColumn(row, "AceptoBackOrder"))
+                this.AceptoBackOrder = row["AceptoBackOrder"] == DBNull.Value ? false : Convert.ToBoolean(row["AceptoBackOrder"]);
+            if (DataRecord.HasColumn(row, "ModificoBackOrder"))
+                this.ModificoBackOrder = row["ModificoBackOrder"] == DBNull.Value ? false : Convert.ToBoolean(row["ModificoBackOrder"]);
         }
     }
 }
