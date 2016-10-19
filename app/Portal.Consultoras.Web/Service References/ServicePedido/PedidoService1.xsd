@@ -118,7 +118,6 @@
       <xs:element minOccurs="0" name="MarcaID" type="xs:unsignedByte" />
       <xs:element minOccurs="0" name="Mensaje" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ModificaPedidoReservado" type="xs:boolean" />
-      <xs:element minOccurs="0" name="ModificoBackOrder" type="xs:boolean" />
       <xs:element minOccurs="0" name="MontoAhorroCatalogo" type="xs:decimal" />
       <xs:element minOccurs="0" name="MontoAhorroRevista" type="xs:decimal" />
       <xs:element minOccurs="0" name="MontoEscala" type="xs:decimal" />

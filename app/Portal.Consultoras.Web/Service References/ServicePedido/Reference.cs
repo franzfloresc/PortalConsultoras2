@@ -1146,9 +1146,6 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private bool ModificaPedidoReservadoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private bool ModificoBackOrderField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private decimal MontoAhorroCatalogoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -1691,19 +1688,6 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((this.ModificaPedidoReservadoField.Equals(value) != true)) {
                     this.ModificaPedidoReservadoField = value;
                     this.RaisePropertyChanged("ModificaPedidoReservado");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public bool ModificoBackOrder {
-            get {
-                return this.ModificoBackOrderField;
-            }
-            set {
-                if ((this.ModificoBackOrderField.Equals(value) != true)) {
-                    this.ModificoBackOrderField = value;
-                    this.RaisePropertyChanged("ModificoBackOrder");
                 }
             }
         }

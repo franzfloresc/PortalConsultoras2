@@ -145,8 +145,5 @@ namespace Portal.Consultoras.Web.Models
         public bool EsBackOrder { get; set; }
 
         public bool AceptoBackOrder { get; set; }
-
-        public bool ModificoBackOrder { get; set; }
-
     }
 }

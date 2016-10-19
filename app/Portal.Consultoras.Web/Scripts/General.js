@@ -129,8 +129,6 @@ jQuery(document).ready(function () {
     };
     HandlebarsRegisterHelper = function () {
         if (typeof (Handlebars) != "undefined") {
-            Handlebars.registerHelper('if_not', function (a, opts) { return a ? opts.inverse(this) : opts.fn(this); });
-
             Handlebars.registerHelper('if_eq', function (a, b, opts) {
                 if (a == b) {
                     return opts.fn(this);
