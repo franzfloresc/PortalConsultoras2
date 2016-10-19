@@ -1828,6 +1828,12 @@ function TagManagerCarruselSugeridosInicio(data) {
 }
 
 function alert_msg(message, titulo) {
+    message = $.trim(message);
+    if (message == "") {
+        CerrarSplash();
+        return false;
+    }
+
     titulo = titulo || "MENSAJE";
     $('#DialogMensajes .terminos_title_2').html(titulo);
     $('#DialogMensajes .pop_pedido_mensaje').html(message);

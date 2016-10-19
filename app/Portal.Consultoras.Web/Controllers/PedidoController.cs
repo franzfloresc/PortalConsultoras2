@@ -952,7 +952,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             return Json(new
             {
-                success = ErrorServer,
+                success = !ErrorServer,
                 message = message,
                 extra = "",
                 DataBarra = GetDataBarra()
