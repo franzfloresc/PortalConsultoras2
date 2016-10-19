@@ -848,8 +848,7 @@ namespace Portal.Consultoras.Web.Controllers
                 });
             }
         }
-
-
+        
         private string CampaniaInicioFin(BECatalogoConfiguracion catalogo, int campania)
         {
             string resultado = catalogo.Estado.ToString();
