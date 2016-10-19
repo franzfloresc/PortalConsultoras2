@@ -9387,6 +9387,7 @@ a{
     color:black;
     height:70px;
 }
+
 .opcion_rechazo{
     border-bottom:1px solid #c9c9c9;
     width:100%;
@@ -9397,13 +9398,21 @@ a{
     font-size:13px;
     color:black;
 }
-.opcion_rechazo:hover, .opcion_rechazo.opcion_rechazo_select{
-        background: #f7f7f7 url(../../../Images/icono_check.png) no-repeat;
-        background-position:10px 18px;
-    }
-.opcion_rechazo:last-child{
+
+.opcion_rechazo:hover {
+    background: #f7f7f7 url(../../../Images/icono_check.png) no-repeat;
+    background-position:10px 18px;
+}
+
+.opcion_rechazo_select {
+    background: #f7f7f7 url(../../../Images/icono_check.png) no-repeat;
+    background-position:10px 18px;
+}
+
+.opcion_rechazo:last-child {
     border-bottom:0;
 }
+
 .titulo_pedido_cancelado{
     font-family:'LAto';
     font-size:13px;
