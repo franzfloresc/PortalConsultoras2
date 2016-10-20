@@ -697,8 +697,7 @@
 </div>
 <!-- FIN AGREGASTE UNIDADES -->
 <!-- POPUP DETALLE CARRUSEL OFERTAS PARA TI LANZAMIENTO -->
-<div class="contenedor_popup_detalleCarousel" id="popupDetalleCarousel_lanzamiento">
-</div>
+<div class="contenedor_popup_detalleCarousel" id="popupDetalleCarousel_lanzamiento"></div>
 <!-- FIN POPUP DETALLE CARRUSEL OFERTAS PARA TI LANZAMIENTO -->
 <!-- POPUP DETALLE CARRUSEL OFERTAS PARA TI PACK NUEVAS -->
 <div class="contenedor_popup_detalleCarousel" id="popupDetalleCarousel_packNuevas">
@@ -1141,34 +1140,39 @@
         </div>
     </div>
     <!-- FIN POPUP MIS DATOS -->
-</div>
-<!-- FIN POPUP POPUPs HOME -->
-<!-- POPUP TUTORIAL HOME-->
-<div class="contenedor_fondo_popup fondo_tutorial" id="popup_tutorial_home" style="display: none;">
-    <div class="popup_tutorial_home" style="position: relative; margin: 0 auto; display: block; min-width: 900px !important;">
-        <div id="slide1_container" class="shadow">
-          <div id="slide1_images">
-            <div class="imagen_tutorial img_slide1"></div>
-            <div class="imagen_tutorial img_slide2"></div>
-            <div class="imagen_tutorial img_slide3"></div>
-            <div class="imagen_tutorial img_slide4"></div>
-            <div class="imagen_tutorial img_slide5"></div>
-            <div class="imagen_tutorial img_slide6"></div>
-            <div class="imagen_tutorial img_slide7"></div>
-            <div class="imagen_tutorial img_slide8"></div>
-            <div class="imagen_tutorial img_slide9"></div>
-          </div>
-        </div>
-        
-        <div class="btn_cerrar_actualizarMisDatos">
-            <a href="#" title="Cerrar" class="cerrar_tutorial">
-                <img src="@Url.Content("~/Content/Images/btn_cerrar_popup.svg")" alt="Cerrar" />
-                <span class="texto_btn_cerrar">CERRAR</span>
-            </a>
+
+    <!-- POPUP TUTORIAL HOME-->
+    <div id="popup_tutorial_home" style="display: none;">
+        <div class="popup_tutorial_home" style="position: relative; margin: 0 auto; display: block; min-width: 900px !important;">
+            <div id="slide1_container" class="shadow">
+                <div id="slide1_images">
+                    <div class="imagen_tutorial img_slide1"></div>
+                    <div class="imagen_tutorial img_slide2"></div>
+                    <div class="imagen_tutorial img_slide3"></div>
+                    <div class="imagen_tutorial img_slide4"></div>
+                    <div class="imagen_tutorial img_slide5"></div>
+                    <div class="imagen_tutorial img_slide6"></div>
+                    <div class="imagen_tutorial img_slide7"></div>
+                    <div class="imagen_tutorial img_slide8"></div>
+                    <div class="imagen_tutorial img_slide9"></div>
+                </div>
+            </div>
+
+            <div class="btn_cerrar_actualizarMisDatos">
+                <a href="#" title="Cerrar" class="cerrar_tutorial">
+                    <img src="@Url.Content("~/Content/Images/btn_cerrar_popup.svg")" alt="Cerrar" />
+                    <span class="texto_btn_cerrar">CERRAR</span>
+                </a>
+            </div>
         </div>
     </div>
+    <!-- FIN POPUP TUTORIAL -->
+
+    <!-- POPUP COMUNICADOS -->
+    <div id="popupComunicados" style="display:none;"></div>
+    <!-- FIN POPUP COMUNICADOS -->
 </div>
-<!-- FIN POPUP TUTORIAL -->
+<!-- FIN POPUP POPUPs HOME -->
 <!--POP UP FOTO CARGADA-->
 <div id="PopUpFotoCargada" class="CompartirCorreoPop" style="display:none">
     <div class="content_foto_cargada">
@@ -1200,7 +1204,6 @@
 <!--FIN-->
 
 <!-- POPUP IMAGEN PERFIL -->
-
 <div class="contenedor_fondo_popup" id="PopUpFotoActualizada2" style="display: none;">
     <div class="popup_img_perfil">
         <h1>MI <b>FOTO</b></h1>
@@ -1324,37 +1327,6 @@
 
     </div>
 </div>
-
-<!-- POPUP COMUNICADOS -->
-
-<!-- SB20-834 - INICIO -->
-<div class="fondo_popupComunicados" id="popupComunicados" style="display:none;">
-    @*<div class="popup_comunicados">
-        <div class="btn_cerrar_actualizarMisDatos">
-            <a href="javascript:void();" onclick="return $('#popupComunicados').fadeOut();" title="Cerrar">
-                <img src="@Url.Content("~/Content/Images/btn_cerrar_popup.svg")" alt="Cerrar" />
-                <span class="texto_btn_cerrar">CERRAR</span>
-            </a>
-        </div>
-        <div class="contenedor_imagen_comunicado">
-            <img src="@Url.Content("~/Content/Images/Esika/tutorialHome/tutorial-home-esika1.jpg")" alt="Alternate Text" />
-        </div>
-        <div class="franja_noVolverMostrar">
-            <form>
-                <div class="checkbox_condiciones">
-                    <input type="checkbox" name="condiciones" id="noMostrarPopupComunicado" />
-                    <label for="noMostrarPopupComunicado" class="texto_terminosCondiciones">
-                        <span style="display:inline-block; margin-top:1px;">No volver a mostrar</span>
-                    </label>
-                </div>
-            </form>
-        </div>
-    </div>*@
-</div>
-
-<!-- FIN POPUP COMUNICADOS -->
-
-<!-- SB20-834 - FIN -->
 
 <script id="estrategia-template" type="text/x-handlebars-template">
     {{#each this as |item|}}
