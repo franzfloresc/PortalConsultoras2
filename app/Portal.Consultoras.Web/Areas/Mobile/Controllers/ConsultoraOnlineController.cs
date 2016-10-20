@@ -1846,23 +1846,10 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
                     return RedirectToAction("Detalle", "Pedido", new { area = "Mobile" });
                 }
-
-                //return Json(new
-                //{
-                //    success = true,
-                //    message = "OK",
-                //    data = model
-                //});
             }
             catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                //return Json(new
-                //{
-                //    success = false,
-                //    message = ex.Message,
-                //    data = ""
-                //});
             }
 
             return View(model);
@@ -1998,23 +1985,10 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     //model.Pagina = "0";
                     //model.PaginaDe = "0";
                 }
-
-                //return Json(new
-                //{
-                //    success = true,
-                //    message = "OK",
-                //    data = model
-                //});
             }
             catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                //return Json(new
-                //{
-                //    success = false,
-                //    message = ex.Message,
-                //    data = ""
-                //});
             }
 
             using (SACServiceClient sv = new SACServiceClient())
