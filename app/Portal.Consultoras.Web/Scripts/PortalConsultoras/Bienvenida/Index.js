@@ -571,7 +571,6 @@ function mostrarUbicacionTutorial(tieneFondoNegro, mostrarPopupTutorial) {
             }
         }
     }, 4000);
-
 }
 
 function mostrarIconoTutorial() {
