@@ -1835,7 +1835,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                         //model.Pagina = "0";
                         //model.PaginaDe = "0";
 
-                        return RedirectToAction("Detalle", "ConsultoraOnline");
+                        return RedirectToAction("Detalle", "Pedido", new { area = "Mobile" });
                     }
                 }
                 else
@@ -1844,7 +1844,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     //model.Pagina = "0";
                     //model.PaginaDe = "0";
 
-                    return RedirectToAction("Detalle", "ConsultoraOnline");
+                    return RedirectToAction("Detalle", "Pedido", new { area = "Mobile" });
                 }
 
                 //return Json(new
@@ -1954,7 +1954,12 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                         }// foreach
                     }
 
-                    model.ListaDetalle = olstMisPedidosDet;
+                    //model.ListaDetalle = olstMisPedidosDet;
+
+                    var detallePedidos = Mapper.Map<List<BEMisPedidosDetalle>, List<MisPedidosDetalleModel2>>(olstMisPedidosDet);
+                    detallePedidos.Update(p => p.CodigoIso = userData.CodigoISO);
+
+                    model.ListaDetalle2 = detallePedidos;
 
                     //BEGrid grid = SetGrid(sidx, sord, page, rows);
                     //BEPager pag = Util.PaginadorGenerico(grid, model.ListaDetalle);

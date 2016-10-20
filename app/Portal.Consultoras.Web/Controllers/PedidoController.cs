@@ -831,6 +831,14 @@ namespace Portal.Consultoras.Web.Controllers
                 if (!olstPedidoWebDetalle.Any())
                 {
                     model.ListaDetalle = new List<BEPedidoWebDetalle>();
+                    if (userData.ZonaValida)
+                    {
+                        using (ServicePROL.ServiceStockSsic sv = new ServicePROL.ServiceStockSsic())
+                        {
+                            sv.Url = ConfigurarUrlServiceProl();
+                            sv.wsDesReservarPedido(userData.CodigoConsultora, userData.CodigoISO);
+                        }
+                    }
                 }
                 else
                 {
@@ -952,7 +960,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             return Json(new
             {
-                success = ErrorServer,
+                success = !ErrorServer,
                 message = message,
                 extra = "",
                 DataBarra = GetDataBarra()
@@ -3227,6 +3235,8 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (valida)
                 {
+                    List<BEPedidoWebDetalle> olstPedidoWebDetalle = new List<BEPedidoWebDetalle>();
+
                     using (PedidoServiceClient sv = new PedidoServiceClient())
                     {
                         bool ValidacionAbierta = false;
@@ -3237,13 +3247,18 @@ namespace Portal.Consultoras.Web.Controllers
                             ValidacionAbierta = true;
                             Estado = Constantes.EstadoPedido.Procesado;
                         }
+                        olstPedidoWebDetalle = ObtenerPedidoWebDetalle();
+
+                        if (userData.PedidoID == 0 && !olstPedidoWebDetalle.Any()) // Si el userData no tiene información del PedidoID y no tiene pedidos.
+                        {
+                            userData.PedidoID = sv.GetPedidoWebID(userData.PaisID, userData.CampaniaID, userData.ConsultoraID);
+                            Estado = Constantes.EstadoPedido.Pendiente;
+                        }
                         //Dado que no se usa el indicador de ModificaPedidoReservado, este campo en el servicio será utilizado para enviar el campo: ValidacionAbierta
                         sv.UpdPedidoWebByEstado(userData.PaisID, userData.CampaniaID, userData.PedidoID, Estado, false, true, userData.CodigoUsuario, ValidacionAbierta);
                         if (Tipo == "PI")
                         {
                             //Inserta Aceptacion Reemplazos
-                            List<BEPedidoWebDetalle> olstPedidoWebDetalle = new List<BEPedidoWebDetalle>();
-                            olstPedidoWebDetalle = ObtenerPedidoWebDetalle();
                             List<BEPedidoWebDetalle> Reemplazos = olstPedidoWebDetalle.Where(p => !string.IsNullOrEmpty(p.Mensaje)).ToList();
                             if (Reemplazos.Count != 0)
                             {
@@ -4490,7 +4505,7 @@ namespace Portal.Consultoras.Web.Controllers
             return listaParametriaOfertaFinal;
         }
 
-        #endregion        
+        #endregion
 
         public JsonResult ObtenerProductosOfertaFinal(int tipoOfertaFinal)
         {
@@ -4564,7 +4579,7 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpPost]
         public JsonResult InsertarOfertaFinalLog(string CUV, int cantidad, string tipoOfertaFinal_Log, decimal gap_Log, int tipoRegistro)
         {
-            try 
+            try
             {
                 using (PedidoServiceClient svp = new PedidoServiceClient())
                 {
