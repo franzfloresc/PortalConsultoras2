@@ -1069,10 +1069,9 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
                 List<BEMisPedidos> refresh = new List<BEMisPedidos>();
-                
                 foreach (BEMisPedidos item in consultoraOnlineMisPedidos.ListaPedidos)
                 {
-                    if (item.PedidoId == int.Parse(pedidoId))
+                    if (item.PedidoId == _pedidoId)
                     {
                         item.Estado = "A";
                         item.FechaModificacion = DateTime.Now;
@@ -1099,7 +1098,7 @@ namespace Portal.Consultoras.Web.Controllers
                         beCliente.PaisID = UserData().PaisID;
                         beCliente.Activo = true;
                         //clienteId = beCliente.ClienteID;
-                        clienteId = svc.InsertById(beCliente).ToString();
+                        clienteId = svc.Insert(beCliente).ToString();
                     }
                     else
                     {
@@ -1377,8 +1376,6 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                 }
 
-                TempData["clearPedidoId"] = pedido.PedidoId;
-
                 return Json(new
                 {
                     success = true,
@@ -1619,6 +1616,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 MisPedidosModel consultoraOnlineMisPedidos = new MisPedidosModel();
                 consultoraOnlineMisPedidos = (MisPedidosModel)Session["objMisPedidos"];
+
                 ServiceSAC.BETablaLogicaDatos[] tablalogicaDatosMail = sv.GetTablaLogicaDatos(PaisId, 57);
                 String emailOculto = tablalogicaDatosMail.First(x => x.TablaLogicaDatosID == 5701).Descripcion;
                 ServiceSAC.BETablaLogicaDatos[] tablalogicaDatos = sv.GetTablaLogicaDatos(PaisId, 56);
@@ -1810,19 +1808,19 @@ namespace Portal.Consultoras.Web.Controllers
                                 LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
                             }
 
-                            List<BEMisPedidos> refresh = new List<BEMisPedidos>();
-                            foreach (BEMisPedidos item in consultoraOnlineMisPedidos.ListaPedidos)
-                            {
-                                if (item.PedidoId == SolicitudId)
-                                {
-                                    item.Estado = "R";
-                                    item.FechaModificacion = DateTime.Now;
-                                }
-                                refresh.Add(item);
-                            }
-                            MisPedidosModel refreshMisPedidos = new MisPedidosModel();
-                            refreshMisPedidos.ListaPedidos = refresh;
-                            Session["objMisPedidos"] = refreshMisPedidos;
+                            //List<BEMisPedidos> refresh = new List<BEMisPedidos>();
+                            //foreach (BEMisPedidos item in consultoraOnlineMisPedidos.ListaPedidos)
+                            //{
+                            //    if (item.PedidoId == SolicitudId)
+                            //    {
+                            //        item.Estado = "R";
+                            //        item.FechaModificacion = DateTime.Now;
+                            //    }
+                            //    refresh.Add(item);
+                            //}
+                            //MisPedidosModel refreshMisPedidos = new MisPedidosModel();
+                            //refreshMisPedidos.ListaPedidos = refresh;
+                            //Session["objMisPedidos"] = refreshMisPedidos;
                             
                         }
                     }
@@ -1839,7 +1837,19 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                 }
 
-                TempData["clearPedidoId"] = SolicitudId;
+                List<BEMisPedidos> refresh = new List<BEMisPedidos>();
+                foreach (BEMisPedidos item in consultoraOnlineMisPedidos.ListaPedidos)
+                {
+                    if (item.PedidoId == SolicitudId)
+                    {
+                        item.Estado = "R";
+                        item.FechaModificacion = DateTime.Now;
+                    }
+                    refresh.Add(item);
+                }
+                MisPedidosModel refreshMisPedidos = new MisPedidosModel();
+                refreshMisPedidos.ListaPedidos = refresh;
+                Session["objMisPedidos"] = refreshMisPedidos;
             }
 
             var data = new
