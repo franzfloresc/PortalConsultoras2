@@ -34,6 +34,18 @@
       <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd4" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
     </xsd:schema>
   </wsdl:types>
+  <wsdl:message name="IPedidoService_UpdProductoSugerido_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdProductoSugerido" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_UpdProductoSugerido_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdProductoSugeridoResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_DelProductoSugerido_InputMessage">
+    <wsdl:part name="parameters" element="tns:DelProductoSugerido" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_DelProductoSugerido_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DelProductoSugeridoResponse" />
+  </wsdl:message>
   <wsdl:message name="IPedidoService_GetConfiguracionProgramaNuevas_InputMessage">
     <wsdl:part name="parameters" element="tns:GetConfiguracionProgramaNuevas" />
   </wsdl:message>
@@ -87,6 +99,18 @@
   </wsdl:message>
   <wsdl:message name="IPedidoService_ObtenerProcesoPedidoRechazadoGPR_OutputMessage">
     <wsdl:part name="parameters" element="tns:ObtenerProcesoPedidoRechazadoGPRResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_EliminarTipoEstrategia_InputMessage">
+    <wsdl:part name="parameters" element="tns:EliminarTipoEstrategia" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_EliminarTipoEstrategia_OutputMessage">
+    <wsdl:part name="parameters" element="tns:EliminarTipoEstrategiaResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_GetTipoEstrategias_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetTipoEstrategias" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_GetTipoEstrategias_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetTipoEstrategiasResponse" />
   </wsdl:message>
   <wsdl:message name="IPedidoService_GetEstrategias_InputMessage">
     <wsdl:part name="parameters" element="tns:GetEstrategias" />
@@ -586,17 +610,17 @@
   <wsdl:message name="IPedidoService_InsProductoSugerido_OutputMessage">
     <wsdl:part name="parameters" element="tns:InsProductoSugeridoResponse" />
   </wsdl:message>
-  <wsdl:message name="IPedidoService_UpdProductoSugerido_InputMessage">
-    <wsdl:part name="parameters" element="tns:UpdProductoSugerido" />
+  <wsdl:message name="IPedidoService_GetPedidoWebID_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetPedidoWebID" />
   </wsdl:message>
-  <wsdl:message name="IPedidoService_UpdProductoSugerido_OutputMessage">
-    <wsdl:part name="parameters" element="tns:UpdProductoSugeridoResponse" />
+  <wsdl:message name="IPedidoService_GetPedidoWebID_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetPedidoWebIDResponse" />
   </wsdl:message>
-  <wsdl:message name="IPedidoService_DelProductoSugerido_InputMessage">
-    <wsdl:part name="parameters" element="tns:DelProductoSugerido" />
+  <wsdl:message name="IPedidoService_GetProductosRecomendadosHabilitados_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetProductosRecomendadosHabilitados" />
   </wsdl:message>
-  <wsdl:message name="IPedidoService_DelProductoSugerido_OutputMessage">
-    <wsdl:part name="parameters" element="tns:DelProductoSugeridoResponse" />
+  <wsdl:message name="IPedidoService_GetProductosRecomendadosHabilitados_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetProductosRecomendadosHabilitadosResponse" />
   </wsdl:message>
   <wsdl:message name="IPedidoService_GetOfertasNuevasByCampania_InputMessage">
     <wsdl:part name="parameters" element="tns:GetOfertasNuevasByCampania" />
@@ -1096,18 +1120,6 @@
   <wsdl:message name="IPedidoService_InsertarTipoEstrategia_OutputMessage">
     <wsdl:part name="parameters" element="tns:InsertarTipoEstrategiaResponse" />
   </wsdl:message>
-  <wsdl:message name="IPedidoService_EliminarTipoEstrategia_InputMessage">
-    <wsdl:part name="parameters" element="tns:EliminarTipoEstrategia" />
-  </wsdl:message>
-  <wsdl:message name="IPedidoService_EliminarTipoEstrategia_OutputMessage">
-    <wsdl:part name="parameters" element="tns:EliminarTipoEstrategiaResponse" />
-  </wsdl:message>
-  <wsdl:message name="IPedidoService_GetTipoEstrategias_InputMessage">
-    <wsdl:part name="parameters" element="tns:GetTipoEstrategias" />
-  </wsdl:message>
-  <wsdl:message name="IPedidoService_GetTipoEstrategias_OutputMessage">
-    <wsdl:part name="parameters" element="tns:GetTipoEstrategiasResponse" />
-  </wsdl:message>
   <wsdl:message name="IPedidoService_GetPedidosReporteLiderIndicador_InputMessage">
     <wsdl:part name="parameters" element="tns:GetPedidosReporteLiderIndicador" />
   </wsdl:message>
@@ -1275,6 +1287,18 @@
   </wsdl:message>
   <wsdl:message name="IPedidoService_UpdPedidoWebDetalleMasivo_OutputMessage">
     <wsdl:part name="parameters" element="tns:UpdPedidoWebDetalleMasivoResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_AceptarBackOrderPedidoWebDetalle_InputMessage">
+    <wsdl:part name="parameters" element="tns:AceptarBackOrderPedidoWebDetalle" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_AceptarBackOrderPedidoWebDetalle_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AceptarBackOrderPedidoWebDetalleResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_UpdBackOrderListPedidoWebDetalle_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdBackOrderListPedidoWebDetalle" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_UpdBackOrderListPedidoWebDetalle_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdBackOrderListPedidoWebDetalleResponse" />
   </wsdl:message>
   <wsdl:message name="IPedidoService_SelectByPedidoValidado_InputMessage">
     <wsdl:part name="parameters" element="tns:SelectByPedidoValidado" />
@@ -1606,19 +1630,15 @@
   <wsdl:message name="IPedidoService_ValidarConfiguracionCrossSelling_OutputMessage">
     <wsdl:part name="parameters" element="tns:ValidarConfiguracionCrossSellingResponse" />
   </wsdl:message>
-  <wsdl:message name="IPedidoService_GetPedidoWebID_InputMessage">
-    <wsdl:part name="parameters" element="tns:GetPedidoWebID" />
-  </wsdl:message>
-  <wsdl:message name="IPedidoService_GetPedidoWebID_OutputMessage">
-    <wsdl:part name="parameters" element="tns:GetPedidoWebIDResponse" />
-  </wsdl:message>
-  <wsdl:message name="IPedidoService_GetProductosRecomendadosHabilitados_InputMessage">
-    <wsdl:part name="parameters" element="tns:GetProductosRecomendadosHabilitados" />
-  </wsdl:message>
-  <wsdl:message name="IPedidoService_GetProductosRecomendadosHabilitados_OutputMessage">
-    <wsdl:part name="parameters" element="tns:GetProductosRecomendadosHabilitadosResponse" />
-  </wsdl:message>
   <wsdl:portType name="IPedidoService">
+    <wsdl:operation name="UpdProductoSugerido">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/UpdProductoSugerido" message="tns:IPedidoService_UpdProductoSugerido_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/UpdProductoSugeridoResponse" message="tns:IPedidoService_UpdProductoSugerido_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DelProductoSugerido">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/DelProductoSugerido" message="tns:IPedidoService_DelProductoSugerido_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/DelProductoSugeridoResponse" message="tns:IPedidoService_DelProductoSugerido_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="GetConfiguracionProgramaNuevas">
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetConfiguracionProgramaNuevas" message="tns:IPedidoService_GetConfiguracionProgramaNuevas_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/GetConfiguracionProgramaNuevasResponse" message="tns:IPedidoService_GetConfiguracionProgramaNuevas_OutputMessage" />
@@ -1654,6 +1674,14 @@
     <wsdl:operation name="ObtenerProcesoPedidoRechazadoGPR">
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/ObtenerProcesoPedidoRechazadoGPR" message="tns:IPedidoService_ObtenerProcesoPedidoRechazadoGPR_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/ObtenerProcesoPedidoRechazadoGPRResponse" message="tns:IPedidoService_ObtenerProcesoPedidoRechazadoGPR_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="EliminarTipoEstrategia">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/EliminarTipoEstrategia" message="tns:IPedidoService_EliminarTipoEstrategia_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/EliminarTipoEstrategiaResponse" message="tns:IPedidoService_EliminarTipoEstrategia_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetTipoEstrategias">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetTipoEstrategias" message="tns:IPedidoService_GetTipoEstrategias_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/GetTipoEstrategiasResponse" message="tns:IPedidoService_GetTipoEstrategias_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="GetEstrategias">
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetEstrategias" message="tns:IPedidoService_GetEstrategias_InputMessage" />
@@ -1987,13 +2015,13 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/InsProductoSugerido" message="tns:IPedidoService_InsProductoSugerido_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/InsProductoSugeridoResponse" message="tns:IPedidoService_InsProductoSugerido_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="UpdProductoSugerido">
-      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/UpdProductoSugerido" message="tns:IPedidoService_UpdProductoSugerido_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/UpdProductoSugeridoResponse" message="tns:IPedidoService_UpdProductoSugerido_OutputMessage" />
+    <wsdl:operation name="GetPedidoWebID">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetPedidoWebID" message="tns:IPedidoService_GetPedidoWebID_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/GetPedidoWebIDResponse" message="tns:IPedidoService_GetPedidoWebID_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="DelProductoSugerido">
-      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/DelProductoSugerido" message="tns:IPedidoService_DelProductoSugerido_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/DelProductoSugeridoResponse" message="tns:IPedidoService_DelProductoSugerido_OutputMessage" />
+    <wsdl:operation name="GetProductosRecomendadosHabilitados">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetProductosRecomendadosHabilitados" message="tns:IPedidoService_GetProductosRecomendadosHabilitados_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/GetProductosRecomendadosHabilitadosResponse" message="tns:IPedidoService_GetProductosRecomendadosHabilitados_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="GetOfertasNuevasByCampania">
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetOfertasNuevasByCampania" message="tns:IPedidoService_GetOfertasNuevasByCampania_InputMessage" />
@@ -2327,14 +2355,6 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/InsertarTipoEstrategia" message="tns:IPedidoService_InsertarTipoEstrategia_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/InsertarTipoEstrategiaResponse" message="tns:IPedidoService_InsertarTipoEstrategia_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="EliminarTipoEstrategia">
-      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/EliminarTipoEstrategia" message="tns:IPedidoService_EliminarTipoEstrategia_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/EliminarTipoEstrategiaResponse" message="tns:IPedidoService_EliminarTipoEstrategia_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="GetTipoEstrategias">
-      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetTipoEstrategias" message="tns:IPedidoService_GetTipoEstrategias_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/GetTipoEstrategiasResponse" message="tns:IPedidoService_GetTipoEstrategias_OutputMessage" />
-    </wsdl:operation>
     <wsdl:operation name="GetPedidosReporteLiderIndicador">
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetPedidosReporteLiderIndicador" message="tns:IPedidoService_GetPedidosReporteLiderIndicador_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/GetPedidosReporteLiderIndicadorResponse" message="tns:IPedidoService_GetPedidosReporteLiderIndicador_OutputMessage" />
@@ -2446,6 +2466,14 @@
     <wsdl:operation name="UpdPedidoWebDetalleMasivo">
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/UpdPedidoWebDetalleMasivo" message="tns:IPedidoService_UpdPedidoWebDetalleMasivo_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/UpdPedidoWebDetalleMasivoResponse" message="tns:IPedidoService_UpdPedidoWebDetalleMasivo_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="AceptarBackOrderPedidoWebDetalle">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/AceptarBackOrderPedidoWebDetalle" message="tns:IPedidoService_AceptarBackOrderPedidoWebDetalle_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/AceptarBackOrderPedidoWebDetalleResponse" message="tns:IPedidoService_AceptarBackOrderPedidoWebDetalle_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdBackOrderListPedidoWebDetalle">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/UpdBackOrderListPedidoWebDetalle" message="tns:IPedidoService_UpdBackOrderListPedidoWebDetalle_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/UpdBackOrderListPedidoWebDetalleResponse" message="tns:IPedidoService_UpdBackOrderListPedidoWebDetalle_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="SelectByPedidoValidado">
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/SelectByPedidoValidado" message="tns:IPedidoService_SelectByPedidoValidado_InputMessage" />
@@ -2667,17 +2695,27 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/ValidarConfiguracionCrossSelling" message="tns:IPedidoService_ValidarConfiguracionCrossSelling_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/ValidarConfiguracionCrossSellingResponse" message="tns:IPedidoService_ValidarConfiguracionCrossSelling_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="GetPedidoWebID">
-      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetPedidoWebID" message="tns:IPedidoService_GetPedidoWebID_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/GetPedidoWebIDResponse" message="tns:IPedidoService_GetPedidoWebID_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="GetProductosRecomendadosHabilitados">
-      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetProductosRecomendadosHabilitados" message="tns:IPedidoService_GetProductosRecomendadosHabilitados_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/GetProductosRecomendadosHabilitadosResponse" message="tns:IPedidoService_GetProductosRecomendadosHabilitados_OutputMessage" />
-    </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IPedidoService" type="tns:IPedidoService">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="UpdProductoSugerido">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/UpdProductoSugerido" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DelProductoSugerido">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/DelProductoSugerido" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetConfiguracionProgramaNuevas">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/GetConfiguracionProgramaNuevas" style="document" />
       <wsdl:input>
@@ -2752,6 +2790,24 @@
     </wsdl:operation>
     <wsdl:operation name="ObtenerProcesoPedidoRechazadoGPR">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/ObtenerProcesoPedidoRechazadoGPR" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EliminarTipoEstrategia">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/EliminarTipoEstrategia" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTipoEstrategias">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/GetTipoEstrategias" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -3506,8 +3562,8 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="UpdProductoSugerido">
-      <soap:operation soapAction="http://tempuri.org/IPedidoService/UpdProductoSugerido" style="document" />
+    <wsdl:operation name="GetPedidoWebID">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/GetPedidoWebID" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -3515,8 +3571,8 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="DelProductoSugerido">
-      <soap:operation soapAction="http://tempuri.org/IPedidoService/DelProductoSugerido" style="document" />
+    <wsdl:operation name="GetProductosRecomendadosHabilitados">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/GetProductosRecomendadosHabilitados" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -4271,24 +4327,6 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="EliminarTipoEstrategia">
-      <soap:operation soapAction="http://tempuri.org/IPedidoService/EliminarTipoEstrategia" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetTipoEstrategias">
-      <soap:operation soapAction="http://tempuri.org/IPedidoService/GetTipoEstrategias" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
     <wsdl:operation name="GetPedidosReporteLiderIndicador">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/GetPedidosReporteLiderIndicador" style="document" />
       <wsdl:input>
@@ -4534,6 +4572,24 @@
     </wsdl:operation>
     <wsdl:operation name="UpdPedidoWebDetalleMasivo">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/UpdPedidoWebDetalleMasivo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AceptarBackOrderPedidoWebDetalle">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/AceptarBackOrderPedidoWebDetalle" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdBackOrderListPedidoWebDetalle">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/UpdBackOrderListPedidoWebDetalle" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -5029,24 +5085,6 @@
     </wsdl:operation>
     <wsdl:operation name="ValidarConfiguracionCrossSelling">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/ValidarConfiguracionCrossSelling" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetPedidoWebID">
-      <soap:operation soapAction="http://tempuri.org/IPedidoService/GetPedidoWebID" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetProductosRecomendadosHabilitados">
-      <soap:operation soapAction="http://tempuri.org/IPedidoService/GetProductosRecomendadosHabilitados" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -5058,6 +5096,24 @@
   <wsdl:binding name="BasicHttpsBinding_IPedidoService" type="tns:IPedidoService">
     <wsp:PolicyReference URI="#BasicHttpsBinding_IPedidoService_policy" />
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="UpdProductoSugerido">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/UpdProductoSugerido" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DelProductoSugerido">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/DelProductoSugerido" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetConfiguracionProgramaNuevas">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/GetConfiguracionProgramaNuevas" style="document" />
       <wsdl:input>
@@ -5132,6 +5188,24 @@
     </wsdl:operation>
     <wsdl:operation name="ObtenerProcesoPedidoRechazadoGPR">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/ObtenerProcesoPedidoRechazadoGPR" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EliminarTipoEstrategia">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/EliminarTipoEstrategia" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTipoEstrategias">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/GetTipoEstrategias" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -5886,8 +5960,8 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="UpdProductoSugerido">
-      <soap:operation soapAction="http://tempuri.org/IPedidoService/UpdProductoSugerido" style="document" />
+    <wsdl:operation name="GetPedidoWebID">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/GetPedidoWebID" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -5895,8 +5969,8 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="DelProductoSugerido">
-      <soap:operation soapAction="http://tempuri.org/IPedidoService/DelProductoSugerido" style="document" />
+    <wsdl:operation name="GetProductosRecomendadosHabilitados">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/GetProductosRecomendadosHabilitados" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -6651,24 +6725,6 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="EliminarTipoEstrategia">
-      <soap:operation soapAction="http://tempuri.org/IPedidoService/EliminarTipoEstrategia" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetTipoEstrategias">
-      <soap:operation soapAction="http://tempuri.org/IPedidoService/GetTipoEstrategias" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
     <wsdl:operation name="GetPedidosReporteLiderIndicador">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/GetPedidosReporteLiderIndicador" style="document" />
       <wsdl:input>
@@ -6914,6 +6970,24 @@
     </wsdl:operation>
     <wsdl:operation name="UpdPedidoWebDetalleMasivo">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/UpdPedidoWebDetalleMasivo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AceptarBackOrderPedidoWebDetalle">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/AceptarBackOrderPedidoWebDetalle" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdBackOrderListPedidoWebDetalle">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/UpdBackOrderListPedidoWebDetalle" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -7409,24 +7483,6 @@
     </wsdl:operation>
     <wsdl:operation name="ValidarConfiguracionCrossSelling">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/ValidarConfiguracionCrossSelling" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetPedidoWebID">
-      <soap:operation soapAction="http://tempuri.org/IPedidoService/GetPedidoWebID" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetProductosRecomendadosHabilitados">
-      <soap:operation soapAction="http://tempuri.org/IPedidoService/GetProductosRecomendadosHabilitados" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

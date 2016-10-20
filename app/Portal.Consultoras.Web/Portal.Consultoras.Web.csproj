@@ -1263,6 +1263,7 @@
     <Content Include="Content\Images\bg_tablet2.png" />
     <Content Include="Content\Images\bloquear.png" />
     <Content Include="Content\Images\body_login.png" />
+    <Content Include="Content\Images\boton-home.png" />
     <Content Include="Content\Images\btnActualizar_AD.png" />
     <Content Include="Content\Images\btnActualizar_AD_e.png" />
     <Content Include="Content\Images\btnCerrar_AD.png" />

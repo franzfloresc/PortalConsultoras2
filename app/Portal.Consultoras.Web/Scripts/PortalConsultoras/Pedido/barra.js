@@ -3,7 +3,7 @@ var listaMensajeMeta = listaMensajeMeta || new Array();
 var dataBarra = dataBarra || new Object();
 
 function GetWidthTotalBase() {
-    return $("#divListadoPedido").outerWidth() || $("[data-barra-width]").outerWidth();
+    return $("[data-barra-width]").outerWidth();
 }
 
 function MostrarBarra(datax, destino) {

@@ -561,6 +561,15 @@ function CrearDialogs() {
         draggable: true
     });
 
+    $('#divBackOrderModificado').dialog({
+        autoOpen: false,
+        resizable: false,
+        modal: true,
+        closeOnEscape: false,
+        width: 400,
+        draggable: true
+    });
+
     $('#divReservaSatisfactoriaVE').dialog({
         autoOpen: false,
         resizable: false,
@@ -1251,10 +1260,18 @@ function ArmarCarouselEstrategias(data) {
     }
 
     cierreCarouselEstrategias();
-    if ($.trim($('#divListadoEstrategia').html()).length == 0) {
-        $('#divListaEstrategias').hide();
-    } else {
+
+    $("[data-barra-width]").css("width", indicadorFlexiPago == 1 ? "68%" : "100%");
+
+    $('#divListaEstrategias').hide();
+    $('.caja_pedidos').addClass('sinOfertasParaTi');
+    if ($.trim($('#divListadoEstrategia').html()).length > 0) {
+        $("[data-barra-width]").css("width", "100%");
         $('#divListaEstrategias').show();
+        if (indicadorFlexiPago == 1) {
+            $('#divListaEstrategias').css("margin-top", ($(".flexiPago_belcorp").outerHeight() + 50)+ "px");
+        }        
+        $('.caja_pedidos').removeClass('sinOfertasParaTi');
         var hCar = $($("#divListadoEstrategia").find("[data-item]").get(0)).height();
         var cant = parseInt(heightReference / hCar);
         cant = cant < 3 ? 3 : cant > 5 ? 5 : cant;
@@ -1353,6 +1370,8 @@ function ArmarCarouselEstrategias(data) {
             $('#cierreCarousel').show();
         }
     }
+
+    MostrarBarra();
 
 };
 function EstructurarDataCarousel(array) {
@@ -2473,6 +2492,49 @@ function DeletePedido(campaniaId, pedidoId, pedidoDetalleId, tipoOfertaSisId, cu
     });
 }
 
+function AceptarBackOrder(campaniaId, pedidoId, pedidoDetalleId, clienteId) {
+    if (ReservadoOEnHorarioRestringido(true)) {
+        return false;
+    }
+
+    var param = {
+        CampaniaID: campaniaId,
+        PedidoID: pedidoId,
+        PedidoDetalleID: pedidoDetalleId,
+        ClienteID_: clienteId
+    };
+
+    AbrirSplash();
+    jQuery.ajax({
+        type: 'POST',
+        url: baseUrl + 'Pedido/AceptarBackOrder',
+        dataType: 'json',
+        contentType: 'application/json; charset=utf-8',
+        data: JSON.stringify(param),
+        async: true,
+        success: function (data) {
+            CerrarSplash();
+            if (!checkTimeout(data)) return false;
+            if (data.success != true) {
+                alert_msg(data.message);
+                return false;
+            }
+
+            AbrirSplash();
+            CargarDetallePedido();
+            MostrarBarra(data);
+            CargarResumenCampaniaHeader(true);
+            CerrarSplash();
+        },
+        error: function (data, error) {
+            if (checkTimeout(data)) {
+                HideDialog("divVistaPrevia");
+                CerrarSplash();
+            }
+        }
+    });
+}
+
 function CargandoProductos() {
     $('#tbobyDetallePedido').html('<tr><td colspan="7"><div style="text-align: center;">Cargando Detalle de Productos<br><img src="' + urlLoad + '" /></div></td></tr>');
 }
@@ -3157,7 +3219,7 @@ function UpdateConCantidad(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion
     });
 }
 
-function Update(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion, CUV) {
+function Update(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion, CUV, esBackOrder) {
     var val = ValidarUpdate(PedidoDetalleID, FlagValidacion);
     if (!val) {
         return false;
@@ -3240,6 +3302,10 @@ function Update(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion, CUV) {
 
             MostrarBarra(data);
             CargarResumenCampaniaHeader();
+            if (esBackOrder == 'true') {
+                showDialog('divBackOrderModificado');
+                CargarDetallePedido();
+            }
 
             var diferenciaCantidades = parseInt(Cantidad) - parseInt(CantidadAnti);
             if (diferenciaCantidades > 0)
@@ -3256,7 +3322,7 @@ function Update(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion, CUV) {
     });
 }
 
-function UpdateLiquidacion(CampaniaID, PedidoID, PedidoDetalleID, TipoOfertaSisID, CUV, FlagValidacion, CantidadModi) {
+function UpdateLiquidacion(CampaniaID, PedidoID, PedidoDetalleID, TipoOfertaSisID, CUV, FlagValidacion, CantidadModi, esBackOrder) {
     AbrirSplash();
     if (HorarioRestringido()) {
         var CantidadAnti = $('#txtLPTempCant' + PedidoDetalleID).val();
@@ -3390,12 +3456,8 @@ function UpdateLiquidacion(CampaniaID, PedidoID, PedidoDetalleID, TipoOfertaSisI
                             data: JSON.stringify(item),
                             async: true,
                             success: function (data) {
-
                                 CerrarSplash();
-
-                                if (!checkTimeout(data))
-                                    return false;
-
+                                if (!checkTimeout(data)) return false;
                                 if (data.success != true) {
                                     alert_msg(data.message);
                                     return false;
@@ -3407,8 +3469,7 @@ function UpdateLiquidacion(CampaniaID, PedidoID, PedidoDetalleID, TipoOfertaSisI
                                     $('#hdfLPCliDes' + PedidoDetalleID).val($('#hdfNomConsultora').val());
                                     $('#txtLPCli' + PedidoDetalleID).val($('#hdfNomConsultora').val());
                                 }
-                                if (PROL == "0")
-                                    $('#txtLPTempCant' + PedidoDetalleID).val($('#txtLPCant' + PedidoDetalleID).val());
+                                if (PROL == "0") $('#txtLPTempCant' + PedidoDetalleID).val($('#txtLPCant' + PedidoDetalleID).val());
 
                                 var nomCli = $("#ddlClientes option:selected").text();
                                 var simbolo = data.Simbolo;
@@ -3436,6 +3497,10 @@ function UpdateLiquidacion(CampaniaID, PedidoID, PedidoDetalleID, TipoOfertaSisI
                                 
                                 MostrarBarra(data);
                                 CargarResumenCampaniaHeader();
+                                if (esBackOrder == 'true') {
+                                    showDialog('divBackOrderModificado');
+                                    CargarDetallePedido();
+                                }
                             },
                             error: function (data, error) {
                                 CerrarSplash();
@@ -3569,10 +3634,7 @@ function UpdateLiquidacion(CampaniaID, PedidoID, PedidoDetalleID, TipoOfertaSisI
                                 async: true,
                                 success: function (data) {
                                     CerrarSplash();
-
-                                    if (!checkTimeout(data))
-                                        return false;
-
+                                    if (!checkTimeout(data)) return false;
                                     if (data.success != true) {
                                         alert_msg(data.message);
                                         return false;
@@ -3583,8 +3645,7 @@ function UpdateLiquidacion(CampaniaID, PedidoID, PedidoDetalleID, TipoOfertaSisI
                                         $('#hdfLPCliDes' + PedidoDetalleID).val($('#hdfNomConsultora').val());
                                         $('#txtLPCli' + PedidoDetalleID).val($('#hdfNomConsultora').val());
                                     }
-                                    if (PROL == "0")
-                                        $('#txtLPTempCant' + PedidoDetalleID).val($('#txtLPCant' + PedidoDetalleID).val());
+                                    if (PROL == "0") $('#txtLPTempCant' + PedidoDetalleID).val($('#txtLPCant' + PedidoDetalleID).val());
 
                                     var nomCli = $("#ddlClientes option:selected").text();
                                     var simbolo = data.Simbolo;
@@ -3612,6 +3673,10 @@ function UpdateLiquidacion(CampaniaID, PedidoID, PedidoDetalleID, TipoOfertaSisI
                                     
                                     MostrarBarra(data);
                                     CargarResumenCampaniaHeader();
+                                    if (esBackOrder == 'true') {
+                                        showDialog('divBackOrderModificado');
+                                        CargarDetallePedido();
+                                    }
                                 },
                                 error: function (data, error) {
                                     if (checkTimeout(data)) {
@@ -3651,7 +3716,7 @@ function UpdateLiquidacion(CampaniaID, PedidoID, PedidoDetalleID, TipoOfertaSisI
                         $('#txtLPCant' + PedidoDetalleID).val(CantidadAnti);
                         return false;
                     } else {
-                        Update(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion, CUV);
+                        Update(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion, CUV, esBackOrder);
                     }
                 },
                 error: function (data, error) {
@@ -3665,7 +3730,7 @@ function UpdateLiquidacion(CampaniaID, PedidoID, PedidoDetalleID, TipoOfertaSisI
     }
 }
 
-function BlurF(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion, CUV) {
+function BlurF(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion, CUV, esBackOrder) {
     if (isShown)
         return true;
 
@@ -3680,7 +3745,7 @@ function BlurF(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion, CUV) {
         return true;
     }
 
-    Update(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion, CUV);
+    Update(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion, CUV, esBackOrder);
 }
 function InfoCommerceGoogleProductoRecomendados() {
     var cantidadProductosRecomendado = $("#hdCantItemRecomendado").val();

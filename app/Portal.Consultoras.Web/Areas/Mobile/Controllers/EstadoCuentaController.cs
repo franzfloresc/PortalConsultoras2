@@ -175,32 +175,8 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
         private List<EstadoCuentaModel> EstadodeCuenta()
         {
-            var userData = UserData();
-            var lst = new List<EstadoCuentaModel>();
+            List<EstadoCuentaModel> lst = ObtenerEstadoCuenta();
 
-            try
-            {
-                BEEstadoCuenta[] estadoCuenta;
-                using (var service = new SACServiceClient())
-                {
-                    estadoCuenta = service.GetEstadoCuentaConsultora(userData.PaisID, userData.UsuarioPrueba == 1 ? userData.ConsultoraAsociada : userData.CodigoConsultora);
-                }
-
-                foreach (var item in estadoCuenta)
-                {
-                    lst.Add(new EstadoCuentaModel
-                    {
-                        Fecha = item.FechaRegistro,
-                        Glosa = item.DescripcionOperacion,
-                        Cargo = item.Cargo,
-                        Abono = item.Abono
-                    });
-                }
-            }
-            catch (Exception ex)
-            {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-            }
             return lst;
         }
 
