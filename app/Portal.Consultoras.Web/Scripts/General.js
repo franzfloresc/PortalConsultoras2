@@ -679,7 +679,7 @@ function MensajeEstadoPedido() {
     if (cerrarRechazado == '1')
         return false;
 
-    if (indicadorEnviadoDescarga != 1)
+    if (indicadorEnviadoDescarga != 1 || estaRechazado == '2')
         return false;
     
     $("#bloquemensajesPedido").find(".mensaje_horarioIngresoPedido").html("");
@@ -689,6 +689,9 @@ function MensajeEstadoPedido() {
     }
     else if (estaRechazado == '0') {
         $("#bloquemensajesPedido").find(".mensaje_estadoActualPedido").html("NOS ENCONTRAMOS FACTURANDO TU PEDIDO C" + $.trim($("#hdCampaniaCodigo").val()).substring(4, 6));
+    }
+    else {
+        return false;
     }
     xMensajeEstadoPedido(true);
     MostrarMensajePedidoRechazado();

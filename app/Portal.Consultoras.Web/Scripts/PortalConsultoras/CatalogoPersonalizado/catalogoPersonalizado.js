@@ -616,17 +616,19 @@ function ReservadoOEnHorarioRestringidoAsync(mostrarAlerta, fnRestringido, fnNoR
                 fnNoRestringido();
                 return false;
             }
-
-            if (data.pedidoReservado && !mostrarAlerta) {
-                DialogLoadingAbrir();
-                location.href = urlPedidoValidado;
-                return false;
-            }
+            DialogLoadingAbrir();
 
             if (mostrarAlerta) {
                 DialogLoadingCerrar();
                 DialogMensaje(data.message);
             }
+
+            if (data.pedidoReservado) {
+                DialogLoadingAbrir();
+                location.href = urlPedidoValidado;
+                return false;
+            }
+
             fnRestringido();
         },
         error: function (error) {
