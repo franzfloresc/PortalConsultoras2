@@ -3277,8 +3277,6 @@ namespace Portal.Consultoras.Web.Controllers
                         if (Tipo == "PI")
                         {
                             //Inserta Aceptacion Reemplazos
-                            // List<BEPedidoWebDetalle> olstPedidoWebDetalle = new List<BEPedidoWebDetalle>();
-                            //olstPedidoWebDetalle = ObtenerPedidoWebDetalle();
                             List<BEPedidoWebDetalle> Reemplazos = olstPedidoWebDetalle.Where(p => !string.IsNullOrEmpty(p.Mensaje)).ToList();
                             if (Reemplazos.Count != 0)
                             {
@@ -4524,8 +4522,8 @@ namespace Portal.Consultoras.Web.Controllers
 
             return listaParametriaOfertaFinal;
         }
-        #endregion        
-        
+        #endregion
+
         public JsonResult ObtenerProductosOfertaFinal(int tipoOfertaFinal)
         {
             var listaProductoModel = new List<ProductoModel>();
