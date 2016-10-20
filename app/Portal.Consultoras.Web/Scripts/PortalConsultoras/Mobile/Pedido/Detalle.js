@@ -177,7 +177,8 @@ function GetProductoEntidad(id) {
         DescripcionProd: $("#DescripcionProd_" + id).val(),
         PrecioUnidad: $("#PrecioUnidad_" + id).val(),
         MarcaID: $("#MarcaID_" + id).val(),
-        DescripcionOferta: $("#DescripcionOferta_" + id).val()
+        DescripcionOferta: $("#DescripcionOferta_" + id).val(),
+        EsBackOrder: $("#EsBackOrder_" + id).val()
     };
 }
 
@@ -192,11 +193,11 @@ function UpdateLiquidacionEvento(evento) {
 
     var obj = GetProductoEntidad(id);
 
-    UpdateLiquidacionSegunTipoOfertaSis(obj.CampaniaID, obj.PedidoID, obj.PedidoDetalleID, obj.TipoOfertaSisID, obj.CUV, obj.FlagValidacion, obj.CantidadInicial);
+    UpdateLiquidacionSegunTipoOfertaSis(obj.CampaniaID, obj.PedidoID, obj.PedidoDetalleID, obj.TipoOfertaSisID, obj.CUV, obj.FlagValidacion, obj.CantidadInicial, obj.EsBackOrder);
 
 }
 
-function UpdateLiquidacionSegunTipoOfertaSis(CampaniaID, PedidoID, PedidoDetalleID, TipoOfertaSisID, CUV, FlagValidacion, CantidadModi) {
+function UpdateLiquidacionSegunTipoOfertaSis(CampaniaID, PedidoID, PedidoDetalleID, TipoOfertaSisID, CUV, FlagValidacion, CantidadModi, EsBackOrder) {
 
     var urlAccion = TipoOfertaSisID == ofertaLiquidacion
         ? urlValidarUnidadesPermitidasPedidoProducto
@@ -222,7 +223,7 @@ function UpdateLiquidacionSegunTipoOfertaSis(CampaniaID, PedidoID, PedidoDetalle
 
     urls.urlValidarUnidadesPermitidas = $.trim(urls.urlValidarUnidadesPermitidas);
     if (urls.urlValidarUnidadesPermitidas != "") {
-        UpdateLiquidacionTipoOfertaSis(urls, CampaniaID, PedidoID, PedidoDetalleID, TipoOfertaSisID, CUV, FlagValidacion, CantidadModi);
+        UpdateLiquidacionTipoOfertaSis(urls, CampaniaID, PedidoID, PedidoDetalleID, TipoOfertaSisID, CUV, FlagValidacion, CantidadModi, EsBackOrder);
     }
     else {
 
@@ -267,7 +268,7 @@ function UpdateLiquidacionSegunTipoOfertaSis(CampaniaID, PedidoID, PedidoDetalle
                     return false;
                 }
 
-                Update(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion, CUV);
+                Update(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion, CUV, EsBackOrder);
                 
             },
             error: function (data, error) {
@@ -279,7 +280,7 @@ function UpdateLiquidacionSegunTipoOfertaSis(CampaniaID, PedidoID, PedidoDetalle
     }
 }
 
-function UpdateLiquidacionTipoOfertaSis(urls ,CampaniaID, PedidoID, PedidoDetalleID, TipoOfertaSisID, CUV, FlagValidacion, CantidadModi) {
+function UpdateLiquidacionTipoOfertaSis(urls, CampaniaID, PedidoID, PedidoDetalleID, TipoOfertaSisID, CUV, FlagValidacion, CantidadModi, EsBackOrder) {
 
     var cantidadActual = parseInt($('#Cantidad_' + PedidoDetalleID).val());
     var cantidadAnterior = parseInt($('#CantidadTemporal_' + PedidoDetalleID).val());
@@ -339,7 +340,7 @@ function UpdateLiquidacionTipoOfertaSis(urls ,CampaniaID, PedidoID, PedidoDetall
 
         if (parseInt(data.UnidadesPermitidas) < Cantidad) {
             if (PROL == "1") {
-                UpdateConCantidad(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion, CantidadModi, CUV);
+                UpdateConCantidad(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion, CantidadModi, CUV, EsBackOrder);
                 $('#Cantidad_' + PedidoDetalleID).val(CantidadModi);
             } else
                 $('#Cantidad_' + PedidoDetalleID).val($('#CantidadTemporal_' + PedidoDetalleID).val());
@@ -362,7 +363,7 @@ function UpdateLiquidacionTipoOfertaSis(urls ,CampaniaID, PedidoID, PedidoDetall
             var CantidadaValidar = CantidadActual - cantidadAnterior;
             if (parseInt(data.Stock) < CantidadaValidar) {
                 if (PROL == "1") {
-                    UpdateConCantidad(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion, CantidadModi, CUV);
+                    UpdateConCantidad(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion, CantidadModi, CUV, EsBackOrder);
                     $('#Cantidad_' + PedidoDetalleID).val(CantidadModi);
                 } else
                     $('#Cantidad_' + PedidoDetalleID).val($('#CantidadTemporal_' + PedidoDetalleID).val());
@@ -392,18 +393,17 @@ function UpdateLiquidacionTipoOfertaSis(urls ,CampaniaID, PedidoID, PedidoDetall
                 Flag: Flag,
                 TipoOfertaSisID: TipoOfertaSisID,
                 CUV: CUV,
-                ClienteID_: "-1"
+                ClienteID_: "-1",
+                EsBackOrder: EsBackOrder
             };
 
             PedidoUpdate(item, PROL);
-
         });
-
     });
 
 }
 
-function UpdateConCantidad(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion, CantidadModi, CUV) {
+function UpdateConCantidad(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion, CantidadModi, CUV, EsBackOrder) {
 
     var CliID = $('#ClienteID_' + PedidoDetalleID).val();
     var CliDes = $('#ClienteNombre_' + PedidoDetalleID).val();
@@ -446,7 +446,8 @@ function UpdateConCantidad(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion
         ClienteDescripcion: CliDes,
         DescripcionProd: DesProd,
         ClienteID_: "-1",
-        CUV: CUV
+        CUV: CUV,
+        EsBackOrder: EsBackOrder
     };
     PedidoUpdate(item);
 }
@@ -548,6 +549,44 @@ function ConfirmaEliminarPedido() {
     if ($.isFunction(fnEliminarProducto)) {
         fnEliminarProducto();
     }
+}
+
+function AceptarBackOrder(campaniaId, pedidoId, pedidoDetalleId, clienteId) {
+    if (ReservadoOEnHorarioRestringido(true)) {
+        return false;
+    }
+
+    var param = {
+        CampaniaID: campaniaId,
+        PedidoID: pedidoId,
+        PedidoDetalleID: pedidoDetalleId,
+        ClienteID_: clienteId
+    };
+
+    ShowLoading();
+    jQuery.ajax({
+        type: 'POST',
+        url: urlPedidoAceptarBackOrder,
+        dataType: 'json',
+        contentType: 'application/json; charset=utf-8',
+        data: JSON.stringify(param),
+        async: true,
+        success: function (data) {
+            ShowLoading();
+            if (!checkTimeout(data)) return false;
+            if (data.success != true) {
+                alert_msg(data.message);
+                return false;
+            }
+
+            ShowLoading();
+            ActualizarGanancia(data.DataBarra);
+            CargarPedido();
+            messageDelete('Te entregaremos el producto en la siguiente campaña.');
+            CloseLoading();
+        },
+        error: function (data, error) { CloseLoading(); }
+    });
 }
 
 function messageDelete(message) {
@@ -718,8 +757,7 @@ function HorarioRestringido(mostrarAlerta) {
 // Fin validaciones
 
 // Actualizar
-function Update(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion, CUV) {
-
+function Update(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion, CUV, EsBackOrder) {
     var CliID = $('#ClienteID_' + PedidoDetalleID).val();
     var CliDes = $('#ClienteNombre_' + PedidoDetalleID).val();
     var Cantidad = $('#Cantidad_' + PedidoDetalleID).val();
@@ -764,7 +802,8 @@ function Update(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion, CUV) {
         ClienteDescripcion: CliDes,
         DescripcionProd: DesProd,
         ClienteID_: "-1",
-        CUV: CUV
+        CUV: CUV,
+        EsBackOrder: EsBackOrder
     };
 
     PedidoUpdate(item);
@@ -795,9 +834,9 @@ function PedidoUpdate(item, PROL) {
 
             ActualizarGanancia(data.DataBarra);
                     
-            if (PROL == "0")
-                $('#CantidadTemporal_' + item.PedidoDetalleID).val($('#Cantidad_' + item.PedidoDetalleID).val());
+            if (PROL == "0") $('#CantidadTemporal_' + item.PedidoDetalleID).val($('#Cantidad_' + item.PedidoDetalleID).val());
             CargarPedido();
+            if (item.EsBackOrder == 'true') messageInfo('Recuerda que debes volver a validar tu pedido.');
                     
             var diferenciaCantidades = parseInt(Cantidad) - parseInt(CantidadAnti);
             if (diferenciaCantidades > 0)

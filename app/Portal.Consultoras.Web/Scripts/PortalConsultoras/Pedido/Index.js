@@ -2572,6 +2572,10 @@ function DeletePedido(campaniaId, pedidoId, pedidoDetalleId, tipoOfertaSisId, cu
 }
 
 function AceptarBackOrder(campaniaId, pedidoId, pedidoDetalleId, clienteId) {
+    if (ReservadoOEnHorarioRestringido(true)) {
+        return false;
+    }
+
     var param = {
         CampaniaID: campaniaId,
         PedidoID: pedidoId,
