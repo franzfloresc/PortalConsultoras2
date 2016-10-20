@@ -1807,21 +1807,6 @@ namespace Portal.Consultoras.Web.Controllers
                             {
                                 LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
                             }
-
-                            //List<BEMisPedidos> refresh = new List<BEMisPedidos>();
-                            //foreach (BEMisPedidos item in consultoraOnlineMisPedidos.ListaPedidos)
-                            //{
-                            //    if (item.PedidoId == SolicitudId)
-                            //    {
-                            //        item.Estado = "R";
-                            //        item.FechaModificacion = DateTime.Now;
-                            //    }
-                            //    refresh.Add(item);
-                            //}
-                            //MisPedidosModel refreshMisPedidos = new MisPedidosModel();
-                            //refreshMisPedidos.ListaPedidos = refresh;
-                            //Session["objMisPedidos"] = refreshMisPedidos;
-                            
                         }
                     }
                     catch (FaultException ex)
