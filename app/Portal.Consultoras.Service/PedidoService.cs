@@ -238,6 +238,16 @@ namespace Portal.Consultoras.Service
             return BLPedidoWebDetalle.UpdPedidoWebDetalleMasivo(pedidowebdetalle);
         }
 
+        public void AceptarBackOrderPedidoWebDetalle(BEPedidoWebDetalle pedidowebdetalle)
+        {
+            BLPedidoWebDetalle.AceptarBackOrderPedidoWebDetalle(pedidowebdetalle);
+        }
+
+        public void UpdBackOrderListPedidoWebDetalle(List<BEPedidoWebDetalle> listPedidoWebDetalle)
+        {
+            BLPedidoWebDetalle.UpdBackOrderListPedidoWebDetalle(listPedidoWebDetalle);
+        }
+
         public IList<BEPedidoWebDetalle> SelectByPedidoValidado(int paisID, int CampaniaID, long ConsultoraID, string Consultora)
         {
             return BLPedidoWebDetalle.GetPedidoWebDetalleByPedidoValidado(paisID, CampaniaID, ConsultoraID, Consultora);

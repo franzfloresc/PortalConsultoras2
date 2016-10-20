@@ -1124,9 +1124,9 @@ namespace Portal.Consultoras.Service
         }
 
         // R2073 - Inicio
-        public List<BEEstadoCuenta> GetEstadoCuentaConsultora(int PaisId, string CodigoConsultora)
+        public List<BEEstadoCuenta> GetEstadoCuentaConsultora(int PaisId, long consultoraId)
         {
-            return BLEstadoCuenta.GetEstadoCuentaConsultora(PaisId, CodigoConsultora);
+            return BLEstadoCuenta.GetEstadoCuentaConsultora(PaisId, consultoraId);
         }
 
         public List<BEPedidoFacturado> GetPedidosFacturadosCabecera(int PaisId, string CodigoConsultora)

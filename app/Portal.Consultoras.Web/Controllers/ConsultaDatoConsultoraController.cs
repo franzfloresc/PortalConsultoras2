@@ -27,8 +27,8 @@
         {
             var model = new ConsultaDatoConsultoraModel();
             model.listaPaises = DropDowListPaises();
-            model.PaisID = UserData().PaisID;
-            model.listaCampania = ObtenterCampaniasPorPais(UserData().PaisID);
+            model.PaisID = userData.PaisID;
+            model.listaCampania = ObtenterCampaniasPorPais(userData.PaisID);
             return View(model);
         }
 
@@ -67,7 +67,7 @@
             {
                 List<BEOfertaNueva> lista;
                 ServicePedido.PedidoServiceClient svc = new ServicePedido.PedidoServiceClient();
-                lista = svc.GetProductosOfertaConsultoraNueva(UserData().PaisID, Convert.ToInt32(campaniaId), Convert.ToInt32(consultoraID)).ToList();
+                lista = svc.GetProductosOfertaConsultoraNueva(userData.PaisID, Convert.ToInt32(campaniaId), Convert.ToInt32(consultoraID)).ToList();
                 var data = new
                 {
                     rows = from a in lista
@@ -104,7 +104,7 @@
                 if (lst.Count == 0)
                 {
                     fechaVencimiento = "";
-                    if (UserData().PaisID == 4) // Validación para país colombia req. 1478
+                    if (userData.PaisID == 4) // Validación para país colombia req. 1478
                     {
                         montoPagar = "0";
                     }
@@ -119,7 +119,7 @@
                         fechaVencimiento = lst[lst.Count - 1].Fecha.ToString("dd/MM/yyyy");
                     else
                         fechaVencimiento = string.Empty;
-                    if (UserData().PaisID == 4) // Validación para país colombia req. 1478
+                    if (userData.PaisID == 4) // Validación para país colombia req. 1478
                     {
                         montoPagar = string.Format("{0:#,##0}", lst[lst.Count - 1].Cargo).Replace(',', '.');
                     }
@@ -128,18 +128,8 @@
                         montoPagar = string.Format("{0:#,##0.00}", lst[lst.Count - 1].Cargo);
                     }
                 }
-                simbolo = string.Format("{0} ", UserData().Simbolo);
+                simbolo = string.Format("{0} ", userData.Simbolo);
                 ///Fin Totales
-
-
-
-
-
-
-
-
-
-
 
                 if (lst.Count != 0)
                 {
@@ -203,7 +193,7 @@
 
 
                 // Creamos la estructura
-                if (UserData().PaisID == 4) // validación para colombia req. 1478
+                if (userData.PaisID == 4) // validación para colombia req. 1478
                 {
                     var data = new
                     {
@@ -220,8 +210,8 @@
                                {
                                    a.Fecha.ToString("dd/MM/yyyy"),
                                    a.Glosa.ToString(),
-                                   string.Format("{0} ", UserData().Simbolo) + string.Format("{0:#,##0}", a.Cargo).Replace(',','.'),
-                                   string.Format("{0} ", UserData().Simbolo) + string.Format("{0:#,##0}", a.Abono).Replace(',','.')
+                                   string.Format("{0} ", userData.Simbolo) + string.Format("{0:#,##0}", a.Cargo).Replace(',','.'),
+                                   string.Format("{0} ", userData.Simbolo) + string.Format("{0:#,##0}", a.Abono).Replace(',','.')
                                 }
                                }
                     };
@@ -244,8 +234,8 @@
                                {
                                    a.Fecha.ToString("dd/MM/yyyy"),
                                    a.Glosa.ToString(),
-                                   string.Format("{0} ", UserData().Simbolo) + string.Format("{0:#,##0.00}", a.Cargo),
-                                   string.Format("{0} ", UserData().Simbolo) + string.Format("{0:#,##0.00}", a.Abono)
+                                   string.Format("{0} ", userData.Simbolo) + string.Format("{0:#,##0.00}", a.Cargo),
+                                   string.Format("{0} ", userData.Simbolo) + string.Format("{0:#,##0.00}", a.Abono)
                                 }
                                }
                     };
@@ -268,7 +258,7 @@
                 {
                     using (SACServiceClient client = new SACServiceClient())
                     {
-                        lista = client.GetPedidosFacturadosCabecera(UserData().PaisID, codigoConsultora).ToList();
+                        lista = client.GetPedidosFacturadosCabecera(userData.PaisID, codigoConsultora).ToList();
                 }
                 }
                 catch (Exception ex)
@@ -356,7 +346,7 @@
                 pag = Util.PaginadorGenerico(grid, lst);
 
                 // Creamos la estructura
-                if (UserData().PaisID == 4) // validación pais colombia req. 1478
+                if (userData.PaisID == 4) // validación pais colombia req. 1478
                 {
                     var data = new
                     {
@@ -371,7 +361,7 @@
                                {
                                    DescripcionCampania(a.CampaniaID.ToString()),
                                    a.EstadoPedidoDesc,
-                                   (UserData().Simbolo + " " + string.Format("{0:#,##0}",a.ImporteTotal).Replace(',','.')),
+                                   (userData.Simbolo + " " + string.Format("{0:#,##0}",a.ImporteTotal).Replace(',','.')),
                                    a.CantidadProductos.ToString(),
                                    a.CodigoUsuarioCreacion,
                                    a.Direccion,
@@ -396,7 +386,7 @@
                                {
                                    DescripcionCampania(a.CampaniaID.ToString()),
                                    a.EstadoPedidoDesc,
-                                   (UserData().Simbolo + " " + string.Format("{0:#,##0.00}",a.ImporteTotal)),
+                                   (userData.Simbolo + " " + string.Format("{0:#,##0.00}",a.ImporteTotal)),
                                    a.CantidadProductos.ToString(),
                                    a.CodigoUsuarioCreacion,
                                    a.Direccion,
@@ -420,7 +410,7 @@
                 string fleteString;
                 string totalFacturadoString;
 
-                if (UserData().PaisID == 4)
+                if (userData.PaisID == 4)
                 {
 
                     fleteString = string.Format("{0:#,##0}", Flete2).Replace(',', '.');
@@ -441,7 +431,7 @@
                 {
                     using (SACServiceClient client = new SACServiceClient())
                     {
-                        lista = client.GetPedidosFacturadosDetalle(UserData().PaisID, campaniaId, "0", "0", codigoConsultora).ToList();
+                        lista = client.GetPedidosFacturadosDetalle(userData.PaisID, campaniaId, "0", "0", codigoConsultora).ToList();
                     }
                 }
                 catch (Exception ex)
@@ -533,14 +523,14 @@
                 pag = Util.PaginadorGenerico(grid, lst);
 
                 // Creamos la estructura
-                if (UserData().PaisID == 4)
+                if (userData.PaisID == 4)
                 { // validación país colombia req. 1478
                     var data = new
                     {
                         importeTotal = importeTotal,
                         flete = fleteString,
                         totalFacturado = totalFacturadoString,
-                        simbolo = UserData().Simbolo,
+                        simbolo = userData.Simbolo,
                         total = pag.PageCount,
                         page = pag.CurrentPage,
                         records = pag.RecordCount,
@@ -554,11 +544,11 @@
                                    a.CUV,
                                    a.DescripcionProd,
                                    a.Cantidad.ToString(),
-                                   (UserData().Simbolo + " " + string.Format("{0:#,##0}",a.PrecioUnidad).Replace(',','.')),
-                                   (UserData().Simbolo + " " + string.Format("{0:#,##0}",a.ImporteTotal).Replace(',','.')),
+                                   (userData.Simbolo + " " + string.Format("{0:#,##0}",a.PrecioUnidad).Replace(',','.')),
+                                   (userData.Simbolo + " " + string.Format("{0:#,##0}",a.ImporteTotal).Replace(',','.')),
                                    (" " + a.ImporteTotal.ToString("#,##0").Replace(',','.')),
-                                   (UserData().Simbolo + " " + string.Format("{0:#,##0}",a.ImporteTotalPedido).Replace(',','.')),
-                                   (UserData().Simbolo + " " + string.Format("{0:#,##0}",a.ImporteTotal - a.ImporteTotalPedido).Replace(',','.'))
+                                   (userData.Simbolo + " " + string.Format("{0:#,##0}",a.ImporteTotalPedido).Replace(',','.')),
+                                   (userData.Simbolo + " " + string.Format("{0:#,##0}",a.ImporteTotal - a.ImporteTotalPedido).Replace(',','.'))
                                 }
                                }
                     };
@@ -572,7 +562,7 @@
                         importeTotal = importeTotal,
                         flete = fleteString,
                         totalFacturado = totalFacturadoString,
-                        simbolo = UserData().Simbolo,
+                        simbolo = userData.Simbolo,
                         total = pag.PageCount,
                         page = pag.CurrentPage,
                         records = pag.RecordCount,
@@ -586,11 +576,11 @@
                                    a.CUV,
                                    a.DescripcionProd,
                                    a.Cantidad.ToString(),
-                                   (UserData().Simbolo + " " + string.Format("{0:#,##0.00}",a.PrecioUnidad)),
-                                   (UserData().Simbolo + " " + string.Format("{0:#,##0.00}",a.ImporteTotal)),
+                                   (userData.Simbolo + " " + string.Format("{0:#,##0.00}",a.PrecioUnidad)),
+                                   (userData.Simbolo + " " + string.Format("{0:#,##0.00}",a.ImporteTotal)),
                                    (" " + a.ImporteTotal.ToString("#0.00")),
-                                   (UserData().Simbolo + " " + string.Format("{0:#,##0.00}",a.ImporteTotalPedido)),
-                                   (UserData().Simbolo + " " + string.Format("{0:#,##0.00}",a.ImporteTotal - a.ImporteTotalPedido))
+                                   (userData.Simbolo + " " + string.Format("{0:#,##0.00}",a.ImporteTotalPedido)),
+                                   (userData.Simbolo + " " + string.Format("{0:#,##0.00}",a.ImporteTotal - a.ImporteTotalPedido))
                                 }
                                }
                     };
@@ -609,7 +599,7 @@
                 using (ServicePedido.PedidoServiceClient sv = new ServicePedido.PedidoServiceClient())
                 {
                     //Inicio ITG 1793 HFMG
-                    olstPedido = sv.SelectByCampania(UserData().PaisID, int.Parse(campaniaId), long.Parse(consultoraId), "").ToList();
+                    olstPedido = sv.SelectByCampania(userData.PaisID, int.Parse(campaniaId), long.Parse(consultoraId), "").ToList();
                     //Fin ITG 1793 HFMG
                 }
 
@@ -621,7 +611,7 @@
                     Total = olstPedido.Sum(p => p.ImporteTotal);
                 }
 
-                if (UserData().PaisID == 4)
+                if (userData.PaisID == 4)
                 { // Validación pais Colombia Req. 1478
                     TotalPW = string.Format("{0:#,##0}", Total).Replace(',', '.');
                 }
@@ -635,7 +625,7 @@
                 using (ClienteServiceClient sv = new ClienteServiceClient())
                 {
                     //Inicio ITG 1793 HFMG
-                    lst = sv.GetClientesByCampania(UserData().PaisID, int.Parse(campaniaId), long.Parse(consultoraId)).ToList();
+                    lst = sv.GetClientesByCampania(userData.PaisID, int.Parse(campaniaId), long.Parse(consultoraId)).ToList();
                     //Fin ITG 1793 HFMG
                 }
 
@@ -678,7 +668,7 @@
                 var data = new
                 {
                     totalPW = TotalPW,
-                    simbolo = UserData().Simbolo,
+                    simbolo = userData.Simbolo,
                     total = pag.PageCount,
                     page = pag.CurrentPage,
                     records = pag.RecordCount,
@@ -707,7 +697,7 @@
                 using (ClienteServiceClient sv = new ClienteServiceClient())
                 {
                     //Inicio ITG 1793 HFMG
-                    lst = sv.GetPedidoWebDetalleByCliente(UserData().PaisID, int.Parse(campaniaId), long.Parse(consultoraId), int.Parse(clientId)).ToList();
+                    lst = sv.GetPedidoWebDetalleByCliente(userData.PaisID, int.Parse(campaniaId), long.Parse(consultoraId), int.Parse(clientId)).ToList();
                     //Fin ITG 1793 HFMG
                 }
 
@@ -771,11 +761,11 @@
                 pag = Util.PaginadorGenerico(grid, lst);
 
                 // Creamos la estructura
-                if (UserData().PaisID == 4)
+                if (userData.PaisID == 4)
                 { // validación país colombia req. 1478
                     var data = new
                     {
-                        simbolo = UserData().Simbolo,
+                        simbolo = userData.Simbolo,
                         total = pag.PageCount,
                         page = pag.CurrentPage,
                         records = pag.RecordCount,
@@ -789,8 +779,8 @@
                                    a.CUV,
                                    a.DescripcionProd,
                                    a.Cantidad.ToString(),
-                                   (UserData().Simbolo + " " + string.Format("{0:#,##0}",a.PrecioUnidad).Replace(',','.')),
-                                   (UserData().Simbolo + " " + string.Format("{0:#,##0}",a.ImporteTotal).Replace(',','.')),
+                                   (userData.Simbolo + " " + string.Format("{0:#,##0}",a.PrecioUnidad).Replace(',','.')),
+                                   (userData.Simbolo + " " + string.Format("{0:#,##0}",a.ImporteTotal).Replace(',','.')),
                                    a.ImporteTotal.ToString("#0.00")
                                 }
                                }
@@ -801,7 +791,7 @@
                 {
                     var data = new
                     {
-                        simbolo = UserData().Simbolo,
+                        simbolo = userData.Simbolo,
                         total = pag.PageCount,
                         page = pag.CurrentPage,
                         records = pag.RecordCount,
@@ -815,8 +805,8 @@
                                    a.CUV,
                                    a.DescripcionProd,
                                    a.Cantidad.ToString(),
-                                   (UserData().Simbolo + " " + string.Format("{0:#,##0.00}",a.PrecioUnidad)),
-                                   (UserData().Simbolo + " " + string.Format("{0:#,##0.00}",a.ImporteTotal)),
+                                   (userData.Simbolo + " " + string.Format("{0:#,##0.00}",a.PrecioUnidad)),
+                                   (userData.Simbolo + " " + string.Format("{0:#,##0.00}",a.ImporteTotal)),
                                    a.ImporteTotal.ToString("#0.00")
                                 }
                                }
@@ -833,7 +823,7 @@
             try
             {
                 //Inicio ITG 1793 HFMG
-                if (UserData().UsuarioPrueba == 1)
+                if (userData.UsuarioPrueba == 1)
                 {
                     return Json(new
                     {
@@ -848,13 +838,13 @@
                     List<ServiceCliente.BEPedidoWebDetalle> lst = new List<ServiceCliente.BEPedidoWebDetalle>();
                     using (ClienteServiceClient sv = new ClienteServiceClient())
                     {
-                        lst = sv.GetPedidoWebDetalleByCliente(UserData().PaisID, int.Parse(CampaniaId), long.Parse(consultoraId), int.Parse(ClientId)).ToList();
+                        lst = sv.GetPedidoWebDetalleByCliente(userData.PaisID, int.Parse(CampaniaId), long.Parse(consultoraId), int.Parse(ClientId)).ToList();
                     }
 
 
                     #region Mensaje a Enviar
                     //Mejora - Correo
-                    //string nomPais = Util.ObtenerNombrePaisPorISO(UserData().CodigoISO);
+                    //string nomPais = Util.ObtenerNombrePaisPorISO(userData.CodigoISO);
                     string mailBody = string.Empty;
                     mailBody = "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0 Transitional//EN\">";
                     mailBody += "<div style='font-size:12px;'>Hola,</div> <br />";
@@ -891,23 +881,23 @@
                         mailBody += "<td style='font-size:11px; width: 124px; text-align: center;'>";
                         mailBody += "" + lst[i].Cantidad.ToString() + "";
                         mailBody += "</td>";
-                        if (UserData().PaisID == 4) // validación para colombia req. 1478
+                        if (userData.PaisID == 4) // validación para colombia req. 1478
                         {
                             mailBody += "<td style='font-size:11px; width: 182px; text-align: center;'>";
-                            mailBody += "" + UserData().Simbolo + string.Format("{0:#,##0}", lst[i].PrecioUnidad).Replace(',', '.') + "";
+                            mailBody += "" + userData.Simbolo + string.Format("{0:#,##0}", lst[i].PrecioUnidad).Replace(',', '.') + "";
                             mailBody += "</td>";
                             mailBody += "<td style='font-size:11px; width: 165px; text-align: center;'>";
-                            mailBody += "" + UserData().Simbolo + string.Format("{0:#,##0}", lst[i].ImporteTotal).Replace(',', '.') + "";
+                            mailBody += "" + userData.Simbolo + string.Format("{0:#,##0}", lst[i].ImporteTotal).Replace(',', '.') + "";
                             mailBody += "</td>";
 
                         }
                         else
                         {
                             mailBody += "<td style='font-size:11px; width: 182px; text-align: center;'>";
-                            mailBody += "" + UserData().Simbolo + lst[i].PrecioUnidad.ToString("#0.00") + "";
+                            mailBody += "" + userData.Simbolo + lst[i].PrecioUnidad.ToString("#0.00") + "";
                             mailBody += "</td>";
                             mailBody += "<td style='font-size:11px; width: 165px; text-align: center;'>";
-                            mailBody += "" + UserData().Simbolo + lst[i].ImporteTotal.ToString("#0.00") + "";
+                            mailBody += "" + userData.Simbolo + lst[i].ImporteTotal.ToString("#0.00") + "";
                             mailBody += "</td>";
                         }
                         mailBody += "</tr>";
@@ -920,13 +910,13 @@
                     mailBody += "Total :";
                     mailBody += "</td>";
                     mailBody += "<td style='font-size:11px; text-align: center; font-weight: bold'>";
-                    if (UserData().PaisID == 4) // validación para colombia req. 1478
+                    if (userData.PaisID == 4) // validación para colombia req. 1478
                     {
-                        mailBody += "" + UserData().Simbolo + string.Format("{0:#,##0}", Total).Replace(',', '.') + "";
+                        mailBody += "" + userData.Simbolo + string.Format("{0:#,##0}", Total).Replace(',', '.') + "";
                     }
                     else
                     {
-                        mailBody += "" + UserData().Simbolo + Total.ToString("#0.00") + "";
+                        mailBody += "" + userData.Simbolo + Total.ToString("#0.00") + "";
                     }
 
                     mailBody += "</td>";
@@ -941,7 +931,7 @@
                     mailBody += "<img src='cid:Logo' border='0' />";
                     mailBody += "</td>";
                     mailBody += "<td style='text-align: center; font-size:12px;'>";
-                    mailBody += "<strong>" + UserData().NombreConsultora + "</strong> <br />";
+                    mailBody += "<strong>" + userData.NombreConsultora + "</strong> <br />";
                     mailBody += "<strong>Consultora</strong>";
                     //Mejora - Correo
                     //mailBody += "</td>";
@@ -958,9 +948,9 @@
                     #endregion
 
                     //Mejora - Correo
-                    //Util.EnviarMail("no-responder@somosbelcorp.com", ClientId.ToString().Equals("0") ? UserData().EMail : Email, "Pedido Solicitado", mailBody, true, string.Format("{0} - Pedido total", Util.SinAcentosCaracteres(nomPais.ToUpper())));
-                    //Util.EnviarMail(Globals.EmailCatalogos, ClientId.ToString().Equals("0") ? UserData().EMail : Email, "Pedido Solicitado", mailBody, true, UserData().NombreConsultora);
-                    Util.EnviarMail("no-responder@somosbelcorp.com", ClientId.ToString().Equals("0") ? UserData().EMail : Email, "(" + UserData().CodigoISO + ") Pedido Solicitado", mailBody, true, UserData().NombreConsultora);
+                    //Util.EnviarMail("no-responder@somosbelcorp.com", ClientId.ToString().Equals("0") ? userData.EMail : Email, "Pedido Solicitado", mailBody, true, string.Format("{0} - Pedido total", Util.SinAcentosCaracteres(nomPais.ToUpper())));
+                    //Util.EnviarMail(Globals.EmailCatalogos, ClientId.ToString().Equals("0") ? userData.EMail : Email, "Pedido Solicitado", mailBody, true, userData.NombreConsultora);
+                    Util.EnviarMail("no-responder@somosbelcorp.com", ClientId.ToString().Equals("0") ? userData.EMail : Email, "(" + userData.CodigoISO + ") Pedido Solicitado", mailBody, true, userData.NombreConsultora);
 
 
                     return Json(new
@@ -988,11 +978,11 @@
         public ActionResult SeguimientoPedido(string codigo)
         {
             string url = "";
-            string paisID = UserData().PaisID.ToString();
+            string paisID = userData.PaisID.ToString();
             string codigoConsultora = codigo;
             string mostrarAyudaWebTracking = Convert.ToInt32(true).ToString();
-            string paisISO = UserData().CodigoISO.Trim();
-            string campanhaID = UserData().CampaniaID.ToString();
+            string paisISO = userData.CodigoISO.Trim();
+            string campanhaID = userData.CampaniaID.ToString();
             url = "/WebPages/WebTracking.aspx?data=" + Util.EncriptarQueryString(paisID, codigoConsultora, mostrarAyudaWebTracking, paisISO, campanhaID);
             return Json(url, JsonRequestBehavior.AllowGet);
         }
@@ -1067,7 +1057,7 @@
 
         public ActionResult GetCampaniasRVDigitalWeb(string CodigoConsultora)
         {
-            UsuarioModel usuario = UserData();
+            UsuarioModel usuario = userData;
             //Inicio ITG 1793 HFMG
             var complain = new RVDWebCampaniasParam { Pais = usuario.CodigoISO, Tipo = "1", CodigoConsultora = ((usuario.UsuarioPrueba == 1) ? usuario.ConsultoraAsociada : CodigoConsultora) };
             //Fin ITG 1793 HFMG
@@ -1148,11 +1138,11 @@
             List<BEPais> lst;
             using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
             {
-                if (UserData().RolID == 2) lst = sv.SelectPaises().ToList();
+                if (userData.RolID == 2) lst = sv.SelectPaises().ToList();
                 else
                 {
                     lst = new List<BEPais>();
-                    lst.Add(sv.SelectPais(UserData().PaisID));
+                    lst.Add(sv.SelectPais(userData.PaisID));
                 }
 
             }
@@ -1181,7 +1171,7 @@
 
         public List<RVPRFModel> GetPDFRVDigital(string campania, string codigo, out bool ErrorServicio, out string ErrorCode, out string ErrorMessage)
         {
-            UsuarioModel usuario = UserData();
+            UsuarioModel usuario = userData;
             string Marca;
             string NombrePais = DevolverNombrePais(codigo, out Marca);
             //Inicio ITG 1793 HFMG
@@ -1350,33 +1340,9 @@
 
         private List<EstadoCuentaModel> EstadodeCuenta(string codigoConsultora)
         {
-            List<EstadoCuentaModel> lst = new List<EstadoCuentaModel>();
-            List<BEEstadoCuenta> EstadoCuenta = new List<BEEstadoCuenta>();
-            try
-            {
-                //Inicio ITG 1793 HFMG
-                using (SACServiceClient client = new SACServiceClient())
-                {
-                    EstadoCuenta = client.GetEstadoCuentaConsultora(UserData().PaisID, UserData().UsuarioPrueba == 1 ? UserData().ConsultoraAsociada : codigoConsultora).ToList();
-                }
-                //Fin ITG 1793 HFMG
-            }
-            catch (Exception ex)
-            {
+            List<EstadoCuentaModel> lst = ObtenerEstadoCuenta();
 
-            }
-
-            foreach (var ec in EstadoCuenta)
-            {
-                lst.Add(new EstadoCuentaModel
-                {
-                    Fecha = ec.FechaRegistro,
-                    Glosa = ec.DescripcionOperacion,
-                    Cargo = ec.Cargo,
-                    Abono = ec.Abono
-                });
-            }
-            return lst;
+            return lst;            
         }
 
         public BEPager Paginador(BEGrid item, List<EstadoCuentaModel> lst)

@@ -1,29 +1,39 @@
-﻿using System;
+﻿using Portal.Consultoras.Data;
+using Portal.Consultoras.Data.Hana;
+using Portal.Consultoras.Entities;
 using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Portal.Consultoras.Data;
-using Portal.Consultoras.Entities;
 
-// R2073 - Toda la clase
 namespace Portal.Consultoras.BizLogic
 {
     public class BLEstadoCuenta
     {
-        public List<BEEstadoCuenta> GetEstadoCuentaConsultora(int PaisId, string CodigoConsultora)
+        public List<BEEstadoCuenta> GetEstadoCuentaConsultora(int PaisId, long consultoraId)
         {
             var lista = new List<BEEstadoCuenta>();
-            var DAEstadoCuenta = new DAEstadoCuenta(PaisId);
 
-            using (IDataReader reader = DAEstadoCuenta.GetEstadoCuentaConsultora(CodigoConsultora))
-                while (reader.Read())
+            var BLPais = new BLPais();
+
+            if (!BLPais.EsPaisHana(PaisId)) // Validar si informacion de pais es de origen Normal o Hana
+            {
+                var DAEstadoCuenta = new DAEstadoCuenta(PaisId);
+
+                using (IDataReader reader = DAEstadoCuenta.GetEstadoCuentaConsultora(consultoraId))
                 {
-                    var entidad = new BEEstadoCuenta(reader);
+                    while (reader.Read())
+                    {
+                        var entidad = new BEEstadoCuenta(reader);
 
-                    lista.Add(entidad);
+                        lista.Add(entidad);
+                    }
                 }
+            }
+            else
+            {
+                var DAEstadoCuenta = new DAHEstadoCuenta();
+
+                lista = DAEstadoCuenta.GetEstadoCuentaConsultora(PaisId, consultoraId);
+            }
 
             return lista;
         }

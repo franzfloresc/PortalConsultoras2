@@ -119,7 +119,6 @@ $(document).ready(function () {
                 $(this).find('.revista')[0].attributes[3].value = "http://issuu.com/somosbelcorp/docs/piloto_cy1615pe/";
             }
         }
-
             //Campaña 16 - EPD-932
         else if (Campania_ == "201616" && idPais == 11 && (arrC201616.indexOf(codigozona) > -1)) {
 

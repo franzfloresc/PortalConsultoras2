@@ -1027,6 +1027,7 @@ namespace Portal.Consultoras.Web.Controllers
                 model.CatalogoPersonalizado = oBEUsuario.CatalogoPersonalizado;
                 model.EsCatalogoPersonalizadoZonaValida = oBEUsuario.EsCatalogoPersonalizadoZonaValida;
                 model.VioTutorialSalvavidas = oBEUsuario.VioTutorialSalvavidas;
+                model.TieneHana = oBEUsuario.TieneHana;
                 model.NombreGerenteZonal = oBEUsuario.NombreGerenteZona;  // SB20-907
             }
             Session["UserData"] = model;
@@ -1548,6 +1549,70 @@ namespace Portal.Consultoras.Web.Controllers
 
             return listaEscalaDescuento;
         }
+        #endregion
+
+        #region Estado de Cuenta
+
+        public List<EstadoCuentaModel> ObtenerEstadoCuenta()
+        {
+            List<EstadoCuentaModel> lst = new List<EstadoCuentaModel>();
+
+            if (Session["ListadoEstadoCuenta"] == null)
+            {
+                List<BEEstadoCuenta> EstadoCuenta = new List<BEEstadoCuenta>();
+                try
+                {
+                    using (SACServiceClient client = new SACServiceClient())
+                    {
+                        EstadoCuenta = client.GetEstadoCuentaConsultora(userData.PaisID, userData.ConsultoraID).ToList();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                }
+
+                if (EstadoCuenta != null && EstadoCuenta.Count > 0)
+                {
+                    foreach (var ec in EstadoCuenta)
+                    {
+                        lst.Add(new EstadoCuentaModel
+                        {
+                            Fecha = ec.FechaRegistro,
+                            Glosa = ec.DescripcionOperacion,
+                            Cargo = ec.Cargo,
+                            Abono = ec.Abono
+                        });
+                    }
+
+                    decimal monto = 0;
+                    using (ContenidoServiceClient sv = new ContenidoServiceClient())
+                    {
+                        if (userData.CodigoISO == Constantes.CodigosISOPais.Colombia || userData.CodigoISO == Constantes.CodigosISOPais.Peru) //Colombia y Perú
+                            monto = sv.GetDeudaTotal(userData.PaisID, int.Parse(userData.ConsultoraID.ToString()))[0].SaldoPendiente;
+                        else
+                            monto = sv.GetSaldoPendiente(userData.PaisID, userData.CampaniaID, int.Parse(userData.ConsultoraID.ToString()))[0].SaldoPendiente;
+                    }
+
+                    lst.Add(new EstadoCuentaModel
+                    {
+                        Fecha = userData.FechaLimPago,
+                        Glosa = "MONTO A PAGAR",
+                        Cargo = monto > 0 ? monto : 0,
+                        Abono = monto < 0 ? 0 : monto
+                    });
+                }                
+
+                Session["ListadoEstadoCuenta"] = lst;
+            }
+            else
+            {
+                lst = Session["ListadoEstadoCuenta"] as List<EstadoCuentaModel>;
+            }
+
+            return lst;
+        }
+
         #endregion
     }
 }

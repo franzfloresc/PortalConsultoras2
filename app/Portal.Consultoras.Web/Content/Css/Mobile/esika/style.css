@@ -2387,7 +2387,7 @@ h4.re3 {
     right: 0;
     bottom: 0;
     left: 0;
-    background: rgba(164, 181, 196, 0.6);
+    background: rgba(240, 240, 240, 0.3);
     z-index: 99999;
     display: none;
 }
@@ -4743,8 +4743,8 @@ table > thead > tr > th {
     background: #f5f5f5;
     width: 100%;
     padding-bottom: 10px;
-    padding-left: 34px;
-    padding-right: 34px;
+    padding-left: 14px;
+    padding-right: 14px;
     font-family: 'lato';
     font-size: 12px;
     line-height: 15px;
@@ -4795,7 +4795,7 @@ table > thead > tr > th {
 .btn_seguirp_mobile.ver_video_introductorio {
     margin-top: 15px;
     margin-bottom: 5px;
-    width:114px;
+    width: 114px;
 }
 
 .linea_separadora_mobile {
@@ -5740,6 +5740,7 @@ body {
     bottom: -2px;
     z-index: 2;
     padding: 18px 20px 15px 20px;
+    color:#d20000;
 }
 
     .notificacion_productoAgotado:before {
@@ -6440,6 +6441,7 @@ body {
     background: black;
     text-align: center;
     margin-top: 30px;
+    cursor:pointer;
 }
 
 .content_revistas_mobile {
@@ -9473,6 +9475,96 @@ a{
 	border-bottom-color: #f3f3f3;
 	border-width: 10px;
 	margin-left: -10px;
+}
+
+.stock_content{
+    width: 100%;
+    height: auto;
+    padding: 15px;
+    position: relative;
+    background: #fee5e7;
+}
+.stock_content:after {
+	bottom: 100%;
+	left: 30px;
+	border: solid transparent;
+	content: " ";
+	height: 0;
+	width: 0;
+	position: absolute;
+	pointer-events: none;
+	border-color: rgba(136, 183, 213, 0);
+	border-bottom-color: #fee5e7;
+	border-width: 12px;
+	margin-left: -12px;
+    z-index: 20;
+}
+.icono_stock{
+    width: 20px;
+    margin-right: 2%;
+    height: 20px;
+    background-size: cover;
+    background: url(../../../Images/Esika/icono_advertencia_notificacion.png) no-repeat center center;
+    display: inline-block;
+    vertical-align: top;
+    margin-top: 2px;  
+}
+.texto_stock{
+    width: 100%;
+    display: inline-block;
+    vertical-align: top;
+    font-family: 'LAto';
+    font-size: 14px;
+    color:#d20000;
+}
+.btn_no_stock{
+    font-family:'LAto';
+    font-size:13px;
+    float:left;
+    /*margin-left:7%;*/
+    display:block;
+    text-decoration:underline;
+    
+    margin-top: 25px;
+}
+.btn_si_stock{
+    font-family: 'LAto';
+    font-size: 13px;
+    font-weight: 700;
+    float: right;
+    display: block;
+    width: 145px;
+    height: 45px;
+    text-align: center;
+    margin-top: 13px;
+    color: white;
+    background: #e81c36;
+    line-height: 45px;
+}
+.btn_si_stock:hover{
+    color:white;
+}
+.stock_content_agotado{
+    width: 100%;
+    height: auto;
+    padding: 15px;
+    position: relative;
+    background: #f3f3f3;
+}
+.stock_content_agotado:after {
+	bottom: 100%;
+	left: 30px;
+	border: solid transparent;
+	content: " ";
+	height: 0;
+	width: 0;
+	position: absolute;
+	pointer-events: none;
+	border-color: rgba(136, 183, 213, 0);
+	border-bottom-color: #f3f3f3;
+	border-width: 12px;
+	margin-left: -12px;
+    z-index: 20;
 }
 
 .oscurecer_animacion{

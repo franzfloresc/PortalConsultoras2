@@ -112,6 +112,12 @@ namespace Portal.Consultoras.ServiceContracts
         short UpdPedidoWebDetalleMasivo(List<BEPedidoWebDetalle> pedidowebdetalle);
 
         [OperationContract]
+        void AceptarBackOrderPedidoWebDetalle(BEPedidoWebDetalle pedidowebdetalle);
+
+        [OperationContract]
+        void UpdBackOrderListPedidoWebDetalle(List<BEPedidoWebDetalle> listPedidoWebDetalle);
+
+        [OperationContract]
         IList<BEPedidoWebDetalle> SelectByPedidoValidado(int paisID, int CampaniaID, long ConsultoraID, string Consultora);
 
         [OperationContract]

@@ -663,7 +663,7 @@ function AgregarProductoDestacado(tipoEstrategiaImagen) {
                 jQuery.ajax({
                     type: 'POST',
                     url: urlPedidoInsertZe,
-                    dataType: 'html',
+                    dataType: 'json',
                     contentType: 'application/json; charset=utf-8',
                     data: JSON.stringify(param),
                     async: true,
@@ -681,7 +681,7 @@ function AgregarProductoDestacado(tipoEstrategiaImagen) {
                         }
 
                         ShowLoading();
-                        ActualizarGanancia(JSON.parse(data).DataBarra);
+                        ActualizarGanancia(data.DataBarra);
                         CargarCarouselEstrategias(cuv);
                         TrackingJetloreAdd(cantidad, $("#hdCampaniaCodigo").val(), cuv);
                         TagManagerClickAgregarProducto();
