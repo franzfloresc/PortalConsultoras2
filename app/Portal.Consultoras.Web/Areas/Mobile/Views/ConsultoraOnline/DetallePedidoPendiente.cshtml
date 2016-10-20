@@ -211,17 +211,17 @@
                 }
                 else
                 {
-                    <span class="agotado_consultora">AGOTADO</span>
+                    <span class="btn_ingreso_pedido" style="text-align: center;">AGOTADO</span>
                 }
-            }
 
-            @if (item.TieneStock == 0)
-            {
-                <span class="agotado_consultora" style="font-size: 12px;">@item.MensajeValidacion</span>
-            }
-            else if (item.EstaEnRevista == 1)
-            {
-                <span class="agotado_consultora" style="font-size: 12px;">@item.MensajeValidacion</span>
+                if (item.TieneStock == 0)
+                {
+                    <span class="agotado_consultora" style="font-size: 12px;">@item.MensajeValidacion</span>
+                }
+                else if (item.EstaEnRevista == 1)
+                {
+                    <span class="agotado_consultora" style="font-size: 12px;">@item.MensajeValidacion</span>
+                }
             }
         </div>
     }
@@ -321,7 +321,7 @@
                 <div class="opcion_rechazo" data-id="@item.MotivoSolicitudID">@item.Motivo</div>
             }
         </div>
-        <textarea rows="10" class="comentario_rechazados" id="txtOtrosRechazo" readonly="readonly"></textarea>
+        <textarea rows="10" class="comentario_rechazados" id="txtOtrosRechazo" readonly="readonly" maxlength="300"></textarea>
         <a class="btn_acepto_pedido" href="#" onclick="RechazarPedido('@solicitud.PedidoId');">ENVIAR</a>
     </div>
 </div>

@@ -9336,6 +9336,19 @@ span.icon-advertencia{
     font-weight: 600;
 }
 
+.boton_agotado{
+    width:100%;
+    height:45px;
+    border:1px solid black;
+    padding:10px;
+    color:black;
+    font-family:'Lato';
+    font-size:13px;
+    margin-top: 20px;
+    font-weight: 600;
+    cursor: default;
+}
+
 .linea_separadora_roja{
     width:100%;
     height:1px;
