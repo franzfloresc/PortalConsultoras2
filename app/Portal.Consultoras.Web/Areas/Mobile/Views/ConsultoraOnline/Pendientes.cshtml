@@ -6,14 +6,7 @@
 }
 
 <div class="titulo_mobile">
-    @if (TempData["clearPedidoId"] != null && Request.UrlReferrer.ToString().IndexOf(TempData["clearPedidoId"].ToString()) >= 0)
-    {
-        <a href="@Url.Action("Index", "Bienvenida", new { area = "Mobile" })" class="enlace_regresar catalogosR" title="Regresar"></a>
-    }
-    else
-    {
-        <a href="@Request.UrlReferrer" class="enlace_regresar catalogosR" title="Regresar"></a>
-    }
+    <a href="@Request.UrlReferrer" class="enlace_regresar catalogosR" title="Regresar"></a>
     &nbsp;&nbsp;&nbsp;&nbsp;PENDIENTES
 </div>
 <div class="pestana_esika"></div><!--PESTANA ESIKA-->
