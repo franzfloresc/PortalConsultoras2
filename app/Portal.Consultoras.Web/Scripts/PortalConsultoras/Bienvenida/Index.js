@@ -489,6 +489,12 @@ function mostrarUbicacionTutorial(tieneFondoNegro, mostrarPopupTutorial) {
     tieneFondoNegro = tieneFondoNegro == undefined ? false : tieneFondoNegro;
     mostrarPopupTutorial = mostrarPopupTutorial == undefined ? false : mostrarPopupTutorial;
     
+    var fondoPupup = false;
+    if ($("#fondoComunPopUp").is(':visible')) {
+        $("#fondoComunPopUp").hide();
+        fondoPupup = true;
+    }
+
     if (tieneFondoNegro) {
         $(".fondo_oscuro").fadeIn(300, function() {
             //$(".mensaje_header").addClass("opcionTutorial");
@@ -507,6 +513,9 @@ function mostrarUbicacionTutorial(tieneFondoNegro, mostrarPopupTutorial) {
 
     timeoutTooltipTutorial = setTimeout(function () {
         ocultarUbicacionTutorial();
+        if (fondoPupup) {
+            $("#fondoComunPopUp").show();
+        }
         if (mostrarPopupTutorial)
             abrir_popup_tutorial();
         else {
@@ -549,39 +558,40 @@ function ocultarUbicacionTutorial() {
 
 function mostrarVideoIntroductorio() {
     try {
-         if (viewBagVioVideo == "0") {
- 
-             //closeWaitingDialog();   // SB20-834
-             PopupMostrar('videoIntroductorio');
-             setTimeout(function () { playVideo(); }, 1000);
-             UpdateUsuarioTutoriales(constanteVioVideo);
-         } else {
-             if (viewBagVioTutorial == 0) {
-                 if (viewBagVioTutorialSalvavidas == '0') {
-                     mostrarUbicacionTutorial(false, true);
-                 } else {
-                     abrir_popup_tutorial();
-                 }
-                 primeraVezVideo = false;
-             } else {
-                 if (viewBagVioTutorialSalvavidas == '0') {
-                     mostrarUbicacionTutorial(false, false);
-                 } else {
-                     if (viewBagVerComunicado == '-1') {
-                         waitingDialog();
-                     } else {
-                         mostrarComunicadosPopup();
+        if (viewBagVioVideo == "0") {
 
-                         //if (viewBagVerComunicado != '1') {
-                         //    CargarPopupsConsultora();
-                         //}
-                     }
-                 }                
-             }
-         }
-     } catch (e) {
- 
-     }
+            //closeWaitingDialog();   // SB20-834
+            PopupMostrar('videoIntroductorio');
+            setTimeout(function () { playVideo(); }, 1000);
+            UpdateUsuarioTutoriales(constanteVioVideo);
+            return true;
+        }
+
+        if (viewBagVioTutorial == 0) {
+            if (viewBagVioTutorialSalvavidas == '0') {
+                mostrarUbicacionTutorial(false, true);
+            } else {
+                abrir_popup_tutorial();
+            }
+            primeraVezVideo = false;
+            return true;
+        }
+
+        if (viewBagVioTutorialSalvavidas == '0') {
+            mostrarUbicacionTutorial(false, false);
+        } else {
+            if (viewBagVerComunicado != '-1') {
+                mostrarComunicadosPopup();
+
+                //if (viewBagVerComunicado != '1') {
+                //    CargarPopupsConsultora();
+                //}
+            }
+        }
+
+    } catch (e) {
+
+    }
 }
 
 function UpdateUsuarioTutoriales(tipo) {
@@ -2314,7 +2324,7 @@ function ActualizarDatos() {
                     });
                     alert(mensajeHtml);
                 }
-                $('#popupActualizarMisDatos').hide();
+                PopupCerrar('popupActualizarMisDatos');
             }
         }
     });
@@ -2377,7 +2387,7 @@ function CerrarPopupActualizacionDatos() {
         error: function (data, error) {
             if (checkTimeout(data)) {
                 closeWaitingDialog();
-                $('#popupActualizarMisDatos').hide();
+                PopupCerrar('popupActualizarMisDatos');
                 alert(data.message);
             }
         }
@@ -3669,6 +3679,7 @@ function PopupMostrar(idPopup) {
 
     $("#fondoComunPopUp").show();
     $(id).show();
+    console.log(id);
     //contadorFondoPopUp++;
 }
 function PopupCerrar(idPopup) {
@@ -3683,7 +3694,9 @@ function PopupCerrar(idPopup) {
     $(id).hide();
     if ($("#fondoComunPopUp >div[data-popup-activo='1']").length == 0) {
         $("#fondoComunPopUp").hide();
+        // viewBagVioTutorialSalvavidas
     }
+    console.log(id);
     //contadorFondoPopUp--;
     //contadorFondoPopUp = contadorFondoPopUp < 0 ? 0 : contadorFondoPopUp;
 }
