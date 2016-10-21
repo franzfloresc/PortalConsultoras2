@@ -145,7 +145,7 @@ function alert_msg(message, titulo) {
     $('#alertDialogMensajes').dialog('open');
 }
 
-function alert_msg_error_main(message, titulo) {
+function messageInfoError(message, titulo) {
     $('#dialog_ErrorMainLayout .popup_agregarUnidades .contenido_popUp .mensaje_agregarUnidades').html(message);
     $('#dialog_ErrorMainLayout').show();
 }

@@ -1129,7 +1129,7 @@ function AgregarProductoDestacado(popup, tipoEstrategiaImagen) {
                         }
 
                         if (data.success != true) {
-                            alert_msg_error_main(data.message);
+                            messageInfoError(data.message);
                             closeWaitingDialog();
                             return false;
                         }
@@ -1549,7 +1549,7 @@ function AgregarProductoLiquidacion(contenedor) {
                             }
 
                             if (data.success != true) {
-                                alert_msg_error_main(data.message);
+                                messageInfoError(data.message);
                                 closeWaitingDialog();
                                 return false;
                             }
@@ -1790,7 +1790,7 @@ function InsertarPedidoCuvBanner(CUVpedido, CantCUVpedido) {
 
             if (result.success != true) {
                 if (result.message == "") result.message = 'Error al realizar proceso, inténtelo más tarde.';
-                alert_msg_error_main(result.message);
+                messageInfoError(result.message);
                 closeWaitingDialog();
                 return false;
             }
