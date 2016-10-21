@@ -64,13 +64,13 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     else
                     {
                         int esConsultoraOnline = -1;
-                        using (var sv = new UsuarioServiceClient())
+                        using (var svc = new UsuarioServiceClient())
                         {
-                            esConsultoraOnline = sv.GetCantidadPedidosConsultoraOnline(userData.PaisID, userData.ConsultoraID);
+                            esConsultoraOnline = svc.GetCantidadPedidosConsultoraOnline(userData.PaisID, userData.ConsultoraID);
                             if (esConsultoraOnline >= 0)
                             {
-                                ViewBag.CantPedidosPendientes = sv.GetCantidadSolicitudesPedido(userData.PaisID, userData.ConsultoraID, userData.CampaniaID);
-                                ViewBag.TeQuedanConsultoraOnline = sv.GetSaldoHorasSolicitudesPedido(userData.PaisID, userData.ConsultoraID, userData.CampaniaID);
+                                ViewBag.CantPedidosPendientes = svc.GetCantidadSolicitudesPedido(userData.PaisID, userData.ConsultoraID, userData.CampaniaID);
+                                ViewBag.TeQuedanConsultoraOnline = svc.GetSaldoHorasSolicitudesPedido(userData.PaisID, userData.ConsultoraID, userData.CampaniaID);
                             }
                         }
                         //ViewBag.MenuPadreIDConsultoraOnline = menuConsultoraOnlinePadre.MenuMobileID;

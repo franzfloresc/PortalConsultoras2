@@ -1021,6 +1021,19 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpPost]
         public JsonResult AceptarPedido(string pedidoId, MisPedidosModel pedidoModel, string typeAction = null)
         {
+            // validar si puede ingresar el pedido
+            var mensajeR = "";
+            var noPasa = ReservadoEnHorarioRestringido(out mensajeR);
+            if (noPasa)
+            {
+                return Json(new
+                {
+                    success = false,
+                    message = mensajeR,
+                    code = 2
+                }, JsonRequestBehavior.AllowGet);
+            }
+
             MisPedidosModel consultoraOnlineMisPedidos = new MisPedidosModel();
             consultoraOnlineMisPedidos = (MisPedidosModel)Session["objMisPedidos"];
             BEMisPedidos pedido = new BEMisPedidos();
@@ -1380,7 +1393,8 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     success = true,
                     message = "OK",
-                    DataBarra = GetDataBarra()
+                    DataBarra = GetDataBarra(),
+                    code = 1
                 }, JsonRequestBehavior.AllowGet); 
 
                 //Fín GR-1385
@@ -1392,7 +1406,8 @@ namespace Portal.Consultoras.Web.Controllers
                 return Json(new
                 {
                     success = false,
-                    message = e.Message
+                    message = e.Message,
+                    code = 1
                 }, JsonRequestBehavior.AllowGet); 
             }
 
