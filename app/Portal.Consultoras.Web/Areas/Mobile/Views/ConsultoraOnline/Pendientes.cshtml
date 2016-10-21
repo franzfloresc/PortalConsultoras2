@@ -129,14 +129,7 @@
     <div class="texto_advertencia_pendiente">Sólo tienes 24 horas para atender los pedidos. No pierdas esta oportunidad de hacer nuevos clientes. </div>
     <hr class="clear" />
     <div class="texto_revisa_pendientes">Revisa tus pedidos aceptados en:</div>
-    <a href="#" onclick="CerrarMensajeAceptado();" class="btn_historial_pedido">Historial de Pedidos</a>
-</div>
-
-<div style="display: none;">
-    @using (Html.BeginForm("", "", FormMethod.Post, new { id = "frmConsultoraOnline" }))
-    {
-        <input type="hidden" name="lanzarTabConsultoraOnline" value="true">
-    }
+    <a href="@Url.Action("Historial", "ConsultoraOnline", new { area = "Mobile" })" class="btn_historial_pedido">Historial de Pedidos</a>
 </div>
 
 @section scripts {

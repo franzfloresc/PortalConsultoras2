@@ -9284,6 +9284,19 @@ span.icon-advertencia{
     font-weight: 600;
 }
 
+.boton_agotado{
+    width:100%;
+    height:45px;
+    border:1px solid black;
+    padding:10px;
+    color:black;
+    font-family:'Lato';
+    font-size:13px;
+    margin-top: 20px;
+    font-weight: 600;
+    cursor: default;
+}
+
 .linea_separadora_roja{
     width:100%;
     height:1px;
@@ -9338,6 +9351,7 @@ a{
     color:black;
     height:70px;
 }
+
 .opcion_rechazo{
     border-bottom:1px solid #c9c9c9;
     width:100%;
@@ -9348,13 +9362,21 @@ a{
     font-size:13px;
     color:black;
 }
-.opcion_rechazo:hover, .opcion_rechazo.opcion_rechazo_select{
-        background: #f7f7f7 url(../../../Images/icono_check.png) no-repeat;
-        background-position:10px 18px;
-    }
-.opcion_rechazo:last-child{
+
+.opcion_rechazo:hover {
+    background: #f7f7f7 url(../../../Images/icono_check.png) no-repeat;
+    background-position:10px 18px;
+}
+
+.opcion_rechazo_select {
+    background: #f7f7f7 url(../../../Images/icono_check.png) no-repeat;
+    background-position:10px 18px;
+}
+
+.opcion_rechazo:last-child {
     border-bottom:0;
 }
+
 .titulo_pedido_cancelado{
     font-family:'LAto';
     font-size:13px;
@@ -9391,12 +9413,30 @@ a{
     color:black;
 }
 .agotado_consultora{
-    display:block;
+    display: block;
     font-family: 'Lato';
-    font-size: 16px;
+    font-size: 14px;
     color: black;
-    font-weight:700;
+    font-weight: 700;
     margin-top: 20px;
+    background:#f3f3f3 url(../../../Images/Esika/icono_advertencia_notificacion.png) no-repeat center center;
+    background-position:10px 10px;
+    padding: 10px 10px 10px 43px;
+    position:relative;
+}
+.agotado_consultora:after {
+	bottom: 100%;
+	left: 40px;
+	border: solid transparent;
+	content: " ";
+	height: 0;
+	width: 0;
+	position: absolute;
+	pointer-events: none;
+	border-color: rgba(136, 183, 213, 0);
+	border-bottom-color: #f3f3f3;
+	border-width: 10px;
+	margin-left: -10px;
 }
 
 .stock_content{

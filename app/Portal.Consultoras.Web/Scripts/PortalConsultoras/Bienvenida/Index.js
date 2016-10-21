@@ -59,16 +59,12 @@ $(document).ready(function () {
                     abrir_popup_tutorial();
                 }
                 stopVideo();
-                $('#videoIntroductorio').hide();
-                if (contadorFondoPopUp == 1) {
-                    $("#fondoComunPopUp").hide();
-                }
-                contadorFondoPopUp--;
+                PopupCerrar('videoIntroductorio');
                 return false;
             }
             /* SB20-834 - INICIO */
             if ($('#popupComunicados').is(':visible')) {
-                $('#popupComunicados').hide();
+                PopupCerrar('popupComunicados');
                 closeComunicadosPopup = true;
             }
             /* SB20-834 - FIN */
@@ -124,17 +120,8 @@ $(document).ready(function () {
     });
 
     /* SB20-834 - INICIO */
-    ObtenerComunicadosPopup();    
-
-    $('body').bind('resize', '.popup_comunicados', function (e) {
-        //centrarComunicadoPopup($(this).attr('id'));
-
-        //if ($.trim($('#popupComunicados').html()) != "") {
-        //    $('#popupComunicados').show();
-        //}
-    });
-    /* SB20-834 - FIN */
-       
+    ObtenerComunicadosPopup();
+           
     mostrarVideoIntroductorio();
     CrearDialogs();
     CargarCarouselEstrategias("");
@@ -172,48 +159,28 @@ $(document).ready(function () {
             //setTimeout(ocultarAnimacionTutorial, 9000);
         }
         stopVideo();
-        $('#videoIntroductorio').hide();
-        if (contadorFondoPopUp == 1) {
-            $("#fondoComunPopUp").hide();
-        }
-        contadorFondoPopUp--;
+        PopupCerrar('videoIntroductorio');
         viewBagVioVideo = 1;
         mostrarComunicadosPopup();
         return false;
     });
 
     $("#cerrarAceptacionContrato").click(function () {
-        $('#popupAceptacionContrato').hide();
-        if (contadorFondoPopUp == 1) {
-            $("#fondoComunPopUp").hide();
-        }
-        contadorFondoPopUp--;
+        PopupCerrar('popupAceptacionContrato');
         return false;
     });
 
     $("#cerrarInvitacionFlexipago").click(function () {
-        $('#popupInvitaionFlexipago').hide();
-        if (contadorFondoPopUp == 1) {
-            $("#fondoComunPopUp").hide();
-        }
-        contadorFondoPopUp--;
+        PopupCerrar('popupInvitaionFlexipago');
         return false;
     });
     $("#abrirPopupMisDatos").click(function () {
-        if (contadorFondoPopUp == 0) {
-            $("#fondoComunPopUp").show();
-        }
-        waitingDialog({});
+        waitingDialog();
         CargarMisDatos();
-        contadorFondoPopUp++;
         return false;
     });
     $("#cerrarPopupMisDatos").click(function () {
-        $('#popupMisDatos').hide();
-        if (contadorFondoPopUp == 1) {
-            $("#fondoComunPopUp").hide();
-        }
-        contadorFondoPopUp--;
+        PopupCerrar('popupMisDatos');
         return false;
     });
     $('#hrefTerminos').click(function () {
@@ -359,34 +326,11 @@ $(document).ready(function () {
         CambiarTonoTalla($(this));
     });
 
-    //$(document).on('click', '[data-btn-agregar-catalogopersonalizado]', function () {
-    //    if (ReservadoOEnHorarioRestringido())
-    //        return false;
-
-    //    var contenedor = $(this).parents("[data-item='catalogopersonalizado']");
-    //    AgregarProductoCatalogoPersonalizado(contenedor);
-    //});
-
     $(document).on('click', '.miCurso', function () {
         var id = $(this)[0].id;
         GetCursoMarquesina(id)
     });
-    //$(document).on('click', '.pop-ofertarevista', function () {
-    //    waitingDialog({});
-    //    var contenedor = $(this).parents('.contiene-productos');
-    //    ObtenerOfertaRevista(contenedor);
-    //});
-    //$(document).on('click', '.agregar-ofertarevista', function () {
-    //    if (ReservadoOEnHorarioRestringido())
-    //        return false;
-
-    //    var contenedor = $(this).parents(".cuerpo-mod");
-    //    var cantidad = $(this).siblings('.liquidacion_rango_home, .ofertarevista_rango_home').find('#txtCantidad').val();
-    //    var tipoCUV = $(this).attr('data-cuv');
-
-    //    AgregarProductoOfertaRevista(contenedor, cantidad, tipoCUV, this);
-    //});
-            
+  
     //ShowRoom
     CrearPopShow();
     MostrarShowRoom();
@@ -415,9 +359,7 @@ function CargarCamara() {
     });
     Webcam.attach('#my_camera');
 
-    $("#fondoComunPopUp").show();
-    contadorFondoPopUp++;
-    $("#CamaraIntroductoria").show();
+    PopupMostrar('CamaraIntroductoria');
 }
 
 function CerrarCamara() {
@@ -425,9 +367,7 @@ function CerrarCamara() {
     $('#imgFotoTomada').attr('src', '');
     $('#demo').removeClass('croppie-container').html('');
 
-    $("#CamaraIntroductoria").hide();
-    contadorFondoPopUp--;
-    if(contadorFondoPopUp == 0) $("#fondoComunPopUp").hide();
+    PopupCerrar('CamaraIntroductoria');
 }
 
 function CortarFoto() {
@@ -546,9 +486,19 @@ function agregarProductoAlCarrito(o) {
 //MICROEFECTO RESALTAR ICONO TUTORIAL
 
 function mostrarUbicacionTutorial(tieneFondoNegro, mostrarPopupTutorial) {
+
     tieneFondoNegro = tieneFondoNegro == undefined ? false : tieneFondoNegro;
     mostrarPopupTutorial = mostrarPopupTutorial == undefined ? false : mostrarPopupTutorial;
-    
+
+    if (EfectoTutorialSalvavidas == '0') {
+        if (!(viewBagVioTutorial == 0 || viewBagVioVideo == 0)) {
+            tieneFondoNegro = false;
+        }
+    }
+
+    $("#fondoComunPopUp").hide();
+    $("#fondoComunPopUp").attr("data-activo-salvavidas", '1');
+
     if (tieneFondoNegro) {
         $(".fondo_oscuro").fadeIn(300, function() {
             //$(".mensaje_header").addClass("opcionTutorial");
@@ -567,33 +517,31 @@ function mostrarUbicacionTutorial(tieneFondoNegro, mostrarPopupTutorial) {
 
     timeoutTooltipTutorial = setTimeout(function () {
         ocultarUbicacionTutorial();
+        if ($("#fondoComunPopUp >div[data-popup-activo='1']").length > 0) {
+            $("#fondoComunPopUp").show();
+            mostrarComunicadosPopup();
+        }
         if (mostrarPopupTutorial)
             abrir_popup_tutorial();
         else {
-            if (viewBagVerComunicado == '-1') {
-                //console.log(viewBagVerComunicado);
-                waitingDialog();
-            } else {
+            if (viewBagVerComunicado != '-1') {
                 mostrarComunicadosPopup();
 
-                if (viewBagVerComunicado != '1') {
-                    //CargarPopupsConsultora();
-                }
+                //if (viewBagVerComunicado != '1') {
+                //    CargarPopupsConsultora();
+                //}
             }
         }
     }, 4000);
-
 }
 
 function mostrarIconoTutorial() {
-
     $(".tooltip_tutorial").animate({
         'opacity': 1,
         'top': 47
     }, 500, 'swing').animate({
         'top': 41
     }, 400, 'swing', mostrarIconoTutorial);
-
 }
 
 function ocultarUbicacionTutorial() {
@@ -605,51 +553,48 @@ function ocultarUbicacionTutorial() {
     $(".fondo_oscuro").fadeOut(300);
     
     clearTimeout(timeoutTooltipTutorial);
+
+    $("#fondoComunPopUp").attr("data-activo-salvavidas", '0');
 }
 
 // FIN MICROEFECTO RESALTAR ICONO TUTORIAL
 
 function mostrarVideoIntroductorio() {
     try {
-         if (viewBagVioVideo == "0") {
- 
-             //closeWaitingDialog();   // SB20-834
- 
-             if (contadorFondoPopUp == 0) {
-                 $("#fondoComunPopUp").show();
-             }
-             $("#videoIntroductorio").show();
-             setTimeout(function () { playVideo(); }, 1000);
-             UpdateUsuarioTutoriales(constanteVioVideo);
-             contadorFondoPopUp++;
-         } else {
-             if (viewBagVioTutorial == 0) {
-                 if (viewBagVioTutorialSalvavidas == '0') {
-                     mostrarUbicacionTutorial(false, true);
-                 } else {
-                     abrir_popup_tutorial();
-                 }
-                 primeraVezVideo = false;
-             } else {
-                 if (viewBagVioTutorialSalvavidas == '0') {
-                     mostrarUbicacionTutorial(false, false);
-                 } else {
-                     if (viewBagVerComunicado == '-1') {
-                         //console.log(viewBagVerComunicado);
-                         waitingDialog();
-                     } else {
-                         mostrarComunicadosPopup();
+        if (viewBagVioVideo == "0") {
 
-                         if (viewBagVerComunicado != '1') {
-                             //CargarPopupsConsultora();
-                         }
-                     }
-                 }                
-             }
-         }
-     } catch (e) {
- 
-     }
+            //closeWaitingDialog();   // SB20-834
+            PopupMostrar('videoIntroductorio');
+            setTimeout(function () { playVideo(); }, 1000);
+            UpdateUsuarioTutoriales(constanteVioVideo);
+            return true;
+        }
+
+        if (viewBagVioTutorial == 0) {
+            if (viewBagVioTutorialSalvavidas == '0') {
+                mostrarUbicacionTutorial(false, true);
+            } else {
+                abrir_popup_tutorial();
+            }
+            primeraVezVideo = false;
+            return true;
+        }
+
+        if (viewBagVioTutorialSalvavidas == '0') {
+            mostrarUbicacionTutorial(false, false);
+        } else {
+            if (viewBagVerComunicado != '-1') {
+                mostrarComunicadosPopup();
+
+                //if (viewBagVerComunicado != '1') {
+                //    CargarPopupsConsultora();
+                //}
+            }
+        }
+
+    } catch (e) {
+
+    }
 }
 
 function UpdateUsuarioTutoriales(tipo) {
@@ -729,11 +674,7 @@ function CargarPopupsConsultora() {
     }
     else {
         if (viewBagPaisID == 9 && viewBagValidaDatosActualizados == '1' && viewBagValidaTiempoVentana == '1' && viewBagValidaSegmento == '1') { //Mexico
-            if (contadorFondoPopUp == 0) {
-                $("#fondoComunPopUp").show();
-            }
-            $("#popupActualizarMisDatosMexico").show();
-            contadorFondoPopUp++;
+            PopupMostrar('popupActualizarMisDatosMexico');
         } else {
             if (viewBagPrimeraVez == "0" || viewBagPrimeraVezSession == "0") {
                 if (viewBagPaisID == 11) { //Peru
@@ -741,11 +682,7 @@ function CargarPopupsConsultora() {
                 } else {
                     $('#tituloActualizarDatos').html('<b>ACTUALIZAR</b> DATOS');
                 }
-                if (contadorFondoPopUp == 0) {
-                    $("#fondoComunPopUp").show();
-                }
-                $("#popupActualizarMisDatos").show();
-                contadorFondoPopUp++;
+                PopupMostrar('popupActualizarMisDatos');
             }
             else {
                 if (viewBagPrimeraVez == "1" && viewBagPaisID == 4) { //Colombia
@@ -1192,7 +1129,7 @@ function AgregarProductoDestacado(popup, tipoEstrategiaImagen) {
                         }
 
                         if (data.success != true) {
-                            alert_msg_pedido(data.message);
+                            messageInfoError(data.message);
                             closeWaitingDialog();
                             return false;
                         }
@@ -1606,14 +1543,13 @@ function AgregarProductoLiquidacion(contenedor) {
                         data: JSON.stringify(item),
                         async: true,
                         success: function (data) {
-
                             if (!checkTimeout(data)) {
                                 closeWaitingDialog();
                                 return false;
                             }
 
                             if (data.success != true) {
-                                alert_msg_pedido(data.message);
+                                messageInfoError(data.message);
                                 closeWaitingDialog();
                                 return false;
                             }
@@ -1722,7 +1658,7 @@ function CargarBanners() {
 
                         switch (dataResult.data[count].GrupoBannerID) {
                             case 150: // Seccion Principal SB2.0
-                                var iniHtmlLink = ((dataResult.data[count].URL.length > 0 && dataResult.data[count].TipoAccion == 0) || dataResult.data[count].TipoAccion == 1 || dataResult.data[count].TipoAccion == 2) ? "<a id='bannerMicroefecto" + dataResult.data[count].BannerID + "' href='javascript:void();' onclick=\"return EnlaceBanner('" + dataResult.data[count].URL + "','" + dataResult.data[count].Titulo + "','" + dataResult.data[count].TipoAccion + "','" + dataResult.data[count].CuvPedido + "','" + dataResult.data[count].CantCuvPedido + "','" + dataResult.data[count].BannerID + "','" + Posicion + "','" + dataResult.data[count].Titulo + "', this);\" rel='marquesina' >" : "";
+                                var iniHtmlLink = ((dataResult.data[count].URL.length > 0 && dataResult.data[count].TipoAccion == 0) || dataResult.data[count].TipoAccion == 1 || dataResult.data[count].TipoAccion == 2) ? "<a id='bannerMicroefecto" + dataResult.data[count].BannerID + "' href='javascript:;' onclick=\"return EnlaceBanner('" + dataResult.data[count].URL + "','" + dataResult.data[count].Titulo + "','" + dataResult.data[count].TipoAccion + "','" + dataResult.data[count].CuvPedido + "','" + dataResult.data[count].CantCuvPedido + "','" + dataResult.data[count].BannerID + "','" + Posicion + "','" + dataResult.data[count].Titulo + "', this);\" rel='marquesina' >" : "";
                                 var finHtmlLink = ((dataResult.data[count].URL.length > 0 && dataResult.data[count].TipoAccion == 0) || dataResult.data[count].TipoAccion == 1 || dataResult.data[count].TipoAccion == 2) ? '</a>' : '';
 
                                 $('.flexslider ul.slides').append('<li><div><div>' + iniHtmlLink + '<img class="imagen_producto" src="' + fileName + '"data-object-fit="none">' + finHtmlLink + '</div></div></li>');
@@ -1821,11 +1757,10 @@ function EnlaceBanner(URL, TrackText, TipoAccion, CUVpedido, CantCUVpedido, Id, 
     if (TipoAccion == 1) {
         if (ReservadoOEnHorarioRestringido())
             return false;
-        else
-            var objBannerCarrito = $("#" + $(link).attr("id"));
-            agregarProductoAlCarrito(objBannerCarrito);
-            InsertarPedidoCuvBanner(CUVpedido, CantCUVpedido);
-
+        
+        var objBannerCarrito = $("#" + $(link).attr("id"));
+        agregarProductoAlCarrito(objBannerCarrito);
+        InsertarPedidoCuvBanner(CUVpedido, CantCUVpedido);
         SetGoogleAnalyticsPromotionClick(Id, Posicion, Titulo);
 
         return false;
@@ -1854,9 +1789,8 @@ function InsertarPedidoCuvBanner(CUVpedido, CantCUVpedido) {
             }
 
             if (result.success != true) {
-                if (result.message == "")
-                    result.message = 'Error al realizar proceso, intentelo mas tarde.';
-                alert_unidadesAgregadas('Error al realizar proceso, inténtelo más tarde.', 2);
+                if (result.message == "") result.message = 'Error al realizar proceso, inténtelo más tarde.';
+                messageInfoError(result.message);
                 closeWaitingDialog();
                 return false;
             }
@@ -2030,7 +1964,7 @@ function CargarMisDatos() {
             $('#txtTelefonoMD').val(temp.Telefono);
             $('#txtTelefonoTrabajoMD').val(temp.TelefonoTrabajo);
             $('#txtCelularMD').val(temp.Celular);
-            $('#popupMisDatos').show();
+            PopupMostrar('popupMisDatos');
             closeWaitingDialog();
         },
         error: function (error) {
@@ -2162,30 +2096,14 @@ function ActualizarMD() {
         success: function (data) {
             if (checkTimeout(data)) {
                 closeWaitingDialog();
-                if (data.success == true) {
-                    $('#popupMisDatos').hide();
-                    if (contadorFondoPopUp == 1) {
-                        $("#fondoComunPopUp").hide();
-                    }
-                    contadorFondoPopUp--;
-                    alert(data.message);
-                } else {
-                    $('#popupMisDatos').hide();
-                    if (contadorFondoPopUp == 1) {
-                        $("#fondoComunPopUp").hide();
-                    }
-                    contadorFondoPopUp--;
-                    alert(data.message);
-                }
+                PopupCerrar('popupMisDatos');
+                alert(data.message);
             }
         },
         error: function (data, error) {
             if (checkTimeout(data)) {
                 closeWaitingDialog();
-                if (contadorFondoPopUp == 1) {
-                    $("#fondoComunPopUp").hide();
-                }
-                contadorFondoPopUp--;
+                PopupCerrar('popupMisDatos');
                 alert("ERROR");
             }
         }
@@ -2382,12 +2300,7 @@ function ActualizarDatos() {
                     $.each(data.message.split("-"), function (i, v) {
                         mensajeHtml += v + "<br/>"
                     });
-
-                    $('#popupActualizarMisDatos').hide();
-                    if (contadorFondoPopUp == 1) {
-                        $("#fondoComunPopUp").hide();
-                    }
-                    contadorFondoPopUp--;
+                    PopupCerrar('popupActualizarMisDatos');
                     alert_unidadesAgregadas(mensajeHtml, result ? 1 : 0);
                 }
                 if (data.success) {
@@ -2412,7 +2325,7 @@ function ActualizarDatos() {
                     });
                     alert(mensajeHtml);
                 }
-                $('#popupActualizarMisDatos').hide();
+                PopupCerrar('popupActualizarMisDatos');
             }
         }
     });
@@ -2469,17 +2382,13 @@ function CerrarPopupActualizacionDatos() {
         success: function (data) {
             if (checkTimeout(data)) {
                 closeWaitingDialog();
-                $('#popupActualizarMisDatos').hide();
-                if (contadorFondoPopUp == 1) {
-                    $("#fondoComunPopUp").hide();
-                }
-                contadorFondoPopUp--;
+                PopupCerrar('popupActualizarMisDatos');
             }
         },
         error: function (data, error) {
             if (checkTimeout(data)) {
                 closeWaitingDialog();
-                $('#popupActualizarMisDatos').hide();
+                PopupCerrar('popupActualizarMisDatos');
                 alert(data.message);
             }
         }
@@ -2640,11 +2549,7 @@ function ActualizarDatosMexico() {
     return Result;
 }
 function CerrarPopupActualizacionDatosMexico() {
-    $('#popupActualizarMisDatosMexico').hide();
-    if (contadorFondoPopUp == 1) {
-        $("#fondoComunPopUp").hide();
-    }
-    contadorFondoPopUp--;
+    PopupCerrar('popupActualizarMisDatosMexico');
 }
 
 // Métodos Contrato
@@ -2653,11 +2558,7 @@ function AbrirAceptacionContrato() {
         if (viewBagIndicadorContrato == 0) {
             var AlreadyViewContrato = sessionIsContrato;
             if (AlreadyViewContrato == 1) {
-                if (contadorFondoPopUp == 0) {
-                    $("#fondoComunPopUp").show();
-                }
-                $("#popupAceptacionContrato").show();
-                contadorFondoPopUp++;
+                PopupMostrar('popupAceptacionContrato');
             }
         }
     }
@@ -2677,13 +2578,11 @@ function AceptarContrato() {
                     if (data.extra != "nocorreo") return;
                 }
 
-                $('#popupAceptacionContrato').hide();
-                contadorFondoPopUp--;
+                PopupCerrar('popupAceptacionContrato');
+
                 if (viewBagCambioClave == 0) {
-                    $("#popupActualizarMisDatos").show();
-                    contadorFondoPopUp++;
+                    PopupMostrar('popupActualizarMisDatos');
                 }
-                if (contadorFondoPopUp == 0) $("#fondoComunPopUp").hide();
             }
         },
         error: function (data, error) {
@@ -2737,11 +2636,7 @@ function MostrarDemandaAnticipada() {
                 if (data.success == true) {
                     $('#fechaHasta').text(data.mensajeFechaDA);
                     $('#fechaLuego').text(data.mensajeFechaDA);
-                    if (contadorFondoPopUp == 0) {
-                        $("#fondoComunPopUp").show();
-                    }
-                    $("#popupDemandaAnticipada").show();
-                    contadorFondoPopUp++;
+                    PopupMostrar('popupDemandaAnticipada');
                 }
                 closeWaitingDialog();
             }
@@ -2776,11 +2671,7 @@ function InsertarDemandaAnticipada(tipo) {
         success: function (data) {
             if (checkTimeout(data)) {
                 if (data.success == true) {
-                    $("#popupDemandaAnticipada").hide();
-                    if (contadorFondoPopUp == 1) {
-                        $("#fondoComunPopUp").hide();
-                    }
-                    contadorFondoPopUp--;
+                    PopupCerrar('popupDemandaAnticipada');
                     location.href = baseUrl + 'Login/LoginCargarConfiguracion?paisID=' + data.paisID + '&codigoUsuario=' + data.codigoUsuario;
                 }
                 closeWaitingDialog();
@@ -2854,11 +2745,7 @@ function AbrirPopupFlexipago() {
             if (viewBagInscritaFlexipago == "0") {
                 if (viewBagIndicadorFlexiPago == "1" && viewBagCampanaInvitada != "0") {
                     if ((parseInt(viewBagCampaniaActual) - parseInt(viewBagCampanaInvitada)) >= parseInt(viewBagNroCampana)) {
-                        if (contadorFondoPopUp == 0) {
-                            $("#fondoComunPopUp").show();
-                        }
-                        $('#popupInvitaionFlexipago').show();
-                        contadorFondoPopUp++;
+                        PopupMostrar('popupInvitaionFlexipago');
                     }
                 }
             }
@@ -2876,21 +2763,13 @@ function RechazarInvitacionFlex() {
         async: true,
         success: function (data) {
             if (checkTimeout(data)) {
-                $('#popupInvitaionFlexipago').hide();
-                if (contadorFondoPopUp == 1) {
-                    $("#fondoComunPopUp").hide();
-                }
-                contadorFondoPopUp--;
+                PopupCerrar('popupInvitaionFlexipago');                
                 closeWaitingDialog();
             }
         },
         error: function (data, error) {
             if (checkTimeout(data)) {
-                $('#popupInvitaionFlexipago').hide();
-                if (contadorFondoPopUp == 1) {
-                    $("#fondoComunPopUp").hide();
-                }
-                contadorFondoPopUp--;
+                PopupCerrar('popupInvitaionFlexipago');
                 closeWaitingDialog();
                 alert(data.message);
             }
@@ -3040,239 +2919,6 @@ function AgregarSuenio() {
         }
     });
 }
-
-// Catalogo Personalizado
-//function ObtenerOfertaRevista(item) {
-//    var $contenedor = item;
-//    var cuv = $contenedor.find('.hdItemCuv').val();
-//    var tipoOfertaRevista = $contenedor.find('.hdItemTipoOfertaRevista').val().trim();
-
-//    var obj = {
-//        UrlImagen: $contenedor.find('.producto_img_home>img').attr('src'),
-//        CUV: $contenedor.find('.hdItemCuv').val(),
-//        TipoOfertaSisID: $contenedor.find('.hdItemTipoOfertaSisID').val(),
-//        ConfiguracionOfertaID: $contenedor.find('.hdItemConfiguracionOfertaID').val(),
-//        IndicadorMontoMinimo: $contenedor.find('.hdItemIndicadorMontoMinimo').val(),
-//        MarcaID: $contenedor.find('.hdItemMarcaID').val(),
-//        PrecioCatalogo: $contenedor.find('.hdItemPrecioUnidad').val(),
-//        Descripcion: $contenedor.find('.hdItemDescripcionProd').val(),
-//        DescripcionCategoria: $contenedor.find('.hdItemDescripcionCategoria').val(),
-//        DescripcionMarca: $contenedor.find('.hdItemDescripcionMarca').val(),
-//        DescripcionEstrategia: $contenedor.find('.hdItemDescripcionEstrategia').val()
-//    };
-//    jQuery.ajax({
-//        type: 'POST',
-//        url: baseUrl + 'CatalogoPersonalizado/ObtenerOfertaRevista',
-//        dataType: 'json',
-//        data: JSON.stringify({ cuv: cuv, tipoOfertaRevista: tipoOfertaRevista }),
-//        contentType: 'application/json; charset=utf-8',
-//        success: function (response) {
-//            if (response.success) {
-//                response.data.dataPROL.Simbolo = viewBagSimbolo;
-//                var settings = $.extend({}, response.data.dataPROL, obj);
-//                settings.productoRevista = response.data.producto;
-//                TrackingJetloreView(cuv, $("#hdCampaniaCodigo").val())
-//                if (response.data.dataPROL != undefined && response.data.dataPROL != null) {
-//                    switch (settings.tipo_oferta) {
-//                        case '003':
-//                            settings.precio_catalogo = DecimalToStringFormat(settings.precio_catalogo);
-//                            settings.precio_revista = DecimalToStringFormat(settings.precio_revista);
-//                            settings.ganancia = DecimalToStringFormat(settings.ganancia);
-//                            var html = SetHandlebars("#template-mod-ofer1", settings);
-//                            $('.mod-ofer1').html(html).show();
-//                            break;
-//                        case '048':
-//                            if (settings.lista_ObjNivel.length > 0) {
-//                                settings.lista_ObjNivel = RemoverRepetidos(settings.lista_ObjNivel);
-//                                var html = SetHandlebars("#template-mod-ofer2", settings);
-//                                $('.mod-ofer2').html(html).show();
-//                            }
-//                            else if (settings.lista_oObjPack.length > 0) {
-//                                settings.lista_oObjPack = RemoverRepetidos(settings.lista_oObjPack);
-//                                var html = SetHandlebars("#template-mod-ofer3", settings);
-//                                $('.mod-ofer3').html(html).show();
-//                            }
-//                            break;
-//                    }
-//                } else {
-//                    console.log(response.message);
-//                }
-//                closeWaitingDialog();
-//            }
-//        },
-//        error: function (response, error) {
-//            console.log(error);
-//            closeWaitingDialog();
-//        }
-//    });
-//}
-//function CargarCatalogoPersonalizado() {
-//    var cataPer = $("#hdTipoCatalogoPersonalizado").val();
-//    if (cataPer != "1" && cataPer != "2") {
-//        $("#divMainCatalogoPersonalizado").remove();
-//        return false;
-//    }
-
-//    var esCatalogoPersonalizadoZonaValida = $("#hdEsCatalogoPersonalizadoZonaValida").val();
-//    if (esCatalogoPersonalizadoZonaValida != "True") {
-//        $("#divMainCatalogoPersonalizado").remove();
-//        return false;
-//    }
-
-//    $('#divCatalogoPersonalizado').html('<div style="text-align: center; min-height:150px;"><br><br><br><br>Cargando Catalogo Personalizado<br><img src="' + urlLoad + '" /></div>');
-//    jQuery.ajax({
-//        type: 'POST',
-//        url: baseUrl + 'CatalogoPersonalizado/ObtenerProductosCatalogoPersonalizadoHome',
-//        dataType: 'json',
-//        data: null,
-//        contentType: 'application/json; charset=utf-8',
-//        success: function (data) {
-//            data.data = data.data || new Array();
-//            if (data.success) {
-//                $("#divCatalogoPersonalizado").html("");
-//                $("#linea_separadoraCP").show();
-//                if (data.data.length > 0) {
-//                    SetHandlebars("#template-catalogopersonalizado", data.data, "#divCatalogoPersonalizado");
-//                }
-//            }
-//            else {
-//                data.data = new Array();
-//            }
-
-//            if (data.data.length == 0) {
-//                $("#divMainCatalogoPersonalizado").remove();
-//                $("#linea_separadoraCP").hide();
-//            }
-//        },
-//        error: function (data, error) {
-//            closeWaitingDialog();
-//        }
-//    });
-//}
-//function AgregarProductoCatalogoPersonalizado(item) {
-//    waitingDialog();
-
-//    var divPadre = item;
-//    var attItem = $(item).attr("data-item") || "";
-//    if (attItem == "") {
-//        divPadre = $(item).parents("[data-item]").eq(0);
-//    }
-    
-//    var cuv = $(divPadre).find(".hdItemCuv").val();
-//    var cantidad = $(divPadre).find("[data-input='cantidad']").val();
-//    var tipoOfertaSisID = $(divPadre).find(".hdItemTipoOfertaSisID").val();
-//    var configuracionOfertaID = $(divPadre).find(".hdItemConfiguracionOfertaID").val();
-//    var indicadorMontoMinimo = $(divPadre).find(".hdItemIndicadorMontoMinimo").val();
-//    var tipo = $(divPadre).find(".hdItemTipo").val();
-//    var marcaID = $(divPadre).find(".hdItemMarcaID").val();
-//    var precioUnidad = $(divPadre).find(".hdItemPrecioUnidad").val();
-//    var descripcionProd = $(divPadre).find(".hdItemDescripcionProd").val();
-//    var pagina = $(divPadre).find(".hdItemPagina").val();
-//    var descripcionCategoria = $(divPadre).find(".hdItemDescripcionCategoria").val();
-//    var descripcionMarca = $(divPadre).find(".hdItemDescripcionMarca").val();
-//    var descripcionEstrategia = $(divPadre).find(".hdItemDescripcionEstrategia").val();
-//    var OrigenPedidoWeb = $(divPadre).find(".OrigenPedidoWeb").val();
-
-//    if (!isInt(cantidad)) {
-//        alert_msg_pedido("La cantidad ingresada debe ser un número mayor que cero, verifique");
-//        closeWaitingDialog();
-//        return false;
-//    }
-
-//    if (cantidad <= 0) {
-//        alert_msg_pedido("La cantidad ingresada debe ser mayor que cero, verifique");
-//        closeWaitingDialog();
-//        return false;
-//    }
-
-//    var model = {
-//        TipoOfertaSisID: tipoOfertaSisID,
-//        ConfiguracionOfertaID: configuracionOfertaID,
-//        IndicadorMontoMinimo: indicadorMontoMinimo,
-//        MarcaID: marcaID,
-//        Cantidad: cantidad,
-//        PrecioUnidad: precioUnidad,
-//        CUV: cuv,
-//        Tipo: tipo,
-//        DescripcionProd: descripcionProd,
-//        Pagina: pagina,
-//        DescripcionCategoria: descripcionCategoria,
-//        DescripcionMarca: descripcionMarca,
-//        DescripcionEstrategia: descripcionEstrategia,
-//        EsSugerido: false,
-//        OrigenPedidoWeb: OrigenPedidoWeb
-//    };
-
-//    var imagenProducto = $('#imagenAnimacion>img', item);
-
-//    if (imagenProducto.length > 0) {
-//        var carrito = $('.campana');
-
-//        $("body").prepend('<img src="' + imagenProducto.attr("src") + '" class="transicion">');
-
-//        $(".transicion").css({
-//            'height': imagenProducto.css("height"),
-//            'width': imagenProducto.css("width"),
-//            'top': imagenProducto.offset().top,
-//            'left': imagenProducto.offset().left,
-//        }).animate({
-//            'top': carrito.offset().top - 60,
-//            'left': carrito.offset().left + 100,
-//            'height': carrito.css("height"),
-//            'width': carrito.css("width"),
-//            'opacity': 0.5
-//        }, 450, 'swing', function () {
-//            $(this).animate({
-//                'top': carrito.offset().top,
-//                'opacity': 0,
-//            }, 150, 'swing', function () {
-//                $(this).remove();
-//            });
-//        });
-//    }
-
-//    AgregarProducto('Insert', model, function () { $(divPadre).find(".product-add").show(); });
-//    TrackingJetloreAdd(cantidad, $("#hdCampaniaCodigo").val(), cuv);
-//}
-//function AgregarProducto(url, item, otraFunct) {
-//    waitingDialog();
-
-//    tieneMicroefecto = true;
-
-//    jQuery.ajax({
-//        type: 'POST',
-//        url: baseUrl + 'Pedido/' + url,
-//        dataType: 'json',
-//        contentType: 'application/json; charset=utf-8',
-//        data: JSON.stringify(item),
-//        async: true,
-//        success: function (data) {
-//            if (data.success == true) {
-//                MostrarBarra(data, '1');
-//                ActualizarGanancia(data.DataBarra);                
-//                CargarResumenCampaniaHeader(true);
-
-//                TrackingJetloreAdd(item.Cantidad, $("#hdCampaniaCodigo").val(), item.CUV);
-
-//                if (typeof (otraFunct) == 'function') {
-//                    setTimeout(otraFunct, 50);
-//                }
-//                else if (typeof (otraFunct) == 'string') {
-//                    setTimeout(otraFunct, 50);
-//                }
-//            }
-//            else {
-//                alert_msg_pedido(data.message);
-//            }
-//            closeWaitingDialog();
-//        },
-//        error: function (data, error) {
-//            tieneMicroefecto = false;
-//            AjaxError(data, error);
-//        }
-//    });
-//}
-// Fin Catalogo Personalizado
 
 //Google Analytics
 function TagManagerCarruselInicio(arrayItems) {
@@ -3573,82 +3219,6 @@ function playVideo() {
         }
     } catch (e) { }
 };
-
-//function AgregarProductoOfertaRevista(item, cantidad, tipoCUV) {
-//    waitingDialog();
-//    var hidden = "";
-
-//    if (tipoCUV == 'revista') {
-//        hidden = $(item).find('#hiddenRevista');
-//    } else if (tipoCUV == 'catalogo') {
-//        hidden = $(item).find('#hiddenCatalogo');
-//    }
-
-//    if (hidden.length == 0) {
-//        return false;
-//    }
-
-//    if (!isInt(cantidad)) {
-//        alert_msg_pedido("La cantidad ingresada debe ser un número mayor que cero, verifique");
-//        closeWaitingDialog();
-//        return false;
-//    }
-
-//    if (cantidad <= 0) {
-//        alert_msg_pedido("La cantidad ingresada debe ser mayor que cero, verifique");
-//        closeWaitingDialog();
-//        return false;
-//    }
-
-//    var model = {
-//        TipoOfertaSisID: $(hidden).find(".hdItemTipoOfertaSisID").val(),
-//        ConfiguracionOfertaID: $(hidden).find(".hdItemConfiguracionOfertaID").val(),
-//        IndicadorMontoMinimo: $(hidden).find(".hdItemIndicadorMontoMinimo").val(),
-//        MarcaID: $(hidden).find(".hdItemMarcaID").val(),
-//        Cantidad: cantidad,
-//        PrecioUnidad: $(hidden).find(".hdItemPrecioUnidad").val(),
-//        CUV: $(hidden).find(".hdItemCuv").val(),
-//        Tipo: $(hidden).find(".hdItemTipo").val(),
-//        DescripcionProd: $(hidden).find(".hdItemDescripcionProd").val(),
-//        Pagina: $(hidden).find(".hdItemPagina").val(),
-//        DescripcionCategoria: $(hidden).find(".hdItemDescripcionCategoria").val(),
-//        DescripcionMarca: $(hidden).find(".hdItemDescripcionMarca").val(),
-//        DescripcionEstrategia: $(hidden).find(".hdItemDescripcionEstrategia").val(),
-//        EsSugerido: false,
-//        OrigenPedidoWeb: $(hidden).find(".OrigenPedidoWeb").val()
-//    };
-
-//    var imagenProducto = $('#imagenAnimacion>img', item);
-
-//    if (imagenProducto.length > 0) {
-//        var carrito = $('.campana');
-
-//        $("body").prepend('<img src="' + imagenProducto.attr("src") + '" class="transicion">');
-
-//        $(".transicion").css({
-//            'height': imagenProducto.css("height"),
-//            'width': imagenProducto.css("width"),
-//            'top': imagenProducto.offset().top,
-//            'left': imagenProducto.offset().left,
-//        }).animate({
-//            'top': carrito.offset().top - 60,
-//            'left': carrito.offset().left + 100,
-//            'height': carrito.css("height"),
-//            'width': carrito.css("width"),
-//            'opacity': 0.5
-//        }, 450, 'swing', function () {
-//            $(this).animate({
-//                'top': carrito.offset().top,
-//                'opacity': 0,
-//            }, 150, 'swing', function () {
-//                $(this).remove();
-//            });
-//        });
-//    }
-
-//    AgregarProducto('Insert', model, function () { $(".contiene-productos:has(.hdItemCuv[value='" + $(item).find('#hiddenCatalogo').find(".hdItemCuv").val() + "'])").find(".product-add").show(); $('[class^=mod-ofer]').hide(); });
-//    TrackingJetloreAdd(model.Cantidad, $("#hdCampaniaCodigo").val(), model.CUV);
-//}
   
 //ShowRoom
 function CrearPopShow() {
@@ -3854,8 +3424,7 @@ function abrir_popup_tutorial(obligado) {
         }
         UpdateUsuarioTutoriales(constanteVioTutorialDesktop);
     }
-    
-    $('#popup_tutorial_home').fadeIn();
+    PopupMostrar('popup_tutorial_home');
     $('html').css({ 'overflow-y': 'hidden' });
     var paisCP = false;
     var CatalogoPersonalizado_ZonaValida = $("#hdEsCatalogoPersonalizadoZonaValida").val() == "False" ? 0 : 1;
@@ -3878,7 +3447,7 @@ function abrir_popup_tutorial(obligado) {
 }
 
 function cerrar_popup_tutorial() {
-    $('#popup_tutorial_home').fadeOut();
+    PopupCerrar('popup_tutorial_home');
     $('html').css({ 'overflow-y': 'auto' });
     $(".imagen_tutorial").animate({ 'opacity': '1' });
     window.clearInterval(fnMovimientoTutorial);
@@ -3961,8 +3530,7 @@ function armarComunicadosPopup(response) {
             comunicadoDescripcion: nombreEvento
         };
 
-        //console.log(comunicado);
-        var content = SetHandlebars("#template-comunicado", comunicado, "");
+        var content = SetHandlebars("#template-comunicado", comunicado);
         $('#popupComunicados').append(content);
 
         //$("#" + dialogComunicadoID + "").siblings(".ui-dialog-titlebar").hide();
@@ -3989,17 +3557,16 @@ function armarComunicadosPopup(response) {
 
 function mostrarComunicadosPopup() {
     if (viewBagVerComunicado != '1' || viewBagVioTutorial == 0 || viewBagVioVideo == 0 || viewBagVioTutorialSalvavidas == 0) {
-        $('#popupComunicados').hide();
+        PopupCerrar('popupComunicados');
         return true;
     }
 
     var lista = $('#popupComunicados').find('div.popup_comunicados[data-cerrado="0"]');
     if (lista.length == 0) {
-        $('#popupComunicados').hide();
+        PopupCerrar('popupComunicados');
         return true;
     }
-
-    $('#popupComunicados').show();
+    PopupMostrar('popupComunicados');
     var j = 0;
 
     lista.each(function(index, element) {
@@ -4017,11 +3584,10 @@ function centrarComunicadoPopup(ID) {
     var altoPopup = ($(window).height() - $("#" + ID).outerHeight()) / 2;
     var imagenPopup = $('#' + ID).find(".img-comunicado");
     var estadoPopup = $("#popupComunicados").css("display");
-
-    if (estadoPopup == "block") {
+    //if (estadoPopup == "block") {
         $("#" + ID).css({ "width": imagenPopup.width() });
         $("#" + ID).css({ "top": altoPopup });
-    }
+    //}
 }
 
 function clickCerrarComunicado(obj) {
@@ -4036,7 +3602,7 @@ function clickCerrarComunicado(obj) {
 
     if (vclose) {
         closeComunicadosPopup = true;
-        $('#popupComunicados').hide();
+        PopupCerrar('popupComunicados');
     }
 }
 
@@ -4060,7 +3626,6 @@ function clickImagenComunicado(obj) {
     //    }
     //});
 
-    //$('#popupComunicados').hide();
     $('#' + dialogComunicadoID).hide();
     $('#' + dialogComunicadoID).attr('data-cerrado', 1);
     var vclose = mostrarComunicadosPopup();
@@ -4068,7 +3633,7 @@ function clickImagenComunicado(obj) {
     if (vclose) {
         //$('#totalComuSinMostrar').val('0');
         closeComunicadosPopup = true;
-        $('#popupComunicados').hide();
+        PopupCerrar('popupComunicados');
         //CargarPopupsConsultora();
     }
 }
@@ -4101,3 +3666,38 @@ function AceptarComunicadoVisualizacion(ID, dialogComunicadoID) {
     $('#' + dialogComunicadoID).hide();
 }
 /* SB20-834 - FIN */
+
+// Popup
+function PopupMostrar(idPopup) {
+    var id = "";
+    if (typeof (idPopup) == "string")
+        id = "#" + idPopup;
+
+    if (id == "") return false;
+    
+    $(id).attr("data-popup-activo", "1");
+    if ($("#fondoComunPopUp").attr("data-activo-salvavidas") != "1") {
+        $("#fondoComunPopUp").show();
+    }
+    
+    $(id).show();
+    //contadorFondoPopUp++;
+}
+function PopupCerrar(idPopup) {
+    var id = "";
+    if (typeof (idPopup) == "string")
+        id ="#"+ idPopup;
+
+    if (id == "") return false;
+
+    $(id).attr("data-popup-activo", "0");
+
+    $(id).hide();
+    if ($("#fondoComunPopUp >div[data-popup-activo='1']").length == 0) {
+        $("#fondoComunPopUp").hide();
+        // viewBagVioTutorialSalvavidas
+    }
+    //contadorFondoPopUp--;
+    //contadorFondoPopUp = contadorFondoPopUp < 0 ? 0 : contadorFondoPopUp;
+}
+// Fin Popup

@@ -697,8 +697,7 @@
 </div>
 <!-- FIN AGREGASTE UNIDADES -->
 <!-- POPUP DETALLE CARRUSEL OFERTAS PARA TI LANZAMIENTO -->
-<div class="contenedor_popup_detalleCarousel" id="popupDetalleCarousel_lanzamiento">
-</div>
+<div class="contenedor_popup_detalleCarousel" id="popupDetalleCarousel_lanzamiento"></div>
 <!-- FIN POPUP DETALLE CARRUSEL OFERTAS PARA TI LANZAMIENTO -->
 <!-- POPUP DETALLE CARRUSEL OFERTAS PARA TI PACK NUEVAS -->
 <div class="contenedor_popup_detalleCarousel" id="popupDetalleCarousel_packNuevas">
@@ -861,8 +860,8 @@
             <h1 class="titulo_actualizarMisDatos" id="tituloActualizarDatos"></h1>
             <form class="formulario_actualizar_datos">
                 <div class="grupo_input_actualizarMisDatos">
-                    <div></div>
-                    <a href="javascript:;" class="cambiar_contrasenia" id="lnkCambiarContrasena">CAMBIAR CONTRASEÑA</a>
+                    <a href="javascript:;" class="cambiar_contrasenia float_rigth" id="lnkCambiarContrasena">CAMBIAR CONTRASEÑA</a>
+                    <div class="clear"></div>
                 </div>
                 <div class="grupo_input_actualizarMisDatos">
                     <div>
@@ -887,7 +886,7 @@
                 <div class="grupo_input_actualizarMisDatos">
                     <div>
                         <label><span class="asterisco_actualizar_datos">(*)&nbsp;</span>Correo electrónico</label>
-                        <input type="email" name="email" id="txtEMail" />
+                        <input type="email" name="email" id="txtEMail" value="@Model.EMail" />
                     </div>
                     <div>
                         <label><span class="asterisco_actualizar_datos">(*)&nbsp;</span>Confirmar correo electrónico</label>
@@ -1141,34 +1140,39 @@
         </div>
     </div>
     <!-- FIN POPUP MIS DATOS -->
-</div>
-<!-- FIN POPUP POPUPs HOME -->
-<!-- POPUP TUTORIAL HOME-->
-<div class="contenedor_fondo_popup fondo_tutorial" id="popup_tutorial_home" style="display: none;">
-    <div class="popup_tutorial_home" style="position: relative; margin: 0 auto; display: block; min-width: 900px !important;">
-        <div id="slide1_container" class="shadow">
-          <div id="slide1_images">
-            <div class="imagen_tutorial img_slide1"></div>
-            <div class="imagen_tutorial img_slide2"></div>
-            <div class="imagen_tutorial img_slide3"></div>
-            <div class="imagen_tutorial img_slide4"></div>
-            <div class="imagen_tutorial img_slide5"></div>
-            <div class="imagen_tutorial img_slide6"></div>
-            <div class="imagen_tutorial img_slide7"></div>
-            <div class="imagen_tutorial img_slide8"></div>
-            <div class="imagen_tutorial img_slide9"></div>
-          </div>
-        </div>
-        
-        <div class="btn_cerrar_actualizarMisDatos">
-            <a href="#" title="Cerrar" class="cerrar_tutorial">
-                <img src="@Url.Content("~/Content/Images/btn_cerrar_popup.svg")" alt="Cerrar" />
-                <span class="texto_btn_cerrar">CERRAR</span>
-            </a>
+
+    <!-- POPUP TUTORIAL HOME-->
+    <div id="popup_tutorial_home" style="display: none;">
+        <div class="popup_tutorial_home" style="position: relative; margin: 0 auto; display: block; min-width: 900px !important;">
+            <div id="slide1_container" class="shadow">
+                <div id="slide1_images">
+                    <div class="imagen_tutorial img_slide1"></div>
+                    <div class="imagen_tutorial img_slide2"></div>
+                    <div class="imagen_tutorial img_slide3"></div>
+                    <div class="imagen_tutorial img_slide4"></div>
+                    <div class="imagen_tutorial img_slide5"></div>
+                    <div class="imagen_tutorial img_slide6"></div>
+                    <div class="imagen_tutorial img_slide7"></div>
+                    <div class="imagen_tutorial img_slide8"></div>
+                    <div class="imagen_tutorial img_slide9"></div>
+                </div>
+            </div>
+
+            <div class="btn_cerrar_actualizarMisDatos">
+                <a href="#" title="Cerrar" class="cerrar_tutorial">
+                    <img src="@Url.Content("~/Content/Images/btn_cerrar_popup.svg")" alt="Cerrar" />
+                    <span class="texto_btn_cerrar">CERRAR</span>
+                </a>
+            </div>
         </div>
     </div>
+    <!-- FIN POPUP TUTORIAL -->
+
+    <!-- POPUP COMUNICADOS -->
+    <div id="popupComunicados" style="display:none;"></div>
+    <!-- FIN POPUP COMUNICADOS -->
 </div>
-<!-- FIN POPUP TUTORIAL -->
+<!-- FIN POPUP POPUPs HOME -->
 <!--POP UP FOTO CARGADA-->
 <div id="PopUpFotoCargada" class="CompartirCorreoPop" style="display:none">
     <div class="content_foto_cargada">
@@ -1200,7 +1204,6 @@
 <!--FIN-->
 
 <!-- POPUP IMAGEN PERFIL -->
-
 <div class="contenedor_fondo_popup" id="PopUpFotoActualizada2" style="display: none;">
     <div class="popup_img_perfil">
         <h1>MI <b>FOTO</b></h1>
@@ -1324,37 +1327,6 @@
 
     </div>
 </div>
-
-<!-- POPUP COMUNICADOS -->
-
-<!-- SB20-834 - INICIO -->
-<div class="fondo_popupComunicados" id="popupComunicados" style="display:none;">
-    @*<div class="popup_comunicados">
-        <div class="btn_cerrar_actualizarMisDatos">
-            <a href="javascript:void();" onclick="return $('#popupComunicados').fadeOut();" title="Cerrar">
-                <img src="@Url.Content("~/Content/Images/btn_cerrar_popup.svg")" alt="Cerrar" />
-                <span class="texto_btn_cerrar">CERRAR</span>
-            </a>
-        </div>
-        <div class="contenedor_imagen_comunicado">
-            <img src="@Url.Content("~/Content/Images/Esika/tutorialHome/tutorial-home-esika1.jpg")" alt="Alternate Text" />
-        </div>
-        <div class="franja_noVolverMostrar">
-            <form>
-                <div class="checkbox_condiciones">
-                    <input type="checkbox" name="condiciones" id="noMostrarPopupComunicado" />
-                    <label for="noMostrarPopupComunicado" class="texto_terminosCondiciones">
-                        <span style="display:inline-block; margin-top:1px;">No volver a mostrar</span>
-                    </label>
-                </div>
-            </form>
-        </div>
-    </div>*@
-</div>
-
-<!-- FIN POPUP COMUNICADOS -->
-
-<!-- SB20-834 - FIN -->
 
 <script id="estrategia-template" type="text/x-handlebars-template">
     {{#each this as |item|}}
@@ -1696,7 +1668,7 @@
 
 <script id="template-catalogopersonalizado" type="text/x-handlebars-template">
     <div class="clear"></div>
-    <div class="texto_descripcionCatalogoPersonalizado">Encuentra una selección de los productos que tus clientes siempre te solicitan</div>
+    <div class="texto_descripcionCatalogoPersonalizado">Encuentra una selección de los productos que tus clientes de seguro te solicitarán</div>
     <div class="">
         {{#each this as |item|}}
         <div class="contiene-productos" data-item="catalogopersonalizado">
@@ -1811,8 +1783,8 @@
                     </div>*@
                 <h6></h6>
                 <span>{{Descripcion}}</span>
-                <span>{{Simbolo}} {{precio_revista}}</span>
-                <span>{{TxtGanancia}}: {{Simbolo}} {{ganancia}}</span>
+                <span>{{Simbolo}} {{DecimalToStringFormat precio_revista}}</span>
+                <span>{{TxtGanancia}}: {{Simbolo}} {{DecimalToStringFormat ganancia}}</span>
                 <hr class="clear">
                 <div class="clear"></div>
             </div>
@@ -1834,7 +1806,7 @@
         <div class="pos-baja">
             <div class="informa">
                 <h6>También puedes comprarlo con el precio catálogo:</h6>
-                <span>{{Simbolo}} {{precio_catalogo}}</span>
+                <span>{{Simbolo}} {{DecimalToStringFormat precio_catalogo}}</span>
             </div>
 
             <div class="mod-cantidades">
@@ -1892,15 +1864,15 @@
         <div>
             <div class="item1_oferta_personalizada">
                 <div class="content_precio_set">
-                    <div class="compra_set">COMPRA 1X<br />{{Simbolo}} {{precio_revista}}</div>
-                    <div class="gananecia_set">{{TxtGanancia}}: {{Simbolo}} {{ganancia}}</div>
+                    <div class="compra_set">COMPRA 1X<br />{{Simbolo}} {{DecimalToStringFormat precio_revista}}</div>
+                    <div class="gananecia_set">{{TxtGanancia}}: {{Simbolo}} {{DecimalToStringFormat ganancia}}</div>
                 </div>
             </div>
             {{#each lista_ObjNivel as |nivel|}}
             <div class="item1_oferta_personalizada">
                 <div class="content_precio_set">
-                    <div class="compra_set">COMPRA {{nivel.escala_nivel}}X<br />{{../Simbolo}} {{nivel.precio_nivel}}</div>
-                    <div class="gananecia_set">{{../TxtGanancia}}: {{../Simbolo}} {{nivel.ganancia_nivel}} </div>
+                    <div class="compra_set">COMPRA {{nivel.escala_nivel}}X<br />{{../Simbolo}} {{DecimalToStringFormat nivel.precio_nivel}}</div>
+                    <div class="gananecia_set">{{../TxtGanancia}}: {{../Simbolo}} {{DecimalToStringFormat nivel.ganancia_nivel}} </div>
                     <div class="gratis_set">{{../TxtRecibeGratis}}:</div>
                 </div>
                 <div class="content_sub_items">
@@ -1927,7 +1899,7 @@
         </div>
         <div class="row_40">
             <div class="sombra_oferta">
-                <div class="texto_sombra">También puedes comprarlo con el precio catálogo: <br /><span>{{Simbolo}} {{precio_catalogo}}</span></div>
+                <div class="texto_sombra">También puedes comprarlo con el precio catálogo: <br /><span>{{Simbolo}} {{DecimalToStringFormat precio_catalogo}}</span></div>
                 <div style="width:215px; float:left; margin-top:12px;">
                     <div class="liquidacion_rango_home js-no-popup">
                         <input type="text" value="1" size="2" maxlength="2" id="txtCantidad"
@@ -1991,8 +1963,8 @@
                     <img src="{{UrlImagen}}" alt="">
                 </div>
                 <div class="titulo_pack">{{Descripcion}}</div>
-                <div class="texto_unidad_pack">Precio por unidad {{Simbolo}} {{precio_revista}}</div>
-                <div class="texto_ganancia_pack">{{TxtGanancia}}: {{Simbolo}} {{ganancia}}</div>
+                <div class="texto_unidad_pack">Precio por unidad {{Simbolo}} {{DecimalToStringFormat precio_revista}}</div>
+                <div class="texto_ganancia_pack">{{TxtGanancia}}: {{Simbolo}} {{DecimalToStringFormat ganancia}}</div>
             </div>
             <div style="width:215px; margin:0 auto; margin-top:10px;">
                 <div class="liquidacion_rango_home js-no-popup">
@@ -2010,11 +1982,12 @@
         <div class="item_pack_personalizado">
             <input type="hidden" class="hdItemPackCuv" value="{{pack.cuv_pack}}" />
             <input type="hidden" class="hdItemPackValorizado" value="{{pack.valorizado}}" />
+            <input type="hidden" class="hdItemPackPrecio" value="{{pack.precio_pack}}" />
             <div class="content_item_pack">
                 <div class="fondo_negro_pack">PACK {{#if_eq pack.EsUltimo "1"}}MÁXIMA {{/if_eq}}GANANCIA</div>
                 <div class="pack_inter">
-                    <div class="titulo_pack" style="height:auto">{{../Simbolo}} {{pack.valorizado}}</div>
-                    <div class="texto_ganancia_pack">{{../TxtGanancia}}: {{../Simbolo}} {{pack.ganancia_pack}}</div>
+                    <div class="titulo_pack" style="height:auto"><span class="texto_unidad_pack">Precio para ti: </span>{{../Simbolo}} {{DecimalToStringFormat pack.precio_pack}}</div>
+                    <div class="texto_ganancia_pack">{{../TxtGanancia}}: {{../Simbolo}} {{DecimalToStringFormat pack.ganancia_pack}}</div>
                     <div class="content_sub_items">
                         {{#each ../lista_oObjItemPack as |item|}}
                         {{#if_eq pack.cuv_pack item.cuv_pack_item}}
@@ -2040,7 +2013,7 @@
         {{/each}}
         <div class="row_40">
             <div class="sombra_oferta">
-                <div class="texto_sombra">También puedes comprarlo con el precio catálogo: <br /><span>{{Simbolo}} {{precio_catalogo}}</span></div>
+                <div class="texto_sombra">También puedes comprarlo con el precio catálogo: <br /><span>{{Simbolo}} {{DecimalToStringFormat precio_catalogo}}</span></div>
                 <div style="width:215px; float:left; margin-top:12px;">
                     <div class="liquidacion_rango_home js-no-popup">
                         <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral js-no-popup" tabindex="0" data-cantidad-input="catalogo">

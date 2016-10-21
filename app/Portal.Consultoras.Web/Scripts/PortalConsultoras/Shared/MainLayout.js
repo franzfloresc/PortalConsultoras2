@@ -145,6 +145,11 @@ function alert_msg(message, titulo) {
     $('#alertDialogMensajes').dialog('open');
 }
 
+function messageInfoError(message, titulo) {
+    $('#dialog_ErrorMainLayout .popup_agregarUnidades .contenido_popUp .mensaje_agregarUnidades').html(message);
+    $('#dialog_ErrorMainLayout').show();
+}
+
 function microefectoPedidoGuardado() {
     $(".contenedor_circulos").fadeIn();
 }

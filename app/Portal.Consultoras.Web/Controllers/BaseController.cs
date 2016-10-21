@@ -271,21 +271,28 @@ namespace Portal.Consultoras.Web.Controllers
         
         protected bool ReservadoEnHorarioRestringido(out string mensaje)
         {
+            var result = ValidarSession();
+            if (result != null)
+            {
+                mensaje = "Se sessión expiró, por favor vuelva a loguearse.";
+                return true;
+            }
+
+            mensaje = "";
+            if (EstaProcesoFacturacion(out mensaje)) return true;
+            if(ValidarPedidoReservado(out mensaje)) return true;            
+            return ValidarHorarioRestringido(out mensaje);
+        }
+
+        protected bool EstaProcesoFacturacion(out string mensaje)
+        {
             mensaje = "";
             if (userData.IndicadorEnviado == 1 && userData.EstaRechazado == 0)
             {
                 mensaje = "En este momento nos encontramos facturando tu pedido de C" + userData.CampaniaID.ToString().Substring(4, 2) + ", inténtalo más tarde";
                 return true;
             }
-
-            var result = ValidarSession();
-            if (result != null) return true;
-
-            bool estado = ValidarPedidoReservado(out mensaje);
-            
-            if (!estado)
-                estado = ValidarHorarioRestringido(out mensaje);
-            return estado;
+            return false;
         }
 
         protected ActionResult ValidarSession()
@@ -837,7 +844,7 @@ namespace Portal.Consultoras.Web.Controllers
             ViewBag.EstaRechazado = model.EstaRechazado;
             ViewBag.CerrarRechazado = model.CerrarRechazado;
             ViewBag.MotivoRechazo = model.MotivoRechazo;
-
+            ViewBag.Efecto_TutorialSalvavidas = ConfigurationManager.AppSettings.Get("Efecto_TutorialSalvavidas") ?? "1";
             return model;
 
             #endregion

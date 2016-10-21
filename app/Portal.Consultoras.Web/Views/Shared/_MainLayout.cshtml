@@ -214,7 +214,7 @@
                             <div class="circulo-2 iniciarTransicion"></div>
                             <div class="circulo-3 iniciarTransicion"></div>
                         </div>
-                        <div class="tooltip_tutorial">
+                        <div class="tooltip_tutorial" style="display:none;">
                             <div class="cerrar_tooltipTutorial">
                                 <a href="javascript:void();" onclick="ocultarUbicacionTutorial();" title="Cerrar">
                                     <img src="@Url.Content("~/Content/Images/btn_cerrar_popup_color_negro.svg")" alt="Cerrar" />
@@ -428,6 +428,29 @@
         <div class="linea_superior margin_10"></div>
         <div class="pop_pedido_mensaje"></div>
     </div>
+    
+    <!-- POPUP AGREGASTE UNIDADES -->
+    <div class="contenedor_popup_agregarUnidades" id="dialog_ErrorMainLayout" style="display: none;">
+        <div class="popup_agregarUnidades">
+            <div class="btn_cerrar_agregarUnidades">
+                <a href="javascript:;" onclick="return $('#dialog_ErrorMainLayout').hide();">
+                    <img src="@Url.Content("~/Content/Images/btn_cerrar_popup.svg")" alt="Cerrar" />
+                    <span class="texto_btn_cerrar">CERRAR</span>
+                </a>
+            </div>
+            <div class="contenido_popUp">
+                <div class="icono_aprobacion" id="apro_o_excla"></div>
+                <h1 class="titulo_agregarUnidades">LO <b>SENTIMOS</b></h1>
+                <span class="icono_exclamacion">
+
+                </span>
+                <button type="button" name="btn_ok" class="btn_ok" onclick="return $('#dialog_ErrorMainLayout').hide();">
+                    OK
+                </button>
+            </div>
+        </div>
+    </div>
+    <!-- FIN AGREGASTE UNIDADES -->
 
     <script id="resumenCampania-template" type="text/x-handlebars-template">
         <div class="info_productos_carrito">
@@ -498,6 +521,7 @@
         var DesktopCatalogoPersonalizadoPopUp = @Portal.Consultoras.Common.Constantes.OrigenPedidoWeb.DesktopCatalogoPersonalizadoPopUp;
 
         var sesionEsShowRoom = '@Session["EsShowRoom"]';
+        var EfectoTutorialSalvavidas = '@ViewBag.Efecto_TutorialSalvavidas';
     </script>
 
     @System.Web.Optimization.Scripts.Render("~/bundles/JsSB2")

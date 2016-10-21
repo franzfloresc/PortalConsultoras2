@@ -960,7 +960,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             return Json(new
             {
-                success = ErrorServer,
+                success = !ErrorServer,
                 message = message,
                 extra = "",
                 DataBarra = GetDataBarra()
@@ -3284,6 +3284,17 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
+                var mensaje = "";
+                if (EstaProcesoFacturacion(out mensaje))
+                {
+                    return Json(new
+                    {
+                        success = false,
+                        message = mensaje,
+                        extra = ""
+                    }, JsonRequestBehavior.AllowGet);
+                }
+
                 bool valida = false;
 
                 if (!userData.NuevoPROL && !userData.ZonaNuevoPROL && Tipo == "PV")
@@ -3971,11 +3982,14 @@ namespace Portal.Consultoras.Web.Controllers
                 if (result != null) return result;
 
                 string mensaje = string.Empty;
-                bool pedidoReservado = ValidarPedidoReservado(out mensaje);
-                bool estado = pedidoReservado;
-                if (!estado)
+                bool pedidoReservado = false;
+
+                bool estado = EstaProcesoFacturacion(out mensaje);
+                if(!estado)
                 {
-                    estado = ValidarHorarioRestringido(out mensaje);
+                    pedidoReservado = ValidarPedidoReservado(out mensaje);
+                    estado = pedidoReservado;
+                    if (!estado) estado = ValidarHorarioRestringido(out mensaje);
                 }
 
                 return Json(new

@@ -1835,7 +1835,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                         //model.Pagina = "0";
                         //model.PaginaDe = "0";
 
-                        return RedirectToAction("Detalle", "ConsultoraOnline");
+                        return RedirectToAction("Detalle", "Pedido", new { area = "Mobile" });
                     }
                 }
                 else
@@ -1844,25 +1844,12 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     //model.Pagina = "0";
                     //model.PaginaDe = "0";
 
-                    return RedirectToAction("Detalle", "ConsultoraOnline");
+                    return RedirectToAction("Detalle", "Pedido", new { area = "Mobile" });
                 }
-
-                //return Json(new
-                //{
-                //    success = true,
-                //    message = "OK",
-                //    data = model
-                //});
             }
             catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                //return Json(new
-                //{
-                //    success = false,
-                //    message = ex.Message,
-                //    data = ""
-                //});
             }
 
             return View(model);
@@ -1875,6 +1862,24 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
             try
             {
+                MisPedidosModel consultoraOnlineMisPedidos = new MisPedidosModel();
+                consultoraOnlineMisPedidos = (MisPedidosModel)Session["objMisPedidos"];
+                BEMisPedidos pedido = new BEMisPedidos();
+                long _pedidoId = Convert.ToInt64(pedidoId);
+                pedido = consultoraOnlineMisPedidos.ListaPedidos.Where(p => p.PedidoId == _pedidoId && p.Estado.Trim().Length == 0).FirstOrDefault();
+
+                if (pedido == null)
+                {
+                    if (consultoraOnlineMisPedidos.ListaPedidos.Count > 0)
+                    {
+                        return RedirectToAction("Pendientes", "ConsultoraOnline", new { area = "Mobile" });
+                    }
+                    else
+                    {
+                        return RedirectToAction("Home", "Bienvenida", new { area = "Mobile" });
+                    }
+                }
+
                 using (UsuarioServiceClient svc = new UsuarioServiceClient())
                 {
                     olstMisPedidosDet = svc.GetMisPedidosDetalleConsultoraOnline(userData.PaisID, pedidoId).ToList();
@@ -1882,11 +1887,11 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
                 if (olstMisPedidosDet.Count > 0)
                 {
-                    MisPedidosModel consultoraOnlineMisPedidos = new MisPedidosModel();
-                    consultoraOnlineMisPedidos = (MisPedidosModel)Session["objMisPedidos"];
-                    BEMisPedidos pedido = new BEMisPedidos();
-                    long _pedidoId = Convert.ToInt64(pedidoId);
-                    pedido = consultoraOnlineMisPedidos.ListaPedidos.Where(p => p.PedidoId == _pedidoId).FirstOrDefault();
+                    //MisPedidosModel consultoraOnlineMisPedidos = new MisPedidosModel();
+                    //consultoraOnlineMisPedidos = (MisPedidosModel)Session["objMisPedidos"];
+                    //BEMisPedidos pedido = new BEMisPedidos();
+                    //long _pedidoId = Convert.ToInt64(pedidoId);
+                    //pedido = consultoraOnlineMisPedidos.ListaPedidos.Where(p => p.PedidoId == _pedidoId).FirstOrDefault();
 
                     model.MiPedido = pedido;
 
@@ -1954,7 +1959,12 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                         }// foreach
                     }
 
-                    model.ListaDetalle = olstMisPedidosDet;
+                    //model.ListaDetalle = olstMisPedidosDet;
+
+                    var detallePedidos = Mapper.Map<List<BEMisPedidosDetalle>, List<MisPedidosDetalleModel2>>(olstMisPedidosDet);
+                    detallePedidos.Update(p => p.CodigoIso = userData.CodigoISO);
+
+                    model.ListaDetalle2 = detallePedidos;
 
                     //BEGrid grid = SetGrid(sidx, sord, page, rows);
                     //BEPager pag = Util.PaginadorGenerico(grid, model.ListaDetalle);
@@ -1975,23 +1985,10 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     //model.Pagina = "0";
                     //model.PaginaDe = "0";
                 }
-
-                //return Json(new
-                //{
-                //    success = true,
-                //    message = "OK",
-                //    data = model
-                //});
             }
             catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                //return Json(new
-                //{
-                //    success = false,
-                //    message = ex.Message,
-                //    data = ""
-                //});
             }
 
             using (SACServiceClient sv = new SACServiceClient())
