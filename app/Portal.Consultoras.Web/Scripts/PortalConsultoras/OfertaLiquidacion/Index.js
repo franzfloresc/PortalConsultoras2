@@ -187,7 +187,7 @@ $(document).ready(function () {
                                     }
 
                                     if (data.success != true) {
-                                        alert_msg_error_main(data.message);
+                                        messageInfoError(data.message);
                                         closeWaitingDialog();
                                         return false;
                                     }
@@ -313,7 +313,7 @@ $(document).ready(function () {
                                     }
 
                                     if (data.success != true) {
-                                        alert_msg_error_main(data.message);
+                                        messageInfoError(data.message);
                                         closeWaitingDialog();
                                         return false;
                                     }

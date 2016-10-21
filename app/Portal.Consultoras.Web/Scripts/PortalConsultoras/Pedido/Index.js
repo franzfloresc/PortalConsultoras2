@@ -839,7 +839,7 @@ function AgregarProductoZonaEstrategia(tipoEstrategiaImagen) {
 
             if (data.success != true) {
                 CerrarSplash();
-                alert_msg_error_main(data.message);
+                messageInfoError(data.message);
                 return false;
             }
             
@@ -2446,7 +2446,7 @@ function AgregarProductoDestacado(popup, tipoEstrategiaImagen) {
 
                         if (data.success != true) {
                             CerrarSplash();
-                            alert_msg_error_main(data.message);
+                            messageInfoError(data.message);
                             return false;
                         }
 
@@ -2512,7 +2512,7 @@ function DeletePedido(campaniaId, pedidoId, pedidoDetalleId, tipoOfertaSisId, cu
             CerrarSplash();
             if (!checkTimeout(data)) return false;
             if (data.success != true) {
-                alert_msg_error_main(data.message);
+                messageInfoError(data.message);
                 return false;
             }
 
@@ -2991,7 +2991,7 @@ function EliminarPedido() {
             }
 
             if (data.success != true) {
-                alert_msg_error_main(data.message);
+                messageInfoError(data.message);
                 CerrarSplash();
                 return false;
             }
@@ -3200,7 +3200,7 @@ function UpdateConCantidad(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion
                 return false;
 
             if (data.success != true) {
-                alert_msg_error_main(data.message);
+                messageInfoError(data.message);
                 return false;
             }
 
@@ -3287,7 +3287,7 @@ function Update(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion, CUV) {
                 return false;
 
             if (data.success != true) {
-                alert_msg_error_main(data.message);
+                messageInfoError(data.message);
                 return false;
             }
 
@@ -3470,7 +3470,7 @@ function UpdateLiquidacion(CampaniaID, PedidoID, PedidoDetalleID, TipoOfertaSisI
                                 CerrarSplash();
                                 if (!checkTimeout(data)) return false;
                                 if (data.success != true) {
-                                    alert_msg_error_main(data.message);
+                                    messageInfoError(data.message);
                                     return false;
                                 }
 
@@ -3644,7 +3644,7 @@ function UpdateLiquidacion(CampaniaID, PedidoID, PedidoDetalleID, TipoOfertaSisI
                                     CerrarSplash();
                                     if (!checkTimeout(data)) return false;
                                     if (data.success != true) {
-                                        alert_msg_error_main(data.message);
+                                        messageInfoError(data.message);
                                         return false;
                                     }
 
@@ -3910,7 +3910,7 @@ function AgregarProducto(url, model, divDialog, cerrarSplash) {
 
             if (data.success != true) {
                 if (cerrarSplash) CerrarSplash();
-                alert_msg_error_main(data.message);
+                messageInfoError(data.message);
                 return false;
             }
 
