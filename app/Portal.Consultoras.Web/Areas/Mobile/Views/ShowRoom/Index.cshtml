@@ -303,9 +303,7 @@
                                             CargarCantidadProductosPedidos();
                                             TrackingJetloreAdd(cantidad, $("#hdCampaniaCodigo").val(), CUV);
                                         }
-                                        else {
-                                            messageInfo(response.message);
-                                        }
+                                        else messageInfoError(response.message);
                                     },
                                     error: function (response, error) {
                                         if (checkTimeout(response)) {

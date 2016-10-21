@@ -407,6 +407,20 @@
         </div>
     </div>
     <!--FIN-->
+    <!--POP MENSAJE Error-->
+    <div id="popupInformacionSB2Error" class="MensajeAlertaMobile" style="display:none;">
+        <div class="content_mensajeAlerta">
+            <a class="cerrar_popMobile" href="javascript:;" onclick="javascript: $('#popupInformacionSB2Error').hide();">
+                <img src="/Content/Images/mobile/Esika/cerrar_04.png" alt="-">
+            </a>
+            <hr class="clear">
+            <div class="icono_alerta exclamacion_icono_mobile"></div>
+            <div class="titulo_compartir"><b>LO SENTIMOS</b></div>
+            <div id="mensajeInformacionSB2_Error" class="mensaje_alerta"></div>
+            <a href="javascript:;" onclick="$('#popupInformacionSB2Error').hide();" class="btn_ok_mobile"><b>OK</b></a>
+        </div>
+    </div>
+    <!--FIN-->
     <!--POP MENSAJE LO LOGRASTE-->
     <div id="popupInformacionSB2Bueno" class="MensajeAlertaMobile" style="display:none;">
         <div class="content_mensajeAlerta">
@@ -931,6 +945,15 @@
             if ($.isFunction(fnAceptar)) {
                 $('#popupInformacionSB2Malo .btn-aceptar').off('click');
                 $('#popupInformacionSB2Malo .btn-aceptar').on('click', fnAceptar);
+            }
+        }
+
+        function messageInfoError(message, fnAceptar) {
+            $('#mensajeInformacionSB2_Error').html(message);
+            $('#popupInformacionSB2Error').show();
+            if ($.isFunction(fnAceptar)) {
+                $('#popupInformacionSB2Error .btn-aceptar').off('click');
+                $('#popupInformacionSB2Error .btn-aceptar').on('click', fnAceptar);
             }
         }
 

@@ -181,14 +181,13 @@ $(document).ready(function () {
                                 data: JSON.stringify(Item),
                                 async: true,
                                 success: function (data) {
-
                                     if (!checkTimeout(data)) {
                                         closeWaitingDialog();
                                         return false;
                                     }
 
                                     if (data.success != true) {
-                                        alert_msg(data.message);
+                                        alert_msg_error_main(data.message);
                                         closeWaitingDialog();
                                         return false;
                                     }
@@ -314,7 +313,7 @@ $(document).ready(function () {
                                     }
 
                                     if (data.success != true) {
-                                        alert_msg(data.message);
+                                        alert_msg_error_main(data.message);
                                         closeWaitingDialog();
                                         return false;
                                     }
