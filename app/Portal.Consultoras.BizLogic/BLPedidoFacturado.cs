@@ -37,7 +37,7 @@ namespace Portal.Consultoras.BizLogic
 
                 var listaPedidoHana = DAHPedido.GetPedidosIngresadoFacturado(PaisId, CodigoConsultora);
 
-                listaPedidoHana = listaPedidoHana.OrderByDescending(p => p.CampaniaID).Take(3).ToList();
+                listaPedidoHana = listaPedidoHana.Where(p => p.EstadoPedidoDesc.ToUpper() == "FACTURADO").OrderByDescending(p => p.CampaniaID).Take(3).ToList();
 
                 foreach (var pedidoHana in listaPedidoHana)
                 {

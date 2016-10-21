@@ -129,7 +129,7 @@
                         @*<span></span>*@
                         <h1>PEDIDO&nbsp;<b> FACTURADO</b></h1>
                         <form>
-                            <select data-selectcamp=""></select>
+                            <select data-selectcamp="" data-selectpedidoid=""></select>
                         </form>
                         <a id="verIngresado" class="veringresado" style="top: 12px;">
                             <b class="flecha_adelante"></b>
@@ -172,7 +172,7 @@
                             @*<span></span>*@
                             <h1>PEDIDO&nbsp;<b> INGRESADO</b></h1>
                             <form>
-                                <select data-selectcamp=""></select>
+                                <select data-selectcamp="" data-selectpedidoid=""></select>
                             </form>
                             <a id="regresarFacturado" class="veringresado" style="top: 12px;">
                                 <b class="flecha_adelante"></b>
@@ -194,7 +194,7 @@
                             <div class="linea_separadora" style="height:2px; margin-top:21px;"></div>
                         </div>
                         <!-- CONTENIDO TABLAS CLIENTE-->
-                        <div class="acordion_contenedor" id="pedidoPorCliente" data-camp="">
+                        <div class="acordion_contenedor" id="pedidoPorCliente" data-camp="" data-idpedido="">
                         </div>
                     </div>
                 </div>
@@ -518,7 +518,7 @@
         </div>
         <div class="paginador_pedidos mostrarPaginadorPedidos inferior" style="display:none;">
             <div>
-                <ul class="paginador_notificaciones" data-paginacion="block" data-camp="{{detalle.CampaniaId}}" data-cliente="{{detalle.ClienteID}}" data-estado="ingresado">
+                <ul class="paginador_notificaciones" data-paginacion="block" data-camp="{{detalle.CampaniaId}}" data-cliente="{{detalle.ClienteID}}" data-idpedido="{{pedidoId}}" data-estado=" ingresado">
                     <li data-paginacion='recordCount' style="display:none;">{{RecordCount}}</li>
                     <li class="texto_pagina">Página</li>
                     <li class="flecha_paginador_atras" data-paginacion="back"></li>
@@ -610,7 +610,7 @@
     <!--Paginador-->
     <div class="paginador_pedidos mostrarPaginadorPedidos inferior" style="width:46%; margin-top:0px!important; padding-bottom:43px!important; float:right;">
         <div>
-            <ul class="paginador_notificaciones" data-paginacion="block" data-camp="{{CampaniaId}}" data-cliente="{{ClienteID}}" data-estado="{{tipo}}">
+            <ul class="paginador_notificaciones" data-paginacion="block" data-camp="{{CampaniaId}}" data-cliente="{{ClienteID}}" data-estado="{{tipo}}" data-idpedido="{{pedidoId}}">
                 {{#iff RecordCount '>' 0}}
                 <li class="productos_agregados_usuario" style="display: none;">
                     <span class="cantidad_productos_agregados"><b>{{RecordCount}}</b></span>
@@ -675,7 +675,7 @@
             {{/iff}}
             {{#iff tipo '==' 'i'}}
             <div class="cliente texto_gris_popup">
-                <select data-cliente="{{ClienteID}}" data-val="{{ClienteID}}" data-camp="{{CampaniaId}}"></select>
+                <select data-cliente="{{ClienteID}}" data-val="{{ClienteID}}" data-camp="{{CampaniaId}}" data-idpedido="{{pedidoId}}"></select>
             </div>
             {{/iff}}
         </div>

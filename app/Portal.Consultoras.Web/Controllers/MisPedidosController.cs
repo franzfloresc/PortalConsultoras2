@@ -518,8 +518,8 @@ namespace Portal.Consultoras.Web.Controllers
 
             }
         }
-        
-        public ActionResult ExportarExcelFacturado(string vCampaniaID, string vTotalParcial, string vFlete, string vTotalFacturado)
+
+        public ActionResult ExportarExcelFacturado(string vCampaniaID, string vTotalParcial, string vFlete, string vTotalFacturado, int vPedidoId)
         {
             List<KeyValuePair<int, string>> dicCabeceras = new List<KeyValuePair<int, string>>();
             List<BEPedidoWebDetalle> lst = new List<BEPedidoWebDetalle>();
@@ -528,7 +528,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 using (SACServiceClient client = new SACServiceClient())
                 {
-                    lista = client.GetPedidosFacturadosDetalle(userData.PaisID, vCampaniaID, "0", "0", userData.CodigoConsultora, 0).ToList();
+                    lista = client.GetPedidosFacturadosDetalle(userData.PaisID, vCampaniaID, "0", "0", userData.CodigoConsultora, vPedidoId).ToList();
                 }
             }
             catch (Exception ex)
@@ -539,11 +539,11 @@ namespace Portal.Consultoras.Web.Controllers
 
             foreach (var item in lista)
             {
-                if (!string.IsNullOrEmpty(item.CUV.Trim()))
+                if (!string.IsNullOrEmpty(item.CUV))
                 {
                     lst.Add(new BEPedidoWebDetalle()
                     {
-                        CUV = item.CUV,
+                        CUV = item.CUV.Trim(),
                         DescripcionProd = item.Descripcion,
                         Cantidad = item.Cantidad,
                         PrecioUnidad = Convert.ToDecimal(item.PrecioUnidad),
@@ -791,6 +791,7 @@ namespace Portal.Consultoras.Web.Controllers
             // Creamos la estructura
             var data = new
             {
+                pedidoId,
                 tipo = estado.ToLower(),
                 ClienteID = cliente,
                 Nombre = cliente == -1 ? "" : itm.Nombre,
@@ -835,7 +836,7 @@ namespace Portal.Consultoras.Web.Controllers
             var listx = Session["MisPedidos-DetallePorCampania"];
             string campSes = (string)Session["MisPedidos-DetallePorCampania-Campania"];
             string estadoCombo = (string)Session["MisPedidos-DetallePorCampania-Estado"];
-            int pedidoIdSesion = (int) Session["MisPedidos-DetallePorCampania-PedidoId"];
+            int pedidoIdSesion = (int) (Session["MisPedidos-DetallePorCampania-PedidoId"] ?? 0);
 
             if (!(listx == null || campSes == null || campSes != CampaniaId || estadoCombo == null || estadoCombo != estado || pedidoIdSesion != pedidoId))
             {
