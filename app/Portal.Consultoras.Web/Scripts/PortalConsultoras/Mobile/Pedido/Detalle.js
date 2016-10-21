@@ -1044,8 +1044,8 @@ function RespuestaEjecutarServicioPROL(response, inicio) {
                     location.href = urlPedidoValidado;
                 }, 2000);
 
-                return true;
             }
+            return true;
         }
 
         if (inicio) {
