@@ -430,7 +430,7 @@
         <div class="pop_pedido_mensaje"></div>
     </div>
     
-    <!-- POPUP AGREGASTE UNIDADES -->
+    <!-- POPUP MENSAJE ERROR - exclamacion  -->
     <div class="contenedor_popup_agregarUnidades" id="dialog_ErrorMainLayout" style="display: none;">
         <div class="popup_agregarUnidades">
             <div class="btn_cerrar_agregarUnidades">
@@ -440,18 +440,16 @@
                 </a>
             </div>
             <div class="contenido_popUp">
-                <div class="icono_aprobacion" id="apro_o_excla"></div>
-                <h1 class="titulo_agregarUnidades">LO <b>SENTIMOS</b></h1>
-                <span class="icono_exclamacion">
-
-                </span>
+                <span class="icono_exclamacion"></span>
+                <h1 class="titulo_agregarUnidades"><b>LO SENTIMOS</b></h1>
+                <div id="mensajeInformacionSB2_Error" class="mensaje_agregarUnidades"></div>
                 <button type="button" name="btn_ok" class="btn_ok" onclick="return $('#dialog_ErrorMainLayout').hide();">
                     OK
                 </button>
             </div>
         </div>
     </div>
-    <!-- FIN AGREGASTE UNIDADES -->
+    <!-- FIN POPUP MENSAJE ERROR - exclamacion -->
 
     <script id="resumenCampania-template" type="text/x-handlebars-template">
         <div class="info_productos_carrito">
