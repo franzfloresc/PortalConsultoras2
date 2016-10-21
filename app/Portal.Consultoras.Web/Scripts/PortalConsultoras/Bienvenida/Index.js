@@ -153,7 +153,8 @@ $(document).ready(function () {
     
     $("#cerrarVideoIntroductorio").click(function () {
         if (primeraVezVideo) {
-            mostrarUbicacionTutorial(true, true);            
+            mostrarUbicacionTutorial(true, true);
+            primeraVezVideo = false;
             //abrir_popup_tutorial();
             //setInterval(AnimacionTutorial, 800);
             //setTimeout(ocultarAnimacionTutorial, 9000);
@@ -490,6 +491,7 @@ function mostrarUbicacionTutorial(tieneFondoNegro, mostrarPopupTutorial) {
     tieneFondoNegro = tieneFondoNegro == undefined ? false : tieneFondoNegro;
     mostrarPopupTutorial = mostrarPopupTutorial == undefined ? false : mostrarPopupTutorial;
 
+    //EfectoTutorialSalvavidas = ''
     if (EfectoTutorialSalvavidas == '0') {
         if (!(viewBagVioTutorial == 0 || viewBagVioVideo == 0)) {
             tieneFondoNegro = false;
@@ -499,22 +501,25 @@ function mostrarUbicacionTutorial(tieneFondoNegro, mostrarPopupTutorial) {
     $("#fondoComunPopUp").hide();
     $("#fondoComunPopUp").attr("data-activo-salvavidas", '1');
 
-    if (tieneFondoNegro) {
-        $(".fondo_oscuro").fadeIn(300, function() {
-            //$(".mensaje_header").addClass("opcionTutorial");
+    if (EfectoTutorialSalvavidas != '0') {
+        if (tieneFondoNegro) {
+            $(".fondo_oscuro").fadeIn(300, function () {
+                //$(".mensaje_header").addClass("opcionTutorial");
+                $(".tooltip_tutorial").fadeIn();
+                $(".contenedor_circulosTutorial").fadeIn();
+                mostrarIconoTutorial();
+            });
+        } else {
             $(".tooltip_tutorial").fadeIn();
             $(".contenedor_circulosTutorial").fadeIn();
             mostrarIconoTutorial();
-        });
-    } else {
-        $(".tooltip_tutorial").fadeIn();
-        $(".contenedor_circulosTutorial").fadeIn();
-        mostrarIconoTutorial();
+        }
     }
 
     UpdateUsuarioTutoriales(constanteVioTutorialSalvavidas);
     viewBagVioTutorialSalvavidas = 1;
 
+    var time = EfectoTutorialSalvavidas == '0' ? 0 : 4000;
     timeoutTooltipTutorial = setTimeout(function () {
         ocultarUbicacionTutorial();
         if ($("#fondoComunPopUp >div[data-popup-activo='1']").length > 0) {
@@ -532,10 +537,14 @@ function mostrarUbicacionTutorial(tieneFondoNegro, mostrarPopupTutorial) {
                 //}
             }
         }
-    }, 4000);
+    }, time);
 }
 
 function mostrarIconoTutorial() {
+    if (EfectoTutorialSalvavidas == '0') {
+        return false;
+    }
+    
     $(".tooltip_tutorial").animate({
         'opacity': 1,
         'top': 47
@@ -545,6 +554,11 @@ function mostrarIconoTutorial() {
 }
 
 function ocultarUbicacionTutorial() {
+    if (EfectoTutorialSalvavidas == '0') {
+        $("#fondoComunPopUp").attr("data-activo-salvavidas", '0');
+        clearTimeout(timeoutTooltipTutorial);
+        return false;
+    }
 
     $(".contenedor_circulosTutorial").fadeOut();
     $(".tooltip_tutorial").fadeOut();
