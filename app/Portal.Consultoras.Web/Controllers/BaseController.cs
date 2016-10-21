@@ -846,7 +846,7 @@ namespace Portal.Consultoras.Web.Controllers
             ViewBag.EstaRechazado = model.EstaRechazado;
             ViewBag.CerrarRechazado = model.CerrarRechazado;
             ViewBag.MotivoRechazo = model.MotivoRechazo;
-
+            ViewBag.Efecto_TutorialSalvavidas = ConfigurationManager.AppSettings.Get("Efecto_TutorialSalvavidas") ?? "1";
             return model;
 
             #endregion

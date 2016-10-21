@@ -486,14 +486,18 @@ function agregarProductoAlCarrito(o) {
 //MICROEFECTO RESALTAR ICONO TUTORIAL
 
 function mostrarUbicacionTutorial(tieneFondoNegro, mostrarPopupTutorial) {
+
     tieneFondoNegro = tieneFondoNegro == undefined ? false : tieneFondoNegro;
     mostrarPopupTutorial = mostrarPopupTutorial == undefined ? false : mostrarPopupTutorial;
-    
-    var fondoPupup = false;
-    if ($("#fondoComunPopUp").is(':visible')) {
-        $("#fondoComunPopUp").hide();
-        fondoPupup = true;
+
+    if (EfectoTutorialSalvavidas == '0') {
+        if (!(viewBagVioTutorial == 0 || viewBagVioVideo == 0)) {
+            tieneFondoNegro = false;
+        }
     }
+
+    $("#fondoComunPopUp").hide();
+    $("#fondoComunPopUp").attr("data-activo-salvavidas", '1');
 
     if (tieneFondoNegro) {
         $(".fondo_oscuro").fadeIn(300, function() {
@@ -513,15 +517,14 @@ function mostrarUbicacionTutorial(tieneFondoNegro, mostrarPopupTutorial) {
 
     timeoutTooltipTutorial = setTimeout(function () {
         ocultarUbicacionTutorial();
-        if (fondoPupup) {
+        if ($("#fondoComunPopUp >div[data-popup-activo='1']").length > 0) {
             $("#fondoComunPopUp").show();
+            mostrarComunicadosPopup();
         }
         if (mostrarPopupTutorial)
             abrir_popup_tutorial();
         else {
-            if (viewBagVerComunicado == '-1') {
-                waitingDialog();
-            } else {
+            if (viewBagVerComunicado != '-1') {
                 mostrarComunicadosPopup();
 
                 //if (viewBagVerComunicado != '1') {
@@ -533,14 +536,12 @@ function mostrarUbicacionTutorial(tieneFondoNegro, mostrarPopupTutorial) {
 }
 
 function mostrarIconoTutorial() {
-
     $(".tooltip_tutorial").animate({
         'opacity': 1,
         'top': 47
     }, 500, 'swing').animate({
         'top': 41
     }, 400, 'swing', mostrarIconoTutorial);
-
 }
 
 function ocultarUbicacionTutorial() {
@@ -552,6 +553,8 @@ function ocultarUbicacionTutorial() {
     $(".fondo_oscuro").fadeOut(300);
     
     clearTimeout(timeoutTooltipTutorial);
+
+    $("#fondoComunPopUp").attr("data-activo-salvavidas", '0');
 }
 
 // FIN MICROEFECTO RESALTAR ICONO TUTORIAL
@@ -3583,11 +3586,10 @@ function centrarComunicadoPopup(ID) {
     var altoPopup = ($(window).height() - $("#" + ID).outerHeight()) / 2;
     var imagenPopup = $('#' + ID).find(".img-comunicado");
     var estadoPopup = $("#popupComunicados").css("display");
-
-    if (estadoPopup == "block") {
+    //if (estadoPopup == "block") {
         $("#" + ID).css({ "width": imagenPopup.width() });
         $("#" + ID).css({ "top": altoPopup });
-    }
+    //}
 }
 
 function clickCerrarComunicado(obj) {
@@ -3676,10 +3678,11 @@ function PopupMostrar(idPopup) {
     if (id == "") return false;
     
     $(id).attr("data-popup-activo", "1");
-
-    $("#fondoComunPopUp").show();
+    if ($("#fondoComunPopUp").attr("data-activo-salvavidas") != "1") {
+        $("#fondoComunPopUp").show();
+    }
+    
     $(id).show();
-    console.log(id);
     //contadorFondoPopUp++;
 }
 function PopupCerrar(idPopup) {
@@ -3696,7 +3699,6 @@ function PopupCerrar(idPopup) {
         $("#fondoComunPopUp").hide();
         // viewBagVioTutorialSalvavidas
     }
-    console.log(id);
     //contadorFondoPopUp--;
     //contadorFondoPopUp = contadorFondoPopUp < 0 ? 0 : contadorFondoPopUp;
 }
