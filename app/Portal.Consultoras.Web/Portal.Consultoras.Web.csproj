@@ -345,6 +345,7 @@
     <Compile Include="CustomFilters\SessionExpiredActionFilter.cs" />
     <Compile Include="CustomFilters\SessionExpiredActionFilterProvider.cs" />
     <Compile Include="CustomHelpers\ConsultoraOnlineHelper.cs" />
+    <Compile Include="GestionPasos\AsignacionFactory.cs" />
     <Compile Include="GestionPasos\CorreoHelper.cs" />
     <Compile Include="GestionPasos\EvaluacionCrediticia\EvaluacionCrediticiaCam.cs" />
     <Compile Include="GestionPasos\EvaluacionCrediticia\EvaluacionCrediticiaChile.cs" />
@@ -3818,6 +3819,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="GestionPasos\Asignaciones\" />
     <Folder Include="Views\Contenido\" />
   </ItemGroup>
   <ItemGroup>
