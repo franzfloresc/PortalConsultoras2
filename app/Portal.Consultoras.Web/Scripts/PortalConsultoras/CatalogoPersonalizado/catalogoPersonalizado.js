@@ -289,9 +289,7 @@ function AgregarProducto(url, item, otraFunct) {
                     setTimeout(otraFunct, 50);
                 }
             }
-            else {
-                DialogMensaje(data.message);
-            }
+            else alert_msg_error_main(data.message);
             DialogLoadingCerrar();
         },
         error: function (data, error) {
