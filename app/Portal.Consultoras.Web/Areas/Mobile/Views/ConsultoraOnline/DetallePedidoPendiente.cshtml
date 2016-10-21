@@ -252,16 +252,16 @@
 </div>
 
 <!--POP UP COMO LO ATENDERA -->
-<div id="MensajeComoAtendera" class="MensajeAlertaMobile">
+<div id="ComoloAtenderas" class="MensajeAlertaMobile">
     <div class="content_mensajeAlerta">
-        <a class="cerrar_popMobile" href="javascript:;" onclick="javascript: $('#MensajeComoAtendera').hide();">
+        <a class="cerrar_popMobile" href="javascript:;" onclick="javascript: $('#ComoloAtenderas').hide();">
             <img src="/Content/Images/mobile/Esika/cerrar_04.png" alt="-">
         </a>
         <hr class="clear">
         <div class="icono_alerta exclamacion_icono_mobile"></div>
         <div class="titulo_compartir"><b>IMPORTANTE</b></div>
         <div class="mensaje_alerta">Por favor elige comó atenderas todos los productos del pedido</div>
-        <a class="btn_ok_mobile" onclick="javascript: $('#MensajeComoAtendera').hide();">OK</a>
+        <a class="btn_ok_mobile" onclick="javascript: $('#ComoloAtenderas').hide();">OK</a>
     </div>
 </div>
 
@@ -299,6 +299,21 @@
     </div>
 </div>
 
+<!--POPUP PEDIDO RESERVADO -->
+<div id="AlertaPedidoReservado" class="MensajeAlertaMobile">
+    <div class="content_mensajeAlerta">
+        <a class="cerrar_popMobile" href="javascript:;" onclick="CerrarAlertaPedidoReservado();">
+            <img src="/Content/Images/mobile/Esika/cerrar_04.png" alt="-">
+        </a>
+        <hr class="clear">
+        <div class="icono_alerta exclamacion_icono_mobile"></div>
+        <div class="titulo_compartir"><b>IMPORTANTE</b></div>
+        <div class="mensaje_alerta" id="MensajePedidoReservado">Ya tienes un pedido reservado para esta campaña</div>
+        <a class="btn_ok_mobile" onclick="CerrarAlertaPedidoReservado();">OK</a>
+    </div>
+</div>
+
+
 <!--POP UP DETALLE PEDIDO RECHAZADO-->
 <div id="PedidoRechazadoDetalle" class="MensajeAlertaMobile" style="padding:10px;">
     <div class="content_mensajeAlerta">
@@ -326,8 +341,8 @@
         <a class="btn_acepto_pedido" href="#" onclick="RechazarPedido('@solicitud.PedidoId');">ENVIAR</a>
     </div>
 </div>
-
 <!--POP UP MENSAJE PEDIDO RECHAZADO -->
+
 <div id="MensajePedidoRechazado" class="MensajeAlertaMobile">
     <div class="content_mensajeAlerta">
         <a class="cerrar_popMobile" href="javascript:;" onclick="CerrarMensajeRechazado();">
@@ -345,6 +360,7 @@
     <script type="text/javascript">
         var urlLoad = '@Url.Content("~/Content/Images/Loading.gif")';
         var urlPendientes = '@Url.Action("Pendientes","ConsultoraOnline")';
+        var urlPedido = '@Url.Action("Index","Pedido")';
     </script>
 
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Mobile/ConsultoraOnline/DetallePedidoPendiente.js")"></script>

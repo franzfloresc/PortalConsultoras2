@@ -126,7 +126,7 @@ function AceptarPedido(id, tipo) {
         if (typeof tipoate !== 'undefined') {
             if (tipoate == "") {
                 //$('#dialog_mensajeComoAtender').show();
-                $('#MensajeComoAtendera').show();
+                $('#ComoloAtenderas').show();
                 isOk = false;
                 return false;
             }
@@ -158,6 +158,11 @@ function AceptarPedido(id, tipo) {
 
         ShowLoading();
 
+        //if (HorarioRestringido()) {
+        //    CloseLoading();
+        //    return false;
+        //}
+
         $.ajax({
             type: 'POST',
             url: '/ConsultoraOnline/AceptarPedido',
@@ -185,7 +190,13 @@ function AceptarPedido(id, tipo) {
                     $('#PedidoAceptado').show();
                 }
                 else {
-                    alert_msg(response.message);
+                    if (response.code == 1) {
+                        alert_msg(response.message);
+                    }
+                    else if (response.code == 2) {
+                        $('#MensajePedidoReservado').text(response.message);
+                        $('#AlertaPedidoReservado').show();
+                    }
                 }
             },
             error: function (error) {
@@ -209,4 +220,43 @@ function MostrarMisPedidosConsultoraOnline() {
     var frmConsultoraOnline = $('#frmConsultoraOnline');
     frmConsultoraOnline.attr("action", urlMisPedidosClienteOnline);
     frmConsultoraOnline.submit();
+}
+
+function HorarioRestringido(mostrarAlerta) {
+    mostrarAlerta = typeof mostrarAlerta !== 'undefined' ? mostrarAlerta : true;
+    var horarioRestringido = false;
+    $.ajaxSetup({
+        cache: false
+    });
+    jQuery.ajax({
+        type: 'GET',
+        url: baseUrl + 'Pedido/EnHorarioRestringido',
+        dataType: 'json',
+        contentType: 'application/json; charset=utf-8',
+        async: false,
+        success: function (data) {
+            if (checkTimeout(data)) {
+                // esta en horario restringido
+                if (data.success == true) {
+                    if (mostrarAlerta == true) {
+                        CloseLoading();
+                        alert_msg(data.message);
+                    }
+                    horarioRestringido = true;
+                }
+            }
+        },
+        error: function (data, error) {
+            if (checkTimeout(data)) {
+                CloseLoading();
+                alert_msg(data.message);
+            }
+        }
+    });
+    return horarioRestringido;
+}
+
+function CerrarAlertaPedidoReservado() {
+    $('#AlertaPedidoReservado').hide();
+    document.location.href = urlPedido;
 }
