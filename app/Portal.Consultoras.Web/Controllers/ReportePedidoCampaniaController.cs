@@ -271,7 +271,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                     using (SACServiceClient client = new SACServiceClient())
                     {
-                        lista = client.GetPedidosFacturadosDetalle(UserData().PaisID, vCampania, vRegion, vZona, vConsultora).ToList();
+                        lista = client.GetPedidosFacturadosDetalle(UserData().PaisID, vCampania, vRegion, vZona, vConsultora, 0).ToList();
                 }
                 }
                 catch (Exception ex)
@@ -435,7 +435,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             using (SACServiceClient client = new SACServiceClient())
             {
-                lista = client.GetPedidosFacturadosDetalle(UserData().PaisID, vCampania, vRegion, vZona, vConsultora).ToList();
+                lista = client.GetPedidosFacturadosDetalle(UserData().PaisID, vCampania, vRegion, vZona, vConsultora, 0).ToList();
             }
 
             if (lista == null)

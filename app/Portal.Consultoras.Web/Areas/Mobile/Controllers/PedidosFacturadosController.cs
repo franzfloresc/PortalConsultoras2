@@ -33,6 +33,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 foreach (var pedido in lista3Ultimos)
                 {
                     var bePedidoWeb = new PedidoWebMobilModel();
+                    bePedidoWeb.PedidoId = pedido.PedidoId;
                     bePedidoWeb.CampaniaID = pedido.Campania;
                     bePedidoWeb.ImporteTotal = pedido.ImporteTotal;
                     bePedidoWeb.CantidadProductos = pedido.Cantidad;
@@ -67,7 +68,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             return View(model);
         }
 
-        public PartialViewResult Detalle(int campaniaID)
+        public PartialViewResult Detalle(int campaniaID, int pedidoId)
         {
             var userData = UserData();
             var model = new PedidoWebMobilModel();
@@ -88,7 +89,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 BEPedidoFacturado[] listaPedidosFacturadosDetalle;
                 using (var service = new SACServiceClient())
                 {
-                    listaPedidosFacturadosDetalle = service.GetPedidosFacturadosDetalle(userData.PaisID, campaniaID.ToString(), "0", "0", userData.CodigoConsultora);
+                    listaPedidosFacturadosDetalle = service.GetPedidosFacturadosDetalle(userData.PaisID, campaniaID.ToString(), "0", "0", userData.CodigoConsultora, pedidoId);
                 }
 
                 foreach (var pedidoDetalle in listaPedidosFacturadosDetalle)

@@ -441,7 +441,7 @@
                 {
                     using (SACServiceClient client = new SACServiceClient())
                     {
-                        lista = client.GetPedidosFacturadosDetalle(userData.PaisID, campaniaId, "0", "0", codigoConsultora).ToList();
+                        lista = client.GetPedidosFacturadosDetalle(userData.PaisID, campaniaId, "0", "0", codigoConsultora, 0).ToList();
                     }
                 }
                 catch (Exception ex)

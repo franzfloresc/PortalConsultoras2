@@ -1,6 +1,7 @@
 ﻿using ClosedXML.Excel;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
+using Portal.Consultoras.Web.ServiceCatalogosIssuu;
 using sc =  Portal.Consultoras.Web.ServiceCliente;
 using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.ServiceSAC;
@@ -34,7 +35,8 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 using (PedidoServiceClient sv = new PedidoServiceClient())
                 {
-                    listaPedidoFacturados = sv.GetPedidosIngresadoFacturado(userData.PaisID, Convert.ToInt32(userData.ConsultoraID), userData.CampaniaID).ToList();
+                    listaPedidoFacturados = sv.GetPedidosIngresadoFacturado(userData.PaisID, Convert.ToInt32(userData.ConsultoraID), userData.CampaniaID,
+                        userData.CodigoConsultora).ToList();
                 }
                 using (sc.ClienteServiceClient sv = new sc.ClienteServiceClient())
                 {
@@ -526,7 +528,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 using (SACServiceClient client = new SACServiceClient())
                 {
-                    lista = client.GetPedidosFacturadosDetalle(userData.PaisID, vCampaniaID, "0", "0", userData.CodigoConsultora).ToList();
+                    lista = client.GetPedidosFacturadosDetalle(userData.PaisID, vCampaniaID, "0", "0", userData.CodigoConsultora, 0).ToList();
                 }
             }
             catch (Exception ex)
@@ -712,7 +714,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         public ActionResult ConsultarPedidoWebDetallePorCamania(string sidx, string sord, int page, int rows, string CampaniaId)
         {
-            List<BEPedidoWebDetalle> lst = GetDetallePorEstado(CampaniaId, "i");
+            List<BEPedidoWebDetalle> lst = GetDetallePorEstado(CampaniaId, "i", 0);
             List<BEPedidoWebDetalle> items = new List<BEPedidoWebDetalle>();
             var existe = false;
             foreach (var item in lst)
@@ -766,15 +768,15 @@ namespace Portal.Consultoras.Web.Controllers
             return Json(data, JsonRequestBehavior.AllowGet);
         }
 
-        public ActionResult ConsultarPedidoWebDetallePorCamaniaPorCliente(string sidx, string sord, int page, int rows, string CampaniaId, int cliente, string estado)
+        public ActionResult ConsultarPedidoWebDetallePorCamaniaPorCliente(string sidx, string sord, int page, int rows, string CampaniaId, int cliente, string estado, int pedidoId)
         {
             BEGrid grid = SetGrid(sidx, sord, page, rows);
             
-            List<BEPedidoWebDetalle> lst = GetDetallePorEstado(CampaniaId, estado);
+            List<BEPedidoWebDetalle> lst = GetDetallePorEstado(CampaniaId, estado, pedidoId);
             var pedidoWeb = lst.Count() > 0 ? lst[0] : new BEPedidoWebDetalle();
 
             var listaCliente = (from item in lst
-                                select new Portal.Consultoras.Web.ServiceCliente.BECliente { ClienteID = item.ClienteID, Nombre = item.Nombre }
+                                select new ServiceCliente.BECliente { ClienteID = item.ClienteID, Nombre = item.Nombre }
                     ).GroupBy(x => x.ClienteID).Select(x => x.First()).ToList();
 
             List<BEPedidoWebDetalle> itemCliente = lst.Where(p => p.ClienteID == cliente || cliente == -1).ToList();
@@ -826,15 +828,16 @@ namespace Portal.Consultoras.Web.Controllers
             return Json(data, JsonRequestBehavior.AllowGet);
         }
 
-        private List<BEPedidoWebDetalle> GetDetallePorEstado( string CampaniaId, string estado)
+        private List<BEPedidoWebDetalle> GetDetallePorEstado(string CampaniaId, string estado, int pedidoId)
         {
             List<BEPedidoWebDetalle> lst = new List<BEPedidoWebDetalle>();
 
             var listx = Session["MisPedidos-DetallePorCampania"];
             string campSes = (string)Session["MisPedidos-DetallePorCampania-Campania"];
             string estadoCombo = (string)Session["MisPedidos-DetallePorCampania-Estado"];
+            int pedidoIdSesion = (int) Session["MisPedidos-DetallePorCampania-PedidoId"];
 
-            if (!(listx == null || campSes == null || campSes != CampaniaId || estadoCombo == null || estadoCombo != estado))
+            if (!(listx == null || campSes == null || campSes != CampaniaId || estadoCombo == null || estadoCombo != estado || pedidoIdSesion != pedidoId))
             {
                  lst = (List<BEPedidoWebDetalle>)listx;
                  return lst;
@@ -860,7 +863,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     using (SACServiceClient client = new SACServiceClient())
                     {
-                        lista = client.GetPedidosFacturadosDetalle(userData.PaisID, CampaniaId, "0", "0", userData.CodigoConsultora).ToList();
+                        lista = client.GetPedidosFacturadosDetalle(userData.PaisID, CampaniaId, "0", "0", userData.CodigoConsultora, pedidoId).ToList();
                     }
                 }
                 catch (Exception ex)
@@ -896,6 +899,7 @@ namespace Portal.Consultoras.Web.Controllers
             Session["MisPedidos-DetallePorCampania"] = lst;
             Session["MisPedidos-DetallePorCampania-Campania"] = CampaniaId;
             Session["MisPedidos-DetallePorCampania-Estado"] = estado;
+            Session["MisPedidos-DetallePorCampania-PedidoId"] = pedidoId;
 
             return lst;
         }

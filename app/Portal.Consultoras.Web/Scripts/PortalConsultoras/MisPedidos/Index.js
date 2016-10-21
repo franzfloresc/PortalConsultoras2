@@ -23,11 +23,12 @@ $(document).ready(function () {
         $.each($(".content_datos_mispedidos [data-campnro]"), function (ind, tag) {
             var tagCam = $(tag);
             var estadoCamp = tagCam.parent().attr("data-estado") || "";
+            var pedidoIdCamp = tagCam.parent().attr("data-idpedido") || 0;
             estadoCamp = estadoCamp.toLowerCase();
             estadoCamp = estadoCamp[0];
             estadoCamp = estadoCamp == "i" ? "[data-popup='ingresado']" : estadoCamp == "f" ? "[data-popup='facturado']" : "";
             if (estadoCamp != "") {
-                $(estadoCamp).find("[data-selectcamp]").append('<option value="' + tagCam.html() + '" data-campformat="' + tagCam.attr("data-campformat") + '">C-' + tagCam.attr("data-campnro") + '</option>');
+                $(estadoCamp).find("[data-selectcamp]").append('<option value="' + tagCam.html() + '" data-campformat="' + tagCam.attr("data-campformat") + '" data-pedidoidformat="'+ pedidoIdCamp +'">C-' + tagCam.attr("data-campnro") + '</option>');
             }
         });
         $("[data-popup='ingresado']").find("[data-selectcamp]").val(campId.substr(0, 4) + "-" + campId.substr(4, 6));
@@ -38,7 +39,10 @@ $(document).ready(function () {
         if (estado == "") return false;
         DetalleVisible(false);
         $("#divGrilla").find("select[data-cliente]").val(-1);
-        PopupMostrar(estado, campId);
+
+        var pedidoId = pop.attr("data-idpedido") || 0;
+
+        PopupMostrar(estado, campId, pedidoId);
         $("#regresarFacturado").Visible(estado == "f");
         $('[data-popup="ingresado"] [data-selectcamp]').Visible(estado == "i");
         var canal = $.trim(pop.find(".canal_ingreso").html()).toLowerCase();
@@ -136,8 +140,11 @@ $(document).ready(function () {
         var campFormat = obj.attr("data-campformat") || "";
         if (campFormat == "") return false;
         campFormat = campFormat.replace("-", "");
+
+        var pedidoFormat = obj.attr("data-pedidoidformat") || 0;
+        
         var popup = obj.parents("[data-popup]").attr("data-popup");
-        PopupMostrar(popup, campFormat);
+        PopupMostrar(popup, campFormat, pedidoFormat);
         //if ($(".content_mis_pedidos").find("[data-campformat='" + campFormat + "']").length == 1) {
         //    $(".content_mis_pedidos").find("[data-campformat='" + campFormat + "']").parent().find('[data-accion="detalle"]').click();
         //}
@@ -224,7 +231,7 @@ function PopupCerrarTodos() {
     DetalleVisible(true, false);
 }
 
-function PopupMostrar(popup, campFormat) {
+function PopupMostrar(popup, campFormat, pedidoId) {
     PopupCerrarTodos();
 
     popup = $.trim(popup);
@@ -243,7 +250,7 @@ function PopupMostrar(popup, campFormat) {
         return false;
     }
     DetalleVisible(false);
-    CargarDetalleFacturado(campFormat, null, null, popup);
+    CargarDetalleFacturado(campFormat, null, null, popup, pedidoId);
 }
 
 function DetalleVisible(accion, popup) {
@@ -259,9 +266,9 @@ function PopupDetalleClienteCerrarTodos() {
     $('#pedidoPorCliente [data-cliente]').removeClass("acordion_abierto");
 }
 
-function CargarDetalleFacturado(camp, page, rows, tipo) {
+function CargarDetalleFacturado(camp, page, rows, tipo, pedidoId) {
     waitingDialog();
-    tipo = tipo || "f"
+    tipo = tipo || "f";
     tipo = tipo[0].toLowerCase();
     var dataAjax = {
         sidx: "",
@@ -269,9 +276,10 @@ function CargarDetalleFacturado(camp, page, rows, tipo) {
         page: page || 1,
         rows: rows || 10,
         CampaniaId: camp,
-        cliente: $("#divGrilla").find("select[data-cliente]").val() || - 1,
-        estado: tipo // "f"
-    }
+        cliente: $("#divGrilla").find("select[data-cliente]").val() || -1,
+        estado: tipo, // "f"
+        pedidoId: pedidoId
+    };
     $("#divContenidofacturado").empty();
     $("#pedidoPorCliente").empty();
     jQuery.ajax({

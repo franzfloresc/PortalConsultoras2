@@ -274,63 +274,63 @@
                     <!--Fin Pedido Actual -->
                     <!--Pedidos Facturados-->
                     @foreach (var item in Model.ListaFacturados)
+{
+    var campaniaFacturadoNro = (item.CampaniaID == 0) ? "" : item.CampaniaID.ToString().Substring(4, 2);
+    var formatoCampaniaFacturado = (item.CampaniaID == 0) ? "" : item.CampaniaID.ToString().Substring(0, 4) + "-" + item.CampaniaID.ToString().Substring(4, 2);
+    var formatoFechaFacturado = item.FechaRegistro.Day.ToString().PadLeft(2, '0') + " de " + base1.NombreMes(item.FechaRegistro.Month);
+
+    var estiloSinRuta = "ingresado";
+    var targetPaqueteDocumentario = "";
+    var rutaPaqueteDocumentario = "javascript:;";
+    if (!string.IsNullOrEmpty(item.RutaPaqueteDocumentario))
+    {
+        rutaPaqueteDocumentario = item.RutaPaqueteDocumentario;
+        targetPaqueteDocumentario = "_blank";
+        estiloSinRuta = "";
+    }
+    var claseEstado = item.EstadoPedidoDesc.ToUpper() == "INGRESADO" ? "estado_detalleIngresado" : "estado_detalleFacturado";
+
+    <div class="content_datos_mispedidos" data-camp="@item.CampaniaID" data-estado="@item.EstadoPedidoDesc" data-idpedido="@item.PedidoID">
+        <div class="nombre_campania texto_bold" data-campnro="@campaniaFacturadoNro" data-campformat="@formatoCampaniaFacturado">@formatoCampaniaFacturado</div>
+        <div class="fecha_pedido">@formatoFechaFacturado</div>
+        <div class="monto_totalPedido"
+             data-parcial="@(Util.DecimalToStringFormat(item.ImporteCredito, Model.UserIso))"
+             data-flete="@(Util.DecimalToStringFormat(item.Flete, Model.UserIso))"
+             data-facturado="@(Util.DecimalToStringFormat(item.ImporteTotal, Model.UserIso))">
+            @Model.Simbolo @(Util.DecimalToStringFormat(item.ImporteTotal, Model.UserIso))
+        </div>
+        <div class="canal_ingreso">@item.CanalIngreso</div>
+        <div class="cantidad_prod">@item.CantidadProductos</div>
+        <div class="seguimiento">
+            <a title="Seguimiento" href="javascript:;" onclick="CargarFramePedido(@item.CampaniaID);">
+                <img src="@Url.Content("~/Content/Images/icono-seguimiento.png")" alt="Seguimiento" />
+            </a>
+        </div>
+        <div class="pack_documentario @estiloSinRuta">
+            <a href="@rutaPaqueteDocumentario" target="@targetPaqueteDocumentario" title="Pack Documentario">
+                <img src="@Url.Content("~/Content/Images/paquete_documentario.svg")" alt="Pack Documentario" />
+            </a>
+        </div>
+        <div class="estado_detalles">
+            <div data-accion="detalle" data-estado="@item.EstadoPedidoDesc">
+                <span class="estado_texto @claseEstado">
+                    @if (item.EstadoPedidoDesc.ToUpper() == "RECHAZADO")
                     {
-                        var campaniaFacturadoNro = (item.CampaniaID == 0) ? "" : item.CampaniaID.ToString().Substring(4, 2);
-                        var formatoCampaniaFacturado = (item.CampaniaID == 0) ? "" : item.CampaniaID.ToString().Substring(0, 4) + "-" + item.CampaniaID.ToString().Substring(4, 2);
-                        var formatoFechaFacturado = item.FechaRegistro.Day.ToString().PadLeft(2, '0') + " de " + base1.NombreMes(item.FechaRegistro.Month);
-
-                        var estiloSinRuta = "ingresado";
-                        var targetPaqueteDocumentario = "";
-                        var rutaPaqueteDocumentario = "javascript:;";
-                        if (!string.IsNullOrEmpty(item.RutaPaqueteDocumentario))
-                        {
-                            rutaPaqueteDocumentario = item.RutaPaqueteDocumentario;
-                            targetPaqueteDocumentario = "_blank";
-                            estiloSinRuta = "";
-                        }
-                        var claseEstado = item.EstadoPedidoDesc.ToUpper() == "INGRESADO" ? "estado_detalleIngresado" : "estado_detalleFacturado";
-
-                        <div class="content_datos_mispedidos" data-camp="@item.CampaniaID" data-estado="@item.EstadoPedidoDesc">
-                            <div class="nombre_campania texto_bold" data-campnro="@campaniaFacturadoNro" data-campformat="@formatoCampaniaFacturado">@formatoCampaniaFacturado</div>
-                            <div class="fecha_pedido">@formatoFechaFacturado</div>
-                            <div class="monto_totalPedido"
-                                 data-parcial="@(Portal.Consultoras.Common.Util.DecimalToStringFormat(item.ImporteCredito, Model.UserIso))"
-                                 data-flete="@(Portal.Consultoras.Common.Util.DecimalToStringFormat(item.Flete, Model.UserIso))"
-                                 data-facturado="@(Portal.Consultoras.Common.Util.DecimalToStringFormat(item.ImporteTotal, Model.UserIso))">
-                                @Model.Simbolo @(Portal.Consultoras.Common.Util.DecimalToStringFormat(item.ImporteTotal, Model.UserIso))
-                            </div>
-                            <div class="canal_ingreso">@item.CanalIngreso</div>
-                            <div class="cantidad_prod">@item.CantidadProductos</div>
-                            <div class="seguimiento">
-                                <a title="Seguimiento" href="javascript:;" onclick="CargarFramePedido(@item.CampaniaID);">
-                                    <img src="@Url.Content("~/Content/Images/icono-seguimiento.png")" alt="Seguimiento" />
-                                </a>
-                            </div>
-                            <div class="pack_documentario @estiloSinRuta">
-                                <a href="@rutaPaqueteDocumentario" target="@targetPaqueteDocumentario" title="Pack Documentario">
-                                    <img src="@Url.Content("~/Content/Images/paquete_documentario.svg")" alt="Pack Documentario" />
-                                </a>
-                            </div>
-                            <div class="estado_detalles">
-                                <div data-accion="detalle" data-estado="@item.EstadoPedidoDesc">
-                                    <span class="estado_texto @claseEstado">
-                                        @if (item.EstadoPedidoDesc.ToUpper() == "RECHAZADO")
-                                        {
-                                            <span class="estado_rechazado_icono">
-                                                <img src="@Url.Content("~/Content/Images/icono-rechazado.png")" alt="Rechazado" />
-                                            </span>
-                                        }
-                                        @item.EstadoPedidoDesc.ToUpper()
-                                    </span>
-                                    <span>
-                                        <a href="javascript:;" title="Ver Estado / Detalles" class="icono_verDetalle">
-                                            <img src="@Url.Content("~/Content/Images/icono-ver-estado.png")" alt="Ver Estado / Detalles" />
-                                        </a>
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
+                        <span class="estado_rechazado_icono">
+                            <img src="@Url.Content("~/Content/Images/icono-rechazado.png")" alt="Rechazado" />
+                        </span>
                     }
+                    @item.EstadoPedidoDesc.ToUpper()
+                </span>
+                <span>
+                    <a href="javascript:;" title="Ver Estado / Detalles" class="icono_verDetalle">
+                        <img src="@Url.Content("~/Content/Images/icono-ver-estado.png")" alt="Ver Estado / Detalles" />
+                    </a>
+                </span>
+            </div>
+        </div>
+    </div>
+}
                     <!--FIN CONTENIDO DE TABLAS -->
                 </div>
             </div>

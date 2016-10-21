@@ -66,6 +66,6 @@ namespace Portal.Consultoras.Data.Hana
 
             //json
             return responseFromServer;
-        }
+        }        
     }
 }
