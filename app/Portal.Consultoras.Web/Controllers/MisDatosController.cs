@@ -119,6 +119,7 @@ namespace Portal.Consultoras.Web.Controllers
                     .ForMember(t => t.CodigoUsuario, f => f.MapFrom(c => c.CodigoUsuario))
                     .ForMember(t => t.EMail, f => f.MapFrom(c => c.EMail))
                     .ForMember(t => t.Telefono, f => f.MapFrom(c => c.Telefono))
+                    .ForMember(t => t.TelefonoTrabajo, f => f.MapFrom(c => c.TelefonoTrabajo))
                     .ForMember(t => t.Celular, f => f.MapFrom(c => c.Celular))
                     .ForMember(t => t.Sobrenombre, f => f.MapFrom(c => c.Sobrenombre))
                     .ForMember(t => t.Nombre, f => f.MapFrom(c => c.NombreCompleto))
@@ -133,6 +134,7 @@ namespace Portal.Consultoras.Web.Controllers
                 entidad.CodigoUsuario = (entidad.CodigoUsuario == null) ? "" : UserData().CodigoUsuario;
                 entidad.EMail = (entidad.EMail == null) ? "" : entidad.EMail;
                 entidad.Telefono = (entidad.Telefono == null) ? "" : entidad.Telefono;
+                entidad.TelefonoTrabajo = (entidad.TelefonoTrabajo == null) ? "" : entidad.TelefonoTrabajo;
                 entidad.Celular = (entidad.Celular == null) ? "" : entidad.Celular;
                 entidad.Sobrenombre = (entidad.Sobrenombre == null) ? "" : entidad.Sobrenombre;
                 entidad.ZonaID = UserData().ZonaID;             /*20150907*/
@@ -144,7 +146,7 @@ namespace Portal.Consultoras.Web.Controllers
                     int cantidad = 0;
                     using (UsuarioServiceClient svr = new UsuarioServiceClient())
                     {
-                        cantidad = svr.ValidarEmailConsultora(UserData().PaisID, entidad.EMail, UserData().CodigoUsuario);
+                        cantidad = svr.ValidarEmailConsultora(userData.PaisID, entidad.EMail, userData.CodigoUsuario);
 
                         if (cantidad > 0)
                         {
@@ -181,18 +183,16 @@ namespace Portal.Consultoras.Web.Controllers
                         sv.UpdateDatos(entidad, CorreoAnterior);
                     }
 
-                    UsuarioModel UsuarioModelSession = UserData();
+                    UsuarioModel UsuarioModelSession = userData;
                     UsuarioModelSession.Celular = entidad.Celular;
                     UsuarioModelSession.Telefono = entidad.Telefono;
-                    if (!string.IsNullOrEmpty(entidad.Sobrenombre))
-                        UsuarioModelSession.Sobrenombre = entidad.Sobrenombre.ToUpper();
-                    else
-                        UsuarioModelSession.Sobrenombre = UsuarioModelSession.SobrenombreOriginal;
-
+                    UsuarioModelSession.TelefonoTrabajo = entidad.TelefonoTrabajo;
+                    if (!string.IsNullOrEmpty(entidad.Sobrenombre)) UsuarioModelSession.Sobrenombre = entidad.Sobrenombre.ToUpper();
+                    else UsuarioModelSession.Sobrenombre = UsuarioModelSession.SobrenombreOriginal;
                     SetUserData(UsuarioModelSession);
 
                     /*R20150907*/
-                    string[] parametros = new string[] { entidad.CodigoUsuario, entidad.PaisID.ToString(), UserData().CodigoISO, entidad.EMail };
+                    string[] parametros = new string[] { entidad.CodigoUsuario, entidad.PaisID.ToString(), userData.CodigoISO, entidad.EMail };
                     string param_querystring = Util.EncriptarQueryString(parametros);
                     //Mejora - Correo
                     //string nomPais = Util.ObtenerNombrePaisPorISO(UserData().CodigoISO);

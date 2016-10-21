@@ -1,0 +1,143 @@
+﻿
+@model Portal.Consultoras.Web.Models.MisPedidosModel
+
+@{
+    Layout = "~/Areas/Mobile/Views/Shared/_MobileLayout.cshtml";
+}
+
+<div class="titulo_mobile">
+    <a href="@Request.UrlReferrer" class="enlace_regresar catalogosR" title="Regresar"></a>
+    &nbsp;&nbsp;&nbsp;&nbsp;PENDIENTES
+</div>
+<div class="pestana_esika"></div><!--PESTANA ESIKA-->
+<div class="pestana_lbel"></div><!--PESTANA LBEL-->
+<div class="wrapper_resumen_mobile">
+    @*<!--LISTA PENDIENTES-->
+    <div class="content_pendiente">
+        <div class="titulo_pendiente">NUEVO CLIENTE</div>
+        <div class="nombre_cliente_pendiente">Fiorella Goyzueta Arellano</div>
+        <div class="descripcion_pendiente">
+            <span style="float:left;">Origen</span>
+            <span style="float: right;">App Catálogo</span>
+        </div>
+        <hr class="clear" />
+        <div class="precio_pendiente">
+            <span style="float:left;">PRECIO TOTAL</span>
+            <span style="float: right;">S/. 23.000</span>
+        </div>
+        <hr class="clear" />
+        <div class="tooltip_pendiente">
+            <div style="float:left;">
+                <div class="titulo_tooltip_p">¡No pierdas esta oportunidad!</div>
+                <div class="hora_tooltip_p">Te quedan <b>5:30:27</b> horas</div>
+            </div>
+            <div style="float:right;">
+                <a class="btn_revisalo_pendiente">REVÍSALO</a>
+            </div>
+            <hr class="clear" />
+        </div>
+    </div>
+    <!--FIN-->
+    <div class="linea_separadora_mobile"></div>
+    <!--LISTA PENDIENTES-->
+    <div class="content_pendiente">
+        <div class="titulo_pendiente">NUEVO CLIENTE</div>
+        <div class="nombre_cliente_pendiente">Fiorella Goyzueta Arellano</div>
+        <div class="descripcion_pendiente">
+            <span style="float:left;">Origen</span>
+            <span style="float: right;">App Catálogo</span>
+        </div>
+        <hr class="clear" />
+        <div class="precio_pendiente">
+            <span style="float:left;">PRECIO TOTAL</span>
+            <span style="float: right;">S/. 23.000</span>
+        </div>
+        <hr class="clear" />
+        <div class="tooltip_pendiente">
+            <div style="float:left;">
+                <div class="titulo_tooltip_p">¡No pierdas esta oportunidad!</div>
+                <div class="hora_tooltip_p">Te quedan <b>5:30:27</b> horas</div>
+            </div>
+            <div style="float:right;">
+                <a class="btn_revisalo_pendiente">REVÍSALO</a>
+            </div>
+            <hr class="clear" />
+        </div>
+    </div>
+    <!--FIN-->*@
+
+    @if (Model.RegistrosTotal != "0")
+    {
+        foreach (var item in Model.ListaPedidos)
+        {
+            <div class="content_pendiente">
+                <div class="titulo_pendiente">
+                @if (item.FlagConsultora)
+                {
+                    <label> CLIENTE EXISTENTE </label>
+                }
+                else
+                {
+                    <label> NUEVO CLIENTE </label>
+                }
+                </div>
+                <div class="nombre_cliente_pendiente">@item.Cliente</div>
+                <div class="descripcion_pendiente">
+                    <span style="float:left;">Origen</span>
+                    <span style="float: right;">
+                    @if (item.MarcaID == 0)
+                    {
+                        <text>@item.MedioContacto</text>
+                    }
+                    else
+                    {
+                        <text>Portal @item.Marca</text> 
+                    }
+                    </span>
+                </div>
+                <hr class="clear" />
+                <div class="precio_pendiente">
+                    <span style="float:left;">PRECIO TOTAL</span>
+                    <span style="float: right;">@ViewBag.Simbolo @item.FormatoPrecioTotal</span>
+                </div>
+                <hr class="clear" />
+                <div class="tooltip_pendiente">
+                    <div style="float:left;">
+                        <div class="titulo_tooltip_p">¡No pierdas esta oportunidad!</div>
+                        <div class="hora_tooltip_p">
+                        @if (item.FlagConsultora)
+                        {
+                            <text> Te quedan <b>24:00:00</b> horas</text>
+                        }
+                        else
+                        {
+                            <text>Te quedan <b>@item.SaldoHoras</b> horas</text>
+                        }
+                        </div>
+                    </div>
+                    <div style="float:right;">
+                        <a class="btn_revisalo_pendiente" href="@Url.Action("DetallePedidoPendiente", "ConsultoraOnline", new { pedidoId = item.PedidoId })">REVÍSALO</a>
+                    </div>
+                    <hr class="clear" />
+                </div>
+            </div>
+        } 
+    }
+
+    <div class="linea_separadora_mobile"></div>
+    <div class="icono_pendiente"></div>
+    <div class="texto_advertencia_pendiente">Sólo tienes 24 horas para atender los pedidos. No pierdas esta oportunidad de hacer nuevos clientes. </div>
+    <hr class="clear" />
+    <div class="texto_revisa_pendientes">Revisa tus pedidos aceptados en:</div>
+    <a href="@Url.Action("Historial", "ConsultoraOnline", new { area = "Mobile" })" class="btn_historial_pedido">Historial de Pedidos</a>
+</div>
+
+@section scripts {
+    <script type="text/javascript">
+        var urlLoad = '@Url.Content("~/Content/Images/Loading.gif")';
+        var urlPendientes = '@Url.Action("Pendientes","ConsultoraOnline")';
+    </script>
+
+    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Mobile/ConsultoraOnline/Pendientes.js")"></script>
+}
+

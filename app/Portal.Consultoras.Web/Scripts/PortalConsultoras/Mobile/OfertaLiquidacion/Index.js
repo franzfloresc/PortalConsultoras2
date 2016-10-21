@@ -244,9 +244,7 @@ function AgregarOfertaProducto(article) {
                                         $("#divMensajeProductoAgregado").fadeOut();
                                     }, 2000);
                                 }
-                                else {
-                                    messageInfo(response.message);
-                                }
+                                else messageInfoError(response.message);
                             },
                             error: function (response, error) {
                                 if (checkTimeout(response)) {
