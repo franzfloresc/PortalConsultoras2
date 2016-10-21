@@ -832,7 +832,6 @@ function AgregarProductoZonaEstrategia(tipoEstrategiaImagen) {
         data: JSON.stringify(param2),
         async: true,
         success: function (data) {
-
             if (!checkTimeout(data)) {
                 CerrarSplash();
                 return false;
@@ -840,7 +839,7 @@ function AgregarProductoZonaEstrategia(tipoEstrategiaImagen) {
 
             if (data.success != true) {
                 CerrarSplash();
-                alert_msg(data.message);
+                messageInfoError(data.message);
                 return false;
             }
             
@@ -2440,7 +2439,6 @@ function AgregarProductoDestacado(popup, tipoEstrategiaImagen) {
                     data: JSON.stringify(param),
                     async: true,
                     success: function (data) {
-
                         if (!checkTimeout(data)) {
                             CerrarSplash();
                             return false;
@@ -2448,7 +2446,7 @@ function AgregarProductoDestacado(popup, tipoEstrategiaImagen) {
 
                         if (data.success != true) {
                             CerrarSplash();
-                            alert_msg(data.message);
+                            messageInfoError(data.message);
                             return false;
                         }
 
@@ -2511,13 +2509,10 @@ function DeletePedido(campaniaId, pedidoId, pedidoDetalleId, tipoOfertaSisId, cu
         data: JSON.stringify(param),
         async: true,
         success: function (data) {
-
             CerrarSplash();
-            if (!checkTimeout(data))
-                return false;
-
+            if (!checkTimeout(data)) return false;
             if (data.success != true) {
-                alert_msg(data.message);
+                messageInfoError(data.message);
                 return false;
             }
 
@@ -2990,14 +2985,13 @@ function EliminarPedido() {
         data: JSON.stringify(item),
         async: true,
         success: function (data) {
-
             if (!checkTimeout(data)) {
                 CerrarSplash();
                 return false;
             }
 
             if (data.success != true) {
-                alert_msg(data.message);
+                messageInfoError(data.message);
                 CerrarSplash();
                 return false;
             }
@@ -3206,7 +3200,7 @@ function UpdateConCantidad(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion
                 return false;
 
             if (data.success != true) {
-                alert_msg(data.message);
+                messageInfoError(data.message);
                 return false;
             }
 
@@ -3293,7 +3287,7 @@ function Update(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion, CUV) {
                 return false;
 
             if (data.success != true) {
-                alert_msg(data.message);
+                messageInfoError(data.message);
                 return false;
             }
 
@@ -3473,14 +3467,10 @@ function UpdateLiquidacion(CampaniaID, PedidoID, PedidoDetalleID, TipoOfertaSisI
                             data: JSON.stringify(item),
                             async: true,
                             success: function (data) {
-
                                 CerrarSplash();
-
-                                if (!checkTimeout(data))
-                                    return false;
-
+                                if (!checkTimeout(data)) return false;
                                 if (data.success != true) {
-                                    alert_msg(data.message);
+                                    messageInfoError(data.message);
                                     return false;
                                 }
 
@@ -3652,12 +3642,9 @@ function UpdateLiquidacion(CampaniaID, PedidoID, PedidoDetalleID, TipoOfertaSisI
                                 async: true,
                                 success: function (data) {
                                     CerrarSplash();
-
-                                    if (!checkTimeout(data))
-                                        return false;
-
+                                    if (!checkTimeout(data)) return false;
                                     if (data.success != true) {
-                                        alert_msg(data.message);
+                                        messageInfoError(data.message);
                                         return false;
                                     }
 
@@ -3923,7 +3910,7 @@ function AgregarProducto(url, model, divDialog, cerrarSplash) {
 
             if (data.success != true) {
                 if (cerrarSplash) CerrarSplash();
-                alert_msg(data.message);
+                messageInfoError(data.message);
                 return false;
             }
 

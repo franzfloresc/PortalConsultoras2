@@ -421,7 +421,7 @@ function InsertarProductoSugerido(marcaID, cuv, precioUnidad, descripcion, canti
                 return false;
             }
             if (data.success != true) {
-                messageInfo(data.message);
+                messageInfoError(data.message);
                 CloseLoading();
                 return false;
             }
@@ -617,7 +617,7 @@ function InsertarProducto() {
             if (data.success != true) {
                 $("#btnAgregarProducto").removeAttr("disabled", "disabled");
                 $("#btnAgregarProducto").show();
-                messageInfo(data.message);
+                messageInfoError(data.message);
                 CloseLoading();
                 return false;
             }
@@ -1312,14 +1312,13 @@ function AgregarProductoDestacado(tipoEstrategiaImagen) {
                     data: JSON.stringify(param),
                     async: true,
                     success: function (data) {
-
                         if (!checkTimeout(data)) {
                             CloseLoading();
                             return false;
                         }
 
                         if (data.success != true) {
-                            messageInfo(data.message);
+                            messageInfoError(data.message);
                             CloseLoading();
                             return false;
                         }

@@ -3924,11 +3924,14 @@ namespace Portal.Consultoras.Web.Controllers
                 if (result != null) return result;
 
                 string mensaje = string.Empty;
-                bool pedidoReservado = ValidarPedidoReservado(out mensaje);
-                bool estado = pedidoReservado;
-                if (!estado)
+                bool pedidoReservado = false;
+
+                bool estado = EstaProcesoFacturacion(out mensaje);
+                if(!estado)
                 {
-                    estado = ValidarHorarioRestringido(out mensaje);
+                    pedidoReservado = ValidarPedidoReservado(out mensaje);
+                    estado = pedidoReservado;
+                    if (!estado) estado = ValidarHorarioRestringido(out mensaje);
                 }
 
                 return Json(new
