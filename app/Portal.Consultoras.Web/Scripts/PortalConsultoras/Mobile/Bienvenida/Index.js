@@ -668,14 +668,13 @@ function AgregarProductoDestacado(tipoEstrategiaImagen) {
                     data: JSON.stringify(param),
                     async: true,
                     success: function (data) {
-
                         if (!checkTimeout(data)) {
                             CloseLoading();
                             return false;
                         }
 
                         if (data.success != true) {
-                            messageInfo(data.message);
+                            messageInfoError(data.message);
                             CloseLoading();
                             return false;
                         }

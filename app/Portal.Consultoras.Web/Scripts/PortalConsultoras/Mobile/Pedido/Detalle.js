@@ -510,7 +510,7 @@ function EliminarPedido(CampaniaID, PedidoID, PedidoDetalleID, TipoOfertaSisID, 
                     return false;
 
                 if (data.success != true) {
-                    messageInfo(data.message);
+                    messageInfoError(data.message);
                     return false;
                 }
 
@@ -653,14 +653,13 @@ function PedidoDetalleEliminarTodo() {
         data: JSON.stringify(item),
         async: true,
         success: function (data) {
-
             if (!checkTimeout(data)) {
                 CloseLoading();
                 return false;
             }
 
             if (data.success != true) {
-                messageInfo(data.message);
+                messageInfoError(data.message);
                 CloseLoading();
                 return false;
             }
@@ -833,7 +832,7 @@ function PedidoUpdate(item, PROL) {
                 return false;
 
             if (data.success != true) {
-                messageInfo(data.message);
+                messageInfoError(data.message);
                 return false;
             }
 
@@ -1372,7 +1371,7 @@ function InsertarProducto(model) {
             }
 
             if (data.success != true) {
-                messageInfo(data.message);
+                messageInfoError(data.message);
                 CloseLoading();
                 return false;
             }
