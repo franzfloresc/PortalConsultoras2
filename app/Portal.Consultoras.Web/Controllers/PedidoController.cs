@@ -317,15 +317,10 @@ namespace Portal.Consultoras.Web.Controllers
                     string paisesConsultoraOnline = ConfigurationManager.AppSettings.Get("Permisos_CCC");
                     if (paisesConsultoraOnline.Contains(userData.CodigoISO))
                     {
-                        List<BEMisPedidos> olstMisPedidos = new List<BEMisPedidos>();
-                        using (UsuarioServiceClient svc = new UsuarioServiceClient())
+                        using (var svc = new UsuarioServiceClient())
                         {
-                            olstMisPedidos = svc.GetMisPedidosConsultoraOnline(UserData().PaisID, UserData().ConsultoraID, UserData().CampaniaID).ToList();
-                        }
-                        if (olstMisPedidos.Any())
-                        {
-                            olstMisPedidos.RemoveAll(x => x.Estado.Trim().Length > 0);  // solo pendientes
-                            if (olstMisPedidos.Count > 0)
+                            var CantPedidosPendientes = svc.GetCantidadSolicitudesPedido(userData.PaisID, userData.ConsultoraID, userData.CampaniaID);
+                            if (CantPedidosPendientes > 0)
                             {
                                 ViewBag.MostrarPedidosPendientes = "1";
 
@@ -336,6 +331,26 @@ namespace Portal.Consultoras.Web.Controllers
                                 }
                             }
                         }
+
+                        //List<BEMisPedidos> olstMisPedidos = new List<BEMisPedidos>();
+                        //using (UsuarioServiceClient svc = new UsuarioServiceClient())
+                        //{
+                        //    olstMisPedidos = svc.GetMisPedidosConsultoraOnline(UserData().PaisID, UserData().ConsultoraID, UserData().CampaniaID).ToList();
+                        //}
+                        //if (olstMisPedidos.Any())
+                        //{
+                        //    olstMisPedidos.RemoveAll(x => x.Estado.Trim().Length > 0);  // solo pendientes
+                        //    if (olstMisPedidos.Count > 0)
+                        //    {
+                        //        ViewBag.MostrarPedidosPendientes = "1";
+
+                        //        using (SACServiceClient sv = new SACServiceClient())
+                        //        {
+                        //            List<BEMotivoSolicitud> motivoSolicitud = sv.GetMotivosRechazo(userData.PaisID).ToList();
+                        //            ViewBag.MotivosRechazo = Mapper.Map<List<MisPedidosMotivoRechazoModel>>(motivoSolicitud);
+                        //        }
+                        //    }
+                        //}
                     }
                 }
 
@@ -2163,6 +2178,7 @@ namespace Portal.Consultoras.Web.Controllers
                     {
                         return item.Caso + "_" + item.Descripcion;
                     }
+
                 }
                 return "01_Tu pedido tiene observaciones, por favor revísalo";
             }
