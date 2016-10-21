@@ -24,6 +24,10 @@ namespace Portal.Consultoras.Web.Models
         public string Territorio { get; set; }
         public bool ZonaPreferencial { get; set; }
         public string DireccionCadena { get; set; }
+        public decimal? Latitud { get; set; }
+        public decimal? Longitud { get; set; }
+        public string FuenteIngreso { get; set; }
+        
 
         public ConsultarUbicacionModel()
         {
