@@ -2989,7 +2989,7 @@ namespace Portal.Consultoras.Web.Controllers
                 if (userData.NuevoPROL && userData.ZonaNuevoPROL)   // PROL 2
                 {
                     //ViewBag.Prol = "MODIFICA TU PEDIDO";
-                    ViewBag.ProlTooltip = "Haz click aqui para modificar tu pedido";
+                    ViewBag.ProlTooltip = "Haz click aquí para modificar tu pedido";
 
                     if (diaActual <= userData.FechaInicioCampania)
                     {
@@ -3018,7 +3018,7 @@ namespace Portal.Consultoras.Web.Controllers
                     else
                     {
                         //ViewBag.Prol = "MODIFICA TU PEDIDO";
-                        ViewBag.ProlTooltip = "Haz click aqui para validar tu pedido";
+                        ViewBag.ProlTooltip = "Haz click aquí para validar tu pedido";
 
                         if (diaActual <= userData.FechaInicioCampania)
                         {
