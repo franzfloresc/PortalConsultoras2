@@ -509,6 +509,9 @@ namespace Portal.Consultoras.Web.Controllers
                     model.Direccion = solicitudPostulante.Direccion;
                     model.NombreRegion = solicitudPostulante.LugarPadre;
                     model.NombreComuna = solicitudPostulante.LugarHijo;
+                    model.Latitud= solicitudPostulante.Latitud;
+                    model.Longitud = solicitudPostulante.Longitud;
+                    model.FuenteIngreso = solicitudPostulante.FuenteIngreso;
 
                     if (CodigoISO == Pais.Chile || CodigoISO == Pais.Mexico || CodigoISO == Pais.Peru || CodigoISO == Pais.Guatemala || CodigoISO == Pais.Ecuador)
                     {
