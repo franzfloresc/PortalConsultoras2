@@ -428,7 +428,7 @@ h4.re3 {
     color: #fff;
     position: fixed;
     width: 100%;
-    padding: 9px 0 11px;
+    /*padding: 9px 0 11px;*/
     background: white;
     box-shadow: 0 4px 4px 0 rgba(126, 126, 126, 0.5) !important;
     -webkit-box-shadow: 0 4px 4px 0 rgba(126, 126, 126, 0.5) !important;
@@ -502,16 +502,20 @@ h4.re3 {
 
 .btn-action-hover {
     padding: 4px 35px;
-    background: #722789;
-    border: 1px solid #722789;
+    background: #e81c36;
+    border: 1px solid #e81c36;
     color: #fff;
     line-height: 2;
     vertical-align: middle;
+    font-weight:700;
+    font-weight: 700 !important;
+    height: 45px;
+    line-height: 31px!important;
 }
 
     .btn-action-hover:hover,
     .btn-action-hover:focus {
-        background: #511c61;
+        background: #e81c36;
         /*border: 1px solid @pcolor;*/
         color: #fff;
     }
@@ -1272,6 +1276,7 @@ h4.re3 {
     background: #ecebf0;
     padding-bottom: 17px;
     /*margin-bottom: 54px;*/
+    position: relative;
 }
 
 .list-inline-border {
@@ -2733,8 +2738,7 @@ table > thead > tr > th {
     background-size: 100% 100%;
 }
 .slick-arrow img{
-    width:100%;
-
+    /*width:100%;*/
 }
 
 .slick-prev {
@@ -3243,19 +3247,19 @@ table > thead > tr > th {
     margin-bottom: 5px;
     font-size: 14px;
     text-transform: uppercase;
-    color: #722789;
+    color: black;
 }
 
 .title-dark {
-    color: #415261;
+    color: black;
 }
 
 .title-success {
-    color: #35bdb2;
+    color: black;
 }
 
 .title-info {
-    color: #0eaade;
+    color: black;
 }
 
 .icon-cart-list-pedidos {
@@ -4531,6 +4535,7 @@ table > thead > tr > th {
 
 #content {
     margin-top: 66px;
+    position:relative;
 }
 
 .wrapper_resumen_mobile {
@@ -6582,25 +6587,23 @@ input[type="checkbox"]:checked + span:after {
 /*MENSAJES DE ALERTA CATÁLOGOS*/
 .MensajeAlertaMobile {
     position: fixed;
-    z-index: 2010;    
+    z-index: 2010;   
+    display:none;
     width: 100%;
     height: 100%;
     padding: 15px;
     top: 0;
-    background: url(../../../images/bg_popups.png) repeat center center;
-    overflow:auto;
+    background: rgba(0,0,0,0.5);
 }
 
 .content_mensajeAlerta {
-        width: 100%;
-    /* max-width: 400px; */
+    width: 100%;
     height: 100%;
     /* height: 0; */
     margin: 0 auto;
     position: relative;
-    /* top: 3%; */
     background: white;
-    padding: 15px 15px;
+    padding: 20px;
     overflow-y: auto;
 }
 
@@ -6738,6 +6741,8 @@ input[type="checkbox"]:checked + span:after {
 
     .titulo_compartir {
         font-size: 19px;
+            line-height: 28px;
+
     }
 }
 /*CAMBIO FOOTER*/
@@ -8440,10 +8445,95 @@ span.title-app-b {
 }
 
 /* FIN PROCESO CARGA FOTO */
-
-a:focus, a:hover {
+/*a:focus, a:hover {
     color: initial;  
+}*/
+
+/* MENSAJES PEDIDO RECHAZADO */
+
+.bloque_mensajesPedido{
+    background: #82c7bf;
+    width: 100%;
+    height: 77px;
+    /*display: none;*/
+    padding: 11px 11px;
+    text-align: left;
+    position: relative;
+    top: -5px;
+    z-index:5;
 }
+
+.icono_cerrar_mensaje{
+    display: block;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 15px;
+}
+
+.icono_cerrar_mensaje span{
+    display:block;
+}
+
+.icono_cerrar_mensaje span img{
+    width:100%;
+    height:auto;
+}
+
+.icono_cerrar_mensaje span:nth-child(2){
+    font-family:'Lato';
+    font-size:10px;
+    text-align:center;
+    color:#FFF;
+    margin-left:-9px;
+}
+
+.icono_estadoPedido, .mensajes_estadoPedido{
+    display:inline-block;
+    vertical-align:middle;
+}
+
+.icono_estadoPedido{
+    width: 32px;
+    height: 32px!important;
+    margin-right: 5.8px;
+    padding-top: 1px;
+}
+
+.icono_estadoPedido img{
+    width:100%;
+    height:auto;
+}
+
+.mensajes_estadoPedido {
+    color: #FFF;
+    font-family: 'Lato';
+    line-height:19px;
+}
+
+.mensaje_estadoActualPedido, .mensaje_horarioIngresoPedido{
+    display:block;
+    text-align:left;
+}
+
+.mensaje_estadoActualPedido{
+    font-size:14px;
+    font-weight:700;
+}
+
+.mensaje_horarioIngresoPedido{
+    font-size:12px;
+    font-weight:normal;
+}
+
+.mensaje_horarioIngresoPedido a{
+    display: block;
+    margin-left: 2px;
+    color: #FFF;
+    text-decoration:underline;
+}
+
+/* FIN MENSAJES PEDIDO RECHAZADO */
 
 /* POPUP OFERTA FINAL */
 
@@ -8560,7 +8650,7 @@ a:focus, a:hover {
     width:80%;
     margin:0 auto;
     padding-top:30px;
-    padding-bottom:50px;
+    padding-bottom:38px;
     font-family:'Lato';
 }
 .content_imagen_oferta{
@@ -8626,6 +8716,10 @@ a:focus, a:hover {
     font-family:'Lato';
     font-size:13px;
     color:black;
+    /*display: flex;
+    justify-content: center;
+    align-content: center;
+    flex-direction: column;*/
     }
 .left_70{
     float:left;
@@ -8837,4 +8931,548 @@ span.icon-advertencia{
 .texto_valorTurno {
     text-transform: lowercase;
     color:#e81c36;
+}
+ 
+/*CONSULTORA ONLINE*/
+.content_pendiente{
+    margin: 0 auto;
+    margin-top: 24px;
+   
+    padding-bottom: 23px;
+    max-width: 500px;
+}
+
+.titulo_pendiente{
+    font-family:'Lato';
+    color:#e81c36;
+    font-weight:700;
+    font-size:13px;
+    text-transform:uppercase;
+    /*padding-left: 10px;*/
+}
+.nombre_cliente_pendiente{
+    font-family:'Lato';
+    color:black;
+    font-size:13px;  
+    /*padding-left: 10px;*/ 
+}
+.descripcion_pendiente{
+  font-family:'Lato'; 
+  font-size: 13px;
+  color: #606061;
+  /*padding-left: 10px;
+  padding-right: 10px;*/
+  overflow: hidden;
+}
+.descripcion_pendiente span{
+    display:block;
+}
+.precio_pendiente{
+  font-family:'Lato'; 
+  font-size: 13px;
+  color: black;
+  font-weight:700;
+  margin-top:5px;
+  width:100%;
+  /*padding-left: 10px;
+  padding-right: 10px;*/
+  overflow: hidden;
+}
+.tooltip_pendiente{
+    position:relative;
+    width:100%;
+    padding:6px;
+    height:auto;
+    margin-top:20px;
+    border-radius:4px;
+    -webkit-border-radius:4px;
+    -o-border-radius:4px;
+    background:white;
+    -webkit-box-shadow: 0px 3px 28px 0px rgba(0,0,0,0.31);
+    -moz-box-shadow: 0px 3px 28px 0px rgba(0,0,0,0.31);
+    box-shadow: 0px 3px 28px 0px rgba(0,0,0,0.31);
+}
+.tooltip_pendiente::after{
+    bottom: 100%;
+	left: 50%;
+	border: solid transparent;
+	content: " ";
+	height: 0;
+	width: 0;
+	position: absolute;
+	pointer-events: none;
+	border-color: rgba(255, 253, 252, 0);
+	border-bottom-color: #ffffff;
+	border-width: 13px;
+	margin-left: -13px;
+}
+.tooltip_pendiente .titulo_tooltip_p{
+    margin-top:0px;
 } 
+.titulo_tooltip_p{
+   font-family:'Lato'; 
+   font-size: 13px;
+   color: #e81c36;
+   font-weight:700;
+   margin-top:-7px;
+}
+.hora_tooltip_p{
+   font-family:'Lato'; 
+   font-size: 13px;
+   color: black;
+   font-weight:400;
+}
+.hora_tooltip_p b{
+   font-size: 15px;
+}
+.btn_revisalo_pendiente{
+    display:block;
+    width:80px;
+    height:45px;
+    background:#e81c36;
+    height:100%;
+    font-family:'Lato'; 
+    text-align:center;
+    line-height:45px;
+    font-size: 13px;
+    color: white !important;
+    /*font-weight:700;*/
+    text-decoration:none;
+    cursor:pointer;
+}
+.btn_revisalo_pendiente:hover{
+     text-decoration:none;
+}
+.icono_pendiente{
+    width:20px;
+    height:20px;
+    background: url(../../../Images/Esika/icono_advertencia_notificacion.svg) no-repeat center center;
+    background-size: cover;
+    float:left;
+    margin-top:23px;
+}
+.texto_advertencia_pendiente{
+    font-family:'Lato'; 
+    line-height:14px;
+    font-size: 11px;
+    color: black;
+    float:left;
+    width: 90%;
+    margin-left: 12px;
+    margin-top:23px;
+}
+.texto_revisa_pendientes{
+    font-family:'Lato'; 
+    font-size: 13px;
+    color: black;
+    font-weight:700;
+    margin-top:25px;
+    margin-bottom:7px;
+}
+.btn_historial_pedido{
+    font-family:'Lato'; 
+    font-size: 14px;
+    color: black;
+    text-decoration:underline;
+    margin-bottom:60px;
+    display:block;
+}
+/*HISTORIAL*/
+.content_dato_historial{
+    font-family:'Lato';
+    font-size:13px;
+    font-weight:300;
+    margin-bottom:5px;
+    overflow:hidden;
+    
+    margin:0 auto;
+}
+.nom_his{
+    display:block;
+    width:36%;
+
+    float:left;
+}
+.nom_his_2{
+    display:block;
+    width:64%;
+    float:left;
+
+}
+.content_dato_historial:first-child{
+    margin-top:25px;
+}
+.content_dato_historial:last-child{
+    margin-bottom:25px;
+}
+.triang_pe{
+    position:relative;
+    margin-bottom:15px;
+}
+.triang_pe:after{
+    top: 100%;
+	left: 50%;
+	border: solid transparent;
+	content: " ";
+	height: 0;
+	width: 0;
+	position: absolute;
+	pointer-events: none;
+	border-color: rgba(136, 183, 213, 0);
+	border-top-color: #f2f2f2;
+	border-width: 15px;
+	margin-left: -15px;
+}
+.btn_ingreso_pedido{
+    display:block;
+    border:1px solid #808080;
+    color:#808080;
+    font-family:'Lato';
+    font-size:13px;
+    background:white;
+    width:100%;
+    height:45px;
+    line-height:45px;
+    margin-top:20px;
+    padding-left:20px;
+    text-decoration:none;
+}
+.btn_ingreso_pedido:hover {
+      text-decoration:none;
+}
+.btn_cancelar_pendientes{
+    display:block;
+    border:1px solid black;
+    width:100%;
+    height:45px;
+    line-height:45px;
+    font-family:'Lato';
+    font-size:13px;
+    font-weight:700;
+    margin-top:20px;
+    margin-bottom:50px;
+    text-align:center;
+}
+.btn_cancelar_pendientes:hover{
+    color:white;
+    background:black;
+    text-decoration:none;
+}
+.titulo_tooltip_p span{
+    font-weight:900;
+}
+.notificaciones_menu_mobile{
+    position:absolute;
+    right:30px;
+    width:20px;
+    height:20px;
+    border-radius:100px;
+    background:#e81c36;
+    color:white;
+    line-height:19px;
+    font-family:'Lato';
+    font-size:10px;
+    text-align:center;
+    font-weight:700;
+    top:0;
+}
+
+.notificaciones_menu_mobile2{
+   position: absolute;
+    left: 161px;
+    /* width: 100px; */
+    height: 20px;
+    /* border-radius: 100px; */
+    line-height: 19px;
+    font-family: 'Lato';
+    font-size: 14px;
+    /* text-align: center; */
+    font-weight: 700;
+    top: 0px;
+}
+
+.menu_subHeader{
+    position:relative
+}
+/*HISTORIAL PEDIDO PENDIENTE*/
+.texto_historial{
+    font-family:'Lato';
+    font-size:13px;
+    color:black;
+    /*text-align:center;*/
+    margin-top:15px;
+    margin-bottom:15px;
+}
+.content_historial_pedido{
+   border-top:1px solid #bababa;
+   padding-top:20px;
+   padding-bottom:26px;
+}
+.facturado_pendiente{
+    display:block;
+    background:#a18328;
+    color:white;
+    width:90px;
+    height:25px;
+    line-height:25px;
+    text-align:center;
+    float:right;
+    font-family:'Lato';
+    font-size:12px;
+    font-weight:700;
+    text-decoration:none;
+    text-transform:uppercase;
+}
+.facturado_pendiente:hover{
+    text-decoration:none;
+    color:white;
+}
+.cancelado_pendiente{
+    color:black;
+    background:#e7e7e7;
+}
+.cancelado_pendiente:hover{
+    color:black;
+    background:#e7e7e7;
+}
+.lupa_pendiente{
+    width:19px;
+    height:19px;
+    margin-top:3px;
+    float:right;
+    margin-right:10px;
+}
+.lupa_pendiente img{
+    width:100%;
+}
+.content_historial_pedido:last-child{
+    margin-bottom:30px;
+}
+/*DETALLE PEDIDO PENDIENTE*/
+.tiempo_restante{
+    font-family:'Lato';
+    font-size:15px;
+    color:#e81c36;
+    font-weight:700;
+    margin-bottom:10px;
+}
+.contacte_cliente{
+     font-family:'Lato';
+    font-size:17px;
+    color:black;   
+}
+.texto_detalle_pedido{
+     font-family:'Lato';
+    font-size:13px;
+    color:black;   
+    font-weight:300;
+    line-height:18px;
+    margin-top:7px;
+    margin-bottom:20px;
+}
+.select_detalle{
+    width:100%;
+    height:45px;
+    border:1px solid black;
+    padding:10px;
+    color:black;
+    font-family:'Lato';
+    font-size:13px;
+    margin-top: 20px;
+    font-weight: 600;
+}
+
+.boton_agotado{
+    width:100%;
+    height:45px;
+    border:1px solid black;
+    padding:10px;
+    color:black;
+    font-family:'Lato';
+    font-size:13px;
+    margin-top: 20px;
+    font-weight: 600;
+    cursor: default;
+}
+
+.linea_separadora_roja{
+    width:100%;
+    height:1px;
+    background:#e81c36;
+}
+.btn_acepto_pedido{
+    margin:0 auto;
+    width:100%;
+    height:45px;
+    line-height:45px;
+    font-family:'Lato';
+    font-size:13px;
+    margin-top: 17px;
+    font-weight: 700;
+    color:white;
+    text-align:center;
+   
+    display:block;
+    background:#e81c36;
+    display:block;
+}
+
+a{
+    text-decoration:none;
+}
+.btn_rechazo_pedido{
+     margin:0 auto;
+     width:100%;
+    height:45px;
+    line-height:45px;
+    font-family:'Lato';
+    font-size:13px;
+    margin-top:17px;
+    margin-bottom: 40px;
+    font-weight: 700;
+    color:black;
+    text-align:center;
+    border:1px solid black;
+    display:block; 
+    
+}
+.btn_rechazo_pedido:hover{    
+    color:white;
+    background:black;   
+}
+.comentario_rechazados{
+    width:100%;
+    border:1px solid #c9c9c9;
+    padding:13px;
+    font-family:'Lato';
+    font-size:13px;
+    color:black;
+    height:70px;
+}
+
+.opcion_rechazo{
+    border-bottom:1px solid #c9c9c9;
+    width:100%;
+    padding-left:32px;
+    padding-top:15px;
+    padding-bottom:15px;
+    font-family:'Lato';
+    font-size:13px;
+    color:black;
+}
+
+.opcion_rechazo:hover {
+    background: #f7f7f7 url(../../../Images/icono_check.png) no-repeat;
+    background-position:10px 18px;
+}
+
+.opcion_rechazo_select {
+    background: #f7f7f7 url(../../../Images/icono_check.png) no-repeat;
+    background-position:10px 18px;
+}
+
+.opcion_rechazo:last-child {
+    border-bottom:0;
+}
+
+.titulo_pedido_cancelado{
+    font-family:'LAto';
+    font-size:13px;
+    color:black;
+    font-weight:700;
+    text-transform:uppercase;
+    margin-bottom:10px;
+}
+
+.content_pack_niveles{
+    border-top:1px solid #979797;
+    width:100%;
+    height:auto;
+    padding-top:30px;
+    padding-bottom: 25px;
+}
+.Subtitulo_oferta{
+    font-family: 'Lato';
+    font-size: 16px;
+    text-align: center;
+    color: black;
+    line-height: 19px;
+    margin-bottom: 4px;    
+}
+.content_pack_niveles .sub_descripcion_oferta:nth-child(2){
+    border-top:0px;    
+}
+/**/
+.mensaje_validacion_consultora{
+    display:block;
+    margin-top:18px;
+    font-family: 'Lato';
+    font-size: 13px;
+    color:black;
+}
+.agotado_consultora{
+    display: block;
+    font-family: 'Lato';
+    font-size: 14px;
+    color: black;
+    font-weight: 700;
+    margin-top: 20px;
+    background:#f3f3f3 url(../../../Images/Esika/icono_advertencia_notificacion.png) no-repeat center center;
+    background-position:10px 10px;
+    padding: 10px 10px 10px 43px;
+    position:relative;
+}
+.agotado_consultora:after {
+	bottom: 100%;
+	left: 40px;
+	border: solid transparent;
+	content: " ";
+	height: 0;
+	width: 0;
+	position: absolute;
+	pointer-events: none;
+	border-color: rgba(136, 183, 213, 0);
+	border-bottom-color: #f3f3f3;
+	border-width: 10px;
+	margin-left: -10px;
+}
+
+.oscurecer_animacion{
+    position:fixed;
+    z-index:1;
+    width:100%;
+    height:100%;
+    -webkit-animation: opacidad-gestion-pedido 1500ms linear 0ms 1 normal;
+    -moz-animation: opacidad-gestion-pedido 1500ms linear 0ms 1 normal;
+    -ms-animation: opacidad-gestion-pedido 1500ms linear 0ms 1 normal;
+    animation: opacidad-gestion-pedido 1500ms linear 0ms 1 normal;
+   
+}
+/*.oscurecer_animacion::after{
+    content:"";
+    position:fixed;
+    width:100%;
+    height:100%;
+    z-index:1;
+    left:0;
+    -webkit-animation: opacidad-gestion-pedido 1500ms linear 0ms 1 normal;
+    -moz-animation: opacidad-gestion-pedido 1500ms linear 0ms 1 normal;
+    -ms-animation: opacidad-gestion-pedido 1500ms linear 0ms 1 normal;
+    animation: opacidad-gestion-pedido 1500ms linear 0ms 1 normal;
+}
+ */
+@keyframes opacidad-gestion-pedido {
+    0% {
+        background:rgba(0,0,0,0.8);
+        
+    }
+    45% {
+        background:rgba(0,0,0,0.8);
+        
+    }
+    100% {
+        background:rgba(0,0,0,0.0);
+        
+        
+    }
+}

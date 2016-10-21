@@ -381,6 +381,8 @@ namespace Portal.Consultoras.Web
             providerSession.Add("ConsultoraOnline", "MisPedidos", "Mobile");
             providerSession.Add("ConsultoraOnline", "DetallePedido", "Mobile");
             providerSession.Add("ConsultoraOnline", "MiPerfil", "Mobile");
+            providerSession.Add("ConsultoraOnline", "Historial", "Mobile");
+            providerSession.Add("ConsultoraOnline", "DetallePedidoHistorial", "Mobile");
 
             /*ShowRoom*/
             providerSession.Add("ShowRoom", "AdministrarShowRoom");

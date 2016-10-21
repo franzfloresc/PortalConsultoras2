@@ -181,29 +181,37 @@ $(document).ready(function () {
                                 data: JSON.stringify(Item),
                                 async: true,
                                 success: function (data) {
-                                    if (data.success == true) {
-                                        $(this).attr('disabled', true);
-                                        $(this).parent().parent().parent().parent().find(".ValidaNumeralOferta").attr('disabled', true);
-                                        $(div).css('display', 'block');
-                                        //$("#hdFlagOferta").val("1");
-                                        //$("#hdFlagOfertaLiquidacion").val("1");
-                                        $(lblStock).text(parseInt(Stock - Cantidad));
-                                        $(HiddenStock).val(parseInt(Stock - Cantidad));
-                                        $(txtCantidad).val(1);
-                                        InfoCommerceGoogle(parseFloat(Cantidad * PrecioUnidad).toFixed(2), CUV, DescripcionProd, DescripcionCategoria, PrecioUnidad, Cantidad, DescripcionMarca, DescripcionEstrategia, 1);
-                                        CargarResumenCampaniaHeader(true);
-                                        TrackingJetloreAdd(Cantidad, $("#hdCampaniaCodigo").val(), CUV);
-                                        $('#divVistaPrevia').dialog('close');
+                                    if (!checkTimeout(data)) {
+                                        closeWaitingDialog();
+                                        return false;
                                     }
-                                    else {
-                                        alert_msg(data.message);
+
+                                    if (data.success != true) {
+                                        messageInfoError(data.message);
+                                        closeWaitingDialog();
+                                        return false;
                                     }
+
+                                    $(this).attr('disabled', true);
+                                    //$(this).parent().parent().parent().parent().find(".ddlTallaColor").attr('disabled', true);
+                                    $(this).parent().parent().parent().parent().find(".ValidaNumeralOferta").attr('disabled', true);
+                                    $(div).css('display', 'block');
+                                    //$("#hdFlagOferta").val("1");
+                                    //$("#hdFlagOfertaLiquidacion").val("1");
+                                    $(lblStock).text(parseInt(Stock - Cantidad));
+                                    $(HiddenStock).val(parseInt(Stock - Cantidad));
+                                    $(txtCantidad).val(1);
+                                    InfoCommerceGoogle(parseFloat(Cantidad * PrecioUnidad).toFixed(2), CUV, DescripcionProd, DescripcionCategoria, PrecioUnidad, Cantidad, DescripcionMarca, DescripcionEstrategia, 1);
+                                    CargarResumenCampaniaHeader(true);
+                                    TrackingJetloreAdd(Cantidad, $("#hdCampaniaCodigo").val(), CUV);
+                                    $('#divVistaPrevia').dialog('close');
+
                                     closeWaitingDialog();
                                 },
                                 error: function (data, error) {
+                                    closeWaitingDialog();
                                     if (checkTimeout(data)) {
                                         alert_msg(data.message);
-                                        closeWaitingDialog();
                                     }
                                 }
                             });
@@ -299,27 +307,34 @@ $(document).ready(function () {
                                 data: JSON.stringify(Item),
                                 async: true,
                                 success: function (data) {
-                                    if (data.success == true) {
-                                        $(this).attr('disabled', true);
-                                        $(this).parent().parent().parent().parent().find(".ValidaNumeralOferta").attr('disabled', true);
-                                        $(div).css('display', 'block');
-                                        $(lblStock).text(parseInt(Stock - Cantidad));
-                                        $(HiddenStock).val(parseInt(Stock - Cantidad));
-                                        $(txtCantidad).val(1);
+                                    if (!checkTimeout(data)) {
+                                        closeWaitingDialog();
+                                        return false;
+                                    }
+
+                                    if (data.success != true) {
+                                        messageInfoError(data.message);
+                                        closeWaitingDialog();
+                                        return false;
+                                    }
+
+                                    $(this).attr('disabled', true);
+                                    $(this).parent().parent().parent().parent().find(".ValidaNumeralOferta").attr('disabled', true);
+                                    $(div).css('display', 'block');
+                                    $(lblStock).text(parseInt(Stock - Cantidad));
+                                    $(HiddenStock).val(parseInt(Stock - Cantidad));
+                                    $(txtCantidad).val(1);
                                         InfoCommerceGoogle(parseFloat(Cantidad * PrecioUnidad).toFixed(2), CUV, DescripcionProd, DescripcionCategoria, PrecioUnidad, Cantidad, DescripcionMarca, DescripcionEstrategia, posicion);
-                                        CargarResumenCampaniaHeader(true);
-                                        TrackingJetloreAdd(Cantidad, $("#hdCampaniaCodigo").val(), CUV);
-                                        ActualizarGanancia(data.DataBarra);
-                                    }
-                                    else {
-                                        alert_msg(data.message);
-                                    }
+                                    CargarResumenCampaniaHeader(true);
+                                    TrackingJetloreAdd(Cantidad, $("#hdCampaniaCodigo").val(), CUV);
+                                    ActualizarGanancia(data.DataBarra);
+                                    
                                     closeWaitingDialog();
                                 },
                                 error: function (data, error) {
+                                    closeWaitingDialog();
                                     if (checkTimeout(data)) {
                                         alert_msg(data.message);
-                                        closeWaitingDialog();
                                     }
                                 }
                             });

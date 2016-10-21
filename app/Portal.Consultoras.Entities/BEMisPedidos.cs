@@ -125,6 +125,8 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public string Tono { get; set; }
         [DataMember]
+        public int MarcaID { get; set; }
+        [DataMember]
         public string Marca { get; set; }
         [DataMember]
         public string CUV { get; set; }
@@ -135,6 +137,7 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public double PrecioTotal { get; set; }
 
+        [DataMember]
         public string MedioContacto { get; set; }
 
         [DataMember]
@@ -175,6 +178,9 @@ namespace Portal.Consultoras.Entities
             //this.Estado = Convert.ToInt32(row["Estado"]);
 
             //gr-1012
+            if (DataRecord.HasColumn(row, "MarcaID") && row["MarcaID"] != DBNull.Value)
+                this.MarcaID = Convert.ToInt32(row["MarcaID"]);
+
             if (DataRecord.HasColumn(row, "MContacto") && row["MContacto"] != DBNull.Value)
                 this.MedioContacto = Convert.ToString(row["MContacto"]);
 

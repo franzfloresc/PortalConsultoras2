@@ -46,14 +46,12 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                var sEmail = "";
-                var sTelefono = "";
-                var sCelular = "";
-
+                string sEmail = "", sTelefono = "", sTelefonoTrabajo = "", sCelular = "";
                 if (model.ActualizarClave == null) model.ActualizarClave = "";
                 if (model.ConfirmarClave == null) model.ConfirmarClave = "";
                 if (model.Email != null) sEmail = model.Email;
                 if (model.Telefono != null) sTelefono = model.Telefono;
+                if (model.TelefonoTrabajo != null) sTelefonoTrabajo = model.TelefonoTrabajo;
                 if (model.Celular != null) sCelular = model.Celular;
 
                 if (model.Email != "")
@@ -75,7 +73,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 using (UsuarioServiceClient sv = new UsuarioServiceClient())
                 {
-                    var result = sv.UpdateDatosPrimeraVez(userData.PaisID, userData.CodigoUsuario, model.Email, model.Telefono, model.Celular, model.CorreoAnterior, model.AceptoContrato);
+                    var result = sv.UpdateDatosPrimeraVez(userData.PaisID, userData.CodigoUsuario, model.Email, model.Telefono, model.TelefonoTrabajo, model.Celular, model.CorreoAnterior, model.AceptoContrato);
 
                     if (result == 0)
                     {
@@ -93,14 +91,8 @@ namespace Portal.Consultoras.Web.Controllers
                         {
                             var cambio = sv.ChangePasswordUser(userData.PaisID, userData.CodigoUsuario, userData.CodigoISO + userData.CodigoUsuario, model.ConfirmarClave.ToUpper(), "", EAplicacionOrigen.BienvenidaConsultora);
 
-                            if (cambio)
-                            {
-                                message = "Los datos han sido actualizados correctamente.";
-                            }
-                            else
-                            {
-                                message = "Los datos han sido actualizados correctamente.-La contraseña no ha sido modificada, intentelo mas tarde.";
-                            }
+                            if (cambio) message = "Los datos han sido actualizados correctamente.";
+                            else message = "Los datos han sido actualizados correctamente.-La contraseña no ha sido modificada, intentelo mas tarde.";
                         }
                         else
                         {
@@ -129,6 +121,7 @@ namespace Portal.Consultoras.Web.Controllers
                         userData.CambioClave = 1;
                         userData.EMail = sEmail;
                         userData.Telefono = sTelefono;
+                        userData.TelefonoTrabajo = sTelefonoTrabajo;
                         userData.Celular = sCelular;
 
                         return Json(new
@@ -215,7 +208,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         //1796
         [HttpPost]
-        public JsonResult Cancelar(ConsultoraFicticiaModel model)
+        public JsonResult Cancelar(ConsultoraFicticiaModel model = null)
         {
             try
             {
@@ -276,6 +269,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 var sEmail = "";
                 var sTelefono = "";
+                var sTelefonoTrabajo = "";
                 var sCelular = "";
                 var sNombre = "";
                 var sApellidos = "";
@@ -292,6 +286,7 @@ namespace Portal.Consultoras.Web.Controllers
                 if (model.m_Apellidos != null) sApellidos = model.m_Apellidos;
                 if (model.Email != null) sEmail = model.Email;
                 if (model.Telefono != null) sTelefono = model.Telefono;
+                if (model.TelefonoTrabajo != null) sTelefonoTrabajo = model.TelefonoTrabajo;
                 if (model.Celular != null) sCelular = model.Celular;
                 if (model.CodigoConsultora != null) sCodigoConsultora = model.CodigoConsultora;
 
@@ -321,7 +316,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 using (UsuarioServiceClient sv = new UsuarioServiceClient())
                 {
-                    result = sv.UpdateDatosPrimeraVezMexico(userData.PaisID, userData.CodigoUsuario, sNombre, sApellidos, sTelefono, sCelular, sEmail, sConsultorioID, sCodigoConsultora, campaniaID, campaniaUltimo, regionID, zonaID, sEmailAnterior);
+                    result = sv.UpdateDatosPrimeraVezMexico(userData.PaisID, userData.CodigoUsuario, sNombre, sApellidos, sTelefono, sTelefonoTrabajo, sCelular, sEmail, sConsultorioID, sCodigoConsultora, campaniaID, campaniaUltimo, regionID, zonaID, sEmailAnterior);
 
                     if (result == 0)
                     {
@@ -340,6 +335,7 @@ namespace Portal.Consultoras.Web.Controllers
                         userData.NombreConsultora = sNombre + ' ' + sApellidos;
                         userData.EMail = sEmail;
                         userData.Telefono = sTelefono;
+                        userData.TelefonoTrabajo = sTelefonoTrabajo;
                         userData.Celular = sCelular;
 
                         return Json(new
