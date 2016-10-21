@@ -129,7 +129,6 @@ jQuery(document).ready(function () {
     };
     HandlebarsRegisterHelper = function () {
         if (typeof (Handlebars) != "undefined") {
-
             Handlebars.registerHelper('if_eq', function (a, b, opts) {
                 if (a == b) {
                     return opts.fn(this);
@@ -209,6 +208,10 @@ jQuery(document).ready(function () {
             
             Handlebars.registerHelper('UpperCase', function (context) {
                 return context.toUpperCase();
+            });
+
+            Handlebars.registerHelper('DecimalToStringFormat', function (context) {
+                return DecimalToStringFormat(context);
             });
         }
     }
@@ -668,7 +671,7 @@ function MensajeEstadoPedido() {
     if (cerrarRechazado == '1')
         return false;
 
-    if (indicadorEnviadoDescarga != 1)
+    if (indicadorEnviadoDescarga != 1 || estaRechazado == '2')
         return false;
     
     $("#bloquemensajesPedido").find(".mensaje_horarioIngresoPedido").html("");
@@ -679,9 +682,11 @@ function MensajeEstadoPedido() {
     else if (estaRechazado == '0') {
         $("#bloquemensajesPedido").find(".mensaje_estadoActualPedido").html("NOS ENCONTRAMOS FACTURANDO TU PEDIDO C" + $.trim($("#hdCampaniaCodigo").val()).substring(4, 6));
     }
+    else {
+        return false;
+    }
     xMensajeEstadoPedido(true);
     MostrarMensajePedidoRechazado();
-
     
     return true;    
 }
@@ -773,11 +778,11 @@ function cerrarMensajeEstadoPedido() {
 function MostrarMensajePedidoRechazado() {
     if (location.pathname.toLowerCase().indexOf("/bienvenida") >= 0) {
         setTimeout(function () {
-            $(".oscurecer_animacion").remove();
+            $(".oscurecer_animacion").hide();
         }, 1500);
     }
     else {
-        $(".oscurecer_animacion").remove();
+        $(".oscurecer_animacion").hide();
     }
 }
 

@@ -87,7 +87,7 @@ function ConfirmarModificar() {
                 }
                 else {
                     closeWaitingDialog();
-                    alert(data.message);
+                    alert_msg(data.message);
                 }
             }
         },
@@ -138,7 +138,7 @@ function CargarProductoAgotados() {
                 $("#tblProductoSugerido").html(html);
                 $("#divProductoAgotado").show();
             } else {
-                alert(response.data);
+                alert_msg(response.data);
             }
 
             return true;
@@ -192,7 +192,7 @@ function Imprimir() {
 function EnviarCorreo() {
     waitingDialog({});
     if (jQuery.trim(correoElectronico) == "") {
-        alert("No tiene una cuenta de correo registrada");
+        alert_msg("No tiene una cuenta de correo registrada");
         closeWaitingDialog();
         return false;
     }
@@ -206,11 +206,7 @@ function EnviarCorreo() {
         success: function (data) {
             if (checkTimeout(data)) {
                 closeWaitingDialog();
-                if (data.success == true) {
-                    alert(data.message);
-                }
-                else
-                    alert(data.message);
+                alert_msg(data.message);
             }
         },
         error: function (data, error) {

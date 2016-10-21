@@ -486,11 +486,11 @@
                 <div class="pedidoBase_lineaCredito">
                     <span>
                         <p>Pedido Base</p>
-                        <p><label id="lblPBFlexipago">@Model.Simbolo @Model.FormatoPedidoBase</label></p>
+                        <p><label id="lblPBFlexipago">@Model.Simbolo @(Model.PaisID == 4 ? string.Format("{0:#,##0}", Model.PedidoBase) : string.Format("{0:#,##0.00}", Model.PedidoBase))</label></p>
                     </span>
                     <span>
                         <p>Línea de Crédito</p>
-                        <p>@Model.Simbolo @Model.FormatoLineaCredito</p>
+                        <p>@Model.Simbolo @(Model.PaisID == 4 ? string.Format("{0:#,##0}", Model.LineaCredito) : string.Format("{0:#,##0.00}", Model.LineaCredito))</p>
                     </span>
                 </div>
                 <div class="clear"></div>
@@ -755,6 +755,19 @@
     </div>
     <div style="text-align: center; margin-top: 30px;">
         <input type="button" value="Cerrar" onclick="$('#divReservaSatisfactoriaCO').dialog('close');" class="input_modifica_horizontal" style="margin-left: 0;" />
+    </div>
+</div>
+
+<div id="divBackOrderModificado" style="display: none;">
+    <div class="terminos_title_2">
+        IMPORTANTE
+    </div>
+    <div class="linea_superior margin_10"></div>
+    <div class="pop_pedido_mensaje">
+        Recuerda que debes volver a validar tu pedido.
+    </div>
+    <div style="text-align: center; margin-top: 30px;">
+        <input type="button" value="Cerrar" onclick="$('#divBackOrderModificado').dialog('close');" class="input_modifica_horizontal" style="margin-left: 0;" />
     </div>
 </div>
 
@@ -1551,7 +1564,7 @@
             <div class="liquidacion_rango_wrapper_pedido cantidad_detalle_focus">
                 <input type="text" value="{{Cantidad}}" size="2" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" id="txtLPCant{{PedidoDetalleID}}"
                        data-pedido="{{PedidoDetalleID}}" onkeypress="PreValidarCUV()" onfocus="SeleccionarContenido(this)"
-                       onblur="UpdateLiquidacion('{{CampaniaID}}', '{{PedidoID}}', '{{PedidoDetalleID}}', '{{TipoOfertaSisID}}', '{{CUV}}', '1', '{{Cantidad}}')" />
+                       onblur="UpdateLiquidacion('{{CampaniaID}}', '{{PedidoID}}', '{{PedidoDetalleID}}', '{{TipoOfertaSisID}}', '{{CUV}}', '1', '{{Cantidad}}', '{{EsBackOrder}}')" />
                 <div class="liquidacion_rango_right_pedido">
                     <a class="mas"><img src="@Url.Content("~/Content/Images/Esika/mas.png")" alt="" /></a>
                     <a class="menos"><img src="@Url.Content("~/Content/Images/Esika/menos.png")" alt="" /></a>
@@ -1576,7 +1589,6 @@
                 <span class="icon-advertencia"></span>
                 {{/if}}
                 {{/if}}
-
             </span>
         </div>
         <div class="texto_pedidos clientePedido">
@@ -1592,7 +1604,7 @@
                    readonly="readOnly" onkeydown="return false;" style="width:90%; padding:4px;" />
             {{else}}
             <input type="text" name="{{Nombre}}" value="{{Nombre}}" id="txtLPCli{{PedidoDetalleID}}" maxlength="50" class="classClienteNombre ValidaAlfanumerico"
-                   onblur="BlurF('{{CampaniaID}}', '{{PedidoID}}', '{{PedidoDetalleID}}', '2', '{{CUV}}')" style="width: 90%; padding: 4px;"
+                   onblur="BlurF('{{CampaniaID}}', '{{PedidoID}}', '{{PedidoDetalleID}}', '2', '{{CUV}}', '{{EsBackOrder}}')" style="width: 90%; padding: 4px;"
                    datapedido="{{PedidoDetalleID}}" />
             {{/if_eq}}
             {{/if}}
@@ -1617,17 +1629,20 @@
                id="btnLPDelete{{PedidoDetalleID}}" style="background-image: url('@Url.Content("~/Content/Images/Esika/tacho-copy.png")'); background-repeat:no-repeat; width: 17px; height: 22px; margin: 0 auto;" title="Eliminar"></a>
             {{/if}}
         </div>
-        <div class="stock_content">
-            <div class="texto_stock">No tenemos stock en este momento. ¿Te lo enviamos la siguiente campaña al mismo precio?</div>
-            <a class="btn_no_stock">NO, GRACIAS</a>
-            <a class="btn_si_stock" href="#">¡SI, POR FAVOR!</a>
-            <hr class="clear" />
-        </div>
-        <!--SI ACEPTA EL STOCK-->
-        <div class="stock_content_aceptado">
-            <div class="texto_stock" style="color:black"><b>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s</b></div>
-
-        </div>
+        {{#if EsBackOrder}}
+            {{#if AceptoBackOrder}}
+            <div class="stock_content_aceptado">
+                <div class="texto_stock" style="color:black"><b>Te entregaremos el producto en la siguiente campaña.</b></div>
+            </div>
+            {{else}}
+            <div class="stock_content">
+                <div class="texto_stock">No contamos con stock de este producto. ¿Deseas que te lo entreguemos en la siguiente campaña?</div>
+                <a class="btn_no_stock" onclick="DeletePedido('{{CampaniaID}}', '{{PedidoID}}', '{{PedidoDetalleID}}', '{{TipoOfertaSisID}}', '{{CUV}}', '{{Cantidad}}', '{{ClienteID_}}', '{{CUVReco}}');">NO, GRACIAS</a>
+                <a class="btn_si_stock" onclick="AceptarBackOrder('{{CampaniaID}}', '{{PedidoID}}', '{{PedidoDetalleID}}', '{{ClienteID_}}');" href="javascript:;">¡SI, POR FAVOR!</a>
+                <hr class="clear" />
+            </div>
+            {{/if}}
+        {{/if}}
     </div>
    
     {{/if}}

@@ -321,6 +321,7 @@ namespace Portal.Consultoras.Web.Controllers
                     #region Obtener Respuesta del SSiCC
 
                     model.MotivoRechazo = "A partir de mañana podrás ingresar tu pedido de C" + CalcularNroCampaniaSiguiente(oBEUsuario.CampaniaID.ToString(), oBEUsuario.NroCampanias);
+                    model.EstaRechazado = oBEUsuario.IndicadorRechazado == 2 ? 2 : 0;
                     if (oBEUsuario.IndicadorEnviado == 1 && oBEUsuario.IndicadorRechazado == 1)
                     {
                         var procesoRechazado = new BEProcesoPedidoRechazado();

@@ -831,6 +831,14 @@ namespace Portal.Consultoras.Web.Controllers
                 if (!olstPedidoWebDetalle.Any())
                 {
                     model.ListaDetalle = new List<BEPedidoWebDetalle>();
+                    if (userData.ZonaValida)
+                    {
+                        using (ServicePROL.ServiceStockSsic sv = new ServicePROL.ServiceStockSsic())
+                        {
+                            sv.Url = ConfigurarUrlServiceProl();
+                            sv.wsDesReservarPedido(userData.CodigoConsultora, userData.CodigoISO);
+                        }
+                    }
                 }
                 else
                 {
@@ -952,12 +960,86 @@ namespace Portal.Consultoras.Web.Controllers
 
             return Json(new
             {
-                success = ErrorServer,
+                success = !ErrorServer,
                 message = message,
                 extra = "",
                 DataBarra = GetDataBarra()
             }, JsonRequestBehavior.AllowGet);
 
+        }
+
+        [HttpPost]
+        public JsonResult AceptarBackOrder(int campaniaID, int pedidoID, short pedidoDetalleID, string clienteID)
+        {
+            try
+            {
+                BEPedidoWebDetalle oBEPedidoWebDetalle = new BEPedidoWebDetalle { 
+                    PaisID = userData.PaisID,
+                    CampaniaID = campaniaID,
+                    PedidoID = pedidoID,
+                    PedidoDetalleID = pedidoDetalleID
+                };
+                using (PedidoServiceClient sv = new PedidoServiceClient())
+                {
+                    sv.AceptarBackOrderPedidoWebDetalle(oBEPedidoWebDetalle);
+                }
+
+                decimal total = 0;
+                string formatoTotal = "";
+                decimal totalCliente = 0;
+                string formatoTotalCliente = "";
+
+                Session["PedidoWebDetalle"] = null;
+                var olstPedidoWebDetalle = ObtenerPedidoWebDetalle();
+                total = olstPedidoWebDetalle.Sum(p => p.ImporteTotal);
+                formatoTotal = Util.DecimalToStringFormat(total, userData.CodigoISO);
+
+                if (olstPedidoWebDetalle.Any())
+                {
+                    if (clienteID != "-1")
+                    {
+                        List<BEPedidoWebDetalle> lstTemp = (from item in olstPedidoWebDetalle
+                                                            where item.ClienteID == Convert.ToInt16(clienteID)
+                                                            select item).ToList();
+                        totalCliente = lstTemp.Sum(p => p.ImporteTotal);
+                        formatoTotalCliente = Util.DecimalToStringFormat(totalCliente, userData.CodigoISO);
+                    }
+                    else formatoTotalCliente = "";
+                }
+
+                List<BECliente> listaCliente;
+                listaCliente = (from item in olstPedidoWebDetalle
+                                select new BECliente { ClienteID = item.ClienteID, Nombre = item.Nombre }
+                                                        ).GroupBy(x => x.ClienteID).Select(x => x.First()).ToList();
+                listaCliente.Insert(0, new BECliente { ClienteID = -1, Nombre = "-- TODOS --" });
+
+                var message = "OK";
+
+                return Json(new
+                {
+                    success = true,
+                    message,
+                    formatoTotal,
+                    total,
+                    formatoTotalCliente,
+                    listaCliente,
+                    DataBarra = GetDataBarra()
+                });
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return Json(new
+                {
+                    success = false,
+                    message = ex.Message,
+                    formatoTotal = "",
+                    total = "",
+                    formatoTotalCliente = "",
+                    listaCliente = "",
+                    DataBarra = new BarraConsultoraModel()
+                });
+            }
         }
 
         #endregion
@@ -2431,15 +2513,9 @@ namespace Portal.Consultoras.Web.Controllers
             
             montoenviar = userData.MontoMinimo - montodescontar;
 
-            if (montoenviar < 0)
-            {
-                montoenviar = 0;
-            }
+            if (montoenviar < 0) montoenviar = 0;
             ServicePROL.TransferirDatos datos = null;
-
-            if (ds.Tables[0].Rows.Count == 0)
-                return new List<ObservacionModel>();
-
+            if (ds.Tables[0].Rows.Count == 0) return new List<ObservacionModel>();
             bool EsReservaPedidoPROL = true;
 
             using (ServicePROL.ServiceStockSsic sv = new ServicePROL.ServiceStockSsic())
@@ -2459,7 +2535,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
             List<ObservacionModel> olstPedidoWebDetalleObs = new List<ObservacionModel>();
-
+            List<BEPedidoWebDetalle> lstPedidoWebDetalleBackOrder = new List<BEPedidoWebDetalle>();
             if (datos != null)
             {
                 ViewBag.MontoTotalPROL = datos.montototal;
@@ -2520,10 +2596,9 @@ namespace Portal.Consultoras.Web.Controllers
                             Observacion = Convert.ToString(row.ItemArray.GetValue(3)).Replace("+", "");
                         }
 
-                        if (TipoObs == 0)
-                            ValidacionReemplazo += 1;
-
-                        if (TipoObs == 95)
+                        if (TipoObs == 0) ValidacionReemplazo += 1;
+                        else if (TipoObs == 8) lstPedidoWebDetalleBackOrder.AddRange(olstPedidoWebDetalle.Where(item => item.CUV == CUV));
+                        else if (TipoObs == 95)
                         {
                             ValidacionPROLMM = true;
                             CUV_Val = CUV;
@@ -2542,7 +2617,14 @@ namespace Portal.Consultoras.Web.Controllers
                             sv.UpdPedidoWebByEstado(userData.PaisID, userData.CampaniaID, userData.PedidoID, Constantes.EstadoPedido.Pendiente, false, true, userData.CodigoUsuario, false);
                         }
                     }
-
+                    if (lstPedidoWebDetalleBackOrder.Count() > 0)
+                    {
+                        using (PedidoServiceClient sv = new PedidoServiceClient())
+                        {
+                            sv.UpdBackOrderListPedidoWebDetalle(lstPedidoWebDetalleBackOrder.ToArray());
+                        }
+                        Session["PedidoWebDetalle"] = null;
+                    }
                     if (dtr.Rows.Count == ValidacionReemplazo)
                     {
                         if (userData.DiaPROL && userData.MostrarBotonValidar)
@@ -2573,12 +2655,12 @@ namespace Portal.Consultoras.Web.Controllers
             dt.Columns.Add("CodVta");
             dt.Columns.Add("Cantidad", System.Type.GetType("System.Int32"));
             dt.Columns.Add("TipoOfertaSisID", System.Type.GetType("System.Int32"));
+            dt.Columns.Add("Recuperacion", System.Type.GetType("System.Int32"));
 
             foreach (var item in olstPedidoWebDetalle)
             {
-                dt.Rows.Add(userData.CodigoConsultora, item.CUV, item.Cantidad, item.TipoOfertaSisID);
+                dt.Rows.Add(userData.CodigoConsultora, item.CUV, item.Cantidad, item.TipoOfertaSisID, item.AceptoBackOrder ? 1 : 0);
             }
-
             ds.Tables.Add(dt);
 
             return ds;
@@ -3202,6 +3284,17 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
+                var mensaje = "";
+                if (EstaProcesoFacturacion(out mensaje))
+                {
+                    return Json(new
+                    {
+                        success = false,
+                        message = mensaje,
+                        extra = ""
+                    }, JsonRequestBehavior.AllowGet);
+                }
+
                 bool valida = false;
 
                 if (!userData.NuevoPROL && !userData.ZonaNuevoPROL && Tipo == "PV")
@@ -3216,6 +3309,8 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (valida)
                 {
+                    List<BEPedidoWebDetalle> olstPedidoWebDetalle = new List<BEPedidoWebDetalle>();
+
                     using (PedidoServiceClient sv = new PedidoServiceClient())
                     {
                         bool ValidacionAbierta = false;
@@ -3226,13 +3321,18 @@ namespace Portal.Consultoras.Web.Controllers
                             ValidacionAbierta = true;
                             Estado = Constantes.EstadoPedido.Procesado;
                         }
+                        olstPedidoWebDetalle = ObtenerPedidoWebDetalle();
+
+                        if (userData.PedidoID == 0 && !olstPedidoWebDetalle.Any()) // Si el userData no tiene información del PedidoID y no tiene pedidos.
+                        {
+                            userData.PedidoID = sv.GetPedidoWebID(userData.PaisID, userData.CampaniaID, userData.ConsultoraID);
+                            Estado = Constantes.EstadoPedido.Pendiente;
+                        }
                         //Dado que no se usa el indicador de ModificaPedidoReservado, este campo en el servicio será utilizado para enviar el campo: ValidacionAbierta
                         sv.UpdPedidoWebByEstado(userData.PaisID, userData.CampaniaID, userData.PedidoID, Estado, false, true, userData.CodigoUsuario, ValidacionAbierta);
                         if (Tipo == "PI")
                         {
                             //Inserta Aceptacion Reemplazos
-                            List<BEPedidoWebDetalle> olstPedidoWebDetalle = new List<BEPedidoWebDetalle>();
-                            olstPedidoWebDetalle = ObtenerPedidoWebDetalle();
                             List<BEPedidoWebDetalle> Reemplazos = olstPedidoWebDetalle.Where(p => !string.IsNullOrEmpty(p.Mensaje)).ToList();
                             if (Reemplazos.Count != 0)
                             {
@@ -3882,11 +3982,14 @@ namespace Portal.Consultoras.Web.Controllers
                 if (result != null) return result;
 
                 string mensaje = string.Empty;
-                bool pedidoReservado = ValidarPedidoReservado(out mensaje);
-                bool estado = pedidoReservado;
-                if (!estado)
+                bool pedidoReservado = false;
+
+                bool estado = EstaProcesoFacturacion(out mensaje);
+                if(!estado)
                 {
-                    estado = ValidarHorarioRestringido(out mensaje);
+                    pedidoReservado = ValidarPedidoReservado(out mensaje);
+                    estado = pedidoReservado;
+                    if (!estado) estado = ValidarHorarioRestringido(out mensaje);
                 }
 
                 return Json(new
@@ -4479,7 +4582,7 @@ namespace Portal.Consultoras.Web.Controllers
             return listaParametriaOfertaFinal;
         }
 
-        #endregion        
+        #endregion
 
         public JsonResult ObtenerProductosOfertaFinal(int tipoOfertaFinal)
         {
@@ -4553,7 +4656,7 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpPost]
         public JsonResult InsertarOfertaFinalLog(string CUV, int cantidad, string tipoOfertaFinal_Log, decimal gap_Log, int tipoRegistro)
         {
-            try 
+            try
             {
                 using (PedidoServiceClient svp = new PedidoServiceClient())
                 {

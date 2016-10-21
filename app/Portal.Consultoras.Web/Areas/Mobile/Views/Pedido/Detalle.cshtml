@@ -423,6 +423,7 @@
                     <input type="hidden" id="DescripcionProd_{{detalle.PedidoDetalleID}}" name="DescripcionProd_{{detalle.PedidoDetalleID}}" value="{{Split detalle.DescripcionProd '|' 0}}">
                     <input type="hidden" id="MarcaID_{{detalle.PedidoDetalleID}}" name="MarcaID_{{detalle.PedidoDetalleID}}" value="{{detalle.MarcaID}}">
                     <input type="hidden" id="DescripcionOferta_{{detalle.PedidoDetalleID}}" name="DescripcionOferta_{{detalle.PedidoDetalleID}}" value="{{detalle.DescripcionOferta}}">
+                    <input type="hidden" id="EsBackOrder_{{detalle.PedidoDetalleID}}" name="EsBackOrder_{{detalle.PedidoDetalleID}}" value="{{detalle.EsBackOrder}}">
                 </div>
                 <div class="bloque_cantidades_precios_items_ingresados">
                     <div class="contenedor_cantidadProductos">
@@ -510,21 +511,20 @@
                     </small>
                 </div>
                 {{/IsNullOrEmpty}}
-                
+                {{#if EsBackOrder}}
+                    {{#if AceptoBackOrder}}
+                    <div class="stock_content_agotado">
+                        <div class="texto_stock" style="color:black"><b>Te entregaremos el producto en la siguiente campaña.</b></div>
+                    </div>
+                    {{else}}
                     <div class="stock_content">
-                        @*<div class="icono_stock"></div>*@
-                        <div class="texto_stock">No tenemos stock en este momento. ¿Te lo enviamos la siguiente campaña al mismo precio?</div>
-                        <a class="btn_no_stock">NO, GRACIAS</a>
-                        <a class="btn_si_stock" href="#">¡SI, POR FAVOR!</a>
+                        <div class="texto_stock">No contamos con stock de este producto. ¿Deseas que te lo entreguemos en la siguiente campaña?</div>
+                        <a class="btn_no_stock" onclick="EliminarPedidoEvento(event);" data-pedidodetalleid="{{detalle.PedidoDetalleID}}">NO, GRACIAS</a>
+                        <a class="btn_si_stock" onclick="AceptarBackOrder('{{CampaniaID}}', '{{PedidoID}}', '{{PedidoDetalleID}}', '{{ClienteID_}}');" href="javascript:;">¡SI, POR FAVOR!</a>
                         <hr class="clear" />
                     </div>
-                <!--SI ACEPTA EL STOCK-->
-                    <div class="stock_content_agotado">                      
-                        <div class="texto_stock" style="color:black"><b>No tenemos stock en este momento. ¿Te lo enviamos la siguiente campaña al mismo precio?</b></div>
-                        
-                    </div>
-                
-
+                    {{/if}}
+                {{/if}}                
             </div>
             {{/each}}
         </div>
@@ -704,6 +704,7 @@
         var urlPedidoDeleteAll = '@Url.Action("DeleteAll", "Pedido", new { area = "" })';
         var urlInsertarDesglose = '@Url.Action("InsertarDesglose", "Pedido", new {area = ""})';
         var urlDeshacerReservaPedidoReservado = '@Url.Action("PedidoValidadoDeshacerReserva", "Pedido", new { area = "" })';
+        var urlPedidoAceptarBackOrder = '@Url.Action("AceptarBackOrder", "Pedido", new { area = "" })';
 
         var urlDetallePedido = '@Url.Action("CargarDetallePedido", "Pedido", new { area = "" })';
         var urlValidarKitNuevas = '@Url.Action("ValidarKitNuevas", "Pedido", new { area = "" })';

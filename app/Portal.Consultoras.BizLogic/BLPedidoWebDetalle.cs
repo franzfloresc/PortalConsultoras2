@@ -118,7 +118,7 @@ namespace Portal.Consultoras.BizLogic
                 }
             }
             catch (Exception) { throw; }
-        }
+        }        
 
         public short UpdPedidoWebDetalleMasivo(List<BEPedidoWebDetalle> pedidowebdetalle)
         {
@@ -143,6 +143,28 @@ namespace Portal.Consultoras.BizLogic
             catch (Exception) { throw; }
 
             return updated;
+        }
+
+        public void AceptarBackOrderPedidoWebDetalle(BEPedidoWebDetalle pedidowebdetalle)
+        {
+            new DAPedidoWebDetalle(pedidowebdetalle.PaisID).AceptarBackOrderPedidoWebDetalle(pedidowebdetalle);
+        }
+
+        public void UpdBackOrderListPedidoWebDetalle(List<BEPedidoWebDetalle> listPedidoWebDetalle)
+        {
+            var dAPedidoWebDetalle = new DAPedidoWebDetalle(listPedidoWebDetalle[0].PaisID);
+            TransactionOptions oTransactionOptions = new TransactionOptions();
+            oTransactionOptions.IsolationLevel = System.Transactions.IsolationLevel.ReadCommitted;
+
+            using (TransactionScope oTransactionScope = new TransactionScope(TransactionScopeOption.Required, oTransactionOptions))
+            {
+                dAPedidoWebDetalle.ClearBackOrderPedidoWebDetalle(listPedidoWebDetalle[0]);
+                foreach (var pedidoWebDetalle in listPedidoWebDetalle)
+                {
+                    dAPedidoWebDetalle.UpdBackOrderPedidoWebDetalle(pedidoWebDetalle);
+                }
+                oTransactionScope.Complete();
+            }
         }
 
         public void DelPedidoWebDetalle(BEPedidoWebDetalle pedidowebdetalle)
