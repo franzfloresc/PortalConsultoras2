@@ -59,7 +59,7 @@ begin
 							
 							set @esRechazado = 0
 		
-							select @fecha = FechaProceso, @CodigoConsultora = c.Codigo
+							select @fecha = FechaReserva, @CodigoConsultora = c.Codigo
 							from pedidoweb p
 								inner join ods.consultora c on c.ConsultoraID = p.ConsultoraID
 							where IndicadorEnviado = 1
