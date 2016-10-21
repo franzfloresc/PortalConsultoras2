@@ -115,5 +115,37 @@ namespace Portal.Consultoras.BizLogic
             }
             return productos;
         }
+
+        /* SB20-463 - INICIO */
+        public int GetCantidadSolicitudesPedido(int PaisID, long ConsultoraId, int Campania)
+        {
+            var cant = -1;
+            var DAConsultoraOnline = new DAConsultoraOnline(PaisID);
+
+            using (IDataReader reader = DAConsultoraOnline.GetCantidadSolicitudesPedido(ConsultoraId, Campania))
+            {
+                while (reader.Read())
+                {
+                    cant = reader.GetInt32(reader.GetOrdinal("Cantidad"));
+                }
+            }
+            return cant;
+        }
+
+        public string GetSaldoHorasSolicitudesPedido(int PaisID, long ConsultoraId, int Campania)
+        {
+            var saldo = "";
+            var DAConsultoraOnline = new DAConsultoraOnline(PaisID);
+
+            using (IDataReader reader = DAConsultoraOnline.GetSaldoHorasSolicitudesPedido(ConsultoraId, Campania))
+            {
+                while (reader.Read())
+                {
+                    saldo = reader.GetString(reader.GetOrdinal("SaldoHoras"));
+                }
+            }
+            return saldo;
+        }
+        /* SB20-463 - FIN */
     }
 }

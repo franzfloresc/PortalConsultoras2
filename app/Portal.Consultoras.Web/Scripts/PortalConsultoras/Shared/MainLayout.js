@@ -1,6 +1,9 @@
 ﻿$(document).ready(function () {
 
-    waitingDialog({});
+    waitingDialog();
+
+    MensajeEstadoPedido();
+
     closeWaitingDialog();
 
     $(document).ajaxStop(function () {
@@ -132,7 +135,7 @@
     });
 
     Scrolling();
-    MostrarShowRoomBannerLateral();
+    MostrarShowRoomBannerLateral();        
 });
 
 function alert_msg(message, titulo) {
@@ -140,6 +143,11 @@ function alert_msg(message, titulo) {
     $('#alertDialogMensajes .terminos_title_2').html(titulo);
     $('#alertDialogMensajes .pop_pedido_mensaje').html(message);
     $('#alertDialogMensajes').dialog('open');
+}
+
+function messageInfoError(message, titulo) {
+    $('#dialog_ErrorMainLayout .popup_agregarUnidades .contenido_popUp .mensaje_agregarUnidades').html(message);
+    $('#dialog_ErrorMainLayout').show();
 }
 
 function microefectoPedidoGuardado() {
@@ -776,68 +784,5 @@ function SetMarcaGoogleAnalyticsTermino() {
 /* Fin Marcaciones */
 
 /* Tracking Jetlore */
-function TrackingJetloreAdd(cantidad, campania, cuv) {
-    var esJetlore;
-
-    esJetlore = esPaisTrackingJetlore == "1";
-
-    if (esJetlore) {
-        JL.tracker.addToCart({
-            count: cantidad,
-            deal_id: cuv,
-            option_id: campania
-        });
-    }       
-}
-
-function TrackingJetloreRemove(cantidad, campania, cuv) {
-    var esJetlore;
-
-    esJetlore = esPaisTrackingJetlore == "1";
-
-    if (esJetlore) {
-        JL.tracker.removeFromCart({
-            count: cantidad,
-            deal_id: cuv,
-            option_id: campania
-        });
-    }    
-}
-
-function TrackingJetloreRemoveAll(lista) {
-    var esJetlore;
-
-    esJetlore = esPaisTrackingJetlore == "1";
-
-    if (esJetlore) {
-        JL.tracker.removeFromCart(lista);
-    }
-}
-
-function TrackingJetloreView(cuv, campania) {
-    var esJetlore;
-    esJetlore = esPaisTrackingJetlore == "1";
-
-    if (esJetlore) {
-        JL.tracker.track({
-            event: "view",
-            deal_id: cuv,
-            option_id: campania
-        });
-    }
-}
-
-function TrackingJetloreSearch(cuv, campania) {
-    var esJetlore;
-    esJetlore = esPaisTrackingJetlore == "1";
-
-    if (esJetlore) {
-        JL.tracker.track({
-            event: "search",
-            text: cuv,
-            option_id: campania
-        });
-    }
-}
-
+// Se creo un JS => TrackingJetlore.js
 /* Fin Tracking Jetlore */

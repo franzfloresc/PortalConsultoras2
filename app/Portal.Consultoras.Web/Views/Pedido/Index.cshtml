@@ -496,11 +496,11 @@
     </div>
     <!--14092016 - FIN -->
 
+    <div class="caja_carousel_productos" id="divListaEstrategias" style="display:none;">
     @if (ViewBag.MostrarPedidosPendientes == "1")
     {
         <div class="truco_bloqueo sim2"></div>
     }
-    <div class="caja_carousel_productos">
         <div class="contenedor_carousel">
             <h1>
                 OFERTAS
@@ -1902,7 +1902,9 @@
                     <b>{{Descripcion}}</b>
                 </p>
                 <div class="producto_precio">
-                    @*<span class="producto_precio_normal">{{Simbolo}} {{PrecioValorizadoString}}</span>*@
+                    {{#iff PrecioValorizadoString '!=' ''}}
+                    <span class="producto_precio_normal">{{Simbolo}} {{PrecioValorizadoString}}</span>
+                    {{/iff}}
                     <span class="producto_precio_oferta"><b>{{Simbolo}} {{PrecioCatalogoString}}</b></span>
                 </div>
                 <div class="liquidacion_rango_home">
