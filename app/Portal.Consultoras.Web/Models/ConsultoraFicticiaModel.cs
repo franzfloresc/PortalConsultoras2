@@ -22,6 +22,7 @@ namespace Portal.Consultoras.Web.Models
         public IEnumerable<PaisModel> listaPaises { get; set; }
 
         public string Telefono { get; set; }
+        public string TelefonoTrabajo { get; set; }
         public string Celular { get; set; }
         public string Email { get; set; }
         public string ActualizarClave { get; set; }

@@ -175,7 +175,7 @@ namespace Portal.Consultoras.Web.Controllers
                 using (UsuarioServiceClient sv = new UsuarioServiceClient())
                 {
 
-                    result = sv.UpdateDatosPrimeraVez(UserData().PaisID, UserData().CodigoUsuario, model.Email, model.Telefono, model.Celular, model.CorreoAnterior, model.AceptoContrato);
+                    result = sv.UpdateDatosPrimeraVez(UserData().PaisID, UserData().CodigoUsuario, model.Email, model.Telefono, "", model.Celular, model.CorreoAnterior, model.AceptoContrato);
 
                     if (result == 0)
                     {

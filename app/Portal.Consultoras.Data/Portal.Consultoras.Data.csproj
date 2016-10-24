@@ -106,6 +106,8 @@
     <Compile Include="DAFormularioDato.cs" />
     <Compile Include="DAIncentivo.cs" />
     <Compile Include="DAItemCarruselInicio.cs" />
+    <Compile Include="DALogGPRValidacion.cs" />
+    <Compile Include="DALogGPRValidacionDetalle.cs" />
     <Compile Include="DALogCabeceraEnvioCorreo.cs" />
     <Compile Include="DALogDetalleEnvioCorreo.cs" />
     <Compile Include="DALogModificacionCronograma.cs" />
@@ -134,11 +136,13 @@
     <Compile Include="DAPedidoFacturado.cs" />
     <Compile Include="DAPedidoFIC.cs" />
     <Compile Include="DAPedidoFICDetalle.cs" />
+    <Compile Include="DAPedidoRechazado.cs" />
     <Compile Include="DAPedidoReporteLider.cs" />
     <Compile Include="DAPedidoWeb.cs" />
     <Compile Include="DAPedidoWebAnteriores.cs" />
     <Compile Include="DAPedidoWebDetalle.cs" />
     <Compile Include="DAPermiso.cs" />
+    <Compile Include="DAProcesoPedidoRechazado.cs" />
     <Compile Include="DAProducto.cs" />
     <Compile Include="DAProductoDescripcion.cs" />
     <Compile Include="DAProductoFaltante.cs" />

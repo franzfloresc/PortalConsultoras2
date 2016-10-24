@@ -55,7 +55,7 @@ header {
     top:0px!important;
     left:0px!important;
     background: white!important;
-    height: 60px;
+    height: auto;
     position: fixed;
     background: white;
     z-index: 900;
@@ -154,7 +154,7 @@ header {
     /* padding-left: 4px; */
     height: 40px;
     margin-right: 12px;
-
+    cursor:pointer;
 }
 
 .campana_svg {
@@ -676,10 +676,6 @@ header {
     width: 58px;
     display: inline-block;
     vertical-align: baseline;
-    padding-top: 32px;
-    padding-bottom: 5px;
-    padding-left: 2px;
-    padding-right: 2px;
     text-align: center;
     letter-spacing: -1px;
     color: black;
@@ -5277,7 +5273,7 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
 
 .titulo_actualizarMisDatos{
     width: 78%;
-    margin: 0 auto 50px auto;
+    margin: 0 auto 40px auto;
     padding: 0;
     font-family: 'Lato';
     font-size: 26px;
@@ -5521,7 +5517,7 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
     width:100%;
     height:100%;
     position:fixed;
-    z-index:899;
+    z-index:300;
     top:0%;
     left:0%;
 }
@@ -6340,6 +6336,10 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
 }*/
 .boton-home a {
     color: black;
+    padding-top: 32px;
+    padding-bottom: 5px;
+    padding-left: 2px;
+    padding-right: 2px;
 }
 .mensaje_adicional_producto {
     display: block;
@@ -12551,7 +12551,7 @@ ol {
         display: block;
         font-size: 12px;
         color: #e51437;
-        font: Arial;
+        font-family: Arial;
         padding: 0px 0px 2px 0px;
     }
 
@@ -20738,16 +20738,17 @@ label.checkpop.c_on {
    
 }
 .info_centro span{
-    font-weight:300;
+    font-weight:500;
 }
 .deuda_home{
     font-family:'lato';
-    font-size:34px;
+    font-size:21px;
     font-weight:300;
     color:black;
 }
 .deuda_home span{
     font-size:34px;
+    font-weight:300;
 }
 .btn_paga_online{
     width: 169px;
@@ -21104,7 +21105,7 @@ label.checkpop.c_on {
     vertical-align:middle;
     height: 45px;
     line-height: 42px;
-    background: #FFF;
+    /*background: #FFF;*/
     color: #000;
     text-align: center;
     border: 2px solid #000;
@@ -21910,10 +21911,14 @@ body{
     position:relative;
 }
 
-.contenedor_circulos{
+.contenedor_circulos, .contenedor_circulosTutorial{
     display:none;
     position: absolute;
     z-index:500;
+}
+
+.contenedor_circulosTutorial{
+    left:5px;
 }
 
 .circulo-1, .circulo-2, .circulo-3{
@@ -21968,31 +21973,56 @@ body{
     animation-iteration-count:infinite;
 }
 
-.tooltip_tutorial{
-    display: none;
+.tooltip_tutorial {
+    display: block;
     background: #FFF;
-    width: 245px;
+    width: 204px;
     height: auto;
     position: absolute;
     top: 41px;
-    left: -110px;
-    border-radius: 5px;
-    border:1px solid #DDD;
+    left: -89px;
+    border-radius: 3px;
+    border: 1px solid #DDD;
     z-index: 1000;
-    box-shadow:0 1px 18px 1px rgba(0,0,0,.31);
-    -moz-box-shadow:0 1px 18px 1px rgba(0,0,0,.31);
-    -o-box-shadow:0 1px 18px 1px rgba(0,0,0,.31);
-    -ms-box-shadow:0 1px 18px 1px rgba(0,0,0,.31);
-    -webkit-box-shadow:0 1px 18px 1px rgba(0,0,0,.31);
+    box-shadow: 0 1px 18px 1px rgba(0,0,0,.31);
+    -moz-box-shadow: 0 1px 18px 1px rgba(0,0,0,.31);
+    -o-box-shadow: 0 1px 18px 1px rgba(0,0,0,.31);
+    -ms-box-shadow: 0 1px 18px 1px rgba(0,0,0,.31);
+    -webkit-box-shadow: 0 1px 18px 1px rgba(0,0,0,.31);
     opacity:0;
 }
 
-.tooltip_tutorial span{
+.cerrar_tooltipTutorial{
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    right: 7px;
+    top: 7px;
+}
+
+.cerrar_tooltipTutorial img{
+    width:100%;
+    height:auto;
+}
+
+.titulo_necesitasAyuda{
     display: block;
     width: 100%;
-    padding:11px 9px 10px 9px;
+    margin: 0 auto;
+    text-align: center;
     font-family: 'Lato';
+    margin-top: 11px;
+    color: #e81c36;
     font-size: 13px;
+    font-weight: 700;
+}
+
+.descripcion_necesitasAyuda{
+    display: block;
+    width: 100%;
+    padding: 4px 10px 12px 10px;
+    font-family: 'Lato';
+    font-size: 12px;
     line-height: 17px;
     font-weight: 400;
     color: #000;
@@ -22025,9 +22055,9 @@ body{
     margin-left: -10px;
 }
 
-.tutoriales_svg:hover{
+/*.tutoriales_svg:hover{
     opacity:0.7;
-}
+}*/
 
  .EstadoCuenta{
       float:left;
@@ -22046,6 +22076,7 @@ body{
  }
  .content_escala{
      text-align:center;
+     margin-top: 10px;
  }
  /*MIS CATALOGOS*/
  .titulo_central{
@@ -23284,7 +23315,7 @@ body{
 }
 
 .content_datos_pedidosIngresados .importePago_prod{
-    margin-left:23px,
+    margin-left: 23px;
 }
 
 .content_datos_pedidosIngresados .codigo_prod,
@@ -28987,6 +29018,98 @@ h1#penmostreo .campana {
 
 /* FIN PROCESO CARGA FOTO */
 
+/* MENSAJES PEDIDO RECHAZADO */
+
+.bloque_mensajesPedido{
+    background: #82c7bf;
+    width: 100%;
+    height: 64px;
+    display: none;
+    padding: 11px 84px;
+    text-align: center;
+    position: relative;
+    z-index: 5;
+}
+
+.icono_cerrar_mensaje{
+    display: block;
+    position: absolute;
+    top: 8px;
+    right: 23px;
+    width: 21px;
+}
+
+.icono_cerrar_mensaje span{
+    display:block;
+}
+
+.icono_cerrar_mensaje span img{
+    width:100%;
+    height:auto;
+}
+
+.icono_cerrar_mensaje span:nth-child(2){
+    font-family:'Lato';
+    font-size:10px;
+    text-align:center;
+    color:#FFF;
+    margin-left:-9px;
+}
+
+.icono_estadoPedido, .mensajes_estadoPedido{
+    display:inline-block;
+    vertical-align:top;
+}
+
+.icono_estadoPedido{
+    width: 44px;
+    height: 46px;
+    margin-right: 16.8px;
+    padding-top: 1px;
+    margin-top: -3px;
+}
+
+.icono_estadoPedido img{
+    width:100%;
+    height:auto;
+}
+
+.mensajes_estadoPedido {
+    color: #FFF;
+    font-family: 'Lato';
+    line-height:21px;
+}
+
+.mensaje_estadoActualPedido, .mensaje_horarioIngresoPedido{
+    display:block;
+    text-align:left;
+}
+
+.mensaje_estadoActualPedido{
+    font-size:20px;
+    letter-spacing:0.5px;
+    font-weight:700;
+}
+
+.mensaje_horarioIngresoPedido{
+    font-size:12.5px;
+    font-weight:normal;
+}
+
+.mensaje_horarioIngresoPedido a{
+    display: inline-block;
+    margin-left: 2px;
+    text-decoration:underline;
+}
+
+.mensaje_horarioIngresoPedido a:hover{
+    text-decoration:underline;
+}
+
+/* FIN MENSAJES PEDIDO RECHAZADO */
+
+
+
 /*SB20-863* Inicio*/
 
 .producto_precio2 {
@@ -29240,13 +29363,18 @@ h1#penmostreo .campana {
 .mod-ofer2 .cuerpo-mod{
     display: block;
     position: relative;
-    width: 710px;
-    max-width: 1230px;
-    height: auto;
+    width: 971px;
+    /* max-width: 1230px; */
+    max-height: 636px;
+    top: 50%;
     background: #FFF;
-    margin: 4% auto 1.5% auto;
+    margin: -318px auto auto auto;
     z-index: 3;
-    padding-top: 50px;
+    padding-left: 40px;
+    padding-right: 40px;
+    padding-top: 40px;
+    text-align:center;
+    /*overflow:hidden;*/
 }
 .mod-ofer2 .sombrio{
         position: relative;
@@ -29266,11 +29394,11 @@ h1#penmostreo .campana {
     margin-top: -31px;
 }
 
-.mod-ofer2 .liquidacion_rango_home{
+/*.mod-ofer2 .liquidacion_rango_home{
     position: absolute;
     z-index: 9;
     margin-left: -80px;
-}
+}*/
 
 .mod-ofer2 .pos-baja .boton_Agregalo_home{
     background-color: transparent;
@@ -29285,10 +29413,10 @@ h1#penmostreo .campana {
     color: white;
 }
 
-.mod-ofer2 .boton_Agregalo_home {
+/*.mod-ofer2 .boton_Agregalo_home {
     z-index: 9;
     position: absolute;
-}
+}*/
 
 .mod-ofer2 .pos-baja{
     height: 90px;
@@ -29325,18 +29453,21 @@ h1#penmostreo .campana {
 }
 
 .mod-ofer2 .mod-cantidades.metido{
-        position: relative;
+    position: relative;
     margin: 0 auto;
-    margin-left: 204px;
-    margin-top: -70px;
+    /* OVERFLOW: HIDDEN; */
+    /* HEIGHT: 50px; */
+    width: 300px;
+    margin-left: 450px;
+    /* margin-top: -70px; */
 }
 
 .mod-ofer2 .cuerpo-mod .contiene-productos .producto_img_home.mini{
     float: left;
     width: 50%;
     text-align: right;
-    height: auto;
-    padding-right: 40px;
+    height: 360px;
+    padding-left: 60px;
 }
 
 .mod-ofer2 .cuerpo-mod .contiene-productos .producto_nombre_descripcion {
@@ -29372,12 +29503,13 @@ h1#penmostreo .campana {
 }
 
 .mod-ofer2 .cerrar-mod{
-        float: right;
+    float: right;
     position: absolute;
     right: 0;
     margin-right: -37px;
-    margin-top: -49px;
+    /*margin-top: -49px;*/
     cursor: pointer;
+    top:0;
 }
 
 .mod-ofer2 .compras{
@@ -29446,13 +29578,18 @@ h1#penmostreo .campana {
 .mod-ofer3 .cuerpo-mod{
     display: block;
     position: relative;
-    width: 835px;
-    max-width: 1230px;
-    height: auto;
+    width: 971px;
+    /* max-width: 1230px; */
+    height: 618px;
+    top: 50%;
     background: #FFF;
-    margin: .5% auto 1.5% auto;
+    margin: -309px auto auto auto;
     z-index: 3;
-    padding-top: 50px;
+   padding-left: 40px;
+    padding-right: 40px;
+    padding-top: 40px;
+    /*overflow:hidden;*/
+    text-align:center;
 }
 
 .mod-ofer3 .sombrio {
@@ -29473,11 +29610,11 @@ h1#penmostreo .campana {
     margin-top: -31px;
 }
 
-.mod-ofer3 .liquidacion_rango_home{
+/*.mod-ofer3 .liquidacion_rango_home{
     position: absolute;
     z-index: 9;
     margin-left: -80px;
-}
+}*/
 
 .mod-ofer3 .pos-baja .boton_Agregalo_home{
     background-color: transparent;
@@ -29492,10 +29629,10 @@ h1#penmostreo .campana {
     color: white;
 }
 
-.mod-ofer3 .boton_Agregalo_home {
+/*.mod-ofer3 .boton_Agregalo_home {
     z-index: 9;
     position: absolute;
-}
+}*/
 
 .mod-ofer3 .pos-baja{
     height: 90px;
@@ -29582,7 +29719,8 @@ h1#penmostreo .campana {
     position: absolute;
     right: 0;
     margin-right: -37px;
-    margin-top: -49px;
+    /*margin-top: -49px;*/
+    top:0;
     cursor: pointer;
 }
 
@@ -29714,6 +29852,226 @@ h1#penmostreo .campana {
 
 /* FIN POPUPS OFERTAS REVISTA */
 
+
+/*POP UP CATALOGO PERSONALIZADO*/
+
+.mod-ofer2 .linea_encabezado_popupCatalogoPersonalizado {
+    display: inline-block;
+    background: #000;
+    height: 1px;
+    width: 300px;
+}
+.mod-ofer3 .linea_encabezado_popupCatalogoPersonalizado {
+    display: inline-block;
+    background: #000;
+    height: 1px;
+    width: 300px;
+}
+.item1_oferta_personalizada{
+    display:inline-block;
+    width:22.5%;
+    height:auto;
+    margin-right:25px;  
+    vertical-align: top;  
+}
+.item1_oferta_personalizada:last-child{
+    margin-right:0px;
+}
+.content_precio_set{
+    width:100%;
+    height:89px;   
+    border-bottom:1px solid #cfcfcf;
+}
+.compra_set{
+    font-family:'Lato';
+    font-size:16px;
+    color:black;
+    text-transform:uppercase;
+    text-align:center;
+    line-height: 19px;
+}
+.gananecia_set{
+    font-family:'Lato';
+    font-size:11px;
+    font-weight:700;
+    color:#e81c36;
+    text-transform:uppercase;
+    text-align:center;
+    margin-top:3px;
+}
+.gratis_set{
+     font-family:'Lato';
+    font-size:11px;
+    font-weight:700;
+    color:black;
+    text-transform:uppercase;
+    text-align:center;
+    margin-top:10px;
+}
+.mod-ofer2 .encabezado_popupCatalogoPersonalizado {
+    display: block;
+    text-align: center;
+    margin-bottom: 25px;
+}
+.content_sub_items {
+    overflow: hidden;
+    padding-top: 12px;
+    height: 233px;
+    border-bottom: 1px solid #dadada;
+}
+
+.sub_imagen_oferta {
+    width: 24%;
+    margin-right: 5%;
+    height: auto;
+    /* border: 1px solid #dadada; */
+    float: left;
+    margin-left: 5%;
+}
+.sub_imagen_oferta img {
+    width: 100%;
+}
+.sub_descripcion_oferta {
+    width: 55%;
+    height: 55px;
+    /*line-height: 55px;*/
+    text-align:left;
+    /* padding-top: 8%; */
+    /* padding-bottom: 8%; */
+    border-bottom: 1px solid #dadada;
+    /*float: left;*/
+    font-family: 'Lato';
+    font-size: 13px;
+    color: black;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    flex-direction: column;
+}
+.item1_oferta_personalizada  .sub_descripcion_oferta:last-child{
+    border-bottom:0;
+}
+.texto_mencion{
+    width:100%;
+    text-align:center;
+    font-family:'Lato';
+    font-weight:700;
+    font-size:15px;
+    color:black;
+    margin-top:26px;
+}
+.sombra_oferta {
+    width: 100%;
+    height: 78px;
+    margin-top:35px;
+    padding-left: 15px;
+    padding-right: 15px;
+    position: relative;
+    background: #ededed url(../../../Images/Mobile/Esika/fondo_oferta.png) top repeat-x;
+}
+.row_40{
+    margin-left:-40px;
+    margin-right:-40px;
+}
+.texto_sombra{    
+    font-family:'Lato';
+    font-weight:700;
+    font-size:11px;
+    color:black;
+    width:305px;
+    float:left;
+    text-align:center;
+    margin-left:200px;
+    margin-top:23px;
+}
+.texto_sombra  span{
+    font-size:15px;
+}
+.item_pack_personalizado{
+    width:33%;
+    display:inline-block;
+    margin-top:20px;
+    vertical-align: top;
+}
+.content_item_pack{
+    width:100%;
+    height:340px;
+    overflow: hidden;
+}
+.img_principal_pack{
+    width:149px;
+    height:149px;
+    margin:0 auto;
+    margin-top:41px;
+    margin-bottom:16px;
+    border:1px solid #cfcfcf;
+}
+.img_principal_pack img{
+    width:100%;
+    }
+.titulo_pack{
+    font-family:'Lato';
+    font-weight:700;
+    font-size:16px;
+    color:black;
+    margin-top:-6px;
+    text-align:center;
+    height:38px;
+}
+.texto_unidad_pack{
+    font-family:'Lato';
+    font-weight:700;
+    font-size:12px;
+    color:black;
+     text-align:center;
+}
+.texto_ganancia_pack{
+    font-family:'Lato';
+    font-weight:700;
+    font-size:11px;
+    color:#e81c36;
+    text-align:center;
+    text-transform:uppercase;
+}
+.fondo_negro_pack {
+    height:41px;
+    background:black;
+    color:white;
+    font-family:'Lato';
+    line-height:41px;
+    font-size:16px;
+    text-align:center;
+    width:82%;
+    position:relative;
+}
+.fondo_negro_pack:before {
+    content: "";
+    width: 0;
+    height: 0;
+    right: -24px;
+    position: absolute;
+    border-right: 12px solid transparent;
+    border-top: 21px solid transparent;
+    border-left: 12px solid black;
+    border-bottom: 20px solid black;
+    }
+.pack_inter {
+    width: 78%;
+    margin-top:13px;
+    border-left: 1px solid #cfcfcf;
+    overflow:hidden;
+}
+.content_item_pack .content_sub_items {
+    overflow: hidden;
+    padding-top: 12px;
+    height: 248px;
+    border-bottom:0;
+}
+.pack_inter .content_sub_items .sub_descripcion_oferta:nth-child(2) {
+     border-top:1px solid #dadada;
+    }
+    
+    
 /* ACTUALIZAR CONTRASEÑA */
 
 .contenedor_actualizarContraseniaForm{
@@ -30262,8 +30620,46 @@ h1#penmostreo .campana {
   .mis_pagos_tabs  .two:hover ~ hr {
   margin-left: 38%;
     }
+}
 
-
+.oscurecer_animacion{
+    position:fixed;
+    z-index:1;
+    width:100%;
+    height:100%;
+    -webkit-animation: opacidad-gestion-pedido 1500ms linear 0ms 1 normal;
+    -moz-animation: opacidad-gestion-pedido 1500ms linear 0ms 1 normal;
+    -ms-animation: opacidad-gestion-pedido 1500ms linear 0ms 1 normal;
+    animation: opacidad-gestion-pedido 1500ms linear 0ms 1 normal;
+   
+}
+/*.oscurecer_animacion::after{
+    content:"";
+    position:fixed;
+    width:100%;
+    height:100%;
+    z-index:1;
+    left:0;
+    -webkit-animation: opacidad-gestion-pedido 1500ms linear 0ms 1 normal;
+    -moz-animation: opacidad-gestion-pedido 1500ms linear 0ms 1 normal;
+    -ms-animation: opacidad-gestion-pedido 1500ms linear 0ms 1 normal;
+    animation: opacidad-gestion-pedido 1500ms linear 0ms 1 normal;
+}
+ */
+@keyframes opacidad-gestion-pedido {
+    0% {
+        background:rgba(0,0,0,0.8);
+        
+    }
+    45% {
+        background:rgba(0,0,0,0.8);
+        
+    }
+    100% {
+        background:rgba(0,0,0,0.0);
+        
+        
+    }
 }
 
 #divCatalogoPersonalizado .nombre_producto {

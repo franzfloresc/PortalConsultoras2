@@ -238,6 +238,14 @@ namespace Portal.Consultoras.Common
             public const string Portal = "Se retiraron de tu pedido los productos de este cliente.";
             public const string Marcas = "No te olvides comunicarte con tu cliente.";
         }
+        
+        public class TipoTutorial
+        {
+            public const int Video = 1;
+            public const int Desktop = 2;
+            public const int Salvavidas = 3;
+            public const int Mobile = 4;
+        }
     }
 }
 

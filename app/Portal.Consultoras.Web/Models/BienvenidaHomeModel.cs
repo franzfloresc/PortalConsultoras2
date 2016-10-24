@@ -11,6 +11,7 @@ namespace Portal.Consultoras.Web.Models
         public string NombreCompleto { get; set; }
         public string EMail { get; set; }
         public string Telefono { get; set; }
+        public string TelefonoTrabajo { get; set; }
         public string Celular { get; set; }
         /*2116 -INICIO*/
         public string m_Apellidos { get; set; }
@@ -80,6 +81,9 @@ namespace Portal.Consultoras.Web.Models
 
         public string ImagenUsuario { get; set; }
 
+        public BarraConsultoraModel DataBarra { get; set; }
         public bool EsCatalogoPersonalizadoZonaValida { get; set; }
+
+        public int VioTutorialSalvavidas { get; set; }
     }
 }
