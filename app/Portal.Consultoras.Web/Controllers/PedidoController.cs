@@ -968,6 +968,80 @@ namespace Portal.Consultoras.Web.Controllers
 
         }
 
+        [HttpPost]
+        public JsonResult AceptarBackOrder(int campaniaID, int pedidoID, short pedidoDetalleID, string clienteID)
+        {
+            try
+            {
+                BEPedidoWebDetalle oBEPedidoWebDetalle = new BEPedidoWebDetalle { 
+                    PaisID = userData.PaisID,
+                    CampaniaID = campaniaID,
+                    PedidoID = pedidoID,
+                    PedidoDetalleID = pedidoDetalleID
+                };
+                using (PedidoServiceClient sv = new PedidoServiceClient())
+                {
+                    sv.AceptarBackOrderPedidoWebDetalle(oBEPedidoWebDetalle);
+                }
+
+                decimal total = 0;
+                string formatoTotal = "";
+                decimal totalCliente = 0;
+                string formatoTotalCliente = "";
+
+                Session["PedidoWebDetalle"] = null;
+                var olstPedidoWebDetalle = ObtenerPedidoWebDetalle();
+                total = olstPedidoWebDetalle.Sum(p => p.ImporteTotal);
+                formatoTotal = Util.DecimalToStringFormat(total, userData.CodigoISO);
+
+                if (olstPedidoWebDetalle.Any())
+                {
+                    if (clienteID != "-1")
+                    {
+                        List<BEPedidoWebDetalle> lstTemp = (from item in olstPedidoWebDetalle
+                                                            where item.ClienteID == Convert.ToInt16(clienteID)
+                                                            select item).ToList();
+                        totalCliente = lstTemp.Sum(p => p.ImporteTotal);
+                        formatoTotalCliente = Util.DecimalToStringFormat(totalCliente, userData.CodigoISO);
+                    }
+                    else formatoTotalCliente = "";
+                }
+
+                List<BECliente> listaCliente;
+                listaCliente = (from item in olstPedidoWebDetalle
+                                select new BECliente { ClienteID = item.ClienteID, Nombre = item.Nombre }
+                                                        ).GroupBy(x => x.ClienteID).Select(x => x.First()).ToList();
+                listaCliente.Insert(0, new BECliente { ClienteID = -1, Nombre = "-- TODOS --" });
+
+                var message = "OK";
+
+                return Json(new
+                {
+                    success = true,
+                    message,
+                    formatoTotal,
+                    total,
+                    formatoTotalCliente,
+                    listaCliente,
+                    DataBarra = GetDataBarra()
+                });
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return Json(new
+                {
+                    success = false,
+                    message = ex.Message,
+                    formatoTotal = "",
+                    total = "",
+                    formatoTotalCliente = "",
+                    listaCliente = "",
+                    DataBarra = new BarraConsultoraModel()
+                });
+            }
+        }
+
         #endregion
 
         #region Ofertas Flexipago
@@ -2439,15 +2513,9 @@ namespace Portal.Consultoras.Web.Controllers
             
             montoenviar = userData.MontoMinimo - montodescontar;
 
-            if (montoenviar < 0)
-            {
-                montoenviar = 0;
-            }
+            if (montoenviar < 0) montoenviar = 0;
             ServicePROL.TransferirDatos datos = null;
-
-            if (ds.Tables[0].Rows.Count == 0)
-                return new List<ObservacionModel>();
-
+            if (ds.Tables[0].Rows.Count == 0) return new List<ObservacionModel>();
             bool EsReservaPedidoPROL = true;
 
             using (ServicePROL.ServiceStockSsic sv = new ServicePROL.ServiceStockSsic())
@@ -2467,7 +2535,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
             List<ObservacionModel> olstPedidoWebDetalleObs = new List<ObservacionModel>();
-
+            List<BEPedidoWebDetalle> lstPedidoWebDetalleBackOrder = new List<BEPedidoWebDetalle>();
             if (datos != null)
             {
                 ViewBag.MontoTotalPROL = datos.montototal;
@@ -2528,10 +2596,9 @@ namespace Portal.Consultoras.Web.Controllers
                             Observacion = Convert.ToString(row.ItemArray.GetValue(3)).Replace("+", "");
                         }
 
-                        if (TipoObs == 0)
-                            ValidacionReemplazo += 1;
-
-                        if (TipoObs == 95)
+                        if (TipoObs == 0) ValidacionReemplazo += 1;
+                        else if (TipoObs == 8) lstPedidoWebDetalleBackOrder.AddRange(olstPedidoWebDetalle.Where(item => item.CUV == CUV));
+                        else if (TipoObs == 95)
                         {
                             ValidacionPROLMM = true;
                             CUV_Val = CUV;
@@ -2550,7 +2617,14 @@ namespace Portal.Consultoras.Web.Controllers
                             sv.UpdPedidoWebByEstado(userData.PaisID, userData.CampaniaID, userData.PedidoID, Constantes.EstadoPedido.Pendiente, false, true, userData.CodigoUsuario, false);
                         }
                     }
-
+                    if (lstPedidoWebDetalleBackOrder.Count() > 0)
+                    {
+                        using (PedidoServiceClient sv = new PedidoServiceClient())
+                        {
+                            sv.UpdBackOrderListPedidoWebDetalle(lstPedidoWebDetalleBackOrder.ToArray());
+                        }
+                        Session["PedidoWebDetalle"] = null;
+                    }
                     if (dtr.Rows.Count == ValidacionReemplazo)
                     {
                         if (userData.DiaPROL && userData.MostrarBotonValidar)
@@ -2581,12 +2655,12 @@ namespace Portal.Consultoras.Web.Controllers
             dt.Columns.Add("CodVta");
             dt.Columns.Add("Cantidad", System.Type.GetType("System.Int32"));
             dt.Columns.Add("TipoOfertaSisID", System.Type.GetType("System.Int32"));
+            dt.Columns.Add("Recuperacion", System.Type.GetType("System.Int32"));
 
             foreach (var item in olstPedidoWebDetalle)
             {
-                dt.Rows.Add(userData.CodigoConsultora, item.CUV, item.Cantidad, item.TipoOfertaSisID);
+                dt.Rows.Add(userData.CodigoConsultora, item.CUV, item.Cantidad, item.TipoOfertaSisID, item.AceptoBackOrder ? 1 : 0);
             }
-
             ds.Tables.Add(dt);
 
             return ds;

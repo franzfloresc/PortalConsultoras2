@@ -1,5 +1,6 @@
 ﻿using Portal.Consultoras.Common;
 using Portal.Consultoras.Data;
+using Portal.Consultoras.Data.Hana;
 using Portal.Consultoras.Entities;
 using System;
 using System.Collections.Generic;
@@ -1948,17 +1949,66 @@ namespace Portal.Consultoras.BizLogic
             return listaPedidosFacturados;
         }
 
-        public List<BEPedidoWeb> GetPedidosIngresadoFacturado(int paisID, int consultoraID, int campaniaID)
+        public List<BEPedidoWeb> GetPedidosIngresadoFacturado(int paisID, int consultoraID, int campaniaID, string codigoConsultora)
         {
             var listaPedidosFacturados = new List<BEPedidoWeb>();
+
+            var BLPais = new BLPais();
+
             var DAPedidoWeb = new DAPedidoWeb(paisID);
 
-            using (IDataReader reader = DAPedidoWeb.GetPedidosIngresadoFacturado(consultoraID, campaniaID))
-                while (reader.Read())
+            if (!BLPais.EsPaisHana(paisID)) // Validar si informacion de pais es de origen Normal o Hana
+            {               
+                using (IDataReader reader = DAPedidoWeb.GetPedidosIngresadoFacturado(consultoraID, campaniaID))
+                    while (reader.Read())
+                    {
+                        var entidad = new BEPedidoWeb(reader);
+                        listaPedidosFacturados.Add(entidad);
+                    }
+            }
+            else
+            {
+                var DAPHedidoWeb = new DAHPedido();
+
+                var listaPedidosHana = DAPHedidoWeb.GetPedidosIngresadoFacturado(paisID, codigoConsultora);
+                var listaPedidoIngresado = new List<BEPedidoWeb>();
+                using (IDataReader reader = DAPedidoWeb.GetPedidosIngresado(consultoraID, campaniaID))
+                    while (reader.Read())
+                    {
+                        var entidad = new BEPedidoWeb(reader);
+                        listaPedidoIngresado.Add(entidad);
+                    }               
+
+                var campaniaMinima = Common.Util.ObtenerCampaniaPasada(campaniaID, 4);
+
+                var listaPedidosHanaFinales = listaPedidosHana.Where(p => p.CampaniaID >= campaniaMinima && p.EstadoPedidoDesc.ToUpper() == "FACTURADO").ToList();
+
+                var listaAgrupada = new List<BEPedidoWeb>();
+                listaAgrupada.AddRange(listaPedidosHanaFinales);
+                listaAgrupada.AddRange(listaPedidoIngresado);
+                listaAgrupada = listaAgrupada.OrderByDescending(p => p.CampaniaID).ToList();
+
+                var listaMostrar = new List<BEPedidoWeb>();
+                foreach (var bePedidoWeb in listaAgrupada)
                 {
-                    var entidad = new BEPedidoWeb(reader);
-                    listaPedidosFacturados.Add(entidad);
+                    if (bePedidoWeb.EstadoPedidoDesc == "INGRESADO")
+                    {
+                        var bePedidoWebFacturado = listaAgrupada.FirstOrDefault(p => p.CampaniaID == bePedidoWeb.CampaniaID && p.EstadoPedidoDesc != "INGRESADO");
+                        if (bePedidoWebFacturado == null)
+                        {
+                            listaMostrar.Add(bePedidoWeb);
+                        }
+                    }
+                    else
+                    {
+                        listaMostrar.Add(bePedidoWeb);
+                    }
                 }
+
+                listaPedidosFacturados = listaMostrar;
+            }
+
+            
             return listaPedidosFacturados;
         }
 

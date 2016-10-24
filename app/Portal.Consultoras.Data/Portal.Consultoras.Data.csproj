@@ -127,6 +127,7 @@
     <Compile Include="DAOfertaNueva.cs" />
     <Compile Include="DAOfertaProducto.cs" />
     <Compile Include="DAOfertaWeb.cs" />
+    <Compile Include="DAPais.cs" />
     <Compile Include="DAPaqueteDocumentario.cs" />
     <Compile Include="DAParticipantesDemandaAnticipada.cs" />
     <Compile Include="DAPayPalConfiguracion.cs" />

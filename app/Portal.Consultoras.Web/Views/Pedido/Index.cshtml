@@ -118,34 +118,38 @@
     <div class="clear"></div>
 
     <div class="caja_pedidos">
+        <!--SIN OFERTAS PARA TI AÑADIR ESTILO "sinOfertasParaTi"-->
         <!-- DIV BARRA -->
-        <div id="divBarra">
-            <div id="divBarraMensaje">
-                <div id="divBarraMensajeLogrado" style="display:none;">
-                    <div style="float:right;">
-                        <div class="content_BarrMensaje">
-                            <div class="mensaje_barra" style="display: inline;"></div>
-                            <div class="agrega_barra"></div>
+        <div data-barra-width="">
+            <div id="divBarra">
+                <div id="divBarraMensaje">
+                    <div id="divBarraMensajeLogrado" style="display:none;">
+                        <div style="float:right;">
+                            <div class="content_BarrMensaje">
+                                <div class="mensaje_barra" style="display: inline;"></div>
+                                <div class="agrega_barra"></div>
+                            </div>
+                            <hr class="clear" />
+                            <div class="flechita_barra"></div>
                         </div>
                         <hr class="clear" />
-                        <div class="flechita_barra"></div>
                     </div>
-                    <hr class="clear" />
                 </div>
-            </div>
-            <hr class="clear" />
-            <div id="divBarraLimite">
+                <hr class="clear" />
+                <div id="divBarraLimite">
 
+                </div>
+                <hr class="clear" />
+                <div id="divBarraPosicion" class="BarraPosicion">
+                    <span id="divBarraEspacioLimite" class="BarraLimite">
+                        <span id="divBarraEspacioLogrado" class="BarraLogrado"></span>
+                    </span>
+                </div>
+                <div class="informacion_barra">*Información referencial. Todo pedido realizado a través de la web está sujeto a stock. Algunos productos no suman a la escala de comisión. Guarda tu pedido para actualizar tu barra.</div>
             </div>
-            <hr class="clear" />
-            <div id="divBarraPosicion" class="BarraPosicion">
-                <span id="divBarraEspacioLimite" class="BarraLimite">
-                    <span id="divBarraEspacioLogrado" class="BarraLogrado"></span>
-                </span>
-            </div>
-            <div class="informacion_barra">*Información referencial. Todo pedido realizado a través de la web está sujeto a stock. Algunos productos no suman a la escala de comisión. Guarda tu pedido para actualizar tu barra.</div>
+            <div class="clear"></div>
         </div>
-        <div class="clear"></div>
+       
         <!-- FIN DIV BARRA -->
 
         <input type="hidden" id="hdValidarPROL" value="@Model.FlagValidacionPedido" />
@@ -161,28 +165,28 @@
 
                         @if (ViewBag.MostrarPedidosPendientes == "1")
                         {
-                            <h1 id="pedmostreo" class="w_40" data-pedido="1">PEDIDO <b>INGRESADO</b></h1>
+                        <h1 id="pedmostreo" class="w_40" data-pedido="1">PEDIDO <b>INGRESADO</b></h1>
 
-                            <h1 id="penmostreo" style="display: none; background: white;" class="w_25" data-pedido="2">
-                                <b>PENDIENTES</b>
-                                <div class="info_tiempo_oportunidad inicial">
-                                    <div class="campana">
-                                        <a class="" href="javascript:;" role="menu" region="Superior" title="Notificaciones" id="lnk-sup-notificacion">
-                                            <div class="campana_svg mensaje_svg"></div>
-                                            <p class="notificaciones notificaciones_existentes notificaciones_activas" id="cont1PedidosPend">0</p>
-                                        </a>
-                                    </div>
-                                    <div class="noticia">
-                                        <h6>Tienes <span id="cont2PedidosPend">0</span> pedidos pendientes.</h6>
-                                        <h6 class="tiempos_P"><span><b>Te quedan <span id="fecPedidoPendRec">00:00:00</span></b></span> horas para atenderlo.</h6>
-                                        <h4 class="linkea_Pendientes">►REVÍSALO</h4>
-                                    </div>
+                        <h1 id="penmostreo" style="display: none; background: white;" class="w_25" data-pedido="2">
+                            <b>PENDIENTES</b>
+                            <div class="info_tiempo_oportunidad inicial">
+                                <div class="campana">
+                                    <a class="" href="javascript:;" role="menu" region="Superior" title="Notificaciones" id="lnk-sup-notificacion">
+                                        <div class="campana_svg mensaje_svg"></div>
+                                        <p class="notificaciones notificaciones_existentes notificaciones_activas" id="cont1PedidosPend">0</p>
+                                    </a>
                                 </div>
-                            </h1>
+                                <div class="noticia">
+                                    <h6>Tienes <span id="cont2PedidosPend">0</span> pedidos pendientes.</h6>
+                                    <h6 class="tiempos_P"><span><b>Te quedan <span id="fecPedidoPendRec">00:00:00</span></b></span> horas para atenderlo.</h6>
+                                    <h4 class="linkea_Pendientes">►REVÍSALO</h4>
+                                </div>
+                            </div>
+                        </h1>
                         }
                         else
                         {
-                            <h1>MIS <b>PRODUCTOS</b></h1>
+                        <h1>MIS <b>PRODUCTOS</b></h1>
                         }
                     </div>
                     <div id="paginadorCab">
@@ -403,21 +407,21 @@
 
                     @if (Model.CodigoIso == Constantes.CodigosISOPais.Venezuela)
                     {
-                        <li data-id="2" data-name="Monto Mínimo" data-position="pedido-inferior-2">
-                            <a onclick="AnalyticsBannersInferiores({ id: '2', name: 'Monto Mínimo', position: 'pedido-inferior-2' })" href="javascript:;" title="Monto Mínimo">
-                                <img src="@Model.UrlBanner02" alt="Monto Mínimo" />
-                                <div>MONTO MÍNIMO</div>
-                            </a>
-                        </li>
+                    <li data-id="2" data-name="Monto Mínimo" data-position="pedido-inferior-2">
+                        <a onclick="AnalyticsBannersInferiores({ id: '2', name: 'Monto Mínimo', position: 'pedido-inferior-2' })" href="javascript:;" title="Monto Mínimo">
+                            <img src="@Model.UrlBanner02" alt="Monto Mínimo" />
+                            <div>MONTO MÍNIMO</div>
+                        </a>
+                    </li>
                     }
                     else
                     {
-                        <li data-id="3" data-name="Liquidaciones Web" data-position="pedido-inferior-3">
-                            <a onclick="AnalyticsBannersInferiores({ id: '3', name: 'Liquidaciones Web', position: 'pedido-inferior-3' })" href="@Url.Action("OfertasLiquidacion", "OfertaLiquidacion")" title="Liquidaciones Web">
-                                <img src="@Model.UrlBanner02" alt="Liquidaciones Web" />
-                                <div>LIQUIDACIONES WEB</div>
-                            </a>
-                        </li>
+                    <li data-id="3" data-name="Liquidaciones Web" data-position="pedido-inferior-3">
+                        <a onclick="AnalyticsBannersInferiores({ id: '3', name: 'Liquidaciones Web', position: 'pedido-inferior-3' })" href="@Url.Action("OfertasLiquidacion", "OfertaLiquidacion")" title="Liquidaciones Web">
+                            <img src="@Model.UrlBanner02" alt="Liquidaciones Web" />
+                            <div>LIQUIDACIONES WEB</div>
+                        </a>
+                    </li>
                     }
                     <li data-id="4" data-name="Productos Agotados" data-position="pedido-inferior-4">
                         <a onclick="AnalyticsBannersInferiores({ id: '4', name: 'Productos Agotados', position: 'pedido-inferior-4' }); CargarProductoAgotados();" href="javascript:;" title="Productos Agotados">
@@ -429,40 +433,39 @@
                 <div class="clear"></div>
             </div>
             <!--14082016 - FIN -->
-
             @if (ViewBag.MostrarPedidosPendientes == "1")
             {
-                <div id="infoPendientes" style="background:white; display: none;">
-                    <div class="content_datos_pendientes">
-                        <div class="texto_gris_popup padding_tabla_pendientes dinamicostablegrande">Tipo y nombre de Cliente</div>
-                        <div class="texto_gris_popup padding_tabla_pendientes dinamicostablegrande">Origen</div>
+            <div id="infoPendientes" style="background:white; display: none;">
+                <div class="content_datos_pendientes">
+                    <div class="texto_gris_popup padding_tabla_pendientes dinamicostablegrande">Tipo y nombre de Cliente</div>
+                    <div class="texto_gris_popup padding_tabla_pendientes dinamicostablegrande">Origen</div>
 
-                        <div class="texto_gris_popup padding_tabla_pendientes dinamicostable">Fecha Registro</div>
-                        <div class="texto_gris_popup padding_tabla_pendientes dinamicostablemedio">Precio Total</div>
-                        <div class="texto_gris_popup padding_tabla_pendientes dinamicostablegrande">Acción</div>
-                    </div>
-                    <div class="linea_separadora" style="margin-top:-1px"></div>
-                    <!--CONTENIDO DE TABLAS PERCEPCIÓN-->
-                    <div>
-                        <div id="divPedidosPend"> </div>
-                    </div>
-                    <div class="tiempo_atencionPedido">
-                        <span class="icono_notaDemanda"></span>
-                        <span>Sólo tienes 24 horas para atender los pedidos. No pierdas esta oportunidad de hacer nuevos clientes.</span>
-                    </div>
-                    <div class="revision_pedidosAceptados">
-                        <span class="texto_revisaPedidos">Revisa tus pedidos aceptados en:</span>
-                        <span class="icono_consultoraOnline"></span>
-                        <span class="texto_misPedidosClientesOnline" style="cursor: pointer;" onclick="MostrarMisPedidosConsultoraOnline();">MIS PEDIDOS DE <b>CONSULTORA ONLINE</b></span>
-                    </div>
-
-                    <div style="display: none;">
-                        @using (Html.BeginForm("", "", FormMethod.Post, new { id = "frmConsultoraOnline" }))
-                        {
-                            <input type="hidden" name="lanzarTabConsultoraOnline" value="true">
-                        }
-                    </div>
+                    <div class="texto_gris_popup padding_tabla_pendientes dinamicostable">Fecha Registro</div>
+                    <div class="texto_gris_popup padding_tabla_pendientes dinamicostablemedio">Precio Total</div>
+                    <div class="texto_gris_popup padding_tabla_pendientes dinamicostablegrande">Acción</div>
                 </div>
+                <div class="linea_separadora" style="margin-top:-1px"></div>
+                <!--CONTENIDO DE TABLAS PERCEPCIÓN-->
+                <div>
+                    <div id="divPedidosPend"> </div>
+                </div>
+                <div class="tiempo_atencionPedido">
+                    <span class="icono_notaDemanda"></span>
+                    <span>Sólo tienes 24 horas para atender los pedidos. No pierdas esta oportunidad de hacer nuevos clientes.</span>
+                </div>
+                <div class="revision_pedidosAceptados">
+                    <span class="texto_revisaPedidos">Revisa tus pedidos aceptados en:</span>
+                    <span class="icono_consultoraOnline"></span>
+                    <span class="texto_misPedidosClientesOnline" style="cursor: pointer;" onclick="MostrarMisPedidosConsultoraOnline();">MIS PEDIDOS DE <b>CONSULTORA ONLINE</b></span>
+                </div>
+
+                <div style="display: none;">
+                    @using (Html.BeginForm("", "", FormMethod.Post, new { id = "frmConsultoraOnline" }))
+                        {
+                    <input type="hidden" name="lanzarTabConsultoraOnline" value="true">
+                        }
+                </div>
+            </div>
             }
         </div>
     </div>
@@ -752,6 +755,19 @@
     </div>
     <div style="text-align: center; margin-top: 30px;">
         <input type="button" value="Cerrar" onclick="$('#divReservaSatisfactoriaCO').dialog('close');" class="input_modifica_horizontal" style="margin-left: 0;" />
+    </div>
+</div>
+
+<div id="divBackOrderModificado" style="display: none;">
+    <div class="terminos_title_2">
+        IMPORTANTE
+    </div>
+    <div class="linea_superior margin_10"></div>
+    <div class="pop_pedido_mensaje">
+        Recuerda que debes volver a validar tu pedido.
+    </div>
+    <div style="text-align: center; margin-top: 30px;">
+        <input type="button" value="Cerrar" onclick="$('#divBackOrderModificado').dialog('close');" class="input_modifica_horizontal" style="margin-left: 0;" />
     </div>
 </div>
 
@@ -1548,7 +1564,7 @@
             <div class="liquidacion_rango_wrapper_pedido cantidad_detalle_focus">
                 <input type="text" value="{{Cantidad}}" size="2" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" id="txtLPCant{{PedidoDetalleID}}"
                        data-pedido="{{PedidoDetalleID}}" onkeypress="PreValidarCUV()" onfocus="SeleccionarContenido(this)"
-                       onblur="UpdateLiquidacion('{{CampaniaID}}', '{{PedidoID}}', '{{PedidoDetalleID}}', '{{TipoOfertaSisID}}', '{{CUV}}', '1', '{{Cantidad}}')" />
+                       onblur="UpdateLiquidacion('{{CampaniaID}}', '{{PedidoID}}', '{{PedidoDetalleID}}', '{{TipoOfertaSisID}}', '{{CUV}}', '1', '{{Cantidad}}', '{{EsBackOrder}}')" />
                 <div class="liquidacion_rango_right_pedido">
                     <a class="mas"><img src="@Url.Content("~/Content/Images/Esika/mas.png")" alt="" /></a>
                     <a class="menos"><img src="@Url.Content("~/Content/Images/Esika/menos.png")" alt="" /></a>
@@ -1573,7 +1589,6 @@
                 <span class="icon-advertencia"></span>
                 {{/if}}
                 {{/if}}
-
             </span>
         </div>
         <div class="texto_pedidos clientePedido">
@@ -1589,7 +1604,7 @@
                    readonly="readOnly" onkeydown="return false;" style="width:90%; padding:4px;" />
             {{else}}
             <input type="text" name="{{Nombre}}" value="{{Nombre}}" id="txtLPCli{{PedidoDetalleID}}" maxlength="50" class="classClienteNombre ValidaAlfanumerico"
-                   onblur="BlurF('{{CampaniaID}}', '{{PedidoID}}', '{{PedidoDetalleID}}', '2', '{{CUV}}')" style="width: 90%; padding: 4px;"
+                   onblur="BlurF('{{CampaniaID}}', '{{PedidoID}}', '{{PedidoDetalleID}}', '2', '{{CUV}}', '{{EsBackOrder}}')" style="width: 90%; padding: 4px;"
                    datapedido="{{PedidoDetalleID}}" />
             {{/if_eq}}
             {{/if}}
@@ -1614,7 +1629,22 @@
                id="btnLPDelete{{PedidoDetalleID}}" style="background-image: url('@Url.Content("~/Content/Images/Esika/tacho-copy.png")'); background-repeat:no-repeat; width: 17px; height: 22px; margin: 0 auto;" title="Eliminar"></a>
             {{/if}}
         </div>
+        {{#if EsBackOrder}}
+            {{#if AceptoBackOrder}}
+            <div class="stock_content_aceptado">
+                <div class="texto_stock" style="color:black"><b>Te entregaremos el producto en la siguiente campaña.</b></div>
+            </div>
+            {{else}}
+            <div class="stock_content">
+                <div class="texto_stock">No contamos con stock de este producto. ¿Deseas que te lo entreguemos en la siguiente campaña?</div>
+                <a class="btn_no_stock" onclick="DeletePedido('{{CampaniaID}}', '{{PedidoID}}', '{{PedidoDetalleID}}', '{{TipoOfertaSisID}}', '{{CUV}}', '{{Cantidad}}', '{{ClienteID_}}', '{{CUVReco}}');">NO, GRACIAS</a>
+                <a class="btn_si_stock" onclick="AceptarBackOrder('{{CampaniaID}}', '{{PedidoID}}', '{{PedidoDetalleID}}', '{{ClienteID_}}');" href="javascript:;">¡SI, POR FAVOR!</a>
+                <hr class="clear" />
+            </div>
+            {{/if}}
+        {{/if}}
     </div>
+   
     {{/if}}
 
     {{#IsNullOrEmpty Mensaje '!='}}
@@ -1958,6 +1988,7 @@
 
         var lanzarTabConsultoraOnline = '@ViewBag.LanzarTabConsultoraOnline';
         var urlMisPedidosClienteOnline = '@Url.Action("", "MisPedidos")';
+        var indicadorFlexiPago = '@Model.IndicadorFlexiPago';
 
     </script>
     @System.Web.Optimization.Scripts.Render("~/bundles/JsSB2-Pedido")

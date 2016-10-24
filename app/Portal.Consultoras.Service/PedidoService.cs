@@ -238,6 +238,16 @@ namespace Portal.Consultoras.Service
             return BLPedidoWebDetalle.UpdPedidoWebDetalleMasivo(pedidowebdetalle);
         }
 
+        public void AceptarBackOrderPedidoWebDetalle(BEPedidoWebDetalle pedidowebdetalle)
+        {
+            BLPedidoWebDetalle.AceptarBackOrderPedidoWebDetalle(pedidowebdetalle);
+        }
+
+        public void UpdBackOrderListPedidoWebDetalle(List<BEPedidoWebDetalle> listPedidoWebDetalle)
+        {
+            BLPedidoWebDetalle.UpdBackOrderListPedidoWebDetalle(listPedidoWebDetalle);
+        }
+
         public IList<BEPedidoWebDetalle> SelectByPedidoValidado(int paisID, int CampaniaID, long ConsultoraID, string Consultora)
         {
             return BLPedidoWebDetalle.GetPedidoWebDetalleByPedidoValidado(paisID, CampaniaID, ConsultoraID, Consultora);
@@ -1629,9 +1639,9 @@ namespace Portal.Consultoras.Service
             return BLPedidoWeb.GetPedidosFacturados(paisId, codigoConsultora);
         }
 
-        public List<BEPedidoWeb> GetPedidosIngresadoFacturado(int paisID, int consultoraID, int campaniaID)
+        public List<BEPedidoWeb> GetPedidosIngresadoFacturado(int paisID, int consultoraID, int campaniaID, string codigoConsultora)
         {
-            return BLPedidoWeb.GetPedidosIngresadoFacturado(paisID, consultoraID, campaniaID);
+            return BLPedidoWeb.GetPedidosIngresadoFacturado(paisID, consultoraID, campaniaID, codigoConsultora);
         }
 
         /*GR2089*/

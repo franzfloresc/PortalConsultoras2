@@ -17,28 +17,34 @@ $(document).ready(function () {
         if (pop == "") return false;
         var campId = pop.attr("data-camp") || "";
         if (campId == "") return false;
+        
+        var pedidoId = pop.attr("data-idpedido") || 0;
 
         $("[data-popup='ingresado']").find("[data-selectcamp]").html("");
         $("[data-popup='facturado']").find("[data-selectcamp]").html("");
         $.each($(".content_datos_mispedidos [data-campnro]"), function (ind, tag) {
             var tagCam = $(tag);
             var estadoCamp = tagCam.parent().attr("data-estado") || "";
+            var pedidoIdCamp = tagCam.parent().attr("data-idpedido") || 0;
             estadoCamp = estadoCamp.toLowerCase();
             estadoCamp = estadoCamp[0];
             estadoCamp = estadoCamp == "i" ? "[data-popup='ingresado']" : estadoCamp == "f" ? "[data-popup='facturado']" : "";
             if (estadoCamp != "") {
-                $(estadoCamp).find("[data-selectcamp]").append('<option value="' + tagCam.html() + '" data-campformat="' + tagCam.attr("data-campformat") + '">C-' + tagCam.attr("data-campnro") + '</option>');
+                $(estadoCamp).find("[data-selectcamp]").append('<option value="' + tagCam.html() + '" data-campformat="' + tagCam.attr("data-campformat") + '" data-pedidoidformat="'+ pedidoIdCamp +'">C-' + tagCam.attr("data-campnro") + '</option>');
             }
         });
         $("[data-popup='ingresado']").find("[data-selectcamp]").val(campId.substr(0, 4) + "-" + campId.substr(4, 6));
         $("[data-popup='facturado']").find("[data-selectcamp]").val(campId.substr(0, 4) + "-" + campId.substr(4, 6));
+        $("[data-popup='ingresado']").find("[data-selectcamp]").attr("data-selectpedidoid", pedidoId);
+        $("[data-popup='facturado']").find("[data-selectcamp]").attr("data-selectpedidoid", pedidoId);
 
         var estado = pop.attr("data-estado") || "";
         estado = estado.toLowerCase()[0];
         if (estado == "") return false;
         DetalleVisible(false);
-        $("#divGrilla").find("select[data-cliente]").val(-1);
-        PopupMostrar(estado, campId);
+        $("#divGrilla").find("select[data-cliente]").val(-1);        
+
+        PopupMostrar(estado, campId, pedidoId);
         $("#regresarFacturado").Visible(estado == "f");
         $('[data-popup="ingresado"] [data-selectcamp]').Visible(estado == "i");
         var canal = $.trim(pop.find(".canal_ingreso").html()).toLowerCase();
@@ -49,24 +55,31 @@ $(document).ready(function () {
         var opt = $(this).parent().find("[data-selectcamp]");
         var obj = opt.find("[value='" + opt.val() + "']");
         var campFormat = obj.attr("data-campformat") || "";
+        var pedidoIdFormat = obj.attr("data-pedidoidformat") || 0;
         if (campFormat == "") return false;
         $('[data-popup="ingresado"] [data-selectcamp]').attr("data-campregresar", campFormat);
+        $('[data-popup="ingresado"] [data-selectcamp]').attr("data-selectpedidoid", pedidoIdFormat);
+        $('[data-popup="facturado"] [data-selectcamp]').attr("data-selectpedidoid", pedidoIdFormat);
         $('[data-popup="ingresado"] [data-selectcamp]').hide();
         $("#divGrilla").find("select[data-cliente]").val(-1);
         campFormat = campFormat.replace("-", "");
-        PopupMostrar("i", campFormat);
+        PopupMostrar("i", campFormat, pedidoIdFormat);
     });
     
     $('#regresarFacturado').click(function () {
         var obj = $(this).parent().find("[data-selectcamp]");
         var campFormat = obj.attr("data-campregresar") || "";
         if (campFormat == "") return false;
+        
+        var pedidoIdFormat = obj.attr("data-selectpedidoid") || 0;
+
         $('[data-popup="ingresado"] [data-selectcamp]').attr("data-campregresar", "");
         $('[data-popup="ingresado"] [data-selectcamp]').show();
         $('[data-popup="facturado"] [data-selectcamp]').val(campFormat);
+        
         $("#divGrilla").find("select[data-cliente]").val(-1);
         campFormat = campFormat.replace("-", "");
-        PopupMostrar("f", campFormat);
+        PopupMostrar("f", campFormat, pedidoIdFormat);
     });
 
     $('[data-accion="close"]').click(function () {
@@ -136,8 +149,11 @@ $(document).ready(function () {
         var campFormat = obj.attr("data-campformat") || "";
         if (campFormat == "") return false;
         campFormat = campFormat.replace("-", "");
+
+        var pedidoFormat = obj.attr("data-pedidoidformat") || 0;
+        
         var popup = obj.parents("[data-popup]").attr("data-popup");
-        PopupMostrar(popup, campFormat);
+        PopupMostrar(popup, campFormat, pedidoFormat);
         //if ($(".content_mis_pedidos").find("[data-campformat='" + campFormat + "']").length == 1) {
         //    $(".content_mis_pedidos").find("[data-campformat='" + campFormat + "']").parent().find('[data-accion="detalle"]').click();
         //}
@@ -149,8 +165,11 @@ $(document).ready(function () {
         var campFormat = obj.attr("data-camp") || "";
         if (campFormat == "") return false;
         campFormat = campFormat.replace("-", "");
+        
+        var pedidoId = obj.attr("data-idpedido") || 0;
+
         var popup = obj.parents("[data-popup]").attr("data-popup");
-        PopupMostrar(popup, campFormat);
+        PopupMostrar(popup, campFormat, pedidoId);
     });
 
     CargarEventosTabs();
@@ -192,7 +211,7 @@ function WidthWindow() {
 function CambioPagina(obj) {
     var par = obj.parents('[data-paginacion="block"]');
     var camp = par.attr("data-camp");
-
+    var pedidoId = par.attr("data-idpedido") || 0;
     var rpt = paginadorAccionGenerico(obj);
 
     if (rpt.page == undefined) {
@@ -203,7 +222,7 @@ function CambioPagina(obj) {
     estado = estado.toLowerCase();
     estado = estado[0];
 
-    CargarDetalleFacturado(camp, rpt.page, rpt.rows, estado);
+    CargarDetalleFacturado(camp, rpt.page, rpt.rows, estado, pedidoId);
 
     //var estado = par.attr("data-estado") || "";
     //estado = estado.toLowerCase();
@@ -224,7 +243,7 @@ function PopupCerrarTodos() {
     DetalleVisible(true, false);
 }
 
-function PopupMostrar(popup, campFormat) {
+function PopupMostrar(popup, campFormat, pedidoId) {
     PopupCerrarTodos();
 
     popup = $.trim(popup);
@@ -243,7 +262,7 @@ function PopupMostrar(popup, campFormat) {
         return false;
     }
     DetalleVisible(false);
-    CargarDetalleFacturado(campFormat, null, null, popup);
+    CargarDetalleFacturado(campFormat, null, null, popup, pedidoId);
 }
 
 function DetalleVisible(accion, popup) {
@@ -259,9 +278,10 @@ function PopupDetalleClienteCerrarTodos() {
     $('#pedidoPorCliente [data-cliente]').removeClass("acordion_abierto");
 }
 
-function CargarDetalleFacturado(camp, page, rows, tipo) {
+function CargarDetalleFacturado(camp, page, rows, tipo, pedidoId) {
     waitingDialog();
-    tipo = tipo || "f"
+    tipo = tipo || "f";
+    pedidoId = pedidoId || 0;
     tipo = tipo[0].toLowerCase();
     var dataAjax = {
         sidx: "",
@@ -269,9 +289,10 @@ function CargarDetalleFacturado(camp, page, rows, tipo) {
         page: page || 1,
         rows: rows || 10,
         CampaniaId: camp,
-        cliente: $("#divGrilla").find("select[data-cliente]").val() || - 1,
-        estado: tipo // "f"
-    }
+        cliente: $("#divGrilla").find("select[data-cliente]").val() || -1,
+        estado: tipo, // "f"
+        pedidoId: pedidoId
+    };
     $("#divContenidofacturado").empty();
     $("#pedidoPorCliente").empty();
     jQuery.ajax({
@@ -292,6 +313,7 @@ function CargarDetalleFacturado(camp, page, rows, tipo) {
             if (tipo == "i") {
                 var facturado = data.ImporteFacturado;
                 $('#pedidoPorCliente').attr("data-camp", camp);
+                $('#pedidoPorCliente').attr("data-idpedido", pedidoId);
                 $('#pedidoPorCliente').empty().html(htmlDiv);
                 $("#divGrilla").find(".content_datos_pedidosFacturados").removeClass("content_datos_pedidosFacturados").addClass("content_datos_pedidosIngresados");
                 $("[data-div='i']").find("[data-facturadoCabecera]").html(facturado);
@@ -435,6 +457,7 @@ function CargarDetalleIngresadoCliente(tag, camp, page, rows) {
 function ExportExcel(obj) {
     waitingDialog();
     var campaniaID = $.trim($(obj).parents("[data-popup]").find("[data-selectcamp]").val());
+    campaniaID = campaniaID || $.trim($(obj).parents("[data-popup]").find("[data-selectcamp]").attr("data-campregresar"));
     campaniaID = campaniaID.replace("-", "");
     setTimeout(function () { DownloadAttachExcel(campaniaID) }, 0);
 }
@@ -480,20 +503,24 @@ function ExportExcelFacturado(obj) {
     var popup = $(obj).parents("[data-popup]");
     var campaniaID = $.trim(popup.find("[data-selectcamp]").val());
     campaniaID = campaniaID.replace("-", "");
+
+    var pedidoId = $.trim(popup.find("[data-selectcamp]").attr("data-selectpedidoid")) || 0;
+
     var TotalParcial = popup.find("[data-total]").html();
     var Flete = popup.find("[data-flete]").html();
     var TotalFacturado = popup.find("[data-facturado]").html();
 
-    setTimeout(function () { DownloadAttachExcelFacturado(campaniaID, TotalParcial, Flete, TotalFacturado) }, 0);
+    setTimeout(function () { DownloadAttachExcelFacturado(campaniaID, TotalParcial, Flete, TotalFacturado, pedidoId); }, 0);
 }
 
-function DownloadAttachExcelFacturado(CampaniaID, TotalParcial, Flete, TotalFacturado) {
+function DownloadAttachExcelFacturado(CampaniaID, TotalParcial, Flete, TotalFacturado, pedidoId) {
     if (checkTimeout()) {
         var content = baseUrl + "MisPedidos/ExportarExcelFacturado?" +
             "vCampaniaID=" + CampaniaID +
             "&vTotalParcial=" + TotalParcial +
             "&vFlete=" + Flete +
-            "&vTotalFacturado=" + TotalFacturado
+            "&vTotalFacturado=" + TotalFacturado +
+            "&vPedidoId=" + pedidoId;
 
         var iframe_ = document.createElement("iframe");
         iframe_.style.display = "none";

@@ -2084,7 +2084,7 @@ h4.re3 {
     right: 0;
     bottom: 0;
     left: 0;
-    background: rgba(164, 181, 196, 0.6);
+    background: rgba(210, 208, 208, 0.6);
     z-index: 99999;
     display: none;
 }
@@ -4123,7 +4123,7 @@ width:100%;
 .btn_seguirp_mobile.ver_video_introductorio {
     margin-top: 15px;
     margin-bottom: 5px;
-    width:114px;
+   width: 114px;
 }
 
 .linea_separadora_mobile{
@@ -4683,6 +4683,7 @@ body{
 .mi_ganancia {
     color:#642f80;
     font-weight:700;
+    text-transform:uppercase;
 }
 
 @media screen and (min-width:0px) and (max-width:407px){
@@ -5704,6 +5705,7 @@ body{
     background:black;
     text-align:center;
     margin-top:30px;   
+    cursor:pointer;
 }
 .content_revistas_mobile{
     width:216px;
@@ -8705,6 +8707,95 @@ span.icon-advertencia{
 	border-bottom-color: #f3f3f3;
 	border-width: 10px;
 	margin-left: -10px;
+}
+
+.stock_content{
+    width: 100%;
+    height: auto;
+    padding: 15px;
+    position: relative;
+    background: #e5dcea;
+}
+.stock_content:after {
+	bottom: 100%;
+	left: 30px;
+	border: solid transparent;
+	content: " ";
+	height: 0;
+	width: 0;
+	position: absolute;
+	pointer-events: none;
+	border-color: rgba(136, 183, 213, 0);
+	border-bottom-color: #e5dcea;
+	border-width: 12px;
+	margin-left: -12px;
+    z-index: 20;
+}
+.icono_stock{
+    width: 20px;
+    margin-right: 2%;
+    height: 20px;
+    background-size: cover;
+    background: url(../../../Images/Lbel/icono_advertencia_notificacion.png) no-repeat center center;
+    display: inline-block;
+    vertical-align: top;
+    margin-top: 2px;  
+}
+.texto_stock{
+    width: 100%;
+    display: inline-block;
+    vertical-align: top;
+    font-family: 'LAto';
+    font-size: 14px;
+}
+.btn_no_stock{
+    font-family:'LAto';
+    font-size:13px;
+    float:left;
+    /*margin-left:7%;*/
+    display:block;
+    text-decoration:underline;
+    
+    margin-top: 25px;
+}
+.btn_si_stock{
+    font-family: 'LAto';
+    font-size: 13px;
+    font-weight: 700;
+    float: right;
+    display: block;
+    width: 145px;
+    height: 45px;
+    text-align: center;
+    margin-top: 13px;
+    color: white;
+    background: #613c87;
+    line-height: 45px;
+}
+.btn_si_stock:hover{
+    color:white;
+}
+.stock_content_agotado{
+    width: 100%;
+    height: auto;
+    padding: 15px;
+    position: relative;
+    background: #f3f3f3;
+}
+.stock_content_agotado:after {
+	bottom: 100%;
+	left: 30px;
+	border: solid transparent;
+	content: " ";
+	height: 0;
+	width: 0;
+	position: absolute;
+	pointer-events: none;
+	border-color: rgba(136, 183, 213, 0);
+	border-bottom-color: #f3f3f3;
+	border-width: 12px;
+	margin-left: -12px;
+    z-index: 20;
 }
 .oscurecer_animacion{
     position:fixed;
