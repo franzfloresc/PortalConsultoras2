@@ -13,7 +13,7 @@ namespace Portal.Consultoras.Data.Hana.Entities
         public string estadoPedido { get; set; }
         public DateTime fechaEstimada { get; set; }
         public DateTime fechaFacturacion { get; set; }
-        public double montoPedido { get; set; }
+        public decimal montoPedido { get; set; }
         public string motivoEstado { get; set; }
         public string numeroroPedido { get; set; }
         public int oidCliente { get; set; }

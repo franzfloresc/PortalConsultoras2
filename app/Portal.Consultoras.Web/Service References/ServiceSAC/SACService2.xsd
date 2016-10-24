@@ -307,6 +307,7 @@
       <xs:element minOccurs="0" name="ImporteTotal" type="xs:decimal" />
       <xs:element minOccurs="0" name="MontoDescuento" type="xs:decimal" />
       <xs:element minOccurs="0" name="Origen" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PedidoId" type="xs:int" />
       <xs:element minOccurs="0" name="PrecioUnidad" type="xs:decimal" />
     </xs:sequence>
   </xs:complexType>

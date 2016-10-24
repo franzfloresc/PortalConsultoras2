@@ -1639,9 +1639,9 @@ namespace Portal.Consultoras.Service
             return BLPedidoWeb.GetPedidosFacturados(paisId, codigoConsultora);
         }
 
-        public List<BEPedidoWeb> GetPedidosIngresadoFacturado(int paisID, int consultoraID, int campaniaID)
+        public List<BEPedidoWeb> GetPedidosIngresadoFacturado(int paisID, int consultoraID, int campaniaID, string codigoConsultora)
         {
-            return BLPedidoWeb.GetPedidosIngresadoFacturado(paisID, consultoraID, campaniaID);
+            return BLPedidoWeb.GetPedidosIngresadoFacturado(paisID, consultoraID, campaniaID, codigoConsultora);
         }
 
         /*GR2089*/

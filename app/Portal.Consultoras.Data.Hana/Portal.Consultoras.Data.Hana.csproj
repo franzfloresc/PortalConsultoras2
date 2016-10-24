@@ -44,6 +44,7 @@
       <HintPath>Librerias\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel" />
@@ -58,8 +59,12 @@
     <Compile Include="AutoMapper\HanaEntitiesToBEEntititesMappingProfile.cs" />
     <Compile Include="DAHEscalaDescuento.cs" />
     <Compile Include="DAHEstadoCuenta.cs" />
+    <Compile Include="DAHPedido.cs" />
+    <Compile Include="DAHPedidoDetalle.cs" />
     <Compile Include="Entities\EscalaDescuentoHana.cs" />
     <Compile Include="Entities\EstadoCuentaHana.cs" />
+    <Compile Include="Entities\PedidoDetalleHana.cs" />
+    <Compile Include="Entities\PedidoHana.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Util.cs" />
   </ItemGroup>

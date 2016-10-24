@@ -42,7 +42,7 @@
                 var ganaHasta = Convert.ToInt32(item.PrecioOferta) - Convert.ToInt32(item.PrecioCatalogo);
                 var formatoGanaHasta = Util.DecimalToStringFormat(ganaHasta, Model.CodigoIso);
                 var formatoPrecioCatalogo = Util.DecimalToStringFormat(item.PrecioCatalogo, Model.CodigoIso);
-
+                
                 var inhabilitar = item.Stock == 0;
 
                 var eje = posicion != 2 ? "" : "slick-current slick-active";

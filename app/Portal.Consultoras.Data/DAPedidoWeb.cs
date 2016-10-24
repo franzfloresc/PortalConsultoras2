@@ -653,6 +653,15 @@ namespace Portal.Consultoras.Data
             return Context.ExecuteReader(command);
         }
 
+        public IDataReader GetPedidosIngresado(int consultoraID, int campaniaID)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetPedidosIngresado_SB2");
+            Context.Database.AddInParameter(command, "@ConsultoraID", DbType.Int32, consultoraID);
+            Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, campaniaID);
+
+            return Context.ExecuteReader(command);
+        }
+
         public void InsLogOfertaFinal(int CampaniaID, string CodigoConsultora, string CUV, int cantidad, string tipoOfertaFinal, decimal GAP, int tipoRegistro)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.registrarLogOfertaFinal_SB2");
