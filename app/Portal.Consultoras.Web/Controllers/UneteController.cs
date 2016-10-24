@@ -2125,7 +2125,7 @@ namespace Portal.Consultoras.Web.Controllers
             dic.Add(Dictionaries.LabelLugar2[CodigoISO], "LugarHijo"); //dic.Add("Comuna", "LugarHijo");
             dic.Add("Telefono Celular", "TelefonoCelular");
             dic.Add("Telefono Red Fija", "TelefonoFijo");
-            dic.Add("Estado", "EstadoPostulante");
+            dic.Add("Estado Postulante", "EstadoPostulante");
             Util.ExportToExcel("ReportePostulantes", resultado.ToList(), dic);
             return View();
             
