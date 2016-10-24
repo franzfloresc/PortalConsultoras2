@@ -2100,11 +2100,10 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 foreach (var item in lista)
                 {
-                    if (!Regex.IsMatch(item.CUV, @"^\d+$"))
+                    if (!Regex.IsMatch(Util.SubStr(item.CUV, 0), @"^\d+$"))
                     {
                         return item.Caso + "_" + item.Descripcion;
                     }
-
                 }
                 return "01_Tu pedido tiene observaciones, por favor revísalo";
             }
