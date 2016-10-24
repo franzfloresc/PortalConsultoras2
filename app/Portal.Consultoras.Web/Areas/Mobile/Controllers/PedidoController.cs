@@ -359,8 +359,8 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             {
                 if (userData.NuevoPROL && userData.ZonaNuevoPROL)   // PROL 2
                 {
-                    model.Prol = "RESERVA TU PEDIDO";
-                    model.ProlTooltip = "Haz click aqui para reservar tu pedido";
+                    model.Prol = "MODIFICA TU PEDIDO";
+                    model.ProlTooltip = "Haz click aquí para modificar tu pedido";
 
                     if (diaActual <= userData.FechaInicioCampania)
                     {
@@ -389,7 +389,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     else
                     {
                         model.Prol = "VALIDA TU PEDIDO";
-                        model.ProlTooltip = "Haz click aqui para validar tu pedido";
+                        model.ProlTooltip = "Haz click aquí para validar tu pedido";
 
                         if (diaActual <= userData.FechaInicioCampania)
                         {
