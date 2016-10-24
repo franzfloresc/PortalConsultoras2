@@ -12,6 +12,8 @@ var closeComunicadosPopup = false;
 var fotoCroppie;
 var tipoOrigen = '3';
 var timeoutTooltipTutorial;
+var popupCantidadInicial = popupCantidadInicial || 1;
+var popupListaPrioridad = popupListaPrioridad || new Array();
 
 $(document).ready(function () {
 
@@ -122,14 +124,15 @@ $(document).ready(function () {
     /* SB20-834 - INICIO */
     ObtenerComunicadosPopup();
            
-    mostrarVideoIntroductorio();
     CrearDialogs();
     CargarCarouselEstrategias("");
     CargarCarouselLiquidaciones();
-    CargarPopupsConsultora();
     CargarMisCursos();
     CargarBanners();
     CargarCatalogoPersonalizado();
+
+    mostrarVideoIntroductorio();
+    CargarPopupsConsultora();
 
     $("#btnCambiarContrasenaMD").click(function () { CambiarContrasenia(); });
     $("#btnActualizarMD").click(function () { ActualizarMD(); });
@@ -531,10 +534,6 @@ function mostrarUbicacionTutorial(tieneFondoNegro, mostrarPopupTutorial) {
         else {
             if (viewBagVerComunicado != '-1') {
                 mostrarComunicadosPopup();
-
-                //if (viewBagVerComunicado != '1') {
-                //    CargarPopupsConsultora();
-                //}
             }
         }
     }, time);
@@ -576,8 +575,6 @@ function ocultarUbicacionTutorial() {
 function mostrarVideoIntroductorio() {
     try {
         if (viewBagVioVideo == "0") {
-
-            //closeWaitingDialog();   // SB20-834
             PopupMostrar('videoIntroductorio');
             setTimeout(function () { playVideo(); }, 1000);
             UpdateUsuarioTutoriales(constanteVioVideo);
@@ -599,10 +596,6 @@ function mostrarVideoIntroductorio() {
         } else {
             if (viewBagVerComunicado != '-1') {
                 mostrarComunicadosPopup();
-
-                //if (viewBagVerComunicado != '1') {
-                //    CargarPopupsConsultora();
-                //}
             }
         }
 
@@ -707,19 +700,7 @@ function CargarPopupsConsultora() {
     }
 
     AbrirPopupFlexipago();
-    //AbrirComunicado();
-
-    //if (viewBagPrefijoPais == "EC") {
-    //    AbrirComunicadoVisualizacion();
-    //};
-
     MostrarDemandaAnticipada();
-
-    //MostrarShowRoom();
-
-    //if (viewBagValidaSuenioNavidad == 0) {
-    //    showDialog('idSueniosNavidad');
-    //}
 };
 
 //Metodos para carousel Ofertas para Tí
@@ -3645,10 +3626,8 @@ function clickImagenComunicado(obj) {
     var vclose = mostrarComunicadosPopup();
 
     if (vclose) {
-        //$('#totalComuSinMostrar').val('0');
         closeComunicadosPopup = true;
         PopupCerrar('popupComunicados');
-        //CargarPopupsConsultora();
     }
 }
 
