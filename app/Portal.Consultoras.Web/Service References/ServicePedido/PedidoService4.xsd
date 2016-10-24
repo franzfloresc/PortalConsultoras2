@@ -96,6 +96,7 @@
         <xs:element minOccurs="0" name="paisID" type="xs:int" />
         <xs:element minOccurs="0" name="consultoraID" type="xs:int" />
         <xs:element minOccurs="0" name="campaniaID" type="xs:int" />
+        <xs:element minOccurs="0" name="codigoConsultora" nillable="true" type="xs:string" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

@@ -3115,6 +3115,9 @@ namespace Portal.Consultoras.Web.ServiceSAC {
         private string OrigenField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int PedidoIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private decimal PrecioUnidadField;
         
         [global::System.ComponentModel.BrowsableAttribute(false)]
@@ -3292,6 +3295,19 @@ namespace Portal.Consultoras.Web.ServiceSAC {
                 if ((object.ReferenceEquals(this.OrigenField, value) != true)) {
                     this.OrigenField = value;
                     this.RaisePropertyChanged("Origen");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int PedidoId {
+            get {
+                return this.PedidoIdField;
+            }
+            set {
+                if ((this.PedidoIdField.Equals(value) != true)) {
+                    this.PedidoIdField = value;
+                    this.RaisePropertyChanged("PedidoId");
                 }
             }
         }
@@ -9914,10 +9930,10 @@ namespace Portal.Consultoras.Web.ServiceSAC {
         System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BEPedidoFacturado[]> GetPedidosFacturadosCabeceraAsync(int PaisId, string CodigoConsultora);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/GetPedidosFacturadosDetalle", ReplyAction="http://tempuri.org/ISACService/GetPedidosFacturadosDetalleResponse")]
-        Portal.Consultoras.Web.ServiceSAC.BEPedidoFacturado[] GetPedidosFacturadosDetalle(int PaisId, string Campania, string Region, string Zona, string CodigoConsultora);
+        Portal.Consultoras.Web.ServiceSAC.BEPedidoFacturado[] GetPedidosFacturadosDetalle(int PaisId, string Campania, string Region, string Zona, string CodigoConsultora, int pedidoId);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/GetPedidosFacturadosDetalle", ReplyAction="http://tempuri.org/ISACService/GetPedidosFacturadosDetalleResponse")]
-        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BEPedidoFacturado[]> GetPedidosFacturadosDetalleAsync(int PaisId, string Campania, string Region, string Zona, string CodigoConsultora);
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BEPedidoFacturado[]> GetPedidosFacturadosDetalleAsync(int PaisId, string Campania, string Region, string Zona, string CodigoConsultora, int pedidoId);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/GetConfiguracionValidacionNuevoPROL", ReplyAction="http://tempuri.org/ISACService/GetConfiguracionValidacionNuevoPROLResponse")]
         Portal.Consultoras.Web.ServiceSAC.BEConfiguracionValidacionNuevoPROL[] GetConfiguracionValidacionNuevoPROL(int PaisID, int TipoPROL);
@@ -11071,12 +11087,12 @@ namespace Portal.Consultoras.Web.ServiceSAC {
             return base.Channel.GetPedidosFacturadosCabeceraAsync(PaisId, CodigoConsultora);
         }
         
-        public Portal.Consultoras.Web.ServiceSAC.BEPedidoFacturado[] GetPedidosFacturadosDetalle(int PaisId, string Campania, string Region, string Zona, string CodigoConsultora) {
-            return base.Channel.GetPedidosFacturadosDetalle(PaisId, Campania, Region, Zona, CodigoConsultora);
+        public Portal.Consultoras.Web.ServiceSAC.BEPedidoFacturado[] GetPedidosFacturadosDetalle(int PaisId, string Campania, string Region, string Zona, string CodigoConsultora, int pedidoId) {
+            return base.Channel.GetPedidosFacturadosDetalle(PaisId, Campania, Region, Zona, CodigoConsultora, pedidoId);
         }
         
-        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BEPedidoFacturado[]> GetPedidosFacturadosDetalleAsync(int PaisId, string Campania, string Region, string Zona, string CodigoConsultora) {
-            return base.Channel.GetPedidosFacturadosDetalleAsync(PaisId, Campania, Region, Zona, CodigoConsultora);
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BEPedidoFacturado[]> GetPedidosFacturadosDetalleAsync(int PaisId, string Campania, string Region, string Zona, string CodigoConsultora, int pedidoId) {
+            return base.Channel.GetPedidosFacturadosDetalleAsync(PaisId, Campania, Region, Zona, CodigoConsultora, pedidoId);
         }
         
         public Portal.Consultoras.Web.ServiceSAC.BEConfiguracionValidacionNuevoPROL[] GetConfiguracionValidacionNuevoPROL(int PaisID, int TipoPROL) {

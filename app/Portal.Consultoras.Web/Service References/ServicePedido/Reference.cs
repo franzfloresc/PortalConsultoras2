@@ -17059,10 +17059,10 @@ namespace Portal.Consultoras.Web.ServicePedido {
         System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEPedidoWeb[]> GetPedidosFacturadosAsync(int paisId, string codigoConsultora);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetPedidosIngresadoFacturado", ReplyAction="http://tempuri.org/IPedidoService/GetPedidosIngresadoFacturadoResponse")]
-        Portal.Consultoras.Web.ServicePedido.BEPedidoWeb[] GetPedidosIngresadoFacturado(int paisID, int consultoraID, int campaniaID);
+        Portal.Consultoras.Web.ServicePedido.BEPedidoWeb[] GetPedidosIngresadoFacturado(int paisID, int consultoraID, int campaniaID, string codigoConsultora);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetPedidosIngresadoFacturado", ReplyAction="http://tempuri.org/IPedidoService/GetPedidosIngresadoFacturadoResponse")]
-        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEPedidoWeb[]> GetPedidosIngresadoFacturadoAsync(int paisID, int consultoraID, int campaniaID);
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEPedidoWeb[]> GetPedidosIngresadoFacturadoAsync(int paisID, int consultoraID, int campaniaID, string codigoConsultora);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetConsultorasProgramaNuevas", ReplyAction="http://tempuri.org/IPedidoService/GetConsultorasProgramaNuevasResponse")]
         Portal.Consultoras.Web.ServicePedido.BEConsultorasProgramaNuevas GetConsultorasProgramaNuevas(int paisID, Portal.Consultoras.Web.ServicePedido.BEConsultorasProgramaNuevas entidad);
@@ -18710,12 +18710,12 @@ namespace Portal.Consultoras.Web.ServicePedido {
             return base.Channel.GetPedidosFacturadosAsync(paisId, codigoConsultora);
         }
         
-        public Portal.Consultoras.Web.ServicePedido.BEPedidoWeb[] GetPedidosIngresadoFacturado(int paisID, int consultoraID, int campaniaID) {
-            return base.Channel.GetPedidosIngresadoFacturado(paisID, consultoraID, campaniaID);
+        public Portal.Consultoras.Web.ServicePedido.BEPedidoWeb[] GetPedidosIngresadoFacturado(int paisID, int consultoraID, int campaniaID, string codigoConsultora) {
+            return base.Channel.GetPedidosIngresadoFacturado(paisID, consultoraID, campaniaID, codigoConsultora);
         }
         
-        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEPedidoWeb[]> GetPedidosIngresadoFacturadoAsync(int paisID, int consultoraID, int campaniaID) {
-            return base.Channel.GetPedidosIngresadoFacturadoAsync(paisID, consultoraID, campaniaID);
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEPedidoWeb[]> GetPedidosIngresadoFacturadoAsync(int paisID, int consultoraID, int campaniaID, string codigoConsultora) {
+            return base.Channel.GetPedidosIngresadoFacturadoAsync(paisID, consultoraID, campaniaID, codigoConsultora);
         }
         
         public Portal.Consultoras.Web.ServicePedido.BEConsultorasProgramaNuevas GetConsultorasProgramaNuevas(int paisID, Portal.Consultoras.Web.ServicePedido.BEConsultorasProgramaNuevas entidad) {
