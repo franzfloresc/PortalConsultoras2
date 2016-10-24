@@ -992,6 +992,7 @@
     </div>
     <!--Popup mensaje como lo atenderas -->
     
+    
     <!--PENDIENTES PORTAL-->
     <div id="popup2_pendientes" class="contenedor_popup_percepciones popupPendientesPORTAL" style="display: none;">
         <div class="popup_Pendientes">
@@ -1089,7 +1090,7 @@
                     <div class="optionsRechazo" data-id="@motivoRechazo.MotivoSolicitudID">@motivoRechazo.Motivo</div>
                 }
 
-                <textarea id="txtOtrosRechazo" placeholder="Otros:"></textarea>
+                <textarea id="txtOtrosRechazo" placeholder="" readonly="readonly" maxlength="300"></textarea>
             </div>
             <button type="button" class="btn_eliminarCliente btn-negro" id="btnRechazarPedido" onclick="RechazarPedido()">
                 ENVIAR
@@ -1989,6 +1990,7 @@
         var lanzarTabConsultoraOnline = '@ViewBag.LanzarTabConsultoraOnline';
         var urlMisPedidosClienteOnline = '@Url.Action("", "MisPedidos")';
         var indicadorFlexiPago = '@Model.IndicadorFlexiPago';
+        var urlPedido = '@Url.Action("Index","Pedido")';
 
     </script>
     @System.Web.Optimization.Scripts.Render("~/bundles/JsSB2-Pedido")

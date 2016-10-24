@@ -323,15 +323,10 @@ namespace Portal.Consultoras.Web.Controllers
                     string paisesConsultoraOnline = ConfigurationManager.AppSettings.Get("Permisos_CCC");
                     if (paisesConsultoraOnline.Contains(userData.CodigoISO))
                     {
-                        List<BEMisPedidos> olstMisPedidos = new List<BEMisPedidos>();
-                        using (UsuarioServiceClient svc = new UsuarioServiceClient())
+                        using (var svc = new UsuarioServiceClient())
                         {
-                            olstMisPedidos = svc.GetMisPedidosConsultoraOnline(UserData().PaisID, UserData().ConsultoraID, UserData().CampaniaID).ToList();
-                        }
-                        if (olstMisPedidos.Any())
-                        {
-                            olstMisPedidos.RemoveAll(x => x.Estado.Trim().Length > 0);  // solo pendientes
-                            if (olstMisPedidos.Count > 0)
+                            var CantPedidosPendientes = svc.GetCantidadSolicitudesPedido(userData.PaisID, userData.ConsultoraID, userData.CampaniaID);
+                            if (CantPedidosPendientes > 0)
                             {
                                 ViewBag.MostrarPedidosPendientes = "1";
 
@@ -342,6 +337,26 @@ namespace Portal.Consultoras.Web.Controllers
                                 }
                             }
                         }
+
+                        //List<BEMisPedidos> olstMisPedidos = new List<BEMisPedidos>();
+                        //using (UsuarioServiceClient svc = new UsuarioServiceClient())
+                        //{
+                        //    olstMisPedidos = svc.GetMisPedidosConsultoraOnline(UserData().PaisID, UserData().ConsultoraID, UserData().CampaniaID).ToList();
+                        //}
+                        //if (olstMisPedidos.Any())
+                        //{
+                        //    olstMisPedidos.RemoveAll(x => x.Estado.Trim().Length > 0);  // solo pendientes
+                        //    if (olstMisPedidos.Count > 0)
+                        //    {
+                        //        ViewBag.MostrarPedidosPendientes = "1";
+
+                        //        using (SACServiceClient sv = new SACServiceClient())
+                        //        {
+                        //            List<BEMotivoSolicitud> motivoSolicitud = sv.GetMotivosRechazo(userData.PaisID).ToList();
+                        //            ViewBag.MotivosRechazo = Mapper.Map<List<MisPedidosMotivoRechazoModel>>(motivoSolicitud);
+                        //        }
+                        //    }
+                        //}
                     }
                 }
 
@@ -2159,7 +2174,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 foreach (var item in lista)
                 {
-                    if (!Regex.IsMatch(item.CUV, @"^\d+$"))
+                    if (!Regex.IsMatch(Util.SubStr(item.CUV, 0), @"^\d+$"))
                     {
                         return item.Caso + "_" + item.Descripcion;
                     }
@@ -2955,7 +2970,7 @@ namespace Portal.Consultoras.Web.Controllers
                 if (userData.NuevoPROL && userData.ZonaNuevoPROL)   // PROL 2
                 {
                     //ViewBag.Prol = "MODIFICA TU PEDIDO";
-                    ViewBag.ProlTooltip = "Haz click aqui para modificar tu pedido";
+                    ViewBag.ProlTooltip = "Haz click aquí para modificar tu pedido";
 
                     if (diaActual <= userData.FechaInicioCampania)
                     {
@@ -2984,7 +2999,7 @@ namespace Portal.Consultoras.Web.Controllers
                     else
                     {
                         //ViewBag.Prol = "MODIFICA TU PEDIDO";
-                        ViewBag.ProlTooltip = "Haz click aqui para validar tu pedido";
+                        ViewBag.ProlTooltip = "Haz click aquí para validar tu pedido";
 
                         if (diaActual <= userData.FechaInicioCampania)
                         {

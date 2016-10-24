@@ -363,6 +363,13 @@ function ObtenerOfertaRevista(item) {
                         else if (settings.lista_ObjNivel.length > 0) {
                             settings.lista_ObjNivel = RemoverRepetidos(settings.lista_ObjNivel);
                             settings.lista_oObjGratis = RemoverRepetidos(settings.lista_oObjGratis);
+                            var lista = Clone(settings.lista_ObjNivel);
+                            settings.lista_ObjNivel = new Array();
+                            $.each(lista, function (ind, nivel) {
+                                if (nivel.escala_nivel > 1) {
+                                    settings.lista_ObjNivel.push(nivel);
+                                }
+                            });
                             settings.lista_ObjNivel.splice(3, settings.lista_ObjNivel.length);
                             SetHandlebars("#template-mod-ofer2", settings, '[data-oferta]');
                             var cantNo = 0;
@@ -376,8 +383,16 @@ function ObtenerOfertaRevista(item) {
                             $('[data-oferta]').addClass('mod-ofer2').show();
                             if (cantNo == $('[data-oferta] .item1_oferta_personalizada').length) {
                                 $('[data-oferta] .item1_oferta_personalizada .content_sub_items').remove();
-                                var marginP = $("[data-oferta] [data-oferta-popup]").height() / 2;
-                                $("[data-oferta] [data-oferta-popup]").css('margin', '-' + marginP + 'px auto auto auto');
+                                if (tipoOrigen != "2") {
+                                    var marginP = $("[data-oferta] [data-oferta-popup]").height() / 2;
+                                    $("[data-oferta] [data-oferta-popup]").css('margin', '-' + marginP + 'px auto auto auto');
+                                }
+                            }
+                        }
+                        else {
+                            if (settings.precio_catalogo != "" && settings.CUV != "") {
+                                SetHandlebars("#template-mod-ofer1", settings, '[data-oferta]');
+                                $('[data-oferta]').addClass('mod-ofer1').show();
                             }
                         }
                         break;

@@ -64,6 +64,12 @@ $(document).ready(function () {
     $('.optionsRechazo').on('click', function () {
         $('.optionsRechazo').removeClass('optionsRechazoSelect');
         $(this).addClass('optionsRechazoSelect');
+        if ($(this).data('id') == 11) {
+            $('#txtOtrosRechazo').prop('readonly', false);
+        }
+        else {
+            $('#txtOtrosRechazo').prop('readonly', true);
+        }
     });
 
     //APP CATALOGO
@@ -501,6 +507,11 @@ function AceptarPedido(pedidoId, tipo) {
 
         waitingDialog({});
 
+        //if (HorarioRestringido()) {
+        //    closeWaitingDialog();
+        //    return false;
+        //}
+
         $.ajax({
             type: 'POST',
             url: '/ConsultoraOnline/AceptarPedido',
@@ -553,4 +564,43 @@ function MostrarMisPedidosConsultoraOnline() {
     var frmConsultoraOnline = $('#frmConsultoraOnline');
     frmConsultoraOnline.attr("action", urlMisPedidosClienteOnline);
     frmConsultoraOnline.submit();
+}
+
+function HorarioRestringido(mostrarAlerta) {
+    mostrarAlerta = typeof mostrarAlerta !== 'undefined' ? mostrarAlerta : true;
+    var horarioRestringido = false;
+    $.ajaxSetup({
+        cache: false
+    });
+    jQuery.ajax({
+        type: 'GET',
+        url: baseUrl + 'Pedido/EnHorarioRestringido',
+        dataType: 'json',
+        contentType: 'application/json; charset=utf-8',
+        async: false,
+        success: function (data) {
+            if (checkTimeout(data)) {
+                // esta en horario restringido
+                if (data.success == true) {
+                    if (mostrarAlerta == true) {
+                        closeWaitingDialog();
+                        alert_msg(data.message);
+                    }
+                    horarioRestringido = true;
+                }
+            }
+        },
+        error: function (data, error) {
+            if (checkTimeout(data)) {
+                closeWaitingDialog();
+                alert_msg(data.message);
+            }
+        }
+    });
+    return horarioRestringido;
+}
+
+function CerrarAlertaPedidoReservado() {
+    $('#dialog_alertaPedidoReservado').hide();
+    document.location.href = urlPedido;
 }

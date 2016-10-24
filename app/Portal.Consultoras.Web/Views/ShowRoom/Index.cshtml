@@ -35,26 +35,8 @@
             contadorDetalle++;
         }
 
-        var formatoPrecioOferta = "";
-        var formatoPrecioCatalogo = "";
-        if (Model.CodigoIso == Constantes.CodigosISOPais.Colombia)
-        {
-            formatoPrecioOferta = string.Format("{0:#,##0}", item.PrecioOferta).Replace(',', '.');
-            formatoPrecioCatalogo = string.Format("{0:#,##0}", item.PrecioCatalogo).Replace(',', '.');
-        }
-        else
-        {
-            if (Model.CodigoIso == Constantes.CodigosISOPais.Chile)
-            {
-                formatoPrecioOferta = string.Format("{0:#,##0}", item.PrecioOferta);
-                formatoPrecioCatalogo = string.Format("{0:#,##0}", item.PrecioCatalogo);
-            }
-            else
-            {
-                formatoPrecioOferta = Convert.ToInt32(item.PrecioOferta).ToString();
-                formatoPrecioCatalogo = Convert.ToInt32(item.PrecioCatalogo).ToString();
-            }
-        }
+        var formatoPrecioOferta = Util.DecimalToStringFormat(item.PrecioOferta, Model.CodigoIso);
+        var formatoPrecioCatalogo = Util.DecimalToStringFormat(item.PrecioCatalogo, Model.CodigoIso);
 
         <div class="producto_showroom" data-posicion="@posicion">
             <input type="hidden" id="hdOfertaShowRoomID" value="@item.OfertaShowRoomID" />
@@ -135,28 +117,8 @@
     @foreach (var item2 in Model.ListaShowRoomOferta)
     {
         var ganaHasta = Convert.ToInt32(item2.PrecioOferta) - Convert.ToInt32(item2.PrecioCatalogo);
-        var formatoGanaHasta = "";
-        var formatoPrecioCatalogo = "";
-
-        if (Model.CodigoIso == Constantes.CodigosISOPais.Colombia)
-        {
-            formatoGanaHasta = string.Format("{0:#,##0}", ganaHasta).Replace(',', '.');
-            formatoPrecioCatalogo = string.Format("{0:#,##0}", item2.PrecioCatalogo).Replace(',', '.');
-        }
-        else
-        {
-            if (Model.CodigoIso == Constantes.CodigosISOPais.Chile)
-            {
-                formatoGanaHasta = string.Format("{0:#,##0}", ganaHasta);
-                formatoPrecioCatalogo = string.Format("{0:#,##0}", item2.PrecioCatalogo);
-            }
-            else
-            {
-                formatoGanaHasta = Convert.ToInt32(ganaHasta).ToString();
-                formatoPrecioCatalogo = Convert.ToInt32(item2.PrecioCatalogo).ToString();
-            }
-        }
-
+        var formatoGanaHasta = Util.DecimalToStringFormat(ganaHasta, Model.CodigoIso);
+        var formatoPrecioCatalogo = Util.DecimalToStringFormat(item2.PrecioCatalogo, Model.CodigoIso);
 
         <div class="contenidoCarrusel" data-carrusel-posicion="@posicionCarrusel" style="display: none; float:left;">
             <div class="fondo_detalle_blanco">

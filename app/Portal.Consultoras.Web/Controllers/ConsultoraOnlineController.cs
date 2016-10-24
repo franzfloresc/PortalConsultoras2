@@ -632,6 +632,20 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     olstMisPedidos = sv.GetMisPedidosConsultoraOnline(UserData().PaisID, UserData().ConsultoraID, UserData().CampaniaID).ToList();
                 }
+                //model.ListaPedidos = olstMisPedidos;
+
+                // set detalle pedido
+                if (olstMisPedidos.Count > 0)
+                {
+                    using (UsuarioServiceClient svc = new UsuarioServiceClient())
+                    {
+                        foreach (var miPedido in olstMisPedidos)
+                        {
+                            miPedido.DetallePedido = svc.GetMisPedidosDetalleConsultoraOnline(userData.PaisID, miPedido.PedidoId).ToArray();
+                        }
+                    }
+                }
+                
                 model.ListaPedidos = olstMisPedidos;
 
                 objMisPedidos = model;
@@ -1021,6 +1035,19 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpPost]
         public JsonResult AceptarPedido(string pedidoId, MisPedidosModel pedidoModel, string typeAction = null)
         {
+            // validar si puede ingresar el pedido
+            var mensajeR = "";
+            var noPasa = ReservadoEnHorarioRestringido(out mensajeR);
+            if (noPasa)
+            {
+                return Json(new
+                {
+                    success = false,
+                    message = mensajeR,
+                    code = 2
+                }, JsonRequestBehavior.AllowGet);
+            }
+
             MisPedidosModel consultoraOnlineMisPedidos = new MisPedidosModel();
             consultoraOnlineMisPedidos = (MisPedidosModel)Session["objMisPedidos"];
             BEMisPedidos pedido = new BEMisPedidos();
@@ -1380,7 +1407,8 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     success = true,
                     message = "OK",
-                    DataBarra = GetDataBarra()
+                    DataBarra = GetDataBarra(),
+                    code = 1
                 }, JsonRequestBehavior.AllowGet); 
 
                 //Fín GR-1385
@@ -1392,7 +1420,8 @@ namespace Portal.Consultoras.Web.Controllers
                 return Json(new
                 {
                     success = false,
-                    message = e.Message
+                    message = e.Message,
+                    code = 1
                 }, JsonRequestBehavior.AllowGet); 
             }
 
@@ -1929,7 +1958,8 @@ namespace Portal.Consultoras.Web.Controllers
             mensaje.AppendLine("	</tr>");
             mensaje.AppendLine("	<tr>");
             mensaje.AppendLine("		<td colspan=\"7\" style=\"text-align:center; padding-top:30px; padding-bottom:50px\">");
-            mensaje.AppendLine(String.Format("			<a href=\"{0}ConsultoraOnline/AtenderCorreo?tipo=SolicitudPedido\" target=\"_blank\"><img src=\"{1}\" width=\"201\" height=\"38\" border=\"0\" alt=\"Ver pedido\"></a>", contextoBase, ConfigS3.GetUrlFileS3(carpetaPais, "7-Mailing_03.png", string.Empty)));
+            //mensaje.AppendLine(String.Format("			<a href=\"{0}ConsultoraOnline/AtenderCorreo?tipo=SolicitudPedido\" target=\"_blank\"><img src=\"{1}\" width=\"201\" height=\"38\" border=\"0\" alt=\"Ver pedido\"></a>", contextoBase, ConfigS3.GetUrlFileS3(carpetaPais, "7-Mailing_03.png", string.Empty)));
+            mensaje.AppendLine(String.Format("			<a href=\"{0}Pedido/Index?lanzarTabConsultoraOnline=true\" target=\"_blank\"><img src=\"{1}\" width=\"201\" height=\"38\" border=\"0\" alt=\"Ver pedido\"></a>", contextoBase, ConfigS3.GetUrlFileS3(carpetaPais, "7-Mailing_03.png", string.Empty)));
             mensaje.AppendLine("		</td>");
             mensaje.AppendLine("	</tr>");
             mensaje.AppendLine("	<tr>");

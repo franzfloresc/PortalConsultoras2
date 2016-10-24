@@ -141,7 +141,7 @@ namespace Portal.Consultoras.Web.Controllers
                 return Json(new
                 {
                     success = true,
-                    message = listModel.Count == 0 ? "No tiene pedidos de Consultora Online para esta campaña, con el filtro en la campaña actual." : "",
+                    message = listModel.Count == 0 ? "No tiene pedidos de Consultora Online para esta campaña" : "",
                     listaPedidosClienteOnline = listModel,
                     campaniaResultado = campaniaResultado
                 });
