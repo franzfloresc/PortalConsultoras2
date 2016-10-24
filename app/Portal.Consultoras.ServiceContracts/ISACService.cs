@@ -457,7 +457,7 @@ namespace Portal.Consultoras.ServiceContracts
 
         //R2073
         [OperationContract]
-        List<BEPedidoFacturado> GetPedidosFacturadosDetalle(int PaisId, string Campania, string Region, string Zona, string CodigoConsultora);
+        List<BEPedidoFacturado> GetPedidosFacturadosDetalle(int PaisId, string Campania, string Region, string Zona, string CodigoConsultora, int pedidoId);
 
         #endregion
 
