@@ -64,6 +64,12 @@ $(document).ready(function () {
     $('.optionsRechazo').on('click', function () {
         $('.optionsRechazo').removeClass('optionsRechazoSelect');
         $(this).addClass('optionsRechazoSelect');
+        if ($(this).data('id') == 11) {
+            $('#txtOtrosRechazo').prop('readonly', false);
+        }
+        else {
+            $('#txtOtrosRechazo').prop('readonly', true);
+        }
     });
 
     //APP CATALOGO
