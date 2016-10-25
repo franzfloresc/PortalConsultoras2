@@ -21,4 +21,13 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="SolicitudPostulanteParameter" nillable="true" type="tns:SolicitudPostulanteParameter" />
+  <xs:complexType name="ReporteConsolidadoParameter">
+    <xs:sequence>
+      <xs:element xmlns:q6="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.Utils" minOccurs="0" name="Aplicacion" type="q6:Enums.Aplicacion" />
+      <xs:element minOccurs="0" name="CodigoIso" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FechaDesde" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="FechaHasta" nillable="true" type="xs:dateTime" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ReporteConsolidadoParameter" nillable="true" type="tns:ReporteConsolidadoParameter" />
 </xs:schema>

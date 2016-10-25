@@ -124,6 +124,7 @@
       <xs:element minOccurs="0" name="NumeroDocumento" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="NumeroDocumentoAval" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="NumeroDocumentoLegal" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="OrigenIngreso" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Paso" type="xs:int" />
       <xs:element minOccurs="0" name="PrimerNombre" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="PrimerNombreAval" nillable="true" type="xs:string" />
@@ -150,6 +151,8 @@
       <xs:element minOccurs="0" name="TipoDocumentoAval" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="TipoDocumentoLegal" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="TipoMeta" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TipoNacionalidad" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TipoPersona" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="TipoRechazo" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="TipoSolicitud" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="TipoVinculoAval" nillable="true" type="xs:int" />
@@ -158,4 +161,15 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="SolicitudPostulanteBE" nillable="true" type="tns:SolicitudPostulanteBE" />
+  <xs:complexType name="ReporteConsolidadoBE">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ACC" type="xs:int" />
+      <xs:element minOccurs="0" name="Descripcion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="MovilSE" type="xs:int" />
+      <xs:element minOccurs="0" name="PortalGZ" type="xs:int" />
+      <xs:element minOccurs="0" name="Totales" type="xs:int" />
+      <xs:element minOccurs="0" name="UB" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ReporteConsolidadoBE" nillable="true" type="tns:ReporteConsolidadoBE" />
 </xs:schema>

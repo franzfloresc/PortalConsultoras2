@@ -14,6 +14,7 @@ namespace Portal.Consultoras.Web.GestionPasos
             EvaluacionCrediticia.Add(Constantes.CodigosISOPais.Colombia, new EvaluacionCrediticiaColombia());
             EvaluacionCrediticia.Add(Constantes.CodigosISOPais.Mexico, new EvaluacionCrediticiaMexico());
             EvaluacionCrediticia.Add(Constantes.CodigosISOPais.Peru, new EvaluacionCrediticiaPeru());
+            EvaluacionCrediticia.Add(Constantes.CodigosISOPais.Ecuador, new EvaluacionCrediticiaEcuador());
             EvaluacionCrediticia.Add(Constantes.CodigosISOPais.CostaRica, new EvaluacionCrediticiaCam());
             EvaluacionCrediticia.Add(Constantes.CodigosISOPais.Guatemala, new EvaluacionCrediticiaCam());
             EvaluacionCrediticia.Add(Constantes.CodigosISOPais.Panama, new EvaluacionCrediticiaCam());
