@@ -15,9 +15,9 @@ namespace Portal.Consultoras.Web.ServicePedidoRechazado {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="BEPedidoRechazado", Namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="BEPedidoRechazadoSicc", Namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities")]
     [System.SerializableAttribute()]
-    public partial class BEPedidoRechazado : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+    public partial class BEPedidoRechazadoSicc : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
         
         [System.NonSerializedAttribute()]
         private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
@@ -441,10 +441,10 @@ namespace Portal.Consultoras.Web.ServicePedidoRechazado {
     public interface IPedidoRechazadoService {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoRechazadoService/SetPedidoRechazado", ReplyAction="http://tempuri.org/IPedidoRechazadoService/SetPedidoRechazadoResponse")]
-        int SetPedidoRechazado(string PaisISO, Portal.Consultoras.Web.ServicePedidoRechazado.BEPedidoRechazado[] lista);
+        int SetPedidoRechazado(string PaisISO, Portal.Consultoras.Web.ServicePedidoRechazado.BEPedidoRechazadoSicc[] lista);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoRechazadoService/SetPedidoRechazado", ReplyAction="http://tempuri.org/IPedidoRechazadoService/SetPedidoRechazadoResponse")]
-        System.Threading.Tasks.Task<int> SetPedidoRechazadoAsync(string PaisISO, Portal.Consultoras.Web.ServicePedidoRechazado.BEPedidoRechazado[] lista);
+        System.Threading.Tasks.Task<int> SetPedidoRechazadoAsync(string PaisISO, Portal.Consultoras.Web.ServicePedidoRechazado.BEPedidoRechazadoSicc[] lista);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoRechazadoService/GetBELogGPRValidacionByGetLogGPRValida" +
             "cionId", ReplyAction="http://tempuri.org/IPedidoRechazadoService/GetBELogGPRValidacionByGetLogGPRValida" +
@@ -494,11 +494,11 @@ namespace Portal.Consultoras.Web.ServicePedidoRechazado {
                 base(binding, remoteAddress) {
         }
         
-        public int SetPedidoRechazado(string PaisISO, Portal.Consultoras.Web.ServicePedidoRechazado.BEPedidoRechazado[] lista) {
+        public int SetPedidoRechazado(string PaisISO, Portal.Consultoras.Web.ServicePedidoRechazado.BEPedidoRechazadoSicc[] lista) {
             return base.Channel.SetPedidoRechazado(PaisISO, lista);
         }
         
-        public System.Threading.Tasks.Task<int> SetPedidoRechazadoAsync(string PaisISO, Portal.Consultoras.Web.ServicePedidoRechazado.BEPedidoRechazado[] lista) {
+        public System.Threading.Tasks.Task<int> SetPedidoRechazadoAsync(string PaisISO, Portal.Consultoras.Web.ServicePedidoRechazado.BEPedidoRechazadoSicc[] lista) {
             return base.Channel.SetPedidoRechazadoAsync(PaisISO, lista);
         }
         
