@@ -4,7 +4,6 @@ using System.Linq;
 using System.Web;
 using Portal.Consultoras.Web.ServiceUsuario;
 
-
 namespace Portal.Consultoras.Web.Models
 {
     public class MisPedidosModel

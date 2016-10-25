@@ -40,27 +40,9 @@
             @foreach (var item in Model.ListaShowRoomOferta)
             {
                 var ganaHasta = Convert.ToInt32(item.PrecioOferta) - Convert.ToInt32(item.PrecioCatalogo);
-                var formatoGanaHasta = "";
-                var formatoPrecioCatalogo = "";
-
-                if (Model.CodigoIso == Constantes.CodigosISOPais.Colombia)
-                {
-                    formatoGanaHasta = string.Format("{0:#,##0}", ganaHasta).Replace(',', '.');
-                    formatoPrecioCatalogo = string.Format("{0:#,##0}", item.PrecioCatalogo).Replace(',', '.');
-                }
-                else
-                {
-                    if (Model.CodigoIso == Constantes.CodigosISOPais.Chile)
-                    {
-                        formatoGanaHasta = string.Format("{0:#,##0}", ganaHasta);
-                        formatoPrecioCatalogo = string.Format("{0:#,##0}", item.PrecioCatalogo);
-                    }
-                    else
-                    {
-                        formatoGanaHasta = Convert.ToInt32(ganaHasta).ToString();
-                        formatoPrecioCatalogo = Convert.ToInt32(item.PrecioCatalogo).ToString();
-                    }                                   
-                }
+                var formatoGanaHasta = Util.DecimalToStringFormat(ganaHasta, Model.CodigoIso);
+                var formatoPrecioCatalogo = Util.DecimalToStringFormat(item.PrecioCatalogo, Model.CodigoIso);
+                
                 var inhabilitar = item.Stock == 0;
 
                 var eje = posicion != 2 ? "" : "slick-current slick-active";
@@ -372,9 +354,8 @@
                                             //ActualizarCantidadTotalPedido();
                                             CargarCantidadProductosPedidos();
                                             TrackingJetloreAdd(cantidad, $("#hdCampaniaCodigo").val(), CUV);
-                                        } else {
-                                            messageInfo(response.message);
                                         }
+                                        else messageInfoError(response.message);
                                     },
                                     error: function(response, error) {
                                         if (checkTimeout(response)) {

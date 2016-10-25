@@ -337,6 +337,11 @@
                             <span>App móvil</span>
                             {{/iff}}
 
+                            {{#if_eq FlagConsultoraOnline '1'}}
+                            <br />
+                            <span>CLIENTE ONLINE</span>
+                            {{else}}
+
                             {{#iff OrigenPedidoWeb '==' '@Constantes.OrigenPedidoWeb.DesktopPedidoOfertaFinal'}}
                             {{else if_eq OrigenPedidoWeb '@Constantes.OrigenPedidoWeb.MobilePedidoOfertaFinal'}}
                             {{else iff detalle.ConfiguracionOfertaID '==' @Constantes.TipoOferta.Liquidacion}}
@@ -357,6 +362,8 @@
                             {{/iff}}
                             {{/IsNullOrEmpty}}
                             {{/iff}}
+
+                            {{/if_eq}}
                         </span>
                         <span class="cod_prod">{{detalle.CUV}}</span>
                         <span class="desc_prod">
@@ -616,7 +623,9 @@
                     <b>{{Descripcion}}</b>
                 </p>
                 <div class="producto_precio">
+                    {{#iff PrecioValorizadoString '!=' ''}}
                     <span class="producto_precio_normal" style="display:none;">{{Simbolo}} {{PrecioValorizadoString}}</span>
+                    {{/iff}}
                     <span class="producto_precio_oferta"><b>{{Simbolo}} {{PrecioCatalogoString}}</b></span>
                 </div>
                 <div class="contenedor_cantidadProductos">
@@ -693,7 +702,7 @@
         var urlLoad = '@Url.Content("~/Content/Images/Loading.gif")';
         var viewBagPaisID = '@Model.PaisID';
         var viewBagNombrePais = '@ViewBag.NombrePais';
-        var urlInsertar = '@Url.Action("Insert", "Pedido", new {area = ""})';
+        var urlPedidoInsert = '@Url.Action("Insert", "Pedido", new {area = ""})';
         /* SB20-565 - FIN */
 
     </script>

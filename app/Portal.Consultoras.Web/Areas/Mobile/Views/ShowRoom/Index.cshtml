@@ -45,27 +45,8 @@
         contadorDetalle++;
     }
     var inhabilitar = item.Stock == 0;
-    var formatoPrecioOferta = "";
-    var formatoPrecioCatalogo = "";
-    if (Model.CodigoIso == Constantes.CodigosISOPais.Colombia)
-    {
-        formatoPrecioOferta = string.Format("{0:#,##0}", item.PrecioOferta).Replace(',', '.');
-        formatoPrecioCatalogo = string.Format("{0:#,##0}", item.PrecioCatalogo).Replace(',', '.');
-    }
-    else
-    {
-        if (Model.CodigoIso == Constantes.CodigosISOPais.Chile)
-        {
-            formatoPrecioOferta = string.Format("{0:#,##0}", item.PrecioOferta);
-            formatoPrecioCatalogo = string.Format("{0:#,##0}", item.PrecioCatalogo);
-        }
-        else
-        {
-            formatoPrecioOferta = Convert.ToInt32(item.PrecioOferta).ToString();
-            formatoPrecioCatalogo = Convert.ToInt32(item.PrecioCatalogo).ToString();  
-        }
-          
-    }
+    var formatoPrecioOferta = Util.DecimalToStringFormat(item.PrecioOferta, Model.CodigoIso);
+    var formatoPrecioCatalogo = Util.DecimalToStringFormat(item.PrecioCatalogo, Model.CodigoIso);  
     
     <div class="listado_item" data-posicion="@posicion">
         <input type="hidden" id="hdOfertaShowRoomID" value="@item.OfertaShowRoomID" />
@@ -311,9 +292,7 @@
                                             CargarCantidadProductosPedidos();
                                             TrackingJetloreAdd(cantidad, $("#hdCampaniaCodigo").val(), CUV);
                                         }
-                                        else {
-                                            messageInfo(response.message);
-                                        }
+                                        else messageInfoError(response.message);
                                     },
                                     error: function (response, error) {
                                         if (checkTimeout(response)) {

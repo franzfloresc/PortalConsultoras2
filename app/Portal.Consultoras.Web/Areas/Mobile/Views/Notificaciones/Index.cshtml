@@ -47,7 +47,7 @@ else
             {
                 var estilo = item.Visualizado ? "" : "no_leido";
 
-                <li class="@estilo" onclick="VisualizarPopup('@item.ProcesoId','@item.Observaciones','@item.Estado','@item.FacturaHoy.ToString()','@item.FechaFacturacion.Day','@item.FechaFacturacion.Month','@item.Visualizado.ToString()','@item.Asunto','@item.Proceso')">
+                <li class="@estilo" onclick="VisualizarPopup('@item.ProcesoId','@item.Observaciones','@item.Estado','@item.FacturaHoy.ToString()','@item.FechaFacturacion.Day','@item.FechaFacturacion.Month','@item.Visualizado.ToString()','@item.Asunto','@item.Proceso', this)">
 
                     <div class="text-noti">
                         <div class="upper">
@@ -83,48 +83,14 @@ else
 
 
 @section scripts{
-
-    <script type="text/javascript">
-
-        function VisualizarPopup(ProcesoId, Observaciones, Estado, FacturaHoy, DiaFact, MesFact, Visualizado, Asunto, Proceso) {
-
-            ShowLoading();
-
-            var TipoOrigen = 1;
-            if (Proceso == "VALAUTO")
-                TipoOrigen = 1;
-            else
-                if (Proceso == "VALMOVIL")
-                    TipoOrigen = 2;
-                else
-                    TipoOrigen = 3;
-
-            if (Proceso == "BUSCACONS")
-                TipoOrigen = 4
-
-            if (Proceso == "CATALOGO")
-                TipoOrigen = 5;
-
-            if (Visualizado == "False") {
-                $.post('@Url.Action("ActualizarLeidoSolicitud", "Notificaciones", new { area = "Mobile" })' + "?ProcesoId=" + ProcesoId + "&TipoOrigen=" + TipoOrigen, function (data) {
-
-                    data.mensaje = data.mensaje || "";
-                    if (data.mensaje != '') {
-                        console.log(data.mensaje);
-                    }
-                });
-            }
-
-            if (TipoOrigen == 5) {
-                location.href = '@Url.Action("DetalleSolicitudClienteCatalogo", "Notificaciones", new { area = "Mobile" })' + "?SolicitudId=" + ProcesoId;
-            } else if (TipoOrigen == 4) {
-                location.href = '@Url.Action("DetallePedido", "ConsultoraOnline", new { area = "Mobile" })' + "?pedidoId=" + ProcesoId; //GR-723
-                //location.href = '@Url.Action("DetalleSolicitudCliente", "Notificaciones", new { area = "Mobile" })' + "?SolicitudId=" + ProcesoId;
-            } else if (TipoOrigen != 3) {
-                location.href = '@Url.Action("ListarObservaciones", "Notificaciones", new { area = "Mobile" })' + "?ProcesoId=" + ProcesoId + "&TipoOrigen=" + TipoOrigen;
-            } else {
-                location.href = '@Url.Action("ListarObservacionesStock", "Notificaciones", new { area = "Mobile" })' + "?ValStockId=" + Observaciones;
-            }
-        }
+    <script>
+        var urlActualizarEstadoNotificacion = '@Url.Action("ActualizarEstadoNotificacion", "Notificaciones", new { area = "" })';
+        var urlDetallePedidoRechazado = '@Url.Action("DetallePedidoRechazado", "Notificaciones", new { area = "Mobile" })';
+        var urlDetalleSolicitudClienteCatalogo = '@Url.Action("DetalleSolicitudClienteCatalogo", "Notificaciones", new { area = "Mobile" })';
+        var urlConsultoraOnlinePendientes = '@Url.Action("Pendientes", "ConsultoraOnline", new { Area = "Mobile" })';
+        var urlConsultoraOnlineHistorial = '@Url.Action("Historial", "ConsultoraOnline", new { Area = "Mobile" })';
+        var urlListarObservacionesStock = '@Url.Action("ListarObservacionesStock", "Notificaciones", new { area = "Mobile" })';
+        var urlListarObservaciones = '@Url.Action("ListarObservaciones", "Notificaciones", new { area = "Mobile" })';
     </script>
+    <script src="@Url.Content("~/Scripts/PortalConsultoras/Mobile/Notificaciones/Index.js")"></script>
 }

@@ -169,11 +169,14 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/JsonSupport.js",
                 "~/Scripts/handlebars.js",
                 "~/Scripts/PortalConsultoras/Shared/MainLayout.js",
-                "~/Scripts/PortalConsultoras/Shared/Menu.js"
+                "~/Scripts/PortalConsultoras/Shared/Menu.js",
+                "~/Scripts/PortalConsultoras/Shared/TrackingJetlore.js"
                 ));
 
             bundles.Add(new ScriptBundle("~/bundles/JsSB2-Bienvenida").Include(
-                "~/Scripts/PortalConsultoras/Bienvenida/Index.js"
+                "~/Scripts/PortalConsultoras/Bienvenida/Index.js",
+                "~/Scripts/PortalConsultoras/Pedido/barra.js",
+                "~/Scripts/PortalConsultoras/CatalogoPersonalizado/CatalogoPersonalizado.js"
                 ));
 
             bundles.Add(new ScriptBundle("~/bundles/JsSB2-Pedido").Include(
