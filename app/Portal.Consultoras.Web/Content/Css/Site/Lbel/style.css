@@ -5334,6 +5334,8 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
 
 .texto_terminosCondiciones{
     font-size:12px!important;
+    margin-left:25px;
+    position:relative;
 }
 
 .texto_terminosCondiciones span a{
@@ -5343,7 +5345,9 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
 
 .texto_terminosCondiciones:before{
     content: "";
-    float: left;
+    position: absolute;
+    left: -25px;
+    /* float: left; */
     width: 16px;
     height: 16px;
     margin-top: 3px;
