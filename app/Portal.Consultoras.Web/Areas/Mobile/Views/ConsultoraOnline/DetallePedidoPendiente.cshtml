@@ -1,0 +1,367 @@
+﻿
+@model Portal.Consultoras.Web.Models.MisPedidosDetalleModel
+
+@{
+    Layout = "~/Areas/Mobile/Views/Shared/_MobileLayout.cshtml";
+}
+
+<div class="titulo_mobile">
+    <a href="@Request.UrlReferrer" class="enlace_regresar catalogosR" title="Regresar"></a>
+    &nbsp;&nbsp;PENDIENTES
+</div>
+<div class="fondo_f2f2f2 triang_pe">
+    <div class="pestana_esika"></div><!--PESTANA ESIKA-->
+    <div class="pestana_lbel"></div><!--PESTANA LBEL-->
+
+    @*<div class="content_320">
+        <div class="tiempo_restante">Te quedan 5:30:27</div>
+        <div class="contacte_cliente">CONTÁCTATE CON FIORELLA </div>
+        <div class="texto_detalle_pedido">
+            Confirma los productos, precios y forma de entrega. Luego elige cómo atenderás cada producto para que puedas aceptar todo el pedido.
+        </div>
+        <div class="content_dato_historial">
+            <span class="nom_his">Nombre</span>
+            <span class="nom_his_2"><b>FIORELLA GOYZUETA</b></span>
+        </div>
+        <div class="content_dato_historial">
+            <span class="nom_his">Teléfono:</span>
+            <span class="nom_his_2 color_belcorp"><b>998787898</b></span>
+        </div>
+        <div class="content_dato_historial">
+            <span class="nom_his">Correo:</span>
+            <span class="nom_his_2"><b>fiorella@gmail.com</b></span>
+        </div>
+        <div class="content_dato_historial">
+            <span class="nom_his">Dirección:</span>
+            <span class="nom_his_2"><b>Pardo y Aliaga 456, Mza. 37 Urb. El Golf, San Isidro</b></span>
+        </div>
+    </div>*@
+
+    @{
+        var solicitud = Model.MiPedido;
+        var tiposoli = (solicitud.MarcaID == 0) ? 1 : 2;
+    }
+
+    <input type="hidden" id="solped_@solicitud.PedidoId" value="@solicitud.PedidoId|@solicitud.MarcaID|@solicitud.Campania|@solicitud.Cliente|@solicitud.Telefono|@solicitud.Direccion|@solicitud.Email||@solicitud.Leido|@solicitud.NumIteracion|@solicitud.CodigoUbigeo|@solicitud.FechaSolicitud|@solicitud.MedioContacto|@solicitud.FormatoPrecioTotal|@solicitud.SaldoHoras|@solicitud.FlagConsultora" />
+
+    @{
+        var contacto = solicitud.Cliente.Trim();
+        if (contacto.IndexOf(' ') != -1) {
+            contacto = contacto.Substring(0, contacto.IndexOf(' '));
+        }
+    }
+
+    <div class="content_320">
+        <div class="tiempo_restante">
+            @if (solicitud.FlagConsultora)
+            {
+                <text> Te quedan <b>24:00:00</b> horas</text>
+            }
+            else
+            {
+                <text>Te quedan <b>@solicitud.SaldoHoras</b> horas</text>
+            }
+        </div>
+        <div class="contacte_cliente">CONTÁCTATE CON @contacto </div>
+        <div class="texto_detalle_pedido">
+            Confirma los productos, precios y forma de entrega. Luego elige cómo atenderás cada producto para que puedas aceptar todo el pedido.
+        </div>
+        <div class="content_dato_historial">
+            <span class="nom_his">Nombre</span>
+            <span class="nom_his_2"><b>@solicitud.Cliente.ToUpper()</b></span>
+        </div>
+        <div class="content_dato_historial">
+            <span class="nom_his">Teléfono:</span>
+            <span class="nom_his_2 color_belcorp"><b>@solicitud.Telefono</b></span>
+        </div>
+        <div class="content_dato_historial">
+            <span class="nom_his">Correo:</span>
+            <span class="nom_his_2"><b>@solicitud.Email</b></span>
+        </div>
+        <div class="content_dato_historial">
+            <span class="nom_his">Dirección:</span>
+            <span class="nom_his_2"><b>@solicitud.Direccion</b></span>
+        </div>
+        @if (solicitud.MarcaID != 0)
+        {
+            <div class="content_dato_historial">
+                <span class="nom_his">Comentario:</span>
+                <span class="nom_his_2"><b>@solicitud.MensajeDelCliente</b></span>
+            </div>
+        }
+    </div>
+
+    <hr class="clear" />
+</div>
+<div class="wrapper_resumen_mobile" id="divSolicitudDetalles">
+
+    @*<!--ITEM 1-->
+    <div class="detalle_pedido_reservado">
+        <div class="left_reservado" style="width:228px;">
+            <div class="datos_Reservado">
+                <span> 03289 </span>
+                <span>ES LEYENDA EDT 100 ML ES LEYENDA EDT 100 ML ES LEYENDA EDT 100 ML</span>
+            </div>
+
+        </div>
+        <div class="right_reservado">
+            <div class="texto_reservado">CANT</div>
+            <div class="datos_Reservado"><b>3</b></div>
+        </div>
+        <hr class="clear"><br>
+        <div class="left_reservado">
+            <div class="texto_reservado">
+                <span>Precio Unitario</span>
+                <span>Sub-total</span>
+            </div>
+        </div>
+        <div class="right_reservado">
+            <div class="texto_reservado">
+                <span>S/. 99.90</span>
+                <span>S/. 99.90</span>
+            </div>
+        </div>
+        <hr class="clear">
+        <select class="select_detalle">
+            <option>¿CÓMO LO ATENDERÁS?</option>
+            <option>¿CÓMO LO ATENDERÁS?</option>
+            <option>¿CÓMO LO ATENDERÁS?</option>
+        </select>
+    </div>
+    <!--ITEM 2-->
+    <div class="detalle_pedido_reservado">
+        <div class="left_reservado" style="width:228px;">
+            <div class="datos_Reservado">
+                <span> 03289 </span>
+                <span>ES LEYENDA EDT 100 ML ES LEYENDA EDT 100 ML ES LEYENDA EDT 100 ML</span>
+            </div>
+
+        </div>
+        <div class="right_reservado">
+            <div class="texto_reservado">CANT</div>
+            <div class="datos_Reservado"><b>3</b></div>
+        </div>
+        <hr class="clear"><br>
+        <div class="left_reservado">
+            <div class="texto_reservado">
+                <span>Precio Unitario</span>
+                <span>Sub-total</span>
+            </div>
+        </div>
+        <div class="right_reservado">
+            <div class="texto_reservado">
+                <span>S/. 99.90</span>
+                <span>S/. 99.90</span>
+            </div>
+        </div>
+        <hr class="clear">
+        <select class="select_detalle">
+            <option>¿CÓMO LO ATENDERÁS?</option>
+            <option>¿CÓMO LO ATENDERÁS?</option>
+            <option>¿CÓMO LO ATENDERÁS?</option>
+        </select>
+    </div>*@
+
+    @foreach(var item in Model.ListaDetalle2)
+    {
+        <div class="detalle_pedido_reservado">
+            <input type="hidden" value="@item.PedidoDetalleId" id="soldet_@item.PedidoDetalleId" />
+            <div class="left_reservado" style="width:228px;">
+                @if(solicitud.MarcaID == 0)
+                {
+                    <div class="datos_Reservado">
+                        <span>@item.CUV</span>
+                        <span>@item.Producto</span>
+                    </div>
+                }
+                else
+                {
+                    <div class="datos_Reservado">
+                        <span>@item.Producto</span>
+                    </div>
+                }
+            </div>
+            <div class="right_reservado">
+                <div class="texto_reservado">CANT</div>
+                <div class="datos_Reservado" id="soldet_qty_@item.PedidoDetalleId"><b>@item.Cantidad</b></div>
+            </div>
+            <hr class="clear"><br>
+            <div class="left_reservado">
+                <div class="texto_reservado">
+                    <span>Precio Unitario</span>
+                    <span>Sub-total</span>
+                </div>
+            </div>
+            <div class="right_reservado">
+                <div class="texto_reservado">
+                    <span>@ViewBag.Simbolo @item.FormatoPrecioUnitario</span>
+                    <span>@ViewBag.Simbolo @item.FormatoPrecioTotal</span>
+                </div>
+            </div>
+            <hr class="clear">
+            @if (solicitud.MarcaID == 0)
+            {
+                if (@item.TieneStock == 1)
+                {
+                    <select class="select_detalle" id="soldet_tipoate_@item.PedidoDetalleId" >
+                        <option value="" selected>¿CÓMO LO ATENDERÁS?</option>
+                        <option value="ingrped">INGRESAR A MI PEDIDO</option>
+                        <option value="ingrten">YA LO TENGO</option>
+                    </select>
+                }
+                else
+                {
+                    <span class="btn_ingreso_pedido" style="text-align: center;">AGOTADO</span>
+                }
+
+                if (item.TieneStock == 0)
+                {
+                    <span class="agotado_consultora" style="font-size: 12px;">@item.MensajeValidacion</span>
+                }
+                else if (item.EstaEnRevista == 1)
+                {
+                    <span class="agotado_consultora" style="font-size: 12px;">@item.MensajeValidacion</span>
+                }
+            }
+
+        </div>
+    }
+
+    <!--MONTO TOTAL-->
+    @*<div class="left_reservado">
+        <div class="importe_final" style="font-size:16px;"><b>TOTAL PEDIDO: </b> </div>
+    </div>
+    <div class="right_reservado">
+        <div class="importe_final" style="font-size:16px"><b>S/. 45,030.00</b></div>
+    </div>
+    <hr class="clear" />
+    <div class="linea_separadora_roja" style="margin-top:20px;"></div>
+    <a class="btn_acepto_pedido" href="javascript:;" onclick="javascript: $('#PedidoAceptado').show();">ACEPTO TODO EL PEDIDO</a>
+    <a class="btn_rechazo_pedido" href="javascript:;" onclick="javascript: $('#PedidoRechazado').show();">RECHAZO EL PEDIDO</a>*@
+
+    <div class="left_reservado">
+        <div class="importe_final" style="font-size:16px;"><b>TOTAL PEDIDO: </b> </div>
+    </div>
+    <div class="right_reservado">
+        <div class="importe_final" style="font-size:16px"><b>@ViewBag.Simbolo @solicitud.FormatoPrecioTotal</b></div>
+    </div>
+    <hr class="clear" />
+    <div class="linea_separadora_roja" style="margin-top:20px;"></div>
+    <a class="btn_acepto_pedido" href="javascript:;" onclick="AceptarPedido('@solicitud.PedidoId', '@tiposoli')">ACEPTO TODO EL PEDIDO</a>
+    <a class="btn_rechazo_pedido" href="javascript:;" onclick="javascript: $('#PedidoRechazado').show();">RECHAZO EL PEDIDO</a>
+</div>
+
+<!--POP UP COMO LO ATENDERA -->
+<div id="ComoloAtenderas" class="MensajeAlertaMobile">
+    <div class="content_mensajeAlerta">
+        <a class="cerrar_popMobile" href="javascript:;" onclick="javascript: $('#ComoloAtenderas').hide();">
+            <img src="/Content/Images/mobile/Esika/cerrar_04.png" alt="-">
+        </a>
+        <hr class="clear">
+        <div class="icono_alerta exclamacion_icono_mobile"></div>
+        <div class="titulo_compartir"><b>IMPORTANTE</b></div>
+        <div class="mensaje_alerta">Por favor elige comó atenderas todos los productos del pedido</div>
+        <a class="btn_ok_mobile" onclick="javascript: $('#ComoloAtenderas').hide();">OK</a>
+    </div>
+</div>
+
+<!--POP UP PEDIDO ACEPTADO-->
+<div id="PedidoAceptado" class="MensajeAlertaMobile">
+    <div class="content_mensajeAlerta">
+        <a class="cerrar_popMobile" href="javascript:;" onclick="CerrarMensajeAceptado();">
+            <img src="/Content/Images/mobile/Esika/cerrar_04.png" alt="-">
+        </a>
+        <hr class="clear">
+        <div class="icono_alerta check_icono_mobile"></div>
+        <div class="titulo_compartir">¡PEDIDO <b>ACEPTADO</b>!</div>
+        <div class="mensaje_alerta" id="detallePedidoAceptado">Has agregado 12 productos a tu pedido</div>
+        <a class="btn_ok_mobile" onclick="CerrarMensajeAceptado();">OK</a>
+    </div>
+</div>
+
+<!--POP UP PEDIDO RECHAZADO-->
+<div id="PedidoRechazado" class="MensajeAlertaMobile">
+    <div class="content_mensajeAlerta">
+        <a class="cerrar_popMobile" href="javascript:;" onclick="javascript: $('#PedidoRechazado').hide();">
+            <img src="/Content/Images/mobile/Esika/cerrar_04.png" alt="-">
+        </a>
+        <hr class="clear">
+        <div class="icono_alerta exclamacion_icono_mobile"></div>
+        <div class="titulo_compartir">¿VAS A <b>RECHAZAR EL PEDIDO</b>?</div>
+        <div class="mensaje_alerta">Si rechazas el pedido vas a perderlo</div>
+        <div class="col-xs-12 col-sm-6">
+            <a class="btn_acepto_pedido" href="javascript:;" onclick="javascript: $('#PedidoRechazado').hide();">NO, DÉJAME VERLO</a>
+        </div>
+        <div class="col-xs-12 col-sm-6">
+            <a class="btn_rechazo_pedido" href="javascript:;" onclick="javascript: $('#PedidoRechazadoDetalle').show();">SÍ, RECHAZO EL PEDIDO</a>
+        </div>
+       
+    </div>
+</div>
+
+<!--POPUP PEDIDO RESERVADO -->
+<div id="AlertaPedidoReservado" class="MensajeAlertaMobile">
+    <div class="content_mensajeAlerta">
+        <a class="cerrar_popMobile" href="javascript:;" onclick="CerrarAlertaPedidoReservado();">
+            <img src="/Content/Images/mobile/Esika/cerrar_04.png" alt="-">
+        </a>
+        <hr class="clear">
+        <div class="icono_alerta exclamacion_icono_mobile"></div>
+        <div class="titulo_compartir"><b>IMPORTANTE</b></div>
+        <div class="mensaje_alerta" id="MensajePedidoReservado">Ya tienes un pedido reservado para esta campaña</div>
+        <a class="btn_ok_mobile" onclick="CerrarAlertaPedidoReservado();">OK</a>
+    </div>
+</div>
+
+
+<!--POP UP DETALLE PEDIDO RECHAZADO-->
+<div id="PedidoRechazadoDetalle" class="MensajeAlertaMobile" style="padding:10px;">
+    <div class="content_mensajeAlerta">
+        <a class="cerrar_popMobile" href="javascript:;" onclick="RechazarPedido('@solicitud.PedidoId');">
+            <img src="/Content/Images/mobile/Esika/cerrar_04.png" alt="-">
+        </a>
+        <hr class="clear">
+        <div class="titulo_compartir"> <b>CUÉNTANOS POR QUÉ LO RECHAZASTE</b></div>
+        <div class="mensaje_alerta">Si rechazas el pedido vas a perderlo</div>
+
+        @*<div>
+            <div class="opcion_rechazo">Yo no puedo atender su pedido.</div>
+            <div class="opcion_rechazo">El cliente vive muy lejos.</div>
+            <div class="opcion_rechazo">Habían productos agotados en esta campaña.</div>
+            <div class="opcion_rechazo">No pasaré pedido esta campaña.</div>
+        </div>*@
+
+        <div>
+            @foreach (var item in ViewBag.MotivosRechazo)
+            {
+                <div class="opcion_rechazo" data-id="@item.MotivoSolicitudID">@item.Motivo</div>
+            }
+        </div>
+        <textarea rows="10" class="comentario_rechazados" id="txtOtrosRechazo" readonly="readonly" maxlength="300"></textarea>
+        <a class="btn_acepto_pedido" href="#" onclick="RechazarPedido('@solicitud.PedidoId');">ENVIAR</a>
+    </div>
+</div>
+<!--POP UP MENSAJE PEDIDO RECHAZADO -->
+
+<div id="MensajePedidoRechazado" class="MensajeAlertaMobile">
+    <div class="content_mensajeAlerta">
+        <a class="cerrar_popMobile" href="javascript:;" onclick="CerrarMensajeRechazado();">
+            <img src="/Content/Images/mobile/Esika/cerrar_04.png" alt="-">
+        </a>
+        <hr class="clear">
+        <div class="icono_alerta exclamacion_icono_mobile"></div>
+        <div class="titulo_compartir"><b>RECHAZASTE</b> EL PEDIDO</div>
+        <div class="mensaje_alerta">Ya está eliminado de tu lista de pendientes</div>
+        <a class="btn_ok_mobile" onclick="CerrarMensajeRechazado();">OK</a>
+    </div>
+</div>
+
+@section scripts {
+    <script type="text/javascript">
+        var urlLoad = '@Url.Content("~/Content/Images/Loading.gif")';
+        var urlPendientes = '@Url.Action("Pendientes","ConsultoraOnline")';
+        var urlPedido = '@Url.Action("Index","Pedido")';
+    </script>
+
+    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Mobile/ConsultoraOnline/DetallePedidoPendiente.js")"></script>
+}

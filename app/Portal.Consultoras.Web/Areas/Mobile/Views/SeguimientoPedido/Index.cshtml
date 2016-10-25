@@ -185,6 +185,7 @@
                     {
                         var esActual05 = Model.Estado == "EN CHEQUEO";
                         var estaActivo05 = estado05EntregaProyectada.Fecha.HasValue;
+                        estado05EntregaProyectada.ValorTurno = estado05EntregaProyectada.ValorTurno ?? "";
                         var turno = estado05EntregaProyectada.ValorTurno.ToUpper().Equals("AM") || estado05EntregaProyectada.ValorTurno.ToUpper().Equals("PM") ? estado05EntregaProyectada.ValorTurno : string.Empty;
                         var claseIcono05 = esActual05 ? "seg-current" : estaActivo05 ? "seg-active" : "";
                         contador += 1;

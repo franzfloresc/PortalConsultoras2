@@ -153,11 +153,13 @@
     <Compile Include="BLPedidoDDDetalle.cs" />
     <Compile Include="BLPedidoFacturado.cs" />
     <Compile Include="BLPedidoFICDetalle.cs" />
+    <Compile Include="BLPedidoRechazado.cs" />
     <Compile Include="BLPedidoReporteLider.cs" />
     <Compile Include="BLPedidoWeb.cs" />
     <Compile Include="BLPedidoWebAnteriores.cs" />
     <Compile Include="BLPedidoWebDetalle.cs" />
     <Compile Include="BLPermiso.cs" />
+    <Compile Include="BLProcesoPedidoRechazado.cs" />
     <Compile Include="BLProducto.cs" />
     <Compile Include="BLProductoFaltante.cs" />
     <Compile Include="BLProductoSugerido.cs" />

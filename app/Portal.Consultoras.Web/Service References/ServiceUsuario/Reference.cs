@@ -212,6 +212,9 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         private int IndicadorDuplaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int IndicadorEnviadoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int IndicadorFlexiPagoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -222,6 +225,9 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int IndicadorPermisoFICField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int IndicadorRechazadoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string InscritaFlexipagoField;
@@ -258,6 +264,9 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string NombreField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string NombreGerenteZonaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string NombrePaisField;
@@ -344,6 +353,9 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         private string TelefonoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string TelefonoTrabajoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int TerritorioIDField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -363,6 +375,9 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int VioTutorialDesktopField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int VioTutorialSalvavidasField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int VioVideoField;
@@ -1239,6 +1254,19 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public int IndicadorEnviado {
+            get {
+                return this.IndicadorEnviadoField;
+            }
+            set {
+                if ((this.IndicadorEnviadoField.Equals(value) != true)) {
+                    this.IndicadorEnviadoField = value;
+                    this.RaisePropertyChanged("IndicadorEnviado");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public int IndicadorFlexiPago {
             get {
                 return this.IndicadorFlexiPagoField;
@@ -1286,6 +1314,19 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
                 if ((this.IndicadorPermisoFICField.Equals(value) != true)) {
                     this.IndicadorPermisoFICField = value;
                     this.RaisePropertyChanged("IndicadorPermisoFIC");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int IndicadorRechazado {
+            get {
+                return this.IndicadorRechazadoField;
+            }
+            set {
+                if ((this.IndicadorRechazadoField.Equals(value) != true)) {
+                    this.IndicadorRechazadoField = value;
+                    this.RaisePropertyChanged("IndicadorRechazado");
                 }
             }
         }
@@ -1442,6 +1483,19 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
                 if ((object.ReferenceEquals(this.NombreField, value) != true)) {
                     this.NombreField = value;
                     this.RaisePropertyChanged("Nombre");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string NombreGerenteZona {
+            get {
+                return this.NombreGerenteZonaField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.NombreGerenteZonaField, value) != true)) {
+                    this.NombreGerenteZonaField = value;
+                    this.RaisePropertyChanged("NombreGerenteZona");
                 }
             }
         }
@@ -1811,6 +1865,19 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public string TelefonoTrabajo {
+            get {
+                return this.TelefonoTrabajoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.TelefonoTrabajoField, value) != true)) {
+                    this.TelefonoTrabajoField = value;
+                    this.RaisePropertyChanged("TelefonoTrabajo");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public int TerritorioID {
             get {
                 return this.TerritorioIDField;
@@ -1897,6 +1964,19 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
                 if ((this.VioTutorialDesktopField.Equals(value) != true)) {
                     this.VioTutorialDesktopField = value;
                     this.RaisePropertyChanged("VioTutorialDesktop");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int VioTutorialSalvavidas {
+            get {
+                return this.VioTutorialSalvavidasField;
+            }
+            set {
+                if ((this.VioTutorialSalvavidasField.Equals(value) != true)) {
+                    this.VioTutorialSalvavidasField = value;
+                    this.RaisePropertyChanged("VioTutorialSalvavidas");
                 }
             }
         }
@@ -4169,6 +4249,12 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         private string MarcaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int MarcaIDField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string MedioContactoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string MensajeValidacionField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -4259,6 +4345,32 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
                 if ((object.ReferenceEquals(this.MarcaField, value) != true)) {
                     this.MarcaField = value;
                     this.RaisePropertyChanged("Marca");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int MarcaID {
+            get {
+                return this.MarcaIDField;
+            }
+            set {
+                if ((this.MarcaIDField.Equals(value) != true)) {
+                    this.MarcaIDField = value;
+                    this.RaisePropertyChanged("MarcaID");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string MedioContacto {
+            get {
+                return this.MedioContactoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.MedioContactoField, value) != true)) {
+                    this.MedioContactoField = value;
+                    this.RaisePropertyChanged("MedioContacto");
                 }
             }
         }
@@ -5146,10 +5258,10 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         System.Threading.Tasks.Task<int> UpdUsuarioRechazarInvitacionAsync(int PaisID, string CodigoUsuario);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/UpdateDatosPrimeraVez", ReplyAction="http://tempuri.org/IUsuarioService/UpdateDatosPrimeraVezResponse")]
-        int UpdateDatosPrimeraVez(int PaisID, string CodigoUsuario, string Email, string Telefono, string Celular, string CorreoAnterior, bool AceptoContrato);
+        int UpdateDatosPrimeraVez(int PaisID, string CodigoUsuario, string Email, string Telefono, string TelefonoTrabajo, string Celular, string CorreoAnterior, bool AceptoContrato);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/UpdateDatosPrimeraVez", ReplyAction="http://tempuri.org/IUsuarioService/UpdateDatosPrimeraVezResponse")]
-        System.Threading.Tasks.Task<int> UpdateDatosPrimeraVezAsync(int PaisID, string CodigoUsuario, string Email, string Telefono, string Celular, string CorreoAnterior, bool AceptoContrato);
+        System.Threading.Tasks.Task<int> UpdateDatosPrimeraVezAsync(int PaisID, string CodigoUsuario, string Email, string Telefono, string TelefonoTrabajo, string Celular, string CorreoAnterior, bool AceptoContrato);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/UpdatePassword", ReplyAction="http://tempuri.org/IUsuarioService/UpdatePasswordResponse")]
         void UpdatePassword(int paisID, string codigoUsuario, string claveSecreta, bool cambioClave);
@@ -5371,11 +5483,31 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetMisPedidosDetalleConsultoraOnline", ReplyAction="http://tempuri.org/IUsuarioService/GetMisPedidosDetalleConsultoraOnlineResponse")]
         System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BEMisPedidosDetalle[]> GetMisPedidosDetalleConsultoraOnlineAsync(int PaisID, long PedidoID);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetCantidadSolicitudesPedido", ReplyAction="http://tempuri.org/IUsuarioService/GetCantidadSolicitudesPedidoResponse")]
+        int GetCantidadSolicitudesPedido(int PaisID, long ConsultoraId, int Campania);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetCantidadSolicitudesPedido", ReplyAction="http://tempuri.org/IUsuarioService/GetCantidadSolicitudesPedidoResponse")]
+        System.Threading.Tasks.Task<int> GetCantidadSolicitudesPedidoAsync(int PaisID, long ConsultoraId, int Campania);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetSaldoHorasSolicitudesPedido", ReplyAction="http://tempuri.org/IUsuarioService/GetSaldoHorasSolicitudesPedidoResponse")]
+        string GetSaldoHorasSolicitudesPedido(int PaisID, long ConsultoraId, int Campania);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetSaldoHorasSolicitudesPedido", ReplyAction="http://tempuri.org/IUsuarioService/GetSaldoHorasSolicitudesPedidoResponse")]
+        System.Threading.Tasks.Task<string> GetSaldoHorasSolicitudesPedidoAsync(int PaisID, long ConsultoraId, int Campania);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetMisPedidosClienteOnline", ReplyAction="http://tempuri.org/IUsuarioService/GetMisPedidosClienteOnlineResponse")]
         Portal.Consultoras.Web.ServiceUsuario.BEMisPedidos[] GetMisPedidosClienteOnline(int paisID, long consultoraId, int campania);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetMisPedidosClienteOnline", ReplyAction="http://tempuri.org/IUsuarioService/GetMisPedidosClienteOnlineResponse")]
         System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BEMisPedidos[]> GetMisPedidosClienteOnlineAsync(int paisID, long consultoraId, int campania);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetPedidoClienteOnlineBySolicitudClienteId", ReplyAction="http://tempuri.org/IUsuarioService/GetPedidoClienteOnlineBySolicitudClienteIdResp" +
+            "onse")]
+        Portal.Consultoras.Web.ServiceUsuario.BEMisPedidos GetPedidoClienteOnlineBySolicitudClienteId(int paisID, long solicitudClienteId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetPedidoClienteOnlineBySolicitudClienteId", ReplyAction="http://tempuri.org/IUsuarioService/GetPedidoClienteOnlineBySolicitudClienteIdResp" +
+            "onse")]
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BEMisPedidos> GetPedidoClienteOnlineBySolicitudClienteIdAsync(int paisID, long solicitudClienteId);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/UpdNotificacionesConsultoraVisualizacion", ReplyAction="http://tempuri.org/IUsuarioService/UpdNotificacionesConsultoraVisualizacionRespon" +
             "se")]
@@ -5410,10 +5542,10 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         System.Threading.Tasks.Task<string> GetFechaPromesaCronogramaByCampaniaAsync(int PaisID, int CampaniaId, string CodigoConsultora, System.DateTime Fechafact);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/UpdateDatosPrimeraVezMexico", ReplyAction="http://tempuri.org/IUsuarioService/UpdateDatosPrimeraVezMexicoResponse")]
-        int UpdateDatosPrimeraVezMexico(int PaisID, string CodigoUsuario, string Nombre, string Apellidos, string Telefono, string Celular, string Email, long IdConsultora, string CodigoConsultora, int CampaniaID_Actual, int CampaniaID_UltimaF, int RegionID, int ZonaID, string EmailAnterior);
+        int UpdateDatosPrimeraVezMexico(int PaisID, string CodigoUsuario, string Nombre, string Apellidos, string Telefono, string TelefonoTrabajo, string Celular, string Email, long IdConsultora, string CodigoConsultora, int CampaniaID_Actual, int CampaniaID_UltimaF, int RegionID, int ZonaID, string EmailAnterior);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/UpdateDatosPrimeraVezMexico", ReplyAction="http://tempuri.org/IUsuarioService/UpdateDatosPrimeraVezMexicoResponse")]
-        System.Threading.Tasks.Task<int> UpdateDatosPrimeraVezMexicoAsync(int PaisID, string CodigoUsuario, string Nombre, string Apellidos, string Telefono, string Celular, string Email, long IdConsultora, string CodigoConsultora, int CampaniaID_Actual, int CampaniaID_UltimaF, int RegionID, int ZonaID, string EmailAnterior);
+        System.Threading.Tasks.Task<int> UpdateDatosPrimeraVezMexicoAsync(int PaisID, string CodigoUsuario, string Nombre, string Apellidos, string Telefono, string TelefonoTrabajo, string Celular, string Email, long IdConsultora, string CodigoConsultora, int CampaniaID_Actual, int CampaniaID_UltimaF, int RegionID, int ZonaID, string EmailAnterior);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/SelectDatosActualizados", ReplyAction="http://tempuri.org/IUsuarioService/SelectDatosActualizadosResponse")]
         int SelectDatosActualizados(int paisID, string codigoUsuario);
@@ -5493,6 +5625,14 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
             "zacionResponse")]
         System.Threading.Tasks.Task UpdNotificacionSolicitudClienteCatalogoVisualizacionAsync(int paisID, long SolicitudClienteCatalogoId);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/UpdNotificacionPedidoRechazadoVisualizacion", ReplyAction="http://tempuri.org/IUsuarioService/UpdNotificacionPedidoRechazadoVisualizacionRes" +
+            "ponse")]
+        void UpdNotificacionPedidoRechazadoVisualizacion(int paisID, long procesoId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/UpdNotificacionPedidoRechazadoVisualizacion", ReplyAction="http://tempuri.org/IUsuarioService/UpdNotificacionPedidoRechazadoVisualizacionRes" +
+            "ponse")]
+        System.Threading.Tasks.Task UpdNotificacionPedidoRechazadoVisualizacionAsync(int paisID, long procesoId);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/ObtenerDetalleNotificacion", ReplyAction="http://tempuri.org/IUsuarioService/ObtenerDetalleNotificacionResponse")]
         Portal.Consultoras.Web.ServiceUsuario.BENotificacionesDetalleCatalogo ObtenerDetalleNotificacion(int PaisID, long SolicitudClienteCatalogoId);
         
@@ -5516,6 +5656,12 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GuardarContrasenia", ReplyAction="http://tempuri.org/IUsuarioService/GuardarContraseniaResponse")]
         System.Threading.Tasks.Task GuardarContraseniaAsync(string paisISO, string codigoUsuario, string contrasenia);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/UpdateUsuarioTutoriales", ReplyAction="http://tempuri.org/IUsuarioService/UpdateUsuarioTutorialesResponse")]
+        int UpdateUsuarioTutoriales(int paisID, string codigoUsuario, int tipo);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/UpdateUsuarioTutoriales", ReplyAction="http://tempuri.org/IUsuarioService/UpdateUsuarioTutorialesResponse")]
+        System.Threading.Tasks.Task<int> UpdateUsuarioTutorialesAsync(int paisID, string codigoUsuario, int tipo);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -5649,12 +5795,12 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
             return base.Channel.UpdUsuarioRechazarInvitacionAsync(PaisID, CodigoUsuario);
         }
         
-        public int UpdateDatosPrimeraVez(int PaisID, string CodigoUsuario, string Email, string Telefono, string Celular, string CorreoAnterior, bool AceptoContrato) {
-            return base.Channel.UpdateDatosPrimeraVez(PaisID, CodigoUsuario, Email, Telefono, Celular, CorreoAnterior, AceptoContrato);
+        public int UpdateDatosPrimeraVez(int PaisID, string CodigoUsuario, string Email, string Telefono, string TelefonoTrabajo, string Celular, string CorreoAnterior, bool AceptoContrato) {
+            return base.Channel.UpdateDatosPrimeraVez(PaisID, CodigoUsuario, Email, Telefono, TelefonoTrabajo, Celular, CorreoAnterior, AceptoContrato);
         }
         
-        public System.Threading.Tasks.Task<int> UpdateDatosPrimeraVezAsync(int PaisID, string CodigoUsuario, string Email, string Telefono, string Celular, string CorreoAnterior, bool AceptoContrato) {
-            return base.Channel.UpdateDatosPrimeraVezAsync(PaisID, CodigoUsuario, Email, Telefono, Celular, CorreoAnterior, AceptoContrato);
+        public System.Threading.Tasks.Task<int> UpdateDatosPrimeraVezAsync(int PaisID, string CodigoUsuario, string Email, string Telefono, string TelefonoTrabajo, string Celular, string CorreoAnterior, bool AceptoContrato) {
+            return base.Channel.UpdateDatosPrimeraVezAsync(PaisID, CodigoUsuario, Email, Telefono, TelefonoTrabajo, Celular, CorreoAnterior, AceptoContrato);
         }
         
         public void UpdatePassword(int paisID, string codigoUsuario, string claveSecreta, bool cambioClave) {
@@ -5945,12 +6091,36 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
             return base.Channel.GetMisPedidosDetalleConsultoraOnlineAsync(PaisID, PedidoID);
         }
         
+        public int GetCantidadSolicitudesPedido(int PaisID, long ConsultoraId, int Campania) {
+            return base.Channel.GetCantidadSolicitudesPedido(PaisID, ConsultoraId, Campania);
+        }
+        
+        public System.Threading.Tasks.Task<int> GetCantidadSolicitudesPedidoAsync(int PaisID, long ConsultoraId, int Campania) {
+            return base.Channel.GetCantidadSolicitudesPedidoAsync(PaisID, ConsultoraId, Campania);
+        }
+        
+        public string GetSaldoHorasSolicitudesPedido(int PaisID, long ConsultoraId, int Campania) {
+            return base.Channel.GetSaldoHorasSolicitudesPedido(PaisID, ConsultoraId, Campania);
+        }
+        
+        public System.Threading.Tasks.Task<string> GetSaldoHorasSolicitudesPedidoAsync(int PaisID, long ConsultoraId, int Campania) {
+            return base.Channel.GetSaldoHorasSolicitudesPedidoAsync(PaisID, ConsultoraId, Campania);
+        }
+        
         public Portal.Consultoras.Web.ServiceUsuario.BEMisPedidos[] GetMisPedidosClienteOnline(int paisID, long consultoraId, int campania) {
             return base.Channel.GetMisPedidosClienteOnline(paisID, consultoraId, campania);
         }
         
         public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BEMisPedidos[]> GetMisPedidosClienteOnlineAsync(int paisID, long consultoraId, int campania) {
             return base.Channel.GetMisPedidosClienteOnlineAsync(paisID, consultoraId, campania);
+        }
+        
+        public Portal.Consultoras.Web.ServiceUsuario.BEMisPedidos GetPedidoClienteOnlineBySolicitudClienteId(int paisID, long solicitudClienteId) {
+            return base.Channel.GetPedidoClienteOnlineBySolicitudClienteId(paisID, solicitudClienteId);
+        }
+        
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BEMisPedidos> GetPedidoClienteOnlineBySolicitudClienteIdAsync(int paisID, long solicitudClienteId) {
+            return base.Channel.GetPedidoClienteOnlineBySolicitudClienteIdAsync(paisID, solicitudClienteId);
         }
         
         public void UpdNotificacionesConsultoraVisualizacion(int PaisID, long ValAutomaticaPROLLogId, int TipoOrigen) {
@@ -5993,12 +6163,12 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
             return base.Channel.GetFechaPromesaCronogramaByCampaniaAsync(PaisID, CampaniaId, CodigoConsultora, Fechafact);
         }
         
-        public int UpdateDatosPrimeraVezMexico(int PaisID, string CodigoUsuario, string Nombre, string Apellidos, string Telefono, string Celular, string Email, long IdConsultora, string CodigoConsultora, int CampaniaID_Actual, int CampaniaID_UltimaF, int RegionID, int ZonaID, string EmailAnterior) {
-            return base.Channel.UpdateDatosPrimeraVezMexico(PaisID, CodigoUsuario, Nombre, Apellidos, Telefono, Celular, Email, IdConsultora, CodigoConsultora, CampaniaID_Actual, CampaniaID_UltimaF, RegionID, ZonaID, EmailAnterior);
+        public int UpdateDatosPrimeraVezMexico(int PaisID, string CodigoUsuario, string Nombre, string Apellidos, string Telefono, string TelefonoTrabajo, string Celular, string Email, long IdConsultora, string CodigoConsultora, int CampaniaID_Actual, int CampaniaID_UltimaF, int RegionID, int ZonaID, string EmailAnterior) {
+            return base.Channel.UpdateDatosPrimeraVezMexico(PaisID, CodigoUsuario, Nombre, Apellidos, Telefono, TelefonoTrabajo, Celular, Email, IdConsultora, CodigoConsultora, CampaniaID_Actual, CampaniaID_UltimaF, RegionID, ZonaID, EmailAnterior);
         }
         
-        public System.Threading.Tasks.Task<int> UpdateDatosPrimeraVezMexicoAsync(int PaisID, string CodigoUsuario, string Nombre, string Apellidos, string Telefono, string Celular, string Email, long IdConsultora, string CodigoConsultora, int CampaniaID_Actual, int CampaniaID_UltimaF, int RegionID, int ZonaID, string EmailAnterior) {
-            return base.Channel.UpdateDatosPrimeraVezMexicoAsync(PaisID, CodigoUsuario, Nombre, Apellidos, Telefono, Celular, Email, IdConsultora, CodigoConsultora, CampaniaID_Actual, CampaniaID_UltimaF, RegionID, ZonaID, EmailAnterior);
+        public System.Threading.Tasks.Task<int> UpdateDatosPrimeraVezMexicoAsync(int PaisID, string CodigoUsuario, string Nombre, string Apellidos, string Telefono, string TelefonoTrabajo, string Celular, string Email, long IdConsultora, string CodigoConsultora, int CampaniaID_Actual, int CampaniaID_UltimaF, int RegionID, int ZonaID, string EmailAnterior) {
+            return base.Channel.UpdateDatosPrimeraVezMexicoAsync(PaisID, CodigoUsuario, Nombre, Apellidos, Telefono, TelefonoTrabajo, Celular, Email, IdConsultora, CodigoConsultora, CampaniaID_Actual, CampaniaID_UltimaF, RegionID, ZonaID, EmailAnterior);
         }
         
         public int SelectDatosActualizados(int paisID, string codigoUsuario) {
@@ -6097,6 +6267,14 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
             return base.Channel.UpdNotificacionSolicitudClienteCatalogoVisualizacionAsync(paisID, SolicitudClienteCatalogoId);
         }
         
+        public void UpdNotificacionPedidoRechazadoVisualizacion(int paisID, long procesoId) {
+            base.Channel.UpdNotificacionPedidoRechazadoVisualizacion(paisID, procesoId);
+        }
+        
+        public System.Threading.Tasks.Task UpdNotificacionPedidoRechazadoVisualizacionAsync(int paisID, long procesoId) {
+            return base.Channel.UpdNotificacionPedidoRechazadoVisualizacionAsync(paisID, procesoId);
+        }
+        
         public Portal.Consultoras.Web.ServiceUsuario.BENotificacionesDetalleCatalogo ObtenerDetalleNotificacion(int PaisID, long SolicitudClienteCatalogoId) {
             return base.Channel.ObtenerDetalleNotificacion(PaisID, SolicitudClienteCatalogoId);
         }
@@ -6127,6 +6305,14 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         
         public System.Threading.Tasks.Task GuardarContraseniaAsync(string paisISO, string codigoUsuario, string contrasenia) {
             return base.Channel.GuardarContraseniaAsync(paisISO, codigoUsuario, contrasenia);
+        }
+        
+        public int UpdateUsuarioTutoriales(int paisID, string codigoUsuario, int tipo) {
+            return base.Channel.UpdateUsuarioTutoriales(paisID, codigoUsuario, tipo);
+        }
+        
+        public System.Threading.Tasks.Task<int> UpdateUsuarioTutorialesAsync(int paisID, string codigoUsuario, int tipo) {
+            return base.Channel.UpdateUsuarioTutorialesAsync(paisID, codigoUsuario, tipo);
         }
     }
 }

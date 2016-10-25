@@ -96,6 +96,12 @@
   <wsdl:message name="IPortalService_ObtenerSolicitudesPostulante_OutputMessage">
     <wsdl:part name="parameters" element="tns:ObtenerSolicitudesPostulanteResponse" />
   </wsdl:message>
+  <wsdl:message name="IPortalService_ObtenerReporteConsolidado_InputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenerReporteConsolidado" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_ObtenerReporteConsolidado_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenerReporteConsolidadoResponse" />
+  </wsdl:message>
   <wsdl:message name="IPortalService_ObtenerSolicitudesPostulanteV2_InputMessage">
     <wsdl:part name="parameters" element="tns:ObtenerSolicitudesPostulanteV2" />
   </wsdl:message>
@@ -200,6 +206,10 @@
     <wsdl:operation name="ObtenerSolicitudesPostulante">
       <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/ObtenerSolicitudesPostulante" message="tns:IPortalService_ObtenerSolicitudesPostulante_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/ObtenerSolicitudesPostulanteResponse" message="tns:IPortalService_ObtenerSolicitudesPostulante_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerReporteConsolidado">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/ObtenerReporteConsolidado" message="tns:IPortalService_ObtenerReporteConsolidado_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/ObtenerReporteConsolidadoResponse" message="tns:IPortalService_ObtenerReporteConsolidado_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="ObtenerSolicitudesPostulanteV2">
       <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/ObtenerSolicitudesPostulanteV2" message="tns:IPortalService_ObtenerSolicitudesPostulanteV2_InputMessage" />
@@ -355,6 +365,15 @@
     </wsdl:operation>
     <wsdl:operation name="ObtenerSolicitudesPostulante">
       <soap:operation soapAction="http://tempuri.org/IPortalService/ObtenerSolicitudesPostulante" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerReporteConsolidado">
+      <soap:operation soapAction="http://tempuri.org/IPortalService/ObtenerReporteConsolidado" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

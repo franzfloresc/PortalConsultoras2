@@ -9,6 +9,8 @@ using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.Areas.Mobile.Models;
 using System.Configuration;
 
+using Portal.Consultoras.Web.ServiceUsuario;
+
 namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 {
     public class BaseMobileController : BaseController
@@ -44,11 +46,68 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     IList<BEMenuMobile> lst;
                     using (var sv = new SeguridadServiceClient())
                     {
-                        lst = sv.GetItemsMenuMobile(userData.PaisID);
+                        lst = sv.GetItemsMenuMobile(userData.PaisID).ToList();
                     }
-                    
+
+                    var menuConsultoraOnlinePadre = lst.FirstOrDefault(m => m.Descripcion.ToLower().Trim() == "consultora online" && m.MenuPadreID == 0);
+                    var menuConsultoraOnlineHijo = lst.FirstOrDefault(m => m.Descripcion.ToLower().Trim() == "consultora online" && m.MenuPadreID != 0);
+                    string mostrarPedidosPendientes = ConfigurationManager.AppSettings.Get("MostrarPedidosPendientes");
                     string strpaises = ConfigurationManager.AppSettings.Get("Permisos_CCC");
-                    if (!strpaises.Contains(userData.CodigoISO)) lst.Remove(lst.FirstOrDefault(p => p.UrlItem.ToLower() == "mobile/consultoraonline"));
+                    bool mostrarClienteOnline = (mostrarPedidosPendientes == "1" && strpaises.Contains(userData.CodigoISO));
+                    
+                    if (!mostrarClienteOnline)
+                    {
+                        lst.Remove(menuConsultoraOnlinePadre);
+                        lst.Remove(menuConsultoraOnlineHijo);
+                        ViewBag.TipoMenuConsultoraOnline = 0;
+                    }
+                    else
+                    {
+                        int esConsultoraOnline = -1;
+                        using (var svc = new UsuarioServiceClient())
+                        {
+                            esConsultoraOnline = svc.GetCantidadPedidosConsultoraOnline(userData.PaisID, userData.ConsultoraID);
+                            if (esConsultoraOnline >= 0)
+                            {
+                                ViewBag.CantPedidosPendientes = svc.GetCantidadSolicitudesPedido(userData.PaisID, userData.ConsultoraID, userData.CampaniaID);
+                                ViewBag.TeQuedanConsultoraOnline = svc.GetSaldoHorasSolicitudesPedido(userData.PaisID, userData.ConsultoraID, userData.CampaniaID);
+                            }
+                        }
+                        //ViewBag.MenuPadreIDConsultoraOnline = menuConsultoraOnlinePadre.MenuMobileID;
+                        //ViewBag.MenuHijoIDConsultoraOnline = menuConsultoraOnlineHijo.MenuMobileID;
+
+                        //if (esConsultoraOnline <= 0)
+                        //{
+                        //    if (menuConsultoraOnlinePadre != null && menuConsultoraOnlineHijo != null)
+                        //    {
+                        //        var lstTmp = lst.Where(m => m.MenuPadreID != menuConsultoraOnlinePadre.MenuMobileID).ToList();
+                        //        lst = lstTmp.Where(m => m.MenuMobileID != menuConsultoraOnlinePadre.MenuMobileID).ToList();
+                        //        //lst.Where(m => m.MenuMobileID == menuh.MenuMobileID).First().Descripcion += " <b>!Afiliate¡</b>";
+                        //        ViewBag.TipoMenuConsultoraOnline = 1;
+                        //    }
+                        //}
+                        //else
+                        //{
+                        //    if (menuConsultoraOnlineHijo != null)
+                        //    {
+                        //        var lstTmp = lst.Where(m => m.MenuMobileID != menuConsultoraOnlineHijo.MenuMobileID).ToList();
+                        //        lst = lstTmp;
+                        //        ViewBag.TipoMenuConsultoraOnline = 2;
+                        //    }
+                        //}
+                        if (esConsultoraOnline == -1)
+                        {
+                            ViewBag.TipoMenuConsultoraOnline = 1;
+                            ViewBag.MenuHijoIDConsultoraOnline = menuConsultoraOnlineHijo.MenuMobileID;
+                            lst.Remove(menuConsultoraOnlinePadre);
+                        }
+                        else
+                        {
+                            ViewBag.TipoMenuConsultoraOnline = 2;
+                            ViewBag.MenuPadreIDConsultoraOnline = menuConsultoraOnlinePadre.MenuMobileID;
+                            lst.Remove(menuConsultoraOnlineHijo);
+                        }
+                    }
 
                     //Agregamos los menú Padre
                     foreach (var item in lst.Where(item => item.MenuPadreID == 0).OrderBy(item => item.OrdenItem))
@@ -91,7 +150,9 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     }
                 }
             }
+
             ViewBag.MenuMobile = lstModel;
+            
         }
 
         private void CargarValoresGenerales(UsuarioModel userData)

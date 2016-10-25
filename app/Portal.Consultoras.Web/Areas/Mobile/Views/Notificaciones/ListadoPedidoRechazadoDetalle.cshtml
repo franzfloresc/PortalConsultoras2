@@ -1,0 +1,106 @@
+﻿@model Portal.Consultoras.Web.Models.NotificacionesModel
+@{
+    Layout = "~/Areas/Mobile/Views/Shared/_MobileLayout.cshtml";
+}
+
+@section styles{
+    <style type="text/css">
+        body { background: #FFF !important; }
+    </style>
+}
+
+<div class="titulo_mobile">
+    <a href="@Request.UrlReferrer" class="enlace_regresar catalogosR" title="Regresar"></a>
+    &nbsp;&nbsp;&nbsp;&nbsp;MIS NOTIFICACIONES
+</div>
+<div class="pestana_esika"></div><!--PESTANA ESIKA-->
+<div class="pestana_lbel"></div><!--PESTANA LBEL-->
+
+<div class="col-xs-12">
+    <ul class="list-notificaciones noti-detalle">
+        <li>
+            <div class="text-noti">
+                <div class="sub_titulo_noti">
+                    <span>PEDIDO RECHAZADO DE</span>
+                    <span>CAMPAÑA @Model.CampaniaDescripcion</span>
+                </div>
+                <span>@Model.FechaValidacionString</span>
+            </div>
+        </li>
+    </ul>
+</div>
+<br />
+
+<div class="col-xs-12 notificaciones_detalle_mobile">
+    <p class="consultora_saludo_noti"><b>Hola @Model.NombreConsultora</b></p>
+    <br /><br />
+
+    <span id="sMensajeFacturacion"> Tu Pedido fue rechazado debido a: @Model.DescripcionRechazo</span>
+    <h3 class="title-line">Detalle</h3>
+    @foreach (var item in Model.ListaNotificacionesDetallePedido)
+    {
+        <div class="detalle_notificaciones">
+            <div class="left_reservado" style="width:235px;">
+                <div class="datos_Reservado">
+                    <span> @item.CUV </span>
+                    <span>@item.Descripcion</span>
+                </div>
+            </div>
+            <div class="right_reservado">
+                <div class="texto_reservado">CANT</div>
+                <div class="datos_Reservado"><b>@item.Cantidad</b></div>
+            </div>
+            <hr class="clear" /><br />
+            <div class="left_reservado">
+                <div class="texto_reservado">
+                    <span>Precio Unitario</span>
+                </div>
+                <div class="importe_reservado">
+                    SUBTOTAL 
+                    @if (Model.TieneDescuentoCuv && item.IndicadorOferta == 1)
+                    { 
+                        <span class="icono_advertencia_notificacion" style="margin-top: -7px;"></span> 
+                    }
+                </div>
+            </div>
+            <div class="right_reservado">
+                <div class="texto_reservado">
+                    <span>@item.PrecioUnidadString</span>
+                </div>
+                <div class="importe_reservado">@item.ImporteTotalString</div>
+            </div>
+        </div>
+    }
+
+    <hr class="clear" />
+    <div class="left_reservado">
+        <div class="importe_final">
+            @if (Model.TieneDescuentoCuv)
+            {
+                <div><b>SUBTOTAL</b></div>
+                <div>
+                    <b>DESCUENTO</b>
+                    <span class="icono_advertencia_notificacion" style="margin-top: -7px;"></span>
+                </div>
+            }
+            <b>MONTO TOTAL</b>
+        </div>
+
+    </div>
+    <div class="right_reservado">
+        <div class="importe_final" style="font-size:15px">
+            @if (Model.TieneDescuentoCuv)
+            {
+                <div><b> @Model.SubTotalString</b></div>  
+                <div><b> @Model.DescuentoString</b></div>  
+            }
+            <div><b> @Model.TotalString</b></div>                
+        </div>
+    </div>
+    <hr class="clear" />
+    <p class="firma_notificaciones">
+        Gracias, <br />
+        Equipo de Belcorp.
+    </p>
+    <br />
+</div>

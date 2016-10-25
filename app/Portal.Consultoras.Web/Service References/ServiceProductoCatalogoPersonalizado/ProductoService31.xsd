@@ -45,4 +45,20 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+  <xs:element name="ObtenerProductosByCodigoSap">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="codigoIso" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="campaniaId" type="xs:int" />
+        <xs:element minOccurs="0" name="codigoSap" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ObtenerProductosByCodigoSapResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/Portal.Consultoras.ServiceCatalogoPersonalizado.Entities" minOccurs="0" name="ObtenerProductosByCodigoSapResult" nillable="true" type="q3:ArrayOfProducto" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
 </xs:schema>
