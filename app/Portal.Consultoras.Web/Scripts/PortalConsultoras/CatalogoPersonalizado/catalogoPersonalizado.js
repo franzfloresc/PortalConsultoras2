@@ -510,6 +510,9 @@ function agregarProductoAlCarrito(o) {
     }
 
     var carrito = $('.campana');
+    if (carrito.length <= 0) {
+        return false;
+    }
 
     $("body").prepend('<img src="' + imagenProducto.attr("src") + '" class="transicion">');
 
@@ -539,9 +542,9 @@ function agregarProductoAlCarrito(o) {
 
 }
 
-function DialogMensaje(msj) {
+function DialogMensaje(msj, funcionRedireccionar) {
     if (tipoOrigen == '2') {
-        messageInfo(msj);
+        messageInfo(msj, funcionRedireccionar);
     }
     else {
         alert_msg_pedido(msj);
@@ -593,7 +596,7 @@ function ReservadoOEnHorarioRestringido(mostrarAlerta) {
             if (!data.pedidoReservado || mostrarAlerta == true) {
                 if (mostrarAlerta == true) {
                     DialogLoadingCerrar();
-                    DialogMensaje(data.message)
+                    DialogMensaje(data.message);
                 }
                 return false;
             }
@@ -632,14 +635,17 @@ function ReservadoOEnHorarioRestringidoAsync(mostrarAlerta, fnRestringido, fnNoR
             }
             DialogLoadingAbrir();
 
-            if (mostrarAlerta) {
-                DialogLoadingCerrar();
-                DialogMensaje(data.message);
-            }
-
-            if (data.pedidoReservado) {
+            var fnRedireccionar = function () {
                 DialogLoadingAbrir();
                 location.href = urlPedidoValidado;
+            };                       
+
+            if (data.pedidoReservado) {
+                if (mostrarAlerta) {
+                    DialogLoadingCerrar();
+                    DialogMensaje(data.message, fnRedireccionar);
+                } else
+                    fnRedireccionar();
                 return false;
             }
 

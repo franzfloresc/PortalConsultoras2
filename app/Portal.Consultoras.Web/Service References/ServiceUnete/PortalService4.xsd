@@ -44,4 +44,10 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="SolicitudPostulanteCollection" nillable="true" type="tns:SolicitudPostulanteCollection" />
+  <xs:complexType name="ReporteConsolidadoCollection">
+    <xs:sequence>
+      <xs:element xmlns:q8="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.BL.BE" minOccurs="0" maxOccurs="unbounded" name="ReporteConsolidadoBE" nillable="true" type="q8:ReporteConsolidadoBE" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ReporteConsolidadoCollection" nillable="true" type="tns:ReporteConsolidadoCollection" />
 </xs:schema>
