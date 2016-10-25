@@ -1,12 +1,27 @@
 ﻿$(function () {
     var expressionrequiredifFunction = function (value, element, params) {
-        var listaValores = params.listvalues.split(',');
+        //var listaValores = params.listvalues.split(',');
+        var listaValores = [];
         var expresion = params.expresion;
         var regexnotmatch = params.regexnotmatch;
+        var valueOtherproperty = '';
+        var otherproperties = params.otherproperty.split('|');
+        var otherValueProperties = params.listvalues.split('|');
+        var validateCount = 0;
 
-        var existeEnArray = $.inArray($("#" + params.otherproperty).val(), listaValores) !== -1;
+        $.each(otherproperties, function (i, item) {
+            if ($("#" + item).prop("type") === "checkbox") {
+                valueOtherproperty = $("#" + item).is(":checked") ? 'True' : 'False';
+            } else {
+                valueOtherproperty = $("#" + item).val();
+            }
+            listaValores = otherValueProperties[i].split(',');
+            if ($.inArray(valueOtherproperty, listaValores) !== -1) {
+                validateCount++;
+            }
+        });
 
-        if (existeEnArray) {
+        if (validateCount === otherproperties.length) {
             var regex = new RegExp(expresion);
             var resultado = regex.test(value);
 
@@ -15,6 +30,18 @@
         }
 
         return true;
+
+        //var existeEnArray = $.inArray($("#" + params.otherproperty).val(), listaValores) !== -1;
+
+        //if (existeEnArray) {
+        //    var regex = new RegExp(expresion);
+        //    var resultado = regex.test(value);
+
+        //    if ((!resultado && regexnotmatch == 0) || (resultado && regexnotmatch == 1))
+        //        return false;
+        //}
+
+        //return true;
     };
 
     jQuery.validator.unobtrusive.adapters.add('requiredif',
