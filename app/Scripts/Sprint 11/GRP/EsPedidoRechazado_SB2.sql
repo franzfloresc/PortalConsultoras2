@@ -53,6 +53,27 @@ begin
 	if @indPais = 0
 		set @esRechazado = 2
 
+	DECLARE @FechaGeneral DATETIME
+	SET @FechaGeneral = dbo.fnObtenerFechaHoraPais()
+	
+	-- validar fecha ultimo dia
+	DECLARE @ZonaID INT, @RegionID INT
+	SELECT @ZonaID = ZonaID, @RegionID = RegionID
+	FROM ods.consultora
+	WHERE ConsultoraID = @ConsultoraID
+
+	select @fechaFin = c.FechaInicioReFacturacion
+	FROM [ods].[Cronograma] c (nolock)
+	INNER JOIN [ods].[Campania] ca (nolock) ON c.CampaniaID = ca.CampaniaID
+	WHERE c.ZonaID = @ZonaID AND c.RegionID = @RegionID  AND ca.Codigo = @CampaniaID
+
+	if convert(date, @fechaFin) < convert(date, @FechaGeneral) -- si llego el ultimo dia de la ReFacturacion
+	BEGIN
+		SET @IndicadorEnviado = 0
+		set @esRechazado = 2 -- continua con el proceso
+
+	END
+
 	If(@IndicadorEnviado = 1)
 	BEGIN
 				set @esRechazado = 2
@@ -61,19 +82,24 @@ begin
 				BEGIN
 							
 							set @esRechazado = 0
-		
-							select @fecha = FechaReserva, @CodigoConsultora = c.Codigo
-							from pedidoweb p
-								inner join ods.consultora c on c.ConsultoraID = p.ConsultoraID
-							where IndicadorEnviado = 1
-							and p.CampaniaID = @CampaniaID
-							and p.ConsultoraID = @ConsultoraID
-	
+															
 							set @IdProceso = 0
-							select @IdProceso = p.IdProcesoPedidoRechazado, @estado = P.Estado
-							from GPR.ProcesoPedidoRechazado p
-							where P.Fecha > @fecha
-							order by p.Fecha asc
+							if @esRechazado = 0
+							begin
+		
+								select @fecha = FechaReserva, @CodigoConsultora = c.Codigo
+								from pedidoweb p
+									inner join ods.consultora c on c.ConsultoraID = p.ConsultoraID
+								where IndicadorEnviado = 1
+								and p.CampaniaID = @CampaniaID
+								and p.ConsultoraID = @ConsultoraID
+	
+								select @IdProceso = p.IdProcesoPedidoRechazado, @estado = P.Estado
+								from GPR.ProcesoPedidoRechazado p
+								where P.Fecha > @fecha
+								order by p.Fecha asc
+
+							end
 
 							if @IdProceso > 0
 							begin
@@ -102,16 +128,6 @@ begin
 							if @esRechazado = 1 -- esta rechazado
 							begin
 					
-								DECLARE @ZonaID INT, @RegionID INT
-								SELECT @ZonaID = ZonaID, @RegionID = RegionID
-								FROM ods.consultora
-								WHERE ConsultoraID = @ConsultoraID
-
-								select @fechaFin = c.FechaInicioReFacturacion
-								FROM [ods].[Cronograma] c (nolock)
-								INNER JOIN [ods].[Campania] ca (nolock) ON c.CampaniaID = ca.CampaniaID
-								WHERE c.ZonaID = @ZonaID AND c.RegionID = @RegionID  AND ca.Codigo = @CampaniaID
-
 								if convert(date, @fechaFin) < convert(date, getdate()) -- si llego el ultimo dia de la ReFacturacion
 									set @esRechazado = 2 -- continua con el proceso
 							end
