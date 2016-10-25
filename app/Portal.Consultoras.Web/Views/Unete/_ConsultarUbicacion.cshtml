@@ -217,6 +217,9 @@
 @Html.HiddenFor(m => Model.Territorio)
 @Html.HiddenFor(m => Model.Direccion)
 @Html.HiddenFor(m => Model.DireccionCadena)
+@Html.HiddenFor(m=> Model.Latitud)
+@Html.HiddenFor(m => Model.Longitud)
+@Html.HiddenFor(m => Model.FuenteIngreso)
 
 
 <script>
@@ -407,9 +410,26 @@
                             });
                         markerBounds.extend(marker.getPosition());
                         markers.push(marker);
-                        </text>
+                         </text>
                     }
 
+                    @if (Model.FuenteIngreso == "MovilSE")
+                    {
+                        // Markers Purple
+                        <text>
+
+                             marker = new google.maps.Marker({
+                                 position: new google.maps.LatLng(parseFloat('@Model.Latitud'.replace(",",".")), parseFloat('@Model.Longitud'.replace(",","."))),
+                                 map: map,
+                                 animation: google.maps.Animation.DROP,
+                                 icon: 'http://maps.google.com/mapfiles/ms/icons/purple-dot.png'
+                             });
+                        markerBounds.extend(marker.getPosition());
+                        markers.push(marker);
+                        marker.setAnimation(google.maps.Animation.BOUNCE);
+
+                        </text>
+                    }
                     
                 </text>
                 

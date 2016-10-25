@@ -20,7 +20,7 @@ function MostrarBarra(datax, destino) {
     dataBarra.ListaEscalaDescuento = dataBarra.ListaEscalaDescuento || new Array(); 
     if (dataBarra.ListaEscalaDescuento.length > 0) {
         listaEscalaDescuento = dataBarra.ListaEscalaDescuento;
-
+        if (dataBarra.redondeo == undefined) {
         if (dataBarra.redondeo == undefined) {
             $.each(listaEscalaDescuento, function (i, item) {
                 if (IsDecimalExist(item.MontoHasta)) {
