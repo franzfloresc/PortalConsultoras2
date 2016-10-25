@@ -20,15 +20,17 @@ function MostrarBarra(datax, destino) {
     dataBarra.ListaEscalaDescuento = dataBarra.ListaEscalaDescuento || new Array(); 
     if (dataBarra.ListaEscalaDescuento.length > 0) {
         listaEscalaDescuento = dataBarra.ListaEscalaDescuento;
-
-        $.each(listaEscalaDescuento, function (i, item) {
-            if (IsDecimalExist(item.MontoHasta)) {
-                listaEscalaDescuento[i].MontoHasta = Math.ceil(item.MontoHasta)
-            } else {
-                listaEscalaDescuento[i].MontoHasta = Math.ceil(item.MontoHasta) + 1;
-            }
-            listaEscalaDescuento[i].MontoHastaStr = DecimalToStringFormat(listaEscalaDescuento[i].MontoHasta, true);
-        });
+        if (dataBarra.redondeo == undefined) {
+            $.each(listaEscalaDescuento, function (i, item) {
+                if (IsDecimalExist(item.MontoHasta)) {
+                    listaEscalaDescuento[i].MontoHasta = Math.ceil(item.MontoHasta)
+                } else {
+                    listaEscalaDescuento[i].MontoHasta = Math.ceil(item.MontoHasta) + 1;
+                }
+                listaEscalaDescuento[i].MontoHastaStr = DecimalToStringFormat(listaEscalaDescuento[i].MontoHasta, true);
+            });
+            dataBarra.redondeo = true;
+        }
     }
 
     dataBarra.ListaMensajeMeta = dataBarra.ListaMensajeMeta || new Array();
