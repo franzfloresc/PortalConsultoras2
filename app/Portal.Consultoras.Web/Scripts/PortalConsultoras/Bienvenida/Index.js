@@ -4,17 +4,21 @@ var arrayOfertasParaTi = [];
 var arrayLiquidaciones = [];
 var numImagen = 1;
 var fnMovimientoTutorial;
-var showViewVideo = viewBagVioVideo;
 /* SB20-834 - INICIO */
+var origenPedidoWebEstrategia = 0;
+var showViewVideo = viewBagVioVideo;
 var closeComunicadosPopup = false;
 /* SB20-834 - FIN */
 var fotoCroppie;
-var origenPedidoWebEstrategia = 0;
 var tipoOrigen = '3';
 var timeoutTooltipTutorial;
-$(document).ready(function() {
+var popupCantidadInicial = popupCantidadInicial || 1;
+var popupListaPrioridad = popupListaPrioridad || new Array();
+//popupListaPrioridad = {Codigo, Prioridad, Activo, Hijos}
 
-    //$('.contenedor_img_perfil').on('click', CargarCamara);
+$(document).ready(function () {
+
+    $('.contenedor_img_perfil').on('click', CargarCamara);
     $('#imgFotoUsuario').error(function() {
         $('#imgFotoUsuario').hide();
         $('#imgFotoUsuarioDefault').show();
@@ -31,23 +35,23 @@ $(document).ready(function() {
         e.stopPropagation();
     });
 
-    $(".cerrar_tutorial").click(function() {
+    $(".cerrar_tutorial").click(function () {
         cerrar_popup_tutorial();
-    });         
+    });
 
     // Evento para visualizar video introductorio al hacer click
-    $(".ver_video_introductorio").click(function() {
+    $(".ver_video_introductorio").click(function () {
         $('#fondoComunPopUp').show();
         contadorFondoPopUp++;
-        $('#videoIntroductorio').fadeIn(function() {
+        $('#videoIntroductorio').fadeIn(function () {
             $("#videoIntroductorio").delay(200);
-            $("#videoIntroductorio").fadeIn(function() {
+            $("#videoIntroductorio").fadeIn(function () {
                 playVideo();
             });
         });
     });
 
-    document.onkeydown = function(evt) {
+    document.onkeydown = function (evt) {
         evt = evt || window.event;
         if (evt.keyCode == 27) {
             if ($('#popup_tutorial_home').is(':visible')) {
@@ -74,19 +78,19 @@ $(document).ready(function() {
     setInterval(animacionFlechaScroll, 1000);
 
     // Funcion para cambiar background según posicion de scroll
-    $(window).scroll(function() {
+    $(window).scroll(function () {
 
         if ($(window).scrollTop() + $(window).height() == $(document).height()) {
 
             $(".flecha_scroll").animate({
-                    opacity: 0
-                }, 100, 'swing', function() {
-                    $(".flecha_scroll a").addClass("flecha_scroll_arriba");
-                    $(".flecha_scroll").delay(100);
-                    $(".flecha_scroll").animate({
-                        opacity: 1
-                    }, 100, 'swing');
-                });
+                opacity: 0
+            }, 100, 'swing', function () {
+                $(".flecha_scroll a").addClass("flecha_scroll_arriba");
+                $(".flecha_scroll").delay(100);
+                $(".flecha_scroll").animate({
+                    opacity: 1
+                }, 100, 'swing');
+            });
         } else {
             $(".flecha_scroll a").removeClass("flecha_scroll_arriba");
         }
@@ -94,7 +98,7 @@ $(document).ready(function() {
     });
 
     // Evento click que ocurre en la flecha scroll
-    $(".flecha_scroll").on('click', function(e) {
+    $(".flecha_scroll").on('click', function (e) {
 
         e.preventDefault();
         var posicion = $(window).scrollTop();
@@ -113,40 +117,41 @@ $(document).ready(function() {
         }
 
     });
-    
+
     /* SB20-834 - INICIO */
     ObtenerComunicadosPopup();
-    
-    mostrarVideoIntroductorio();
+           
     CrearDialogs();
     CargarCarouselEstrategias("");
     CargarCarouselLiquidaciones();
-    CargarPopupsConsultora();
     CargarMisCursos();
     CargarBanners();
     CargarCatalogoPersonalizado();
 
-    $("#btnCambiarContrasenaMD").click(function() { CambiarContrasenia(); });
-    $("#btnActualizarMD").click(function() { ActualizarMD(); });
-    $("#btnActualizarDatos").click(function() {
+    mostrarVideoIntroductorio();
+    CargarPopupsConsultora();
+
+    $("#btnCambiarContrasenaMD").click(function () { CambiarContrasenia(); });
+    $("#btnActualizarMD").click(function () { ActualizarMD(); });
+    $("#btnActualizarDatos").click(function () {
         ActualizarDatos();
         return false;
     });
 
-    $("#btnCerrarActualizarDatos").click(function() {
+    $("#btnCerrarActualizarDatos").click(function () {
         CerrarPopupActualizacionDatos();
         return false;
     });
-    $("#btnActualizarDatosMexico").click(function() {
+    $("#btnActualizarDatosMexico").click(function () {
         ActualizarDatosMexico();
         return false;
     });
-    $("#btnCerrarActualizarDatosMexico").click(function() {
+    $("#btnCerrarActualizarDatosMexico").click(function () {
         CerrarPopupActualizacionDatosMexico();
         return false;
     });
-
-    $("#cerrarVideoIntroductorio").click(function() {
+    
+    $("#cerrarVideoIntroductorio").click(function () {
         if (primeraVezVideo) {
             mostrarUbicacionTutorial(true, true);
             primeraVezVideo = false;
@@ -161,44 +166,44 @@ $(document).ready(function() {
         return false;
     });
 
-    $("#cerrarAceptacionContrato").click(function() {
+    $("#cerrarAceptacionContrato").click(function () {
         PopupCerrar('popupAceptacionContrato');
         return false;
     });
 
-    $("#cerrarInvitacionFlexipago").click(function() {
+    $("#cerrarInvitacionFlexipago").click(function () {
         PopupCerrar('popupInvitaionFlexipago');
         return false;
     });
-    $("#abrirPopupMisDatos").click(function() {
+    $("#abrirPopupMisDatos").click(function () {
         waitingDialog();
         CargarMisDatos();
         return false;
     });
-    $("#cerrarPopupMisDatos").click(function() {
+    $("#cerrarPopupMisDatos").click(function () {
         PopupCerrar('popupMisDatos');
         return false;
     });
-    $('#hrefTerminos').click(function() {
+    $('#hrefTerminos').click(function () {
         waitingDialog({});
         DownloadAttachPDFTerminos();
     });
-    $('#hrefTerminosMD').click(function() {
+    $('#hrefTerminosMD').click(function () {
         waitingDialog({});
         DownloadAttachContratoActualizarDatos();
     });
-    $('#hrefContratoMD').click(function() {
+    $('#hrefContratoMD').click(function () {
         waitingDialog({});
         DownloadAttachContratoCO();
     });
-    $("#btnCancelarMD").click(function() {
+    $("#btnCancelarMD").click(function () {
         $(".campos_cambiarContrasenia").fadeOut(200);
         $(".popup_actualizarMisDatos").removeClass("incremento_altura_misDatos");
         $(".campos_actualizarDatos").delay(200);
         $(".campos_actualizarDatos").fadeIn(200);
     });
 
-    $("#lnkCambiarContrasena").click(function() {
+    $("#lnkCambiarContrasena").click(function () {
         if ($("#divCambiarContrasena").is(":visible")) {
             $(".grupo_input_password").slideUp(200);
             $(".popup_actualizarMisDatos").removeClass("incremento_altura");
@@ -209,7 +214,7 @@ $(document).ready(function() {
 
         }
     });
-    $(".misDatosContraseniaEnlace").click(function() {
+    $(".misDatosContraseniaEnlace").click(function () {
         if ($(".campos_cambiarContrasenia").is(":visible")) {
             $(".campos_cambiarContrasenia").fadeOut(200);
             $(".popup_actualizarMisDatos").removeClass("incremento_altura_misDatos");
@@ -223,48 +228,52 @@ $(document).ready(function() {
             $(".campos_cambiarContrasenia").fadeIn(200);
         }
     });
-    $("#txtTelefono, #txtTelefonoMD").keypress(function(evt) {
+    $("#txtTelefono, #txtTelefonoMD").keypress(function (evt) {
         var charCode = (evt.which) ? evt.which : window.event.keyCode;
         if (charCode <= 13) {
             return false;
-        } else {
+        }
+        else {
             var keyChar = String.fromCharCode(charCode);
             var re = /[0-9+ *#-]/;
             return re.test(keyChar);
         }
     });
-    $("#txtCelular, #txtCelularMD").keypress(function(evt) {
+    $("#txtCelular, #txtCelularMD").keypress(function (evt) {
         var charCode = (evt.which) ? evt.which : window.event.keyCode;
         if (charCode <= 13) {
             return false;
-        } else {
+        }
+        else {
             var keyChar = String.fromCharCode(charCode);
             var re = /[0-9+ *#-]/;
             return re.test(keyChar);
         }
     });
-    $("#txtEMailMD").keypress(function(evt) {
+    $("#txtEMailMD").keypress(function (evt) {
         var charCode = (evt.which) ? evt.which : window.event.keyCode;
         if (charCode <= 13) {
             return false;
-        } else {
+        }
+        else {
             var keyChar = String.fromCharCode(charCode);
             var re = /[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ_.@@-]/;
             return re.test(keyChar);
         }
     });
-    $("#txtSobrenombreMD").keypress(function(evt) {
+    $("#txtSobrenombreMD").keypress(function (evt) {
         var charCode = (evt.which) ? evt.which : window.event.keyCode;
         if (charCode <= 13) {
             return false;
-        } else {
+        }
+        else {
             var keyChar = String.fromCharCode(charCode);
             var re = /[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ _.-]/;
             return re.test(keyChar);
         }
     });
 
-    $(document).on('click', '.js-agregar-liquidacion', function(e) {
+    $(document).on('click', '.js-agregar-liquidacion', function (e) {
         if (ReservadoOEnHorarioRestringido())
             return false;
 
@@ -275,7 +284,7 @@ $(document).ready(function() {
         var contenedor = $(this).parents(".content_item_carrusel");
         AgregarProductoLiquidacion(contenedor);
     });
-    $(document).on('click', '.js-agregar-liquidacion-tallacolor', function() {
+    $(document).on('click', '.js-agregar-liquidacion-tallacolor', function () {
         if (ReservadoOEnHorarioRestringido())
             return false;
 
@@ -304,25 +313,25 @@ $(document).ready(function() {
 
         CargarProductoLiquidacionPopup(objProducto, objHidden);
     });
-    $(document).on('click', '.js-agregar-popup-liquidacion', function() {
+    $(document).on('click', '.js-agregar-popup-liquidacion', function () {
         if (ReservadoOEnHorarioRestringido())
             return false;
 
         var contenedor = $(this).parents('#divTonosTallas');
         AgregarProductoLiquidacion(contenedor);
     });
-    $(document).on('click', '.btn_cerrar_escogerTono', function() {
+    $(document).on('click', '.btn_cerrar_escogerTono', function () {
         HidePopupTonosTallas();
     });
-    $(document).on('change', '#ddlTallaColorLiq', function() {
+    $(document).on('change', '#ddlTallaColorLiq', function () {
         CambiarTonoTalla($(this));
     });
 
-    $(document).on('click', '.miCurso', function() {
+    $(document).on('click', '.miCurso', function () {
         var id = $(this)[0].id;
         GetCursoMarquesina(id)
     });
-
+  
     //ShowRoom
     CrearPopShow();
     MostrarShowRoom();
@@ -330,6 +339,7 @@ $(document).ready(function() {
 
     MostrarBarra(null, '1');
 });
+
 function CargarCamara() {
     //https://github.com/jhuckaby/webcamjs
     Webcam.set({
@@ -412,7 +422,8 @@ function SubirFoto() {
         contentType: 'application/json; charset=utf-8',
         success: function (data) {
             alert_msg(data.message);
-            if (data.success) {
+            if (data.success)
+            {
                 $('#imgFotoUsuario').show();
                 $('#imgFotoUsuarioDefault').hide();
                 $('#imgFotoUsuario').attr('src', data.imagen + '?' + Math.random());
@@ -470,7 +481,7 @@ function agregarProductoAlCarrito(o) {
                 $(this).remove();
             });
         });
-    }
+    }    
 }
 
 //MICROEFECTO RESALTAR ICONO TUTORIAL
@@ -520,10 +531,6 @@ function mostrarUbicacionTutorial(tieneFondoNegro, mostrarPopupTutorial) {
         else {
             if (viewBagVerComunicado != '-1') {
                 mostrarComunicadosPopup();
-
-                //if (viewBagVerComunicado != '1') {
-                //    CargarPopupsConsultora();
-                //}
             }
         }
     }, time);
@@ -565,8 +572,6 @@ function ocultarUbicacionTutorial() {
 function mostrarVideoIntroductorio() {
     try {
         if (viewBagVioVideo == "0") {
-
-            //closeWaitingDialog();   // SB20-834
             PopupMostrar('videoIntroductorio');
             setTimeout(function () { playVideo(); }, 1000);
             UpdateUsuarioTutoriales(constanteVioVideo);
@@ -588,10 +593,6 @@ function mostrarVideoIntroductorio() {
         } else {
             if (viewBagVerComunicado != '-1') {
                 mostrarComunicadosPopup();
-
-                //if (viewBagVerComunicado != '1') {
-                //    CargarPopupsConsultora();
-                //}
             }
         }
 
@@ -696,19 +697,7 @@ function CargarPopupsConsultora() {
     }
 
     AbrirPopupFlexipago();
-    //AbrirComunicado();
-
-    //if (viewBagPrefijoPais == "EC") {
-    //    AbrirComunicadoVisualizacion();
-    //};
-
     MostrarDemandaAnticipada();
-
-    //MostrarShowRoom();
-
-    //if (viewBagValidaSuenioNavidad == 0) {
-    //    showDialog('idSueniosNavidad');
-    //}
 };
 
 //Metodos para carousel Ofertas para Tí
@@ -1799,6 +1788,7 @@ function InsertarPedidoCuvBanner(CUVpedido, CantCUVpedido) {
             }
 
             MostrarBarra(result, '1');
+            ActualizarGanancia(result.DataBarra);
 
             CargarResumenCampaniaHeader(true);
 
@@ -3493,12 +3483,14 @@ function ObtenerComunicadosPopup() {
 }
 
 function armarComunicadosPopup(response) {
+    //console.log('armarComunicadosPopup');
     viewBagVerComunicado = response.comunicadoVisualizado;
     //$('#totalComuSinMostrar').val(response.data.length);
 
     $.each(response.data, function (id, item) {
         dialogComunicadoID = item.CodigoConsultora + '_' + item.ComunicadoId;
         var nombreEvento = encodeURI(item.Descripcion);
+        //console.log(item);
 
         if (item.Accion == "CUV") {
             //displayTerminos = 'float:right;display:none;';
@@ -3595,7 +3587,7 @@ function clickCerrarComunicado(obj) {
 
     AceptarComunicadoVisualizacion(comunicadoID, dialogComunicadoID);
 
-    $('#' + dialogComunicadoID).hide();   
+    $('#' + dialogComunicadoID).hide();
     $('#' + dialogComunicadoID).attr('data-cerrado', 1);
     var vclose = mostrarComunicadosPopup();
 
@@ -3630,10 +3622,8 @@ function clickImagenComunicado(obj) {
     var vclose = mostrarComunicadosPopup();
 
     if (vclose) {
-        //$('#totalComuSinMostrar').val('0');
         closeComunicadosPopup = true;
         PopupCerrar('popupComunicados');
-        //CargarPopupsConsultora();
     }
 }
 
@@ -3667,6 +3657,38 @@ function AceptarComunicadoVisualizacion(ID, dialogComunicadoID) {
 /* SB20-834 - FIN */
 
 // Popup
+function PopupMostrarPrioridad() {
+    var mostrar = new Object();
+    $.each(popupListaPrioridad, function (ind, prioridad) {
+        prioridad.Prioridad = parseFloat(prioridad.Prioridad);
+        if ((mostrar.Prioridad > prioridad.Prioridad && prioridad.Prioridad > 0) || ind == 0) {
+            if (prioridad.Activo == '1') {
+                mostrar = Clone(prioridad);
+            }            
+        }
+    });
+
+    var listaMostrar = new Array();
+    if (parseInt(mostrar.Prioridad) < mostrar.Prioridad) {
+        $.each(popupListaPrioridad, function (ind, prioridad) {
+            prioridad.Prioridad = parseFloat(prioridad.Prioridad);
+            if (parseInt(mostrar.Prioridad) == parseInt(prioridad.Prioridad)) {
+                listaMostrar.push(Clone(prioridad));
+            }
+        });
+    }
+    if (listaMostrar.length == 0) {
+        listaMostrar.push(mostrar);
+    }
+    
+    $.each(listaMostrar, function (ind, prioridad) {
+        if (prioridad.Codigo == "") {
+
+        }
+
+    });
+
+}
 function PopupMostrar(idPopup) {
     var id = "";
     if (typeof (idPopup) == "string")

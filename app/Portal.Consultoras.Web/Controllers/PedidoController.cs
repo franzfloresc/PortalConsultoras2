@@ -2616,18 +2616,20 @@ namespace Portal.Consultoras.Web.Controllers
                             Observacion = Convert.ToString(row.ItemArray.GetValue(3)).Replace("+", "");
                         }
 
-                        if (TipoObs == 0) ValidacionReemplazo += 1;
-                        else if (TipoObs == 8) lstPedidoWebDetalleBackOrder.AddRange(olstPedidoWebDetalle.Where(item => item.CUV == CUV));
-                        else if (TipoObs == 95)
+                        if (TipoObs == 8) lstPedidoWebDetalleBackOrder.AddRange(olstPedidoWebDetalle.Where(item => item.CUV == CUV));
+                        else
                         {
-                            ValidacionPROLMM = true;
-                            CUV_Val = CUV;
-                            string regex = "(\\#.*\\#)";
-                            Observacion = Regex.Replace(Observacion, regex, Util.DecimalToStringFormat(userData.MontoMinimo, userData.CodigoISO));
+                            if (TipoObs == 0) ValidacionReemplazo += 1;
+                            else if (TipoObs == 95)
+                            {
+                                ValidacionPROLMM = true;
+                                CUV_Val = CUV;
+                                string regex = "(\\#.*\\#)";
+                                Observacion = Regex.Replace(Observacion, regex, Util.DecimalToStringFormat(userData.MontoMinimo, userData.CodigoISO));
+                            }
+                            olstPedidoWebDetalleObs.Add(new ObservacionModel() { Caso = TipoObs, CUV = CUV, Tipo = 2, Descripcion = Observacion });
                         }
-
                         Restrictivas = true;
-                        olstPedidoWebDetalleObs.Add(new ObservacionModel() { Caso = TipoObs, CUV = CUV, Tipo = 2, Descripcion = Observacion });
                     }
 
                     if (userData.ValidacionAbierta && ValidacionPROLMM && CUV_Val == "XXXXX")
@@ -2636,15 +2638,13 @@ namespace Portal.Consultoras.Web.Controllers
                         {
                             sv.UpdPedidoWebByEstado(userData.PaisID, userData.CampaniaID, userData.PedidoID, Constantes.EstadoPedido.Pendiente, false, true, userData.CodigoUsuario, false);
                         }
-                    }
-                    if (lstPedidoWebDetalleBackOrder.Count() > 0)
+                    }                    
+                    using (PedidoServiceClient sv = new PedidoServiceClient())
                     {
-                        using (PedidoServiceClient sv = new PedidoServiceClient())
-                        {
-                            sv.UpdBackOrderListPedidoWebDetalle(lstPedidoWebDetalleBackOrder.ToArray());
-                        }
-                        Session["PedidoWebDetalle"] = null;
+                        sv.UpdBackOrderListPedidoWebDetalle(lstPedidoWebDetalleBackOrder.ToArray());
                     }
+                    Session["PedidoWebDetalle"] = null;
+                    
                     if (dtr.Rows.Count == ValidacionReemplazo)
                     {
                         if (userData.DiaPROL && userData.MostrarBotonValidar)

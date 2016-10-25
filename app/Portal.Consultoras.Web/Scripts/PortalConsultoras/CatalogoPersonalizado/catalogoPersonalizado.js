@@ -34,9 +34,10 @@ $(document).ready(function () {
         $('[data-oferta]').attr("class", "").hide();
     });
 
-    if (tipoOrigen != '3') {
-        Inicializar();
-    }
+    //if (tipoOrigen != '3') {
+    //    Inicializar();
+    //}
+    $("#divmaquetaof48nivel").show();
 });
 
 function Inicializar() {
@@ -655,4 +656,16 @@ function ReservadoOEnHorarioRestringidoAsync(mostrarAlerta, fnRestringido, fnNoR
             DialogMensaje('Ocurrió un error al intentar validar el horario restringido o si el pedido está reservado. Por favor inténtelo en unos minutos.');
         }
     });
+}
+
+function AbrirMaqueta(tipo)
+{
+    if (tipo == 2) {
+        $('#divmaquetaof48nivel').addClass('mod-ofer2').show();
+        $('#divmaquetaof48nivel').show();
+    }
+    else if (tipo == 3) {
+        $('#divmaquetaof48pack').addClass('mod-ofer3').show();
+        $('#divmaquetaof48pack').show();
+    }
 }

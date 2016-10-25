@@ -1,6 +1,7 @@
 
+ go
 
--- select * from dbo.fnGetConfiguracionCampania(11, 2578, 2016, 99)
+-- select * from dbo.fnGetConfiguracionCampania(2, 1104, 2016, 99)
 ALTER FUNCTION dbo.fnGetConfiguracionCampania
 (
 	@PaisID tinyint,
@@ -37,7 +38,8 @@ RETURNS @TConfiguracionCampania TABLE(
 	ValidacionInteractiva bit,
 	MensajeValidacionInteractiva varchar(500),
 	IndicadorEnviado bit,
-	IndicadorRechazado int
+	IndicadorRechazado int,
+	Campaniax varchar(1000)
 )
 AS
 BEGIN
@@ -146,6 +148,7 @@ BEGIN
 	-- Obtener Campania Anterior
 	DECLARE @Campania INT = 0
 	DECLARE @Anio INT
+	declare @Campaniax varchar(1000) = ''
 
 	IF @EsquemaDAConsultora = 0
 	BEGIN
@@ -164,6 +167,8 @@ BEGIN
 					ISNULL(dbo.GetHorasDuracionRestriccion(@ZonaID, @DiasDuracionCronograma, c.FechaInicioFacturacion), 0)) + 
 					CONVERT(datetime, @HoraCierreZonaNormal) < @FechaGeneral
 				ORDER BY c.CampaniaID DESC
+
+				set @Campaniax = @Campaniax + '|@TipoDA = 0' + convert(varchar ,isnull(@Campania, 0))
 		END
 		ELSE
 		BEGIN
@@ -195,6 +200,8 @@ BEGIN
 						)
 					) < @FechaGeneral
 				ORDER BY c.CampaniaID DESC
+
+				set @Campaniax = @Campaniax + '|else @TipoDA = 0' + convert(varchar ,isnull(@Campania, 0))
 		END
 	END -- FIN IF @EsquemaDAConsultora = 0
 	ELSE
@@ -257,6 +264,8 @@ BEGIN
 			) < @FechaGeneral
 		ORDER BY c.CampaniaID DESC
 
+		set @Campaniax = @Campaniax + '|else @EsquemaDAConsultora = 0' +convert(varchar ,isnull(@Campania, 0))
+
 	END -- FIN ELSE IF @EsquemaDAConsultora = 0
 
 	
@@ -266,7 +275,9 @@ BEGIN
 	-- Valida Campania Anterior
 	IF(@Campania <> 0)
 	BEGIN
-	
+		
+		set @Campaniax = @Campaniax + '|@Campania <> 0' + convert(varchar ,isnull(@Campania, 0))
+
 		SELECT @esRechazado = esRechazado, @IndicadorEnviado = IndicadorEnviado
 		FROM  EsPedidoRechazado_SB2(@ConsultoraID, @Campania)
 
@@ -281,6 +292,7 @@ BEGIN
 
 		END
 		
+		set @Campaniax = @Campaniax + '|@Campania <> 0 luego de EsPedidoRechazado_SB2' + convert(varchar ,isnull(@Campania, 0))
 
 		IF @EsquemaDAConsultora = 1 AND @Campania > @Campania_temp
 		BEGIN
@@ -332,6 +344,9 @@ BEGIN
 		INNER JOIN [ods].[Campania] ca (nolock) ON c.CampaniaID = ca.CampaniaID
 		WHERE z.ZonaID = @ZonaID AND z.RegionID = @RegionID
 		ORDER BY c.FechaInicioFacturacion ASC
+
+		set @Campaniax = @Campaniax + '|else IF(@Campania <> 0)' + convert(varchar ,isnull(@Campania, 0))
+
 	END -- FIN ELSE IF(@Campania <> 0)
 
 	--Obtiene UltimaCampaniaFacturada
@@ -357,6 +372,8 @@ BEGIN
 	--Valida UltimaCampaniaFacturada
 	IF (@UltimaCampanaFacturada = @Campania)
 	BEGIN
+		set @Campaniax = @Campaniax + '|IF (@UltimaCampanaFacturada = @Campania)' + convert(varchar ,isnull(@Campania, 0))
+
 		SET @Campania = @Campania - @Anio
 		IF(@Campania = @NroCampanias)
 			SET @Campania = @Anio + 101
@@ -365,21 +382,27 @@ BEGIN
 	END
 	ELSE
 	BEGIN
-			
-			SELECT @esRechazado = esRechazado, @IndicadorEnviado = IndicadorEnviado
-			FROM  EsPedidoRechazado_SB2(@ConsultoraID, @Campania)
+			set @Campaniax = @Campaniax + '|else IF (@UltimaCampanaFacturada = @Campania)' + convert(varchar ,isnull(@Campania, 0))
 
-			if @esRechazado = 2 -- no rechazado (sigue con el proceso normal=> cambio de campaña)
+			if	@esRechazado = -1
 			begin
-				SET @Campania = @Campania - @Anio
-				IF(@Campania = @NroCampanias)
-					SET @Campania = @Anio + 101
-				ELSE
-					SET @Campania = @Anio + @Campania + 1
-			END
-			ELSE
-				SET @AceptacionConsultoraDA = -1 -- mas arriba se cambia, lo vuelvo a su valor normal
 
+					SELECT @esRechazado = esRechazado, @IndicadorEnviado = IndicadorEnviado
+					FROM  EsPedidoRechazado_SB2(@ConsultoraID, @Campania)
+
+					if @esRechazado = 2 -- no rechazado (sigue con el proceso normal=> cambio de campaña)
+					begin
+						SET @Campania = @Campania - @Anio
+						IF(@Campania = @NroCampanias)
+							SET @Campania = @Anio + 101
+						ELSE
+							SET @Campania = @Anio + @Campania + 1
+					END
+					ELSE
+						SET @AceptacionConsultoraDA = -1 -- mas arriba se cambia, lo vuelvo a su valor normal
+
+			end
+			set @Campaniax = @Campaniax + '|else IF (@UltimaCampanaFacturada = @Campania) EsPedidoRechazado_SB2' + convert(varchar ,isnull(@Campania, 0))
 		-- FIN
 	END
 
@@ -407,6 +430,9 @@ BEGIN
 	-- Listar Variables
 	IF @EsquemaDAConsultora = 0
 	BEGIN
+	
+		set @Campaniax = @Campaniax + '| @EsquemaDAConsultora = 0 ' + convert(varchar ,isnull(@Campania, 0))
+
 		INSERT @TConfiguracionCampania
 		SELECT
 			ca.Codigo AS CampaniaID,
@@ -448,7 +474,8 @@ BEGIN
 			@ValidacionInteractiva AS ValidacionInteractiva,
 			@MensajeValidacionInteractiva AS MensajeValidacionInteractiva,
 			@IndicadorEnviado as IndicadorEnviado,
-			@esRechazado as IndicadorRechazado
+			@esRechazado as IndicadorRechazado,
+			@Campaniax as Campaniax
 		FROM [ods].[Cronograma] c (nolock)
 		INNER JOIN [ods].[Zona] z (nolock) ON c.RegionID = z.RegionID AND c.ZonaID = z.ZonaID
 		INNER JOIN [ods].[Campania] ca (nolock) ON c.CampaniaID = ca.CampaniaID
@@ -460,6 +487,7 @@ BEGIN
 	END
 	ELSE
 	BEGIN
+		set @Campaniax = @Campaniax + '|ELSE @EsquemaDAConsultora = 0 ' + convert(varchar ,isnull(@Campania, 0))
 		INSERT @TConfiguracionCampania
 		SELECT
 			ca.Codigo AS CampaniaID,
@@ -493,7 +521,8 @@ BEGIN
 			@ValidacionInteractiva AS ValidacionInteractiva,
 			@MensajeValidacionInteractiva AS MensajeValidacionInteractiva,
 			@IndicadorEnviado as IndicadorEnviado,
-			@esRechazado as IndicadorRechazado
+			@esRechazado as IndicadorRechazado,
+			@Campaniax as Campaniax
 		FROM [ods].[Cronograma] c (nolock)
 		INNER JOIN [ods].[Zona] z (nolock) ON c.RegionID = z.RegionID AND c.ZonaID = z.ZonaID
 		INNER JOIN [ods].[Campania] ca (nolock) ON c.CampaniaID = ca.CampaniaID
