@@ -173,38 +173,39 @@
 <script>
     //Nueva funcionalidad
     var colNames = [
-        'ID',
-        'Fecha Registro',
-        'Tipo',
-        'Fuente',
-        'Nombre',
-        'Documento Identidad',
-        'Zona',
-        'Sección',
-        'Territorio',
-        'Dirección',
-        'Codigo de Consultora',
-        'Fecha Ingreso',
-        'Ubicación',
-        'Evaluación Crediticia',
-        'Evaluación Telefonica',
-        'Estado',
-        'Tipo Rechazo',
-        'Motivo Rechazo',
-        'Modificar',
-        'Ver',
-        'Pendiente de Confirmación',
-        'Reactivar',
-        'Aprobar',
-        'Rechazar',
-        'Enviar a FFVV',
-        '@Dictionaries.CabeceraNumeroDocumento[Model.CodigoIso]',
-        'Comprobante Domicilio',
-        'Contrato',
-        'Pagare',
-        'DNI Aval'
+      'ID',
+      'Fecha Registro',
+      'Tipo',
+      'Fuente',
+      'Nombre',
+      'Documento Identidad',
+      'Zona',
+      'Sección',
+      'Territorio',
+      'Dirección',
+      'Codigo de Consultora',
+      'Fecha Ingreso',
+      'Ubicación',
+      'Evaluación Crediticia',
+      'Evaluación Telefonica',
+      'Estado',
+      'Tipo Rechazo',
+      'Motivo Rechazo',
+      'Modificar',
+      'Ver',
+      'Pendiente de Confirmación',
+      'Reactivar',
+      'Aprobar',
+      'Rechazar',
+      'Enviar a FFVV',
+      '@Dictionaries.CabeceraNumeroDocumento[Model.CodigoIso]',
+        //'DNI Aval'
+       '@Dictionaries.CabeceraDniAval[Model.CodigoIso]',
+     // 'Comprobante Domicilio',
+      '@Dictionaries.CabeceraComprobanteDomicilio[Model.CodigoIso]',
+      'Contrato',
+      'Pagare'
     ];
-
     function fnGrilla() {
 
         jQuery("#gvwSolicitudesPostulante").jqGrid({
@@ -267,7 +268,7 @@
                },
                {
                    name: 'Tipo Rechazo', index: 'Tipo Rechazo', width: 20, editable: true, resizable: false, align: 'center', formatter: function (cellvalue, options, rowObject) {
-                       return  rowObject[27].toUpperCase();
+                       return rowObject[27].toUpperCase();
                    }
                },
                 {
@@ -322,6 +323,12 @@
                     }
                 },
                 {
+                    name: 'DNI Aval', index: 'DNI Aval', width: 10, editable: true, resizable: false, align: 'center', formatter: function (cellvalue, options, rowObject) {
+                        return rowObject[25].length > 0 ? '<a href="javascript:void(0);"><img src="@Url.Content("~/Content/Images/Detail.png")" onclick="verAdjunto(\'' + rowObject[25] + '\', 5)" /></a>' : '';
+                    }
+                }
+                ,
+                {
                     name: 'ComprobanteDomicilio', index: 'ComprobanteDomicilio', width: 10, editable: true, resizable: false, align: 'center', formatter: function (cellvalue, options, rowObject) {
                         return rowObject[22].length > 0 ? '<a href="javascript:void(0);"><img src="@Url.Content("~/Content/Images/Detail.png")" onclick="verAdjunto(\'' + rowObject[22] + '\', 2)" /></a>' : '';
                     }
@@ -332,20 +339,12 @@
                         return rowObject[23].length > 0 ? '<a href="javascript:void(0);"><img src="@Url.Content("~/Content/Images/Detail.png")" onclick="verAdjunto(\'' + rowObject[23] + '\', 3)" /></a>' : '';
                     }
                 }
-                 ,
+                ,
                 {
                     name: 'Pagare', index: 'Pagare', width: 10, editable: true, resizable: false, align: 'center', formatter: function (cellvalue, options, rowObject) {
                         return rowObject[24].length > 0 ? '<a href="javascript:void(0);"><img src="@Url.Content("~/Content/Images/Detail.png")" onclick="verAdjunto(\'' + rowObject[24] + '\', 4)" /></a>' : '';
                     }
                 }
-                 ,
-                {
-                    name: 'DNI Aval', index: 'DNI Aval', width: 10, editable: true, resizable: false, align: 'center', formatter: function (cellvalue, options, rowObject) {
-                        return rowObject[25].length > 0 ? '<a href="javascript:void(0);"><img src="@Url.Content("~/Content/Images/Detail.png")" onclick="verAdjunto(\'' + rowObject[25] + '\', 5)" /></a>' : '';
-                    }
-                }
-
-
             ],
             jsonReader:
                 {
@@ -531,7 +530,14 @@
                     jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'DNI Aval');
                     jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'Tipo Rechazo');
                     jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'Motivo Rechazo');
-                } else {
+                } else if ('@Model.CodigoIso' === 'EC') {
+                    jQuery("#gvwSolicitudesPostulante").jqGrid('showCol', 'Contrato');
+                    jQuery("#gvwSolicitudesPostulante").jqGrid('showCol', 'Pagare');
+                    jQuery("#gvwSolicitudesPostulante").jqGrid('showCol', 'DNI Aval');
+                    jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'Tipo Rechazo');
+                    jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'Motivo Rechazo');
+                }
+                else {
                     jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'Contrato');
                     jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'Pagare');
                     jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'DNI Aval');

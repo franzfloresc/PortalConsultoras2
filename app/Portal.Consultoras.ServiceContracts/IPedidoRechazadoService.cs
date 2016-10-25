@@ -8,7 +8,7 @@ namespace Portal.Consultoras.ServiceContracts
     public interface IPedidoRechazadoService
     {
         [OperationContract]
-        int SetPedidoRechazado(string PaisISO, List<BEPedidoRechazado> lista);
+        int SetPedidoRechazado(string PaisISO, List<BEPedidoRechazadoSicc> lista);
 
         [OperationContract]
         BELogGPRValidacion GetBELogGPRValidacionByGetLogGPRValidacionId(int paisID, long logGPRValidacionId);

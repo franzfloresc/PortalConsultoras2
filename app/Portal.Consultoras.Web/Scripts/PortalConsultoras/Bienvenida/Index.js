@@ -14,6 +14,7 @@ var tipoOrigen = '3';
 var timeoutTooltipTutorial;
 var popupCantidadInicial = popupCantidadInicial || 1;
 var popupListaPrioridad = popupListaPrioridad || new Array();
+//popupListaPrioridad = {Codigo, Prioridad, Activo, Hijos}
 
 $(document).ready(function () {
 
@@ -3661,6 +3662,38 @@ function AceptarComunicadoVisualizacion(ID, dialogComunicadoID) {
 /* SB20-834 - FIN */
 
 // Popup
+function PopupMostrarPrioridad() {
+    var mostrar = new Object();
+    $.each(popupListaPrioridad, function (ind, prioridad) {
+        prioridad.Prioridad = parseFloat(prioridad.Prioridad);
+        if ((mostrar.Prioridad > prioridad.Prioridad && prioridad.Prioridad > 0) || ind == 0) {
+            if (prioridad.Activo == '1') {
+                mostrar = Clone(prioridad);
+            }            
+        }
+    });
+
+    var listaMostrar = new Array();
+    if (parseInt(mostrar.Prioridad) < mostrar.Prioridad) {
+        $.each(popupListaPrioridad, function (ind, prioridad) {
+            prioridad.Prioridad = parseFloat(prioridad.Prioridad);
+            if (parseInt(mostrar.Prioridad) == parseInt(prioridad.Prioridad)) {
+                listaMostrar.push(Clone(prioridad));
+            }
+        });
+    }
+    if (listaMostrar.length == 0) {
+        listaMostrar.push(mostrar);
+    }
+    
+    $.each(listaMostrar, function (ind, prioridad) {
+        if (prioridad.Codigo == "") {
+
+        }
+
+    });
+
+}
 function PopupMostrar(idPopup) {
     var id = "";
     if (typeof (idPopup) == "string")

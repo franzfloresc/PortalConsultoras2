@@ -10,7 +10,7 @@ namespace Portal.Consultoras.BizLogic
 {
     public class BLPedidoRechazado
     {
-        public int InsertarPedidoRechazadoXML(string paisISO, List<BEPedidoRechazado> listBEPedidoRechazado)
+        public int InsertarPedidoRechazadoXML(string paisISO, List<BEPedidoRechazadoSicc> listBEPedidoRechazado)
         {
             if (listBEPedidoRechazado == null || listBEPedidoRechazado.Count == 0) return 0;
 
@@ -66,16 +66,16 @@ namespace Portal.Consultoras.BizLogic
 
         #region Private Functions
 
-        private string CrearClienteXML(List<BEPedidoRechazado> obj)
+        private string CrearClienteXML(List<BEPedidoRechazadoSicc> listPedidoRechazadoSicc)
         {
             StringBuilder sb = new StringBuilder();
 
-            foreach (BEPedidoRechazado lista in obj)
+            foreach (BEPedidoRechazadoSicc pedidoRechazadoSicc in listPedidoRechazadoSicc)
             {
-                string campania = lista.Campania;
-                string codigoConsultora = lista.CodigoConsultora;
-                string motivoRechazo = lista.MotivoRechazo;
-                string valor = lista.Valor;
+                string campania = pedidoRechazadoSicc.Campania;
+                string codigoConsultora = pedidoRechazadoSicc.CodigoConsultora;
+                string motivoRechazo = pedidoRechazadoSicc.MotivoRechazo;
+                string valor = pedidoRechazadoSicc.Valor;
                 string xml = "<PedidoRechazado Campania='{0}' CodigoConsultora='{1}' MotivoRechazo='{2}' Valor='{3}'/>";
                 sb.Append(String.Format(xml, campania, codigoConsultora, motivoRechazo, valor));
             }
