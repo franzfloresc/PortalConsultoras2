@@ -321,9 +321,13 @@
                     name: 'RFC', index: 'RFC', width: 6, editable: true, resizable: false, align: 'center', formatter: function (cellvalue, options, rowObject) {
                         return rowObject[21].length > 0 ? '<a href="javascript:void(0);"><img src="@Url.Content("~/Content/Images/Detail.png")" onclick="verAdjunto(\'' + rowObject[21] + '\', 1)" /></a>' : '';
                     }
+                },
+                {
                     name: 'DNI Aval', index: 'DNI Aval', width: 10, editable: true, resizable: false, align: 'center', formatter: function (cellvalue, options, rowObject) {
                         return rowObject[25].length > 0 ? '<a href="javascript:void(0);"><img src="@Url.Content("~/Content/Images/Detail.png")" onclick="verAdjunto(\'' + rowObject[25] + '\', 5)" /></a>' : '';
                     }
+                },
+                {
                     name: 'ComprobanteDomicilio', index: 'ComprobanteDomicilio', width: 10, editable: true, resizable: false, align: 'center', formatter: function (cellvalue, options, rowObject) {
                         return rowObject[22].length > 0 ? '<a href="javascript:void(0);"><img src="@Url.Content("~/Content/Images/Detail.png")" onclick="verAdjunto(\'' + rowObject[22] + '\', 2)" /></a>' : '';
                     }
