@@ -7,7 +7,7 @@ namespace Portal.Consultoras.Service
 {
     public class PedidoRechazadoService : IPedidoRechazadoService
     {
-        public int SetPedidoRechazado(string PaisISO, List<BEPedidoRechazado> lista)
+        public int SetPedidoRechazado(string PaisISO, List<BEPedidoRechazadoSicc> lista)
         {
             var BLPedidoRechazado = new BLPedidoRechazado();
             return BLPedidoRechazado.InsertarPedidoRechazadoXML(PaisISO,lista);

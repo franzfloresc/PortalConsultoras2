@@ -161,6 +161,7 @@
     <Compile Include="BEOfertaNueva.cs" />
     <Compile Include="BEOfertaProducto.cs" />
     <Compile Include="BEPedidoRechazado.cs" />
+    <Compile Include="BEPedidoRechazadoSicc.cs" />
     <Compile Include="BEProcesoPedidoRechazado.cs" />
     <Compile Include="BEProductoSugerido.cs" />
     <Compile Include="BEShowRoomOfertaDetalle.cs" />
