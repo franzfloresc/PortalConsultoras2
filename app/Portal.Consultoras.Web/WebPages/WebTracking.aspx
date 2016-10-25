@@ -249,7 +249,7 @@
                                                 </asp:Panel>                                                                                       
                                                 
                                                 <asp:HyperLink ID="lnkPoliticasVenta" runat="server" 
-                                                    NavigateUrl="../Content/FAQ/Política_de_reclamos_CO.pdf" Target="_blank"
+                                                    NavigateUrl="../Content/FAQ/Politica_de_reclamos_CO.pdf" Target="_blank"
                                                     Style="padding-left: 2%; font-size: 14px; display: inline-block;
                                                         vertical-align: top; width: 49%; background: url(../Content/Images/Esika/indicador_pedido.png) no-repeat;
                                                         background-position: 0px 5px; font-family: 'lato'; color: black;
