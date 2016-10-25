@@ -2221,6 +2221,7 @@
     <Content Include="Content\Images\showroom\borde_inferior.png" />
     <Content Include="Content\Images\showroom\borde_superior.png" />
     <Content Include="Content\Images\showroom\boton_hoy.png" />
+    <Content Include="Content\Images\showroom\boton_hoy_lbel.png" />
     <Content Include="Content\Images\showroom\carrusel1.png" />
     <Content Include="Content\Images\showroom\carrusel_n.png" />
     <Content Include="Content\Images\showroom\carrusel_no_disponible.png" />
@@ -2242,6 +2243,7 @@
     <Content Include="Content\Images\showroom\opacity.png" />
     <Content Include="Content\Images\showroom\opacity_items.png" />
     <Content Include="Content\Images\showroom\precio_detalle.png" />
+    <Content Include="Content\Images\showroom\precio_detalle_lbel.png" />
     <Content Include="Content\Images\showroom\preventa_digital.png" />
     <Content Include="Content\Images\showroom\preventa_pestana.png" />
     <Content Include="Content\Images\showroom\preventa_pop.jpg" />

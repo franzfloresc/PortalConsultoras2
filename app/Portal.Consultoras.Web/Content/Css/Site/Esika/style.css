@@ -19793,7 +19793,7 @@ label.checkpop.c_on {
 }
 .titulo_showroom {  
     width: 650px;
-    height: 45px;
+    height: auto;
     font-family: 'Lato';
     color: black;
     font-size: 13px;
@@ -19886,7 +19886,7 @@ label.checkpop.c_on {
 }
 .precio_showroom { 
     font-family:'LAto';
-    color:black;
+    color:#e81c36;
     font-size:20px;
     text-align:center;
     margin-top:10px;
@@ -19963,7 +19963,7 @@ label.checkpop.c_on {
     margin-top: 17px;
     width: 100%;
     text-align: center;
-   font-weight:700;
+    font-weight:700;
     border: solid 1px black;
     display: block;
     padding-top: 11px;

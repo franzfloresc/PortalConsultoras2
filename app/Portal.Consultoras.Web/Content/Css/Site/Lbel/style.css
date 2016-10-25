@@ -19523,7 +19523,7 @@ html {
     }
 .btn_hoy {
     
-    background: url("/Content/Images/showroom/boton_hoy.png") no-repeat;
+    background: url("/Content/Images/showroom/boton_hoy_lbel.png") no-repeat;
     height:33px;
     text-align:center;
     width:179px;
@@ -19667,7 +19667,7 @@ label.checkpop.c_on {
 }
 .titulo_showroom {  
     width: 650px;
-    height: 45px;
+    height: auto;
     font-family: 'Lato';
     font-size: 13px;
     line-height: 24px;
@@ -19758,7 +19758,7 @@ label.checkpop.c_on {
 }
 .precio_showroom { 
     font-family:'Lato';
-    color:black;
+    color:#613c87;
     font-size:20px;
     text-align:center;
     margin-top:10px;
@@ -19794,7 +19794,7 @@ label.checkpop.c_on {
     font-size: 17px;    
     border:1px solid black;
     width:23px;
-    height:27px;
+    height:30px;
     float:left;    
     text-align:center;
 }
@@ -19802,7 +19802,7 @@ label.checkpop.c_on {
     padding-top: 5px;
     padding-bottom: 5px;
     width: 32px;
-    height: 17px;
+    height: 30px;
     border: 0;
     font-size: 14px;
     border-top: 1px solid black;
@@ -19819,7 +19819,7 @@ label.checkpop.c_on {
     font-size: 18px;
     border: 1px solid black;
     width: 22px;
-    height: 25px;
+    height: 30px;
     float: left;
     text-align: center;
     cursor: pointer;
@@ -19830,7 +19830,7 @@ label.checkpop.c_on {
 .boton_agregar_showroom {
     cursor:pointer;
     margin-top: 17px;
-    width: 290px;
+    width: 100%;
     text-align: center;
     font-weight:700;
     border: solid 1px black;
@@ -20051,8 +20051,8 @@ label.checkpop.c_on {
     font-weight:bold;
     font-size: 23px;
     padding-left:18px;
-    color:#f11935;
-    background: url("/Content/Images/showroom/precio_detalle.png") no-repeat;
+    color:#613c87;
+    background: url("/Content/Images/showroom/precio_detalle_lbel.png") no-repeat;
     background-position: 1px 3px;
 
 }
@@ -20107,7 +20107,7 @@ label.checkpop.c_on {
     border-bottom: 1px solid #cccccc;
     float: left;
     margin-top: 5px;
-    height: 37px;
+    height: 41px;
     line-height: 36px;
     font-weight:bold;
 }
@@ -20141,7 +20141,6 @@ label.checkpop.c_on {
     padding-bottom: 12px;
     text-decoration: none !important;
     background: #613c87 !important;
-
     cursor:pointer;
 }
  .fondo_detalle_blanco .cantidad_agregar_detalle:hover {
@@ -20202,7 +20201,7 @@ label.checkpop.c_on {
      color: black;
 }
 .item_active span{
-     color:#f11935 !important;   
+     color:#613c87 !important;   
 }
 .agotado_carrusel {
     width:100%;
