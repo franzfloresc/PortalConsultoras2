@@ -305,6 +305,7 @@
     <Compile Include="Controllers\MisDatosController.cs" />
     <Compile Include="Controllers\MisPedidosController.cs" />
     <Compile Include="Controllers\MisPagosController.cs" />
+    <Compile Include="Controllers\MisReclamosController.cs" />
     <Compile Include="Controllers\ModificacionCronogramaController.cs" />
     <Compile Include="Controllers\NavidadConsultoraController.cs" />
     <Compile Include="Controllers\NotificacionesController.cs" />
@@ -3518,6 +3519,7 @@
     <Content Include="Views\SolicitudCliente\ReporteAfiliadas.cshtml" />
     <Content Include="Views\SolicitudCliente\ReportePedidos.cshtml" />
     <Content Include="Views\MiAcademia\Index.cshtml" />
+    <Content Include="Views\MisReclamos\Index.cshtml" />
     <Content Include="Views\Notificaciones\ListadoDetallePedidoRechazado.cshtml" />
     <Content Include="Views\Unete\TemplatesUbigeos\_UbigeoGrupo5.cshtml" />
     <Content Include="Views\Unete\ReporteConsolidado.cshtml" />

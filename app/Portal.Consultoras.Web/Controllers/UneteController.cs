@@ -19,7 +19,7 @@ using CORP.BEL.Unete.Utils.ServicioLocal;
 using Portal.Consultoras.Web.GestionPasos;
 using Portal.Consultoras.Web.ServiceZonificacion;
 using ParametroUneteBE = Portal.Consultoras.Web.HojaInscripcionBelcorpPais.ParametroUneteBE;
-using Pais = Portal.Consultoras.Common.Constantes.CodigosISOPais; 
+using Pais = Portal.Consultoras.Common.Constantes.CodigosISOPais;
 using System.ServiceModel;
 using System.Web;
 
@@ -296,7 +296,7 @@ namespace Portal.Consultoras.Web.Controllers
                 page = pag.CurrentPage,
                 records = pag.RecordCount,
                 rows = items.Select(i =>
-                {
+                                {
                     ServiceUnete.ParametroUneteBE parametro = null;
                     string tipoRechazoNombre = string.Empty;
 
@@ -1158,7 +1158,6 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     foreach (var item in lista)
                     {
-
                         if (CodigoISO == Pais.Peru)
                         {
                             var parametroTodos = new ServiceUnete.ParametroUnete
@@ -1643,7 +1642,7 @@ namespace Portal.Consultoras.Web.Controllers
                         : model.CodigoPais == Pais.Mexico
                             ? model.NombreLugarNivel3 + "|" + model.CalleOAvenida + "|" + model.Numero
                             : model.CodigoPais == Pais.Peru
-                            ? model.NombreLugarNivel3 + "|" + model.NombreLugarNivel4 + "|" + model.CalleOAvenida 
+                            ? model.NombreLugarNivel3 + "|" + model.NombreLugarNivel4 + "|" + model.CalleOAvenida
                              : model.CodigoPais == Pais.Guatemala
                             ? model.NombreLugarNivel3 + "|" + model.NombreLugarNivel4 + "|" + model.NombreLugarNivel5 + "|" + model.CalleOAvenida
                             : model.CodigoPais == Pais.CostaRica
@@ -1662,7 +1661,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             if (ModelState.IsValid)
             {
-                
+
                 if (CodigoISO == Pais.Chile || CodigoISO == Pais.Mexico || CodigoISO == Pais.Peru || CodigoISO == Pais.Ecuador)
                 {
                     try
@@ -2125,10 +2124,9 @@ namespace Portal.Consultoras.Web.Controllers
             dic.Add(Dictionaries.LabelLugar2[CodigoISO], "LugarHijo"); //dic.Add("Comuna", "LugarHijo");
             dic.Add("Telefono Celular", "TelefonoCelular");
             dic.Add("Telefono Red Fija", "TelefonoFijo");
-            dic.Add("Estado", "EstadoPostulante");
+            dic.Add("Estado Postulante", "EstadoPostulante");
             Util.ExportToExcel("ReportePostulantes", resultado.ToList(), dic);
-            return View();
-            
+            return View();            
         }
 
 
