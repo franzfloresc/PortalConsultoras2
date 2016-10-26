@@ -2636,7 +2636,7 @@ namespace Portal.Consultoras.Web.Controllers
                     }                    
                     using (PedidoServiceClient sv = new PedidoServiceClient())
                     {
-                        sv.UpdBackOrderListPedidoWebDetalle(lstPedidoWebDetalleBackOrder.ToArray());
+                        sv.UpdBackOrderListPedidoWebDetalle(userData.PaisID, userData.CampaniaID, userData.PedidoID, lstPedidoWebDetalleBackOrder.ToArray());
                     }
                     Session["PedidoWebDetalle"] = null;
                     
