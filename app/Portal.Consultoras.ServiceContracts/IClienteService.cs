@@ -44,6 +44,10 @@ namespace Portal.Consultoras.ServiceContracts
         [OperationContract]
         IList<BEPedidoWebDetalle> GetClientesByCampania(int paisID, int campaniaID, long consultoraID);
 
+        //EPD-1164
+        [OperationContract]
+        IList<BEPedidoWebDetalle> GetClientesByCampaniaByClienteID(int paisID, int campaniaID, long consultoraID, string ClienteID);
+
         [OperationContract]
         IList<BEPedidoWebDetalle> GetPedidoWebDetalleByCliente(int paisID, int campaniaID, long consultoraID, int clienteID);
 

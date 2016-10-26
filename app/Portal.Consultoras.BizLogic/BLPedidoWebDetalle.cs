@@ -28,6 +28,23 @@ namespace Portal.Consultoras.BizLogic
             return pedidoWebDetalle;
         }
 
+        //EPD-1164
+        public IList<BEPedidoWebDetalle> GetClientesByCampaniaByClienteID(int paisID, int campaniaID, long consultoraID, string ClienteID)
+        {
+            var pedidoWebDetalle = new List<BEPedidoWebDetalle>();
+            var DAPedidoWebDetalle = new DAPedidoWebDetalle(paisID);
+
+            using (IDataReader reader = DAPedidoWebDetalle.GetClientesByCampaniaByClienteID(campaniaID, consultoraID, ClienteID))
+                while (reader.Read())
+                {
+                    var entidad = new BEPedidoWebDetalle(reader);
+                    entidad.PaisID = paisID;
+                    pedidoWebDetalle.Add(entidad);
+                }
+
+            return pedidoWebDetalle;
+        }
+
         public IList<BEPedidoWebDetalle> GetPedidoWebDetalleByCliente(int paisID, int campaniaID, long consultoraID, int clienteID)
         {
             var pedidoWebDetalle = new List<BEPedidoWebDetalle>();

@@ -98,6 +98,12 @@
   <wsdl:message name="IClienteService_GetClientesByCampania_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetClientesByCampaniaResponse" />
   </wsdl:message>
+  <wsdl:message name="IClienteService_GetClientesByCampaniaByClienteID_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetClientesByCampaniaByClienteID" />
+  </wsdl:message>
+  <wsdl:message name="IClienteService_GetClientesByCampaniaByClienteID_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetClientesByCampaniaByClienteIDResponse" />
+  </wsdl:message>
   <wsdl:message name="IClienteService_GetPedidoWebDetalleByCliente_InputMessage">
     <wsdl:part name="parameters" element="tns:GetPedidoWebDetalleByCliente" />
   </wsdl:message>
@@ -178,6 +184,10 @@
     <wsdl:operation name="GetClientesByCampania">
       <wsdl:input wsaw:Action="http://tempuri.org/IClienteService/GetClientesByCampania" message="tns:IClienteService_GetClientesByCampania_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IClienteService/GetClientesByCampaniaResponse" message="tns:IClienteService_GetClientesByCampania_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetClientesByCampaniaByClienteID">
+      <wsdl:input wsaw:Action="http://tempuri.org/IClienteService/GetClientesByCampaniaByClienteID" message="tns:IClienteService_GetClientesByCampaniaByClienteID_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IClienteService/GetClientesByCampaniaByClienteIDResponse" message="tns:IClienteService_GetClientesByCampaniaByClienteID_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="GetPedidoWebDetalleByCliente">
       <wsdl:input wsaw:Action="http://tempuri.org/IClienteService/GetPedidoWebDetalleByCliente" message="tns:IClienteService_GetPedidoWebDetalleByCliente_InputMessage" />
@@ -298,6 +308,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetClientesByCampania">
       <soap:operation soapAction="http://tempuri.org/IClienteService/GetClientesByCampania" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetClientesByCampaniaByClienteID">
+      <soap:operation soapAction="http://tempuri.org/IClienteService/GetClientesByCampaniaByClienteID" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -455,6 +474,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetClientesByCampania">
       <soap:operation soapAction="http://tempuri.org/IClienteService/GetClientesByCampania" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetClientesByCampaniaByClienteID">
+      <soap:operation soapAction="http://tempuri.org/IClienteService/GetClientesByCampaniaByClienteID" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
