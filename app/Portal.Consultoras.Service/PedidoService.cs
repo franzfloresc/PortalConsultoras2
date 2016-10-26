@@ -243,9 +243,9 @@ namespace Portal.Consultoras.Service
             BLPedidoWebDetalle.AceptarBackOrderPedidoWebDetalle(pedidowebdetalle);
         }
 
-        public void UpdBackOrderListPedidoWebDetalle(List<BEPedidoWebDetalle> listPedidoWebDetalle)
+        public void UpdBackOrderListPedidoWebDetalle(int paisID, int campaniaID, int pedidoID, List<BEPedidoWebDetalle> listPedidoWebDetalle)
         {
-            BLPedidoWebDetalle.UpdBackOrderListPedidoWebDetalle(listPedidoWebDetalle);
+            BLPedidoWebDetalle.UpdBackOrderListPedidoWebDetalle(paisID, campaniaID, pedidoID, listPedidoWebDetalle);
         }
 
         public IList<BEPedidoWebDetalle> SelectByPedidoValidado(int paisID, int CampaniaID, long ConsultoraID, string Consultora)
