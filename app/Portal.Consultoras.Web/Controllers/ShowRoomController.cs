@@ -173,7 +173,7 @@ namespace Portal.Consultoras.Web.Controllers
             var cronogramaModel = new OfertaProductoModel()
             {
                 lstCampania = new List<CampaniaModel>(),
-                lstConfiguracionOferta = new List<ConfiguracionOfertaModel>(),
+                //lstConfiguracionOferta = new List<ConfiguracionOfertaModel>(),
                 lstPais = DropDowListPaises()
             };
             return View(cronogramaModel);
@@ -185,11 +185,11 @@ namespace Portal.Consultoras.Web.Controllers
         {
             //PaisID = 11;
             IEnumerable<CampaniaModel> lst = DropDowListCampanias(PaisID);
-            IEnumerable<ConfiguracionOfertaModel> lstConfig = DropDowListConfiguracion(PaisID);
+            //IEnumerable<ConfiguracionOfertaModel> lstConfig = DropDowListConfiguracion(PaisID);
             return Json(new
             {
-                lista = lst,
-                lstConfig = lstConfig
+                lista = lst
+                //lstConfig = lstConfig
             }, JsonRequestBehavior.AllowGet);
         }
 
@@ -960,14 +960,14 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-        public ActionResult ConsultarOfertaShowRoom(string sidx, string sord, int page, int rows, int PaisID, string codigoOferta, int CampaniaID)
+        public ActionResult ConsultarOfertaShowRoom(string sidx, string sord, int page, int rows, int PaisID, int CampaniaID)
         {
             if (ModelState.IsValid)
             {
                 List<BEShowRoomOferta> lst;
                 using (PedidoServiceClient sv = new PedidoServiceClient())
                 {
-                    lst = sv.GetProductosShowRoom(PaisID, Constantes.ConfiguracionOferta.ShowRoom, CampaniaID, codigoOferta).ToList();
+                    lst = sv.GetProductosShowRoom(PaisID, CampaniaID).ToList();
                 }
 
                 // Usamos el modelo para obtener los datos

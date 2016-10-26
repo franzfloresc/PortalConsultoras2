@@ -5334,6 +5334,8 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
 
 .texto_terminosCondiciones{
     font-size:12px!important;
+    margin-left:25px;
+    position:relative;
 }
 
 .texto_terminosCondiciones span a{
@@ -5343,7 +5345,9 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
 
 .texto_terminosCondiciones:before{
     content: "";
-    float: left;
+    position: absolute;
+    left: -25px;
+    /* float: left; */
     width: 16px;
     height: 16px;
     margin-top: 3px;
@@ -19523,7 +19527,7 @@ html {
     }
 .btn_hoy {
     
-    background: url("/Content/Images/showroom/boton_hoy.png") no-repeat;
+    background: url("/Content/Images/showroom/boton_hoy_lbel.png") no-repeat;
     height:33px;
     text-align:center;
     width:179px;
@@ -19667,7 +19671,7 @@ label.checkpop.c_on {
 }
 .titulo_showroom {  
     width: 650px;
-    height: 45px;
+    height: auto;
     font-family: 'Lato';
     font-size: 13px;
     line-height: 24px;
@@ -19758,7 +19762,7 @@ label.checkpop.c_on {
 }
 .precio_showroom { 
     font-family:'Lato';
-    color:black;
+    color:#613c87;
     font-size:20px;
     text-align:center;
     margin-top:10px;
@@ -19794,7 +19798,7 @@ label.checkpop.c_on {
     font-size: 17px;    
     border:1px solid black;
     width:23px;
-    height:27px;
+    height:30px;
     float:left;    
     text-align:center;
 }
@@ -19802,7 +19806,7 @@ label.checkpop.c_on {
     padding-top: 5px;
     padding-bottom: 5px;
     width: 32px;
-    height: 17px;
+    height: 30px;
     border: 0;
     font-size: 14px;
     border-top: 1px solid black;
@@ -19819,7 +19823,7 @@ label.checkpop.c_on {
     font-size: 18px;
     border: 1px solid black;
     width: 22px;
-    height: 25px;
+    height: 30px;
     float: left;
     text-align: center;
     cursor: pointer;
@@ -19830,7 +19834,7 @@ label.checkpop.c_on {
 .boton_agregar_showroom {
     cursor:pointer;
     margin-top: 17px;
-    width: 290px;
+    width: 100%;
     text-align: center;
     font-weight:700;
     border: solid 1px black;
@@ -20051,8 +20055,8 @@ label.checkpop.c_on {
     font-weight:bold;
     font-size: 23px;
     padding-left:18px;
-    color:#f11935;
-    background: url("/Content/Images/showroom/precio_detalle.png") no-repeat;
+    color:#613c87;
+    background: url("/Content/Images/showroom/precio_detalle_lbel.png") no-repeat;
     background-position: 1px 3px;
 
 }
@@ -20107,7 +20111,7 @@ label.checkpop.c_on {
     border-bottom: 1px solid #cccccc;
     float: left;
     margin-top: 5px;
-    height: 37px;
+    height: 41px;
     line-height: 36px;
     font-weight:bold;
 }
@@ -20141,7 +20145,6 @@ label.checkpop.c_on {
     padding-bottom: 12px;
     text-decoration: none !important;
     background: #613c87 !important;
-
     cursor:pointer;
 }
  .fondo_detalle_blanco .cantidad_agregar_detalle:hover {
@@ -20202,7 +20205,7 @@ label.checkpop.c_on {
      color: black;
 }
 .item_active span{
-     color:#f11935 !important;   
+     color:#613c87 !important;   
 }
 .agotado_carrusel {
     width:100%;
@@ -30148,12 +30151,12 @@ h1#penmostreo .campana {
 }
 .gratis_set{
      font-family:'Lato';
-    font-size:11px;
+    font-size:14px;
     font-weight:700;
     color:black;
     text-transform:uppercase;
     text-align:center;
-    margin-top:10px;
+    margin-top:5px;
 }
 .mod-ofer2 .encabezado_popupCatalogoPersonalizado {
     display: block;
@@ -30210,7 +30213,7 @@ h1#penmostreo .campana {
 .sombra_oferta {
     width: 100%;
     height: 78px;
-    margin-top:35px;
+    margin-top:20px;
     padding-left: 15px;
     padding-right: 15px;
     position: relative;
@@ -30237,13 +30240,14 @@ h1#penmostreo .campana {
 .item_pack_personalizado{
     width:33%;
     display:inline-block;
-    margin-top:20px;
+    /*margin-top:20px;*/
     vertical-align: top;
 }
 .content_item_pack{
     width:100%;
     height:340px;
     overflow: hidden;
+    overflow-y:auto;
 }
 .img_principal_pack{
     width:149px;
@@ -30303,15 +30307,16 @@ h1#penmostreo .campana {
     border-bottom: 20px solid black;
     }
 .pack_inter {
-    width: 78%;
+    width: 86%;
     margin-top:13px;
-    border-left: 1px solid #cfcfcf;
+    position:relative;
+    /*border-left: 1px solid #cfcfcf;*/
     overflow:hidden;
 }
 .content_item_pack .content_sub_items {
     overflow: hidden;
-    padding-top: 12px;
-    height: 248px;
+    padding-top: 7px;
+    height: auto;
     border-bottom:0;
 }
 .pack_inter .content_sub_items .sub_descripcion_oferta:nth-child(2) {
@@ -31296,4 +31301,108 @@ h1#penmostreo .campana {
     padding-bottom:10px;
     margin-bottom:10px;
     overflow:hidden;
+}
+.content_carrusel_pack{
+    width:90%;
+    margin:0 auto;
+    position:relative;
+}
+.flechas_carrusel{
+    width:10%;
+    position:absolute;
+    TOP:40%;
+}
+
+/*.sub_descripcion_oferta p::first-letter{
+    color:#613c87;
+    font-size:20px;
+    font-weight:900;
+}*/
+.sub_descripcion_oferta p span{
+    color:#613c87;
+    font-size:22px;
+    /*font-weight:700;*/
+}
+
+.sub_descripcion_oferta p{
+    margin: 0;
+    padding: 0;
+    /*line-height:normal;*/
+}
+.text-center{
+    text-align:center;
+    
+}
+.width_100{
+    width:100%;
+    padding-left:10px;
+    padding-right:10px;
+}
+.new_content_img{
+    width:19%;
+    display: inline-block;
+    height: auto;
+    /*border: 1px solid #dadada;*/
+    vertical-align:middle;
+   
+}
+.new_content_img img{
+    width:100%;
+}
+.signo_producto{
+     width:3.8%;
+     margin-right:1%;
+     margin-left:1%;
+     display: inline-block;
+     vertical-align:middle;
+     font-family:'Lato';
+     font-size:20px;
+    }
+.w1{
+    width:100%;
+     text-align:center;
+}
+.sub_descripcion_oferta_new{
+     width: 100%;
+    text-align: center;
+    padding-bottom: 8px;
+    margin-bottom: 10px;
+    font-family: 'Lato';
+    font-size: 13px;
+    color: black;
+    border-bottom: 1px solid #dadada;
+}
+.sub_descripcion_oferta_new .cantidadx{
+    color:#613c87;
+    font-size:17px;
+    font-weight:900;
+}
+.linea_d{
+    position:relative;
+}
+.linea_d::before{
+    content:"";
+    height:340px;
+    position:absolute;
+    width:1px;
+    background:#cfcfcf;
+    left:0;
+    
+}
+.content_66{
+    width:66%;
+    display:inline-block;
+    vertical-align:top;
+}
+.content_66 .item_pack_personalizado{
+    width:49%;
+    position:relative;
+}
+.content_66 .item_pack_personalizado::before{
+    content:"";
+    height:340px;
+    position:absolute;
+    width:1px;
+    background:#cfcfcf;
+    left:0;
 }
