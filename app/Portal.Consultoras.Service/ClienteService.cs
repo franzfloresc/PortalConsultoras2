@@ -71,6 +71,12 @@ namespace Portal.Consultoras.Service
             return BLPedidoWebDetalle.GetClientesByCampania(paisID, campaniaID, consultoraID);
         }
 
+        //EPD-1164
+        public IList<BEPedidoWebDetalle> GetClientesByCampaniaByClienteID(int paisID, int campaniaID, long consultoraID, string ClienteID)
+        {
+            return BLPedidoWebDetalle.GetClientesByCampaniaByClienteID(paisID, campaniaID, consultoraID, ClienteID);
+        }
+
         public IList<BEPedidoWebDetalle> GetPedidoWebDetalleByCliente(int paisID, int campaniaID, long consultoraID, int clienteID)
         {
             return BLPedidoWebDetalle.GetPedidoWebDetalleByCliente(paisID, campaniaID, consultoraID, clienteID);

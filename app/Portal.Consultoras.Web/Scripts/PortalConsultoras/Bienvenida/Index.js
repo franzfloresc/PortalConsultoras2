@@ -1709,6 +1709,7 @@ function CargarBanners() {
                             'creative': Creative
                         });
                     }
+
                     if (promotionsBajos.length > 0) {
                         dataLayer.push({
                             'event': 'promotionView',
@@ -1730,11 +1731,14 @@ function CargarBanners() {
                             slideshowSpeed: (delayPrincipal * 1000),
                             after: function (slider) {
                                 if (FuncionesGenerales.containsObject(vpromotions[slider.currentSlide], vpromotionsTagged) == false) {
+                                    var arrProm = [];
+                                    arrProm.push(vpromotions[slider.currentSlide]);
                                     dataLayer.push({
                                         'event': 'promotionView',
                                         'ecommerce': {
                                             'promoView': {
-                                                'promotions': vpromotions[slider.currentSlide]
+                                                //'promotions': vpromotions[slider.currentSlide]
+                                                'promotions': arrProm
                                             }
                                         }
                                     });
@@ -1743,11 +1747,14 @@ function CargarBanners() {
                             },
                             start: function (slider) {
                                 $('body').removeClass('loading');
+                                var arrProm = [];
+                                arrProm.push(vpromotions[slider.currentSlide]);
                                 dataLayer.push({
                                     'event': 'promotionView',
                                     'ecommerce': {
                                         'promoView': {
-                                            'promotions': vpromotions[slider.currentSlide]
+                                            //'promotions': vpromotions[slider.currentSlide]
+                                            'promotions': arrProm
                                         }
                                     }
                                 });
