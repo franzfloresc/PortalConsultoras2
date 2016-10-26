@@ -96,12 +96,12 @@ namespace Portal.Consultoras.BizLogic
             DAShowRoomEvento.UpdateShowRoomConsultoraMostrarPopup(campaniaID, codigoConsultora, mostrarPopup);
         }
 
-        public IList<BEShowRoomOferta> GetProductosShowRoom(int paisID, int tipoOfertaSisID, int campaniaID, string codigoOferta)
+        public IList<BEShowRoomOferta> GetProductosShowRoom(int paisID, int campaniaID)
         {
             var lst = new List<BEShowRoomOferta>();
             var dataAccess = new DAShowRoomEvento(paisID);
 
-            using (IDataReader reader = dataAccess.GetProductosShowRoom(tipoOfertaSisID, campaniaID, codigoOferta))
+            using (IDataReader reader = dataAccess.GetProductosShowRoom(campaniaID))
                 while (reader.Read())
                 {
                     var entity = new BEShowRoomOferta(reader);
