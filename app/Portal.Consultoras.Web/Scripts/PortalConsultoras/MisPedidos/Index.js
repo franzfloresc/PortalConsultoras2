@@ -16,6 +16,7 @@ $(document).ready(function () {
         var pop = (btn.parents("[data-camp]") || "");
         if (pop == "") return false;
         var campId = pop.attr("data-camp") || "";
+        $('#lblcampania')[0].innerHTML=campId;
         if (campId == "") return false;
         
         var pedidoId = pop.attr("data-idpedido") || 0;
@@ -48,10 +49,14 @@ $(document).ready(function () {
         $("#regresarFacturado").Visible(estado == "f");
         $('[data-popup="ingresado"] [data-selectcamp]').Visible(estado == "i");
         var canal = $.trim(pop.find(".canal_ingreso").html()).toLowerCase();
-        $('#verIngresado').Visible(canal == "web");
+
+        $('#verIngresado').Visible(canal == "web" || canal == "mixto");
+
+        //$('#verIngresado').Visible(canal == "web");
     });
 
     $('#verIngresado').click(function () {
+        $('#lblcampania')[0].innerHTML="";
         var opt = $(this).parent().find("[data-selectcamp]");
         var obj = opt.find("[value='" + opt.val() + "']");
         var campFormat = obj.attr("data-campformat") || "";
@@ -64,6 +69,8 @@ $(document).ready(function () {
         $("#divGrilla").find("select[data-cliente]").val(-1);
         campFormat = campFormat.replace("-", "");
         PopupMostrar("i", campFormat, pedidoIdFormat);
+        $('#lblcampania')[0].innerHTML = $('[data-popup="ingresado"] [data-selectcamp]')[0].dataset.campregresar;
+
     });
     
     $('#regresarFacturado').click(function () {
@@ -311,6 +318,12 @@ function CargarDetalleFacturado(camp, page, rows, tipo, pedidoId) {
             var htmlDiv = SetHandlebars("#html-detalle-facturado", data);
             var campania = data.CampaniaId;
             if (tipo == "i") {
+                
+                if(data.listaCliente==0)
+                {
+                    alert("No tiene Pedidos por la Web");
+                    return false;
+                }
                 var facturado = data.ImporteFacturado;
                 $('#pedidoPorCliente').attr("data-camp", camp);
                 $('#pedidoPorCliente').attr("data-idpedido", pedidoId);
@@ -456,16 +469,19 @@ function CargarDetalleIngresadoCliente(tag, camp, page, rows) {
 
 function ExportExcel(obj) {
     waitingDialog();
-    var campaniaID = $.trim($(obj).parents("[data-popup]").find("[data-selectcamp]").val());
-    campaniaID = campaniaID || $.trim($(obj).parents("[data-popup]").find("[data-selectcamp]").attr("data-campregresar"));
+    //var campaniaID = $.trim($(obj).parents("[data-popup]").find("[data-selectcamp]").val());
+    var campaniaID = $('#lblcampania')[0].innerHTML; //$('[data-popup="ingresado"] [data-selectcamp]')[0].dataset.campregresar;
     campaniaID = campaniaID.replace("-", "");
-    setTimeout(function () { DownloadAttachExcel(campaniaID) }, 0);
+    var ClienteID = $("#divGrilla").find("select[data-cliente]").val();
+    var ClienteID_ = ClienteID.toString() == '-1' ? "" : ClienteID.toString();
+    setTimeout(function () { DownloadAttachExcel(campaniaID,ClienteID_) }, 0);
 }
 
-function DownloadAttachExcel(CampaniaID) {
+function DownloadAttachExcel(CampaniaID,ClienteID) {
     if (checkTimeout()) {
         var content = baseUrl + "MisPedidos/ExportarExcel?" +
-            "vCampaniaID=" + CampaniaID;
+            "vCampaniaID=" + CampaniaID +
+            "&vClienteID=" + ClienteID;
 
         var iframe_ = document.createElement("iframe");
         iframe_.style.display = "none";

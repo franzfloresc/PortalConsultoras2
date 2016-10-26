@@ -75,6 +75,7 @@
   <xs:element name="ArrayOfBEPedidoWebDetalle" nillable="true" type="tns:ArrayOfBEPedidoWebDetalle" />
   <xs:complexType name="BEPedidoWebDetalle">
     <xs:sequence>
+      <xs:element minOccurs="0" name="AceptoBackOrder" type="xs:boolean" />
       <xs:element minOccurs="0" name="CUV" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="CUVNuevo" type="xs:boolean" />
       <xs:element minOccurs="0" name="CUVPadre" nillable="true" type="xs:string" />
@@ -95,6 +96,7 @@
       <xs:element minOccurs="0" name="DescripcionProd" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="DescuentoProl" type="xs:decimal" />
       <xs:element minOccurs="0" name="EliminadoTemporal" type="xs:boolean" />
+      <xs:element minOccurs="0" name="EsBackOrder" type="xs:boolean" />
       <xs:element minOccurs="0" name="EsKitNueva" type="xs:boolean" />
       <xs:element minOccurs="0" name="EsSugerido" type="xs:boolean" />
       <xs:element minOccurs="0" name="EstadoItem" type="xs:short" />
