@@ -188,11 +188,11 @@ namespace Portal.Consultoras.Data
             return result;
         }
 
-        public int ClearBackOrderPedidoWebDetalle(BEPedidoWebDetalle pedidowebdetalle)
+        public int ClearBackOrderPedidoWebDetalle(int campaniaID, int pedidoID)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.ClearBackOrderPedidoWebDetalle");
-            Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, pedidowebdetalle.CampaniaID);
-            Context.Database.AddInParameter(command, "@PedidoID", DbType.Int32, pedidowebdetalle.PedidoID);
+            Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, campaniaID);
+            Context.Database.AddInParameter(command, "@PedidoID", DbType.Int32, pedidoID);
             int result = Context.ExecuteNonQuery(command);
 
             return result;

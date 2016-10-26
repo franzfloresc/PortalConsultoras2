@@ -150,15 +150,15 @@ namespace Portal.Consultoras.BizLogic
             new DAPedidoWebDetalle(pedidowebdetalle.PaisID).AceptarBackOrderPedidoWebDetalle(pedidowebdetalle);
         }
 
-        public void UpdBackOrderListPedidoWebDetalle(List<BEPedidoWebDetalle> listPedidoWebDetalle)
+        public void UpdBackOrderListPedidoWebDetalle(int paisID, int campaniaID, int pedidoID, List<BEPedidoWebDetalle> listPedidoWebDetalle)
         {
-            var dAPedidoWebDetalle = new DAPedidoWebDetalle(listPedidoWebDetalle[0].PaisID);
+            var dAPedidoWebDetalle = new DAPedidoWebDetalle(paisID);
             TransactionOptions oTransactionOptions = new TransactionOptions();
             oTransactionOptions.IsolationLevel = System.Transactions.IsolationLevel.ReadCommitted;
 
             using (TransactionScope oTransactionScope = new TransactionScope(TransactionScopeOption.Required, oTransactionOptions))
             {
-                dAPedidoWebDetalle.ClearBackOrderPedidoWebDetalle(listPedidoWebDetalle[0]);
+                dAPedidoWebDetalle.ClearBackOrderPedidoWebDetalle(campaniaID, pedidoID);
                 foreach (var pedidoWebDetalle in listPedidoWebDetalle)
                 {
                     dAPedidoWebDetalle.UpdBackOrderPedidoWebDetalle(pedidoWebDetalle);

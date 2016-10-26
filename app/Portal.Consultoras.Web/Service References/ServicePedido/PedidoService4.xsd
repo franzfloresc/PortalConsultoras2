@@ -1034,9 +1034,7 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="0" name="paisID" type="xs:int" />
-        <xs:element minOccurs="0" name="tipoOfertaSisID" type="xs:int" />
         <xs:element minOccurs="0" name="campaniaID" type="xs:int" />
-        <xs:element minOccurs="0" name="codigoOferta" nillable="true" type="xs:string" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -3219,6 +3217,9 @@
   <xs:element name="UpdBackOrderListPedidoWebDetalle">
     <xs:complexType>
       <xs:sequence>
+        <xs:element minOccurs="0" name="paisID" type="xs:int" />
+        <xs:element minOccurs="0" name="campaniaID" type="xs:int" />
+        <xs:element minOccurs="0" name="pedidoID" type="xs:int" />
         <xs:element xmlns:q191="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="listPedidoWebDetalle" nillable="true" type="q191:ArrayOfBEPedidoWebDetalle" />
       </xs:sequence>
     </xs:complexType>

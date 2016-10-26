@@ -115,7 +115,7 @@ namespace Portal.Consultoras.ServiceContracts
         void AceptarBackOrderPedidoWebDetalle(BEPedidoWebDetalle pedidowebdetalle);
 
         [OperationContract]
-        void UpdBackOrderListPedidoWebDetalle(List<BEPedidoWebDetalle> listPedidoWebDetalle);
+        void UpdBackOrderListPedidoWebDetalle(int paisID, int campaniaID, int pedidoID, List<BEPedidoWebDetalle> listPedidoWebDetalle);
 
         [OperationContract]
         IList<BEPedidoWebDetalle> SelectByPedidoValidado(int paisID, int CampaniaID, long ConsultoraID, string Consultora);
@@ -783,7 +783,7 @@ namespace Portal.Consultoras.ServiceContracts
         void UpdateShowRoomConsultoraMostrarPopup(int paisID, int campaniaID, string codigoConsultora, bool mostrarPopup);
 
         [OperationContract]
-        IList<BEShowRoomOferta> GetProductosShowRoom(int paisID, int tipoOfertaSisID, int campaniaID, string codigoOferta);
+        IList<BEShowRoomOferta> GetProductosShowRoom(int paisID, int campaniaID);
 
         [OperationContract]
         int GetOrdenPriorizacionShowRoom(int paisID, int ConfiguracionOfertaID, int CampaniaID);

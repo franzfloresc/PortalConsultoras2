@@ -34,10 +34,11 @@ $(document).ready(function () {
         $('[data-oferta]').attr("class", "").hide();
     });
 
-    //if (tipoOrigen != '3') {
-    //    Inicializar();
-    //}
-    $("#divmaquetaof48nivel").show();
+    if (tipoOrigen != '3') {
+        Inicializar();
+    }
+    $("#divmaquetaof48nivel").hide();
+    $("[data-maq]").hide();
 });
 
 function Inicializar() {
