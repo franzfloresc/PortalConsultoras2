@@ -450,7 +450,8 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                 }
 
-                string mensaje = "", descripcion = "", precio = "", imagen1 = "", imagen2 = "", imagen3 = "";
+                string mensaje = "", descripcion = "", precio = "";
+                string imagen1 = "", imagen2 = "", imagen3 = "", imagen4 = "", imagen5 = "", imagen6 = "", imagen7 = "", imagen8 = "", imagen9 = "", imagen10 = "";
                 string carpetaPais = Globals.UrlMatriz + "/" + UserData().CodigoISO;
                 string wsprecio = ""; ///GR-1060
 
@@ -471,6 +472,13 @@ namespace Portal.Consultoras.Web.Controllers
                                 imagen1 = imagen1,
                                 imagen2 = imagen2,
                                 imagen3 = imagen3,
+                                imagen4 = imagen4,
+                                imagen5 = imagen5,
+                                imagen6 = imagen6,
+                                imagen7 = imagen7,
+                                imagen8 = imagen8,
+                                imagen9 = imagen9,
+                                imagen10 = imagen10,
                                 extra = ""
                             }, JsonRequestBehavior.AllowGet);
                         }
@@ -490,9 +498,16 @@ namespace Portal.Consultoras.Web.Controllers
                     descripcion = lst[0].DescripcionCUV2;
                     precio = lst[0].PrecioUnitario.ToString();
                     wsprecio = wspreciopack.ToString();
-                    imagen1 = ConfigS3.GetUrlFileS3(carpetaPais, lst[0].FotoProducto01, Globals.RutaImagenesMatriz + "/" + UserData().CodigoISO);
-                    imagen2 = ConfigS3.GetUrlFileS3(carpetaPais, lst[0].FotoProducto02, Globals.RutaImagenesMatriz + "/" + UserData().CodigoISO);
-                    imagen3 = ConfigS3.GetUrlFileS3(carpetaPais, lst[0].FotoProducto03, Globals.RutaImagenesMatriz + "/" + UserData().CodigoISO);
+                    imagen1 = ConfigS3.GetUrlFileS3(carpetaPais, lst[0].FotoProducto01, Globals.RutaImagenesMatriz + "/" + userData.CodigoISO);
+                    imagen2 = ConfigS3.GetUrlFileS3(carpetaPais, lst[0].FotoProducto02, Globals.RutaImagenesMatriz + "/" + userData.CodigoISO);
+                    imagen3 = ConfigS3.GetUrlFileS3(carpetaPais, lst[0].FotoProducto03, Globals.RutaImagenesMatriz + "/" + userData.CodigoISO);
+                    imagen4 = ConfigS3.GetUrlFileS3(carpetaPais, lst[0].FotoProducto04, Globals.RutaImagenesMatriz + "/" + userData.CodigoISO);
+                    imagen5 = ConfigS3.GetUrlFileS3(carpetaPais, lst[0].FotoProducto05, Globals.RutaImagenesMatriz + "/" + userData.CodigoISO);
+                    imagen6 = ConfigS3.GetUrlFileS3(carpetaPais, lst[0].FotoProducto06, Globals.RutaImagenesMatriz + "/" + userData.CodigoISO);
+                    imagen7 = ConfigS3.GetUrlFileS3(carpetaPais, lst[0].FotoProducto07, Globals.RutaImagenesMatriz + "/" + userData.CodigoISO);
+                    imagen8 = ConfigS3.GetUrlFileS3(carpetaPais, lst[0].FotoProducto08, Globals.RutaImagenesMatriz + "/" + userData.CodigoISO);
+                    imagen9 = ConfigS3.GetUrlFileS3(carpetaPais, lst[0].FotoProducto09, Globals.RutaImagenesMatriz + "/" + userData.CodigoISO);
+                    imagen10 = ConfigS3.GetUrlFileS3(carpetaPais, lst[0].FotoProducto10, Globals.RutaImagenesMatriz + "/" + userData.CodigoISO);
                 }
 
                 return Json(new
@@ -505,6 +520,13 @@ namespace Portal.Consultoras.Web.Controllers
                     imagen1 = imagen1,
                     imagen2 = imagen2,
                     imagen3 = imagen3,
+                    imagen4 = imagen4,
+                    imagen5 = imagen5,
+                    imagen6 = imagen6,
+                    imagen7 = imagen7,
+                    imagen8 = imagen8,
+                    imagen9 = imagen9,
+                    imagen10 = imagen10,
                     extra = ""
                 }, JsonRequestBehavior.AllowGet);
             }
@@ -669,9 +691,16 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (lst != null && lst.Count > 0)
                 {
-                    lst.Update(x => x.FotoProducto01 = ConfigS3.GetUrlFileS3(carpetapais, x.FotoProducto01, carpetapais));
-                    lst.Update(x => x.FotoProducto02 = ConfigS3.GetUrlFileS3(carpetapais, x.FotoProducto02, carpetapais));
-                    lst.Update(x => x.FotoProducto03 = ConfigS3.GetUrlFileS3(carpetapais, x.FotoProducto03, carpetapais));
+                    lst.Update(x => x.FotoProducto01 = ConfigS3.GetUrlFileS3(carpetapais, x.FotoProducto01 ?? "", carpetapais));
+                    lst.Update(x => x.FotoProducto02 = ConfigS3.GetUrlFileS3(carpetapais, x.FotoProducto02 ?? "", carpetapais));
+                    lst.Update(x => x.FotoProducto03 = ConfigS3.GetUrlFileS3(carpetapais, x.FotoProducto03 ?? "", carpetapais));
+                    lst.Update(x => x.FotoProducto04 = ConfigS3.GetUrlFileS3(carpetapais, x.FotoProducto04 ?? "", carpetapais));
+                    lst.Update(x => x.FotoProducto05 = ConfigS3.GetUrlFileS3(carpetapais, x.FotoProducto05 ?? "", carpetapais));
+                    lst.Update(x => x.FotoProducto06 = ConfigS3.GetUrlFileS3(carpetapais, x.FotoProducto06 ?? "", carpetapais));
+                    lst.Update(x => x.FotoProducto07 = ConfigS3.GetUrlFileS3(carpetapais, x.FotoProducto07 ?? "", carpetapais));
+                    lst.Update(x => x.FotoProducto08 = ConfigS3.GetUrlFileS3(carpetapais, x.FotoProducto08 ?? "", carpetapais));
+                    lst.Update(x => x.FotoProducto09 = ConfigS3.GetUrlFileS3(carpetapais, x.FotoProducto09 ?? "", carpetapais));
+                    lst.Update(x => x.FotoProducto10 = ConfigS3.GetUrlFileS3(carpetapais, x.FotoProducto10 ?? "", carpetapais));
                     lst.Update(x => x.Simbolo = UserData().Simbolo);
                 }
 
