@@ -327,12 +327,12 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         #region excel
-        public ActionResult ExportarExcel(string vCampaniaID)
+        public ActionResult ExportarExcel(string vCampaniaID, string vClienteID)
         {
             List<SC.BEPedidoWebDetalle> lstCabecera;
             using (SC.ClienteServiceClient sv = new SC.ClienteServiceClient())
             {
-                lstCabecera = sv.GetClientesByCampania(userData.PaisID, int.Parse(vCampaniaID), ObtenerConsultoraId()).OrderBy(p => p.Nombre).ToList();
+                lstCabecera = sv.GetClientesByCampaniaByClienteID(userData.PaisID, int.Parse(vCampaniaID), ObtenerConsultoraId(), vClienteID).OrderBy(p => p.Nombre).ToList();
             }
 
             List<KeyValuePair<int, string>> dicCabeceras = new List<KeyValuePair<int, string>>();
