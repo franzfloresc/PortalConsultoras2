@@ -35,7 +35,7 @@ BEGIN
 
 	if @ExisteRegistro > 0
 	begin
-			set @add = 0
+			--set @add = 0
 			set @CodigoPrograma = ''
 
 			select @CodigoPrograma = isnull(c.CodigoPrograma, '')
@@ -49,7 +49,7 @@ BEGIN
 
 			if @CodigoPrograma != ''
 			begin
-					set @add = 1
+					--set @add = 1
 					set @CodigoZonax = ''
 			
 					select @CodigoZonax = isnull(CodigoZona, '')

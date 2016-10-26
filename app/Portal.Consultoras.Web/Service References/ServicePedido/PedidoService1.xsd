@@ -795,6 +795,13 @@
       <xs:element minOccurs="0" name="FotoProducto01" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="FotoProducto02" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="FotoProducto03" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FotoProducto04" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FotoProducto05" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FotoProducto06" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FotoProducto07" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FotoProducto08" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FotoProducto09" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FotoProducto10" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ISOPais" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="IdMatrizComercial" type="xs:int" />
       <xs:element minOccurs="0" name="PaisID" type="xs:int" />
