@@ -3018,7 +3018,7 @@ table > thead > tr > th {
     width: 36px;
     padding-top: 4px;
     padding-bottom: 4px;
-    background: #ff1300;
+    background: #613c87;
     float: left;
     text-align: center;
     position: absolute;
@@ -3423,9 +3423,17 @@ width:100%;
     color: black;
     margin-top:17px;
 }
-.titulo_showroom_mobile span {
-    font-size: 18px;
-}
+
+    .titulo_showroom_mobile a {
+        text-decoration: underline;
+        text-align: center;
+        display: block;
+    }
+
+    .titulo_showroom_mobile span {
+        font-size: 18px;
+    }
+
 .selector_s_mobile {
     width: 100%;
     margin-top: 10px;
@@ -3492,7 +3500,7 @@ width:100%;
 }
 .clear { background: none; border: 0; clear: both; display: block; float: none; font-size: 0; margin: 0; padding: 0; overflow: hidden; visibility: hidden; width: 0; height: 0 }
 .precio_showroom_mobile {
-    color: #ef0e4a;
+    color: #613C87;
     font-size: 20px;
     margin-top: 5px;
     margin-bottom: 12px;
@@ -3778,13 +3786,13 @@ width:100%;
     display:block;
     font-weight:bold;
     font-size: 24px;    
-    color: #f11935;    
+    color: #613C87;    
     background-position: 1px 0px;
 }
 .set_precio_gana_m {
     text-align: center;
     font-weight:bold;
-    font-family: 'ArialMT';
+    font-family: 'Lato';
     font-size: 11.5px;
     color: black;
     line-height: 20px;
@@ -3862,7 +3870,7 @@ width:100%;
 .btn_agregar_set{
      width: 100%;
     height: 45px;
-    background-color: #e81c36;
+    background-color: #613c87;
     font-size: 13px;
     line-height: 45px;
     color: white;

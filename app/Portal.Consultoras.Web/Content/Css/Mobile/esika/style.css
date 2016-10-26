@@ -3939,6 +3939,12 @@ table > thead > tr > th {
     margin-top: 17px;
 }
 
+    .titulo_showroom_mobile a {
+        text-decoration: underline;
+        text-align: center;
+        display: block;
+    }
+
     .titulo_showroom_mobile span {
         font-size: 18px;
     }
