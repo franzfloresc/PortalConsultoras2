@@ -38,6 +38,9 @@ $(document).ready(function () {
         //if (flagHuboPedidosPend) {
         //    CargarDetallePedido();
         //}
+
+        $('#penmostreo').attr("data-tab-activo", '0');
+        $('#pedmostreo').attr("data-tab-activo", '1');
     });
 
     $('#penmostreo').on('click', function () {
@@ -59,6 +62,8 @@ $(document).ready(function () {
         //$('.truco_bloqueo').hide();
         $('#pedmostreo').addClass('cambio_bk_pendientes');
         $('.datos_para_movil').hide();
+        $('#penmostreo').attr("data-tab-activo", '1');
+        $('#pedmostreo').attr("data-tab-activo", '0');
     });
 
     $('.optionsRechazo').on('click', function () {
@@ -213,6 +218,9 @@ function CargarPedidosPend(page, rows) {
                         //$('.truco_bloqueo').hide();
                         $('#pedmostreo').addClass('cambio_bk_pendientes');
                         $('.datos_para_movil').hide();
+
+                        $('#penmostreo').attr("data-tab-activo", '1');
+                        $('#pedmostreo').attr("data-tab-activo", '0');
                     }
                 }
                 else {
@@ -241,6 +249,9 @@ function CargarPedidosPend(page, rows) {
                         $('.datos_para_movil').show();
 
                         $('#pedmostreo').val('MIS <b>PRODUCTOS</b>');
+
+                        $('#penmostreo').attr("data-tab-activo", '0');
+                        $('#pedmostreo').attr("data-tab-activo", '1');
 
                         CargarDetallePedido();
                     }

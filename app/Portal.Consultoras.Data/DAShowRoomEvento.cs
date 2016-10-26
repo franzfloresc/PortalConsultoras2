@@ -163,12 +163,10 @@ namespace Portal.Consultoras.Data
             Context.ExecuteNonQuery(command);
         }
 
-        public IDataReader GetProductosShowRoom(int tipoOfertaSisID, int campaniaID, string codigoOferta)
+        public IDataReader GetProductosShowRoom(int campaniaID)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("ShowRoom.GetProductosShowRoom");
-            Context.Database.AddInParameter(command, "@TipoOfertaSisID", DbType.Int32, tipoOfertaSisID);
-            Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, campaniaID);
-            Context.Database.AddInParameter(command, "@CodigoOferta", DbType.AnsiString, codigoOferta);
+            Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, campaniaID);            
 
             return Context.ExecuteReader(command);
         }

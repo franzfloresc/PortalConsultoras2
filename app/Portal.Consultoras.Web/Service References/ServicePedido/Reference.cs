@@ -17437,10 +17437,10 @@ namespace Portal.Consultoras.Web.ServicePedido {
         System.Threading.Tasks.Task UpdateShowRoomConsultoraMostrarPopupAsync(int paisID, int campaniaID, string codigoConsultora, bool mostrarPopup);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetProductosShowRoom", ReplyAction="http://tempuri.org/IPedidoService/GetProductosShowRoomResponse")]
-        Portal.Consultoras.Web.ServicePedido.BEShowRoomOferta[] GetProductosShowRoom(int paisID, int tipoOfertaSisID, int campaniaID, string codigoOferta);
+        Portal.Consultoras.Web.ServicePedido.BEShowRoomOferta[] GetProductosShowRoom(int paisID, int campaniaID);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetProductosShowRoom", ReplyAction="http://tempuri.org/IPedidoService/GetProductosShowRoomResponse")]
-        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEShowRoomOferta[]> GetProductosShowRoomAsync(int paisID, int tipoOfertaSisID, int campaniaID, string codigoOferta);
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEShowRoomOferta[]> GetProductosShowRoomAsync(int paisID, int campaniaID);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetOrdenPriorizacionShowRoom", ReplyAction="http://tempuri.org/IPedidoService/GetOrdenPriorizacionShowRoomResponse")]
         int GetOrdenPriorizacionShowRoom(int paisID, int ConfiguracionOfertaID, int CampaniaID);
@@ -19214,12 +19214,12 @@ namespace Portal.Consultoras.Web.ServicePedido {
             return base.Channel.UpdateShowRoomConsultoraMostrarPopupAsync(paisID, campaniaID, codigoConsultora, mostrarPopup);
         }
         
-        public Portal.Consultoras.Web.ServicePedido.BEShowRoomOferta[] GetProductosShowRoom(int paisID, int tipoOfertaSisID, int campaniaID, string codigoOferta) {
-            return base.Channel.GetProductosShowRoom(paisID, tipoOfertaSisID, campaniaID, codigoOferta);
+        public Portal.Consultoras.Web.ServicePedido.BEShowRoomOferta[] GetProductosShowRoom(int paisID, int campaniaID) {
+            return base.Channel.GetProductosShowRoom(paisID, campaniaID);
         }
         
-        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEShowRoomOferta[]> GetProductosShowRoomAsync(int paisID, int tipoOfertaSisID, int campaniaID, string codigoOferta) {
-            return base.Channel.GetProductosShowRoomAsync(paisID, tipoOfertaSisID, campaniaID, codigoOferta);
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEShowRoomOferta[]> GetProductosShowRoomAsync(int paisID, int campaniaID) {
+            return base.Channel.GetProductosShowRoomAsync(paisID, campaniaID);
         }
         
         public int GetOrdenPriorizacionShowRoom(int paisID, int ConfiguracionOfertaID, int CampaniaID) {

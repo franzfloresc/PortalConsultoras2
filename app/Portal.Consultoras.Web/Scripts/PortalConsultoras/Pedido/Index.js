@@ -695,8 +695,10 @@ function CargarDetallePedido(page, rows) {
             MostrarBarra(response);
             CargarAutocomplete();
 
-            if ($('#penmostreo').css('display') !== 'none') {
-                $('ul.paginador_notificaciones').hide();
+            if ($('#penmostreo').length > 0) {
+                if ($('#penmostreo').attr('[data-tab-activo]') == '1') {
+                    $('ul.paginador_notificaciones').hide();
+                }
             }
         },
         error: function (error) {

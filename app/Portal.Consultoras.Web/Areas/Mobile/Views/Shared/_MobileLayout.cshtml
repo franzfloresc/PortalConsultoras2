@@ -234,7 +234,9 @@
                 <div style="text-align: center;">
                     @*<a href="#" class="imagen_mobile_hoy"><img src="@Url.Content("~/Content/Images/mobile/img-showroom/set_hoy.png")" alt="-" /></a>
                         <a href="#" class="set_mobile_hoy"> SETS DESDE <br /><span>$ 5,990</span></a>*@
-                    <img id="imgVentaSetPopupBannerHoy" alt="imgVentaSetPopupBannerHoy" />
+                    <a id="lnkConoceMasShowRoomBannerLateralImagenHoy">
+                        <img id="imgVentaSetPopupBannerHoy" alt="imgVentaSetPopupBannerHoy" />
+                    </a>
                 </div>
             </div>
         </div>
@@ -567,9 +569,11 @@
                 AgregarTagManagerShowRoomBannerLateralConocesMas(false);
             });
 
-            $("#lnkConoceMasShowRoomBannerLateralHoy").click(function () {
+            $("#lnkConoceMasShowRoomBannerLateralHoy, #lnkConoceMasShowRoomBannerLateralImagenHoy").click(function () {
                 AgregarTagManagerShowRoomBannerLateralConocesMas(true);
             });
+            
+            //imgVentaSetPopupBannerHoy
 
             CargarShowRoom();
         });
@@ -1158,7 +1162,8 @@
 
                                     if (response.mostrarShowRoomProductos) {
                                         $("#lnkConoceMasShowRoomBannerLateralHoy").attr("href", urlShowRoomIndex);
-
+                                        $("#lnkConoceMasShowRoomBannerLateralImagenHoy").attr("href", urlShowRoomIndex);
+                                        
                                         $("#spnPreventaDigitalHoy").html(evento.Nombre);
 
                                         $("#imgVentaSetPopupBannerHoy").attr("src", evento.ImagenVentaSetPopup);
