@@ -9568,3 +9568,12 @@ a{
         
     }
 }
+.icono_telefono{
+       margin-top: -1px;
+    margin-left: 6px;
+    width: 13px;
+    height: 21px;
+    display: inline-block;
+    background: url(../../../Images/Esika/icono_telefono.svg) no-repeat;
+    background-size: cover;
+}
