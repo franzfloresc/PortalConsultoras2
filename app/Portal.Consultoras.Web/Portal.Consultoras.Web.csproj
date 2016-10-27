@@ -1846,6 +1846,7 @@
     <Content Include="Content\Images\Lbel\icono_exclamacion_lbel.svg" />
     <Content Include="Content\Images\Lbel\icono_pedidos_facturados.png" />
     <Content Include="Content\Images\Lbel\icono_percepciones.png" />
+    <Content Include="Content\Images\Lbel\icono_telefono_lbel.svg" />
     <Content Include="Content\Images\Lbel\icon_catalogo.png" />
     <Content Include="Content\Images\Lbel\icon_comunidad.png" />
     <Content Include="Content\Images\Lbel\icon_esikaresponde.png" />
@@ -1853,6 +1854,7 @@
     <Content Include="Content\Images\Lbel\img-prev.png" />
     <Content Include="Content\Images\Lbel\imprimir.png" />
     <Content Include="Content\Images\Lbel\indicador.png" />
+    <Content Include="Content\Images\Lbel\indicador_lbel.png" />
     <Content Include="Content\Images\Lbel\indicador_pedido.png" />
     <Content Include="Content\Images\Lbel\indicador_pedido_negro.png" />
     <Content Include="Content\Images\Lbel\lebel-catalogos.png" />

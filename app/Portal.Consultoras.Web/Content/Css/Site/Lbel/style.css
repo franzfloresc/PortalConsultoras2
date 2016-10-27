@@ -31437,14 +31437,114 @@ h1#penmostreo .campana {
     width:16%;
     text-align:center;
 }
+
+.detalle_listado {
+    display:block;
+    color:#7f7f7f;
+
+}
+.listado_estado_general div:hover .estado_texto {
+    /* text-decoration: underline; */
+    cursor: pointer;
+}
+
+.listado_estado_general div .estado_texto {
+    font-weight: 600;
+    font-size: 13px;
+    display: inline-block;
+    margin: 0;
+    padding: 3px 7px;
+    vertical-align: middle;
+    margin-right: 15px;
+    width:110px;
+}
+.estado_detalleIngresado {
+    background: #e7e7e7;
+}
+.listado_estado_general div:hover .icono_verDetalle {
+    margin-top: -10px;
+    opacity: 0.4;
+}
+.listado_estado_general div .icono_verDetalle {
+    width:21px;
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 56%;
+    opacity: 1;
+    margin-top: -5px;
+    margin-left: 46.5px!important;
+    transition: all 0.3s ease;
+    -moz-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    -ms-transition: all 0.3s ease;
+    -webkit-transition: all 0.3s ease;
+}
+.icono_verDetalle img{
+    width:100%;
+}
+.EstadoRechazado{
+    background:#626262;
+    color:white;
+}
+.fondo_f7f7f7{
+    background:#f7f7f7;
+    overflow:hidden;
+}
+.row_36{
+    margin-left:-36px;
+    margin-right:-36px;
+    margin-top:-30px;
+}
+.sub_detalle_estado {
+    font-family: 'LAto';
+    font-size: 14px;
+    color: black;
+    text-align: center;
+    margin-bottom:13px;
+}
+.pop_solicitud_producto, .pop_solicitud_tipo, .pop_solicitud_solucion, .pop_solicitud_resolucion{
+    float:left;
+    font-family: 'Lato';
+    line-height: 19px;
+    font-size: 15px;
+    padding-top: 25px;
+    padding-bottom: 25px;
+    color: black;
+}
 .text_gris_reclamo{
     padding-top:20px;
     padding-bottom:15px;
     font-size:13px;
     font-weight:300;
 }
-.detalle_listado {
+.pop_solicitud_producto{
+    width:32%;
+    padding-left: 2%;
+}
+.pop_solicitud_tipo{
+    width:16%;
+    padding-left: 1%;
+}
+.pop_solicitud_solucion{
+    width:22.5%;
+    padding-left: 1%;
+}
+.pop_solicitud_resolucion{
+    width:28.5%;
+    padding-left: 4%;
+    /*padding-right: 1%;*/
+}
+.texto_estado_solicitud{
     display:block;
-    color:#7f7f7f;
-
+    color:#613c87;
+    font-weight:700;
+    font-size:14px;
+}
+.content_pop_grilla .content_listado_reclamo:last-child{
+    border-bottom: 1px solid #c9c9c9;
+}
+.content_pop_grilla{
+    max-height: 310px;
+    overflow-y: auto;
 }
