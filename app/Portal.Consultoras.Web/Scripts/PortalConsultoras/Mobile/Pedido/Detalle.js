@@ -1016,6 +1016,9 @@ function RespuestaEjecutarServicioPROL(response, inicio) {
     inicio = inicio == null || inicio == undefined ? true : inicio;
     var model = response.data;
 
+    var montoEscala = model.MontoEscala;
+    var montoPedido = model.Total - model.MontoDescuento;
+
     CloseLoading();
 
     if (!model.ValidacionInteractiva) {
@@ -1045,7 +1048,7 @@ function RespuestaEjecutarServicioPROL(response, inicio) {
     if (model.Reserva != true) {
         if (inicio) {
             var tipoMensaje = codigoMensajeProl == "00" ? 1 : 2;
-            cumpleOferta = CumpleOfertaFinalMostrar(response.data.MontoEscala, tipoMensaje, codigoMensajeProl, response.data.ListaObservacionesProl);
+            cumpleOferta = CumpleOfertaFinalMostrar(montoPedido, montoEscala, tipoMensaje, codigoMensajeProl, response.data.ListaObservacionesProl);
         }        
         if (!cumpleOferta.resultado) {
             $('#modal-prol-botonesAceptarCancelar').hide();
@@ -1062,7 +1065,7 @@ function RespuestaEjecutarServicioPROL(response, inicio) {
 
         if (model.ObservacionInformativa == false) {
             if (inicio) {
-                cumpleOferta = CumpleOfertaFinalMostrar(response.data.MontoEscala, 1, codigoMensajeProl, response.data.ListaObservacionesProl);
+                cumpleOferta = CumpleOfertaFinalMostrar(montoPedido, montoEscala, 1, codigoMensajeProl, response.data.ListaObservacionesProl);
             }
 
             if (cumpleOferta.resultado) {
@@ -1089,7 +1092,7 @@ function RespuestaEjecutarServicioPROL(response, inicio) {
 
         if (inicio) {
             var tipoMensaje = codigoMensajeProl == "00" ? 1 : 2;
-            cumpleOferta = CumpleOfertaFinalMostrar(response.data.MontoEscala, tipoMensaje, codigoMensajeProl, response.data.ListaObservacionesProl);
+            cumpleOferta = CumpleOfertaFinalMostrar(montoPedido, montoEscala, tipoMensaje, codigoMensajeProl, response.data.ListaObservacionesProl);
         }
         
         if (cumpleOferta.resultado) {
@@ -1104,7 +1107,7 @@ function RespuestaEjecutarServicioPROL(response, inicio) {
         return true;
     }
     if (inicio) {
-        cumpleOferta = CumpleOfertaFinalMostrar(response.data.MontoEscala, 1, codigoMensajeProl, response.data.ListaObservacionesProl);
+        cumpleOferta = CumpleOfertaFinalMostrar(montoPedido, montoEscala, 1, codigoMensajeProl, response.data.ListaObservacionesProl);
     }
     
     if (!cumpleOferta.resultado) {
