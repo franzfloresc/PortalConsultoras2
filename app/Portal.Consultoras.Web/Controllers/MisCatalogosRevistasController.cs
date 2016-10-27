@@ -933,5 +933,25 @@ namespace Portal.Consultoras.Web.Controllers
 
             return Content(redirect);
         }
+
+        public ActionResult MiRevista()
+        {
+            return View();
+        }
+
+        public JsonResult GetUrlRevistaIssuu()
+        {
+            var p = userData.CodigoISO.ToLower();
+            var n = userData.CampaniaID.ToString().Substring(4, 2);
+            var a = userData.CampaniaID.ToString().Substring(0, 4);
+            var key = ConfigurationManager.AppSettings.Get("UrlRevistaIssuu").ToString();
+            var url = string.Format(key, p, n, a);
+
+            return Json(new
+            {
+                success = true,
+                urlRevista = url
+            }, JsonRequestBehavior.AllowGet);
+        }
     }
 }
