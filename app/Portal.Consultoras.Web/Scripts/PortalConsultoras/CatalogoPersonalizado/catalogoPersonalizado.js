@@ -275,7 +275,13 @@ function AgregarProducto(url, item, otraFunct) {
         async: true,
         success: function (data) {
             if (data.success == true) {
-                ActualizarGanancia(data.DataBarra);
+                if (tipoOrigen == "3") {
+                    MostrarBarra(data, '1');
+                }
+                else {
+                    ActualizarGanancia(data.DataBarra);
+                }
+                
                 if (tipoOrigen == '2') {
                     CargarCantidadProductosPedidos();
                 }
