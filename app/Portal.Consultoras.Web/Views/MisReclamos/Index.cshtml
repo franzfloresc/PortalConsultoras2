@@ -177,7 +177,7 @@
         <div class="content_reclamo" id="Paso2" style="display: none; max-width: 890px;">
             <div class="subtitulo_reclamo">Escoge una solución</div>
             <div>
-                <a class="btn_solución_reclamo" href="#">REENVÍO DEL MISMO PRODUCTO</a>
+                <a class="btn_solución_reclamo" href="#" id="ReenvioProducto">REENVÍO DEL MISMO PRODUCTO</a>
                 <a class="btn_solución_reclamo" href="#" id="CambioProducto">CAMBIARLO POR OTRO PRODUCTO</a>
                 <a class="btn_solución_reclamo" href="#">DEVOLUCIÓN DEL DINERO</a>
             </div>
@@ -185,6 +185,58 @@
             <br />
             <br />
             <br />
+        </div>
+        <!--REENVIO DEL MISMO PRODUCTO-->
+        <div class="content_reclamo" id="Reenvio1" style="display:none;">
+            <div class="subtitulo_reclamo" style="margin-bottom:15px;">Te proponemos la siguiente solución</div>
+            <div class="titulo_resumen">VAMOS A REENVIARTE EL MISMO PRODUCTO:</div>
+            <div class="descri_producto_reclamo">
+                00411 <br>
+                <b>Berrylicious shampoo rojo 375 ml</b><br>
+                x2 unidades
+            </div>
+            <br/>
+            <div class="linea_gris" style="height:1px;"></div>
+            <div class="mensaje_advertencia_reclamo">
+                <span style="margin-bottom:10px; display:block">TEN EN CUENTA: </span>
+                El intercambio de productos lo realizaremos en el siguiente…<br>
+                Lorem ipsum...
+            </div>
+            <div class="linea_separadora_roja" style="height:2px;"></div>
+            <a class="btn_paso_anterior" href="#">REGRESAR</a>
+            <a class="btn_si_stock" href="#" style="width:296px;">ACEPTAR LA SOLUCIÓN</a>
+            <hr class="clear" />
+            <!--ULTIMAS SOLICITUDES-->
+            <div class="UltimasSolicitudes">
+                <div class="titulo_ultimo_soli">Mi solicitud</div>
+                <div class="texto_solicitud_ultima">3 productos agregados:</div>
+                <br />
+                <div class="content_ultima_soli">
+                    <div class="float_left" style="width:88%;padding-right:5px;">
+                        <div class="texto_solicitud_ultima">
+                            00411<br />
+                            Berrylicious shampoo rojo 375 ml.<br />
+                            2 unidades
+                        </div>
+                    </div>
+                    <div class="float_left">
+                        <a style="background-image: url('/Content/Images/Esika/tacho-copy.png');background-repeat:no-repeat;width: 17px;height: 22px;margin: 0 auto; opacity:0.5;" title="Eliminar"></a>
+                    </div>
+                </div>
+                <div class="content_ultima_soli">
+                    <div class="float_left" style="width:88%;padding-right:5px;">
+                        <div class="texto_solicitud_ultima">
+                            00411<br />
+                            Berrylicious shampoo rojo 375 ml.<br />
+                            2 unidades
+                        </div>
+                    </div>
+                    <div class="float_left">
+                        <a style="background-image: url('/Content/Images/Esika/tacho-copy.png');background-repeat:no-repeat;width: 17px;height: 22px;margin: 0 auto; opacity:0.5;" title="Eliminar"></a>
+                    </div>
+                </div>
+                <a class="btn_ver_solicitudes" href="#" style="width:100px;margin-top:30px;">IR AL FINAL</a>
+            </div>
         </div>
         <!--CAMBIO OTRO PRODUCTO 1-->
         <div class="content_reclamo" id="Cambio1" style="display:none;">
@@ -457,7 +509,11 @@
             $('#Paso1').hide(); //muestro mediante id 
             $('#Paso2').show(); //oculto mediante id              
             
-        });      
+        }); 
+        $("#ReenvioProducto").on("click", function () {
+            $('#Paso2').hide(); //muestro mediante id             
+            $('#Reenvio1').show(); //oculto mediante id  
+        });
         $("#CambioProducto").on("click", function () {           
             $('#Paso2').hide(); //muestro mediante id             
             $('#Cambio1').show(); //oculto mediante id  
