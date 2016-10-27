@@ -26775,6 +26775,7 @@ position: relative; float: left;
 }
 .icono_exclamacion_alerta{
     background:url(../../../Images/Lbel/icono_exclamacion_lbel.png) no-repeat center center;
+    background-size:cover;
 }
 
 /* POPUP LAYOUT */
@@ -31438,6 +31439,7 @@ h1#penmostreo .campana {
 .listado_estado_general{
     width:16%;
     text-align:center;
+    position:relative;
 }
 
 .detalle_listado {
@@ -31549,4 +31551,34 @@ h1#penmostreo .campana {
 .content_pop_grilla{
     max-height: 310px;
     overflow-y: auto;
+}
+.content_botones_pedido{
+    text-align:center;
+    padding-top:35px;
+}
+.btn_pedido_white{
+    font-family:'Lato';
+    font-size:13px;
+    text-align:center;
+    display:inline-block;
+    width: 180px;
+    height: 50px;
+    padding-top: 5px;
+    border:1px solid black;
+    margin-right:20px;
+}
+.btn_pedido_black{
+    font-family:'Lato';
+    font-size:13px;
+    text-align:center;
+    display:inline-block;
+    width: 180px;
+    height: 50px;
+    padding-top: 5px;
+    border:1px solid black;
+    background:black;
+    color:white;
+}
+.btn_pedido_black > *{
+    color:white;
 }
