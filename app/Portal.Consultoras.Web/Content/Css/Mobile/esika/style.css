@@ -9091,7 +9091,7 @@ span.icon-advertencia{
     font-size:13px;
     font-weight:300;
     margin-bottom:5px;
-    overflow:hidden;
+    /*overflow:hidden;*/
     
     margin:0 auto;
 }
@@ -9573,4 +9573,13 @@ a{
         
         
     }
+}
+.icono_telefono{
+       margin-top: -4px;
+    margin-left: 6px;
+    width: 13px;
+    height: 21px;
+    display: inline-block;
+    background: url(../../../Images/Esika/icono_telefono.svg) no-repeat;
+    background-size: cover;
 }

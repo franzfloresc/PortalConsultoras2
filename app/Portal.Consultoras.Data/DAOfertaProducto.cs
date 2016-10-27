@@ -219,6 +219,13 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@FotoProducto01", DbType.AnsiString, entity.FotoProducto01);
             Context.Database.AddInParameter(command, "@FotoProducto02", DbType.AnsiString, entity.FotoProducto02);
             Context.Database.AddInParameter(command, "@FotoProducto03", DbType.AnsiString, entity.FotoProducto03);
+            Context.Database.AddInParameter(command, "@FotoProducto04", DbType.AnsiString, entity.FotoProducto04);
+            Context.Database.AddInParameter(command, "@FotoProducto05", DbType.AnsiString, entity.FotoProducto05);
+            Context.Database.AddInParameter(command, "@FotoProducto06", DbType.AnsiString, entity.FotoProducto06);
+            Context.Database.AddInParameter(command, "@FotoProducto07", DbType.AnsiString, entity.FotoProducto07);
+            Context.Database.AddInParameter(command, "@FotoProducto08", DbType.AnsiString, entity.FotoProducto08);
+            Context.Database.AddInParameter(command, "@FotoProducto09", DbType.AnsiString, entity.FotoProducto09);
+            Context.Database.AddInParameter(command, "@FotoProducto10", DbType.AnsiString, entity.FotoProducto10);
             Context.Database.AddInParameter(command, "@UsuarioRegistro", DbType.AnsiString, entity.UsuarioRegistro);
 
             return Context.ExecuteNonQuery(command);
@@ -232,6 +239,13 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@FotoProducto01", DbType.AnsiString, entity.FotoProducto01);
             Context.Database.AddInParameter(command, "@FotoProducto02", DbType.AnsiString, entity.FotoProducto02);
             Context.Database.AddInParameter(command, "@FotoProducto03", DbType.AnsiString, entity.FotoProducto03);
+            Context.Database.AddInParameter(command, "@FotoProducto04", DbType.AnsiString, entity.FotoProducto04);
+            Context.Database.AddInParameter(command, "@FotoProducto05", DbType.AnsiString, entity.FotoProducto05);
+            Context.Database.AddInParameter(command, "@FotoProducto06", DbType.AnsiString, entity.FotoProducto06);
+            Context.Database.AddInParameter(command, "@FotoProducto07", DbType.AnsiString, entity.FotoProducto07);
+            Context.Database.AddInParameter(command, "@FotoProducto08", DbType.AnsiString, entity.FotoProducto08);
+            Context.Database.AddInParameter(command, "@FotoProducto09", DbType.AnsiString, entity.FotoProducto09);
+            Context.Database.AddInParameter(command, "@FotoProducto10", DbType.AnsiString, entity.FotoProducto10);
             Context.Database.AddInParameter(command, "@UsuarioModificacion", DbType.AnsiString, entity.UsuarioModificacion);
 
             return Context.ExecuteNonQuery(command);

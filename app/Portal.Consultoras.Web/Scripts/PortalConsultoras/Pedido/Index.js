@@ -2508,7 +2508,7 @@ function AgregarProductoDestacado(popup, tipoEstrategiaImagen) {
     });
 }
 
-function DeletePedido(campaniaId, pedidoId, pedidoDetalleId, tipoOfertaSisId, cuv, cantidad, clienteId, cuvReco) {
+function DeletePedido(campaniaId, pedidoId, pedidoDetalleId, tipoOfertaSisId, cuv, cantidad, clienteId, cuvReco, esBackOrder) {
     var param = {
         CampaniaID: campaniaId,
         PedidoID: pedidoId,
@@ -2517,7 +2517,8 @@ function DeletePedido(campaniaId, pedidoId, pedidoDetalleId, tipoOfertaSisId, cu
         CUV: cuv,
         Cantidad: cantidad,
         ClienteID_: clienteId,
-        CUVReco: cuvReco
+        CUVReco: cuvReco,
+        EsBackOrder: esBackOrder == 'true'
     };
 
     AbrirSplash();
@@ -2717,6 +2718,9 @@ function EjecutarServicioPROL() {
             
             RespuestaEjecutarServicioPROL(response);
 
+            var montoEscala = response.data.MontoEscala;
+            var montoPedido = response.data.Total - response.data.MontoDescuento;
+
             var codigoMensajeProl = response.data.CodigoMensajeProl;
             var cumpleOferta;
 
@@ -2724,7 +2728,7 @@ function EjecutarServicioPROL() {
             if (response.data.Reserva == true) {
                 if (response.data.ZonaValida == true) {
                     if (response.data.ObservacionInformativa == false) {
-                        cumpleOferta = CumpleOfertaFinalMostrar(response.data.MontoEscala, 1, codigoMensajeProl, response.data.ListaObservacionesProl);
+                        cumpleOferta = CumpleOfertaFinalMostrar(montoPedido, montoEscala, 1, codigoMensajeProl, response.data.ListaObservacionesProl);
                         if (cumpleOferta.resultado) {
                             esPedidoValidado = response.data.ProlSinStock != true;
                         } else {
@@ -2745,7 +2749,7 @@ function EjecutarServicioPROL() {
                     } else {
                         var tipoMensaje = codigoMensajeProl == "00" ? 1 : 2;
 
-                        cumpleOferta = CumpleOfertaFinalMostrar(response.data.MontoEscala, tipoMensaje, codigoMensajeProl, response.data.ListaObservacionesProl);
+                        cumpleOferta = CumpleOfertaFinalMostrar(montoPedido, montoEscala, tipoMensaje, codigoMensajeProl, response.data.ListaObservacionesProl);
                         if (!cumpleOferta.resultado) {
                             $('#DivObsBut').css({ "display": "none" });
                             $('#DivObsInfBut').css({ "display": "block" });
@@ -2757,7 +2761,7 @@ function EjecutarServicioPROL() {
                     }
                 } else {
 
-                    cumpleOferta = CumpleOfertaFinalMostrar(response.data.MontoEscala, 1, codigoMensajeProl, response.data.ListaObservacionesProl);
+                    cumpleOferta = CumpleOfertaFinalMostrar(montoPedido, montoEscala, 1, codigoMensajeProl, response.data.ListaObservacionesProl);
                     if (!cumpleOferta.resultado) {
                         if (viewBagNombrePais == 'Venezuela') {
                             showDialog("divReservaSatisfactoriaVE");
@@ -2778,7 +2782,7 @@ function EjecutarServicioPROL() {
 
                 var tipoMensaje = codigoMensajeProl == "00" ? 1 : 2;
 
-                cumpleOferta = CumpleOfertaFinalMostrar(response.data.MontoEscala, tipoMensaje, codigoMensajeProl, response.data.ListaObservacionesProl);
+                cumpleOferta = CumpleOfertaFinalMostrar(montoPedido, montoEscala, tipoMensaje, codigoMensajeProl, response.data.ListaObservacionesProl);
                 if (!cumpleOferta.resultado) {
                     showDialog("divObservacionesPROL");
                     $("#divObservacionesPROL").css("width", "600px").parent().css("left", "372px");
@@ -2870,32 +2874,35 @@ function RespuestaEjecutarServicioPROL(response, inicio) {
             var html = "<ul>";
             var msgDefault = "<li>Tu pedido tiene observaciones, por favor revísalo.</li>";
             var msgDefaultCont = 0;
-            $.each(response.data.ListaObservacionesProl, function (index, item) {
-                if (response.data.CodigoIso == "BO" || response.data.CodigoIso == "MX") {
-                    if (item.Caso == 6 || item.Caso == 8 || item.Caso == 9 || item.Caso == 10) {
-                        item.Caso = 105;
+            if (response.data.ListaObservacionesProl.length == 0) html += msgDefault;
+            else {
+                $.each(response.data.ListaObservacionesProl, function (index, item) {
+                    if (response.data.CodigoIso == "BO" || response.data.CodigoIso == "MX") {
+                        if (item.Caso == 6 || item.Caso == 8 || item.Caso == 9 || item.Caso == 10) {
+                            item.Caso = 105;
+                        }
                     }
-                }
 
-                if (item.Caso == 95 || item.Caso == 105 || (item.Caso == 0 && inicio)) {
-                    html += "<li>" + item.Descripcion + "</li>";
+                    if (item.Caso == 95 || item.Caso == 105 || (item.Caso == 0 && inicio)) {
+                        html += "<li>" + item.Descripcion + "</li>";
 
-                    mensajePedido += item.Caso + " " + item.Descripcion + " ";
-                    return;
-                }
-
-                if (viewBagMenuNotificaciones == 0 && item.Caso == 0 && response.data.ObservacionInformativa) {
-                    html += "<li>" + item.Descripcion + "</li>";
-
-                    mensajePedido += item.Caso + " " + item.Descripcion + " ";
-                } else {
-                    if (msgDefaultCont == 0) {
-                        html += html == "" ? msgDefault : html == msgDefault ? "" : msgDefault;
+                        mensajePedido += item.Caso + " " + item.Descripcion + " ";
+                        return;
                     }
-                    msgDefaultCont++;
-                    mensajePedido += "-1" + " " + "Tu pedido tiene observaciones, por favor revísalo." + " ";
-                }
-            });
+
+                    if (viewBagMenuNotificaciones == 0 && item.Caso == 0 && response.data.ObservacionInformativa) {
+                        html += "<li>" + item.Descripcion + "</li>";
+
+                        mensajePedido += item.Caso + " " + item.Descripcion + " ";
+                    } else {
+                        if (msgDefaultCont == 0) {
+                            html += html == "" ? msgDefault : html == msgDefault ? "" : msgDefault;
+                        }
+                        msgDefaultCont++;
+                        mensajePedido += "-1" + " " + "Tu pedido tiene observaciones, por favor revísalo." + " ";
+                    }
+                });
+            }
             html += "</ul>";
 
             $("#divMensajeObservacionesPROL").html(html);
