@@ -468,7 +468,7 @@ function EliminarPedidoEvento(evento, esBackOrder) {
     EliminarPedido(obj.CampaniaID, obj.PedidoID, obj.PedidoDetalleID, obj.TipoOfertaSisID, obj.CUV, obj.CantidadInicial, obj.DescripcionProd, obj.PrecioUnidad, obj.MarcaID, obj.DescripcionOferta, esBackOrder);
 }
 
-function EliminarPedido(CampaniaID, PedidoID, PedidoDetalleID, TipoOfertaSisID, CUV, Cantidad, DescripcionProd, PrecioUnidad, MarcaID, DescripcionOferta) {
+function EliminarPedido(CampaniaID, PedidoID, PedidoDetalleID, TipoOfertaSisID, CUV, Cantidad, DescripcionProd, PrecioUnidad, MarcaID, DescripcionOferta, esBackOrder) {
 
     $("#popup-eliminar-item").show();
 
@@ -1178,30 +1178,35 @@ function ConstruirObservacionesPROL(model) {
     }
 
     var htmlObservacionesPROL = "<ul style='padding-left: 15px; list-style-type: none; text-align: center;'>";
-    $.each(model.ListaObservacionesProl, function (index, item) {
-
-        if (model.CodigoIso == "BO" || model.CodigoIso == "MX") {
-
-            if (item.Caso == 6 || item.Caso == 8 || item.Caso == 9 || item.Caso == 10) {
-                item.Caso = 105;
+    if (model.ListaObservacionesProl.length == 0) {
+        htmlObservacionesPROL += "<li>Tu pedido tiene observaciones, por favor revísalo.</li>";
+        mensajePedido += "-1" + " " + "Tu pedido tiene observaciones, por favor revísalo." + " ";
+    }
+    else {
+        $.each(model.ListaObservacionesProl, function (index, item) {
+            if (model.CodigoIso == "BO" || model.CodigoIso == "MX") {
+                if (item.Caso == 6 || item.Caso == 8 || item.Caso == 9 || item.Caso == 10) {
+                    item.Caso = 105;
+                }
             }
-        }
 
-        if (item.Caso == 95 || item.Caso == 105) {
-            htmlObservacionesPROL += "<li>" + item.Descripcion + "</li>";
-            mensajePedido += item.Caso + " " + item.Descripcion + " ";
-            return false;
-        } else {
-            if (menuNotificaciones == 0 && item.Caso == 0 && model.ObservacionInformativa) {
+            if (item.Caso == 95 || item.Caso == 105) {
                 htmlObservacionesPROL += "<li>" + item.Descripcion + "</li>";
                 mensajePedido += item.Caso + " " + item.Descripcion + " ";
-            } else {
-                htmlObservacionesPROL += "<li>Tu pedido tiene observaciones, por favor revísalo.</li>";
-                mensajePedido += "-1" + " " + "Tu pedido tiene observaciones, por favor revísalo." + " ";
                 return false;
             }
-        }
-    });
+            else {
+                if (menuNotificaciones == 0 && item.Caso == 0 && model.ObservacionInformativa) {
+                    htmlObservacionesPROL += "<li>" + item.Descripcion + "</li>";
+                    mensajePedido += item.Caso + " " + item.Descripcion + " ";
+                } else {
+                    htmlObservacionesPROL += "<li>Tu pedido tiene observaciones, por favor revísalo.</li>";
+                    mensajePedido += "-1" + " " + "Tu pedido tiene observaciones, por favor revísalo." + " ";
+                    return false;
+                }
+            }
+        });
+    }
     htmlObservacionesPROL += "</ul>";
 
     $("#modal-prol-contenido").html(htmlObservacionesPROL);
