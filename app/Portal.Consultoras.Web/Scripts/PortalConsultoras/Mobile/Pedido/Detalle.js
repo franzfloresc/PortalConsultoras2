@@ -456,7 +456,7 @@ function UpdateConCantidad(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion
 
 // Eliminar detalle pedido
 
-function EliminarPedidoEvento(evento) {
+function EliminarPedidoEvento(evento, esBackOrder) {
     var obj = $(evento.currentTarget);
     var id = $.trim(obj.attr("data-pedidodetalleid")) || "0";
     if (parseInt(id, 10) <= 0 || parseInt(id, 10) == NaN) {
@@ -465,8 +465,7 @@ function EliminarPedidoEvento(evento) {
 
     var obj = GetProductoEntidad(id);
     
-    EliminarPedido(obj.CampaniaID, obj.PedidoID, obj.PedidoDetalleID, obj.TipoOfertaSisID, obj.CUV, obj.CantidadInicial, obj.DescripcionProd, obj.PrecioUnidad, obj.MarcaID, obj.DescripcionOferta);
-
+    EliminarPedido(obj.CampaniaID, obj.PedidoID, obj.PedidoDetalleID, obj.TipoOfertaSisID, obj.CUV, obj.CantidadInicial, obj.DescripcionProd, obj.PrecioUnidad, obj.MarcaID, obj.DescripcionOferta, esBackOrder);
 }
 
 function EliminarPedido(CampaniaID, PedidoID, PedidoDetalleID, TipoOfertaSisID, CUV, Cantidad, DescripcionProd, PrecioUnidad, MarcaID, DescripcionOferta) {
@@ -487,11 +486,11 @@ function EliminarPedido(CampaniaID, PedidoID, PedidoDetalleID, TipoOfertaSisID, 
             RegistrosDe: 0,
             RegostrosTotal: 0,
             ClienteID: "-1",
-            CUVReco: ""
+            CUVReco: "",
+            EsBackOrder: esBackOrder == 'true'
         });
 
         ShowLoading();
-
         jQuery.ajax({
             type: 'POST',
             url: urlPedidoDelete,
@@ -501,8 +500,7 @@ function EliminarPedido(CampaniaID, PedidoID, PedidoDetalleID, TipoOfertaSisID, 
             async: true,
             success: function (data) {
                 CloseLoading();
-                if (!checkTimeout(data))
-                    return false;
+                if (!checkTimeout(data)) return false;
 
                 if (data.success != true) {
                     messageInfoError(data.message);
