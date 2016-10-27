@@ -94,15 +94,15 @@ function CargandoValoresPopupOfertaFinal(tipoPopupMostrar, montoFaltante, porcen
         $("#divOfertaFinal").show();
 }
 
-function CumpleOfertaFinalMostrar(monto, tipoPopupMostrar, codigoMensajeProl, listaObservacionesProl) {
-    var cumpleOferta = CumpleOfertaFinal(monto, tipoPopupMostrar, codigoMensajeProl, listaObservacionesProl);
+function CumpleOfertaFinalMostrar(montoPedido, montoEscala, tipoPopupMostrar, codigoMensajeProl, listaObservacionesProl) {
+    var cumpleOferta = CumpleOfertaFinal(montoPedido, montoEscala, tipoPopupMostrar, codigoMensajeProl, listaObservacionesProl);
     if (cumpleOferta.resultado) {
         MostrarPopupOfertaFinal(cumpleOferta, tipoPopupMostrar);
     }
     return cumpleOferta;
 }
 
-function CumpleOfertaFinal(monto, tipoPopupMostrar, codigoMensajeProl, listaObservacionesProl) {
+function CumpleOfertaFinal(montoPedido, montoEscala, tipoPopupMostrar, codigoMensajeProl, listaObservacionesProl) {
 
     var productosMostrar = new Array();
     var montoFaltante = 0;
@@ -120,7 +120,7 @@ function CumpleOfertaFinal(monto, tipoPopupMostrar, codigoMensajeProl, listaObse
 
     if (resultado) {
         resultado = false;
-        var cumpleParametria = CumpleParametriaOfertaFinal(monto, tipoPopupMostrar, codigoMensajeProl, listaObservacionesProl);
+        var cumpleParametria = CumpleParametriaOfertaFinal(montoPedido, montoEscala, tipoPopupMostrar, codigoMensajeProl, listaObservacionesProl);
         if (cumpleParametria.resultado) {
             montoFaltante = cumpleParametria.montoFaltante;
             porcentajeDescuento = cumpleParametria.porcentajeDescuento;
@@ -153,7 +153,7 @@ function CumpleOfertaFinal(monto, tipoPopupMostrar, codigoMensajeProl, listaObse
     };
 }
 
-function CumpleParametriaOfertaFinal(monto, tipoPopupMostrar, codigoMensajeProl, listaObservacionesProl) {
+function CumpleParametriaOfertaFinal(montoPedido, montoEscala, tipoPopupMostrar, codigoMensajeProl, listaObservacionesProl) {
     var resultado = false;
     var montoFaltante = 0;
     var porcentajeDescuento = 0;
@@ -168,7 +168,7 @@ function CumpleParametriaOfertaFinal(monto, tipoPopupMostrar, codigoMensajeProl,
                 var escalaDescuentoSiguiente = null;
 
                 $.each(listaEscalaDescuento, function (index, value) {
-                    if (value.MontoHasta >= monto) {
+                    if (value.MontoHasta >= montoEscala) {
                         escalaDescuento = value;
 
                         if (index < listaEscalaDescuento.length - 1) {
@@ -185,7 +185,7 @@ function CumpleParametriaOfertaFinal(monto, tipoPopupMostrar, codigoMensajeProl,
                     
                     escalaDescuento.MontoHasta = Math.ceil(escalaDescuento.MontoHasta);
 
-                    var diferenciaMontoEd = escalaDescuento.MontoHasta - monto;
+                    var diferenciaMontoEd = escalaDescuento.MontoHasta - montoEscala;
                     var parametriaEd = listaParametriaOfertaFinal != null ? listaParametriaOfertaFinal.Find("TipoParametriaOfertaFinal", "E" + escalaDescuento.PorDescuento) : null;
 
                     if (parametriaEd != null && parametriaEd.length != 0) {
@@ -213,7 +213,7 @@ function CumpleParametriaOfertaFinal(monto, tipoPopupMostrar, codigoMensajeProl,
 
                     if (mensajeCUV == "XXXXX") {
                         var montoMinimo = parseFloat($("#hdMontoMinimo").val());
-                        var diferenciaMonto = montoMinimo - monto;
+                        var diferenciaMonto = montoMinimo - montoPedido;
 
                         var parametria = listaParametriaOfertaFinal != null ? listaParametriaOfertaFinal.Find("TipoParametriaOfertaFinal", "MM") : null;
 
