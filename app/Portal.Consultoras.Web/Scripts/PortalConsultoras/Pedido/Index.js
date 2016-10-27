@@ -2870,32 +2870,35 @@ function RespuestaEjecutarServicioPROL(response, inicio) {
             var html = "<ul>";
             var msgDefault = "<li>Tu pedido tiene observaciones, por favor revísalo.</li>";
             var msgDefaultCont = 0;
-            $.each(response.data.ListaObservacionesProl, function (index, item) {
-                if (response.data.CodigoIso == "BO" || response.data.CodigoIso == "MX") {
-                    if (item.Caso == 6 || item.Caso == 8 || item.Caso == 9 || item.Caso == 10) {
-                        item.Caso = 105;
+            if (response.data.ListaObservacionesProl.length == 0) html += msgDefault;
+            else {
+                $.each(response.data.ListaObservacionesProl, function (index, item) {
+                    if (response.data.CodigoIso == "BO" || response.data.CodigoIso == "MX") {
+                        if (item.Caso == 6 || item.Caso == 8 || item.Caso == 9 || item.Caso == 10) {
+                            item.Caso = 105;
+                        }
                     }
-                }
 
-                if (item.Caso == 95 || item.Caso == 105 || (item.Caso == 0 && inicio)) {
-                    html += "<li>" + item.Descripcion + "</li>";
+                    if (item.Caso == 95 || item.Caso == 105 || (item.Caso == 0 && inicio)) {
+                        html += "<li>" + item.Descripcion + "</li>";
 
-                    mensajePedido += item.Caso + " " + item.Descripcion + " ";
-                    return;
-                }
-
-                if (viewBagMenuNotificaciones == 0 && item.Caso == 0 && response.data.ObservacionInformativa) {
-                    html += "<li>" + item.Descripcion + "</li>";
-
-                    mensajePedido += item.Caso + " " + item.Descripcion + " ";
-                } else {
-                    if (msgDefaultCont == 0) {
-                        html += html == "" ? msgDefault : html == msgDefault ? "" : msgDefault;
+                        mensajePedido += item.Caso + " " + item.Descripcion + " ";
+                        return;
                     }
-                    msgDefaultCont++;
-                    mensajePedido += "-1" + " " + "Tu pedido tiene observaciones, por favor revísalo." + " ";
-                }
-            });
+
+                    if (viewBagMenuNotificaciones == 0 && item.Caso == 0 && response.data.ObservacionInformativa) {
+                        html += "<li>" + item.Descripcion + "</li>";
+
+                        mensajePedido += item.Caso + " " + item.Descripcion + " ";
+                    } else {
+                        if (msgDefaultCont == 0) {
+                            html += html == "" ? msgDefault : html == msgDefault ? "" : msgDefault;
+                        }
+                        msgDefaultCont++;
+                        mensajePedido += "-1" + " " + "Tu pedido tiene observaciones, por favor revísalo." + " ";
+                    }
+                });
+            }
             html += "</ul>";
 
             $("#divMensajeObservacionesPROL").html(html);
