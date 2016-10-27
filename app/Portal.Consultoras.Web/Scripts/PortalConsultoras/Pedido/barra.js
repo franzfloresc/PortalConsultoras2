@@ -100,7 +100,7 @@ function MostrarBarra(datax, destino) {
         });
     }
     else {
-        if (mt < mn)
+        if ((mt - md) < mn)
             vLogro = mt - md;
         else
             vLogro = me < mn ? mn : me;
