@@ -1451,16 +1451,24 @@ namespace Portal.Consultoras.Web.Controllers
                     /*Obtener si tiene stock de PROL por CodigoSAP*/
                     string codigoSap = "";
                     foreach (var beProducto in listaProduto)
-                        codigoSap += beProducto.CodigoProducto + "|";
+                    {
+                        if (!string.IsNullOrEmpty(beProducto.CodigoProducto))
+                        {
+                            codigoSap += beProducto.CodigoProducto + "|";
+                        }
+                    }
 
                     codigoSap = codigoSap == "" ? "" : codigoSap.Substring(0, codigoSap.Length - 1);
 
                     try
                     {
-                        using (var sv = new ServicePROLConsultas.wsConsulta())
+                        if (!string.IsNullOrEmpty(codigoSap))
                         {
-                            sv.Url = ConfigurationManager.AppSettings["RutaServicePROLConsultas"];
-                            listaTieneStock = sv.ConsultaStock(codigoSap, userData.CodigoISO).ToList();
+                            using (var sv = new ServicePROLConsultas.wsConsulta())
+                            {
+                                sv.Url = ConfigurationManager.AppSettings["RutaServicePROLConsultas"];
+                                listaTieneStock = sv.ConsultaStock(codigoSap, userData.CodigoISO).ToList();
+                            }
                         }
                     }
                     catch (Exception ex)
@@ -1992,6 +2000,7 @@ namespace Portal.Consultoras.Web.Controllers
             model.MontoAhorroRevista = montoAhorroRevista;
             model.MontoDescuento = montoDescuento;
             model.MontoEscala = montoEscala;
+            model.Total = olstPedidoWebDetalle.Sum(d => d.ImporteTotal);
 
             /* SB20-287 - INICIO */
             TimeSpan HoraCierrePortal = userData.EsZonaDemAnti == 0 ? userData.HoraCierreZonaNormal : userData.HoraCierreZonaDemAnti;
@@ -4101,7 +4110,12 @@ namespace Portal.Consultoras.Web.Controllers
                 /*Obtener si tiene stock de PROL por CodigoSAP*/
                 string codigoSap = "";
                 foreach (var beEstrategia in listaTemporal)
-                    codigoSap += beEstrategia.CodigoProducto + "|";
+                {
+                    if (!string.IsNullOrEmpty(beEstrategia.CodigoProducto))
+                    {
+                        codigoSap += beEstrategia.CodigoProducto + "|";   
+                    }
+                }
 
                 codigoSap = codigoSap == "" ? "" : codigoSap.Substring(0, codigoSap.Length - 1);
 
@@ -4109,10 +4123,13 @@ namespace Portal.Consultoras.Web.Controllers
 
                 try
                 {
-                    using (var sv = new wsConsulta())
+                    if (!string.IsNullOrEmpty(codigoSap))
                     {
-                        sv.Url = ConfigurationManager.AppSettings["RutaServicePROLConsultas"];
-                        listaTieneStock = sv.ConsultaStock(codigoSap, userData.CodigoISO).ToList();
+                        using (var sv = new wsConsulta())
+                        {
+                            sv.Url = ConfigurationManager.AppSettings["RutaServicePROLConsultas"];
+                            listaTieneStock = sv.ConsultaStock(codigoSap, userData.CodigoISO).ToList();
+                        }   
                     }
                 }
                 catch (Exception ex)

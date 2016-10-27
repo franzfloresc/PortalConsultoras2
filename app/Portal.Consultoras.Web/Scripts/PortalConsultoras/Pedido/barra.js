@@ -40,13 +40,11 @@ function MostrarBarra(datax, destino) {
 
     dataBarra.MontoMinimo = Math.ceil(dataBarra.MontoMinimo);
     dataBarra.MontoMinimoStr = DecimalToStringFormat(dataBarra.MontoMinimo, true);
-    if (destino == "1") {
-        dataBarra.MontoMaximo = Math.ceil(dataBarra.MontoMaximo);
-        dataBarra.MontoMaximoStr = DecimalToStringFormat(dataBarra.MontoMaximo, true);
-        dataBarra.TippingPoint = Math.ceil(dataBarra.TippingPoint);
-        dataBarra.TippingPointStr = DecimalToStringFormat(dataBarra.TippingPoint, true);
-    }
-
+    dataBarra.MontoMaximo = Math.ceil(dataBarra.MontoMaximo);
+    dataBarra.MontoMaximoStr = DecimalToStringFormat(dataBarra.MontoMaximo, true);
+    dataBarra.TippingPoint = Math.ceil(dataBarra.TippingPoint);
+    dataBarra.TippingPointStr = DecimalToStringFormat(dataBarra.TippingPoint, true);
+    
     var me = data.MontoEscala;
     var md = data.MontoDescuento;
     var mx = data.MontoMaximo;
@@ -100,7 +98,7 @@ function MostrarBarra(datax, destino) {
         });
     }
     else {
-        if (mt < mn)
+        if ((mt - md) < mn)
             vLogro = mt - md;
         else
             vLogro = me < mn ? mn : me;
@@ -110,13 +108,27 @@ function MostrarBarra(datax, destino) {
         var listaEscala = new Array();
         var indDesde = -1;
         $.each(listaEscalaDescuento, function (ind, monto) {
-            if (mn < monto.MontoHasta) {
+            if (mx > 0 && destino == "1") {
+                var desde = indDesde == -1 ? mx : listaEscalaDescuento[indDesde].MontoHasta
+                if (mn < monto.MontoHasta && mx >= desde) {
+                    monto.MontoDesde = indDesde == -1 ? mn : listaEscalaDescuento[indDesde].MontoHasta;
+                    monto.MontoDesdeStr = indDesde == -1 ? data.MontoMinimoStr : listaEscalaDescuento[indDesde].MontoHastaStr;
+                    listaEscala.push(monto);
+                    indDesde = ind;
+                }
+            }
+            else if (mn < monto.MontoHasta) {
                 monto.MontoDesde = indDesde == -1 ? mn : listaEscalaDescuento[indDesde].MontoHasta;
                 monto.MontoDesdeStr = indDesde == -1 ? data.MontoMinimoStr : listaEscalaDescuento[indDesde].MontoHastaStr;
                 listaEscala.push(monto);
                 indDesde = ind;
             }
         });
+
+        if (mx > 0 && destino == "1" && listaEscala.length > 0) {
+            listaEscala[listaEscala.length - 1].MontoHasta = mx;
+            listaEscala[listaEscala.length - 1].MontoHastaStr = data.MontoMaximoStr;
+        }
 
         var textoPunto2 = '<div style="font-weight: bold;">{titulo}</div><div style="font-size: 11px;">{detalle}</div>';
         $.each(listaEscala, function (ind, monto) {
@@ -260,6 +272,10 @@ function MostrarBarra(datax, destino) {
                 txtDscto = "DSCTO"; //indPuntoLimite != ind ? "DSCTO" : "";
                 txtDetalle = indPuntoLimite != ind ? "" :
                 (vbSimbolo + "" + limite.MontoDesdeStr + " a más");
+                if (mx > 0 && destino == "1") {
+                    txtDetalle = indPuntoLimite != ind ? "" :
+                    (vbSimbolo + "" + limite.MontoDesdeStr + " a " + vbSimbolo + "" + limite.MontoHastaStr);
+                }
             }
 
             nombrePunto = limite.nombre2
@@ -445,6 +461,13 @@ function MostrarBarra(datax, destino) {
         if (indPuntoLimite <= 0 && mn > 0) {
             wLimite = 0;
             wLogro = 0;
+        }
+    }
+
+    if (listaLimite.length == 1) {
+        if (vLogro > vLimite) {
+            wLimite = widthTotal;
+            wLogro = widthTotal - 20;
         }
     }
 
