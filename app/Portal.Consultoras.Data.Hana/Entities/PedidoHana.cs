@@ -8,6 +8,8 @@ namespace Portal.Consultoras.Data.Hana.Entities
 {
     public class PedidoHana
     {
+        public decimal MONTOFLETE { get; set; }
+        public int NUMUNIDATEN { get; set; }
         public string codCliente { get; set; }
         public string codPeri { get; set; }
         public string estadoPedido { get; set; }

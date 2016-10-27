@@ -57,12 +57,18 @@
   <ItemGroup>
     <Compile Include="AutoMapper\AutoMapperConfiguration.cs" />
     <Compile Include="AutoMapper\HanaEntitiesToBEEntititesMappingProfile.cs" />
+    <Compile Include="DAHConfiguracionProgramaNuevas.cs" />
     <Compile Include="DAHEscalaDescuento.cs" />
     <Compile Include="DAHEstadoCuenta.cs" />
+    <Compile Include="DAHFaltanteAnunciado.cs" />
+    <Compile Include="DAHInformacionOnlineConsultora.cs" />
     <Compile Include="DAHPedido.cs" />
     <Compile Include="DAHPedidoDetalle.cs" />
+    <Compile Include="Entities\ConfiguracionProgramaNuevasHana.cs" />
     <Compile Include="Entities\EscalaDescuentoHana.cs" />
     <Compile Include="Entities\EstadoCuentaHana.cs" />
+    <Compile Include="Entities\FaltanteAnunciadoHana.cs" />
+    <Compile Include="Entities\InformacionOnlineConsultoraHana.cs" />
     <Compile Include="Entities\PedidoDetalleHana.cs" />
     <Compile Include="Entities\PedidoHana.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

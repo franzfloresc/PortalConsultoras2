@@ -2418,7 +2418,7 @@ function AgregarProductoDestacado(popup, tipoEstrategiaImagen) {
     });
 }
 
-function DeletePedido(campaniaId, pedidoId, pedidoDetalleId, tipoOfertaSisId, cuv, cantidad, clienteId, cuvReco) {
+function DeletePedido(campaniaId, pedidoId, pedidoDetalleId, tipoOfertaSisId, cuv, cantidad, clienteId, cuvReco, esBackOrder) {
     var param = {
         CampaniaID: campaniaId,
         PedidoID: pedidoId,
@@ -2427,7 +2427,8 @@ function DeletePedido(campaniaId, pedidoId, pedidoDetalleId, tipoOfertaSisId, cu
         CUV: cuv,
         Cantidad: cantidad,
         ClienteID_: clienteId,
-        CUVReco: cuvReco
+        CUVReco: cuvReco,
+        EsBackOrder: esBackOrder == 'true'
     };
 
     AbrirSplash();
