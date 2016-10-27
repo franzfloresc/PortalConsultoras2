@@ -26335,7 +26335,7 @@ div.subir_archivo input {
     display:block;
     position:relative;
     top:50%;
-    margin: -200px auto 0 auto;
+    margin: -150px auto 0 auto;
     background:#FFF;
     width:100%;
     max-width:514px;
@@ -29511,10 +29511,10 @@ h1#penmostreo .campana {
     position: relative;
     width: 971px;
     /* max-width: 1230px; */
-    height: 618px;
+    height: 582px;
     top: 50%;
     background: #FFF;
-    margin: -309px auto auto auto;
+    margin: -291px auto auto auto;
     z-index: 3;
    padding-left: 40px;
     padding-right: 40px;
@@ -30984,9 +30984,9 @@ h1#penmostreo .campana {
     /* Internet Explorer 10 y superior */
     color:#b5b5b5;
 }
-.btn_si_stock:hover{
+/*.btn_si_stock:hover{
     background:black;
-}
+}*/
 .content_motivo_select{
     width:45%;
     margin-right:10%;
@@ -31440,4 +31440,106 @@ h1#penmostreo .campana {
     width:1px;
     background:#cfcfcf;
     left:0;
+}
+
+.texto_solicitud_registrada{
+    float:left;
+    font-family:'Lato';
+    font-size:15px;
+    color:black;
+    margin-top:43px;
+}
+.listado_fecha_general,.listado_campana_general, .listado_solicitud_general, .listado_resolucion_general,.listado_resumen_general, .listado_estado_general{
+    font-family:'Lato';
+    font-size:15px;
+    padding-top:30px;
+    display:inline-block;
+    padding-bottom:15px;
+    vertical-align:top;
+}
+.listado_solicitud_general, .listado_resolucion_general{
+    width:15%;
+    padding-left: 10px;
+}
+.listado_campana_general{
+    width:15%;
+    text-align:center;
+    padding-right: 10px;
+}
+.listado_fecha_general{
+     width:15%;
+     padding-left: 40px;
+}
+.listado_resumen_general{
+    width:22%;
+    margin-left:1%;
+}
+.listado_estado_general{
+    width:16%;
+    text-align:center;
+    position:relative;
+}
+.text_gris_reclamo{
+    padding-top:20px;
+    padding-bottom:15px;
+    font-size:13px;
+    font-weight:300;
+}
+.detalle_listado {
+    display:block;
+    color:#7f7f7f;
+
+}
+.listado_estado_general div:hover .estado_texto {
+    /* text-decoration: underline; */
+    cursor: pointer;
+}
+
+.listado_estado_general div .estado_texto {
+    font-weight: 600;
+    font-size: 13px;
+    display: inline-block;
+    margin: 0;
+    padding: 3px 7px;
+    vertical-align: middle;
+    margin-right: 15px;
+    width:110px;
+}
+.estado_detalleIngresado {
+    background: #e7e7e7;
+}
+.listado_estado_general div:hover .icono_verDetalle {
+    margin-top: -10px;
+    opacity: 0.4;
+}
+.listado_estado_general div .icono_verDetalle {
+    width:21px;
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 56%;
+    opacity: 1;
+    margin-top: -5px;
+    margin-left: 46.5px!important;
+    transition: all 0.3s ease;
+    -moz-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    -ms-transition: all 0.3s ease;
+    -webkit-transition: all 0.3s ease;
+}
+.icono_verDetalle img{
+    width:100%;
+}
+.EstadoRechazado{
+    background:#626262;
+    color:white;
+}
+.fondo_f7f7f7{
+    background:#f7f7f7;
+    overflow:hidden;
+}
+.row_36{
+    margin-left:-36px;
+    margin-right:-36px;
+    margin-top:-30px;
 }

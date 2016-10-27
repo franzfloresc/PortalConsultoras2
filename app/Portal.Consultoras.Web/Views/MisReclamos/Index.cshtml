@@ -18,17 +18,89 @@
         <span>Si tuviste inconvenientes con algún producto y estás dentro del plazo permitido sigue estos pasos:</span>
     </div>
     <div class="content_registro_reclamos">
+        <div class="texto_solicitud_registrada">Tienes 3 solicitudes registradas:</div>
         <a class="btn_si_stock" href="#" style="width:296px;" id="IrPaso1">REGISTRAR SOLICITUD</a>
         <hr class="clear" />
         <br />
+        <br />
+        <div class="grilla_detalle_reclamo">
+            <div class="content_listado_reclamo">
+                <div class="listado_fecha_general text_gris_reclamo">FECHA REGISTRO</div>
+                <div class="listado_campana_general text_gris_reclamo">CAMPAÑA</div>
+                <div class="listado_solicitud_general text_gris_reclamo">Nº SOLICITUD</div>
+                <div class="listado_resolucion_general text_gris_reclamo">FECHA RESOLUCIÓN</div>
+                <div class="listado_resumen_general text_gris_reclamo">RESUMEN DE RESOLUCIÓN</div>
+                <div class="listado_estado_general text_gris_reclamo">ESTADO</div>
+            </div>
+            <div class="linea_separadora"></div>
+            <div class="content_listado_reclamo">
+                <div class="listado_fecha_general">10 Oct 2016 <span class="detalle_listado">10:45 pm</span></div>
+                <div class="listado_campana_general">2016-15</div>
+                <div class="listado_solicitud_general">12345678</div>
+                <div class="listado_resolucion_general">10 Oct 2016 <span class="detalle_listado">10:45 pm</span></div>
+                <div class="listado_resumen_general">Pendiente</div>
+                <div class="listado_estado_general">
+                    <div>
+                        <span class="estado_texto estado_detalleIngresado">
+                            PENDIENTE
+                        </span>
+                        <span>
+                            <a href="javascript:;" title="Ver Estado / Detalles" class="icono_verDetalle">
+                                <img src="/Content/Images/icono-ver-estado.png" alt="Ver Estado / Detalles">
+                            </a>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="content_listado_reclamo">
+                <div class="listado_fecha_general">10 Oct 2016 <span class="detalle_listado">10:45 pm</span></div>
+                <div class="listado_campana_general">2016-15</div>
+                <div class="listado_solicitud_general">12345678</div>
+                <div class="listado_resolucion_general">10 Oct 2016 <span class="detalle_listado">10:45 pm</span></div>
+                <div class="listado_resumen_general">Todos los productos rechazados </div>
+                <div class="listado_estado_general">
+                    <div>
+                        <span class="estado_texto estado_detalleFacturado">
+                            RESUELTO
+                        </span>
+                        <span>
+                            <a href="javascript:;" onclick="javascript: $('#PopSolicitud').show();" title=" ver estado /> Detalles" class="icono_verDetalle">
+                                <img src="/Content/Images/icono-ver-estado.png" alt="Ver Estado / Detalles">
+                            </a>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="content_listado_reclamo">
+                <div class="listado_fecha_general">10 Oct 2016 <span class="detalle_listado">10:45 pm</span></div>
+                <div class="listado_campana_general">2016-15</div>
+                <div class="listado_solicitud_general">12345678</div>
+                <div class="listado_resolucion_general">10 Oct 2016 <span class="detalle_listado">10:45 pm</span></div>
+                <div class="listado_resumen_general">2 productos aprobados, 1 rechazado </div>
+                <div class="listado_estado_general">
+                    <div>
+                        <span class="estado_texto EstadoRechazado">
+                            RECHAZADO
+                        </span>
+                        <span>
+                            <a href="javascript:;" title="Ver Estado / Detalles" class="icono_verDetalle">
+                                <img src="/Content/Images/icono-ver-estado.png" alt="Ver Estado / Detalles">
+                            </a>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+            
+        
 
-    </div>
+        </div>
     <!--PASO A PASO RECLAMOS-->
     <div class="content_general_reclamos" style="display:none;">
         <div class="content_pasos">
             <div class="paso_reclamo paso_active_reclamo" id="Selector1"><span><img src="@Url.Content("~/Content/Images/Esika/labial1.png")" /></span></div>
-            <div class="paso_reclamo" id="Selector2"><span>2</span></div>
-            <div class="paso_reclamo" id="Selector3"><span>3</span></div>
+            <div class="paso_reclamo" id="Selector2"><span><img src="@Url.Content("~/Content/Images/Esika/foco.png")" /></span></div>
+            <div class="paso_reclamo" id="Selector3"><span><img src="@Url.Content("~/Content/Images/Esika/carta.png")" /></span></div>
         </div>
         <!--PASO 1-->
         <div class="content_reclamo" id="Paso1">
@@ -63,6 +135,7 @@
             </div>
             <hr class="clear" />
             <div class="linea_separadora_roja" style="height:2px;"></div>
+            <a class="btn_paso_anterior" href="#">REGRESAR</a>
             <a class="btn_si_stock" href="#" style="width:296px;" id="IrPAso2">SIGUIENTE</a>
             <hr class="clear" />
             <br />
@@ -286,9 +359,33 @@
     </div>
     <!--FIN-->
 </div>
+<div class="contenedor_popup_percepciones" id="PopSolicitud">
+    <div class="popup_Pendientes">
+        <div class="btn_cerrar_popupPercepcion cerrarPendientesPORTAL">
+            <a class="regresaPendientes" title="Regresar" style="text-align: right;" href="javascript:;" onclick="javascript: $('#PopSolicitud').hide();">
+                <div class="icono_regresar"><img src="/Content/Images/btn_regresar.svg" alt="Regresar"></div>
+                <div class="texto_btn_regresar">REGRESAR AL LISTADO</div>
+            </a>
+        </div>
+        
+        <div class="fondo_f7f7f7 row_36">
+            <div class="texto_titulo_reclamos" id="TituloReclamo">Solicitud de Cambios y Devoluciones</div>
+            <div style="text-align:center; max-width:700px; margin:0 auto">
+                <div class="detalle_estado_reclamo">Fecha:<b> 10 Oct 2016 </b></div>
+                <div class="detalle_estado_reclamo">Solicitud:<b>  Nº 12345678</b></div>
+                <div class="detalle_estado_reclamo">Campaña:<b> 2016-15</b></div>
+            </div>
+        </div>
+       
+            
+     </div>
+
+</div>
 @section scripts{
 <script type="text/javascript">
     var imgCheck = '@Url.Content("~/Content/Images/Esika/paso_realizado.png")';
+    var imgFoco = '@Url.Content("~/Content/Images/Esika/foco1.png")';
+    var imgCarta = '@Url.Content("~/Content/Images/Esika/carta1.png")';
     $(document).ready(function () {
         $("#IrPaso1").on("click", function () {
             $('.content_registro_reclamos').hide(); //muestro mediante id 
@@ -304,6 +401,7 @@
         });
         $("#IrPAso2").on("click", function () {
             $("#Selector1 span").html("<img src='" + imgCheck + "' />");
+            $("#Selector2 span").html("<img src='" + imgFoco + "' />");
             $("#Selector2").addClass("paso_active_reclamo");           
             $('#Paso1').hide(); //muestro mediante id 
             $('#Paso2').show(); //oculto mediante id              
@@ -329,6 +427,7 @@
         });
         $("#IrPaso3").on("click", function () {
             $("#Selector2 span").html("<img src='" + imgCheck + "' />");
+            $("#Selector3 span").html("<img src='" + imgCarta + "' />");
             $("#Selector3").addClass("paso_active_reclamo");
             $('#Cambio2').hide(); //muestro mediante id  
             $('#Paso3').show(); //oculto mediante id 

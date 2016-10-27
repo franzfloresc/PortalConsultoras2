@@ -1,5 +1,4 @@
-﻿
-@model Portal.Consultoras.Web.Models.MisPedidosDetalleModel
+﻿@model Portal.Consultoras.Web.Models.MisPedidosDetalleModel
 
 @{
     Layout = "~/Areas/Mobile/Views/Shared/_MobileLayout.cshtml";
@@ -12,30 +11,29 @@
 <div class="fondo_f2f2f2 triang_pe">
     <div class="pestana_esika"></div><!--PESTANA ESIKA-->
     <div class="pestana_lbel"></div><!--PESTANA LBEL-->
-
     @*<div class="content_320">
-        <div class="tiempo_restante">Te quedan 5:30:27</div>
-        <div class="contacte_cliente">CONTÁCTATE CON FIORELLA </div>
-        <div class="texto_detalle_pedido">
-            Confirma los productos, precios y forma de entrega. Luego elige cómo atenderás cada producto para que puedas aceptar todo el pedido.
-        </div>
-        <div class="content_dato_historial">
-            <span class="nom_his">Nombre</span>
-            <span class="nom_his_2"><b>FIORELLA GOYZUETA</b></span>
-        </div>
-        <div class="content_dato_historial">
-            <span class="nom_his">Teléfono:</span>
-            <span class="nom_his_2 color_belcorp"><b>998787898</b></span>
-        </div>
-        <div class="content_dato_historial">
-            <span class="nom_his">Correo:</span>
-            <span class="nom_his_2"><b>fiorella@gmail.com</b></span>
-        </div>
-        <div class="content_dato_historial">
-            <span class="nom_his">Dirección:</span>
-            <span class="nom_his_2"><b>Pardo y Aliaga 456, Mza. 37 Urb. El Golf, San Isidro</b></span>
-        </div>
-    </div>*@
+            <div class="tiempo_restante">Te quedan 5:30:27</div>
+            <div class="contacte_cliente">CONTÁCTATE CON FIORELLA </div>
+            <div class="texto_detalle_pedido">
+                Confirma los productos, precios y forma de entrega. Luego elige cómo atenderás cada producto para que puedas aceptar todo el pedido.
+            </div>
+            <div class="content_dato_historial">
+                <span class="nom_his">Nombre</span>
+                <span class="nom_his_2"><b>FIORELLA GOYZUETA</b></span>
+            </div>
+            <div class="content_dato_historial">
+                <span class="nom_his">Teléfono:</span>
+                <span class="nom_his_2 color_belcorp"><b>998787898</b></span>
+            </div>
+            <div class="content_dato_historial">
+                <span class="nom_his">Correo:</span>
+                <span class="nom_his_2"><b>fiorella@gmail.com</b></span>
+            </div>
+            <div class="content_dato_historial">
+                <span class="nom_his">Dirección:</span>
+                <span class="nom_his_2"><b>Pardo y Aliaga 456, Mza. 37 Urb. El Golf, San Isidro</b></span>
+            </div>
+        </div>*@
 
     @{
         var solicitud = Model.MiPedido;
@@ -46,7 +44,8 @@
 
     @{
         var contacto = solicitud.Cliente.Trim();
-        if (contacto.IndexOf(' ') != -1) {
+        if (contacto.IndexOf(' ') != -1)
+        {
             contacto = contacto.Substring(0, contacto.IndexOf(' '));
         }
     }
@@ -69,18 +68,27 @@
         <div class="content_dato_historial">
             <span class="nom_his">Nombre</span>
             <span class="nom_his_2"><b>@solicitud.Cliente.ToUpper()</b></span>
+            <hr class="clear" />
         </div>
         <div class="content_dato_historial">
             <span class="nom_his">Teléfono:</span>
-            <span class="nom_his_2 color_belcorp"><b>@solicitud.Telefono</b></span>
+            <span class="nom_his_2">
+                <a href="tel:@solicitud.Telefono" onclick="return (navigator.userAgent.match(/Android|iPhone|iPad|iPod|Mobile/i))!=null;">
+                    <b class="color_belcorp" style="vertical-align:top;">@solicitud.Telefono</b>
+                    <span class="icono_telefono"></span>
+                </a>
+            </span>
+            <hr class="clear" />
         </div>
         <div class="content_dato_historial">
             <span class="nom_his">Correo:</span>
             <span class="nom_his_2"><b>@solicitud.Email</b></span>
+            <hr class="clear" />
         </div>
         <div class="content_dato_historial">
             <span class="nom_his">Dirección:</span>
             <span class="nom_his_2"><b>@solicitud.Direccion</b></span>
+            <hr class="clear" />
         </div>
         @if (solicitud.MarcaID != 0)
         {
@@ -96,78 +104,78 @@
 <div class="wrapper_resumen_mobile" id="divSolicitudDetalles">
 
     @*<!--ITEM 1-->
-    <div class="detalle_pedido_reservado">
-        <div class="left_reservado" style="width:228px;">
-            <div class="datos_Reservado">
-                <span> 03289 </span>
-                <span>ES LEYENDA EDT 100 ML ES LEYENDA EDT 100 ML ES LEYENDA EDT 100 ML</span>
-            </div>
+        <div class="detalle_pedido_reservado">
+            <div class="left_reservado" style="width:228px;">
+                <div class="datos_Reservado">
+                    <span> 03289 </span>
+                    <span>ES LEYENDA EDT 100 ML ES LEYENDA EDT 100 ML ES LEYENDA EDT 100 ML</span>
+                </div>
 
-        </div>
-        <div class="right_reservado">
-            <div class="texto_reservado">CANT</div>
-            <div class="datos_Reservado"><b>3</b></div>
-        </div>
-        <hr class="clear"><br>
-        <div class="left_reservado">
-            <div class="texto_reservado">
-                <span>Precio Unitario</span>
-                <span>Sub-total</span>
             </div>
-        </div>
-        <div class="right_reservado">
-            <div class="texto_reservado">
-                <span>S/. 99.90</span>
-                <span>S/. 99.90</span>
+            <div class="right_reservado">
+                <div class="texto_reservado">CANT</div>
+                <div class="datos_Reservado"><b>3</b></div>
             </div>
-        </div>
-        <hr class="clear">
-        <select class="select_detalle">
-            <option>¿CÓMO LO ATENDERÁS?</option>
-            <option>¿CÓMO LO ATENDERÁS?</option>
-            <option>¿CÓMO LO ATENDERÁS?</option>
-        </select>
-    </div>
-    <!--ITEM 2-->
-    <div class="detalle_pedido_reservado">
-        <div class="left_reservado" style="width:228px;">
-            <div class="datos_Reservado">
-                <span> 03289 </span>
-                <span>ES LEYENDA EDT 100 ML ES LEYENDA EDT 100 ML ES LEYENDA EDT 100 ML</span>
+            <hr class="clear"><br>
+            <div class="left_reservado">
+                <div class="texto_reservado">
+                    <span>Precio Unitario</span>
+                    <span>Sub-total</span>
+                </div>
             </div>
+            <div class="right_reservado">
+                <div class="texto_reservado">
+                    <span>S/. 99.90</span>
+                    <span>S/. 99.90</span>
+                </div>
+            </div>
+            <hr class="clear">
+            <select class="select_detalle">
+                <option>¿CÓMO LO ATENDERÁS?</option>
+                <option>¿CÓMO LO ATENDERÁS?</option>
+                <option>¿CÓMO LO ATENDERÁS?</option>
+            </select>
+        </div>
+        <!--ITEM 2-->
+        <div class="detalle_pedido_reservado">
+            <div class="left_reservado" style="width:228px;">
+                <div class="datos_Reservado">
+                    <span> 03289 </span>
+                    <span>ES LEYENDA EDT 100 ML ES LEYENDA EDT 100 ML ES LEYENDA EDT 100 ML</span>
+                </div>
 
-        </div>
-        <div class="right_reservado">
-            <div class="texto_reservado">CANT</div>
-            <div class="datos_Reservado"><b>3</b></div>
-        </div>
-        <hr class="clear"><br>
-        <div class="left_reservado">
-            <div class="texto_reservado">
-                <span>Precio Unitario</span>
-                <span>Sub-total</span>
             </div>
-        </div>
-        <div class="right_reservado">
-            <div class="texto_reservado">
-                <span>S/. 99.90</span>
-                <span>S/. 99.90</span>
+            <div class="right_reservado">
+                <div class="texto_reservado">CANT</div>
+                <div class="datos_Reservado"><b>3</b></div>
             </div>
-        </div>
-        <hr class="clear">
-        <select class="select_detalle">
-            <option>¿CÓMO LO ATENDERÁS?</option>
-            <option>¿CÓMO LO ATENDERÁS?</option>
-            <option>¿CÓMO LO ATENDERÁS?</option>
-        </select>
-    </div>*@
+            <hr class="clear"><br>
+            <div class="left_reservado">
+                <div class="texto_reservado">
+                    <span>Precio Unitario</span>
+                    <span>Sub-total</span>
+                </div>
+            </div>
+            <div class="right_reservado">
+                <div class="texto_reservado">
+                    <span>S/. 99.90</span>
+                    <span>S/. 99.90</span>
+                </div>
+            </div>
+            <hr class="clear">
+            <select class="select_detalle">
+                <option>¿CÓMO LO ATENDERÁS?</option>
+                <option>¿CÓMO LO ATENDERÁS?</option>
+                <option>¿CÓMO LO ATENDERÁS?</option>
+            </select>
+        </div>*@
 
-    @foreach(var item in Model.ListaDetalle2)
+    @foreach (var item in Model.ListaDetalle2)
     {
         <div class="detalle_pedido_reservado">
             <input type="hidden" value="@item.PedidoDetalleId" id="soldet_@item.PedidoDetalleId" />
             <div class="left_reservado" style="width:228px;">
-                @if(solicitud.MarcaID == 0)
+                @if (solicitud.MarcaID == 0)
                 {
                     <div class="datos_Reservado">
                         <span>@item.CUV</span>
@@ -203,7 +211,7 @@
             {
                 if (@item.TieneStock == 1)
                 {
-                    <select class="select_detalle" id="soldet_tipoate_@item.PedidoDetalleId" >
+                    <select class="select_detalle" id="soldet_tipoate_@item.PedidoDetalleId">
                         <option value="" selected>¿CÓMO LO ATENDERÁS?</option>
                         <option value="ingrped">INGRESAR A MI PEDIDO</option>
                         <option value="ingrten">YA LO TENGO</option>
@@ -228,15 +236,15 @@
 
     <!--MONTO TOTAL-->
     @*<div class="left_reservado">
-        <div class="importe_final" style="font-size:16px;"><b>TOTAL PEDIDO: </b> </div>
-    </div>
-    <div class="right_reservado">
-        <div class="importe_final" style="font-size:16px"><b>S/. 45,030.00</b></div>
-    </div>
-    <hr class="clear" />
-    <div class="linea_separadora_roja" style="margin-top:20px;"></div>
-    <a class="btn_acepto_pedido" href="javascript:;" onclick="javascript: $('#PedidoAceptado').show();">ACEPTO TODO EL PEDIDO</a>
-    <a class="btn_rechazo_pedido" href="javascript:;" onclick="javascript: $('#PedidoRechazado').show();">RECHAZO EL PEDIDO</a>*@
+            <div class="importe_final" style="font-size:16px;"><b>TOTAL PEDIDO: </b> </div>
+        </div>
+        <div class="right_reservado">
+            <div class="importe_final" style="font-size:16px"><b>S/. 45,030.00</b></div>
+        </div>
+        <hr class="clear" />
+        <div class="linea_separadora_roja" style="margin-top:20px;"></div>
+        <a class="btn_acepto_pedido" href="javascript:;" onclick="javascript: $('#PedidoAceptado').show();">ACEPTO TODO EL PEDIDO</a>
+        <a class="btn_rechazo_pedido" href="javascript:;" onclick="javascript: $('#PedidoRechazado').show();">RECHAZO EL PEDIDO</a>*@
 
     <div class="left_reservado">
         <div class="importe_final" style="font-size:16px;"><b>TOTAL PEDIDO: </b> </div>
@@ -294,7 +302,7 @@
         <div class="col-xs-12 col-sm-6">
             <a class="btn_rechazo_pedido" href="javascript:;" onclick="javascript: $('#PedidoRechazadoDetalle').show();">SÍ, RECHAZO EL PEDIDO</a>
         </div>
-       
+
     </div>
 </div>
 
@@ -324,11 +332,11 @@
         <div class="mensaje_alerta">Si rechazas el pedido vas a perderlo</div>
 
         @*<div>
-            <div class="opcion_rechazo">Yo no puedo atender su pedido.</div>
-            <div class="opcion_rechazo">El cliente vive muy lejos.</div>
-            <div class="opcion_rechazo">Habían productos agotados en esta campaña.</div>
-            <div class="opcion_rechazo">No pasaré pedido esta campaña.</div>
-        </div>*@
+                <div class="opcion_rechazo">Yo no puedo atender su pedido.</div>
+                <div class="opcion_rechazo">El cliente vive muy lejos.</div>
+                <div class="opcion_rechazo">Habían productos agotados en esta campaña.</div>
+                <div class="opcion_rechazo">No pasaré pedido esta campaña.</div>
+            </div>*@
 
         <div>
             @foreach (var item in ViewBag.MotivosRechazo)
@@ -362,5 +370,5 @@
         var urlPedido = '@Url.Action("Index","Pedido")';
     </script>
 
-    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Mobile/ConsultoraOnline/DetallePedidoPendiente.js")"></script>
+    <script type="text/javascript" src="@Url.Content(" ~ />Scripts/PortalConsultoras/Mobile/ConsultoraOnline/DetallePedidoPendiente.js")"></script>
 }
