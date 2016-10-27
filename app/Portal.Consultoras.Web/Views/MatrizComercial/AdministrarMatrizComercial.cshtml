@@ -1,7 +1,9 @@
 ﻿@model Portal.Consultoras.Web.Models.MatrizComercialModel
 @{
     ViewBag.Title = "Administración Matriz Comercial";
-    int nroImagenes = 10, nroImagenesMaxFila = 3;
+    string imagenVacia = "prod_grilla_vacio.png";
+    int nroImagenes = 10;
+    string idControl;
 }
 
 <script src="@Url.Content("~/Scripts/fileuploader.js")" type="text/javascript"></script>
@@ -11,6 +13,7 @@
     var isoPAIS = "";
     var paisID = 11;
     var nroImagenes = '@nroImagenes';
+    var imagenVacia = '@imagenVacia';
 
     jQuery(document).ready(function () {
         fnGrilla();
@@ -192,7 +195,7 @@
                 // image = '<img src="' + '@Url.Content("~/Content/Matriz/")' + isoPAIS + "/" + cellvalue + '" alt="" width="70px" height="60px" title="" border="0" />';
                 image = '<img src="' + cellvalue + '" alt="" width="70px" height="60px" title="" border="0" />';
             } else {
-                image = '<img src="@Url.Content("~/Content/Images/prod_grilla_vacio.png")" alt="" width="60px" height="60px" title="" border="0" />';
+                image = '<img src="@Url.Content("~/Content/Images/" + imagenVacia)" alt="" width="60px" height="60px" title="" border="0" />';
             }
             return image;
         };
@@ -234,8 +237,8 @@
                         objImgProdAnterior.val(valorImagen);
                     }
 
-                    if ($.trim(valorImagen) != "prod_grilla_vacio.png") objImg.attr('src', cellImagenSrc);
-                    else objImg.attr('src', '@Url.Content("~/Content/Images/prod_grilla_vacio.png")');
+                    if ($.trim(valorImagen) != imagenVacia) objImg.attr('src', cellImagenSrc);
+                    else objImg.attr('src', '@Url.Content("~/Content/Images/" + imagenVacia)');
                 }
                 
                 showDialog("DialogMatrizComercial");
@@ -251,7 +254,7 @@
         $("#txtCodigoSAPModal").val("");
         $("#hdFlagTransaccion").val("0");
         $('.input-imagen-producto-anterior').val("");
-        $('.img-matriz-comercial').attr('src', '@Url.Content("~/Content/Images/prod_grilla_vacio.png")');
+        $('.img-matriz-comercial').attr('src', '@Url.Content("~/Content/Images/" + imagenVacia)');
     }
 
     function IniDialogMatriz() {
@@ -266,51 +269,54 @@
             buttons:
             {
                 "Guardar": function () {
-                    var vMessage = "";
-                    var ingresoAlgo = !(jQuery.trim($('#txtDescripcionModal').val()) == "")
+                    var vMessage = "", valImgProd, idImagen;
+
+                    var ingresoAlgo = ($.trim($('#txtDescripcionModal').val()) != "");
                     for (var i = 1; i <= nroImagenes; i++) {
+                        if (ingresoAlgo) break;
+
+                        idImagen = ('0' + i).substr(-2);
+                        valImgProd = $.trim($('#imagenProducto' + idImagen).val());
+                        ingresoAlgo = (valImgProd != "" && valImgProd != imagenVacia);
                     }
-                    if (jQuery.trim($('#txtDescripcionModal').val()) == "" && $.trim($('#imagenProducto01').val()) == "" && $.trim($('#imagenProducto02').val()) == "" && $.trim($('#imagenProducto03').val()) == "")
-                        vMessage += "- Debe ingresar una nueva descripción al producto o adjuntar por lo menos una imagen.\n";
+                    if (!ingresoAlgo) vMessage += "- Debe ingresar una nueva descripción al producto o adjuntar por lo menos una imagen.\n";
+
                     if (vMessage != "") {
                         alert(vMessage);
                         return false;
-                    } else RegistrarMatrizComercial();
+                    }
+                    else RegistrarMatrizComercial();
                 },
-                "Cancelar": function () {
-                    $(this).dialog('close');
-                }
+                "Cancelar": function () { $(this).dialog('close'); }
             }
         });
     }
     
     function RegistrarMatrizComercial() {
-        var accion = "";
+        var objImgProd, objImgProdAnterior, idImagen;
 
-        if ($("#hdFlagTransaccion").val() == "1")
-            accion = "UpdateMatrizComercial";
-        else
-            accion = "InsertMatrizComercial";
-
-        var Item = {
+        var item = {
             CodigoSAP: $.trim($('#txtCodigoSAPModal').val()),
             DescripcionOriginal: $.trim($('#txtDescripcionOriginalModal').val()),
             Descripcion: $.trim($("#txtDescripcionModal").val()),
-            FotoProducto01: $.trim($("#imagenProducto01").val()),
-            FotoProducto02: $.trim($("#imagenProducto02").val()),
-            FotoProducto03: $.trim($('#imagenProducto03').val()),
-            FotoProductoAnterior01: $.trim($("#imagenProductoAnterior01").val()),
-            FotoProductoAnterior02: $.trim($("#imagenProductoAnterior02").val()),
-            FotoProductoAnterior03: $.trim($('#imagenProductoAnterior03').val()),
             PaisID: paisID
         };
+        for (var i = 1; i <= nroImagenes; i++) {
+            idImagen = ('0' + i).substr(-2);
+            objImgProd = $('#imagenProducto' + idImagen);
+            objImgProdAnterior = $('#imagenProductoAnterior' + idImagen);
+            item['FotoProducto' + idImagen] = objImgProd.val();
+            item['FotoProductoAnterior' + idImagen] = objImgProdAnterior.val();
+        }
+
         waitingDialog({ title: "Procesando" });
+        var accion = ($("#hdFlagTransaccion").val() == "1") ? "UpdateMatrizComercial" : "InsertMatrizComercial";
         jQuery.ajax({
             type: 'POST',
             url: baseUrl + 'MatrizComercial/' + accion,
             dataType: 'json',
             contentType: 'application/json; charset=utf-8',
-            data: JSON.stringify(Item),
+            data: JSON.stringify(item),
             async: true,
             success: function (data) {
                 if (checkTimeout(data)) {
@@ -392,7 +398,7 @@
         <div class="div-3">
             <div class="titF">Descripción Original:</div>
             <div class="selectP2 borde_redondeado" style="width: 570px;">
-                <input type="text" id="txtDescripcionOriginalModal" readonly="readonly" />
+                <input type="text" id="txtDescripcionOriginalModal" readonly="readonly" style="width: 570px;" />
             </div>
             <div class="titG" style="width: 180px; display: none">Descripción:</div>
             <div class="selectP2 borde_redondeado" style="display: none">
@@ -417,61 +423,45 @@
             </style>
             <div class="titF">Imagen:</div>
             <div class="div-img-matriz-comercial">
-                @{
-                    int nroImagenesFila = nroImagenesMaxFila, nroIdImagen = 0, i;
-                    string idControl;
-                }
-
-                @while (nroImagenes > 0)
+                @for (int i = 1; i <= nroImagenes; i++)
                 {
-                    if (nroImagenes < nroImagenesMaxFila)
-                    {
-                        nroImagenesFila = nroImagenes;
-                        nroImagenes = 0;
-                    }
-                    else { nroImagenes -= nroImagenesMaxFila; }
+                    idControl = "0" + i;
+                    idControl = idControl.Substring(idControl.Length - 2);
 
-                    for (i = 1; i <= nroImagenesFila; i++)
-                    {
-                        nroIdImagen++;
-                        idControl = "0" + nroIdImagen;
-                        idControl = idControl.Substring(idControl.Length - 2);
-                        
-                        <div class="titG">
-                            <div class="selectP2 borde_redondeado aligncenter">
-                                <img src='@Url.Content("~/Content/Images/prod_grilla_vacio.png")' id="img@(idControl)" class="img-matriz-comercial">
-                            </div>
+                    <div class="titG">
+                        <div class="selectP2 borde_redondeado aligncenter">
+                            <img src='@Url.Content("~/Content/Images/" + imagenVacia)' id="img@(idControl)" class="img-matriz-comercial">
+                        </div>
 
-                            <div class="input_search">
-                                <input type="hidden" id="imagenProducto@(idControl)" class="input-imagen-producto" />
-                                <input type="hidden" id="imagenProductoAnterior@(idControl)" class="input-imagen-producto-anterior" />
-                                <div id="fpUpload@(idControl)">
-                                    <script type="text/javascript">
-                                        $.ajaxSetup({ cache: false });
-                                        var uploader = new qq.FileUploader({
-                                            allowedExtensions: ['jpg', 'png', 'jpeg'],
-                                            element: document.getElementById('fpUpload@(idControl)'),
-                                            action: '@Url.Action("ImageMatrizUpload", "FileUpload")',
-                                            onComplete: function (id, fileName, responseJSON) {
-                                                if (checkTimeout(responseJSON)) {
-                                                    $(".qq-upload-list").css("display", "none");
-                                                    if (responseJSON.success) {
-                                                        $("#imagenProducto@(idControl)").val(responseJSON.name);
-                                                        // req. 1664
-                                                        $('#img@(idControl)').attr('src', '@Url.Content("~/Content/Temporales/")' + responseJSON.name);
-                                                    }
-                                                    else alert(responseJSON.message);
+                        <div class="input_search">
+                            <input type="hidden" id="imagenProducto@(idControl)" class="input-imagen-producto" />
+                            <input type="hidden" id="imagenProductoAnterior@(idControl)" class="input-imagen-producto-anterior" />
+                            <div id="fpUpload@(idControl)">
+                                <script type="text/javascript">
+                                    $.ajaxSetup({ cache: false });
+                                    var uploader = new qq.FileUploader({
+                                        allowedExtensions: ['jpg', 'png', 'jpeg'],
+                                        element: document.getElementById('fpUpload@(idControl)'),
+                                        action: '@Url.Action("ImageMatrizUpload", "FileUpload")',
+                                        onComplete: function (id, fileName, responseJSON) {
+                                            if (checkTimeout(responseJSON)) {
+                                                $(".qq-upload-list").css("display", "none");
+                                                if (responseJSON.success) {
+                                                    $("#imagenProducto@(idControl)").val(responseJSON.name);
+                                                    // req. 1664
+                                                    $('#img@(idControl)').attr('src', '@Url.Content("~/Content/Temporales/")' + responseJSON.name);
                                                 }
-                                            },
-                                            onSubmit: function (id, fileName) { $(".qq-upload-list").css("display", "none"); },
-                                            onProgress: function (id, fileName, loaded, total) { $(".qq-upload-list").css("display", "none"); },
-                                            onCancel: function (id, fileName) { $(".qq-upload-list").css("display", "none"); }
-                                        });
-                                    </script>
-                                </div>
+                                                else alert(responseJSON.message);
+                                            }
+                                        },
+                                        onSubmit: function (id, fileName) { $(".qq-upload-list").css("display", "none"); },
+                                        onProgress: function (id, fileName, loaded, total) { $(".qq-upload-list").css("display", "none"); },
+                                        onCancel: function (id, fileName) { $(".qq-upload-list").css("display", "none"); }
+                                    });
+                                </script>
                             </div>
                         </div>
-                    }
+                    </div>
                 }
             </div>
         </div>

@@ -26253,7 +26253,7 @@ div.subir_archivo input {
     display:block;
     position:relative;
     top:50%;
-    margin: -200px auto 0 auto;
+    margin: -150px auto 0 auto;
     background:#FFF;
     width:100%;
     max-width:514px;
@@ -29437,10 +29437,10 @@ h1#penmostreo .campana {
     position: relative;
     width: 971px;
     /* max-width: 1230px; */
-    height: 618px;
+    height: 582px;
     top: 50%;
     background: #FFF;
-    margin: -309px auto auto auto;
+    margin: -291px auto auto auto;
     z-index: 3;
    padding-left: 40px;
     padding-right: 40px;
@@ -31186,12 +31186,7 @@ h1#penmostreo .campana {
     width:12%;
     text-align:center;
 }
-.text_gris_reclamo{
-    padding-top:20px;
-    padding-bottom:15px;
-    font-size:13px;
-    font-weight:300;
-}
+
 .subtitulo_listado{
     margin-top:15px;
     font-family:'Lato';
@@ -31458,4 +31453,51 @@ h1#penmostreo .campana {
     width:1px;
     background:#cfcfcf;
     left:0;
+}
+.texto_solicitud_registrada{
+    float:left;
+    font-family:'Lato';
+    font-size:15px;
+    color:black;
+    margin-top:43px;
+}
+.listado_fecha_general,.listado_campana_general, .listado_solicitud_general, .listado_resolucion_general,.listado_resumen_general, .listado_estado_general{
+    font-family:'Lato';
+    font-size:15px;
+    padding-top:30px;
+    display:inline-block;
+    padding-bottom:15px;
+    vertical-align:top;
+}
+.listado_solicitud_general, .listado_resolucion_general{
+    width:15%;
+    padding-left: 10px;
+}
+.listado_campana_general{
+    width:15%;
+    text-align:center;
+    padding-right: 10px;
+}
+.listado_fecha_general{
+     width:15%;
+     padding-left: 40px;
+}
+.listado_resumen_general{
+    width:22%;
+    margin-left:1%;
+}
+.listado_estado_general{
+    width:16%;
+    text-align:center;
+}
+.text_gris_reclamo{
+    padding-top:20px;
+    padding-bottom:15px;
+    font-size:13px;
+    font-weight:300;
+}
+.detalle_listado {
+    display:block;
+    color:#7f7f7f;
+
 }

@@ -89,16 +89,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 items = items.ToList().Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
 
-                pag = Util.PaginadorGenerico(grid, lst);
-                //lst.Update(x => x.ImagenProducto = (x.ImagenProducto.ToString().Equals(string.Empty) ? string.Empty : (UserData().CodigoISO + "/" + x.CodigoCampania + "/" + x.ImagenProducto)));
-                //try
-                //{
-                //    lst.Update(x => x.ISOPais = UserData().CodigoISO.ToString());
-                //}
-                //catch (Exception ex) 
-                //{
-                //    throw;
-                //}               
+                pag = Util.PaginadorGenerico(grid, lst);           
                 // Creamos la estructura
                 string ISO = Util.GetPaisISO(paisID);
                 var carpetaPais = Globals.UrlMatriz + "/" + ISO; // 1664
@@ -158,76 +149,62 @@ namespace Portal.Consultoras.Web.Controllers
             return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);
         }
 
+        private string UploadFoto(string foto, string number, string preFileName, string carpetaPais)
+        {
+            foto = foto ?? "";
+            if (!foto.Trim().Equals("prod_grilla_vacio.png"))
+            {
+                string time = DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Minute.ToString() + DateTime.Now.Millisecond.ToString();
+                var newfilename = preFileName + time + "_" + number + "_" + FileManager.RandomString() + ".png";
+                ConfigS3.SetFileS3(Path.Combine(Globals.RutaTemporales, foto), carpetaPais, newfilename);
+                return newfilename;
+            }
+            return string.Empty;
+        }
 
+        private string ReplaceFoto(string foto, string fotoAnterior, string number, string preFileName, string carpetaPais)
+        {
+            foto = foto ?? "";
+            fotoAnterior = fotoAnterior ?? "";
+
+            if (foto != fotoAnterior)
+            {
+                string time = DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Minute.ToString() + DateTime.Now.Millisecond.ToString();
+                string newfilename = preFileName + time + "_" + number + "_" + FileManager.RandomString() + ".png";
+                ConfigS3.DeleteFileS3(carpetaPais, fotoAnterior);
+                ConfigS3.SetFileS3(Path.Combine(Globals.RutaTemporales, foto), carpetaPais, newfilename);
+                return newfilename;
+            }
+            else if (!foto.Trim().Equals("prod_grilla_vacio.png")) return foto;
+            return string.Empty;
+        }
 
         [HttpPost]
         public JsonResult InsertMatrizComercial(MatrizComercialModel model)
         {
             try
             {
-                Mapper.CreateMap<MatrizComercialModel, BEMatrizComercial>()
-                    .ForMember(t => t.CodigoSAP, f => f.MapFrom(c => c.CodigoSAP))
-                    .ForMember(t => t.Descripcion, f => f.MapFrom(c => c.Descripcion))
-                    .ForMember(t => t.DescripcionOriginal, f => f.MapFrom(c => c.DescripcionOriginal))
-                    .ForMember(t => t.FotoProducto01, f => f.MapFrom(c => c.FotoProducto01))
-                    .ForMember(t => t.FotoProducto02, f => f.MapFrom(c => c.FotoProducto02))
-                    .ForMember(t => t.FotoProducto03, f => f.MapFrom(c => c.FotoProducto03));
-
                 BEMatrizComercial entidad = Mapper.Map<MatrizComercialModel, BEMatrizComercial>(model);
+                entidad.UsuarioRegistro = userData.CodigoConsultora;
+
+                string paisISO = Util.GetPaisISO(model.PaisID);
+                var carpetaPais = Globals.UrlMatriz + "/" + paisISO;
+                string preFileName = paisISO + "_" + model.CodigoSAP + "_";
+
+                entidad.FotoProducto01 = this.UploadFoto(model.FotoProducto01, "01", preFileName, carpetaPais);
+                entidad.FotoProducto02 = this.UploadFoto(model.FotoProducto02, "02", preFileName, carpetaPais);
+                entidad.FotoProducto03 = this.UploadFoto(model.FotoProducto03, "03", preFileName, carpetaPais);
+                entidad.FotoProducto04 = this.UploadFoto(model.FotoProducto04, "04", preFileName, carpetaPais);
+                entidad.FotoProducto05 = this.UploadFoto(model.FotoProducto05, "05", preFileName, carpetaPais);
+                entidad.FotoProducto06 = this.UploadFoto(model.FotoProducto06, "06", preFileName, carpetaPais);
+                entidad.FotoProducto07 = this.UploadFoto(model.FotoProducto07, "07", preFileName, carpetaPais);
+                entidad.FotoProducto08 = this.UploadFoto(model.FotoProducto08, "08", preFileName, carpetaPais);
+                entidad.FotoProducto09 = this.UploadFoto(model.FotoProducto09, "09", preFileName, carpetaPais);
+                entidad.FotoProducto10 = this.UploadFoto(model.FotoProducto10, "10", preFileName, carpetaPais);
 
                 using (PedidoServiceClient sv = new PedidoServiceClient())
                 {
-                    string tempImage01 = model.FotoProducto01;
-                    string tempImage02 = model.FotoProducto02;
-                    string tempImage03 = model.FotoProducto03;
-
-                    model.FotoProducto01 = (model.FotoProducto01 != null) ? model.FotoProducto01 : "";
-                    model.FotoProducto02 = (model.FotoProducto02 != null) ? model.FotoProducto02 : "";
-                    model.FotoProducto03 = (model.FotoProducto03 != null) ? model.FotoProducto03 : "";
-                    string ISO = Util.GetPaisISO(model.PaisID);
-                    var carpetaPais = Globals.UrlMatriz + "/" + ISO;
-
-                    if (!model.FotoProducto01.ToString().Trim().Equals("prod_grilla_vacio.png"))
-                    {
-                        // 1664 - Gestion de contenido S3
-                        string time = DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Minute.ToString() + DateTime.Now.Millisecond.ToString();
-                        var newfilename = ISO + "_" + model.CodigoSAP + "_" + time + "_" + "01" + "_" + FileManager.RandomString() + ".png";
-
-                        entidad.FotoProducto01 = newfilename;
-                        ConfigS3.SetFileS3(Path.Combine(Globals.RutaTemporales, tempImage01), carpetaPais, newfilename);
-                        // entidad.FotoProducto01 = FileManager.CopyImagesMatriz(Globals.RutaImagenesMatriz + "\\" + ISO, tempImage01, Globals.RutaImagenesTempMatriz, ISO, model.CodigoSAP, "01");
-                    }
-                    else
-                        entidad.FotoProducto01 = string.Empty;
-                    if (!model.FotoProducto02.ToString().Trim().Equals("prod_grilla_vacio.png"))
-                    {
-                        // 1664 - Gestion de contenido S3
-                        string time = DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Minute.ToString() + DateTime.Now.Millisecond.ToString();
-                        var newfilename = ISO + "_" + model.CodigoSAP + "_" + time + "_" + "02" + "_" + FileManager.RandomString() + ".png";
-
-                        entidad.FotoProducto02 = newfilename;
-                        ConfigS3.SetFileS3(Path.Combine(Globals.RutaTemporales, tempImage02), carpetaPais, newfilename);
-                        // entidad.FotoProducto02 = FileManager.CopyImagesMatriz(Globals.RutaImagenesMatriz + "\\" + ISO, tempImage02, Globals.RutaImagenesTempMatriz, ISO, model.CodigoSAP, "02");
-                    }
-                    else
-                        entidad.FotoProducto02 = string.Empty;
-                    if (!model.FotoProducto03.ToString().Trim().Equals("prod_grilla_vacio.png"))
-                    {
-                        // 1664 - Gestion de contenido S3
-                        string time = DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Minute.ToString() + DateTime.Now.Millisecond.ToString();
-                        var newfilename = ISO + "_" + model.CodigoSAP + "_" + time + "_" + "03" + "_" + FileManager.RandomString() + ".png";
-
-                        entidad.FotoProducto03 = newfilename;
-                        ConfigS3.SetFileS3(Path.Combine(Globals.RutaTemporales, tempImage03), carpetaPais, newfilename);
-                        // entidad.FotoProducto03 = FileManager.CopyImagesMatriz(Globals.RutaImagenesMatriz + "\\" + ISO, tempImage03, Globals.RutaImagenesTempMatriz, ISO, model.CodigoSAP, "03");
-                    }
-                    else
-                        entidad.FotoProducto03 = string.Empty;
-
-                    entidad.PaisID = model.PaisID;
-                    entidad.UsuarioRegistro = UserData().CodigoConsultora;
                     sv.InsMatrizComercial(entidad);
-                    // FileManager.DeleteImagesInFolder(Globals.RutaImagenesTempMatriz);
                 }
                 return Json(new
                 {
@@ -258,101 +235,32 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-        public JsonResult ObtenerISOPais(int paisID)
-        {
-            string ISO = Util.GetPaisISO(paisID);
-
-            return Json(new
-            {
-                ISO = ISO
-            }, JsonRequestBehavior.AllowGet);
-        }
-
         [HttpPost]
         public JsonResult UpdateMatrizComercial(MatrizComercialModel model)
         {
             try
             {
-                Mapper.CreateMap<MatrizComercialModel, BEMatrizComercial>()
-                    .ForMember(t => t.CodigoSAP, f => f.MapFrom(c => c.CodigoSAP))
-                    .ForMember(t => t.Descripcion, f => f.MapFrom(c => c.Descripcion))
-                    .ForMember(t => t.DescripcionOriginal, f => f.MapFrom(c => c.DescripcionOriginal))
-                    .ForMember(t => t.FotoProducto01, f => f.MapFrom(c => c.FotoProducto01))
-                    .ForMember(t => t.FotoProducto02, f => f.MapFrom(c => c.FotoProducto02))
-                    .ForMember(t => t.FotoProducto03, f => f.MapFrom(c => c.FotoProducto03));
-
                 BEMatrizComercial entidad = Mapper.Map<MatrizComercialModel, BEMatrizComercial>(model);
+                entidad.UsuarioModificacion = userData.CodigoConsultora;
+
+                string paisISO = Util.GetPaisISO(model.PaisID);
+                var carpetaPais = Globals.UrlMatriz + "/" + paisISO;
+                string preFileName = paisISO + "_" + model.CodigoSAP + "_";
+
+                entidad.FotoProducto01 = this.ReplaceFoto(model.FotoProducto01, model.FotoProductoAnterior01, "01", preFileName, carpetaPais);
+                entidad.FotoProducto02 = this.ReplaceFoto(model.FotoProducto02, model.FotoProductoAnterior02, "02", preFileName, carpetaPais);
+                entidad.FotoProducto03 = this.ReplaceFoto(model.FotoProducto03, model.FotoProductoAnterior03, "03", preFileName, carpetaPais);
+                entidad.FotoProducto04 = this.ReplaceFoto(model.FotoProducto04, model.FotoProductoAnterior04, "04", preFileName, carpetaPais);
+                entidad.FotoProducto05 = this.ReplaceFoto(model.FotoProducto05, model.FotoProductoAnterior05, "05", preFileName, carpetaPais);
+                entidad.FotoProducto06 = this.ReplaceFoto(model.FotoProducto06, model.FotoProductoAnterior06, "06", preFileName, carpetaPais);
+                entidad.FotoProducto07 = this.ReplaceFoto(model.FotoProducto07, model.FotoProductoAnterior07, "07", preFileName, carpetaPais);
+                entidad.FotoProducto08 = this.ReplaceFoto(model.FotoProducto08, model.FotoProductoAnterior08, "08", preFileName, carpetaPais);
+                entidad.FotoProducto09 = this.ReplaceFoto(model.FotoProducto09, model.FotoProductoAnterior09, "09", preFileName, carpetaPais);
+                entidad.FotoProducto10 = this.ReplaceFoto(model.FotoProducto10, model.FotoProductoAnterior10, "10", preFileName, carpetaPais);
 
                 using (PedidoServiceClient sv = new PedidoServiceClient())
                 {
-                    string tempImage01 = (model.FotoProducto01 != null) ? model.FotoProducto01 : "";
-                    string tempImage02 = (model.FotoProducto02 != null) ? model.FotoProducto02 : "";
-                    string tempImage03 = (model.FotoProducto03 != null) ? model.FotoProducto03 : "";
-
-                    model.FotoProducto01 = (model.FotoProducto01 != null) ? model.FotoProducto01 : "";
-                    model.FotoProducto02 = (model.FotoProducto02 != null) ? model.FotoProducto02 : "";
-                    model.FotoProducto03 = (model.FotoProducto03 != null) ? model.FotoProducto03 : "";
-
-                    model.FotoProductoAnterior01 = (model.FotoProductoAnterior01 != null) ? model.FotoProductoAnterior01 : "";
-                    model.FotoProductoAnterior02 = (model.FotoProductoAnterior02 != null) ? model.FotoProductoAnterior02 : "";
-                    model.FotoProductoAnterior03 = (model.FotoProductoAnterior03 != null) ? model.FotoProductoAnterior03 : "";
-
-                    string ISO = Util.GetPaisISO(model.PaisID);
-                    var carpetaPais = Globals.UrlMatriz + "/" + ISO;
-
-                    if (model.FotoProducto01 != model.FotoProductoAnterior01)
-                    {
-                        // 1664 - Gestion de contenido S3
-                        string time = DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Minute.ToString() + DateTime.Now.Millisecond.ToString();
-                        var newfilename = ISO + "_" + model.CodigoSAP + "_" + time + "_" + "01" + "_" + FileManager.RandomString() + ".png";
-
-                        entidad.FotoProducto01 = newfilename;
-                        ConfigS3.DeleteFileS3(carpetaPais, model.FotoProductoAnterior01);
-                        ConfigS3.SetFileS3(Path.Combine(Globals.RutaTemporales, tempImage01), carpetaPais, newfilename);                        
-                        /*
-                        entidad.FotoProducto01 = FileManager.CopyImagesMatriz(Globals.RutaImagenesMatriz + "\\" + ISO, tempImage01, Globals.RutaImagenesTempMatriz, ISO, model.CodigoSAP, "01");
-                        FileManager.DeleteImage(Globals.RutaImagenesMatriz + "\\" + ISO, model.FotoProductoAnterior01);
-                        */
-                    }
-                    else if (model.FotoProducto01.ToString().Trim().Equals("prod_grilla_vacio.png"))
-                        entidad.FotoProducto01 = string.Empty;
-                    if (model.FotoProducto02 != model.FotoProductoAnterior02)
-                    {
-                        // 1664 - Gestion de contenido S3
-                        string time = DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Minute.ToString() + DateTime.Now.Millisecond.ToString();
-                        var newfilename = ISO + "_" + model.CodigoSAP + "_" + time + "_" + "02" + "_" + FileManager.RandomString() + ".png";
-
-                        entidad.FotoProducto02 = newfilename;
-                        ConfigS3.DeleteFileS3(carpetaPais, model.FotoProductoAnterior02);
-                        ConfigS3.SetFileS3(Path.Combine(Globals.RutaTemporales, tempImage02), carpetaPais, newfilename);
-                        /*
-                        entidad.FotoProducto02 = FileManager.CopyImagesMatriz(Globals.RutaImagenesMatriz + "\\" + ISO, tempImage02, Globals.RutaImagenesTempMatriz, ISO, model.CodigoSAP, "02");
-                        FileManager.DeleteImage(Globals.RutaImagenesMatriz + "\\" + ISO, model.FotoProductoAnterior02);
-                         */
-                    }
-                    else if (model.FotoProducto02.ToString().Trim().Equals("prod_grilla_vacio.png"))
-                        entidad.FotoProducto02 = string.Empty;
-                    if (model.FotoProducto03 != model.FotoProductoAnterior03)
-                    {
-                        // 1664 - Gestion de contenido S3
-                        string time = DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Minute.ToString() + DateTime.Now.Millisecond.ToString();
-                        var newfilename = ISO + "_" + model.CodigoSAP + "_" + time + "_" + "03" + "_" + FileManager.RandomString() + ".png";
-
-                        entidad.FotoProducto03 = newfilename;
-                        ConfigS3.DeleteFileS3(carpetaPais, model.FotoProductoAnterior03);
-                        ConfigS3.SetFileS3(Path.Combine(Globals.RutaTemporales, tempImage03), carpetaPais, newfilename);
-                        /*
-                        entidad.FotoProducto03 = FileManager.CopyImagesMatriz(Globals.RutaImagenesMatriz + "\\" + ISO, tempImage03, Globals.RutaImagenesTempMatriz, ISO, model.CodigoSAP, "03");
-                        FileManager.DeleteImage(Globals.RutaImagenesMatriz + "\\" + ISO, model.FotoProductoAnterior03);
-                         */
-                    }
-                    else if (model.FotoProducto03.ToString().Trim().Equals("prod_grilla_vacio.png"))
-                        entidad.FotoProducto03 = string.Empty;
-
-                    entidad.PaisID = model.PaisID;
-                    entidad.UsuarioModificacion = UserData().CodigoConsultora;
                     sv.UpdMatrizComercial(entidad);
-                    // FileManager.DeleteImagesInFolder(Globals.RutaImagenesTempMatriz);
                 }
                 return Json(new
                 {
@@ -481,6 +389,16 @@ namespace Portal.Consultoras.Web.Controllers
 
             isNum = Double.TryParse(Convert.ToString(Expression), System.Globalization.NumberStyles.Any, System.Globalization.NumberFormatInfo.InvariantInfo, out retNum);
             return isNum;
+        }
+
+        public JsonResult ObtenerISOPais(int paisID)
+        {
+            string ISO = Util.GetPaisISO(paisID);
+
+            return Json(new
+            {
+                ISO = ISO
+            }, JsonRequestBehavior.AllowGet);
         }
     }
 }
