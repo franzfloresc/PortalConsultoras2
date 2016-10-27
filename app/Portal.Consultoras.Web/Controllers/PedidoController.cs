@@ -1808,8 +1808,8 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                List<ServiceSAC.BEProductoFaltante> olstProductoFaltante = new List<ServiceSAC.BEProductoFaltante>();
-                using (ServiceSAC.SACServiceClient sv = new ServiceSAC.SACServiceClient())
+                List<ServiceSAC.BEProductoFaltante> olstProductoFaltante = new List<BEProductoFaltante>();
+                using (ServiceSAC.SACServiceClient sv = new SACServiceClient())
                 {
                     olstProductoFaltante = sv.GetProductoFaltanteByCampaniaAndZonaID(userData.PaisID, userData.CampaniaID, userData.ZonaID).ToList();
                 }
@@ -4402,14 +4402,12 @@ namespace Portal.Consultoras.Web.Controllers
             }
             
             BEConfiguracionProgramaNuevas oBEConfiguracionProgramaNuevas = new BEConfiguracionProgramaNuevas();
-            oBEConfiguracionProgramaNuevas.CampaniaInicio = userData.CampaniaID.ToString();
-            oBEConfiguracionProgramaNuevas.CodigoRegion = userData.CodigorRegion;
-            oBEConfiguracionProgramaNuevas.CodigoZona = userData.CodigoZona;
+
             using (PedidoServiceClient sv = new PedidoServiceClient())
             {
                 try
                 {
-                    oBEConfiguracionProgramaNuevas = sv.GetConfiguracionProgramaNuevas(userData.PaisID, oBEConfiguracionProgramaNuevas);
+                    oBEConfiguracionProgramaNuevas = GetConfiguracionProgramaNuevas("ConfiguracionProgramaNuevas");                    
 
                     if (oBEConfiguracionProgramaNuevas == null)
                     {
