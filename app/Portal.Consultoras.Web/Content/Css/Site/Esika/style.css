@@ -31105,13 +31105,16 @@ h1#penmostreo .campana {
 .titulo_resumen{
     font-family:'Lato';
     font-size:15px;
-    margin-bottom:10px;
+    /*margin-bottom:10px;*/
     color:#e81c36;
+    text-align:center;
+
 }
 .descri_producto_reclamo{
     font-size:15px;
     line-height:18px;
     margin-top:12px;
+    text-align:center;
 }
 .mensaje_advertencia_reclamo{
     font-family:'Lato';
