@@ -818,7 +818,7 @@ function MostrarRevistaCorrecta(campania) {
 
         var urlExterno = ObtenerUrlRevista(rCampSelect);
         $("#contentRevista .titulo_central[data-titulo='revista']").text("REVISTA C-" + rCampSelect.substring(4, 6));
-        $("#lbPortadaGana").attr("href", urlExterno);
+        //$("#lbPortadaGana").attr("href", urlExterno);
 
         FinRenderCatalogo();
     });
