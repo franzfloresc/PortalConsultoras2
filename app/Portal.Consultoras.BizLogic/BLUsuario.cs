@@ -1,4 +1,5 @@
 ﻿using Portal.Consultoras.Data;
+using Portal.Consultoras.Data.Hana;
 using Portal.Consultoras.Entities;
 using Portal.Consultoras.PublicService.Cryptography;
 using System;
@@ -1071,6 +1072,14 @@ namespace Portal.Consultoras.BizLogic
             var DAUsuario = new DAUsuario(paisID);
             return DAUsuario.UpdateUsuarioTutoriales(CodigoUsuario, tipo);
         }
-        
+
+        public BEUsuario GetDatosConsultoraHana(int paisID, string codigoUsuario, int campaniaId)
+        {
+            var DAHInformacionOnlineConsultora = new DAHInformacionOnlineConsultora();
+
+            BEUsuario consultora = DAHInformacionOnlineConsultora.GetDatosConsultoraHana(paisID, codigoUsuario, campaniaId);
+
+            return consultora;
+        }
     }
 }

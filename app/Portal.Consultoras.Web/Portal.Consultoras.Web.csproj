@@ -3540,6 +3540,7 @@
     <Content Include="Views\Notificaciones\ListadoDetallePedidoRechazado.cshtml" />
     <Content Include="Views\Unete\TemplatesUbigeos\_UbigeoGrupo5.cshtml" />
     <Content Include="Views\Unete\ReporteConsolidado.cshtml" />
+    <Content Include="Views\MisCatalogosRevistas\MiRevista.cshtml" />
     <None Include="Web References\ServiceLMS\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>

@@ -803,7 +803,7 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         [HttpPost]
-        public JsonResult Delete(int CampaniaID, int PedidoID, short PedidoDetalleID, int TipoOfertaSisID, string CUV, int Cantidad, string ClienteID, string CUVReco)
+        public JsonResult Delete(int CampaniaID, int PedidoID, short PedidoDetalleID, int TipoOfertaSisID, string CUV, int Cantidad, string ClienteID, string CUVReco, bool EsBackOrder)
         {
             try
             {
@@ -821,14 +821,13 @@ namespace Portal.Consultoras.Web.Controllers
                 obe.CUV = CUV;
                 obe.Cantidad = Cantidad;
                 obe.Mensaje = string.Empty;
-                if (Session["ObservacionesPROL"] != null)
+
+                if (EsBackOrder) obe.Mensaje = Constantes.BackOrder.LogAccionCancelar;
+                else if (Session["ObservacionesPROL"] != null)
                 {
                     List<ObservacionModel> Observaciones = (List<ObservacionModel>)Session["ObservacionesPROL"];
                     List<ObservacionModel> Obs = Observaciones.Where(p => p.CUV == CUV).ToList();
-                    if (Obs.Count != 0)
-                    {
-                        obe.Mensaje = Obs[0].Descripcion;
-                    }
+                    if (Obs.Count != 0) obe.Mensaje = Obs[0].Descripcion;
                 }
 
                 bool ErrorServer;
@@ -1816,8 +1815,8 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                List<ServiceSAC.BEProductoFaltante> olstProductoFaltante = new List<ServiceSAC.BEProductoFaltante>();
-                using (ServiceSAC.SACServiceClient sv = new ServiceSAC.SACServiceClient())
+                List<ServiceSAC.BEProductoFaltante> olstProductoFaltante = new List<BEProductoFaltante>();
+                using (ServiceSAC.SACServiceClient sv = new SACServiceClient())
                 {
                     olstProductoFaltante = sv.GetProductoFaltanteByCampaniaAndZonaID(userData.PaisID, userData.CampaniaID, userData.ZonaID).ToList();
                 }
@@ -4437,14 +4436,12 @@ namespace Portal.Consultoras.Web.Controllers
             }
             
             BEConfiguracionProgramaNuevas oBEConfiguracionProgramaNuevas = new BEConfiguracionProgramaNuevas();
-            oBEConfiguracionProgramaNuevas.CampaniaInicio = userData.CampaniaID.ToString();
-            oBEConfiguracionProgramaNuevas.CodigoRegion = userData.CodigorRegion;
-            oBEConfiguracionProgramaNuevas.CodigoZona = userData.CodigoZona;
+
             using (PedidoServiceClient sv = new PedidoServiceClient())
             {
                 try
                 {
-                    oBEConfiguracionProgramaNuevas = sv.GetConfiguracionProgramaNuevas(userData.PaisID, oBEConfiguracionProgramaNuevas);
+                    oBEConfiguracionProgramaNuevas = GetConfiguracionProgramaNuevas("ConfiguracionProgramaNuevas");                    
 
                     if (oBEConfiguracionProgramaNuevas == null)
                     {

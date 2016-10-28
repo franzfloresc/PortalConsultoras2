@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Configuration;
 using AutoMapper;
 using Newtonsoft.Json;
 using Portal.Consultoras.Common;
@@ -19,9 +20,10 @@ namespace Portal.Consultoras.Data.Hana
             try
             {
                 var codigoIsoHana = Util.GetCodigoIsoHana(paisId);
+                string rutaServiceHana = ConfigurationManager.AppSettings.Get("RutaServiceHana");
                 const int cantidadRegistros = 20;
 
-                string urlConParametros = Util.RutaHana + "ObtenerCuentaCorrienteConsultora/" + codigoIsoHana + "/" +
+                string urlConParametros = rutaServiceHana + "ObtenerCuentaCorrienteConsultora/" + codigoIsoHana + "/" +
                                           consultoraId + "/" + cantidadRegistros;
 
                 string responseFromServer = Util.ObtenerJsonServicioHana(urlConParametros);

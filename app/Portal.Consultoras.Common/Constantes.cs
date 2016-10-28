@@ -246,6 +246,11 @@ namespace Portal.Consultoras.Common
             public const string Portal = "Se retiraron de tu pedido los productos de este cliente.";
             public const string Marcas = "No te olvides comunicarte con tu cliente.";
         }
+
+        public class BackOrder
+        {
+            public const string LogAccionCancelar = "El cliente no aceptó BackOrder.";
+        }
     }
 }
 
