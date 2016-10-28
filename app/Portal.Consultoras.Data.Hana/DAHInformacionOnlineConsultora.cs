@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Portal.Consultoras.Data.Hana.Entities;
 using Portal.Consultoras.Entities;
+using System.Globalization;
 
 namespace Portal.Consultoras.Data.Hana
 {
@@ -22,8 +23,7 @@ namespace Portal.Consultoras.Data.Hana
                 string rutaServiceHana = ConfigurationManager.AppSettings.Get("RutaServiceHana");
                 var codigoIsoHana = Util.GetCodigoIsoHana(paisId);
 
-                string urlConParametros = rutaServiceHana + "ObtenerInformacionOnlineConsultora/" + codigoIsoHana + "/" +
-                                          codigoConsultora + "/" + campaniaId;
+                string urlConParametros = rutaServiceHana + "ObtenerInformacionOnlineConsultora/" + codigoIsoHana + "/" + codigoConsultora + "/" + campaniaId;
 
                 string responseFromServer = Util.ObtenerJsonServicioHana(urlConParametros);
 
@@ -42,7 +42,7 @@ namespace Portal.Consultoras.Data.Hana
                     //beUsuario.ConsultoraID = esConsultoraId ? consultoraId : 0;
 
                     DateTime fechaVencimiento;
-                    bool esFechaVencimiento = DateTime.TryParse(informacionOnlineConsultoraHana.FECHAVEN, out fechaVencimiento);
+                    bool esFechaVencimiento = DateTime.TryParseExact(informacionOnlineConsultoraHana.FECHAVEN, "ddMMyyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out fechaVencimiento);
                     beUsuario.FechaLimPago = esFechaVencimiento ? fechaVencimiento : DateTime.MinValue;
 
                     decimal montoMinimo;
@@ -51,7 +51,13 @@ namespace Portal.Consultoras.Data.Hana
 
                     decimal montoMaximo;
                     bool esMontoMaximo = decimal.TryParse(informacionOnlineConsultoraHana.MontoMaximoPedido, out montoMaximo);
-                    beUsuario.MontoMaximoPedido = esMontoMaximo ? montoMaximo : 0;                    
+                    beUsuario.MontoMaximoPedido = esMontoMaximo ? montoMaximo : 0;
+
+                    decimal montoDeuda;
+                    bool esMontoDeuda = decimal.TryParse(informacionOnlineConsultoraHana.SALDOTOTAL, out montoDeuda);
+                    beUsuario.MontoDeuda = esMontoDeuda ? montoDeuda : 0;
+
+                    beUsuario.IndicadorFlexiPago = informacionOnlineConsultoraHana.Indicador_Activa;
 
                     //por confirmar para que sirven estos campos o cuales son sus equivalentes.
                     /*
@@ -62,7 +68,6 @@ namespace Portal.Consultoras.Data.Hana
                      * Indicador_Activa         para flexipago
                      * Invitada                 para flexipago
                      * IMP_SALD_CAMP            no se usa
-                     * SALDOTOTAL               deuda actual consultora (bienvenida y mis pagos)
                      * SALDOTOTALCAM            no se usa
                     */
 

@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
-using Portal.Consultoras.Web.ServiceContenido;
 using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.ServiceSAC;
 using Portal.Consultoras.Web.ServiceUsuario;
@@ -14,20 +13,11 @@ using System.ServiceModel;
 using System.Web;
 using System.Web.Configuration;
 using System.Web.Mvc;
-using Portal.Consultoras.Web.ServiceLMS;
-using System.Net;
-using System.IO;
 
 namespace Portal.Consultoras.Web.Controllers
 {
     public class BienvenidaController : BaseController
     {
-
-        public ActionResult ActualizarContrasenia()
-        {
-            return View();
-        }
-
         public ActionResult Index()
         {
             var model = new BienvenidaHomeModel();
@@ -49,17 +39,10 @@ namespace Portal.Consultoras.Web.Controllers
 
                 var fechaVencimientoTemp = userData.FechaLimPago;
                 model.FechaVencimiento = fechaVencimientoTemp.ToString("dd/MM/yyyy") == "01/01/0001" ? "--/--" : fechaVencimientoTemp.ToString("dd/MM/yyyy");
+                model.MontoDeuda = userData.MontoDeuda;
 
                 model.VioVideoBienvenidaModel = userData.VioVideoModelo;
                 model.VioTutorialDesktop = userData.VioTutorialDesktop;
-
-                using (ContenidoServiceClient sv = new ContenidoServiceClient())
-                {
-                    if (userData.PaisID == 4 || userData.PaisID == 11) //Colombia y Perú
-                        model.MontoDeuda = sv.GetDeudaTotal(userData.PaisID, int.Parse(userData.ConsultoraID.ToString()))[0].SaldoPendiente;
-                    else
-                        model.MontoDeuda = sv.GetSaldoPendiente(userData.PaisID, userData.CampaniaID, int.Parse(userData.ConsultoraID.ToString()))[0].SaldoPendiente;
-                }
 
                 #region Rangos de Escala de Descuento
 
@@ -389,43 +372,6 @@ namespace Portal.Consultoras.Web.Controllers
                 });
             }
         }
-
-        //public JsonResult AceptarComunicadoVisualizacion(int ComunicadoID)
-        //{
-        //    try
-        //    {
-        //        using (ServiceSAC.SACServiceClient sac = new ServiceSAC.SACServiceClient())
-        //        {
-        //            sac.InsertarComunicadoVisualizado(UserData().PaisID, UserData().CodigoConsultora, ComunicadoID);
-        //        }
-        //        return Json(new
-        //        {
-        //            success = true,
-        //            message = "",
-        //            extra = ""
-        //        });
-        //    }
-        //    catch (FaultException ex)
-        //    {
-        //        LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
-        //        return Json(new
-        //        {
-        //            success = false,
-        //            message = "Hubo un problema con el servicio, intente nuevamente",
-        //            extra = ""
-        //        });
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-        //        return Json(new
-        //        {
-        //            success = false,
-        //            message = "Hubo un problema con el servicio, intente nuevamente",
-        //            extra = ""
-        //        });
-        //    }
-        //}
 
         public ActionResult RedireccionarFlexipago()
         {
@@ -1549,5 +1495,10 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
         /* SB20-834 - FIN */                
+
+        public ActionResult ActualizarContrasenia()
+        {
+            return View();
+        }
     }
 }

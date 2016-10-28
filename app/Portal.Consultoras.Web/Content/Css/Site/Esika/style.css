@@ -31624,3 +31624,40 @@ h1#penmostreo .campana {
 .btn_pedido_black > *{
     color:white;
 }
+.content_termino_condiciones{
+    margin-top:10px; 
+    margin-bottom:20px;     
+    font-family:'Lato';
+    font-size:13px;
+    line-height:20px;
+    color:black;
+}
+.subtitulo_terminos{
+    display:block;
+    font-weight:700;
+    margin-bottom:17px;
+    margin-top:20px;
+}
+@media screen and (max-width: 1220px) {
+    .content_belcorp {
+        padding-left: 2.4%;
+        padding-right: 2.4%;
+    }
+    .ubicacion_web{
+        padding-left: 2.4%;
+        padding-right: 2.4%;
+    }
+}
+@media screen and (max-width: 1092px){
+    .content_belcorp {
+    padding-left: 2.9%;
+    padding-right: 1.9%;
+    }
+    .ubicacion_web {
+    padding-left: 2.9%;
+    padding-right: 1.9%;
+    }
+    .tabs_pagos li a{
+       font-size: 9.5pt;
+    }
+}

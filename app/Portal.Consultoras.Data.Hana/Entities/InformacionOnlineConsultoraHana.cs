@@ -21,7 +21,7 @@ namespace Portal.Consultoras.Data.Hana.Entities
         public int Invitada { get; set; }
         public string MontoMaximoPedido { get; set; }
         public string MontoMinimoPedido { get; set; }
-        public decimal SALDOTOTAL { get; set; }
+        public string SALDOTOTAL { get; set; }
         public decimal SALDOTOTALCAM { get; set; }
     }
 }
