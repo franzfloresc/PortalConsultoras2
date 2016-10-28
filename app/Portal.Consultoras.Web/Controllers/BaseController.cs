@@ -1030,6 +1030,11 @@ namespace Portal.Consultoras.Web.Controllers
                 model.VioTutorialSalvavidas = oBEUsuario.VioTutorialSalvavidas;
                 model.TieneHana = oBEUsuario.TieneHana;
                 model.NombreGerenteZonal = oBEUsuario.NombreGerenteZona;  // SB20-907
+
+                if (model.TieneHana == 1)
+                {
+                    ActualizarDatosHana(ref model);
+                }
             }
             Session["UserData"] = model;
 
@@ -1309,6 +1314,8 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 BEConfiguracionProgramaNuevas oBEConfiguracionProgramaNuevas = new BEConfiguracionProgramaNuevas();
                 oBEConfiguracionProgramaNuevas.CampaniaInicio = userData.CampaniaID.ToString();
+                oBEConfiguracionProgramaNuevas.CodigoRegion = userData.CodigorRegion;
+                oBEConfiguracionProgramaNuevas.CodigoZona = userData.CodigoZona;
                 using (PedidoServiceClient sv = new PedidoServiceClient())
                 {
                     oBEConfiguracionProgramaNuevas = sv.GetConfiguracionProgramaNuevas(userData.PaisID, oBEConfiguracionProgramaNuevas);
@@ -1613,6 +1620,36 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
             return lst;
+        }
+
+        #endregion
+
+        #region Obtener valores para el usuario de Hana
+
+        public void ActualizarDatosHana(ref UsuarioModel model)
+        {
+            using (UsuarioServiceClient us = new UsuarioServiceClient())
+            {
+                var datosConsultoraHana = us.GetDatosConsultoraHana(model.PaisID, model.CodigoUsuario, model.CampaniaID);
+
+                if (datosConsultoraHana != null)
+                {
+                    //model.FechaLimPago = datosConsultoraHana.FechaLimPago == DateTime.MinValue
+                    //    ? model.FechaLimPago
+                    //    : datosConsultoraHana.FechaLimPago;
+                    model.FechaLimPago = datosConsultoraHana.FechaLimPago;
+
+                    //model.MontoMinimo = datosConsultoraHana.MontoMinimoPedido == 0
+                    //    ? model.MontoMinimo
+                    //    : datosConsultoraHana.MontoMinimoPedido;
+                    model.MontoMinimo = datosConsultoraHana.MontoMinimoPedido;
+
+                    //model.MontoMaximo = datosConsultoraHana.MontoMaximoPedido == 0
+                    //    ? model.MontoMaximo
+                    //    : datosConsultoraHana.MontoMaximoPedido;
+                    model.MontoMaximo = datosConsultoraHana.MontoMaximoPedido;
+                }
+            }    
         }
 
         #endregion
