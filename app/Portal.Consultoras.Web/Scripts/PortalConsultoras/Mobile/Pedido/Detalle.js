@@ -461,7 +461,7 @@ function UpdateConCantidad(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion
 
 // Eliminar detalle pedido
 
-function EliminarPedidoEvento(evento) {
+function EliminarPedidoEvento(evento, esBackOrder) {
     var obj = $(evento.currentTarget);
     var id = $.trim(obj.attr("data-pedidodetalleid")) || "0";
     if (parseInt(id, 10) <= 0 || parseInt(id, 10) == NaN) {
@@ -470,11 +470,10 @@ function EliminarPedidoEvento(evento) {
 
     var obj = GetProductoEntidad(id);
     
-    EliminarPedido(obj.CampaniaID, obj.PedidoID, obj.PedidoDetalleID, obj.TipoOfertaSisID, obj.CUV, obj.CantidadInicial, obj.DescripcionProd, obj.PrecioUnidad, obj.MarcaID, obj.DescripcionOferta);
-
+    EliminarPedido(obj.CampaniaID, obj.PedidoID, obj.PedidoDetalleID, obj.TipoOfertaSisID, obj.CUV, obj.CantidadInicial, obj.DescripcionProd, obj.PrecioUnidad, obj.MarcaID, obj.DescripcionOferta, esBackOrder);
 }
 
-function EliminarPedido(CampaniaID, PedidoID, PedidoDetalleID, TipoOfertaSisID, CUV, Cantidad, DescripcionProd, PrecioUnidad, MarcaID, DescripcionOferta) {
+function EliminarPedido(CampaniaID, PedidoID, PedidoDetalleID, TipoOfertaSisID, CUV, Cantidad, DescripcionProd, PrecioUnidad, MarcaID, DescripcionOferta, esBackOrder) {
 
     $("#popup-eliminar-item").show();
 
@@ -492,11 +491,11 @@ function EliminarPedido(CampaniaID, PedidoID, PedidoDetalleID, TipoOfertaSisID, 
             RegistrosDe: 0,
             RegostrosTotal: 0,
             ClienteID: "-1",
-            CUVReco: ""
+            CUVReco: "",
+            EsBackOrder: esBackOrder == 'true'
         });
 
         ShowLoading();
-
         jQuery.ajax({
             type: 'POST',
             url: urlPedidoDelete,
@@ -506,8 +505,7 @@ function EliminarPedido(CampaniaID, PedidoID, PedidoDetalleID, TipoOfertaSisID, 
             async: true,
             success: function (data) {
                 CloseLoading();
-                if (!checkTimeout(data))
-                    return false;
+                if (!checkTimeout(data)) return false;
 
                 if (data.success != true) {
                     messageInfoError(data.message);
@@ -1185,30 +1183,35 @@ function ConstruirObservacionesPROL(model) {
     }
 
     var htmlObservacionesPROL = "<ul style='padding-left: 15px; list-style-type: none; text-align: center;'>";
-    $.each(model.ListaObservacionesProl, function (index, item) {
-
-        if (model.CodigoIso == "BO" || model.CodigoIso == "MX") {
-
-            if (item.Caso == 6 || item.Caso == 8 || item.Caso == 9 || item.Caso == 10) {
-                item.Caso = 105;
+    if (model.ListaObservacionesProl.length == 0) {
+        htmlObservacionesPROL += "<li>Tu pedido tiene observaciones, por favor revísalo.</li>";
+        mensajePedido += "-1" + " " + "Tu pedido tiene observaciones, por favor revísalo." + " ";
+    }
+    else {
+        $.each(model.ListaObservacionesProl, function (index, item) {
+            if (model.CodigoIso == "BO" || model.CodigoIso == "MX") {
+                if (item.Caso == 6 || item.Caso == 8 || item.Caso == 9 || item.Caso == 10) {
+                    item.Caso = 105;
+                }
             }
-        }
 
-        if (item.Caso == 95 || item.Caso == 105) {
-            htmlObservacionesPROL += "<li>" + item.Descripcion + "</li>";
-            mensajePedido += item.Caso + " " + item.Descripcion + " ";
-            return false;
-        } else {
-            if (menuNotificaciones == 0 && item.Caso == 0 && model.ObservacionInformativa) {
+            if (item.Caso == 95 || item.Caso == 105) {
                 htmlObservacionesPROL += "<li>" + item.Descripcion + "</li>";
                 mensajePedido += item.Caso + " " + item.Descripcion + " ";
-            } else {
-                htmlObservacionesPROL += "<li>Tu pedido tiene observaciones, por favor revísalo.</li>";
-                mensajePedido += "-1" + " " + "Tu pedido tiene observaciones, por favor revísalo." + " ";
                 return false;
             }
-        }
-    });
+            else {
+                if (menuNotificaciones == 0 && item.Caso == 0 && model.ObservacionInformativa) {
+                    htmlObservacionesPROL += "<li>" + item.Descripcion + "</li>";
+                    mensajePedido += item.Caso + " " + item.Descripcion + " ";
+                } else {
+                    htmlObservacionesPROL += "<li>Tu pedido tiene observaciones, por favor revísalo.</li>";
+                    mensajePedido += "-1" + " " + "Tu pedido tiene observaciones, por favor revísalo." + " ";
+                    return false;
+                }
+            }
+        });
+    }
     htmlObservacionesPROL += "</ul>";
 
     $("#modal-prol-contenido").html(htmlObservacionesPROL);
