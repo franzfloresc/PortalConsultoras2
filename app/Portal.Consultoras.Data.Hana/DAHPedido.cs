@@ -39,7 +39,7 @@ namespace Portal.Consultoras.Data.Hana
                         bePedidoWeb.CampaniaID = campaniaId;
 
                     bePedidoWeb.ImporteTotal = pedidoHana.montoPedido;
-                    bePedidoWeb.Flete = 0; //falta calcular, el servicio no lo trae
+                    bePedidoWeb.Flete = pedidoHana.MONTOFLETE;
                     bePedidoWeb.ImporteCredito = 0; //por defecto cero
 
                     //short motivoCredito;
@@ -54,7 +54,7 @@ namespace Portal.Consultoras.Data.Hana
                     bePedidoWeb.PedidoID = pedidoHana.oidPedido;                  
                     bePedidoWeb.FechaRegistro = pedidoHana.fechaFacturacion;
                     bePedidoWeb.CanalIngreso = pedidoHana.origen;
-                    bePedidoWeb.CantidadProductos = 0; //falta calcular, el servicio no lo trae
+                    bePedidoWeb.CantidadProductos = pedidoHana.NUMUNIDATEN;
 
                     listBE.Add(bePedidoWeb);
                 }

@@ -37,7 +37,9 @@ namespace Portal.Consultoras.Data.Hana
                     bePedidoFacturado.CodigoTerritorio = ""; //el servicio no lo trae
                     bePedidoFacturado.CUV = pedidoDetalleHana.cuv;
                     bePedidoFacturado.CodigoProducto = ""; //el servicio no lo trae
-                    bePedidoFacturado.Descripcion = "Sin Descripción"; //el servicio no lo trae
+                    bePedidoFacturado.Descripcion = string.IsNullOrEmpty(pedidoDetalleHana.DESPROD)
+                        ? "Sin Descripción"
+                        : pedidoDetalleHana.DESPROD;
                     bePedidoFacturado.Cantidad = pedidoDetalleHana.cantidad;
                     bePedidoFacturado.PrecioUnidad = pedidoDetalleHana.precioUnidad;
                     bePedidoFacturado.ImporteTotal = pedidoDetalleHana.precioTotal;
