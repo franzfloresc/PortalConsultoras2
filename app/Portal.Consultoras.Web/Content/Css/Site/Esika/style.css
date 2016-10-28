@@ -30011,7 +30011,7 @@ h1#penmostreo .campana {
 .content_item_pack{
     width:100%;
     height:340px;
-    overflow: hidden;
+    overflow: auto;
 }
 .img_principal_pack{
     width:149px;
