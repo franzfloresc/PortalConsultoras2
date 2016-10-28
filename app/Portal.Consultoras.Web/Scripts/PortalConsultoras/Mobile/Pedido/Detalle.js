@@ -580,7 +580,6 @@ function AceptarBackOrder(campaniaId, pedidoId, pedidoDetalleId, clienteId) {
             ShowLoading();
             ActualizarGanancia(data.DataBarra);
             CargarPedido();
-            messageDelete('Te entregaremos el producto en la siguiente campaña.');
             CloseLoading();
         },
         error: function (data, error) { CloseLoading(); }
