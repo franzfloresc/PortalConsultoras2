@@ -4772,9 +4772,10 @@ namespace Portal.Consultoras.Web.Controllers
                 if (imagenUrl == "")
                     continue;
 
-                var precio = userData.OfertaFinal == Constantes.TipoOfertaFinalCatalogoPersonalizado.Arp ? Util.DecimalToStringFormat(producto.PrecioValorizado, userData.CodigoISO)
-                    : userData.OfertaFinal == Constantes.TipoOfertaFinalCatalogoPersonalizado.Jetlore && tipoProductoMostrar == 1 ? Util.DecimalToStringFormat(producto.PrecioValorizado, userData.CodigoISO)
-                    : "";
+                var precioTachado = userData.OfertaFinal == Constantes.TipoOfertaFinalCatalogoPersonalizado.Arp 
+                    ? producto.PrecioValorizado 
+                    : userData.OfertaFinal == Constantes.TipoOfertaFinalCatalogoPersonalizado.Jetlore && tipoProductoMostrar == 1 
+                    ? producto.PrecioValorizado : 0;
 
                 listaProductoModel.Add(new ProductoModel()
                 {
@@ -4801,8 +4802,8 @@ namespace Portal.Consultoras.Web.Controllers
                     ImagenProductoSugerido = imagenUrl,
                     CodigoProducto = olstProducto[0].CodigoProducto,
                     TieneStockPROL = true,
-                    PrecioValorizado = olstProducto[0].PrecioValorizado,
-                    PrecioValorizadoString = precio, // Util.DecimalToStringFormat(olstProducto[0].PrecioValorizado, userData.CodigoISO),
+                    PrecioValorizado = precioTachado,
+                    PrecioValorizadoString = Util.DecimalToStringFormat(precioTachado, userData.CodigoISO),
                     Simbolo = userData.Simbolo
                 });
 
