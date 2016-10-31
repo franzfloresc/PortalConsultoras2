@@ -235,6 +235,12 @@
     <Compile Include="BEBelcorpNoticia.cs" />
     <Compile Include="BEZonificacionJerarquia.cs" />
     <Compile Include="BEConfiguracionProgramaNuevas.cs" />
+    <Compile Include="CDR\BECDRMotivo.cs" />
+    <Compile Include="CDR\BECDROperacion.cs" />
+    <Compile Include="CDR\BECDRWeb.cs" />
+    <Compile Include="CDR\BECDRWebDescripcion.cs" />
+    <Compile Include="CDR\BECDRWebDetalle.cs" />
+    <Compile Include="CDR\BECDRWebMotivoOperacion.cs" />
     <Compile Include="Enumerations.cs" />
     <Compile Include="BEPedidoRechazado.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
