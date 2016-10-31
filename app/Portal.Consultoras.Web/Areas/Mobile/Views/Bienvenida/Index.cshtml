@@ -251,7 +251,7 @@
     <hr class="clear" />
     <div class="linea_separadora_mobile"></div>
     <!--FIN COMPARTIR CATÁLOGOS-->
-    @if (Model.CodigoISO == Constantes.CodigosISOPais.Mexico || Model.CodigoISO == Constantes.CodigosISOPais.Colombia || Model.CodigoISO == Constantes.CodigosISOPais.Chile || Model.CodigoISO == Constantes.CodigosISOPais.Peru || Model.CodigoISO == Constantes.CodigosISOPais.Ecuador)
+    @if (Model.ActivacionAppCatalogoWhastUp == 1)
     {
         <!--APP CATÁLOGOS-->
         <div class="comartir_home_mobile">
@@ -264,20 +264,45 @@
 
             @if (Model.IsConsultoraOnline != -1)
             {
+                string UsuarioTipo = "";
+                
+                switch (Model.CodigoISO)
+                {
+                    case "PE":
+                        UsuarioTipo = "código";
+                        break;
+                    case "MX":
+                        UsuarioTipo = "código";
+                        break;
+                    case "CR":
+                        UsuarioTipo = "código";
+                        break;
+                    case "CO":
+                        UsuarioTipo = "cédula";
+                        break;
+                    case "EC":
+                        UsuarioTipo = "cédula";
+                        break;
+                    case "CL":
+                        UsuarioTipo = "RUT";
+                        break;
+                }
+                
                 string urlWhatsApp = "";
                 if (System.Web.HttpContext.Current.Request.UserAgent != null)
                 {
                     var request = HttpContext.Current.Request;
                     var urlBase = request.Url.Scheme + "://" + request.Url.Authority + "/AppDeCatalogos.html";
 
-                    urlWhatsApp = "whatsapp://send?text=Bájate%20el%20App%20de%20Catálogo%20y%20agrégame%20como%20tu%20Consultora.%20Mi%20código%20es " + Model.codigoConsultora + ".%20" + urlBase;
+                    urlWhatsApp = "whatsapp://send?text=Descarga%20el%20App%20de%20Catálogos%20y%20búscame%20como%20tu%20Consultora.%20Mi%20" + UsuarioTipo + "%20es " + Model.CodigoUsuario + ".%20" + urlBase;
+                    //urlWhatsApp = "whatsapp://send?text=Bájate%20el%20App%20de%20Catálogo%20y%20agrégame%20como%20tu%20Consultora.%20Mi%20código%20es " + Model.codigoConsultora + ".%20" + urlBase;
                 }
                 <span class="texto_ws">Compartir el app por</span> <a role="link" region="Central" parent="App de Catálogos" title="Whatsapp"
                                                                       id="btnCompartirWhatsApp" class="btn_comparte_ws" href="@(urlWhatsApp)" data-action="share/whatsapp/share"><b>Whatsapp</b></a>
             }
         </div>
         <a role="link" region="Central" parent="App de Catálogos" title="Entérate Más"
-        class="btn_compartelos" href="@Url.Action("EnterateMas","Catalogo", new {area = "Mobile"})">
+        class="btn_compartelos" href="@Url.Action("EnterateMas", "Catalogo", new { area = "Mobile" })">
         <div class="imagen_catalogo celular_esika"><img src="@Model.UrlImagenAppCatalogo" alt="-" /></div></a>
         <hr class="clear" />
         <div class="linea_separadora_mobile"></div>
@@ -767,9 +792,9 @@
             var urlLoad = '@Url.Content("~/Content/Images/Loading.gif")';
             var contadorFondoPopUp = 0;
             var viewBagVioTutorial = '@Model.VioTutorial';
-        var urlUpdatePopupShowRoom = '@Url.Action("UpdatePopupShowRoom", "ShowRoom", new {area = ""})';
-        var urlMostrarShowRoomPopup = '@Url.Action("MostrarShowRoomPopup", "Bienvenida", new {area = ""})';
-        var urlShowRoomBienvenida = '@Url.Action("Index", "ShowRoom", new {area = "Mobile"})';
+        var urlUpdatePopupShowRoom = '@Url.Action("UpdatePopupShowRoom", "ShowRoom", new { area = "" })';
+        var urlMostrarShowRoomPopup = '@Url.Action("MostrarShowRoomPopup", "Bienvenida", new { area = "" })';
+        var urlShowRoomBienvenida = '@Url.Action("Index", "ShowRoom", new { area = "Mobile" })';
         </script>
         <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Mobile/Bienvenida/Index.js")"></script>
     }

@@ -245,6 +245,9 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         private string MensajeValidacionInteractivaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private decimal MontoDeudaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private decimal MontoMaximoPedidoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -1395,6 +1398,19 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
                 if ((object.ReferenceEquals(this.MensajeValidacionInteractivaField, value) != true)) {
                     this.MensajeValidacionInteractivaField = value;
                     this.RaisePropertyChanged("MensajeValidacionInteractiva");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public decimal MontoDeuda {
+            get {
+                return this.MontoDeudaField;
+            }
+            set {
+                if ((this.MontoDeudaField.Equals(value) != true)) {
+                    this.MontoDeudaField = value;
+                    this.RaisePropertyChanged("MontoDeuda");
                 }
             }
         }

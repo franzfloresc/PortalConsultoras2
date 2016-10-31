@@ -1,7 +1,6 @@
 ﻿using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Areas.Mobile.Models;
 using Portal.Consultoras.Web.Models;
-using Portal.Consultoras.Web.ServiceContenido;
 using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.ServiceSAC;
 using Portal.Consultoras.Web.ServiceUsuario;
@@ -116,13 +115,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 var fechaVencimientoTemp = userData.FechaLimPago;
                 model.FechaVencimiento = fechaVencimientoTemp.ToString("dd/MM/yyyy") == "01/01/0001" ? "--/--" : fechaVencimientoTemp.ToString("dd/MM/yyyy");
 
-                using (ContenidoServiceClient sv = new ContenidoServiceClient())
-                {
-                    if (userData.PaisID == 4 || userData.PaisID == 11) //Colombia y Perú
-                        model.MontoDeuda = sv.GetDeudaTotal(userData.PaisID, int.Parse(userData.ConsultoraID.ToString()))[0].SaldoPendiente;
-                    else
-                        model.MontoDeuda = sv.GetSaldoPendiente(userData.PaisID, userData.CampaniaID, int.Parse(userData.ConsultoraID.ToString()))[0].SaldoPendiente;
-                }
+                model.MontoDeuda = userData.MontoDeuda;
 
                 using (var sv = new UsuarioServiceClient())
                 {
@@ -134,6 +127,19 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 model.UrlImagenLiquidaciones = ConfigS3.GetUrlFileS3("Mobile/Liquidaciones/" + userData.CodigoISO, "liquidaciones.png", String.Empty);
                 model.UrlImagenCatalogoPersonalizado = ConfigS3.GetUrlFileS3("Mobile/CatalogoPersonalizado/" + userData.CodigoISO, "catalogo.png", String.Empty);
                 model.EsCatalogoPersonalizadoZonaValida = userData.EsCatalogoPersonalizadoZonaValida;
+                model.CodigoUsuario = userData.CodigoUsuario; //EPD-1180
+                
+                string PaisesCatalogoWhatsUp = ConfigurationManager.AppSettings.Get("PaisesCatalogoWhatsUp") ?? string.Empty;
+                
+                if (PaisesCatalogoWhatsUp.Contains(userData.CodigoISO))
+                {
+                    model.ActivacionAppCatalogoWhastUp = 1;
+                }
+                else
+                {
+                    model.ActivacionAppCatalogoWhastUp = 0;
+                }
+
             }
             catch (FaultException ex)
             {

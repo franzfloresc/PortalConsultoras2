@@ -2789,7 +2789,10 @@ function RespuestaEjecutarServicioPROL(response, inicio) {
             var html = "<ul>";
             var msgDefault = "<li>Tu pedido tiene observaciones, por favor revísalo.</li>";
             var msgDefaultCont = 0;
-            if (response.data.ListaObservacionesProl.length == 0) html += msgDefault;
+            if (response.data.ListaObservacionesProl.length == 0) {
+                html += msgDefault;
+                mensajePedido += "-1" + " " + "Tu pedido tiene observaciones, por favor revísalo." + " ";
+            }
             else {
                 $.each(response.data.ListaObservacionesProl, function (index, item) {
                     if (response.data.CodigoIso == "BO" || response.data.CodigoIso == "MX") {
