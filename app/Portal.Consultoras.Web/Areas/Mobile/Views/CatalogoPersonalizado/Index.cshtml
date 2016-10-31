@@ -182,7 +182,7 @@
 </script>
 
 <script id="template-mod-ofer2" type="text/x-handlebars-template">
-    <div class="content_PopOferta" style="max-width:600px;" data-oferta-popup="">
+    <div class="content_PopOferta" style="max-width:600px; padding-bottom:0" data-oferta-popup="">
         <div style="display:none;" id="hiddenCatalogo">
             <input type="hidden" class="hdItemCuv" value="{{CUV}}" />
             <input type="hidden" class="hdItemTipoOfertaSisID" value="{{TipoOfertaSisID}}" />
@@ -234,7 +234,11 @@
         </div>
         <div>
             <div class="content_pack_niveles">
-                <div class="fondo_negro_pack">COMPRA 1X</div>
+                <div class="row_20">
+                    <div class="titulo_mobile">COMPRA 1X</div>
+                    <div class="pestana_esika"></div>
+                    <div class="pestana_lbel"></div>
+                </div>                
                 <div class="titulo_pack">Precio para ti: {{Simbolo}} {{DecimalToStringFormat precio_revista}}</div>
                 <div class="texto_ganancia_oferta">{{TxtGanancia}}: {{Simbolo}} {{DecimalToStringFormat ganancia}}</div>
                 <hr class="clear" />
@@ -242,7 +246,11 @@
 
             {{#each lista_ObjNivel as |nivel|}}
             <div class="content_pack_niveles">
-                <div class="fondo_negro_pack">COMPRA {{nivel.escala_nivel}}X</div>
+                <div class="row_20">
+                    <div class="titulo_mobile">COMPRA {{nivel.escala_nivel}}X</div>
+                    <div class="pestana_esika"></div>
+                    <div class="pestana_lbel"></div>
+                </div>    
                 <div class="titulo_pack">Precio para ti: {{../Simbolo}} {{DecimalToStringFormat nivel.precio_nivel}}</div>
                 <div class="texto_ganancia_oferta">{{../TxtGanancia}}: {{../Simbolo}} {{DecimalToStringFormat nivel.ganancia_nivel}}</div>
 
@@ -305,7 +313,7 @@
 </script>
 <script id="template-mod-ofer3" type="text/x-handlebars-template">
     
-    <div class="content_PopOferta" style="padding-bottom:0;" data-oferta-popup="">
+    <div class="content_PopOferta" style="padding-bottom:0; max-width:600px;" data-oferta-popup="">
         <a class="cerrar_popMobile" href="javascript:;" data-close="">
             <img src="/Content/Images/mobile/Esika/cerrar_04.png" alt="-">
         </a>
@@ -379,14 +387,14 @@
             </div>
             <div class="content_item_oferta">
                 <div class="titulo_producto_oferta"><span class="texto_unidad_pack">Precio para ti: </span>{{../Simbolo}} {{DecimalToStringFormat pack.precio_pack}}</div>
-                <div class="texto_ganancia_oferta" style="font-size:11px">{{../TxtGanancia}}: {{../Simbolo}} {{DecimalToStringFormat pack.ganancia_pack}}</div>
-                <div class="left_70"><div class="titulo_producto_oferta" style="font-size:11px; text-align:left">INCLUYE</div></div>
+                <div class="texto_ganancia_oferta">{{../TxtGanancia}}: {{../Simbolo}} {{DecimalToStringFormat pack.ganancia_pack}}</div>
+                <div class="left_70"><div class="titulo_producto_oferta" style="text-align:left">INCLUYE</div></div>
                 <hr class="clear" />
                 {{#each ../lista_oObjItemPack as |item|}}
                 {{#if_eq pack.cuv_pack item.cuv_pack_item}}
                 <div class="content_sub_items">
                     <div class="sub_imagen_oferta"><img src="{{item.imagen_item_pack}}" alt=""></div>
-                    <div class="sub_descripcion_oferta">{{item.cantidad_item_pack}} {{item.descripcion_item_pack}}</div>
+                    <div class="sub_descripcion_oferta"><p><span>x {{item.cantidad_item_pack}} </span>{{item.descripcion_item_pack}}</p></div>
                 </div>
                 <hr class="clear" />
                 {{/if_eq}}
