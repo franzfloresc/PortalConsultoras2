@@ -363,27 +363,29 @@ function ObtenerOfertaRevista(item) {
                             SetHandlebars("#template-mod-ofer3", settings, '[data-oferta]');
                             $('[data-oferta]').addClass('mod-ofer3').show();
 
-                            $('.js-slick-prev').remove();
-                            $('.js-slick-next').remove();
-                            $('#divCarruselPack.slick-initialized').slick('unslick');
-                            $('#divCarruselPack').not('.slick-initialized').slick({
-                                infinite: true,
-                                vertical: false,
-                                slidesToShow: 2,
-                                slidesToScroll: 1,
-                                autoplay: false,
-                                speed: 260,
-                                prevArrow: '<a class="previous_ofertas js-slick-prev" style="display: block;left: -20px;top: 40px;margin-left: -5%;"><img src="' + baseUrl + 'Content/Images/Esika/previous_ofertas_home.png")" alt="" /></a>',
-                                nextArrow: '<a class="previous_ofertas js-slick-next" style="display: block;right: -20px;top:40px;margin-right: -5%;"><img src="' + baseUrl + 'Content/Images/Esika/next.png")" alt="" /></a>',
-                                responsive: [
-                                    {
-                                        breakpoint: 1025,
-                                        settings: {
-                                            slidesToShow: 3
+                            if (tipoOrigen != "2") {
+                                $('.js-slick-prev').remove();
+                                $('.js-slick-next').remove();
+                                $('#divCarruselPack.slick-initialized').slick('unslick');
+                                $('#divCarruselPack').not('.slick-initialized').slick({
+                                    infinite: true,
+                                    vertical: false,
+                                    slidesToShow: 2,
+                                    slidesToScroll: 1,
+                                    autoplay: false,
+                                    speed: 260,
+                                    prevArrow: '<a class="previous_ofertas js-slick-prev" style="display: block;left: -20px;top: 40px;margin-left: -5%;"><img src="' + baseUrl + 'Content/Images/Esika/previous_ofertas_home.png")" alt="" /></a>',
+                                    nextArrow: '<a class="previous_ofertas js-slick-next" style="display: block;right: -20px;top:40px;margin-right: -5%;"><img src="' + baseUrl + 'Content/Images/Esika/next.png")" alt="" /></a>',
+                                    responsive: [
+                                        {
+                                            breakpoint: 1025,
+                                            settings: {
+                                                slidesToShow: 3
+                                            }
                                         }
-                                    }
-                                ]
-                            });
+                                    ]
+                                });
+                            }                            
                         }
                         else if (settings.lista_ObjNivel.length > 0) {
                             settings.lista_ObjNivel = RemoverRepetidos(settings.lista_ObjNivel);
@@ -414,27 +416,29 @@ function ObtenerOfertaRevista(item) {
                                 //}
                             }
                             
-                            $('.js-slick-prev').remove();
-                            $('.js-slick-next').remove();
-                            $('#divCarruselNivel.slick-initialized').slick('unslick');
-                            $('#divCarruselNivel').not('.slick-initialized').slick({
-                                infinite: true,
-                                vertical: false,
-                                slidesToShow: 3,
-                                slidesToScroll: 1,
-                                autoplay: false,
-                                speed: 260,
-                                prevArrow: '<a class="previous_ofertas js-slick-prev" style="display: block;left: 0;margin-left: -5%;"><img src="' + baseUrl + 'Content/Images/Esika/previous_ofertas_home.png")" alt="" /></a>',
-                                nextArrow: '<a class="previous_ofertas js-slick-next" style="display: block;right: 0;margin-right: -5%;"><img src="' + baseUrl + 'Content/Images/Esika/next.png")" alt="" /></a>',
-                                responsive: [
-                                    {
-                                        breakpoint: 1025,
-                                        settings: {
-                                            slidesToShow: 3
+                            if (tipoOrigen != "2") {
+                                $('.js-slick-prev').remove();
+                                $('.js-slick-next').remove();
+                                $('#divCarruselNivel.slick-initialized').slick('unslick');
+                                $('#divCarruselNivel').not('.slick-initialized').slick({
+                                    infinite: true,
+                                    vertical: false,
+                                    slidesToShow: 3,
+                                    slidesToScroll: 1,
+                                    autoplay: false,
+                                    speed: 260,
+                                    prevArrow: '<a class="previous_ofertas js-slick-prev" style="display: block;left: 0;margin-left: -5%;"><img src="' + baseUrl + 'Content/Images/Esika/previous_ofertas_home.png")" alt="" /></a>',
+                                    nextArrow: '<a class="previous_ofertas js-slick-next" style="display: block;right: 0;margin-right: -5%;"><img src="' + baseUrl + 'Content/Images/Esika/next.png")" alt="" /></a>',
+                                    responsive: [
+                                        {
+                                            breakpoint: 1025,
+                                            settings: {
+                                                slidesToShow: 3
+                                            }
                                         }
-                                    }
-                                ]
-                            });
+                                    ]
+                                });
+                            }                            
                         }
                         else {
                             if (settings.precio_catalogo != "" && settings.CUV != "") {

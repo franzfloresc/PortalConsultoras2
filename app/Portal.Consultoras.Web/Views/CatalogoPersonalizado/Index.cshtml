@@ -623,7 +623,6 @@
                 <input type="hidden" class="OrigenPedidoWeb" value="@Portal.Consultoras.Common.Constantes.OrigenPedidoWeb.DesktopCatalogoPersonalizadoPopUp" />
             </div>
         </div>
-        
         <!--ITEM 1-->
         <div class="item_pack_personalizado">
             <div class="content_item_pack">
@@ -665,47 +664,12 @@
                             <div class="content_sub_items">
                                 {{#each ../lista_oObjItemPack as |item|}}
                                 {{#if_eq pack.cuv_pack item.cuv_pack_item}}
-                                @*<div class="sub_imagen_oferta"><img src="{{item.imagen_item_pack}}" alt=""></div>
-                                <div class="sub_descripcion_oferta"><p><span>x{{item.cantidad_item_pack}}</span>&nbsp;{{item.descripcion_item_pack}}</p></div>
-                                <hr class="clear" />*@
-                                <div class="sub_imagen_oferta"><img src="https://s3-sa-east-1.amazonaws.com/appcatalogo/PE/201616/C/productos/PE_200069929.jpg" alt=""></div>
-                                <div class="sub_descripcion_oferta"><p><span>x2</span>&nbsp;Desodorante roll-on. Girlink</p></div>
-                                <hr class="clear" />
-                                {{/if_eq}}
-                                {{/each}}
-                            </div>
-                        </div>
-                    </div>
-                    <div style="width:215px; margin:0 auto; margin-top:10px;" data-cantidad-contenedor="">
-                        <div class="liquidacion_rango_home js-no-popup">
-                            <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral js-no-popup" tabindex="0" data-cantidad-input="pack">
-                            <div class="liquidacion_rango_right_pedido js-no-popup">
-                                <a class="mas js-no-popup" tabindex="0"><img class="js-no-popup" src="/Content/Images/Esika/mas.png" alt=""></a>
-                                <a class="menos js-no-popup" tabindex="0"><img class="js-no-popup" src="/Content/Images/Esika/menos.png" alt=""></a>
-                            </div>
-                        </div>
-                        <a class="boton_Agregalo_home agregar-ofertarevista" data-cuv="pack" data-cuvadd="{{pack.cuv_pack}}">AGRÉGALO</a>
-                    </div>
-                </div>
-                <div class="item_pack_personalizado linea_d">
-                    <input type="hidden" class="hdItemPackCuv" value="{{pack.cuv_pack}}" />
-                    <input type="hidden" class="hdItemPackValorizado" value="{{pack.valorizado}}" />
-                    <input type="hidden" class="hdItemPackPrecio" value="{{pack.precio_pack}}" />
-                    <div class="content_item_pack">
-                        {{#if_eq pack.EsUltimo "1"}}
-                        <div class="fondo_negro_pack" style="width: 90%;">PACK MÁXIMA GANANCIA</div>
-                        {{else}}
-                        <div class="fondo_negro_pack">PACK GANANCIA</div>
-                        {{/if_eq}}
-                        <div class="pack_inter width_100">
-                            <div class="titulo_pack" style="height:auto">Precio para ti: {{../Simbolo}} {{DecimalToStringFormat pack.precio_pack}}</div>
-                            <div class="texto_ganancia_pack">{{../TxtGanancia}}: {{../Simbolo}} {{DecimalToStringFormat pack.ganancia_pack}}</div>
-                            <div class="content_sub_items">
-                                {{#each ../lista_oObjItemPack as |item|}}
-                                {{#if_eq pack.cuv_pack item.cuv_pack_item}}
                                 <div class="sub_imagen_oferta"><img src="{{item.imagen_item_pack}}" alt=""></div>
                                 <div class="sub_descripcion_oferta"><p><span>x{{item.cantidad_item_pack}}</span>&nbsp;{{item.descripcion_item_pack}}</p></div>
                                 <hr class="clear" />
+                                @*<div class="sub_imagen_oferta"><img src="https://s3-sa-east-1.amazonaws.com/appcatalogo/PE/201616/C/productos/PE_200069929.jpg" alt=""></div>
+                                <div class="sub_descripcion_oferta"><p><span>x2</span>&nbsp;Desodorante roll-on. Girlink</p></div>
+                                <hr class="clear" />*@
                                 {{/if_eq}}
                                 {{/each}}
                             </div>
@@ -721,8 +685,7 @@
                         </div>
                         <a class="boton_Agregalo_home agregar-ofertarevista" data-cuv="pack" data-cuvadd="{{pack.cuv_pack}}">AGRÉGALO</a>
                     </div>
-                </div>
-
+                </div>                
                 {{/each}}
             </div>
         </div>
@@ -756,6 +719,6 @@
         var cargandoRegistros = false;
         var tipoOrigen = "1";
     </script>
-    <script type="text/javascript" src="@Url.Content("~/Scripts/slick.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/slick.min.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/CatalogoPersonalizado/CatalogoPersonalizado.js")"></script>
 }

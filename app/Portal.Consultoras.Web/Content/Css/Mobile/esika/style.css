@@ -9393,7 +9393,7 @@ a{
 }
 
 .content_pack_niveles{
-    border-top:1px solid #979797;
+    /*border-top:1px solid #979797;*/
     width:100%;
     height:auto;
     padding-top:30px;
@@ -9583,3 +9583,26 @@ a{
     background: url(../../../Images/Esika/icono_telefono.svg) no-repeat;
     background-size: cover;
 }
+
+.fondo_negro_pack {
+    height:41px;
+    background:black;
+    color:white;
+    font-family:'Lato';
+    line-height:41px;
+    font-size:16px;
+    text-align:center;
+    width:82%;
+    position:relative;
+}
+.fondo_negro_pack:before {
+    content: "";
+    width: 0;
+    height: 0;
+    right: -24px;
+    position: absolute;
+    border-right: 12px solid transparent;
+    border-top: 21px solid transparent;
+    border-left: 12px solid black;
+    border-bottom: 20px solid black;
+    }
