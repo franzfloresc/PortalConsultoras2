@@ -5334,7 +5334,7 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
 
 .texto_terminosCondiciones{
     font-size:12px!important;
-    margin-left:25px;
+    padding-left:25px;
     position:relative;
 }
 
@@ -5346,7 +5346,7 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
 .texto_terminosCondiciones:before{
     content: "";
     position: absolute;
-    left: -25px;
+    left: 0px;
     /* float: left; */
     width: 16px;
     height: 16px;
@@ -5356,6 +5356,8 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
     border-radius: 3px;
     background: #FFF;
     border: 2px solid #bababa;
+    cursor: pointer;
+    z-index: 10;
 }
 
 .checkbox_condiciones input[type="checkbox"]:checked + .texto_terminosCondiciones:before{
