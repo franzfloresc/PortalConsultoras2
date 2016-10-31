@@ -31279,7 +31279,7 @@ h1#penmostreo .campana {
     width:204px;
     height:auto;
     padding:15px 20px 15px 20px;
-    right:-240px;
+    right:0px;
     top:0;
     -webkit-box-shadow:0 2px 4px 0 rgba(174, 174, 174, 0.5);
     -moz-box-shadow: 0 2px 4px 0 rgba(174, 174, 174, 0.5);
