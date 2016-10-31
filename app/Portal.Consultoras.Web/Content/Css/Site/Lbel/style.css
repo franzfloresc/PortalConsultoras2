@@ -31621,3 +31621,45 @@ h1#penmostreo .campana {
        font-size: 9.5pt;
     }
 }
+
+/*ESCALA DE DESCUENTO*/
+.content_descuento_html{
+    width:780px;
+    margin: 0 auto;
+}
+.titulo_escala{
+    font-family:'Lato';
+    font-size:18px;
+    color:black;
+    text-align:center;
+    margin-top:70px;
+}
+.subtitulo_escala{
+    font-family:'Lato';
+    font-size:17px;
+    font-weight:700;
+    color:#e81c36;
+    text-align:center;
+    margin-top:-4px;
+}
+.texto_escala{
+    font-family:'Lato';
+    font-size:14px;
+    line-height:18px;
+    margin-top:15px;
+    padding:15px;
+    width:100%;
+    color:#9b9b9b;
+    background:#f7f7f7;
+}
+.texto_escala b{
+    color:black;
+}
+.title_barra{
+    font-family:'Lato';
+    font-size:17px;
+    font-weight:700;
+    margin-top:25px;
+    margin-bottom:20px;
+    text-align:center;
+}
