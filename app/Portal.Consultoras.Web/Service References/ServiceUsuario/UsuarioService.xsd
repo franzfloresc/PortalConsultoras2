@@ -77,6 +77,7 @@
       <xs:element minOccurs="0" name="Lider" type="xs:int" />
       <xs:element minOccurs="0" name="LogoLideres" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="MensajeValidacionInteractiva" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="MontoDeuda" type="xs:decimal" />
       <xs:element minOccurs="0" name="MontoMaximoPedido" type="xs:decimal" />
       <xs:element minOccurs="0" name="MontoMinimoPedido" type="xs:decimal" />
       <xs:element minOccurs="0" name="MostrarAyudaWebTraking" type="xs:boolean" />

@@ -1,7 +1,6 @@
 ﻿using ClosedXML.Excel;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
-using Portal.Consultoras.Web.ServiceContenido;
 using Portal.Consultoras.Web.ServiceODS;
 using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.ServiceSAC;
@@ -645,19 +644,8 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (lst.Count != 0)
                 {
-                    using (ContenidoServiceClient sv = new ContenidoServiceClient())
-                    {
-                        if (userData.PaisID == 4 || userData.PaisID == 11) //Colombia y Perú
-                        {
-                            montoPagarDec = sv.GetDeudaTotal(userData.PaisID, int.Parse(userData.ConsultoraID.ToString()))[0].SaldoPendiente;
-                            montoPagar = Util.DecimalToStringFormat(montoPagarDec, userData.CodigoISO);
-                        }
-                        else
-                        {
-                            montoPagarDec = sv.GetSaldoPendiente(userData.PaisID, userData.CampaniaID, int.Parse(userData.ConsultoraID.ToString()))[0].SaldoPendiente;
-                            montoPagar = Util.DecimalToStringFormat(montoPagarDec, userData.CodigoISO);
-                        }
-                    }
+                    montoPagarDec = userData.MontoDeuda;
+                    montoPagar = Util.DecimalToStringFormat(montoPagarDec, userData.CodigoISO);
                 }
             }
             catch (FaultException ex)

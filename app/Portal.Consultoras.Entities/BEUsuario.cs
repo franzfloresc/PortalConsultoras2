@@ -911,6 +911,9 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public int TieneHana { get; set; }
 
+        [DataMember]
+        public decimal MontoDeuda { get; set; }
+
         public BEUsuario(IDataRecord row, string Lider)
         {
             if (DataRecord.HasColumn(row, "Nombre") && row["Nombre"] != DBNull.Value)
