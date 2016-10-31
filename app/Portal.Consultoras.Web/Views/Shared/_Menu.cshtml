@@ -6,6 +6,7 @@
         ? permisoList.Where(x => x.Posicion.ToLower().Equals("header") && x.Mostrar).OrderBy(p => p.OrdenItem).ToList()
         : new List<Portal.Consultoras.Web.Models.PermisoModel>();
     string urlProgramaNuevas = "";
+    programasBelcorpMenu = programasBelcorpMenu ?? new List<Portal.Consultoras.Web.Models.ServicioCampaniaModel>();
     foreach (var item in programasBelcorpMenu) 
     {
         if (item.Descripcion.ToLower().Trim() == "programa nuevas")
