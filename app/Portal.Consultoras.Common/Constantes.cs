@@ -253,6 +253,11 @@ namespace Portal.Consultoras.Common
             public const int Salvavidas = 3;
             public const int Mobile = 4;
         }
+
+        public class BackOrder
+        {
+            public const string LogAccionCancelar = "El cliente no aceptó BackOrder.";
+        }
     }
 }
 

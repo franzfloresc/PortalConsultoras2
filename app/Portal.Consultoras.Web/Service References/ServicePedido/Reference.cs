@@ -2867,6 +2867,27 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private string FotoProducto03Field;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string FotoProducto04Field;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string FotoProducto05Field;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string FotoProducto06Field;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string FotoProducto07Field;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string FotoProducto08Field;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string FotoProducto09Field;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string FotoProducto10Field;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int IDField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -3324,6 +3345,97 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((object.ReferenceEquals(this.FotoProducto03Field, value) != true)) {
                     this.FotoProducto03Field = value;
                     this.RaisePropertyChanged("FotoProducto03");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string FotoProducto04 {
+            get {
+                return this.FotoProducto04Field;
+            }
+            set {
+                if ((object.ReferenceEquals(this.FotoProducto04Field, value) != true)) {
+                    this.FotoProducto04Field = value;
+                    this.RaisePropertyChanged("FotoProducto04");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string FotoProducto05 {
+            get {
+                return this.FotoProducto05Field;
+            }
+            set {
+                if ((object.ReferenceEquals(this.FotoProducto05Field, value) != true)) {
+                    this.FotoProducto05Field = value;
+                    this.RaisePropertyChanged("FotoProducto05");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string FotoProducto06 {
+            get {
+                return this.FotoProducto06Field;
+            }
+            set {
+                if ((object.ReferenceEquals(this.FotoProducto06Field, value) != true)) {
+                    this.FotoProducto06Field = value;
+                    this.RaisePropertyChanged("FotoProducto06");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string FotoProducto07 {
+            get {
+                return this.FotoProducto07Field;
+            }
+            set {
+                if ((object.ReferenceEquals(this.FotoProducto07Field, value) != true)) {
+                    this.FotoProducto07Field = value;
+                    this.RaisePropertyChanged("FotoProducto07");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string FotoProducto08 {
+            get {
+                return this.FotoProducto08Field;
+            }
+            set {
+                if ((object.ReferenceEquals(this.FotoProducto08Field, value) != true)) {
+                    this.FotoProducto08Field = value;
+                    this.RaisePropertyChanged("FotoProducto08");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string FotoProducto09 {
+            get {
+                return this.FotoProducto09Field;
+            }
+            set {
+                if ((object.ReferenceEquals(this.FotoProducto09Field, value) != true)) {
+                    this.FotoProducto09Field = value;
+                    this.RaisePropertyChanged("FotoProducto09");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string FotoProducto10 {
+            get {
+                return this.FotoProducto10Field;
+            }
+            set {
+                if ((object.ReferenceEquals(this.FotoProducto10Field, value) != true)) {
+                    this.FotoProducto10Field = value;
+                    this.RaisePropertyChanged("FotoProducto10");
                 }
             }
         }

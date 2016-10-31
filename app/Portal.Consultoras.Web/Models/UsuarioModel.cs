@@ -292,5 +292,6 @@ namespace Portal.Consultoras.Web.Models
 
         public int CerrarRechazado { get; set; }
         public string NombreGerenteZonal { get; set; }  // SB20-907
+        public decimal MontoDeuda { get; set; } 
     }
 }

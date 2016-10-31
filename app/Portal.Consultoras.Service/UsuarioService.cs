@@ -558,5 +558,11 @@ namespace Portal.Consultoras.Service
             var BLUsuario = new BLUsuario();
             return BLUsuario.UpdateUsuarioTutoriales(paisID, codigoUsuario, tipo);
         }
+
+        public BEUsuario GetDatosConsultoraHana(int paisID, string codigoUsuario, int campaniaId)
+        {
+            var BLUsuario = new BLUsuario();
+            return BLUsuario.GetDatosConsultoraHana(paisID, codigoUsuario, campaniaId);
+        }
     }
 }

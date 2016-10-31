@@ -8,6 +8,7 @@ namespace Portal.Consultoras.Data.Hana.Entities
 {
     public class PedidoDetalleHana
     {
+        public string DESPROD { get; set; }
         public int cantidad { get; set; }
         public string cuv { get; set; }
         public int factorRepeticion { get; set; }

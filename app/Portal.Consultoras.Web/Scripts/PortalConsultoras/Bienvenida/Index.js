@@ -2472,7 +2472,7 @@ function ActualizarDatosMexico() {
         if (m_telefonoTrabajo.length != 10) {
             m_error++;
             $('#m_txtTelefonoTrabajo').css({ 'border': '1px solid red' });
-            m_mensaje += '* Debe digitar 10 dígitos en el campo teléfono de trabajo<br />';
+            m_mensaje += '* Debe digitar 10 dígitos en el campo otro teléfono.<br />';
         }
     }
 

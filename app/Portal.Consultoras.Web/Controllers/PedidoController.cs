@@ -803,7 +803,7 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         [HttpPost]
-        public JsonResult Delete(int CampaniaID, int PedidoID, short PedidoDetalleID, int TipoOfertaSisID, string CUV, int Cantidad, string ClienteID, string CUVReco)
+        public JsonResult Delete(int CampaniaID, int PedidoID, short PedidoDetalleID, int TipoOfertaSisID, string CUV, int Cantidad, string ClienteID, string CUVReco, bool EsBackOrder)
         {
             try
             {
@@ -821,14 +821,13 @@ namespace Portal.Consultoras.Web.Controllers
                 obe.CUV = CUV;
                 obe.Cantidad = Cantidad;
                 obe.Mensaje = string.Empty;
-                if (Session["ObservacionesPROL"] != null)
+
+                if (EsBackOrder) obe.Mensaje = Constantes.BackOrder.LogAccionCancelar;
+                else if (Session["ObservacionesPROL"] != null)
                 {
                     List<ObservacionModel> Observaciones = (List<ObservacionModel>)Session["ObservacionesPROL"];
                     List<ObservacionModel> Obs = Observaciones.Where(p => p.CUV == CUV).ToList();
-                    if (Obs.Count != 0)
-                    {
-                        obe.Mensaje = Obs[0].Descripcion;
-                    }
+                    if (Obs.Count != 0) obe.Mensaje = Obs[0].Descripcion;
                 }
 
                 bool ErrorServer;
@@ -1451,16 +1450,24 @@ namespace Portal.Consultoras.Web.Controllers
                     /*Obtener si tiene stock de PROL por CodigoSAP*/
                     string codigoSap = "";
                     foreach (var beProducto in listaProduto)
-                        codigoSap += beProducto.CodigoProducto + "|";
+                    {
+                        if (!string.IsNullOrEmpty(beProducto.CodigoProducto))
+                        {
+                            codigoSap += beProducto.CodigoProducto + "|";
+                        }
+                    }
 
                     codigoSap = codigoSap == "" ? "" : codigoSap.Substring(0, codigoSap.Length - 1);
 
                     try
                     {
-                        using (var sv = new ServicePROLConsultas.wsConsulta())
+                        if (!string.IsNullOrEmpty(codigoSap))
                         {
-                            sv.Url = ConfigurationManager.AppSettings["RutaServicePROLConsultas"];
-                            listaTieneStock = sv.ConsultaStock(codigoSap, userData.CodigoISO).ToList();
+                            using (var sv = new ServicePROLConsultas.wsConsulta())
+                            {
+                                sv.Url = ConfigurationManager.AppSettings["RutaServicePROLConsultas"];
+                                listaTieneStock = sv.ConsultaStock(codigoSap, userData.CodigoISO).ToList();
+                            }
                         }
                     }
                     catch (Exception ex)
@@ -1808,8 +1815,8 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                List<ServiceSAC.BEProductoFaltante> olstProductoFaltante = new List<ServiceSAC.BEProductoFaltante>();
-                using (ServiceSAC.SACServiceClient sv = new ServiceSAC.SACServiceClient())
+                List<ServiceSAC.BEProductoFaltante> olstProductoFaltante = new List<BEProductoFaltante>();
+                using (ServiceSAC.SACServiceClient sv = new SACServiceClient())
                 {
                     olstProductoFaltante = sv.GetProductoFaltanteByCampaniaAndZonaID(userData.PaisID, userData.CampaniaID, userData.ZonaID).ToList();
                 }
@@ -1992,6 +1999,7 @@ namespace Portal.Consultoras.Web.Controllers
             model.MontoAhorroRevista = montoAhorroRevista;
             model.MontoDescuento = montoDescuento;
             model.MontoEscala = montoEscala;
+            model.Total = olstPedidoWebDetalle.Sum(d => d.ImporteTotal);
 
             /* SB20-287 - INICIO */
             TimeSpan HoraCierrePortal = userData.EsZonaDemAnti == 0 ? userData.HoraCierreZonaNormal : userData.HoraCierreZonaDemAnti;
@@ -4083,7 +4091,12 @@ namespace Portal.Consultoras.Web.Controllers
                 /*Obtener si tiene stock de PROL por CodigoSAP*/
                 string codigoSap = "";
                 foreach (var beEstrategia in listaTemporal)
-                    codigoSap += beEstrategia.CodigoProducto + "|";
+                {
+                    if (!string.IsNullOrEmpty(beEstrategia.CodigoProducto))
+                    {
+                        codigoSap += beEstrategia.CodigoProducto + "|";   
+                    }
+                }
 
                 codigoSap = codigoSap == "" ? "" : codigoSap.Substring(0, codigoSap.Length - 1);
 
@@ -4091,10 +4104,13 @@ namespace Portal.Consultoras.Web.Controllers
 
                 try
                 {
-                    using (var sv = new wsConsulta())
+                    if (!string.IsNullOrEmpty(codigoSap))
                     {
-                        sv.Url = ConfigurationManager.AppSettings["RutaServicePROLConsultas"];
-                        listaTieneStock = sv.ConsultaStock(codigoSap, userData.CodigoISO).ToList();
+                        using (var sv = new wsConsulta())
+                        {
+                            sv.Url = ConfigurationManager.AppSettings["RutaServicePROLConsultas"];
+                            listaTieneStock = sv.ConsultaStock(codigoSap, userData.CodigoISO).ToList();
+                        }   
                     }
                 }
                 catch (Exception ex)
@@ -4402,14 +4418,12 @@ namespace Portal.Consultoras.Web.Controllers
             }
             
             BEConfiguracionProgramaNuevas oBEConfiguracionProgramaNuevas = new BEConfiguracionProgramaNuevas();
-            oBEConfiguracionProgramaNuevas.CampaniaInicio = userData.CampaniaID.ToString();
-            oBEConfiguracionProgramaNuevas.CodigoRegion = userData.CodigorRegion;
-            oBEConfiguracionProgramaNuevas.CodigoZona = userData.CodigoZona;
+
             using (PedidoServiceClient sv = new PedidoServiceClient())
             {
                 try
                 {
-                    oBEConfiguracionProgramaNuevas = sv.GetConfiguracionProgramaNuevas(userData.PaisID, oBEConfiguracionProgramaNuevas);
+                    oBEConfiguracionProgramaNuevas = GetConfiguracionProgramaNuevas("ConfiguracionProgramaNuevas");                    
 
                     if (oBEConfiguracionProgramaNuevas == null)
                     {
@@ -4741,9 +4755,10 @@ namespace Portal.Consultoras.Web.Controllers
                 if (imagenUrl == "")
                     continue;
 
-                var precio = userData.OfertaFinal == Constantes.TipoOfertaFinalCatalogoPersonalizado.Arp ? Util.DecimalToStringFormat(producto.PrecioValorizado, userData.CodigoISO)
-                    : userData.OfertaFinal == Constantes.TipoOfertaFinalCatalogoPersonalizado.Jetlore && tipoProductoMostrar == 1 ? Util.DecimalToStringFormat(producto.PrecioValorizado, userData.CodigoISO)
-                    : "";
+                var precioTachado = userData.OfertaFinal == Constantes.TipoOfertaFinalCatalogoPersonalizado.Arp 
+                    ? producto.PrecioValorizado 
+                    : userData.OfertaFinal == Constantes.TipoOfertaFinalCatalogoPersonalizado.Jetlore && tipoProductoMostrar == 1 
+                    ? producto.PrecioValorizado : 0;
 
                 listaProductoModel.Add(new ProductoModel()
                 {
@@ -4770,8 +4785,8 @@ namespace Portal.Consultoras.Web.Controllers
                     ImagenProductoSugerido = imagenUrl,
                     CodigoProducto = olstProducto[0].CodigoProducto,
                     TieneStockPROL = true,
-                    PrecioValorizado = olstProducto[0].PrecioValorizado,
-                    PrecioValorizadoString = precio, // Util.DecimalToStringFormat(olstProducto[0].PrecioValorizado, userData.CodigoISO),
+                    PrecioValorizado = precioTachado,
+                    PrecioValorizadoString = Util.DecimalToStringFormat(precioTachado, userData.CodigoISO),
                     Simbolo = userData.Simbolo
                 });
 

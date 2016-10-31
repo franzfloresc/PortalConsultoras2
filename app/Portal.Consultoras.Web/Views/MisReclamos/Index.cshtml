@@ -18,17 +18,89 @@
         <span>Si tuviste inconvenientes con algún producto y estás dentro del plazo permitido sigue estos pasos:</span>
     </div>
     <div class="content_registro_reclamos">
+        <div class="texto_solicitud_registrada">Tienes 3 solicitudes registradas:</div>
         <a class="btn_si_stock" href="#" style="width:296px;" id="IrPaso1">REGISTRAR SOLICITUD</a>
         <hr class="clear" />
         <br />
+        <br />
+        <div class="grilla_detalle_reclamo">
+            <div class="content_listado_reclamo">
+                <div class="listado_fecha_general text_gris_reclamo">FECHA REGISTRO</div>
+                <div class="listado_campana_general text_gris_reclamo">CAMPAÑA</div>
+                <div class="listado_solicitud_general text_gris_reclamo">Nº SOLICITUD</div>
+                <div class="listado_resolucion_general text_gris_reclamo">FECHA RESOLUCIÓN</div>
+                <div class="listado_resumen_general text_gris_reclamo">RESUMEN DE RESOLUCIÓN</div>
+                <div class="listado_estado_general text_gris_reclamo">ESTADO</div>
+            </div>
+            <div class="linea_separadora"></div>
+            <div class="content_listado_reclamo">
+                <div class="listado_fecha_general">10 Oct 2016 <span class="detalle_listado">10:45 pm</span></div>
+                <div class="listado_campana_general">2016-15</div>
+                <div class="listado_solicitud_general">12345678</div>
+                <div class="listado_resolucion_general">10 Oct 2016 <span class="detalle_listado">10:45 pm</span></div>
+                <div class="listado_resumen_general">Pendiente</div>
+                <div class="listado_estado_general">
+                    <div>
+                        <span class="estado_texto estado_detalleIngresado">
+                            PENDIENTE
+                        </span>
+                        <span>
+                            <a href="javascript:;" onclick="javascript: $('#PopSolicitud').show();" title="Ver Estado / Detalles" class="icono_verDetalle">
+                                <img src="/Content/Images/icono-ver-estado.png" alt="Ver Estado / Detalles">
+                            </a>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="content_listado_reclamo">
+                <div class="listado_fecha_general">10 Oct 2016 <span class="detalle_listado">10:45 pm</span></div>
+                <div class="listado_campana_general">2016-15</div>
+                <div class="listado_solicitud_general">12345678</div>
+                <div class="listado_resolucion_general">10 Oct 2016 <span class="detalle_listado">10:45 pm</span></div>
+                <div class="listado_resumen_general">Todos los productos rechazados </div>
+                <div class="listado_estado_general">
+                    <div>
+                        <span class="estado_texto estado_detalleFacturado">
+                            RESUELTO
+                        </span>
+                        <span>
+                            <a href="javascript:;" onclick="javascript: $('#PopSolicitud').show();" title=" ver estado /> Detalles" class="icono_verDetalle">
+                                <img src="/Content/Images/icono-ver-estado.png" alt="Ver Estado / Detalles">
+                            </a>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="content_listado_reclamo">
+                <div class="listado_fecha_general">10 Oct 2016 <span class="detalle_listado">10:45 pm</span></div>
+                <div class="listado_campana_general">2016-15</div>
+                <div class="listado_solicitud_general">12345678</div>
+                <div class="listado_resolucion_general">10 Oct 2016 <span class="detalle_listado">10:45 pm</span></div>
+                <div class="listado_resumen_general">2 productos aprobados, 1 rechazado </div>
+                <div class="listado_estado_general">
+                    <div>
+                        <span class="estado_texto EstadoRechazado">
+                            RECHAZADO
+                        </span>
+                        <span>
+                            <a href="javascript:;" onclick="javascript: $('#PopSolicitud').show();" title="Ver Estado / Detalles" class="icono_verDetalle">
+                                <img src="/Content/Images/icono-ver-estado.png" alt="Ver Estado / Detalles">
+                            </a>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+            
+        
 
-    </div>
+        </div>
     <!--PASO A PASO RECLAMOS-->
     <div class="content_general_reclamos" style="display:none;">
         <div class="content_pasos">
             <div class="paso_reclamo paso_active_reclamo" id="Selector1"><span><img src="@Url.Content("~/Content/Images/Esika/labial1.png")" /></span></div>
-            <div class="paso_reclamo" id="Selector2"><span>2</span></div>
-            <div class="paso_reclamo" id="Selector3"><span>3</span></div>
+            <div class="paso_reclamo" id="Selector2"><span><img src="@Url.Content("~/Content/Images/Esika/foco.png")" /></span></div>
+            <div class="paso_reclamo" id="Selector3"><span><img src="@Url.Content("~/Content/Images/Esika/carta.png")" /></span></div>
         </div>
         <!--PASO 1-->
         <div class="content_reclamo" id="Paso1">
@@ -63,6 +135,7 @@
             </div>
             <hr class="clear" />
             <div class="linea_separadora_roja" style="height:2px;"></div>
+            <a class="btn_paso_anterior" href="#">REGRESAR</a>
             <a class="btn_si_stock" href="#" style="width:296px;" id="IrPAso2">SIGUIENTE</a>
             <hr class="clear" />
             <br />
@@ -104,7 +177,7 @@
         <div class="content_reclamo" id="Paso2" style="display: none; max-width: 890px;">
             <div class="subtitulo_reclamo">Escoge una solución</div>
             <div>
-                <a class="btn_solución_reclamo" href="#">REENVÍO DEL MISMO PRODUCTO</a>
+                <a class="btn_solución_reclamo" href="#" id="ReenvioProducto">REENVÍO DEL MISMO PRODUCTO</a>
                 <a class="btn_solución_reclamo" href="#" id="CambioProducto">CAMBIARLO POR OTRO PRODUCTO</a>
                 <a class="btn_solución_reclamo" href="#">DEVOLUCIÓN DEL DINERO</a>
             </div>
@@ -112,6 +185,58 @@
             <br />
             <br />
             <br />
+        </div>
+        <!--REENVIO DEL MISMO PRODUCTO-->
+        <div class="content_reclamo" id="Reenvio1" style="display:none;">
+            <div class="subtitulo_reclamo" style="margin-bottom:15px;">Te proponemos la siguiente solución</div>
+            <div class="titulo_resumen">VAMOS A REENVIARTE EL MISMO PRODUCTO:</div>
+            <div class="descri_producto_reclamo">
+                00411 <br>
+                <b>Berrylicious shampoo rojo 375 ml</b><br>
+                x2 unidades
+            </div>
+            <br/>
+            <div class="linea_gris" style="height:1px;"></div>
+            <div class="mensaje_advertencia_reclamo">
+                <span style="margin-bottom:10px; display:block">TEN EN CUENTA: </span>
+                El intercambio de productos lo realizaremos en el siguiente…<br>
+                Lorem ipsum...
+            </div>
+            <div class="linea_separadora_roja" style="height:2px;"></div>
+            <a class="btn_paso_anterior" href="#">REGRESAR</a>
+            <a class="btn_si_stock" href="#" style="width:296px;">ACEPTAR LA SOLUCIÓN</a>
+            <hr class="clear" />
+            <!--ULTIMAS SOLICITUDES-->
+            <div class="UltimasSolicitudes">
+                <div class="titulo_ultimo_soli">Mi solicitud</div>
+                <div class="texto_solicitud_ultima">3 productos agregados:</div>
+                <br />
+                <div class="content_ultima_soli">
+                    <div class="float_left" style="width:88%;padding-right:5px;">
+                        <div class="texto_solicitud_ultima">
+                            00411<br />
+                            Berrylicious shampoo rojo 375 ml.<br />
+                            2 unidades
+                        </div>
+                    </div>
+                    <div class="float_left">
+                        <a style="background-image: url('/Content/Images/Esika/tacho-copy.png');background-repeat:no-repeat;width: 17px;height: 22px;margin: 0 auto; opacity:0.5;" title="Eliminar"></a>
+                    </div>
+                </div>
+                <div class="content_ultima_soli">
+                    <div class="float_left" style="width:88%;padding-right:5px;">
+                        <div class="texto_solicitud_ultima">
+                            00411<br />
+                            Berrylicious shampoo rojo 375 ml.<br />
+                            2 unidades
+                        </div>
+                    </div>
+                    <div class="float_left">
+                        <a style="background-image: url('/Content/Images/Esika/tacho-copy.png');background-repeat:no-repeat;width: 17px;height: 22px;margin: 0 auto; opacity:0.5;" title="Eliminar"></a>
+                    </div>
+                </div>
+                <a class="btn_ver_solicitudes" href="#" style="width:100px;margin-top:30px;">IR AL FINAL</a>
+            </div>
         </div>
         <!--CAMBIO OTRO PRODUCTO 1-->
         <div class="content_reclamo" id="Cambio1" style="display:none;">
@@ -286,9 +411,98 @@
     </div>
     <!--FIN-->
 </div>
+<div class="contenedor_popup_percepciones" id="PopSolicitud">
+    <div class="popup_Pendientes">
+        <div class="btn_cerrar_popupPercepcion cerrarPendientesPORTAL">
+            <a class="regresaPendientes" title="Regresar" style="text-align: right;" href="javascript:;" onclick="javascript: $('#PopSolicitud').hide();">
+                <div class="icono_regresar"><img src="/Content/Images/btn_regresar.svg" alt="Regresar"></div>
+                <div class="texto_btn_regresar">REGRESAR AL LISTADO</div>
+            </a>
+        </div>
+        
+        <div class="fondo_f7f7f7 row_36">
+            <div class="texto_titulo_reclamos" id="TituloReclamo">Solicitud de Cambios y Devoluciones</div>
+            <div style="text-align:center; max-width:700px; margin:0 auto">
+                <div class="detalle_estado_reclamo">Fecha:<b> 10 Oct 2016 </b></div>
+                <div class="detalle_estado_reclamo">Solicitud:<b>  Nº 12345678</b></div>
+                <div class="detalle_estado_reclamo">Campaña:<b> 2016-15</b></div>
+            </div>
+            <div class="sub_detalle_estado">Resumen: <b>2 productos aprobados, 1 rechazado</b></div>
+        </div>
+        <div class="content_pop_grilla">
+            <div class="content_listado_reclamo">
+                <div class="pop_solicitud_producto text_gris_reclamo">Producto</div>
+                <div class="pop_solicitud_tipo text_gris_reclamo">Tipo de solicitud</div>
+                <div class="pop_solicitud_solucion text_gris_reclamo">Solución solicitada:</div>
+                <div class="pop_solicitud_resolucion text_gris_reclamo">Resolución:</div>
+            </div>
+            <div class="linea_separadora"></div>
+            <div class="content_listado_reclamo">
+                <div class="pop_solicitud_producto">
+                    00411<br>
+                    <b>Berrylicious shampoo rojo 375 ml.</b> <br>
+                    2 unidades<br>
+                    Costo: S/.15.00
+                </div>
+                <div class="pop_solicitud_tipo"><b>Cambiar por</b></div>
+                <div class="pop_solicitud_solucion">
+                    98765 <br>
+                    <b>Máscara Full Size Negro. </b><br>
+                    2 unidades <br>
+                    Costo: S/.15.00
+                </div>
+                <div class="pop_solicitud_resolucion"><span class="texto_estado_solicitud">APROBADO</span></div>
+            </div>
+            <div class="content_listado_reclamo">
+                <div class="pop_solicitud_producto">
+                    00411<br>
+                    <b>Berrylicious shampoo rojo 375 ml.</b> <br>
+                    2 unidades<br>
+                    Costo: S/.15.00
+                </div>
+                <div class="pop_solicitud_tipo"><b>Cambiar por</b></div>
+                <div class="pop_solicitud_solucion">
+                    Reenvío del mismo producto
+                </div>
+                <div class="pop_solicitud_resolucion"><span class="texto_estado_solicitud">RECHAZADO</span>por superar el límite establecido de unidades a reclamar</div>
+            </div>
+            <div class="content_listado_reclamo">
+                <div class="pop_solicitud_producto">
+                    00411<br>
+                    <b>Berrylicious shampoo rojo 375 ml.</b> <br>
+                    2 unidades<br>
+                    Costo: S/.15.00
+                </div>
+                <div class="pop_solicitud_tipo"><b>Cambiar por</b></div>
+                <div class="pop_solicitud_solucion">
+                    Reenvío del mismo producto
+                </div>
+                <div class="pop_solicitud_resolucion"><span class="texto_estado_solicitud">RECHAZADO</span>por superar el límite establecido de unidades a reclamar</div>
+            </div>
+        </div>
+        
+     </div>
+
+</div>
+<div class="mensaje_alerta_belcorp" id="NumeroPedido" style="display: block;">
+    <div class="content_mensaje_alerta">
+        <a class="btn_cerrar_alerta" href="javascript:;" onclick="javascript: $('#NumeroPedido').hide();"><img src="/Content/Images/cerrar_04.png"></a>
+        <hr class="clear">
+        <div class="icono_mensaje_alerta icono_exclamacion_alerta"></div>
+        <div class="texto_mensaje_alerta" id="mensaje_exclamacion_titulo">ELIGE UN <b>PEDIDO</b> </div>
+        <div class="sub_texto_alerta" id="mensaje_exclamacion_texto">Selecciona el pedido en el cual deseas aplicar la solicitud</div>
+        <div class="content_botones_pedido">
+            <a class="btn_pedido_white"><b>N° 1604551919</b><br />Fecha: 08/08/2016</a>
+            <a class="btn_pedido_black"><b>N° 1604551919</b><br />Fecha: 08/08/2016</a>
+        </div>
+       
+    </div>
+</div>
 @section scripts{
 <script type="text/javascript">
     var imgCheck = '@Url.Content("~/Content/Images/Esika/paso_realizado.png")';
+    var imgFoco = '@Url.Content("~/Content/Images/Esika/foco1.png")';
+    var imgCarta = '@Url.Content("~/Content/Images/Esika/carta1.png")';
     $(document).ready(function () {
         $("#IrPaso1").on("click", function () {
             $('.content_registro_reclamos').hide(); //muestro mediante id 
@@ -304,11 +518,16 @@
         });
         $("#IrPAso2").on("click", function () {
             $("#Selector1 span").html("<img src='" + imgCheck + "' />");
+            $("#Selector2 span").html("<img src='" + imgFoco + "' />");
             $("#Selector2").addClass("paso_active_reclamo");           
             $('#Paso1').hide(); //muestro mediante id 
             $('#Paso2').show(); //oculto mediante id              
             
-        });      
+        }); 
+        $("#ReenvioProducto").on("click", function () {
+            $('#Paso2').hide(); //muestro mediante id             
+            $('#Reenvio1').show(); //oculto mediante id  
+        });
         $("#CambioProducto").on("click", function () {           
             $('#Paso2').hide(); //muestro mediante id             
             $('#Cambio1').show(); //oculto mediante id  
@@ -329,15 +548,16 @@
         });
         $("#IrPaso3").on("click", function () {
             $("#Selector2 span").html("<img src='" + imgCheck + "' />");
+            $("#Selector3 span").html("<img src='" + imgCarta + "' />");
             $("#Selector3").addClass("paso_active_reclamo");
             $('#Cambio2').hide(); //muestro mediante id  
             $('#Paso3').show(); //oculto mediante id 
 
         });
         $("#IrSolicitudInicial").on("click", function () {
-            $("#Selector1 span").html("1");
-            $("#Selector2 span").html("2");
-            $("#Selector3 span").html("3");
+            $("#Selector1 span").html("<img src='@Url.Content("~/Content/Images/Esika/labial1.png")' />");
+            $("#Selector2 span").html("<img src='@Url.Content("~/Content/Images/Esika/foco.png")' />");
+            $("#Selector3 span").html("<img src='@Url.Content("~/Content/Images/Esika/carta.png")' />");
             $("#Selector2").removeClass("paso_active_reclamo");
             $("#Selector3").removeClass("paso_active_reclamo");
             $('#UltimasSolicitudes').show(); //muestro mediante id 
@@ -355,9 +575,9 @@
             $('#Paso2').hide(); //oculto mediante id 
             $('#Cambio2').hide(); //muestro mediante id  
             $('#Paso3').hide(); //oculto mediante id 
-            $("#Selector1 span").html("1");
-            $("#Selector2 span").html("2");
-            $("#Selector3 span").html("3");
+            $("#Selector1 span").html("<img src='@Url.Content("~/Content/Images/Esika/labial1.png")' />");
+            $("#Selector2 span").html("<img src='@Url.Content("~/Content/Images/Esika/foco.png")' />");
+            $("#Selector3 span").html("<img src='@Url.Content("~/Content/Images/Esika/carta.png")' />");
             $("#Selector2").removeClass("paso_active_reclamo");
             $("#Selector3").removeClass("paso_active_reclamo");
             $('#SolicitudEnviada').hide();

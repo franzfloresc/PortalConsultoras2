@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,8 +20,9 @@ namespace Portal.Consultoras.Data.Hana
             try
             {
                 var codigoIsoHana = Util.GetCodigoIsoHana(paisId);
+                string rutaServiceHana = ConfigurationManager.AppSettings.Get("RutaServiceHana");
 
-                string urlConParametros = Util.RutaHana + "ObtenerEscalaDescuento/" + codigoIsoHana;
+                string urlConParametros = rutaServiceHana + "ObtenerEscalaDescuento/" + codigoIsoHana;
 
                 string responseFromServer = Util.ObtenerJsonServicioHana(urlConParametros);
 

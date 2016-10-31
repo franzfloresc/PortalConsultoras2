@@ -209,6 +209,7 @@
     <Compile Include="Areas\Mobile\Controllers\ProductosAgotadosController.cs" />
     <Compile Include="Areas\Mobile\Controllers\SeguimientoPedidoController.cs" />
     <Compile Include="Areas\Mobile\Controllers\ShowRoomController.cs" />
+    <Compile Include="Areas\Mobile\Controllers\TerminosYCondicionesController.cs" />
     <Compile Include="Areas\Mobile\Helpers\HtmlsHelper.cs" />
     <Compile Include="Areas\Mobile\Helpers\JavaScriptHelper.cs" />
     <Compile Include="Areas\Mobile\Helpers\StringsHelper.cs" />
@@ -336,6 +337,7 @@
     <Compile Include="Controllers\SolicitudClienteController.cs" />
     <Compile Include="Controllers\SolicitudCreditoController.cs" />
     <Compile Include="Controllers\SuperateController.cs" />
+    <Compile Include="Controllers\TerminosYCondicionesController.cs" />
     <Compile Include="Controllers\TrackingController.cs" />
     <Compile Include="Controllers\UneteController.cs" />
     <Compile Include="Controllers\UpdatePassSACController.cs" />
@@ -1336,6 +1338,8 @@
     <Content Include="Content\Images\Esika\background_pedido.png" />
     <Content Include="Content\Images\Esika\banner_misBeneficios.png" />
     <Content Include="Content\Images\Esika\brillante2016_img.png" />
+    <Content Include="Content\Images\Esika\carta.png" />
+    <Content Include="Content\Images\Esika\carta1.png" />
     <Content Include="Content\Images\Esika\catalogos_arrow.png" />
     <Content Include="Content\Images\Esika\catalogos_arrow2.png" />
     <Content Include="Content\Images\Esika\catalogos_new.png" />
@@ -1584,6 +1588,8 @@
     <Content Include="Content\Images\Esika\flechita_info.png" />
     <Content Include="Content\Images\Esika\flexipago.png" />
     <Content Include="Content\Images\Esika\fle_.png" />
+    <Content Include="Content\Images\Esika\foco.png" />
+    <Content Include="Content\Images\Esika\foco1.png" />
     <Content Include="Content\Images\Esika\fondo.png" />
     <Content Include="Content\Images\Esika\fondo_circulo.png" />
     <Content Include="Content\Images\Esika\fondo_pestana.png" />
@@ -1603,6 +1609,8 @@
     <Content Include="Content\Images\Esika\icono_exclamacion_esika.svg" />
     <Content Include="Content\Images\Esika\icono_pedidos_facturados.png" />
     <Content Include="Content\Images\Esika\icono_percepciones.png" />
+    <Content Include="Content\Images\Esika\icono_solicitud.png" />
+    <Content Include="Content\Images\Esika\icono_telefono.svg" />
     <Content Include="Content\Images\Esika\icon_catalogo.png" />
     <Content Include="Content\Images\Esika\icon_comunidad.png" />
     <Content Include="Content\Images\Esika\icon_esikaresponde.png" />
@@ -1611,11 +1619,15 @@
     <Content Include="Content\Images\Esika\img-prev.png" />
     <Content Include="Content\Images\Esika\img_producto.png" />
     <Content Include="Content\Images\Esika\imprimir.png" />
+    <Content Include="Content\Images\Esika\imprimir_reclamo.png" />
     <Content Include="Content\Images\Esika\incentivos_img.png" />
     <Content Include="Content\Images\Esika\indicador.png" />
+    <Content Include="Content\Images\Esika\indicador_esika.png" />
     <Content Include="Content\Images\Esika\indicador_pedido.png" />
     <Content Include="Content\Images\Esika\indicador_pedido_negro.png" />
     <Content Include="Content\Images\Esika\info-copy.png" />
+    <Content Include="Content\Images\Esika\labial.png" />
+    <Content Include="Content\Images\Esika\labial1.png" />
     <Content Include="Content\Images\Esika\lapiz.png" />
     <Content Include="Content\Images\Esika\lbel_revista.png" />
     <Content Include="Content\Images\Esika\liquidacionhome.png" />
@@ -1646,6 +1658,7 @@
     <Content Include="Content\Images\Esika\pagina.png" />
     <Content Include="Content\Images\Esika\pagina2.png" />
     <Content Include="Content\Images\Esika\pantalla.png" />
+    <Content Include="Content\Images\Esika\paso_realizado.png" />
     <Content Include="Content\Images\Esika\pdf.png" />
     <Content Include="Content\Images\Esika\pedidos_producto.png" />
     <Content Include="Content\Images\Esika\pedido_agregar.png" />
@@ -1664,6 +1677,7 @@
     <Content Include="Content\Images\Esika\tabs_consultora.png" />
     <Content Include="Content\Images\Esika\tacho-copy.png" />
     <Content Include="Content\Images\Esika\tarjeta.png" />
+    <Content Include="Content\Images\Esika\terminos.png" />
     <Content Include="Content\Images\Esika\titulo_interiores.png" />
     <Content Include="Content\Images\Esika\titulo_interiores_2.png" />
     <Content Include="Content\Images\Esika\tooltip_guardar.png" />
@@ -1840,6 +1854,7 @@
     <Content Include="Content\Images\Lbel\icono_exclamacion_lbel.svg" />
     <Content Include="Content\Images\Lbel\icono_pedidos_facturados.png" />
     <Content Include="Content\Images\Lbel\icono_percepciones.png" />
+    <Content Include="Content\Images\Lbel\icono_telefono_lbel.svg" />
     <Content Include="Content\Images\Lbel\icon_catalogo.png" />
     <Content Include="Content\Images\Lbel\icon_comunidad.png" />
     <Content Include="Content\Images\Lbel\icon_esikaresponde.png" />
@@ -1847,6 +1862,7 @@
     <Content Include="Content\Images\Lbel\img-prev.png" />
     <Content Include="Content\Images\Lbel\imprimir.png" />
     <Content Include="Content\Images\Lbel\indicador.png" />
+    <Content Include="Content\Images\Lbel\indicador_lbel.png" />
     <Content Include="Content\Images\Lbel\indicador_pedido.png" />
     <Content Include="Content\Images\Lbel\indicador_pedido_negro.png" />
     <Content Include="Content\Images\Lbel\lebel-catalogos.png" />
@@ -2619,6 +2635,7 @@
     <Content Include="Areas\Mobile\Views\Notificaciones\ListadoPedidoRechazadoDetalle.cshtml" />
     <Content Include="Content\FAQ\politicas_post_venta_CO.pdf" />
     <Content Include="Content\FAQ\Politica_de_reclamos_CO.pdf" />
+    <Content Include="Areas\Mobile\Views\TerminosYCondiciones\Index.cshtml" />
     <None Include="Service References\ServiceCDR\CDRService.wsdl" />
     <None Include="Service References\ServiceCDR\CDRService.xsd">
       <SubType>Designer</SubType>
@@ -3530,6 +3547,8 @@
     <Content Include="Views\Notificaciones\ListadoDetallePedidoRechazado.cshtml" />
     <Content Include="Views\Unete\TemplatesUbigeos\_UbigeoGrupo5.cshtml" />
     <Content Include="Views\MisReclamos\Reclamo.cshtml" />
+    <Content Include="Views\TerminosYCondiciones\Index.cshtml" />
+    <Content Include="Views\Bienvenida\ActualizarContrasenia.cshtml" />
     <None Include="Web References\ServiceLMS\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>

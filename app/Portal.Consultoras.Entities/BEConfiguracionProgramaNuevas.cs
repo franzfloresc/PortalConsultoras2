@@ -28,6 +28,7 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public string CodigoRegion { get; set; }
 
+        public BEConfiguracionProgramaNuevas() { }
 
         public BEConfiguracionProgramaNuevas(IDataRecord datarec)
         {

@@ -7893,7 +7893,7 @@ span.title-app-b {
     font-size:13px;
     font-weight:300;
     margin-bottom:5px;
-    overflow:hidden;
+    /*overflow:hidden;*/
     
     margin:0 auto;
 }
@@ -8664,7 +8664,7 @@ span.icon-advertencia{
     color:#642f80;
 }
 .content_pack_niveles{
-    border-top:1px solid #979797;
+    /*border-top:1px solid #979797;*/
     width:100%;
     height:auto;
     padding-top:30px;
@@ -8843,4 +8843,29 @@ span.icon-advertencia{
         
         
     }
+}
+.icono_telefono{
+    margin-top: -4px;
+    margin-left: 6px;
+    width: 13px;
+    height: 21px;
+    display: inline-block;
+    background: url(../../../Images/Lbel/icono_telefono_lbel.svg) no-repeat;
+    background-size: cover;
+}
+.content_termino_condiciones{
+    margin-top:10px; 
+    margin-bottom:20px;   
+    margin-left:14px;
+    margin-right:14px;
+    font-family:'Lato';
+    font-size:13px;
+    line-height:20px;
+    color:black;
+}
+.subtitulo_terminos{
+    display:block;
+    font-weight:700;
+    margin-bottom:17px;
+    margin-top:20px;
 }
