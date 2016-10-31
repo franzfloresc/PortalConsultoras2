@@ -1933,7 +1933,7 @@
                     <b>{{Descripcion}}</b>
                 </p>
                 <div class="producto_precio">
-                    {{#iff PrecioValorizadoString '!=' ''}}
+                    {{#iff PrecioValorizadoString '!=' '0'}}
                     <span class="producto_precio_normal">{{Simbolo}} {{PrecioValorizadoString}}</span>
                     {{/iff}}
                     <span class="producto_precio_oferta"><b>{{Simbolo}} {{PrecioCatalogoString}}</b></span>
