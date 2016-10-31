@@ -182,7 +182,7 @@
 </script>
 
 <script id="template-mod-ofer2" type="text/x-handlebars-template">
-    <div class="content_PopOferta" style="padding-bottom:0;" data-oferta-popup="">
+    <div class="content_PopOferta" style="max-width:600px;" data-oferta-popup="">
         <div style="display:none;" id="hiddenCatalogo">
             <input type="hidden" class="hdItemCuv" value="{{CUV}}" />
             <input type="hidden" class="hdItemTipoOfertaSisID" value="{{TipoOfertaSisID}}" />
@@ -226,32 +226,33 @@
         <!--PRIMER ITEM-->
         <div class="content_item_oferta">
             <div class="content_imagen_oferta">
-                <img src="{{UrlImagen}}" alt="">
-                <div class="titulo_producto_oferta" id="titulo">{{Descripcion}}</div>
-                <div class="sub_texto_oferta">En Revista: {{Simbolo}} {{DecimalToStringFormat precio_revista}}</div>
-                <div class="texto_ganancia_oferta">{{TxtGanancia}}: {{Simbolo}} {{DecimalToStringFormat ganancia}}</div>
+                <img src="{{UrlImagen}}" alt="">                
             </div>
+            <div class="titulo_producto_oferta" style="font-weight:400;" id="titulo">{{Descripcion}}</div>
+            <div class="sub_texto_oferta">En Revista: {{Simbolo}} {{DecimalToStringFormat precio_revista}}</div>
+            <div class="texto_ganancia_oferta">{{TxtGanancia}}: {{Simbolo}} {{DecimalToStringFormat ganancia}}</div>
         </div>
-        <div style="width:80%; margin:0 auto;">
+        <div>
             <div class="content_pack_niveles">
-                <div class="Subtitulo_oferta">COMPRA 1X<br />{{Simbolo}} {{DecimalToStringFormat precio_revista}}</div>
-                <div class="texto_ganancia_oferta" style="font-size:11px">{{TxtGanancia}}: {{Simbolo}} {{DecimalToStringFormat ganancia}}</div>
+                <div class="fondo_negro_pack">COMPRA 1X</div>
+                <div class="titulo_pack">Precio para ti: {{Simbolo}} {{DecimalToStringFormat precio_revista}}</div>
+                <div class="texto_ganancia_oferta">{{TxtGanancia}}: {{Simbolo}} {{DecimalToStringFormat ganancia}}</div>
                 <hr class="clear" />
             </div>
 
             {{#each lista_ObjNivel as |nivel|}}
-
             <div class="content_pack_niveles">
-                <div class="Subtitulo_oferta">COMPRA {{nivel.escala_nivel}}X<br />{{../Simbolo}} {{DecimalToStringFormat nivel.precio_nivel}}</div>
-                <div class="texto_ganancia_oferta" style="font-size:11px">{{../TxtGanancia}}: {{../Simbolo}} {{DecimalToStringFormat nivel.ganancia_nivel}}</div>
+                <div class="fondo_negro_pack">COMPRA {{nivel.escala_nivel}}X</div>
+                <div class="titulo_pack">Precio para ti: {{../Simbolo}} {{DecimalToStringFormat nivel.precio_nivel}}</div>
+                <div class="texto_ganancia_oferta">{{../TxtGanancia}}: {{../Simbolo}} {{DecimalToStringFormat nivel.ganancia_nivel}}</div>
 
-                <div class="titulo_producto_oferta" style="font-size:11px; margin-bottom:20px;">{{../TxtRecibeGratis}}:</div>
+                <div class="titulo_producto_oferta" style="margin-bottom:10px;">{{../TxtRecibeGratis}}:</div>
                 <hr class="clear" />
                 <div class="content_sub_items">
                     {{#each ../lista_oObjGratis as |item|}}
                     {{#if_eq nivel.escala_nivel item.escala_nivel_gratis}}
                     <div class="sub_imagen_oferta"><img src="{{item.imagen_gratis}}" alt=""></div>
-                    <div class="sub_descripcion_oferta">{{item.cantidad}} {{item.descripcion_gratis}}</div>
+                    <div class="sub_descripcion_oferta"><p><span>x {{item.cantidad}}</span> {{item.descripcion_gratis}}</p></div>
                     <hr class="clear" />
                     {{/if_eq}}
                     {{/each}}

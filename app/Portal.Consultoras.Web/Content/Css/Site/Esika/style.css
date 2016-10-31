@@ -22262,7 +22262,7 @@ body{
         margin-bottom: 16px;
     }
     .sub_menu_home1{
-        width: 876px;
+        width: 879px;
         margin-left: -95px;
     }
     .sub_menu_home2 {
@@ -22313,7 +22313,7 @@ body{
         margin-left: 3.2%;
     }
     .new_menu_a {
-        font-size: 9.5px;
+        font-size: 9.3px;
     }
     .menu_esika_b {
         width: 31%;
@@ -30013,7 +30013,7 @@ h1#penmostreo .campana {
 .content_item_pack{
     width:100%;
     height:340px;
-    overflow: hidden;
+    overflow: auto;
 }
 .img_principal_pack{
     width:149px;
@@ -30977,16 +30977,16 @@ h1#penmostreo .campana {
     background:black;
 }*/
 .content_motivo_select{
-    width:45%;
+    width:100%;
     margin-right:10%;
     float:left;
     margin-bottom:20px;
 }
-.content_motivo_select:last-child{
+/*.content_motivo_select:last-child{
     margin-right:0%;
-}
+}*/
 .reclamo_motivo_select{
-    width:100%;
+    width:45%;
     height:45px;
     font-family:'Lato';
     font-size:15px;
@@ -30996,6 +30996,8 @@ h1#penmostreo .campana {
     background-position:20px 14px;
     border-bottom:1px solid #d1d1d1;
     cursor:pointer;
+    float: left;
+    margin-left: 22px;
 }
 .reclamo_motivo_select:hover{    
     color:#e81c36;
@@ -31008,9 +31010,9 @@ h1#penmostreo .campana {
     background-position:20px 14px;
     
 }
-.reclamo_motivo_select:last-child{
+/*.reclamo_motivo_select:last-child{
     border-bottom:0px;
-}
+}*/
 .btn_solución_reclamo{
     float:left;
     width:270px;
@@ -31638,14 +31640,55 @@ h1#penmostreo .campana {
 }
 @media screen and (max-width: 1092px){
     .content_belcorp {
-    padding-left: 2.9%;
+    padding-left: 1.9%;
     padding-right: 1.9%;
     }
     .ubicacion_web {
-    padding-left: 2.9%;
+    padding-left: 1.9%;
     padding-right: 1.9%;
     }
     .tabs_pagos li a{
        font-size: 9.5pt;
     }
+}
+/*ESCALA DE DESCUENTO*/
+.content_descuento_html{
+    width:780px;
+    margin: 0 auto;
+}
+.titulo_escala{
+    font-family:'Lato';
+    font-size:18px;
+    color:black;
+    text-align:center;
+    margin-top:70px;
+}
+.subtitulo_escala{
+    font-family:'Lato';
+    font-size:17px;
+    font-weight:700;
+    color:#e81c36;
+    text-align:center;
+    margin-top:-4px;
+}
+.texto_escala{
+    font-family:'Lato';
+    font-size:14px;
+    line-height:18px;
+    margin-top:15px;
+    padding:15px;
+    width:100%;
+    color:#9b9b9b;
+    background:#f7f7f7;
+}
+.texto_escala b{
+    color:black;
+}
+.title_barra{
+    font-family:'Lato';
+    font-size:17px;
+    font-weight:700;
+    margin-top:25px;
+    margin-bottom:20px;
+    text-align:center;
 }
