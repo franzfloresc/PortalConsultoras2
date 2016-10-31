@@ -51,7 +51,9 @@
         }
         <a href="http://www.cyzone.com" target="_blank" role="outbound-link" region="Footer" parent="Nuestras Marcas" title="CYZONE" id="lnk-out-cyzone">CYZONE</a>
     </div>
-    @foreach (var menuPadre in permisoList)
+    @if (permisoList.Any())
+    {
+    foreach (var menuPadre in permisoList)
     {
         <div class="sub_footer" style="text-align:left !important">
             <h1>@menuPadre.Descripcion</h1>
@@ -90,6 +92,8 @@
                 }
             }
         </div>
+    }
+        
     }
     <div class="sub_footer" style="text-align:left !important">
         <h1>SÍGUENOS</h1>

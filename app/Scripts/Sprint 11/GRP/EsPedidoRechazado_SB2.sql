@@ -31,6 +31,10 @@ as
 */
 begin
 	
+	
+	DECLARE @FechaGeneral DATETIME
+	SET @FechaGeneral = dbo.fnObtenerFechaHoraPais()
+
 	DECLARE @esRechazado INT = -1
 
 	declare @fecha datetime
@@ -53,9 +57,6 @@ begin
 	if @indPais = 0
 		set @esRechazado = 2
 
-	DECLARE @FechaGeneral DATETIME
-	SET @FechaGeneral = dbo.fnObtenerFechaHoraPais()
-	
 	-- validar fecha ultimo dia
 	DECLARE @ZonaID INT, @RegionID INT
 	SELECT @ZonaID = ZonaID, @RegionID = RegionID
@@ -82,10 +83,11 @@ begin
 				BEGIN
 							
 							set @esRechazado = 0
+							SET @IdProceso = 0
 															
 							set @IdProceso = 0
-							if @esRechazado = 0
-							begin
+							--if @esRechazado = 0
+							--begin
 		
 								select @fecha = FechaReserva, @CodigoConsultora = c.Codigo
 								from pedidoweb p
@@ -99,7 +101,7 @@ begin
 								where P.Fecha > @fecha
 								order by p.Fecha asc
 
-							end
+							--end
 
 							if @IdProceso > 0
 							begin
@@ -108,8 +110,9 @@ begin
 
 								if @Estado = 'OK' OR @Estado = 'OK'
 								begin
-										set @IdProceso = 0
-										select @IdProceso = count(1)
+										declare @IdProcesox int = 0
+										--set @IdProceso = 0
+										select @IdProcesox = count(1)
 										from GPR.ProcesoPedidoRechazado p
 											inner join GPR.PedidoRechazado r
 												on r.IdProcesoPedidoRechazado = p.IdProcesoPedidoRechazado
@@ -118,7 +121,7 @@ begin
 													and r.CodigoConsultora = @CodigoConsultora
 										where p.IdProcesoPedidoRechazado = @IdProceso
 
-										if @IdProceso > 0
+										if @IdProcesox > 0
 											SET @esRechazado = 1
 								end
 	
@@ -128,7 +131,7 @@ begin
 							if @esRechazado = 1 -- esta rechazado
 							begin
 					
-								if convert(date, @fechaFin) < convert(date, getdate()) -- si llego el ultimo dia de la ReFacturacion
+								if convert(date, @fechaFin) < convert(date, @FechaGeneral) -- si llego el ultimo dia de la ReFacturacion
 									set @esRechazado = 2 -- continua con el proceso
 							end
 

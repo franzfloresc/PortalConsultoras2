@@ -187,6 +187,10 @@
     <Compile Include="CacheManager.cs" />
     <Compile Include="BLLugarPago.cs" />
     <Compile Include="BLIncentivo.cs" />
+    <Compile Include="CDR\BLCDRWeb.cs" />
+    <Compile Include="CDR\BLCDRWebDescripcion.cs" />
+    <Compile Include="CDR\BLCDRWebDetalle.cs" />
+    <Compile Include="CDR\BLCDRWebMotivoOperacion.cs" />
     <Compile Include="FtpConfiguration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
