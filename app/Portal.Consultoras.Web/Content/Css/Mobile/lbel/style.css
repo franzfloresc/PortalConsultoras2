@@ -8664,7 +8664,7 @@ span.icon-advertencia{
     color:#642f80;
 }
 .content_pack_niveles{
-    border-top:1px solid #979797;
+    /*border-top:1px solid #979797;*/
     width:100%;
     height:auto;
     padding-top:30px;
