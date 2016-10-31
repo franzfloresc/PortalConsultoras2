@@ -1,8 +1,6 @@
 ﻿using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Areas.Mobile.Models;
 using Portal.Consultoras.Web.Models;
-using Portal.Consultoras.Web.ServiceContenido;
-using Portal.Consultoras.Web.ServiceSAC;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -87,18 +85,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     model.MontoPagar = ultimoMovimiento.MontoPagar;
                     model.Abono = ultimoMovimiento.Abono;
                     model.Cargo = ultimoMovimiento.Cargo;
-
-                    using (var service = new ContenidoServiceClient())
-                    {
-                        if (model.CodigoISO == Constantes.CodigosISOPais.Colombia || model.CodigoISO == Constantes.CodigosISOPais.Peru)
-                        {
-                            model.MontoPagar = service.GetDeudaTotal(userData.PaisID, int.Parse(userData.ConsultoraID.ToString()))[0].SaldoPendiente.ToString();
-                        }
-                        else
-                        {
-                            model.MontoPagar = service.GetSaldoPendiente(userData.PaisID, userData.CampaniaID, int.Parse(userData.ConsultoraID.ToString()))[0].SaldoPendiente.ToString();
-                        }
-                    }
+                    model.MontoPagar = userData.MontoDeuda.ToString();
                 }
             }
             catch (FaultException ex)
