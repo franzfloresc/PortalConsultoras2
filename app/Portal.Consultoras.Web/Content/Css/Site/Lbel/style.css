@@ -22187,7 +22187,7 @@ body{
         margin-bottom: 16px;
     }
     .sub_menu_home1{
-        width: 876px;
+        width: 879px;
         margin-left: -80px;
     }
     .sub_menu_home2 {
@@ -22232,7 +22232,7 @@ body{
         margin-left: 3.2%;
     }
     .new_menu_a {
-        font-size: 9.5px;
+        font-size: 9.3px;
     }
     .menu_esika_b {
         width: 31%;
@@ -31661,11 +31661,11 @@ h1#penmostreo .campana {
 }
 @media screen and (max-width: 1092px){
     .content_belcorp {
-    padding-left: 2.9%;
+    padding-left: 1.9%;
     padding-right: 1.9%;
     }
     .ubicacion_web {
-    padding-left: 2.9%;
+    padding-left: 1.9%;
     padding-right: 1.9%;
     }
     .tabs_pagos li a{
