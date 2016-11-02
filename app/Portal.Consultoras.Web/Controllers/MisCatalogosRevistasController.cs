@@ -934,24 +934,46 @@ namespace Portal.Consultoras.Web.Controllers
             return Content(redirect);
         }
 
-        public ActionResult MiRevista()
+        public ActionResult MiRevista(string campaniaRevista)
         {
+            ViewBag.Campania = campaniaRevista;
             return View();
         }
 
-        public JsonResult GetUrlRevistaIssuu()
+        public JsonResult GetUrlRevistaIssuu(string campania)
         {
-            var p = userData.CodigoISO.ToLower();
-            var n = userData.CampaniaID.ToString().Substring(4, 2);
-            var a = userData.CampaniaID.ToString().Substring(0, 4);
-            var key = ConfigurationManager.AppSettings.Get("UrlRevistaIssuu").ToString();
-            var url = string.Format(key, p, n, a);
-
-            return Json(new
+            try
             {
-                success = true,
-                urlRevista = url
-            }, JsonRequestBehavior.AllowGet);
+                if (!string.IsNullOrEmpty(campania))
+                {
+                    var p = userData.CodigoISO.ToLower();
+                    var n = campania.Substring(4, 2);
+                    var a = campania.Substring(0, 4);
+                    var key = ConfigurationManager.AppSettings.Get("UrlRevistaIssuu").ToString();
+                    var url = string.Format(key, p, n, a);
+
+                    return Json(new
+                    {
+                        success = true,
+                        urlRevista = url
+                    }, JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    return Json(new
+                    {
+                        success = false
+                    }, JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch (Exception ex)
+            {
+                return Json(new
+                {
+                    success = false,
+                }, JsonRequestBehavior.AllowGet);
+            }
+            
         }
     }
 }

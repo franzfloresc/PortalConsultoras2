@@ -81,7 +81,7 @@
         <div class="content_revistas_mobile">
             <a class="previous_revistas_mobile" style="left:-30px"><img src="@Url.Content("~/Content/Images/mobile/Esika/previous_ofertas_home.png")" alt="-" onclick="RevistaMostrar(-1, this)"/></a>
             <a class="next_revistas_mobile" style="right:-30px"><img src="@Url.Content("~/Content/Images/mobile/Esika/next.png")" alt="-" onclick="RevistaMostrar(1, this)"/></a>
-            <a id="lbPortadaGana" href="#" target="_blank">
+            <a id="lbPortadaGana" href="#" onclick="MostrarMiRevista();">
                 <img src="@Url.Content("~/Content/Images/revista_no_disponible.jpg")" alt="-" id="imgPortadaGana" />
             </a>
         </div>
@@ -175,7 +175,14 @@
     </div>
 
 </div>
-<!--FIN-->
+<!--FIN--> 
+
+<div style="display: none;">
+    @using (Html.BeginForm("MiRevista", "Catalogo", FormMethod.Post, new { id = "frmMiRevista", target = "_blank"}))
+    {
+        <input type="hidden" name="campaniaRevista" id="campaniaRevista" value="">
+    }
+</div>
 
 <script id="catalogo-template" type="text/x-handlebars-template">
     <div class="content_item_catalogo" data-cam="{{campania}}" data-cat="{{tipoCatalogo}}" data-estado="{{estado}}" style="display: none;">

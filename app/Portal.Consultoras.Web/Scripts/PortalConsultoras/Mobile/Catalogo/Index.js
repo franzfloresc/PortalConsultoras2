@@ -12,6 +12,8 @@ $(document).ready(function () {
     rCampSelect = $("#hdrCampaniaActual").val();
     $("#contentRevista .titulo_central[data-titulo='revista']").text("REVISTA C-" + rCampSelect.substring(4, 6));
     MostrarRevistaCorrecta(rCampSelect);
+
+    $('#campaniaRevista').val(rCampSelect);
     //******
 
     $('ul[data-tab="tab"] li a[data-tag]').click(function (e) {
@@ -821,11 +823,18 @@ function MostrarRevistaCorrecta(campania) {
 
         var urlExterno = ObtenerUrlRevista(rCampSelect);
         $('[data-tag-html="Revistas"] .titulo_catalogo').text("REVISTA C-" + rCampSelect.substring(4, 6));
-        $("#lbPortadaGana").attr("href", urlExterno);
+        //$("#lbPortadaGana").attr("href", urlExterno);
 
         FinRenderCatalogo();
     });
 }
+
+function MostrarMiRevista() {
+    var frmMiRevista = $('#frmMiRevista');
+    //frmMiRevista.attr('action', '');
+    frmMiRevista.submit();
+}
+
 function ObtenerImagenRevista(campania, defered) {
 
     var src = "";
@@ -913,6 +922,8 @@ function RevistaMostrar(accion, btn) {
     if (rCampSelectI == 0 || rCampSelectI == cantCamRev - 1) {
         $(btn).hide();
     }
+
+    $('#campaniaRevista').val(rCampSelect);
 }
 
 function TagManagerPaginasVirtuales() {
