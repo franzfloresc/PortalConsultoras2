@@ -2275,6 +2275,10 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido{
     border: 1px solid #e7e1e1;
 }
 
+.tooltip_infoCopy_expand{
+    left: -1500%;
+}
+
 .tooltip_infoCopy .tooltip_flecha{
     background: url("/Content/Images/tooltip-flecha.png") no-repeat 0 16px !important;
     position: absolute;
@@ -2283,6 +2287,16 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido{
     z-index: 50;
     width: 32px;
     height: 169px;
+}
+
+.tooltip_infoCopy_expand .tooltip_flecha{
+    top: 3%;
+    left: 100%;
+    -webkit-transform: rotate(180deg);
+    -moz-transform: rotate(180deg);
+    -ms-transform: rotate(180deg);
+    -o-transform: rotate(180deg);
+    transform: rotate(180deg);
 }
 
 /*.tooltip_infoCopy:before, .tooltip_infoCopy:after {
