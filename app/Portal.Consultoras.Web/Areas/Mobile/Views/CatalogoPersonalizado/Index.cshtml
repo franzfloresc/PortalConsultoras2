@@ -226,7 +226,9 @@
         <!--PRIMER ITEM-->
         <div class="content_item_oferta">
             <div class="content_imagen_oferta">
-                <img src="{{UrlImagen}}" alt="">                
+                {{#IsNullOrEmpty UrlImagen '!='}}
+                <img src="{{UrlImagen}}" alt="" />
+                {{/IsNullOrEmpty}}                
             </div>
             <div class="titulo_producto_oferta" style="font-weight:400;" id="titulo">{{Descripcion}}</div>
             <div class="sub_texto_oferta">En Revista: {{Simbolo}} {{DecimalToStringFormat precio_revista}}</div>
@@ -235,7 +237,7 @@
         <div>
             <div class="content_pack_niveles">
                 <div class="row_20">
-                    <div class="titulo_mobile">COMPRA 1X</div>
+                    <div class="titulo_mobile">COMPRA 1 {{Descripcion}}</div>
                     <div class="pestana_esika"></div>
                     <div class="pestana_lbel"></div>
                 </div>                
@@ -247,7 +249,7 @@
             {{#each lista_ObjNivel as |nivel|}}
             <div class="content_pack_niveles">
                 <div class="row_20">
-                    <div class="titulo_mobile">COMPRA {{nivel.escala_nivel}}X</div>
+                    <div class="titulo_mobile">COMPRA {{nivel.escala_nivel}} {{../Descripcion}}</div>
                     <div class="pestana_esika"></div>
                     <div class="pestana_lbel"></div>
                 </div>    
@@ -259,7 +261,11 @@
                 <div class="content_sub_items">
                     {{#each ../lista_oObjGratis as |item|}}
                     {{#if_eq nivel.escala_nivel item.escala_nivel_gratis}}
-                    <div class="sub_imagen_oferta"><img src="{{item.imagen_gratis}}" alt=""></div>
+                    <div class="sub_imagen_oferta">
+                        {{#IsNullOrEmpty item.imagen_gratis '!='}}
+                        <img src="{{item.imagen_gratis}}" alt="">
+                        {{/IsNullOrEmpty}}                        
+                    </div>
                     <div class="sub_descripcion_oferta"><p><span>x {{item.cantidad}}</span> {{item.descripcion_gratis}}</p></div>
                     <hr class="clear" />
                     {{/if_eq}}
@@ -359,7 +365,9 @@
         <!--PRIMER ITEM-->
         <div class="content_item_oferta">
             <div class="content_imagen_oferta">
-                <img src="{{UrlImagen}}" alt="">
+                {{#IsNullOrEmpty UrlImagen '!='}}
+                <img src="{{UrlImagen}}" alt="" />
+                {{/IsNullOrEmpty}}                
             </div>
             <div class="titulo_producto_oferta" id="titulo">{{Descripcion}}</div>
             <div class="sub_texto_oferta">En Revista: {{Simbolo}} {{DecimalToStringFormat precio_revista}}</div>
@@ -381,7 +389,8 @@
             <input type="hidden" class="hdItemPackPrecio" value="{{pack.precio_pack}}" />
 
             <div class="row_20">
-                <div class="titulo_mobile">PACK {{#if_eq pack.EsUltimo "1"}}MÁXIMA {{/if_eq}}GANANCIA</div>
+                @*<div class="titulo_mobile">PACK {{#if_eq pack.EsUltimo "1"}}MÁXIMA {{/if_eq}}GANANCIA</div>*@
+                <div class="titulo_mobile">{{pack.nombre_pack}}</div>
                 <div class="pestana_esika"></div><!--PESTANA ESIKA-->
                 <div class="pestana_lbel"></div><!--PESTANA LBEL-->
             </div>
@@ -393,7 +402,11 @@
                 {{#each ../lista_oObjItemPack as |item|}}
                 {{#if_eq pack.cuv_pack item.cuv_pack_item}}
                 <div class="content_sub_items">
-                    <div class="sub_imagen_oferta"><img src="{{item.imagen_item_pack}}" alt=""></div>
+                    <div class="sub_imagen_oferta">
+                        {{#IsNullOrEmpty item.imagen_item_pack '!='}}
+                        <img src="{{item.imagen_item_pack}}" alt="" />
+                        {{/IsNullOrEmpty}}                        
+                    </div>
                     <div class="sub_descripcion_oferta"><p><span>x {{item.cantidad_item_pack}} </span>{{item.descripcion_item_pack}}</p></div>
                 </div>
                 <hr class="clear" />

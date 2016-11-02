@@ -187,5 +187,11 @@ namespace Portal.Consultoras.BizLogic
 
             return productos;
         }
+
+        public string GetNombreProducto048ByCuv(int paisID, int campaniaID, string cuv)
+        {
+            var DAProducto = new DAProducto(paisID);
+            return DAProducto.GetNombreProducto048ByCuv(campaniaID, cuv);
+        }
     }
 }
