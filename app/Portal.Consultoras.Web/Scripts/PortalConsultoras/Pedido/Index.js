@@ -1266,6 +1266,7 @@ function ArmarCarouselEstrategias(data) {
 
     $('#divListaEstrategias').hide();
     $('.caja_pedidos').addClass('sinOfertasParaTi');
+    $('.tooltip_infoCopy').addClass('tooltip_infoCopy_expand');
     if ($.trim($('#divListadoEstrategia').html()).length > 0) {
         $("[data-barra-width]").css("width", "100%");
         $('#divListaEstrategias').show();
@@ -1273,6 +1274,7 @@ function ArmarCarouselEstrategias(data) {
             $('#divListaEstrategias').css("margin-top", ($(".flexiPago_belcorp").outerHeight() + 50)+ "px");
         }        
         $('.caja_pedidos').removeClass('sinOfertasParaTi');
+        $('.tooltip_infoCopy').removeClass('tooltip_infoCopy_expand');
         var hCar = $($("#divListadoEstrategia").find("[data-item]").get(0)).height();
         var cant = parseInt(heightReference / hCar);
         cant = cant < 3 ? 3 : cant > 5 ? 5 : cant;
