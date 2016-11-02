@@ -328,14 +328,16 @@ function DetalleCargar() {
         cache: false,
         success: function (data) {
             closeWaitingDialog();
-            if (!checkTimeout(data)) {
+            if (!checkTimeout(data))
+                return false;
+
+            if (data.success != true) {
+                messageInfoError(data.message);
                 return false;
             }
 
-            messageInfoError(data.message);
-            if (data.success == true) {
-                SetHandlebars("#template-detalle-paso3", data.detalle, "#divMotivo");
-            }
+            SetHandlebars("#template-detalle-paso3", data.detalle, "#divDetallePaso3");
+            SetHandlebars("#template-detalle-paso3", data.detalle, "#divDetalleEnviar");
         },
         error: function (data, error) {
             closeWaitingDialog();

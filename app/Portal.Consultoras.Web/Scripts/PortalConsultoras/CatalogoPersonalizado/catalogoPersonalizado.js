@@ -143,10 +143,10 @@ function CargarCatalogoPersonalizado() {
 
                 //data.data[0].TieneOfertaEnRevista = true;
                 //data.data[0].TipoOfertaRevista = '048';
-                //data.data[0].CUV = '02642';
+                //data.data[0].CUV = '03184';
                 //data.data[1].TieneOfertaEnRevista = true;
                 //data.data[1].TipoOfertaRevista = '048';
-                //data.data[1].CUV = '02671';
+                //data.data[1].CUV = '01411';
 
                 var htmlDiv = SetHandlebars("#template-catalogopersonalizado", data.data);
                 $('#divCatalogoPersonalizado').append(htmlDiv);
@@ -365,7 +365,7 @@ function ObtenerOfertaRevista(item) {
                         if (settings.lista_oObjPack.length > 0) {
                             settings.lista_oObjPack = RemoverRepetidos(settings.lista_oObjPack);
                             settings.lista_oObjItemPack = RemoverRepetidos(settings.lista_oObjItemPack);
-                            settings.lista_oObjPack.splice(2, settings.lista_oObjPack.length);
+                            //settings.lista_oObjPack.splice(2, settings.lista_oObjPack.length);
                             settings.lista_oObjPack[settings.lista_oObjPack.length - 1].EsUltimo = 1;
                             SetHandlebars("#template-mod-ofer3", settings, '[data-oferta]');
                             $('[data-oferta]').addClass('mod-ofer3').show();
@@ -404,7 +404,7 @@ function ObtenerOfertaRevista(item) {
                                     settings.lista_ObjNivel.push(nivel);
                                 }
                             });
-                            settings.lista_ObjNivel.splice(3, settings.lista_ObjNivel.length);
+                            //settings.lista_ObjNivel.splice(3, settings.lista_ObjNivel.length);
                             SetHandlebars("#template-mod-ofer2", settings, '[data-oferta]');
                             var cantNo = 0;
                             $.each($('[data-oferta] .item1_oferta_personalizada'), function (ind, nivel) {
