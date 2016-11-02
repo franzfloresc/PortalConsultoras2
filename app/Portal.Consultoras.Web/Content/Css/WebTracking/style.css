@@ -630,9 +630,7 @@ div.accountInfo {
 
         .tabla2 tbody td span {
             
-             display: block;
-             /* font-size: 13px; */
-            color: black !important;
+             display: block;           
         }
 
         .tabla2 tbody td a:link {

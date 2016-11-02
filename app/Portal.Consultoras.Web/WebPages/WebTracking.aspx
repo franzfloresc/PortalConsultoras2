@@ -246,9 +246,16 @@
                                                         <RowStyle HorizontalAlign="Center" />
 
                                                     </asp:GridView>
-                                                </asp:Panel>
-
-
+                                                </asp:Panel>                                                                                       
+                                                
+                                                <asp:HyperLink ID="lnkPoliticasVenta" runat="server" 
+                                                    NavigateUrl="../Content/FAQ/Politica_de_reclamos_CO.pdf" Target="_blank"
+                                                    Style="padding-left: 2%; font-size: 14px; display: inline-block;
+                                                        vertical-align: top; width: 49%; background: url(../Content/Images/Esika/indicador_pedido.png) no-repeat;
+                                                        background-position: 0px 5px; font-family: 'lato'; color: black;
+                                                        margin-top: 25px; font-weight: 700;">
+                                                    Políticas Post Venta
+                                                </asp:HyperLink>
 
                                                 <asp:Panel ID="pPostVenta" runat="server" Width="100%"
                                                     ForeColor="#666666" GroupingText="Mis postventas"
@@ -358,6 +365,7 @@
                                                             <asp:TemplateField HeaderText="Fecha">
                                                                 <ItemTemplate>
                                                                     <asp:Label ID="lblFecha" runat="server" Text='<%# Eval("CodigoConsultora") %>' Font-Size="10pt" color="black"></asp:Label>
+                                                                    <asp:Label ID="lblTextoValorTurno" Text='<%#Eval("ValorTurno")%>' runat="server" Font-Size="8pt"></asp:Label>
                                                                     <asp:Label ID="lblTexto" runat="server" Text='<%# Eval("NumeroPedido") %>' Font-Size="10pt" Visible="false"></asp:Label>
                                                                     <asp:LinkButton ID="imgSegPed" runat="server" CommandName="NOVEDADES" Text="AQUI" Width="28px" Visible="false" />
                                                                 </ItemTemplate>
@@ -423,6 +431,7 @@
                                                             <asp:TemplateField HeaderText="Fecha">
                                                                 <ItemTemplate>
                                                                     <asp:Label ID="lblFecha" runat="server" Text='<%# Eval("FechaEstimadoRecojo") %>' Font-Size="8pt"></asp:Label>
+                                                                    <asp:Label ID="lblTextoValorTurno" Text='<%#Eval("ValorTurno")%>' runat="server" Font-Size="8pt"></asp:Label>
                                                                     <asp:Label ID="lblTexto" runat="server" Font-Size="8pt" Visible="false"></asp:Label>
                                                                     <asp:LinkButton ID="imgSegPed" runat="server" CommandName="NOVEDADES" Text="AQUI" Width="28px" Visible="false" />
                                                                 </ItemTemplate>

@@ -123,7 +123,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }
                 listModel = Mapper.Map<List<ClienteOnlineModel>>(listPedidosClienteOnline);
                 listModel.Update(model => {
-                    model.TipoCliente = model.ClienteNuevo ? "CLIENTE NUEVO" : "CLIENTE EXISTENTE";
+                    model.TipoCliente = model.ClienteNuevo ? "NUEVO CLIENTE" : "CLIENTE EXISTENTE";
                     model.Origen = model.MarcaID == 0 ? "App Catálogos" : string.Format("Portal {0}", model.Marca);
                     model.Campania = campaniaResultado.ToString().Substring(0, 4) + "-" + campaniaResultado.ToString().Substring(4, 2);
                     model.FechaSolicitudString = model.FechaSolicitud.ToString("dd \\de MMMM", CultureInfo.GetCultureInfo("es-PE"));
@@ -139,7 +139,7 @@ namespace Portal.Consultoras.Web.Controllers
                 return Json(new
                 {
                     success = true,
-                    message = listModel.Count == 0 ? "No tiene pedidos de Consultora Online para esta campaña, con el filtro en la campaña actual." : "",
+                    message = listModel.Count == 0 ? "No tiene pedidos de Consultora Online para esta campaña" : "",
                     listaPedidosClienteOnline = listModel,
                     campaniaResultado = campaniaResultado
                 });
@@ -327,12 +327,12 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         #region excel
-        public ActionResult ExportarExcel(string vCampaniaID)
+        public ActionResult ExportarExcel(string vCampaniaID, string vClienteID)
         {
             List<SC.BEPedidoWebDetalle> lstCabecera;
             using (SC.ClienteServiceClient sv = new SC.ClienteServiceClient())
             {
-                lstCabecera = sv.GetClientesByCampania(userData.PaisID, int.Parse(vCampaniaID), ObtenerConsultoraId()).OrderBy(p => p.Nombre).ToList();
+                lstCabecera = sv.GetClientesByCampaniaByClienteID(userData.PaisID, int.Parse(vCampaniaID), ObtenerConsultoraId(), vClienteID).OrderBy(p => p.Nombre).ToList();
             }
 
             List<KeyValuePair<int, string>> dicCabeceras = new List<KeyValuePair<int, string>>();

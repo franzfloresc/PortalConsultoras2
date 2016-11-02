@@ -133,7 +133,7 @@
                         </form>
                         <a id="verIngresado" class="veringresado" style="top: 12px;">
                             <b class="flecha_adelante"></b>
-                            <b>PEDIDO INGRESADO</b>
+                            <b>Pedido Ingresado por Cliente</b>
                         </a>
                     </div>
                     <div class="contenedor_bloque_datos">
@@ -176,7 +176,7 @@
                             </form>
                             <a id="regresarFacturado" class="veringresado" style="top: 12px;">
                                 <b class="flecha_adelante"></b>
-                                <b>PEDIDO FACTURADO</b>
+                                <b>Pedido Facturado</b>
                             </a>
                         </div>
                         <div class="contenedor_bloque_datos">
@@ -337,6 +337,7 @@
             <!--FIN CONTENIDO TABLA MIS PEDIDOS-->
         </div>
     </div>
+    <div id="lblcampania" hidden="hidden"></div>
 </div>
 <div style="display:none;">
     @Html.DropDownListFor(model => model.ClienteId, new SelectList(Model.Clientes, "ClienteID", "Nombre"), new { id = "ddlClientes" })

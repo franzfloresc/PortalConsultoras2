@@ -7,6 +7,8 @@
       <xs:element minOccurs="0" name="CampaniaFin" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="CampaniaInicio" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="CodigoPrograma" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CodigoRegion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CodigoZona" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="CuponKit" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="IndExigVent" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="IndProgObli" nillable="true" type="xs:string" />
@@ -88,6 +90,7 @@
       <xs:element minOccurs="0" name="EstadoItem" type="xs:short" />
       <xs:element minOccurs="0" name="FechaCreacion" type="xs:dateTime" />
       <xs:element minOccurs="0" name="Flag" type="xs:int" />
+      <xs:element minOccurs="0" name="FlagConsultoraOnline" type="xs:boolean" />
       <xs:element minOccurs="0" name="IPUsuario" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ImporteTotal" type="xs:decimal" />
       <xs:element minOccurs="0" name="ImporteTotalPedido" type="xs:decimal" />
@@ -153,6 +156,36 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="ArrayOfBEMensajeMetaConsultora" nillable="true" type="tns:ArrayOfBEMensajeMetaConsultora" />
+  <xs:complexType name="BEProcesoPedidoRechazado">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Estado" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Fecha" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="IdProcesoPedidoRechazado" type="xs:int" />
+      <xs:element minOccurs="0" name="Mensaje" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="olstBEPedidoRechazado" nillable="true" type="tns:ArrayOfBEPedidoRechazado" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="BEProcesoPedidoRechazado" nillable="true" type="tns:BEProcesoPedidoRechazado" />
+  <xs:complexType name="ArrayOfBEPedidoRechazado">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="BEPedidoRechazado" nillable="true" type="tns:BEPedidoRechazado" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfBEPedidoRechazado" nillable="true" type="tns:ArrayOfBEPedidoRechazado" />
+  <xs:complexType name="BEPedidoRechazado">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Campania" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CodigoConsultora" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IdPedidoRechazado" type="xs:int" />
+      <xs:element minOccurs="0" name="IdProcesoPedidoRechazado" type="xs:int" />
+      <xs:element minOccurs="0" name="MotivoRechazo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Procesado" type="xs:boolean" />
+      <xs:element minOccurs="0" name="Rechazado" type="xs:boolean" />
+      <xs:element minOccurs="0" name="RequiereGestion" type="xs:boolean" />
+      <xs:element minOccurs="0" name="Valor" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="BEPedidoRechazado" nillable="true" type="tns:BEPedidoRechazado" />
   <xs:complexType name="BEEstrategia">
     <xs:sequence>
       <xs:element minOccurs="0" name="Activo" type="xs:int" />
@@ -498,7 +531,12 @@
       <xs:element minOccurs="0" name="Cantidad" type="xs:int" />
       <xs:element minOccurs="0" name="DescripcionMarca" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="DescripcionProducto" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PedidoWebDetalleID" type="xs:int" />
+      <xs:element minOccurs="0" name="PedidoWebID" type="xs:int" />
       <xs:element minOccurs="0" name="Precio" type="xs:decimal" />
+      <xs:element minOccurs="0" name="SolicitudClienteDetalleID" type="xs:long" />
+      <xs:element minOccurs="0" name="SolicitudClienteID" type="xs:long" />
+      <xs:element minOccurs="0" name="TipoAtencion" type="xs:int" />
       <xs:element minOccurs="0" name="Tono" nillable="true" type="xs:string" />
     </xs:sequence>
   </xs:complexType>
@@ -910,6 +948,7 @@
       <xs:element minOccurs="0" name="NumeroPedido" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="PaisID" type="xs:int" />
       <xs:element minOccurs="0" name="Situacion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ValorTurno" nillable="true" type="xs:string" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="BETracking" nillable="true" type="tns:BETracking" />
@@ -1058,6 +1097,8 @@
       <xs:element minOccurs="0" name="HoraInicio" type="ser:duration" />
       <xs:element minOccurs="0" name="HoraInicioNoFacturable" type="ser:duration" />
       <xs:element minOccurs="0" name="HorasDuracionRestriccion" type="xs:int" />
+      <xs:element minOccurs="0" name="IndicadorEnviado" type="xs:int" />
+      <xs:element minOccurs="0" name="IndicadorRechazado" type="xs:int" />
       <xs:element minOccurs="0" name="MensajeValidacionInteractiva" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ModificaPedidoReservado" type="xs:boolean" />
       <xs:element minOccurs="0" name="NroCampanias" type="xs:int" />

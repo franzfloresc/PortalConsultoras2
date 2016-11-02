@@ -38,6 +38,9 @@ $(document).ready(function () {
         //if (flagHuboPedidosPend) {
         //    CargarDetallePedido();
         //}
+
+        $('#penmostreo').attr("data-tab-activo", '0');
+        $('#pedmostreo').attr("data-tab-activo", '1');
     });
 
     $('#penmostreo').on('click', function () {
@@ -59,11 +62,19 @@ $(document).ready(function () {
         //$('.truco_bloqueo').hide();
         $('#pedmostreo').addClass('cambio_bk_pendientes');
         $('.datos_para_movil').hide();
+        $('#penmostreo').attr("data-tab-activo", '1');
+        $('#pedmostreo').attr("data-tab-activo", '0');
     });
 
     $('.optionsRechazo').on('click', function () {
         $('.optionsRechazo').removeClass('optionsRechazoSelect');
         $(this).addClass('optionsRechazoSelect');
+        if ($(this).data('id') == 11) {
+            $('#txtOtrosRechazo').prop('readonly', false);
+        }
+        else {
+            $('#txtOtrosRechazo').prop('readonly', true);
+        }
     });
 
     //APP CATALOGO
@@ -132,24 +143,21 @@ $(document).ready(function () {
         $('.popupPendientesPORTAL').hide();
     });
 
-    $('#rechazarPendientesPORTAL').on('click', function () {
-        $('#dialog_confirmacionRechazo').show();
-    });
+    //$('#rechazarPendientesPORTAL').on('click', function () {
+    //    $('#dialog_confirmacionRechazo').show();
+    //});
 
-    $('#aceptarPendientesPORTAL').on('click', function () {
-        $('#dialog_aceptasPendientes').show();
-    });
+    //$('#aceptarPendientesPORTAL').on('click', function () {
+    //    $('#dialog_aceptasPendientes').show();
+    //});
 
-    $('.paginador_pedidos.mostrarPaginadorPedidos.inferior').hide();
+    //$('.paginador_pedidos.mostrarPaginadorPedidos').hide();
+    //$('.paginador_pedidos.mostrarPaginadorPedidos.inferior').hide();
 
     CargarPedidosPend();
 });
 
 function CargarPedidosPend(page, rows) {
-
-    //if ($('ul.paginador_notificaciones').is(':visible')) {
-        $('ul.paginador_notificaciones').hide();
-    //}
 
     $('#divPedidosPend').html('<div style="text-align: center;">Cargando Pedidos Pendientes<br><img src="' + urlLoad + '" /></div>');
 
@@ -168,10 +176,8 @@ function CargarPedidosPend(page, rows) {
         data: JSON.stringify(obj),
         async: true,
         success: function (response) {
-
             if (response.success) {
                 var data = response.data;
-
                 if (data.RegistrosTotal > 0) {
 
                     $('#cont1PedidosPend').text(data.RegistrosTotal);
@@ -193,8 +199,7 @@ function CargarPedidosPend(page, rows) {
 
                     $('#penmostreo').show();
 
-                    if (lanzarTabConsultoraOnline == '1')
-                    {
+                    if (lanzarTabConsultoraOnline == '1') {
                         $('.content_T_T').addClass("fondo_lateral");
                         $(".fondo_pendiente").fadeIn();
                         $(".bloque_left").fadeIn();
@@ -213,11 +218,10 @@ function CargarPedidosPend(page, rows) {
                         //$('.truco_bloqueo').hide();
                         $('#pedmostreo').addClass('cambio_bk_pendientes');
                         $('.datos_para_movil').hide();
-                    }
 
-                    //if ($('ul.paginador_notificaciones').is(':visible')) {
-                        $('ul.paginador_notificaciones').hide();
-                   //}
+                        $('#penmostreo').attr("data-tab-activo", '1');
+                        $('#pedmostreo').attr("data-tab-activo", '0');
+                    }
                 }
                 else {
 
@@ -246,6 +250,9 @@ function CargarPedidosPend(page, rows) {
 
                         $('#pedmostreo').val('MIS <b>PRODUCTOS</b>');
 
+                        $('#penmostreo').attr("data-tab-activo", '0');
+                        $('#pedmostreo').attr("data-tab-activo", '1');
+
                         CargarDetallePedido();
                     }
                 }
@@ -272,7 +279,7 @@ function CargarPopupPedidoPend(pedidoId) {
         pedidoId: pedidoId
     };
 
-    AbrirSplash();
+    waitingDialog({});
 
     $.ajax({
         type: 'POST',
@@ -282,11 +289,9 @@ function CargarPopupPedidoPend(pedidoId) {
         data: JSON.stringify(obj),
         async: true,
         success: function (response) {
-
-            CerrarSplash();
+            closeWaitingDialog();
             if (response.success) {
                 var data = response.data;
-
                 if (data.RegistrosTotal > 0) {
 
                     var row = $('#pedidopend_' + pedidoId).val();
@@ -362,10 +367,10 @@ function ShowPopupRechazoPedido(pedidoId, tipo) {
     $('#hdePedidoIdRechazo').val(pedidoId);
 }
 
-function ShowPopupAceptoPedido(pedidoId, tipo) {
-    $('#dialog_aceptasPendientes').show();
-    $('#hdePedidoIdAcepto').val(pedidoId);
-}
+//function ShowPopupAceptoPedido(pedidoId, tipo) {
+//    $('#dialog_aceptasPendientes').show();
+//    $('#hdePedidoIdAcepto').val(pedidoId);
+//}
 
 function ShowPopupMotivoRechazo() {
     var id = $('#hdePedidoIdRechazo').val();
@@ -385,7 +390,7 @@ function ShowPopupMotivoRechazo() {
 
 function RechazarPedido() {
 
-    $('#dialog_motivoRechazo').hide();
+    //$('#dialog_motivoRechazo').hide();
     $('#btnRechazarPedido').prop('disabled', true);
 
     //var opc = $('input[name=checkbox]:checked', '#frmRechazoPedido').val();
@@ -402,11 +407,12 @@ function RechazarPedido() {
         Campania: $("#Campania").val(),
         MarcaId: $("#MarcaID").val(),
         OpcionRechazo: opt,
-        RazonMotivoRechazo: $("#txtOtrosRechazo").val()
+        RazonMotivoRechazo: $("#txtOtrosRechazo").val(),
+        typeAction: '1'     // desktop
     };
 
     //console.log(obj);
-    AbrirSplash();
+    waitingDialog({});
 
     $.ajax({
         type: "POST",
@@ -415,10 +421,8 @@ function RechazarPedido() {
         contentType: 'application/json',
         data: JSON.stringify(obj),
         success: function (data) {
-
             if (checkTimeout(data)) {
-                CerrarSplash();
-
+                closeWaitingDialog();
                 if (data.success == true) {
                     //$('#modal_rechazar_pedido').fuzemodal('close');
                     //$('#modal_rechazar_pedido').fuzemodal('close');
@@ -454,16 +458,18 @@ function RechazarPedido() {
 
 function CerrarMensajeRechazado() {
     $('#dialog_mensajeRechazado').hide();
+    $('#popup_pendientes').hide();
+    $('#popup2_pendientes').hide();
     CargarPedidosPend();
 }
 
-function AbrirSplash() {
-    waitingDialog({});
-}
+//function AbrirSplash() {
+//    waitingDialog({});
+//}
 
-function CerrarSplash() {
-    closeWaitingDialog();
-}
+//function CerrarSplash() {
+//    closeWaitingDialog();
+//}
 
 function AceptarPedido(pedidoId, tipo) {
 
@@ -495,7 +501,8 @@ function AceptarPedido(pedidoId, tipo) {
 
         var d = {
             PedidoDetalleId: val1,
-            OpcionAcepta: opt
+            OpcionAcepta: opt,
+            typeAction: '1'     // desktop
         }
 
         detalle.push(d);
@@ -504,13 +511,17 @@ function AceptarPedido(pedidoId, tipo) {
     //console.log(detalle);
 
     if (isOk) {
-
         var pedido = {
-            id: pedidoId,
+            pedidoId: pedidoId,
             ListaDetalleModel: detalle,
         }
 
-        AbrirSplash();
+        waitingDialog({});
+
+        //if (HorarioRestringido()) {
+        //    closeWaitingDialog();
+        //    return false;
+        //}
 
         $.ajax({
             type: 'POST',
@@ -520,8 +531,7 @@ function AceptarPedido(pedidoId, tipo) {
             data: JSON.stringify(pedido),
             async: true,
             success: function (response) {
-
-                CerrarSplash();
+                closeWaitingDialog();
                 if (response.success) {
                     //alert(response.message);
 
@@ -551,8 +561,10 @@ function AceptarPedido(pedidoId, tipo) {
 function CerrarMensajeAceptado(tipo) {
     if (tipo == 1) {
         $('#dialog_aceptasPendientes').hide();
+        $('#popup_pendientes').hide();
     } else {
         $('#dialog2_aceptasPendientes').hide();
+        $('#popup2_pendientes').hide();
     }
 
     CargarDetallePedido();
@@ -563,4 +575,43 @@ function MostrarMisPedidosConsultoraOnline() {
     var frmConsultoraOnline = $('#frmConsultoraOnline');
     frmConsultoraOnline.attr("action", urlMisPedidosClienteOnline);
     frmConsultoraOnline.submit();
+}
+
+function HorarioRestringido(mostrarAlerta) {
+    mostrarAlerta = typeof mostrarAlerta !== 'undefined' ? mostrarAlerta : true;
+    var horarioRestringido = false;
+    $.ajaxSetup({
+        cache: false
+    });
+    jQuery.ajax({
+        type: 'GET',
+        url: baseUrl + 'Pedido/EnHorarioRestringido',
+        dataType: 'json',
+        contentType: 'application/json; charset=utf-8',
+        async: false,
+        success: function (data) {
+            if (checkTimeout(data)) {
+                // esta en horario restringido
+                if (data.success == true) {
+                    if (mostrarAlerta == true) {
+                        closeWaitingDialog();
+                        alert_msg(data.message);
+                    }
+                    horarioRestringido = true;
+                }
+            }
+        },
+        error: function (data, error) {
+            if (checkTimeout(data)) {
+                closeWaitingDialog();
+                alert_msg(data.message);
+            }
+        }
+    });
+    return horarioRestringido;
+}
+
+function CerrarAlertaPedidoReservado() {
+    $('#dialog_alertaPedidoReservado').hide();
+    document.location.href = urlPedido;
 }

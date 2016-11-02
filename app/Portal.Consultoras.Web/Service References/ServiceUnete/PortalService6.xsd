@@ -84,6 +84,7 @@
       <xs:element minOccurs="0" name="NumeroDocumentoLegal" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="NumeroPreimpreso" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ObservacionEntrega" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="OrigenIngreso" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="PaisID" nillable="true" type="xs:int" />
       <xs:element minOccurs="0" name="Paso" nillable="true" type="xs:int" />
       <xs:element minOccurs="0" name="PoblacionVilla" nillable="true" type="xs:string" />
@@ -111,6 +112,7 @@
       <xs:element minOccurs="0" name="TipoDocumentoLegal" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="TipoMeta" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="TipoNacionalidad" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TipoPersona" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="TipoRechazo" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="TipoSolicitud" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="TipoVia" nillable="true" type="xs:string" />

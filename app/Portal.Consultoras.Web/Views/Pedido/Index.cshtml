@@ -483,11 +483,11 @@
                 <div class="pedidoBase_lineaCredito">
                     <span>
                         <p>Pedido Base</p>
-                        <p><label id="lblPBFlexipago">@Model.Simbolo @Model.FormatoPedidoBase</label></p>
+                        <p><label id="lblPBFlexipago">@Model.Simbolo @(Model.PaisID == 4 ? string.Format("{0:#,##0}", Model.PedidoBase) : string.Format("{0:#,##0.00}", Model.PedidoBase))</label></p>
                     </span>
                     <span>
                         <p>Línea de Crédito</p>
-                        <p>@Model.Simbolo @Model.FormatoLineaCredito</p>
+                        <p>@Model.Simbolo @(Model.PaisID == 4 ? string.Format("{0:#,##0}", Model.LineaCredito) : string.Format("{0:#,##0.00}", Model.LineaCredito))</p>
                     </span>
                 </div>
                 <div class="clear"></div>
@@ -496,11 +496,11 @@
     </div>
     <!--14092016 - FIN -->
 
+    <div class="caja_carousel_productos" id="divListaEstrategias" style="display:none;">
     @if (ViewBag.MostrarPedidosPendientes == "1")
     {
         <div class="truco_bloqueo sim2"></div>
     }
-    <div class="caja_carousel_productos">
         <div class="contenedor_carousel">
             <h1>
                 OFERTAS
@@ -976,6 +976,7 @@
     </div>
     <!--Popup mensaje como lo atenderas -->
     
+    
     <!--PENDIENTES PORTAL-->
     <div id="popup2_pendientes" class="contenedor_popup_percepciones popupPendientesPORTAL" style="display: none;">
         <div class="popup_Pendientes">
@@ -1073,7 +1074,7 @@
                     <div class="optionsRechazo" data-id="@motivoRechazo.MotivoSolicitudID">@motivoRechazo.Motivo</div>
                 }
 
-                <textarea id="txtOtrosRechazo" placeholder="Otros:"></textarea>
+                <textarea id="txtOtrosRechazo" placeholder="" readonly="readonly" maxlength="300"></textarea>
             </div>
             <button type="button" class="btn_eliminarCliente btn-negro" id="btnRechazarPedido" onclick="RechazarPedido()">
                 ENVIAR
@@ -1902,7 +1903,9 @@
                     <b>{{Descripcion}}</b>
                 </p>
                 <div class="producto_precio">
-                    @*<span class="producto_precio_normal">{{Simbolo}} {{PrecioValorizadoString}}</span>*@
+                    {{#iff PrecioValorizadoString '!=' ''}}
+                    <span class="producto_precio_normal">{{Simbolo}} {{PrecioValorizadoString}}</span>
+                    {{/iff}}
                     <span class="producto_precio_oferta"><b>{{Simbolo}} {{PrecioCatalogoString}}</b></span>
                 </div>
                 <div class="liquidacion_rango_home">
@@ -1956,6 +1959,7 @@
 
         var lanzarTabConsultoraOnline = '@ViewBag.LanzarTabConsultoraOnline';
         var urlMisPedidosClienteOnline = '@Url.Action("", "MisPedidos")';
+        var urlPedido = '@Url.Action("Index","Pedido")';
 
     </script>
     @System.Web.Optimization.Scripts.Render("~/bundles/JsSB2-Pedido")
