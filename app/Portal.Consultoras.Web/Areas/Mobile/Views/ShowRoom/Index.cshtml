@@ -100,7 +100,10 @@
         </div>
         <div>
             @{
-                var urlWs = "whatsapp://send?text=" + item.Descripcion + "%20(" + subTitulo + ").%20" + item.ImagenProducto;
+                var texto = item.Descripcion + ": " + subTitulo + ".";
+                var message = Uri.EscapeDataString(texto) + " - " + Uri.EscapeDataString(item.ImagenProducto);
+                var urlWs = "whatsapp://send?text=" + message;
+                //var urlWs = "whatsapp://send?text=" ;
                 var descripcionF = item.Descripcion.Replace("'", "\'");
                 var subtituloF = subTitulo.Replace("'", "\'");
                 var imagenF = item.ImagenProducto.Replace("'", "\'");
@@ -139,7 +142,7 @@
 
         $(document).ready(function () {
             TagManagerOfertaShowRoom();
-
+            
             $("body").on("click", ".suma", function () {
                 var article = $(this).parents(".listado_item").eq(0);
                 var cantidad = $(article).find(".txtCantidad").val();
