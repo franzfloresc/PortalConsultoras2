@@ -129,6 +129,12 @@ namespace Portal.Consultoras.Web.Controllers
 
             olstPedidoWebDetalle = olstPedidoWebDetalle ?? new List<BEPedidoWebDetalle>();
 
+            foreach (var item in olstPedidoWebDetalle)
+            {
+                item.ClienteID = string.IsNullOrEmpty(item.Nombre) ? (short)0 : Convert.ToInt16(item.ClienteID);
+                item.Nombre = string.IsNullOrEmpty(item.Nombre) ? userData.NombreConsultora : item.Nombre;
+            }
+
             Session["PedidoWebDetalle"] = olstPedidoWebDetalle;
             return olstPedidoWebDetalle;
         }

@@ -706,7 +706,7 @@ namespace Portal.Consultoras.Web.Controllers
             oBEPedidoWebDetalle.PedidoDetalleID = Convert.ToInt16(model.PedidoDetalleID);
             oBEPedidoWebDetalle.Cantidad = Convert.ToInt32(model.Cantidad);
             oBEPedidoWebDetalle.PrecioUnidad = model.PrecioUnidad;
-            oBEPedidoWebDetalle.ClienteID = string.IsNullOrEmpty(model.ClienteID.ToString()) ? (short)0 : Convert.ToInt16(model.ClienteID);
+            oBEPedidoWebDetalle.ClienteID = string.IsNullOrEmpty(model.Nombre) ? (short)0 : Convert.ToInt16(model.ClienteID);
 
             //Cambios para Oferta de Liquidación
             oBEPedidoWebDetalle.CUV = model.CUV;
