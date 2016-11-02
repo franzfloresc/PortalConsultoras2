@@ -520,7 +520,7 @@
             <div class="content_carrusel_pack" id="divCarruselNivel">
                 <div class="item_pack_personalizado">                                       
                     <div class="content_item_pack">
-                        <div class="fondo_negro_pack">COMPRA 1X</div>
+                        <div class="fondo_negro_pack">COMPRA 1 {{Descripcion}}</div>
                         <br />
                         <div class="img_principal_pack" style="margin-top:16px;">
                             {{#IsNullOrEmpty UrlImagen '!='}}
@@ -535,7 +535,7 @@
                 {{#each lista_ObjNivel as |nivel|}}
                 <div class="item_pack_personalizado  linea_d">
                     <div class="content_item_pack">
-                        <div class="fondo_negro_pack">COMPRA {{nivel.escala_nivel}}X</div>
+                        <div class="fondo_negro_pack">COMPRA {{nivel.escala_nivel}} {{../Descripcion}}</div>
                         <div class="pack_inter width_100">
                             <div class="titulo_pack" style="height:auto">Precio para ti {{../Simbolo}} {{DecimalToStringFormat nivel.precio_nivel}}</div>
                             <div class="texto_ganancia_pack">{{../TxtGanancia}}: {{../Simbolo}} {{DecimalToStringFormat nivel.ganancia_nivel}}</div>
@@ -661,11 +661,12 @@
                     <input type="hidden" class="hdItemPackValorizado" value="{{pack.valorizado}}" />
                     <input type="hidden" class="hdItemPackPrecio" value="{{pack.precio_pack}}" />
                     <div class="content_item_pack">
-                        {{#if_eq pack.EsUltimo "1"}}
+                        @*{{#if_eq pack.EsUltimo "1"}}
                         <div class="fondo_negro_pack" style="width: 90%;">PACK MÁXIMA GANANCIA</div>
                         {{else}}
                         <div class="fondo_negro_pack">PACK GANANCIA</div>
-                        {{/if_eq}}
+                        {{/if_eq}}*@
+                        <div class="fondo_negro_pack">{{pack.nombre_pack}}</div>
                         <div class="pack_inter width_100">
                             <div class="titulo_pack" style="height:auto">Precio para ti: {{../Simbolo}} {{DecimalToStringFormat pack.precio_pack}}</div>
                             <div class="texto_ganancia_pack">{{../TxtGanancia}}: {{../Simbolo}} {{DecimalToStringFormat pack.ganancia_pack}}</div>

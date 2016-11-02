@@ -237,7 +237,7 @@
         <div>
             <div class="content_pack_niveles">
                 <div class="row_20">
-                    <div class="titulo_mobile">COMPRA 1X</div>
+                    <div class="titulo_mobile">COMPRA 1 {{Descripcion}}</div>
                     <div class="pestana_esika"></div>
                     <div class="pestana_lbel"></div>
                 </div>                
@@ -249,7 +249,7 @@
             {{#each lista_ObjNivel as |nivel|}}
             <div class="content_pack_niveles">
                 <div class="row_20">
-                    <div class="titulo_mobile">COMPRA {{nivel.escala_nivel}}X</div>
+                    <div class="titulo_mobile">COMPRA {{nivel.escala_nivel}} {{../Descripcion}}</div>
                     <div class="pestana_esika"></div>
                     <div class="pestana_lbel"></div>
                 </div>    
@@ -389,7 +389,8 @@
             <input type="hidden" class="hdItemPackPrecio" value="{{pack.precio_pack}}" />
 
             <div class="row_20">
-                <div class="titulo_mobile">PACK {{#if_eq pack.EsUltimo "1"}}MÁXIMA {{/if_eq}}GANANCIA</div>
+                @*<div class="titulo_mobile">PACK {{#if_eq pack.EsUltimo "1"}}MÁXIMA {{/if_eq}}GANANCIA</div>*@
+                <div class="titulo_mobile">{{pack.nombre_pack}}</div>
                 <div class="pestana_esika"></div><!--PESTANA ESIKA-->
                 <div class="pestana_lbel"></div><!--PESTANA LBEL-->
             </div>

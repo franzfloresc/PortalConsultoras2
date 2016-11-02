@@ -30070,11 +30070,15 @@ h1#penmostreo .campana {
     background:black;
     color:white;
     font-family:'Lato';
-    line-height:41px;
-    font-size:16px;
+    line-height:18px;
+    font-size:15px;
     text-align:center;
     width:82%;
     position:relative;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    flex-direction: column;
 }
 .fondo_negro_pack:before {
     content: "";
