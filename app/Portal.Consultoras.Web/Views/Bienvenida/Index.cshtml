@@ -767,7 +767,7 @@
                 </div>
                 <div class="grupo_input_actualizarMisDatos">
                     <div>
-                        <label><span class="asterisco_actualizar_datos"></span>Teléfono de trabajo</label>
+                        <label><span class="asterisco_actualizar_datos"></span>Otro teléfono</label>
                         <input type="text" name="m_txtTelefonoTrabajo" id="m_txtTelefonoTrabajo" class="requerido" maxlength="10" placeholder="Número incluye lada (10 dígitos)" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" value="@Model.TelefonoTrabajo" />
                     </div>
                     <div>
@@ -823,7 +823,7 @@
                         <input type="text" name="celular" id="txtCelular" value="@Model.Celular" />
                     </div>
                     <div>
-                        <label>Teléfono de trabajo</label>
+                        <label>Otro teléfono</label>
                         <input type="text" name="telefonoTrabajo" id="txtTelefonoTrabajo" value="@Model.TelefonoTrabajo" />
                     </div>
                 </div>
@@ -1041,7 +1041,7 @@
                 </div>
                 <div class="grupo_input_actualizarMisDatos campos_actualizarDatos">
                     <div>
-                        <label><span class="asterisco_actualizar_datos"></span>Tu teléfono de trabajo:</label>
+                        <label><span class="asterisco_actualizar_datos"></span>Otro teléfono:</label>
                         <input type="text" name="txtTelefonoTrabajoMD" id="txtTelefonoTrabajoMD" />
                     </div>
                 </div>
@@ -1745,7 +1745,7 @@
             <input type="hidden" class="hdItemDescripcionCategoria" value="{{productoRevista.DescripcionCategoria}}" />
             <input type="hidden" class="hdItemDescripcionMarca" value="{{productoRevista.DescripcionMarca}}" />
             <input type="hidden" class="hdItemDescripcionEstrategia" value="{{productoRevista.DescripcionEstrategia}}" />
-            <input type="hidden" class="OrigenPedidoWeb" value="@Portal.Consultoras.Common.Constantes.OrigenPedidoWeb.DesktopCatalogoPersonalizadoPopUp" />
+            <input type="hidden" class="OrigenPedidoWeb" value="@Constantes.OrigenPedidoWeb.DesktopCatalogoPersonalizadoPopUp" />
         </div>
         <div class="cerrar-mod" data-close=""><img src="@Url.Content("/Content/Images/btn_cerrar_popupPercepcion.png")" /></div>
         <div class="encabezado_popupCatalogoPersonalizado">
@@ -1819,7 +1819,7 @@
             <input type="hidden" class="hdItemDescripcionCategoria" value="{{DescripcionCategoria}}" />
             <input type="hidden" class="hdItemDescripcionMarca" value="{{DescripcionMarca}}" />
             <input type="hidden" class="hdItemDescripcionEstrategia" value="{{DescripcionEstrategia}}" />
-            <input type="hidden" class="OrigenPedidoWeb" value="@Portal.Consultoras.Common.Constantes.OrigenPedidoWeb.DesktopCatalogoPersonalizadoPopUp" />
+            <input type="hidden" class="OrigenPedidoWeb" value="@Constantes.OrigenPedidoWeb.DesktopCatalogoPersonalizadoPopUp" />
         </div>
         <div style="display:none;" id="hiddenRevista">
             <input type="hidden" class="hdItemCuv" value="{{productoRevista.CUV}}" />
@@ -1834,7 +1834,7 @@
             <input type="hidden" class="hdItemDescripcionCategoria" value="{{productoRevista.DescripcionCategoria}}" />
             <input type="hidden" class="hdItemDescripcionMarca" value="{{productoRevista.DescripcionMarca}}" />
             <input type="hidden" class="hdItemDescripcionEstrategia" value="{{productoRevista.DescripcionEstrategia}}" />
-            <input type="hidden" class="OrigenPedidoWeb" value="@Portal.Consultoras.Common.Constantes.OrigenPedidoWeb.DesktopCatalogoPersonalizadoPopUp" />
+            <input type="hidden" class="OrigenPedidoWeb" value="@Constantes.OrigenPedidoWeb.DesktopCatalogoPersonalizadoPopUp" />
         </div>
         <div class="cerrar-mod" data-close=""><img src="@Url.Content("/Content/Images/btn_cerrar_popupPercepcion.png")" /></div>
         <div class="encabezado_popupCatalogoPersonalizado">
@@ -1843,29 +1843,47 @@
             <div class="linea_encabezado_popupCatalogoPersonalizado"></div>
         </div>
         <div>
-            <div class="item1_oferta_personalizada">
-                <div class="content_precio_set">
-                    <div class="compra_set">COMPRA 1X<br />{{Simbolo}} {{DecimalToStringFormat precio_revista}}</div>
-                    <div class="gananecia_set">{{TxtGanancia}}: {{Simbolo}} {{DecimalToStringFormat ganancia}}</div>
+            <div class="content_carrusel_pack" id="divCarruselNivel">
+                <div class="item_pack_personalizado">
+                    <div class="content_item_pack">
+                        <div class="fondo_negro_pack">COMPRA 1 {{Descripcion}}</div>
+                        <br />
+                        <div class="img_principal_pack" style="margin-top:16px;">                            
+                            {{#IsNullOrEmpty UrlImagen '!='}}
+                            <img src="{{UrlImagen}}" alt="" />
+                            {{/IsNullOrEmpty}}
+                        </div>
+                        <div class="titulo_pack">{{Descripcion}}</div>
+                        <div class="texto_unidad_pack">Precio para ti {{Simbolo}} {{DecimalToStringFormat precio_revista}}</div>
+                        <div class="texto_ganancia_pack">{{TxtGanancia}}: {{Simbolo}} {{DecimalToStringFormat ganancia}}</div>
+                    </div>
                 </div>
-            </div>
-            {{#each lista_ObjNivel as |nivel|}}
-            <div class="item1_oferta_personalizada">
-                <div class="content_precio_set">
-                    <div class="compra_set">COMPRA {{nivel.escala_nivel}}X<br />{{../Simbolo}} {{DecimalToStringFormat nivel.precio_nivel}}</div>
-                    <div class="gananecia_set">{{../TxtGanancia}}: {{../Simbolo}} {{DecimalToStringFormat nivel.ganancia_nivel}} </div>
-                    <div class="gratis_set">{{../TxtRecibeGratis}}:</div>
+                {{#each lista_ObjNivel as |nivel|}}
+                <div class="item_pack_personalizado  linea_d">
+                    <div class="content_item_pack">
+                        <div class="fondo_negro_pack">COMPRA {{nivel.escala_nivel}} {{../Descripcion}}</div>
+                        <div class="pack_inter width_100">
+                            <div class="titulo_pack" style="height:auto">Precio para ti {{../Simbolo}} {{DecimalToStringFormat nivel.precio_nivel}}</div>
+                            <div class="texto_ganancia_pack">{{../TxtGanancia}}: {{../Simbolo}} {{DecimalToStringFormat nivel.ganancia_nivel}}</div>
+                            <div class="gratis_set">{{../TxtRecibeGratis}}:</div>
+                            <div class="content_sub_items">
+                                {{#each ../lista_oObjGratis as |item|}}
+                                {{#if_eq nivel.escala_nivel item.escala_nivel_gratis}}
+                                <div class="sub_imagen_oferta">                                    
+                                    {{#IsNullOrEmpty item.imagen_gratis '!='}}
+                                    <img src="{{item.imagen_gratis}}" alt="" />
+                                    {{/IsNullOrEmpty}}
+                                </div>
+                                <div class="sub_descripcion_oferta"><p><span>x{{item.cantidad}}</span>&nbsp;{{item.descripcion_gratis}}</p></div>
+                                <hr class="clear">
+                                {{/if_eq}}
+                                {{/each}}
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="content_sub_items">
-                    {{#each ../lista_oObjGratis as |item|}}
-                    {{#if_eq nivel.escala_nivel item.escala_nivel_gratis}}
-                    <div class="sub_imagen_oferta"><img src="{{item.imagen_gratis}}" alt=""></div>
-                    <div class="sub_descripcion_oferta">{{item.cantidad}} {{item.descripcion_gratis}}</div>
-                    {{/if_eq}}
-                    {{/each}}
-                </div>
-            </div>
-            {{/each}}
+                {{/each}}
+            </div>            
         </div>
         <div class="texto_mencion">Elige la cantidad y el sistema te ofrecerá la mejor combinación</div>
         <div style="width:215px; margin:0 auto; margin-top:10px;">
@@ -1919,7 +1937,7 @@
                 <input type="hidden" class="hdItemDescripcionCategoria" value="{{DescripcionCategoria}}" />
                 <input type="hidden" class="hdItemDescripcionMarca" value="{{DescripcionMarca}}" />
                 <input type="hidden" class="hdItemDescripcionEstrategia" value="{{DescripcionEstrategia}}" />
-                <input type="hidden" class="OrigenPedidoWeb" value="@Portal.Consultoras.Common.Constantes.OrigenPedidoWeb.DesktopCatalogoPersonalizadoPopUp" />
+                <input type="hidden" class="OrigenPedidoWeb" value="@Constantes.OrigenPedidoWeb.DesktopCatalogoPersonalizadoPopUp" />
             </div>
             <div style="display:none;" id="hiddenRevista">
                 <input type="hidden" class="hdItemCuv" value="{{productoRevista.CUV}}" />
@@ -1934,17 +1952,19 @@
                 <input type="hidden" class="hdItemDescripcionCategoria" value="{{productoRevista.DescripcionCategoria}}" />
                 <input type="hidden" class="hdItemDescripcionMarca" value="{{productoRevista.DescripcionMarca}}" />
                 <input type="hidden" class="hdItemDescripcionEstrategia" value="{{productoRevista.DescripcionEstrategia}}" />
-                <input type="hidden" class="OrigenPedidoWeb" value="@Portal.Consultoras.Common.Constantes.OrigenPedidoWeb.DesktopCatalogoPersonalizadoPopUp" />
+                <input type="hidden" class="OrigenPedidoWeb" value="@Constantes.OrigenPedidoWeb.DesktopCatalogoPersonalizadoPopUp" />
             </div>
         </div>
         <!--ITEM 1-->
         <div class="item_pack_personalizado">
             <div class="content_item_pack">
-                <div class="img_principal_pack">
-                    <img src="{{UrlImagen}}" alt="">
+                <div class="img_principal_pack">                    
+                    {{#IsNullOrEmpty UrlImagen '!='}}
+                    <img src="{{UrlImagen}}" alt="" />
+                    {{/IsNullOrEmpty}}
                 </div>
                 <div class="titulo_pack">{{Descripcion}}</div>
-                <div class="texto_unidad_pack">Precio por unidad {{Simbolo}} {{DecimalToStringFormat precio_revista}}</div>
+                <div class="texto_unidad_pack">Precio para ti {{Simbolo}} {{DecimalToStringFormat precio_revista}}</div>
                 <div class="texto_ganancia_pack">{{TxtGanancia}}: {{Simbolo}} {{DecimalToStringFormat ganancia}}</div>
             </div>
             <div style="width:215px; margin:0 auto; margin-top:10px;">
@@ -1958,40 +1978,56 @@
                 <a class="boton_Agregalo_home agregar-ofertarevista" data-cuv="revista">AGRÉGALO</a>
             </div>
         </div>
-        <!--ITEM 2-->
-        {{#each lista_oObjPack as |pack|}}
-        <div class="item_pack_personalizado">
-            <input type="hidden" class="hdItemPackCuv" value="{{pack.cuv_pack}}" />
-            <input type="hidden" class="hdItemPackValorizado" value="{{pack.valorizado}}" />
-            <input type="hidden" class="hdItemPackPrecio" value="{{pack.precio_pack}}" />
-            <div class="content_item_pack">
-                <div class="fondo_negro_pack">PACK {{#if_eq pack.EsUltimo "1"}}MÁXIMA {{/if_eq}}GANANCIA</div>
-                <div class="pack_inter">
-                    <div class="titulo_pack" style="height:auto"><span class="texto_unidad_pack">Precio para ti: </span>{{../Simbolo}} {{DecimalToStringFormat pack.precio_pack}}</div>
-                    <div class="texto_ganancia_pack">{{../TxtGanancia}}: {{../Simbolo}} {{DecimalToStringFormat pack.ganancia_pack}}</div>
-                    <div class="content_sub_items">
-                        {{#each ../lista_oObjItemPack as |item|}}
-                        {{#if_eq pack.cuv_pack item.cuv_pack_item}}
-                        <div class="sub_imagen_oferta"><img src="{{item.imagen_item_pack}}" alt=""></div>
-                        <div class="sub_descripcion_oferta">{{item.cantidad_item_pack}} {{item.descripcion_item_pack}}</div>
-                        <hr class="clear" />
-                        {{/if_eq}}
-                        {{/each}}
+        <div class="content_66">
+            <div class="content_carrusel_pack" id="divCarruselPack">
+                <!--ITEM 2-->
+                {{#each lista_oObjPack as |pack|}}
+                <div class="item_pack_personalizado linea_d">
+                    <input type="hidden" class="hdItemPackCuv" value="{{pack.cuv_pack}}" />
+                    <input type="hidden" class="hdItemPackValorizado" value="{{pack.valorizado}}" />
+                    <input type="hidden" class="hdItemPackPrecio" value="{{pack.precio_pack}}" />
+                    <div class="content_item_pack">
+                        @*{{#if_eq pack.EsUltimo "1"}}
+                        <div class="fondo_negro_pack" style="width: 90%;">PACK MÁXIMA GANANCIA</div>
+                        {{else}}
+                        <div class="fondo_negro_pack">PACK GANANCIA</div>
+                        {{/if_eq}}*@
+                        <div class="fondo_negro_pack">{{pack.nombre_pack}}</div>
+                        <div class="pack_inter width_100">
+                            <div class="titulo_pack" style="height:auto">Precio para ti: {{../Simbolo}} {{DecimalToStringFormat pack.precio_pack}}</div>
+                            <div class="texto_ganancia_pack">{{../TxtGanancia}}: {{../Simbolo}} {{DecimalToStringFormat pack.ganancia_pack}}</div>
+                            <div class="content_sub_items">
+                                {{#each ../lista_oObjItemPack as |item|}}
+                                {{#if_eq pack.cuv_pack item.cuv_pack_item}}
+                                <div class="sub_imagen_oferta">                                    
+                                    {{#IsNullOrEmpty item.imagen_item_pack '!='}}
+                                    <img src="{{item.imagen_item_pack}}" alt="" />
+                                    {{/IsNullOrEmpty}}
+                                </div>
+                                <div class="sub_descripcion_oferta"><p><span>x{{item.cantidad_item_pack}}</span>&nbsp;{{item.descripcion_item_pack}}</p></div>
+                                <hr class="clear" />
+                                @*<div class="sub_imagen_oferta"><img src="https://s3-sa-east-1.amazonaws.com/appcatalogo/PE/201616/C/productos/PE_200069929.jpg" alt=""></div>
+                                <div class="sub_descripcion_oferta"><p><span>x2</span>&nbsp;Desodorante roll-on. Girlink</p></div>
+                                <hr class="clear" />*@
+                                {{/if_eq}}
+                                {{/each}}
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
-            <div style="width:215px; margin:0 auto; margin-top:10px;" data-cantidad-contenedor="">
-                <div class="liquidacion_rango_home js-no-popup">
-                    <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral js-no-popup" tabindex="0" data-cantidad-input="pack">
-                    <div class="liquidacion_rango_right_pedido js-no-popup">
-                        <a class="mas js-no-popup" tabindex="0"><img class="js-no-popup" src="/Content/Images/Esika/mas.png" alt=""></a>
-                        <a class="menos js-no-popup" tabindex="0"><img class="js-no-popup" src="/Content/Images/Esika/menos.png" alt=""></a>
+                    <div style="width:215px; margin:0 auto; margin-top:10px;" data-cantidad-contenedor="">
+                        <div class="liquidacion_rango_home js-no-popup">
+                            <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral js-no-popup" tabindex="0" data-cantidad-input="pack">
+                            <div class="liquidacion_rango_right_pedido js-no-popup">
+                                <a class="mas js-no-popup" tabindex="0"><img class="js-no-popup" src="/Content/Images/Esika/mas.png" alt=""></a>
+                                <a class="menos js-no-popup" tabindex="0"><img class="js-no-popup" src="/Content/Images/Esika/menos.png" alt=""></a>
+                            </div>
+                        </div>
+                        <a class="boton_Agregalo_home agregar-ofertarevista" data-cuv="pack" data-cuvadd="{{pack.cuv_pack}}">AGRÉGALO</a>
                     </div>
-                </div>
-                <a class="boton_Agregalo_home agregar-ofertarevista" data-cuv="pack" data-cuvadd="{{pack.cuv_pack}}">AGRÉGALO</a>
+                </div>                
+                {{/each}}
             </div>
-        </div>
-        {{/each}}
+        </div>                
         <div class="row_40">
             <div class="sombra_oferta">
                 <div class="texto_sombra">También puedes comprarlo con el precio catálogo: <br /><span>{{Simbolo}} {{DecimalToStringFormat precio_catalogo}}</span></div>

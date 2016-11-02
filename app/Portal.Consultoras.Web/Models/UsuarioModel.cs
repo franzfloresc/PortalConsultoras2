@@ -284,11 +284,14 @@ namespace Portal.Consultoras.Web.Models
         public int IndicadorRechazado { get; set; }
         public string MotivoRechazo { get; set; }
         public DateTime FechaProceso { get; set; }
+        
+        public DateTime FechaActualPais { get; set; }
 
         // 0: No hay Respuesta, 1: Rechazado, 2: No Rechazado
         public int EstaRechazado { get; set; }
 
         public int CerrarRechazado { get; set; }
         public string NombreGerenteZonal { get; set; }  // SB20-907
+        public decimal MontoDeuda { get; set; } 
     }
 }

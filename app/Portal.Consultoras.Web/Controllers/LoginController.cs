@@ -41,20 +41,11 @@ namespace Portal.Consultoras.Web.Controllers
             string paisLog = "";
             try
             {
-                pasoLog = "Se empezará a leer los Claims";
                 ClaimsPrincipal claimsPrincipal = User as ClaimsPrincipal;
-                pasoLog = "Se obtuvo claimsPrincipal";
                 Claim FederationClaimName = claimsPrincipal.FindFirst(ClaimTypes.Name);
-                if (FederationClaimName == null)
-                {
-                    pasoLog = "FederationClaimName es null";
-                }
                 string claimUser = FederationClaimName.Value.ToUpper();
-                pasoLog = "FederationClaimName.Value: " + FederationClaimName.Value;
                 string DomConsultora = ConfigurationManager.AppSettings.Get("DomConsultora");
-                pasoLog = "DomConsultora: " + DomConsultora;
                 string DomBelcorp = ConfigurationManager.AppSettings.Get("DomBelcorp");
-                pasoLog = "DomBelcorp: " + DomBelcorp;
 
                 string UserPortal = string.Empty;
                 bool UsuarioSAC = false;
@@ -72,7 +63,6 @@ namespace Portal.Consultoras.Web.Controllers
                     Tipo = 2;
                 }
 
-                pasoLog = "Se obtuvo el usuario";
                 usuarioLog = UserPortal;
 
                 if (!string.IsNullOrEmpty(UserPortal))
@@ -99,7 +89,6 @@ namespace Portal.Consultoras.Web.Controllers
                         Codigo = UserPortal;
                     }
 
-                    pasoLog = "Se obtuvo el país";
                     paisLog = Pais;
                     usuarioLog = Codigo;
 
@@ -109,8 +98,6 @@ namespace Portal.Consultoras.Web.Controllers
                         UsuarioModel usuario = GetUserData(PaisModel.PaisID, Codigo, Tipo);
                         if (usuario != null)
                         {
-                            pasoLog = "Se obtuvo datos de sesión";
-
                             if (usuario.RolID == Portal.Consultoras.Common.Constantes.Rol.Consultora)
                             {
                                 bool esMovil = Request.Browser.IsMobileDevice;
@@ -297,7 +284,6 @@ namespace Portal.Consultoras.Web.Controllers
                 using (UsuarioServiceClient sv = new UsuarioServiceClient())
                 {
                     oBEUsuario = sv.GetSesionUsuario(PaisID, CodigoUsuario);
-                    pasoLog = "Se obtuvo usuario de BD";
 
                     if (oBEUsuario != null && refrescarDatos == 0)
                     {
@@ -305,7 +291,6 @@ namespace Portal.Consultoras.Web.Controllers
                         {
                             //El campo DetalleError, se reutiliza para enviar la campania de la consultora.
                             sv.InsLogIngresoPortal(PaisID, oBEUsuario.CodigoConsultora, GetIPCliente(), 1, oBEUsuario.CampaniaID.ToString());
-                            pasoLog = "Se registro el log de ingreso al portal";
                         }
                         catch
                         {
@@ -352,17 +337,17 @@ namespace Portal.Consultoras.Web.Controllers
                                     string valorx = "";
 
                                     // deuda, monto mínimo/máximo/MinStock
-                                    
-                                    listaRechazo.Update(p=>p.MotivoRechazo = Util.SubStr(p.MotivoRechazo, 0).ToLower());
-                                    listaRechazo = listaRechazo.Where(p=>p.MotivoRechazo != "").ToList();
-                                                                        
+
+                                    listaRechazo.Update(p => p.MotivoRechazo = Util.SubStr(p.MotivoRechazo, 0).ToLower());
+                                    listaRechazo = listaRechazo.Where(p => p.MotivoRechazo != "").ToList();
+
                                     var listaMotivox = listaRechazo.Where(p => p.MotivoRechazo == "deuda").ToList();
                                     if (listaMotivox.Any())
                                     {
                                         valorx = valor + listaMotivox[0].Valor;
                                         model.MotivoRechazo = "Tienes una deuda de " + valorx + " que debes regularizar. <a href='javascript:;' onclick=RedirectMenu('Index','MisPagos',0,'') >MIRA LOS LUGARES DE PAGO</a>";
                                     }
-                                    
+
                                     listaMotivox = listaRechazo.Where(p => p.MotivoRechazo == "minimo").ToList();
                                     if (listaMotivox.Any())
                                     {
@@ -371,7 +356,7 @@ namespace Portal.Consultoras.Web.Controllers
                                             model.MotivoRechazo = "Tienes una deuda pendiente de " + valorx;
                                             valorx = valor + listaMotivox[0].Valor;
                                             model.MotivoRechazo += ". Además, para pasar pedido debes alcanzar el monto mínimo de " + valorx + ". <a href='javascript:;' onclick=RedirectMenu('Index','Pedido',0,'Pedido') >MODIFICA TU PEDIDO</a>";
-	                                    }
+                                        }
                                         else
                                         {
                                             valorx = valor + listaMotivox[0].Valor;
@@ -405,12 +390,13 @@ namespace Portal.Consultoras.Web.Controllers
                                         model.MotivoRechazo = "No llegaste al mínimo de " + valorx + ". <a href='javascript:;' onclick=RedirectMenu('Index','Pedido',0,'Pedido') >MODIFICA TU PEDIDO</a>";
                                     }
                                 }
-                                
+
                                 // llamar al maestro de mensajes
                             }
                         }
                     }
                     #endregion
+
                     model.MotivoRechazo = model.MotivoRechazo.Trim();
                     model.IndicadorEnviado = oBEUsuario.IndicadorEnviado;
                     model.IndicadorRechazado = oBEUsuario.IndicadorRechazado;
@@ -449,7 +435,6 @@ namespace Portal.Consultoras.Web.Controllers
                     model.FechaNacimiento = oBEUsuario.FechaNacimiento;
                     model.Nivel = oBEUsuario.Nivel;
                     model.FechaInicioCampania = oBEUsuario.FechaInicioFacturacion;
-                    model.FechaLimPago = oBEUsuario.FechaLimPago;
                     model.VioVideoModelo = oBEUsuario.VioVideo;
                     model.VioTutorialModelo = oBEUsuario.VioTutorial;
                     model.VioTutorialDesktop = oBEUsuario.VioTutorialDesktop;
@@ -509,11 +494,8 @@ namespace Portal.Consultoras.Web.Controllers
                     }
 
                     model.ZonaValida = oBEUsuario.ZonaValida;
-                    model.MontoMinimo = oBEUsuario.MontoMinimoPedido;
-                    model.MontoMaximo = oBEUsuario.MontoMaximoPedido;
                     model.Simbolo = oBEUsuario.Simbolo;
                     model.CodigoTerritorio = oBEUsuario.CodigoTerritorio;
-                    pasoLog = "Obtener listado de productos faltantes";
                     model.ListaProductoFaltante = GetModelPedidoAgotado(model.PaisID, model.CampaniaID, model.ZonaID);
                     model.HoraCierreZonaDemAnti = oBEUsuario.HoraCierreZonaDemAnti;
                     model.HoraCierreZonaNormal = oBEUsuario.HoraCierreZonaNormal;
@@ -524,13 +506,10 @@ namespace Portal.Consultoras.Web.Controllers
                     model.Sobrenombre = oBEUsuario.Sobrenombre;
                     model.SobrenombreOriginal = oBEUsuario.Sobrenombre;
                     model.Direccion = oBEUsuario.Direccion;
-                    pasoLog = "Obtener IP de Cliente";
                     model.IPUsuario = GetIPCliente();
                     model.AnoCampaniaIngreso = oBEUsuario.AnoCampaniaIngreso;
                     model.PrimerNombre = oBEUsuario.PrimerNombre;
                     model.PrimerApellido = oBEUsuario.PrimerApellido;
-                    model.IndicadorFlexiPago = oBEUsuario.IndicadorFlexiPago;
-                    pasoLog = "Obtener Permisos de flexipago";
                     model.IndicadorPermisoFlexipago = GetPermisoFlexipago(model.PaisID, model.CodigoISO, model.CodigoConsultora, model.CampaniaID);
                     model.MostrarAyudaWebTraking = oBEUsuario.MostrarAyudaWebTraking;
                     model.NroCampanias = oBEUsuario.NroCampanias;
@@ -549,7 +528,6 @@ namespace Portal.Consultoras.Web.Controllers
                     model.MenuNotificaciones = 1;
                     if (model.MenuNotificaciones == 1)
                     {
-                        pasoLog = "Obtener si tiene notificaciones";
                         model.TieneNotificaciones = TieneNotificaciones(oBEUsuario);
                     }
                     model.NuevoPROL = oBEUsuario.NuevoPROL;
@@ -557,14 +535,13 @@ namespace Portal.Consultoras.Web.Controllers
 
                     if (oBEUsuario.CampaniaID != 0)
                     {
-                        pasoLog = "Obtener fecha promesa";
                         valores = GetFechaPromesaEntrega(oBEUsuario.PaisID, oBEUsuario.CampaniaID, oBEUsuario.CodigoConsultora, oBEUsuario.FechaInicioFacturacion);
                         arrValores = valores.Split('|');
                         model.TipoCasoPromesa = arrValores[2].ToString();
                         model.DiasCasoPromesa = Convert.ToInt16(arrValores[1].ToString());
                         model.FechaPromesaEntrega = Convert.ToDateTime(arrValores[0].ToString());
                     }
-                    pasoLog = "Obtener links por pais";
+
                     List<TipoLinkModel> lista = GetLinksPorPais(model.PaisID);
                     if (lista.Count > 0)
                     {
@@ -573,7 +550,6 @@ namespace Portal.Consultoras.Web.Controllers
                         model.UrlTerminos = lista.Find(x => x.TipoLinkID == 303).Url;
                     }
 
-                    pasoLog = "Obtener si es usuario comunidad";
                     model.EsUsuarioComunidad = EsUsuarioComunidad(oBEUsuario.PaisID, oBEUsuario.CodigoUsuario);
                     model.SegmentoConstancia = oBEUsuario.SegmentoConstancia;
                     model.SeccionAnalytics = oBEUsuario.SeccionAnalytics;
@@ -594,13 +570,40 @@ namespace Portal.Consultoras.Web.Controllers
                     model.TieneHana = oBEUsuario.TieneHana;
                     model.NombreGerenteZonal = oBEUsuario.NombreGerenteZona;  // SB20-907
 
-                    if (model.TieneHana == 1)
+                    if (model.RolID == Portal.Consultoras.Common.Constantes.Rol.Consultora)
                     {
-                        ActualizarDatosHana(ref model);      
-                    }                                        
+                        if (model.TieneHana == 1)
+                        {
+                            ActualizarDatosHana(ref model);
+                        }
+                        else
+                        {
+                            model.MontoMinimo = oBEUsuario.MontoMinimoPedido;
+                            model.MontoMaximo = oBEUsuario.MontoMaximoPedido;
+                            model.FechaLimPago = oBEUsuario.FechaLimPago;
+                            model.IndicadorFlexiPago = oBEUsuario.IndicadorFlexiPago;
+
+                            BEResumenCampania[] infoDeuda = null;
+                            using (ContenidoServiceClient sv = new ContenidoServiceClient())
+                            {
+                                if (model.CodigoISO == Constantes.CodigosISOPais.Colombia || model.CodigoISO == Constantes.CodigosISOPais.Peru)
+                                {
+                                    infoDeuda = sv.GetDeudaTotal(model.PaisID, int.Parse(model.ConsultoraID.ToString()));
+                                }
+                                else
+                                {
+                                    infoDeuda = sv.GetSaldoPendiente(model.PaisID, model.CampaniaID, int.Parse(model.ConsultoraID.ToString()));
+                                }
+                            }
+
+                            if (infoDeuda != null && infoDeuda.Length > 0)
+                            {
+                                model.MontoDeuda = infoDeuda[0].SaldoPendiente;
+                            }
+                        }   
+                    }
                 }
 
-                pasoLog = "Agregar usuario en session";
                 Session["UserData"] = model;
             }
             catch (Exception ex)
@@ -669,8 +672,6 @@ namespace Portal.Consultoras.Web.Controllers
             return IP;
         }
 
-        //CCSS_JZ_PROL
-        //RQ_NP - R2133
         public int MenuNotificaciones(BEUsuario oBEUsuario)
         {
             if (oBEUsuario.NuevoPROL && oBEUsuario.ZonaNuevoPROL)
@@ -679,7 +680,6 @@ namespace Portal.Consultoras.Web.Controllers
                 return 0;
         }
 
-        //CCSS_JZ_PROL
         public bool RegionPROL(string ISOPais, string CodRegion)
         {
             bool Result = false;
@@ -721,7 +721,6 @@ namespace Portal.Consultoras.Web.Controllers
             return Tiene;
         }
 
-        //RQ_FP - R2161
         public String GetFechaPromesaEntrega(int PaisId, int CampaniaId, string CodigoConsultora, DateTime FechaFact)
         {
             String sFecha = Convert.ToDateTime("2000-01-01").ToString();
@@ -740,7 +739,6 @@ namespace Portal.Consultoras.Web.Controllers
             return sFecha;
         }
 
-        /*Inicio Cambios_Landing_Comunidad*/
         public bool EsUsuarioComunidad(int PaisId, string CodigoUsuario)
         {
             ServiceComunidad.BEUsuarioComunidad result = null;
@@ -764,7 +762,6 @@ namespace Portal.Consultoras.Web.Controllers
 
             return result == null ? false : true;
         }
-        /*Fin Cambios_Landing_Comunidad*/
 
         private void CrearUsuarioMiAcademia(UsuarioModel model)
         {
@@ -796,7 +793,7 @@ namespace Portal.Consultoras.Web.Controllers
             CampaniaActual = CampaniaActual ?? "";
             CampaniaActual = CampaniaActual.Trim();
             if (CampaniaActual.Length < 6)
-                return "";            
+                return "";
 
             var campAct = CampaniaActual.Substring(4, 2);
             if (campAct == nroCampanias.ToString()) return "01";
@@ -825,6 +822,10 @@ namespace Portal.Consultoras.Web.Controllers
                     //    ? model.MontoMaximo
                     //    : datosConsultoraHana.MontoMaximoPedido;
                     model.MontoMaximo = datosConsultoraHana.MontoMaximoPedido;
+
+                    model.MontoDeuda = datosConsultoraHana.MontoDeuda;
+
+                    model.IndicadorFlexiPago = datosConsultoraHana.IndicadorFlexiPago;
                 }
             }
         }

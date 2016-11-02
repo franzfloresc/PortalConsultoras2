@@ -129,6 +129,12 @@ namespace Portal.Consultoras.Web.Controllers
 
             olstPedidoWebDetalle = olstPedidoWebDetalle ?? new List<BEPedidoWebDetalle>();
 
+            foreach (var item in olstPedidoWebDetalle)
+            {
+                item.ClienteID = string.IsNullOrEmpty(item.Nombre) ? (short)0 : Convert.ToInt16(item.ClienteID);
+                item.Nombre = string.IsNullOrEmpty(item.Nombre) ? userData.NombreConsultora : item.Nombre;
+            }
+
             Session["PedidoWebDetalle"] = olstPedidoWebDetalle;
             return olstPedidoWebDetalle;
         }
@@ -1035,6 +1041,23 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     ActualizarDatosHana(ref model);
                 }
+                else
+                {
+                    model.MontoMinimo = oBEUsuario.MontoMinimoPedido;
+                    model.MontoMaximo = oBEUsuario.MontoMaximoPedido;
+                    model.FechaLimPago = oBEUsuario.FechaLimPago;
+                    model.IndicadorFlexiPago = oBEUsuario.IndicadorFlexiPago;
+
+                    decimal montoDeuda = 0;
+                    using (ContenidoServiceClient sv = new ContenidoServiceClient())
+                    {
+                        if (model.CodigoISO == Constantes.CodigosISOPais.Colombia || model.CodigoISO == Constantes.CodigosISOPais.Peru) //Colombia y Perú
+                            montoDeuda = sv.GetDeudaTotal(model.PaisID, int.Parse(model.ConsultoraID.ToString()))[0].SaldoPendiente;
+                        else
+                            montoDeuda = sv.GetSaldoPendiente(model.PaisID, model.CampaniaID, int.Parse(model.ConsultoraID.ToString()))[0].SaldoPendiente;
+                    }
+                    model.MontoDeuda = montoDeuda;
+                } 
             }
             Session["UserData"] = model;
 
@@ -1594,14 +1617,7 @@ namespace Portal.Consultoras.Web.Controllers
                         });
                     }
 
-                    decimal monto = 0;
-                    using (ContenidoServiceClient sv = new ContenidoServiceClient())
-                    {
-                        if (userData.CodigoISO == Constantes.CodigosISOPais.Colombia || userData.CodigoISO == Constantes.CodigosISOPais.Peru) //Colombia y Perú
-                            monto = sv.GetDeudaTotal(userData.PaisID, int.Parse(userData.ConsultoraID.ToString()))[0].SaldoPendiente;
-                        else
-                            monto = sv.GetSaldoPendiente(userData.PaisID, userData.CampaniaID, int.Parse(userData.ConsultoraID.ToString()))[0].SaldoPendiente;
-                    }
+                    decimal monto = userData.MontoDeuda;
 
                     lst.Add(new EstadoCuentaModel
                     {
@@ -1626,7 +1642,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         #region Obtener valores para el usuario de Hana
 
-        public void ActualizarDatosHana(ref UsuarioModel model)
+        private void ActualizarDatosHana(ref UsuarioModel model)
         {
             using (UsuarioServiceClient us = new UsuarioServiceClient())
             {
@@ -1648,8 +1664,12 @@ namespace Portal.Consultoras.Web.Controllers
                     //    ? model.MontoMaximo
                     //    : datosConsultoraHana.MontoMaximoPedido;
                     model.MontoMaximo = datosConsultoraHana.MontoMaximoPedido;
+
+                    model.MontoDeuda = datosConsultoraHana.MontoDeuda;
+
+                    model.IndicadorFlexiPago = datosConsultoraHana.IndicadorFlexiPago;
                 }
-            }    
+            }
         }
 
         #endregion

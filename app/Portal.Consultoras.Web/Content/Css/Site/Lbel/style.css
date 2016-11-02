@@ -2275,6 +2275,10 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido{
     border: 1px solid #e7e1e1;
 }
 
+.tooltip_infoCopy_expand{
+    left: -1500%;
+}
+
 .tooltip_infoCopy .tooltip_flecha{
     background: url("/Content/Images/tooltip-flecha.png") no-repeat 0 16px !important;
     position: absolute;
@@ -2283,6 +2287,16 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido{
     z-index: 50;
     width: 32px;
     height: 169px;
+}
+
+.tooltip_infoCopy_expand .tooltip_flecha{
+    top: 3%;
+    left: 100%;
+    -webkit-transform: rotate(180deg);
+    -moz-transform: rotate(180deg);
+    -ms-transform: rotate(180deg);
+    -o-transform: rotate(180deg);
+    transform: rotate(180deg);
 }
 
 /*.tooltip_infoCopy:before, .tooltip_infoCopy:after {
@@ -5334,7 +5348,7 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
 
 .texto_terminosCondiciones{
     font-size:12px!important;
-    margin-left:25px;
+    padding-left:25px;
     position:relative;
 }
 
@@ -5346,7 +5360,7 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
 .texto_terminosCondiciones:before{
     content: "";
     position: absolute;
-    left: -25px;
+    left: 0px;
     /* float: left; */
     width: 16px;
     height: 16px;
@@ -5356,6 +5370,8 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
     border-radius: 3px;
     background: #FFF;
     border: 2px solid #bababa;
+    cursor: pointer;
+    z-index: 10;
 }
 
 .checkbox_condiciones input[type="checkbox"]:checked + .texto_terminosCondiciones:before{
@@ -22179,7 +22195,7 @@ body{
         margin-bottom: 16px;
     }
     .sub_menu_home1{
-        width: 876px;
+        width: 879px;
         margin-left: -80px;
     }
     .sub_menu_home2 {
@@ -22224,7 +22240,7 @@ body{
         margin-left: 3.2%;
     }
     .new_menu_a {
-        font-size: 9.5px;
+        font-size: 9.3px;
     }
     .menu_esika_b {
         width: 31%;
@@ -30175,6 +30191,7 @@ h1#penmostreo .campana {
     width: 24%;
     margin-right: 5%;
     height: auto;
+    min-height: 50px;
     /* border: 1px solid #dadada; */
     float: left;
     margin-left: 5%;
@@ -30290,11 +30307,15 @@ h1#penmostreo .campana {
     background:black;
     color:white;
     font-family:'Lato';
-    line-height:41px;
-    font-size:16px;
+    line-height:18px;
+    font-size:15px;
     text-align:center;
     width:82%;
     position:relative;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    flex-direction: column;
 }
 .fondo_negro_pack:before {
     content: "";
@@ -30955,16 +30976,16 @@ h1#penmostreo .campana {
     /*background:black;*/
 }
 .content_motivo_select{
-    width:45%;
+    width:100%;
     margin-right:10%;
     float:left;
     margin-bottom:20px;
 }
-.content_motivo_select:last-child{
+/*.content_motivo_select:last-child{
     margin-right:0%;
-}
+}*/
 .reclamo_motivo_select{
-    width:100%;
+    width:45%;
     height:45px;
     font-family:'Lato';
     font-size:15px;
@@ -30974,6 +30995,8 @@ h1#penmostreo .campana {
     background-position:20px 14px;
     border-bottom:1px solid #d1d1d1;
     cursor:pointer;
+    float: left;
+    margin-left: 22px;
 }
 .reclamo_motivo_select:hover{    
     color:#613c87;
@@ -30986,9 +31009,9 @@ h1#penmostreo .campana {
     background-position:20px 14px;
     
 }
-.reclamo_motivo_select:last-child{
+/*.reclamo_motivo_select:last-child{
     border-bottom:0px;
-}
+}*/
 .btn_solución_reclamo{
     float:left;
     width:270px;
@@ -31275,7 +31298,7 @@ h1#penmostreo .campana {
     width:204px;
     height:auto;
     padding:15px 20px 15px 20px;
-    right:-240px;
+    right:0px;
     top:0;
     -webkit-box-shadow:0 2px 4px 0 rgba(174, 174, 174, 0.5);
     -moz-box-shadow: 0 2px 4px 0 rgba(174, 174, 174, 0.5);
@@ -31581,4 +31604,83 @@ h1#penmostreo .campana {
 }
 .btn_pedido_black > *{
     color:white;
+}
+.content_termino_condiciones{
+    margin-top:10px; 
+    margin-bottom:20px;     
+    font-family:'Lato';
+    font-size:13px;
+    line-height:20px;
+    color:black;
+}
+.subtitulo_terminos{
+    display:block;
+    font-weight:700;
+    margin-bottom:17px;
+    margin-top:20px;
+}
+@media screen and (max-width: 1220px) {
+    .content_belcorp {
+        padding-left: 2.4%;
+        padding-right: 2.4%;
+    }
+    .ubicacion_web{
+        padding-left: 2.4%;
+        padding-right: 2.4%;
+    }
+}
+@media screen and (max-width: 1092px){
+    .content_belcorp {
+    padding-left: 1.9%;
+    padding-right: 1.9%;
+    }
+    .ubicacion_web {
+    padding-left: 1.9%;
+    padding-right: 1.9%;
+    }
+    .tabs_pagos li a{
+       font-size: 9.5pt;
+    }
+}
+
+/*ESCALA DE DESCUENTO*/
+.content_descuento_html{
+    width:780px;
+    margin: 0 auto;
+}
+.titulo_escala{
+    font-family:'Lato';
+    font-size:18px;
+    color:black;
+    text-align:center;
+    margin-top:70px;
+}
+.subtitulo_escala{
+    font-family:'Lato';
+    font-size:17px;
+    font-weight:700;
+    color:#e81c36;
+    text-align:center;
+    margin-top:-4px;
+}
+.texto_escala{
+    font-family:'Lato';
+    font-size:14px;
+    line-height:18px;
+    margin-top:15px;
+    padding:15px;
+    width:100%;
+    color:#9b9b9b;
+    background:#f7f7f7;
+}
+.texto_escala b{
+    color:black;
+}
+.title_barra{
+    font-family:'Lato';
+    font-size:17px;
+    font-weight:700;
+    margin-top:25px;
+    margin-bottom:20px;
+    text-align:center;
 }
