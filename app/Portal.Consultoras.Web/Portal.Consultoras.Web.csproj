@@ -2607,6 +2607,7 @@
     <Content Include="Areas\Mobile\Views\Notificaciones\ListadoPedidoRechazadoDetalle.cshtml" />
     <Content Include="Content\FAQ\politicas_post_venta_CO.pdf" />
     <Content Include="Content\FAQ\Politica_de_reclamos_CO.pdf" />
+    <Content Include="Areas\Mobile\Views\Catalogo\MiRevista.cshtml" />
     <None Include="Service References\ServicePedidoRechazado\PedidoRechazadoService.wsdl" />
     <None Include="Service References\ServicePedidoRechazado\PedidoRechazadoService.xsd">
       <SubType>Designer</SubType>

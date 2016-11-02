@@ -7,6 +7,9 @@ var nombreCat = new Object();
 $(document).ready(function () {
     ObtenerURLExpofertas();
     campSelect = $("#hdCampaniaActual").val().substring(4, 6);
+
+    $('#campaniaRevista').val($("#hdCampaniaActual").val());
+
     $("#contentCatalogo #TextoCampania").text("CATÁLOGOS C-" + campSelect);    
     aCam.push($("#hdCampaniaAnterior").val());
     aCam.push($("#hdCampaniaActual").val());
@@ -802,6 +805,14 @@ function RevistaMostrar(accion, btn) {
     if (rCampSelectI == 0 || rCampSelectI == cantCamRev - 1) {
         $(btn).hide();
     }
+
+    $('#campaniaRevista').val(rCampSelect);
+}
+
+function MostrarMiRevista() {
+    var frmMiRevista = $('#frmMiRevista');
+    //frmMiRevista.attr('action', '');
+    frmMiRevista.submit();
 }
 
 function MostrarRevistaCorrecta(campania) {

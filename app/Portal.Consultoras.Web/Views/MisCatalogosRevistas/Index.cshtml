@@ -59,7 +59,7 @@
         <div class="revista_content" id="contentRevista" style="@(ViewBag.EsConsultoraNueva ? "margin-right: 0px;" : "")">
             <div class="titulo_central" data-titulo='revista'></div>
             <span class="arrow_revista" data-accion="a"><img src="@Url.Content("~/Content/Images/Esika/catalogos_arrow.png")" onclick="RevistaMostrar(-1, this)" /></span>
-            <a class="revista_carrusel" id="lbPortadaGana" href="@Url.Action("MiRevista","MisCatalogosRevistas")" target="_blank">
+            <a class="revista_carrusel" id="lbPortadaGana" href="#" onclick="MostrarMiRevista();">
                 <img src="@Url.Content("~/Content/Images/revista_no_disponible.jpg")" id="imgPortadaGana" />
             </a>
             <span class="arrow_revista" data-accion="d"><img src="@Url.Content("~/Content/Images/Esika/catalogos_arrow2.png")" onclick="RevistaMostrar(1, this)" /></span>
@@ -164,6 +164,14 @@
         <a class="btn_ok_alerta" onclick="javascript: $('#mensaje_exclamacion').hide();">OK</a>
     </div>
 </div>
+
+<div style="display: none;">
+    @using (Html.BeginForm("MiRevista", "MisCatalogosRevistas", FormMethod.Post, new { id = "frmMiRevista", target = "_blank" }))
+{
+    <input type="hidden" name="campaniaRevista" id="campaniaRevista" value="">
+}
+</div>
+
 <!--FIN-->
 @*<!--POP UP ENVIO SATISFACTORIO-->
     <div id="EnvioSatisfatorio">
