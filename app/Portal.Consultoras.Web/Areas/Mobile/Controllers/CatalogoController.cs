@@ -999,5 +999,11 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             }
             return Result;
         }
+
+        public ActionResult MiRevista(string campaniaRevista)
+        {
+            ViewBag.Campania = campaniaRevista;
+            return View();
+        }
     }
 }

@@ -548,14 +548,12 @@ namespace Portal.Consultoras.Web.Controllers
                     pedidoWebDetalleModel.DescripcionLarga = !string.IsNullOrEmpty(bePedidoWebDetalle.DescripcionLarga)
                         ? bePedidoWebDetalle.DescripcionLarga : "";
                     pedidoWebDetalleModel.DescripcionOferta = !string.IsNullOrEmpty(bePedidoWebDetalle.DescripcionOferta)
-                        ? bePedidoWebDetalle.DescripcionOferta : "";
+                        ? bePedidoWebDetalle.DescripcionOferta.Replace("[", "").Replace("]", "").Trim() : "";
                     pedidoWebDetalleModel.TipoPedido = !string.IsNullOrEmpty(bePedidoWebDetalle.TipoPedido)
                         ? bePedidoWebDetalle.TipoPedido : "";
                     pedidoWebDetalleModel.TipoEstrategiaID = bePedidoWebDetalle.TipoEstrategiaID;
                     pedidoWebDetalleModel.Mensaje = bePedidoWebDetalle.Mensaje;
                     pedidoWebDetalleModel.TipoObservacion = bePedidoWebDetalle.TipoObservacion;
-                    //pedidoWebDetalleModel.DescripcionLarga = bePedidoWebDetalle.DescripcionLarga;
-                    pedidoWebDetalleModel.DescripcionOferta = bePedidoWebDetalle.DescripcionOferta.Replace("[", "").Replace("]", "").Trim();
                 }
 
                 return Json(new
@@ -708,7 +706,7 @@ namespace Portal.Consultoras.Web.Controllers
             oBEPedidoWebDetalle.PedidoDetalleID = Convert.ToInt16(model.PedidoDetalleID);
             oBEPedidoWebDetalle.Cantidad = Convert.ToInt32(model.Cantidad);
             oBEPedidoWebDetalle.PrecioUnidad = model.PrecioUnidad;
-            oBEPedidoWebDetalle.ClienteID = string.IsNullOrEmpty(model.ClienteID.ToString()) ? (short)0 : Convert.ToInt16(model.ClienteID);
+            oBEPedidoWebDetalle.ClienteID = string.IsNullOrEmpty(model.Nombre) ? (short)0 : Convert.ToInt16(model.ClienteID);
 
             //Cambios para Oferta de Liquidación
             oBEPedidoWebDetalle.CUV = model.CUV;
@@ -807,11 +805,12 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                var model = new PedidoSb2Model();
-                List<BEPedidoWebDetalle> ListaPedidoWebDetalle = (List<BEPedidoWebDetalle>)Session["PedidoWebDetalle"];
-                BEPedidoWebDetalle PedidoEliminado = ListaPedidoWebDetalle.First(x => x.CUV == CUV);
-                model.Simbolo = userData.Simbolo;
                 List<BEPedidoWebDetalle> olstPedidoWebDetalle = new List<BEPedidoWebDetalle>();
+                List<BEPedidoWebDetalle> ListaPedidoWebDetalle = (List<BEPedidoWebDetalle>)Session["PedidoWebDetalle"];
+                BEPedidoWebDetalle pedidoEliminado = ListaPedidoWebDetalle.First(x => x.CUV == CUV);
+                pedidoEliminado.DescripcionOferta = !string.IsNullOrEmpty(pedidoEliminado.DescripcionOferta)
+                    ? pedidoEliminado.DescripcionOferta.Replace("[", "").Replace("]", "").Trim() : "";
+
                 BEPedidoWebDetalle obe = new BEPedidoWebDetalle();
                 obe.PaisID = userData.PaisID;
                 obe.CampaniaID = CampaniaID;
@@ -844,7 +843,6 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (!olstPedidoWebDetalle.Any())
                 {
-                    model.ListaDetalle = new List<BEPedidoWebDetalle>();
                     if (userData.ZonaValida)
                     {
                         using (ServicePROL.ServiceStockSsic sv = new ServicePROL.ServiceStockSsic())
@@ -894,11 +892,11 @@ namespace Portal.Consultoras.Web.Controllers
                     DataBarra = !ErrorServer ? GetDataBarra() : new BarraConsultoraModel(),
                     data = new
                     {
-                        DescripcionProducto = PedidoEliminado.DescripcionProd,
-                        CUV = PedidoEliminado.CUV,
-                        Precio = PedidoEliminado.PrecioUnidad.ToString("F"),
-                        DescripcionMarca = PedidoEliminado.DescripcionLarga,
-                        DescripcionOferta = PedidoEliminado.DescripcionOferta.Replace("[", "").Replace("]", "").Trim()
+                        DescripcionProducto = pedidoEliminado.DescripcionProd,
+                        CUV = pedidoEliminado.CUV,
+                        Precio = pedidoEliminado.PrecioUnidad.ToString("F"),
+                        DescripcionMarca = pedidoEliminado.DescripcionLarga,
+                        DescripcionOferta = pedidoEliminado.DescripcionOferta
                     }
                 });
             }
@@ -987,7 +985,8 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                BEPedidoWebDetalle oBEPedidoWebDetalle = new BEPedidoWebDetalle { 
+                BEPedidoWebDetalle oBEPedidoWebDetalle = new BEPedidoWebDetalle
+                {
                     PaisID = userData.PaisID,
                     CampaniaID = campaniaID,
                     PedidoID = pedidoID,
@@ -2006,7 +2005,7 @@ namespace Portal.Consultoras.Web.Controllers
             DateTime diaActual = DateTime.Today.Add(HoraCierrePortal);
             var fechaFacturacionFormat = userData.FechaInicioCampania.Day + " de " + NombreMes(userData.FechaInicioCampania.Month);
 
-            #region  Btn 
+            #region  Btn
             if (!userData.DiaPROL)  // Periodo de venta
             {
                 model.Prol = "GUARDA TU PEDIDO";
@@ -2166,7 +2165,7 @@ namespace Portal.Consultoras.Web.Controllers
                                     id = item.CUV,
                                     price = item.PrecioUnidad,
                                     brand = item.DescripcionLarga,
-                                    variant = item.DescripcionOferta.Replace("]", "").Replace("[", "").Trim(),
+                                    variant = !string.IsNullOrEmpty(item.DescripcionOferta) ? item.DescripcionOferta.Replace("]", "").Replace("[", "").Trim() : "",
                                     quantity = item.Cantidad
                                 }
             }, JsonRequestBehavior.AllowGet);
@@ -2286,7 +2285,7 @@ namespace Portal.Consultoras.Web.Controllers
             decimal montoenviar = 0;
 
             montoenviar = userData.MontoMinimo - montodescontar;
-            
+
             if (montoenviar < 0)
             {
                 montoenviar = 0;
@@ -2535,7 +2534,7 @@ namespace Portal.Consultoras.Web.Controllers
             DataSet ds = DataSetPedidoDetalleParaProl(olstPedidoWebDetalle);
             decimal montodescontar = 0;
             decimal montoenviar = 0;
-            
+
             montoenviar = userData.MontoMinimo - montodescontar;
 
             if (montoenviar < 0) montoenviar = 0;
@@ -2646,13 +2645,13 @@ namespace Portal.Consultoras.Web.Controllers
                         {
                             sv.UpdPedidoWebByEstado(userData.PaisID, userData.CampaniaID, userData.PedidoID, Constantes.EstadoPedido.Pendiente, false, true, userData.CodigoUsuario, false);
                         }
-                    }                    
+                    }
                     using (PedidoServiceClient sv = new PedidoServiceClient())
                     {
                         sv.UpdBackOrderListPedidoWebDetalle(userData.PaisID, userData.CampaniaID, userData.PedidoID, lstPedidoWebDetalleBackOrder.ToArray());
                     }
                     Session["PedidoWebDetalle"] = null;
-                    
+
                     if (dtr.Rows.Count == ValidacionReemplazo)
                     {
                         if (userData.DiaPROL && userData.MostrarBotonValidar)
@@ -4026,7 +4025,7 @@ namespace Portal.Consultoras.Web.Controllers
                 bool pedidoReservado = false;
 
                 bool estado = EstaProcesoFacturacion(out mensaje);
-                if(!estado)
+                if (!estado)
                 {
                     pedidoReservado = ValidarPedidoReservado(out mensaje);
                     estado = pedidoReservado;
@@ -4053,7 +4052,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }, JsonRequestBehavior.AllowGet);
             }
         }
-        
+
         [HttpGet]
         public JsonResult JsonConsultarEstrategias(string cuv)
         {
@@ -4112,7 +4111,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     if (!string.IsNullOrEmpty(beEstrategia.CodigoProducto))
                     {
-                        codigoSap += beEstrategia.CodigoProducto + "|";   
+                        codigoSap += beEstrategia.CodigoProducto + "|";
                     }
                 }
 
@@ -4128,7 +4127,7 @@ namespace Portal.Consultoras.Web.Controllers
                         {
                             sv.Url = ConfigurationManager.AppSettings["RutaServicePROLConsultas"];
                             listaTieneStock = sv.ConsultaStock(codigoSap, userData.CodigoISO).ToList();
-                        }   
+                        }
                     }
                 }
                 catch (Exception ex)
@@ -4185,7 +4184,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             return lst;
         }
-                
+
         public JsonResult ObtenerProductosRecomendados(string CUV)
         {
             List<BECrossSellingProducto> lst = new List<BECrossSellingProducto>();
@@ -4434,14 +4433,14 @@ namespace Portal.Consultoras.Web.Controllers
                 Session["ConfiguracionProgramaNuevas"] = new BEConfiguracionProgramaNuevas();
                 return;
             }
-            
+
             BEConfiguracionProgramaNuevas oBEConfiguracionProgramaNuevas = new BEConfiguracionProgramaNuevas();
 
             using (PedidoServiceClient sv = new PedidoServiceClient())
             {
                 try
                 {
-                    oBEConfiguracionProgramaNuevas = GetConfiguracionProgramaNuevas("ConfiguracionProgramaNuevas");                    
+                    oBEConfiguracionProgramaNuevas = GetConfiguracionProgramaNuevas("ConfiguracionProgramaNuevas");
 
                     if (oBEConfiguracionProgramaNuevas == null)
                     {
@@ -4651,13 +4650,13 @@ namespace Portal.Consultoras.Web.Controllers
                 // Si ya esta en pedido detalle no se debe mostrar
                 var pedidoDetalle = ObtenerPedidoWebDetalle();
                 var listaRetorno = new List<ProductoModel>();
-                
+
                 foreach (var item in listaProductoModel)
                 {
                     var addProducto = pedidoDetalle.FirstOrDefault(p => p.CUV == item.CUV) ?? new BEPedidoWebDetalle();
                     addProducto.CUV = Util.SubStr(addProducto.CUV, 0);
                     if (addProducto.CUV == "")
-                        listaRetorno.Add(item);                    
+                        listaRetorno.Add(item);
                 }
 
                 return Json(new
@@ -4772,9 +4771,9 @@ namespace Portal.Consultoras.Web.Controllers
                 if (imagenUrl == "")
                     continue;
 
-                var precioTachado = userData.OfertaFinal == Constantes.TipoOfertaFinalCatalogoPersonalizado.Arp 
-                    ? producto.PrecioValorizado 
-                    : userData.OfertaFinal == Constantes.TipoOfertaFinalCatalogoPersonalizado.Jetlore && tipoProductoMostrar == 1 
+                var precioTachado = userData.OfertaFinal == Constantes.TipoOfertaFinalCatalogoPersonalizado.Arp
+                    ? producto.PrecioValorizado
+                    : userData.OfertaFinal == Constantes.TipoOfertaFinalCatalogoPersonalizado.Jetlore && tipoProductoMostrar == 1
                     ? producto.PrecioValorizado : 0;
 
                 listaProductoModel.Add(new ProductoModel()
