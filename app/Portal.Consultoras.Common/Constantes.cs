@@ -162,6 +162,13 @@ namespace Portal.Consultoras.Common
 
             // prol
             public const string PROL_CalculoMontosProl = "PROL_CalculoMontosProl";
+
+            //  CDR
+            public const string CDRCampanias = "CDRCampanias";
+            public const string CDRMotivoOperacion = "CDRMotivoOperacion";
+            public const string CDRPedidosFacturado = "CDRPedidosFacturado";
+            public const string CDRDescripcion = "CDRDescripcion";
+            public const string CDRWebDetalle = "CDRWebDetalle";
         }
 
         public class TipoOfertaFinalCatalogoPersonalizado

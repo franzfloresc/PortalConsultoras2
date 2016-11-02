@@ -1876,25 +1876,6 @@
                         </div>
                     </div>
                 </div>
-                <div class="item_pack_personalizado  linea_d">
-                    <div class="content_item_pack">
-                        <div class="fondo_negro_pack">COMPRA {{nivel.escala_nivel}}X</div>
-                        <div class="pack_inter width_100">
-                            <div class="titulo_pack" style="height:auto">Precio para ti {{../Simbolo}} {{DecimalToStringFormat nivel.precio_nivel}}</div>
-                            <div class="texto_ganancia_pack">{{../TxtGanancia}}: {{../Simbolo}} {{DecimalToStringFormat nivel.ganancia_nivel}}</div>
-                            <div class="gratis_set">{{../TxtRecibeGratis}}:</div>
-                            <div class="content_sub_items">
-                                {{#each ../lista_oObjGratis as |item|}}
-                                {{#if_eq nivel.escala_nivel item.escala_nivel_gratis}}
-                                <div class="sub_imagen_oferta"><img src="{{item.imagen_gratis}}" alt=""></div>
-                                <div class="sub_descripcion_oferta"><p><span>x{{item.cantidad}}</span>&nbsp;{{item.descripcion_gratis}}</p></div>
-                                <hr class="clear">
-                                {{/if_eq}}
-                                {{/each}}
-                            </div>
-                        </div>
-                    </div>
-                </div>
                 {{/each}}
             </div>            
         </div>

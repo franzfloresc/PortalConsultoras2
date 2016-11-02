@@ -432,6 +432,7 @@
     <Compile Include="Models\MisPedidosModel.cs" />
     <Compile Include="Models\ClienteOnlineModel.cs" />
     <Compile Include="Models\MisPedidosSb2Model.cs" />
+    <Compile Include="Models\MisReclamosModel.cs" />
     <Compile Include="Models\ModificacionCronogramaModel.cs" />
     <Compile Include="Models\CronogramaModel.cs" />
     <Compile Include="Models\DescargarPedidoModel.cs" />
@@ -518,6 +519,11 @@
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
     <Compile Include="Service References\HojaInscripcionODS\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\ServiceCDR\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
@@ -2410,6 +2416,7 @@
     <Content Include="Scripts\PortalConsultoras\Cliente\Index.js" />
     <Content Include="Scripts\PortalConsultoras\MisBeneficios\Index.js" />
     <Content Include="Scripts\PortalConsultoras\MisPedidos\ClienteOnline.js" />
+    <Content Include="Scripts\PortalConsultoras\MisReclamos\Reclamo.js" />
     <Content Include="Scripts\PortalConsultoras\MisReclamos\Index.js" />
     <Content Include="Scripts\PortalConsultoras\Mobile\CatalogoPersonalizado\Index.js" />
     <Content Include="Scripts\PortalConsultoras\Mobile\ConsultoraOnline\DetallePedidoHistorial.js" />
@@ -2630,6 +2637,16 @@
     <Content Include="Content\FAQ\politicas_post_venta_CO.pdf" />
     <Content Include="Content\FAQ\Politica_de_reclamos_CO.pdf" />
     <Content Include="Areas\Mobile\Views\TerminosYCondiciones\Index.cshtml" />
+    <None Include="Service References\ServiceCDR\CDRService.wsdl" />
+    <None Include="Service References\ServiceCDR\CDRService.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceCDR\CDRService1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceCDR\CDRService2.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Service References\ServicePedidoRechazado\PedidoRechazadoService.wsdl" />
     <None Include="Service References\ServicePedidoRechazado\PedidoRechazadoService.xsd">
       <SubType>Designer</SubType>
@@ -2775,6 +2792,13 @@
     </None>
     <None Include="Service References\HojaInscripcionBelcorpPais\BelcorpPaisService.disco" />
     <None Include="Service References\HojaInscripcionODS\ODSService.disco" />
+    <None Include="Service References\ServiceCDR\CDRService.disco" />
+    <None Include="Service References\ServiceCDR\configuration91.svcinfo" />
+    <None Include="Service References\ServiceCDR\configuration.svcinfo" />
+    <None Include="Service References\ServiceCDR\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
     <Content Include="Service References\ServiceCliente\Portal.Consultoras.Web.ServiceCliente.BECatalogoConfiguracion.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Content>
@@ -3543,6 +3567,7 @@
     <Content Include="Views\Notificaciones\ListadoDetallePedidoRechazado.cshtml" />
     <Content Include="Views\Unete\TemplatesUbigeos\_UbigeoGrupo5.cshtml" />
     <Content Include="Views\Unete\ReporteConsolidado.cshtml" />
+    <Content Include="Views\MisReclamos\Reclamo.cshtml" />
     <Content Include="Views\MisCatalogosRevistas\MiRevista.cshtml" />
     <Content Include="Views\TerminosYCondiciones\Index.cshtml" />
     <Content Include="Views\Bienvenida\ActualizarContrasenia.cshtml" />
@@ -3969,6 +3994,7 @@
   <ItemGroup>
     <WCFMetadataStorage Include="Service References\HojaInscripcionBelcorpPais\" />
     <WCFMetadataStorage Include="Service References\HojaInscripcionODS\" />
+    <WCFMetadataStorage Include="Service References\ServiceCDR\" />
     <WCFMetadataStorage Include="Service References\ServiceCliente\" />
     <WCFMetadataStorage Include="Service References\ServiceComunidad\" />
     <WCFMetadataStorage Include="Service References\ServiceContenido\" />

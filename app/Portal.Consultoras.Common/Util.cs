@@ -2878,7 +2878,16 @@ namespace Portal.Consultoras.Common
             {
                 if (r == null) return false;
 
-                return r.GetOrdinal(columnName) >= 0;
+                columnName = columnName ?? "";
+                columnName = columnName.Trim();
+                if (columnName == "") return false;
+
+                if (r.GetOrdinal(columnName) >= 0)
+                {
+                    return r[columnName] != DBNull.Value;
+                }
+
+                return false;
             }
             catch (IndexOutOfRangeException)
             {
@@ -2895,6 +2904,24 @@ namespace Portal.Consultoras.Common
             }
             return result;
         }
+        
+        public static dynamic GetColumn<T>(T type, IDataRecord lector, string name)  where T : new()
+        {
+            try
+            {
+                name = name ?? "";
+                name = name.Trim();
+                if(HasColumn(lector, name))
+                    return (T)lector.GetValue(lector.GetOrdinal(name));
+                
+                return default(T);
+            }
+            catch (Exception)
+            {
+                return default(T);
+            }
+        }
+
     }
 
     public static class LinqExtensions
