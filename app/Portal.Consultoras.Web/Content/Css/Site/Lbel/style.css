@@ -30177,6 +30177,7 @@ h1#penmostreo .campana {
     width: 24%;
     margin-right: 5%;
     height: auto;
+    min-height: 50px;
     /* border: 1px solid #dadada; */
     float: left;
     margin-left: 5%;

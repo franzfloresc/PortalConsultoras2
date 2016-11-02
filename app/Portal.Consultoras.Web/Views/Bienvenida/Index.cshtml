@@ -1848,8 +1848,10 @@
                     <div class="content_item_pack">
                         <div class="fondo_negro_pack">COMPRA 1X</div>
                         <br />
-                        <div class="img_principal_pack" style="margin-top:16px;">
-                            <img src="{{UrlImagen}}" alt="">
+                        <div class="img_principal_pack" style="margin-top:16px;">                            
+                            {{#IsNullOrEmpty UrlImagen '!='}}
+                            <img src="{{UrlImagen}}" alt="" />
+                            {{/IsNullOrEmpty}}
                         </div>
                         <div class="titulo_pack">{{Descripcion}}</div>
                         <div class="texto_unidad_pack">Precio para ti {{Simbolo}} {{DecimalToStringFormat precio_revista}}</div>
@@ -1867,7 +1869,11 @@
                             <div class="content_sub_items">
                                 {{#each ../lista_oObjGratis as |item|}}
                                 {{#if_eq nivel.escala_nivel item.escala_nivel_gratis}}
-                                <div class="sub_imagen_oferta"><img src="{{item.imagen_gratis}}" alt=""></div>
+                                <div class="sub_imagen_oferta">                                    
+                                    {{#IsNullOrEmpty item.imagen_gratis '!='}}
+                                    <img src="{{item.imagen_gratis}}" alt="" />
+                                    {{/IsNullOrEmpty}}
+                                </div>
                                 <div class="sub_descripcion_oferta"><p><span>x{{item.cantidad}}</span>&nbsp;{{item.descripcion_gratis}}</p></div>
                                 <hr class="clear">
                                 {{/if_eq}}
@@ -1952,8 +1958,10 @@
         <!--ITEM 1-->
         <div class="item_pack_personalizado">
             <div class="content_item_pack">
-                <div class="img_principal_pack">
-                    <img src="{{UrlImagen}}" alt="">
+                <div class="img_principal_pack">                    
+                    {{#IsNullOrEmpty UrlImagen '!='}}
+                    <img src="{{UrlImagen}}" alt="" />
+                    {{/IsNullOrEmpty}}
                 </div>
                 <div class="titulo_pack">{{Descripcion}}</div>
                 <div class="texto_unidad_pack">Precio para ti {{Simbolo}} {{DecimalToStringFormat precio_revista}}</div>
@@ -1990,7 +1998,11 @@
                             <div class="content_sub_items">
                                 {{#each ../lista_oObjItemPack as |item|}}
                                 {{#if_eq pack.cuv_pack item.cuv_pack_item}}
-                                <div class="sub_imagen_oferta"><img src="{{item.imagen_item_pack}}" alt=""></div>
+                                <div class="sub_imagen_oferta">                                    
+                                    {{#IsNullOrEmpty item.imagen_item_pack '!='}}
+                                    <img src="{{item.imagen_item_pack}}" alt="" />
+                                    {{/IsNullOrEmpty}}
+                                </div>
                                 <div class="sub_descripcion_oferta"><p><span>x{{item.cantidad_item_pack}}</span>&nbsp;{{item.descripcion_item_pack}}</p></div>
                                 <hr class="clear" />
                                 @*<div class="sub_imagen_oferta"><img src="https://s3-sa-east-1.amazonaws.com/appcatalogo/PE/201616/C/productos/PE_200069929.jpg" alt=""></div>
