@@ -162,7 +162,6 @@ BEGIN
 	/*SB20-1080 - INICIO */
 	DECLARE @cont1 INT, @cont2 INT, @codConsultoraDefault VARCHAR(9)
 	SET @cont1 = (SELECT COUNT(EstrategiaID) FROM #TEMPORAL)
-	PRINT @cont1
 	/*SB20-1080 - FIN */
 	
 	INSERT INTO #TEMPORAL
@@ -209,11 +208,9 @@ BEGIN
 
 	/*SB20-1080 - INICIO */
 	SET @cont2 = (SELECT COUNT(EstrategiaID) FROM #TEMPORAL)
-	PRINT @cont2
 	
 	IF (@cont1 = @cont2)
 	BEGIN
-		PRINT '1'
 		SET @codConsultoraDefault = (SELECT TOP 1 Codigo FROM TablaLogicaDatos WHERE TablaLogicaID = 89)
 
 		INSERT INTO #TEMPORAL
@@ -245,7 +242,7 @@ BEGIN
 		INNER JOIN TipoEstrategia TE ON E.TipoEstrategiaID = TE.TipoEstrategiaID
 		INNER JOIN ods.Campania ca ON CA.Codigo = e.campaniaid
 		INNER JOIN ods.OfertasPersonalizadas op ON E.CUV2 = op.CUV and op.AnioCampanaVenta = CA.Codigo and op.TipoPersonalizacion = 'OPT'
-		INNER JOIN ods.Consultora c ON op.CodConsultora = c.Codigo
+		--INNER JOIN ods.Consultora c ON op.CodConsultora = c.Codigo
 		INNER JOIN ods.ProductoComercial PC ON PC.CampaniaID = CA.CampaniaID AND PC.CUV = E.CUV2
 		WHERE
 			E.Activo = 1
@@ -516,7 +513,6 @@ BEGIN
 	/*SB20-1080 - INICIO */
 	DECLARE @cont1 INT, @cont2 INT, @codConsultoraDefault VARCHAR(9)
 	SET @cont1 = (SELECT COUNT(EstrategiaID) FROM #TEMPORAL)
-	PRINT @cont1
 	/*SB20-1080 - FIN */
 	
 	INSERT INTO #TEMPORAL
@@ -563,11 +559,9 @@ BEGIN
 
 	/*SB20-1080 - INICIO */
 	SET @cont2 = (SELECT COUNT(EstrategiaID) FROM #TEMPORAL)
-	PRINT @cont2
 	
 	IF (@cont1 = @cont2)
 	BEGIN
-		PRINT '1'
 		SET @codConsultoraDefault = (SELECT TOP 1 Codigo FROM TablaLogicaDatos WHERE TablaLogicaID = 92)
 
 		INSERT INTO #TEMPORAL
@@ -599,7 +593,7 @@ BEGIN
 		INNER JOIN TipoEstrategia TE ON E.TipoEstrategiaID = TE.TipoEstrategiaID
 		INNER JOIN ods.Campania ca ON CA.Codigo = e.campaniaid
 		INNER JOIN ods.OfertasPersonalizadas op ON E.CUV2 = op.CUV and op.AnioCampanaVenta = CA.Codigo and op.TipoPersonalizacion = 'OPT'
-		INNER JOIN ods.Consultora c ON op.CodConsultora = c.Codigo
+		--INNER JOIN ods.Consultora c ON op.CodConsultora = c.Codigo
 		INNER JOIN ods.ProductoComercial PC ON PC.CampaniaID = CA.CampaniaID AND PC.CUV = E.CUV2
 		WHERE
 			E.Activo = 1
@@ -870,7 +864,6 @@ BEGIN
 	/*SB20-1080 - INICIO */
 	DECLARE @cont1 INT, @cont2 INT, @codConsultoraDefault VARCHAR(9)
 	SET @cont1 = (SELECT COUNT(EstrategiaID) FROM #TEMPORAL)
-	PRINT @cont1
 	/*SB20-1080 - FIN */
 	
 	INSERT INTO #TEMPORAL
@@ -917,11 +910,9 @@ BEGIN
 
 	/*SB20-1080 - INICIO */
 	SET @cont2 = (SELECT COUNT(EstrategiaID) FROM #TEMPORAL)
-	PRINT @cont2
 	
 	IF (@cont1 = @cont2)
 	BEGIN
-		PRINT '1'
 		SET @codConsultoraDefault = (SELECT TOP 1 Codigo FROM TablaLogicaDatos WHERE TablaLogicaID = 89)
 
 		INSERT INTO #TEMPORAL
@@ -953,7 +944,7 @@ BEGIN
 		INNER JOIN TipoEstrategia TE ON E.TipoEstrategiaID = TE.TipoEstrategiaID
 		INNER JOIN ods.Campania ca ON CA.Codigo = e.campaniaid
 		INNER JOIN ods.OfertasPersonalizadas op ON E.CUV2 = op.CUV and op.AnioCampanaVenta = CA.Codigo and op.TipoPersonalizacion = 'OPT'
-		INNER JOIN ods.Consultora c ON op.CodConsultora = c.Codigo
+		--INNER JOIN ods.Consultora c ON op.CodConsultora = c.Codigo
 		INNER JOIN ods.ProductoComercial PC ON PC.CampaniaID = CA.CampaniaID AND PC.CUV = E.CUV2
 		WHERE
 			E.Activo = 1
