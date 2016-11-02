@@ -29835,6 +29835,7 @@ h1#penmostreo .campana {
     width: 24%;
     margin-right: 5%;
     height: auto;
+    min-height: 50px;
     /* border: 1px solid #dadada; */
     float: left;
     margin-left: 5%;
@@ -29950,11 +29951,15 @@ h1#penmostreo .campana {
     background:black;
     color:white;
     font-family:'Lato';
-    line-height:41px;
-    font-size:16px;
+    line-height:18px;
+    font-size:15px;
     text-align:center;
     width:82%;
     position:relative;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    flex-direction: column;
 }
 .fondo_negro_pack:before {
     content: "";
