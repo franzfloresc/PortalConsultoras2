@@ -215,7 +215,7 @@ BEGIN
 	IF (@cont1 = @cont2)
 	BEGIN
 		PRINT '1'
-		SET @codConsultoraDefault = (SELECT TOP 1 Codigo FROM TablaLogicaDatos WHERE TablaLogicaID = 90)
+		SET @codConsultoraDefault = (SELECT TOP 1 Codigo FROM TablaLogicaDatos WHERE TablaLogicaID = 89)
 
 		INSERT INTO #TEMPORAL
 		SELECT
