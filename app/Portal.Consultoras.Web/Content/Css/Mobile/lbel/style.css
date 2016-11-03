@@ -8370,6 +8370,7 @@ a{
     width:25%;
     margin-right:5%;
     height:auto;
+    min-height: 50px;
     /*border:1px solid #dadada;*/
     float:left;
 }
