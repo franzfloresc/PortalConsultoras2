@@ -16,8 +16,8 @@ namespace Portal.Consultoras.Data.CDR
         public int InsCDRWebMotivoOperacion(BECDRWebMotivoOperacion entity)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.InsCDRWebMotivoOperacion");
-            Context.Database.AddInParameter(command, "OperacionCDRID", DbType.Int32, entity.OperacionCDRID);
-            Context.Database.AddInParameter(command, "MotivoCDRID", DbType.Int32, entity.MotivoCDRID);
+            Context.Database.AddInParameter(command, "CodigoOperacion", DbType.String, entity.CodigoOperacion);
+            Context.Database.AddInParameter(command, "CodigoReclamo", DbType.String, entity.CodigoReclamo);
             Context.Database.AddInParameter(command, "Prioridad", DbType.Int32, entity.Prioridad);
             Context.Database.AddInParameter(command, "Estado", DbType.Int32, entity.Estado);
             Context.Database.AddInParameter(command, "RetornoID", DbType.Int32, 10);
@@ -30,8 +30,8 @@ namespace Portal.Consultoras.Data.CDR
         public int DelCDRWebMotivoOperacion(BECDRWebMotivoOperacion entity)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.DelCDRWebMotivoOperacion");
-            Context.Database.AddInParameter(command, "OperacionCDRID", DbType.Int32, entity.OperacionCDRID);
-            Context.Database.AddInParameter(command, "MotivoCDRID", DbType.Int32, entity.MotivoCDRID);
+            Context.Database.AddInParameter(command, "CodigoOperacion", DbType.String, entity.CodigoOperacion);
+            Context.Database.AddInParameter(command, "CodigoReclamo", DbType.String, entity.CodigoReclamo);
             Context.Database.AddInParameter(command, "RetornoID", DbType.Int32, 10);
 
             Context.ExecuteNonQuery(command);
@@ -42,8 +42,8 @@ namespace Portal.Consultoras.Data.CDR
         public IDataReader GetCDRWebMotivoOperacion(BECDRWebMotivoOperacion entity)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetCDRWebMotivoOperacion");
-            Context.Database.AddInParameter(command, "OperacionCDRID", DbType.Int32, entity.OperacionCDRID);
-            Context.Database.AddInParameter(command, "MotivoCDRID", DbType.Int32, entity.MotivoCDRID);
+            Context.Database.AddInParameter(command, "CodigoOperacion", DbType.String, entity.CodigoOperacion);
+            Context.Database.AddInParameter(command, "CodigoReclamo", DbType.String, entity.CodigoReclamo);
 
             return Context.ExecuteReader(command);
         }

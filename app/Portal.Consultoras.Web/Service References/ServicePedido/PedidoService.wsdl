@@ -100,6 +100,12 @@
   <wsdl:message name="IPedidoService_ObtenerProcesoPedidoRechazadoGPR_OutputMessage">
     <wsdl:part name="parameters" element="tns:ObtenerProcesoPedidoRechazadoGPRResponse" />
   </wsdl:message>
+  <wsdl:message name="IPedidoService_GetPedidosFacturadoSegunDias_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetPedidosFacturadoSegunDias" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_GetPedidosFacturadoSegunDias_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetPedidosFacturadoSegunDiasResponse" />
+  </wsdl:message>
   <wsdl:message name="IPedidoService_EliminarTipoEstrategia_InputMessage">
     <wsdl:part name="parameters" element="tns:EliminarTipoEstrategia" />
   </wsdl:message>
@@ -1675,6 +1681,10 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/ObtenerProcesoPedidoRechazadoGPR" message="tns:IPedidoService_ObtenerProcesoPedidoRechazadoGPR_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/ObtenerProcesoPedidoRechazadoGPRResponse" message="tns:IPedidoService_ObtenerProcesoPedidoRechazadoGPR_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="GetPedidosFacturadoSegunDias">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetPedidosFacturadoSegunDias" message="tns:IPedidoService_GetPedidosFacturadoSegunDias_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/GetPedidosFacturadoSegunDiasResponse" message="tns:IPedidoService_GetPedidosFacturadoSegunDias_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="EliminarTipoEstrategia">
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/EliminarTipoEstrategia" message="tns:IPedidoService_EliminarTipoEstrategia_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/EliminarTipoEstrategiaResponse" message="tns:IPedidoService_EliminarTipoEstrategia_OutputMessage" />
@@ -2790,6 +2800,15 @@
     </wsdl:operation>
     <wsdl:operation name="ObtenerProcesoPedidoRechazadoGPR">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/ObtenerProcesoPedidoRechazadoGPR" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPedidosFacturadoSegunDias">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/GetPedidosFacturadoSegunDias" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -5188,6 +5207,15 @@
     </wsdl:operation>
     <wsdl:operation name="ObtenerProcesoPedidoRechazadoGPR">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/ObtenerProcesoPedidoRechazadoGPR" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPedidosFacturadoSegunDias">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/GetPedidosFacturadoSegunDias" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

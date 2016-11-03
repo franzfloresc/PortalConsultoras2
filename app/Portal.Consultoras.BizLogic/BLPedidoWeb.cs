@@ -2016,6 +2016,39 @@ namespace Portal.Consultoras.BizLogic
         {
             new DAPedidoWeb(PaisID).InsLogOfertaFinal(CampaniaID, CodigoConsultora, CUV, cantidad, tipoOfertaFinal, GAP, tipoRegistro);
         }
+
+        public List<BEPedidoWeb> GetPedidosFacturadoSegunDias(int paisID, int campaniaID, long consultoraID, int maxDias)
+        {
+            var listaPedidosFacturados = new List<BEPedidoWeb>();
+
+            var BLPais = new BLPais();
+
+            var DAPedidoWeb = new DAPedidoWeb(paisID);
+            using (IDataReader reader = DAPedidoWeb.GetPedidosFacturadoSegunDias(campaniaID, consultoraID, maxDias))
+                while (reader.Read())
+                {
+                    var entidad = new BEPedidoWeb(reader);
+                    var entidadDetalle = new BEPedidoWebDetalle(reader);
+                    for (int i = 0; i < listaPedidosFacturados.Count; i++)
+                    {
+                        if (listaPedidosFacturados[i].PedidoID == entidad.PedidoID)
+                        {
+                            listaPedidosFacturados[i].olstBEPedidoWebDetalle.Add(entidadDetalle);
+                        }                        
+                    }
+
+                    if (!listaPedidosFacturados.Any(f => f.PedidoID == entidad.PedidoID))
+                    {
+                        entidad.olstBEPedidoWebDetalle = new List<BEPedidoWebDetalle>();
+                        entidad.olstBEPedidoWebDetalle.Add(entidadDetalle);
+                        listaPedidosFacturados.Add(entidad);
+                    }
+                   
+                }
+
+            return listaPedidosFacturados;
+        }
+
     }
 
     internal class TemplateField
