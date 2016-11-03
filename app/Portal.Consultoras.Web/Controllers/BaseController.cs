@@ -747,9 +747,15 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                     else
                     {
-                        ViewBag.MensajeCierreCampania = "El <b>" + model.FechaFacturacion.Day + " de " + NombreMes(model.FechaFacturacion.Month) + "</b> desde las <b>" + FormatearHora(model.HoraFacturacion) + "</b> hasta las <b>" + FormatearHora(HoraCierrePortal) + "</b> podrás validar los productos que te llegarán en el pedido";
+                        if (model.CodigoISO == "VE")
+                        {
+                            ViewBag.MensajeCierreCampania = "Pasa tu pedido hasta el <b>" + model.FechaFacturacion.Day + " de " + NombreMes(model.FechaFacturacion.Month) + "</b> a las <b>" + FormatearHora(HoraCierrePortal) + "</b>";
+                        }
+                        else
+                        {
+                            ViewBag.MensajeCierreCampania = "El <b>" + model.FechaFacturacion.Day + " de " + NombreMes(model.FechaFacturacion.Month) + "</b> desde las <b>" + FormatearHora(model.HoraFacturacion) + "</b> hasta las <b>" + FormatearHora(HoraCierrePortal) + "</b> podrás validar los productos que te llegarán en el pedido";
+                        }
                     }
-
                 }
                 else
                 {
