@@ -50,7 +50,7 @@
         <div class="content_carrusel_pack">
             <a class="flechas_carrusel" style="left:-10%;"><img src="@Url.Content("/Content/Images/Esika/previous_ofertas_home.png")" /></a> 
             <a class="flechas_carrusel" style="right:-10%;"><img src="@Url.Content("/Content/Images/Esika/next.png")" /></a>            
-            <div class="item_pack_personalizado">
+            <div class="item_pack_personalizado ">
                 <div class="content_item_pack">
                     <div class="fondo_negro_pack">COMPRA 1X</div>
                     <br/>
@@ -518,14 +518,14 @@
         </div>
         <div>
             <div class="content_carrusel_pack" id="divCarruselNivel">
-                <div class="item_pack_personalizado">                                       
+                <div class="item_pack_personalizado linea_d">
                     <div class="content_item_pack">
                         <div class="fondo_negro_pack">COMPRA 1 {{Descripcion}}</div>
                         <br />
                         <div class="img_principal_pack" style="margin-top:16px;">
                             {{#IsNullOrEmpty UrlImagen '!='}}
                             <img src="{{UrlImagen}}" alt="" />
-                            {{/IsNullOrEmpty}}                            
+                            {{/IsNullOrEmpty}}
                         </div>
                         <div class="titulo_pack">{{Descripcion}}</div>
                         <div class="texto_unidad_pack">Precio para ti {{Simbolo}} {{DecimalToStringFormat precio_revista}}</div>
@@ -635,7 +635,7 @@
                 <div class="img_principal_pack">
                     {{#IsNullOrEmpty UrlImagen '!='}}
                     <img src="{{UrlImagen}}" alt="" />
-                    {{/IsNullOrEmpty}}                    
+                    {{/IsNullOrEmpty}}
                 </div>
                 <div class="titulo_pack">{{Descripcion}}</div>
                 <div class="texto_unidad_pack">Precio para ti {{Simbolo}} {{DecimalToStringFormat precio_revista}}</div>
