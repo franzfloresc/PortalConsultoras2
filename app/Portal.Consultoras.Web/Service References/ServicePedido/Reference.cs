@@ -17312,6 +17312,12 @@ namespace Portal.Consultoras.Web.ServicePedido {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/ObtenerProcesoPedidoRechazadoGPR", ReplyAction="http://tempuri.org/IPedidoService/ObtenerProcesoPedidoRechazadoGPRResponse")]
         System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEProcesoPedidoRechazado> ObtenerProcesoPedidoRechazadoGPRAsync(int paisID, int campaniaID, long consultoraID);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetPedidosFacturadoSegunDias", ReplyAction="http://tempuri.org/IPedidoService/GetPedidosFacturadoSegunDiasResponse")]
+        Portal.Consultoras.Web.ServicePedido.BEPedidoWeb[] GetPedidosFacturadoSegunDias(int paisID, int campaniaID, long consultoraID, int maxDias);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetPedidosFacturadoSegunDias", ReplyAction="http://tempuri.org/IPedidoService/GetPedidosFacturadoSegunDiasResponse")]
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEPedidoWeb[]> GetPedidosFacturadoSegunDiasAsync(int paisID, int campaniaID, long consultoraID, int maxDias);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/EliminarTipoEstrategia", ReplyAction="http://tempuri.org/IPedidoService/EliminarTipoEstrategiaResponse")]
         int EliminarTipoEstrategia(Portal.Consultoras.Web.ServicePedido.BETipoEstrategia entidad);
         
@@ -18972,6 +18978,14 @@ namespace Portal.Consultoras.Web.ServicePedido {
         
         public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEProcesoPedidoRechazado> ObtenerProcesoPedidoRechazadoGPRAsync(int paisID, int campaniaID, long consultoraID) {
             return base.Channel.ObtenerProcesoPedidoRechazadoGPRAsync(paisID, campaniaID, consultoraID);
+        }
+        
+        public Portal.Consultoras.Web.ServicePedido.BEPedidoWeb[] GetPedidosFacturadoSegunDias(int paisID, int campaniaID, long consultoraID, int maxDias) {
+            return base.Channel.GetPedidosFacturadoSegunDias(paisID, campaniaID, consultoraID, maxDias);
+        }
+        
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEPedidoWeb[]> GetPedidosFacturadoSegunDiasAsync(int paisID, int campaniaID, long consultoraID, int maxDias) {
+            return base.Channel.GetPedidosFacturadoSegunDiasAsync(paisID, campaniaID, consultoraID, maxDias);
         }
         
         public int EliminarTipoEstrategia(Portal.Consultoras.Web.ServicePedido.BETipoEstrategia entidad) {
