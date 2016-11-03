@@ -46,17 +46,28 @@ namespace Portal.Consultoras.Web.Controllers
             // calcular las campañas existentes en ese rango de dias
             // obtener todos pedidos facturados de esas campañas existentes
 
-            var maxDias = 60;
+            int maxDias = 100;
+            if (listaMotivoOperacion.Any())
+            {
+                maxDias += Int32.Parse(listaMotivoOperacion.Max(m => m.CDRTipoOperacion.NumeroDiasAtrasOperacion).ToString());
+            }            
 
             var listaPedidoFacturados = CargarPedidosFacturados(maxDias);
 
             var listaCampanias = new List<CampaniaModel>();
+            var campania = new CampaniaModel();
+            campania.CampaniaID = 0;
+            campania.NombreCorto = "¿En qué campaña lo solicitaste?";
+            listaCampanias.Add(campania);
             foreach (var facturado in listaPedidoFacturados)
 	        {
                 var existe = listaCampanias.Where(c => c.CampaniaID == facturado.CampaniaID) ?? new List<CampaniaModel>();
                 if (!existe.Any())
                 {
-                    listaCampanias.Add((CampaniaModel)(Object)facturado);
+                    campania = new CampaniaModel();
+                    campania.CampaniaID = facturado.CampaniaID;
+                    campania.NombreCorto = facturado.CampaniaID.ToString();
+                    listaCampanias.Add(campania);
                 }
 	        }
 
@@ -108,7 +119,7 @@ namespace Portal.Consultoras.Web.Controllers
                 var listaPedidoFacturados = new List<BEPedidoWeb>();
                 using (PedidoServiceClient sv = new PedidoServiceClient())
                 {
-                    //listaPedidoFacturados = sv.GetPedidosFacturadoSegunDias(userData.PaisID, userData.ConsultoraID, userData.CampaniaID, maxDias).ToList();
+                    listaPedidoFacturados = sv.GetPedidosFacturadoSegunDias(userData.PaisID, userData.CampaniaID, userData.ConsultoraID, maxDias).ToList();
                 }
 
                 listaPedidoFacturados = listaPedidoFacturados ?? new List<BEPedidoWeb>();
@@ -151,13 +162,11 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-        private List<Campo> CargarMotivo(MisReclamosModel model)
+        private List<BECDRMotivoReclamo> CargarMotivo(MisReclamosModel model)
         {
+            var listaRetorno = new List<BECDRMotivoReclamo>();
             try
             {
-                //var listaCampania = (List<CampaniaModel>)Session[Constantes.ConstSession.CDRCampanias];
-                //var campania = listaCampania.FirstOrDefault(c => c.CampaniaID == model.CampaniaID) ?? new CampaniaModel();
-
                 var listaPedidoFacturado = CargarPedidosFacturados();
                 var pedido = listaPedidoFacturado.FirstOrDefault(p => p.PedidoID == model.PedidoID) ?? new BEPedidoWeb();
                 DateTime fechaSys = userData.FechaActualPais.Date;
@@ -166,20 +175,19 @@ namespace Portal.Consultoras.Web.Controllers
                 int differenceInDays = diferencia.Days;
 
                 if (differenceInDays <= 0)
-                    return new List<Campo>();
+                    return listaRetorno;
 
-                var listaRetorno = new List<Campo>();
                 var listaMotivoOperacion = CargarMotivoOperacion();
-                var listaFiltro = listaMotivoOperacion.Where(mo => mo.CDROperacion.Dias >= differenceInDays).ToList();
+                var listaFiltro = listaMotivoOperacion.Where(mo => mo.CDRTipoOperacion.NumeroDiasAtrasOperacion >= differenceInDays).ToList();
                 foreach (var item in listaFiltro)
                 {
-                    if (listaRetorno.Any(r => r.Campoid == item.MotivoCDRID))
+                    if (listaRetorno.Any(r => r.CodigoReclamo == item.CodigoReclamo))
                         continue;
 
-                    var desc = ObtenerDescripcion(item.CDRMotivo.Tipo);
-                    var add = new Campo();
-                    add.Campoid = item.MotivoCDRID;
-                    add.Nombre = desc.Descripcion;
+                    var desc = ObtenerDescripcion(item.CDRMotivoReclamo.CodigoReclamo);
+                    var add = new BECDRMotivoReclamo();
+                    add.CodigoReclamo = item.CodigoReclamo;
+                    add.DescripcionReclamo = desc.Descripcion;
                     listaRetorno.Add(add);
                 }
 
@@ -188,7 +196,7 @@ namespace Portal.Consultoras.Web.Controllers
             catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                return new List<Campo>();
+                return listaRetorno;
             }
         }
 
@@ -226,8 +234,9 @@ namespace Portal.Consultoras.Web.Controllers
 
         }
 
-        private List<Campo> CargarOperacion(MisReclamosModel model)
+        private List<BECDRTipoOperacion> CargarOperacion(MisReclamosModel model)
         {
+            var listaRetorno = new List<BECDRTipoOperacion>();
             try
             {
                 var listaPedidoFacturado = CargarPedidosFacturados();
@@ -238,24 +247,23 @@ namespace Portal.Consultoras.Web.Controllers
                 int differenceInDays = diferencia.Days;
 
                 if (differenceInDays <= 0)
-                    return new List<Campo>();
+                    return listaRetorno;
 
-                var listaRetorno = new List<Campo>();
                 var listaMotivoOperacion = CargarMotivoOperacion();
-                var listaFiltro = listaMotivoOperacion.Where(mo => mo.CDROperacion.Dias >= differenceInDays).ToList();
+                var listaFiltro = listaMotivoOperacion.Where(mo => mo.CDRTipoOperacion.NumeroDiasAtrasOperacion >= differenceInDays).ToList();
                 foreach (var item in listaFiltro)
                 {
-                    if (item.MotivoCDRID != model.Motivo && model.Motivo > 0)
+                    if (item.CodigoReclamo != model.Motivo && model.Motivo != "")
                         continue;
 
-                    if (listaRetorno.Any(r => r.Campoid == item.OperacionCDRID))
+                    if (listaRetorno.Any(r => r.CodigoOperacion == item.CodigoOperacion))
                         continue;
 
-                    //var desc = ObtenerDescripcion(item.CDROperacion.Tipo);
-                    //var add = new Campo();
-                    //add.Campoid = item.MotivoCDRID;
-                    //add.Nombre = desc.Descripcion;
-                    //listaRetorno.Add(add);
+                    var desc = ObtenerDescripcion(item.CDRTipoOperacion.CodigoOperacion);
+                    var add = new BECDRTipoOperacion();
+                    add.CodigoOperacion = item.CodigoOperacion;
+                    add.DescripcionOperacion = desc.Descripcion;
+                    listaRetorno.Add(add);
                 }
 
                 return listaRetorno;
@@ -263,7 +271,7 @@ namespace Portal.Consultoras.Web.Controllers
             catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                return new List<Campo>();
+                return listaRetorno;
             }
         }
 
@@ -334,7 +342,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         public JsonResult BuscarOperacion(MisReclamosModel model)
         {
-            model.Operacion = 0;
+            model.Operacion = "";
             var lista = CargarOperacion(model);
             return Json(new
             {

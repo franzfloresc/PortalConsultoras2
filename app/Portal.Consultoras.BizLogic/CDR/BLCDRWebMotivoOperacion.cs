@@ -64,8 +64,8 @@ namespace Portal.Consultoras.BizLogic.CDR
                     while (reader.Read())
                     {
                         var entidad = new BECDRWebMotivoOperacion(reader);
-                        entidad.CDRMotivo = new BECDRMotivo(reader);
-                        entidad.CDROperacion = new BECDROperacion(reader);
+                        entidad.CDRMotivoReclamo = new BECDRMotivoReclamo(reader);
+                        entidad.CDRTipoOperacion = new BECDRTipoOperacion(reader);
                         listaEntity.Add(entidad);
                     }
                 }

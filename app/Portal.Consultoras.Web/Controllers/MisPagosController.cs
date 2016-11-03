@@ -2,7 +2,6 @@
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.ServiceODS;
-using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.ServiceSAC;
 using System;
 using System.Collections.Generic;
@@ -39,7 +38,7 @@ namespace Portal.Consultoras.Web.Controllers
             model.MostrarFE = userData.CodigoISO == "EC" || userData.CodigoISO == "PE" ? " " : "display: none;";
             model.Simbolo = string.Format("{0} ", userData.Simbolo);
             model.TieneFlexipago = userData.IndicadorFlexiPago;
-            model.MontoMinimoFlexipago = userData.IndicadorFlexiPago > 0 ? ObtenerMontoMinimo() : "0.00";
+            model.MontoMinimoFlexipago = userData.MontoMinimoFlexipago;
             model.TienePagoOnline = userData.IndicadorPagoOnline;
             model.UrlPagoOnline = userData.UrlPagoOnline;
             model.CorreoConsultora = userData.EMail;
@@ -614,20 +613,6 @@ namespace Portal.Consultoras.Web.Controllers
         #endregion
 
         #region Métodos privados
-
-        private string ObtenerMontoMinimo()
-        {
-            int vPaisID = userData.PaisID;
-            string consultora = userData.CodigoConsultora;
-            string result = string.Empty;
-            using (PedidoServiceClient svc = new PedidoServiceClient())
-            {
-                int CampaniaID = userData.CampaniaID;
-                BEOfertaFlexipago oBe = svc.GetLineaCreditoFlexipago(vPaisID, consultora, CampaniaID);
-                result = string.Format("{0:#,##0.00}", (oBe.MontoMinimoFlexipago < 0 ? 0M : oBe.MontoMinimoFlexipago));
-            }
-            return result;
-        }
 
         private void ObtenerFechaVencimientoMontoPagar(out string fechaVencimiento, out string montoPagar, out decimal montoPagarDec)
         {
