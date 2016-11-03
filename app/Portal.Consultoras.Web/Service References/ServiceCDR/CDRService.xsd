@@ -92,4 +92,48 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="ArrayOfBECDRWebDescripcion" nillable="true" type="tns:ArrayOfBECDRWebDescripcion" />
+  <xs:complexType name="BELogCDRWeb">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CampaniaId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CodigoConsultora" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ConsultoraId" type="xs:long" />
+      <xs:element minOccurs="0" name="EstadoCDR" type="xs:unsignedByte" />
+      <xs:element minOccurs="0" name="FechaAtencion" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="FechaCulminado" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="FechaRegistro" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="LogCDRWebId" type="xs:long" />
+      <xs:element minOccurs="0" name="PedidoFacturadoId" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="BELogCDRWeb" nillable="true" type="tns:BELogCDRWeb" />
+  <xs:complexType name="ArrayOfBELogCDRWebDetalle">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="BELogCDRWebDetalle" nillable="true" type="tns:BELogCDRWebDetalle" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfBELogCDRWebDetalle" nillable="true" type="tns:ArrayOfBELogCDRWebDetalle" />
+  <xs:complexType name="BELogCDRWebDetalle">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CDRWebDetalleId" type="xs:int" />
+      <xs:element minOccurs="0" name="CUV" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CUV2" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Cantidad" type="xs:int" />
+      <xs:element minOccurs="0" name="Cantidad2" type="xs:int" />
+      <xs:element minOccurs="0" name="CodigoMotivo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CodigoOperacion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CodigoRechazo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DescripcionMotivo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DescripcionOperacion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DescripcionRechazo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="EstadoCDR" type="xs:unsignedByte" />
+      <xs:element minOccurs="0" name="LogCDRWebDetalleId" type="xs:long" />
+      <xs:element minOccurs="0" name="LogCDRWebId" type="xs:long" />
+      <xs:element minOccurs="0" name="NombreProducto" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NombreProducto2" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ObservacionRechazo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Precio" type="xs:decimal" />
+      <xs:element minOccurs="0" name="Precio2" type="xs:decimal" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="BELogCDRWebDetalle" nillable="true" type="tns:BELogCDRWebDetalle" />
 </xs:schema>

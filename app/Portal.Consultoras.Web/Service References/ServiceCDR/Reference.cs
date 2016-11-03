@@ -795,6 +795,512 @@ namespace Portal.Consultoras.Web.ServiceCDR {
         }
     }
     
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="BELogCDRWeb", Namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.CDR")]
+    [System.SerializableAttribute()]
+    public partial class BELogCDRWeb : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CampaniaIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CodigoConsultoraField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private long ConsultoraIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private byte EstadoCDRField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.DateTime FechaAtencionField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.DateTime FechaCulminadoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.DateTime FechaRegistroField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private long LogCDRWebIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int PedidoFacturadoIdField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string CampaniaId {
+            get {
+                return this.CampaniaIdField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CampaniaIdField, value) != true)) {
+                    this.CampaniaIdField = value;
+                    this.RaisePropertyChanged("CampaniaId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string CodigoConsultora {
+            get {
+                return this.CodigoConsultoraField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CodigoConsultoraField, value) != true)) {
+                    this.CodigoConsultoraField = value;
+                    this.RaisePropertyChanged("CodigoConsultora");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public long ConsultoraId {
+            get {
+                return this.ConsultoraIdField;
+            }
+            set {
+                if ((this.ConsultoraIdField.Equals(value) != true)) {
+                    this.ConsultoraIdField = value;
+                    this.RaisePropertyChanged("ConsultoraId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public byte EstadoCDR {
+            get {
+                return this.EstadoCDRField;
+            }
+            set {
+                if ((this.EstadoCDRField.Equals(value) != true)) {
+                    this.EstadoCDRField = value;
+                    this.RaisePropertyChanged("EstadoCDR");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.DateTime FechaAtencion {
+            get {
+                return this.FechaAtencionField;
+            }
+            set {
+                if ((this.FechaAtencionField.Equals(value) != true)) {
+                    this.FechaAtencionField = value;
+                    this.RaisePropertyChanged("FechaAtencion");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.DateTime FechaCulminado {
+            get {
+                return this.FechaCulminadoField;
+            }
+            set {
+                if ((this.FechaCulminadoField.Equals(value) != true)) {
+                    this.FechaCulminadoField = value;
+                    this.RaisePropertyChanged("FechaCulminado");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.DateTime FechaRegistro {
+            get {
+                return this.FechaRegistroField;
+            }
+            set {
+                if ((this.FechaRegistroField.Equals(value) != true)) {
+                    this.FechaRegistroField = value;
+                    this.RaisePropertyChanged("FechaRegistro");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public long LogCDRWebId {
+            get {
+                return this.LogCDRWebIdField;
+            }
+            set {
+                if ((this.LogCDRWebIdField.Equals(value) != true)) {
+                    this.LogCDRWebIdField = value;
+                    this.RaisePropertyChanged("LogCDRWebId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int PedidoFacturadoId {
+            get {
+                return this.PedidoFacturadoIdField;
+            }
+            set {
+                if ((this.PedidoFacturadoIdField.Equals(value) != true)) {
+                    this.PedidoFacturadoIdField = value;
+                    this.RaisePropertyChanged("PedidoFacturadoId");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="BELogCDRWebDetalle", Namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.CDR")]
+    [System.SerializableAttribute()]
+    public partial class BELogCDRWebDetalle : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int CDRWebDetalleIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CUVField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CUV2Field;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int CantidadField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int Cantidad2Field;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CodigoMotivoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CodigoOperacionField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CodigoRechazoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string DescripcionMotivoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string DescripcionOperacionField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string DescripcionRechazoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private byte EstadoCDRField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private long LogCDRWebDetalleIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private long LogCDRWebIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string NombreProductoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string NombreProducto2Field;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ObservacionRechazoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private decimal PrecioField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private decimal Precio2Field;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int CDRWebDetalleId {
+            get {
+                return this.CDRWebDetalleIdField;
+            }
+            set {
+                if ((this.CDRWebDetalleIdField.Equals(value) != true)) {
+                    this.CDRWebDetalleIdField = value;
+                    this.RaisePropertyChanged("CDRWebDetalleId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string CUV {
+            get {
+                return this.CUVField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CUVField, value) != true)) {
+                    this.CUVField = value;
+                    this.RaisePropertyChanged("CUV");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string CUV2 {
+            get {
+                return this.CUV2Field;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CUV2Field, value) != true)) {
+                    this.CUV2Field = value;
+                    this.RaisePropertyChanged("CUV2");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int Cantidad {
+            get {
+                return this.CantidadField;
+            }
+            set {
+                if ((this.CantidadField.Equals(value) != true)) {
+                    this.CantidadField = value;
+                    this.RaisePropertyChanged("Cantidad");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int Cantidad2 {
+            get {
+                return this.Cantidad2Field;
+            }
+            set {
+                if ((this.Cantidad2Field.Equals(value) != true)) {
+                    this.Cantidad2Field = value;
+                    this.RaisePropertyChanged("Cantidad2");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string CodigoMotivo {
+            get {
+                return this.CodigoMotivoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CodigoMotivoField, value) != true)) {
+                    this.CodigoMotivoField = value;
+                    this.RaisePropertyChanged("CodigoMotivo");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string CodigoOperacion {
+            get {
+                return this.CodigoOperacionField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CodigoOperacionField, value) != true)) {
+                    this.CodigoOperacionField = value;
+                    this.RaisePropertyChanged("CodigoOperacion");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string CodigoRechazo {
+            get {
+                return this.CodigoRechazoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CodigoRechazoField, value) != true)) {
+                    this.CodigoRechazoField = value;
+                    this.RaisePropertyChanged("CodigoRechazo");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string DescripcionMotivo {
+            get {
+                return this.DescripcionMotivoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.DescripcionMotivoField, value) != true)) {
+                    this.DescripcionMotivoField = value;
+                    this.RaisePropertyChanged("DescripcionMotivo");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string DescripcionOperacion {
+            get {
+                return this.DescripcionOperacionField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.DescripcionOperacionField, value) != true)) {
+                    this.DescripcionOperacionField = value;
+                    this.RaisePropertyChanged("DescripcionOperacion");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string DescripcionRechazo {
+            get {
+                return this.DescripcionRechazoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.DescripcionRechazoField, value) != true)) {
+                    this.DescripcionRechazoField = value;
+                    this.RaisePropertyChanged("DescripcionRechazo");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public byte EstadoCDR {
+            get {
+                return this.EstadoCDRField;
+            }
+            set {
+                if ((this.EstadoCDRField.Equals(value) != true)) {
+                    this.EstadoCDRField = value;
+                    this.RaisePropertyChanged("EstadoCDR");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public long LogCDRWebDetalleId {
+            get {
+                return this.LogCDRWebDetalleIdField;
+            }
+            set {
+                if ((this.LogCDRWebDetalleIdField.Equals(value) != true)) {
+                    this.LogCDRWebDetalleIdField = value;
+                    this.RaisePropertyChanged("LogCDRWebDetalleId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public long LogCDRWebId {
+            get {
+                return this.LogCDRWebIdField;
+            }
+            set {
+                if ((this.LogCDRWebIdField.Equals(value) != true)) {
+                    this.LogCDRWebIdField = value;
+                    this.RaisePropertyChanged("LogCDRWebId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string NombreProducto {
+            get {
+                return this.NombreProductoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.NombreProductoField, value) != true)) {
+                    this.NombreProductoField = value;
+                    this.RaisePropertyChanged("NombreProducto");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string NombreProducto2 {
+            get {
+                return this.NombreProducto2Field;
+            }
+            set {
+                if ((object.ReferenceEquals(this.NombreProducto2Field, value) != true)) {
+                    this.NombreProducto2Field = value;
+                    this.RaisePropertyChanged("NombreProducto2");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string ObservacionRechazo {
+            get {
+                return this.ObservacionRechazoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ObservacionRechazoField, value) != true)) {
+                    this.ObservacionRechazoField = value;
+                    this.RaisePropertyChanged("ObservacionRechazo");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public decimal Precio {
+            get {
+                return this.PrecioField;
+            }
+            set {
+                if ((this.PrecioField.Equals(value) != true)) {
+                    this.PrecioField = value;
+                    this.RaisePropertyChanged("Precio");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public decimal Precio2 {
+            get {
+                return this.Precio2Field;
+            }
+            set {
+                if ((this.Precio2Field.Equals(value) != true)) {
+                    this.Precio2Field = value;
+                    this.RaisePropertyChanged("Precio2");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="ServiceCDR.ICDRService")]
     public interface ICDRService {
@@ -870,6 +1376,24 @@ namespace Portal.Consultoras.Web.ServiceCDR {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICDRService/GetCDRWebDescripcion", ReplyAction="http://tempuri.org/ICDRService/GetCDRWebDescripcionResponse")]
         System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceCDR.BECDRWebDescripcion[]> GetCDRWebDescripcionAsync(int PaisID, Portal.Consultoras.Web.ServiceCDR.BECDRWebDescripcion entity);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICDRService/GetLogCDRWebByLogCDRWebId", ReplyAction="http://tempuri.org/ICDRService/GetLogCDRWebByLogCDRWebIdResponse")]
+        Portal.Consultoras.Web.ServiceCDR.BELogCDRWeb GetLogCDRWebByLogCDRWebId(int paisId, long logCDRWebId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICDRService/GetLogCDRWebByLogCDRWebId", ReplyAction="http://tempuri.org/ICDRService/GetLogCDRWebByLogCDRWebIdResponse")]
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceCDR.BELogCDRWeb> GetLogCDRWebByLogCDRWebIdAsync(int paisId, long logCDRWebId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICDRService/UpdateLogCDRWebVisualizado", ReplyAction="http://tempuri.org/ICDRService/UpdateLogCDRWebVisualizadoResponse")]
+        int UpdateLogCDRWebVisualizado(int paisId, long logCDRWebId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICDRService/UpdateLogCDRWebVisualizado", ReplyAction="http://tempuri.org/ICDRService/UpdateLogCDRWebVisualizadoResponse")]
+        System.Threading.Tasks.Task<int> UpdateLogCDRWebVisualizadoAsync(int paisId, long logCDRWebId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICDRService/GetLogCDRWebDetalleByLogCDRWebId", ReplyAction="http://tempuri.org/ICDRService/GetLogCDRWebDetalleByLogCDRWebIdResponse")]
+        Portal.Consultoras.Web.ServiceCDR.BELogCDRWebDetalle[] GetLogCDRWebDetalleByLogCDRWebId(int paisId, long logCDRWebId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICDRService/GetLogCDRWebDetalleByLogCDRWebId", ReplyAction="http://tempuri.org/ICDRService/GetLogCDRWebDetalleByLogCDRWebIdResponse")]
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceCDR.BELogCDRWebDetalle[]> GetLogCDRWebDetalleByLogCDRWebIdAsync(int paisId, long logCDRWebId);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -993,6 +1517,30 @@ namespace Portal.Consultoras.Web.ServiceCDR {
         
         public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceCDR.BECDRWebDescripcion[]> GetCDRWebDescripcionAsync(int PaisID, Portal.Consultoras.Web.ServiceCDR.BECDRWebDescripcion entity) {
             return base.Channel.GetCDRWebDescripcionAsync(PaisID, entity);
+        }
+        
+        public Portal.Consultoras.Web.ServiceCDR.BELogCDRWeb GetLogCDRWebByLogCDRWebId(int paisId, long logCDRWebId) {
+            return base.Channel.GetLogCDRWebByLogCDRWebId(paisId, logCDRWebId);
+        }
+        
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceCDR.BELogCDRWeb> GetLogCDRWebByLogCDRWebIdAsync(int paisId, long logCDRWebId) {
+            return base.Channel.GetLogCDRWebByLogCDRWebIdAsync(paisId, logCDRWebId);
+        }
+        
+        public int UpdateLogCDRWebVisualizado(int paisId, long logCDRWebId) {
+            return base.Channel.UpdateLogCDRWebVisualizado(paisId, logCDRWebId);
+        }
+        
+        public System.Threading.Tasks.Task<int> UpdateLogCDRWebVisualizadoAsync(int paisId, long logCDRWebId) {
+            return base.Channel.UpdateLogCDRWebVisualizadoAsync(paisId, logCDRWebId);
+        }
+        
+        public Portal.Consultoras.Web.ServiceCDR.BELogCDRWebDetalle[] GetLogCDRWebDetalleByLogCDRWebId(int paisId, long logCDRWebId) {
+            return base.Channel.GetLogCDRWebDetalleByLogCDRWebId(paisId, logCDRWebId);
+        }
+        
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceCDR.BELogCDRWebDetalle[]> GetLogCDRWebDetalleByLogCDRWebIdAsync(int paisId, long logCDRWebId) {
+            return base.Channel.GetLogCDRWebDetalleByLogCDRWebIdAsync(paisId, logCDRWebId);
         }
     }
 }
