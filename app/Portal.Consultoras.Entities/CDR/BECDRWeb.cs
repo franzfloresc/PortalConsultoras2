@@ -12,6 +12,8 @@ namespace Portal.Consultoras.Entities.CDR
         [DataMember]
         public int PedidoID { get; set; }
         [DataMember]
+        public int PedidoNumero { get; set; }
+        [DataMember]
         public int CampaniaID { get; set; }
         [DataMember]
         public int ConsultoraID { get; set; }
@@ -29,14 +31,15 @@ namespace Portal.Consultoras.Entities.CDR
 
         public BECDRWeb(IDataRecord row)
         {
-            if (DataRecord.HasColumn(row, "CDRWebID") && row["CDRWebID"] != DBNull.Value) CDRWebID = Convert.ToInt32(row["CDRWebID"]);
-            if (DataRecord.HasColumn(row, "PedidoID") && row["PedidoID"] != DBNull.Value) PedidoID = Convert.ToInt32(row["PedidoID"]);
-            if (DataRecord.HasColumn(row, "CampaniaID") && row["CampaniaID"] != DBNull.Value) CampaniaID = Convert.ToInt32(row["CampaniaID"]);
-            if (DataRecord.HasColumn(row, "ConsultoraID") && row["ConsultoraID"] != DBNull.Value) ConsultoraID = Convert.ToInt32(row["ConsultoraID"]);
-            if (DataRecord.HasColumn(row, "FechaRegistro") && row["FechaRegistro"] != DBNull.Value) FechaRegistro = Convert.ToDateTime(row["FechaRegistro"]);
-            if (DataRecord.HasColumn(row, "Estado") && row["Estado"] != DBNull.Value) Estado = Convert.ToInt32(row["Estado"]);
-            if (DataRecord.HasColumn(row, "FechaCulminado") && row["FechaCulminado"] != DBNull.Value) FechaCulminado = Convert.ToDateTime(row["FechaCulminado"]);
-            if (DataRecord.HasColumn(row, "Importe") && row["Importe"] != DBNull.Value) Importe = Convert.ToDecimal(row["Importe"]);
+            if (DataRecord.HasColumn(row, "CDRWebID")) CDRWebID = Convert.ToInt32(row["CDRWebID"]);
+            if (DataRecord.HasColumn(row, "PedidoID")) PedidoID = Convert.ToInt32(row["PedidoID"]);
+            if (DataRecord.HasColumn(row, "PedidoNumero")) PedidoNumero = Convert.ToInt32(row["PedidoNumero"]);
+            if (DataRecord.HasColumn(row, "CampaniaID")) CampaniaID = Convert.ToInt32(row["CampaniaID"]);
+            if (DataRecord.HasColumn(row, "ConsultoraID")) ConsultoraID = Convert.ToInt32(row["ConsultoraID"]);
+            if (DataRecord.HasColumn(row, "FechaRegistro")) FechaRegistro = Convert.ToDateTime(row["FechaRegistro"]);
+            if (DataRecord.HasColumn(row, "Estado")) Estado = Convert.ToInt32(row["Estado"]);
+            if (DataRecord.HasColumn(row, "FechaCulminado")) FechaCulminado = Convert.ToDateTime(row["FechaCulminado"]);
+            if (DataRecord.HasColumn(row, "Importe")) Importe = Convert.ToDecimal(row["Importe"]);
         }
     }
 }

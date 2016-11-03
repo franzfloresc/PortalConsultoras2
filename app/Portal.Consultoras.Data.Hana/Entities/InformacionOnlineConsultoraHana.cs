@@ -15,7 +15,7 @@ namespace Portal.Consultoras.Data.Hana.Entities
         public string FECHAVEN { get; set; }
         public string FECHAVENCAM { get; set; }
         public string FEC_CREA { get; set; }
-        public decimal IMP_MONT_MINI { get; set; }
+        public string IMP_MONT_MINI { get; set; }
         public decimal IMP_SALD_CAMP { get; set; }
         public int Indicador_Activa { get; set; }
         public int Invitada { get; set; }

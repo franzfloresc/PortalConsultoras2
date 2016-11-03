@@ -14,8 +14,8 @@ namespace Portal.Consultoras.Web.Models
         public string Campania { get; set; }
         public string CUV { get; set; }
         public int Cantidad { get; set; }
-        public int Motivo { get; set; }
-        public int Operacion { get; set; }
+        public string Motivo { get; set; }
+        public string Operacion { get; set; }
         public List<Campo> ListaMotivo { get; set; }
         public int CDRWebDetalleID { get; set; }
         
