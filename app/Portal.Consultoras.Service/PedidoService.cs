@@ -1674,5 +1674,10 @@ namespace Portal.Consultoras.Service
         {
             BLPedidoWeb.InsLogOfertaFinal(PaisID, CampaniaID, CodigoConsultora, CUV, cantidad, tipoOfertaFinal, GAP, tipoRegistro);
         }
+
+        public List<BEPedidoWeb> GetPedidosFacturadoSegunDias(int paisID, int campaniaID, long consultoraID, int maxDias)
+        {
+            return BLPedidoWeb.GetPedidosFacturadoSegunDias(paisID, campaniaID, consultoraID, maxDias);
+        }
     }
 }

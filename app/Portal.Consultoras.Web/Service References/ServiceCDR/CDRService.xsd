@@ -10,6 +10,7 @@
       <xs:element minOccurs="0" name="FechaRegistro" type="xs:dateTime" />
       <xs:element minOccurs="0" name="Importe" type="xs:decimal" />
       <xs:element minOccurs="0" name="PedidoID" type="xs:int" />
+      <xs:element minOccurs="0" name="PedidoNumero" type="xs:int" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="BECDRWeb" nillable="true" type="tns:BECDRWeb" />
@@ -27,12 +28,13 @@
       <xs:element minOccurs="0" name="CUV2" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Cantidad" type="xs:int" />
       <xs:element minOccurs="0" name="Cantidad2" type="xs:int" />
+      <xs:element minOccurs="0" name="CodigoOperacion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CodigoReclamo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Eliminado" type="xs:boolean" />
       <xs:element minOccurs="0" name="Estado" type="xs:int" />
       <xs:element minOccurs="0" name="FechaRegistro" type="xs:dateTime" />
-      <xs:element minOccurs="0" name="MotivoCDRID" type="xs:int" />
       <xs:element minOccurs="0" name="MotivoRechazo" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Observacion" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="OperacionCDRID" type="xs:int" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="BECDRWebDetalle" nillable="true" type="tns:BECDRWebDetalle" />
@@ -44,28 +46,31 @@
   <xs:element name="ArrayOfBECDRWebDetalle" nillable="true" type="tns:ArrayOfBECDRWebDetalle" />
   <xs:complexType name="BECDRWebMotivoOperacion">
     <xs:sequence>
-      <xs:element minOccurs="0" name="CDRMotivo" nillable="true" type="tns:BECDRMotivo" />
-      <xs:element minOccurs="0" name="CDROperacion" nillable="true" type="tns:BECDROperacion" />
+      <xs:element minOccurs="0" name="CDRMotivoReclamo" nillable="true" type="tns:BECDRMotivoReclamo" />
+      <xs:element minOccurs="0" name="CDRTipoOperacion" nillable="true" type="tns:BECDRTipoOperacion" />
+      <xs:element minOccurs="0" name="CodigoOperacion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CodigoReclamo" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Estado" type="xs:int" />
-      <xs:element minOccurs="0" name="MotivoCDRID" type="xs:int" />
-      <xs:element minOccurs="0" name="OperacionCDRID" type="xs:int" />
       <xs:element minOccurs="0" name="Prioridad" type="xs:int" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="BECDRWebMotivoOperacion" nillable="true" type="tns:BECDRWebMotivoOperacion" />
-  <xs:complexType name="BECDRMotivo">
-    <xs:sequence>
       <xs:element minOccurs="0" name="Tipo" nillable="true" type="xs:string" />
     </xs:sequence>
   </xs:complexType>
-  <xs:element name="BECDRMotivo" nillable="true" type="tns:BECDRMotivo" />
-  <xs:complexType name="BECDROperacion">
+  <xs:element name="BECDRWebMotivoOperacion" nillable="true" type="tns:BECDRWebMotivoOperacion" />
+  <xs:complexType name="BECDRMotivoReclamo">
     <xs:sequence>
-      <xs:element minOccurs="0" name="Dias" type="xs:int" />
-      <xs:element minOccurs="0" name="Tipo" type="xs:int" />
+      <xs:element minOccurs="0" name="CodigoReclamo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DescripcionReclamo" nillable="true" type="xs:string" />
     </xs:sequence>
   </xs:complexType>
-  <xs:element name="BECDROperacion" nillable="true" type="tns:BECDROperacion" />
+  <xs:element name="BECDRMotivoReclamo" nillable="true" type="tns:BECDRMotivoReclamo" />
+  <xs:complexType name="BECDRTipoOperacion">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CodigoOperacion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DescripcionOperacion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NumeroDiasAtrasOperacion" type="xs:decimal" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="BECDRTipoOperacion" nillable="true" type="tns:BECDRTipoOperacion" />
   <xs:complexType name="ArrayOfBECDRWebMotivoOperacion">
     <xs:sequence>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="BECDRWebMotivoOperacion" nillable="true" type="tns:BECDRWebMotivoOperacion" />

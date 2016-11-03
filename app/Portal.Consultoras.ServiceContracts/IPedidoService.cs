@@ -904,5 +904,8 @@ namespace Portal.Consultoras.ServiceContracts
         
         [OperationContract]
         BEProcesoPedidoRechazado ObtenerProcesoPedidoRechazadoGPR(int paisID, int campaniaID, long consultoraID);
+        
+        [OperationContract]
+        List<BEPedidoWeb> GetPedidosFacturadoSegunDias(int paisID, int campaniaID, long consultoraID, int maxDias);
     }
 }

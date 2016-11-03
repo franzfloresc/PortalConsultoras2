@@ -46,6 +46,9 @@ namespace Portal.Consultoras.Web.ServiceCDR {
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int PedidoIDField;
         
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int PedidoNumeroField;
+        
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
             get {
@@ -160,6 +163,19 @@ namespace Portal.Consultoras.Web.ServiceCDR {
             }
         }
         
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int PedidoNumero {
+            get {
+                return this.PedidoNumeroField;
+            }
+            set {
+                if ((this.PedidoNumeroField.Equals(value) != true)) {
+                    this.PedidoNumeroField = value;
+                    this.RaisePropertyChanged("PedidoNumero");
+                }
+            }
+        }
+        
         public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
         
         protected void RaisePropertyChanged(string propertyName) {
@@ -198,22 +214,25 @@ namespace Portal.Consultoras.Web.ServiceCDR {
         private int Cantidad2Field;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CodigoOperacionField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CodigoReclamoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool EliminadoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int EstadoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private System.DateTime FechaRegistroField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int MotivoCDRIDField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string MotivoRechazoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string ObservacionField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int OperacionCDRIDField;
         
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
@@ -304,6 +323,45 @@ namespace Portal.Consultoras.Web.ServiceCDR {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public string CodigoOperacion {
+            get {
+                return this.CodigoOperacionField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CodigoOperacionField, value) != true)) {
+                    this.CodigoOperacionField = value;
+                    this.RaisePropertyChanged("CodigoOperacion");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string CodigoReclamo {
+            get {
+                return this.CodigoReclamoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CodigoReclamoField, value) != true)) {
+                    this.CodigoReclamoField = value;
+                    this.RaisePropertyChanged("CodigoReclamo");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool Eliminado {
+            get {
+                return this.EliminadoField;
+            }
+            set {
+                if ((this.EliminadoField.Equals(value) != true)) {
+                    this.EliminadoField = value;
+                    this.RaisePropertyChanged("Eliminado");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public int Estado {
             get {
                 return this.EstadoField;
@@ -325,19 +383,6 @@ namespace Portal.Consultoras.Web.ServiceCDR {
                 if ((this.FechaRegistroField.Equals(value) != true)) {
                     this.FechaRegistroField = value;
                     this.RaisePropertyChanged("FechaRegistro");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int MotivoCDRID {
-            get {
-                return this.MotivoCDRIDField;
-            }
-            set {
-                if ((this.MotivoCDRIDField.Equals(value) != true)) {
-                    this.MotivoCDRIDField = value;
-                    this.RaisePropertyChanged("MotivoCDRID");
                 }
             }
         }
@@ -368,19 +413,6 @@ namespace Portal.Consultoras.Web.ServiceCDR {
             }
         }
         
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int OperacionCDRID {
-            get {
-                return this.OperacionCDRIDField;
-            }
-            set {
-                if ((this.OperacionCDRIDField.Equals(value) != true)) {
-                    this.OperacionCDRIDField = value;
-                    this.RaisePropertyChanged("OperacionCDRID");
-                }
-            }
-        }
-        
         public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
         
         protected void RaisePropertyChanged(string propertyName) {
@@ -401,22 +433,25 @@ namespace Portal.Consultoras.Web.ServiceCDR {
         private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private Portal.Consultoras.Web.ServiceCDR.BECDRMotivo CDRMotivoField;
+        private Portal.Consultoras.Web.ServiceCDR.BECDRMotivoReclamo CDRMotivoReclamoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private Portal.Consultoras.Web.ServiceCDR.BECDROperacion CDROperacionField;
+        private Portal.Consultoras.Web.ServiceCDR.BECDRTipoOperacion CDRTipoOperacionField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CodigoOperacionField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CodigoReclamoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int EstadoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int MotivoCDRIDField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int OperacionCDRIDField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int PrioridadField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string TipoField;
         
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
@@ -429,27 +464,53 @@ namespace Portal.Consultoras.Web.ServiceCDR {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public Portal.Consultoras.Web.ServiceCDR.BECDRMotivo CDRMotivo {
+        public Portal.Consultoras.Web.ServiceCDR.BECDRMotivoReclamo CDRMotivoReclamo {
             get {
-                return this.CDRMotivoField;
+                return this.CDRMotivoReclamoField;
             }
             set {
-                if ((object.ReferenceEquals(this.CDRMotivoField, value) != true)) {
-                    this.CDRMotivoField = value;
-                    this.RaisePropertyChanged("CDRMotivo");
+                if ((object.ReferenceEquals(this.CDRMotivoReclamoField, value) != true)) {
+                    this.CDRMotivoReclamoField = value;
+                    this.RaisePropertyChanged("CDRMotivoReclamo");
                 }
             }
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public Portal.Consultoras.Web.ServiceCDR.BECDROperacion CDROperacion {
+        public Portal.Consultoras.Web.ServiceCDR.BECDRTipoOperacion CDRTipoOperacion {
             get {
-                return this.CDROperacionField;
+                return this.CDRTipoOperacionField;
             }
             set {
-                if ((object.ReferenceEquals(this.CDROperacionField, value) != true)) {
-                    this.CDROperacionField = value;
-                    this.RaisePropertyChanged("CDROperacion");
+                if ((object.ReferenceEquals(this.CDRTipoOperacionField, value) != true)) {
+                    this.CDRTipoOperacionField = value;
+                    this.RaisePropertyChanged("CDRTipoOperacion");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string CodigoOperacion {
+            get {
+                return this.CodigoOperacionField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CodigoOperacionField, value) != true)) {
+                    this.CodigoOperacionField = value;
+                    this.RaisePropertyChanged("CodigoOperacion");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string CodigoReclamo {
+            get {
+                return this.CodigoReclamoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CodigoReclamoField, value) != true)) {
+                    this.CodigoReclamoField = value;
+                    this.RaisePropertyChanged("CodigoReclamo");
                 }
             }
         }
@@ -468,32 +529,6 @@ namespace Portal.Consultoras.Web.ServiceCDR {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public int MotivoCDRID {
-            get {
-                return this.MotivoCDRIDField;
-            }
-            set {
-                if ((this.MotivoCDRIDField.Equals(value) != true)) {
-                    this.MotivoCDRIDField = value;
-                    this.RaisePropertyChanged("MotivoCDRID");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int OperacionCDRID {
-            get {
-                return this.OperacionCDRIDField;
-            }
-            set {
-                if ((this.OperacionCDRIDField.Equals(value) != true)) {
-                    this.OperacionCDRIDField = value;
-                    this.RaisePropertyChanged("OperacionCDRID");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
         public int Prioridad {
             get {
                 return this.PrioridadField;
@@ -503,38 +538,6 @@ namespace Portal.Consultoras.Web.ServiceCDR {
                     this.PrioridadField = value;
                     this.RaisePropertyChanged("Prioridad");
                 }
-            }
-        }
-        
-        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-        
-        protected void RaisePropertyChanged(string propertyName) {
-            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-            if ((propertyChanged != null)) {
-                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
-            }
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="BECDRMotivo", Namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.CDR")]
-    [System.SerializableAttribute()]
-    public partial class BECDRMotivo : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
-        
-        [System.NonSerializedAttribute()]
-        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string TipoField;
-        
-        [global::System.ComponentModel.BrowsableAttribute(false)]
-        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
-            get {
-                return this.extensionDataField;
-            }
-            set {
-                this.extensionDataField = value;
             }
         }
         
@@ -563,18 +566,18 @@ namespace Portal.Consultoras.Web.ServiceCDR {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="BECDROperacion", Namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.CDR")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="BECDRMotivoReclamo", Namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.CDR")]
     [System.SerializableAttribute()]
-    public partial class BECDROperacion : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+    public partial class BECDRMotivoReclamo : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
         
         [System.NonSerializedAttribute()]
         private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int DiasField;
+        private string CodigoReclamoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int TipoField;
+        private string DescripcionReclamoField;
         
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
@@ -587,27 +590,104 @@ namespace Portal.Consultoras.Web.ServiceCDR {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public int Dias {
+        public string CodigoReclamo {
             get {
-                return this.DiasField;
+                return this.CodigoReclamoField;
             }
             set {
-                if ((this.DiasField.Equals(value) != true)) {
-                    this.DiasField = value;
-                    this.RaisePropertyChanged("Dias");
+                if ((object.ReferenceEquals(this.CodigoReclamoField, value) != true)) {
+                    this.CodigoReclamoField = value;
+                    this.RaisePropertyChanged("CodigoReclamo");
                 }
             }
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public int Tipo {
+        public string DescripcionReclamo {
             get {
-                return this.TipoField;
+                return this.DescripcionReclamoField;
             }
             set {
-                if ((this.TipoField.Equals(value) != true)) {
-                    this.TipoField = value;
-                    this.RaisePropertyChanged("Tipo");
+                if ((object.ReferenceEquals(this.DescripcionReclamoField, value) != true)) {
+                    this.DescripcionReclamoField = value;
+                    this.RaisePropertyChanged("DescripcionReclamo");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="BECDRTipoOperacion", Namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.CDR")]
+    [System.SerializableAttribute()]
+    public partial class BECDRTipoOperacion : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CodigoOperacionField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string DescripcionOperacionField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private decimal NumeroDiasAtrasOperacionField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string CodigoOperacion {
+            get {
+                return this.CodigoOperacionField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CodigoOperacionField, value) != true)) {
+                    this.CodigoOperacionField = value;
+                    this.RaisePropertyChanged("CodigoOperacion");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string DescripcionOperacion {
+            get {
+                return this.DescripcionOperacionField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.DescripcionOperacionField, value) != true)) {
+                    this.DescripcionOperacionField = value;
+                    this.RaisePropertyChanged("DescripcionOperacion");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public decimal NumeroDiasAtrasOperacion {
+            get {
+                return this.NumeroDiasAtrasOperacionField;
+            }
+            set {
+                if ((this.NumeroDiasAtrasOperacionField.Equals(value) != true)) {
+                    this.NumeroDiasAtrasOperacionField = value;
+                    this.RaisePropertyChanged("NumeroDiasAtrasOperacion");
                 }
             }
         }
