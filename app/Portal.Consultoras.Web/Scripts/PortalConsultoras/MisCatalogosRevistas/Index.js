@@ -7,6 +7,9 @@ var nombreCat = new Object();
 $(document).ready(function () {
     ObtenerURLExpofertas();
     campSelect = $("#hdCampaniaActual").val().substring(4, 6);
+
+    $('#campaniaRevista').val($("#hdCampaniaActual").val());
+
     $("#contentCatalogo #TextoCampania").text("CATÁLOGOS C-" + campSelect);    
     aCam.push($("#hdCampaniaAnterior").val());
     aCam.push($("#hdCampaniaActual").val());
@@ -802,6 +805,14 @@ function RevistaMostrar(accion, btn) {
     if (rCampSelectI == 0 || rCampSelectI == cantCamRev - 1) {
         $(btn).hide();
     }
+
+    $('#campaniaRevista').val(rCampSelect);
+}
+
+function MostrarMiRevista() {
+    var frmMiRevista = $('#frmMiRevista');
+    //frmMiRevista.attr('action', '');
+    frmMiRevista.submit();
 }
 
 function MostrarRevistaCorrecta(campania) {
@@ -818,7 +829,7 @@ function MostrarRevistaCorrecta(campania) {
 
         var urlExterno = ObtenerUrlRevista(rCampSelect);
         $("#contentRevista .titulo_central[data-titulo='revista']").text("REVISTA C-" + rCampSelect.substring(4, 6));
-        $("#lbPortadaGana").attr("href", urlExterno);
+        //$("#lbPortadaGana").attr("href", urlExterno);
 
         FinRenderCatalogo();
     });
