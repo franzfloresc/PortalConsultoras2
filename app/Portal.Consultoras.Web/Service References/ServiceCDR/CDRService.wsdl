@@ -104,6 +104,24 @@
   <wsdl:message name="ICDRService_GetCDRWebDescripcion_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetCDRWebDescripcionResponse" />
   </wsdl:message>
+  <wsdl:message name="ICDRService_GetLogCDRWebByLogCDRWebId_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetLogCDRWebByLogCDRWebId" />
+  </wsdl:message>
+  <wsdl:message name="ICDRService_GetLogCDRWebByLogCDRWebId_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetLogCDRWebByLogCDRWebIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICDRService_UpdateLogCDRWebVisualizado_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateLogCDRWebVisualizado" />
+  </wsdl:message>
+  <wsdl:message name="ICDRService_UpdateLogCDRWebVisualizado_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateLogCDRWebVisualizadoResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICDRService_GetLogCDRWebDetalleByLogCDRWebId_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetLogCDRWebDetalleByLogCDRWebId" />
+  </wsdl:message>
+  <wsdl:message name="ICDRService_GetLogCDRWebDetalleByLogCDRWebId_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetLogCDRWebDetalleByLogCDRWebIdResponse" />
+  </wsdl:message>
   <wsdl:portType name="ICDRService">
     <wsdl:operation name="InsCDRWeb">
       <wsdl:input wsaw:Action="http://tempuri.org/ICDRService/InsCDRWeb" message="tns:ICDRService_InsCDRWeb_InputMessage" />
@@ -152,6 +170,18 @@
     <wsdl:operation name="GetCDRWebDescripcion">
       <wsdl:input wsaw:Action="http://tempuri.org/ICDRService/GetCDRWebDescripcion" message="tns:ICDRService_GetCDRWebDescripcion_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ICDRService/GetCDRWebDescripcionResponse" message="tns:ICDRService_GetCDRWebDescripcion_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetLogCDRWebByLogCDRWebId">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICDRService/GetLogCDRWebByLogCDRWebId" message="tns:ICDRService_GetLogCDRWebByLogCDRWebId_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICDRService/GetLogCDRWebByLogCDRWebIdResponse" message="tns:ICDRService_GetLogCDRWebByLogCDRWebId_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateLogCDRWebVisualizado">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICDRService/UpdateLogCDRWebVisualizado" message="tns:ICDRService_UpdateLogCDRWebVisualizado_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICDRService/UpdateLogCDRWebVisualizadoResponse" message="tns:ICDRService_UpdateLogCDRWebVisualizado_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetLogCDRWebDetalleByLogCDRWebId">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICDRService/GetLogCDRWebDetalleByLogCDRWebId" message="tns:ICDRService_GetLogCDRWebDetalleByLogCDRWebId_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICDRService/GetLogCDRWebDetalleByLogCDRWebIdResponse" message="tns:ICDRService_GetLogCDRWebDetalleByLogCDRWebId_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_ICDRService" type="tns:ICDRService">
@@ -264,6 +294,33 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GetLogCDRWebByLogCDRWebId">
+      <soap:operation soapAction="http://tempuri.org/ICDRService/GetLogCDRWebByLogCDRWebId" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateLogCDRWebVisualizado">
+      <soap:operation soapAction="http://tempuri.org/ICDRService/UpdateLogCDRWebVisualizado" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetLogCDRWebDetalleByLogCDRWebId">
+      <soap:operation soapAction="http://tempuri.org/ICDRService/GetLogCDRWebDetalleByLogCDRWebId" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
   </wsdl:binding>
   <wsdl:binding name="BasicHttpsBinding_ICDRService" type="tns:ICDRService">
     <wsp:PolicyReference URI="#BasicHttpsBinding_ICDRService_policy" />
@@ -369,6 +426,33 @@
     </wsdl:operation>
     <wsdl:operation name="GetCDRWebDescripcion">
       <soap:operation soapAction="http://tempuri.org/ICDRService/GetCDRWebDescripcion" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetLogCDRWebByLogCDRWebId">
+      <soap:operation soapAction="http://tempuri.org/ICDRService/GetLogCDRWebByLogCDRWebId" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateLogCDRWebVisualizado">
+      <soap:operation soapAction="http://tempuri.org/ICDRService/UpdateLogCDRWebVisualizado" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetLogCDRWebDetalleByLogCDRWebId">
+      <soap:operation soapAction="http://tempuri.org/ICDRService/GetLogCDRWebDetalleByLogCDRWebId" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

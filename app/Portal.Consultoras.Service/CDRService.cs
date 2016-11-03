@@ -11,13 +11,17 @@ namespace Portal.Consultoras.Service
         private BLCDRWebDetalle BLCDRWebDetalle;
         private BLCDRWebMotivoOperacion BLCDRWebMotivoOperacion;
         private BLCDRWebDescripcion BLCDRWebDescripcion;
+        private BLLogCDRWeb bLLogCDRWeb;
+        private BLLogCDRWebDetalle bLLogCDRWebDetalle;
 
         public CDRService()
         {
-            BLCDRWeb = new BLCDRWeb();
-            BLCDRWebDetalle = new BLCDRWebDetalle();
-            BLCDRWebMotivoOperacion = new BLCDRWebMotivoOperacion();
-            BLCDRWebDescripcion = new BLCDRWebDescripcion();
+            this.BLCDRWeb = new BLCDRWeb();
+            this.BLCDRWebDetalle = new BLCDRWebDetalle();
+            this.BLCDRWebMotivoOperacion = new BLCDRWebMotivoOperacion();
+            this.BLCDRWebDescripcion = new BLCDRWebDescripcion();
+            this.bLLogCDRWeb = new BLLogCDRWeb();
+            this.bLLogCDRWebDetalle = new BLLogCDRWebDetalle();
         }
 
         public int InsCDRWeb(int PaisID, BECDRWeb entity)
@@ -79,6 +83,21 @@ namespace Portal.Consultoras.Service
         public List<BECDRWebDescripcion> GetCDRWebDescripcion(int PaisID, BECDRWebDescripcion entity)
         {
             return BLCDRWebDescripcion.GetCDRWebDescripcion(PaisID, entity);
+        }
+
+        public BELogCDRWeb GetLogCDRWebByLogCDRWebId(int paisId, long logCDRWebId)
+        {
+            return this.bLLogCDRWeb.GetByLogCDRWebId(paisId, logCDRWebId);
+        }
+
+        public int UpdateLogCDRWebVisualizado(int paisId, long logCDRWebId)
+        {
+            return this.bLLogCDRWeb.UpdateVisualizado(paisId, logCDRWebId);
+        }
+
+        public List<BELogCDRWebDetalle> GetLogCDRWebDetalleByLogCDRWebId(int paisId, long logCDRWebId)
+        {
+            return this.bLLogCDRWebDetalle.GetByLogCDRWebId(paisId, logCDRWebId);
         }
     }
 }

@@ -237,6 +237,8 @@
     <Compile Include="BEConfiguracionProgramaNuevas.cs" />
     <Compile Include="CDR\BECDRMotivo.cs" />
     <Compile Include="CDR\BECDROperacion.cs" />
+    <Compile Include="CDR\BELogCDRWebDetalle.cs" />
+    <Compile Include="CDR\BELogCDRWeb.cs" />
     <Compile Include="CDR\BECDRWeb.cs" />
     <Compile Include="CDR\BECDRWebDescripcion.cs" />
     <Compile Include="CDR\BECDRWebDetalle.cs" />
