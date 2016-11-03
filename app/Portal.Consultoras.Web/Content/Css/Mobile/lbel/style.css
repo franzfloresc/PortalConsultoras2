@@ -8714,6 +8714,7 @@ a{
     margin-bottom:10px;
 }
 
+    min-height: 50px;
 .content_pack_niveles{
     /*border-top:1px solid #979797;*/
     width:100%;

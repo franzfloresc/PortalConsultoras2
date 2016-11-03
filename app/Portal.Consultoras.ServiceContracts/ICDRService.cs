@@ -42,6 +42,14 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         List<BECDRWebDescripcion> GetCDRWebDescripcion(int PaisID, BECDRWebDescripcion entity);
-        
+
+        [OperationContract]
+        BELogCDRWeb GetLogCDRWebByLogCDRWebId(int paisId, long logCDRWebId);
+
+        [OperationContract]
+        int UpdateLogCDRWebVisualizado(int paisId, long logCDRWebId);
+
+        [OperationContract]
+        List<BELogCDRWebDetalle> GetLogCDRWebDetalleByLogCDRWebId(int paisId, long logCDRWebId);        
     }
 }

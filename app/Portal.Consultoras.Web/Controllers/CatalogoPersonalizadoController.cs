@@ -195,13 +195,33 @@ namespace Portal.Consultoras.Web.Controllers
                 }
                 dataPROL = dataPROL ?? new ObjOfertaCatalogos();
 
+                #region nombre de los pack
+
+                //dataPROL.lista_ObjNivel = dataPROL.lista_ObjNivel ?? new ObjNivel[0];
+                dataPROL.lista_oObjPack = dataPROL.lista_oObjPack ?? new ObjPack[0];
+
+                if (dataPROL.lista_oObjPack.Length > 0)
+                {
+                    foreach (var item in dataPROL.lista_oObjPack)
+                    {
+                        using (ODSServiceClient sv = new ODSServiceClient())
+                        {
+                            string nombreProductoNivel = sv.GetNombreProducto048ByCuv(userData.PaisID, userData.CampaniaID, item.cuv_pack);
+
+                            item.nombre_pack = nombreProductoNivel ?? "";
+                        }
+                    }
+                }
+
+                #endregion
+
                 #region para la imagen
 
                 string listaSap = "|"; // "0000000|00000000|000003"
                 string caracterSepara = "|";
 
                 dataPROL.lista_oObjGratis = dataPROL.lista_oObjGratis ?? new ObjGratis[0];
-                dataPROL.lista_oObjItemPack = dataPROL.lista_oObjItemPack ?? new ObjItemPack[0];
+                dataPROL.lista_oObjItemPack = dataPROL.lista_oObjItemPack ?? new ObjItemPack[0];                
 
                 if (dataPROL.lista_oObjGratis.Length > 0)
                 {

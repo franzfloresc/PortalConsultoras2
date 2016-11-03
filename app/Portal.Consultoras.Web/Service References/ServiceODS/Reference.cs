@@ -2738,6 +2738,12 @@ namespace Portal.Consultoras.Web.ServiceODS {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IODSService/SelectProductoToKitInicio", ReplyAction="http://tempuri.org/IODSService/SelectProductoToKitInicioResponse")]
         System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceODS.BEProducto[]> SelectProductoToKitInicioAsync(int paisID, int campaniaID, string cuv);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IODSService/GetNombreProducto048ByCuv", ReplyAction="http://tempuri.org/IODSService/GetNombreProducto048ByCuvResponse")]
+        string GetNombreProducto048ByCuv(int paisID, int campaniaId, string cuv);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IODSService/GetNombreProducto048ByCuv", ReplyAction="http://tempuri.org/IODSService/GetNombreProducto048ByCuvResponse")]
+        System.Threading.Tasks.Task<string> GetNombreProducto048ByCuvAsync(int paisID, int campaniaId, string cuv);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -2997,6 +3003,14 @@ namespace Portal.Consultoras.Web.ServiceODS {
         
         public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceODS.BEProducto[]> SelectProductoToKitInicioAsync(int paisID, int campaniaID, string cuv) {
             return base.Channel.SelectProductoToKitInicioAsync(paisID, campaniaID, cuv);
+        }
+        
+        public string GetNombreProducto048ByCuv(int paisID, int campaniaId, string cuv) {
+            return base.Channel.GetNombreProducto048ByCuv(paisID, campaniaId, cuv);
+        }
+        
+        public System.Threading.Tasks.Task<string> GetNombreProducto048ByCuvAsync(int paisID, int campaniaId, string cuv) {
+            return base.Channel.GetNombreProducto048ByCuvAsync(paisID, campaniaId, cuv);
         }
     }
 }
