@@ -7,6 +7,7 @@ using Portal.Consultoras.Data.Hana.Entities;
 using Portal.Consultoras.Entities;
 using System.Collections.Generic;
 using System.Linq;
+using System.Globalization;
 
 namespace Portal.Consultoras.Data.Hana
 {
@@ -36,9 +37,10 @@ namespace Portal.Consultoras.Data.Hana
                 {
                     var beEstadoCuenta = new BEEstadoCuenta();
                     DateTime fechaRegistro;
-                    bool esFecha = DateTime.TryParse(estadoCuenta.fechaRegistro, out fechaRegistro);
+                    bool esFecha = DateTime.TryParseExact(estadoCuenta.fechaRegistro, "dd/MM/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out fechaRegistro);
                     if (esFecha)
                         beEstadoCuenta.FechaRegistro = fechaRegistro;
+
                     beEstadoCuenta.DescripcionOperacion = estadoCuenta.descripcionOperacion;
 
                     decimal montoOperacion;

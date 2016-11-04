@@ -18,8 +18,8 @@ namespace Portal.Consultoras.Data.CDR
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.InsCDRWebDetalle");
             Context.Database.AddInParameter(command, "CDRWebDetalleID", DbType.Int32, entity.CDRWebDetalleID);
             Context.Database.AddInParameter(command, "CDRWebID", DbType.Int32, entity.CDRWebID);
-            Context.Database.AddInParameter(command, "OperacionCDRID", DbType.Int32, entity.OperacionCDRID);
-            Context.Database.AddInParameter(command, "MotivoCDRID", DbType.Int32, entity.MotivoCDRID);
+            Context.Database.AddInParameter(command, "CodigoOperacion", DbType.String, entity.CodigoOperacion);
+            Context.Database.AddInParameter(command, "CodigoReclamo", DbType.String, entity.CodigoReclamo);
             Context.Database.AddInParameter(command, "CUV", DbType.String, entity.CUV);
             Context.Database.AddInParameter(command, "Cantidad", DbType.Int32, entity.Cantidad);
             Context.Database.AddInParameter(command, "CUV2", DbType.String, entity.CUV2);
