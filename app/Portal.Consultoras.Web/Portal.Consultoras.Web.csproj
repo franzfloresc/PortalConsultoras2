@@ -369,6 +369,7 @@
     <Compile Include="Models\BarraConsultoraEscalaDescuentoModel.cs" />
     <Compile Include="Models\BaseVM.cs" />
     <Compile Include="Models\CatalogoIssuModel.cs" />
+    <Compile Include="Models\CDRWebModel.cs" />
     <Compile Include="Models\ClienteOnlineDetalleModel.cs" />
     <Compile Include="Models\ClienteSb2Model.cs" />
     <Compile Include="Models\BarraConsultoraModel.cs" />
