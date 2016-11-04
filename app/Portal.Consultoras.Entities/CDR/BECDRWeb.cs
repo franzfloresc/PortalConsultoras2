@@ -17,7 +17,7 @@ namespace Portal.Consultoras.Entities.CDR
         [DataMember]
         public int CampaniaID { get; set; }
         [DataMember]
-        public int ConsultoraID { get; set; }
+        public long ConsultoraID { get; set; }
         [DataMember]
         public DateTime FechaRegistro { get; set; }
         [DataMember]
@@ -40,7 +40,7 @@ namespace Portal.Consultoras.Entities.CDR
             if (DataRecord.HasColumn(row, "PedidoID")) PedidoID = Convert.ToInt32(row["PedidoID"]);
             if (DataRecord.HasColumn(row, "PedidoNumero")) PedidoNumero = Convert.ToInt32(row["PedidoNumero"]);
             if (DataRecord.HasColumn(row, "CampaniaID")) CampaniaID = Convert.ToInt32(row["CampaniaID"]);
-            if (DataRecord.HasColumn(row, "ConsultoraID")) ConsultoraID = Convert.ToInt32(row["ConsultoraID"]);
+            if (DataRecord.HasColumn(row, "ConsultoraID")) ConsultoraID = Convert.ToInt64(row["ConsultoraID"]);
             if (DataRecord.HasColumn(row, "FechaRegistro")) FechaRegistro = Convert.ToDateTime(row["FechaRegistro"]);
             if (DataRecord.HasColumn(row, "Estado")) Estado = Convert.ToInt32(row["Estado"]);
             if (DataRecord.HasColumn(row, "FechaCulminado")) FechaCulminado = Convert.ToDateTime(row["FechaCulminado"]);

@@ -19,7 +19,7 @@ CREATE TABLE CDRWeb
 	PedidoID int,
 	PedidoNumero int,
 	CampaniaID int,
-	ConsultoraID int,
+	ConsultoraID bigint,
 	FechaRegistro datetime,
 	Estado int,
 	FechaCulminado datetime,
@@ -519,6 +519,35 @@ END
 
 go
 
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[GetCDRWeb]') AND type in (N'P', N'PC')) 
+	DROP PROCEDURE dbo.GetCDRWeb
+GO
 
+create procedure dbo.GetCDRWeb
+@ConsultoraID bigint
+as
+/*
+GetCDRWeb 49627031
+*/
+begin
+
+select top 20
+CDRWebID,
+PedidoID,
+PedidoNumero,
+CampaniaID,
+ConsultoraID,
+FechaRegistro,
+Estado,
+FechaCulminado,
+Importe,
+FechaAtencion
+from CDRWeb
+where ConsultoraID = @ConsultoraID
+order by CDRWebID desc
+
+end
+
+go
 
 
