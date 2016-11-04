@@ -26,7 +26,8 @@ namespace Portal.Consultoras.Web.Models
         public string Operacion { get; set; }
         public List<Campo> ListaMotivo { get; set; }
         public int CDRWebDetalleID { get; set; }
-        
+
+        public string Accion { get; set; }
         public string Email { get; set; }
         public string Telefono { get; set; }
 
