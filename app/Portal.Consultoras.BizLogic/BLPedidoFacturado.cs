@@ -48,7 +48,7 @@ namespace Portal.Consultoras.BizLogic
 
                     string origen = string.IsNullOrEmpty(pedidoHana.CanalIngreso) ? "" : pedidoHana.CanalIngreso;
                     string flete = pedidoHana.Flete.ToString();
-                    string fecha = pedidoHana.FechaRegistro.ToShortDateString();
+                    string fecha = pedidoHana.FechaRegistro.ToString("dd/MM/yyyy");
 
                     string estadoPedido = origen + ";" + flete + ";" + fecha;
 

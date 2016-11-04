@@ -1013,6 +1013,8 @@ namespace Portal.Consultoras.Entities
 
         [DataMember]
         public string NombreGerenteZona { get; set; }
+        [DataMember]
+        public DateTime FechaActualPais { get; set; }
 
         public BEUsuario(IDataRecord row, string tipo1, string tipo2)
         {
@@ -1042,6 +1044,8 @@ namespace Portal.Consultoras.Entities
                 msRpta3 = Convert.ToString(row["Rpta3"]);
             if (DataRecord.HasColumn(row, "Rpta4") && row["Rpta4"] != DBNull.Value)
                 msRpta4 = Convert.ToString(row["Rpta4"]);
+            if (DataRecord.HasColumn(row, "FechaActualPais"))
+                FechaActualPais = Convert.ToDateTime(row["FechaActualPais"]);
         }
         /*R2520 - JICM - LIDERES - FIN*/
     }

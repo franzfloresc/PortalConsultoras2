@@ -18,11 +18,12 @@ namespace Portal.Consultoras.Data.CDR
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.InsCDRWeb");
             Context.Database.AddInParameter(command, "CDRWebID", DbType.Int32, entity.CDRWebID);
             Context.Database.AddInParameter(command, "PedidoID", DbType.Int32, entity.PedidoID);
+            Context.Database.AddInParameter(command, "PedidoNumero", DbType.Int32, entity.PedidoNumero);
             Context.Database.AddInParameter(command, "CampaniaID", DbType.Int32, entity.CampaniaID);
             Context.Database.AddInParameter(command, "ConsultoraID", DbType.Int32, entity.ConsultoraID);
-            Context.Database.AddInParameter(command, "FechaRegistro", DbType.DateTime, entity.FechaRegistro);
-            Context.Database.AddInParameter(command, "Estado", DbType.Int32, entity.Estado);
-            Context.Database.AddInParameter(command, "FechaCulminado", DbType.DateTime, entity.FechaCulminado);
+            //Context.Database.AddInParameter(command, "FechaRegistro", DbType.DateTime, entity.FechaRegistro);
+            //Context.Database.AddInParameter(command, "Estado", DbType.Int32, entity.Estado);
+            //Context.Database.AddInParameter(command, "FechaCulminado", DbType.DateTime, entity.FechaCulminado);
             Context.Database.AddInParameter(command, "Importe", DbType.Decimal, entity.Importe);
             Context.Database.AddOutParameter(command, "RetornoID", DbType.Int32, 10);
 
