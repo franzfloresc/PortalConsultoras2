@@ -439,6 +439,12 @@
         <div class="cliente_listado">{{Nombre}}</div>
     </div>
 
+    {{#if AceptoBackOrder}}
+    <div class="stock_content_aceptado">
+        <div class="texto_stock" style="color:black"><b>Te entregaremos el producto en la siguiente campaña.</b></div>
+    </div>
+    {{/if}}
+
     {{#IsNullOrEmpty ObservacionPROL '!='}}
 
     <div class="content_listado_notificaciones">
