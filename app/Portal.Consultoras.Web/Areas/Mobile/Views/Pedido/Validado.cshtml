@@ -158,6 +158,13 @@
                         </div>
                     </div>
 
+                    @if (item.AceptoBackOrder)
+                    {
+                        <hr class="clear" /><br />
+                        <div class="stock_content_agotado">
+                            <div class="texto_stock" style="color:black"><b>Te entregaremos el producto en la siguiente campaña.</b></div>
+                        </div>
+                    }
                     @if (!string.IsNullOrEmpty(item.Mensaje))
                     {
                         <hr class="clear" /><br />
