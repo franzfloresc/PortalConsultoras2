@@ -519,7 +519,8 @@ namespace Portal.Consultoras.Web.Controllers
 
                 bool errorServer;
                 string tipo;
-                olstPedidoWebDetalle = AdministradorPedido(oBePedidoWebDetalle, "I", out errorServer, out tipo);
+                bool modificoBackOrder;
+                olstPedidoWebDetalle = AdministradorPedido(oBePedidoWebDetalle, "I", out errorServer, out tipo, out modificoBackOrder);
 
                 decimal total = olstPedidoWebDetalle.Sum(p => p.ImporteTotal);
                 string formatoTotal = "";
@@ -568,6 +569,7 @@ namespace Portal.Consultoras.Web.Controllers
                     listaCliente,
                     errorInsertarProducto = !errorServer ? "0" : "1",
                     tipo,
+                    modificoBackOrder,
                     DataBarra = !errorServer ? GetDataBarra() : new BarraConsultoraModel()
                 });
 
@@ -722,7 +724,8 @@ namespace Portal.Consultoras.Web.Controllers
 
             bool ErrorServer;
             string tipo;
-            olstPedidoWebDetalle = AdministradorPedido(oBEPedidoWebDetalle, "U", out ErrorServer, out tipo);
+            bool modificoBackOrder;
+            olstPedidoWebDetalle = AdministradorPedido(oBEPedidoWebDetalle, "U", out ErrorServer, out tipo, out modificoBackOrder);
 
             decimal Total = olstPedidoWebDetalle.Sum(p => p.ImporteTotal);
             string formatoTotal = Util.DecimalToStringFormat(Total, userData.CodigoISO);
@@ -755,6 +758,7 @@ namespace Portal.Consultoras.Web.Controllers
                 userData.Simbolo,
                 extra = "",
                 tipo,
+                modificoBackOrder,
                 DataBarra = !ErrorServer ? GetDataBarra() : new BarraConsultoraModel(),
             }, JsonRequestBehavior.AllowGet);
         }
@@ -778,6 +782,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             bool ErrorServer = false;
             string tipo = "";
+            bool modificoBackOrder;
 
             // se valida si esta en horario restringido
             if (ValidarHorarioRestringido(out mensaje))
@@ -795,7 +800,7 @@ namespace Portal.Consultoras.Web.Controllers
                 return PedidoModelo;
             }
 
-            olstPedidoWebDetalle = AdministradorPedido(obe, "D", out ErrorServer, out tipo);
+            olstPedidoWebDetalle = AdministradorPedido(obe, "D", out ErrorServer, out tipo, out modificoBackOrder);
 
             return PedidoModelo;
         }
@@ -831,7 +836,8 @@ namespace Portal.Consultoras.Web.Controllers
 
                 bool ErrorServer;
                 string tipo;
-                olstPedidoWebDetalle = AdministradorPedido(obe, "D", out ErrorServer, out tipo);
+                bool modificoBackOrder;
+                olstPedidoWebDetalle = AdministradorPedido(obe, "D", out ErrorServer, out tipo, out modificoBackOrder);
 
                 decimal total = 0;
                 string formatoTotal = "";
@@ -1635,17 +1641,18 @@ namespace Portal.Consultoras.Web.Controllers
 
                 bool ErrorServer;
                 string tipo;
+                bool modificoBackOrder;
 
                 if (olstCuvMarquesina.Count == 0 || olstCuvMarquesina[0].CUV == "")
                 {
-                    olstPedidoWebDetalle = AdministradorPedido(oBEPedidoWebDetalle, "I", out ErrorServer, out tipo);
+                    olstPedidoWebDetalle = AdministradorPedido(oBEPedidoWebDetalle, "I", out ErrorServer, out tipo, out modificoBackOrder);
                 }
                 else
                 {
                     oBEPedidoWebDetalle.PedidoID = olstCuvMarquesina[0].PedidoWebID;
                     oBEPedidoWebDetalle.PedidoDetalleID = Convert.ToInt16(olstCuvMarquesina[0].PedidoWebDetalleID);
                     oBEPedidoWebDetalle.Cantidad = oBEPedidoWebDetalle.Cantidad + olstCuvMarquesina[0].Cantidad;
-                    olstPedidoWebDetalle = AdministradorPedido(oBEPedidoWebDetalle, "U", out ErrorServer, out tipo);
+                    olstPedidoWebDetalle = AdministradorPedido(oBEPedidoWebDetalle, "U", out ErrorServer, out tipo, out modificoBackOrder);
                 }
 
                 return Json(new
@@ -3792,9 +3799,10 @@ namespace Portal.Consultoras.Web.Controllers
             return Result;
         }
 
-        private List<BEPedidoWebDetalle> AdministradorPedido(BEPedidoWebDetalle oBEPedidoWebDetalle, string TipoAdm, out bool ErrorServer, out string tipo)
+        private List<BEPedidoWebDetalle> AdministradorPedido(BEPedidoWebDetalle oBEPedidoWebDetalle, string TipoAdm, out bool ErrorServer, out string tipo, out bool modificoBackOrder)
         {
             List<BEPedidoWebDetalle> olstTempListado = new List<BEPedidoWebDetalle>();
+            modificoBackOrder = false;
 
             try
             {
@@ -3910,12 +3918,16 @@ namespace Portal.Consultoras.Web.Controllers
                         break;
                 }
 
-                Session["PedidoWebDetalle"] = null;
-
-                olstTempListado = ObtenerPedidoWebDetalle();
                 ErrorServer = false;
                 tipo = TipoAdm;
+                if (tipo == "U")
+                {
+                    var obe = olstTempListado.FirstOrDefault(p => p.PedidoDetalleID == oBEPedidoWebDetalle.PedidoDetalleID);
+                    modificoBackOrder = obe.EsBackOrder;
+                }
 
+                Session["PedidoWebDetalle"] = null;
+                olstTempListado = ObtenerPedidoWebDetalle();
                 UpdPedidoWebMontosPROL();
             }
             catch (Exception ex)

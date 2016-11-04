@@ -29923,13 +29923,15 @@ h1#penmostreo .campana {
     width:100%;
     }
 .titulo_pack{
-    font-family:'Lato';
-    font-weight:700;
-    font-size:16px;
-    color:black;
-    margin-top:-6px;
-    text-align:center;
-    height:38px;
+    font-family: 'Lato';
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 22px;
+    color: black;
+    margin-top: -6px;
+    text-align: center;
+    padding-right: 12px;
+    height:auto;
 }
 .texto_unidad_pack{
     font-family:'Lato';
@@ -31736,4 +31738,95 @@ h1#penmostreo .campana {
     margin-top:25px;
     margin-bottom:20px;
     text-align:center;
+}
+.texto_barra_lateral{
+    float: left;
+    width: 130px;
+    font-family: 'Lato';
+    font-size: 10.5px;
+    line-height: 14px;
+    color: black;
+    margin-left: 40px;  
+}
+.texto_barra_lateral span{
+    color:#9b9b9b;
+    display:block;
+}
+.barra_fija_descuento{
+    float:left;
+    width:600px;
+    height:auto;
+}
+.barra_escala_fija{
+    width:100%;
+     border-radius: 10px;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    height: 16.8px;
+    overflow: hidden;
+    border: solid 1px rgb(234,234,234);
+    background: rgba(97,60,134,1);
+    background: -moz-linear-gradient(left, rgba(97,60,134,1) 0%, rgba(233,28,55,1) 100%);
+    background: -webkit-gradient(left top, right top, color-stop(0%, rgba(97,60,134,1)), color-stop(100%, rgba(233,28,55,1)));
+    background: -webkit-linear-gradient(left, rgba(97,60,134,1) 0%, rgba(233,28,55,1) 100%);
+    background: -o-linear-gradient(left, rgba(97,60,134,1) 0%, rgba(233,28,55,1) 100%);
+    background: -ms-linear-gradient(left, rgba(97,60,134,1) 0%, rgba(233,28,55,1) 100%);
+    background: linear-gradient(to right, rgba(97,60,134,1) 0%, rgba(233,28,55,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#613c86', endColorstr='#e91c37', GradientType=1 );
+}
+.texto_porcentaje{
+    float:left;
+    margin-top:10px;
+    position:relative;
+    font-family: 'Lato';
+    font-size: 12.5px;    
+    color:#9b9b9b;
+    padding-bottom:18px;
+    line-height: 18px;
+    width:100px;
+    text-align:center;
+}
+.texto_porcentaje span{
+    font-size: 16px;
+    font-weight:700;
+    color:black;
+}
+.separador_porcentaje_escala{
+    position:absolute;
+    bottom:0;
+    width:1px;
+    height:12px;
+    background:black;
+    left:0;
+    right:0;
+    margin:0 auto;
+}
+.texto_inferior_barra{
+    font-family: 'Lato';
+    font-size: 12.5px;    
+    color:#9b9b9b;
+    margin-top:10px;
+    text-align:center;
+}
+.content_descuento_detalle{
+    width:33%;
+    height: 65px;
+    padding-left: 22px;
+    padding-right: 22px;
+    font-family: 'Lato';
+    font-size: 12px;    
+    color:#9b9b9b;
+    padding-bottom:18px;
+    line-height: 16px;
+    text-align:center;
+    border-right: 1px solid #9b9b9b;
+    float:left;
+}
+.content_descuento_detalle span{
+    font-size: 16px;
+    font-weight:700;
+    color:black;
+}
+.content_descuento_detalle:last-child{
+    border-right:0;
 }
