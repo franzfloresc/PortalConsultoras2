@@ -5,6 +5,11 @@ var listaPedidos = new Array();
 
 $(document).ready(function () {
 
+    $("[data-cambiopaso]").on("ddlCampania", function () {
+        $("#txtPedidoID").val(0);
+        BuscarCUV();
+    });
+
     $("#txtCUV").keyup(function (evt) {
         $("#txtCantidad").attr("disabled", "disabled");
         $("#txtCantidad").attr("data-maxvalue", "0")
@@ -51,6 +56,11 @@ $(document).ready(function () {
         DetalleGuardar();
     });
 
+    $("#IrSolicitudInicial").on("click", function () {
+        CambioPaso(-100);
+        BuscarMotivo();
+    });
+
     $("[data-accion]").on("click", function () {
         DetalleAccion(this);
     });
@@ -59,6 +69,12 @@ $(document).ready(function () {
 
 // Paso 1
 function BuscarCUV(CUV) {
+    CUV = $.trim(CUV) || $.trim($("#txtCUV").val());
+    var PedidoId = $.trim($("#txtPedidoID").val()) || 0;
+    var CampaniaId = $.trim($("#ddlCampania").val()) || 0;
+    if (PedidoId <= 0 || CampaniaId <= 0 || CUV.length < 5)
+        return false;
+
     var item = {
         CampaniaID: $.trim($("#ddlCampania").val()),
         PedidoID: $("#txtPedidoID").val(),
@@ -130,11 +146,16 @@ function AsignarCUV(pedido) {
 
 function BuscarMotivo() {
 
+    var PedidoId = $.trim( $("#txtPedidoID").val()) || 0;
+    var CampaniaId = $.trim($("#ddlCampania").val()) || 0;
+    if (PedidoId <= 0 || CampaniaId <= 0)
+        return false;
+
     waitingDialog();
 
     var item = {
         CampaniaID: $.trim($("#ddlCampania").val()),
-        PedidoID: $("#txtPedidoID").val()
+        PedidoID: PedidoId
     };
 
     jQuery.ajax({

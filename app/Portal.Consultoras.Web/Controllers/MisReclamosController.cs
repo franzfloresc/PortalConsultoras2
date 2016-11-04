@@ -51,7 +51,6 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 maxDias += Int32.Parse(listaMotivoOperacion.Max(m => m.CDRTipoOperacion.NumeroDiasAtrasOperacion).ToString());
             }
-            
 
             var listaPedidoFacturados = CargarPedidosFacturados(maxDias);
 
@@ -195,7 +194,6 @@ namespace Portal.Consultoras.Web.Controllers
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return new List<BEPedidoWeb>();
             }
-
         }
 
         private List<BECDRMotivoReclamo> CargarMotivo(MisReclamosModel model)
@@ -291,10 +289,10 @@ namespace Portal.Consultoras.Web.Controllers
 
             var listaPedidoFacturados = CargarPedidoCUV(model);
 
-            if (listaPedidoFacturados.Count() != 1)
+            if (listaPedidoFacturados.Count() == 0)
                 return false;
 
-            var pedido = listaPedidoFacturados[0];
+            var pedido = listaPedidoFacturados.FirstOrDefault(p => p.PedidoID == model.PedidoID) ?? new BEPedidoWeb();
 
             if (pedido.olstBEPedidoWebDetalle == null)
                 return false;
@@ -409,12 +407,102 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
+        private bool ValidarDetalleGuardar(ref MisReclamosModel modelOri)
+        {
+            var rpta = true;
+            var model = modelOri ?? new MisReclamosModel();
+            model.CUV = Util.SubStr(model.CUV, 0);
+            model.CUV2 = Util.SubStr(model.CUV2, 0);
+
+            var valida = ValidarRegistro(model);
+
+            modelOri = model;
+            if (!valida)
+                return false;
+
+            var cdrWeb = CargarBECDRWeb(model);
+            if (cdrWeb.CDRWebID == -1)
+                return false;
+
+            model.CDRWebID = cdrWeb.CDRWebID;
+
+            var lista = CargarDetalle(model);
+
+            if (model.Accion == "I")
+            {
+                rpta = lista.Any(d => d.CDRWebID == model.CDRWebID && d.CUV == model.CUV && d.CodigoOperacion == model.Operacion) ? false : rpta;
+            }
+            else if (model.Accion == "U")
+            {
+                
+                rpta = lista.Any(d => d.CDRWebID == model.CDRWebID && d.CUV == model.CUV && d.CodigoOperacion == model.Operacion) ? rpta : false;
+            }
+
+            if (model.Accion == "")
+                rpta = false;
+
+            modelOri = model;
+            return rpta;
+        }
+
+        private BECDRWeb CargarBECDRWeb(MisReclamosModel model)
+        {
+            var entidad = new BECDRWeb();
+            try
+            {
+                if (Session[Constantes.ConstSession.CDRWeb] != null)
+                {
+                    return (BECDRWeb)Session[Constantes.ConstSession.CDRWeb];
+                }
+
+                var entidadLista = new List<BECDRWeb>();
+                entidad.CampaniaID = model.CampaniaID;
+                entidad.PedidoID = model.PedidoID;
+                entidad.ConsultoraID = Int32.Parse(userData.ConsultoraID.ToString());
+
+                using (CDRServiceClient sv = new CDRServiceClient())
+                {
+                    entidadLista = sv.GetCDRWeb(userData.PaisID, entidad).ToList();
+                }
+
+                entidad = new BECDRWeb();
+                entidad.CDRWebID = -1;
+                Session[Constantes.ConstSession.CDRWeb] = null;
+                if (entidadLista.Count() == 1)
+                {
+                    entidad = entidadLista[0];
+                    Session[Constantes.ConstSession.CDRWeb] = entidad;
+                }
+
+                return entidad;
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                Session[Constantes.ConstSession.CDRWeb] = null;
+                entidad = new BECDRWeb();
+                entidad.CDRWebID = -1;
+                return entidad;
+            }
+        }
+
         public JsonResult DetalleGuardar(MisReclamosModel model)
         {
             try
             {
                 var id = 0;
-                model.CUV2 = Util.SubStr(model.CUV2, 0);
+                model.Accion = "I";
+                var rpta = ValidarDetalleGuardar(ref model);
+
+                if (rpta)
+                {
+                    return Json(new
+                    {
+                        success = false,
+                        message = "Error, ya tiene un detalle con el mismo cuv, y operacion para el mismo pedido y campaña"
+                    }, JsonRequestBehavior.AllowGet);
+                }
+
                 var entidadDetalle = new BECDRWebDetalle();
                 entidadDetalle.CDRWebID = model.CDRWebID;
                 entidadDetalle.CodigoReclamo = model.Motivo;
