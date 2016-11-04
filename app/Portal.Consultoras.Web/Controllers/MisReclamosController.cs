@@ -1,4 +1,5 @@
-﻿using Portal.Consultoras.Web.Models;
+﻿using AutoMapper;
+using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.ServiceCDR;
 using System;
@@ -15,17 +16,38 @@ namespace Portal.Consultoras.Web.Controllers
         public ActionResult Index()
         {
             MisReclamosModel model = new MisReclamosModel();
-            var listaReclamoModel = new List<CDRWebModel>();            
+            var listaCDRWebModel = new List<CDRWebModel>();
 
-            using (CDRServiceClient cdr = new CDRServiceClient())
+            try
             {
-                var beCdrWeb = new BECDRWeb();
-                beCdrWeb.ConsultoraID = userData.ConsultoraID;
+                using (CDRServiceClient cdr = new CDRServiceClient())
+                {
+                    var beCdrWeb = new BECDRWeb();
+                    beCdrWeb.ConsultoraID = userData.ConsultoraID;
 
-                var listaReclamo = cdr.GetCDRWeb(userData.PaisID, beCdrWeb);
+                    var listaReclamo = cdr.GetCDRWeb(userData.PaisID, beCdrWeb).ToList();
+                    Mapper.CreateMap<BECDRWeb, CDRWebModel>()
+                        .ForMember(t => t.CDRWebID, f => f.MapFrom(c => c.CDRWebID))
+                        .ForMember(t => t.PedidoID, f => f.MapFrom(c => c.PedidoID))
+                        .ForMember(t => t.PedidoNumero, f => f.MapFrom(c => c.PedidoNumero))
+                        .ForMember(t => t.CampaniaID, f => f.MapFrom(c => c.CampaniaID))
+                        .ForMember(t => t.ConsultoraID, f => f.MapFrom(c => c.ConsultoraID))
+                        .ForMember(t => t.FechaRegistro, f => f.MapFrom(c => c.FechaRegistro))
+                        .ForMember(t => t.Estado, f => f.MapFrom(c => c.Estado))
+                        .ForMember(t => t.FechaCulminado, f => f.MapFrom(c => c.FechaCulminado))
+                        .ForMember(t => t.Importe, f => f.MapFrom(c => c.Importe))
+                        .ForMember(t => t.FechaAtencion, f => f.MapFrom(c => c.FechaAtencion));
+                    listaCDRWebModel = Mapper.Map<List<BECDRWeb>, List<CDRWebModel>>(listaReclamo);
+                }
+            }
+            catch (Exception ex)
+            {
+                listaCDRWebModel = new List<CDRWebModel>();
             }
 
-            return View();
+            model.ListaCDRWeb = listaCDRWebModel;
+
+            return View(model);
         }
 
         public ActionResult Reclamo()

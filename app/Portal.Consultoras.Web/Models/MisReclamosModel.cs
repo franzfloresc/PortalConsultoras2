@@ -30,5 +30,7 @@ namespace Portal.Consultoras.Web.Models
         public string Accion { get; set; }
         public string Email { get; set; }
         public string Telefono { get; set; }
+
+        public List<CDRWebModel> ListaCDRWeb { get; set; } 
     }
 }
