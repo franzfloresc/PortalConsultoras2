@@ -96,12 +96,19 @@ begin
 								and p.CampaniaID = @CampaniaID
 								and p.ConsultoraID = @ConsultoraID
 	
-								select @IdProceso = p.IdProcesoPedidoRechazado, @estado = P.Estado
+								select top 1 @IdProceso = p.IdProcesoPedidoRechazado, @estado = P.Estado
 								from GPR.ProcesoPedidoRechazado p
 								where P.Fecha > @fecha
 								order by p.Fecha asc
 
 							--end
+
+							if @fecha is null
+							begin
+								set @esRechazado = 2
+								set @IndicadorEnviado = 0 
+								set @IdProceso = 0 
+							end
 
 							if @IdProceso > 0
 							begin

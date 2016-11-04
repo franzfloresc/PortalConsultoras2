@@ -169,6 +169,7 @@ namespace Portal.Consultoras.Common
             public const string CDRPedidosFacturado = "CDRPedidosFacturado";
             public const string CDRDescripcion = "CDRDescripcion";
             public const string CDRWebDetalle = "CDRWebDetalle";
+            public const string CDRWeb = "CDRWeb";
         }
 
         public class TipoOfertaFinalCatalogoPersonalizado
@@ -257,6 +258,14 @@ namespace Portal.Consultoras.Common
         public class BackOrder
         {
             public const string LogAccionCancelar = "El cliente no aceptó BackOrder.";
+        }
+        
+        public class EstadoCDRWeb
+        {
+            public const int EnProceso = 1;
+            public const int Culminado = 2;
+            public const int Aprobado = 3;
+            public const int Rechazado = 4;
         }
     }
 }

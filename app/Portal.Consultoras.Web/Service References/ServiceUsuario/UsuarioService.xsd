@@ -45,6 +45,7 @@
       <xs:element minOccurs="0" name="EsquemaDAConsultora" type="xs:boolean" />
       <xs:element minOccurs="0" name="EstadoSimplificacionCUV" type="xs:boolean" />
       <xs:element minOccurs="0" name="FechaActivacionSuscripcion" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="FechaActualPais" type="xs:dateTime" />
       <xs:element minOccurs="0" name="FechaActualizacionEmail" nillable="true" type="xs:dateTime" />
       <xs:element minOccurs="0" name="FechaCancelacionSuscripcion" nillable="true" type="xs:dateTime" />
       <xs:element minOccurs="0" name="FechaFinFIC" type="xs:dateTime" />
