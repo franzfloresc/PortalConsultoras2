@@ -447,6 +447,7 @@ function InsertarProductoSugerido(marcaID, cuv, precioUnidad, descripcion, canti
             CargarCarouselEstrategias(cuv);
             $("#txtCodigoProducto").val("");
             $("#hdCuvEnSession").val("");
+            if (data.modificoBackOrder) messageInfo('Recuerda que debes volver a validar tu pedido.');
         },
         error: function (data, error) {
             CloseLoading();
@@ -650,6 +651,7 @@ function InsertarProducto() {
             CargarCarouselEstrategias(cuv);
 
             PedidoOnSuccess();
+            if (data.modificoBackOrder) messageInfo('Recuerda que debes volver a validar tu pedido.');
 
             $("#hdCuvEnSession").val("");
 

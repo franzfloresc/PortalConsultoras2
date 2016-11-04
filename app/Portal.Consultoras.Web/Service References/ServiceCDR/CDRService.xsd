@@ -2,10 +2,12 @@
 <xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.CDR" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.CDR" xmlns:xs="http://www.w3.org/2001/XMLSchema">
   <xs:complexType name="BECDRWeb">
     <xs:sequence>
+      <xs:element minOccurs="0" name="CDRWebDetalle" nillable="true" type="tns:ArrayOfBECDRWebDetalle" />
       <xs:element minOccurs="0" name="CDRWebID" type="xs:int" />
       <xs:element minOccurs="0" name="CampaniaID" type="xs:int" />
-      <xs:element minOccurs="0" name="ConsultoraID" type="xs:int" />
+      <xs:element minOccurs="0" name="ConsultoraID" type="xs:long" />
       <xs:element minOccurs="0" name="Estado" type="xs:int" />
+      <xs:element minOccurs="0" name="FechaAtencion" type="xs:dateTime" />
       <xs:element minOccurs="0" name="FechaCulminado" type="xs:dateTime" />
       <xs:element minOccurs="0" name="FechaRegistro" type="xs:dateTime" />
       <xs:element minOccurs="0" name="Importe" type="xs:decimal" />
@@ -14,12 +16,12 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="BECDRWeb" nillable="true" type="tns:BECDRWeb" />
-  <xs:complexType name="ArrayOfBECDRWeb">
+  <xs:complexType name="ArrayOfBECDRWebDetalle">
     <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="BECDRWeb" nillable="true" type="tns:BECDRWeb" />
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="BECDRWebDetalle" nillable="true" type="tns:BECDRWebDetalle" />
     </xs:sequence>
   </xs:complexType>
-  <xs:element name="ArrayOfBECDRWeb" nillable="true" type="tns:ArrayOfBECDRWeb" />
+  <xs:element name="ArrayOfBECDRWebDetalle" nillable="true" type="tns:ArrayOfBECDRWebDetalle" />
   <xs:complexType name="BECDRWebDetalle">
     <xs:sequence>
       <xs:element minOccurs="0" name="CDRWebDetalleID" type="xs:int" />
@@ -38,12 +40,12 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="BECDRWebDetalle" nillable="true" type="tns:BECDRWebDetalle" />
-  <xs:complexType name="ArrayOfBECDRWebDetalle">
+  <xs:complexType name="ArrayOfBECDRWeb">
     <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="BECDRWebDetalle" nillable="true" type="tns:BECDRWebDetalle" />
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="BECDRWeb" nillable="true" type="tns:BECDRWeb" />
     </xs:sequence>
   </xs:complexType>
-  <xs:element name="ArrayOfBECDRWebDetalle" nillable="true" type="tns:ArrayOfBECDRWebDetalle" />
+  <xs:element name="ArrayOfBECDRWeb" nillable="true" type="tns:ArrayOfBECDRWeb" />
   <xs:complexType name="BECDRWebMotivoOperacion">
     <xs:sequence>
       <xs:element minOccurs="0" name="CDRMotivoReclamo" nillable="true" type="tns:BECDRMotivoReclamo" />

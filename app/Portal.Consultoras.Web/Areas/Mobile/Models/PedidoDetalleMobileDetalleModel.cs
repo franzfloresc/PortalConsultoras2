@@ -21,5 +21,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Models
         public int ConfiguracionOfertaID { get; set; }
         public bool IndicadorOfertaCUV { get; set; }
         public int TipoObservacion { get; set; }
+        public bool EsBackOrder { get; set; }
+        public bool AceptoBackOrder { get; set; }
     }
 }
