@@ -23,8 +23,6 @@ namespace Portal.Consultoras.Web.Controllers
                 beCdrWeb.ConsultoraID = userData.ConsultoraID;
 
                 var listaReclamo = cdr.GetCDRWeb(userData.PaisID, beCdrWeb);
-
-
             }
 
             return View();
@@ -54,6 +52,10 @@ namespace Portal.Consultoras.Web.Controllers
 
         private void CargarInformacion()
         {
+            Session[Constantes.ConstSession.CDRPedidosFacturado] = null;
+            Session[Constantes.ConstSession.CDRWebDetalle] = null;
+            Session[Constantes.ConstSession.CDRWeb] = null;
+
             var listaMotivoOperacion = CargarMotivoOperacion();
             // get max dias => plazo para hacer reclamo
             // calcular las campañas existentes en ese rango de dias
@@ -433,8 +435,13 @@ namespace Portal.Consultoras.Web.Controllers
             if (!valida)
                 return false;
 
-            var cdrWeb = CargarBECDRWeb(model);
-            if (cdrWeb.CDRWebID == -1)
+            var cdrWebs = CargarBECDRWeb(model);
+            if (cdrWebs.Count() != 1)
+                return rpta;
+            
+            var cdrWeb = cdrWebs[0];
+
+            if (cdrWeb.CDRWebID == -1 && model.Accion != "I")
                 return false;
 
             model.CDRWebID = cdrWeb.CDRWebID;
@@ -458,17 +465,20 @@ namespace Portal.Consultoras.Web.Controllers
             return rpta;
         }
 
-        private BECDRWeb CargarBECDRWeb(MisReclamosModel model)
+        private List<BECDRWeb> CargarBECDRWeb(MisReclamosModel model)
         {
-            var entidad = new BECDRWeb();
+            var entidadLista = new List<BECDRWeb>();
             try
             {
                 if (Session[Constantes.ConstSession.CDRWeb] != null)
                 {
-                    return (BECDRWeb)Session[Constantes.ConstSession.CDRWeb];
+                    return (List<BECDRWeb>)Session[Constantes.ConstSession.CDRWeb];
                 }
 
-                var entidadLista = new List<BECDRWeb>();
+                if (model.PedidoID * model.CampaniaID <= 0)
+                    return entidadLista;
+
+                var entidad = new BECDRWeb();
                 entidad.CampaniaID = model.CampaniaID;
                 entidad.PedidoID = model.PedidoID;
                 entidad.ConsultoraID = Int32.Parse(userData.ConsultoraID.ToString());
@@ -478,24 +488,20 @@ namespace Portal.Consultoras.Web.Controllers
                     entidadLista = sv.GetCDRWeb(userData.PaisID, entidad).ToList();
                 }
 
-                entidad = new BECDRWeb();
-                entidad.CDRWebID = -1;
                 Session[Constantes.ConstSession.CDRWeb] = null;
                 if (entidadLista.Count() == 1)
                 {
-                    entidad = entidadLista[0];
-                    Session[Constantes.ConstSession.CDRWeb] = entidad;
+                    Session[Constantes.ConstSession.CDRWeb] = entidadLista;
                 }
 
-                return entidad;
+                return entidadLista;
             }
             catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 Session[Constantes.ConstSession.CDRWeb] = null;
-                entidad = new BECDRWeb();
-                entidad.CDRWebID = -1;
-                return entidad;
+                entidadLista = new List<BECDRWeb>();
+                return entidadLista;
             }
         }
 
@@ -507,7 +513,7 @@ namespace Portal.Consultoras.Web.Controllers
                 model.Accion = "I";
                 var rpta = ValidarDetalleGuardar(ref model);
 
-                if (rpta)
+                if (!rpta)
                 {
                     return Json(new
                     {
@@ -568,6 +574,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         public JsonResult DetalleCargar(MisReclamosModel model)
         {
+            Session[Constantes.ConstSession.CDRWebDetalle] = null;
             var lista = CargarDetalle(model);
             return Json(new
             {
@@ -591,6 +598,45 @@ namespace Portal.Consultoras.Web.Controllers
                 message = model.CDRWebDetalleID > 0 ? "" : "Error, vuelva a intentarlo",
                 detalle = model.CDRWebDetalleID
             }, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult SolicitudEnviar(MisReclamosModel model)
+        {
+            try
+            {
+                model = model ?? new MisReclamosModel();
+                if (model.CDRWebID <= 0)
+                {
+                    return Json(new
+                    {
+                        success = false,
+                        message = "Error, vuelva a intentarlo"
+                    }, JsonRequestBehavior.AllowGet);
+                }
+
+                var entidad = new BECDRWeb();
+                entidad.Estado = Constantes.EstadoCDRWeb.Culminado;
+                using (CDRServiceClient sv = new CDRServiceClient())
+                {
+                    model.CDRWebID = sv.UpdEstadoCDRWeb(userData.PaisID, entidad);
+                }
+
+                return Json(new
+                {
+                    success = model.CDRWebID > 0,
+                    message = model.CDRWebID > 0 ? "" : "Error, vuelva a intentarlo",
+                    detalle = model.CDRWebID
+                }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return Json(new
+                {
+                    success = false,
+                    message = "Error, vuelva a intentarlo"
+                }, JsonRequestBehavior.AllowGet);
+            }
         }
     }
 }

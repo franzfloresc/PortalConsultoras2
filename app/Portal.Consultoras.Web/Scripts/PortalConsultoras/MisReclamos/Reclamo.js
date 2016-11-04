@@ -5,7 +5,7 @@ var listaPedidos = new Array();
 
 $(document).ready(function () {
 
-    $("[data-cambiopaso]").on("ddlCampania", function () {
+    $("#ddlCampania").on("change", function () {
         $("#txtPedidoID").val(0);
         BuscarCUV();
     });
@@ -14,7 +14,7 @@ $(document).ready(function () {
         $("#txtCantidad").attr("disabled", "disabled");
         $("#txtCantidad").attr("data-maxvalue", "0")
         $("#txtCUVDescripcion").val("");
-        $("#txtPedidoID").val("0");
+        //$("#txtPedidoID").val("0");
 
         if ($(this).val().length == 5) {
             //$("#txtCantidad").removeAttr("disabled");
@@ -48,7 +48,7 @@ $(document).ready(function () {
         AnalizarOperacion(id);
     });
 
-    $("#RegresarPaso1").on("click", function () {        
+    $("#RegresarPaso1").on("click", function () {       
         CambioPaso(-1);
     });
 
@@ -57,8 +57,18 @@ $(document).ready(function () {
     });
 
     $("#IrSolicitudInicial").on("click", function () {
+        $("#txtCUV").val("");
+        $("#txtCUVDescripcion").val("");
+        $("#txtCantidad").val("1");
+        $("#txtCUV2").val("");
+        $("#txtCUVDescripcion2").val("");
+        $("#txtCantidad2").val("1");
         CambioPaso(-100);
         BuscarMotivo();
+    });
+
+    $("#IrSolicitudEnviada").on("click", function () {        
+        SolicitudEnviar();
     });
 
     $("[data-accion]").on("click", function () {
@@ -70,14 +80,16 @@ $(document).ready(function () {
 // Paso 1
 function BuscarCUV(CUV) {
     CUV = $.trim(CUV) || $.trim($("#txtCUV").val());
-    var PedidoId = $.trim($("#txtPedidoID").val()) || 0;
     var CampaniaId = $.trim($("#ddlCampania").val()) || 0;
-    if (PedidoId <= 0 || CampaniaId <= 0 || CUV.length < 5)
+    if (CampaniaId <= 0 || CUV.length < 5)
         return false;
 
+    var PedidoId = $.trim($("#txtPedidoID").val()) || 0;
+
     var item = {
-        CampaniaID: $.trim($("#ddlCampania").val()),
-        PedidoID: $("#txtPedidoID").val(),
+        CampaniaID: CampaniaId,
+        PedidoID: PedidoId,
+        CDRWebID: $("#CDRWebID").val(),
         CUV: CUV
     };
 
@@ -89,7 +101,6 @@ function BuscarCUV(CUV) {
         dataType: 'json',
         contentType: 'application/json; charset=utf-8',
         data: JSON.stringify(item),
-        async: false,
         cache: false,
         success: function (data) {
             closeWaitingDialog();
@@ -387,7 +398,6 @@ function DetalleCargar() {
         dataType: 'json',
         contentType: 'application/json; charset=utf-8',
         data: JSON.stringify(item),
-        async: true,
         cache: false,
         success: function (data) {
             closeWaitingDialog();
@@ -444,6 +454,39 @@ function DetalleEliminar(objItem) {
             if (data.success == true) {
                 DetalleCargar
             }
+        },
+        error: function (data, error) {
+            closeWaitingDialog();
+        }
+    });
+}
+
+function SolicitudEnviar() {
+    var item = {
+        CDRWebID: $("#CDRWebID").val() || 0
+    };
+    waitingDialog();
+
+    jQuery.ajax({
+        type: 'POST',
+        url: baseUrl + 'MisReclamos/SolicitudEnviar',
+        dataType: 'json',
+        contentType: 'application/json; charset=utf-8',
+        data: JSON.stringify(item),
+        cache: false,
+        success: function (data) {
+            closeWaitingDialog();
+            if (!checkTimeout(data))
+                return false;
+
+            if (data.success != true) {
+                messageInfoError(data.message);
+                return false;
+            }
+            
+            $("#divProcesoReclamo").hide();
+            $("#UltimasSolicitudes").hide();
+            $("#SolicitudEnviada").show();
         },
         error: function (data, error) {
             closeWaitingDialog();

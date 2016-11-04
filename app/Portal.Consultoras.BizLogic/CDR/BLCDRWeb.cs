@@ -33,7 +33,10 @@ namespace Portal.Consultoras.BizLogic.CDR
                             detalle.CDRWebID = retorno;
                             var idDetalle = DACDRWeDetalle.InsCDRWebDetalle(detalle);
                             if (idDetalle <= 0)
-                                oTransactionScope.Dispose();                            
+                            {
+                                retorno = 0;
+                                oTransactionScope.Dispose(); 
+                            }                           
                         }
                     }
                     oTransactionScope.Complete();
@@ -91,5 +94,25 @@ namespace Portal.Consultoras.BizLogic.CDR
             }
         }
 
+        public int UpdEstadoCDRWeb(int PaisID, BECDRWeb entity)
+        {
+            try
+            {
+                var retorno = 0;
+                var DACDRWeb = new DACDRWeb(PaisID);
+                TransactionOptions oTransactionOptions = new TransactionOptions();
+                oTransactionOptions.IsolationLevel = System.Transactions.IsolationLevel.ReadUncommitted;
+                using (TransactionScope oTransactionScope = new TransactionScope(TransactionScopeOption.Required, oTransactionOptions))
+                {
+                    retorno = DACDRWeb.UpdEstadoCDRWeb(entity);
+                    oTransactionScope.Complete();
+                }
+                return retorno;
+            }
+            catch (Exception)
+            {
+                return 0;
+            }
+        }
     }
 }

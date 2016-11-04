@@ -39,6 +39,11 @@ namespace Portal.Consultoras.Service
             return BLCDRWeb.GetCDRWeb(PaisID, entity);
         }
 
+        public int UpdEstadoCDRWeb(int PaisID, BECDRWeb entity)
+        {
+            return BLCDRWeb.UpdEstadoCDRWeb(PaisID, entity);
+        }
+
         public int InsCDRWebDetalle(int PaisID, BECDRWebDetalle entity)
         {
             return BLCDRWebDetalle.InsCDRWebDetalle(PaisID, entity);
