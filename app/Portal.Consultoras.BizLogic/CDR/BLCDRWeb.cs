@@ -15,11 +15,27 @@ namespace Portal.Consultoras.BizLogic.CDR
             {
                 var retorno = 0;
                 var DACDRWeb = new DACDRWeb(PaisID);
+                var DACDRWeDetalle = new DACDRWebDetalle(PaisID);
                 TransactionOptions oTransactionOptions = new TransactionOptions();
                 oTransactionOptions.IsolationLevel = System.Transactions.IsolationLevel.ReadUncommitted;
                 using (TransactionScope oTransactionScope = new TransactionScope(TransactionScopeOption.Required, oTransactionOptions))
                 {
                     retorno = DACDRWeb.InsCDRWeb(entity);
+
+                    if (retorno <= 0)
+                        oTransactionScope.Dispose();
+
+                    entity.CDRWebDetalle = entity.CDRWebDetalle ?? new List<BECDRWebDetalle>();
+                    if (entity.CDRWebDetalle.Count > 0)
+                    {
+                        foreach (var detalle in entity.CDRWebDetalle)
+                        {
+                            detalle.CDRWebID = retorno;
+                            var idDetalle = DACDRWeDetalle.InsCDRWebDetalle(detalle);
+                            if (idDetalle <= 0)
+                                oTransactionScope.Dispose();                            
+                        }
+                    }
                     oTransactionScope.Complete();
                 }
                 return retorno;

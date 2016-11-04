@@ -568,6 +568,7 @@ namespace Portal.Consultoras.Web.Controllers
                     model.VioTutorialSalvavidas = oBEUsuario.VioTutorialSalvavidas;
                     model.TieneHana = oBEUsuario.TieneHana;
                     model.NombreGerenteZonal = oBEUsuario.NombreGerenteZona;  // SB20-907
+                    model.FechaActualPais = oBEUsuario.FechaActualPais;
 
                     if (model.RolID == Portal.Consultoras.Common.Constantes.Rol.Consultora)
                     {
