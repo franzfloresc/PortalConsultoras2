@@ -31,16 +31,6 @@ namespace Portal.Consultoras.Data.Hana
 
                 foreach (var informacionOnlineConsultoraHana in listaInformacionOnlineConsultoraHana)
                 {
-                    //int campania;
-                    //bool esCampaniaId = int.TryParse(informacionOnlineConsultoraHana.COD_CAMP, out campania);
-                    //beUsuario.CampaniaID = esCampaniaId ? campania : 0;
-
-                    //beUsuario.CodigoConsultora = informacionOnlineConsultoraHana.COD_CLIE;
-
-                    //int consultoraId;
-                    //bool esConsultoraId = int.TryParse(informacionOnlineConsultoraHana.ConsultoraID, out consultoraId);
-                    //beUsuario.ConsultoraID = esConsultoraId ? consultoraId : 0;
-
                     DateTime fechaVencimiento;
                     bool esFechaVencimiento = DateTime.TryParseExact(informacionOnlineConsultoraHana.FECHAVEN, "ddMMyyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out fechaVencimiento);
                     beUsuario.FechaLimPago = esFechaVencimiento ? fechaVencimiento : DateTime.MinValue;
@@ -59,13 +49,15 @@ namespace Portal.Consultoras.Data.Hana
 
                     beUsuario.IndicadorFlexiPago = informacionOnlineConsultoraHana.Indicador_Activa;
 
+                    decimal montoMinimoFlexipago;
+                    bool esMontoMinimoFlexipago = decimal.TryParse(informacionOnlineConsultoraHana.IMP_MONT_MINI, out montoMinimoFlexipago);
+                    beUsuario.MontoMinimoFlexipago = esMontoMinimoFlexipago ? montoMinimoFlexipago : 0;
+
                     //por confirmar para que sirven estos campos o cuales son sus equivalentes.
                     /*
                      * AutorizaPedido           no se usa
                      * FECHAVENCAM              no se usa
                      * FEC_CREA                 no se usa
-                     * IMP_MONT_MINI            para flexipago
-                     * Indicador_Activa         para flexipago
                      * Invitada                 para flexipago
                      * IMP_SALD_CAMP            no se usa
                      * SALDOTOTALCAM            no se usa

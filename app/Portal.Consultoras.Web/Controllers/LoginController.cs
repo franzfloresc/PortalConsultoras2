@@ -582,24 +582,35 @@ namespace Portal.Consultoras.Web.Controllers
                             model.MontoMinimo = oBEUsuario.MontoMinimoPedido;
                             model.MontoMaximo = oBEUsuario.MontoMaximoPedido;
                             model.FechaLimPago = oBEUsuario.FechaLimPago;
-                            model.IndicadorFlexiPago = oBEUsuario.IndicadorFlexiPago;
 
                             BEResumenCampania[] infoDeuda = null;
                             using (ContenidoServiceClient sv = new ContenidoServiceClient())
                             {
                                 if (model.CodigoISO == Constantes.CodigosISOPais.Colombia || model.CodigoISO == Constantes.CodigosISOPais.Peru)
                                 {
-                                    infoDeuda = sv.GetDeudaTotal(model.PaisID, int.Parse(model.ConsultoraID.ToString()));
+                                    infoDeuda = sv.GetDeudaTotal(model.PaisID, Convert.ToInt32(model.ConsultoraID));
                                 }
                                 else
                                 {
-                                    infoDeuda = sv.GetSaldoPendiente(model.PaisID, model.CampaniaID, int.Parse(model.ConsultoraID.ToString()));
+                                    infoDeuda = sv.GetSaldoPendiente(model.PaisID, model.CampaniaID, Convert.ToInt32(model.ConsultoraID));
                                 }
                             }
 
                             if (infoDeuda != null && infoDeuda.Length > 0)
                             {
                                 model.MontoDeuda = infoDeuda[0].SaldoPendiente;
+                            }
+
+                            model.IndicadorFlexiPago = oBEUsuario.IndicadorFlexiPago;
+                            model.MontoMinimoFlexipago = "0.00";
+
+                            if (model.IndicadorFlexiPago > 0)
+                            {
+                                using (PedidoServiceClient svc = new PedidoServiceClient())
+                                {
+                                    BEOfertaFlexipago beOfertaFlexipago = svc.GetLineaCreditoFlexipago(model.PaisID, model.CodigoConsultora, model.CampaniaID);
+                                    model.MontoMinimoFlexipago = string.Format("{0:#,##0.00}", (beOfertaFlexipago.MontoMinimoFlexipago < 0 ? 0M : beOfertaFlexipago.MontoMinimoFlexipago));
+                                }
                             }
                         }   
                     }
@@ -809,24 +820,12 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (datosConsultoraHana != null)
                 {
-                    //model.FechaLimPago = datosConsultoraHana.FechaLimPago == DateTime.MinValue
-                    //    ? model.FechaLimPago
-                    //    : datosConsultoraHana.FechaLimPago;
                     model.FechaLimPago = datosConsultoraHana.FechaLimPago;
-
-                    //model.MontoMinimo = datosConsultoraHana.MontoMinimoPedido == 0
-                    //    ? model.MontoMinimo
-                    //    : datosConsultoraHana.MontoMinimoPedido;
                     model.MontoMinimo = datosConsultoraHana.MontoMinimoPedido;
-
-                    //model.MontoMaximo = datosConsultoraHana.MontoMaximoPedido == 0
-                    //    ? model.MontoMaximo
-                    //    : datosConsultoraHana.MontoMaximoPedido;
                     model.MontoMaximo = datosConsultoraHana.MontoMaximoPedido;
-
                     model.MontoDeuda = datosConsultoraHana.MontoDeuda;
-
                     model.IndicadorFlexiPago = datosConsultoraHana.IndicadorFlexiPago;
+                    model.MontoMinimoFlexipago = string.Format("{0:#,##0.00}", (datosConsultoraHana.MontoMinimoFlexipago < 0 ? 0M : datosConsultoraHana.MontoMinimoFlexipago));
                 }
             }
         }

@@ -788,6 +788,7 @@ function InsertarProducto(form) {
 
                 tieneMicroefecto = true;
                 MostrarBarra(response);
+                if (response.modificoBackOrder) showDialog('divBackOrderModificado');
                 CargarDetallePedido();
 
                 TrackingJetloreAdd(form.data.Cantidad, $("#hdCampaniaCodigo").val(), form.data.CUV);
@@ -860,6 +861,7 @@ function AgregarProductoZonaEstrategia(tipoEstrategiaImagen) {
             CargarCarouselEstrategias(param2.CUV);
             HideDialog("divVistaPrevia");
             PedidoOnSuccess();
+            if (data.modificoBackOrder) showDialog('divBackOrderModificado');
             CargarDetallePedido();
             MostrarBarra(data);
             TrackingJetloreAdd(param2.Cantidad, $("#hdCampaniaCodigo").val(), param2.CUV);
@@ -3312,11 +3314,9 @@ function UpdateConCantidad(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion
     });
 }
 
-function Update(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion, CUV, esBackOrder) {
+function Update(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion, CUV) {
     var val = ValidarUpdate(PedidoDetalleID, FlagValidacion);
-    if (!val) {
-        return false;
-    }
+    if (!val) return false;
 
     var CliID = $('#hdfLPCli' + PedidoDetalleID).val();
     var CliDes = $('#txtLPCli' + PedidoDetalleID).val();
@@ -3395,7 +3395,7 @@ function Update(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion, CUV, esBa
 
             MostrarBarra(data);
             CargarResumenCampaniaHeader();
-            if (esBackOrder == 'true') {
+            if (data.modificoBackOrder) {
                 showDialog('divBackOrderModificado');
                 CargarDetallePedido();
             }
@@ -3415,7 +3415,7 @@ function Update(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion, CUV, esBa
     });
 }
 
-function UpdateLiquidacion(CampaniaID, PedidoID, PedidoDetalleID, TipoOfertaSisID, CUV, FlagValidacion, CantidadModi, esBackOrder) {
+function UpdateLiquidacion(CampaniaID, PedidoID, PedidoDetalleID, TipoOfertaSisID, CUV, FlagValidacion, CantidadModi) {
     AbrirSplash();
     if (HorarioRestringido()) {
         CerrarSplash();
@@ -3588,7 +3588,7 @@ function UpdateLiquidacion(CampaniaID, PedidoID, PedidoDetalleID, TipoOfertaSisI
                                 
                                 MostrarBarra(data);
                                 CargarResumenCampaniaHeader();
-                                if (esBackOrder == 'true') {
+                                if (data.modificoBackOrder) {
                                     showDialog('divBackOrderModificado');
                                     CargarDetallePedido();
                                 }
@@ -3764,7 +3764,7 @@ function UpdateLiquidacion(CampaniaID, PedidoID, PedidoDetalleID, TipoOfertaSisI
                                     
                                     MostrarBarra(data);
                                     CargarResumenCampaniaHeader();
-                                    if (esBackOrder == 'true') {
+                                    if (data.modificoBackOrder) {
                                         showDialog('divBackOrderModificado');
                                         CargarDetallePedido();
                                     }
@@ -3807,7 +3807,7 @@ function UpdateLiquidacion(CampaniaID, PedidoID, PedidoDetalleID, TipoOfertaSisI
                         $('#txtLPCant' + PedidoDetalleID).val(CantidadAnti);
                         return false;
                     } else {
-                        Update(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion, CUV, esBackOrder);
+                        Update(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion, CUV);
                     }
                 },
                 error: function (data, error) {
@@ -3821,7 +3821,7 @@ function UpdateLiquidacion(CampaniaID, PedidoID, PedidoDetalleID, TipoOfertaSisI
     }
 }
 
-function BlurF(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion, CUV, esBackOrder) {
+function BlurF(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion, CUV) {
     if (isShown)
         return true;
 
@@ -3836,7 +3836,7 @@ function BlurF(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion, CUV, esBac
         return true;
     }
 
-    Update(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion, CUV, esBackOrder);
+    Update(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion, CUV);
 }
 function InfoCommerceGoogleProductoRecomendados() {
     var cantidadProductosRecomendado = $("#hdCantItemRecomendado").val();

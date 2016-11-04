@@ -2,10 +2,10 @@
 USE BelcorpPeru
 GO
 
-INSERT INTO TablaLogica(TablaLogicaID,Descripcion) VALUES (90, 'Ofertas para ti por defecto')
+INSERT INTO TablaLogica(TablaLogicaID,Descripcion) VALUES (92, 'Ofertas para ti por defecto')
 
 INSERT INTO TablaLogicaDatos (TablaLogicaDatosID,TablaLogicaID,Codigo,Descripcion) 
-VALUES (9092,90,'XXXXXXXXX','Ofertas para ti por defecto')
+VALUES (9092,92,'XXXXXXXXX','Ofertas para ti por defecto')
 
 GO
 

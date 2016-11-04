@@ -254,6 +254,9 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         private decimal MontoMaximoPedidoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private decimal MontoMinimoFlexipagoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private decimal MontoMinimoPedidoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -1440,6 +1443,19 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
                 if ((this.MontoMaximoPedidoField.Equals(value) != true)) {
                     this.MontoMaximoPedidoField = value;
                     this.RaisePropertyChanged("MontoMaximoPedido");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public decimal MontoMinimoFlexipago {
+            get {
+                return this.MontoMinimoFlexipagoField;
+            }
+            set {
+                if ((this.MontoMinimoFlexipagoField.Equals(value) != true)) {
+                    this.MontoMinimoFlexipagoField = value;
+                    this.RaisePropertyChanged("MontoMinimoFlexipago");
                 }
             }
         }
