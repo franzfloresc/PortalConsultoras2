@@ -1,5 +1,6 @@
 ﻿using Portal.Consultoras.Common;
 using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Runtime.Serialization;
 
@@ -24,7 +25,11 @@ namespace Portal.Consultoras.Entities.CDR
         [DataMember]
         public DateTime FechaCulminado { get; set; }
         [DataMember]
+        public DateTime FechaAtencion { get; set; }
+        [DataMember]
         public decimal Importe { get; set; }
+        [DataMember]
+        public List<BECDRWebDetalle> CDRWebDetalle { get; set; }
 
         public BECDRWeb()
         { }
@@ -39,7 +44,9 @@ namespace Portal.Consultoras.Entities.CDR
             if (DataRecord.HasColumn(row, "FechaRegistro")) FechaRegistro = Convert.ToDateTime(row["FechaRegistro"]);
             if (DataRecord.HasColumn(row, "Estado")) Estado = Convert.ToInt32(row["Estado"]);
             if (DataRecord.HasColumn(row, "FechaCulminado")) FechaCulminado = Convert.ToDateTime(row["FechaCulminado"]);
+            if (DataRecord.HasColumn(row, "FechaAtencion")) FechaAtencion = Convert.ToDateTime(row["FechaAtencion"]);
             if (DataRecord.HasColumn(row, "Importe")) Importe = Convert.ToDecimal(row["Importe"]);
+            CDRWebDetalle = new List<BECDRWebDetalle>();
         }
     }
 }

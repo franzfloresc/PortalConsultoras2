@@ -23,6 +23,9 @@ namespace Portal.Consultoras.Web.ServiceCDR {
         private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private Portal.Consultoras.Web.ServiceCDR.BECDRWebDetalle[] CDRWebDetalleField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int CDRWebIDField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -56,6 +59,19 @@ namespace Portal.Consultoras.Web.ServiceCDR {
             }
             set {
                 this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public Portal.Consultoras.Web.ServiceCDR.BECDRWebDetalle[] CDRWebDetalle {
+            get {
+                return this.CDRWebDetalleField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CDRWebDetalleField, value) != true)) {
+                    this.CDRWebDetalleField = value;
+                    this.RaisePropertyChanged("CDRWebDetalle");
+                }
             }
         }
         

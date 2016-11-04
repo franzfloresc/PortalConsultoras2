@@ -224,6 +224,7 @@ namespace Portal.Consultoras.BizLogic
                         usuario.MensajeValidacionInteractiva = configuracion.MensajeValidacionInteractiva; //R20160306
                         usuario.IndicadorEnviado = configuracion.IndicadorEnviado;
                         usuario.IndicadorRechazado = configuracion.IndicadorRechazado;
+                        usuario.FechaActualPais = configuracion.FechaActualPais;
                     }
                 }
             }

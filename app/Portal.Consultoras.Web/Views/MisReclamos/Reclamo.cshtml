@@ -71,9 +71,9 @@
             <div class="content_reclamo" id="Cambio1" style="display: none; max-width: 890px;">
                 <div class="subtitulo_reclamo">Escoge una solución</div>
                 <div id="divOperacion">
-                    <span class="btn_solución_reclamo">REENVÍO DEL MISMO PRODUCTO</span>
+                    @*<span class="btn_solución_reclamo">REENVÍO DEL MISMO PRODUCTO</span>
                     <span class="btn_solución_reclamo" id="CambioProducto">CAMBIARLO POR OTRO PRODUCTO</span>
-                    <span class="btn_solución_reclamo">DEVOLUCIÓN DEL DINERO</span>
+                    <span class="btn_solución_reclamo">DEVOLUCIÓN DEL DINERO</span>*@
                 </div>
                 <hr class="clear" />
                 <span class="btn_paso_anterior" id="RegresarPaso1">REGRESAR</span>
@@ -110,21 +110,23 @@
             <div id="Cambio3">
                 <div class="content_reclamo" data-tipo-confirma="cambio" style="display:none;">
                     <div class="subtitulo_reclamo">Confirma tu elección</div>
-                    <div class="content_resumen_cambio">
-                        <div class="titulo_resumen">VAS A CAMBIAR:</div>
-                        <div class="descri_producto_reclamo">
-                            00411 <br />
-                            <b>Berrylicious shampoo rojo 375 ml</b><br />
-                            x2 unidades
+                    <div data-detalle-confirma="" data-detalle-confirma-tipo2="cambio2">
+                        <div class="content_resumen_cambio">
+                            <div class="titulo_resumen">VAS A CAMBIAR:</div>
+                            <div class="descri_producto_reclamo">
+                                00411 <br />
+                                <b>Berrylicious shampoo rojo 375 ml</b><br />
+                                x2 unidades
+                            </div>
                         </div>
-                    </div>
-                    <div class="indicador_reclamo"></div>
-                    <div class="content_resumen_cambio">
-                        <div class="titulo_resumen">POR:</div>
-                        <div class="descri_producto_reclamo">
-                            00411 <br />
-                            <b>Berrylicious shampoo rojo 375 ml</b><br />
-                            x2 unidades
+                        <div class="indicador_reclamo"></div>
+                        <div class="content_resumen_cambio">
+                            <div class="titulo_resumen">POR:</div>
+                            <div class="descri_producto_reclamo">
+                                00411 <br />
+                                <b>Berrylicious shampoo rojo 375 ml</b><br />
+                                x2 unidades
+                            </div>
                         </div>
                     </div>
                     <hr class="clear" />
@@ -136,16 +138,18 @@
                     </div>
                     <div class="linea_separadora_roja" style="height:2px;"></div>
                     <a class="btn_paso_anterior" href="#" id="RegresarCambio1">REGRESAR</a>
-                    <a class="btn_si_stock" href="#" style="width:296px;" id="IrPaso3">ACEPTAR LA SOLUCIÓN</a>
+                    <a class="btn_si_stock" href="#" style="width:296px;" id="IrPaso3" data-cambiopaso="3">ACEPTAR LA SOLUCIÓN</a>
                     <hr class="clear" />
                 </div>
-                <div class="content_reclamo" id="canje" style="display:none;">
+                <div class="content_reclamo" data-tipo-confirma="canje" style="display:none;">
                     <div class="subtitulo_reclamo" style="margin-bottom:15px;">Te proponemos la siguiente solución</div>
-                    <div class="titulo_resumen">VAMOS A REENVIARTE EL MISMO PRODUCTO:</div>
-                    <div class="descri_producto_reclamo">
-                        00411 <br>
-                        <b>Berrylicious shampoo rojo 375 ml</b><br>
-                        x2 unidades
+                    <div data-detalle-confirma="">
+                        @*<div class="titulo_resumen">VAMOS A REENVIARTE EL MISMO PRODUCTO:</div>
+                        <div class="descri_producto_reclamo">
+                            00411 <br>
+                            <b>Berrylicious shampoo rojo 375 ml</b><br>
+                            x2 unidades
+                        </div>*@
                     </div>
                     <br />
                     <div class="linea_gris" style="height:1px;"></div>
@@ -156,8 +160,8 @@
                     </div>
                     <div class="linea_separadora_roja" style="height:2px;"></div>
                     <span class="btn_paso_anterior" id="RegresarCambio1">REGRESAR</span>
-                    <a class="btn_si_stock" href="#" style="width:296px;" id="IrPaso3">ACEPTAR LA SOLUCIÓN</a>
-                    <hr class="clear" />                    
+                    <span class="btn_si_stock" style="width:296px;" id="IrPaso3" data-cambiopaso="3">ACEPTAR LA SOLUCIÓN</span>
+                    <hr class="clear" />
                 </div>
             </div>
             <!--FIN-->
@@ -313,7 +317,7 @@
     </div>
     <!--FIN-->
 </div>
-<div class="mensaje_alerta_belcorp" id="NumeroPedido" style="display: block;">
+<div class="mensaje_alerta_belcorp" id="NumeroPedido" style="display: none;">
     <div class="content_mensaje_alerta">
         <a class="btn_cerrar_alerta" href="javascript:;" onclick="javascript: $('#NumeroPedido').hide();"><img src="/Content/Images/cerrar_04.png"></a>
         <hr class="clear">
@@ -333,13 +337,39 @@
 </script>
 <script id="template-motivo" type="text/x-handlebars-template">
     {{#each this as |item|}}
-    <div class="reclamo_motivo_select" id="{{item.Campoid}}">{{item.Nombre}}</div>
+    <div class="reclamo_motivo_select" id="{{item.CodigoReclamo}}">{{item.DescripcionReclamo}}</div>
     {{/each}}
 </script>
 <script id="template-operacion" type="text/x-handlebars-template">
     {{#each this as |item|}}
-    <span class="btn_solución_reclamo" id="{{item.OperacionID}}">{{item.Descripcion}}</span>
+    <span class="btn_solución_reclamo" id="{{item.CodigoOperacion}}" data-tipo="{{item.Tipo}}">{{item.CDRTipoOperacion.DescripcionOperacion}}</span>
     {{/each}}
+</script>
+<script id="template-confirmacion" type="text/x-handlebars-template">
+    {{#iff CUV2 '!=' ''}}
+    <div class="content_resumen_cambio">
+    {{else}}
+    <div>
+    {{/iff}}
+        <div class="titulo_resumen">{{DescripcionConfirma}}:</div>
+        <div class="descri_producto_reclamo">
+            {{CUV}} <br />
+            <b>{{DescripcionProd}}</b><br />
+            x{{Cantidad}} unidades
+        </div>
+    </div>
+    {{#IsNullOrEmpty CUV2  '!=' }}
+    <div class="indicador_reclamo"></div>
+    <div class="content_resumen_cambio">
+        <div class="titulo_resumen">{{DescripcionConfirma2}}:</div>
+        <div class="descri_producto_reclamo">
+            {{CUV2}} <br />
+            <b>{{DescripcionProd2}}</b><br />
+            x{{Cantidad2}} unidades
+        </div>
+    </div>
+    {{/IsNullOrEmpty}}
+
 </script>
 <script id="template-detalle-paso3" type="text/x-handlebars-template">
     @*<div class="content_listado_reclamo">
