@@ -23,16 +23,22 @@ namespace Portal.Consultoras.Web.ServiceCDR {
         private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private Portal.Consultoras.Web.ServiceCDR.BECDRWebDetalle[] CDRWebDetalleField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int CDRWebIDField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int CampaniaIDField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int ConsultoraIDField;
+        private long ConsultoraIDField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int EstadoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.DateTime FechaAtencionField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private System.DateTime FechaCulminadoField;
@@ -56,6 +62,19 @@ namespace Portal.Consultoras.Web.ServiceCDR {
             }
             set {
                 this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public Portal.Consultoras.Web.ServiceCDR.BECDRWebDetalle[] CDRWebDetalle {
+            get {
+                return this.CDRWebDetalleField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CDRWebDetalleField, value) != true)) {
+                    this.CDRWebDetalleField = value;
+                    this.RaisePropertyChanged("CDRWebDetalle");
+                }
             }
         }
         
@@ -86,7 +105,7 @@ namespace Portal.Consultoras.Web.ServiceCDR {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public int ConsultoraID {
+        public long ConsultoraID {
             get {
                 return this.ConsultoraIDField;
             }
@@ -107,6 +126,19 @@ namespace Portal.Consultoras.Web.ServiceCDR {
                 if ((this.EstadoField.Equals(value) != true)) {
                     this.EstadoField = value;
                     this.RaisePropertyChanged("Estado");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.DateTime FechaAtencion {
+            get {
+                return this.FechaAtencionField;
+            }
+            set {
+                if ((this.FechaAtencionField.Equals(value) != true)) {
+                    this.FechaAtencionField = value;
+                    this.RaisePropertyChanged("FechaAtencion");
                 }
             }
         }
