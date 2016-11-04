@@ -12,8 +12,16 @@ namespace Portal.Consultoras.Web.Models
         public int CampaniaID { get; set; }
         public List<CampaniaModel> ListaCampania { get; set; }
         public string Campania { get; set; }
+        public string Tipo { get; set; }
         public string CUV { get; set; }
         public int Cantidad { get; set; }
+        public string DescripcionProd { get; set; }
+        public string Tipo2 { get; set; }
+        public string CUV2 { get; set; }
+        public int Cantidad2 { get; set; }
+        public string DescripcionProd2 { get; set; }
+        public string DescripcionConfirma { get; set; }
+        public string DescripcionConfirma2 { get; set; }
         public string Motivo { get; set; }
         public string Operacion { get; set; }
         public List<Campo> ListaMotivo { get; set; }

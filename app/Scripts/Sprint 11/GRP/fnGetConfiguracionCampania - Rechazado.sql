@@ -39,6 +39,7 @@ RETURNS @TConfiguracionCampania TABLE(
 	MensajeValidacionInteractiva varchar(500),
 	IndicadorEnviado bit,
 	IndicadorRechazado int,
+	FechaActualPais datetime,
 	Campaniax varchar(1000)
 )
 AS
@@ -475,6 +476,7 @@ BEGIN
 			@MensajeValidacionInteractiva AS MensajeValidacionInteractiva,
 			@IndicadorEnviado as IndicadorEnviado,
 			@esRechazado as IndicadorRechazado,
+			@FechaGeneral as FechaActualPais,
 			@Campaniax as Campaniax
 		FROM [ods].[Cronograma] c (nolock)
 		INNER JOIN [ods].[Zona] z (nolock) ON c.RegionID = z.RegionID AND c.ZonaID = z.ZonaID
@@ -522,6 +524,7 @@ BEGIN
 			@MensajeValidacionInteractiva AS MensajeValidacionInteractiva,
 			@IndicadorEnviado as IndicadorEnviado,
 			@esRechazado as IndicadorRechazado,
+			@FechaGeneral as FechaActualPais,
 			@Campaniax as Campaniax
 		FROM [ods].[Cronograma] c (nolock)
 		INNER JOIN [ods].[Zona] z (nolock) ON c.RegionID = z.RegionID AND c.ZonaID = z.ZonaID
