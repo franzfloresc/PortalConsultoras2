@@ -14,6 +14,19 @@ namespace Portal.Consultoras.Web.Controllers
     {
         public ActionResult Index()
         {
+            MisReclamosModel model = new MisReclamosModel();
+            var listaReclamoModel = new List<CDRWebModel>();            
+
+            using (CDRServiceClient cdr = new CDRServiceClient())
+            {
+                var beCdrWeb = new BECDRWeb();
+                beCdrWeb.ConsultoraID = userData.ConsultoraID;
+
+                var listaReclamo = cdr.GetCDRWeb(userData.PaisID, beCdrWeb);
+
+
+            }
+
             return View();
         }
 

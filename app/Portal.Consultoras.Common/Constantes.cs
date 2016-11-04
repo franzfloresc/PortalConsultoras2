@@ -262,10 +262,10 @@ namespace Portal.Consultoras.Common
         
         public class EstadoCDRWeb
         {
-            public const string EnProceso = "1";
-            public const string Culminado = "2";
-            public const string Aprobado = "3";
-            public const string Rechazado = "4";
+            public const int EnProceso = 1;
+            public const int Culminado = 2;
+            public const int Aprobado = 3;
+            public const int Rechazado = 4;
         }
     }
 }
