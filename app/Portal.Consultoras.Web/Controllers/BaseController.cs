@@ -771,8 +771,15 @@ namespace Portal.Consultoras.Web.Controllers
                         }
                         else
                         {
-                            ViewBag.MensajeCierreCampania = "Recuerda que tienes hasta las <b>" + FormatearHora(HoraCierrePortal) + "</b> para validar lo que vas a recibir en el pedido";
-                            TextoPromesaEspecial = true;
+                            if (model.CodigoISO == "VE")
+                            {
+                                ViewBag.MensajeCierreCampania = "Pasa tu pedido hasta las <b>" + FormatearHora(HoraCierrePortal) + "</b>";
+                            }
+                            else
+                            {
+                                ViewBag.MensajeCierreCampania = "Recuerda que tienes hasta las <b>" + FormatearHora(HoraCierrePortal) + "</b> para validar lo que vas a recibir en el pedido";
+                                TextoPromesaEspecial = true;
+                            }
                         }
                     }
                 }
