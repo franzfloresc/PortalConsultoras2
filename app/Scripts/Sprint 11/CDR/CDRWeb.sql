@@ -348,7 +348,9 @@ END
 GO
 
 CREATE PROCEDURE dbo.GetCDRWebDetalle
+(
 	@CDRWebID int
+)
 AS
 
 BEGIN
@@ -369,7 +371,7 @@ BEGIN
 		,MotivoRechazo
 		,Observacion
 		,Eliminado
-	FROM GetCDRWebDetalle
+	FROM CDRWebDetalle
 	WHERE CDRWebID = @CDRWebID
 		and Eliminado = 0
 
@@ -525,29 +527,80 @@ GO
 
 create procedure dbo.GetCDRWeb
 @ConsultoraID bigint
+,@PedidoID int = 0
+,@CampaniaID int = 0
 as
 /*
 GetCDRWeb 49627031
 */
 begin
 
-select top 20
-CDRWebID,
-PedidoID,
-PedidoNumero,
-CampaniaID,
-ConsultoraID,
-FechaRegistro,
-Estado,
-FechaCulminado,
-Importe,
-FechaAtencion
-from CDRWeb
-where ConsultoraID = @ConsultoraID
-order by CDRWebID desc
+		select top 20
+				CDRWebID,
+				PedidoID,
+				PedidoNumero,
+				CampaniaID,
+				ConsultoraID,
+				FechaRegistro,
+				Estado,
+				FechaCulminado,
+				Importe,
+				FechaAtencion
+		from CDRWeb
+		where ConsultoraID = @ConsultoraID
+			and (PedidoID = @PedidoID or @PedidoID = 0)
+			and (CampaniaID = @CampaniaID or @CampaniaID = 0)
+		order by CDRWebID desc
 
 end
 
 go
 
 
+IF EXISTS(
+	SELECT 1
+	FROM INFORMATION_SCHEMA.ROUTINES 
+	WHERE SPECIFIC_NAME = 'UpdEstadoCDRWeb' AND SPECIFIC_SCHEMA = 'dbo' AND Routine_Type = 'PROCEDURE'
+)
+BEGIN
+    DROP PROCEDURE dbo.UpdEstadoCDRWeb
+END
+
+GO
+
+CREATE PROCEDURE dbo.UpdEstadoCDRWeb
+(
+	 @CDRWebID int
+	 ,@Estado int
+	,@RetornoID int output
+)
+AS
+
+BEGIN
+	
+	SET @RetornoID = 0
+	DECLARE @FechaGeneral DATETIME
+	SET @FechaGeneral = dbo.fnObtenerFechaHoraPais()
+
+	set @CDRWebID = isnull(@CDRWebID, 0)
+	set @Estado = isnull(@Estado, 0)
+
+	if	@CDRWebID > 0 and @Estado > 0
+	begin
+		update CDRWeb
+		set Estado = @Estado
+		, FechaCulminado = case when @Estado = 2 then @FechaGeneral else FechaCulminado end
+		where CDRWebID = @CDRWebID
+		
+		if @Estado = 2 or @Estado = 1
+		begin				
+			update CDRWebDetalle
+			set Estado = @Estado
+			where CDRWebID = @CDRWebID
+		end
+
+	end
+
+END
+
+go

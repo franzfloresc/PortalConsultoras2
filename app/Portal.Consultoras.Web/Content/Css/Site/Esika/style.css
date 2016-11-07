@@ -31502,6 +31502,11 @@ h1#penmostreo .campana {
 .listado_resumen_general{
     width:22%;
     margin-left:1%;
+    padding-left:2%;
+}
+.icono_resumen_resolucion{
+    background: url(../../../Images/Esika/icono_advertencia_notificacion.png) no-repeat top left;
+    background-position: 0 33px;
 }
 .listado_estado_general{
     width:16%;
@@ -31529,8 +31534,10 @@ h1#penmostreo .campana {
     margin-right: 15px;
     width:110px;
 }
-.estado_detalleIngresado {
-    background: #e7e7e7;
+.estado_detalleObservado {
+    background: white;
+    border:1px solid #e81c36;
+    color:#e81c36;
 }
 .listado_estado_general div:hover .icono_verDetalle {
     margin-top: -10px;
@@ -31616,8 +31623,8 @@ h1#penmostreo .campana {
     border-bottom: 1px solid #c9c9c9;
 }
 .content_pop_grilla{
-    max-height: 310px;
-    overflow-y: auto;
+    /*max-height: 310px;
+    overflow-y: auto;*/
 }
 .content_botones_pedido{
     text-align:center;
@@ -31817,4 +31824,82 @@ h1#penmostreo .campana {
 }
 .content_descuento_detalle:last-child{
     border-right:0;
+}
+.titulo_grilla{
+    font-family: 'Lato';
+    font-size: 17px;    
+    color:#e81c36;
+    font-weight:700;
+    margin-top:23px;
+    margin-left:19px;
+}
+.subtitulo_grilla{
+    font-family: 'Lato';
+    font-size: 15px;    
+    color:black;   
+    margin-bottom:15px;
+    margin-left:19px;
+}
+.content_producto_observado{
+    width:100%;
+    height:85px;
+    background:#f7f7f7;
+    position:relative;
+    
+}
+
+.content_producto_observado:after {
+	bottom: 100%;
+	left: 5%;
+	border: solid transparent;
+	content: " ";
+	height: 0;
+	width: 0;
+	position: absolute;
+	pointer-events: none;
+	border-color: rgba(247, 247, 247, 0);
+	border-bottom-color: #f7f7f7;
+	border-width: 13px;
+	margin-left: -13px;
+}
+.nota_producto_observado{
+    float:left;
+    font-family: 'Lato';
+    font-size: 14px;    
+    line-height:17px;
+    color:black;  
+    margin-left:20px;
+    margin-top:23px;
+    width:360px;
+    padding-left:25px;
+    background: url(../../../Images/Esika/icono_advertencia_notificacion.png) no-repeat top left;
+}
+.btn_eliminar_observado{
+    float:right;
+    margin-right:20px;
+    width:210px;
+    height:45px;
+    border:1px solid black;
+    background:white;
+    font-family: 'Lato';
+    font-size: 13px;  
+    font-weight:900;  
+    line-height:45px;
+    margin-top:20px;
+    text-align:center;
+}
+.rango_producto_observado{
+    margin-left:58px;
+    margin-top:20px;
+    float:left;
+}
+/*CONTINUACION ESCALA*/
+.texto_final_escala{
+    padding-left:25px;
+    margin-top:25px;
+    margin-bottom:40px;
+    background: url(../../../Images/Esika/icono_advertencia_notificacion.png) no-repeat top left;
+    font-family: 'Lato';
+    font-size: 11px; 
+    color:#9b9b9b; 
 }
