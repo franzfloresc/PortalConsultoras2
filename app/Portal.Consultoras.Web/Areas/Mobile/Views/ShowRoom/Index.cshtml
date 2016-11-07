@@ -100,13 +100,16 @@
         </div>
         <div>
             @{
-                var urlWs = "whatsapp://send?text=" + item.Descripcion + "%20(" + subTitulo + ").%20" + item.ImagenProducto;
+                var texto = item.Descripcion + ": " + subTitulo + ".";
+                var message = Uri.EscapeDataString(texto) + " - " + Uri.EscapeDataString(item.ImagenProducto);
+                var urlWs = "whatsapp://send?text=" + message;
+                //var urlWs = "whatsapp://send?text=" ;
                 var descripcionF = item.Descripcion.Replace("'", "\'");
                 var subtituloF = subTitulo.Replace("'", "\'");
                 var imagenF = item.ImagenProducto.Replace("'", "\'");
             }
-            <a class="btn_ws_showroom" href="@urlWs" data-action="share/whatsapp/share"><img src="@Url.Content("~/Content/Images/mobile/Esika/catalogo_ws.png")" alt="-" /></a>
-            <a class="btn_facebook_showroom" href="" data-accion="face" onclick='CompartirFacebook("@descripcionF","@subtituloF","@imagenF");'><img src="@Url.Content("~/Content/Images/mobile/Esika/catalogo_facebook.png")" alt="-" /></a>
+            <a class="btn_ws_showroom" href="@urlWs" data-action="share/whatsapp/share"><img src="@Url.Content("~/Content/Images/mobile/Esika/iconowscolor.png")" alt="-" /></a>
+            <a class="btn_facebook_showroom" href="" data-accion="face" onclick='CompartirFacebook("@descripcionF","@subtituloF","@imagenF");'><img src="@Url.Content("~/Content/Images/mobile/Esika/catalogo_facebook_color.png")" alt="-" /></a>
             <hr class="clear" />
         </div>
     </div>    
@@ -139,7 +142,7 @@
 
         $(document).ready(function () {
             TagManagerOfertaShowRoom();
-
+            
             $("body").on("click", ".suma", function () {
                 var article = $(this).parents(".listado_item").eq(0);
                 var cantidad = $(article).find(".txtCantidad").val();

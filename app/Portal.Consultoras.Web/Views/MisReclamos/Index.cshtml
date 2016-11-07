@@ -38,11 +38,11 @@
                 <div class="listado_campana_general">2016-15</div>
                 <div class="listado_solicitud_general">12345678</div>
                 <div class="listado_resolucion_general">10 Oct 2016 <span class="detalle_listado">10:45 pm</span></div>
-                <div class="listado_resumen_general">Pendiente</div>
+                <div class="listado_resumen_general icono_resumen_resolucion">Pendiente</div>
                 <div class="listado_estado_general">
                     <div>
-                        <span class="estado_texto estado_detalleIngresado">
-                            PENDIENTE
+                        <span class="estado_texto estado_detalleObservado">
+                           OBSERVADO
                         </span>
                         <span>
                             <a href="javascript:;" onclick="javascript: $('#PopSolicitud').show();" title="Ver Estado / Detalles" class="icono_verDetalle">
@@ -57,11 +57,11 @@
                 <div class="listado_campana_general">2016-15</div>
                 <div class="listado_solicitud_general">12345678</div>
                 <div class="listado_resolucion_general">10 Oct 2016 <span class="detalle_listado">10:45 pm</span></div>
-                <div class="listado_resumen_general">Todos los productos rechazados </div>
+                <div class="listado_resumen_general icono_resumen_resolucion">Todos los productos rechazados </div>
                 <div class="listado_estado_general">
                     <div>
                         <span class="estado_texto estado_detalleFacturado">
-                            RESUELTO
+                            ACEPTADO
                         </span>
                         <span>
                             <a href="javascript:;" onclick="javascript: $('#PopSolicitud').show();" title=" ver estado /> Detalles" class="icono_verDetalle">
@@ -430,6 +430,8 @@
             <div class="sub_detalle_estado">Resumen: <b>2 productos aprobados, 1 rechazado</b></div>
         </div>
         <div class="content_pop_grilla">
+            <div class="titulo_grilla">PRODUCTOS OBSERVADOS:</div>
+            <div class="subtitulo_grilla">Resuelve las observaciones y envía nuevamente la solicitud</div>
             <div class="content_listado_reclamo">
                 <div class="pop_solicitud_producto text_gris_reclamo">Producto</div>
                 <div class="pop_solicitud_tipo text_gris_reclamo">Tipo de solicitud</div>
@@ -437,6 +439,7 @@
                 <div class="pop_solicitud_resolucion text_gris_reclamo">Resolución:</div>
             </div>
             <div class="linea_separadora"></div>
+           
             <div class="content_listado_reclamo">
                 <div class="pop_solicitud_producto">
                     00411<br>
@@ -446,12 +449,48 @@
                 </div>
                 <div class="pop_solicitud_tipo"><b>Cambiar por</b></div>
                 <div class="pop_solicitud_solucion">
-                    98765 <br>
-                    <b>Máscara Full Size Negro. </b><br>
-                    2 unidades <br>
+                    Reenvío del mismo producto
+                </div>
+                <div class="pop_solicitud_resolucion"><span class="texto_estado_solicitud">RECHAZADO</span>por superar el límite establecido de unidades a reclamar</div>
+                <hr class="clear" />
+                <!--PRODUCTO OBSERVADO-->
+                <div class="content_producto_observado">
+                    <div class="nota_producto_observado">Debes eliminar este producto para procesar nuevamente tu solicitud.</div>
+                    <div class="rango_producto_observado">
+                        <input style="background:white;" type="text" name="Cantidad" id="txtCantidad" value="1" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral valid" onkeypress="PreValidarCUV();" onfocus="SeleccionarContenido(this)">
+                        <div class="liquidacion_rango_right_pedido" style="background:white;">
+                            <a class="mas"><img src="/Content/Images/Esika/mas.png" alt=""></a>
+                            <a class="menos"><img src="/Content/Images/Esika/menos.png" alt=""></a>
+                        </div>
+                    </div>
+                    <a class="btn_eliminar_observado">ELIMINAR PRODUCTO</a>
+                    <hr class="clear" />
+                </div>
+                <!--FIN-->
+            </div>
+            <br/>
+            <div class="titulo_grilla">PRODUCTOS APROBADOS:</div>
+            <div class="content_listado_reclamo">
+                <div class="pop_solicitud_producto text_gris_reclamo">Producto</div>
+                <div class="pop_solicitud_tipo text_gris_reclamo">Tipo de solicitud</div>
+                <div class="pop_solicitud_solucion text_gris_reclamo">Solución solicitada:</div>
+                <div class="pop_solicitud_resolucion text_gris_reclamo">Resolución:</div>
+            </div>
+            <div class="linea_separadora"></div>
+
+            <div class="content_listado_reclamo">
+                <div class="pop_solicitud_producto">
+                    00411<br>
+                    <b>Berrylicious shampoo rojo 375 ml.</b> <br>
+                    2 unidades<br>
                     Costo: S/.15.00
+                </div>
+                <div class="pop_solicitud_tipo"><b>Cambiar por</b></div>
+                <div class="pop_solicitud_solucion">
+                    Reenvío del mismo producto
                 </div>
                 <div class="pop_solicitud_resolucion"><span class="texto_estado_solicitud">APROBADO</span></div>
+                <hr class="clear" />                
             </div>
             <div class="content_listado_reclamo">
                 <div class="pop_solicitud_producto">
@@ -464,21 +503,12 @@
                 <div class="pop_solicitud_solucion">
                     Reenvío del mismo producto
                 </div>
-                <div class="pop_solicitud_resolucion"><span class="texto_estado_solicitud">RECHAZADO</span>por superar el límite establecido de unidades a reclamar</div>
+                <div class="pop_solicitud_resolucion"><span class="texto_estado_solicitud">APROBADO</span></div>
+                <hr class="clear" />
             </div>
-            <div class="content_listado_reclamo">
-                <div class="pop_solicitud_producto">
-                    00411<br>
-                    <b>Berrylicious shampoo rojo 375 ml.</b> <br>
-                    2 unidades<br>
-                    Costo: S/.15.00
-                </div>
-                <div class="pop_solicitud_tipo"><b>Cambiar por</b></div>
-                <div class="pop_solicitud_solucion">
-                    Reenvío del mismo producto
-                </div>
-                <div class="pop_solicitud_resolucion"><span class="texto_estado_solicitud">RECHAZADO</span>por superar el límite establecido de unidades a reclamar</div>
-            </div>
+            <div class="linea_separadora_roja" style="height:2px;"></div>
+            <a class="btn_si_stock" href="#" style="width:296px;">FINALIZA Y ENVÍA TU SOLICITUD</a>
+            <hr class="clear" />
         </div>
         
      </div>

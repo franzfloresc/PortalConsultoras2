@@ -50,6 +50,12 @@
   <wsdl:message name="ICDRService_GetCDRWeb_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetCDRWebResponse" />
   </wsdl:message>
+  <wsdl:message name="ICDRService_UpdEstadoCDRWeb_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdEstadoCDRWeb" />
+  </wsdl:message>
+  <wsdl:message name="ICDRService_UpdEstadoCDRWeb_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdEstadoCDRWebResponse" />
+  </wsdl:message>
   <wsdl:message name="ICDRService_InsCDRWebDetalle_InputMessage">
     <wsdl:part name="parameters" element="tns:InsCDRWebDetalle" />
   </wsdl:message>
@@ -135,6 +141,10 @@
       <wsdl:input wsaw:Action="http://tempuri.org/ICDRService/GetCDRWeb" message="tns:ICDRService_GetCDRWeb_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ICDRService/GetCDRWebResponse" message="tns:ICDRService_GetCDRWeb_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="UpdEstadoCDRWeb">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICDRService/UpdEstadoCDRWeb" message="tns:ICDRService_UpdEstadoCDRWeb_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICDRService/UpdEstadoCDRWebResponse" message="tns:ICDRService_UpdEstadoCDRWeb_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="InsCDRWebDetalle">
       <wsdl:input wsaw:Action="http://tempuri.org/ICDRService/InsCDRWebDetalle" message="tns:ICDRService_InsCDRWebDetalle_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ICDRService/InsCDRWebDetalleResponse" message="tns:ICDRService_InsCDRWebDetalle_OutputMessage" />
@@ -206,6 +216,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetCDRWeb">
       <soap:operation soapAction="http://tempuri.org/ICDRService/GetCDRWeb" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdEstadoCDRWeb">
+      <soap:operation soapAction="http://tempuri.org/ICDRService/UpdEstadoCDRWeb" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -345,6 +364,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetCDRWeb">
       <soap:operation soapAction="http://tempuri.org/ICDRService/GetCDRWeb" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdEstadoCDRWeb">
+      <soap:operation soapAction="http://tempuri.org/ICDRService/UpdEstadoCDRWeb" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
