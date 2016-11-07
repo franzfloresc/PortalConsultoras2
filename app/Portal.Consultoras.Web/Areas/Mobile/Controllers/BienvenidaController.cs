@@ -134,6 +134,19 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 model.UrlImagenLiquidaciones = ConfigS3.GetUrlFileS3("Mobile/Liquidaciones/" + userData.CodigoISO, "liquidaciones.png", String.Empty);
                 model.UrlImagenCatalogoPersonalizado = ConfigS3.GetUrlFileS3("Mobile/CatalogoPersonalizado/" + userData.CodigoISO, "catalogo.png", String.Empty);
                 model.EsCatalogoPersonalizadoZonaValida = userData.EsCatalogoPersonalizadoZonaValida;
+                model.CodigoUsuario = userData.CodigoUsuario; //EPD-1180
+                
+                string PaisesCatalogoWhatsUp = ConfigurationManager.AppSettings.Get("PaisesCatalogoWhatsUp") ?? string.Empty;
+                
+                if (PaisesCatalogoWhatsUp.Contains(userData.CodigoISO))
+                {
+                    model.ActivacionAppCatalogoWhastUp = 1;
+                }
+                else
+                {
+                    model.ActivacionAppCatalogoWhastUp = 0;
+                }
+
             }
             catch (FaultException ex)
             {

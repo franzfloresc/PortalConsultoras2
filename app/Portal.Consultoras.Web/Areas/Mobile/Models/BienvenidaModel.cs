@@ -39,5 +39,7 @@
         public string UrlImagenAppCatalogo { get; set; }
         public int CatalogoPersonalizadoMobile { get; set; }
         public bool EsCatalogoPersonalizadoZonaValida { get; set; }
+        public int ActivacionAppCatalogoWhastUp { get; set; }
+        public string CodigoUsuario { get; set; }
     }
 }
