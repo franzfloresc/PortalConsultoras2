@@ -1987,6 +1987,7 @@
     <Content Include="Content\Images\mobile\Esika\camara.png" />
     <Content Include="Content\Images\mobile\Esika\carpeta.png" />
     <Content Include="Content\Images\mobile\Esika\catalogo_facebook.png" />
+    <Content Include="Content\Images\mobile\Esika\catalogo_facebook_color.png" />
     <Content Include="Content\Images\mobile\Esika\catalogo_home.png" />
     <Content Include="Content\Images\mobile\Esika\catalogo_mensaje.png" />
     <Content Include="Content\Images\mobile\Esika\catalogo_ws.png" />
@@ -1999,6 +2000,7 @@
     <Content Include="Content\Images\mobile\Esika\fondo_app.png" />
     <Content Include="Content\Images\mobile\Esika\fondo_oferta.png" />
     <Content Include="Content\Images\mobile\Esika\ganancia.png" />
+    <Content Include="Content\Images\mobile\Esika\iconowscolor.png" />
     <Content Include="Content\Images\mobile\Esika\icono_advertencia_notificacion.svg" />
     <Content Include="Content\Images\mobile\Esika\icono_check_esika.svg" />
     <Content Include="Content\Images\mobile\Esika\icono_exclamacion_esika.svg" />
@@ -2027,6 +2029,8 @@
     <Content Include="Content\Images\mobile\Esika\video.png" />
     <Content Include="Content\Images\mobile\Esika\ws.png" />
     <Content Include="Content\Images\mobile\Esika\youtube.png" />
+    <Content Include="Content\Images\mobile\flecha-left.png" />
+    <Content Include="Content\Images\mobile\flecha-right.png" />
     <Content Include="Content\Images\mobile\icon_caja.png" />
     <Content Include="Content\Images\mobile\icon_casita.png" />
     <Content Include="Content\Images\mobile\icon_menu.png" />
