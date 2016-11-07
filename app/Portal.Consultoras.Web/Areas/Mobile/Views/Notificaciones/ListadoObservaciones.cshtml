@@ -182,39 +182,16 @@
                 case "5":
                     $('#sFelicitaciones').html('¡Felicitaciones!');
                     $('#sMensajePedidoPROL').html(Observaciones);
-                    var Mensaje = "Tu pedido será enviado " + DescripcionFacturacion(FacturaHoy, DiaFact, MesFact) + ", siempre y cuando cumplas con el monto mínimo y no tengas deuda.";
+                    var Mensaje = "Será enviado a Belcorp " + DescripcionFacturacion(FacturaHoy, DiaFact, MesFact) + ", siempre y cuando cumplas con el monto mínimo y no tengas deuda pendiente.";
                     $('#sMensajeFacturacion').html(Mensaje);
                     break;
             }
         });
 
         function DescripcionFacturacion(FacturaHoy, DiaFact, MesFact) {
-
-            var FacturaHoy = $('#fechafacturacion').val();
-            var DiaFact = $('#fechaFacturacionDia').val();
-            var MesFact = $('#fechaFacturacionMes').val();
-
-            if (FacturaHoy == 'true') {
-                Result = "el día de hoy";
-            }
-            else {
-                var Meses = new Array();
-                Meses[1] = "Enero";
-                Meses[2] = "Febrero";
-                Meses[3] = "Marzo";
-                Meses[4] = "Abril";
-                Meses[5] = "Mayo";
-                Meses[6] = "Junio";
-                Meses[7] = "Julio";
-                Meses[8] = "Agosto";
-                Meses[9] = "Setiembre";
-                Meses[10] = "Octubre";
-                Meses[11] = "Noviembre";
-                Meses[12] = "Diciembre";
-                var Mes = Meses[MesFact];
-                Result = "el día " + DiaFact + " de " + Mes;
-            }
+            Result = "el día de hoy";
             return Result;
         }
+        
     </script>
 }
