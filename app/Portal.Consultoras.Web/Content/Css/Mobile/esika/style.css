@@ -2386,7 +2386,7 @@ h4.re3 {
     right: 0;
     bottom: 0;
     left: 0;
-    background: rgba(164, 181, 196, 0.6);
+    background: rgba(240, 240, 240, 0.3);
     z-index: 99999;
     display: none;
 }
@@ -3939,6 +3939,12 @@ table > thead > tr > th {
     margin-top: 17px;
 }
 
+    .titulo_showroom_mobile a {
+        text-decoration: underline;
+        text-align: center;
+        display: block;
+    }
+
     .titulo_showroom_mobile span {
         font-size: 18px;
     }
@@ -4692,8 +4698,8 @@ table > thead > tr > th {
     background: #f5f5f5;
     width: 100%;
     padding-bottom: 10px;
-    padding-left: 34px;
-    padding-right: 34px;
+    padding-left: 14px;
+    padding-right: 14px;
     font-family: 'lato';
     font-size: 12px;
     line-height: 15px;
@@ -4744,7 +4750,7 @@ table > thead > tr > th {
 .btn_seguirp_mobile.ver_video_introductorio {
     margin-top: 15px;
     margin-bottom: 5px;
-    width:114px;
+    width: 114px;
 }
 
 .linea_separadora_mobile {
@@ -5689,6 +5695,7 @@ body {
     bottom: -2px;
     z-index: 2;
     padding: 18px 20px 15px 20px;
+    color:#d20000;
 }
 
     .notificacion_productoAgotado:before {
@@ -6389,6 +6396,7 @@ body {
     background: black;
     text-align: center;
     margin-top: 30px;
+    cursor:pointer;
 }
 
 .content_revistas_mobile {
@@ -8667,7 +8675,7 @@ span.title-app-b {
 }
 .titulo_producto_oferta{
     font-family:'Lato';
-    font-size:16px;
+    font-size:15px;
     font-weight:700;
     color:black;
     text-align:center;
@@ -8696,12 +8704,14 @@ span.title-app-b {
 }
 .content_sub_items{
     overflow:hidden;
+    /*border-top: 1px solid #dadada;*/
    }
 .sub_imagen_oferta{
     width:25%;
     margin-right:5%;
     height:auto;
-    border:1px solid #dadada;
+    min-height: 50px;
+    /*border:1px solid #dadada;*/
     float:left;
 }
 .sub_imagen_oferta img{
@@ -8709,17 +8719,20 @@ span.title-app-b {
 }
 .sub_descripcion_oferta{
     width:70%;
-    height:100%;
-    padding-top:8%;
-    border-top:1px solid #dadada;
-    float:left;
-    font-family:'Lato';
-    font-size:13px;
-    color:black;
-    /*display: flex;
+    min-height: 55px;
+    /* line-height: 55px; */
+    text-align: left;
+    padding-top: 6%; 
+     padding-bottom: 6%;
+    border-bottom: 1px solid #dadada;
+    /* float: left; */
+    font-family: 'Lato';
+    font-size: 13px;
+    color: black;
+    display: flex;
     justify-content: center;
     align-content: center;
-    flex-direction: column;*/
+    flex-direction: column;
     }
 .left_70{
     float:left;
@@ -9083,7 +9096,7 @@ span.icon-advertencia{
     font-size:13px;
     font-weight:300;
     margin-bottom:5px;
-    overflow:hidden;
+    /*overflow:hidden;*/
     
     margin:0 auto;
 }
@@ -9385,10 +9398,10 @@ a{
 }
 
 .content_pack_niveles{
-    border-top:1px solid #979797;
+    /*border-top:1px solid #979797;*/
     width:100%;
     height:auto;
-    padding-top:30px;
+    padding-top:20px;
     padding-bottom: 25px;
 }
 .Subtitulo_oferta{
@@ -9400,7 +9413,7 @@ a{
     margin-bottom: 4px;    
 }
 .content_pack_niveles .sub_descripcion_oferta:nth-child(2){
-    border-top:0px;    
+    border-top: 1px solid #dadada; 
 }
 /**/
 .mensaje_validacion_consultora{
@@ -9435,6 +9448,96 @@ a{
 	border-bottom-color: #f3f3f3;
 	border-width: 10px;
 	margin-left: -10px;
+}
+
+.stock_content{
+    width: 100%;
+    height: auto;
+    padding: 15px;
+    position: relative;
+    background: #fee5e7;
+}
+.stock_content:after {
+	bottom: 100%;
+	left: 30px;
+	border: solid transparent;
+	content: " ";
+	height: 0;
+	width: 0;
+	position: absolute;
+	pointer-events: none;
+	border-color: rgba(136, 183, 213, 0);
+	border-bottom-color: #fee5e7;
+	border-width: 12px;
+	margin-left: -12px;
+    z-index: 20;
+}
+.icono_stock{
+    width: 20px;
+    margin-right: 2%;
+    height: 20px;
+    background-size: cover;
+    background: url(../../../Images/Esika/icono_advertencia_notificacion.png) no-repeat center center;
+    display: inline-block;
+    vertical-align: top;
+    margin-top: 2px;  
+}
+.texto_stock{
+    width: 100%;
+    display: inline-block;
+    vertical-align: top;
+    font-family: 'LAto';
+    font-size: 14px;
+    color:#d20000;
+}
+.btn_no_stock{
+    font-family:'LAto';
+    font-size:13px;
+    float:left;
+    /*margin-left:7%;*/
+    display:block;
+    text-decoration:underline;
+    
+    margin-top: 25px;
+}
+.btn_si_stock{
+    font-family: 'LAto';
+    font-size: 13px;
+    font-weight: 700;
+    float: right;
+    display: block;
+    width: 145px;
+    height: 45px;
+    text-align: center;
+    margin-top: 13px;
+    color: white;
+    background: #e81c36;
+    line-height: 45px;
+}
+.btn_si_stock:hover{
+    color:white;
+}
+.stock_content_agotado{
+    width: 100%;
+    height: auto;
+    padding: 15px;
+    position: relative;
+    background: #f3f3f3;
+}
+.stock_content_agotado:after {
+	bottom: 100%;
+	left: 30px;
+	border: solid transparent;
+	content: " ";
+	height: 0;
+	width: 0;
+	position: absolute;
+	pointer-events: none;
+	border-color: rgba(136, 183, 213, 0);
+	border-bottom-color: #f3f3f3;
+	border-width: 12px;
+	margin-left: -12px;
+    z-index: 20;
 }
 
 .oscurecer_animacion{
@@ -9475,4 +9578,71 @@ a{
         
         
     }
+}
+.icono_telefono{
+       margin-top: -4px;
+    margin-left: 6px;
+    width: 13px;
+    height: 21px;
+    display: inline-block;
+    background: url(../../../Images/Esika/icono_telefono.svg) no-repeat;
+    background-size: cover;
+}
+.content_termino_condiciones{
+    margin-top:10px; 
+    margin-bottom:20px;   
+    margin-left:14px;
+    margin-right:14px;
+    font-family:'Lato';
+    font-size:13px;
+    line-height:20px;
+    color:black;
+}
+.subtitulo_terminos{
+    display:block;
+    font-weight:700;
+    margin-bottom:17px;
+    margin-top:20px;
+}
+
+.fondo_negro_pack {
+    height:41px;
+    background:black;
+    color:white;
+    font-family:'Lato';
+    line-height:41px;
+    font-size:16px;
+    text-align:center;
+    width:82%;
+    position:relative;
+}
+.fondo_negro_pack:before {
+    content: "";
+    width: 0;
+    height: 0;
+    right: -24px;
+    position: absolute;
+    border-right: 12px solid transparent;
+    border-top: 21px solid transparent;
+    border-left: 12px solid black;
+    border-bottom: 20px solid black;
+    }
+.titulo_pack {
+    font-family: 'Lato';
+    font-weight: 700;
+    font-size: 16px;
+    color: black;
+    margin-top: 10px;
+    text-align: center;
+    /*height: 38px;*/
+}
+.sub_descripcion_oferta p span {
+    color: #e81c36;
+    font-size: 22px;
+    /* font-weight: 700; */
+}
+.sub_descripcion_oferta p {
+    margin: 0;
+    padding: 0;
+    /* line-height: normal; */
 }

@@ -251,5 +251,8 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         int UpdateUsuarioTutoriales(int paisID, string codigoUsuario, int tipo);
+
+        [OperationContract]
+        BEUsuario GetDatosConsultoraHana(int paisID, string codigoUsuario, int campaniaId);
     }
 }

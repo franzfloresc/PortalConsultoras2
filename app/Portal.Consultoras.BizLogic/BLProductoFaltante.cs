@@ -1,4 +1,5 @@
 ﻿using Portal.Consultoras.Data;
+using Portal.Consultoras.Data.Hana;
 using Portal.Consultoras.Entities;
 using System;
 using System.Collections.Generic;
@@ -102,13 +103,46 @@ namespace Portal.Consultoras.BizLogic
             var productos = new List<BEProductoFaltante>();
             var DAproductofaltante = new DAProductoFaltante(paisID);
 
-            using (IDataReader reader = DAproductofaltante.GetProductoFaltanteByCampaniaAndZonaID(CampaniaID,ZonaID))
-                while (reader.Read())
+            var BLPais = new BLPais();
+
+            if (!BLPais.EsPaisHana(paisID)) // Validar si informacion de pais es de origen Normal o Hana
+            {               
+                using (IDataReader reader = DAproductofaltante.GetProductoFaltanteByCampaniaAndZonaID(CampaniaID, ZonaID))
+                    while (reader.Read())
+                    {
+                        var prodfal = new BEProductoFaltante(reader);
+                        prodfal.PaisID = paisID;
+                        productos.Add(prodfal);
+                    }
+            }
+            else
+            {
+                var DAHFaltanteAnunciado = new DAHFaltanteAnunciado();
+
+                var productosHana = DAHFaltanteAnunciado.GetProductoFaltanteAnunciado(paisID, CampaniaID);
+                var productosSomosBelcorp = new List<BEProductoFaltante>();
+                using (IDataReader reader = DAproductofaltante.GetOnlyProductoFaltante(CampaniaID, ZonaID))
+                    while (reader.Read())
+                    {
+                        var prodfal = new BEProductoFaltante(reader);                        
+                        productosSomosBelcorp.Add(prodfal);
+                    }
+
+                var listaAgrupada = new List<BEProductoFaltante>();
+                listaAgrupada.AddRange(productosHana);
+                listaAgrupada.AddRange(productosSomosBelcorp);
+
+                foreach (var faltanteAnunciadoHana in productosHana)
                 {
-                    var prodfal = new BEProductoFaltante(reader);
-                    prodfal.PaisID = paisID;
-                    productos.Add(prodfal);
+                    BEProductoFaltante entidad = productosSomosBelcorp.FirstOrDefault(p => p.CUV == faltanteAnunciadoHana.CUV);
+                    if (entidad == null)
+                        productos.Add(faltanteAnunciadoHana);
                 }
+
+                productos.AddRange(productosSomosBelcorp);
+
+                productos = productos.OrderBy(p => p.CUV).ToList();
+            }
 
             return productos;
         }

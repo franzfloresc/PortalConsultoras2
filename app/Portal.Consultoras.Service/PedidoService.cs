@@ -238,6 +238,16 @@ namespace Portal.Consultoras.Service
             return BLPedidoWebDetalle.UpdPedidoWebDetalleMasivo(pedidowebdetalle);
         }
 
+        public void AceptarBackOrderPedidoWebDetalle(BEPedidoWebDetalle pedidowebdetalle)
+        {
+            BLPedidoWebDetalle.AceptarBackOrderPedidoWebDetalle(pedidowebdetalle);
+        }
+
+        public void UpdBackOrderListPedidoWebDetalle(int paisID, int campaniaID, int pedidoID, List<BEPedidoWebDetalle> listPedidoWebDetalle)
+        {
+            BLPedidoWebDetalle.UpdBackOrderListPedidoWebDetalle(paisID, campaniaID, pedidoID, listPedidoWebDetalle);
+        }
+
         public IList<BEPedidoWebDetalle> SelectByPedidoValidado(int paisID, int CampaniaID, long ConsultoraID, string Consultora)
         {
             return BLPedidoWebDetalle.GetPedidoWebDetalleByPedidoValidado(paisID, CampaniaID, ConsultoraID, Consultora);
@@ -1456,9 +1466,9 @@ namespace Portal.Consultoras.Service
             BLShowRoomEvento.UpdateShowRoomConsultoraMostrarPopup(paisID, campaniaID, codigoConsultora, mostrarPopup);
         }
 
-        public IList<BEShowRoomOferta> GetProductosShowRoom(int paisID, int tipoOfertaSisID, int campaniaID, string codigoOferta)
+        public IList<BEShowRoomOferta> GetProductosShowRoom(int paisID, int campaniaID)
         {
-            return BLShowRoomEvento.GetProductosShowRoom(paisID, tipoOfertaSisID, campaniaID, codigoOferta);
+            return BLShowRoomEvento.GetProductosShowRoom(paisID, campaniaID);
         }
 
         public int GetOrdenPriorizacionShowRoom(int paisID, int ConfiguracionOfertaID, int CampaniaID)
@@ -1629,9 +1639,9 @@ namespace Portal.Consultoras.Service
             return BLPedidoWeb.GetPedidosFacturados(paisId, codigoConsultora);
         }
 
-        public List<BEPedidoWeb> GetPedidosIngresadoFacturado(int paisID, int consultoraID, int campaniaID)
+        public List<BEPedidoWeb> GetPedidosIngresadoFacturado(int paisID, int consultoraID, int campaniaID, string codigoConsultora)
         {
-            return BLPedidoWeb.GetPedidosIngresadoFacturado(paisID, consultoraID, campaniaID);
+            return BLPedidoWeb.GetPedidosIngresadoFacturado(paisID, consultoraID, campaniaID, codigoConsultora);
         }
 
         /*GR2089*/
@@ -1663,6 +1673,11 @@ namespace Portal.Consultoras.Service
         public void InsLogOfertaFinal(int PaisID, int CampaniaID, string CodigoConsultora, string CUV, int cantidad, string tipoOfertaFinal, decimal GAP, int tipoRegistro)
         {
             BLPedidoWeb.InsLogOfertaFinal(PaisID, CampaniaID, CodigoConsultora, CUV, cantidad, tipoOfertaFinal, GAP, tipoRegistro);
+        }
+
+        public List<BEPedidoWeb> GetPedidosFacturadoSegunDias(int paisID, int campaniaID, long consultoraID, int maxDias)
+        {
+            return BLPedidoWeb.GetPedidosFacturadoSegunDias(paisID, campaniaID, consultoraID, maxDias);
         }
     }
 }

@@ -104,7 +104,9 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Models
                     TipoPedido = detalleWeb.TipoPedido,
                     ConfiguracionOfertaID = detalleWeb.ConfiguracionOfertaID,
                     IndicadorOfertaCUV = detalleWeb.IndicadorOfertaCUV,
-                    TipoObservacion = detalleWeb.TipoObservacion
+                    TipoObservacion = detalleWeb.TipoObservacion,
+                    EsBackOrder = detalleWeb.EsBackOrder,
+                    AceptoBackOrder = detalleWeb.AceptoBackOrder
                 });
             }
         }

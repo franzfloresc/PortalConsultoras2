@@ -651,6 +651,15 @@ namespace Portal.Consultoras.Data
             return Context.ExecuteReader(command);
         }
 
+        public IDataReader GetPedidosIngresado(int consultoraID, int campaniaID)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetPedidosIngresado_SB2");
+            Context.Database.AddInParameter(command, "@ConsultoraID", DbType.Int32, consultoraID);
+            Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, campaniaID);
+
+            return Context.ExecuteReader(command);
+        }
+
         public void InsLogOfertaFinal(int CampaniaID, string CodigoConsultora, string CUV, int cantidad, string tipoOfertaFinal, decimal GAP, int tipoRegistro)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.registrarLogOfertaFinal_SB2");
@@ -663,6 +672,16 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@TipoRegistro", DbType.Int32, tipoRegistro);
 
             Context.ExecuteNonQuery(command);
-        }                    
+        }
+
+        public IDataReader GetPedidosFacturadoSegunDias(int campaniaID, long consultoraID, int maxDias)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetPedidosFacturadoSegunDias_SB2");
+            Context.Database.AddInParameter(command, "@ConsultoraID", DbType.Int32, consultoraID);
+            Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, campaniaID);
+            Context.Database.AddInParameter(command, "@maxDias", DbType.Int32, maxDias);
+
+            return Context.ExecuteReader(command);
+        }            
     }
 }

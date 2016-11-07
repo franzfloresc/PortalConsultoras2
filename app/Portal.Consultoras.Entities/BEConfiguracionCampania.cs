@@ -86,6 +86,9 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public int IndicadorRechazado { get; set; }
 
+        [DataMember]
+        public DateTime FechaActualPais { get; set; }
+
         public BEConfiguracionCampania(IDataRecord datarec)
         {
             if (DataRecord.HasColumn(datarec, "CampaniaID") && datarec["CampaniaID"] != DBNull.Value)
@@ -163,6 +166,8 @@ namespace Portal.Consultoras.Entities
                 IndicadorEnviado = Convert.ToInt32(datarec["IndicadorEnviado"]);
             if (DataRecord.HasColumn(datarec, "IndicadorRechazado") && datarec["IndicadorRechazado"] != DBNull.Value)
                 IndicadorRechazado = Convert.ToInt32(datarec["IndicadorRechazado"]);
+            if (DataRecord.HasColumn(datarec, "FechaActualPais"))
+                FechaActualPais = Convert.ToDateTime(datarec["FechaActualPais"]);
         }
 
     }
