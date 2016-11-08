@@ -207,5 +207,11 @@ namespace Portal.Consultoras.Service
         {
             return BLProducto.SelectProductoToKitInicio(paisID, campaniaID, cuv);
         }
+
+        public string GetNombreProducto048ByCuv(int paisID, int campaniaId, string cuv)
+        {
+            return BLProducto.GetNombreProducto048ByCuv(paisID, campaniaId, cuv);
+        }
+        
     }
 }

@@ -177,7 +177,8 @@ function GetProductoEntidad(id) {
         DescripcionProd: $("#DescripcionProd_" + id).val(),
         PrecioUnidad: $("#PrecioUnidad_" + id).val(),
         MarcaID: $("#MarcaID_" + id).val(),
-        DescripcionOferta: $("#DescripcionOferta_" + id).val()
+        DescripcionOferta: $("#DescripcionOferta_" + id).val(),
+        EsBackOrder: $("#EsBackOrder_" + id).val()
     };
 }
 
@@ -192,11 +193,11 @@ function UpdateLiquidacionEvento(evento) {
 
     var obj = GetProductoEntidad(id);
 
-    UpdateLiquidacionSegunTipoOfertaSis(obj.CampaniaID, obj.PedidoID, obj.PedidoDetalleID, obj.TipoOfertaSisID, obj.CUV, obj.FlagValidacion, obj.CantidadInicial);
+    UpdateLiquidacionSegunTipoOfertaSis(obj.CampaniaID, obj.PedidoID, obj.PedidoDetalleID, obj.TipoOfertaSisID, obj.CUV, obj.FlagValidacion, obj.CantidadInicial, obj.EsBackOrder);
 
 }
 
-function UpdateLiquidacionSegunTipoOfertaSis(CampaniaID, PedidoID, PedidoDetalleID, TipoOfertaSisID, CUV, FlagValidacion, CantidadModi) {
+function UpdateLiquidacionSegunTipoOfertaSis(CampaniaID, PedidoID, PedidoDetalleID, TipoOfertaSisID, CUV, FlagValidacion, CantidadModi, EsBackOrder) {
 
     var urlAccion = TipoOfertaSisID == ofertaLiquidacion
         ? urlValidarUnidadesPermitidasPedidoProducto
@@ -222,7 +223,7 @@ function UpdateLiquidacionSegunTipoOfertaSis(CampaniaID, PedidoID, PedidoDetalle
 
     urls.urlValidarUnidadesPermitidas = $.trim(urls.urlValidarUnidadesPermitidas);
     if (urls.urlValidarUnidadesPermitidas != "") {
-        UpdateLiquidacionTipoOfertaSis(urls, CampaniaID, PedidoID, PedidoDetalleID, TipoOfertaSisID, CUV, FlagValidacion, CantidadModi);
+        UpdateLiquidacionTipoOfertaSis(urls, CampaniaID, PedidoID, PedidoDetalleID, TipoOfertaSisID, CUV, FlagValidacion, CantidadModi, EsBackOrder);
     }
     else {
 
@@ -267,7 +268,7 @@ function UpdateLiquidacionSegunTipoOfertaSis(CampaniaID, PedidoID, PedidoDetalle
                     return false;
                 }
 
-                Update(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion, CUV);
+                Update(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion, CUV, EsBackOrder);
                 
             },
             error: function (data, error) {
@@ -279,7 +280,7 @@ function UpdateLiquidacionSegunTipoOfertaSis(CampaniaID, PedidoID, PedidoDetalle
     }
 }
 
-function UpdateLiquidacionTipoOfertaSis(urls ,CampaniaID, PedidoID, PedidoDetalleID, TipoOfertaSisID, CUV, FlagValidacion, CantidadModi) {
+function UpdateLiquidacionTipoOfertaSis(urls, CampaniaID, PedidoID, PedidoDetalleID, TipoOfertaSisID, CUV, FlagValidacion, CantidadModi, EsBackOrder) {
 
     var cantidadActual = parseInt($('#Cantidad_' + PedidoDetalleID).val());
     var cantidadAnterior = parseInt($('#CantidadTemporal_' + PedidoDetalleID).val());
@@ -339,7 +340,7 @@ function UpdateLiquidacionTipoOfertaSis(urls ,CampaniaID, PedidoID, PedidoDetall
 
         if (parseInt(data.UnidadesPermitidas) < Cantidad) {
             if (PROL == "1") {
-                UpdateConCantidad(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion, CantidadModi, CUV);
+                UpdateConCantidad(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion, CantidadModi, CUV, EsBackOrder);
                 $('#Cantidad_' + PedidoDetalleID).val(CantidadModi);
             } else
                 $('#Cantidad_' + PedidoDetalleID).val($('#CantidadTemporal_' + PedidoDetalleID).val());
@@ -362,7 +363,7 @@ function UpdateLiquidacionTipoOfertaSis(urls ,CampaniaID, PedidoID, PedidoDetall
             var CantidadaValidar = CantidadActual - cantidadAnterior;
             if (parseInt(data.Stock) < CantidadaValidar) {
                 if (PROL == "1") {
-                    UpdateConCantidad(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion, CantidadModi, CUV);
+                    UpdateConCantidad(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion, CantidadModi, CUV, EsBackOrder);
                     $('#Cantidad_' + PedidoDetalleID).val(CantidadModi);
                 } else
                     $('#Cantidad_' + PedidoDetalleID).val($('#CantidadTemporal_' + PedidoDetalleID).val());
@@ -392,18 +393,17 @@ function UpdateLiquidacionTipoOfertaSis(urls ,CampaniaID, PedidoID, PedidoDetall
                 Flag: Flag,
                 TipoOfertaSisID: TipoOfertaSisID,
                 CUV: CUV,
-                ClienteID_: "-1"
+                ClienteID_: "-1",
+                EsBackOrder: EsBackOrder
             };
 
             PedidoUpdate(item, PROL);
-
         });
-
     });
 
 }
 
-function UpdateConCantidad(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion, CantidadModi, CUV) {
+function UpdateConCantidad(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion, CantidadModi, CUV, EsBackOrder) {
 
     var CliID = $('#ClienteID_' + PedidoDetalleID).val();
     var CliDes = $('#ClienteNombre_' + PedidoDetalleID).val();
@@ -446,7 +446,8 @@ function UpdateConCantidad(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion
         ClienteDescripcion: CliDes,
         DescripcionProd: DesProd,
         ClienteID_: "-1",
-        CUV: CUV
+        CUV: CUV,
+        EsBackOrder: EsBackOrder
     };
     PedidoUpdate(item);
 }
@@ -455,7 +456,7 @@ function UpdateConCantidad(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion
 
 // Eliminar detalle pedido
 
-function EliminarPedidoEvento(evento) {
+function EliminarPedidoEvento(evento, esBackOrder) {
     var obj = $(evento.currentTarget);
     var id = $.trim(obj.attr("data-pedidodetalleid")) || "0";
     if (parseInt(id, 10) <= 0 || parseInt(id, 10) == NaN) {
@@ -464,11 +465,10 @@ function EliminarPedidoEvento(evento) {
 
     var obj = GetProductoEntidad(id);
     
-    EliminarPedido(obj.CampaniaID, obj.PedidoID, obj.PedidoDetalleID, obj.TipoOfertaSisID, obj.CUV, obj.CantidadInicial, obj.DescripcionProd, obj.PrecioUnidad, obj.MarcaID, obj.DescripcionOferta);
-
+    EliminarPedido(obj.CampaniaID, obj.PedidoID, obj.PedidoDetalleID, obj.TipoOfertaSisID, obj.CUV, obj.CantidadInicial, obj.DescripcionProd, obj.PrecioUnidad, obj.MarcaID, obj.DescripcionOferta, esBackOrder);
 }
 
-function EliminarPedido(CampaniaID, PedidoID, PedidoDetalleID, TipoOfertaSisID, CUV, Cantidad, DescripcionProd, PrecioUnidad, MarcaID, DescripcionOferta) {
+function EliminarPedido(CampaniaID, PedidoID, PedidoDetalleID, TipoOfertaSisID, CUV, Cantidad, DescripcionProd, PrecioUnidad, MarcaID, DescripcionOferta, esBackOrder) {
 
     $("#popup-eliminar-item").show();
 
@@ -486,11 +486,11 @@ function EliminarPedido(CampaniaID, PedidoID, PedidoDetalleID, TipoOfertaSisID, 
             RegistrosDe: 0,
             RegostrosTotal: 0,
             ClienteID: "-1",
-            CUVReco: ""
+            CUVReco: "",
+            EsBackOrder: esBackOrder == 'true'
         });
 
         ShowLoading();
-
         jQuery.ajax({
             type: 'POST',
             url: urlPedidoDelete,
@@ -500,8 +500,7 @@ function EliminarPedido(CampaniaID, PedidoID, PedidoDetalleID, TipoOfertaSisID, 
             async: true,
             success: function (data) {
                 CloseLoading();
-                if (!checkTimeout(data))
-                    return false;
+                if (!checkTimeout(data)) return false;
 
                 if (data.success != true) {
                     messageInfoError(data.message);
@@ -548,6 +547,43 @@ function ConfirmaEliminarPedido() {
     if ($.isFunction(fnEliminarProducto)) {
         fnEliminarProducto();
     }
+}
+
+function AceptarBackOrder(campaniaId, pedidoId, pedidoDetalleId, clienteId) {
+    if (ReservadoOEnHorarioRestringido(true)) {
+        return false;
+    }
+
+    var param = {
+        CampaniaID: campaniaId,
+        PedidoID: pedidoId,
+        PedidoDetalleID: pedidoDetalleId,
+        ClienteID_: clienteId
+    };
+
+    ShowLoading();
+    jQuery.ajax({
+        type: 'POST',
+        url: urlPedidoAceptarBackOrder,
+        dataType: 'json',
+        contentType: 'application/json; charset=utf-8',
+        data: JSON.stringify(param),
+        async: true,
+        success: function (data) {
+            ShowLoading();
+            if (!checkTimeout(data)) return false;
+            if (data.success != true) {
+                alert_msg(data.message);
+                return false;
+            }
+
+            ShowLoading();
+            ActualizarGanancia(data.DataBarra);
+            CargarPedido();
+            CloseLoading();
+        },
+        error: function (data, error) { CloseLoading(); }
+    });
 }
 
 function messageDelete(message) {
@@ -717,8 +753,7 @@ function HorarioRestringido(mostrarAlerta) {
 // Fin validaciones
 
 // Actualizar
-function Update(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion, CUV) {
-
+function Update(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion, CUV, EsBackOrder) {
     var CliID = $('#ClienteID_' + PedidoDetalleID).val();
     var CliDes = $('#ClienteNombre_' + PedidoDetalleID).val();
     var Cantidad = $('#Cantidad_' + PedidoDetalleID).val();
@@ -763,7 +798,8 @@ function Update(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion, CUV) {
         ClienteDescripcion: CliDes,
         DescripcionProd: DesProd,
         ClienteID_: "-1",
-        CUV: CUV
+        CUV: CUV,
+        EsBackOrder: EsBackOrder
     };
 
     PedidoUpdate(item);
@@ -794,9 +830,9 @@ function PedidoUpdate(item, PROL) {
 
             ActualizarGanancia(data.DataBarra);
                     
-            if (PROL == "0")
-                $('#CantidadTemporal_' + item.PedidoDetalleID).val($('#Cantidad_' + item.PedidoDetalleID).val());
+            if (PROL == "0") $('#CantidadTemporal_' + item.PedidoDetalleID).val($('#Cantidad_' + item.PedidoDetalleID).val());
             CargarPedido();
+            if (item.EsBackOrder == 'true') messageInfo('Recuerda que debes volver a validar tu pedido.');
                     
             var diferenciaCantidades = parseInt(Cantidad) - parseInt(CantidadAnti);
             if (diferenciaCantidades > 0)
@@ -977,6 +1013,9 @@ function RespuestaEjecutarServicioPROL(response, inicio) {
     inicio = inicio == null || inicio == undefined ? true : inicio;
     var model = response.data;
 
+    var montoEscala = model.MontoEscala;
+    var montoPedido = model.Total - model.MontoDescuento;
+
     CloseLoading();
 
     if (!model.ValidacionInteractiva) {
@@ -1006,7 +1045,7 @@ function RespuestaEjecutarServicioPROL(response, inicio) {
     if (model.Reserva != true) {
         if (inicio) {
             var tipoMensaje = codigoMensajeProl == "00" ? 1 : 2;
-            cumpleOferta = CumpleOfertaFinalMostrar(response.data.MontoEscala, tipoMensaje, codigoMensajeProl, response.data.ListaObservacionesProl);
+            cumpleOferta = CumpleOfertaFinalMostrar(montoPedido, montoEscala, tipoMensaje, codigoMensajeProl, response.data.ListaObservacionesProl);
         }        
         if (!cumpleOferta.resultado) {
             $('#modal-prol-botonesAceptarCancelar').hide();
@@ -1023,7 +1062,7 @@ function RespuestaEjecutarServicioPROL(response, inicio) {
 
         if (model.ObservacionInformativa == false) {
             if (inicio) {
-                cumpleOferta = CumpleOfertaFinalMostrar(response.data.MontoEscala, 1, codigoMensajeProl, response.data.ListaObservacionesProl);
+                cumpleOferta = CumpleOfertaFinalMostrar(montoPedido, montoEscala, 1, codigoMensajeProl, response.data.ListaObservacionesProl);
             }
 
             if (cumpleOferta.resultado) {
@@ -1050,7 +1089,7 @@ function RespuestaEjecutarServicioPROL(response, inicio) {
 
         if (inicio) {
             var tipoMensaje = codigoMensajeProl == "00" ? 1 : 2;
-            cumpleOferta = CumpleOfertaFinalMostrar(response.data.MontoEscala, tipoMensaje, codigoMensajeProl, response.data.ListaObservacionesProl);
+            cumpleOferta = CumpleOfertaFinalMostrar(montoPedido, montoEscala, tipoMensaje, codigoMensajeProl, response.data.ListaObservacionesProl);
         }
         
         if (cumpleOferta.resultado) {
@@ -1065,7 +1104,7 @@ function RespuestaEjecutarServicioPROL(response, inicio) {
         return true;
     }
     if (inicio) {
-        cumpleOferta = CumpleOfertaFinalMostrar(response.data.MontoEscala, 1, codigoMensajeProl, response.data.ListaObservacionesProl);
+        cumpleOferta = CumpleOfertaFinalMostrar(montoPedido, montoEscala, 1, codigoMensajeProl, response.data.ListaObservacionesProl);
     }
     
     if (!cumpleOferta.resultado) {
@@ -1138,30 +1177,35 @@ function ConstruirObservacionesPROL(model) {
     }
 
     var htmlObservacionesPROL = "<ul style='padding-left: 15px; list-style-type: none; text-align: center;'>";
-    $.each(model.ListaObservacionesProl, function (index, item) {
-
-        if (model.CodigoIso == "BO" || model.CodigoIso == "MX") {
-
-            if (item.Caso == 6 || item.Caso == 8 || item.Caso == 9 || item.Caso == 10) {
-                item.Caso = 105;
+    if (model.ListaObservacionesProl.length == 0) {
+        htmlObservacionesPROL += "<li>Tu pedido tiene observaciones, por favor revísalo.</li>";
+        mensajePedido += "-1" + " " + "Tu pedido tiene observaciones, por favor revísalo." + " ";
+    }
+    else {
+        $.each(model.ListaObservacionesProl, function (index, item) {
+            if (model.CodigoIso == "BO" || model.CodigoIso == "MX") {
+                if (item.Caso == 6 || item.Caso == 8 || item.Caso == 9 || item.Caso == 10) {
+                    item.Caso = 105;
+                }
             }
-        }
 
-        if (item.Caso == 95 || item.Caso == 105) {
-            htmlObservacionesPROL += "<li>" + item.Descripcion + "</li>";
-            mensajePedido += item.Caso + " " + item.Descripcion + " ";
-            return false;
-        } else {
-            if (menuNotificaciones == 0 && item.Caso == 0 && model.ObservacionInformativa) {
+            if (item.Caso == 95 || item.Caso == 105) {
                 htmlObservacionesPROL += "<li>" + item.Descripcion + "</li>";
                 mensajePedido += item.Caso + " " + item.Descripcion + " ";
-            } else {
-                htmlObservacionesPROL += "<li>Tu pedido tiene observaciones, por favor revísalo.</li>";
-                mensajePedido += "-1" + " " + "Tu pedido tiene observaciones, por favor revísalo." + " ";
                 return false;
             }
-        }
-    });
+            else {
+                if (menuNotificaciones == 0 && item.Caso == 0 && model.ObservacionInformativa) {
+                    htmlObservacionesPROL += "<li>" + item.Descripcion + "</li>";
+                    mensajePedido += item.Caso + " " + item.Descripcion + " ";
+                } else {
+                    htmlObservacionesPROL += "<li>Tu pedido tiene observaciones, por favor revísalo.</li>";
+                    mensajePedido += "-1" + " " + "Tu pedido tiene observaciones, por favor revísalo." + " ";
+                    return false;
+                }
+            }
+        });
+    }
     htmlObservacionesPROL += "</ul>";
 
     $("#modal-prol-contenido").html(htmlObservacionesPROL);

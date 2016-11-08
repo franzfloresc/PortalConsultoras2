@@ -16,24 +16,6 @@
 
 <input type="hidden" id="hdTipoEstrategiaID" value="0" />
 
-<div class="envolvente_pop_up">
-    <div class="pop_liquidacion_home" id="pop_liquidacion" style="display: none;">
-        <div class="check_liquidacion"><img src="@Url.Content("~/Content/Images/Esika/check_liquidacion.png")" /></div>
-        <div class="titulo_liquidacion">
-            ¡PRODUCTO AGREGADO SATISFACTORIAMENTE!
-        </div>
-        <hr class="clear" />
-        <div id="contenedorProductoAgregado" class="imagen_pop_l"><img id="imgProductoAgregado" src="" alt="" /></div>
-        <div class="info_pop_liquidacion">
-            <h1 id="nombreProductoAgregado"></h1>
-            <h2><span id="cantidadProductoAgregado"></span> unidades</h2>
-            <p>@ViewBag.Simbolo <span id="totalProductoAgregado"></span></p>
-        </div>
-        <hr class="clear" />
-        <a href="javascript:;" onclick="javascript: $('#pop_liquidacion').hide();" class="boton_pop_up">CERRAR</a>
-    </div>
-</div>
-
 <div class="content_slider_home">
     <div id="sliderHomeLoading" class="center">
         <br />
@@ -41,9 +23,7 @@
         <br />
     </div>
     <div class="flexslider">
-        <ul class="slides">
-
-        </ul>
+        <ul class="slides"></ul>
     </div>
 </div>
 
@@ -51,17 +31,17 @@
     <div class="content_datos">
         <div class="contenedor_img_perfil" style="display:none">
             @*<a class="subir_foto">
-                <div class="tooltip_foto">
-                    Prepara tu foto, pronto podrás subirla a tu portal.
-                </div>
-            </a>
-            <div class="foto_perfil_home">
-                <img id="imgFotoUsuario" src="@Model.ImagenUsuario" alt="" />
-                <img id="imgFotoUsuarioDefault" src="@Url.Content("~/Content/Images/Esika/user.jpg")" style="display:none;" />
-                <div class="tooltip_foto">
-                    Prepara tu foto, pronto podrás subirla a tu portal.
-                </div>
-            </div>*@
+                    <div class="tooltip_foto">
+                        Prepara tu foto, pronto podrás subirla a tu portal.
+                    </div>
+                </a>
+                <div class="foto_perfil_home">
+                    <img id="imgFotoUsuario" src="@Model.ImagenUsuario" alt="" />
+                    <img id="imgFotoUsuarioDefault" src="@Url.Content("~/Content/Images/Esika/user.jpg")" style="display:none;" />
+                    <div class="tooltip_foto">
+                        Prepara tu foto, pronto podrás subirla a tu portal.
+                    </div>
+                </div>*@
             <div class="clear"></div>
         </div>
         <div class="resumen_belcorp_cam">
@@ -136,12 +116,12 @@
                 </a>
             </div>
             <div class="mensajes_home"><span id="mensajeNotificaciones">Tienes <span class="js-cantidad_notificaciones">-</span> notificaciones sin leer. </span><a role="link" region="Cuerpo" parent="Ver Notificaciones" title="Abrir" onclick="Notificaciones();">ABRIR</a></div>
-            
+
             <hr class="clear" />
 
-            <a role="link" region="Cuerpo" parent="Seguimiento a tu Pedido" title="Seguimiento a tu Pedido" class="seguir_pedido" href="@Url.Action("Index", "Tracking")">SEGUIMIENTO<br/> A TU PEDIDO</a>
-            <a role="link" region="Cuerpo" parent="Mira el Video de Bienvenida" title="Mira el Video de Bienvenida" class="seguir_pedido ver_video_introductorio">MIRA EL VIDEO<br/> DE BIENVENIDA</a>
-            
+            <a role="link" region="Cuerpo" parent="Seguimiento a tu Pedido" title="Seguimiento a tu Pedido" class="seguir_pedido" href="@Url.Action("Index", "Tracking")">SEGUIMIENTO<br /> A TU PEDIDO</a>
+            <a role="link" region="Cuerpo" parent="Mira el Video de Bienvenida" title="Mira el Video de Bienvenida" class="seguir_pedido ver_video_introductorio">MIRA EL VIDEO<br /> DE BIENVENIDA</a>
+
             @if (ViewBag.IndicadorPermisoFIC == 1)
             {
                 <a class="seguir_pedido" href="@Url.Action("Index","PedidoFIC")">INGRESA TU PEDIDO FIC</a>
@@ -165,7 +145,7 @@
             <!-- AÑADIR LA CLASES "mt_47" PARA CENTRAR LA INFORMACIÓN -->
             Mi deuda actual es:
             <div class="deuda_home" id="spanDeuda">
-                @Model.Simbolo 
+                @Model.Simbolo
                 <span>@Util.DecimalToStringFormat(Model.MontoDeuda, Model.PrefijoPais)</span>
             </div>
             <span>Vencimiento: <span id="spanVencimiento">@Model.FechaVencimiento</span></span>
@@ -300,7 +280,6 @@
         <div class="item_video_left">
             <div class="item_video">
             </div>
-            @*CONVI&Eacute;RTETE EN UNA VERDADERA COACH DE BELLEZA*@
         </div>
 
         <div class="item_video_right">
@@ -313,7 +292,6 @@
     <div class="content_video_home sinTutoriales" style="display:none;@(Model.PrefijoPais == "VE" ? "width:100%;" : "")" id="divSinTutoriales">
         <div class="titulo_video">
             <div>MI ACADEMIA</div>
-            @*<a role="link" region="Cuerpo" parent="Mi Academia" title="Ver más" href="@Url.Action("Index", "MiAcademia")" class="ver_mas_video">VER M&Aacute;S +</a>*@
         </div>
         <div class="item_video_left">
             <div class="item_video">
@@ -323,9 +301,6 @@
             <h2 class="titulo_creceTusVentas">HAZ CRECER TUS VENTAS aprendiendo todos los secretos del éxito.</h2>
             <div class="contenedor_ir_miAcademia">
                 <span>Por el momento no contamos con tutoriales disponibles.</span>
-                @*<a role="link" region="Cuerpo" parent="Mi Academia" title="Ir a Mi Academia" href="@Url.Action("Index", "MiAcademia")">
-                    <span role="link" region="Cuerpo" parent="Mi Academia" title="Ir a Mi Academia" class="icono_arrow">&#9658;</span><span role="link" region="Cuerpo" parent="Mi Academia" title="Ir a Mi Academia">IR A "MI ACADEMIA"</span>
-                </a>*@
             </div>
         </div>
     </div>
@@ -373,7 +348,6 @@
 </div>
 <div class="flecha_scroll">
     <a href="#" title="Flecha Scroll" class="enlace_scroll">
-        @*<img src="@Url.Content("~/Content/Images/flecha_scroll.svg")" alt="Flecha Scroll" />*@
     </a>
 </div>
 <div>
@@ -550,7 +524,7 @@
             <img id="imgSuenioConfirmacion" src="@Url.Content("~/Content/Images/Pop Up Navidad 2-04.png")" />
             <a href="javascript:void(0)" onclick="cerrarSuenioConfirmacion();" class="close"><span class="ui-icon ui-icon-closethick">close</span></a>
         </div>*@
-    <!-- FIN POPUP SUEÑOS NAVIDAD -->    
+    <!-- FIN POPUP SUEÑOS NAVIDAD -->
 </div>
 <!-- DIV PARA FUNCIONALIDAD DE AGREGAR PRODUCTO DESDE CAROUSEL HORIZONTAL-->
 <div id="divVistaPrevia" class="Content_modal_ZE" style="display: none; background-color: #fff; overflow: hidden;">
@@ -704,6 +678,7 @@
 <!-- FIN POPUP DETALLE CARRUSEL OFERTAS PARA TI PACK NUEVAS -->
 <!-- POPUPs HOME -->
 <div class="contenedor_fondo_popup" id="fondoComunPopUp" style="display:none;">
+    <!-- POPUP VIDEO INTRODUCTORIO -->
     <div class="popup_video_introductorio" style="display:none;" id="videoIntroductorio">
         <div class="contenedor_video_introductorio">
             <div id="divPlayer"></div>
@@ -752,37 +727,7 @@
             </a>
         </div>
     </div>
-    
-    <div class="popup_actualizarMisDatos" id="CamaraIntroductoria" style="display: none;">
-        <div class="btn_cerrar_actualizarMisDatos">
-            <a href="javascript:CerrarCamara();" id="" title="Cerrar">
-                <img src="@Url.Content("~/Content/Images/btn_cerrar_popup.svg")" alt="Cerrar" />
-                <span class="texto_btn_cerrar">CERRAR</span>
-            </a>
-        </div>
-        <div class="contenido_popUp">
-            <style type="text/css">
-                #btnTomarFoto, #btnSubirFoto {
-                    margin-top: 15px;
-                    margin-right: 15px;
-                }
-                .results {
-                    margin: 20px;
-                    padding: 20px;
-                    border: 1px solid;
-                    background: #ccc;
-                }
-            </style>
-
-            <div id="my_camera"></div>
-            <input type="button" value="Tomar Foto" onclick="TomarFoto()">
-            <div class="results"><img id="imgFotoTomada"/></div>
-            @*<input type="button" id="btnSubirFoto" value="Subir Foto" onclick="SubirFoto()">*@
-            <div class="results"><div id="demo"></div></div>          
-            <input type="button" value="Cortar Foto" onclick="CortarFoto()">  
-        </div>
-    </div>
-
+    <!-- FIN POPUP VIDEO INTRODUCTORIO -->
     <!-- POPUP ACTUALIZACIÓN DATOS -->
     <div class="popup_actualizarMisDatos" id="popupActualizarMisDatosMexico" style="display: none;">
         <div class="btn_cerrar_actualizarMisDatos">
@@ -822,7 +767,7 @@
                 </div>
                 <div class="grupo_input_actualizarMisDatos">
                     <div>
-                        <label><span class="asterisco_actualizar_datos"></span>Teléfono de trabajo</label>
+                        <label><span class="asterisco_actualizar_datos"></span>Otro teléfono</label>
                         <input type="text" name="m_txtTelefonoTrabajo" id="m_txtTelefonoTrabajo" class="requerido" maxlength="10" placeholder="Número incluye lada (10 dígitos)" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" value="@Model.TelefonoTrabajo" />
                     </div>
                     <div>
@@ -878,7 +823,7 @@
                         <input type="text" name="celular" id="txtCelular" value="@Model.Celular" />
                     </div>
                     <div>
-                        <label>Teléfono de trabajo</label>
+                        <label>Otro teléfono</label>
                         <input type="text" name="telefonoTrabajo" id="txtTelefonoTrabajo" value="@Model.TelefonoTrabajo" />
                     </div>
                 </div>
@@ -906,7 +851,18 @@
                     <div class="checkbox_condiciones">
                         <input type="checkbox" name="condiciones" id="chkAceptoContrato" />
                         <label for="chkAceptoContrato" class="texto_terminosCondiciones">
-                            Declaro que he leído los <span><a href="javascript:;" id="hrefTerminos">términos y condiciones</a></span> sobre Protección de Datos Personales y que me encuentro de acuerdo con los mismos.
+                            @if (Model.PaisID == 4)
+                            {
+                                <text>
+                                    Acepto recibir la factura a través de medios electrónicos como email y SomosBelcorp.<br />
+                                    Me comprometo a cumplir con las obligaciones tributarias derivadas de la aceptación y a conservar copia de la factura.<br />
+                                    También declaro que he leído los <span><a href="javascript:;" id="hrefTerminos"> términos y condiciones</a></span> sobre Protección de Datos Personales y que me encuentro de acuerdo con los mismos.
+                                </text>
+                            }
+                            else
+                            {
+                                <text>Declaro que he leído los <span><a href="javascript:;" id="hrefTerminos">términos y condiciones</a></span> sobre Protección de Datos Personales y que me encuentro de acuerdo con los mismos.</text>
+                            }
                         </label>
                     </div>
                 </div>
@@ -1085,7 +1041,7 @@
                 </div>
                 <div class="grupo_input_actualizarMisDatos campos_actualizarDatos">
                     <div>
-                        <label><span class="asterisco_actualizar_datos"></span>Tu teléfono de trabajo:</label>
+                        <label><span class="asterisco_actualizar_datos"></span>Otro teléfono:</label>
                         <input type="text" name="txtTelefonoTrabajoMD" id="txtTelefonoTrabajoMD" />
                     </div>
                 </div>
@@ -1139,7 +1095,6 @@
         </div>
     </div>
     <!-- FIN POPUP MIS DATOS -->
-
     <!-- POPUP TUTORIAL HOME-->
     <div id="popup_tutorial_home" style="display: none;">
         <div class="popup_tutorial_home" style="position: relative; margin: 0 auto; display: block; min-width: 900px !important;">
@@ -1166,13 +1121,42 @@
         </div>
     </div>
     <!-- FIN POPUP TUTORIAL -->
-
     <!-- POPUP COMUNICADOS -->
     <div id="popupComunicados" style="display:none;"></div>
     <!-- FIN POPUP COMUNICADOS -->
 </div>
 <!-- FIN POPUP POPUPs HOME -->
 <!--POP UP FOTO CARGADA-->
+<div class="popup_actualizarMisDatos" id="CamaraIntroductoria" style="display: none;">
+    <div class="btn_cerrar_actualizarMisDatos">
+        <a href="javascript:CerrarCamara();" id="" title="Cerrar">
+            <img src="@Url.Content("~/Content/Images/btn_cerrar_popup.svg")" alt="Cerrar" />
+            <span class="texto_btn_cerrar">CERRAR</span>
+        </a>
+    </div>
+    <div class="contenido_popUp">
+        <style type="text/css">
+            #btnTomarFoto, #btnSubirFoto {
+                margin-top: 15px;
+                margin-right: 15px;
+            }
+
+            .results {
+                margin: 20px;
+                padding: 20px;
+                border: 1px solid;
+                background: #ccc;
+            }
+        </style>
+
+        <div id="my_camera"></div>
+        <input type="button" value="Tomar Foto" onclick="TomarFoto()">
+        <div class="results"><img id="imgFotoTomada" /></div>
+        @*<input type="button" id="btnSubirFoto" value="Subir Foto" onclick="SubirFoto()">*@
+        <div class="results"><div id="demo"></div></div>
+        <input type="button" value="Cortar Foto" onclick="CortarFoto()">
+    </div>
+</div>
 <div id="PopUpFotoCargada" class="CompartirCorreoPop" style="display:none">
     <div class="content_foto_cargada">
         <a class="cerrar_compartir" href="javascript:;" onclick="javascript: $('#PopUpFotoCargada').hide();">
@@ -1180,12 +1164,12 @@
         </a>
         <div class="titulo_pop_foto">MI <b>FOTO</b></div>
         <div class="content_foto_usuario">
-            <div class="foto_usuaria_desktop"><img src="@Url.Content("~/Content/Images/Esika/user.jpg")"/></div>
+            <div class="foto_usuaria_desktop"><img src="@Url.Content("~/Content/Images/Esika/user.jpg")" /></div>
         </div>
         <a class="btn_tomar_foto">TOMAR FOTO</a>
     </div>
 </div>
-<!--FIN-->
+<!--FIN POP UP FOTO CARGADA-->
 <!--POP UP FOTO ACTUALIZADA-->
 <div id="PopUpFotoActualizada" class="CompartirCorreoPop" style="display:none">
     <div class="content_foto_cargada">
@@ -1200,8 +1184,7 @@
         <div class="sub_text_actualizada">Tu foto se ha actualizado</div>
     </div>
 </div>
-<!--FIN-->
-
+<!--FIN POP UP FOTO ACTUALIZADA-->
 <!-- POPUP IMAGEN PERFIL -->
 <div class="contenedor_fondo_popup" id="PopUpFotoActualizada2" style="display: none;">
     <div class="popup_img_perfil">
@@ -1241,11 +1224,10 @@
         <div class="sub_text_actualizada">Tu foto se ha actualizado</div>
     </div>
 </div>
-
-<!-- POPUP FIN IMAGEN PERFIL -->
-
+<!-- FIN POPUP IMAGEN PERFIL -->
+<!-- POPUP OFERTAS 003, 048 -->
 <div data-oferta=""></div>
-
+<!-- FIN POPUP OFERTAS 003, 048 -->
 <!-- POP UP SHOWROOM HTML-->
 <div id="DialogoMensajeBannerShowRoom" class="fondo_popupShowRoom" style="display: none;">
     <div style="background: white; overflow: inherit; position: relative; top: 50%; margin: -240px auto 0 auto; width: 821px; height: 480px; padding: 0; z-index: 1100; ">
@@ -1277,14 +1259,14 @@
             <div class="slider_pop_up">
                 <img id="imgShowRoomGif" alt="imgShowRoomGif" />
             </div>
-            
-                <div class="check_01">
-                    <label class="checkpop">
-                        <input type="checkbox" id="cbNoMostrarPopupShowRoom" />
-                        No quiero volver a ver éste comunicado
-                    </label>
-                </div>
-            
+
+            <div class="check_01">
+                <label class="checkpop">
+                    <input type="checkbox" id="cbNoMostrarPopupShowRoom" />
+                    No quiero volver a ver éste comunicado
+                </label>
+            </div>
+
         </div>
     </div>
 </div>
@@ -1330,12 +1312,12 @@
 <script id="estrategia-template" type="text/x-handlebars-template">
     {{#each this as |item|}}
     <div data-item="{{EstrategiaID}}" data-tipoestrategiaimagenmostrar="{{#if_eq FlagMostrarImg '1'}}{{TipoEstrategiaImagenMostrar}}{{/if_eq}}">
-        <input type="hidden" class="PosicionEstrategia" value="{{Posicion}}" />        
-        <input type="hidden" class="OrigenPedidoWeb" value="@Portal.Consultoras.Common.Constantes.OrigenPedidoWeb.DesktopHomeOfertasParaTi"/>
+        <input type="hidden" class="PosicionEstrategia" value="{{Posicion}}" />
+        <input type="hidden" class="OrigenPedidoWeb" value="@Portal.Consultoras.Common.Constantes.OrigenPedidoWeb.DesktopHomeOfertasParaTi" />
         <div class="content_item_carrusel" {{#iff TipoEstrategiaImagenMostrar 'ContainsArray' '[5,3,2]' }} data-estrategia="{{JSON2string item}}" style="cursor:pointer;" onclick="javascript:CargarEstrategiasEspeciales(this, event);" {{/iff}}>
             <div class="producto_img_home">
                 <img src="{{FotoProducto01}}" class="imagen_producto" />
-                {{#iff TipoEstrategiaImagenMostrar 'ContainsArray' '[5,3,2]' }} 
+                {{#iff TipoEstrategiaImagenMostrar 'ContainsArray' '[5,3,2]' }}
                 <a class="ver_detalle_carrusel">VER DETALLE</a>
                 {{/iff}}
             </div>
@@ -1489,7 +1471,7 @@
             </a>
         </div>
         <div class="contenido_popUp" data-item="packNueva" data-tipoestrategiaimagenmostrar="{{#if_eq FlagMostrarImg '1'}}{{TipoEstrategiaImagenMostrar}}{{/if_eq}}">
-            <input type="hidden" class="OrigenPedidoWeb" value="@Portal.Consultoras.Common.Constantes.OrigenPedidoWeb.DesktopHomeOfertasParaTiPopUp"/>
+            <input type="hidden" class="OrigenPedidoWeb" value="@Portal.Consultoras.Common.Constantes.OrigenPedidoWeb.DesktopHomeOfertasParaTiPopUp" />
             <div class="bloque_producto_packNuevas">
                 <div class="content_item_carrusel">
                     {{#if_eq FlagMostrarImg '1'}}
@@ -1554,7 +1536,7 @@
             </a>
         </div>
         <div data-item="" class="contenido_popUp">
-            <input type="hidden" class="OrigenPedidoWeb" value="@Portal.Consultoras.Common.Constantes.OrigenPedidoWeb.DesktopHomeOfertasParaTiPopUp"/>
+            <input type="hidden" class="OrigenPedidoWeb" value="@Portal.Consultoras.Common.Constantes.OrigenPedidoWeb.DesktopHomeOfertasParaTiPopUp" />
             <div class="content_item_carrusel">
                 {{#if_eq FlagMostrarImg '1'}}
                 {{#if_eq TipoEstrategiaImagenMostrar '@Portal.Consultoras.Common.Constantes.TipoEstrategia.Lanzamiento'}}
@@ -1684,8 +1666,8 @@
                 <input type="hidden" class="hdItemDescripcionCategoria" value="{{DescripcionCategoria}}" />
                 <input type="hidden" class="hdItemDescripcionMarca" value="{{DescripcionMarca}}" />
                 <input type="hidden" class="hdItemDescripcionEstrategia" value="{{DescripcionEstrategia}}" />
-                <input type="hidden" class="hdItemTipoOfertaRevista" value="{{TipoOfertaRevista}}" />                
-                <input type="hidden" class="OrigenPedidoWeb" value="@Portal.Consultoras.Common.Constantes.OrigenPedidoWeb.DesktopHomeCatalogoPersonalizado"/>
+                <input type="hidden" class="hdItemTipoOfertaRevista" value="{{TipoOfertaRevista}}" />
+                <input type="hidden" class="OrigenPedidoWeb" value="@Portal.Consultoras.Common.Constantes.OrigenPedidoWeb.DesktopHomeCatalogoPersonalizado" />
             </div>
             <div class="producto_img_home mini" id="imagenAnimacion" data-img="">
                 <img src="{{ImagenProductoSugerido}}" style="width: auto; height: 100%;" class="imagen_producto">
@@ -1705,9 +1687,9 @@
                     <span class="producto_precio_oferta"><b>{{Simbolo}} {{PrecioCatalogoString}}</b></span>
                 </div>
                 {{#if TieneOfertaEnRevista}}
-                    <div class="seguir_pedido enlace_popupCatalogoPersonalizado" style="width:auto; left:50%; margin-left:-52.5px;">
-                        <a title="AQUÍ" class="pop-ofertarevista">¡MIRA LA OFERTA!</a>
-                    </div>
+                <div class="seguir_pedido enlace_popupCatalogoPersonalizado" style="width:auto; left:50%; margin-left:-52.5px;">
+                    <a title="AQUÍ" class="pop-ofertarevista">¡MIRA LA OFERTA!</a>
+                </div>
                 {{/if}}
                 <div class="liquidacion_rango_home" data-cantidad-contenedor="">
                     <input type="text" value="1" size="2" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" data-input="cantidad" data-cantidad-input="-">
@@ -1763,7 +1745,7 @@
             <input type="hidden" class="hdItemDescripcionCategoria" value="{{productoRevista.DescripcionCategoria}}" />
             <input type="hidden" class="hdItemDescripcionMarca" value="{{productoRevista.DescripcionMarca}}" />
             <input type="hidden" class="hdItemDescripcionEstrategia" value="{{productoRevista.DescripcionEstrategia}}" />
-            <input type="hidden" class="OrigenPedidoWeb" value="@Portal.Consultoras.Common.Constantes.OrigenPedidoWeb.DesktopCatalogoPersonalizadoPopUp" />
+            <input type="hidden" class="OrigenPedidoWeb" value="@Constantes.OrigenPedidoWeb.DesktopCatalogoPersonalizadoPopUp" />
         </div>
         <div class="cerrar-mod" data-close=""><img src="@Url.Content("/Content/Images/btn_cerrar_popupPercepcion.png")" /></div>
         <div class="encabezado_popupCatalogoPersonalizado">
@@ -1837,7 +1819,7 @@
             <input type="hidden" class="hdItemDescripcionCategoria" value="{{DescripcionCategoria}}" />
             <input type="hidden" class="hdItemDescripcionMarca" value="{{DescripcionMarca}}" />
             <input type="hidden" class="hdItemDescripcionEstrategia" value="{{DescripcionEstrategia}}" />
-            <input type="hidden" class="OrigenPedidoWeb" value="@Portal.Consultoras.Common.Constantes.OrigenPedidoWeb.DesktopCatalogoPersonalizadoPopUp" />
+            <input type="hidden" class="OrigenPedidoWeb" value="@Constantes.OrigenPedidoWeb.DesktopCatalogoPersonalizadoPopUp" />
         </div>
         <div style="display:none;" id="hiddenRevista">
             <input type="hidden" class="hdItemCuv" value="{{productoRevista.CUV}}" />
@@ -1852,7 +1834,7 @@
             <input type="hidden" class="hdItemDescripcionCategoria" value="{{productoRevista.DescripcionCategoria}}" />
             <input type="hidden" class="hdItemDescripcionMarca" value="{{productoRevista.DescripcionMarca}}" />
             <input type="hidden" class="hdItemDescripcionEstrategia" value="{{productoRevista.DescripcionEstrategia}}" />
-            <input type="hidden" class="OrigenPedidoWeb" value="@Portal.Consultoras.Common.Constantes.OrigenPedidoWeb.DesktopCatalogoPersonalizadoPopUp" />
+            <input type="hidden" class="OrigenPedidoWeb" value="@Constantes.OrigenPedidoWeb.DesktopCatalogoPersonalizadoPopUp" />
         </div>
         <div class="cerrar-mod" data-close=""><img src="@Url.Content("/Content/Images/btn_cerrar_popupPercepcion.png")" /></div>
         <div class="encabezado_popupCatalogoPersonalizado">
@@ -1861,29 +1843,47 @@
             <div class="linea_encabezado_popupCatalogoPersonalizado"></div>
         </div>
         <div>
-            <div class="item1_oferta_personalizada">
-                <div class="content_precio_set">
-                    <div class="compra_set">COMPRA 1X<br />{{Simbolo}} {{DecimalToStringFormat precio_revista}}</div>
-                    <div class="gananecia_set">{{TxtGanancia}}: {{Simbolo}} {{DecimalToStringFormat ganancia}}</div>
+            <div class="content_carrusel_pack" id="divCarruselNivel">
+                <div class="item_pack_personalizado">
+                    <div class="content_item_pack">
+                        <div class="fondo_negro_pack">COMPRA 1 {{Descripcion}}</div>
+                        <br />
+                        <div class="img_principal_pack" style="margin-top:16px;">                            
+                            {{#IsNullOrEmpty UrlImagen '!='}}
+                            <img src="{{UrlImagen}}" alt="" />
+                            {{/IsNullOrEmpty}}
+                        </div>
+                        <div class="titulo_pack">{{Descripcion}}</div>
+                        <div class="texto_unidad_pack">Precio para ti {{Simbolo}} {{DecimalToStringFormat precio_revista}}</div>
+                        <div class="texto_ganancia_pack">{{TxtGanancia}}: {{Simbolo}} {{DecimalToStringFormat ganancia}}</div>
+                    </div>
                 </div>
-            </div>
-            {{#each lista_ObjNivel as |nivel|}}
-            <div class="item1_oferta_personalizada">
-                <div class="content_precio_set">
-                    <div class="compra_set">COMPRA {{nivel.escala_nivel}}X<br />{{../Simbolo}} {{DecimalToStringFormat nivel.precio_nivel}}</div>
-                    <div class="gananecia_set">{{../TxtGanancia}}: {{../Simbolo}} {{DecimalToStringFormat nivel.ganancia_nivel}} </div>
-                    <div class="gratis_set">{{../TxtRecibeGratis}}:</div>
+                {{#each lista_ObjNivel as |nivel|}}
+                <div class="item_pack_personalizado  linea_d">
+                    <div class="content_item_pack">
+                        <div class="fondo_negro_pack">COMPRA {{nivel.escala_nivel}} {{../Descripcion}}</div>
+                        <div class="pack_inter width_100">
+                            <div class="titulo_pack" style="height:auto">Precio para ti {{../Simbolo}} {{DecimalToStringFormat nivel.precio_nivel}}</div>
+                            <div class="texto_ganancia_pack">{{../TxtGanancia}}: {{../Simbolo}} {{DecimalToStringFormat nivel.ganancia_nivel}}</div>
+                            <div class="gratis_set">{{../TxtRecibeGratis}}:</div>
+                            <div class="content_sub_items">
+                                {{#each ../lista_oObjGratis as |item|}}
+                                {{#if_eq nivel.escala_nivel item.escala_nivel_gratis}}
+                                <div class="sub_imagen_oferta">                                    
+                                    {{#IsNullOrEmpty item.imagen_gratis '!='}}
+                                    <img src="{{item.imagen_gratis}}" alt="" />
+                                    {{/IsNullOrEmpty}}
+                                </div>
+                                <div class="sub_descripcion_oferta"><p><span>x{{item.cantidad}}</span>&nbsp;{{item.descripcion_gratis}}</p></div>
+                                <hr class="clear">
+                                {{/if_eq}}
+                                {{/each}}
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="content_sub_items">
-                    {{#each ../lista_oObjGratis as |item|}}
-                    {{#if_eq nivel.escala_nivel item.escala_nivel_gratis}}
-                    <div class="sub_imagen_oferta"><img src="{{item.imagen_gratis}}" alt=""></div>
-                    <div class="sub_descripcion_oferta">{{item.cantidad}} {{item.descripcion_gratis}}</div>
-                    {{/if_eq}}
-                    {{/each}}
-                </div>
-            </div>
-            {{/each}}
+                {{/each}}
+            </div>            
         </div>
         <div class="texto_mencion">Elige la cantidad y el sistema te ofrecerá la mejor combinación</div>
         <div style="width:215px; margin:0 auto; margin-top:10px;">
@@ -1937,7 +1937,7 @@
                 <input type="hidden" class="hdItemDescripcionCategoria" value="{{DescripcionCategoria}}" />
                 <input type="hidden" class="hdItemDescripcionMarca" value="{{DescripcionMarca}}" />
                 <input type="hidden" class="hdItemDescripcionEstrategia" value="{{DescripcionEstrategia}}" />
-                <input type="hidden" class="OrigenPedidoWeb" value="@Portal.Consultoras.Common.Constantes.OrigenPedidoWeb.DesktopCatalogoPersonalizadoPopUp" />
+                <input type="hidden" class="OrigenPedidoWeb" value="@Constantes.OrigenPedidoWeb.DesktopCatalogoPersonalizadoPopUp" />
             </div>
             <div style="display:none;" id="hiddenRevista">
                 <input type="hidden" class="hdItemCuv" value="{{productoRevista.CUV}}" />
@@ -1952,17 +1952,19 @@
                 <input type="hidden" class="hdItemDescripcionCategoria" value="{{productoRevista.DescripcionCategoria}}" />
                 <input type="hidden" class="hdItemDescripcionMarca" value="{{productoRevista.DescripcionMarca}}" />
                 <input type="hidden" class="hdItemDescripcionEstrategia" value="{{productoRevista.DescripcionEstrategia}}" />
-                <input type="hidden" class="OrigenPedidoWeb" value="@Portal.Consultoras.Common.Constantes.OrigenPedidoWeb.DesktopCatalogoPersonalizadoPopUp" />
+                <input type="hidden" class="OrigenPedidoWeb" value="@Constantes.OrigenPedidoWeb.DesktopCatalogoPersonalizadoPopUp" />
             </div>
         </div>
         <!--ITEM 1-->
         <div class="item_pack_personalizado">
             <div class="content_item_pack">
-                <div class="img_principal_pack">
-                    <img src="{{UrlImagen}}" alt="">
+                <div class="img_principal_pack">                    
+                    {{#IsNullOrEmpty UrlImagen '!='}}
+                    <img src="{{UrlImagen}}" alt="" />
+                    {{/IsNullOrEmpty}}
                 </div>
                 <div class="titulo_pack">{{Descripcion}}</div>
-                <div class="texto_unidad_pack">Precio por unidad {{Simbolo}} {{DecimalToStringFormat precio_revista}}</div>
+                <div class="texto_unidad_pack">Precio para ti {{Simbolo}} {{DecimalToStringFormat precio_revista}}</div>
                 <div class="texto_ganancia_pack">{{TxtGanancia}}: {{Simbolo}} {{DecimalToStringFormat ganancia}}</div>
             </div>
             <div style="width:215px; margin:0 auto; margin-top:10px;">
@@ -1976,40 +1978,56 @@
                 <a class="boton_Agregalo_home agregar-ofertarevista" data-cuv="revista">AGRÉGALO</a>
             </div>
         </div>
-        <!--ITEM 2-->
-        {{#each lista_oObjPack as |pack|}}
-        <div class="item_pack_personalizado">
-            <input type="hidden" class="hdItemPackCuv" value="{{pack.cuv_pack}}" />
-            <input type="hidden" class="hdItemPackValorizado" value="{{pack.valorizado}}" />
-            <input type="hidden" class="hdItemPackPrecio" value="{{pack.precio_pack}}" />
-            <div class="content_item_pack">
-                <div class="fondo_negro_pack">PACK {{#if_eq pack.EsUltimo "1"}}MÁXIMA {{/if_eq}}GANANCIA</div>
-                <div class="pack_inter">
-                    <div class="titulo_pack" style="height:auto"><span class="texto_unidad_pack">Precio para ti: </span>{{../Simbolo}} {{DecimalToStringFormat pack.precio_pack}}</div>
-                    <div class="texto_ganancia_pack">{{../TxtGanancia}}: {{../Simbolo}} {{DecimalToStringFormat pack.ganancia_pack}}</div>
-                    <div class="content_sub_items">
-                        {{#each ../lista_oObjItemPack as |item|}}
-                        {{#if_eq pack.cuv_pack item.cuv_pack_item}}
-                        <div class="sub_imagen_oferta"><img src="{{item.imagen_item_pack}}" alt=""></div>
-                        <div class="sub_descripcion_oferta">{{item.cantidad_item_pack}} {{item.descripcion_item_pack}}</div>
-                        <hr class="clear" />
-                        {{/if_eq}}
-                        {{/each}}
+        <div class="content_66">
+            <div class="content_carrusel_pack" id="divCarruselPack">
+                <!--ITEM 2-->
+                {{#each lista_oObjPack as |pack|}}
+                <div class="item_pack_personalizado linea_d">
+                    <input type="hidden" class="hdItemPackCuv" value="{{pack.cuv_pack}}" />
+                    <input type="hidden" class="hdItemPackValorizado" value="{{pack.valorizado}}" />
+                    <input type="hidden" class="hdItemPackPrecio" value="{{pack.precio_pack}}" />
+                    <div class="content_item_pack">
+                        @*{{#if_eq pack.EsUltimo "1"}}
+                        <div class="fondo_negro_pack" style="width: 90%;">PACK MÁXIMA GANANCIA</div>
+                        {{else}}
+                        <div class="fondo_negro_pack">PACK GANANCIA</div>
+                        {{/if_eq}}*@
+                        <div class="fondo_negro_pack">{{pack.nombre_pack}}</div>
+                        <div class="pack_inter width_100">
+                            <div class="titulo_pack" style="height:auto">Precio para ti: {{../Simbolo}} {{DecimalToStringFormat pack.precio_pack}}</div>
+                            <div class="texto_ganancia_pack">{{../TxtGanancia}}: {{../Simbolo}} {{DecimalToStringFormat pack.ganancia_pack}}</div>
+                            <div class="content_sub_items">
+                                {{#each ../lista_oObjItemPack as |item|}}
+                                {{#if_eq pack.cuv_pack item.cuv_pack_item}}
+                                <div class="sub_imagen_oferta">                                    
+                                    {{#IsNullOrEmpty item.imagen_item_pack '!='}}
+                                    <img src="{{item.imagen_item_pack}}" alt="" />
+                                    {{/IsNullOrEmpty}}
+                                </div>
+                                <div class="sub_descripcion_oferta"><p><span>x{{item.cantidad_item_pack}}</span>&nbsp;{{item.descripcion_item_pack}}</p></div>
+                                <hr class="clear" />
+                                @*<div class="sub_imagen_oferta"><img src="https://s3-sa-east-1.amazonaws.com/appcatalogo/PE/201616/C/productos/PE_200069929.jpg" alt=""></div>
+                                <div class="sub_descripcion_oferta"><p><span>x2</span>&nbsp;Desodorante roll-on. Girlink</p></div>
+                                <hr class="clear" />*@
+                                {{/if_eq}}
+                                {{/each}}
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
-            <div style="width:215px; margin:0 auto; margin-top:10px;" data-cantidad-contenedor="">
-                <div class="liquidacion_rango_home js-no-popup">
-                    <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral js-no-popup" tabindex="0" data-cantidad-input="pack">
-                    <div class="liquidacion_rango_right_pedido js-no-popup">
-                        <a class="mas js-no-popup" tabindex="0"><img class="js-no-popup" src="/Content/Images/Esika/mas.png" alt=""></a>
-                        <a class="menos js-no-popup" tabindex="0"><img class="js-no-popup" src="/Content/Images/Esika/menos.png" alt=""></a>
+                    <div style="width:215px; margin:0 auto; margin-top:10px;" data-cantidad-contenedor="">
+                        <div class="liquidacion_rango_home js-no-popup">
+                            <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral js-no-popup" tabindex="0" data-cantidad-input="pack">
+                            <div class="liquidacion_rango_right_pedido js-no-popup">
+                                <a class="mas js-no-popup" tabindex="0"><img class="js-no-popup" src="/Content/Images/Esika/mas.png" alt=""></a>
+                                <a class="menos js-no-popup" tabindex="0"><img class="js-no-popup" src="/Content/Images/Esika/menos.png" alt=""></a>
+                            </div>
+                        </div>
+                        <a class="boton_Agregalo_home agregar-ofertarevista" data-cuv="pack" data-cuvadd="{{pack.cuv_pack}}">AGRÉGALO</a>
                     </div>
-                </div>
-                <a class="boton_Agregalo_home agregar-ofertarevista" data-cuv="pack" data-cuvadd="{{pack.cuv_pack}}">AGRÉGALO</a>
+                </div>                
+                {{/each}}
             </div>
-        </div>
-        {{/each}}
+        </div>                
         <div class="row_40">
             <div class="sombra_oferta">
                 <div class="texto_sombra">También puedes comprarlo con el precio catálogo: <br /><span>{{Simbolo}} {{DecimalToStringFormat precio_catalogo}}</span></div>
@@ -2028,8 +2046,6 @@
         </div>
     </div>
 </script>
-<!-- SB20-834 - INICIO -->
-@*<input  type="hidden" id="totalComuSinMostrar" value="0" />*@
 
 <script id="template-comunicado" type="text/x-handlebars-template">
 
@@ -2060,13 +2076,10 @@
 </script>
 
 <input type="hidden" id="hdDataBarra" value="@Newtonsoft.Json.JsonConvert.SerializeObject(Model.DataBarra)" />
-<div id="popupMostrarComumnicado" class="popup_actualizarMisDatos" style="display: none;">
-</div>
-<!-- SB20-834 - FIN -->
 
 @section scripts{
     @*<script type="text/javascript" src="http://pixlcore.com/demos/webcamjs/webcam.js"></script>
-    <script type="text/javascript" src="http://foliotek.github.io/Croppie/croppie.js"></script>*@
+        <script type="text/javascript" src="http://foliotek.github.io/Croppie/croppie.js"></script>*@
     <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.flexslider.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/slick.min.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.easy-pie-chart.js")"></script>
@@ -2116,11 +2129,11 @@
         var viewBagVioTutorialSalvavidas = '@Model.VioTutorialSalvavidas';
         var constanteVioVideo = '@Constantes.TipoTutorial.Video';
         var constanteVioTutorialDesktop = '@Constantes.TipoTutorial.Desktop';
-        var constanteVioTutorialSalvavidas = '@Constantes.TipoTutorial.Salvavidas';        
-        
+        var constanteVioTutorialSalvavidas = '@Constantes.TipoTutorial.Salvavidas';
+
         var cantidadRegistros = 8;
     </script>
-    
+
     @System.Web.Optimization.Scripts.Render("~/bundles/JsSB2-Bienvenida")
     @{ Session["IsContrato"] = 0; }
 }

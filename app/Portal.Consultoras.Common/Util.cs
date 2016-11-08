@@ -2810,6 +2810,64 @@ namespace Portal.Consultoras.Common
         {
             return cadena.Replace("\r\n", saltoLinea).Replace("\n", saltoLinea).Replace("\r", saltoLinea);
         }
+
+        public static int ObtenerCampaniaPasada(int campaniaId, int numeroCampaniasAtras)
+        {
+            int resultado;
+            try
+            {
+                string campaniaFinal;
+
+                string cadenaCampania = campaniaId > 99999 ? campaniaId.ToString() : "000000";
+                const int totalCampanias = 18;
+
+                string anio = cadenaCampania.Substring(0, 4);
+                string campania = cadenaCampania.Substring(4, 2);
+
+                if (campania == "00")
+                    campaniaFinal = "0";
+                else
+                {
+                    int numeroCampania = int.Parse(campania);
+                    int anioCampania = int.Parse(anio);
+
+                    if (numeroCampaniasAtras == totalCampanias)
+                    {
+                        anioCampania = anioCampania - 1;
+                        numeroCampania = numeroCampaniasAtras;
+                    }
+                    else
+                    {
+                        if (numeroCampaniasAtras > numeroCampania)
+                        {
+                            anioCampania = anioCampania - 1;
+                            numeroCampania = totalCampanias - numeroCampaniasAtras + numeroCampania;
+                        }
+                        else
+                        {
+                            numeroCampania = numeroCampania - numeroCampaniasAtras;
+                        }
+                    }
+
+                    if (numeroCampania < 10)
+                    {
+                        campaniaFinal = anioCampania + numeroCampania.ToString().PadLeft(2, '0');
+                    }
+                    else
+                    {
+                        campaniaFinal = anioCampania + numeroCampania.ToString();
+                    }
+                }
+
+                resultado = int.Parse(campaniaFinal);
+            }
+            catch (Exception)
+            {
+                resultado = 0;
+            }
+
+            return resultado;
+        }
     }
 
 
@@ -2821,7 +2879,16 @@ namespace Portal.Consultoras.Common
             {
                 if (r == null) return false;
 
-                return r.GetOrdinal(columnName) >= 0;
+                columnName = columnName ?? "";
+                columnName = columnName.Trim();
+                if (columnName == "") return false;
+
+                if (r.GetOrdinal(columnName) >= 0)
+                {
+                    return r[columnName] != DBNull.Value;
+                }
+
+                return false;
             }
             catch (IndexOutOfRangeException)
             {
@@ -2838,6 +2905,24 @@ namespace Portal.Consultoras.Common
             }
             return result;
         }
+        
+        public static dynamic GetColumn<T>(T type, IDataRecord lector, string name)  where T : new()
+        {
+            try
+            {
+                name = name ?? "";
+                name = name.Trim();
+                if(HasColumn(lector, name))
+                    return (T)lector.GetValue(lector.GetOrdinal(name));
+                
+                return default(T);
+            }
+            catch (Exception)
+            {
+                return default(T);
+            }
+        }
+
     }
 
     public static class LinqExtensions
@@ -2850,6 +2935,4 @@ namespace Portal.Consultoras.Common
             }
         }
     }
-
-
 }
