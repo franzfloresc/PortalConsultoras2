@@ -47,6 +47,9 @@ namespace Portal.Consultoras.Web.Controllers
 
             model.ListaCDRWeb = listaCDRWebModel;
 
+            if (model.ListaCDRWeb.Count == 0)
+                return RedirectToAction("Reclamo");
+
             return View(model);
         }
 
@@ -86,7 +89,7 @@ namespace Portal.Consultoras.Web.Controllers
             int maxDias = 100;
             if (listaMotivoOperacion.Any())
             {
-                maxDias += Int32.Parse(listaMotivoOperacion.Max(m => m.CDRTipoOperacion.NumeroDiasAtrasOperacion).ToString());
+                maxDias += int.Parse(listaMotivoOperacion.Max(m => m.CDRTipoOperacion.NumeroDiasAtrasOperacion).ToString());
             }
 
             var listaPedidoFacturados = CargarPedidosFacturados(maxDias);
@@ -637,7 +640,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
                 var entidad = new BECDRWeb();
-                entidad.Estado = Constantes.EstadoCDRWeb.Culminado;
+                entidad.Estado = Constantes.EstadoCDRWeb.Enviado;
                 using (CDRServiceClient sv = new CDRServiceClient())
                 {
                     model.CDRWebID = sv.UpdEstadoCDRWeb(userData.PaisID, entidad);
