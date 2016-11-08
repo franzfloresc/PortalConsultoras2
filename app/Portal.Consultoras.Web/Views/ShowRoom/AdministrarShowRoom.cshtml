@@ -65,18 +65,18 @@
                 <div class="selectA borde_redondeado">
                     @Html.DropDownListFor(model => model.CampaniaID, new SelectList(Model.lstCampania, "CampaniaID", "NombreCorto"), "-- Seleccionar --", new { id = "ddlCampania" })
                 </div>
-                <div class="input_search">
-                    <input type="button" value="Buscar" id="btnBuscar" name="">
-                </div>
-            </div>
-            <div class="div-3">
-                @*<div class="titC">Tipo Oferta:</div>
-                <div class="selectA borde_redondeado">
-                    @Html.DropDownListFor(model => model.CodigoTipoOferta, new SelectList(Model.lstConfiguracionOferta, "CodigoOferta", "Descripcion"), "-- Seleccionar --", new { id = "ddlConfiguracionOferta" })
-                </div>*@
                 @*<div class="input_search">
                     <input type="button" value="Buscar" id="btnBuscar" name="">
                 </div>*@
+            </div>
+            <div class="div-3">
+                <div class="titC">Tipo Oferta:</div>
+                <div class="selectA borde_redondeado">
+                    @Html.DropDownListFor(model => model.CodigoTipoOferta, new SelectList(Model.lstConfiguracionOferta, "CodigoOferta", "Descripcion"), "-- Seleccionar --", new { id = "ddlConfiguracionOferta" })
+                </div>
+                <div class="input_search">
+                    <input type="button" value="Buscar" id="btnBuscar" name="">
+                </div>
             </div>
         </div>
     </div>
@@ -1199,9 +1199,9 @@
                         LimpiarDependencias(Id);
 
                         var ddlCampania = $('#ddlCampania');
-                        //var ddlConfiguracionOferta = $("#ddlConfiguracionOferta");
+                        var ddlConfiguracionOferta = $("#ddlConfiguracionOferta");
                         ddlCampania.empty();
-                        //ddlConfiguracionOferta.empty();
+                        ddlConfiguracionOferta.empty();
                         if (data.lista.length > 0) {
                             ddlCampania.append($('<option/>', {
                                 value: "",
@@ -1216,20 +1216,20 @@
                                 }
                             }
                         }
-                        //if (data.lstConfig.length > 0) {
-                        //    ddlConfiguracionOferta.append($('<option/>', {
-                        //        value: "0",
-                        //        text: "-- Todos --"
-                        //    }));
-                        //    if (Id != "") {
-                        //        for (var item in data.lstConfig) {
-                        //            ddlConfiguracionOferta.append($('<option/>', {
-                        //                value: data.lstConfig[item].CodigoOferta,
-                        //                text: data.lstConfig[item].Descripcion
-                        //            }));
-                        //        }
-                        //    }
-                        //}
+                        if (data.lstConfig.length > 0) {
+                            ddlConfiguracionOferta.append($('<option/>', {
+                                value: "0",
+                                text: "-- Todos --"
+                            }));
+                            if (Id != "") {
+                                for (var item in data.lstConfig) {
+                                    ddlConfiguracionOferta.append($('<option/>', {
+                                        value: data.lstConfig[item].CodigoOferta,
+                                        text: data.lstConfig[item].Descripcion
+                                    }));
+                                }
+                            }
+                        }
                         closeWaitingDialog();
                     }
                 });
@@ -1874,7 +1874,7 @@
             datatype: 'json',
             postData: ({
                 PaisID: function() { return $("#ddlPais").val() },
-                //CodigoOferta: function() { return ($("#ddlConfiguracionOferta").val() == "" ? "0" : $("#ddlConfiguracionOferta").val()); },
+                CodigoOferta: function() { return ($("#ddlConfiguracionOferta").val() == "" ? "0" : $("#ddlConfiguracionOferta").val()); },
                 CampaniaID: function() { return ($("#ddlCampania").val() == "" ? "0" : $("#ddlCampania").val()); }
             }),
             mtype: 'GET',
@@ -2354,7 +2354,7 @@
 
             $("#txtPaisDetalle").val(paisNombre);
             $("#txtCampaniaDetalle").val(jQuery("#list").jqGrid('getCell', ID, 'CodigoCampania'));
-            //$("#txtTipoOfertaDetalle").val(jQuery("#list").jqGrid('getCell', ID, 'TipoOferta'));
+            $("#txtTipoOfertaDetalle").val(jQuery("#list").jqGrid('getCell', ID, 'TipoOferta'));
             $("#txtCUVDetalle").val(jQuery("#list").jqGrid('getCell', ID, 'CUV'));
             $("#txtDescripcionDetalle").val(jQuery("#list").jqGrid('getCell', ID, 'Descripcion'));
             $("#txtPrecioNormalDetalle").val(jQuery("#list").jqGrid('getCell', ID, 'PrecioOferta'));
@@ -2495,7 +2495,7 @@
     function LimpiarDatosShowRoomDetalle() {
         $("#txtPaisDetalle").val('');
         $("#txtCampaniaDetalle").val('');
-        //$("#txtTipoOfertaDetalle").val('');
+        $("#txtTipoOfertaDetalle").val('');
         $("#txtCUVDetalle").val('');
         $("#txtDescripcionDetalle").val('');
         $("#txtPrecioNormalDetalle").val('');
@@ -2534,12 +2534,12 @@
             value: "",
             text: "-- Seleccionar --"
         }));
-        //var ddlConfiguracionOferta = $('#ddlConfiguracionOferta');
-        //ddlConfiguracionOferta.empty();
-        //ddlConfiguracionOferta.append($('<option/>', {
-        //    value: "",
-        //    text: "-- Seleccionar --"
-        //}));
+        var ddlConfiguracionOferta = $('#ddlConfiguracionOferta');
+        ddlConfiguracionOferta.empty();
+        ddlConfiguracionOferta.append($('<option/>', {
+            value: "",
+            text: "-- Seleccionar --"
+        }));
         $("#list").jqGrid("clearGridData", true).trigger("reloadGrid");
     }
 

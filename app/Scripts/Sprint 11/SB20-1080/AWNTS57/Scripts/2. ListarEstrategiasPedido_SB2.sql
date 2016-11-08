@@ -909,7 +909,7 @@ BEGIN
 	ORDER BY CASE WHEN ISNULL(op.Orden,0) = 0 THEN te.Orden ELSE op.Orden END ASC
 
 	/*SB20-1080 - INICIO */
-	SET @cont2 = (SELECT COUNT(EstrategiaID) FROM #TEMPORAL)2
+	SET @cont2 = (SELECT COUNT(EstrategiaID) FROM #TEMPORAL)
 	
 	IF (@cont1 = @cont2)
 	BEGIN
