@@ -1158,6 +1158,7 @@
       <xs:element minOccurs="0" name="EstadoSimplificacionCUV" type="xs:boolean" />
       <xs:element minOccurs="0" name="FactorCierreZonaDemAnti" type="ser:duration" />
       <xs:element minOccurs="0" name="FactorCierreZonaNormal" type="ser:duration" />
+      <xs:element minOccurs="0" name="FechaActualPais" type="xs:dateTime" />
       <xs:element minOccurs="0" name="FechaFinFIC" type="xs:dateTime" />
       <xs:element minOccurs="0" name="FechaFinFacturacion" type="xs:dateTime" />
       <xs:element minOccurs="0" name="FechaInicioFacturacion" type="xs:dateTime" />

@@ -12859,6 +12859,9 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private System.TimeSpan FactorCierreZonaNormalField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.DateTime FechaActualPaisField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private System.DateTime FechaFinFICField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -13069,6 +13072,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((this.FactorCierreZonaNormalField.Equals(value) != true)) {
                     this.FactorCierreZonaNormalField = value;
                     this.RaisePropertyChanged("FactorCierreZonaNormal");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.DateTime FechaActualPais {
+            get {
+                return this.FechaActualPaisField;
+            }
+            set {
+                if ((this.FechaActualPaisField.Equals(value) != true)) {
+                    this.FechaActualPaisField = value;
+                    this.RaisePropertyChanged("FechaActualPais");
                 }
             }
         }
@@ -17667,10 +17683,10 @@ namespace Portal.Consultoras.Web.ServicePedido {
         System.Threading.Tasks.Task UpdateShowRoomConsultoraMostrarPopupAsync(int paisID, int campaniaID, string codigoConsultora, bool mostrarPopup);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetProductosShowRoom", ReplyAction="http://tempuri.org/IPedidoService/GetProductosShowRoomResponse")]
-        Portal.Consultoras.Web.ServicePedido.BEShowRoomOferta[] GetProductosShowRoom(int paisID, int campaniaID);
+        Portal.Consultoras.Web.ServicePedido.BEShowRoomOferta[] GetProductosShowRoom(int paisID, int tipoOfertaSisID, int campaniaID, string codigoOferta);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetProductosShowRoom", ReplyAction="http://tempuri.org/IPedidoService/GetProductosShowRoomResponse")]
-        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEShowRoomOferta[]> GetProductosShowRoomAsync(int paisID, int campaniaID);
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEShowRoomOferta[]> GetProductosShowRoomAsync(int paisID, int tipoOfertaSisID, int campaniaID, string codigoOferta);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetOrdenPriorizacionShowRoom", ReplyAction="http://tempuri.org/IPedidoService/GetOrdenPriorizacionShowRoomResponse")]
         int GetOrdenPriorizacionShowRoom(int paisID, int ConfiguracionOfertaID, int CampaniaID);
@@ -19452,12 +19468,12 @@ namespace Portal.Consultoras.Web.ServicePedido {
             return base.Channel.UpdateShowRoomConsultoraMostrarPopupAsync(paisID, campaniaID, codigoConsultora, mostrarPopup);
         }
         
-        public Portal.Consultoras.Web.ServicePedido.BEShowRoomOferta[] GetProductosShowRoom(int paisID, int campaniaID) {
-            return base.Channel.GetProductosShowRoom(paisID, campaniaID);
+        public Portal.Consultoras.Web.ServicePedido.BEShowRoomOferta[] GetProductosShowRoom(int paisID, int tipoOfertaSisID, int campaniaID, string codigoOferta) {
+            return base.Channel.GetProductosShowRoom(paisID, tipoOfertaSisID, campaniaID, codigoOferta);
         }
         
-        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEShowRoomOferta[]> GetProductosShowRoomAsync(int paisID, int campaniaID) {
-            return base.Channel.GetProductosShowRoomAsync(paisID, campaniaID);
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEShowRoomOferta[]> GetProductosShowRoomAsync(int paisID, int tipoOfertaSisID, int campaniaID, string codigoOferta) {
+            return base.Channel.GetProductosShowRoomAsync(paisID, tipoOfertaSisID, campaniaID, codigoOferta);
         }
         
         public int GetOrdenPriorizacionShowRoom(int paisID, int ConfiguracionOfertaID, int CampaniaID) {
