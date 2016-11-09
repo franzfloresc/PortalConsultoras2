@@ -431,7 +431,6 @@
                                                             <asp:TemplateField HeaderText="Fecha">
                                                                 <ItemTemplate>
                                                                     <asp:Label ID="lblFecha" runat="server" Text='<%# Eval("FechaEstimadoRecojo") %>' Font-Size="8pt"></asp:Label>
-                                                                    <asp:Label ID="lblTextoValorTurno" Text='<%#Eval("ValorTurno")%>' runat="server" Font-Size="8pt"></asp:Label>
                                                                     <asp:Label ID="lblTexto" runat="server" Font-Size="8pt" Visible="false"></asp:Label>
                                                                     <asp:LinkButton ID="imgSegPed" runat="server" CommandName="NOVEDADES" Text="AQUI" Width="28px" Visible="false" />
                                                                 </ItemTemplate>
