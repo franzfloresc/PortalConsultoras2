@@ -146,6 +146,7 @@
     <Compile Include="BLOfertaNueva.cs" />
     <Compile Include="BLOfertaProducto.cs" />
     <Compile Include="BLOfertaWeb.cs" />
+    <Compile Include="BLPais.cs" />
     <Compile Include="BLPaqueteDocumentario.cs" />
     <Compile Include="BLParticipantesDemandaAnticipada.cs" />
     <Compile Include="BLPayPalConfiguracion.cs" />
@@ -186,6 +187,12 @@
     <Compile Include="CacheManager.cs" />
     <Compile Include="BLLugarPago.cs" />
     <Compile Include="BLIncentivo.cs" />
+    <Compile Include="CDR\BLLogCDRWebDetalle.cs" />
+    <Compile Include="CDR\BLLogCDRWeb.cs" />
+    <Compile Include="CDR\BLCDRWeb.cs" />
+    <Compile Include="CDR\BLCDRWebDescripcion.cs" />
+    <Compile Include="CDR\BLCDRWebDetalle.cs" />
+    <Compile Include="CDR\BLCDRWebMotivoOperacion.cs" />
     <Compile Include="FtpConfiguration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -193,6 +200,10 @@
     <ProjectReference Include="..\Portal.Consultoras.Common\Portal.Consultoras.Common.csproj">
       <Project>{136fa1d7-ab98-4ffa-8c03-c011d34d8d27}</Project>
       <Name>Portal.Consultoras.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Portal.Consultoras.Data.Hana\Portal.Consultoras.Data.Hana.csproj">
+      <Project>{6A7ABF96-986A-4A90-9022-4E2A43F0B25D}</Project>
+      <Name>Portal.Consultoras.Data.Hana</Name>
     </ProjectReference>
     <ProjectReference Include="..\Portal.Consultoras.Data\Portal.Consultoras.Data.csproj">
       <Project>{022e2be6-d149-4cd7-8af4-b1df2ace8888}</Project>

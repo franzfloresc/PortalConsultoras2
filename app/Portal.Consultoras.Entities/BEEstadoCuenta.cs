@@ -5,6 +5,7 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
+using Portal.Consultoras.Common;
 
 namespace Portal.Consultoras.Entities
 {
@@ -42,18 +43,34 @@ namespace Portal.Consultoras.Entities
 		[DataMember]
         public int Orden { get; set; }
 
+        [DataMember]
+        public int TipoOperacion { get; set; }
+
         public BEEstadoCuenta()
         { }
 
         public BEEstadoCuenta(IDataRecord row)
         {
-            CodigoConsultora = Convert.ToString(row["CodigoConsultora"]);
-           if(!Convert.IsDBNull(row["FechaRegistro"])) FechaRegistro = Convert.ToDateTime(row["FechaRegistro"]); //R2524 - JICM - Validacion Fechas nulas
-            DescripcionOperacion = Convert.ToString(row["DescripcionOperacion"]);
-            MontoOperacion = Convert.ToDecimal(row["MontoOperacion"]);
-            Cargo = Convert.ToDecimal(row["Cargo"]);
-            Abono = Convert.ToDecimal(row["Abono"]);
-            Orden = Convert.ToInt32(row["Orden"]);
+            if (DataRecord.HasColumn(row, "CodigoConsultora") && row["CodigoConsultora"] != DBNull.Value)
+                CodigoConsultora = Convert.ToString(row["CodigoConsultora"]);
+
+            if (DataRecord.HasColumn(row, "FechaRegistro") && row["FechaRegistro"] != DBNull.Value)
+                FechaRegistro = Convert.ToDateTime(row["FechaRegistro"]);
+
+            if (DataRecord.HasColumn(row, "DescripcionOperacion") && row["DescripcionOperacion"] != DBNull.Value)
+                DescripcionOperacion = Convert.ToString(row["DescripcionOperacion"]);
+
+            if (DataRecord.HasColumn(row, "MontoOperacion") && row["MontoOperacion"] != DBNull.Value)
+                MontoOperacion = Convert.ToDecimal(row["MontoOperacion"]);
+
+            if (DataRecord.HasColumn(row, "Cargo") && row["Cargo"] != DBNull.Value)
+                Cargo = Convert.ToDecimal(row["Cargo"]);
+
+            if (DataRecord.HasColumn(row, "Abono") && row["Abono"] != DBNull.Value)
+                Abono = Convert.ToDecimal(row["Abono"]);
+
+            if (DataRecord.HasColumn(row, "Orden") && row["Orden"] != DBNull.Value)
+                Orden = Convert.ToInt32(row["Orden"]);
         }
         // R2073 - Fin
     }

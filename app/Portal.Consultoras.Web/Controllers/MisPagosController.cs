@@ -1,9 +1,7 @@
 ﻿using ClosedXML.Excel;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
-using Portal.Consultoras.Web.ServiceContenido;
 using Portal.Consultoras.Web.ServiceODS;
-using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.ServiceSAC;
 using System;
 using System.Collections.Generic;
@@ -40,7 +38,7 @@ namespace Portal.Consultoras.Web.Controllers
             model.MostrarFE = userData.CodigoISO == "EC" || userData.CodigoISO == "PE" ? " " : "display: none;";
             model.Simbolo = string.Format("{0} ", userData.Simbolo);
             model.TieneFlexipago = userData.IndicadorFlexiPago;
-            model.MontoMinimoFlexipago = userData.IndicadorFlexiPago > 0 ? ObtenerMontoMinimo() : "0.00";
+            model.MontoMinimoFlexipago = userData.MontoMinimoFlexipago;
             model.TienePagoOnline = userData.IndicadorPagoOnline;
             model.UrlPagoOnline = userData.UrlPagoOnline;
             model.CorreoConsultora = userData.EMail;
@@ -139,31 +137,16 @@ namespace Portal.Consultoras.Web.Controllers
                                     "<th bgcolor='666666' width='100px' align='center'><font color='#FFFFFF'>Abonos</th>" +
                                 "</tr>";
 
-                if (userData.PaisID == 4) // validación para colombia req. 1478
+                for (int i = 0; i < lst.Count - 1; i++)
                 {
+                    cadena = cadena + "<tr>" +
+                                        "<td align='center'>" + lst[i].Fecha.ToString("dd/MM/yyyy") + "</td>" +
+                                        "<td align='left'>" + lst[i].Glosa + "</td>" +
+                                        "<td align='right'>" + Util.DecimalToStringFormat(lst[i].Cargo, userData.CodigoISO) + "</td>" +
+                                        "<td align='right'>" + Util.DecimalToStringFormat(lst[i].Abono, userData.CodigoISO) + "</td>" +
+                                      "</tr>";
+                }
 
-                    for (int i = 0; i < lst.Count - 1; i++)
-                    {
-                        cadena = cadena + "<tr>" +
-                                            "<td align='center'>" + lst[i].Fecha.ToString("dd/MM/yyyy") + "</td>" +
-                                            "<td align='left'>" + lst[i].Glosa + "</td>" +
-                                            "<td align='right'>" + string.Format("{0:#,##0}", lst[i].Cargo).Replace(',', '.') + "</td>" +
-                                            "<td align='right'>" + string.Format("{0:#,##0}", lst[i].Abono).Replace(',', '.') + "</td>" +
-                                          "</tr>";
-                    }
-                }
-                else
-                {
-                    for (int i = 0; i < lst.Count - 1; i++)
-                    {
-                        cadena = cadena + "<tr>" +
-                                            "<td align='center'>" + lst[i].Fecha.ToString("dd/MM/yyyy") + "</td>" +
-                                            "<td align='left'>" + lst[i].Glosa + "</td>" +
-                                            "<td align='right'>" + lst[i].Cargo.ToString("0.00") + "</td>" +
-                                            "<td align='right'>" + lst[i].Abono.ToString("0.00") + "</td>" +
-                                          "</tr>";
-                    }
-                }
                 //R2524 - JICM - Eliminando FEcha Vencimiento,Por ahora Si no existen movimientos no se mostrará 0 en la etiqueta
                 //Total a pagar si no que mostrará el valor del Monto Total a Pagar.
                 if (lst.Count > 0)
@@ -631,20 +614,6 @@ namespace Portal.Consultoras.Web.Controllers
 
         #region Métodos privados
 
-        private string ObtenerMontoMinimo()
-        {
-            int vPaisID = userData.PaisID;
-            string consultora = userData.CodigoConsultora;
-            string result = string.Empty;
-            using (PedidoServiceClient svc = new PedidoServiceClient())
-            {
-                int CampaniaID = userData.CampaniaID;
-                BEOfertaFlexipago oBe = svc.GetLineaCreditoFlexipago(vPaisID, consultora, CampaniaID);
-                result = string.Format("{0:#,##0.00}", (oBe.MontoMinimoFlexipago < 0 ? 0M : oBe.MontoMinimoFlexipago));
-            }
-            return result;
-        }
-
         private void ObtenerFechaVencimientoMontoPagar(out string fechaVencimiento, out string montoPagar, out decimal montoPagarDec)
         {
             fechaVencimiento = "--/--";
@@ -660,19 +629,8 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (lst.Count != 0)
                 {
-                    using (ContenidoServiceClient sv = new ContenidoServiceClient())
-                    {
-                        if (userData.PaisID == 4 || userData.PaisID == 11) //Colombia y Perú
-                        {
-                            montoPagarDec = sv.GetDeudaTotal(userData.PaisID, int.Parse(userData.ConsultoraID.ToString()))[0].SaldoPendiente;
-                            montoPagar = Util.DecimalToStringFormat(montoPagarDec, userData.CodigoISO);
-                        }
-                        else
-                        {
-                            montoPagarDec = sv.GetSaldoPendiente(userData.PaisID, userData.CampaniaID, int.Parse(userData.ConsultoraID.ToString()))[0].SaldoPendiente;
-                            montoPagar = Util.DecimalToStringFormat(montoPagarDec, userData.CodigoISO);
-                        }
-                    }
+                    montoPagarDec = userData.MontoDeuda;
+                    montoPagar = Util.DecimalToStringFormat(montoPagarDec, userData.CodigoISO);
                 }
             }
             catch (FaultException ex)
@@ -710,47 +668,7 @@ namespace Portal.Consultoras.Web.Controllers
             };
 
             return lugaresPagoModel;
-        }
-
-        private List<EstadoCuentaModel> ObtenerEstadoCuenta()
-        {
-            List<EstadoCuentaModel> lst = new List<EstadoCuentaModel>();
-
-            if (Session["ListadoEstadoCuenta"] == null)
-            {
-                List<BEEstadoCuenta> EstadoCuenta = new List<BEEstadoCuenta>();
-                try
-                {
-                    using (SACServiceClient client = new SACServiceClient())
-                    {
-                        EstadoCuenta = client.GetEstadoCuentaConsultora(userData.PaisID, userData.UsuarioPrueba == 1 ? userData.ConsultoraAsociada : userData.CodigoConsultora).ToList();
-                    }
-                }
-                catch (Exception ex)
-                {
-                    LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                }
-
-                foreach (var ec in EstadoCuenta)
-                {
-                    lst.Add(new EstadoCuentaModel
-                    {
-                        Fecha = ec.FechaRegistro,
-                        Glosa = ec.DescripcionOperacion,
-                        Cargo = ec.Cargo,
-                        Abono = ec.Abono
-                    });
-                }
-
-                Session["ListadoEstadoCuenta"] = lst;
-            }
-            else
-            {
-                lst = Session["ListadoEstadoCuenta"] as List<EstadoCuentaModel>;
-            }
-
-            return lst;
-        }
+        }        
 
         private void ExportToExcelEstadoCuenta(string filename, List<EstadoCuentaModel> SourceDetails, List<KeyValuePair<int, string>> columnHeaderDefinition,
            Dictionary<string, string> columnDetailDefinition, string[] arrTotal, decimal cargoTotal, decimal abonoTotal)

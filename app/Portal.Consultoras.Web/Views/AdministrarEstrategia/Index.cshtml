@@ -1,42 +1,48 @@
 ﻿@model Portal.Consultoras.Web.Models.EstrategiaModel
 @{
     ViewBag.Title = "Administración de Estrategias";
+    string imagenVacia = "prod_grilla_vacio.png";
+    int nroImagenes = 10;
+    string idControl;
 }
 <script type="text/javascript">
+    var nroImagenes = '@nroImagenes';
+    var imagenVacia = '@imagenVacia';
+
     jQuery(document).ready(function () {
-
-
         fnGrilla();
         IniDialog();
 
         $("#btnNuevo").click(function () {
-
             $.jstree._reference($("#arbolRegionZona")).check_all();
 
             if ($("#ddlPais").val() == "") {
                 alert("Debe seleccionar el País, verifique.");
                 return false;
             }
-
             if ($("#ddlCampania").val() == "") {
                 alert("Debe seleccionar la Campaña, verifique.");
                 return false;
             }
-
             if ($("#ddlTipoEstrategia").val() == "") {
                 alert("Debe seleccionar un tipo de estrategia, verifique.");
                 return false;
             }
+
             $("#hdTipoConsulta").val("1");
             $("#ddlCampaniaFin").val("");
             SeleccionarTipoOferta();
             PedidoAsociadoChecks();
-            $("#preview1").attr("src", '@Url.Content("~/Content/Images/prod_grilla_vacio.png")');
-            $("#chkImagenProducto01").attr('disabled', true);
-            $("#preview2").attr("src", '@Url.Content("~/Content/Images/prod_grilla_vacio.png")');
-            $("#chkImagenProducto02").attr('disabled', true);
-            $("#preview3").attr("src", '@Url.Content("~/Content/Images/prod_grilla_vacio.png")');
-            $("#chkImagenProducto03").attr('disabled', true);
+
+            var objPreview, objChkImagen, idImagen;
+            for (var i = 1; i <= nroImagenes; i++) {
+                idImagen = ('0' + i).substr(-2);
+                objPreview = $('#preview' + i);
+                objChkImagen = $('#chkImagenProducto' + idImagen);
+                objPreview.attr("src", '@Url.Content("~/Content/Images/" + imagenVacia)');
+                objChkImagen.attr('disabled', true).attr('checked', false);
+            }
+
             $("#hdEstrategiaIDConsulta").val($("#ddlTipoEstrategia").val());
             $("#hdEstrategiaID").val("0");
             $("#hdCampania").val($("#ddlCampania").val());
@@ -44,9 +50,6 @@
             $("#txtAlcance").val($("#ddlPais option:selected").html());
             $("#spanCampania").val($("#ddlCampania option:selected").html());
             $("#spanTipoEstrategia").val($("#ddlTipoEstrategia option:selected").html().trim());
-            $('#chkImagenProducto01').attr('checked', false);
-            $('#chkImagenProducto02').attr('checked', false);
-            $('#chkImagenProducto03').attr('checked', false);
             $('#chkHabilitarOferta').attr('checked', false);
             $('#hdZonas').val('');
             $('#chkVisible1').attr("checked", true);
@@ -104,22 +107,18 @@
             PedidoAsociadoChecks();
         });
         $("#btnBuscar").click(function () {
-
             if ($("#ddlPais").val() == "") {
                 alert("Debe seleccionar el País, verifique.");
                 return false;
             }
-
             if ($("#ddlCampania").val() == "") {
                 alert("Debe seleccionar la Campaña, verifique.");
                 return false;
             }
-
             if ($("#ddlTipoEstrategia").val() == "") {
                 alert("Debe seleccionar el tipo de estrategia, verifique.");
                 return false;
             }
-
             $("#hdEstrategiaIDConsulta").val($("#ddlTipoEstrategia").val());
             $("#hdTipoConsulta").val("1");
             fnGrilla();
@@ -165,9 +164,7 @@
                                 }
                             }
                         }
-
                         cargarArbol();
-
                         closeWaitingDialog();
                     }
                 },
@@ -360,16 +357,15 @@
                     data: JSON.stringify(params),
                     async: true,
                     success: function (data) {
-
+                        var objPreview, objChkImagen, idImagen, dataImagen, imgFormat;
                         $('#mensajeErrorCUV').val("");
+
                         if (data.message == "OK") {
                             $("#txtDescripcion").val(data.descripcion);
 
                             if (data.wsprecio > 0) {
-
                                 $("#txtPrecio2").val(parseFloat(data.wsprecio).toFixed(2));
                                 $("#txtPrecio2")[0].disabled = true;
-
                             }
                             else if (data.wsprecio == 0) {
                                 if (data.precio == 0) {
@@ -380,7 +376,6 @@
                                     $("#txtPrecio2").val(parseFloat(data.precio).toFixed(2));
                                     $("#txtPrecio2")[0].disabled = true;
                                 }
-
                             }
                             else if (data.wsprecio == -1) {
                                 $("#txtPrecio2")[0].disabled = true;
@@ -390,47 +385,29 @@
                                 $("#txtPrecio2")[0].disabled = false;
                                 $("#txtPrecio2").val("");
                                 $("#txtPrecio2").focus();
-
                             }
-
                             $("#txtPrecio").val("");
                             $("#txtCUV").val("");
 
-                            $("#preview1").attr("src", data.imagen1);
-                            $("#preview2").attr("src", data.imagen2);
-                            $("#preview3").attr("src", data.imagen3);
+                            for (var i = 1; i <= nroImagenes; i++) {
+                                idImagen = ('0' + i).substr(-2);
+                                objPreview = $('#preview' + i);
+                                objChkImagen = $('#chkImagenProducto' + idImagen);
+                                dataImagen = data['imagen' + i];
 
-                            if (data.imagen1 == "") {
-                                $("#preview1").attr("src", '@Url.Content("~/Content/Images/prod_grilla_vacio.png")');
-                                $("#chkImagenProducto01").attr('disabled', true);
-                            } else { $("#chkImagenProducto01").attr('disabled', false); }
-                            if (data.imagen2 == "") {
-                                $("#preview2").attr("src", '@Url.Content("~/Content/Images/prod_grilla_vacio.png")');
-                                $("#chkImagenProducto02").attr('disabled', true);
-                            } else { $("#chkImagenProducto02").attr('disabled', false); }
-                            if (data.imagen3 == "") {
-                                $("#preview3").attr("src", '@Url.Content("~/Content/Images/prod_grilla_vacio.png")');
-                                $("#chkImagenProducto03").attr('disabled', true);
-                            } else { $("#chkImagenProducto03").attr('disabled', false); }
+                                if (dataImagen != '') {
+                                    objPreview.attr('src', dataImagen);
+                                    objChkImagen.attr('disabled', false);
+                                }
+                                else {
+                                    objPreview.attr('src', '@Url.Content("~/Content/Images/" + imagenVacia)');
+                                    objChkImagen.attr('disabled', true);
+                                }
 
-                            var img01 = data.imagen1.replace(/^.*[\\\/]/, '');
-                            if (img01.lastIndexOf("?") >= 0) {
-                                img01 = img01.substring(0, img01.lastIndexOf("?"));
-                                $('#chkImagenProducto01').val(img01);
+                                imgFormat = dataImagen.replace(/^.*[\\\/]/, '');
+                                if (imgFormat.lastIndexOf("?") >= 0) imgFormat = imgFormat.substring(0, imgFormat.lastIndexOf("?"));
+                                objChkImagen.val(imgFormat);
                             }
-                            $('#chkImagenProducto01').val(img01);//20150806
-                            var img02 = data.imagen2.replace(/^.*[\\\/]/, '');
-                            if (img02.lastIndexOf("?") >= 0) {
-                                img02 = img02.substring(0, img02.lastIndexOf("?"));
-                                $('#chkImagenProducto02').val(img02);
-                            }
-                            $('#chkImagenProducto02').val(img02);//20150806
-                            var img03 = data.imagen3.replace(/^.*[\\\/]/, '');
-                            if (img03.lastIndexOf("?") >= 0) {
-                                img03 = img03.substring(0, img03.lastIndexOf("?"));
-                                $('#chkImagenProducto03').val(img03);
-                            }
-                            $('#chkImagenProducto03').val(img03);//20150806
                             $('#mensajeErrorCUV2').val("");
                             closeWaitingDialog();
                         } else {
@@ -442,25 +419,42 @@
                             $("#txtPrecio").val("");
                             $("#txtCUV").val("");
 
-                            $("#preview1").attr("src", data.imagen1);
+                            for (var i = 1; i <= nroImagenes; i++) {
+                                idImagen = ('0' + i).substr(-2);
+                                objPreview = $('#preview' + i);
+                                objChkImagen = $('#chkImagenProducto' + idImagen);
+                                dataImagen = data['imagen' + i];
+
+                                if (dataImagen != '') {
+                                    objPreview.attr('src', data.imagen1);
+                                    objChkImagen.attr('disabled', false);
+                                }
+                                else {
+                                    objPreview.attr('src', '@Url.Content("~/Content/Images/" + imagenVacia)');
+                                    objChkImagen.attr('disabled', true);
+                                }
+                                objChkImagen.attr('checked', false);
+                            }
+
+                            @*$("#preview1").attr("src", data.imagen1);
                             $("#preview2").attr("src", data.imagen2);
                             $("#preview3").attr("src", data.imagen3);
 
                             if (data.imagen1 == "") {
-                                $("#preview1").attr("src", '@Url.Content("~/Content/Images/prod_grilla_vacio.png")');
+                                $("#preview1").attr("src", '@Url.Content("~/Content/Images/" + imagenVacia)');
                                 $("#chkImagenProducto01").attr('disabled', true);
                             } else { $("#chkImagenProducto01").attr('disabled', false); }
                             if (data.imagen2 == "") {
-                                $("#preview2").attr("src", '@Url.Content("~/Content/Images/prod_grilla_vacio.png")');
+                                $("#preview2").attr("src", '@Url.Content("~/Content/Images/" + imagenVacia)');
                                 $("#chkImagenProducto02").attr('disabled', true);
                             } else { $("#chkImagenProducto02").attr('disabled', false); }
                             if (data.imagen3 == "") {
-                                $("#preview3").attr("src", '@Url.Content("~/Content/Images/prod_grilla_vacio.png")');
+                                $("#preview3").attr("src", '@Url.Content("~/Content/Images/" + imagenVacia)');
                                 $("#chkImagenProducto03").attr('disabled', true);
-                            } else { $("#chkImagenProducto03").attr('disabled', false); }
-                            $('#chkImagenProducto01').attr('checked', false);
-                            $('#chkImagenProducto02').attr('checked', false);
-                            $('#chkImagenProducto03').attr('checked', false);
+                            } else { $("#chkImagenProducto03").attr('disabled', false); }*@
+                            //$('#chkImagenProducto01').attr('checked', false);
+                            //$('#chkImagenProducto02').attr('checked', false);
+                            //$('#chkImagenProducto03').attr('checked', false);
                             closeWaitingDialog();
                         }
                     },
@@ -470,28 +464,15 @@
                     }
                 });
             }
-        });
-        $("#chkImagenProducto01").click(function () {
-            if ($("#chkImagenProducto01").attr('checked')) {
+        });        
+        $(".chk-estrategia-imagen").click(function () {
+            var id = $(this).attr('data-id');
+            if ($(this).attr('checked')) {
                 $("#ImagenProducto").val($(this).val());
-                $("#chkImagenProducto02").removeAttr('checked')
-                $("#chkImagenProducto03").removeAttr('checked')
+                $('.chk-estrategia-imagen[data-id!="' + id + '"]').removeAttr('checked');
             }
         });
-        $("#chkImagenProducto02").click(function () {
-            if ($("#chkImagenProducto02").attr('checked')) {
-                $("#ImagenProducto").val($(this).val());
-                $("#chkImagenProducto01").removeAttr('checked')
-                $("#chkImagenProducto03").removeAttr('checked')
-            }
-        });
-        $("#chkImagenProducto03").click(function () {
-            if ($("#chkImagenProducto03").attr('checked')) {
-                $("#ImagenProducto").val($(this).val());
-                $("#chkImagenProducto01").removeAttr('checked')
-                $("#chkImagenProducto02").removeAttr('checked')
-            }
-        });
+
         ActivarDesactivarChecks();
         PaletaColores();
         $(".activar-desactivar").click(function () {
@@ -520,24 +501,14 @@
                 $(this).attr('disabled', false);
                 PaletaColores();
             }
-        });
-        $("#preview1").click(function () {
-            if ($("#chkImagenProducto01").attr("disabled") != "disabled") {
-                MostrarVistaPrevia("preview1");
-            }
-        });
-        $("#preview2").click(function () {
-            if ($("#chkImagenProducto02").attr("disabled") != "disabled") {
-                MostrarVistaPrevia("preview2");
-            }
-        });
-        $("#preview3").click(function () {
-            if ($("#chkImagenProducto03").attr("disabled") != "disabled") {
-                MostrarVistaPrevia("preview3");
-            }
-        });
+        });        
+        $(".img-estrategia-preview").click(function () {
+            var id = $(this).attr('data-id');
+            var idImagen = ('0' + id).substr(-2);
+            var objChkImagen = $('#chkImagenProducto' + idImagen);
 
-
+            if (objChkImagen.attr("disabled") != "disabled") MostrarVistaPrevia('preview' + id);
+        });
     });
 
     ///////////////
@@ -980,11 +951,8 @@
     }
     function ShowImage(cellvalue, options, rowObject) {
         var image = "";
-        if (cellvalue != "") {
-            image = '<img src="' + cellvalue + '" alt="" width="60px" height="60px" title="" border="0" />';
-        } else {
-            image = '<img src="@Url.Content("~/Content/Images/prod_grilla_vacio.png")" alt="" width="60px" height="60px" title="" border="0" />';
-        }
+        if (cellvalue != "") image = '<img src="' + cellvalue + '" alt="" width="60px" height="60px" title="" border="0" />';
+        else image = '<img src="@Url.Content("~/Content/Images/" + imagenVacia)" alt="" width="60px" height="60px" title="" border="0" />';
         return image;
     }
     function IniDialog() {
@@ -1100,10 +1068,9 @@
                                 return false;
                             }
                         }
-                    } else {
-                        $("#hdColorFondo").val("");
-                    }
-                    if (!$('#chkImagenProducto01').attr('checked') && !$('#chkImagenProducto02').attr('checked') && !$('#chkImagenProducto03').attr('checked')) {
+                    } else $("#hdColorFondo").val("");
+
+                    if ($('.chk-estrategia-imagen:checked').length == 0) {
                         alert("Seleccione una imagen a mostrar.");
                         return false;
                     }
@@ -1404,6 +1371,14 @@
                     data: JSON.stringify(params),
                     async: true,
                     success: function (data) {
+                        console.log(data);
+                        if (data.success == false) {
+                            alert(data.message);
+                            closeWaitingDialog();
+                            return false;
+                        }
+
+                        var dataImagen, imgFormat;
                         $("#hdSimbolo").val(data.Simbolo);
 
                         if (data.Activo == "1") $("#chkHabilitarOferta").attr("checked", true);
@@ -1424,11 +1399,8 @@
                         if (data.FlagCantidad == "1") $("#chkVisible5").attr("checked", true);
                         else $("#chkVisible5").attr("checked", false);
 
-                        if (data.ColorFondo != "") {
-                            $("#hdColorFondo").val(data.ColorFondo);
-                        } else {
-                            $("#hdColorFondo").val("#FFF");
-                        }
+                        if (data.ColorFondo != "")  $("#hdColorFondo").val(data.ColorFondo);
+                        else $("#hdColorFondo").val("#FFF");
                         ActivarDesactivarChecks();
 
                         $("#hdCampania").val($("#ddlCampania").val());
@@ -1445,59 +1417,29 @@
                         $("#hdCampania").val(data.CampaniaID);
                         $("#ddlCampaniaFin").val(data.CampaniaIDFin);
                         $("#hdNumeroPedido").val(data.NumeroPedido);
-
-                        // variable para comparar
                         $("#ImagenProducto").val(data.ImagenURL);
-                        $("#imagenProductoAnterior01").val(data.ImagenURL);
 
-                        $("#preview1").attr("src", data.FotoProducto01);
-                        $("#preview2").attr("src", data.FotoProducto02);
-                        $("#preview3").attr("src", data.FotoProducto03);
+                        var objPreview, objChkImagen, idImagen, dataImagen, imgFormat;
+                        for (var i = 1; i <= nroImagenes; i++) {
+                            idImagen = ('0' + i).substr(-2);
+                            objPreview = $('#preview' + i);
+                            objChkImagen = $('#chkImagenProducto' + idImagen);
+                            dataImagen = data['FotoProducto' + idImagen];
+                            
+                            if (dataImagen != '') {
+                                objPreview.attr('src', dataImagen);
+                                objChkImagen.attr('disabled', false);
+                            }
+                            else {
+                                objPreview.attr('src', '@Url.Content("~/Content/Images/" + imagenVacia)');
+                                objChkImagen.attr('disabled', true);
+                            }
 
-                        $('#chkImagenProducto01').attr('checked', false);
-                        $('#chkImagenProducto02').attr('checked', false);
-                        $('#chkImagenProducto03').attr('checked', false);
-
-                        if (data.FotoProducto01 == "") {
-                            $("#preview1").attr("src", '@Url.Content("~/Content/Images/prod_grilla_vacio.png")');
-                            $("#chkImagenProducto01").attr('disabled', true);
-                        } else { $("#chkImagenProducto01").attr('disabled', false); }
-                        if (data.FotoProducto02 == "") {
-                            $("#preview2").attr("src", '@Url.Content("~/Content/Images/prod_grilla_vacio.png")');
-                            $("#chkImagenProducto02").attr('disabled', true);
-                        } else { $("#chkImagenProducto02").attr('disabled', false); }
-                        if (data.FotoProducto03 == "") {
-                            $("#preview3").attr("src", '@Url.Content("~/Content/Images/prod_grilla_vacio.png")');
-                            $("#chkImagenProducto03").attr('disabled', true);
-                        } else { $("#chkImagenProducto03").attr('disabled', false); }
-
-                        var img01 = data.FotoProducto01.replace(/^.*[\\\/]/, '');
-                        if (img01.lastIndexOf("?") >= 0) {
-                            img01 = img01.substring(0, img01.lastIndexOf("?"));
-                            $('#chkImagenProducto01').val(img01);
+                            imgFormat = dataImagen.replace(/^.*[\\\/]/, '');
+                            if (imgFormat.lastIndexOf("?") >= 0) imgFormat = imgFormat.substring(0, imgFormat.lastIndexOf("?"));
+                            objChkImagen.val(imgFormat);
+                            objChkImagen.attr('checked', objChkImagen.val() == data['ImagenURL']);
                         }
-                        $('#chkImagenProducto01').val(img01);
-
-                        var img02 = data.FotoProducto02.replace(/^.*[\\\/]/, '');
-                        if (img02.lastIndexOf("?") >= 0) {
-                            img02 = img02.substring(0, img02.lastIndexOf("?"));
-                            $('#chkImagenProducto02').val(img02);
-                        }
-                        $('#chkImagenProducto02').val(img02);
-
-                        var img03 = data.FotoProducto03.replace(/^.*[\\\/]/, '');
-                        if (img03.lastIndexOf("?") >= 0) {
-                            img03 = img03.substring(0, img03.lastIndexOf("?"));
-                            $('#chkImagenProducto03').val(img03);
-                        }
-                        $('#chkImagenProducto03').val(img03);
-
-                        if ($("#chkImagenProducto03").val() == data.ImagenURL)
-                            $('#chkImagenProducto03').attr('checked', true);
-                        if ($("#chkImagenProducto02").val() == data.ImagenURL)
-                            $('#chkImagenProducto02').attr('checked', true);
-                        if ($("#chkImagenProducto01").val() == data.ImagenURL)
-                            $('#chkImagenProducto01').attr('checked', true);
 
                         $("#txtLimite").val(data.LimiteVenta);
                         $("#txtDescripcion").val(data.DescripcionCUV2);
@@ -1820,31 +1762,44 @@
             &nbsp;
         </div>
         <div class="div-3">
+            <style>
+                .div-img-estrategias {
+                    float: left;
+                    width: 600px;
+                }
+                .div-img-estrategias > .titG {
+                    width: 100px;
+                }
+
+                .img-estrategia-preview {
+                    cursor: pointer;
+                    width: 100%;
+                    height: 35px;
+                }
+            </style>
+
             <div class="titG">Imagen:</div>
-            <div class="pdr_modal borde_redondeado aligncenter">
-                <img src='@Url.Content("~/Content/Images/prod_grilla_vacio.png")' id="preview1" style="cursor:pointer; width:100%; height:35px">
-            </div>
-            <div class="pdr_modal borde_redondeado aligncenter">
-                <img src='@Url.Content("~/Content/Images/prod_grilla_vacio.png")' id="preview2" style="cursor:pointer; width:100%; height:35px">
-            </div>
-            <div class="pdr_modal borde_redondeado aligncenter">
-                <img src='@Url.Content("~/Content/Images/prod_grilla_vacio.png")' id="preview3" style="cursor:pointer; width:100%; height:35px">
-            </div>
-            <div class="titG">¿Activar Oferta?</div>
-            <div class="selectCheck borde_redondeado">
-                <input type="checkbox" class="check" id="chkHabilitarOferta" />
+            <div class="div-img-estrategias">
+                @for (int i = 1; i <= nroImagenes; i++)
+                {
+                    idControl = "0" + i;
+                    idControl = idControl.Substring(idControl.Length - 2);
+
+                    <div class="titG">
+                        <div class="pdr_modal borde_redondeado aligncenter">
+                            <img src='@Url.Content("~/Content/Images/" + imagenVacia)' id="preview@(i)" class="img-estrategia-preview" data-id="@(i)">
+                        </div>
+                        <div class="pdr_modal_check aligncenter">
+                            <input type="checkbox" id="chkImagenProducto@(idControl)" class="chk-estrategia-imagen" data-id="@(i)">
+                        </div>
+                    </div>
+                }
             </div>
         </div>
         <div class="div-3">
-            <div class="titG"></div>
-            <div class="pdr_modal_check aligncenter">
-                <input type="checkbox" id="chkImagenProducto01">
-            </div>
-            <div class="pdr_modal_check aligncenter">
-                <input type="checkbox" id="chkImagenProducto02">
-            </div>
-            <div class="pdr_modal_check aligncenter">
-                <input type="checkbox" id="chkImagenProducto03">
+            <div class="titG">¿Activar Oferta?</div>
+            <div class="selectCheck borde_redondeado">
+                <input type="checkbox" class="check" id="chkHabilitarOferta" />
             </div>
         </div>
         <div class="div-est-3" id="div-orden">
