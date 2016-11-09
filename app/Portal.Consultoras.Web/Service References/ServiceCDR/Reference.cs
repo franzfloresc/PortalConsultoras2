@@ -38,10 +38,10 @@ namespace Portal.Consultoras.Web.ServiceCDR {
         private int EstadoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private System.DateTime FechaAtencionField;
+        private System.Nullable<System.DateTime> FechaAtencionField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private System.DateTime FechaCulminadoField;
+        private System.Nullable<System.DateTime> FechaCulminadoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private System.DateTime FechaRegistroField;
@@ -131,7 +131,7 @@ namespace Portal.Consultoras.Web.ServiceCDR {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.DateTime FechaAtencion {
+        public System.Nullable<System.DateTime> FechaAtencion {
             get {
                 return this.FechaAtencionField;
             }
@@ -144,7 +144,7 @@ namespace Portal.Consultoras.Web.ServiceCDR {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.DateTime FechaCulminado {
+        public System.Nullable<System.DateTime> FechaCulminado {
             get {
                 return this.FechaCulminadoField;
             }
