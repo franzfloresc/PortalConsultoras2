@@ -808,6 +808,13 @@
     <Compile Include="WebPages\RestablecerContrasena.aspx.designer.cs">
       <DependentUpon>RestablecerContrasena.aspx</DependentUpon>
     </Compile>
+    <Compile Include="WebPages\SetVentaDigital.aspx.cs">
+      <DependentUpon>SetVentaDigital.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WebPages\SetVentaDigital.aspx.designer.cs">
+      <DependentUpon>SetVentaDigital.aspx</DependentUpon>
+    </Compile>
     <Compile Include="WebPages\TerminosyReferencias_CO.aspx.cs">
       <DependentUpon>TerminosyReferencias_CO.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -3272,6 +3279,7 @@
     <Content Include="WebPages\RegistroComunidad.aspx" />
     <Content Include="WebPages\ReporteActualizacionDatos.aspx" />
     <Content Include="WebPages\RestablecerContrasena.aspx" />
+    <Content Include="WebPages\SetVentaDigital.aspx" />
     <Content Include="WebPages\TerminosyReferencias_CO.aspx" />
     <Content Include="WebPages\WebTracking.aspx" />
     <None Include="Service References\ServiceCliente\ClienteService.wsdl" />
