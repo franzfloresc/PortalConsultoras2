@@ -2146,6 +2146,7 @@ function DownloadAttachContratoActualizarDatos() {
 
     $('#hrefTerminosMD').attr('href', UrlPdfTerminosyCondiciones);
     //document.location.href = UrlPdfTerminosyCondiciones;
+    //DownloadAttachPDFMD(requestedFile);
 }
 
 /* Métodos Mis Cursos */
