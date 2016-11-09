@@ -188,6 +188,38 @@ namespace Portal.Consultoras.Data
             return result;
         }
 
+        public int AceptarBackOrderPedidoWebDetalle(BEPedidoWebDetalle pedidowebdetalle)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.AceptarBackOrderPedidoWebDetalle");
+            Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, pedidowebdetalle.CampaniaID);
+            Context.Database.AddInParameter(command, "@PedidoID", DbType.Int32, pedidowebdetalle.PedidoID);
+            Context.Database.AddInParameter(command, "@PedidoDetalleID", DbType.Int16, pedidowebdetalle.PedidoDetalleID);
+            int result = Context.ExecuteNonQuery(command);
+
+            return result;
+        }
+
+        public int ClearBackOrderPedidoWebDetalle(int campaniaID, int pedidoID)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.ClearBackOrderPedidoWebDetalle");
+            Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, campaniaID);
+            Context.Database.AddInParameter(command, "@PedidoID", DbType.Int32, pedidoID);
+            int result = Context.ExecuteNonQuery(command);
+
+            return result;
+        }
+
+        public int UpdBackOrderPedidoWebDetalle(BEPedidoWebDetalle pedidowebdetalle)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.UpdBackOrderPedidoWebDetalle");
+            Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, pedidowebdetalle.CampaniaID);
+            Context.Database.AddInParameter(command, "@PedidoID", DbType.Int32, pedidowebdetalle.PedidoID);
+            Context.Database.AddInParameter(command, "@PedidoDetalleID", DbType.Int16, pedidowebdetalle.PedidoDetalleID);
+            int result = Context.ExecuteNonQuery(command);
+
+            return result;
+        }
+
         public void DelPedidoWebDetalleDesglosePedido(int CampaniaID, int PedidoID)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.DelPedidoWebDetalleDesglosePedido");

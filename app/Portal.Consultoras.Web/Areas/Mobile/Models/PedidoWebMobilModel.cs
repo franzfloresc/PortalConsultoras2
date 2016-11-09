@@ -9,6 +9,8 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Models
             ListaPedidoWebDetalle = new List<PedidoWebClienteMobilModel>();
         }
 
+        public int PedidoId { get; set; }
+
         public string CodigoISO { get; set; }
 
         public string Simbolo { get; set; }

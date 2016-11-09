@@ -64,6 +64,20 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public string FotoProducto03 { get; set; }
         [DataMember]
+        public string FotoProducto04 { get; set; }
+        [DataMember]
+        public string FotoProducto05 { get; set; }
+        [DataMember]
+        public string FotoProducto06 { get; set; }
+        [DataMember]
+        public string FotoProducto07 { get; set; }
+        [DataMember]
+        public string FotoProducto08 { get; set; }
+        [DataMember]
+        public string FotoProducto09 { get; set; }
+        [DataMember]
+        public string FotoProducto10 { get; set; }
+        [DataMember]
         public int EtiquetaID { get; set; }
         [DataMember]
         public int EtiquetaID2 { get; set; }
@@ -217,12 +231,24 @@ namespace Portal.Consultoras.Entities
 
             if (DataRecord.HasColumn(row, "FotoProducto01") && row["FotoProducto01"] != DBNull.Value)
                 FotoProducto01 = row["FotoProducto01"].ToString();
-
             if (DataRecord.HasColumn(row, "FotoProducto02") && row["FotoProducto02"] != DBNull.Value)
                 FotoProducto02 = row["FotoProducto02"].ToString();
-
             if (DataRecord.HasColumn(row, "FotoProducto03") && row["FotoProducto03"] != DBNull.Value)
                 FotoProducto03 = row["FotoProducto03"].ToString();
+            if (DataRecord.HasColumn(row, "FotoProducto04") && row["FotoProducto04"] != DBNull.Value)
+                FotoProducto04 = row["FotoProducto04"].ToString();
+            if (DataRecord.HasColumn(row, "FotoProducto05") && row["FotoProducto05"] != DBNull.Value)
+                FotoProducto05 = row["FotoProducto05"].ToString();
+            if (DataRecord.HasColumn(row, "FotoProducto06") && row["FotoProducto06"] != DBNull.Value)
+                FotoProducto06 = row["FotoProducto06"].ToString();
+            if (DataRecord.HasColumn(row, "FotoProducto07") && row["FotoProducto07"] != DBNull.Value)
+                FotoProducto07 = row["FotoProducto07"].ToString();
+            if (DataRecord.HasColumn(row, "FotoProducto08") && row["FotoProducto08"] != DBNull.Value)
+                FotoProducto08 = row["FotoProducto08"].ToString();
+            if (DataRecord.HasColumn(row, "FotoProducto09") && row["FotoProducto09"] != DBNull.Value)
+                FotoProducto09 = row["FotoProducto09"].ToString();
+            if (DataRecord.HasColumn(row, "FotoProducto10") && row["FotoProducto10"] != DBNull.Value)
+                FotoProducto10 = row["FotoProducto10"].ToString();
 
             if (DataRecord.HasColumn(row, "ColorFondo") && row["ColorFondo"] != DBNull.Value)
                 ColorFondo = row["ColorFondo"].ToString();

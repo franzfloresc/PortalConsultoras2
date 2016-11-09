@@ -333,7 +333,9 @@ namespace Portal.Consultoras.Entities
             if (DataRecord.HasColumn(row, "EsCatalogoPersonalizadoZonaValida") && row["EsCatalogoPersonalizadoZonaValida"] != DBNull.Value)
                 EsCatalogoPersonalizadoZonaValida = Convert.ToBoolean(row["EsCatalogoPersonalizadoZonaValida"]);
             if (DataRecord.HasColumn(row, "VioTutorialSalvavidas") && row["VioTutorialSalvavidas"] != DBNull.Value)
-                VioTutorialSalvavidas = Convert.ToInt32(row["VioTutorialSalvavidas"]);            
+                VioTutorialSalvavidas = Convert.ToInt32(row["VioTutorialSalvavidas"]);
+            if (DataRecord.HasColumn(row, "TieneHana") && row["TieneHana"] != DBNull.Value)
+                TieneHana = Convert.ToInt32(row["TieneHana"]);
 
             if (DataRecord.HasColumn(row, "IndicadorEnviado") && row["IndicadorEnviado"] != DBNull.Value)
                 IndicadorEnviado = Convert.ToInt32(row["IndicadorEnviado"]);
@@ -906,6 +908,15 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public int VioTutorialSalvavidas { get; set; }
 
+        [DataMember]
+        public int TieneHana { get; set; }
+
+        [DataMember]
+        public decimal MontoDeuda { get; set; }
+
+        [DataMember]
+        public decimal MontoMinimoFlexipago { get; set; }
+
         public BEUsuario(IDataRecord row, string Lider)
         {
             if (DataRecord.HasColumn(row, "Nombre") && row["Nombre"] != DBNull.Value)
@@ -1001,6 +1012,8 @@ namespace Portal.Consultoras.Entities
         public int IndicadorRechazado { get; set; }
         [DataMember]
         public string NombreGerenteZona { get; set; }
+        [DataMember]
+        public DateTime FechaActualPais { get; set; }
 
         public BEUsuario(IDataRecord row, string tipo1, string tipo2)
         {
@@ -1030,6 +1043,8 @@ namespace Portal.Consultoras.Entities
                 msRpta3 = Convert.ToString(row["Rpta3"]);
             if (DataRecord.HasColumn(row, "Rpta4") && row["Rpta4"] != DBNull.Value)
                 msRpta4 = Convert.ToString(row["Rpta4"]);
+            if (DataRecord.HasColumn(row, "FechaActualPais"))
+                FechaActualPais = Convert.ToDateTime(row["FechaActualPais"]);
         }
         /*R2520 - JICM - LIDERES - FIN*/
     }

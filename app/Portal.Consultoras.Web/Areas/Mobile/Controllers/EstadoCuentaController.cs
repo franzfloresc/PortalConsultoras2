@@ -1,8 +1,6 @@
 ﻿using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Areas.Mobile.Models;
 using Portal.Consultoras.Web.Models;
-using Portal.Consultoras.Web.ServiceContenido;
-using Portal.Consultoras.Web.ServiceSAC;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -87,18 +85,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     model.MontoPagar = ultimoMovimiento.MontoPagar;
                     model.Abono = ultimoMovimiento.Abono;
                     model.Cargo = ultimoMovimiento.Cargo;
-
-                    using (var service = new ContenidoServiceClient())
-                    {
-                        if (model.CodigoISO == Constantes.CodigosISOPais.Colombia || model.CodigoISO == Constantes.CodigosISOPais.Peru)
-                        {
-                            model.MontoPagar = service.GetDeudaTotal(userData.PaisID, int.Parse(userData.ConsultoraID.ToString()))[0].SaldoPendiente.ToString();
-                        }
-                        else
-                        {
-                            model.MontoPagar = service.GetSaldoPendiente(userData.PaisID, userData.CampaniaID, int.Parse(userData.ConsultoraID.ToString()))[0].SaldoPendiente.ToString();
-                        }
-                    }
+                    model.MontoPagar = userData.MontoDeuda.ToString();
                 }
             }
             catch (FaultException ex)
@@ -175,32 +162,8 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
         private List<EstadoCuentaModel> EstadodeCuenta()
         {
-            var userData = UserData();
-            var lst = new List<EstadoCuentaModel>();
+            List<EstadoCuentaModel> lst = ObtenerEstadoCuenta();
 
-            try
-            {
-                BEEstadoCuenta[] estadoCuenta;
-                using (var service = new SACServiceClient())
-                {
-                    estadoCuenta = service.GetEstadoCuentaConsultora(userData.PaisID, userData.UsuarioPrueba == 1 ? userData.ConsultoraAsociada : userData.CodigoConsultora);
-                }
-
-                foreach (var item in estadoCuenta)
-                {
-                    lst.Add(new EstadoCuentaModel
-                    {
-                        Fecha = item.FechaRegistro,
-                        Glosa = item.DescripcionOperacion,
-                        Cargo = item.Cargo,
-                        Abono = item.Abono
-                    });
-                }
-            }
-            catch (Exception ex)
-            {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-            }
             return lst;
         }
 

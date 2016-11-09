@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" xmlns:xs="http://www.w3.org/2001/XMLSchema">
-  <xs:complexType name="ArrayOfBEPedidoRechazado">
+  <xs:complexType name="ArrayOfBEPedidoRechazadoSicc">
     <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="BEPedidoRechazado" nillable="true" type="tns:BEPedidoRechazado" />
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="BEPedidoRechazadoSicc" nillable="true" type="tns:BEPedidoRechazadoSicc" />
     </xs:sequence>
   </xs:complexType>
-  <xs:element name="ArrayOfBEPedidoRechazado" nillable="true" type="tns:ArrayOfBEPedidoRechazado" />
-  <xs:complexType name="BEPedidoRechazado">
+  <xs:element name="ArrayOfBEPedidoRechazadoSicc" nillable="true" type="tns:ArrayOfBEPedidoRechazadoSicc" />
+  <xs:complexType name="BEPedidoRechazadoSicc">
     <xs:sequence>
       <xs:element minOccurs="0" name="Campania" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="CodigoConsultora" nillable="true" type="xs:string" />
@@ -14,7 +14,7 @@
       <xs:element minOccurs="0" name="Valor" nillable="true" type="xs:string" />
     </xs:sequence>
   </xs:complexType>
-  <xs:element name="BEPedidoRechazado" nillable="true" type="tns:BEPedidoRechazado" />
+  <xs:element name="BEPedidoRechazadoSicc" nillable="true" type="tns:BEPedidoRechazadoSicc" />
   <xs:complexType name="BELogGPRValidacion">
     <xs:sequence>
       <xs:element minOccurs="0" name="Campania" nillable="true" type="xs:string" />

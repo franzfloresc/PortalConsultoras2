@@ -112,6 +112,12 @@ namespace Portal.Consultoras.ServiceContracts
         short UpdPedidoWebDetalleMasivo(List<BEPedidoWebDetalle> pedidowebdetalle);
 
         [OperationContract]
+        void AceptarBackOrderPedidoWebDetalle(BEPedidoWebDetalle pedidowebdetalle);
+
+        [OperationContract]
+        void UpdBackOrderListPedidoWebDetalle(int paisID, int campaniaID, int pedidoID, List<BEPedidoWebDetalle> listPedidoWebDetalle);
+
+        [OperationContract]
         IList<BEPedidoWebDetalle> SelectByPedidoValidado(int paisID, int CampaniaID, long ConsultoraID, string Consultora);
 
         [OperationContract]
@@ -885,7 +891,7 @@ namespace Portal.Consultoras.ServiceContracts
         List<BEPedidoWeb> GetPedidosFacturados(int paisId, string codigoConsultora);
 
         [OperationContract]
-        List<BEPedidoWeb> GetPedidosIngresadoFacturado(int paisID, int consultoraID, int campaniaID);
+        List<BEPedidoWeb> GetPedidosIngresadoFacturado(int paisID, int consultoraID, int campaniaID, string codigoConsultora);
         
         [OperationContract]
         BEConsultorasProgramaNuevas GetConsultorasProgramaNuevas(int paisID, BEConsultorasProgramaNuevas entidad);
@@ -898,5 +904,8 @@ namespace Portal.Consultoras.ServiceContracts
         
         [OperationContract]
         BEProcesoPedidoRechazado ObtenerProcesoPedidoRechazadoGPR(int paisID, int campaniaID, long consultoraID);
+        
+        [OperationContract]
+        List<BEPedidoWeb> GetPedidosFacturadoSegunDias(int paisID, int campaniaID, long consultoraID, int maxDias);
     }
 }
