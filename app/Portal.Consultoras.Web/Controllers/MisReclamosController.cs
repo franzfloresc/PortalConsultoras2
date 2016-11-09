@@ -12,7 +12,7 @@ using Portal.Consultoras.Common;
 namespace Portal.Consultoras.Web.Controllers
 {
     public class MisReclamosController : BaseController
-    {
+    {        
         public ActionResult Index()
         {
             MisReclamosModel model = new MisReclamosModel();
@@ -180,7 +180,9 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 if (Session[Constantes.ConstSession.CDRDescripcion] != null)
                 {
-                    return (List<BECDRWebDescripcion>)Session[Constantes.ConstSession.CDRDescripcion];
+                    var listaDescripcion = (List<BECDRWebDescripcion>)Session[Constantes.ConstSession.CDRDescripcion];
+                    if (listaDescripcion.Count > 0)
+                        return listaDescripcion;
                 }
 
                 var lista = new List<BECDRWebDescripcion>();
@@ -221,8 +223,16 @@ namespace Portal.Consultoras.Web.Controllers
                         var lista = pedido.olstBEPedidoWebDetalle.Where(d => d.CUV == model.CUV || model.CUV == "").ToList();
                         if (lista.Any())
                         {
-                            pedido.olstBEPedidoWebDetalle = lista.ToArray();
-                            listaPedido.Add(pedido);
+                            BEPedidoWeb pedidoActual = new BEPedidoWeb();
+                            pedidoActual.CampaniaID = pedido.CampaniaID;
+                            pedidoActual.ImporteTotal = pedido.ImporteTotal;
+                            pedidoActual.Flete = pedido.Flete;
+                            pedidoActual.PedidoID = pedido.PedidoID;
+                            pedidoActual.FechaRegistro = pedido.FechaRegistro;
+                            pedidoActual.CanalIngreso = pedido.CanalIngreso;
+                            pedidoActual.olstBEPedidoWebDetalle = lista.ToArray();
+
+                            listaPedido.Add(pedidoActual);
                         }
                     }
                 }

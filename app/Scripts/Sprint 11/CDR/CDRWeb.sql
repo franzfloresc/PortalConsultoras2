@@ -189,10 +189,10 @@ CREATE PROCEDURE dbo.GetPedidosFacturadoSegunDias_SB2
 	@CampaniaID int,
 	@maxDias int
 AS
-
--- GetPedidosFacturadoSegunDias_SB2 49627031, 201618, 160
+/*
+GetPedidosFacturadoSegunDias_SB2 2, 201617, 142
+*/
 BEGIN
-
 	set @maxDias = isnull(@maxDias, 0)
 
 
@@ -212,6 +212,7 @@ BEGIN
 			--SUM(PD.Cantidad) as CantidadProductos
 			-- pd.PedidoDetalleID,
 			pd.CUV,
+			pc.Descripcion as DescripcionProd,
 			pd.Cantidad
 		FROM ods.Pedido(NOLOCK) P 
 		INNER JOIN ods.PedidoDetalle(NOLOCK) PD ON 
@@ -232,11 +233,7 @@ BEGIN
 		--	P.PedidoID,CA.Codigo,P.MontoFacturado,P.Origen,P.Flete,p.FechaFacturado
 		ORDER BY 
 			CA.Codigo desc 
-
-
 END
-
-
 
 GO
 
@@ -255,8 +252,9 @@ CREATE PROCEDURE dbo.GetCDRWebMotivoOperacion
 	@CodigoOperacion VARCHAR(5),
 	@CodigoReclamo VARCHAR(5)
 AS
-
--- GetCDRWebMotivoOperacion 239106, 201615, 160
+/*
+GetCDRWebMotivoOperacion null,null
+*/
 BEGIN
 
 	set @CodigoOperacion = isnull(@CodigoOperacion, '')
@@ -284,10 +282,6 @@ BEGIN
 
 END
 
-go
-
-
-
 GO
 
 IF EXISTS(
@@ -306,7 +300,9 @@ CREATE PROCEDURE dbo.GetCDRWebDescripcion
 	@CodigoSSIC VARCHAR(5),
 	@Tipo VARCHAR(5)
 AS
-
+/*
+GetCDRWebDescripcion null,null,null
+*/
 BEGIN
 	
 	set @CDRWebDescripcionID = isnull(@CDRWebDescripcionID, 0)
