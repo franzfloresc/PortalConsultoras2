@@ -7,8 +7,8 @@
       <xs:element minOccurs="0" name="CampaniaID" type="xs:int" />
       <xs:element minOccurs="0" name="ConsultoraID" type="xs:long" />
       <xs:element minOccurs="0" name="Estado" type="xs:int" />
-      <xs:element minOccurs="0" name="FechaAtencion" type="xs:dateTime" />
-      <xs:element minOccurs="0" name="FechaCulminado" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="FechaAtencion" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="FechaCulminado" nillable="true" type="xs:dateTime" />
       <xs:element minOccurs="0" name="FechaRegistro" type="xs:dateTime" />
       <xs:element minOccurs="0" name="Importe" type="xs:decimal" />
       <xs:element minOccurs="0" name="PedidoID" type="xs:int" />

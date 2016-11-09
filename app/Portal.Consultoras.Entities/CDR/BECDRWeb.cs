@@ -23,9 +23,9 @@ namespace Portal.Consultoras.Entities.CDR
         [DataMember]
         public int Estado { get; set; }
         [DataMember]
-        public DateTime FechaCulminado { get; set; }
+        public DateTime? FechaCulminado { get; set; }
         [DataMember]
-        public DateTime FechaAtencion { get; set; }
+        public DateTime? FechaAtencion { get; set; }
         [DataMember]
         public decimal Importe { get; set; }
         [DataMember]
