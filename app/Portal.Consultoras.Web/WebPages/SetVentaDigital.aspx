@@ -13,5 +13,6 @@
     <meta property="og:description" content="Míralo aquí">
 </head>
 <body>
+    <img src="" id="imgCuvProducto" alt="imagen" runat="server"/>
 </body>
 </html>
