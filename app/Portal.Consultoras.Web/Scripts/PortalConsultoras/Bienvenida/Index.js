@@ -189,11 +189,11 @@ $(document).ready(function () {
         return false;
     });
     $('#hrefTerminos').click(function () {
-        //waitingDialog({});
+        waitingDialog({});
         DownloadAttachPDFTerminos();
     });
     $('#hrefTerminosMD').click(function () {
-        //waitingDialog({});
+        waitingDialog({});
         DownloadAttachContratoActualizarDatos();
     });
     $('#hrefContratoMD').click(function () {
@@ -2141,11 +2141,12 @@ function DownloadAttachPDFMD(requestedFile) {
     document.body.appendChild(iframe_);
 }
 function DownloadAttachContratoActualizarDatos() {
-    //var archivoMD = $('#hdn_NombreArchivoContratoMD').val();
-    //var requestedFile = "/Content/FAQ/" + archivoMD + ".pdf";
+    var archivoMD = $('#hdn_NombreArchivoContratoMD').val();
+    var requestedFile = "/Content/FAQ/" + archivoMD + ".pdf";
 
-    $('#hrefTerminosMD').attr('href', UrlPdfTerminosyCondiciones);
+    //$('#hrefTerminosMD').attr('href', UrlPdfTerminosyCondiciones);
     //document.location.href = UrlPdfTerminosyCondiciones;
+    DownloadAttachPDFMD(requestedFile);
 }
 
 /* Métodos Mis Cursos */
@@ -2331,37 +2332,37 @@ function ActualizarDatos() {
     return result;
 };
 function DownloadAttachPDFTerminos() {
-    //var iframe_ = document.createElement("iframe");
-    //iframe_.style.display = "none";
-    //var requestedFile = '/Content/FAQ/' + viewBagContratoActualizarDatos + '.pdf';
-    //iframe_.setAttribute("src", baseUrl + 'WebPages/DownloadPDF.aspx?file=' + requestedFile);
+    var iframe_ = document.createElement("iframe");
+    iframe_.style.display = "none";
+    var requestedFile = '/Content/FAQ/' + viewBagContratoActualizarDatos + '.pdf';
+    iframe_.setAttribute("src", baseUrl + 'WebPages/DownloadPDF.aspx?file=' + requestedFile);
 
-    //if (navigator.userAgent.indexOf("MSIE") > -1 && !window.opera) { // Si es Internet Explorer
-    //    iframe_.onreadystatechange = function () {
-    //        switch (this.readyState) {
-    //            case "loading":
-    //                waitingDialog({});
-    //                break;
-    //            case "complete":
-    //            case "interactive":
-    //            case "uninitialized":
-    //                closeWaitingDialog();
-    //                break;
-    //            default:
-    //                closeWaitingDialog();
-    //                break;
-    //        }
-    //    };
-    //}
-    //else {
-    //    // Si es Firefox o Chrome
-    //    $(iframe_).ready(function () {
-    //        closeWaitingDialog();
-    //    });
-    //}
-    //document.body.appendChild(iframe_);
+    if (navigator.userAgent.indexOf("MSIE") > -1 && !window.opera) { // Si es Internet Explorer
+        iframe_.onreadystatechange = function () {
+            switch (this.readyState) {
+                case "loading":
+                    waitingDialog({});
+                    break;
+                case "complete":
+                case "interactive":
+                case "uninitialized":
+                    closeWaitingDialog();
+                    break;
+                default:
+                    closeWaitingDialog();
+                    break;
+            }
+        };
+    }
+    else {
+        // Si es Firefox o Chrome
+        $(iframe_).ready(function () {
+            closeWaitingDialog();
+        });
+    }
+    document.body.appendChild(iframe_);
 
-    $('#hrefTerminos').attr('href', UrlPdfTerminosyCondiciones);
+    //$('#hrefTerminos').attr('href', UrlPdfTerminosyCondiciones);
     //document.location.href = UrlPdfTerminosyCondiciones;
 };
 function CerrarPopupActualizacionDatos() {
