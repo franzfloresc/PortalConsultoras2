@@ -853,15 +853,16 @@
                         <label for="chkAceptoContrato" class="texto_terminosCondiciones">
                             @if (Model.PaisID == 4)
                             {
-                                <text>
+                                @*<text>
                                     Acepto recibir la factura a través de medios electrónicos como email y SomosBelcorp.<br />
                                     Me comprometo a cumplir con las obligaciones tributarias derivadas de la aceptación y a conservar copia de la factura.<br />
                                     También declaro que he leído los <span><a href="javascript:;" id="hrefTerminos"> términos y condiciones</a></span> sobre Protección de Datos Personales y que me encuentro de acuerdo con los mismos.
-                                </text>
+                                </text>*@
+                                <text>Declaro que he leído los <span><a href="javascript:;" id="hrefTerminos" target="_blank">términos y condiciones</a></span> sobre Protección de Datos Personales y recepción de la factura a través de medios electrónicos, y que me encuentro de acuerdo con los mismos.</text>
                             }
                             else
                             {
-                                <text>Declaro que he leído los <span><a href="javascript:;" id="hrefTerminos">términos y condiciones</a></span> sobre Protección de Datos Personales y que me encuentro de acuerdo con los mismos.</text>
+                                <text>Declaro que he leído los <span><a href="javascript:;" id="hrefTerminos" target="_blank">términos y condiciones</a></span> sobre Protección de Datos Personales y que me encuentro de acuerdo con los mismos.</text>
                             }
                         </label>
                     </div>
@@ -1049,7 +1050,15 @@
                     <div class="checkbox_condiciones">
                         <input type="checkbox" name="condiciones" id="chkAceptoContratoMD" />
                         <label for="chkAceptoContratoMD" class="texto_terminosCondiciones">
-                            <span class="asterisco_actualizar_datos">(*)&nbsp;</span>Declaro que he leído los <span><a href="javascript:;" id="hrefTerminosMD">términos y condiciones</a></span> sobre Protección de  Datos Personales y que me encuentro de acuerdo con los mismos.
+                            <span class="asterisco_actualizar_datos">(*)&nbsp;</span>
+                            @if (Model.PaisID == 4)                            
+                            {
+                                <text>Declaro que he leído los <span><a href="javascript:;" id="hrefTerminosMD" target="_blank">términos y condiciones</a></span> sobre Protección de Datos Personales y recepción de la factura a través de medios electrónicos, y que me encuentro de acuerdo con los mismos.</text>
+                            }
+                            else 
+                            {
+                                <text>Declaro que he leído los <span><a href="javascript:;" id="hrefTerminosMD" target="_blank">términos y condiciones</a></span> sobre Protección de  Datos Personales y que me encuentro de acuerdo con los mismos.</text>
+                            }
                         </label>
                     </div>
                 </div>
@@ -2130,6 +2139,8 @@
         var constanteVioVideo = '@Constantes.TipoTutorial.Video';
         var constanteVioTutorialDesktop = '@Constantes.TipoTutorial.Desktop';
         var constanteVioTutorialSalvavidas = '@Constantes.TipoTutorial.Salvavidas';
+
+        var UrlPdfTerminosyCondiciones = '@ViewBag.UrlPdfTerminosyCondiciones';
 
         var cantidadRegistros = 8;
     </script>

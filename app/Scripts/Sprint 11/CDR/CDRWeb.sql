@@ -1,4 +1,4 @@
-
+USE BelcorpPeru
 go
 
 IF EXISTS(
@@ -531,26 +531,26 @@ create procedure dbo.GetCDRWeb
 ,@CampaniaID int = 0
 as
 /*
-GetCDRWeb 49627031
+GetCDRWeb 2
 */
 begin
 
-		select top 20
-				CDRWebID,
-				PedidoID,
-				PedidoNumero,
-				CampaniaID,
-				ConsultoraID,
-				FechaRegistro,
-				Estado,
-				FechaCulminado,
-				Importe,
-				FechaAtencion
-		from CDRWeb
-		where ConsultoraID = @ConsultoraID
-			and (PedidoID = @PedidoID or @PedidoID = 0)
-			and (CampaniaID = @CampaniaID or @CampaniaID = 0)
-		order by CDRWebID desc
+	select top 20
+			CDRWebID,
+			PedidoID,
+			PedidoNumero,
+			CampaniaID,
+			ConsultoraID,
+			FechaRegistro,
+			Estado,
+			FechaCulminado,
+			FechaAtencion,
+			Importe				
+	from CDRWeb
+	where ConsultoraID = @ConsultoraID
+		and (PedidoID = @PedidoID or @PedidoID = 0)
+		and (CampaniaID = @CampaniaID or @CampaniaID = 0)
+	order by CDRWebID desc
 
 end
 
