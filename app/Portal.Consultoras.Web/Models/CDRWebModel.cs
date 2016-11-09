@@ -15,20 +15,22 @@ namespace Portal.Consultoras.Web.Models
         public int ConsultoraID { get; set; }        
         public DateTime FechaRegistro { get; set; }        
         public int Estado { get; set; }        
-        public DateTime FechaCulminado { get; set; }        
-        public DateTime FechaAtencion { get; set; }        
+        public DateTime? FechaCulminado { get; set; }        
+        public DateTime? FechaAtencion { get; set; }        
         public decimal Importe { get; set; }
 
         public string EstadoDescripcion
         {
             get
             {
-                return Estado == Constantes.EstadoCDRWeb.EnProceso || Estado == Constantes.EstadoCDRWeb.Culminado
+                return Estado == Constantes.EstadoCDRWeb.Pendiente
                     ? "PENDIENTE"
-                    : Estado == Constantes.EstadoCDRWeb.Rechazado
-                        ? "RECHAZADO"
-                        : Estado == Constantes.EstadoCDRWeb.Aprobado
-                            ? "APROBADO"
+                    : Estado == Constantes.EstadoCDRWeb.Enviado
+                        ? "ENVIADO"
+                        : Estado == Constantes.EstadoCDRWeb.Observado
+                        ? "OBSERVADO"
+                        : Estado == Constantes.EstadoCDRWeb.Aceptado
+                            ? "ACEPTADO"
                             : "";
             }
         }

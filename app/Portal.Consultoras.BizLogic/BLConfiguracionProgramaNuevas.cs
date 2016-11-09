@@ -16,22 +16,22 @@ namespace Portal.Consultoras.BizLogic
         {
             BEConfiguracionProgramaNuevas data = null;
 
-            var BLPais = new BLPais();
+            //var BLPais = new BLPais();
 
-            if (!BLPais.EsPaisHana(paisID)) // Validar si informacion de pais es de origen Normal o Hana
-            {
+            //if (!BLPais.EsPaisHana(paisID)) // Validar si informacion de pais es de origen Normal o Hana
+            //{
                 var da = new DAConfiguracionProgramaNuevas(paisID);
                 using (IDataReader reader = da.GetConfiguracionProgramaNuevas(entidad))
                     if (reader.Read())
                         data = new BEConfiguracionProgramaNuevas(reader);
 
-            }
-            else
-            {
-                var DAHConfiguracionProgramaNuevas = new DAHConfiguracionProgramaNuevas();
+            //}
+            //else
+            //{
+            //    var DAHConfiguracionProgramaNuevas = new DAHConfiguracionProgramaNuevas();
 
-                data = DAHConfiguracionProgramaNuevas.GetConfiguracionProgramaNuevas(paisID, entidad);
-            }
+            //    data = DAHConfiguracionProgramaNuevas.GetConfiguracionProgramaNuevas(paisID, entidad);
+            //}
 
             return data;
         }
