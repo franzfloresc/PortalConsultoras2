@@ -108,7 +108,7 @@
                 if (System.Web.HttpContext.Current.Request.UserAgent != null)
                 {
                     var request = HttpContext.Current.Request;
-                    var urlBase = request.Url.Scheme + "://" + request.Url.Authority + "/WebPages/SetVentaDigital.aspx?imagen=" + item.ImagenProducto + "&nombre=" + texto;
+                    var urlBase = request.Url.Scheme + "://" + request.Url.Authority + "/WebPages/SetVentaDigital.aspx?imagen=" + item.ImagenProducto + "&nombre=" + Uri.EscapeDataString(texto);
 
                     var message = Uri.EscapeDataString(texto) + " - " + urlBase;
                     urlWs = "whatsapp://send?text=" + message;
