@@ -88,8 +88,6 @@
         }
     </script>
     @if (ViewBag.Rol == Portal.Consultoras.Common.Constantes.Rol.Consultora)
-    {
-        string nombre_pais = ViewBag.PaisAnalytics;
 
         switch (nombre_pais)
         {
@@ -108,8 +106,6 @@
         case "SV":
         case "GT":
         <div class="boton_ayuda"><span id="belcorpChat" class="boton-home"><a href="#">¿Necesitas ayuda?</a> </span></div>
-                break;
-        }
     }
     <!-- cabecera -->
     <header>
@@ -141,9 +137,6 @@
         <div class="wrapper_header">
             <div class="logo_esika">
                 <a href="@Url.Action("Index", "Bienvenida")"></a>
-            </div>
-            <div class="menu_new_esika">
-                @Html.Partial("~/Views/Shared/_Menu.cshtml")
             </div>
             @{
                 string controllerAction = this.ViewContext.RouteData.Values["controller"].ToString() + this.ViewContext.RouteData.Values["action"].ToString();
@@ -468,7 +461,6 @@
         <hr class="clear" />
         <a href="javascript:;" onclick="RedirectIngresaTuPedido();" class="ver_pedido" role="menu" region="Superior" title="Ver mi pedido" id="lnk-sup-ver-mi-pedido">VER TODO MI PEDIDO</a>
     </script>
-    @System.Web.Optimization.Scripts.Render("~/bundles/JQueryJs")
     <script type="text/javascript">
         var formatDecimalPaisMain = '@ViewBag.FormatDecimalPais';
         var vbSimbolo = '@ViewBag.Simbolo';
