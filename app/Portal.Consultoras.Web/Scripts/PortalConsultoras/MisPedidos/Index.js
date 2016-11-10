@@ -469,8 +469,8 @@ function CargarDetalleIngresadoCliente(tag, camp, page, rows) {
 
 function ExportExcel(obj) {
     waitingDialog();
-    //var campaniaID = $.trim($(obj).parents("[data-popup]").find("[data-selectcamp]").val());
-    var campaniaID = $('#lblcampania')[0].innerHTML; //$('[data-popup="ingresado"] [data-selectcamp]')[0].dataset.campregresar;
+    var campaniaID = $.trim($(obj).parents("[data-popup]").find("[data-selectcamp]").val());
+    campaniaID = campaniaID || $.trim($(obj).parents("[data-popup]").find("[data-selectcamp]").attr("data-campregresar"));
     campaniaID = campaniaID.replace("-", "");
     var ClienteID = $("#divGrilla").find("select[data-cliente]").val();
     var ClienteID_ = ClienteID.toString() == '-1' ? "" : ClienteID.toString();
