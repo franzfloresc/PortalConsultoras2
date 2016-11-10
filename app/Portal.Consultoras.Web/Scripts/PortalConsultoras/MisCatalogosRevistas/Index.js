@@ -841,7 +841,7 @@ function ObtenerImagenRevista(campania, defered) {
     var numero = campania.substring(4, 6);
     var prefijoPais = codigoIso.toLowerCase();
 
-    var codigoRevista = 'revista.' + prefijoPais + '.c' + numero + '.' + anio;
+    var codigoRevista = 'sbconsultorarevista.' + prefijoPais + '.c' + numero + '.' + anio;
 
     jQuery.ajax({
         type: 'POST',

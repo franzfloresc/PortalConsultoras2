@@ -63,6 +63,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CDR\DACDRWeb.cs" />
+    <Compile Include="CDR\DACDRWebDescripcion.cs" />
+    <Compile Include="CDR\DACDRWebDetalle.cs" />
+    <Compile Include="CDR\DACDRWebMotivoOperacion.cs" />
+    <Compile Include="CDR\DALogCDRWebDetalle.cs" />
+    <Compile Include="CDR\DALogCDRWeb.cs" />
     <Compile Include="DAAfiliaClienteConsultora.cs" />
     <Compile Include="DABannerPedido.cs" />
     <Compile Include="DABelcorpNoticia.cs" />
@@ -127,6 +133,7 @@
     <Compile Include="DAOfertaNueva.cs" />
     <Compile Include="DAOfertaProducto.cs" />
     <Compile Include="DAOfertaWeb.cs" />
+    <Compile Include="DAPais.cs" />
     <Compile Include="DAPaqueteDocumentario.cs" />
     <Compile Include="DAParticipantesDemandaAnticipada.cs" />
     <Compile Include="DAPayPalConfiguracion.cs" />

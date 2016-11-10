@@ -162,6 +162,14 @@ namespace Portal.Consultoras.Common
 
             // prol
             public const string PROL_CalculoMontosProl = "PROL_CalculoMontosProl";
+
+            //  CDR
+            public const string CDRCampanias = "CDRCampanias";
+            public const string CDRMotivoOperacion = "CDRMotivoOperacion";
+            public const string CDRPedidosFacturado = "CDRPedidosFacturado";
+            public const string CDRDescripcion = "CDRDescripcion";
+            public const string CDRWebDetalle = "CDRWebDetalle";
+            public const string CDRWeb = "CDRWeb";
         }
 
         public class TipoOfertaFinalCatalogoPersonalizado
@@ -245,6 +253,19 @@ namespace Portal.Consultoras.Common
             public const int Desktop = 2;
             public const int Salvavidas = 3;
             public const int Mobile = 4;
+        }
+
+        public class BackOrder
+        {
+            public const string LogAccionCancelar = "El cliente no aceptó BackOrder.";
+        }
+        
+        public class EstadoCDRWeb
+        {
+            public const int Pendiente = 1;
+            public const int Enviado = 2;
+            public const int Aceptado = 3;
+            public const int Observado = 4;
         }
     }
 }

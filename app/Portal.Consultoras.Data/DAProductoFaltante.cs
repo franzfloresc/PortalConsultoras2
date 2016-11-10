@@ -151,6 +151,15 @@ namespace Portal.Consultoras.Data
             return Context.ExecuteReader(command);
         }
 
+        public IDataReader GetOnlyProductoFaltante(int campaniaId, int zonaId)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetOnlyProductoFaltante");
+            Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, campaniaId);
+            Context.Database.AddInParameter(command, "@ZonaID", DbType.Int32, zonaId);
+
+            return Context.ExecuteReader(command);
+        }
+
         public void InsLogIngresoFAD(int CampaniaId, long ConsultoraId, string CUV, int Cantidad, decimal PrecioUnidad, int ZonaId)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("InsLogIngresoFAD");

@@ -259,14 +259,28 @@ BEGIN
 
 	END -- FIN ELSE IF @EsquemaDAConsultora = 0
 
+	
+	declare @esRechazado int = -1
+	declare @IndicadorEnviado bit = 0
+
 	-- Valida Campania Anterior
 	IF(@Campania <> 0)
 	BEGIN
-		SET @Campania = @Campania - @Anio
-		IF(@Campania = @NroCampanias)
-			SET @Campania = @Anio + 101
-		ELSE
-			SET @Campania = @Anio + @Campania + 1
+	
+		SELECT @esRechazado = esRechazado, @IndicadorEnviado = IndicadorEnviado
+		FROM  EsPedidoRechazado_SB2(@ConsultoraID, @Campania)
+
+		if @esRechazado = 2 -- no rechazado (sigue con el proceso normal=> cambio de campaña)
+		begin
+			
+			SET @Campania = @Campania - @Anio
+			IF(@Campania = @NroCampanias)
+				SET @Campania = @Anio + 101
+			ELSE
+				SET @Campania = @Anio + @Campania + 1
+
+		END
+		
 
 		IF @EsquemaDAConsultora = 1 AND @Campania > @Campania_temp
 		BEGIN
@@ -339,10 +353,7 @@ BEGIN
 		INNER JOIN ods.Consultora c with(nolock) on up.CodigoConsultoraAsociada = c.Codigo
 		WHERE cf.ConsultoraId = @consultoraid
 	END
-	
-	declare @esRechazado int = -1
-	declare @IndicadorEnviado bit = 0
-	 
+		 
 	--Valida UltimaCampaniaFacturada
 	IF (@UltimaCampanaFacturada = @Campania)
 	BEGIN

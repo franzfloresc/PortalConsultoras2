@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Runtime.Serialization;
-using System.Text;
-using System.Threading.Tasks;
+﻿using OpenSource.Library.DataAccess;
 using Portal.Consultoras.Common;
-using OpenSource.Library.DataAccess;
+using System;
+using System.Data;
+using System.Runtime.Serialization;
 
 namespace Portal.Consultoras.Entities
 {
@@ -37,6 +33,27 @@ namespace Portal.Consultoras.Entities
         public string FotoProducto03 { get; set; }
         [DataMember]
         [ViewProperty]
+        public string FotoProducto04 { get; set; }
+        [DataMember]
+        [ViewProperty]
+        public string FotoProducto05 { get; set; }
+        [DataMember]
+        [ViewProperty]
+        public string FotoProducto06 { get; set; }
+        [DataMember]
+        [ViewProperty]
+        public string FotoProducto07 { get; set; }
+        [DataMember]
+        [ViewProperty]
+        public string FotoProducto08 { get; set; }
+        [DataMember]
+        [ViewProperty]
+        public string FotoProducto09 { get; set; }
+        [DataMember]
+        [ViewProperty]
+        public string FotoProducto10 { get; set; }
+        [DataMember]
+        [ViewProperty]
         public string UsuarioRegistro { get; set; }
         [DataMember]
         [ViewProperty]
@@ -61,6 +78,20 @@ namespace Portal.Consultoras.Entities
                 FotoProducto02 = Convert.ToString(row["FotoProducto02"]);
             if (DataRecord.HasColumn(row, "FotoProducto03") && row["FotoProducto03"] != DBNull.Value)
                 FotoProducto03 = Convert.ToString(row["FotoProducto03"]);
+            if (DataRecord.HasColumn(row, "FotoProducto04") && row["FotoProducto04"] != DBNull.Value)
+                FotoProducto04 = Convert.ToString(row["FotoProducto04"]);
+            if (DataRecord.HasColumn(row, "FotoProducto05") && row["FotoProducto05"] != DBNull.Value)
+                FotoProducto05 = Convert.ToString(row["FotoProducto05"]);
+            if (DataRecord.HasColumn(row, "FotoProducto06") && row["FotoProducto06"] != DBNull.Value)
+                FotoProducto06 = Convert.ToString(row["FotoProducto06"]);
+            if (DataRecord.HasColumn(row, "FotoProducto07") && row["FotoProducto07"] != DBNull.Value)
+                FotoProducto07 = Convert.ToString(row["FotoProducto07"]);
+            if (DataRecord.HasColumn(row, "FotoProducto08") && row["FotoProducto08"] != DBNull.Value)
+                FotoProducto08 = Convert.ToString(row["FotoProducto08"]);
+            if (DataRecord.HasColumn(row, "FotoProducto09") && row["FotoProducto09"] != DBNull.Value)
+                FotoProducto09 = Convert.ToString(row["FotoProducto09"]);
+            if (DataRecord.HasColumn(row, "FotoProducto10") && row["FotoProducto10"] != DBNull.Value)
+                FotoProducto10 = Convert.ToString(row["FotoProducto10"]);
         }
     }
 }

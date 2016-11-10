@@ -206,6 +206,12 @@
   <wsdl:message name="IODSService_SelectProductoToKitInicio_OutputMessage">
     <wsdl:part name="parameters" element="tns:SelectProductoToKitInicioResponse" />
   </wsdl:message>
+  <wsdl:message name="IODSService_GetNombreProducto048ByCuv_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetNombreProducto048ByCuv" />
+  </wsdl:message>
+  <wsdl:message name="IODSService_GetNombreProducto048ByCuv_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetNombreProducto048ByCuvResponse" />
+  </wsdl:message>
   <wsdl:portType name="IODSService">
     <wsdl:operation name="GetProductoComercialByPaisAndCampania">
       <wsdl:input wsaw:Action="http://tempuri.org/IODSService/GetProductoComercialByPaisAndCampania" message="tns:IODSService_GetProductoComercialByPaisAndCampania_InputMessage" />
@@ -322,6 +328,10 @@
     <wsdl:operation name="SelectProductoToKitInicio">
       <wsdl:input wsaw:Action="http://tempuri.org/IODSService/SelectProductoToKitInicio" message="tns:IODSService_SelectProductoToKitInicio_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IODSService/SelectProductoToKitInicioResponse" message="tns:IODSService_SelectProductoToKitInicio_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetNombreProducto048ByCuv">
+      <wsdl:input wsaw:Action="http://tempuri.org/IODSService/GetNombreProducto048ByCuv" message="tns:IODSService_GetNombreProducto048ByCuv_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IODSService/GetNombreProducto048ByCuvResponse" message="tns:IODSService_GetNombreProducto048ByCuv_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IODSService" type="tns:IODSService">
@@ -587,6 +597,15 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GetNombreProducto048ByCuv">
+      <soap:operation soapAction="http://tempuri.org/IODSService/GetNombreProducto048ByCuv" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
   </wsdl:binding>
   <wsdl:binding name="BasicHttpsBinding_IODSService" type="tns:IODSService">
     <wsp:PolicyReference URI="#BasicHttpsBinding_IODSService_policy" />
@@ -845,6 +864,15 @@
     </wsdl:operation>
     <wsdl:operation name="SelectProductoToKitInicio">
       <soap:operation soapAction="http://tempuri.org/IODSService/SelectProductoToKitInicio" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetNombreProducto048ByCuv">
+      <soap:operation soapAction="http://tempuri.org/IODSService/GetNombreProducto048ByCuv" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
