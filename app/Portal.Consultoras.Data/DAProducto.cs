@@ -83,5 +83,14 @@ namespace Portal.Consultoras.Data
 
             return Context.ExecuteReader(command);
         }
+
+        public string GetNombreProducto048ByCuv(int campaniaID, string cuv)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetNombreProducto048ByCuv");
+            Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, campaniaID);
+            Context.Database.AddInParameter(command, "@CUV", DbType.String, cuv);
+
+            return Context.ExecuteScalar(command).ToString();
+        }
     }
 }

@@ -558,6 +558,15 @@ function CrearDialogs() {
         draggable: true
     });
 
+    $('#divBackOrderModificado').dialog({
+        autoOpen: false,
+        resizable: false,
+        modal: true,
+        closeOnEscape: false,
+        width: 400,
+        draggable: true
+    });
+
     $('#divReservaSatisfactoriaVE').dialog({
         autoOpen: false,
         resizable: false,
@@ -779,6 +788,7 @@ function InsertarProducto(form) {
 
                 tieneMicroefecto = true;
                 MostrarBarra(response);
+                if (response.modificoBackOrder) showDialog('divBackOrderModificado');
                 CargarDetallePedido();
 
                 TrackingJetloreAdd(form.data.Cantidad, $("#hdCampaniaCodigo").val(), form.data.CUV);
@@ -851,6 +861,7 @@ function AgregarProductoZonaEstrategia(tipoEstrategiaImagen) {
             CargarCarouselEstrategias(param2.CUV);
             HideDialog("divVistaPrevia");
             PedidoOnSuccess();
+            if (data.modificoBackOrder) showDialog('divBackOrderModificado');
             CargarDetallePedido();
             MostrarBarra(data);
             TrackingJetloreAdd(param2.Cantidad, $("#hdCampaniaCodigo").val(), param2.CUV);
@@ -1249,10 +1260,20 @@ function ArmarCarouselEstrategias(data) {
     }
 
     cierreCarouselEstrategias();
-    if ($.trim($('#divListadoEstrategia').html()).length == 0) {
-        $('#divListaEstrategias').hide();
-    } else {
+
+    $("[data-barra-width]").css("width", indicadorFlexiPago == 1 ? "68%" : "100%");
+
+    $('#divListaEstrategias').hide();
+    $('.caja_pedidos').addClass('sinOfertasParaTi');
+    $('.tooltip_infoCopy').addClass('tooltip_infoCopy_expand');
+    if ($.trim($('#divListadoEstrategia').html()).length > 0) {
+        $("[data-barra-width]").css("width", "100%");
         $('#divListaEstrategias').show();
+        if (indicadorFlexiPago == 1) {
+            $('#divListaEstrategias').css("margin-top", ($(".flexiPago_belcorp").outerHeight() + 50)+ "px");
+        }        
+        $('.caja_pedidos').removeClass('sinOfertasParaTi');
+        $('.tooltip_infoCopy').removeClass('tooltip_infoCopy_expand');
         var hCar = $($("#divListadoEstrategia").find("[data-item]").get(0)).height();
         var cant = parseInt(heightReference / hCar);
         cant = cant < 3 ? 3 : cant > 5 ? 5 : cant;
@@ -1351,6 +1372,8 @@ function ArmarCarouselEstrategias(data) {
             $('#cierreCarousel').show();
         }
     }
+
+    MostrarBarra();
 
 };
 function EstructurarDataCarousel(array) {
@@ -2489,7 +2512,7 @@ function AgregarProductoDestacado(popup, tipoEstrategiaImagen) {
     });
 }
 
-function DeletePedido(campaniaId, pedidoId, pedidoDetalleId, tipoOfertaSisId, cuv, cantidad, clienteId, cuvReco) {
+function DeletePedido(campaniaId, pedidoId, pedidoDetalleId, tipoOfertaSisId, cuv, cantidad, clienteId, cuvReco, esBackOrder) {
     var param = {
         CampaniaID: campaniaId,
         PedidoID: pedidoId,
@@ -2498,7 +2521,8 @@ function DeletePedido(campaniaId, pedidoId, pedidoDetalleId, tipoOfertaSisId, cu
         CUV: cuv,
         Cantidad: cantidad,
         ClienteID_: clienteId,
-        CUVReco: cuvReco
+        CUVReco: cuvReco,
+        EsBackOrder: esBackOrder == 'true'
     };
 
     AbrirSplash();
@@ -2544,6 +2568,49 @@ function DeletePedido(campaniaId, pedidoId, pedidoDetalleId, tipoOfertaSisId, cu
                     }
                 }
             });
+            CerrarSplash();
+        },
+        error: function (data, error) {
+            if (checkTimeout(data)) {
+                HideDialog("divVistaPrevia");
+                CerrarSplash();
+            }
+        }
+    });
+}
+
+function AceptarBackOrder(campaniaId, pedidoId, pedidoDetalleId, clienteId) {
+    if (ReservadoOEnHorarioRestringido(true)) {
+        return false;
+    }
+
+    var param = {
+        CampaniaID: campaniaId,
+        PedidoID: pedidoId,
+        PedidoDetalleID: pedidoDetalleId,
+        ClienteID_: clienteId
+    };
+
+    AbrirSplash();
+    jQuery.ajax({
+        type: 'POST',
+        url: baseUrl + 'Pedido/AceptarBackOrder',
+        dataType: 'json',
+        contentType: 'application/json; charset=utf-8',
+        data: JSON.stringify(param),
+        async: true,
+        success: function (data) {
+            CerrarSplash();
+            if (!checkTimeout(data)) return false;
+            if (data.success != true) {
+                alert_msg(data.message);
+                return false;
+            }
+
+            AbrirSplash();
+            CargarDetallePedido();
+            MostrarBarra(data);
+            CargarResumenCampaniaHeader(true);
             CerrarSplash();
         },
         error: function (data, error) {
@@ -2655,6 +2722,9 @@ function EjecutarServicioPROL() {
             
             RespuestaEjecutarServicioPROL(response);
 
+            var montoEscala = response.data.MontoEscala;
+            var montoPedido = response.data.Total - response.data.MontoDescuento;
+
             var codigoMensajeProl = response.data.CodigoMensajeProl;
             var cumpleOferta;
 
@@ -2662,7 +2732,7 @@ function EjecutarServicioPROL() {
             if (response.data.Reserva == true) {
                 if (response.data.ZonaValida == true) {
                     if (response.data.ObservacionInformativa == false) {
-                        cumpleOferta = CumpleOfertaFinalMostrar(response.data.MontoEscala, 1, codigoMensajeProl, response.data.ListaObservacionesProl);
+                        cumpleOferta = CumpleOfertaFinalMostrar(montoPedido, montoEscala, 1, codigoMensajeProl, response.data.ListaObservacionesProl);
                         if (cumpleOferta.resultado) {
                             esPedidoValidado = response.data.ProlSinStock != true;
                         } else {
@@ -2683,7 +2753,7 @@ function EjecutarServicioPROL() {
                     } else {
                         var tipoMensaje = codigoMensajeProl == "00" ? 1 : 2;
 
-                        cumpleOferta = CumpleOfertaFinalMostrar(response.data.MontoEscala, tipoMensaje, codigoMensajeProl, response.data.ListaObservacionesProl);
+                        cumpleOferta = CumpleOfertaFinalMostrar(montoPedido, montoEscala, tipoMensaje, codigoMensajeProl, response.data.ListaObservacionesProl);
                         if (!cumpleOferta.resultado) {
                             $('#DivObsBut').css({ "display": "none" });
                             $('#DivObsInfBut').css({ "display": "block" });
@@ -2695,7 +2765,7 @@ function EjecutarServicioPROL() {
                     }
                 } else {
 
-                    cumpleOferta = CumpleOfertaFinalMostrar(response.data.MontoEscala, 1, codigoMensajeProl, response.data.ListaObservacionesProl);
+                    cumpleOferta = CumpleOfertaFinalMostrar(montoPedido, montoEscala, 1, codigoMensajeProl, response.data.ListaObservacionesProl);
                     if (!cumpleOferta.resultado) {
                         if (viewBagNombrePais == 'Venezuela') {
                             showDialog("divReservaSatisfactoriaVE");
@@ -2716,7 +2786,7 @@ function EjecutarServicioPROL() {
 
                 var tipoMensaje = codigoMensajeProl == "00" ? 1 : 2;
 
-                cumpleOferta = CumpleOfertaFinalMostrar(response.data.MontoEscala, tipoMensaje, codigoMensajeProl, response.data.ListaObservacionesProl);
+                cumpleOferta = CumpleOfertaFinalMostrar(montoPedido, montoEscala, tipoMensaje, codigoMensajeProl, response.data.ListaObservacionesProl);
                 if (!cumpleOferta.resultado) {
                     showDialog("divObservacionesPROL");
                     $("#divObservacionesPROL").css("width", "600px").parent().css("left", "372px");
@@ -2808,32 +2878,38 @@ function RespuestaEjecutarServicioPROL(response, inicio) {
             var html = "<ul>";
             var msgDefault = "<li>Tu pedido tiene observaciones, por favor revísalo.</li>";
             var msgDefaultCont = 0;
-            $.each(response.data.ListaObservacionesProl, function (index, item) {
-                if (response.data.CodigoIso == "BO" || response.data.CodigoIso == "MX") {
-                    if (item.Caso == 6 || item.Caso == 8 || item.Caso == 9 || item.Caso == 10) {
-                        item.Caso = 105;
+            if (response.data.ListaObservacionesProl.length == 0) {
+                html += msgDefault;
+                mensajePedido += "-1" + " " + "Tu pedido tiene observaciones, por favor revísalo." + " ";
+            }
+            else {
+                $.each(response.data.ListaObservacionesProl, function (index, item) {
+                    if (response.data.CodigoIso == "BO" || response.data.CodigoIso == "MX") {
+                        if (item.Caso == 6 || item.Caso == 8 || item.Caso == 9 || item.Caso == 10) {
+                            item.Caso = 105;
+                        }
                     }
-                }
 
-                if (item.Caso == 95 || item.Caso == 105 || (item.Caso == 0 && inicio)) {
-                    html += "<li>" + item.Descripcion + "</li>";
+                    if (item.Caso == 95 || item.Caso == 105 || (item.Caso == 0 && inicio)) {
+                        html += "<li>" + item.Descripcion + "</li>";
 
-                    mensajePedido += item.Caso + " " + item.Descripcion + " ";
-                    return;
-                }
-
-                if (viewBagMenuNotificaciones == 0 && item.Caso == 0 && response.data.ObservacionInformativa) {
-                    html += "<li>" + item.Descripcion + "</li>";
-
-                    mensajePedido += item.Caso + " " + item.Descripcion + " ";
-                } else {
-                    if (msgDefaultCont == 0) {
-                        html += html == "" ? msgDefault : html == msgDefault ? "" : msgDefault;
+                        mensajePedido += item.Caso + " " + item.Descripcion + " ";
+                        return;
                     }
-                    msgDefaultCont++;
-                    mensajePedido += "-1" + " " + "Tu pedido tiene observaciones, por favor revísalo." + " ";
-                }
-            });
+
+                    if (viewBagMenuNotificaciones == 0 && item.Caso == 0 && response.data.ObservacionInformativa) {
+                        html += "<li>" + item.Descripcion + "</li>";
+
+                        mensajePedido += item.Caso + " " + item.Descripcion + " ";
+                    } else {
+                        if (msgDefaultCont == 0) {
+                            html += html == "" ? msgDefault : html == msgDefault ? "" : msgDefault;
+                        }
+                        msgDefaultCont++;
+                        mensajePedido += "-1" + " " + "Tu pedido tiene observaciones, por favor revísalo." + " ";
+                    }
+                });
+            }
             html += "</ul>";
 
             $("#divMensajeObservacionesPROL").html(html);
@@ -3240,9 +3316,7 @@ function UpdateConCantidad(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion
 
 function Update(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion, CUV) {
     var val = ValidarUpdate(PedidoDetalleID, FlagValidacion);
-    if (!val) {
-        return false;
-    }
+    if (!val) return false;
 
     var CliID = $('#hdfLPCli' + PedidoDetalleID).val();
     var CliDes = $('#txtLPCli' + PedidoDetalleID).val();
@@ -3321,6 +3395,10 @@ function Update(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion, CUV) {
 
             MostrarBarra(data);
             CargarResumenCampaniaHeader();
+            if (data.modificoBackOrder) {
+                showDialog('divBackOrderModificado');
+                CargarDetallePedido();
+            }
 
             var diferenciaCantidades = parseInt(Cantidad) - parseInt(CantidadAnti);
             if (diferenciaCantidades > 0)
@@ -3482,8 +3560,7 @@ function UpdateLiquidacion(CampaniaID, PedidoID, PedidoDetalleID, TipoOfertaSisI
                                     $('#hdfLPCliDes' + PedidoDetalleID).val($('#hdfNomConsultora').val());
                                     $('#txtLPCli' + PedidoDetalleID).val($('#hdfNomConsultora').val());
                                 }
-                                if (PROL == "0")
-                                    $('#txtLPTempCant' + PedidoDetalleID).val($('#txtLPCant' + PedidoDetalleID).val());
+                                if (PROL == "0") $('#txtLPTempCant' + PedidoDetalleID).val($('#txtLPCant' + PedidoDetalleID).val());
 
                                 var nomCli = $("#ddlClientes option:selected").text();
                                 var simbolo = data.Simbolo;
@@ -3511,6 +3588,10 @@ function UpdateLiquidacion(CampaniaID, PedidoID, PedidoDetalleID, TipoOfertaSisI
                                 
                                 MostrarBarra(data);
                                 CargarResumenCampaniaHeader();
+                                if (data.modificoBackOrder) {
+                                    showDialog('divBackOrderModificado');
+                                    CargarDetallePedido();
+                                }
                             },
                             error: function (data, error) {
                                 CerrarSplash();
@@ -3655,8 +3736,7 @@ function UpdateLiquidacion(CampaniaID, PedidoID, PedidoDetalleID, TipoOfertaSisI
                                         $('#hdfLPCliDes' + PedidoDetalleID).val($('#hdfNomConsultora').val());
                                         $('#txtLPCli' + PedidoDetalleID).val($('#hdfNomConsultora').val());
                                     }
-                                    if (PROL == "0")
-                                        $('#txtLPTempCant' + PedidoDetalleID).val($('#txtLPCant' + PedidoDetalleID).val());
+                                    if (PROL == "0") $('#txtLPTempCant' + PedidoDetalleID).val($('#txtLPCant' + PedidoDetalleID).val());
 
                                     var nomCli = $("#ddlClientes option:selected").text();
                                     var simbolo = data.Simbolo;
@@ -3684,6 +3764,10 @@ function UpdateLiquidacion(CampaniaID, PedidoID, PedidoDetalleID, TipoOfertaSisI
                                     
                                     MostrarBarra(data);
                                     CargarResumenCampaniaHeader();
+                                    if (data.modificoBackOrder) {
+                                        showDialog('divBackOrderModificado');
+                                        CargarDetallePedido();
+                                    }
                                 },
                                 error: function (data, error) {
                                     if (checkTimeout(data)) {

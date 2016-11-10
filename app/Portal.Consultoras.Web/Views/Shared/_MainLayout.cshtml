@@ -12,7 +12,7 @@
 
     <link href="https://fonts.googleapis.com/css?family=Lato:400,700italic,300,700,900" rel="stylesheet" type="text/css" />
 
-    @if (System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(ViewBag.PaisAnalytics))
+    @if (System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(ViewBag.PaisAnalytics == null ? "" : ViewBag.PaisAnalytics))
     {
         <link href="@Url.Content("~/Content/Images/icons/favicon_esika.ico")" rel="shortcut icon" type="image/x-icon" />
         @System.Web.Optimization.Styles.Render("~/Content/Css/Site/Esika/CssSB2")
@@ -25,7 +25,7 @@
 
     <script type="text/javascript">
         var baseUrl = "@Url.Content("~")";
-        var isEsika = '@(System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(ViewBag.PaisAnalytics))' == "True";
+        var isEsika = '@(System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(ViewBag.PaisAnalytics == null ? "" : ViewBag.PaisAnalytics))' == "True";
         var trackingJetloreAccessToken = '@System.Configuration.ConfigurationManager.AppSettings.Get("TrackingJetloreAccessToken")';
         var tipoOfertaFinalCatalogoPersonalizado = '@Constantes.TipoOfertaFinalCatalogoPersonalizado.Jetlore';
         var esPaisTrackingJetlore = '@ViewBag.PaisesConTrackingJetlore';
@@ -97,11 +97,7 @@
     switch (nombre_pais)
     {
         case "EC":
-            <a href="http://200.32.70.19/Belcorp/" class="boton-home chat" target="_blank">
-                <div class="boton_ayuda">
-                    <span style="display: block; height: 100%; width: 100%;">¿Necesitas ayuda?</span>
-                </div>
-            </a>
+            <div class="boton_ayuda"><span id="belcorpChat1" class="boton-home"><a href="http://200.32.70.19/Belcorp/" target="_blank">¿Necesitas ayuda?</a> </span></div>
             break;
         case "CO":
         case "BO":
@@ -115,9 +111,9 @@
         case "SV":
         case "GT":
             <div class="boton_ayuda"><span id="belcorpChat" class="boton-home"><a href="#">¿Necesitas ayuda?</a> </span></div>
-                break;
-        }
+            break;
     }
+}
     <!-- cabecera -->
     <header>
         <div id="bloquemensajesPedido" style="display:none">
@@ -143,8 +139,7 @@
                         <a href="#" title="MIRA LOS LUGARES DE PAGO">MIRA LOS LUGARES DE PAGO</a>
                     </span>
                 </div>
-            </div>
-            
+            </div>            
         </div>
         <div class="wrapper_header">
             <div class="logo_esika">
@@ -261,7 +256,7 @@
         @if (ViewBag.TerminoMostrar == 1)
         {
             <div class="footerTerminos">
-                <a onclick="SetMarcaGoogleAnalyticsTermino();" href="http://comunidad.somosbelcorp.com/t5/D%C3%ADa-del-Padre-Pre-venta-Digital/D%C3%8DA-DEL-PADRE-PRE-VENTA-DIGITAL-EXCLUSIVA/m-p/28917#M2/?utm_source=somosbelcorp.com&utm_medium=referral&utm_content=TerminosyCondiciones&utm_campaign=ShowroomDigital" target="_blank">T&eacute;rminos y condiciones</a>
+                <a id="linkTerminosCondicionesShowRoom" onclick="SetMarcaGoogleAnalyticsTermino();" target="_blank">T&eacute;rminos y condiciones</a>
             </div>
         }
         <!-- footer -->

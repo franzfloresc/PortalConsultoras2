@@ -160,6 +160,7 @@
     <Compile Include="BEOfertaFIC.cs" />
     <Compile Include="BEOfertaNueva.cs" />
     <Compile Include="BEOfertaProducto.cs" />
+    <Compile Include="BEPedidoRechazadoSicc.cs" />
     <Compile Include="BEProcesoPedidoRechazado.cs" />
     <Compile Include="BEProductoSugerido.cs" />
     <Compile Include="BEShowRoomOfertaDetalle.cs" />
@@ -234,6 +235,16 @@
     <Compile Include="BEBelcorpNoticia.cs" />
     <Compile Include="BEZonificacionJerarquia.cs" />
     <Compile Include="BEConfiguracionProgramaNuevas.cs" />
+    <Compile Include="CDR\BECDRMotivoRechazo.cs" />
+    <Compile Include="CDR\BECDRMotivoReclamo.cs" />
+    <Compile Include="CDR\BECDRParametria.cs" />
+    <Compile Include="CDR\BECDRTipoOperacion.cs" />
+    <Compile Include="CDR\BELogCDRWebDetalle.cs" />
+    <Compile Include="CDR\BELogCDRWeb.cs" />
+    <Compile Include="CDR\BECDRWeb.cs" />
+    <Compile Include="CDR\BECDRWebDescripcion.cs" />
+    <Compile Include="CDR\BECDRWebDetalle.cs" />
+    <Compile Include="CDR\BECDRWebMotivoOperacion.cs" />
     <Compile Include="Enumerations.cs" />
     <Compile Include="BEPedidoRechazado.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -209,6 +209,7 @@
     <Compile Include="Areas\Mobile\Controllers\ProductosAgotadosController.cs" />
     <Compile Include="Areas\Mobile\Controllers\SeguimientoPedidoController.cs" />
     <Compile Include="Areas\Mobile\Controllers\ShowRoomController.cs" />
+    <Compile Include="Areas\Mobile\Controllers\TerminosYCondicionesController.cs" />
     <Compile Include="Areas\Mobile\Helpers\HtmlsHelper.cs" />
     <Compile Include="Areas\Mobile\Helpers\JavaScriptHelper.cs" />
     <Compile Include="Areas\Mobile\Helpers\StringsHelper.cs" />
@@ -305,6 +306,7 @@
     <Compile Include="Controllers\MisDatosController.cs" />
     <Compile Include="Controllers\MisPedidosController.cs" />
     <Compile Include="Controllers\MisPagosController.cs" />
+    <Compile Include="Controllers\MisReclamosController.cs" />
     <Compile Include="Controllers\ModificacionCronogramaController.cs" />
     <Compile Include="Controllers\NavidadConsultoraController.cs" />
     <Compile Include="Controllers\NotificacionesController.cs" />
@@ -335,6 +337,7 @@
     <Compile Include="Controllers\SolicitudClienteController.cs" />
     <Compile Include="Controllers\SolicitudCreditoController.cs" />
     <Compile Include="Controllers\SuperateController.cs" />
+    <Compile Include="Controllers\TerminosYCondicionesController.cs" />
     <Compile Include="Controllers\TrackingController.cs" />
     <Compile Include="Controllers\UneteController.cs" />
     <Compile Include="Controllers\UpdatePassSACController.cs" />
@@ -366,6 +369,7 @@
     <Compile Include="Models\BarraConsultoraEscalaDescuentoModel.cs" />
     <Compile Include="Models\BaseVM.cs" />
     <Compile Include="Models\CatalogoIssuModel.cs" />
+    <Compile Include="Models\CDRWebModel.cs" />
     <Compile Include="Models\ClienteOnlineDetalleModel.cs" />
     <Compile Include="Models\ClienteSb2Model.cs" />
     <Compile Include="Models\BarraConsultoraModel.cs" />
@@ -429,6 +433,7 @@
     <Compile Include="Models\MisPedidosModel.cs" />
     <Compile Include="Models\ClienteOnlineModel.cs" />
     <Compile Include="Models\MisPedidosSb2Model.cs" />
+    <Compile Include="Models\MisReclamosModel.cs" />
     <Compile Include="Models\ModificacionCronogramaModel.cs" />
     <Compile Include="Models\CronogramaModel.cs" />
     <Compile Include="Models\DescargarPedidoModel.cs" />
@@ -515,6 +520,11 @@
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
     <Compile Include="Service References\HojaInscripcionODS\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\ServiceCDR\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
@@ -1264,6 +1274,7 @@
     <Content Include="Content\Images\bg_tablet2.png" />
     <Content Include="Content\Images\bloquear.png" />
     <Content Include="Content\Images\body_login.png" />
+    <Content Include="Content\Images\boton-home.png" />
     <Content Include="Content\Images\btnActualizar_AD.png" />
     <Content Include="Content\Images\btnActualizar_AD_e.png" />
     <Content Include="Content\Images\btnCerrar_AD.png" />
@@ -1328,6 +1339,8 @@
     <Content Include="Content\Images\Esika\background_pedido.png" />
     <Content Include="Content\Images\Esika\banner_misBeneficios.png" />
     <Content Include="Content\Images\Esika\brillante2016_img.png" />
+    <Content Include="Content\Images\Esika\carta.png" />
+    <Content Include="Content\Images\Esika\carta1.png" />
     <Content Include="Content\Images\Esika\catalogos_arrow.png" />
     <Content Include="Content\Images\Esika\catalogos_arrow2.png" />
     <Content Include="Content\Images\Esika\catalogos_new.png" />
@@ -1576,6 +1589,8 @@
     <Content Include="Content\Images\Esika\flechita_info.png" />
     <Content Include="Content\Images\Esika\flexipago.png" />
     <Content Include="Content\Images\Esika\fle_.png" />
+    <Content Include="Content\Images\Esika\foco.png" />
+    <Content Include="Content\Images\Esika\foco1.png" />
     <Content Include="Content\Images\Esika\fondo.png" />
     <Content Include="Content\Images\Esika\fondo_circulo.png" />
     <Content Include="Content\Images\Esika\fondo_pestana.png" />
@@ -1595,6 +1610,8 @@
     <Content Include="Content\Images\Esika\icono_exclamacion_esika.svg" />
     <Content Include="Content\Images\Esika\icono_pedidos_facturados.png" />
     <Content Include="Content\Images\Esika\icono_percepciones.png" />
+    <Content Include="Content\Images\Esika\icono_solicitud.png" />
+    <Content Include="Content\Images\Esika\icono_telefono.svg" />
     <Content Include="Content\Images\Esika\icon_catalogo.png" />
     <Content Include="Content\Images\Esika\icon_comunidad.png" />
     <Content Include="Content\Images\Esika\icon_esikaresponde.png" />
@@ -1603,11 +1620,15 @@
     <Content Include="Content\Images\Esika\img-prev.png" />
     <Content Include="Content\Images\Esika\img_producto.png" />
     <Content Include="Content\Images\Esika\imprimir.png" />
+    <Content Include="Content\Images\Esika\imprimir_reclamo.png" />
     <Content Include="Content\Images\Esika\incentivos_img.png" />
     <Content Include="Content\Images\Esika\indicador.png" />
+    <Content Include="Content\Images\Esika\indicador_esika.png" />
     <Content Include="Content\Images\Esika\indicador_pedido.png" />
     <Content Include="Content\Images\Esika\indicador_pedido_negro.png" />
     <Content Include="Content\Images\Esika\info-copy.png" />
+    <Content Include="Content\Images\Esika\labial.png" />
+    <Content Include="Content\Images\Esika\labial1.png" />
     <Content Include="Content\Images\Esika\lapiz.png" />
     <Content Include="Content\Images\Esika\lbel_revista.png" />
     <Content Include="Content\Images\Esika\liquidacionhome.png" />
@@ -1638,6 +1659,7 @@
     <Content Include="Content\Images\Esika\pagina.png" />
     <Content Include="Content\Images\Esika\pagina2.png" />
     <Content Include="Content\Images\Esika\pantalla.png" />
+    <Content Include="Content\Images\Esika\paso_realizado.png" />
     <Content Include="Content\Images\Esika\pdf.png" />
     <Content Include="Content\Images\Esika\pedidos_producto.png" />
     <Content Include="Content\Images\Esika\pedido_agregar.png" />
@@ -1656,6 +1678,7 @@
     <Content Include="Content\Images\Esika\tabs_consultora.png" />
     <Content Include="Content\Images\Esika\tacho-copy.png" />
     <Content Include="Content\Images\Esika\tarjeta.png" />
+    <Content Include="Content\Images\Esika\terminos.png" />
     <Content Include="Content\Images\Esika\titulo_interiores.png" />
     <Content Include="Content\Images\Esika\titulo_interiores_2.png" />
     <Content Include="Content\Images\Esika\tooltip_guardar.png" />
@@ -1832,6 +1855,7 @@
     <Content Include="Content\Images\Lbel\icono_exclamacion_lbel.svg" />
     <Content Include="Content\Images\Lbel\icono_pedidos_facturados.png" />
     <Content Include="Content\Images\Lbel\icono_percepciones.png" />
+    <Content Include="Content\Images\Lbel\icono_telefono_lbel.svg" />
     <Content Include="Content\Images\Lbel\icon_catalogo.png" />
     <Content Include="Content\Images\Lbel\icon_comunidad.png" />
     <Content Include="Content\Images\Lbel\icon_esikaresponde.png" />
@@ -1839,6 +1863,7 @@
     <Content Include="Content\Images\Lbel\img-prev.png" />
     <Content Include="Content\Images\Lbel\imprimir.png" />
     <Content Include="Content\Images\Lbel\indicador.png" />
+    <Content Include="Content\Images\Lbel\indicador_lbel.png" />
     <Content Include="Content\Images\Lbel\indicador_pedido.png" />
     <Content Include="Content\Images\Lbel\indicador_pedido_negro.png" />
     <Content Include="Content\Images\Lbel\lebel-catalogos.png" />
@@ -2222,6 +2247,7 @@
     <Content Include="Content\Images\showroom\borde_inferior.png" />
     <Content Include="Content\Images\showroom\borde_superior.png" />
     <Content Include="Content\Images\showroom\boton_hoy.png" />
+    <Content Include="Content\Images\showroom\boton_hoy_lbel.png" />
     <Content Include="Content\Images\showroom\carrusel1.png" />
     <Content Include="Content\Images\showroom\carrusel_n.png" />
     <Content Include="Content\Images\showroom\carrusel_no_disponible.png" />
@@ -2243,6 +2269,7 @@
     <Content Include="Content\Images\showroom\opacity.png" />
     <Content Include="Content\Images\showroom\opacity_items.png" />
     <Content Include="Content\Images\showroom\precio_detalle.png" />
+    <Content Include="Content\Images\showroom\precio_detalle_lbel.png" />
     <Content Include="Content\Images\showroom\preventa_digital.png" />
     <Content Include="Content\Images\showroom\preventa_pestana.png" />
     <Content Include="Content\Images\showroom\preventa_pop.jpg" />
@@ -2389,6 +2416,8 @@
     <Content Include="Scripts\PortalConsultoras\Cliente\Index.js" />
     <Content Include="Scripts\PortalConsultoras\MisBeneficios\Index.js" />
     <Content Include="Scripts\PortalConsultoras\MisPedidos\ClienteOnline.js" />
+    <Content Include="Scripts\PortalConsultoras\MisReclamos\Reclamo.js" />
+    <Content Include="Scripts\PortalConsultoras\MisReclamos\Index.js" />
     <Content Include="Scripts\PortalConsultoras\Mobile\CatalogoPersonalizado\Index.js" />
     <Content Include="Scripts\PortalConsultoras\Mobile\ConsultoraOnline\DetallePedidoHistorial.js" />
     <Content Include="Scripts\PortalConsultoras\Mobile\ConsultoraOnline\DetallePedidoPendiente.js" />
@@ -2608,6 +2637,17 @@
     <Content Include="Content\FAQ\politicas_post_venta_CO.pdf" />
     <Content Include="Content\FAQ\Politica_de_reclamos_CO.pdf" />
     <Content Include="Areas\Mobile\Views\Catalogo\MiRevista.cshtml" />
+    <Content Include="Areas\Mobile\Views\TerminosYCondiciones\Index.cshtml" />
+    <None Include="Service References\ServiceCDR\CDRService.wsdl" />
+    <None Include="Service References\ServiceCDR\CDRService.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceCDR\CDRService1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceCDR\CDRService2.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Service References\ServicePedidoRechazado\PedidoRechazadoService.wsdl" />
     <None Include="Service References\ServicePedidoRechazado\PedidoRechazadoService.xsd">
       <SubType>Designer</SubType>
@@ -2620,14 +2660,14 @@
     </None>
     <None Include="Service References\ServiceProductoCatalogoPersonalizado\configuration91.svcinfo" />
     <None Include="Service References\ServiceProductoCatalogoPersonalizado\configuration.svcinfo" />
-    <None Include="Service References\ServiceProductoCatalogoPersonalizado\ProductoService1.wsdl" />
-    <None Include="Service References\ServiceProductoCatalogoPersonalizado\ProductoService3.xsd">
+    <None Include="Service References\ServiceProductoCatalogoPersonalizado\ProductoService.wsdl" />
+    <None Include="Service References\ServiceProductoCatalogoPersonalizado\ProductoService.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\ServiceProductoCatalogoPersonalizado\ProductoService31.xsd">
+    <None Include="Service References\ServiceProductoCatalogoPersonalizado\ProductoService1.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\ServiceProductoCatalogoPersonalizado\ProductoService32.xsd">
+    <None Include="Service References\ServiceProductoCatalogoPersonalizado\ProductoService2.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\ServiceProductoCatalogoPersonalizado\Reference.svcmap">
@@ -2753,6 +2793,13 @@
     </None>
     <None Include="Service References\HojaInscripcionBelcorpPais\BelcorpPaisService.disco" />
     <None Include="Service References\HojaInscripcionODS\ODSService.disco" />
+    <None Include="Service References\ServiceCDR\CDRService.disco" />
+    <None Include="Service References\ServiceCDR\configuration91.svcinfo" />
+    <None Include="Service References\ServiceCDR\configuration.svcinfo" />
+    <None Include="Service References\ServiceCDR\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
     <Content Include="Service References\ServiceCliente\Portal.Consultoras.Web.ServiceCliente.BECatalogoConfiguracion.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Content>
@@ -2983,7 +3030,7 @@
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
-    <None Include="Service References\ServiceProductoCatalogoPersonalizado\ProductoService1.disco" />
+    <None Include="Service References\ServiceProductoCatalogoPersonalizado\ProductoService.disco" />
     <Content Include="Service References\ServiceSAC\Portal.Consultoras.Web.ServiceSAC.BEBannerPedido.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Content>
@@ -3498,9 +3545,13 @@
     <Content Include="Views\SolicitudCliente\ReporteAfiliadas.cshtml" />
     <Content Include="Views\SolicitudCliente\ReportePedidos.cshtml" />
     <Content Include="Views\MiAcademia\Index.cshtml" />
+    <Content Include="Views\MisReclamos\Index.cshtml" />
     <Content Include="Views\Notificaciones\ListadoDetallePedidoRechazado.cshtml" />
     <Content Include="Views\Unete\TemplatesUbigeos\_UbigeoGrupo5.cshtml" />
     <Content Include="Views\MisCatalogosRevistas\MiRevista.cshtml" />
+    <Content Include="Views\MisReclamos\Reclamo.cshtml" />
+    <Content Include="Views\TerminosYCondiciones\Index.cshtml" />
+    <Content Include="Views\Bienvenida\ActualizarContrasenia.cshtml" />
     <None Include="Web References\ServiceLMS\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
@@ -3922,6 +3973,7 @@
   <ItemGroup>
     <WCFMetadataStorage Include="Service References\HojaInscripcionBelcorpPais\" />
     <WCFMetadataStorage Include="Service References\HojaInscripcionODS\" />
+    <WCFMetadataStorage Include="Service References\ServiceCDR\" />
     <WCFMetadataStorage Include="Service References\ServiceCliente\" />
     <WCFMetadataStorage Include="Service References\ServiceComunidad\" />
     <WCFMetadataStorage Include="Service References\ServiceContenido\" />

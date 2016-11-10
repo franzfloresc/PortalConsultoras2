@@ -66,6 +66,7 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="CDRService.svc" />
     <Content Include="CatalogoService.svc" />
     <Content Include="ClienteService.svc" />
     <Content Include="ConsultoraWebService.svc" />

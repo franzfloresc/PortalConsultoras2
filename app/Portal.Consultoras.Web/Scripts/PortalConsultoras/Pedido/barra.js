@@ -3,7 +3,7 @@ var listaMensajeMeta = listaMensajeMeta || new Array();
 var dataBarra = dataBarra || new Object();
 
 function GetWidthTotalBase() {
-    return $("#divListadoPedido").outerWidth() || $("[data-barra-width]").outerWidth();
+    return $("[data-barra-width]").outerWidth();
 }
 
 function MostrarBarra(datax, destino) {
@@ -19,7 +19,7 @@ function MostrarBarra(datax, destino) {
     
     dataBarra.ListaEscalaDescuento = dataBarra.ListaEscalaDescuento || new Array(); 
     if (dataBarra.ListaEscalaDescuento.length > 0) {
-        listaEscalaDescuento = dataBarra.ListaEscalaDescuento;
+        listaEscalaDescuento = dataBarra.ListaEscalaDescuento;       
         if (dataBarra.redondeo == undefined) {
             $.each(listaEscalaDescuento, function (i, item) {
                 if (IsDecimalExist(item.MontoHasta)) {
@@ -30,7 +30,7 @@ function MostrarBarra(datax, destino) {
                 listaEscalaDescuento[i].MontoHastaStr = DecimalToStringFormat(listaEscalaDescuento[i].MontoHasta, true);
             });
             dataBarra.redondeo = true;
-        }
+        }        
     }
 
     dataBarra.ListaMensajeMeta = dataBarra.ListaMensajeMeta || new Array();
@@ -98,7 +98,7 @@ function MostrarBarra(datax, destino) {
         });
     }
     else {
-        if (mt < mn)
+        if ((mt - md) < mn)
             vLogro = mt - md;
         else
             vLogro = me < mn ? mn : me;
