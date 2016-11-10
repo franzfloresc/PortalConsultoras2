@@ -8359,6 +8359,18 @@ a{
     margin-bottom:5px;
     margin-bottom:15px;
 }
+
+.texto_ganancia_oferta_048{
+    font-family:'Lato';
+    font-size:16px;
+    font-weight:700;
+    color:#e81c36;
+    text-align:center;
+    margin-bottom:5px;
+    margin-bottom:15px;
+    text-transform:uppercase;
+}
+
 .row_20{
     margin-left:-20px;
     margin-right:-20px;
@@ -8369,21 +8381,22 @@ a{
 .sub_imagen_oferta{
     width:25%;
     margin-right:5%;
-    height:auto;
-    min-height: 50px;
+    height: auto;
+    min-height: 60px;
     /*border:1px solid #dadada;*/
     float:left;
+    margin-bottom: 5px;
 }
 .sub_imagen_oferta img{
     width:100%;
 }
 .sub_descripcion_oferta{
     width:70%;
-    min-height: 55px;
+    min-height: 60px;
     /* line-height: 55px; */
     text-align: left;
-    padding-top: 6%; 
-    padding-bottom: 6%; 
+    padding-top: 5%; 
+    padding-bottom: 10%; 
     border-bottom: 1px solid #dadada;
     /* float: left; */
     font-family: 'Lato';
@@ -8394,6 +8407,25 @@ a{
     align-content: center;
     flex-direction: column;
     }
+
+.sub_descripcion_oferta_048 {
+    /*width: 55%;*/
+    /*height: 55px;*/
+    /*line-height: 55px;*/
+    text-align:left;
+    /* padding-top: 8%; */
+    /* padding-bottom: 8%; */
+    /*border-bottom: 1px solid #dadada;*/
+    /*float: left;*/
+    font-family: 'Lato';
+    font-size: 13px;
+    color: black;
+    /*display: flex;
+    justify-content: center;
+    align-content: center;
+    flex-direction: column;*/
+}
+
 .left_70{
     float:left;
     margin-left:30%;
@@ -8687,7 +8719,7 @@ span.icon-advertencia{
     margin-bottom: 4px;    
 }
 .content_pack_niveles .sub_descripcion_oferta:nth-child(2){
-    border-top: 1px solid #dadada;  
+    /*border-top: 1px solid #dadada;*/  
 }
 
 /**/
@@ -8908,6 +8940,19 @@ span.icon-advertencia{
     text-align: center;
     /*height: 38px;*/
 }
+.titulo_pack_048{
+    font-family: 'Lato';
+    font-weight: 700;
+    font-size: 16px;
+    /*line-height: 22px;*/
+    color: black;
+    /*margin-top: -6px;*/
+    /*text-align: center;*/
+    /*padding-right: 12px;*/
+    /*text-align: left;*/
+    height:auto;
+}
+
 .sub_descripcion_oferta p span {
     color: #e81c36;
     font-size: 22px;
@@ -8917,4 +8962,16 @@ span.icon-advertencia{
     margin: 0;
     padding: 0;
     /* line-height: normal; */
+}
+
+.sub_descripcion_oferta_048 p span{
+    color:#e81c36;
+    font-size:22px;
+    /*font-weight:700;*/
+}
+
+.sub_descripcion_oferta_048 p{
+    margin: 0;
+    padding: 0;
+    /*line-height:normal;*/
 }
