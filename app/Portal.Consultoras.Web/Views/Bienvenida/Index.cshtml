@@ -1297,7 +1297,20 @@
 
     </div>
 </div>
+@*SB20 - 1110*@
+<div id="divConfirmarCUVBanner" style="display: none;">
+    <div class="terminos_title_2">
+        IMPORTANTE
+    </div>
 
+    <div class="pop_pedido_mensaje">
+        <span></span>
+    </div>
+    <div style="text-align: center; margin-top: 30px;">
+        <input id="btnAgregarCUVBannerPedidoNo" type="button" value="CANCELAR" onclick="AgregarCUVBannerPedidoNo()" class="input_modifica_horizontal" style="width: 100px; margin-left: 0;" />
+        <input id="btnAgregarCUVBannerPedidoSi" type="button" value="ACEPTAR" onclick="AgregarCUVBannerPedido()" class="input_modifica_horizontal" style="width: 100px; margin-left: 20px;" />
+    </div>
+</div>
 <script id="estrategia-template" type="text/x-handlebars-template">
     {{#each this as |item|}}
     <div data-item="{{EstrategiaID}}" data-tipoestrategiaimagenmostrar="{{#if_eq FlagMostrarImg '1'}}{{TipoEstrategiaImagenMostrar}}{{/if_eq}}">
