@@ -537,19 +537,19 @@
                         @*<div class="fondo_negro_pack">COMPRA {{nivel.escala_nivel}} {{../Descripcion}}</div>*@
                         <div class="fondo_negro_pack">OFERTA X{{nivel.escala_nivel}}</div>
                         <div class="pack_inter width_100">
-                            <div class="" style="width: 100%; margin: 0 auto; text-align: center;">
-                                <div class="titulo_pack_048" style="width: 25%; display: inline-block; vertical-align: middle;">Compra</div>
-                                <div class="" style="width: 16%; display: inline-block; vertical-align: middle;">
+                            <div class="contenido_compra_nivel">
+                                <div class="titulo_pack_048 centrar_vertical" style="width: 25%; text-align: left;">Compra</div>
+                                <div class="centrar_vertical" style="width: 16%;">
                                     {{#IsNullOrEmpty ../UrlImagen '!='}}
-                                    <img src="{{../UrlImagen}}" alt="" class="img_ficha048" />
+                                    <img src="{{../UrlImagen}}" alt="" class="img_compra_nivel" />
                                     {{/IsNullOrEmpty}}
                                 </div>
-                                <div class="sub_descripcion_oferta_048" style="width: 54%; display: inline-block; vertical-align: middle;">
+                                <div class="sub_descripcion_oferta_048 centrar_vertical" style="width: 54%;">
                                     <p><span>x{{nivel.escala_nivel}}</span>&nbsp;{{../Descripcion}}</p>
                                 </div>
                             </div>
                             <br />
-                            <div class="titulo_pack" style="height:auto">Precio para ti {{../Simbolo}} {{DecimalToStringFormat nivel.precio_nivel}}</div>
+                            <div class="titulo_pack" style="height: auto">Precio para ti {{../Simbolo}} {{DecimalToStringFormat nivel.precio_nivel}}</div>
                             <div class="texto_ganancia_pack_048">{{../TxtGanancia}}: {{../Simbolo}} {{DecimalToStringFormat nivel.ganancia_nivel}}</div>
                             <br />
                             <div style="width: 100%; border-top: 1px solid #dadada;"></div>
@@ -689,7 +689,7 @@
                         {{/if_eq}}*@
                         <div class="fondo_negro_pack">{{pack.nombre_pack}}</div>
                         <div class="pack_inter width_100">
-                            <div class="titulo_pack" style="height:auto">Precio para ti: {{../Simbolo}} {{DecimalToStringFormat pack.precio_pack}}</div>
+                            <div class="titulo_pack" style="height: auto">Precio para ti: {{../Simbolo}} {{DecimalToStringFormat pack.precio_pack}}</div>
                             <div class="texto_ganancia_pack_048">{{../TxtGanancia}}: {{../Simbolo}} {{DecimalToStringFormat pack.ganancia_pack}}</div>
                             <div class="content_sub_items">
                                 {{#each ../lista_oObjItemPack as |item|}}
