@@ -29913,11 +29913,11 @@ h1#penmostreo .campana {
 .sub_descripcion_oferta {
     width: 55%;
     /*height: 55px;*/
-    min-height: 60px;
+    min-height: 60px;   /* SB20-1198 */
     /*line-height: 55px;*/
     text-align:left;
-    padding-top: 5px; 
-    padding-bottom: 10px; 
+    padding-top: 5px;       /* SB20-1198 */
+    padding-bottom: 10px;   /* SB20-1198 */
     border-bottom: 1px solid #dadada;
     /*float: left;*/
     font-family: 'Lato';
@@ -29927,24 +29927,6 @@ h1#penmostreo .campana {
     justify-content: center;
     align-content: center;
     flex-direction: column;
-}
-
-.sub_descripcion_oferta_048 {
-    /*width: 55%;
-    height: 55px;*/
-    /*line-height: 55px;*/
-    text-align:left;
-    /* padding-top: 8%; */
-    /* padding-bottom: 8%; */
-    /*border-bottom: 1px solid #dadada;*/
-    /*float: left;*/
-    font-family: 'Lato';
-    font-size: 13px;
-    color: black;
-    /*display: flex;
-    justify-content: center;
-    align-content: center;
-    flex-direction: column;*/
 }
 
 .item1_oferta_personalizada  .sub_descripcion_oferta:last-child{
@@ -30014,24 +29996,14 @@ h1#penmostreo .campana {
     font-size: 16px;
     line-height: 22px;
     color: black;
-    margin-top: -6px;
+    /*margin-top: -6px;*/
     text-align: center;
     padding-right: 12px;
     height:auto;
+    margin-top: 10px;   /*SB20-1198*/
 }
 
-.titulo_pack_048{
-    font-family: 'Lato';
-    font-weight: 700;
-    font-size: 16px;
-    /*line-height: 22px;*/
-    color: black;
-    /*margin-top: -6px;*/
-    /*text-align: center;*/
-    /*padding-right: 12px;*/
-    /*text-align: left;*/
-    height:auto;
-}
+
 
 .texto_unidad_pack{
     font-family:'Lato';
@@ -30049,14 +30021,6 @@ h1#penmostreo .campana {
     text-transform:uppercase;
 }
 
-.texto_ganancia_pack_048{
-    font-family:'Lato';
-    font-weight:700;
-    font-size:16px;
-    color:#e81c36;
-    text-align:center;
-    text-transform:uppercase;
-}
 .fondo_negro_pack {
     height:41px;
     background:black;
@@ -30097,7 +30061,7 @@ h1#penmostreo .campana {
     border-bottom:0;
 }
 .pack_inter .content_sub_items .sub_descripcion_oferta:nth-child(2) {
-     /*border-top:1px solid #dadada;*/
+     /*border-top:1px solid #dadada;*/      /*SB20-1198*/
     }
 .franja_noVolverMostrar{
     border-top: 1px solid #000;
@@ -31429,26 +31393,12 @@ h1#penmostreo .campana {
     color:#e81c36;
     font-size:22px;
     /*font-weight:700;*/
-    margin-right: 5px;
+    margin-right: 5px;      /*SB20-1198*/
 }
 
 .sub_descripcion_oferta p{
     margin: 0;
     padding: 0;
-    /*line-height:normal;*/
-}
-
-.sub_descripcion_oferta_048 p span{
-    color:#e81c36;
-    font-size:22px;
-    /*font-weight:700;*/
-    margin-right: 5px;
-}
-
-.sub_descripcion_oferta_048 p{
-    margin: 0;
-    padding: 0;
-    /*margin-left: 10px;*/
     /*line-height:normal;*/
 }
 
@@ -31963,11 +31913,82 @@ h1#penmostreo .campana {
     color:#9b9b9b; 
 }
 
-.img_ficha048 {
+/*SB20-1198 - INICIO */
+.contenido_compra_nivel {
+    width: 100%; 
+    margin: 0 auto;
+    text-align: center;
+}
+
+.centrar_vertical {
+    display: inline-block; 
+    vertical-align: middle;
+}
+
+.titulo_pack_048{
+    font-family: 'Lato';
+    font-weight: 700;
+    font-size: 16px;
+    /*line-height: 22px;*/
+    color: black;
+    /*margin-top: -6px;*/
+    /*text-align: center;*/
+    /*padding-right: 12px;*/
+    /*text-align: left;*/
+    height:auto;
+}
+
+.sub_descripcion_oferta_048 {
+    /*width: 55%;
+    height: 55px;*/
+    /*line-height: 55px;*/
+    text-align:left;
+    /* padding-top: 8%; */
+    /* padding-bottom: 8%; */
+    /*border-bottom: 1px solid #dadada;*/
+    /*float: left;*/
+    font-family: 'Lato';
+    font-size: 13px;
+    color: black;
+    /*display: flex;
+    justify-content: center;
+    align-content: center;
+    flex-direction: column;*/
+}
+
+.sub_descripcion_oferta_048 p span{
+    color:#e81c36;
+    font-size:22px;
+    /*font-weight:700;*/
+    margin-right: 5px;
+}
+
+.sub_descripcion_oferta_048 p{
+    margin: 0;
+    padding: 0;
+    /*margin-left: 10px;*/
+    /*line-height:normal;*/
+}
+
+.texto_ganancia_pack_048{
+    font-family:'Lato';
+    font-weight:700;
+    font-size:16px;
+    color:#e81c36;
+    text-align:center;
+    text-transform:uppercase;
+}
+
+.img_compra_nivel {
     width: 40px;
     height: 50px;
     border: 0;
 }
 
+.img_no_disponible {
+    width: 55px; 
+    height: 55px; 
+    border: 0;
+}
 
-
+/*SB20-1198 - FIN */

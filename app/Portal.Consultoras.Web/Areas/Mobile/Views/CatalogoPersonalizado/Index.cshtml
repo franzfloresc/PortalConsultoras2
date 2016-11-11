@@ -257,14 +257,14 @@
                     <div class="pestana_lbel"></div>
                 </div>    
 
-                <div class="" style="width: 85%; margin: 0 auto; text-align: center; margin-top: 10px;">
-                    <div class="titulo_pack_048" style="width: 27%; display: inline-block; vertical-align: middle;">Compra</div>
-                    <div class="" style="width: 16%; display: inline-block; vertical-align: middle;">
+                <div class="contenido_compra_nivel" style="">
+                    <div class="titulo_pack_048 centrar_vertical" style="width: 26%; text-align: left;">Compra</div>
+                    <div class="centrar_vertical" style="width: 16%;">
                         {{#IsNullOrEmpty ../UrlImagen '!='}}
-                        <img src="{{../UrlImagen}}" alt="" class="img_ficha048" />
+                        <img src="{{../UrlImagen}}" alt="" class="img_compra_nivel" />
                         {{/IsNullOrEmpty}}
                     </div>
-                    <div class="sub_descripcion_oferta_048" style="width: 54%; display: inline-block; vertical-align: middle;">
+                    <div class="sub_descripcion_oferta_048 centrar_vertical" style="width: 54%;">
                         <p><span>x{{nivel.escala_nivel}}</span>&nbsp;{{../Descripcion}}</p>
                     </div>
                 </div>
@@ -286,7 +286,7 @@
 
                         {{#IsNullOrEmpty item.imagen_gratis '=='}}
                         <div style="margin: 0 auto; text-align: center;">
-                            <img src="@Url.Content(ViewBag.RutaImagenNoDisponible)" alt="" style="width: 55px; height: 55px; border: 0;" />
+                            <img src="@Url.Content(ViewBag.RutaImagenNoDisponible)" alt="" style="width: 55px; height: 55px; border: 0;"/>
                         </div>
                         {{/IsNullOrEmpty}}        
                         
@@ -421,7 +421,7 @@
             </div>
             <div class="content_item_oferta">
                 <div class="titulo_producto_oferta"><span class="texto_unidad_pack">Precio para ti: </span>{{../Simbolo}} {{DecimalToStringFormat pack.precio_pack}}</div>
-                <div class="texto_ganancia_oferta">{{../TxtGanancia}}: {{../Simbolo}} {{DecimalToStringFormat pack.ganancia_pack}}</div>
+                <div class="texto_ganancia_oferta" style="text-transform: uppercase;">{{../TxtGanancia}}: {{../Simbolo}} {{DecimalToStringFormat pack.ganancia_pack}}</div>
                 <div class="left_70"><div class="titulo_producto_oferta" style="text-align:left">INCLUYE</div></div>
                 <hr class="clear" />
                 {{#each ../lista_oObjItemPack as |item|}}
