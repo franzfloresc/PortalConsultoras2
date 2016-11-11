@@ -215,6 +215,8 @@ namespace Portal.Consultoras.Web.Controllers
                 model.EsCatalogoPersonalizadoZonaValida = userData.EsCatalogoPersonalizadoZonaValida;
                 model.VioTutorialSalvavidas = userData.VioTutorialSalvavidas;
                 model.DataBarra = GetDataBarra();
+
+                ViewBag.RutaImagenNoDisponible = ConfigurationManager.AppSettings.Get("rutaImagenNotFoundAppCatalogo");
             }
             catch (FaultException ex)
             {
