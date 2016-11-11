@@ -21,6 +21,8 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 return RedirectToAction("Index", "Bienvenida");
             }
+
+            ViewBag.RutaImagenNoDisponible = ConfigurationManager.AppSettings.Get("rutaImagenNotFoundAppCatalogo");
             return View();
         }
 
@@ -310,6 +312,7 @@ namespace Portal.Consultoras.Web.Controllers
                 var txtRecibeGratis = userData.CodigoISO == Constantes.CodigosISOPais.Peru ? "BONIFICACIÓN" :
                     userData.CodigoISO == Constantes.CodigosISOPais.Chile ? "INCLUYE" :
                     "RECIBE GRATIS";
+
                 return Json(new
                 {
                     success = true,
