@@ -31390,6 +31390,7 @@ h1#penmostreo .campana {
     color:#613c87;
     font-size:22px;
     /*font-weight:700;*/
+    margin-right: 5px;
 }
 
 .sub_descripcion_oferta p{
@@ -31402,6 +31403,7 @@ h1#penmostreo .campana {
     color:#e81c36;
     font-size:22px;
     /*font-weight:700;*/
+    margin-right: 5px;
 }
 
 .sub_descripcion_oferta_048 p{
@@ -31919,4 +31921,10 @@ h1#penmostreo .campana {
     font-family: 'Lato';
     font-size: 11px; 
     color:#9b9b9b; 
+}
+
+.img_ficha048 {
+    width: 40px;
+    height: 50px;
+    border: 0;
 }
