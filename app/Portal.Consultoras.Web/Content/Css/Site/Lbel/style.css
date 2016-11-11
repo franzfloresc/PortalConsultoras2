@@ -31211,6 +31211,11 @@ h1#penmostreo .campana {
     background-position:0px 2px;
     text-decoration:underline;
 }
+.politica_reclamos_active {
+    background: url(../../../Images/Lbel/icono_check_lbel.svg) no-repeat;
+    background-size: contain;
+}
+
 .btn_agrega_otro_reclamo{
     font-family: 'LAto';
     font-size: 13px;

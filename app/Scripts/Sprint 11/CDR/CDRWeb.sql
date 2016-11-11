@@ -76,7 +76,6 @@ CREATE TABLE CDRWebMotivoOperacion
 	CodigoOperacion varchar(5),
 	CodigoReclamo varchar(5),
 	Prioridad int,
-	Tipo varchar(100),
 	Estado int,
 	CONSTRAINT pk_CDRWebMotivoOperacion PRIMARY KEY (CodigoOperacion, CodigoReclamo)	
 )
@@ -98,6 +97,7 @@ CREATE TABLE CDRWebDescripcion
 (
 	CDRWebDescripcionID int IDENTITY(1,1) PRIMARY KEY,
 	CodigoSSIC varchar(100),
+	EntidadSSIC varchar(100),
 	Tipo varchar(100),
 	Descripcion varchar(1000)
 )
@@ -173,11 +173,7 @@ go
 
 GO
 
-IF EXISTS(
-	SELECT 1
-	FROM INFORMATION_SCHEMA.ROUTINES 
-	WHERE SPECIFIC_NAME = 'GetPedidosFacturadoSegunDias_SB2' AND SPECIFIC_SCHEMA = 'dbo' AND Routine_Type = 'PROCEDURE'
-)
+IF EXISTS(SELECT 1 FROM INFORMATION_SCHEMA.ROUTINES WHERE SPECIFIC_NAME = 'GetPedidosFacturadoSegunDias_SB2' AND SPECIFIC_SCHEMA = 'dbo' AND Routine_Type = 'PROCEDURE')
 BEGIN
     DROP PROCEDURE dbo.GetPedidosFacturadoSegunDias_SB2
 END
@@ -195,25 +191,53 @@ GetPedidosFacturadoSegunDias_SB2 2, 201617, 142
 BEGIN
 	set @maxDias = isnull(@maxDias, 0)
 
-
 	DECLARE @FechaDesde DATETIME
 	SET @FechaDesde = dbo.fnObtenerFechaHoraPais()
 
 	set @FechaDesde = @FechaDesde - @maxDias
 	
-
-		SELECT --TOP 10
+		SELECT
 			CA.CODIGO AS CampaniaID,
 			P.MontoFacturado AS ImporteTotal,
 			P.Flete,
 			P.PedidoID,
 			isnull(p.FechaFacturado,'1900-01-01') as FechaRegistro,
-			isnull(P.Origen,'') as CanalIngreso,
-			--SUM(PD.Cantidad) as CantidadProductos
-			-- pd.PedidoDetalleID,
+			isnull(P.Origen,'') as CanalIngreso
+		FROM ods.Pedido(NOLOCK) P
+		INNER JOIN ods.Campania(NOLOCK) CA ON 
+			P.CampaniaID=CA.CampaniaID
+		INNER JOIN ods.Consultora(NOLOCK) CO ON 
+			P.ConsultoraID=CO.ConsultoraID
+		WHERE 
+			co.ConsultoraID=@ConsultoraID
+			and	P.CampaniaID <> @CampaniaID
+			and convert(date, p.FechaFacturado) >= convert(date, @FechaDesde)
+		ORDER BY 
+			CA.Codigo desc 
+END
+
+GO
+
+IF EXISTS(SELECT 1 FROM INFORMATION_SCHEMA.ROUTINES WHERE SPECIFIC_NAME = 'GetPedidosFacturadoDetalle_SB2' AND SPECIFIC_SCHEMA = 'dbo' AND Routine_Type = 'PROCEDURE')
+BEGIN
+    DROP PROCEDURE dbo.GetPedidosFacturadoDetalle_SB2
+END
+
+GO
+
+CREATE PROCEDURE dbo.GetPedidosFacturadoDetalle_SB2
+	@PedidoID int
+AS
+/*
+GetPedidosFacturadoDetalle_SB2 707193021
+*/
+BEGIN
+		SELECT --TOP 10
+			CA.CODIGO AS CampaniaID,
 			pd.CUV,
 			pc.Descripcion as DescripcionProd,
-			pd.Cantidad
+			pd.Cantidad,
+			pd.PedidoID
 		FROM ods.Pedido(NOLOCK) P 
 		INNER JOIN ods.PedidoDetalle(NOLOCK) PD ON 
 			P.PedidoID=PD.PedidoID
@@ -225,12 +249,7 @@ BEGIN
 		INNER JOIN ods.Consultora(NOLOCK) CO ON 
 			P.ConsultoraID=CO.ConsultoraID
 		WHERE 
-			co.ConsultoraID=@ConsultoraID
-			and	P.CampaniaID <> @CampaniaID
-			--AND p.FechaFacturado IS NOT NULL
-			and convert(date, p.FechaFacturado) >= convert(date, @FechaDesde)
-		--GROUP BY 
-		--	P.PedidoID,CA.Codigo,P.MontoFacturado,P.Origen,P.Flete,p.FechaFacturado
+			PD.PedidoID=@PedidoID
 		ORDER BY 
 			CA.Codigo desc 
 END
@@ -268,7 +287,6 @@ BEGIN
 		 mo.CodigoOperacion
 		,mo.CodigoReclamo
 		,mo.Prioridad
-		,mo.Tipo
 		,mo.Estado
 		,o.DescripcionOperacion
 		,o.NumeroDiasAtrasOperacion
@@ -314,7 +332,8 @@ BEGIN
 	set @Tipo = RTRIM(LTRIM(@Tipo))
 
 	SELECT 
-		 CDRWebDescripcionID
+		CDRWebDescripcionID
+		,EntidadSSIC
 		,CodigoSSIC
 		,Tipo
 		,Descripcion
@@ -326,17 +345,9 @@ BEGIN
 
 END
 
-go
-
-
-
 GO
 
-IF EXISTS(
-	SELECT 1
-	FROM INFORMATION_SCHEMA.ROUTINES 
-	WHERE SPECIFIC_NAME = 'GetCDRWebDetalle' AND SPECIFIC_SCHEMA = 'dbo' AND Routine_Type = 'PROCEDURE'
-)
+IF EXISTS(SELECT 1 FROM INFORMATION_SCHEMA.ROUTINES WHERE SPECIFIC_NAME = 'GetCDRWebDetalle' AND SPECIFIC_SCHEMA = 'dbo' AND Routine_Type = 'PROCEDURE')
 BEGIN
     DROP PROCEDURE dbo.GetCDRWebDetalle
 END
@@ -345,39 +356,61 @@ GO
 
 CREATE PROCEDURE dbo.GetCDRWebDetalle
 (
-	@CDRWebID int
+	@CDRWebID int,
+	@PedidoID int = 0
 )
 AS
-
+/*
+GetCDRWebDetalle 1,707193021
+*/
 BEGIN
+	declare @CampaniaId int = 0
+	select @CampaniaId = CampaniaId from CDRWeb where CDRWebID = @CDRWebID
 	
 	set @CDRWebID = isnull(@CDRWebID, 0)
 
 	SELECT 
-		 CDRWebDetalleID
-		,CDRWebID
-		,CodigoOperacion
-		,CodigoReclamo
-		,CUV
-		,Cantidad
-		,CUV2
-		,Cantidad2
-		,FechaRegistro
-		,Estado
-		,MotivoRechazo
-		,Observacion
-		,Eliminado
-	FROM CDRWebDetalle
-	WHERE CDRWebID = @CDRWebID
-		and Eliminado = 0
-
-
+		cd.CDRWebDetalleID
+		,cd.CDRWebID
+		,cd.CodigoOperacion
+		,cd.CodigoReclamo
+		,cd.CUV
+		,cd.Cantidad
+		,case 
+			when cd.CUV2 is null or cd.CUV2='' then cd.CUV
+			else cd.CUV2 end as CUV2
+		,case
+			when cd.CUV2 is null or cd.CUV2='' then cd.Cantidad
+			else cd.Cantidad2 end as Cantidad2
+		,cd.FechaRegistro
+		,cd.Estado
+		,cd.MotivoRechazo
+		,cd.Observacion
+		,cd.Eliminado
+		,pc.Descripcion as Descripcion
+		,case
+			when cd.CUV2 is null or cd.CUV2='' then pc.Descripcion
+			else pc2.Descripcion end as Descripcion2
+		,(pwd.PrecioUnidad * pwd.FactorRepeticion * cd.Cantidad) as Precio
+		,case
+			when cd.CUV2 is null or cd.CUV2='' then (pwd.PrecioUnidad * pwd.FactorRepeticion * cd.Cantidad)
+			else (pc2.PrecioCatalogo * pc2.FactorRepeticion * cd.Cantidad2) end as Precio2		
+	FROM CDRWebDetalle cd
+	INNER JOIN ods.ProductoComercial pc on
+		cd.CUV = pc.CUV
+		and pc.AnoCampania = @CampaniaId
+	LEFT JOIN ods.ProductoComercial pc2 on
+		cd.CUV2 = pc2.CUV
+		and pc2.AnoCampania = @CampaniaId
+	INNER JOIN ods.PedidoDetalle pwd on
+		pwd.CUV = cd.CUV
+		and pwd.PedidoID = @PedidoID
+	WHERE		 
+		cd.CDRWebID = @CDRWebID
+		and cd.Eliminado = 0		
 END
 
 go
-
-
-
 
 IF EXISTS(
 	SELECT 1
@@ -528,6 +561,7 @@ create procedure dbo.GetCDRWeb
 as
 /*
 GetCDRWeb 2
+GetCDRWeb 2,707193021,0
 */
 begin
 
@@ -571,7 +605,10 @@ CREATE PROCEDURE dbo.UpdEstadoCDRWeb
 	,@RetornoID int output
 )
 AS
-
+/*
+declare @retorno int
+execute UpdEstadoCDRWeb 1,2,@retorno output
+*/
 BEGIN
 	
 	SET @RetornoID = 0
@@ -593,6 +630,8 @@ BEGIN
 			update CDRWebDetalle
 			set Estado = @Estado
 			where CDRWebID = @CDRWebID
+			
+			SET @RetornoID = 1
 		end
 
 	end

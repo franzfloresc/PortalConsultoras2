@@ -39,7 +39,8 @@
                     @*<select class="select_reclamo">
                         <option>¿En qué campaña lo solicitaste?</option>
                     </select>*@
-                    <input type="hidden" placeholder="pedido" class="codigo_reclamo" id="txtPedidoID" />
+                    <input type="hidden" id="txtPedidoID"/>
+
                     <input type="text" placeholder="Código" class="codigo_reclamo" id="txtCUV" />
                     <input type="text" placeholder="Descripción del producto" class="descripcion_reclamo" id="txtCUVDescripcion" readonly="readonly" />
                     <div class="rango_reclamo">
@@ -133,8 +134,7 @@
                     <div class="linea_gris"></div>
                     <div class="mensaje_advertencia_reclamo">
                         <span style="margin-bottom:10px; display:block">TEN EN CUENTA: </span>
-                        El intercambio de productos lo realizaremos en el siguiente…<br />
-                        Lorem ipsum...
+                        Es importante que le entregues al transportista el producto a cambiar en la entrega de tu siguiente pedido, en caso contrario, el cambio será anulado y se cargará nuevamente el monto a tu saldo
                     </div>
                     <div class="linea_separadora_roja" style="height:2px;"></div>
                     <a class="btn_paso_anterior" href="#" id="RegresarCambio1">REGRESAR</a>
@@ -155,11 +155,10 @@
                     <div class="linea_gris" style="height:1px;"></div>
                     <div class="mensaje_advertencia_reclamo">
                         <span style="margin-bottom:10px; display:block">TEN EN CUENTA: </span>
-                        El intercambio de productos lo realizaremos en el siguiente…<br>
-                        Lorem ipsum...
+                        <span id="spnMensajeTenerEnCuentaCanje"></span>
                     </div>
                     <div class="linea_separadora_roja" style="height:2px;"></div>
-                    <span class="btn_paso_anterior" id="RegresarCambio1">REGRESAR</span>
+                    <span class="btn_paso_anterior" id="RegresarCanje1">REGRESAR</span>
                     <span class="btn_si_stock" style="width:296px;" id="IrPaso3" data-cambiopaso="3">ACEPTAR LA SOLUCIÓN</span>
                     <hr class="clear" />
                 </div>
@@ -202,12 +201,12 @@
             <div class="texto_valida_datos">En caso de necesitar contactarnos contigo, lo haremos a traves de:</div>
             <div class="float_left">
                 <span class="texto_correo">Correo Electrónico</span>
-                @Html.TextBox("txtEmail", (string)Model.Email, new {@class="correo_reclamo", @disabled="disabled"})
+                @Html.TextBox("txtEmail", (string)Model.Email, new {@class="correo_reclamo"})
                 @*<input type="text" class="correo_reclamo" placeholder="demo@gmail.com" id="txtEmail" />*@
             </div>
             <div class="float_left">
                 <span class="texto_correo">Teléfono de contacto</span>
-                @Html.TextBox("txtTelefono", (string)Model.Telefono, new { @class = "correo_reclamo", @disabled = "disabled" })
+                @Html.TextBox("txtTelefono", (string)Model.Telefono, new { @class = "correo_reclamo"})
                 @*<input type="text" class="correo_reclamo" placeholder="0123456789" id="txtTelefono" />*@
             </div>
             <hr class="clear" />
@@ -266,9 +265,9 @@
             <div class="subtitulo_reclamo" style="font-weight:400; font-size:21px;">Solicitud de Cambios y Devoluciones</div>
             <hr class="clear" />
             <div style="text-align:center;">
-                <div class="detalle_estado_reclamo">Fecha:<b> 10 Oct 2016 </b></div>
-                <div class="detalle_estado_reclamo">Solicitud:<b>  Nº 12345678</b></div>
-                <div class="detalle_estado_reclamo">Campaña:<b> 2016-15</b></div>
+                <div class="detalle_estado_reclamo">Fecha:<b> <span id="spnSolicitudFechaCulminado">10 Oct 2016</span> </b></div>
+                <div class="detalle_estado_reclamo">Solicitud:<b> Nº <span id="spnSolicitudNumeroSolicitud">12345678</span></b></div>
+                <div class="detalle_estado_reclamo">Campaña:<b> <span id="spnSolicitudCampania">2016-15</span></b></div>
             </div>
             <div class="linea_separadora"></div>
             <!--GRILLA-->
@@ -313,26 +312,28 @@
             </div>
             <!--FIN GRILLA-->           
         </div>
-        <a class="btn_ver_solicitudes" href="#" id="IrDetalleSolicitudes">VER TUS SOLICITUDES</a>
+        <a class="btn_ver_solicitudes" href="@Url.Action("Index")" id="IrDetalleSolicitudes">VER TUS SOLICITUDES</a>
     </div>
     <!--FIN-->
 </div>
-<div class="mensaje_alerta_belcorp" id="NumeroPedido" style="display: none;">
+<div class="mensaje_alerta_belcorp" id="divPopupPedido" style="display: none;">
     <div class="content_mensaje_alerta">
-        <a class="btn_cerrar_alerta" href="javascript:;" onclick="javascript: $('#NumeroPedido').hide();"><img src="/Content/Images/cerrar_04.png"></a>
+        <a class="btn_cerrar_alerta" href="javascript:;" onclick="javascript: $('#divPopupPedido').hide();"><img src="/Content/Images/cerrar_04.png"></a>
         <hr class="clear">
         <div class="icono_mensaje_alerta icono_exclamacion_alerta"></div>
         <div class="texto_mensaje_alerta" id="mensaje_exclamacion_titulo">ELIGE UN <b>PEDIDO</b> </div>
         <div class="sub_texto_alerta" id="mensaje_exclamacion_texto">Selecciona el pedido en el cual deseas aplicar la solicitud</div>
         <div class="content_botones_pedido" id="divPedido">
-            <a class="btn_pedido_white"><b>N° 1604551919</b><br />Fecha: 08/08/2016</a>
-            <a class="btn_pedido_black"><b>N° 1604551919</b><br />Fecha: 08/08/2016</a>
+            @*<a class="btn_pedido_white"><b>N° 1604551919</b><br />Fecha: 08/08/2016</a>
+            <a class="btn_pedido_black"><b>N° 1604551919</b><br />Fecha: 08/08/2016</a>*@
         </div>
     </div>
 </div>
 <script id="template-pedido" type="text/x-handlebars-template">
     {{#each this as |item|}}
-    <a class="btn_pedido_white" id="{{item.PedidoID}}"><b>N° {{item.Codigo}}</b><br />Fecha: {{item.FechaPedido}}"</a>
+    <a class="btn_pedido_white" data-pedido-id="{{item.PedidoID}}" id="{{item.PedidoID}}" onclick="PopupPedidoSeleccionar(this);">
+        <b>N° {{item.PedidoID}}</b><br />Fecha: {{DateTimeToStringFormat item.FechaRegistro}}
+    </a>
     {{/each}}
 </script>
 <script id="template-motivo" type="text/x-handlebars-template">
@@ -388,17 +389,51 @@
             {{item.CUV}}<br />
             <b>{{item.Descripcion}}</b> <br />
             {{item.Cantidad}} unidades<br />
-            Costo: {{../Simbolo}} {{item.Precio}}
+            Costo: {{../Simbolo}} {{DecimalToStringFormat item.Precio}}
         </div>
         <div class="listado_solicitud_reclamo"><b>{{item.Solicitud}}</b></div>
         <div class="listado_solicitada_reclamo">
-            {{item.CUV2}}<br />
-            <b>{{item.Descripcion2}}</b> <br />
-            {{item.Cantidad2}} unidades<br />
-            Costo: {{../Simbolo}} {{item.Precio2}}
+            {{#if_eq CodigoOperacion 'C'}}
+                {{item.CUV2}}<br />
+                <b>{{item.Descripcion2}}</b> <br />
+                {{item.Cantidad2}} unidades<br />
+                Costo: {{../Simbolo}} {{DecimalToStringFormat item.Precio2}}
+            {{else if_eq CodigoOperacion 'D'}}
+                {{item.SolucionSolicitada}}
+            {{else}}
+
+            {{/if_eq}}            
         </div>
         <div class="listado_eliminar_reclamo">
             <a data-accion="x" style="background-image: url('/Content/Images/Esika/tacho-copy.png'); background-repeat:no-repeat; width: 17px; height: 22px; margin: 0 auto;" title="Eliminar"></a>
+        </div>
+    </div>
+    {{/each}}
+</script>
+<script id="template-detalle-paso3-enviada" type="text/x-handlebars-template">    
+    {{#each this as |item|}}
+    <div class="content_listado_reclamo" data-item="{{item.CUV}}">
+        <div style="display:none;">
+            <input type="hidden" name="id" value="{{item.CDRWebDetalleID}}" />
+        </div>
+        <div class="listado_producto_reclamo">
+            {{item.CUV}}<br />
+            <b>{{item.Descripcion}}</b> <br />
+            {{item.Cantidad}} unidades<br />
+            Costo: {{../Simbolo}} {{DecimalToStringFormat item.Precio}}
+        </div>
+        <div class="listado_solicitud_reclamo"><b>{{item.Solicitud}}</b></div>
+        <div class="listado_solicitada_reclamo">
+            {{#if_eq CodigoOperacion 'C'}}
+            {{item.CUV2}}<br />
+            <b>{{item.Descripcion2}}</b> <br />
+            {{item.Cantidad2}} unidades<br />
+            Costo: {{../Simbolo}} {{DecimalToStringFormat item.Precio2}}
+            {{else if_eq CodigoOperacion 'D'}}
+            {{item.SolucionSolicitada}}
+            {{else}}
+
+            {{/if_eq}}   
         </div>
     </div>
     {{/each}}

@@ -252,6 +252,12 @@ namespace Portal.Consultoras.Web.ServiceCDR {
         private string CodigoReclamoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string DescripcionField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string Descripcion2Field;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private bool EliminadoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -265,6 +271,18 @@ namespace Portal.Consultoras.Web.ServiceCDR {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string ObservacionField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private decimal PrecioField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private decimal Precio2Field;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string SolicitudField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string SolucionSolicitadaField;
         
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
@@ -381,6 +399,32 @@ namespace Portal.Consultoras.Web.ServiceCDR {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Descripcion {
+            get {
+                return this.DescripcionField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.DescripcionField, value) != true)) {
+                    this.DescripcionField = value;
+                    this.RaisePropertyChanged("Descripcion");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Descripcion2 {
+            get {
+                return this.Descripcion2Field;
+            }
+            set {
+                if ((object.ReferenceEquals(this.Descripcion2Field, value) != true)) {
+                    this.Descripcion2Field = value;
+                    this.RaisePropertyChanged("Descripcion2");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public bool Eliminado {
             get {
                 return this.EliminadoField;
@@ -445,6 +489,58 @@ namespace Portal.Consultoras.Web.ServiceCDR {
             }
         }
         
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public decimal Precio {
+            get {
+                return this.PrecioField;
+            }
+            set {
+                if ((this.PrecioField.Equals(value) != true)) {
+                    this.PrecioField = value;
+                    this.RaisePropertyChanged("Precio");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public decimal Precio2 {
+            get {
+                return this.Precio2Field;
+            }
+            set {
+                if ((this.Precio2Field.Equals(value) != true)) {
+                    this.Precio2Field = value;
+                    this.RaisePropertyChanged("Precio2");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Solicitud {
+            get {
+                return this.SolicitudField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.SolicitudField, value) != true)) {
+                    this.SolicitudField = value;
+                    this.RaisePropertyChanged("Solicitud");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string SolucionSolicitada {
+            get {
+                return this.SolucionSolicitadaField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.SolucionSolicitadaField, value) != true)) {
+                    this.SolucionSolicitadaField = value;
+                    this.RaisePropertyChanged("SolucionSolicitada");
+                }
+            }
+        }
+        
         public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
         
         protected void RaisePropertyChanged(string propertyName) {
@@ -481,9 +577,6 @@ namespace Portal.Consultoras.Web.ServiceCDR {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int PrioridadField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string TipoField;
         
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
@@ -569,19 +662,6 @@ namespace Portal.Consultoras.Web.ServiceCDR {
                 if ((this.PrioridadField.Equals(value) != true)) {
                     this.PrioridadField = value;
                     this.RaisePropertyChanged("Prioridad");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Tipo {
-            get {
-                return this.TipoField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.TipoField, value) != true)) {
-                    this.TipoField = value;
-                    this.RaisePropertyChanged("Tipo");
                 }
             }
         }
@@ -753,6 +833,9 @@ namespace Portal.Consultoras.Web.ServiceCDR {
         private string DescripcionField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string EntidadSSICField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string TipoField;
         
         [global::System.ComponentModel.BrowsableAttribute(false)]
@@ -800,6 +883,19 @@ namespace Portal.Consultoras.Web.ServiceCDR {
                 if ((object.ReferenceEquals(this.DescripcionField, value) != true)) {
                     this.DescripcionField = value;
                     this.RaisePropertyChanged("Descripcion");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string EntidadSSIC {
+            get {
+                return this.EntidadSSICField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.EntidadSSICField, value) != true)) {
+                    this.EntidadSSICField = value;
+                    this.RaisePropertyChanged("EntidadSSIC");
                 }
             }
         }
@@ -1374,10 +1470,10 @@ namespace Portal.Consultoras.Web.ServiceCDR {
         System.Threading.Tasks.Task<int> DelCDRWebDetalleAsync(int PaisID, Portal.Consultoras.Web.ServiceCDR.BECDRWebDetalle entity);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICDRService/GetCDRWebDetalle", ReplyAction="http://tempuri.org/ICDRService/GetCDRWebDetalleResponse")]
-        Portal.Consultoras.Web.ServiceCDR.BECDRWebDetalle[] GetCDRWebDetalle(int PaisID, Portal.Consultoras.Web.ServiceCDR.BECDRWebDetalle entity);
+        Portal.Consultoras.Web.ServiceCDR.BECDRWebDetalle[] GetCDRWebDetalle(int PaisID, Portal.Consultoras.Web.ServiceCDR.BECDRWebDetalle entity, int pedidoId);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICDRService/GetCDRWebDetalle", ReplyAction="http://tempuri.org/ICDRService/GetCDRWebDetalleResponse")]
-        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceCDR.BECDRWebDetalle[]> GetCDRWebDetalleAsync(int PaisID, Portal.Consultoras.Web.ServiceCDR.BECDRWebDetalle entity);
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceCDR.BECDRWebDetalle[]> GetCDRWebDetalleAsync(int PaisID, Portal.Consultoras.Web.ServiceCDR.BECDRWebDetalle entity, int pedidoId);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICDRService/InsCDRWebMotivoOperacion", ReplyAction="http://tempuri.org/ICDRService/InsCDRWebMotivoOperacionResponse")]
         int InsCDRWebMotivoOperacion(int PaisID, Portal.Consultoras.Web.ServiceCDR.BECDRWebMotivoOperacion entity);
@@ -1509,12 +1605,12 @@ namespace Portal.Consultoras.Web.ServiceCDR {
             return base.Channel.DelCDRWebDetalleAsync(PaisID, entity);
         }
         
-        public Portal.Consultoras.Web.ServiceCDR.BECDRWebDetalle[] GetCDRWebDetalle(int PaisID, Portal.Consultoras.Web.ServiceCDR.BECDRWebDetalle entity) {
-            return base.Channel.GetCDRWebDetalle(PaisID, entity);
+        public Portal.Consultoras.Web.ServiceCDR.BECDRWebDetalle[] GetCDRWebDetalle(int PaisID, Portal.Consultoras.Web.ServiceCDR.BECDRWebDetalle entity, int pedidoId) {
+            return base.Channel.GetCDRWebDetalle(PaisID, entity, pedidoId);
         }
         
-        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceCDR.BECDRWebDetalle[]> GetCDRWebDetalleAsync(int PaisID, Portal.Consultoras.Web.ServiceCDR.BECDRWebDetalle entity) {
-            return base.Channel.GetCDRWebDetalleAsync(PaisID, entity);
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceCDR.BECDRWebDetalle[]> GetCDRWebDetalleAsync(int PaisID, Portal.Consultoras.Web.ServiceCDR.BECDRWebDetalle entity, int pedidoId) {
+            return base.Channel.GetCDRWebDetalleAsync(PaisID, entity, pedidoId);
         }
         
         public int InsCDRWebMotivoOperacion(int PaisID, Portal.Consultoras.Web.ServiceCDR.BECDRWebMotivoOperacion entity) {

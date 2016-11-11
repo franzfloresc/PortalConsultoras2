@@ -267,6 +267,16 @@ namespace Portal.Consultoras.Common
             public const int Aceptado = 3;
             public const int Observado = 4;
         }
+
+        public class TipoMensajeCDR
+        {
+            public const string Motivo = "Motivo";
+            public const string Solucion = "Solucion";
+            public const string Propuesta = "Propuesta";
+            public const string TenerEnCuenta = "TenerEnCuenta";
+            public const string Finalizado = "Finalizado";
+            public const string MensajeFinalizado = "MensajeFinalizado"; 
+        }
     }
 }
 

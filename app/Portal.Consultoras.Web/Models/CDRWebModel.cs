@@ -34,5 +34,21 @@ namespace Portal.Consultoras.Web.Models
                             : "";
             }
         }
+
+        public string ResumenResolucion
+        {
+            get
+            {
+                return Estado == Constantes.EstadoCDRWeb.Pendiente
+                    ? "Pendiente"
+                    : Estado == Constantes.EstadoCDRWeb.Enviado
+                        ? "Enviado"
+                        : Estado == Constantes.EstadoCDRWeb.Observado
+                        ? "Resuelve las observaciones y envía nuevamente la solicitud"
+                        : Estado == Constantes.EstadoCDRWeb.Aceptado
+                            ? "Todos los productos fueron aprobados"
+                            : "";
+            }
+        }
     }
 }
