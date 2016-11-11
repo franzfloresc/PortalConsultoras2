@@ -683,23 +683,21 @@ header {
     position: relative;
     display: block;
     overflow: hidden;
-    /* border: 1px solid black; */
+    border: 1px solid black;
     border-right: 0;
-    width: 82px;
-    height:60px;
+    width: 58px;
     display: inline-block;
     vertical-align: baseline;
     text-align: center;
     letter-spacing: -1px;
     color: black;
     font-family: 'lato';
-    font-weight: 300;
+    font-weight:300;
     font-size: 10pt;
     line-height: 11.2pt;
-    color: black;
-    background: url(../../../Images/boton-home.png) no-repeat;
-    /* background-position: 18px 4px; */
-    background-size: cover;
+    color:black;
+    background: #FFF url("../../../Images/Esika/ayuda.png") no-repeat;
+    background-position: 18px 4px;
 }
 
     .boton-home::after {
