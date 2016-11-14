@@ -1768,7 +1768,7 @@ function EnlaceBanner(URL, TrackText, TipoAccion, CUVpedido, CantCUVpedido, Id, 
         if (ReservadoOEnHorarioRestringido())
             return false;
         //SB20 - 1110
-        $("#divConfirmarCUVBanner span").text("Se agregarán " + CantCUVpedido + " unidad(es) del producto a tu pedido. ¿Deseas continuar?");
+        $("#divConfirmarCUVBanner p").text("Se agregarán " + CantCUVpedido + " unidad(es) del producto a tu pedido. ¿Deseas continuar?");
 
         $("#divConfirmarCUVBanner").data({
             'cuvPedido': CUVpedido,
