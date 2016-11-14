@@ -469,7 +469,7 @@ function CargarDetalleIngresadoCliente(tag, camp, page, rows) {
 
 function ExportExcel(obj) {
     waitingDialog();
-    //var campaniaID = $.trim($(obj).parents("[data-popup]").find("[data-selectcamp]").val());
+    var campaniaID = $.trim($(obj).parents("[data-popup]").find("[data-selectcamp]").val());
     campaniaID = campaniaID || $.trim($(obj).parents("[data-popup]").find("[data-selectcamp]").attr("data-campregresar"));
     campaniaID = campaniaID.replace("-", "");
     var ClienteID = $("#divGrilla").find("select[data-cliente]").val();

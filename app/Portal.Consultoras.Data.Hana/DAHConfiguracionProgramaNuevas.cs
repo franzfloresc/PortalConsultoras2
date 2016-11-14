@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using Portal.Consultoras.Data.Hana.Entities;
 using Portal.Consultoras.Entities;
+using System;
+using System.Collections.Generic;
+using System.Configuration;
 
 namespace Portal.Consultoras.Data.Hana
 {
@@ -24,7 +21,7 @@ namespace Portal.Consultoras.Data.Hana
                 string rutaServiceHana = ConfigurationManager.AppSettings.Get("RutaServiceHana");
 
                 string urlConParametros = rutaServiceHana + "ObtenerConfiguracionProgramaNuevas/" + codigoIsoHana + "/" +
-                                          entidad.CampaniaInicio;
+                                          entidad.CampaniaInicio + "/" + entidad.CodigoRegion + "/" + entidad.CodigoZona;
 
                 string responseFromServer = Util.ObtenerJsonServicioHana(urlConParametros);
 
@@ -47,7 +44,7 @@ namespace Portal.Consultoras.Data.Hana
             }
             catch (Exception ex)
             {
-                programaNueva = new BEConfiguracionProgramaNuevas();                
+                programaNueva = new BEConfiguracionProgramaNuevas();
             }
 
             return programaNueva;
