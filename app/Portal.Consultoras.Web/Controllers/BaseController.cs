@@ -1036,6 +1036,7 @@ namespace Portal.Consultoras.Web.Controllers
                 model.VioTutorialSalvavidas = oBEUsuario.VioTutorialSalvavidas;
                 model.TieneHana = oBEUsuario.TieneHana;
                 model.NombreGerenteZonal = oBEUsuario.NombreGerenteZona;  // SB20-907
+                model.IndicadorBloqueoCDR = oBEUsuario.IndicadorBloqueoCDR;
 
                 if (model.TieneHana == 1)
                 {

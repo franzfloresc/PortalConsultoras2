@@ -8,6 +8,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Portal.Consultoras.Common;
+using Portal.Consultoras.Web.ServiceODS;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -88,7 +89,7 @@ namespace Portal.Consultoras.Web.Controllers
             // calcular las campañas existentes en ese rango de dias
             // obtener todos pedidos facturados de esas campañas existentes
 
-            int maxDias = 20;
+            int maxDias = 0;
             if (listaMotivoOperacion.Any())
             {
                 maxDias += int.Parse(listaMotivoOperacion.Max(m => m.CDRTipoOperacion.NumeroDiasAtrasOperacion).ToString());
@@ -377,7 +378,53 @@ namespace Portal.Consultoras.Web.Controllers
                 detalle = listaPedidoFacturados
             }, JsonRequestBehavior.AllowGet);
         }
-        
+
+        public JsonResult BuscarCuvCambiar(MisReclamosModel model)
+        {
+            List<BEProducto> olstProducto = new List<BEProducto>();
+            List<ProductoModel> olstProductoModel = new List<ProductoModel>();
+
+            using (ODSServiceClient sv = new ODSServiceClient())
+            {
+                olstProducto = sv.SelectProductoByCodigoDescripcionSearchRegionZona(userData.PaisID, model.CampaniaID, model.CUV, userData.RegionID, userData.ZonaID, userData.CodigorRegion, userData.CodigoZona, 1, 1).ToList();
+            }
+
+            if (olstProducto.Count == 0)
+            {
+                olstProductoModel.Add(new ProductoModel() { MarcaID = 0, CUV = "El producto solicitado no existe.", TieneSugerido = 0 });
+                return Json(olstProductoModel, JsonRequestBehavior.AllowGet);
+            }
+
+            olstProductoModel.Add(new ProductoModel()
+            {
+                CUV = olstProducto[0].CUV.Trim(),
+                Descripcion = olstProducto[0].Descripcion.Trim(),
+                PrecioCatalogo = olstProducto[0].PrecioCatalogo,
+                MarcaID = olstProducto[0].MarcaID,
+                EstaEnRevista = olstProducto[0].EstaEnRevista,
+                TieneStock = olstProducto[0].TieneStock,
+                EsExpoOferta = olstProducto[0].EsExpoOferta,
+                CUVRevista = olstProducto[0].CUVRevista.Trim(),
+                CUVComplemento = olstProducto[0].CUVComplemento.Trim(),
+                IndicadorMontoMinimo = olstProducto[0].IndicadorMontoMinimo.ToString().Trim(),
+                TipoOfertaSisID = olstProducto[0].TipoOfertaSisID,
+                ConfiguracionOfertaID = olstProducto[0].ConfiguracionOfertaID,
+                MensajeCUV = "",
+                ObservacionCUV = "",
+                DesactivaRevistaGana = 0,
+                DescripcionMarca = olstProducto[0].DescripcionMarca,
+                DescripcionEstrategia = olstProducto[0].DescripcionEstrategia,
+                DescripcionCategoria = olstProducto[0].DescripcionCategoria,
+                FlagNueva = olstProducto[0].FlagNueva,
+                TipoEstrategiaID = olstProducto[0].TipoEstrategiaID,
+                TieneSugerido = olstProducto[0].TieneSugerido,
+                CodigoProducto = olstProducto[0].CodigoProducto,
+                LimiteVenta = 99
+            });
+
+            return Json(olstProductoModel, JsonRequestBehavior.AllowGet);
+        }
+
         public JsonResult BuscarMotivo(MisReclamosModel model)
         {
             var lista = CargarMotivo(model);
@@ -415,8 +462,8 @@ namespace Portal.Consultoras.Web.Controllers
             model = model ?? new MisReclamosModel();
             var desc = ObtenerDescripcion(model.EstadoSsic, Constantes.TipoMensajeCDR.Propuesta);
             model.DescripcionConfirma = desc.Descripcion;
-            desc = ObtenerDescripcion(model.EstadoSsic2, Constantes.TipoMensajeCDR.Propuesta);
-            model.DescripcionConfirma2 = desc.Descripcion;
+            //desc = ObtenerDescripcion(model.EstadoSsic2, Constantes.TipoMensajeCDR.Propuesta);
+            //model.DescripcionConfirma2 = desc.Descripcion;
             model.CUV = Util.SubStr(model.CUV, 0);
             model.CUV2 = Util.SubStr(model.CUV2, 0);
 
@@ -442,10 +489,10 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
                 model = model ?? new MisReclamosModel();
-                if (model.CDRWebID <= 0)
-                {
-                    return new List<BECDRWebDetalle>();
-                }
+                //if (model.CDRWebID <= 0)
+                //{
+                //    return new List<BECDRWebDetalle>();
+                //}
 
                 var lista = new List<BECDRWebDetalle>();
                 var entidad = new BECDRWebDetalle();
