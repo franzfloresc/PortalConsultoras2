@@ -262,6 +262,39 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                     listaProductoBySap = listaProductoBySap ?? new List<Producto>();
 
+                    /* SB20-1198 - INICIO */
+                    string listaCUVSap = string.Empty;
+                    foreach (var itemSap in listaProductoBySap)
+                    {
+                        if (string.IsNullOrEmpty(itemSap.NombreComercial))
+                        {
+                            listaCUVSap += itemSap.Cuv + "|";
+                        }
+                    }
+
+                    if (!string.IsNullOrEmpty(listaCUVSap))
+                    {
+                        listaCUVSap = listaCUVSap.Substring(0, listaCUVSap.Length - 1);
+                        using (ODSServiceClient svc = new ODSServiceClient())
+                        {
+                            var lstNombresProductos048 = svc.GetNombreProducto048ByListaCUV(userData.PaisID, userData.CampaniaID, listaCUVSap);
+
+                            if (lstNombresProductos048.Length > 0)
+                            {
+                                foreach (var itemProd in lstNombresProductos048)
+                                {
+                                    var itemSap = listaProductoBySap.Where(x => x.Cuv == itemProd.Cuv).First();
+                                    if (itemSap != null)
+                                    {
+                                        itemSap.NombreComercial = itemProd.NombreComercial;
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    /* SB20-1198 - FIN */
+
                     foreach (var itemSap in listaProductoBySap)
                     {
 

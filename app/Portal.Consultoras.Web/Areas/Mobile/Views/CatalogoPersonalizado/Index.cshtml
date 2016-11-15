@@ -291,7 +291,7 @@
                         {{/IsNullOrEmpty}}        
                         
                     </div>
-                    <div class="sub_descripcion_oferta"><p><span>x {{item.cantidad}}</span> {{item.descripcion_gratis}}</p></div>
+                    <div class="sub_descripcion_oferta"><p><span>x{{item.cantidad}}</span> {{item.descripcion_gratis}}</p></div>
                     <hr class="clear" />
                     {{/if_eq}}
                     {{/each}}
@@ -351,7 +351,8 @@
         <hr class="clear" />
 
         <div style="text-align:center">
-            <div class="titulo_popOferta">OFERTA EN REVISTA</div>
+            @*<div class="titulo_popOferta">OFERTA EN REVISTA</div>*@
+            <div class="titulo_popOferta">OFERTA EN GUÍA DE NEGOCIO</div>
         </div>
         <div class="linea_separadora_black" style="margin-top:-10px;"></div>
         <hr class="clear" />
@@ -395,7 +396,8 @@
                 {{/IsNullOrEmpty}}                
             </div>
             <div class="titulo_producto_oferta" id="titulo">{{Descripcion}}</div>
-            <div class="sub_texto_oferta">En Revista: {{Simbolo}} {{DecimalToStringFormat precio_revista}}</div>
+            @*<div class="sub_texto_oferta">En Revista: {{Simbolo}} {{DecimalToStringFormat precio_revista}}</div>*@
+            <div class="sub_texto_oferta">Precio para ti: {{Simbolo}} {{DecimalToStringFormat precio_revista}}</div>
             <div class="texto_ganancia_oferta" style="text-transform: uppercase;">{{TxtGanancia}}: {{Simbolo}} {{DecimalToStringFormat ganancia}}</div>
 
             <div class="liquidacion_rango_home">
@@ -406,6 +408,7 @@
             <div class="clear"></div>
             <a class="boton_Agregalo_home agregar-ofertarevista" data-cuv="revista" tabindex="0">AGRÉGALO</a>
         </div>
+
         <!--FIN-->
         {{#each lista_oObjPack as |pack|}}
         <div class="item_pack_personalizado">
@@ -437,8 +440,8 @@
                             <img src="@Url.Content(ViewBag.RutaImagenNoDisponible)" alt="" style="width: 55px; height: 55px; border: 0;" />
                         </div>
                         {{/IsNullOrEmpty}}                        
-                    </>
-                    <div class="sub_descripcion_oferta"><p><span>x {{item.cantidad_item_pack}} </span>{{item.descripcion_item_pack}}</p></div>
+                    </div>
+                    <div class="sub_descripcion_oferta"><p><span>x{{item.cantidad_item_pack}} </span>{{item.descripcion_item_pack}}</p></div>
                 </div>
                 <hr class="clear" />
                 {{/if_eq}}
