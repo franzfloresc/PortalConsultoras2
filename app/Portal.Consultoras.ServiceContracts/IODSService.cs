@@ -126,5 +126,8 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         string GetNombreProducto048ByCuv(int paisID, int campaniaId, string cuv);
+
+        [OperationContract]
+        IList<BEProductoAppCatalogo> GetNombreProducto048ByListaCUV(int paisID, int campaniaId, string listaCUV);
     }
 }

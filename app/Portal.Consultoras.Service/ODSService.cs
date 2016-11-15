@@ -212,6 +212,10 @@ namespace Portal.Consultoras.Service
         {
             return BLProducto.GetNombreProducto048ByCuv(paisID, campaniaId, cuv);
         }
-        
+
+        public IList<BEProductoAppCatalogo> GetNombreProducto048ByListaCUV(int paisID, int campaniaId, string listaCUV)
+        {
+            return BLProducto.GetNombreProducto048ByListaCUV(paisID, campaniaId, listaCUV);
+        }
     }
 }
