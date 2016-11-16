@@ -102,7 +102,7 @@ $(document).ready(function () {
         SolicitudEnviar();
     });
 
-    $("[data-accion]").on("click", function () {
+    $(document).on('click', '[data-accion]', function () {
         DetalleAccion(this);
     });
 
@@ -530,7 +530,7 @@ function DetalleGuardar() {
             }
             $("#CDRWebID").val(data.detalle);
             CambioPaso();
-            DetalleCargar(false);
+            DetalleCargar(true);
         },
         error: function (data, error) {
             closeWaitingDialog();
@@ -563,7 +563,7 @@ function DetalleCargar(mostrarBanner) {
         contentType: 'application/json; charset=utf-8',
         data: JSON.stringify(item),
         cache: false,
-        success: function (data) {
+        success: function(data) {
             closeWaitingDialog();
             if (!checkTimeout(data))
                 return false;
@@ -571,18 +571,17 @@ function DetalleCargar(mostrarBanner) {
             if (data.success != true) {
                 messageInfoError(data.message);
                 return false;
-            }            
+            }
 
             if (mostrarBanner) {
                 $("#spnCantidadUltimasSolicitadas").html(data.detalle.length);
                 SetHandlebars("#template-detalle-banner", data.detalle, "#divDetalleUltimasSolicitudes");
                 $("#divUltimasSolicitudes").show();
-            } else {
-                SetHandlebars("#template-detalle-paso3", data.detalle, "#divDetallePaso3");
-                SetHandlebars("#template-detalle-paso3-enviada", data.detalle, "#divDetalleEnviar");
-            }            
+            }
+            SetHandlebars("#template-detalle-paso3", data.detalle, "#divDetallePaso3");
+            SetHandlebars("#template-detalle-paso3-enviada", data.detalle, "#divDetalleEnviar");
         },
-        error: function (data, error) {
+        error: function(data, error) {
             closeWaitingDialog();
         }
     });
@@ -593,15 +592,23 @@ function DetalleAccion(obj) {
     if (accion == "") {
         return false;
     }
-    var objItem = $(obj).parents("data-item");
+       
     if (accion == "x") {// Eliminar
-        DetalleEliminar(objItem);
+        var pedidodetalleid = $.trim($(obj).attr("data-pedidodetalleid"));
+
+        var item = {
+            CDRWebDetalleID: pedidodetalleid
+        };
+
+        DetalleEliminar(item);
+
+        //var pedidoID = $("#txtPedidoID").val();
     }
 }
 
 function DetalleEliminar(objItem) {
     var item = {
-        CDRWebDetalleID: objItem.find("item[name='id']").val()
+        CDRWebDetalleID: objItem.CDRWebDetalleID
     };
 
     waitingDialog();
@@ -620,9 +627,9 @@ function DetalleEliminar(objItem) {
                 return false;
             }
 
-            messageInfoError(data.message);
+            //messageInfoError(data.message);
             if (data.success == true) {
-                DetalleCargar(false);
+                DetalleCargar(true);
             }
         },
         error: function (data, error) {

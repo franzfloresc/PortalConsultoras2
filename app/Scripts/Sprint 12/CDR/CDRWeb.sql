@@ -651,3 +651,22 @@ BEGIN
 END
 
 go
+
+IF EXISTS(SELECT 1 FROM INFORMATION_SCHEMA.ROUTINES WHERE SPECIFIC_NAME = 'DelCDRWebDetalle' AND SPECIFIC_SCHEMA = 'dbo' AND Routine_Type = 'PROCEDURE')
+BEGIN
+    DROP PROCEDURE dbo.DelCDRWebDetalle
+END
+
+GO
+
+create procedure dbo.DelCDRWebDetalle
+@CDRWebDetalleID int
+as
+begin
+
+delete from CDRWebDetalle
+where CDRWebDetalleID = @CDRWebDetalleID
+
+end
+
+go
