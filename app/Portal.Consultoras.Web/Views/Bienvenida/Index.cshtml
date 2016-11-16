@@ -1847,7 +1847,8 @@
             <div class="content_carrusel_pack" id="divCarruselNivel">
                 <div class="item_pack_personalizado">
                     <div class="content_item_pack">
-                        <div class="fondo_negro_pack">COMPRA 1 {{Descripcion}}</div>
+                        @*<div class="fondo_negro_pack">COMPRA 1 {{Descripcion}}</div>*@
+                        <div class="fondo_negro_pack">OFERTA X1</div>
                         <br />
                         <div class="img_principal_pack" style="margin-top:16px;">                            
                             {{#IsNullOrEmpty UrlImagen '!='}}
@@ -1862,10 +1863,26 @@
                 {{#each lista_ObjNivel as |nivel|}}
                 <div class="item_pack_personalizado  linea_d">
                     <div class="content_item_pack">
-                        <div class="fondo_negro_pack">COMPRA {{nivel.escala_nivel}} {{../Descripcion}}</div>
+                        @*<div class="fondo_negro_pack">COMPRA {{nivel.escala_nivel}} {{../Descripcion}}</div>*@
+                        <div class="fondo_negro_pack">OFERTA X{{nivel.escala_nivel}}</div>
                         <div class="pack_inter width_100">
-                            <div class="titulo_pack" style="height:auto">Precio para ti {{../Simbolo}} {{DecimalToStringFormat nivel.precio_nivel}}</div>
-                            <div class="texto_ganancia_pack">{{../TxtGanancia}}: {{../Simbolo}} {{DecimalToStringFormat nivel.ganancia_nivel}}</div>
+                            <div class="contenido_compra_nivel">
+                                <div class="titulo_pack_048 centrar_vertical" style="width: 25%; text-align: left;">Compra</div>
+                                <div class="centrar_vertical" style="width: 16%;">
+                                    {{#IsNullOrEmpty ../UrlImagen '!='}}
+                                    <img src="{{../UrlImagen}}" alt="" class="img_compra_nivel" />
+                                    {{/IsNullOrEmpty}}
+                                </div>
+                                <div class="sub_descripcion_oferta_048 centrar_vertical" style="width: 54%;">
+                                    <p><span>x{{nivel.escala_nivel}}</span>&nbsp;{{../Descripcion}}</p>
+                                </div>
+                            </div>
+                            <br />
+                            <div class="titulo_pack" style="height: auto">Precio para ti {{../Simbolo}} {{DecimalToStringFormat nivel.precio_nivel}}</div>
+                            <div class="texto_ganancia_pack_048">{{../TxtGanancia}}: {{../Simbolo}} {{DecimalToStringFormat nivel.ganancia_nivel}}</div>
+                            <br />
+                            <div style="width: 100%; border-top: 1px solid #dadada;"></div>
+                            <br />
                             <div class="gratis_set">{{../TxtRecibeGratis}}:</div>
                             <div class="content_sub_items">
                                 {{#each ../lista_oObjGratis as |item|}}
@@ -1874,6 +1891,12 @@
                                     {{#IsNullOrEmpty item.imagen_gratis '!='}}
                                     <img src="{{item.imagen_gratis}}" alt="" />
                                     {{/IsNullOrEmpty}}
+
+                                    {{#IsNullOrEmpty item.imagen_gratis '=='}}
+                                    <div style="margin: 0 auto; text-align: center;">
+                                        <img src="@Url.Content(ViewBag.RutaImagenNoDisponible)" alt="" style="width: 55px; height: 55px; border: 0;" />
+                                    </div>
+                                    {{/IsNullOrEmpty}}   
                                 </div>
                                 <div class="sub_descripcion_oferta"><p><span>x{{item.cantidad}}</span>&nbsp;{{item.descripcion_gratis}}</p></div>
                                 <hr class="clear">
@@ -1995,8 +2018,8 @@
                         {{/if_eq}}*@
                         <div class="fondo_negro_pack">{{pack.nombre_pack}}</div>
                         <div class="pack_inter width_100">
-                            <div class="titulo_pack" style="height:auto">Precio para ti: {{../Simbolo}} {{DecimalToStringFormat pack.precio_pack}}</div>
-                            <div class="texto_ganancia_pack">{{../TxtGanancia}}: {{../Simbolo}} {{DecimalToStringFormat pack.ganancia_pack}}</div>
+                            <div class="titulo_pack" style="height: auto">Precio para ti: {{../Simbolo}} {{DecimalToStringFormat pack.precio_pack}}</div>
+                            <div class="texto_ganancia_pack_048">{{../TxtGanancia}}: {{../Simbolo}} {{DecimalToStringFormat pack.ganancia_pack}}</div>
                             <div class="content_sub_items">
                                 {{#each ../lista_oObjItemPack as |item|}}
                                 {{#if_eq pack.cuv_pack item.cuv_pack_item}}
@@ -2004,6 +2027,12 @@
                                     {{#IsNullOrEmpty item.imagen_item_pack '!='}}
                                     <img src="{{item.imagen_item_pack}}" alt="" />
                                     {{/IsNullOrEmpty}}
+
+                                    {{#IsNullOrEmpty item.imagen_item_pack '=='}}
+                                    <div style="margin: 0 auto; text-align: center;">
+                                        <img src="@Url.Content(ViewBag.RutaImagenNoDisponible)" alt="" style="width: 55px; height: 55px; border: 0;" />
+                                    </div>
+                                    {{/IsNullOrEmpty}}        
                                 </div>
                                 <div class="sub_descripcion_oferta"><p><span>x{{item.cantidad_item_pack}}</span>&nbsp;{{item.descripcion_item_pack}}</p></div>
                                 <hr class="clear" />
