@@ -209,6 +209,9 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         private string ImagenURLOfertaFICField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int IndicadorBloqueoCDRField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int IndicadorContratoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -1248,6 +1251,19 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
                 if ((object.ReferenceEquals(this.ImagenURLOfertaFICField, value) != true)) {
                     this.ImagenURLOfertaFICField = value;
                     this.RaisePropertyChanged("ImagenURLOfertaFIC");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int IndicadorBloqueoCDR {
+            get {
+                return this.IndicadorBloqueoCDRField;
+            }
+            set {
+                if ((this.IndicadorBloqueoCDRField.Equals(value) != true)) {
+                    this.IndicadorBloqueoCDRField = value;
+                    this.RaisePropertyChanged("IndicadorBloqueoCDR");
                 }
             }
         }

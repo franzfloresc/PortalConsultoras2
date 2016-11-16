@@ -65,6 +65,7 @@
       <xs:element minOccurs="0" name="HoraInicioNoFacturable" type="ser:duration" />
       <xs:element minOccurs="0" name="HorasDuracionRestriccion" type="xs:int" />
       <xs:element minOccurs="0" name="ImagenURLOfertaFIC" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IndicadorBloqueoCDR" type="xs:int" />
       <xs:element minOccurs="0" name="IndicadorContrato" type="xs:int" />
       <xs:element minOccurs="0" name="IndicadorDupla" type="xs:int" />
       <xs:element minOccurs="0" name="IndicadorEnviado" type="xs:int" />
