@@ -32,11 +32,17 @@
       <xs:element minOccurs="0" name="Cantidad2" type="xs:int" />
       <xs:element minOccurs="0" name="CodigoOperacion" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="CodigoReclamo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Descripcion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Descripcion2" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Eliminado" type="xs:boolean" />
       <xs:element minOccurs="0" name="Estado" type="xs:int" />
       <xs:element minOccurs="0" name="FechaRegistro" type="xs:dateTime" />
       <xs:element minOccurs="0" name="MotivoRechazo" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Observacion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Precio" type="xs:decimal" />
+      <xs:element minOccurs="0" name="Precio2" type="xs:decimal" />
+      <xs:element minOccurs="0" name="Solicitud" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SolucionSolicitada" nillable="true" type="xs:string" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="BECDRWebDetalle" nillable="true" type="tns:BECDRWebDetalle" />
@@ -54,7 +60,6 @@
       <xs:element minOccurs="0" name="CodigoReclamo" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Estado" type="xs:int" />
       <xs:element minOccurs="0" name="Prioridad" type="xs:int" />
-      <xs:element minOccurs="0" name="Tipo" nillable="true" type="xs:string" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="BECDRWebMotivoOperacion" nillable="true" type="tns:BECDRWebMotivoOperacion" />
@@ -84,6 +89,7 @@
       <xs:element minOccurs="0" name="CDRWebDescripcionID" type="xs:int" />
       <xs:element minOccurs="0" name="CodigoSSIC" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Descripcion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="EntidadSSIC" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Tipo" nillable="true" type="xs:string" />
     </xs:sequence>
   </xs:complexType>

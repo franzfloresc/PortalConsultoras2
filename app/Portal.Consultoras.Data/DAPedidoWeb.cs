@@ -684,6 +684,14 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@maxDias", DbType.Int32, maxDias);
 
             return Context.ExecuteReader(command);
-        }            
+        }
+
+        public IDataReader GetPedidosFacturadoDetalle(int pedidoID)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetPedidosFacturadoDetalle_SB2");
+            Context.Database.AddInParameter(command, "@PedidoID", DbType.Int32, pedidoID);
+
+            return Context.ExecuteReader(command);
+        }        
     }
 }

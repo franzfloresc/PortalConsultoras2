@@ -52,14 +52,14 @@ namespace Portal.Consultoras.BizLogic.CDR
             }
         }
 
-        public List<BECDRWebDetalle> GetCDRWebDetalle(int PaisID, BECDRWebDetalle entity)
+        public List<BECDRWebDetalle> GetCDRWebDetalle(int PaisID, BECDRWebDetalle entity, int pedidoId)
         {
             var listaEntity = new List<BECDRWebDetalle>();
 
             try
             {
                 var DACDRWebDetalle = new DACDRWebDetalle(PaisID);
-                using (IDataReader reader = DACDRWebDetalle.GetCDRWebDetalle(entity))
+                using (IDataReader reader = DACDRWebDetalle.GetCDRWebDetalle(entity, pedidoId))
                 {
                     while (reader.Read())
                     {

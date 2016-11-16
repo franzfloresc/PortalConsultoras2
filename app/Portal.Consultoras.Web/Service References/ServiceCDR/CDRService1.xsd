@@ -96,6 +96,7 @@
       <xs:sequence>
         <xs:element minOccurs="0" name="PaisID" type="xs:int" />
         <xs:element xmlns:q8="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.CDR" minOccurs="0" name="entity" nillable="true" type="q8:BECDRWebDetalle" />
+        <xs:element minOccurs="0" name="pedidoId" type="xs:int" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

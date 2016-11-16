@@ -569,6 +569,7 @@ namespace Portal.Consultoras.Web.Controllers
                     model.TieneHana = oBEUsuario.TieneHana;
                     model.NombreGerenteZonal = oBEUsuario.NombreGerenteZona;  // SB20-907
                     model.FechaActualPais = oBEUsuario.FechaActualPais;
+                    model.IndicadorBloqueoCDR = oBEUsuario.IndicadorBloqueoCDR;
 
                     if (model.RolID == Portal.Consultoras.Common.Constantes.Rol.Consultora)
                     {
