@@ -1,14 +1,9 @@
 ﻿@using Portal.Consultoras.Common
-@using Portal.Consultoras.Web.Controllers
 @model Portal.Consultoras.Web.Models.MisReclamosModel
 
 @{
     ViewBag.Title = "Cambios y devoluciones";
     Layout = "~/Views/Shared/_MainLayout.cshtml";
-}
-
-@{
-    var base1 = new BaseController();
 }
 
 <div class="fondo_f9f9f9">
@@ -68,8 +63,11 @@
                                 : "";
 
                 <div class="content_listado_reclamo">
+                    <input type="hidden" class="cdrweb_id" value="@item.CDRWebID"/>
+                    <input type="hidden" class="cdrweb_pedidoid" value="@item.PedidoID"/>
+                    <input type="hidden" class="cdrweb_estado" value="@item.Estado"/>
                     <div class="listado_fecha_general">
-                        @item.FechaRegistro.Day.ToString().PadLeft(2, '0') @base1.NombreMes(item.FechaRegistro.Month).Substring(0, 3) @item.FechaRegistro.Year
+                        @item.FechaRegistro.Day.ToString().PadLeft(2, '0')/@item.FechaRegistro.Month.ToString().PadLeft(2, '0')/@item.FechaRegistro.Year
                         <span class="detalle_listado">@formatoHoraRegistro</span>
                     </div>
                     <div class="listado_campana_general">@item.CampaniaID.ToString().Substring(0, 4)-@item.CampaniaID.ToString().Substring(4, 2)</div>
@@ -78,7 +76,7 @@
                         @if (item.FechaAtencion.HasValue)
                         {
                             @item.FechaAtencion.Value.Day.ToString().PadLeft(2, '0')
-                            @base1.NombreMes(item.FechaAtencion.Value.Month).Substring(0, 3)
+                            @item.FechaAtencion.Value.Month.ToString().PadLeft(2, '0')
                             @item.FechaAtencion.Value.Year
                             <span class="detalle_listado">@formatoHoraAtencion</span>
                         }
@@ -100,8 +98,8 @@
                             <span class="estado_texto @claseEstado">
                                 @item.EstadoDescripcion
                             </span>
-                            <span>
-                                <a data-cdrwebid="@item.CDRWebID" href="javascript:;" title="Ver Estado / Detalles" class="icono_verDetalle verDetalle">
+                            <span>                    
+                                <a data-cdrwebid="@item.CDRWebID" data-pedidoid="@item.PedidoID" href="javascript:;" title="Ver Estado / Detalles" class="icono_verDetalle verDetalle">
                                     <img src="/Content/Images/icono-ver-estado.png" alt="Ver Estado / Detalles">
                                 </a>
                             </span>
@@ -115,6 +113,67 @@
 </div>
 
 <div class="contenedor_popup_percepciones" id="PopSolicitud">
+    <div class="popup_Pendientes">
+        <div class="btn_cerrar_popupPercepcion cerrarPendientesPORTAL">
+            <a class="regresaPendientes" title="Regresar" style="text-align: right;" href="javascript:;" onclick=" javascript: $('#PopSolicitud').hide(); ">
+                <div class="icono_regresar">
+                    <img src="/Content/Images/btn_regresar.svg" alt="Regresar">
+                </div>
+                <div class="texto_btn_regresar">REGRESAR AL LISTADO</div>
+            </a>
+        </div>
+
+        <div class="fondo_f7f7f7 row_36">
+            <div class="texto_titulo_reclamos" id="TituloReclamo">Solicitud de Cambios y Devoluciones</div>
+            <div style="text-align: center; max-width: 700px; margin: 0 auto">
+                <div class="detalle_estado_reclamo">
+                    Fecha:<b> 10 Oct 2016 </b>
+                </div>
+                <div class="detalle_estado_reclamo">
+                    Solicitud:<b> Nº 12345678</b>
+                </div>
+                <div class="detalle_estado_reclamo">
+                    Campaña:<b> 2016-15</b>
+                </div>
+            </div>
+            <div class="sub_detalle_estado">
+                Resumen: <b>2 productos aprobados, 1 rechazado</b>
+            </div>
+        </div>
+        <div class="content_pop_grilla">
+            <div class="content_listado_reclamo">
+                <div class="pop_solicitud_producto text_gris_reclamo">Producto</div>
+                <div class="pop_solicitud_tipo text_gris_reclamo">Tipo de solicitud</div>
+                <div class="pop_solicitud_solucion text_gris_reclamo">Solución solicitada:</div>
+                <div class="pop_solicitud_resolucion text_gris_reclamo">Resolución:</div>
+            </div>
+            <div class="linea_separadora"></div>
+
+            <div class="content_listado_reclamo">
+                <div class="pop_solicitud_producto">
+                    00411<br>
+                    <b>Berrylicious shampoo rojo 375 ml.</b> <br>
+                    2 unidades<br>
+                    Costo: S/.15.00
+                </div>
+                <div class="pop_solicitud_tipo">
+                    <b>Cambiar por</b>
+                </div>
+                <div class="pop_solicitud_solucion">
+                    Reenvío del mismo producto
+                </div>
+                <div class="pop_solicitud_resolucion">
+                    <span class="texto_estado_solicitud">RECHAZADO</span>por superar el límite establecido de unidades a reclamar
+                </div>
+                <hr class="clear"/>
+            </div>           
+        </div>
+
+    </div>
+
+</div>
+
+<div class="contenedor_popup_percepciones" id="PopSolicitud2">
     <div class="popup_Pendientes">
         <div class="btn_cerrar_popupPercepcion cerrarPendientesPORTAL">
             <a class="regresaPendientes" title="Regresar" style="text-align: right;" href="javascript:;" onclick=" javascript: $('#PopSolicitud').hide(); ">
@@ -227,6 +286,29 @@
 
 </div>
 
+<script id="template-detalle-1" type="text/x-handlebars-template">
+    {{#each this as |item|}}
+    <div class="content_listado_reclamo">
+        <div class="pop_solicitud_producto">
+            {{item.CUV}}<br>
+            <b>{{item.Descripcion}}</b> <br>
+            {{item.Cantidad}} unidades<br>
+            Costo: {{../Simbolo}} {{DecimalToStringFormat item.Precio}}
+        </div>
+        <div class="pop_solicitud_tipo">
+            <b>{{item.Solicitud}}</b>
+        </div>
+        <div class="pop_solicitud_solucion">
+            
+        </div>
+        <div class="pop_solicitud_resolucion">
+            <span class="texto_estado_solicitud">RECHAZADO</span>por superar el límite establecido de unidades a reclamar
+        </div>
+        <hr class="clear" />
+    </div>
+    {{/each}}
+</script>
+
 @section scripts{
     <script type="text/javascript">
         var imgCheck = '@Url.Content("~/Content/Images/Esika/paso_realizado.png")';
@@ -236,11 +318,50 @@
             $(".verDetalle").on("click", function () {
                 var elemento = $(this);
 
-                var id = $(elemento).attr("data-cdrwebid");
+                var parent = $(elemento).parents(".content_listado_reclamo");
+
+                var id = $(parent).find(".cdrweb_id").val();
+                var pedidoId = $(parent).find(".cdrweb_pedidoid").val();
+                var estado = $(parent).find(".cdrweb_estado").val();
+
+                var item = {
+                    CDRWebID: id || 0,
+                    PedidoID: pedidoId || 0,                    
+                };
+
+                //ObtenerDetalleCdr(item);
 
                 $("#PopSolicitud").show();
             });
         });
+
+        function ObtenerDetalleCdr(item) {
+            waitingDialog();
+
+            jQuery.ajax({
+                type: 'POST',
+                url: baseUrl + 'MisReclamos/DetalleCargar',
+                dataType: 'json',
+                contentType: 'application/json; charset=utf-8',
+                data: JSON.stringify(item),
+                cache: false,
+                success: function (data) {
+                    closeWaitingDialog();
+                    if (!checkTimeout(data))
+                        return false;
+
+                    if (data.success != true) {
+                        messageInfoError(data.message);
+                        return false;
+                    }
+
+                    SetHandlebars("#template-detalle-1", data.detalle, "#div");
+                },
+                error: function (data, error) {
+                    closeWaitingDialog();
+                }
+            });
+        }
     </script>
 }
 
