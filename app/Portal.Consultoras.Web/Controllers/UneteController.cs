@@ -2535,13 +2535,21 @@ namespace Portal.Consultoras.Web.Controllers
                 ? default(DateTime?)
                 : DateTime.ParseExact(model.FechaHasta, "dd/MM/yyyy", CultureInfo.InvariantCulture);
 
+            string codigozona = string.IsNullOrEmpty(model.Zona) ? string.Empty : model.Zona;
+            string codigoRegion = string.IsNullOrEmpty(model.Region) ? string.Empty : model.Region;
+            string codigoSeccion = string.IsNullOrEmpty(model.Seccion) ? string.Empty : model.Seccion;
+
 
             ReporteConsolidadoParameter objReporteConsolidadoParameter = new ReporteConsolidadoParameter
             {
                 Aplicacion = EnumsAplicacion.HerramientaGestionSAC,
                 CodigoIso = CodigoISO,
                 FechaDesde = fechaDesde,
-                FechaHasta = fechaHasta
+                FechaHasta = fechaHasta, 
+                Zona = codigozona,
+                Region = codigoRegion,
+                Seccion = codigoSeccion
+                
             };
 
             using (var sv = new PortalServiceClient())
