@@ -46,10 +46,11 @@ namespace Portal.Consultoras.Data.CDR
             return Convert.ToInt32(command.Parameters["@RetornoID"].Value);
         }
 
-        public IDataReader GetCDRWebDetalle(BECDRWebDetalle entity)
+        public IDataReader GetCDRWebDetalle(BECDRWebDetalle entity, int pedidoId)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetCDRWebDetalle");
             Context.Database.AddInParameter(command, "CDRWebID", DbType.Int32, entity.CDRWebID);
+            Context.Database.AddInParameter(command, "PedidoID", DbType.String, pedidoId);
 
             return Context.ExecuteReader(command);
         }

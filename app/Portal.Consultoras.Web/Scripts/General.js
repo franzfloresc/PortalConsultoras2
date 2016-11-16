@@ -214,6 +214,20 @@ jQuery(document).ready(function () {
             Handlebars.registerHelper('DecimalToStringFormat', function (context) {
                 return DecimalToStringFormat(context);
             });
+
+            Handlebars.registerHelper('DateTimeToStringFormat', function(context) {
+                if (context != null && context != '') {
+                    var dateString = context.substr(6);
+                    var currentTime = new Date(parseInt(dateString));
+                    var month = currentTime.getMonth() + 1;
+                    var day = currentTime.getDate();
+                    var year = currentTime.getFullYear();
+                    var date = (day < 10 ? "0" + day : day) + "/" + (month < 10 ? "0" + month : month) + "/" + year;
+                    return date;
+                } else {
+                    return "Fomato Incorrecto";
+                }
+            });
         }
     }
 

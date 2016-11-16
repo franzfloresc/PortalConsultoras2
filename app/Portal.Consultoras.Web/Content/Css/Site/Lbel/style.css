@@ -30913,6 +30913,7 @@ h1#penmostreo .campana {
     display: -o-flex;
     justify-content:space-between;
     z-index:1;
+    margin-right: 201px;
 }
 .content_pasos::after{
     position:absolute;
@@ -30945,6 +30946,7 @@ h1#penmostreo .campana {
     max-width: 704px;
     margin:0 auto;
     position:relative;
+    margin-right: 4px;
 }
 .subtitulo_reclamo{
     font-weight:700;
@@ -30976,7 +30978,7 @@ h1#penmostreo .campana {
     color:#b5b5b5;
     line-height:45px;
     padding:10px;
-    margin-right:10px;
+    margin-right:9px;
     float:left;
 }
 
@@ -31084,6 +31086,7 @@ h1#penmostreo .campana {
     font-weight:bold;
     text-align:center;
     margin-right:36px;
+    margin-bottom: 10px;
 }
 .btn_solución_reclamo:last-child{
     margin-right:0px;
@@ -31270,6 +31273,11 @@ h1#penmostreo .campana {
     background-position:0px 2px;
     text-decoration:underline;
 }
+.politica_reclamos_active {
+    background: url(../../../Images/Lbel/icono_check_lbel.svg) no-repeat;
+    background-size: contain;
+}
+
 .btn_agrega_otro_reclamo{
     font-family: 'LAto';
     font-size: 13px;
@@ -31355,11 +31363,12 @@ h1#penmostreo .campana {
     background-position:0px 4px;
 }
 .UltimasSolicitudes{
-    position:absolute;
+    /*position:absolute;*/
+    float: right;
     width:204px;
     height:auto;
     padding:15px 20px 15px 20px;
-    right:0px;
+    /*right:0px;*/
     top:0;
     -webkit-box-shadow:0 2px 4px 0 rgba(174, 174, 174, 0.5);
     -moz-box-shadow: 0 2px 4px 0 rgba(174, 174, 174, 0.5);

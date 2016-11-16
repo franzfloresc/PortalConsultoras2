@@ -54,9 +54,9 @@ namespace Portal.Consultoras.Service
             return BLCDRWebDetalle.DelCDRWebDetalle(PaisID, entity);
         }
 
-        public List<BECDRWebDetalle> GetCDRWebDetalle(int PaisID, BECDRWebDetalle entity)
+        public List<BECDRWebDetalle> GetCDRWebDetalle(int PaisID, BECDRWebDetalle entity, int pedidoId)
         {
-            return BLCDRWebDetalle.GetCDRWebDetalle(PaisID, entity);
+            return BLCDRWebDetalle.GetCDRWebDetalle(PaisID, entity, pedidoId);
         }
 
         public int InsCDRWebMotivoOperacion(int PaisID, BECDRWebMotivoOperacion entity)

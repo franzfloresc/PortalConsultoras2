@@ -27,7 +27,7 @@
     </div>
     <div class="content_registro_reclamos">
         <div class="texto_solicitud_registrada">Tienes @Model.ListaCDRWeb.Count() solicitudes registradas:</div>
-        <a class="btn_si_stock" href="#" style="width:296px;" id="IrPaso1">REGISTRAR SOLICITUD</a>
+        <a class="btn_si_stock" href="@Url.Action("Reclamo")" style="width:296px;" id="IrPaso1">REGISTRAR SOLICITUD</a>
         <hr class="clear" />
         <br />
         <br />
@@ -83,24 +83,34 @@
                             <span class="detalle_listado">@formatoHoraAtencion</span>
                         }
                     </div>
-                    <div class="listado_resumen_general icono_resumen_resolucion">
-                        @item.EstadoDescripcion
-                    </div>
-                </div>
-                <div class="listado_estado_general">
-                    <div>
-                        <span class="estado_texto @claseEstado">
+                    @if (claseEstado == "estado_detalleObservado")
+                    {
+                        <div class="listado_resumen_general icono_resumen_resolucion">
                             @item.EstadoDescripcion
-                        </span>
-                        <span>
-                            <a href="javascript:;" onclick="javascript: $('#PopSolicitud').show();" title="Ver Estado / Detalles" class="icono_verDetalle">
-                                <img src="/Content/Images/icono-ver-estado.png" alt="Ver Estado / Detalles">
-                            </a>
-                        </span>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="listado_resumen_general">
+                            @item.EstadoDescripcion
+                        </div>
+                    }
+                    <div class="listado_estado_general">
+                        <div>
+                            <span class="estado_texto @claseEstado">
+                                @item.EstadoDescripcion
+                            </span>
+                            <span>
+                                <a href="javascript:;" onclick="javascript: $('#PopSolicitud').show();" title="Ver Estado / Detalles" class="icono_verDetalle">
+                                    <img src="/Content/Images/icono-ver-estado.png" alt="Ver Estado / Detalles">
+                                </a>
+                            </span>
+                        </div>
                     </div>
                 </div>
+                <div class="linea_separadora"></div>
             }
-            <div class="content_listado_reclamo">
+            @*<div class="content_listado_reclamo">
                 <div class="listado_fecha_general">10 Oct 2016 <span class="detalle_listado">10:45 pm</span></div>
                 <div class="listado_campana_general">2016-15</div>
                 <div class="listado_solicitud_general">12345678</div>
@@ -156,7 +166,7 @@
                         </span>
                     </div>
                 </div>
-            </div>
+            </div>*@
         </div>
             
         
@@ -581,7 +591,7 @@
      </div>
 
 </div>
-<div class="mensaje_alerta_belcorp" id="NumeroPedido" style="display: block;">
+<div class="mensaje_alerta_belcorp" id="NumeroPedido" style="display: none;">
     <div class="content_mensaje_alerta">
         <a class="btn_cerrar_alerta" href="javascript:;" onclick="javascript: $('#NumeroPedido').hide();"><img src="/Content/Images/cerrar_04.png"></a>
         <hr class="clear">
@@ -602,8 +612,8 @@
     var imgCarta = '@Url.Content("~/Content/Images/Esika/carta1.png")';
     $(document).ready(function () {
         $("#IrPaso1").on("click", function () {
-            $('.content_registro_reclamos').hide(); //muestro mediante id 
-            $('.content_general_reclamos').show(); //oculto mediante id              
+            //$('.content_registro_reclamos').hide(); //muestro mediante id 
+            //$('.content_general_reclamos').show(); //oculto mediante id              
 
         });
         $(".reclamo_motivo_select").on("click", function () {
