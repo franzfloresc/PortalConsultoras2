@@ -41,8 +41,8 @@ namespace Portal.Consultoras.Web.Controllers
                 model.FechaVencimiento = fechaVencimientoTemp.ToString("dd/MM/yyyy") == "01/01/0001" ? "--/--" : fechaVencimientoTemp.ToString("dd/MM/yyyy");
                 model.MontoDeuda = userData.MontoDeuda;
 
-                model.VioVideoBienvenidaModel = userData.VioVideoModelo;
-                model.VioTutorialDesktop = userData.VioTutorialDesktop;
+                //model.VioVideoBienvenidaModel = userData.VioVideoModelo;
+                //model.VioTutorialDesktop = userData.VioTutorialDesktop;
 
                 #region Rangos de Escala de Descuento
 
@@ -215,6 +215,87 @@ namespace Portal.Consultoras.Web.Controllers
                 model.EsCatalogoPersonalizadoZonaValida = userData.EsCatalogoPersonalizadoZonaValida;
                 model.VioTutorialSalvavidas = userData.VioTutorialSalvavidas;
                 model.DataBarra = GetDataBarra();
+                
+
+                #region Lógica de Popups
+
+                model.VioVideoBienvenidaModel = userData.VioVideoModelo;
+                model.VioTutorialDesktop = userData.VioTutorialDesktop;
+
+                int TipoPopUpMostrar = 0; //= Convert.ToInt32(Session["TipoPopUpMostrar"]);
+
+                if (Session["TipoPopUpMostrar"] == null)
+                {
+                    // validar logica para mostrar video (por ende se muestra: Tutorial y salvavidas)
+                    if (userData.VioVideoModelo == 0)
+                    {
+                        model.VioVideoBienvenidaModel = 0;
+                        UpdateUsuarioTutorial(Constantes.TipoTutorial.Video);
+
+                        TipoPopUpMostrar = Constantes.TipoPopUp.VideoIntroductorio;
+                        Session["TipoPopUpMostrar"] = TipoPopUpMostrar;
+                    }
+                    if (userData.VioTutorialDesktop == 0)
+                    {
+                        if (userData.VioTutorialSalvavidas == 0)
+                        {
+                            UpdateUsuarioTutorial(Constantes.TipoTutorial.Salvavidas);
+                            ViewBag.MostrarUbicacionTutorial = 0;
+                        }
+                        else
+                        {
+                            UpdateUsuarioTutorial(Constantes.TipoTutorial.Desktop);
+                        }
+
+                        TipoPopUpMostrar = Constantes.TipoPopUp.VideoIntroductorio;
+                        Session["TipoPopUpMostrar"] = TipoPopUpMostrar;
+                    }
+                    if (userData.VioTutorialSalvavidas == 0)
+                    {
+                        model.VioTutorialSalvavidas = 0;
+
+                        TipoPopUpMostrar = Constantes.TipoPopUp.VideoIntroductorio;
+                        Session["TipoPopUpMostrar"] = TipoPopUpMostrar;
+                    }
+
+                    // validar lógica para mostrar la franja de GPR (BO)
+                    if (userData.CodigoISO.Equals(Constantes.CodigosISOPais.Bolivia))
+                    {
+
+                        // TipoPopUpMostrar = Constantes.TipoPopUp.GPR;
+                        // Session["TipoPopUpMostrar"] = TipoPopUpMostrar;
+                    }
+                    else
+                        // validar lógica para mostrara demanda Anticipada (PE)
+                        if (userData.CodigoISO.Equals(Constantes.CodigosISOPais.Peru))
+                        {
+
+                            TipoPopUpMostrar = Constantes.TipoPopUp.DemandaAnticipada;
+                            Session["TipoPopUpMostrar"] = TipoPopUpMostrar;
+                        }
+                        else
+                            // validar lógica para mostrar Aceptación de contrato (CO)
+                            if (userData.CodigoISO.Equals(Constantes.CodigosISOPais.Colombia))
+                            {
+                                if (userData.CambioClave == 0)
+                                {
+                                    TipoPopUpMostrar = Constantes.TipoPopUp.AceptacionContrato;
+                                    Session["TipoPopUpMostrar"] = TipoPopUpMostrar;
+                                }
+                            }
+
+                    // Validar logica para mostrar ShowRoom
+                    var paisesShowRoom = ConfigurationManager.AppSettings["PaisesShowRoom"];
+                    if (paisesShowRoom.Contains(userData.CodigoISO))
+                    {
+                        TipoPopUpMostrar = Constantes.TipoPopUp.Showroom;
+                        Session["TipoPopUpMostrar"] = TipoPopUpMostrar;
+                    }
+
+                    model.TipoPopUpMostrar = TipoPopUpMostrar;
+                }
+
+                #endregion
 
                 ViewBag.RutaImagenNoDisponible = ConfigurationManager.AppSettings.Get("rutaImagenNotFoundAppCatalogo");
             }
@@ -233,6 +314,32 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
             return View("IndexSAC", model);
+        }
+
+        private void UpdateUsuarioTutorial(int tipo)
+        {
+            int retorno;
+            using (UsuarioServiceClient sv = new UsuarioServiceClient())
+            {
+                retorno = sv.UpdateUsuarioTutoriales(userData.PaisID, userData.CodigoUsuario, tipo);
+
+                switch (tipo)
+                {
+                    case Constantes.TipoTutorial.Video:
+                        userData.VioVideoModelo = retorno;
+                        break;
+                    case Constantes.TipoTutorial.Desktop:
+                        userData.VioTutorialDesktop = retorno;
+                        break;
+                    case Constantes.TipoTutorial.Salvavidas:
+                        userData.VioTutorialSalvavidas = retorno;
+                        break;
+                    case Constantes.TipoTutorial.Mobile:
+                        userData.VioTutorialModelo = retorno;
+                        break;
+                }
+            }
+            SetUserData(userData);
         }
 
         public JsonResult SubirImagen(string data)

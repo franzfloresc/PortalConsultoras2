@@ -123,7 +123,7 @@ $(document).ready(function () {
     });
 
     /* SB20-834 - INICIO */
-    ObtenerComunicadosPopup();
+    //ObtenerComunicadosPopup();
            
     CrearDialogs();
     CargarCarouselEstrategias("");
@@ -134,6 +134,28 @@ $(document).ready(function () {
 
     mostrarVideoIntroductorio();
     CargarPopupsConsultora();
+
+    switch (TipoPopUpMostrar) {
+        case "1":
+            mostrarVideoIntroductorio();
+
+            break;
+        case "2": // GPR
+            break;
+        case "3":
+            MostrarDemandaAnticipada();
+            break;
+        case "4":
+            AbrirAceptacionContrato();
+            break;
+
+        case "5":
+            //ShowRoom
+            CrearPopShow();
+            MostrarShowRoom();
+            //Fin ShowRoom
+            break;
+    }
 
     $("#btnCambiarContrasenaMD").click(function () { CambiarContrasenia(); });
     $("#btnActualizarMD").click(function () { ActualizarMD(); });
@@ -337,8 +359,8 @@ $(document).ready(function () {
     });
   
     //ShowRoom
-    CrearPopShow();
-    MostrarShowRoom();
+    //CrearPopShow();
+    //MostrarShowRoom();
     //Fin ShowRoom
 
     MostrarBarra(null, '1');
@@ -520,7 +542,7 @@ function mostrarUbicacionTutorial(tieneFondoNegro, mostrarPopupTutorial) {
         }
     }
 
-    UpdateUsuarioTutoriales(constanteVioTutorialSalvavidas);
+    //UpdateUsuarioTutoriales(constanteVioTutorialSalvavidas);
     viewBagVioTutorialSalvavidas = 1;
 
     var time = EfectoTutorialSalvavidas == '0' ? 0 : 4000;
@@ -578,19 +600,20 @@ function mostrarVideoIntroductorio() {
         if (viewBagVioVideo == "0") {
             PopupMostrar('videoIntroductorio');
             setTimeout(function () { playVideo(); }, 1000);
-            UpdateUsuarioTutoriales(constanteVioVideo);
+            //UpdateUsuarioTutoriales(constanteVioVideo);
             return true;
         }
 
-        if (viewBagVioTutorial == 0) {
-            if (viewBagVioTutorialSalvavidas == '0') {
+        //if (viewBagVioTutorial == 0) {
+        //    if (viewBagVioTutorialSalvavidas == '0') {
+        if (viewBagMostrarUbicacionTutorial == '0') {
                 mostrarUbicacionTutorial(false, true);
             } else {
                 abrir_popup_tutorial();
             }
             primeraVezVideo = false;
             return true;
-        }
+        //}
 
         if (viewBagVioTutorialSalvavidas == '0') {
             mostrarUbicacionTutorial(false, false);
@@ -677,10 +700,10 @@ function CrearDialogs() {
 };
 
 function CargarPopupsConsultora() {
-    if (viewBagPrimeraVez == "0" && viewBagPaisID == 4) { //Colombia
-        AbrirAceptacionContrato();
-    }
-    else {
+    //if (viewBagPrimeraVez == "0" && viewBagPaisID == 4) { //Colombia
+    //    AbrirAceptacionContrato();
+    //}
+    //else {
         if (viewBagPaisID == 9 && viewBagValidaDatosActualizados == '1' && viewBagValidaTiempoVentana == '1' && viewBagValidaSegmento == '1') { //Mexico
             PopupMostrar('popupActualizarMisDatosMexico');
         } else {
@@ -692,16 +715,16 @@ function CargarPopupsConsultora() {
                 }
                 PopupMostrar('popupActualizarMisDatos');
             }
-            else {
-                if (viewBagPrimeraVez == "1" && viewBagPaisID == 4) { //Colombia
-                    AbrirAceptacionContrato();
-                }
-            }
+            //else {
+            //    if (viewBagPrimeraVez == "1" && viewBagPaisID == 4) { //Colombia
+            //        AbrirAceptacionContrato();
+            //    }
+            //}
         }
-    }
+    //}
 
     AbrirPopupFlexipago();
-    MostrarDemandaAnticipada();
+    //MostrarDemandaAnticipada();
 };
 
 //Metodos para carousel Ofertas para Tí

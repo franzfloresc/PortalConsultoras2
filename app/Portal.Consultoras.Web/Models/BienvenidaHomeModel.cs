@@ -85,5 +85,10 @@ namespace Portal.Consultoras.Web.Models
         public bool EsCatalogoPersonalizadoZonaValida { get; set; }
 
         public int VioTutorialSalvavidas { get; set; }
+
+
+        #region Propiedades para POPUps
+        public int TipoPopUpMostrar { get; set; }
+        #endregion
     }
 }
