@@ -239,7 +239,7 @@
         <br/><br/>
         <div class="icono_mensaje_alerta icono_check_alerta"></div>
         <div class="texto_mensaje_alerta" id="mensaje_exclamacion_titulo">¡SOLICITUD<b> ENVIADA</b>!</div>
-        <div class="sub_texto_alerta" id="mensaje_exclamacion_texto">Vamos a evaluarla y en un plazo de XX horas te enviaremos una respuesta a tu correo electrónico</div>
+        <div class="sub_texto_alerta" id="mensaje_exclamacion_texto">Vamos a evaluarla y en un plazo de 40 minutos te enviaremos una respuesta a tu correo electrónico</div>
         <div class="content_btn_imprimir">
             <a class="btn_imprimir_reclamo"> <div class="icono_imprimir_reclamo"></div>IMPRIMIR SOLICITUD</a>
         </div>
@@ -378,10 +378,7 @@
         <div class="listado_solicitud_reclamo"><b>{{item.Solicitud}}</b></div>
         <div class="listado_solicitada_reclamo">
             {{#if_eq CodigoOperacion 'C'}}
-                {{item.CUV2}}<br />
-                <b>{{item.Descripcion2}}</b> <br />
-                {{item.Cantidad2}} unidades<br />
-                Costo: {{../Simbolo}} {{DecimalToStringFormat item.Precio2}}
+                {{item.SolucionSolicitada}}
             {{else if_eq CodigoOperacion 'D'}}
                 {{item.SolucionSolicitada}}
             {{else if_eq CodigoOperacion 'F'}}
@@ -417,10 +414,7 @@
         <div class="listado_solicitud_reclamo"><b>{{item.Solicitud}}</b></div>
         <div class="listado_solicitada_reclamo">
             {{#if_eq CodigoOperacion 'C'}}
-            {{item.CUV2}}<br />
-            <b>{{item.Descripcion2}}</b> <br />
-            {{item.Cantidad2}} unidades<br />
-            Costo: {{../Simbolo}} {{DecimalToStringFormat item.Precio2}}
+                {{item.SolucionSolicitada}}
             {{else if_eq CodigoOperacion 'D'}}
                 {{item.SolucionSolicitada}}
             {{else if_eq CodigoOperacion 'F'}}
