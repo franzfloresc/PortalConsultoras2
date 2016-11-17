@@ -35,7 +35,7 @@ $(document).ready(function () {
     });
 
     CargarCarouselEstrategias("");
-    CargarPopupsConsultora();
+    //CargarPopupsConsultora();
     TagManagerCatalogosPersonalizados();
     $(document).on('click', '.banner_inferior_mobile', function () {
         dataLayer.push({

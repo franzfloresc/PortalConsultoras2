@@ -247,6 +247,7 @@
     <Compile Include="CDR\BECDRWebMotivoOperacion.cs" />
     <Compile Include="Enumerations.cs" />
     <Compile Include="BEPedidoRechazado.cs" />
+    <Compile Include="BEPopupPais.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
