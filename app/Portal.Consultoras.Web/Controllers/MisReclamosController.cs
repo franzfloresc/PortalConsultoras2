@@ -54,13 +54,15 @@ namespace Portal.Consultoras.Web.Controllers
             return View(model);
         }
 
-        public ActionResult Reclamo()
+        public ActionResult Reclamo(int pedidoId = 0)
         {
             CargarInformacion();
             var model = new MisReclamosModel();
             model.ListaCampania = (List<CampaniaModel>)Session[Constantes.ConstSession.CDRCampanias];
             model.Email = userData.EMail;
             model.Telefono = userData.Celular;
+
+            model.PedidoID = pedidoId;
 
             return View(model);
         }
@@ -677,7 +679,8 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 success = true,
                 message = "",
-                detalle = lista                
+                detalle = lista,
+                Simbolo = userData.Simbolo
             }, JsonRequestBehavior.AllowGet);
         }
 
