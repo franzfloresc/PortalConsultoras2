@@ -430,6 +430,10 @@ namespace Portal.Consultoras.Web.Controllers
                     {
                         mostrarShowRoomProductos = false;
                     }
+                    else if (beShowRoomConsultora.MostrarPopup)
+                    {
+                        mostrarShowRoomProductos = true;
+                    }
                 }
             }
             return mostrarShowRoomProductos;
