@@ -673,8 +673,6 @@ namespace Portal.Consultoras.Web.Controllers
             Session[Constantes.ConstSession.CDRWebDetalle] = null;
             var lista = CargarDetalle(model);
 
-            
-
             return Json(new
             {
                 success = true,
@@ -685,18 +683,32 @@ namespace Portal.Consultoras.Web.Controllers
 
         public JsonResult DetalleEliminar(MisReclamosModel model)
         {
-            var entidadDetalle = new BECDRWebDetalle();
-            using (CDRServiceClient sv = new CDRServiceClient())
+            try
             {
-                model.CDRWebDetalleID = sv.DelCDRWebDetalle(userData.PaisID, entidadDetalle);
-            }
+                var entidadDetalle = new BECDRWebDetalle();
+                entidadDetalle.CDRWebDetalleID = model.CDRWebDetalleID;
 
-            return Json(new
+                using (CDRServiceClient sv = new CDRServiceClient())
+                {
+                    sv.DelCDRWebDetalle(userData.PaisID, entidadDetalle);
+                }
+
+                return Json(new
+                {
+                    success = true,
+                    message = "",
+                    detalle = ""
+                }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
             {
-                success = model.CDRWebDetalleID > 0,
-                message = model.CDRWebDetalleID > 0 ? "" : "Error, vuelva a intentarlo",
-                detalle = model.CDRWebDetalleID
-            }, JsonRequestBehavior.AllowGet);
+                return Json(new
+                {
+                    success = false,
+                    message = "Error: " + ex.Message,
+                    detalle = ""
+                }, JsonRequestBehavior.AllowGet);
+            }            
         }
 
         public JsonResult SolicitudEnviar(MisReclamosModel model)

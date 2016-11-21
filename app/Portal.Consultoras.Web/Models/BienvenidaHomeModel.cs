@@ -86,5 +86,13 @@ namespace Portal.Consultoras.Web.Models
         public BarraConsultoraModel DataBarra { get; set; }
 
         public int VioTutorialSalvavidas { get; set; }
+        
+        #region Propiedades para POPUps
+        public int TipoPopUpMostrar { get; set; }
+        // DemandaAnticipada
+        public string MensajeFechaDA { get; set; }
+        // Actualizar datos
+        public int MostrarPopupActualizarDatosXPais { get; set; }
+        #endregion
     }
 }

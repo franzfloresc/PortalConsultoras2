@@ -149,6 +149,7 @@
     <Compile Include="DAPedidoWebAnteriores.cs" />
     <Compile Include="DAPedidoWebDetalle.cs" />
     <Compile Include="DAPermiso.cs" />
+    <Compile Include="DAPopupPais.cs" />
     <Compile Include="DAProcesoPedidoRechazado.cs" />
     <Compile Include="DAProducto.cs" />
     <Compile Include="DAProductoDescripcion.cs" />

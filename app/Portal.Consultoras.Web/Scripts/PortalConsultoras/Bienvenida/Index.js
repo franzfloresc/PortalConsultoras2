@@ -71,6 +71,27 @@ $(document).ready(function () {
                 closeComunicadosPopup = true;
             }
             /* SB20-834 - FIN */
+            if ($('#popupActualizarMisDatos').is(':visible')) {
+                PopupCerrar('popupActualizarMisDatos');
+            }
+            if ($('#popupActualizarMisDatosMexico').is(':visible')) {
+                PopupCerrar('popupActualizarMisDatosMexico');
+            }
+            if ($('#popupInvitaionFlexipago').is(':visible')) {
+                PopupCerrar('popupInvitaionFlexipago');
+            }
+            if ($('#popupAceptacionContrato').is(':visible')) {
+                PopupCerrar('popupAceptacionContrato');
+            }
+            if ($('#DialogoMensajeBannerShowRoomHoy').is(':visible')) {
+                PopupCerrar('DialogoMensajeBannerShowRoomHoy');
+            }
+            if ($('#DialogoMensajeBannerShowRoom').is(':visible')) {
+                PopupCerrar('DialogoMensajeBannerShowRoom');
+            }
+            if ($('#popupDemandaAnticipada').is(':visible')) {
+                PopupCerrar('popupDemandaAnticipada');
+            }
         }
     };
 
@@ -119,7 +140,7 @@ $(document).ready(function () {
     });
 
     /* SB20-834 - INICIO */
-    ObtenerComunicadosPopup();
+    //ObtenerComunicadosPopup();
 
     CrearDialogs();
     CargarCarouselEstrategias("");
@@ -128,8 +149,57 @@ $(document).ready(function () {
     CargarBanners();
     CargarCatalogoPersonalizado();
 
-    mostrarVideoIntroductorio();
-    CargarPopupsConsultora();
+    //mostrarVideoIntroductorio();
+    //CargarPopupsConsultora();
+
+    switch (TipoPopUpMostrar) {
+        case popupVideoIntroductorio:
+            mostrarVideoIntroductorio();
+            break;
+
+        case popupGPR: // GPR
+            break;
+
+        case popupDemandaAnticipada:
+            //MostrarDemandaAnticipada();
+            $('#fechaHasta').text(mensajeFechaDA);
+            $('#fechaLuego').text(mensajeFechaDA);
+            PopupMostrar('popupDemandaAnticipada');
+            break;
+
+        case popupAceptacionContrato:
+            //AbrirAceptacionContrato();
+            PopupMostrar('popupAceptacionContrato');
+            break;
+
+        case popupShowRoom:
+            //ShowRoom
+            CrearPopShow();
+            MostrarShowRoom();
+            //Fin ShowRoom
+            break;
+
+        case popupActualizarDatos:
+            if (mostrarPopupActualizarDatosXPais == 9) {
+                PopupMostrar('popupActualizarMisDatosMexico');
+            } else {
+                if (mostrarPopupActualizarDatosXPais == 11) {
+                    $('#tituloActualizarDatos').html('<b>ACTUALIZACIÓN Y AUTORIZACIÓN</b> DE USO DE DATOS PERSONALES');
+                } else {
+                    $('#tituloActualizarDatos').html('<b>ACTUALIZAR</b> DATOS');
+                }
+                PopupMostrar('popupActualizarMisDatos');
+            }
+            break;
+
+        case popupFlexipago:
+            PopupMostrar('popupInvitaionFlexipago');
+            break;
+
+        case popupComunicado:
+            ObtenerComunicadosPopup();
+            break;
+    }
 
     $("#btnCambiarContrasenaMD").click(function () { CambiarContrasenia(); });
     $("#btnActualizarMD").click(function () { ActualizarMD(); });
@@ -162,7 +232,7 @@ $(document).ready(function () {
         stopVideo();
         PopupCerrar('videoIntroductorio');
         viewBagVioVideo = 1;
-        mostrarComunicadosPopup();
+        //mostrarComunicadosPopup();
         return false;
     });
 
@@ -333,8 +403,8 @@ $(document).ready(function () {
     });
 
     //ShowRoom
-    CrearPopShow();
-    MostrarShowRoom();
+    //CrearPopShow();
+    //MostrarShowRoom();
     //Fin ShowRoom
 
     MostrarBarra(null, '1');
@@ -515,23 +585,24 @@ function mostrarUbicacionTutorial(tieneFondoNegro, mostrarPopupTutorial) {
         }
     }
 
-    UpdateUsuarioTutoriales(constanteVioTutorialSalvavidas);
+    //UpdateUsuarioTutoriales(constanteVioTutorialSalvavidas);
     viewBagVioTutorialSalvavidas = 1;
 
     var time = EfectoTutorialSalvavidas == '0' ? 0 : 4000;
     timeoutTooltipTutorial = setTimeout(function () {
         ocultarUbicacionTutorial();
-        if ($("#fondoComunPopUp >div[data-popup-activo='1']").length > 0) {
-            $("#fondoComunPopUp").show();
-            mostrarComunicadosPopup();
-        }
+        //if ($("#fondoComunPopUp >div[data-popup-activo='1']").length > 0) {
+        //    $("#fondoComunPopUp").show();
+        //   mostrarComunicadosPopup();
+        //}
         if (mostrarPopupTutorial)
             abrir_popup_tutorial();
-        else {
-            if (viewBagVerComunicado != '-1') {
-                mostrarComunicadosPopup();
-            }
-        }
+        //else
+        //{
+        //    if (viewBagVerComunicado != '-1') {
+        //        mostrarComunicadosPopup();
+        //    }
+        //}
     }, time);
 }
 
@@ -573,28 +644,29 @@ function mostrarVideoIntroductorio() {
         if (viewBagVioVideo == "0") {
             PopupMostrar('videoIntroductorio');
             setTimeout(function () { playVideo(); }, 1000);
-            UpdateUsuarioTutoriales(constanteVioVideo);
+            //UpdateUsuarioTutoriales(constanteVioVideo);
             return true;
         }
 
-        if (viewBagVioTutorial == 0) {
-            if (viewBagVioTutorialSalvavidas == '0') {
-                mostrarUbicacionTutorial(false, true);
-            } else {
-                abrir_popup_tutorial();
-            }
-            primeraVezVideo = false;
-            return true;
+        //if (viewBagVioTutorial == 0) {
+        //    if (viewBagVioTutorialSalvavidas == '0') {
+        if (viewBagMostrarUbicacionTutorial == '0') {
+            mostrarUbicacionTutorial(false, true);
+        } else {
+            abrir_popup_tutorial();
         }
+        primeraVezVideo = false;
+        return true;
+        //}
 
         if (viewBagVioTutorialSalvavidas == '0') {
             mostrarUbicacionTutorial(false, false);
-        } else {
-            if (viewBagVerComunicado != '-1') {
-                mostrarComunicadosPopup();
-            }
         }
-
+        //else {
+        //    if (viewBagVerComunicado != '-1') {
+        //        mostrarComunicadosPopup();
+        //    }
+        //}
     } catch (e) {
 
     }
@@ -684,31 +756,31 @@ function CrearDialogs() {
 };
 
 function CargarPopupsConsultora() {
-    if (viewBagPrimeraVez == "0" && viewBagPaisID == 4) { //Colombia
-        AbrirAceptacionContrato();
-    }
-    else {
-        if (viewBagPaisID == 9 && viewBagValidaDatosActualizados == '1' && viewBagValidaTiempoVentana == '1' && viewBagValidaSegmento == '1') { //Mexico
-            PopupMostrar('popupActualizarMisDatosMexico');
-        } else {
-            if (viewBagPrimeraVez == "0" || viewBagPrimeraVezSession == "0") {
-                if (viewBagPaisID == 11) { //Peru
-                    $('#tituloActualizarDatos').html('<b>ACTUALIZACIÓN Y AUTORIZACIÓN</b> DE USO DE DATOS PERSONALES');
-                } else {
-                    $('#tituloActualizarDatos').html('<b>ACTUALIZAR</b> DATOS');
-                }
-                PopupMostrar('popupActualizarMisDatos');
+    //if (viewBagPrimeraVez == "0" && viewBagPaisID == 4) { //Colombia
+    //    AbrirAceptacionContrato();
+    //}
+    //else {
+    if (viewBagPaisID == 9 && viewBagValidaDatosActualizados == '1' && viewBagValidaTiempoVentana == '1' && viewBagValidaSegmento == '1') { //Mexico
+        PopupMostrar('popupActualizarMisDatosMexico');
+    } else {
+        if (viewBagPrimeraVez == "0" || viewBagPrimeraVezSession == "0") {
+            if (viewBagPaisID == 11) { //Peru
+                $('#tituloActualizarDatos').html('<b>ACTUALIZACIÓN Y AUTORIZACIÓN</b> DE USO DE DATOS PERSONALES');
+            } else {
+                $('#tituloActualizarDatos').html('<b>ACTUALIZAR</b> DATOS');
             }
-            else {
-                if (viewBagPrimeraVez == "1" && viewBagPaisID == 4) { //Colombia
-                    AbrirAceptacionContrato();
-                }
-            }
+            PopupMostrar('popupActualizarMisDatos');
         }
+        //else {
+        //    if (viewBagPrimeraVez == "1" && viewBagPaisID == 4) { //Colombia
+        //        AbrirAceptacionContrato();
+        //    }
+        //}
     }
+    //}
 
-    AbrirPopupFlexipago();
-    MostrarDemandaAnticipada();
+    //AbrirPopupFlexipago();
+    //MostrarDemandaAnticipada();
 };
 
 //Metodos para carousel Ofertas para Tí
@@ -3496,7 +3568,7 @@ function cerrar_popup_tutorial() {
     numImagen = 1;
     viewBagVioTutorial = 1;
 
-    mostrarComunicadosPopup();
+    //mostrarComunicadosPopup();
 }
 
 /* SB20-834 - INICIO */
@@ -3536,8 +3608,9 @@ function armarComunicadosPopup(response) {
     //console.log('armarComunicadosPopup');
     viewBagVerComunicado = response.comunicadoVisualizado;
     //$('#totalComuSinMostrar').val(response.data.length);
-
-    $.each(response.data, function (id, item) {
+    var item = response.data;
+    if (item != null) {
+        //$.each(response.data, function (id, item) {
         dialogComunicadoID = item.CodigoConsultora + '_' + item.ComunicadoId;
         var nombreEvento = encodeURI(item.Descripcion);
         //console.log(item);
@@ -3593,7 +3666,8 @@ function armarComunicadosPopup(response) {
         //        }
         //    }
         //});
-    });
+        //});
+    }
 }
 
 function mostrarComunicadosPopup() {
