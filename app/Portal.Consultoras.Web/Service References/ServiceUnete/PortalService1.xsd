@@ -27,6 +27,9 @@
       <xs:element minOccurs="0" name="CodigoIso" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="FechaDesde" nillable="true" type="xs:dateTime" />
       <xs:element minOccurs="0" name="FechaHasta" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="Region" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Seccion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Zona" nillable="true" type="xs:string" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="ReporteConsolidadoParameter" nillable="true" type="tns:ReporteConsolidadoParameter" />
