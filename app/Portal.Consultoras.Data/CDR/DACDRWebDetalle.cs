@@ -37,13 +37,14 @@ namespace Portal.Consultoras.Data.CDR
 
         public int DelCDRWebDetalle(BECDRWebDetalle entity)
         {
+            int result;
+
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.DelCDRWebDetalle");
             Context.Database.AddInParameter(command, "CDRWebDetalleID", DbType.Int32, entity.CDRWebDetalleID);
-            Context.Database.AddOutParameter(command, "RetornoID", DbType.Int32, 10);
 
-            Context.ExecuteNonQuery(command);
+            result = Context.ExecuteNonQuery(command);
 
-            return Convert.ToInt32(command.Parameters["@RetornoID"].Value);
+            return result;
         }
 
         public IDataReader GetCDRWebDetalle(BECDRWebDetalle entity, int pedidoId)
