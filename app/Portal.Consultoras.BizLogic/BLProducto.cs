@@ -193,5 +193,22 @@ namespace Portal.Consultoras.BizLogic
             var DAProducto = new DAProducto(paisID);
             return DAProducto.GetNombreProducto048ByCuv(campaniaID, cuv);
         }
+
+        public IList<BEProductoAppCatalogo> GetNombreProducto048ByListaCUV(int paisID, int campaniaID, string listaCUV)
+        {
+            IList<BEProductoAppCatalogo> productos = new List<BEProductoAppCatalogo>();
+            var DAProducto = new DAProducto(paisID);
+
+            using (IDataReader reader = DAProducto.GetNombreProducto048ByListaCUV(campaniaID, listaCUV))
+            {
+                while (reader.Read())
+                {
+                    productos.Add(new BEProductoAppCatalogo(reader));
+                }
+            }
+
+            return productos;
+        }
+        
     }
 }

@@ -289,7 +289,7 @@ function CargarCatalogoPersonalizado() {
 
                 //data.data[0].TieneOfertaEnRevista = true;
                 //data.data[0].TipoOfertaRevista = '048';
-                //data.data[0].CUV = '03184';
+                //data.data[0].CUV = '96847'; //03184
                 //data.data[1].TieneOfertaEnRevista = true;
                 //data.data[1].TipoOfertaRevista = '048';
                 //data.data[1].CUV = '01411';

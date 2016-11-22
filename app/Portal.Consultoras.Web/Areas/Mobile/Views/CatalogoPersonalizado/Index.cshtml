@@ -347,7 +347,8 @@
         <hr class="clear" />
 
         <div style="text-align:center">
-            <div class="titulo_popOferta">OFERTA EN REVISTA</div>
+            @*<div class="titulo_popOferta">OFERTA EN REVISTA</div>*@
+            <div class="titulo_popOferta">OFERTA EN GUÍA DE NEGOCIO</div>
         </div>
         <div class="linea_separadora_black" style="margin-top:-10px;"></div>
         <hr class="clear" />
@@ -359,8 +360,9 @@
                 {{/IsNullOrEmpty}}                
             </div>
             <div class="titulo_producto_oferta" style="font-weight:400;" id="titulo">{{Descripcion}}</div>
-            <div class="sub_texto_oferta">En Revista: {{Simbolo}} {{DecimalToStringFormat precio_revista}}</div>
-            <div class="texto_ganancia_oferta">{{TxtGanancia}}: {{Simbolo}} {{DecimalToStringFormat ganancia}}</div>
+            @*<div class="sub_texto_oferta">En Revista: {{Simbolo}} {{DecimalToStringFormat precio_revista}}</div>*@
+            <div class="sub_texto_oferta">Precio para ti: {{Simbolo}} {{DecimalToStringFormat precio_revista}}</div>
+            <div class="texto_ganancia_oferta" style="text-transform: uppercase;">{{TxtGanancia}}: {{Simbolo}} {{DecimalToStringFormat ganancia}}</div>
         </div>
         <div>
             @*<div class="content_pack_niveles">
@@ -377,13 +379,29 @@
             {{#each lista_ObjNivel as |nivel|}}
             <div class="content_pack_niveles">
                 <div class="row_20">
-                    <div class="titulo_mobile">COMPRA {{nivel.escala_nivel}} {{../Descripcion}}</div>
+                    @*<div class="titulo_mobile">COMPRA {{nivel.escala_nivel}} {{../Descripcion}}</div>*@
+                    <div class="titulo_mobile">OFERTA x{{nivel.escala_nivel}}</div>
                     <div class="pestana_esika"></div>
                     <div class="pestana_lbel"></div>
                 </div>    
-                <div class="titulo_pack">Precio para ti: {{../Simbolo}} {{DecimalToStringFormat nivel.precio_nivel}}</div>
-                <div class="texto_ganancia_oferta">{{../TxtGanancia}}: {{../Simbolo}} {{DecimalToStringFormat nivel.ganancia_nivel}}</div>
 
+                <div class="contenido_compra_nivel" style="">
+                    <div class="titulo_pack_048 centrar_vertical" style="width: 26%; text-align: left;">Compra</div>
+                    <div class="centrar_vertical" style="width: 16%;">
+                        {{#IsNullOrEmpty ../UrlImagen '!='}}
+                        <img src="{{../UrlImagen}}" alt="" class="img_compra_nivel" />
+                        {{/IsNullOrEmpty}}
+                    </div>
+                    <div class="sub_descripcion_oferta_048 centrar_vertical" style="width: 54%;">
+                        <p><span>x{{nivel.escala_nivel}}</span>&nbsp;{{../Descripcion}}</p>
+                    </div>
+                </div>
+                <br />
+                <div class="titulo_pack">Precio para ti: {{../Simbolo}} {{DecimalToStringFormat nivel.precio_nivel}}</div>
+                <div class="texto_ganancia_oferta_048">{{../TxtGanancia}}: {{../Simbolo}} {{DecimalToStringFormat nivel.ganancia_nivel}}</div>
+                <br />
+                <div style="width: 100%; border-top: 1px solid #dadada;"></div>
+                <br />
                 <div class="titulo_producto_oferta" style="margin-bottom:10px;">{{../TxtRecibeGratis}}:</div>
                 <hr class="clear" />
                 <div class="content_sub_items">
@@ -391,10 +409,17 @@
                     {{#if_eq nivel.escala_nivel item.escala_nivel_gratis}}
                     <div class="sub_imagen_oferta">
                         {{#IsNullOrEmpty item.imagen_gratis '!='}}
-                        <img src="{{item.imagen_gratis}}" alt="">
-                        {{/IsNullOrEmpty}}                        
+                        <img src="{{item.imagen_gratis}}" alt="" style="height: 60px;">
+                        {{/IsNullOrEmpty}}
+
+                        {{#IsNullOrEmpty item.imagen_gratis '=='}}
+                        <div style="margin: 0 auto; text-align: center;">
+                            <img src="@Url.Content(ViewBag.RutaImagenNoDisponible)" alt="" style="width: 55px; height: 55px; border: 0;"/>
+                        </div>
+                        {{/IsNullOrEmpty}}        
+                        
                     </div>
-                    <div class="sub_descripcion_oferta"><p><span>x {{item.cantidad}}</span> {{item.descripcion_gratis}}</p></div>
+                    <div class="sub_descripcion_oferta"><p><span>x{{item.cantidad}}</span> {{item.descripcion_gratis}}</p></div>
                     <hr class="clear" />
                     {{/if_eq}}
                     {{/each}}
@@ -454,7 +479,8 @@
         <hr class="clear" />
 
         <div style="text-align:center">
-            <div class="titulo_popOferta">OFERTA EN REVISTA</div>
+            @*<div class="titulo_popOferta">OFERTA EN REVISTA</div>*@
+            <div class="titulo_popOferta">OFERTA EN GUÍA DE NEGOCIO</div>
         </div>
         <div class="linea_separadora_black" style="margin-top:-10px;"></div>
         <hr class="clear" />
@@ -498,8 +524,9 @@
                 {{/IsNullOrEmpty}}                
             </div>
             <div class="titulo_producto_oferta" id="titulo">{{Descripcion}}</div>
-            <div class="sub_texto_oferta">En Revista: {{Simbolo}} {{DecimalToStringFormat precio_revista}}</div>
-            <div class="texto_ganancia_oferta">{{TxtGanancia}}: {{Simbolo}} {{DecimalToStringFormat ganancia}}</div>
+            @*<div class="sub_texto_oferta">En Revista: {{Simbolo}} {{DecimalToStringFormat precio_revista}}</div>*@
+            <div class="sub_texto_oferta">Precio para ti: {{Simbolo}} {{DecimalToStringFormat precio_revista}}</div>
+            <div class="texto_ganancia_oferta" style="text-transform: uppercase;">{{TxtGanancia}}: {{Simbolo}} {{DecimalToStringFormat ganancia}}</div>
 
             <div class="liquidacion_rango_home">
                 <a class="cantidad_menos_home" tabindex="0"><img src="/Content/Images/Mobile/Esika/menos.png" alt=""></a>
@@ -509,6 +536,7 @@
             <div class="clear"></div>
             <a class="boton_Agregalo_home agregar-ofertarevista" data-cuv="revista" tabindex="0">AGRÉGALO</a>
         </div>
+
         <!--FIN-->
         {{#each lista_oObjPack as |pack|}}
         <div class="item_pack_personalizado">
@@ -524,7 +552,7 @@
             </div>
             <div class="content_item_oferta">
                 <div class="titulo_producto_oferta"><span class="texto_unidad_pack">Precio para ti: </span>{{../Simbolo}} {{DecimalToStringFormat pack.precio_pack}}</div>
-                <div class="texto_ganancia_oferta">{{../TxtGanancia}}: {{../Simbolo}} {{DecimalToStringFormat pack.ganancia_pack}}</div>
+                <div class="texto_ganancia_oferta" style="text-transform: uppercase;">{{../TxtGanancia}}: {{../Simbolo}} {{DecimalToStringFormat pack.ganancia_pack}}</div>
                 <div class="left_70"><div class="titulo_producto_oferta" style="text-align:left">INCLUYE</div></div>
                 <hr class="clear" />
                 {{#each ../lista_oObjItemPack as |item|}}
@@ -533,9 +561,15 @@
                     <div class="sub_imagen_oferta">
                         {{#IsNullOrEmpty item.imagen_item_pack '!='}}
                         <img src="{{item.imagen_item_pack}}" alt="" />
+                        {{/IsNullOrEmpty}}        
+                        
+                        {{#IsNullOrEmpty item.imagen_item_pack '=='}}
+                        <div style="margin: 0 auto; text-align: center;">
+                            <img src="@Url.Content(ViewBag.RutaImagenNoDisponible)" alt="" style="width: 55px; height: 55px; border: 0;" />
+                        </div>
                         {{/IsNullOrEmpty}}                        
                     </div>
-                    <div class="sub_descripcion_oferta"><p><span>x {{item.cantidad_item_pack}} </span>{{item.descripcion_item_pack}}</p></div>
+                    <div class="sub_descripcion_oferta"><p><span>x{{item.cantidad_item_pack}} </span>{{item.descripcion_item_pack}}</p></div>
                 </div>
                 <hr class="clear" />
                 {{/if_eq}}
