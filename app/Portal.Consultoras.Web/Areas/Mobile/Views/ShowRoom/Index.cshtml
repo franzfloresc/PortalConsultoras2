@@ -105,10 +105,13 @@
                 var subtituloF = subTitulo.Replace("'", "\'");
                 var imagenF = item.ImagenProducto.Replace("'", "\'");
                 var urlWs = "";
+                var urlBase = "";
+                var urlBase2 = "";
                 if (System.Web.HttpContext.Current.Request.UserAgent != null)
                 {
                     var request = HttpContext.Current.Request;
-                    var urlBase = request.Url.Scheme + "://" + request.Url.Authority + "/WebPages/SetVentaDigital.aspx?imagen=" + item.ImagenProducto + "&nombre=" + Uri.EscapeDataString(texto);
+                    urlBase = request.Url.Scheme + "://" + request.Url.Authority + "/WebPages/SetVentaDigital.aspx?imagen=" + item.ImagenProducto + "&nombre=" + texto;
+                    urlBase2 = request.Url.Scheme + "://" + request.Url.Authority + "/WebPages/SetVentaDigital.aspx?imagen=" + item.ImagenProducto + "&nombre=" + texto.Replace("+", "%2B");
 
                     var message = Uri.EscapeDataString(texto) + " - " + urlBase;
                     urlWs = "whatsapp://send?text=" + message;
@@ -118,7 +121,7 @@
 
             }
             <a class="btn_ws_showroom" href="@urlWs" data-action="share/whatsapp/share"><img src="@Url.Content("~/Content/Images/mobile/Esika/iconowscolor.png")" alt="-" /></a>
-            <a class="btn_facebook_showroom" href="" data-accion="face" onclick='CompartirFacebook("@descripcionF","@subtituloF","@imagenF");'><img src="@Url.Content("~/Content/Images/mobile/Esika/catalogo_facebook_color.png")" alt="-" /></a>
+            <a class="btn_facebook_showroom" href="" data-accion="face" onclick='CompartirFacebook("@descripcionF","@subtituloF","@imagenF","@urlBase2");'><img src="@Url.Content("~/Content/Images/mobile/Esika/catalogo_facebook_color.png")" alt="-" /></a>
             <hr class="clear" />
         </div>
     </div>    
@@ -439,12 +442,12 @@
             });
         }
         
-        function CompartirFacebook(titulo, subtitulo, imagen) {
+        function CompartirFacebook(titulo, subtitulo, imagen, urlBase) {
             var popWwidth = 570;
             var popHeight = 420;
             var left = (screen.width / 2) - (popWwidth / 2);
             var top = (screen.height / 2) - (popHeight / 2);
-            var url = "http://www.facebook.com/sharer/sharer.php?u=" + imagen + "&t=" + titulo;                        
+            var url = "http://www.facebook.com/sharer/sharer.php?u=" + urlBase;
 
             window.open(url, 'Facebook', "width=" + popWwidth + ",height=" + popHeight + ",menubar=0,toolbar=0,directories=0,scrollbars=no,resizable=no,left=" + left + ",top=" + top + "");
         }
