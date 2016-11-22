@@ -635,6 +635,7 @@ BEGIN
 		update CDRWeb
 		set Estado = @Estado
 		, FechaCulminado = case when @Estado = 2 then @FechaGeneral else FechaCulminado end
+		, FechaAtencion = case when @Estado = 2 then null else FechaAtencion end
 		where CDRWebID = @CDRWebID
 		
 		if @Estado = 2 or @Estado = 1
@@ -667,6 +668,29 @@ begin
 delete from CDRWebDetalle
 where CDRWebDetalleID = @CDRWebDetalleID
 
+end
+
+go
+
+IF EXISTS(SELECT 1 FROM INFORMATION_SCHEMA.ROUTINES WHERE SPECIFIC_NAME = 'UpdCdrWebDetalleCantidadObservado' AND SPECIFIC_SCHEMA = 'dbo' AND Routine_Type = 'PROCEDURE')
+BEGIN
+    DROP PROCEDURE dbo.UpdCdrWebDetalleCantidadObservado
+END
+
+GO
+
+create procedure dbo.UpdCdrWebDetalleCantidadObservado
+@CDRWebDetalleID int,
+@Cantidad int
+as
+begin
+
+update CDRWebDetalle
+set
+	Cantidad = @Cantidad
+where 
+	CDRWebDetalleID = @CDRWebDetalleID
+	
 end
 
 go

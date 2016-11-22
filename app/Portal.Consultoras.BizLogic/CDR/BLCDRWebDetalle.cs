@@ -75,5 +75,33 @@ namespace Portal.Consultoras.BizLogic.CDR
             }
         }
 
+        public bool DetalleActualizarObservado(int paisId, List<BECDRWebDetalle> lista)
+        {
+            var resultado = false;
+
+            try
+            {
+                var DACDRWebDetalle = new DACDRWebDetalle(paisId);
+                TransactionOptions oTransactionOptions = new TransactionOptions();
+                oTransactionOptions.IsolationLevel = System.Transactions.IsolationLevel.ReadUncommitted;
+                using (TransactionScope oTransactionScope = new TransactionScope(TransactionScopeOption.Required, oTransactionOptions))
+                {
+                    foreach (var becdrWebDetalle in lista)
+                    {
+                        DACDRWebDetalle.UpdCdrWebDetalleCantidadObservado(becdrWebDetalle);
+                    }
+                    
+                    oTransactionScope.Complete();
+                }
+                resultado = true;
+            }
+            catch (Exception)
+            {
+                resultado = false;
+            }
+
+            return resultado;
+        }
+
     }
 }

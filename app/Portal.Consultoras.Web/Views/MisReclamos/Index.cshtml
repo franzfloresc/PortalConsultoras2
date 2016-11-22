@@ -55,8 +55,8 @@
                 var formatoFechaCulminado = "--/--/----";
                 if (item.FechaCulminado.HasValue)
                 {
-                    formatoFechaCulminado = item.FechaCulminado.Value.Day.ToString().PadLeft(2, '0') + "/" + 
-                        item.FechaCulminado.Value.Month.ToString().PadLeft(2, '0') + item.FechaCulminado.Value.Year;
+                    formatoFechaCulminado = item.FechaCulminado.Value.Day.ToString().PadLeft(2, '0') + "/" +
+                                            item.FechaCulminado.Value.Month.ToString().PadLeft(2, '0') + "/" + item.FechaCulminado.Value.Year;
                 }
 
                 var formatoCampania = item.CampaniaID.ToString().Substring(0, 4) + "-" + item.CampaniaID.ToString().Substring(4, 2);
@@ -125,6 +125,8 @@
     </div>
 </div>
 
+<input type="hidden" id="hdPedidoIdActual"/>
+
 <div class="contenedor_popup_percepciones" id="PopSolicitud">
     <div class="popup_Pendientes">
         <div class="btn_cerrar_popupPercepcion cerrarPendientesPORTAL">
@@ -163,27 +165,8 @@
             <div class="linea_separadora"></div>
             <div id="divDetallePedidoCDR">
                 
-            </div>
-            @*<div class="content_listado_reclamo">
-                <div class="pop_solicitud_producto">
-                    00411<br>
-                    <b>Berrylicious shampoo rojo 375 ml.</b> <br>
-                    2 unidades<br>
-                    Costo: S/.15.00
-                </div>
-                <div class="pop_solicitud_tipo">
-                    <b>Cambiar por</b>
-                </div>
-                <div class="pop_solicitud_solucion">
-                    Reenvío del mismo producto
-                </div>
-                <div class="pop_solicitud_resolucion">
-                    <span class="texto_estado_solicitud">RECHAZADO</span>por superar el límite establecido de unidades a reclamar
-                </div>
-                <hr class="clear"/>
-            </div>*@           
+            </div>          
         </div>
-
     </div>
 
 </div>
@@ -191,7 +174,7 @@
 <div class="contenedor_popup_percepciones" id="PopSolicitud2">
     <div class="popup_Pendientes">
         <div class="btn_cerrar_popupPercepcion cerrarPendientesPORTAL">
-            <a class="regresaPendientes" title="Regresar" style="text-align: right;" href="javascript:;" onclick=" javascript: $('#PopSolicitud').hide(); ">
+            <a class="regresaPendientes" title="Regresar" style="text-align: right;" href="javascript:;" onclick=" javascript: $('#PopSolicitud2').hide(); ">
                 <div class="icono_regresar"><img src="/Content/Images/btn_regresar.svg" alt="Regresar">
                 </div>
                 <div class="texto_btn_regresar">REGRESAR AL LISTADO</div>
@@ -200,105 +183,113 @@
 
         <div class="fondo_f7f7f7 row_36">
             <div class="texto_titulo_reclamos" id="TituloReclamo">Solicitud de Cambios y Devoluciones</div>
-            <div style="text-align: center; max-width: 700px; margin: 0 auto">
-                <div class="detalle_estado_reclamo">Fecha:<b> 10 Oct 2016 </b>
+            <div style="text-align: center; max-width: 700px; margin: 0 auto">                
+                <div class="detalle_estado_reclamo">Fecha:<b> <span id="spnFechaCulminado2">10 Oct 2016</span></b>
                 </div>
-                <div class="detalle_estado_reclamo">Solicitud:<b> Nº 12345678</b>
+                <div class="detalle_estado_reclamo">Solicitud:<b> Nº <span id="spnNumeroSolicitud2">12345678</span></b>
                 </div>
-                <div class="detalle_estado_reclamo">Campaña:<b> 2016-15</b>
+                <div class="detalle_estado_reclamo">Campaña:<b> <span id="spnFormatoCampania2">2016-15</span></b>
                 </div>
             </div>
-            <div class="sub_detalle_estado">Resumen: <b>2 productos aprobados, 1 rechazado</b>
+            <div class="sub_detalle_estado">Resumen: <b><span id="spnResumenResolucion2">2 productos aprobados, 1 rechazado</span></b>
             </div>
         </div>
         <div class="content_pop_grilla">
-            <div class="titulo_grilla">PRODUCTOS OBSERVADOS:</div>
-            <div class="subtitulo_grilla">Resuelve las observaciones y envía nuevamente la solicitud</div>
-            <div class="content_listado_reclamo">
-                <div class="pop_solicitud_producto text_gris_reclamo">Producto</div>
-                <div class="pop_solicitud_tipo text_gris_reclamo">Tipo de solicitud</div>
-                <div class="pop_solicitud_solucion text_gris_reclamo">Solución solicitada:</div>
-                <div class="pop_solicitud_resolucion text_gris_reclamo">Resolución:</div>
-            </div>
-            <div class="linea_separadora"></div>
+            <div id="divDetallePedidoCdrObservado">
+                @*<div class="titulo_grilla">PRODUCTOS OBSERVADOS:</div>
+                <div class="subtitulo_grilla">Resuelve las observaciones y envía nuevamente la solicitud</div>
+                <div class="content_listado_reclamo">
+                    <div class="pop_solicitud_producto text_gris_reclamo">Producto</div>
+                    <div class="pop_solicitud_tipo text_gris_reclamo">Tipo de solicitud</div>
+                    <div class="pop_solicitud_solucion text_gris_reclamo">Solución solicitada:</div>
+                    <div class="pop_solicitud_resolucion text_gris_reclamo">Resolución:</div>
+                </div>
+                <div class="linea_separadora"></div>
 
-            <div class="content_listado_reclamo">
-                <div class="pop_solicitud_producto">
-                    00411<br>
-                    <b>Berrylicious shampoo rojo 375 ml.</b> <br>
-                    2 unidades<br>
-                    Costo: S/.15.00
-                </div>
-                <div class="pop_solicitud_tipo"><b>Cambiar por</b>
-                </div>
-                <div class="pop_solicitud_solucion">
-                    Reenvío del mismo producto
-                </div>
-                <div class="pop_solicitud_resolucion"><span class="texto_estado_solicitud">RECHAZADO</span>por superar el límite establecido de unidades a reclamar
-                </div>
-                <hr class="clear"/>
-                <!--PRODUCTO OBSERVADO-->
-                <div class="content_producto_observado">
-                    <div class="nota_producto_observado">Debes eliminar este producto para procesar nuevamente tu solicitud.</div>
-                    <div class="rango_producto_observado">
-                        <input style="background: white;" type="text" name="Cantidad" id="txtCantidad" value="1" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral valid" onkeypress=" PreValidarCUV(); " onfocus=" SeleccionarContenido(this) ">
-                        <div class="liquidacion_rango_right_pedido" style="background: white;">
-                            <a class="mas"><img src="/Content/Images/Esika/mas.png" alt=""></a>
-                            <a class="menos"><img src="/Content/Images/Esika/menos.png" alt=""></a>
-                        </div>
+                <div class="content_listado_reclamo">
+                    <div class="pop_solicitud_producto">
+                        00411<br>
+                        <b>Berrylicious shampoo rojo 375 ml.</b> <br>
+                        2 unidades<br>
+                        Costo: S/.15.00
                     </div>
-                    <a class="btn_eliminar_observado">ELIMINAR PRODUCTO</a>
-                    <hr class="clear"/>
+                    <div class="pop_solicitud_tipo">
+                        <b>Cambiar por</b>
+                    </div>
+                    <div class="pop_solicitud_solucion">
+                        Reenvío del mismo producto
+                    </div>
+                    <div class="pop_solicitud_resolucion">
+                        <span class="texto_estado_solicitud">RECHAZADO</span>por superar el límite establecido de unidades a reclamar
+                    </div>
+                    <hr class="clear" />
+                    <!--PRODUCTO OBSERVADO-->
+                    <div class="content_producto_observado">
+                        <div class="nota_producto_observado">Debes eliminar este producto para procesar nuevamente tu solicitud.</div>
+                        <div class="rango_producto_observado">
+                            <input style="background: white;" type="text" name="Cantidad" id="txtCantidad" value="1" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral valid" onkeypress=" PreValidarCUV(); " onfocus=" SeleccionarContenido(this) ">
+                            <div class="liquidacion_rango_right_pedido" style="background: white;">
+                                <a class="mas"><img src="/Content/Images/Esika/mas.png" alt=""></a>
+                                <a class="menos"><img src="/Content/Images/Esika/menos.png" alt=""></a>
+                            </div>
+                        </div>
+                        <a class="btn_eliminar_observado">ELIMINAR PRODUCTO</a>
+                        <hr class="clear" />
+                    </div>
+                    <!--FIN-->
                 </div>
-                <!--FIN-->
+                <br />*@
             </div>
-            <br/>
-            <div class="titulo_grilla">PRODUCTOS APROBADOS:</div>
-            <div class="content_listado_reclamo">
-                <div class="pop_solicitud_producto text_gris_reclamo">Producto</div>
-                <div class="pop_solicitud_tipo text_gris_reclamo">Tipo de solicitud</div>
-                <div class="pop_solicitud_solucion text_gris_reclamo">Solución solicitada:</div>
-                <div class="pop_solicitud_resolucion text_gris_reclamo">Resolución:</div>
-            </div>
-            <div class="linea_separadora"></div>
 
-            <div class="content_listado_reclamo">
-                <div class="pop_solicitud_producto">
-                    00411<br>
-                    <b>Berrylicious shampoo rojo 375 ml.</b> <br>
-                    2 unidades<br>
-                    Costo: S/.15.00
+            <div id="divDetallePedidoCdrAprobado">
+                @*<div class="titulo_grilla">PRODUCTOS APROBADOS:</div>
+                <div class="content_listado_reclamo">
+                    <div class="pop_solicitud_producto text_gris_reclamo">Producto</div>
+                    <div class="pop_solicitud_tipo text_gris_reclamo">Tipo de solicitud</div>
+                    <div class="pop_solicitud_solucion text_gris_reclamo">Solución solicitada:</div>
+                    <div class="pop_solicitud_resolucion text_gris_reclamo">Resolución:</div>
                 </div>
-                <div class="pop_solicitud_tipo"><b>Cambiar por</b>
+                <div class="linea_separadora"></div>
+
+                <div class="content_listado_reclamo">
+                    <div class="pop_solicitud_producto">
+                        00411<br>
+                        <b>Berrylicious shampoo rojo 375 ml.</b> <br>
+                        2 unidades<br>
+                        Costo: S/.15.00
+                    </div>
+                    <div class="pop_solicitud_tipo">
+                        <b>Cambiar por</b>
+                    </div>
+                    <div class="pop_solicitud_solucion">
+                        Reenvío del mismo producto
+                    </div>
+                    <div class="pop_solicitud_resolucion"><span class="texto_estado_solicitud">APROBADO</span></div>
+                    <hr class="clear" />
                 </div>
-                <div class="pop_solicitud_solucion">
-                    Reenvío del mismo producto
+                <div class="content_listado_reclamo">
+                    <div class="pop_solicitud_producto">
+                        00411<br>
+                        <b>Berrylicious shampoo rojo 375 ml.</b> <br>
+                        2 unidades<br>
+                        Costo: S/.15.00
+                    </div>
+                    <div class="pop_solicitud_tipo">
+                        <b>Cambiar por</b>
+                    </div>
+                    <div class="pop_solicitud_solucion">
+                        Reenvío del mismo producto
+                    </div>
+                    <div class="pop_solicitud_resolucion"><span class="texto_estado_solicitud">APROBADO</span></div>
+                    <hr class="clear" />
                 </div>
-                <div class="pop_solicitud_resolucion"><span class="texto_estado_solicitud">APROBADO</span></div>
-                <hr class="clear"/>
-            </div>
-            <div class="content_listado_reclamo">
-                <div class="pop_solicitud_producto">
-                    00411<br>
-                    <b>Berrylicious shampoo rojo 375 ml.</b> <br>
-                    2 unidades<br>
-                    Costo: S/.15.00
-                </div>
-                <div class="pop_solicitud_tipo"><b>Cambiar por</b>
-                </div>
-                <div class="pop_solicitud_solucion">
-                    Reenvío del mismo producto
-                </div>
-                <div class="pop_solicitud_resolucion"><span class="texto_estado_solicitud">APROBADO</span></div>
-                <hr class="clear"/>
+                *@
             </div>
             <div class="linea_separadora_roja" style="height: 2px;"></div>
-            <a class="btn_si_stock" href="#" style="width: 296px;">FINALIZA Y ENVÍA TU SOLICITUD</a>
-            <hr class="clear"/>
+            <a id="btnFinalizar" class="btn_si_stock" href="#" style="width: 296px;">FINALIZA Y ENVÍA TU SOLICITUD</a>
+            <hr class="clear" />
         </div>
-
     </div>
-
 </div>
 
 <script id="template-detalle-1" type="text/x-handlebars-template">
@@ -331,11 +322,137 @@
             {{/if_eq}}
         </div>
         <div class="pop_solicitud_resolucion">
-            
+            {{#if_eq Estado '3'}}
+                <span class="texto_estado_solicitud">APROBADO</span>
+            {{else}}
+            {{/if_eq}}
         </div>
         <hr class="clear" />
     </div>
     {{/each}}
+</script>
+
+<script id="template-detalle-2-observado" type="text/x-handlebars-template">
+    <div class="titulo_grilla">PRODUCTOS OBSERVADOS:</div>
+    <div class="subtitulo_grilla">Resuelve las observaciones y envía nuevamente la solicitud</div>
+    <div class="content_listado_reclamo">
+        <div class="pop_solicitud_producto text_gris_reclamo">Producto</div>
+        <div class="pop_solicitud_tipo text_gris_reclamo">Tipo de solicitud</div>
+        <div class="pop_solicitud_solucion text_gris_reclamo">Solución solicitada:</div>
+        <div class="pop_solicitud_resolucion text_gris_reclamo">Resolución:</div>
+    </div>
+    <div class="linea_separadora"></div>
+    
+    {{#each detalle as |item|}}
+        {{#if_eq item.Estado '4'}}
+        <div class="content_listado_reclamo" data-pedidodetalleid="{{item.CDRWebDetalleID}}">            
+            <div class="pop_solicitud_producto">
+                {{item.CUV}}<br>
+                <b>{{item.Descripcion}}</b> <br>
+                {{item.Cantidad}} unidades<br>
+                Costo: {{../Simbolo}} {{DecimalToStringFormat item.Precio}}
+            </div>
+            <div class="pop_solicitud_tipo">
+                <b>{{item.Solicitud}}</b>
+            </div>
+            <div class="pop_solicitud_solucion">
+                {{#if_eq CodigoOperacion 'C'}}
+                {{item.SolucionSolicitada}}
+                {{else if_eq CodigoOperacion 'D'}}
+                {{item.SolucionSolicitada}}
+                {{else if_eq CodigoOperacion 'F'}}
+                {{item.SolucionSolicitada}}
+                {{else if_eq CodigoOperacion 'G'}}
+                {{item.SolucionSolicitada}}
+                {{else if_eq CodigoOperacion 'T'}}
+                {{item.CUV2}}<br />
+                <b>{{item.Descripcion2}}</b> <br />
+                {{item.Cantidad2}} unidades<br />
+                Costo: {{../Simbolo}} {{DecimalToStringFormat item.Precio2}}
+                {{else}}
+                {{/if_eq}}
+            </div>
+            <div class="pop_solicitud_resolucion">
+                <span class="texto_estado_solicitud">RECHAZADO</span>{{item.Observacion}}
+            </div>
+            <hr class="clear" />
+            <!--PRODUCTO OBSERVADO-->
+            <div class="content_producto_observado">
+                <div class="nota_producto_observado">
+                    {{#if_eq item.MotivoRechazo 'A'}}
+                    Debes eliminar este producto para procesar nuevamente tu solicitud.
+                    {{else if_eq item.MotivoRechazo 'B'}}
+                    Debes modificar la cantidad y/o eliminar este producto para procesar nuevamente tu solicitud.
+                    {{else}}
+                    Debes eliminar este producto para procesar nuevamente tu solicitud.
+                    {{/if_eq}}
+                </div>
+                {{#if_eq item.MotivoRechazo 'A'}}
+                {{else if_eq item.MotivoRechazo 'B'}}
+                <div class="rango_producto_observado">
+                    <input style="background: white;" type="text" name="Cantidad" id="" value="1" maxlength="2" class="txtCantidad liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral valid" onkeypress=" PreValidarCUV(); " onfocus=" SeleccionarContenido(this) " />
+                    <div class="liquidacion_rango_right_pedido" style="background: white;">
+                        <a class="mas"><img src="/Content/Images/Esika/mas.png" alt=""></a>
+                        <a class="menos"><img src="/Content/Images/Esika/menos.png" alt=""></a>
+                    </div>
+                </div>
+                {{else}}
+                {{/if_eq}}
+                
+                <a data-pedidodetalleid="{{item.CDRWebDetalleID}}" data-accion="x" class="btn_eliminar_observado">ELIMINAR PRODUCTO</a>
+                <hr class="clear" />
+            </div>
+            <!--FIN-->
+        </div>
+        {{/if_eq}}    
+    {{/each}}    
+    <br />    
+</script>
+
+<script id="template-detalle-2-aprobado" type="text/x-handlebars-template">
+    <div class="titulo_grilla">PRODUCTOS APROBADOS:</div>
+    <div class="content_listado_reclamo">
+        <div class="pop_solicitud_producto text_gris_reclamo">Producto</div>
+        <div class="pop_solicitud_tipo text_gris_reclamo">Tipo de solicitud</div>
+        <div class="pop_solicitud_solucion text_gris_reclamo">Solución solicitada:</div>
+        <div class="pop_solicitud_resolucion text_gris_reclamo">Resolución:</div>
+    </div>
+    <div class="linea_separadora"></div>
+    
+    {{#each detalle as |item|}}
+        {{#if_eq item.Estado '3'}}
+            <div class="content_listado_reclamo">
+                <div class="pop_solicitud_producto">
+                    {{item.CUV}}<br>
+                    <b>{{item.Descripcion}}</b> <br>
+                    {{item.Cantidad}} unidades<br>
+                    Costo: {{../Simbolo}} {{DecimalToStringFormat item.Precio}}
+                </div>
+                <div class="pop_solicitud_tipo">
+                    <b>{{item.Solicitud}}</b>
+                </div>
+                <div class="pop_solicitud_solucion">
+                    {{#if_eq CodigoOperacion 'C'}}
+                    {{item.SolucionSolicitada}}
+                    {{else if_eq CodigoOperacion 'D'}}
+                    {{item.SolucionSolicitada}}
+                    {{else if_eq CodigoOperacion 'F'}}
+                    {{item.SolucionSolicitada}}
+                    {{else if_eq CodigoOperacion 'G'}}
+                    {{item.SolucionSolicitada}}
+                    {{else if_eq CodigoOperacion 'T'}}
+                    {{item.CUV2}}<br />
+                    <b>{{item.Descripcion2}}</b> <br />
+                    {{item.Cantidad2}} unidades<br />
+                    Costo: {{../Simbolo}} {{DecimalToStringFormat item.Precio2}}
+                    {{else}}
+                    {{/if_eq}}
+                </div>
+                <div class="pop_solicitud_resolucion"><span class="texto_estado_solicitud">APROBADO</span></div>
+                <hr class="clear" />
+            </div>
+        {{/if_eq}}        
+    {{/each}}  
 </script>
 
 @section scripts{
@@ -358,50 +475,83 @@
                 var formatoCampania = $(parent).find(".cdrweb_formatocampania").val();
                 var resumenResolucion = $(parent).find(".cdrweb_resumenresolucion").val();
 
+                $("#hdPedidoIdActual").val(pedidoId);
+
                 var item = {
                     CDRWebID: id || 0,
-                    PedidoID: pedidoId || 0
+                    PedidoID: pedidoId || 0,
+                    Estado: estado || 0
                 };
 
                 switch (estado) {
-                    case "1":
-                        window.location.href = urlReclamo + "?pedidoId=" + pedidoId;
+                case "1": //Pendiente
+                    window.location.href = urlReclamo + "?pedidoId=" + pedidoId;
                     break;
-                    case "2":
-                        ObtenerDetalleCdr(item);
+                case "2": //Enviado
+                    ObtenerDetalleCdr(item);
 
-                        $("#spnFechaCulminado").html(formatoFechaCulminado);
-                        $("#spnNumeroSolicitud").html(id);
-                        $("#spnFormatoCampania").html(formatoCampania);
-                        $("#spnResumenResolucion").html(resumenResolucion);
+                    $("#spnFechaCulminado").html(formatoFechaCulminado);
+                    $("#spnNumeroSolicitud").html(id);
+                    $("#spnFormatoCampania").html(formatoCampania);
+                    $("#spnResumenResolucion").html(resumenResolucion);
 
-                        $("#PopSolicitud").show();
+                    $("#PopSolicitud").show();
                     break;
-                    case "3":
-                        ObtenerDetalleCdr(item);
+                case "3": //Aceptado
+                    ObtenerDetalleCdr(item);
 
-                        $("#spnFechaCulminado").html(formatoFechaCulminado);
-                        $("#spnNumeroSolicitud").html(id);
-                        $("#spnFormatoCampania").html(formatoCampania);
-                        $("#spnResumenResolucion").html(resumenResolucion);
+                    $("#spnFechaCulminado").html(formatoFechaCulminado);
+                    $("#spnNumeroSolicitud").html(id);
+                    $("#spnFormatoCampania").html(formatoCampania);
+                    $("#spnResumenResolucion").html(resumenResolucion);
 
-                        $("#PopSolicitud").show();
+                    $("#PopSolicitud").show();
                     break;
-                    case "4":
-                        ObtenerDetalleCdr(item);
+                case "4": //Observado
+                    ObtenerDetalleCdr(item);
+
+                    $("#spnFechaCulminado2").html(formatoFechaCulminado);
+                    $("#spnNumeroSolicitud2").html(id);
+                    $("#spnFormatoCampania2").html(formatoCampania);
+                    $("#spnResumenResolucion2").html(resumenResolucion);
+
+                    $("#PopSolicitud2").show();
                     break;
-                    default:
-                        break;
+                default:
+                    break;
                 }
+            });
 
-                
+            $(document).on('click', '[data-accion]', function() {
+                DetalleAccion(this);
+            });
 
-                if (estado != "4") {
-                    
-                } else {
+            $("#btnFinalizar").on("click", function () {
+                var pedidoId = $("#hdPedidoIdActual").val();
 
-                }
+                var lista = new Array();
 
+                $.each($("#divDetallePedidoCdrObservado .txtCantidad"), function (index, value) {
+                    var elemento = $(value);
+
+                    var parent = $(elemento).parents(".content_listado_reclamo").eq(0);
+
+                    var pedidoDetalleId = $(parent).attr("data-pedidodetalleid");
+                    var cantidad = $(elemento).val();
+
+                    var item = {
+                        CDRWebDetalleID: pedidoDetalleId,
+                        Cantidad: cantidad
+                    };
+
+                    lista.push(item);
+
+                });
+
+                var actualizado = ActualizarDetalleObservado(lista);
+
+                if (actualizado)
+                    window.location.href = urlReclamo + "?pedidoId=" + pedidoId;
             });
         });
 
@@ -425,13 +575,106 @@
                         return false;
                     }
 
-                    SetHandlebars("#template-detalle-1", data, "#divDetallePedidoCDR");
+                    if (item.Estado == 4) {
+                        SetHandlebars("#template-detalle-2-observado", data, "#divDetallePedidoCdrObservado");
+                        SetHandlebars("#template-detalle-2-aprobado", data, "#divDetallePedidoCdrAprobado");
+                    } else {
+                        SetHandlebars("#template-detalle-1", data, "#divDetallePedidoCDR");
+                    }
                 },
                 error: function(data, error) {
                     closeWaitingDialog();
                 }
             });
         }
+
+        function DetalleAccion(obj) {
+            var accion = $.trim($(obj).attr("data-accion"));
+            if (accion == "") {
+                return false;
+            }
+
+            if (accion == "x") { // Eliminar
+                var pedidodetalleid = $.trim($(obj).attr("data-pedidodetalleid"));
+
+                var item = {
+                    CDRWebDetalleID: pedidodetalleid
+                };
+
+                var eliminado = DetalleEliminar(item);
+
+                if (eliminado) {
+                    var parent = $(obj).parents(".content_listado_reclamo").eq(0);
+                    $(parent).remove();
+                }
+            }
+        }
+
+        function DetalleEliminar(objItem) {
+            var item = {
+                CDRWebDetalleID: objItem.CDRWebDetalleID
+            };
+
+            var resultado = false;
+
+            waitingDialog();
+
+            jQuery.ajax({
+                type: 'POST',
+                url: baseUrl + 'MisReclamos/DetalleEliminar',
+                dataType: 'json',
+                contentType: 'application/json; charset=utf-8',
+                data: JSON.stringify(item),
+                async: false,
+                cache: false,
+                success: function(data) {
+                    closeWaitingDialog();
+                    if (!checkTimeout(data)) {
+                        return false;
+                    }
+
+                    if (data.success == true) {
+                        resultado = true;
+                    }
+                },
+                error: function(data, error) {
+                    closeWaitingDialog();
+                }
+            });
+
+            return resultado;
+        }
+
+        function ActualizarDetalleObservado(lista) {
+            var resultado = false;
+
+            waitingDialog();
+
+            jQuery.ajax({
+                type: 'POST',
+                url: baseUrl + 'MisReclamos/DetalleActualizarObservado',
+                dataType: 'json',
+                contentType: 'application/json; charset=utf-8',
+                data: JSON.stringify(lista),
+                async: false,
+                cache: false,
+                success: function (data) {
+                    closeWaitingDialog();
+                    if (!checkTimeout(data)) {
+                        return false;
+                    }
+
+                    if (data.success == true) {
+                        resultado = true;
+                    }
+                },
+                error: function (data, error) {
+                    closeWaitingDialog();
+                }
+            });
+
+            return resultado;
+        };
     </script>
 }
 

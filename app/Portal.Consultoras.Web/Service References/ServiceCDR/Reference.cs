@@ -1528,6 +1528,12 @@ namespace Portal.Consultoras.Web.ServiceCDR {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICDRService/GetLogCDRWebDetalleByLogCDRWebId", ReplyAction="http://tempuri.org/ICDRService/GetLogCDRWebDetalleByLogCDRWebIdResponse")]
         System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceCDR.BELogCDRWebDetalle[]> GetLogCDRWebDetalleByLogCDRWebIdAsync(int paisId, long logCDRWebId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICDRService/DetalleActualizarObservado", ReplyAction="http://tempuri.org/ICDRService/DetalleActualizarObservadoResponse")]
+        bool DetalleActualizarObservado(int paisId, Portal.Consultoras.Web.ServiceCDR.BECDRWebDetalle[] lista);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICDRService/DetalleActualizarObservado", ReplyAction="http://tempuri.org/ICDRService/DetalleActualizarObservadoResponse")]
+        System.Threading.Tasks.Task<bool> DetalleActualizarObservadoAsync(int paisId, Portal.Consultoras.Web.ServiceCDR.BECDRWebDetalle[] lista);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -1683,6 +1689,14 @@ namespace Portal.Consultoras.Web.ServiceCDR {
         
         public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceCDR.BELogCDRWebDetalle[]> GetLogCDRWebDetalleByLogCDRWebIdAsync(int paisId, long logCDRWebId) {
             return base.Channel.GetLogCDRWebDetalleByLogCDRWebIdAsync(paisId, logCDRWebId);
+        }
+        
+        public bool DetalleActualizarObservado(int paisId, Portal.Consultoras.Web.ServiceCDR.BECDRWebDetalle[] lista) {
+            return base.Channel.DetalleActualizarObservado(paisId, lista);
+        }
+        
+        public System.Threading.Tasks.Task<bool> DetalleActualizarObservadoAsync(int paisId, Portal.Consultoras.Web.ServiceCDR.BECDRWebDetalle[] lista) {
+            return base.Channel.DetalleActualizarObservadoAsync(paisId, lista);
         }
     }
 }

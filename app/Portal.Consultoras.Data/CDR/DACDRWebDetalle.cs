@@ -55,5 +55,18 @@ namespace Portal.Consultoras.Data.CDR
 
             return Context.ExecuteReader(command);
         }
+
+        public int UpdCdrWebDetalleCantidadObservado(BECDRWebDetalle entity)
+        {
+            int result;
+
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.UpdCdrWebDetalleCantidadObservado");
+            Context.Database.AddInParameter(command, "CDRWebDetalleID", DbType.Int32, entity.CDRWebDetalleID);
+            Context.Database.AddInParameter(command, "Cantidad", DbType.Int32, entity.Cantidad);
+
+            result = Context.ExecuteNonQuery(command);
+
+            return result;
+        }
     }
 }

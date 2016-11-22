@@ -139,6 +139,7 @@ $(document).ready(function () {
     var pedidoId = parseInt($("#txtPedidoID").val());
     if (pedidoId != 0) {
         CambioPaso(3);
+        DetalleCargar();
     }
 });
 
@@ -553,7 +554,6 @@ function CambioPaso2(paso) {
 // FIN Paso 2
 
 // Paso 3
-
 function DetalleCargar(mostrarBanner) {
     var item = {
         CDRWebID: $("#CDRWebID").val() || 0,

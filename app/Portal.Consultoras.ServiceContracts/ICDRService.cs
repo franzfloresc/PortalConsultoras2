@@ -53,6 +53,9 @@ namespace Portal.Consultoras.ServiceContracts
         int UpdateLogCDRWebVisualizado(int paisId, long logCDRWebId);
 
         [OperationContract]
-        List<BELogCDRWebDetalle> GetLogCDRWebDetalleByLogCDRWebId(int paisId, long logCDRWebId);        
+        List<BELogCDRWebDetalle> GetLogCDRWebDetalleByLogCDRWebId(int paisId, long logCDRWebId);
+
+        [OperationContract]
+        bool DetalleActualizarObservado(int paisId, List<BECDRWebDetalle> lista);
     }
 }

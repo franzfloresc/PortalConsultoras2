@@ -31164,7 +31164,12 @@ h1#penmostreo .campana {
     width:12%;
     text-align:center;
 }
-
+.text_gris_reclamo{
+    padding-top:20px;
+    padding-bottom:15px;
+    font-size:13px;
+    font-weight:300;
+}
 .subtitulo_listado{
     margin-top:15px;
     font-family:'Lato';
@@ -31555,12 +31560,6 @@ h1#penmostreo .campana {
     padding-top: 25px;
     padding-bottom: 25px;
     color: black;
-}
-.text_gris_reclamo{
-    padding-top:20px;
-    padding-bottom:15px;
-    font-size:13px;
-    font-weight:300;
 }
 .pop_solicitud_producto{
     width:32%;

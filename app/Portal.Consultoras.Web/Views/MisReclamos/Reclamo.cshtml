@@ -36,7 +36,7 @@
             <div>
                 <div class="subtitulo_reclamo">¿Con qué producto has tenido el inconveniente?</div>
                 <div>
-                    @Html.DropDownListFor(model => model.Campania, new SelectList(Model.ListaCampania, "CampaniaID", "NombreCorto", Model.Campania), new {id = "ddlCampania", @class = "select_reclamo", @required = "required"})
+                    @Html.DropDownListFor(model => model.CampaniaID, new SelectList(Model.ListaCampania, "CampaniaID", "NombreCorto", Model.CampaniaID), new {id = "ddlCampania", @class = "select_reclamo", @required = "required"})
                     @*<select class="select_reclamo">
                         <option>¿En qué campaña lo solicitaste?</option>
                     </select>*@
