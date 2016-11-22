@@ -25,6 +25,8 @@ namespace Portal.Consultoras.Web.WebPages
             imgCuvSecure.Content = imagen;
             nombreCuv.Content = nombre;
             imgCuvProducto.Src = imagen;
+
+            pNombreProducto.InnerHtml = nombre;
         }
     }
 }
