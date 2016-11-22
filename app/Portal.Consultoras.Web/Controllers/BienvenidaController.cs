@@ -240,33 +240,36 @@ namespace Portal.Consultoras.Web.Controllers
                         {
                             if (Popup.CodigoPopup == Constantes.TipoPopUp.VideoIntroductorio)   // validar logica para mostrar video (por ende se muestra: Tutorial y salvavidas)
                             {
+                                bool mostrarPopUp = false;
                                 if (userData.VioVideoModelo == 0)
                                 {
                                     model.VioVideoBienvenidaModel = 0;
                                     UpdateUsuarioTutorial(Constantes.TipoTutorial.Video);
                                     TipoPopUpMostrar = Constantes.TipoPopUp.VideoIntroductorio;
-
-                                    break;
+                                    mostrarPopUp = true;
                                 }
                                 if (userData.VioTutorialDesktop == 0)
                                 {
                                     if (userData.VioTutorialSalvavidas == 0)
                                     {
                                         UpdateUsuarioTutorial(Constantes.TipoTutorial.Salvavidas);
-                                        ViewBag.MostrarUbicacionTutorial = 0;
+                                        ViewBag.MostrarUbicacionTutorial = 0;                                       
                                     }
                                     else
                                     {
-                                        UpdateUsuarioTutorial(Constantes.TipoTutorial.Desktop);
+                                        UpdateUsuarioTutorial(Constantes.TipoTutorial.Desktop);                                       
                                     }
-
-                                    TipoPopUpMostrar = Constantes.TipoPopUp.VideoIntroductorio;
-                                    break;
+                                    mostrarPopUp = true;
+                                    TipoPopUpMostrar = Constantes.TipoPopUp.VideoIntroductorio;                                    
                                 }
                                 if (userData.VioTutorialSalvavidas == 0)
                                 {
                                     model.VioTutorialSalvavidas = 0;
                                     TipoPopUpMostrar = Constantes.TipoPopUp.VideoIntroductorio;
+                                    mostrarPopUp = true;  
+                                }
+                                if (mostrarPopUp)
+                                {
                                     break;
                                 }
                             }
@@ -445,26 +448,26 @@ namespace Portal.Consultoras.Web.Controllers
             string mensajeFechaDA = null;
             if (userData.EsquemaDAConsultora == true)
             { //SI EXISTE EL ESQUEMA EN PAIS
-                if (UserData().EsZonaDemAnti == 1)
+                if (userData.EsZonaDemAnti == 1)
                 {
                     int consultoraDA = 0;
                     using (SACServiceClient sv = new SACServiceClient())
                     {
                         BEConfiguracionConsultoraDA configuracionConsultoraDA = new BEConfiguracionConsultoraDA();
-                        configuracionConsultoraDA.CampaniaID = Convert.ToString(UserData().CampaniaID);
-                        configuracionConsultoraDA.ConsultoraID = Convert.ToInt32(UserData().ConsultoraID);
-                        configuracionConsultoraDA.ZonaID = UserData().ZonaID;
+                        configuracionConsultoraDA.CampaniaID = Convert.ToString(userData.CampaniaID);
+                        configuracionConsultoraDA.ConsultoraID = Convert.ToInt32(userData.ConsultoraID);
+                        configuracionConsultoraDA.ZonaID = userData.ZonaID;
 
-                        consultoraDA = sv.GetConfiguracionConsultoraDA(UserData().PaisID, configuracionConsultoraDA);
+                        consultoraDA = sv.GetConfiguracionConsultoraDA(userData.PaisID, configuracionConsultoraDA);
 
                         if (consultoraDA == 0)
                         {
                             BECronograma cronograma;
-                            cronograma = sv.GetCronogramaByCampaniaAnticipado(UserData().PaisID, UserData().CampaniaID, UserData().ZonaID, 2).FirstOrDefault();
+                            cronograma = sv.GetCronogramaByCampaniaAnticipado(userData.PaisID, userData.CampaniaID, userData.ZonaID, 2).FirstOrDefault();
                             DateTime fechaDA = (DateTime)cronograma.FechaInicioWeb;
 
                             //R20151123 Inicio
-                            TimeSpan sp = UserData().HoraCierreZonaDemAntiCierre;
+                            TimeSpan sp = userData.HoraCierreZonaDemAntiCierre;
                             var cierrezonademanti = new DateTime(sp.Ticks).ToString("HH:mm") + " hrs";
                             var diasemana = "";
                             var dia = fechaDA.DayOfWeek.ToString();
