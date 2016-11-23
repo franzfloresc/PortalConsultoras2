@@ -180,7 +180,7 @@ function deleteFilters() {
 
     $('#custom-filters').hide();
     //$('#summary-filters').hide();
-    $('#delete-custom-filters').hide();
+    $('#div-delete-filters').hide();
     $('#orderby-filter').show();
     $('#divCatalogoPersonalizado').show();
 
