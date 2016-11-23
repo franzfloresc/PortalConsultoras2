@@ -848,6 +848,8 @@ namespace Portal.Consultoras.ServiceContracts
         [OperationContract]
         IList<BEShowRoomOferta> GetShowRoomOfertasConsultora(int paisID, int campaniaID, string codigoConsultora);
 
+        [OperationContract]
+        BEShowRoomOferta GetShowRoomOfertaById(int paisID, int ofertaShowRoomID);
         #endregion
 
         #region Producto SUgerido

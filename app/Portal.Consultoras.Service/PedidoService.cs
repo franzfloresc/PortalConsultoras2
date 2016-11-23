@@ -1576,6 +1576,11 @@ namespace Portal.Consultoras.Service
             return BLShowRoomEvento.GetShowRoomOfertasConsultora(paisID, campaniaID, codigoConsultora);
         }
 
+        public BEShowRoomOferta GetShowRoomOfertaById(int paisID, int ofertaShowRoomID)
+        {
+            return BLShowRoomEvento.GetShowRoomOfertaById(paisID, ofertaShowRoomID);
+        }
+
         #endregion
 
         #region Producto SUgerido
