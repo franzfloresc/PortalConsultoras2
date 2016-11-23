@@ -19,7 +19,7 @@ var popupListaPrioridad = popupListaPrioridad || new Array();
 $(document).ready(function () {
 
     $('.contenedor_img_perfil').on('click', CargarCamara);
-    $('#imgFotoUsuario').error(function() {
+    $('#imgFotoUsuario').error(function () {
         $('#imgFotoUsuario').hide();
         $('#imgFotoUsuarioDefault').show();
     });
@@ -71,6 +71,27 @@ $(document).ready(function () {
                 closeComunicadosPopup = true;
             }
             /* SB20-834 - FIN */
+            if ($('#popupActualizarMisDatos').is(':visible')) {
+                PopupCerrar('popupActualizarMisDatos');
+            }
+            if ($('#popupActualizarMisDatosMexico').is(':visible')) {
+                PopupCerrar('popupActualizarMisDatosMexico');
+            }
+            if ($('#popupInvitaionFlexipago').is(':visible')) {
+                PopupCerrar('popupInvitaionFlexipago');
+            }
+            if ($('#popupAceptacionContrato').is(':visible')) {
+                PopupCerrar('popupAceptacionContrato');
+            }
+            if ($('#DialogoMensajeBannerShowRoomHoy').is(':visible')) {
+                PopupCerrar('DialogoMensajeBannerShowRoomHoy');
+            }
+            if ($('#DialogoMensajeBannerShowRoom').is(':visible')) {
+                PopupCerrar('DialogoMensajeBannerShowRoom');
+            }
+            if ($('#popupDemandaAnticipada').is(':visible')) {
+                PopupCerrar('popupDemandaAnticipada');
+            }
         }
     };
 
@@ -123,8 +144,8 @@ $(document).ready(function () {
     });
 
     /* SB20-834 - INICIO */
-    ObtenerComunicadosPopup();
-           
+    //ObtenerComunicadosPopup();
+
     CrearDialogs();
     CargarCarouselEstrategias("");
     CargarCarouselLiquidaciones();
@@ -132,8 +153,57 @@ $(document).ready(function () {
     CargarBanners();
     CargarCatalogoPersonalizado();
 
-    mostrarVideoIntroductorio();
-    CargarPopupsConsultora();
+    //mostrarVideoIntroductorio();
+    //CargarPopupsConsultora();
+
+    switch (TipoPopUpMostrar) {
+        case popupVideoIntroductorio:
+            mostrarVideoIntroductorio();
+            break;
+
+        case popupGPR: // GPR
+            break;
+
+        case popupDemandaAnticipada:
+            //MostrarDemandaAnticipada();
+            $('#fechaHasta').text(mensajeFechaDA);
+            $('#fechaLuego').text(mensajeFechaDA);
+            PopupMostrar('popupDemandaAnticipada');
+            break;
+
+        case popupAceptacionContrato:
+            //AbrirAceptacionContrato();
+            PopupMostrar('popupAceptacionContrato');
+            break;
+
+        case popupShowRoom:
+            //ShowRoom
+            CrearPopShow();
+            MostrarShowRoom();
+            //Fin ShowRoom
+            break;
+
+        case popupActualizarDatos:
+            if (mostrarPopupActualizarDatosXPais == 9) {
+                PopupMostrar('popupActualizarMisDatosMexico');
+            } else {
+                if (mostrarPopupActualizarDatosXPais == 11) {
+                    $('#tituloActualizarDatos').html('<b>ACTUALIZACIÓN Y AUTORIZACIÓN</b> DE USO DE DATOS PERSONALES');
+                } else {
+                    $('#tituloActualizarDatos').html('<b>ACTUALIZAR</b> DATOS');
+                }
+                PopupMostrar('popupActualizarMisDatos');
+            }
+            break;
+
+        case popupFlexipago:
+            PopupMostrar('popupInvitaionFlexipago');
+            break;
+
+        case popupComunicado:
+            ObtenerComunicadosPopup();
+            break;
+    }
 
     $("#btnCambiarContrasenaMD").click(function () { CambiarContrasenia(); });
     $("#btnActualizarMD").click(function () { ActualizarMD(); });
@@ -154,7 +224,7 @@ $(document).ready(function () {
         CerrarPopupActualizacionDatosMexico();
         return false;
     });
-    
+
     $("#cerrarVideoIntroductorio").click(function () {
         if (primeraVezVideo) {
             mostrarUbicacionTutorial(true, true);
@@ -166,7 +236,7 @@ $(document).ready(function () {
         stopVideo();
         PopupCerrar('videoIntroductorio');
         viewBagVioVideo = 1;
-        mostrarComunicadosPopup();
+        //mostrarComunicadosPopup();
         return false;
     });
 
@@ -335,10 +405,10 @@ $(document).ready(function () {
         var id = $(this)[0].id;
         GetCursoMarquesina(id)
     });
-  
+
     //ShowRoom
-    CrearPopShow();
-    MostrarShowRoom();
+    //CrearPopShow();
+    //MostrarShowRoom();
     //Fin ShowRoom
 
     MostrarBarra(null, '1');
@@ -395,7 +465,7 @@ function CortarFoto() {
                     $('#imgFotoUsuario').attr('src', data.imagen + '?' + Math.random());
                 }
             },
-            error: function(data, error) {
+            error: function (data, error) {
                 //console.log(error);
             },
             complete: closeWaitingDialog
@@ -426,14 +496,13 @@ function SubirFoto() {
         contentType: 'application/json; charset=utf-8',
         success: function (data) {
             alert_msg(data.message);
-            if (data.success)
-            {
+            if (data.success) {
                 $('#imgFotoUsuario').show();
                 $('#imgFotoUsuarioDefault').hide();
                 $('#imgFotoUsuario').attr('src', data.imagen + '?' + Math.random());
             }
         },
-        error: function(data, error) {
+        error: function (data, error) {
             //console.log(error);
         },
         complete: closeWaitingDialog
@@ -485,7 +554,7 @@ function agregarProductoAlCarrito(o) {
                 $(this).remove();
             });
         });
-    }    
+    }
 }
 
 //MICROEFECTO RESALTAR ICONO TUTORIAL
@@ -520,23 +589,24 @@ function mostrarUbicacionTutorial(tieneFondoNegro, mostrarPopupTutorial) {
         }
     }
 
-    UpdateUsuarioTutoriales(constanteVioTutorialSalvavidas);
+    //UpdateUsuarioTutoriales(constanteVioTutorialSalvavidas);
     viewBagVioTutorialSalvavidas = 1;
 
     var time = EfectoTutorialSalvavidas == '0' ? 0 : 4000;
     timeoutTooltipTutorial = setTimeout(function () {
         ocultarUbicacionTutorial();
-        if ($("#fondoComunPopUp >div[data-popup-activo='1']").length > 0) {
-            $("#fondoComunPopUp").show();
-            mostrarComunicadosPopup();
-        }
+        //if ($("#fondoComunPopUp >div[data-popup-activo='1']").length > 0) {
+        //    $("#fondoComunPopUp").show();
+        //   mostrarComunicadosPopup();
+        //}
         if (mostrarPopupTutorial)
             abrir_popup_tutorial();
-        else {
-            if (viewBagVerComunicado != '-1') {
-                mostrarComunicadosPopup();
-            }
-        }
+        //else
+        //{
+        //    if (viewBagVerComunicado != '-1') {
+        //        mostrarComunicadosPopup();
+        //    }
+        //}
     }, time);
 }
 
@@ -544,7 +614,7 @@ function mostrarIconoTutorial() {
     if (EfectoTutorialSalvavidas == '0') {
         return false;
     }
-    
+
     $(".tooltip_tutorial").animate({
         'opacity': 1,
         'top': 47
@@ -565,7 +635,7 @@ function ocultarUbicacionTutorial() {
     $(".tooltip_tutorial").stop();
     $(".fondo_oscuro").delay(500);
     $(".fondo_oscuro").fadeOut(300);
-    
+
     clearTimeout(timeoutTooltipTutorial);
 
     $("#fondoComunPopUp").attr("data-activo-salvavidas", '0');
@@ -578,28 +648,29 @@ function mostrarVideoIntroductorio() {
         if (viewBagVioVideo == "0") {
             PopupMostrar('videoIntroductorio');
             setTimeout(function () { playVideo(); }, 1000);
-            UpdateUsuarioTutoriales(constanteVioVideo);
+            //UpdateUsuarioTutoriales(constanteVioVideo);
             return true;
         }
 
-        if (viewBagVioTutorial == 0) {
-            if (viewBagVioTutorialSalvavidas == '0') {
-                mostrarUbicacionTutorial(false, true);
-            } else {
-                abrir_popup_tutorial();
-            }
-            primeraVezVideo = false;
-            return true;
+        //if (viewBagVioTutorial == 0) {
+        //    if (viewBagVioTutorialSalvavidas == '0') {
+        if (viewBagMostrarUbicacionTutorial == '0') {
+            mostrarUbicacionTutorial(false, true);
+        } else {
+            abrir_popup_tutorial();
         }
+        primeraVezVideo = false;
+        return true;
+        //}
 
         if (viewBagVioTutorialSalvavidas == '0') {
             mostrarUbicacionTutorial(false, false);
-        } else {
-            if (viewBagVerComunicado != '-1') {
-                mostrarComunicadosPopup();
-            }
         }
-
+        //else {
+        //    if (viewBagVerComunicado != '-1') {
+        //        mostrarComunicadosPopup();
+        //    }
+        //}
     } catch (e) {
 
     }
@@ -677,31 +748,31 @@ function CrearDialogs() {
 };
 
 function CargarPopupsConsultora() {
-    if (viewBagPrimeraVez == "0" && viewBagPaisID == 4) { //Colombia
-        AbrirAceptacionContrato();
-    }
-    else {
-        if (viewBagPaisID == 9 && viewBagValidaDatosActualizados == '1' && viewBagValidaTiempoVentana == '1' && viewBagValidaSegmento == '1') { //Mexico
-            PopupMostrar('popupActualizarMisDatosMexico');
-        } else {
-            if (viewBagPrimeraVez == "0" || viewBagPrimeraVezSession == "0") {
-                if (viewBagPaisID == 11) { //Peru
-                    $('#tituloActualizarDatos').html('<b>ACTUALIZACIÓN Y AUTORIZACIÓN</b> DE USO DE DATOS PERSONALES');
-                } else {
-                    $('#tituloActualizarDatos').html('<b>ACTUALIZAR</b> DATOS');
-                }
-                PopupMostrar('popupActualizarMisDatos');
+    //if (viewBagPrimeraVez == "0" && viewBagPaisID == 4) { //Colombia
+    //    AbrirAceptacionContrato();
+    //}
+    //else {
+    if (viewBagPaisID == 9 && viewBagValidaDatosActualizados == '1' && viewBagValidaTiempoVentana == '1' && viewBagValidaSegmento == '1') { //Mexico
+        PopupMostrar('popupActualizarMisDatosMexico');
+    } else {
+        if (viewBagPrimeraVez == "0" || viewBagPrimeraVezSession == "0") {
+            if (viewBagPaisID == 11) { //Peru
+                $('#tituloActualizarDatos').html('<b>ACTUALIZACIÓN Y AUTORIZACIÓN</b> DE USO DE DATOS PERSONALES');
+            } else {
+                $('#tituloActualizarDatos').html('<b>ACTUALIZAR</b> DATOS');
             }
-            else {
-                if (viewBagPrimeraVez == "1" && viewBagPaisID == 4) { //Colombia
-                    AbrirAceptacionContrato();
-                }
-            }
+            PopupMostrar('popupActualizarMisDatos');
         }
+        //else {
+        //    if (viewBagPrimeraVez == "1" && viewBagPaisID == 4) { //Colombia
+        //        AbrirAceptacionContrato();
+        //    }
+        //}
     }
+    //}
 
-    AbrirPopupFlexipago();
-    MostrarDemandaAnticipada();
+    //AbrirPopupFlexipago();
+    //MostrarDemandaAnticipada();
 };
 
 //Metodos para carousel Ofertas para Tí
@@ -709,7 +780,7 @@ function CargarCarouselEstrategias(cuv) {
     $('#divListaEstrategias').hide();
     $('.js-slick-prev').remove();
     $('.js-slick-next').remove();
-    $('#divCarruselHorizontal.slick-initialized').slick('unslick');    
+    $('#divCarruselHorizontal.slick-initialized').slick('unslick');
 
     if (isEsika) {
         $('#divCarruselHorizontal').html(
@@ -718,7 +789,7 @@ function CargarCarouselEstrategias(cuv) {
     } else {
         $('#divCarruselHorizontal').html('<div class="precarga"><svg class="circular" viewBox="25 25 50 50"><circle class="path-lbel" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10"/></svg></div><span class="texto_precarga">Dános unos segundos </br>Las mejores ofertas <b>PARA TI</b> están por aparecer</span>');
     }
-    
+
     $.ajax({
         type: 'GET',
         url: baseUrl + 'Pedido/JsonConsultarEstrategias?cuv=' + cuv,
@@ -734,12 +805,12 @@ function CargarCarouselEstrategias(cuv) {
 };
 function ArmarCarouselEstrategias(data) {
     $('#divListaEstrategias').hide();
-    
+
     data = EstructurarDataCarousel(data);
     arrayOfertasParaTi = data;
 
     SetHandlebars("#estrategia-template", data, '#divCarruselHorizontal');
-    
+
     if ($.trim($('#divCarruselHorizontal').html()).length == 0) {
         return false;
     }
@@ -751,7 +822,7 @@ function ArmarCarouselEstrategias(data) {
             data1[iData].children[0].innerHTML = data1[iData].children[0].innerHTML.substring(0, 40) + "...";
         }
     }
-    
+
     $('#divListaEstrategias').show();
     $('#divCarruselHorizontal').not('.slick-initialized').slick({
         infinite: true,
@@ -788,7 +859,7 @@ function ArmarCarouselEstrategias(data) {
             var posicionEstrategia = posicionPrimerActivo == 1 ? arrayOfertasParaTi.length - 1 : posicionPrimerActivo - 2;
             var recomendado = arrayOfertasParaTi[posicionEstrategia];
             var arrayEstrategia = new Array();
-                
+
             var impresionRecomendado = {
                 'name': recomendado.DescripcionCompleta,
                 'id': recomendado.CUV2,
@@ -849,7 +920,7 @@ function ArmarCarouselEstrategias(data) {
         }
     });
     TagManagerCarruselInicio(data);
-    
+
 };
 function EstructurarDataCarousel(array) {
     $.each(array, function (i, item) {
@@ -862,7 +933,7 @@ function EstructurarDataCarousel(array) {
             item.DescripcionCUV2 = (item.DescripcionCUV2.length > 0 ? item.DescripcionCUV2 : "");
         };
 
-        item.Posicion = i+1;
+        item.Posicion = i + 1;
         item.MostrarTextoLibre = item.TextoLibre.length > 0;
     });
     return array;
@@ -1141,7 +1212,7 @@ function AgregarProductoDestacado(popup, tipoEstrategiaImagen) {
                         if (popup) {
                             HidePopupEstrategiasEspeciales();
                         }
-                        
+
                     },
                     error: function (data, error) {
                         if (checkTimeout(data)) {
@@ -1232,7 +1303,7 @@ function CargarEstrategiasEspeciales(objInput, e) {
                 $('#popupDetalleCarousel_lanzamiento').find('.nombre_producto22').removeClass('nombre_producto');
                 //$('#popupDetalleCarousel_lanzamiento').find('.nombre_producto22').children()[0].innerHTML = "LBel Mithyka Eau Parfum 50ml+Cyzone Love Bomb Eau de Parfum 30ml+Esika Labial Color HD Tono Pimienta Caliente+Esika Agu Shampoo Manzanilla 1L";
             }
-            
+
             $('#popupDetalleCarousel_lanzamiento').show();
             TrackingJetloreView(estrategia.CUV2, $("#hdCampaniaCodigo").val());
         };
@@ -1291,7 +1362,7 @@ function CargarCarouselLiquidaciones() {
     $('.js-slick-prev-liq').remove();
     $('.js-slick-next-liq').remove();
     $('#divCarruselLiquidaciones.slick-initialized').slick('unslick');
-    
+
     $('#divCarruselLiquidaciones').html('<div style="text-align: center;">Cargando Productos<br><img src="' + urlLoad + '" /></div>');
 
     $.ajax({
@@ -1451,7 +1522,7 @@ function EstructurarDataCarouselLiquidaciones(array) {
         item.Descripcion = (item.Descripcion.length > 40 ? item.Descripcion.substring(0, 40) + "..." : item.Descripcion);
         //item.PrecioOferta = (viewBagPaisID == '4' ? Number(item.PrecioOferta.toString().replace(',', '.')).toFixed(2) : Number(item.PrecioOferta).toFixed(2));
         item.Simbolo = viewBagSimbolo;
-        item.Posicion = i+1;
+        item.Posicion = i + 1;
 
         if (item.TallaColor.length > 1 && item.TallaColor.indexOf('^') > -1) {
             item.TipoTallaColor = item.TallaColor.split("^")[0];
@@ -1554,7 +1625,7 @@ function AgregarProductoLiquidacion(contenedor) {
                             CargarResumenCampaniaHeader(true);
                             TrackingJetloreAdd(item.Cantidad, $("#hdCampaniaCodigo").val(), item.CUV);
                             TagManagerClickAgregarProductoLiquidacion(item);
-                           
+
                             closeWaitingDialog();
                             HidePopupTonosTallas();
                         },
@@ -1670,9 +1741,9 @@ function CargarBanners() {
                                 promotionsBajos.push({
                                     id: dataResult.data[count].BannerID,
                                     name: dataResult.data[count].Titulo,
-                                    position: 'home-inferior-' +  countBajos
+                                    position: 'home-inferior-' + countBajos
                                 });
-                                countBajos++;                                
+                                countBajos++;
                                 break;
                         }
                         count++;
@@ -1760,7 +1831,7 @@ function EnlaceBanner(URL, TrackText, TipoAccion, CUVpedido, CantCUVpedido, Id, 
     if (TipoAccion == 1) {
         if (ReservadoOEnHorarioRestringido())
             return false;
-        
+
         var objBannerCarrito = $("#" + $(link).attr("id"));
         agregarProductoAlCarrito(objBannerCarrito);
         InsertarPedidoCuvBanner(CUVpedido, CantCUVpedido);
@@ -1910,7 +1981,7 @@ function SetGoogleAnalyticsBannerInferiores(URL, TrackText, Tipo, Id, Posicion, 
                  {
                      'id': Id,
                      'name': Titulo,
-                     'position': 'home-inferior-'+Posicion
+                     'position': 'home-inferior-' + Posicion
                  }]
             }
         }
@@ -2480,8 +2551,7 @@ function ActualizarDatosMexico() {
     });
 
     $('#m_txtTelefonoTrabajo').css({ 'border': '' });
-    if (m_telefonoTrabajo != '')
-    {
+    if (m_telefonoTrabajo != '') {
         if (m_telefonoTrabajo.length != 10) {
             m_error++;
             $('#m_txtTelefonoTrabajo').css({ 'border': '1px solid red' });
@@ -2772,7 +2842,7 @@ function RechazarInvitacionFlex() {
         async: true,
         success: function (data) {
             if (checkTimeout(data)) {
-                PopupCerrar('popupInvitaionFlexipago');                
+                PopupCerrar('popupInvitaionFlexipago');
                 closeWaitingDialog();
             }
         },
@@ -2983,7 +3053,7 @@ function TagManagerClickAgregarProducto() {
 }
 function TagManagerCarruselPrevia() {
     var posicionPrimerActivo = $($('#divCarruselHorizontal').find(".slick-active")[0]).find('.PosicionEstrategia').val();
-    var posicionEstrategia = posicionPrimerActivo == 1 ? arrayOfertasParaTi.length -1 : posicionPrimerActivo - 2;
+    var posicionEstrategia = posicionPrimerActivo == 1 ? arrayOfertasParaTi.length - 1 : posicionPrimerActivo - 2;
     var recomendado = arrayOfertasParaTi[posicionEstrategia];
     var arrayEstrategia = new Array();
 
@@ -3166,10 +3236,10 @@ function TagManagerCarruselLiquidacionesSiguiente() {
         });
     } else {
         dataLayer.push({
-            'event': 'virtualEvent', 
-            'category': 'Home', 
+            'event': 'virtualEvent',
+            'category': 'Home',
             'action': 'Liquidacion Web',
-            'label': 'Ver más' 
+            'label': 'Ver más'
         });
     }
 }
@@ -3184,7 +3254,7 @@ function EsconderFlechasCarouseLiquidaciones(accion) {
         } else {
             $('.js-slick-next-liq').show();
         }
-        
+
     } else if (accion == 'next') {
         if (Number(indexActive) + 1 == Number(itemsLength) - 1) {
             $('.js-slick-next-liq').hide();
@@ -3219,16 +3289,16 @@ function playVideo() {
             else {
                 document.getElementById("divPlayer").contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
             }
-        dataLayer.push({
-            'event': 'virtualEvent',
-            'category': 'Home',
-            'action': 'Video de Bienvenida: Iniciar video',
-            'label': 'SomosBelcorp.com ¡se renueva para ti!'
-        });
+            dataLayer.push({
+                'event': 'virtualEvent',
+                'category': 'Home',
+                'action': 'Video de Bienvenida: Iniciar video',
+                'label': 'SomosBelcorp.com ¡se renueva para ti!'
+            });
         }
     } catch (e) { }
 };
-  
+
 //ShowRoom
 function CrearPopShow() {
     $("body").on("click", "div.check_01 label.checkpop input", function (event) {
@@ -3331,7 +3401,7 @@ function MostrarShowRoom() {
                                     $("#imgVentaSetPopupHoy").attr("src", evento.ImagenVentaSetPopup);
 
                                     $("#DialogoMensajeBannerShowRoomHoy").show();
-                                    
+
                                     AgregarTagManagerShowRoomPopup(evento.Tema, true);
                                 } else {
                                     $("#spnShowRoomEvento").html(evento.Tema);
@@ -3342,7 +3412,7 @@ function MostrarShowRoom() {
                                     if (response.mesFin.length > 6) {
                                         $(".fecha_promocion_s").css("font-size", "11.5pt");
                                     }
-                                    
+
                                     $("#lnkConoceMasShowRoomPopup").attr("href", response.rutaShowRoomPopup);
 
                                     //Carga de Imagenes del Popup
@@ -3352,7 +3422,7 @@ function MostrarShowRoom() {
                                     $("#imgShowRoomGif").attr("src", evento.Imagen1);
 
                                     $("#DialogoMensajeBannerShowRoom").show();
-                                    
+
                                     AgregarTagManagerShowRoomPopup(evento.Tema, false);
                                 }
 
@@ -3463,7 +3533,7 @@ function cerrar_popup_tutorial() {
     numImagen = 1;
     viewBagVioTutorial = 1;
 
-    mostrarComunicadosPopup();
+    //mostrarComunicadosPopup();
 }
 
 /* SB20-834 - INICIO */
@@ -3504,8 +3574,9 @@ function armarComunicadosPopup(response) {
     //console.log('armarComunicadosPopup');
     viewBagVerComunicado = response.comunicadoVisualizado;
     //$('#totalComuSinMostrar').val(response.data.length);
-
-    $.each(response.data, function (id, item) {
+    var item = response.data;
+    if (item != null) {
+        //$.each(response.data, function (id, item) {
         dialogComunicadoID = item.CodigoConsultora + '_' + item.ComunicadoId;
         var nombreEvento = encodeURI(item.Descripcion);
         //console.log(item);
@@ -3561,7 +3632,8 @@ function armarComunicadosPopup(response) {
         //        }
         //    }
         //});
-    });
+        //});
+    }
 }
 
 function mostrarComunicadosPopup() {
@@ -3578,7 +3650,7 @@ function mostrarComunicadosPopup() {
     PopupMostrar('popupComunicados');
     var j = 0;
 
-    lista.each(function(index, element) {
+    lista.each(function (index, element) {
         var id = $(element).attr('id');
         $('#' + id).show();
         centrarComunicadoPopup(id);
@@ -3594,8 +3666,8 @@ function centrarComunicadoPopup(ID) {
     var imagenPopup = $('#' + ID).find(".img-comunicado");
     var estadoPopup = $("#popupComunicados").css("display");
     //if (estadoPopup == "block") {
-        $("#" + ID).css({ "width": imagenPopup.width() });
-        $("#" + ID).css({ "top": altoPopup });
+    $("#" + ID).css({ "width": imagenPopup.width() });
+    $("#" + ID).css({ "top": altoPopup });
     //}
 }
 
@@ -3682,7 +3754,7 @@ function PopupMostrarPrioridad() {
         if ((mostrar.Prioridad > prioridad.Prioridad && prioridad.Prioridad > 0) || ind == 0) {
             if (prioridad.Activo == '1') {
                 mostrar = Clone(prioridad);
-            }            
+            }
         }
     });
 
@@ -3698,7 +3770,7 @@ function PopupMostrarPrioridad() {
     if (listaMostrar.length == 0) {
         listaMostrar.push(mostrar);
     }
-    
+
     $.each(listaMostrar, function (ind, prioridad) {
         if (prioridad.Codigo == "") {
 
@@ -3713,19 +3785,19 @@ function PopupMostrar(idPopup) {
         id = "#" + idPopup;
 
     if (id == "") return false;
-    
+
     $(id).attr("data-popup-activo", "1");
     if ($("#fondoComunPopUp").attr("data-activo-salvavidas") != "1") {
         $("#fondoComunPopUp").show();
     }
-    
+
     $(id).show();
     //contadorFondoPopUp++;
 }
 function PopupCerrar(idPopup) {
     var id = "";
     if (typeof (idPopup) == "string")
-        id ="#"+ idPopup;
+        id = "#" + idPopup;
 
     if (id == "") return false;
 

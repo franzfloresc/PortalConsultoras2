@@ -851,7 +851,7 @@
                     <div class="checkbox_condiciones">
                         <input type="checkbox" name="condiciones" id="chkAceptoContrato" />
                         <label for="chkAceptoContrato" class="texto_terminosCondiciones">
-                                <text>Declaro que he leído los <span><a href="javascript:;" id="hrefTerminos">términos y condiciones</a></span> sobre Protección de Datos Personales y que me encuentro de acuerdo con los mismos.</text>                            
+                            <text>Declaro que he leído los <span><a href="javascript:;" id="hrefTerminos">términos y condiciones</a></span> sobre Protección de Datos Personales y que me encuentro de acuerdo con los mismos.</text>
                         </label>
                     </div>
                 </div>
@@ -1838,7 +1838,7 @@
                         @*<div class="fondo_negro_pack">COMPRA 1 {{Descripcion}}</div>*@
                         <div class="fondo_negro_pack">OFERTA X1</div>
                         <br />
-                        <div class="img_principal_pack" style="margin-top:16px;">                            
+                        <div class="img_principal_pack" style="margin-top:16px;">
                             {{#IsNullOrEmpty UrlImagen '!='}}
                             <img src="{{UrlImagen}}" alt="" />
                             {{/IsNullOrEmpty}}
@@ -1875,7 +1875,7 @@
                             <div class="content_sub_items">
                                 {{#each ../lista_oObjGratis as |item|}}
                                 {{#if_eq nivel.escala_nivel item.escala_nivel_gratis}}
-                                <div class="sub_imagen_oferta">                                    
+                                <div class="sub_imagen_oferta">
                                     {{#IsNullOrEmpty item.imagen_gratis '!='}}
                                     <img src="{{item.imagen_gratis}}" alt="" />
                                     {{/IsNullOrEmpty}}
@@ -1884,7 +1884,7 @@
                                     <div style="margin: 0 auto; text-align: center;">
                                         <img src="@Url.Content(ViewBag.RutaImagenNoDisponible)" alt="" style="width: 55px; height: 55px; border: 0;" />
                                     </div>
-                                    {{/IsNullOrEmpty}}   
+                                    {{/IsNullOrEmpty}}
                                 </div>
                                 <div class="sub_descripcion_oferta"><p><span>x{{item.cantidad}}</span>&nbsp;{{item.descripcion_gratis}}</p></div>
                                 <hr class="clear">
@@ -1895,7 +1895,7 @@
                     </div>
                 </div>
                 {{/each}}
-            </div>            
+            </div>
         </div>
         <div class="texto_mencion">Elige la cantidad y el sistema te ofrecerá la mejor combinación</div>
         <div style="width:215px; margin:0 auto; margin-top:10px;">
@@ -1970,7 +1970,7 @@
         <!--ITEM 1-->
         <div class="item_pack_personalizado">
             <div class="content_item_pack">
-                <div class="img_principal_pack">                    
+                <div class="img_principal_pack">
                     {{#IsNullOrEmpty UrlImagen '!='}}
                     <img src="{{UrlImagen}}" alt="" />
                     {{/IsNullOrEmpty}}
@@ -2000,10 +2000,10 @@
                     <input type="hidden" class="hdItemPackPrecio" value="{{pack.precio_pack}}" />
                     <div class="content_item_pack">
                         @*{{#if_eq pack.EsUltimo "1"}}
-                        <div class="fondo_negro_pack" style="width: 90%;">PACK MÁXIMA GANANCIA</div>
-                        {{else}}
-                        <div class="fondo_negro_pack">PACK GANANCIA</div>
-                        {{/if_eq}}*@
+                            <div class="fondo_negro_pack" style="width: 90%;">PACK MÁXIMA GANANCIA</div>
+                            {{else}}
+                            <div class="fondo_negro_pack">PACK GANANCIA</div>
+                            {{/if_eq}}*@
                         <div class="fondo_negro_pack">{{pack.nombre_pack}}</div>
                         <div class="pack_inter width_100">
                             <div class="titulo_pack" style="height: auto">Precio para ti: {{../Simbolo}} {{DecimalToStringFormat pack.precio_pack}}</div>
@@ -2011,7 +2011,7 @@
                             <div class="content_sub_items">
                                 {{#each ../lista_oObjItemPack as |item|}}
                                 {{#if_eq pack.cuv_pack item.cuv_pack_item}}
-                                <div class="sub_imagen_oferta">                                    
+                                <div class="sub_imagen_oferta">
                                     {{#IsNullOrEmpty item.imagen_item_pack '!='}}
                                     <img src="{{item.imagen_item_pack}}" alt="" />
                                     {{/IsNullOrEmpty}}
@@ -2020,13 +2020,13 @@
                                     <div style="margin: 0 auto; text-align: center;">
                                         <img src="@Url.Content(ViewBag.RutaImagenNoDisponible)" alt="" style="width: 55px; height: 55px; border: 0;" />
                                     </div>
-                                    {{/IsNullOrEmpty}}        
+                                    {{/IsNullOrEmpty}}
                                 </div>
                                 <div class="sub_descripcion_oferta"><p><span>x{{item.cantidad_item_pack}}</span>&nbsp;{{item.descripcion_item_pack}}</p></div>
                                 <hr class="clear" />
                                 @*<div class="sub_imagen_oferta"><img src="https://s3-sa-east-1.amazonaws.com/appcatalogo/PE/201616/C/productos/PE_200069929.jpg" alt=""></div>
-                                <div class="sub_descripcion_oferta"><p><span>x2</span>&nbsp;Desodorante roll-on. Girlink</p></div>
-                                <hr class="clear" />*@
+                                    <div class="sub_descripcion_oferta"><p><span>x2</span>&nbsp;Desodorante roll-on. Girlink</p></div>
+                                    <hr class="clear" />*@
                                 {{/if_eq}}
                                 {{/each}}
                             </div>
@@ -2042,10 +2042,10 @@
                         </div>
                         <a class="boton_Agregalo_home agregar-ofertarevista" data-cuv="pack" data-cuvadd="{{pack.cuv_pack}}">AGRÉGALO</a>
                     </div>
-                </div>                
+                </div>
                 {{/each}}
             </div>
-        </div>                
+        </div>
         <div class="row_40">
             <div class="sombra_oferta">
                 <div class="texto_sombra">También puedes comprarlo con el precio catálogo: <br /><span>{{Simbolo}} {{DecimalToStringFormat precio_catalogo}}</span></div>
@@ -2150,10 +2150,23 @@
         var constanteVioTutorialSalvavidas = '@Constantes.TipoTutorial.Salvavidas';
 
         var UrlPdfTerminosyCondiciones = '@ViewBag.UrlPdfTerminosyCondiciones';
-
         var cantidadRegistros = 8;
+        //SB20-1095
+        var TipoPopUpMostrar = '@Model.TipoPopUpMostrar';
+        var viewBagMostrarUbicacionTutorial = '@ViewBag.MostrarUbicacionTutorial';
+        //Tipos de Popups.
+        var popupVideoIntroductorio = '@Constantes.TipoPopUp.VideoIntroductorio';
+        var popupGPR = '@Constantes.TipoPopUp.GPR';
+        var popupDemandaAnticipada = '@Constantes.TipoPopUp.DemandaAnticipada';
+        var popupAceptacionContrato = '@Constantes.TipoPopUp.AceptacionContrato';
+        var popupShowRoom = '@Constantes.TipoPopUp.Showroom';
+        var popupActualizarDatos = '@Constantes.TipoPopUp.ActualizarDatos';
+        var popupFlexipago = '@Constantes.TipoPopUp.Flexipago';
+        var popupComunicado = '@Constantes.TipoPopUp.Comunicado'
+        //data para Popup Actualizar datos
+        var mostrarPopupActualizarDatosXPais = '@Model.MostrarPopupActualizarDatosXPais';
+        var mensajeFechaDA = '@Model.MensajeFechaDA';
     </script>
-
     @System.Web.Optimization.Scripts.Render("~/bundles/JsSB2-Bienvenida")
     @{ Session["IsContrato"] = 0; }
 }
