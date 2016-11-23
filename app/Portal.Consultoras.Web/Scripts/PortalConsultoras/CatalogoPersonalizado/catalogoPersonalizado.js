@@ -179,7 +179,8 @@ function showOrderbyFilter() {
 function deleteFilters() {
 
     $('#custom-filters').hide();
-    $('#summary-filters').hide();
+    //$('#summary-filters').hide();
+    $('#delete-custom-filters').hide();
     $('#orderby-filter').show();
     $('#divCatalogoPersonalizado').show();
 
@@ -284,6 +285,11 @@ function CargarCatalogoPersonalizado() {
                     if (tipoOrigen == '3') {
                         $("#divMainCatalogoPersonalizado").remove();
                     }
+
+                    var rsnum = 'Mostrando 0 de ' + data.totalRegistros + ' productos';
+                    $('#result-number').text(rsnum);
+                    $('#div-delete-filters').show();
+
                     return false;
                 }
 
@@ -330,14 +336,14 @@ function CargarCatalogoPersonalizado() {
                 }
 
                 /* SB20-1197 - INICIO */
+                var rsnum = 'Mostrando ' + data.totalRegistrosFilter + ' de ' + totalRegistros + ' productos';
+                $('#result-number').text(rsnum);
+
                 if (totalRegistros != data.totalRegistrosFilter) {
-                    var rn = 'Mostrando ' + data.totalRegistrosFilter + ' de ' + totalRegistros + ' productos';
-                    $('#result-number').text(rn);
-                    $('#result-number').show();
-                    $('#summary-filters').show();
+                    $('#div-delete-filters').show();
                 }
                 else {
-                    $('#summary-filters').hide();
+                    $('#div-delete-filters').hide();
                 }
                 /* SB20-1197 - FIN */
             }
