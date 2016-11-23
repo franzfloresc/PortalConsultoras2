@@ -712,7 +712,19 @@ function CrearDialogs() {
             }
         }
     });
-
+    //SB20 - 1110
+    $('#divConfirmarCUVBanner').dialog({
+        autoOpen: false,
+        resizable: false,
+        modal: true,
+        closeOnEscape: true,
+        width: 500,
+        draggable: true,
+        title: "",
+        close: function (event, ui) {
+            $(this).dialog('close');
+        }
+    });
     //$('#idSueniosNavidad').dialog({
     //    autoOpen: false,
     //    resizable: false,
@@ -1831,15 +1843,42 @@ function EnlaceBanner(URL, TrackText, TipoAccion, CUVpedido, CantCUVpedido, Id, 
     if (TipoAccion == 1) {
         if (ReservadoOEnHorarioRestringido())
             return false;
+        //SB20 - 1110
+        $("#divConfirmarCUVBanner p").text("Se agregarán " + CantCUVpedido + " unidad(es) del producto a tu pedido. ¿Deseas continuar?");
 
-        var objBannerCarrito = $("#" + $(link).attr("id"));
-        agregarProductoAlCarrito(objBannerCarrito);
-        InsertarPedidoCuvBanner(CUVpedido, CantCUVpedido);
-        SetGoogleAnalyticsPromotionClick(Id, Posicion, Titulo);
+        $("#divConfirmarCUVBanner").data({
+            'cuvPedido': CUVpedido,
+            'cantidadCUVPedido': CantCUVpedido,
+            'link': link,
+            'Id': Id,
+            'posicion': Posicion,
+            'titulo': Titulo
+        }).dialog("open");
 
         return false;
     }
 };
+//SB20 - 1110
+function AgregarCUVBannerPedido() {
+
+    var Id = $("#divConfirmarCUVBanner").data().Id;
+    var link = $("#divConfirmarCUVBanner").data().link;
+    var CUVpedido = $("#divConfirmarCUVBanner").data().cuvPedido;
+    var CantCUVpedido = $("#divConfirmarCUVBanner").data().cantidadCUVPedido;
+    var Posicion = $("#divConfirmarCUVBanner").data().posicion;
+    var Titulo = $("#divConfirmarCUVBanner").data().titulo;
+
+    var objBannerCarrito = $("#" + $(link).attr("id"));
+    agregarProductoAlCarrito(objBannerCarrito);
+    InsertarPedidoCuvBanner(CUVpedido, CantCUVpedido);
+    SetGoogleAnalyticsPromotionClick(Id, Posicion, Titulo);
+
+    $('#divConfirmarCUVBanner').dialog('close');
+}
+function AgregarCUVBannerPedidoNo() {
+    $('#divConfirmarCUVBanner').dialog('close');
+}
+
 function InsertarPedidoCuvBanner(CUVpedido, CantCUVpedido) {
     var item = {
         CUV: CUVpedido,

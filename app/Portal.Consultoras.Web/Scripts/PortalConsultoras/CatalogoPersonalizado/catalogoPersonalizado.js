@@ -2,6 +2,15 @@
 var tipoOrigen = tipoOrigen || "";// 1: escritorio (no home)     2: mobile,  3: home
 var cantidadRegistros = cantidadRegistros || 12;
 var offsetRegistros = 0;
+/* SB20-1197 - INICIO */
+var totalRegistros = 0;
+//var precioMinimo = 0;
+//var precioMaximo = 0;
+var primeraVez = false;
+var primerScroll = false;
+var filters = [];
+var clearFilters = false;
+/* SB20-1197 - FIN */
 var cargandoRegistros = false;
 var loadAdd = true;
 var urlLoad = urlLoad || "";
@@ -39,6 +48,9 @@ $(document).ready(function () {
     }
     $("#divmaquetaof48nivel").hide();
     $("[data-maq]").hide();
+
+    //$("#txt-range-price").slider({});
+
 });
 
 function Inicializar() {
@@ -78,6 +90,7 @@ function UnlinkCargarCatalogoToScroll() {
 function CargarCatalogoScroll() {
     if ($(window).scrollTop() + $(window).height() > $(document).height() - $('footer').outerHeight()) {
         ValidarCargaCatalogoPersonalizado();
+        primerScroll = true;
     }
 }
 
@@ -89,7 +102,121 @@ function ValidarCargaCatalogoPersonalizado() {
     ReservadoOEnHorarioRestringidoAsync(true, UnlinkCargarCatalogoToScroll, CargarCatalogoPersonalizado);
 }
 
+
+/* SB20-1197- INICIO */
+
+function processFilterCatalogoPersonalizado(type)
+{
+    // reset values
+    filters = [];
+    primerScroll = false;
+
+    if ($('#orderby-price').val() != '-1') {
+        var f = {
+            Id: '1',
+            Orden: $('#orderby-price').val().toUpperCase()
+        }
+        filters.push(f);
+    }
+
+    $('#custom-filters').hide();
+    $('#orderby-filter').show();
+    $('#divCatalogoPersonalizado').show();
+   
+    var marcaIds = "";
+    $('.content-category').find('input[type="checkbox"]:checked').each(function () {
+        marcaIds += $(this).val() + ',';
+    });
+
+    if (marcaIds != "") {
+        var f = {
+            Id: '2',
+            Valor1: marcaIds.substring(0, marcaIds.length - 1)
+        }
+        filters.push(f);
+    }
+    
+    var range = $('#txt-range-price').bootstrapSlider('getValue');
+    if (range != 'undefined') {
+        var f = {
+            Id: '3',
+            Valor1: range[0],
+            Valor2: range[1]
+        }
+        filters.push(f);
+    }
+    
+    if (filters.length > 0) {
+        LinkCargarCatalogoToScroll();
+        CargarCatalogoPersonalizado();
+    }
+}
+
+function showCustomFilters() {
+    $('#orderby-filter').hide();
+    $('#divCatalogoPersonalizado').hide();
+    $('#custom-filters').show();
+    UnlinkCargarCatalogoToScroll();
+}
+
+function showOrderbyFilter() {
+    $('#custom-filters').hide();
+    $('#orderby-filter').show();
+    $('#divCatalogoPersonalizado').show();
+    LinkCargarCatalogoToScroll();
+}
+
+//function deleteFilters() {
+//    $('#custom-filters').hide();
+//    $('#summary-filters').hide();
+//    $('#orderby-filter').show();
+
+//    $('#orderby-price').val('-1');
+//    //$('input[name="category"]:checked').attr('checked', false);
+//    $('input[name="brand"]:checked').attr('checked', false);
+//}
+
+function deleteFilters() {
+
+    $('#custom-filters').hide();
+    //$('#summary-filters').hide();
+    $('#delete-custom-filters').hide();
+    $('#orderby-filter').show();
+    $('#divCatalogoPersonalizado').show();
+
+    // reset values
+    filters = [];
+    $('#orderby-price').val('-1');
+    //$('input[name="category"]:checkbox').attr('checked', false);
+    $('input[name="brand"]:checkbox').attr('checked', false);
+
+    jQuery.ajax({
+        type: 'POST',
+        url: '/CatalogoPersonalizado/BorrarFiltros',
+        dataType: 'json',
+        //data: JSON.stringify(obj),
+        contentType: 'application/json; charset=utf-8',
+        success: function (response) {
+            if (response.success) {
+                clearFilters = true;
+                CargarCatalogoPersonalizado();
+            }
+            else {
+                alert(response.message);
+            }
+        },
+        error: function (xhr, status, err) {
+            alert('Error al borrar los filtros');
+        },
+        complete: function () {
+        }
+    });
+}
+
+/* SB20-1197 - FIN */
+
 function CargarCatalogoPersonalizado() {
+
     var cataPer = $("#hdTipoCatalogoPersonalizado").val();
     if (cataPer != "1" && cataPer != "2") {
         if (tipoOrigen == '3') 
@@ -108,11 +235,31 @@ function CargarCatalogoPersonalizado() {
         //    $('#boton_vermas').hide();  // ya no esta el btn ver mas
         return false;
     }
+    
+    if (clearFilters) {
+        offsetRegistros = 0;
+        loadAdd = true;
+        clearFilters = false;
+    }
+
+    /* SB20-1197 - FIN */
 
     var dataAjax = null;
     if (tipoOrigen != '3') {
-        dataAjax = { cantidad: cantidadRegistros, offset: offsetRegistros };
+        /* SB20-1197 - INICIO */
+        if (filters.length > 0) {
+            if (!primerScroll) {
+                offsetRegistros = 0;
+                loadAdd = true;
+            }
+            dataAjax = { cantidad: cantidadRegistros, offset: offsetRegistros, lstFilters: filters };
+        }
+        else {
+            dataAjax = { cantidad: cantidadRegistros, offset: offsetRegistros };
+        }
+        /* SB20-1197 - FIN */
     }
+
     if (loadAdd) {
         $('#divCatalogoPersonalizado').html('<div style="text-align: center; min-height:150px;"><br><br><br><br>Cargando Catalogo Personalizado<br><img src="' + urlLoad + '" /></div>');
     }
@@ -138,25 +285,67 @@ function CargarCatalogoPersonalizado() {
                     if (tipoOrigen == '3') {
                         $("#divMainCatalogoPersonalizado").remove();
                     }
+
+                    var rsnum = 'Mostrando 0 de ' + data.totalRegistros + ' productos';
+                    $('#result-number').text(rsnum);
+                    $('#div-delete-filters').show();
+
                     return false;
                 }
 
                 //data.data[0].TieneOfertaEnRevista = true;
                 //data.data[0].TipoOfertaRevista = '048';
-                //data.data[0].CUV = '03184';
+                //data.data[0].CUV = '96847'; //03184
                 //data.data[1].TieneOfertaEnRevista = true;
                 //data.data[1].TipoOfertaRevista = '048';
                 //data.data[1].CUV = '01411';
 
                 var htmlDiv = SetHandlebars("#template-catalogopersonalizado", data.data);
                 $('#divCatalogoPersonalizado').append(htmlDiv);
-                
+
+                /* SB20-1197 - INICIO */
+                if (!primeraVez) {
+                    totalRegistros = data.totalRegistros;
+
+                    var min = parseFloat(data.precioMinimo);
+                    var max = parseFloat(data.precioMaximo);
+                    var rr = [];
+                    rr.push(min);
+                    rr.push(max);
+
+                    $('#min-range-price').text(min);
+                    $('#max-range-price').text(max);
+
+                    $('#txt-range-price').bootstrapSlider({
+                        'precision': 2,
+                        'min': min,
+                        'max': max,
+                        'value': rr,
+                    });
+
+                    primeraVez = true;
+                }
+                /* SB20-1197 - FIN */
+
                 if (tipoOrigen == '3') {
                     $("#divMainCatalogoPersonalizado").show();
                 } else {
                     if (data.data.length < cantidadRegistros) UnlinkCargarCatalogoToScroll();
                     offsetRegistros += cantidadRegistros;
+                    //offsetRegistros += data.data.length;
                 }
+
+                /* SB20-1197 - INICIO */
+                var rsnum = 'Mostrando ' + data.totalRegistrosFilter + ' de ' + totalRegistros + ' productos';
+                $('#result-number').text(rsnum);
+
+                if (totalRegistros != data.totalRegistrosFilter) {
+                    $('#div-delete-filters').show();
+                }
+                else {
+                    $('#div-delete-filters').hide();
+                }
+                /* SB20-1197 - FIN */
             }
             else {
                 data.data = new Array();
@@ -175,6 +364,8 @@ function CargarCatalogoPersonalizado() {
         }
     });
 }
+
+/* SB20-1197 - FIN */
 
 function AgregarProductoCatalogoPersonalizado(item) {
     DialogLoadingAbrir();

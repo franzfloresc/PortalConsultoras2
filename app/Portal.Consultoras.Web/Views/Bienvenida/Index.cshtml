@@ -5,6 +5,7 @@
     @*<link href="http://foliotek.github.io/Croppie/croppie.css" rel="stylesheet" type="text/css" />*@
     <link href="@Url.Content("~/Content/Css/Site/flexslider.css")" rel="stylesheet" type="text/css" />
     <link href="@Url.Content("~/Content/Css/Site/slick.min.css")" rel="stylesheet" />
+    <link href="~/Content/Css/Mobile/esika/bootstrap-slider.min.css" rel="stylesheet" />
 }
 
 @{
@@ -1297,7 +1298,19 @@
 
     </div>
 </div>
-
+@*SB20 - 1110*@
+<div id="divConfirmarCUVBanner" style="display: none;">
+    <div class="terminos_title_2">
+        IMPORTANTE
+    </div>
+    <div class="pop_pedido_mensaje">
+        <p></p>
+    </div>
+    <div style="text-align: center; margin-top: 30px;">
+        <input id="btnAgregarCUVBannerPedidoNo" type="button" value="CANCELAR" onclick="AgregarCUVBannerPedidoNo()" class="input_modifica_horizontal" style="width: 100px; margin-left: 0;" />
+        <input id="btnAgregarCUVBannerPedidoSi" type="button" value="ACEPTAR" onclick="AgregarCUVBannerPedido()" class="input_modifica_horizontal" style="width: 100px; margin-left: 20px;" />
+    </div>
+</div>
 <script id="estrategia-template" type="text/x-handlebars-template">
     {{#each this as |item|}}
     <div data-item="{{EstrategiaID}}" data-tipoestrategiaimagenmostrar="{{#if_eq FlagMostrarImg '1'}}{{TipoEstrategiaImagenMostrar}}{{/if_eq}}">
@@ -2101,6 +2114,8 @@
     <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.flexslider.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/slick.min.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.easy-pie-chart.js")"></script>
+    <script src="~/Scripts/PortalConsultoras/Mobile/CatalogoPersonalizado/bootstrap-slider.min.js"></script>
+
     <script type="text/javascript">
         var viewBagInscritaFlexipago = '@Model.InscritaFlexipago';
         var viewBagPrimeraVezSession = '@Model.PrimeraVezSession';
