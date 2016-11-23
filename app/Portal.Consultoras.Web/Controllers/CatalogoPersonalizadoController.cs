@@ -385,41 +385,57 @@ namespace Portal.Consultoras.Web.Controllers
                     listaProductoBySap = listaProductoBySap ?? new List<Producto>();
 
                     /* SB20-1198 - INICIO */
-                    string listaCUVSap = string.Empty;
-                    foreach (var itemSap in listaProductoBySap)
-                    {
-                        if (string.IsNullOrEmpty(itemSap.NombreComercial))
-                        {
-                            listaCUVSap += itemSap.Cuv + "|";
-                        }
-                    }
+                    //List<string> lstCodSap = new List<string>();
+                    //foreach (var itemSap in listaProductoBySap)
+                    //{
+                    //    if (string.IsNullOrEmpty(itemSap.NombreComercial))
+                    //    {
+                    //        lstCodSap.Add(itemSap.CodigoSap);
+                    //    }
+                    //}
 
-                    if (!string.IsNullOrEmpty(listaCUVSap))
-                    {
-                        listaCUVSap = listaCUVSap.Substring(0, listaCUVSap.Length - 1);
-                        using (ODSServiceClient svc = new ODSServiceClient())
-                        {
-                            var lstNombresProductos048 = svc.GetNombreProducto048ByListaCUV(userData.PaisID, userData.CampaniaID, listaCUVSap);
+                    //if (lstCodSap.Count > 0)
+                    //{
+                    //    List<string> lstCuvSap = new List<string>();
 
-                            if (lstNombresProductos048.Length > 0)
-                            {
-                                foreach (var itemProd in lstNombresProductos048)
-                                {
-                                    var itemSap = listaProductoBySap.Where(x => x.Cuv == itemProd.Cuv).First();
-                                    if (itemSap != null)
-                                    {
-                                        itemSap.NombreComercial = itemProd.NombreComercial;
-                                    }
-                                }
-                            }
-                        }
-                    }
+                    //    if (dataPROL.lista_oObjGratis.Length > 0)
+                    //    {
+                    //        foreach (var codsap in lstCodSap)
+                    //        {
+                    //            foreach (var objGrati in dataPROL.lista_oObjGratis)
+                    //            {
+                    //                if (codsap == objGrati.codsap_nivel_gratis)
+                    //                {
+                    //                    //lstCuvSap.Add("");
+                    //                }
+                    //            }
+                    //        }
+                    //    }
+
+                    //    string lstFindCuv = String.Join("|", lstCuvSap);
+
+                    //    using (ODSServiceClient svc = new ODSServiceClient())
+                    //    {
+                    //        var lstNombresProductos048 = svc.GetNombreProducto048ByListaCUV(userData.PaisID, userData.CampaniaID, lstFindCuv);
+
+                    //        if (lstNombresProductos048.Length > 0)
+                    //        {
+                    //            foreach (var itemProd in lstNombresProductos048)
+                    //            {
+                    //                var itemSap = listaProductoBySap.Where(x => x.Cuv == itemProd.Cuv).First();
+                    //                if (itemSap != null)
+                    //                {
+                    //                    itemSap.NombreComercial = itemProd.NombreComercial;
+                    //                }
+                    //            }
+                    //        }
+                    //    }
+                    //}
 
                     /* SB20-1198 - FIN */
 
                     foreach (var itemSap in listaProductoBySap)
                     {
-
                         if (dataPROL.lista_oObjGratis.Length > 0)
                         {
                             foreach (var objGrati in dataPROL.lista_oObjGratis)
@@ -430,8 +446,12 @@ namespace Portal.Consultoras.Web.Controllers
 
                                 if (objGrati.codsap_nivel_gratis == itemSap.CodigoSap)
                                 {
-                                    objGrati.imagen_gratis = itemSap.Imagen;  
-                                    objGrati.descripcion_gratis = itemSap.NombreComercial;
+                                    objGrati.imagen_gratis = itemSap.Imagen;
+
+                                    if (!string.IsNullOrEmpty(itemSap.NombreComercial))
+                                    {
+                                        objGrati.descripcion_gratis = itemSap.NombreComercial;
+                                    }
                                 }
                             }
                         }
@@ -446,8 +466,12 @@ namespace Portal.Consultoras.Web.Controllers
 
                                 if (objItemPack.codsap_item_pack == itemSap.CodigoSap)
                                 {
-                                    objItemPack.imagen_item_pack = itemSap.Imagen;  
-                                    objItemPack.descripcion_item_pack = itemSap.NombreComercial;
+                                    objItemPack.imagen_item_pack = itemSap.Imagen;
+
+                                    if (!string.IsNullOrEmpty(itemSap.NombreComercial))
+                                    {
+                                        objItemPack.descripcion_item_pack = itemSap.NombreComercial;
+                                    }
                                 }
                             }
                         }

@@ -28,29 +28,26 @@
 
     <!--SB20-1197 - INICIO -->
 
-    <div id="orderby-filter" style="text-align: center; margin: 0 auto;">
+    <div id="orderby-filter">
         <div id="content-orderby">
             <select id="orderby-price" class="select-ffc" onchange="processFilterCatalogoPersonalizado(1);">
                 <option value="-1">Ordenar por</option>
                 <option value="asc">PRECIO | Menor a mayor</option>
-                <option value="desc">PRECIO | Mayor a meno</option>
+                <option value="desc">PRECIO | Mayor a menor</option>
             </select>
 
             <input type="button" class="btn2-ffc" value="FILTROS" onclick="showCustomFilters();" />
         </div>
         <br />
 
-        <div id="summary-filters" style="display: none;">
-            <div style="width: 60%; text-align: left; float: left; margin-left: 7px;">
+        <div id="summary-filters">
+            <div id="div-result-number">
                 <span id="result-number">
-                    Mostrando 40 de 50 productos
                 </span>
             </div>
             
-            <div style="width: 35%; text-align: right; float: left; margin-right: 7px;">
-                <span>
-                    <a href="#" class="link-ffc" onclick="deleteFilters();">BORRAR FILTROS</a>
-                </span>
+            <div id="div-delete-filters" style="display: none;">
+                <a href="#" class="link-ffc" onclick="deleteFilters();">BORRAR FILTROS</a>
             </div>
             <br /><br />
         </div>
@@ -58,12 +55,12 @@
 
     <div id="custom-filters" style="display: none;">
 
-        <div style="width: 100%; height: 35px; background: #000; color: #fff;">
+        <div id="header-custom-filters">
 
-            <div style="width: 45%; height: 35px; float: left; margin-top: 5px; margin-left: 15px;">
+            <div id="title-custom-filters">
                 <span style="font-size: 18px;">FILTROS</span>
             </div>
-            <div style="width: 48%; height: 35px; float: left; text-align: right; margin-top: 5px;" >
+            <div id="delete-custom-filters" style="">
                 <span style="text-align: right;" onclick="showOrderbyFilter();">
                     <img src="~/Content/Images/mobile/icon-xclose.png" style="width: 20px; height: 20px; cursor: pointer;" />
                 </span>
@@ -71,12 +68,12 @@
         </div>
         <br />
 
-        <div class="right" style="clear: both;">
+        <div class="right" style="">
             <a href="#" class="link-ffc" onclick="deleteFilters();">BORRAR FILTROS</a>
         </div>
         <br />
 
-        <div id="content-filters" style="clear: both;">
+        <div id="content-filters" style="">
             <div class="panel-group" id="accordion">
                 
                 <div class="panel panel-default">

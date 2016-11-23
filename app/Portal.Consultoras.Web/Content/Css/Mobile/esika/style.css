@@ -9699,18 +9699,8 @@ a{
     /* line-height: normal; */
 }
 
+/*SB20-1198 - INICIO */
 
-
-/*SB20-1197 - INICIO */
-
-.btn-ffc {
-    font-family: 'lato';
-    background: #e81c36;
-    color: #fff;
-    width: 140px;
-    height: 35px;
-    border: none;
-}
 .contenido_compra_nivel {
     width: 85%; 
     margin: 0 auto;
@@ -9720,6 +9710,129 @@ a{
 .centrar_vertical {
     display: inline-block; 
     vertical-align: middle;
+}
+
+.texto_ganancia_oferta_048{
+    font-family:'Lato';
+    font-size:16px;
+    font-weight:700;
+    color:#e81c36;
+    text-align:center;
+    margin-bottom:5px;
+    margin-bottom:15px;
+    text-transform:uppercase;
+}
+
+.sub_descripcion_oferta_048 {
+    /*width: 55%;*/
+    /*height: 55px;*/
+    /*line-height: 55px;*/
+    text-align:left;
+    /* padding-top: 8%; */
+    /* padding-bottom: 8%; */
+    /*border-bottom: 1px solid #dadada;*/
+    /*float: left;*/
+    font-family: 'Lato';
+    font-size: 13px;
+    color: black;
+    /*display: flex;
+    justify-content: center;
+    align-content: center;
+    flex-direction: column;*/
+}
+
+.titulo_pack_048{
+    font-family: 'Lato';
+    font-weight: 700;
+    font-size: 16px;
+    /*line-height: 22px;*/
+    color: black;
+    /*margin-top: -6px;*/
+    /*text-align: center;*/
+    /*padding-right: 12px;*/
+    /*text-align: left;*/
+    height: auto;
+}
+
+.sub_descripcion_oferta_048 p span{
+    color:#e81c36;
+    font-size:22px;
+    /*font-weight:700;*/
+    margin-right: 5px;
+}
+
+.sub_descripcion_oferta_048 p{
+    margin: 0;
+    padding: 0;
+    /*line-height:normal;*/
+}
+
+.img_compra_nivel {
+    width: 40px;
+    height: 50px;
+    border: 0;
+}
+
+.img_no_disponible {
+    width: 55px; 
+    height: 55px; 
+    border: 0;
+}
+
+/*SB20-1198 - FIN*/
+
+
+/*SB20-1197 - INICIO */
+
+#orderby-filter {
+    margin: 0 auto;
+    text-align: center;
+}
+
+#div-result-number {
+    width: 60%; 
+    text-align: left; 
+    float: left; 
+    margin-left: 7px;
+}
+
+#div-delete-filters {
+    width: 35%; 
+    text-align: right; 
+    float: left; 
+    margin-right: 7px;
+}
+
+#header-custom-filters {
+    width: 100%; 
+    height: 35px; 
+    background: #000; 
+    color: #fff;
+}
+
+#title-custom-filters {
+    width: 45%; 
+    height: 35px; 
+    float: left; 
+    margin-top: 5px; 
+    margin-left: 15px;
+}
+
+#delete-custom-filters {
+    width: 48%; 
+    height: 35px; 
+    float: left; 
+    text-align: right; 
+    margin-top: 5px;
+}
+
+.btn-ffc {
+    font-family: 'lato';
+    background: #e81c36;
+    color: #fff;
+    width: 140px;
+    height: 35px;
+    border: none;
 }
 
 .btn2-ffc {
@@ -9765,49 +9878,6 @@ a{
     text-decoration: none;
 }
 
-.texto_ganancia_oferta_048{
-    font-family:'Lato';
-    font-size:16px;
-    font-weight:700;
-    color:#e81c36;
-    text-align:center;
-    margin-bottom:5px;
-    margin-bottom:15px;
-    text-transform:uppercase;
-}
-
-.sub_descripcion_oferta_048 {
-    /*width: 55%;*/
-    /*height: 55px;*/
-    /*line-height: 55px;*/
-    text-align:left;
-    /* padding-top: 8%; */
-    /* padding-bottom: 8%; */
-    /*border-bottom: 1px solid #dadada;*/
-    /*float: left;*/
-    font-family: 'Lato';
-    font-size: 13px;
-    color: black;
-    /*display: flex;
-    justify-content: center;
-    align-content: center;
-    flex-direction: column;*/
-}
-
-
-.titulo_pack_048{
-    font-family: 'Lato';
-    font-weight: 700;
-    font-size: 16px;
-    /*line-height: 22px;*/
-    color: black;
-    /*margin-top: -6px;*/
-    /*text-align: center;*/
-    /*padding-right: 12px;*/
-    /*text-align: left;*/
-    height: auto;
-}
-
 .content-category {
     /*margin-right: 9px !important;*/
     vertical-align: top !important;
@@ -9846,32 +9916,6 @@ a{
     z-index: 10;
 }
 
-.sub_descripcion_oferta_048 p span{
-    color:#e81c36;
-    font-size:22px;
-    /*font-weight:700;*/
-    margin-right: 5px;
-}
-
-.sub_descripcion_oferta_048 p{
-    margin: 0;
-    padding: 0;
-    /*line-height:normal;*/
-}
-
-.img_compra_nivel {
-    width: 40px;
-    height: 50px;
-    border: 0;
-}
-
-.img_no_disponible {
-    width: 55px; 
-    height: 55px; 
-    border: 0;
-}
-
-/*SB20-1198 - FIN*/
 .content-category input[type="checkbox"]:checked + .label-checkbox:before {
     content: "";
     width: 20px;
