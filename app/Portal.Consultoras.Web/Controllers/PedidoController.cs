@@ -435,7 +435,11 @@ namespace Portal.Consultoras.Web.Controllers
                 TimeSpan HoraNow = new TimeSpan(FechaHoraActual.Hour, FechaHoraActual.Minute, 0);
                 if (HoraNow > usuario.HoraInicioPreReserva && HoraNow < usuario.HoraFinPreReserva)
                 {
-                    int cantidad = BuildFechaNoHabil();
+                    int cantidad = 0;
+                    if (usuario.CodigoISO != Constantes.CodigosISOPais.Peru)
+                    {
+                        cantidad = BuildFechaNoHabil();
+                    }
                     mostrarBotonValidar = cantidad == 0;
                 }
                 DiaPROL = true;
@@ -449,7 +453,11 @@ namespace Portal.Consultoras.Web.Controllers
                     TimeSpan HoraNow = new TimeSpan(FechaHoraActual.Hour, FechaHoraActual.Minute, 0);
                     if (HoraNow > usuario.HoraInicioReserva && HoraNow < usuario.HoraFinReserva)
                     {
-                        int cantidad = BuildFechaNoHabil();
+                        int cantidad = 0;
+                        if (usuario.CodigoISO != Constantes.CodigosISOPais.Peru)
+                        {
+                            cantidad = BuildFechaNoHabil();
+                        }
                         mostrarBotonValidar = cantidad == 0;
                     }
                 }
