@@ -2,6 +2,8 @@
     ViewBag.Title = "Los favoritos de tus clientes esta campaña";
 }
 
+<link href="~/Content/Css/Mobile/esika/bootstrap-slider.min.css" rel="stylesheet" />
+
 @section styles{
     <link href="@Url.Content("~/Content/Css/Site/slick.min.css")" rel="stylesheet" />
 }
@@ -22,6 +24,7 @@
             <div class="pestana_lbel new"></div>
             <div class="clear"></div>
             <div class="texto_descripcionCatalogoPersonalizado paginaCatalogo">Encuentra una selección de los productos que tus clientes de seguro te solicitarán</div>
+
             <div id="divCatalogoPersonalizado"></div>
             <div class="clear"></div>
         </div><!--PESTAÑA PARA DARLE ESTILO CON LBEL-->
@@ -761,4 +764,5 @@
     </script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/slick.min.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/CatalogoPersonalizado/CatalogoPersonalizado.js")"></script>
+    <script src="~/Scripts/PortalConsultoras/Mobile/CatalogoPersonalizado/bootstrap-slider.min.js"></script>
 }
