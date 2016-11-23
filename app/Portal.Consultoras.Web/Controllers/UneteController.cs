@@ -2091,10 +2091,46 @@ namespace Portal.Consultoras.Web.Controllers
                 DocumentoIdentidad = DocumentoIdentidad
             });
 
-            var resultado = from c in solicitudes
-                select new SolicitudPostulanteBE
+            ServiceUnete.ParametroUneteCollection lstSelect;
+            ServiceUnete.ParametroUneteCollection lstSelectGZ;
+            ServiceUnete.ParametroUneteCollection lstSelectSE;
+            using (var sv = new PortalServiceClient())
+            {
+                lstSelect = sv.ObtenerParametrosUnete(CodigoISO, EnumsTipoParametro.TipoRechazoSAC, 0);
+                lstSelectSE = sv.ObtenerParametrosUnete(CodigoISO, EnumsTipoParametro.TipoRechazoSociaEmpresaria, 0);
+                lstSelectGZ = sv.ObtenerParametrosUnete(CodigoISO, EnumsTipoParametro.TipoRechazo, 0);
+            }
+
+           
+         
+            var resultado = solicitudes.Select(c => 
+            {
+                ServiceUnete.ParametroUneteBE parametro = null;
+                string tipoRechazoNombre = string.Empty;
+
+                if (!string.IsNullOrEmpty(c.TipoRechazo))
                 {
-                    FechaCreacion = c.FechaCreacion,
+                    if (c.SubEstadoPostulante == Enumeradores.TipoSubEstadoPostulanteRechazada.RechazadoSAC.ToInt())
+                    {
+                        parametro = lstSelect.FirstOrDefault(x => x.Valor == c.TipoRechazo.ToInt());
+                    }
+                    else if (c.SubEstadoPostulante == Enumeradores.TipoSubEstadoPostulanteRechazada.RechazadoGZ.ToInt())
+                    {
+                        parametro = lstSelectGZ.FirstOrDefault(x => x.Valor == c.TipoRechazo.ToInt());
+                    } 
+                    else if (c.SubEstadoPostulante == Enumeradores.TipoSubEstadoPostulanteRechazada.RechazadoSE.ToInt())
+                    {
+                        parametro = lstSelectSE.FirstOrDefault(x => x.Valor == c.TipoRechazo.ToInt());
+                    }
+
+                }
+                if (parametro != null)
+                {
+                    tipoRechazoNombre = parametro.Nombre;
+                }
+                return new SolicitudPostulanteBE
+                { 
+                     FechaCreacion = c.FechaCreacion,
                     TipoSolicitud = c.TipoSolicitud,
                     FuenteIngreso = c.FuenteIngreso,
                     NombreCompleto = c.NombreCompleto,
@@ -2102,14 +2138,20 @@ namespace Portal.Consultoras.Web.Controllers
                     CodigoZona = c.CodigoZona,
                     CodigoSeccion = c.CodigoSeccion,
                     CodigoTerritorio = c.CodigoTerritorio,
-                    Direccion =  string.Format("{0}, {1}, {2}, {3}", c.LugarPadre, c.LugarHijo,c.Direccion.Replace("|", ", ") , c.Referencia),
+                    Direccion =
+                        string.Format("{0}, {1}, {2}, {3}", c.LugarPadre, c.LugarHijo, c.Direccion.Replace("|", ", "),
+                            c.Referencia),
                     LugarPadre = c.LugarPadre,
                     LugarHijo = c.LugarHijo,
                     TelefonoCelular = c.TelefonoCelular,
                     TelefonoFijo = c.TelefonoFijo,
-                    EstadoPostulante = c.EstadoPostulante
+                    EstadoPostulante = c.EstadoPostulante,
+                    TipoRechazo = tipoRechazoNombre,
+                    MotivoRechazo = c.MotivoRechazo
                 };
-
+                
+            });
+            
 
             Dictionary< string, string> dic = new Dictionary<string, string>();
             dic.Add("Fecha Registro", "FechaCreacion");
@@ -2126,6 +2168,8 @@ namespace Portal.Consultoras.Web.Controllers
             dic.Add("Telefono Celular", "TelefonoCelular");
             dic.Add("Telefono Red Fija", "TelefonoFijo");
             dic.Add("Estado Postulante", "EstadoPostulante");
+            dic.Add("Tipo Rechazo", "TipoRechazo");
+            dic.Add("Motivo Rechazo", "MotivoRechazo");
             Util.ExportToExcel("ReportePostulantes", resultado.ToList(), dic);
             return View();
             
@@ -2561,13 +2605,16 @@ namespace Portal.Consultoras.Web.Controllers
             return listaReporteConsolidado;
         }
 
-        public ActionResult ExportarExcelReporteConsolidado(string PrefijoISOPais, string FechaDesde, string FechaHasta)
+        public ActionResult ExportarExcelReporteConsolidado(string PrefijoISOPais, string FechaDesde, string FechaHasta, string Region, string Zona, string Seccion)
         {
             var resultado = ObtenerReporteConsolidadoFiltro(new ReporteConsolidadoModel
             {
                 CodigoIso = PrefijoISOPais,
                 FechaDesde = FechaDesde,
-                FechaHasta = FechaHasta
+                FechaHasta = FechaHasta,
+                Zona = Zona,
+                Region = Region,
+                Seccion = Seccion
 
             });
 
