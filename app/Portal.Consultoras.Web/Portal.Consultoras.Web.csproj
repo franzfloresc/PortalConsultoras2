@@ -1789,7 +1789,7 @@
     <Content Include="Content\Images\ico_print.png" />
     <Content Include="Content\Images\ico_twitter.png" />
     <Content Include="Content\Images\image.png" />
-	<Content Include="Content\Images\img_no_disponible.png" />
+    <Content Include="Content\Images\img_no_disponible.png" />
     <Content Include="Content\Images\imprimir.png" />
     <Content Include="Content\Images\incentivos.png" />
     <Content Include="Content\Images\indicador.png" />
@@ -2040,6 +2040,7 @@
     <Content Include="Content\Images\mobile\Esika\ws.png" />
     <Content Include="Content\Images\mobile\Esika\youtube.png" />
     <Content Include="Content\Images\mobile\flecha-left.png" />
+    <Content Include="Content\Images\mobile\icon-xclose.png" />
     <Content Include="Content\Images\mobile\flecha-right.png" />
     <Content Include="Content\Images\mobile\icon_caja.png" />
     <Content Include="Content\Images\mobile\icon_casita.png" />

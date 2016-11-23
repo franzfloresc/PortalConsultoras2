@@ -9057,6 +9057,48 @@ span.icon-advertencia{
 
 /*SB20-1197 - INICIO */
 
+#orderby-filter {
+    margin: 0 auto;
+    text-align: center;
+}
+
+#div-result-number {
+    width: 60%; 
+    text-align: left; 
+    float: left; 
+    margin-left: 7px;
+}
+
+#div-delete-filters {
+    width: 35%; 
+    text-align: right; 
+    float: left; 
+    margin-right: 7px;
+}
+
+#header-custom-filters {
+    width: 100%; 
+    height: 35px; 
+    background: #000; 
+    color: #fff;
+}
+
+#title-custom-filters {
+    width: 45%; 
+    height: 35px; 
+    float: left; 
+    margin-top: 5px; 
+    margin-left: 15px;
+}
+
+#delete-custom-filters {
+    width: 48%; 
+    height: 35px; 
+    float: left; 
+    text-align: right; 
+    margin-top: 5px;
+}
+
 .btn-ffc {
     font-family: 'lato';
     background: #642f80;
@@ -9123,7 +9165,7 @@ span.icon-advertencia{
     font-size: 13px !important;
     padding-left: 25px;
     position: relative;
-    color: #642f80;
+    color: #9e9e9e;
 }
 
 .label-checkbox span a {
