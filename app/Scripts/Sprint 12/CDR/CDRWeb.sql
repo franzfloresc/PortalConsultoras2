@@ -1,11 +1,8 @@
 USE BelcorpPeru
 go
 
-IF EXISTS(
-	SELECT *
-	FROM INFORMATION_SCHEMA.tables 
-	WHERE TABLE_SCHEMA = 'dbo' AND TABLE_TYPE='BASE TABLE' AND TABLE_NAME = 'CDRWeb'
-)
+IF EXISTS(SELECT * FROM INFORMATION_SCHEMA.tables 
+	WHERE TABLE_SCHEMA = 'dbo' AND TABLE_TYPE='BASE TABLE' AND TABLE_NAME = 'CDRWeb')
 BEGIN
     DROP TABLE dbo.CDRWeb
 END
@@ -30,9 +27,7 @@ CREATE TABLE CDRWeb
 
 go
 
-IF EXISTS(
-	SELECT *
-	FROM INFORMATION_SCHEMA.tables 
+IF EXISTS(SELECT * FROM INFORMATION_SCHEMA.tables 
 	WHERE TABLE_SCHEMA = 'dbo' AND TABLE_TYPE='BASE TABLE' AND TABLE_NAME = 'CDRWebDetalle'
 )
 BEGIN
@@ -53,16 +48,14 @@ CREATE TABLE CDRWebDetalle
 	Cantidad2 int,
 	FechaRegistro datetime,
 	Estado int,
-	MotivoRechazo varchar(1),
+	MotivoRechazo varchar(10),
 	Observacion varchar(1000),
 	Eliminado bit
 )
 
 go
 
-IF EXISTS(
-	SELECT *
-	FROM INFORMATION_SCHEMA.tables 
+IF EXISTS(SELECT * FROM INFORMATION_SCHEMA.tables 
 	WHERE TABLE_SCHEMA = 'dbo' AND TABLE_TYPE='BASE TABLE' AND TABLE_NAME = 'CDRWebMotivoOperacion'
 )
 BEGIN
@@ -82,9 +75,7 @@ CREATE TABLE CDRWebMotivoOperacion
 
 go
 
-IF EXISTS(
-	SELECT *
-	FROM INFORMATION_SCHEMA.tables 
+IF EXISTS(SELECT * FROM INFORMATION_SCHEMA.tables 
 	WHERE TABLE_SCHEMA = 'dbo' AND TABLE_TYPE='BASE TABLE' AND TABLE_NAME = 'CDRWebDescripcion'
 )
 BEGIN
@@ -104,7 +95,30 @@ CREATE TABLE CDRWebDescripcion
 
 go
 
+IF EXISTS(SELECT * FROM INFORMATION_SCHEMA.tables 
+	WHERE TABLE_SCHEMA = 'dbo' AND TABLE_TYPE='BASE TABLE' AND TABLE_NAME = 'CDRWebMotivoRechazo'
+)
+BEGIN
+    DROP TABLE dbo.CDRWebMotivoRechazo
+END
+
 go
+
+create table CDRWebMotivoRechazo
+(
+	CDRWebMotivoRechazoID int IDENTITY(1,1) PRIMARY KEY,
+	CodigoRechazo varchar(10),
+	Tipo int
+)
+
+go
+
+/*
+insert into CDRWebMotivoRechazo (CodigoRechazo, Tipo)
+select CodigoRechazo,1 from ods.MotivoRechazoCDR
+
+update CDRWebMotivoRechazo set Tipo = 2 where CDRWebMotivoRechazoID > 41
+*/
 
 IF EXISTS(
 	SELECT *
@@ -397,6 +411,7 @@ BEGIN
 		,cd.FechaRegistro
 		,cd.Estado
 		,cd.MotivoRechazo
+		,isnull(cmr.Tipo,0) as TipoMotivoRechazo
 		,cd.Observacion
 		,cd.Eliminado
 		,pc.Descripcion as Descripcion
@@ -417,6 +432,8 @@ BEGIN
 	INNER JOIN ods.PedidoDetalle pwd on
 		pwd.CUV = cd.CUV
 		and pwd.PedidoID = @PedidoID
+	LEFT JOIN CDRWebMotivoRechazo cmr on
+		cd.MotivoRechazo = cmr.CodigoRechazo
 	WHERE		 
 		cd.CDRWebID = @CDRWebID
 		and cd.Eliminado = 0		

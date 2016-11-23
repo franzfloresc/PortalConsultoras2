@@ -284,6 +284,9 @@ namespace Portal.Consultoras.Web.ServiceCDR {
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string SolucionSolicitadaField;
         
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int TipoMotivoRechazoField;
+        
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
             get {
@@ -537,6 +540,19 @@ namespace Portal.Consultoras.Web.ServiceCDR {
                 if ((object.ReferenceEquals(this.SolucionSolicitadaField, value) != true)) {
                     this.SolucionSolicitadaField = value;
                     this.RaisePropertyChanged("SolucionSolicitada");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int TipoMotivoRechazo {
+            get {
+                return this.TipoMotivoRechazoField;
+            }
+            set {
+                if ((this.TipoMotivoRechazoField.Equals(value) != true)) {
+                    this.TipoMotivoRechazoField = value;
+                    this.RaisePropertyChanged("TipoMotivoRechazo");
                 }
             }
         }
