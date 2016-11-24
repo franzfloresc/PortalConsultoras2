@@ -26,25 +26,33 @@ namespace Portal.Consultoras.Web.WebPages
 
             string id = Request.QueryString["id"];
 
-            var array = id.Split('|');
+            var array = id.Split('_');
 
             string codigoIso = array[0] ?? "";
             string idShowroomCadena = array[1] ?? "";
+            string campania = array[2] ?? "";
+            string redSocial = array[3] ?? "";
 
             int idShowRoom = 0;
             bool esId = int.TryParse(idShowroomCadena, out idShowRoom);
 
             int idFinal = esId ? idShowRoom : 0;
 
+            int idCampania = 0;
+            bool esCampania = int.TryParse(campania, out idCampania);
+
+            int idCampaniaFinal = esCampania ? idCampania : 0;
+
             int paisId = Util.GetPaisID(codigoIso);
 
             var ofertaShowRoom = new BEShowRoomOferta();
-            
+            var listaDetalle = new List<BEShowRoomOfertaDetalle>();
+
             var carpetaPais = Globals.UrlMatriz + "/" + codigoIso;
 
             using (PedidoServiceClient sv = new PedidoServiceClient())
             {
-                ofertaShowRoom = sv.GetShowRoomOfertaById(paisId, idFinal);
+                ofertaShowRoom = sv.GetShowRoomOfertaById(paisId, idFinal);                
             }
 
             if (ofertaShowRoom != null)
@@ -62,20 +70,33 @@ namespace Portal.Consultoras.Web.WebPages
                         Globals.UrlMatriz + "/" + codigoIso);
                 }
 
+                using (PedidoServiceClient sv = new PedidoServiceClient())
+                {
+                    listaDetalle = sv.GetProductosShowRoomDetalle(paisId, idCampaniaFinal, ofertaShowRoom.CUV).ToList();
+                }
+
+                var subTitulo = "";
+                var contadorDetalle = 1;
+                foreach (var detalle in listaDetalle)
+                {
+                    subTitulo += contadorDetalle == listaDetalle.Count ? detalle.NombreProducto : detalle.NombreProducto + " + ";
+                    contadorDetalle++;
+                }
+
                 HtmlMeta meta1 = new HtmlMeta();
                 meta1.Name = "og:image";
                 meta1.Attributes.Add("property", "og:image");
-                meta1.Content = ofertaShowRoom.ImagenProducto;
+                meta1.Content = redSocial == "W" ? ofertaShowRoom.ImagenMini : ofertaShowRoom.ImagenProducto;
 
                 HtmlMeta meta2 = new HtmlMeta();
                 meta2.Name = "og:title";
                 meta2.Attributes.Add("property", "og:title");
-                meta2.Content = ofertaShowRoom.Descripcion;
+                meta2.Content = ofertaShowRoom.Descripcion + ": " + subTitulo + ".";
 
                 HtmlMeta meta3 = new HtmlMeta();
                 meta3.Name = "og:image:secure_url";
                 meta3.Attributes.Add("property", "og:image:secure_url");
-                meta3.Content = ofertaShowRoom.ImagenProducto;
+                meta3.Content = redSocial == "W" ? ofertaShowRoom.ImagenMini : ofertaShowRoom.ImagenProducto;
 
                 HtmlMeta meta4 = new HtmlMeta();
                 meta4.Name = "og:site_name";
@@ -103,7 +124,7 @@ namespace Portal.Consultoras.Web.WebPages
                 //nombreCuv.Content = nombre;
                 imgCuvProducto.Src = ofertaShowRoom.ImagenProducto;
 
-                pNombreProducto.InnerHtml = ofertaShowRoom.Descripcion;
+                pNombreProducto.InnerHtml = ofertaShowRoom.Descripcion + ": " + subTitulo + ".";
             }            
         }
     }
