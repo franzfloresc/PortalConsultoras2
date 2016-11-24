@@ -110,8 +110,8 @@
                 if (System.Web.HttpContext.Current.Request.UserAgent != null)
                 {
                     var request = HttpContext.Current.Request;
-                    urlBase = request.Url.Scheme + "://" + request.Url.Authority + "/WebPages/SetVentaDigital.aspx?id=" + Model.CodigoIso + "|"+item.OfertaShowRoomID;
-                    urlBase2 = request.Url.Scheme + "://" + request.Url.Authority + "/WebPages/SetVentaDigital.aspx?id=" + Model.CodigoIso + "|" + item.OfertaShowRoomID;
+                    urlBase = request.Url.Scheme + "://" + request.Url.Authority + "/WebPages/SetVentaDigital.aspx?id=" + Model.CodigoIso + "_" + item.OfertaShowRoomID + "_" + Model.FormatoCampania + "_W";
+                    urlBase2 = request.Url.Scheme + "://" + request.Url.Authority + "/WebPages/SetVentaDigital.aspx?id=" + Model.CodigoIso + "_" + item.OfertaShowRoomID + "_" + Model.FormatoCampania + "_F";
 
                     var message = Uri.EscapeDataString(texto) + " - " + urlBase;
                     urlWs = "whatsapp://send?text=" + message;
