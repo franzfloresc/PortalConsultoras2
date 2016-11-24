@@ -671,15 +671,15 @@ function MensajeEstadoPedido() {
     if (cerrarRechazado == '1')
         return false;
 
-    if (indicadorEnviadoDescarga != 1 || estaRechazado == '2')
+    if (estaRechazado == 0)
         return false;
     
     $("#bloquemensajesPedido").find(".mensaje_horarioIngresoPedido").html("");
     $("#bloquemensajesPedido").find(".mensaje_horarioIngresoPedido").append((motivoRechazo || "").CodificarHtmlToAnsi());
-    if (estaRechazado == '1') {
+    if (estaRechazado == 2) {
         $("#bloquemensajesPedido").find(".mensaje_estadoActualPedido").html("TU PEDIDO HA SIDO RECHAZADO");
     }
-    else if (estaRechazado == '0') {
+    else if (estaRechazado == 1) {
         $("#bloquemensajesPedido").find(".mensaje_estadoActualPedido").html("NOS ENCONTRAMOS FACTURANDO TU PEDIDO C" + $.trim($("#hdCampaniaCodigo").val()).substring(4, 6));
     }
     else {

@@ -82,10 +82,7 @@ namespace Portal.Consultoras.Entities
         public string MensajeValidacionInteractiva { get; set; } // R20150306
         
         [DataMember]
-        public int IndicadorEnviado { get; set; }
-        [DataMember]
-        public int IndicadorRechazado { get; set; }
-
+        public int IndicadorGPRSB { get; set; }
         [DataMember]
         public DateTime FechaActualPais { get; set; }
 
@@ -162,13 +159,10 @@ namespace Portal.Consultoras.Entities
                 MensajeValidacionInteractiva = DbConvert.ToString(datarec["MensajeValidacionInteractiva"]);
             /*R20160306: FIN*/
 
-            if (DataRecord.HasColumn(datarec, "IndicadorEnviado") && datarec["IndicadorEnviado"] != DBNull.Value)
-                IndicadorEnviado = Convert.ToInt32(datarec["IndicadorEnviado"]);
-            if (DataRecord.HasColumn(datarec, "IndicadorRechazado") && datarec["IndicadorRechazado"] != DBNull.Value)
-                IndicadorRechazado = Convert.ToInt32(datarec["IndicadorRechazado"]);
+            if (DataRecord.HasColumn(datarec, "IndicadorGPRSB") && datarec["IndicadorGPRSB"] != DBNull.Value)
+                IndicadorGPRSB = Convert.ToInt32(datarec["IndicadorGPRSB"]);
             if (DataRecord.HasColumn(datarec, "FechaActualPais"))
                 FechaActualPais = Convert.ToDateTime(datarec["FechaActualPais"]);
         }
-
     }
 }

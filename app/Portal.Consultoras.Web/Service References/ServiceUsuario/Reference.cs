@@ -215,10 +215,10 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         private int IndicadorDuplaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int IndicadorEnviadoField;
+        private int IndicadorFlexiPagoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int IndicadorFlexiPagoField;
+        private int IndicadorGPRSBField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int IndicadorMetaField;
@@ -228,9 +228,6 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int IndicadorPermisoFICField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int IndicadorRechazadoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string InscritaFlexipagoField;
@@ -1279,19 +1276,6 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public int IndicadorEnviado {
-            get {
-                return this.IndicadorEnviadoField;
-            }
-            set {
-                if ((this.IndicadorEnviadoField.Equals(value) != true)) {
-                    this.IndicadorEnviadoField = value;
-                    this.RaisePropertyChanged("IndicadorEnviado");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
         public int IndicadorFlexiPago {
             get {
                 return this.IndicadorFlexiPagoField;
@@ -1300,6 +1284,19 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
                 if ((this.IndicadorFlexiPagoField.Equals(value) != true)) {
                     this.IndicadorFlexiPagoField = value;
                     this.RaisePropertyChanged("IndicadorFlexiPago");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int IndicadorGPRSB {
+            get {
+                return this.IndicadorGPRSBField;
+            }
+            set {
+                if ((this.IndicadorGPRSBField.Equals(value) != true)) {
+                    this.IndicadorGPRSBField = value;
+                    this.RaisePropertyChanged("IndicadorGPRSB");
                 }
             }
         }
@@ -1339,19 +1336,6 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
                 if ((this.IndicadorPermisoFICField.Equals(value) != true)) {
                     this.IndicadorPermisoFICField = value;
                     this.RaisePropertyChanged("IndicadorPermisoFIC");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int IndicadorRechazado {
-            get {
-                return this.IndicadorRechazadoField;
-            }
-            set {
-                if ((this.IndicadorRechazadoField.Equals(value) != true)) {
-                    this.IndicadorRechazadoField = value;
-                    this.RaisePropertyChanged("IndicadorRechazado");
                 }
             }
         }

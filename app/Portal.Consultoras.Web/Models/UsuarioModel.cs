@@ -280,15 +280,13 @@ namespace Portal.Consultoras.Web.Models
         public int VioTutorialSalvavidas { get; set; }
 
         public int TieneHana { get; set; }
-        public int IndicadorEnviado { get; set; }
-        public int IndicadorRechazado { get; set; }
+        public int IndicadorGPRSB { get; set; }
         public string MotivoRechazo { get; set; }
         public DateTime FechaProceso { get; set; }
         
         public DateTime FechaActualPais { get; set; }
 
         // 0: No hay Respuesta, 1: Rechazado, 2: No Rechazado
-        public int EstaRechazado { get; set; }
 
         public int CerrarRechazado { get; set; }
         public string NombreGerenteZonal { get; set; }  // SB20-907

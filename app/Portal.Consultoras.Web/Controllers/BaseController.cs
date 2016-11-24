@@ -293,7 +293,7 @@ namespace Portal.Consultoras.Web.Controllers
         protected bool EstaProcesoFacturacion(out string mensaje)
         {
             mensaje = "";
-            if (userData.IndicadorEnviado == 1 && userData.EstaRechazado == 0)
+            if (userData.IndicadorGPRSB == 1)
             {
                 mensaje = "En este momento nos encontramos facturando tu pedido de C" + userData.CampaniaID.ToString().Substring(4, 2) + ", inténtalo más tarde";
                 return true;
@@ -725,7 +725,8 @@ namespace Portal.Consultoras.Web.Controllers
 
             DateTime fechaHoy = DateTime.Now.AddHours(model.ZonaHoraria).Date;
             ViewBag.FechaActualPais = fechaHoy.ToShortDateString();
-            ViewBag.Dias = fechaHoy >= model.FechaInicioCampania.Date && fechaHoy <= model.FechaFinCampania.Date ? 0 : (model.FechaInicioCampania.Subtract(DateTime.Now.AddHours(model.ZonaHoraria)).Days + 1);
+            ViewBag.Dias = ((fechaHoy >= model.FechaInicioCampania.Date && fechaHoy <= model.FechaFinCampania.Date) || (fechaHoy >= model.FechaInicioCampania.Date && fechaHoy >= model.FechaFinCampania.Date)) ? 0 : (model.FechaInicioCampania.Subtract(DateTime.Now.AddHours(model.ZonaHoraria)).Days + 1);
+            //ViewBag.Dias = fechaHoy >= model.FechaInicioCampania.Date && fechaHoy <= model.FechaFinCampania.Date ? 0 : (model.FechaInicioCampania.Subtract(DateTime.Now.AddHours(model.ZonaHoraria)).Days + 1);
 
             if (!isNull)
             {
@@ -859,10 +860,9 @@ namespace Portal.Consultoras.Web.Controllers
             ViewBag.PaisesConTrackingJetlore = paisesConTrackingJetlore.Contains(model.CodigoISO) ? "1" : "0";
                 ViewBag.EsCatalogoPersonalizadoZonaValida = model.EsCatalogoPersonalizadoZonaValida;
 
-            ViewBag.IndicadorEnviado = model.IndicadorEnviado;
-            ViewBag.EstaRechazado = model.EstaRechazado;
+            ViewBag.IndicadorGPRSB = model.IndicadorGPRSB;
             ViewBag.CerrarRechazado = model.CerrarRechazado;
-            ViewBag.MotivoRechazo = model.MotivoRechazo;
+            ViewBag.MotivoRechazo = model.MotivoRechazo.Trim();
             ViewBag.Efecto_TutorialSalvavidas = ConfigurationManager.AppSettings.Get("Efecto_TutorialSalvavidas") ?? "1";
             return model;
 
@@ -882,6 +882,18 @@ namespace Portal.Consultoras.Web.Controllers
             return ",|.|2";
         }
 
+        private string CalcularNroCampaniaSiguiente(string CampaniaActual, int nroCampanias)
+        {
+            CampaniaActual = CampaniaActual ?? "";
+            CampaniaActual = CampaniaActual.Trim();
+            if (CampaniaActual.Length < 6)
+                return "";
+
+            var campAct = CampaniaActual.Substring(4, 2);
+            if (campAct == nroCampanias.ToString()) return "01";
+            return (Convert.ToInt32(campAct) + 1).ToString().PadLeft(2, '0');
+        }
+
         private UsuarioModel GetUserData(int PaisID, string CodigoUsuario, int TipoUsuario)
         {
             UsuarioModel model = null;
@@ -894,6 +906,99 @@ namespace Portal.Consultoras.Web.Controllers
             if (oBEUsuario != null)
             {
                 model = new UsuarioModel();
+
+                #region Obtener Respuesta del SSiCC
+
+                model.MotivoRechazo = "A partir de mañana podrás ingresar tu pedido de C" + CalcularNroCampaniaSiguiente(oBEUsuario.CampaniaID.ToString(), oBEUsuario.NroCampanias);
+                model.IndicadorGPRSB = oBEUsuario.IndicadorGPRSB;
+                if (oBEUsuario.IndicadorGPRSB == 2)
+                {
+                    var procesoRechazado = new BEProcesoPedidoRechazado();
+                    try
+                    {
+                        using (PedidoServiceClient sv = new PedidoServiceClient())
+                        {
+                            procesoRechazado = sv.ObtenerProcesoPedidoRechazadoGPR(oBEUsuario.PaisID, oBEUsuario.CampaniaID, oBEUsuario.ConsultoraID);
+                        }
+                    }
+                    catch (Exception) { procesoRechazado = new BEProcesoPedidoRechazado(); }
+
+                    if (procesoRechazado.IdProcesoPedidoRechazado > 0)
+                    {
+                        var listaRechazo = procesoRechazado.olstBEPedidoRechazado != null ? procesoRechazado.olstBEPedidoRechazado.ToList() : new List<BEPedidoRechazado>();
+                        if (listaRechazo.Any())
+                        {
+                            listaRechazo = listaRechazo.Where(r => r.Rechazado).ToList();
+
+                            if (listaRechazo.Any())
+                            {
+                                model.MotivoRechazo = "";
+                                string valor = oBEUsuario.Simbolo + " ";
+                                string valorx = "";
+
+                                // deuda, monto mínimo/máximo/MinStock
+
+                                listaRechazo.Update(p => p.MotivoRechazo = Util.SubStr(p.MotivoRechazo, 0).ToLower());
+                                listaRechazo = listaRechazo.Where(p => p.MotivoRechazo != "").ToList();
+
+                                var listaMotivox = listaRechazo.Where(p => p.MotivoRechazo == "deuda").ToList();
+                                if (listaMotivox.Any())
+                                {
+                                    valorx = valor + listaMotivox[0].Valor;
+                                    model.MotivoRechazo = "Tienes una deuda de " + valorx + " que debes regularizar. <a class='CerrarBanner' href='javascript:;' onclick=RedirectMenu('Index','MisPagos',0,'');cerrarMensajeEstadoPedido() >MIRA LOS LUGARES DE PAGO</a>";
+                                }
+
+                                listaMotivox = listaRechazo.Where(p => p.MotivoRechazo == "minimo").ToList();
+                                if (listaMotivox.Any())
+                                {
+                                    if (model.MotivoRechazo != "")
+                                    {
+                                        model.MotivoRechazo = "Tienes una deuda pendiente de " + valorx;
+                                        valorx = valor + listaMotivox[0].Valor;
+                                        model.MotivoRechazo += ". Además, para pasar pedido debes alcanzar el monto mínimo de " + oBEUsuario.Simbolo + ". " + oBEUsuario.MontoMinimoPedido + ". <a class='CerrarBanner' href='javascript:;' onclick=RedirectMenu('Index','Pedido',0,'Pedido');cerrarMensajeEstadoPedido() >MODIFICA TU PEDIDO</a>";
+                                    }
+                                    else
+                                    {
+                                        valorx = valor + listaMotivox[0].Valor;
+                                        model.MotivoRechazo = "No llegaste al monto mínimo de " + oBEUsuario.Simbolo + ". " + oBEUsuario.MontoMinimoPedido + " <a class='CerrarBanner' href='javascript:;' onclick=RedirectMenu('Index','Pedido',0,'Pedido');cerrarMensajeEstadoPedido() >MODIFICA TU PEDIDO</a>";
+                                    }
+                                }
+                                else
+                                {
+                                    listaMotivox = listaRechazo.Where(p => p.MotivoRechazo == "maximo").ToList();
+                                    if (listaMotivox.Any())
+                                    {
+                                        if (model.MotivoRechazo != "")
+                                        {
+                                            model.MotivoRechazo = "Tienes una deuda pendiente de " + valorx;
+                                            valorx = valor + listaMotivox[0].Valor;
+                                            model.MotivoRechazo += ". Además, superaste tu línea de crédito de " + oBEUsuario.Simbolo + ". " + oBEUsuario.MontoMaximoPedido + ". <a class='CerrarBanner' href='javascript:;' onclick=RedirectMenu('Index','Pedido',0,'Pedido');cerrarMensajeEstadoPedido() >MODIFICA TU PEDIDO</a>";
+                                        }
+                                        else
+                                        {
+                                            valorx = valor + listaMotivox[0].Valor;
+                                            model.MotivoRechazo = "Superaste tu línea de crédito de " + oBEUsuario.Simbolo + ". " + oBEUsuario.MontoMaximoPedido + ". <a class='CerrarBanner' href='javascript:;' onclick=RedirectMenu('Index','Pedido',0,'Pedido');cerrarMensajeEstadoPedido() >MODIFICA TU PEDIDO</a>";
+                                        }
+                                    }
+                                }
+
+
+                                listaMotivox = listaRechazo.Where(p => p.MotivoRechazo == "minstock").ToList();
+                                if (listaMotivox.Any())
+                                {
+                                    valorx = valor + listaMotivox[0].Valor;
+                                    model.MotivoRechazo = "No llegaste al mínimo de " + valorx + ". <a class='CerrarBanner' href='javascript:;' onclick=RedirectMenu('Index','Pedido',0,'Pedido');cerrarMensajeEstadoPedido() >MODIFICA TU PEDIDO</a>";
+                                }
+                            }
+
+                            // llamar al maestro de mensajes
+                        }
+                    }
+                }
+                #endregion
+
+                model.MotivoRechazo = model.MotivoRechazo.Trim();
+                model.IndicadorGPRSB = oBEUsuario.IndicadorGPRSB;
                 model.NombrePais = oBEUsuario.NombrePais;
                 model.PaisID = oBEUsuario.PaisID;
                 model.CodigoISO = oBEUsuario.CodigoISO;
