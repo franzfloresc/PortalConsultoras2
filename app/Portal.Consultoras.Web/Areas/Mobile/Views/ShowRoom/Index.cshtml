@@ -113,6 +113,11 @@
                     urlBase = request.Url.Scheme + "://" + request.Url.Authority + "/WebPages/SetVentaDigital.aspx?id=" + Model.CodigoIso + "_" + item.OfertaShowRoomID + "_" + Model.FormatoCampania + "_W";
                     urlBase2 = request.Url.Scheme + "://" + request.Url.Authority + "/WebPages/SetVentaDigital.aspx?id=" + Model.CodigoIso + "_" + item.OfertaShowRoomID + "_" + Model.FormatoCampania + "_F";
 
+					urlBase = urlBase.Replace("/", "%2F");
+					urlBase = urlBase.Replace(":", "%3A");
+					urlBase = urlBase.Replace("?", "%3F");
+					urlBase = urlBase.Replace("=", "%3D");
+					
                     var message = Uri.EscapeDataString(texto) + " - " + urlBase;
                     urlWs = "whatsapp://send?text=" + message;
                     //var urlWs = "whatsapp://send?text=" ;                    
