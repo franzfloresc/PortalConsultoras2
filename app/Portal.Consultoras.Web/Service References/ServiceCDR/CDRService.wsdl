@@ -128,6 +128,12 @@
   <wsdl:message name="ICDRService_GetLogCDRWebDetalleByLogCDRWebId_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetLogCDRWebDetalleByLogCDRWebIdResponse" />
   </wsdl:message>
+  <wsdl:message name="ICDRService_DetalleActualizarObservado_InputMessage">
+    <wsdl:part name="parameters" element="tns:DetalleActualizarObservado" />
+  </wsdl:message>
+  <wsdl:message name="ICDRService_DetalleActualizarObservado_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DetalleActualizarObservadoResponse" />
+  </wsdl:message>
   <wsdl:portType name="ICDRService">
     <wsdl:operation name="InsCDRWeb">
       <wsdl:input wsaw:Action="http://tempuri.org/ICDRService/InsCDRWeb" message="tns:ICDRService_InsCDRWeb_InputMessage" />
@@ -192,6 +198,10 @@
     <wsdl:operation name="GetLogCDRWebDetalleByLogCDRWebId">
       <wsdl:input wsaw:Action="http://tempuri.org/ICDRService/GetLogCDRWebDetalleByLogCDRWebId" message="tns:ICDRService_GetLogCDRWebDetalleByLogCDRWebId_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ICDRService/GetLogCDRWebDetalleByLogCDRWebIdResponse" message="tns:ICDRService_GetLogCDRWebDetalleByLogCDRWebId_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DetalleActualizarObservado">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICDRService/DetalleActualizarObservado" message="tns:ICDRService_DetalleActualizarObservado_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICDRService/DetalleActualizarObservadoResponse" message="tns:ICDRService_DetalleActualizarObservado_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_ICDRService" type="tns:ICDRService">
@@ -333,6 +343,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetLogCDRWebDetalleByLogCDRWebId">
       <soap:operation soapAction="http://tempuri.org/ICDRService/GetLogCDRWebDetalleByLogCDRWebId" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DetalleActualizarObservado">
+      <soap:operation soapAction="http://tempuri.org/ICDRService/DetalleActualizarObservado" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

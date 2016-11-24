@@ -104,5 +104,10 @@ namespace Portal.Consultoras.Service
         {
             return this.bLLogCDRWebDetalle.GetByLogCDRWebId(paisId, logCDRWebId);
         }
+
+        public bool DetalleActualizarObservado(int paisId, List<BECDRWebDetalle> lista)
+        {
+            return BLCDRWebDetalle.DetalleActualizarObservado(paisId, lista);
+        }
     }
 }

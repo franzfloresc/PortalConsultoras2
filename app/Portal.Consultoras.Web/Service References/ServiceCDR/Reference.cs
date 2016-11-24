@@ -284,6 +284,9 @@ namespace Portal.Consultoras.Web.ServiceCDR {
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string SolucionSolicitadaField;
         
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int TipoMotivoRechazoField;
+        
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
             get {
@@ -537,6 +540,19 @@ namespace Portal.Consultoras.Web.ServiceCDR {
                 if ((object.ReferenceEquals(this.SolucionSolicitadaField, value) != true)) {
                     this.SolucionSolicitadaField = value;
                     this.RaisePropertyChanged("SolucionSolicitada");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int TipoMotivoRechazo {
+            get {
+                return this.TipoMotivoRechazoField;
+            }
+            set {
+                if ((this.TipoMotivoRechazoField.Equals(value) != true)) {
+                    this.TipoMotivoRechazoField = value;
+                    this.RaisePropertyChanged("TipoMotivoRechazo");
                 }
             }
         }
@@ -1528,6 +1544,12 @@ namespace Portal.Consultoras.Web.ServiceCDR {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICDRService/GetLogCDRWebDetalleByLogCDRWebId", ReplyAction="http://tempuri.org/ICDRService/GetLogCDRWebDetalleByLogCDRWebIdResponse")]
         System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceCDR.BELogCDRWebDetalle[]> GetLogCDRWebDetalleByLogCDRWebIdAsync(int paisId, long logCDRWebId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICDRService/DetalleActualizarObservado", ReplyAction="http://tempuri.org/ICDRService/DetalleActualizarObservadoResponse")]
+        bool DetalleActualizarObservado(int paisId, Portal.Consultoras.Web.ServiceCDR.BECDRWebDetalle[] lista);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICDRService/DetalleActualizarObservado", ReplyAction="http://tempuri.org/ICDRService/DetalleActualizarObservadoResponse")]
+        System.Threading.Tasks.Task<bool> DetalleActualizarObservadoAsync(int paisId, Portal.Consultoras.Web.ServiceCDR.BECDRWebDetalle[] lista);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -1683,6 +1705,14 @@ namespace Portal.Consultoras.Web.ServiceCDR {
         
         public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceCDR.BELogCDRWebDetalle[]> GetLogCDRWebDetalleByLogCDRWebIdAsync(int paisId, long logCDRWebId) {
             return base.Channel.GetLogCDRWebDetalleByLogCDRWebIdAsync(paisId, logCDRWebId);
+        }
+        
+        public bool DetalleActualizarObservado(int paisId, Portal.Consultoras.Web.ServiceCDR.BECDRWebDetalle[] lista) {
+            return base.Channel.DetalleActualizarObservado(paisId, lista);
+        }
+        
+        public System.Threading.Tasks.Task<bool> DetalleActualizarObservadoAsync(int paisId, Portal.Consultoras.Web.ServiceCDR.BECDRWebDetalle[] lista) {
+            return base.Channel.DetalleActualizarObservadoAsync(paisId, lista);
         }
     }
 }
