@@ -16,116 +16,125 @@
 </div>
 <div class="content_belcorp" style="min-height: 600px;">
     <div class="pestana_lbel"></div><!--PESTAÑA PARA DARLE ESTILO CON LBEL-->
-    <div class="texto_titulo_reclamos" id="TituloReclamo">
-        Queremos verte siempre satisfecha con nuestros productos y servicio <br/>
-        <span>Si tuviste inconvenientes con algún producto y estás dentro del plazo permitido sigue estos pasos:</span>
-    </div>
-    <div class="content_registro_reclamos">
-        <div class="texto_solicitud_registrada">Tienes @Model.ListaCDRWeb.Count() solicitudes registradas:</div>
-        <a class="btn_si_stock" href="@Url.Action("Reclamo")" style="width: 296px;" id="IrPaso1">REGISTRAR SOLICITUD</a>
-        <hr class="clear"/>
-        <br/>
-        <br/>
-        <div class="grilla_detalle_reclamo">
-            <div class="content_listado_reclamo">
-                <div class="listado_fecha_general text_gris_reclamo">FECHA REGISTRO</div>
-                <div class="listado_campana_general text_gris_reclamo">CAMPAÑA</div>
-                <div class="listado_solicitud_general text_gris_reclamo">Nº SOLICITUD</div>
-                <div class="listado_resolucion_general text_gris_reclamo">FECHA RESOLUCIÓN</div>
-                <div class="listado_resumen_general text_gris_reclamo">RESUMEN DE RESOLUCIÓN</div>
-                <div class="listado_estado_general text_gris_reclamo">ESTADO</div>
-            </div>
-            <div class="linea_separadora"></div>
-            @foreach (var item in Model.ListaCDRWeb)
-            {
-                var horaRegistro = item.FechaRegistro.Hour > 12 ? item.FechaRegistro.Hour - 12 : item.FechaRegistro.Hour;
-                var minutoRegistro = item.FechaRegistro.Minute.ToString().PadLeft(2, '0');
-                var formatoDiaRegistro = item.FechaRegistro.Hour > 12 ? "pm" : "am";
-                var formatoHoraRegistro = horaRegistro.ToString().PadLeft(2, '0') + ":" + minutoRegistro + " " + formatoDiaRegistro;
 
-                var formatoHoraAtencion = "";
-                if (item.FechaAtencion.HasValue)
-                {
-                    var horaAtencion = item.FechaAtencion.Value.Hour > 12 ? item.FechaAtencion.Value.Hour - 12 : item.FechaAtencion.Value.Hour;
-                    var minutoAtencion = item.FechaAtencion.Value.Minute.ToString().PadLeft(2, '0');
-                    var formatoDiaAtencion = item.FechaAtencion.Value.Hour > 12 ? "pm" : "am";
-                    formatoHoraAtencion = horaAtencion.ToString().PadLeft(2, '0') + ":" + minutoAtencion + " " + formatoDiaAtencion;
-                }
-
-                var formatoFechaCulminado = "--/--/----";
-                if (item.FechaCulminado.HasValue)
-                {
-                    formatoFechaCulminado = item.FechaCulminado.Value.Day.ToString().PadLeft(2, '0') + "/" +
-                                            item.FechaCulminado.Value.Month.ToString().PadLeft(2, '0') + "/" + item.FechaCulminado.Value.Year;
-                }
-
-                var formatoCampania = item.CampaniaID.ToString().Substring(0, 4) + "-" + item.CampaniaID.ToString().Substring(4, 2);
-
-                var claseEstado = item.Estado == Constantes.EstadoCDRWeb.Pendiente
-                    ? ""
-                    : item.Estado == Constantes.EstadoCDRWeb.Enviado
-                        ? "EstadoRechazado"
-                        : item.Estado == Constantes.EstadoCDRWeb.Aceptado
-                            ? "estado_detalleFacturado"
-                            : item.Estado == Constantes.EstadoCDRWeb.Observado
-                                ? "estado_detalleObservado"
-                                : "";
-
+    @if (Model.IndicadorBloqueoCDR == 1 && Model.ListaCDRWeb.Count <= 0)
+    {
+        <div class="texto_reclamos_bloqueada">Lo sentimos, por el momento te encuentras bloqueada para realizar esta operación. Por favor, contáctate con el Call Center</div>
+    }
+    else
+    {
+        <div class="texto_titulo_reclamos" id="TituloReclamo">
+            Queremos verte siempre satisfecha con nuestros productos y servicio <br/>
+            <span>Si tuviste inconvenientes con algún producto y estás dentro del plazo permitido sigue estos pasos:</span>
+        </div>
+        <div class="content_registro_reclamos">
+            <div class="texto_solicitud_registrada">Tienes @Model.ListaCDRWeb.Count() solicitudes registradas:</div>
+            <a class="btn_si_stock" href="javascript:;" style="width: 296px;" id="IrPaso1">REGISTRAR SOLICITUD</a>
+            <hr class="clear"/>
+            <br/>
+            <br/>
+            <div class="grilla_detalle_reclamo">
                 <div class="content_listado_reclamo">
-                    <input type="hidden" class="cdrweb_id" value="@item.CDRWebID"/>
-                    <input type="hidden" class="cdrweb_pedidoid" value="@item.PedidoID"/>
-                    <input type="hidden" class="cdrweb_estado" value="@item.Estado"/>
-                    <input type="hidden" class="cdrweb_formatoFechaCulminado" value="@formatoFechaCulminado"/>
-                    <input type="hidden" class="cdrweb_formatocampania" value="@formatoCampania"/>
-                    <input type="hidden" class="cdrweb_resumenresolucion" value="@item.ResumenResolucion"/>
-
-                    <div class="listado_fecha_general">
-                        @item.FechaRegistro.Day.ToString().PadLeft(2, '0')/@item.FechaRegistro.Month.ToString().PadLeft(2, '0')/@item.FechaRegistro.Year
-                        <span class="detalle_listado">@formatoHoraRegistro</span>
-                    </div>
-                    <div class="listado_campana_general">@formatoCampania</div>
-                    <div class="listado_solicitud_general">@item.CDRWebID</div>
-                    <div class="listado_resolucion_general">
-                        @if (item.FechaAtencion.HasValue)
-                        {
-                            @item.FechaAtencion.Value.Day.ToString().PadLeft(2, '0')
-                            @item.FechaAtencion.Value.Month.ToString().PadLeft(2, '0')
-                            @item.FechaAtencion.Value.Year
-                            <span class="detalle_listado">@formatoHoraAtencion</span>
-                        }
-                    </div>
-                    @if (claseEstado == "estado_detalleObservado")
-                    {
-                        <div class="listado_resumen_general icono_resumen_resolucion">
-                            @item.ResumenResolucion
-                        </div>
-                    }
-                    else
-                    {
-                        <div class="listado_resumen_general">
-                            @item.ResumenResolucion
-                        </div>
-                    }
-                    <div class="listado_estado_general">
-                        <div>
-                            <span class="estado_texto @claseEstado">
-                                @item.EstadoDescripcion
-                            </span>
-                            <span>                    
-                                <a data-cdrwebid="@item.CDRWebID" data-pedidoid="@item.PedidoID" href="javascript:;" title="Ver Estado / Detalles" class="icono_verDetalle verDetalle">
-                                    <img src="/Content/Images/icono-ver-estado.png" alt="Ver Estado / Detalles">
-                                </a>
-                            </span>
-                        </div>
-                    </div>
+                    <div class="listado_fecha_general text_gris_reclamo">FECHA REGISTRO</div>
+                    <div class="listado_campana_general text_gris_reclamo">CAMPAÑA</div>
+                    <div class="listado_solicitud_general text_gris_reclamo">Nº SOLICITUD</div>
+                    <div class="listado_resolucion_general text_gris_reclamo">FECHA RESOLUCIÓN</div>
+                    <div class="listado_resumen_general text_gris_reclamo">RESUMEN DE RESOLUCIÓN</div>
+                    <div class="listado_estado_general text_gris_reclamo">ESTADO</div>
                 </div>
                 <div class="linea_separadora"></div>
-            }
+                @foreach (var item in Model.ListaCDRWeb)
+                {
+                    var horaRegistro = item.FechaRegistro.Hour > 12 ? item.FechaRegistro.Hour - 12 : item.FechaRegistro.Hour;
+                    var minutoRegistro = item.FechaRegistro.Minute.ToString().PadLeft(2, '0');
+                    var formatoDiaRegistro = item.FechaRegistro.Hour > 12 ? "pm" : "am";
+                    var formatoHoraRegistro = horaRegistro.ToString().PadLeft(2, '0') + ":" + minutoRegistro + " " + formatoDiaRegistro;
+
+                    var formatoHoraAtencion = "";
+                    if (item.FechaAtencion.HasValue)
+                    {
+                        var horaAtencion = item.FechaAtencion.Value.Hour > 12 ? item.FechaAtencion.Value.Hour - 12 : item.FechaAtencion.Value.Hour;
+                        var minutoAtencion = item.FechaAtencion.Value.Minute.ToString().PadLeft(2, '0');
+                        var formatoDiaAtencion = item.FechaAtencion.Value.Hour > 12 ? "pm" : "am";
+                        formatoHoraAtencion = horaAtencion.ToString().PadLeft(2, '0') + ":" + minutoAtencion + " " + formatoDiaAtencion;
+                    }
+
+                    var formatoFechaCulminado = "--/--/----";
+                    if (item.FechaCulminado.HasValue)
+                    {
+                        formatoFechaCulminado = item.FechaCulminado.Value.Day.ToString().PadLeft(2, '0') + "/" +
+                                                item.FechaCulminado.Value.Month.ToString().PadLeft(2, '0') + "/" + item.FechaCulminado.Value.Year;
+                    }
+
+                    var formatoCampania = item.CampaniaID.ToString().Substring(0, 4) + "-" + item.CampaniaID.ToString().Substring(4, 2);
+
+                    var claseEstado = item.Estado == Constantes.EstadoCDRWeb.Pendiente
+                        ? ""
+                        : item.Estado == Constantes.EstadoCDRWeb.Enviado
+                            ? "EstadoRechazado"
+                            : item.Estado == Constantes.EstadoCDRWeb.Aceptado
+                                ? "estado_detalleFacturado"
+                                : item.Estado == Constantes.EstadoCDRWeb.Observado
+                                    ? "estado_detalleObservado"
+                                    : "";
+
+                    <div class="content_listado_reclamo">
+                        <input type="hidden" class="cdrweb_id" value="@item.CDRWebID"/>
+                        <input type="hidden" class="cdrweb_pedidoid" value="@item.PedidoID"/>
+                        <input type="hidden" class="cdrweb_estado" value="@item.Estado"/>
+                        <input type="hidden" class="cdrweb_formatoFechaCulminado" value="@formatoFechaCulminado"/>
+                        <input type="hidden" class="cdrweb_formatocampania" value="@formatoCampania"/>
+                        <input type="hidden" class="cdrweb_resumenresolucion" value="@item.ResumenResolucion"/>
+
+                        <div class="listado_fecha_general">
+                            @item.FechaRegistro.Day.ToString().PadLeft(2, '0')/@item.FechaRegistro.Month.ToString().PadLeft(2, '0')/@item.FechaRegistro.Year
+                            <span class="detalle_listado">@formatoHoraRegistro</span>
+                        </div>
+                        <div class="listado_campana_general">@formatoCampania</div>
+                        <div class="listado_solicitud_general">@item.CDRWebID</div>
+                        <div class="listado_resolucion_general">
+                            @if (item.FechaAtencion.HasValue)
+                            {
+                                @item.FechaAtencion.Value.Day.ToString().PadLeft(2, '0')
+                                @item.FechaAtencion.Value.Month.ToString().PadLeft(2, '0')
+                                @item.FechaAtencion.Value.Year
+                                <span class="detalle_listado">@formatoHoraAtencion</span>
+                            }
+                        </div>
+                        @if (claseEstado == "estado_detalleObservado")
+                        {
+                            <div class="listado_resumen_general icono_resumen_resolucion">
+                                @item.ResumenResolucion
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="listado_resumen_general">
+                                @item.ResumenResolucion
+                            </div>
+                        }
+                        <div class="listado_estado_general">
+                            <div>
+                                <span class="estado_texto @claseEstado">
+                                    @item.EstadoDescripcion
+                                </span>
+                                <span>
+                                    <a data-cdrwebid="@item.CDRWebID" data-pedidoid="@item.PedidoID" href="javascript:;" title="Ver Estado / Detalles" class="icono_verDetalle verDetalle">
+                                        <img src="/Content/Images/icono-ver-estado.png" alt="Ver Estado / Detalles">
+                                    </a>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="linea_separadora"></div>
+                }
+            </div>
         </div>
-    </div>
+    }    
 </div>
 
 <input type="hidden" id="hdPedidoIdActual"/>
+<input type="hidden" id="hdIndicadorBloqueoCDR" value="@Model.IndicadorBloqueoCDR"/>
 
 <div class="contenedor_popup_percepciones" id="PopSolicitud">
     <div class="popup_Pendientes">
@@ -196,94 +205,10 @@
         </div>
         <div class="content_pop_grilla">
             <div id="divDetallePedidoCdrObservado">
-                @*<div class="titulo_grilla">PRODUCTOS OBSERVADOS:</div>
-                <div class="subtitulo_grilla">Resuelve las observaciones y envía nuevamente la solicitud</div>
-                <div class="content_listado_reclamo">
-                    <div class="pop_solicitud_producto text_gris_reclamo">Producto</div>
-                    <div class="pop_solicitud_tipo text_gris_reclamo">Tipo de solicitud</div>
-                    <div class="pop_solicitud_solucion text_gris_reclamo">Solución solicitada:</div>
-                    <div class="pop_solicitud_resolucion text_gris_reclamo">Resolución:</div>
-                </div>
-                <div class="linea_separadora"></div>
-
-                <div class="content_listado_reclamo">
-                    <div class="pop_solicitud_producto">
-                        00411<br>
-                        <b>Berrylicious shampoo rojo 375 ml.</b> <br>
-                        2 unidades<br>
-                        Costo: S/.15.00
-                    </div>
-                    <div class="pop_solicitud_tipo">
-                        <b>Cambiar por</b>
-                    </div>
-                    <div class="pop_solicitud_solucion">
-                        Reenvío del mismo producto
-                    </div>
-                    <div class="pop_solicitud_resolucion">
-                        <span class="texto_estado_solicitud">RECHAZADO</span>por superar el límite establecido de unidades a reclamar
-                    </div>
-                    <hr class="clear" />
-                    <!--PRODUCTO OBSERVADO-->
-                    <div class="content_producto_observado">
-                        <div class="nota_producto_observado">Debes eliminar este producto para procesar nuevamente tu solicitud.</div>
-                        <div class="rango_producto_observado">
-                            <input style="background: white;" type="text" name="Cantidad" id="txtCantidad" value="1" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral valid" onkeypress=" PreValidarCUV(); " onfocus=" SeleccionarContenido(this) ">
-                            <div class="liquidacion_rango_right_pedido" style="background: white;">
-                                <a class="mas"><img src="/Content/Images/Esika/mas.png" alt=""></a>
-                                <a class="menos"><img src="/Content/Images/Esika/menos.png" alt=""></a>
-                            </div>
-                        </div>
-                        <a class="btn_eliminar_observado">ELIMINAR PRODUCTO</a>
-                        <hr class="clear" />
-                    </div>
-                    <!--FIN-->
-                </div>
-                <br />*@
             </div>
 
             <div id="divDetallePedidoCdrAprobado">
-                @*<div class="titulo_grilla">PRODUCTOS APROBADOS:</div>
-                <div class="content_listado_reclamo">
-                    <div class="pop_solicitud_producto text_gris_reclamo">Producto</div>
-                    <div class="pop_solicitud_tipo text_gris_reclamo">Tipo de solicitud</div>
-                    <div class="pop_solicitud_solucion text_gris_reclamo">Solución solicitada:</div>
-                    <div class="pop_solicitud_resolucion text_gris_reclamo">Resolución:</div>
-                </div>
-                <div class="linea_separadora"></div>
-
-                <div class="content_listado_reclamo">
-                    <div class="pop_solicitud_producto">
-                        00411<br>
-                        <b>Berrylicious shampoo rojo 375 ml.</b> <br>
-                        2 unidades<br>
-                        Costo: S/.15.00
-                    </div>
-                    <div class="pop_solicitud_tipo">
-                        <b>Cambiar por</b>
-                    </div>
-                    <div class="pop_solicitud_solucion">
-                        Reenvío del mismo producto
-                    </div>
-                    <div class="pop_solicitud_resolucion"><span class="texto_estado_solicitud">APROBADO</span></div>
-                    <hr class="clear" />
-                </div>
-                <div class="content_listado_reclamo">
-                    <div class="pop_solicitud_producto">
-                        00411<br>
-                        <b>Berrylicious shampoo rojo 375 ml.</b> <br>
-                        2 unidades<br>
-                        Costo: S/.15.00
-                    </div>
-                    <div class="pop_solicitud_tipo">
-                        <b>Cambiar por</b>
-                    </div>
-                    <div class="pop_solicitud_solucion">
-                        Reenvío del mismo producto
-                    </div>
-                    <div class="pop_solicitud_resolucion"><span class="texto_estado_solicitud">APROBADO</span></div>
-                    <hr class="clear" />
-                </div>
-                *@
+                
             </div>
             <div class="linea_separadora_roja" style="height: 2px;"></div>
             <a id="btnFinalizar" class="btn_si_stock" href="#" style="width: 296px;">FINALIZA Y ENVÍA TU SOLICITUD</a>
@@ -553,9 +478,23 @@
                 if (actualizado)
                     window.location.href = urlReclamo + "?pedidoId=" + pedidoId;
             });
+
+            $("#IrPaso1").on("click", function () {
+                var estaBloqueado = $("#hdIndicadorBloqueoCDR").val();
+
+                if (estaBloqueado == 0)
+                    window.location.href = urlReclamo;
+                else {
+                    alert_msg("Lo sentimos, por el momento te encuentras bloqueada para realizar esta operación. Por favor, contáctate con el Call Center");
+                }
+            });
         });
 
         function ObtenerDetalleCdr(item) {
+            $("#divDetallePedidoCdrObservado").html("");
+            $("#divDetallePedidoCdrAprobado").html("");
+            $("#divDetallePedidoCDR").html("");
+
             waitingDialog();
 
             jQuery.ajax({
@@ -575,7 +514,7 @@
                         return false;
                     }
 
-                    if (item.Estado == 4) {
+                    if (item.Estado == 4) {                        
                         SetHandlebars("#template-detalle-2-observado", data, "#divDetallePedidoCdrObservado");
                         SetHandlebars("#template-detalle-2-aprobado", data, "#divDetallePedidoCdrAprobado");
                     } else {

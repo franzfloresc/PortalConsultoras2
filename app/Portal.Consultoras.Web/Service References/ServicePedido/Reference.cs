@@ -420,6 +420,12 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private short BloqueadoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int CDRWebEstadoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int CDRWebIDField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int CampaniaIDField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -546,6 +552,32 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((this.BloqueadoField.Equals(value) != true)) {
                     this.BloqueadoField = value;
                     this.RaisePropertyChanged("Bloqueado");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int CDRWebEstado {
+            get {
+                return this.CDRWebEstadoField;
+            }
+            set {
+                if ((this.CDRWebEstadoField.Equals(value) != true)) {
+                    this.CDRWebEstadoField = value;
+                    this.RaisePropertyChanged("CDRWebEstado");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int CDRWebID {
+            get {
+                return this.CDRWebIDField;
+            }
+            set {
+                if ((this.CDRWebIDField.Equals(value) != true)) {
+                    this.CDRWebIDField = value;
+                    this.RaisePropertyChanged("CDRWebID");
                 }
             }
         }

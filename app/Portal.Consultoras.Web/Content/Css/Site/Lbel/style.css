@@ -30842,6 +30842,13 @@ h1#penmostreo .campana {
 .texto_titulo_reclamos span{
     font-size:14px;
 }
+.texto_reclamos_bloqueada {
+    margin-top: 50px;
+    margin-bottom: 50px;
+    margin-left: 200px;
+    margin-right: 200px;
+    font-size: 18px
+}
 .content_pasos{
     width:310px;
     margin:0 auto;
@@ -31606,6 +31613,22 @@ h1#penmostreo .campana {
     border:1px solid black;
     margin-right:20px;
 }
+    .btn_pedido_white:hover {
+        font-family: 'Lato';
+        font-size: 13px;
+        text-align: center;
+        display: inline-block;
+        width: 180px;
+        height: 50px;
+        padding-top: 5px;
+        border: 1px solid black;
+        background: black;
+        color: white;
+    }
+
+        .btn_pedido_white:hover > * {
+            color: white;
+        }
 .btn_pedido_black{
     font-family:'Lato';
     font-size:13px;
