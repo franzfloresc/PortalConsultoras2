@@ -34,6 +34,12 @@
       <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd4" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
     </xsd:schema>
   </wsdl:types>
+  <wsdl:message name="IPedidoService_InsProductoSugerido_InputMessage">
+    <wsdl:part name="parameters" element="tns:InsProductoSugerido" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_InsProductoSugerido_OutputMessage">
+    <wsdl:part name="parameters" element="tns:InsProductoSugeridoResponse" />
+  </wsdl:message>
   <wsdl:message name="IPedidoService_UpdProductoSugerido_InputMessage">
     <wsdl:part name="parameters" element="tns:UpdProductoSugerido" />
   </wsdl:message>
@@ -598,6 +604,12 @@
   <wsdl:message name="IPedidoService_GetShowRoomOfertasConsultora_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetShowRoomOfertasConsultoraResponse" />
   </wsdl:message>
+  <wsdl:message name="IPedidoService_GetShowRoomOfertaById_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetShowRoomOfertaById" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_GetShowRoomOfertaById_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetShowRoomOfertaByIdResponse" />
+  </wsdl:message>
   <wsdl:message name="IPedidoService_GetPaginateProductoSugerido_InputMessage">
     <wsdl:part name="parameters" element="tns:GetPaginateProductoSugerido" />
   </wsdl:message>
@@ -609,12 +621,6 @@
   </wsdl:message>
   <wsdl:message name="IPedidoService_GetImagenesByCUV_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetImagenesByCUVResponse" />
-  </wsdl:message>
-  <wsdl:message name="IPedidoService_InsProductoSugerido_InputMessage">
-    <wsdl:part name="parameters" element="tns:InsProductoSugerido" />
-  </wsdl:message>
-  <wsdl:message name="IPedidoService_InsProductoSugerido_OutputMessage">
-    <wsdl:part name="parameters" element="tns:InsProductoSugeridoResponse" />
   </wsdl:message>
   <wsdl:message name="IPedidoService_GetPedidoWebID_InputMessage">
     <wsdl:part name="parameters" element="tns:GetPedidoWebID" />
@@ -1637,6 +1643,10 @@
     <wsdl:part name="parameters" element="tns:ValidarConfiguracionCrossSellingResponse" />
   </wsdl:message>
   <wsdl:portType name="IPedidoService">
+    <wsdl:operation name="InsProductoSugerido">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/InsProductoSugerido" message="tns:IPedidoService_InsProductoSugerido_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/InsProductoSugeridoResponse" message="tns:IPedidoService_InsProductoSugerido_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="UpdProductoSugerido">
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/UpdProductoSugerido" message="tns:IPedidoService_UpdProductoSugerido_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/UpdProductoSugeridoResponse" message="tns:IPedidoService_UpdProductoSugerido_OutputMessage" />
@@ -2013,6 +2023,10 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetShowRoomOfertasConsultora" message="tns:IPedidoService_GetShowRoomOfertasConsultora_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/GetShowRoomOfertasConsultoraResponse" message="tns:IPedidoService_GetShowRoomOfertasConsultora_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="GetShowRoomOfertaById">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetShowRoomOfertaById" message="tns:IPedidoService_GetShowRoomOfertaById_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/GetShowRoomOfertaByIdResponse" message="tns:IPedidoService_GetShowRoomOfertaById_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="GetPaginateProductoSugerido">
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetPaginateProductoSugerido" message="tns:IPedidoService_GetPaginateProductoSugerido_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/GetPaginateProductoSugeridoResponse" message="tns:IPedidoService_GetPaginateProductoSugerido_OutputMessage" />
@@ -2020,10 +2034,6 @@
     <wsdl:operation name="GetImagenesByCUV">
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetImagenesByCUV" message="tns:IPedidoService_GetImagenesByCUV_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/GetImagenesByCUVResponse" message="tns:IPedidoService_GetImagenesByCUV_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="InsProductoSugerido">
-      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/InsProductoSugerido" message="tns:IPedidoService_InsProductoSugerido_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/InsProductoSugeridoResponse" message="tns:IPedidoService_InsProductoSugerido_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="GetPedidoWebID">
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetPedidoWebID" message="tns:IPedidoService_GetPedidoWebID_InputMessage" />
@@ -2708,6 +2718,15 @@
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IPedidoService" type="tns:IPedidoService">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="InsProductoSugerido">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/InsProductoSugerido" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="UpdProductoSugerido">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/UpdProductoSugerido" style="document" />
       <wsdl:input>
@@ -3554,6 +3573,15 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GetShowRoomOfertaById">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/GetShowRoomOfertaById" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetPaginateProductoSugerido">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/GetPaginateProductoSugerido" style="document" />
       <wsdl:input>
@@ -3565,15 +3593,6 @@
     </wsdl:operation>
     <wsdl:operation name="GetImagenesByCUV">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/GetImagenesByCUV" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="InsProductoSugerido">
-      <soap:operation soapAction="http://tempuri.org/IPedidoService/InsProductoSugerido" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -5115,6 +5134,15 @@
   <wsdl:binding name="BasicHttpsBinding_IPedidoService" type="tns:IPedidoService">
     <wsp:PolicyReference URI="#BasicHttpsBinding_IPedidoService_policy" />
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="InsProductoSugerido">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/InsProductoSugerido" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="UpdProductoSugerido">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/UpdProductoSugerido" style="document" />
       <wsdl:input>
@@ -5961,6 +5989,15 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GetShowRoomOfertaById">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/GetShowRoomOfertaById" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetPaginateProductoSugerido">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/GetPaginateProductoSugerido" style="document" />
       <wsdl:input>
@@ -5972,15 +6009,6 @@
     </wsdl:operation>
     <wsdl:operation name="GetImagenesByCUV">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/GetImagenesByCUV" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="InsProductoSugerido">
-      <soap:operation soapAction="http://tempuri.org/IPedidoService/InsProductoSugerido" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
