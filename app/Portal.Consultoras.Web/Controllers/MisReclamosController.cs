@@ -48,6 +48,11 @@ namespace Portal.Consultoras.Web.Controllers
 
             model.ListaCDRWeb = listaCDRWebModel;
 
+            model.IndicadorBloqueoCDR = userData.IndicadorBloqueoCDR;
+
+            if(model.IndicadorBloqueoCDR == 1)
+                return View(model);
+
             if (model.ListaCDRWeb.Count == 0)
                 return RedirectToAction("Reclamo");
 
@@ -248,6 +253,8 @@ namespace Portal.Consultoras.Web.Controllers
                             pedidoActual.PedidoID = pedido.PedidoID;
                             pedidoActual.FechaRegistro = pedido.FechaRegistro;
                             pedidoActual.CanalIngreso = pedido.CanalIngreso;
+                            pedidoActual.CDRWebID = pedido.CDRWebID;
+                            pedidoActual.CDRWebEstado = pedido.CDRWebEstado;
                             pedidoActual.olstBEPedidoWebDetalle = lista.ToArray();
 
                             listaPedido.Add(pedidoActual);
@@ -339,6 +346,9 @@ namespace Portal.Consultoras.Web.Controllers
             
             differenceInDays = differenceInDays <= 0 ? 40 : differenceInDays;
 
+            //Para Pruebas
+            //differenceInDays = 30;
+
             var listaMotivoOperacion = CargarMotivoOperacion();
             var listaFiltro = listaMotivoOperacion.Where(mo => mo.CDRTipoOperacion.NumeroDiasAtrasOperacion >= differenceInDays && differenceInDays > 0).ToList();
 
@@ -385,7 +395,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             /*para prueba*/
             //listaPedidoFacturados.AddRange(listaPedidoFacturados);
-
+            
             return Json(new
             {
                 success = true,

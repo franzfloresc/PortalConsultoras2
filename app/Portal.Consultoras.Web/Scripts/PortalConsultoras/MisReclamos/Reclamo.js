@@ -174,16 +174,22 @@ function BuscarCUV(CUV) {
                 return false;
             
             if (data.success == false) {
-                messageInfoError(data.message);
+                alert_msg(data.message);
                 return false;
             }
             data.detalle = data.detalle || new Array();
-            if (data.detalle.length > 1) {
-                PopupPedido(data.detalle);
-            }
-            else {
-                AsignarCUV(data.detalle[0]);
-            }
+
+            if (data.detalle.length <= 0) {
+                $("#divMotivo").html("");
+                alert_msg("El Producto Ingresado no existe");
+            } else {
+                if (data.detalle.length > 1) {
+                    PopupPedido(data.detalle);
+                }
+                else {
+                    AsignarCUV(data.detalle[0]);
+                }
+            }            
         },
         error: function (data, error) {
             closeWaitingDialog();
@@ -259,17 +265,24 @@ function PopupPedidoSeleccionar(obj) {
 
 function AsignarCUV(pedido) {
     pedido = pedido || new Object();
-    pedido.olstBEPedidoWebDetalle = pedido.olstBEPedidoWebDetalle || new Array();
-    var detalle = pedido.olstBEPedidoWebDetalle.Find("CUV", $("#txtCUV").val() || "");
-    var data = detalle.length > 0 ? detalle[0] : new Object();
-    $("#txtCantidad").removeAttr("disabled");
-    $("#txtCantidad").attr("data-maxvalue", data.Cantidad);
-    $("#txtCUVDescripcion").val(data.DescripcionProd);
-    $("#txtPedidoID").val(data.PedidoID);
-    $("#txtImporteTotal").val(data.ImporteTotal);
 
-    BuscarMotivo();
-    DetalleCargar(true);
+    $("#divMotivo").html("");
+
+    if (pedido.CDRWebID > 0 && pedido.CDRWebEstado != 1) {        
+        alert_msg("Lo sentimos, ya cuentas con una solicitud web para este pedido. Por favor, contáctate con nuestro Call Center");
+    } else {
+        pedido.olstBEPedidoWebDetalle = pedido.olstBEPedidoWebDetalle || new Array();
+        var detalle = pedido.olstBEPedidoWebDetalle.Find("CUV", $("#txtCUV").val() || "");
+        var data = detalle.length > 0 ? detalle[0] : new Object();
+        $("#txtCantidad").removeAttr("disabled");
+        $("#txtCantidad").attr("data-maxvalue", data.Cantidad);
+        $("#txtCUVDescripcion").val(data.DescripcionProd);
+        $("#txtPedidoID").val(data.PedidoID);
+        $("#txtImporteTotal").val(data.ImporteTotal);
+
+        BuscarMotivo();
+        DetalleCargar(true);
+    }    
 }
 
 function BuscarMotivo() {
@@ -318,7 +331,14 @@ function ValidarPaso1() {
     ok = $.trim($("#txtPedidoID").val()) > 0 ? ok : false;
     ok = $.trim($("#txtCUV").val()) != "" ? ok : false;
     //ok = $.trim($("#txtCUVDescripcion").val()) != "" ? ok : false;
-    ok = $.trim($("#txtCantidad").val()) > 0 && $.trim($("#txtCantidad").val()) <= $.trim($("#txtCantidad").attr("data-maxvalue")) ? ok : false;
+    //ok = $.trim($("#txtCantidad").val()) > 0 && $.trim($("#txtCantidad").val()) <= $.trim($("#txtCantidad").attr("data-maxvalue")) ? ok : false;
+
+    if (!($.trim($("#txtCantidad").val()) > 0 && $.trim($("#txtCantidad").val()) <= $.trim($("#txtCantidad").attr("data-maxvalue")))) {
+        messageInfoError("Lamentablemente la cantidad ingresada supera a la cantidad facturada en tu pedido (" +
+            $.trim($("#txtCantidad").attr("data-maxvalue")) + ")");
+        return false;
+    }                
+
     ok = $.trim($("#divMotivo [data-check='1']").attr("id")) != "" ? ok : false;
     if (!ok) {
         messageInfoError("Datos incorrectos");
