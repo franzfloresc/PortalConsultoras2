@@ -17262,6 +17262,12 @@ namespace Portal.Consultoras.Web.ServicePedido {
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="ServicePedido.IPedidoService")]
     public interface IPedidoService {
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/InsProductoSugerido", ReplyAction="http://tempuri.org/IPedidoService/InsProductoSugeridoResponse")]
+        string InsProductoSugerido(int PaisID, Portal.Consultoras.Web.ServicePedido.BEProductoSugerido entidad);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/InsProductoSugerido", ReplyAction="http://tempuri.org/IPedidoService/InsProductoSugeridoResponse")]
+        System.Threading.Tasks.Task<string> InsProductoSugeridoAsync(int PaisID, Portal.Consultoras.Web.ServicePedido.BEProductoSugerido entidad);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/UpdProductoSugerido", ReplyAction="http://tempuri.org/IPedidoService/UpdProductoSugeridoResponse")]
         string UpdProductoSugerido(int PaisID, Portal.Consultoras.Web.ServicePedido.BEProductoSugerido entidad);
         
@@ -17828,6 +17834,12 @@ namespace Portal.Consultoras.Web.ServicePedido {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetShowRoomOfertasConsultora", ReplyAction="http://tempuri.org/IPedidoService/GetShowRoomOfertasConsultoraResponse")]
         System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEShowRoomOferta[]> GetShowRoomOfertasConsultoraAsync(int paisID, int campaniaID, string codigoConsultora);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetShowRoomOfertaById", ReplyAction="http://tempuri.org/IPedidoService/GetShowRoomOfertaByIdResponse")]
+        Portal.Consultoras.Web.ServicePedido.BEShowRoomOferta GetShowRoomOfertaById(int paisID, int ofertaShowRoomID);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetShowRoomOfertaById", ReplyAction="http://tempuri.org/IPedidoService/GetShowRoomOfertaByIdResponse")]
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEShowRoomOferta> GetShowRoomOfertaByIdAsync(int paisID, int ofertaShowRoomID);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetPaginateProductoSugerido", ReplyAction="http://tempuri.org/IPedidoService/GetPaginateProductoSugeridoResponse")]
         Portal.Consultoras.Web.ServicePedido.BEProductoSugerido[] GetPaginateProductoSugerido(int PaisID, int CampaniaID, string CUVAgotado, string CUVSugerido);
         
@@ -17839,12 +17851,6 @@ namespace Portal.Consultoras.Web.ServicePedido {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetImagenesByCUV", ReplyAction="http://tempuri.org/IPedidoService/GetImagenesByCUVResponse")]
         System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEMatrizComercial[]> GetImagenesByCUVAsync(int PaisID, int campaniaID, string cuv);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/InsProductoSugerido", ReplyAction="http://tempuri.org/IPedidoService/InsProductoSugeridoResponse")]
-        string InsProductoSugerido(int PaisID, Portal.Consultoras.Web.ServicePedido.BEProductoSugerido entidad);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/InsProductoSugerido", ReplyAction="http://tempuri.org/IPedidoService/InsProductoSugeridoResponse")]
-        System.Threading.Tasks.Task<string> InsProductoSugeridoAsync(int PaisID, Portal.Consultoras.Web.ServicePedido.BEProductoSugerido entidad);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetPedidoWebID", ReplyAction="http://tempuri.org/IPedidoService/GetPedidoWebIDResponse")]
         int GetPedidoWebID(int paisID, int campaniaID, long consultoraID);
@@ -18908,6 +18914,14 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 base(binding, remoteAddress) {
         }
         
+        public string InsProductoSugerido(int PaisID, Portal.Consultoras.Web.ServicePedido.BEProductoSugerido entidad) {
+            return base.Channel.InsProductoSugerido(PaisID, entidad);
+        }
+        
+        public System.Threading.Tasks.Task<string> InsProductoSugeridoAsync(int PaisID, Portal.Consultoras.Web.ServicePedido.BEProductoSugerido entidad) {
+            return base.Channel.InsProductoSugeridoAsync(PaisID, entidad);
+        }
+        
         public string UpdProductoSugerido(int PaisID, Portal.Consultoras.Web.ServicePedido.BEProductoSugerido entidad) {
             return base.Channel.UpdProductoSugerido(PaisID, entidad);
         }
@@ -19660,6 +19674,14 @@ namespace Portal.Consultoras.Web.ServicePedido {
             return base.Channel.GetShowRoomOfertasConsultoraAsync(paisID, campaniaID, codigoConsultora);
         }
         
+        public Portal.Consultoras.Web.ServicePedido.BEShowRoomOferta GetShowRoomOfertaById(int paisID, int ofertaShowRoomID) {
+            return base.Channel.GetShowRoomOfertaById(paisID, ofertaShowRoomID);
+        }
+        
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEShowRoomOferta> GetShowRoomOfertaByIdAsync(int paisID, int ofertaShowRoomID) {
+            return base.Channel.GetShowRoomOfertaByIdAsync(paisID, ofertaShowRoomID);
+        }
+        
         public Portal.Consultoras.Web.ServicePedido.BEProductoSugerido[] GetPaginateProductoSugerido(int PaisID, int CampaniaID, string CUVAgotado, string CUVSugerido) {
             return base.Channel.GetPaginateProductoSugerido(PaisID, CampaniaID, CUVAgotado, CUVSugerido);
         }
@@ -19674,14 +19696,6 @@ namespace Portal.Consultoras.Web.ServicePedido {
         
         public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEMatrizComercial[]> GetImagenesByCUVAsync(int PaisID, int campaniaID, string cuv) {
             return base.Channel.GetImagenesByCUVAsync(PaisID, campaniaID, cuv);
-        }
-        
-        public string InsProductoSugerido(int PaisID, Portal.Consultoras.Web.ServicePedido.BEProductoSugerido entidad) {
-            return base.Channel.InsProductoSugerido(PaisID, entidad);
-        }
-        
-        public System.Threading.Tasks.Task<string> InsProductoSugeridoAsync(int PaisID, Portal.Consultoras.Web.ServicePedido.BEProductoSugerido entidad) {
-            return base.Channel.InsProductoSugeridoAsync(PaisID, entidad);
         }
         
         public int GetPedidoWebID(int paisID, int campaniaID, long consultoraID) {
