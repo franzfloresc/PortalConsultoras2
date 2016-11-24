@@ -54,13 +54,28 @@ namespace Portal.Consultoras.Web.Controllers
             return View(model);
         }
 
-        public ActionResult Reclamo()
+        public ActionResult Reclamo(int pedidoId = 0)
         {
             CargarInformacion();
             var model = new MisReclamosModel();
             model.ListaCampania = (List<CampaniaModel>)Session[Constantes.ConstSession.CDRCampanias];
             model.Email = userData.EMail;
             model.Telefono = userData.Celular;
+
+            model.PedidoID = pedidoId;
+
+            if (pedidoId != 0)
+            {
+                MisReclamosModel modelCdr = new MisReclamosModel();
+                modelCdr.PedidoID = pedidoId;
+                var listaCdr = CargarBECDRWeb(modelCdr);
+
+                if (listaCdr.Count == 1)
+                {
+                    model.CampaniaID = listaCdr[0].CampaniaID;
+                    model.CDRWebID = listaCdr[0].CDRWebID;
+                }                    
+            }
 
             return View(model);
         }
@@ -571,8 +586,8 @@ namespace Portal.Consultoras.Web.Controllers
                     return (List<BECDRWeb>)Session[Constantes.ConstSession.CDRWeb];
                 }
 
-                if (model.PedidoID * model.CampaniaID <= 0)
-                    return entidadLista;
+                //if (model.PedidoID * model.CampaniaID <= 0)
+                //    return entidadLista;
 
                 var entidad = new BECDRWeb();
                 entidad.CampaniaID = model.CampaniaID;
@@ -677,7 +692,8 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 success = true,
                 message = "",
-                detalle = lista                
+                detalle = lista,
+                Simbolo = userData.Simbolo
             }, JsonRequestBehavior.AllowGet);
         }
 
@@ -757,6 +773,40 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     success = false,
                     message = "Error, vuelva a intentarlo"
+                }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        public JsonResult DetalleActualizarObservado(List<MisReclamosModel> lista)
+        {
+            try
+            {
+                Mapper.CreateMap<MisReclamosModel, BECDRWebDetalle>()
+                    .ForMember(t => t.CDRWebDetalleID, f => f.MapFrom(c => c.CDRWebDetalleID))
+                    .ForMember(t => t.Cantidad, f => f.MapFrom(c => c.Cantidad));
+
+                var listaCdr = Mapper.Map<List<MisReclamosModel>, List<BECDRWebDetalle>>(lista);
+
+                bool ok;
+                using (CDRServiceClient sv = new CDRServiceClient())
+                {
+                    ok = sv.DetalleActualizarObservado(userData.PaisID, listaCdr.ToArray());
+                }
+
+                return Json(new
+                {
+                    success = ok,
+                    message = ok ? "" : "Ocurrio un error al actualizar",
+                    detalle = ""
+                }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new
+                {
+                    success = false,
+                    message = "Error: " + ex.Message,
+                    detalle = ""
                 }, JsonRequestBehavior.AllowGet);
             }
         }

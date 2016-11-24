@@ -52,6 +52,9 @@ namespace Portal.Consultoras.Entities.CDR
         [DataMember]
         public string SolucionSolicitada { get; set; }
 
+        [DataMember]
+        public int TipoMotivoRechazo { get; set; }
+
         public BECDRWebDetalle()
         { }
 
@@ -74,7 +77,8 @@ namespace Portal.Consultoras.Entities.CDR
             if (row.HasColumn("Precio")) Precio = Convert.ToDecimal(row["Precio"]);
             if (row.HasColumn("Descripcion2")) Descripcion2 = Convert.ToString(row["Descripcion2"]);
             if (row.HasColumn("Precio2")) Precio2 = Convert.ToDecimal(row["Precio2"]);
-            if (row.HasColumn("SolucionSolicitada")) SolucionSolicitada = Convert.ToString(row["SolucionSolicitada"]);            
+            if (row.HasColumn("SolucionSolicitada")) SolucionSolicitada = Convert.ToString(row["SolucionSolicitada"]);
+            if (row.HasColumn("TipoMotivoRechazo")) TipoMotivoRechazo = Convert.ToInt32(row["TipoMotivoRechazo"]);
         }
     }
 }

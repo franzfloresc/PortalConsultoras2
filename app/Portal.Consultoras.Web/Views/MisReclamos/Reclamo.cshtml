@@ -36,11 +36,11 @@
             <div>
                 <div class="subtitulo_reclamo">¿Con qué producto has tenido el inconveniente?</div>
                 <div>
-                    @Html.DropDownListFor(model => model.Campania, new SelectList(Model.ListaCampania, "CampaniaID", "NombreCorto", Model.Campania), new {id = "ddlCampania", @class = "select_reclamo", @required = "required"})
+                    @Html.DropDownListFor(model => model.CampaniaID, new SelectList(Model.ListaCampania, "CampaniaID", "NombreCorto", Model.CampaniaID), new {id = "ddlCampania", @class = "select_reclamo", @required = "required"})
                     @*<select class="select_reclamo">
                         <option>¿En qué campaña lo solicitaste?</option>
                     </select>*@
-                    <input type="hidden" id="txtPedidoID"/>
+                    <input type="hidden" id="txtPedidoID" value="@Model.PedidoID"/>
                     <input type="hidden" id="txtImporteTotal"/>
                     <input type="text" placeholder="Código" class="codigo_reclamo" id="txtCUV"/>
                     <input type="text" placeholder="Descripción del producto" class="descripcion_reclamo" id="txtCUVDescripcion" readonly="readonly"/>
@@ -364,7 +364,7 @@
         <div class="listado_eliminar_reclamo text_gris_reclamo">ELIMINAR</div>
     </div>
     <div class="linea_separadora"></div>*@
-    {{#each this as |item|}}
+    {{#each detalle as |item|}}
     <div class="content_listado_reclamo" data-item="{{item.CUV}}">
         <div style="display:none;">
             <input type="hidden" name="id" value="{{item.CDRWebDetalleID}}" />
@@ -400,7 +400,7 @@
     {{/each}}
 </script>
 <script id="template-detalle-paso3-enviada" type="text/x-handlebars-template">    
-    {{#each this as |item|}}
+    {{#each detalle as |item|}}
     <div class="content_listado_reclamo" data-item="{{item.CUV}}">
         <div style="display:none;">
             <input type="hidden" name="id" value="{{item.CDRWebDetalleID}}" />

@@ -135,6 +135,12 @@ $(document).ready(function () {
 
         $("#spnImporteTotal2").html(DecimalToStringFormat(importeTotal));
     });
+
+    var pedidoId = parseInt($("#txtPedidoID").val());
+    if (pedidoId != 0) {
+        CambioPaso(3);
+        DetalleCargar();
+    }
 });
 
 // Paso 1
@@ -548,7 +554,6 @@ function CambioPaso2(paso) {
 // FIN Paso 2
 
 // Paso 3
-
 function DetalleCargar(mostrarBanner) {
     var item = {
         CDRWebID: $("#CDRWebID").val() || 0,
@@ -578,8 +583,8 @@ function DetalleCargar(mostrarBanner) {
                 SetHandlebars("#template-detalle-banner", data.detalle, "#divDetalleUltimasSolicitudes");
                 $("#divUltimasSolicitudes").show();
             }
-            SetHandlebars("#template-detalle-paso3", data.detalle, "#divDetallePaso3");
-            SetHandlebars("#template-detalle-paso3-enviada", data.detalle, "#divDetalleEnviar");
+            SetHandlebars("#template-detalle-paso3", data, "#divDetallePaso3");
+            SetHandlebars("#template-detalle-paso3-enviada", data, "#divDetalleEnviar");
         },
         error: function(data, error) {
             closeWaitingDialog();
