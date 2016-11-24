@@ -34,6 +34,12 @@
       <xsd:import schemaLocation="http://localhost:41615/SACService.svc?xsd=xsd4" namespace="http://schemas.datacontract.org/2004/07/System.Data" />
     </xsd:schema>
   </wsdl:types>
+  <wsdl:message name="ISACService_DelProveedorDespachoCobranza_InputMessage">
+    <wsdl:part name="parameters" element="tns:DelProveedorDespachoCobranza" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_DelProveedorDespachoCobranza_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DelProveedorDespachoCobranzaResponse" />
+  </wsdl:message>
   <wsdl:message name="ISACService_UpdProveedorDespachoCobranzaCabecera_InputMessage">
     <wsdl:part name="parameters" element="tns:UpdProveedorDespachoCobranzaCabecera" />
   </wsdl:message>
@@ -237,6 +243,12 @@
   </wsdl:message>
   <wsdl:message name="ISACService_ObtenerComunicadoPorConsultora_OutputMessage">
     <wsdl:part name="parameters" element="tns:ObtenerComunicadoPorConsultoraResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_ObtenerOrdenPopUpMostrar_InputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenerOrdenPopUpMostrar" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_ObtenerOrdenPopUpMostrar_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenerOrdenPopUpMostrarResponse" />
   </wsdl:message>
   <wsdl:message name="ISACService_UpdComunicadoByConsultora_InputMessage">
     <wsdl:part name="parameters" element="tns:UpdComunicadoByConsultora" />
@@ -567,12 +579,6 @@
   </wsdl:message>
   <wsdl:message name="ISACService_GetProveedorDespachoCobranza_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetProveedorDespachoCobranzaResponse" />
-  </wsdl:message>
-  <wsdl:message name="ISACService_DelProveedorDespachoCobranza_InputMessage">
-    <wsdl:part name="parameters" element="tns:DelProveedorDespachoCobranza" />
-  </wsdl:message>
-  <wsdl:message name="ISACService_DelProveedorDespachoCobranza_OutputMessage">
-    <wsdl:part name="parameters" element="tns:DelProveedorDespachoCobranzaResponse" />
   </wsdl:message>
   <wsdl:message name="ISACService_GetCronogramaByCampania_InputMessage">
     <wsdl:part name="parameters" element="tns:GetCronogramaByCampania" />
@@ -1085,6 +1091,10 @@
     <wsdl:part name="parameters" element="tns:UpdateBelcorpNoticiaResponse" />
   </wsdl:message>
   <wsdl:portType name="ISACService">
+    <wsdl:operation name="DelProveedorDespachoCobranza">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/DelProveedorDespachoCobranza" message="tns:ISACService_DelProveedorDespachoCobranza_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/DelProveedorDespachoCobranzaResponse" message="tns:ISACService_DelProveedorDespachoCobranza_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="UpdProveedorDespachoCobranzaCabecera">
       <wsdl:input wsaw:Action="http://tempuri.org/ISACService/UpdProveedorDespachoCobranzaCabecera" message="tns:ISACService_UpdProveedorDespachoCobranzaCabecera_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ISACService/UpdProveedorDespachoCobranzaCabeceraResponse" message="tns:ISACService_UpdProveedorDespachoCobranzaCabecera_OutputMessage" />
@@ -1220,6 +1230,10 @@
     <wsdl:operation name="ObtenerComunicadoPorConsultora">
       <wsdl:input wsaw:Action="http://tempuri.org/ISACService/ObtenerComunicadoPorConsultora" message="tns:ISACService_ObtenerComunicadoPorConsultora_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ISACService/ObtenerComunicadoPorConsultoraResponse" message="tns:ISACService_ObtenerComunicadoPorConsultora_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerOrdenPopUpMostrar">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/ObtenerOrdenPopUpMostrar" message="tns:ISACService_ObtenerOrdenPopUpMostrar_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/ObtenerOrdenPopUpMostrarResponse" message="tns:ISACService_ObtenerOrdenPopUpMostrar_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="UpdComunicadoByConsultora">
       <wsdl:input wsaw:Action="http://tempuri.org/ISACService/UpdComunicadoByConsultora" message="tns:ISACService_UpdComunicadoByConsultora_InputMessage" />
@@ -1440,10 +1454,6 @@
     <wsdl:operation name="GetProveedorDespachoCobranza">
       <wsdl:input wsaw:Action="http://tempuri.org/ISACService/GetProveedorDespachoCobranza" message="tns:ISACService_GetProveedorDespachoCobranza_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ISACService/GetProveedorDespachoCobranzaResponse" message="tns:ISACService_GetProveedorDespachoCobranza_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="DelProveedorDespachoCobranza">
-      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/DelProveedorDespachoCobranza" message="tns:ISACService_DelProveedorDespachoCobranza_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/DelProveedorDespachoCobranzaResponse" message="tns:ISACService_DelProveedorDespachoCobranza_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="GetCronogramaByCampania">
       <wsdl:input wsaw:Action="http://tempuri.org/ISACService/GetCronogramaByCampania" message="tns:ISACService_GetCronogramaByCampania_InputMessage" />
@@ -1788,6 +1798,15 @@
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_ISACService" type="tns:ISACService">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="DelProveedorDespachoCobranza">
+      <soap:operation soapAction="http://tempuri.org/ISACService/DelProveedorDespachoCobranza" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="UpdProveedorDespachoCobranzaCabecera">
       <soap:operation soapAction="http://tempuri.org/ISACService/UpdProveedorDespachoCobranzaCabecera" style="document" />
       <wsdl:input>
@@ -2087,6 +2106,15 @@
     </wsdl:operation>
     <wsdl:operation name="ObtenerComunicadoPorConsultora">
       <soap:operation soapAction="http://tempuri.org/ISACService/ObtenerComunicadoPorConsultora" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerOrdenPopUpMostrar">
+      <soap:operation soapAction="http://tempuri.org/ISACService/ObtenerOrdenPopUpMostrar" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -2582,15 +2610,6 @@
     </wsdl:operation>
     <wsdl:operation name="GetProveedorDespachoCobranza">
       <soap:operation soapAction="http://tempuri.org/ISACService/GetProveedorDespachoCobranza" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="DelProveedorDespachoCobranza">
-      <soap:operation soapAction="http://tempuri.org/ISACService/DelProveedorDespachoCobranza" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -3367,6 +3386,15 @@
   <wsdl:binding name="BasicHttpsBinding_ISACService" type="tns:ISACService">
     <wsp:PolicyReference URI="#BasicHttpsBinding_ISACService_policy" />
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="DelProveedorDespachoCobranza">
+      <soap:operation soapAction="http://tempuri.org/ISACService/DelProveedorDespachoCobranza" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="UpdProveedorDespachoCobranzaCabecera">
       <soap:operation soapAction="http://tempuri.org/ISACService/UpdProveedorDespachoCobranzaCabecera" style="document" />
       <wsdl:input>
@@ -3666,6 +3694,15 @@
     </wsdl:operation>
     <wsdl:operation name="ObtenerComunicadoPorConsultora">
       <soap:operation soapAction="http://tempuri.org/ISACService/ObtenerComunicadoPorConsultora" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerOrdenPopUpMostrar">
+      <soap:operation soapAction="http://tempuri.org/ISACService/ObtenerOrdenPopUpMostrar" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -4161,15 +4198,6 @@
     </wsdl:operation>
     <wsdl:operation name="GetProveedorDespachoCobranza">
       <soap:operation soapAction="http://tempuri.org/ISACService/GetProveedorDespachoCobranza" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="DelProveedorDespachoCobranza">
-      <soap:operation soapAction="http://tempuri.org/ISACService/DelProveedorDespachoCobranza" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
