@@ -13,6 +13,8 @@
 <input type="hidden" id="hdEsFacturacion" value="@Model.EsFacturacion.ToString()" />
 <input type="hidden" id="hdOfertaFinal" value="@Model.OfertaFinal" />
 <input type="hidden" id="hdEsOfertaFinalZonaValida" value="@Model.EsOfertaFinalZonaValida.ToString()" />
+<input type="hidden" id="hdOfertaFinalGanaMas" value="@Model.OfertaFinalGanaMas" />
+<input type="hidden" id="hdEsOFGanaMasZonaValida" value="@Model.EsOFGanaMasZonaValida.ToString()" />
 <input type="hidden" id="hdListaParametriaOfertaFinal" value="@Newtonsoft.Json.JsonConvert.SerializeObject(Model.ListaParametriaOfertaFinal)" />
 <input type="hidden" id="hdEsConsultoraNueva" value="@Model.EsConsultoraNueva.ToString()" />
 <input type="hidden" id="hdListaEscala" value="@Newtonsoft.Json.JsonConvert.SerializeObject(Model.DataBarra.ListaEscalaDescuento)" />
@@ -104,9 +106,13 @@
             <span id="spnTituloOfertaFinal">GUARDASTE TU <b>PEDIDO CON ÉXITO !</b></span>
         </h1>
 
-        <div class="ofertaFinal_descripcion">
+        <div class="ofertaFinal_descripcion" id="of_descripcion1">
             Agrega <span>@Model.Simbolo </span><span id="spnMontoFaltanteOfertaFinal"></span>
             <span id="spnMensajeOfertaFinal">para ganar más esta campaña.</span>
+        </div>
+
+        <div class="ofertaFinal_descripcion" id="of_descripcion2" style="display: none;">
+            Agrega estos productos para ganar mas esta campaña
         </div>
 
         <div class="contenedor_carruselOfertaFinal">
