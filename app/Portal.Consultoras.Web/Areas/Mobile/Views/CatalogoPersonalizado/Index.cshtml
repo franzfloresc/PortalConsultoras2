@@ -2,11 +2,15 @@
     Layout = "~/Areas/Mobile/Views/Shared/_MobileLayout.cshtml";
 }
 
+<link href="~/Content/Css/Mobile/esika/bootstrap-slider.min.css" rel="stylesheet" />
+
 @section styles{
+
     <style type="text/css">
         body {
             background: #f5f5f7 !important;
         }
+
     </style>
 }
 <div class="titulo_mobile">
@@ -21,10 +25,131 @@
     <div class="texto_descripcionCatalogoPersonalizado">
         Encuentra una selección de los productos que tus clientes de seguro te solicitarán
     </div>
-    <div id="divCatalogoPersonalizado" class="contenedor_productos_liquidacion">
 
+    <!--SB20-1197 - INICIO -->
+
+    <div id="orderby-filter">
+        <div id="content-orderby">
+            <select id="orderby-price" class="select-ffc" onchange="processFilterCatalogoPersonalizado(1);">
+                <option value="-1">Ordenar por</option>
+                <option value="asc">PRECIO | Menor a mayor</option>
+                <option value="desc">PRECIO | Mayor a menor</option>
+            </select>
+
+            <input type="button" class="btn2-ffc" value="FILTROS" onclick="showCustomFilters();" />
+        </div>
+        <br />
+
+        <div id="summary-filters">
+            <div id="div-result-number">
+                <span id="result-number">
+                </span>
+            </div>
+            
+            <div id="div-delete-filters" style="display: none;">
+                <a href="#" class="link-ffc" onclick="deleteFilters();">BORRAR FILTROS</a>
+            </div>
+            <br /><br />
+        </div>
+    </div>
+
+    <div id="custom-filters" style="display: none;">
+
+        <div id="header-custom-filters">
+
+            <div id="title-custom-filters">
+                <span style="font-size: 18px;">FILTROS</span>
+            </div>
+            <div id="delete-custom-filters" style="">
+                <span style="text-align: right;" onclick="showOrderbyFilter();">
+                    <img src="~/Content/Images/mobile/icon-xclose.png" style="width: 20px; height: 20px; cursor: pointer;" />
+                </span>
+            </div>
+        </div>
+        <br />
+
+        <div class="right" style="">
+            <a href="#" class="link-ffc" onclick="deleteFilters();">BORRAR FILTROS</a>
+        </div>
+        <br />
+
+        <div id="content-filters" style="">
+            <div class="panel-group" id="accordion">
+                
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a class="accordion-toggle" data-toggle="collapse" href="#collapseTwo" style="text-decoration: none;">
+                                <span class="title-accordion">MARCAS</span>
+                            </a>
+                        </h4>
+                    </div>
+                    <div id="collapseTwo" class="panel-collapse collapse">
+                        <div class="panel-body">
+                            <div class="content-category">
+                                <div class="center-checkbox">
+                                    <input type="checkbox" id="b1" name="brand" value="2">
+                                    <label for="b1" class="label-checkbox">Esika</label>
+                                </div>
+                                <div class="center-checkbox">
+                                    <input type="checkbox" id="b2" name="brand" value="1">
+                                    <label for="b2" class="label-checkbox">Lbel</label>
+                                </div>
+                                <div class="center-checkbox">
+                                    <input type="checkbox" id="b3" name="brand" value="3">
+                                    <label for="b3" class="label-checkbox">Cyzone</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a class="accordion-toggle" data-toggle="collapse" href="#collapseThree" style="text-decoration: none;">
+                                <span class="title-accordion">FILTRAR PRECIO</span>
+                            </a>
+                        </h4>
+                    </div>
+                    <div id="collapseThree" class="panel-collapse collapse">
+                        <div class="panel-body">
+                            <div style="font-size: 12px; width: 100%;">
+
+                                <div style="text-align: left; width: 50%; float: left;">
+                                    <b>@ViewBag.Simbolo <span id="min-range-price">10</span></b>
+                                </div>
+                                <div style="text-align: right; width: 50%; float: left;">
+                                    <b>@ViewBag.Simbolo <span id="max-range-price">1000</span></b>
+                                </div>
+
+                                <div style="width: 100%; color: #e81c36; text-align: center;">
+                                    <input id="txt-range-price" type="text" class="span2" value="" style="width: 90%;"
+                                           data-slider-id="slider-price"
+                                           data-slider-min="0"
+                                           data-slider-max="0"
+                                           data-slider-step="1"
+                                           data-slider-value="[0,0]" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="save-filters">
+            <input type="button" class="btn-ffc" value="GUARDAR" onclick="processFilterCatalogoPersonalizado(2);" />
+        </div>
+
+        <br />
+    </div>
+
+    <!--SB20-1197 - FIN -->
+
+    <div id="divCatalogoPersonalizado" class="contenedor_productos_liquidacion">
     </div>
     <div class="clear"></div>
+
 </div>
 
 <div id="popUpCatalogoPersonalizado_003" class="MensajeAlertaMobile" style="display: none;"></div>
@@ -291,7 +416,7 @@
                         {{/IsNullOrEmpty}}        
                         
                     </div>
-                    <div class="sub_descripcion_oferta"><p><span>x {{item.cantidad}}</span> {{item.descripcion_gratis}}</p></div>
+                    <div class="sub_descripcion_oferta"><p><span>x{{item.cantidad}}</span> {{item.descripcion_gratis}}</p></div>
                     <hr class="clear" />
                     {{/if_eq}}
                     {{/each}}
@@ -351,7 +476,8 @@
         <hr class="clear" />
 
         <div style="text-align:center">
-            <div class="titulo_popOferta">OFERTA EN REVISTA</div>
+            @*<div class="titulo_popOferta">OFERTA EN REVISTA</div>*@
+            <div class="titulo_popOferta">OFERTA EN GUÍA DE NEGOCIO</div>
         </div>
         <div class="linea_separadora_black" style="margin-top:-10px;"></div>
         <hr class="clear" />
@@ -395,7 +521,8 @@
                 {{/IsNullOrEmpty}}                
             </div>
             <div class="titulo_producto_oferta" id="titulo">{{Descripcion}}</div>
-            <div class="sub_texto_oferta">En Revista: {{Simbolo}} {{DecimalToStringFormat precio_revista}}</div>
+            @*<div class="sub_texto_oferta">En Revista: {{Simbolo}} {{DecimalToStringFormat precio_revista}}</div>*@
+            <div class="sub_texto_oferta">Precio para ti: {{Simbolo}} {{DecimalToStringFormat precio_revista}}</div>
             <div class="texto_ganancia_oferta" style="text-transform: uppercase;">{{TxtGanancia}}: {{Simbolo}} {{DecimalToStringFormat ganancia}}</div>
 
             <div class="liquidacion_rango_home">
@@ -406,6 +533,7 @@
             <div class="clear"></div>
             <a class="boton_Agregalo_home agregar-ofertarevista" data-cuv="revista" tabindex="0">AGRÉGALO</a>
         </div>
+
         <!--FIN-->
         {{#each lista_oObjPack as |pack|}}
         <div class="item_pack_personalizado">
@@ -422,7 +550,7 @@
             <div class="content_item_oferta">
                 <div class="titulo_producto_oferta"><span class="texto_unidad_pack">Precio para ti: </span>{{../Simbolo}} {{DecimalToStringFormat pack.precio_pack}}</div>
                 <div class="texto_ganancia_oferta" style="text-transform: uppercase;">{{../TxtGanancia}}: {{../Simbolo}} {{DecimalToStringFormat pack.ganancia_pack}}</div>
-                <div class="left_70"><div class="titulo_producto_oferta" style="text-align:left">INCLUYE</div></div>
+                @*<div class="left_70"><div class="titulo_producto_oferta" style="text-align:left">INCLUYE</div></div>*@
                 <hr class="clear" />
                 {{#each ../lista_oObjItemPack as |item|}}
                 {{#if_eq pack.cuv_pack item.cuv_pack_item}}
@@ -437,8 +565,8 @@
                             <img src="@Url.Content(ViewBag.RutaImagenNoDisponible)" alt="" style="width: 55px; height: 55px; border: 0;" />
                         </div>
                         {{/IsNullOrEmpty}}                        
-                    </>
-                    <div class="sub_descripcion_oferta"><p><span>x {{item.cantidad_item_pack}} </span>{{item.descripcion_item_pack}}</p></div>
+                    </div>
+                    <div class="sub_descripcion_oferta"><p><span>x{{item.cantidad_item_pack}} </span>{{item.descripcion_item_pack}}</p></div>
                 </div>
                 <hr class="clear" />
                 {{/if_eq}}
@@ -492,4 +620,6 @@
         var tipoOrigen = '2';
     </script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/CatalogoPersonalizado/CatalogoPersonalizado.js")"></script>
+    <script src="~/Scripts/PortalConsultoras/Mobile/CatalogoPersonalizado/bootstrap-slider.min.js"></script>
+
 }

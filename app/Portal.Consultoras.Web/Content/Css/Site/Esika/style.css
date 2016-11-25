@@ -22713,6 +22713,9 @@ body{
     -o-transition:all 0.3s ease;
     -ms-transition:all 0.3s ease;
     -webkit-transition:all 0.3s ease;
+    width: 30px;
+    height: 30px;
+    float: right;
 }
 
 .detalle_percepcion a:hover{
