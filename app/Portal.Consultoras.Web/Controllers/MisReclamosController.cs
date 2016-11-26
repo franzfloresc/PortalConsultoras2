@@ -9,6 +9,7 @@ using System.Web;
 using System.Web.Mvc;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.ServiceODS;
+using Portal.Consultoras.Web.ServiceUsuario;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -82,6 +83,8 @@ namespace Portal.Consultoras.Web.Controllers
                 }                    
             }
 
+            model.MontoMinimo = userData.MontoMinimo;
+
             return View(model);
         }
 
@@ -136,6 +139,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             Session[Constantes.ConstSession.CDRCampanias] = listaCampanias;
 
+            CargarParametriaCdr();
         }
 
         private List<BECDRWebMotivoOperacion> CargarMotivoOperacion()
@@ -355,6 +359,35 @@ namespace Portal.Consultoras.Web.Controllers
             return listaFiltro.OrderBy(p => p.Prioridad).ToList();
         }
 
+        private List<BECDRParametria> CargarParametriaCdr()
+        {
+            try
+            {
+                if (Session[Constantes.ConstSession.CDRParametria] != null)
+                {
+                    var listaDescripcion = (List<BECDRParametria>)Session[Constantes.ConstSession.CDRParametria];
+                    if (listaDescripcion.Count > 0)
+                        return listaDescripcion;
+                }
+
+                var lista = new List<BECDRParametria>();
+                var entidad = new BECDRParametria();
+                using (CDRServiceClient sv = new CDRServiceClient())
+                {
+                    lista = sv.GetCDRParametria(userData.PaisID, entidad).ToList();
+                }
+                
+                Session[Constantes.ConstSession.CDRParametria] = lista;
+                return lista;
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                Session[Constantes.ConstSession.CDRParametria] = null;
+                return new List<BECDRParametria>();
+            }
+        }
+
         private bool ValidarRegistro(MisReclamosModel model)
         {
             if (model.Cantidad <= 0)
@@ -502,7 +535,48 @@ namespace Portal.Consultoras.Web.Controllers
                 descripcionTenerEnCuenta
             }, JsonRequestBehavior.AllowGet);
         }
-        
+
+        public JsonResult BuscarParametria(MisReclamosModel model)
+        {
+            string codigoParametria = "";
+            string codigoParametriaAbs = "";
+            switch (model.EstadoSsic)
+            {
+                case "T":
+                    codigoParametria = Constantes.ParametriaCDR.Trueque;
+                    codigoParametriaAbs = Constantes.ParametriaCDR.TruequeValAbs;
+                    break;
+                case "D":
+                    codigoParametria = Constantes.ParametriaCDR.Devolucion;
+                    codigoParametriaAbs = "";
+                    break;
+                case "F":
+                    codigoParametria = Constantes.ParametriaCDR.Faltante;
+                    codigoParametriaAbs = "";
+                    break;
+                default:
+                    codigoParametria = "";
+                    codigoParametriaAbs = "";
+                    break;
+            }
+
+            var listaParametria = CargarParametriaCdr();
+
+            var parametria = listaParametria.FirstOrDefault(p => p.CodigoParametria == codigoParametria);
+            parametria = parametria ?? new BECDRParametria();
+
+            var parametriaAbs = listaParametria.FirstOrDefault(p => p.CodigoParametria == codigoParametriaAbs);
+            parametriaAbs = parametriaAbs ?? new BECDRParametria();
+
+            return Json(new
+            {
+                success = true,
+                message = "",
+                detalle = parametria,
+                detalleAbs = parametriaAbs
+            }, JsonRequestBehavior.AllowGet);
+        }
+
         private List<BECDRWebDetalle> CargarDetalle(MisReclamosModel model)
         {
 
@@ -819,6 +893,61 @@ namespace Portal.Consultoras.Web.Controllers
                     detalle = ""
                 }, JsonRequestBehavior.AllowGet);
             }
+        }
+
+        public JsonResult ObtenerMontoProductosCdrByCodigoOperacion(MisReclamosModel model)
+        {
+            var listaByCodigoOperacion = new List<BECDRWebDetalle>();
+            var lista = CargarDetalle(model);
+
+            listaByCodigoOperacion = lista.FindAll(p => p.CodigoOperacion == model.EstadoSsic);
+
+            var montoProductos = listaByCodigoOperacion.Sum(p => p.Cantidad*p.Precio);
+
+            return Json(new
+            {
+                success = true,
+                message = "",
+                montoProductos,
+            }, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult ValidarCorreoDuplicado(string correo)
+        {
+            try
+            {
+                int cantidad = 0;
+                using (UsuarioServiceClient svr = new UsuarioServiceClient())
+                {
+                    cantidad = svr.ValidarEmailConsultora(userData.PaisID, correo, userData.CodigoUsuario);
+
+                    if (cantidad > 0)
+                    {
+                        return Json(new
+                        {
+                            success = false,
+                            message = "*Este correo ya está siendo utilizado. Intenta con otro",
+                            extra = ""
+                        }, JsonRequestBehavior.AllowGet);
+                    }
+                }
+
+                return Json(new
+                {
+                    success = true,
+                    message = "OK",
+                    extra = ""
+                }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new
+                {
+                    success = false,
+                    message = "Error al intentar validar el correo",
+                    extra = ""
+                }, JsonRequestBehavior.AllowGet);
+            }                            
         }
     }
 }

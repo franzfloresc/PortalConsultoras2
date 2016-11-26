@@ -257,4 +257,19 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+  <xs:element name="GetCDRParametria">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="paisId" type="xs:int" />
+        <xs:element xmlns:q21="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.CDR" minOccurs="0" name="entidad" nillable="true" type="q21:BECDRParametria" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetCDRParametriaResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q22="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.CDR" minOccurs="0" name="GetCDRParametriaResult" nillable="true" type="q22:ArrayOfBECDRParametria" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
 </xs:schema>

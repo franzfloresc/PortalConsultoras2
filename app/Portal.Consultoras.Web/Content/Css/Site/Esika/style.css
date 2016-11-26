@@ -31223,8 +31223,21 @@ h1#penmostreo .campana {
     float: left;
     padding: 10px;
     margin-left: 50px;
-    margin-bottom:20px;
+    /*margin-bottom:20px;*/
 }
+.correo_reclamo_error{
+    margin-bottom: 20px; 
+    display: inline-block;
+    width: 270px;
+    margin-left: 60px;
+}
+    .correo_reclamo_error span {
+        font-family: 'Lato';
+        font-size: 14px;
+        color: red;
+        line-height: 14px;
+        margin-top: 5px;
+    }
 .texto_correo{
     display:block;
     margin-left:60px;

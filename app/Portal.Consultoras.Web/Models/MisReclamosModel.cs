@@ -34,5 +34,7 @@ namespace Portal.Consultoras.Web.Models
         public List<CDRWebModel> ListaCDRWeb { get; set; } 
         
         public int IndicadorBloqueoCDR { get; set; }
+
+        public decimal MontoMinimo { get; set; }
     }
 }
