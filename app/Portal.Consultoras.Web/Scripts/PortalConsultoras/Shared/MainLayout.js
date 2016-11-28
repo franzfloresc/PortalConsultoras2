@@ -139,6 +139,12 @@
         }
     });
     
+    $("#belcorpChat").click(function () {
+        var url = UrlChat.replace('amp;', '').replace('amp;', '').replace('amp;', '').replace('amp;', '').replace('&#250;', 'ú').replace('&#233;', 'é').replace('&#225;','á');
+        var res = encodeURI(url);
+        open(res, '', 'top=0,left=0,width=400,height=500');
+    });
+
     Scrolling();
     MostrarShowRoomBannerLateral();        
 });
