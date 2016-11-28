@@ -300,6 +300,9 @@ namespace Portal.Consultoras.Web.Controllers
                 model.OfertaFinal = userData.OfertaFinal;
 
                 model.EsOfertaFinalZonaValida = userData.EsOfertaFinalZonaValida;
+
+                model.OfertaFinalGanaMas = userData.OfertaFinalGanaMas;
+                model.EsOFGanaMasZonaValida = userData.EsOFGanaMasZonaValida;
                 model.MontoMinimo = userData.MontoMinimo;
                 model.MontoMaximo = userData.MontoMaximo;
 

@@ -114,6 +114,10 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Models
         /* SB20-565 - INICIO */
         public int OfertaFinal { get; set; }
         public bool EsOfertaFinalZonaValida { get; set; }
+
+        public int OfertaFinalGanaMas { get; set; }
+        public bool EsOFGanaMasZonaValida { get; set; }
+
         public List<BEEscalaDescuento> ListaParametriaOfertaFinal { get; set; }
         public bool EsFacturacion { get; set; }
         public bool EsConsultoraNueva { get; set; }
