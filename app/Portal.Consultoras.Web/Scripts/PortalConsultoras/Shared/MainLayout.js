@@ -133,7 +133,7 @@
         var url = 'http://200.32.70.19/Belcorp/';
         window.open(url, '_blank');
     });
-    $("#belcorpChat a").click(function () {       
+    $("#belcorpChat a_").click(function () {       
         if (this.href.indexOf('#') != -1) {
             alert_unidadesAgregadas("Por el momento el chat no se encuentra disponible. Volver a intentarlo más tarde", 2);
         }
