@@ -27,6 +27,12 @@ $(document).ready(function () {
     $("#txtCUV2").keyup(function (evt) {        
         if ($(this).val().length == 5) {
             BuscarCUVCambiar($(this).val());
+        } else {
+            $("#txtCUVDescripcion2").val("");
+            $("#txtCUVPrecio2").val("");
+            $("#hdImporteTotal2").val(0);
+            $("#spnImporteTotal2").html("");
+            $("#CambioProducto2").addClass("disabledClick");
         }
     });
 
@@ -68,15 +74,17 @@ $(document).ready(function () {
     });
 
     $("#CambioProducto2").on("click", function () {
-        CambioPaso2(1);
+        if (ValidarPaso2Trueque()) {
+            CambioPaso2(1);
 
-        $("#spnCuv1").html($("#txtCUV").val());
-        $("#spnDescripcionCuv1").html($("#txtCUVDescripcion").val());
-        $("#spnCantidadCuv1").html($("#txtCantidad").val());
+            $("#spnCuv1").html($("#txtCUV").val());
+            $("#spnDescripcionCuv1").html($("#txtCUVDescripcion").val());
+            $("#spnCantidadCuv1").html($("#txtCantidad").val());
 
-        $("#spnCuv2").html($("#txtCUV2").val());
-        $("#spnDescripcionCuv2").html($("#txtCUVDescripcion2").val());
-        $("#spnCantidadCuv2").html($("#txtCantidad2").val());
+            $("#spnCuv2").html($("#txtCUV2").val());
+            $("#spnDescripcionCuv2").html($("#txtCUVDescripcion2").val());
+            $("#spnCantidadCuv2").html($("#txtCantidad2").val());
+        }        
     });
 
     $("#RegresarPaso2").on("click", function () {
@@ -122,6 +130,7 @@ $(document).ready(function () {
 
         var importeTotal = precio * cantidad;
 
+        $("#hdImporteTotal2").val(importeTotal);
         $("#spnImporteTotal2").html(DecimalToStringFormat(importeTotal));
     });
 
@@ -133,7 +142,32 @@ $(document).ready(function () {
 
         var importeTotal = precio * cantidad;
 
+        $("#hdImporteTotal2").val(importeTotal);
         $("#spnImporteTotal2").html(DecimalToStringFormat(importeTotal));
+    });
+
+    $("#txtTelefono").keypress(function (evt) {
+        var charCode = (evt.which) ? evt.which : window.event.keyCode;
+        if (charCode <= 13) {
+            return false;
+        }
+        else {
+            var keyChar = String.fromCharCode(charCode);
+            var re = /[0-9+ *#-]/;
+            return re.test(keyChar);
+        }
+    });
+
+    $("#txtEmail").keypress(function (evt) {
+        var charCode = (evt.which) ? evt.which : window.event.keyCode;
+        if (charCode <= 13) {
+            return false;
+        }
+        else {
+            var keyChar = String.fromCharCode(charCode);
+            var re = /[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ_.@@-]/;
+            return re.test(keyChar);
+        }
     });
 
     var pedidoId = parseInt($("#txtPedidoID").val());
@@ -197,7 +231,7 @@ function BuscarCUV(CUV) {
     });
 }
 
-function BuscarCUVCambiar(cuv) {
+function BuscarCUVCambiar(cuv) {    
     cuv = $.trim(cuv) || $.trim($("#txtCUV2").val());
     var CampaniaId = $.trim($("#ddlCampania").val()) || 0;
     if (CampaniaId <= 0 || cuv.length < 5)
@@ -225,6 +259,7 @@ function BuscarCUVCambiar(cuv) {
                 return false;
 
             if (data[0].MarcaID != 0) {
+                $("#CambioProducto2").removeClass("disabledClick");
                 var descripcion = data[0].Descripcion;
                 var precio = data[0].PrecioCatalogo;
                 
@@ -233,9 +268,14 @@ function BuscarCUVCambiar(cuv) {
                 $("#hdCuvPrecio2").val(precio);
 
                 var cantidad = $("#txtCantidad2").val();
+                $("#hdImporteTotal2").val(precio * cantidad);
                 $("#spnImporteTotal2").html(DecimalToStringFormat(precio * cantidad));
             } else {
-                messageInfoError(data.CUV);
+                $("#txtCUVDescripcion2").val("");
+                $("#txtCUVPrecio2").val("");
+                $("#hdImporteTotal2").val(0);
+                $("#spnImporteTotal2").html("");
+                alert_msg(data[0].CUV);
             }
         },
         error: function (data, error) {
@@ -278,7 +318,9 @@ function AsignarCUV(pedido) {
         $("#txtCantidad").attr("data-maxvalue", data.Cantidad);
         $("#txtCUVDescripcion").val(data.DescripcionProd);
         $("#txtPedidoID").val(data.PedidoID);
-        $("#txtImporteTotal").val(data.ImporteTotal);
+        $("#txtPrecioUnidad").val(data.PrecioUnidad);
+        $("#hdImporteTotalPedido").val(pedido.ImporteTotal);
+        $("#CDRWebID").val(pedido.CDRWebID);
 
         BuscarMotivo();
         DetalleCargar(true);
@@ -431,21 +473,25 @@ function AnalizarOperacion(id) {
     }
     
     if (id == "D") {
-        // ir al final del paso 2
-        CambioPaso2(100);
-        $("[data-tipo-confirma='cambio']").hide();
-        $("[data-tipo-confirma=canje]").show();
+        if (ValidarPaso2Devolucion(id)) {
+            // ir al final del paso 2
+            CambioPaso2(100);
+            $("[data-tipo-confirma='cambio']").hide();
+            $("[data-tipo-confirma=canje]").show();
 
-        CargarPropuesta(id);
+            CargarPropuesta(id);
+        }        
     }
 
     if (id == "F") {
-        // ir al final del paso 2
-        CambioPaso2(100);
-        $("[data-tipo-confirma='cambio']").hide();
-        $("[data-tipo-confirma=canje]").show();
+        if (ValidarPaso2Faltante(id)) {
+            // ir al final del paso 2
+            CambioPaso2(100);
+            $("[data-tipo-confirma='cambio']").hide();
+            $("[data-tipo-confirma=canje]").show();
 
-        CargarPropuesta(id);
+            CargarPropuesta(id);
+        }        
     }
 
     if (id == "G") {
@@ -463,7 +509,12 @@ function AnalizarOperacion(id) {
         $("[data-tipo-confirma=cambio]").show();
 
         $("#spnSimboloMonedaReclamo").html(vbSimbolo);
-        $("#spnMontoMaximoReclamo").html($("#txtImporteTotal").val());
+
+        var precioUnidad = $("#txtPrecioUnidad").val();
+
+        $("#hdMontoMinimoReclamo").val(precioUnidad);
+        $("#spnMontoMinimoReclamoFormato").html(DecimalToStringFormat(precioUnidad));
+
         var campania = $("#ddlCampania").val() || 0;
         var numeroCampania = '00';
         if (campania > 0) {
@@ -471,8 +522,39 @@ function AnalizarOperacion(id) {
         }
 
         $("#spnNumeroCampaniaReclamo").html(numeroCampania);
+        ObtenerValorParametria(id);
         CargarPropuesta(id);
     }
+}
+
+function ObtenerValorParametria(codigoSsic) {
+    var item = {
+        EstadoSsic: codigoSsic
+    };
+
+    jQuery.ajax({
+        type: 'POST',
+        url: baseUrl + 'MisReclamos/BuscarParametria',
+        dataType: 'json',
+        contentType: 'application/json; charset=utf-8',
+        data: JSON.stringify(item),
+        async: false,
+        cache: false,
+        success: function (data) {
+            closeWaitingDialog();
+            if (!checkTimeout(data))
+                return false;
+
+            var parametria = data.detalle;
+            var parametriaAbs = data.detalleAbs;
+
+            $("#hdParametriaCdr").val(parametria.ValorParametria);
+            $("#hdParametriaAbsCdr").val(parametriaAbs.ValorParametria);
+        },
+        error: function (data, error) {
+            closeWaitingDialog();
+        }
+    });
 }
 
 function CargarPropuesta(codigoSsic) {
@@ -571,6 +653,108 @@ function CambioPaso2(paso) {
     $('div[id^=Cambio]').hide();
     $('[id=Cambio' + paso2Actual + ']').show();
 }
+
+function ValidarPaso2Devolucion(codigoSsic) {    
+    var montoMinimoPedido = $("#hdMontoMinimoPedido").val();
+    var montoTotalPedido = $("#hdImporteTotalPedido").val();
+    var montoProductosDevolverActual = ObtenerMontoProductosDevolver(codigoSsic);
+
+    var diferenciaMonto = montoTotalPedido - montoMinimoPedido;
+    var montoCuvActual = (parseFloat($("#txtPrecioUnidad").val()) || 0) * (parseInt($("#txtCantidad").val()) || 0);
+
+    var montoDevolver = montoProductosDevolverActual + montoCuvActual;
+
+    if (diferenciaMonto < montoDevolver) {
+        alert_msg("Por favor, selecciona otra solución, ya que tu pedido está quedando por debajo del monto mínimo permitido");
+        return false;
+    }
+
+    ObtenerValorParametria(codigoSsic);
+    var valorParametria = $("#hdParametriaCdr").val() || 0;
+
+    valorParametria = parseFloat(valorParametria);
+
+    var montoMaximoDevolver = montoTotalPedido * valorParametria / 100;
+
+    if (montoMaximoDevolver < montoDevolver) {
+        alert_msg("Por favor, selecciona otra solución, ya que superas el porcentaje de devolución permitido en tu pedido facturado");
+        return false;
+    }
+
+    return true;
+}
+
+function ValidarPaso2Faltante(codigoSsic) {
+    var montoTotalPedido = $("#hdImporteTotalPedido").val();
+    var montoProductosDevolverActual = ObtenerMontoProductosDevolver(codigoSsic);
+    var montoCuvActual = (parseFloat($("#txtPrecioUnidad").val()) || 0) * (parseInt($("#txtCantidad").val()) || 0);
+    var montoDevolver = montoProductosDevolverActual + montoCuvActual;
+
+    ObtenerValorParametria(codigoSsic);
+    var valorParametria = $("#hdParametriaCdr").val() || 0;
+
+    valorParametria = parseFloat(valorParametria);
+
+    var montoMaximoDevolver = montoTotalPedido * valorParametria / 100;
+
+    if (montoMaximoDevolver < montoDevolver) {
+        alert_msg("Por favor, selecciona otra solución, ya que superas el porcentaje de faltante permitido en tu pedido facturado");
+        return false;
+    }
+
+    return true;
+}
+
+function ValidarPaso2Trueque() {
+    if ($("#CambioProducto2").hasClass("disabledClick")) {
+        return false;
+    }
+
+    var ok = true;
+    ok = $.trim($("#txtCUV2").val()).length == "5" ? ok : false;
+    ok = $.trim($("#txtCUVDescripcion2").val()) != "" ? ok : false;
+    ok = $.trim($("#txtCUVPrecio2").val()) != "" ? ok : false;
+
+    var montoMinimoReclamo = $("#hdMontoMinimoReclamo").val();
+    var formatoMontoMinimo = $("#spnMontoMinimoReclamoFormato").html();
+    var montoPedidoTrueque = $("#hdImporteTotal2").val();
+
+    //ok = montoPedidoTrueque >= montoMinimoReclamo ? ok : false;
+    //if (!ok) {
+    //    alert_msg("El monto total del producto seleccionado debe ser mayor o igual a " + vbSimbolo + formatoMontoMinimo);
+    //    return false;
+    //}
+
+    var valorParametria = $("#hdParametriaCdr").val();
+    var valorParametriaAbs = $("#hdParametriaAbsCdr").val();
+
+    var formatoMontoMaximo = DecimalToStringFormat(montoMinimoReclamo);
+
+    if (valorParametriaAbs == "1") {
+        var diferencia = parseFloat(montoMinimoReclamo) - parseFloat(montoPedidoTrueque);
+        if (diferencia > valorParametria) {
+            alert_msg("Diferencia en trueques excede lo permitido");
+            return false;
+        }
+    } else {
+        if (valorParametriaAbs == "2") {
+            if (montoPedidoTrueque < montoMinimoReclamo) {
+                alert_msg("Está devolviendo más de lo permitido");
+                return false;
+            }
+        } else {
+            var diferencia2 = parseFloat(montoMinimoReclamo) - parseFloat(montoPedidoTrueque);
+            diferencia2 = Math.abs(diferencia2);
+            
+            if (diferencia2 > valorParametria) {
+                alert_msg("Diferencia en trueques excede lo permitido");
+                return false;
+            }
+        }
+    }
+
+    return ok;
+} 
 // FIN Paso 2
 
 // Paso 3
@@ -665,23 +849,90 @@ function DetalleEliminar(objItem) {
 
 function SolicitudEnviar() {
     var ok = true;
+
+    var correo = $.trim($("#txtEmail").val());
+    var celular = $.trim($("#txtTelefono").val());
+
+    if (correo == "" || celular == "") {
+        messageInfoError("Debe completar la sección de VALIDA TUS DATOS para finalizar");
+
+        $("#spnEmailError").css("display", "");
+        $("#spnEmailError").html("*Correo Electrónico incorrecto");
+        $("#txtEmail").css("border-color", "red");
+
+        $("#spnTelefonoError").css("display", "");
+        $("#spnTelefonoError").html("*Teléfono incorrecto");
+        $("#txtTelefono").css("border-color", "red");
+
+        return false;
+    } else {
+        $("#spnEmailError").css("display", "none");
+        $("#txtEmail").css("border-color", "#b5b5b5");
+
+        $("#spnTelefonoError").css("display", "none");
+        $("#txtTelefono").css("border-color", "#b5b5b5");
+    }
+
+    if (!validateEmail(correo)) {
+        $("#spnEmailError").css("display", "");
+        $("#spnEmailError").html("*Correo Electrónico incorrecto");
+        $("#txtEmail").css("border-color", "red");
+        ok = false;
+    } else {
+        $("#spnEmailError").css("display", "none");
+        $("#txtEmail").css("border-color", "#b5b5b5");
+    }
+
+    if (celular.length <= 6) {
+        $("#spnTelefonoError").css("display", "");
+        $("#spnTelefonoError").html("*Teléfono incorrecto");
+        $("#txtTelefono").css("border-color", "red");
+        ok = false;
+    } else {
+        $("#spnTelefonoError").css("display", "none");
+        $("#txtTelefono").css("border-color", "#b5b5b5");
+    }
+
+    if (!ok) {
+        return false;
+    }
+
+    var correoActual = $.trim($("#hdEmail").val());
+    if (correoActual != correo) {
+        var esCorreoValido = ValidarCorreoDuplicado(correo);
+
+        if (!esCorreoValido) {
+            $("#spnEmailError").css("display", "");
+            $("#spnEmailError").html("*Este correo ya está siendo utilizado. Intenta con otro");
+            $("#txtEmail").css("border-color", "red");
+            ok = false;
+        } else {
+            $("#spnTelefonoError").css("display", "none");
+            $("#txtTelefono").css("border-color", "#b5b5b5");
+        }
+    }
+
+    if (!ok) {
+        return false;
+    }
+
     ok = $("#btnAceptoPoliticas").hasClass("politica_reclamos_active");
     if (!ok) {
         messageInfoError("Debe Aceptar la politica de Cambios y Devoluciones");
         return false;
     }
     
-    ok = $.trim($("#txtEmail").val()) != "" ? ok : false;
-    if (!ok) {
-        messageInfoError("Debe ingresar un Email");
-        return false;
-    }
+    //ok = $.trim($("#txtEmail").val()) != "" ? ok : false;
+    //if (!ok) {
+    //    messageInfoError("Debe ingresar un Email");
+    //    return false;
+    //}
     
-    ok = $.trim($("#txtTelefono").val()) != "" ? ok : false;
-    if (!ok) {
-        messageInfoError("Debe ingresar un Telefono");
-        return false;
-    }
+    //ok = $.trim($("#txtTelefono").val()) != "" ? ok : false;
+    //if (!ok) {
+    //    messageInfoError("Debe ingresar un Telefono");
+    //    return false;
+    //}
 
     var item = {
         CDRWebID: $("#CDRWebID").val() || 0,
@@ -767,4 +1018,72 @@ function CambioPaso(paso) {
     $('div[id^=Paso]').hide();
     $('[id=Paso' + pasoActual + ']').show();
     $('[id=Paso' + pasoActual + '] #Cambio' + paso2Actual).show();
+}
+
+function ObtenerMontoProductosDevolver(codigoOperacion) {
+    var resultado = 0;
+
+    var item = {
+        CDRWebID: $("#CDRWebID").val() || 0,
+        PedidoID: $("#txtPedidoID").val() || 0,
+        EstadoSsic: codigoOperacion
+    };
+    waitingDialog();
+
+    jQuery.ajax({
+        type: 'POST',
+        url: baseUrl + 'MisReclamos/ObtenerMontoProductosCdrByCodigoOperacion',
+        dataType: 'json',
+        contentType: 'application/json; charset=utf-8',
+        data: JSON.stringify(item),
+        async: false,
+        cache: false,
+        success: function (data) {
+            closeWaitingDialog();
+            if (!checkTimeout(data))
+                return false;
+
+            if (data.success != true) {
+                messageInfoError(data.message);
+                return false;
+            }
+
+            resultado = data.montoProductos;
+        },
+        error: function (data, error) {
+            closeWaitingDialog();
+        }
+    });
+
+    return resultado;
+}
+
+function ValidarCorreoDuplicado(correo) {
+    var resultado = false;
+
+    var item = {
+        correo: correo
+    };
+
+    jQuery.ajax({
+        type: 'POST',
+        url: baseUrl + 'MisReclamos/ValidarCorreoDuplicado',
+        dataType: 'json',
+        contentType: 'application/json; charset=utf-8',
+        data: JSON.stringify(item),
+        async: false,
+        cache: false,
+        success: function (data) {
+            closeWaitingDialog();
+            if (!checkTimeout(data))
+                resultado = false;
+            else
+                resultado = data.success;
+        },
+        error: function (data, error) {
+            closeWaitingDialog();
+        }
+    });
+
+    return resultado;
 }

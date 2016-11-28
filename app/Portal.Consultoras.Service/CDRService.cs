@@ -13,15 +13,17 @@ namespace Portal.Consultoras.Service
         private BLCDRWebDescripcion BLCDRWebDescripcion;
         private BLLogCDRWeb bLLogCDRWeb;
         private BLLogCDRWebDetalle bLLogCDRWebDetalle;
+        private BLCDRParametria BLCDRParametria;
 
         public CDRService()
         {
-            this.BLCDRWeb = new BLCDRWeb();
-            this.BLCDRWebDetalle = new BLCDRWebDetalle();
-            this.BLCDRWebMotivoOperacion = new BLCDRWebMotivoOperacion();
-            this.BLCDRWebDescripcion = new BLCDRWebDescripcion();
-            this.bLLogCDRWeb = new BLLogCDRWeb();
-            this.bLLogCDRWebDetalle = new BLLogCDRWebDetalle();
+            BLCDRWeb = new BLCDRWeb();
+            BLCDRWebDetalle = new BLCDRWebDetalle();
+            BLCDRWebMotivoOperacion = new BLCDRWebMotivoOperacion();
+            BLCDRWebDescripcion = new BLCDRWebDescripcion();
+            bLLogCDRWeb = new BLLogCDRWeb();
+            bLLogCDRWebDetalle = new BLLogCDRWebDetalle();
+            BLCDRParametria=new BLCDRParametria();
         }
 
         public int InsCDRWeb(int PaisID, BECDRWeb entity)
@@ -108,6 +110,11 @@ namespace Portal.Consultoras.Service
         public bool DetalleActualizarObservado(int paisId, List<BECDRWebDetalle> lista)
         {
             return BLCDRWebDetalle.DetalleActualizarObservado(paisId, lista);
+        }
+
+        public List<BECDRParametria> GetCDRParametria(int paisId, BECDRParametria entidad)
+        {
+            return BLCDRParametria.GetCDRParametria(paisId, entidad);
         }
     }
 }

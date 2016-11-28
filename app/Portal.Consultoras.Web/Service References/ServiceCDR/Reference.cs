@@ -1445,6 +1445,83 @@ namespace Portal.Consultoras.Web.ServiceCDR {
         }
     }
     
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="BECDRParametria", Namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.CDR")]
+    [System.SerializableAttribute()]
+    public partial class BECDRParametria : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CodigoParametriaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string DescripcionParametriaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ValorParametriaField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string CodigoParametria {
+            get {
+                return this.CodigoParametriaField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CodigoParametriaField, value) != true)) {
+                    this.CodigoParametriaField = value;
+                    this.RaisePropertyChanged("CodigoParametria");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string DescripcionParametria {
+            get {
+                return this.DescripcionParametriaField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.DescripcionParametriaField, value) != true)) {
+                    this.DescripcionParametriaField = value;
+                    this.RaisePropertyChanged("DescripcionParametria");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string ValorParametria {
+            get {
+                return this.ValorParametriaField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ValorParametriaField, value) != true)) {
+                    this.ValorParametriaField = value;
+                    this.RaisePropertyChanged("ValorParametria");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="ServiceCDR.ICDRService")]
     public interface ICDRService {
@@ -1550,6 +1627,12 @@ namespace Portal.Consultoras.Web.ServiceCDR {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICDRService/DetalleActualizarObservado", ReplyAction="http://tempuri.org/ICDRService/DetalleActualizarObservadoResponse")]
         System.Threading.Tasks.Task<bool> DetalleActualizarObservadoAsync(int paisId, Portal.Consultoras.Web.ServiceCDR.BECDRWebDetalle[] lista);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICDRService/GetCDRParametria", ReplyAction="http://tempuri.org/ICDRService/GetCDRParametriaResponse")]
+        Portal.Consultoras.Web.ServiceCDR.BECDRParametria[] GetCDRParametria(int paisId, Portal.Consultoras.Web.ServiceCDR.BECDRParametria entidad);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICDRService/GetCDRParametria", ReplyAction="http://tempuri.org/ICDRService/GetCDRParametriaResponse")]
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceCDR.BECDRParametria[]> GetCDRParametriaAsync(int paisId, Portal.Consultoras.Web.ServiceCDR.BECDRParametria entidad);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -1713,6 +1796,14 @@ namespace Portal.Consultoras.Web.ServiceCDR {
         
         public System.Threading.Tasks.Task<bool> DetalleActualizarObservadoAsync(int paisId, Portal.Consultoras.Web.ServiceCDR.BECDRWebDetalle[] lista) {
             return base.Channel.DetalleActualizarObservadoAsync(paisId, lista);
+        }
+        
+        public Portal.Consultoras.Web.ServiceCDR.BECDRParametria[] GetCDRParametria(int paisId, Portal.Consultoras.Web.ServiceCDR.BECDRParametria entidad) {
+            return base.Channel.GetCDRParametria(paisId, entidad);
+        }
+        
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceCDR.BECDRParametria[]> GetCDRParametriaAsync(int paisId, Portal.Consultoras.Web.ServiceCDR.BECDRParametria entidad) {
+            return base.Channel.GetCDRParametriaAsync(paisId, entidad);
         }
     }
 }

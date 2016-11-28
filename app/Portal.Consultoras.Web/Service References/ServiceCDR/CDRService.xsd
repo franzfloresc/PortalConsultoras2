@@ -145,4 +145,18 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="BELogCDRWebDetalle" nillable="true" type="tns:BELogCDRWebDetalle" />
+  <xs:complexType name="BECDRParametria">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CodigoParametria" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DescripcionParametria" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ValorParametria" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="BECDRParametria" nillable="true" type="tns:BECDRParametria" />
+  <xs:complexType name="ArrayOfBECDRParametria">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="BECDRParametria" nillable="true" type="tns:BECDRParametria" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfBECDRParametria" nillable="true" type="tns:ArrayOfBECDRParametria" />
 </xs:schema>

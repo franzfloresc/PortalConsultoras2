@@ -22,7 +22,8 @@
     </div>
     <!--PASO A PASO RECLAMOS-->
     <div style="display:none;">
-        <input type="hidden" name="CDRWebID" id="CDRWebID" value="@Model.CDRWebID" />
+        <input type="hidden" name="CDRWebID" id="CDRWebID" value="@Model.CDRWebID"/>
+        <input type="hidden" id="hdMontoMinimoPedido" value="@Model.MontoMinimo"/>
     </div>
     <div class="content_general_reclamos" id="divProcesoReclamo">
     <div style="width: 80%;display: block;float: left;">
@@ -41,11 +42,12 @@
                         <option>¿En qué campaña lo solicitaste?</option>
                     </select>*@
                     <input type="hidden" id="txtPedidoID" value="@Model.PedidoID"/>
-                    <input type="hidden" id="txtImporteTotal"/>
-                    <input type="text" placeholder="Código" class="codigo_reclamo" id="txtCUV"/>
+                    <input type="hidden" id="txtPrecioUnidad"/>
+                    <input type="hidden" id="hdImporteTotalPedido"/>
+                    <input type="text" placeholder="Código" class="codigo_reclamo ValidaNumeral ValidaPasteNumeral valid" id="txtCUV"/>
                     <input type="text" placeholder="Descripción del producto" class="descripcion_reclamo" id="txtCUVDescripcion" readonly="readonly"/>
                     <div class="rango_reclamo">
-                        <input type="text" name="Cantidad" id="txtCantidad" value="1" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral valid" onkeypress=" PreValidarCUV(); " onfocus=" SeleccionarContenido(this) ">
+                        <input type="text" name="Cantidad" id="txtCantidad" value="1" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral valid" onfocus="SeleccionarContenido(this) ">
                         <div class="liquidacion_rango_right_pedido">
                             <a class="mas"><img src="/Content/Images/Esika/mas.png" alt=""></a>
                             <a class="menos"><img src="/Content/Images/Esika/menos.png" alt=""></a>
@@ -86,13 +88,16 @@
                 <div class="titulo_belcorp_reclamo">CAMBIARLO POR OTRO PRODUCTO</div>
                 <div class="linea_gris" style="height: 1px;"></div>
                 <div class="texto_reclamo">
-                    Puedes cambiarlo por otro producto(s) cuyo monto sea mayor o igual al que reclamas (<span id="spnSimboloMonedaReclamo">S/.</span><span id="spnMontoMaximoReclamo">15</span>)<br/>
+                    <input type="hidden" id="hdMontoMinimoReclamo"/>
+                    Puedes cambiarlo por otro producto(s) cuyo monto sea mayor o igual al que reclamas (<span id="spnSimboloMonedaReclamo">S/.</span><span id="spnMontoMinimoReclamoFormato">15</span>)<br/>
                     Búscalo en tus catálogos de Campaña <span id="spnNumeroCampaniaReclamo">15</span>:
                 </div>
-                <input type="text" placeholder="Código" class="codigo_reclamo" id="txtCUV2"/>
-                <input type="text" placeholder="Descripción del producto" id="txtCUVDescripcion2" class="descripcion_reclamo" style="width: 369px;"/>
-                <input type="text" placeholder="Precio" class="precio_reclamo" id="txtCUVPrecio2"/>
-                <input type="hidden" id="hdCuvPrecio2" />
+                <input type="text" placeholder="Código" class="codigo_reclamo ValidaNumeral ValidaPasteNumeral valid" id="txtCUV2"/>
+                <input type="text" placeholder="Descripción del producto" id="txtCUVDescripcion2" readonly="readonly" class="descripcion_reclamo" style="width: 369px;"/>
+                <input type="text" placeholder="Precio" class="precio_reclamo" id="txtCUVPrecio2" readonly="readonly"/>
+                <input type="hidden" id="hdCuvPrecio2"/>
+                <input type="hidden" id="hdParametriaCdr" />
+                <input type="hidden" id="hdParametriaAbsCdr"/>
                 <div class="rango_reclamo">
                     <input type="text" name="Cantidad" id="txtCantidad2" value="1" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral valid" onkeypress=" PreValidarCUV(); " onfocus=" SeleccionarContenido(this) ">
                     <div class="liquidacion_rango_right_pedido">
@@ -101,11 +106,14 @@
                     </div>
                 </div>
                 <hr class="clear"/>
-                <div class="total_precio_reclamo">Total: <span id="spnImporteTotal2"></span></div>
+                <div class="total_precio_reclamo">
+                    <input type="hidden" id="hdImporteTotal2"/>
+                    Total: <span id="spnImporteTotal2"></span>
+                </div>
                 <hr class="clear"/>
                 <div class="linea_separadora_roja" style="height: 2px;"></div>
-                <a class="btn_paso_anterior" href="#" id="RegresarPaso2">REGRESAR</a>
-                <a class="btn_si_stock" href="#" style="width: 296px;" id="CambioProducto2">CÁMBIALO POR ESTE PRODUCTO</a>
+                <a class="btn_paso_anterior" href="javascript:;" id="RegresarPaso2">REGRESAR</a>
+                <a class="btn_si_stock" href="javascript:;" style="width: 296px;" id="CambioProducto2">CÁMBIALO POR ESTE PRODUCTO</a>
                 <hr class="clear"/>
             </div>
             <!--FIN-->
@@ -139,8 +147,8 @@
                         <span id="spnMensajeTenerEnCuentaCambio"></span>
                     </div>
                     <div class="linea_separadora_roja" style="height: 2px;"></div>
-                    <a class="btn_paso_anterior" href="#" id="RegresarCambio1">REGRESAR</a>
-                    <a class="btn_si_stock" href="#" style="width: 296px;" id="IrPaso3" data-cambiopaso="3">ACEPTAR LA SOLUCIÓN</a>
+                    <a class="btn_paso_anterior" href="javascript:;" id="RegresarCambio1">REGRESAR</a>
+                    <a class="btn_si_stock" href="javascript:;" style="width: 296px;" id="IrPaso3" data-cambiopaso="3">ACEPTAR LA SOLUCIÓN</a>
                     <hr class="clear"/>
                 </div>
                 <div class="content_reclamo" data-tipo-confirma="canje" style="display: none;">
@@ -204,19 +212,31 @@
             <div class="texto_valida_datos">En caso de necesitar contactarnos contigo, lo haremos a traves de:</div>
             <div class="float_left">
                 <span class="texto_correo">Correo Electrónico</span>
+                <input type="hidden" id="hdEmail" value="@Model.Email"/>
                 @Html.TextBox("txtEmail", (string) Model.Email, new {@class = "correo_reclamo"})
-                @*<input type="text" class="correo_reclamo" placeholder="demo@gmail.com" id="txtEmail" />*@
+                <br />
+                <div class="correo_reclamo_error">
+                    <span id="spnEmailError" style="display: none;">
+                        *Correo Electrónico incorrecto
+                    </span>
+                </div>
             </div>
             <div class="float_left">
                 <span class="texto_correo">Teléfono de contacto</span>
+                <input type="hidden" id="hdEmail" value="@Model.Telefono" />
                 @Html.TextBox("txtTelefono", (string) Model.Telefono, new {@class = "correo_reclamo"})
-                @*<input type="text" class="correo_reclamo" placeholder="0123456789" id="txtTelefono" />*@
+                <br />
+                <div class="correo_reclamo_error">
+                    <span id="spnTelefonoError" style="display: none;">
+                        *Teléfono incorrecto
+                    </span>
+                </div>
             </div>
             <hr class="clear"/>
             <div class="linea_separadora_roja" style="height: 2px;"></div>
             <div class="politica_reclamos" id="btnAceptoPoliticas">Acepto la política de cambios y devoluciones</div>
             <a class="btn_agrega_otro_reclamo" id="IrSolicitudInicial">AGREGA OTRO PRODUCTO A LA SOLICITUD</a>
-            <a class="btn_si_stock" href="#" style="width: 296px;" id="IrSolicitudEnviada">FINALIZA Y ENVÍA TU SOLICITUD</a>
+            <a class="btn_si_stock" href="javascript:;" style="width: 296px;" id="IrSolicitudEnviada">FINALIZA Y ENVÍA TU SOLICITUD</a>
             <hr class="clear"/>
         </div>
         <!--FIN-->
@@ -229,7 +249,7 @@
         <div id="divDetalleUltimasSolicitudes">
 
         </div>
-        <a class="btn_ver_solicitudes" href="#" style="width:100px;margin-top:30px;">IR AL FINAL</a>
+        <a class="btn_ver_solicitudes" href="javascript:;" style="width:100px;margin-top:30px;">IR AL FINAL</a>
     </div>
     <!--FIN SOLICITUDES-->
     </div>
