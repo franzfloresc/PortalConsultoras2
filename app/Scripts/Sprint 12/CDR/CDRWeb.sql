@@ -201,6 +201,7 @@ CREATE PROCEDURE dbo.GetPedidosFacturadoSegunDias_SB2
 AS
 /*
 GetPedidosFacturadoSegunDias_SB2 2, 201617, 142
+GetPedidosFacturadoSegunDias_SB2 49401160, 201617, 142
 */
 BEGIN
 	set @maxDias = isnull(@maxDias, 0)
@@ -216,12 +217,22 @@ BEGIN
 			P.Flete,
 			P.PedidoID,
 			isnull(p.FechaFacturado,'1900-01-01') as FechaRegistro,
-			isnull(P.Origen,'') as CanalIngreso
+			isnull(P.Origen,'') as CanalIngreso,
+			case 
+				when C.PedidoID is null or C.PedidoID = 0 then 0
+				else C.CDRWebID
+			end as CDRWebID,
+			case 
+				when C.PedidoID is null or C.PedidoID = 0 then 0
+				else C.Estado
+			end as CDRWebEstado
 		FROM ods.Pedido(NOLOCK) P
 		INNER JOIN ods.Campania(NOLOCK) CA ON 
 			P.CampaniaID=CA.CampaniaID
 		INNER JOIN ods.Consultora(NOLOCK) CO ON 
 			P.ConsultoraID=CO.ConsultoraID
+		LEFT JOIN CDRWeb C on
+			P.PedidoID = C.PedidoID
 		WHERE 
 			co.ConsultoraID=@ConsultoraID
 			and	P.CampaniaID <> @CampaniaID
@@ -708,6 +719,37 @@ set
 where 
 	CDRWebDetalleID = @CDRWebDetalleID
 	
+end
+
+go
+
+IF EXISTS(SELECT 1 FROM INFORMATION_SCHEMA.ROUTINES WHERE SPECIFIC_NAME = 'GetCDRParametria' AND SPECIFIC_SCHEMA = 'dbo' AND Routine_Type = 'PROCEDURE')
+BEGIN
+    DROP PROCEDURE dbo.GetCDRParametria
+END
+
+GO
+
+create procedure dbo.GetCDRParametria
+@CodigoParametria varchar(20) = null
+as
+/*
+GetCDRParametria
+GetCDRParametria 'STO_DESV_TRQ'
+*/
+begin
+
+set @CodigoParametria = isnull(@CodigoParametria,'')
+
+select 
+	CodigoParametria,
+	DescripcionParametria,
+	ValorParametria
+from ods.ParametriaCDR
+where
+	CodigoParametria = @CodigoParametria or @CodigoParametria = ''
+	
+
 end
 
 go

@@ -170,6 +170,7 @@ namespace Portal.Consultoras.Common
             public const string CDRDescripcion = "CDRDescripcion";
             public const string CDRWebDetalle = "CDRWebDetalle";
             public const string CDRWeb = "CDRWeb";
+            public const string CDRParametria = "CDRParametria";
         }
 
         public class TipoOfertaFinalCatalogoPersonalizado
@@ -287,6 +288,13 @@ namespace Portal.Consultoras.Common
             public const int ActualizarDatos = 6;
             public const int Flexipago = 7;
             public const int Comunicado = 8;
+        }
+        public class ParametriaCDR
+        {
+            public const string Faltante = "STO_PMON_FM";
+            public const string Devolucion = "STO_PMON_DEV";
+            public const string Trueque = "STO_DESV_TRQ";
+            public const string TruequeValAbs = "STO_DESV_TRQ_OPER";
         }
     }
 }

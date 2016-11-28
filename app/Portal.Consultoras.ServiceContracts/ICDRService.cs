@@ -57,5 +57,8 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         bool DetalleActualizarObservado(int paisId, List<BECDRWebDetalle> lista);
+
+        [OperationContract]
+        List<BECDRParametria> GetCDRParametria(int paisId, BECDRParametria entidad);
     }
 }

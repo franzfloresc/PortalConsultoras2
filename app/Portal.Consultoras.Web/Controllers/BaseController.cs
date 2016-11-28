@@ -571,6 +571,7 @@ namespace Portal.Consultoras.Web.Controllers
         public UsuarioModel UserData()
         {
             UsuarioModel model = new UsuarioModel();
+            string UrlEMTELCO = ConfigurationManager.AppSettings["UrlBelcorpChat"];
             string Url = Request == null ? "" :
                 (Request.Url.Scheme + "://" + Request.Url.Authority + (Request.ApplicationPath.ToString().Equals("/") ? "/" : (Request.ApplicationPath + "/")) + "WebPages/");
 
@@ -669,6 +670,7 @@ namespace Portal.Consultoras.Web.Controllers
             ViewBag.IndicadorPermisoFIC = model.IndicadorPermisoFIC;
             ViewBag.IndicadorPermisoFlexipago = model.IndicadorPermisoFlexipago;
             ViewBag.HorasDuracionRestriccion = model.HorasDuracionRestriccion;
+            ViewBag.UrlBelcorpChat = String.Format(UrlEMTELCO, model.Segmento.Trim(), model.CodigoUsuario.Trim(), model.PrimerNombre.Split(' ').First().Trim(), model.EMail.Trim(), model.NombrePais.Trim());
 
             if (isNull)
             {
@@ -1157,6 +1159,10 @@ namespace Portal.Consultoras.Web.Controllers
 
                 model.OfertaFinal = oBEUsuario.OfertaFinal;
                 model.EsOfertaFinalZonaValida = oBEUsuario.EsOfertaFinalZonaValida;
+
+                model.OfertaFinalGanaMas = oBEUsuario.OfertaFinalGanaMas;
+                model.EsOFGanaMasZonaValida = oBEUsuario.EsOFGanaMasZonaValida;
+
                 model.CatalogoPersonalizado = oBEUsuario.CatalogoPersonalizado;
                 model.EsCatalogoPersonalizadoZonaValida = oBEUsuario.EsCatalogoPersonalizadoZonaValida;
                 model.VioTutorialSalvavidas = oBEUsuario.VioTutorialSalvavidas;

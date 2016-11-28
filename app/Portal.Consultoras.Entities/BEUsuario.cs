@@ -328,9 +328,17 @@ namespace Portal.Consultoras.Entities
                 OfertaFinal = Convert.ToInt32(row["OfertaFinal"]);
             if (DataRecord.HasColumn(row, "EsOfertaFinalZonaValida") && row["EsOfertaFinalZonaValida"] != DBNull.Value)
                 EsOfertaFinalZonaValida = Convert.ToBoolean(row["EsOfertaFinalZonaValida"]);
+
+            if (DataRecord.HasColumn(row, "OfertaFinalGanaMas") && row["OfertaFinalGanaMas"] != DBNull.Value)
+                OfertaFinalGanaMas = Convert.ToInt32(row["OfertaFinalGanaMas"]);
+
+            if (DataRecord.HasColumn(row, "EsOFGanaMasZonaValida") && row["EsOFGanaMasZonaValida"] != DBNull.Value)
+                EsOFGanaMasZonaValida = Convert.ToBoolean(row["EsOFGanaMasZonaValida"]);
+
             if (DataRecord.HasColumn(row, "CatalogoPersonalizado") && row["CatalogoPersonalizado"] != DBNull.Value)
                 CatalogoPersonalizado = Convert.ToInt32(row["CatalogoPersonalizado"]);
             if (DataRecord.HasColumn(row, "EsCatalogoPersonalizadoZonaValida") && row["EsCatalogoPersonalizadoZonaValida"] != DBNull.Value)
+
                 EsCatalogoPersonalizadoZonaValida = Convert.ToBoolean(row["EsCatalogoPersonalizadoZonaValida"]);
             if (DataRecord.HasColumn(row, "VioTutorialSalvavidas") && row["VioTutorialSalvavidas"] != DBNull.Value)
                 VioTutorialSalvavidas = Convert.ToInt32(row["VioTutorialSalvavidas"]);
@@ -347,6 +355,8 @@ namespace Portal.Consultoras.Entities
             // SB20-907
             if (DataRecord.HasColumn(row, "GerenteZona") && row["GerenteZona"] != DBNull.Value)
                 NombreGerenteZona = Convert.ToString(row["GerenteZona"]);
+
+            
 
         }
 
@@ -900,6 +910,12 @@ namespace Portal.Consultoras.Entities
 
         [DataMember]
         public bool EsOfertaFinalZonaValida { get; set; }
+
+        [DataMember]
+        public int OfertaFinalGanaMas { get; set; }
+
+        [DataMember]
+        public bool EsOFGanaMasZonaValida { get; set; }
 
         [DataMember]
         public int CatalogoPersonalizado { get; set; }

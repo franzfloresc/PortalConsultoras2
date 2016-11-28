@@ -565,6 +565,10 @@ namespace Portal.Consultoras.Web.Controllers
 
                     model.OfertaFinal = oBEUsuario.OfertaFinal;
                     model.EsOfertaFinalZonaValida = oBEUsuario.EsOfertaFinalZonaValida;
+
+                    model.OfertaFinalGanaMas = oBEUsuario.OfertaFinalGanaMas;
+                    model.EsOFGanaMasZonaValida = oBEUsuario.EsOFGanaMasZonaValida;
+
                     model.CatalogoPersonalizado = oBEUsuario.CatalogoPersonalizado;
                     model.EsCatalogoPersonalizadoZonaValida = oBEUsuario.EsCatalogoPersonalizadoZonaValida;
                     model.VioTutorialSalvavidas = oBEUsuario.VioTutorialSalvavidas;

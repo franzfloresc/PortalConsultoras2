@@ -133,12 +133,18 @@
         var url = 'http://200.32.70.19/Belcorp/';
         window.open(url, '_blank');
     });
-    $("#belcorpChat a").click(function () {       
+    $("#belcorpChat a_").click(function () {       
         if (this.href.indexOf('#') != -1) {
             alert_unidadesAgregadas("Por el momento el chat no se encuentra disponible. Volver a intentarlo más tarde", 2);
         }
     });
     
+    $("#belcorpChat").click(function () {
+        var url = UrlChat.replace('amp;', '').replace('amp;', '').replace('amp;', '').replace('amp;', '').replace('&#250;', 'ú').replace('&#233;', 'é').replace('&#225;','á');
+        var res = encodeURI(url);
+        open(res, '', 'top=0,left=0,width=400,height=500');
+    });
+
     Scrolling();
     MostrarShowRoomBannerLateral();        
 });
