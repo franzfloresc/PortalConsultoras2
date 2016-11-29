@@ -67,7 +67,8 @@
             else
             {
                 <div class="nombre_consultora">
-                    <span style="margin-top: -0.5px!important;">¡Hola</span>
+                    @*<span style="margin-top: -0.5px!important;">¡Hola</span>*@
+                    <span style="margin-top: -0.5px!important;">@((Model.PrefijoPais == "PA" || Model.PrefijoPais == "CR" || Model.PrefijoPais == "MX") ? "¡Ilumina la Navidad" : "¡Feliz Navidad")</span>
                 </div>
                 <div class="consultora_home">
                     <span>@(nombreConsultora)</span>

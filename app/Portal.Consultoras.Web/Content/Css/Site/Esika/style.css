@@ -1761,7 +1761,8 @@ header {
     /*top: 9%;*/
     left: 0%;
     z-index: 1;
-    background: #000 url("../../../Images/Esika/background_pedido.png") no-repeat center bottom;
+    /*background: #000 url("../../../Images/Esika/background_pedido.png") no-repeat center bottom;*/
+    background: #000 url("../../../Images/Esika/Banner_Esika.jpg") no-repeat center bottom;
     /*background-size:cover;*/
 }
 
@@ -32035,3 +32036,16 @@ h1#penmostreo .campana {
 }
 
 /*SB20-1198 - FIN */
+
+/*EPD-877*/
+.resumen_belcorp_cam_modificado {
+    font-family: 'lato';
+    font-size: 18px;
+    letter-spacing: 0.3px;
+    color: black;
+    float: left;
+    margin-left: 2%;
+    margin-right: 8%;
+    /*width: 19.5%;*/
+    width: 215px;
+}
