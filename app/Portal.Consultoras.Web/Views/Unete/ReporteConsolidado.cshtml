@@ -374,7 +374,7 @@
 
     $(function () {
 
-        $('#Region').change(function () {
+        $('#Seccion').change(function () {
             debugger;
             var zona = $('#Zona').val();
             if (zona.length == 0) {
@@ -390,17 +390,20 @@
             var seccion =$('#Seccion').val();
             debugger;
             if (fechaInicio.length > 0 && fechaFin.length > 0) {
-                if (region.length >0 && zona.length > 0) {
-                    fnGrilla();
-                    e.preventDefault();
-                    console.info(e.target);
-                } else if (region.length > 0 && zona.length == 0) {
+                if (seccion.length > 0 && zona.length ==0) {
                     alert('Debe ingresar una zona');
-                } else if (region.length == 0 && zona.length == 0 && seccion.length == 0) {
+                } else if (
+                        (region.length == 0 && zona.length == 0 && seccion.length == 0) ||
+                        (region.length > 0 && seccion.length == 0 && zona.length == 0) ||
+                        (zona.length > 0 && seccion.length ==0 && region.length ==0) ||
+                        (seccion.length > 0)
+                    ) {
                     fnGrilla();
                     e.preventDefault();
                     console.info(e.target);
                 }
+            } else {
+                alert('Debe ingresar una fecha!');
             }
 
             
