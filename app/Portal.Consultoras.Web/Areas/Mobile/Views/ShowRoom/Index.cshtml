@@ -110,14 +110,17 @@
                 if (System.Web.HttpContext.Current.Request.UserAgent != null)
                 {
                     var request = HttpContext.Current.Request;
-                    urlBase = request.Url.Scheme + "://" + request.Url.Authority + "/WebPages/SetVentaDigital.aspx?id=" + Model.CodigoIso + "_" + item.OfertaShowRoomID + "_" + Model.FormatoCampania + "_W";
-                    urlBase2 = request.Url.Scheme + "://" + request.Url.Authority + "/WebPages/SetVentaDigital.aspx?id=" + Model.CodigoIso + "_" + item.OfertaShowRoomID + "_" + Model.FormatoCampania + "_F";
+                    //urlBase = request.Url.Scheme + "://" + request.Url.Authority + "/WebPages/SetVentaDigital.aspx?id=" + Model.CodigoIso + "_" + item.OfertaShowRoomID + "_" + Model.FormatoCampania + "_W";
+                    //urlBase2 = request.Url.Scheme + "://" + request.Url.Authority + "/WebPages/SetVentaDigital.aspx?id=" + Model.CodigoIso + "_" + item.OfertaShowRoomID + "_" + Model.FormatoCampania + "_F";
 
-					urlBase = urlBase.Replace("/", "%2F");
-					urlBase = urlBase.Replace(":", "%3A");
-					urlBase = urlBase.Replace("?", "%3F");
-					urlBase = urlBase.Replace("=", "%3D");
-					
+                    urlBase = request.Url.Scheme + "://" + request.Url.Authority + "/Set/"+ Model.CodigoIso + "_" + item.OfertaShowRoomID + "_" + Model.FormatoCampania + "_W";
+                    urlBase2 = request.Url.Scheme + "://" + request.Url.Authority + "/Set/" + Model.CodigoIso + "_" + item.OfertaShowRoomID + "_" + Model.FormatoCampania + "_F";
+
+                    urlBase = urlBase.Replace("/", "%2F");
+                    urlBase = urlBase.Replace(":", "%3A");
+                    urlBase = urlBase.Replace("?", "%3F");
+                    urlBase = urlBase.Replace("=", "%3D");
+
                     var message = Uri.EscapeDataString(texto) + " - " + urlBase;
                     urlWs = "whatsapp://send?text=" + message;
                     //var urlWs = "whatsapp://send?text=" ;                    
@@ -126,7 +129,7 @@
 
             }
             <a class="btn_ws_showroom" href="@urlWs" data-action="share/whatsapp/share"><img src="@Url.Content("~/Content/Images/mobile/Esika/iconowscolor.png")" alt="-" /></a>
-            <a class="btn_facebook_showroom" href="" data-accion="face" onclick='CompartirFacebook("@descripcionF","@subtituloF","@imagenF","@urlBase2");'><img src="@Url.Content("~/Content/Images/mobile/Esika/catalogo_facebook_color.png")" alt="-" /></a>
+            <a class="btn_facebook_showroom" href="" data-accion="face" onclick='CompartirFacebook("@urlBase2");'><img src="@Url.Content("~/Content/Images/mobile/Esika/catalogo_facebook_color.png")" alt="-" /></a>
             <hr class="clear" />
         </div>
     </div>    
@@ -447,7 +450,7 @@
             });
         }
         
-        function CompartirFacebook(titulo, subtitulo, imagen, urlBase) {
+        function CompartirFacebook(urlBase) {
             var popWwidth = 570;
             var popHeight = 420;
             var left = (screen.width / 2) - (popWwidth / 2);

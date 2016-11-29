@@ -15,8 +15,9 @@
     <meta property="og:type" name="og:type" content="article">--%>
 </head>
 <body>
-    <p id="pNombreProducto" runat="server"></p>
-    <img src="" id="imgCuvProducto" alt="imagen" runat="server"/>
+    <p id="pNombreProducto" runat="server" style="text-align: center; font-weight: bold; font-family: 'Lato';"></p>    
+    <p id="pSubtituloProducto" runat="server" style="text-align: center; font-family: 'Lato';"></p>
+    <img src="" id="imgCuvProducto" alt="imagen" runat="server" style="width: 100%;"/>
 </body>
 </html>
 
