@@ -3599,8 +3599,8 @@ width:100%;
     display: block;
     text-align: center;
     width: 49%;
-    height: 34px;
-    line-height: 31px;
+    height: 34px; /*PERMANECER ESTE ESTILO COMO PRINCIPAL */
+    line-height: 31px; /*PERMANECER ESTE ESTILO COMO PRINCIPAL */
     /* background: #336699; */
     text-align: center;
     margin-top: 10px;
