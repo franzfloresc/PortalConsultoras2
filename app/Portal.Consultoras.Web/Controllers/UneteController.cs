@@ -23,6 +23,8 @@ using Pais = Portal.Consultoras.Common.Constantes.CodigosISOPais;
 using System.ServiceModel;
 using System.Web;
 
+using ConsultoraBE = Portal.Consultoras.Web.BelcorpPaisService.ConsultoraBE;
+
 namespace Portal.Consultoras.Web.Controllers
 {
     public class UneteController : BaseControllerUnete
@@ -2175,6 +2177,28 @@ namespace Portal.Consultoras.Web.Controllers
             
         }
 
+        public JsonResult ObtenerNombreConsultora(string codigoISO, string codigoConsultora)
+        {
+            var codigo = codigoConsultora;
+            ConsultoraBE consultora;
+        
+            using (var sv = new BelcorpPaisService.BelcorpPaisServiceClient() )
+            {
+                if (codigoISO == "CO")
+                {
+                    codigo = codigo.PadLeft(10, '0');
+                    consultora = sv.ObtenerConsultoraPorDocumento(codigoISO, codigo);
+                }
+                else
+                {
+                    codigo = codigo.PadLeft(7, '0');
+                    consultora = sv.ObtenerConsultoraPorCodigo(codigoISO, codigo);
+                }
+            }
+            
+
+            return Json(consultora != null ? consultora.NombreCompleto : string.Empty, JsonRequestBehavior.AllowGet);
+        }
 
         public ActionResult ObtenerNivelN(int id, string codigoIso, int nivel)
         {
@@ -2628,5 +2652,7 @@ namespace Portal.Consultoras.Web.Controllers
             Util.ExportToExcel("ReporteConsolidado", resultado, dic);
             return null;
         }
+
+
     }
 }
