@@ -3598,14 +3598,14 @@ width:100%;
     float: left;
     display: block;
     text-align: center;
-    width: 49%;
-    height: 34px; /*PERMANECER ESTE ESTILO COMO PRINCIPAL */
-    line-height: 31px; /*PERMANECER ESTE ESTILO COMO PRINCIPAL */
+    width: 49%;    
+    line-height: 31px;
     /* background: #336699; */
     text-align: center;
     margin-top: 10px;
     margin-bottom: 25px;
     border: 1px solid #206a85;
+    height: 34px;
 }
 .btn_agregar_mobile {
     margin-bottom: 0px !important;

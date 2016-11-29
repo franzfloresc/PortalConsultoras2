@@ -4134,8 +4134,7 @@ table > thead > tr > th {
     float: left;
     display: block;
     text-align: center;
-    width: 49%;
-    height: 34px;
+    width: 49%;    
     line-height: 31px;
     /* background: #b0b0b0; */
     text-align: center;
@@ -4143,6 +4142,7 @@ table > thead > tr > th {
     margin-right: 2%;
     margin-bottom: 25px;
     border: 1px solid #60b78d;
+    height: 34px;
 }
 .btn_facebook_showroom{
     float: left;
