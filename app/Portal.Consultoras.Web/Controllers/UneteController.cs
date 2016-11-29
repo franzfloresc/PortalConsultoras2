@@ -23,7 +23,7 @@ using Pais = Portal.Consultoras.Common.Constantes.CodigosISOPais;
 using System.ServiceModel;
 using System.Web;
 
-using ConsultoraBE = Portal.Consultoras.Web.BelcorpPaisService.ConsultoraBE;
+using ConsultoraBE = Portal.Consultoras.Web.HojaInscripcionBelcorpPais.ConsultoraBE;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -2180,7 +2180,7 @@ namespace Portal.Consultoras.Web.Controllers
             var codigo = codigoConsultora;
             ConsultoraBE consultora;
         
-            using (var sv = new BelcorpPaisService.BelcorpPaisServiceClient() )
+            using (var sv = new HojaInscripcionBelcorpPais.BelcorpPaisServiceClient() )
             {
                 if (codigoISO == "CO")
                 {
