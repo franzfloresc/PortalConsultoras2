@@ -270,7 +270,7 @@ function CumpleParametriaOfertaFinal(montoPedido, montoEscala, tipoPopupMostrar,
                                 porcentajeDescuento = escalaDescuentoSiguiente.PorDescuento;
                                 precioMinimoOfertaFinal = montoFaltante;
                                 tipoOfertaFinal_Log = "GM";
-                                gap_Log = montoFaltante;
+                                gap_Log = 0;
                                 resultado = true;
                                 esParaOFGanaMas = true;
                             }
@@ -284,7 +284,7 @@ function CumpleParametriaOfertaFinal(montoPedido, montoEscala, tipoPopupMostrar,
                             porcentajeDescuento = escalaDescuentoSiguiente.PorDescuento;
                             precioMinimoOfertaFinal = montoFaltante;
                             tipoOfertaFinal_Log = "GM";
-                            gap_Log = montoFaltante;
+                            gap_Log = 0;
                             resultado = true;
                             esParaOFGanaMas = true;
                         }
