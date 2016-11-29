@@ -66,6 +66,13 @@ namespace Portal.Consultoras.Web.Controllers
                         model.NombreConsultoraAsociada = sv.GetNombreConsultoraAsociada(UserData().PaisID, UserData().CodigoUsuario) + " (" + sv.GetCodigoConsultoraAsociada(UserData().PaisID, UserData().CodigoUsuario) + ")";
                     }
                 }
+
+                string PaisesDigitoControl = ConfigurationManager.AppSettings["PaisesDigitoControl"].ToString();
+                model.DigitoVerificador = string.Empty;
+                if (PaisesDigitoControl.Contains(model.PaisISO))
+                {
+                    model.DigitoVerificador = beusuario.DigitoVerificador.ToString();
+                }
             }
 
             return View(model);
