@@ -77,7 +77,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
                 ViewBag.MetaImageShowRoom = redSocial == "W" ? ofertaShowRoom.ImagenMini : ofertaShowRoom.ImagenProducto;
-                ViewBag.MetaDescripcionShowRoom = ofertaShowRoom.Descripcion + ": " + subTitulo + ".";
+                ViewBag.MetaTitleShowRoom = ofertaShowRoom.Descripcion + ": " + subTitulo + ".";
                 ViewBag.MetaImageSecureShowRoom = redSocial == "W" ? ofertaShowRoom.ImagenMini : ofertaShowRoom.ImagenProducto;                
                 ViewBag.MetaSiteNameShowRoom = "Somos Belcorp";
                 ViewBag.MetaDescripcionShowRoom = "Míralo Aquí";
