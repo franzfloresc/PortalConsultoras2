@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<SavedWcfConfigurationInformation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="9.1" CheckSum="VhevLNlMicdDhlsUyKoeR7coqXs=">
+<SavedWcfConfigurationInformation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="9.1" CheckSum="1IveLlaK6Zv8A4KQ3gTMhBbakXw=">
   <bindingConfigurations>
     <bindingConfiguration bindingType="basicHttpBinding" name="BasicHttpBinding_IBelcorpPaisService1">
       <properties>
@@ -112,10 +112,10 @@
     </bindingConfiguration>
   </bindingConfigurations>
   <endpoints>
-    <endpoint name="BasicHttpBinding_IBelcorpPaisService1" contract="BelcorpPaisService.IBelcorpPaisService" bindingType="basicHttpBinding" address="http://172.19.3.58/PortalService/BelcorpPaisService.svc" bindingConfiguration="BasicHttpBinding_IBelcorpPaisService1">
+    <endpoint name="BasicHttpBinding_IBelcorpPaisService1" contract="BelcorpPaisService.IBelcorpPaisService" bindingType="basicHttpBinding" address="http://internal-qaselb-portalffvvservicios-1152760669.us-east-1.elb.amazonaws.com/UneteWCF/BelcorpPaisService.svc" bindingConfiguration="BasicHttpBinding_IBelcorpPaisService1">
       <properties>
         <property path="/address" isComplexType="false" isExplicitlyDefined="true" clrType="System.Uri, System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-          <serializedValue>http://172.19.3.58/PortalService/BelcorpPaisService.svc</serializedValue>
+          <serializedValue>http://internal-qaselb-portalffvvservicios-1152760669.us-east-1.elb.amazonaws.com/UneteWCF/BelcorpPaisService.svc</serializedValue>
         </property>
         <property path="/behaviorConfiguration" isComplexType="false" isExplicitlyDefined="false" clrType="System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
           <serializedValue />
