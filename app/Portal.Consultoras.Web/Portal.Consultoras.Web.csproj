@@ -27,7 +27,7 @@
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
     <DeployOnBuild Condition=" '$(DeployWEB)'!='' ">$(DeployWEB)</DeployOnBuild>
-    <UseGlobalApplicationHostFile />
+    <UseGlobalApplicationHostFile />    
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -331,6 +331,7 @@
     <Compile Include="Controllers\RolController.cs" />
     <Compile Include="Controllers\RVDigitalController.cs" />
     <Compile Include="Controllers\ServiciosController.cs" />
+    <Compile Include="Controllers\SetController.cs" />
     <Compile Include="Controllers\ShowRoomController.cs" />
     <Compile Include="Controllers\SolicitudClienteController.cs" />
     <Compile Include="Controllers\SolicitudCreditoController.cs" />
@@ -3511,6 +3512,7 @@
     <Content Include="Views\MiAcademia\Index.cshtml" />
     <Content Include="Views\Notificaciones\ListadoDetallePedidoRechazado.cshtml" />
     <Content Include="Views\Unete\TemplatesUbigeos\_UbigeoGrupo5.cshtml" />
+    <None Include="Views\Set\Index.cshtml" />
     <None Include="Web References\ServiceLMS\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
