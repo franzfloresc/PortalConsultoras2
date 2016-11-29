@@ -1339,6 +1339,7 @@
     <Content Include="Content\Images\catalogos.png" />
     <Content Include="Content\Images\cerrar_04.png" />
     <Content Include="Content\Images\Esika\background_pedido.png" />
+    <Content Include="Content\Images\Esika\Banner_Esika.jpg" />
     <Content Include="Content\Images\Esika\banner_misBeneficios.png" />
     <Content Include="Content\Images\Esika\brillante2016_img.png" />
     <Content Include="Content\Images\Esika\carta.png" />
@@ -1807,6 +1808,7 @@
     <Content Include="Content\Images\Lbel\banamex.png" />
     <Content Include="Content\Images\Lbel\bancomer.png" />
     <Content Include="Content\Images\Lbel\banner.png" />
+    <Content Include="Content\Images\Lbel\Banner_LBel.jpg" />
     <Content Include="Content\Images\Lbel\banner_misBeneficios.png" />
     <Content Include="Content\Images\Lbel\belcorp.png" />
     <Content Include="Content\Images\Lbel\boton_pedido.png" />
