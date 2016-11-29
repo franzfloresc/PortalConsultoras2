@@ -124,7 +124,8 @@ namespace Portal.Consultoras.Web.WebPages
                 //nombreCuv.Content = nombre;
                 imgCuvProducto.Src = ofertaShowRoom.ImagenProducto;
 
-                pNombreProducto.InnerHtml = ofertaShowRoom.Descripcion + ": " + subTitulo + ".";
+                pNombreProducto.InnerHtml = ofertaShowRoom.Descripcion;
+                pSubtituloProducto.InnerHtml = subTitulo + ".";
             }            
         }
     }
