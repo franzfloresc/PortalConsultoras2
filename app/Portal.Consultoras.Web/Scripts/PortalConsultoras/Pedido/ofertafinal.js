@@ -1,8 +1,7 @@
 ﻿var tipoOrigen = tipoOrigen || "";// 1: escritorio      2: mobile
 
 /*EPD-991*/
-var ofertaFinal = $('#hdOfertaFinal').val();
-var ofertaFinalGanaMas = $('#hdOfertaFinalGanaMas').val();
+var esParaOFGanaMas = false;
 /*EPD-991*/
 
 function MostrarPopupOfertaFinal(cumpleOferta, tipoPopupMostrar) {
@@ -71,6 +70,9 @@ function CargandoValoresPopupOfertaFinal(tipoPopupMostrar, montoFaltante, porcen
 
         /*EPD-991*/
         var mostrarGanaMas = validarOfertaFinalGanMas();
+        if (mostrarGanaMas) {
+            mostrarGanaMas = esParaOFGanaMas;
+        }
         /*EPD-991*/
 
         $("#divIconoOfertaFinal").removeClass("icono_exclamacion");
@@ -143,10 +145,7 @@ function CumpleOfertaFinal(montoPedido, montoEscala, tipoPopupMostrar, codigoMen
     }
 
     /*EPD-991*/
-    var mostrarGanaMas = false;
-    if (validarOfertaFinalGanMas()) {
-        mostrarGanaMas = (esFacturacion == "True");
-    }
+    var mostrarGanaMas = validarOfertaFinalGanMas();
     /*EPD-991*/
 
     if (resultado || mostrarGanaMas) {
@@ -186,19 +185,29 @@ function CumpleOfertaFinal(montoPedido, montoEscala, tipoPopupMostrar, codigoMen
 
 /*EPD-991*/
 function validarOfertaFinalGanMas() {
+    var ofertaFinal = $('#hdOfertaFinal').val();
+    var esOfertaFinalZonaValida = $("#hdEsOfertaFinalZonaValida").val();
+    var ofertaFinalGanaMas = $('#hdOfertaFinalGanaMas').val();
+    var esFacturacion = $("#hdEsFacturacion").val();
     var mostrar = false;
-    if (ofertaFinal == "1" || ofertaFinal == "2") {
-        if (ofertaFinalGanaMas == "1") {
-            var esConsultoraNueva = $("#hdEsConsultoraNueva").val();
-            var esOFGanaMasZonaValida = $("#hdEsOFGanaMasZonaValida").val();
-            if (esConsultoraNueva == "True") {
-                mostrar = (esOFGanaMasZonaValida == "True");
-            }
-            else {
-                mostrar = true;
+
+    if (esFacturacion == "True") {
+        if (ofertaFinal == "1" || ofertaFinal == "2") {
+            if (esOfertaFinalZonaValida == "True") {
+                if (ofertaFinalGanaMas == "1") {
+                    var esConsultoraNueva = $("#hdEsConsultoraNueva").val();
+                    if (esConsultoraNueva == "True") {
+                        var esOFGanaMasZonaValida = $("#hdEsOFGanaMasZonaValida").val();
+                        mostrar = (esOFGanaMasZonaValida == "True");
+                    }
+                    else {
+                        mostrar = true;
+                    }
+                }
             }
         }
     }
+
     return mostrar;
 }
 /*EPD-991*/
@@ -209,13 +218,13 @@ function CumpleParametriaOfertaFinal(montoPedido, montoEscala, tipoPopupMostrar,
     var porcentajeDescuento = 0;
     var precioMinimoOfertaFinal = 0;
 
+    /*EPD-991*/
+    var mostrarGanaMas = validarOfertaFinalGanMas();
+    /*EPD-991*/
+
     //Escala
     if (tipoPopupMostrar == 1) {
         var esConsultoraNueva = $("#hdEsConsultoraNueva").val();
-
-        /*EPD-991*/
-        var mostrarGanaMas = validarOfertaFinalGanMas();
-        /*EPD-991*/
 
         //if (esConsultoraNueva == "False") {
         if (esConsultoraNueva == "False" || mostrarGanaMas) {
@@ -261,8 +270,9 @@ function CumpleParametriaOfertaFinal(montoPedido, montoEscala, tipoPopupMostrar,
                                 porcentajeDescuento = escalaDescuentoSiguiente.PorDescuento;
                                 precioMinimoOfertaFinal = montoFaltante;
                                 tipoOfertaFinal_Log = "GM";
-                                gap_Log = montoFaltante;
+                                gap_Log = 0;
                                 resultado = true;
+                                esParaOFGanaMas = true;
                             }
                             /*EPD-991*/
                         }
@@ -274,8 +284,9 @@ function CumpleParametriaOfertaFinal(montoPedido, montoEscala, tipoPopupMostrar,
                             porcentajeDescuento = escalaDescuentoSiguiente.PorDescuento;
                             precioMinimoOfertaFinal = montoFaltante;
                             tipoOfertaFinal_Log = "GM";
-                            gap_Log = montoFaltante;
+                            gap_Log = 0;
                             resultado = true;
+                            esParaOFGanaMas = true;
                         }
                         /*EPD-991*/
                     }
@@ -294,6 +305,11 @@ function CumpleParametriaOfertaFinal(montoPedido, montoEscala, tipoPopupMostrar,
                     var mensajeCUV = listaObservacionesProl[0].CUV;
 
                     if (mensajeCUV == "XXXXX") {
+
+                        /*EPD-991*/
+                        esParaOFGanaMas = false;
+                        /*EPD-991*/
+
                         var montoMinimo = parseFloat($("#hdMontoMinimo").val());
                         var diferenciaMonto = montoMinimo - montoPedido;
 
@@ -305,7 +321,7 @@ function CumpleParametriaOfertaFinal(montoPedido, montoEscala, tipoPopupMostrar,
                                 precioMinimoOfertaFinal = parametria[0].PrecioMinimo;
 
                                 tipoOfertaFinal_Log = "MM";
-                                gap_Log = montoFaltante;                                
+                                gap_Log = montoFaltante;
 
                                 resultado = true;
                             }
