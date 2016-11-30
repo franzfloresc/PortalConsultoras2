@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="351a5120-2ce3-44a3-968b-e734ff1a3a12" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://172.19.3.58/PortalService/BelcorpPaisService.svc" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="BelcorpPaisService.xsd" MetadataType="Schema" ID="8422d814-d1f3-4ae2-bb4b-966468c8985c" SourceId="1" SourceUrl="http://172.19.3.58/PortalService/BelcorpPaisService.svc?xsd=xsd2" />
+    <MetadataFile FileName="BelcorpPaisService1.xsd" MetadataType="Schema" ID="73e1f1ae-5c85-4dc0-8049-3ead46c37b3c" SourceId="1" SourceUrl="http://172.19.3.58/PortalService/BelcorpPaisService.svc?xsd=xsd1" />
+    <MetadataFile FileName="BelcorpPaisService2.xsd" MetadataType="Schema" ID="42183d08-ba74-44e8-98d0-c26339469f05" SourceId="1" SourceUrl="http://172.19.3.58/PortalService/BelcorpPaisService.svc?xsd=xsd4" />
+    <MetadataFile FileName="BelcorpPaisService.wsdl" MetadataType="Wsdl" ID="f052a429-eaad-47a7-970f-34d9bbfb9723" SourceId="1" SourceUrl="http://172.19.3.58/PortalService/BelcorpPaisService.svc?wsdl" />
+    <MetadataFile FileName="BelcorpPaisService3.xsd" MetadataType="Schema" ID="d27460bb-22b0-4ab4-bc7c-242b9c545f00" SourceId="1" SourceUrl="http://172.19.3.58/PortalService/BelcorpPaisService.svc?xsd=xsd3" />
+    <MetadataFile FileName="BelcorpPaisService4.xsd" MetadataType="Schema" ID="42fc008f-3448-44a1-90a6-4e0de3102c9a" SourceId="1" SourceUrl="http://172.19.3.58/PortalService/BelcorpPaisService.svc?xsd=xsd0" />
+    <MetadataFile FileName="BelcorpPaisService.disco" MetadataType="Disco" ID="ad76ee3d-95ed-402e-af49-a818d9243987" SourceId="1" SourceUrl="http://172.19.3.58/PortalService/BelcorpPaisService.svc?disco" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

@@ -10,6 +10,7 @@
     var tiposContacto = ViewBag.TiposContacto as SelectList;
     var tiposDocumentos = ViewBag.TiposDocumentos as SelectList;
     var validacionTipoRucEmpresa = false;
+  
 }
 
 <style>
@@ -143,8 +144,13 @@
                         </div>
                         <div class="titC">C&oacute;digo Consultora que recomienda:</div>
                         <div class="selectP2 borde_redondeado">
-                            @Html.TextBoxFor(m => m.CodigoConsultoraRecomienda, new { @class = "numero" })
+                            @Html.TextBoxFor(m => m.CodigoConsultoraRecomienda, new {@class = "numero"})
                         </div>
+                        <div class="titC">Nombre consultora recomienda:</div>
+                        <div class="selectP2 borde_redondeado">
+                            @Html.TextBoxFor(m => m.NombreConsultoraRecomienda, new { @class = "texto rfcSearch", @placeholder = "Nombre de la consultora", @readonly = "true" })
+                        </div>
+
                     }
                     else
                     {
@@ -183,6 +189,8 @@
 <script type="text/javascript" src="~/Scripts/jquery.maskedinput.min.js"></script>
 <script src="~/Scripts/HojaInscripcion/utilsCommon.js"></script>
 <script>
+    var urlObtenerNombreConsultora = '@Url.Action("ObtenerNombreConsultora")';
+
     $.validator.setDefaults({
         ignore: '.ignore'
     });
@@ -261,6 +269,19 @@
                 }
             });
         }
+    });
+
+    $('#CodigoConsultoraRecomienda').donetyping(function () {
+        $('#CodigoConsultoraRecomienda').attr('disabled', true);
+        $.getJSON(urlObtenerNombreConsultora,
+            { codigoISO: $('#CodigoPais').val(), codigoConsultora: this.value },
+              function (nombre) {
+                  $('#NombreConsultoraRecomienda').val(nombre);
+                  $('#CodigoConsultoraRecomienda').valid();
+              }).complete(function () {
+                  $('#CodigoConsultoraRecomienda').attr('disabled', false);
+                  $('#CodigoConsultoraRecomienda').focus();
+              });
     });
 
     function OnSuccess(data) {
