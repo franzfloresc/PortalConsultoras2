@@ -19,15 +19,15 @@
     <ServiceContractMappings />
   </ClientOptions>
   <MetadataSources>
-    <MetadataSource Address="http://internal-qaselb-portalffvvservicios-1152760669.us-east-1.elb.amazonaws.com/UneteWCF/ValidacionesUnete.svc?wsdl" Protocol="http" SourceId="1" />
+    <MetadataSource Address="http://172.19.3.58/PortalService/ValidacionesUnete.svc?wsdl" Protocol="http" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="ValidacionesUnete.wsdl" MetadataType="Wsdl" ID="0af038f1-4c0f-424b-b935-a5971c405209" SourceId="1" SourceUrl="http://internal-qaselb-portalffvvservicios-1152760669.us-east-1.elb.amazonaws.com/UneteWCF/ValidacionesUnete.svc?wsdl" />
-    <MetadataFile FileName="ValidacionesUnete.xsd" MetadataType="Schema" ID="303e9113-882e-4e61-a129-376826ed008d" SourceId="1" SourceUrl="http://internal-qaselb-portalffvvservicios-1152760669.us-east-1.elb.amazonaws.com/UneteWCF/ValidacionesUnete.svc?xsd=xsd0" />
-    <MetadataFile FileName="ValidacionesUnete1.xsd" MetadataType="Schema" ID="377711cf-f510-4edb-b1cd-13808767ecd0" SourceId="1" SourceUrl="http://internal-qaselb-portalffvvservicios-1152760669.us-east-1.elb.amazonaws.com/UneteWCF/ValidacionesUnete.svc?xsd=xsd1" />
-    <MetadataFile FileName="ValidacionesUnete2.xsd" MetadataType="Schema" ID="552d6253-d401-45ee-ac12-8bafff8327a9" SourceId="1" SourceUrl="http://internal-qaselb-portalffvvservicios-1152760669.us-east-1.elb.amazonaws.com/UneteWCF/ValidacionesUnete.svc?xsd=xsd2" />
-    <MetadataFile FileName="ValidacionesUnete3.xsd" MetadataType="Schema" ID="5606e108-15a7-4509-9680-9ef845915500" SourceId="1" SourceUrl="http://internal-qaselb-portalffvvservicios-1152760669.us-east-1.elb.amazonaws.com/UneteWCF/ValidacionesUnete.svc?xsd=xsd3" />
-    <MetadataFile FileName="ValidacionesUnete4.xsd" MetadataType="Schema" ID="83c751b6-a843-4275-ab0a-0153e7c2d301" SourceId="1" SourceUrl="http://internal-qaselb-portalffvvservicios-1152760669.us-east-1.elb.amazonaws.com/UneteWCF/ValidacionesUnete.svc?xsd=xsd4" />
+    <MetadataFile FileName="ValidacionesUnete5.xsd" MetadataType="Schema" ID="e1b1d20b-26c5-460e-8ec6-77c50a46ecc7" SourceId="1" SourceUrl="http://172.19.3.58/PortalService/ValidacionesUnete.svc?xsd=xsd3" />
+    <MetadataFile FileName="ValidacionesUnete51.xsd" MetadataType="Schema" ID="21b07470-fb72-41a7-bd5e-6479be841a49" SourceId="1" SourceUrl="http://172.19.3.58/PortalService/ValidacionesUnete.svc?xsd=xsd4" />
+    <MetadataFile FileName="ValidacionesUnete52.xsd" MetadataType="Schema" ID="9fbcf6ca-b6cd-4d95-be8c-37d33678fa92" SourceId="1" SourceUrl="http://172.19.3.58/PortalService/ValidacionesUnete.svc?xsd=xsd1" />
+    <MetadataFile FileName="ValidacionesUnete1.wsdl" MetadataType="Wsdl" ID="59872083-8c6c-4a66-ac47-147b4108fcfe" SourceId="1" SourceUrl="http://172.19.3.58/PortalService/ValidacionesUnete.svc?wsdl" />
+    <MetadataFile FileName="ValidacionesUnete53.xsd" MetadataType="Schema" ID="4efa4b8a-f21a-4602-97dc-7f9ad1fd5ea1" SourceId="1" SourceUrl="http://172.19.3.58/PortalService/ValidacionesUnete.svc?xsd=xsd0" />
+    <MetadataFile FileName="ValidacionesUnete54.xsd" MetadataType="Schema" ID="57b9bdfd-5e61-4a3b-9fcc-1cfaf344655b" SourceId="1" SourceUrl="http://172.19.3.58/PortalService/ValidacionesUnete.svc?xsd=xsd2" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />

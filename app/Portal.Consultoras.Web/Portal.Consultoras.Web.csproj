@@ -27,7 +27,7 @@
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
     <DeployOnBuild Condition=" '$(DeployWEB)'!='' ">$(DeployWEB)</DeployOnBuild>
-    <UseGlobalApplicationHostFile />  
+    <UseGlobalApplicationHostFile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -3589,7 +3589,7 @@
     <Content Include="Views\Notificaciones\ListadoDetallePedidoRechazado.cshtml" />
     <Content Include="Views\Unete\TemplatesUbigeos\_UbigeoGrupo5.cshtml" />
     <Content Include="Views\Unete\ReporteConsolidado.cshtml" />
-    <None Include="Views\Set\Index.cshtml" />
+    <Content Include="Views\Set\Index.cshtml" />
     <Content Include="Views\MisReclamos\Reclamo.cshtml" />
     <Content Include="Views\MisCatalogosRevistas\MiRevista.cshtml" />
     <Content Include="Views\TerminosYCondiciones\Index.cshtml" />
