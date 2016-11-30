@@ -253,20 +253,20 @@ namespace Portal.Consultoras.Web.Controllers
                                     if (userData.VioTutorialSalvavidas == 0)
                                     {
                                         UpdateUsuarioTutorial(Constantes.TipoTutorial.Salvavidas);
-                                        ViewBag.MostrarUbicacionTutorial = 0;                                       
+                                        ViewBag.MostrarUbicacionTutorial = 0;
                                     }
                                     else
                                     {
-                                        UpdateUsuarioTutorial(Constantes.TipoTutorial.Desktop);                                       
+                                        UpdateUsuarioTutorial(Constantes.TipoTutorial.Desktop);
                                     }
                                     mostrarPopUp = true;
-                                    TipoPopUpMostrar = Constantes.TipoPopUp.VideoIntroductorio;                                    
+                                    TipoPopUpMostrar = Constantes.TipoPopUp.VideoIntroductorio;
                                 }
                                 if (userData.VioTutorialSalvavidas == 0)
                                 {
                                     model.VioTutorialSalvavidas = 0;
                                     TipoPopUpMostrar = Constantes.TipoPopUp.VideoIntroductorio;
-                                    mostrarPopUp = true;  
+                                    mostrarPopUp = true;
                                 }
                                 if (mostrarPopUp)
                                 {
@@ -720,7 +720,7 @@ namespace Portal.Consultoras.Web.Controllers
             if (beusuario != null)
             {
                 model.PaisISO = userData.CodigoISO;
-                model.CodigoUsuario = userData.CodigoUsuario + " (Zona: " + userData.CodigoZona + ")";
+
                 model.NombreCompleto = beusuario.Nombre;
                 model.NombreGerenteZonal = userData.NombreGerenteZonal;     //SB20-907
                 model.EMail = beusuario.EMail;
@@ -749,6 +749,17 @@ namespace Portal.Consultoras.Web.Controllers
                     using (SACServiceClient sv = new SACServiceClient())
                     {
                         model.NombreConsultoraAsociada = sv.GetNombreConsultoraAsociada(userData.PaisID, userData.CodigoUsuario) + " (" + sv.GetCodigoConsultoraAsociada(userData.PaisID, userData.CodigoUsuario) + ")";
+                    }
+                }
+                /*EPD-1068*/
+                model.CodigoUsuario = userData.CodigoUsuario + " (Zona: " + userData.CodigoZona + ")";
+                string PaisesDigitoControl = ConfigurationManager.AppSettings["PaisesDigitoControl"].ToString();
+                model.DigitoVerificador = string.Empty;
+                if (PaisesDigitoControl.Contains(model.PaisISO))
+                {
+                    if (!String.IsNullOrEmpty(beusuario.DigitoVerificador.ToString()) && beusuario.DigitoVerificador != 0)
+                    {
+                        model.CodigoUsuario = userData.CodigoUsuario + " - " + beusuario.DigitoVerificador.ToString() + " (Zona: " + userData.CodigoZona + ")";
                     }
                 }
             }
