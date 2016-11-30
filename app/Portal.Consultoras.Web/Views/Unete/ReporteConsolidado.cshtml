@@ -395,8 +395,9 @@
                 } else if (
                         (region.length == 0 && zona.length == 0 && seccion.length == 0) ||
                         (region.length > 0 && seccion.length == 0 && zona.length == 0) ||
-                        (zona.length > 0 && seccion.length ==0 && region.length ==0) ||
-                        (seccion.length > 0)
+                        (zona.length > 0 && seccion.length == 0 && region.length == 0) ||
+                        (zona.length > 0 && zona.length > 0 && seccion.length ==0 ) ||
+                        (seccion.length > 0) 
                     ) {
                     fnGrilla();
                     e.preventDefault();
