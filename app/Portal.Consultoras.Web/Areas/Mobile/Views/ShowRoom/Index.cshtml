@@ -113,8 +113,8 @@
                     //urlBase = request.Url.Scheme + "://" + request.Url.Authority + "/WebPages/SetVentaDigital.aspx?id=" + Model.CodigoIso + "_" + item.OfertaShowRoomID + "_" + Model.FormatoCampania + "_W";
                     //urlBase2 = request.Url.Scheme + "://" + request.Url.Authority + "/WebPages/SetVentaDigital.aspx?id=" + Model.CodigoIso + "_" + item.OfertaShowRoomID + "_" + Model.FormatoCampania + "_F";
 
-                    urlBase = request.Url.Scheme + "://" + request.Url.Authority + "/Set/"+ Model.CodigoIso + "_" + item.OfertaShowRoomID + "_" + Model.FormatoCampania + "_W";
-                    urlBase2 = request.Url.Scheme + "://" + request.Url.Authority + "/Set/" + Model.CodigoIso + "_" + item.OfertaShowRoomID + "_" + Model.FormatoCampania + "_F";
+                    urlBase = request.Url.Scheme + "://" + request.Url.Authority + "/Set.aspx?id="+ Model.CodigoIso + "_" + item.OfertaShowRoomID + "_" + Model.FormatoCampania + "_W";
+                    urlBase2 = request.Url.Scheme + "://" + request.Url.Authority + "/Set.aspx?id=" + Model.CodigoIso + "_" + item.OfertaShowRoomID + "_" + Model.FormatoCampania + "_F";
 
                     urlBase = urlBase.Replace("/", "%2F");
                     urlBase = urlBase.Replace(":", "%3A");
