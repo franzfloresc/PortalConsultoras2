@@ -119,6 +119,9 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         private int DiasDuracionCronogramaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int DigitoVerificadorField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string DireccionField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -867,6 +870,19 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
                 if ((this.DiasDuracionCronogramaField.Equals(value) != true)) {
                     this.DiasDuracionCronogramaField = value;
                     this.RaisePropertyChanged("DiasDuracionCronograma");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int DigitoVerificador {
+            get {
+                return this.DigitoVerificadorField;
+            }
+            set {
+                if ((this.DigitoVerificadorField.Equals(value) != true)) {
+                    this.DigitoVerificadorField = value;
+                    this.RaisePropertyChanged("DigitoVerificador");
                 }
             }
         }
