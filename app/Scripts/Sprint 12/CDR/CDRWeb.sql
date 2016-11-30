@@ -218,6 +218,7 @@ BEGIN
 			P.PedidoID,
 			isnull(p.FechaFacturado,'1900-01-01') as FechaRegistro,
 			isnull(P.Origen,'') as CanalIngreso,
+			isnull(p.NumeroPedido,0) as NumeroPedido,
 			case 
 				when C.PedidoID is null or C.PedidoID = 0 then 0
 				else C.CDRWebID

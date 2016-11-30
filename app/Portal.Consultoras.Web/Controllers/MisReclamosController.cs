@@ -80,6 +80,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     model.CampaniaID = listaCdr[0].CampaniaID;
                     model.CDRWebID = listaCdr[0].CDRWebID;
+                    model.NumeroPedido = listaCdr[0].PedidoNumero;
                 }                    
             }
 
@@ -187,8 +188,8 @@ namespace Portal.Consultoras.Web.Controllers
                 using (PedidoServiceClient sv = new PedidoServiceClient())
                 {
                     listaPedidoFacturados = sv.GetPedidosFacturadoSegunDias(userData.PaisID, userData.CampaniaID, userData.ConsultoraID, maxDias).ToList();
-                }
-
+                }                
+                
                 listaPedidoFacturados = listaPedidoFacturados ?? new List<BEPedidoWeb>();
                 Session[Constantes.ConstSession.CDRPedidosFacturado] = listaPedidoFacturados;
                 return listaPedidoFacturados;
@@ -259,6 +260,7 @@ namespace Portal.Consultoras.Web.Controllers
                             pedidoActual.CanalIngreso = pedido.CanalIngreso;
                             pedidoActual.CDRWebID = pedido.CDRWebID;
                             pedidoActual.CDRWebEstado = pedido.CDRWebEstado;
+                            pedidoActual.NumeroPedido = pedido.NumeroPedido;
                             pedidoActual.olstBEPedidoWebDetalle = lista.ToArray();
 
                             listaPedido.Add(pedidoActual);
@@ -731,6 +733,7 @@ namespace Portal.Consultoras.Web.Controllers
                     var entidad = new BECDRWeb();
                     entidad.CampaniaID = model.CampaniaID;
                     entidad.PedidoID = model.PedidoID;
+                    entidad.PedidoNumero = model.NumeroPedido;
                     entidad.ConsultoraID = Int32.Parse(userData.ConsultoraID.ToString());
                     entidad.CDRWebDetalle = new BECDRWebDetalle[] {entidadDetalle};
                     using (CDRServiceClient sv = new CDRServiceClient())
