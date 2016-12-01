@@ -725,8 +725,17 @@ namespace Portal.Consultoras.Web.Controllers
                 entidadDetalle.CodigoOperacion = model.Operacion;
                 entidadDetalle.CUV = model.CUV;
                 entidadDetalle.Cantidad = model.Cantidad;
-                entidadDetalle.CUV2 = model.CUV2;
-                entidadDetalle.Cantidad2 = model.CUV2 == "" ? 0 : model.Cantidad2;
+
+                if (model.Operacion == Constantes.CodigoOperacionCDR.Canje)
+                {
+                    entidadDetalle.CUV2 = model.CUV;
+                    entidadDetalle.Cantidad2 = model.Cantidad;
+                }
+                else
+                {
+                    entidadDetalle.CUV2 = model.CUV2;
+                    entidadDetalle.Cantidad2 = model.CUV2 == "" ? 0 : model.Cantidad2;
+                }                
 
                 if (model.CDRWebID <= 0)
                 {
