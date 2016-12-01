@@ -2017,6 +2017,16 @@ namespace Portal.Consultoras.BizLogic
             new DAPedidoWeb(PaisID).InsLogOfertaFinal(CampaniaID, CodigoConsultora, CUV, cantidad, tipoOfertaFinal, GAP, tipoRegistro);
         }
 
+        public void ActualizarIndicadorGPRPedidosRechazados(int PaisID, long ProcesoID) {
+            DAPedidoWeb DAPedidoWeb = new DAPedidoWeb(PaisID);
+            DAPedidoWeb.ActualizarIndicadorGPRPedidosRechazados(ProcesoID);
+        }
+
+        public void ActualizarIndicadorGPRPedidosFacturados(int PaisID, long ProcesoID)
+        {
+            DAPedidoWeb DAPedidoWeb = new DAPedidoWeb(PaisID);
+            DAPedidoWeb.ActualizarIndicadorGPRPedidosFacturados(ProcesoID);
+        }
         public List<BEPedidoWeb> GetPedidosFacturadoSegunDias(int paisID, int campaniaID, long consultoraID, int maxDias)
         {
             var listaPedidosFacturados = new List<BEPedidoWeb>();

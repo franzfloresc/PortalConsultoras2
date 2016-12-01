@@ -674,6 +674,19 @@ namespace Portal.Consultoras.Data
             Context.ExecuteNonQuery(command);
         }
 
+        public void ActualizarIndicadorGPRPedidosRechazados(long ProcesoID) {
+            DbCommand command = Context.Database.GetStoredProcCommand("GPR.ActualizarIndicadorGPRPedidosRechazados");
+            Context.Database.AddInParameter(command, "@ProcesoValidacionPedidoRechazadoId", DbType.Int32, ProcesoID);
+            Context.ExecuteNonQuery(command);
+        }
+
+        public void ActualizarIndicadorGPRPedidosFacturados(long ProcesoID)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("GPR.ActualizarIndicadorGPRPedidosFacturados");
+            Context.Database.AddInParameter(command, "@ProcesoValidacionPedidoRechazadoId", DbType.Int32, ProcesoID);
+            Context.ExecuteNonQuery(command);
+        }
+
         public IDataReader GetPedidosFacturadoSegunDias(int campaniaID, long consultoraID, int maxDias)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetPedidosFacturadoSegunDias_SB2");

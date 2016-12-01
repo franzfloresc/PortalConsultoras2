@@ -1679,5 +1679,14 @@ namespace Portal.Consultoras.Service
         {
             return BLPedidoWeb.GetPedidosFacturadoSegunDias(paisID, campaniaID, consultoraID, maxDias);
         }
+
+        //GPR397
+        public void ActualizarIndicadorGPRPedidosRechazados(int PaisID, long ProcesoID) {
+            BLPedidoWeb.ActualizarIndicadorGPRPedidosRechazados(PaisID, ProcesoID);
+        }
+        public void ActualizarIndicadorGPRPedidosFacturados(int PaisID, long ProcesoID)
+        {
+            BLPedidoWeb.ActualizarIndicadorGPRPedidosFacturados(PaisID, ProcesoID);
+        }
     }
 }
