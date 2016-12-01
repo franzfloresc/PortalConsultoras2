@@ -235,7 +235,7 @@ namespace Portal.Consultoras.Web.ValidacionesUnete {
         private string CodigoSeccionField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private bool ContactoUneteField;
+        private string ContactoUneteField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string CorreoElectronicoField;
@@ -332,12 +332,12 @@ namespace Portal.Consultoras.Web.ValidacionesUnete {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public bool ContactoUnete {
+        public string ContactoUnete {
             get {
                 return this.ContactoUneteField;
             }
             set {
-                if ((this.ContactoUneteField.Equals(value) != true)) {
+                if ((object.ReferenceEquals(this.ContactoUneteField, value) != true)) {
                     this.ContactoUneteField = value;
                     this.RaisePropertyChanged("ContactoUnete");
                 }
@@ -595,6 +595,12 @@ namespace Portal.Consultoras.Web.ValidacionesUnete {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IValidacionesUnete/EnviarEmail", ReplyAction="http://tempuri.org/IValidacionesUnete/EnviarEmailResponse")]
         System.Threading.Tasks.Task EnviarEmailAsync(Portal.Consultoras.Web.ValidacionesUnete.EmailParameter parametro);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IValidacionesUnete/ValidarCedulaEcuador", ReplyAction="http://tempuri.org/IValidacionesUnete/ValidarCedulaEcuadorResponse")]
+        bool ValidarCedulaEcuador(string numeroDocumento);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IValidacionesUnete/ValidarCedulaEcuador", ReplyAction="http://tempuri.org/IValidacionesUnete/ValidarCedulaEcuadorResponse")]
+        System.Threading.Tasks.Task<bool> ValidarCedulaEcuadorAsync(string numeroDocumento);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -638,6 +644,14 @@ namespace Portal.Consultoras.Web.ValidacionesUnete {
         
         public System.Threading.Tasks.Task EnviarEmailAsync(Portal.Consultoras.Web.ValidacionesUnete.EmailParameter parametro) {
             return base.Channel.EnviarEmailAsync(parametro);
+        }
+        
+        public bool ValidarCedulaEcuador(string numeroDocumento) {
+            return base.Channel.ValidarCedulaEcuador(numeroDocumento);
+        }
+        
+        public System.Threading.Tasks.Task<bool> ValidarCedulaEcuadorAsync(string numeroDocumento) {
+            return base.Channel.ValidarCedulaEcuadorAsync(numeroDocumento);
         }
     }
 }
