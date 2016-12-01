@@ -17198,6 +17198,12 @@ namespace Portal.Consultoras.Web.ServicePedido {
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="ServicePedido.IPedidoService")]
     public interface IPedidoService {
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/InsProductoSugerido", ReplyAction="http://tempuri.org/IPedidoService/InsProductoSugeridoResponse")]
+        string InsProductoSugerido(int PaisID, Portal.Consultoras.Web.ServicePedido.BEProductoSugerido entidad);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/InsProductoSugerido", ReplyAction="http://tempuri.org/IPedidoService/InsProductoSugeridoResponse")]
+        System.Threading.Tasks.Task<string> InsProductoSugeridoAsync(int PaisID, Portal.Consultoras.Web.ServicePedido.BEProductoSugerido entidad);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/UpdProductoSugerido", ReplyAction="http://tempuri.org/IPedidoService/UpdProductoSugeridoResponse")]
         string UpdProductoSugerido(int PaisID, Portal.Consultoras.Web.ServicePedido.BEProductoSugerido entidad);
         
@@ -17269,6 +17275,12 @@ namespace Portal.Consultoras.Web.ServicePedido {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetPedidosFacturadoSegunDias", ReplyAction="http://tempuri.org/IPedidoService/GetPedidosFacturadoSegunDiasResponse")]
         System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEPedidoWeb[]> GetPedidosFacturadoSegunDiasAsync(int paisID, int campaniaID, long consultoraID, int maxDias);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/InsertarTipoEstrategia", ReplyAction="http://tempuri.org/IPedidoService/InsertarTipoEstrategiaResponse")]
+        int InsertarTipoEstrategia(Portal.Consultoras.Web.ServicePedido.BETipoEstrategia entidad);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/InsertarTipoEstrategia", ReplyAction="http://tempuri.org/IPedidoService/InsertarTipoEstrategiaResponse")]
+        System.Threading.Tasks.Task<int> InsertarTipoEstrategiaAsync(Portal.Consultoras.Web.ServicePedido.BETipoEstrategia entidad);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/EliminarTipoEstrategia", ReplyAction="http://tempuri.org/IPedidoService/EliminarTipoEstrategiaResponse")]
         int EliminarTipoEstrategia(Portal.Consultoras.Web.ServicePedido.BETipoEstrategia entidad);
@@ -17776,11 +17788,11 @@ namespace Portal.Consultoras.Web.ServicePedido {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetImagenesByCUV", ReplyAction="http://tempuri.org/IPedidoService/GetImagenesByCUVResponse")]
         System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEMatrizComercial[]> GetImagenesByCUVAsync(int PaisID, int campaniaID, string cuv);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/InsProductoSugerido", ReplyAction="http://tempuri.org/IPedidoService/InsProductoSugeridoResponse")]
-        string InsProductoSugerido(int PaisID, Portal.Consultoras.Web.ServicePedido.BEProductoSugerido entidad);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/ValidarConfiguracionCrossSelling", ReplyAction="http://tempuri.org/IPedidoService/ValidarConfiguracionCrossSellingResponse")]
+        int ValidarConfiguracionCrossSelling(int PaisID, int CampaniaID);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/InsProductoSugerido", ReplyAction="http://tempuri.org/IPedidoService/InsProductoSugeridoResponse")]
-        System.Threading.Tasks.Task<string> InsProductoSugeridoAsync(int PaisID, Portal.Consultoras.Web.ServicePedido.BEProductoSugerido entidad);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/ValidarConfiguracionCrossSelling", ReplyAction="http://tempuri.org/IPedidoService/ValidarConfiguracionCrossSellingResponse")]
+        System.Threading.Tasks.Task<int> ValidarConfiguracionCrossSellingAsync(int PaisID, int CampaniaID);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetPedidoWebID", ReplyAction="http://tempuri.org/IPedidoService/GetPedidoWebIDResponse")]
         int GetPedidoWebID(int paisID, int campaniaID, long consultoraID);
@@ -18290,12 +18302,6 @@ namespace Portal.Consultoras.Web.ServicePedido {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetOfertas", ReplyAction="http://tempuri.org/IPedidoService/GetOfertasResponse")]
         System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEOferta[]> GetOfertasAsync(Portal.Consultoras.Web.ServicePedido.BEOferta entidad);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/InsertarTipoEstrategia", ReplyAction="http://tempuri.org/IPedidoService/InsertarTipoEstrategiaResponse")]
-        int InsertarTipoEstrategia(Portal.Consultoras.Web.ServicePedido.BETipoEstrategia entidad);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/InsertarTipoEstrategia", ReplyAction="http://tempuri.org/IPedidoService/InsertarTipoEstrategiaResponse")]
-        System.Threading.Tasks.Task<int> InsertarTipoEstrategiaAsync(Portal.Consultoras.Web.ServicePedido.BETipoEstrategia entidad);
-        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetPedidosReporteLiderIndicador", ReplyAction="http://tempuri.org/IPedidoService/GetPedidosReporteLiderIndicadorResponse")]
         Portal.Consultoras.Web.ServicePedido.BEPedidoReporteLiderIndicador GetPedidosReporteLiderIndicador(int paisID, long ConsultoraLiderID, string CodigoPais, string CodigoCampaniaActual);
         
@@ -18483,6 +18489,12 @@ namespace Portal.Consultoras.Web.ServicePedido {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/UpdBackOrderListPedidoWebDetalle", ReplyAction="http://tempuri.org/IPedidoService/UpdBackOrderListPedidoWebDetalleResponse")]
         System.Threading.Tasks.Task UpdBackOrderListPedidoWebDetalleAsync(int paisID, int campaniaID, int pedidoID, Portal.Consultoras.Web.ServicePedido.BEPedidoWebDetalle[] listPedidoWebDetalle);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/QuitarBackOrderPedidoWebDetalle", ReplyAction="http://tempuri.org/IPedidoService/QuitarBackOrderPedidoWebDetalleResponse")]
+        void QuitarBackOrderPedidoWebDetalle(Portal.Consultoras.Web.ServicePedido.BEPedidoWebDetalle pedidowebdetalle);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/QuitarBackOrderPedidoWebDetalle", ReplyAction="http://tempuri.org/IPedidoService/QuitarBackOrderPedidoWebDetalleResponse")]
+        System.Threading.Tasks.Task QuitarBackOrderPedidoWebDetalleAsync(Portal.Consultoras.Web.ServicePedido.BEPedidoWebDetalle pedidowebdetalle);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/SelectByPedidoValidado", ReplyAction="http://tempuri.org/IPedidoService/SelectByPedidoValidadoResponse")]
         Portal.Consultoras.Web.ServicePedido.BEPedidoWebDetalle[] SelectByPedidoValidado(int paisID, int CampaniaID, long ConsultoraID, string Consultora);
@@ -18809,12 +18821,6 @@ namespace Portal.Consultoras.Web.ServicePedido {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetProductosRecomendadosByCUVCampaniaPortal", ReplyAction="http://tempuri.org/IPedidoService/GetProductosRecomendadosByCUVCampaniaPortalResp" +
             "onse")]
         System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BECrossSellingProducto[]> GetProductosRecomendadosByCUVCampaniaPortalAsync(int PaisID, long ConsultoraID, int CampaniaID, string CUV);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/ValidarConfiguracionCrossSelling", ReplyAction="http://tempuri.org/IPedidoService/ValidarConfiguracionCrossSellingResponse")]
-        int ValidarConfiguracionCrossSelling(int PaisID, int CampaniaID);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/ValidarConfiguracionCrossSelling", ReplyAction="http://tempuri.org/IPedidoService/ValidarConfiguracionCrossSellingResponse")]
-        System.Threading.Tasks.Task<int> ValidarConfiguracionCrossSellingAsync(int PaisID, int CampaniaID);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -18842,6 +18848,14 @@ namespace Portal.Consultoras.Web.ServicePedido {
         
         public PedidoServiceClient(System.ServiceModel.Channels.Binding binding, System.ServiceModel.EndpointAddress remoteAddress) : 
                 base(binding, remoteAddress) {
+        }
+        
+        public string InsProductoSugerido(int PaisID, Portal.Consultoras.Web.ServicePedido.BEProductoSugerido entidad) {
+            return base.Channel.InsProductoSugerido(PaisID, entidad);
+        }
+        
+        public System.Threading.Tasks.Task<string> InsProductoSugeridoAsync(int PaisID, Portal.Consultoras.Web.ServicePedido.BEProductoSugerido entidad) {
+            return base.Channel.InsProductoSugeridoAsync(PaisID, entidad);
         }
         
         public string UpdProductoSugerido(int PaisID, Portal.Consultoras.Web.ServicePedido.BEProductoSugerido entidad) {
@@ -18938,6 +18952,14 @@ namespace Portal.Consultoras.Web.ServicePedido {
         
         public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEPedidoWeb[]> GetPedidosFacturadoSegunDiasAsync(int paisID, int campaniaID, long consultoraID, int maxDias) {
             return base.Channel.GetPedidosFacturadoSegunDiasAsync(paisID, campaniaID, consultoraID, maxDias);
+        }
+        
+        public int InsertarTipoEstrategia(Portal.Consultoras.Web.ServicePedido.BETipoEstrategia entidad) {
+            return base.Channel.InsertarTipoEstrategia(entidad);
+        }
+        
+        public System.Threading.Tasks.Task<int> InsertarTipoEstrategiaAsync(Portal.Consultoras.Web.ServicePedido.BETipoEstrategia entidad) {
+            return base.Channel.InsertarTipoEstrategiaAsync(entidad);
         }
         
         public int EliminarTipoEstrategia(Portal.Consultoras.Web.ServicePedido.BETipoEstrategia entidad) {
@@ -19612,12 +19634,12 @@ namespace Portal.Consultoras.Web.ServicePedido {
             return base.Channel.GetImagenesByCUVAsync(PaisID, campaniaID, cuv);
         }
         
-        public string InsProductoSugerido(int PaisID, Portal.Consultoras.Web.ServicePedido.BEProductoSugerido entidad) {
-            return base.Channel.InsProductoSugerido(PaisID, entidad);
+        public int ValidarConfiguracionCrossSelling(int PaisID, int CampaniaID) {
+            return base.Channel.ValidarConfiguracionCrossSelling(PaisID, CampaniaID);
         }
         
-        public System.Threading.Tasks.Task<string> InsProductoSugeridoAsync(int PaisID, Portal.Consultoras.Web.ServicePedido.BEProductoSugerido entidad) {
-            return base.Channel.InsProductoSugeridoAsync(PaisID, entidad);
+        public System.Threading.Tasks.Task<int> ValidarConfiguracionCrossSellingAsync(int PaisID, int CampaniaID) {
+            return base.Channel.ValidarConfiguracionCrossSellingAsync(PaisID, CampaniaID);
         }
         
         public int GetPedidoWebID(int paisID, int campaniaID, long consultoraID) {
@@ -20292,14 +20314,6 @@ namespace Portal.Consultoras.Web.ServicePedido {
             return base.Channel.GetOfertasAsync(entidad);
         }
         
-        public int InsertarTipoEstrategia(Portal.Consultoras.Web.ServicePedido.BETipoEstrategia entidad) {
-            return base.Channel.InsertarTipoEstrategia(entidad);
-        }
-        
-        public System.Threading.Tasks.Task<int> InsertarTipoEstrategiaAsync(Portal.Consultoras.Web.ServicePedido.BETipoEstrategia entidad) {
-            return base.Channel.InsertarTipoEstrategiaAsync(entidad);
-        }
-        
         public Portal.Consultoras.Web.ServicePedido.BEPedidoReporteLiderIndicador GetPedidosReporteLiderIndicador(int paisID, long ConsultoraLiderID, string CodigoPais, string CodigoCampaniaActual) {
             return base.Channel.GetPedidosReporteLiderIndicador(paisID, ConsultoraLiderID, CodigoPais, CodigoCampaniaActual);
         }
@@ -20538,6 +20552,14 @@ namespace Portal.Consultoras.Web.ServicePedido {
         
         public System.Threading.Tasks.Task UpdBackOrderListPedidoWebDetalleAsync(int paisID, int campaniaID, int pedidoID, Portal.Consultoras.Web.ServicePedido.BEPedidoWebDetalle[] listPedidoWebDetalle) {
             return base.Channel.UpdBackOrderListPedidoWebDetalleAsync(paisID, campaniaID, pedidoID, listPedidoWebDetalle);
+        }
+        
+        public void QuitarBackOrderPedidoWebDetalle(Portal.Consultoras.Web.ServicePedido.BEPedidoWebDetalle pedidowebdetalle) {
+            base.Channel.QuitarBackOrderPedidoWebDetalle(pedidowebdetalle);
+        }
+        
+        public System.Threading.Tasks.Task QuitarBackOrderPedidoWebDetalleAsync(Portal.Consultoras.Web.ServicePedido.BEPedidoWebDetalle pedidowebdetalle) {
+            return base.Channel.QuitarBackOrderPedidoWebDetalleAsync(pedidowebdetalle);
         }
         
         public Portal.Consultoras.Web.ServicePedido.BEPedidoWebDetalle[] SelectByPedidoValidado(int paisID, int CampaniaID, long ConsultoraID, string Consultora) {
@@ -20970,14 +20992,6 @@ namespace Portal.Consultoras.Web.ServicePedido {
         
         public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BECrossSellingProducto[]> GetProductosRecomendadosByCUVCampaniaPortalAsync(int PaisID, long ConsultoraID, int CampaniaID, string CUV) {
             return base.Channel.GetProductosRecomendadosByCUVCampaniaPortalAsync(PaisID, ConsultoraID, CampaniaID, CUV);
-        }
-        
-        public int ValidarConfiguracionCrossSelling(int PaisID, int CampaniaID) {
-            return base.Channel.ValidarConfiguracionCrossSelling(PaisID, CampaniaID);
-        }
-        
-        public System.Threading.Tasks.Task<int> ValidarConfiguracionCrossSellingAsync(int PaisID, int CampaniaID) {
-            return base.Channel.ValidarConfiguracionCrossSellingAsync(PaisID, CampaniaID);
         }
     }
 }
