@@ -3873,6 +3873,28 @@ namespace Portal.Consultoras.Web.Controllers
                 oBEPedidoWebDetalle.CodigoUsuarioCreacion = userData.CodigoUsuario;
                 oBEPedidoWebDetalle.CodigoUsuarioModificacion = userData.CodigoUsuario;
 
+                /*EPD-1252*/
+                bool quitoCantBackOrder = false;
+                if (TipoAdm == "U")
+                {
+                    if (oBEPedidoWebDetalle.PedidoDetalleID != 0)
+                    {
+                        var oldPedidoWebDetalle = olstTempListado.Where(x => x.PedidoDetalleID == oBEPedidoWebDetalle.PedidoDetalleID).FirstOrDefault();
+
+                        if (oldPedidoWebDetalle != null)
+                        {
+                            if (oldPedidoWebDetalle.AceptoBackOrder)
+                            {
+                                if (oBEPedidoWebDetalle.Cantidad < oldPedidoWebDetalle.Cantidad)
+                                {
+                                    quitoCantBackOrder = true;
+                                }
+                            }
+                        }
+                    }
+                }
+                /*EPD-1252*/
+
                 switch (TipoAdm)
                 {
                     case "I":
@@ -3933,8 +3955,19 @@ namespace Portal.Consultoras.Web.Controllers
                 tipo = TipoAdm;
                 if (tipo == "U")
                 {
-                    var obe = olstTempListado.FirstOrDefault(p => p.PedidoDetalleID == oBEPedidoWebDetalle.PedidoDetalleID);
-                    modificoBackOrder = obe.EsBackOrder;
+                    //var obe = olstTempListado.FirstOrDefault(p => p.PedidoDetalleID == oBEPedidoWebDetalle.PedidoDetalleID);
+                    //modificoBackOrder = obe.EsBackOrder;
+
+                    /*EPD-1252*/
+                    if (quitoCantBackOrder)
+                    {
+                        using (PedidoServiceClient sv = new PedidoServiceClient())
+                        {
+                            sv.QuitarBackOrderPedidoWebDetalle(oBEPedidoWebDetalle);
+                        }
+                        modificoBackOrder = true;
+                    }
+                    /*EPD-1252*/
                 }
 
                 Session["PedidoWebDetalle"] = null;

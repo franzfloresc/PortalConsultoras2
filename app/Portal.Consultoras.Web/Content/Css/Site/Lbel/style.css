@@ -30611,7 +30611,8 @@ h1#penmostreo .campana {
 .stock_content{
     width: 100%;
     height: auto;
-    padding: 25px 43px;
+    /*padding: 25px 43px;*/
+    padding: 17px 43px;
     position: relative;
     background: #e5dcea;
     margin-bottom: 22px;
@@ -30666,7 +30667,8 @@ h1#penmostreo .campana {
     width: 160px;
     height: 45px;
     text-align: center;
-    margin-top: 13px;
+    /*margin-top: 13px;*/
+    margin-top: 2px;
     color: white;
     background: #613c87;
     line-height: 45px;
@@ -31019,7 +31021,7 @@ h1#penmostreo .campana {
     width: 160px;
     height: 45px;
     text-align: center;
-    margin-top: 18px; /*SEGURO VA HABER CONFLICTO SOLO CONSERVAR EL MARGIN TOP DE AQUI*/
+    margin-top: 2px; /*SEGURO VA HABER CONFLICTO SOLO CONSERVAR EL MARGIN TOP DE AQUI*/
     color: white;
     background: #613c87;
     line-height: 45px;
