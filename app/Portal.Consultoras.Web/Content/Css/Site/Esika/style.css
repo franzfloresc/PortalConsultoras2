@@ -1761,7 +1761,8 @@ header {
     /*top: 9%;*/
     left: 0%;
     z-index: 1;
-    background: #000 url("../../../Images/Esika/background_pedido.png") no-repeat center bottom;
+    /*background: #000 url("../../../Images/Esika/background_pedido.png") no-repeat center bottom;*/
+    background: #000 url("../../../Images/Esika/Banner_Esika.jpg") no-repeat center bottom;
     /*background-size:cover;*/
 }
 
@@ -30685,7 +30686,8 @@ h1#penmostreo .campana {
 .stock_content{
     width: 100%;
     height: auto;
-    padding: 25px 43px;
+    /*padding: 25px 43px;*/
+    padding: 17px 43px;
     position: relative;
     background: #fee5e7;
     margin-bottom: 22px;
@@ -30740,7 +30742,8 @@ h1#penmostreo .campana {
     width: 160px;
     height: 45px;
     text-align: center;
-    margin-top: 13px;
+    /*margin-top: 13px;*/
+    margin-top: 2px;
     color: white;
     background: #e81c36;
     line-height: 45px;
@@ -30979,7 +30982,7 @@ h1#penmostreo .campana {
     width: 160px;
     height: 45px;
     text-align: center;
-    margin-top: 18px; /*SEGURO VA HABER CONFLICTO SOLO CONSERVAR EL MARGIN TOP DE AQUI*/
+    margin-top: 2px; /*SEGURO VA HABER CONFLICTO SOLO CONSERVAR EL MARGIN TOP DE AQUI*/
     color: white;
     background: #e81c36;
     line-height: 45px;
@@ -31982,3 +31985,16 @@ h1#penmostreo .campana {
 }
 
 /*SB20-1198 - FIN */
+
+/*EPD-877*/
+.resumen_belcorp_cam_modificado {
+    font-family: 'lato';
+    font-size: 18px;
+    letter-spacing: 0.3px;
+    color: black;
+    float: left;
+    margin-left: 2%;
+    margin-right: 8%;
+    /*width: 19.5%;*/
+    width: 215px;
+}

@@ -34,6 +34,12 @@
       <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd4" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
     </xsd:schema>
   </wsdl:types>
+  <wsdl:message name="IPedidoService_InsProductoSugerido_InputMessage">
+    <wsdl:part name="parameters" element="tns:InsProductoSugerido" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_InsProductoSugerido_OutputMessage">
+    <wsdl:part name="parameters" element="tns:InsProductoSugeridoResponse" />
+  </wsdl:message>
   <wsdl:message name="IPedidoService_UpdProductoSugerido_InputMessage">
     <wsdl:part name="parameters" element="tns:UpdProductoSugerido" />
   </wsdl:message>
@@ -105,6 +111,12 @@
   </wsdl:message>
   <wsdl:message name="IPedidoService_GetPedidosFacturadoSegunDias_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetPedidosFacturadoSegunDiasResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_InsertarTipoEstrategia_InputMessage">
+    <wsdl:part name="parameters" element="tns:InsertarTipoEstrategia" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_InsertarTipoEstrategia_OutputMessage">
+    <wsdl:part name="parameters" element="tns:InsertarTipoEstrategiaResponse" />
   </wsdl:message>
   <wsdl:message name="IPedidoService_EliminarTipoEstrategia_InputMessage">
     <wsdl:part name="parameters" element="tns:EliminarTipoEstrategia" />
@@ -610,11 +622,11 @@
   <wsdl:message name="IPedidoService_GetImagenesByCUV_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetImagenesByCUVResponse" />
   </wsdl:message>
-  <wsdl:message name="IPedidoService_InsProductoSugerido_InputMessage">
-    <wsdl:part name="parameters" element="tns:InsProductoSugerido" />
+  <wsdl:message name="IPedidoService_ValidarConfiguracionCrossSelling_InputMessage">
+    <wsdl:part name="parameters" element="tns:ValidarConfiguracionCrossSelling" />
   </wsdl:message>
-  <wsdl:message name="IPedidoService_InsProductoSugerido_OutputMessage">
-    <wsdl:part name="parameters" element="tns:InsProductoSugeridoResponse" />
+  <wsdl:message name="IPedidoService_ValidarConfiguracionCrossSelling_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ValidarConfiguracionCrossSellingResponse" />
   </wsdl:message>
   <wsdl:message name="IPedidoService_GetPedidoWebID_InputMessage">
     <wsdl:part name="parameters" element="tns:GetPedidoWebID" />
@@ -1120,12 +1132,6 @@
   <wsdl:message name="IPedidoService_GetOfertas_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetOfertasResponse" />
   </wsdl:message>
-  <wsdl:message name="IPedidoService_InsertarTipoEstrategia_InputMessage">
-    <wsdl:part name="parameters" element="tns:InsertarTipoEstrategia" />
-  </wsdl:message>
-  <wsdl:message name="IPedidoService_InsertarTipoEstrategia_OutputMessage">
-    <wsdl:part name="parameters" element="tns:InsertarTipoEstrategiaResponse" />
-  </wsdl:message>
   <wsdl:message name="IPedidoService_GetPedidosReporteLiderIndicador_InputMessage">
     <wsdl:part name="parameters" element="tns:GetPedidosReporteLiderIndicador" />
   </wsdl:message>
@@ -1305,6 +1311,12 @@
   </wsdl:message>
   <wsdl:message name="IPedidoService_UpdBackOrderListPedidoWebDetalle_OutputMessage">
     <wsdl:part name="parameters" element="tns:UpdBackOrderListPedidoWebDetalleResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_QuitarBackOrderPedidoWebDetalle_InputMessage">
+    <wsdl:part name="parameters" element="tns:QuitarBackOrderPedidoWebDetalle" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_QuitarBackOrderPedidoWebDetalle_OutputMessage">
+    <wsdl:part name="parameters" element="tns:QuitarBackOrderPedidoWebDetalleResponse" />
   </wsdl:message>
   <wsdl:message name="IPedidoService_SelectByPedidoValidado_InputMessage">
     <wsdl:part name="parameters" element="tns:SelectByPedidoValidado" />
@@ -1630,13 +1642,11 @@
   <wsdl:message name="IPedidoService_GetProductosRecomendadosByCUVCampaniaPortal_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetProductosRecomendadosByCUVCampaniaPortalResponse" />
   </wsdl:message>
-  <wsdl:message name="IPedidoService_ValidarConfiguracionCrossSelling_InputMessage">
-    <wsdl:part name="parameters" element="tns:ValidarConfiguracionCrossSelling" />
-  </wsdl:message>
-  <wsdl:message name="IPedidoService_ValidarConfiguracionCrossSelling_OutputMessage">
-    <wsdl:part name="parameters" element="tns:ValidarConfiguracionCrossSellingResponse" />
-  </wsdl:message>
   <wsdl:portType name="IPedidoService">
+    <wsdl:operation name="InsProductoSugerido">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/InsProductoSugerido" message="tns:IPedidoService_InsProductoSugerido_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/InsProductoSugeridoResponse" message="tns:IPedidoService_InsProductoSugerido_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="UpdProductoSugerido">
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/UpdProductoSugerido" message="tns:IPedidoService_UpdProductoSugerido_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/UpdProductoSugeridoResponse" message="tns:IPedidoService_UpdProductoSugerido_OutputMessage" />
@@ -1684,6 +1694,10 @@
     <wsdl:operation name="GetPedidosFacturadoSegunDias">
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetPedidosFacturadoSegunDias" message="tns:IPedidoService_GetPedidosFacturadoSegunDias_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/GetPedidosFacturadoSegunDiasResponse" message="tns:IPedidoService_GetPedidosFacturadoSegunDias_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="InsertarTipoEstrategia">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/InsertarTipoEstrategia" message="tns:IPedidoService_InsertarTipoEstrategia_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/InsertarTipoEstrategiaResponse" message="tns:IPedidoService_InsertarTipoEstrategia_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="EliminarTipoEstrategia">
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/EliminarTipoEstrategia" message="tns:IPedidoService_EliminarTipoEstrategia_InputMessage" />
@@ -2021,9 +2035,9 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetImagenesByCUV" message="tns:IPedidoService_GetImagenesByCUV_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/GetImagenesByCUVResponse" message="tns:IPedidoService_GetImagenesByCUV_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="InsProductoSugerido">
-      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/InsProductoSugerido" message="tns:IPedidoService_InsProductoSugerido_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/InsProductoSugeridoResponse" message="tns:IPedidoService_InsProductoSugerido_OutputMessage" />
+    <wsdl:operation name="ValidarConfiguracionCrossSelling">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/ValidarConfiguracionCrossSelling" message="tns:IPedidoService_ValidarConfiguracionCrossSelling_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/ValidarConfiguracionCrossSellingResponse" message="tns:IPedidoService_ValidarConfiguracionCrossSelling_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="GetPedidoWebID">
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetPedidoWebID" message="tns:IPedidoService_GetPedidoWebID_InputMessage" />
@@ -2361,10 +2375,6 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetOfertas" message="tns:IPedidoService_GetOfertas_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/GetOfertasResponse" message="tns:IPedidoService_GetOfertas_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="InsertarTipoEstrategia">
-      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/InsertarTipoEstrategia" message="tns:IPedidoService_InsertarTipoEstrategia_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/InsertarTipoEstrategiaResponse" message="tns:IPedidoService_InsertarTipoEstrategia_OutputMessage" />
-    </wsdl:operation>
     <wsdl:operation name="GetPedidosReporteLiderIndicador">
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetPedidosReporteLiderIndicador" message="tns:IPedidoService_GetPedidosReporteLiderIndicador_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/GetPedidosReporteLiderIndicadorResponse" message="tns:IPedidoService_GetPedidosReporteLiderIndicador_OutputMessage" />
@@ -2484,6 +2494,10 @@
     <wsdl:operation name="UpdBackOrderListPedidoWebDetalle">
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/UpdBackOrderListPedidoWebDetalle" message="tns:IPedidoService_UpdBackOrderListPedidoWebDetalle_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/UpdBackOrderListPedidoWebDetalleResponse" message="tns:IPedidoService_UpdBackOrderListPedidoWebDetalle_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="QuitarBackOrderPedidoWebDetalle">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/QuitarBackOrderPedidoWebDetalle" message="tns:IPedidoService_QuitarBackOrderPedidoWebDetalle_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/QuitarBackOrderPedidoWebDetalleResponse" message="tns:IPedidoService_QuitarBackOrderPedidoWebDetalle_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="SelectByPedidoValidado">
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/SelectByPedidoValidado" message="tns:IPedidoService_SelectByPedidoValidado_InputMessage" />
@@ -2701,13 +2715,18 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetProductosRecomendadosByCUVCampaniaPortal" message="tns:IPedidoService_GetProductosRecomendadosByCUVCampaniaPortal_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/GetProductosRecomendadosByCUVCampaniaPortalResponse" message="tns:IPedidoService_GetProductosRecomendadosByCUVCampaniaPortal_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="ValidarConfiguracionCrossSelling">
-      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/ValidarConfiguracionCrossSelling" message="tns:IPedidoService_ValidarConfiguracionCrossSelling_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/ValidarConfiguracionCrossSellingResponse" message="tns:IPedidoService_ValidarConfiguracionCrossSelling_OutputMessage" />
-    </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IPedidoService" type="tns:IPedidoService">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="InsProductoSugerido">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/InsProductoSugerido" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="UpdProductoSugerido">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/UpdProductoSugerido" style="document" />
       <wsdl:input>
@@ -2809,6 +2828,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetPedidosFacturadoSegunDias">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/GetPedidosFacturadoSegunDias" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InsertarTipoEstrategia">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/InsertarTipoEstrategia" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -3572,8 +3600,8 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="InsProductoSugerido">
-      <soap:operation soapAction="http://tempuri.org/IPedidoService/InsProductoSugerido" style="document" />
+    <wsdl:operation name="ValidarConfiguracionCrossSelling">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/ValidarConfiguracionCrossSelling" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -4337,15 +4365,6 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="InsertarTipoEstrategia">
-      <soap:operation soapAction="http://tempuri.org/IPedidoService/InsertarTipoEstrategia" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
     <wsdl:operation name="GetPedidosReporteLiderIndicador">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/GetPedidosReporteLiderIndicador" style="document" />
       <wsdl:input>
@@ -4609,6 +4628,15 @@
     </wsdl:operation>
     <wsdl:operation name="UpdBackOrderListPedidoWebDetalle">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/UpdBackOrderListPedidoWebDetalle" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="QuitarBackOrderPedidoWebDetalle">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/QuitarBackOrderPedidoWebDetalle" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -5095,15 +5123,6 @@
     </wsdl:operation>
     <wsdl:operation name="GetProductosRecomendadosByCUVCampaniaPortal">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/GetProductosRecomendadosByCUVCampaniaPortal" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="ValidarConfiguracionCrossSelling">
-      <soap:operation soapAction="http://tempuri.org/IPedidoService/ValidarConfiguracionCrossSelling" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -5115,6 +5134,15 @@
   <wsdl:binding name="BasicHttpsBinding_IPedidoService" type="tns:IPedidoService">
     <wsp:PolicyReference URI="#BasicHttpsBinding_IPedidoService_policy" />
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="InsProductoSugerido">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/InsProductoSugerido" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="UpdProductoSugerido">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/UpdProductoSugerido" style="document" />
       <wsdl:input>
@@ -5216,6 +5244,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetPedidosFacturadoSegunDias">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/GetPedidosFacturadoSegunDias" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InsertarTipoEstrategia">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/InsertarTipoEstrategia" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -5979,8 +6016,8 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="InsProductoSugerido">
-      <soap:operation soapAction="http://tempuri.org/IPedidoService/InsProductoSugerido" style="document" />
+    <wsdl:operation name="ValidarConfiguracionCrossSelling">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/ValidarConfiguracionCrossSelling" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -6744,15 +6781,6 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="InsertarTipoEstrategia">
-      <soap:operation soapAction="http://tempuri.org/IPedidoService/InsertarTipoEstrategia" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
     <wsdl:operation name="GetPedidosReporteLiderIndicador">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/GetPedidosReporteLiderIndicador" style="document" />
       <wsdl:input>
@@ -7016,6 +7044,15 @@
     </wsdl:operation>
     <wsdl:operation name="UpdBackOrderListPedidoWebDetalle">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/UpdBackOrderListPedidoWebDetalle" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="QuitarBackOrderPedidoWebDetalle">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/QuitarBackOrderPedidoWebDetalle" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -7502,15 +7539,6 @@
     </wsdl:operation>
     <wsdl:operation name="GetProductosRecomendadosByCUVCampaniaPortal">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/GetProductosRecomendadosByCUVCampaniaPortal" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="ValidarConfiguracionCrossSelling">
-      <soap:operation soapAction="http://tempuri.org/IPedidoService/ValidarConfiguracionCrossSelling" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

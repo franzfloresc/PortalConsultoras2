@@ -832,7 +832,10 @@ function PedidoUpdate(item, PROL) {
                     
             if (PROL == "0") $('#CantidadTemporal_' + item.PedidoDetalleID).val($('#Cantidad_' + item.PedidoDetalleID).val());
             CargarPedido();
-            if (item.EsBackOrder == 'true') messageInfo('Recuerda que debes volver a validar tu pedido.');
+            //if (item.EsBackOrder == 'true') messageInfo('Recuerda que debes volver a validar tu pedido.');
+            if (data.modificoBackOrder) {
+                messageInfo('Recuerda que debes volver a validar tu pedido.');
+            }
                     
             var diferenciaCantidades = parseInt(Cantidad) - parseInt(CantidadAnti);
             if (diferenciaCantidades > 0)
