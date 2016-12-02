@@ -2,7 +2,7 @@
 USE BelcorpBolivia
 GO
 
-ALTER PROCEDURE [dbo].[GetPedidoWebDetalleByPedidoValidado]
+ALTER PROCEDURE dbo.GetPedidoWebDetalleByPedidoValidado
 	@CampaniaID INT,
 	@ConsultoraID BIGINT
 AS
@@ -23,8 +23,8 @@ BEGIN
 		PW.MontoTotalProl,
 		/*R20150701LR-F*/
 		PW.DescuentoProl --GR-846
-		,ISNULL(pwd.EsBackOrder,0) AS EsBackOrder,				--EPD-1252
-		ISNULL(pwd.AceptoBackOrder,0) AS AceptoBackOrder		--EPD-1252
+		,ISNULL(pwd.EsBackOrder,0) AS EsBackOrder,
+		ISNULL(pwd.AceptoBackOrder,0) AS AceptoBackOrder
 	FROM dbo.PedidoWebDetalle pwd
 	LEFT JOIN dbo.Cliente c ON pwd.ClienteID = c.ClienteID AND pwd.ConsultoraID = c.ConsultoraID
 	INNER JOIN ods.ProductoComercial pc	ON pwd.CampaniaID = pc.AnoCampania AND pwd.CUV = pc.CUV
@@ -43,12 +43,13 @@ BEGIN
 END
 
 GO
+
 /*end*/
 
 USE BelcorpChile
 GO
 
-ALTER PROCEDURE [dbo].[GetPedidoWebDetalleByPedidoValidado]
+ALTER PROCEDURE dbo.GetPedidoWebDetalleByPedidoValidado
 	@CampaniaID INT,
 	@ConsultoraID BIGINT
 AS
@@ -69,8 +70,8 @@ BEGIN
 		PW.MontoTotalProl,
 		/*R20150701LR-F*/
 		PW.DescuentoProl --GR-846
-		,ISNULL(pwd.EsBackOrder,0) AS EsBackOrder,				--EPD-1252
-		ISNULL(pwd.AceptoBackOrder,0) AS AceptoBackOrder		--EPD-1252
+		,ISNULL(pwd.EsBackOrder,0) AS EsBackOrder,
+		ISNULL(pwd.AceptoBackOrder,0) AS AceptoBackOrder
 	FROM dbo.PedidoWebDetalle pwd
 	LEFT JOIN dbo.Cliente c ON pwd.ClienteID = c.ClienteID AND pwd.ConsultoraID = c.ConsultoraID
 	INNER JOIN ods.ProductoComercial pc	ON pwd.CampaniaID = pc.AnoCampania AND pwd.CUV = pc.CUV
@@ -89,12 +90,13 @@ BEGIN
 END
 
 GO
+
 /*end*/
 
 USE BelcorpColombia
 GO
 
-ALTER PROCEDURE [dbo].[GetPedidoWebDetalleByPedidoValidado]
+ALTER PROCEDURE dbo.GetPedidoWebDetalleByPedidoValidado
 	@CampaniaID INT,
 	@ConsultoraID BIGINT
 AS
@@ -115,8 +117,8 @@ BEGIN
 		PW.MontoTotalProl,
 		/*R20150701LR-F*/
 		PW.DescuentoProl --GR-846
-		,ISNULL(pwd.EsBackOrder,0) AS EsBackOrder,				--EPD-1252
-		ISNULL(pwd.AceptoBackOrder,0) AS AceptoBackOrder		--EPD-1252
+		,ISNULL(pwd.EsBackOrder,0) AS EsBackOrder,
+		ISNULL(pwd.AceptoBackOrder,0) AS AceptoBackOrder
 	FROM dbo.PedidoWebDetalle pwd
 	LEFT JOIN dbo.Cliente c ON pwd.ClienteID = c.ClienteID AND pwd.ConsultoraID = c.ConsultoraID
 	INNER JOIN ods.ProductoComercial pc	ON pwd.CampaniaID = pc.AnoCampania AND pwd.CUV = pc.CUV
@@ -141,7 +143,7 @@ GO
 USE BelcorpCostaRica
 GO
 
-ALTER PROCEDURE [dbo].[GetPedidoWebDetalleByPedidoValidado]
+ALTER PROCEDURE dbo.GetPedidoWebDetalleByPedidoValidado
 	@CampaniaID INT,
 	@ConsultoraID BIGINT
 AS
@@ -162,8 +164,8 @@ BEGIN
 		PW.MontoTotalProl,
 		/*R20150701LR-F*/
 		PW.DescuentoProl --GR-846
-		,ISNULL(pwd.EsBackOrder,0) AS EsBackOrder,				--EPD-1252
-		ISNULL(pwd.AceptoBackOrder,0) AS AceptoBackOrder		--EPD-1252
+		,ISNULL(pwd.EsBackOrder,0) AS EsBackOrder,
+		ISNULL(pwd.AceptoBackOrder,0) AS AceptoBackOrder
 	FROM dbo.PedidoWebDetalle pwd
 	LEFT JOIN dbo.Cliente c ON pwd.ClienteID = c.ClienteID AND pwd.ConsultoraID = c.ConsultoraID
 	INNER JOIN ods.ProductoComercial pc	ON pwd.CampaniaID = pc.AnoCampania AND pwd.CUV = pc.CUV
@@ -182,12 +184,13 @@ BEGIN
 END
 
 GO
+
 /*end*/
 
 USE BelcorpDominicana
 GO
 
-ALTER PROCEDURE [dbo].[GetPedidoWebDetalleByPedidoValidado]
+ALTER PROCEDURE dbo.GetPedidoWebDetalleByPedidoValidado
 	@CampaniaID INT,
 	@ConsultoraID BIGINT
 AS
@@ -208,8 +211,8 @@ BEGIN
 		PW.MontoTotalProl,
 		/*R20150701LR-F*/
 		PW.DescuentoProl --GR-846
-		,ISNULL(pwd.EsBackOrder,0) AS EsBackOrder,				--EPD-1252
-		ISNULL(pwd.AceptoBackOrder,0) AS AceptoBackOrder		--EPD-1252
+		,ISNULL(pwd.EsBackOrder,0) AS EsBackOrder,
+		ISNULL(pwd.AceptoBackOrder,0) AS AceptoBackOrder
 	FROM dbo.PedidoWebDetalle pwd
 	LEFT JOIN dbo.Cliente c ON pwd.ClienteID = c.ClienteID AND pwd.ConsultoraID = c.ConsultoraID
 	INNER JOIN ods.ProductoComercial pc	ON pwd.CampaniaID = pc.AnoCampania AND pwd.CUV = pc.CUV
@@ -228,12 +231,13 @@ BEGIN
 END
 
 GO
+
 /*end*/
 
 USE BelcorpEcuador
 GO
 
-ALTER PROCEDURE [dbo].[GetPedidoWebDetalleByPedidoValidado]
+ALTER PROCEDURE dbo.GetPedidoWebDetalleByPedidoValidado
 	@CampaniaID INT,
 	@ConsultoraID BIGINT
 AS
@@ -254,8 +258,8 @@ BEGIN
 		PW.MontoTotalProl,
 		/*R20150701LR-F*/
 		PW.DescuentoProl --GR-846
-		,ISNULL(pwd.EsBackOrder,0) AS EsBackOrder,				--EPD-1252
-		ISNULL(pwd.AceptoBackOrder,0) AS AceptoBackOrder		--EPD-1252
+		,ISNULL(pwd.EsBackOrder,0) AS EsBackOrder,
+		ISNULL(pwd.AceptoBackOrder,0) AS AceptoBackOrder
 	FROM dbo.PedidoWebDetalle pwd
 	LEFT JOIN dbo.Cliente c ON pwd.ClienteID = c.ClienteID AND pwd.ConsultoraID = c.ConsultoraID
 	INNER JOIN ods.ProductoComercial pc	ON pwd.CampaniaID = pc.AnoCampania AND pwd.CUV = pc.CUV
@@ -274,12 +278,13 @@ BEGIN
 END
 
 GO
+
 /*end*/
 
 USE BelcorpGuatemala
 GO
 
-ALTER PROCEDURE [dbo].[GetPedidoWebDetalleByPedidoValidado]
+ALTER PROCEDURE dbo.GetPedidoWebDetalleByPedidoValidado
 	@CampaniaID INT,
 	@ConsultoraID BIGINT
 AS
@@ -300,8 +305,8 @@ BEGIN
 		PW.MontoTotalProl,
 		/*R20150701LR-F*/
 		PW.DescuentoProl --GR-846
-		,ISNULL(pwd.EsBackOrder,0) AS EsBackOrder,				--EPD-1252
-		ISNULL(pwd.AceptoBackOrder,0) AS AceptoBackOrder		--EPD-1252
+		,ISNULL(pwd.EsBackOrder,0) AS EsBackOrder,
+		ISNULL(pwd.AceptoBackOrder,0) AS AceptoBackOrder
 	FROM dbo.PedidoWebDetalle pwd
 	LEFT JOIN dbo.Cliente c ON pwd.ClienteID = c.ClienteID AND pwd.ConsultoraID = c.ConsultoraID
 	INNER JOIN ods.ProductoComercial pc	ON pwd.CampaniaID = pc.AnoCampania AND pwd.CUV = pc.CUV
@@ -320,12 +325,13 @@ BEGIN
 END
 
 GO
+
 /*end*/
 
 USE BelcorpMexico
 GO
 
-ALTER PROCEDURE [dbo].[GetPedidoWebDetalleByPedidoValidado]
+ALTER PROCEDURE dbo.GetPedidoWebDetalleByPedidoValidado
 	@CampaniaID INT,
 	@ConsultoraID BIGINT
 AS
@@ -340,16 +346,14 @@ BEGIN
 		ISNULL(pwd.TipoOfertaSisID,0) TipoOfertaSisID,
 		CASE WHEN pwd.ModificaPedidoReservadoMovil = 0 THEN 'PV' ELSE 'PNV' END AS TipoPedido, --PV: Producto Validado / PNV: Producto No Validado
 		pwd.ObservacionPROL,
-		pwd.EsBackOrder,
-		pwd.AceptoBackOrder,
 		/*R20150701LR-I*/
 		pc.IndicadorOferta AS IndicadorOfertaCUV,
 		PW.PedidoID,
 		PW.MontoTotalProl,
 		/*R20150701LR-F*/
 		PW.DescuentoProl --GR-846
-		,ISNULL(pwd.EsBackOrder,0) AS EsBackOrder,				--EPD-1252
-		ISNULL(pwd.AceptoBackOrder,0) AS AceptoBackOrder		--EPD-1252
+		,ISNULL(pwd.EsBackOrder,0) AS EsBackOrder,
+		ISNULL(pwd.AceptoBackOrder,0) AS AceptoBackOrder
 	FROM dbo.PedidoWebDetalle pwd
 	LEFT JOIN dbo.Cliente c ON pwd.ClienteID = c.ClienteID AND pwd.ConsultoraID = c.ConsultoraID
 	INNER JOIN ods.ProductoComercial pc	ON pwd.CampaniaID = pc.AnoCampania AND pwd.CUV = pc.CUV
@@ -368,12 +372,13 @@ BEGIN
 END
 
 GO
+
 /*end*/
 
 USE BelcorpPanama
 GO
 
-ALTER PROCEDURE [dbo].[GetPedidoWebDetalleByPedidoValidado]
+ALTER PROCEDURE dbo.GetPedidoWebDetalleByPedidoValidado
 	@CampaniaID INT,
 	@ConsultoraID BIGINT
 AS
@@ -394,8 +399,8 @@ BEGIN
 		PW.MontoTotalProl,
 		/*R20150701LR-F*/
 		PW.DescuentoProl --GR-846
-		,ISNULL(pwd.EsBackOrder,0) AS EsBackOrder,				--EPD-1252
-		ISNULL(pwd.AceptoBackOrder,0) AS AceptoBackOrder		--EPD-1252
+		,ISNULL(pwd.EsBackOrder,0) AS EsBackOrder,
+		ISNULL(pwd.AceptoBackOrder,0) AS AceptoBackOrder
 	FROM dbo.PedidoWebDetalle pwd
 	LEFT JOIN dbo.Cliente c ON pwd.ClienteID = c.ClienteID AND pwd.ConsultoraID = c.ConsultoraID
 	INNER JOIN ods.ProductoComercial pc	ON pwd.CampaniaID = pc.AnoCampania AND pwd.CUV = pc.CUV
@@ -414,12 +419,13 @@ BEGIN
 END
 
 GO
+
 /*end*/
 
 USE BelcorpPeru
 GO
 
-ALTER PROCEDURE [dbo].[GetPedidoWebDetalleByPedidoValidado]
+ALTER PROCEDURE dbo.GetPedidoWebDetalleByPedidoValidado
 	@CampaniaID INT,
 	@ConsultoraID BIGINT
 AS
@@ -440,8 +446,8 @@ BEGIN
 		PW.MontoTotalProl,
 		/*R20150701LR-F*/
 		PW.DescuentoProl --GR-846
-		,ISNULL(pwd.EsBackOrder,0) AS EsBackOrder,				--EPD-1252
-		ISNULL(pwd.AceptoBackOrder,0) AS AceptoBackOrder		--EPD-1252
+		,ISNULL(pwd.EsBackOrder,0) AS EsBackOrder,
+		ISNULL(pwd.AceptoBackOrder,0) AS AceptoBackOrder
 	FROM dbo.PedidoWebDetalle pwd
 	LEFT JOIN dbo.Cliente c ON pwd.ClienteID = c.ClienteID AND pwd.ConsultoraID = c.ConsultoraID
 	INNER JOIN ods.ProductoComercial pc	ON pwd.CampaniaID = pc.AnoCampania AND pwd.CUV = pc.CUV
@@ -460,12 +466,13 @@ BEGIN
 END
 
 GO
+
 /*end*/
 
 USE BelcorpPuertoRico
 GO
 
-ALTER PROCEDURE [dbo].[GetPedidoWebDetalleByPedidoValidado]
+ALTER PROCEDURE dbo.GetPedidoWebDetalleByPedidoValidado
 	@CampaniaID INT,
 	@ConsultoraID BIGINT
 AS
@@ -486,8 +493,8 @@ BEGIN
 		PW.MontoTotalProl,
 		/*R20150701LR-F*/
 		PW.DescuentoProl --GR-846
-		,ISNULL(pwd.EsBackOrder,0) AS EsBackOrder,				--EPD-1252
-		ISNULL(pwd.AceptoBackOrder,0) AS AceptoBackOrder		--EPD-1252
+		,ISNULL(pwd.EsBackOrder,0) AS EsBackOrder,
+		ISNULL(pwd.AceptoBackOrder,0) AS AceptoBackOrder
 	FROM dbo.PedidoWebDetalle pwd
 	LEFT JOIN dbo.Cliente c ON pwd.ClienteID = c.ClienteID AND pwd.ConsultoraID = c.ConsultoraID
 	INNER JOIN ods.ProductoComercial pc	ON pwd.CampaniaID = pc.AnoCampania AND pwd.CUV = pc.CUV
@@ -506,12 +513,13 @@ BEGIN
 END
 
 GO
+
 /*end*/
 
 USE BelcorpSalvador
 GO
 
-ALTER PROCEDURE [dbo].[GetPedidoWebDetalleByPedidoValidado]
+ALTER PROCEDURE dbo.GetPedidoWebDetalleByPedidoValidado
 	@CampaniaID INT,
 	@ConsultoraID BIGINT
 AS
@@ -532,8 +540,8 @@ BEGIN
 		PW.MontoTotalProl,
 		/*R20150701LR-F*/
 		PW.DescuentoProl --GR-846
-		,ISNULL(pwd.EsBackOrder,0) AS EsBackOrder,				--EPD-1252
-		ISNULL(pwd.AceptoBackOrder,0) AS AceptoBackOrder		--EPD-1252
+		,ISNULL(pwd.EsBackOrder,0) AS EsBackOrder,
+		ISNULL(pwd.AceptoBackOrder,0) AS AceptoBackOrder
 	FROM dbo.PedidoWebDetalle pwd
 	LEFT JOIN dbo.Cliente c ON pwd.ClienteID = c.ClienteID AND pwd.ConsultoraID = c.ConsultoraID
 	INNER JOIN ods.ProductoComercial pc	ON pwd.CampaniaID = pc.AnoCampania AND pwd.CUV = pc.CUV
@@ -552,12 +560,13 @@ BEGIN
 END
 
 GO
+
 /*end*/
 
 USE BelcorpVenezuela
 GO
 
-ALTER PROCEDURE [dbo].[GetPedidoWebDetalleByPedidoValidado]
+ALTER PROCEDURE dbo.GetPedidoWebDetalleByPedidoValidado
 	@CampaniaID INT,
 	@ConsultoraID BIGINT
 AS
@@ -578,8 +587,8 @@ BEGIN
 		PW.MontoTotalProl,
 		/*R20150701LR-F*/
 		PW.DescuentoProl --GR-846
-		,ISNULL(pwd.EsBackOrder,0) AS EsBackOrder,				--EPD-1252
-		ISNULL(pwd.AceptoBackOrder,0) AS AceptoBackOrder		--EPD-1252
+		,ISNULL(pwd.EsBackOrder,0) AS EsBackOrder,
+		ISNULL(pwd.AceptoBackOrder,0) AS AceptoBackOrder
 	FROM dbo.PedidoWebDetalle pwd
 	LEFT JOIN dbo.Cliente c ON pwd.ClienteID = c.ClienteID AND pwd.ConsultoraID = c.ConsultoraID
 	INNER JOIN ods.ProductoComercial pc	ON pwd.CampaniaID = pc.AnoCampania AND pwd.CUV = pc.CUV
@@ -597,5 +606,6 @@ BEGIN
 		ISNULL(pwd.PedidoDetalleIDPadre,1) DESC;
 END
 
+GO
 
 
