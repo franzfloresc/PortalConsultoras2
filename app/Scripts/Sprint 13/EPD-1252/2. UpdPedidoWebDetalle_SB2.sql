@@ -2,7 +2,7 @@
 USE BelcorpBolivia
 GO
 
-ALTER PROCEDURE [dbo].[UpdPedidoWebDetalle_SB2]
+ALTER PROCEDURE UpdPedidoWebDetalle_SB2
 	@CampaniaID INT,
 	@PedidoID INT,
 	@PedidoDetalleID SMALLINT,
@@ -52,7 +52,7 @@ GO
 USE BelcorpChile
 GO
 
-ALTER PROCEDURE [dbo].[UpdPedidoWebDetalle_SB2]
+ALTER PROCEDURE UpdPedidoWebDetalle_SB2
 	@CampaniaID INT,
 	@PedidoID INT,
 	@PedidoDetalleID SMALLINT,
@@ -101,7 +101,7 @@ GO
 USE BelcorpColombia
 GO
 
-ALTER PROCEDURE [dbo].[UpdPedidoWebDetalle_SB2]
+ALTER PROCEDURE UpdPedidoWebDetalle_SB2
 	@CampaniaID INT,
 	@PedidoID INT,
 	@PedidoDetalleID SMALLINT,
@@ -145,12 +145,13 @@ BEGIN
 END
 
 GO
+
 /*end*/
 
 USE BelcorpCostaRica
 GO
 
-ALTER PROCEDURE [dbo].[UpdPedidoWebDetalle_SB2]
+ALTER PROCEDURE UpdPedidoWebDetalle_SB2
 	@CampaniaID INT,
 	@PedidoID INT,
 	@PedidoDetalleID SMALLINT,
@@ -194,12 +195,13 @@ BEGIN
 END
 
 GO
+
 /*end*/
 
 USE BelcorpDominicana
 GO
 
-ALTER PROCEDURE [dbo].[UpdPedidoWebDetalle_SB2]
+ALTER PROCEDURE UpdPedidoWebDetalle_SB2
 	@CampaniaID INT,
 	@PedidoID INT,
 	@PedidoDetalleID SMALLINT,
@@ -248,7 +250,7 @@ GO
 USE BelcorpEcuador
 GO
 
-ALTER PROCEDURE [dbo].[UpdPedidoWebDetalle_SB2]
+ALTER PROCEDURE UpdPedidoWebDetalle_SB2
 	@CampaniaID INT,
 	@PedidoID INT,
 	@PedidoDetalleID SMALLINT,
@@ -292,12 +294,13 @@ BEGIN
 END
 
 GO
+
 /*end*/
 
 USE BelcorpGuatemala
 GO
 
-ALTER PROCEDURE [dbo].[UpdPedidoWebDetalle_SB2]
+ALTER PROCEDURE UpdPedidoWebDetalle_SB2
 	@CampaniaID INT,
 	@PedidoID INT,
 	@PedidoDetalleID SMALLINT,
@@ -341,12 +344,13 @@ BEGIN
 END
 
 GO
+
 /*end*/
 
 USE BelcorpMexico
 GO
 
-ALTER PROCEDURE [dbo].[UpdPedidoWebDetalle_SB2]
+ALTER PROCEDURE UpdPedidoWebDetalle_SB2
 	@CampaniaID INT,
 	@PedidoID INT,
 	@PedidoDetalleID SMALLINT,
@@ -390,13 +394,12 @@ BEGIN
 END
 
 GO
-
 /*end*/
 
 USE BelcorpPanama
 GO
 
-ALTER PROCEDURE [dbo].[UpdPedidoWebDetalle_SB2]
+ALTER PROCEDURE UpdPedidoWebDetalle_SB2
 	@CampaniaID INT,
 	@PedidoID INT,
 	@PedidoDetalleID SMALLINT,
@@ -440,12 +443,13 @@ BEGIN
 END
 
 GO
+
 /*end*/
 
 USE BelcorpPeru
 GO
 
-ALTER PROCEDURE [dbo].[UpdPedidoWebDetalle_SB2]
+ALTER PROCEDURE UpdPedidoWebDetalle_SB2
 	@CampaniaID INT,
 	@PedidoID INT,
 	@PedidoDetalleID SMALLINT,
@@ -480,8 +484,8 @@ BEGIN
 		EsSugerido = @EsSugerido,
 		OrdenPedidoWD = case when @OrdenPedidoWD > 0 then @OrdenPedidoWD else OrdenPedidoWD end,
 		OrigenPedidoWeb = @OrigenPedidoWeb,
-		EsBackOrder = CASE WHEN EsBackOrder = 1 THEN 1 ELSE 0 END,		--EPD-1252
-		AceptoBackOrder = CASE WHEN AceptoBackOrder = 1 THEN 1 ELSE 0 END	--EPD-1252
+		EsBackOrder = CASE WHEN ISNULL(EsBackOrder,0) = 1 THEN 1 ELSE 0 END,
+		AceptoBackOrder = CASE WHEN ISNULL(AceptoBackOrder,0) = 1 THEN 1 ELSE 0 END
 	WHERE
 		CampaniaID = @CampaniaID
 		AND	PedidoID = @PedidoID
@@ -494,7 +498,7 @@ GO
 USE BelcorpPuertoRico
 GO
 
-ALTER PROCEDURE [dbo].[UpdPedidoWebDetalle_SB2]
+ALTER PROCEDURE UpdPedidoWebDetalle_SB2
 	@CampaniaID INT,
 	@PedidoID INT,
 	@PedidoDetalleID SMALLINT,
@@ -543,7 +547,7 @@ GO
 USE BelcorpSalvador
 GO
 
-ALTER PROCEDURE [dbo].[UpdPedidoWebDetalle_SB2]
+ALTER PROCEDURE UpdPedidoWebDetalle_SB2
 	@CampaniaID INT,
 	@PedidoID INT,
 	@PedidoDetalleID SMALLINT,
@@ -592,7 +596,7 @@ GO
 USE BelcorpVenezuela
 GO
 
-ALTER PROCEDURE [dbo].[UpdPedidoWebDetalle_SB2]
+ALTER PROCEDURE UpdPedidoWebDetalle_SB2
 	@CampaniaID INT,
 	@PedidoID INT,
 	@PedidoDetalleID SMALLINT,
@@ -634,5 +638,7 @@ BEGIN
 		AND	PedidoID = @PedidoID
 		AND	PedidoDetalleID = @PedidoDetalleID;
 END
+
+GO
 
 

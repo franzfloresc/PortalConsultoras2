@@ -1,166 +1,271 @@
 USE BelcorpBolivia
 GO
 
-create table OFGanaMasRegionZona
+IF OBJECT_ID(N'dbo.OFGanaMasRegionZona', N'P') IS NOT NULL
+BEGIN
+    DROP PROCEDURE [dbo].[OFGanaMasRegionZona]
+END
+
+GO
+
+CREATE TABLE OFGanaMasRegionZona
 (
-	OFGanaMasRegionZonaID int not null identity(1,1) primary key,
-	CodigoRegion varchar(4),
-	CodigoZona varchar(4),
-	Estado bit
+	OFGanaMasRegionZonaID INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
+	CodigoRegion VARCHAR(4),
+	CodigoZona VARCHAR(4),
+	Estado BIT
 )
 
 GO
+
+/*end*/
 
 USE BelcorpChile
 GO
 
-create table OFGanaMasRegionZona
+IF OBJECT_ID(N'dbo.OFGanaMasRegionZona', N'P') IS NOT NULL
+BEGIN
+    DROP PROCEDURE [dbo].[OFGanaMasRegionZona]
+END
+
+GO
+
+CREATE TABLE OFGanaMasRegionZona
 (
-	OFGanaMasRegionZonaID int not null identity(1,1) primary key,
-	CodigoRegion varchar(4),
-	CodigoZona varchar(4),
-	Estado bit
+	OFGanaMasRegionZonaID INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
+	CodigoRegion VARCHAR(4),
+	CodigoZona VARCHAR(4),
+	Estado BIT
 )
 
 GO
+/*end*/
 
 USE BelcorpColombia
 GO
 
-create table OFGanaMasRegionZona
+IF OBJECT_ID(N'dbo.OFGanaMasRegionZona', N'P') IS NOT NULL
+BEGIN
+    DROP PROCEDURE [dbo].[OFGanaMasRegionZona]
+END
+
+GO
+
+CREATE TABLE OFGanaMasRegionZona
 (
-	OFGanaMasRegionZonaID int not null identity(1,1) primary key,
-	CodigoRegion varchar(4),
-	CodigoZona varchar(4),
-	Estado bit
+	OFGanaMasRegionZonaID INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
+	CodigoRegion VARCHAR(4),
+	CodigoZona VARCHAR(4),
+	Estado BIT
 )
 
 GO
+/*end*/
 
 USE BelcorpCostaRica
 GO
 
-create table OFGanaMasRegionZona
+IF OBJECT_ID(N'dbo.OFGanaMasRegionZona', N'P') IS NOT NULL
+BEGIN
+    DROP PROCEDURE [dbo].[OFGanaMasRegionZona]
+END
+
+GO
+
+CREATE TABLE OFGanaMasRegionZona
 (
-	OFGanaMasRegionZonaID int not null identity(1,1) primary key,
-	CodigoRegion varchar(4),
-	CodigoZona varchar(4),
-	Estado bit
+	OFGanaMasRegionZonaID INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
+	CodigoRegion VARCHAR(4),
+	CodigoZona VARCHAR(4),
+	Estado BIT
 )
 
 GO
+/*end*/
 
 USE BelcorpDominicana
 GO
 
-create table OFGanaMasRegionZona
+IF OBJECT_ID(N'dbo.OFGanaMasRegionZona', N'P') IS NOT NULL
+BEGIN
+    DROP PROCEDURE [dbo].[OFGanaMasRegionZona]
+END
+
+GO
+
+CREATE TABLE OFGanaMasRegionZona
 (
-	OFGanaMasRegionZonaID int not null identity(1,1) primary key,
-	CodigoRegion varchar(4),
-	CodigoZona varchar(4),
-	Estado bit
+	OFGanaMasRegionZonaID INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
+	CodigoRegion VARCHAR(4),
+	CodigoZona VARCHAR(4),
+	Estado BIT
 )
 
 GO
+/*end*/
 
 USE BelcorpEcuador
 GO
 
-create table OFGanaMasRegionZona
+IF OBJECT_ID(N'dbo.OFGanaMasRegionZona', N'P') IS NOT NULL
+BEGIN
+    DROP PROCEDURE [dbo].[OFGanaMasRegionZona]
+END
+
+GO
+
+CREATE TABLE OFGanaMasRegionZona
 (
-	OFGanaMasRegionZonaID int not null identity(1,1) primary key,
-	CodigoRegion varchar(4),
-	CodigoZona varchar(4),
-	Estado bit
+	OFGanaMasRegionZonaID INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
+	CodigoRegion VARCHAR(4),
+	CodigoZona VARCHAR(4),
+	Estado BIT
 )
 
 GO
+/*end*/
 
 USE BelcorpGuatemala
 GO
 
-create table OFGanaMasRegionZona
+IF OBJECT_ID(N'dbo.OFGanaMasRegionZona', N'P') IS NOT NULL
+BEGIN
+    DROP PROCEDURE [dbo].[OFGanaMasRegionZona]
+END
+
+GO
+
+CREATE TABLE OFGanaMasRegionZona
 (
-	OFGanaMasRegionZonaID int not null identity(1,1) primary key,
-	CodigoRegion varchar(4),
-	CodigoZona varchar(4),
-	Estado bit
+	OFGanaMasRegionZonaID INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
+	CodigoRegion VARCHAR(4),
+	CodigoZona VARCHAR(4),
+	Estado BIT
 )
 
 GO
+/*end*/
 
 USE BelcorpMexico
 GO
 
-create table OFGanaMasRegionZona
+IF OBJECT_ID(N'dbo.OFGanaMasRegionZona', N'P') IS NOT NULL
+BEGIN
+    DROP PROCEDURE [dbo].[OFGanaMasRegionZona]
+END
+
+GO
+
+CREATE TABLE OFGanaMasRegionZona
 (
-	OFGanaMasRegionZonaID int not null identity(1,1) primary key,
-	CodigoRegion varchar(4),
-	CodigoZona varchar(4),
-	Estado bit
+	OFGanaMasRegionZonaID INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
+	CodigoRegion VARCHAR(4),
+	CodigoZona VARCHAR(4),
+	Estado BIT
 )
 
 GO
+/*end*/
 
 USE BelcorpPanama
 GO
 
-create table OFGanaMasRegionZona
+IF OBJECT_ID(N'dbo.OFGanaMasRegionZona', N'P') IS NOT NULL
+BEGIN
+    DROP PROCEDURE [dbo].[OFGanaMasRegionZona]
+END
+
+GO
+
+CREATE TABLE OFGanaMasRegionZona
 (
-	OFGanaMasRegionZonaID int not null identity(1,1) primary key,
-	CodigoRegion varchar(4),
-	CodigoZona varchar(4),
-	Estado bit
+	OFGanaMasRegionZonaID INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
+	CodigoRegion VARCHAR(4),
+	CodigoZona VARCHAR(4),
+	Estado BIT
 )
 
 GO
+/*end*/
 
 USE BelcorpPeru
 GO
 
-create table OFGanaMasRegionZona
+IF OBJECT_ID(N'dbo.OFGanaMasRegionZona', N'P') IS NOT NULL
+BEGIN
+    DROP PROCEDURE [dbo].[OFGanaMasRegionZona]
+END
+
+GO
+
+CREATE TABLE OFGanaMasRegionZona
 (
-	OFGanaMasRegionZonaID int not null identity(1,1) primary key,
-	CodigoRegion varchar(4),
-	CodigoZona varchar(4),
-	Estado bit
+	OFGanaMasRegionZonaID INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
+	CodigoRegion VARCHAR(4),
+	CodigoZona VARCHAR(4),
+	Estado BIT
 )
 
 GO
+/*end*/
 
 USE BelcorpPuertoRico
 GO
 
-create table OFGanaMasRegionZona
+IF OBJECT_ID(N'dbo.OFGanaMasRegionZona', N'P') IS NOT NULL
+BEGIN
+    DROP PROCEDURE [dbo].[OFGanaMasRegionZona]
+END
+
+GO
+
+CREATE TABLE OFGanaMasRegionZona
 (
-	OFGanaMasRegionZonaID int not null identity(1,1) primary key,
-	CodigoRegion varchar(4),
-	CodigoZona varchar(4),
-	Estado bit
+	OFGanaMasRegionZonaID INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
+	CodigoRegion VARCHAR(4),
+	CodigoZona VARCHAR(4),
+	Estado BIT
 )
 
 GO
+/*end*/
 
 USE BelcorpSalvador
 GO
 
-create table OFGanaMasRegionZona
+IF OBJECT_ID(N'dbo.OFGanaMasRegionZona', N'P') IS NOT NULL
+BEGIN
+    DROP PROCEDURE [dbo].[OFGanaMasRegionZona]
+END
+
+GO
+
+CREATE TABLE OFGanaMasRegionZona
 (
-	OFGanaMasRegionZonaID int not null identity(1,1) primary key,
-	CodigoRegion varchar(4),
-	CodigoZona varchar(4),
-	Estado bit
+	OFGanaMasRegionZonaID INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
+	CodigoRegion VARCHAR(4),
+	CodigoZona VARCHAR(4),
+	Estado BIT
 )
 
 GO
+/*end*/
 
 USE BelcorpVenezuela
 GO
 
-create table OFGanaMasRegionZona
+IF OBJECT_ID(N'dbo.OFGanaMasRegionZona', N'P') IS NOT NULL
+BEGIN
+    DROP PROCEDURE [dbo].[OFGanaMasRegionZona]
+END
+
+GO
+
+CREATE TABLE OFGanaMasRegionZona
 (
-	OFGanaMasRegionZonaID int not null identity(1,1) primary key,
-	CodigoRegion varchar(4),
-	CodigoZona varchar(4),
-	Estado bit
+	OFGanaMasRegionZonaID INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
+	CodigoRegion VARCHAR(4),
+	CodigoZona VARCHAR(4),
+	Estado BIT
 )
+GO
