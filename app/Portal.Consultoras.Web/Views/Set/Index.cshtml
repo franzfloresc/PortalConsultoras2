@@ -1,0 +1,44 @@
+﻿@model Portal.Consultoras.Web.Models.ShowRoomOfertaModel
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "";
+}
+
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <meta property="og:title" name="og:title" content="@ViewBag.MetaTitleShowRoom">
+    <meta property="og:image" name="og:image" content="@ViewBag.MetaImageShowRoom">
+    <meta property="og:image:secure_url" content="@ViewBag.MetaImageSecureShowRoom">
+    <meta property="og:site_name" name="og:site_name" content="@ViewBag.MetaSiteNameShowRoom">
+    <meta property="og:description" name="og:description" content="@ViewBag.MetaDescripcionShowRoom">
+    <meta property="og:type" name="og:type" content="@ViewBag.MetaTypeShowRoom">
+
+    <link href="https://fonts.googleapis.com/css?family=Lato:400,700italic,300,700,900" rel="stylesheet" type="text/css" />
+    <style type="text/css">
+        body {
+                text-align: center;
+                font-family: 'Lato';
+            }
+         img {
+             width: 100%;
+         }
+        @@media (min-width: 720px) {            
+            img {
+                width: 50%;
+            }
+        }
+    </style>
+</head>
+<body>
+<p><strong>@Model.Descripcion</strong></p>
+    <p>@Model.Subtitulo</p>
+    <img src="@Model.ImagenProducto" id="imgCuvProducto" alt="imagen" />
+</body>
+</html>

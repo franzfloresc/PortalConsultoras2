@@ -248,6 +248,11 @@ namespace Portal.Consultoras.Service
             BLPedidoWebDetalle.UpdBackOrderListPedidoWebDetalle(paisID, campaniaID, pedidoID, listPedidoWebDetalle);
         }
 
+        public void QuitarBackOrderPedidoWebDetalle(BEPedidoWebDetalle pedidowebdetalle)
+        {
+            BLPedidoWebDetalle.QuitarBackOrderPedidoWebDetalle(pedidowebdetalle);
+        }
+
         public IList<BEPedidoWebDetalle> SelectByPedidoValidado(int paisID, int CampaniaID, long ConsultoraID, string Consultora)
         {
             return BLPedidoWebDetalle.GetPedidoWebDetalleByPedidoValidado(paisID, CampaniaID, ConsultoraID, Consultora);
@@ -1584,6 +1589,11 @@ namespace Portal.Consultoras.Service
         public IList<BEShowRoomOferta> GetShowRoomOfertasConsultora(int paisID, int campaniaID, string codigoConsultora)
         {
             return BLShowRoomEvento.GetShowRoomOfertasConsultora(paisID, campaniaID, codigoConsultora);
+        }
+
+        public BEShowRoomOferta GetShowRoomOfertaById(int paisID, int ofertaShowRoomID)
+        {
+            return BLShowRoomEvento.GetShowRoomOfertaById(paisID, ofertaShowRoomID);
         }
 
         #endregion
