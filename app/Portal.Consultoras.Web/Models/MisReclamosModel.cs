@@ -36,6 +36,6 @@ namespace Portal.Consultoras.Web.Models
         
         public int IndicadorBloqueoCDR { get; set; }
 
-        public decimal MontoMinimo { get; set; }
+        public decimal MontoMinimo { get; set; }        
     }
 }

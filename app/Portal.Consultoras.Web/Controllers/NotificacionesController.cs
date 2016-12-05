@@ -358,7 +358,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 var entidadDetalle = new BECDRWebDetalle();
                 entidadDetalle.CDRWebID = model.CDRWebID;
-                listaCdrWebDetalle = sv.GetCDRWebDetalle(userData.PaisID, entidadDetalle, cdrWeb.PedidoID).ToList();
+                //listaCdrWebDetalle = sv.GetCDRWebDetalleLog(userData.PaisID, logCdrWeb).ToList();
 
                 listaCdrWebDetalle = listaCdrWebDetalle ?? new List<BECDRWebDetalle>();
 
