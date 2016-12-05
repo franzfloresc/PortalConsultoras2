@@ -516,9 +516,18 @@
                         return false;
                     }
 
-                    if (item.Estado == 4) {                        
-                        SetHandlebars("#template-detalle-2-observado", data, "#divDetallePedidoCdrObservado");
-                        SetHandlebars("#template-detalle-2-aprobado", data, "#divDetallePedidoCdrAprobado");
+                    if (item.Estado == 4) {
+                        
+                        /*EPD-1308*/
+                        if (data.cantobservado > 0) {
+                            SetHandlebars("#template-detalle-2-observado", data, "#divDetallePedidoCdrObservado");
+                        }
+                        
+                        if (data.cantaprobado > 0) {
+                            SetHandlebars("#template-detalle-2-aprobado", data, "#divDetallePedidoCdrAprobado");
+                        }
+                        /*EPD-1308*/
+
                     } else {
                         SetHandlebars("#template-detalle-1", data, "#divDetallePedidoCDR");
                     }

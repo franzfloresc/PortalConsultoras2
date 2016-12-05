@@ -173,6 +173,7 @@ $(document).ready(function () {
 
     var pedidoId = parseInt($("#txtPedidoID").val());
     if (pedidoId != 0) {
+        CambioPaso(1);      //EPD-1309
         CambioPaso(3);
         DetalleCargar();
     }
