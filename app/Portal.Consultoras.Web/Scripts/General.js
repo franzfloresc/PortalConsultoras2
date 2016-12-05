@@ -665,18 +665,17 @@ function InfoCommerceGoogleDestacadoProductClick(name, id, category, variant, po
 
 // Pedido Rechazado
 function MensajeEstadoPedido() {
-    //indicadorEnviadoDescarga = "1";
-
+    
     xMensajeEstadoPedido(false);
     if (cerrarRechazado == '1')
         return false;
 
-    if (estaRechazado == 0)
+    if  (estaRechazado == 0)
         return false;
-    
+    debugger;
     $("#bloquemensajesPedido").find(".mensaje_horarioIngresoPedido").html("");
     $("#bloquemensajesPedido").find(".mensaje_horarioIngresoPedido").append((motivoRechazo || "").CodificarHtmlToAnsi());
-    if (estaRechazado == 2) {
+    if (mostrarBannerRechazo == 'True') { //estaRechazado == 2 && motivoRechazo != "") {
         $("#bloquemensajesPedido").find(".mensaje_estadoActualPedido").html("TU PEDIDO HA SIDO RECHAZADO");
     }
     else if (estaRechazado == 1) {
@@ -716,17 +715,17 @@ function xMensajeEstadoPedido(estado) {
     else {
         $("#bloquemensajesPedido").slideUp();
         if (identi) {
-            $("[data-content]").animate({ "top": "0px" });
-            $(".footer-page").animate({ "top": "0px" });
+            //$("[data-content]").animate({ "top": "0px" });
+            //$(".footer-page").animate({ "top": "0px" });
         }
         else {
             identi = url.indexOf("/bienvenida") > 0;
-            if (identi) {
-                $("[data-content]").animate({ "top": "0px" });
-            }
-            else {
-                $(".ubicacion_web").animate({ "margin-top": "83px" });
-            }
+            //if (identi) {
+            //    $("[data-content]").animate({ "top": "0px" });
+            //}
+            //else {
+            //    $(".ubicacion_web").animate({ "margin-top": "83px" });
+            //}
         }
     }
 

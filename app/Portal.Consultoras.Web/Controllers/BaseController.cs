@@ -56,10 +56,10 @@ namespace Portal.Consultoras.Web.Controllers
                     else
                     {
                         ViewBag.SegmentoConsultoraMenu = (userData.SegmentoInternoID == null) ? userData.SegmentoID : (int)userData.SegmentoInternoID;
-                    }                    
+                    }
 
                     ViewBag.ServiceController = ConfigurationManager.AppSettings["ServiceController"].ToString();
-                    ViewBag.ServiceAction = ConfigurationManager.AppSettings["ServiceAction"].ToString();                  
+                    ViewBag.ServiceAction = ConfigurationManager.AppSettings["ServiceAction"].ToString();
                     //MenuBelcorpResponde();
                     ObtenerPedidoWeb();
                     ObtenerPedidoWebDetalle();
@@ -253,7 +253,7 @@ namespace Portal.Consultoras.Web.Controllers
                 Decimal.TryParse(datos.MontoTotalDescuento, out montoDescuento);
                 Decimal.TryParse(datos.MontoEscala, out montoEscala);
             }
-            
+
             using (PedidoServiceClient sv = new PedidoServiceClient())
             {
                 BEPedidoWeb bePedidoWeb = new BEPedidoWeb();
@@ -274,7 +274,7 @@ namespace Portal.Consultoras.Web.Controllers
                 ObtenerPedidoWeb();
             }
         }
-        
+
         protected bool ReservadoEnHorarioRestringido(out string mensaje)
         {
             var result = ValidarSession();
@@ -286,7 +286,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             mensaje = "";
             if (EstaProcesoFacturacion(out mensaje)) return true;
-            if(ValidarPedidoReservado(out mensaje)) return true;            
+            if (ValidarPedidoReservado(out mensaje)) return true;
             return ValidarHorarioRestringido(out mensaje);
         }
 
@@ -642,7 +642,7 @@ namespace Portal.Consultoras.Web.Controllers
             model = (UsuarioModel)Session["UserData"];
             if (isNull)
             {
-               if (model == null) return model;
+                if (model == null) return model;
             }
 
             if (model != null)
@@ -691,7 +691,7 @@ namespace Portal.Consultoras.Web.Controllers
                 ViewBag.DescripcionNivelAnalytics = model.DescripcionNivel != null && model.DescripcionNivel != "" ? model.DescripcionNivel : "(not available)";
                 ViewBag.ConsultoraAsociada = model.ConsultoraAsociada;
             }
-            
+
             if (model.RolID == Portal.Consultoras.Common.Constantes.Rol.Consultora)
             {
                 if (model.ConsultoraNueva != Constantes.ConsultoraNueva.Sicc &&
@@ -839,7 +839,7 @@ namespace Portal.Consultoras.Web.Controllers
                 ViewBag.MensajeFechaPromesa = string.Empty;
                 ViewBag.DiaFechaPromesa = 0;
             }
-            
+
             ViewBag.TieneNotificaciones = model.TieneNotificaciones;
             ViewBag.EsUsuarioComunidad = model.EsUsuarioComunidad ? 1 : 0;
             ViewBag.NombreC = model.PrimerNombre;
@@ -858,10 +858,11 @@ namespace Portal.Consultoras.Web.Controllers
             ViewBag.Simbolo = model.Simbolo;
             string paisesConTrackingJetlore = ConfigurationManager.AppSettings.Get("PaisesConTrackingJetlore") ?? "";
             ViewBag.PaisesConTrackingJetlore = paisesConTrackingJetlore.Contains(model.CodigoISO) ? "1" : "0";
-                ViewBag.EsCatalogoPersonalizadoZonaValida = model.EsCatalogoPersonalizadoZonaValida;
+            ViewBag.EsCatalogoPersonalizadoZonaValida = model.EsCatalogoPersonalizadoZonaValida;
 
             ViewBag.IndicadorGPRSB = model.IndicadorGPRSB;
             ViewBag.CerrarRechazado = model.CerrarRechazado;
+            ViewBag.MostrarBannerRechazo = model.MostrarBannerRechazo;
             ViewBag.MotivoRechazo = model.MotivoRechazo.Trim();
             ViewBag.Efecto_TutorialSalvavidas = ConfigurationManager.AppSettings.Get("Efecto_TutorialSalvavidas") ?? "1";
             return model;
@@ -878,7 +879,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             var listaPaises = ConfigurationManager.AppSettings["KeyPaisFormatDecimal"] ?? "";
             if (listaPaises == "" || isoPais == "") return ",|.|2";
-            if (listaPaises.Contains(isoPais)) return ".||0";            
+            if (listaPaises.Contains(isoPais)) return ".||0";
             return ",|.|2";
         }
 
@@ -1175,7 +1176,7 @@ namespace Portal.Consultoras.Web.Controllers
                             montoDeuda = sv.GetSaldoPendiente(model.PaisID, model.CampaniaID, int.Parse(model.ConsultoraID.ToString()))[0].SaldoPendiente;
                     }
                     model.MontoDeuda = montoDeuda;
-                } 
+                }
             }
             Session["UserData"] = model;
 
@@ -1649,7 +1650,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     //if (objR.MontoMaximoStr == "")
                     //{
-                        listaEscalaDescuento = GetListaEscalaDescuento() ?? new List<BEEscalaDescuento>();
+                    listaEscalaDescuento = GetListaEscalaDescuento() ?? new List<BEEscalaDescuento>();
                     //}
                 }
 
@@ -1744,7 +1745,7 @@ namespace Portal.Consultoras.Web.Controllers
                         Cargo = monto > 0 ? monto : 0,
                         Abono = monto < 0 ? 0 : monto
                     });
-                }                
+                }
 
                 Session["ListadoEstadoCuenta"] = lst;
             }

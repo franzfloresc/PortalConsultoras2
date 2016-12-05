@@ -224,6 +224,8 @@ namespace Portal.Consultoras.BizLogic
                         usuario.MensajeValidacionInteractiva = configuracion.MensajeValidacionInteractiva; //R20160306
                         usuario.IndicadorGPRSB = configuracion.IndicadorGPRSB;
                         usuario.FechaActualPais = configuracion.FechaActualPais;
+                        usuario.EstadoPedido = configuracion.EstadoPedido;
+                        usuario.ValidacionAbierta = configuracion.ValidacionAbierta;
                     }
                 }
             }

@@ -304,10 +304,17 @@ namespace Portal.Consultoras.Web.Controllers
                     model = new UsuarioModel();
 
                     #region Obtener Respuesta del SSiCC
-
                     model.MotivoRechazo = "A partir de mañana podrás ingresar tu pedido de C" + CalcularNroCampaniaSiguiente(oBEUsuario.CampaniaID.ToString(), oBEUsuario.NroCampanias);
                     model.IndicadorGPRSB = oBEUsuario.IndicadorGPRSB;
+                    bool MostrarBannerPedidoRechazado = false;
+
                     if (oBEUsuario.IndicadorGPRSB == 2)
+                    {
+                        MostrarBannerPedidoRechazado = true;
+                        if (!oBEUsuario.ValidacionAbierta && oBEUsuario.EstadoPedido == 202) { MostrarBannerPedidoRechazado = false; }
+                    }
+
+                    if (MostrarBannerPedidoRechazado)
                     {
                         var procesoRechazado = new BEProcesoPedidoRechazado();
                         try
@@ -325,7 +332,7 @@ namespace Portal.Consultoras.Web.Controllers
                             if (listaRechazo.Any())
                             {
                                 listaRechazo = listaRechazo.Where(r => r.Rechazado).ToList();
-                                
+
                                 if (listaRechazo.Any())
                                 {
                                     model.MotivoRechazo = "";
@@ -395,6 +402,8 @@ namespace Portal.Consultoras.Web.Controllers
 
                     model.MotivoRechazo = model.MotivoRechazo.Trim();
                     model.IndicadorGPRSB = oBEUsuario.IndicadorGPRSB;
+                    model.EstadoPedido = oBEUsuario.EstadoPedido;
+                    model.MostrarBannerRechazo = MostrarBannerPedidoRechazado;
                     model.NombrePais = oBEUsuario.NombrePais;
                     model.PaisID = oBEUsuario.PaisID;
                     model.CodigoISO = oBEUsuario.CodigoISO;
@@ -607,7 +616,7 @@ namespace Portal.Consultoras.Web.Controllers
                                     model.MontoMinimoFlexipago = string.Format("{0:#,##0.00}", (beOfertaFlexipago.MontoMinimoFlexipago < 0 ? 0M : beOfertaFlexipago.MontoMinimoFlexipago));
                                 }
                             }
-                        }   
+                        }
                     }
                 }
 

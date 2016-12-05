@@ -143,6 +143,9 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         private bool EsquemaDAConsultoraField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int EstadoPedidoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private bool EstadoSimplificacionCUVField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -375,6 +378,9 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int UsuarioPruebaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool ValidacionAbiertaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private bool ValidacionInteractivaField;
@@ -959,6 +965,19 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
                 if ((this.EsquemaDAConsultoraField.Equals(value) != true)) {
                     this.EsquemaDAConsultoraField = value;
                     this.RaisePropertyChanged("EsquemaDAConsultora");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int EstadoPedido {
+            get {
+                return this.EstadoPedidoField;
+            }
+            set {
+                if ((this.EstadoPedidoField.Equals(value) != true)) {
+                    this.EstadoPedidoField = value;
+                    this.RaisePropertyChanged("EstadoPedido");
                 }
             }
         }
@@ -1973,6 +1992,19 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
                 if ((this.UsuarioPruebaField.Equals(value) != true)) {
                     this.UsuarioPruebaField = value;
                     this.RaisePropertyChanged("UsuarioPrueba");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool ValidacionAbierta {
+            get {
+                return this.ValidacionAbiertaField;
+            }
+            set {
+                if ((this.ValidacionAbiertaField.Equals(value) != true)) {
+                    this.ValidacionAbiertaField = value;
+                    this.RaisePropertyChanged("ValidacionAbierta");
                 }
             }
         }

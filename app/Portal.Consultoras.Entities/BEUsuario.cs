@@ -97,7 +97,7 @@ namespace Portal.Consultoras.Entities
             mbCambioClave = Convert.ToBoolean(row["CambioClave"]);
 
             if (DataRecord.HasColumn(row, "TelefonoTrabajo") && row["TelefonoTrabajo"] != DBNull.Value)
-                msTelefonoTrabajo = Convert.ToString(row["TelefonoTrabajo"]);  
+                msTelefonoTrabajo = Convert.ToString(row["TelefonoTrabajo"]);
             if (DataRecord.HasColumn(row, "AceptoContrato") && row["AceptoContrato"] != DBNull.Value)
                 this.AceptoContrato = Convert.ToBoolean(row["AceptoContrato"]);
             if (DataRecord.HasColumn(row, "MostrarAyudaWebTraking") && row["MostrarAyudaWebTraking"] != DBNull.Value)
@@ -206,7 +206,7 @@ namespace Portal.Consultoras.Entities
             if (DataRecord.HasColumn(row, "Direccion") && row["Direccion"] != DBNull.Value)
                 Direccion = Convert.ToString(row["Direccion"]);
             if (DataRecord.HasColumn(row, "TelefonoTrabajo") && row["TelefonoTrabajo"] != DBNull.Value)
-                msTelefonoTrabajo = Convert.ToString(row["TelefonoTrabajo"]);            
+                msTelefonoTrabajo = Convert.ToString(row["TelefonoTrabajo"]);
             if (DataRecord.HasColumn(row, "AnoCampanaIngreso") && row["AnoCampanaIngreso"] != DBNull.Value)
                 AnoCampaniaIngreso = Convert.ToString(row["AnoCampanaIngreso"]);
             if (DataRecord.HasColumn(row, "PrimerNombre") && row["PrimerNombre"] != DBNull.Value)
@@ -339,6 +339,12 @@ namespace Portal.Consultoras.Entities
 
             if (DataRecord.HasColumn(row, "IndicadorGPRSB") && row["IndicadorGPRSB"] != DBNull.Value)
                 IndicadorGPRSB = Convert.ToInt32(row["IndicadorGPRSB"]);
+
+            if (DataRecord.HasColumn(row, "EstadoPedido") && row["EstadoPedido"] != DBNull.Value)
+                EstadoPedido = Convert.ToInt32(row["EstadoPedido"]);
+
+            if (DataRecord.HasColumn(row, "ValidacionAbierta") && row["ValidacionAbierta"] != DBNull.Value)
+                ValidacionAbierta = Convert.ToBoolean(row["ValidacionAbierta"]);
 
             // SB20-907
             if (DataRecord.HasColumn(row, "GerenteZona") && row["GerenteZona"] != DBNull.Value)
@@ -1006,6 +1012,10 @@ namespace Portal.Consultoras.Entities
 
         [DataMember]
         public int IndicadorGPRSB { get; set; }
+        [DataMember]
+        public int EstadoPedido { get; set; }
+        [DataMember]
+        public bool ValidacionAbierta { get; set; }
         [DataMember]
         public string NombreGerenteZona { get; set; }
         [DataMember]
