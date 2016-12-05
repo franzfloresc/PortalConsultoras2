@@ -789,6 +789,8 @@ namespace Portal.Consultoras.Web.Controllers
                 success = true,
                 message = "",
                 detalle = lista,
+                cantobservado = lista.FindAll(x => x.Estado == Constantes.EstadoCDRWeb.Observado).Count(),
+                cantaprobado = lista.FindAll(x => x.Estado == Constantes.EstadoCDRWeb.Aceptado).Count(),
                 Simbolo = userData.Simbolo
             }, JsonRequestBehavior.AllowGet);
         }
