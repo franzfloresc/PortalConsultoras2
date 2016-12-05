@@ -119,6 +119,9 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         private int DiasDuracionCronogramaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int DigitoVerificadorField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string DireccionField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -132,6 +135,9 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int EsJovenField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool EsOFGanaMasZonaValidaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private bool EsOfertaFinalZonaValidaField;
@@ -291,6 +297,9 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int OfertaFinalField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int OfertaFinalGanaMasField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private bool PROLSinStockField;
@@ -863,6 +872,19 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public int DigitoVerificador {
+            get {
+                return this.DigitoVerificadorField;
+            }
+            set {
+                if ((this.DigitoVerificadorField.Equals(value) != true)) {
+                    this.DigitoVerificadorField = value;
+                    this.RaisePropertyChanged("DigitoVerificador");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public string Direccion {
             get {
                 return this.DireccionField;
@@ -923,6 +945,19 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
                 if ((this.EsJovenField.Equals(value) != true)) {
                     this.EsJovenField = value;
                     this.RaisePropertyChanged("EsJoven");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool EsOFGanaMasZonaValida {
+            get {
+                return this.EsOFGanaMasZonaValidaField;
+            }
+            set {
+                if ((this.EsOFGanaMasZonaValidaField.Equals(value) != true)) {
+                    this.EsOFGanaMasZonaValidaField = value;
+                    this.RaisePropertyChanged("EsOFGanaMasZonaValida");
                 }
             }
         }
@@ -1612,6 +1647,19 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
                 if ((this.OfertaFinalField.Equals(value) != true)) {
                     this.OfertaFinalField = value;
                     this.RaisePropertyChanged("OfertaFinal");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int OfertaFinalGanaMas {
+            get {
+                return this.OfertaFinalGanaMasField;
+            }
+            set {
+                if ((this.OfertaFinalGanaMasField.Equals(value) != true)) {
+                    this.OfertaFinalGanaMasField = value;
+                    this.RaisePropertyChanged("OfertaFinalGanaMas");
                 }
             }
         }

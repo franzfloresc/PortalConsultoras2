@@ -63,5 +63,7 @@ namespace Portal.Consultoras.Web.Models
         public int PosicionCarrusel { get; set; }
 
         public string CodigoIso { get; set; }
+
+        public string FormatoCampania { get; set; }
     }
 }

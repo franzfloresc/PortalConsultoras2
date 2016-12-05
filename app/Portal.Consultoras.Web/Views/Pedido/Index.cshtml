@@ -635,6 +635,8 @@
 <input type="hidden" id="hdEsFacturacion" value="@Model.EsFacturacion.ToString()" />
 <input type="hidden" id="hdOfertaFinal" value="@Model.OfertaFinal" />
 <input type="hidden" id="hdEsOfertaFinalZonaValida" value="@Model.EsOfertaFinalZonaValida.ToString()" />
+<input type="hidden" id="hdOfertaFinalGanaMas" value="@Model.OfertaFinalGanaMas" />
+<input type="hidden" id="hdEsOFGanaMasZonaValida" value="@Model.EsOFGanaMasZonaValida.ToString()" />
 <input type="hidden" id="hdMontoMinimo" value="@Model.MontoMinimo" />
 <input type="hidden" id="hdMontoMaximo" value="@Model.MontoMaximo" />
 <input type="hidden" id="hdListaParametriaOfertaFinal" value="@Newtonsoft.Json.JsonConvert.SerializeObject(Model.ListaParametriaOfertaFinal)" />
@@ -910,10 +912,15 @@
             <div id="spCabeceraMontominimo" style="display:none; margin-top: -5px;">
                 <span style="display: block;text-align: center;font-size: 12px;">Recuerda que esta campaña el monto mínimo es de @Model.Simbolo<span id="spMontoMinimoCabecera"></span></span>
             </div>
-            <span class="descripcion_ofertaFinal">
+            <span class="descripcion_ofertaFinal" id="of_descripcion1">
                 Agrega @Model.Simbolo <span id="spnMontoFaltanteOfertaFinal"></span> 
                 <span id="spnMensajeOfertaFinal">&nbsp;para conseguir 30% DSCTO y gana más esta campaña.</span>
             </span>
+
+            <span class="descripcion_ofertaFinal" id="of_descripcion2" style="display: none;">
+                Agrega estos productos para ganar más esta campaña
+            </span>
+
             <div class="contenedor_bloques_agregaProductos">
                 <div class="bloque_descripciones">
                     <h6 class="descripcion_principal"><b><span id="spnSubTituloOfertaFinal">Consigue más ganancias agregando uno de estos productos</span></b></h6>

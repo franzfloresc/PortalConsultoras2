@@ -314,5 +314,19 @@ namespace Portal.Consultoras.BizLogic
                 }
             return lst;
         }
+
+        public BEShowRoomOferta GetShowRoomOfertaById(int paisID, int ofertaShowRoomID)
+        {
+            BEShowRoomOferta entidad = null;
+            var DAPedidoWeb = new DAShowRoomEvento(paisID);
+
+            using (IDataReader reader = DAPedidoWeb.GetShowRoomOfertaById(ofertaShowRoomID))
+                if (reader.Read())
+                {
+                    entidad = new BEShowRoomOferta(reader);
+                }
+            return entidad;
+        }
+        
     }
 }

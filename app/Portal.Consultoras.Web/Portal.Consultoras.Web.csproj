@@ -333,6 +333,7 @@
     <Compile Include="Controllers\RolController.cs" />
     <Compile Include="Controllers\RVDigitalController.cs" />
     <Compile Include="Controllers\ServiciosController.cs" />
+    <Compile Include="Controllers\SetController.cs" />
     <Compile Include="Controllers\ShowRoomController.cs" />
     <Compile Include="Controllers\SolicitudClienteController.cs" />
     <Compile Include="Controllers\SolicitudCreditoController.cs" />
@@ -620,6 +621,13 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
+    <Compile Include="Set.aspx.cs">
+      <DependentUpon>Set.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Set.aspx.designer.cs">
+      <DependentUpon>Set.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Web References\ServiceActualizaDatosConsultoraChile\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -818,6 +826,13 @@
     </Compile>
     <Compile Include="WebPages\RestablecerContrasena.aspx.designer.cs">
       <DependentUpon>RestablecerContrasena.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="WebPages\SetVentaDigital.aspx.cs">
+      <DependentUpon>SetVentaDigital.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WebPages\SetVentaDigital.aspx.designer.cs">
+      <DependentUpon>SetVentaDigital.aspx</DependentUpon>
     </Compile>
     <Compile Include="WebPages\TerminosyReferencias_CO.aspx.cs">
       <DependentUpon>TerminosyReferencias_CO.aspx</DependentUpon>
@@ -1339,6 +1354,7 @@
     <Content Include="Content\Images\catalogos.png" />
     <Content Include="Content\Images\cerrar_04.png" />
     <Content Include="Content\Images\Esika\background_pedido.png" />
+    <Content Include="Content\Images\Esika\Banner_Esika.jpg" />
     <Content Include="Content\Images\Esika\banner_misBeneficios.png" />
     <Content Include="Content\Images\Esika\brillante2016_img.png" />
     <Content Include="Content\Images\Esika\carta.png" />
@@ -1807,6 +1823,7 @@
     <Content Include="Content\Images\Lbel\banamex.png" />
     <Content Include="Content\Images\Lbel\bancomer.png" />
     <Content Include="Content\Images\Lbel\banner.png" />
+    <Content Include="Content\Images\Lbel\Banner_LBel.jpg" />
     <Content Include="Content\Images\Lbel\banner_misBeneficios.png" />
     <Content Include="Content\Images\Lbel\belcorp.png" />
     <Content Include="Content\Images\Lbel\boton_pedido.png" />
@@ -1990,6 +2007,7 @@
     <Content Include="Content\Images\mobile\Esika\camara.png" />
     <Content Include="Content\Images\mobile\Esika\carpeta.png" />
     <Content Include="Content\Images\mobile\Esika\catalogo_facebook.png" />
+    <Content Include="Content\Images\mobile\Esika\catalogo_facebook_color.png" />
     <Content Include="Content\Images\mobile\Esika\catalogo_home.png" />
     <Content Include="Content\Images\mobile\Esika\catalogo_mensaje.png" />
     <Content Include="Content\Images\mobile\Esika\catalogo_ws.png" />
@@ -2002,6 +2020,7 @@
     <Content Include="Content\Images\mobile\Esika\fondo_app.png" />
     <Content Include="Content\Images\mobile\Esika\fondo_oferta.png" />
     <Content Include="Content\Images\mobile\Esika\ganancia.png" />
+    <Content Include="Content\Images\mobile\Esika\iconowscolor.png" />
     <Content Include="Content\Images\mobile\Esika\icono_advertencia_notificacion.svg" />
     <Content Include="Content\Images\mobile\Esika\icono_check_esika.svg" />
     <Content Include="Content\Images\mobile\Esika\icono_exclamacion_esika.svg" />
@@ -2030,6 +2049,8 @@
     <Content Include="Content\Images\mobile\Esika\ws.png" />
     <Content Include="Content\Images\mobile\Esika\youtube.png" />
     <Content Include="Content\Images\mobile\icon-xclose.png" />
+    <Content Include="Content\Images\mobile\flecha-left.png" />
+    <Content Include="Content\Images\mobile\flecha-right.png" />
     <Content Include="Content\Images\mobile\icon_caja.png" />
     <Content Include="Content\Images\mobile\icon_casita.png" />
     <Content Include="Content\Images\mobile\icon_menu.png" />
@@ -3265,6 +3286,7 @@
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </Content>
+    <Content Include="Set.aspx" />
     <Content Include="Views\Unete\ReporteConsolidado.cshtml" />
     <Content Include="Views\CatalogoPersonalizado\Index.cshtml">
       <SubType>Code</SubType>
@@ -3321,6 +3343,7 @@
     <Content Include="WebPages\RegistroComunidad.aspx" />
     <Content Include="WebPages\ReporteActualizacionDatos.aspx" />
     <Content Include="WebPages\RestablecerContrasena.aspx" />
+    <Content Include="WebPages\SetVentaDigital.aspx" />
     <Content Include="WebPages\TerminosyReferencias_CO.aspx" />
     <Content Include="WebPages\WebTracking.aspx" />
     <None Include="Service References\ServiceCliente\ClienteService.wsdl" />
@@ -3554,6 +3577,7 @@
     <Content Include="Views\Notificaciones\ListadoDetallePedidoRechazado.cshtml" />
     <Content Include="Views\Unete\TemplatesUbigeos\_UbigeoGrupo5.cshtml" />
     <Content Include="Views\MisCatalogosRevistas\MiRevista.cshtml" />
+    <Content Include="Views\Set\Index.cshtml" />
     <Content Include="Views\MisReclamos\Reclamo.cshtml" />
     <Content Include="Views\TerminosYCondiciones\Index.cshtml" />
     <Content Include="Views\Bienvenida\ActualizarContrasenia.cshtml" />
