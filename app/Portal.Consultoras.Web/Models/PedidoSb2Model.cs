@@ -262,6 +262,10 @@ namespace Portal.Consultoras.Web.Models
 
         public bool EsOfertaFinalZonaValida { get; set; }
 
+        public int OfertaFinalGanaMas { get; set; }
+
+        public bool EsOFGanaMasZonaValida { get; set; }
+
         public string CodigoMensajeProl { get; set; }
 
         public decimal MontoMinimo { get; set; }

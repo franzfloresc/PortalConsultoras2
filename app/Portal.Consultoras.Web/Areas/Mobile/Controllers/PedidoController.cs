@@ -253,6 +253,10 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             model.EsFacturacion = esFacturacion;
             model.OfertaFinal = userData.OfertaFinal;
             model.EsOfertaFinalZonaValida = userData.EsOfertaFinalZonaValida;
+
+            model.OfertaFinalGanaMas = userData.OfertaFinalGanaMas;
+            model.EsOFGanaMasZonaValida = userData.EsOFGanaMasZonaValida;
+
             model.ListaParametriaOfertaFinal = GetParametriaOfertaFinal();
             model.EsConsultoraNueva = VerificarConsultoraNueva();
             model.MontoMinimo = userData.MontoMinimo;

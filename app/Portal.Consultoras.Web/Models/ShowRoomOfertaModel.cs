@@ -73,5 +73,7 @@ namespace Portal.Consultoras.Web.Models
         public string ImagenMiniAnterior { get; set; }
 
         public IList<ShowRoomOfertaDetalleModel> ListaDetalleOfertaShowRoom { get; set; }
+
+        public string Subtitulo { get; set; }
     }
 }
