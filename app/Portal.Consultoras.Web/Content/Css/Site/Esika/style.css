@@ -32164,3 +32164,8 @@ h1#penmostreo .campana {
     text-align:right;
     font-weight:700;
 }
+.texto_tab_pagos {
+    display:inline-block;
+    vertical-align:middle;
+    line-height:14px;
+}
