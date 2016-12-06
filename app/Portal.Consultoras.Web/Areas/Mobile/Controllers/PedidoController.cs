@@ -253,6 +253,10 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             model.EsFacturacion = esFacturacion;
             model.OfertaFinal = userData.OfertaFinal;
             model.EsOfertaFinalZonaValida = userData.EsOfertaFinalZonaValida;
+
+            model.OfertaFinalGanaMas = userData.OfertaFinalGanaMas;
+            model.EsOFGanaMasZonaValida = userData.EsOFGanaMasZonaValida;
+
             model.ListaParametriaOfertaFinal = GetParametriaOfertaFinal();
             model.EsConsultoraNueva = VerificarConsultoraNueva();
             model.MontoMinimo = userData.MontoMinimo;
@@ -531,7 +535,11 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             {
                 if (HoraNow > usuario.HoraInicioPreReserva && HoraNow < usuario.HoraFinPreReserva)
                 {
-                    int cantidad = BuildFechaNoHabil();
+                    int cantidad = 0;
+                    if (usuario.CodigoISO != Constantes.CodigosISOPais.Peru)
+                    {
+                        cantidad = BuildFechaNoHabil();
+                    }
                     mostrarBotonValidar = cantidad == 0;
                 }
                 DiaPROL = true;
@@ -543,7 +551,11 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 {
                     if (HoraNow > usuario.HoraInicioReserva && HoraNow < usuario.HoraFinReserva)
                     {
-                        int cantidad = BuildFechaNoHabil();
+                        int cantidad = 0;
+                        if (usuario.CodigoISO != Constantes.CodigosISOPais.Peru)
+                        {
+                            cantidad = BuildFechaNoHabil();
+                        }
                         mostrarBotonValidar = cantidad == 0;
                     }
                     DiaPROL = true;

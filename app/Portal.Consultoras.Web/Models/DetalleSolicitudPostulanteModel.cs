@@ -107,6 +107,8 @@ namespace Portal.Consultoras.Web.Models
         [MaxLength(15, ErrorMessage = "Máximo 15 caractéres")]        
         public string CodigoConsultoraRecomienda { get; set; }
 
+        public string NombreConsultoraRecomienda { get; set; }
+
         public string CodigoPais { get; set; }
         public string CodigoISO { get; set; }
 

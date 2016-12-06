@@ -184,6 +184,11 @@ namespace Portal.Consultoras.BizLogic
             }
         }
 
+        public void QuitarBackOrderPedidoWebDetalle(BEPedidoWebDetalle pedidowebdetalle)
+        {
+            new DAPedidoWebDetalle(pedidowebdetalle.PaisID).QuitarBackOrderPedidoWebDetalle(pedidowebdetalle);
+        }
+
         public void DelPedidoWebDetalle(BEPedidoWebDetalle pedidowebdetalle)
         {
             var DAPedidoWeb = new DAPedidoWeb(pedidowebdetalle.PaisID);

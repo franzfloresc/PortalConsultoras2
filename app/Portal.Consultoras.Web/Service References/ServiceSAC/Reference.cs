@@ -2863,6 +2863,99 @@ namespace Portal.Consultoras.Web.ServiceSAC {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="BEPopupPais", Namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities")]
+    [System.SerializableAttribute()]
+    public partial class BEPopupPais : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int CodigoPopupField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string DescripcionField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int OrdenField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int PopupPaisIDField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int CodigoPopup {
+            get {
+                return this.CodigoPopupField;
+            }
+            set {
+                if ((this.CodigoPopupField.Equals(value) != true)) {
+                    this.CodigoPopupField = value;
+                    this.RaisePropertyChanged("CodigoPopup");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Descripcion {
+            get {
+                return this.DescripcionField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.DescripcionField, value) != true)) {
+                    this.DescripcionField = value;
+                    this.RaisePropertyChanged("Descripcion");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int Orden {
+            get {
+                return this.OrdenField;
+            }
+            set {
+                if ((this.OrdenField.Equals(value) != true)) {
+                    this.OrdenField = value;
+                    this.RaisePropertyChanged("Orden");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int PopupPaisID {
+            get {
+                return this.PopupPaisIDField;
+            }
+            set {
+                if ((this.PopupPaisIDField.Equals(value) != true)) {
+                    this.PopupPaisIDField = value;
+                    this.RaisePropertyChanged("PopupPaisID");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="BEEstadoCuenta", Namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities")]
     [System.SerializableAttribute()]
     public partial class BEEstadoCuenta : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
@@ -9695,6 +9788,12 @@ namespace Portal.Consultoras.Web.ServiceSAC {
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="ServiceSAC.ISACService")]
     public interface ISACService {
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/DelProveedorDespachoCobranza", ReplyAction="http://tempuri.org/ISACService/DelProveedorDespachoCobranzaResponse")]
+        int DelProveedorDespachoCobranza(int paisID, int ProveedorDespachoCobanzaID);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/DelProveedorDespachoCobranza", ReplyAction="http://tempuri.org/ISACService/DelProveedorDespachoCobranzaResponse")]
+        System.Threading.Tasks.Task<int> DelProveedorDespachoCobranzaAsync(int paisID, int ProveedorDespachoCobanzaID);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/UpdProveedorDespachoCobranzaCabecera", ReplyAction="http://tempuri.org/ISACService/UpdProveedorDespachoCobranzaCabeceraResponse")]
         void UpdProveedorDespachoCobranzaCabecera(int paisID, Portal.Consultoras.Web.ServiceSAC.BEProveedorDespachoCobranza entidad);
         
@@ -9898,6 +9997,12 @@ namespace Portal.Consultoras.Web.ServiceSAC {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/ObtenerComunicadoPorConsultora", ReplyAction="http://tempuri.org/ISACService/ObtenerComunicadoPorConsultoraResponse")]
         System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BEComunicado[]> ObtenerComunicadoPorConsultoraAsync(int PaisID, string CodigoConsultora);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/ObtenerOrdenPopUpMostrar", ReplyAction="http://tempuri.org/ISACService/ObtenerOrdenPopUpMostrarResponse")]
+        Portal.Consultoras.Web.ServiceSAC.BEPopupPais[] ObtenerOrdenPopUpMostrar();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/ObtenerOrdenPopUpMostrar", ReplyAction="http://tempuri.org/ISACService/ObtenerOrdenPopUpMostrarResponse")]
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BEPopupPais[]> ObtenerOrdenPopUpMostrarAsync();
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/UpdComunicadoByConsultora", ReplyAction="http://tempuri.org/ISACService/UpdComunicadoByConsultoraResponse")]
         void UpdComunicadoByConsultora(int paisID, string CodigoConsultora);
@@ -10230,12 +10335,6 @@ namespace Portal.Consultoras.Web.ServiceSAC {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/GetProveedorDespachoCobranza", ReplyAction="http://tempuri.org/ISACService/GetProveedorDespachoCobranzaResponse")]
         System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BEProveedorDespachoCobranza[]> GetProveedorDespachoCobranzaAsync(int paisID);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/DelProveedorDespachoCobranza", ReplyAction="http://tempuri.org/ISACService/DelProveedorDespachoCobranzaResponse")]
-        int DelProveedorDespachoCobranza(int paisID, int ProveedorDespachoCobanzaID);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/DelProveedorDespachoCobranza", ReplyAction="http://tempuri.org/ISACService/DelProveedorDespachoCobranzaResponse")]
-        System.Threading.Tasks.Task<int> DelProveedorDespachoCobranzaAsync(int paisID, int ProveedorDespachoCobanzaID);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/GetCronogramaByCampania", ReplyAction="http://tempuri.org/ISACService/GetCronogramaByCampaniaResponse")]
         Portal.Consultoras.Web.ServiceSAC.BECronograma[] GetCronogramaByCampania(int paisID, int CampaniaID, int ZonaID, short TipoCronogramaID);
@@ -10775,6 +10874,14 @@ namespace Portal.Consultoras.Web.ServiceSAC {
                 base(binding, remoteAddress) {
         }
         
+        public int DelProveedorDespachoCobranza(int paisID, int ProveedorDespachoCobanzaID) {
+            return base.Channel.DelProveedorDespachoCobranza(paisID, ProveedorDespachoCobanzaID);
+        }
+        
+        public System.Threading.Tasks.Task<int> DelProveedorDespachoCobranzaAsync(int paisID, int ProveedorDespachoCobanzaID) {
+            return base.Channel.DelProveedorDespachoCobranzaAsync(paisID, ProveedorDespachoCobanzaID);
+        }
+        
         public void UpdProveedorDespachoCobranzaCabecera(int paisID, Portal.Consultoras.Web.ServiceSAC.BEProveedorDespachoCobranza entidad) {
             base.Channel.UpdProveedorDespachoCobranzaCabecera(paisID, entidad);
         }
@@ -11045,6 +11152,14 @@ namespace Portal.Consultoras.Web.ServiceSAC {
         
         public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BEComunicado[]> ObtenerComunicadoPorConsultoraAsync(int PaisID, string CodigoConsultora) {
             return base.Channel.ObtenerComunicadoPorConsultoraAsync(PaisID, CodigoConsultora);
+        }
+        
+        public Portal.Consultoras.Web.ServiceSAC.BEPopupPais[] ObtenerOrdenPopUpMostrar() {
+            return base.Channel.ObtenerOrdenPopUpMostrar();
+        }
+        
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BEPopupPais[]> ObtenerOrdenPopUpMostrarAsync() {
+            return base.Channel.ObtenerOrdenPopUpMostrarAsync();
         }
         
         public void UpdComunicadoByConsultora(int paisID, string CodigoConsultora) {
@@ -11485,14 +11600,6 @@ namespace Portal.Consultoras.Web.ServiceSAC {
         
         public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BEProveedorDespachoCobranza[]> GetProveedorDespachoCobranzaAsync(int paisID) {
             return base.Channel.GetProveedorDespachoCobranzaAsync(paisID);
-        }
-        
-        public int DelProveedorDespachoCobranza(int paisID, int ProveedorDespachoCobanzaID) {
-            return base.Channel.DelProveedorDespachoCobranza(paisID, ProveedorDespachoCobanzaID);
-        }
-        
-        public System.Threading.Tasks.Task<int> DelProveedorDespachoCobranzaAsync(int paisID, int ProveedorDespachoCobanzaID) {
-            return base.Channel.DelProveedorDespachoCobranzaAsync(paisID, ProveedorDespachoCobanzaID);
         }
         
         public Portal.Consultoras.Web.ServiceSAC.BECronograma[] GetCronogramaByCampania(int paisID, int CampaniaID, int ZonaID, short TipoCronogramaID) {

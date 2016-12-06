@@ -295,6 +295,17 @@ namespace Portal.Consultoras.Common
             public const string Trueque = "T";
             public const string Canje = "C";
         }
+        public class TipoPopUp
+        {
+            public const int VideoIntroductorio = 1;
+            public const int GPR = 2;
+            public const int DemandaAnticipada = 3;
+            public const int AceptacionContrato = 4;
+            public const int Showroom = 5;
+            public const int ActualizarDatos = 6;
+            public const int Flexipago = 7;
+            public const int Comunicado = 8;
+        }
     }
 }
 

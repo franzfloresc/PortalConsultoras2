@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Configuration;
 
 namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 {
@@ -14,6 +15,10 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             {
                 return RedirectToAction("Index", "Bienvenida", new { area = "Mobile" });
             }
+
+            ViewBag.Simbolo = userData.Simbolo;
+            ViewBag.RutaImagenNoDisponible = ConfigurationManager.AppSettings.Get("rutaImagenNotFoundAppCatalogo");
+
             return View();
         }
 
