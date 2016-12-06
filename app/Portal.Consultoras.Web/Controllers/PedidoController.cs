@@ -314,7 +314,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
 
-             
+
 
                 #region Pedidos Pendientes
 
@@ -3058,15 +3058,17 @@ namespace Portal.Consultoras.Web.Controllers
 
             #region GPR
 
+            userData.ValidacionAbierta = oBEConfiguracionCampania.ValidacionAbierta;
+           
             bool MostrarBannerPedidoRechazado = false;
 
             if (userData.IndicadorGPRSB == 2)
             {
                 MostrarBannerPedidoRechazado = true;
-                if (!userData.ValidacionAbierta && userData.EstadoPedido == 202) { MostrarBannerPedidoRechazado = false; }
+                if (!oBEConfiguracionCampania.ValidacionAbierta && userData.EstadoPedido == 202) { MostrarBannerPedidoRechazado = false; }
             }
-
-
+            userData.MostrarBannerRechazo = MostrarBannerPedidoRechazado;
+            SetUserData(userData);
             ViewBag.IndicadorGPRSB = userData.IndicadorGPRSB;
             //ViewBag.EstadoPedido = userData.EstadoPedido;
             ViewBag.MostrarBannerRechazo = MostrarBannerPedidoRechazado;

@@ -30668,17 +30668,6 @@ h1#penmostreo .campana {
     }
 }
 
-.oscurecer_animacion{
-    position:fixed;
-    z-index:1;
-    width:100%;
-    height:100%;
-    -webkit-animation: opacidad-gestion-pedido 1500ms linear 0ms 1 normal;
-    -moz-animation: opacidad-gestion-pedido 1500ms linear 0ms 1 normal;
-    -ms-animation: opacidad-gestion-pedido 1500ms linear 0ms 1 normal;
-    animation: opacidad-gestion-pedido 1500ms linear 0ms 1 normal;
-   
-}
 .stock_content{
     width: 100%;
     height: auto;
@@ -30803,7 +30792,7 @@ h1#penmostreo .campana {
 
 .oscurecer_animacion{
     position:fixed;
-    z-index:1;
+    z-index:300;
     width:100%;
     height:100%;
     -webkit-animation: opacidad-gestion-pedido 1500ms linear 0ms 1 normal;
