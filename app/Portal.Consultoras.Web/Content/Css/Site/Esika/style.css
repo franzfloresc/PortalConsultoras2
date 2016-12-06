@@ -31930,3 +31930,132 @@ h1#penmostreo .campana {
     font-size: 11px; 
     color:#9b9b9b; 
 }
+
+/*TABLA DE NOTIFICACIONES*/
+.logo_lista_detalle{
+    width:100px;
+    height:38px;
+    margin:0 auto;
+    margin-top:20px;
+    margin-bottom:20px;
+    background:url(http://www.genesis-peru.com/mailing-belcorp/logo.png) no-repeat center center;
+}
+.content_datos_cdr{
+    width:96%;
+    height:auto;
+    margin:0 auto;
+}
+.saludo_cdr{
+    font-family: 'Lato';
+    font-size: 16px;
+    text-align: center;
+    font-weight: 500;
+    color: #000;
+    padding: 18px;
+}
+.titulo_cdr{
+    text-align: center;
+    font-family: 'Lato';
+    font-size: 18px;
+    font-weight: 700;
+    color: #000;
+    padding-bottom: 15px;
+    letter-spacing:0.2px;
+}
+.respuesta_cdr{
+    text-align: center;
+    font-family: 'Lato';
+    color: #000;
+    font-weight: 700;
+    font-size: 14px;
+    padding-bottom: 30px
+}
+.texto_fila_cdr{
+    display:inline-block;
+    width:33%;
+    border-right:1px solid black;
+        
+    font-family: 'Lato';
+    font-size: 14px;
+    
+}
+.texto_fila_cdr:last-child{
+    border-right:0;
+}
+.resumen_aprobado_cdr{
+    text-align: center;
+    font-family: 'Lato';
+     color: black;
+    padding-top: 15px;
+    font-size: 15px;
+}
+.subtitulo_cdr{
+    text-align: center;
+    font-family: 'Lato';
+    font-weight: 700;
+    color: black;
+    margin-top:15px;
+    padding-top: 8px;
+    padding-bottom:8px;
+    font-size: 15px;
+    border-top:1px solid #979797;
+    border-bottom:1px solid #979797;
+}
+.content_detalle_pedido_cdr{
+    border-bottom:1px solid #979797;
+    padding-top:15px;
+    padding-bottom:15px;
+    font-family: 'Lato';
+    overflow:hidden;
+}
+
+.estado_cdr_detalle{
+    text-align: left;
+    font-family: 'Lato';
+    font-size: 14px;
+    color: #e81c36;
+    margin-bottom:10px;
+    font-weight:900;
+}
+.left_detalle_cdr{
+    width:55%;
+    padding-right:14px;
+    float:left;
+    text-align: left;
+    font-family: 'Lato';
+    font-size: 14.4px;    
+    color: black;
+}
+.texto_detalle_cdr{
+     text-align: left;
+    font-family: 'Lato';
+    font-size: 14.4px;    
+    color: black;
+    }
+.right_detalle_cdr{
+    float:right;
+    width:45%;
+    text-align: left;
+    font-family: 'Lato';
+    font-size: 14.4px;    
+    color: black;
+}
+.ver_solicitud_sb{
+    text-decoration: none;
+    font-family: 'Lato';
+    font-weight: 700;
+    color: black;
+    font-size: 14px;
+    border: 2px solid #979797;
+    text-align:center;
+    padding:10px;
+    width:50%;
+    margin:0 auto;
+    margin-top:25px;
+}
+.cerrar_cdr_noti{
+    font-family:'Lato';
+    font-size:13px;
+    text-align:right;
+    font-weight:700;
+}

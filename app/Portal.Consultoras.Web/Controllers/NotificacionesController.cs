@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Web;
 using System.Web.Mvc;
+using Portal.Consultoras.Web.ServiceCDR;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -25,7 +26,7 @@ namespace Portal.Consultoras.Web.Controllers
             NotificacionesModel model = new NotificacionesModel();
             using (UsuarioServiceClient sv = new UsuarioServiceClient())
             {
-                olstNotificaciones = sv.GetNotificacionesConsultora(UserData().PaisID, UserData().ConsultoraID).ToList();
+                olstNotificaciones = sv.GetNotificacionesConsultora(userData.PaisID, userData.ConsultoraID, userData.IndicadorBloqueoCDR).ToList();
             }
             model.ListaNotificaciones = olstNotificaciones;
             return View(model);
@@ -36,7 +37,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             NotificacionesModel model = new NotificacionesModel();
             List<BENotificaciones> olstNotificaciones = new List<BENotificaciones>();
-            int PaisId = UserData().PaisID;
+            int PaisId = userData.PaisID;
             using (UsuarioServiceClient sv = new UsuarioServiceClient())
             {
                 //R2319 - JLCS
@@ -52,7 +53,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     sv.UpdNotificacionesConsultoraVisualizacion(PaisId, ProcesoId, TipoOrigen); //R2073
                 }
-                olstNotificaciones = sv.GetNotificacionesConsultora(UserData().PaisID, UserData().ConsultoraID).ToList();
+                olstNotificaciones = sv.GetNotificacionesConsultora(userData.PaisID, userData.ConsultoraID, userData.IndicadorBloqueoCDR).ToList();
             }
 
             model.ListaNotificaciones = olstNotificaciones;
@@ -70,6 +71,7 @@ namespace Portal.Consultoras.Web.Controllers
                     if (TipoOrigen == 6) sv.UpdNotificacionPedidoRechazadoVisualizacion(paisId, ProcesoId);
                     else if (TipoOrigen == 5) sv.UpdNotificacionSolicitudClienteCatalogoVisualizacion(paisId, ProcesoId);
                     else if (TipoOrigen == 4) sv.UpdNotificacionSolicitudClienteVisualizacion(paisId, ProcesoId);
+                    else if (TipoOrigen == 7) sv.UpdNotificacionSolicitudCdrVisualizacion(paisId, ProcesoId);
                     else sv.UpdNotificacionesConsultoraVisualizacion(paisId, ProcesoId, TipoOrigen);
                 }
                 SessionKeys.ClearSessionCantidadNotificaciones();
@@ -336,6 +338,96 @@ namespace Portal.Consultoras.Web.Controllers
             return PartialView("ListadoDetallePedidoRechazado", model);
         }
 
+        public ActionResult ListarDetalleCdr(long solicitudId)
+        {
+            var model = new CDRWebModel();
+
+            var logCdrWeb = new BELogCDRWeb();
+            var cdrWeb = new BECDRWeb();
+            var listaCdrWebDetalle = new List<BECDRWebDetalle>();
+            using (CDRServiceClient sv = new CDRServiceClient())
+            {
+                logCdrWeb = sv.GetLogCDRWebByLogCDRWebId(userData.PaisID, solicitudId);
+
+                var entidad = new BECDRWeb();
+                entidad.ConsultoraID = logCdrWeb.ConsultoraId;
+                entidad.PedidoID = 0;
+                entidad.CampaniaID = 0;
+                entidad.CDRWebID = logCdrWeb.CDRWebID;
+                cdrWeb = sv.GetCDRWeb(userData.PaisID, entidad).FirstOrDefault() ?? new BECDRWeb();
+
+                var entidadDetalle = new BECDRWebDetalle();
+                entidadDetalle.CDRWebID = model.CDRWebID;
+                listaCdrWebDetalle = sv.GetCDRWebDetalle(userData.PaisID, entidadDetalle, cdrWeb.PedidoID).ToList();
+
+                listaCdrWebDetalle = listaCdrWebDetalle ?? new List<BECDRWebDetalle>();
+
+                listaCdrWebDetalle.Update(p => p.Solicitud = ObtenerDescripcion(p.CodigoOperacion, Constantes.TipoMensajeCDR.Finalizado).Descripcion);
+                listaCdrWebDetalle.Update(p => p.SolucionSolicitada = ObtenerDescripcion(p.CodigoOperacion, Constantes.TipoMensajeCDR.MensajeFinalizado).Descripcion);
+            }
+
+            model.CDRWebID = cdrWeb.CDRWebID;
+            model.PedidoID = cdrWeb.PedidoID;
+            model.PedidoNumero = cdrWeb.PedidoNumero;
+            model.CampaniaID = cdrWeb.CampaniaID;
+            model.FechaRegistro = cdrWeb.FechaRegistro;
+            model.Estado = cdrWeb.Estado;
+            model.FechaCulminado = cdrWeb.FechaCulminado;
+            model.FechaAtencion = cdrWeb.FechaAtencion;
+            model.Importe = cdrWeb.Importe;
+            model.NombreConsultora = userData.NombreConsultora;
+            model.CodigoIso = userData.CodigoISO;
+            model.Simbolo = userData.Simbolo;
+
+            model.ListaDetalle = listaCdrWebDetalle;
+
+            return PartialView("ListaDetalleCdr", model);
+        }
+
+        private BECDRWebDescripcion ObtenerDescripcion(string codigoSsic, string tipo)
+        {
+            codigoSsic = Util.SubStr(codigoSsic, 0);
+            //codigoSsic = codigoSsic.ToLower();
+            tipo = Util.SubStr(tipo, 0);
+            //tipo = tipo.ToLower();
+            var listaDescripcion = CargarDescripcion();
+            var desc = listaDescripcion.FirstOrDefault(d => d.CodigoSSIC == codigoSsic && d.Tipo == tipo) ?? new BECDRWebDescripcion();
+
+            desc.Descripcion = Util.SubStr(desc.Descripcion, 0);
+            return desc;
+        }
+
+        private List<BECDRWebDescripcion> CargarDescripcion()
+        {
+            try
+            {
+                if (Session[Constantes.ConstSession.CDRDescripcion] != null)
+                {
+                    var listaDescripcion = (List<BECDRWebDescripcion>)Session[Constantes.ConstSession.CDRDescripcion];
+                    if (listaDescripcion.Count > 0)
+                        return listaDescripcion;
+                }
+
+                var lista = new List<BECDRWebDescripcion>();
+                var entidad = new BECDRWebDescripcion();
+                using (CDRServiceClient sv = new CDRServiceClient())
+                {
+                    lista = sv.GetCDRWebDescripcion(userData.PaisID, entidad).ToList();
+                }
+
+                lista = lista ?? new List<BECDRWebDescripcion>();
+                //lista.Update(d => d.Tipo = d.Tipo.ToLower());
+                Session[Constantes.ConstSession.CDRDescripcion] = lista;
+                return lista;
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                Session[Constantes.ConstSession.CDRDescripcion] = null;
+                return new List<BECDRWebDescripcion>();
+            }
+        }
+
         [HttpPost]
         public JsonResult GetNotificacionesSinLeer()
         {
@@ -369,7 +461,7 @@ namespace Portal.Consultoras.Web.Controllers
             var list = new List<BENotificaciones>();
             using (var sv = new UsuarioServiceClient())
             {
-                list = sv.GetNotificacionesConsultora(userData.PaisID, userData.ConsultoraID).ToList();
+                list = sv.GetNotificacionesConsultora(userData.PaisID, userData.ConsultoraID, userData.IndicadorBloqueoCDR).ToList();
             }
             return list;
         }

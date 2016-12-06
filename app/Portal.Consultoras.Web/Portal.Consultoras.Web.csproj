@@ -27,7 +27,7 @@
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
     <DeployOnBuild Condition=" '$(DeployWEB)'!='' ">$(DeployWEB)</DeployOnBuild>
-    <UseGlobalApplicationHostFile />  
+    <UseGlobalApplicationHostFile />    
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -3552,6 +3552,7 @@
     <Content Include="Views\MisReclamos\Reclamo.cshtml" />
     <Content Include="Views\TerminosYCondiciones\Index.cshtml" />
     <Content Include="Views\Bienvenida\ActualizarContrasenia.cshtml" />
+    <Content Include="Views\Notificaciones\ListaDetalleCdr.cshtml" />
     <None Include="Web References\ServiceLMS\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
