@@ -42,6 +42,7 @@
                         <option>¿En qué campaña lo solicitaste?</option>
                     </select>*@
                     <input type="hidden" id="txtPedidoID" value="@Model.PedidoID"/>
+                    <input type="hidden" id="txtNumeroPedido" value="@Model.NumeroPedido" />
                     <input type="hidden" id="txtPrecioUnidad"/>
                     <input type="hidden" id="hdImporteTotalPedido"/>
                     <input type="text" placeholder="Código" class="codigo_reclamo ValidaNumeral ValidaPasteNumeral valid" id="txtCUV"/>
@@ -336,7 +337,7 @@
 <script id="template-pedido" type="text/x-handlebars-template">
     {{#each this as |item|}}
     <a class="btn_pedido_white" data-pedido-id="{{item.PedidoID}}" id="{{item.PedidoID}}" onclick="PopupPedidoSeleccionar(this);">
-        <b>N° {{item.PedidoID}}</b><br />Fecha: {{DateTimeToStringFormat item.FechaRegistro}}
+        <b>N° {{item.NumeroPedido}}</b><br />Fecha: {{DateTimeToStringFormat item.FechaRegistro}}
     </a>
     {{/each}}
 </script>

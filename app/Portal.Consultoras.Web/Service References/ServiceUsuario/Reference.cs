@@ -5580,10 +5580,10 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         System.Threading.Tasks.Task UpdUsuarioDDAsync(Portal.Consultoras.Web.ServiceUsuario.BEUsuario usuario);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetNotificacionesConsultora", ReplyAction="http://tempuri.org/IUsuarioService/GetNotificacionesConsultoraResponse")]
-        Portal.Consultoras.Web.ServiceUsuario.BENotificaciones[] GetNotificacionesConsultora(int PaisID, long ConsultoraId);
+        Portal.Consultoras.Web.ServiceUsuario.BENotificaciones[] GetNotificacionesConsultora(int PaisID, long ConsultoraId, int indicadorBloqueoCDR);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetNotificacionesConsultora", ReplyAction="http://tempuri.org/IUsuarioService/GetNotificacionesConsultoraResponse")]
-        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BENotificaciones[]> GetNotificacionesConsultoraAsync(int PaisID, long ConsultoraId);
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BENotificaciones[]> GetNotificacionesConsultoraAsync(int PaisID, long ConsultoraId, int indicadorBloqueoCDR);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetNotificacionesConsultoraDetalle", ReplyAction="http://tempuri.org/IUsuarioService/GetNotificacionesConsultoraDetalleResponse")]
         Portal.Consultoras.Web.ServiceUsuario.BENotificacionesDetalle[] GetNotificacionesConsultoraDetalle(int PaisID, long ValAutomaticaPROLLogId, int TipoOrigen);
@@ -5796,6 +5796,14 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetDatosConsultoraHana", ReplyAction="http://tempuri.org/IUsuarioService/GetDatosConsultoraHanaResponse")]
         System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BEUsuario> GetDatosConsultoraHanaAsync(int paisID, string codigoUsuario, int campaniaId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/UpdNotificacionSolicitudCdrVisualizacion", ReplyAction="http://tempuri.org/IUsuarioService/UpdNotificacionSolicitudCdrVisualizacionRespon" +
+            "se")]
+        void UpdNotificacionSolicitudCdrVisualizacion(int paisID, long procesoId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/UpdNotificacionSolicitudCdrVisualizacion", ReplyAction="http://tempuri.org/IUsuarioService/UpdNotificacionSolicitudCdrVisualizacionRespon" +
+            "se")]
+        System.Threading.Tasks.Task UpdNotificacionSolicitudCdrVisualizacionAsync(int paisID, long procesoId);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -6185,12 +6193,12 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
             return base.Channel.UpdUsuarioDDAsync(usuario);
         }
         
-        public Portal.Consultoras.Web.ServiceUsuario.BENotificaciones[] GetNotificacionesConsultora(int PaisID, long ConsultoraId) {
-            return base.Channel.GetNotificacionesConsultora(PaisID, ConsultoraId);
+        public Portal.Consultoras.Web.ServiceUsuario.BENotificaciones[] GetNotificacionesConsultora(int PaisID, long ConsultoraId, int indicadorBloqueoCDR) {
+            return base.Channel.GetNotificacionesConsultora(PaisID, ConsultoraId, indicadorBloqueoCDR);
         }
         
-        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BENotificaciones[]> GetNotificacionesConsultoraAsync(int PaisID, long ConsultoraId) {
-            return base.Channel.GetNotificacionesConsultoraAsync(PaisID, ConsultoraId);
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BENotificaciones[]> GetNotificacionesConsultoraAsync(int PaisID, long ConsultoraId, int indicadorBloqueoCDR) {
+            return base.Channel.GetNotificacionesConsultoraAsync(PaisID, ConsultoraId, indicadorBloqueoCDR);
         }
         
         public Portal.Consultoras.Web.ServiceUsuario.BENotificacionesDetalle[] GetNotificacionesConsultoraDetalle(int PaisID, long ValAutomaticaPROLLogId, int TipoOrigen) {
@@ -6455,6 +6463,14 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         
         public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BEUsuario> GetDatosConsultoraHanaAsync(int paisID, string codigoUsuario, int campaniaId) {
             return base.Channel.GetDatosConsultoraHanaAsync(paisID, codigoUsuario, campaniaId);
+        }
+        
+        public void UpdNotificacionSolicitudCdrVisualizacion(int paisID, long procesoId) {
+            base.Channel.UpdNotificacionSolicitudCdrVisualizacion(paisID, procesoId);
+        }
+        
+        public System.Threading.Tasks.Task UpdNotificacionSolicitudCdrVisualizacionAsync(int paisID, long procesoId) {
+            return base.Channel.UpdNotificacionSolicitudCdrVisualizacionAsync(paisID, procesoId);
         }
     }
 }

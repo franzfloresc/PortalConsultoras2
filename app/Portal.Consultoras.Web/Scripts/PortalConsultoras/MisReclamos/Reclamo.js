@@ -8,12 +8,13 @@ $(document).ready(function () {
 
     $("#ddlCampania").on("change", function () {
         $("#txtPedidoID").val(0);
+        $("#txtNumeroPedido").val(0);
         BuscarCUV();
     });
 
     $("#txtCUV").keyup(function (evt) {
         $("#txtCantidad").attr("disabled", "disabled");
-        $("#txtCantidad").attr("data-maxvalue", "0")
+        $("#txtCantidad").attr("data-maxvalue", "0");
         $("#txtCUVDescripcion").val("");
         //$("#txtPedidoID").val("0");
 
@@ -172,6 +173,7 @@ $(document).ready(function () {
 
     var pedidoId = parseInt($("#txtPedidoID").val());
     if (pedidoId != 0) {
+        CambioPaso(1);      //EPD-1309
         CambioPaso(3);
         DetalleCargar();
     }
@@ -318,6 +320,8 @@ function AsignarCUV(pedido) {
         $("#txtCantidad").attr("data-maxvalue", data.Cantidad);
         $("#txtCUVDescripcion").val(data.DescripcionProd);
         $("#txtPedidoID").val(data.PedidoID);
+        $("#txtNumeroPedido").val(pedido.NumeroPedido);
+
         $("#txtPrecioUnidad").val(data.PrecioUnidad);
         $("#hdImporteTotalPedido").val(pedido.ImporteTotal);
         $("#CDRWebID").val(pedido.CDRWebID);
@@ -606,6 +610,7 @@ function DetalleGuardar() {
     var item = {
         CDRWebID: $("#CDRWebID").val() || 0,
         PedidoID: $("#txtPedidoID").val() || 0,
+        NumeroPedido: $("#txtNumeroPedido").val() || 0,
         CampaniaID: $("#ddlCampania").val() || 0,
         Motivo: $(".reclamo_motivo_select[data-check='1']").attr("id"),
         Operacion: $(".btn_solución_reclamo[data-check='1']").attr("id"),
@@ -739,7 +744,7 @@ function ValidarPaso2Trueque() {
     } else {
         if (valorParametriaAbs == "2") {
             if (montoPedidoTrueque < montoMinimoReclamo) {
-                alert_msg("Está devolviendo más de lo permitido");
+                alert_msg("Está devolviendo menos de lo permitido");
                 return false;
             }
         } else {

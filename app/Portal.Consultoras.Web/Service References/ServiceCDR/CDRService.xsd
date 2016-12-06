@@ -103,6 +103,7 @@
   <xs:element name="ArrayOfBECDRWebDescripcion" nillable="true" type="tns:ArrayOfBECDRWebDescripcion" />
   <xs:complexType name="BELogCDRWeb">
     <xs:sequence>
+      <xs:element minOccurs="0" name="CDRWebID" type="xs:int" />
       <xs:element minOccurs="0" name="CampaniaId" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="CodigoConsultora" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ConsultoraId" type="xs:long" />

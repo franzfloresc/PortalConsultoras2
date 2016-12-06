@@ -218,6 +218,7 @@ BEGIN
 			P.PedidoID,
 			isnull(p.FechaFacturado,'1900-01-01') as FechaRegistro,
 			isnull(P.Origen,'') as CanalIngreso,
+			isnull(p.NumeroPedido,0) as NumeroPedido,
 			case 
 				when C.PedidoID is null or C.PedidoID = 0 then 0
 				else C.CDRWebID
@@ -341,9 +342,9 @@ END
 GO
 
 CREATE PROCEDURE dbo.GetCDRWebDescripcion
-	@CDRWebDescripcionID int,
-	@CodigoSSIC VARCHAR(5),
-	@Tipo VARCHAR(5)
+	@CDRWebDescripcionID int = null,
+	@CodigoSSIC VARCHAR(5) = null,
+	@Tipo VARCHAR(5) = null
 AS
 /*
 GetCDRWebDescripcion null,null,null
@@ -598,10 +599,12 @@ create procedure dbo.GetCDRWeb
 @ConsultoraID bigint
 ,@PedidoID int = 0
 ,@CampaniaID int = 0
+,@CDRWebID int = 0
 as
 /*
 GetCDRWeb 2
 GetCDRWeb 2,707193021,0
+GetCDRWeb 2,0,0,1
 */
 begin
 
@@ -620,6 +623,7 @@ begin
 	where ConsultoraID = @ConsultoraID
 		and (PedidoID = @PedidoID or @PedidoID = 0)
 		and (CampaniaID = @CampaniaID or @CampaniaID = 0)
+		and (CDRWebID = @CDRWebID or @CDRWebID = 0)
 	order by CDRWebID desc
 
 end
@@ -749,6 +753,36 @@ from ods.ParametriaCDR
 where
 	CodigoParametria = @CodigoParametria or @CodigoParametria = ''
 	
+
+end
+
+go
+
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[GetCDRWebById]') AND type in (N'P', N'PC')) 
+	DROP PROCEDURE dbo.GetCDRWebById
+GO
+
+create procedure dbo.GetCDRWebById
+@CDRWebID int
+as
+/*
+GetCDRWebById 1
+*/
+begin
+
+	select
+			CDRWebID,
+			PedidoID,
+			PedidoNumero,
+			CampaniaID,
+			ConsultoraID,
+			FechaRegistro,
+			Estado,
+			FechaCulminado,
+			FechaAtencion,
+			Importe				
+	from CDRWeb
+	where CDRWebID = @CDRWebID
 
 end
 

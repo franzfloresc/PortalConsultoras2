@@ -296,6 +296,15 @@ namespace Portal.Consultoras.Common
             public const string Trueque = "STO_DESV_TRQ";
             public const string TruequeValAbs = "STO_DESV_TRQ_OPER";
         }
+
+        public class CodigoOperacionCDR
+        {
+            public const string Faltante = "F";
+            public const string FaltanteAbono = "G";
+            public const string Devolucion = "D";
+            public const string Trueque = "T";
+            public const string Canje = "C";
+        }
     }
 }
 

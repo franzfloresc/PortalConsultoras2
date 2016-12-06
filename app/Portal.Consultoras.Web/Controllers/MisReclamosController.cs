@@ -80,6 +80,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     model.CampaniaID = listaCdr[0].CampaniaID;
                     model.CDRWebID = listaCdr[0].CDRWebID;
+                    model.NumeroPedido = listaCdr[0].PedidoNumero;
                 }                    
             }
 
@@ -187,8 +188,8 @@ namespace Portal.Consultoras.Web.Controllers
                 using (PedidoServiceClient sv = new PedidoServiceClient())
                 {
                     listaPedidoFacturados = sv.GetPedidosFacturadoSegunDias(userData.PaisID, userData.CampaniaID, userData.ConsultoraID, maxDias).ToList();
-                }
-
+                }                
+                
                 listaPedidoFacturados = listaPedidoFacturados ?? new List<BEPedidoWeb>();
                 Session[Constantes.ConstSession.CDRPedidosFacturado] = listaPedidoFacturados;
                 return listaPedidoFacturados;
@@ -259,6 +260,7 @@ namespace Portal.Consultoras.Web.Controllers
                             pedidoActual.CanalIngreso = pedido.CanalIngreso;
                             pedidoActual.CDRWebID = pedido.CDRWebID;
                             pedidoActual.CDRWebEstado = pedido.CDRWebEstado;
+                            pedidoActual.NumeroPedido = pedido.NumeroPedido;
                             pedidoActual.olstBEPedidoWebDetalle = lista.ToArray();
 
                             listaPedido.Add(pedidoActual);
@@ -723,14 +725,24 @@ namespace Portal.Consultoras.Web.Controllers
                 entidadDetalle.CodigoOperacion = model.Operacion;
                 entidadDetalle.CUV = model.CUV;
                 entidadDetalle.Cantidad = model.Cantidad;
-                entidadDetalle.CUV2 = model.CUV2;
-                entidadDetalle.Cantidad2 = model.CUV2 == "" ? 0 : model.Cantidad2;
+
+                if (model.Operacion == Constantes.CodigoOperacionCDR.Canje)
+                {
+                    entidadDetalle.CUV2 = model.CUV;
+                    entidadDetalle.Cantidad2 = model.Cantidad;
+                }
+                else
+                {
+                    entidadDetalle.CUV2 = model.CUV2;
+                    entidadDetalle.Cantidad2 = model.CUV2 == "" ? 0 : model.Cantidad2;
+                }                
 
                 if (model.CDRWebID <= 0)
                 {
                     var entidad = new BECDRWeb();
                     entidad.CampaniaID = model.CampaniaID;
                     entidad.PedidoID = model.PedidoID;
+                    entidad.PedidoNumero = model.NumeroPedido;
                     entidad.ConsultoraID = Int32.Parse(userData.ConsultoraID.ToString());
                     entidad.CDRWebDetalle = new BECDRWebDetalle[] {entidadDetalle};
                     using (CDRServiceClient sv = new CDRServiceClient())
@@ -777,6 +789,8 @@ namespace Portal.Consultoras.Web.Controllers
                 success = true,
                 message = "",
                 detalle = lista,
+                cantobservado = lista.FindAll(x => x.Estado == Constantes.EstadoCDRWeb.Observado).Count(),
+                cantaprobado = lista.FindAll(x => x.Estado == Constantes.EstadoCDRWeb.Aceptado).Count(),
                 Simbolo = userData.Simbolo
             }, JsonRequestBehavior.AllowGet);
         }
