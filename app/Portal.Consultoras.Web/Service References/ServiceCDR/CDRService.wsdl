@@ -527,6 +527,25 @@
       </wsdl:output>
     </wsdl:operation>
   </wsdl:binding>
+  <wsdl:operation name="DetalleActualizarObservado">
+      <soap:operation soapAction="http://tempuri.org/ICDRService/DetalleActualizarObservado" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCDRParametria">
+      <soap:operation soapAction="http://tempuri.org/ICDRService/GetCDRParametria" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
   <wsdl:service name="CDRService">
     <wsdl:port name="BasicHttpBinding_ICDRService" binding="tns:BasicHttpBinding_ICDRService">
       <soap:address location="http://localhost:41615/CDRService.svc" />

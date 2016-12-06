@@ -3602,6 +3602,7 @@
     <Content Include="Views\MisCatalogosRevistas\MiRevista.cshtml" />
     <Content Include="Views\TerminosYCondiciones\Index.cshtml" />
     <Content Include="Views\Bienvenida\ActualizarContrasenia.cshtml" />
+    <Content Include="Views\Notificaciones\ListaDetalleCdr.cshtml" />
     <None Include="Web References\ServiceLMS\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>

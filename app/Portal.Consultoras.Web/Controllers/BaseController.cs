@@ -1345,7 +1345,7 @@ namespace Portal.Consultoras.Web.Controllers
             List<BENotificaciones> olstNotificaciones = new List<BENotificaciones>();
             using (UsuarioServiceClient sv = new UsuarioServiceClient())
             {
-                olstNotificaciones = sv.GetNotificacionesConsultora(oBEUsuario.PaisID, oBEUsuario.ConsultoraID).ToList();
+                olstNotificaciones = sv.GetNotificacionesConsultora(oBEUsuario.PaisID, oBEUsuario.ConsultoraID, oBEUsuario.IndicadorBloqueoCDR).ToList();
             }
             if (olstNotificaciones.Count != 0)
             {

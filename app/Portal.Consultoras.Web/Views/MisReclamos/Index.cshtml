@@ -51,12 +51,16 @@
                     var formatoHoraRegistro = horaRegistro.ToString().PadLeft(2, '0') + ":" + minutoRegistro + " " + formatoDiaRegistro;
 
                     var formatoHoraAtencion = "";
+                    var formatoFechaAtencion = "";
                     if (item.FechaAtencion.HasValue)
                     {
                         var horaAtencion = item.FechaAtencion.Value.Hour > 12 ? item.FechaAtencion.Value.Hour - 12 : item.FechaAtencion.Value.Hour;
                         var minutoAtencion = item.FechaAtencion.Value.Minute.ToString().PadLeft(2, '0');
                         var formatoDiaAtencion = item.FechaAtencion.Value.Hour > 12 ? "pm" : "am";
                         formatoHoraAtencion = horaAtencion.ToString().PadLeft(2, '0') + ":" + minutoAtencion + " " + formatoDiaAtencion;
+
+                        formatoFechaAtencion = item.FechaAtencion.Value.Day.ToString().PadLeft(2, '0') + "/" +
+                                                item.FechaAtencion.Value.Month.ToString().PadLeft(2, '0') + "/" + item.FechaAtencion.Value.Year;
                     }
 
                     var formatoFechaCulminado = "--/--/----";
@@ -95,9 +99,7 @@
                         <div class="listado_resolucion_general">
                             @if (item.FechaAtencion.HasValue)
                             {
-                                @item.FechaAtencion.Value.Day.ToString().PadLeft(2, '0')
-                                @item.FechaAtencion.Value.Month.ToString().PadLeft(2, '0')
-                                @item.FechaAtencion.Value.Year
+                                @formatoFechaAtencion
                                 <span class="detalle_listado">@formatoHoraAtencion</span>
                             }
                         </div>
@@ -514,9 +516,18 @@
                         return false;
                     }
 
-                    if (item.Estado == 4) {                        
-                        SetHandlebars("#template-detalle-2-observado", data, "#divDetallePedidoCdrObservado");
-                        SetHandlebars("#template-detalle-2-aprobado", data, "#divDetallePedidoCdrAprobado");
+                    if (item.Estado == 4) {
+                        
+                        /*EPD-1308*/
+                        if (data.cantobservado > 0) {
+                            SetHandlebars("#template-detalle-2-observado", data, "#divDetallePedidoCdrObservado");
+                        }
+                        
+                        if (data.cantaprobado > 0) {
+                            SetHandlebars("#template-detalle-2-aprobado", data, "#divDetallePedidoCdrAprobado");
+                        }
+                        /*EPD-1308*/
+
                     } else {
                         SetHandlebars("#template-detalle-1", data, "#divDetallePedidoCDR");
                     }

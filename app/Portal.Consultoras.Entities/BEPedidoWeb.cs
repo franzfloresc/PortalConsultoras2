@@ -101,6 +101,9 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public int CDRWebEstado { get; set; }
 
+        [DataMember]
+        public int NumeroPedido { get; set; }
+
         public BEPedidoWeb()
         { }
 
@@ -169,7 +172,9 @@ namespace Portal.Consultoras.Entities
             if (row.HasColumn("CDRWebID") && row["CDRWebID"] != DBNull.Value)
                 CDRWebID = Convert.ToInt32(row["CDRWebID"]);
             if (row.HasColumn("CDRWebEstado") && row["CDRWebEstado"] != DBNull.Value)
-                CDRWebEstado = Convert.ToInt32(row["CDRWebEstado"]);            
+                CDRWebEstado = Convert.ToInt32(row["CDRWebEstado"]);
+            if (row.HasColumn("NumeroPedido") && row["NumeroPedido"] != DBNull.Value)
+                NumeroPedido = Convert.ToInt32(row["NumeroPedido"]);            
         }
     }
 }

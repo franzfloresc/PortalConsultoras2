@@ -4,6 +4,8 @@ using Portal.Consultoras.ServiceContracts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Portal.Consultoras.BizLogic.CDR;
+using Portal.Consultoras.Entities.CDR;
 
 namespace Portal.Consultoras.Service
 {
@@ -284,10 +286,10 @@ namespace Portal.Consultoras.Service
         }
 
         //CCSS_JZ_PROL2
-        public IList<BENotificaciones> GetNotificacionesConsultora(int PaisID, long ConsultoraId)
+        public IList<BENotificaciones> GetNotificacionesConsultora(int PaisID, long ConsultoraId, int indicadorBloqueoCDR)
         {
             var BLNotificaciones = new BLNotificaciones();
-            return BLNotificaciones.GetNotificacionesConsultora(PaisID, ConsultoraId);
+            return BLNotificaciones.GetNotificacionesConsultora(PaisID, ConsultoraId, indicadorBloqueoCDR);
         }
 
         //R2073
@@ -562,6 +564,12 @@ namespace Portal.Consultoras.Service
         {
             var BLUsuario = new BLUsuario();
             return BLUsuario.GetDatosConsultoraHana(paisID, codigoUsuario, campaniaId);
+        }
+
+        public void UpdNotificacionSolicitudCdrVisualizacion(int paisID, long procesoId)
+        {
+            var bLLogCDRWeb = new BLLogCDRWeb();
+            bLLogCDRWeb.UpdateVisualizado(paisID, procesoId);
         }
     }
 }

@@ -11,6 +11,8 @@ namespace Portal.Consultoras.Entities.CDR
         [DataMember]
         public long LogCDRWebId { get; set; }
         [DataMember]
+        public int CDRWebID { get; set; }
+        [DataMember]
         public string CampaniaId { get; set; }
         [DataMember]
         public int PedidoFacturadoId { get; set; }
@@ -30,6 +32,7 @@ namespace Portal.Consultoras.Entities.CDR
         public BELogCDRWeb(IDataRecord row)
         {
             if (DataRecord.HasColumn(row, "LogCDRWebId") && row["LogCDRWebId"] != DBNull.Value) this.LogCDRWebId = Convert.ToInt64(row["LogCDRWebId"]);
+            if (DataRecord.HasColumn(row, "CDRWebID") && row["CDRWebID"] != DBNull.Value) this.CDRWebID = Convert.ToInt32(row["CDRWebID"]);
             if (DataRecord.HasColumn(row, "CampaniaId") && row["CampaniaId"] != DBNull.Value) this.CampaniaId = Convert.ToString(row["CampaniaId"]);
             if (DataRecord.HasColumn(row, "PedidoFacturadoId") && row["PedidoFacturadoId"] != DBNull.Value) this.PedidoFacturadoId = Convert.ToInt32(row["PedidoFacturadoId"]);
             if (DataRecord.HasColumn(row, "ConsultoraId") && row["ConsultoraId"] != DBNull.Value) this.ConsultoraId = Convert.ToInt64(row["ConsultoraId"]);

@@ -8,6 +8,7 @@
         case "BUSCACONS": TipoOrigen = 4; break;
         case "CATALOGO": TipoOrigen = 5; break;
         case "PEDREC": TipoOrigen = 6; break;
+        case "CDR": TipoOrigen = 7; break;
         default: TipoOrigen = 3; break;
     }
 
@@ -54,7 +55,19 @@
                 $('#divListadoObservaciones').html(data);
                 $('#divObservaciones').show();
                 $('.content_left_pagos').hide();
-                CargarCantidadNotificacionesSinLeer()
+                CargarCantidadNotificacionesSinLeer();
+                closeWaitingDialog();
+            }
+        }).error(function (jqXHR, textStatus, errorThrown) { closeWaitingDialog(); });
+    }
+    else if (TipoOrigen == 7) {
+        $.ajaxSetup({ cache: false });
+        $.get(baseUrl + "Notificaciones/ListarDetalleCdr?solicitudId=" + ProcesoId).success(function (data) {
+            if (checkTimeout(data)) {
+                $('#divListadoObservaciones').html(data);
+                $('#divObservaciones').show();
+                $('.content_left_pagos').hide();
+                CargarCantidadNotificacionesSinLeer();
                 closeWaitingDialog();
             }
         }).error(function (jqXHR, textStatus, errorThrown) { closeWaitingDialog(); });

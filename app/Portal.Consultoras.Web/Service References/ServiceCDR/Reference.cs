@@ -949,6 +949,9 @@ namespace Portal.Consultoras.Web.ServiceCDR {
         private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int CDRWebIDField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string CampaniaIdField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -982,6 +985,19 @@ namespace Portal.Consultoras.Web.ServiceCDR {
             }
             set {
                 this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int CDRWebID {
+            get {
+                return this.CDRWebIDField;
+            }
+            set {
+                if ((this.CDRWebIDField.Equals(value) != true)) {
+                    this.CDRWebIDField = value;
+                    this.RaisePropertyChanged("CDRWebID");
+                }
             }
         }
         
