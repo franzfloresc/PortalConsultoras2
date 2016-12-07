@@ -882,18 +882,6 @@ namespace Portal.Consultoras.Web.Controllers
             return ",|.|2";
         }
 
-        private string CalcularNroCampaniaSiguiente(string CampaniaActual, int nroCampanias)
-        {
-            CampaniaActual = CampaniaActual ?? "";
-            CampaniaActual = CampaniaActual.Trim();
-            if (CampaniaActual.Length < 6)
-                return "";
-
-            var campAct = CampaniaActual.Substring(4, 2);
-            if (campAct == nroCampanias.ToString()) return "01";
-            return (Convert.ToInt32(campAct) + 1).ToString().PadLeft(2, '0');
-        }
-
         private UsuarioModel GetUserData(int PaisID, string CodigoUsuario, int TipoUsuario)
         {
             UsuarioModel model = null;
