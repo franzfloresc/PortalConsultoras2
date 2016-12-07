@@ -668,26 +668,24 @@ header {
 }
 
 .boton-home {
-    position: relative;
+	position: relative;
     display: block;
     overflow: hidden;
-    /* border: 1px solid black; */
+    border: 1px solid #000;
     border-right: 0;
-    width: 82px;
-    height:60px;
+    width: 58px;
     display: inline-block;
     vertical-align: baseline;
     text-align: center;
     letter-spacing: -1px;
-    color: black;
+    color: #000;
     font-family: 'lato';
     font-weight: 300;
     font-size: 10pt;
     line-height: 11.2pt;
-    color: black;
-    background: url(../../../Images/boton-home.png) no-repeat;
-    /* background-position: 18px 4px; */
-    background-size: cover;
+    color: #000;
+    background: #fff url(../../../Images/Esika/ayuda.png) no-repeat;
+    background-position: 18px 4px;
 }
 
     .boton-home::after {
@@ -1763,7 +1761,8 @@ header {
     /*top: 9%;*/
     left: 0%;
     z-index: 1;
-    background: #000 url("../../../Images/Esika/background_pedido.png") no-repeat center bottom;
+    /*background: #000 url("../../../Images/Esika/background_pedido.png") no-repeat center bottom;*/
+    background: #000 url("../../../Images/Esika/Banner_Esika.jpg") no-repeat center bottom;
     /*background-size:cover;*/
 }
 
@@ -22715,6 +22714,9 @@ body{
     -o-transition:all 0.3s ease;
     -ms-transition:all 0.3s ease;
     -webkit-transition:all 0.3s ease;
+    width: 30px;
+    height: 30px;
+    float: right;
 }
 
 .detalle_percepcion a:hover{
@@ -29955,7 +29957,8 @@ h1#penmostreo .campana {
     width: 24%;
     margin-right: 5%;
     height: auto;
-    min-height: 50px;
+    /*min-height: 50px;*/
+    min-height: 60px;
     /* border: 1px solid #dadada; */
     float: left;
     margin-left: 5%;
@@ -29963,13 +29966,15 @@ h1#penmostreo .campana {
 .sub_imagen_oferta img {
     width: 100%;
 }
+
 .sub_descripcion_oferta {
     width: 55%;
-    height: 55px;
+    /*height: 55px;*/
+    min-height: 60px;   /* SB20-1198 */
     /*line-height: 55px;*/
     text-align:left;
-    /* padding-top: 8%; */
-    /* padding-bottom: 8%; */
+    padding-top: 5px;       /* SB20-1198 */
+    padding-bottom: 10px;   /* SB20-1198 */
     border-bottom: 1px solid #dadada;
     /*float: left;*/
     font-family: 'Lato';
@@ -29980,6 +29985,7 @@ h1#penmostreo .campana {
     align-content: center;
     flex-direction: column;
 }
+
 .item1_oferta_personalizada  .sub_descripcion_oferta:last-child{
     border-bottom:0;
 }
@@ -30047,11 +30053,15 @@ h1#penmostreo .campana {
     font-size: 16px;
     line-height: 22px;
     color: black;
-    margin-top: -6px;
+    /*margin-top: -6px;*/
     text-align: center;
     padding-right: 12px;
     height:auto;
+    margin-top: 10px;   /*SB20-1198*/
 }
+
+
+
 .texto_unidad_pack{
     font-family:'Lato';
     font-weight:700;
@@ -30067,6 +30077,7 @@ h1#penmostreo .campana {
     text-align:center;
     text-transform:uppercase;
 }
+
 .fondo_negro_pack {
     height:41px;
     background:black;
@@ -30107,7 +30118,7 @@ h1#penmostreo .campana {
     border-bottom:0;
 }
 .pack_inter .content_sub_items .sub_descripcion_oferta:nth-child(2) {
-     border-top:1px solid #dadada;
+     /*border-top:1px solid #dadada;*/      /*SB20-1198*/
     }
     
     
@@ -30675,7 +30686,8 @@ h1#penmostreo .campana {
 .stock_content{
     width: 100%;
     height: auto;
-    padding: 25px 43px;
+    /*padding: 25px 43px;*/
+    padding: 17px 43px;
     position: relative;
     background: #fee5e7;
     margin-bottom: 22px;
@@ -30730,7 +30742,8 @@ h1#penmostreo .campana {
     width: 160px;
     height: 45px;
     text-align: center;
-    margin-top: 13px;
+    /*margin-top: 13px;*/
+    margin-top: 2px;
     color: white;
     background: #e81c36;
     line-height: 45px;
@@ -30978,7 +30991,7 @@ h1#penmostreo .campana {
     width: 160px;
     height: 45px;
     text-align: center;
-    margin-top: 18px; /*SEGURO VA HABER CONFLICTO SOLO CONSERVAR EL MARGIN TOP DE AQUI*/
+    margin-top: 2px; /*SEGURO VA HABER CONFLICTO SOLO CONSERVAR EL MARGIN TOP DE AQUI*/
     color: white;
     background: #e81c36;
     line-height: 45px;
@@ -31401,6 +31414,7 @@ h1#penmostreo .campana {
     color:#e81c36;
     font-size:22px;
     /*font-weight:700;*/
+    margin-right: 5px;      /*SB20-1198*/
 }
 
 .sub_descripcion_oferta p{
@@ -31408,6 +31422,7 @@ h1#penmostreo .campana {
     padding: 0;
     /*line-height:normal;*/
 }
+
 .text-center{
     text-align:center;
     
@@ -31929,4 +31944,228 @@ h1#penmostreo .campana {
     font-family: 'Lato';
     font-size: 11px; 
     color:#9b9b9b; 
+}
+
+/*TABLA DE NOTIFICACIONES*/
+.logo_lista_detalle{
+    width:100px;
+    height:38px;
+    margin:0 auto;
+    margin-top:20px;
+    margin-bottom:20px;
+    background:url(http://www.genesis-peru.com/mailing-belcorp/logo.png) no-repeat center center;
+}
+.content_datos_cdr{
+    width:96%;
+    height:auto;
+    margin:0 auto;
+}
+.saludo_cdr{
+    font-family: 'Lato';
+    font-size: 16px;
+    text-align: center;
+    font-weight: 500;
+    color: #000;
+    padding: 18px;
+}
+.titulo_cdr{
+    text-align: center;
+    font-family: 'Lato';
+    font-size: 18px;
+    font-weight: 700;
+    color: #000;
+    padding-bottom: 15px;
+    letter-spacing:0.2px;
+}
+.respuesta_cdr{
+    text-align: center;
+    font-family: 'Lato';
+    color: #000;
+    font-weight: 700;
+    font-size: 14px;
+    padding-bottom: 30px
+}
+.texto_fila_cdr{
+    display:inline-block;
+    width:33%;
+    border-right:1px solid black;
+        
+    font-family: 'Lato';
+    font-size: 14px;
+    
+}
+.texto_fila_cdr:last-child{
+    border-right:0;
+}
+.resumen_aprobado_cdr{
+    text-align: center;
+    font-family: 'Lato';
+     color: black;
+    padding-top: 15px;
+    font-size: 15px;
+}
+.subtitulo_cdr{
+    text-align: center;
+    font-family: 'Lato';
+    font-weight: 700;
+    color: black;
+    margin-top:15px;
+    padding-top: 8px;
+    padding-bottom:8px;
+    font-size: 15px;
+    border-top:1px solid #979797;
+    border-bottom:1px solid #979797;
+}
+.content_detalle_pedido_cdr{
+    border-bottom:1px solid #979797;
+    padding-top:15px;
+    padding-bottom:15px;
+    font-family: 'Lato';
+    overflow:hidden;
+}
+/*SB20-1198 - INICIO */
+.contenido_compra_nivel {
+    width: 100%; 
+    margin: 0 auto;
+    text-align: center;
+}
+
+.centrar_vertical {
+    display: inline-block; 
+    vertical-align: middle;
+}
+
+.titulo_pack_048{
+    font-family: 'Lato';
+    font-weight: 700;
+    font-size: 16px;
+    /*line-height: 22px;*/
+    color: black;
+    /*margin-top: -6px;*/
+    /*text-align: center;*/
+    /*padding-right: 12px;*/
+    /*text-align: left;*/
+    height:auto;
+}
+
+.sub_descripcion_oferta_048 {
+    /*width: 55%;
+    height: 55px;*/
+    /*line-height: 55px;*/
+    text-align:left;
+    /* padding-top: 8%; */
+    /* padding-bottom: 8%; */
+    /*border-bottom: 1px solid #dadada;*/
+    /*float: left;*/
+    font-family: 'Lato';
+    font-size: 13px;
+    color: black;
+    /*display: flex;
+    justify-content: center;
+    align-content: center;
+    flex-direction: column;*/
+}
+
+.sub_descripcion_oferta_048 p span{
+    color:#e81c36;
+    font-size:22px;
+    /*font-weight:700;*/
+    margin-right: 5px;
+}
+
+.sub_descripcion_oferta_048 p{
+    margin: 0;
+    padding: 0;
+    /*margin-left: 10px;*/
+    /*line-height:normal;*/
+}
+
+.texto_ganancia_pack_048{
+    font-family:'Lato';
+    font-weight:700;
+    font-size:16px;
+    color:#e81c36;
+    text-align:center;
+    text-transform:uppercase;
+}
+
+.img_compra_nivel {
+    width: 40px;
+    height: 50px;
+    border: 0;
+}
+
+.img_no_disponible {
+    width: 55px; 
+    height: 55px; 
+    border: 0;
+}
+.estado_cdr_detalle{
+    text-align: left;
+    font-family: 'Lato';
+    font-size: 14px;
+    color: #e81c36;
+    margin-bottom:10px;
+    font-weight:900;
+}
+.left_detalle_cdr{
+    width:55%;
+    padding-right:14px;
+    float:left;
+    text-align: left;
+    font-family: 'Lato';
+    font-size: 14.4px;    
+    color: black;
+}
+/*SB20-1198 - FIN */
+
+/*EPD-877*/
+.resumen_belcorp_cam_modificado {
+    font-family: 'lato';
+    font-size: 18px;
+    letter-spacing: 0.3px;
+    color: black;
+    float: left;
+    margin-left: 2%;
+    margin-right: 8%;
+    /*width: 19.5%;*/
+    width: 215px;
+    }
+.texto_detalle_cdr{
+     text-align: left;
+    font-family: 'Lato';
+    font-size: 14.4px;    
+    color: black;
+    }
+.right_detalle_cdr{
+    float:right;
+    width:45%;
+    text-align: left;
+    font-family: 'Lato';
+    font-size: 14.4px;    
+    color: black;
+}
+.ver_solicitud_sb{
+    text-decoration: none;
+    font-family: 'Lato';
+    font-weight: 700;
+    color: black;
+    font-size: 14px;
+    border: 2px solid #979797;
+    text-align:center;
+    padding:10px;
+    width:50%;
+    margin:0 auto;
+    margin-top:25px;
+}
+.cerrar_cdr_noti{
+    font-family:'Lato';
+    font-size:13px;
+    text-align:right;
+    font-weight:700;
+}
+.texto_tab_pagos {
+    display:inline-block;
+    vertical-align:middle;
+    line-height:14px;
 }

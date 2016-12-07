@@ -71,6 +71,7 @@
     }
 </style>
 @Html.HiddenFor(m => Model.PrefijoISOPais)
+
 <div class="wrap_cab">
     <div class="filtros2">
         <div class="elements">
@@ -86,6 +87,27 @@
                 <div class="selectP2 borde_redondeado calendar">
                     @Html.TextBoxFor(m => Model.FechaHasta)
                 </div>
+            </div>
+
+            <div class="div-3">
+                <div class="titC width_150">Region:</div>
+                <div class="selectP2 borde_redondeado">
+                    @Html.TextBoxFor(m => Model.Region, new {@style = "text-transform: uppercase;"})
+                </div>
+                <div class="titC width_150">Seccion:</div>
+                <div class="selectP2 borde_redondeado">
+                    @Html.TextBoxFor(m => Model.Seccion, new { @style = "text-transform: uppercase;" })
+                </div>
+            </div>
+            <div class="div-3">
+                <div class="titC width_150">Zona:</div>
+                <div class="selectP2 borde_redondeado calendar">
+                    @Html.TextBoxFor(m => Model.Zona, new { @style = "text-transform: uppercase;" })
+                </div>
+                @*<div class="titC width_150">Zona:</div>
+                <div class="selectP2 borde_redondeado calendar">
+                    @Html.TextBoxFor(m => Model.Zona, new { @style = "text-transform: uppercase;" })
+                </div>*@
             </div>
 
             <div class="div-3">
@@ -162,7 +184,10 @@
             postData: ({
                 PrefijoISOPais: function () { return $("#PrefijoISOPais").val(); },
                 FechaDesde: function () { return $("#FechaDesde").val(); },
-                FechaHasta: function () { return $("#FechaHasta").val(); }
+                FechaHasta: function () { return $("#FechaHasta").val(); },
+                Region: function () { return $("#Region").val(); },
+                Zona: function () { return $("#Zona").val(); },
+                Seccion: function () { return $("#Seccion").val(); }
 
             }),
             mtype: 'POST',
@@ -231,6 +256,14 @@
         var PrefijoISOPais = $("#PrefijoISOPais").val();
         var FechaDesde = $("#FechaDesde").val();
         var FechaHasta = $("#FechaHasta").val();
+        var Region = $("#Region").val();
+        var Zona = $("#Zona").val();
+        var Seccion = $("#Seccion").val();
+
+
+
+
+      
         //var Nombre = $('#Nombre').val();
         //var Estado = $("#Estado").val();
         //var DocumentoIdentidad = $("#DocumentoIdentidad").val();
@@ -245,11 +278,11 @@
         waitingDialog({});
 
         setTimeout(function () {
-            DownloadAttachExcel(PrefijoISOPais, FechaDesde, FechaHasta);
+            DownloadAttachExcel(PrefijoISOPais, FechaDesde, FechaHasta, Region, Zona, Seccion);
         }, 0);
     }
 
-    function DownloadAttachExcel(PrefijoISOPais, FechaDesde, FechaHasta) {
+    function DownloadAttachExcel(PrefijoISOPais, FechaDesde, FechaHasta, Region, Zona, Seccion) {
         var content = baseUrl +
             "Unete/ExportarExcelReporteConsolidado?" +
             "PrefijoISOPais=" +
@@ -257,7 +290,13 @@
             "&FechaDesde=" +
             FechaDesde +
             "&FechaHasta=" +
-            FechaHasta;
+            FechaHasta + 
+            "&Region=" +
+            Region +
+            "&Zona=" +
+            Zona +
+            "&Seccion=" +
+            Seccion;
 
         var iframe_ = document.createElement("iframe");
         iframe_.style.display = "none";
@@ -333,12 +372,42 @@
     });
     var modal, modalOpcion, modalEnviado;
 
-    $(function() {
-        $('#btnBuscar').click(function (e) {
-            fnGrilla();
-            e.preventDefault();
-            console.info(e.target);
+    $(function () {
 
+        $('#Seccion').change(function () {
+            debugger;
+            var zona = $('#Zona').val();
+            if (zona.length == 0) {
+                $('#Zona').prop('required', true);
+            }
+        });
+
+        $('#btnBuscar').click(function (e) {
+            var fechaInicio = $('#FechaDesde').val();
+            var fechaFin = $('#FechaHasta').val();
+            var region = $('#Region').val();
+            var zona = $('#Zona').val();
+            var seccion =$('#Seccion').val();
+            debugger;
+            if (fechaInicio.length > 0 && fechaFin.length > 0) {
+                if (seccion.length > 0 && zona.length ==0) {
+                    alert('Debe ingresar una zona');
+                } else if (
+                        (region.length == 0 && zona.length == 0 && seccion.length == 0) ||
+                        (region.length > 0 && seccion.length == 0 && zona.length == 0) ||
+                        (zona.length > 0 && seccion.length == 0 && region.length == 0) ||
+                        (zona.length > 0 && zona.length > 0 && seccion.length ==0 ) ||
+                        (seccion.length > 0) 
+                    ) {
+                    fnGrilla();
+                    e.preventDefault();
+                    console.info(e.target);
+                }
+            } else {
+                alert('Debe ingresar una fecha!');
+            }
+
+            
         });
 
         $("#FechaDesde, #FechaHasta").datepicker({

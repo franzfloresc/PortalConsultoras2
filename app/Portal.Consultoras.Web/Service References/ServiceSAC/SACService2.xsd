@@ -264,6 +264,21 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="ArrayOfBEComunicado" nillable="true" type="tns:ArrayOfBEComunicado" />
+  <xs:complexType name="ArrayOfBEPopupPais">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="BEPopupPais" nillable="true" type="tns:BEPopupPais" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfBEPopupPais" nillable="true" type="tns:ArrayOfBEPopupPais" />
+  <xs:complexType name="BEPopupPais">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CodigoPopup" type="xs:int" />
+      <xs:element minOccurs="0" name="Descripcion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Orden" type="xs:int" />
+      <xs:element minOccurs="0" name="PopupPaisID" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="BEPopupPais" nillable="true" type="tns:BEPopupPais" />
   <xs:complexType name="ArrayOfBEEstadoCuenta">
     <xs:sequence>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="BEEstadoCuenta" nillable="true" type="tns:BEEstadoCuenta" />

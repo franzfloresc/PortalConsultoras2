@@ -19,5 +19,6 @@
         public string NombreConsultoraAsociada { get; set; }
         public string CodigoConsultoraAsociada { get; set; }
         public string NombreArchivoContrato { get; set; }
+        public string DigitoVerificador { get; set; }
     }
 }

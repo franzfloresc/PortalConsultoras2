@@ -49,12 +49,6 @@
   <wsdl:message name="ICDRService_GetCDRWebDetalle_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetCDRWebDetalleResponse" />
   </wsdl:message>
-  <wsdl:message name="ICDRService_GetCDRWebDetalleLog_InputMessage">
-    <wsdl:part name="parameters" element="tns:GetCDRWebDetalleLog" />
-  </wsdl:message>
-  <wsdl:message name="ICDRService_GetCDRWebDetalleLog_OutputMessage">
-    <wsdl:part name="parameters" element="tns:GetCDRWebDetalleLogResponse" />
-  </wsdl:message>
   <wsdl:message name="ICDRService_InsCDRWebMotivoOperacion_InputMessage">
     <wsdl:part name="parameters" element="tns:InsCDRWebMotivoOperacion" />
   </wsdl:message>
@@ -149,10 +143,6 @@
     <wsdl:operation name="GetCDRWebDetalle">
       <wsdl:input wsaw:Action="http://tempuri.org/ICDRService/GetCDRWebDetalle" message="tns:ICDRService_GetCDRWebDetalle_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ICDRService/GetCDRWebDetalleResponse" message="tns:ICDRService_GetCDRWebDetalle_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="GetCDRWebDetalleLog">
-      <wsdl:input wsaw:Action="http://tempuri.org/ICDRService/GetCDRWebDetalleLog" message="tns:ICDRService_GetCDRWebDetalleLog_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/ICDRService/GetCDRWebDetalleLogResponse" message="tns:ICDRService_GetCDRWebDetalleLog_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="InsCDRWebMotivoOperacion">
       <wsdl:input wsaw:Action="http://tempuri.org/ICDRService/InsCDRWebMotivoOperacion" message="tns:ICDRService_InsCDRWebMotivoOperacion_InputMessage" />
@@ -257,15 +247,6 @@
     </wsdl:operation>
     <wsdl:operation name="GetCDRWebDetalle">
       <soap:operation soapAction="http://tempuri.org/ICDRService/GetCDRWebDetalle" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetCDRWebDetalleLog">
-      <soap:operation soapAction="http://tempuri.org/ICDRService/GetCDRWebDetalleLog" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

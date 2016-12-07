@@ -299,6 +299,9 @@ namespace Portal.Consultoras.Web.Controllers
                 model.OfertaFinal = userData.OfertaFinal;
 
                 model.EsOfertaFinalZonaValida = userData.EsOfertaFinalZonaValida;
+
+                model.OfertaFinalGanaMas = userData.OfertaFinalGanaMas;
+                model.EsOFGanaMasZonaValida = userData.EsOFGanaMasZonaValida;
                 model.MontoMinimo = userData.MontoMinimo;
                 model.MontoMaximo = userData.MontoMaximo;
 
@@ -435,7 +438,11 @@ namespace Portal.Consultoras.Web.Controllers
                 TimeSpan HoraNow = new TimeSpan(FechaHoraActual.Hour, FechaHoraActual.Minute, 0);
                 if (HoraNow > usuario.HoraInicioPreReserva && HoraNow < usuario.HoraFinPreReserva)
                 {
-                    int cantidad = BuildFechaNoHabil();
+                    int cantidad = 0;
+                    if (usuario.CodigoISO != Constantes.CodigosISOPais.Peru)
+                    {
+                        cantidad = BuildFechaNoHabil();
+                    }
                     mostrarBotonValidar = cantidad == 0;
                 }
                 DiaPROL = true;
@@ -449,7 +456,11 @@ namespace Portal.Consultoras.Web.Controllers
                     TimeSpan HoraNow = new TimeSpan(FechaHoraActual.Hour, FechaHoraActual.Minute, 0);
                     if (HoraNow > usuario.HoraInicioReserva && HoraNow < usuario.HoraFinReserva)
                     {
-                        int cantidad = BuildFechaNoHabil();
+                        int cantidad = 0;
+                        if (usuario.CodigoISO != Constantes.CodigosISOPais.Peru)
+                        {
+                            cantidad = BuildFechaNoHabil();
+                        }
                         mostrarBotonValidar = cantidad == 0;
                     }
                 }
@@ -3844,6 +3855,28 @@ namespace Portal.Consultoras.Web.Controllers
                 oBEPedidoWebDetalle.CodigoUsuarioCreacion = userData.CodigoUsuario;
                 oBEPedidoWebDetalle.CodigoUsuarioModificacion = userData.CodigoUsuario;
 
+                /*EPD-1252*/
+                bool quitoCantBackOrder = false;
+                if (TipoAdm == "U")
+                {
+                    if (oBEPedidoWebDetalle.PedidoDetalleID != 0)
+                    {
+                        var oldPedidoWebDetalle = olstTempListado.Where(x => x.PedidoDetalleID == oBEPedidoWebDetalle.PedidoDetalleID).FirstOrDefault();
+
+                        if (oldPedidoWebDetalle != null)
+                        {
+                            if (oldPedidoWebDetalle.AceptoBackOrder)
+                            {
+                                if (oBEPedidoWebDetalle.Cantidad < oldPedidoWebDetalle.Cantidad)
+                                {
+                                    quitoCantBackOrder = true;
+                                }
+                            }
+                        }
+                    }
+                }
+                /*EPD-1252*/
+
                 switch (TipoAdm)
                 {
                     case "I":
@@ -3904,8 +3937,19 @@ namespace Portal.Consultoras.Web.Controllers
                 tipo = TipoAdm;
                 if (tipo == "U")
                 {
-                    var obe = olstTempListado.FirstOrDefault(p => p.PedidoDetalleID == oBEPedidoWebDetalle.PedidoDetalleID);
-                    modificoBackOrder = obe.EsBackOrder;
+                    //var obe = olstTempListado.FirstOrDefault(p => p.PedidoDetalleID == oBEPedidoWebDetalle.PedidoDetalleID);
+                    //modificoBackOrder = obe.EsBackOrder;
+
+                    /*EPD-1252*/
+                    if (quitoCantBackOrder)
+                    {
+                        using (PedidoServiceClient sv = new PedidoServiceClient())
+                        {
+                            sv.QuitarBackOrderPedidoWebDetalle(oBEPedidoWebDetalle);
+                        }
+                        modificoBackOrder = true;
+                    }
+                    /*EPD-1252*/
                 }
 
                 Session["PedidoWebDetalle"] = null;
