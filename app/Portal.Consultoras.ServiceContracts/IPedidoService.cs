@@ -912,5 +912,11 @@ namespace Portal.Consultoras.ServiceContracts
         
         [OperationContract]
         List<BEPedidoWeb> GetPedidosFacturadoSegunDias(int paisID, int campaniaID, long consultoraID, int maxDias);
+        //GPR397
+        [OperationContract]
+        void ActualizarIndicadorGPRPedidosRechazados(int PaisID, long ProcesoID);
+
+        [OperationContract]
+        void ActualizarIndicadorGPRPedidosFacturados(int PaisID, long ProcesoID);
     }
 }

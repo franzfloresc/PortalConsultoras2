@@ -310,6 +310,9 @@ namespace Portal.Consultoras.Web.Controllers
 
                 #endregion
 
+
+
+
                 #region Pedidos Pendientes
 
                 ViewBag.MostrarPedidosPendientes = "0";
@@ -334,6 +337,8 @@ namespace Portal.Consultoras.Web.Controllers
                                 }
                             }
                         }
+
+
 
                         //List<BEMisPedidos> olstMisPedidos = new List<BEMisPedidos>();
                         //using (UsuarioServiceClient svc = new UsuarioServiceClient())
@@ -3077,6 +3082,25 @@ namespace Portal.Consultoras.Web.Controllers
             ViewBag.UrlBanner03 = ConfigS3.GetUrlFileS3(urlCarpeta, banner03, String.Empty);
 
             model.accionBanner_01 = ConfigS3.GetUrlFileS3(urlProdDesc, userData.CampaniaID + ".pdf", String.Empty);
+
+            #endregion
+
+            #region GPR
+
+            userData.ValidacionAbierta = oBEConfiguracionCampania.ValidacionAbierta;
+           
+            bool MostrarBannerPedidoRechazado = false;
+
+            if (userData.IndicadorGPRSB == 2)
+            {
+                MostrarBannerPedidoRechazado = true;
+                if (!oBEConfiguracionCampania.ValidacionAbierta && userData.EstadoPedido == 202) { MostrarBannerPedidoRechazado = false; }
+            }
+            userData.MostrarBannerRechazo = MostrarBannerPedidoRechazado;
+            SetUserData(userData);
+            ViewBag.IndicadorGPRSB = userData.IndicadorGPRSB;
+            //ViewBag.EstadoPedido = userData.EstadoPedido;
+            ViewBag.MostrarBannerRechazo = MostrarBannerPedidoRechazado;
 
             #endregion
 
