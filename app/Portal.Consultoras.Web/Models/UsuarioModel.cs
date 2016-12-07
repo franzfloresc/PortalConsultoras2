@@ -65,6 +65,7 @@ namespace Portal.Consultoras.Web.Models
             this.EsquemaDAConsultora = false;
             this.TipoCasoPromesa = string.Empty;
             this.DiasCasoPromesa = 0;
+           
         }
 
         public string Celular { get; set; }
@@ -86,6 +87,7 @@ namespace Portal.Consultoras.Web.Models
         public string CodigoConsultora { get; set; }
         public string CodigoUsuario { get; set; }
         public int CampaniaID { get; set; }
+        
         public string CampaniaAnio
         {
             get
@@ -284,16 +286,14 @@ namespace Portal.Consultoras.Web.Models
         public int VioTutorialSalvavidas { get; set; }
         public int TieneHana { get; set; }
         public int IndicadorBloqueoCDR { get; set; }
-        public int IndicadorEnviado { get; set; }
-        public int IndicadorRechazado { get; set; }
+        public int IndicadorGPRSB { get; set; }
+        public int EstadoPedido { get; set; }
         public string MotivoRechazo { get; set; }
         public DateTime FechaProceso { get; set; }
-        
+        public bool MostrarBannerRechazo { get; set; }
+
         public DateTime FechaActualPais { get; set; }
-
         // 0: No hay Respuesta, 1: Rechazado, 2: No Rechazado
-        public int EstaRechazado { get; set; }
-
         public int CerrarRechazado { get; set; }
 
         public string NombreGerenteZonal { get; set; }  // SB20-907

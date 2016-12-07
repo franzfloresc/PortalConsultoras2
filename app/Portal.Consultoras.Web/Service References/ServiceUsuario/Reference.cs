@@ -149,6 +149,9 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         private bool EsquemaDAConsultoraField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int EstadoPedidoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private bool EstadoSimplificacionCUVField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -224,10 +227,10 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         private int IndicadorDuplaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int IndicadorEnviadoField;
+        private int IndicadorFlexiPagoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int IndicadorFlexiPagoField;
+        private int IndicadorGPRSBField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int IndicadorMetaField;
@@ -237,9 +240,6 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int IndicadorPermisoFICField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int IndicadorRechazadoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string InscritaFlexipagoField;
@@ -390,6 +390,9 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int UsuarioPruebaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool ValidacionAbiertaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private bool ValidacionInteractivaField;
@@ -1005,6 +1008,19 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public int EstadoPedido {
+            get {
+                return this.EstadoPedidoField;
+            }
+            set {
+                if ((this.EstadoPedidoField.Equals(value) != true)) {
+                    this.EstadoPedidoField = value;
+                    this.RaisePropertyChanged("EstadoPedido");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public bool EstadoSimplificacionCUV {
             get {
                 return this.EstadoSimplificacionCUVField;
@@ -1330,19 +1346,6 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public int IndicadorEnviado {
-            get {
-                return this.IndicadorEnviadoField;
-            }
-            set {
-                if ((this.IndicadorEnviadoField.Equals(value) != true)) {
-                    this.IndicadorEnviadoField = value;
-                    this.RaisePropertyChanged("IndicadorEnviado");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
         public int IndicadorFlexiPago {
             get {
                 return this.IndicadorFlexiPagoField;
@@ -1351,6 +1354,19 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
                 if ((this.IndicadorFlexiPagoField.Equals(value) != true)) {
                     this.IndicadorFlexiPagoField = value;
                     this.RaisePropertyChanged("IndicadorFlexiPago");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int IndicadorGPRSB {
+            get {
+                return this.IndicadorGPRSBField;
+            }
+            set {
+                if ((this.IndicadorGPRSBField.Equals(value) != true)) {
+                    this.IndicadorGPRSBField = value;
+                    this.RaisePropertyChanged("IndicadorGPRSB");
                 }
             }
         }
@@ -1390,19 +1406,6 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
                 if ((this.IndicadorPermisoFICField.Equals(value) != true)) {
                     this.IndicadorPermisoFICField = value;
                     this.RaisePropertyChanged("IndicadorPermisoFIC");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int IndicadorRechazado {
-            get {
-                return this.IndicadorRechazadoField;
-            }
-            set {
-                if ((this.IndicadorRechazadoField.Equals(value) != true)) {
-                    this.IndicadorRechazadoField = value;
-                    this.RaisePropertyChanged("IndicadorRechazado");
                 }
             }
         }
@@ -2053,6 +2056,19 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
                 if ((this.UsuarioPruebaField.Equals(value) != true)) {
                     this.UsuarioPruebaField = value;
                     this.RaisePropertyChanged("UsuarioPrueba");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool ValidacionAbierta {
+            get {
+                return this.ValidacionAbiertaField;
+            }
+            set {
+                if ((this.ValidacionAbiertaField.Equals(value) != true)) {
+                    this.ValidacionAbiertaField = value;
+                    this.RaisePropertyChanged("ValidacionAbierta");
                 }
             }
         }
