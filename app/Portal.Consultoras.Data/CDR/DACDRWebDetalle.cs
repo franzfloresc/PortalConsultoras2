@@ -58,7 +58,7 @@ namespace Portal.Consultoras.Data.CDR
 
         public IDataReader GetCDRWebDetalleLog(BELogCDRWeb entity)
         {
-            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetCDRWebDetalle");
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetCDRWebDetalleLog");
             Context.Database.AddInParameter(command, "LogCDRWebID", DbType.Int32, entity.LogCDRWebId);
 
             return Context.ExecuteReader(command);

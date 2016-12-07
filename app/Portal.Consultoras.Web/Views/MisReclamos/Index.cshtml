@@ -306,9 +306,9 @@
             <!--PRODUCTO OBSERVADO-->
             <div class="content_producto_observado">
                 <div class="nota_producto_observado">
-                    {{#if_eq item.MotivoRechazo 'A'}}
+                    {{#if_eq item.TipoMotivoRechazo '1'}}
                     Debes eliminar este producto para procesar nuevamente tu solicitud.
-                    {{else if_eq item.MotivoRechazo 'B'}}
+                    {{else if_eq item.TipoMotivoRechazo '2'}}
                     Debes modificar la cantidad y/o eliminar este producto para procesar nuevamente tu solicitud.
                     {{else}}
                     Debes eliminar este producto para procesar nuevamente tu solicitud.

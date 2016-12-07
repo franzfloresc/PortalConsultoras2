@@ -355,10 +355,8 @@ namespace Portal.Consultoras.Web.Controllers
                 entidad.CampaniaID = 0;
                 entidad.CDRWebID = logCdrWeb.CDRWebID;
                 cdrWeb = sv.GetCDRWeb(userData.PaisID, entidad).FirstOrDefault() ?? new BECDRWeb();
-
-                var entidadDetalle = new BECDRWebDetalle();
-                entidadDetalle.CDRWebID = model.CDRWebID;
-                //listaCdrWebDetalle = sv.GetCDRWebDetalleLog(userData.PaisID, logCdrWeb).ToList();
+                
+                listaCdrWebDetalle = sv.GetCDRWebDetalleLog(userData.PaisID, logCdrWeb).ToList();
 
                 listaCdrWebDetalle = listaCdrWebDetalle ?? new List<BECDRWebDetalle>();
 
@@ -373,7 +371,7 @@ namespace Portal.Consultoras.Web.Controllers
             model.FechaRegistro = cdrWeb.FechaRegistro;
             model.Estado = cdrWeb.Estado;
             model.FechaCulminado = cdrWeb.FechaCulminado;
-            model.FechaAtencion = cdrWeb.FechaAtencion;
+            model.FechaAtencion = logCdrWeb.FechaAtencion;
             model.Importe = cdrWeb.Importe;
             model.NombreConsultora = userData.NombreConsultora;
             model.CodigoIso = userData.CodigoISO;
