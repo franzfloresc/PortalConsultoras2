@@ -6628,7 +6628,7 @@ input[type="checkbox"]:checked + span:after {
 }
 
 .exclamacion_icono_mobile {
-    background: url("../../../Images/Esika/icono_exclamacion_esika.svg") no-repeat;
+    background: url("../../../Images/Esika/icono_exclamacion_esika.png") no-repeat;
     background-size: cover;
    
 }

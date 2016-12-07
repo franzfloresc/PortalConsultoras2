@@ -5934,7 +5934,7 @@ input[type="checkbox"]:checked + span:after {
     background-size: cover;
 }
 .exclamacion_icono_mobile{
-    background: url("../../../Images/Lbel/icono_exclamacion_lbel.svg") no-repeat;
+    background: url("../../../Images/Lbel/icono_exclamacion_lbel.png") no-repeat;
     background-size: cover;
    
 }
