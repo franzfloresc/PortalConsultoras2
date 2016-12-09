@@ -6453,7 +6453,7 @@ input[type="checkbox"]:checked + span:after {
     float:left;
     margin-left:10px;
     font-family:'Lato';
-    font-size:14px;
+    font-size:13px;
     line-height:17px;
     color:black;
 }
