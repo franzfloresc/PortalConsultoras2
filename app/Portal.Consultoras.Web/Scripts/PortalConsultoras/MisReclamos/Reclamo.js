@@ -736,7 +736,7 @@ function ValidarPaso2Trueque() {
     var formatoMontoMaximo = DecimalToStringFormat(montoMinimoReclamo);
 
     if (valorParametriaAbs == "1") {
-        var diferencia = parseFloat(montoMinimoReclamo) - parseFloat(montoPeddidoTrueque);
+        var diferencia = parseFloat(montoMinimoReclamo) - parseFloat(montoPedidoTrueque);
         if (diferencia > parseInt(valorParametria)) {
             alert_msg("Diferencia en trueques excede lo permitido");
             return false;
