@@ -727,8 +727,8 @@ function xMensajeEstadoPedido(estado) {
         }
         else {
             identi = url.indexOf("/bienvenida") > 0;
-            if (identi) {
-                $(".oscurecer_animacion").css({ "top": wtop + "px", "height": wheight + "px" });
+            if (identi) {               
+                $(".oscurecer_animacion").css({ "top": wtop + "px", "height": wheight + "px"});
                 //$("[data-content]").animate({ "top": wtop + "px" });
             }
             else {
