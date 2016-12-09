@@ -233,7 +233,7 @@ namespace Portal.Consultoras.Common
             public const int MobileCatalogoPersonalizadoPopUp = 2432;
 
         }
-        
+
         public class COTipoAtencionMensaje
         {
             public const string Agotado = "Agotado";
@@ -246,7 +246,7 @@ namespace Portal.Consultoras.Common
             public const string Portal = "Se retiraron de tu pedido los productos de este cliente.";
             public const string Marcas = "No te olvides comunicarte con tu cliente.";
         }
-        
+
         public class TipoTutorial
         {
             public const int Video = 1;
@@ -259,13 +259,22 @@ namespace Portal.Consultoras.Common
         {
             public const string LogAccionCancelar = "El cliente no aceptó BackOrder.";
         }
-        
+
         public class EstadoCDRWeb
         {
             public const int Pendiente = 1;
             public const int Enviado = 2;
             public const int Aceptado = 3;
             public const int Observado = 4;
+        }
+
+        // Constantes de los motivos de GPR.
+        public class GPRMotivoRechazo
+        {
+            public const string MontoMinino = "OCC-16"; //MONTO MINIMO
+            public const string MontoMaximo = "OCC-17"; // MONTO MAXIMO
+            public const string ActualizacionDeuda = "OCC-19"; //ACTUALIZACION DE DEUDA
+            public const string ValidacionMontoMinimoStock = "OCC-51"; //VALIDACION MONTO MINIMO STOCK
         }
     }
 }

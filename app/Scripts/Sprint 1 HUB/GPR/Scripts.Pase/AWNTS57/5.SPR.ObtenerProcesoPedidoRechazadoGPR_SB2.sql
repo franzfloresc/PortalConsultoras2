@@ -41,7 +41,7 @@ BEGIN
 	,r.IdPedidoRechazado
 	,r.Campania
 	,r.CodigoConsultora
-	,r.CodigoRechazoSomosBelcorp as MotivoRechazo
+	,r.MotivoRechazo as MotivoRechazo
 	,r.Valor
 	,r.Procesado
 	,r.Rechazado
@@ -100,7 +100,7 @@ BEGIN
 	,r.IdPedidoRechazado
 	,r.Campania
 	,r.CodigoConsultora
-	,r.CodigoRechazoSomosBelcorp as MotivoRechazo
+	,r.MotivoRechazo as MotivoRechazo
 	,r.Valor
 	,r.Procesado
 	,r.Rechazado
@@ -159,7 +159,7 @@ BEGIN
 	,r.IdPedidoRechazado
 	,r.Campania
 	,r.CodigoConsultora
-	,r.CodigoRechazoSomosBelcorp as MotivoRechazo
+	,r.MotivoRechazo as MotivoRechazo
 	,r.Valor
 	,r.Procesado
 	,r.Rechazado
@@ -218,7 +218,7 @@ BEGIN
 	,r.IdPedidoRechazado
 	,r.Campania
 	,r.CodigoConsultora
-	,r.CodigoRechazoSomosBelcorp as MotivoRechazo
+	,r.MotivoRechazo as MotivoRechazo
 	,r.Valor
 	,r.Procesado
 	,r.Rechazado
@@ -278,7 +278,7 @@ BEGIN
 	,r.IdPedidoRechazado
 	,r.Campania
 	,r.CodigoConsultora
-	,r.CodigoRechazoSomosBelcorp as MotivoRechazo
+	,r.MotivoRechazo as MotivoRechazo
 	,r.Valor
 	,r.Procesado
 	,r.Rechazado
@@ -339,7 +339,7 @@ BEGIN
 	,r.IdPedidoRechazado
 	,r.Campania
 	,r.CodigoConsultora
-	,r.CodigoRechazoSomosBelcorp as MotivoRechazo
+	,r.MotivoRechazo as MotivoRechazo
 	,r.Valor
 	,r.Procesado
 	,r.Rechazado
@@ -397,7 +397,7 @@ BEGIN
 	,r.IdPedidoRechazado
 	,r.Campania
 	,r.CodigoConsultora
-	,r.CodigoRechazoSomosBelcorp as MotivoRechazo
+	,r.MotivoRechazo as MotivoRechazo
 	,r.Valor
 	,r.Procesado
 	,r.Rechazado
@@ -457,7 +457,7 @@ BEGIN
 	,r.IdPedidoRechazado
 	,r.Campania
 	,r.CodigoConsultora
-	,r.CodigoRechazoSomosBelcorp as MotivoRechazo
+	,r.MotivoRechazo as MotivoRechazo
 	,r.Valor
 	,r.Procesado
 	,r.Rechazado
@@ -515,7 +515,7 @@ BEGIN
 	,r.IdPedidoRechazado
 	,r.Campania
 	,r.CodigoConsultora
-	,r.CodigoRechazoSomosBelcorp as MotivoRechazo
+	,r.MotivoRechazo as MotivoRechazo
 	,r.Valor
 	,r.Procesado
 	,r.Rechazado
@@ -575,7 +575,7 @@ BEGIN
 	,r.IdPedidoRechazado
 	,r.Campania
 	,r.CodigoConsultora
-	,r.CodigoRechazoSomosBelcorp as MotivoRechazo
+	,r.MotivoRechazo as MotivoRechazo
 	,r.Valor
 	,r.Procesado
 	,r.Rechazado
