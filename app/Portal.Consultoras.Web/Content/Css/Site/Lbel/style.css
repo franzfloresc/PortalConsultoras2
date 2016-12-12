@@ -310,7 +310,7 @@ header {
 
 .content_left_menu{
     float:left;
-    margin-right:53px;
+    margin-right:35px;
     margin-top:40px;
     
 }
@@ -32078,8 +32078,11 @@ h1#penmostreo .campana {
     font-family: 'Lato';
     font-size: 14px;
     color: #613c87;
-    margin-bottom:10px;
+    /*margin-bottom:10px;*/
     font-weight:900;
+}
+.estado_cdr_detalle:last-child {
+    margin-bottom:10px;
 }
 .left_detalle_cdr{
     width:55%;
