@@ -119,7 +119,7 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         private int DiasDuracionCronogramaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int DigitoVerificadorField;
+        private string DigitoVerificadorField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string DireccionField;
@@ -878,12 +878,12 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public int DigitoVerificador {
+        public string DigitoVerificador {
             get {
                 return this.DigitoVerificadorField;
             }
             set {
-                if ((this.DigitoVerificadorField.Equals(value) != true)) {
+                if ((object.ReferenceEquals(this.DigitoVerificadorField, value) != true)) {
                     this.DigitoVerificadorField = value;
                     this.RaisePropertyChanged("DigitoVerificador");
                 }
