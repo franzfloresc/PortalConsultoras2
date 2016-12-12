@@ -1665,6 +1665,7 @@
     <Content Include="Content\Images\Esika\mobile.png" />
     <Content Include="Content\Images\Esika\mobile2.png" />
     <Content Include="Content\Images\Esika\next.png" />
+    <Content Include="Content\Images\Esika\notificacion.png" />
     <Content Include="Content\Images\Esika\notificaciones-header.png" />
     <Content Include="Content\Images\Esika\notificaciones.png" />
     <Content Include="Content\Images\Esika\oferta.png" />
@@ -1898,6 +1899,7 @@
     <Content Include="Content\Images\Lbel\menos.png" />
     <Content Include="Content\Images\Lbel\mensajes.png" />
     <Content Include="Content\Images\Lbel\mobile.png" />
+    <Content Include="Content\Images\Lbel\notificacion.png" />
     <Content Include="Content\Images\Lbel\notificaciones.png" />
     <Content Include="Content\Images\Lbel\oferta.png" />
     <Content Include="Content\Images\Lbel\oferta_web.png" />
