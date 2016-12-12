@@ -19,6 +19,11 @@ end
 
 go
 
+if (select COUNT(*) from dbo.sysobjects inner join dbo.syscolumns on SYSOBJECTS.ID = SYSCOLUMNS.ID 
+	where sysobjects.id = object_id('dbo.Pais') and SYSCOLUMNS.NAME = N'TieneCDR') = 0
+	ALTER TABLE dbo.Pais ADD TieneCDR int
+go
+
 IF EXISTS(SELECT * FROM INFORMATION_SCHEMA.tables 
 	WHERE TABLE_SCHEMA = 'dbo' AND TABLE_TYPE='BASE TABLE' AND TABLE_NAME = 'CDRWeb')
 BEGIN

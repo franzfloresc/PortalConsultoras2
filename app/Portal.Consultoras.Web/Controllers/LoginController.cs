@@ -577,6 +577,7 @@ namespace Portal.Consultoras.Web.Controllers
                     model.NombreGerenteZonal = oBEUsuario.NombreGerenteZona;  // SB20-907
                     model.FechaActualPais = oBEUsuario.FechaActualPais;
                     model.IndicadorBloqueoCDR = oBEUsuario.IndicadorBloqueoCDR;
+                    model.EsCDRWebZonaValida = oBEUsuario.EsCDRWebZonaValida;
 
                     if (model.RolID == Constantes.Rol.Consultora)
                     {
