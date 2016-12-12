@@ -273,6 +273,87 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="InsCDRWebMotivoOperacion">
+      <soap:operation soapAction="http://tempuri.org/ICDRService/InsCDRWebMotivoOperacion" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DelCDRWebMotivoOperacion">
+      <soap:operation soapAction="http://tempuri.org/ICDRService/DelCDRWebMotivoOperacion" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCDRWebMotivoOperacion">
+      <soap:operation soapAction="http://tempuri.org/ICDRService/GetCDRWebMotivoOperacion" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InsCDRWebDescripcion">
+      <soap:operation soapAction="http://tempuri.org/ICDRService/InsCDRWebDescripcion" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DelCDRWebDescripcion">
+      <soap:operation soapAction="http://tempuri.org/ICDRService/DelCDRWebDescripcion" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCDRWebDescripcion">
+      <soap:operation soapAction="http://tempuri.org/ICDRService/GetCDRWebDescripcion" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetLogCDRWebByLogCDRWebId">
+      <soap:operation soapAction="http://tempuri.org/ICDRService/GetLogCDRWebByLogCDRWebId" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateLogCDRWebVisualizado">
+      <soap:operation soapAction="http://tempuri.org/ICDRService/UpdateLogCDRWebVisualizado" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetLogCDRWebDetalleByLogCDRWebId">
+      <soap:operation soapAction="http://tempuri.org/ICDRService/GetLogCDRWebDetalleByLogCDRWebId" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="DetalleActualizarObservado">
       <soap:operation soapAction="http://tempuri.org/ICDRService/DetalleActualizarObservado" style="document" />
       <wsdl:input>

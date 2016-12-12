@@ -180,7 +180,7 @@ namespace Portal.Consultoras.Common
             public const int Jetlore = 2;
         }
 
-        public class OrigenPedidoWeb 
+        public class OrigenPedidoWeb
         {
 
             // Primer Dígito
@@ -234,7 +234,7 @@ namespace Portal.Consultoras.Common
             public const int MobileCatalogoPersonalizadoPopUp = 2432;
 
         }
-        
+
         public class TipoTutorial
         {
             public const int Video = 1;
@@ -242,7 +242,7 @@ namespace Portal.Consultoras.Common
             public const int Salvavidas = 3;
             public const int Mobile = 4;
         }
-        
+
         public class COTipoAtencionMensaje
         {
             public const string Agotado = "Agotado";
@@ -260,7 +260,7 @@ namespace Portal.Consultoras.Common
         {
             public const string LogAccionCancelar = "El cliente no aceptó BackOrder.";
         }
-        
+
         public class EstadoCDRWeb
         {
             public const int Pendiente = 1;
@@ -276,9 +276,9 @@ namespace Portal.Consultoras.Common
             public const string Propuesta = "Propuesta";
             public const string TenerEnCuenta = "TenerEnCuenta";
             public const string Finalizado = "Finalizado";
-            public const string MensajeFinalizado = "MensajeFinalizado"; 
+            public const string MensajeFinalizado = "MensajeFinalizado";
         }
-        }
+
         public class ParametriaCDR
         {
             public const string Faltante = "STO_PMON_FM";
@@ -308,4 +308,5 @@ namespace Portal.Consultoras.Common
         }
     }
 }
+
 

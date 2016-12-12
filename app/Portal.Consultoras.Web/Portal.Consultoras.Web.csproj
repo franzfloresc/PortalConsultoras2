@@ -3605,8 +3605,6 @@
     <Content Include="Views\MisReclamos\Reclamo.cshtml" />
     <Content Include="Views\MisCatalogosRevistas\MiRevista.cshtml" />
     <Content Include="Views\Notificaciones\ListaDetalleCdr.cshtml" />
-      <SubType>Designer</SubType>
-    </None>
     <None Include="Service References\ValidacionCrediticia\ValidacionCrediticiaService1.xsd">
       <SubType>Designer</SubType>
     </None>
