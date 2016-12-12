@@ -757,9 +757,9 @@ namespace Portal.Consultoras.Web.Controllers
                 model.DigitoVerificador = string.Empty;
                 if (PaisesDigitoControl.Contains(model.PaisISO))
                 {
-                    if (!String.IsNullOrEmpty(beusuario.DigitoVerificador.ToString()) && beusuario.DigitoVerificador != 0)
+                    if (!String.IsNullOrEmpty(beusuario.DigitoVerificador))
                     {
-                        model.CodigoUsuario = userData.CodigoUsuario + " - " + beusuario.DigitoVerificador.ToString() + " (Zona: " + userData.CodigoZona + ")";
+                        model.CodigoUsuario = string.Format("{0} - {1} (Zona:{2})", userData.CodigoUsuario, beusuario.DigitoVerificador, userData.CodigoZona);
                     }
                 }
             }

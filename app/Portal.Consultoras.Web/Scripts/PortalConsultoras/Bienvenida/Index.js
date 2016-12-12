@@ -142,9 +142,6 @@ $(document).ready(function () {
     /* SB20-834 - INICIO */
     //ObtenerComunicadosPopup();
 
-    CrearDialogs();
-    CargarCarouselEstrategias("");
-    CargarCarouselLiquidaciones();
     CargarMisCursos();
     CargarBanners();
     CargarCatalogoPersonalizado();
@@ -3746,8 +3743,6 @@ function clickImagenComunicado(obj) {
     var vclose = mostrarComunicadosPopup();
 
     if (vclose) {
-        closeComunicadosPopup = true;
-        PopupCerrar('popupComunicados');
     }
 }
 

@@ -124,12 +124,12 @@
                 <div class="icono_cerrar_mensaje">
                     <span>
                         <a href="javascript:void();" id="cerrarMensajeEstadoPedido" title="Cerrar" onclick="cerrarMensajeEstadoPedido();">
-                            <img src="/Content/Images/btn_cerrar_popup.svg" alt="Cerrar">
+                            <img src="/Content/Images/btn_cerrar_popup.png" alt="Cerrar">
                         </a>
                     </span>
                 </div>
                 <div class="icono_estadoPedido">
-                    <img src="@Url.Content("~/Content/Images/icono_exclamacion_estado_pedido.svg")" alt="Icono Estado Pedido" />
+                    <img src="@Url.Content("~/Content/Images/icono_exclamacion_estado_pedido.png")" alt="Icono Estado Pedido" />
                 </div>
                 <div class="mensajes_estadoPedido">
                     @*<span class="mensaje_estadoActualPedido">NOS ENCONTRAMOS FACTURANDO TU PEDIDO</span>
@@ -461,12 +461,12 @@
         var MobilePedidoSugerido = @Portal.Consultoras.Common.Constantes.OrigenPedidoWeb.MobilePedidoSugerido;
         var MobilePedidoOfertaFinal = @Portal.Consultoras.Common.Constantes.OrigenPedidoWeb.MobilePedidoOfertaFinal;
         var indicadorEnviadoDescarga = '@ViewBag.IndicadorEnviado';
-        var estaRechazado = '@ViewBag.EstaRechazado';
+        var estaRechazado = '@ViewBag.IndicadorGPRSB';
         var cerrarRechazado = '@ViewBag.CerrarRechazado';
         var motivoRechazo = '@ViewBag.MotivoRechazo';
+        var mostrarBannerRechazo = '@ViewBag.MostrarBannerRechazo';
 
         var MobileShowRoom = @Portal.Consultoras.Common.Constantes.OrigenPedidoWeb.MobileShowRoom;
-
         var MobileLiquidacion = @Portal.Consultoras.Common.Constantes.OrigenPedidoWeb.MobileLiquidacion;
 
         var MobileCatalogoPersonalizado = @Portal.Consultoras.Common.Constantes.OrigenPedidoWeb.MobileCatalogoPersonalizado;

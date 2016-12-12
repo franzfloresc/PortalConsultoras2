@@ -1309,6 +1309,7 @@
     <Content Include="Content\Images\btn_03c.png" />
     <Content Include="Content\Images\btn_03t.png" />
     <Content Include="Content\Images\btn_03v.png" />
+    <Content Include="Content\Images\btn_cerrar_popup.png" />
     <Content Include="Content\Images\btn_cerrar_popup.svg" />
     <Content Include="Content\Images\btn_cerrar_popupPercepcion.png" />
     <Content Include="Content\Images\btn_cerrar_popup_color_negro.svg" />
@@ -1777,6 +1778,7 @@
     <Content Include="Content\Images\iconos_acordion_despliegues.png" />
     <Content Include="Content\Images\icono_check.png" />
     <Content Include="Content\Images\icono_check.svg" />
+    <Content Include="Content\Images\icono_exclamacion_estado_pedido.png" />
     <Content Include="Content\Images\icono_exclamacion_estado_pedido.svg" />
     <Content Include="Content\Images\icono_lupa.png" />
     <Content Include="Content\Images\icons.png" />
@@ -2304,6 +2306,7 @@
     <Content Include="Content\Images\showroom\SET-MAX.jpg" />
     <Content Include="Content\Images\showroom\Showroom-hoy.gif" />
     <Content Include="Content\Images\showroom\slider_pop_up.png" />
+    <Content Include="Content\Images\showroom\solo-para-ti.png" />
     <Content Include="Content\Images\SinNotificaciones.png" />
     <Content Include="Content\Images\slider-arrows.png" />
     <Content Include="Content\Images\sliders\img_01.jpg" />
@@ -2664,6 +2667,7 @@
     <Content Include="Content\FAQ\politicas_post_venta_CO.pdf" />
     <Content Include="Content\FAQ\Politica_de_reclamos_CO.pdf" />
     <Content Include="Areas\Mobile\Views\TerminosYCondiciones\Index.cshtml" />
+    <Content Include="Content\FAQ\41577-BELCORP-SolCre-CO-400073315-300916.pdf" />
     <Content Include="Areas\Mobile\Views\Catalogo\MiRevista.cshtml" />
     <None Include="Service References\ServiceCDR\CDRService.wsdl" />
     <None Include="Service References\ServiceCDR\CDRService.xsd">
@@ -3600,17 +3604,7 @@
     <Content Include="Views\Set\Index.cshtml" />
     <Content Include="Views\MisReclamos\Reclamo.cshtml" />
     <Content Include="Views\MisCatalogosRevistas\MiRevista.cshtml" />
-    <Content Include="Views\TerminosYCondiciones\Index.cshtml" />
-    <Content Include="Views\Bienvenida\ActualizarContrasenia.cshtml" />
     <Content Include="Views\Notificaciones\ListaDetalleCdr.cshtml" />
-    <None Include="Web References\ServiceLMS\Reference.map">
-      <Generator>MSDiscoCodeGenerator</Generator>
-      <LastGenOutput>Reference.cs</LastGenOutput>
-    </None>
-    <None Include="Service References\ValidacionCrediticia\ValidacionCrediticiaService.wsdl" />
-    <None Include="Service References\ValidacionCrediticia\ValidacionCrediticiaService.xsd">
-      <SubType>Designer</SubType>
-    </None>
     <None Include="Service References\ValidacionCrediticia\ValidacionCrediticiaService1.xsd">
       <SubType>Designer</SubType>
     </None>

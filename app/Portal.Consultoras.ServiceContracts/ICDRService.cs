@@ -29,6 +29,9 @@ namespace Portal.Consultoras.ServiceContracts
         List<BECDRWebDetalle> GetCDRWebDetalle(int PaisID, BECDRWebDetalle entity, int pedidoId);
 
         [OperationContract]
+        List<BECDRWebDetalle> GetCDRWebDetalleLog(int PaisID, BELogCDRWeb entity);
+
+        [OperationContract]
         int InsCDRWebMotivoOperacion(int PaisID, BECDRWebMotivoOperacion entity);
 
         [OperationContract]

@@ -36,9 +36,11 @@ namespace Portal.Consultoras.Web.Models
         
         public int IndicadorBloqueoCDR { get; set; }
 
-        public decimal MontoMinimo { get; set; }
+        public decimal MontoMinimo { get; set; }        
 
-        public int HistoricoSolicitudCDR { get; set; }
+        /*EPD-1339*/
+        public int TieneHistoricoCDR { get; set; }
         public int CumpleRangoCampaniaCDR { get; set; }
+        /*EPD-1339*/
     }
 }

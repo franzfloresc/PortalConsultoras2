@@ -45,13 +45,21 @@ namespace Portal.Consultoras.Data.CDR
             result = Context.ExecuteNonQuery(command);
 
             return result;
-        }
+        }        
 
         public IDataReader GetCDRWebDetalle(BECDRWebDetalle entity, int pedidoId)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetCDRWebDetalle");
             Context.Database.AddInParameter(command, "CDRWebID", DbType.Int32, entity.CDRWebID);
             Context.Database.AddInParameter(command, "PedidoID", DbType.String, pedidoId);
+
+            return Context.ExecuteReader(command);
+        }
+
+        public IDataReader GetCDRWebDetalleLog(BELogCDRWeb entity)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetCDRWebDetalleLog");
+            Context.Database.AddInParameter(command, "LogCDRWebID", DbType.Int32, entity.LogCDRWebId);
 
             return Context.ExecuteReader(command);
         }

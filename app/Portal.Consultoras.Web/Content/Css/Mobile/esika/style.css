@@ -4566,7 +4566,7 @@ table > thead > tr > th {
     margin-right: 15px;
     margin-top: 18px;
     position: relative;
-    background: url("../../../Images/mobile/Esika/notificaciones.png") no-repeat;
+    background: url("../../../Images/mobile/Esika/notificacion.png") no-repeat;
     background-position: center -1px;
 }
 
@@ -6675,7 +6675,7 @@ input[type="checkbox"]:checked + span:after {
 }
 
 .exclamacion_icono_mobile {
-    background: url("../../../Images/Esika/icono_exclamacion_esika.svg") no-repeat;
+    background: url("../../../Images/Esika/icono_exclamacion_esika.png") no-repeat;
     background-size: cover;
    
 }
@@ -7201,7 +7201,7 @@ input[type="checkbox"]:checked + span:after {
     float: left;
     margin-left: 10px;
     font-family: 'Lato';
-    font-size: 14px;
+    font-size: 13px;
     line-height: 17px;
     color: black;
 }

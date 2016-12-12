@@ -21,6 +21,10 @@
     {
         <div class="texto_reclamos_bloqueada">Lo sentimos, por el momento te encuentras bloqueada para realizar esta operación. Por favor, contáctate con el Call Center</div>
     }
+    else if (Model.CumpleRangoCampaniaCDR == 0 && Model.ListaCDRWeb.Count <= 0)
+    {
+        <div class="texto_reclamos_bloqueada">Lo sentimos, en estos momentos no cuentas con pedidos disponibles para reclamar. Por favor, contáctate con nuestro Call Center.</div>
+    }
     else
     {
         <div class="texto_titulo_reclamos" id="TituloReclamo">
@@ -137,6 +141,7 @@
 
 <input type="hidden" id="hdPedidoIdActual"/>
 <input type="hidden" id="hdIndicadorBloqueoCDR" value="@Model.IndicadorBloqueoCDR"/>
+<input type="hidden" id="hdCumpleRangoCampaniaCDR" value="@Model.CumpleRangoCampaniaCDR" />
 
 <div class="contenedor_popup_percepciones" id="PopSolicitud">
     <div class="popup_Pendientes">
@@ -306,9 +311,9 @@
             <!--PRODUCTO OBSERVADO-->
             <div class="content_producto_observado">
                 <div class="nota_producto_observado">
-                    {{#if_eq item.MotivoRechazo 'A'}}
+                    {{#if_eq item.TipoMotivoRechazo '1'}}
                     Debes eliminar este producto para procesar nuevamente tu solicitud.
-                    {{else if_eq item.MotivoRechazo 'B'}}
+                    {{else if_eq item.TipoMotivoRechazo '2'}}
                     Debes modificar la cantidad y/o eliminar este producto para procesar nuevamente tu solicitud.
                     {{else}}
                     Debes eliminar este producto para procesar nuevamente tu solicitud.
@@ -483,12 +488,21 @@
 
             $("#IrPaso1").on("click", function () {
                 var estaBloqueado = $("#hdIndicadorBloqueoCDR").val();
+                var cumpleRangoCampania = $("#hdCumpleRangoCampaniaCDR").val();
+
+                /*EPD-1339*/
+                if (cumpleRangoCampania == 0) {
+                    alert_msg("Lo sentimos, en estos momentos no cuentas con pedidos disponibles para reclamar. Por favor, contáctate con nuestro Call Center.");
+                    return false;
+                }
+                /*EPD-1339*/
 
                 if (estaBloqueado == 0)
                     window.location.href = urlReclamo;
                 else {
                     alert_msg("Lo sentimos, por el momento te encuentras bloqueada para realizar esta operación. Por favor, contáctate con el Call Center");
                 }
+                
             });
         });
 

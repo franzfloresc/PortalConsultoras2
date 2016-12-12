@@ -180,7 +180,7 @@ namespace Portal.Consultoras.Common
             public const int Jetlore = 2;
         }
 
-        public class OrigenPedidoWeb 
+        public class OrigenPedidoWeb
         {
 
             // Primer Dígito
@@ -234,7 +234,7 @@ namespace Portal.Consultoras.Common
             public const int MobileCatalogoPersonalizadoPopUp = 2432;
 
         }
-        
+
         public class TipoTutorial
         {
             public const int Video = 1;
@@ -242,7 +242,7 @@ namespace Portal.Consultoras.Common
             public const int Salvavidas = 3;
             public const int Mobile = 4;
         }
-        
+
         public class COTipoAtencionMensaje
         {
             public const string Agotado = "Agotado";
@@ -260,7 +260,7 @@ namespace Portal.Consultoras.Common
         {
             public const string LogAccionCancelar = "El cliente no aceptó BackOrder.";
         }
-        
+
         public class EstadoCDRWeb
         {
             public const int Pendiente = 1;
@@ -276,19 +276,9 @@ namespace Portal.Consultoras.Common
             public const string Propuesta = "Propuesta";
             public const string TenerEnCuenta = "TenerEnCuenta";
             public const string Finalizado = "Finalizado";
-            public const string MensajeFinalizado = "MensajeFinalizado"; 
+            public const string MensajeFinalizado = "MensajeFinalizado";
         }
-        public class TipoPopUp
-        {
-            public const int VideoIntroductorio = 1;
-            public const int GPR = 2;
-            public const int DemandaAnticipada = 3;
-            public const int AceptacionContrato = 4;
-            public const int Showroom = 5;
-            public const int ActualizarDatos = 6;
-            public const int Flexipago = 7;
-            public const int Comunicado = 8;
-        }
+
         public class ParametriaCDR
         {
             public const string Faltante = "STO_PMON_FM";
@@ -305,6 +295,18 @@ namespace Portal.Consultoras.Common
             public const string Trueque = "T";
             public const string Canje = "C";
         }
+        public class TipoPopUp
+        {
+            public const int VideoIntroductorio = 1;
+            public const int GPR = 2;
+            public const int DemandaAnticipada = 3;
+            public const int AceptacionContrato = 4;
+            public const int Showroom = 5;
+            public const int ActualizarDatos = 6;
+            public const int Flexipago = 7;
+            public const int Comunicado = 8;
+        }
     }
 }
+
 

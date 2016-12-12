@@ -30612,10 +30612,11 @@ h1#penmostreo .campana {
     width: 100%;
     height: auto;
     /*padding: 25px 43px;*/
-    padding: 17px 43px;
+    padding: 10px 43px;     /*EPD-1378*/
     position: relative;
     background: #e5dcea;
-    margin-bottom: 22px;
+    /*margin-bottom: 22px;*/
+    margin-bottom: 15px;    /*EPD-1378*/
 }
 .stock_content:after {
 	bottom: 100%;
@@ -30641,12 +30642,15 @@ h1#penmostreo .campana {
     vertical-align:middle;    
 }
 .texto_stock{
-     width:100%;
+    /*width:100%;*/
+    width:70%;      /*EPD-1378*/
     display:inline-block;
     vertical-align:middle;
     font-family:'LAto';
     font-size:14px;
     color:black;
+
+    float: left;    /*EPD-1378*/
 }
 .btn_no_stock{
     font-family:'LAto';
@@ -30662,24 +30666,30 @@ h1#penmostreo .campana {
     font-family: 'LAto';
     font-size: 13px;
     font-weight: 700;
-    float: right;
+    /*float: right;*/
     display: block;
     width: 160px;
-    height: 45px;
+    /*height: 45px;*/
+    height: 40px;       /*EPD-1378*/
     text-align: center;
     /*margin-top: 13px;*/
     margin-top: 2px;
     color: white;
     background: #613c87;
     line-height: 45px;
+
+    float: left;        /*EPD-1378*/
 }
 .stock_content_aceptado{
     width: 100%;
-    height: auto;
-    padding: 25px 43px;
+    /*height: auto;
+    padding: 25px 43px;*/
+    height: 50px;           /*EPD-1378*/
+    padding: 15px 43px;     /*EPD-1378*/
     position: relative;
     background: #f3f3f3;
-    margin-bottom: 22px;
+    /*margin-bottom: 22px;*/
+    margin-bottom: 15px;    /*EPD-1378*/
 }
 .stock_content_aceptado:after {
 	bottom: 100%;
@@ -31005,24 +31015,35 @@ h1#penmostreo .campana {
 .btn_no_stock{
     font-family:'LAto';
     font-size:13px;
-    float:left;    
-    display:block;
+    /*float:left;    
+    display:block;*/
     text-decoration:underline;    
     margin-top: 30px; /*SEGURO VA HABER CONFLICTO SOLO CONSERVAR EL MARGIN TOP DE AQUI*/
+
+    /*EPD-1378*/
+    float: right;
+    display: inline-block;
+    vertical-align: middle;
+    margin-top: 15px;
+    margin-right: 45px;
+    /*EPD-1378*/
 }
 .btn_si_stock{
     font-family: 'LAto';
     font-size: 13px;
     font-weight: 700;
-    float: right;
+    /*float: right;*/
     display: block;
     width: 160px;
-    height: 45px;
+    /*height: 45px;*/
+    height: 40px;
     text-align: center;
     margin-top: 2px; /*SEGURO VA HABER CONFLICTO SOLO CONSERVAR EL MARGIN TOP DE AQUI*/
     color: white;
     background: #613c87;
     line-height: 45px;
+
+    float: left;    /*EPD-1378*/
 }
 .paso_active_reclamo{
     background:#613c87;
@@ -31970,98 +31991,6 @@ h1#penmostreo .campana {
     color:#9b9b9b; 
 }
 
-/*SB20-1198 - INICIO */
-.contenido_compra_nivel {
-    width: 100%; 
-    margin: 0 auto;
-    text-align: center;
-}
-
-.centrar_vertical {
-    display: inline-block; 
-    vertical-align: middle;
-}
-
-.titulo_pack_048{
-    font-family: 'Lato';
-    font-weight: 700;
-    font-size: 16px;
-    /*line-height: 22px;*/
-    color: black;
-    /*margin-top: -6px;*/
-    /*text-align: center;*/
-    /*padding-right: 12px;*/
-    /*text-align: left;*/
-    height:auto;
-}
-
-.sub_descripcion_oferta_048 {
-    /*width: 55%;
-    height: 55px;*/
-    /*line-height: 55px;*/
-    text-align:left;
-    /* padding-top: 8%; */
-    /* padding-bottom: 8%; */
-    /*border-bottom: 1px solid #dadada;*/
-    /*float: left;*/
-    font-family: 'Lato';
-    font-size: 13px;
-    color: black;
-    /*display: flex;
-    justify-content: center;
-    align-content: center;
-    flex-direction: column;*/
-}
-
-.sub_descripcion_oferta_048 p span{
-    color:#e81c36;
-    font-size:22px;
-    /*font-weight:700;*/
-    margin-right: 5px;
-}
-
-.sub_descripcion_oferta_048 p{
-    margin: 0;
-    padding: 0;
-    /*margin-left: 10px;*/
-    /*line-height:normal;*/
-}
-
-.texto_ganancia_pack_048{
-    font-family:'Lato';
-    font-weight:700;
-    font-size:16px;
-    color:#e81c36;
-    text-align:center;
-    text-transform:uppercase;
-}
-
-.img_compra_nivel {
-    width: 40px;
-    height: 50px;
-    border: 0;
-}
-
-.img_no_disponible {
-    width: 55px; 
-    height: 55px; 
-    border: 0;
-}
-
-/*SB20-1198 - FIN */
-
-/*SB20-877*/
-
-.resumen_belcorp_cam_modificado {
-    font-family: 'lato';
-    font-size: 18px;
-    letter-spacing: 0.3px;
-    color: black;
-    float: left;
-    margin-left: 2%;
-    margin-right: 8%;
-    width: 215px;
-}
 
 /*TABLA DE NOTIFICACIONES*/
 .logo_lista_detalle{
@@ -32140,7 +32069,83 @@ h1#penmostreo .campana {
     font-family: 'Lato';
     overflow:hidden;
 }
+/*SB20-1198 - INICIO */
+.contenido_compra_nivel {
+    width: 100%; 
+    margin: 0 auto;
+    text-align: center;
+}
 
+.centrar_vertical {
+    display: inline-block; 
+    vertical-align: middle;
+}
+
+.titulo_pack_048{
+    font-family: 'Lato';
+    font-weight: 700;
+    font-size: 16px;
+    /*line-height: 22px;*/
+    color: black;
+    /*margin-top: -6px;*/
+    /*text-align: center;*/
+    /*padding-right: 12px;*/
+    /*text-align: left;*/
+    height:auto;
+}
+
+.sub_descripcion_oferta_048 {
+    /*width: 55%;
+    height: 55px;*/
+    /*line-height: 55px;*/
+    text-align:left;
+    /* padding-top: 8%; */
+    /* padding-bottom: 8%; */
+    /*border-bottom: 1px solid #dadada;*/
+    /*float: left;*/
+    font-family: 'Lato';
+    font-size: 13px;
+    color: black;
+    /*display: flex;
+    justify-content: center;
+    align-content: center;
+    flex-direction: column;*/
+}
+
+.sub_descripcion_oferta_048 p span{
+    color:#e81c36;
+    font-size:22px;
+    /*font-weight:700;*/
+    margin-right: 5px;
+}
+
+.sub_descripcion_oferta_048 p{
+    margin: 0;
+    padding: 0;
+    /*margin-left: 10px;*/
+    /*line-height:normal;*/
+}
+
+.texto_ganancia_pack_048{
+    font-family:'Lato';
+    font-weight:700;
+    font-size:16px;
+    color:#e81c36;
+    text-align:center;
+    text-transform:uppercase;
+}
+
+.img_compra_nivel {
+    width: 40px;
+    height: 50px;
+    border: 0;
+}
+
+.img_no_disponible {
+    width: 55px; 
+    height: 55px; 
+    border: 0;
+}
 .estado_cdr_detalle{
     text-align: left;
     font-family: 'Lato';
@@ -32157,6 +32162,20 @@ h1#penmostreo .campana {
     font-family: 'Lato';
     font-size: 14.4px;    
     color: black;
+}
+/*SB20-1198 - FIN */
+
+/*SB20-877*/
+
+.resumen_belcorp_cam_modificado {
+    font-family: 'lato';
+    font-size: 18px;
+    letter-spacing: 0.3px;
+    color: black;
+    float: left;
+    margin-left: 2%;
+    margin-right: 8%;
+    width: 215px;
 }
 .texto_detalle_cdr{
      text-align: left;
@@ -32190,4 +32209,9 @@ h1#penmostreo .campana {
     font-size:13px;
     text-align:right;
     font-weight:700;
+}
+.texto_tab_pagos {
+    display:inline-block;
+    vertical-align:middle;
+    line-height:14px;
 }

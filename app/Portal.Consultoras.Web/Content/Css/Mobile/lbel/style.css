@@ -3977,7 +3977,7 @@ width:100%;
     margin-right: 15px;
     margin-top: 18px;
     position:relative;
-    background: url("../../../Images/mobile/Esika/notificaciones.png") no-repeat;
+    background: url("../../../Images/mobile/Esika/notificacion.png") no-repeat;
     background-position: center -1px;
 }
 .notificaciones_mobiles{
@@ -5981,7 +5981,7 @@ input[type="checkbox"]:checked + span:after {
     background-size: cover;
 }
 .exclamacion_icono_mobile{
-    background: url("../../../Images/Lbel/icono_exclamacion_lbel.svg") no-repeat;
+    background: url("../../../Images/Lbel/icono_exclamacion_lbel.png") no-repeat;
     background-size: cover;
    
 }
@@ -6500,7 +6500,7 @@ input[type="checkbox"]:checked + span:after {
     float:left;
     margin-left:10px;
     font-family:'Lato';
-    font-size:14px;
+    font-size:13px;
     line-height:17px;
     color:black;
 }
