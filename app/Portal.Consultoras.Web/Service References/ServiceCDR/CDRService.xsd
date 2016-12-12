@@ -53,6 +53,21 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="ArrayOfBECDRWeb" nillable="true" type="tns:ArrayOfBECDRWeb" />
+  <xs:complexType name="BELogCDRWeb">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CDRWebID" type="xs:int" />
+      <xs:element minOccurs="0" name="CampaniaId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CodigoConsultora" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ConsultoraId" type="xs:long" />
+      <xs:element minOccurs="0" name="EstadoCDR" type="xs:unsignedByte" />
+      <xs:element minOccurs="0" name="FechaAtencion" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="FechaCulminado" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="FechaRegistro" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="LogCDRWebId" type="xs:long" />
+      <xs:element minOccurs="0" name="PedidoFacturadoId" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="BELogCDRWeb" nillable="true" type="tns:BELogCDRWeb" />
   <xs:complexType name="BECDRWebMotivoOperacion">
     <xs:sequence>
       <xs:element minOccurs="0" name="CDRMotivoReclamo" nillable="true" type="tns:BECDRMotivoReclamo" />
@@ -101,21 +116,6 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="ArrayOfBECDRWebDescripcion" nillable="true" type="tns:ArrayOfBECDRWebDescripcion" />
-  <xs:complexType name="BELogCDRWeb">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="CDRWebID" type="xs:int" />
-      <xs:element minOccurs="0" name="CampaniaId" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="CodigoConsultora" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="ConsultoraId" type="xs:long" />
-      <xs:element minOccurs="0" name="EstadoCDR" type="xs:unsignedByte" />
-      <xs:element minOccurs="0" name="FechaAtencion" type="xs:dateTime" />
-      <xs:element minOccurs="0" name="FechaCulminado" type="xs:dateTime" />
-      <xs:element minOccurs="0" name="FechaRegistro" type="xs:dateTime" />
-      <xs:element minOccurs="0" name="LogCDRWebId" type="xs:long" />
-      <xs:element minOccurs="0" name="PedidoFacturadoId" type="xs:int" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="BELogCDRWeb" nillable="true" type="tns:BELogCDRWeb" />
   <xs:complexType name="ArrayOfBELogCDRWebDetalle">
     <xs:sequence>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="BELogCDRWebDetalle" nillable="true" type="tns:BELogCDRWebDetalle" />

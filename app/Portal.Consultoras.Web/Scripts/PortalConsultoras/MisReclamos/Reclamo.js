@@ -737,7 +737,7 @@ function ValidarPaso2Trueque() {
 
     if (valorParametriaAbs == "1") {
         var diferencia = parseFloat(montoMinimoReclamo) - parseFloat(montoPedidoTrueque);
-        if (diferencia > valorParametria) {
+        if (diferencia > parseInt(valorParametria)) {
             alert_msg("Diferencia en trueques excede lo permitido");
             return false;
         }
@@ -751,7 +751,7 @@ function ValidarPaso2Trueque() {
             var diferencia2 = parseFloat(montoMinimoReclamo) - parseFloat(montoPedidoTrueque);
             diferencia2 = Math.abs(diferencia2);
             
-            if (diferencia2 > valorParametria) {
+            if (diferencia2 > parseInt(valorParametria)) {
                 alert_msg("Diferencia en trueques excede lo permitido");
                 return false;
             }

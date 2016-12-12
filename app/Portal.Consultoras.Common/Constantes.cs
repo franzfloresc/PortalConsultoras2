@@ -278,16 +278,6 @@ namespace Portal.Consultoras.Common
             public const string Finalizado = "Finalizado";
             public const string MensajeFinalizado = "MensajeFinalizado"; 
         }
-        public class TipoPopUp
-        {
-            public const int VideoIntroductorio = 1;
-            public const int GPR = 2;
-            public const int DemandaAnticipada = 3;
-            public const int AceptacionContrato = 4;
-            public const int Showroom = 5;
-            public const int ActualizarDatos = 6;
-            public const int Flexipago = 7;
-            public const int Comunicado = 8;
         }
         public class ParametriaCDR
         {
@@ -304,6 +294,17 @@ namespace Portal.Consultoras.Common
             public const string Devolucion = "D";
             public const string Trueque = "T";
             public const string Canje = "C";
+        }
+        public class TipoPopUp
+        {
+            public const int VideoIntroductorio = 1;
+            public const int GPR = 2;
+            public const int DemandaAnticipada = 3;
+            public const int AceptacionContrato = 4;
+            public const int Showroom = 5;
+            public const int ActualizarDatos = 6;
+            public const int Flexipago = 7;
+            public const int Comunicado = 8;
         }
     }
 }

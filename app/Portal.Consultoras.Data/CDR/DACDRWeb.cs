@@ -49,6 +49,7 @@ namespace Portal.Consultoras.Data.CDR
             Context.Database.AddInParameter(command, "ConsultoraID", DbType.Int64, entity.ConsultoraID);
             Context.Database.AddInParameter(command, "PedidoID", DbType.Int32, entity.PedidoID);
             Context.Database.AddInParameter(command, "CampaniaID", DbType.Int32, entity.CampaniaID);
+            Context.Database.AddInParameter(command, "CDRWebID", DbType.Int32, entity.CDRWebID);
 
             return Context.ExecuteReader(command);
         }

@@ -31991,98 +31991,6 @@ h1#penmostreo .campana {
     color:#9b9b9b; 
 }
 
-/*SB20-1198 - INICIO */
-.contenido_compra_nivel {
-    width: 100%; 
-    margin: 0 auto;
-    text-align: center;
-}
-
-.centrar_vertical {
-    display: inline-block; 
-    vertical-align: middle;
-}
-
-.titulo_pack_048{
-    font-family: 'Lato';
-    font-weight: 700;
-    font-size: 16px;
-    /*line-height: 22px;*/
-    color: black;
-    /*margin-top: -6px;*/
-    /*text-align: center;*/
-    /*padding-right: 12px;*/
-    /*text-align: left;*/
-    height:auto;
-}
-
-.sub_descripcion_oferta_048 {
-    /*width: 55%;
-    height: 55px;*/
-    /*line-height: 55px;*/
-    text-align:left;
-    /* padding-top: 8%; */
-    /* padding-bottom: 8%; */
-    /*border-bottom: 1px solid #dadada;*/
-    /*float: left;*/
-    font-family: 'Lato';
-    font-size: 13px;
-    color: black;
-    /*display: flex;
-    justify-content: center;
-    align-content: center;
-    flex-direction: column;*/
-}
-
-.sub_descripcion_oferta_048 p span{
-    color:#e81c36;
-    font-size:22px;
-    /*font-weight:700;*/
-    margin-right: 5px;
-}
-
-.sub_descripcion_oferta_048 p{
-    margin: 0;
-    padding: 0;
-    /*margin-left: 10px;*/
-    /*line-height:normal;*/
-}
-
-.texto_ganancia_pack_048{
-    font-family:'Lato';
-    font-weight:700;
-    font-size:16px;
-    color:#e81c36;
-    text-align:center;
-    text-transform:uppercase;
-}
-
-.img_compra_nivel {
-    width: 40px;
-    height: 50px;
-    border: 0;
-}
-
-.img_no_disponible {
-    width: 55px; 
-    height: 55px; 
-    border: 0;
-}
-
-/*SB20-1198 - FIN */
-
-/*SB20-877*/
-
-.resumen_belcorp_cam_modificado {
-    font-family: 'lato';
-    font-size: 18px;
-    letter-spacing: 0.3px;
-    color: black;
-    float: left;
-    margin-left: 2%;
-    margin-right: 8%;
-    width: 215px;
-}
 
 /*TABLA DE NOTIFICACIONES*/
 .logo_lista_detalle{
@@ -32161,7 +32069,83 @@ h1#penmostreo .campana {
     font-family: 'Lato';
     overflow:hidden;
 }
+/*SB20-1198 - INICIO */
+.contenido_compra_nivel {
+    width: 100%; 
+    margin: 0 auto;
+    text-align: center;
+}
 
+.centrar_vertical {
+    display: inline-block; 
+    vertical-align: middle;
+}
+
+.titulo_pack_048{
+    font-family: 'Lato';
+    font-weight: 700;
+    font-size: 16px;
+    /*line-height: 22px;*/
+    color: black;
+    /*margin-top: -6px;*/
+    /*text-align: center;*/
+    /*padding-right: 12px;*/
+    /*text-align: left;*/
+    height:auto;
+}
+
+.sub_descripcion_oferta_048 {
+    /*width: 55%;
+    height: 55px;*/
+    /*line-height: 55px;*/
+    text-align:left;
+    /* padding-top: 8%; */
+    /* padding-bottom: 8%; */
+    /*border-bottom: 1px solid #dadada;*/
+    /*float: left;*/
+    font-family: 'Lato';
+    font-size: 13px;
+    color: black;
+    /*display: flex;
+    justify-content: center;
+    align-content: center;
+    flex-direction: column;*/
+}
+
+.sub_descripcion_oferta_048 p span{
+    color:#e81c36;
+    font-size:22px;
+    /*font-weight:700;*/
+    margin-right: 5px;
+}
+
+.sub_descripcion_oferta_048 p{
+    margin: 0;
+    padding: 0;
+    /*margin-left: 10px;*/
+    /*line-height:normal;*/
+}
+
+.texto_ganancia_pack_048{
+    font-family:'Lato';
+    font-weight:700;
+    font-size:16px;
+    color:#e81c36;
+    text-align:center;
+    text-transform:uppercase;
+}
+
+.img_compra_nivel {
+    width: 40px;
+    height: 50px;
+    border: 0;
+}
+
+.img_no_disponible {
+    width: 55px; 
+    height: 55px; 
+    border: 0;
+}
 .estado_cdr_detalle{
     text-align: left;
     font-family: 'Lato';
@@ -32178,6 +32162,20 @@ h1#penmostreo .campana {
     font-family: 'Lato';
     font-size: 14.4px;    
     color: black;
+}
+/*SB20-1198 - FIN */
+
+/*SB20-877*/
+
+.resumen_belcorp_cam_modificado {
+    font-family: 'lato';
+    font-size: 18px;
+    letter-spacing: 0.3px;
+    color: black;
+    float: left;
+    margin-left: 2%;
+    margin-right: 8%;
+    width: 215px;
 }
 .texto_detalle_cdr{
      text-align: left;
@@ -32211,4 +32209,9 @@ h1#penmostreo .campana {
     font-size:13px;
     text-align:right;
     font-weight:700;
+}
+.texto_tab_pagos {
+    display:inline-block;
+    vertical-align:middle;
+    line-height:14px;
 }

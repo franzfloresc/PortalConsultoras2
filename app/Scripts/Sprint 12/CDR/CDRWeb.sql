@@ -389,8 +389,8 @@ CREATE PROCEDURE dbo.GetCDRWebDetalle
 )
 AS
 /*
-GetCDRWebDetalle 1,707193021
-GetCDRWebDetalle 0,707193021
+GetCDRWebDetalle 1,708100948
+GetCDRWebDetalle 0,708100948
 */
 BEGIN
 	declare @CampaniaId int = 0
@@ -785,5 +785,69 @@ begin
 	where CDRWebID = @CDRWebID
 
 end
+
+go
+
+IF EXISTS(SELECT 1 FROM INFORMATION_SCHEMA.ROUTINES WHERE SPECIFIC_NAME = 'GetCDRWebDetalleLog' AND SPECIFIC_SCHEMA = 'dbo' AND Routine_Type = 'PROCEDURE')
+BEGIN
+    DROP PROCEDURE dbo.GetCDRWebDetalleLog
+END
+
+GO
+
+CREATE PROCEDURE dbo.GetCDRWebDetalleLog
+(
+	@LogCDRWebID int
+)
+AS
+/*
+GetCDRWebDetalleLog 16
+*/
+BEGIN	
+	declare @Campania int = 0
+	declare @CDRWebId int = 0
+	select @Campania = CampaniaId, @CDRWebId = CDRWebId from interfaces.LogCDRWeb
+	where LogCDRWebID = @LogCDRWebID  
+
+	declare @PedidoId int = 0
+	select @PedidoId = PedidoId from CDRWeb
+	where CDRWebId = @CDRWebId
+
+	SELECT 
+		cd.CDRWebDetalleID
+		,c.CDRWebId as CDRWebID
+		,cd.CodigoOperacionCDR as CodigoOperacion
+		,cd.CodigoMotivoCDR as CodigoReclamo
+		,cd.CUV
+		,cd.Cantidad
+		,isnull(cd.CUV2,'') as CUV2
+		,cd.Cantidad2 as Cantidad2
+		,cd.EstadoCDR as Estado
+		,cd.CodigoRechazo as MotivoRechazo
+		,isnull(cmr.Tipo,0) as TipoMotivoRechazo
+		,cd.ObservacionRechazo as Observacion		
+		,pc.Descripcion as Descripcion
+		,isnull(pc2.Descripcion,'') as Descripcion2
+		,(pwd.PrecioUnidad * pwd.FactorRepeticion * cd.Cantidad) as Precio
+		,isnull((pc2.PrecioCatalogo * pc2.FactorRepeticion * cd.Cantidad2),0) as Precio2		
+	FROM interfaces.LogCDRWeb c		
+	INNER JOIN interfaces.LogCDRWebDetalle cd on
+		c.LogCDRWebID = cd.LogCDRWebID
+	INNER JOIN ods.Campania ca on
+		c.CampaniaId = ca.Codigo
+	INNER JOIN ods.ProductoComercial pc on
+		cd.CUV = pc.CUV
+		and pc.AnoCampania = @Campania
+	LEFT JOIN ods.ProductoComercial pc2 on
+		cd.CUV2 = pc2.CUV
+		and pc2.AnoCampania = @Campania
+	INNER JOIN ods.PedidoDetalle pwd on
+		pwd.CUV = cd.CUV
+		and pwd.PedidoID = @PedidoId
+	LEFT JOIN CDRWebMotivoRechazo cmr on
+		cd.CodigoRechazo = cmr.CodigoRechazo
+	WHERE		 
+		c.LogCDRWebID = @LogCDRWebID		
+END
 
 go

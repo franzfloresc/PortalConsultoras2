@@ -3604,15 +3604,7 @@
     <Content Include="Views\Set\Index.cshtml" />
     <Content Include="Views\MisReclamos\Reclamo.cshtml" />
     <Content Include="Views\MisCatalogosRevistas\MiRevista.cshtml" />
-    <Content Include="Views\TerminosYCondiciones\Index.cshtml" />
-    <Content Include="Views\Bienvenida\ActualizarContrasenia.cshtml" />
     <Content Include="Views\Notificaciones\ListaDetalleCdr.cshtml" />
-    <None Include="Web References\ServiceLMS\Reference.map">
-      <Generator>MSDiscoCodeGenerator</Generator>
-      <LastGenOutput>Reference.cs</LastGenOutput>
-    </None>
-    <None Include="Service References\ValidacionCrediticia\ValidacionCrediticiaService.wsdl" />
-    <None Include="Service References\ValidacionCrediticia\ValidacionCrediticiaService.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\ValidacionCrediticia\ValidacionCrediticiaService1.xsd">

@@ -48,14 +48,26 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
             model.ListaCDRWeb = listaCDRWebModel;
-
             model.IndicadorBloqueoCDR = userData.IndicadorBloqueoCDR;
 
             if(model.IndicadorBloqueoCDR == 1)
                 return View(model);
 
+            /*EPD-1339*/
+            model.CumpleRangoCampaniaCDR = CumpleRangoCampaniaCDR();
+
             if (model.ListaCDRWeb.Count == 0)
-                return RedirectToAction("Reclamo");
+            {
+                if (model.CumpleRangoCampaniaCDR == 0)
+                {
+                    return View(model);
+                }
+                else
+                {
+                    return RedirectToAction("Reclamo");
+                }
+            }
+            /*EPD-1339*/
 
             return View(model);
         }
@@ -65,6 +77,14 @@ namespace Portal.Consultoras.Web.Controllers
             CargarInformacion();
             var model = new MisReclamosModel();
             model.ListaCampania = (List<CampaniaModel>)Session[Constantes.ConstSession.CDRCampanias];
+
+            /*EPD-1339*/
+            if (model.ListaCampania.Count <= 1)
+            {
+                return RedirectToAction("Index");
+            }
+            /*EPD-1339*/
+
             model.Email = userData.EMail;
             model.Telefono = userData.Celular;
 
@@ -100,6 +120,23 @@ namespace Portal.Consultoras.Web.Controllers
 
             desc.Descripcion = Util.SubStr(desc.Descripcion, 0);
             return desc;
+        }
+
+        private int CumpleRangoCampaniaCDR()
+        {
+            var listaMotivoOperacion = CargarMotivoOperacion();
+            // get max dias => plazo para hacer reclamo
+            // calcular las campañas existentes en ese rango de dias
+            // obtener todos pedidos facturados de esas campañas existentes
+
+            int maxDias = 0;
+            if (listaMotivoOperacion.Any())
+            {
+                maxDias += int.Parse(listaMotivoOperacion.Max(m => m.CDRTipoOperacion.NumeroDiasAtrasOperacion).ToString());
+            }
+
+            var listaPedidoFacturados = CargarPedidosFacturados(maxDias);
+            return (listaPedidoFacturados.Count > 0) ? 1 : 0;
         }
 
         private void CargarInformacion()
