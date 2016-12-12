@@ -75,12 +75,12 @@ namespace Portal.Consultoras.Web.Controllers
                 SessionKeys.ClearSessionCantidadNotificaciones();
                 return Json(new { success = true }, JsonRequestBehavior.AllowGet);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 var usuarioModel = userData ?? new UsuarioModel();
                 LogManager.LogManager.LogErrorWebServicesBus(ex, usuarioModel.CodigoConsultora, usuarioModel.CodigoISO);
                 return Json(new { success = false }, JsonRequestBehavior.AllowGet);
-            }            
+            }
         }
 
         //R2319 - JLCS
@@ -317,8 +317,27 @@ namespace Portal.Consultoras.Web.Controllers
                 logGPRValidacion = sv.GetBELogGPRValidacionByGetLogGPRValidacionId(userData.PaisID, ProcesoId);
                 lstLogGPRValidacionDetalle = sv.GetListBELogGPRValidacionDetalleBELogGPRValidacionByLogGPRValidacionId(userData.PaisID, ProcesoId).ToList();
             }
-
             model = Mapper.Map<NotificacionesModel>(logGPRValidacion);
+
+            switch (logGPRValidacion.MotivoRechazo)
+            {
+                case Constantes.GPRMotivoRechazo.ActualizacionDeuda:
+                    model.DescripcionRechazo = string.Format("Tienes una deuda de {0} que debes regularizar.", logGPRValidacion.Valor);
+                    break;
+
+                case Constantes.GPRMotivoRechazo.MontoMinino:
+                    model.DescripcionRechazo = string.Format("No llegaste al monto mínimo de {0}. {1} ", userData.Simbolo, userData.MontoMinimo);
+                    break;
+
+                case Constantes.GPRMotivoRechazo.MontoMaximo:
+                    model.DescripcionRechazo = string.Format("Superaste tu línea de crédito de {0}. {1}.", userData.Simbolo, userData.MontoMaximo);
+                    break;
+
+                case Constantes.GPRMotivoRechazo.ValidacionMontoMinimoStock:
+                    model.DescripcionRechazo = string.Format("No llegaste al mínimo de {0}. ", logGPRValidacion.Valor);
+                    break;
+            }
+
             model.NombreConsultora = userData.NombreConsultora;
             model.Total = model.SubTotal + model.Descuento;
             model.SubTotalString = Util.DecimalToStringFormat(model.SubTotal, userData.CodigoISO);
