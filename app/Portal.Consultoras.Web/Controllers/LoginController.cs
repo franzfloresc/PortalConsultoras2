@@ -328,7 +328,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                         if (procesoRechazado.IdProcesoPedidoRechazado > 0)
                         {
-                            var listaRechazo = procesoRechazado.olstBEPedidoRechazado != null ? procesoRechazado.olstBEPedidoRechazado.ToList() : new List<BEPedidoRechazado>();
+                           List<BEPedidoRechazado> listaRechazo = procesoRechazado.olstBEPedidoRechazado != null ? procesoRechazado.olstBEPedidoRechazado.ToList() : new List<BEPedidoRechazado>();
                             if (listaRechazo.Any())
                             {
                                 listaRechazo = listaRechazo.Where(r => r.Rechazado).ToList();
@@ -340,8 +340,7 @@ namespace Portal.Consultoras.Web.Controllers
                                     string valorx = "";
 
                                     // deuda, monto mínimo/máximo/MinStock
-
-                                    listaRechazo.Update(p => p.MotivoRechazo = Util.SubStr(p.MotivoRechazo, 0).ToLower());
+                                    //listaRechazo.Update(p => p.MotivoRechazo = Util.SubStr(p.MotivoRechazo, 0).ToLower());
                                     listaRechazo = listaRechazo.Where(p => p.MotivoRechazo != "").ToList();
 
                                     var listaMotivox = listaRechazo.Where(p => p.MotivoRechazo == Constantes.GPRMotivoRechazo.ActualizacionDeuda).ToList(); //deuda

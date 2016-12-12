@@ -12885,10 +12885,7 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private int HorasDuracionRestriccionField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int IndicadorEnviadoField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int IndicadorRechazadoField;
+        private int IndicadorGPRSBField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string MensajeValidacionInteractivaField;
@@ -13243,27 +13240,14 @@ namespace Portal.Consultoras.Web.ServicePedido {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public int IndicadorEnviado {
+        public int IndicadorGPRSB {
             get {
-                return this.IndicadorEnviadoField;
+                return this.IndicadorGPRSBField;
             }
             set {
-                if ((this.IndicadorEnviadoField.Equals(value) != true)) {
-                    this.IndicadorEnviadoField = value;
-                    this.RaisePropertyChanged("IndicadorEnviado");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int IndicadorRechazado {
-            get {
-                return this.IndicadorRechazadoField;
-            }
-            set {
-                if ((this.IndicadorRechazadoField.Equals(value) != true)) {
-                    this.IndicadorRechazadoField = value;
-                    this.RaisePropertyChanged("IndicadorRechazado");
+                if ((this.IndicadorGPRSBField.Equals(value) != true)) {
+                    this.IndicadorGPRSBField = value;
+                    this.RaisePropertyChanged("IndicadorGPRSB");
                 }
             }
         }
@@ -17270,6 +17254,22 @@ namespace Portal.Consultoras.Web.ServicePedido {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetPedidosFacturadoSegunDias", ReplyAction="http://tempuri.org/IPedidoService/GetPedidosFacturadoSegunDiasResponse")]
         System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEPedidoWeb[]> GetPedidosFacturadoSegunDiasAsync(int paisID, int campaniaID, long consultoraID, int maxDias);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/ActualizarIndicadorGPRPedidosRechazados", ReplyAction="http://tempuri.org/IPedidoService/ActualizarIndicadorGPRPedidosRechazadosResponse" +
+            "")]
+        void ActualizarIndicadorGPRPedidosRechazados(int PaisID, long ProcesoID);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/ActualizarIndicadorGPRPedidosRechazados", ReplyAction="http://tempuri.org/IPedidoService/ActualizarIndicadorGPRPedidosRechazadosResponse" +
+            "")]
+        System.Threading.Tasks.Task ActualizarIndicadorGPRPedidosRechazadosAsync(int PaisID, long ProcesoID);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/ActualizarIndicadorGPRPedidosFacturados", ReplyAction="http://tempuri.org/IPedidoService/ActualizarIndicadorGPRPedidosFacturadosResponse" +
+            "")]
+        void ActualizarIndicadorGPRPedidosFacturados(int PaisID, long ProcesoID);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/ActualizarIndicadorGPRPedidosFacturados", ReplyAction="http://tempuri.org/IPedidoService/ActualizarIndicadorGPRPedidosFacturadosResponse" +
+            "")]
+        System.Threading.Tasks.Task ActualizarIndicadorGPRPedidosFacturadosAsync(int PaisID, long ProcesoID);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/EliminarTipoEstrategia", ReplyAction="http://tempuri.org/IPedidoService/EliminarTipoEstrategiaResponse")]
         int EliminarTipoEstrategia(Portal.Consultoras.Web.ServicePedido.BETipoEstrategia entidad);
         
@@ -18938,6 +18938,22 @@ namespace Portal.Consultoras.Web.ServicePedido {
         
         public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEPedidoWeb[]> GetPedidosFacturadoSegunDiasAsync(int paisID, int campaniaID, long consultoraID, int maxDias) {
             return base.Channel.GetPedidosFacturadoSegunDiasAsync(paisID, campaniaID, consultoraID, maxDias);
+        }
+        
+        public void ActualizarIndicadorGPRPedidosRechazados(int PaisID, long ProcesoID) {
+            base.Channel.ActualizarIndicadorGPRPedidosRechazados(PaisID, ProcesoID);
+        }
+        
+        public System.Threading.Tasks.Task ActualizarIndicadorGPRPedidosRechazadosAsync(int PaisID, long ProcesoID) {
+            return base.Channel.ActualizarIndicadorGPRPedidosRechazadosAsync(PaisID, ProcesoID);
+        }
+        
+        public void ActualizarIndicadorGPRPedidosFacturados(int PaisID, long ProcesoID) {
+            base.Channel.ActualizarIndicadorGPRPedidosFacturados(PaisID, ProcesoID);
+        }
+        
+        public System.Threading.Tasks.Task ActualizarIndicadorGPRPedidosFacturadosAsync(int PaisID, long ProcesoID) {
+            return base.Channel.ActualizarIndicadorGPRPedidosFacturadosAsync(PaisID, ProcesoID);
         }
         
         public int EliminarTipoEstrategia(Portal.Consultoras.Web.ServicePedido.BETipoEstrategia entidad) {
