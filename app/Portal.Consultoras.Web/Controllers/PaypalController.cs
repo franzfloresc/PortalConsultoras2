@@ -246,7 +246,7 @@ namespace Portal.Consultoras.Web.Controllers
             List<string> lst = new List<string>();
 
             int Anho = DateTime.Now.Year;
-            int fin = Anho + 7;
+            int fin = Anho + 14;
 
             for (var i = Anho; i <= fin; i++)
             {
