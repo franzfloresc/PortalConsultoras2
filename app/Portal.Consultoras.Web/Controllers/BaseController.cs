@@ -472,6 +472,17 @@ namespace Portal.Consultoras.Web.Controllers
             else return new List<PermisoModel>();
         }
 
+        private int MostrarMenuCDR()
+        {
+            int resultado = 0;
+            if (Session["UserData"] != null)
+            {
+                var tieneAcceso = userData.IndicadorBloqueoCDR == 0;
+                var tieneAccesoZona = userData.EsCDRWebZonaValida == 1;
+            }
+            return resultado;
+        }
+
         private List<PermisoModel> SepararItemsMenu(List<PermisoModel> menuOriginal)
         {
             // Crear lista resultante
@@ -819,6 +830,7 @@ namespace Portal.Consultoras.Web.Controllers
             if (isNull)
             {
                 ViewBag.Permiso = BuildMenu();
+                ViewBag.MostrarMenuCDR = MostrarMenuCDR();
                 ViewBag.Servicio = BuildMenuService();
                 ViewBag.ServiceController = ConfigurationManager.AppSettings["ServiceController"].ToString();
                 ViewBag.ServiceAction = ConfigurationManager.AppSettings["ServiceAction"].ToString();
@@ -1157,6 +1169,7 @@ namespace Portal.Consultoras.Web.Controllers
                 model.TieneHana = oBEUsuario.TieneHana;
                 model.NombreGerenteZonal = oBEUsuario.NombreGerenteZona;  // SB20-907
                 model.IndicadorBloqueoCDR = oBEUsuario.IndicadorBloqueoCDR;
+                model.EsCDRWebZonaValida = oBEUsuario.EsCDRWebZonaValida;
                 model.FechaActualPais = oBEUsuario.FechaActualPais;
 
                 if (model.RolID == Constantes.Rol.Consultora)

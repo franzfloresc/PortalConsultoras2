@@ -351,6 +351,8 @@ namespace Portal.Consultoras.Entities
                 TieneHana = Convert.ToInt32(row["TieneHana"]);
             if (DataRecord.HasColumn(row, "IndicadorBloqueoCDR") && row["IndicadorBloqueoCDR"] != DBNull.Value)
                 IndicadorBloqueoCDR = Convert.ToInt32(row["IndicadorBloqueoCDR"]);
+            if (DataRecord.HasColumn(row, "EsCDRWebZonaValida") && row["EsCDRWebZonaValida"] != DBNull.Value)
+                EsCDRWebZonaValida = Convert.ToInt32(row["EsCDRWebZonaValida"]);
             
             if (DataRecord.HasColumn(row, "IndicadorGPRSB") && row["IndicadorGPRSB"] != DBNull.Value)
                 IndicadorGPRSB = Convert.ToInt32(row["IndicadorGPRSB"]);
@@ -949,6 +951,9 @@ namespace Portal.Consultoras.Entities
 
         [DataMember]
         public int IndicadorBloqueoCDR { get; set; }
+
+        [DataMember]
+        public int EsCDRWebZonaValida { get; set; }
 
         [DataMember]
         public decimal MontoDeuda { get; set; }

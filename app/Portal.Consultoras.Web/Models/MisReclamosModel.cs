@@ -36,6 +36,8 @@ namespace Portal.Consultoras.Web.Models
         
         public int IndicadorBloqueoCDR { get; set; }
 
+        public int EsCDRWebZonaValida { get; set; }
+
         public decimal MontoMinimo { get; set; }        
 
         /*EPD-1339*/

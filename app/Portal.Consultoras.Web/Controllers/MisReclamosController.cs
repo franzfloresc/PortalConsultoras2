@@ -49,8 +49,9 @@ namespace Portal.Consultoras.Web.Controllers
 
             model.ListaCDRWeb = listaCDRWebModel;
             model.IndicadorBloqueoCDR = userData.IndicadorBloqueoCDR;
+            model.EsCDRWebZonaValida = userData.EsCDRWebZonaValida;
 
-            if(model.IndicadorBloqueoCDR == 1)
+            if (model.IndicadorBloqueoCDR == 1)
                 return View(model);
 
             /*EPD-1339*/
