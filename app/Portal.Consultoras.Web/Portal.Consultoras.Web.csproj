@@ -1091,6 +1091,7 @@
     <Content Include="Content\Css\Site\Esika\reset.css" />
     <Content Include="Content\Css\Site\Esika\style.css" />
     <Content Include="Content\Css\Site\flexslider.css" />
+    <Content Include="Content\Css\Site\flipclock.css" />
     <Content Include="Content\Css\Site\fonts\flexslider-icon.svg" />
     <Content Include="Content\Css\Site\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Content\Css\Site\fonts\icomoon.svg" />
@@ -2398,6 +2399,7 @@
     <Content Include="Scripts\DD_roundies.js" />
     <Content Include="Scripts\donetyping.js" />
     <Content Include="Scripts\fileuploader.min.js" />
+    <Content Include="Scripts\flipclock.js" />
     <Content Include="Scripts\fuzemodal-1.3\fuzemodal-1.3.1.min.js" />
     <Content Include="Scripts\fuzemodal-1.3\fuzemodal-1.3.2.min.js" />
     <Content Include="Scripts\fuzemodal-1.3\fuzemodal-1.3.css" />
