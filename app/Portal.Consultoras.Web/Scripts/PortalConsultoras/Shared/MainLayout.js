@@ -605,7 +605,7 @@ function MostrarShowRoomBannerLateral() {
 
     var togglediv = 0;
 
-    $("#ctras").hover(function () {
+    $("#ctras").click(function () {
         if (togglediv == 0) {
             $('.caja-traslado').animate({
                 'right': '0'
@@ -621,7 +621,7 @@ function MostrarShowRoomBannerLateral() {
         }
     });
 
-    $("#ctrasHoy").hover(function () {
+    $("#ctrasHoy").click(function () {
         if (togglediv == 0) {
             $('.caja-traslado').animate({
                 'right': '0'
@@ -665,6 +665,20 @@ function MostrarShowRoomBannerLateral() {
 
                                     //$("#ctras").hide();
                                     $("#ctrasHoy").show();
+
+                                    //animacion parea mostrar                                    
+                                    $('.caja-traslado').animate({
+                                        'right': '0'
+                                    }, 800);
+
+                                    setTimeout(function () {
+                                        //fanimacion para ocultar
+
+                                        $('.caja-traslado').animate({
+                                            'right': '-181px'
+                                        }, 800);
+                                    }, 5000);
+
                                 } else {
                                     $("#lnkConoceMasShowRoomBannerLateral").attr("href", response.rutaShowRoomBannerLateral);
                                     AgregarTimerShowRoom(response.diasFaltantes, response.mesFaltante, response.anioFaltante);
@@ -674,6 +688,19 @@ function MostrarShowRoomBannerLateral() {
 
                                     //$("#ctrasHoy").hide();
                                     $("#ctras").show();
+
+                                    //animacion parea mostrar                                    
+                                    $('.caja-traslado').animate({
+                                        'right': '0'
+                                    }, 800);
+
+                                    setTimeout(function () {
+                                        //fanimacion para ocultar
+
+                                        $('.caja-traslado').animate({
+                                            'right': '-181px'
+                                        }, 800);
+                                    }, 5000);
                                 }
                             }
                         }

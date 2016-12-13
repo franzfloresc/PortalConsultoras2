@@ -1666,7 +1666,6 @@
     <Content Include="Content\Images\Esika\mobile.png" />
     <Content Include="Content\Images\Esika\mobile2.png" />
     <Content Include="Content\Images\Esika\next.png" />
-    <Content Include="Content\Images\Esika\notificacion.png" />
     <Content Include="Content\Images\Esika\notificaciones-header.png" />
     <Content Include="Content\Images\Esika\notificaciones.png" />
     <Content Include="Content\Images\Esika\oferta.png" />
@@ -1901,7 +1900,6 @@
     <Content Include="Content\Images\Lbel\menos.png" />
     <Content Include="Content\Images\Lbel\mensajes.png" />
     <Content Include="Content\Images\Lbel\mobile.png" />
-    <Content Include="Content\Images\Lbel\notificacion.png" />
     <Content Include="Content\Images\Lbel\notificaciones.png" />
     <Content Include="Content\Images\Lbel\oferta.png" />
     <Content Include="Content\Images\Lbel\oferta_web.png" />
@@ -2043,6 +2041,7 @@
     <Content Include="Content\Images\mobile\Esika\mensajes.png" />
     <Content Include="Content\Images\mobile\Esika\menu_mobile.png" />
     <Content Include="Content\Images\mobile\Esika\next.png" />
+    <Content Include="Content\Images\mobile\Esika\notificacion.png" />
     <Content Include="Content\Images\mobile\Esika\notificaciones.png" />
     <Content Include="Content\Images\mobile\Esika\pestana_esika.png" />
     <Content Include="Content\Images\mobile\Esika\previous_ofertas_home.png" />
@@ -2162,6 +2161,7 @@
     <Content Include="Content\Images\mobile\img-showroom\titulo_preventa.jpg" />
     <Content Include="Content\Images\mobile\img-showroom\top_triangular.png" />
     <Content Include="Content\Images\mobile\img-showroom\volver.png" />
+    <Content Include="Content\Images\mobile\img_producto_ofertaFinal.png" />
     <Content Include="Content\Images\mobile\landing_mobile_8.jpg" />
     <Content Include="Content\Images\mobile\LandingConsultoras.jpg" />
     <Content Include="Content\Images\mobile\Lbel\asesor_basePolvos_lbel.png" />
@@ -2181,6 +2181,7 @@
     <Content Include="Content\Images\mobile\Lbel\logo_Lbel.png" />
     <Content Include="Content\Images\mobile\Lbel\mas_footer.png" />
     <Content Include="Content\Images\mobile\Lbel\menos_footer.png" />
+    <Content Include="Content\Images\mobile\Lbel\notificacion.png" />
     <Content Include="Content\Images\mobile\Lbel\pestana_lbel.png" />
     <Content Include="Content\Images\mobile\Lbel\video.png" />
     <Content Include="Content\Images\mobile\LogoBelcorp.png" />
