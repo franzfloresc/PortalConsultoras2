@@ -11,10 +11,10 @@ namespace Portal.Consultoras.BizLogic
 {
     public class BLPopupPais
     {
-        public List<BEPopupPais> ObtenerOrdenPopUpMostrar()
+        public List<BEPopupPais> ObtenerOrdenPopUpMostrar(int PaisID)
         {
             List<BEPopupPais> PopUps = new List<BEPopupPais>();
-            DAPopupPais DataPopupPais = new DAPopupPais();
+            DAPopupPais DataPopupPais = new DAPopupPais(PaisID);
 
             using (IDataReader reader = DataPopupPais.ObtenerOrdenPopUpMostrar())
             {
