@@ -909,7 +909,7 @@ namespace Portal.Consultoras.Web.Controllers
                     MostrarBannerPedidoRechazado = true;
                     if (!oBEUsuario.ValidacionAbierta && oBEUsuario.EstadoPedido == 202) { MostrarBannerPedidoRechazado = false; }
                     model.MostrarBannerRechazo = MostrarBannerPedidoRechazado;
-                    ViewBag.CerrarRechazado = MostrarBannerPedidoRechazado ? 1: 0;
+                    ViewBag.CerrarRechazado = MostrarBannerPedidoRechazado ? 1 : 0;
 
                     var procesoRechazado = new BEProcesoPedidoRechazado();
                     try
@@ -937,7 +937,6 @@ namespace Portal.Consultoras.Web.Controllers
                                     string valorx = "";
 
                                     // deuda, monto mínimo/máximo/MinStock
-
                                     listaRechazo.Update(p => p.MotivoRechazo = Util.SubStr(p.MotivoRechazo, 0).ToLower());
                                     listaRechazo = listaRechazo.Where(p => p.MotivoRechazo != "").ToList();
 
@@ -951,34 +950,18 @@ namespace Portal.Consultoras.Web.Controllers
                                     listaMotivox = listaRechazo.Where(p => p.MotivoRechazo == "minimo").ToList();
                                     if (listaMotivox.Any())
                                     {
-                                        if (model.MotivoRechazo != "")
-                                        {
-                                            model.MotivoRechazo = "Tienes una deuda pendiente de " + valorx;
-                                            valorx = valor + listaMotivox[0].Valor;
-                                            model.MotivoRechazo += ". Además, para pasar pedido debes alcanzar el monto mínimo de " + oBEUsuario.Simbolo + ". " + oBEUsuario.MontoMinimoPedido + ". <a class='CerrarBanner' href='javascript:;' onclick=RedirectMenu('Index','Pedido',0,'Pedido');cerrarMensajeEstadoPedido() >MODIFICA TU PEDIDO</a>";
-                                        }
-                                        else
-                                        {
-                                            valorx = valor + listaMotivox[0].Valor;
-                                            model.MotivoRechazo = "No llegaste al monto mínimo de " + oBEUsuario.Simbolo + ". " + oBEUsuario.MontoMinimoPedido + " <a class='CerrarBanner' href='javascript:;' onclick=RedirectMenu('Index','Pedido',0,'Pedido');cerrarMensajeEstadoPedido() >MODIFICA TU PEDIDO</a>";
-                                        }
+                                        valorx = valor + listaMotivox[0].Valor;
+                                        model.MotivoRechazo = "No llegaste al monto mínimo de " + oBEUsuario.Simbolo + ". " + oBEUsuario.MontoMinimoPedido + " <a class='CerrarBanner' href='javascript:;' onclick=RedirectMenu('Index','Pedido',0,'Pedido');cerrarMensajeEstadoPedido() >MODIFICA TU PEDIDO</a>";
+
                                     }
                                     else
                                     {
                                         listaMotivox = listaRechazo.Where(p => p.MotivoRechazo == "maximo").ToList();
                                         if (listaMotivox.Any())
                                         {
-                                            if (model.MotivoRechazo != "")
-                                            {
-                                                model.MotivoRechazo = "Tienes una deuda pendiente de " + valorx;
-                                                valorx = valor + listaMotivox[0].Valor;
-                                                model.MotivoRechazo += ". Además, superaste tu línea de crédito de " + oBEUsuario.Simbolo + ". " + oBEUsuario.MontoMaximoPedido + ". <a class='CerrarBanner' href='javascript:;' onclick=RedirectMenu('Index','Pedido',0,'Pedido');cerrarMensajeEstadoPedido() >MODIFICA TU PEDIDO</a>";
-                                            }
-                                            else
-                                            {
-                                                valorx = valor + listaMotivox[0].Valor;
-                                                model.MotivoRechazo = "Superaste tu línea de crédito de " + oBEUsuario.Simbolo + ". " + oBEUsuario.MontoMaximoPedido + ". <a class='CerrarBanner' href='javascript:;' onclick=RedirectMenu('Index','Pedido',0,'Pedido');cerrarMensajeEstadoPedido() >MODIFICA TU PEDIDO</a>";
-                                            }
+                                            valorx = valor + listaMotivox[0].Valor;
+                                            model.MotivoRechazo = "Superaste tu línea de crédito de " + oBEUsuario.Simbolo + ". " + oBEUsuario.MontoMaximoPedido + ". <a class='CerrarBanner' href='javascript:;' onclick=RedirectMenu('Index','Pedido',0,'Pedido');cerrarMensajeEstadoPedido() >MODIFICA TU PEDIDO</a>";
+
                                         }
                                     }
 

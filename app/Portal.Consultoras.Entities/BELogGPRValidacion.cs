@@ -34,6 +34,10 @@ namespace Portal.Consultoras.Entities
 
         [DataMember]
         public DateTime FechaFinValidacion { get; set; }
+        [DataMember]
+        public string MotivoRechazo { get; set; }
+        [DataMember]
+        public string Valor { get; set; }
 
         public BELogGPRValidacion(IDataRecord row)
         {
@@ -55,6 +59,10 @@ namespace Portal.Consultoras.Entities
                 this.EstadoSimplificacionCUV = Convert.ToBoolean(row["EstadoSimplificacionCUV"]);
             if (DataRecord.HasColumn(row, "FechaFinValidacion") && row["FechaFinValidacion"] != DBNull.Value)
                 this.FechaFinValidacion = Convert.ToDateTime(row["FechaFinValidacion"]);
+            if (DataRecord.HasColumn(row, "MotivoRechazo") && row["MotivoRechazo"] != DBNull.Value)
+                this.MotivoRechazo = (row["MotivoRechazo"]).ToString().ToUpper().Trim();
+            if (DataRecord.HasColumn(row, "Valor"))
+                Valor = Convert.ToString(row["Valor"]);
         }
     }
 }
