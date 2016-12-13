@@ -93,6 +93,18 @@
   <wsdl:message name="IPedidoService_GetPedidosFacturadoSegunDias_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetPedidosFacturadoSegunDiasResponse" />
   </wsdl:message>
+  <wsdl:message name="IPedidoService_ActualizarIndicadorGPRPedidosRechazados_InputMessage">
+    <wsdl:part name="parameters" element="tns:ActualizarIndicadorGPRPedidosRechazados" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_ActualizarIndicadorGPRPedidosRechazados_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ActualizarIndicadorGPRPedidosRechazadosResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_ActualizarIndicadorGPRPedidosFacturados_InputMessage">
+    <wsdl:part name="parameters" element="tns:ActualizarIndicadorGPRPedidosFacturados" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_ActualizarIndicadorGPRPedidosFacturados_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ActualizarIndicadorGPRPedidosFacturadosResponse" />
+  </wsdl:message>
   <wsdl:message name="IPedidoService_InsertarTipoEstrategia_InputMessage">
     <wsdl:part name="parameters" element="tns:InsertarTipoEstrategia" />
   </wsdl:message>
@@ -1680,6 +1692,14 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetPedidosFacturadoSegunDias" message="tns:IPedidoService_GetPedidosFacturadoSegunDias_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/GetPedidosFacturadoSegunDiasResponse" message="tns:IPedidoService_GetPedidosFacturadoSegunDias_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="ActualizarIndicadorGPRPedidosRechazados">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/ActualizarIndicadorGPRPedidosRechazados" message="tns:IPedidoService_ActualizarIndicadorGPRPedidosRechazados_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/ActualizarIndicadorGPRPedidosRechazadosResponse" message="tns:IPedidoService_ActualizarIndicadorGPRPedidosRechazados_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ActualizarIndicadorGPRPedidosFacturados">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/ActualizarIndicadorGPRPedidosFacturados" message="tns:IPedidoService_ActualizarIndicadorGPRPedidosFacturados_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/ActualizarIndicadorGPRPedidosFacturadosResponse" message="tns:IPedidoService_ActualizarIndicadorGPRPedidosFacturados_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="InsertarTipoEstrategia">
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/InsertarTipoEstrategia" message="tns:IPedidoService_InsertarTipoEstrategia_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/InsertarTipoEstrategiaResponse" message="tns:IPedidoService_InsertarTipoEstrategia_OutputMessage" />
@@ -2822,6 +2842,24 @@
     </wsdl:operation>
     <wsdl:operation name="GetPedidosFacturadoSegunDias">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/GetPedidosFacturadoSegunDias" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ActualizarIndicadorGPRPedidosRechazados">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/ActualizarIndicadorGPRPedidosRechazados" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ActualizarIndicadorGPRPedidosFacturados">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/ActualizarIndicadorGPRPedidosFacturados" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
