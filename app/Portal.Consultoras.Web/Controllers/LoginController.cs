@@ -339,15 +339,19 @@ namespace Portal.Consultoras.Web.Controllers
                                     string valor = oBEUsuario.Simbolo + " ";
                                     string valorx = "";
 
-                                    // deuda, monto mínimo/máximo/MinStock
                                     //listaRechazo.Update(p => p.MotivoRechazo = Util.SubStr(p.MotivoRechazo, 0).ToLower());
                                     listaRechazo = listaRechazo.Where(p => p.MotivoRechazo != "").ToList();
 
                                     var listaMotivox = listaRechazo.Where(p => p.MotivoRechazo == Constantes.GPRMotivoRechazo.ActualizacionDeuda).ToList(); //deuda
                                     if (listaMotivox.Any())
                                     {
+                                        bool esMovil = Request.Browser.IsMobileDevice;
+
                                         valorx = valor + listaMotivox[0].Valor;
                                         model.MotivoRechazo = "Tienes una deuda de " + valorx + " que debes regularizar. <a class='CerrarBanner' href='javascript:;' onclick=RedirectMenu('Index','MisPagos',0,'');cerrarMensajeEstadoPedido() >MIRA LOS LUGARES DE PAGO</a>";
+
+                                        if (esMovil)
+                                            model.MotivoRechazo = "Tienes una deuda de " + valorx + " que debes regularizar.";
                                     }
 
                                     listaMotivox = listaRechazo.Where(p => p.MotivoRechazo == Constantes.GPRMotivoRechazo.MontoMinino).ToList(); // minimo
