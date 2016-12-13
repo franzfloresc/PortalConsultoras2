@@ -41,7 +41,7 @@ namespace Portal.Consultoras.Entities
             if (DataRecord.HasColumn(row, "CodigoConsultora"))
                 CodigoConsultora = Convert.ToString(row["CodigoConsultora"]);
             if (DataRecord.HasColumn(row, "MotivoRechazo"))
-                MotivoRechazo = Convert.ToString(row["MotivoRechazo"]);
+                MotivoRechazo = Convert.ToString(row["MotivoRechazo"]).ToUpper().Trim();
             if (DataRecord.HasColumn(row, "Valor"))
                 Valor = Convert.ToString(row["Valor"]);
             if (DataRecord.HasColumn(row, "RequiereGestion"))

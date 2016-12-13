@@ -310,7 +310,7 @@ header {
 
 .content_left_menu{
     float:left;
-    margin-right:53px;
+    margin-right:35px;
     margin-top:40px;
     
 }
@@ -30662,24 +30662,6 @@ h1#penmostreo .campana {
     
     margin-top: 25px;
 }
-.btn_si_stock{
-    font-family: 'LAto';
-    font-size: 13px;
-    font-weight: 700;
-    /*float: right;*/
-    display: block;
-    width: 160px;
-    /*height: 45px;*/
-    height: 40px;       /*EPD-1378*/
-    text-align: center;
-    /*margin-top: 13px;*/
-    margin-top: 2px;
-    color: white;
-    background: #613c87;
-    line-height: 45px;
-
-    float: left;        /*EPD-1378*/
-}
 .stock_content_aceptado{
     width: 100%;
     /*height: auto;
@@ -31335,7 +31317,7 @@ h1#penmostreo .campana {
     width: 297px;
     height: 45px;
     text-align: center;
-    margin-top: 18px;
+    margin-top: 2px;
     color: black;
     background:white;
     border:1px solid black;
@@ -32151,8 +32133,11 @@ h1#penmostreo .campana {
     font-family: 'Lato';
     font-size: 14px;
     color: #613c87;
-    margin-bottom:10px;
+    /*margin-bottom:10px;*/
     font-weight:900;
+}
+.estado_cdr_detalle:last-child {
+    margin-bottom:10px;
 }
 .left_detalle_cdr{
     width:55%;
@@ -32214,4 +32199,56 @@ h1#penmostreo .campana {
     display:inline-block;
     vertical-align:middle;
     line-height:14px;
+}
+
+/*GPR*/
+.logo_lista_detalle {
+    width: 100px;
+    height: 38px;
+    margin: 0 auto;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    background: url(http://www.genesis-peru.com/mailing-belcorp/logo.png) no-repeat center center;
+}
+
+.content_datos_gpr {
+    width: 96%;
+    height: auto;
+    margin: 0 auto;
+}
+
+.saludo_gpr {
+    font-family: 'Lato';
+    font-size: 16px;
+    text-align: center;
+    font-weight: 500;
+    color: #000;
+    padding: 18px;
+}
+
+.cuerpo_gpr {
+    text-align: center;
+    font-family: 'Lato';
+    font-size: 18px;
+    font-weight: 700;
+    color: #000;
+    padding-bottom: 15px;
+    letter-spacing: 0.2px;
+}
+
+    .cuerpo_gpr div {
+        display: inline-block;
+    }
+
+    .cuerpo_gpr a {
+        text-decoration: underline;
+    }
+
+.respuesta_cdr {
+    text-align: center;
+    font-family: 'Lato';
+    color: #000;
+    font-weight: 700;
+    font-size: 14px;
+    padding-bottom: 30px;
 }
