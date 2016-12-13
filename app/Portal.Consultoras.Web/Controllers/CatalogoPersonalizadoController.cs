@@ -107,7 +107,7 @@ namespace Portal.Consultoras.Web.Controllers
                         using (ODSServiceClient sv = new ODSServiceClient())
                         {
                             olstProducto = sv.SelectProductoByCodigoDescripcionSearchRegionZona(userData.PaisID, userData.CampaniaID, producto.Cuv,
-                                    userData.RegionID, userData.ZonaID, userData.CodigorRegion, userData.CodigoZona, 1, 1).ToList();
+                                    userData.RegionID, userData.ZonaID, userData.CodigorRegion, userData.CodigoZona, 1, 1, false).ToList();
                         }
                         if (olstProducto.Count == 0) continue;
 
@@ -483,7 +483,7 @@ namespace Portal.Consultoras.Web.Controllers
                 using (ODSServiceClient sv = new ODSServiceClient())
                 {
                     producto = sv.SelectProductoByCodigoDescripcionSearchRegionZona(userData.PaisID, userData.CampaniaID, dataPROL.cuv_revista,
-                            userData.RegionID, userData.ZonaID, userData.CodigorRegion, userData.CodigoZona, 1, 1).FirstOrDefault();
+                            userData.RegionID, userData.ZonaID, userData.CodigorRegion, userData.CodigoZona, 1, 1, false).FirstOrDefault();
                 }
 
                 var txtGanancia = userData.CodigoISO == Constantes.CodigosISOPais.Peru ? "Gana" :
