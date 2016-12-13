@@ -30605,21 +30605,6 @@ h1#penmostreo .campana {
     
     margin-top: 25px;
 }
-.btn_si_stock{
-    font-family: 'LAto';
-    font-size: 13px;
-    font-weight: 700;
-    float: right;
-    display: block;
-    width: 160px;
-    height: 45px;
-    text-align: center;
-    /*margin-top: 13px;*/
-    margin-top: 2px;
-    color: white;
-    background: #613c87;
-    line-height: 45px;
-}
 .stock_content_aceptado{
     width: 100%;
     height: auto;
@@ -31263,7 +31248,7 @@ h1#penmostreo .campana {
     width: 297px;
     height: 45px;
     text-align: center;
-    margin-top: 18px;
+    margin-top: 2px;
     color: black;
     background:white;
     border:1px solid black;
