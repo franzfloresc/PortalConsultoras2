@@ -32005,6 +32005,7 @@ h1#penmostreo .campana {
     height:100px;
     background: url(../../../Images/PL20/textura_fondo.png) repeat-x;
     position:relative;
+    z-index:6;
 }
 .content_oferta_dia{
     max-width:1024px;
