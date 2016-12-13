@@ -17,7 +17,11 @@
 <div class="content_belcorp" style="min-height: 600px;">
     <div class="pestana_lbel"></div><!--PESTAÑA PARA DARLE ESTILO CON LBEL-->
 
-    @if (Model.IndicadorBloqueoCDR == 1 && Model.ListaCDRWeb.Count <= 0)
+    @if (Model.EsCDRWebZonaValida == 0 && Model.ListaCDRWeb.Count <= 0)
+    {
+        <div class="texto_reclamos_bloqueada">Lo sentimos, por el momento tu zona no se encuentra disponible para realizar esta operación. Por favor, contáctate con el Call Center</div>
+    }
+    else if (Model.IndicadorBloqueoCDR == 1 && Model.ListaCDRWeb.Count <= 0)
     {
         <div class="texto_reclamos_bloqueada">Lo sentimos, por el momento te encuentras bloqueada para realizar esta operación. Por favor, contáctate con el Call Center</div>
     }
@@ -64,7 +68,7 @@
                         formatoHoraAtencion = horaAtencion.ToString().PadLeft(2, '0') + ":" + minutoAtencion + " " + formatoDiaAtencion;
 
                         formatoFechaAtencion = item.FechaAtencion.Value.Day.ToString().PadLeft(2, '0') + "/" +
-                                                item.FechaAtencion.Value.Month.ToString().PadLeft(2, '0') + "/" + item.FechaAtencion.Value.Year;
+                                               item.FechaAtencion.Value.Month.ToString().PadLeft(2, '0') + "/" + item.FechaAtencion.Value.Year;
                     }
 
                     var formatoFechaCulminado = "--/--/----";
@@ -141,6 +145,7 @@
 
 <input type="hidden" id="hdPedidoIdActual"/>
 <input type="hidden" id="hdIndicadorBloqueoCDR" value="@Model.IndicadorBloqueoCDR"/>
+<input type="hidden" id="hdEsCDRWebZonaValida" value="@Model.EsCDRWebZonaValida" />
 <input type="hidden" id="hdCumpleRangoCampaniaCDR" value="@Model.CumpleRangoCampaniaCDR" />
 
 <div class="contenedor_popup_percepciones" id="PopSolicitud">
@@ -180,8 +185,8 @@
             </div>
             <div class="linea_separadora"></div>
             <div id="divDetallePedidoCDR">
-                
-            </div>          
+
+            </div>
         </div>
     </div>
 
@@ -199,7 +204,7 @@
 
         <div class="fondo_f7f7f7 row_36">
             <div class="texto_titulo_reclamos" id="TituloReclamo">Solicitud de Cambios y Devoluciones</div>
-            <div style="text-align: center; max-width: 700px; margin: 0 auto">                
+            <div style="text-align: center; max-width: 700px; margin: 0 auto">
                 <div class="detalle_estado_reclamo">Fecha:<b> <span id="spnFechaCulminado2">10 Oct 2016</span></b>
                 </div>
                 <div class="detalle_estado_reclamo">Solicitud:<b> Nº <span id="spnNumeroSolicitud2">12345678</span></b>
@@ -489,6 +494,7 @@
             $("#IrPaso1").on("click", function () {
                 var estaBloqueado = $("#hdIndicadorBloqueoCDR").val();
                 var cumpleRangoCampania = $("#hdCumpleRangoCampaniaCDR").val();
+                var esZonaValida = $("#hdEsCDRWebZonaValida").val();
 
                 /*EPD-1339*/
                 if (cumpleRangoCampania == 0) {
@@ -497,12 +503,15 @@
                 }
                 /*EPD-1339*/
 
-                if (estaBloqueado == 0)
-                    window.location.href = urlReclamo;
-                else {
-                    alert_msg("Lo sentimos, por el momento te encuentras bloqueada para realizar esta operación. Por favor, contáctate con el Call Center");
+                if (esZonaValida == 0) {
+                    alert_msg("Lo sentimos, por el momento tu zona no se encuentra disponible para realizar esta operación. Por favor, contáctate con el Call Center");
+                } else {
+                    if (estaBloqueado == 0)
+                        window.location.href = urlReclamo;
+                    else {
+                        alert_msg("Lo sentimos, por el momento te encuentras bloqueada para realizar esta operación. Por favor, contáctate con el Call Center");
+                    }
                 }
-                
             });
         });
 

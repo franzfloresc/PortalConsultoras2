@@ -285,6 +285,7 @@ namespace Portal.Consultoras.Web.Models
         public int TieneHana { get; set; }
         public int IndicadorBloqueoCDR { get; set; }
         public int EsCDRWebZonaValida { get; set; }
+        public int TieneCDR { get; set; }
         public int IndicadorEnviado { get; set; }
         public int IndicadorRechazado { get; set; }
         public string MotivoRechazo { get; set; }

@@ -353,6 +353,8 @@ namespace Portal.Consultoras.Entities
                 IndicadorBloqueoCDR = Convert.ToInt32(row["IndicadorBloqueoCDR"]);
             if (DataRecord.HasColumn(row, "EsCDRWebZonaValida") && row["EsCDRWebZonaValida"] != DBNull.Value)
                 EsCDRWebZonaValida = Convert.ToInt32(row["EsCDRWebZonaValida"]);
+            if (DataRecord.HasColumn(row, "TieneCDR") && row["TieneCDR"] != DBNull.Value)
+                TieneCDR = Convert.ToInt32(row["TieneCDR"]);
             
             if (DataRecord.HasColumn(row, "IndicadorEnviado") && row["IndicadorEnviado"] != DBNull.Value)
                 IndicadorEnviado = Convert.ToInt32(row["IndicadorEnviado"]);
@@ -950,6 +952,9 @@ namespace Portal.Consultoras.Entities
 
         [DataMember]
         public int EsCDRWebZonaValida { get; set; }
+
+        [DataMember]
+        public int TieneCDR { get; set; }
 
         [DataMember]
         public decimal MontoDeuda { get; set; }

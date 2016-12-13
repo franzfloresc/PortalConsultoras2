@@ -383,6 +383,9 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         private int TerritorioIDField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int TieneCDRField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int TieneHanaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -2017,6 +2020,19 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
                 if ((this.TerritorioIDField.Equals(value) != true)) {
                     this.TerritorioIDField = value;
                     this.RaisePropertyChanged("TerritorioID");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int TieneCDR {
+            get {
+                return this.TieneCDRField;
+            }
+            set {
+                if ((this.TieneCDRField.Equals(value) != true)) {
+                    this.TieneCDRField = value;
+                    this.RaisePropertyChanged("TieneCDR");
                 }
             }
         }

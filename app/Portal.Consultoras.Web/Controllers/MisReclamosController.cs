@@ -17,6 +17,9 @@ namespace Portal.Consultoras.Web.Controllers
     {        
         public ActionResult Index()
         {
+            if(userData.TieneCDR == 0)
+                return RedirectToAction("Index", "Bienvenida");
+
             MisReclamosModel model = new MisReclamosModel();
             var listaCDRWebModel = new List<CDRWebModel>();
 
@@ -50,12 +53,13 @@ namespace Portal.Consultoras.Web.Controllers
             model.ListaCDRWeb = listaCDRWebModel;
             model.IndicadorBloqueoCDR = userData.IndicadorBloqueoCDR;
             model.EsCDRWebZonaValida = userData.EsCDRWebZonaValida;
+            model.CumpleRangoCampaniaCDR = CumpleRangoCampaniaCDR();
 
-            if (model.IndicadorBloqueoCDR == 1)
+            if (model.EsCDRWebZonaValida == 0)
                 return View(model);
 
-            /*EPD-1339*/
-            model.CumpleRangoCampaniaCDR = CumpleRangoCampaniaCDR();
+            if (model.IndicadorBloqueoCDR == 1)
+                return View(model);                       
 
             if (model.ListaCDRWeb.Count == 0)
             {
@@ -63,12 +67,9 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     return View(model);
                 }
-                else
-                {
-                    return RedirectToAction("Reclamo");
-                }
+
+                return RedirectToAction("Reclamo");
             }
-            /*EPD-1339*/
 
             return View(model);
         }

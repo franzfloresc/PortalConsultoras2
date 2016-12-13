@@ -24,6 +24,9 @@ if (select COUNT(*) from dbo.sysobjects inner join dbo.syscolumns on SYSOBJECTS.
 	ALTER TABLE dbo.Pais ADD TieneCDR int
 go
 
+update Pais set TieneCDR = 1 where PaisID=11
+go
+
 IF EXISTS(SELECT * FROM INFORMATION_SCHEMA.tables 
 	WHERE TABLE_SCHEMA = 'dbo' AND TABLE_TYPE='BASE TABLE' AND TABLE_NAME = 'CDRWeb')
 BEGIN
@@ -1045,7 +1048,8 @@ BEGIN
 			ISNULL(p.OFGanaMas,0) AS OfertaFinalGanaMas,
 			ISNULL(@EsOFGanaMasZonaValida,0) AS EsOFGanaMasZonaValida,
 			isnull(c.IndicadorBloqueoCDR,0) as IndicadorBloqueoCDR,
-			isnull(@EsCDRWebZonaValida,0) as EsCDRWebZonaValida
+			isnull(@EsCDRWebZonaValida,0) as EsCDRWebZonaValida,
+			isnull(p.TieneCDR,0) as TieneCDR
 		FROM dbo.Usuario u with(nolock)
 		LEFT JOIN (
 			select *
@@ -1145,7 +1149,8 @@ BEGIN
 			ISNULL(p.OFGanaMas,0) AS OfertaFinalGanaMas,
 			ISNULL(@EsOFGanaMasZonaValida,0) AS EsOFGanaMasZonaValida,
 			0 as IndicadorBloqueoCDR,
-			isnull(@EsCDRWebZonaValida,0) as EsCDRWebZonaValida
+			isnull(@EsCDRWebZonaValida,0) as EsCDRWebZonaValida,
+			isnull(p.TieneCDR,0) as TieneCDR
 		FROM dbo.Usuario u (nolock)
 		LEFT JOIN [ConsultoraFicticia] c (nolock) ON u.CodigoConsultora = c.Codigo
 		LEFT JOIN [dbo].[UsuarioRol] ur (nolock) ON u.CodigoUsuario = ur.CodigoUsuario
