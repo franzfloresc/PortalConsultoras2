@@ -34,6 +34,12 @@
       <xsd:import schemaLocation="http://localhost:41615/SACService.svc?xsd=xsd4" namespace="http://schemas.datacontract.org/2004/07/System.Data" />
     </xsd:schema>
   </wsdl:types>
+  <wsdl:message name="ISACService_GetProveedorDespachoCobranza_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetProveedorDespachoCobranza" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_GetProveedorDespachoCobranza_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetProveedorDespachoCobranzaResponse" />
+  </wsdl:message>
   <wsdl:message name="ISACService_DelProveedorDespachoCobranza_InputMessage">
     <wsdl:part name="parameters" element="tns:DelProveedorDespachoCobranza" />
   </wsdl:message>
@@ -69,6 +75,12 @@
   </wsdl:message>
   <wsdl:message name="ISACService_GetProveedorDespachoCobranzaBYiD_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetProveedorDespachoCobranzaBYiDResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_UpdateBelcorpNoticia_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateBelcorpNoticia" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_UpdateBelcorpNoticia_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateBelcorpNoticiaResponse" />
   </wsdl:message>
   <wsdl:message name="ISACService_DeleteBelcorpNoticia_InputMessage">
     <wsdl:part name="parameters" element="tns:DeleteBelcorpNoticia" />
@@ -574,12 +586,6 @@
   <wsdl:message name="ISACService_GetFechaHoraPais_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetFechaHoraPaisResponse" />
   </wsdl:message>
-  <wsdl:message name="ISACService_GetProveedorDespachoCobranza_InputMessage">
-    <wsdl:part name="parameters" element="tns:GetProveedorDespachoCobranza" />
-  </wsdl:message>
-  <wsdl:message name="ISACService_GetProveedorDespachoCobranza_OutputMessage">
-    <wsdl:part name="parameters" element="tns:GetProveedorDespachoCobranzaResponse" />
-  </wsdl:message>
   <wsdl:message name="ISACService_GetCronogramaByCampania_InputMessage">
     <wsdl:part name="parameters" element="tns:GetCronogramaByCampania" />
   </wsdl:message>
@@ -1006,6 +1012,12 @@
   <wsdl:message name="ISACService_InsLogModificacionCronogramaMasivo_OutputMessage">
     <wsdl:part name="parameters" element="tns:InsLogModificacionCronogramaMasivoResponse" />
   </wsdl:message>
+  <wsdl:message name="ISACService_InsLogConfiguracionCronogramaMasivo_InputMessage">
+    <wsdl:part name="parameters" element="tns:InsLogConfiguracionCronogramaMasivo" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_InsLogConfiguracionCronogramaMasivo_OutputMessage">
+    <wsdl:part name="parameters" element="tns:InsLogConfiguracionCronogramaMasivoResponse" />
+  </wsdl:message>
   <wsdl:message name="ISACService_GetConfiguracionValidacionZona_InputMessage">
     <wsdl:part name="parameters" element="tns:GetConfiguracionValidacionZona" />
   </wsdl:message>
@@ -1084,13 +1096,11 @@
   <wsdl:message name="ISACService_InsertBelcorpNoticia_OutputMessage">
     <wsdl:part name="parameters" element="tns:InsertBelcorpNoticiaResponse" />
   </wsdl:message>
-  <wsdl:message name="ISACService_UpdateBelcorpNoticia_InputMessage">
-    <wsdl:part name="parameters" element="tns:UpdateBelcorpNoticia" />
-  </wsdl:message>
-  <wsdl:message name="ISACService_UpdateBelcorpNoticia_OutputMessage">
-    <wsdl:part name="parameters" element="tns:UpdateBelcorpNoticiaResponse" />
-  </wsdl:message>
   <wsdl:portType name="ISACService">
+    <wsdl:operation name="GetProveedorDespachoCobranza">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/GetProveedorDespachoCobranza" message="tns:ISACService_GetProveedorDespachoCobranza_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/GetProveedorDespachoCobranzaResponse" message="tns:ISACService_GetProveedorDespachoCobranza_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="DelProveedorDespachoCobranza">
       <wsdl:input wsaw:Action="http://tempuri.org/ISACService/DelProveedorDespachoCobranza" message="tns:ISACService_DelProveedorDespachoCobranza_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ISACService/DelProveedorDespachoCobranzaResponse" message="tns:ISACService_DelProveedorDespachoCobranza_OutputMessage" />
@@ -1114,6 +1124,10 @@
     <wsdl:operation name="GetProveedorDespachoCobranzaBYiD">
       <wsdl:input wsaw:Action="http://tempuri.org/ISACService/GetProveedorDespachoCobranzaBYiD" message="tns:ISACService_GetProveedorDespachoCobranzaBYiD_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ISACService/GetProveedorDespachoCobranzaBYiDResponse" message="tns:ISACService_GetProveedorDespachoCobranzaBYiD_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateBelcorpNoticia">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/UpdateBelcorpNoticia" message="tns:ISACService_UpdateBelcorpNoticia_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/UpdateBelcorpNoticiaResponse" message="tns:ISACService_UpdateBelcorpNoticia_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="DeleteBelcorpNoticia">
       <wsdl:input wsaw:Action="http://tempuri.org/ISACService/DeleteBelcorpNoticia" message="tns:ISACService_DeleteBelcorpNoticia_InputMessage" />
@@ -1451,10 +1465,6 @@
       <wsdl:input wsaw:Action="http://tempuri.org/ISACService/GetFechaHoraPais" message="tns:ISACService_GetFechaHoraPais_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ISACService/GetFechaHoraPaisResponse" message="tns:ISACService_GetFechaHoraPais_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="GetProveedorDespachoCobranza">
-      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/GetProveedorDespachoCobranza" message="tns:ISACService_GetProveedorDespachoCobranza_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/GetProveedorDespachoCobranzaResponse" message="tns:ISACService_GetProveedorDespachoCobranza_OutputMessage" />
-    </wsdl:operation>
     <wsdl:operation name="GetCronogramaByCampania">
       <wsdl:input wsaw:Action="http://tempuri.org/ISACService/GetCronogramaByCampania" message="tns:ISACService_GetCronogramaByCampania_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ISACService/GetCronogramaByCampaniaResponse" message="tns:ISACService_GetCronogramaByCampania_OutputMessage" />
@@ -1739,6 +1749,10 @@
       <wsdl:input wsaw:Action="http://tempuri.org/ISACService/InsLogModificacionCronogramaMasivo" message="tns:ISACService_InsLogModificacionCronogramaMasivo_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ISACService/InsLogModificacionCronogramaMasivoResponse" message="tns:ISACService_InsLogModificacionCronogramaMasivo_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="InsLogConfiguracionCronogramaMasivo">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/InsLogConfiguracionCronogramaMasivo" message="tns:ISACService_InsLogConfiguracionCronogramaMasivo_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/InsLogConfiguracionCronogramaMasivoResponse" message="tns:ISACService_InsLogConfiguracionCronogramaMasivo_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="GetConfiguracionValidacionZona">
       <wsdl:input wsaw:Action="http://tempuri.org/ISACService/GetConfiguracionValidacionZona" message="tns:ISACService_GetConfiguracionValidacionZona_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ISACService/GetConfiguracionValidacionZonaResponse" message="tns:ISACService_GetConfiguracionValidacionZona_OutputMessage" />
@@ -1791,13 +1805,18 @@
       <wsdl:input wsaw:Action="http://tempuri.org/ISACService/InsertBelcorpNoticia" message="tns:ISACService_InsertBelcorpNoticia_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ISACService/InsertBelcorpNoticiaResponse" message="tns:ISACService_InsertBelcorpNoticia_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="UpdateBelcorpNoticia">
-      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/UpdateBelcorpNoticia" message="tns:ISACService_UpdateBelcorpNoticia_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/UpdateBelcorpNoticiaResponse" message="tns:ISACService_UpdateBelcorpNoticia_OutputMessage" />
-    </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_ISACService" type="tns:ISACService">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetProveedorDespachoCobranza">
+      <soap:operation soapAction="http://tempuri.org/ISACService/GetProveedorDespachoCobranza" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="DelProveedorDespachoCobranza">
       <soap:operation soapAction="http://tempuri.org/ISACService/DelProveedorDespachoCobranza" style="document" />
       <wsdl:input>
@@ -1845,6 +1864,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetProveedorDespachoCobranzaBYiD">
       <soap:operation soapAction="http://tempuri.org/ISACService/GetProveedorDespachoCobranzaBYiD" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateBelcorpNoticia">
+      <soap:operation soapAction="http://tempuri.org/ISACService/UpdateBelcorpNoticia" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -2608,15 +2636,6 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="GetProveedorDespachoCobranza">
-      <soap:operation soapAction="http://tempuri.org/ISACService/GetProveedorDespachoCobranza" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
     <wsdl:operation name="GetCronogramaByCampania">
       <soap:operation soapAction="http://tempuri.org/ISACService/GetCronogramaByCampania" style="document" />
       <wsdl:input>
@@ -3256,6 +3275,15 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="InsLogConfiguracionCronogramaMasivo">
+      <soap:operation soapAction="http://tempuri.org/ISACService/InsLogConfiguracionCronogramaMasivo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetConfiguracionValidacionZona">
       <soap:operation soapAction="http://tempuri.org/ISACService/GetConfiguracionValidacionZona" style="document" />
       <wsdl:input>
@@ -3366,15 +3394,6 @@
     </wsdl:operation>
     <wsdl:operation name="InsertBelcorpNoticia">
       <soap:operation soapAction="http://tempuri.org/ISACService/InsertBelcorpNoticia" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="UpdateBelcorpNoticia">
-      <soap:operation soapAction="http://tempuri.org/ISACService/UpdateBelcorpNoticia" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -3386,6 +3405,15 @@
   <wsdl:binding name="BasicHttpsBinding_ISACService" type="tns:ISACService">
     <wsp:PolicyReference URI="#BasicHttpsBinding_ISACService_policy" />
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetProveedorDespachoCobranza">
+      <soap:operation soapAction="http://tempuri.org/ISACService/GetProveedorDespachoCobranza" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="DelProveedorDespachoCobranza">
       <soap:operation soapAction="http://tempuri.org/ISACService/DelProveedorDespachoCobranza" style="document" />
       <wsdl:input>
@@ -3433,6 +3461,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetProveedorDespachoCobranzaBYiD">
       <soap:operation soapAction="http://tempuri.org/ISACService/GetProveedorDespachoCobranzaBYiD" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateBelcorpNoticia">
+      <soap:operation soapAction="http://tempuri.org/ISACService/UpdateBelcorpNoticia" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -4196,15 +4233,6 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="GetProveedorDespachoCobranza">
-      <soap:operation soapAction="http://tempuri.org/ISACService/GetProveedorDespachoCobranza" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
     <wsdl:operation name="GetCronogramaByCampania">
       <soap:operation soapAction="http://tempuri.org/ISACService/GetCronogramaByCampania" style="document" />
       <wsdl:input>
@@ -4844,6 +4872,15 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="InsLogConfiguracionCronogramaMasivo">
+      <soap:operation soapAction="http://tempuri.org/ISACService/InsLogConfiguracionCronogramaMasivo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetConfiguracionValidacionZona">
       <soap:operation soapAction="http://tempuri.org/ISACService/GetConfiguracionValidacionZona" style="document" />
       <wsdl:input>
@@ -4954,15 +4991,6 @@
     </wsdl:operation>
     <wsdl:operation name="InsertBelcorpNoticia">
       <soap:operation soapAction="http://tempuri.org/ISACService/InsertBelcorpNoticia" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="UpdateBelcorpNoticia">
-      <soap:operation soapAction="http://tempuri.org/ISACService/UpdateBelcorpNoticia" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
