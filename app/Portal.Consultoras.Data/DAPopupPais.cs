@@ -5,8 +5,8 @@ namespace Portal.Consultoras.Data
 {
     public class DAPopupPais : DataAccess
     {
-        public DAPopupPais()
-            : base()
+        public DAPopupPais(int paisID)
+            : base(paisID, EDbSource.Portal)
         {
 
         }
