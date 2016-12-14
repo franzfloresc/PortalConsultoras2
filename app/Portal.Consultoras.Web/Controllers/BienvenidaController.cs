@@ -247,12 +247,12 @@ namespace Portal.Consultoras.Web.Controllers
                                     mostrarPopUp = true;
                                     TipoPopUpMostrar = Constantes.TipoPopUp.VideoIntroductorio;
                                 }
-                                if (userData.VioTutorialSalvavidas == 0)
-                                {
-                                    model.VioTutorialSalvavidas = 0;
-                                    TipoPopUpMostrar = Constantes.TipoPopUp.VideoIntroductorio;
-                                    mostrarPopUp = true;
-                                }
+                                //if (userData.VioTutorialSalvavidas == 0)
+                                //{
+                                //    model.VioTutorialSalvavidas = 0;
+                                //    TipoPopUpMostrar = Constantes.TipoPopUp.VideoIntroductorio;
+                                //    mostrarPopUp = true;
+                                //}
                                 if (mostrarPopUp)
                                 {
                                     break;
