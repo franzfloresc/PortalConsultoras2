@@ -5,7 +5,7 @@
 <script type="text/javascript">
     jQuery(function () {
         IniFecha();
-
+        fnGrilla();
         $("#btnDescargar").click(function () {
             RealizarDescarga();
         });
@@ -343,6 +343,65 @@
         }
         document.body.appendChild(iframe_);
     }
+
+    /*EPD-1025*/
+    function fnGrilla() {
+        jQuery("#list").jqGrid({
+            url: baseUrl + "DescargarPedidos/Consultar",
+            hidegrid: false,
+            datatype: 'json',
+            postData: ({
+
+            }),
+            mtype: 'GET',
+            contentType: "application/json; charset=utf-8",
+            colNames: ['Fecha/Hora Inicio', 'Fecha/Hora Fin', 'Estado', 'Mensaje', 'Número de pedidos', 'Tipo de proceso', 'Fecha Facturación'],
+            colModel: [
+
+                { name: 'FechaHoraInicio', index: 'FechaHoraInicio', width: 15, editable: false, resizable: false },
+                { name: 'FechaHoraFin', index: 'FechaHoraFin', width: 15, editable: false, resizable: false },
+                { name: 'Estado', index: 'Estado', width: 20, editable: false, resizable: true },
+                { name: 'NumeroPedidos', index: 'NumeroPedidos', width: 15, editable: true, resizable: false },
+                { name: 'TipoProceso', index: 'TipoProceso', width: 10, editable: true, resizable: false },
+                { name: 'FechaFacturacion', index: 'FechaFacturacion', width: 0, editable: false, resizable: false, hidden: false }
+            ],
+            //jsonReader:
+            //{
+            //    root: "rows",
+            //    page: "page",
+            //    total: "total",
+            //    records: "records",
+            //    repeatitems: true,
+            //    totalregistros: "totalregistros",
+            //    pedidosfacturar: "pedidosfacturar",
+            //    cell: "cell",
+            //    id: "id"
+            //},
+            pager: jQuery('#pager'),
+            loadtext: 'Cargando datos...',
+            recordtext: "{0} - {1} de {2} Registros",
+            emptyrecords: 'No hay resultados',
+            rowNum: 10,
+            scrollOffset: 0,
+            rowList: [10, 20, 30, 40, 50],
+            sortname: 'FechaHoraInicio',
+            sortorder: 'asc',
+            viewrecords: true,
+            multiselect: false,
+            height: 'auto',
+            width: 930,
+            pgtext: 'Pág: {0} de {1}',
+            altRows: true,
+            altclass: 'jQGridAltRowClass',
+            loadComplete: function () {
+            },
+            gridComplete: function () { }
+        });
+        //jQuery("#list").jqGrid('navGrid', "#pager", { edit: false, add: false, refresh: false, del: false, search: false });
+        jQuery("#list").setGridParam({ datatype: 'json', page: 1 }).trigger('reloadGrid');
+
+    }
+    /*EPD-1025*/
 </script>
 
 <div class="wrap_cab">
@@ -376,7 +435,7 @@
             <div class="div-3">
                 <div class="titF">Tipo de Proceso:</div>
                 <div class="selectP2 borde_redondeado">
-                    @if (ViewBag.NombrePais == "México" || ViewBag.NombrePais == "Costa Rica" || ViewBag.NombrePais == "Guatemala" || ViewBag.NombrePais == "El Salvador" || ViewBag.NombrePais == "Panamá") 
+                    @if (ViewBag.NombrePais == "México" || ViewBag.NombrePais == "Costa Rica" || ViewBag.NombrePais == "Guatemala" || ViewBag.NombrePais == "El Salvador" || ViewBag.NombrePais == "Panamá")
                     {
                         <select id="cboTipoCronograma">
                             <option value="0">-- Seleccionar --</option>
@@ -389,7 +448,7 @@
                             @*2382*@
                         </select>
                     }
-                    else if (ViewBag.NombrePais == "Puerto Rico" || ViewBag.NombrePais == "República Dominicana") 
+                    else if (ViewBag.NombrePais == "Puerto Rico" || ViewBag.NombrePais == "República Dominicana")
                     {
                         <select id="cboTipoCronograma">
                             <option value="0">-- Seleccionar --</option>
@@ -400,7 +459,8 @@
                             <option value="5">Generar Líderes</option>                        
                             @*2382*@
                         </select>
-                    }else
+                    }
+                    else
                     {
                         <select id="cboTipoCronograma">
                             <option value="0">-- Seleccionar --</option>
@@ -443,5 +503,13 @@
     <input type="hidden" id="hdnfileDetailAct" name="hdnfileDetailAct" />
 
 
+</div>
+<div class="wrap">
+    <div class="container clearfix">
+        <div class="border-wrapper">
+            <table id="list"></table>
+            <div id="pager"></div>
+        </div>
+    </div>
 </div>
 <div id="loadingScreen"></div>
