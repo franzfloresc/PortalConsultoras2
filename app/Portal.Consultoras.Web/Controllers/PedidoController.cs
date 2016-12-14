@@ -134,12 +134,12 @@ namespace Portal.Consultoras.Web.Controllers
                     model.AccionBoton = "guardar";
                     model.Prol = "GUARDA TU PEDIDO";
                     model.ProlTooltip = "Es importante que guardes tu pedido";
-                    model.ProlTooltip += string.Format("|Puedes realizar cambios hasta el {0}", ViewBag.FechaFacturacionPedido);
+                    model.ProlTooltip += string.Format("|Puedes realizar cambios hasta el {0}", fechaFacturacionFormat);
 
                     if (userData.CodigoISO == "BO")
                     {
                         model.ProlTooltip = "Es importante que guardes tu pedido";
-                        model.ProlTooltip += string.Format("|No olvides reservar tu pedido el dia {0} para que sea enviado a facturar", ViewBag.FechaFacturacionPedido);
+                        model.ProlTooltip += string.Format("|No olvides reservar tu pedido el dia {0} para que sea enviado a facturar", fechaFacturacionFormat);
                     }
                 }
                 else // Periodo de facturacion
@@ -1289,7 +1289,7 @@ namespace Portal.Consultoras.Web.Controllers
                 UsuarioModel oUsuarioModel = userData;
                 using (ODSServiceClient sv = new ODSServiceClient())
                 {
-                    olstProducto = sv.SelectProductoByCodigoDescripcionSearchRegionZona(oUsuarioModel.PaisID, oUsuarioModel.CampaniaID, term, oUsuarioModel.RegionID, oUsuarioModel.ZonaID, oUsuarioModel.CodigorRegion, oUsuarioModel.CodigoZona, 1, 5).ToList();
+                    olstProducto = sv.SelectProductoByCodigoDescripcionSearchRegionZona(oUsuarioModel.PaisID, oUsuarioModel.CampaniaID, term, oUsuarioModel.RegionID, oUsuarioModel.ZonaID, oUsuarioModel.CodigorRegion, oUsuarioModel.CodigoZona, 1, 5, true).ToList();
                 }
 
                 var strCUV = string.Empty;
@@ -1357,7 +1357,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 using (ODSServiceClient sv = new ODSServiceClient())
                 {
-                    olstProducto = sv.SelectProductoByCodigoDescripcionSearchRegionZona(oUsuarioModel.PaisID, oUsuarioModel.CampaniaID, model.CUV, oUsuarioModel.RegionID, oUsuarioModel.ZonaID, oUsuarioModel.CodigorRegion, oUsuarioModel.CodigoZona, 1, 1).ToList();
+                    olstProducto = sv.SelectProductoByCodigoDescripcionSearchRegionZona(oUsuarioModel.PaisID, oUsuarioModel.CampaniaID, model.CUV, oUsuarioModel.RegionID, oUsuarioModel.ZonaID, oUsuarioModel.CodigorRegion, oUsuarioModel.CodigoZona, 1, 1, true).ToList();
                 }
 
                 if (olstProducto.Count == 0)
@@ -1597,7 +1597,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 using (ODSServiceClient sv = new ODSServiceClient())
                 {
-                    olstProducto = sv.SelectProductoByCodigoDescripcionSearchRegionZona(oUsuarioModel.PaisID, oUsuarioModel.CampaniaID, CUV, oUsuarioModel.RegionID, oUsuarioModel.ZonaID, oUsuarioModel.CodigorRegion, oUsuarioModel.CodigoZona, 1, 1).ToList();
+                    olstProducto = sv.SelectProductoByCodigoDescripcionSearchRegionZona(oUsuarioModel.PaisID, oUsuarioModel.CampaniaID, CUV, oUsuarioModel.RegionID, oUsuarioModel.ZonaID, oUsuarioModel.CodigorRegion, oUsuarioModel.CodigoZona, 1, 1, false).ToList();
                 }
 
                 if (olstProducto.Count == 0)
@@ -1699,7 +1699,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 using (ODSServiceClient sv = new ODSServiceClient())
                 {
-                    olstProducto = sv.SelectProductoByCodigoDescripcionSearchRegionZona(oUsuarioModel.PaisID, oUsuarioModel.CampaniaID, term, oUsuarioModel.RegionID, oUsuarioModel.ZonaID, oUsuarioModel.CodigorRegion, oUsuarioModel.CodigoZona, 2, 5).ToList();
+                    olstProducto = sv.SelectProductoByCodigoDescripcionSearchRegionZona(oUsuarioModel.PaisID, oUsuarioModel.CampaniaID, term, oUsuarioModel.RegionID, oUsuarioModel.ZonaID, oUsuarioModel.CodigorRegion, oUsuarioModel.CodigoZona, 2, 5, true).ToList();
                 }
 
                 var strCUV = string.Empty;
@@ -2028,12 +2028,12 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 model.Prol = "GUARDA TU PEDIDO";
                 model.ProlTooltip = "Es importante que guardes tu pedido";
-                model.ProlTooltip += string.Format("|Puedes realizar cambios hasta el {0}", ViewBag.FechaFacturacionPedido);
+                model.ProlTooltip += string.Format("|Puedes realizar cambios hasta el {0}", fechaFacturacionFormat);
 
                 if (userData.CodigoISO == "BO")
                 {
                     model.ProlTooltip = "Es importante que guardes tu pedido";
-                    model.ProlTooltip += string.Format("|No olvides reservar tu pedido el dia {0} para que sea enviado a facturar", ViewBag.FechaFacturacionPedido);
+                    model.ProlTooltip += string.Format("|No olvides reservar tu pedido el dia {0} para que sea enviado a facturar", fechaFacturacionFormat);
                 }
             }
             else // Periodo de facturacion
@@ -2982,12 +2982,12 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 //ViewBag.Prol = "GUARDA TU PEDIDO";
                 ViewBag.ProlTooltip = "Es importante que guardes tu pedido";
-                ViewBag.ProlTooltip += string.Format("|Puedes realizar cambios hasta el {0}", ViewBag.FechaFacturacionPedido);
+                ViewBag.ProlTooltip += string.Format("|Puedes realizar cambios hasta el {0}", fechaFacturacionFormat);
 
                 if (userData.CodigoISO == "BO")
                 {
                     ViewBag.ProlTooltip = "Es importante que guardes tu pedido";
-                    ViewBag.ProlTooltip += string.Format("|No olvides reservar tu pedido el dia {0} para que sea enviado a facturar", ViewBag.FechaFacturacionPedido);
+                    ViewBag.ProlTooltip += string.Format("|No olvides reservar tu pedido el dia {0} para que sea enviado a facturar", fechaFacturacionFormat);
                 }
             }
             else // Periodo de facturacion
@@ -4790,7 +4790,7 @@ namespace Portal.Consultoras.Web.Controllers
                 using (ODSServiceClient sv = new ODSServiceClient())
                 {
                     olstProducto = sv.SelectProductoByCodigoDescripcionSearchRegionZona(userData.PaisID, userData.CampaniaID, producto.Cuv,
-                        userData.RegionID, userData.ZonaID, userData.CodigorRegion, userData.CodigoZona, 1, 1).ToList();
+                        userData.RegionID, userData.ZonaID, userData.CodigorRegion, userData.CodigoZona, 1, 1, false).ToList();
                 }
                 if (olstProducto.Count == 0)
                     continue;

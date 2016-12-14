@@ -9999,10 +9999,10 @@ namespace Portal.Consultoras.Web.ServiceSAC {
         System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BEComunicado[]> ObtenerComunicadoPorConsultoraAsync(int PaisID, string CodigoConsultora);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/ObtenerOrdenPopUpMostrar", ReplyAction="http://tempuri.org/ISACService/ObtenerOrdenPopUpMostrarResponse")]
-        Portal.Consultoras.Web.ServiceSAC.BEPopupPais[] ObtenerOrdenPopUpMostrar();
+        Portal.Consultoras.Web.ServiceSAC.BEPopupPais[] ObtenerOrdenPopUpMostrar(int PaisID);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/ObtenerOrdenPopUpMostrar", ReplyAction="http://tempuri.org/ISACService/ObtenerOrdenPopUpMostrarResponse")]
-        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BEPopupPais[]> ObtenerOrdenPopUpMostrarAsync();
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BEPopupPais[]> ObtenerOrdenPopUpMostrarAsync(int PaisID);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/UpdComunicadoByConsultora", ReplyAction="http://tempuri.org/ISACService/UpdComunicadoByConsultoraResponse")]
         void UpdComunicadoByConsultora(int paisID, string CodigoConsultora);
@@ -11154,12 +11154,12 @@ namespace Portal.Consultoras.Web.ServiceSAC {
             return base.Channel.ObtenerComunicadoPorConsultoraAsync(PaisID, CodigoConsultora);
         }
         
-        public Portal.Consultoras.Web.ServiceSAC.BEPopupPais[] ObtenerOrdenPopUpMostrar() {
-            return base.Channel.ObtenerOrdenPopUpMostrar();
+        public Portal.Consultoras.Web.ServiceSAC.BEPopupPais[] ObtenerOrdenPopUpMostrar(int PaisID) {
+            return base.Channel.ObtenerOrdenPopUpMostrar(PaisID);
         }
         
-        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BEPopupPais[]> ObtenerOrdenPopUpMostrarAsync() {
-            return base.Channel.ObtenerOrdenPopUpMostrarAsync();
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BEPopupPais[]> ObtenerOrdenPopUpMostrarAsync(int PaisID) {
+            return base.Channel.ObtenerOrdenPopUpMostrarAsync(PaisID);
         }
         
         public void UpdComunicadoByConsultora(int paisID, string CodigoConsultora) {
