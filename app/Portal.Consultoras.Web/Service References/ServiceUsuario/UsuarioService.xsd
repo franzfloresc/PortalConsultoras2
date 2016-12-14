@@ -35,7 +35,7 @@
       <xs:element minOccurs="0" name="DescripcionNivel" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="DiasAntes" type="xs:int" />
       <xs:element minOccurs="0" name="DiasDuracionCronograma" type="xs:int" />
-      <xs:element minOccurs="0" name="DigitoVerificador" type="xs:int" />
+      <xs:element minOccurs="0" name="DigitoVerificador" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Direccion" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="EMail" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="EMailActivo" type="xs:boolean" />
