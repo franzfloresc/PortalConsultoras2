@@ -48,6 +48,7 @@
         <xs:element minOccurs="0" name="CodigoZona" nillable="true" type="xs:string" />
         <xs:element minOccurs="0" name="criterio" type="xs:int" />
         <xs:element minOccurs="0" name="rowCount" type="xs:int" />
+        <xs:element minOccurs="0" name="validarOpt" type="xs:boolean" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
