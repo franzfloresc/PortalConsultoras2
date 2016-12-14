@@ -3627,15 +3627,13 @@
     </None>
     <None Include="Service References\ValidacionesUnete\ValidacionesUnete.wsdl" />
     <None Include="Service References\ValidacionesUnete\ValidacionesUnete.xsd">
-    <SubType>Designer</SubType>
+      <SubType>Designer</SubType>
     </None>
     <None Include="Web References\ServiceCDRPROL\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
     <None Include="Web References\ServiceCDRPROL\WsGestionWeb.wsdl" />
-      <SubType>Designer</SubType>
-    </None>
     <None Include="Service References\ValidacionesUnete\ValidacionesUnete1.xsd">
       <SubType>Designer</SubType>
     </None>
