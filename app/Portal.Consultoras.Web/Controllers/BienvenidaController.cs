@@ -194,22 +194,7 @@ namespace Portal.Consultoras.Web.Controllers
                 ViewBag.UrlImgMiAcademia = ConfigurationManager.AppSettings["UrlImgMiAcademia"].ToString() + "/" + userData.CodigoISO + "/academia.png";
 
                 int Visualizado = 1, ComunicadoVisualizado = 1;
-
-                //try
-                //{
-                //    using (SACServiceClient sac = new SACServiceClient())
-                //    {
-                //        BEComunicado comunicado = sac.GetComunicadoByConsultora(userData.PaisID, userData.CodigoConsultora);
-                //        if (comunicado != null)
-                //            Visualizado = comunicado.Visualizo ? 1 : 0;
-
-                //        BEComunicado[] VisualizaComunicado = sac.ObtenerComunicadoPorConsultora(userData.PaisID, userData.CodigoConsultora);
-                //        if (VisualizaComunicado != null && VisualizaComunicado.Length > 0)
-                //            ComunicadoVisualizado = VisualizaComunicado[0].Visualizo ? 1 : 0;
-                //    }
-                //}
-                //catch (Exception ex) { }
-
+                
                 model.VisualizoComunicado = Visualizado;
                 model.VisualizoComunicadoConfigurable = ComunicadoVisualizado;
 
@@ -227,7 +212,7 @@ namespace Portal.Consultoras.Web.Controllers
                 using (SACServiceClient sac = new SACServiceClient())
                 {
                     //SB20-1095
-                    PopUps = sac.ObtenerOrdenPopUpMostrar().ToList();
+                    PopUps = sac.ObtenerOrdenPopUpMostrar(userData.PaisID).ToList();
                 }
 
                 int TipoPopUpMostrar = 0; //= Convert.ToInt32(Session["TipoPopUpMostrar"]);
@@ -756,9 +741,9 @@ namespace Portal.Consultoras.Web.Controllers
                 model.DigitoVerificador = string.Empty;
                 if (PaisesDigitoControl.Contains(model.PaisISO))
                 {
-                    if (!String.IsNullOrEmpty(beusuario.DigitoVerificador.ToString()) && beusuario.DigitoVerificador != 0)
+                    if (!String.IsNullOrEmpty(beusuario.DigitoVerificador))
                     {
-                        model.CodigoUsuario = userData.CodigoUsuario + " - " + beusuario.DigitoVerificador.ToString() + " (Zona: " + userData.CodigoZona + ")";
+                        model.CodigoUsuario = string.Format("{0} - {1} (Zona:{2})", userData.CodigoUsuario, beusuario.DigitoVerificador, userData.CodigoZona);
                     }
                 }
             }

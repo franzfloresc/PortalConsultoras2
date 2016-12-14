@@ -74,7 +74,7 @@ namespace Portal.Consultoras.Entities
         private bool mesConsultoraLider;//R2469(CSR)
         private bool bEstadoSimplificacionCUV { get; set; }
         private bool bEsquemaDAConsultora;
-        private int digitoVerificador;
+        private string digitoVerificador;
 
         public BEUsuario()
         {
@@ -138,7 +138,7 @@ namespace Portal.Consultoras.Entities
                 bEsquemaDAConsultora = Convert.ToBoolean(row["EsquemaDAConsultora"]);
             /*EPD-1068*/
             if (DataRecord.HasColumn(row, "DigitoVerificador") && row["DigitoVerificador"] != DBNull.Value)
-                digitoVerificador = Convert.ToInt32(row["DigitoVerificador"]);
+                digitoVerificador = (row["DigitoVerificador"]).ToString();
 
 
         }
@@ -360,7 +360,7 @@ namespace Portal.Consultoras.Entities
                 NombreGerenteZona = Convert.ToString(row["GerenteZona"]);
             /*EPD-1068*/
             if (DataRecord.HasColumn(row, "DigitoVerificador") && row["DigitoVerificador"] != DBNull.Value)
-                digitoVerificador = Convert.ToInt32(row["DigitoVerificador"]);
+                digitoVerificador = (row["DigitoVerificador"]).ToString();
 
             
 
@@ -864,7 +864,7 @@ namespace Portal.Consultoras.Entities
             set { mesConsultoraLider = value; }
         }
         [DataMember]
-        public int DigitoVerificador
+        public string DigitoVerificador
         {
             get { return digitoVerificador; }
             set { digitoVerificador = value; }
@@ -1016,7 +1016,7 @@ namespace Portal.Consultoras.Entities
                 bEsquemaDAConsultora = Convert.ToBoolean(row["EsquemaDAConsultora"]);
             /*EPD-1068*/
             if (DataRecord.HasColumn(row, "DigitoVerificador") && row["DigitoVerificador"] != DBNull.Value)
-                digitoVerificador = Convert.ToInt32(row["DigitoVerificador"]);
+                digitoVerificador = (row["DigitoVerificador"]).ToString();
 
         }
         /* R2392 - AHAA - LIDERES - FIN */
