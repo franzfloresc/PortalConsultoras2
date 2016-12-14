@@ -7,6 +7,7 @@ IF EXISTS(SELECT 1 FROM sys.procedures
 BEGIN
 	DROP PROCEDURE InsLogConfiguracionCronograma
 END
+GO
 
 CREATE PROCEDURE InsLogConfiguracionCronograma
 (
@@ -44,6 +45,7 @@ IF EXISTS(SELECT 1 FROM sys.procedures
 BEGIN
 	DROP PROCEDURE InsLogConfiguracionCronograma
 END
+GO
 
 CREATE PROCEDURE InsLogConfiguracionCronograma
 (
@@ -81,6 +83,7 @@ IF EXISTS(SELECT 1 FROM sys.procedures
 BEGIN
 	DROP PROCEDURE InsLogConfiguracionCronograma
 END
+GO
 
 CREATE PROCEDURE InsLogConfiguracionCronograma
 (
@@ -118,6 +121,7 @@ IF EXISTS(SELECT 1 FROM sys.procedures
 BEGIN
 	DROP PROCEDURE InsLogConfiguracionCronograma
 END
+GO
 
 CREATE PROCEDURE InsLogConfiguracionCronograma
 (
@@ -155,6 +159,7 @@ IF EXISTS(SELECT 1 FROM sys.procedures
 BEGIN
 	DROP PROCEDURE InsLogConfiguracionCronograma
 END
+GO
 
 CREATE PROCEDURE InsLogConfiguracionCronograma
 (
@@ -192,6 +197,7 @@ IF EXISTS(SELECT 1 FROM sys.procedures
 BEGIN
 	DROP PROCEDURE InsLogConfiguracionCronograma
 END
+GO
 
 CREATE PROCEDURE InsLogConfiguracionCronograma
 (
@@ -229,6 +235,7 @@ IF EXISTS(SELECT 1 FROM sys.procedures
 BEGIN
 	DROP PROCEDURE InsLogConfiguracionCronograma
 END
+GO
 
 CREATE PROCEDURE InsLogConfiguracionCronograma
 (
@@ -266,6 +273,7 @@ IF EXISTS(SELECT 1 FROM sys.procedures
 BEGIN
 	DROP PROCEDURE InsLogConfiguracionCronograma
 END
+GO
 
 CREATE PROCEDURE InsLogConfiguracionCronograma
 (
@@ -303,6 +311,7 @@ IF EXISTS(SELECT 1 FROM sys.procedures
 BEGIN
 	DROP PROCEDURE InsLogConfiguracionCronograma
 END
+GO
 
 CREATE PROCEDURE InsLogConfiguracionCronograma
 (
@@ -340,6 +349,7 @@ IF EXISTS(SELECT 1 FROM sys.procedures
 BEGIN
 	DROP PROCEDURE InsLogConfiguracionCronograma
 END
+GO
 
 CREATE PROCEDURE InsLogConfiguracionCronograma
 (
@@ -377,6 +387,7 @@ IF EXISTS(SELECT 1 FROM sys.procedures
 BEGIN
 	DROP PROCEDURE InsLogConfiguracionCronograma
 END
+GO
 
 CREATE PROCEDURE InsLogConfiguracionCronograma
 (
@@ -414,6 +425,7 @@ IF EXISTS(SELECT 1 FROM sys.procedures
 BEGIN
 	DROP PROCEDURE InsLogConfiguracionCronograma
 END
+GO
 
 CREATE PROCEDURE InsLogConfiguracionCronograma
 (
@@ -451,6 +463,7 @@ IF EXISTS(SELECT 1 FROM sys.procedures
 BEGIN
 	DROP PROCEDURE InsLogConfiguracionCronograma
 END
+GO
 
 CREATE PROCEDURE InsLogConfiguracionCronograma
 (
