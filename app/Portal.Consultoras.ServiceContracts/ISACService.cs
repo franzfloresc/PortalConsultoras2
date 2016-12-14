@@ -429,7 +429,7 @@ namespace Portal.Consultoras.ServiceContracts
         List<BEComunicado> ObtenerComunicadoPorConsultora(int PaisID, string CodigoConsultora);
 
         [OperationContract]
-        List<BEPopupPais> ObtenerOrdenPopUpMostrar();
+        List<BEPopupPais> ObtenerOrdenPopUpMostrar(int PaisID);
         //R2004
         [OperationContract]
         void UpdComunicadoByConsultora(int paisID, string CodigoConsultora);

@@ -98,12 +98,12 @@ namespace Portal.Consultoras.BizLogic
                     select producto).ToList();
         }
 
-        public IList<BEProducto> SelectProductoByCodigoDescripcionSearchRegionZona(int paisID, int campaniaID, string codigoDescripcion, int RegionID, int ZonaID, string CodigoRegion, string CodigoZona, int criterio, int rowCount)
+        public IList<BEProducto> SelectProductoByCodigoDescripcionSearchRegionZona(int paisID, int campaniaID, string codigoDescripcion, int RegionID, int ZonaID, string CodigoRegion, string CodigoZona, int criterio, int rowCount, bool validarOpt)
         {
             IList<BEProducto> productos = new List<BEProducto>();
             var DAProducto = new DAProducto(paisID);
 
-            using (IDataReader reader = DAProducto.GetProductoComercialByCampaniaBySearchRegionZona(campaniaID, rowCount, criterio, codigoDescripcion,RegionID,ZonaID, CodigoRegion, CodigoZona))
+            using (IDataReader reader = DAProducto.GetProductoComercialByCampaniaBySearchRegionZona(campaniaID, rowCount, criterio, codigoDescripcion,RegionID,ZonaID, CodigoRegion, CodigoZona, validarOpt))
             {
                 while (reader.Read())
                 {
