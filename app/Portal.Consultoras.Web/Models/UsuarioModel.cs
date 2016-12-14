@@ -289,6 +289,7 @@ namespace Portal.Consultoras.Web.Models
         public int IndicadorGPRSB { get; set; }
         public int EsCDRWebZonaValida { get; set; }
         public int EstadoPedido { get; set; }
+        public int TieneCDR { get; set; }
         public string MotivoRechazo { get; set; }
         public DateTime FechaProceso { get; set; }
         public bool MostrarBannerRechazo { get; set; }
