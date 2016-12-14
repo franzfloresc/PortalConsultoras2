@@ -412,6 +412,10 @@ function ValidarPaso1() {
         success: function (data) {
             closeWaitingDialog();
             ok = data.success;
+
+            if (!data.succes && data.message != "") {
+                messageInfoError(data.message);
+            }
         },
         error: function (data, error) {
             closeWaitingDialog();
