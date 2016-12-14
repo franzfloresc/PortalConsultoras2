@@ -1357,6 +1357,8 @@
     <Content Include="Content\Images\Esika\Banner_Esika.jpg" />
     <Content Include="Content\Images\Esika\banner_misBeneficios.png" />
     <Content Include="Content\Images\Esika\brillante2016_img.png" />
+    <Content Include="Content\Images\Esika\carta.png" />
+    <Content Include="Content\Images\Esika\carta1.png" />
     <Content Include="Content\Images\Esika\catalogos_arrow.png" />
     <Content Include="Content\Images\Esika\catalogos_arrow2.png" />
     <Content Include="Content\Images\Esika\catalogos_new.png" />
@@ -1574,12 +1576,6 @@
     <Content Include="Content\Images\Esika\catalogo_facebook.png" />
     <Content Include="Content\Images\Esika\catalogo_mensaje.png" />
     <Content Include="Content\Images\Esika\catalogo_menu.png" />
-    <Content Include="Content\Images\Esika\cdr_paso1.png" />
-    <Content Include="Content\Images\Esika\cdr_paso1_activo.png" />
-    <Content Include="Content\Images\Esika\cdr_paso2.png" />
-    <Content Include="Content\Images\Esika\cdr_paso2_activo.png" />
-    <Content Include="Content\Images\Esika\cdr_paso3.png" />
-    <Content Include="Content\Images\Esika\cdr_paso3_activo.png" />
     <Content Include="Content\Images\Esika\celular.png" />
     <Content Include="Content\Images\Esika\check_liquidacion.png" />
     <Content Include="Content\Images\Esika\circulo.png" />
@@ -1611,6 +1607,8 @@
     <Content Include="Content\Images\Esika\flechita_info.png" />
     <Content Include="Content\Images\Esika\flexipago.png" />
     <Content Include="Content\Images\Esika\fle_.png" />
+    <Content Include="Content\Images\Esika\foco.png" />
+    <Content Include="Content\Images\Esika\foco1.png" />
     <Content Include="Content\Images\Esika\fondo.png" />
     <Content Include="Content\Images\Esika\fondo_circulo.png" />
     <Content Include="Content\Images\Esika\fondo_pestana.png" />
@@ -1647,6 +1645,8 @@
     <Content Include="Content\Images\Esika\indicador_pedido.png" />
     <Content Include="Content\Images\Esika\indicador_pedido_negro.png" />
     <Content Include="Content\Images\Esika\info-copy.png" />
+    <Content Include="Content\Images\Esika\labial.png" />
+    <Content Include="Content\Images\Esika\labial1.png" />
     <Content Include="Content\Images\Esika\lapiz.png" />
     <Content Include="Content\Images\Esika\lbel_revista.png" />
     <Content Include="Content\Images\Esika\liquidacionhome.png" />
@@ -2039,7 +2039,6 @@
     <Content Include="Content\Images\mobile\Esika\mensajes.png" />
     <Content Include="Content\Images\mobile\Esika\menu_mobile.png" />
     <Content Include="Content\Images\mobile\Esika\next.png" />
-    <Content Include="Content\Images\mobile\Esika\notificacion.png" />
     <Content Include="Content\Images\mobile\Esika\notificaciones.png" />
     <Content Include="Content\Images\mobile\Esika\pestana_esika.png" />
     <Content Include="Content\Images\mobile\Esika\previous_ofertas_home.png" />
@@ -2159,7 +2158,6 @@
     <Content Include="Content\Images\mobile\img-showroom\titulo_preventa.jpg" />
     <Content Include="Content\Images\mobile\img-showroom\top_triangular.png" />
     <Content Include="Content\Images\mobile\img-showroom\volver.png" />
-    <Content Include="Content\Images\mobile\img_producto_ofertaFinal.png" />
     <Content Include="Content\Images\mobile\landing_mobile_8.jpg" />
     <Content Include="Content\Images\mobile\LandingConsultoras.jpg" />
     <Content Include="Content\Images\mobile\Lbel\asesor_basePolvos_lbel.png" />
@@ -2179,7 +2177,6 @@
     <Content Include="Content\Images\mobile\Lbel\logo_Lbel.png" />
     <Content Include="Content\Images\mobile\Lbel\mas_footer.png" />
     <Content Include="Content\Images\mobile\Lbel\menos_footer.png" />
-    <Content Include="Content\Images\mobile\Lbel\notificacion.png" />
     <Content Include="Content\Images\mobile\Lbel\pestana_lbel.png" />
     <Content Include="Content\Images\mobile\Lbel\video.png" />
     <Content Include="Content\Images\mobile\LogoBelcorp.png" />
@@ -3586,7 +3583,6 @@
     <Content Include="Views\MisReclamos\Reclamo.cshtml" />
     <Content Include="Views\TerminosYCondiciones\Index.cshtml" />
     <Content Include="Views\Bienvenida\ActualizarContrasenia.cshtml" />
-    <Content Include="Views\Notificaciones\ListaDetalleCdr.cshtml" />
     <None Include="Service References\ValidacionesUnete\ValidacionesUnete1.wsdl" />
     <None Include="Service References\ValidacionesUnete\ValidacionesUnete5.xsd">
       <SubType>Designer</SubType>
