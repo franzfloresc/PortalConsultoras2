@@ -175,5 +175,16 @@ namespace Portal.Consultoras.Web.Properties {
                 return ((string)(this["Portal_Consultoras_Web_ServiceLMS_ws_server"]));
             }
         }
+		
+		[global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.WebServiceUrl)]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://qaielb-webprol-1875224445.us-east-1.elb.amazonaws.com/WsGestionWebProl/WsG" +
+            "estionWeb.asmx")]
+        public string Portal_Consultoras_Web_ServiceCDRPROL_WsGestionWeb {
+            get {
+                return ((string)(this["Portal_Consultoras_Web_ServiceCDRPROL_WsGestionWeb"]));
+            }
+        }
     }
 }
