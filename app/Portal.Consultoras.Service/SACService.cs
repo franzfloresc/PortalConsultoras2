@@ -552,6 +552,11 @@ namespace Portal.Consultoras.Service
             BLLogModificacionCronograma.InsLogModificacionCronogramaMasivo(paisID, CodigoUsuario, listaEntidades);
         }
 
+        public void InsLogConfiguracionCronogramaMasivo(int paisID, string CodigoUsuario, List<BELogConfiguracionCronograma> listaEntidades)
+        {
+            BLLogModificacionCronograma.InsLogConfiguracionCronogramaMasivo(paisID, CodigoUsuario, listaEntidades);
+        }
+
         #endregion
 
         #region Lugares de Pago

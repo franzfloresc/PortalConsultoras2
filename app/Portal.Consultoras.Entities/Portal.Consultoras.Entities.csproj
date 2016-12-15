@@ -249,6 +249,7 @@
     <Compile Include="CDR\BECDRWebMotivoOperacion.cs" />
     <Compile Include="Enumerations.cs" />
     <Compile Include="BEPopupPais.cs" />
+    <Compile Include="BELogConfiguracionCronograma.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
