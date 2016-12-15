@@ -8,6 +8,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Portal.Consultoras.Common;
+using Portal.Consultoras.Web.ServiceCDRPROL;
 using Portal.Consultoras.Web.ServiceODS;
 using Portal.Consultoras.Web.ServiceUsuario;
 
@@ -17,6 +18,9 @@ namespace Portal.Consultoras.Web.Controllers
     {        
         public ActionResult Index()
         {
+            if(userData.TieneCDR == 0)
+                return RedirectToAction("Index", "Bienvenida");
+
             MisReclamosModel model = new MisReclamosModel();
             var listaCDRWebModel = new List<CDRWebModel>();
 
@@ -50,12 +54,13 @@ namespace Portal.Consultoras.Web.Controllers
             model.ListaCDRWeb = listaCDRWebModel;
             model.IndicadorBloqueoCDR = userData.IndicadorBloqueoCDR;
             model.EsCDRWebZonaValida = userData.EsCDRWebZonaValida;
+            model.CumpleRangoCampaniaCDR = CumpleRangoCampaniaCDR();
 
-            if (model.IndicadorBloqueoCDR == 1)
+            if (model.EsCDRWebZonaValida == 0)
                 return View(model);
 
-            /*EPD-1339*/
-            model.CumpleRangoCampaniaCDR = CumpleRangoCampaniaCDR();
+            if (model.IndicadorBloqueoCDR == 1)
+                return View(model);                       
 
             if (model.ListaCDRWeb.Count == 0)
             {
@@ -63,12 +68,9 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     return View(model);
                 }
-                else
-                {
-                    return RedirectToAction("Reclamo");
-                }
+
+                return RedirectToAction("Reclamo");
             }
-            /*EPD-1339*/
 
             return View(model);
         }
@@ -276,6 +278,7 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
                 model.CUV = Util.SubStr(model.CUV, 0);
+                
                 var listaPedidoFacturados = CargarPedidosFacturados();
 
                 var listaPedido = new List<BEPedidoWeb>();
@@ -449,7 +452,7 @@ namespace Portal.Consultoras.Web.Controllers
                 return false;
 
             if (pedido.olstBEPedidoWebDetalle.Count() != 1)
-                return false;
+                return false;            
 
             var detalle = pedido.olstBEPedidoWebDetalle[0];
             
@@ -536,10 +539,36 @@ namespace Portal.Consultoras.Web.Controllers
 
         public JsonResult ValidarPaso1(MisReclamosModel model)
         {
+            #region Validar Pack y Sets
+
+            try
+            {
+                var respuestaServiceCdr = new RptCdr[1];
+                using (WsGestionWeb sv = new WsGestionWeb())
+                {
+                    respuestaServiceCdr = sv.GetCdrWebConsulta(userData.CodigoISO, model.CampaniaID.ToString(),
+                        userData.CodigoConsultora, model.CUV, model.Cantidad, userData.CodigoZona);
+
+                    if (respuestaServiceCdr[0].Codigo != "00")
+                        return Json(new
+                        {
+                            success = false,
+                            message = "No esta permitido el reclamo de Packs y Sets por este medio. Por favor, contactar al Call Center.",
+                        }, JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch (Exception ex)
+            {
+                
+            }
+
+            #endregion
+
             var valid = ValidarRegistro(model);
             return Json(new
             {
-                success = valid
+                success = valid,
+                message = ""
             }, JsonRequestBehavior.AllowGet);
         }
 
