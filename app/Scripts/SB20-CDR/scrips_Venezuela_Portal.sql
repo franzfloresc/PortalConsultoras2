@@ -920,7 +920,7 @@ BEGIN
 	if not exists (select 1 from OFGanaMasRegionZona where CodigoRegion = @CodigoRegion and CodigoZona = @CodigoZona and Estado = 1)
 		set @EsOFGanaMasZonaValida = 1
 	
-	if exists (select 1 from CDRWebRegionZona where CodigoRegion = @CodigoRegion and CodigoZona = @CodigoZona and Estado = 1)
+	if not exists (select 1 from CDRWebRegionZona where CodigoRegion = @CodigoRegion and CodigoZona = @CodigoZona and Estado = 1)
 		set @EsCDRWebZonaValida = 1
 	/*Fin Oferta Final, Catalogo Personalizado, CDR*/
 
