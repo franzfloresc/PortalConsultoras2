@@ -31,8 +31,8 @@ namespace Portal.Consultoras.Web.Controllers
 
         public ActionResult Index()
         {
-            //return Login();
-            return View(new LoginModel() { listaPaises = DropDowListPaises() });
+            return Login();
+            //return View(new LoginModel() { listaPaises = DropDowListPaises() });
         }
 
         private ActionResult Login()
