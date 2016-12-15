@@ -33,7 +33,12 @@
         var estaRechazado = '@ViewBag.EstaRechazado';
         var cerrarRechazado = '@ViewBag.CerrarRechazado';
         var motivoRechazo = '@ViewBag.MotivoRechazo';
-        var UrlChat = '@ViewBag.UrlBelcorpChat'
+        var UrlChat = '@ViewBag.UrlBelcorpChat';
+        var UrlChatAnterior = 'http://chat1-cls1-cgn-bct.i6.inconcertcc.com/inconcert/apps/webdesigner/BelcorpChileNew?token=@ViewBag.TokenAtento';
+        var IsoPais = '@ViewBag.CodigoISODL';
+        var BelcorpFechaChat_Pais = '@(System.Configuration.ConfigurationManager.AppSettings["FechaChat_" + ViewBag.CodigoISODL])';
+        var PaisesChatEMTELCO ='@(System.Configuration.ConfigurationManager.AppSettings["PaisesBelcorpChatEMTELCO"])';
+        var FechaActual = '@(System.DateTime.Now.ToString("dd/MM/yyyy"))';
     </script>
 
     @RenderSection("styles", required: false)
