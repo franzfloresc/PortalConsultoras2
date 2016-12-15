@@ -252,6 +252,10 @@ namespace Portal.Consultoras.ServiceContracts
         IList<BELogModificacionCronograma> GetLogModificacionCronograma(int PaisID);
         [OperationContract]
         void InsLogModificacionCronogramaMasivo(int paisID, string CodigoUsuario, List<BELogModificacionCronograma> listaEntidades);
+
+        [OperationContract]
+        void InsLogConfiguracionCronogramaMasivo(int paisID, string CodigoUsuario, List<BELogConfiguracionCronograma> listaEntidades);
+
         [OperationContract]
         BEConfiguracionValidacionZona GetConfiguracionValidacionZona(int paisID, int campaniaID, int zonaID);
         #endregion
