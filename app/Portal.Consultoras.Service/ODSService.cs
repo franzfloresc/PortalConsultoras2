@@ -106,9 +106,12 @@ namespace Portal.Consultoras.Service
         }
 
 
-        public IList<BEProducto> SelectProductoByCodigoDescripcionSearchRegionZona(int paisID, int campaniaID, string codigoDescripcion, int RegionID, int ZonaID, string CodigoRegion, string CodigoZona, int criterio, int rowCount)
+        public IList<BEProducto> SelectProductoByCodigoDescripcionSearchRegionZona(int paisID, int campaniaID,
+            string codigoDescripcion, int RegionID, int ZonaID, string CodigoRegion, string CodigoZona, int criterio,
+            int rowCount, bool validarOpt)
         {
-            return BLProducto.SelectProductoByCodigoDescripcionSearchRegionZona(paisID, campaniaID, codigoDescripcion, RegionID, ZonaID, CodigoRegion, CodigoZona, criterio, rowCount);
+            return BLProducto.SelectProductoByCodigoDescripcionSearchRegionZona(paisID, campaniaID, codigoDescripcion,
+                RegionID, ZonaID, CodigoRegion, CodigoZona, criterio, rowCount, validarOpt);
         }
 
         public long GetConsultoraIdByCodigo(int paisID, string CodigoConsultora)
