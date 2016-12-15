@@ -1528,6 +1528,30 @@ ul.tabs {
         text-align: right;
     }
 
+    /*EPD-1025*/
+    .div-3 .textoDescarga { 
+        float: right;
+        width: 380px;
+        height: auto;
+        padding: 9px;
+        background: none;
+        color: #702789;
+        font-size: 14px;
+        margin: 0;
+        border: 0;
+        text-align: left;
+    }
+        .div-3 .textoDescarga img {           
+            float: left;
+        }
+        .div-3 .textoDescarga span {
+            padding-left: 6px;
+            color:#536576;
+        }
+            .div-3 .textoDescarga span a {
+                color: #ec1a3a;              
+            }
+    /*EPD-1025*/
     .div-3 .titD {
         float: left;
         width: 30px;

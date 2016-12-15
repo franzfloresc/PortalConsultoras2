@@ -10,6 +10,10 @@
             RealizarDescarga();
         });
 
+        $("#btnDesmarcarUltimoPedido").click(function () {
+            DeshacerUltimaDescargaPedidos();
+        });
+
         $("#cboTipoCronograma").change(function () {
             $("#DivMensajeLideres").hide();
             $("#DivDescargas").hide();
@@ -347,65 +351,65 @@
     /*EPD-1025*/
     function fnGrilla() {
         jQuery("#list").jqGrid({
-            url: baseUrl + "DescargarPedidos/Consultar",
+            url: baseUrl + "DescargaPedidos/ObtenerUltimaDescargaPedido",
             hidegrid: false,
             datatype: 'json',
-            postData: ({
-
-            }),
             mtype: 'GET',
             contentType: "application/json; charset=utf-8",
-            colNames: ['Fecha/Hora Inicio', 'Fecha/Hora Fin', 'Estado', 'Mensaje', 'Número de pedidos', 'Tipo de proceso', 'Fecha Facturación'],
+            colNames: ['Fecha/Hora Inicio', 'Fecha/Hora Fin', 'Estado', 'Mensaje', 'Número de pedidos', 'Tipo de proceso', 'Fecha Facturación', 'Desmarcado'],
             colModel: [
-
-                { name: 'FechaHoraInicio', index: 'FechaHoraInicio', width: 15, editable: false, resizable: false },
-                { name: 'FechaHoraFin', index: 'FechaHoraFin', width: 15, editable: false, resizable: false },
-                { name: 'Estado', index: 'Estado', width: 20, editable: false, resizable: true },
-                { name: 'NumeroPedidos', index: 'NumeroPedidos', width: 15, editable: true, resizable: false },
-                { name: 'TipoProceso', index: 'TipoProceso', width: 10, editable: true, resizable: false },
-                { name: 'FechaFacturacion', index: 'FechaFacturacion', width: 0, editable: false, resizable: false, hidden: false }
+                { name: 'FechaHoraInicio', index: 'FechaHoraInicio', width: 22, editable: false, resizable: false },
+                { name: 'FechaHoraFin', index: 'FechaHoraFin', width: 22, editable: false, resizable: false },
+                { name: 'Estado', index: 'Estado', width: 15, editable: false, resizable: true },
+                { name: 'Mensaje', index: 'Mensaje', width: 30, editable: false, resizable: true },
+                { name: 'NumeroPedidos', index: 'NumeroPedidos', width: 20, editable: true, resizable: false },
+                { name: 'TipoProceso', index: 'TipoProceso', width: 15, editable: true, resizable: false },
+                { name: 'FechaFacturacion', index: 'FechaFacturacion', width: 22, editable: false, resizable: false, hidden: false },
+                { name: 'Desmarcado', index: 'Desmarcado', width: 22, editable: false, resizable: false, hidden: false }
             ],
-            //jsonReader:
-            //{
-            //    root: "rows",
-            //    page: "page",
-            //    total: "total",
-            //    records: "records",
-            //    repeatitems: true,
-            //    totalregistros: "totalregistros",
-            //    pedidosfacturar: "pedidosfacturar",
-            //    cell: "cell",
-            //    id: "id"
-            //},
-            pager: jQuery('#pager'),
             loadtext: 'Cargando datos...',
-            recordtext: "{0} - {1} de {2} Registros",
             emptyrecords: 'No hay resultados',
-            rowNum: 10,
-            scrollOffset: 0,
-            rowList: [10, 20, 30, 40, 50],
-            sortname: 'FechaHoraInicio',
-            sortorder: 'asc',
-            viewrecords: true,
-            multiselect: false,
             height: 'auto',
             width: 930,
-            pgtext: 'Pág: {0} de {1}',
             altRows: true,
             altclass: 'jQGridAltRowClass',
             loadComplete: function () {
             },
             gridComplete: function () { }
         });
-        //jQuery("#list").jqGrid('navGrid', "#pager", { edit: false, add: false, refresh: false, del: false, search: false });
-        jQuery("#list").setGridParam({ datatype: 'json', page: 1 }).trigger('reloadGrid');
+    }
+    function DeshacerUltimaDescargaPedidos() {
 
+        $.ajax({
+            type: 'POST',
+            url: baseUrl + 'DescargaPedidos/DeshacerUltimaDescargaPedidos',
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            async: true,
+            success: function (data) {
+                if (checkTimeout(data)) {
+                    closeWaitingDialog();
+                    if (data.success == true) {
+                        alert(data.mensaje);
+                    }
+                    else {
+                        alert(data.mensaje);
+                    }
+                }
+            },
+            error: function (data, error) {
+                if (checkTimeout(data)) {
+                    closeWaitingDialog();
+                    alert("Error del Sistema.");
+                }
+            }
+        });
+        fnGrilla();
     }
     /*EPD-1025*/
 </script>
 
 <div class="wrap_cab">
-
     <div class="filtros">
         <div class="elements">
             <div class="div-2">
@@ -477,6 +481,12 @@
                 <div class="titF"></div>
                 <div class="input_add_alert_left">
                     <input type="button" name="" id="btnDescargar" value="Descargar" />
+                </div>
+                <div class="textoDescarga">
+                    <img src='@Url.Content("~/Content/Images/faq.png")' alt="" />
+                    <span>Si ocurrió un problema con la última descarga de pedidos y deseas desmarcarlos, haz click 
+                        <a id="btnDesmarcarUltimoPedido" href="#">aquí</a>
+                    </span>
                 </div>
             </div>
             <div id="DivDescargas" class="div-4" style="display:none">

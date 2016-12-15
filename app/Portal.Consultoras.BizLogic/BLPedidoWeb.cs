@@ -209,7 +209,7 @@ namespace Portal.Consultoras.BizLogic
                     }
                 }
                 //----- Log Pedidos
-                
+
                 TransactionOptions transactionOptions = new TransactionOptions();
                 transactionOptions.IsolationLevel = System.Transactions.IsolationLevel.ReadUncommitted;
                 using (TransactionScope transaction = new TransactionScope(TransactionScopeOption.Required, transactionOptions))
@@ -219,7 +219,7 @@ namespace Portal.Consultoras.BizLogic
                     DAPedidoWeb.UpdLogPedidoDescargaWebDD(nroLote);
                     transaction.Complete();
                 }
-                
+
 
                 FtpConfigurationElement ftpElement = null;
                 FtpConfigurationElement ftpElementCoDat = null;
@@ -502,7 +502,7 @@ namespace Portal.Consultoras.BizLogic
                 {
                     carpetaPais = ConfigurationManager.AppSettings["S3_Pedidos"] + codigoPais;
                     if (!string.IsNullOrEmpty(headerFileS3)) ConfigS3.SetFileS3(headerFileS3, carpetaPais, Path.GetFileName(headerFileS3), false, false, true);
-                    if (!string.IsNullOrEmpty(detailFileS3)) ConfigS3.SetFileS3(detailFileS3, carpetaPais, Path.GetFileName(detailFileS3), false, false, true);                    
+                    if (!string.IsNullOrEmpty(detailFileS3)) ConfigS3.SetFileS3(detailFileS3, carpetaPais, Path.GetFileName(detailFileS3), false, false, true);
                     DAPedidoWeb.UpdPedidoDescargaGuardoS3(nroLote, true, null, null);
                 }
                 catch (Exception ex)
@@ -520,7 +520,7 @@ namespace Portal.Consultoras.BizLogic
                         ConfigS3.SetFileS3(dataConFileS3, carpetaPais, Path.GetFileName(dataConFileS3), false, false, true);
                         DAPedidoWeb.UpdConsultoraDescargaGuardoS3(nroLote, true, null, null);
                     }
-                    catch(Exception ex)
+                    catch (Exception ex)
                     {
                         try { DAPedidoWeb.UpdConsultoraDescargaGuardoS3(nroLote, false, "Terminado OK; pero con error al guardar backups en S3", ex.Message + "(" + ex.StackTrace + ")"); }
                         catch (Exception ex2) { LogManager.SaveLog(ex2, usuario, codigoPais); }
@@ -603,7 +603,7 @@ namespace Portal.Consultoras.BizLogic
                 }
 
                 //----- Log Pedidos
-                
+
                 TransactionOptions transactionOptions = new TransactionOptions();
                 transactionOptions.IsolationLevel = System.Transactions.IsolationLevel.ReadUncommitted;
                 using (TransactionScope transaction = new TransactionScope(TransactionScopeOption.Required, transactionOptions))
@@ -613,7 +613,7 @@ namespace Portal.Consultoras.BizLogic
                     DAPedidoWeb.UpdLogPedidoDescargaWebDD(nroLote);
                     transaction.Complete();
                 }
-                
+
                 FtpConfigurationElement ftpElement = null;
 
                 Guid fileGuid = Guid.NewGuid();
@@ -922,7 +922,7 @@ namespace Portal.Consultoras.BizLogic
                 }
             }
             catch (Exception) { throw; }
-            
+
             string[] s = null;
             if (headerFile == null && detailFile == null) s = new string[] { };
             else s = new string[] { headerFile, detailFile };
@@ -1238,7 +1238,7 @@ namespace Portal.Consultoras.BizLogic
 
         private TemplateField[] ParseTemplate(string templateText, bool descargaActDatosv2 = true)
         {
-            List<string> CamposActDatosv2 = new List<string>{ "TELEFONOTRABAJO", "LATITUD", "LONGITUD"};
+            List<string> CamposActDatosv2 = new List<string> { "TELEFONOTRABAJO", "LATITUD", "LONGITUD" };
             string[] parts = templateText.Split(';');
             var listTemplate = new List<TemplateField>();
             TemplateField templateField;
@@ -1246,7 +1246,7 @@ namespace Portal.Consultoras.BizLogic
             for (int index = 0; index < parts.Length; index++)
             {
                 templateField = new TemplateField(parts[index]);
-                if(!descargaActDatosv2 && CamposActDatosv2.Contains(templateField.FieldName)) continue;
+                if (!descargaActDatosv2 && CamposActDatosv2.Contains(templateField.FieldName)) continue;
                 listTemplate.Add(templateField);
             }
             return listTemplate.ToArray();
@@ -1357,9 +1357,9 @@ namespace Portal.Consultoras.BizLogic
         /*GR2089*/
         public void InsertarLogPedidoWeb(int PaisID, int CampaniaID, string CodigoConsultora, int PedidoId, string Accion, string CodigoUsuario)
         {
-            new DAPedidoWeb(PaisID).InsertarLogPedidoWeb(CampaniaID, CodigoConsultora,PedidoId,Accion, CodigoUsuario);
+            new DAPedidoWeb(PaisID).InsertarLogPedidoWeb(CampaniaID, CodigoConsultora, PedidoId, Accion, CodigoUsuario);
         }
-        
+
         public void UpdDesbloqueoPedido(BEPedidoWeb BEPedidoWeb)
         {
             var DAPedidoWeb = new DAPedidoWeb(BEPedidoWeb.PaisID);
@@ -1958,7 +1958,7 @@ namespace Portal.Consultoras.BizLogic
             var DAPedidoWeb = new DAPedidoWeb(paisID);
 
             if (!BLPais.EsPaisHana(paisID)) // Validar si informacion de pais es de origen Normal o Hana
-            {               
+            {
                 using (IDataReader reader = DAPedidoWeb.GetPedidosIngresadoFacturado(consultoraID, campaniaID))
                     while (reader.Read())
                     {
@@ -1977,7 +1977,7 @@ namespace Portal.Consultoras.BizLogic
                     {
                         var entidad = new BEPedidoWeb(reader);
                         listaPedidoIngresado.Add(entidad);
-                    }               
+                    }
 
                 var campaniaMinima = Common.Util.ObtenerCampaniaPasada(campaniaID, 4);
 
@@ -2008,7 +2008,7 @@ namespace Portal.Consultoras.BizLogic
                 listaPedidosFacturados = listaMostrar;
             }
 
-            
+
             return listaPedidosFacturados;
         }
 
@@ -2017,7 +2017,8 @@ namespace Portal.Consultoras.BizLogic
             new DAPedidoWeb(PaisID).InsLogOfertaFinal(CampaniaID, CodigoConsultora, CUV, cantidad, tipoOfertaFinal, GAP, tipoRegistro);
         }
 
-        public void ActualizarIndicadorGPRPedidosRechazados(int PaisID, long ProcesoID) {
+        public void ActualizarIndicadorGPRPedidosRechazados(int PaisID, long ProcesoID)
+        {
             DAPedidoWeb DAPedidoWeb = new DAPedidoWeb(PaisID);
             DAPedidoWeb.ActualizarIndicadorGPRPedidosRechazados(ProcesoID);
         }
@@ -2044,7 +2045,7 @@ namespace Portal.Consultoras.BizLogic
                         if (listaPedidosFacturados[i].PedidoID == entidad.PedidoID)
                         {
                             listaPedidosFacturados[i].olstBEPedidoWebDetalle.Add(entidadDetalle);
-                        }                        
+                        }
                     }
 
                     if (!listaPedidosFacturados.Any(f => f.PedidoID == entidad.PedidoID))
@@ -2053,12 +2054,32 @@ namespace Portal.Consultoras.BizLogic
                         entidad.olstBEPedidoWebDetalle.Add(entidadDetalle);
                         listaPedidosFacturados.Add(entidad);
                     }
-                   
+
                 }
 
             return listaPedidosFacturados;
         }
 
+        /*EPD-1025*/
+        public BEPedidoDescarga ObtenerUltimaDescargaPedido(int PaisID)
+        {
+            BEPedidoDescarga PedidoDescarga = new BEPedidoDescarga();
+            DAPedidoWeb DAPedidoWeb = new DAPedidoWeb(PaisID);
+
+            using (IDataReader reader = DAPedidoWeb.ObtenerUltimaDescargaPedido())
+                while (reader.Read())
+                {
+                    PedidoDescarga = new BEPedidoDescarga(reader);
+                }
+            return PedidoDescarga;
+        }
+
+        public void DeshacerUltimaDescargaPedido(int PaisID)
+        {
+            DAPedidoWeb DAPedidoWeb = new DAPedidoWeb(PaisID);
+            DAPedidoWeb.DesmarcarUltimaDescargaPedido();
+        }
+        /*EPD-1025*/
     }
 
     internal class TemplateField
@@ -2084,14 +2105,4 @@ namespace Portal.Consultoras.BizLogic
         }
     }
 
-    //public static class LinqExtensions
-    //{
-    //    public static void Update<TSource>(this IEnumerable<TSource> outer, Action<TSource> updator)
-    //    {
-    //        foreach (var item in outer)
-    //        {
-    //            updator(item);
-    //        }
-    //    }
-    //}
 }

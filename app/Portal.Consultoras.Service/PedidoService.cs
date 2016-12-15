@@ -120,7 +120,7 @@ namespace Portal.Consultoras.Service
         {
             //try
             //{
-                return BLPedidoWeb.DescargaPedidosWeb(paisID, fechaFacturacion, tipoCronograma, marcarPedido, usuario);
+            return BLPedidoWeb.DescargaPedidosWeb(paisID, fechaFacturacion, tipoCronograma, marcarPedido, usuario);
             //}
             //catch (BizLogicException ex)
             //{
@@ -1590,7 +1590,8 @@ namespace Portal.Consultoras.Service
 
         #region Producto SUgerido
 
-        public IList<BEProductoSugerido> GetPaginateProductoSugerido(int PaisID, int CampaniaID, string CUVAgotado, string CUVSugerido) {
+        public IList<BEProductoSugerido> GetPaginateProductoSugerido(int PaisID, int CampaniaID, string CUVAgotado, string CUVSugerido)
+        {
             return BLProductoSugerido.GetPaginateProductoSugerido(PaisID, CampaniaID, CUVAgotado, CUVSugerido);
         }
 
@@ -1669,7 +1670,7 @@ namespace Portal.Consultoras.Service
         {
             return BLProcesoPedidoRechazado.ObtenerProcesoPedidoRechazadoGPR(paisID, campaniaID, consultoraID);
         }
-        
+
         public void InsLogOfertaFinal(int PaisID, int CampaniaID, string CodigoConsultora, string CUV, int cantidad, string tipoOfertaFinal, decimal GAP, int tipoRegistro)
         {
             BLPedidoWeb.InsLogOfertaFinal(PaisID, CampaniaID, CodigoConsultora, CUV, cantidad, tipoOfertaFinal, GAP, tipoRegistro);
@@ -1681,12 +1682,25 @@ namespace Portal.Consultoras.Service
         }
 
         //GPR397
-        public void ActualizarIndicadorGPRPedidosRechazados(int PaisID, long ProcesoID) {
+        public void ActualizarIndicadorGPRPedidosRechazados(int PaisID, long ProcesoID)
+        {
             BLPedidoWeb.ActualizarIndicadorGPRPedidosRechazados(PaisID, ProcesoID);
         }
         public void ActualizarIndicadorGPRPedidosFacturados(int PaisID, long ProcesoID)
         {
             BLPedidoWeb.ActualizarIndicadorGPRPedidosFacturados(PaisID, ProcesoID);
         }
+
+        /*EPD-1025*/
+        public BEPedidoDescarga ObtenerUltimaDescargaPedido(int PaisID)
+        {
+            return BLPedidoWeb.ObtenerUltimaDescargaPedido(PaisID);
+        }
+
+        public void DeshacerUltimaDescargaPedido(int PaisID)
+        {
+            BLPedidoWeb.DeshacerUltimaDescargaPedido(PaisID);
+        }
+        /*EPD-1025*/
     }
 }

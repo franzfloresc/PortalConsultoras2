@@ -913,5 +913,13 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         void ActualizarIndicadorGPRPedidosFacturados(int PaisID, long ProcesoID);
+
+        /*EPD-1025*/
+        [OperationContract]
+        BEPedidoDescarga ObtenerUltimaDescargaPedido(int PaisID);
+        
+        [OperationContract]
+        void DeshacerUltimaDescargaPedido(int PaisID);
+        /*EPD-1025*/
     }
 }
