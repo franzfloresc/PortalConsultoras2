@@ -140,9 +140,28 @@
     });
     
     $("#belcorpChat").click(function () {
-        var url = UrlChat.replace('amp;', '').replace('amp;', '').replace('amp;', '').replace('amp;', '').replace('&#250;', 'ú').replace('&#233;', 'é').replace('&#225;','á');
-        var res = encodeURI(url);
-        open(res, '', 'top=0,left=0,width=400,height=500');
+        var FechaChatPais = BelcorpFechaChat_Pais;
+        var PaisISO = IsoPais
+        var fechaActual = FechaActual;
+        var paisesBelcorpEMTELCO = PaisesChatEMTELCO;
+
+        if (paisesBelcorpEMTELCO.indexOf(PaisISO) > -1) {
+
+            if (fechaActual >= FechaChatPais)
+            {
+                var url = UrlChat.replace('amp;', '').replace('amp;', '').replace('amp;', '').replace('amp;', '').replace('&#250;', 'ú').replace('&#233;', 'é').replace('&#225;', 'á');
+                var res = encodeURI(url);
+                open(res, '', 'top=0,left=0,width=400,height=500');
+            }
+            else {
+                var res2 = encodeURI(UrlChatAnterior);
+                open(res2, '', 'top=0,left=0,width=400,height=500');
+            }
+        }
+        else {
+            var res2 = encodeURI(UrlChatAnterior);
+            open(res2, '', 'top=0,left=0,width=400,height=500');
+        }
     });
 
     Scrolling();
