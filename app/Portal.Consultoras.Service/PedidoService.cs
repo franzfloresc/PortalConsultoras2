@@ -118,18 +118,18 @@ namespace Portal.Consultoras.Service
 
         public string[] DescargaPedidosWeb(int paisID, DateTime fechaFacturacion, int tipoCronograma, bool marcarPedido, string usuario)
         {
-            //try
-            //{
+            try
+            {
             return BLPedidoWeb.DescargaPedidosWeb(paisID, fechaFacturacion, tipoCronograma, marcarPedido, usuario);
-            //}
-            //catch (BizLogicException ex)
-            //{
-            //    throw new FaultException(ex.Message);
-            //}
-            //catch (Exception)
-            //{
-            //    throw new FaultException("Error desconocido.");
-            //}
+            }
+            catch (BizLogicException ex)
+            {
+                throw new FaultException(ex.Message);
+            }
+            catch (Exception)
+            {
+                throw new FaultException("Error desconocido.");
+            }
         }
         // R20151003 - Inicio
         public string[] DescargaPedidosDD(int paisID, DateTime fechaFacturacion, int tipoCronograma, bool marcarPedido, string usuario)
