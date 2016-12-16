@@ -254,5 +254,10 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         BEUsuario GetDatosConsultoraHana(int paisID, string codigoUsuario, int campaniaId);
+
+        /*EPD-1012*/
+        [OperationContract]
+        BEValidaLoginSB2 GetValidarLoginSB2(int paisID, string codigoUsuario, string contrasenia);
+        /*EPD-1012*/
     }
 }

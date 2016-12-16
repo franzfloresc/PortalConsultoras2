@@ -379,6 +379,22 @@ namespace Portal.Consultoras.BizLogic
             return DAUsuario.GetNroDocumentoConsultora(CodigoConsultora);
         }
 
+        /*EPD-1012*/
+        public BEValidaLoginSB2 GetValidarLoginSB2(int paisID, string CodigoUsuario, string Contrasenia)
+        {
+            BEValidaLoginSB2 validaLogin = null; 
+            var DAUsuario = new DAUsuario(paisID);
+
+            using (IDataReader reader = DAUsuario.GetValidarLoginSB2(CodigoUsuario, Contrasenia))
+            {
+                if (reader.Read())
+                    validaLogin = new BEValidaLoginSB2(reader);
+            }
+
+            return validaLogin;
+        }
+        /*EPD-1012*/
+
         public int GetInfoPreLogin(int paisID, string CodigoUsuario)
         {
             int Result = -1;

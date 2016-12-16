@@ -468,4 +468,11 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="BENotificacionesDetalleCatalogo" nillable="true" type="tns:BENotificacionesDetalleCatalogo" />
+  <xs:complexType name="BEValidaLoginSB2">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Mensaje" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Result" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="BEValidaLoginSB2" nillable="true" type="tns:BEValidaLoginSB2" />
 </xs:schema>

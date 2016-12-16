@@ -1,129 +1,108 @@
-﻿using AutoMapper;
-using Portal.Consultoras.Common;
-using Portal.Consultoras.Web.Models;
-using Portal.Consultoras.Web.ServiceODS;
-using Portal.Consultoras.Web.ServiceProductoCatalogoPersonalizado;
-using Portal.Consultoras.Web.ServiceUsuario;
-using Portal.Consultoras.Web.ServiceZonificacion;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using System.Security.Claims;
+
+//
 using System.Configuration;
-using System.IdentityModel.Services;
-using System.Net;
-using System.Web.Security;
-using Portal.Consultoras.Web.ServiceContenido;
-using System.ServiceModel;
-using Portal.Consultoras.Web.ServiceSAC;
-using System.Text.RegularExpressions;
-using Portal.Consultoras.Web.ServiceLMS;
+using Portal.Consultoras.Web.Models;
+using AutoMapper;
 using System.Data;
+using Portal.Consultoras.Common;
+using Portal.Consultoras.Web.ServiceODS;
+using Portal.Consultoras.Web.ServiceProductoCatalogoPersonalizado;
+using Portal.Consultoras.Web.ServiceUsuario;
+using Portal.Consultoras.Web.ServiceZonificacion;
+using Portal.Consultoras.Web.ServiceContenido;
+using Portal.Consultoras.Web.ServiceSAC;
+using Portal.Consultoras.Web.ServiceLMS;
 using Portal.Consultoras.Web.ServicePedido;
 
 namespace Portal.Consultoras.Web.Controllers
 {
     public class LoginController : Controller
     {
+        //
+        // GET: /Login/
+
         private string pasoLog;
 
+        //public ActionResult Index()
+        //{
+        //    //return Login();
+        //    return View(new LoginModel() { listaPaises = DropDowListPaises() });
+        //}
+
         public ActionResult Index()
-        {
-            return Login();
-            //return View(new LoginModel() { listaPaises = DropDowListPaises() });
+        {   
+            //string IP = GetIPCliente();
+            string IP = "190.187.154.154";
+            string ISO = "";
+            //string val = "";
+
+            if (IP.IndexOf(":") > 0)
+            {
+                IP = IP.Substring(0, IP.IndexOf(":") - 1);
+            }
+
+            //using (ServiceUsuarioExt.UsuarioWebServiceClient UsuarioServ = new ServiceUsuarioExt.UsuarioWebServiceClient())
+            //{
+            //    ISO = UsuarioServ.GetISObyIPAddress(IP);
+            //}
+            ISO = "PE";
+
+            if (ISO != "")
+            {
+                AsignarHojaEstilos(ISO);
+                //val = ddlPais.SelectedValue;
+                //cboPaisCambioClave.SelectedValue = getValByISO(val);
+            }
+
+            var model = new LoginModel();
+            model.listaPaises = DropDowListPaises();
+
+            return View(model);
         }
 
-        private ActionResult Login()
+        [HttpPost]
+        public ActionResult Login(UsuarioModel model)
         {
-            string usuarioLog = "";
-            string paisLog = "";
+            pasoLog = "Ingreso al portal";
             try
             {
-                ClaimsPrincipal claimsPrincipal = User as ClaimsPrincipal;
-                Claim FederationClaimName = claimsPrincipal.FindFirst(ClaimTypes.Name);
-                string claimUser = FederationClaimName.Value.ToUpper();
-                string DomConsultora = ConfigurationManager.AppSettings.Get("DomConsultora");
-                string DomBelcorp = ConfigurationManager.AppSettings.Get("DomBelcorp");
-
-                string UserPortal = string.Empty;
-                bool UsuarioSAC = false;
-                int Tipo = 0;
-
-                if (claimUser.Contains(DomConsultora))
+                BEValidaLoginSB2 validaLogin = null;
+                using (UsuarioServiceClient svc = new UsuarioServiceClient())
                 {
-                    UserPortal = claimUser.Replace(DomConsultora + @"\", "");
-                    Tipo = 1;
-                }
-                else if (claimUser.Contains(DomBelcorp))
-                {
-                    UserPortal = claimUser.Replace(DomBelcorp + @"\", "");
-                    UsuarioSAC = true;
-                    Tipo = 2;
+                    validaLogin = svc.GetValidarLoginSB2(model.PaisID, model.CodigoUsuario, model.ClaveSecreta);
                 }
 
-                usuarioLog = UserPortal;
-
-                if (!string.IsNullOrEmpty(UserPortal))
+                if (validaLogin.Result == 3)
                 {
-                    List<BEPais> lst = new List<BEPais>();
-
-                    using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
+                    model.CodigoConsultora = model.CodigoUsuario;
+                    UsuarioModel usuario = GetUserData(model.PaisID, model.CodigoConsultora, 1);
+                    if (usuario != null)
                     {
-                        lst = sv.SelectPaises().ToList();
-                    }
-
-                    string Pais = string.Empty;
-                    string Codigo = string.Empty;
-
-                    if (!UsuarioSAC)
-                    {
-                        Pais = UserPortal.Substring(0, 2);
-                        Codigo = UserPortal.Substring(2, UserPortal.Length - 2);
-                    }
-                    else
-                    {
-                        Claim FederationClaimCountry = claimsPrincipal.FindFirst(ClaimTypes.Country);
-                        Pais = FederationClaimCountry.Value.ToUpper();
-                        Codigo = UserPortal;
-                    }
-
-                    paisLog = Pais;
-                    usuarioLog = Codigo;
-
-                    BEPais PaisModel = lst.First(p => p.CodigoISO == Pais);
-                    if (PaisModel != null)
-                    {
-                        UsuarioModel usuario = GetUserData(PaisModel.PaisID, Codigo, Tipo);
-                        if (usuario != null)
+                        if (usuario.RolID == Portal.Consultoras.Common.Constantes.Rol.Consultora)
                         {
-                            if (usuario.RolID == Portal.Consultoras.Common.Constantes.Rol.Consultora)
-                            {
-                                bool esMovil = Request.Browser.IsMobileDevice;
+                            bool esMovil = Request.Browser.IsMobileDevice;
 
-                                if (esMovil)
-                                {
-                                    return RedirectToAction("Index", "Bienvenida", new { area = "Mobile" });
-                                }
-                                else
-                                {
-                                    if (usuario.EMail == null || usuario.EMail == "" || usuario.EMailActivo == false)
-                                    {
-                                        Session["PrimeraVezSession"] = 0;
-                                    }
-                                    return RedirectToAction("Index", "Bienvenida");
-                                }
+                            if (esMovil)
+                            {
+                                return RedirectToAction("Index", "Bienvenida", new { area = "Mobile" });
                             }
                             else
                             {
+                                if (usuario.EMail == null || usuario.EMail == "" || usuario.EMailActivo == false)
+                                {
+                                    Session["PrimeraVezSession"] = 0;
+                                }
                                 return RedirectToAction("Index", "Bienvenida");
                             }
                         }
                         else
                         {
-                            string Url = Request.Url.Scheme + "://" + Request.Url.Authority + (Request.ApplicationPath.ToString().Equals("/") ? "/" : (Request.ApplicationPath + "/")) + "WebPages/UserUnknown.aspx";
-                            return Redirect(Url);
+                            return RedirectToAction("Index", "Bienvenida");
                         }
                     }
                     else
@@ -131,20 +110,139 @@ namespace Portal.Consultoras.Web.Controllers
                         string Url = Request.Url.Scheme + "://" + Request.Url.Authority + (Request.ApplicationPath.ToString().Equals("/") ? "/" : (Request.ApplicationPath + "/")) + "WebPages/UserUnknown.aspx";
                         return Redirect(Url);
                     }
+
+                    //TempData["errorLogin"] = "Usuario OK";
+                    //return RedirectToAction("Index", "Login");
                 }
                 else
                 {
-                    string Url = Request.Url.Scheme + "://" + Request.Url.Authority + (Request.ApplicationPath.ToString().Equals("/") ? "/" : (Request.ApplicationPath + "/")) + "WebPages/UserUnknown.aspx";
-                    return Redirect(Url);
+                    TempData["errorLogin"] = validaLogin.Mensaje;
+                    return RedirectToAction("Index", "Login");
                 }
             }
             catch (Exception ex)
             {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, usuarioLog, paisLog, pasoLog);
-                string Url = Request.Url.Scheme + "://" + Request.Url.Authority + (Request.ApplicationPath.ToString().Equals("/") ? "/" : (Request.ApplicationPath + "/")) + "WebPages/UserUnknown.aspx";
-                return Redirect(Url);
+                LogManager.LogManager.LogErrorWebServicesBus(ex, model.CodigoUsuario, model.CodigoISO, pasoLog);
+
+                TempData["errorLogin"] = "Error al procesar la peticion";
+                return RedirectToAction("Index", "Login");
             }
         }
+
+        //private ActionResult Login()
+        //{
+        //    string usuarioLog = "";
+        //    string paisLog = "";
+        //    try
+        //    {
+        //        //ClaimsPrincipal claimsPrincipal = User as ClaimsPrincipal;
+        //        //Claim FederationClaimName = claimsPrincipal.FindFirst(ClaimTypes.Name);
+        //        //string claimUser = FederationClaimName.Value.ToUpper();
+        //        //string DomConsultora = ConfigurationManager.AppSettings.Get("DomConsultora");
+        //        //string DomBelcorp = ConfigurationManager.AppSettings.Get("DomBelcorp");
+
+        //        //string UserPortal = string.Empty;
+        //        //bool UsuarioSAC = false;
+        //        //int Tipo = 0;
+
+        //        //if (claimUser.Contains(DomConsultora))
+        //        //{
+        //        //    UserPortal = claimUser.Replace(DomConsultora + @"\", "");
+        //        //    Tipo = 1;
+        //        //}
+        //        //else if (claimUser.Contains(DomBelcorp))
+        //        //{
+        //        //    UserPortal = claimUser.Replace(DomBelcorp + @"\", "");
+        //        //    UsuarioSAC = true;
+        //        //    Tipo = 2;
+        //        //}
+
+        //        //usuarioLog = UserPortal;
+
+        //        //if (!string.IsNullOrEmpty(UserPortal))
+        //        //{
+        //            List<BEPais> lst = new List<BEPais>();
+
+        //            using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
+        //            {
+        //                lst = sv.SelectPaises().ToList();
+        //            }
+
+        //        //    string Pais = string.Empty;
+        //        //    string Codigo = string.Empty;
+
+        //        //    if (!UsuarioSAC)
+        //        //    {
+        //        //        Pais = UserPortal.Substring(0, 2);
+        //        //        Codigo = UserPortal.Substring(2, UserPortal.Length - 2);
+        //        //    }
+        //        //    else
+        //        //    {
+        //        //        Claim FederationClaimCountry = claimsPrincipal.FindFirst(ClaimTypes.Country);
+        //        //        Pais = FederationClaimCountry.Value.ToUpper();
+        //        //        Codigo = UserPortal;
+        //        //    }
+
+        //        //    paisLog = Pais;
+        //        //    usuarioLog = Codigo;
+
+        //            string Codigo = string.Empty;
+        //            int Tipo = 0;
+        //            string Pais = string.Empty;
+
+        //            BEPais PaisModel = lst.First(p => p.CodigoISO == Pais);
+        //            if (PaisModel != null)
+        //            {
+        //                UsuarioModel usuario = GetUserData(PaisModel.PaisID, Codigo, Tipo);
+        //                if (usuario != null)
+        //                {
+        //                    if (usuario.RolID == Portal.Consultoras.Common.Constantes.Rol.Consultora)
+        //                    {
+        //                        bool esMovil = Request.Browser.IsMobileDevice;
+
+        //                        if (esMovil)
+        //                        {
+        //                            return RedirectToAction("Index", "Bienvenida", new { area = "Mobile" });
+        //                        }
+        //                        else
+        //                        {
+        //                            if (usuario.EMail == null || usuario.EMail == "" || usuario.EMailActivo == false)
+        //                            {
+        //                                Session["PrimeraVezSession"] = 0;
+        //                            }
+        //                            return RedirectToAction("Index", "Bienvenida");
+        //                        }
+        //                    }
+        //                    else
+        //                    {
+        //                        return RedirectToAction("Index", "Bienvenida");
+        //                    }
+        //                }
+        //                else
+        //                {
+        //                    string Url = Request.Url.Scheme + "://" + Request.Url.Authority + (Request.ApplicationPath.ToString().Equals("/") ? "/" : (Request.ApplicationPath + "/")) + "WebPages/UserUnknown.aspx";
+        //                    return Redirect(Url);
+        //                }
+        //            }
+        //            else
+        //            {
+        //                string Url = Request.Url.Scheme + "://" + Request.Url.Authority + (Request.ApplicationPath.ToString().Equals("/") ? "/" : (Request.ApplicationPath + "/")) + "WebPages/UserUnknown.aspx";
+        //                return Redirect(Url);
+        //            }
+        //        //}
+        //        //else
+        //        //{
+        //        //    string Url = Request.Url.Scheme + "://" + Request.Url.Authority + (Request.ApplicationPath.ToString().Equals("/") ? "/" : (Request.ApplicationPath + "/")) + "WebPages/UserUnknown.aspx";
+        //        //    return Redirect(Url);
+        //        //}
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        LogManager.LogManager.LogErrorWebServicesBus(ex, usuarioLog, paisLog, pasoLog);
+        //        string Url = Request.Url.Scheme + "://" + Request.Url.Authority + (Request.ApplicationPath.ToString().Equals("/") ? "/" : (Request.ApplicationPath + "/")) + "WebPages/UserUnknown.aspx";
+        //        return Redirect(Url);
+        //    }
+        //}
 
         private IEnumerable<PaisModel> DropDowListPaises()
         {
@@ -155,6 +253,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             Mapper.CreateMap<BEPais, PaisModel>()
                     .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID))
+                    .ForMember(t => t.CodigoISO, f => f.MapFrom(c => c.CodigoISO))
                     .ForMember(t => t.Nombre, f => f.MapFrom(c => c.Nombre))
                     .ForMember(t => t.NombreCorto, f => f.MapFrom(c => c.NombreCorto));
 
@@ -176,12 +275,12 @@ namespace Portal.Consultoras.Web.Controllers
 
         public ActionResult LogOut()
         {
-            return CerrarSesion();
+            //return CerrarSesion();
 
-            //Session["UserData"] = null;
-            //Session.Clear();
-            //Session.Abandon();
-            //return RedirectToAction("Index", "Login");
+            Session["UserData"] = null;
+            Session.Clear();
+            Session.Abandon();
+            return RedirectToAction("Index", "Login");
         }
 
         private ActionResult CerrarSesion()
@@ -226,12 +325,12 @@ namespace Portal.Consultoras.Web.Controllers
             Session.Clear();
             Session.Abandon();
 
-            FederatedAuthentication.WSFederationAuthenticationModule.SignOut(false);
-            FederatedAuthentication.SessionAuthenticationModule.SignOut();
-            FederatedAuthentication.SessionAuthenticationModule.CookieHandler.Delete();
-            FederatedAuthentication.SessionAuthenticationModule.DeleteSessionTokenCookie();
+            //FederatedAuthentication.WSFederationAuthenticationModule.SignOut(false);
+            //FederatedAuthentication.SessionAuthenticationModule.SignOut();
+            //FederatedAuthentication.SessionAuthenticationModule.CookieHandler.Delete();
+            //FederatedAuthentication.SessionAuthenticationModule.DeleteSessionTokenCookie();
 
-            FormsAuthentication.SignOut();
+            //FormsAuthentication.SignOut();
 
             string URLSignOut = string.Empty;
             switch (Tipo)
@@ -618,7 +717,7 @@ namespace Portal.Consultoras.Web.Controllers
                                     model.MontoMinimoFlexipago = string.Format("{0:#,##0.00}", (beOfertaFlexipago.MontoMinimoFlexipago < 0 ? 0M : beOfertaFlexipago.MontoMinimoFlexipago));
                                 }
                             }
-                        }   
+                        }
                     }
                 }
 
@@ -678,16 +777,103 @@ namespace Portal.Consultoras.Web.Controllers
             return View();
         }
 
-        public string GetIPCliente()
+        private string GetIPCliente()
         {
             string IP = string.Empty;
             try
             {
-                IP = HttpContext.Request.ServerVariables["HTTP_X_FORWARDED_FOR"];
-                IP = (new Regex(@"\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}")).Matches(IP)[0].ToString();
+                string ipAddress = string.Empty;
+
+                if (System.Web.HttpContext.Current.Request.ServerVariables["HTTP_X_FORWARDED_FOR"] != null)
+                {
+                    ipAddress = System.Web.HttpContext.Current.Request.ServerVariables["HTTP_X_FORWARDED_FOR"].ToString();
+                }
+
+                else if (System.Web.HttpContext.Current.Request.ServerVariables["HTTP_CLIENT_IP"] != null && System.Web.HttpContext.Current.Request.ServerVariables["HTTP_CLIENT_IP"].Length != 0)
+                {
+                    ipAddress = System.Web.HttpContext.Current.Request.ServerVariables["HTTP_CLIENT_IP"];
+                }
+
+                else if (System.Web.HttpContext.Current.Request.UserHostAddress.Length != 0)
+                {
+                    ipAddress = System.Web.HttpContext.Current.Request.UserHostName;
+                }
+
+                return ipAddress;
             }
-            catch { }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine(ex.Message.ToString());
+            }
             return IP;
+        }
+
+        private void AsignarHojaEstilos(string iso)
+        {
+            //HtmlTitle tituloPagina = this.Master.FindControl("tituloPagina") as HtmlTitle;
+            //HtmlLink iconoPagina = this.Master.FindControl("iconoPagina") as HtmlLink;
+            //HtmlLink cssPrincipalEsika = this.Master.FindControl("cssStyle") as HtmlLink;
+            //HtmlLink cssPrincipalLbel = this.Master.FindControl("cssStyleLbel") as HtmlLink;
+            ViewBag.IsoPais = iso;
+
+            if (iso == "BR") iso = "00";
+            //ddlPais.SelectedValue = iso;
+
+            if (ConfigurationManager.AppSettings.Get("paisesEsika").Contains(iso))
+            {
+                //iconoPagina.Href = "http://www.esika.com/wp-content/themes/nuevaesika/favicon.ico";
+                //tituloPagina.Text = " ÉSIKA ";
+                //cssPrincipalEsika.Disabled = false;
+                //cssPrincipalLbel.Disabled = true;
+                //AvisoASP.Attributes.Add("Style", "display: none");
+                //cargarBandera.Attributes.Add("Style", "background: url('Images/Banderas/" + iso + ".png') top 10px left 2px no-repeat");
+                ViewBag.TituloPagina = " ÉSIKA ";
+                ViewBag.IconoPagina = "http://www.esika.com/wp-content/themes/nuevaesika/favicon.ico";
+                ViewBag.EsPaisEsika = true;
+                ViewBag.EsPaisLbel = false;
+                ViewBag.AvisoASP = 1;
+                ViewBag.BanderaOk = true;
+            }
+            else
+            {
+                if (ConfigurationManager.AppSettings.Get("paisesLBel").Contains(iso))
+                {
+                    //iconoPagina.Href = "http://cdn.lbel.com/wp-content/themes/lbel2/images/icons/favicon.ico";
+                    //tituloPagina.Text = " L'BEL ";
+                    //cssPrincipalEsika.Disabled = true;
+                    //cssPrincipalLbel.Disabled = false;
+                    //if (iso == "MX") AvisoASP.Attributes.Add("Style", "display: block; color: #959595; font-family: lato;font-size: 12px; font-weight: 700; text-align: right; text-decoration: none;");
+                    //cargarBandera.Attributes.Add("Style", "background: url('Images/Banderas/" + iso + ".png') top 10px left 2px no-repeat");
+
+                    ViewBag.TituloPagina = " L'BEL ";
+                    ViewBag.IconoPagina = "http://cdn.lbel.com/wp-content/themes/lbel2/images/icons/favicon.ico";
+                    ViewBag.EsPaisEsika = false;
+                    ViewBag.EsPaisLbel = true;
+                    //ViewBag.AvisoASP = 1;
+                    ViewBag.BanderaOk = true;
+
+                    if (iso == "MX")
+                        ViewBag.AvisoASP = 2;
+                    else
+                        ViewBag.AvisoASP = 1;
+                }
+                else
+                {
+                    //iconoPagina.Href = "http://www.esika.com/wp-content/themes/nuevaesika/favicon.ico";
+                    //tituloPagina.Text = " ÉSIKA ";
+                    //cssPrincipalEsika.Disabled = false;
+                    //cssPrincipalLbel.Disabled = true;
+                    //AvisoASP.Attributes.Add("Style", "display: none");
+                    //cargarBandera.Attributes.Add("Style", "background: url('Images/Banderas/00.png') top -7px left -10px no-repeat");
+
+                    ViewBag.TituloPagina = " ÉSIKA ";
+                    ViewBag.IconoPagina = "http://www.esika.com/wp-content/themes/nuevaesika/favicon.ico";
+                    ViewBag.EsPaisEsika = true;
+                    ViewBag.EsPaisLbel = false;
+                    ViewBag.AvisoASP = 1;
+                    ViewBag.BanderaOk = false;
+                }
+            }
         }
 
         public int MenuNotificaciones(BEUsuario oBEUsuario)

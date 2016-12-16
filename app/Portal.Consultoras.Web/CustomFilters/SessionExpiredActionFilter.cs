@@ -23,8 +23,7 @@ namespace Portal.Consultoras.Web.CustomFilters
                     var sessionCookie = filterContext.HttpContext.Request.Headers["Cookie"];
                     if ((sessionCookie != null) && (sessionCookie.IndexOf("ASP.NET_SessionId") >= 0))
                     {
-
-                        /* PCABRERA EPD-180 - INICIO */
+                        /*EPD-180*/
                         // if exists UserData in Session
                         if (filterContext.HttpContext.Session["UserData"] != null)
                         {
@@ -40,7 +39,7 @@ namespace Portal.Consultoras.Web.CustomFilters
                             }
                             // loggear datos de variable de sesion clave
                         }
-                        /* PCABRERA EPD-180 - FIN */
+                        /*EPD-180*/
                         CerrarSesion(filterContext);
 
                         // version 2

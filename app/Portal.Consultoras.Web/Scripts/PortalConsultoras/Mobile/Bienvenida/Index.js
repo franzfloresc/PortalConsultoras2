@@ -158,9 +158,9 @@ function MostrarShowRoom() {
             }
         },
         error: function (response, error) {
-            /* PCABRERA EPD-180 - INICIO */
+            /* EPD-180 - INICIO */
             checkUserSession();
-            /* PCABRERA EPD-180 - FIN */
+            /* EPD-180 - FIN */
             if (checkTimeout(response)) messageInfo("Ocurrió un error al validar showroom.");
         }
     });

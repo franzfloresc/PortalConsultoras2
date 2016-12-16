@@ -267,6 +267,7 @@
     <Compile Include="Controllers\EscalaDescuentosController.cs" />
     <Compile Include="Controllers\ConsultoraOnlineController.cs" />
     <Compile Include="Controllers\ConsultoraDigitalesController.cs" />
+    <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\MiAcademiaController.cs" />
     <Compile Include="Controllers\BannerController.cs" />
     <Compile Include="Controllers\BannerPedidoController.cs" />
@@ -306,7 +307,7 @@
     <Compile Include="Controllers\FileUploadController.cs" />
     <Compile Include="Controllers\GestionContenidoController.cs" />
     <Compile Include="Controllers\GestionFaltantesController.cs" />
-    <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\old_LoginController.cs" />
     <Compile Include="Controllers\MatrizCampaniaController.cs" />
     <Compile Include="Controllers\MatrizComercialController.cs" />
     <Compile Include="Controllers\MisBeneficiosController.cs" />
@@ -590,6 +591,11 @@
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
     <Compile Include="Service References\ServiceUnete\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\ServiceUsuarioExt\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
@@ -1110,9 +1116,12 @@
     <Content Include="Content\Css\Site\fonts\oldstandard-italic.svg" />
     <Content Include="Content\Css\Site\fonts\slick.svg" />
     <Content Include="Content\Css\Site\hover.css" />
+    <Content Include="Content\Css\Site\jquery.custom-scrollbar.min.css" />
     <Content Include="Content\Css\Site\jquery.tag-editor.css" />
     <Content Include="Content\Css\Site\Lbel\reset.css" />
     <Content Include="Content\Css\Site\Lbel\style.css" />
+    <Content Include="Content\Css\Site\Login2\style_esika.css" />
+    <Content Include="Content\Css\Site\Login2\style_lbel.css" />
     <Content Include="Content\Css\Site\navidadConsultora.css" />
     <Content Include="Content\Css\Site\Site.css" />
     <Content Include="Content\Css\Site\slick.min.css" />
@@ -1223,6 +1232,22 @@
     <Content Include="Content\Images\ban-8.png" />
     <Content Include="Content\Images\ban-9.png" />
     <Content Include="Content\Images\ban-logo.png" />
+    <Content Include="Content\Images\Banderas\00.png" />
+    <Content Include="Content\Images\Banderas\AR.png" />
+    <Content Include="Content\Images\Banderas\BO.png" />
+    <Content Include="Content\Images\Banderas\BR.png" />
+    <Content Include="Content\Images\Banderas\CL.png" />
+    <Content Include="Content\Images\Banderas\CO.png" />
+    <Content Include="Content\Images\Banderas\CR.png" />
+    <Content Include="Content\Images\Banderas\DO.png" />
+    <Content Include="Content\Images\Banderas\EC.png" />
+    <Content Include="Content\Images\Banderas\GT.png" />
+    <Content Include="Content\Images\Banderas\MX.png" />
+    <Content Include="Content\Images\Banderas\PA.png" />
+    <Content Include="Content\Images\Banderas\PE.png" />
+    <Content Include="Content\Images\Banderas\PR.png" />
+    <Content Include="Content\Images\Banderas\SV.png" />
+    <Content Include="Content\Images\Banderas\VE.png" />
     <Content Include="Content\Images\banner_1.png" />
     <Content Include="Content\Images\banner_1_home.png" />
     <Content Include="Content\Images\banner_2.png" />
@@ -1260,6 +1285,7 @@
     <Content Include="Content\Images\bg_C_c.png" />
     <Content Include="Content\Images\bg_C_t.png" />
     <Content Include="Content\Images\bg_filtros.png" />
+    <Content Include="Content\Images\bg_form_esika.png" />
     <Content Include="Content\Images\bg_g1.png" />
     <Content Include="Content\Images\bg_g2.png" />
     <Content Include="Content\Images\bg_g2_white.png" />
@@ -1753,6 +1779,7 @@
     <Content Include="Content\Images\flecha-right.png" />
     <Content Include="Content\Images\flecha_scroll.svg" />
     <Content Include="Content\Images\flecha_scroll_arriba.svg" />
+    <Content Include="Content\Images\flecha_select.png" />
     <Content Include="Content\Images\flecha_volver_mobile.JPG" />
     <Content Include="Content\Images\flecha_volver_mobile.svg" />
     <Content Include="Content\Images\flecha_volver_mobile_blanca.svg" />
@@ -1762,6 +1789,7 @@
     <Content Include="Content\Images\flexipago_logo.png" />
     <Content Include="Content\Images\flexipago_prd.png" />
     <Content Include="Content\Images\flexipago_url.png" />
+    <Content Include="Content\Images\fondo_pop_up.png" />
     <Content Include="Content\Images\footer.gif" />
     <Content Include="Content\Images\footer_correonueva.gif" />
     <Content Include="Content\Images\foot_login.png" />
@@ -1791,12 +1819,14 @@
     <Content Include="Content\Images\icons\close.png" />
     <Content Include="Content\Images\icons\favicon_esika.ico" />
     <Content Include="Content\Images\icons\favicon_lbel.ico" />
+    <Content Include="Content\Images\icons\icono_nuevo_correo.png" />
     <Content Include="Content\Images\icons\warning.png" />
     <Content Include="Content\Images\icons\sign-check.png" />
     <Content Include="Content\Images\icons\sign-error.png" />
     <Content Include="Content\Images\icons\sign-warning.png" />
     <Content Include="Content\Images\icon_modal_list.png" />
     <Content Include="Content\Images\icon_productos.png" />
+    <Content Include="Content\Images\ico_admin_esika.png" />
     <Content Include="Content\Images\ico_alerts.png" />
     <Content Include="Content\Images\ico_catalog.png" />
     <Content Include="Content\Images\ico_clientes.png" />
@@ -1961,6 +1991,177 @@
     <Content Include="Content\Images\Loading.gif" />
     <Content Include="Content\Images\loadingCatalogo.gif" />
     <Content Include="Content\Images\loading_spinner.gif" />
+    <Content Include="Content\Images\loggin_esika.jpg" />
+    <Content Include="Content\Images\loggin_lbel.jpg" />
+    <Content Include="Content\Images\Login2\aniversario.png" />
+    <Content Include="Content\Images\Login2\backesika.jpg" />
+    <Content Include="Content\Images\Login2\ban-5.png" />
+    <Content Include="Content\Images\Login2\ban-6.png" />
+    <Content Include="Content\Images\Login2\ban-7.png" />
+    <Content Include="Content\Images\Login2\ban-logo.png" />
+    <Content Include="Content\Images\Login2\Banderas\00.png" />
+    <Content Include="Content\Images\Login2\Banderas\AR.png" />
+    <Content Include="Content\Images\Login2\Banderas\BO.png" />
+    <Content Include="Content\Images\Login2\Banderas\BR.png" />
+    <Content Include="Content\Images\Login2\Banderas\CL.png" />
+    <Content Include="Content\Images\Login2\Banderas\CO.png" />
+    <Content Include="Content\Images\Login2\Banderas\CR.png" />
+    <Content Include="Content\Images\Login2\Banderas\DO.png" />
+    <Content Include="Content\Images\Login2\Banderas\EC.png" />
+    <Content Include="Content\Images\Login2\Banderas\GT.png" />
+    <Content Include="Content\Images\Login2\Banderas\MX.png" />
+    <Content Include="Content\Images\Login2\Banderas\PA.png" />
+    <Content Include="Content\Images\Login2\Banderas\PE.png" />
+    <Content Include="Content\Images\Login2\Banderas\PR.png" />
+    <Content Include="Content\Images\Login2\Banderas\SV.png" />
+    <Content Include="Content\Images\Login2\Banderas\VE.png" />
+    <Content Include="Content\Images\Login2\banner_1.png" />
+    <Content Include="Content\Images\Login2\banner_2.png" />
+    <Content Include="Content\Images\Login2\banner_3.png" />
+    <Content Include="Content\Images\Login2\banner_4.png" />
+    <Content Include="Content\Images\Login2\banner_5.png" />
+    <Content Include="Content\Images\Login2\banner_6.png" />
+    <Content Include="Content\Images\Login2\banner_mantenimiento.png" />
+    <Content Include="Content\Images\Login2\belcorp.png" />
+    <Content Include="Content\Images\Login2\bg_form.png" />
+    <Content Include="Content\Images\Login2\bg_form1.png" />
+    <Content Include="Content\Images\Login2\bg_form_esika.png" />
+    <Content Include="Content\Images\Login2\bg_login.jpg" />
+    <Content Include="Content\Images\Login2\bg_login_esika.jpg" />
+    <Content Include="Content\Images\Login2\bg_login_esika_blur.jpg" />
+    <Content Include="Content\Images\Login2\bg_login_lbel.jpg" />
+    <Content Include="Content\Images\Login2\bg_login_lbel_blur.jpg" />
+    <Content Include="Content\Images\Login2\bg_logo.png" />
+    <Content Include="Content\Images\Login2\BOclave.png" />
+    <Content Include="Content\Images\Login2\body_login.png" />
+    <Content Include="Content\Images\Login2\BOusuario.png" />
+    <Content Include="Content\Images\Login2\btn_crear.png" />
+    <Content Include="Content\Images\Login2\btn_crear_esika.png" />
+    <Content Include="Content\Images\Login2\btn_ingresar_login.png" />
+    <Content Include="Content\Images\Login2\CAMclave.png" />
+    <Content Include="Content\Images\Login2\CAMusuario7.png" />
+    <Content Include="Content\Images\Login2\CAMusuario9.png" />
+    <Content Include="Content\Images\Login2\chat_banner.png" />
+    <Content Include="Content\Images\Login2\ClaveAR.png" />
+    <Content Include="Content\Images\Login2\ClaveCO.png" />
+    <Content Include="Content\Images\Login2\ClaveDO.png" />
+    <Content Include="Content\Images\Login2\ClaveEC.png" />
+    <Content Include="Content\Images\Login2\ClaveMX.png" />
+    <Content Include="Content\Images\Login2\ClavePR.png" />
+    <Content Include="Content\Images\Login2\ClaveVe.png" />
+    <Content Include="Content\Images\Login2\CLclave.png" />
+    <Content Include="Content\Images\Login2\CLusuario.png" />
+    <Content Include="Content\Images\Login2\consultora.png" />
+    <Content Include="Content\Images\Login2\cyzone.png" />
+    <Content Include="Content\Images\Login2\email.png" />
+    <Content Include="Content\Images\Login2\empleado.png" />
+    <Content Include="Content\Images\Login2\esika.png" />
+    <Content Include="Content\Images\Login2\face.png" />
+    <Content Include="Content\Images\Login2\faq.png" />
+    <Content Include="Content\Images\Login2\flecha_scroll_vertical1.png" />
+    <Content Include="Content\Images\Login2\flecha_scroll_vertical2.png" />
+    <Content Include="Content\Images\Login2\flecha_select.png" />
+    <Content Include="Content\Images\Login2\fondo_default.jpg" />
+    <Content Include="Content\Images\Login2\foot_login.png" />
+    <Content Include="Content\Images\Login2\help.png" />
+    <Content Include="Content\Images\Login2\help2.png" />
+    <Content Include="Content\Images\Login2\ico0.png" />
+    <Content Include="Content\Images\Login2\ico0_b.png" />
+    <Content Include="Content\Images\Login2\ico1.png" />
+    <Content Include="Content\Images\Login2\ico1_b.png" />
+    <Content Include="Content\Images\Login2\ico2.png" />
+    <Content Include="Content\Images\Login2\ico2_b.png" />
+    <Content Include="Content\Images\Login2\ico3.png" />
+    <Content Include="Content\Images\Login2\ico3_b.png" />
+    <Content Include="Content\Images\Login2\Icons\favicon_esika.ico" />
+    <Content Include="Content\Images\Login2\Icons\favicon_lbel.ico" />
+    <Content Include="Content\Images\Login2\Icons\icono_nuevo_correo.png" />
+    <Content Include="Content\Images\Login2\ico_admin.png" />
+    <Content Include="Content\Images\Login2\ico_admin_esika.png" />
+    <Content Include="Content\Images\Login2\ingresar.png" />
+    <Content Include="Content\Images\Login2\lbel.png" />
+    <Content Include="Content\Images\Login2\loggin_esika.jpg" />
+    <Content Include="Content\Images\Login2\loggin_lbel.jpg" />
+    <Content Include="Content\Images\Login2\login-esika-1366.jpg" />
+    <Content Include="Content\Images\Login2\login-esika-1920.jpg" />
+    <Content Include="Content\Images\Login2\login-lbel-1366.jpg" />
+    <Content Include="Content\Images\Login2\login-lbel-1920.jpg" />
+    <Content Include="Content\Images\Login2\LoginAddicted.jpg" />
+    <Content Include="Content\Images\Login2\LoginCCCream.jpg" />
+    <Content Include="Content\Images\Login2\LoginLBEL.jpg" />
+    <Content Include="Content\Images\Login2\LoginLoveBomb.jpg" />
+    <Content Include="Content\Images\Login2\LoginMujer.jpg" />
+    <Content Include="Content\Images\Login2\LoginNavidad.jpg" />
+    <Content Include="Content\Images\Login2\LoginSanValentin.jpg" />
+    <Content Include="Content\Images\Login2\logo.png" />
+    <Content Include="Content\Images\Login2\logo_belcorp.png" />
+    <Content Include="Content\Images\Login2\logo_cyzone.png" />
+    <Content Include="Content\Images\Login2\logo_esika.png" />
+    <Content Include="Content\Images\Login2\logo_esika2.png" />
+    <Content Include="Content\Images\Login2\logo_facebook.png" />
+    <Content Include="Content\Images\Login2\logo_foot.png" />
+    <Content Include="Content\Images\Login2\logo_intro.png" />
+    <Content Include="Content\Images\Login2\logo_Lbel.png" />
+    <Content Include="Content\Images\Login2\logo_lbel2.png" />
+    <Content Include="Content\Images\Login2\logo_responde_login.png" />
+    <Content Include="Content\Images\Login2\logo_responde_login_transparente.png" />
+    <Content Include="Content\Images\Login2\logo_welcome.png" />
+    <Content Include="Content\Images\Login2\mant_do.jpg" />
+    <Content Include="Content\Images\Login2\mant_pr.jpg" />
+    <Content Include="Content\Images\Login2\pais_ico.png" />
+    <Content Include="Content\Images\Login2\pais_ico2.png" />
+    <Content Include="Content\Images\Login2\pass_ico.png" />
+    <Content Include="Content\Images\Login2\pass_ico2.png" />
+    <Content Include="Content\Images\Login2\PEclave.png" />
+    <Content Include="Content\Images\Login2\PEusuario.png" />
+    <Content Include="Content\Images\Login2\popup\bg_2_02.png" />
+    <Content Include="Content\Images\Login2\popup\bienvenido_02.png" />
+    <Content Include="Content\Images\Login2\popup\cerrar_04.png" />
+    <Content Include="Content\Images\Login2\popup\corre_titulo_03.png" />
+    <Content Include="Content\Images\Login2\popup\gmail_03.png" />
+    <Content Include="Content\Images\Login2\popup\hotmail_03.png" />
+    <Content Include="Content\Images\Login2\popup\outlook_03.png" />
+    <Content Include="Content\Images\Login2\popup\titulos_03.png" />
+    <Content Include="Content\Images\Login2\popup\titulos_06.png" />
+    <Content Include="Content\Images\Login2\popup\titulos_08.png" />
+    <Content Include="Content\Images\Login2\popup\yahoo_03.png" />
+    <Content Include="Content\Images\Login2\popup_esika\bg_2_02.png" />
+    <Content Include="Content\Images\Login2\popup_esika\bg_lbel.png" />
+    <Content Include="Content\Images\Login2\popup_esika\bienvenido_02.png" />
+    <Content Include="Content\Images\Login2\popup_esika\cerrar_04.png" />
+    <Content Include="Content\Images\Login2\popup_esika\corre_titulo_03.png" />
+    <Content Include="Content\Images\Login2\popup_esika\fondo_header.png" />
+    <Content Include="Content\Images\Login2\popup_esika\fondo_pop_up.png" />
+    <Content Include="Content\Images\Login2\popup_esika\gmail.png" />
+    <Content Include="Content\Images\Login2\popup_esika\gmail_03.png" />
+    <Content Include="Content\Images\Login2\popup_esika\hotmail_03.png" />
+    <Content Include="Content\Images\Login2\popup_esika\outlook_03.png" />
+    <Content Include="Content\Images\Login2\popup_esika\titulos_03.png" />
+    <Content Include="Content\Images\Login2\popup_esika\titulos_06.png" />
+    <Content Include="Content\Images\Login2\popup_esika\titulos_08.png" />
+    <Content Include="Content\Images\Login2\popup_esika\yahoo_03.png" />
+    <Content Include="Content\Images\Login2\separador.png" />
+    <Content Include="Content\Images\Login2\sombra_banner_login.png" />
+    <Content Include="Content\Images\Login2\sombra_login.png" />
+    <Content Include="Content\Images\Login2\sombra_superior.png" />
+    <Content Include="Content\Images\Login2\tooltip.png" />
+    <Content Include="Content\Images\Login2\user_ico.png" />
+    <Content Include="Content\Images\Login2\user_ico2.png" />
+    <Content Include="Content\Images\Login2\UsuarioAR.png" />
+    <Content Include="Content\Images\Login2\UsuarioCO.png" />
+    <Content Include="Content\Images\Login2\UsuarioDO.png" />
+    <Content Include="Content\Images\Login2\UsuarioEC.png" />
+    <Content Include="Content\Images\Login2\UsuarioMX.png" />
+    <Content Include="Content\Images\Login2\UsuarioPR.png" />
+    <Content Include="Content\Images\Login2\UsuarioVe.png" />
+    <Content Include="Content\Images\login\ico0.png" />
+    <Content Include="Content\Images\login\ico0_b.png" />
+    <Content Include="Content\Images\login\ico1.png" />
+    <Content Include="Content\Images\login\ico1_b.png" />
+    <Content Include="Content\Images\login\ico2.png" />
+    <Content Include="Content\Images\login\ico2_b.png" />
+    <Content Include="Content\Images\login\ico3.png" />
+    <Content Include="Content\Images\login\ico3_b.png" />
     <Content Include="Content\Images\logo-belcorp-academia.png" />
     <Content Include="Content\Images\Logo.gif" />
     <Content Include="Content\Images\logotipo_belcorp_05.png" />
@@ -1969,8 +2170,11 @@
     <Content Include="Content\Images\logo_bancomer.png" />
     <Content Include="Content\Images\logo_banco_pichincha.gif" />
     <Content Include="Content\Images\logo_belcorp.png" />
+    <Content Include="Content\Images\logo_cyzone.png" />
+    <Content Include="Content\Images\logo_esika2.png" />
     <Content Include="Content\Images\logo_foot.png" />
     <Content Include="Content\Images\logo_intro.png" />
+    <Content Include="Content\Images\logo_lbel2.png" />
     <Content Include="Content\Images\logo_lideres.png" />
     <Content Include="Content\Images\logo_pago.png" />
     <Content Include="Content\Images\logo_popular.png" />
@@ -1996,6 +2200,7 @@
     <Content Include="Content\Images\logo_santander.png" />
     <Content Include="Content\Images\logo_scotia.png" />
     <Content Include="Content\Images\logo_servipagos.gif" />
+    <Content Include="Content\Images\logo_welcome.png" />
     <Content Include="Content\Images\logo_western.gif" />
     <Content Include="Content\Images\mask-light.png" />
     <Content Include="Content\Images\mask.png" />
@@ -2251,6 +2456,7 @@
     <Content Include="Content\Images\Pop Up Navidad 2-04.png" />
     <Content Include="Content\Images\Pop Up Navidad 2-05.png" />
     <Content Include="Content\Images\Pop Up Navidad 2-06.png" />
+    <Content Include="Content\Images\popup_esika\gmail.png" />
     <Content Include="Content\Images\Pop_Up_Navidad_2_01.png" />
     <Content Include="Content\Images\preloader.gif" />
     <Content Include="Content\Images\preview_banner_com.png" />
@@ -2275,6 +2481,7 @@
     <Content Include="Content\Images\search_cat_consul.png" />
     <Content Include="Content\Images\selectP2.png" />
     <Content Include="Content\Images\select_input_tab.png" />
+    <Content Include="Content\Images\separador.png" />
     <Content Include="Content\Images\sesion_icono.png" />
     <Content Include="Content\Images\showroom\banner_showroom.jpg" />
     <Content Include="Content\Images\showroom\borde_inferior.png" />
@@ -2320,6 +2527,7 @@
     <Content Include="Content\Images\socias_empresarias_2014.png" />
     <Content Include="Content\Images\sombra_banner_login.png" />
     <Content Include="Content\Images\sombra_login.png" />
+    <Content Include="Content\Images\sombra_superior.png" />
     <Content Include="Content\Images\somos_belcorp.png" />
     <Content Include="Content\Images\star_reco.png" />
     <Content Include="Content\Images\stok.png" />
@@ -2423,6 +2631,7 @@
     <Content Include="Scripts\jquery-migrate-1.2.1.min.js" />
     <Content Include="Scripts\jquery-ui-1.9.2.custom.js" />
     <Content Include="Scripts\jquery.betterTooltip.js" />
+    <Content Include="Scripts\jquery.custom-scrollbar.min.js" />
     <Content Include="Scripts\jquery.easy-pie-chart.js" />
     <Content Include="Scripts\jquery.maskedinput.min.js" />
     <Content Include="Scripts\MultiSelect\css\common.css" />
@@ -2447,6 +2656,7 @@
     <Content Include="Scripts\PortalConsultoras\CatalogoPersonalizado\catalogoPersonalizado.js" />
     <Content Include="Scripts\PortalConsultoras\CatalogoPersonalizado\Index.js" />
     <Content Include="Scripts\PortalConsultoras\Cliente\Index.js" />
+    <Content Include="Scripts\PortalConsultoras\Login\FormsSignIn.js" />
     <Content Include="Scripts\PortalConsultoras\MisBeneficios\Index.js" />
     <Content Include="Scripts\PortalConsultoras\MisPedidos\ClienteOnline.js" />
     <Content Include="Scripts\PortalConsultoras\MisReclamos\Reclamo.js" />
@@ -2469,6 +2679,7 @@
     <Content Include="Scripts\PortalConsultoras\Pedido\barra.js" />
     <Content Include="Scripts\PortalConsultoras\Pedido\ConsultoraOnline.js" />
     <Content Include="Scripts\PortalConsultoras\Pedido\ofertafinal.js" />
+    <Content Include="Scripts\PortalConsultoras\Shared\LoginLayout.js" />
     <Content Include="Scripts\PortalConsultoras\Shared\TrackingJetlore.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\slick.js" />
@@ -2672,6 +2883,15 @@
     <Content Include="Content\FAQ\Politica_de_reclamos_CO.pdf" />
     <Content Include="Areas\Mobile\Views\Catalogo\MiRevista.cshtml" />
     <Content Include="Areas\Mobile\Views\TerminosYCondiciones\Index.cshtml" />
+    <Content Include="Content\fonts\icomoon\icomoon.eot" />
+    <Content Include="Content\fonts\icomoon\icomoon.svg" />
+    <Content Include="Content\fonts\icomoon\icomoon.ttf" />
+    <Content Include="Content\fonts\icomoon\icomoon.woff" />
+    <Content Include="Content\fonts\icomoon\logo_esika.eot" />
+    <Content Include="Content\fonts\icomoon\logo_esika.svg" />
+    <Content Include="Content\fonts\icomoon\logo_esika.ttf" />
+    <Content Include="Content\fonts\icomoon\logo_esika.woff" />
+    <Content Include="Content\Images\Login2\logo_lbel.psd" />
     <None Include="Service References\ServiceCDR\CDRService.wsdl" />
     <None Include="Service References\ServiceCDR\CDRService.xsd">
       <SubType>Designer</SubType>
@@ -2731,6 +2951,13 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\ServiceUnete\PortalService5.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceUsuarioExt\UsuarioWebService.wsdl" />
+    <None Include="Service References\ServiceUsuarioExt\UsuarioWebService.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceUsuarioExt\UsuarioWebService1.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\ValidacionCrediticia\configuration91.svcinfo" />
@@ -3204,6 +3431,13 @@
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
+    <None Include="Service References\ServiceUsuarioExt\UsuarioWebService.disco" />
+    <None Include="Service References\ServiceUsuarioExt\configuration91.svcinfo" />
+    <None Include="Service References\ServiceUsuarioExt\configuration.svcinfo" />
+    <None Include="Service References\ServiceUsuarioExt\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
     <Content Include="Service References\ServiceUsuario\Portal.Consultoras.Web.ServiceUsuario.BEConsultoraDatos.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Content>
@@ -3605,6 +3839,8 @@
     <None Include="Service References\ValidacionesUnete\ValidacionesUnete54.xsd">
       <SubType>Designer</SubType>
     </None>
+    <Content Include="Views\Shared\_LoginLayout.cshtml" />
+    <Content Include="Views\Login\Index.cshtml" />
     <None Include="Web References\ServiceLMS\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
@@ -3748,8 +3984,8 @@
     <Content Include="Views\Web.config">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="Views\Login\Index.cshtml" />
-    <Content Include="Views\Shared\_LoginLayout.cshtml" />
+    <Content Include="Views\Login\old.Index.cshtml" />
+    <Content Include="Views\Shared\old_LoginLayout.cshtml" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Cliente\Index.cshtml" />
     <Content Include="Views\Shared\_SACLayout.cshtml" />
@@ -3888,8 +4124,10 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Content\Css\Site\Login\" />
     <Folder Include="GestionPasos\Asignaciones\" />
     <Folder Include="Views\Contenido\" />
+    <Folder Include="Views\NewFolder1\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -4022,6 +4260,7 @@
     <WCFMetadataStorage Include="Service References\ServiceSAC\" />
     <WCFMetadataStorage Include="Service References\ServiceSeguridad\" />
     <WCFMetadataStorage Include="Service References\ServiceUnete\" />
+    <WCFMetadataStorage Include="Service References\ServiceUsuarioExt\" />
     <WCFMetadataStorage Include="Service References\ServiceUsuario\" />
     <WCFMetadataStorage Include="Service References\ServiceZonificacion\" />
     <WCFMetadataStorage Include="Service References\ServicioGenerarLideres\" />
