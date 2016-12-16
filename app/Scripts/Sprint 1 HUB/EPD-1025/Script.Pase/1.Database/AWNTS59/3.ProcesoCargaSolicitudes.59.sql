@@ -29,7 +29,7 @@ BEGIN
 
 		PrefijoPais					VARCHAR(3),
 
-		CodigoConsultora			VARCHAR(15),
+		CodigoConsultora			VARCHAR(25),
 
 		CodigoTerritorio			VARCHAR(13),
 
