@@ -2,6 +2,7 @@
 
 namespace Portal.Consultoras.Web.Areas.Mobile.Models
 {
+    [Serializable()]
     public class PedidoWebDetalleMobilModel
     {
         public Int16 ClienteID { set; get; }
