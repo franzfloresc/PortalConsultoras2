@@ -237,6 +237,21 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="BEPedidoRechazado" nillable="true" type="tns:BEPedidoRechazado" />
+  <xs:complexType name="BEPedidoDescarga">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Desmarcado" type="xs:boolean" />
+      <xs:element minOccurs="0" name="Estado" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FechaFacturacion" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="FechaHoraFin" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="FechaHoraInicio" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="Mensaje" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NroLote" type="xs:int" />
+      <xs:element minOccurs="0" name="NumeroPedidosDD" type="xs:int" />
+      <xs:element minOccurs="0" name="NumeroPedidosWeb" type="xs:int" />
+      <xs:element minOccurs="0" name="TipoProceso" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="BEPedidoDescarga" nillable="true" type="tns:BEPedidoDescarga" />
   <xs:complexType name="BETipoEstrategia">
     <xs:sequence>
       <xs:element minOccurs="0" name="CodigoGeneral" type="xs:int" />

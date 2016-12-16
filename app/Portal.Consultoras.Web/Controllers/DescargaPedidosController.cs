@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 using System.ServiceModel;
 using Portal.Consultoras.Web.ServicePedido;
 using System.Configuration;
+using Portal.Consultoras.Common;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -116,7 +117,7 @@ namespace Portal.Consultoras.Web.Controllers
                     using (var pedidoService = new PedidoServiceClient())
                     {
                         int ContadorCarga = pedidoService.ValidarCargadePedidos(model.PaisID, model.TipoCronogramaID == 3 ? 2 : model.TipoCronogramaID, model.TipoCronogramaID == 1 ? 1 : (model.TipoCronogramaID == 3 ? 1 : 0), model.FechaFacturacion);
-                    
+
                         if (ContadorCarga == 0)
                         {
                             string usuario = UserData().NombreConsultora;
@@ -150,7 +151,7 @@ namespace Portal.Consultoras.Web.Controllers
                     {
                         //if (UserData().CodigoISO.Equals("BO") ||
                         //    UserData().CodigoISO.Equals("MX"))
-                            fox = true;
+                        fox = true;
 
                         return Json(new
                         {
@@ -261,7 +262,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
         // R20151003 - Inicio
-        
+
         [HttpPost]
         public JsonResult RealizarDescargaFIC(DescargarPedidoModel model)
         {
@@ -372,5 +373,58 @@ namespace Portal.Consultoras.Web.Controllers
 
             return View();
         }
+        /*EPD-1025*/
+        public ActionResult ObtenerUltimaDescargaPedido()
+        {
+            if (ModelState.IsValid)
+            {
+                List<BEPedidoDescarga> lst = new List<BEPedidoDescarga>();
+                BEPedidoDescarga UltimaDescargaPedido = new BEPedidoDescarga();
+                using (PedidoServiceClient srv = new PedidoServiceClient())
+                {
+                    UltimaDescargaPedido = srv.ObtenerUltimaDescargaPedido(userData.PaisID);
+                }
+                lst.Add(UltimaDescargaPedido);
+
+                var data = new
+                {
+                    total = 1,
+                    page = 1,
+                    records = 3,
+                    rows = from item in lst
+                           select new
+                           {
+                               id = item.NroLote,
+                               cell = new string[]
+                               {
+                                   item.FechaHoraInicio.ToString(),
+                                   item.FechaHoraFin.ToString(),
+                                   item.Estado,
+                                   item.Mensaje,
+                                   string.Format(" Web: {0}<br> DD: {1}", item.NumeroPedidosWeb.ToString(), item.NumeroPedidosDD.ToString()),
+                                   item.TipoProceso,
+                                   item.FechaFacturacion.ToShortDateString(),
+                                   (item.Desmarcado) ?"Pedido Desmarcado": string.Empty
+                               }
+                           }
+                };
+                return Json(data, JsonRequestBehavior.AllowGet);
+            }
+            return RedirectToAction("Index", "Bienvenida");
+        }
+        public ActionResult DeshacerUltimaDescargaPedidos()
+        {
+            using (PedidoServiceClient sv = new PedidoServiceClient())
+            {
+                sv.DeshacerUltimaDescargaPedido(userData.PaisID);
+            }
+
+            return Json(new
+                  {
+                      success = true,
+                      mensaje = "Se desmarcó correctamente la última descarga."
+                  });
+        }
+        /*EPD-1025*/
     }
 }

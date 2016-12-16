@@ -2852,6 +2852,195 @@ namespace Portal.Consultoras.Web.ServicePedido {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="BEPedidoDescarga", Namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities")]
+    [System.SerializableAttribute()]
+    public partial class BEPedidoDescarga : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool DesmarcadoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string EstadoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.DateTime FechaFacturacionField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.DateTime FechaHoraFinField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.DateTime FechaHoraInicioField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string MensajeField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int NroLoteField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int NumeroPedidosDDField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int NumeroPedidosWebField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string TipoProcesoField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool Desmarcado {
+            get {
+                return this.DesmarcadoField;
+            }
+            set {
+                if ((this.DesmarcadoField.Equals(value) != true)) {
+                    this.DesmarcadoField = value;
+                    this.RaisePropertyChanged("Desmarcado");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Estado {
+            get {
+                return this.EstadoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.EstadoField, value) != true)) {
+                    this.EstadoField = value;
+                    this.RaisePropertyChanged("Estado");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.DateTime FechaFacturacion {
+            get {
+                return this.FechaFacturacionField;
+            }
+            set {
+                if ((this.FechaFacturacionField.Equals(value) != true)) {
+                    this.FechaFacturacionField = value;
+                    this.RaisePropertyChanged("FechaFacturacion");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.DateTime FechaHoraFin {
+            get {
+                return this.FechaHoraFinField;
+            }
+            set {
+                if ((this.FechaHoraFinField.Equals(value) != true)) {
+                    this.FechaHoraFinField = value;
+                    this.RaisePropertyChanged("FechaHoraFin");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.DateTime FechaHoraInicio {
+            get {
+                return this.FechaHoraInicioField;
+            }
+            set {
+                if ((this.FechaHoraInicioField.Equals(value) != true)) {
+                    this.FechaHoraInicioField = value;
+                    this.RaisePropertyChanged("FechaHoraInicio");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Mensaje {
+            get {
+                return this.MensajeField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.MensajeField, value) != true)) {
+                    this.MensajeField = value;
+                    this.RaisePropertyChanged("Mensaje");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int NroLote {
+            get {
+                return this.NroLoteField;
+            }
+            set {
+                if ((this.NroLoteField.Equals(value) != true)) {
+                    this.NroLoteField = value;
+                    this.RaisePropertyChanged("NroLote");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int NumeroPedidosDD {
+            get {
+                return this.NumeroPedidosDDField;
+            }
+            set {
+                if ((this.NumeroPedidosDDField.Equals(value) != true)) {
+                    this.NumeroPedidosDDField = value;
+                    this.RaisePropertyChanged("NumeroPedidosDD");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int NumeroPedidosWeb {
+            get {
+                return this.NumeroPedidosWebField;
+            }
+            set {
+                if ((this.NumeroPedidosWebField.Equals(value) != true)) {
+                    this.NumeroPedidosWebField = value;
+                    this.RaisePropertyChanged("NumeroPedidosWeb");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string TipoProceso {
+            get {
+                return this.TipoProcesoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.TipoProcesoField, value) != true)) {
+                    this.TipoProcesoField = value;
+                    this.RaisePropertyChanged("TipoProceso");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="BETipoEstrategia", Namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities")]
     [System.SerializableAttribute()]
     public partial class BETipoEstrategia : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
@@ -17394,6 +17583,18 @@ namespace Portal.Consultoras.Web.ServicePedido {
             "")]
         System.Threading.Tasks.Task ActualizarIndicadorGPRPedidosFacturadosAsync(int PaisID, long ProcesoID);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/ObtenerUltimaDescargaPedido", ReplyAction="http://tempuri.org/IPedidoService/ObtenerUltimaDescargaPedidoResponse")]
+        Portal.Consultoras.Web.ServicePedido.BEPedidoDescarga ObtenerUltimaDescargaPedido(int PaisID);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/ObtenerUltimaDescargaPedido", ReplyAction="http://tempuri.org/IPedidoService/ObtenerUltimaDescargaPedidoResponse")]
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEPedidoDescarga> ObtenerUltimaDescargaPedidoAsync(int PaisID);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/DeshacerUltimaDescargaPedido", ReplyAction="http://tempuri.org/IPedidoService/DeshacerUltimaDescargaPedidoResponse")]
+        void DeshacerUltimaDescargaPedido(int PaisID);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/DeshacerUltimaDescargaPedido", ReplyAction="http://tempuri.org/IPedidoService/DeshacerUltimaDescargaPedidoResponse")]
+        System.Threading.Tasks.Task DeshacerUltimaDescargaPedidoAsync(int PaisID);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/InsertarTipoEstrategia", ReplyAction="http://tempuri.org/IPedidoService/InsertarTipoEstrategiaResponse")]
         int InsertarTipoEstrategia(Portal.Consultoras.Web.ServicePedido.BETipoEstrategia entidad);
         
@@ -19094,6 +19295,22 @@ namespace Portal.Consultoras.Web.ServicePedido {
         
         public System.Threading.Tasks.Task ActualizarIndicadorGPRPedidosFacturadosAsync(int PaisID, long ProcesoID) {
             return base.Channel.ActualizarIndicadorGPRPedidosFacturadosAsync(PaisID, ProcesoID);
+        }
+        
+        public Portal.Consultoras.Web.ServicePedido.BEPedidoDescarga ObtenerUltimaDescargaPedido(int PaisID) {
+            return base.Channel.ObtenerUltimaDescargaPedido(PaisID);
+        }
+        
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEPedidoDescarga> ObtenerUltimaDescargaPedidoAsync(int PaisID) {
+            return base.Channel.ObtenerUltimaDescargaPedidoAsync(PaisID);
+        }
+        
+        public void DeshacerUltimaDescargaPedido(int PaisID) {
+            base.Channel.DeshacerUltimaDescargaPedido(PaisID);
+        }
+        
+        public System.Threading.Tasks.Task DeshacerUltimaDescargaPedidoAsync(int PaisID) {
+            return base.Channel.DeshacerUltimaDescargaPedidoAsync(PaisID);
         }
         
         public int InsertarTipoEstrategia(Portal.Consultoras.Web.ServicePedido.BETipoEstrategia entidad) {
