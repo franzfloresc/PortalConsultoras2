@@ -5,6 +5,7 @@ using System.Web;
 
 namespace Portal.Consultoras.Web.Models
 {
+    [Serializable()]
     public class PaisModel
     {
         public int PaisID { get; set; }
