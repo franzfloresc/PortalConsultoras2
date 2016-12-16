@@ -269,6 +269,17 @@ namespace Portal.Consultoras.Data
             return Context.ExecuteReader(command);
         }
 
+        /*EPD-1012*/
+        public IDataReader GetValidarLoginSB2(string CodigoUsuario, string Contrasenia)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.ValidarLogin_SB2");
+            Context.Database.AddInParameter(command, "@CodigoUsuario", DbType.AnsiString, CodigoUsuario);
+            Context.Database.AddInParameter(command, "@Contrasenia", DbType.AnsiString, Contrasenia);
+
+            return Context.ExecuteReader(command);
+        }
+        /*EPD-1012*/
+
         public IDataReader GetInfoPreLoginConsultoraCatalogo(string CodigoUsuario)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetInfoPreLoginConsultoraCatalogo");

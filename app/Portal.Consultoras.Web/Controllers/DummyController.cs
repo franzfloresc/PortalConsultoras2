@@ -21,7 +21,7 @@ namespace Portal.Consultoras.Web.Controllers
             return new RedirectResult(URLSignOut);
         }
 
-        /* PCABRERA EPD-180 - INICIO */
+        /* EPD-180 - INICIO */
         public JsonResult CheckUserSession()
         {
             int res = 0;
@@ -47,6 +47,6 @@ namespace Portal.Consultoras.Web.Controllers
 
             }, JsonRequestBehavior.AllowGet);
         }
-        /* PCABRERA EPD-180 - FIN */
+        /* EPD-180 - FIN */
     }
 }

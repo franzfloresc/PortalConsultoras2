@@ -41,6 +41,15 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
+                /*EPD-1012*/
+                if (Session["UserData"] == null)
+                {
+                    string url = "/SesionExpirada.html";
+                    filterContext.Result = new RedirectResult(url);
+                    return;
+                }
+                /*EPD-1012*/
+
                 userData = UserData();
                 ViewBag.UrlRaizS3 = ConfigurationManager.AppSettings["URL_S3"].ToString() + "/" + ConfigurationManager.AppSettings["BUCKET_NAME"].ToString() + "/" + ConfigurationManager.AppSettings["ROOT_DIRECTORY"] + "/";
 
@@ -578,62 +587,61 @@ namespace Portal.Consultoras.Web.Controllers
 
             if (Session["UserData"] == null)
             {
-                isNull = true;
+                //isNull = true;
 
                 #region null true
-                ClaimsPrincipal claimsPrincipal = User as ClaimsPrincipal;
-                Claim FederationClaimName = claimsPrincipal.FindFirst(ClaimTypes.Name);
-                string claimUser = FederationClaimName == null ? "" : FederationClaimName.Value.ToUpper();
-                string DomConsultora = ConfigurationManager.AppSettings.Get("DomConsultora") ?? "";
-                string DomBelcorp = ConfigurationManager.AppSettings.Get("DomBelcorp") ?? "";
+                //ClaimsPrincipal claimsPrincipal = User as ClaimsPrincipal;
+                //Claim FederationClaimName = claimsPrincipal.FindFirst(ClaimTypes.Name);
+                //string claimUser = FederationClaimName == null ? "" : FederationClaimName.Value.ToUpper();
+                //string DomConsultora = ConfigurationManager.AppSettings.Get("DomConsultora") ?? "";
+                //string DomBelcorp = ConfigurationManager.AppSettings.Get("DomBelcorp") ?? "";
 
-                string UserPortal = string.Empty;
-                bool UsuarioSAC = false;
-                int Tipo = 0;
-                if (claimUser != "" && claimUser.Contains(DomConsultora))
-                {
-                    UserPortal = claimUser.Replace(DomConsultora + @"\", "");
-                    Tipo = 1;
-                }
-                else
-                    if (claimUser != "" && claimUser.Contains(DomBelcorp))
-                    {
-                        UserPortal = claimUser.Replace(DomBelcorp + @"\", "");
-                        UsuarioSAC = true;
-                        Tipo = 2;
-                    }
-
-
-                if (!string.IsNullOrEmpty(UserPortal))
-                {
-                    List<BEPais> lst = new List<BEPais>();
-
-                    using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
-                    {
-                        lst = sv.SelectPaises().ToList();
-                    }
-
-                    string Pais = string.Empty;
-                    string Codigo = string.Empty;
-
-                    if (!UsuarioSAC)
-                    {
-                        Pais = UserPortal.Substring(0, 2);
-                        Codigo = UserPortal.Replace(Pais, "");
-                    }
-                    else
-                    {
-                        Claim FederationClaimCountry = claimsPrincipal.FindFirst(ClaimTypes.Country);
-                        Pais = FederationClaimCountry.Value.ToUpper();
-                        Codigo = UserPortal;
-                    }
+                //string UserPortal = string.Empty;
+                //bool UsuarioSAC = false;
+                //int Tipo = 0;
+                //if (claimUser != "" && claimUser.Contains(DomConsultora))
+                //{
+                //    UserPortal = claimUser.Replace(DomConsultora + @"\", "");
+                //    Tipo = 1;
+                //}
+                //else
+                //    if (claimUser != "" && claimUser.Contains(DomBelcorp))
+                //    {
+                //        UserPortal = claimUser.Replace(DomBelcorp + @"\", "");
+                //        UsuarioSAC = true;
+                //        Tipo = 2;
+                //    }
 
 
-                    BEPais PaisModel = lst.First(p => p.CodigoISO == Pais);
-                    if (PaisModel != null)
-                        GetUserData(PaisModel.PaisID, Codigo, Tipo);
-                }
+                //if (!string.IsNullOrEmpty(UserPortal))
+                //{
+                //    List<BEPais> lst = new List<BEPais>();
 
+                //    using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
+                //    {
+                //        lst = sv.SelectPaises().ToList();
+                //    }
+
+                //    string Pais = string.Empty;
+                //    string Codigo = string.Empty;
+
+                //    if (!UsuarioSAC)
+                //    {
+                //        Pais = UserPortal.Substring(0, 2);
+                //        Codigo = UserPortal.Replace(Pais, "");
+                //    }
+                //    else
+                //    {
+                //        Claim FederationClaimCountry = claimsPrincipal.FindFirst(ClaimTypes.Country);
+                //        Pais = FederationClaimCountry.Value.ToUpper();
+                //        Codigo = UserPortal;
+                //    }
+
+
+                //    BEPais PaisModel = lst.First(p => p.CodigoISO == Pais);
+                //    if (PaisModel != null)
+                //        GetUserData(PaisModel.PaisID, Codigo, Tipo);
+                //}
                 #endregion
             }
 

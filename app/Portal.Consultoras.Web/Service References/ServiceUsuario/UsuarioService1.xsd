@@ -1221,4 +1221,20 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+  <xs:element name="GetValidarLoginSB2">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="paisID" type="xs:int" />
+        <xs:element minOccurs="0" name="codigoUsuario" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="contrasenia" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetValidarLoginSB2Response">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q37="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="GetValidarLoginSB2Result" nillable="true" type="q37:BEValidaLoginSB2" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
 </xs:schema>

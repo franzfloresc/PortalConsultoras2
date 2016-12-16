@@ -564,5 +564,13 @@ namespace Portal.Consultoras.Service
             var BLUsuario = new BLUsuario();
             return BLUsuario.GetDatosConsultoraHana(paisID, codigoUsuario, campaniaId);
         }
+
+        /*EPD-1012*/
+        public BEValidaLoginSB2 GetValidarLoginSB2(int paisID, string codigoUsuario, string contrasenia)
+        {
+            var BLUsuario = new BLUsuario();
+            return BLUsuario.GetValidarLoginSB2(paisID, codigoUsuario, contrasenia);
+        }
+        /*EPD-1012*/
     }
 }
