@@ -643,7 +643,7 @@ namespace Portal.Consultoras.Data
 
             return Context.ExecuteReader(command);
         }
-        
+
         public IDataReader GetPedidosIngresadoFacturado(int consultoraID, int campaniaID)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetPedidosIngresadoFacturado_SB2");
@@ -676,7 +676,8 @@ namespace Portal.Consultoras.Data
             Context.ExecuteNonQuery(command);
         }
 
-        public void ActualizarIndicadorGPRPedidosRechazados(long ProcesoID) {
+        public void ActualizarIndicadorGPRPedidosRechazados(long ProcesoID)
+        {
             DbCommand command = Context.Database.GetStoredProcCommand("GPR.ActualizarIndicadorGPRPedidosRechazados");
             Context.Database.AddInParameter(command, "@ProcesoValidacionPedidoRechazadoId", DbType.Int32, ProcesoID);
             Context.ExecuteNonQuery(command);
@@ -705,6 +706,19 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@PedidoID", DbType.Int32, pedidoID);
 
             return Context.ExecuteReader(command);
-        }        
+        }
+        
+        /*EPD-1025*/
+        public IDataReader ObtenerUltimaDescargaPedido()
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.ObtenerUltimaDescargaPedido");
+            return Context.ExecuteReader(command);
+        }
+        public IDataReader DesmarcarUltimaDescargaPedido()
+        {                
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.DesmarcarUltimaDescargaPedido");            
+            return Context.ExecuteReader(command);
+        }
+        /*EPD-1025*/
     }
 }

@@ -1238,7 +1238,7 @@ namespace Portal.Consultoras.BizLogic
 
         private TemplateField[] ParseTemplate(string templateText, bool descargaActDatosv2 = true)
         {
-            List<string> CamposActDatosv2 = new List<string>{ "TELEFONOTRABAJO", "LATITUD", "LONGITUD"};
+            List<string> CamposActDatosv2 = new List<string> { "TELEFONOTRABAJO", "LATITUD", "LONGITUD" };
             string[] parts = templateText.Split(';');
             var listTemplate = new List<TemplateField>();
             TemplateField templateField;
@@ -1246,7 +1246,7 @@ namespace Portal.Consultoras.BizLogic
             for (int index = 0; index < parts.Length; index++)
             {
                 templateField = new TemplateField(parts[index]);
-                if(!descargaActDatosv2 && CamposActDatosv2.Contains(templateField.FieldName)) continue;
+                if (!descargaActDatosv2 && CamposActDatosv2.Contains(templateField.FieldName)) continue;
                 listTemplate.Add(templateField);
             }
             return listTemplate.ToArray();
@@ -1958,7 +1958,7 @@ namespace Portal.Consultoras.BizLogic
             var DAPedidoWeb = new DAPedidoWeb(paisID);
 
             if (!BLPais.EsPaisHana(paisID)) // Validar si informacion de pais es de origen Normal o Hana
-            {               
+            {
                 using (IDataReader reader = DAPedidoWeb.GetPedidosIngresadoFacturado(consultoraID, campaniaID))
                     while (reader.Read())
                     {
@@ -1977,7 +1977,7 @@ namespace Portal.Consultoras.BizLogic
                     {
                         var entidad = new BEPedidoWeb(reader);
                         listaPedidoIngresado.Add(entidad);
-                    }               
+                    }
 
                 var campaniaMinima = Common.Util.ObtenerCampaniaPasada(campaniaID, 4);
 
@@ -2008,6 +2008,7 @@ namespace Portal.Consultoras.BizLogic
                 listaPedidosFacturados = listaMostrar;
             }
             
+            
             return listaPedidosFacturados;
         }
 
@@ -2016,7 +2017,8 @@ namespace Portal.Consultoras.BizLogic
             new DAPedidoWeb(PaisID).InsLogOfertaFinal(CampaniaID, CodigoConsultora, CUV, cantidad, tipoOfertaFinal, GAP, tipoRegistro);
         }
 
-        public void ActualizarIndicadorGPRPedidosRechazados(int PaisID, long ProcesoID) {
+        public void ActualizarIndicadorGPRPedidosRechazados(int PaisID, long ProcesoID)
+        {
             DAPedidoWeb DAPedidoWeb = new DAPedidoWeb(PaisID);
             DAPedidoWeb.ActualizarIndicadorGPRPedidosRechazados(ProcesoID);
         }
@@ -2046,7 +2048,7 @@ namespace Portal.Consultoras.BizLogic
                             var detalle = new BEPedidoWebDetalle(readerDetalle);
                             detalle.PedidoID = entidad.PedidoID;
                             listaDetalle.Add(detalle);
-                        }                        
+                        }
                     }
 
                     entidad.olstBEPedidoWebDetalle = listaDetalle;
@@ -2075,6 +2077,26 @@ namespace Portal.Consultoras.BizLogic
             return listaPedidosFacturados;
         }
 
+        /*EPD-1025*/
+        public BEPedidoDescarga ObtenerUltimaDescargaPedido(int PaisID)
+        {
+            BEPedidoDescarga PedidoDescarga = new BEPedidoDescarga();
+            DAPedidoWeb DAPedidoWeb = new DAPedidoWeb(PaisID);
+
+            using (IDataReader reader = DAPedidoWeb.ObtenerUltimaDescargaPedido())
+                while (reader.Read())
+                {
+                    PedidoDescarga = new BEPedidoDescarga(reader);
+                }
+            return PedidoDescarga;
+        }
+
+        public void DeshacerUltimaDescargaPedido(int PaisID)
+        {
+            DAPedidoWeb DAPedidoWeb = new DAPedidoWeb(PaisID);
+            DAPedidoWeb.DesmarcarUltimaDescargaPedido();
+        }
+        /*EPD-1025*/
     }
 
     internal class TemplateField
@@ -2100,14 +2122,4 @@ namespace Portal.Consultoras.BizLogic
         }
     }
 
-    //public static class LinqExtensions
-    //{
-    //    public static void Update<TSource>(this IEnumerable<TSource> outer, Action<TSource> updator)
-    //    {
-    //        foreach (var item in outer)
-    //        {
-    //            updator(item);
-    //        }
-    //    }
-    //}
 }
