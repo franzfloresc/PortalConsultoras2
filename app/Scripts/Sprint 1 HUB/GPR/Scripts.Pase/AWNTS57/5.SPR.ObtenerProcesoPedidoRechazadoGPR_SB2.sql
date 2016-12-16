@@ -30,7 +30,7 @@ BEGIN
 	
 	select TOP 1 @IdProceso = IdProcesoPedidoRechazado
 	from GPR.ProcesoPedidoRechazado p
-	where P.Fecha > @fecha
+	where P.Fecha > @fecha AND p.Procesado = 1
 	order by p.Fecha asc
 	
 	select 
@@ -89,7 +89,7 @@ BEGIN
 	
 	select TOP 1 @IdProceso = IdProcesoPedidoRechazado
 	from GPR.ProcesoPedidoRechazado p
-	where P.Fecha > @fecha
+	where P.Fecha > @fecha AND p.Procesado = 1
 	order by p.Fecha asc
 	
 	select 
@@ -148,7 +148,7 @@ BEGIN
 	
 	select TOP 1 @IdProceso = IdProcesoPedidoRechazado
 	from GPR.ProcesoPedidoRechazado p
-	where P.Fecha > @fecha
+	where P.Fecha > @fecha AND p.Procesado = 1
 	order by p.Fecha asc
 	
 	select 
@@ -207,7 +207,7 @@ BEGIN
 	
 	select TOP 1 @IdProceso = IdProcesoPedidoRechazado
 	from GPR.ProcesoPedidoRechazado p
-	where P.Fecha > @fecha
+	where P.Fecha > @fecha AND p.Procesado = 1
 	order by p.Fecha asc
 	
 	select 
@@ -267,7 +267,7 @@ BEGIN
 	
 	select TOP 1 @IdProceso = IdProcesoPedidoRechazado
 	from GPR.ProcesoPedidoRechazado p
-	where P.Fecha > @fecha
+	where P.Fecha > @fecha AND p.Procesado = 1
 	order by p.Fecha asc
 	
 	select 
@@ -328,7 +328,7 @@ BEGIN
 	
 	select TOP 1 @IdProceso = IdProcesoPedidoRechazado
 	from GPR.ProcesoPedidoRechazado p
-	where P.Fecha > @fecha
+	where P.Fecha > @fecha AND p.Procesado = 1
 	order by p.Fecha asc
 	
 	select 
@@ -386,7 +386,7 @@ BEGIN
 	
 	select TOP 1 @IdProceso = IdProcesoPedidoRechazado
 	from GPR.ProcesoPedidoRechazado p
-	where P.Fecha > @fecha
+	where P.Fecha > @fecha AND p.Procesado = 1
 	order by p.Fecha asc
 	
 	select 
@@ -446,7 +446,7 @@ BEGIN
 	
 	select TOP 1 @IdProceso = IdProcesoPedidoRechazado
 	from GPR.ProcesoPedidoRechazado p
-	where P.Fecha > @fecha
+	where P.Fecha > @fecha AND p.Procesado = 1
 	order by p.Fecha asc
 	
 	select 
@@ -504,7 +504,7 @@ BEGIN
 	
 	select TOP 1 @IdProceso = IdProcesoPedidoRechazado
 	from GPR.ProcesoPedidoRechazado p
-	where P.Fecha > @fecha
+	where P.Fecha > @fecha AND p.Procesado = 1
 	order by p.Fecha asc
 	
 	select 
@@ -564,7 +564,7 @@ BEGIN
 	
 	select TOP 1 @IdProceso = IdProcesoPedidoRechazado
 	from GPR.ProcesoPedidoRechazado p
-	where P.Fecha > @fecha
+	where P.Fecha > @fecha AND p.Procesado = 1
 	order by p.Fecha asc
 	
 	select 

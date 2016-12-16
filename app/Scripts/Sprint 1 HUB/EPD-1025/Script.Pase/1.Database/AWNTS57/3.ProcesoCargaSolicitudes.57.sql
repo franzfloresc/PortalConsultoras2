@@ -13,7 +13,7 @@ set @FechaGeneral = dbo.fnObtenerFechaHoraPais()
 declare @SolicitudCreditoTemporal table
 (
 SolicitudCreditoID int, TipoSolicitud varchar(3),
-PrefijoPais varchar(3), CodigoConsultora varchar(15), CodigoTerritorio varchar(13), TipoContacto varchar(1), 
+PrefijoPais varchar(3), CodigoConsultora varchar(25), CodigoTerritorio varchar(13), TipoContacto varchar(1), 
 CodigoConsultoraRecomienda varchar(15), ApellidoPaterno varchar(15), ApellidoMaterno varchar(15), PrimerNombre varchar(15),
 SegundoNombre varchar(15), TipoDocumento varchar(2), NumeroDocumento varchar(15), FechaNacimiento varchar(8), EstadoCivil varchar(2),
 NivelEducativo varchar(2), CodigoUbigeo varchar(18), Direccion varchar(140), Telefono varchar(15), Celular varchar(15),
@@ -113,7 +113,7 @@ declare @SolicitudCreditoTemporal table (
 SolicitudCreditoID int,
 TipoSolicitud varchar(3),
 PrefijoPais varchar(3),
-CodigoConsultora varchar(15),
+CodigoConsultora varchar(25),
 CodigoTerritorio varchar(13),
 TipoContacto varchar(1),
 CodigoConsultoraRecomienda varchar(15),
@@ -386,7 +386,7 @@ declare @SolicitudCreditoTemporal table (
 SolicitudCreditoID int, 
 TipoSolicitud varchar(3), 
 PrefijoPais varchar(3), 
-CodigoConsultora varchar(15), 
+CodigoConsultora varchar(25), 
 CodigoTerritorio varchar(13), 
 TipoContacto varchar(1), 
 CodigoConsultoraRecomienda varchar(15), 
@@ -662,7 +662,7 @@ set @FechaGeneral = dbo.fnObtenerFechaHoraPais()
 declare @SolicitudCreditoTemporal table
 (
 SolicitudCreditoID int, TipoSolicitud varchar(3),
-PrefijoPais varchar(3), CodigoConsultora varchar(15), CodigoTerritorio varchar(13), TipoContacto varchar(1), 
+PrefijoPais varchar(3), CodigoConsultora varchar(25), CodigoTerritorio varchar(13), TipoContacto varchar(1), 
 CodigoConsultoraRecomienda varchar(15), ApellidoPaterno varchar(15), ApellidoMaterno varchar(15), PrimerNombre varchar(15),
 SegundoNombre varchar(15), TipoDocumento varchar(2), NumeroDocumento varchar(15), FechaNacimiento varchar(8), EstadoCivil varchar(2),
 NivelEducativo varchar(2), CodigoUbigeo varchar(18), Direccion varchar(140), Telefono varchar(15), Celular varchar(15),

@@ -20,7 +20,7 @@ as
 DECLARE @FechaGeneral DATETIME   
 DECLARE @IndicadorGPRPais  BIT       
 SET @FechaGeneral = dbo.fnObtenerFechaHoraPais()   
-SELECT @IndicadorGPRPais = PedidoRechazado FROM Pais WHERE EstadoActivo = 1
+SELECT @IndicadorGPRPais = ISNULL(PedidoRechazado,0) FROM Pais WHERE EstadoActivo = 1
 
 if @FirmarPedido = 1  
  update dbo.PedidoWeb  
@@ -69,7 +69,7 @@ as
 DECLARE @FechaGeneral DATETIME  
 DECLARE @IndicadorGPRPais  BIT          
 SET @FechaGeneral = dbo.fnObtenerFechaHoraPais()   
-SELECT @IndicadorGPRPais = PedidoRechazado FROM Pais WHERE EstadoActivo = 1
+SELECT @IndicadorGPRPais = ISNULL(PedidoRechazado,0) FROM Pais WHERE EstadoActivo = 1
 
 if @FirmarPedido = 1  
  update dbo.PedidoWeb  
@@ -120,7 +120,7 @@ as
 DECLARE @FechaGeneral DATETIME          
 DECLARE @IndicadorGPRPais  BIT
 SET @FechaGeneral = dbo.fnObtenerFechaHoraPais()   
-SELECT @IndicadorGPRPais = PedidoRechazado FROM Pais WHERE EstadoActivo = 1
+SELECT @IndicadorGPRPais = ISNULL(PedidoRechazado,0) FROM Pais WHERE EstadoActivo = 1
 
 if @FirmarPedido = 1  
  update dbo.PedidoWeb  
