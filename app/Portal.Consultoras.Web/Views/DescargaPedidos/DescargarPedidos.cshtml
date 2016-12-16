@@ -375,10 +375,17 @@
             altclass: 'jQGridAltRowClass',
             loadComplete: function () {
             },
-            gridComplete: function () { }
+            gridComplete: function () { },
+            cache: false
         });
     }
     function DeshacerUltimaDescargaPedidos() {
+        var waiting = {
+            message: 'Espere unos minutos, por favor...',
+            title: 'Ejecutando Proceso'
+        };
+
+        waitingDialog(waiting);
 
         $.ajax({
             type: 'POST',
@@ -386,14 +393,18 @@
             dataType: 'json',
             contentType: 'application/json; charset=utf-8',
             async: true,
+            cache: false,
             success: function (data) {
                 if (checkTimeout(data)) {
-                    closeWaitingDialog();
+
                     if (data.success == true) {
-                        alert(data.mensaje);
+                        $("#list").GridUnload();
+                        fnGrilla();
+                        closeWaitingDialog();
                     }
                     else {
                         alert(data.mensaje);
+                        closeWaitingDialog();
                     }
                 }
             },
@@ -404,7 +415,6 @@
                 }
             }
         });
-        fnGrilla();
     }
     /*EPD-1025*/
 </script>
