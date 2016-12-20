@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Configuration;
-using System.IdentityModel.Services;
+//using System.IdentityModel.Services;
 using System.IO;
 using System.Linq;
 using System.Web;
@@ -67,12 +67,12 @@ namespace Portal.Consultoras.Web.WebPages
                         Session.Clear();
                         Session.Abandon();
 
-                        FederatedAuthentication.WSFederationAuthenticationModule.SignOut(false);
-                        FederatedAuthentication.SessionAuthenticationModule.SignOut();
-                        FederatedAuthentication.SessionAuthenticationModule.CookieHandler.Delete();
-                        FederatedAuthentication.SessionAuthenticationModule.DeleteSessionTokenCookie();
+                        //FederatedAuthentication.WSFederationAuthenticationModule.SignOut(false);
+                        //FederatedAuthentication.SessionAuthenticationModule.SignOut();
+                        //FederatedAuthentication.SessionAuthenticationModule.CookieHandler.Delete();
+                        //FederatedAuthentication.SessionAuthenticationModule.DeleteSessionTokenCookie();
 
-                        FormsAuthentication.SignOut();
+                        //FormsAuthentication.SignOut();
                         if (Consultora == "1")
                         {
                             Response.Redirect(ConfigurationManager.AppSettings.Get("URLSignOut"));

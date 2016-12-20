@@ -1634,7 +1634,8 @@ function BuscarByCUV(CUV) {
                 CerrarSplash();
                 if (checkTimeout(data)) {
                     if (data.message == "" || data.message === undefined) {
-                        location.href = baseUrl + "SesionExpirada.html";
+                        //location.href = baseUrl + "SesionExpirada.html";
+                        location.href = baseUrl + "Login/SesionExpirada";
                     } else {
                         alert_msg(data.message);
                     }
@@ -1806,7 +1807,8 @@ function ObtenerProductosSugeridos(CUV) {
             CerrarSplash();
             if (checkTimeout(data)) {
                 if (data.message == "" || data.message === undefined) {
-                    location.href = baseUrl + "SesionExpirada.html";
+                    //location.href = baseUrl + "SesionExpirada.html";
+                    location.href = baseUrl + "Login/SesionExpirada";
                 } else {
                     alert_msg(data.message);
                 }

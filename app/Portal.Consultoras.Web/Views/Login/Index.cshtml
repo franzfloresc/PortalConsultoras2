@@ -5,7 +5,7 @@
     ViewBag.Title = "Login";
 }
 
-@*<asp:Content ID="FormsSignInContentPopup" ContentPlaceHolderID="ContentPlaceHolderPopup" runat="server">*@
+<div id="FormsSignInContentPopup">
     <!-- OLVIDASTE TU CONTRASEÑA -->
     <div id="popup1" style="display: none;">
         <div id="popup_olvidasteContrasenia">
@@ -22,25 +22,6 @@
                 <div class="formCont popupOlvideContrasenia">
                     <div class="boxform">
                         <div class="formcontrol pais" id="cargarBandera2" style="margin-bottom: 35px;">
-
-                            @*<select id="cboPaisCambioClave" class="cboPaisCambioClave" tabindex="1" style="color: black !important">
-                                <option value="0">Elige tu País</option>
-                                <option value="2">Bolivia</option>
-                                <option value="15">Brasil</option>
-                                <option value="3">Chile</option>
-                                <option value="4">Colombia</option>
-                                <option value="5">Costa Rica</option>
-                                <option value="6">Ecuador</option>
-                                <option value="7">El Salvador</option>
-                                <option value="8">Guatemala</option>
-                                <option value="9">México</option>
-                                <option value="10">Panamá</option>
-                                <option value="11">Perú</option>
-                                <option value="12">Puerto Rico</option>
-                                <option value="13">República Dominicana</option>
-                                <option value="14">Venezuela</option>
-                            </select>*@
-
                             <select id="cboPaisCambioClave" class="cboPaisCambioClave" tabindex="1" style="color: black !important">
                                 <option value="0">Elige tu País</option>
                                 @foreach (var item in Model.listaPaises)
@@ -94,9 +75,8 @@
             </div>
         </div>
     </div>
-@*</asp:Content>*@
+</div>
 
-@*<asp:Content ID="FormsSignInContent" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">*@
 @using (@Html.BeginForm("Login", "Login", FormMethod.Post, new { id = "frmLogin"}))
 {
     <!-- webForm -->
@@ -139,6 +119,8 @@
                         <input type="hidden" id="hdf_DO" value="fondo_default.jpg" />
                         <input type="hidden" id="hdf_VE" value="fondo_default.jpg" />
                         <input type="hidden" id="hdeCodigoISO" name="hdeCodigoISO" />
+
+                        <input type="hidden" id="hdePaisID" name="HdePaisID" />
 
                         <select id="ddlPais" name="PaisID" class="DropDown" tabindex="1">
                             <option value="00">Elige tu País</option>
@@ -221,9 +203,9 @@
     </div>
     <!-- webForm -->
 }
-    @*</asp:Content>*@
 
-    @*<asp:Content ID="ContentScriptsFormsSingIn" ContentPlaceHolderID="ContentScripts" runat="server">*@
+
+    
     <script type="text/javascript">
         //var paisesEsika = '<%= ConfigurationManager.AppSettings.Get("paisesEsika") %>';
         //var paisesLBel = '<%= ConfigurationManager.AppSettings.Get("paisesLBel") %>';
@@ -247,4 +229,3 @@
         <script src="~/Scripts/PortalConsultoras/Login/FormsSignIn.js"></script>
     }
 
-    @*</asp:Content>*@

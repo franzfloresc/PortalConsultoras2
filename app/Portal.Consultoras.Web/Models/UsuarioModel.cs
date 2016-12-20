@@ -78,6 +78,7 @@ namespace Portal.Consultoras.Web.Models
         public string CodigoFuente { get; set; }
         public string ClaveSecreta { get; set; }
         public int PaisID { get; set; }
+        public int HdePaisID { get; set; }
         public string CodigoISO { get; set; }
         public int RolID { get; set; }
         public int RegionID { get; set; }

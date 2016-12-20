@@ -35,22 +35,32 @@ namespace Portal.Consultoras.Web.Controllers
         //}
 
         public ActionResult Index()
-        {   
-            //string IP = GetIPCliente();
-            string IP = "190.187.154.154";
-            string ISO = "";
-            //string val = "";
+        {
+            string IP = string.Empty;
+            string ISO = string.Empty;
 
+            var buscarISOPorIP = ConfigurationManager.AppSettings.Get("BuscarISOPorIP");
+
+            if (buscarISOPorIP == "1")
+            {
+                IP = GetIPCliente();
+
+                using (ServiceUsuarioExt.UsuarioWebServiceClient UsuarioServ = new ServiceUsuarioExt.UsuarioWebServiceClient())
+                {
+                    ISO = UsuarioServ.GetISObyIPAddress(IP);
+                }
+            }
+            else
+            {
+                IP = "190.187.154.154";
+                ISO = "PE";
+            }
+            
+            //string val = "";
             if (IP.IndexOf(":") > 0)
             {
                 IP = IP.Substring(0, IP.IndexOf(":") - 1);
             }
-
-            //using (ServiceUsuarioExt.UsuarioWebServiceClient UsuarioServ = new ServiceUsuarioExt.UsuarioWebServiceClient())
-            //{
-            //    ISO = UsuarioServ.GetISObyIPAddress(IP);
-            //}
-            ISO = "PE";
 
             if (ISO != "")
             {
@@ -74,12 +84,17 @@ namespace Portal.Consultoras.Web.Controllers
                 BEValidaLoginSB2 validaLogin = null;
                 using (UsuarioServiceClient svc = new UsuarioServiceClient())
                 {
+                    if (model.PaisID == 0)
+                        model.PaisID = model.HdePaisID;
+
                     validaLogin = svc.GetValidarLoginSB2(model.PaisID, model.CodigoUsuario, model.ClaveSecreta);
                 }
 
                 if (validaLogin.Result == 3)
                 {
-                    model.CodigoConsultora = model.CodigoUsuario;
+                    if (string.IsNullOrEmpty(model.CodigoConsultora))
+                        model.CodigoConsultora = model.CodigoUsuario;
+
                     UsuarioModel usuario = GetUserData(model.PaisID, model.CodigoConsultora, 1);
                     if (usuario != null)
                     {
@@ -93,7 +108,7 @@ namespace Portal.Consultoras.Web.Controllers
                             }
                             else
                             {
-                                if (usuario.EMail == null || usuario.EMail == "" || usuario.EMailActivo == false)
+                                if (string.IsNullOrEmpty(usuario.EMail) || usuario.EMailActivo == false)
                                 {
                                     Session["PrimeraVezSession"] = 0;
                                 }
@@ -110,9 +125,6 @@ namespace Portal.Consultoras.Web.Controllers
                         string Url = Request.Url.Scheme + "://" + Request.Url.Authority + (Request.ApplicationPath.ToString().Equals("/") ? "/" : (Request.ApplicationPath + "/")) + "WebPages/UserUnknown.aspx";
                         return Redirect(Url);
                     }
-
-                    //TempData["errorLogin"] = "Usuario OK";
-                    //return RedirectToAction("Index", "Login");
                 }
                 else
                 {
@@ -124,7 +136,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, model.CodigoUsuario, model.CodigoISO, pasoLog);
 
-                TempData["errorLogin"] = "Error al procesar la peticion";
+                TempData["errorLogin"] = "Error al procesar la solicitud";
                 return RedirectToAction("Index", "Login");
             }
         }
@@ -275,12 +287,12 @@ namespace Portal.Consultoras.Web.Controllers
 
         public ActionResult LogOut()
         {
-            //return CerrarSesion();
+            return CerrarSesion();
 
-            Session["UserData"] = null;
-            Session.Clear();
-            Session.Abandon();
-            return RedirectToAction("Index", "Login");
+            //Session["UserData"] = null;
+            //Session.Clear();
+            //Session.Abandon();
+            //return RedirectToAction("Index", "Login");
         }
 
         private ActionResult CerrarSesion()
@@ -332,19 +344,24 @@ namespace Portal.Consultoras.Web.Controllers
 
             //FormsAuthentication.SignOut();
 
-            string URLSignOut = string.Empty;
-            switch (Tipo)
-            {
-                case 0:
-                    URLSignOut = ConfigurationManager.AppSettings.Get("URLSignOut");
-                    break;
-                case 1:
-                    URLSignOut = ConfigurationManager.AppSettings.Get("URLSignOut");
-                    break;
-                case 2:
-                    URLSignOut = ConfigurationManager.AppSettings.Get("URLSignOutPartner");
-                    break;
-            }
+            //string URLSignOut = string.Empty;
+            //switch (Tipo)
+            //{
+            //    case 0:
+            //        URLSignOut = ConfigurationManager.AppSettings.Get("URLSignOut");
+            //        break;
+            //    case 1:
+            //        URLSignOut = ConfigurationManager.AppSettings.Get("URLSignOut");
+            //        break;
+            //    case 2:
+            //        URLSignOut = ConfigurationManager.AppSettings.Get("URLSignOutPartner");
+            //        break;
+            //}
+
+            string URLSignOut = "/Login/SesionExpirada";
+            if (Tipo == 2)
+                URLSignOut = ConfigurationManager.AppSettings.Get("URLSignOutPartner");
+
             return Redirect(URLSignOut);
         }
 
@@ -1021,5 +1038,42 @@ namespace Portal.Consultoras.Web.Controllers
                 }
             }
         }
+
+        /* EPD-180 */
+        public ActionResult SesionExpirada()
+        {
+            return View();
+        }
+
+        public JsonResult CheckUserSession()
+        {
+            int res = 0;
+
+            // If session exists
+            if (HttpContext.Session != null)
+            {
+                //if cookie exists and sessionid index is greater than zero
+                var sessionCookie = HttpContext.Request.Headers["Cookie"];
+                if ((sessionCookie != null) && (sessionCookie.IndexOf("ASP.NET_SessionId") >= 0))
+                {
+                    // if exists UserData in Session
+                    if (HttpContext.Session["UserData"] != null)
+                    {
+                        res = 1;
+                    }
+                }
+            }
+
+            return Json(new
+            {
+                Exists = res
+            }, JsonRequestBehavior.AllowGet);
+        }
+        
+        public ActionResult UserUnknown()
+        {
+            return View();
+        }
+        /* EPD-180 */
     }
 }

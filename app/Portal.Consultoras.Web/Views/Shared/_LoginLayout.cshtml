@@ -12,14 +12,16 @@
     <meta name="author" content="Belcorp" />
     <meta property="og:title" content="Somos Belcorp| Cree en ti" />
     <meta property="og:description" content="Pasa tu pedido e informate de lo último de las marcas de Belcorp." />
-    <meta property="og:image" content="https://sts.somosbelcorp.com/adfs/ls/Images/logo_intro.png" />
+    <meta property="og:image" content="~/Content/Images/Login2/logo_intro.png" />
     <meta property="og:site_name" content="Somos Belcorp" />
     <link rel="shortcut icon" type="image/x-icon" id="iconoPagina" data-id="iconPagina" href="@ViewBag.IconoPagina" />
 
     <link href="~/Content/Css/Site/Login2/style_esika.css" rel="stylesheet" data-id="cssStyle" id="cssStyle" />
     <link href="~/Content/Css/Site/Login2/style_lbel.css" rel="stylesheet" data-id="cssStyleLbel" id="cssStyleLbel" />
     <link href="~/Content/Css/ui.jquery/jquery-ui.css" rel="stylesheet" />
-    <link href="~/Content/Css/Site/jquery.custom-scrollbar.min.css" rel="stylesheet" />
+    @*<link href="~/Content/Css/Site/jquery.custom-scrollbar.min.css" rel="stylesheet" />*@
+
+    @*@System.Web.Optimization.Styles.Render("~/Content/Css/Site/CssLogin2")*@
 
     <link href='https://fonts.googleapis.com/css?family=Lato:400,100,300,700,900' rel='stylesheet' type='text/css' />
 
@@ -195,9 +197,6 @@
                 Gmail
             </div>
         </div>
-
-        @*<asp:ContentPlaceHolder ID="ContentPlaceHolderPopup">
-        </asp:ContentPlaceHolder>*@
 
         <div id="ContentPlaceHolderPopup">
         </div>
@@ -405,10 +404,12 @@
         <script src="http://github.com/aFarkas/html5shiv/blob/master/dist/html5shiv.js"></script>
      <![endif]-->
 
-    <script src="~/Scripts/jquery-1.11.2.min.js"></script>
-    <script src="~/Scripts/jquery-ui-1.9.2.custom.min.js"></script>
-    <script src="~/Scripts/jquery.custom-scrollbar.min.js"></script>
-    <script src="~/Scripts/PortalConsultoras/Shared/LoginLayout.js"></script>
+    @*<script src="~/Scripts/jquery-1.11.2.min.js"></script>
+    <script src="~/Scripts/jquery-ui-1.9.2.custom.min.js"></script>*@
+    @*<script src="~/Scripts/jquery.custom-scrollbar.min.js"></script>*@
+    @*<script src="~/Scripts/PortalConsultoras/Shared/LoginLayout.js"></script>*@
+
+    @System.Web.Optimization.Scripts.Render("~/bundles/JsLogin2")
 
     @RenderSection("scripts", required: false)
 

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
-using System.IdentityModel.Services;
+//using System.IdentityModel.Services;
 using System.IO;
 using System.Linq;
 using System.Web;
@@ -61,7 +61,8 @@ namespace Portal.Consultoras.Web.CustomFilters
                             //});
 
                             //string URLSignOut = "https://stsqa.somosbelcorp.com/adfs/ls/?wa=wsignout1.0";
-                            string URLSignOut = "/SesionExpirada.html";
+                            //string URLSignOut = "/SesionExpirada.html";
+                            string URLSignOut = "/Login/SesionExpirada";
                             filterContext.Result = new RedirectResult(URLSignOut);
                         }
                         // version 2
@@ -81,7 +82,7 @@ namespace Portal.Consultoras.Web.CustomFilters
             //FederatedAuthentication.SessionAuthenticationModule.CookieHandler.Delete();
             //FederatedAuthentication.SessionAuthenticationModule.DeleteSessionTokenCookie();
 
-            FormsAuthentication.SignOut();
+            //FormsAuthentication.SignOut();
 
             // TODO: resolver url para hacer signout
             //string URLSignOut = string.Empty;
@@ -99,6 +100,9 @@ namespace Portal.Consultoras.Web.CustomFilters
             //}
 
             //return Redirect(URLSignOut);
+
+            string URLSignOut = "/Login/SesionExpirada";
+            filterContext.Result = new RedirectResult(URLSignOut);
         }
     }
 

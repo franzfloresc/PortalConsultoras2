@@ -17,11 +17,12 @@ namespace Portal.Consultoras.Web.Controllers
 
         public ActionResult Demo()
         {
-            string URLSignOut = "~/SesionExpirada.html";
+            //string URLSignOut = "~/SesionExpirada.html";
+            string URLSignOut = "/Login/SesionExpirada";
             return new RedirectResult(URLSignOut);
         }
 
-        /* EPD-180 - INICIO */
+        /* EPD-180 */
         public JsonResult CheckUserSession()
         {
             int res = 0;
@@ -44,9 +45,8 @@ namespace Portal.Consultoras.Web.Controllers
             return Json(new
             {
                 Exists = res
-
             }, JsonRequestBehavior.AllowGet);
         }
-        /* EPD-180 - FIN */
+        /* EPD-180 */
     }
 }

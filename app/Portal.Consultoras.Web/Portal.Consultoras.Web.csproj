@@ -307,7 +307,6 @@
     <Compile Include="Controllers\FileUploadController.cs" />
     <Compile Include="Controllers\GestionContenidoController.cs" />
     <Compile Include="Controllers\GestionFaltantesController.cs" />
-    <Compile Include="Controllers\old_LoginController.cs" />
     <Compile Include="Controllers\MatrizCampaniaController.cs" />
     <Compile Include="Controllers\MatrizComercialController.cs" />
     <Compile Include="Controllers\MisBeneficiosController.cs" />
@@ -334,7 +333,6 @@
     <Compile Include="Controllers\PedidoWebAnterioresController.cs" />
     <Compile Include="Controllers\PedidoWebController.cs" />
     <Compile Include="Controllers\ProveedorDespachoCobranzaController.cs" />
-    <Compile Include="Controllers\PruebasController.cs" />
     <Compile Include="Controllers\ReportePedidoCampaniaController.cs" />
     <Compile Include="Controllers\ReportePedidoDDWebController.cs" />
     <Compile Include="Controllers\ReportePedidoFICController.cs" />
@@ -342,7 +340,6 @@
     <Compile Include="Controllers\RolController.cs" />
     <Compile Include="Controllers\RVDigitalController.cs" />
     <Compile Include="Controllers\ServiciosController.cs" />
-    <Compile Include="Controllers\SetController.cs" />
     <Compile Include="Controllers\ShowRoomController.cs" />
     <Compile Include="Controllers\SolicitudClienteController.cs" />
     <Compile Include="Controllers\SolicitudCreditoController.cs" />
@@ -3841,6 +3838,8 @@
     </None>
     <Content Include="Views\Shared\_LoginLayout.cshtml" />
     <Content Include="Views\Login\Index.cshtml" />
+    <Content Include="Views\Login\SesionExpirada.cshtml" />
+    <Content Include="Views\Login\UserUnknown.cshtml" />
     <None Include="Web References\ServiceLMS\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>

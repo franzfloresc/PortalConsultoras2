@@ -44,8 +44,22 @@ namespace Portal.Consultoras.Web.Controllers
                 /*EPD-1012*/
                 if (Session["UserData"] == null)
                 {
-                    string url = "/SesionExpirada.html";
-                    filterContext.Result = new RedirectResult(url);
+                    //string URLSignOut = "/SesionExpirada.html";
+                    string URLSignOut = string.Empty;
+
+                    if (Request.UrlReferrer != null && Request.UrlReferrer.ToString().Contains("localhost:"))
+                    {
+                        URLSignOut = "/Login/SesionExpirada";
+                    }
+                    else
+                    {
+                        URLSignOut = "/Login/UserUnknown";
+                    }
+
+                    Session.Clear();
+                    Session.Abandon();
+
+                    filterContext.Result = new RedirectResult(URLSignOut);
                     return;
                 }
                 /*EPD-1012*/
@@ -343,7 +357,8 @@ namespace Portal.Consultoras.Web.Controllers
                         else
                         {
                             //string URLSignOut = "https://stsqa.somosbelcorp.com/adfs/ls/?wa=wsignout1.0";
-                            string URLSignOut = "/SesionExpirada.html";
+                            //string URLSignOut = "/SesionExpirada.html";
+                            string URLSignOut = "/Login/SesionExpirada";
                             //filterContext.Result = new RedirectResult(URLSignOut);
                             Result = new RedirectResult(URLSignOut);
                         }

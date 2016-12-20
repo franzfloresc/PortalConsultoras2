@@ -18,9 +18,19 @@ namespace Portal.Consultoras.Web
                 "~/Content/Css/ui.jquery/jquery-ui.css",
                 "~/Content/Css/Site/style.css"));
 
+            bundles.Add(new StyleBundle("~/Content/Css/Site/CssLogin2").Include(
+                "~/Content/Css/Site/Login2/style_esika.css",
+                "~/Content/Css/Site/Login2/style_lbel.css",
+                "~/Content/Css/ui.jquery/jquery-ui.css"));
+
             bundles.Add(new ScriptBundle("~/bundles/JsLogin").Include(
                 "~/Scripts/General.js",
                 "~/Scripts/JsonSupport.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/JsLogin2").Include(
+                "~/Scripts/jquery-{version}.js",
+                "~/Scripts/jquery-ui-1.9.2.custom.js",
+                "~/Scripts/PortalConsultoras/Shared/LoginLayout.js"));
 
             bundles.Add(new StyleBundle("~/Content/Css/Site/CssMain").Include(
                 "~/Content/Css/ui.jquery/jquery-ui.css",

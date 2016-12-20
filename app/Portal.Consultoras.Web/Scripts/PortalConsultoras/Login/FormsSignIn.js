@@ -133,33 +133,42 @@ $(document).ready(function () {
             e.preventDefault();
             return false;
         }
+
+        $('hdePaisID').val(PaisID);
+        $('#ddlPais option:not(:selected)').prop('disabled', true);
+        $('#txtUsuario').attr('readonly', true);
+        $('#txtContrasenia').attr('readonly', true);
+        $('#btnLogin').prop('disabled', true);
     });
 
     $("#txtUsuario").keypress(
-    function (evt) {
-        var charCode = (evt.which) ? evt.which : window.event.keyCode;
-        if (charCode <= 13) {
-            ValidarAutenticacion();
-        }
-        else {
-            var keyChar = String.fromCharCode(charCode);
-            var re = /[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ_.@@-]/;
-            return re.test(keyChar);
-        }
-    });
+
+        function (evt) {
+            var charCode = (evt.which) ? evt.which : window.event.keyCode;
+            if (charCode <= 13) {
+                //ValidarAutenticacion();
+                $('#txtContrasenia').focus();
+            }
+            else {
+                var keyChar = String.fromCharCode(charCode);
+                var re = /[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ_.@@-]/;
+                return re.test(keyChar);
+            }
+        });
 
     $("#txtContrasenia").keypress(
-    function (evt) {
-        var charCode = (evt.which) ? evt.which : window.event.keyCode;
-        if (charCode <= 13) {
-            ValidarAutenticacion();
-        }
-        else {
-            var keyChar = String.fromCharCode(charCode);
-            var re = /[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ_.@@-]/;
-            return re.test(keyChar);
-        }
-    });
+        function (evt) {
+            var charCode = (evt.which) ? evt.which : window.event.keyCode;
+            if (charCode <= 13) {
+                //ValidarAutenticacion();
+                $('#btnLogin').focus();
+            }
+            else {
+                var keyChar = String.fromCharCode(charCode);
+                var re = /[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ_.@@-]/;
+                return re.test(keyChar);
+            }
+        });
 
     if (typeof errorLogin !== 'undefined') {
         $('#ErrorTextLabel').html(errorLogin);
