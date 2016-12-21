@@ -30879,7 +30879,6 @@ h1#penmostreo .campana {
     display: -o-flex;
     justify-content:space-between;
     z-index:1;
-    margin-right: 201px;
 }
 .content_pasos::after{
     position:absolute;
@@ -30912,7 +30911,6 @@ h1#penmostreo .campana {
     max-width: 704px;
     margin:0 auto;
     position:relative;
-    margin-right: 4px;
 }
 .subtitulo_reclamo{
     font-weight:700;
@@ -30977,6 +30975,20 @@ h1#penmostreo .campana {
     height: 45px;
     text-align: center;
     margin-top: 2px; /*SEGURO VA HABER CONFLICTO SOLO CONSERVAR EL MARGIN TOP DE AQUI*/
+    color: white;
+    background: #e81c36;
+    line-height: 45px;
+}
+.btn_si_stock_cdr{
+    font-family: 'LAto';
+    font-size: 13px;
+    font-weight: 700;
+    float: right;
+    display: block;
+    width: 160px;
+    height: 45px;
+    text-align: center;
+    margin-top: 34px;
     color: white;
     background: #e81c36;
     line-height: 45px;
@@ -31112,7 +31124,7 @@ h1#penmostreo .campana {
     font-family: 'Lato';
     font-size: 13px;
     font-weight: 700;
-    margin-top: 25px;
+    margin-top: 40px;
     height: 30px;
     line-height: 30px;
     padding-left: 20px;
@@ -31348,12 +31360,12 @@ h1#penmostreo .campana {
     background-position:0px 4px;
 }
 .UltimasSolicitudes{
-    /*position:absolute;*/
-    float: right;
+    position:absolute;
+    
     width:204px;
     height:auto;
     padding:15px 20px 15px 20px;
-    /*right:0px;*/
+    right:0px;
     top:0;
     -webkit-box-shadow:0 2px 4px 0 rgba(174, 174, 174, 0.5);
     -moz-box-shadow: 0 2px 4px 0 rgba(174, 174, 174, 0.5);
