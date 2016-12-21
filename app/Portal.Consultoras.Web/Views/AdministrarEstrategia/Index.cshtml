@@ -262,13 +262,24 @@
                 var flagNueva = $("#ddlTipoEstrategia option:selected").attr("flag-nueva");
                 var flagRecoProduc = $("#ddlTipoEstrategia option:selected").attr("flag-recoproduct");
                 var flagRecoPerfil = $("#ddlTipoEstrategia option:selected").attr("flag-recoperfil");
+                var auxOD = $('#ddlTipoEstrategia').find(':selected').data('id'); // PL20-1225
+
+                /**** PL20-1225 *****/
+                var flagOD = "";
+                if (auxOD == '7') {
+                    flagOD = '4';
+                }
+                else {
+                    flagOD = '0';
+                }
+                /********/
 
                 var params = {
                     CampaniaID: $("#ddlCampania").val(),
                     CUV2: $("#txtCUV2").val(),
                     TipoEstrategiaID: $("#ddlTipoEstrategia").val(),
                     CUV1: $("#txtCUV").val(),
-                    flag: "1",
+                    flag: flagOD,//"1",
                     FlagNueva: flagNueva,
                     FlagRecoProduc: flagRecoProduc,
                     FlagRecoPerfil: flagRecoPerfil
@@ -378,7 +389,7 @@
                     CUV2: $("#txtCUV2").val(),
                     TipoEstrategiaID: $("#ddlTipoEstrategia").val(),
                     CUV1: "0",
-                    flag: "0",
+                    flag: flagOD,
                     FlagNueva: flagNueva,
                     FlagRecoProduc: flagRecoProduc,
                     FlagRecoPerfil: flagRecoPerfil
@@ -1050,6 +1061,17 @@
                         if ($.trim(valor) == "") {
                             alert("Ingrese una descripción.");
                             return false;
+                        }
+                        else {
+                            var desc = valor.split("|");
+                            if (desc.length > 1 && desc[desc.length - 1] == "") {
+                                    alert("La descripcion no puede terminar en pipe (|).");
+                                    return false;                               
+                            }
+                            else {
+                                alert("Ingrese una descripción separada con pipe (|).");
+                                return false;
+                            }
                         }
                     }
                     /****/
