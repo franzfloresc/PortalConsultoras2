@@ -1108,9 +1108,9 @@ namespace Portal.Consultoras.Service
             return BLComunicado.ObtenerComunicadoPorConsultora(PaisID, CodigoConsultora).ToList();
         }
 
-        public List<BEPopupPais> ObtenerOrdenPopUpMostrar()
+        public List<BEPopupPais> ObtenerOrdenPopUpMostrar(int PaisID)
         {
-            return BLPopupPais.ObtenerOrdenPopUpMostrar().ToList();
+            return BLPopupPais.ObtenerOrdenPopUpMostrar(PaisID).ToList();
         }
 
         //R2004

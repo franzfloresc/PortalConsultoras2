@@ -1640,11 +1640,11 @@
         {{#if EsBackOrder}}
             {{#if AceptoBackOrder}}
             <div class="stock_content_aceptado">
-                <div class="texto_stock" style="color:black"><b>Te entregaremos el producto en la siguiente campaña.</b></div>
+                <div class="texto_stock" style="color:black;"><b>Te entregaremos el producto en la siguiente campaña.</b></div>
             </div>
             {{else}}
             <div class="stock_content">
-                <div class="texto_stock">No contamos con stock de este producto. ¿Deseas que te lo entreguemos en la siguiente campaña?</div>
+                <div class="texto_stock" style="margin-top: 10PX;">No contamos con stock de este producto. ¿Deseas que te lo entreguemos en la siguiente campaña?</div>
                 <a class="btn_no_stock" onclick="DeletePedido('{{CampaniaID}}', '{{PedidoID}}', '{{PedidoDetalleID}}', '{{TipoOfertaSisID}}', '{{CUV}}', '{{Cantidad}}', '{{ClienteID_}}', '{{CUVReco}}', '{{EsBackOrder}}');">NO, GRACIAS</a>
                 <a class="btn_si_stock" onclick="AceptarBackOrder('{{CampaniaID}}', '{{PedidoID}}', '{{PedidoDetalleID}}', '{{ClienteID_}}');" href="javascript:;">¡SI, POR FAVOR!</a>
                 <hr class="clear" />
