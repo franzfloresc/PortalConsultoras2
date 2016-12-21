@@ -208,5 +208,25 @@ namespace Portal.Consultoras.BizLogic
 
             return DAEstrategia.GetImagenOfertaPersonalizadaOF(campaniaID, cuv);
         }
+
+        /*PL20-1226*/
+        public List<BEEstrategia> GetEstrategiaODD(int paisID, int codCampania, long consultoraID)
+        {
+            try
+            {
+                List<BEEstrategia> listaEstrategias = new List<BEEstrategia>();
+
+                var DAEstrategia = new DAEstrategia(paisID);
+                using (IDataReader reader = DAEstrategia.GetEstrategiaODD(codCampania, consultoraID))
+                {
+                    while (reader.Read())
+                    {
+                        listaEstrategias.Add(new BEEstrategia(reader));
+                    }
+                }
+                return listaEstrategias;
+            }
+            catch (Exception) { throw; }
+        }
     }
 }

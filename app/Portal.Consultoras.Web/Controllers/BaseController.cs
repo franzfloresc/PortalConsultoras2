@@ -63,6 +63,10 @@ namespace Portal.Consultoras.Web.Controllers
                     //MenuBelcorpResponde();
                     ObtenerPedidoWeb();
                     ObtenerPedidoWebDetalle();
+
+                    /*PL20-1226*/
+                    ViewBag.TieneOfertaDelDia = userData.TieneOfertaDelDia;
+
                 }
 
                 base.OnActionExecuting(filterContext);

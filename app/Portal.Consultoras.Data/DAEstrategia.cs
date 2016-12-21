@@ -206,5 +206,16 @@ namespace Portal.Consultoras.Data
 
             return Context.ExecuteScalar(command).ToString();
         }
+
+        /*PL20-1226*/
+        public IDataReader GetEstrategiaODD(int codCampania, long consultoraID)
+        {
+            using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.ListarEstrategiasODD"))
+            {
+                Context.Database.AddInParameter(command, "@CodCampania", DbType.Int32, codCampania);
+                Context.Database.AddInParameter(command, "@ConsultoraID", DbType.Int64, consultoraID);
+                return Context.ExecuteReader(command);
+            }
+        }
     }
 }

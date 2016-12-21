@@ -912,5 +912,8 @@ namespace Portal.Consultoras.ServiceContracts
         
         [OperationContract]
         List<BEPedidoWeb> GetPedidosFacturadoSegunDias(int paisID, int campaniaID, long consultoraID, int maxDias);
+
+        [OperationContract]
+        List<BEEstrategia> GetEstrategiaODD(int paisID, int codCampania, long consultoraID);
     }
 }

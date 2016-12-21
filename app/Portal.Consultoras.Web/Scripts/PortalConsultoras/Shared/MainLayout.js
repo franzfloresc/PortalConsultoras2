@@ -1,5 +1,10 @@
 ﻿$(document).ready(function () {
 
+    if (TieneOfertaDelDia == "True") {
+        CargarOfertaDelDia();
+        $('#OfertaDelDia').show();
+    }
+
     waitingDialog();
 
     MensajeEstadoPedido();
@@ -786,3 +791,46 @@ function SetMarcaGoogleAnalyticsTermino() {
 /* Tracking Jetlore */
 // Se creo un JS => TrackingJetlore.js
 /* Fin Tracking Jetlore */
+
+
+function CargarOfertaDelDia() {
+
+    $.ajax({
+        type: 'GET',
+        url: baseUrl + 'Pedido/GetOfertaDelDia',
+        data: '',
+        cache: false,
+        dataType: 'json',
+        contentType: 'application/json; charset=utf-8',
+        success: function (response) {
+            //if (checkTimeout(response)) {
+                if (response.success) {
+                    SetHandlebars("#ofertadeldia-template", response.data[0], '#OfertaDelDia');
+
+                    clock = $('.clock').FlipClock({
+                        clockFace: 'HourlyCounter'
+                    });
+
+                    var cambio = 0;
+                    $(".btn_detalle_hoy").on("click", function () {
+                        if (cambio == 0) {
+                            $('#PopOfertaDia').slideDown(); //muestro mediante id 
+                            $(".circulo_hoy span").html("-");
+                            cambio = 1;
+                        }
+                        else {
+                            $('#PopOfertaDia').slideUp(); //muestro mediante id 
+                            $(".circulo_hoy span").html("+");
+                            cambio = 0;
+                        }
+                    });
+                }
+            //}
+        },
+        error: function (data, error) {
+            if (checkTimeout(data)) {
+                console.error(error);
+            }
+        }
+    });
+};

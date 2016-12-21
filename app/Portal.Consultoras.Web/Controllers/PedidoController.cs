@@ -4850,5 +4850,58 @@ namespace Portal.Consultoras.Web.Controllers
             Session["ProductosOfertaFinal"] = listaProductoModel;
             return listaProductoModel;
         }
+
+        /*PL20-1226*/
+        public JsonResult GetOfertaDelDia()
+        {
+            try
+            {
+                var f = false;
+                var lst = new List<BEEstrategia>();
+                var lst2 = new List<OfertaDelDiaModel>();
+
+                if (Session["ListaOfertaDelDia"] != null)
+                {
+                    lst = (List<BEEstrategia>)Session["ListaOfertaDelDia"];
+                    if (lst != null && lst.Any())
+                    {
+                        f = true;
+                        foreach(var item in lst) 
+                        {
+                            var arr = item.DescripcionCUV2.Split('|');
+                            string desc = "";
+                            for (int i = 1; i < arr.Length; i++)
+                            {
+                                desc += arr[i] + "\n";
+                            }
+
+                            lst2.Add(new OfertaDelDiaModel
+                            {
+                                CodigoIso = userData.CodigoISO,
+                                NombreOferta = arr[0],
+                                DescripcionOferta = desc,
+                                PrecioOferta = item.Precio2,
+                                PrecioCatalogo = item.Precio
+                            });
+                        }
+                    }
+                }
+
+                return Json(new
+                {
+                    success = f,
+                    data = lst2
+                }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return Json(new
+                {
+                    success = false,
+                    message = ex.Message
+                }, JsonRequestBehavior.AllowGet);
+            }
+        }   
     }
 }

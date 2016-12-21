@@ -618,7 +618,22 @@ namespace Portal.Consultoras.Web.Controllers
                                     model.MontoMinimoFlexipago = string.Format("{0:#,##0.00}", (beOfertaFlexipago.MontoMinimoFlexipago < 0 ? 0M : beOfertaFlexipago.MontoMinimoFlexipago));
                                 }
                             }
-                        }   
+                        }
+
+                        /*PL20-1226*/
+                        model.EsOfertaDelDia = oBEUsuario.EsOfertaDelDia;
+                        if (oBEUsuario.EsOfertaDelDia)
+                        {
+                            using (PedidoServiceClient svc = new PedidoServiceClient())
+                            {
+                                var lstOfertaDelDia = svc.GetEstrategiaODD(oBEUsuario.PaisID, oBEUsuario.CampaniaID, oBEUsuario.ConsultoraID).ToList();
+                                if (lstOfertaDelDia != null && lstOfertaDelDia.Any())
+                                {
+                                    model.TieneOfertaDelDia = true;
+                                    Session["ListaOfertaDelDia"] = lstOfertaDelDia;
+                                }
+                            }
+                        }
                     }
                 }
 
