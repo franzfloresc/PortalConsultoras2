@@ -66,6 +66,12 @@ namespace Portal.Consultoras.Web.Controllers
 
                     /*PL20-1226*/
                     ViewBag.TieneOfertaDelDia = userData.TieneOfertaDelDia;
+                    if (Session["CloseOfertaDelDia"] != null)
+                    {
+                        var closeODD = (bool)Session["CloseOfertaDelDia"];
+                        if (closeODD)
+                            ViewBag.TieneOfertaDelDia = false;
+                    }
 
                 }
 
@@ -1860,6 +1866,26 @@ namespace Portal.Consultoras.Web.Controllers
 
             }
             return sFecha;
+        }
+
+        public TimeSpan CalcularTeQuedanODD(UsuarioModel model)
+        {
+            DateTime hoy = DateTime.Now;
+            DateTime d1 = new DateTime(hoy.Year, hoy.Month, hoy.Day, 0, 0, 0);
+            DateTime d2;
+            if (model.EsOfertaDelDia == 1)
+            {
+                TimeSpan t1 = model.HoraCierreZonaNormal;
+                d2 = new DateTime(hoy.Year, hoy.Month, hoy.Day, t1.Hours, t1.Minutes, t1.Seconds);
+            }
+            else
+            {
+                d2 = d1.AddDays(1);
+            }
+
+            TimeSpan t2 = (d2 - hoy);
+
+            return t2;
         }
     }
 }

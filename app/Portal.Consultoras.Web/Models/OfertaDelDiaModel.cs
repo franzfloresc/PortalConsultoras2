@@ -10,9 +10,12 @@ namespace Portal.Consultoras.Web.Models
     public class OfertaDelDiaModel
     {
         public string CodigoIso { get; set; }
-        public string TeQuedan { get; set; }
+        public TimeSpan TeQuedan { get; set; }
+        public string ImagenPatron { get; set; }
+        public string ImagenFondo1 { get; set; }
         public string ImagenBanner { get; set; }
-        public string ImagenOferta { get; set; }
+        public string ImagenFondo2 { get; set; }
+        public string ImagenDisplay { get; set; }
         public string NombreOferta { get; set; }
         public decimal PrecioOferta { get; set; }
         public decimal PrecioCatalogo { get; set; }

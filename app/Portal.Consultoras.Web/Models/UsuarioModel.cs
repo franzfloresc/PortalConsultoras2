@@ -298,7 +298,8 @@ namespace Portal.Consultoras.Web.Models
         public decimal MontoDeuda { get; set; }
         public string MontoMinimoFlexipago { get; set; }
 
-        public bool EsOfertaDelDia { get; set; }
+        /*PL20-1226*/
+        public int EsOfertaDelDia { get; set; }
         public bool TieneOfertaDelDia { get; set; }
     }
 }

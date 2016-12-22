@@ -524,15 +524,14 @@ namespace Portal.Consultoras.Data
         }
 
         /*PL20-1226*/
-        public bool GetEsOfertaDelDia(int codCampania, string codConsultora, DateTime fechaInicioFact)
+        public int GetEsOfertaDelDia(int codCampania, string codConsultora, DateTime fechaInicioFact)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetEsOfertaDelDia");
             Context.Database.AddInParameter(command, "@CodCampania", DbType.Int32, codCampania);
             Context.Database.AddInParameter(command, "@CodConsultora", DbType.AnsiString, codConsultora);
             Context.Database.AddInParameter(command, "@FechaInicioFact", DbType.DateTime, fechaInicioFact);
 
-            var f = Convert.ToInt16(Context.ExecuteScalar(command));
-            return (f > 0) ? true : false;
+            return Convert.ToInt16(Context.ExecuteScalar(command));
         }
     }
 }

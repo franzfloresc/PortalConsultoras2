@@ -1050,11 +1050,12 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public DateTime FechaActualPais { get; set; }
 
+        /*PL20-1226*/
         [DataMember]
         public bool OfertaDelDia { get; set; }
 
         [DataMember]
-        public bool EsOfertaDelDia { get; set; }
+        public int EsOfertaDelDia { get; set; }
 
         public BEUsuario(IDataRecord row, string tipo1, string tipo2)
         {

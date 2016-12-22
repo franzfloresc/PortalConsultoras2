@@ -4857,40 +4857,19 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
                 var f = false;
-                var lst = new List<BEEstrategia>();
-                var lst2 = new List<OfertaDelDiaModel>();
+                var oddModel = new OfertaDelDiaModel();
 
-                if (Session["ListaOfertaDelDia"] != null)
+                if (Session["ListOfertaDelDia"] != null)
                 {
-                    lst = (List<BEEstrategia>)Session["ListaOfertaDelDia"];
-                    if (lst != null && lst.Any())
-                    {
-                        f = true;
-                        foreach(var item in lst) 
-                        {
-                            var arr = item.DescripcionCUV2.Split('|');
-                            string desc = "";
-                            for (int i = 1; i < arr.Length; i++)
-                            {
-                                desc += arr[i] + "\n";
-                            }
-
-                            lst2.Add(new OfertaDelDiaModel
-                            {
-                                CodigoIso = userData.CodigoISO,
-                                NombreOferta = arr[0],
-                                DescripcionOferta = desc,
-                                PrecioOferta = item.Precio2,
-                                PrecioCatalogo = item.Precio
-                            });
-                        }
-                    }
+                    oddModel = (OfertaDelDiaModel)Session["ListOfertaDelDia"];
+                    oddModel.TeQuedan = CalcularTeQuedanODD(userData);
+                    f = true;
                 }
 
                 return Json(new
                 {
                     success = f,
-                    data = lst2
+                    data = oddModel
                 }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
@@ -4899,9 +4878,31 @@ namespace Portal.Consultoras.Web.Controllers
                 return Json(new
                 {
                     success = false,
-                    message = ex.Message
+                    message = "No se pudo procesar la solicitud"
                 }, JsonRequestBehavior.AllowGet);
             }
-        }   
+        }
+
+        public JsonResult CloseOfertaDelDia()
+        {
+            try
+            {
+                Session["CloseOfertaDelDia"] = true;
+
+                return Json(new
+                {
+                    success = true,
+                }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return Json(new
+                {
+                    success = false,
+                    message = "No se pudo procesar la solicitud"
+                }, JsonRequestBehavior.AllowGet);
+            }
+        }
     }
 }

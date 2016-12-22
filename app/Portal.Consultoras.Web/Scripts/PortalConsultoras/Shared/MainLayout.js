@@ -1,5 +1,6 @@
 ﻿$(document).ready(function () {
 
+    /*PL20-1226*/
     if (TieneOfertaDelDia == "True") {
         CargarOfertaDelDia();
         $('#OfertaDelDia').show();
@@ -793,44 +794,75 @@ function SetMarcaGoogleAnalyticsTermino() {
 /* Fin Tracking Jetlore */
 
 
+/*PL20-1226*/
 function CargarOfertaDelDia() {
-
     $.ajax({
         type: 'GET',
         url: baseUrl + 'Pedido/GetOfertaDelDia',
-        data: '',
+        //data: '{}',
         cache: false,
         dataType: 'json',
         contentType: 'application/json; charset=utf-8',
         success: function (response) {
             //if (checkTimeout(response)) {
-                if (response.success) {
-                    SetHandlebars("#ofertadeldia-template", response.data[0], '#OfertaDelDia');
+            if (response.success) {
+                debugger;
+                var _data = response.data;
+                SetHandlebars("#ofertadeldia-template", _data, '#OfertaDelDia');
+                var tq = _data.TeQuedan;
+                var h = 3600 * tq.Hours;
+                var m = 60 * tq.Minutes;
+                var s = tq.Seconds;
+                var z = h + m + s;
 
-                    clock = $('.clock').FlipClock({
-                        clockFace: 'HourlyCounter'
-                    });
+                clock = $('.clock').FlipClock(z, {
+                    clockFace: 'HourlyCounter',
+                    countdown: true
+                });
 
-                    var cambio = 0;
-                    $(".btn_detalle_hoy").on("click", function () {
-                        if (cambio == 0) {
-                            $('#PopOfertaDia').slideDown(); //muestro mediante id 
-                            $(".circulo_hoy span").html("-");
-                            cambio = 1;
-                        }
-                        else {
-                            $('#PopOfertaDia').slideUp(); //muestro mediante id 
-                            $(".circulo_hoy span").html("+");
-                            cambio = 0;
-                        }
-                    });
-                }
+                var cambio = 0;
+                $(".btn_detalle_hoy").on("click", function () {
+                    if (cambio == 0) {
+                        $('#PopOfertaDia').slideDown(); //muestro mediante id 
+                        $(".circulo_hoy span").html("-");
+                        cambio = 1;
+                    }
+                    else {
+                        $('#PopOfertaDia').slideUp(); //muestro mediante id 
+                        $(".circulo_hoy span").html("+");
+                        cambio = 0;
+                    }
+                });
+            }
             //}
         },
-        error: function (data, error) {
-            if (checkTimeout(data)) {
-                console.error(error);
+        error: function (xhr, status, err) {
+            //if (checkTimeout(data)) {
+                console.log(err);
+            //}
+        }
+    });
+};
+
+function CloseOfertaDelDia() {
+    $.ajax({
+        type: 'GET',
+        url: baseUrl + 'Pedido/CloseOfertaDelDia',
+        //data: '{}',
+        cache: false,
+        //dataType: 'json',
+        //contentType: 'application/json; charset=utf-8',
+        success: function (response) {
+            //if (checkTimeout(response)) {
+            if (response.success) {
+                $('#OfertaDelDia').hide();
             }
+            //}
+        },
+        error: function (xhr, status, err) {
+            //if (checkTimeout(data)) {
+            console.log(err);
+            //}
         }
     });
 };

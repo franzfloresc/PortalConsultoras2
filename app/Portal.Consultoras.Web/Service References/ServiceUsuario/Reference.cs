@@ -140,7 +140,7 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         private bool EsOFGanaMasZonaValidaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private bool EsOfertaDelDiaField;
+        private int EsOfertaDelDiaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private bool EsOfertaFinalZonaValidaField;
@@ -969,7 +969,7 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public bool EsOfertaDelDia {
+        public int EsOfertaDelDia {
             get {
                 return this.EsOfertaDelDiaField;
             }
