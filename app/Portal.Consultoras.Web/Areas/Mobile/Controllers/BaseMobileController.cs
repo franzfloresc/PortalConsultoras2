@@ -28,6 +28,15 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 BuildMenuMobile(userData);
 
                 CargarValoresGenerales(userData);
+
+                /*PL20-1226*/
+                ViewBag.TieneOfertaDelDia = userData.TieneOfertaDelDia;
+                if (Session["CloseOfertaDelDia"] != null)
+                {
+                    var closeODD = (bool)Session["CloseOfertaDelDia"];
+                    if (closeODD)
+                        ViewBag.TieneOfertaDelDia = false;
+                }
             }
             catch (Exception ex)
             {
