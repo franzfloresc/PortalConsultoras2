@@ -1,8 +1,10 @@
-﻿$(document).ready(function () {
+﻿var clock;
+
+$(document).ready(function () {
 
     /*PL20-1226*/
     if (TieneOfertaDelDia == "True") {
-        CargarOfertaDelDia();
+        cargarOfertaDelDia();
         $('#OfertaDelDia').show();
     }
 
@@ -795,7 +797,7 @@ function SetMarcaGoogleAnalyticsTermino() {
 
 
 /*PL20-1226*/
-function CargarOfertaDelDia() {
+function cargarOfertaDelDia() {
     $.ajax({
         type: 'GET',
         url: baseUrl + 'Pedido/GetOfertaDelDia',
@@ -806,16 +808,19 @@ function CargarOfertaDelDia() {
         success: function (response) {
             //if (checkTimeout(response)) {
             if (response.success) {
-                debugger;
                 var _data = response.data;
                 SetHandlebars("#ofertadeldia-template", _data, '#OfertaDelDia');
                 var tq = _data.TeQuedan;
-                var h = 3600 * tq.Hours;
-                var m = 60 * tq.Minutes;
-                var s = tq.Seconds;
-                var z = h + m + s;
 
-                clock = $('.clock').FlipClock(z, {
+                // config banner y display
+                //$('#OfertaDelDia').css('background', 'url("' + _data.ImagenPatron1 + '") repeat-x');
+                $('#banner-odd').css('background-color', _data.ColorFondo1);
+                //$('#img-banner-odd').attr('src', _data.ImagenBanner);
+                //$('#PopOfertaDia').css('background', 'url("' + _data.ImagenPatron2 + '") no-repeat');
+                $('#PopOfertaDia').css('background-color', _data.ColorFondo2);
+                //$('#img-display-odd').attr('src', _data.ImagenDisplay);
+                
+                clock = $('.clock').FlipClock(tq.TotalSeconds, {
                     clockFace: 'HourlyCounter',
                     countdown: true
                 });
@@ -836,20 +841,20 @@ function CargarOfertaDelDia() {
             }
             //}
         },
-        error: function (xhr, status, err) {
-            //if (checkTimeout(data)) {
+        error: function (err) {
+            //if (checkTimeout(response)) {
                 console.log(err);
             //}
         }
     });
 };
 
-function CloseOfertaDelDia() {
+function closeOfertaDelDia() {
     $.ajax({
         type: 'GET',
         url: baseUrl + 'Pedido/CloseOfertaDelDia',
-        //data: '{}',
-        cache: false,
+        //data: {},
+        //cache: false,
         //dataType: 'json',
         //contentType: 'application/json; charset=utf-8',
         success: function (response) {
@@ -859,10 +864,64 @@ function CloseOfertaDelDia() {
             }
             //}
         },
-        error: function (xhr, status, err) {
-            //if (checkTimeout(data)) {
+        error: function (err) {
+            //if (checkTimeout(response)) {
             console.log(err);
             //}
         }
     });
 };
+
+function agregarODDPedido(opt) {
+    var pedidoReservado = false;
+    var qty = (opt = 1) ? 1 : $('#txtCantidad').val();
+    var obj = {
+        Cantidad: qty,
+    };
+
+    $.ajax({
+        type: 'GET',
+        url: baseUrl + 'Pedido/ReservadoOEnHorarioRestringido',
+        dataType: 'json',
+        contentType: 'application/json; charset=utf-8',
+        success: function (response) {
+            //if (checkTimeout(response)) {
+            if (response.success) {
+                pedidoReservado = response.pedidoReservado;
+            }
+            //}
+        },
+        error: function (err) {
+            //if (checkTimeout(response)) {
+            console.log(err);
+            //}
+        }
+    });
+
+    if (pedidoReservado) {
+        alert('No se puede agregar el producto, su pedido esta reservado');
+        return;
+    }
+
+    console.log(obj);
+
+    $.ajax({
+        type: 'GET',
+        url: baseUrl + 'Pedido/AgregarODDPedido',
+        data: JSON.stringify(obj),
+        dataType: 'json',
+        contentType: 'application/json; charset=utf-8',
+        success: function (response) {
+            //if (checkTimeout(response)) {
+            if (response.success) {
+                alert(response.message);
+            }
+            //}
+        },
+        error: function (err) {
+            //if (checkTimeout(response)) {
+            console.log(err);
+            //}
+        }
+    });
+}

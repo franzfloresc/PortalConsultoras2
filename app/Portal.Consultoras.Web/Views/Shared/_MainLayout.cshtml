@@ -501,7 +501,7 @@
 
     <!--OFERTA DEL DIA -->
     <script id="ofertadeldia-template" type="text/x-handlebars-template">
-        <div class="content_oferta_dia">
+        <div class="content_oferta_dia" id="banner-odd">
             <div class="reloj_oferta">
                 TE QUEDAN @*<span>05:00:20</span>*@
                 <div class="clock"></div>
@@ -511,19 +511,19 @@
                 <img src="@Url.Content("~/Content/Images/PL20/solo_hoy.png")" alt="" />
 
             </div>
-            <div class="producto_set"><img src="@Url.Content("~/Content/Images/PL20/set_hoy.png")" alt="" /></div>
+            <div class="producto_set"><img src="@Url.Content("~/Content/Images/PL20/set_hoy.png")" alt="" id="img-banner-odd" /></div>
             <div class="precio_set_dia">
                 <div class="nombre_set_oferta">{{NombreOferta}}</div>
                 A SOLO <span>@ViewBag.Simbolo {{PrecioOfertaFormat}}</span>
 
             </div>
-            <div style="float:left"><a class="btn_agrega_set_dia">AGRÉGALO</a></div>
+            <div style="float:left"><a class="btn_agrega_set_dia" onclick="agregarODDPedido(1)">AGRÉGALO</a></div>
             <a class="btn_detalle_hoy">
                 <div class="circulo_hoy"><span>+</span></div>
                 <div class="texto_detalle_set">VER DETALLE</div>
             </a>
         </div>
-        <a class="btn_cerrar_ofertaDia" href="javascript:;" onclick="CloseOfertaDelDia();">x</a>
+        <a class="btn_cerrar_ofertaDia" href="javascript:;" onclick="closeOfertaDelDia();">x</a>
         <div class="content_pop_oferta_dia" id="PopOfertaDia" style="display:none;">
             @*<a href="javascript:;" onclick="javascript: $('#PopOfertaDia').slideUp();" title="Cerrar" class="cerrar_pop_oferta">
                 <img src="/Content/Images/cerrar_04_blanco.png" alt="Cerrar">
@@ -532,7 +532,7 @@
             @*<div class="reloj_popOferta">05:00:20</div>*@
             <hr class="clear" />
             <div class="content_set_pop_hoy">
-                <div class="imagen_set_Oferta_pop"><img src="@Url.Content("~/Content/Images/PL20/set_hoy.png")" alt="" /></div>
+                <div class="imagen_set_Oferta_pop"><img src="@Url.Content("~/Content/Images/PL20/set_hoy.png")" alt="" id="img-display-odd" /></div>
                 <div class="right_set_hoy">
                     <div class="producto_gratis_ofertaDia">{{NombreOferta}}</div>
                     <div class="descripcion_set_ofertaDia">{{DescripcionOferta}}</div>
@@ -549,7 +549,7 @@
                         <a class="menos js-no-popup" tabindex="0"><img class="js-no-popup" src="/Content/Images/PL20/menos.png" alt=""></a>
                     </div>
                 </div>
-                <a class="btn_pop_agregalo_oferta">AGRÉGALO A TU PEDIDO</a>
+                <a class="btn_pop_agregalo_oferta" onclick="agregarODDPedido(2);">AGRÉGALO A TU PEDIDO</a>
             </div>
         </div>
     </script>

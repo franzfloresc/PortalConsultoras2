@@ -637,7 +637,7 @@ namespace Portal.Consultoras.Web.Controllers
                                 if (lstOfertaDelDia.Any() && configBanner.Any())
                                 {
                                     var arr = lstOfertaDelDia[0].DescripcionCUV2.Split('|');
-                                    string desc = "";
+                                    string desc = string.Empty;
                                     for (int i = 1; i < arr.Length; i++)
                                     {
                                         if (!string.IsNullOrEmpty(arr[i]))
@@ -645,28 +645,31 @@ namespace Portal.Consultoras.Web.Controllers
                                     }
 
                                     var tq = CalcularTeQuedanODD(model);
-                                    var i1 = ConfigurationManager.AppSettings.Get("UrlImgPatronODD") ?? string.Empty;
-                                    var i2 = ConfigurationManager.AppSettings.Get("UrlImgBannerODD") ?? string.Empty;
-                                    var i3 = ConfigurationManager.AppSettings.Get("UrlImgDisplayODD") ?? string.Empty;
+                                    var p1 = string.Format(ConfigurationManager.AppSettings.Get("UrlImgPatron1ODD"), model.CodigoISO);
+                                    var p2 = string.Format(ConfigurationManager.AppSettings.Get("UrlImgPatron2ODD"), model.CodigoISO);
+                                    var i1 = string.Format(ConfigurationManager.AppSettings.Get("UrlImgBannerODD"), model.CodigoISO, lstOfertaDelDia[0].ImagenURL);
+                                    var i2 = string.Format(ConfigurationManager.AppSettings.Get("UrlImgDisplayODD"), model.CodigoISO, lstOfertaDelDia[0].ImagenURL);
                                     var f1 = configBanner.Where(x => x.TablaLogicaDatosID == 9301).First().Codigo ?? string.Empty;
                                     var f2 = configBanner.Where(x => x.TablaLogicaDatosID == 9302).First().Codigo ?? string.Empty;
 
-                                    var oddModel = new OfertaDelDiaModel();
-                                    oddModel.CodigoIso = model.CodigoISO;
-                                    oddModel.TeQuedan = tq;
-                                    oddModel.ImagenPatron = i1;
-                                    oddModel.ImagenFondo1 = f1;
-                                    oddModel.ImagenBanner = i2;
-                                    oddModel.ImagenFondo2 = f2;
-                                    oddModel.ImagenDisplay = i3;
-                                    oddModel.NombreOferta = arr[0];
-                                    oddModel.DescripcionOferta = desc ?? string.Empty;
-                                    oddModel.PrecioOferta = lstOfertaDelDia[0].Precio2;
-                                    oddModel.PrecioCatalogo = lstOfertaDelDia[0].Precio;
+                                    var odd = new OfertaDelDiaModel();
+                                    odd.CodigoIso = model.CodigoISO;
+                                    odd.TeQuedan = tq;
+                                    odd.ImagenPatron1 = p1;
+                                    odd.ColorFondo1 = f1;
+                                    odd.ImagenBanner = i1;
+                                    odd.ImagenPatron2 = p2;
+                                    odd.ColorFondo2 = f2;
+                                    odd.ImagenDisplay = i2;
+                                    odd.NombreOferta = arr[0];
+                                    odd.DescripcionOferta = desc;
+                                    odd.PrecioOferta = lstOfertaDelDia[0].Precio2;
+                                    odd.PrecioCatalogo = lstOfertaDelDia[0].Precio;
+                                    odd.LimiteVenta = lstOfertaDelDia[0].LimiteVenta;
 
                                     model.TieneOfertaDelDia = true;
-                                    Session["ListOfertaDelDia"] = oddModel;
-                                    Session["CloseOfertaDelDia"] = false;
+                                    Session["OfertaDelDia"] = odd;
+                                    Session["CloseODD"] = false;
                                 }
                             }
                         }

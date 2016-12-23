@@ -66,13 +66,19 @@ namespace Portal.Consultoras.Web.Controllers
 
                     /*PL20-1226*/
                     ViewBag.TieneOfertaDelDia = userData.TieneOfertaDelDia;
-                    if (Session["CloseOfertaDelDia"] != null)
+
+                    // validar si se cerro el banner
+                    if (Session["CloseODD"] != null)
                     {
-                        var closeODD = (bool)Session["CloseOfertaDelDia"];
-                        if (closeODD)
+                        var close = (bool)Session["CloseODD"];
+                        if (close)
                             ViewBag.TieneOfertaDelDia = false;
                     }
 
+                    // validar si tiene pedido reservado
+                    string msg1 = string.Empty;
+                    if (ValidarPedidoReservado(out msg1))
+                        ViewBag.TieneOfertaDelDia = false;
                 }
 
                 base.OnActionExecuting(filterContext);
