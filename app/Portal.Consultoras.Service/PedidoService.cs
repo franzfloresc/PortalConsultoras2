@@ -1712,5 +1712,11 @@ namespace Portal.Consultoras.Service
             BLPedidoWeb.DeshacerUltimaDescargaPedido(PaisID);
         }
         /*EPD-1025*/
+        
+        /*PL20-1226*/
+        public List<BEEstrategia> GetEstrategiaODD(int paisID, int codCampania, long consultoraID)
+        {
+            return new BLEstrategia().GetEstrategiaODD(paisID, codCampania, consultoraID);
+        }
     }
 }

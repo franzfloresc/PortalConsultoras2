@@ -1,4 +1,12 @@
-﻿$(document).ready(function () {
+﻿var clock;
+
+$(document).ready(function () {
+
+    /*PL20-1226*/
+    if (TieneOfertaDelDia == "True") {
+        cargarOfertaDelDia();
+        $('#OfertaDelDia').show();
+    }
 
     waitingDialog();
 
@@ -892,3 +900,134 @@ function SetMarcaGoogleAnalyticsTermino() {
 /* Tracking Jetlore */
 // Se creo un JS => TrackingJetlore.js
 /* Fin Tracking Jetlore */
+
+
+/*PL20-1226*/
+function cargarOfertaDelDia() {
+    $.ajax({
+        type: 'GET',
+        url: baseUrl + 'Pedido/GetOfertaDelDia',
+        //data: '{}',
+        cache: false,
+        dataType: 'json',
+        contentType: 'application/json; charset=utf-8',
+        success: function (response) {
+            //if (checkTimeout(response)) {
+            if (response.success) {
+                var _data = response.data;
+                SetHandlebars("#ofertadeldia-template", _data, '#OfertaDelDia');
+                var tq = _data.TeQuedan;
+
+                // config banner y display
+                //$('#OfertaDelDia').css('background', 'url("' + _data.ImagenPatron1 + '") repeat-x');
+                $('#banner-odd').css('background-color', _data.ColorFondo1);
+                //$('#img-banner-odd').attr('src', _data.ImagenBanner);
+                //$('#PopOfertaDia').css('background', 'url("' + _data.ImagenPatron2 + '") no-repeat');
+                $('#PopOfertaDia').css('background-color', _data.ColorFondo2);
+                //$('#img-display-odd').attr('src', _data.ImagenDisplay);
+                
+                clock = $('.clock').FlipClock(tq.TotalSeconds, {
+                    clockFace: 'HourlyCounter',
+                    countdown: true
+                });
+
+                var cambio = 0;
+                $(".btn_detalle_hoy").on("click", function () {
+                    if (cambio == 0) {
+                        $('#PopOfertaDia').slideDown(); //muestro mediante id 
+                        $(".circulo_hoy span").html("-");
+                        cambio = 1;
+                    }
+                    else {
+                        $('#PopOfertaDia').slideUp(); //muestro mediante id 
+                        $(".circulo_hoy span").html("+");
+                        cambio = 0;
+                    }
+                });
+            }
+            //}
+        },
+        error: function (err) {
+            //if (checkTimeout(response)) {
+                console.log(err);
+            //}
+        }
+    });
+};
+
+function closeOfertaDelDia() {
+    $.ajax({
+        type: 'GET',
+        url: baseUrl + 'Pedido/CloseOfertaDelDia',
+        //data: {},
+        //cache: false,
+        //dataType: 'json',
+        //contentType: 'application/json; charset=utf-8',
+        success: function (response) {
+            //if (checkTimeout(response)) {
+            if (response.success) {
+                $('#OfertaDelDia').hide();
+            }
+            //}
+        },
+        error: function (err) {
+            //if (checkTimeout(response)) {
+            console.log(err);
+            //}
+        }
+    });
+};
+
+function agregarODDPedido(opt) {
+    var pedidoReservado = false;
+    var qty = (opt = 1) ? 1 : $('#txtCantidad').val();
+    var obj = {
+        Cantidad: qty,
+    };
+
+    $.ajax({
+        type: 'GET',
+        url: baseUrl + 'Pedido/ReservadoOEnHorarioRestringido',
+        dataType: 'json',
+        contentType: 'application/json; charset=utf-8',
+        success: function (response) {
+            //if (checkTimeout(response)) {
+            if (response.success) {
+                pedidoReservado = response.pedidoReservado;
+            }
+            //}
+        },
+        error: function (err) {
+            //if (checkTimeout(response)) {
+            console.log(err);
+            //}
+        }
+    });
+
+    if (pedidoReservado) {
+        alert('No se puede agregar el producto, su pedido esta reservado');
+        return;
+    }
+
+    console.log(obj);
+
+    $.ajax({
+        type: 'GET',
+        url: baseUrl + 'Pedido/AgregarODDPedido',
+        data: JSON.stringify(obj),
+        dataType: 'json',
+        contentType: 'application/json; charset=utf-8',
+        success: function (response) {
+            //if (checkTimeout(response)) {
+            if (response.success) {
+                alert(response.message);
+            }
+            //}
+        },
+        error: function (err) {
+            //if (checkTimeout(response)) {
+            console.log(err);
+            //}
+        }
+    });
+}

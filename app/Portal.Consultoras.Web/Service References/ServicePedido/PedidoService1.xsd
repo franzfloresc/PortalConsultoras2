@@ -252,33 +252,12 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="BEPedidoDescarga" nillable="true" type="tns:BEPedidoDescarga" />
-  <xs:complexType name="BETipoEstrategia">
+  <xs:complexType name="ArrayOfBEEstrategia">
     <xs:sequence>
-      <xs:element minOccurs="0" name="CodigoGeneral" type="xs:int" />
-      <xs:element minOccurs="0" name="CodigoPrograma" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="DescripcionEstrategia" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="DescripcionOferta" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="FlagActivo" type="xs:int" />
-      <xs:element minOccurs="0" name="FlagMostrarImg" type="xs:int" />
-      <xs:element minOccurs="0" name="FlagNueva" type="xs:int" />
-      <xs:element minOccurs="0" name="FlagRecoPerfil" type="xs:int" />
-      <xs:element minOccurs="0" name="FlagRecoProduc" type="xs:int" />
-      <xs:element minOccurs="0" name="ImagenEstrategia" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="OfertaID" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="Orden" type="xs:int" />
-      <xs:element minOccurs="0" name="PaisID" type="xs:int" />
-      <xs:element minOccurs="0" name="TipoEstrategiaID" type="xs:int" />
-      <xs:element minOccurs="0" name="UsuarioModificacion" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="UsuarioRegistro" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="BEEstrategia" nillable="true" type="tns:BEEstrategia" />
     </xs:sequence>
   </xs:complexType>
-  <xs:element name="BETipoEstrategia" nillable="true" type="tns:BETipoEstrategia" />
-  <xs:complexType name="ArrayOfBETipoEstrategia">
-    <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="BETipoEstrategia" nillable="true" type="tns:BETipoEstrategia" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="ArrayOfBETipoEstrategia" nillable="true" type="tns:ArrayOfBETipoEstrategia" />
+  <xs:element name="ArrayOfBEEstrategia" nillable="true" type="tns:ArrayOfBEEstrategia" />
   <xs:complexType name="BEEstrategia">
     <xs:sequence>
       <xs:element minOccurs="0" name="Activo" type="xs:int" />
@@ -345,12 +324,33 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="BEEstrategia" nillable="true" type="tns:BEEstrategia" />
-  <xs:complexType name="ArrayOfBEEstrategia">
+  <xs:complexType name="BETipoEstrategia">
     <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="BEEstrategia" nillable="true" type="tns:BEEstrategia" />
+      <xs:element minOccurs="0" name="CodigoGeneral" type="xs:int" />
+      <xs:element minOccurs="0" name="CodigoPrograma" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DescripcionEstrategia" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DescripcionOferta" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FlagActivo" type="xs:int" />
+      <xs:element minOccurs="0" name="FlagMostrarImg" type="xs:int" />
+      <xs:element minOccurs="0" name="FlagNueva" type="xs:int" />
+      <xs:element minOccurs="0" name="FlagRecoPerfil" type="xs:int" />
+      <xs:element minOccurs="0" name="FlagRecoProduc" type="xs:int" />
+      <xs:element minOccurs="0" name="ImagenEstrategia" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="OfertaID" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Orden" type="xs:int" />
+      <xs:element minOccurs="0" name="PaisID" type="xs:int" />
+      <xs:element minOccurs="0" name="TipoEstrategiaID" type="xs:int" />
+      <xs:element minOccurs="0" name="UsuarioModificacion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="UsuarioRegistro" nillable="true" type="xs:string" />
     </xs:sequence>
   </xs:complexType>
-  <xs:element name="ArrayOfBEEstrategia" nillable="true" type="tns:ArrayOfBEEstrategia" />
+  <xs:element name="BETipoEstrategia" nillable="true" type="tns:BETipoEstrategia" />
+  <xs:complexType name="ArrayOfBETipoEstrategia">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="BETipoEstrategia" nillable="true" type="tns:BETipoEstrategia" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfBETipoEstrategia" nillable="true" type="tns:ArrayOfBETipoEstrategia" />
   <xs:complexType name="BETallaColor">
     <xs:sequence>
       <xs:element minOccurs="0" name="CUV" nillable="true" type="xs:string" />

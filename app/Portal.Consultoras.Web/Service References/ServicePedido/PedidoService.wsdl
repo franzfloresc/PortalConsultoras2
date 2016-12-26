@@ -117,6 +117,12 @@
   <wsdl:message name="IPedidoService_DeshacerUltimaDescargaPedido_OutputMessage">
     <wsdl:part name="parameters" element="tns:DeshacerUltimaDescargaPedidoResponse" />
   </wsdl:message>
+  <wsdl:message name="IPedidoService_GetEstrategiaODD_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetEstrategiaODD" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_GetEstrategiaODD_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetEstrategiaODDResponse" />
+  </wsdl:message>
   <wsdl:message name="IPedidoService_InsertarTipoEstrategia_InputMessage">
     <wsdl:part name="parameters" element="tns:InsertarTipoEstrategia" />
   </wsdl:message>
@@ -1720,6 +1726,10 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/DeshacerUltimaDescargaPedido" message="tns:IPedidoService_DeshacerUltimaDescargaPedido_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/DeshacerUltimaDescargaPedidoResponse" message="tns:IPedidoService_DeshacerUltimaDescargaPedido_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="GetEstrategiaODD">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetEstrategiaODD" message="tns:IPedidoService_GetEstrategiaODD_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/GetEstrategiaODDResponse" message="tns:IPedidoService_GetEstrategiaODD_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="InsertarTipoEstrategia">
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/InsertarTipoEstrategia" message="tns:IPedidoService_InsertarTipoEstrategia_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/InsertarTipoEstrategiaResponse" message="tns:IPedidoService_InsertarTipoEstrategia_OutputMessage" />
@@ -2898,6 +2908,15 @@
     </wsdl:operation>
     <wsdl:operation name="DeshacerUltimaDescargaPedido">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/DeshacerUltimaDescargaPedido" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetEstrategiaODD">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/GetEstrategiaODD" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

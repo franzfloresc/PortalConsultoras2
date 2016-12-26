@@ -626,6 +626,61 @@ namespace Portal.Consultoras.Web.Controllers
                                 }
                             }
                         }
+
+                        /*PL20-1226*/
+                        model.EsOfertaDelDia = oBEUsuario.EsOfertaDelDia;
+                        if (model.EsOfertaDelDia > 0)
+                        {
+                            using (PedidoServiceClient svc = new PedidoServiceClient())
+                            {
+                                var lstOfertaDelDia = svc.GetEstrategiaODD(model.PaisID, model.CampaniaID, model.ConsultoraID).ToList();
+                                var configBanner = new List<BETablaLogicaDatos>();
+
+                                using (SACServiceClient svc2 = new SACServiceClient())
+                                {
+                                    configBanner = svc2.GetTablaLogicaDatos(model.PaisID, 93).ToList();
+                                }
+
+                                if (lstOfertaDelDia.Any() && configBanner.Any())
+                                {
+                                    var arr = lstOfertaDelDia[0].DescripcionCUV2.Split('|');
+                                    string desc = string.Empty;
+                                    for (int i = 1; i < arr.Length; i++)
+                                    {
+                                        if (!string.IsNullOrEmpty(arr[i]))
+                                            desc += arr[i] + "\n";
+                                    }
+
+                                    var tq = CalcularTeQuedanODD(model);
+                                    var p1 = string.Format(ConfigurationManager.AppSettings.Get("UrlImgPatron1ODD"), model.CodigoISO);
+                                    var p2 = string.Format(ConfigurationManager.AppSettings.Get("UrlImgPatron2ODD"), model.CodigoISO);
+                                    var i1 = string.Format(ConfigurationManager.AppSettings.Get("UrlImgBannerODD"), model.CodigoISO, lstOfertaDelDia[0].ImagenURL);
+                                    var i2 = string.Format(ConfigurationManager.AppSettings.Get("UrlImgDisplayODD"), model.CodigoISO, lstOfertaDelDia[0].ImagenURL);
+                                    var f1 = configBanner.Where(x => x.TablaLogicaDatosID == 9301).First().Codigo ?? string.Empty;
+                                    var f2 = configBanner.Where(x => x.TablaLogicaDatosID == 9302).First().Codigo ?? string.Empty;
+
+                                    var odd = new OfertaDelDiaModel();
+                                    odd.CodigoIso = model.CodigoISO;
+                                    odd.TeQuedan = tq;
+                                    odd.ImagenPatron1 = p1;
+                                    odd.ColorFondo1 = f1;
+                                    odd.ImagenBanner = i1;
+                                    odd.ImagenPatron2 = p2;
+                                    odd.ColorFondo2 = f2;
+                                    odd.ImagenDisplay = i2;
+                                    odd.NombreOferta = arr[0];
+                                    odd.DescripcionOferta = desc;
+                                    odd.PrecioOferta = lstOfertaDelDia[0].Precio2;
+                                    odd.PrecioCatalogo = lstOfertaDelDia[0].Precio;
+                                    odd.LimiteVenta = lstOfertaDelDia[0].LimiteVenta;
+
+                                    model.TieneOfertaDelDia = true;
+                                    Session["OfertaDelDia"] = odd;
+                                    Session["CloseODD"] = false;
+                                }
+                            }
+                        }
+                        /*PL20-1226*/
                     }
                 }
 
@@ -841,6 +896,26 @@ namespace Portal.Consultoras.Web.Controllers
                     model.MontoMinimoFlexipago = string.Format("{0:#,##0.00}", (datosConsultoraHana.MontoMinimoFlexipago < 0 ? 0M : datosConsultoraHana.MontoMinimoFlexipago));
                 }
             }
+        }
+
+        private TimeSpan CalcularTeQuedanODD(UsuarioModel model)
+        {
+            DateTime hoy = DateTime.Now;
+            DateTime d1 = new DateTime(hoy.Year, hoy.Month, hoy.Day, 0, 0, 0);
+            DateTime d2;
+            if (model.EsOfertaDelDia == 1)
+            {
+                TimeSpan t1 = model.HoraCierreZonaNormal;
+                d2 = new DateTime(hoy.Year, hoy.Month, hoy.Day, t1.Hours, t1.Minutes, t1.Seconds);
+            }
+            else
+            {
+                d2 = d1.AddDays(1);
+            }
+
+            TimeSpan t2 = (d2 - hoy);
+
+            return t2;
         }
     }
 }

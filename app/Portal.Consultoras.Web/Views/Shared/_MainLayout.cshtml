@@ -8,6 +8,8 @@
     <meta name="author" content="Belcorp" />
 
     <title>Belcorp | Portal Consultoras</title>
+    
+    <link href="@Url.Content("~/Content/Css/Site/flipclock.css")" rel="stylesheet" type="text/css" />
 
     <link href="https://fonts.googleapis.com/css?family=Lato:400,700italic,300,700,900" rel="stylesheet" type="text/css" />
     @if (System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(ViewBag.PaisAnalytics == null ? "" : ViewBag.PaisAnalytics))
@@ -20,6 +22,7 @@
         <link href="@Url.Content("~/Content/Images/icons/favicon_lbel.ico")" rel="shortcut icon" type="image/x-icon" />
         @System.Web.Optimization.Styles.Render("~/Content/Css/Site/Lbel/CssSB2")
     }
+
     <script type="text/javascript">
         var baseUrl = "@Url.Content("~")";
         var isEsika = '@(System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(ViewBag.PaisAnalytics == null ? "" : ViewBag.PaisAnalytics))' == "True";
@@ -119,6 +122,12 @@
     }
     <!-- cabecera -->
     <header>
+
+        <!--OFERTA DEL DIA -->
+        <div class="bloque_oferta_dia" id="OfertaDelDia" style="display:none">
+            
+        </div>  
+        <!--OFERTA DEL DIA -->
 
         <div id="bloquemensajesPedido" style="display: none">
             <div class="oscurecer_animacion"></div>
@@ -479,6 +488,63 @@
         <hr class="clear" />
         <a href="javascript:;" onclick="RedirectIngresaTuPedido();" class="ver_pedido" role="menu" region="Superior" title="Ver mi pedido" id="lnk-sup-ver-mi-pedido">VER TODO MI PEDIDO</a>
     </script>
+    <!--OFERTA DEL DIA -->
+    <script id="ofertadeldia-template" type="text/x-handlebars-template">
+        <div class="content_oferta_dia" id="banner-odd">
+            <div class="reloj_oferta">
+                TE QUEDAN @*<span>05:00:20</span>*@
+                <div class="clock"></div>
+                <div class="message"></div>
+            </div>
+            <div class="solo_hoy">
+                <img src="@Url.Content("~/Content/Images/PL20/solo_hoy.png")" alt="" />
+
+            </div>
+            <div class="producto_set"><img src="@Url.Content("~/Content/Images/PL20/set_hoy.png")" alt="" id="img-banner-odd" /></div>
+            <div class="precio_set_dia">
+                <div class="nombre_set_oferta">{{NombreOferta}}</div>
+                A SOLO <span>@ViewBag.Simbolo {{PrecioOfertaFormat}}</span>
+
+            </div>
+            <div style="float:left"><a class="btn_agrega_set_dia" onclick="agregarODDPedido(1)">AGRÉGALO</a></div>
+            <a class="btn_detalle_hoy">
+                <div class="circulo_hoy"><span>+</span></div>
+                <div class="texto_detalle_set">VER DETALLE</div>
+            </a>
+        </div>
+        <a class="btn_cerrar_ofertaDia" href="javascript:;" onclick="closeOfertaDelDia();">x</a>
+        <div class="content_pop_oferta_dia" id="PopOfertaDia" style="display:none;">
+            @*<a href="javascript:;" onclick="javascript: $('#PopOfertaDia').slideUp();" title="Cerrar" class="cerrar_pop_oferta">
+                <img src="/Content/Images/cerrar_04_blanco.png" alt="Cerrar">
+            </a>*@
+
+            @*<div class="reloj_popOferta">05:00:20</div>*@
+            <hr class="clear" />
+            <div class="content_set_pop_hoy">
+                <div class="imagen_set_Oferta_pop"><img src="@Url.Content("~/Content/Images/PL20/set_hoy.png")" alt="" id="img-display-odd" /></div>
+                <div class="right_set_hoy">
+                    <div class="producto_gratis_ofertaDia">{{NombreOferta}}</div>
+                    <div class="descripcion_set_ofertaDia">{{DescripcionOferta}}</div>
+
+                </div>
+            </div>
+            <div class="precio_valorizado_oferta">VALORIZADO EN <span>@ViewBag.Simbolo {{PrecioCatalogoFormat}}</span></div>
+            <div class="precio_ofertaDia">A SOLO <span>@ViewBag.Simbolo {{PrecioOfertaFormat}}</span></div>
+            <div style="text-align:center">
+                <div class="liquidacion_rango_home js-no-popup">
+                    <input type="text" value="1" style="color:white" size="2" maxlength="2" id="txtCantidad" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral js-no-popup" tabindex="0">
+                    <div class="liquidacion_rango_right_pedido js-no-popup">
+                        <a class="mas js-no-popup" tabindex="0"><img class="js-no-popup" src="/Content/Images/PL20/mas.png" alt=""></a>
+                        <a class="menos js-no-popup" tabindex="0"><img class="js-no-popup" src="/Content/Images/PL20/menos.png" alt=""></a>
+                    </div>
+                </div>
+                <a class="btn_pop_agregalo_oferta" onclick="agregarODDPedido(2);">AGRÉGALO A TU PEDIDO</a>
+            </div>
+        </div>
+    </script>
+    <!--OFERTA DEL DIA -->
+
+
     @System.Web.Optimization.Scripts.Render("~/bundles/JQueryJs")
     <script type="text/javascript">
         var formatDecimalPaisMain = '@ViewBag.FormatDecimalPais';
@@ -500,9 +566,43 @@
         var DesktopCatalogoPersonalizado = @Portal.Consultoras.Common.Constantes.OrigenPedidoWeb.DesktopCatalogoPersonalizado;
         var sesionEsShowRoom = '@Session["EsShowRoom"]';
         var EfectoTutorialSalvavidas = '@ViewBag.Efecto_TutorialSalvavidas';
+
+        var TieneOfertaDelDia = '@ViewBag.TieneOfertaDelDia';
     </script>
     @System.Web.Optimization.Scripts.Render("~/bundles/JsSB2")
     @*<script src="https://webchat-cls1-cgn-bct.i6.inconcertcc.com/v2/click_to_chat?token=@ViewBag.TokenAtento&container_id=belcorpChat"></script>*@
+    <script src="@Url.Content("~/Scripts/flipclock.js")" type="text/javascript"></script>
+
+    <script type="text/javascript">
+		var clock;
+
+		$(document).ready(function() {
+
+			//clock = $('.clock').FlipClock({
+		    //    clockFace: 'HourlyCounter'
+		    //});
+		});
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            //var cambio=0;
+            //$(".btn_detalle_hoy").on("click", function () {
+            //    if(cambio==0){
+            //        $('#PopOfertaDia').slideDown(); //muestro mediante id 
+            //        $(".circulo_hoy span").html("+");
+            //        cambio=1;
+            //    }
+            //    else{
+            //        $('#PopOfertaDia').slideUp(); //muestro mediante id 
+            //        $(".circulo_hoy span").html("x");
+            //        cambio=0;
+            //    }
+            
+            //});     
+        });
+
+    </script>
+    
     <script type='text/javascript'>
         (function () {
             var proto = document.location.protocol || 'http:';
