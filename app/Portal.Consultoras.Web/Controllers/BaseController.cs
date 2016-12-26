@@ -63,6 +63,22 @@ namespace Portal.Consultoras.Web.Controllers
                     //MenuBelcorpResponde();
                     ObtenerPedidoWeb();
                     ObtenerPedidoWebDetalle();
+
+                    /*PL20-1226*/
+                    ViewBag.TieneOfertaDelDia = userData.TieneOfertaDelDia;
+
+                    // validar si se cerro el banner
+                    if (Session["CloseODD"] != null)
+                    {
+                        var close = (bool)Session["CloseODD"];
+                        if (close)
+                            ViewBag.TieneOfertaDelDia = false;
+                    }
+
+                    // validar si tiene pedido reservado
+                    string msg1 = string.Empty;
+                    if (ValidarPedidoReservado(out msg1))
+                        ViewBag.TieneOfertaDelDia = false;
                 }
 
                 base.OnActionExecuting(filterContext);
@@ -1871,6 +1887,26 @@ namespace Portal.Consultoras.Web.Controllers
 
             }
             return sFecha;
+        }
+
+        public TimeSpan CalcularTeQuedanODD(UsuarioModel model)
+        {
+            DateTime hoy = DateTime.Now;
+            DateTime d1 = new DateTime(hoy.Year, hoy.Month, hoy.Day, 0, 0, 0);
+            DateTime d2;
+            if (model.EsOfertaDelDia == 1)
+            {
+                TimeSpan t1 = model.HoraCierreZonaNormal;
+                d2 = new DateTime(hoy.Year, hoy.Month, hoy.Day, t1.Hours, t1.Minutes, t1.Seconds);
+            }
+            else
+            {
+                d2 = d1.AddDays(1);
+            }
+
+            TimeSpan t2 = (d2 - hoy);
+
+            return t2;
         }
     }
 }

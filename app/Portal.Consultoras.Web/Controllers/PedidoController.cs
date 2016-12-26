@@ -4891,5 +4891,92 @@ namespace Portal.Consultoras.Web.Controllers
             Session["ProductosOfertaFinal"] = listaProductoModel;
             return listaProductoModel;
         }
+
+        /*PL20-1226*/
+        public JsonResult GetOfertaDelDia()
+        {
+            try
+            {
+                var f = false;
+                var odd = new OfertaDelDiaModel();
+
+                if (Session["OfertaDelDia"] != null)
+                {
+                    odd = (OfertaDelDiaModel)Session["OfertaDelDia"];
+                    odd.TeQuedan = CalcularTeQuedanODD(userData);
+                    f = true;
+                }
+
+                return Json(new
+                {
+                    success = f,
+                    data = odd
+                }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return Json(new
+                {
+                    success = false,
+                    message = "No se pudo procesar la solicitud"
+                }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        public JsonResult CloseOfertaDelDia()
+        {
+            try
+            {
+                Session["CloseODD"] = true;
+
+                return Json(new
+                {
+                    success = true,
+                }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return Json(new
+                {
+                    success = false,
+                    message = "No se pudo procesar la solicitud"
+                }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        public JsonResult AgregarODDPedido(OfertaDelDiaModel model)
+        {
+            try
+            {
+                var f = true;
+                string msg = string.Empty;
+                if (Session["OfertaDelDia"] != null)
+                {
+                    var odd = (OfertaDelDiaModel)Session["OfertaDelDia"];
+                    if (model.Cantidad > odd.LimiteVenta)
+                    {
+                        f = false;
+                        msg = "Solo puede llevar " + odd.LimiteVenta + " unidades de este producto";
+                    }
+                }
+                
+                return Json(new
+                {
+                    success = f,
+                    message = msg
+                }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return Json(new
+                {
+                    success = false,
+                    message = "No se pudo procesar la solicitud"
+                }, JsonRequestBehavior.AllowGet);
+            }
+        }
     }
 }

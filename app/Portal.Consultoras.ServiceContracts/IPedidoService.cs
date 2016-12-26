@@ -926,5 +926,8 @@ namespace Portal.Consultoras.ServiceContracts
         [OperationContract]
         void DeshacerUltimaDescargaPedido(int PaisID);
         /*EPD-1025*/
+        
+        [OperationContract]
+        List<BEEstrategia> GetEstrategiaODD(int paisID, int codCampania, long consultoraID);
     }
 }
