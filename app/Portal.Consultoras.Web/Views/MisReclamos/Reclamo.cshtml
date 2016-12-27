@@ -26,7 +26,7 @@
         <input type="hidden" id="hdMontoMinimoPedido" value="@Model.MontoMinimo"/>
     </div>
     <div class="content_general_reclamos" id="divProcesoReclamo">
-    <div style="width: 80%;display: block;float: left;">
+    <div style="display: block;">
         <div class="content_pasos">
             <div class="paso_reclamo paso_active_reclamo" id="Selector1" data-paso="1"><span><img src="@Url.Content("~/Content/Images/Esika/cdr_paso1_activo.png")" /></span></div>
             <div class="paso_reclamo" id="Selector2" data-paso="2"><span><img src="@Url.Content("~/Content/Images/Esika/cdr_paso2.png")" /></span></div>
@@ -66,7 +66,7 @@
             </div>
             <hr class="clear"/>
             <div class="linea_separadora_roja" style="height: 2px;"></div>
-            <span class="btn_si_stock" style="width: 296px;" id="IrPAso2">SIGUIENTE</span>
+            <span class="btn_si_stock_cdr" style="width: 296px;" id="IrPAso2">SIGUIENTE</span>
             <hr class="clear"/>
             <br/>
         </div>
@@ -114,7 +114,7 @@
                 <hr class="clear"/>
                 <div class="linea_separadora_roja" style="height: 2px;"></div>
                 <a class="btn_paso_anterior" href="javascript:;" id="RegresarPaso2">REGRESAR</a>
-                <a class="btn_si_stock" href="javascript:;" style="width: 296px;" id="CambioProducto2">CÁMBIALO POR ESTE PRODUCTO</a>
+                <a class="btn_si_stock_cdr" href="javascript:;" style="width: 296px;" id="CambioProducto2">CÁMBIALO POR ESTE PRODUCTO</a>
                 <hr class="clear"/>
             </div>
             <!--FIN-->
@@ -149,7 +149,7 @@
                     </div>
                     <div class="linea_separadora_roja" style="height: 2px;"></div>
                     <a class="btn_paso_anterior" href="javascript:;" id="RegresarCambio1">REGRESAR</a>
-                    <a class="btn_si_stock" href="javascript:;" style="width: 296px;" id="IrPaso3" data-cambiopaso="3">ACEPTAR LA SOLUCIÓN</a>
+                    <a class="btn_si_stock_cdr" href="javascript:;" style="width: 296px;" id="IrPaso3" data-cambiopaso="3">ACEPTAR LA SOLUCIÓN</a>
                     <hr class="clear"/>
                 </div>
                 <div class="content_reclamo" data-tipo-confirma="canje" style="display: none;">
@@ -170,7 +170,7 @@
                     </div>
                     <div class="linea_separadora_roja" style="height: 2px;"></div>
                     <span class="btn_paso_anterior" id="RegresarCanje1">REGRESAR</span>
-                    <span class="btn_si_stock" style="width: 296px;" id="IrPaso3" data-cambiopaso="3">ACEPTAR LA SOLUCIÓN</span>
+                    <span class="btn_si_stock_cdr" style="width: 296px;" id="IrPaso3" data-cambiopaso="3">ACEPTAR LA SOLUCIÓN</span>
                     <hr class="clear"/>
                 </div>
             </div>
@@ -237,13 +237,13 @@
             <div class="linea_separadora_roja" style="height: 2px;"></div>
             <div class="politica_reclamos" id="btnAceptoPoliticas">Acepto la política de cambios y devoluciones</div>
             <a class="btn_agrega_otro_reclamo" id="IrSolicitudInicial">AGREGA OTRO PRODUCTO A LA SOLICITUD</a>
-            <a class="btn_si_stock" href="javascript:;" style="width: 296px;" id="IrSolicitudEnviada">FINALIZA Y ENVÍA TU SOLICITUD</a>
+            <a class="btn_si_stock_cdr" href="javascript:;" style="width: 296px; margin-top: 2px;" id="IrSolicitudEnviada">FINALIZA Y ENVÍA TU SOLICITUD</a>
             <hr class="clear"/>
         </div>
         <!--FIN-->
     </div>
     <!--ULTIMAS SOLICITUDES-->
-    <div class="UltimasSolicitudes" id="divUltimasSolicitudes" style="display: none; float: right; width: 17%;">
+    <div class="UltimasSolicitudes" id="divUltimasSolicitudes" style="display: none; overflow: auto; max-height: 550px;">
         <div class="titulo_ultimo_soli">Mi solicitud</div>
         <div class="texto_solicitud_ultima"><span id="spnCantidadUltimasSolicitadas">3</span> productos agregados:</div>
         <br />
