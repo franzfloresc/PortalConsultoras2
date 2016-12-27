@@ -105,9 +105,12 @@ $(document).ready(function () {
         $("#txtCantidad2").val("1");
         CambioPaso(-100);
         BuscarMotivo();
+
+        $("#ddlCampania").attr("disabled", "disabled");
     });
 
-    $("#IrSolicitudEnviada").on("click", function () {        
+    $("#IrSolicitudEnviada").on("click", function () {
+        $("#ddlCampania").removeAttr("disabled");
         SolicitudEnviar();
     });
 
