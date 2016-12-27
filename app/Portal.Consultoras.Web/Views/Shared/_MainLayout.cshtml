@@ -508,8 +508,8 @@
                 <div class="message"></div>
             </div>
             <div class="solo_hoy">
-                <img src="@Url.Content("~/Content/Images/PL20/solo_hoy.png")" alt="" />
-
+                @*<img src="@Url.Content("~/Content/Images/PL20/solo_hoy.png")" alt="" />*@
+                <img alt="" id="img-solohoy-odd" />
             </div>
             <div class="producto_set"><img src="@Url.Content("~/Content/Images/PL20/set_hoy.png")" alt="" id="img-banner-odd" /></div>
             <div class="precio_set_dia">
@@ -522,6 +522,17 @@
                 <div class="circulo_hoy"><span>+</span></div>
                 <div class="texto_detalle_set">VER DETALLE</div>
             </a>
+
+            <input type="hidden" id="tipoestrategia-id-odd" value="{{TipoEstrategiaID}}" />
+            <input type="hidden" id="estrategia-id-odd" value="{{EstrategiaID}}" />
+            <input type="hidden" id="marca-id-odd" value="{{MarcaID}}" />
+            <input type="hidden" id="cuv2-odd" value="{{CUV2}}" />
+            <input type="hidden" id="limite-venta-odd" value="{{LimiteVenta}}" />
+            <input type="hidden" id="flagnueva-odd" value="{{FlagNueva}}" />
+            <input type="hidden" id="precio-odd" value="{{PrecioOferta}}" />
+            <input type="hidden" id="nombre-odd" value="{{NombreOferta}}" />
+            <input type="hidden" id="indmonto-min-odd" value="{{IndicadorMontoMinimo}}" />
+            <input type="hidden" id="teimagenmostrar-odd" value="{{TipoEstrategiaImagenMostrar}}" />
         </div>
         <a class="btn_cerrar_ofertaDia" href="javascript:;" onclick="closeOfertaDelDia();">x</a>
         <div class="content_pop_oferta_dia" id="PopOfertaDia" style="display:none;">
@@ -543,7 +554,7 @@
             <div class="precio_ofertaDia">A SOLO <span>@ViewBag.Simbolo {{PrecioOfertaFormat}}</span></div>
             <div style="text-align:center">
                 <div class="liquidacion_rango_home js-no-popup">
-                    <input type="text" value="1" style="color:white" size="2" maxlength="2" id="txtCantidad" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral js-no-popup" tabindex="0">
+                    <input type="text" value="1" style="color:white" size="2" maxlength="2" id="txtcantidad-odd" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral js-no-popup" tabindex="0">
                     <div class="liquidacion_rango_right_pedido js-no-popup">
                         <a class="mas js-no-popup" tabindex="0"><img class="js-no-popup" src="/Content/Images/PL20/mas.png" alt=""></a>
                         <a class="menos js-no-popup" tabindex="0"><img class="js-no-popup" src="/Content/Images/PL20/menos.png" alt=""></a>

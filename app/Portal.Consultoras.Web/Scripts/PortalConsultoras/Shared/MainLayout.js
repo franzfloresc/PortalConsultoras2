@@ -144,6 +144,9 @@ $(document).ready(function () {
 
     Scrolling();
     MostrarShowRoomBannerLateral();
+
+    // Intervalo Microefecto Flecha Scroll
+    setInterval(animacionFlechaScroll, 1000);
 });
 
 function alert_msg(message, titulo) {
@@ -806,17 +809,17 @@ function cargarOfertaDelDia() {
         dataType: 'json',
         contentType: 'application/json; charset=utf-8',
         success: function (response) {
-            //if (checkTimeout(response)) {
             if (response.success) {
                 var _data = response.data;
                 SetHandlebars("#ofertadeldia-template", _data, '#OfertaDelDia');
                 var tq = _data.TeQuedan;
 
                 // config banner y display
-                //$('#OfertaDelDia').css('background', 'url("' + _data.ImagenPatron1 + '") repeat-x');
+                $('#OfertaDelDia').css('background', 'url("' + _data.ImagenFondo1 + '") repeat-x');
                 $('#banner-odd').css('background-color', _data.ColorFondo1);
                 //$('#img-banner-odd').attr('src', _data.ImagenBanner);
-                //$('#PopOfertaDia').css('background', 'url("' + _data.ImagenPatron2 + '") no-repeat');
+                $('#img-solohoy-odd').attr('src', _data.ImagenSoloHoy);
+                $('#PopOfertaDia').css('background', 'url("' + _data.ImagenFondo2 + '") no-repeat');
                 $('#PopOfertaDia').css('background-color', _data.ColorFondo2);
                 //$('#img-display-odd').attr('src', _data.ImagenDisplay);
                 
@@ -839,12 +842,9 @@ function cargarOfertaDelDia() {
                     }
                 });
             }
-            //}
         },
         error: function (err) {
-            //if (checkTimeout(response)) {
                 console.log(err);
-            //}
         }
     });
 };
@@ -858,70 +858,422 @@ function closeOfertaDelDia() {
         //dataType: 'json',
         //contentType: 'application/json; charset=utf-8',
         success: function (response) {
-            //if (checkTimeout(response)) {
             if (response.success) {
                 $('#OfertaDelDia').hide();
             }
-            //}
         },
         error: function (err) {
-            //if (checkTimeout(response)) {
             console.log(err);
-            //}
         }
     });
 };
 
-function agregarODDPedido(opt) {
-    var pedidoReservado = false;
-    var qty = (opt = 1) ? 1 : $('#txtCantidad').val();
-    var obj = {
-        Cantidad: qty,
-    };
+function agregarODDPedido(tipo) {
+    debugger;
+    var tipoEstrategiaID = $('#tipoestrategia-id-odd').val();
+    var estrategiaID = $('#estrategia-id-odd').val();
+    var marcaID = $('#marca-id-odd').val();
+    var cuv2 = $('#cuv2-odd').val();
+    var limiteVenta = $('#limite-venta-odd').val();
+    var flagNueva = $('#flag-nueva-odd').val();
+    var teImagenMostrar = $('#teimagenmostrar-odd').val();
+    var cantidad = (tipo == 1) ? 1 : $('#txtcantidad-odd').val();
+    var precio = $('#precio-odd').val();
+    var descripcion = $('#nombre-odd').val();
+    var indMontoMinimo = $('#indmonto-min-odd').val();
+    var origenPedidoWeb = 0;
+    // origenPagina = { 1=Bienvenida, 2=Pedido, 3=General }
 
-    $.ajax({
-        type: 'GET',
-        url: baseUrl + 'Pedido/ReservadoOEnHorarioRestringido',
-        dataType: 'json',
-        contentType: 'application/json; charset=utf-8',
-        success: function (response) {
-            //if (checkTimeout(response)) {
-            if (response.success) {
-                pedidoReservado = response.pedidoReservado;
-            }
-            //}
-        },
-        error: function (err) {
-            //if (checkTimeout(response)) {
-            console.log(err);
-            //}
+    if (tipo == 1) {    // banner    
+        if (origenPagina == 1) origenPedidoWeb = 1191;
+        else if (origenPagina == 2) origenPedidoWeb = 1291;
+        else if (origenPagina == 3) origenPedidoWeb = 1991;
+    }
+    else {      // display
+        if (origenPagina == 1) origenPedidoWeb = 1192;
+        else if (origenPagina == 2) origenPedidoWeb = 1292;
+        else if (origenPagina == 3) origenPedidoWeb = 1992;
+
+        if (cantidad > limiteVenta) {
+            alert('Solo puede llevar ' + limiteVenta + ' unidades de este producto.');
+            return;
         }
-    });
-
-    if (pedidoReservado) {
-        alert('No se puede agregar el producto, su pedido esta reservado');
-        return;
     }
 
-    console.log(obj);
+    if (!validarTequedanODD()) {
+        alert('La oferta del dia se termino');
+        return false;
+    }
 
+    if (ReservadoOEnHorarioRestringido())
+        return false;
+
+    var objImg = (tipo == 1) ? $('#img-banner-odd') : $('#img-display-odd');
+    agregarProductoAlCarrito(objImg);
+
+    waitingDialog({});
+
+    //if (objParameter.FlagNueva == "1")
+    //    $('#OfertaTipoNuevo').val(objParameter.FlagNueva);
+    //else
+    //    $('#OfertaTipoNuevo').val("");
+
+
+    //popup = popup || false;
+    //limite = limite || 0;
+
+    //var tipoEstrategiaID = objParameter.TipoEstrategiaID;
+    //var estrategiaID = objParameter.EstrategiaID;
+    //var posicionItem = objParameter.Posicion;
+    //var flagNueva = objParameter.FlagNueva;
+
+    //var cantidadIngresada = (limite > 0) ? limite : $(objInput).parent().find("input.liquidacion_rango_cantidad_pedido").val();
+    //origenPedidoWebEstrategia = $(objInput).parents("[data-item]").find("input.OrigenPedidoWeb").val();
+    //var tipoEstrategiaImagen = $(objInput).parents("[data-item]").attr("data-tipoestrategiaimagenmostrar");
+
+    //$("#hdTipoEstrategiaID").val(tipoEstrategiaID);
+
+    //var params = {
+    //    EstrategiaID: estrategiaID,
+    //    FlagNueva: flagNueva
+    //};
+
+    //jQuery.ajax({
+    //    type: 'POST',
+    //    url: baseUrl + 'AdministrarEstrategia/FiltrarEstrategiaPedido',
+    //    dataType: 'json',
+    //    contentType: 'application/json; charset=utf-8',
+    //    data: JSON.stringify(params),
+    //    async: true,
+    //    success: function (datos) {
+    //        var flagEstrella = (datos.data.FlagEstrella == 0) ? "hidden" : "visible";
+    //        $("#imgTipoOfertaEdit").attr("src", datos.data.ImagenURL);
+    //        $("#imgEstrellaEdit").css({ "visibility": flagEstrella });
+    //        $("#imgZonaEstrategiaEdit").attr("src", datos.data.FotoProducto01);
+
+    //        if (datos.data.Precio != "0") {
+    //            $(".zona2Edit").html(datos.data.EtiquetaDescripcion + ' ' + datos.data.Simbolo + '' + datos.precio);
+    //        } else {
+    //            $(".zona2Edit").html("");
+    //        }
+
+    //        if (datos.data.Precio2 != "0") {
+    //            $(".zona3Edit_1").html(datos.data.EtiquetaDescripcion2);
+    //            $(".zona3Edit_2").html('<span>' + datos.data.Simbolo + '' + datos.precio2 + '</span>');
+    //        } else {
+    //            $(".zona3Edit_1").html("");
+    //            $(".zona3Edit_2").html("");
+    //        }
+
+    //        if (datos.data.TextoLibre != "") {
+    //            $(".zona4Edit").html(datos.data.TextoLibre);
+    //        } else {
+    //            $(".zona4Edit").html("");
+    //        }
+
+    //        if (datos.data.ColorFondo != "") {
+    //            $("#divVistaPrevia").css({ "background-color": datos.data.ColorFondo });
+    //        } else {
+    //            $("#divVistaPrevia").css({ "background-color": "#FFF" });
+    //        }
+
+    //        $("#txtCantidadZE").val(cantidadIngresada);
+    //        $("#txtCantidadZE").attr("est-cantidad", datos.data.LimiteVenta);
+    //        $("#txtCantidadZE").attr("est-cuv2", datos.data.CUV2);
+    //        $("#txtCantidadZE").attr("est-marcaID", datos.data.MarcaID);
+    //        $("#txtCantidadZE").attr("est-precio2", datos.data.Precio2);
+    //        $("#txtCantidadZE").attr("est-montominimo", datos.data.IndicadorMontoMinimo);
+    //        $("#txtCantidadZE").attr("est-tipooferta", datos.data.TipoOferta);
+    //        $("#txtCantidadZE").attr("est-descripcionMarca", datos.data.DescripcionMarca);
+    //        $("#txtCantidadZE").attr("est-descripcionEstrategia", datos.data.DescripcionEstrategia);
+    //        $("#txtCantidadZE").attr("est-descripcionCategoria", datos.data.DescripcionCategoria);
+    //        $("#txtCantidadZE").attr("est-posicion", posicionItem);
+
+    //        $("#ddlTallaColor").empty();
+    //        $(".zona0Edit").html(datos.data.DescripcionMarca);
+
+    //        /*Validar Programa Ofertas Nuevas*/
+    //        $("#hdnProgramaOfertaNuevo").val(false);
+    //        $("#OfertasResultados li").hide();
+
+    //        if (datos.data.FlagNueva == 1) {
+    //            $(".zona4Edit").hide();
+    //            $(".zonaCantidad").hide();
+    //            $("#hdnProgramaOfertaNuevo").val(true);
+    //            var nroPedidos = false;
+    //            var pedidosData = $('#divListadoPedido').find("input[id^='hdfTipoEstrategia']");
+
+    //            pedidosData.each(function (indice, valor) {
+    //                if (valor.value == 1) {
+    //                    nroPedidos = true;
+    //                    var OfertaTipoNuevo = "".concat($('#divListadoPedido').find("input[id^='hdfCampaniaID']")[indice].value, ";",
+    //                        $('#divListadoPedido').find("input[id^='hdfPedidoId']")[indice].value, ";",
+    //                        $('#divListadoPedido').find("input[id^='hdfPedidoDetalleID']")[indice].value, ";",
+    //                        $('#divListadoPedido').find("input[id^='hdfTipoOfertaSisID']")[indice].value, ";",
+    //                        $('#divListadoPedido').find("input[id^='hdfCUV']")[indice].value, ";",
+    //                        $('#divListadoPedido').find("input[id^='txtLPTempCant']")[indice].value, ";",
+    //                        $('#hdnPagina').val(), ";",
+    //                        $('#hdnClienteID2_').val());
+
+    //                    $("#OfertaTipoNuevo").val(OfertaTipoNuevo);
+    //                    return;
+    //                }
+    //            });
+
+    //            if (nroPedidos) {
+    //                $(".zona4Edit").text(datos.data.TextoLibre);
+    //                $(".zona4Edit").show();
+    //            }
+
+    //            var ofertas = datos.data.DescripcionCUV2.split('|');
+    //            $(".zona1Edit").html(ofertas[0]);
+    //            $("#txtCantidadZE").attr("est-descripcion", ofertas[0]);
+    //            $("#OfertasResultados li").remove(); // Limpiar la lista.
+
+    //            $.each(ofertas, function (i) {
+    //                if (i != 0 && $.trim(ofertas[i]) != "") {
+    //                    $("#OfertasResultados").append("<li>" + ofertas[i] + "</li>");
+    //                }
+    //            });
+
+    //            AgregarProductoDestacado(popup, tipoEstrategiaImagen);
+    //        } else {
+    //            $(".zona4Edit").show();
+    //            $(".zonaCantidad").show();
+    //            $(".zona1Edit").html(datos.data.DescripcionCUV2);
+    //            $("#txtCantidadZE").attr("est-descripcion", datos.data.DescripcionCUV2);
+    //            var option = "";
+    //            $(".tallaColor").hide();
+    //            if (datos.data.TallaColor != "") {
+    //                var arrOption = datos.data.TallaColor.split('</>');
+    //                if (arrOption.length > 2) {
+    //                    for (var i = 0; i < arrOption.length; i++) {
+    //                        if (arrOption[i] != "") {
+    //                            option = "<option ";
+    //                            var strOption = arrOption[i].split('|');
+    //                            var strCuv = strOption[0];
+    //                            var strDescCuv = strOption[1];
+    //                            var strDescTalla = strOption[2];
+    //                            option += " value='" + strCuv + "' desc-talla='" + strDescCuv + "' >" + strDescTalla + "</option>";
+    //                            $("#ddlTallaColor").append(option);
+    //                        }
+    //                    }
+
+    //                    $(".tallaColor").show();
+    //                }
+    //            }
+    //            if (option == "") {
+    //                AgregarProductoDestacado(popup, tipoEstrategiaImagen);
+    //            } else {
+    //                closeWaitingDialog();
+    //            }
+    //        }
+
+    //        //closeWaitingDialog();
+    //        //showDialog('divVistaPrevia');
+    //    },
+    //    error: function (data, error) {
+    //        alert(datos.data.message);
+    //        closeWaitingDialog();
+    //    }
+    //});
+
+    var obj = ({
+        MarcaID: marcaID,
+        CUV: cuv2,
+        PrecioUnidad: precio,
+        Descripcion: descripcion,
+        Cantidad: cantidad,
+        IndicadorMontoMinimo: indMontoMinimo,
+        TipoOferta: tipoEstrategiaID,
+        ClienteID_: '-1',
+        tipoEstrategiaImagen: teImagenMostrar || 0,
+        OrigenPedidoWeb: origenPedidoWeb
+    });
+
+    console.log(obj);
+    //closeWaitingDialog();
+
+    jQuery.ajax({
+        type: 'POST',
+        url: baseUrl + 'Pedido/ValidarStockEstrategia',
+        dataType: 'json',
+        contentType: 'application/json; charset=utf-8',
+        data: JSON.stringify(obj),
+        async: true,
+        success: function (datos) {
+            if (!datos.result) {
+                alert_msg_pedido(datos.message);
+                closeWaitingDialog();
+            } else {
+                jQuery.ajax({
+                    type: 'POST',
+                    url: baseUrl + 'Pedido/AgregarProductoZE',
+                    dataType: 'json',
+                    contentType: 'application/json; charset=utf-8',
+                    data: JSON.stringify(obj),
+                    async: true,
+                    success: function (data) {
+                        if (!checkTimeout(data)) {
+                            closeWaitingDialog();
+                            return false;
+                        }
+
+                        if (!data.success) {
+                            messageInfoError(data.message);
+                            closeWaitingDialog();
+                            return false;
+                        }
+
+                        waitingDialog({});
+                        MostrarBarra(data, '1');
+                        ActualizarGanancia(data.DataBarra);
+                        //CargarCarouselEstrategias(cuv);
+                        CargarResumenCampaniaHeader(true);
+                        TagManagerClickAgregarProducto();
+                        TrackingJetloreAdd(cantidad, $("#hdCampaniaCodigo").val(), cuv2);
+                        closeWaitingDialog();
+                        //if (popup) {
+                        //    HidePopupEstrategiasEspeciales();
+                        //}
+
+                    },
+                    error: function (data, error) {
+                        if (checkTimeout(data)) {
+                            closeWaitingDialog();
+                        }
+                    }
+                });
+            }
+        },
+        error: function (data, error) {
+            if (checkTimeout(data)) {
+                closeWaitingDialog();
+            }
+        }
+    });
+};
+
+function ReservadoOEnHorarioRestringido(mostrarAlerta) {
+    mostrarAlerta = typeof mostrarAlerta !== 'undefined' ? mostrarAlerta : true;
+    var restringido = true;
+
+    $.ajaxSetup({ cache: false });
+    jQuery.ajax({
+        type: 'GET',
+        url: baseUrl + "Pedido/ReservadoOEnHorarioRestringido",
+        dataType: 'json',
+        async: false,
+        contentType: 'application/json; charset=utf-8',
+        success: function (data) {
+            if (!checkTimeout(data)) {
+                return false;
+            }
+
+            if (data.success == false) {
+                restringido = false;
+                return false;
+            }
+
+            if (data.pedidoReservado) {
+                var fnRedireccionar = function () {
+                    waitingDialog({});
+                    location.href = location.href = baseUrl + 'Pedido/PedidoValidado'
+                }
+                if (mostrarAlerta == true) {
+                    closeWaitingDialog();
+                    alert_msg_pedido(data.message);
+                }
+                else fnRedireccionar();
+            }
+            else if (mostrarAlerta == true)
+                alert_msg_pedido(data.message);
+        },
+        error: function (error) {
+            //console.log(error);
+            alert_msg_pedido('Ocurrió un error al intentar validar el horario restringido o si el pedido está reservado. Por favor inténtelo en unos minutos.');
+        }
+    });
+    return restringido;
+}
+
+function alert_msg_pedido(message) {
+    $('#DialogMensajes .pop_pedido_mensaje').html(message);
+    $('#DialogMensajes').dialog('open');
+};
+
+// MICROEFECTO FLECHA HOME
+function animacionFlechaScroll() {
+    $(".flecha_scroll").animate({
+        'top': '87%'
+    }, 400, 'swing', function () {
+        $(this).animate({
+            'top': '90%'
+        }, 400, 'swing');
+    });
+}
+
+function agregarProductoAlCarrito(o) {
+    //var btnClickeado = $(o);
+    //var contenedorItem = btnClickeado.parent().parent();
+    //var imagenProducto = $('.imagen_producto', contenedorItem);
+    var imagenProducto = $(o);
+
+    if (imagenProducto.length > 0) {
+        var carrito = $('.campana');
+
+        $("body").prepend('<img src="' + imagenProducto.attr("src") + '" class="transicion">');
+
+        $(".transicion").css({
+            'height': imagenProducto.css("height"),
+            'width': imagenProducto.css("width"),
+            'top': imagenProducto.offset().top,
+            'left': imagenProducto.offset().left,
+        }).animate({
+            'top': carrito.offset().top - 60,
+            'left': carrito.offset().left + 100,
+            'height': carrito.css("height"),
+            'width': carrito.css("width"),
+            'opacity': 0.5
+        }, 450, 'swing', function () {
+            $(this).animate({
+                'top': carrito.offset().top,
+                'opacity': 0,
+                //}, 100, 'swing', function () {
+                //    $(".campana .info_cam").fadeIn(200);
+                //    $(".campana .info_cam").delay(2500);
+                //    $(".campana .info_cam").fadeOut(200);
+            }, 150, 'swing', function () {
+                $(this).remove();
+            });
+        });
+    }
+}
+
+function validarTequedanODD() {
+    var ok = true;
     $.ajax({
         type: 'GET',
-        url: baseUrl + 'Pedido/AgregarODDPedido',
-        data: JSON.stringify(obj),
+        url: baseUrl + 'Pedido/GetOfertaDelDia',
+        //data: '{}',
+        cache: false,
         dataType: 'json',
         contentType: 'application/json; charset=utf-8',
         success: function (response) {
-            //if (checkTimeout(response)) {
             if (response.success) {
-                alert(response.message);
+                var _data = response.data;
+                var tq = _data.TeQuedan;
+
+                if (tq.TotalSeconds <= 0)
+                    ok = false;
             }
-            //}
         },
         error: function (err) {
-            //if (checkTimeout(response)) {
             console.log(err);
-            //}
         }
     });
-}
+
+    return ok;
+};
+
+/*PL20-1226*/

@@ -4905,37 +4905,6 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-        public JsonResult AgregarODDPedido(OfertaDelDiaModel model)
-        {
-            try
-            {
-                var f = true;
-                string msg = string.Empty;
-                if (Session["OfertaDelDia"] != null)
-                {
-                    var odd = (OfertaDelDiaModel)Session["OfertaDelDia"];
-                    if (model.Cantidad > odd.LimiteVenta)
-                    {
-                        f = false;
-                        msg = "Solo puede llevar " + odd.LimiteVenta + " unidades de este producto";
-                    }
-                }
-                
-                return Json(new
-                {
-                    success = f,
-                    message = msg
-                }, JsonRequestBehavior.AllowGet);
-            }
-            catch (Exception ex)
-            {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                return Json(new
-                {
-                    success = false,
-                    message = "No se pudo procesar la solicitud"
-                }, JsonRequestBehavior.AllowGet);
-            }
-        }
+        /*PL20-1226*/
     }
 }

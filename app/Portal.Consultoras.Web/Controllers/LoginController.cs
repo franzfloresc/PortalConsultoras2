@@ -636,37 +636,49 @@ namespace Portal.Consultoras.Web.Controllers
 
                                 if (lstOfertaDelDia.Any() && configBanner.Any())
                                 {
-                                    var arr = lstOfertaDelDia[0].DescripcionCUV2.Split('|');
-                                    string desc = string.Empty;
-                                    for (int i = 1; i < arr.Length; i++)
+                                    var ofertaDelDia = lstOfertaDelDia[0];
+                                    var tmp1 = ofertaDelDia.DescripcionCUV2.Split('|');
+                                    var nombre1 = tmp1[0].Trim();
+                                    var descripcion1 = string.Empty;
+
+                                    for (int i = 1; i < tmp1.Length; i++)
                                     {
-                                        if (!string.IsNullOrEmpty(arr[i]))
-                                            desc += arr[i] + "\n";
+                                        if (!string.IsNullOrEmpty(tmp1[i]))
+                                            descripcion1 += tmp1[i].Trim() + "\n";
                                     }
 
                                     var tq = CalcularTeQuedanODD(model);
-                                    var p1 = string.Format(ConfigurationManager.AppSettings.Get("UrlImgPatron1ODD"), model.CodigoISO);
-                                    var p2 = string.Format(ConfigurationManager.AppSettings.Get("UrlImgPatron2ODD"), model.CodigoISO);
-                                    var i1 = string.Format(ConfigurationManager.AppSettings.Get("UrlImgBannerODD"), model.CodigoISO, lstOfertaDelDia[0].ImagenURL);
-                                    var i2 = string.Format(ConfigurationManager.AppSettings.Get("UrlImgDisplayODD"), model.CodigoISO, lstOfertaDelDia[0].ImagenURL);
-                                    var f1 = configBanner.Where(x => x.TablaLogicaDatosID == 9301).First().Codigo ?? string.Empty;
-                                    var f2 = configBanner.Where(x => x.TablaLogicaDatosID == 9302).First().Codigo ?? string.Empty;
+                                    var if1 = string.Format(ConfigurationManager.AppSettings.Get("UrlImgFondo1ODD"), model.CodigoISO);
+                                    var if2 = string.Format(ConfigurationManager.AppSettings.Get("UrlImgFondo2ODD"), model.CodigoISO);
+                                    var sh = string.Format(ConfigurationManager.AppSettings.Get("UrlImgSoloHoyODD"), model.CodigoISO);
+                                    var img1 = string.Format(ConfigurationManager.AppSettings.Get("UrlImgBannerODD"), model.CodigoISO, ofertaDelDia.ImagenURL);
+                                    var img2 = string.Format(ConfigurationManager.AppSettings.Get("UrlImgDisplayODD"), model.CodigoISO, ofertaDelDia.ImagenURL);
+                                    var cf1 = configBanner.Where(x => x.TablaLogicaDatosID == 9301).First().Codigo ?? string.Empty;
+                                    var cf2 = configBanner.Where(x => x.TablaLogicaDatosID == 9302).First().Codigo ?? string.Empty;
 
                                     var odd = new OfertaDelDiaModel();
                                     odd.CodigoIso = model.CodigoISO;
+                                    odd.TipoEstrategiaID = ofertaDelDia.TipoEstrategiaID;
+                                    odd.EstrategiaID = ofertaDelDia.EstrategiaID;
+                                    odd.MarcaID = ofertaDelDia.MarcaID;
+                                    //odd.CUV = ofertaDelDia.CUV1;
+                                    odd.CUV2 = ofertaDelDia.CUV2;
+                                    odd.LimiteVenta = ofertaDelDia.LimiteVenta;
+                                    odd.IndicadorMontoMinimo = ofertaDelDia.IndicadorMontoMinimo;
+                                    odd.TipoEstrategiaImagenMostrar = ofertaDelDia.TipoEstrategiaImagenMostrar;
                                     odd.TeQuedan = tq;
-                                    odd.ImagenPatron1 = p1;
-                                    odd.ColorFondo1 = f1;
-                                    odd.ImagenBanner = i1;
-                                    odd.ImagenPatron2 = p2;
-                                    odd.ColorFondo2 = f2;
-                                    odd.ImagenDisplay = i2;
-                                    odd.NombreOferta = arr[0];
-                                    odd.DescripcionOferta = desc;
-                                    odd.PrecioOferta = lstOfertaDelDia[0].Precio2;
-                                    odd.PrecioCatalogo = lstOfertaDelDia[0].Precio;
-                                    odd.LimiteVenta = lstOfertaDelDia[0].LimiteVenta;
-
+                                    odd.ImagenFondo1 = if1;
+                                    odd.ColorFondo1 = cf1;
+                                    odd.ImagenBanner = img1;
+                                    odd.ImagenSoloHoy = sh;
+                                    odd.ImagenFondo2 = if2;
+                                    odd.ColorFondo2 = cf2;
+                                    odd.ImagenDisplay = img2;
+                                    odd.NombreOferta = nombre1;
+                                    odd.DescripcionOferta = descripcion1;
+                                    odd.PrecioOferta = ofertaDelDia.Precio2;
+                                    odd.PrecioCatalogo = ofertaDelDia.Precio;
+                                    
                                     model.TieneOfertaDelDia = true;
                                     Session["OfertaDelDia"] = odd;
                                     Session["CloseODD"] = false;

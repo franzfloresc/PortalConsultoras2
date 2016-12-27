@@ -188,13 +188,14 @@ namespace Portal.Consultoras.Common
             // Segundo Dígito
             // 1: Home                      2: Pedido
             // 3: Liquidacion               4: Catalogo Personalizado
-            // 5: ShowRoom
+            // 5: ShowRoom                  9: General
 
             // Tercer Dígito
             // 1: Banners                   2: Ofertas para ti
             // 3: Catalogo Personalizado    4: Liquidacion
             // 5: Producto Sugerido         6: Oferta Final
             // 7: ShowRoom                  8: Consultora Online
+            // 9: Oferta del dia
 
             // Cuarto Dígito
             // 1. Sin popUp                 2. Con popUp
@@ -232,6 +233,14 @@ namespace Portal.Consultoras.Common
             public const int MobileCatalogoPersonalizado = 2431;
             public const int MobileCatalogoPersonalizadoPopUp = 2432;
 
+            /*PL20-1227*/
+            public const int DesktopHomeBannerOfertaDelDia = 1191;
+            public const int DesktopHomeDisplayOfertaDelDia = 1192;
+            public const int DesktopPedidoBannerOfertaDelDia = 1291;
+            public const int DesktopPedidoDisplayOfertaDelDia = 1292;
+            public const int DesktopGeneralBannerOfertaDelDia = 1991;
+            public const int DesktopGeneralDisplayOfertaDelDia = 1992;
+            /*PL20-1227*/
         }
         
         public class COTipoAtencionMensaje

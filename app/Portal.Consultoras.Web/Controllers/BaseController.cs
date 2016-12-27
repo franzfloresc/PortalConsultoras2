@@ -70,8 +70,8 @@ namespace Portal.Consultoras.Web.Controllers
                     // validar si se cerro el banner
                     if (Session["CloseODD"] != null)
                     {
-                        var close = (bool)Session["CloseODD"];
-                        if (close)
+                        var c1 = (bool)Session["CloseODD"];
+                        if (c1)
                             ViewBag.TieneOfertaDelDia = false;
                     }
 
@@ -79,6 +79,8 @@ namespace Portal.Consultoras.Web.Controllers
                     string msg1 = string.Empty;
                     if (ValidarPedidoReservado(out msg1))
                         ViewBag.TieneOfertaDelDia = false;
+
+                    /*PL20-1226*/
                 }
 
                 base.OnActionExecuting(filterContext);
