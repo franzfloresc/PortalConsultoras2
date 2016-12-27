@@ -1689,5 +1689,15 @@ namespace Portal.Consultoras.Service
         {
             return BLPedidoWeb.GetPedidosFacturadoSegunDias(paisID, campaniaID, consultoraID, maxDias);
         }
+
+        public int GetCantidadOfertasParaTi(int paisId, int campaniaId, int tipoConfigurado)
+        {
+            return new BLEstrategia().GetCantidadOfertasParaTi(paisId, campaniaId, tipoConfigurado);
+        }
+
+        public List<BEEstrategia> GetOfertasParaTiByTipoConfigurado(int paisId, int campaniaId, int tipoConfigurado)
+        {
+            return new BLEstrategia().GetOfertasParaTiByTipoConfigurado(paisId, campaniaId, tipoConfigurado);
+        }
     }
 }

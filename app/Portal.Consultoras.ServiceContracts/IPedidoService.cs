@@ -912,5 +912,11 @@ namespace Portal.Consultoras.ServiceContracts
         
         [OperationContract]
         List<BEPedidoWeb> GetPedidosFacturadoSegunDias(int paisID, int campaniaID, long consultoraID, int maxDias);
+
+        [OperationContract]
+        int GetCantidadOfertasParaTi(int paisId, int campaniaId, int tipoConfigurado);
+
+        [OperationContract]
+        List<BEEstrategia> GetOfertasParaTiByTipoConfigurado(int paisId, int campaniaId, int tipoConfigurado);
     }
 }

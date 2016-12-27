@@ -206,5 +206,28 @@ namespace Portal.Consultoras.Data
 
             return Context.ExecuteScalar(command).ToString();
         }
+
+        public int GetCantidadOfertasParaTi(int campaniaId, int tipoConfigurado)
+        {
+            int result;
+            using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetCantidadOfertasParaTi"))
+            {
+                Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, campaniaId);
+                Context.Database.AddInParameter(command, "@TipoConfigurado", DbType.Int32, tipoConfigurado);
+
+                result = int.Parse(Context.ExecuteScalar(command).ToString());
+            }
+            return result;
+        }
+
+        public IDataReader GetOfertasParaTiByTipoConfigurado(int campaniaId, int tipoConfigurado)
+        {
+            using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetOfertasParaTiByTipoConfigurado"))
+            {
+                Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, campaniaId);
+                Context.Database.AddInParameter(command, "@TipoConfigurado", DbType.Int32, tipoConfigurado);
+                return Context.ExecuteReader(command);
+            }
+        }
     }
 }

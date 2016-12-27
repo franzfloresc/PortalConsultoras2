@@ -11,6 +11,7 @@ using Portal.Consultoras.Web.Models;
 using AutoMapper;
 using System.ServiceModel;
 using System.Web.Script.Serialization;
+using System.Web.UI.WebControls;
 
 
 namespace Portal.Consultoras.Web.Controllers
@@ -1021,6 +1022,142 @@ namespace Portal.Consultoras.Web.Controllers
                 LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
             }
             return View();
+        }
+        
+        public ActionResult ConsultarOfertasParaTi(string sidx, string sord, int page, int rows, string CampaniaID)
+        {
+            if (ModelState.IsValid)
+            {
+                List<ComunModel> lst = new List<ComunModel>();
+                int cantidadEstrategiasConfiguradas = 0;
+                int cantidadEstrategiasSinConfigurar = 0;
+
+                try
+                {
+                    using (PedidoServiceClient ps = new PedidoServiceClient())
+                    {
+                        cantidadEstrategiasConfiguradas = ps.GetCantidadOfertasParaTi(userData.PaisID, int.Parse(CampaniaID), 1);
+                        cantidadEstrategiasSinConfigurar= ps.GetCantidadOfertasParaTi(userData.PaisID, int.Parse(CampaniaID), 2);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    cantidadEstrategiasConfiguradas = 0;
+                    cantidadEstrategiasSinConfigurar = 0;
+                }
+
+                lst.Add(new ComunModel
+                {
+                    Id = 1,
+                    Descripcion = "CUVS encontrados en Ofertas para Ti",
+                    Valor = (cantidadEstrategiasConfiguradas + cantidadEstrategiasSinConfigurar).ToString(),
+                    ValorOpcional = "0"
+                });
+                lst.Add(new ComunModel
+                {
+                    Id = 2,
+                    Descripcion = "CUVS configurados en Zonas de Estrategias",
+                    Valor = cantidadEstrategiasConfiguradas.ToString(),
+                    ValorOpcional = "1"
+                });
+                lst.Add(new ComunModel
+                {
+                    Id = 3,
+                    Descripcion = "CUVS por configurar en Zonas de Estrategias",
+                    Valor = cantidadEstrategiasSinConfigurar.ToString(),
+                    ValorOpcional = "2"
+                });
+
+                // Usamos el modelo para obtener los datos
+                BEGrid grid = new BEGrid();
+                grid.PageSize = rows;
+                grid.CurrentPage = page;
+                grid.SortColumn = sidx;
+                grid.SortOrder = sord;
+                //int buscar = int.Parse(txtBuscar);
+                BEPager pag = new BEPager();
+                IEnumerable<ComunModel> items = lst;
+
+                items = items.ToList().Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
+
+                pag = Util.PaginadorGenerico(grid, lst);
+
+                // Creamos la estructura
+                var data = new
+                {
+                    total = pag.PageCount,
+                    page = pag.CurrentPage,
+                    records = pag.RecordCount,
+                    rows = from a in items
+                           select new
+                           {
+                               id = a.Id,
+                               cell = new string[]
+                               {
+                                   a.Id.ToString(),
+                                   a.Descripcion,
+                                   a.Valor,
+                                   a.ValorOpcional
+                                }
+                           }
+                };
+                return Json(data, JsonRequestBehavior.AllowGet);
+            }
+            return RedirectToAction("Index", "AdministrarEstrategia");
+        }
+
+        public ActionResult ConsultarCuvTipoConfigurado(string sidx, string sord, int page, int rows, int campaniaId, int tipoConfigurado)
+        {
+            if (ModelState.IsValid)
+            {
+                List<BEEstrategia> lst = new List<BEEstrategia>();
+
+                try
+                {
+                    using (PedidoServiceClient ps = new PedidoServiceClient())
+                    {
+                        lst = ps.GetOfertasParaTiByTipoConfigurado(userData.PaisID, campaniaId, tipoConfigurado).ToList();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    lst=new List<BEEstrategia>();
+                }
+
+                // Usamos el modelo para obtener los datos
+                BEGrid grid = new BEGrid();
+                grid.PageSize = rows;
+                grid.CurrentPage = page;
+                grid.SortColumn = sidx;
+                grid.SortOrder = sord;
+                //int buscar = int.Parse(txtBuscar);
+                BEPager pag = new BEPager();
+                IEnumerable<BEEstrategia> items = lst;
+
+                items = items.ToList().Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
+
+                pag = Util.PaginadorGenerico(grid, lst);
+
+                // Creamos la estructura
+                var data = new
+                {
+                    total = pag.PageCount,
+                    page = pag.CurrentPage,
+                    records = pag.RecordCount,
+                    rows = from a in items
+                           select new
+                           {
+                               id = a.CUV2,
+                               cell = new string[]
+                               {
+                                   a.CUV2,
+                                   a.DescripcionCUV2
+                               }
+                           }
+                };
+                return Json(data, JsonRequestBehavior.AllowGet);
+            }
+            return RedirectToAction("Index", "AdministrarEstrategia");
         }
     }
 }
