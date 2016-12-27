@@ -118,8 +118,8 @@
 
     <!-- header -->
     <header id="new-header">
-        <div id="BloqueMobileOfertaDia" class="BloqueOfertaDia" style="display:none;">
-            <div class="content_320" style="padding:0;" id="content_oferta_dia_mobile">
+        <div id="BloqueMobileOfertaDia" class="BloqueOfertaDia" style="display:block;">
+            @*<div class="content_320" style="padding:0;" id="content_oferta_dia_mobile">
                 <div class="float_left">
                     <div class="solo_hoy_mobile"><img src="@Url.Content("~/Content/Images/PL20/solo_hoy.png")" alt="Solo Hoy" /></div>
                     <div class="nombre_set_oferta_mobile">SET ILUMINAS A SOLO <b>$31.99</b></div>
@@ -127,7 +127,7 @@
                 <div class="imagen_set_oferta_mobile"><img src="@Url.Content("~/Content/Images/PL20/set_hoy.png")" alt="Solo Hoy" /></div>
                 <hr class="clear" />
             </div>
-            <a class="btn_cerrar_oferta_mobile" href="javascript:;" onclick="javascript: $('#BloqueMobileOfertaDia').slideUp();">X</a>
+            <a class="btn_cerrar_oferta_mobile" href="javascript:;" onclick="javascript: $('#BloqueMobileOfertaDia').slideUp();">X</a>*@
             
         </div>        
         <div id="bloquemensajesPedido" style="display:none;">
@@ -180,7 +180,7 @@
                 </div>
             </div>
 </header>
-    <div id="pop_oferta_mobile" class="content_pop_oferta_mobile">
+    @*<div id="pop_oferta_mobile" class="content_pop_oferta_mobile">
         <div class="header_pop_oferta">
             <div class="content_320" style="padding:0;">
                 <div class="float_left"><a class="btn_cerrar_pop_oferta_hoy"><img src="@Url.Content("~/Content/Images/PL20/regresar.png")" alt="regresar" /></a></div>
@@ -223,7 +223,7 @@
            
         </div>
         
-    </div>
+    </div>*@
 
     <!-- SHOWROOM -->
     <div id="divShowRoom" class="ocultarPopup divShowRoom" style="display: none;">
@@ -533,7 +533,15 @@
         var sesionEsShowRoom = '@Session["EsShowRoom"]';
         var urlShowRoomIndex = '@Url.Action("Index", "ShowRoom", new {area = "Mobile"})';
 
+        var TieneOfertaDelDia = '@ViewBag.TieneOfertaDelDia'; //PL20-1226
+
+        //PL20-1226
         $(function () {
+
+            if (TieneOfertaDelDia == "True") {
+                CargarOfertaDelDia();
+                $('#BloqueMobileOfertaDia').show();
+            }
 
             SetFormatDecimalPais(formatDecimalPaisMain);
 
@@ -633,40 +641,96 @@
             
             //imgVentaSetPopupBannerHoy
 
-            $("#content_oferta_dia_mobile").click(function () {
-                $('body').css({ 'overflow-x': 'hidden' });
-                $('body').css({ 'overflow-y': 'hidden' });
-                // Set the effect type
-                var effect = 'slide';
+            //$("#content_oferta_dia_mobile").click(function () {
+            //    $('body').css({ 'overflow-x': 'hidden' });
+            //    $('body').css({ 'overflow-y': 'hidden' });
+            //    // Set the effect type
+            //    var effect = 'slide';
 
-                // Set the options for the effect type chosen
-                //var options = { direction: $('.mySelect').val() };
-                var options = {direction: 'Right' };
+            //    // Set the options for the effect type chosen
+            //    //var options = { direction: $('.mySelect').val() };
+            //    var options = {direction: 'Right' };
 
-                // Set the duration (default: 400 milliseconds)
-                var duration = 500;
+            //    // Set the duration (default: 400 milliseconds)
+            //    var duration = 500;
 
-                $('#pop_oferta_mobile').toggle(effect, options, duration);
+            //    $('#pop_oferta_mobile').toggle(effect, options, duration);
                 
-            });
-            $(".header_pop_oferta").click(function () {
-                $('body').css({ 'overflow-y': 'scroll' });
-                // Set the effect type
-                var effect = 'slide';
+            //});
+            //$(".header_pop_oferta").click(function () {
+            //    $('body').css({ 'overflow-y': 'scroll' });
+            //    // Set the effect type
+            //    var effect = 'slide';
 
-                // Set the options for the effect type chosen
-                //var options = { direction: $('.mySelect').val() };
-                var options = {direction: 'right' };
+            //    // Set the options for the effect type chosen
+            //    //var options = { direction: $('.mySelect').val() };
+            //    var options = {direction: 'right' };
 
-                // Set the duration (default: 400 milliseconds)
-                var duration = 500;
+            //    // Set the duration (default: 400 milliseconds)
+            //    var duration = 500;
 
-                $('#pop_oferta_mobile').toggle(effect, options, duration);
+            //    $('#pop_oferta_mobile').toggle(effect, options, duration);
                
-            });
+            //});
 
             CargarShowRoom();
         });
+
+        //PL20-1226
+        function CargarOfertaDelDia() {
+
+            $.ajax({
+                type: 'GET',
+                url: baseUrl + 'Pedido/GetOfertaDelDia',
+                data: '',
+                cache: false,
+                dataType: 'json',
+                contentType: 'application/json; charset=utf-8',
+                success: function (response) {
+                    if (response.success) {
+                        SetHandlebars("#BloqueMobileOfertaDia-template", response.data, '#BloqueMobileOfertaDia');
+
+                            $("#content_oferta_dia_mobile").click(function () {
+                                $('body').css({ 'overflow-x': 'hidden' });
+                                $('body').css({ 'overflow-y': 'hidden' });
+                                // Set the effect type
+                                var effect = 'slide';
+
+                                // Set the options for the effect type chosen
+                                //var options = { direction: $('.mySelect').val() };
+                                var options = {direction: 'Right' };
+
+                                // Set the duration (default: 400 milliseconds)
+                                var duration = 500;
+
+                                $('#pop_oferta_mobile').toggle(effect, options, duration);
+                
+                            });
+
+                            $(".header_pop_oferta").click(function () {
+                                $('body').css({ 'overflow-y': 'scroll' });
+                                // Set the effect type
+                                var effect = 'slide';
+
+                                // Set the options for the effect type chosen
+                                //var options = { direction: $('.mySelect').val() };
+                                var options = {direction: 'right' };
+
+                                // Set the duration (default: 400 milliseconds)
+                                var duration = 500;
+
+                                $('#pop_oferta_mobile').toggle(effect, options, duration);
+               
+                            });
+                    }
+                },
+                error: function (data, error) {
+                    if (checkTimeout(data)) {
+                        console.error(error);
+                    }
+                }
+            });
+        };
 
         function InfoCommerceGoogleDestacadoProductClick(name, id, category, variant, position) {
 
@@ -1365,6 +1429,64 @@
             }, 1000);
         }
     </script>
+
+    <script id="BloqueMobileOfertaDia-template" type="text/x-handlebars-template">
+        <div class="content_320" style="padding:0;" id="content_oferta_dia_mobile">
+            <div class="float_left">
+                <div class="solo_hoy_mobile"><img src="@Url.Content("~/Content/Images/PL20/solo_hoy.png")" alt="Solo Hoy" /></div>
+                <div class="nombre_set_oferta_mobile">{{NombreOferta}} A SOLO <b>@ViewBag.Simbolo {{PrecioOfertaFormat}}</b></div>
+            </div>
+            <div class="imagen_set_oferta_mobile"><img src="@Url.Content("~/Content/Images/PL20/set_hoy.png")" alt="Solo Hoy" /></div>
+            <hr class="clear" />
+        </div>
+        <a class="btn_cerrar_oferta_mobile" href="javascript:;" onclick="javascript: $('#BloqueMobileOfertaDia').slideUp();">X</a>
+
+        <div id="pop_oferta_mobile" class="content_pop_oferta_mobile">
+            <div class="header_pop_oferta">
+                <div class="content_320" style="padding:0;">
+                    <div class="float_left"><a class="btn_cerrar_pop_oferta_hoy"><img src="@Url.Content("~/Content/Images/PL20/regresar.png")" alt="regresar" /></a></div>
+                    <div class="imagen_set_hoy_mobile"><img src="@Url.Content("~/Content/Images/PL20/solo_hoy.png")" alt="regresar" /></div>
+                    <hr class="clear" />
+                </div>
+            </div>
+            <div class="set_oferta_content">
+
+                <div class="producto_img_mobile">
+                    <img src="@Url.Content("~/Content/Images/PL20/set_hoy.png")" alt="Solo Hoy" />
+                </div>
+                <div class="producto_nombre_descripcion">
+                    <div class="nombre_set_producto_hoy">
+                        @*Iluminas Celebration 50 ml +
+                        Aventour 100 ml + <br />
+                        <b> GRATIS It’s You Emotion 100 ml</b>*@
+                        {{DescripcionOferta}}
+                    </div>
+                    <div class="precio_valorizado_mobile">VALORIZADO EN <span>@ViewBag.Simbolo {{PrecioCatalogoFormat}}</span></div>
+                    <div class="producto_precio_hoy_mobile">
+                        A SOLO <span>@ViewBag.Simbolo {{PrecioOfertaFormat}}</span>
+                    </div>
+
+                    <div class="liquidacion_rango_home">
+                        <a class="cantidad_menos_home" tabindex="0"><img src="/Content/Images/Mobile/Esika/menos.png" alt=""></a>
+                        <input type="tel" value="1" size="2" maxlength="2" id="txtCantidad" class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" tabindex="0">
+                        <a class="cantidad_mas_home" tabindex="0"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
+                    </div>
+                    <div class="clear"></div>
+                    <a class="boton_Agregalo_home" href="#">
+                        AGRÉGALO
+                    </a>
+                    <div style="padding-top:9px; height: 15px;">
+                        <div class="agregado product-add" style="text-align:right;display:none;">
+                            AGREGADO
+                            <div class="icono"></div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </script>
+
     @RenderSection("scripts", required: false)
     @{Html.PlaceScripts();}
 </body>
