@@ -3377,36 +3377,6 @@
       </wsdl:output>
     </wsdl:operation>
   </wsdl:binding>
-  <wsdl:binding name="BasicHttpsBinding_ISACService" type="tns:ISACService">
-    <wsp:PolicyReference URI="#BasicHttpsBinding_ISACService_policy" />
-    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
-    <wsdl:operation name="GetProveedorDespachoCobranza">
-      <soap:operation soapAction="http://tempuri.org/ISACService/GetProveedorDespachoCobranza" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="UpdateBelcorpNoticia">
-      <soap:operation soapAction="http://tempuri.org/ISACService/UpdateBelcorpNoticia" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="InsLogConfiguracionCronogramaMasivo">
-      <soap:operation soapAction="http://tempuri.org/ISACService/InsLogConfiguracionCronogramaMasivo" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
   <wsdl:service name="SACService">
     <wsdl:port name="BasicHttpBinding_ISACService" binding="tns:BasicHttpBinding_ISACService">
       <soap:address location="http://localhost:41615/SACService.svc" />
