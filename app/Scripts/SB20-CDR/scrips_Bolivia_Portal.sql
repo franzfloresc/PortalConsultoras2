@@ -136,13 +136,6 @@ create table CDRWebMotivoRechazo
 
 go
 
-/*
-insert into CDRWebMotivoRechazo (CodigoRechazo, Tipo)
-select CodigoRechazo,1 from ods.MotivoRechazoCDR
-
-update CDRWebMotivoRechazo set Tipo = 2 where CDRWebMotivoRechazoID > 41
-*/
-
 IF  EXISTS ( SELECT 1 FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[CDRWebRegionZona]') AND (type = 'U') )
 	DROP TABLE [dbo].[CDRWebRegionZona]
 GO
@@ -159,6 +152,65 @@ go
 /*
 insert into CDRWebRegionZona values('50','5052',1)
 */
+
+insert into CDRWebMotivoRechazo (CodigoRechazo, Tipo)
+select CodigoRechazo,2 from ods.MotivoRechazoCDR
+
+insert into CDRWebMotivoOperacion (CodigoOperacion,CodigoReclamo,Prioridad,Estado) values('C','07',1,1)
+insert into CDRWebDescripcion (CodigoSSIC,EntidadSSIC,Tipo,Descripcion) values ('07','MotivoRechazo','Motivo','Me llegó en mal Estado')
+insert into CDRWebDescripcion (CodigoSSIC,EntidadSSIC,Tipo,Descripcion) values ('C','TipoOperacion','Solucion','REENVÍO DEL MISMO PRODUCTO')
+insert into CDRWebDescripcion (CodigoSSIC,EntidadSSIC,Tipo,Descripcion) values ('C','TipoOperacion','Propuesta','VAMOS A REENVIARTE EL MISMO PRODUCTO')
+insert into CDRWebDescripcion (CodigoSSIC,EntidadSSIC,Tipo,Descripcion) values ('C','TipoOperacion','TenerEnCuenta','Es importante que le entregues al transportista el producto a cambiar en la entrega de tu siguiente pedido, en caso contrario, el cambio será anulado y se cargará nuevamente el monto a tu saldo')
+insert into CDRWebDescripcion (CodigoSSIC,EntidadSSIC,Tipo,Descripcion) values ('C','TipoOperacion','Finalizado','Reenvío')
+insert into CDRWebDescripcion (CodigoSSIC,EntidadSSIC,Tipo,Descripcion) values ('C','TipoOperacion','MensajeFinalizado','Reenvío del mismo producto')
+
+insert into CDRWebDescripcion (CodigoSSIC,EntidadSSIC,Tipo,Descripcion) values ('D','TipoOperacion','Solucion','DEVOLUCIÓN DEL DINERO')
+insert into CDRWebDescripcion (CodigoSSIC,EntidadSSIC,Tipo,Descripcion) values ('D','TipoOperacion','Propuesta','VAS A DEVOLVER EL SIGUIENTE PRODUCTO')
+insert into CDRWebDescripcion (CodigoSSIC,EntidadSSIC,Tipo,Descripcion) values ('D','TipoOperacion','TenerEnCuenta','Debes entregarle al transportista el producto a devolver en la entrega de tu siguiente pedido, en caso contrario, la devolución será anulada y se cargará nuevamente el monto a tu saldo. Se descontará el puntaje del producto que vas a devolver')
+insert into CDRWebDescripcion (CodigoSSIC,EntidadSSIC,Tipo,Descripcion) values ('D','TipoOperacion','Finalizado','Devolución')
+insert into CDRWebDescripcion (CodigoSSIC,EntidadSSIC,Tipo,Descripcion) values ('D','TipoOperacion','MensajeFinalizado','Devolución del producto')
+
+insert into CDRWebDescripcion (CodigoSSIC,EntidadSSIC,Tipo,Descripcion) values ('03','MotivoRechazo','Motivo','No le gustó a mi cliente')
+insert into CDRWebDescripcion (CodigoSSIC,EntidadSSIC,Tipo,Descripcion) values ('08','MotivoRechazo','Motivo','Me equivoqué al solicitarlo')
+insert into CDRWebDescripcion (CodigoSSIC,EntidadSSIC,Tipo,Descripcion) values ('01','MotivoRechazo','Motivo','Me llegó sin solicitarlo')
+insert into CDRWebDescripcion (CodigoSSIC,EntidadSSIC,Tipo,Descripcion) values ('06','MotivoRechazo','Motivo','La promoción me llegó incompleta')
+
+insert into CDRWebMotivoOperacion (CodigoOperacion,CodigoReclamo,Prioridad,Estado) values('D','07',3,1)
+--insert into CDRWebMotivoOperacion (CodigoOperacion,CodigoReclamo,Prioridad,Estado) values('D','03',2,1)
+insert into CDRWebMotivoOperacion (CodigoOperacion,CodigoReclamo,Prioridad,Estado) values('D','08',2,1)
+insert into CDRWebMotivoOperacion (CodigoOperacion,CodigoReclamo,Prioridad,Estado) values('D','01',2,1)
+insert into CDRWebMotivoOperacion (CodigoOperacion,CodigoReclamo,Prioridad,Estado) values('D','06',2,1)
+
+--insert into CDRWebDescripcion (CodigoSSIC,EntidadSSIC,Tipo,Descripcion) values ('10','MotivoRechazo','Motivo','No me llegó')
+
+--insert into CDRWebDescripcion (CodigoSSIC,EntidadSSIC,Tipo,Descripcion) values ('F','TipoOperacion','Solucion','ENVIO DEL PRODUCTO')
+--insert into CDRWebDescripcion (CodigoSSIC,EntidadSSIC,Tipo,Descripcion) values ('F','TipoOperacion','Propuesta','VAMOS A ENVIARTE EL SIGUIENTE PRODUCTO')
+--insert into CDRWebDescripcion (CodigoSSIC,EntidadSSIC,Tipo,Descripcion) values ('F','TipoOperacion','TenerEnCuenta','El producto reclamado se va a facturar de nuevo con tu siguiente pedido con las mismas condiciones de la oferta de la campaña original')
+--insert into CDRWebDescripcion (CodigoSSIC,EntidadSSIC,Tipo,Descripcion) values ('F','TipoOperacion','Finalizado','Enviar Producto')
+--insert into CDRWebDescripcion (CodigoSSIC,EntidadSSIC,Tipo,Descripcion) values ('F','TipoOperacion','MensajeFinalizado','Envío del producto facturado')
+
+--insert into CDRWebDescripcion (CodigoSSIC,EntidadSSIC,Tipo,Descripcion) values ('G','TipoOperacion','Solucion','DEVOLUCION DEL DINERO')
+--insert into CDRWebDescripcion (CodigoSSIC,EntidadSSIC,Tipo,Descripcion) values ('G','TipoOperacion','Propuesta','VAMOS A DESCONTAR EL PRODUCTO EN TU PROXIMO PEDIDO')
+--insert into CDRWebDescripcion (CodigoSSIC,EntidadSSIC,Tipo,Descripcion) values ('G','TipoOperacion','TenerEnCuenta','El producto será descontado en tu siguiente pedido')
+--insert into CDRWebDescripcion (CodigoSSIC,EntidadSSIC,Tipo,Descripcion) values ('G','TipoOperacion','Finalizado','Devolución')
+--insert into CDRWebDescripcion (CodigoSSIC,EntidadSSIC,Tipo,Descripcion) values ('G','TipoOperacion','MensajeFinalizado','Devolución del dinero')
+
+--insert into CDRWebMotivoOperacion (CodigoOperacion,CodigoReclamo,Prioridad,Estado) values('F','10',1,1)
+--insert into CDRWebMotivoOperacion (CodigoOperacion,CodigoReclamo,Prioridad,Estado) values('G','10',2,1)
+
+insert into CDRWebDescripcion (CodigoSSIC,EntidadSSIC,Tipo,Descripcion) values ('T','TipoOperacion','Solucion','CAMBIARLO POR OTRO PRODUCTO')
+insert into CDRWebDescripcion (CodigoSSIC,EntidadSSIC,Tipo,Descripcion) values ('T','TipoOperacion','Propuesta','CAMBIARLO POR OTRO PRODUCTO')
+insert into CDRWebDescripcion (CodigoSSIC,EntidadSSIC,Tipo,Descripcion) values ('T','TipoOperacion','TenerEnCuenta','Es importante que le entregues al transportista el producto a cambiar en la entrega de tu siguiente pedido, en caso contrario, el cambio será anulado y se cargará nuevamente el monto a tu saldo')
+insert into CDRWebDescripcion (CodigoSSIC,EntidadSSIC,Tipo,Descripcion) values ('T','TipoOperacion','Finalizado','Cambiar por')
+insert into CDRWebDescripcion (CodigoSSIC,EntidadSSIC,Tipo,Descripcion) values ('T','TipoOperacion','MensajeFinalizado','Producto solicitado para el cambio')
+
+insert into CDRWebMotivoOperacion (CodigoOperacion,CodigoReclamo,Prioridad,Estado) values('T','07',2,1)
+insert into CDRWebMotivoOperacion (CodigoOperacion,CodigoReclamo,Prioridad,Estado) values('T','03',1,1)
+insert into CDRWebMotivoOperacion (CodigoOperacion,CodigoReclamo,Prioridad,Estado) values('T','08',1,1)
+insert into CDRWebMotivoOperacion (CodigoOperacion,CodigoReclamo,Prioridad,Estado) values('T','01',1,1)
+insert into CDRWebMotivoOperacion (CodigoOperacion,CodigoReclamo,Prioridad,Estado) values('T','06',1,1)
+
+go
 
 IF EXISTS(SELECT * FROM INFORMATION_SCHEMA.ROUTINES WHERE SPECIFIC_NAME = 'CrearSinonimo' AND SPECIFIC_SCHEMA = 'dbo' AND Routine_Type = 'PROCEDURE')
 BEGIN
@@ -1167,5 +1219,167 @@ BEGIN
 	END
 END
 
+go
 
+IF EXISTS(
+	SELECT 1
+	FROM INFORMATION_SCHEMA.ROUTINES
+	WHERE SPECIFIC_NAME = 'GetLogCDRWebByLogCDRWebId' AND SPECIFIC_SCHEMA = 'interfaces' AND Routine_Type = 'PROCEDURE'
+)
+BEGIN
+    DROP PROCEDURE interfaces.GetLogCDRWebByLogCDRWebId
+END
+GO
+CREATE PROCEDURE interfaces.GetLogCDRWebByLogCDRWebId
+	@LogCDRWebId BIGINT
+AS
+/*
+interfaces.GetLogCDRWebByLogCDRWebId 2
+*/
+BEGIN		
+	SELECT
+		LogCDRWebId,
+		CDRWebId,
+		CampaniaId,
+		PedidoFacturadoId,
+		ConsultoraId,
+		CodigoConsultora,
+		FechaRegistro,
+		FechaCulminado,
+		FechaAtencion,
+		EstadoCDR
+	FROM interfaces.LogCDRWeb
+	WHERE LogCDRWebId = @LogCDRWebId;
+END
+GO
 
+IF EXISTS(
+	SELECT 1
+	FROM INFORMATION_SCHEMA.ROUTINES
+	WHERE SPECIFIC_NAME = 'UpdLogCDRWebVisualizado' AND SPECIFIC_SCHEMA = 'interfaces' AND Routine_Type = 'PROCEDURE'
+)
+BEGIN
+    DROP PROCEDURE interfaces.UpdLogCDRWebVisualizado
+END
+GO
+CREATE PROCEDURE interfaces.UpdLogCDRWebVisualizado
+	@LogCDRWebId BIGINT
+AS
+BEGIN
+	UPDATE interfaces.LogCDRWeb
+	SET Visualizado = 1
+	WHERE LogCDRWebId = @LogCDRWebId;
+END
+GO
+
+ALTER PROCEDURE dbo.GetNotificacionesConsultora
+	@ConsultoraId bigint,
+	@ShowCDR bit = 0
+AS
+BEGIN
+	declare @Temporal table
+	(
+		ProcesoId bigint,
+		CampaniaId int,
+		EstadoPROL varchar(2),
+		FechaHoraValidación datetime,
+		EnvioCorreo bit,
+		Proceso varchar(20),
+		Estado int,
+		Observaciones varchar(500),
+		FechaFacturacion date,
+		Asunto varchar(500),
+		FacturaHoy bit,
+		Visualizado bit,
+		EsMontoMinino bit,
+		FlagProcedencia bit
+	);
+
+	insert into @Temporal
+	select
+		SolicitudClienteID as ProcesoId,
+		Campania as CampaniaId,
+		'' as EstadoPROL,
+		FechaSolicitud as FechaHoraValidación,
+		cast(1 as bit) as EnvioCorreo,
+		'BUSCACONS' as Proceso,
+		IIF(Estado IS NULL, 0, 1) as Estado,
+		'' as Observaciones,
+		GETDATE()  as FechaFacturacion,
+		CONCAT('Pedido de nuevo cliente ',UPPER(NombreCompleto)) as Asunto,
+		cast(0 as bit) as FacturaHoy,
+		Leido as Visualizado,
+		cast(0 as bit) as EsMontoMinino,
+		1 as 'FlagProcedencia'
+	from SolicitudCliente 
+	where ConsultoraID = @ConsultoraId and (Estado IS NULL or LTRIM(RTRIM(Estado)) IN ('A', 'C'))
+
+	UNION ALL
+	
+	select 
+		S.SolicitudClienteCatalogoID as ProcesoId,
+		S.Campania as CampaniaId,
+		'' as EstadoPROL,
+		S.FechaRegistro as FechaHoraValidación,
+		cast(0 as bit) as EnvioCorreo,
+		'CATALOGO' as Proceso,
+		1  as Estado,
+		'' as Observaciones,
+		GETDATE()  as FechaFacturacion, 
+		S.AsuntoNotificacion as Asunto,
+		cast(0 as bit) as FacturaHoy,
+		S.Visualizado AS Visualizado,
+		cast(0 as bit) as EsMontoMinino,
+		1 as FlagProcedencia
+	from SolicitudClienteCatalogo S
+	INNER JOIN ods.Consultora C ON C.ConsultoraID = @ConsultoraId  AND S.CodigoConsultora = C.Codigo
+	
+	UNION ALL
+	
+	SELECT
+		LGPRV.LogGPRValidacionId AS ProcesoId,
+		PR.Campania AS CampaniaId,
+		'' AS EstadoPROL,
+		LGPRV.FechaFinValidacion AS FechaHoraValidación,
+		CAST(0 AS BIT) as EnvioCorreo,
+		'PEDREC' AS Proceso,
+		1 AS Estado,
+		'' AS Observaciones,
+		GETDATE()  AS FechaFacturacion, 
+		CONCAT('Pedido Rechazado: ', LGPRV.DescripcionRechazo) AS Asunto,
+		CAST(0 AS BIT) AS FacturaHoy,
+		LGPRV.Visualizado AS Visualizado,
+		CAST(0 AS BIT) AS EsMontoMinino,
+		1 AS FlagProcedencia
+	FROM GPR.LogGPRValidacion LGPRV
+	INNER JOIN GPR.PedidoRechazado PR ON LGPRV.IdPedidoRechazado = PR.IdPedidoRechazado
+	WHERE LGPRV.Rechazado = 1 AND LGPRV.ConsultoraId = @ConsultoraId;
+
+	IF(@ShowCDR = 1)
+	BEGIN
+		insert into @Temporal
+		SELECT
+			LCDRW.LogCDRWebId AS ProcesoId,
+			LCDRW.CampaniaId,
+			'' AS EstadoPROL,
+			LCDRW.FechaAtencion AS FechaHoraValidación,
+			LCDRW.EnvioCorreo,
+			'CDR' AS Proceso,
+			1 AS Estado,
+			'' AS Observaciones,
+			GETDATE() AS FechaFacturacion,
+			CONCAT('CDR: ', IIF(LCDRW.EstadoCDR = 3, 'APROBADO', 'RECHAZADO')) AS Asunto,
+			CAST(0 AS BIT) AS FacturaHoy,
+			LCDRW.Visualizado AS Visualizado,
+			CAST(0 AS BIT) AS EsMontoMinino,
+			1 AS FlagProcedencia
+		FROM interfaces.LogCDRWeb LCDRW WITH(NOLOCK)
+		WHERE LCDRW.Estado = 2 AND LCDRW.ConsultoraId = @ConsultoraId;
+	END
+
+	select top 10 ProcesoId,CampaniaId,EstadoPROL,FechaHoraValidación,EnvioCorreo,Proceso,Estado,Observaciones,FechaFacturacion,
+	Asunto,FacturaHoy,Visualizado,EsMontoMinino,FlagProcedencia
+	from @Temporal
+	order by FechaHoraValidación desc;
+END
+GO

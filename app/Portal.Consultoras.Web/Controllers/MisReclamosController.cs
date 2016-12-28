@@ -4,11 +4,12 @@ using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.ServiceCDR;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Portal.Consultoras.Common;
-using Portal.Consultoras.Web.ServiceCDRPROL;
+using Portal.Consultoras.Web.ServiceGestionWebPROL;
 using Portal.Consultoras.Web.ServiceODS;
 using Portal.Consultoras.Web.ServiceUsuario;
 
@@ -55,6 +56,9 @@ namespace Portal.Consultoras.Web.Controllers
             model.IndicadorBloqueoCDR = userData.IndicadorBloqueoCDR;
             model.EsCDRWebZonaValida = userData.EsCDRWebZonaValida;
             model.CumpleRangoCampaniaCDR = CumpleRangoCampaniaCDR();
+
+            string urlPoliticaCdr = ConfigurationManager.AppSettings.Get("UrlPoliticasCDR") ?? "{0}";
+            model.UrlPoliticaCdr = string.Format(urlPoliticaCdr, userData.CodigoISO);
 
             if (model.EsCDRWebZonaValida == 0)
                 return View(model);
@@ -108,6 +112,9 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
             model.MontoMinimo = userData.MontoMinimo;
+
+            string urlPoliticaCdr = ConfigurationManager.AppSettings.Get("UrlPoliticasCDR") ?? "{0}";
+            model.UrlPoliticaCdr = string.Format(urlPoliticaCdr, userData.CodigoISO);
 
             return View(model);
         }
@@ -431,8 +438,10 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-        private bool ValidarRegistro(MisReclamosModel model)
+        private bool ValidarRegistro(MisReclamosModel model, out string mensajeError)
         {
+            mensajeError = "";
+
             if (model.Cantidad <= 0)
                 return false;
 
@@ -461,6 +470,10 @@ namespace Portal.Consultoras.Web.Controllers
 
             var cantidad = listaCDRDetalle.Sum(d => d.Cantidad);
             cantidad = detalle.Cantidad - (cantidad + model.Cantidad);
+
+            if (cantidad < 0)
+                mensajeError = "Lamentablemente la cantidad ingresada supera a la cantidad facturada en tu pedido (" +
+                               detalle.Cantidad + ")";
 
             return cantidad >= 0;
         }
@@ -553,7 +566,7 @@ namespace Portal.Consultoras.Web.Controllers
                         return Json(new
                         {
                             success = false,
-                            message = "No esta permitido el reclamo de Packs y Sets por este medio. Por favor, contactar al Call Center.",
+                            message = "No está permitido el reclamo de Packs y Sets por este medio. Por favor, contactar al Call Center.",
                         }, JsonRequestBehavior.AllowGet);
                 }
             }
@@ -564,11 +577,12 @@ namespace Portal.Consultoras.Web.Controllers
 
             #endregion
 
-            var valid = ValidarRegistro(model);
+            string mensajeError = "";
+            var valid = ValidarRegistro(model, out mensajeError);
             return Json(new
             {
                 success = valid,
-                message = ""
+                message = mensajeError
             }, JsonRequestBehavior.AllowGet);
         }
 
@@ -693,7 +707,8 @@ namespace Portal.Consultoras.Web.Controllers
             model.CUV = Util.SubStr(model.CUV, 0);
             model.CUV2 = Util.SubStr(model.CUV2, 0);
 
-            var valida = ValidarRegistro(model);
+            string mensajeError = "";
+            var valida = ValidarRegistro(model, out mensajeError);
 
             modelOri = model;
             if (!valida)
@@ -782,7 +797,7 @@ namespace Portal.Consultoras.Web.Controllers
                     return Json(new
                     {
                         success = false,
-                        message = "Error, ya tiene un detalle con el mismo cuv, y operacion para el mismo pedido y campaña"
+                        message = "Ya tiene un detalle con el mismo cuv, y operación para el mismo pedido y campaña"
                     }, JsonRequestBehavior.AllowGet);
                 }
 
