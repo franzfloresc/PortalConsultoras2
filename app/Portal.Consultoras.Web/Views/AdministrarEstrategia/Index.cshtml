@@ -950,6 +950,28 @@
             $(".ui-dialog .ui-dialog-buttonpane").css("text-align", "center");
             showDialog("DialogNuevoMasivo");
         });
+
+        $("#btnAceptarMasivo1").click(function () {
+            var params = {
+                campaniaId: parseInt($("#ddlCampania").val()),
+                tipoConfigurado: 2
+            };
+
+            jQuery.ajax({
+                type: 'POST',
+                url: baseUrl + 'AdministrarEstrategia/InsertEstrategiaTemporal',
+                dataType: 'json',
+                contentType: 'application/json; charset=utf-8',
+                data: JSON.stringify(params),
+                async: true,
+                success: function (data) {
+
+                },
+                error: function (data, error) {
+                    alert(data.message);
+                }
+            });
+        });
     });
 
     ///////////////

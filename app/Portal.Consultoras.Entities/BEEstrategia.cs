@@ -141,8 +141,11 @@ namespace Portal.Consultoras.Entities
         public bool TieneStockProl { get; set; }
         
         [DataMember]
-        public int FlagMostrarImg { get; set; }      // SB2-353        
+        public int FlagMostrarImg { get; set; }      // SB2-353     
         
+        [DataMember]
+        public int OfertaUltimoMinuto { get; set; }                
+
         public BEEstrategia(IDataRecord row)
         {
             if(DataRecord.HasColumn(row, "TipoTallaColor") && row["TipoTallaColor"] != DBNull.Value)
@@ -299,7 +302,10 @@ namespace Portal.Consultoras.Entities
 
             // SB2-353
             if (DataRecord.HasColumn(row, "FlagMostrarImg") && row["FlagMostrarImg"] != DBNull.Value)
-                FlagMostrarImg = Convert.ToInt32(row["FlagMostrarImg"]);                
+                FlagMostrarImg = Convert.ToInt32(row["FlagMostrarImg"]);
+
+            if (DataRecord.HasColumn(row, "OfertaUltimoMinuto") && row["OfertaUltimoMinuto"] != DBNull.Value)
+                FlagMostrarImg = Convert.ToInt32(row["OfertaUltimoMinuto"]); 
         }
     }
 	// 1747 - Inicio

@@ -1159,5 +1159,63 @@ namespace Portal.Consultoras.Web.Controllers
             }
             return RedirectToAction("Index", "AdministrarEstrategia");
         }
+
+        public JsonResult InsertEstrategiaTemporal(int campaniaId, int tipoConfigurado)
+        {
+            try
+            {
+                List<BEEstrategia> lst = new List<BEEstrategia>();
+
+                try
+                {
+                    using (PedidoServiceClient ps = new PedidoServiceClient())
+                    {
+                        lst = ps.GetOfertasParaTiByTipoConfigurado(userData.PaisID, campaniaId, tipoConfigurado).ToList();
+                    }
+
+                    foreach (var opt in lst)
+                    {
+                        decimal precioOferta = 0;
+                        try
+                        {
+                            using (ServicePROL.ServiceStockSsic svs = new ServicePROL.ServiceStockSsic())
+                            {
+                                svs.Url = ConfigurarUrlServiceProl();
+                                precioOferta = svs.wsObtenerPrecioPack(opt.CUV2, userData.CodigoISO, campaniaId.ToString());
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            precioOferta = 0;
+                        }
+
+                        if (precioOferta > 0)
+                            opt.Precio2 = precioOferta;
+
+
+
+                    }
+                }
+                catch (Exception ex)
+                {
+                    lst = new List<BEEstrategia>();
+                }
+
+                return Json(new
+                {
+                    success = true,
+                    message = "Se deshabilitó la estrategia correctamente.",
+                    extra = ""
+                }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new
+                {
+                    success = false,
+                    message = ex.Message
+                }, JsonRequestBehavior.AllowGet);
+            }
+        }
     }
 }

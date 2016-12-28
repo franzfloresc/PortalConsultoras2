@@ -2941,6 +2941,9 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private int NumeroPedidoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int OfertaUltimoMinutoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int OrdenField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -3559,6 +3562,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((this.NumeroPedidoField.Equals(value) != true)) {
                     this.NumeroPedidoField = value;
                     this.RaisePropertyChanged("NumeroPedido");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int OfertaUltimoMinuto {
+            get {
+                return this.OfertaUltimoMinutoField;
+            }
+            set {
+                if ((this.OfertaUltimoMinutoField.Equals(value) != true)) {
+                    this.OfertaUltimoMinutoField = value;
+                    this.RaisePropertyChanged("OfertaUltimoMinuto");
                 }
             }
         }
