@@ -365,6 +365,9 @@ namespace Portal.Consultoras.Web.Controllers
 
                 #endregion
 
+                /*PL20-1227*/
+                ViewBag.LimiteVentaODD = userData.LimiteVentaOfertaDelDia;
+
             }
             catch (FaultException ex)
             {
@@ -4857,19 +4860,19 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
                 var f = false;
-                var odd = new OfertaDelDiaModel();
+                var oddModel = new OfertaDelDiaModel();
 
-                if (Session["OfertaDelDia"] != null)
+                if (userData.OfertaDelDia != null)
                 {
-                    odd = (OfertaDelDiaModel)Session["OfertaDelDia"];
-                    odd.TeQuedan = CalcularTeQuedanODD(userData);
+                    oddModel = userData.OfertaDelDia;
+                    oddModel.TeQuedan = CountdownODD(userData);
                     f = true;
                 }
 
                 return Json(new
                 {
                     success = f,
-                    data = odd
+                    data = oddModel
                 }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
@@ -4887,11 +4890,49 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                Session["CloseODD"] = true;
+                userData.CloseOfertaDelDia = true;
+                Session["UserData"] = userData;
 
                 return Json(new
                 {
                     success = true,
+                }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return Json(new
+                {
+                    success = false,
+                    message = "No se pudo procesar la solicitud"
+                }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        public JsonResult GetQtyPedidoDetalleByCuvODD(string cuv)
+        {
+            try
+            {
+                var qty = 0;
+                var lstPedidoDetalle = ObtenerPedidoWebDetalle();
+
+                if (lstPedidoDetalle.Any())
+                {
+                    foreach (var item in lstPedidoDetalle)
+                    {
+                        if (item.TipoOfertaSisID == Constantes.TipoEstrategia.OfertaDelDia 
+                            && item.CUV.Trim().Contains(cuv.Trim()))
+                        {
+                            qty = item.Cantidad;
+                            break;
+                        }
+                    }
+                }
+
+                return Json(new
+                {
+                    success = true,
+                    cantidad = qty
                 }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)

@@ -509,15 +509,18 @@
             </div>
             <div class="solo_hoy">
                 @*<img src="@Url.Content("~/Content/Images/PL20/solo_hoy.png")" alt="" />*@
-                <img alt="" id="img-solohoy-odd" />
+                <img id="img-solohoy-odd" alt="" />
             </div>
-            <div class="producto_set"><img src="@Url.Content("~/Content/Images/PL20/set_hoy.png")" alt="" id="img-banner-odd" /></div>
+            <div class="producto_set">
+                <img src="@Url.Content("~/Content/Images/PL20/set_hoy.png")" alt="" id="img-banner-odd" />
+            </div>
             <div class="precio_set_dia">
                 <div class="nombre_set_oferta">{{NombreOferta}}</div>
                 A SOLO <span>@ViewBag.Simbolo {{PrecioOfertaFormat}}</span>
-
             </div>
-            <div style="float:left"><a class="btn_agrega_set_dia" onclick="agregarODDPedido(1)">AGRÉGALO</a></div>
+            <div style="float:left">
+                <a class="btn_agrega_set_dia" onclick="addOfertaDelDiaPedido(1);">AGRÉGALO</a>
+            </div>
             <a class="btn_detalle_hoy">
                 <div class="circulo_hoy"><span>+</span></div>
                 <div class="texto_detalle_set">VER DETALLE</div>
@@ -533,6 +536,7 @@
             <input type="hidden" id="nombre-odd" value="{{NombreOferta}}" />
             <input type="hidden" id="indmonto-min-odd" value="{{IndicadorMontoMinimo}}" />
             <input type="hidden" id="teimagenmostrar-odd" value="{{TipoEstrategiaImagenMostrar}}" />
+
         </div>
         <a class="btn_cerrar_ofertaDia" href="javascript:;" onclick="closeOfertaDelDia();">x</a>
         <div class="content_pop_oferta_dia" id="PopOfertaDia" style="display:none;">
@@ -547,7 +551,6 @@
                 <div class="right_set_hoy">
                     <div class="producto_gratis_ofertaDia">{{NombreOferta}}</div>
                     <div class="descripcion_set_ofertaDia">{{DescripcionOferta}}</div>
-
                 </div>
             </div>
             <div class="precio_valorizado_oferta">VALORIZADO EN <span>@ViewBag.Simbolo {{PrecioCatalogoFormat}}</span></div>
@@ -560,7 +563,7 @@
                         <a class="menos js-no-popup" tabindex="0"><img class="js-no-popup" src="/Content/Images/PL20/menos.png" alt=""></a>
                     </div>
                 </div>
-                <a class="btn_pop_agregalo_oferta" onclick="agregarODDPedido(2);">AGRÉGALO A TU PEDIDO</a>
+                <a class="btn_pop_agregalo_oferta" onclick="addOfertaDelDiaPedido(2);">AGRÉGALO A TU PEDIDO</a>
             </div>
         </div>
     </script>
@@ -595,6 +598,7 @@
         var sesionEsShowRoom = '@Session["EsShowRoom"]';
         var EfectoTutorialSalvavidas = '@ViewBag.Efecto_TutorialSalvavidas';
 
+        /*PL20-1226*/
         var TieneOfertaDelDia = '@ViewBag.TieneOfertaDelDia';
     </script>
 
