@@ -576,6 +576,9 @@ namespace Portal.Consultoras.Web.Controllers
                     model.TieneHana = oBEUsuario.TieneHana;
                     model.NombreGerenteZonal = oBEUsuario.NombreGerenteZona;  // SB20-907
                     model.FechaActualPais = oBEUsuario.FechaActualPais;
+                    model.IndicadorBloqueoCDR = oBEUsuario.IndicadorBloqueoCDR;
+                    model.EsCDRWebZonaValida = oBEUsuario.EsCDRWebZonaValida;
+                    model.TieneCDR = oBEUsuario.TieneCDR;
 
                     if (model.RolID == Constantes.Rol.Consultora)
                     {
@@ -728,7 +731,7 @@ namespace Portal.Consultoras.Web.Controllers
             List<BENotificaciones> olstNotificaciones = new List<BENotificaciones>();
             using (UsuarioServiceClient sv = new UsuarioServiceClient())
             {
-                olstNotificaciones = sv.GetNotificacionesConsultora(oBEUsuario.PaisID, oBEUsuario.ConsultoraID).ToList();
+                olstNotificaciones = sv.GetNotificacionesConsultora(oBEUsuario.PaisID, oBEUsuario.ConsultoraID, oBEUsuario.IndicadorBloqueoCDR).ToList();
             }
             if (olstNotificaciones.Count != 0)
             {

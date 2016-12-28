@@ -386,7 +386,10 @@ namespace Portal.Consultoras.Web
 
             /*ShowRoom*/
             providerSession.Add("ShowRoom", "AdministrarShowRoom");
-            
+
+            /*Cambios y Devoluciones (CDR)*/
+            providerSession.Add("MisReclamos", "Index");
+
             FilterProviders.Providers.Add(providerSession);
             AutoMapperConfiguration.Configure();
         }

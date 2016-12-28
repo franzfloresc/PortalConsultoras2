@@ -329,7 +329,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             var list = new List<BENotificaciones>();
             using (var sv = new UsuarioServiceClient())
             {
-                list = sv.GetNotificacionesConsultora(userData.PaisID, userData.ConsultoraID).ToList();
+                list = sv.GetNotificacionesConsultora(userData.PaisID, userData.ConsultoraID, 1).ToList();
             }
             return list;
         }

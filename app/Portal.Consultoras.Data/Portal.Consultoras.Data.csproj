@@ -63,6 +63,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CDR\DACDRParametria.cs" />
     <Compile Include="CDR\DACDRWeb.cs" />
     <Compile Include="CDR\DACDRWebDescripcion.cs" />
     <Compile Include="CDR\DACDRWebDetalle.cs" />
