@@ -1732,8 +1732,8 @@ header {
     /*top: 9%;*/
     left: 0%;
     z-index: 1;
-    /*background: #000 url("../../../Images/Lbel/background_pedido.jpg") no-repeat left bottom;*/
-    background: #000 url("../../../Images/Lbel/Banner_LBel.jpg") no-repeat left bottom;
+    background: #000 url("../../../Images/Lbel/background_pedido.jpg") no-repeat left bottom;
+    /*background: #000 url("../../../Images/Lbel/Banner_LBel.jpg") no-repeat left bottom;*/
 }
 
 .caja_pedidos{
