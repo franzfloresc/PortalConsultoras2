@@ -9,7 +9,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Portal.Consultoras.Common;
-using Portal.Consultoras.Web.ServiceCDRPROL;
+using Portal.Consultoras.Web.ServiceGestionWebPROL;
 using Portal.Consultoras.Web.ServiceODS;
 using Portal.Consultoras.Web.ServiceUsuario;
 

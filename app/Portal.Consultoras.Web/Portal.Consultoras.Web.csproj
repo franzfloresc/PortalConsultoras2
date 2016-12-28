@@ -644,7 +644,7 @@
       <DependentUpon>Reference.map</DependentUpon>
     </Compile>
     <Compile Include="Web References\ServiceCatalogosIssuu\Reference.cs" />
-    <Compile Include="Web References\ServiceCDRPROL\Reference.cs">
+    <Compile Include="Web References\ServiceGestionWebPROL\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.map</DependentUpon>
@@ -3605,11 +3605,11 @@
     <None Include="Service References\ValidacionesUnete\ValidacionesUnete54.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Web References\ServiceCDRPROL\Reference.map">
+    <Content Include="Web References\ServiceGestionWebPROL\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
-    </None>
-    <None Include="Web References\ServiceCDRPROL\WsGestionWeb.wsdl" />
+    </Content>
+    <None Include="Web References\ServiceGestionWebPROL\WsGestionWeb.wsdl" />
     <None Include="Web References\ServiceLMS\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
@@ -3914,14 +3914,14 @@
   <ItemGroup>
     <WebReferenceUrl Include="http://qaielb-webprol-1875224445.us-east-1.elb.amazonaws.com/WsGestionWebProl/WsGestionWeb.asmx%3fwsdl">
       <UrlBehavior>Dynamic</UrlBehavior>
-      <RelPath>Web References\ServiceCDRPROL\</RelPath>
+      <RelPath>Web References\ServiceGestionWebPROL\</RelPath>
       <UpdateFromURL>http://qaielb-webprol-1875224445.us-east-1.elb.amazonaws.com/WsGestionWebProl/WsGestionWeb.asmx%3fwsdl</UpdateFromURL>
       <ServiceLocationURL>
       </ServiceLocationURL>
       <CachedDynamicPropName>
       </CachedDynamicPropName>
       <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
-      <CachedSettingsPropName>Portal_Consultoras_Web_ServiceCDRPROL_WsGestionWeb</CachedSettingsPropName>
+      <CachedSettingsPropName>Portal_Consultoras_Web_ServiceGestionWebPROL_WsGestionWeb</CachedSettingsPropName>
     </WebReferenceUrl>
     <WebReferenceUrl Include="http://qaielb-webprol-1875224445.us-east-1.elb.amazonaws.com/WsServicesWebValidaciones/ServicesCalculosPROL.asmx%3fwsdl">
       <UrlBehavior>Dynamic</UrlBehavior>

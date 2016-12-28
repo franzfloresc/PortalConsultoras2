@@ -181,9 +181,9 @@ namespace Portal.Consultoras.Web.Properties {
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.WebServiceUrl)]
         [global::System.Configuration.DefaultSettingValueAttribute("http://qaielb-webprol-1875224445.us-east-1.elb.amazonaws.com/WsGestionWebProl/WsG" +
             "estionWeb.asmx")]
-        public string Portal_Consultoras_Web_ServiceCDRPROL_WsGestionWeb {
+        public string Portal_Consultoras_Web_ServiceGestionWebPROL_WsGestionWeb {
             get {
-                return ((string)(this["Portal_Consultoras_Web_ServiceCDRPROL_WsGestionWeb"]));
+                return ((string)(this["Portal_Consultoras_Web_ServiceGestionWebPROL_WsGestionWeb"]));
             }
         }
     }
