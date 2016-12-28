@@ -1761,8 +1761,8 @@ header {
     /*top: 9%;*/
     left: 0%;
     z-index: 1;
-    /*background: #000 url("../../../Images/Esika/background_pedido.png") no-repeat center bottom;*/
-    background: #000 url("../../../Images/Esika/Banner_Esika.jpg") no-repeat center bottom;
+    background: #000 url("../../../Images/Esika/background_pedido.png") no-repeat center bottom;
+    /*background: #000 url("../../../Images/Esika/Banner_Esika.jpg") no-repeat center bottom;*/
     /*background-size:cover;*/
 }
 
