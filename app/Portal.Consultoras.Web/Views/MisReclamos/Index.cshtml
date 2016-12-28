@@ -33,7 +33,11 @@
     {
         <div class="texto_titulo_reclamos" id="TituloReclamo">
             Queremos verte siempre satisfecha con nuestros productos y servicio <br/>
-            <span>Si tuviste inconvenientes con algún producto y estás dentro del plazo permitido sigue estos pasos:</span>
+            <span>
+                Si tuviste inconvenientes con algún producto y estás dentro del
+                <a href="@Model.UrlPoliticaCdr" style="text-decoration: underline; font-weight: bold; display: inline;" target="_blank">plazo permitido</a>
+                sigue estos pasos:
+            </span>
         </div>
         <div class="content_registro_reclamos">
             <div class="texto_solicitud_registrada">Tienes @Model.ListaCDRWeb.Count() solicitudes registradas:</div>

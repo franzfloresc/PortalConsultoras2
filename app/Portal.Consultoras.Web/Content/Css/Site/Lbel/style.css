@@ -31259,14 +31259,21 @@ h1#penmostreo .campana {
     font-size: 15px;    
     line-height:30px;
     width:330px;
-    padding-left: 35px;
+    /*padding-left: 35px;
     background: url(../../../Images/Esika/terminos.png) no-repeat;
-    background-position:0px 2px;
+    background-position:0px 2px;*/
     text-decoration:underline;
 }
-.politica_reclamos_active {
+.politica_reclamos_icono {
+    padding-left: 35px; 
+    padding-bottom: 10px; 
+    padding-top: 2px; 
+    background: url(../../../Images/Esika/terminos.png) no-repeat; 
+    display: inline;
+}
+.politica_reclamos_icono_active {
     background: url(../../../Images/Lbel/icono_check_lbel.svg) no-repeat;
-    background-size: contain;
+    background-size: 75%;
 }
 
 .btn_agrega_otro_reclamo{
