@@ -482,6 +482,12 @@
   <wsdl:message name="IUsuarioService_GetDatosConsultoraHana_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetDatosConsultoraHanaResponse" />
   </wsdl:message>
+  <wsdl:message name="IUsuarioService_UpdNotificacionSolicitudCdrVisualizacion_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdNotificacionSolicitudCdrVisualizacion" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_UpdNotificacionSolicitudCdrVisualizacion_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdNotificacionSolicitudCdrVisualizacionResponse" />
+  </wsdl:message>
   <wsdl:portType name="IUsuarioService">
     <wsdl:operation name="Select">
       <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/Select" message="tns:IUsuarioService_Select_InputMessage" />
@@ -798,6 +804,10 @@
     <wsdl:operation name="GetDatosConsultoraHana">
       <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/GetDatosConsultoraHana" message="tns:IUsuarioService_GetDatosConsultoraHana_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/GetDatosConsultoraHanaResponse" message="tns:IUsuarioService_GetDatosConsultoraHana_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdNotificacionSolicitudCdrVisualizacion">
+      <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/UpdNotificacionSolicitudCdrVisualizacion" message="tns:IUsuarioService_UpdNotificacionSolicitudCdrVisualizacion_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/UpdNotificacionSolicitudCdrVisualizacionResponse" message="tns:IUsuarioService_UpdNotificacionSolicitudCdrVisualizacion_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IUsuarioService" type="tns:IUsuarioService">
@@ -1506,6 +1516,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetDatosConsultoraHana">
       <soap:operation soapAction="http://tempuri.org/IUsuarioService/GetDatosConsultoraHana" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdNotificacionSolicitudCdrVisualizacion">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/UpdNotificacionSolicitudCdrVisualizacion" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

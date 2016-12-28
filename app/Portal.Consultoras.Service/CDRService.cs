@@ -13,15 +13,17 @@ namespace Portal.Consultoras.Service
         private BLCDRWebDescripcion BLCDRWebDescripcion;
         private BLLogCDRWeb bLLogCDRWeb;
         private BLLogCDRWebDetalle bLLogCDRWebDetalle;
+        private BLCDRParametria BLCDRParametria;
 
         public CDRService()
         {
-            this.BLCDRWeb = new BLCDRWeb();
-            this.BLCDRWebDetalle = new BLCDRWebDetalle();
-            this.BLCDRWebMotivoOperacion = new BLCDRWebMotivoOperacion();
-            this.BLCDRWebDescripcion = new BLCDRWebDescripcion();
-            this.bLLogCDRWeb = new BLLogCDRWeb();
-            this.bLLogCDRWebDetalle = new BLLogCDRWebDetalle();
+            BLCDRWeb = new BLCDRWeb();
+            BLCDRWebDetalle = new BLCDRWebDetalle();
+            BLCDRWebMotivoOperacion = new BLCDRWebMotivoOperacion();
+            BLCDRWebDescripcion = new BLCDRWebDescripcion();
+            bLLogCDRWeb = new BLLogCDRWeb();
+            bLLogCDRWebDetalle = new BLLogCDRWebDetalle();
+            BLCDRParametria=new BLCDRParametria();
         }
 
         public int InsCDRWeb(int PaisID, BECDRWeb entity)
@@ -54,9 +56,14 @@ namespace Portal.Consultoras.Service
             return BLCDRWebDetalle.DelCDRWebDetalle(PaisID, entity);
         }
 
-        public List<BECDRWebDetalle> GetCDRWebDetalle(int PaisID, BECDRWebDetalle entity)
+        public List<BECDRWebDetalle> GetCDRWebDetalle(int PaisID, BECDRWebDetalle entity, int pedidoId)
         {
-            return BLCDRWebDetalle.GetCDRWebDetalle(PaisID, entity);
+            return BLCDRWebDetalle.GetCDRWebDetalle(PaisID, entity, pedidoId);
+        }
+
+        public List<BECDRWebDetalle> GetCDRWebDetalleLog(int PaisID, BELogCDRWeb entity)
+        {
+            return BLCDRWebDetalle.GetCDRWebDetalleLog(PaisID, entity);
         }
 
         public int InsCDRWebMotivoOperacion(int PaisID, BECDRWebMotivoOperacion entity)
@@ -103,6 +110,16 @@ namespace Portal.Consultoras.Service
         public List<BELogCDRWebDetalle> GetLogCDRWebDetalleByLogCDRWebId(int paisId, long logCDRWebId)
         {
             return this.bLLogCDRWebDetalle.GetByLogCDRWebId(paisId, logCDRWebId);
+        }
+
+        public bool DetalleActualizarObservado(int paisId, List<BECDRWebDetalle> lista)
+        {
+            return BLCDRWebDetalle.DetalleActualizarObservado(paisId, lista);
+        }
+
+        public List<BECDRParametria> GetCDRParametria(int paisId, BECDRParametria entidad)
+        {
+            return BLCDRParametria.GetCDRParametria(paisId, entidad);
         }
     }
 }

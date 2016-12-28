@@ -27,7 +27,7 @@
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
     <DeployOnBuild Condition=" '$(DeployWEB)'!='' ">$(DeployWEB)</DeployOnBuild>
-    <UseGlobalApplicationHostFile />
+    <UseGlobalApplicationHostFile />    
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -644,6 +644,11 @@
       <DependentUpon>Reference.map</DependentUpon>
     </Compile>
     <Compile Include="Web References\ServiceCatalogosIssuu\Reference.cs" />
+    <Compile Include="Web References\ServiceCDRPROL\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
     <Compile Include="Web References\ServiceLMS\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -1357,8 +1362,6 @@
     <Content Include="Content\Images\Esika\Banner_Esika.jpg" />
     <Content Include="Content\Images\Esika\banner_misBeneficios.png" />
     <Content Include="Content\Images\Esika\brillante2016_img.png" />
-    <Content Include="Content\Images\Esika\carta.png" />
-    <Content Include="Content\Images\Esika\carta1.png" />
     <Content Include="Content\Images\Esika\catalogos_arrow.png" />
     <Content Include="Content\Images\Esika\catalogos_arrow2.png" />
     <Content Include="Content\Images\Esika\catalogos_new.png" />
@@ -1576,6 +1579,12 @@
     <Content Include="Content\Images\Esika\catalogo_facebook.png" />
     <Content Include="Content\Images\Esika\catalogo_mensaje.png" />
     <Content Include="Content\Images\Esika\catalogo_menu.png" />
+    <Content Include="Content\Images\Esika\cdr_paso1.png" />
+    <Content Include="Content\Images\Esika\cdr_paso1_activo.png" />
+    <Content Include="Content\Images\Esika\cdr_paso2.png" />
+    <Content Include="Content\Images\Esika\cdr_paso2_activo.png" />
+    <Content Include="Content\Images\Esika\cdr_paso3.png" />
+    <Content Include="Content\Images\Esika\cdr_paso3_activo.png" />
     <Content Include="Content\Images\Esika\celular.png" />
     <Content Include="Content\Images\Esika\check_liquidacion.png" />
     <Content Include="Content\Images\Esika\circulo.png" />
@@ -1607,8 +1616,6 @@
     <Content Include="Content\Images\Esika\flechita_info.png" />
     <Content Include="Content\Images\Esika\flexipago.png" />
     <Content Include="Content\Images\Esika\fle_.png" />
-    <Content Include="Content\Images\Esika\foco.png" />
-    <Content Include="Content\Images\Esika\foco1.png" />
     <Content Include="Content\Images\Esika\fondo.png" />
     <Content Include="Content\Images\Esika\fondo_circulo.png" />
     <Content Include="Content\Images\Esika\fondo_pestana.png" />
@@ -1645,8 +1652,6 @@
     <Content Include="Content\Images\Esika\indicador_pedido.png" />
     <Content Include="Content\Images\Esika\indicador_pedido_negro.png" />
     <Content Include="Content\Images\Esika\info-copy.png" />
-    <Content Include="Content\Images\Esika\labial.png" />
-    <Content Include="Content\Images\Esika\labial1.png" />
     <Content Include="Content\Images\Esika\lapiz.png" />
     <Content Include="Content\Images\Esika\lbel_revista.png" />
     <Content Include="Content\Images\Esika\liquidacionhome.png" />
@@ -3583,6 +3588,7 @@
     <Content Include="Views\MisReclamos\Reclamo.cshtml" />
     <Content Include="Views\TerminosYCondiciones\Index.cshtml" />
     <Content Include="Views\Bienvenida\ActualizarContrasenia.cshtml" />
+    <Content Include="Views\Notificaciones\ListaDetalleCdr.cshtml" />
     <None Include="Service References\ValidacionesUnete\ValidacionesUnete1.wsdl" />
     <None Include="Service References\ValidacionesUnete\ValidacionesUnete5.xsd">
       <SubType>Designer</SubType>
@@ -3599,6 +3605,11 @@
     <None Include="Service References\ValidacionesUnete\ValidacionesUnete54.xsd">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Web References\ServiceCDRPROL\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Web References\ServiceCDRPROL\WsGestionWeb.wsdl" />
     <None Include="Web References\ServiceLMS\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
@@ -3901,6 +3912,17 @@
     <WebReferences Include="Web References\" />
   </ItemGroup>
   <ItemGroup>
+    <WebReferenceUrl Include="http://qaielb-webprol-1875224445.us-east-1.elb.amazonaws.com/WsGestionWebProl/WsGestionWeb.asmx%3fwsdl">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\ServiceCDRPROL\</RelPath>
+      <UpdateFromURL>http://qaielb-webprol-1875224445.us-east-1.elb.amazonaws.com/WsGestionWebProl/WsGestionWeb.asmx%3fwsdl</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>Portal_Consultoras_Web_ServiceCDRPROL_WsGestionWeb</CachedSettingsPropName>
+    </WebReferenceUrl>
     <WebReferenceUrl Include="http://qaielb-webprol-1875224445.us-east-1.elb.amazonaws.com/WsServicesWebValidaciones/ServicesCalculosPROL.asmx%3fwsdl">
       <UrlBehavior>Dynamic</UrlBehavior>
       <RelPath>Web References\ServicesCalculosPROL\</RelPath>

@@ -310,7 +310,7 @@ header {
 
 .content_left_menu{
     float:left;
-    margin-right:53px;
+    margin-right:35px;
     margin-top:40px;
     
 }
@@ -30609,24 +30609,6 @@ h1#penmostreo .campana {
     
     margin-top: 25px;
 }
-.btn_si_stock{
-    font-family: 'LAto';
-    font-size: 13px;
-    font-weight: 700;
-    /*float: right;*/
-    display: block;
-    width: 160px;
-    /*height: 45px;*/
-    height: 40px;       /*EPD-1378*/
-    text-align: center;
-    /*margin-top: 13px;*/
-    margin-top: 2px;
-    color: white;
-    background: #613c87;
-    line-height: 45px;
-
-    float: left;        /*EPD-1378*/
-}
 .stock_content_aceptado{
     width: 100%;
     /*height: auto;
@@ -30862,6 +30844,13 @@ h1#penmostreo .campana {
 .texto_titulo_reclamos span{
     font-size:14px;
 }
+.texto_reclamos_bloqueada {
+    margin-top: 50px;
+    margin-bottom: 50px;
+    margin-left: 200px;
+    margin-right: 200px;
+    font-size: 18px
+}
 .content_pasos{
     width:310px;
     margin:0 auto;
@@ -30937,7 +30926,7 @@ h1#penmostreo .campana {
     color:#b5b5b5;
     line-height:45px;
     padding:10px;
-    margin-right:10px;
+    margin-right:9px;
     float:left;
 }
 
@@ -30984,6 +30973,20 @@ h1#penmostreo .campana {
     line-height: 45px;
 
     float: left;    /*EPD-1378*/
+}
+.btn_si_stock_cdr{
+    font-family: 'LAto';
+    font-size: 13px;
+    font-weight: 700;
+    float: right;
+    display: block;
+    width: 160px;
+    height: 45px;
+    text-align: center;
+    margin-top: 34px;
+    color: white;
+    background: #613c87;
+    line-height: 45px;
 }
 .paso_active_reclamo{
     background:#613c87;
@@ -31056,6 +31059,7 @@ h1#penmostreo .campana {
     font-weight:bold;
     text-align:center;
     margin-right:36px;
+    margin-bottom: 10px;
 }
 .btn_solución_reclamo:last-child{
     margin-right:0px;
@@ -31115,7 +31119,7 @@ h1#penmostreo .campana {
     font-family: 'Lato';
     font-size: 13px;
     font-weight: 700;
-    margin-top: 25px;
+    margin-top: 40px;
     height: 30px;
     line-height: 30px;
     padding-left: 20px;
@@ -31192,7 +31196,12 @@ h1#penmostreo .campana {
     width:12%;
     text-align:center;
 }
-
+.text_gris_reclamo{
+    padding-top:20px;
+    padding-bottom:15px;
+    font-size:13px;
+    font-weight:300;
+}
 .subtitulo_listado{
     margin-top:15px;
     font-family:'Lato';
@@ -31218,8 +31227,21 @@ h1#penmostreo .campana {
     float: left;
     padding: 10px;
     margin-left: 50px;
-    margin-bottom:20px;
+    /*margin-bottom:20px;*/
 }
+.correo_reclamo_error{
+    margin-bottom: 20px; 
+    display: inline-block;
+    width: 270px;
+    margin-left: 60px;
+}
+    .correo_reclamo_error span {
+        font-family: 'Lato';
+        font-size: 14px;
+        color: red;
+        line-height: 14px;
+        margin-top: 5px;
+    }
 .texto_correo{
     display:block;
     margin-left:60px;
@@ -31242,6 +31264,11 @@ h1#penmostreo .campana {
     background-position:0px 2px;
     text-decoration:underline;
 }
+.politica_reclamos_active {
+    background: url(../../../Images/Lbel/icono_check_lbel.svg) no-repeat;
+    background-size: contain;
+}
+
 .btn_agrega_otro_reclamo{
     font-family: 'LAto';
     font-size: 13px;
@@ -31251,7 +31278,7 @@ h1#penmostreo .campana {
     width: 297px;
     height: 45px;
     text-align: center;
-    margin-top: 18px;
+    margin-top: 2px;
     color: black;
     background:white;
     border:1px solid black;
@@ -31328,6 +31355,7 @@ h1#penmostreo .campana {
 }
 .UltimasSolicitudes{
     position:absolute;
+    
     width:204px;
     height:auto;
     padding:15px 20px 15px 20px;
@@ -31580,12 +31608,6 @@ h1#penmostreo .campana {
     padding-bottom: 25px;
     color: black;
 }
-.text_gris_reclamo{
-    padding-top:20px;
-    padding-bottom:15px;
-    font-size:13px;
-    font-weight:300;
-}
 .pop_solicitud_producto{
     width:32%;
     padding-left: 2%;
@@ -31631,6 +31653,22 @@ h1#penmostreo .campana {
     border:1px solid black;
     margin-right:20px;
 }
+    .btn_pedido_white:hover {
+        font-family: 'Lato';
+        font-size: 13px;
+        text-align: center;
+        display: inline-block;
+        width: 180px;
+        height: 50px;
+        padding-top: 5px;
+        border: 1px solid black;
+        background: black;
+        color: white;
+    }
+
+        .btn_pedido_white:hover > * {
+            color: white;
+        }
 .btn_pedido_black{
     font-family:'Lato';
     font-size:13px;
@@ -31896,6 +31934,83 @@ h1#penmostreo .campana {
     color:#9b9b9b; 
 }
 
+/*TABLA DE NOTIFICACIONES*/
+.logo_lista_detalle{
+    width:100px;
+    height:38px;
+    margin:0 auto;
+    margin-top:20px;
+    margin-bottom:20px;
+    background:url(http://www.genesis-peru.com/mailing-belcorp/logo.png) no-repeat center center;
+}
+.content_datos_cdr{
+    width:96%;
+    height:auto;
+    margin:0 auto;
+}
+.saludo_cdr{
+    font-family: 'Lato';
+    font-size: 16px;
+    text-align: center;
+    font-weight: 500;
+    color: #000;
+    padding: 18px;
+}
+.titulo_cdr{
+    text-align: center;
+    font-family: 'Lato';
+    font-size: 18px;
+    font-weight: 700;
+    color: #000;
+    padding-bottom: 15px;
+    letter-spacing:0.2px;
+}
+.respuesta_cdr{
+    text-align: center;
+    font-family: 'Lato';
+    color: #000;
+    font-weight: 700;
+    font-size: 14px;
+    padding-bottom: 30px
+}
+.texto_fila_cdr{
+    display:inline-block;
+    width:33%;
+    border-right:1px solid black;
+        
+    font-family: 'Lato';
+    font-size: 14px;
+    
+}
+.texto_fila_cdr:last-child{
+    border-right:0;
+}
+.resumen_aprobado_cdr{
+    text-align: center;
+    font-family: 'Lato';
+     color: black;
+    padding-top: 15px;
+    font-size: 15px;
+}
+.subtitulo_cdr{
+    text-align: center;
+    font-family: 'Lato';
+    font-weight: 700;
+    color: black;
+    margin-top:15px;
+    padding-top: 8px;
+    padding-bottom:8px;
+    font-size: 15px;
+    border-top:1px solid #979797;
+    border-bottom:1px solid #979797;
+}
+.content_detalle_pedido_cdr{
+    border-bottom:1px solid #979797;
+    padding-top:15px;
+    padding-bottom:15px;
+    font-family: 'Lato';
+    overflow:hidden;
+}
 /*SB20-1198 - INICIO */
 .contenido_compra_nivel {
     width: 100%; 
@@ -31973,7 +32088,26 @@ h1#penmostreo .campana {
     height: 55px; 
     border: 0;
 }
-
+.estado_cdr_detalle{
+    text-align: left;
+    font-family: 'Lato';
+    font-size: 14px;
+    color: #613c87;
+    /*margin-bottom:10px;*/
+    font-weight:900;
+}
+.estado_cdr_detalle:last-child {
+    margin-bottom:10px;
+}
+.left_detalle_cdr{
+    width:55%;
+    padding-right:14px;
+    float:left;
+    text-align: left;
+    font-family: 'Lato';
+    font-size: 14.4px;    
+    color: black;
+}
 /*SB20-1198 - FIN */
 
 /*SB20-877*/
@@ -31987,4 +32121,42 @@ h1#penmostreo .campana {
     margin-left: 2%;
     margin-right: 8%;
     width: 215px;
+}
+.texto_detalle_cdr{
+     text-align: left;
+    font-family: 'Lato';
+    font-size: 14.4px;    
+    color: black;
+    }
+.right_detalle_cdr{
+    float:right;
+    width:45%;
+    text-align: left;
+    font-family: 'Lato';
+    font-size: 14.4px;    
+    color: black;
+}
+.ver_solicitud_sb{
+    text-decoration: none;
+    font-family: 'Lato';
+    font-weight: 700;
+    color: black;
+    font-size: 14px;
+    border: 2px solid #979797;
+    text-align:center;
+    padding:10px;
+    width:50%;
+    margin:0 auto;
+    margin-top:25px;
+}
+.cerrar_cdr_noti{
+    font-family:'Lato';
+    font-size:13px;
+    text-align:right;
+    font-weight:700;
+}
+.texto_tab_pagos {
+    display:inline-block;
+    vertical-align:middle;
+    line-height:14px;
 }

@@ -9,14 +9,15 @@ namespace Portal.Consultoras.Web.Models
     {
         public int CDRWebID { get; set; }
         public int PedidoID { get; set; }
+        public int NumeroPedido { get; set; }
         public int CampaniaID { get; set; }
         public List<CampaniaModel> ListaCampania { get; set; }
         public string Campania { get; set; }
-        public string Tipo { get; set; }
+        public string EstadoSsic { get; set; }
         public string CUV { get; set; }
         public int Cantidad { get; set; }
         public string DescripcionProd { get; set; }
-        public string Tipo2 { get; set; }
+        public string EstadoSsic2 { get; set; }
         public string CUV2 { get; set; }
         public int Cantidad2 { get; set; }
         public string DescripcionProd2 { get; set; }
@@ -32,5 +33,16 @@ namespace Portal.Consultoras.Web.Models
         public string Telefono { get; set; }
 
         public List<CDRWebModel> ListaCDRWeb { get; set; } 
+        
+        public int IndicadorBloqueoCDR { get; set; }
+
+        public int EsCDRWebZonaValida { get; set; }
+
+        public decimal MontoMinimo { get; set; }        
+
+        /*EPD-1339*/
+        public int TieneHistoricoCDR { get; set; }
+        public int CumpleRangoCampaniaCDR { get; set; }
+        /*EPD-1339*/
     }
 }

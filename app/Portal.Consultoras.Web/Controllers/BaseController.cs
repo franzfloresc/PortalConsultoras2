@@ -472,6 +472,17 @@ namespace Portal.Consultoras.Web.Controllers
             else return new List<PermisoModel>();
         }
 
+        private int MostrarMenuCDR()
+        {
+            int resultado = 0;
+            if (Session["UserData"] != null)
+            {
+                var tieneAcceso = userData.IndicadorBloqueoCDR == 0;
+                var tieneAccesoZona = userData.EsCDRWebZonaValida == 1;
+            }
+            return resultado;
+        }
+
         private List<PermisoModel> SepararItemsMenu(List<PermisoModel> menuOriginal)
         {
             // Crear lista resultante
@@ -821,6 +832,7 @@ namespace Portal.Consultoras.Web.Controllers
             if (isNull)
             {
                 ViewBag.Permiso = BuildMenu();
+                ViewBag.MostrarMenuCDR = MostrarMenuCDR();
                 ViewBag.Servicio = BuildMenuService();
                 ViewBag.ServiceController = ConfigurationManager.AppSettings["ServiceController"].ToString();
                 ViewBag.ServiceAction = ConfigurationManager.AppSettings["ServiceAction"].ToString();
@@ -1171,6 +1183,9 @@ namespace Portal.Consultoras.Web.Controllers
                 model.VioTutorialSalvavidas = oBEUsuario.VioTutorialSalvavidas;
                 model.TieneHana = oBEUsuario.TieneHana;
                 model.NombreGerenteZonal = oBEUsuario.NombreGerenteZona;  // SB20-907
+                model.IndicadorBloqueoCDR = oBEUsuario.IndicadorBloqueoCDR;
+                model.EsCDRWebZonaValida = oBEUsuario.EsCDRWebZonaValida;
+                model.TieneCDR = oBEUsuario.TieneCDR;
                 model.FechaActualPais = oBEUsuario.FechaActualPais;
 
                 if (model.RolID == Constantes.Rol.Consultora)
@@ -1347,7 +1362,7 @@ namespace Portal.Consultoras.Web.Controllers
             List<BENotificaciones> olstNotificaciones = new List<BENotificaciones>();
             using (UsuarioServiceClient sv = new UsuarioServiceClient())
             {
-                olstNotificaciones = sv.GetNotificacionesConsultora(oBEUsuario.PaisID, oBEUsuario.ConsultoraID).ToList();
+                olstNotificaciones = sv.GetNotificacionesConsultora(oBEUsuario.PaisID, oBEUsuario.ConsultoraID, oBEUsuario.IndicadorBloqueoCDR).ToList();
             }
             if (olstNotificaciones.Count != 0)
             {
