@@ -539,10 +539,9 @@
 
         $(function () {
 
-            //PL20-1226
+            /*PL20-1233*/
             if (TieneOfertaDelDia == "True") {
                 CargarOfertaDelDia();
-                $('#BloqueMobileOfertaDia').show();
             }
 
             SetFormatDecimalPais(formatDecimalPaisMain);
@@ -678,8 +677,97 @@
             CargarShowRoom();
         });
 
-        //PL20-1233
-        function AgregarODDPedido(){
+        /*PL20-1233*/
+        function CargarOfertaDelDia() {
+            $.ajax({
+                type: 'GET',
+                url: baseUrl + 'Pedido/GetOfertaDelDia',
+                //data: '',
+                cache: false,
+                dataType: 'json',
+                contentType: 'application/json; charset=utf-8',
+                success: function (response) {
+                    if (response.success) {
+                        var _data = response.data;
+                        SetHandlebars("#bloquemobileofertadia-template", _data, '#BloqueMobileOfertaDia');
+                        var tq = _data.TeQuedan;
+
+                        if (tq.TotalSeconds > 0) {
+
+                            var obj1 = $('#BloqueMobileOfertaDia').find('.nombre_set_producto_hoy');
+                            obj1.html(obj1.text());
+
+                            $('#BloqueMobileOfertaDia').show();
+
+                            $("#content_oferta_dia_mobile").click(function () {
+                                $('body').css({ 'overflow-x': 'hidden' });
+                                $('body').css({ 'overflow-y': 'hidden' });
+                                // Set the effect type
+                                var effect = 'slide';
+
+                                // Set the options for the effect type chosen
+                                //var options = { direction: $('.mySelect').val() };
+                                var options = {direction: 'Right' };
+
+                                // Set the duration (default: 400 milliseconds)
+                                var duration = 500;
+
+                                $('#pop_oferta_mobile').toggle(effect, options, duration);
+                            });
+                        }
+                        else {
+                            $('#BloqueMobileOfertaDia').hide();
+                        }
+                        
+                        OcultarBannerODD();
+                    }
+                },
+                error: function (data, error) {
+                    if (checkTimeout(data)) {
+                        console.error(error);
+                    }
+                }
+            });
+        };
+
+        function OcultarBannerODD()
+        {
+            $(".header_pop_oferta").click(function () {
+                $('body').css({ 'overflow-y': 'scroll' });
+                // Set the effect type
+                var effect = 'slide';
+
+                // Set the options for the effect type chosen
+                //var options = { direction: $('.mySelect').val() };
+                var options = {direction: 'right' };
+
+                // Set the duration (default: 400 milliseconds)
+                var duration = 500;
+
+                $('#pop_oferta_mobile').toggle(effect, options, duration);               
+            });
+        };
+
+        function closeOfertaDelDia() {
+            $.ajax({
+                type: 'GET',
+                url: baseUrl + 'Pedido/CloseOfertaDelDia',
+                //data: {},
+                cache: false,
+                //dataType: 'json',
+                //contentType: 'application/json; charset=utf-8',
+                success: function (response) {
+                    if (response.success) {
+                        $('#OfertaDelDia').hide();
+                    }
+                },
+                error: function (err) {
+                    console.log(err);
+                }
+            });
+        };
+
+        function addOfertaDelDiaPedido(){
             debugger
             var tipoEstrategiaID = $('#tipoestrategia-id-odd').val();
             var estrategiaID = $('#estrategia-id-odd').val();
@@ -710,15 +798,18 @@
             var OrigenPedidoWeb = 0//MobileHomeOfertasParaTi;
 
             //directo display
-            if (typeof origenPagina == 'undefined') origenPedidoWeb = 1992; // general
-            else if (origenPagina == 1) origenPedidoWeb = 1192; // home
-            else if (origenPagina == 2) origenPedidoWeb = 1292; // pedido
+            if (typeof origenPagina == 'undefined') origenPedidoWeb = 2991; // general
+            else if (origenPagina == 1) origenPedidoWeb = 2191// home
+            else if (origenPagina == 2) origenPedidoWeb = 2291; // pedido
 
             var intCantidad = parseInt(cantidad);
             var intLimiteVenta = parseInt(cantidadLimite);
+            var msg1 = 'Solo puede llevar ' + cantidadLimite + ' unidades de este producto.';
 
             if (intCantidad > intLimiteVenta) {            
-                messageInfoMalo('Solo puede llevar ' + intLimiteVenta + ' unidades de este producto.','');
+                //messageInfoMalo('Solo puede llevar ' + cantidadLimite.toStrin + ' unidades de este producto.','');
+                $('#popupInformacionSB2Error').find('#mensajeInformacionSB2_Error').text(msg1);
+                $('#popupInformacionSB2Error').show();
                 return ;
             }
 
@@ -733,10 +824,8 @@
             if (cqty > 0) {
                 var tqty = parseInt(cqty) + parseInt(cantidad);
                 if (parseInt(tqty) > parseInt(cantidadLimite)) {
-                    var msg1 = 'Solo puede llevar ' + cantidadLimite.toString() + ' unidades de este producto.';
-                    //alert(msg1);
-                    $('#dialog_ErrorMainLayout').find('.mensaje_agregarUnidades').text(msg1);
-                    $('#dialog_ErrorMainLayout').show();
+                    $('#popupInformacionSB2Error').find('#mensajeInformacionSB2_Error').text(msg1);
+                    $('#popupInformacionSB2Error').show();
                     return;
                 }
             }
@@ -760,6 +849,7 @@
             ShowLoading();
             //console.log(param);
             //closeWaitingDialog();
+
             jQuery.ajax({
                 type: 'POST',
                 url: urlValidarStockEstrategia,
@@ -776,7 +866,6 @@
                             type: 'POST',
                             url: urlPedidoInsertZe,
                             dataType: 'json',
-
                             contentType: 'application/json; charset=utf-8',
                             data: JSON.stringify(param),
                             async: true,
@@ -792,23 +881,36 @@
                                     return false;
                                 }
                                 
-
                                 ShowLoading();
+
                                 if (typeof origenPagina !== 'undefined') {
-                                    //MostrarBarra(data, '1');
-                                    ActualizarGanancia(data.DataBarra);
-                                    TagManagerClickAgregarProducto();
+                                    if (origenPagina == 1) {    // home
+                                        TagManagerClickAgregarProducto();
+                                    }
                                 }
-                                
+
+                                //MostrarBarra(data, '1');
+                                ActualizarGanancia(data.DataBarra);
                                 //CargarCarouselEstrategias(cuv);
                                 TrackingJetloreAdd(cantidad, $("#hdCampaniaCodigo").val(), cuv);
                            
                                 CloseLoading();
+                                
+                                // ocultar display
                                 $('body').css({ 'overflow-y': 'scroll' });
                                 var effect = 'slide';
                                 var options = {direction: 'right' };
                                 var duration = 500;
                                 $('#pop_oferta_mobile').toggle(effect, options, duration);   
+                                $('#txtCantidad').val('1');
+
+                                // si es pagina de pedido, recargar el detalle
+                                if (typeof origenPagina !== 'undefined') {
+                                    if (origenPagina == 2) {    // pedido
+                                        CargarPedido();
+                                    }
+                                }
+
                             },
                             error: function (data, error) {
                                 if (checkTimeout(data)) {
@@ -825,7 +927,7 @@
                 }
             });           
         };
-
+        
         function checkCountdownODD() {
             var ok = true;
             $.ajax({
@@ -917,69 +1019,9 @@
             });
             return restringido;
         }
+        /*PL20-1233*/
 
         /**** ****/
-
-
-        //PL20-1226
-        function CargarOfertaDelDia() {
-            $.ajax({
-                type: 'GET',
-                url: baseUrl + 'Pedido/GetOfertaDelDia',
-                data: '',
-                cache: false,
-                dataType: 'json',
-                contentType: 'application/json; charset=utf-8',
-                success: function (response) {
-                    if (response.success) {                        
-                        SetHandlebars("#bloquemobileofertadia-template", response.data, '#BloqueMobileOfertaDia');
-
-                            $("#content_oferta_dia_mobile").click(function () {
-                                $('body').css({ 'overflow-x': 'hidden' });
-                                $('body').css({ 'overflow-y': 'hidden' });
-                                // Set the effect type
-                                var effect = 'slide';
-
-                                // Set the options for the effect type chosen
-                                //var options = { direction: $('.mySelect').val() };
-                                var options = {direction: 'Right' };
-
-                                // Set the duration (default: 400 milliseconds)
-                                var duration = 500;
-
-                                $('#pop_oferta_mobile').toggle(effect, options, duration);
-                
-                            });
-
-                            OcultarBannerODD();
-                    }
-                },
-                error: function (data, error) {
-                    if (checkTimeout(data)) {
-                        console.error(error);
-                    }
-                }
-            });
-        };
-
-        function OcultarBannerODD()
-        {
-            $(".header_pop_oferta").click(function () {
-                $('body').css({ 'overflow-y': 'scroll' });
-                // Set the effect type
-                var effect = 'slide';
-
-                // Set the options for the effect type chosen
-                //var options = { direction: $('.mySelect').val() };
-                var options = {direction: 'right' };
-
-                // Set the duration (default: 400 milliseconds)
-                var duration = 500;
-
-                $('#pop_oferta_mobile').toggle(effect, options, duration);               
-            });
-        };
-
         function InfoCommerceGoogleDestacadoProductClick(name, id, category, variant, position) {
 
             if (variant == null || variant == "") {
@@ -1676,8 +1718,10 @@
                 }
             }, 1000);
         }
+
     </script>
 
+    <!--PL20-1233-->
     <script id="bloquemobileofertadia-template" type="text/x-handlebars-template">
         <div class="content_320" style="padding:0;" id="content_oferta_dia_mobile">
             <div class="float_left">
@@ -1697,7 +1741,7 @@
             <input type="hidden" id="indmonto-min-odd" value="{{IndicadorMontoMinimo}}" />
             <input type="hidden" id="teimagenmostrar-odd" value="{{TipoEstrategiaImagenMostrar}}" />
         </div>
-        <a class="btn_cerrar_oferta_mobile" href="javascript:;" onclick="javascript: $('#BloqueMobileOfertaDia').slideUp();">X</a>
+        <a class="btn_cerrar_oferta_mobile" href="javascript:;" onclick="closeOfertaDelDia();">X</a>
 
         <div id="pop_oferta_mobile" class="content_pop_oferta_mobile">
             <div class="header_pop_oferta">
@@ -1730,7 +1774,7 @@
                         <a class="cantidad_mas_home" tabindex="0"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
                     </div>
                     <div class="clear"></div>
-                    <a class="boton_Agregalo_home" href="#" onclick="AgregarODDPedido()">
+                    <a class="boton_Agregalo_home" href="#" onclick="addOfertaDelDiaPedido()">
                         AGRÉGALO
                     </a>
                     <div style="padding-top:9px; height: 15px;">
@@ -1744,6 +1788,7 @@
             </div>
         </div>
     </script>
+    <!--PL20-1233-->
 
     @RenderSection("scripts", required: false)
     @{Html.PlaceScripts();}

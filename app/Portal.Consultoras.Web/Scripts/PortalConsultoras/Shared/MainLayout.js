@@ -894,6 +894,7 @@ function addOfertaDelDiaPedido(tipo) {
     var teImagenMostrar = $('#teimagenmostrar-odd').val();
     var cantidad = (tipo == 1) ? 1 : parseInt($('#txtcantidad-odd').val());
     var origenPedidoWeb = 0;
+    var msg1 = 'Solo puede llevar ' + limiteVenta.toString() + ' unidades de este producto.';
 
     if (tipo == 2 && cantidad <= 0) {
         alert_msg_pedido("Ingrese la cantidad a solicitar");
@@ -911,9 +912,7 @@ function addOfertaDelDiaPedido(tipo) {
         else if (origenPagina == 2) origenPedidoWeb = 1292; // pedido
 
         if (cantidad > limiteVenta) {
-            var msg = 'Solo puede llevar ' + limiteVenta.toString() + ' unidades de este producto.';
-            //alert(msg);
-            $('#dialog_ErrorMainLayout').find('.mensaje_agregarUnidades').text(msg);
+            $('#dialog_ErrorMainLayout').find('.mensaje_agregarUnidades').text(msg1);
             $('#dialog_ErrorMainLayout').show();
             return;
         }
@@ -930,8 +929,6 @@ function addOfertaDelDiaPedido(tipo) {
     if (cqty > 0) {
         var tqty = cqty + cantidad;
         if (tqty > limiteVenta) {
-            var msg1 = 'Solo puede llevar ' + limiteVenta.toString() + ' unidades de este producto.';
-            //alert(msg1);
             $('#dialog_ErrorMainLayout').find('.mensaje_agregarUnidades').text(msg1);
             $('#dialog_ErrorMainLayout').show();
             return;

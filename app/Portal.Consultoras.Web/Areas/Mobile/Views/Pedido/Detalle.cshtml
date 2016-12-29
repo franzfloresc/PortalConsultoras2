@@ -359,6 +359,9 @@
                             {{else iff detalle.TipoOfertaSisID '==' @Constantes.ConfiguracionOferta.ShowRoom}}
                             <br />
                             <span>Pre-venta Digital</span>
+                            {{else if_eq TipoOfertaSisID '@Constantes.TipoEstrategia.OfertaDelDia'}}
+                            <br />
+                            <span>OFERTA DEL DÍA</span>
                             {{else}}
                             {{#IsNullOrEmpty detalle.DescripcionOferta '!='}}
                             <br />
@@ -726,6 +729,7 @@
         var viewBagNombrePais = '@ViewBag.NombrePais';
         var urlPedidoInsert = '@Url.Action("Insert", "Pedido", new {area = ""})';
         /* SB20-565 - FIN */
+        var origenPagina = 2;//PL20-1233
 
     </script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Mobile/Pedido/Detalle.js")"></script>
