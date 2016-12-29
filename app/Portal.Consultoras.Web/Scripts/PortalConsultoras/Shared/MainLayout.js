@@ -826,6 +826,9 @@ function loadOfertaDelDia() {
                     $('#PopOfertaDia').css('background-color', _data.ColorFondo2);
                     //$('#img-display-odd').attr('src', _data.ImagenDisplay);
 
+                    var obj1 = $('#OfertaDelDia').find('.descripcion_set_ofertaDia');
+                    obj1.html(obj1.text());
+
                     $('#OfertaDelDia').show();
 
                     clock = $('.clock').FlipClock(tq.TotalSeconds, {
@@ -834,15 +837,15 @@ function loadOfertaDelDia() {
                     });
 
                     var cambio = 0;
-                    $(".btn_detalle_hoy").on("click", function () {
+                    $('.btn_detalle_hoy').on('click', function () {
                         if (cambio == 0) {
                             $('#PopOfertaDia').slideDown(); //muestro mediante id 
-                            $(".circulo_hoy span").html("-");
+                            $('.circulo_hoy span').html('-');
                             cambio = 1;
                         }
                         else {
                             $('#PopOfertaDia').slideUp(); //muestro mediante id 
-                            $(".circulo_hoy span").html("+");
+                            $('.circulo_hoy span').html('+');
                             cambio = 0;
                         }
                     });
@@ -958,7 +961,7 @@ function addOfertaDelDiaPedido(tipo) {
         OrigenPedidoWeb: origenPedidoWeb
     });
 
-    console.log(obj);
+    //console.log(obj);
 
     jQuery.ajax({
         type: 'POST',
@@ -992,11 +995,14 @@ function addOfertaDelDiaPedido(tipo) {
                         }
 
                         waitingDialog({});
-                        MostrarBarra(data, '1');
-                        ActualizarGanancia(data.DataBarra);
+                        if (typeof origenPagina !== 'undefined') {
+                            MostrarBarra(data, '1');
+                            ActualizarGanancia(data.DataBarra);
+                            TagManagerClickAgregarProducto();
+                        }
+                        
                         //CargarCarouselEstrategias(cuv);
                         CargarResumenCampaniaHeader(true);
-                        TagManagerClickAgregarProducto();
                         TrackingJetloreAdd(cantidad, $("#hdCampaniaCodigo").val(), cuv2);
                         closeWaitingDialog();
                         //if (popup) {
@@ -1006,7 +1012,8 @@ function addOfertaDelDiaPedido(tipo) {
                         if (tipo == 2) {
                             // ocultar display
                             $('#PopOfertaDia').slideUp();
-                            $(".circulo_hoy span").html("+");
+                            $('.circulo_hoy span').html('+');
+                            $('#txtcantidad-odd').val('1');
                         }
 
                         // si es pagina de pedido, recargar el detalle

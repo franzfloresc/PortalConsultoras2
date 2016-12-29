@@ -648,7 +648,7 @@ namespace Portal.Consultoras.Web.Controllers
                                     for (int i = 1; i < arr1.Length; i++)
                                     {
                                         if (!string.IsNullOrEmpty(arr1[i]))
-                                            descripcionODD += arr1[i].Trim() + "+";
+                                            descripcionODD += arr1[i].Trim() + "|";
                                     }
 
                                     var countdown = CountdownODD(model);
@@ -659,8 +659,9 @@ namespace Portal.Consultoras.Web.Controllers
                                     var imgDisplay = string.Format(ConfigurationManager.AppSettings.Get("UrlImgDisplayODD"), model.CodigoISO, ofertaDelDia.ImagenURL);
                                     var colorF1 = configOfertaDelDia.Where(x => x.TablaLogicaDatosID == 9301).First().Codigo ?? string.Empty;
                                     var colorF2 = configOfertaDelDia.Where(x => x.TablaLogicaDatosID == 9302).First().Codigo ?? string.Empty;
-                                    descripcionODD.Replace(@"\", string.Empty);
-                                    descripcionODD.Replace(@"(GRATIS)", "<b>GRATIS</b>");
+                                    descripcionODD = descripcionODD.Replace("|", "+<br />");
+                                    descripcionODD = descripcionODD.Replace("\\", "");
+                                    descripcionODD = descripcionODD.Replace("(GRATIS)", "<b>GRATIS</b>");
 
                                     var oddModel = new OfertaDelDiaModel();
                                     oddModel.CodigoIso = model.CodigoISO;
@@ -698,9 +699,10 @@ namespace Portal.Consultoras.Web.Controllers
                             using (PedidoServiceClient svc = new PedidoServiceClient())
                             {
                                 var beEstrategia = new BEEstrategia();
-                                beEstrategia.CampaniaID = 201616;   // cambiar
+                                beEstrategia.PaisID = model.PaisID;
+                                beEstrategia.CampaniaID = model.CampaniaID;
                                 beEstrategia.TipoEstrategiaID = Constantes.TipoEstrategia.OfertaDelDia;
-                                beEstrategia.CUV1 = "0";
+                                beEstrategia.CUV2 = "0";
                                 var lstEstrategia = svc.GetEstrategias(beEstrategia).ToList();
 
                                 if (lstEstrategia.Any())

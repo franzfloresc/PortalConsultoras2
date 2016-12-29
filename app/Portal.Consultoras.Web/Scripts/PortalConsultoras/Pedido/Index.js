@@ -3420,18 +3420,14 @@ function UpdateLiquidacion(CampaniaID, PedidoID, PedidoDetalleID, TipoOfertaSisI
     /*PL20-1227*/
     if (typeof tipoEstrategiaODD !== 'undefined' && typeof limiteVentaODD !== 'undefined') {
         if (parseInt(TipoOfertaSisID) == parseInt(tipoEstrategiaODD)) {
-            // validar cantidad a agregar (nuevas unidades o ya existentes)
-            var cqty = getQtyPedidoDetalleByCuvODD(CUV);
-            if (cqty > 0) {
-                var nqty = parseInt($('#txtLPCant' + PedidoDetalleID).val());
-                var tqty = cqty + nqty;
-                if (tqty > parseInt(limiteVentaODD) ) {
-                    $('#txtLPCant' + PedidoDetalleID).val(CantidadModi);
-                    var msg1 = 'Solo puede llevar ' + limiteVenta.toString() + ' unidades de este producto.';
-                    $('#dialog_ErrorMainLayout').find('.mensaje_agregarUnidades').text(msg1);
-                    $('#dialog_ErrorMainLayout').show();
-                    return;
-                }
+            // validar cantidad a agregar
+            var nqty = parseInt($('#txtLPCant' + PedidoDetalleID).val());
+            if (nqty > parseInt(limiteVentaODD) ) {
+                $('#txtLPCant' + PedidoDetalleID).val(CantidadModi);
+                var msg1 = 'Solo puede llevar ' + limiteVentaODD + ' unidades de este producto.';
+                $('#dialog_ErrorMainLayout').find('.mensaje_agregarUnidades').text(msg1);
+                $('#dialog_ErrorMainLayout').show();
+                return;
             }
         }
     }
