@@ -18,7 +18,9 @@
     <div class="pestana_lbel"></div><!--PESTAÑA PARA DARLE ESTILO CON LBEL-->
     <div class="texto_titulo_reclamos" id="TituloReclamo">
         Queremos verte siempre satisfecha con nuestros productos y servicio <br />
-        <span>Si tuviste inconvenientes con algún producto y estás dentro del plazo permitido sigue estos pasos:</span>
+        <span>Si tuviste inconvenientes con algún producto y estás dentro del 
+            <a href="@Model.UrlPoliticaCdr" style="text-decoration: underline; font-weight: bold; display: inline;" target="_blank">plazo permitido</a> 
+        sigue estos pasos:</span>
     </div>
     <!--PASO A PASO RECLAMOS-->
     <div style="display:none;">
@@ -235,7 +237,12 @@
             </div>
             <hr class="clear"/>
             <div class="linea_separadora_roja" style="height: 2px;"></div>
-            <div class="politica_reclamos" id="btnAceptoPoliticas">Acepto la política de cambios y devoluciones</div>
+            <div class="politica_reclamos">
+                <div id="btnAceptoPoliticas" class="politica_reclamos_icono"></div>
+                <div style="display: inline;">
+                    <a href="@Model.UrlPoliticaCdr" target="_blank" style="display: inline;">Acepto la política de cambios y devoluciones</a>
+                </div>                
+            </div>
             <a class="btn_agrega_otro_reclamo" id="IrSolicitudInicial">AGREGA OTRO PRODUCTO A LA SOLICITUD</a>
             <a class="btn_si_stock_cdr" href="javascript:;" style="width: 296px; margin-top: 2px;" id="IrSolicitudEnviada">FINALIZA Y ENVÍA TU SOLICITUD</a>
             <hr class="clear"/>
