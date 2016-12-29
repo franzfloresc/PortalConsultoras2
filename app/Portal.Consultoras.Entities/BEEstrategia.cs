@@ -350,5 +350,19 @@ namespace Portal.Consultoras.Entities
                 DiasDuracionCronograma = Convert.ToInt16(Convert.IsDBNull(row["DiasDuracionCronograma"]) ? 1 : row["DiasDuracionCronograma"]);
         }
     }
+
+    public class BEEstrategiaType
+    {
+        public int CampaniaId { get; set; }
+        public string CUV { get; set; }
+        public string Descripción { get; set; }
+        public decimal PrecioOferta { get; set; }
+        public decimal PrecioTachado { get; set; }
+        public string CodigoSap { get; set; }
+        public int OfertaUltimoMinuto { get; set; }
+        public int LimiteVenta { get; set; }
+
+        public string UsuarioCreacion { get; set; }
+    }
 	// 1747 - Fin
 }
