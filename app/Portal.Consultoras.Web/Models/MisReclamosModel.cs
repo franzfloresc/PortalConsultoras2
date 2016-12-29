@@ -44,5 +44,6 @@ namespace Portal.Consultoras.Web.Models
         public int TieneHistoricoCDR { get; set; }
         public int CumpleRangoCampaniaCDR { get; set; }
         /*EPD-1339*/
+        public string UrlPoliticaCdr { get; set; }
     }
 }
