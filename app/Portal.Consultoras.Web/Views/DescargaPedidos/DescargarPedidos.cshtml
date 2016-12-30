@@ -80,6 +80,8 @@
                         if (checkTimeout(data)) {
                             closeWaitingDialog();
                             if (data.success == true) {
+                                $("#list").GridUnload(); //EPD-1435
+                                fnGrilla(); // EPD-1435
                                 alert(data.mensaje);
                                 //setInterval(function () { Confirmacion(JsonData) }, 10000);
                                 if (data.cabecera) {
