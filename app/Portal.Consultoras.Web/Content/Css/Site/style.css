@@ -12756,3 +12756,37 @@ label.checkpop.c_on {
 #tdTotalPrecio {
 margin-left:25px;
 }
+
+.boton_redondo_admcontenido_on {
+    width: 50px;
+    height: 50px;
+    border-radius: 100px;
+    background: #00A2E8;
+    display: inline-block;
+    vertical-align: middle;
+    margin: 10px;
+    font-family: 'Tahoma';
+    color: white;
+    line-height: 50px;
+    font-size: 25px;
+}
+.boton_redondo_admcontenido_off {
+    width: 50px;
+    height: 50px;
+    border-radius: 100px;
+    background: white;
+    display: inline-block;
+    vertical-align: middle;
+    margin: 10px;
+    font-family: 'Tahoma';
+    color: #00A2E8;
+    line-height: 50px;
+    font-size: 25px;
+    border: 1px solid #00A2E8;
+}
+.signo_admcontenido_estrategia {
+    display: inline-block;
+    vertical-align: middle;
+    color: #00A2E8;
+    font-size: 25px;
+}

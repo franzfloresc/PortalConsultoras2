@@ -5,9 +5,470 @@
     int nroImagenes = 10;
     string idControl;
 }
+
+<input type="hidden" id="mensajeErrorCUV" />
+<input type="hidden" id="mensajeErrorCUV2" />
+<input type="hidden" id="hdEstrategiaIDConsulta" />
+<input type="hidden" id="ImagenProducto" />
+<input type="hidden" id="hdEstrategiaID" />
+<input type="hidden" id="hdTipoConsulta" value="0" />
+<input type="hidden" id="hdZonas" value="" />
+<input type="hidden" id="hdSimbolo" />
+<input type="hidden" id="hdTallaColorID" />
+<div class="wrap_cab">
+    <div class="filtros2">
+        <div class="elements">
+            <div class="div-2">
+                <h1><span>Zona de Estrategias</span></h1>
+            </div>
+            <div class="div-3">
+                <div class="titG">País:</div>
+                <div class="selectA borde_redondeado">
+                    @Html.DropDownListFor(model => model.PaisID, new SelectList(Model.listaPaises, "PaisID", "Nombre"), "-- Seleccionar --", new { id = "ddlPais" })
+                </div>
+                <div class="titB">Campaña:</div>
+                <div class="selectA borde_redondeado">
+                    @Html.DropDownListFor(model => model.CampaniaID, new SelectList(Model.listaCampania, "CampaniaID", "NombreCorto"), "-- Seleccionar --", new { id = "ddlCampania" })
+                </div>
+            </div>
+            <div class="div-3">
+                <div class="titG">Tipo de Estrategia:</div>
+                <div class="selectA borde_redondeado">
+                    @*Html.DropDownListFor(model => model.TipoEstrategiaID, new SelectList(Model.ListaTipoEstrategia, "TipoEstrategiaID", "Descripcion"), new { id = "ddlTipoEstrategia" })*@
+                    <select id="ddlTipoEstrategia" name="ddlTipoEstrategia">
+                        @if (Model.ListaTipoEstrategia != null)
+                        {
+                            <option value="">-- Seleccionar --</option>
+                            for (int i = 0; i < Model.ListaTipoEstrategia.Count(); i++)
+                            {
+                                <option flag-nueva="@Model.ListaTipoEstrategia.ToList()[i].FlagNueva"
+                                        flag-recoproduct="@Model.ListaTipoEstrategia.ToList()[i].FlagRecoProduc"
+                                        flag-recoperfil="@Model.ListaTipoEstrategia.ToList()[i].FlagRecoPerfil"
+                                        codigo-programa="@Model.ListaTipoEstrategia.ToList()[i].CodigoPrograma"
+                                        imagen-tipo="@Model.ListaTipoEstrategia.ToList()[i].Imagen"
+                                        value="@Model.ListaTipoEstrategia.ToList()[i].TipoEstrategiaID"
+                                        data-id="@Model.ListaTipoEstrategia.ToList()[i].CodigoGeneral">
+                                    @Model.ListaTipoEstrategia.ToList()[i].Descripcion
+                                </option>
+                            }
+                        }
+                    </select>
+                </div>
+                <div class="titB">CUV<sub>2</sub>:</div>
+                <div class="selectA borde_redondeado">
+                    <input type="text" id="CUV" name="CUV" />
+                </div>
+            </div>
+            <div class="div-3">
+                <div class="titG">&nbsp;</div>
+                <div class="input_horizontal">
+                    <input type="button" name="btnBuscar" id="btnBuscar" value="Buscar" />
+                    <input type="button" name="btnNuevo" id="btnNuevo" value="Nuevo" />
+                    <input type="button" name="btnNuevoMasivo" id="btnNuevoMasivo" value="Nuevo Masivo" />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="wrap">
+    <div class="container clearfix">
+        <div class="border-wrapper">
+            <table id="list"></table>
+            <div id="pager"></div>
+        </div>
+    </div>
+</div>
+<div id="DialogAdministracionEstrategia" style="display: none;">
+    <input type="hidden" id="hdPais" value="" />
+    <input type="hidden" id="hdCampania" value="" />
+    <input type="hidden" id="hdTipoEstrategiaID" value="" />
+    <input type="hidden" id="hdColorFondo" value="#FFF" />
+    <input type="hidden" id="hdCodigoPrograma" value="">
+    <input type="hidden" id="hdNumeroPedido" value="">
+    <div class="Content_modal">
+        <div class="div-3">
+            <div class="titG">Campaña:</div>
+            <div class="selectP2 borde_redondeado">
+                <input id="spanCampania" type="text" readonly="readonly" />
+            </div>
+            <div class="titG">Tipo de Estrategia:</div>
+            <div class="selectP2 borde_redondeado">
+                <input id="spanTipoEstrategia" type="text" readonly="readonly" />
+            </div>
+        </div>
+        <div class="div-3 DatosNuevas" style="display: none">
+            <div class="titG">Vigencia Hasta:</div>
+            <div class="selectP2 borde_redondeado">
+                @Html.DropDownListFor(model => model.CampaniaID, new SelectList(Model.listaCampania, "CampaniaID", "NombreCorto"), "-- Seleccionar --", new { id = "ddlCampaniaFin" })
+            </div>
+            <div class="titG">Pedido Asociado:</div>
+            <div class="checksPedidosAsociados">
+            </div>
+        </div>
+        <div class="div-est-3">
+            &nbsp;
+        </div>
+        <div class="div-est-3">
+            <div class="titA">&nbsp;</div>
+            <div class="titA">Orden</div>
+            <div class="titB">Visible</div>
+            <div class="titG">Descripción</div>
+        </div>
+        <div class="div-est-3">
+            <div class="titA">&nbsp;</div>
+            <div class="titA">1</div>
+            <div class="titB">
+                <input type="checkbox" id="chkVisible1" disabled class="activar-desactivar" checked="checked" />
+            </div>
+            <div class="titG">
+                <input type="text" id="txtDescripcion" />
+            </div>
+        </div>
+        <div class="div-est-3">
+            <div class="titA">&nbsp;</div>
+            <div class="titA">2</div>
+            <div class="titB">
+                <input type="checkbox" id="chkVisible2" class="activar-desactivar" />
+            </div>
+            <div class="titA" style="text-align: right"><span class="OcultarNuevas">CUV:</span></div>
+            <div class="titB">
+                <input type="text" id="txtCUV" class="OcultarNuevas ValidaNumeral" maxlength="5" />
+            </div>
+            <div class="titE">Etiqueta:</div>
+            <div class="titD">
+                @*@Html.DropDownListFor(model => model.CampaniaID, new SelectList(Model.ListaEtiquetas, "EtiquetaID", "Descripcion"), "-- Seleccionar --", new { id = "ddlEtiqueta1" })*@
+                <select name="CampaniaID" id="ddlEtiqueta1">
+                    <option value="">-- Seleccionar --</option>
+                    @foreach (var x in Model.ListaEtiquetas)
+                    {
+                        <option value="@x.EtiquetaID" data-id="@x.CodigoGeneral">@x.Descripcion</option>
+                    }
+                </select>
+            </div>
+            <div class="titE">Precio:</div>
+            <div class="titB">
+                <input type="text" id="txtPrecio" />
+            </div>
+        </div>
+        <div class="div-est-3">
+            <div class="titA">&nbsp;</div>
+            <div class="titA">3</div>
+            <div class="titB">
+                <input type="checkbox" id="chkVisible3" disabled class="activar-desactivar" checked="checked" />
+            </div>
+            <div class="titA" style="text-align: right">CUV<sub>2</sub>:</div>
+            <div class="titB">
+                <input type="text" id="txtCUV2" maxlength="5" class="ValidaNumeral" />
+            </div>
+            <div class="titA"></div>
+            <div class="titE">Etiqueta:</div>
+            <div class="titD">
+                @*@Html.DropDownListFor(model => model.CampaniaID, new SelectList(Model.ListaEtiquetas, "EtiquetaID", "Descripcion"), "-- Seleccionar --", new { id = "ddlEtiqueta2" })*@
+                <select name="CampaniaID" id="ddlEtiqueta2">
+                    <option value="">-- Seleccionar --</option>
+                    @foreach (var x in Model.ListaEtiquetas)
+                    {
+                        <option value="@x.EtiquetaID" data-id="@x.CodigoGeneral">@x.Descripcion</option>
+                    }
+                </select>
+            </div>
+            <div class="titE">Precio:</div>
+            <div class="titB">
+                <input type="text" id="txtPrecio2" maxlength="10" class="ValidaNumeral" />
+            </div>
+            <div class="titE" style="margin-left: 5px">Talla/Color:</div>
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            <a href="#" style="margin-left: 5px" id="linkTallaColor">
+                <img src='@Url.Content("~/Content/Images/icons/small/list-icon2.png")' border="0" alt="Agregar Tonos/Tallas/Colores" title="Agregar Tonos/Tallas/Colores" />
+            </a>
+        </div>
+        <div class="div-est-3">
+            <div class="titA">&nbsp;</div>
+            <div class="titA">4</div>
+            <div class="titB">
+                <input type="checkbox" id="chkVisible4" class="activar-desactivar" />
+            </div>
+            <div class="titG">
+                <input type="text" id="txtTextoLibre" maxlength="100" />
+            </div>
+        </div>
+        <div class="div-est-3 Recomendados" style="display: none">
+            <div class="titA">&nbsp;</div>
+            <div class="titA">5</div>
+            <div class="titB">
+                <input type="checkbox" id="chkVisible5" class="activar-desactivar" />
+            </div>
+            <div class="titA" style="display: none">
+                <input type="text" id="txtCantidad" />
+            </div>
+            <div class="titG" id="idColorFondo" style="display: none; width:200px;">
+                Elegir color de fondo:&nbsp;<input type='text' id="txtColorFondo" />
+            </div>
+            <div class="titG" id="idEstrella" style="width:130px;">
+                <span id="txt1-estrella">Mostrar estrella</span>        <!--SB20-312 -->
+                <input type="checkbox" id="chkEstrella" />
+            </div>
+            <div class="titG" style="width:380px" id="txt2-estrella">&nbsp;(Solo para Ofertas Recomendar / Ofertas Segmentadas)</div>   <!--SB20-312 -->
+        </div>
+        <div class="div-est-3">
+            &nbsp;
+        </div>
+        <div class="div-3">
+            <style>
+                .div-img-estrategias {
+                    float: left;
+                    width: 600px;
+                }
+
+                    .div-img-estrategias > .titG {
+                        width: 100px;
+                    }
+
+                .img-estrategia-preview {
+                    cursor: pointer;
+                    width: 100%;
+                    height: 35px;
+                }
+            </style>
+
+            <div class="titG">Imagen:</div>
+            <div class="div-img-estrategias">
+                @for (int i = 1; i <= nroImagenes; i++)
+                {
+                    idControl = "0" + i;
+                    idControl = idControl.Substring(idControl.Length - 2);
+
+                    <div class="titG">
+                        <div class="pdr_modal borde_redondeado aligncenter">
+                            <img src='@Url.Content("~/Content/Images/" + imagenVacia)' id="preview@(i)" class="img-estrategia-preview" data-id="@(i)">
+                        </div>
+                        <div class="pdr_modal_check aligncenter">
+                            <input type="checkbox" id="chkImagenProducto@(idControl)" class="chk-estrategia-imagen" data-id="@(i)">
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+        <div class="div-3">
+            <div class="titG">¿Activar Oferta?</div>
+            <div class="selectCheck borde_redondeado">
+                <input type="checkbox" class="check" id="chkHabilitarOferta" />
+            </div>
+        </div>
+        <div class="div-est-3" id="div-orden">
+            <!--SB20-312 -->
+            <div class="titB">&nbsp;</div>
+            <div class="titB">Orden:</div>
+            <div class="titB">
+                <input type="text" id="txtOrden" value="" maxlength="3" />
+            </div>
+        </div>
+        <div class="div-est-3">
+            <div class="titB">&nbsp;</div>
+            <div class="titB">Alcance:</div>
+            <div class="titD">
+                <input type="text" id="txtAlcance" readonly="readonly" />
+            </div>
+            <div class="titA" style="width:20px">
+                <a href="#" style="margin-left: 5px" id="linkAlcance">
+                    <img src='@Url.Content("~/Content/Images/search.png")' border="0" alt="Seleccionar alcance" title="Seleccionar alcance" />
+                </a>
+            </div>
+            <div class="titG" style="width:300px">&nbsp;(Seleccionar Pa&iacute;s, Regi&oacute;n o Zona)</div>
+        </div>
+        <div class="div-est-3">
+            <div class="titB">&nbsp;</div>
+            <div class="titB">Limite de Venta:</div>
+            <div class="titB">
+                <input type="text" id="txtLimite" value="99" />
+            </div>
+            <div class="titG">&nbsp;(N&uacute;mero de Unidades m&aacute;ximas por Consultora)</div>
+        </div>
+    </div>
+</div>
+<div id="DialogZona" style="display: none;">
+    <div class="Content_modal">
+        <div class="div-3">
+            <div class="treeview_est_content">
+                <div id="arbolRegionZona" class="demo">
+                </div>
+            </div>
+        </div>
+        <div class="div-3">
+            <div class="titF"></div>
+            <div class="titF"></div>
+            <div class="titH"><input type="checkbox" id="chkSeleccionar" />Seleccionar todo</div>
+        </div>
+    </div>
+</div>
+<div id="DialogEditarTallaColor" style="display: none;">
+    <div class="Content_modal">
+        <div class="div-3">
+            <div class="titG">CUV:</div>
+            <div class="selectP2 borde_redondeado">
+                <input type="text" id="txtCUVTC" />
+            </div>
+        </div>
+        <div class="div-3">
+            <div class="titG">Descripción:</div>
+            <div class="selectP2 borde_redondeado" style="width: 300px">
+                <input type="text" id="txtDescripcionCUVTC" style="width: 290px" readonly="readonly" />
+            </div>
+        </div>
+        <div class="div-3">
+            <div class="titG">Precio:</div>
+            <div class="selectP2 borde_redondeado">
+                <input type="text" id="txtPrecioCUVTC" readonly="readonly" />
+            </div>
+        </div>
+        <div class="div-3">
+            <div class="titG">Tipo:</div>
+            <div class="selectP2 borde_redondeado">
+                <select id="ddlTallaColor">
+                    <option value='0'>-- Seleccionar --</option>
+                    <option value='C'>Color</option>
+                    <option value='T'>Talla</option>
+                </select>
+            </div>
+        </div>
+        <div class="div-3">
+            <div class="titG">Descripción (Talla/Color):</div>
+            <div class="selectP2 borde_redondeado">
+                <input type="text" id="txtDescripcionTC" />
+            </div>
+        </div>
+    </div>
+</div>
+<div id="DialogTonoMarca" style="display: none;">
+    <div class="Content_modal">
+        <table id="listTC"></table>
+        <div id="pagerTC"></div>
+    </div>
+</div>
+<div id="divVistaPrevia" class="Content_modal_ZE" style="display: none; background-color: #fff; width: 200px; height: 330px; overflow: hidden; text-align: center">
+    <div class="Content_modal_ZE" style="margin: 5px; overflow: hidden;">
+        <div style="position: absolute; width: 100%;">
+            <img id="imgTipoOferta" style="float: right; margin-top: 10px;" src="">
+        </div>
+        <div style="position: absolute; width: 100%;">
+            <img id="imgEstrella" style="float: left; margin-top: 10px; width: 23px; height: 23px;" src="@Url.Content("~/Content/Images/star_reco.png")">
+        </div>
+        <img id="imgZonaEstrategia" style="width: 128px; height: 161px; margin: 5px;" src="" alt="Imagen Producto">
+    </div>
+    <div class="zona_estrategia_1"></div>
+    <div>&nbsp;</div>
+    <div class="zona_estrategia_2"></div>
+    <div class="zona_estrategia_3"></div>
+    <div class="zona_estrategia_4"></div>
+</div>
+<div id="DialogNuevoMasivo" style="display: none;">
+    <div class="Content_modal">
+        <div class="div-3" style="text-align: center;">
+            <div class="boton_redondo_admcontenido_on" id="divPaso1">1</div>
+            <div class="signo_admcontenido_estrategia">></div>
+            <div class="boton_redondo_admcontenido_off" id="divPaso2">2</div>
+            <div class="signo_admcontenido_estrategia">></div>
+            <div class="boton_redondo_admcontenido_off" id="divPaso3">3</div>
+        </div>
+        <div id="divMasivoPaso1">
+            <div class="div-3" style="text-align: center; color: #00A2E8;">
+                Pre Carga de CUVS pendientes por configurar en Zona de Estrategias
+            </div>
+            <div class="container" style="width: auto;">
+                <div class="border-wrapper">
+                    <table id="listCargaMasiva1"></table>
+                    <div id="pagerCargaMasiva1"></div>
+                </div>
+            </div>
+            <div id="divMostrarPreCarga">
+                <div class="div-3" style="text-align: center; color: #00A2E8; margin-top: 20px;">
+                    ¿Deseas pre cargar la información de los CUVS pendientes por configurar? (<span id="spnCantidadConfigurar1">11</span>) CUVS
+                </div>
+                <div class="div-3">
+                    <div class="input_horizontal" style="text-align: center;">
+                        <input type="button" name="btnAceptarMasivo1" id="btnAceptarMasivo1" value="Aceptar" style="float: none;"/>
+                        <input type="button" name="btnCancelarMasivo1" id="btnCancelarMasivo1" value="Cancelar" style="float: none;"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="divMasivoPaso2" style="display: none;">
+            <div class="div-3" style="text-align: center; color: #00A2E8;">
+                Grabar información en Zona de Estrategias
+            </div>
+            <div class="container" style="width: auto;">
+                <div class="border-wrapper">
+                    <table id="listCargaMasiva2"></table>
+                    <div id="pagerCargaMasiva2"></div>
+                </div>
+            </div>
+            <div id="divMostrarPreCarga2">
+                <div class="div-3" style="text-align: center; color: #00A2E8; margin-top: 20px;">
+                    ¿Deseas grabar la información de los CUVS pre cargados correctamente en la Zona de Estrategias? (<span id="spnCantidadConfigurar2">11</span>) CUVS
+                </div>
+                <div class="div-3">
+                    <div class="input_horizontal" style="text-align: center;">
+                        <input type="button" name="btnAceptarMasivo2" id="btnAceptarMasivo2" value="Aceptar" style="float: none;" />
+                        <input type="button" name="btnCancelarMasivo2" id="btnCancelarMasivo2" value="Cancelar" style="float: none;" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="divMasivoPaso3" style="display: none;">
+            <div class="div-3" style="text-align: center; color: #00A2E8;">
+                Confirmación de grabación en Zona de Estrategias
+            </div>
+            <div class="div-3" style="text-align: center; margin-top: 20px;">
+                Se grabó la información de los <a onclick=" VerCuvsTipo2(1); "><span id="spnCantidadConfigurar3">11</span> CUVS</a>
+            </div>
+            <div id="divMostrarNoCargados" class="div-3" style="text-align: center; margin-top: 20px;">
+                Quedan <a onclick=" VerCuvsTipo2(2); "><span id="spnCantidadNoConfigurar3">11</span> CUVS</a> pendientes para cargar.
+            </div>
+            <div class="div-3">
+                <div class="input_horizontal" style="text-align: center;">
+                    <input type="button" name="btnAceptarMasivo3" id="btnAceptarMasivo3" value="Aceptar" style="float: none;" />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="DialogGrillaCuv1">
+    <div class="Content_modal">
+        <div class="container" style="width: auto;">
+            <div class="border-wrapper">
+                <table id="listGrillaCuv1"></table>
+                <div id="pagerGrillaCuv1"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="DialogGrillaCuv2">
+    <div class="Content_modal">
+        <div class="container" style="width: auto;">
+            <div class="border-wrapper">
+                <table id="listGrillaCuv2"></table>
+                <div id="pagerGrillaCuv2"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="loadingScreen"></div>
+
 <script type="text/javascript">
     var nroImagenes = '@nroImagenes';
     var imagenVacia = '@imagenVacia';
+    var rutaImagenVacia = '@Url.Content("~/Content/Images/" + imagenVacia)';
+    var urlGetOfertaByCUV = baseUrl + 'AdministrarEstrategia/GetOfertaByCUV';
+    var urlCargarArbolRegionesZonas = baseUrl + "AdministrarEstrategia/CargarArbolRegionesZonas";
+    var rutastylejstree = '@Url.Content("~/Content/Css/jstree/apple/stylejstree.css")';
+    var rutaImagenEdit = '@Url.Content("~/Content/Images/Edit.png")';
+    var rutaImagenDelete = '@Url.Content("~/Content/Images/Delete.png")';
+    var urlFiltrarEstrategia = baseUrl + 'AdministrarEstrategia/FiltrarEstrategia';
+    var urlDeshabilitarEstrategia = baseUrl + 'AdministrarEstrategia/DeshabilitarEstrategia';
+    var cantidadPrecargar = 0;
+    var cantidadPrecargar2 = 0;
+    var urlConsultarCuvTipoConfigurado = baseUrl + 'AdministrarEstrategia/ConsultarCuvTipoConfigurado';
+    var urlConsultarCuvTipoConfiguradoTemporal = baseUrl + 'AdministrarEstrategia/ConsultarCuvTipoConfiguradoTemporal';
 
     jQuery(document).ready(function () {
         fnGrilla();
@@ -39,7 +500,7 @@
                 idImagen = ('0' + i).substr(-2);
                 objPreview = $('#preview' + i);
                 objChkImagen = $('#chkImagenProducto' + idImagen);
-                objPreview.attr("src", '@Url.Content("~/Content/Images/" + imagenVacia)');
+                objPreview.attr("src", rutaImagenVacia);
                 objChkImagen.attr('disabled', true).attr('checked', false);
             }
 
@@ -397,7 +858,7 @@
 
                 jQuery.ajax({
                     type: 'POST',
-                    url: baseUrl + 'AdministrarEstrategia/GetOfertaByCUV',
+                    url: urlGetOfertaByCUV,
                     dataType: 'json',
                     contentType: 'application/json; charset=utf-8',
                     data: JSON.stringify(params),
@@ -446,7 +907,7 @@
                                     objChkImagen.attr('disabled', false);
                                 }
                                 else {
-                                    objPreview.attr('src', '@Url.Content("~/Content/Images/" + imagenVacia)');
+                                    objPreview.attr('src', rutaImagenVacia);
                                     objChkImagen.attr('disabled', true);
                                 }
 
@@ -476,28 +937,28 @@
                                     objChkImagen.attr('disabled', false);
                                 }
                                 else {
-                                    objPreview.attr('src', '@Url.Content("~/Content/Images/" + imagenVacia)');
+                                    objPreview.attr('src', rutaImagenVacia);
                                     objChkImagen.attr('disabled', true);
                                 }
                                 objChkImagen.attr('checked', false);
                             }
 
-                            @*$("#preview1").attr("src", data.imagen1);
-                            $("#preview2").attr("src", data.imagen2);
-                            $("#preview3").attr("src", data.imagen3);
+                            //$("#preview1").attr("src", data.imagen1);
+                            //$("#preview2").attr("src", data.imagen2);
+                            //$("#preview3").attr("src", data.imagen3);
 
-                            if (data.imagen1 == "") {
-                                $("#preview1").attr("src", '@Url.Content("~/Content/Images/" + imagenVacia)');
-                                $("#chkImagenProducto01").attr('disabled', true);
-                            } else { $("#chkImagenProducto01").attr('disabled', false); }
-                            if (data.imagen2 == "") {
-                                $("#preview2").attr("src", '@Url.Content("~/Content/Images/" + imagenVacia)');
-                                $("#chkImagenProducto02").attr('disabled', true);
-                            } else { $("#chkImagenProducto02").attr('disabled', false); }
-                            if (data.imagen3 == "") {
-                                $("#preview3").attr("src", '@Url.Content("~/Content/Images/" + imagenVacia)');
-                                $("#chkImagenProducto03").attr('disabled', true);
-                            } else { $("#chkImagenProducto03").attr('disabled', false); }*@
+                            //if (data.imagen1 == "") {
+                            //    $("#preview1").attr("src", rutaImagenVacia);
+                            //    $("#chkImagenProducto01").attr('disabled', true);
+                            //} else { $("#chkImagenProducto01").attr('disabled', false); }
+                            //if (data.imagen2 == "") {
+                            //    $("#preview2").attr("src", rutaImagenVacia);
+                            //    $("#chkImagenProducto02").attr('disabled', true);
+                            //} else { $("#chkImagenProducto02").attr('disabled', false); }
+                            //if (data.imagen3 == "") {
+                            //    $("#preview3").attr("src", rutaImagenVacia);
+                            //    $("#chkImagenProducto03").attr('disabled', true);
+                            //} else { $("#chkImagenProducto03").attr('disabled', false); }
                             //$('#chkImagenProducto01').attr('checked', false);
                             //$('#chkImagenProducto02').attr('checked', false);
                             //$('#chkImagenProducto03').attr('checked', false);
@@ -510,7 +971,7 @@
                     }
                 });
             }
-        });        
+        });
         $(".chk-estrategia-imagen").click(function () {
             var id = $(this).attr('data-id');
             if ($(this).attr('checked')) {
@@ -547,7 +1008,7 @@
                 $(this).attr('disabled', false);
                 PaletaColores();
             }
-        });        
+        });
         $(".img-estrategia-preview").click(function () {
             var id = $(this).attr('data-id');
             var idImagen = ('0' + id).substr(-2);
@@ -555,17 +1016,283 @@
 
             if (objChkImagen.attr("disabled") != "disabled") MostrarVistaPrevia('preview' + id);
         });
+
+        $("#btnNuevoMasivo").click(function () {
+            if ($("#ddlPais").val() == "") {
+                alert("Debe seleccionar el País, verifique.");
+                return false;
+            }
+            if ($("#ddlCampania").val() == "") {
+                alert("Debe seleccionar la Campaña, verifique.");
+                return false;
+            }
+            if ($("#ddlTipoEstrategia").val() == "") {
+                alert("Debe seleccionar un tipo de estrategia, verifique.");
+                return false;
+            } else {
+                var estrategiaId = $("#ddlTipoEstrategia option:selected").attr("data-id");
+                if (estrategiaId != 4) {
+                    alert("Debe seleccionar el tipo de Estrategia Oferta para Ti, verifique.");
+                    return false;
+                }
+            }
+
+            $("#divMasivoPaso1").show();
+            $("#divMasivoPaso2").hide();
+            $("#divMasivoPaso3").hide();
+
+            $("#divPaso1").removeClass("boton_redondo_admcontenido_off");
+            $("#divPaso1").addClass("boton_redondo_admcontenido_on");
+
+            $("#divPaso2").removeClass("boton_redondo_admcontenido_on");
+            $("#divPaso2").addClass("boton_redondo_admcontenido_off");
+
+            $("#divPaso3").removeClass("boton_redondo_admcontenido_on");
+            $("#divPaso3").addClass("boton_redondo_admcontenido_off");
+
+            fnGrillaEstrategias1();
+
+            //$(".ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset").css("float", "none");
+            //$(".ui-dialog .ui-dialog-buttonpane").css("text-align", "center");
+            showDialog("DialogNuevoMasivo");
+        });
+
+        $("#btnAceptarMasivo1").click(function () {
+            var params = {
+                campaniaId: parseInt($("#ddlCampania").val()),
+                tipoConfigurado: 2
+            };
+
+            waitingDialog({});
+
+            jQuery.ajax({
+                type: 'POST',
+                url: baseUrl + 'AdministrarEstrategia/InsertEstrategiaTemporal',
+                dataType: 'json',
+                contentType: 'application/json; charset=utf-8',
+                data: JSON.stringify(params),
+                async: true,
+                success: function (data) {
+                    if (data.success) {
+                        closeWaitingDialog();
+                        fnGrillaEstrategias2();                                              
+                    } else {
+                        alert(data.message);
+                    }
+                },
+                error: function (data, error) {
+                    alert(data.message);
+                }
+            });
+        });
+
+        $("#btnCancelarMasivo1").click(function() {
+            HideDialog("DialogNuevoMasivo");
+        });
+
+        $("#btnAceptarMasivo2").click(function() {
+            var params = {
+                campaniaId: parseInt($("#ddlCampania").val()),
+                tipoConfigurado: 1
+            };
+
+            waitingDialog({});
+
+            jQuery.ajax({
+                type: 'POST',
+                url: baseUrl + 'AdministrarEstrategia/InsertEstrategiaOfertaParaTi',
+                dataType: 'json',
+                contentType: 'application/json; charset=utf-8',
+                data: JSON.stringify(params),
+                async: true,
+                success: function (data) {
+                    if (data.success) {
+                        closeWaitingDialog();
+                        //fnGrillaEstrategias2();
+                        $("#divMasivoPaso1").hide();
+                        $("#divMasivoPaso2").hide();
+                        $("#divMasivoPaso3").show();
+
+                        $("#divPaso1").removeClass("boton_redondo_admcontenido_on");
+                        $("#divPaso1").addClass("boton_redondo_admcontenido_off");
+
+                        $("#divPaso2").removeClass("boton_redondo_admcontenido_on");
+                        $("#divPaso2").addClass("boton_redondo_admcontenido_off");
+
+                        $("#divPaso3").removeClass("boton_redondo_admcontenido_off");
+                        $("#divPaso3").addClass("boton_redondo_admcontenido_on");
+                    } else {
+                        alert(data.message);
+                    }
+                },
+                error: function (data, error) {
+                    alert(data.message);
+                }
+            });
+        });
+
+        $("#btnCancelarMasivo2").click(function () {
+            var params = {
+                campaniaId: parseInt($("#ddlCampania").val())
+            };
+
+            jQuery.ajax({
+                type: 'POST',
+                url: baseUrl + 'AdministrarEstrategia/CancelarInsertEstrategiaTemporal',
+                dataType: 'json',
+                contentType: 'application/json; charset=utf-8',
+                data: JSON.stringify(params),
+                async: true,
+                success: function (data) {
+                    if (data.success) {
+                        HideDialog("DialogNuevoMasivo");                        
+                    }
+                    alert(data.message);
+                },
+                error: function (data, error) {
+                    alert(data.message);
+                }
+            });            
+        });
+
+        $("#btnAceptarMasivo3").click(function () {
+            HideDialog("DialogNuevoMasivo");
+        });
+        
     });
 
     ///////////////
-
     $(document).keydown(function (e) {
         if (e.keyCode == 8 && e.target.tagName != 'INPUT' && e.target.tagName != 'TEXTAREA') {
             e.preventDefault();
         }
-    })
-
+    });
     //////////////
+
+    function fnGrillaEstrategias1() {
+        $("#listCargaMasiva1").jqGrid("GridUnload");
+        jQuery("#listCargaMasiva1").jqGrid({
+            url: baseUrl + "AdministrarEstrategia/ConsultarOfertasParaTi",
+            hidegrid: false,
+            datatype: 'json',
+            postData: ({
+                CampaniaID: $("#ddlCampania").val()
+            }),
+            mtype: 'GET',
+            contentType: "application/json; charset=utf-8",
+            //colNames: ['Descripcion', 'Cantidad'],
+            colNames: ['Id', 'Descripción', 'Cantidad'],
+            colModel: [
+                { name: 'Id', index: 'Id', width: 100, editable: true, resizable: false, hidden: true },
+                { name: 'Descripcion', index: 'Descripcion', width: 100, editable: true, resizable: false },
+                { name: 'Activo', index: 'Activo', width: 30, align: 'center', editable: true, resizable: false, formatter: ShowActionsVer1 }
+            ],
+            jsonReader:
+            {
+                root: "rows",
+                page: "page",
+                total: "total",
+                records: "records",
+                repeatitems: true,
+                cell: "cell",
+                id: "id"
+            },
+            pager: jQuery('#pagerCargaMasiva1'),
+            loadtext: 'Cargando datos...',
+            recordtext: "{0} - {1} de {2} Registros",
+            emptyrecords: 'No hay resultados',
+            rowNum: 10,
+            scrollOffset: 0,
+            rowList: [10, 20, 30, 40, 50],
+            sortname: 'Orden',
+            sortorder: 'asc',
+            viewrecords: true,
+            multiselect: false,
+            height: 'auto',
+            width: 540,
+            pgtext: 'Pág: {0} de {1}',
+            altRows: true,
+            altclass: 'jQGridAltRowClass',
+            loadComplete: function () { },
+            gridComplete: function() {
+                if (cantidadPrecargar == 0) {
+                    $("#divMostrarPreCarga").css("display", "none");
+                } else {
+                    $("#divMostrarPreCarga").css("display", "");
+                    $("#spnCantidadConfigurar1").html(cantidadPrecargar);
+                }                
+            }
+        });
+        jQuery("#listCargaMasiva1").jqGrid('navGrid', "#pagerCargaMasiva1", { edit: false, add: false, refresh: false, del: false, search: false });
+        jQuery("#listCargaMasiva1").setGridParam({ datatype: 'json', page: 1 }).trigger('reloadGrid');
+    }
+
+    function fnGrillaEstrategias2() {
+        $("#listCargaMasiva2").jqGrid("GridUnload");
+        jQuery("#listCargaMasiva2").jqGrid({
+            url: baseUrl + "AdministrarEstrategia/ConsultarOfertasParaTiTemporal",
+            hidegrid: false,
+            datatype: 'json',
+            postData: ({
+                CampaniaID: $("#ddlCampania").val()
+            }),
+            mtype: 'GET',
+            contentType: "application/json; charset=utf-8",
+            //colNames: ['Descripcion', 'Cantidad'],
+            colNames: ['Id', 'Descripción', 'Cantidad'],
+            colModel: [
+                { name: 'Id', index: 'Id', width: 100, editable: true, resizable: false, hidden: true },
+                { name: 'Descripcion', index: 'Descripcion', width: 100, editable: true, resizable: false },
+                { name: 'Activo', index: 'Activo', width: 30, align: 'center', editable: true, resizable: false, formatter: ShowActionsVer2 }
+            ],
+            jsonReader:
+            {
+                root: "rows",
+                page: "page",
+                total: "total",
+                records: "records",
+                repeatitems: true,
+                cell: "cell",
+                id: "id"
+            },
+            pager: jQuery('#pagerCargaMasiva2'),
+            loadtext: 'Cargando datos...',
+            recordtext: "{0} - {1} de {2} Registros",
+            emptyrecords: 'No hay resultados',
+            rowNum: 10,
+            scrollOffset: 0,
+            rowList: [10, 20, 30, 40, 50],
+            sortname: 'Orden',
+            sortorder: 'asc',
+            viewrecords: true,
+            multiselect: false,
+            height: 'auto',
+            width: 540,
+            pgtext: 'Pág: {0} de {1}',
+            altRows: true,
+            altclass: 'jQGridAltRowClass',
+            loadComplete: function () { },
+            gridComplete: function () {
+                if (cantidadPrecargar2 == 0) {
+                    $("#divMostrarPreCarga2").css("display", "none");
+                } else {
+                    $("#divMostrarPreCarga2").css("display", "");
+                    $("#spnCantidadConfigurar2").html(cantidadPrecargar2);
+                }
+
+                $("#divMasivoPaso1").hide();
+                $("#divMasivoPaso2").show();
+
+                $("#divPaso1").removeClass("boton_redondo_admcontenido_on");
+                $("#divPaso1").addClass("boton_redondo_admcontenido_off");
+
+                $("#divPaso2").removeClass("boton_redondo_admcontenido_off");
+                $("#divPaso2").addClass("boton_redondo_admcontenido_on");
+            }
+        });
+        jQuery("#listCargaMasiva2").jqGrid('navGrid', "#pagerCargaMasiva2", { edit: false, add: false, refresh: false, del: false, search: false });
+        jQuery("#listCargaMasiva2").setGridParam({ datatype: 'json', page: 1 }).trigger('reloadGrid');
+    }
 
     // 2209 - Inicio
     function CerrarTallaColor() {
@@ -650,9 +1377,11 @@
         showDialog('divVistaPrevia');
         return false;
     }
+
     function InitCap(str) {
         return str.replace(/([^\W_]+[^\s-]*) */g, function (txt) { return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase(); });
     }
+
     function PaletaColores() {
         $("#txtColorFondo").spectrum({
             color: $("#hdColorFondo").val(),
@@ -697,6 +1426,7 @@
             ]
         });
     }
+
     function SeleccionarTipoOferta() {
         var flagNueva = $("#ddlTipoEstrategia option:selected").attr("flag-nueva");
         var flagRecoProduc = $("#ddlTipoEstrategia option:selected").attr("flag-recoproduct");
@@ -793,11 +1523,12 @@
             }
         });
     }
+
     function cargarArbol() {
         $("#arbolRegionZona").jstree({
             json_data: {
                 ajax: {
-                    url: baseUrl + "AdministrarEstrategia/CargarArbolRegionesZonas",
+                    url: urlCargarArbolRegionesZonas,
                     data: function (n) {
                         return { pais: $("#ddlPais").val(), region: 0, zona: 0 };
                     },
@@ -806,7 +1537,7 @@
                     success: function (data, textStatus, jqXHR) { },
                     complete: function () {
                         // $.jstree._reference($("#arbolRegionZona")).check_all();
-                        $("#arbolRegionZona").jstree("set_theme", "apple", "@Url.Content("~/Content/Css/jstree/apple/stylejstree.css")");
+                        $("#arbolRegionZona").jstree("set_theme", "apple", rutastylejstree);
                         closeWaitingDialog();
                     }
                 }
@@ -819,6 +1550,7 @@
             plugins: ["themes", "json_data", "ui", "checkbox"]
         });
     }
+
     function fnGrilla() {
         $("#list").jqGrid("GridUnload");
         jQuery("#list").jqGrid({
@@ -880,6 +1612,7 @@
         jQuery("#list").setGridParam({ datatype: 'json', page: 1 }).trigger('reloadGrid');
         //  $("#list").jqGrid('hideCol', ["NumeroPedido"]); /*R20160301*/
     }
+
     function fnGrillaTC() {
         $("#listTC").jqGrid("GridUnload");
         jQuery("#listTC").jqGrid({
@@ -938,19 +1671,22 @@
         jQuery("#listTC").jqGrid('navGrid', "#pagerTC", { edit: false, add: false, refresh: false, del: false, search: false });
         jQuery("#listTC").setGridParam({ datatype: 'json', page: 1 }).trigger('reloadGrid');
     }
+
     function ShowInputTC(cellvalue, options, rowObject) {
         var Des = "";
         Des += "<input type='text' value='" + cellvalue + "' style='width:160px' />";
         return Des;
     }
+
     function ShowActionsTC(cellvalue, options, rowObject) {
         var cellValueInt = parseInt(rowObject[0]);
-        var Des = "<a href='javascript:;' onclick=\"return EditarTalla('" + rowObject[0] + "');\" >" + "<img src='@Url.Content("~/Content/Images/Edit.png")' alt='Editar Talla/Color' title='Editar Talla/Color' border='0' /></a>";
+        var Des = "<a href='javascript:;' onclick=\"return EditarTalla('" + rowObject[0] + "');\" >" + "<img src='" + rutaImagenEdit + "' alt='Editar Talla/Color' title='Editar Talla/Color' border='0' /></a>";
         if ($.trim(rowObject[1]) != $.trim($("#txtCUV2").val())) {
-            Des += "<a href='javascript:;' onclick=\"return Eliminar('" + rowObject[0] + "');\" >" + "<img src='@Url.Content("~/Content/Images/Delete.png")' alt='Quitar Talla/Color' title='Quitar Talla/Color' border='0' /></a>";
+            Des += "<a href='javascript:;' onclick=\"return Eliminar('" + rowObject[0] + "');\" >" + "<img src='" + rutaImagenDelete + "' alt='Quitar Talla/Color' title='Quitar Talla/Color' border='0' /></a>";
         }
         return Des;
     }
+
     function EditarTalla(id) {
         $("#hdTallaColorID").val(id);
         $('#txtCUVTC').val(jQuery("#listTC").jqGrid('getCell', id, 'CUV'));
@@ -962,6 +1698,7 @@
         showDialog("DialogEditarTallaColor");
         return false;
     }
+
     function Eliminar(id) {
         var elimina = confirm('¿ Está seguro que desea eliminar el registro seleccionado?');
         if (!elimina)
@@ -987,20 +1724,185 @@
             }
         });
     }
+
     function ShowActions(cellvalue, options, rowObject) {
         var cellValueInt = parseInt(cellvalue);
-        var Des = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('#list').Editar('" + rowObject[0] + "');\" >" + "<img src='@Url.Content("~/Content/Images/Edit.png")' alt='Editar Estrategia' title='Editar Estrategia' border='0' /></a>";
+        var Des = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('#list').Editar('" + rowObject[0] + "');\" >" + "<img src='" + rutaImagenEdit + "' alt='Editar Estrategia' title='Editar Estrategia' border='0' /></a>";
         if (cellValueInt == "1") {
-            Des += "&nbsp;&nbsp;<a href='javascript:;' onclick=\"return jQuery('#list').Eliminar('" + rowObject[0] + "');\" >" + "<img src='@Url.Content("~/Content/Images/Delete.png")' alt='Deshabilitar Estrategia' title='Deshabilitar Estrategia' border='0' /></a>";
+            Des += "&nbsp;&nbsp;<a href='javascript:;' onclick=\"return jQuery('#list').Eliminar('" + rowObject[0] + "');\" >" + "<img src='" + rutaImagenDelete + "' alt='Deshabilitar Estrategia' title='Deshabilitar Estrategia' border='0' /></a>";
         }
         return Des;
     }
+
     function ShowImage(cellvalue, options, rowObject) {
         var image = "";
         if (cellvalue != "") image = '<img src="' + cellvalue + '" alt="" width="60px" height="60px" title="" border="0" />';
-        else image = '<img src="@Url.Content("~/Content/Images/" + imagenVacia)" alt="" width="60px" height="60px" title="" border="0" />';
+        else image = '<img src="' + rutaImagenVacia + '" alt="" width="60px" height="60px" title="" border="0" />';
         return image;
     }
+
+    function ShowActionsVer1(cellvalue, options, rowObject) {
+        var text = "";
+
+        var cantidad = rowObject[2];
+        var tipo = rowObject[3];
+
+        if (tipo == "2")
+            cantidadPrecargar = parseInt(cantidad);
+
+        if (cantidad != "0")
+            text = rowObject[2] + " <a href='javascript:;' onclick=VerCuvsTipo('" + tipo + "')>ver</a>";
+        else
+            text = rowObject[2];
+
+        return text;
+    }
+
+    function ShowActionsVer2(cellvalue, options, rowObject) {
+        var text = "";
+
+        var cantidad = rowObject[2];
+        var tipo = rowObject[3];
+
+        if (tipo == "1") {
+            cantidadPrecargar2 = parseInt(cantidad);
+            $("#spnCantidadConfigurar3").html(parseInt(cantidad));
+        }
+        if (tipo == '2')
+            $("#spnCantidadNoConfigurar3").html(parseInt(cantidad));
+
+        if (cantidad != "0")
+            text = rowObject[2] + " <a href='javascript:;' onclick=VerCuvsTipo2('" + tipo + "')>ver</a>";
+        else
+            text = rowObject[2];
+
+        return text;
+    }
+
+    function VerCuvsTipo(tipo) {
+        fnGrillaCuv1(tipo);
+    }
+
+    function fnGrillaCuv1(tipo) {
+        $("#listGrillaCuv1").jqGrid("clearGridData");
+
+        var parametros = {
+            campaniaId: parseInt($("#ddlCampania").val()),
+            tipoConfigurado: parseInt(tipo)
+        };
+
+        $('#listGrillaCuv1').setGridParam({ postData: parametros });
+
+        jQuery("#listGrillaCuv1").jqGrid({
+            url: urlConsultarCuvTipoConfigurado,
+            hidegrid: false,
+            datatype: 'json',
+            postData: (parametros),
+            mtype: 'GET',
+            contentType: "application/json; charset=utf-8",
+            colNames: ['CUV', 'Descripción'],
+            colModel: [
+                { name: 'CUV2', index: 'CUV', width: 10, editable: true, resizable: false},
+                { name: 'DescripcionCUV2', index: 'DescripcionCUV2', width: 90, editable: true, resizable: false },
+            ],
+            jsonReader:
+            {
+                root: "rows",
+                page: "page",
+                total: "total",
+                records: "records",
+                repeatitems: true,
+                cell: "cell",
+                id: "id"
+            },
+            pager: jQuery('#pagerGrillaCuv1'),
+            loadtext: 'Cargando datos...',
+            recordtext: "{0} - {1} de {2} Registros",
+            emptyrecords: 'No hay resultados',
+            rowNum: 10,
+            scrollOffset: 0,
+            rowList: [10, 20, 30, 40, 50],
+            sortname: 'Nombre',
+            sortorder: 'asc',
+            viewrecords: true,
+            multiselect: false,
+            height: 'auto',
+            width: 540,
+            pgtext: 'Pág: {0} de {1}',
+            altRows: true,
+            altclass: 'jQGridAltRowClass',
+            loadComplete: function () {
+            },
+            gridComplete: function () {
+                showDialog("DialogGrillaCuv1");
+            }
+        });
+        jQuery("#listGrillaCuv1").jqGrid('navGrid', "#pagerGrillaCuv1", { edit: false, add: false, refresh: false, del: false, search: false });
+        jQuery("#listGrillaCuv1").setGridParam({ datatype: 'json', page: 1 }).trigger('reloadGrid');
+    }
+
+    function VerCuvsTipo2(tipo) {
+        fnGrillaCuv2(tipo);
+    }
+
+    function fnGrillaCuv2(tipo) {
+        $("#listGrillaCuv2").jqGrid("clearGridData");
+
+        var parametros = {
+            campaniaId: parseInt($("#ddlCampania").val()),
+            tipoConfigurado: parseInt(tipo)
+        };
+
+        $('#listGrillaCuv2').setGridParam({ postData: parametros });
+
+        jQuery("#listGrillaCuv2").jqGrid({
+            url: urlConsultarCuvTipoConfiguradoTemporal,
+            hidegrid: false,
+            datatype: 'json',
+            postData: (parametros),
+            mtype: 'GET',
+            contentType: "application/json; charset=utf-8",
+            colNames: ['CUV', 'Descripción'],
+            colModel: [
+                { name: 'CUV2', index: 'CUV', width: 10, editable: true, resizable: false },
+                { name: 'DescripcionCUV2', index: 'DescripcionCUV2', width: 90, editable: true, resizable: false },
+            ],
+            jsonReader:
+            {
+                root: "rows",
+                page: "page",
+                total: "total",
+                records: "records",
+                repeatitems: true,
+                cell: "cell",
+                id: "id"
+            },
+            pager: jQuery('#pagerGrillaCuv2'),
+            loadtext: 'Cargando datos...',
+            recordtext: "{0} - {1} de {2} Registros",
+            emptyrecords: 'No hay resultados',
+            rowNum: 10,
+            scrollOffset: 0,
+            rowList: [10, 20, 30, 40, 50],
+            sortname: 'Nombre',
+            sortorder: 'asc',
+            viewrecords: true,
+            multiselect: false,
+            height: 'auto',
+            width: 540,
+            pgtext: 'Pág: {0} de {1}',
+            altRows: true,
+            altclass: 'jQGridAltRowClass',
+            loadComplete: function () {
+            },
+            gridComplete: function () {
+                showDialog("DialogGrillaCuv2");
+            }
+        });
+        jQuery("#listGrillaCuv2").jqGrid('navGrid', "#pagerGrillaCuv2", { edit: false, add: false, refresh: false, del: false, search: false });
+        jQuery("#listGrillaCuv2").setGridParam({ datatype: 'json', page: 1 }).trigger('reloadGrid');
+    }
+
     function IniDialog() {
         $('#DialogAdministracionEstrategia').dialog({
             autoOpen: false,
@@ -1418,6 +2320,48 @@
                 }
             }
         });
+
+        $('#DialogNuevoMasivo').dialog({
+            autoOpen: false,
+            resizable: false,
+            modal: true,
+            closeOnEscape: true,
+            width: 600,
+            draggable: false,
+            title: "Carga Masiva de Estrategias"
+        });
+
+        $('#DialogGrillaCuv1').dialog({
+            autoOpen: false,
+            resizable: false,
+            modal: true,
+            closeOnEscape: true,
+            width: 600,
+            draggable: false,
+            title: "Carga Masiva de Estrategias",
+            buttons:
+            {
+                "Salir": function () {
+                    $(this).dialog('close');
+                }
+            }
+        });
+
+        $('#DialogGrillaCuv2').dialog({
+            autoOpen: false,
+            resizable: false,
+            modal: true,
+            closeOnEscape: true,
+            width: 600,
+            draggable: false,
+            title: "Carga Masiva de Estrategias",
+            buttons:
+            {
+                "Salir": function () {
+                    $(this).dialog('close');
+                }
+            }
+        });
     }
 
     $.jgrid.extend({
@@ -1436,7 +2380,7 @@
 
                 jQuery.ajax({
                     type: 'POST',
-                    url: baseUrl + 'AdministrarEstrategia/FiltrarEstrategia',
+                    url: urlFiltrarEstrategia,
                     dataType: 'json',
                     contentType: 'application/json; charset=utf-8',
                     data: JSON.stringify(params),
@@ -1470,7 +2414,7 @@
                         if (data.FlagCantidad == "1") $("#chkVisible5").attr("checked", true);
                         else $("#chkVisible5").attr("checked", false);
 
-                        if (data.ColorFondo != "")  $("#hdColorFondo").val(data.ColorFondo);
+                        if (data.ColorFondo != "") $("#hdColorFondo").val(data.ColorFondo);
                         else $("#hdColorFondo").val("#FFF");
                         ActivarDesactivarChecks();
 
@@ -1496,13 +2440,13 @@
                             objPreview = $('#preview' + i);
                             objChkImagen = $('#chkImagenProducto' + idImagen);
                             dataImagen = data['FotoProducto' + idImagen];
-                            
+
                             if (dataImagen != '') {
                                 objPreview.attr('src', dataImagen);
                                 objChkImagen.attr('disabled', false);
                             }
                             else {
-                                objPreview.attr('src', '@Url.Content("~/Content/Images/" + imagenVacia)');
+                                objPreview.attr('src', rutaImagenVacia);
                                 objChkImagen.attr('disabled', true);
                             }
 
@@ -1622,7 +2566,7 @@
 
                 jQuery.ajax({
                     type: 'POST',
-                    url: baseUrl + 'AdministrarEstrategia/DeshabilitarEstrategia',
+                    url: urlDeshabilitarEstrategia,
                     dataType: 'json',
                     contentType: 'application/json; charset=utf-8',
                     data: JSON.stringify(params),
@@ -1643,357 +2587,3 @@
     });
 
 </script>
-<input type="hidden" id="mensajeErrorCUV" />
-<input type="hidden" id="mensajeErrorCUV2" />
-<input type="hidden" id="hdEstrategiaIDConsulta" />
-<input type="hidden" id="ImagenProducto" />
-<input type="hidden" id="hdEstrategiaID" />
-<input type="hidden" id="hdTipoConsulta" value="0" />
-<input type="hidden" id="hdZonas" value="" />
-<input type="hidden" id="hdSimbolo" />
-<input type="hidden" id="hdTallaColorID" />
-<div class="wrap_cab">
-    <div class="filtros2">
-        <div class="elements">
-            <div class="div-2">
-                <h1><span>Zona de Estrategias</span></h1>
-            </div>
-            <div class="div-3">
-                <div class="titG">País:</div>
-                <div class="selectA borde_redondeado">
-                    @Html.DropDownListFor(model => model.PaisID, new SelectList(Model.listaPaises, "PaisID", "Nombre"), "-- Seleccionar --", new { id = "ddlPais" })
-                </div>
-                <div class="titB">Campaña:</div>
-                <div class="selectA borde_redondeado">
-                    @Html.DropDownListFor(model => model.CampaniaID, new SelectList(Model.listaCampania, "CampaniaID", "NombreCorto"), "-- Seleccionar --", new { id = "ddlCampania" })
-                </div>
-            </div>
-            <div class="div-3">
-                <div class="titG">Tipo de Estrategia:</div>
-                <div class="selectA borde_redondeado">
-                    @*Html.DropDownListFor(model => model.TipoEstrategiaID, new SelectList(Model.ListaTipoEstrategia, "TipoEstrategiaID", "Descripcion"), new { id = "ddlTipoEstrategia" })*@
-                    <select id="ddlTipoEstrategia" name="ddlTipoEstrategia">
-                        @if (Model.ListaTipoEstrategia != null)
-                        {
-                            <option value="">-- Seleccionar --</option>
-                            for (int i = 0; i < Model.ListaTipoEstrategia.Count(); i++)
-                            {
-                                <option flag-nueva="@Model.ListaTipoEstrategia.ToList()[i].FlagNueva"
-                                        flag-recoproduct="@Model.ListaTipoEstrategia.ToList()[i].FlagRecoProduc"
-                                        flag-recoperfil="@Model.ListaTipoEstrategia.ToList()[i].FlagRecoPerfil"
-                                        codigo-programa="@Model.ListaTipoEstrategia.ToList()[i].CodigoPrograma"
-                                        imagen-tipo="@Model.ListaTipoEstrategia.ToList()[i].Imagen"
-                                        value="@Model.ListaTipoEstrategia.ToList()[i].TipoEstrategiaID"
-                                        data-id="@Model.ListaTipoEstrategia.ToList()[i].CodigoGeneral">
-                                    @Model.ListaTipoEstrategia.ToList()[i].Descripcion
-                                </option>
-                            }
-                        }
-                    </select>
-                </div>
-                <div class="titB">CUV<sub>2</sub>:</div>
-                <div class="selectA borde_redondeado">
-                    <input type="text" id="CUV" name="CUV" />
-                </div>
-            </div>
-            <div class="div-3">
-                <div class="titG">&nbsp;</div>
-                <div class="input_horizontal">
-                    <input type="button" name="btnBuscar" id="btnBuscar" value="Buscar" />
-                    <input type="button" name="btnNuevo" id="btnNuevo" value="Nuevo" />
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="wrap">
-    <div class="container clearfix">
-        <div class="border-wrapper">
-            <table id="list"></table>
-            <div id="pager"></div>
-        </div>
-    </div>
-</div>
-<div id="DialogAdministracionEstrategia" style="display: none;">
-    <input type="hidden" id="hdPais" value="" />
-    <input type="hidden" id="hdCampania" value="" />
-    <input type="hidden" id="hdTipoEstrategiaID" value="" />
-    <input type="hidden" id="hdColorFondo" value="#FFF" />
-    <input type="hidden" id="hdCodigoPrograma" value="">
-    <input type="hidden" id="hdNumeroPedido" value="">
-    <div class="Content_modal">
-        <div class="div-3">
-            <div class="titG">Campaña:</div>
-            <div class="selectP2 borde_redondeado">
-                <input id="spanCampania" type="text" readonly="readonly" />
-            </div>
-            <div class="titG">Tipo de Estrategia:</div>
-            <div class="selectP2 borde_redondeado">
-                <input id="spanTipoEstrategia" type="text" readonly="readonly" />
-            </div>
-        </div>
-        <div class="div-3 DatosNuevas" style="display: none">
-            <div class="titG">Vigencia Hasta:</div>
-            <div class="selectP2 borde_redondeado">
-                @Html.DropDownListFor(model => model.CampaniaID, new SelectList(Model.listaCampania, "CampaniaID", "NombreCorto"), "-- Seleccionar --", new { id = "ddlCampaniaFin" })
-            </div>
-            <div class="titG">Pedido Asociado:</div>
-            <div class="checksPedidosAsociados">
-            </div>
-        </div>
-        <div class="div-est-3">
-            &nbsp;
-        </div>
-        <div class="div-est-3">
-            <div class="titA">&nbsp;</div>
-            <div class="titA">Orden</div>
-            <div class="titB">Visible</div>
-            <div class="titG">Descripción</div>
-        </div>
-        <div class="div-est-3">
-            <div class="titA">&nbsp;</div>
-            <div class="titA">1</div>
-            <div class="titB">
-                <input type="checkbox" id="chkVisible1" disabled class="activar-desactivar" checked="checked" />
-            </div>
-            <div class="titG">
-                <input type="text" id="txtDescripcion" />
-            </div>
-        </div>
-        <div class="div-est-3">
-            <div class="titA">&nbsp;</div>
-            <div class="titA">2</div>
-            <div class="titB">
-                <input type="checkbox" id="chkVisible2" class="activar-desactivar" />
-            </div>
-            <div class="titA" style="text-align: right"><span class="OcultarNuevas">CUV:</span></div>
-            <div class="titB">
-                <input type="text" id="txtCUV" class="OcultarNuevas ValidaNumeral" maxlength="5" />
-            </div>
-            <div class="titE">Etiqueta:</div>
-            <div class="titD">
-                @*@Html.DropDownListFor(model => model.CampaniaID, new SelectList(Model.ListaEtiquetas, "EtiquetaID", "Descripcion"), "-- Seleccionar --", new { id = "ddlEtiqueta1" })*@
-                <select name="CampaniaID" id="ddlEtiqueta1">
-                    <option value="">-- Seleccionar --</option>
-                    @foreach (var x in Model.ListaEtiquetas)
-                    {
-                        <option value="@x.EtiquetaID" data-id="@x.CodigoGeneral">@x.Descripcion</option>
-                    }
-                </select>
-            </div>
-            <div class="titE">Precio:</div>
-            <div class="titB">
-                <input type="text" id="txtPrecio" />
-            </div>
-        </div>
-        <div class="div-est-3">
-            <div class="titA">&nbsp;</div>
-            <div class="titA">3</div>
-            <div class="titB">
-                <input type="checkbox" id="chkVisible3" disabled class="activar-desactivar" checked="checked" />
-            </div>
-            <div class="titA" style="text-align: right">CUV<sub>2</sub>:</div>
-            <div class="titB">
-                <input type="text" id="txtCUV2" maxlength="5" class="ValidaNumeral" />
-            </div>
-            <div class="titA"></div>
-            <div class="titE">Etiqueta:</div>
-            <div class="titD">
-                @*@Html.DropDownListFor(model => model.CampaniaID, new SelectList(Model.ListaEtiquetas, "EtiquetaID", "Descripcion"), "-- Seleccionar --", new { id = "ddlEtiqueta2" })*@
-                <select name="CampaniaID" id="ddlEtiqueta2">
-                    <option value="">-- Seleccionar --</option>
-                    @foreach (var x in Model.ListaEtiquetas)
-                    {
-                        <option value="@x.EtiquetaID" data-id="@x.CodigoGeneral">@x.Descripcion</option>
-                    }
-                </select>
-            </div>
-            <div class="titE">Precio:</div>
-            <div class="titB">
-                <input type="text" id="txtPrecio2" maxlength="10" class="ValidaNumeral" />
-            </div>
-            <div class="titE" style="margin-left: 5px">Talla/Color:</div>
-            &nbsp;&nbsp;&nbsp;&nbsp;
-            <a href="#" style="margin-left: 5px" id="linkTallaColor">
-                <img src='@Url.Content("~/Content/Images/icons/small/list-icon2.png")' border="0" alt="Agregar Tonos/Tallas/Colores" title="Agregar Tonos/Tallas/Colores" />
-            </a>
-        </div>
-        <div class="div-est-3">
-            <div class="titA">&nbsp;</div>
-            <div class="titA">4</div>
-            <div class="titB">
-                <input type="checkbox" id="chkVisible4" class="activar-desactivar" />
-            </div>
-            <div class="titG">
-                <input type="text" id="txtTextoLibre" maxlength="100" />
-            </div>
-        </div>
-        <div class="div-est-3 Recomendados" style="display: none">
-            <div class="titA">&nbsp;</div>
-            <div class="titA">5</div>
-            <div class="titB">
-                <input type="checkbox" id="chkVisible5" class="activar-desactivar" />
-            </div>
-            <div class="titA" style="display: none">
-                <input type="text" id="txtCantidad" />
-            </div>
-            <div class="titG" id="idColorFondo" style="display: none; width:200px;">
-                Elegir color de fondo:&nbsp;<input type='text' id="txtColorFondo" />
-            </div>
-            <div class="titG" id="idEstrella" style="width:130px;">
-                <span id="txt1-estrella">Mostrar estrella</span>        <!--SB20-312 -->
-                <input type="checkbox" id="chkEstrella" />
-            </div>
-            <div class="titG" style="width:380px" id="txt2-estrella">&nbsp;(Solo para Ofertas Recomendar / Ofertas Segmentadas)</div>   <!--SB20-312 -->
-        </div>
-        <div class="div-est-3">
-            &nbsp;
-        </div>
-        <div class="div-3">
-            <style>
-                .div-img-estrategias {
-                    float: left;
-                    width: 600px;
-                }
-                .div-img-estrategias > .titG {
-                    width: 100px;
-                }
-
-                .img-estrategia-preview {
-                    cursor: pointer;
-                    width: 100%;
-                    height: 35px;
-                }
-            </style>
-
-            <div class="titG">Imagen:</div>
-            <div class="div-img-estrategias">
-                @for (int i = 1; i <= nroImagenes; i++)
-                {
-                    idControl = "0" + i;
-                    idControl = idControl.Substring(idControl.Length - 2);
-
-                    <div class="titG">
-                        <div class="pdr_modal borde_redondeado aligncenter">
-                            <img src='@Url.Content("~/Content/Images/" + imagenVacia)' id="preview@(i)" class="img-estrategia-preview" data-id="@(i)">
-                        </div>
-                        <div class="pdr_modal_check aligncenter">
-                            <input type="checkbox" id="chkImagenProducto@(idControl)" class="chk-estrategia-imagen" data-id="@(i)">
-                        </div>
-                    </div>
-                }
-            </div>
-        </div>
-        <div class="div-3">
-            <div class="titG">¿Activar Oferta?</div>
-            <div class="selectCheck borde_redondeado">
-                <input type="checkbox" class="check" id="chkHabilitarOferta" />
-            </div>
-        </div>
-        <div class="div-est-3" id="div-orden">
-            <!--SB20-312 -->
-            <div class="titB">&nbsp;</div>
-            <div class="titB">Orden:</div>
-            <div class="titB">
-                <input type="text" id="txtOrden" value="" maxlength="3" />
-            </div>
-        </div>
-        <div class="div-est-3">
-            <div class="titB">&nbsp;</div>
-            <div class="titB">Alcance:</div>
-            <div class="titD">
-                <input type="text" id="txtAlcance" readonly="readonly" />
-            </div>
-            <div class="titA" style="width:20px">
-                <a href="#" style="margin-left: 5px" id="linkAlcance">
-                    <img src='@Url.Content("~/Content/Images/search.png")' border="0" alt="Seleccionar alcance" title="Seleccionar alcance" />
-                </a>
-            </div>
-            <div class="titG" style="width:300px">&nbsp;(Seleccionar Pa&iacute;s, Regi&oacute;n o Zona)</div>
-        </div>
-        <div class="div-est-3">
-            <div class="titB">&nbsp;</div>
-            <div class="titB">Limite de Venta:</div>
-            <div class="titB">
-                <input type="text" id="txtLimite" value="99" />
-            </div>
-            <div class="titG">&nbsp;(N&uacute;mero de Unidades m&aacute;ximas por Consultora)</div>
-        </div>
-    </div>
-</div>
-<div id="DialogZona" style="display: none;">
-    <div class="Content_modal">
-        <div class="div-3">
-            <div class="treeview_est_content">
-                <div id="arbolRegionZona" class="demo">
-                </div>
-            </div>
-        </div>
-        <div class="div-3">
-            <div class="titF"></div>
-            <div class="titF"></div>
-            <div class="titH"><input type="checkbox" id="chkSeleccionar" />Seleccionar todo</div>
-        </div>
-    </div>
-</div>
-<div id="DialogEditarTallaColor" style="display: none;">
-    <div class="Content_modal">
-        <div class="div-3">
-            <div class="titG">CUV:</div>
-            <div class="selectP2 borde_redondeado">
-                <input type="text" id="txtCUVTC" />
-            </div>
-        </div>
-        <div class="div-3">
-            <div class="titG">Descripción:</div>
-            <div class="selectP2 borde_redondeado" style="width: 300px">
-                <input type="text" id="txtDescripcionCUVTC" style="width: 290px" readonly="readonly" />
-            </div>
-        </div>
-        <div class="div-3">
-            <div class="titG">Precio:</div>
-            <div class="selectP2 borde_redondeado">
-                <input type="text" id="txtPrecioCUVTC" readonly="readonly" />
-            </div>
-        </div>
-        <div class="div-3">
-            <div class="titG">Tipo:</div>
-            <div class="selectP2 borde_redondeado">
-                <select id="ddlTallaColor">
-                    <option value='0'>-- Seleccionar --</option>
-                    <option value='C'>Color</option>
-                    <option value='T'>Talla</option>
-                </select>
-            </div>
-        </div>
-        <div class="div-3">
-            <div class="titG">Descripción (Talla/Color):</div>
-            <div class="selectP2 borde_redondeado">
-                <input type="text" id="txtDescripcionTC" />
-            </div>
-        </div>
-    </div>
-</div>
-<div id="DialogTonoMarca" style="display: none;">
-    <div class="Content_modal">
-        <table id="listTC"></table>
-        <div id="pagerTC"></div>
-    </div>
-</div>
-<div id="divVistaPrevia" class="Content_modal_ZE" style="display:none; background-color: #fff;width: 200px;height: 330px;overflow:hidden; text-align: center">
-    <div class="Content_modal_ZE" style="margin:5px; overflow: hidden;">
-        <div style="position: absolute; width:100%;">
-            <img id="imgTipoOferta" style="float:right; margin-top:10px;" src="">
-        </div>
-        <div style="position: absolute; width:100%;">
-            <img id="imgEstrella" style="float:left; margin-top:10px; width:23px; height:23px;" src="@Url.Content("~/Content/Images/star_reco.png")">
-        </div>
-        <img id="imgZonaEstrategia" style="width:128px; height: 161px; margin:5px;" src="" alt="Imagen Producto">
-    </div>
-    <div class="zona_estrategia_1"></div>
-    <div>&nbsp;</div>
-    <div class="zona_estrategia_2"></div>
-    <div class="zona_estrategia_3"></div>
-    <div class="zona_estrategia_4"></div>
-</div>
-<div id="loadingScreen"></div>
