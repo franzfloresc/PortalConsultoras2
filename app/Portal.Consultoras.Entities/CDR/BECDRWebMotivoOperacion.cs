@@ -14,8 +14,6 @@ namespace Portal.Consultoras.Entities.CDR
         [DataMember]
         public int Prioridad { get; set; }
         [DataMember]
-        public string Tipo { get; set; }
-        [DataMember]
         public int Estado { get; set; }
         [DataMember]
         public BECDRMotivoReclamo CDRMotivoReclamo { get; set; }
@@ -27,11 +25,10 @@ namespace Portal.Consultoras.Entities.CDR
 
         public BECDRWebMotivoOperacion(IDataRecord row)
         {
-            if (DataRecord.HasColumn(row, "CodigoOperacion")) CodigoOperacion = Convert.ToString(row["CodigoOperacion"]);
-            if (DataRecord.HasColumn(row, "CodigoReclamo")) CodigoReclamo = Convert.ToString(row["CodigoReclamo"]);
-            if (DataRecord.HasColumn(row, "Prioridad")) Prioridad = Convert.ToInt32(row["Prioridad"]);
-            if (DataRecord.HasColumn(row, "Tipo")) Tipo = Convert.ToString(row["Tipo"]);
-            if (DataRecord.HasColumn(row, "Estado")) Estado = Convert.ToInt32(row["Estado"]);
+            if (row.HasColumn("CodigoOperacion")) CodigoOperacion = Convert.ToString(row["CodigoOperacion"]);
+            if (row.HasColumn("CodigoReclamo")) CodigoReclamo = Convert.ToString(row["CodigoReclamo"]);
+            if (row.HasColumn("Prioridad")) Prioridad = Convert.ToInt32(row["Prioridad"]);
+            if (row.HasColumn("Estado")) Estado = Convert.ToInt32(row["Estado"]);
         }
     }
 }

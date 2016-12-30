@@ -2028,22 +2028,39 @@ namespace Portal.Consultoras.BizLogic
                 while (reader.Read())
                 {
                     var entidad = new BEPedidoWeb(reader);
-                    var entidadDetalle = new BEPedidoWebDetalle(reader);
-                    for (int i = 0; i < listaPedidosFacturados.Count; i++)
-                    {
-                        if (listaPedidosFacturados[i].PedidoID == entidad.PedidoID)
+                    var listaDetalle = new List<BEPedidoWebDetalle>();
+
+                    using (IDataReader readerDetalle = DAPedidoWeb.GetPedidosFacturadoDetalle(entidad.PedidoID))
+                    {                        
+                        while (readerDetalle.Read())
                         {
-                            listaPedidosFacturados[i].olstBEPedidoWebDetalle.Add(entidadDetalle);
+                            var detalle = new BEPedidoWebDetalle(readerDetalle);
+                            detalle.PedidoID = entidad.PedidoID;
+                            listaDetalle.Add(detalle);
                         }                        
                     }
 
-                    if (!listaPedidosFacturados.Any(f => f.PedidoID == entidad.PedidoID))
-                    {
-                        entidad.olstBEPedidoWebDetalle = new List<BEPedidoWebDetalle>();
-                        entidad.olstBEPedidoWebDetalle.Add(entidadDetalle);
-                        listaPedidosFacturados.Add(entidad);
-                    }
-                   
+                    entidad.olstBEPedidoWebDetalle = listaDetalle;
+
+                    listaPedidosFacturados.Add(entidad);
+
+                    //var entidad = new BEPedidoWeb(reader);
+                    //var entidadDetalle = new BEPedidoWebDetalle(reader);
+                    //for (int i = 0; i < listaPedidosFacturados.Count; i++)
+                    //{
+                    //    if (listaPedidosFacturados[i].PedidoID == entidad.PedidoID)
+                    //    {
+                    //        listaPedidosFacturados[i].olstBEPedidoWebDetalle.Add(entidadDetalle);
+                    //    }                        
+                    //}
+
+                    //if (!listaPedidosFacturados.Any(f => f.PedidoID == entidad.PedidoID))
+                    //{
+                    //    entidad.olstBEPedidoWebDetalle = new List<BEPedidoWebDetalle>();
+                    //    entidad.olstBEPedidoWebDetalle.Add(entidadDetalle);
+                    //    listaPedidosFacturados.Add(entidad);
+                    //}
+
                 }
 
             return listaPedidosFacturados;
