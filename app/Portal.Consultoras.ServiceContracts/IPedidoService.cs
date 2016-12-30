@@ -929,5 +929,26 @@ namespace Portal.Consultoras.ServiceContracts
         
         [OperationContract]
         List<BEEstrategia> GetEstrategiaODD(int paisID, int codCampania, long consultoraID);
+        
+        [OperationContract]
+        int GetCantidadOfertasParaTi(int paisId, int campaniaId, int tipoConfigurado);
+
+        [OperationContract]
+        List<BEEstrategia> GetOfertasParaTiByTipoConfigurado(int paisId, int campaniaId, int tipoConfigurado);
+
+        [OperationContract]
+        int InsertEstrategiaTemporal(int paisId, List<BEEstrategia> lista, int campaniaId, string codigoUsuario);
+
+        [OperationContract]
+        int GetCantidadOfertasParaTiTemporal(int paisId, int campaniaId, int tipoConfigurado);
+
+        [OperationContract]
+        List<BEEstrategia> GetOfertasParaTiByTipoConfiguradoTemporal(int paisId, int campaniaId, int tipoConfigurado);
+
+        [OperationContract]
+        int DeleteEstrategiaTemporal(int paisId, int campaniaId);
+
+        [OperationContract]
+        int InsertEstrategiaOfertaParaTi(int paisId, List<BEEstrategia> lista, int campaniaId, string codigoUsuario);
     }
 }
