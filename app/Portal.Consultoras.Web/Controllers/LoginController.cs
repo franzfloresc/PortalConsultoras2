@@ -631,52 +631,90 @@ namespace Portal.Consultoras.Web.Controllers
                         model.EsOfertaDelDia = oBEUsuario.EsOfertaDelDia;
                         if (model.EsOfertaDelDia > 0)
                         {
+                            var lstOfertaDelDia = new List<BEEstrategia>();
                             using (PedidoServiceClient svc = new PedidoServiceClient())
                             {
-                                var lstOfertaDelDia = svc.GetEstrategiaODD(model.PaisID, model.CampaniaID, model.ConsultoraID).ToList();
-                                var configBanner = new List<BETablaLogicaDatos>();
+                                lstOfertaDelDia = svc.GetEstrategiaODD(model.PaisID, model.CampaniaID, model.ConsultoraID).ToList();
+                            }
 
-                                using (SACServiceClient svc2 = new SACServiceClient())
+                            if (lstOfertaDelDia.Any())
+                            {
+                                var configOfertaDelDia = new List<BETablaLogicaDatos>();
+                                using (SACServiceClient svc = new SACServiceClient())
                                 {
-                                    configBanner = svc2.GetTablaLogicaDatos(model.PaisID, 93).ToList();
+                                    configOfertaDelDia = svc.GetTablaLogicaDatos(model.PaisID, 93).ToList();
                                 }
 
-                                if (lstOfertaDelDia.Any() && configBanner.Any())
+                                if (configOfertaDelDia.Any())
                                 {
-                                    var arr = lstOfertaDelDia[0].DescripcionCUV2.Split('|');
-                                    string desc = string.Empty;
-                                    for (int i = 1; i < arr.Length; i++)
+                                    var ofertaDelDia = lstOfertaDelDia[0];
+                                    var arr1 = ofertaDelDia.DescripcionCUV2.Split('|');
+                                    var nombreODD = arr1[0].Trim();
+                                    var descripcionODD = string.Empty;
+
+                                    for (int i = 1; i < arr1.Length; i++)
                                     {
-                                        if (!string.IsNullOrEmpty(arr[i]))
-                                            desc += arr[i] + "\n";
+                                        if (!string.IsNullOrEmpty(arr1[i]))
+                                            descripcionODD += arr1[i].Trim() + "|";
                                     }
 
-                                    var tq = CalcularTeQuedanODD(model);
-                                    var p1 = string.Format(ConfigurationManager.AppSettings.Get("UrlImgPatron1ODD"), model.CodigoISO);
-                                    var p2 = string.Format(ConfigurationManager.AppSettings.Get("UrlImgPatron2ODD"), model.CodigoISO);
-                                    var i1 = string.Format(ConfigurationManager.AppSettings.Get("UrlImgBannerODD"), model.CodigoISO, lstOfertaDelDia[0].ImagenURL);
-                                    var i2 = string.Format(ConfigurationManager.AppSettings.Get("UrlImgDisplayODD"), model.CodigoISO, lstOfertaDelDia[0].ImagenURL);
-                                    var f1 = configBanner.Where(x => x.TablaLogicaDatosID == 9301).First().Codigo ?? string.Empty;
-                                    var f2 = configBanner.Where(x => x.TablaLogicaDatosID == 9302).First().Codigo ?? string.Empty;
+                                    var countdown = CountdownODD(model);
+                                    var imgF1 = string.Format(ConfigurationManager.AppSettings.Get("UrlImgFondo1ODD"), model.CodigoISO);
+                                    var imgF2 = string.Format(ConfigurationManager.AppSettings.Get("UrlImgFondo2ODD"), model.CodigoISO);
+                                    var imgSh = string.Format(ConfigurationManager.AppSettings.Get("UrlImgSoloHoyODD"), model.CodigoISO);
+                                    var imgBanner = string.Format(ConfigurationManager.AppSettings.Get("UrlImgBannerODD"), model.CodigoISO, ofertaDelDia.ImagenURL);
+                                    var imgDisplay = string.Format(ConfigurationManager.AppSettings.Get("UrlImgDisplayODD"), model.CodigoISO, ofertaDelDia.ImagenURL);
+                                    var colorF1 = configOfertaDelDia.Where(x => x.TablaLogicaDatosID == 9301).First().Codigo ?? string.Empty;
+                                    var colorF2 = configOfertaDelDia.Where(x => x.TablaLogicaDatosID == 9302).First().Codigo ?? string.Empty;
+                                    descripcionODD = descripcionODD.Replace("|", "+<br />");
+                                    descripcionODD = descripcionODD.Replace("\\", "");
+                                    descripcionODD = descripcionODD.Replace("(GRATIS)", "<b>GRATIS</b>");
 
-                                    var odd = new OfertaDelDiaModel();
-                                    odd.CodigoIso = model.CodigoISO;
-                                    odd.TeQuedan = tq;
-                                    odd.ImagenPatron1 = p1;
-                                    odd.ColorFondo1 = f1;
-                                    odd.ImagenBanner = i1;
-                                    odd.ImagenPatron2 = p2;
-                                    odd.ColorFondo2 = f2;
-                                    odd.ImagenDisplay = i2;
-                                    odd.NombreOferta = arr[0];
-                                    odd.DescripcionOferta = desc;
-                                    odd.PrecioOferta = lstOfertaDelDia[0].Precio2;
-                                    odd.PrecioCatalogo = lstOfertaDelDia[0].Precio;
-                                    odd.LimiteVenta = lstOfertaDelDia[0].LimiteVenta;
+                                    var oddModel = new OfertaDelDiaModel();
+                                    oddModel.CodigoIso = model.CodigoISO;
+                                    oddModel.TipoEstrategiaID = ofertaDelDia.TipoEstrategiaID;
+                                    oddModel.EstrategiaID = ofertaDelDia.EstrategiaID;
+                                    oddModel.MarcaID = ofertaDelDia.MarcaID;
+                                    oddModel.CUV2 = ofertaDelDia.CUV2;
+                                    oddModel.LimiteVenta = ofertaDelDia.LimiteVenta;
+                                    oddModel.IndicadorMontoMinimo = ofertaDelDia.IndicadorMontoMinimo;
+                                    oddModel.TipoEstrategiaImagenMostrar = ofertaDelDia.TipoEstrategiaImagenMostrar;
+                                    oddModel.TeQuedan = countdown;
+                                    oddModel.ImagenFondo1 = imgF1;
+                                    oddModel.ColorFondo1 = colorF1;
+                                    oddModel.ImagenBanner = imgBanner;
+                                    oddModel.ImagenSoloHoy = imgSh;
+                                    oddModel.ImagenFondo2 = imgF2;
+                                    oddModel.ColorFondo2 = colorF2;
+                                    oddModel.ImagenDisplay = imgDisplay;
+                                    oddModel.NombreOferta = nombreODD;
+                                    oddModel.DescripcionOferta = descripcionODD;
+                                    oddModel.PrecioOferta = ofertaDelDia.Precio2;
+                                    oddModel.PrecioCatalogo = ofertaDelDia.Precio;
 
                                     model.TieneOfertaDelDia = true;
-                                    Session["OfertaDelDia"] = odd;
-                                    Session["CloseODD"] = false;
+                                    //Session["OfertaDelDia"] = oddModel;
+                                    //Session["CloseODD"] = false;
+                                    model.OfertaDelDia = oddModel;
+                                    model.LimiteVentaOfertaDelDia = oddModel.LimiteVenta;
+
+                                }// config ODD
+                            }// list ODD
+                        }
+                        else
+                        {
+                            using (PedidoServiceClient svc = new PedidoServiceClient())
+                            {
+                                var beEstrategia = new BEEstrategia();
+                                beEstrategia.PaisID = model.PaisID;
+                                beEstrategia.CampaniaID = model.CampaniaID;
+                                beEstrategia.TipoEstrategiaID = Constantes.TipoEstrategia.OfertaDelDia;
+                                beEstrategia.CUV2 = "0";
+                                var lstEstrategia = svc.GetEstrategias(beEstrategia).ToList();
+
+                                if (lstEstrategia.Any())
+                                {
+                                    model.LimiteVentaOfertaDelDia = lstEstrategia[0].LimiteVenta;
                                 }
                             }
                         }
@@ -898,24 +936,34 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-        private TimeSpan CalcularTeQuedanODD(UsuarioModel model)
+        /*PL20-1226*/
+        public TimeSpan CountdownODD(UsuarioModel model)
         {
-            DateTime hoy = DateTime.Now;
+            //DateTime hoy = DateTime.Now;
+            //DateTime d1 = new DateTime(hoy.Year, hoy.Month, hoy.Day, 0, 0, 0);
+            DateTime hoy;
+
+            using (SACServiceClient svc = new SACServiceClient())
+            {
+                hoy = svc.GetFechaHoraPais(model.PaisID);
+            }
+
             DateTime d1 = new DateTime(hoy.Year, hoy.Month, hoy.Day, 0, 0, 0);
             DateTime d2;
-            if (model.EsOfertaDelDia == 1)
+
+            if (model.EsOfertaDelDia == 1)  // dia de facturacion
             {
                 TimeSpan t1 = model.HoraCierreZonaNormal;
                 d2 = new DateTime(hoy.Year, hoy.Month, hoy.Day, t1.Hours, t1.Minutes, t1.Seconds);
             }
-            else
+            else // antes o despues de la facturacion
             {
                 d2 = d1.AddDays(1);
             }
 
             TimeSpan t2 = (d2 - hoy);
-
             return t2;
         }
+        /*PL20-1226*/
     }
 }

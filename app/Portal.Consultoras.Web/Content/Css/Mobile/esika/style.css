@@ -9944,7 +9944,7 @@ a{
 
 /*OFERTA DEL DIA*/
 .BloqueOfertaDia {
-    background: black;
+    /*background: black;*/  /*PL-1233*/
     height: 65px;
     width: 100%;
     overflow:hidden;
@@ -10000,7 +10000,7 @@ a{
 .header_pop_oferta{
     width:100%;
     height:51px;
-    background:black;
+    /*background:black;*/   /*PL-1233*/
    position:relative;
 }
 .btn_cerrar_pop_oferta_hoy{

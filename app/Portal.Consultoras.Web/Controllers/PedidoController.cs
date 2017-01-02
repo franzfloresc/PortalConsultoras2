@@ -370,6 +370,9 @@ namespace Portal.Consultoras.Web.Controllers
                     if (esFacturacion)
                         ObtenerListadoProductosOfertaFinal();
                 }
+                
+                /*PL20-1227*/
+                ViewBag.LimiteVentaODD = userData.LimiteVentaOfertaDelDia;
             }
             catch (FaultException ex)
             {
@@ -4898,19 +4901,19 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
                 var f = false;
-                var odd = new OfertaDelDiaModel();
+                var oddModel = new OfertaDelDiaModel();
 
-                if (Session["OfertaDelDia"] != null)
+                if (userData.OfertaDelDia != null)
                 {
-                    odd = (OfertaDelDiaModel)Session["OfertaDelDia"];
-                    odd.TeQuedan = CalcularTeQuedanODD(userData);
+                    oddModel = userData.OfertaDelDia;
+                    oddModel.TeQuedan = CountdownODD(userData);
                     f = true;
                 }
 
                 return Json(new
                 {
                     success = f,
-                    data = odd
+                    data = oddModel
                 }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
@@ -4928,7 +4931,8 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                Session["CloseODD"] = true;
+                userData.CloseOfertaDelDia = true;
+                Session["UserData"] = userData;
 
                 return Json(new
                 {
@@ -4946,26 +4950,30 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-        public JsonResult AgregarODDPedido(OfertaDelDiaModel model)
+        public JsonResult GetQtyPedidoDetalleByCuvODD(string cuv)
         {
             try
             {
-                var f = true;
-                string msg = string.Empty;
-                if (Session["OfertaDelDia"] != null)
+                var qty = 0;
+                var lstPedidoDetalle = ObtenerPedidoWebDetalle();
+
+                if (lstPedidoDetalle.Any())
                 {
-                    var odd = (OfertaDelDiaModel)Session["OfertaDelDia"];
-                    if (model.Cantidad > odd.LimiteVenta)
+                    foreach (var item in lstPedidoDetalle)
                     {
-                        f = false;
-                        msg = "Solo puede llevar " + odd.LimiteVenta + " unidades de este producto";
+                        if (item.TipoOfertaSisID == Constantes.TipoEstrategia.OfertaDelDia 
+                            && item.CUV.Trim().Contains(cuv.Trim()))
+                        {
+                            qty = item.Cantidad;
+                            break;
+                        }
                     }
                 }
-                
+
                 return Json(new
                 {
-                    success = f,
-                    message = msg
+                    success = true,
+                    cantidad = qty
                 }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
@@ -4978,5 +4986,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }, JsonRequestBehavior.AllowGet);
             }
         }
+
+        /*PL20-1226*/
     }
 }

@@ -1,0 +1,9 @@
+
+USE BelcorpPeru
+GO
+
+ALTER TABLE Pais ADD TieneODD BIT
+
+UPDATE Pais SET TieneODD = 1 WHERE PaisID = 11
+
+GO

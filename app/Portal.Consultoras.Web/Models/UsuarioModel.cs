@@ -305,5 +305,8 @@ namespace Portal.Consultoras.Web.Models
         /*PL20-1226*/
         public int EsOfertaDelDia { get; set; }
         public bool TieneOfertaDelDia { get; set; }
+        public OfertaDelDiaModel OfertaDelDia { get; set; }
+        public bool CloseOfertaDelDia { get; set; }
+        public int LimiteVentaOfertaDelDia { get; set; }
     }
 }
