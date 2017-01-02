@@ -1,6 +1,4 @@
 ﻿
-/*PL20-1226*/
-var clock;
 
 $(document).ready(function () {
 
@@ -831,7 +829,7 @@ function loadOfertaDelDia() {
 
                     $('#OfertaDelDia').show();
 
-                    clock = $('.clock').FlipClock(tq.TotalSeconds, {
+                    var clock = $('.clock').FlipClock(tq.TotalSeconds, {
                         clockFace: 'HourlyCounter',
                         countdown: true
                     });
@@ -856,7 +854,7 @@ function loadOfertaDelDia() {
             }
         },
         error: function (err) {
-                console.log(err);
+            console.log(err);
         }
     });
 };
@@ -943,8 +941,6 @@ function addOfertaDelDiaPedido(tipo) {
     var objImg = (tipo == 1) ? $('#img-banner-odd') : $('#img-display-odd');
     //agregarProductoAlCarrito(objImg);
 
-    waitingDialog({});
-
     var obj = ({
         MarcaID: marcaID,
         CUV: cuv2,
@@ -957,6 +953,8 @@ function addOfertaDelDiaPedido(tipo) {
         tipoEstrategiaImagen: teImagenMostrar || 0,
         OrigenPedidoWeb: origenPedidoWeb
     });
+
+    waitingDialog({});
 
     //console.log(obj);
 

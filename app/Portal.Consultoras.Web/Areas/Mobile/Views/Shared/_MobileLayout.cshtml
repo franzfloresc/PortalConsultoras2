@@ -693,7 +693,15 @@
                         var tq = _data.TeQuedan;
 
                         if (tq.TotalSeconds > 0) {
-                            
+
+                            // config ODD
+                            $('#BloqueOfertaDia').css('background-color', _data.ColorFondo1);
+                            //$('#img-banner-odd').attr('src', _data.ImagenBanner);
+                            $('#img-solohoy-odd').attr('src', _data.ImagenSoloHoy);
+                            $('.header_pop_oferta').css('background-color', _data.ColorFondo2);
+                            $('#img-solohoy1-odd').attr('src', _data.ImagenSoloHoy);
+                            //$('#img-display-odd').attr('src', _data.ImagenDisplay);
+
                             var obj1 = $('#BloqueMobileOfertaDia').find('.nombre_set_producto_hoy');
                             obj1.html(obj1.text());
 
@@ -723,10 +731,8 @@
                         OcultarBannerODD();
                     }
                 },
-                error: function (data, error) {
-                    if (checkTimeout(data)) {
-                        console.error(error);
-                    }
+                error: function (err) {
+                    console.log(err);
                 }
             });
         };
@@ -759,7 +765,7 @@
                 //contentType: 'application/json; charset=utf-8',
                 success: function (response) {
                     if (response.success) {
-                        $('#OfertaDelDia').hide();
+                        $('#BloqueMobileOfertaDia').hide();
                     }
                 },
                 error: function (err) {
@@ -774,7 +780,6 @@
             var estrategiaID = $('#estrategia-id-odd').val();
             var flagNueva = $('#flag-nueva-odd').val();
             var teImagenMostrar = $('#teimagenmostrar-odd').val();
-            var origenPedidoWeb = 0;
             var cantidad = $('#txtCantidad').val();//$("#txtCantidadZE").val();
             var cantidadLimite = $('#limite-venta-odd').val();//$("#txtCantidadZE").attr("est-cantidad");
             var cuv = $('#cuv2-odd').val();//$("#txtCantidadZE").attr("est-cuv2");
@@ -782,7 +787,7 @@
             var precio = $('#precio-odd').val();//$("#txtCantidadZE").attr("est-precio2");
             var descripcion = $('#nombre-odd').val();//$("#txtCantidadZE").attr("est-descripcion");
             var indicadorMontoMinimo = $('#indmonto-min-odd').val();//$("#txtCantidadZE").attr("est-montominimo");
-
+            var origenPedidoWeb = 0;
 
             //directo display
             if (typeof origenPagina == 'undefined') origenPedidoWeb = 2991; // general
@@ -802,15 +807,15 @@
 
             // validar si la oferta aun esta activa
             if (!checkCountdownODD()) {
-                messageInfoMalo('La oferta del día se terminó.','');
+                messageInfoMalo('La Oferta del Día se termino','');
                 return false;
             }
 
             // validar cantidad a agregar (nuevas unidades o ya existentes)
             var cqty = getQtyPedidoDetalleByCuvODD(cuv);
             if (cqty > 0) {
-                var tqty = parseInt(cqty) + parseInt(cantidad);
-                if (parseInt(tqty) > parseInt(cantidadLimite)) {
+                var tqty = parseInt(cqty) + intCantidad;
+                if (parseInt(tqty) > intLimiteVenta) {
                     $('#popupInformacionSB2Error').find('#mensajeInformacionSB2_Error').text(msg1);
                     $('#popupInformacionSB2Error').show();
                     return;
@@ -830,7 +835,7 @@
                 IndicadorMontoMinimo: indicadorMontoMinimo,
                 TipoOferta: tipoEstrategiaID, //$("#hdTipoEstrategiaID").val(),
                 tipoEstrategiaImagen: teImagenMostrar || 0,
-                OrigenPedidoWeb: OrigenPedidoWeb
+                OrigenPedidoWeb: origenPedidoWeb
             });
 
             ShowLoading();
@@ -870,16 +875,15 @@
                                 
                                 ShowLoading();
 
+                                ActualizarGanancia(data.DataBarra);
+                                //CargarCarouselEstrategias(cuv);
+                                TrackingJetloreAdd(cantidad, $("#hdCampaniaCodigo").val(), cuv);
+
                                 if (typeof origenPagina !== 'undefined') {
                                     if (origenPagina == 1) {    // home
                                         TagManagerClickAgregarProducto();
                                     }
                                 }
-
-                                //MostrarBarra(data, '1');
-                                ActualizarGanancia(data.DataBarra);
-                                //CargarCarouselEstrategias(cuv);
-                                TrackingJetloreAdd(cantidad, $("#hdCampaniaCodigo").val(), cuv);
                            
                                 CloseLoading();
                                 
@@ -976,36 +980,38 @@
                 contentType: 'application/json; charset=utf-8',
                 async: false,
                 success: function (data) {
-                    
-                    if (checkTimeout(data)) {
-                        if (data.success == false)
-                            restringido = false;
-                        else {
+                    if (!checkTimeout(data)) {
+                        return false;
+                    }
 
-                            if (data.pedidoReservado) {
-                                var fnRedireccionar = function () {
-                                    ShowLoading();
-                                    location.href = '@Url.Action("Validado", "Pedido", new { area = "Mobile" })';
-                                }
-                                if (mostrarAlerta == true) {
-                                    CloseLoading();
-                                    alert_msg(data.message, fnRedireccionar);
-                                }
+                    if (data.success == false) {
+                        restringido = false;
+                        return false;
+                    }
 
-                                else fnRedireccionar();
-
-                            }
-                            else if (mostrarAlerta == true) alert_msg(data.message);
+                    if (data.pedidoReservado) {
+                        var fnRedireccionar = function () {
+                            ShowLoading();
+                            location.href = '@Url.Action("Validado", "Pedido", new { area = "Mobile" })';
                         }
+                        if (mostrarAlerta == true) {
+                            CloseLoading();
+                            messageInfo(data.message);
+                        }
+                        else fnRedireccionar();
+                    }
+                    else if (mostrarAlerta == true) {
+                        messageInfo(data.message);
                     }
                 },
                 error: function (error) {
                     console.log(error);
-                    alert_msg('Ocurrió un error al intentar validar el horario restringido o si el pedido está reservado. Por favor inténtelo en unos minutos.');
+                    messageInfo('Ocurrió un error al intentar validar el horario restringido o si el pedido está reservado. Por favor inténtelo en unos minutos.');
                 }
             });
             return restringido;
-        }
+        };
+
         /*PL20-1233*/
 
         /**** ****/
@@ -1712,13 +1718,16 @@
     <script id="bloquemobileofertadia-template" type="text/x-handlebars-template">
         <div class="content_320" style="padding:0;" id="content_oferta_dia_mobile">
             <div class="float_left">
-                <div class="solo_hoy_mobile"><img src="@Url.Content("~/Content/Images/PL20/solo_hoy.png")" alt="Solo Hoy" /></div>
+                <div class="solo_hoy_mobile">
+                    @*<img src="@Url.Content("~/Content/Images/PL20/solo_hoy.png")" alt="Solo Hoy" />*@
+                    <img id="img-solohoy-odd" alt="" />
+                </div>
                 <div class="nombre_set_oferta_mobile">{{NombreOferta}} A SOLO <b>@ViewBag.Simbolo {{PrecioOfertaFormat}}</b></div>
             </div>
             <div class="imagen_set_oferta_mobile"><img src="@Url.Content("~/Content/Images/PL20/set_hoy.png")" alt="Solo Hoy" /></div>
             <hr class="clear" />
 
-            <input type="hidden" id="tipoestrategia-id-odd" value="{{TipoEstrategiaID}}" />
+            <input type="hidden" id="tipoestrategia-id-odd" value="{{TipoEstrategiaID}}" />CONF
             <input type="hidden" id="marca-id-odd" value="{{MarcaID}}" />
             <input type="hidden" id="cuv2-odd" value="{{CUV2}}" />
             <input type="hidden" id="limite-venta-odd" value="{{LimiteVenta}}" />
@@ -1733,8 +1742,15 @@
         <div id="pop_oferta_mobile" class="content_pop_oferta_mobile">
             <div class="header_pop_oferta">
                 <div class="content_320" style="padding:0;">
-                    <div class="float_left"><a class="btn_cerrar_pop_oferta_hoy"><img src="@Url.Content("~/Content/Images/PL20/regresar.png")" alt="regresar" /></a></div>
-                    <div class="imagen_set_hoy_mobile"><img src="@Url.Content("~/Content/Images/PL20/solo_hoy.png")" alt="regresar" /></div>
+                    <div class="float_left">
+                        <a class="btn_cerrar_pop_oferta_hoy">
+                            <img src="@Url.Content("~/Content/Images/PL20/regresar.png")" alt="regresar" />
+                        </a>
+                    </div>
+                    <div class="imagen_set_hoy_mobile">
+                        @*<img src="@Url.Content("~/Content/Images/PL20/solo_hoy.png")" alt="regresar" />*@
+                        <img id="img-solohoy1-odd" alt="regresar" />
+                    </div>
                     <hr class="clear" />
                 </div>
             </div>

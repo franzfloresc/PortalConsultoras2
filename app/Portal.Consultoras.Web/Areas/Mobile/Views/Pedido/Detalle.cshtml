@@ -729,7 +729,11 @@
         var viewBagNombrePais = '@ViewBag.NombrePais';
         var urlPedidoInsert = '@Url.Action("Insert", "Pedido", new {area = ""})';
         /* SB20-565 - FIN */
-        var origenPagina = 2;//PL20-1233
+
+        //PL20-1233
+        var origenPagina = 2;
+        var tipoEstrategiaODD = '@Constantes.TipoEstrategia.OfertaDelDia';
+        var limiteVentaODD = '@ViewBag.LimiteVentaODD';
 
     </script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Mobile/Pedido/Detalle.js")"></script>

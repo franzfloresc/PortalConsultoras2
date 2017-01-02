@@ -185,6 +185,8 @@ function GetProductoEntidad(id) {
 // Actualizar pedido delsde el detalle => Cantidad Detalle
 
 function UpdateLiquidacionEvento(evento) {
+    debugger;
+
     var obj = $(evento.currentTarget);
     var id = $.trim(obj.attr("data-pedidodetalleid")) || "0";
     if (parseInt(id, 10) <= 0 || parseInt(id, 10) == NaN) {
@@ -192,6 +194,22 @@ function UpdateLiquidacionEvento(evento) {
     }
 
     var obj = GetProductoEntidad(id);
+
+    /*PL20-1233*/
+    if (typeof tipoEstrategiaODD !== 'undefined' && typeof limiteVentaODD !== 'undefined') {
+        if (parseInt(obj.TipoOfertaSisID) == parseInt(tipoEstrategiaODD)) {
+            // validar cantidad a agregar
+            var nqty = $('#Cantidad_' + obj.PedidoDetalleID).val();
+            if (nqty > parseInt(limiteVentaODD)) {
+                //obj.attr("data-pedidodetalleid").val(obj.CantidadInicial);
+                var msg1 = 'Solo puede llevar ' + limiteVentaODD + ' unidades de este producto.';
+                $('#popupInformacionSB2Error').find('#mensajeInformacionSB2_Error').text(msg1);
+                $('#popupInformacionSB2Error').show();
+                return;
+            }
+        }
+    }
+    /*PL20-1233*/
 
     UpdateLiquidacionSegunTipoOfertaSis(obj.CampaniaID, obj.PedidoID, obj.PedidoDetalleID, obj.TipoOfertaSisID, obj.CUV, obj.FlagValidacion, obj.CantidadInicial, obj.EsBackOrder);
 
