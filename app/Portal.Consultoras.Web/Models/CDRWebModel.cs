@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using Portal.Consultoras.Common;
+using Portal.Consultoras.Web.ServiceCDR;
 
 namespace Portal.Consultoras.Web.Models
 {
@@ -18,7 +19,13 @@ namespace Portal.Consultoras.Web.Models
         public DateTime? FechaCulminado { get; set; }        
         public DateTime? FechaAtencion { get; set; }        
         public decimal Importe { get; set; }
+        public string NombreConsultora { get; set; }
 
+        public string CodigoIso { get; set; }
+
+        public string Simbolo { get; set; }
+
+        public List<BECDRWebDetalle> ListaDetalle { get; set; }
         public string EstadoDescripcion
         {
             get
@@ -31,6 +38,22 @@ namespace Portal.Consultoras.Web.Models
                         ? "OBSERVADO"
                         : Estado == Constantes.EstadoCDRWeb.Aceptado
                             ? "ACEPTADO"
+                            : "";
+            }
+        }
+
+        public string ResumenResolucion
+        {
+            get
+            {
+                return Estado == Constantes.EstadoCDRWeb.Pendiente
+                    ? "Pendiente"
+                    : Estado == Constantes.EstadoCDRWeb.Enviado
+                        ? "Enviado"
+                        : Estado == Constantes.EstadoCDRWeb.Observado
+                        ? "Resuelve las observaciones y envía nuevamente la solicitud"
+                        : Estado == Constantes.EstadoCDRWeb.Aceptado
+                            ? "Todos los productos fueron aprobados"
                             : "";
             }
         }

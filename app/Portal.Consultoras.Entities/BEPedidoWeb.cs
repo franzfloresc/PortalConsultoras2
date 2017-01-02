@@ -95,71 +95,86 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public decimal Flete { get; set; }
 
+        [DataMember]
+        public int CDRWebID { get; set; }
+
+        [DataMember]
+        public int CDRWebEstado { get; set; }
+
+        [DataMember]
+        public int NumeroPedido { get; set; }
+
         public BEPedidoWeb()
         { }
 
         public BEPedidoWeb(IDataRecord row)
         {
-            if (DataRecord.HasColumn(row, "CampaniaID"))
+            if (row.HasColumn("CampaniaID"))
                 CampaniaID = Convert.ToInt32(row["CampaniaID"]);
-            if (DataRecord.HasColumn(row, "PedidoID"))
+            if (row.HasColumn("PedidoID"))
                 PedidoID = Convert.ToInt32(row["PedidoID"]);
-            if (DataRecord.HasColumn(row, "ConsultoraID"))
+            if (row.HasColumn("ConsultoraID"))
                 ConsultoraID = Convert.ToInt64(row["ConsultoraID"]);
-            if (DataRecord.HasColumn(row, "Clientes"))
+            if (row.HasColumn("Clientes"))
                 Clientes = Convert.ToInt16(row["Clientes"]);
-            if (DataRecord.HasColumn(row, "ImporteTotal"))
+            if (row.HasColumn("ImporteTotal"))
                 ImporteTotal = Convert.ToDecimal(row["ImporteTotal"]);
-            if (DataRecord.HasColumn(row, "ImporteCredito"))
+            if (row.HasColumn("ImporteCredito"))
                 ImporteCredito = Convert.ToDecimal(row["ImporteCredito"]);
-            if (DataRecord.HasColumn(row, "EstadoPedidoDesc"))
+            if (row.HasColumn("EstadoPedidoDesc"))
                 EstadoPedidoDesc = Convert.ToString(row["EstadoPedidoDesc"]);
-            if (DataRecord.HasColumn(row, "MotivoCreditoID"))
+            if (row.HasColumn("MotivoCreditoID"))
                 MotivoCreditoID = Convert.ToInt16(row["MotivoCreditoID"]);
-            if (DataRecord.HasColumn(row, "PaisID"))
+            if (row.HasColumn("PaisID"))
                 PaisID = Convert.ToInt32(row["PaisID"]);
-            if (DataRecord.HasColumn(row, "CantidadProductos"))
+            if (row.HasColumn("CantidadProductos"))
                 CantidadProductos = Convert.ToInt32(row["CantidadProductos"]);
-            if (DataRecord.HasColumn(row, "Bloqueado") && row["Bloqueado"] != DBNull.Value)
+            if (row.HasColumn("Bloqueado") && row["Bloqueado"] != DBNull.Value)
                 Bloqueado = Convert.ToInt16(row["Bloqueado"]);
-            if (DataRecord.HasColumn(row, "Nombres"))
+            if (row.HasColumn("Nombres"))
                 Nombres = Convert.ToString(row["Nombres"]);
-            if (DataRecord.HasColumn(row, "DescripcionBloqueo") && row["DescripcionBloqueo"] != DBNull.Value)
+            if (row.HasColumn("DescripcionBloqueo") && row["DescripcionBloqueo"] != DBNull.Value)
                 DescripcionBloqueo = Convert.ToString(row["DescripcionBloqueo"]);
-            if (DataRecord.HasColumn(row, "CodigoZona"))
+            if (row.HasColumn("CodigoZona"))
                 CodigoZona = Convert.ToString(row["CodigoZona"]);
-            if (DataRecord.HasColumn(row, "CodigoConsultora"))
+            if (row.HasColumn("CodigoConsultora"))
                 CodigoConsultora = Convert.ToString(row["CodigoConsultora"]);
-            if (DataRecord.HasColumn(row, "SaldoDeuda"))
+            if (row.HasColumn("SaldoDeuda"))
                 SaldoDeuda = Convert.ToDecimal(row["SaldoDeuda"]);
-            if (DataRecord.HasColumn(row, "MontoPedido"))
+            if (row.HasColumn("MontoPedido"))
                 MontoPedido = Convert.ToDecimal(row["MontoPedido"]);
-            if (DataRecord.HasColumn(row, "CodigoTerritorio"))
+            if (row.HasColumn("CodigoTerritorio"))
                 CodigoTerritorio = Convert.ToString(row["CodigoTerritorio"]);
-            if (DataRecord.HasColumn(row, "Direccion"))
+            if (row.HasColumn("Direccion"))
                 Direccion = Convert.ToString(row["Direccion"]);
-            if (DataRecord.HasColumn(row, "IndicadorEnviado"))
+            if (row.HasColumn("IndicadorEnviado"))
                 IndicadorEnviado = Convert.ToInt32(row["IndicadorEnviado"]);
-            if (DataRecord.HasColumn(row, "FechaRegistro"))
+            if (row.HasColumn("FechaRegistro"))
                 FechaRegistro = Convert.ToDateTime(row["FechaRegistro"]);
-            if (DataRecord.HasColumn(row, "FechaModificacion") && row["FechaModificacion"] != DBNull.Value)
+            if (row.HasColumn("FechaModificacion") && row["FechaModificacion"] != DBNull.Value)
                 FechaModificacion = Convert.ToDateTime(row["FechaModificacion"]);
-            if (DataRecord.HasColumn(row, "FechaProceso") && row["FechaProceso"] != DBNull.Value)
+            if (row.HasColumn("FechaProceso") && row["FechaProceso"] != DBNull.Value)
                 FechaProceso = Convert.ToDateTime(row["FechaProceso"]);
-            if (DataRecord.HasColumn(row, "MontoTotalProl") && row["MontoTotalProl"] != DBNull.Value)
+            if (row.HasColumn("MontoTotalProl") && row["MontoTotalProl"] != DBNull.Value)
                 MontoTotalProl = Convert.ToDecimal(row["MontoTotalProl"]);
-            if (DataRecord.HasColumn(row, "MontoAhorroCatalogo") && row["MontoAhorroCatalogo"] != DBNull.Value)
+            if (row.HasColumn("MontoAhorroCatalogo") && row["MontoAhorroCatalogo"] != DBNull.Value)
                 MontoAhorroCatalogo = Convert.ToDecimal(row["MontoAhorroCatalogo"]);
-            if (DataRecord.HasColumn(row, "MontoAhorroRevista") && row["MontoAhorroRevista"] != DBNull.Value)
+            if (row.HasColumn("MontoAhorroRevista") && row["MontoAhorroRevista"] != DBNull.Value)
                 MontoAhorroRevista = Convert.ToDecimal(row["MontoAhorroRevista"]);
-            if (DataRecord.HasColumn(row, "DescuentoProl") && row["DescuentoProl"] != DBNull.Value)
+            if (row.HasColumn("DescuentoProl") && row["DescuentoProl"] != DBNull.Value)
                 DescuentoProl = Convert.ToDecimal(row["DescuentoProl"]);
-            if (DataRecord.HasColumn(row, "MontoEscala") && row["MontoEscala"] != DBNull.Value)
+            if (row.HasColumn("MontoEscala") && row["MontoEscala"] != DBNull.Value)
                 MontoEscala = Convert.ToDecimal(row["MontoEscala"]);
-            if (DataRecord.HasColumn(row, "CanalIngreso") && row["CanalIngreso"] != DBNull.Value)
+            if (row.HasColumn("CanalIngreso") && row["CanalIngreso"] != DBNull.Value)
                 CanalIngreso = Convert.ToString(row["CanalIngreso"]);
-            if (DataRecord.HasColumn(row, "Flete") && row["Flete"] != DBNull.Value)
-                Flete = Convert.ToDecimal(row["Flete"]);          
+            if (row.HasColumn("Flete") && row["Flete"] != DBNull.Value)
+                Flete = Convert.ToDecimal(row["Flete"]);
+            if (row.HasColumn("CDRWebID") && row["CDRWebID"] != DBNull.Value)
+                CDRWebID = Convert.ToInt32(row["CDRWebID"]);
+            if (row.HasColumn("CDRWebEstado") && row["CDRWebEstado"] != DBNull.Value)
+                CDRWebEstado = Convert.ToInt32(row["CDRWebEstado"]);
+            if (row.HasColumn("NumeroPedido") && row["NumeroPedido"] != DBNull.Value)
+                NumeroPedido = Convert.ToInt32(row["NumeroPedido"]);            
         }
     }
 }
