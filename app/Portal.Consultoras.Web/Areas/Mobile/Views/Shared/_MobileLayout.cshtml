@@ -693,13 +693,14 @@
                         var tq = _data.TeQuedan;
 
                         if (tq.TotalSeconds > 0) {
-
+                            
                             var obj1 = $('#BloqueMobileOfertaDia').find('.nombre_set_producto_hoy');
                             obj1.html(obj1.text());
 
                             $('#BloqueMobileOfertaDia').show();
 
                             $("#content_oferta_dia_mobile").click(function () {
+                                $('#txtCantidad').val('1');
                                 $('body').css({ 'overflow-x': 'hidden' });
                                 $('body').css({ 'overflow-y': 'hidden' });
                                 // Set the effect type
@@ -771,17 +772,9 @@
             debugger
             var tipoEstrategiaID = $('#tipoestrategia-id-odd').val();
             var estrategiaID = $('#estrategia-id-odd').val();
-            //var marcaID = $('#marca-id-odd').val();
-            //var cuv2 = $('#cuv2-odd').val();
-            //var limiteVenta = $('#limite-venta-odd').val();
             var flagNueva = $('#flag-nueva-odd').val();
             var teImagenMostrar = $('#teimagenmostrar-odd').val();
-            //var cantidad = $('#txtCantidad').val();
-            //var precio = $('#precio-odd').val();
-            //var descripcion = $('#nombre-odd').val();
-            //var indMontoMinimo = $('#indmonto-min-odd').val();
             var origenPedidoWeb = 0;
-            
             var cantidad = $('#txtCantidad').val();//$("#txtCantidadZE").val();
             var cantidadLimite = $('#limite-venta-odd').val();//$("#txtCantidadZE").attr("est-cantidad");
             var cuv = $('#cuv2-odd').val();//$("#txtCantidadZE").attr("est-cuv2");
@@ -789,13 +782,7 @@
             var precio = $('#precio-odd').val();//$("#txtCantidadZE").attr("est-precio2");
             var descripcion = $('#nombre-odd').val();//$("#txtCantidadZE").attr("est-descripcion");
             var indicadorMontoMinimo = $('#indmonto-min-odd').val();//$("#txtCantidadZE").attr("est-montominimo");
-            //var tipoOferta = $("#txtCantidadZE").attr("est-tipooferta");
-            //var categoria = $("#txtCantidadZE").attr("est-descripcionCategoria");
-            //var variant = $("#txtCantidadZE").attr("est-descripcionEstrategia");
-            //var marca = $("#txtCantidadZE").attr("est-descripcionMarca");
-            //var posicion = $("#txtCantidadZE").attr("est-posicion");
-            //var urlImagen = $("#imgZonaEstrategiaEdit").attr("src");
-            var OrigenPedidoWeb = 0//MobileHomeOfertasParaTi;
+
 
             //directo display
             if (typeof origenPagina == 'undefined') origenPedidoWeb = 2991; // general
