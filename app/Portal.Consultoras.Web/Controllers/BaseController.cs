@@ -67,18 +67,18 @@ namespace Portal.Consultoras.Web.Controllers
                     /*PL20-1226*/
                     ViewBag.TieneOfertaDelDia = userData.TieneOfertaDelDia;
 
-                    // validar si se cerro el banner
-                    if (Session["CloseODD"] != null)
+                    if (ViewBag.TieneOfertaDelDia)
                     {
-                        var close = (bool)Session["CloseODD"];
-                        if (close)
+                        // validar si se cerro el banner
+                        if (userData.CloseOfertaDelDia)
+                            ViewBag.TieneOfertaDelDia = false;
+
+                        // validar si tiene pedido reservado
+                        string msg = string.Empty;
+                        if (ValidarPedidoReservado(out msg))
                             ViewBag.TieneOfertaDelDia = false;
                     }
-
-                    // validar si tiene pedido reservado
-                    string msg1 = string.Empty;
-                    if (ValidarPedidoReservado(out msg1))
-                        ViewBag.TieneOfertaDelDia = false;
+                    /*PL20-1226*/
                 }
 
                 base.OnActionExecuting(filterContext);
@@ -1889,24 +1889,34 @@ namespace Portal.Consultoras.Web.Controllers
             return sFecha;
         }
 
-        public TimeSpan CalcularTeQuedanODD(UsuarioModel model)
+        /*PL20-1226*/
+        public TimeSpan CountdownODD(UsuarioModel model)
         {
-            DateTime hoy = DateTime.Now;
+            //DateTime hoy = DateTime.Now;
+            //DateTime d1 = new DateTime(hoy.Year, hoy.Month, hoy.Day, 0, 0, 0);
+            DateTime hoy;
+
+            using (SACServiceClient svc = new SACServiceClient())
+            {
+                hoy = svc.GetFechaHoraPais(model.PaisID);
+            }
+
             DateTime d1 = new DateTime(hoy.Year, hoy.Month, hoy.Day, 0, 0, 0);
             DateTime d2;
-            if (model.EsOfertaDelDia == 1)
+
+            if (model.EsOfertaDelDia == 1)  // dia de facturacion
             {
                 TimeSpan t1 = model.HoraCierreZonaNormal;
                 d2 = new DateTime(hoy.Year, hoy.Month, hoy.Day, t1.Hours, t1.Minutes, t1.Seconds);
             }
-            else
+            else // antes o despues de la facturacion
             {
                 d2 = d1.AddDays(1);
             }
 
             TimeSpan t2 = (d2 - hoy);
-
             return t2;
         }
+        /*PL20-1226*/
     }
 }
