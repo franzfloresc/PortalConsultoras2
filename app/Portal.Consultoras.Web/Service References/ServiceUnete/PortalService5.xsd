@@ -1,335 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
-<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.Utils" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.Utils" xmlns:xs="http://www.w3.org/2001/XMLSchema">
-  <xs:import schemaLocation="http://internal-qaselb-portalffvvservicios-1152760669.us-east-1.elb.amazonaws.com/UneteWCF/PortalService.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
-  <xs:simpleType name="Enums.TipoParametro">
-    <xs:restriction base="xs:string">
-      <xs:enumeration value="Correo">
-        <xs:annotation>
-          <xs:appinfo>
-            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">1</EnumerationValue>
-          </xs:appinfo>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="EstadoPostulante">
-        <xs:annotation>
-          <xs:appinfo>
-            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">2</EnumerationValue>
-          </xs:appinfo>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="EstadoBurocrediticio">
-        <xs:annotation>
-          <xs:appinfo>
-            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">3</EnumerationValue>
-          </xs:appinfo>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="EstadoGEO">
-        <xs:annotation>
-          <xs:appinfo>
-            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">4</EnumerationValue>
-          </xs:appinfo>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="LugarNivel1">
-        <xs:annotation>
-          <xs:appinfo>
-            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">5</EnumerationValue>
-          </xs:appinfo>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="LugarNivel2">
-        <xs:annotation>
-          <xs:appinfo>
-            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">6</EnumerationValue>
-          </xs:appinfo>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="LugarNivel3">
-        <xs:annotation>
-          <xs:appinfo>
-            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">7</EnumerationValue>
-          </xs:appinfo>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="LugarNivel4">
-        <xs:annotation>
-          <xs:appinfo>
-            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">8</EnumerationValue>
-          </xs:appinfo>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="LugarNivel5">
-        <xs:annotation>
-          <xs:appinfo>
-            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">9</EnumerationValue>
-          </xs:appinfo>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="PrefijosCelular">
-        <xs:annotation>
-          <xs:appinfo>
-            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">13</EnumerationValue>
-          </xs:appinfo>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="Validaciones">
-        <xs:annotation>
-          <xs:appinfo>
-            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">14</EnumerationValue>
-          </xs:appinfo>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="EstadoTelefonico">
-        <xs:annotation>
-          <xs:appinfo>
-            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">15</EnumerationValue>
-          </xs:appinfo>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="MotivoRechazoTelefonico">
-        <xs:annotation>
-          <xs:appinfo>
-            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">16</EnumerationValue>
-          </xs:appinfo>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="MensajeBuroCrediticio">
-        <xs:annotation>
-          <xs:appinfo>
-            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">17</EnumerationValue>
-          </xs:appinfo>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="TipoRechazo">
-        <xs:annotation>
-          <xs:appinfo>
-            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">18</EnumerationValue>
-          </xs:appinfo>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="TipoRechazoSociaEmpresaria">
-        <xs:annotation>
-          <xs:appinfo>
-            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">19</EnumerationValue>
-          </xs:appinfo>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="TipoDocumento">
-        <xs:annotation>
-          <xs:appinfo>
-            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">20</EnumerationValue>
-          </xs:appinfo>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="TipoRechazoSAC">
-        <xs:annotation>
-          <xs:appinfo>
-            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">21</EnumerationValue>
-          </xs:appinfo>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="TipoNivelesRiesgo">
-        <xs:annotation>
-          <xs:appinfo>
-            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">22</EnumerationValue>
-          </xs:appinfo>
-        </xs:annotation>
-      </xs:enumeration>
-    </xs:restriction>
-  </xs:simpleType>
-  <xs:element name="Enums.TipoParametro" nillable="true" type="tns:Enums.TipoParametro" />
-  <xs:simpleType name="Enums.TablaLogicaID">
-    <xs:restriction base="xs:string">
-      <xs:enumeration value="TipoContacto">
-        <xs:annotation>
-          <xs:appinfo>
-            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">31</EnumerationValue>
-          </xs:appinfo>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="TipoDocumento">
-        <xs:annotation>
-          <xs:appinfo>
-            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">32</EnumerationValue>
-          </xs:appinfo>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="EstadoCivil">
-        <xs:annotation>
-          <xs:appinfo>
-            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">33</EnumerationValue>
-          </xs:appinfo>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="NivelEducativo">
-        <xs:annotation>
-          <xs:appinfo>
-            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">34</EnumerationValue>
-          </xs:appinfo>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="CodigoOtrasMarcas">
-        <xs:annotation>
-          <xs:appinfo>
-            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">35</EnumerationValue>
-          </xs:appinfo>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="TipoNacionalidad">
-        <xs:annotation>
-          <xs:appinfo>
-            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">41</EnumerationValue>
-          </xs:appinfo>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="TipoVinculoFamiliar">
-        <xs:annotation>
-          <xs:appinfo>
-            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">36</EnumerationValue>
-          </xs:appinfo>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="TipoVinculoNoFamiliar">
-        <xs:annotation>
-          <xs:appinfo>
-            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">37</EnumerationValue>
-          </xs:appinfo>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="TipoVinculoAval">
-        <xs:annotation>
-          <xs:appinfo>
-            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">38</EnumerationValue>
-          </xs:appinfo>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="TipoPersona">
-        <xs:annotation>
-          <xs:appinfo>
-            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">90</EnumerationValue>
-          </xs:appinfo>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="OrigenIngreso">
-        <xs:annotation>
-          <xs:appinfo>
-            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">91</EnumerationValue>
-          </xs:appinfo>
-        </xs:annotation>
-      </xs:enumeration>
-    </xs:restriction>
-  </xs:simpleType>
-  <xs:element name="Enums.TablaLogicaID" nillable="true" type="tns:Enums.TablaLogicaID" />
-  <xs:simpleType name="Enums.Aplicacion">
-    <xs:restriction base="xs:string">
-      <xs:enumeration value="PortalGZ" />
-      <xs:enumeration value="PortalSE" />
-      <xs:enumeration value="HerramientaGestionSAC" />
-    </xs:restriction>
-  </xs:simpleType>
-  <xs:element name="Enums.Aplicacion" nillable="true" type="tns:Enums.Aplicacion" />
-  <xs:simpleType name="Enums.EstadoGEO">
-    <xs:restriction base="xs:string">
-      <xs:enumeration value="SinConsultar">
-        <xs:annotation>
-          <xs:appinfo>
-            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">1</EnumerationValue>
-          </xs:appinfo>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="OK">
-        <xs:annotation>
-          <xs:appinfo>
-            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">2</EnumerationValue>
-          </xs:appinfo>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="NoEncontroTerritorioNoLatLong">
-        <xs:annotation>
-          <xs:appinfo>
-            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">3</EnumerationValue>
-          </xs:appinfo>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="NoEncontroTerritorioSiLatLong">
-        <xs:annotation>
-          <xs:appinfo>
-            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">4</EnumerationValue>
-          </xs:appinfo>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="ErrorConsumoIntegracion">
-        <xs:annotation>
-          <xs:appinfo>
-            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">5</EnumerationValue>
-          </xs:appinfo>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="Reactivada">
-        <xs:annotation>
-          <xs:appinfo>
-            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">6</EnumerationValue>
-          </xs:appinfo>
-        </xs:annotation>
-      </xs:enumeration>
-    </xs:restriction>
-  </xs:simpleType>
-  <xs:element name="Enums.EstadoGEO" nillable="true" type="tns:Enums.EstadoGEO" />
-  <xs:simpleType name="Enums.EstadoPostulante">
-    <xs:restriction base="xs:string">
-      <xs:enumeration value="Todos" />
-      <xs:enumeration value="Registrada" />
-      <xs:enumeration value="EnGestionServicioAlCliente" />
-      <xs:enumeration value="EnAprobacionFFVV" />
-      <xs:enumeration value="Rechazada" />
-      <xs:enumeration value="YaConCodigo" />
-      <xs:enumeration value="Reactivada" />
-      <xs:enumeration value="GenerandoCodigo" />
-      <xs:enumeration value="EnAprobacionSAC" />
-    </xs:restriction>
-  </xs:simpleType>
-  <xs:element name="Enums.EstadoPostulante" nillable="true" type="tns:Enums.EstadoPostulante" />
-  <xs:simpleType name="Enums.GrupoEstadoPostulante">
-    <xs:restriction base="xs:string">
-      <xs:enumeration value="EnEvaluacion">
-        <xs:annotation>
-          <xs:appinfo>
-            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">1</EnumerationValue>
-          </xs:appinfo>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="PreAprobada">
-        <xs:annotation>
-          <xs:appinfo>
-            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">2</EnumerationValue>
-          </xs:appinfo>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="Aprobada">
-        <xs:annotation>
-          <xs:appinfo>
-            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">3</EnumerationValue>
-          </xs:appinfo>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="Rechazada">
-        <xs:annotation>
-          <xs:appinfo>
-            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">4</EnumerationValue>
-          </xs:appinfo>
-        </xs:annotation>
-      </xs:enumeration>
-    </xs:restriction>
-  </xs:simpleType>
-  <xs:element name="Enums.GrupoEstadoPostulante" nillable="true" type="tns:Enums.GrupoEstadoPostulante" />
-  <xs:simpleType name="Enums.TipoEstadoTelefonico">
-    <xs:restriction base="xs:string">
-      <xs:enumeration value="SinAsignar" />
-      <xs:enumeration value="Aprobado" />
-      <xs:enumeration value="Rechazado" />
-      <xs:enumeration value="Omitido" />
-    </xs:restriction>
-  </xs:simpleType>
-  <xs:element name="Enums.TipoEstadoTelefonico" nillable="true" type="tns:Enums.TipoEstadoTelefonico" />
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.SI.ServiceContract.Collections" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.SI.ServiceContract.Collections" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://internal-qaselb-portalffvvservicios-1152760669.us-east-1.elb.amazonaws.com/UneteWCF/PortalService.svc?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.BL.BE" />
+  <xs:import schemaLocation="http://internal-qaselb-portalffvvservicios-1152760669.us-east-1.elb.amazonaws.com/UneteWCF/PortalService.svc?xsd=xsd5" namespace="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.DL.DataModel.BelcorpPais" />
+  <xs:complexType name="UbigeoCRCollection">
+    <xs:sequence>
+      <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.BL.BE" minOccurs="0" maxOccurs="unbounded" name="UbigeoCR_BE" nillable="true" type="q1:UbigeoCR_BE" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="UbigeoCRCollection" nillable="true" type="tns:UbigeoCRCollection" />
+  <xs:complexType name="ParametroUneteCollection">
+    <xs:sequence>
+      <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.BL.BE" minOccurs="0" maxOccurs="unbounded" name="ParametroUneteBE" nillable="true" type="q2:ParametroUneteBE" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ParametroUneteCollection" nillable="true" type="tns:ParametroUneteCollection" />
+  <xs:complexType name="TablaLogicaDatosCollection">
+    <xs:sequence>
+      <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.DL.DataModel.BelcorpPais" minOccurs="0" maxOccurs="unbounded" name="TablaLogicaDatos" nillable="true" type="q3:TablaLogicaDatos" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="TablaLogicaDatosCollection" nillable="true" type="tns:TablaLogicaDatosCollection" />
+  <xs:complexType name="RegionCollection">
+    <xs:sequence>
+      <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.BL.BE" minOccurs="0" maxOccurs="unbounded" name="RegionBE" nillable="true" type="q4:RegionBE" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="RegionCollection" nillable="true" type="tns:RegionCollection" />
+  <xs:complexType name="ZonaCollection">
+    <xs:sequence>
+      <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.BL.BE" minOccurs="0" maxOccurs="unbounded" name="ZonaBE" nillable="true" type="q5:ZonaBE" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ZonaCollection" nillable="true" type="tns:ZonaCollection" />
+  <xs:complexType name="SeccionCollection">
+    <xs:sequence>
+      <xs:element xmlns:q6="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.BL.BE" minOccurs="0" maxOccurs="unbounded" name="SeccionBE" nillable="true" type="q6:SeccionBE" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="SeccionCollection" nillable="true" type="tns:SeccionCollection" />
+  <xs:complexType name="TerritorioCollection">
+    <xs:sequence>
+      <xs:element xmlns:q7="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.BL.BE" minOccurs="0" maxOccurs="unbounded" name="TerritorioBE" nillable="true" type="q7:TerritorioBE" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="TerritorioCollection" nillable="true" type="tns:TerritorioCollection" />
+  <xs:complexType name="SolicitudPostulanteCollection">
+    <xs:sequence>
+      <xs:element xmlns:q8="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.BL.BE" minOccurs="0" maxOccurs="unbounded" name="SolicitudPostulanteBE" nillable="true" type="q8:SolicitudPostulanteBE" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="SolicitudPostulanteCollection" nillable="true" type="tns:SolicitudPostulanteCollection" />
+  <xs:complexType name="ReporteConsolidadoCollection">
+    <xs:sequence>
+      <xs:element xmlns:q9="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.BL.BE" minOccurs="0" maxOccurs="unbounded" name="ReporteConsolidadoBE" nillable="true" type="q9:ReporteConsolidadoBE" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ReporteConsolidadoCollection" nillable="true" type="tns:ReporteConsolidadoCollection" />
 </xs:schema>
