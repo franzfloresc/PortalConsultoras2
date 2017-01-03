@@ -2748,6 +2748,12 @@
     <None Include="Service References\ServiceUnete\PortalService7.xsd">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Service References\ServiceUnete\PortalService8.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceUnete\PortalService9.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Service References\ValidacionCrediticia\configuration91.svcinfo" />
     <None Include="Service References\ValidacionCrediticia\configuration.svcinfo" />
     <None Include="Service References\ValidacionCrediticia\Reference.svcmap">
