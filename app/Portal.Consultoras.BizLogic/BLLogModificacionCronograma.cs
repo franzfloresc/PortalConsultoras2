@@ -37,10 +37,37 @@ namespace Portal.Consultoras.BizLogic
             {
                 foreach (var entidad in listaEntidades)
                 {
-                    DALogModificacionCronograma.InsLogModificacionCronograma(CodigoUsuario,entidad);
+                    DALogModificacionCronograma.InsLogModificacionCronograma(CodigoUsuario, entidad);
                 }
                 transaction.Complete();
             }
+        }
+
+        public void InsLogConfiguracionCronogramaMasivo(int paisID, string CodigoUsuario, List<BELogConfiguracionCronograma> listaEntidades)
+        {
+            TransactionOptions transactionOptions = new TransactionOptions();
+            transactionOptions.IsolationLevel = System.Transactions.IsolationLevel.ReadUncommitted;
+            var DALogModificacionCronograma = new DALogModificacionCronograma(paisID);
+
+            string xml = CrearLogCongiraucionCronogramaXxml(listaEntidades);
+
+            using (TransactionScope transaction = new TransactionScope(TransactionScopeOption.Required, transactionOptions))
+            {
+                DALogModificacionCronograma.InsLogConfiguracionCronogarma(CodigoUsuario, xml);
+                transaction.Complete();
+            }
+        }
+
+        private string CrearLogCongiraucionCronogramaXxml(List<BELogConfiguracionCronograma> listaEntidades)
+        {
+            StringBuilder sb = new StringBuilder();
+
+            foreach (BELogConfiguracionCronograma entidad in listaEntidades)
+            {
+                string xml = "<LogConfiguracionCronograma CodigoRegion='{0}' CodigoZona='{1}' DiasDuracionAnterior='{2}' DiasDuracionActual='{3}'/>";
+                sb.Append(String.Format(xml, entidad.CodigoRegion, entidad.CodigoZona, entidad.DiasDuracionAnterior, entidad.DiasDuracionActual));
+            }
+            return String.Format("<ROOT>{0}</ROOT>", sb.ToString());
         }
 
     }

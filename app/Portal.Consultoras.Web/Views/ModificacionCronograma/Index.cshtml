@@ -39,6 +39,7 @@
     }
 
     function Grabar() {
+        //debugger;
         waitingDialog({});
         var ModificacionCronogramaModel = {
             EntradasLog: [],
@@ -59,11 +60,21 @@
             //alert(ModificacionCronogramaModel.DiasDuracionCronograma);
             //alert(ModificacionCronogramaModel.EntradasConfiguracionValidacionZona.length)
 
+            //objEntradaLog = {
+            //    CodigosRegionZona: this.parentNode.parentNode.id + ';' + this.id,
+            //    DiasDuracionCronogramaAnterior: this.attributes[2].value,
+            //    DiasDuracionCronogramaActual: ModificacionCronogramaModel.DiasDuracionCronograma
+            //};
+
+            /*EPD-1368*/
             objEntradaLog = {
-                CodigosRegionZona: this.parentNode.parentNode.id + ';' + this.id,
-                DiasDuracionCronogramaAnterior: this.attributes[2].value,
-                DiasDuracionCronogramaActual: ModificacionCronogramaModel.DiasDuracionCronograma
+                CodigoRegion: this.parentNode.parentNode.id,
+                CodigoZona: this.id,
+                DiasDuracionAnterior: this.attributes[1].value,
+                DiasDuracionActual: ModificacionCronogramaModel.DiasDuracionCronograma
             };
+            /*EPD-1368*/
+
             ModificacionCronogramaModel.EntradasLog.push(objEntradaLog);
             objConfiguracionValidacionZona = {
                 CampaniaID: "201301",
