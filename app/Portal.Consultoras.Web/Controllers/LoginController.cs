@@ -662,13 +662,21 @@ namespace Portal.Consultoras.Web.Controllers
                                     var imgF1 = string.Format(ConfigurationManager.AppSettings.Get("UrlImgFondo1ODD"), model.CodigoISO);
                                     var imgF2 = string.Format(ConfigurationManager.AppSettings.Get("UrlImgFondo2ODD"), model.CodigoISO);
                                     var imgSh = string.Format(ConfigurationManager.AppSettings.Get("UrlImgSoloHoyODD"), model.CodigoISO);
-                                    var imgBanner = string.Format(ConfigurationManager.AppSettings.Get("UrlImgBannerODD"), model.CodigoISO, ofertaDelDia.ImagenURL);
-                                    var imgDisplay = string.Format(ConfigurationManager.AppSettings.Get("UrlImgDisplayODD"), model.CodigoISO, ofertaDelDia.ImagenURL);
+                                    //var imgBanner = string.Format(ConfigurationManager.AppSettings.Get("UrlImgBannerODD"), model.CodigoISO, ofertaDelDia.ImagenURL);
+                                    //var imgDisplay = string.Format(ConfigurationManager.AppSettings.Get("UrlImgDisplayODD"), model.CodigoISO, ofertaDelDia.ImagenURL);
                                     var colorF1 = configOfertaDelDia.Where(x => x.TablaLogicaDatosID == 9301).First().Codigo ?? string.Empty;
                                     var colorF2 = configOfertaDelDia.Where(x => x.TablaLogicaDatosID == 9302).First().Codigo ?? string.Empty;
-                                    descripcionODD = descripcionODD.Replace("|", "+<br />");
+                                    descripcionODD = descripcionODD.Replace("|", " +<br />");
                                     descripcionODD = descripcionODD.Replace("\\", "");
                                     descripcionODD = descripcionODD.Replace("(GRATIS)", "<b>GRATIS</b>");
+
+                                    var carpetaPais = Globals.UrlMatriz + "/" + model.CodigoISO;
+
+                                    ofertaDelDia.FotoProducto01 = ConfigS3.GetUrlFileS3(carpetaPais, ofertaDelDia.FotoProducto01, carpetaPais);
+                                    ofertaDelDia.ImagenURL = ConfigS3.GetUrlFileS3(carpetaPais, ofertaDelDia.ImagenURL, carpetaPais);
+                                    var imgBanner = ofertaDelDia.FotoProducto01;
+                                    var imgDisplay = ofertaDelDia.FotoProducto01;
+
 
                                     var oddModel = new OfertaDelDiaModel();
                                     oddModel.CodigoIso = model.CodigoISO;

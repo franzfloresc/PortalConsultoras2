@@ -924,11 +924,11 @@ function loadOfertaDelDia() {
                     // config ODD
                     $('#OfertaDelDia').css('background', 'url("' + _data.ImagenFondo1 + '") repeat-x');
                     $('#banner-odd').css('background-color', _data.ColorFondo1);
-                    //$('#img-banner-odd').attr('src', _data.ImagenBanner);
+                    $('#img-banner-odd').attr('src', _data.ImagenBanner);
                     $('#img-solohoy-odd').attr('src', _data.ImagenSoloHoy);
                     $('#PopOfertaDia').css('background', 'url("' + _data.ImagenFondo2 + '") no-repeat');
                     $('#PopOfertaDia').css('background-color', _data.ColorFondo2);
-                    //$('#img-display-odd').attr('src', _data.ImagenDisplay);
+                    $('#img-display-odd').attr('src', _data.ImagenDisplay);
 
                     var obj1 = $('#OfertaDelDia').find('.descripcion_set_ofertaDia');
                     obj1.html(obj1.text());

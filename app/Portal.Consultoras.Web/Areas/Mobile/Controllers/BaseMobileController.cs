@@ -31,12 +31,19 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
                 /*PL20-1226*/
                 ViewBag.TieneOfertaDelDia = userData.TieneOfertaDelDia;
-                if (Session["CloseOfertaDelDia"] != null)
+
+                if (ViewBag.TieneOfertaDelDia)
                 {
-                    var closeODD = (bool)Session["CloseOfertaDelDia"];
-                    if (closeODD)
+                    // validar si se cerro el banner
+                    if (userData.CloseOfertaDelDia)
+                        ViewBag.TieneOfertaDelDia = false;
+
+                    // validar si tiene pedido reservado
+                    string msg = string.Empty;
+                    if (ValidarPedidoReservado(out msg))
                         ViewBag.TieneOfertaDelDia = false;
                 }
+                /*PL20-1226*/
             }
             catch (Exception ex)
             {
