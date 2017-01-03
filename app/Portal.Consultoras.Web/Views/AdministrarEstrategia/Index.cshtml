@@ -114,11 +114,11 @@
 
                 $('#div-orden').hide(); //Ocultando Orden
 
-                $('#txtLimite').prop('readonly', true); //Modo lectura on
+                //$('#txtLimite').prop('readonly', true); //Modo lectura on
             }
             else {
                 $('#div-orden').show(); //Ocultando Orden
-                $('#txtLimite').prop('readonly', false); //Modo lectura off
+                //$('#txtLimite').prop('readonly', false); //Modo lectura off
             }
             /*********************/
             /* SB20-312 - FIN */
@@ -1064,13 +1064,18 @@
                         }
                         else {
                             var desc = valor.split("|");
-                            if (desc.length > 1 && desc[desc.length - 1] == "") {
-                                    alert("La descripcion no puede terminar en pipe (|).");
-                                    return false;                               
+                            if (desc.length <= 0) {
+                                alert("La descripcion debe contener dos pipes (|) como minimo.");
+                                return false;
                             }
                             else {
-                                alert("Ingrese una descripción separada con pipe (|).");
-                                return false;
+                                for (var i = 0; i < desc.length; i++) {
+                                    if ($.trim(desc[i]) == "") {
+                                        alert("La descripcion despues de un pipe (|) no puede ser vacia.");
+                                        return false;
+                                    }
+
+                                }
                             }
                         }
                     }
@@ -1584,10 +1589,10 @@
 
                             $('#div-orden').hide(); //Ocultando Orden
 
-                            $('#txtLimite').prop('readonly', true); //Modo lectura on
+                            //$('#txtLimite').prop('readonly', true); //Modo lectura on
                         }
                         else {
-                            $('#txtLimite').prop('readonly', false); //Modo lectura on
+                            //$('#txtLimite').prop('readonly', false); //Modo lectura on
                             $('#div-orden').show(); //Ocultando Orden
                         }
                         /* SB20-312 - FIN */

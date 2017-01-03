@@ -695,12 +695,12 @@
                         if (tq.TotalSeconds > 0) {
 
                             // config ODD
-                            $('#BloqueOfertaDia').css('background-color', _data.ColorFondo1);
-                            //$('#img-banner-odd').attr('src', _data.ImagenBanner);
-                            $('#img-solohoy-odd').attr('src', _data.ImagenSoloHoy);
+                            $('.BloqueOfertaDia').css('background-color', _data.ColorFondo1);
+                            $('#img-banner-odd').attr('src', _data.ImagenBanner);
+                            $('#img1-solohoy-odd').attr('src', _data.ImagenSoloHoy);
                             $('.header_pop_oferta').css('background-color', _data.ColorFondo2);
-                            $('#img-solohoy1-odd').attr('src', _data.ImagenSoloHoy);
-                            //$('#img-display-odd').attr('src', _data.ImagenDisplay);
+                            $('#img2-solohoy-odd').attr('src', _data.ImagenSoloHoy);
+                            $('#img-display-odd').attr('src', _data.ImagenDisplay);
 
                             var obj1 = $('#BloqueMobileOfertaDia').find('.nombre_set_producto_hoy');
                             obj1.html(obj1.text());
@@ -1720,14 +1720,16 @@
             <div class="float_left">
                 <div class="solo_hoy_mobile">
                     @*<img src="@Url.Content("~/Content/Images/PL20/solo_hoy.png")" alt="Solo Hoy" />*@
-                    <img id="img-solohoy-odd" alt="" />
+                    <img id="img1-solohoy-odd" alt="" />
                 </div>
                 <div class="nombre_set_oferta_mobile">{{NombreOferta}} A SOLO <b>@ViewBag.Simbolo {{PrecioOfertaFormat}}</b></div>
             </div>
-            <div class="imagen_set_oferta_mobile"><img src="@Url.Content("~/Content/Images/PL20/set_hoy.png")" alt="Solo Hoy" /></div>
+            <div class="imagen_set_oferta_mobile">
+                <img src="@Url.Content("~/Content/Images/PL20/set_hoy.png")" alt="Solo Hoy" id="img-banner-odd" style="width: 85px; height: 54px;" />
+            </div>
             <hr class="clear" />
 
-            <input type="hidden" id="tipoestrategia-id-odd" value="{{TipoEstrategiaID}}" />CONF
+            <input type="hidden" id="tipoestrategia-id-odd" value="{{TipoEstrategiaID}}" />
             <input type="hidden" id="marca-id-odd" value="{{MarcaID}}" />
             <input type="hidden" id="cuv2-odd" value="{{CUV2}}" />
             <input type="hidden" id="limite-venta-odd" value="{{LimiteVenta}}" />
@@ -1749,7 +1751,7 @@
                     </div>
                     <div class="imagen_set_hoy_mobile">
                         @*<img src="@Url.Content("~/Content/Images/PL20/solo_hoy.png")" alt="regresar" />*@
-                        <img id="img-solohoy1-odd" alt="regresar" />
+                        <img id="img2-solohoy-odd" alt="regresar" />
                     </div>
                     <hr class="clear" />
                 </div>
@@ -1757,7 +1759,7 @@
             <div class="set_oferta_content">
 
                 <div class="producto_img_mobile">
-                    <img src="@Url.Content("~/Content/Images/PL20/set_hoy.png")" alt="Solo Hoy" />
+                    <img src="@Url.Content("~/Content/Images/PL20/set_hoy.png")" alt="Solo Hoy" id="img-display-odd" style="width: 360px; height: 228px;" />
                 </div>
                 <div class="producto_nombre_descripcion">
                     <div class="nombre_set_producto_hoy">
