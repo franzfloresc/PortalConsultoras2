@@ -162,4 +162,25 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="TipoParametroUnete" nillable="true" type="tns:TipoParametroUnete" />
+  <xs:complexType name="ArrayOfUbigeoCR">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="UbigeoCR" nillable="true" type="tns:UbigeoCR" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfUbigeoCR" nillable="true" type="tns:ArrayOfUbigeoCR" />
+  <xs:complexType name="UbigeoCR">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="BARRIO_COLONIA_URBANIZACION_REFERENCIAS" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CANTON" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DISTRITO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" name="PROVINCIA" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="REG" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SECC" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TERRITO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="UBIGEO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ZONA" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="UbigeoCR" nillable="true" type="tns:UbigeoCR" />
 </xs:schema>
