@@ -146,6 +146,9 @@ $(document).ready(function () {
     /* SB20-834 - INICIO */
     //ObtenerComunicadosPopup();
 
+    CrearDialogs();
+    CargarCarouselEstrategias("");
+    CargarCarouselLiquidaciones();
     CargarMisCursos();
     CargarBanners();
     CargarCatalogoPersonalizado();
