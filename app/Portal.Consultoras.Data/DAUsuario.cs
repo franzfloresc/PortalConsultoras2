@@ -522,5 +522,15 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@tipo", DbType.AnsiString, tipo);
             return Convert.ToInt32(Context.ExecuteScalar(command));
         }
+
+        public int UpdateUsuarioEmailTelefono(long ConsultoraID, string Email, string Telefono)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.UpdUsuarioCDRWeb");
+            Context.Database.AddInParameter(command, "@ConsultoraID", DbType.Int64, ConsultoraID);
+            Context.Database.AddInParameter(command, "@EMail", DbType.String, Email);
+            Context.Database.AddInParameter(command, "@Telefono", DbType.String, Telefono);
+
+            return Convert.ToInt32(Context.ExecuteScalar(command));
+        }
     }
 }
