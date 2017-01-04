@@ -9231,9 +9231,10 @@ span.icon-advertencia{
     width: 85px;
     margin-top: 5px;
     margin-left: 5px;
+    text-align: center;
 }
 .imagen_set_oferta_mobile img{
-    width:100%;
+    width:66%;
 }
 .btn_cerrar_oferta_mobile {
     position: absolute;

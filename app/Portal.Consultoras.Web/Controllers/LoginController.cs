@@ -651,6 +651,8 @@ namespace Portal.Consultoras.Web.Controllers
                                             descripcionODD += arr1[i].Trim() + "|";
                                     }
 
+                                    descripcionODD = descripcionODD.Substring(0, descripcionODD.Length - 1);
+
                                     var countdown = CountdownODD(model);
                                     var imgF1 = string.Format(ConfigurationManager.AppSettings.Get("UrlImgFondo1ODD"), model.CodigoISO);
                                     var imgF2 = string.Format(ConfigurationManager.AppSettings.Get("UrlImgFondo2ODD"), model.CodigoISO);
@@ -669,7 +671,6 @@ namespace Portal.Consultoras.Web.Controllers
                                     ofertaDelDia.ImagenURL = ConfigS3.GetUrlFileS3(carpetaPais, ofertaDelDia.ImagenURL, carpetaPais);
                                     var imgBanner = ofertaDelDia.FotoProducto01;
                                     var imgDisplay = ofertaDelDia.FotoProducto01;
-
 
                                     var oddModel = new OfertaDelDiaModel();
                                     oddModel.CodigoIso = model.CodigoISO;

@@ -541,8 +541,9 @@
 
             /*PL20-1233*/
             if (TieneOfertaDelDia == "True") {
-                CargarOfertaDelDia();
+                loadOfertaDelDia();
             }
+            /*PL20-1233*/
 
             SetFormatDecimalPais(formatDecimalPaisMain);
 
@@ -678,7 +679,7 @@
         });
 
         /*PL20-1233*/
-        function CargarOfertaDelDia() {
+        function loadOfertaDelDia() {
             $.ajax({
                 type: 'GET',
                 url: baseUrl + 'Pedido/GetOfertaDelDia',
@@ -706,7 +707,15 @@
                             obj1.html(obj1.text());
 
                             $('#BloqueMobileOfertaDia').show();
-
+                            $('#divShowRoomHoy').css('margin-top', '123px');
+                            
+                            if($('#divShowRoomHoy:visible').length > 0) {
+                                $('#content').css('top', '0px');
+                            }
+                            else {
+                                $('#content').css('top', '66px');
+                            }
+                            
                             $("#content_oferta_dia_mobile").click(function () {
                                 $('#txtCantidad').val('1');
                                 $('body').css({ 'overflow-x': 'hidden' });
@@ -726,6 +735,7 @@
                         }
                         else {
                             $('#BloqueMobileOfertaDia').hide();
+                            $('#divShowRoomHoy').css('margin-top', '63px');
                         }
                         
                         OcultarBannerODD();
@@ -766,6 +776,13 @@
                 success: function (response) {
                     if (response.success) {
                         $('#BloqueMobileOfertaDia').hide();
+
+                        if($('#divShowRoomHoy:visible').length > 0) {
+                            $('#divShowRoomHoy').css('margin-top', '63px');
+                        }
+                        else {
+                            $('#content').css('top', '0px');
+                        }
                     }
                 },
                 error: function (err) {
@@ -1607,6 +1624,11 @@
 
                                         if (document.getElementById("estiloShowRoom") == null) {
                                             $("#divShowRoomHoy").show();
+
+                                            if($('#BloqueMobileOfertaDia:visible').length > 0) {
+                                                $('#content').css('top', '0px');
+                                            }
+
                                             AgregarTagManagerShowRoomBannerLateral(true);
                                         }
                                     } else {
@@ -1725,7 +1747,7 @@
                 <div class="nombre_set_oferta_mobile">{{NombreOferta}} A SOLO <b>@ViewBag.Simbolo {{PrecioOfertaFormat}}</b></div>
             </div>
             <div class="imagen_set_oferta_mobile">
-                <img src="@Url.Content("~/Content/Images/PL20/set_hoy.png")" alt="Solo Hoy" id="img-banner-odd" style="width: 85px; height: 54px;" />
+                <img src="@Url.Content("~/Content/Images/PL20/set_hoy.png")" alt="Solo Hoy" id="img-banner-odd" />
             </div>
             <hr class="clear" />
 
@@ -1759,7 +1781,7 @@
             <div class="set_oferta_content">
 
                 <div class="producto_img_mobile">
-                    <img src="@Url.Content("~/Content/Images/PL20/set_hoy.png")" alt="Solo Hoy" id="img-display-odd" style="width: 360px; height: 228px;" />
+                    <img src="@Url.Content("~/Content/Images/PL20/set_hoy.png")" alt="Solo Hoy" id="img-display-odd" />
                 </div>
                 <div class="producto_nombre_descripcion">
                     <div class="nombre_set_producto_hoy">
