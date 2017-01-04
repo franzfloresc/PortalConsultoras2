@@ -13,13 +13,22 @@
 
     </style>
 }
-<div class="titulo_mobile">
+<div class="titulo_mobile titulo_esika">
     <a href="@Request.UrlReferrer" class="enlace_regresar catalogosP" title="Regresar"></a>
     &nbsp;&nbsp;&nbsp;&nbsp;LOS FAVORITOS DE TUS CLIENTES
 </div>
 <div class="fondo_f2f2f2" style="background: #f5f7f7; border-bottom:0">
-    <div class="pestana_esika"></div><!--PESTANA ESIKA-->
-    <div class="pestana_lbel mobileLiquidaciones"></div><!--PESTANA LBEL-->
+    <div class="pestana_esika pestana_favoritos"></div><!--PESTANA ESIKA-->
+    <div class="pestana_lbel mobileLiquidaciones pestana_favoritos"></div><!--PESTANA LBEL-->
+</div>
+<div class="content_favoritos_banner">
+    <div class="content_banner_imagen_fav"><img src="@Url.Content("~/Content/Images/mobile/Esika/banner_favoritos.png")" alt="favoritos" /></div>
+    <div class="texto_favoritos">
+        Porque conocemos a tus clientes, seleccionamos
+        los productos que podrás venderles fácilmente
+    </div>
+    <hr class="clear" />
+
 </div>
 <div class="wrapper_resumen_mobile">
     <div class="texto_descripcionCatalogoPersonalizado">
@@ -31,7 +40,7 @@
     <div id="orderby-filter">
         <div id="content-orderby">
             <select id="orderby-price" class="select-ffc" onchange="processFilterCatalogoPersonalizado(1);">
-                <option value="-1">Ordenar por</option>
+                <option value="-1">ORDENAR POR</option>
                 <option value="asc">PRECIO | Menor a mayor</option>
                 <option value="desc">PRECIO | Mayor a menor</option>
             </select>
