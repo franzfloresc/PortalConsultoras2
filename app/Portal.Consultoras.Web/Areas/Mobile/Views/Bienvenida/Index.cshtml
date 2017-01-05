@@ -325,6 +325,7 @@
 </div>
 <!--FIN CARRUSEL-->
 <div class="wrapper_resumen_mobile">
+       
     <div class="linea_separadora_mobile" style="margin-top:-1px;"></div>
     <!--VIDEOS-->
     <div class="comartir_home_mobile">
@@ -627,7 +628,41 @@
     </div>
 </div>
 <!-- FIN POPUP VIDEO INTRODUCTORIO -->
+<!--POP UP COMPARTIR FACEBOOK Y WS EN OFERTAS PARA TI-->
+<div class="PopMobile1"  id="PopFichaOPT">
+    <div class="content_popMobile" style="padding-bottom:0;">
+        <a class="cerrar_popMobile" id="CerrarFichaOPT">
+            <img src="/Content/Images/mobile/Esika/cerrar_04.png" alt="-">
+        </a>
+        <hr class="clear" />
+        <div class="content_imagen_ficha"><img src="https://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Matriz/PE/PE_200080472_201612367_01_pwifsvbxar.png" alt="PRODUCTO" /></div>
+        <div class="titulo_ficha_producto">Perfect Match volumen</div>
 
+        <div class="precio_ficha_producto">S/.35.00</div>
+        <div class="content_redes_ficha">
+            <a class="btn_compartir_ofertas" href="#"><img src="@Url.Content("~/Content/Images/Mobile/Esika/iconowscolor.png")" alt=""></a>
+            <a class="btn_compartir_ofertas" href="#"><img src="@Url.Content("~/Content/Images/Mobile/Esika/catalogo_facebook_color.png")" alt=""></a>
+        </div>
+        <hr class="clear" />
+        <div style="margin-left:-20px; margin-right:-20px;">
+            <div class="content_btn_agregar content_OPT">
+                <div class="content_320" style="max-width:292px; width:auto;">
+                    <div class="content_cantidad_ficha_producto">
+                        <a class="cantidad_menos_home"><img src="/Content/Images/Mobile/Esika/menos.png" alt=""></a>
+                        <input type="tel" value="1" size="2" maxlength="2" id="txtCantidad" class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);">
+                        <a class="cantidad_mas_home"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
+                    </div>
+                    <a class="btn_agregar_ficha_producto" href="#">AGRÉGALO</a>
+                    <hr class="clear" />
+                </div>
+            </div>
+        </div>          
+        
+    </div>
+   
+</div>
+
+<!--FIN-->
     <script id="estrategia-template" type="text/x-handlebars-template">
         {{#each this}}
         <div data-item="{{EstrategiaID}}" data-tipoestrategiaimagenmostrar="{{#if_eq FlagMostrarImg '1'}}{{TipoEstrategiaImagenMostrar}}{{/if_eq}}">
@@ -656,11 +691,11 @@
                 <div class="producto_nombre_descripcion">
                     <h6>{{DescripcionMarca}}</h6>
                     {{#if_eq FlagNueva '1'}}
-                    <p class="nombre_producto">
+                    <p class="nombre_producto" id="AbrirPopOPT" style="text-decoration:underline; cursor:pointer;">
                         {{DescripcionCUVSplit}}
                     </p>
                     {{else}}
-                    <p class="nombre_producto">
+                    <p class="nombre_producto" style="text-decoration:underline; cursor:pointer;" id="AbrirPopOPT">
                         {{DescripcionCUV2}}
                     </p>
                     {{/if_eq}}
@@ -780,7 +815,8 @@
     @section scripts{
         <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.flexslider.js")"></script>
         <script type="text/javascript" src="@Url.Content("~/Scripts/slick.min.js")"></script>
-        <script type="text/javascript">
+        <script type="text/javascript">            
+
             var urlGetEstrategiasCarousel = '@Url.Action("JsonConsultarEstrategias", "Pedido", new { area = "" })';
             var urlFiltrarEstrategiasPedido = '@Url.Action("FiltrarEstrategiaPedido", "AdministrarEstrategia", new { area = "" })';
             var urlValidarStockEstrategia = '@Url.Action("ValidarStockEstrategia", "Pedido", new { area = "" })';
@@ -797,5 +833,6 @@
         var urlMostrarShowRoomPopup = '@Url.Action("MostrarShowRoomPopup", "Bienvenida", new { area = "" })';
         var urlShowRoomBienvenida = '@Url.Action("Index", "ShowRoom", new { area = "Mobile" })';
         </script>
+        
         <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Mobile/Bienvenida/Index.js")"></script>
     }

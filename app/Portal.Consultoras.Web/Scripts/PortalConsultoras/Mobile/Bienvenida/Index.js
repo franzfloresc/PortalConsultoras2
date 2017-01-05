@@ -34,6 +34,7 @@ $(document).ready(function () {
         $('#VideoIntroductorio').hide();
     });
 
+
     CargarCarouselEstrategias("");
     CargarPopupsConsultora();
     TagManagerCatalogosPersonalizados();
@@ -306,6 +307,18 @@ function ArmarCarouselEstrategias(data) {
 
     SetHandlebars("#estrategia-template", data, '#divCarouseHorizontalMobile');
 
+    $("#AbrirPopOPT").click(function () {
+        $('body').css({ 'overflow-x': 'hidden' });
+        $('body').css({ 'overflow-y': 'hidden' });
+        $('#PopFichaOPT').show();
+
+    });    
+    $("#CerrarFichaOPT").click(function () {
+        $('body').css({ 'overflow-y': 'scroll' });
+        $('#PopFichaOPT').hide();
+
+    });
+
     if ($.trim($('#divCarouseHorizontalMobile').html()).length > 0) {
         $("#divListaEstrategias").show();
         $('#divCarouseHorizontalMobile').slick({
@@ -314,8 +327,8 @@ function ArmarCarouselEstrategias(data) {
             slidesToShow: 4,
             slidesToScroll: 1,
             autoplay: false,
-            prevArrow: '<a class="previous_ofertas_mobile js-slick-prev" style="margin-left:-13%"><img src="' + baseUrl + 'Content/Images/mobile/Esika/previous_ofertas_home.png")" alt="" /></a>',
-            nextArrow: '<a class="previous_ofertas_mobile js-slick-next" style="margin-right:-13%; text-align:right; right:0"><img src="' + baseUrl + 'Content/Images/mobile/Esika/next.png")" alt="" /></a>',
+            prevArrow: '<a class="previous_ofertas_mobile js-slick-prev" style="margin-left:-12%; text-align:left;"><img src="' + baseUrl + 'Content/Images/mobile/Esika/previous_ofertas_home.png")" alt="" /></a>',
+            nextArrow: '<a class="previous_ofertas_mobile js-slick-next" style="margin-right:-12%; text-align:right; right:0"><img src="' + baseUrl + 'Content/Images/mobile/Esika/next.png")" alt="" /></a>',
             responsive: [
                 {
                     breakpoint: 1200,

@@ -5777,7 +5777,7 @@ body{
 .PopMobile1{
     position:fixed;
     z-index:2000;
-    overflow-y:scroll;
+    overflow-y:auto;
     background:rgba(0,0,0,0.8);
     width:100%;
     height:100%;
@@ -5925,6 +5925,7 @@ input[type="checkbox"]:checked + span:after {
     /* direction: ltr; */
     right: 0;
     float: right;
+    cursor:pointer;
     /* text-align: right; */
     
 }
@@ -9237,13 +9238,14 @@ span.icon-advertencia{
     text-align:center;
     padding:0 14px;
     margin-top:6px;
+    margin-bottom:7px;
 }
 .precio_ficha_producto{    font-family: 'Lato';
     color: black;
     font-weight:700;
     font-size: 16px;
     text-align:center;
-    margin-top:7px;
+   
     margin-bottom:7px;
 }
 .precio_tachado_ficha{
@@ -9305,14 +9307,14 @@ span.icon-advertencia{
     z-index: 100;
 }
 .content_cantidad_ficha_producto{
-    width:140px;
-    margin-right:10px;
+    width:45%;
+    margin-right:5%;
     background:white;
     overflow:hidden;
     float:left;
 }
 .btn_agregar_ficha_producto{
-    width:141px;    height:48px;
+    width:50%;    height:48px;
     font-family: 'Lato';
     font-size: 14px;
     color: white;
@@ -9372,4 +9374,7 @@ span.icon-advertencia{
     font-size: 13px;
     padding: 20px 14px;
     line-height: 20px;
+}
+.content_OPT{
+    position:relative;padding-left:20px; padding-right:20px;
 }
