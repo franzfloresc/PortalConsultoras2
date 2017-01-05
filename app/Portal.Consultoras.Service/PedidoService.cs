@@ -1689,5 +1689,11 @@ namespace Portal.Consultoras.Service
         {
             return BLPedidoWeb.GetPedidosFacturadoSegunDias(paisID, campaniaID, consultoraID, maxDias);
         }
+
+        /*PL20-1226*/
+        public List<BEEstrategia> GetEstrategiaODD(int paisID, int codCampania, long consultoraID)
+        {
+            return new BLEstrategia().GetEstrategiaODD(paisID, codCampania, consultoraID);
+        }
     }
 }

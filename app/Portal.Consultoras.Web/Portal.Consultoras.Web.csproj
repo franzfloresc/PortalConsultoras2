@@ -453,6 +453,7 @@
     <Compile Include="Models\NivelesRiesgoModel.cs" />
     <Compile Include="Models\NotificacionesModelDetallePedido.cs" />
     <Compile Include="Models\NotificacionesModel.cs" />
+    <Compile Include="Models\OfertaDelDiaModel.cs" />
     <Compile Include="Models\OfertaFlexipagoModel.cs" />
     <Compile Include="Models\OfertaFICModel.cs" />
     <Compile Include="Models\OfertaLiquidacionModel.cs" />
@@ -1096,6 +1097,7 @@
     <Content Include="Content\Css\Site\Esika\reset.css" />
     <Content Include="Content\Css\Site\Esika\style.css" />
     <Content Include="Content\Css\Site\flexslider.css" />
+    <Content Include="Content\Css\Site\flipclock.css" />
     <Content Include="Content\Css\Site\fonts\flexslider-icon.svg" />
     <Content Include="Content\Css\Site\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Content\Css\Site\fonts\icomoon.svg" />
@@ -2244,6 +2246,14 @@
     <Content Include="Content\Images\paypal_exito.png" />
     <Content Include="Content\Images\paypal_tarjetas.png" />
     <Content Include="Content\Images\PE_2014813641_01_pibfepfhqu.jpg" />
+    <Content Include="Content\Images\PL20\fondo_oferta.jpg" />
+    <Content Include="Content\Images\PL20\fondo_pop.png" />
+    <Content Include="Content\Images\PL20\mas.png" />
+    <Content Include="Content\Images\PL20\menos.png" />
+    <Content Include="Content\Images\PL20\regresar.png" />
+    <Content Include="Content\Images\PL20\set_hoy.png" />
+    <Content Include="Content\Images\PL20\solo_hoy.png" />
+    <Content Include="Content\Images\PL20\textura_fondo.png" />
     <Content Include="Content\Images\Pop Up Navidad 2-01.png" />
     <Content Include="Content\Images\Pop Up Navidad 2-02.png" />
     <Content Include="Content\Images\Pop Up Navidad 2-04.png" />
@@ -2404,6 +2414,7 @@
     <Content Include="Scripts\DD_roundies.js" />
     <Content Include="Scripts\donetyping.js" />
     <Content Include="Scripts\fileuploader.min.js" />
+    <Content Include="Scripts\flipclock.js" />
     <Content Include="Scripts\fuzemodal-1.3\fuzemodal-1.3.1.min.js" />
     <Content Include="Scripts\fuzemodal-1.3\fuzemodal-1.3.2.min.js" />
     <Content Include="Scripts\fuzemodal-1.3\fuzemodal-1.3.css" />

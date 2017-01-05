@@ -3416,6 +3416,23 @@ function Update(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion, CUV) {
 }
 
 function UpdateLiquidacion(CampaniaID, PedidoID, PedidoDetalleID, TipoOfertaSisID, CUV, FlagValidacion, CantidadModi) {
+    debugger;
+    /*PL20-1227*/
+    if (typeof tipoEstrategiaODD !== 'undefined' && typeof limiteVentaODD !== 'undefined') {
+        if (parseInt(TipoOfertaSisID) == parseInt(tipoEstrategiaODD)) {
+            // validar cantidad a agregar
+            var nqty = parseInt($('#txtLPCant' + PedidoDetalleID).val());
+            if (nqty > parseInt(limiteVentaODD) ) {
+                $('#txtLPCant' + PedidoDetalleID).val(CantidadModi);
+                var msg1 = 'Solo puede llevar ' + limiteVentaODD + ' unidades de este producto.';
+                $('#dialog_ErrorMainLayout').find('.mensaje_agregarUnidades').text(msg1);
+                $('#dialog_ErrorMainLayout').show();
+                return;
+            }
+        }
+    }
+    /*PL20-1227*/
+
     AbrirSplash();
     if (HorarioRestringido()) {
         CerrarSplash();
