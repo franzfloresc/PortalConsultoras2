@@ -268,6 +268,9 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             model.DataBarra = GetDataBarra(true, true);
             /* SB20-565 - FIN */
 
+            /*PL20-1233*/
+            ViewBag.LimiteVentaODD = userData.LimiteVentaOfertaDelDia;
+
             return View(model);
         }
         

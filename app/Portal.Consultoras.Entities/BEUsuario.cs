@@ -368,7 +368,9 @@ namespace Portal.Consultoras.Entities
             if (DataRecord.HasColumn(row, "DigitoVerificador") && row["DigitoVerificador"] != DBNull.Value)
                 digitoVerificador = (row["DigitoVerificador"]).ToString();
 
-            
+            /*PL20-1226*/
+            if (DataRecord.HasColumn(row, "TieneODD") && row["TieneODD"] != DBNull.Value)
+                OfertaDelDia = Convert.ToBoolean(row["TieneODD"]);
 
         }
 
@@ -1062,6 +1064,13 @@ namespace Portal.Consultoras.Entities
         public string NombreGerenteZona { get; set; }
         [DataMember]
         public DateTime FechaActualPais { get; set; }
+
+        /*PL20-1226*/
+        [DataMember]
+        public bool OfertaDelDia { get; set; }
+
+        [DataMember]
+        public int EsOfertaDelDia { get; set; }
 
         public BEUsuario(IDataRecord row, string tipo1, string tipo2)
         {
