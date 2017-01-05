@@ -9929,7 +9929,7 @@ a{
 
 /*OFERTA DEL DIA*/
 .BloqueOfertaDia {
-    background: black;
+    /*background: black;*/  /*PL-1233*/
     height: 65px;
     width: 100%;
     overflow:hidden;
@@ -9957,9 +9957,10 @@ a{
     width: 85px;
     margin-top: 5px;
     margin-left: 5px;
+    text-align:center;
 }
 .imagen_set_oferta_mobile img{
-    width:100%;
+    width:66%;
 }
 .btn_cerrar_oferta_mobile {
     position: absolute;
@@ -9985,7 +9986,7 @@ a{
 .header_pop_oferta{
     width:100%;
     height:51px;
-    background:black;
+    /*background:black;*/   /*PL-1233*/
    position:relative;
 }
 .btn_cerrar_pop_oferta_hoy{

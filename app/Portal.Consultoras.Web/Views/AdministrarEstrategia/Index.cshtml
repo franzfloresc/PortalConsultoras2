@@ -97,6 +97,30 @@
                 $("#ddlEtiqueta2").children("option[data-id='3']").show();
             }
 
+            /**** PL20-1225 *****/
+            if (aux1 == "0" || aux1 == '6') {
+                $("#ddlEtiqueta1").children("option[data-id='5']").hide();
+                $("#ddlEtiqueta2").children("option[data-id='5']").hide();
+            }
+
+            if (aux1 == "7") {
+                $('.Recomendados').hide();
+
+                $("#ddlEtiqueta1").children('option').hide();
+                $("#ddlEtiqueta1").children("option[data-id='1']").show();
+
+                $("#ddlEtiqueta2").children('option').hide();
+                $("#ddlEtiqueta2").children("option[data-id='5']").show();
+
+                $('#div-orden').hide(); //Ocultando Orden
+
+                //$('#txtLimite').prop('readonly', true); //Modo lectura on
+            }
+            else {
+                $('#div-orden').show(); //Ocultando Orden
+                //$('#txtLimite').prop('readonly', false); //Modo lectura off
+            }
+            /*********************/
             /* SB20-312 - FIN */
 
             HideDialog("DialogZona");
@@ -238,13 +262,24 @@
                 var flagNueva = $("#ddlTipoEstrategia option:selected").attr("flag-nueva");
                 var flagRecoProduc = $("#ddlTipoEstrategia option:selected").attr("flag-recoproduct");
                 var flagRecoPerfil = $("#ddlTipoEstrategia option:selected").attr("flag-recoperfil");
+                var auxOD = $('#ddlTipoEstrategia').find(':selected').data('id'); // PL20-1225
+
+                /**** PL20-1225 *****/
+                var flagOD = "";
+                if (auxOD == '7') {
+                    flagOD = '4';
+                }
+                else {
+                    flagOD = '0';
+                }
+                /********/
 
                 var params = {
                     CampaniaID: $("#ddlCampania").val(),
                     CUV2: $("#txtCUV2").val(),
                     TipoEstrategiaID: $("#ddlTipoEstrategia").val(),
                     CUV1: $("#txtCUV").val(),
-                    flag: "1",
+                    flag: flagOD,//"1",
                     FlagNueva: flagNueva,
                     FlagRecoProduc: flagRecoProduc,
                     FlagRecoPerfil: flagRecoPerfil
@@ -337,13 +372,24 @@
                 var flagNueva = $("#ddlTipoEstrategia option:selected").attr("flag-nueva");
                 var flagRecoProduc = $("#ddlTipoEstrategia option:selected").attr("flag-recoproduct");
                 var flagRecoPerfil = $("#ddlTipoEstrategia option:selected").attr("flag-recoperfil");
+                var auxOD = $('#ddlTipoEstrategia').find(':selected').data('id'); // PL20-1225
+
+                /**** PL20-1225 *****/
+                var flagOD = "";
+                if (auxOD == '7') {
+                    flagOD = '4';
+                }
+                else {
+                    flagOD = '0';
+                }
+                /********/
 
                 var params = {
                     CampaniaID: $("#ddlCampania").val(),
                     CUV2: $("#txtCUV2").val(),
                     TipoEstrategiaID: $("#ddlTipoEstrategia").val(),
                     CUV1: "0",
-                    flag: "0",
+                    flag: flagOD,
                     FlagNueva: flagNueva,
                     FlagRecoProduc: flagRecoProduc,
                     FlagRecoPerfil: flagRecoPerfil
@@ -1006,6 +1052,36 @@
                         //    return false;
                         //}
                     }
+
+                    /**** // PL20-1225 ****/
+                    var auxOD = $('#ddlTipoEstrategia').find(':selected').data('id');
+                    if (auxOD == "7")
+                    {
+                        var valor = $("#txtDescripcion").val();
+                        if ($.trim(valor) == "") {
+                            alert("Ingrese una descripción.");
+                            return false;
+                        }
+                        else {
+                            var desc = valor.split("|");
+                            if (desc.length <= 0) {
+                                alert("La descripcion debe contener dos pipes (|) como minimo.");
+                                return false;
+                            }
+                            else {
+                                for (var i = 0; i < desc.length; i++) {
+                                    if ($.trim(desc[i]) == "") {
+                                        alert("La descripcion despues de un pipe (|) no puede ser vacia.");
+                                        return false;
+                                    }
+
+                                }
+                            }
+                        }
+                    }
+                    /****/
+
+
                     if ($("#chkVisible1").attr("checked")) {
                         var valor = $("#txtDescripcion").val();
                         if ($.trim(valor) == "") {
@@ -1077,7 +1153,7 @@
 
                     /* SB20-312 - INICIO */
                     var aux2 = $('#ddlTipoEstrategia').find(':selected').data('id');
-                    if (aux2 != "4") {
+                    if (aux2 != "4" && aux2 != '7') { /**** PL20-1225 *****/
                         if ($.trim($("#txtOrden").val()) == "" || $.isNumeric($("#txtOrden").val()) == false) {
                             alert("Ingrese un orden para mostrar.");
                             return false;
@@ -1502,6 +1578,23 @@
                             $("#ddlEtiqueta2").children('option').show();
                         }
 
+                        if (aux1 == "7") {
+                            $('.Recomendados').hide();
+
+                            $("#ddlEtiqueta1").children('option').hide();
+                            $("#ddlEtiqueta1").children("option[data-id='1']").show();
+
+                            $("#ddlEtiqueta2").children('option').hide();
+                            $("#ddlEtiqueta2").children("option[data-id='5']").show();
+
+                            $('#div-orden').hide(); //Ocultando Orden
+
+                            //$('#txtLimite').prop('readonly', true); //Modo lectura on
+                        }
+                        else {
+                            //$('#txtLimite').prop('readonly', false); //Modo lectura on
+                            $('#div-orden').show(); //Ocultando Orden
+                        }
                         /* SB20-312 - FIN */
 
                         if (data.FlagEstrella == "1") $("#chkEstrella").attr("checked", true);
