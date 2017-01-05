@@ -952,6 +952,8 @@ function SolicitudEnviar() {
     var item = {
         CDRWebID: $("#CDRWebID").val() || 0,
         PedidoID: $("#txtPedidoID").val() || 0,
+        Email: $("#txtEmail").val(),
+        Telefono: $("#txtTelefono").val(),
     };
     waitingDialog();
 

@@ -571,5 +571,11 @@ namespace Portal.Consultoras.Service
             var bLLogCDRWeb = new BLLogCDRWeb();
             bLLogCDRWeb.UpdateVisualizado(paisID, procesoId);
         }
+
+        public int UpdateUsuarioEmailTelefono(int paisID, long ConsultoraID, string Email, string Telefono)
+        {
+            var BLUsuario = new BLUsuario();
+            return BLUsuario.UpdateUsuarioEmailTelefono(paisID, ConsultoraID, Email, Telefono);
+        }
     }
 }
