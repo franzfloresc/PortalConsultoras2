@@ -5890,11 +5890,6 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetDatosConsultoraHana", ReplyAction="http://tempuri.org/IUsuarioService/GetDatosConsultoraHanaResponse")]
         System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BEUsuario> GetDatosConsultoraHanaAsync(int paisID, string codigoUsuario, int campaniaId);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetValidarLoginSB2", ReplyAction="http://tempuri.org/IUsuarioService/GetValidarLoginSB2Response")]
-        Portal.Consultoras.Web.ServiceUsuario.BEValidaLoginSB2 GetValidarLoginSB2(int paisID, string codigoUsuario, string contrasenia);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetValidarLoginSB2", ReplyAction="http://tempuri.org/IUsuarioService/GetValidarLoginSB2Response")]
-        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BEValidaLoginSB2> GetValidarLoginSB2Async(int paisID, string codigoUsuario, string contrasenia);
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/UpdNotificacionSolicitudCdrVisualizacion", ReplyAction="http://tempuri.org/IUsuarioService/UpdNotificacionSolicitudCdrVisualizacionRespon" +
             "se")]
         void UpdNotificacionSolicitudCdrVisualizacion(int paisID, long procesoId);
@@ -5902,6 +5897,12 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/UpdNotificacionSolicitudCdrVisualizacion", ReplyAction="http://tempuri.org/IUsuarioService/UpdNotificacionSolicitudCdrVisualizacionRespon" +
             "se")]
         System.Threading.Tasks.Task UpdNotificacionSolicitudCdrVisualizacionAsync(int paisID, long procesoId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetValidarLoginSB2", ReplyAction="http://tempuri.org/IUsuarioService/GetValidarLoginSB2Response")]
+        Portal.Consultoras.Web.ServiceUsuario.BEValidaLoginSB2 GetValidarLoginSB2(int paisID, string codigoUsuario, string contrasenia);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetValidarLoginSB2", ReplyAction="http://tempuri.org/IUsuarioService/GetValidarLoginSB2Response")]
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BEValidaLoginSB2> GetValidarLoginSB2Async(int paisID, string codigoUsuario, string contrasenia);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -6578,6 +6579,5 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BEValidaLoginSB2> GetValidarLoginSB2Async(int paisID, string codigoUsuario, string contrasenia) {
             return base.Channel.GetValidarLoginSB2Async(paisID, codigoUsuario, contrasenia);
         }
-
     }
 }
