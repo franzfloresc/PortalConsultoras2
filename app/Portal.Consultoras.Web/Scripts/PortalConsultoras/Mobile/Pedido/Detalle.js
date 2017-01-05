@@ -272,7 +272,7 @@ function UpdateLiquidacionSegunTipoOfertaSis(CampaniaID, PedidoID, PedidoDetalle
             Descripcion: 0,
             Cantidad: Cantidad,
             IndicadorMontoMinimo: 0,
-            TipoOferta: 1
+            TipoOferta: 0   // 0=actualizar cantidad, 1=agregar cantidad
         });
         ShowLoading();
 

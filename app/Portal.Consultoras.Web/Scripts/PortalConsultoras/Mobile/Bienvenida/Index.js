@@ -636,8 +636,17 @@ function AgregarProductoDestacado(tipoEstrategiaImagen) {
 
     ShowLoading();
 
-
-
+    var param = ({
+        MarcaID: marcaID,
+        CUV: cuv,
+        PrecioUnidad: precio,
+        Descripcion: descripcion,
+        Cantidad: cantidad,
+        IndicadorMontoMinimo: indicadorMontoMinimo,
+        TipoOferta: $("#hdTipoEstrategiaID").val(),
+        tipoEstrategiaImagen: tipoEstrategiaImagen || 0,
+        OrigenPedidoWeb: OrigenPedidoWeb
+    });
 
     jQuery.ajax({
         type: 'POST',

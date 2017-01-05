@@ -1,5 +1,4 @@
 ﻿
-
 $(document).ready(function () {
 
     /*PL20-1226*/
@@ -226,6 +225,7 @@ $(document).ready(function () {
 
     /*PL20-1226*/
     setInterval(animacionFlechaScroll, 1000);
+
 });
 
 function alert_msg(message, titulo) {
@@ -935,6 +935,16 @@ function loadOfertaDelDia() {
 
                     $('#OfertaDelDia').show();
 
+                    $('.content_slider_home').css('margin-top', '160px');
+                    $('.ubicacion_web ').css('margin-top', '185px');
+
+                    var int1ODD = setInterval(function () {
+                        if ($('#OfertaDelDia:visible').length > 0) {
+                            $('.ubicacion_web ').css('margin-top', '185px');
+                            clearInterval(int1ODD);
+                        }
+                    }, 300);
+
                     var clock = $('.clock').FlipClock(tq.TotalSeconds, {
                         clockFace: 'HourlyCounter',
                         countdown: true
@@ -976,6 +986,9 @@ function closeOfertaDelDia() {
         success: function (response) {
             if (response.success) {
                 $('#OfertaDelDia').hide();
+
+                $('.content_slider_home ').css('margin-top', '60px');
+                $('.ubicacion_web ').css('margin-top', '83px');
             }
         },
         error: function (err) {
