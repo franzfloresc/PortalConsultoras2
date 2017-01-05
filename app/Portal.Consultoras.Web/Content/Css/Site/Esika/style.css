@@ -28904,26 +28904,27 @@ h1#penmostreo .campana {
     position:relative;
 }
 .ver_detalle_carrusel{
-    display: block;
-    font-size: 12px;
+     display: block;
+    font-size: 13px;
     position: absolute;
-    height: 35px;
-    line-height: 32px;
-    width: 60%;
+    height: 45px;
+    line-height: 42px;
+    width: 42%;
     font-weight: 700;
-    border: 1px solid #ddd8d8;
+    border: 1px solid black;
     font-family: 'Lato';
     background: #FFF;
-    opacity:0;
+    opacity: 0;
     left: 0;
     right: 0;
     bottom: 10px;
     margin: 0 auto;
-    transition:all 0.3s ease;
-    -moz-transition:all 0.3s ease;
-    -o-transition:all 0.3s ease;
-    -ms-transition:all 0.3s ease;
-    -webkit-transition:all 0.3s ease;
+    transition: all 0.3s ease;
+    -moz-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    -ms-transition: all 0.3s ease;
+    -webkit-transition: all 0.3s ease;
+    LETTER-SPACING: 0.2px;
     /*-webkit-animation: opacidad-bottom 500ms linear 0ms 1 normal;
     -moz-animation: opacidad-bottom 500ms linear 0ms 1 normal;
     -ms-animation: opacidad-bottom 500ms linear 0ms 1 normal;
@@ -32465,4 +32466,140 @@ h1#penmostreo .campana {
 }
 .content_pop_oferta_dia .liquidacion_rango_right_pedido{
     background:transparent !important;
+}
+/*POP UP GENERALES*/
+.Content_general_pop_up{
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    background: transparent url(../../../Images/bg_popups.png) repeat left top;
+    z-index: 1000;
+    overflow: auto;
+    display:none;
+}
+.content_ficha_producto_nueva{
+    width:686px;
+    height:450px;
+    position:relative;
+    top:50%;
+    margin:-225px auto auto auto;
+    background:white;
+    padding:43px 51px;
+}
+
+/*FICHA PRODUCTO FAV DESKTOP*/
+.content_left_ficha{
+    float:left;
+    width:300px;
+    margin-right:45px;
+}
+.content_ficha_producto{
+    width:300px;
+    height:300px;
+}
+.content_ficha_producto img{
+    width:100%;
+   }
+.content_right_ficha{
+    float:left;
+    width:238px;
+}
+.titulo_ficha_producto {
+    font-family: 'Lato';
+    color: black;
+    font-size: 17px;
+    font-weight: 700;
+    /*text-align: center;*/
+    letter-spacing: 0.3px;
+    margin-top:-5px;
+}
+.cerrar_fichaProducto{
+    position:absolute;
+    right:-40px;
+    top:0;
+}
+.peso_ficha_producto {
+    font-family: 'Lato';
+    color: #6a6a6a;
+    font-size: 12px;
+    /*text-align: center;*/
+    margin-top: -3px;
+    letter-spacing: 0.2px;
+}
+.descripcion_ficha_producto {
+    font-family: 'Lato';
+    color: black;
+    font-size: 12.5px;
+    line-height: 16px;
+    margin-top: 6px;
+    margin-bottom: 7px;
+}
+.precio_ficha_producto {
+    font-family: 'Lato';
+    color: black;
+    font-weight: 900;
+    font-size: 16px;    
+    margin-bottom: 7px;
+}
+.precio_tachado_ficha {
+    font-size: 12px;
+    color: #7c7c7c;
+    font-weight: 900;
+    text-decoration: line-through;
+    margin-right: 10px;
+}
+.content_tonos{
+    width:100%;
+    margin-bottom:33px;
+}
+.content_tonos_maquillaje{
+    margin-top:15px;
+    max-height:118px;
+    overflow-y:auto;
+}
+.content_tono_detalle {
+    position: relative;
+    width: 15%;
+    height: 36px;
+    margin-right: 2%;
+    float: left;    
+    margin-bottom: 5px;
+}
+.content_tono_detalle:nth-child(6n){
+    margin-right:0;
+}
+.content_tono_detalle img{
+    width:100%;
+}
+
+.content_mascara_maquillaje {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+}
+.content_mascara_maquillaje img {
+    width: 100%;
+}
+.borde_seleccion_tono{
+    border:1px solid black;
+}
+.tono_labial_select {
+    
+    width: 100%;
+    height: 37px;
+    border: 1px solid #b0b0b0;
+    padding: 4px;
+    font-family: 'Lato';
+    font-size: 13px;
+    color: black;
+    margin-top: 5px;
+    display: block;
+}
+.ficha_btn_agregar{
+    width:162px; background:black; color:white; font-weight:400; letter-spacing:0.4px;
 }

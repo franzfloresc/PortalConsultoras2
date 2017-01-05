@@ -10283,3 +10283,7 @@ a{
 .content_OPT{
     position:relative;padding-left:20px; padding-right:20px;
 }
+.content_tono_detalle img{
+    width:100%;
+
+}
