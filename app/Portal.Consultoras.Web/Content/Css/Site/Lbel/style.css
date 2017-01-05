@@ -32333,10 +32333,11 @@ h1#penmostreo .campana {
     height:auto;
     float:left;
     margin-left:12px;
-    margin-top: 6px
+    margin-top: 6px;
+    text-align: center;
 }
 .producto_set img{
-    width:100%;
+    width:66%;
    
 }
 .precio_set_dia{
@@ -32449,9 +32450,10 @@ h1#penmostreo .campana {
     height: auto;
     float:left;
     /*margin-top: 5px;*/
+    text-align: center;
 }
 .imagen_set_Oferta_pop img{
-    width:100%;
+    width:68%;
 }
 .descripcion_set_ofertaDia{
     margin: 0 auto;
@@ -32535,4 +32537,8 @@ h1#penmostreo .campana {
 }
 .precio_valorizado_oferta span{
     text-decoration:line-through;
+}
+
+.content_pop_oferta_dia .liquidacion_rango_right_pedido{
+    background:transparent !important;
 }
