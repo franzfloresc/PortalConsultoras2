@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.ServiceModel;
 using Portal.Consultoras.Entities;
+using Portal.Consultoras.Entities.CDR;
 
 namespace Portal.Consultoras.ServiceContracts
 {
@@ -18,7 +19,9 @@ namespace Portal.Consultoras.ServiceContracts
         IList<BEProducto> SelectProductoByCodigoDescripcion(int paisID, int campaniaID, string codigoDescripcion, int criterio, int rowCount);
 
         [OperationContract]
-        IList<BEProducto> SelectProductoByCodigoDescripcionSearchRegionZona(int paisID, int campaniaID, string codigoDescripcion, int RegionID, int ZonaID, string CodigoRegion, string CodigoZona, int criterio, int rowCount);
+        IList<BEProducto> SelectProductoByCodigoDescripcionSearchRegionZona(int paisID, int campaniaID,
+            string codigoDescripcion, int RegionID, int ZonaID, string CodigoRegion, string CodigoZona, int criterio,
+            int rowCount, bool validarOpt);
 
         [OperationContract]
         IList<BEConsultoraCodigo> SelectConsultoraCodigo(int paisID, int regionID, int zonaID, string codigo, int rowCount);
@@ -125,7 +128,7 @@ namespace Portal.Consultoras.ServiceContracts
         IList<BEProducto> SelectProductoToKitInicio(int paisID, int campaniaID, string cuv);
 
         [OperationContract]
-        string GetNombreProducto048ByCuv(int paisID, int campaniaId, string cuv);
+        string GetNombreProducto048ByCuv(int paisID, int campaniaId, string cuv);        
 
         [OperationContract]
         IList<BEProductoAppCatalogo> GetNombreProducto048ByListaCUV(int paisID, int campaniaId, string listaCUV);

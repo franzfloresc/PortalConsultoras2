@@ -552,6 +552,11 @@ namespace Portal.Consultoras.Service
             BLLogModificacionCronograma.InsLogModificacionCronogramaMasivo(paisID, CodigoUsuario, listaEntidades);
         }
 
+        public void InsLogConfiguracionCronogramaMasivo(int paisID, string CodigoUsuario, List<BELogConfiguracionCronograma> listaEntidades)
+        {
+            BLLogModificacionCronograma.InsLogConfiguracionCronogramaMasivo(paisID, CodigoUsuario, listaEntidades);
+        }
+
         #endregion
 
         #region Lugares de Pago
@@ -1108,9 +1113,9 @@ namespace Portal.Consultoras.Service
             return BLComunicado.ObtenerComunicadoPorConsultora(PaisID, CodigoConsultora).ToList();
         }
 
-        public List<BEPopupPais> ObtenerOrdenPopUpMostrar()
+        public List<BEPopupPais> ObtenerOrdenPopUpMostrar(int PaisID)
         {
-            return BLPopupPais.ObtenerOrdenPopUpMostrar().ToList();
+            return BLPopupPais.ObtenerOrdenPopUpMostrar(PaisID).ToList();
         }
 
         //R2004

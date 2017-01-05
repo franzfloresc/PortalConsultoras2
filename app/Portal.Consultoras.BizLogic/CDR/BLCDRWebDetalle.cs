@@ -52,14 +52,14 @@ namespace Portal.Consultoras.BizLogic.CDR
             }
         }
 
-        public List<BECDRWebDetalle> GetCDRWebDetalle(int PaisID, BECDRWebDetalle entity)
+        public List<BECDRWebDetalle> GetCDRWebDetalle(int PaisID, BECDRWebDetalle entity, int pedidoId)
         {
             var listaEntity = new List<BECDRWebDetalle>();
 
             try
             {
                 var DACDRWebDetalle = new DACDRWebDetalle(PaisID);
-                using (IDataReader reader = DACDRWebDetalle.GetCDRWebDetalle(entity))
+                using (IDataReader reader = DACDRWebDetalle.GetCDRWebDetalle(entity, pedidoId))
                 {
                     while (reader.Read())
                     {
@@ -73,6 +73,57 @@ namespace Portal.Consultoras.BizLogic.CDR
             {
                 return listaEntity;
             }
+        }
+
+        public List<BECDRWebDetalle> GetCDRWebDetalleLog(int PaisID, BELogCDRWeb entity)
+        {
+            var listaEntity = new List<BECDRWebDetalle>();
+
+            try
+            {
+                var DACDRWebDetalle = new DACDRWebDetalle(PaisID);
+                using (IDataReader reader = DACDRWebDetalle.GetCDRWebDetalleLog(entity))
+                {
+                    while (reader.Read())
+                    {
+                        listaEntity.Add(new BECDRWebDetalle(reader));
+                    }
+                }
+                return listaEntity;
+
+            }
+            catch (Exception)
+            {
+                return listaEntity;
+            }
+        }
+
+        public bool DetalleActualizarObservado(int paisId, List<BECDRWebDetalle> lista)
+        {
+            var resultado = false;
+
+            try
+            {
+                var DACDRWebDetalle = new DACDRWebDetalle(paisId);
+                TransactionOptions oTransactionOptions = new TransactionOptions();
+                oTransactionOptions.IsolationLevel = System.Transactions.IsolationLevel.ReadUncommitted;
+                using (TransactionScope oTransactionScope = new TransactionScope(TransactionScopeOption.Required, oTransactionOptions))
+                {
+                    foreach (var becdrWebDetalle in lista)
+                    {
+                        DACDRWebDetalle.UpdCdrWebDetalleCantidadObservado(becdrWebDetalle);
+                    }
+                    
+                    oTransactionScope.Complete();
+                }
+                resultado = true;
+            }
+            catch (Exception)
+            {
+                resultado = false;
+            }
+
+            return resultado;
         }
 
     }

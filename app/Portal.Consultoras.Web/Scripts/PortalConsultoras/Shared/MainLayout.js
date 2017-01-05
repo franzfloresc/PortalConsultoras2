@@ -134,6 +134,80 @@
         window.open(url, '_blank');
     });
 
+    $("#belcorpChat").click(function () {
+        var FechaChatPais = BelcorpFechaChat_Pais;
+        var PaisISO = IsoPais
+        var fechaActual = FechaActual;
+        var paisesBelcorpEMTELCO = PaisesChatEMTELCO;
+
+        if (paisesBelcorpEMTELCO.indexOf(PaisISO) > -1) {
+
+            if (fechaActual >= FechaChatPais)
+            {
+                var url = UrlChat.replace('amp;', '').replace('amp;', '').replace('amp;', '').replace('amp;', '').replace('&#250;', 'ú').replace('&#233;', 'é').replace('&#225;', 'á');
+                var res = encodeURI(url);
+                open(res, '', 'top=0,left=0,width=400,height=500');
+            }
+            else {
+
+                if (PaisISO == "PA")
+                {
+                    var urlPA = 'https://chat1-cls1-cgn-bct.i6.inconcertcc.com/inconcert/apps/webdesigner/BelcorpChatPanama?token=3CE1BADDC9B55D2ED542C7FE9DCF9FF7';
+                    var urlPA_ = encodeURI(urlPA);
+                    open(urlPA_, '', 'top=0,left=0,width=400,height=500');
+                }
+                else if (PaisISO == "CR")
+                {
+                    var urlCR = 'https://chat1-cls1-cgn-bct.i6.inconcertcc.com/inconcert/apps/webdesigner/BelcorpChatCostaRica?token=BAF8696BC16A348C115E38D9C8055FC9';
+                    var urlCR_ = encodeURI(urlCR);
+                    open(urlCR_, '', 'top=0,left=0,width=400,height=500');
+                }
+                else if (PaisISO == "SV")
+                {
+                    var urlSV = 'https://chat1-cls1-cgn-bct.i6.inconcertcc.com/inconcert/apps/webdesigner/BelcorpChatElSalvador?token=556569C007FE003C83FB57EAE6DB2C49';
+                    var urlSV_ = encodeURI(urlSV);
+                    open(urlSV_, '', 'top=0,left=0,width=400,height=500');
+                }
+                else if (PaisISO == "GT") {
+                    var urlGT = 'https://chat1-cls1-cgn-bct.i6.inconcertcc.com/inconcert/apps/webdesigner/BelcorpChatGuatemala?token=B7FC02F2A29AFAFBA695971203901170';
+                    var urlGT_ = encodeURI(urlGT);
+                    open(urlGT_, '', 'top=0,left=0,width=400,height=500');
+                }
+                else {
+                    var res2 = encodeURI(UrlChatAnterior);
+                    open(res2, '', 'top=0,left=0,width=400,height=500');
+                }
+            }
+        }
+        else {
+
+            if (PaisISO == "PA") {
+                var urlPA = 'https://chat1-cls1-cgn-bct.i6.inconcertcc.com/inconcert/apps/webdesigner/BelcorpChatPanama?token=3CE1BADDC9B55D2ED542C7FE9DCF9FF7';
+                var urlPA_ = encodeURI(urlPA);
+                open(urlPA_, '', 'top=0,left=0,width=400,height=500');
+            }
+            else if (PaisISO == "CR") {
+                var urlCR = 'https://chat1-cls1-cgn-bct.i6.inconcertcc.com/inconcert/apps/webdesigner/BelcorpChatCostaRica?token=BAF8696BC16A348C115E38D9C8055FC9';
+                var urlCR_ = encodeURI(urlCR);
+                open(urlCR_, '', 'top=0,left=0,width=400,height=500');
+            }
+            else if (PaisISO == "SV") {
+                var urlSV = 'https://chat1-cls1-cgn-bct.i6.inconcertcc.com/inconcert/apps/webdesigner/BelcorpChatElSalvador?token=556569C007FE003C83FB57EAE6DB2C49';
+                var urlSV_ = encodeURI(urlSV);
+                open(urlSV_, '', 'top=0,left=0,width=400,height=500');
+            }
+            else if (PaisISO == "GT") {
+                var urlGT = 'https://chat1-cls1-cgn-bct.i6.inconcertcc.com/inconcert/apps/webdesigner/BelcorpChatGuatemala?token=B7FC02F2A29AFAFBA695971203901170';
+                var urlGT_ = encodeURI(urlGT);
+                open(urlGT_, '', 'top=0,left=0,width=400,height=500');
+            }
+            else {
+                var res2 = encodeURI(UrlChatAnterior);
+                open(res2, '', 'top=0,left=0,width=400,height=500');
+            }
+        }
+    });
+
     Scrolling();
     MostrarShowRoomBannerLateral();
 });
@@ -594,7 +668,7 @@ function MostrarShowRoomBannerLateral() {
 
     var togglediv = 0;
 
-    $("#ctras").hover(function () {
+    $("#ctras").click(function () {
         if (togglediv == 0) {
             $('.caja-traslado').animate({
                 'right': '0'
@@ -610,7 +684,7 @@ function MostrarShowRoomBannerLateral() {
         }
     });
 
-    $("#ctrasHoy").hover(function () {
+    $("#ctrasHoy").click(function () {
         if (togglediv == 0) {
             $('.caja-traslado').animate({
                 'right': '0'
@@ -654,6 +728,20 @@ function MostrarShowRoomBannerLateral() {
 
                                     //$("#ctras").hide();
                                     $("#ctrasHoy").show();
+
+                                    //animacion parea mostrar                                    
+                                    $('.caja-traslado').animate({
+                                        'right': '0'
+                                    }, 800);
+
+                                    setTimeout(function () {
+                                        //fanimacion para ocultar
+
+                                        $('.caja-traslado').animate({
+                                            'right': '-181px'
+                                        }, 800);
+                                    }, 5000);
+
                                 } else {
                                     $("#lnkConoceMasShowRoomBannerLateral").attr("href", response.rutaShowRoomBannerLateral);
                                     AgregarTimerShowRoom(response.diasFaltantes, response.mesFaltante, response.anioFaltante);
@@ -663,6 +751,19 @@ function MostrarShowRoomBannerLateral() {
 
                                     //$("#ctrasHoy").hide();
                                     $("#ctras").show();
+
+                                    //animacion parea mostrar                                    
+                                    $('.caja-traslado').animate({
+                                        'right': '0'
+                                    }, 800);
+
+                                    setTimeout(function () {
+                                        //fanimacion para ocultar
+
+                                        $('.caja-traslado').animate({
+                                            'right': '-181px'
+                                        }, 800);
+                                    }, 5000);
                                 }
                             }
                         }

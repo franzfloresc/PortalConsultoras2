@@ -206,7 +206,8 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         [HttpPost]
-        public JsonResult GrabarZonas(List<BELogModificacionCronograma> EntradasLog, List<BEConfiguracionValidacionZona> EntradasConfiguracionValidacionZona, int DiasDuracionCronograma)
+        //public JsonResult GrabarZonas(List<BELogModificacionCronograma> EntradasLog, List<BEConfiguracionValidacionZona> EntradasConfiguracionValidacionZona, int DiasDuracionCronograma)
+        public JsonResult GrabarZonas(List<BELogConfiguracionCronograma> EntradasLog, List<BEConfiguracionValidacionZona> EntradasConfiguracionValidacionZona, int DiasDuracionCronograma)
         {
             try
             {
@@ -214,7 +215,9 @@ namespace Portal.Consultoras.Web.Controllers
                 using (SACServiceClient sv = new SACServiceClient())
                 {
                     // grabar en el log cada cambio
-                    sv.InsLogModificacionCronogramaMasivo(UserData().PaisID, UserData().CodigoUsuario, EntradasLog.ToArray());
+                    //sv.InsLogModificacionCronogramaMasivo(UserData().PaisID, UserData().CodigoUsuario, EntradasLog.ToArray());
+                    sv.InsLogConfiguracionCronogramaMasivo(UserData().PaisID, UserData().CodigoUsuario, EntradasLog.ToArray());
+
                     // update de la zona para el nuevo valor de dias de duracion de cronograma
                     sv.UpdConfiguracionValidacionZonaCronograma(UserData().PaisID, EntradasConfiguracionValidacionZona.ToArray());
                 }

@@ -16,10 +16,11 @@ namespace Portal.Consultoras.Data
 
         }
 
-        public IDataReader GetNotificacionesConsultora(long ConsultoraId)
+        public IDataReader GetNotificacionesConsultora(long ConsultoraId, int indicadorBloqueoCDR)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetNotificacionesConsultora");
             Context.Database.AddInParameter(command, "@ConsultoraId", DbType.Int64, ConsultoraId);
+            Context.Database.AddInParameter(command, "@ShowCDR", DbType.Boolean, indicadorBloqueoCDR == 0);
 
             return Context.ExecuteReader(command);
         }

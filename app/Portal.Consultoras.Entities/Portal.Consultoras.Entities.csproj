@@ -250,6 +250,7 @@
     <Compile Include="Enumerations.cs" />
     <Compile Include="BEPedidoRechazado.cs" />
     <Compile Include="BEPopupPais.cs" />
+    <Compile Include="BELogConfiguracionCronograma.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

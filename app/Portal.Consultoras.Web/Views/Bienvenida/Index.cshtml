@@ -67,8 +67,8 @@
             else
             {
                 <div class="nombre_consultora">
-                    @*<span style="margin-top: -0.5px!important;">¡Hola</span>*@
-                    <span style="margin-top: -0.5px!important;">@((Model.PrefijoPais == "PA" || Model.PrefijoPais == "CR" || Model.PrefijoPais == "MX") ? "¡Ilumina la Navidad" : "¡Feliz Navidad")</span>
+                    <span style="margin-top: -0.5px!important;">¡Hola</span>
+@*                    <span style="margin-top: -0.5px!important;">@((Model.PrefijoPais == "PA" || Model.PrefijoPais == "CR" || Model.PrefijoPais == "MX") ? "¡Ilumina la Navidad" : "¡Feliz Navidad")</span>*@
                 </div>
                 <div class="consultora_home">
                     <span>@(nombreConsultora)</span>
@@ -853,7 +853,14 @@
                     <div class="checkbox_condiciones">
                         <input type="checkbox" name="condiciones" id="chkAceptoContrato" />
                         <label for="chkAceptoContrato" class="texto_terminosCondiciones">
-                            <text>Declaro que he leído los <span><a href="javascript:;" id="hrefTerminos">términos y condiciones</a></span> sobre Protección de Datos Personales y que me encuentro de acuerdo con los mismos.</text>
+                            @if (Model.PaisID == 4)
+                            {
+                                <text>Declaro que he leído los <span><a href="javascript:;" id="hrefTerminos">términos y condiciones</a></span> sobre Protección de Datos Personales y recepción de la factura a través de medios electrónicos, y que me encuentro de acuerdo con los mismos.</text>
+                            }
+                            else
+                            {
+                                <text>Declaro que he leído los <span><a href="javascript:;" id="hrefTerminos">términos y condiciones</a></span> sobre Protección de Datos Personales y que me encuentro de acuerdo con los mismos.</text>                                
+                            }
                         </label>
                     </div>
                 </div>
@@ -1040,7 +1047,14 @@
                     <div class="checkbox_condiciones">
                         <input type="checkbox" name="condiciones" id="chkAceptoContratoMD" />
                         <label for="chkAceptoContratoMD" class="texto_terminosCondiciones">
-                            <span class="asterisco_actualizar_datos">(*)&nbsp;</span>Declaro que he leído los <span><a href="javascript:;" id="hrefTerminosMD">términos y condiciones</a></span> sobre Protección de  Datos Personales y que me encuentro de acuerdo con los mismos.
+                            @if(Model.PaisID == 4)
+                            {
+                                <span class="asterisco_actualizar_datos">(*)&nbsp;</span><span>Declaro que he leído los <span><a href="javascript:;" id="hrefTerminosMD">términos y condiciones</a></span> sobre Protección de  Datos Personales y recepción de la factura a través de medios electrónicos, y que me encuentro de acuerdo con los mismos.</span>
+                            }
+                            else
+                            {
+                                <span class="asterisco_actualizar_datos">(*)&nbsp;</span><span>Declaro que he leído los <span><a href="javascript:;" id="hrefTerminosMD">términos y condiciones</a></span> sobre Protección de  Datos Personales y que me encuentro de acuerdo con los mismos.</span>
+                            }
                         </label>
                     </div>
                 </div>
@@ -2142,7 +2156,7 @@
         var viewBagValidaDatosActualizados = '@Model.ValidaDatosActualizados';
         var viewBagValidaTiempoVentana = '@Model.ValidaTiempoVentana';
         var viewBagValidaSegmento = '@Model.ValidaSegmento';
-        var urlContratoCOpdf = '@Url.Content("~/Content/FAQ/Contrato_CO.pdf")';
+        var urlContratoCOpdf = '@Url.Content("~/Content/FAQ/41577-BELCORP-SolCre-CO-400073315-300916.pdf")';
         var urlLoad = '@Url.Content("~/Content/Images/Loading.gif")';
         var viewBagSimbolo = '@(Html.Raw(Model.Simbolo))';
         var cantProdCarouselLiquidaciones = '@Model.CantProductosCarouselLiq';

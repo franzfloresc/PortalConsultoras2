@@ -12,6 +12,8 @@ namespace Portal.Consultoras.Entities.CDR
         [DataMember]
         public string CodigoSSIC { get; set; }
         [DataMember]
+        public string EntidadSSIC { get; set; }
+        [DataMember]
         public string Tipo { get; set; }
         [DataMember]
         public string Descripcion { get; set; }
@@ -21,10 +23,11 @@ namespace Portal.Consultoras.Entities.CDR
 
         public BECDRWebDescripcion(IDataRecord row)
         {
-            if (DataRecord.HasColumn(row, "CDRWebDescripcionID")) CDRWebDescripcionID = Convert.ToInt32(row["CDRWebDescripcionID"]);
-            if (DataRecord.HasColumn(row, "CodigoSSIC")) CodigoSSIC = Convert.ToString(row["CodigoSSIC"]);
-            if (DataRecord.HasColumn(row, "Tipo")) Tipo = Convert.ToString(row["Tipo"]);
-            if (DataRecord.HasColumn(row, "Descripcion")) Descripcion = Convert.ToString(row["Descripcion"]);
+            if (row.HasColumn("CDRWebDescripcionID")) CDRWebDescripcionID = Convert.ToInt32(row["CDRWebDescripcionID"]);
+            if (row.HasColumn("CodigoSSIC")) CodigoSSIC = Convert.ToString(row["CodigoSSIC"]);
+            if (row.HasColumn("EntidadSSIC")) EntidadSSIC = Convert.ToString(row["EntidadSSIC"]);
+            if (row.HasColumn("Tipo")) Tipo = Convert.ToString(row["Tipo"]);
+            if (row.HasColumn("Descripcion")) Descripcion = Convert.ToString(row["Descripcion"]);            
         }
     }
 }

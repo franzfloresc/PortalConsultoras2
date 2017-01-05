@@ -35,10 +35,11 @@
       <xs:element minOccurs="0" name="DescripcionNivel" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="DiasAntes" type="xs:int" />
       <xs:element minOccurs="0" name="DiasDuracionCronograma" type="xs:int" />
-      <xs:element minOccurs="0" name="DigitoVerificador" type="xs:int" />
+      <xs:element minOccurs="0" name="DigitoVerificador" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Direccion" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="EMail" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="EMailActivo" type="xs:boolean" />
+      <xs:element minOccurs="0" name="EsCDRWebZonaValida" type="xs:int" />
       <xs:element minOccurs="0" name="EsCatalogoPersonalizadoZonaValida" type="xs:boolean" />
       <xs:element minOccurs="0" name="EsJoven" type="xs:int" />
       <xs:element minOccurs="0" name="EsOFGanaMasZonaValida" type="xs:boolean" />
@@ -67,6 +68,7 @@
       <xs:element minOccurs="0" name="HoraInicioNoFacturable" type="ser:duration" />
       <xs:element minOccurs="0" name="HorasDuracionRestriccion" type="xs:int" />
       <xs:element minOccurs="0" name="ImagenURLOfertaFIC" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IndicadorBloqueoCDR" type="xs:int" />
       <xs:element minOccurs="0" name="IndicadorContrato" type="xs:int" />
       <xs:element minOccurs="0" name="IndicadorDupla" type="xs:int" />
       <xs:element minOccurs="0" name="IndicadorEnviado" type="xs:int" />
@@ -121,6 +123,7 @@
       <xs:element minOccurs="0" name="Telefono" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="TelefonoTrabajo" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="TerritorioID" type="xs:int" />
+      <xs:element minOccurs="0" name="TieneCDR" type="xs:int" />
       <xs:element minOccurs="0" name="TieneHana" type="xs:int" />
       <xs:element minOccurs="0" name="TipoOferta2" type="xs:int" />
       <xs:element minOccurs="0" name="TipoUsuario" type="xs:unsignedByte" />

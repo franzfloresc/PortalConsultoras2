@@ -3751,8 +3751,6 @@ function clickImagenComunicado(obj) {
     var vclose = mostrarComunicadosPopup();
 
     if (vclose) {
-        closeComunicadosPopup = true;
-        PopupCerrar('popupComunicados');
     }
 }
 
