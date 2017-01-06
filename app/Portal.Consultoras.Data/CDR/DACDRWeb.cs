@@ -65,5 +65,23 @@ namespace Portal.Consultoras.Data.CDR
 
             return Convert.ToInt32(command.Parameters["@RetornoID"].Value);
         }
+
+        /// <summary>
+        /// Author		: José Enrique Ernesto Pairazamán Arellano - Hundred
+        /// Create date	: 05/01/2017
+        /// Description	: EPD-1423: CDR Web - Notificaciones y Correo Parte 2
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <returns></returns>
+        public int InsNotificacionRegistroCDR(BECDRWeb entity)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.InsNotificacionRegistroCDR");
+            Context.Database.AddInParameter(command, "CDRWebID", DbType.Int32, entity.CDRWebID);
+            Context.Database.AddOutParameter(command, "RetornoID", DbType.Int32, 10);
+
+            Context.ExecuteNonQuery(command);
+
+            return Convert.ToInt32(command.Parameters["@RetornoID"].Value);
+        }
     }
 }

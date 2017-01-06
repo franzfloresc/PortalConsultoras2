@@ -927,6 +927,35 @@ namespace Portal.Consultoras.Web.Controllers
                 using (CDRServiceClient sv = new CDRServiceClient())
                 {
                     model.CDRWebID = sv.UpdEstadoCDRWeb(userData.PaisID, entidad);
+                    // Author		: José Enrique Ernesto Pairazamán Arellano - Hundred
+                    // Create date	: 05/01/2017
+                    // Description	: EPD-1423: CDR Web - Notificaciones y Correo Parte 2
+                    sv.InsNotificacionRegistroCDR(userData.PaisID, entidad);
+
+                    var message = "";
+
+                    if (!string.IsNullOrEmpty(model.Email))
+                    {
+                        try
+                        {
+                            var param_querystring = Util.EncriptarQueryString(new string[] { userData.CodigoUsuario, userData.PaisID.ToString(), userData.CodigoISO, model.Email });
+
+                            var cadena = "<br /><br /> Estimada consultora " + userData.NombreConsultora + " Para confirmar la dirección de correo electrónico ingresada haga click " +
+                                              "<br /> <a href='" + Util.GetUrlHost(this.HttpContext.Request) + "WebPages/MailConfirmation.aspx?data=" + param_querystring + "'>aquí</a><br/><br/>Belcorp";
+
+                            Util.EnviarMail("no-responder@somosbelcorp.com", model.Email, "(" + userData.CodigoISO + ") Confimacion de Correo", cadena, true, userData.NombreConsultora);
+                            message += "-Se ha enviado un correo electrónico de verificación a la dirección ingresada.";
+                        }
+                        catch (Exception ex)
+                        {
+                            LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                            message += "-Hubo un problema al tratar de enviar el correo electronico de verificacion.";
+                        }
+                    }
+
+
+
+                    // FIN EPD-1423
                 }
 
                 var cdrWeb = new BECDRWeb();

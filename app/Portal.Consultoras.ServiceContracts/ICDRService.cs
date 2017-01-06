@@ -19,6 +19,17 @@ namespace Portal.Consultoras.ServiceContracts
         [OperationContract]
         int UpdEstadoCDRWeb(int PaisID, BECDRWeb entity);
 
+        /// <summary>
+        /// Author		: José Enrique Ernesto Pairazamán Arellano - Hundred
+        /// Create date	: 05/01/2017
+        /// Description	: EPD-1423: CDR Web - Notificaciones y Correo Parte 2
+        /// </summary>
+        /// <param name="PaisID"></param>
+        /// <param name="entity"></param>
+        /// <returns></returns>
+        [OperationContract]
+        int InsNotificacionRegistroCDR(int PaisID, BECDRWeb entity);
+
         [OperationContract]
         int InsCDRWebDetalle(int PaisID, BECDRWebDetalle entity);
 
@@ -63,5 +74,7 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         List<BECDRParametria> GetCDRParametria(int paisId, BECDRParametria entidad);
+
+
     }
 }

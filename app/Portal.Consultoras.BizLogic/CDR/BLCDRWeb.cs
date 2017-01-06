@@ -114,5 +114,38 @@ namespace Portal.Consultoras.BizLogic.CDR
                 return 0;
             }
         }
+
+        
+        
+        /// <summary>
+        /// Author		: José Enrique Ernesto Pairazamán Arellano - Hundred
+        /// Create date	: 05/01/2017
+        /// Description	: EPD-1423: CDR Web - Notificaciones y Correo Parte 2
+        /// </summary>
+        /// <param name="PaisID"></param>
+        /// <param name="entity"></param>
+        /// <returns></returns>
+        public int InsNotificacionRegistroCDR(int PaisID, BECDRWeb entity)
+        {
+            try
+            {
+                var retorno = 0;
+                var DACDRWeb = new DACDRWeb(PaisID);
+                TransactionOptions oTransactionOptions = new TransactionOptions();
+                oTransactionOptions.IsolationLevel = System.Transactions.IsolationLevel.ReadUncommitted;
+                using (TransactionScope oTransactionScope = new TransactionScope(TransactionScopeOption.Required, oTransactionOptions))
+                {
+                    retorno = DACDRWeb.InsNotificacionRegistroCDR(entity);
+                    oTransactionScope.Complete();
+                }
+                return retorno;
+            }
+            catch (Exception)
+            {
+                return 0;
+            }
+        }
+    
+    
     }
 }
