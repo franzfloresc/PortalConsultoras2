@@ -366,6 +366,7 @@ namespace Portal.Consultoras.Web.Controllers
                 #endregion
 
                 /*PL20-1227*/
+                ViewBag.IdTipoEstrategiaODD = userData.IdTipoEstrategiaODD;
                 ViewBag.LimiteVentaODD = userData.LimiteVentaOfertaDelDia;
 
             }

@@ -1,4 +1,5 @@
 
+
 USE BelcorpBolivia
 GO
 
@@ -27,7 +28,6 @@ GO
 USE BelcorpChile
 GO
 
-
 ALTER PROCEDURE ListarEtiquetas
 	@Estado INT
 AS
@@ -51,36 +51,8 @@ GO
 
 /*end*/
 
-USE BelcorpColombia
-GO
-
-
-ALTER PROCEDURE ListarEtiquetas
-	@Estado INT
-AS
-BEGIN
-	SET NOCOUNT ON
-		SELECT EtiquetaID, Descripcion, Estado 
-		,case EtiquetaID
-			when 1 then 1
-			when 2 then 2
-			when 3 then 3
-			when 1006 then 4
-		end as CodigoGeneral
-		FROM Etiqueta
-		WHERE (Estado = @Estado OR -1 = @Estado)
-		ORDER BY Descripcion ASC
-	SET NOCOUNT OFF
-END
-
-
-GO
-
-/*end*/
-
 USE BelcorpCostaRica
 GO
-
 
 ALTER PROCEDURE ListarEtiquetas
 	@Estado INT
@@ -108,7 +80,6 @@ GO
 USE BelcorpDominicana
 GO
 
-
 ALTER PROCEDURE ListarEtiquetas
 	@Estado INT
 AS
@@ -134,7 +105,6 @@ GO
 
 USE BelcorpEcuador
 GO
-
 
 ALTER PROCEDURE ListarEtiquetas
 	@Estado INT
@@ -162,7 +132,6 @@ GO
 USE BelcorpGuatemala
 GO
 
-
 ALTER PROCEDURE ListarEtiquetas
 	@Estado INT
 AS
@@ -186,36 +155,9 @@ GO
 
 /*end*/
 
-USE BelcorpMexico
-GO
-
-
-ALTER PROCEDURE ListarEtiquetas
-	@Estado INT
-AS
-BEGIN
-	SET NOCOUNT ON
-		SELECT EtiquetaID, Descripcion, Estado 
-		,case EtiquetaID
-			when 1 then 1
-			when 2 then 2
-			when 3 then 3
-			when 3003 then 4
-		end as CodigoGeneral
-		FROM Etiqueta
-		WHERE (Estado = @Estado OR -1 = @Estado)
-		ORDER BY Descripcion ASC
-	SET NOCOUNT OFF
-END
-
-
-GO
-
-/*end*/
 
 USE BelcorpPanama
 GO
-
 
 ALTER PROCEDURE ListarEtiquetas
 	@Estado INT
@@ -240,36 +182,8 @@ GO
 
 /*end*/
 
-USE BelcorpPeru
-GO
-
-
-ALTER PROCEDURE ListarEtiquetas
-	@Estado INT
-AS
-BEGIN
-	SET NOCOUNT ON
-		SELECT EtiquetaID, Descripcion, Estado
-		,case EtiquetaID
-			when 1 then 1
-			when 2 then 2
-			when 3 then 3
-			when 3003 then 4
-		end as CodigoGeneral
-		FROM Etiqueta
-		WHERE (Estado = @Estado OR -1 = @Estado)
-		ORDER BY Descripcion ASC
-	SET NOCOUNT OFF
-END
-
-
-GO
-
-/*end*/
-
 USE BelcorpPuertoRico
 GO
-
 
 ALTER PROCEDURE ListarEtiquetas
 	@Estado INT
@@ -297,7 +211,6 @@ GO
 USE BelcorpSalvador
 GO
 
-
 ALTER PROCEDURE ListarEtiquetas
 	@Estado INT
 AS
@@ -323,7 +236,6 @@ GO
 
 USE BelcorpVenezuela
 GO
-
 
 ALTER PROCEDURE ListarEtiquetas
 	@Estado INT

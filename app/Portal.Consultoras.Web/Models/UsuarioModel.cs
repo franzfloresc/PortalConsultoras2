@@ -303,6 +303,7 @@ namespace Portal.Consultoras.Web.Models
         public bool TieneOfertaDelDia { get; set; }
         public OfertaDelDiaModel OfertaDelDia { get; set; }
         public bool CloseOfertaDelDia { get; set; }
+        public int IdTipoEstrategiaODD { get; set; }
         public int LimiteVentaOfertaDelDia { get; set; }
     }
 }

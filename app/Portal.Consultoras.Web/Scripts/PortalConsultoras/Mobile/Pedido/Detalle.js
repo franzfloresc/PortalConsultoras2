@@ -196,8 +196,8 @@ function UpdateLiquidacionEvento(evento) {
     var obj = GetProductoEntidad(id);
 
     /*PL20-1233*/
-    if (typeof tipoEstrategiaODD !== 'undefined' && typeof limiteVentaODD !== 'undefined') {
-        if (parseInt(obj.TipoOfertaSisID) == parseInt(tipoEstrategiaODD)) {
+    if (typeof idTipoEstrategiaODD !== 'undefined' && typeof limiteVentaODD !== 'undefined') {
+        if (parseInt(obj.TipoOfertaSisID) == parseInt(idTipoEstrategiaODD)) {
             // validar cantidad a agregar
             var nqty = $('#Cantidad_' + obj.PedidoDetalleID).val();
             if (nqty > parseInt(limiteVentaODD)) {
