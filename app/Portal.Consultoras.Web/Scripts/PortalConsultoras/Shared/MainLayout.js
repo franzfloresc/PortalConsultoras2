@@ -1,12 +1,36 @@
 ﻿
+var showDisplayODD = 0;
+
 $(document).ready(function () {
 
     /*PL20-1226*/
     if (TieneOfertaDelDia == "True") {
         loadOfertaDelDia();
     }
-    /*PL20-1226*/
 
+    $(document).keyup(function (e) {
+        if (e.keyCode == 27) { // esc keycode
+            if ($('#PopOfertaDia').is(':visible')) {
+                $('#PopOfertaDia').slideUp(); 
+                $('.circulo_hoy span').html('+');
+                showDisplayODD = 0;
+            }
+        }
+    });
+
+    $('body').click(function (e) {
+        if (!$(e.target).closest('#OfertaDelDia').length) {
+            if ($('#PopOfertaDia').is(':visible')) {
+                if (showDisplayODD == 1) {
+                    $('#PopOfertaDia').slideUp();
+                    $('.circulo_hoy span').html('+');
+                    showDisplayODD = 0;
+                }
+            }
+        }
+        
+    });
+    /*PL20-1226*/
     waitingDialog();
 
     MensajeEstadoPedido();
@@ -950,17 +974,19 @@ function loadOfertaDelDia() {
                         countdown: true
                     });
 
-                    var cambio = 0;
+                    //var cambio = 0;
                     $('.btn_detalle_hoy').on('click', function () {
-                        if (cambio == 0) {
-                            $('#PopOfertaDia').slideDown(); //muestro mediante id 
+                        if (showDisplayODD == 0) {
+                            $('#PopOfertaDia').slideDown();
                             $('.circulo_hoy span').html('-');
-                            cambio = 1;
+                            //cambio = 1;
+                            showDisplayODD = 1;
                         }
                         else {
-                            $('#PopOfertaDia').slideUp(); //muestro mediante id 
+                            $('#PopOfertaDia').slideUp();
                             $('.circulo_hoy span').html('+');
-                            cambio = 0;
+                            //cambio = 0;
+                            showDisplayODD = 0;
                         }
                     });
                 }
