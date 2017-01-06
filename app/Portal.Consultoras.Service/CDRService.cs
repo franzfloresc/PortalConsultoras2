@@ -46,19 +46,6 @@ namespace Portal.Consultoras.Service
             return BLCDRWeb.UpdEstadoCDRWeb(PaisID, entity);
         }
 
-        /// <summary>
-        /// Author		: José Enrique Ernesto Pairazamán Arellano - Hundred
-        /// Create date	: 05/01/2017
-        /// Description	: EPD-1423: CDR Web - Notificaciones y Correo Parte 2
-        /// </summary>
-        /// <param name="PaisID"></param>
-        /// <param name="entity"></param>
-        /// <returns></returns>
-        public int InsNotificacionRegistroCDR(int PaisID, BECDRWeb entity)
-        {
-            return BLCDRWeb.InsNotificacionRegistroCDR(PaisID, entity);
-        }
-
         public int InsCDRWebDetalle(int PaisID, BECDRWebDetalle entity)
         {
             return BLCDRWebDetalle.InsCDRWebDetalle(PaisID, entity);
