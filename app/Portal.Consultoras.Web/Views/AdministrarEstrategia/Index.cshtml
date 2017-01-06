@@ -1959,24 +1959,27 @@
                     var auxOD = $('#ddlTipoEstrategia').find(':selected').data('id');
                     if (auxOD == "7")
                     {
-                        var valor = $("#txtDescripcion").val();
-                        if ($.trim(valor) == "") {
+                        var desc1 = $("#txtDescripcion").val();
+                        if ($.trim(desc1) == "") {
                             alert("Ingrese una descripción.");
                             return false;
                         }
                         else {
-                            var desc = valor.split("|");
-                            if (desc.length <= 0) {
+                            if (desc1.indexOf('|') < 0) {
                                 alert("La descripcion debe contener dos pipes (|) como minimo.");
                                 return false;
                             }
                             else {
-                                for (var i = 0; i < desc.length; i++) {
-                                    if ($.trim(desc[i]) == "") {
+                                var arr1 = desc1.split('|');
+                                if (arr1.length <= 2) {
+                                    alert("La descripcion debe contener dos pipes (|) como minimo.");
+                                    return false;
+                                }
+                                for (var i = 0; i < arr1.length; i++) {
+                                    if ($.trim(arr1[i]) == "") {
                                         alert("La descripcion despues de un pipe (|) no puede ser vacia.");
                                         return false;
                                     }
-
                                 }
                             }
                         }

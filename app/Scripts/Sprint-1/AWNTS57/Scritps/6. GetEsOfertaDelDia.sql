@@ -2,6 +2,14 @@
 USE BelcorpBolivia
 GO
 
+IF EXISTS(SELECT 1 FROM sys.procedures 
+          WHERE object_id = OBJECT_ID(N'dbo.GetEsOfertaDelDia'))
+BEGIN
+    DROP PROCEDURE dbo.GetEsOfertaDelDia
+END
+
+GO
+
 CREATE PROCEDURE [dbo].[GetEsOfertaDelDia]
 (
 	@CodCampania INT,
@@ -9,9 +17,6 @@ CREATE PROCEDURE [dbo].[GetEsOfertaDelDia]
 	@FechaInicioFact DATETIME
 )
 AS
-
---SET @CodCampania = 201616
---SET @FechaInicioFact = '2016-12-29'
 
 DECLARE @diaInicio INT
 
@@ -21,7 +26,7 @@ AND TipoPersonalizacion = 'ODD'
 AND CodConsultora = @CodConsultora
 
 DECLARE @ddia INT
-declare @flag BIT
+DECLARE @flag INT
 
 SET @flag = 0
 
@@ -48,6 +53,14 @@ GO
 USE BelcorpChile
 GO
 
+IF EXISTS(SELECT 1 FROM sys.procedures 
+          WHERE object_id = OBJECT_ID(N'dbo.GetEsOfertaDelDia'))
+BEGIN
+    DROP PROCEDURE dbo.GetEsOfertaDelDia
+END
+
+GO
+
 CREATE PROCEDURE [dbo].[GetEsOfertaDelDia]
 (
 	@CodCampania INT,
@@ -55,9 +68,6 @@ CREATE PROCEDURE [dbo].[GetEsOfertaDelDia]
 	@FechaInicioFact DATETIME
 )
 AS
-
---SET @CodCampania = 201616
---SET @FechaInicioFact = '2016-12-29'
 
 DECLARE @diaInicio INT
 
@@ -67,7 +77,7 @@ AND TipoPersonalizacion = 'ODD'
 AND CodConsultora = @CodConsultora
 
 DECLARE @ddia INT
-declare @flag BIT
+DECLARE @flag INT
 
 SET @flag = 0
 
@@ -91,55 +101,18 @@ SELECT @flag AS flag
 GO
 /*end*/
 
-USE BelcorpColombia
-GO
-
-CREATE PROCEDURE [dbo].[GetEsOfertaDelDia]
-(
-	@CodCampania INT,
-	@CodConsultora VARCHAR(30),
-	@FechaInicioFact DATETIME
-)
-AS
-
---SET @CodCampania = 201616
---SET @FechaInicioFact = '2016-12-29'
-
-DECLARE @diaInicio INT
-
-SELECT TOP 1 @diaInicio = DiaInicio 
-FROM ods.OfertasPersonalizadas WHERE AnioCampanaVenta = @CodCampania
-AND TipoPersonalizacion = 'ODD'
-AND CodConsultora = @CodConsultora
-
-DECLARE @ddia INT
-declare @flag BIT
-
-SET @flag = 0
-
-IF (@diaInicio = 0)
-BEGIN
-	SET @ddia = DATEDIFF(dd,GETDATE(),CAST(@FechaInicioFact AS DATE))
-	IF (@ddia = 0)
-		SET @flag = 1
-END
-ELSE
-BEGIN
-	DECLARE @fecaux DATETIME
-	SET @fecaux = DATEADD(dd,@diaInicio,CAST(@FechaInicioFact AS DATE))
-	SET @ddia = DATEDIFF(dd,GETDATE(),@fecaux)
-	IF (@ddia = 0)
-		SET @flag = 2
-END
-
-SELECT @flag AS flag
-
-GO
-/*end*/
 
 USE BelcorpCostaRica
 GO
 
+IF EXISTS(SELECT 1 FROM sys.procedures 
+          WHERE object_id = OBJECT_ID(N'dbo.GetEsOfertaDelDia'))
+BEGIN
+    DROP PROCEDURE dbo.GetEsOfertaDelDia
+END
+
+GO
+
 CREATE PROCEDURE [dbo].[GetEsOfertaDelDia]
 (
 	@CodCampania INT,
@@ -147,9 +120,6 @@ CREATE PROCEDURE [dbo].[GetEsOfertaDelDia]
 	@FechaInicioFact DATETIME
 )
 AS
-
---SET @CodCampania = 201616
---SET @FechaInicioFact = '2016-12-29'
 
 DECLARE @diaInicio INT
 
@@ -159,7 +129,7 @@ AND TipoPersonalizacion = 'ODD'
 AND CodConsultora = @CodConsultora
 
 DECLARE @ddia INT
-declare @flag BIT
+DECLARE @flag INT
 
 SET @flag = 0
 
@@ -186,6 +156,14 @@ GO
 USE BelcorpDominicana
 GO
 
+IF EXISTS(SELECT 1 FROM sys.procedures 
+          WHERE object_id = OBJECT_ID(N'dbo.GetEsOfertaDelDia'))
+BEGIN
+    DROP PROCEDURE dbo.GetEsOfertaDelDia
+END
+
+GO
+
 CREATE PROCEDURE [dbo].[GetEsOfertaDelDia]
 (
 	@CodCampania INT,
@@ -193,9 +171,6 @@ CREATE PROCEDURE [dbo].[GetEsOfertaDelDia]
 	@FechaInicioFact DATETIME
 )
 AS
-
---SET @CodCampania = 201616
---SET @FechaInicioFact = '2016-12-29'
 
 DECLARE @diaInicio INT
 
@@ -205,7 +180,7 @@ AND TipoPersonalizacion = 'ODD'
 AND CodConsultora = @CodConsultora
 
 DECLARE @ddia INT
-declare @flag BIT
+DECLARE @flag INT
 
 SET @flag = 0
 
@@ -232,6 +207,14 @@ GO
 USE BelcorpEcuador
 GO
 
+IF EXISTS(SELECT 1 FROM sys.procedures 
+          WHERE object_id = OBJECT_ID(N'dbo.GetEsOfertaDelDia'))
+BEGIN
+    DROP PROCEDURE dbo.GetEsOfertaDelDia
+END
+
+GO
+
 CREATE PROCEDURE [dbo].[GetEsOfertaDelDia]
 (
 	@CodCampania INT,
@@ -239,9 +222,6 @@ CREATE PROCEDURE [dbo].[GetEsOfertaDelDia]
 	@FechaInicioFact DATETIME
 )
 AS
-
---SET @CodCampania = 201616
---SET @FechaInicioFact = '2016-12-29'
 
 DECLARE @diaInicio INT
 
@@ -251,7 +231,7 @@ AND TipoPersonalizacion = 'ODD'
 AND CodConsultora = @CodConsultora
 
 DECLARE @ddia INT
-declare @flag BIT
+DECLARE @flag INT
 
 SET @flag = 0
 
@@ -278,50 +258,12 @@ GO
 USE BelcorpGuatemala
 GO
 
-CREATE PROCEDURE [dbo].[GetEsOfertaDelDia]
-(
-	@CodCampania INT,
-	@CodConsultora VARCHAR(30),
-	@FechaInicioFact DATETIME
-)
-AS
-
---SET @CodCampania = 201616
---SET @FechaInicioFact = '2016-12-29'
-
-DECLARE @diaInicio INT
-
-SELECT TOP 1 @diaInicio = DiaInicio 
-FROM ods.OfertasPersonalizadas WHERE AnioCampanaVenta = @CodCampania
-AND TipoPersonalizacion = 'ODD'
-AND CodConsultora = @CodConsultora
-
-DECLARE @ddia INT
-declare @flag BIT
-
-SET @flag = 0
-
-IF (@diaInicio = 0)
+IF EXISTS(SELECT 1 FROM sys.procedures 
+          WHERE object_id = OBJECT_ID(N'dbo.GetEsOfertaDelDia'))
 BEGIN
-	SET @ddia = DATEDIFF(dd,GETDATE(),CAST(@FechaInicioFact AS DATE))
-	IF (@ddia = 0)
-		SET @flag = 1
-END
-ELSE
-BEGIN
-	DECLARE @fecaux DATETIME
-	SET @fecaux = DATEADD(dd,@diaInicio,CAST(@FechaInicioFact AS DATE))
-	SET @ddia = DATEDIFF(dd,GETDATE(),@fecaux)
-	IF (@ddia = 0)
-		SET @flag = 2
+    DROP PROCEDURE dbo.GetEsOfertaDelDia
 END
 
-SELECT @flag AS flag
-
-GO
-/*end*/
-
-USE BelcorpMexico
 GO
 
 CREATE PROCEDURE [dbo].[GetEsOfertaDelDia]
@@ -332,9 +274,6 @@ CREATE PROCEDURE [dbo].[GetEsOfertaDelDia]
 )
 AS
 
---SET @CodCampania = 201616
---SET @FechaInicioFact = '2016-12-29'
-
 DECLARE @diaInicio INT
 
 SELECT TOP 1 @diaInicio = DiaInicio 
@@ -343,7 +282,7 @@ AND TipoPersonalizacion = 'ODD'
 AND CodConsultora = @CodConsultora
 
 DECLARE @ddia INT
-declare @flag BIT
+DECLARE @flag INT
 
 SET @flag = 0
 
@@ -370,50 +309,12 @@ GO
 USE BelcorpPanama
 GO
 
-CREATE PROCEDURE [dbo].[GetEsOfertaDelDia]
-(
-	@CodCampania INT,
-	@CodConsultora VARCHAR(30),
-	@FechaInicioFact DATETIME
-)
-AS
-
---SET @CodCampania = 201616
---SET @FechaInicioFact = '2016-12-29'
-
-DECLARE @diaInicio INT
-
-SELECT TOP 1 @diaInicio = DiaInicio 
-FROM ods.OfertasPersonalizadas WHERE AnioCampanaVenta = @CodCampania
-AND TipoPersonalizacion = 'ODD'
-AND CodConsultora = @CodConsultora
-
-DECLARE @ddia INT
-declare @flag BIT
-
-SET @flag = 0
-
-IF (@diaInicio = 0)
+IF EXISTS(SELECT 1 FROM sys.procedures 
+          WHERE object_id = OBJECT_ID(N'dbo.GetEsOfertaDelDia'))
 BEGIN
-	SET @ddia = DATEDIFF(dd,GETDATE(),CAST(@FechaInicioFact AS DATE))
-	IF (@ddia = 0)
-		SET @flag = 1
-END
-ELSE
-BEGIN
-	DECLARE @fecaux DATETIME
-	SET @fecaux = DATEADD(dd,@diaInicio,CAST(@FechaInicioFact AS DATE))
-	SET @ddia = DATEDIFF(dd,GETDATE(),@fecaux)
-	IF (@ddia = 0)
-		SET @flag = 2
+    DROP PROCEDURE dbo.GetEsOfertaDelDia
 END
 
-SELECT @flag AS flag
-
-GO
-/*end*/
-
-USE BelcorpPeru
 GO
 
 CREATE PROCEDURE [dbo].[GetEsOfertaDelDia]
@@ -424,9 +325,6 @@ CREATE PROCEDURE [dbo].[GetEsOfertaDelDia]
 )
 AS
 
---SET @CodCampania = 201616
---SET @FechaInicioFact = '2016-12-29'
-
 DECLARE @diaInicio INT
 
 SELECT TOP 1 @diaInicio = DiaInicio 
@@ -435,7 +333,7 @@ AND TipoPersonalizacion = 'ODD'
 AND CodConsultora = @CodConsultora
 
 DECLARE @ddia INT
-declare @flag BIT
+DECLARE @flag INT
 
 SET @flag = 0
 
@@ -462,6 +360,14 @@ GO
 USE BelcorpPuertoRico
 GO
 
+IF EXISTS(SELECT 1 FROM sys.procedures 
+          WHERE object_id = OBJECT_ID(N'dbo.GetEsOfertaDelDia'))
+BEGIN
+    DROP PROCEDURE dbo.GetEsOfertaDelDia
+END
+
+GO
+
 CREATE PROCEDURE [dbo].[GetEsOfertaDelDia]
 (
 	@CodCampania INT,
@@ -469,9 +375,6 @@ CREATE PROCEDURE [dbo].[GetEsOfertaDelDia]
 	@FechaInicioFact DATETIME
 )
 AS
-
---SET @CodCampania = 201616
---SET @FechaInicioFact = '2016-12-29'
 
 DECLARE @diaInicio INT
 
@@ -481,7 +384,7 @@ AND TipoPersonalizacion = 'ODD'
 AND CodConsultora = @CodConsultora
 
 DECLARE @ddia INT
-declare @flag BIT
+DECLARE @flag INT
 
 SET @flag = 0
 
@@ -508,6 +411,14 @@ GO
 USE BelcorpSalvador
 GO
 
+IF EXISTS(SELECT 1 FROM sys.procedures 
+          WHERE object_id = OBJECT_ID(N'dbo.GetEsOfertaDelDia'))
+BEGIN
+    DROP PROCEDURE dbo.GetEsOfertaDelDia
+END
+
+GO
+
 CREATE PROCEDURE [dbo].[GetEsOfertaDelDia]
 (
 	@CodCampania INT,
@@ -515,9 +426,6 @@ CREATE PROCEDURE [dbo].[GetEsOfertaDelDia]
 	@FechaInicioFact DATETIME
 )
 AS
-
---SET @CodCampania = 201616
---SET @FechaInicioFact = '2016-12-29'
 
 DECLARE @diaInicio INT
 
@@ -527,7 +435,7 @@ AND TipoPersonalizacion = 'ODD'
 AND CodConsultora = @CodConsultora
 
 DECLARE @ddia INT
-declare @flag BIT
+DECLARE @flag INT
 
 SET @flag = 0
 
@@ -554,6 +462,14 @@ GO
 USE BelcorpVenezuela
 GO
 
+IF EXISTS(SELECT 1 FROM sys.procedures 
+          WHERE object_id = OBJECT_ID(N'dbo.GetEsOfertaDelDia'))
+BEGIN
+    DROP PROCEDURE dbo.GetEsOfertaDelDia
+END
+
+GO
+
 CREATE PROCEDURE [dbo].[GetEsOfertaDelDia]
 (
 	@CodCampania INT,
@@ -561,9 +477,6 @@ CREATE PROCEDURE [dbo].[GetEsOfertaDelDia]
 	@FechaInicioFact DATETIME
 )
 AS
-
---SET @CodCampania = 201616
---SET @FechaInicioFact = '2016-12-29'
 
 DECLARE @diaInicio INT
 
@@ -573,7 +486,7 @@ AND TipoPersonalizacion = 'ODD'
 AND CodConsultora = @CodConsultora
 
 DECLARE @ddia INT
-declare @flag BIT
+DECLARE @flag INT
 
 SET @flag = 0
 

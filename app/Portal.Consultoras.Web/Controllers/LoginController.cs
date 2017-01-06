@@ -705,6 +705,7 @@ namespace Portal.Consultoras.Web.Controllers
                                     //Session["OfertaDelDia"] = oddModel;
                                     //Session["CloseODD"] = false;
                                     model.OfertaDelDia = oddModel;
+                                    model.IdTipoEstrategiaODD = ofertaDelDia.TipoEstrategiaID;
                                     model.LimiteVentaOfertaDelDia = oddModel.LimiteVenta;
 
                                 }// config ODD
@@ -723,6 +724,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                                 if (lstEstrategia.Any())
                                 {
+                                    model.IdTipoEstrategiaODD = lstEstrategia[0].TipoEstrategiaID;
                                     model.LimiteVentaOfertaDelDia = lstEstrategia[0].LimiteVenta;
                                 }
                             }

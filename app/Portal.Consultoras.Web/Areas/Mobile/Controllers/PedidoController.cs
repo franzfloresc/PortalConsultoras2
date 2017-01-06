@@ -269,6 +269,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             /* SB20-565 - FIN */
 
             /*PL20-1233*/
+            ViewBag.IdTipoEstrategiaODD = userData.IdTipoEstrategiaODD;
             ViewBag.LimiteVentaODD = userData.LimiteVentaOfertaDelDia;
 
             return View(model);
