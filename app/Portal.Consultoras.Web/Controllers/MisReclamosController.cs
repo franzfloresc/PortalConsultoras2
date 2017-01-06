@@ -939,6 +939,12 @@ namespace Portal.Consultoras.Web.Controllers
                     listaCdrWeb = cdr.GetCDRWeb(userData.PaisID, cdrWeb).ToList();
                 }
 
+                //Actualiza correo y telefono de la tabla Usuario.
+                using (UsuarioServiceClient us = new UsuarioServiceClient())
+                {
+                    us.UpdateUsuarioEmailTelefono(userData.PaisID, cdrWeb.ConsultoraID, model.Email, model.Telefono);
+                }
+
                 return Json(new
                 {
                     success = model.CDRWebID > 0,
