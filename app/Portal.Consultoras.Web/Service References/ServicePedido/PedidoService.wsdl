@@ -130,6 +130,36 @@
   <wsdl:message name="IPedidoService_GetOfertasParaTiByTipoConfigurado_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetOfertasParaTiByTipoConfiguradoResponse" />
   </wsdl:message>
+  <wsdl:message name="IPedidoService_InsertEstrategiaTemporal_InputMessage">
+    <wsdl:part name="parameters" element="tns:InsertEstrategiaTemporal" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_InsertEstrategiaTemporal_OutputMessage">
+    <wsdl:part name="parameters" element="tns:InsertEstrategiaTemporalResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_GetCantidadOfertasParaTiTemporal_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetCantidadOfertasParaTiTemporal" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_GetCantidadOfertasParaTiTemporal_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetCantidadOfertasParaTiTemporalResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_GetOfertasParaTiByTipoConfiguradoTemporal_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetOfertasParaTiByTipoConfiguradoTemporal" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_GetOfertasParaTiByTipoConfiguradoTemporal_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetOfertasParaTiByTipoConfiguradoTemporalResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_DeleteEstrategiaTemporal_InputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteEstrategiaTemporal" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_DeleteEstrategiaTemporal_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteEstrategiaTemporalResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_InsertEstrategiaOfertaParaTi_InputMessage">
+    <wsdl:part name="parameters" element="tns:InsertEstrategiaOfertaParaTi" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_InsertEstrategiaOfertaParaTi_OutputMessage">
+    <wsdl:part name="parameters" element="tns:InsertEstrategiaOfertaParaTiResponse" />
+  </wsdl:message>
   <wsdl:message name="IPedidoService_InsertarTipoEstrategia_InputMessage">
     <wsdl:part name="parameters" element="tns:InsertarTipoEstrategia" />
   </wsdl:message>
@@ -1725,6 +1755,26 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetOfertasParaTiByTipoConfigurado" message="tns:IPedidoService_GetOfertasParaTiByTipoConfigurado_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/GetOfertasParaTiByTipoConfiguradoResponse" message="tns:IPedidoService_GetOfertasParaTiByTipoConfigurado_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="InsertEstrategiaTemporal">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/InsertEstrategiaTemporal" message="tns:IPedidoService_InsertEstrategiaTemporal_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/InsertEstrategiaTemporalResponse" message="tns:IPedidoService_InsertEstrategiaTemporal_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCantidadOfertasParaTiTemporal">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetCantidadOfertasParaTiTemporal" message="tns:IPedidoService_GetCantidadOfertasParaTiTemporal_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/GetCantidadOfertasParaTiTemporalResponse" message="tns:IPedidoService_GetCantidadOfertasParaTiTemporal_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetOfertasParaTiByTipoConfiguradoTemporal">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetOfertasParaTiByTipoConfiguradoTemporal" message="tns:IPedidoService_GetOfertasParaTiByTipoConfiguradoTemporal_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/GetOfertasParaTiByTipoConfiguradoTemporalResponse" message="tns:IPedidoService_GetOfertasParaTiByTipoConfiguradoTemporal_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteEstrategiaTemporal">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/DeleteEstrategiaTemporal" message="tns:IPedidoService_DeleteEstrategiaTemporal_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/DeleteEstrategiaTemporalResponse" message="tns:IPedidoService_DeleteEstrategiaTemporal_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="InsertEstrategiaOfertaParaTi">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/InsertEstrategiaOfertaParaTi" message="tns:IPedidoService_InsertEstrategiaOfertaParaTi_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/InsertEstrategiaOfertaParaTiResponse" message="tns:IPedidoService_InsertEstrategiaOfertaParaTi_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="InsertarTipoEstrategia">
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/InsertarTipoEstrategia" message="tns:IPedidoService_InsertarTipoEstrategia_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/InsertarTipoEstrategiaResponse" message="tns:IPedidoService_InsertarTipoEstrategia_OutputMessage" />
@@ -2885,6 +2935,51 @@
     </wsdl:operation>
     <wsdl:operation name="GetOfertasParaTiByTipoConfigurado">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/GetOfertasParaTiByTipoConfigurado" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InsertEstrategiaTemporal">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/InsertEstrategiaTemporal" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCantidadOfertasParaTiTemporal">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/GetCantidadOfertasParaTiTemporal" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetOfertasParaTiByTipoConfiguradoTemporal">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/GetOfertasParaTiByTipoConfiguradoTemporal" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteEstrategiaTemporal">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/DeleteEstrategiaTemporal" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InsertEstrategiaOfertaParaTi">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/InsertEstrategiaOfertaParaTi" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -5328,6 +5423,51 @@
     </wsdl:operation>
     <wsdl:operation name="GetOfertasParaTiByTipoConfigurado">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/GetOfertasParaTiByTipoConfigurado" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InsertEstrategiaTemporal">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/InsertEstrategiaTemporal" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCantidadOfertasParaTiTemporal">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/GetCantidadOfertasParaTiTemporal" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetOfertasParaTiByTipoConfiguradoTemporal">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/GetOfertasParaTiByTipoConfiguradoTemporal" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteEstrategiaTemporal">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/DeleteEstrategiaTemporal" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InsertEstrategiaOfertaParaTi">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/InsertEstrategiaOfertaParaTi" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

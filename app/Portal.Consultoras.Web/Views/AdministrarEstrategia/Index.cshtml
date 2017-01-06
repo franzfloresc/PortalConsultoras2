@@ -364,11 +364,11 @@
 <div id="DialogNuevoMasivo" style="display: none;">
     <div class="Content_modal">
         <div class="div-3" style="text-align: center;">
-            <div class="boton_redondo_admcontenido_on">1</div>
+            <div class="boton_redondo_admcontenido_on" id="divPaso1">1</div>
             <div class="signo_admcontenido_estrategia">></div>
-            <div class="boton_redondo_admcontenido_off">2</div>
+            <div class="boton_redondo_admcontenido_off" id="divPaso2">2</div>
             <div class="signo_admcontenido_estrategia">></div>
-            <div class="boton_redondo_admcontenido_off">3</div>
+            <div class="boton_redondo_admcontenido_off" id="divPaso3">3</div>
         </div>
         <div id="divMasivoPaso1">
             <div class="div-3" style="text-align: center; color: #00A2E8;">
@@ -382,7 +382,7 @@
             </div>
             <div id="divMostrarPreCarga">
                 <div class="div-3" style="text-align: center; color: #00A2E8; margin-top: 20px;">
-                    ¿Deseas pre cargar la informacion de los CUVS pendientes por configurar? (<span id="spnCantidadConfigurar1">11</span>) CUVS
+                    ¿Deseas pre cargar la información de los CUVS pendientes por configurar? (<span id="spnCantidadConfigurar1">11</span>) CUVS
                 </div>
                 <div class="div-3">
                     <div class="input_horizontal" style="text-align: center;">
@@ -392,9 +392,44 @@
                 </div>
             </div>
         </div>
-        <div id="divMasivoPaso2" style="display: none;"></div>
-        <div id="divMasivoPaso3" style="display: none;"></div>
-
+        <div id="divMasivoPaso2" style="display: none;">
+            <div class="div-3" style="text-align: center; color: #00A2E8;">
+                Grabar información en Zona de Estrategias
+            </div>
+            <div class="container" style="width: auto;">
+                <div class="border-wrapper">
+                    <table id="listCargaMasiva2"></table>
+                    <div id="pagerCargaMasiva2"></div>
+                </div>
+            </div>
+            <div id="divMostrarPreCarga2">
+                <div class="div-3" style="text-align: center; color: #00A2E8; margin-top: 20px;">
+                    ¿Deseas grabar la información de los CUVS pre cargados correctamente en la Zona de Estrategias? (<span id="spnCantidadConfigurar2">11</span>) CUVS
+                </div>
+                <div class="div-3">
+                    <div class="input_horizontal" style="text-align: center;">
+                        <input type="button" name="btnAceptarMasivo2" id="btnAceptarMasivo2" value="Aceptar" style="float: none;" />
+                        <input type="button" name="btnCancelarMasivo2" id="btnCancelarMasivo2" value="Cancelar" style="float: none;" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="divMasivoPaso3" style="display: none;">
+            <div class="div-3" style="text-align: center; color: #00A2E8;">
+                Confirmación de grabación en Zona de Estrategias
+            </div>
+            <div class="div-3" style="text-align: center; margin-top: 20px;">
+                Se grabó la información de los <a onclick=" VerCuvsTipo2(1); "><span id="spnCantidadConfigurar3">11</span> CUVS</a>
+            </div>
+            <div id="divMostrarNoCargados" class="div-3" style="text-align: center; margin-top: 20px;">
+                Quedan <a onclick=" VerCuvsTipo2(2); "><span id="spnCantidadNoConfigurar3">11</span> CUVS</a> pendientes para cargar.
+            </div>
+            <div class="div-3">
+                <div class="input_horizontal" style="text-align: center;">
+                    <input type="button" name="btnAceptarMasivo3" id="btnAceptarMasivo3" value="Aceptar" style="float: none;" />
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 <div id="DialogGrillaCuv1">
@@ -403,6 +438,16 @@
             <div class="border-wrapper">
                 <table id="listGrillaCuv1"></table>
                 <div id="pagerGrillaCuv1"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="DialogGrillaCuv2">
+    <div class="Content_modal">
+        <div class="container" style="width: auto;">
+            <div class="border-wrapper">
+                <table id="listGrillaCuv2"></table>
+                <div id="pagerGrillaCuv2"></div>
             </div>
         </div>
     </div>
@@ -421,7 +466,9 @@
     var urlFiltrarEstrategia = baseUrl + 'AdministrarEstrategia/FiltrarEstrategia';
     var urlDeshabilitarEstrategia = baseUrl + 'AdministrarEstrategia/DeshabilitarEstrategia';
     var cantidadPrecargar = 0;
+    var cantidadPrecargar2 = 0;
     var urlConsultarCuvTipoConfigurado = baseUrl + 'AdministrarEstrategia/ConsultarCuvTipoConfigurado';
+    var urlConsultarCuvTipoConfiguradoTemporal = baseUrl + 'AdministrarEstrategia/ConsultarCuvTipoConfiguradoTemporal';
 
     jQuery(document).ready(function () {
         fnGrilla();
@@ -944,10 +991,23 @@
                 }
             }
 
+            $("#divMasivoPaso1").show();
+            $("#divMasivoPaso2").hide();
+            $("#divMasivoPaso3").hide();
+
+            $("#divPaso1").removeClass("boton_redondo_admcontenido_off");
+            $("#divPaso1").addClass("boton_redondo_admcontenido_on");
+
+            $("#divPaso2").removeClass("boton_redondo_admcontenido_on");
+            $("#divPaso2").addClass("boton_redondo_admcontenido_off");
+
+            $("#divPaso3").removeClass("boton_redondo_admcontenido_on");
+            $("#divPaso3").addClass("boton_redondo_admcontenido_off");
+
             fnGrillaEstrategias1();
 
-            $(".ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset").css("float", "none");
-            $(".ui-dialog .ui-dialog-buttonpane").css("text-align", "center");
+            //$(".ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset").css("float", "none");
+            //$(".ui-dialog .ui-dialog-buttonpane").css("text-align", "center");
             showDialog("DialogNuevoMasivo");
         });
 
@@ -957,6 +1017,8 @@
                 tipoConfigurado: 2
             };
 
+            waitingDialog({});
+
             jQuery.ajax({
                 type: 'POST',
                 url: baseUrl + 'AdministrarEstrategia/InsertEstrategiaTemporal',
@@ -965,13 +1027,92 @@
                 data: JSON.stringify(params),
                 async: true,
                 success: function (data) {
-
+                    if (data.success) {
+                        closeWaitingDialog();
+                        fnGrillaEstrategias2();                                              
+                    } else {
+                        alert(data.message);
+                    }
                 },
                 error: function (data, error) {
                     alert(data.message);
                 }
             });
         });
+
+        $("#btnCancelarMasivo1").click(function() {
+            HideDialog("DialogNuevoMasivo");
+        });
+
+        $("#btnAceptarMasivo2").click(function() {
+            var params = {
+                campaniaId: parseInt($("#ddlCampania").val()),
+                tipoConfigurado: 1
+            };
+
+            waitingDialog({});
+
+            jQuery.ajax({
+                type: 'POST',
+                url: baseUrl + 'AdministrarEstrategia/InsertEstrategiaOfertaParaTi',
+                dataType: 'json',
+                contentType: 'application/json; charset=utf-8',
+                data: JSON.stringify(params),
+                async: true,
+                success: function (data) {
+                    if (data.success) {
+                        closeWaitingDialog();
+                        //fnGrillaEstrategias2();
+                        $("#divMasivoPaso1").hide();
+                        $("#divMasivoPaso2").hide();
+                        $("#divMasivoPaso3").show();
+
+                        $("#divPaso1").removeClass("boton_redondo_admcontenido_on");
+                        $("#divPaso1").addClass("boton_redondo_admcontenido_off");
+
+                        $("#divPaso2").removeClass("boton_redondo_admcontenido_on");
+                        $("#divPaso2").addClass("boton_redondo_admcontenido_off");
+
+                        $("#divPaso3").removeClass("boton_redondo_admcontenido_off");
+                        $("#divPaso3").addClass("boton_redondo_admcontenido_on");
+                    } else {
+                        alert(data.message);
+                    }
+                },
+                error: function (data, error) {
+                    alert(data.message);
+                }
+            });
+        });
+
+        $("#btnCancelarMasivo2").click(function () {
+            var params = {
+                campaniaId: parseInt($("#ddlCampania").val())
+            };
+
+            jQuery.ajax({
+                type: 'POST',
+                url: baseUrl + 'AdministrarEstrategia/CancelarInsertEstrategiaTemporal',
+                dataType: 'json',
+                contentType: 'application/json; charset=utf-8',
+                data: JSON.stringify(params),
+                async: true,
+                success: function (data) {
+                    if (data.success) {
+                        HideDialog("DialogNuevoMasivo");                        
+                    }
+                    alert(data.message);
+                },
+                error: function (data, error) {
+                    alert(data.message);
+                }
+            });            
+        });
+
+        $("#btnAceptarMasivo3").click(function () {
+            HideDialog("DialogNuevoMasivo");
+        });
+        
     });
 
     ///////////////
@@ -994,7 +1135,7 @@
             mtype: 'GET',
             contentType: "application/json; charset=utf-8",
             //colNames: ['Descripcion', 'Cantidad'],
-            colNames: ['Id', 'Descripcion', 'Cantidad'],
+            colNames: ['Id', 'Descripción', 'Cantidad'],
             colModel: [
                 { name: 'Id', index: 'Id', width: 100, editable: true, resizable: false, hidden: true },
                 { name: 'Descripcion', index: 'Descripcion', width: 100, editable: true, resizable: false },
@@ -1033,12 +1174,80 @@
                 } else {
                     $("#divMostrarPreCarga").css("display", "");
                     $("#spnCantidadConfigurar1").html(cantidadPrecargar);
-                }
+                }                
             }
         });
         jQuery("#listCargaMasiva1").jqGrid('navGrid', "#pagerCargaMasiva1", { edit: false, add: false, refresh: false, del: false, search: false });
         jQuery("#listCargaMasiva1").setGridParam({ datatype: 'json', page: 1 }).trigger('reloadGrid');
     }
+
+    function fnGrillaEstrategias2() {
+        $("#listCargaMasiva2").jqGrid("GridUnload");
+        jQuery("#listCargaMasiva2").jqGrid({
+            url: baseUrl + "AdministrarEstrategia/ConsultarOfertasParaTiTemporal",
+            hidegrid: false,
+            datatype: 'json',
+            postData: ({
+                CampaniaID: $("#ddlCampania").val()
+            }),
+            mtype: 'GET',
+            contentType: "application/json; charset=utf-8",
+            //colNames: ['Descripcion', 'Cantidad'],
+            colNames: ['Id', 'Descripción', 'Cantidad'],
+            colModel: [
+                { name: 'Id', index: 'Id', width: 100, editable: true, resizable: false, hidden: true },
+                { name: 'Descripcion', index: 'Descripcion', width: 100, editable: true, resizable: false },
+                { name: 'Activo', index: 'Activo', width: 30, align: 'center', editable: true, resizable: false, formatter: ShowActionsVer2 }
+            ],
+            jsonReader:
+            {
+                root: "rows",
+                page: "page",
+                total: "total",
+                records: "records",
+                repeatitems: true,
+                cell: "cell",
+                id: "id"
+            },
+            pager: jQuery('#pagerCargaMasiva2'),
+            loadtext: 'Cargando datos...',
+            recordtext: "{0} - {1} de {2} Registros",
+            emptyrecords: 'No hay resultados',
+            rowNum: 10,
+            scrollOffset: 0,
+            rowList: [10, 20, 30, 40, 50],
+            sortname: 'Orden',
+            sortorder: 'asc',
+            viewrecords: true,
+            multiselect: false,
+            height: 'auto',
+            width: 540,
+            pgtext: 'Pág: {0} de {1}',
+            altRows: true,
+            altclass: 'jQGridAltRowClass',
+            loadComplete: function () { },
+            gridComplete: function () {
+                if (cantidadPrecargar2 == 0) {
+                    $("#divMostrarPreCarga2").css("display", "none");
+                } else {
+                    $("#divMostrarPreCarga2").css("display", "");
+                    $("#spnCantidadConfigurar2").html(cantidadPrecargar2);
+                }
+
+                $("#divMasivoPaso1").hide();
+                $("#divMasivoPaso2").show();
+
+                $("#divPaso1").removeClass("boton_redondo_admcontenido_on");
+                $("#divPaso1").addClass("boton_redondo_admcontenido_off");
+
+                $("#divPaso2").removeClass("boton_redondo_admcontenido_off");
+                $("#divPaso2").addClass("boton_redondo_admcontenido_on");
+            }
+        });
+        jQuery("#listCargaMasiva2").jqGrid('navGrid', "#pagerCargaMasiva2", { edit: false, add: false, refresh: false, del: false, search: false });
+        jQuery("#listCargaMasiva2").setGridParam({ datatype: 'json', page: 1 }).trigger('reloadGrid');
+    }
+
     // 2209 - Inicio
     function CerrarTallaColor() {
 
@@ -1503,6 +1712,27 @@
         return text;
     }
 
+    function ShowActionsVer2(cellvalue, options, rowObject) {
+        var text = "";
+
+        var cantidad = rowObject[2];
+        var tipo = rowObject[3];
+
+        if (tipo == "1") {
+            cantidadPrecargar2 = parseInt(cantidad);
+            $("#spnCantidadConfigurar3").html(parseInt(cantidad));
+        }
+        if (tipo == '2')
+            $("#spnCantidadNoConfigurar3").html(parseInt(cantidad));
+
+        if (cantidad != "0")
+            text = rowObject[2] + " <a href='javascript:;' onclick=VerCuvsTipo2('" + tipo + "')>ver</a>";
+        else
+            text = rowObject[2];
+
+        return text;
+    }
+
     function VerCuvsTipo(tipo) {
         fnGrillaCuv1(tipo);
     }
@@ -1524,7 +1754,7 @@
             postData: (parametros),
             mtype: 'GET',
             contentType: "application/json; charset=utf-8",
-            colNames: ['CUV', 'Descripcion'],
+            colNames: ['CUV', 'Descripción'],
             colModel: [
                 { name: 'CUV2', index: 'CUV', width: 10, editable: true, resizable: false},
                 { name: 'DescripcionCUV2', index: 'DescripcionCUV2', width: 90, editable: true, resizable: false },
@@ -1563,6 +1793,68 @@
         });
         jQuery("#listGrillaCuv1").jqGrid('navGrid', "#pagerGrillaCuv1", { edit: false, add: false, refresh: false, del: false, search: false });
         jQuery("#listGrillaCuv1").setGridParam({ datatype: 'json', page: 1 }).trigger('reloadGrid');
+    }
+
+    function VerCuvsTipo2(tipo) {
+        fnGrillaCuv2(tipo);
+    }
+
+    function fnGrillaCuv2(tipo) {
+        $("#listGrillaCuv2").jqGrid("clearGridData");
+
+        var parametros = {
+            campaniaId: parseInt($("#ddlCampania").val()),
+            tipoConfigurado: parseInt(tipo)
+        };
+
+        $('#listGrillaCuv2').setGridParam({ postData: parametros });
+
+        jQuery("#listGrillaCuv2").jqGrid({
+            url: urlConsultarCuvTipoConfiguradoTemporal,
+            hidegrid: false,
+            datatype: 'json',
+            postData: (parametros),
+            mtype: 'GET',
+            contentType: "application/json; charset=utf-8",
+            colNames: ['CUV', 'Descripción'],
+            colModel: [
+                { name: 'CUV2', index: 'CUV', width: 10, editable: true, resizable: false },
+                { name: 'DescripcionCUV2', index: 'DescripcionCUV2', width: 90, editable: true, resizable: false },
+            ],
+            jsonReader:
+            {
+                root: "rows",
+                page: "page",
+                total: "total",
+                records: "records",
+                repeatitems: true,
+                cell: "cell",
+                id: "id"
+            },
+            pager: jQuery('#pagerGrillaCuv2'),
+            loadtext: 'Cargando datos...',
+            recordtext: "{0} - {1} de {2} Registros",
+            emptyrecords: 'No hay resultados',
+            rowNum: 10,
+            scrollOffset: 0,
+            rowList: [10, 20, 30, 40, 50],
+            sortname: 'Nombre',
+            sortorder: 'asc',
+            viewrecords: true,
+            multiselect: false,
+            height: 'auto',
+            width: 540,
+            pgtext: 'Pág: {0} de {1}',
+            altRows: true,
+            altclass: 'jQGridAltRowClass',
+            loadComplete: function () {
+            },
+            gridComplete: function () {
+                showDialog("DialogGrillaCuv2");
+            }
+        });
+        jQuery("#listGrillaCuv2").jqGrid('navGrid', "#pagerGrillaCuv2", { edit: false, add: false, refresh: false, del: false, search: false });
+        jQuery("#listGrillaCuv2").setGridParam({ datatype: 'json', page: 1 }).trigger('reloadGrid');
     }
 
     function IniDialog() {
@@ -1969,6 +2261,22 @@
         });
 
         $('#DialogGrillaCuv1').dialog({
+            autoOpen: false,
+            resizable: false,
+            modal: true,
+            closeOnEscape: true,
+            width: 600,
+            draggable: false,
+            title: "Carga Masiva de Estrategias",
+            buttons:
+            {
+                "Salir": function () {
+                    $(this).dialog('close');
+                }
+            }
+        });
+
+        $('#DialogGrillaCuv2').dialog({
             autoOpen: false,
             resizable: false,
             modal: true,
