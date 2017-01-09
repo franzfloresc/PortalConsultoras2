@@ -6333,6 +6333,8 @@ body {
     height: 11px;
     max-width: 320px;
     margin: 0 auto;
+    z-index:5;
+    position:relative;
 }
 /**/
 .texto_catalogos_mobile {

@@ -168,6 +168,10 @@ namespace Portal.Consultoras.Web.Models
         public bool TieneLanzamientoCatalogoPersonalizado { get; set; }
 
         public string TipoOfertaRevista { get; set; }
+
+        public string Volumen { get; set; }
+        public bool EsMaquillaje { get; set; }
+        public string DescripcionComercial { get; set; }
     }
 
     public class ObservacionModel

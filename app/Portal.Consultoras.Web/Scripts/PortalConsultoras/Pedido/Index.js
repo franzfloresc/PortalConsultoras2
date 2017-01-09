@@ -3418,8 +3418,8 @@ function Update(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion, CUV) {
 function UpdateLiquidacion(CampaniaID, PedidoID, PedidoDetalleID, TipoOfertaSisID, CUV, FlagValidacion, CantidadModi) {
     debugger;
     /*PL20-1227*/
-    if (typeof tipoEstrategiaODD !== 'undefined' && typeof limiteVentaODD !== 'undefined') {
-        if (parseInt(TipoOfertaSisID) == parseInt(tipoEstrategiaODD)) {
+    if (typeof idTipoEstrategiaODD !== 'undefined' && typeof limiteVentaODD !== 'undefined') {
+        if (parseInt(TipoOfertaSisID) == parseInt(idTipoEstrategiaODD)) {
             // validar cantidad a agregar
             var nqty = parseInt($('#txtLPCant' + PedidoDetalleID).val());
             if (nqty > parseInt(limiteVentaODD) ) {

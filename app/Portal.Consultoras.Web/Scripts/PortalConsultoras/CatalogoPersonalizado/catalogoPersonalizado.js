@@ -488,6 +488,13 @@ function AgregarProducto(url, item, otraFunct) {
                 if (typeof (otraFunct) == 'function' || typeof (otraFunct) == 'string') {
                     setTimeout(otraFunct, 50);
                 }
+
+                /*PL20-1237*/
+                if (tipoOrigen == '2') {
+                    if (typeof isAddFichaProductoFAV !== 'undefined') {
+                        document.location.href = urlCatalogoPersonalizado;
+                    }
+                }
             }
             else messageInfoError(data.message);
             DialogLoadingCerrar();
@@ -917,4 +924,10 @@ function AbrirMaqueta(tipo)
         $('#divmaquetaof48pack').addClass('mod-ofer3').show();
         $('#divmaquetaof48pack').show();
     }
+}
+
+
+function mostrarFichaProductoFAV(cuv) {
+    $('#CUVFP').val(cuv);
+    $('#frmFichaProductoFAV').submit();
 }

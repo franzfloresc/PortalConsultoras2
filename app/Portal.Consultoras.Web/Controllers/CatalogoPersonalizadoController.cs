@@ -11,6 +11,8 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
+using System.ServiceModel;
+
 namespace Portal.Consultoras.Web.Controllers
 {
     public class CatalogoPersonalizadoController : BaseController
@@ -90,6 +92,8 @@ namespace Portal.Consultoras.Web.Controllers
 
                     using (ProductoServiceClient ps = new ProductoServiceClient())
                     {
+                        ((BasicHttpBinding)ps.Endpoint.Binding).MaxReceivedMessageSize = int.MaxValue;
+
                         var fechaHoy = DateTime.Now.AddHours(userData.ZonaHoraria).Date;
                         bool esFacturacion = fechaHoy >= userData.FechaInicioCampania.Date;
 
@@ -172,7 +176,10 @@ namespace Portal.Consultoras.Web.Controllers
                                 IsAgregado = false,
                                 TieneOfertaEnRevista = olstProducto[0].TieneOfertaRevista,
                                 TieneLanzamientoCatalogoPersonalizado = olstProducto[0].TieneLanzamientoCatalogoPersonalizado,
-                                TipoOfertaRevista = olstProducto[0].TipoOfertaRevista
+                                TipoOfertaRevista = olstProducto[0].TipoOfertaRevista,
+                                Volumen = producto.Volumen,
+                                EsMaquillaje = producto.EsMaquillaje,
+                                DescripcionComercial = producto.DescripcionComercial
                             });
 
                         }
