@@ -706,6 +706,14 @@ namespace Portal.Consultoras.Web.Controllers
                     lst.Update(x => x.Simbolo = UserData().Simbolo);
                 }
 
+                if (lst.Count <= 0)
+                    return Json(new
+                    {
+                        success = false,
+                        message = "El CUV2 ingresado no está configurado en la matriz comercial",
+                        extra = ""
+                    }, JsonRequestBehavior.AllowGet);
+
                 return Json(lst[0], JsonRequestBehavior.AllowGet);
             }
             catch (FaultException ex)
