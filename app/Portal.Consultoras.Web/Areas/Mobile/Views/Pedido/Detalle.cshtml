@@ -359,7 +359,7 @@
                             {{else iff detalle.TipoOfertaSisID '==' @Constantes.ConfiguracionOferta.ShowRoom}}
                             <br />
                             <span>Pre-venta Digital</span>
-                            {{else if_eq TipoOfertaSisID '@Constantes.TipoEstrategia.OfertaDelDia'}}
+                            {{else if_eq TipoOfertaSisID '@ViewBag.IdTipoEstrategiaODD'}}
                             <br />
                             <span>OFERTA DEL DÍA</span>
                             {{else}}
@@ -732,7 +732,7 @@
 
         //PL20-1233
         var origenPagina = 2;
-        var tipoEstrategiaODD = '@Constantes.TipoEstrategia.OfertaDelDia';
+        var idTipoEstrategiaODD = '@ViewBag.IdTipoEstrategiaODD';
         var limiteVentaODD = '@ViewBag.LimiteVentaODD';
 
     </script>

@@ -243,6 +243,10 @@
     </div>
 </script>
 
+<form id="frmFichaProductoFAV" method="post" action="@Url.Action("Producto","CatalogoPersonalizado")">
+    <input type="hidden" id="CUVFP" name="CUVFP" />
+</form>
+
 <script id="template-catalogopersonalizado" type="text/x-handlebars-template">
     <div>
         {{#each this as |item|}}
@@ -265,9 +269,17 @@
                     <input type="hidden" class="hdItemTipoOfertaRevista" value="{{TipoOfertaRevista}}" />
                     <input type="hidden" class="OrigenPedidoWeb" value="@Portal.Consultoras.Common.Constantes.OrigenPedidoWeb.MobileCatalogoPersonalizado"/>
                 </div>
+                
+                {{#if EsMaquillaje }}
+                <div class="producto_img_mobile" data-img="" onclick="mostrarFichaProductoFAV('{{CUV}}');">
+                    <img src="{{ImagenProductoSugerido}}" style="width: auto; height: 100%;" class="imagen_producto">
+                </div>
+                {{else}}
                 <div class="producto_img_mobile" data-img="">
                     <img src="{{ImagenProductoSugerido}}" style="width: auto; height: 100%;" class="imagen_producto">
                 </div>
+                {{/if}}
+
                 {{#if item.TieneLanzamientoCatalogoPersonalizado}}
                 <div class="etiqueta_producto nuevofavorito">
                     <img src="@Url.Content("~/Content/Images/producto_lanzamiento_CP.png")" alt="Etiqueta Producto" />
@@ -275,9 +287,15 @@
                 {{/if}}
                 <div class="producto_nombre_descripcion">
                     <h6>{{DescripcionMarca}}</h6>
+                    {{#if EsMaquillaje }}
+                    <p class="nombre_producto" onclick="mostrarFichaProductoFAV('{{CUV}}');">
+                        <b>{{Descripcion}} tt</b>
+                    </p>
+                    {{else}}
                     <p class="nombre_producto">
                         <b>{{Descripcion}}</b>
                     </p>
+                    {{/if}}
                     <div class="producto_precio" style="margin-bottom: 2px !important;">
                         <span class="producto_precio_normal">{{Simbolo}} {{PrecioValorizadoString}}</span>
                         <span class="producto_precio_oferta"><b>{{Simbolo}} {{PrecioCatalogoString}}</b></span>
@@ -285,11 +303,11 @@
                     <div style="min-height:38px">
                         {{#if TieneOfertaEnRevista}}
                         <div class="seguir_pedido enlace_popupCatalogoPersonalizado">
-                            <a title="AQUÍ" class="pop-ofertarevista" style="cursor: pointer;">¡MIRA LA OFERTA!</a>                            
+                            <a title="AQUÍ" class="pop-ofertarevista" style="cursor: pointer;">¡MIRA LA OFERTA!</a>
                         </div>
                         {{/if}}
                     </div>
-                    
+
                     <hr class="clear">
                     <div class="liquidacion_rango_home" data-cantidad-contenedor="">
                         <a class="cantidad_menos_home"><img src="/Content/Images/Mobile/Esika/menos.png" alt=""></a>
@@ -297,9 +315,9 @@
                         <a class="cantidad_mas_home"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
                     </div>
                     <div class="clear"></div>
-                    
+
                     <a class="boton_Agregalo_home btnAgregarOfertaProducto" data-btn-agregar-catalogopersonalizado=""> AGREGALO</a>
-                                  
+
                     <div class="clear"></div>
                     <div style="padding-top:9px; height: 15px;">
                         <div class="agregado product-add" style="text-align: right; display:{{#if IsAgregado }}block;{{else}}none;{{/if}}">
@@ -363,7 +381,7 @@
             <div class="content_imagen_oferta">
                 {{#IsNullOrEmpty UrlImagen '!='}}
                 <img src="{{UrlImagen}}" alt="" />
-                {{/IsNullOrEmpty}}                
+                {{/IsNullOrEmpty}}
             </div>
             <div class="titulo_producto_oferta" style="font-weight:400;" id="titulo">{{Descripcion}}</div>
             @*<div class="sub_texto_oferta">En Revista: {{Simbolo}} {{DecimalToStringFormat precio_revista}}</div>*@
@@ -376,7 +394,7 @@
                     <div class="titulo_mobile">COMPRA 1 {{Descripcion}}</div>
                     <div class="pestana_esika"></div>
                     <div class="pestana_lbel"></div>
-                </div>                
+                </div>
                 <div class="titulo_pack">Precio para ti: {{Simbolo}} {{DecimalToStringFormat precio_revista}}</div>
                 <div class="texto_ganancia_oferta">{{TxtGanancia}}: {{Simbolo}} {{DecimalToStringFormat ganancia}}</div>
                 <hr class="clear" />
@@ -389,7 +407,7 @@
                     <div class="titulo_mobile">OFERTA x{{nivel.escala_nivel}}</div>
                     <div class="pestana_esika"></div>
                     <div class="pestana_lbel"></div>
-                </div>    
+                </div>
 
                 <div class="contenido_compra_nivel" style="">
                     <div class="titulo_pack_048 centrar_vertical" style="width: 26%; text-align: left;">Compra</div>
@@ -422,8 +440,8 @@
                         <div style="margin: 0 auto; text-align: center;">
                             <img src="@Url.Content(ViewBag.RutaImagenNoDisponible)" alt="" style="width: 55px; height: 55px; border: 0;"/>
                         </div>
-                        {{/IsNullOrEmpty}}        
-                        
+                        {{/IsNullOrEmpty}}
+
                     </div>
                     <div class="sub_descripcion_oferta"><p><span>x{{item.cantidad}}</span> {{item.descripcion_gratis}}</p></div>
                     <hr class="clear" />
@@ -477,7 +495,7 @@
     </div>
 </script>
 <script id="template-mod-ofer3" type="text/x-handlebars-template">
-    
+
     <div class="content_PopOferta" style="padding-bottom:0; max-width:600px;" data-oferta-popup="">
         <a class="cerrar_popMobile" href="javascript:;" data-close="">
             <img src="/Content/Images/mobile/Esika/cerrar_04.png" alt="-">
@@ -527,7 +545,7 @@
             <div class="content_imagen_oferta">
                 {{#IsNullOrEmpty UrlImagen '!='}}
                 <img src="{{UrlImagen}}" alt="" />
-                {{/IsNullOrEmpty}}                
+                {{/IsNullOrEmpty}}
             </div>
             <div class="titulo_producto_oferta" id="titulo">{{Descripcion}}</div>
             @*<div class="sub_texto_oferta">En Revista: {{Simbolo}} {{DecimalToStringFormat precio_revista}}</div>*@
@@ -560,75 +578,76 @@
                 <div class="titulo_producto_oferta"><span class="texto_unidad_pack">Precio para ti: </span>{{../Simbolo}} {{DecimalToStringFormat pack.precio_pack}}</div>
                 <div class="texto_ganancia_oferta" style="text-transform: uppercase;">{{../TxtGanancia}}: {{../Simbolo}} {{DecimalToStringFormat pack.ganancia_pack}}</div>
                 @*<div class="left_70"><div class="titulo_producto_oferta" style="text-align:left">INCLUYE</div></div>*@
-                <hr class="clear" />
-                {{#each ../lista_oObjItemPack as |item|}}
-                {{#if_eq pack.cuv_pack item.cuv_pack_item}}
-                <div class="content_sub_items">
-                    <div class="sub_imagen_oferta">
-                        {{#IsNullOrEmpty item.imagen_item_pack '!='}}
-                        <img src="{{item.imagen_item_pack}}" alt="" />
-                        {{/IsNullOrEmpty}}        
-                        
-                        {{#IsNullOrEmpty item.imagen_item_pack '=='}}
-                        <div style="margin: 0 auto; text-align: center;">
-                            <img src="@Url.Content(ViewBag.RutaImagenNoDisponible)" alt="" style="width: 55px; height: 55px; border: 0;" />
-                        </div>
-                        {{/IsNullOrEmpty}}                        
-                    </div>
-                    <div class="sub_descripcion_oferta"><p><span>x{{item.cantidad_item_pack}} </span>{{item.descripcion_item_pack}}</p></div>
+    <hr class="clear" />
+    {{#each ../lista_oObjItemPack as |item|}}
+    {{#if_eq pack.cuv_pack item.cuv_pack_item}}
+    <div class="content_sub_items">
+        <div class="sub_imagen_oferta">
+            {{#IsNullOrEmpty item.imagen_item_pack '!='}}
+            <img src="{{item.imagen_item_pack}}" alt="" />
+            {{/IsNullOrEmpty}}
+
+            {{#IsNullOrEmpty item.imagen_item_pack '=='}}
+            <div style="margin: 0 auto; text-align: center;">
+                <img src="@Url.Content(ViewBag.RutaImagenNoDisponible)" alt="" style="width: 55px; height: 55px; border: 0;" />
+            </div>
+            {{/IsNullOrEmpty}}
+        </div>
+        <div class="sub_descripcion_oferta"><p><span>x{{item.cantidad_item_pack}} </span>{{item.descripcion_item_pack}}</p></div>
+    </div>
+    <hr class="clear" />
+    {{/if_eq}}
+    {{/each}}
+    <br />
+    <div class="liquidacion_rango_home">
+        <a class="cantidad_menos_home" tabindex="0"><img src="/Content/Images/Mobile/Esika/menos.png" alt=""></a>
+        <input type="tel" value="1" size="2" maxlength="2" id="txtCantidad" class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" tabindex="0" data-cantidad-input="pack">
+        <a class="cantidad_mas_home" tabindex="0"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
+    </div>
+    <div class="clear"></div>
+    <a class="boton_Agregalo_home agregar-ofertarevista" data-cuv="pack" data-cuvadd="{{pack.cuv_pack}}" tabindex="0">AGRÉGALO</a>
+    </div>
+    </div>
+    {{/each}}
+    <!--ULTIMO-->
+    <div class="row_20">
+        <div class="sombra_oferta">
+            <div class="content_item_oferta">
+                <div class="sub_texto_oferta">
+                    También puedes comprarlo <br />con el precio catálogo:
                 </div>
+                <div class="sub_texto_oferta">{{Simbolo}} {{DecimalToStringFormat precio_catalogo}}</div>
                 <hr class="clear" />
-                {{/if_eq}}
-                {{/each}}
                 <br />
                 <div class="liquidacion_rango_home">
                     <a class="cantidad_menos_home" tabindex="0"><img src="/Content/Images/Mobile/Esika/menos.png" alt=""></a>
-                    <input type="tel" value="1" size="2" maxlength="2" id="txtCantidad" class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" tabindex="0" data-cantidad-input="pack">
+                    <input type="tel" value="1" size="2" maxlength="2" id="txtCantidad" class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" tabindex="0" data-cantidad-input="catalogo">
                     <a class="cantidad_mas_home" tabindex="0"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
                 </div>
                 <div class="clear"></div>
-                <a class="boton_Agregalo_home agregar-ofertarevista" data-cuv="pack" data-cuvadd="{{pack.cuv_pack}}" tabindex="0">AGRÉGALO</a>
+                <a class="boton_Agregalo_home agregar-ofertarevista" data-cuv="catalogo" tabindex="0">AGRÉGALO</a>
             </div>
         </div>
-        {{/each}}
-        <!--ULTIMO-->
-        <div class="row_20">
-            <div class="sombra_oferta">
-                <div class="content_item_oferta">
-                    <div class="sub_texto_oferta">
-                        También puedes comprarlo <br />con el precio catálogo:
-                    </div>
-                    <div class="sub_texto_oferta">{{Simbolo}} {{DecimalToStringFormat precio_catalogo}}</div>
-                    <hr class="clear" />
-                    <br />
-                    <div class="liquidacion_rango_home">
-                        <a class="cantidad_menos_home" tabindex="0"><img src="/Content/Images/Mobile/Esika/menos.png" alt=""></a>
-                        <input type="tel" value="1" size="2" maxlength="2" id="txtCantidad" class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" tabindex="0" data-cantidad-input="catalogo">
-                        <a class="cantidad_mas_home" tabindex="0"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
-                    </div>
-                    <div class="clear"></div>
-                    <a class="boton_Agregalo_home agregar-ofertarevista" data-cuv="catalogo" tabindex="0">AGRÉGALO</a>
-                </div>
-            </div>
-        </div>
-        <!--FIN-->
-    </div>    
-</script>
-@section scripts
-{
-    <script type="text/javascript">
-        var urlObtenerOfertaRevista = '@Url.Action("ObtenerOfertaRevista", "CatalogoPersonalizado", new { area = "" })';
-        var urlObtenerProductosCatalogoPersonalizado = '@Url.Action("ObtenerProductosCatalogoPersonalizado", "CatalogoPersonalizado", new { area = "" })';
-        var urlPedidoInsert = '@Url.Action("Insert", "Pedido", new { area = "" })';
-        var urlReservadoOEnHorarioRestringido = '@Url.Action("ReservadoOEnHorarioRestringido", "Pedido", new { area = "" })';
-        var urlPedidoValidado = '@Url.Action("Validado", "Pedido", new { area = "Mobile" })';
-        var cantidadRegistros = 12;
-        var offsetRegistros = 0;
-        var cargandoRegistros = false;
-        var divPadreOfertaRevista;
-        var tipoOrigen = '2';
+    </div>
+    <!--FIN-->
+    </div>
     </script>
-    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/CatalogoPersonalizado/CatalogoPersonalizado.js")"></script>
-    <script src="~/Scripts/PortalConsultoras/Mobile/CatalogoPersonalizado/bootstrap-slider.min.js"></script>
+    @section scripts
+{
+        <script type="text/javascript">
+            var urlObtenerOfertaRevista = '@Url.Action("ObtenerOfertaRevista", "CatalogoPersonalizado", new { area = "" })';
+            var urlObtenerProductosCatalogoPersonalizado = '@Url.Action("ObtenerProductosCatalogoPersonalizado", "CatalogoPersonalizado", new { area = "" })';
+            var urlPedidoInsert = '@Url.Action("Insert", "Pedido", new { area = "" })';
+            var urlReservadoOEnHorarioRestringido = '@Url.Action("ReservadoOEnHorarioRestringido", "Pedido", new { area = "" })';
+            var urlPedidoValidado = '@Url.Action("Validado", "Pedido", new { area = "Mobile" })';
+            var cantidadRegistros = 12;
+            var offsetRegistros = 0;
+            var cargandoRegistros = false;
+            var divPadreOfertaRevista;
+            var tipoOrigen = '2';
+            var urlFichaProductoFAV = '@Url.Action("Producto", "CatalogoPersonalizado")';
+        </script>
+        <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/CatalogoPersonalizado/CatalogoPersonalizado.js")"></script>
+        <script src="~/Scripts/PortalConsultoras/Mobile/CatalogoPersonalizado/bootstrap-slider.min.js"></script>
 
-}
+    }

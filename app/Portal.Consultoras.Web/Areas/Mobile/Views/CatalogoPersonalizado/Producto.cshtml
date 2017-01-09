@@ -1,4 +1,6 @@
-﻿@{
+﻿@model Portal.Consultoras.Web.Models.ProductoModel
+
+@{
     Layout = "~/Areas/Mobile/Views/Shared/_MobileLayout.cshtml";
 }
 <div class="titulo_mobile titulo_esika">
@@ -10,115 +12,153 @@
     <div class="pestana_lbel mobileLiquidaciones pestana_favoritos"></div><!--PESTANA LBEL-->
 </div>
 <div class="wrapper_resumen_mobile" style="padding-bottom:96px;">
-    <div class="content_imagen_ficha"><img src="https://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Matriz/PE/PE_200080472_201612367_01_pwifsvbxar.png" alt="PRODUCTO" /></div>
-    <div class="titulo_ficha_producto">Perfect Match volumen</div>
-    <div class="peso_ficha_producto">4g / 14 oz</div>
-    <div class="descripcion_ficha_producto">Labial FPS 20 + delineador para máximo volumen</div>
-    <div class="precio_ficha_producto"><span class="precio_tachado_ficha">S/.55.00</span>S/.35.00</div>
-    <div>
-        <div class="content_tonos_producto">
-            <div class="content_tono_detalle borde_seleccion_tono">
-                <img src="https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/PYi4dINUiOsYQ7e/labial_color.png" alt="PRODUCTO" />
-                <div class="content_mascara_maquillaje">
-                    <img src="https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/HfQTTPvWfVXwt3R/textura_labial.png" alt="PRODUCTO" />
-                </div>
-            </div>
-            <div class="content_tono_detalle">
-                <img src="https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/PYi4dINUiOsYQ7e/labial_color.png" alt="PRODUCTO" />
-                <div class="content_mascara_maquillaje">
-                    <img src="https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/HfQTTPvWfVXwt3R/textura_labial.png" alt="PRODUCTO" />
-                </div>
-            </div>
-            <div class="content_tono_detalle">
-                <img src="https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/dvVanSpBwcSATGk/textura_labial_fucsia.png" alt="PRODUCTO" />
-                <div class="content_mascara_maquillaje">
-                    <img src="https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/HfQTTPvWfVXwt3R/textura_labial.png" alt="PRODUCTO" />
-                </div>
-            </div>
-            <div class="content_tono_detalle">
-                <img src="https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/PYi4dINUiOsYQ7e/labial_color.png" alt="PRODUCTO" />
-                <div class="content_mascara_maquillaje">
-                    <img src="https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/HfQTTPvWfVXwt3R/textura_labial.png" alt="PRODUCTO" />
-                </div>
-            </div>
-            <div class="content_tono_detalle">
-                <img src="https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/PYi4dINUiOsYQ7e/labial_color.png" alt="PRODUCTO" />
-                <div class="content_mascara_maquillaje">
-                    <img src="https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/HfQTTPvWfVXwt3R/textura_labial.png" alt="PRODUCTO" />
-                </div>
-            </div>
-            <div class="content_tono_detalle">
-                <img src="https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/PYi4dINUiOsYQ7e/labial_color.png" alt="PRODUCTO" />
-                <div class="content_mascara_maquillaje">
-                    <img src="https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/HfQTTPvWfVXwt3R/textura_labial.png" alt="PRODUCTO" />
-                </div>
-            </div>
-            <div class="content_tono_detalle">
-                <img src="https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/PYi4dINUiOsYQ7e/labial_color.png" alt="PRODUCTO" />
-                <div class="content_mascara_maquillaje">
-                    <img src="https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/HfQTTPvWfVXwt3R/textura_labial.png" alt="PRODUCTO" />
-                </div>
-            </div>
-            <div class="content_tono_detalle">
-                <img src="https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/dvVanSpBwcSATGk/textura_labial_fucsia.png" alt="PRODUCTO" />
-                <div class="content_mascara_maquillaje">
-                    <img src="https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/HfQTTPvWfVXwt3R/textura_labial.png" alt="PRODUCTO" />
-                </div>
-            </div>
-            <div class="content_tono_detalle">
-                <img src="https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/PYi4dINUiOsYQ7e/labial_color.png" alt="PRODUCTO" />
-                <div class="content_mascara_maquillaje">
-                    <img src="https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/HfQTTPvWfVXwt3R/textura_labial.png" alt="PRODUCTO" />
-                </div>
-            </div>
-            <div class="content_tono_detalle">
-                <img src="https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/PYi4dINUiOsYQ7e/labial_color.png" alt="PRODUCTO" />
-                <div class="content_mascara_maquillaje">
-                    <img src="https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/HfQTTPvWfVXwt3R/textura_labial.png" alt="PRODUCTO" />
-                </div>
-            </div>
 
-            <hr class="clear" />
+    <div data-item="catalogopersonalizado">
+
+        <div style="display: none;">
+            <input type="hidden" class="hdItemCuv" value="@Model.CUV" />
+            <input type="hidden" class="hdItemTipoOfertaSisID" value="@Model.TipoOfertaSisID" />
+            <input type="hidden" class="hdItemConfiguracionOfertaID" value="@Model.ConfiguracionOfertaID" />
+            <input type="hidden" class="hdItemIndicadorMontoMinimo" value="@Model.IndicadorMontoMinimo" />
+            <input type="hidden" class="hdItemTipo" value="1" />
+            <input type="hidden" class="hdItemMarcaID" value="@Model.MarcaID" />
+            <input type="hidden" class="hdItemPrecioUnidad" value="@Model.PrecioCatalogo" />
+            <input type="hidden" class="hdItemDescripcionProd" value="@Model.Descripcion" />
+            <input type="hidden" class="hdItemPagina" value="0" />
+            <input type="hidden" class="hdItemDescripcionCategoria" value="@Model.DescripcionCategoria" />
+            <input type="hidden" class="hdItemDescripcionMarca" value="@Model.DescripcionMarca" />
+            <input type="hidden" class="hdItemDescripcionEstrategia" value="@Model.DescripcionEstrategia" />
+            <input type="hidden" class="hdItemRutaImagen" value="@Model.ImagenProductoSugerido" />
+            <input type="hidden" class="hdItemTipoOfertaRevista" value="@Model.TipoOfertaRevista" />
+            <input type="hidden" class="OrigenPedidoWeb" value="@Portal.Consultoras.Common.Constantes.OrigenPedidoWeb.MobileCatalogoPersonalizado" />
         </div>
-        <select class="tono_labial_select">
-            <option>Coral Cautivante</option>
-            <option>Coral Cautivante</option>
-            <option>Coral Cautivante</option>
-            <option>Coral Cautivante</option>
-        </select>
-    </div>
-    
-    <div class="content_redes_ficha">
-        <a class="btn_compartir_ofertas" href="#"><img src="@Url.Content("~/Content/Images/Mobile/Esika/iconowscolor.png")" alt=""></a>
-        <a class="btn_compartir_ofertas" href="#"><img src="@Url.Content("~/Content/Images/Mobile/Esika/catalogo_facebook_color.png")" alt=""></a>
-    </div>
-    <hr class="clear" />
-    <div class="row">
-        <div class="content_btn_agregar">
-            <div class="content_320">
-                <div class="content_cantidad_ficha_producto">
-                    <a class="cantidad_menos_home"><img src="/Content/Images/Mobile/Esika/menos.png" alt=""></a>
-                    <input type="tel" value="1" size="2" maxlength="2" id="txtCantidad" class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);">
-                    <a class="cantidad_mas_home"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
+
+        <div class="content_imagen_ficha"><img src="@Model.ImagenProductoSugerido" alt="PRODUCTO" class="imagen_producto" /></div>
+        <div class="titulo_ficha_producto">@Model.Descripcion</div>
+        <div class="peso_ficha_producto">@Model.Volumen</div>
+        <div class="descripcion_ficha_producto">@Model.DescripcionComercial</div>
+        <div class="precio_ficha_producto"><span class="precio_tachado_ficha">@ViewBag.Simbolo @Model.PrecioValorizadoString </span>@ViewBag.Simbolo @Model.PrecioCatalogoString</div>
+        <div>
+            <div class="content_tonos_producto">
+                <div class="content_tono_detalle borde_seleccion_tono">
+                    <img src="https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/PYi4dINUiOsYQ7e/labial_color.png" alt="PRODUCTO" />
+                    <div class="content_mascara_maquillaje">
+                        <img src="https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/HfQTTPvWfVXwt3R/textura_labial.png" alt="PRODUCTO" />
+                    </div>
                 </div>
-                <a class="btn_agregar_ficha_producto" href="#">AGRÉGALO</a>
+                <div class="content_tono_detalle">
+                    <img src="https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/PYi4dINUiOsYQ7e/labial_color.png" alt="PRODUCTO" />
+                    <div class="content_mascara_maquillaje">
+                        <img src="https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/HfQTTPvWfVXwt3R/textura_labial.png" alt="PRODUCTO" />
+                    </div>
+                </div>
+                <div class="content_tono_detalle">
+                    <img src="https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/dvVanSpBwcSATGk/textura_labial_fucsia.png" alt="PRODUCTO" />
+                    <div class="content_mascara_maquillaje">
+                        <img src="https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/HfQTTPvWfVXwt3R/textura_labial.png" alt="PRODUCTO" />
+                    </div>
+                </div>
+                <div class="content_tono_detalle">
+                    <img src="https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/PYi4dINUiOsYQ7e/labial_color.png" alt="PRODUCTO" />
+                    <div class="content_mascara_maquillaje">
+                        <img src="https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/HfQTTPvWfVXwt3R/textura_labial.png" alt="PRODUCTO" />
+                    </div>
+                </div>
+                <div class="content_tono_detalle">
+                    <img src="https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/PYi4dINUiOsYQ7e/labial_color.png" alt="PRODUCTO" />
+                    <div class="content_mascara_maquillaje">
+                        <img src="https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/HfQTTPvWfVXwt3R/textura_labial.png" alt="PRODUCTO" />
+                    </div>
+                </div>
+                <div class="content_tono_detalle">
+                    <img src="https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/PYi4dINUiOsYQ7e/labial_color.png" alt="PRODUCTO" />
+                    <div class="content_mascara_maquillaje">
+                        <img src="https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/HfQTTPvWfVXwt3R/textura_labial.png" alt="PRODUCTO" />
+                    </div>
+                </div>
+                <div class="content_tono_detalle">
+                    <img src="https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/PYi4dINUiOsYQ7e/labial_color.png" alt="PRODUCTO" />
+                    <div class="content_mascara_maquillaje">
+                        <img src="https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/HfQTTPvWfVXwt3R/textura_labial.png" alt="PRODUCTO" />
+                    </div>
+                </div>
+                <div class="content_tono_detalle">
+                    <img src="https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/dvVanSpBwcSATGk/textura_labial_fucsia.png" alt="PRODUCTO" />
+                    <div class="content_mascara_maquillaje">
+                        <img src="https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/HfQTTPvWfVXwt3R/textura_labial.png" alt="PRODUCTO" />
+                    </div>
+                </div>
+                <div class="content_tono_detalle">
+                    <img src="https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/PYi4dINUiOsYQ7e/labial_color.png" alt="PRODUCTO" />
+                    <div class="content_mascara_maquillaje">
+                        <img src="https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/HfQTTPvWfVXwt3R/textura_labial.png" alt="PRODUCTO" />
+                    </div>
+                </div>
+                <div class="content_tono_detalle">
+                    <img src="https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/PYi4dINUiOsYQ7e/labial_color.png" alt="PRODUCTO" />
+                    <div class="content_mascara_maquillaje">
+                        <img src="https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/HfQTTPvWfVXwt3R/textura_labial.png" alt="PRODUCTO" />
+                    </div>
+                </div>
+
                 <hr class="clear" />
+            </div>
+            <select class="tono_labial_select">
+                <option>Coral Cautivante</option>
+                <option>Coral Cautivante</option>
+                <option>Coral Cautivante</option>
+                <option>Coral Cautivante</option>
+            </select>
+        </div>
+    
+        <div class="content_redes_ficha">
+            <a class="btn_compartir_ofertas" href="#"><img src="@Url.Content("~/Content/Images/Mobile/Esika/iconowscolor.png")" alt=""></a>
+            <a class="btn_compartir_ofertas" href="#"><img src="@Url.Content("~/Content/Images/Mobile/Esika/catalogo_facebook_color.png")" alt=""></a>
+        </div>
+        <hr class="clear" />
+        <div class="row">
+            <div class="content_btn_agregar">
+                <div class="content_320">
+                    <div class="content_cantidad_ficha_producto">
+                        <a class="cantidad_menos_home"><img src="/Content/Images/Mobile/Esika/menos.png" alt=""></a>
+                        <input type="tel" value="1" size="2" maxlength="2" id="txtCantidad" class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" data-input="cantidad">
+                        <a class=" cantidad_mas_home"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
+                    </div>
+                    <a class="btn_agregar_ficha_producto" data-btn-agregar-catalogopersonalizado="" href="#">AGRÉGALO</a>
+                    <hr class="clear" />
+                </div>
             </div>
         </div>
     </div>
 </div>
 @section scripts{
+
     <script type="text/javascript">
+
+        var urlObtenerProductosCatalogoPersonalizado = '@Url.Action("ObtenerProductosCatalogoPersonalizado", "CatalogoPersonalizado", new { area = "" })';
+        var urlPedidoInsert = '@Url.Action("Insert", "Pedido", new { area = "" })';
+        var urlReservadoOEnHorarioRestringido = '@Url.Action("ReservadoOEnHorarioRestringido", "Pedido", new { area = "" })';
+        var urlPedidoValidado = '@Url.Action("Validado", "Pedido", new { area = "Mobile" })';
+        var tipoOrigen = '2';
+        var urlCatalogoPersonalizado = '@Url.Action("Index", "CatalogoPersonalizado", new { area = "Mobile" })';
+        var isAddFichaProductoFAV = 1;
+
         $(document).ready(function () {
             $(".content_tono_detalle").on("click", function () {
-                if ($(this).hasClass("borde_seleccion_tono")) {
-                    $(this).removeClass("borde_seleccion_tono");
-                } else {
+
+                $('.content_tono_detalle').removeClass('borde_seleccion_tono');
+                $(this).addClass("borde_seleccion_tono");
+
+                //if ($(this).hasClass("borde_seleccion_tono")) {
+                //    $(this).removeClass("borde_seleccion_tono");
+                //} else {
         
-                    $(this).addClass("borde_seleccion_tono");
-                }
+                //    $(this).addClass("borde_seleccion_tono");
+                //}
             });
         });
     </script>
-  
+
+    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/CatalogoPersonalizado/CatalogoPersonalizado.js")"></script>
+    <script src="~/Scripts/PortalConsultoras/Mobile/CatalogoPersonalizado/bootstrap-slider.min.js"></script>
 }
