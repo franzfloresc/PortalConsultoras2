@@ -86,16 +86,92 @@
     <input type="hidden" id="hdCodigoPrograma" value="">
     <input type="hidden" id="hdNumeroPedido" value="">
     <div class="Content_modal">
-        <div class="div-3">
-            <div class="titG">Campaña:</div>
-            <div class="selectP2 borde_redondeado">
-                <input id="spanCampania" type="text" readonly="readonly" />
+    <div class="div-3">
+        <div class="titG">Campaña:</div>
+        <div class="selectP2 borde_redondeado">
+            <input id="spanCampania" type="text" readonly="readonly"/>
+        </div>
+        <div class="titG">Tipo de Estrategia:</div>
+        <div class="selectP2 borde_redondeado">
+            <input id="spanTipoEstrategia" type="text" readonly="readonly"/>
+        </div>
+    </div>
+    <div class="div-3 Content_modal" style="margin-left: 65px; width: 78%; padding-top: 10px; padding-bottom: 0;">
+        <div style="color: white;">
+            <div style="display: inline-block; width: 64%; text-align: center; padding: 8px; background: #00A2E8; margin-right: -3px; border-right: 1px #D0D0D0 solid;">
+                Información CUV Oferta
             </div>
-            <div class="titG">Tipo de Estrategia:</div>
-            <div class="selectP2 borde_redondeado">
-                <input id="spanTipoEstrategia" type="text" readonly="readonly" />
+            <div style="display: inline-block; width: 30%; text-align: center; padding: 8px; background: #00A2E8; margin-left: -3px; border-left: 1px #D0D0D0 solid;">
+                Precio Valorizado
             </div>
         </div>
+        <div>
+            <div style="display: inline-block; width: 64%; text-align: center; padding: 8px; margin-right: -3px; border-right: 1px #D0D0D0 solid;">
+                <div style="display: inline-block;">CUV:</div>
+                <div style="display: inline-block;">
+                    <input type="text" id="txtCUV2" maxlength="5" class="ValidaNumeral" style="width: 60px;"/>
+                </div>
+                <div style="display: inline-block; padding-left: 50px;">Precio para ti:</div>
+                <div style="display: inline-block;">
+                    <input type="text" id="txtPrecio2" maxlength="10" class="ValidaNumeral" style="width: 60px;"/>
+                </div>
+            </div>
+            <div style="display: inline-block; width: 30%; text-align: center; padding: 8px; margin-right: -3px; border-left: 1px #D0D0D0 solid;">
+                <div style="display: inline-block;">Precio:</div>
+                <div style="display: inline-block;">                    
+                    <input type="text" id="txtPrecio" style="width: 60px;"/>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="div-3">
+        <div class="titG">Descripción:</div>
+        <div class="titG">
+            <input type="text" id="txtDescripcion" style="width: 520px;"/>
+        </div>
+    </div>
+    <div>
+        <div style="display: inline-block; width: 60%;">
+            <div class="div-3">
+                <div class="titG">Talla/Color:</div>
+                <div class="titG" style="width: auto;">
+                    <a href="#" style="margin-left: 5px" id="linkTallaColor">
+                        <img src='@Url.Content("~/Content/Images/icons/small/list-icon2.png")' border="0" alt="Agregar Tonos/Tallas/Colores" title="Agregar Tonos/Tallas/Colores"/>
+                    </a>
+                </div>
+            </div>
+            <div class="div-3">
+                <div class="titG">¿Activar Oferta?</div>
+                <div class="selectCheck borde_redondeado">
+                    <input type="checkbox" class="check" id="chkHabilitarOferta" style="margin-top: 2px; margin-left: 15px;"/>
+                </div>
+            </div>
+        </div>
+        <div style="display: inline-block; width: 39%;">
+
+        </div>
+    </div>
+    <div class="Content_modal" style="margin-left: 10px; width: 94%; padding-top: 10px; padding-bottom: 0;">
+        <div class="div-3">
+            <div style="color: white;">
+                <div id="divImagenEstrategia" style="display: inline-block; text-align: center; padding: 8px; background: #00A2E8; border-top-left-radius: 10px; border-top-right-radius: 10px;">
+                    Imagen
+                </div>
+                <div id="divInformacionAdicionalEstrategia" style="display: inline-block; text-align: center; padding: 8px; color: #702789; background: #D0D0D0; border-top-left-radius: 10px; border-top-right-radius: 10px;">
+                    Información Adicional
+                </div>
+            </div>
+        </div>
+        <div class="div-3">
+            <div id="divImagenEstrategiaContenido" style="display: none;">
+                Imagen
+            </div>
+            <div id="divInformacionAdicionalEstrategiaContenido" style="display: none;">
+                
+            </div>
+        </div>        
+    </div>           
+
         <div class="div-3 DatosNuevas" style="display: none">
             <div class="titG">Vigencia Hasta:</div>
             <div class="selectP2 borde_redondeado">
@@ -121,7 +197,7 @@
                 <input type="checkbox" id="chkVisible1" disabled class="activar-desactivar" checked="checked" />
             </div>
             <div class="titG">
-                <input type="text" id="txtDescripcion" />
+                @*<input type="text" id="txtDescripcion" />*@
             </div>
         </div>
         <div class="div-est-3">
@@ -147,7 +223,7 @@
             </div>
             <div class="titE">Precio:</div>
             <div class="titB">
-                <input type="text" id="txtPrecio" />
+                @*<input type="text" id="txtPrecio" />*@
             </div>
         </div>
         <div class="div-est-3">
@@ -156,9 +232,11 @@
             <div class="titB">
                 <input type="checkbox" id="chkVisible3" disabled class="activar-desactivar" checked="checked" />
             </div>
-            <div class="titA" style="text-align: right">CUV<sub>2</sub>:</div>
+            <div class="titA" style="text-align: right">
+                CUV<sub>2</sub>:
+            </div>
             <div class="titB">
-                <input type="text" id="txtCUV2" maxlength="5" class="ValidaNumeral" />
+                @*<input type="text" id="txtCUV2" maxlength="5" class="ValidaNumeral" />*@
             </div>
             <div class="titA"></div>
             <div class="titE">Etiqueta:</div>
@@ -174,13 +252,13 @@
             </div>
             <div class="titE">Precio:</div>
             <div class="titB">
-                <input type="text" id="txtPrecio2" maxlength="10" class="ValidaNumeral" />
+                @*<input type="text" id="txtPrecio2" maxlength="10" class="ValidaNumeral" />*@
             </div>
             <div class="titE" style="margin-left: 5px">Talla/Color:</div>
             &nbsp;&nbsp;&nbsp;&nbsp;
-            <a href="#" style="margin-left: 5px" id="linkTallaColor">
+            @*<a href="#" style="margin-left: 5px" id="linkTallaColor">
                 <img src='@Url.Content("~/Content/Images/icons/small/list-icon2.png")' border="0" alt="Agregar Tonos/Tallas/Colores" title="Agregar Tonos/Tallas/Colores" />
-            </a>
+            </a>*@
         </div>
         <div class="div-est-3">
             <div class="titA">&nbsp;</div>
@@ -201,14 +279,14 @@
             <div class="titA" style="display: none">
                 <input type="text" id="txtCantidad" />
             </div>
-            <div class="titG" id="idColorFondo" style="display: none; width:200px;">
+            <div class="titG" id="idColorFondo" style="display: none; width: 200px;">
                 Elegir color de fondo:&nbsp;<input type='text' id="txtColorFondo" />
             </div>
-            <div class="titG" id="idEstrella" style="width:130px;">
+            <div class="titG" id="idEstrella" style="width: 130px;">
                 <span id="txt1-estrella">Mostrar estrella</span>        <!--SB20-312 -->
                 <input type="checkbox" id="chkEstrella" />
             </div>
-            <div class="titG" style="width:380px" id="txt2-estrella">&nbsp;(Solo para Ofertas Recomendar / Ofertas Segmentadas)</div>   <!--SB20-312 -->
+            <div class="titG" style="width: 380px" id="txt2-estrella">&nbsp;(Solo para Ofertas Recomendar / Ofertas Segmentadas)</div> <!--SB20-312 -->
         </div>
         <div class="div-est-3">
             &nbsp;
@@ -234,9 +312,9 @@
             <div class="titG">Imagen:</div>
             <div class="div-img-estrategias">
                 @for (int i = 1; i <= nroImagenes; i++)
-                {
-                    idControl = "0" + i;
-                    idControl = idControl.Substring(idControl.Length - 2);
+            {
+                idControl = "0" + i;
+                idControl = idControl.Substring(idControl.Length - 2);
 
                     <div class="titG">
                         <div class="pdr_modal borde_redondeado aligncenter">
@@ -249,12 +327,12 @@
                 }
             </div>
         </div>
-        <div class="div-3">
+        @*<div class="div-3">
             <div class="titG">¿Activar Oferta?</div>
             <div class="selectCheck borde_redondeado">
                 <input type="checkbox" class="check" id="chkHabilitarOferta" />
             </div>
-        </div>
+        </div>*@
         <div class="div-est-3" id="div-orden">
             <!--SB20-312 -->
             <div class="titB">&nbsp;</div>
@@ -269,12 +347,12 @@
             <div class="titD">
                 <input type="text" id="txtAlcance" readonly="readonly" />
             </div>
-            <div class="titA" style="width:20px">
+            <div class="titA" style="width: 20px">
                 <a href="#" style="margin-left: 5px" id="linkAlcance">
                     <img src='@Url.Content("~/Content/Images/search.png")' border="0" alt="Seleccionar alcance" title="Seleccionar alcance" />
                 </a>
             </div>
-            <div class="titG" style="width:300px">&nbsp;(Seleccionar Pa&iacute;s, Regi&oacute;n o Zona)</div>
+            <div class="titG" style="width: 300px">&nbsp;(Seleccionar Pa&iacute;s, Regi&oacute;n o Zona)</div>
         </div>
         <div class="div-est-3">
             <div class="titB">&nbsp;</div>
@@ -1112,7 +1190,28 @@
         $("#btnAceptarMasivo3").click(function () {
             HideDialog("DialogNuevoMasivo");
         });
-        
+
+        $("#divImagenEstrategia").click(function() {
+            $(this).css("color", "white");
+            $(this).css("background", "#00A2E8");
+
+            $("#divInformacionAdicionalEstrategia").css("color", "#702789");
+            $("#divInformacionAdicionalEstrategia").css("background", "#D0D0D0");
+
+            $("#divImagenEstrategiaContenido").show();
+            $("#divInformacionAdicionalEstrategiaContenido").hide();
+        });
+
+        $("#divInformacionAdicionalEstrategia").click(function () {
+            $(this).css("color", "white");
+            $(this).css("background", "#00A2E8");
+
+            $("#divImagenEstrategia").css("color", "#702789");
+            $("#divImagenEstrategia").css("background", "#D0D0D0");
+
+            $("#divInformacionAdicionalEstrategiaContenido").show();
+            $("#divImagenEstrategiaContenido").hide();
+        });
     });
 
     ///////////////
