@@ -32320,6 +32320,7 @@ h1#penmostreo .campana {
     /* margin-top: 3px; */
     color: white;
     text-align: center;
+    margin-bottom: 5px;
 }
 .producto_set{
     width:130px;
@@ -32338,12 +32339,16 @@ h1#penmostreo .campana {
     font-family: 'Lato';
     font-size: 16px;
     text-align: center;
-    margin-top: 28px;
+    margin-top: 18px;
     color: white;
     margin-left: 15px;
+    line-height: 25px;
+    width: 135px;
 }
 .precio_set_dia span{
      font-size:24px;
+     display: block;
+     text-align: center;
 }
 .btn_agrega_set_dia{
     display: block;
