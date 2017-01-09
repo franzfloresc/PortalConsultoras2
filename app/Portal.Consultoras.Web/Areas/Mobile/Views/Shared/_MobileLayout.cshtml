@@ -22,6 +22,8 @@
         <link href="@Url.Content("~/Content/Images/icons/favicon_lbel.ico")" rel="shortcut icon" type="image/x-icon" />
         @Styles.Render("~/Content/Css/Mobile/Lbel/CssSB2Mobile")
     }
+    
+    <link href="@Url.Content("~/Content/Css/Mobile/flexslider.css")" rel="stylesheet" type="text/css" />
 
     <script type="text/javascript">
         var isEsika = '@(System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(ViewBag.PaisAnalytics))' == "True";
@@ -118,18 +120,7 @@
 
     <!-- header -->
     <header id="new-header">
-        <div id="BloqueMobileOfertaDia" class="BloqueOfertaDia" style="display:none;">
-            @*<div class="content_320" style="padding:0;" id="content_oferta_dia_mobile">
-                <div class="float_left">
-                    <div class="solo_hoy_mobile"><img src="@Url.Content("~/Content/Images/PL20/solo_hoy.png")" alt="Solo Hoy" /></div>
-                    <div class="nombre_set_oferta_mobile">SET ILUMINAS A SOLO <b>$31.99</b></div>
-                </div>
-                <div class="imagen_set_oferta_mobile"><img src="@Url.Content("~/Content/Images/PL20/set_hoy.png")" alt="Solo Hoy" /></div>
-                <hr class="clear" />
-            </div>
-            <a class="btn_cerrar_oferta_mobile" href="javascript:;" onclick="javascript: $('#BloqueMobileOfertaDia').slideUp();">X</a>*@
-            
-        </div>        
+                
         <div id="bloquemensajesPedido" style="display:none;">
             <div class="oscurecer_animacion"></div>
             <div class="bloque_mensajesPedido">
@@ -180,6 +171,69 @@
                 </div>
             </div>
 </header>
+    <div class="content_slider_banner">
+        <a class="btn_cerrar_oferta_mobile" href="#">X</a>
+        <div class="flexslider">
+            <ul class="slides">
+                <li>
+                    <div id="BloqueMobileOfertaDia" class="BloqueOfertaDia" style="display:none;">
+                        @*<div class="content_320" style="padding:0;" id="content_oferta_dia_mobile">
+                        <div class="float_left">
+                            <div class="solo_hoy_mobile"><img src="@Url.Content("~/Content/Images/PL20/solo_hoy.png")" alt="Solo Hoy" /></div>
+                            <div class="nombre_set_oferta_mobile">SET ILUMINAS A SOLO <b>$31.99</b></div>
+                        </div>
+                        <div class="imagen_set_oferta_mobile"><img src="@Url.Content("~/Content/Images/PL20/set_hoy.png")" alt="Solo Hoy" /></div>
+                        <hr class="clear" />
+                        </div>
+                        <a class="btn_cerrar_oferta_mobile" href="javascript:;" onclick="javascript: $('#BloqueMobileOfertaDia').slideUp();">X</a>*@
+
+                    </div>
+                </li>
+                <li>
+                    <div style="height:142px;background:purple;width:100%;color:white;">
+                        holag
+                    </div>
+                </li>
+                <li>
+                    <div id="divShowRoomHoy" class="ocultarPopup divShowRoom">
+                        <input type="hidden" id="hdEventoIDShowRoom" />
+                        <input type="hidden" id="hdNombreEventoShowRoom" />
+                        <div class="imagen_preventa">
+                            <div class="etiqueta_2">
+                                <img src="@Url.Content("~/Content/Images/mobile/img-showroom/etiqueta_2.png")" alt="-" />
+                            </div>
+                            <div class="titulo_contador_m">
+                                @*PRE · VENTA DIGITAL*@
+                                <span id="spnPreventaDigitalHoy"></span>
+                            </div>
+                        </div>
+                        <div class="fondo_white" style="height:80px;">
+                            <div class=" row_contador">
+                                <div style="text-align: center;">
+                                    @*<a href="#" class="imagen_mobile_hoy"><img src="@Url.Content("~/Content/Images/mobile/img-showroom/set_hoy.png")" alt="-" /></a>
+                        <a href="#" class="set_mobile_hoy"> SETS DESDE <br /><span>$ 5,990</span></a>*@
+                                    <a id="lnkConoceMasShowRoomBannerLateralImagenHoy">
+                                        <img id="imgVentaSetPopupBannerHoy" alt="imgVentaSetPopupBannerHoy" />
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="contenedor_encuentralos">
+                            <div class="row_contador">
+                                <a href="javascript:;" class="btn_encuentralos" id="lnkConoceMasShowRoomBannerLateralHoy">ENCUENTRALOS AQUI</a>
+                            </div>
+                        </div>
+                        @*<div class="indicador_red">
+
+            </div>*@
+                    </div>
+                </li>
+                
+            </ul>
+        </div>       
+        
+    </div>
+    
     @*<div id="pop_oferta_mobile" class="content_pop_oferta_mobile">
         <div class="header_pop_oferta">
             <div class="content_320" style="padding:0;">
@@ -273,38 +327,7 @@
         </div>
 
     </div>
-    <div id="divShowRoomHoy" class="ocultarPopup divShowRoom" style="display: none;">
-        <input type="hidden" id="hdEventoIDShowRoom" />
-        <input type="hidden" id="hdNombreEventoShowRoom" />
-        <div class="imagen_preventa">
-            <div class="etiqueta_2">
-                <img src="@Url.Content("~/Content/Images/mobile/img-showroom/etiqueta_2.png")" alt="-" />
-            </div>
-            <div class="titulo_contador_m">
-                @*PRE · VENTA DIGITAL*@
-                <span id="spnPreventaDigitalHoy"></span>
-            </div>
-        </div>
-        <div class="fondo_white">
-            <div class=" row_contador">
-                <div style="text-align: center;">
-                    @*<a href="#" class="imagen_mobile_hoy"><img src="@Url.Content("~/Content/Images/mobile/img-showroom/set_hoy.png")" alt="-" /></a>
-                        <a href="#" class="set_mobile_hoy"> SETS DESDE <br /><span>$ 5,990</span></a>*@
-                    <a id="lnkConoceMasShowRoomBannerLateralImagenHoy">
-                        <img id="imgVentaSetPopupBannerHoy" alt="imgVentaSetPopupBannerHoy" />
-                    </a>
-                </div>
-            </div>
-        </div>
-        <div class="contenedor_encuentralos">
-            <div class="row_contador">
-                <a href="javascript:;" class="btn_encuentralos" id="lnkConoceMasShowRoomBannerLateralHoy">ENCUENTRALOS AQUI</a>
-            </div>
-        </div>
-        @*<div class="indicador_red">
-
-        </div>*@
-    </div>
+    
 
     <!-- content -->
     <section style="min-height: 380px;">
@@ -706,8 +729,9 @@
                             var obj1 = $('#BloqueMobileOfertaDia').find('.nombre_set_producto_hoy');
                             obj1.html(obj1.text());
 
+
                             $('#BloqueMobileOfertaDia').show();
-                            $('#divShowRoomHoy').css('margin-top', '123px');
+                            //$('#divShowRoomHoy').css('margin-top', '123px');
                             
                             if($('#divShowRoomHoy:visible').length > 0) {
                                 $('#content').css('top', '0px');
@@ -1744,7 +1768,8 @@
                     @*<img src="@Url.Content("~/Content/Images/PL20/solo_hoy.png")" alt="Solo Hoy" />*@
                     <img id="img1-solohoy-odd" alt="" />
                 </div>
-                <div class="nombre_set_oferta_mobile">{{NombreOferta}} A SOLO <b>@ViewBag.Simbolo {{PrecioOfertaFormat}}</b></div>
+                <div class="nombre_set_oferta_mobile">{{NombreOferta}} <br/>A SOLO <b>@ViewBag.Simbolo {{PrecioOfertaFormat}}</b></div>
+                <a class="btn_compralo_ahora" href="#">CÓMPRALO AHORA</a>
             </div>
             <div class="imagen_set_oferta_mobile">
                 <img src="@Url.Content("~/Content/Images/PL20/set_hoy.png")" alt="Solo Hoy" id="img-banner-odd" />
@@ -1816,7 +1841,7 @@
         </div>
     </script>
     <!--PL20-1233-->
-
+    <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.flexslider.js")"></script>
     @RenderSection("scripts", required: false)
     @{Html.PlaceScripts();}
 </body>
