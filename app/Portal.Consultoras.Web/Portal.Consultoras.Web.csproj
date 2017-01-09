@@ -1085,6 +1085,7 @@
     <Content Include="Content\Css\Mobile\esika\slick.css" />
     <Content Include="Content\Css\Mobile\esika\style.css" />
     <Content Include="Content\Css\Mobile\esika\theme.css" />
+    <Content Include="Content\Css\Mobile\flexslider.css" />
     <Content Include="Content\Css\Mobile\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Content\Css\Mobile\fonts\icomoon.eot" />
     <Content Include="Content\Css\Mobile\fonts\icomoon.svg" />
