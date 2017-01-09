@@ -170,8 +170,7 @@ namespace Portal.Consultoras.BizLogic
         }
 
         #endregion
-
-
+        
         public IList<BEProducto> SelectProductoToKitInicio(int paisID, int campaniaID, string cuv)
         {
             IList<BEProducto> productos = new List<BEProducto>();
@@ -215,6 +214,22 @@ namespace Portal.Consultoras.BizLogic
         {
             var DAProducto = new DAProducto(ProComp.PaisID);
             return DAProducto.InsProductoCompartido(ProComp);
-        }        
+        }
+
+        public IList<BEProductoCompartido> GetProductoCompartido(int paisID, int ProCompID)
+        {
+            IList<BEProductoCompartido> ProComp = new List<BEProductoCompartido>();
+            var DAProducto = new DAProducto(paisID);
+
+            using (IDataReader reader = DAProducto.GetProductoCompartido(ProCompID))
+            {
+                while (reader.Read())
+                {
+                    ProComp.Add(new BEProductoCompartido(reader));
+                }
+            }
+
+            return ProComp;
+        }
     }
 }

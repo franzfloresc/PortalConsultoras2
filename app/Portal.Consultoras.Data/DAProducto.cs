@@ -118,5 +118,14 @@ namespace Portal.Consultoras.Data
             int id = Convert.ToInt32(command.Parameters["@ProductoCompID"].Value);
             return id;
         }
+
+        public IDataReader GetProductoCompartido(int ProCompID)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetProductoCompartido");
+            Context.Database.AddInParameter(command, "@ProductoCompID", DbType.Int32, ProCompID);
+
+            return Context.ExecuteReader(command);
+        }
+
     }
 }
