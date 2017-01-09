@@ -41,7 +41,6 @@ namespace Portal.Consultoras.Web.Controllers
             return ObtenerProductos(cantidad, offset, lstFilters);
         }
 
-
         public JsonResult BorrarFiltros()
         {
             try
@@ -80,7 +79,6 @@ namespace Portal.Consultoras.Web.Controllers
                     data = ""
                 });
             }
-
             //tipoOfertaFinal: 1 -> ARP; 2 -> Jetlore
             var lista = new List<Producto>();
             var listaProductoModel = new List<ProductoModel>();         
@@ -524,6 +522,38 @@ namespace Portal.Consultoras.Web.Controllers
                 });
             }
             
+        }
+        //PL20-1237
+        private JsonResult InsertarProductoCompartido(BEProductoCompartido ProComp)
+        {
+            try 
+	        {
+                int id;
+                using (ODSServiceClient svc = new ODSServiceClient())
+                {
+                    id = svc.InsProductoCompartido(ProComp);
+                }
+
+                return Json(new
+                {
+                    success = true,
+                    message = "OK",
+                    data = new
+                    {
+                        id = id
+                    }
+                });
+	        }
+	        catch (Exception ex)
+	        {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return Json(new
+                {
+                    success = false,
+                    message = "Ocurrrio un problema con la operacion.",
+                    data = ""
+                });
+	        }
         }
     }
 }

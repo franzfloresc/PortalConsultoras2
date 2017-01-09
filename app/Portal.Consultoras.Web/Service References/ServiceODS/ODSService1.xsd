@@ -271,4 +271,22 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="BEProductoAppCatalogo" nillable="true" type="tns:BEProductoAppCatalogo" />
+  <xs:complexType name="BEProductoCompartido">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="PaisID" type="xs:int" />
+      <xs:element minOccurs="0" name="PcApp" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PcCampaniaID" type="xs:int" />
+      <xs:element minOccurs="0" name="PcCuv" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PcDetalle" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PcID" type="xs:int" />
+      <xs:element minOccurs="0" name="PcPalanca" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="BEProductoCompartido" nillable="true" type="tns:BEProductoCompartido" />
+  <xs:complexType name="ArrayOfBEProductoCompartido">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="BEProductoCompartido" nillable="true" type="tns:BEProductoCompartido" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfBEProductoCompartido" nillable="true" type="tns:ArrayOfBEProductoCompartido" />
 </xs:schema>
