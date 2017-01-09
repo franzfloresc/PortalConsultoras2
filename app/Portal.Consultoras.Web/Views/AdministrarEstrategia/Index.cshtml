@@ -2394,7 +2394,7 @@
                     data: JSON.stringify(params),
                     async: true,
                     success: function (data) {
-                        console.log(data);
+                        //console.log(data);
                         if (data.success == false) {
                             alert(data.message);
                             closeWaitingDialog();
@@ -2461,7 +2461,9 @@
                             imgFormat = dataImagen.replace(/^.*[\\\/]/, '');
                             if (imgFormat.lastIndexOf("?") >= 0) imgFormat = imgFormat.substring(0, imgFormat.lastIndexOf("?"));
                             objChkImagen.val(imgFormat);
-                            objChkImagen.attr('checked', objChkImagen.val() == data['ImagenURL']);
+
+                            var checkedImagen = data['ImagenURL'] == '' ? false : objChkImagen.val() == data['ImagenURL'];
+                            objChkImagen.attr('checked', checkedImagen);
                         }
 
                         $("#txtLimite").val(data.LimiteVenta);
