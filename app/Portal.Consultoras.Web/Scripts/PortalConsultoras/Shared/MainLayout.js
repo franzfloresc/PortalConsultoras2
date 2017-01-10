@@ -4,7 +4,7 @@ var showDisplayODD = 0;
 $(document).ready(function () {
 
     /*PL20-1226*/
-    if (TieneOfertaDelDia == "True") {
+    if (tieneOfertaDelDia == "True") {
         loadOfertaDelDia();
     }
 
@@ -856,10 +856,10 @@ function loadOfertaDelDia() {
                     $('.content_slider_home').css('margin-top', '160px');
                     $('.ubicacion_web ').css('margin-top', '185px');
 
-                    var int1ODD = setInterval(function () {
+                    var int1odd = setInterval(function () {
                         if ($('#OfertaDelDia:visible').length > 0) {
                             $('.ubicacion_web ').css('margin-top', '185px');
-                            clearInterval(int1ODD);
+                            clearInterval(int1odd);
                         }
                     }, 300);
 
@@ -962,7 +962,7 @@ function addOfertaDelDiaPedido(tipo) {
     }
 
     // validar cantidad a agregar (nuevas unidades o ya existentes)
-    var cqty = getQtyPedidoDetalleByCuvODD(cuv2);
+    var cqty = getQtyPedidoDetalleByCuvODD(cuv2, tipoEstrategiaID);
     if (cqty > 0) {
         var tqty = cqty + cantidad;
         if (tqty > limiteVenta) {
@@ -1196,9 +1196,10 @@ function checkCountdownODD() {
     return ok;
 };
 
-function getQtyPedidoDetalleByCuvODD(cuv2) {
+function getQtyPedidoDetalleByCuvODD(cuv2, tipoEstrategiaID) {
     var qty = 0;
-    var obj = { cuv: cuv2 };
+    var obj = { cuv: cuv2, tipoEstrategiaID: tipoEstrategiaID };
+
     $.ajax({
         type: 'POST',
         url: baseUrl + 'Pedido/GetQtyPedidoDetalleByCuvODD',

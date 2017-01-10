@@ -14,7 +14,7 @@ BEGIN
 			when 3011 then 2
 			when 3010 then 3
 			when 3008 then 4
-			WHEN 3012 THEN 5
+			WHEN 3004 THEN 5
 		end as CodigoGeneral
 		FROM Etiqueta
 		WHERE (Estado = @Estado OR -1 = @Estado)
@@ -40,14 +40,13 @@ BEGIN
 			when 3 then 2
 			when 2 then 3
 			when 2002 then 4
-			WHEN 2003 THEN 5
+			WHEN 3004 THEN 5
 		end as CodigoGeneral
 		FROM Etiqueta
 		WHERE (Estado = @Estado OR -1 = @Estado)
 		ORDER BY Descripcion ASC
 	SET NOCOUNT OFF
 END
-
 
 GO
 
@@ -67,14 +66,13 @@ BEGIN
 			when 6 then 2
 			when 5 then 3
 			when 2004 then 4
-			WHEN 2006 THEN 5
+			WHEN 3004 THEN 5
 		end as CodigoGeneral
 		FROM Etiqueta
 		WHERE (Estado = @Estado OR -1 = @Estado)
 		ORDER BY Descripcion ASC
 	SET NOCOUNT OFF
 END
-
 
 GO
 
@@ -94,14 +92,13 @@ BEGIN
 			when 3 then 2
 			when 2 then 3
 			when 2002 then 4
-			WHEN 2004 THEN 5
+			WHEN 3004 THEN 5
 		end as CodigoGeneral
 		FROM Etiqueta
 		WHERE (Estado = @Estado OR -1 = @Estado)
 		ORDER BY Descripcion ASC
 	SET NOCOUNT OFF
 END
-
 
 GO
 
@@ -121,14 +118,13 @@ BEGIN
 			when 2 then 2
 			when 3 then 3
 			when 4 then 4
-			WHEN 5 THEN 5
+			WHEN 3004 THEN 5
 		end as CodigoGeneral
 		FROM Etiqueta
 		WHERE (Estado = @Estado OR -1 = @Estado)
 		ORDER BY Descripcion ASC
 	SET NOCOUNT OFF
 END
-
 
 GO
 
@@ -148,14 +144,13 @@ BEGIN
 			when 2 then 2
 			when 3 then 3
 			when 1004 then 4
-			WHEN 1007 THEN 5
+			WHEN 3004 THEN 5
 		end as CodigoGeneral
 		FROM Etiqueta
 		WHERE (Estado = @Estado OR -1 = @Estado)
 		ORDER BY Descripcion ASC
 	SET NOCOUNT OFF
 END
-
 
 GO
 
@@ -175,14 +170,13 @@ BEGIN
 			when 2 then 2
 			when 3 then 3
 			when 2002 then 4
-			WHEN 2004 THEN 5
+			WHEN 3004 THEN 5
 		end as CodigoGeneral
 		FROM Etiqueta
 		WHERE (Estado = @Estado OR -1 = @Estado)
 		ORDER BY Descripcion ASC
 	SET NOCOUNT OFF
 END
-
 
 GO
 
@@ -202,14 +196,13 @@ BEGIN
 			when 2 then 2
 			when 3 then 3
 			when 2002 then 4
-			WHEN 2005 THEN 5
+			WHEN 3004 THEN 5
 		end as CodigoGeneral
 		FROM Etiqueta
 		WHERE (Estado = @Estado OR -1 = @Estado)
 		ORDER BY Descripcion ASC
 	SET NOCOUNT OFF
 END
-
 
 GO
 
@@ -229,14 +222,13 @@ BEGIN
 			when 2 then 2
 			when 3 then 3
 			when 2002 then 4
-			WHEN 2004 THEN 5
+			WHEN 3004 THEN 5
 		end as CodigoGeneral
 		FROM Etiqueta
 		WHERE (Estado = @Estado OR -1 = @Estado)
 		ORDER BY Descripcion ASC
 	SET NOCOUNT OFF
 END
-
 
 GO
 
@@ -256,13 +248,12 @@ BEGIN
 			when 3 then 2
 			when 2 then 3
 			when 6 then 4
-			WHEN 7 THEN 5
+			WHEN 3004 THEN 5
 		end as CodigoGeneral
 		FROM Etiqueta
 		WHERE (Estado = @Estado OR -1 = @Estado)
 		ORDER BY Descripcion ASC
 	SET NOCOUNT OFF
 END
-
 
 GO

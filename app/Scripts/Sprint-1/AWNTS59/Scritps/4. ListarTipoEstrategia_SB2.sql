@@ -31,7 +31,7 @@ BEGIN
 	when 1003 then 4
 	when 1004 then 5
 	when 1005 then 6
-	WHEN 1006 THEN 7
+	WHEN 3014 THEN 7
    end as CodigoGeneral
   FROM   
    TipoEstrategia  
@@ -74,7 +74,7 @@ BEGIN
 	when 3 then 3
 	when 1003 then 4
 	when 1004 then 5
-	WHEN 1005 THEN 7
+	WHEN 3014 THEN 7
    end as CodigoGeneral
   FROM   
    TipoEstrategia  

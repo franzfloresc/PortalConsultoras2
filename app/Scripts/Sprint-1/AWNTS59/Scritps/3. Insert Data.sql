@@ -5,18 +5,22 @@ GO
 
 IF NOT EXISTS (SELECT 1 FROM TipoEstrategia WHERE DescripcionEstrategia = 'Oferta del Día')
 BEGIN
+	SET IDENTITY_INSERT TipoEstrategia ON
+	
 	INSERT INTO TipoEstrategia (
-	DescripcionEstrategia,ImagenEstrategia,
+	TipoEstrategiaID,DescripcionEstrategia,ImagenEstrategia,
 	Orden,FlagActivo,UsuarioRegistro,
 	FechaRegistro,UsuarioModificacion,FechaModificacion,
 	FlagNueva,FlagRecoProduc,FlagRecoPerfil,
 	CodigoPrograma,FlagMostrarImg)
 	VALUES 
-	('Oferta del Día', '',
+	(3014,'Oferta del Día', '',
 	6,1,'ADMCONTENIDO',
 	GETDATE(),'ADMCONTENIDO',GETDATE(),
 	0,0,1,
 	'',0)
+	
+	SET IDENTITY_INSERT TipoEstrategia OFF
 
 END
 
@@ -32,12 +36,18 @@ END
 
 IF NOT EXISTS (SELECT 1 FROM Etiqueta WHERE Descripcion = 'Oferta del Día')
 BEGIN
+	SET IDENTITY_INSERT Etiqueta ON
+	
 	INSERT INTO Etiqueta (
-	Descripcion,UsuarioCreacion,UsuarioModificacion,
-	FechaCreacion,FechaModificacion,Estado)
+	EtiquetaID,Descripcion,UsuarioCreacion,
+	UsuarioModificacion,FechaCreacion,FechaModificacion,
+	Estado)
 	VALUES(
-	'Oferta del Día', 'ADMCONTENIDO', NULL, 
-	GETDATE(), NULL, 1)
+	3004,'Oferta del Día','ADMCONTENIDO', 
+	NULL,GETDATE(),NULL,
+	1)
+	
+	SET IDENTITY_INSERT Etiqueta OFF
 END
 
 GO
@@ -49,18 +59,22 @@ GO
 
 IF NOT EXISTS (SELECT 1 FROM TipoEstrategia WHERE DescripcionEstrategia = 'Oferta del Día')
 BEGIN
+	SET IDENTITY_INSERT TipoEstrategia ON
+	
 	INSERT INTO TipoEstrategia (
-	DescripcionEstrategia,ImagenEstrategia,
+	TipoEstrategiaID,DescripcionEstrategia,ImagenEstrategia,
 	Orden,FlagActivo,UsuarioRegistro,
 	FechaRegistro,UsuarioModificacion,FechaModificacion,
 	FlagNueva,FlagRecoProduc,FlagRecoPerfil,
 	CodigoPrograma,FlagMostrarImg)
 	VALUES 
-	('Oferta del Día', '',
+	(3014,'Oferta del Día', '',
 	6,1,'ADMCONTENIDO',
 	GETDATE(),'ADMCONTENIDO',GETDATE(),
 	0,0,1,
 	'',0)
+	
+	SET IDENTITY_INSERT TipoEstrategia OFF
 
 END
 
@@ -76,12 +90,18 @@ END
 
 IF NOT EXISTS (SELECT 1 FROM Etiqueta WHERE Descripcion = 'Oferta del Día')
 BEGIN
+	SET IDENTITY_INSERT Etiqueta ON
+	
 	INSERT INTO Etiqueta (
-	Descripcion,UsuarioCreacion,UsuarioModificacion,
-	FechaCreacion,FechaModificacion,Estado)
+	EtiquetaID,Descripcion,UsuarioCreacion,
+	UsuarioModificacion,FechaCreacion,FechaModificacion,
+	Estado)
 	VALUES(
-	'Oferta del Día', 'ADMCONTENIDO', NULL, 
-	GETDATE(), NULL, 1)
+	3004,'Oferta del Día','ADMCONTENIDO', 
+	NULL,GETDATE(),NULL,
+	1)
+	
+	SET IDENTITY_INSERT Etiqueta OFF
 END
 
 GO
@@ -93,18 +113,22 @@ GO
 
 IF NOT EXISTS (SELECT 1 FROM TipoEstrategia WHERE DescripcionEstrategia = 'Oferta del Día')
 BEGIN
+	SET IDENTITY_INSERT TipoEstrategia ON
+	
 	INSERT INTO TipoEstrategia (
-	DescripcionEstrategia,ImagenEstrategia,
+	TipoEstrategiaID,DescripcionEstrategia,ImagenEstrategia,
 	Orden,FlagActivo,UsuarioRegistro,
 	FechaRegistro,UsuarioModificacion,FechaModificacion,
 	FlagNueva,FlagRecoProduc,FlagRecoPerfil,
 	CodigoPrograma,FlagMostrarImg)
 	VALUES 
-	('Oferta del Día', '',
+	(3014,'Oferta del Día', '',
 	6,1,'ADMCONTENIDO',
 	GETDATE(),'ADMCONTENIDO',GETDATE(),
 	0,0,1,
 	'',0)
+	
+	SET IDENTITY_INSERT TipoEstrategia OFF
 
 END
 
@@ -120,12 +144,18 @@ END
 
 IF NOT EXISTS (SELECT 1 FROM Etiqueta WHERE Descripcion = 'Oferta del Día')
 BEGIN
+	SET IDENTITY_INSERT Etiqueta ON
+	
 	INSERT INTO Etiqueta (
-	Descripcion,UsuarioCreacion,UsuarioModificacion,
-	FechaCreacion,FechaModificacion,Estado)
+	EtiquetaID,Descripcion,UsuarioCreacion,
+	UsuarioModificacion,FechaCreacion,FechaModificacion,
+	Estado)
 	VALUES(
-	'Oferta del Día', 'ADMCONTENIDO', NULL, 
-	GETDATE(), NULL, 1)
+	3004,'Oferta del Día','ADMCONTENIDO', 
+	NULL,GETDATE(),NULL,
+	1)
+	
+	SET IDENTITY_INSERT Etiqueta OFF
 END
 
 GO

@@ -3,9 +3,9 @@
 USE BelcorpColombia
 GO
 
-DELETE FROM TipoEstrategia WHERE DescripcionEstrategia = 'Oferta del Día'
+DELETE FROM TipoEstrategia WHERE TipoEstrategia = 3014
 DELETE FROM TablaLogicaDatos WHERE TablaLogicaID = 93
-DELETE FROM Etiqueta WHERE Descripcion = 'Oferta del Día'
+DELETE FROM Etiqueta WHERE EtiquetaID = 3004
 
 GO
 /*end*/
@@ -14,9 +14,9 @@ GO
 USE BelcorpMexico
 GO
 
-DELETE FROM TipoEstrategia WHERE DescripcionEstrategia = 'Oferta del Día'
+DELETE FROM TipoEstrategia WHERE TipoEstrategia = 3014
 DELETE FROM TablaLogicaDatos WHERE TablaLogicaID = 93
-DELETE FROM Etiqueta WHERE Descripcion = 'Oferta del Día'
+DELETE FROM Etiqueta WHERE EtiquetaID = 3004
 
 GO
 /*end*/
@@ -24,8 +24,8 @@ GO
 USE BelcorpPeru
 GO
 
-DELETE FROM TipoEstrategia WHERE DescripcionEstrategia = 'Oferta del Día'
+DELETE FROM TipoEstrategia WHERE TipoEstrategia = 3014
 DELETE FROM TablaLogicaDatos WHERE TablaLogicaID = 93
-DELETE FROM Etiqueta WHERE Descripcion = 'Oferta del Día'
+DELETE FROM Etiqueta WHERE EtiquetaID = 3004
 
 GO
