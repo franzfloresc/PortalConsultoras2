@@ -1075,8 +1075,8 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public bool OfertaDelDia { get; set; }
 
-        [DataMember]
-        public int EsOfertaDelDia { get; set; }
+        //[DataMember]
+        //public int EsOfertaDelDia { get; set; }
 
         public BEUsuario(IDataRecord row, string tipo1, string tipo2)
         {

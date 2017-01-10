@@ -21,7 +21,6 @@ BEGIN
 	SET NOCOUNT OFF
 END
 
-
 GO
 
 /*end*/
@@ -46,7 +45,6 @@ BEGIN
 		ORDER BY Descripcion ASC
 	SET NOCOUNT OFF
 END
-
 
 GO
 
@@ -73,6 +71,5 @@ BEGIN
 		ORDER BY Descripcion ASC
 	SET NOCOUNT OFF
 END
-
 
 GO
