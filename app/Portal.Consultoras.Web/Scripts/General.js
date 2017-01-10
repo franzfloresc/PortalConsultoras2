@@ -705,7 +705,7 @@ function MensajeEstadoPedido() {
     }
     else {
         return false;
-    }   
+    }
     xMensajeEstadoPedido(true);
     MostrarMensajePedidoRechazado();
 
@@ -720,15 +720,15 @@ function xMensajeEstadoPedido(estado) {
         $("#bloquemensajesPedido").show();//.slideDown("slow", function () { });
         ResizeMensajeEstadoPedido();
         var wtop = $("#bloquemensajesPedido").height();
-        
+
         if (identi) {
             $("[data-content]").animate({ "top": wtop + "px" });
             $(".footer-page").animate({ "top": wtop + "px" });
         }
         else {
             identi = url.indexOf("/bienvenida") > 0;
-            if (identi) {               
-                $(".oscurecer_animacion").css({ "top": wtop + "px", "height": wheight + "px"});
+            if (identi) {
+                $(".oscurecer_animacion").css({ "top": wtop + "px", "height": wheight + "px" });
                 //$("[data-content]").animate({ "top": wtop + "px" });
             }
             else {
@@ -802,15 +802,13 @@ function cerrarMensajeEstadoPedido() {
 
 function MostrarMensajePedidoRechazado() {
     if (location.pathname.toLowerCase().indexOf("/bienvenida") >= 0) {
-        setTimeout(function () {
-            $(".oscurecer_animacion").fadeOut(1500);
-            var elem = $(".oscurecer_animacion");
-            $(elem).remove();
-        }, 3000);
         //setTimeout(function () {
-        //    $(".oscurecer_animacion").hide();
+        //    $(".oscurecer_animacion").fadeOut(1500);
+        //    var elem = $(".oscurecer_animacion");
+        //    $(elem).remove();
+        //}, 3000);
 
-        //}, 1500);
+        $(".oscurecer_animacion").delay(3000).fadeOut(1500);
     }
     else {
         // $(".oscurecer_animacion").hide();
