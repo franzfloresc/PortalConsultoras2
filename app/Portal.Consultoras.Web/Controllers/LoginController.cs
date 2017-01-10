@@ -624,13 +624,16 @@ namespace Portal.Consultoras.Web.Controllers
                         }
 
                         /*PL20-1226*/
-                        model.EsOfertaDelDia = oBEUsuario.EsOfertaDelDia;
-                        if (model.EsOfertaDelDia > 0)
+                        //model.EsOfertaDelDia = oBEUsuario.EsOfertaDelDia;
+                        //if (model.EsOfertaDelDia > 0)
+                        //{
+
+                        if (oBEUsuario.OfertaDelDia)
                         {
                             var lstOfertaDelDia = new List<BEEstrategia>();
                             using (PedidoServiceClient svc = new PedidoServiceClient())
                             {
-                                lstOfertaDelDia = svc.GetEstrategiaODD(model.PaisID, model.CampaniaID, model.ConsultoraID).ToList();
+                                lstOfertaDelDia = svc.GetEstrategiaODD(model.PaisID, model.CampaniaID, model.CodigoConsultora, model.FechaInicioCampania.Date).ToList();
                             }
 
                             if (lstOfertaDelDia.Any())
@@ -701,31 +704,14 @@ namespace Portal.Consultoras.Web.Controllers
                                     //Session["OfertaDelDia"] = oddModel;
                                     //Session["CloseODD"] = false;
                                     model.OfertaDelDia = oddModel;
-                                    model.IdTipoEstrategiaODD = ofertaDelDia.TipoEstrategiaID;
-                                    model.LimiteVentaOfertaDelDia = oddModel.LimiteVenta;
+                                    //model.IdTipoEstrategiaODD = ofertaDelDia.TipoEstrategiaID;
+                                    //model.LimiteVentaOfertaDelDia = oddModel.LimiteVenta;
 
                                 }// config ODD
                             }// list ODD
+                            
+                            /*PL20-1226*/
                         }
-                        else
-                        {
-                            using (PedidoServiceClient svc = new PedidoServiceClient())
-                            {
-                                var beEstrategia = new BEEstrategia();
-                                beEstrategia.PaisID = model.PaisID;
-                                beEstrategia.CampaniaID = model.CampaniaID;
-                                beEstrategia.TipoEstrategiaID = Constantes.TipoEstrategia.OfertaDelDia;
-                                beEstrategia.CUV2 = "0";
-                                var lstEstrategia = svc.GetEstrategias(beEstrategia).ToList();
-
-                                if (lstEstrategia.Any())
-                                {
-                                    model.IdTipoEstrategiaODD = lstEstrategia[0].TipoEstrategiaID;
-                                    model.LimiteVentaOfertaDelDia = lstEstrategia[0].LimiteVenta;
-                                }
-                            }
-                        }
-                        /*PL20-1226*/
                     }
                 }
 
@@ -958,12 +944,12 @@ namespace Portal.Consultoras.Web.Controllers
             DateTime d1 = new DateTime(hoy.Year, hoy.Month, hoy.Day, 0, 0, 0);
             DateTime d2;
 
-            if (model.EsOfertaDelDia == 1)  // dia de facturacion
+            if (model.EsDiasFacturacion)  // dias de facturacion
             {
                 TimeSpan t1 = model.HoraCierreZonaNormal;
                 d2 = new DateTime(hoy.Year, hoy.Month, hoy.Day, t1.Hours, t1.Minutes, t1.Seconds);
             }
-            else // antes o despues de la facturacion
+            else
             {
                 d2 = d1.AddDays(1);
             }

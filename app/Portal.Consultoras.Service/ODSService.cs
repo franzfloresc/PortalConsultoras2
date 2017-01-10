@@ -227,7 +227,7 @@ namespace Portal.Consultoras.Service
             return BLProducto.InsProductoCompartido(ProComp);
         }
 
-        public IList<BEProductoCompartido> GetProductoCompartido(int paisID, int ProCompID)
+        public BEProductoCompartido GetProductoCompartido(int paisID, int ProCompID)
         {
             return BLProducto.GetProductoCompartido(paisID, ProCompID);
         }

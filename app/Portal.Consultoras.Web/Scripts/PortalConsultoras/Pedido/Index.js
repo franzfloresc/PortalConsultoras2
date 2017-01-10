@@ -3417,21 +3417,6 @@ function Update(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion, CUV) {
 
 function UpdateLiquidacion(CampaniaID, PedidoID, PedidoDetalleID, TipoOfertaSisID, CUV, FlagValidacion, CantidadModi) {
     debugger;
-    /*PL20-1227*/
-    if (typeof idTipoEstrategiaODD !== 'undefined' && typeof limiteVentaODD !== 'undefined') {
-        if (parseInt(TipoOfertaSisID) == parseInt(idTipoEstrategiaODD)) {
-            // validar cantidad a agregar
-            var nqty = parseInt($('#txtLPCant' + PedidoDetalleID).val());
-            if (nqty > parseInt(limiteVentaODD) ) {
-                $('#txtLPCant' + PedidoDetalleID).val(CantidadModi);
-                var msg1 = 'Solo puede llevar ' + limiteVentaODD + ' unidades de este producto.';
-                $('#dialog_ErrorMainLayout').find('.mensaje_agregarUnidades').text(msg1);
-                $('#dialog_ErrorMainLayout').show();
-                return;
-            }
-        }
-    }
-    /*PL20-1227*/
 
     AbrirSplash();
     if (HorarioRestringido()) {
@@ -3798,16 +3783,25 @@ function UpdateLiquidacion(CampaniaID, PedidoID, PedidoDetalleID, TipoOfertaSisI
                 }
             });
         } else {
+            /*PL20-1227*/
             var CantidadAnti = $('#txtLPTempCant' + PedidoDetalleID).val();
+            var CantidadNueva = $('#txtLPCant' + PedidoDetalleID).val();
+
+            var CantidadSoli = CantidadNueva;
+            if (TipoOfertaSisID) {
+                CantidadSoli = (CantidadNueva - CantidadAnti);
+            }
+            /*PL20-1227*/
 
             var param = ({
                 MarcaID: 0,
                 CUV: CUV,
                 PrecioUnidad: 0,
                 Descripcion: 0,
-                Cantidad: $('#txtLPCant' + PedidoDetalleID).val(),
+                //Cantidad: $('#txtLPCant' + PedidoDetalleID).val(),
+                Cantidad: CantidadSoli,
                 IndicadorMontoMinimo: 0,
-                TipoOferta: 0
+                TipoOferta: TipoOfertaSisID || 0
             });
 
             jQuery.ajax({
@@ -3819,7 +3813,12 @@ function UpdateLiquidacion(CampaniaID, PedidoID, PedidoDetalleID, TipoOfertaSisI
                 async: true,
                 success: function (datos) {
                     if (!datos.result) {
-                        alert_msg(datos.message);
+                        /*PL20-1227*/
+                        //alert_msg(datos.message);
+                        $('#dialog_ErrorMainLayout').find('.mensaje_agregarUnidades').text(datos.message);
+                        $('#dialog_ErrorMainLayout').show();
+                        /*PL20-1227*/
+
                         CerrarSplash();
                         $('#txtLPCant' + PedidoDetalleID).val(CantidadAnti);
                         return false;

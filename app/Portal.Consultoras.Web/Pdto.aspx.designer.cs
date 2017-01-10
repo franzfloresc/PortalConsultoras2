@@ -13,6 +13,24 @@ namespace Portal.Consultoras.Web {
     public partial class Pdto {
         
         /// <summary>
+        /// imgCuvProducto control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlImage imgCuvProducto;
+        
+        /// <summary>
+        /// pMarcaProducto control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl pMarcaProducto;
+        
+        /// <summary>
         /// pNombreProducto control.
         /// </summary>
         /// <remarks>
@@ -22,21 +40,21 @@ namespace Portal.Consultoras.Web {
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl pNombreProducto;
         
         /// <summary>
-        /// pSubtituloProducto control.
+        /// pVolumenProducto control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl pSubtituloProducto;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl pVolumenProducto;
         
         /// <summary>
-        /// imgCuvProducto control.
+        /// pDescripcionProducto control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlImage imgCuvProducto;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl pDescripcionProducto;
     }
 }

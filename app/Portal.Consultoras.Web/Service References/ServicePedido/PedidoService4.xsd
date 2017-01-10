@@ -222,7 +222,8 @@
       <xs:sequence>
         <xs:element minOccurs="0" name="paisID" type="xs:int" />
         <xs:element minOccurs="0" name="codCampania" type="xs:int" />
-        <xs:element minOccurs="0" name="consultoraID" type="xs:long" />
+        <xs:element minOccurs="0" name="codConsultora" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="fechaInicioFact" type="xs:dateTime" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

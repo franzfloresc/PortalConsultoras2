@@ -216,16 +216,16 @@ namespace Portal.Consultoras.BizLogic
             return DAProducto.InsProductoCompartido(ProComp);
         }
 
-        public IList<BEProductoCompartido> GetProductoCompartido(int paisID, int ProCompID)
+        public BEProductoCompartido GetProductoCompartido(int paisID, int ProCompID)
         {
-            IList<BEProductoCompartido> ProComp = new List<BEProductoCompartido>();
+            BEProductoCompartido ProComp = null;
             var DAProducto = new DAProducto(paisID);
 
             using (IDataReader reader = DAProducto.GetProductoCompartido(ProCompID))
             {
-                while (reader.Read())
+                if (reader.Read())
                 {
-                    ProComp.Add(new BEProductoCompartido(reader));
+                    ProComp = new BEProductoCompartido(reader);
                 }
             }
 

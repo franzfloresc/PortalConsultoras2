@@ -283,10 +283,4 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="BEProductoCompartido" nillable="true" type="tns:BEProductoCompartido" />
-  <xs:complexType name="ArrayOfBEProductoCompartido">
-    <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="BEProductoCompartido" nillable="true" type="tns:BEProductoCompartido" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="ArrayOfBEProductoCompartido" nillable="true" type="tns:ArrayOfBEProductoCompartido" />
 </xs:schema>

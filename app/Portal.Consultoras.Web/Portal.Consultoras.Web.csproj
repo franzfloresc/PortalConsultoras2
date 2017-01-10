@@ -479,6 +479,7 @@
     <Compile Include="Models\PercepcionesModel.cs" />
     <Compile Include="Models\PermisoModel.cs" />
     <Compile Include="Models\PosicionBannerPedidoModel.cs" />
+    <Compile Include="Models\ProductoCompartidoModel.cs" />
     <Compile Include="Models\ProductoFaltanteModel.cs" />
     <Compile Include="Models\ProveedorDespachoCobranzaModel.cs" />
     <Compile Include="Models\RechazoModel.cs" />
