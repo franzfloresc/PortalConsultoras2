@@ -528,7 +528,7 @@
   <xs:element name="GetProductoCompartidoResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q27="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="GetProductoCompartidoResult" nillable="true" type="q27:ArrayOfBEProductoCompartido" />
+        <xs:element xmlns:q27="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="GetProductoCompartidoResult" nillable="true" type="q27:BEProductoCompartido" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

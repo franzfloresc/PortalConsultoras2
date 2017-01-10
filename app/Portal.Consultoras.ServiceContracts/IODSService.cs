@@ -138,6 +138,6 @@ namespace Portal.Consultoras.ServiceContracts
         int InsProductoCompartido(BEProductoCompartido ProComp);
 
         [OperationContract]
-        IList<BEProductoCompartido> GetProductoCompartido(int paisID, int ProCompID);
+        BEProductoCompartido GetProductoCompartido(int paisID, int ProCompID);
     }
 }

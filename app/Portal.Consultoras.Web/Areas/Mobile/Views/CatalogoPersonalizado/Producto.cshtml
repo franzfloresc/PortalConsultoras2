@@ -112,8 +112,35 @@
         </div>
     
         <div class="content_redes_ficha">
-            <a class="btn_compartir_ofertas" href="#"><img src="@Url.Content("~/Content/Images/Mobile/Esika/iconowscolor.png")" alt=""></a>
-            <a class="btn_compartir_ofertas" href="#"><img src="@Url.Content("~/Content/Images/Mobile/Esika/catalogo_facebook_color.png")" alt=""></a>
+            @{
+                var urlWs = "";
+                string urlBase_fb = "";
+                if (System.Web.HttpContext.Current.Request.UserAgent != null)
+                {                    
+                    var request = HttpContext.Current.Request;
+                    
+                    var texto = "Producto favorito en wsp";
+                    var urlBase_wsp = request.Url.Scheme + "://" + request.Url.Authority + "/Pdto.aspx?id=" + Model.CodigoIso + "_[valor]_W";
+                    urlBase_fb = request.Url.Scheme + "://" + request.Url.Authority + "/Pdto.aspx?id=" + Model.CodigoIso + "_[valor]_F";
+
+                    urlBase_wsp = urlBase_wsp.Replace("/", "%2F");
+                    urlBase_wsp = urlBase_wsp.Replace(":", "%3A");
+                    urlBase_wsp = urlBase_wsp.Replace("?", "%3F");
+                    urlBase_wsp = urlBase_wsp.Replace("=", "%3D");
+
+                    var message = Uri.EscapeDataString(texto) + " - " + urlBase_wsp;
+                    urlWs = "whatsapp://send?text=" + message;   
+                    
+                    
+                }
+            }
+            <a id="btn_wsp" class="btn_compartir_ofertas" href="#"><img src="@Url.Content("~/Content/Images/Mobile/Esika/iconowscolor.png")" alt=""></a>
+            <a id="btn_wsp_oculto"  data-action="share/whatsapp/share"><img src="@Url.Content("~/Content/Images/Mobile/Esika/iconowscolor.png")" alt="" style="display:none;"></a>
+            <a id="btn_fb" class="btn_compartir_ofertas" href="#" onclick='CompartirFacebook("@urlBase_fb");'><img src="@Url.Content("~/Content/Images/Mobile/Esika/catalogo_facebook_color.png")" alt=""></a>
+        </div>
+        <div style="display: none;">
+            <input type="hidden" class="urlbasewsp" value="@urlWs" />
+            <input type="hidden" class="urlbasefb" value="@urlBase_fb" />
         </div>
         <hr class="clear" />
         <div class="row">
@@ -142,6 +169,7 @@
         var tipoOrigen = '2';
         var urlCatalogoPersonalizado = '@Url.Action("Index", "CatalogoPersonalizado", new { area = "Mobile" })';
         var isAddFichaProductoFAV = 1;
+        var urlInsertarProductoCompartido = '@Url.Action("InsertarProductoCompartido", "CatalogoPersonalizado", new { area = "" })';
 
         $(document).ready(function () {
             $(".content_tono_detalle").on("click", function () {
@@ -156,7 +184,84 @@
                 //    $(this).addClass("borde_seleccion_tono");
                 //}
             });
+
+            //Pl20-1237
+            $("#btn_wsp").on("click", function () {
+                var _id = InsertarProductoCompartido();
+
+                var urlwsp = $(".urlbasewsp").val();
+                urlwsp = urlwsp.replace("[valor]", _id);
+
+                $("#btn_wsp_oculto").attr("href", urlwsp)
+                $("#btn_wsp_oculto").click();   
+            });
         });
+        
+        //PL20-1237
+        function InsertarProductoCompartido()
+        {
+            //Capturando valores
+            var _rutaImagen = $(".hdItemRutaImagen").val();
+            var _marcaID = $(".hdItemMarcaID").val();
+            var _marcaDesc = $(".hdItemDescripcionMarca").val();
+            var _nombre = $(".hdItemDescripcionProd").val();
+            var _volumen = $(".peso_ficha_producto").text();
+            var _descripcion = $(".descripcion_ficha_producto").text();
+
+            var pcCuv = $(".hdItemCuv").val();
+            var pcPalanca = "FAV";
+            var pcDetalle = _rutaImagen + "|" + _marcaID + "|" + _marcaDesc + "|" + _nombre + "|" + _volumen + "|" + _descripcion;
+            var pcApp = "W";
+
+
+            var ID = 0;
+            var Item = {
+                mCUV: pcCuv,
+                mPalanca: pcPalanca,
+                mDetalle: pcDetalle,
+                mApplicacion: pcApp
+            };
+
+            jQuery.ajax({
+                type: 'POST',
+                url: urlInsertarProductoCompartido,
+                dataType: 'json',
+                contentType: 'application/json; charset=utf-8',
+                data: JSON.stringify(Item),
+                async: false,
+                success: function (response) {
+                    if (checkTimeout(response)) {
+                        if (response.success) {
+                            var datos = response.data;
+                            ID = datos.id;
+                        } else {
+                            window.messageInfo(response.message);
+                        }
+                    }
+                },
+                error: function (response, error) {
+                    if (checkTimeout(response)) {
+                        console.log(response);
+                    }
+                }
+            });
+            return ID;
+        }
+
+        function CompartirFacebook(urlBase) {
+            var _id = InsertarProductoCompartido();
+            urlBase = urlBase.replace('[valor]', _id);
+
+            var popWwidth = 570;
+            var popHeight = 420;
+            var left = (screen.width / 2) - (popWwidth / 2);
+            var top = (screen.height / 2) - (popHeight / 2);
+            var url = "http://www.facebook.com/sharer/sharer.php?u=" + urlBase;
+
+            window.open(url, 'Facebook', "width=" + popWwidth + ",height=" + popHeight + ",menubar=0,toolbar=0,directories=0,scrollbars=no,resizable=no,left=" + left + ",top=" + top + "");
+
+            //window.open('http://localhost:20267/Pdto.aspx?id=PE_5_F');
+        }
     </script>
 
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/CatalogoPersonalizado/CatalogoPersonalizado.js")"></script>

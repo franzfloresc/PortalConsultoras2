@@ -3168,10 +3168,10 @@ namespace Portal.Consultoras.Web.ServiceODS {
         System.Threading.Tasks.Task<int> InsProductoCompartidoAsync(Portal.Consultoras.Web.ServiceODS.BEProductoCompartido ProComp);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IODSService/GetProductoCompartido", ReplyAction="http://tempuri.org/IODSService/GetProductoCompartidoResponse")]
-        Portal.Consultoras.Web.ServiceODS.BEProductoCompartido[] GetProductoCompartido(int paisID, int ProCompID);
+        Portal.Consultoras.Web.ServiceODS.BEProductoCompartido GetProductoCompartido(int paisID, int ProCompID);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IODSService/GetProductoCompartido", ReplyAction="http://tempuri.org/IODSService/GetProductoCompartidoResponse")]
-        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceODS.BEProductoCompartido[]> GetProductoCompartidoAsync(int paisID, int ProCompID);
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceODS.BEProductoCompartido> GetProductoCompartidoAsync(int paisID, int ProCompID);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -3457,11 +3457,11 @@ namespace Portal.Consultoras.Web.ServiceODS {
             return base.Channel.InsProductoCompartidoAsync(ProComp);
         }
         
-        public Portal.Consultoras.Web.ServiceODS.BEProductoCompartido[] GetProductoCompartido(int paisID, int ProCompID) {
+        public Portal.Consultoras.Web.ServiceODS.BEProductoCompartido GetProductoCompartido(int paisID, int ProCompID) {
             return base.Channel.GetProductoCompartido(paisID, ProCompID);
         }
         
-        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceODS.BEProductoCompartido[]> GetProductoCompartidoAsync(int paisID, int ProCompID) {
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceODS.BEProductoCompartido> GetProductoCompartidoAsync(int paisID, int ProCompID) {
             return base.Channel.GetProductoCompartidoAsync(paisID, ProCompID);
         }
     }

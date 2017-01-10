@@ -24,7 +24,6 @@
             }
         }
     </style>
-
 </head>
 <body>
     <%--<form id="form1" runat="server">
@@ -32,8 +31,12 @@
     
     </div>
     </form>--%>
-    <p id="pNombreProducto" runat="server" style="font-weight: bold;"></p>    
-    <p id="pSubtituloProducto" runat="server"></p>
     <img src="" id="imgCuvProducto" alt="imagen" runat="server"/>
+    <p id="pMarcaProducto" runat="server"></p>
+    <p id="pNombreProducto" runat="server" style="font-weight: bold;"></p>    
+    <p id="pVolumenProducto" runat="server" style="font-weight: bold;"></p>  
+    <p id="pDescripcionProducto" runat="server" style="font-weight: bold;"></p>  
+    <%--<p id="pSubtituloProducto" runat="server"></p>--%>
+    
 </body>
 </html>
