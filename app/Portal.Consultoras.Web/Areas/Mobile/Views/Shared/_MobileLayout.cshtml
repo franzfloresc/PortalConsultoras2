@@ -530,9 +530,7 @@
         var motivoRechazo = '@ViewBag.MotivoRechazo';
 
         var MobileShowRoom = @Portal.Consultoras.Common.Constantes.OrigenPedidoWeb.MobileShowRoom;
-
         var MobileLiquidacion = @Portal.Consultoras.Common.Constantes.OrigenPedidoWeb.MobileLiquidacion;
-
         var MobileCatalogoPersonalizado = @Portal.Consultoras.Common.Constantes.OrigenPedidoWeb.MobileCatalogoPersonalizado;
         var MobileCatalogoPersonalizadoPopUp = @Portal.Consultoras.Common.Constantes.OrigenPedidoWeb.MobileCatalogoPersonalizadoPopUp;
 
@@ -595,8 +593,7 @@
                     e.preventDefault();
                 };
             });
-
-
+            
             $("body").on("click", "[data-cantidad-agregar]", function () {
                 var signo = $(this).attr("data-cantidad-agregar");
                 var objPadre = $(this).parents("[data-cantidad-contenedor]");
@@ -752,17 +749,9 @@
         {
             $(".header_pop_oferta").click(function () {
                 $('body').css({ 'overflow-y': 'scroll' });
-                // Set the effect type
-                var effect = 'slide';
 
-                // Set the options for the effect type chosen
-                //var options = { direction: $('.mySelect').val() };
-                var options = {direction: 'right' };
-
-                // Set the duration (default: 400 milliseconds)
-                var duration = 500;
-
-                $('#pop_oferta_mobile').toggle(effect, options, duration);               
+                //$('#pop_oferta_mobile').toggle(effect, options, duration);
+                $('#pop_oferta_mobile').toggle('slide', {direction: 'right' }, 500);
             });
         };
 
@@ -1552,10 +1541,7 @@
 
         /* Tracking Jetlore */
         function TrackingJetloreAdd(cantidad, campania, cuv) {
-            var esJetlore;
-
-            esJetlore = esPaisTrackingJetlore == "1";
-
+            var esJetlore = esPaisTrackingJetlore == "1";
             if (esJetlore) {
                 JL.tracker.addToCart({
                     count: cantidad,
@@ -1566,10 +1552,7 @@
         }
 
         function TrackingJetloreRemove(cantidad, campania, cuv) {
-            var esJetlore;
-
-            esJetlore = esPaisTrackingJetlore == "1";
-
+            var esJetlore = esPaisTrackingJetlore == "1";
             if (esJetlore) {
                 JL.tracker.removeFromCart({
                     count: cantidad,
@@ -1580,14 +1563,8 @@
         }
 
         function TrackingJetloreRemoveAll(lista) {
-            var esJetlore;
-
-            esJetlore = esPaisTrackingJetlore == "1";
-
-            if (esJetlore) {
-                JL.tracker.removeFromCart(lista);
-
-            }
+            var esJetlore = esPaisTrackingJetlore == "1";
+            if (esJetlore) JL.tracker.removeFromCart(lista);
         }
         /* Fin Tracking Jetlore */
 
@@ -1658,9 +1635,7 @@
 
         function AgregarTagManagerShowRoomBannerLateralConocesMas(esHoy) {
             var name = 'showroom digital ' + $("#hdNombreEventoShowRoom").val();
-
-            if (esHoy)
-                name += " - fase 2";
+            if (esHoy) name += " - fase 2";
 
             dataLayer.push({
                 'event': 'promotionClick',
@@ -1680,9 +1655,7 @@
 
         function AgregarTagManagerShowRoomBannerLateral(esHoy) {
             var name = 'showroom digital ' + $("#hdNombreEventoShowRoom").val();
-
-            if (esHoy)
-                name += " - fase 2";
+            if (esHoy) name += " - fase 2";
 
             dataLayer.push({
                 'event': 'promotionView',
