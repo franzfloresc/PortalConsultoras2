@@ -371,11 +371,6 @@ namespace Portal.Consultoras.Web.Controllers
                         ObtenerListadoProductosOfertaFinal();
                 }
                 
-                /*PL20-1227*/
-                ViewBag.IdTipoEstrategiaODD = userData.IdTipoEstrategiaODD;
-                ViewBag.LimiteVentaODD = userData.LimiteVentaOfertaDelDia;
-                if (ViewBag.IdTipoEstrategiaODD == 0) 
-                    ViewBag.IdTipoEstrategiaODD = -1;
             }
             catch (FaultException ex)
             {
@@ -4953,7 +4948,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-        public JsonResult GetQtyPedidoDetalleByCuvODD(string cuv)
+        public JsonResult GetQtyPedidoDetalleByCuvODD(string cuv, string tipoEstrategiaID)
         {
             try
             {
@@ -4964,7 +4959,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     foreach (var item in lstPedidoDetalle)
                     {
-                        if (item.TipoOfertaSisID == Constantes.TipoEstrategia.OfertaDelDia 
+                        if (item.TipoOfertaSisID == int.Parse(tipoEstrategiaID)
                             && item.CUV.Trim().Contains(cuv.Trim()))
                         {
                             qty = item.Cantidad;

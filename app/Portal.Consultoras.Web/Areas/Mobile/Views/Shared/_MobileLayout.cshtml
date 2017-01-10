@@ -714,6 +714,17 @@
                             else {
                                 $('#content').css('top', '66px');
                             }
+
+                            var int1odd = setInterval(function () {
+                                if ($('#divShowRoomHoy:visible').length > 0) {
+                                    $('#content').css('top', '0px');
+                                    clearInterval(int1odd);
+                                }
+                                else {
+                                    $('#content').css('top', '66px');
+                                    clearInterval(int1odd);
+                                }
+                            }, 300);
                             
                             $("#content_oferta_dia_mobile").click(function () {
                                 $('#txtCantidad').val('1');
@@ -828,7 +839,7 @@
             }
 
             // validar cantidad a agregar (nuevas unidades o ya existentes)
-            var cqty = getQtyPedidoDetalleByCuvODD(cuv);
+            var cqty = getQtyPedidoDetalleByCuvODD(cuv, tipoEstrategiaID);
             if (cqty > 0) {
                 var tqty = parseInt(cqty) + intCantidad;
                 if (parseInt(tqty) > intLimiteVenta) {
@@ -961,9 +972,10 @@
             return ok;
         };
 
-        function getQtyPedidoDetalleByCuvODD(cuv2) {
+        function getQtyPedidoDetalleByCuvODD(cuv2, tipoEstrategiaID) {
             var qty = 0;
-            var obj = { cuv: cuv2 };
+            var obj = { cuv: cuv2, tipoEstrategiaID: tipoEstrategiaID };
+
             $.ajax({
                 type: 'POST',
                 url: baseUrl + 'Pedido/GetQtyPedidoDetalleByCuvODD',

@@ -1522,10 +1522,6 @@
             	<span class="texto_pedidos_ofertas">
                 	<label>PRE-VENTA DIGITAL</label>
             	</span>
-                {{else if_eq TipoOfertaSisID '@ViewBag.IdTipoEstrategiaODD'}}
-                <span class="texto_pedidos_ofertas">
-                    <label>OFERTA DEL DÍA</label>
-                </span>
                 {{else}}
             	{{#IsNullOrEmpty DescripcionOferta '!='}}
             	<span class="texto_pedidos_ofertas">
@@ -1995,8 +1991,6 @@
         var indicadorFlexiPago = '@Model.IndicadorFlexiPago';
         /*PL20-1227*/
         var origenPagina = 2;
-        var idTipoEstrategiaODD = '@ViewBag.IdTipoEstrategiaODD';
-        var limiteVentaODD = '@ViewBag.LimiteVentaODD';
 
     </script>
     @System.Web.Optimization.Scripts.Render("~/bundles/JsSB2-Pedido")

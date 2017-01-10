@@ -1714,9 +1714,9 @@ namespace Portal.Consultoras.Service
         /*EPD-1025*/
         
         /*PL20-1226*/
-        public List<BEEstrategia> GetEstrategiaODD(int paisID, int codCampania, long consultoraID)
+        public List<BEEstrategia> GetEstrategiaODD(int paisID, int codCampania, string codConsultora, DateTime fechaInicioFact)
         {
-            return new BLEstrategia().GetEstrategiaODD(paisID, codCampania, consultoraID);
+            return new BLEstrategia().GetEstrategiaODD(paisID, codCampania, codConsultora, fechaInicioFact);
         }
 
         public int GetCantidadOfertasParaTi(int paisId, int campaniaId, int tipoConfigurado)

@@ -150,7 +150,6 @@ namespace Portal.Consultoras.Common
             public const int OfertaParaTi = 3;
             public const int OfertaWeb = 4;
             public const int Lanzamiento = 5;
-            public const int OfertaDelDia = 3014;       /*PL20-1227*/
         }
 
         public class ConstSession

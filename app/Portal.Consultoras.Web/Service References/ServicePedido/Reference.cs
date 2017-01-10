@@ -17612,10 +17612,10 @@ namespace Portal.Consultoras.Web.ServicePedido {
         System.Threading.Tasks.Task DeshacerUltimaDescargaPedidoAsync(int PaisID);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetEstrategiaODD", ReplyAction="http://tempuri.org/IPedidoService/GetEstrategiaODDResponse")]
-        Portal.Consultoras.Web.ServicePedido.BEEstrategia[] GetEstrategiaODD(int paisID, int codCampania, long consultoraID);
+        Portal.Consultoras.Web.ServicePedido.BEEstrategia[] GetEstrategiaODD(int paisID, int codCampania, string codConsultora, System.DateTime fechaInicioFact);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetEstrategiaODD", ReplyAction="http://tempuri.org/IPedidoService/GetEstrategiaODDResponse")]
-        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEEstrategia[]> GetEstrategiaODDAsync(int paisID, int codCampania, long consultoraID);
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEEstrategia[]> GetEstrategiaODDAsync(int paisID, int codCampania, string codConsultora, System.DateTime fechaInicioFact);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetCantidadOfertasParaTi", ReplyAction="http://tempuri.org/IPedidoService/GetCantidadOfertasParaTiResponse")]
         int GetCantidadOfertasParaTi(int paisId, int campaniaId, int tipoConfigurado);
@@ -19379,12 +19379,12 @@ namespace Portal.Consultoras.Web.ServicePedido {
             return base.Channel.DeshacerUltimaDescargaPedidoAsync(PaisID);
         }
         
-        public Portal.Consultoras.Web.ServicePedido.BEEstrategia[] GetEstrategiaODD(int paisID, int codCampania, long consultoraID) {
-            return base.Channel.GetEstrategiaODD(paisID, codCampania, consultoraID);
+        public Portal.Consultoras.Web.ServicePedido.BEEstrategia[] GetEstrategiaODD(int paisID, int codCampania, string codConsultora, System.DateTime fechaInicioFact) {
+            return base.Channel.GetEstrategiaODD(paisID, codCampania, codConsultora, fechaInicioFact);
         }
         
-        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEEstrategia[]> GetEstrategiaODDAsync(int paisID, int codCampania, long consultoraID) {
-            return base.Channel.GetEstrategiaODDAsync(paisID, codCampania, consultoraID);
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEEstrategia[]> GetEstrategiaODDAsync(int paisID, int codCampania, string codConsultora, System.DateTime fechaInicioFact) {
+            return base.Channel.GetEstrategiaODDAsync(paisID, codCampania, codConsultora, fechaInicioFact);
         }
         
         public int GetCantidadOfertasParaTi(int paisId, int campaniaId, int tipoConfigurado) {

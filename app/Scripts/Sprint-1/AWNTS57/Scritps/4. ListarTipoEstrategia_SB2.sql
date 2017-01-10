@@ -31,7 +31,7 @@ BEGIN
 	when 2002 then 4
 	when 2003 then 5
 	when 2004 then 6
-	WHEN 2007 THEN 7
+	WHEN 3014 THEN 7
    end as CodigoGeneral
   FROM   
    TipoEstrategia  
@@ -76,7 +76,7 @@ BEGIN
 	when 1002 then 3
 	when 2002 then 4
 	when 2003 then 5
-	WHEN 2005 THEN 7
+	WHEN 3014 THEN 7
 	end as CodigoGeneral
   FROM   
    TipoEstrategia  
@@ -120,7 +120,7 @@ BEGIN
 	when 1004 then 2
 	when 1005 then 4
 	when 1006 then 5
-	WHEN 1007 THEN 7
+	WHEN 3014 THEN 7
 	end as CodigoGeneral
   FROM   
    TipoEstrategia  
@@ -165,7 +165,7 @@ BEGIN
 	when 2002 then 4
 	when 2003 then 5
 	when 2004 then 6
-	WHEN 2005 THEN 7
+	WHEN 3014 THEN 7
 	end as CodigoGeneral
   FROM   
    TipoEstrategia  
@@ -209,7 +209,7 @@ BEGIN
 	when 2 then 2
 	when 3 then 5
 	when 4 then 4
-	WHEN 5 THEN 7
+	WHEN 3014 THEN 7
 	end as CodigoGeneral
   FROM   
    TipoEstrategia  
@@ -254,7 +254,7 @@ BEGIN
 	when 3 then 5
 	when 4 then 4
 	when 6 then 6
-	WHEN 7 THEN 7
+	WHEN 3014 THEN 7
 	end as CodigoGeneral
   FROM   
    TipoEstrategia  
@@ -297,7 +297,7 @@ BEGIN
 	when 1 then 1
 	when 2 then 2
 	when 3 then 4
-	WHEN 1004 THEN 7
+	WHEN 3014 THEN 7
 	end as CodigoGeneral
   FROM   
    TipoEstrategia  
@@ -342,7 +342,7 @@ BEGIN
 	when 3 then 5
 	when 4 then 6
 	when 5 then 4
-	WHEN 6 THEN 7
+	WHEN 3014 THEN 7
 	end as CodigoGeneral
   FROM   
    TipoEstrategia  
@@ -387,7 +387,7 @@ BEGIN
 	when 3 then 5
 	when 4 then 4
 	when 5 then 6
-	WHEN 6 THEN 7
+	WHEN 3014 THEN 7
 	end as CodigoGeneral
   FROM   
    TipoEstrategia  
@@ -431,7 +431,7 @@ BEGIN
 	when 2 then 2
 	when 3 then 4
 	when 4 then 3
-	WHEN 5 THEN 7
+	WHEN 3014 THEN 7
 	end as CodigoGeneral
   FROM   
    TipoEstrategia  

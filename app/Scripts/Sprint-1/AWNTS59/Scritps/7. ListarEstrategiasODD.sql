@@ -14,11 +14,22 @@ GO
 CREATE PROCEDURE [dbo].[ListarEstrategiasODD]
 (
 	@CodCampania INT,
-	@ConsultoraID INT
+	@CodConsultora VARCHAR(10),
+	@FechaInicioFact DATE
 )
 AS
 
---SET @CodCampania = 201616
+DECLARE @DiaInicio INT, @CUV VARCHAR(10)
+
+SELECT TOP 1 
+	@DiaInicio = DiaInicio, 
+	@CUV = CUV
+FROM ods.OfertasPersonalizadas 
+WHERE AnioCampanaVenta = @CodCampania
+AND TipoPersonalizacion = 'ODD'
+AND CodConsultora = @CodConsultora
+AND DATEDIFF(dd,GETDATE(),DATEADD(dd,DiaInicio,CAST(@FechaInicioFact AS DATE))) = 0
+
 
 SELECT TOP 1
 	e.EstrategiaID,
@@ -59,8 +70,11 @@ WHERE
 	AND te.FlagActivo = 1
 	AND te.flagRecoPerfil = 1
 	AND ca.Codigo = @CodCampania
-	AND c.ConsultoraID = @ConsultoraID
-	AND te.TipoEstrategiaID = 1006
+	--AND c.ConsultoraID = @ConsultoraID
+	AND c.Codigo = @CodConsultora
+	--AND te.TipoEstrategiaID = 6
+	AND op.CUV = @CUV
+	AND op.DiaInicio = @DiaInicio
 	--AND e.Zona LIKE '%' + @ZonaID + '%'
 	--AND E.CUV2 not in ( SELECT CUV FROM @tablaCuvFaltante )
 --ORDER BY te.Orden ASC, op.Orden
@@ -83,11 +97,22 @@ GO
 CREATE PROCEDURE [dbo].[ListarEstrategiasODD]
 (
 	@CodCampania INT,
-	@ConsultoraID INT
+	@CodConsultora VARCHAR(10),
+	@FechaInicioFact DATE
 )
 AS
 
---SET @CodCampania = 201616
+DECLARE @DiaInicio INT, @CUV VARCHAR(10)
+
+SELECT TOP 1 
+	@DiaInicio = DiaInicio, 
+	@CUV = CUV
+FROM ods.OfertasPersonalizadas 
+WHERE AnioCampanaVenta = @CodCampania
+AND TipoPersonalizacion = 'ODD'
+AND CodConsultora = @CodConsultora
+AND DATEDIFF(dd,GETDATE(),DATEADD(dd,DiaInicio,CAST(@FechaInicioFact AS DATE))) = 0
+
 
 SELECT TOP 1
 	e.EstrategiaID,
@@ -128,8 +153,11 @@ WHERE
 	AND te.FlagActivo = 1
 	AND te.flagRecoPerfil = 1
 	AND ca.Codigo = @CodCampania
-	AND c.ConsultoraID = @ConsultoraID
-	AND te.TipoEstrategiaID = 1005
+	--AND c.ConsultoraID = @ConsultoraID
+	AND c.Codigo = @CodConsultora
+	--AND te.TipoEstrategiaID = 6
+	AND op.CUV = @CUV
+	AND op.DiaInicio = @DiaInicio
 	--AND e.Zona LIKE '%' + @ZonaID + '%'
 	--AND E.CUV2 not in ( SELECT CUV FROM @tablaCuvFaltante )
 --ORDER BY te.Orden ASC, op.Orden
@@ -152,11 +180,22 @@ GO
 CREATE PROCEDURE [dbo].[ListarEstrategiasODD]
 (
 	@CodCampania INT,
-	@ConsultoraID INT
+	@CodConsultora VARCHAR(10),
+	@FechaInicioFact DATE
 )
 AS
 
---SET @CodCampania = 201616
+DECLARE @DiaInicio INT, @CUV VARCHAR(10)
+
+SELECT TOP 1 
+	@DiaInicio = DiaInicio, 
+	@CUV = CUV
+FROM ods.OfertasPersonalizadas 
+WHERE AnioCampanaVenta = @CodCampania
+AND TipoPersonalizacion = 'ODD'
+AND CodConsultora = @CodConsultora
+AND DATEDIFF(dd,GETDATE(),DATEADD(dd,DiaInicio,CAST(@FechaInicioFact AS DATE))) = 0
+
 
 SELECT TOP 1
 	e.EstrategiaID,
@@ -197,8 +236,11 @@ WHERE
 	AND te.FlagActivo = 1
 	AND te.flagRecoPerfil = 1
 	AND ca.Codigo = @CodCampania
-	AND c.ConsultoraID = @ConsultoraID
-	AND te.TipoEstrategiaID = 3014
+	--AND c.ConsultoraID = @ConsultoraID
+	AND c.Codigo = @CodConsultora
+	--AND te.TipoEstrategiaID = 6
+	AND op.CUV = @CUV
+	AND op.DiaInicio = @DiaInicio
 	--AND e.Zona LIKE '%' + @ZonaID + '%'
 	--AND E.CUV2 not in ( SELECT CUV FROM @tablaCuvFaltante )
 --ORDER BY te.Orden ASC, op.Orden

@@ -928,7 +928,7 @@ namespace Portal.Consultoras.ServiceContracts
         /*EPD-1025*/
         
         [OperationContract]
-        List<BEEstrategia> GetEstrategiaODD(int paisID, int codCampania, long consultoraID);
+        List<BEEstrategia> GetEstrategiaODD(int paisID, int codCampania, string codConsultora, DateTime fechaInicioFact);
         
         [OperationContract]
         int GetCantidadOfertasParaTi(int paisId, int campaniaId, int tipoConfigurado);

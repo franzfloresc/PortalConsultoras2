@@ -227,10 +227,10 @@ namespace Portal.Consultoras.BizLogic
                         usuario.EstadoPedido = configuracion.EstadoPedido;
                         usuario.ValidacionAbierta = configuracion.ValidacionAbierta;
                         /*PL20-1226*/
-                        if (usuario.OfertaDelDia)
-                        {
-                            usuario.EsOfertaDelDia = DAUsuario.GetEsOfertaDelDia(usuario.CampaniaID, usuario.CodigoConsultora, usuario.FechaInicioFacturacion);
-                        }
+                        //if (usuario.OfertaDelDia)
+                        //{
+                        //    usuario.EsOfertaDelDia = DAUsuario.GetEsOfertaDelDia(usuario.CampaniaID, usuario.CodigoConsultora, usuario.FechaInicioFacturacion);
+                        //}
                     }
                 }
             }
