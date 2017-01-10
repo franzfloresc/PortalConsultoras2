@@ -1182,32 +1182,32 @@ namespace Portal.Consultoras.Web.Controllers
                         lst = ps.GetOfertasParaTiByTipoConfigurado(userData.PaisID, campaniaId, tipoConfigurado).ToList();
                     }
 
-                    string listaCuv = "";
-                    int contador = 0;
-                    foreach (var opt in lst)
-                    {
-                        if (!string.IsNullOrEmpty(opt.CUV2))
-                        {
-                            listaCuv += opt.CUV2 + "|";
-                            contador++;
-                        }
-                    }
-                    listaCuv = listaCuv == "" ? "" : listaCuv.Substring(0, listaCuv.Length - 1);
+                    //string listaCuv = "";
+                    //int contador = 0;
+                    //foreach (var opt in lst)
+                    //{
+                    //    if (!string.IsNullOrEmpty(opt.CUV2))
+                    //    {
+                    //        listaCuv += opt.CUV2 + "|";
+                    //        contador++;
+                    //    }
+                    //}
+                    //listaCuv = listaCuv == "" ? "" : listaCuv.Substring(0, listaCuv.Length - 1);
 
-                    var listaRespuestaCuv = new List<RptPrecioValorizado>();
-                    try
-                    {
+                    //var listaRespuestaCuv = new List<RptPrecioValorizado>();
+                    //try
+                    //{
                         
-                        using (WsGestionWeb sv = new WsGestionWeb())
-                        {
-                            listaRespuestaCuv = sv.GetConsultaPrecioValorizado(campaniaId.ToString(), listaCuv,
-                                userData.CodigoISO).ToList();
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        listaRespuestaCuv = new List<RptPrecioValorizado>();
-                    }
+                    //    using (WsGestionWeb sv = new WsGestionWeb())
+                    //    {
+                    //        listaRespuestaCuv = sv.GetConsultaPrecioValorizado(campaniaId.ToString(), listaCuv,
+                    //            userData.CodigoISO).ToList();
+                    //    }
+                    //}
+                    //catch (Exception ex)
+                    //{
+                    //    listaRespuestaCuv = new List<RptPrecioValorizado>();
+                    //}
 
                     foreach (var opt in lst)
                     {
@@ -1228,10 +1228,10 @@ namespace Portal.Consultoras.Web.Controllers
                         if (precioOferta > 0)
                             opt.Precio2 = precioOferta;
 
-                        var cuvServiceProl = listaRespuestaCuv.FirstOrDefault(p => p.cuv == opt.CUV2) ?? new RptPrecioValorizado();
+                        //var cuvServiceProl = listaRespuestaCuv.FirstOrDefault(p => p.cuv == opt.CUV2) ?? new RptPrecioValorizado();
 
                         //sera el precio tachado ya que la propiedad PrecioTachado es de tipo String
-                        opt.Precio = cuvServiceProl.importevalorizado;
+                        opt.Precio = 0; //cuvServiceProl.importevalorizado;
                     }
                 }
                 catch (Exception ex)
