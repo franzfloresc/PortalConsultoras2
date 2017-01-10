@@ -27469,7 +27469,7 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
     display: inline-block;
     position: relative;
     vertical-align: top!important;
-    width: 274px;
+    width: 272px;
     margin-bottom: 15px;
     margin-top: 15px;
     vertical-align:top;
@@ -32166,4 +32166,73 @@ h1#penmostreo .campana {
     display:inline-block;
     vertical-align:middle;
     line-height:14px;
+}
+/*SPRINT 4*/
+
+.banner_favoritos_home{
+    width:26%;
+    min-height:700px;
+    float:left;
+    background:#f3f3f5;
+}
+.texto_filtros_fav{
+    font-family:'Lato';
+    font-size:13px;
+    float:right;
+    margin-top:10px;
+}
+.btn_ver_todo_filtros{
+    display:inline-block;
+    background: url(../../../Images/Esika/indicador_pedido.png) no-repeat;
+    background-position: 0px 5px;
+    padding-left:15px;
+    margin-left:20px;
+    cursor:pointer;
+}
+.titulo_banner_fav{
+    /*background: #e81c36;*/
+    padding: 55px 17.5%;
+    width:100%;
+    font-family: 'Lato';
+    color: black;
+    font-size: 18px;
+    line-height: 20px;
+    text-align: left;    /*letter-spacing: 0.75px;*/
+    font-weight:300;
+}
+.texto_altas_fav{
+    display:block;
+    font-size:35px;
+    margin-top:10px;
+    margin-bottom:12px;
+    font-weight:700;
+
+}
+.texto_2_fav{
+    font-size:22.5px;
+    line-height:25px;
+}.titulo_banner {
+    padding: 20px 11% !important;
+}
+.texto_inf_banner{
+    font-family: 'Lato';
+    color: black;
+    font-size: 16px;
+    line-height: 20px;
+    font-weight:300;
+    margin:55px 40px;
+    text-align:left;
+}
+.btn_ver_mas_fav{
+    margin:5px 40px;
+    /*width:100%;*/
+    height:45px;
+    border:1px solid black;
+    font-family: 'Lato';
+    color: black;
+    font-size: 13px;
+    font-weight:700;
+    letter-spacing:0.3px;
+    line-height:43px;
+    margin-bottom:100px;
 }

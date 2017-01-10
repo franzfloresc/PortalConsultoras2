@@ -262,10 +262,24 @@
 <!--CATALOGO PERSONALIZADO-->
 @if (Model.CatalogoPersonalizadoDesktop != 0 && Model.EsCatalogoPersonalizadoZonaValida)
 {
-    <div class="content-favclientes content_carrusel_agregado" id="divMainCatalogoPersonalizado" style="display:none;">
-        <div class="pestania"><h5><b>LOS FAVORITOS</b> DE TUS CLIENTES ESTA CAMPAÑA</h5><div class="imagen-curvatura"></div></div>
-        <a class="ver_mas_favoritos" style="z-index:inherit;" href="@Url.Action("Index", "CatalogoPersonalizado")">Ver más +</a>
-        <div id="divCatalogoPersonalizado"></div>
+    <div class="content_belcorp">
+        <div class="content-favclientes content_carrusel_agregado" id="divMainCatalogoPersonalizado" style="display:none;">
+            <div class="linea_separadora"></div>
+            @*<div class="pestania"><h5><b>LOS FAVORITOS</b> DE TUS CLIENTES ESTA CAMPAÑA</h5><div class="imagen-curvatura"></div></div>
+
+                <a class="ver_mas_favoritos" style="z-index:inherit;" href="@Url.Action("Index", "CatalogoPersonalizado")">Ver más +</a>*@
+            <div class="banner_favoritos_home">
+                <div class="titulo_banner_fav">Valeria, estos son los <span class="texto_altas_fav">FAVORITOS</span> <span class="texto_2_fav">DE TUS CLIENTES</span></div>
+                <img style="width:100%;" src="https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/xcIosEZ1FyLcPiD/group-4%403x.png" alt="favoritos" />
+                <div class="texto_inf_banner">Porque conocemos a tus clientes, seleccionamos los productos que podrás venderles fácilmente</div>
+                <hr class="clear" />
+                <a class="btn_ver_mas_fav" href="#">VER MÁS PRODUCTOS</a>
+            </div>
+            <div id="divCatalogoPersonalizado" style="width:74%;float:left;"></div>
+            <hr class="clear" />
+
+        </div>
+
     </div>
 }
 
@@ -1666,7 +1680,9 @@
 
 <script id="template-catalogopersonalizado" type="text/x-handlebars-template">
     <div class="clear"></div>
-    <div class="texto_descripcionCatalogoPersonalizado">Encuentra una selección de los productos que tus clientes de seguro te solicitarán</div>
+    <div class="texto_filtros_fav">Te mostramos 6 de 32 productos. <a class="btn_ver_todo_filtros" href="@Url.Action("Index", "CatalogoPersonalizado")">VER TODOS</a></div>
+    <hr class="clear" />
+    @*<div class="texto_descripcionCatalogoPersonalizado">Encuentra una selección de los productos que tus clientes de seguro te solicitarán</div>*@
     <div class="">
         {{#each this as |item|}}
         <div class="contiene-productos" data-item="catalogopersonalizado">

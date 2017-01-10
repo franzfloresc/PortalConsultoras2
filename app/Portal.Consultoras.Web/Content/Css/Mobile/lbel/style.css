@@ -9201,3 +9201,60 @@ span.icon-advertencia{
 
 /*SB20-1197 - FIN*/
 
+
+.nueva_seccion_fav{
+    margin-left:-14px;
+    margin-right:-14px;
+    margin-top:30px;
+    margin-bottom:30px; 
+    background: #f0f0f0;
+}
+.content_banner_fav{
+    width:320px;
+    height:auto;
+    margin:0 auto;
+   overflow:hidden;
+}
+.content_imagen_banner_fav{
+    width:45%;
+    float:left;
+}
+.content_imagen_banner_fav img{
+    width:100%;
+}
+.texto_fav_banner{
+    width:55%;
+    float:left;
+    padding-top:20px;
+    font-family:'Lato';
+    font-size:14px;
+    font-weight:300;
+    padding-left:10px;
+    padding-right:14px;
+    color:black;
+    line-height: 22px;
+}
+
+.favoritos_txt{
+    display:block;
+    font-size:26px;
+    font-weight:700;
+}
+.texto_2_fav{
+    display:block;
+    font-size:18px;
+    margin-top:3px;
+}
+.btn_compralos_banner_fav{
+    width:100%;
+    height:36px;
+    line-height:34px;
+    border:1px solid black;
+    font-family:'Lato';
+    font-size:12px;
+    font-weight:700;
+    margin-top:10px;
+    display:block;
+    text-align:center;
+    margin-bottom:15px;
+}
