@@ -341,6 +341,14 @@
         </div>
     </div>
 </div>
+
+
+<div id="alertEMailDialogMensajes" style="display: none;">
+    <div class="terminos_title_2">MENSAJE</div>
+    <div class="linea_superior margin_10"></div>
+    <div class="pop_pedido_mensaje"></div>
+</div>
+
 <script id="template-pedido" type="text/x-handlebars-template">
     {{#each this as |item|}}
     <a class="btn_pedido_white" data-pedido-id="{{item.PedidoID}}" id="{{item.PedidoID}}" onclick="PopupPedidoSeleccionar(this);">

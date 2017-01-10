@@ -525,12 +525,14 @@ namespace Portal.Consultoras.Data
 
         public int UpdateUsuarioEmailTelefono(long ConsultoraID, string Email, string Telefono)
         {
-            DbCommand command = Context.Database.GetStoredProcCommand("dbo.UpdUsuarioCDRWeb");
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.UpdUsuarioEMailCDRWeb");
             Context.Database.AddInParameter(command, "@ConsultoraID", DbType.Int64, ConsultoraID);
             Context.Database.AddInParameter(command, "@EMail", DbType.String, Email);
             Context.Database.AddInParameter(command, "@Telefono", DbType.String, Telefono);
+            Context.Database.AddOutParameter(command, "@RetornoSiNoCorreoNuevo", DbType.Int32, 10);
+            Context.ExecuteNonQuery(command);
 
-            return Convert.ToInt32(Context.ExecuteScalar(command));
+            return Convert.ToInt32(command.Parameters["@RetornoSiNoCorreoNuevo"].Value);
         }
     }
 }
