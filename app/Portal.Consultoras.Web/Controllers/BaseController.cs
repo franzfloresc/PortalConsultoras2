@@ -760,6 +760,7 @@ namespace Portal.Consultoras.Web.Controllers
             if (!isNull)
             {
                 ViewBag.PeriodoAnalytics = fechaHoy >= model.FechaInicioCampania.Date && fechaHoy <= model.FechaFinCampania.Date ? "Facturacion" : "Venta";
+                model.EsDiasFacturacion = fechaHoy >= model.FechaInicioCampania.Date && fechaHoy <= model.FechaFinCampania.Date ? true : false;
                 ViewBag.SemanaAnalytics = ObtenerSemanaAnalytics();
             }
 
@@ -1907,12 +1908,12 @@ namespace Portal.Consultoras.Web.Controllers
             DateTime d1 = new DateTime(hoy.Year, hoy.Month, hoy.Day, 0, 0, 0);
             DateTime d2;
 
-            if (model.EsOfertaDelDia == 1)  // dia de facturacion
+            if (model.EsDiasFacturacion)  // dias de facturacion
             {
                 TimeSpan t1 = model.HoraCierreZonaNormal;
                 d2 = new DateTime(hoy.Year, hoy.Month, hoy.Day, t1.Hours, t1.Minutes, t1.Seconds);
             }
-            else // antes o despues de la facturacion
+            else
             {
                 d2 = d1.AddDays(1);
             }
