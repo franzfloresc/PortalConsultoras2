@@ -365,10 +365,6 @@ namespace Portal.Consultoras.Web.Controllers
 
                 #endregion
 
-                ViewBag.IdTipoEstrategiaODD = userData.IdTipoEstrategiaODD;
-                if (ViewBag.IdTipoEstrategiaODD == 0)
-                    ViewBag.IdTipoEstrategiaODD = -1;
-
             }
             catch (FaultException ex)
             {

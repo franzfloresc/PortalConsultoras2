@@ -178,7 +178,7 @@ namespace Portal.Consultoras.Web.Controllers
                                 TieneLanzamientoCatalogoPersonalizado = olstProducto[0].TieneLanzamientoCatalogoPersonalizado,
                                 TipoOfertaRevista = olstProducto[0].TipoOfertaRevista,
                                 Volumen = producto.Volumen,
-                                EsMaquillaje = producto.EsMaquillaje,
+                                //EsMaquillaje = producto.EsMaquillaje,
                                 DescripcionComercial = producto.DescripcionComercial
                             });
 
