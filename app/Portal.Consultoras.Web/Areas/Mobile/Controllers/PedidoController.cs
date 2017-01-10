@@ -267,13 +267,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             //var dataBarraMobile = AutoMapper.Mapper.Map<BarraConsultoraModel, BarraConsultoraMobileModel>(dataBarra);
             model.DataBarra = GetDataBarra(true, true);
             /* SB20-565 - FIN */
-
-            /*PL20-1233*/
-            ViewBag.IdTipoEstrategiaODD = userData.IdTipoEstrategiaODD;
-            ViewBag.LimiteVentaODD = userData.LimiteVentaOfertaDelDia;
-            if (ViewBag.IdTipoEstrategiaODD == 0)
-                ViewBag.IdTipoEstrategiaODD = -1;
-
+                      
             return View(model);
         }
         

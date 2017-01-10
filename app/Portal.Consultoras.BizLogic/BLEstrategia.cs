@@ -210,14 +210,14 @@ namespace Portal.Consultoras.BizLogic
         }
 
         /*PL20-1226*/
-        public List<BEEstrategia> GetEstrategiaODD(int paisID, int codCampania, long consultoraID)
+        public List<BEEstrategia> GetEstrategiaODD(int paisID, int codCampania, string codConsultora, DateTime fechaInicioFact)
         {
             try
             {
                 List<BEEstrategia> listaEstrategias = new List<BEEstrategia>();
-
                 var DAEstrategia = new DAEstrategia(paisID);
-                using (IDataReader reader = DAEstrategia.GetEstrategiaODD(codCampania, consultoraID))
+
+                using (IDataReader reader = DAEstrategia.GetEstrategiaODD(codCampania, codConsultora, fechaInicioFact))
                 {
                     while (reader.Read())
                     {

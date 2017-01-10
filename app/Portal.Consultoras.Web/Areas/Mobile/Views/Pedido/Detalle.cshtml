@@ -359,9 +359,6 @@
                             {{else iff detalle.TipoOfertaSisID '==' @Constantes.ConfiguracionOferta.ShowRoom}}
                             <br />
                             <span>Pre-venta Digital</span>
-                            {{else if_eq TipoOfertaSisID '@ViewBag.IdTipoEstrategiaODD'}}
-                            <br />
-                            <span>OFERTA DEL DÍA</span>
                             {{else}}
                             {{#IsNullOrEmpty detalle.DescripcionOferta '!='}}
                             <br />
@@ -732,8 +729,6 @@
 
         //PL20-1233
         var origenPagina = 2;
-        var idTipoEstrategiaODD = '@ViewBag.IdTipoEstrategiaODD';
-        var limiteVentaODD = '@ViewBag.LimiteVentaODD';
 
     </script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Mobile/Pedido/Detalle.js")"></script>

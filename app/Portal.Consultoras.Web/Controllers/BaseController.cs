@@ -455,6 +455,7 @@ namespace Portal.Consultoras.Web.Controllers
                     bool mostrarClienteOnline = (mostrarPedidosPendientes == "1" && strpaises.Contains(userData.CodigoISO));
                     if (!mostrarClienteOnline) lst.Remove(lst.FirstOrDefault(p => p.UrlItem.ToLower() == "consultoraonline/index"));
                     if (userData.IndicadorPermisoFIC == 0) lst.Remove(lst.FirstOrDefault(p => p.UrlItem.ToLower() == "pedidofic/index"));
+                    if(userData.CatalogoPersonalizado == 0 || !userData.EsCatalogoPersonalizadoZonaValida) lst.Remove(lst.FirstOrDefault(p => p.UrlItem.ToLower() == "catalogopersonalizado/index"));
 
                     List<PermisoModel> lstModel = new List<PermisoModel>();
                     foreach (var permiso in lst)
@@ -759,6 +760,7 @@ namespace Portal.Consultoras.Web.Controllers
             if (!isNull)
             {
                 ViewBag.PeriodoAnalytics = fechaHoy >= model.FechaInicioCampania.Date && fechaHoy <= model.FechaFinCampania.Date ? "Facturacion" : "Venta";
+                model.EsDiasFacturacion = fechaHoy >= model.FechaInicioCampania.Date && fechaHoy <= model.FechaFinCampania.Date ? true : false;
                 ViewBag.SemanaAnalytics = ObtenerSemanaAnalytics();
             }
 
@@ -1906,12 +1908,12 @@ namespace Portal.Consultoras.Web.Controllers
             DateTime d1 = new DateTime(hoy.Year, hoy.Month, hoy.Day, 0, 0, 0);
             DateTime d2;
 
-            if (model.EsOfertaDelDia == 1)  // dia de facturacion
+            if (model.EsDiasFacturacion)  // dias de facturacion
             {
                 TimeSpan t1 = model.HoraCierreZonaNormal;
                 d2 = new DateTime(hoy.Year, hoy.Month, hoy.Day, t1.Hours, t1.Minutes, t1.Seconds);
             }
-            else // antes o despues de la facturacion
+            else
             {
                 d2 = d1.AddDays(1);
             }
