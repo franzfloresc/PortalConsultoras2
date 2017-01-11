@@ -550,7 +550,7 @@
     {
         <script type="text/javascript">
             var TieneOfertaDelDia = '@ViewBag.TieneOfertaDelDia'; //PL20-1226
-            var OfertaDelDiaResponse = JSON.parse('@Html.Raw(JsonConvert.SerializeObject(ViewBag.OfertaDelDiaResponse))');
+            var OfertaDelDiaResponse = JSON.parse('@Html.Raw(JsonConvert.SerializeObject(ViewBag.OfertaDelDiaResponse.Data))');
             var MostrarShowRoomResponse = JSON.parse('@Html.Raw(JsonConvert.SerializeObject(ViewBag.MostrarShowRoomResponse.Data))');
         </script>
     }

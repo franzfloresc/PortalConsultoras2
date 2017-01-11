@@ -50,14 +50,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 {
                     ViewBag.PermitirCerrarBannerPL20 = permitirCerrarBanner;
                     ViewBag.TieneOfertaDelDia = userData.TieneOfertaDelDia;
-                    //ViewBag.OfertaDelDiaResponse = GetOfertaDelDia();
-                    var oddModel = new OfertaDelDiaModel();
-                    if (userData.OfertaDelDia != null)
-                    {
-                        oddModel = userData.OfertaDelDia;
-                        oddModel.TeQuedan = CountdownODD(userData);
-                    }
-                    ViewBag.OfertaDelDiaResponse = oddModel;
+                    ViewBag.OfertaDelDiaResponse = GetOfertaDelDia();
                     ViewBag.MostrarShowRoomResponse = MostrarShowRoomBannerLateral();
                 }
                 ViewBag.MostrarBannerPL20 = mostrarBanner;
