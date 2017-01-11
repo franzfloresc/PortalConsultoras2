@@ -4943,6 +4943,29 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
+        public JsonResult CloseBannerPL20()
+        {
+            try
+            {
+                userData.CloseBannerPL20 = true;
+                Session["UserData"] = userData;
+
+                return Json(new
+                {
+                    success = true,
+                }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return Json(new
+                {
+                    success = false,
+                    message = "No se pudo procesar la solicitud"
+                }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
         /*PL20-1226*/
     }
 }

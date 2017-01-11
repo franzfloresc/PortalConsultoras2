@@ -120,8 +120,7 @@
     </div>
 
     <!-- header -->
-    <header id="new-header">
-                
+    <header id="new-header">                
         <div id="bloquemensajesPedido" style="display:none;">
             <div class="oscurecer_animacion"></div>
             <div class="bloque_mensajesPedido">
@@ -173,101 +172,107 @@
             </div>
 </header>
     <div id="pop_oferta_mobile" class="content_pop_oferta_mobile"></div>
-    <div id="content_slider_banner" class="content_slider_banner" style="display:none;">
-        <a class="btn_cerrar_oferta_mobile" href="javascript:void(0);" onclick="closeBannerPL20();">X</a>
-        <div class="flexslider">
-            <ul class="slides">
-                <li>
-                    <div id="divShowRoomHoy" class="ocultarPopup divShowRoom" style="display: none;">
-                        <input type="hidden" id="hdEventoIDShowRoom" />
-                        <input type="hidden" id="hdNombreEventoShowRoom" />
-                        <div class="imagen_preventa">
-                            <div class="etiqueta_2">
-                                <img src="@Url.Content("~/Content/Images/mobile/img-showroom/etiqueta_2.png")" alt="-" />
-                            </div>
-                            <div class="titulo_contador_m">
-                                @*PRE · VENTA DIGITAL*@
-                                <span id="spnPreventaDigitalHoy"></span>
-                            </div>
-                        </div>
-                        <div class="fondo_white" style="height:80px;">
-                            <div class=" row_contador">
-                                <div style="text-align: center;">
-                                    @*<a href="#" class="imagen_mobile_hoy"><img src="@Url.Content("~/Content/Images/mobile/img-showroom/set_hoy.png")" alt="-" /></a>
-                            <a href="#" class="set_mobile_hoy"> SETS DESDE <br /><span>$ 5,990</span></a>*@
-                                    <a id="lnkConoceMasShowRoomBannerLateralImagenHoy">
-                                        <img id="imgVentaSetPopupBannerHoy" alt="imgVentaSetPopupBannerHoy" />
-                                    </a>
+    @if (ViewBag.MostrarBannerPL20 == true)
+    {
+        <div id="content_slider_banner" class="content_slider_banner" style="display:none;">
+            @if (ViewBag.PermitirCerrarBannerPL20 == true)
+            {
+                <a class="btn_cerrar_oferta_mobile" href="javascript:void(0);" onclick="closeBannerPL20();">X</a>
+            }        
+            <div class="flexslider">
+                <ul class="slides">
+                    <li>
+                        <div id="divShowRoomHoy" class="ocultarPopup divShowRoom" style="display: none;">
+                            <input type="hidden" id="hdEventoIDShowRoom" />
+                            <input type="hidden" id="hdNombreEventoShowRoom" />
+                            <div class="imagen_preventa">
+                                <div class="etiqueta_2">
+                                    <img src="@Url.Content("~/Content/Images/mobile/img-showroom/etiqueta_2.png")" alt="-" />
+                                </div>
+                                <div class="titulo_contador_m">
+                                    @*PRE · VENTA DIGITAL*@
+                                    <span id="spnPreventaDigitalHoy"></span>
                                 </div>
                             </div>
-                        </div>
-                        <div class="contenedor_encuentralos">
-                            <div class="row_contador">
-                                <a href="javascript:;" class="btn_encuentralos" id="lnkConoceMasShowRoomBannerLateralHoy">ENCUENTRALOS AQUI</a>
-                            </div>
-                        </div>
-                        @*<div class="indicador_red">
-
-                </div>*@
-                    </div>
-                </li>
-                <li>
-                    <div id="BloqueMobileOfertaDia" class="BloqueOfertaDia" style="display: none;">
-                    </div>
-                </li>
-                <li>
-                    <div id="divShowRoom" class="ocultarPopup divShowRoom" style="display: none;">
-                        <input type="hidden" id="hdEventoIDShowRoom" />
-                        <input type="hidden" id="hdNombreEventoShowRoom" />
-                        <div class="imagen_preventa">
-                            <div class="etiqueta_2">
-                                <img src="@Url.Content("~/Content/Images/mobile/img-showroom/etiqueta_2.png")" alt="-" />
-                            </div>
-                            <div class="titulo_contador_m">
-                                @*PRE · VENTA DIGITAL*@
-                                <span id="spnPreventaDigital"></span>
-                            </div>
-                        </div>
-                        <div class="fondo_m">
-                            <div class="row_contador">
-                                <div style="float: left; margin-top: 12px; margin-left: 20px; width: 110px;">
-                                    <div class="texto_dias_m">
-                                        SÓLO FALTAN
-                                    </div>
-                                    <div class="texto_fecha_m">
-                                        <span id="spnDiasFaltantes">12</span>
-                                    </div>
-                                    <div class="texto_dias_m">
-                                        DÍAS
+                            <div class="fondo_white" style="height:80px;">
+                                <div class=" row_contador">
+                                    <div style="text-align: center;">
+                                        @*<a href="#" class="imagen_mobile_hoy"><img src="@Url.Content("~/Content/Images/mobile/img-showroom/set_hoy.png")" alt="-" /></a>
+                                <a href="#" class="set_mobile_hoy"> SETS DESDE <br /><span>$ 5,990</span></a>*@
+                                        <a id="lnkConoceMasShowRoomBannerLateralImagenHoy">
+                                            <img id="imgVentaSetPopupBannerHoy" alt="imgVentaSetPopupBannerHoy" />
+                                        </a>
                                     </div>
                                 </div>
-                                <div style="float: left; margin-top: 12px; margin-left: 22px; width: 135px;">
-                                    <div style="height: 20px; width: 135px;">
-                                        <div class="text_hora_m">hrs</div>
-                                        <div class="text_hora_m">min</div>
-                                        <div class="text_hora_m no_margin_right">sec</div>
-                                    </div>
-                                    <div class="fondo_contador">
-                                        <div class="text_numero"><span id="spnHorasFaltantes">18</span></div>
-                                        <div class="text_bolita">•</div>
-                                        <div class="text_numero"><span id="spnMinutosFaltantes">25</span></div>
-                                        <div class="text_bolita">•</div>
-                                        <div class="text_numero"><span id="spnSegundosFaltantes">02</span></div>
-                                    </div>
-                                    <div style="margin-top: 6px;">
-                                        <a href="javascript:;" class="boton_showroom" id="lnkConoceMasShowRoomBannerLateral" target="_blank">CONOCE MÁS AQUÍ</a>
-                                    </div>
-                                </div>
-
                             </div>
-                        </div>
+                            <div class="contenedor_encuentralos">
+                                <div class="row_contador">
+                                    <a href="javascript:;" class="btn_encuentralos" id="lnkConoceMasShowRoomBannerLateralHoy">ENCUENTRALOS AQUI</a>
+                                </div>
+                            </div>
+                            @*<div class="indicador_red">
 
-                    </div>
-                </li>
-            </ul>
+                    </div>*@
+                        </div>
+                    </li>
+                    <li>
+                        <div id="BloqueMobileOfertaDia" class="BloqueOfertaDia" style="display: none;">
+                        </div>
+                    </li>
+                    <li>
+                        <div id="divShowRoom" class="ocultarPopup divShowRoom" style="display: none;">
+                            <input type="hidden" id="hdEventoIDShowRoom" />
+                            <input type="hidden" id="hdNombreEventoShowRoom" />
+                            <div class="imagen_preventa">
+                                <div class="etiqueta_2">
+                                    <img src="@Url.Content("~/Content/Images/mobile/img-showroom/etiqueta_2.png")" alt="-" />
+                                </div>
+                                <div class="titulo_contador_m">
+                                    @*PRE · VENTA DIGITAL*@
+                                    <span id="spnPreventaDigital"></span>
+                                </div>
+                            </div>
+                            <div class="fondo_m">
+                                <div class="row_contador">
+                                    <div style="float: left; margin-top: 12px; margin-left: 20px; width: 110px;">
+                                        <div class="texto_dias_m">
+                                            SÓLO FALTAN
+                                        </div>
+                                        <div class="texto_fecha_m">
+                                            <span id="spnDiasFaltantes">12</span>
+                                        </div>
+                                        <div class="texto_dias_m">
+                                            DÍAS
+                                        </div>
+                                    </div>
+                                    <div style="float: left; margin-top: 12px; margin-left: 22px; width: 135px;">
+                                        <div style="height: 20px; width: 135px;">
+                                            <div class="text_hora_m">hrs</div>
+                                            <div class="text_hora_m">min</div>
+                                            <div class="text_hora_m no_margin_right">sec</div>
+                                        </div>
+                                        <div class="fondo_contador">
+                                            <div class="text_numero"><span id="spnHorasFaltantes">18</span></div>
+                                            <div class="text_bolita">•</div>
+                                            <div class="text_numero"><span id="spnMinutosFaltantes">25</span></div>
+                                            <div class="text_bolita">•</div>
+                                            <div class="text_numero"><span id="spnSegundosFaltantes">02</span></div>
+                                        </div>
+                                        <div style="margin-top: 6px;">
+                                            <a href="javascript:;" class="boton_showroom" id="lnkConoceMasShowRoomBannerLateral" target="_blank">CONOCE MÁS AQUÍ</a>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        </div>
+                    </li>
+                </ul>
+            </div>
         </div>
-    </div>
-    
+    }
+
     @*<div id="pop_oferta_mobile" class="content_pop_oferta_mobile">
         <div class="header_pop_oferta">
             <div class="content_320" style="padding:0;">
@@ -538,12 +543,19 @@
 
         var sesionEsShowRoom = '@Session["EsShowRoom"]';
         var urlShowRoomIndex = '@Url.Action("Index", "ShowRoom", new {area = "Mobile"})';
+        var MostrarBannerPL20 = '@ViewBag.MostrarBannerPL20';
+    </script>
 
-        var TieneOfertaDelDia = '@ViewBag.TieneOfertaDelDia'; //PL20-1226
-        var OfertaDelDiaResponse = JSON.parse('@Html.Raw(JsonConvert.SerializeObject(ViewBag.OfertaDelDiaResponse.Data))');
-        var MostrarShowRoomResponse = JSON.parse('@Html.Raw(JsonConvert.SerializeObject(ViewBag.MostrarShowRoomResponse.Data))');
+    @if (ViewBag.MostrarBannerPL20 == true)
+    {
+        <script type="text/javascript">
+            var TieneOfertaDelDia = '@ViewBag.TieneOfertaDelDia'; //PL20-1226
+            var OfertaDelDiaResponse = JSON.parse('@Html.Raw(JsonConvert.SerializeObject(ViewBag.OfertaDelDiaResponse))');
+            var MostrarShowRoomResponse = JSON.parse('@Html.Raw(JsonConvert.SerializeObject(ViewBag.MostrarShowRoomResponse.Data))');
+        </script>
+    }
 
-
+    <script type="text/javascript">
         $(function () {
             SetFormatDecimalPais(formatDecimalPaisMain);
             MensajeEstadoPedido();
@@ -672,7 +684,7 @@
 
             //});
 
-            loadBannerLP20();
+            if(MostrarBannerPL20) loadBannerLP20();
         });
 
         function loadBannerLP20() {
@@ -740,21 +752,18 @@
         };
 
         function closeBannerPL20() {
-            $('#content_slider_banner').hide();
-            $('#content').css('margin-top','');
-
-            //$.ajax({
-            //    type: 'GET',
-            //    url: urlCloseBannerPL20,
-            //    cache: false,
-            //    success: function (response) {
-            //        if (response.success) {
-            //            $('#content_slider_banner').hide();
-            //            $('#content').css('margin-top', '60px');
-            //        }
-            //    },
-            //    error: function (err) { console.log(err); }
-            //});
+            $.ajax({
+                type: 'GET',
+                url: urlCloseBannerPL20,
+                cache: false,
+                success: function (response) {
+                    if (response.success) {
+                        $('#content_slider_banner').hide();
+                        $('#content').css('margin-top', '');
+                    }
+                },
+                error: function (err) { console.log(err); }
+            });
         };
 
         function addOfertaDelDiaPedido(){
@@ -1696,7 +1705,6 @@
             </div>
         </div>
         <div class="set_oferta_content">
-
             <div class="producto_img_mobile">
                 <img src="@Url.Content("~/Content/Images/PL20/set_hoy.png")" alt="Solo Hoy" id="img-display-odd" />
             </div>
@@ -1728,7 +1736,6 @@
                     </div>
                 </div>
             </div>
-
         </div>
     </script>
     <!--PL20-1233-->

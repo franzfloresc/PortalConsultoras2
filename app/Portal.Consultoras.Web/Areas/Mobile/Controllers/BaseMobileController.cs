@@ -27,26 +27,41 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             try
             {
                 BuildMenuMobile(userData);
-
                 CargarValoresGenerales(userData);
 
-                /*PL20-1226*/
-                ViewBag.TieneOfertaDelDia = userData.TieneOfertaDelDia;
-                if (ViewBag.TieneOfertaDelDia)
+                /*INICIO: PL20-1289*/
+                bool mostrarBanner, permitirCerrarBanner = false;
+                if (SiempreMostrarBannerPL20()) mostrarBanner = true;
+                else if (NuncaMostrarBannerPL20()) mostrarBanner = false;
+                else
                 {
-                    // validar si se cerro el banner
-                    if (userData.CloseOfertaDelDia)
-                        ViewBag.TieneOfertaDelDia = false;
+                    mostrarBanner = true;
+                    permitirCerrarBanner = true;
 
-                    // validar si tiene pedido reservado
-                    string msg = string.Empty;
-                    if (ValidarPedidoReservado(out msg))
-                        ViewBag.TieneOfertaDelDia = false;
+                    if (userData.CloseBannerPL20) mostrarBanner = false;
+                    else
+                    {
+                        string message = string.Empty;
+                        if (ValidarPedidoReservado(out message)) mostrarBanner = false;
+                    }
                 }
 
-                ViewBag.OfertaDelDiaResponse = GetOfertaDelDia();
-                ViewBag.MostrarShowRoomResponse = MostrarShowRoomBannerLateral();
-                /*PL20-1226*/
+                if (mostrarBanner)
+                {
+                    ViewBag.PermitirCerrarBannerPL20 = permitirCerrarBanner;
+                    ViewBag.TieneOfertaDelDia = userData.TieneOfertaDelDia;
+                    //ViewBag.OfertaDelDiaResponse = GetOfertaDelDia();
+                    var oddModel = new OfertaDelDiaModel();
+                    if (userData.OfertaDelDia != null)
+                    {
+                        oddModel = userData.OfertaDelDia;
+                        oddModel.TeQuedan = CountdownODD(userData);
+                    }
+                    ViewBag.OfertaDelDiaResponse = oddModel;
+                    ViewBag.MostrarShowRoomResponse = MostrarShowRoomBannerLateral();
+                }
+                ViewBag.MostrarBannerPL20 = mostrarBanner;
+                /*FIN: PL20-1289*/
             }
             catch (Exception ex)
             {
@@ -323,6 +338,24 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 ViewBag.AnalyticsSegmentoConstancia = string.IsNullOrEmpty(userData.SegmentoConstancia) ? "(not available)" : userData.SegmentoConstancia.Trim();
                 ViewBag.AnalyticsSociaNivel = string.IsNullOrEmpty(userData.DescripcionNivel) ? "(not available)" : userData.DescripcionNivel;
             }
+        }
+
+        private bool SiempreMostrarBannerPL20()
+        {
+            string controllerName = this.ControllerContext.RouteData.Values["controller"].ToString();
+            string actionName = this.ControllerContext.RouteData.Values["action"].ToString();
+
+            if (controllerName == "Bienvenida" && actionName == "Index") return true;
+            return false;
+        }
+        private bool NuncaMostrarBannerPL20()
+        {
+            string controllerName = this.ControllerContext.RouteData.Values["controller"].ToString();
+            string actionName = this.ControllerContext.RouteData.Values["action"].ToString();
+
+            if (controllerName == "ShowRoom" && actionName == "ListadoProductoShowRoom") return true;
+            if (controllerName == "Pedido") return true;
+            return false;
         }
     }
 }
