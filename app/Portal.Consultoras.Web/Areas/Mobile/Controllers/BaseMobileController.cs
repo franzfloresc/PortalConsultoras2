@@ -10,6 +10,7 @@ using Portal.Consultoras.Web.Areas.Mobile.Models;
 using System.Configuration;
 
 using Portal.Consultoras.Web.ServiceUsuario;
+using Portal.Consultoras.Web.ServicePedido;
 
 namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 {
@@ -31,7 +32,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
                 /*PL20-1226*/
                 ViewBag.TieneOfertaDelDia = userData.TieneOfertaDelDia;
-
                 if (ViewBag.TieneOfertaDelDia)
                 {
                     // validar si se cerro el banner
@@ -43,11 +43,134 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     if (ValidarPedidoReservado(out msg))
                         ViewBag.TieneOfertaDelDia = false;
                 }
+
+                ViewBag.OfertaDelDiaResponse = GetOfertaDelDia();
+                ViewBag.MostrarShowRoomResponse = MostrarShowRoomBannerLateral();
                 /*PL20-1226*/
             }
             catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+            }
+        }
+
+        public JsonResult GetOfertaDelDia()
+        {
+            try
+            {
+                var f = false;
+                var oddModel = new OfertaDelDiaModel();
+
+                if (userData.OfertaDelDia != null)
+                {
+                    oddModel = userData.OfertaDelDia;
+                    oddModel.TeQuedan = CountdownODD(userData);
+                    f = true;
+                }
+
+                return Json(new
+                {
+                    success = f,
+                    data = oddModel
+                }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return Json(new
+                {
+                    success = false,
+                    message = "No se pudo procesar la solicitud"
+                }, JsonRequestBehavior.AllowGet);
+            }
+        }
+        
+        [HttpPost]
+        public JsonResult MostrarShowRoomBannerLateral()
+        {
+            try
+            {
+                var paisesShowRoom = ConfigurationManager.AppSettings["PaisesShowRoom"];
+                if (paisesShowRoom.Contains(userData.CodigoISO))
+                {
+                    if (!userData.CargoEntidadesShowRoom) throw new Exception("Ocurrió un error al intentar traer la información de los evento y consultora de ShowRoom.");
+                    var beShowRoomConsultora = userData.BeShowRoomConsultora;
+                    var beShowRoom = userData.BeShowRoom;
+
+                    if (beShowRoom == null)
+                    {
+                        beShowRoom = new BEShowRoomEvento();
+                        beShowRoomConsultora = new BEShowRoomEventoConsultora();
+                    }
+                    else
+                    {
+                        if (beShowRoomConsultora == null)
+                        {
+                            beShowRoomConsultora = new BEShowRoomEventoConsultora();
+                        }
+                    }
+
+                    if (beShowRoom.Estado == 1)
+                    {
+                        var rutaShowRoomBannerLateral = beShowRoom.RutaShowRoomBannerLateral;
+                        bool mostrarShowRoomProductos = false;
+                        var fechaHoy = DateTime.Now.AddHours(userData.ZonaHoraria).Date;
+                        bool estaActivoLateral = true;
+
+                        int diasAntes = beShowRoom.DiasAntes;
+                        int diasDespues = beShowRoom.DiasDespues;
+
+                        if (fechaHoy >= userData.FechaInicioCampania.AddDays(-diasAntes).Date && fechaHoy <= userData.FechaInicioCampania.AddDays(diasDespues).Date)
+                        {
+                            mostrarShowRoomProductos = true;
+                            rutaShowRoomBannerLateral = Url.Action("Index", "ShowRoom");
+                        }
+                        if (fechaHoy > userData.FechaInicioCampania.AddDays(diasDespues).Date)
+                            estaActivoLateral = false;
+
+                        return Json(new
+                        {
+                            success = true,
+                            data = beShowRoomConsultora,
+                            message = "ShowRoomConsultora encontrada",
+                            diasFaltantes = userData.FechaInicioCampania.Day - diasAntes,
+                            mesFaltante = userData.FechaInicioCampania.Month,
+                            anioFaltante = userData.FechaInicioCampania.Year,
+                            evento = beShowRoom,
+                            mostrarShowRoomProductos,
+                            rutaShowRoomBannerLateral,
+                            estaActivoLateral
+                        });
+                    }
+                    else
+                    {
+                        return Json(new
+                        {
+                            success = false,
+                            data = "",
+                            message = "ShowRoomEvento no encontrado"
+                        });
+                    }
+                }
+                else
+                {
+                    return Json(new
+                    {
+                        success = false,
+                        data = "",
+                        message = "ShowRoomConsultora no encontrada"
+                    });
+                }
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return Json(new
+                {
+                    success = false,
+                    message = "Hubo un problema con el servicio, intente nuevamente",
+                    extra = ""
+                }, JsonRequestBehavior.AllowGet);
             }
         }
 
