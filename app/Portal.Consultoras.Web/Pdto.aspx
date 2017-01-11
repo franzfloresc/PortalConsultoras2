@@ -26,17 +26,12 @@
     </style>
 </head>
 <body>
-    <%--<form id="form1" runat="server">
-    <div>
-    
-    </div>
-    </form>--%>
+    <br />
+    <br />
     <img src="" id="imgCuvProducto" alt="imagen" runat="server"/>
-    <p id="pMarcaProducto" runat="server"></p>
-    <p id="pNombreProducto" runat="server" style="font-weight: bold;"></p>    
-    <p id="pVolumenProducto" runat="server" style="font-weight: bold;"></p>  
-    <p id="pDescripcionProducto" runat="server" style="font-weight: bold;"></p>  
-    <%--<p id="pSubtituloProducto" runat="server"></p>--%>
-    
+    <p id="pMarcaProducto" runat="server" style="margin-bottom: 5px;"></p>
+    <p id="pNombreProducto" runat="server" style="font-weight:bold;font-size:20px;margin-bottom: 0px;margin-top: 0px;"></p>    
+    <p id="pVolumenProducto" runat="server" style="color:#6a6a6a;font-size:12px; margin-top: 5px;"></p>  
+    <p id="pDescripcionProducto" runat="server" style="font-size:11px;"></p>  
 </body>
 </html>
