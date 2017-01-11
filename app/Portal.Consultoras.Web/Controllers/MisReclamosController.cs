@@ -964,7 +964,7 @@ namespace Portal.Consultoras.Web.Controllers
                     {
                         Cantidad = SiNoEmail,
                         success = true,
-                        message = "- Sus datos se actualizaron correctamente.\n - Se ha enviado un correo electrónico de verificación a la dirección ingresada.",
+                        message = "Sus datos se actualizaron correctamente.\n - Se ha enviado un correo electrónico de verificación a la dirección ingresada.",
                         extra = "",
                         cdrWeb = listaCdrWeb.FirstOrDefault() ?? new BECDRWeb()
                     }, JsonRequestBehavior.AllowGet);
