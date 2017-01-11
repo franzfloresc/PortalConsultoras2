@@ -16,7 +16,7 @@ namespace Portal.Consultoras.Service
             #region Validacion de parámetros
 
             if (string.IsNullOrEmpty(paisISO)) throw new Exception("El parámetro PaisISO no puede ser vacio.");
-            if (string.IsNullOrEmpty(codigoConsultora)) throw new Exception("El parámetro CodigoConsultora no puede ser vacio.");            
+            if (string.IsNullOrEmpty(codigoConsultora)) throw new Exception("El parámetro CodigoConsultora no puede ser vacio.");
             int paisID = GetPaisID(paisISO);
             if (paisID == 0) throw new Exception("El parámetro PaisISO no es válido");
 
@@ -53,7 +53,7 @@ namespace Portal.Consultoras.Service
             if (string.IsNullOrEmpty(codigoPais)) throw new Exception("El Servicio no recibió el parámetro codigoPais correcto");
             if (string.IsNullOrEmpty(codigoUbigeo)) throw new Exception("El Servicio no recibió el parámetro CodigoUbigeo correcto");
             if (marcaId == 0) throw new Exception("El Servicio no recibió el parámetro marcaID correcto");
-            
+
             int idPais = GetPaisID(codigoPais);
             List<BETablaLogicaDatos> vListaTablaLogicaDatos = new BLTablaLogicaDatos().GetTablaLogicaDatos(idPais, 58);
             BETablaLogicaDatos longitudUbigeo = vListaTablaLogicaDatos.Find(x => x.TablaLogicaDatosID == 5801);
@@ -80,7 +80,7 @@ namespace Portal.Consultoras.Service
             bEListaConsultoraCatalogo.ConsultorasCatalogos.Update(x => x.Pais = codigoPais);
             return bEListaConsultoraCatalogo;
         }
-	       
+
         public BEListaConsultoraCatalogo GetConsultorasCatalogosPorUbigeoAndNombresAndApellidos(string codigoPais, string codigoUbigeo, int marcaId, string nombres, string apellidos)
         {
             if (codigoPais.Length > 2) throw new Exception("El campo Pais recibido tiene más de 2 caracteres");
@@ -96,7 +96,7 @@ namespace Portal.Consultoras.Service
             BETablaLogicaDatos filtroUbigeo = vListaTablaLogicaDatos.Find(x => x.TablaLogicaDatosID == 6601);
             int.TryParse(filtroUbigeo.Codigo, out tipoFiltroUbigeo);
 
-            if (codigoPais == "PE" || codigoPais == "EC")
+            if (codigoPais == Constantes.CodigosISOPais.Peru || codigoPais == Constantes.CodigosISOPais.Ecuador || codigoPais == Constantes.CodigosISOPais.Bolivia) // "PE" || codigoPais == "EC")
             {
                 if (codigoUbigeo.Length == 18) bEListaConsultoraCatalogo.ConsultorasCatalogos = new BLConsultoraCatalogo().GetConsultorasCatalogosPorUbigeoAndNombresAndApellidos(idPais, codigoUbigeo, nombres, apellidos, marcaId, tipoFiltroUbigeo);
                 else if (codigoUbigeo.Length == 12) bEListaConsultoraCatalogo.ConsultorasCatalogos = new BLConsultoraCatalogo().GetConsultorasCatalogosPorUbigeo12AndNombresAndApellidos(idPais, codigoUbigeo, nombres, apellidos, marcaId, tipoFiltroUbigeo);
@@ -121,7 +121,7 @@ namespace Portal.Consultoras.Service
 
                 bEListaConsultoraCatalogo.ConsultorasCatalogos = new BLConsultoraCatalogo().GetConsultorasCatalogosPorUbigeoAndNombresAndApellidos(idPais, codigoUbigeo, nombres, apellidos, marcaId, tipoFiltroUbigeo);
             }
-            
+
             bEListaConsultoraCatalogo.NumeroRegistros = bEListaConsultoraCatalogo.ConsultorasCatalogos.Count();
             if (bEListaConsultoraCatalogo.NumeroRegistros > 10) bEListaConsultoraCatalogo.ConsultorasCatalogos = null;
             else bEListaConsultoraCatalogo.ConsultorasCatalogos.Update(x => x.Pais = codigoPais);
@@ -137,7 +137,7 @@ namespace Portal.Consultoras.Service
             string codigoRegion = codigoTerritorioGeo.Substring(0, 2);
             string codigoZona = codigoTerritorioGeo.Substring(2, 4);
             string codigoSeccion = codigoTerritorioGeo.Substring(6, 1);
-            string codigoTerritorio = codigoTerritorioGeo.Substring(7, 6).TrimStart(new char[] {'0'});
+            string codigoTerritorio = codigoTerritorioGeo.Substring(7, 6).TrimStart(new char[] { '0' });
 
             try
             {
@@ -149,7 +149,7 @@ namespace Portal.Consultoras.Service
                 throw new Exception("Ocurrió un error al intentar obtener las consultoras.");
             }
         }
-        
+
         public int GetPaisID(string ISO)
         {
             List<KeyValuePair<string, string>> listaPaises = new List<KeyValuePair<string, string>>()
