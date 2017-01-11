@@ -44,11 +44,11 @@ namespace Portal.Consultoras.Entities
         public BEProductoCompartido(IDataRecord row)
         {
             this.PcID = Convert.ToInt32(row["ProductoCompID"]);
-            this.PcCampaniaID = Convert.ToInt32(row["ProductoCompCampaniaID"]);
-            this.PcCuv = Convert.ToString(row["ProductoCompCUV"]);
-            this.PcPalanca = Convert.ToString(row["ProductoCompPalanca"]);
-            this.PcDetalle = Convert.ToString(row["ProductoCompDetalle"]);
-            this.PcApp = Convert.ToString(row["ProductoCompApp"]);
+            this.PcCampaniaID = Convert.ToInt32(row["CampaniaID"]);
+            this.PcCuv = Convert.ToString(row["CUV"]);
+            this.PcPalanca = Convert.ToString(row["Palanca"]);
+            this.PcDetalle = Convert.ToString(row["Detalle"]);
+            this.PcApp = Convert.ToString(row["Applicacion"]);
         }
     }
 }
