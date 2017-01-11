@@ -119,7 +119,7 @@ function processFilterCatalogoPersonalizado(type)
         filters.push(f);
     }
 
-    $('#custom-filters').hide();
+    $('#custom-filters').hide();  
     $('#orderby-filter').show();
     $('#divCatalogoPersonalizado').show();
    
@@ -149,22 +149,36 @@ function processFilterCatalogoPersonalizado(type)
     if (filters.length > 0) {
         LinkCargarCatalogoToScroll();
         CargarCatalogoPersonalizado();
+        $('body').css({ 'overflow-y': 'scroll' });
     }
 }
 
 function showCustomFilters() {
+    $('body').css({ 'overflow-x': 'hidden' });
+    $('body').css({ 'overflow-y': 'hidden' });
     $('#orderby-filter').hide();
     $('#divCatalogoPersonalizado').hide();
     $('#custom-filters').show();
+
     UnlinkCargarCatalogoToScroll();
 }
 
 function showOrderbyFilter() {
+    $('body').css({ 'overflow-y': 'scroll' });
     $('#custom-filters').hide();
     $('#orderby-filter').show();
     $('#divCatalogoPersonalizado').show();
     LinkCargarCatalogoToScroll();
 }
+$(".title-accordion").on("click", function () {
+    //if ($(this).hasClass("flecha_arriba")) {
+    //    $(this).removeClass("flecha_arriba");            
+    //}
+    //else  {
+    //    $(this).addClass("flecha_arriba");
+    //} 
+    $(this).toggleClass("flecha_arriba")
+});
 
 //function deleteFilters() {
 //    $('#custom-filters').hide();
@@ -189,6 +203,7 @@ function deleteFilters() {
     $('#orderby-price').val('-1');
     //$('input[name="category"]:checkbox').attr('checked', false);
     $('input[name="brand"]:checkbox').attr('checked', false);
+    $('input[name="categoria"]:checkbox').attr('checked', false);
 
     jQuery.ajax({
         type: 'POST',
@@ -200,6 +215,7 @@ function deleteFilters() {
             if (response.success) {
                 clearFilters = true;
                 CargarCatalogoPersonalizado();
+                $('body').css({ 'overflow-y': 'scroll' });
             }
             else {
                 alert(response.message);

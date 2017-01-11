@@ -52,97 +52,128 @@
             <br /><br />
         </div>
     </div>
-
-    <div id="custom-filters" style="display: none;">
-
-        <div id="header-custom-filters">
-
-            <div id="title-custom-filters">
-                <span style="font-size: 18px;">FILTROS</span>
+    <div class="row">
+        <div id="custom-filters" style="display: none;" class="filtros_new">
+            <div class="titulo_mobile" style="color:black; background:white">
+                <a onclick="showOrderbyFilter();" class="enlace_regresar catalogosP flecha_black" title="Regresar"></a>
+                &nbsp;&nbsp;&nbsp;&nbsp;SELECCIONA TUS FILTROS
             </div>
-            <div id="delete-custom-filters" style="">
-                <span style="text-align: right;" onclick="showOrderbyFilter();">
-                    <img src="~/Content/Images/mobile/icon-xclose.png" style="width: 20px; height: 20px; cursor: pointer;" />
-                </span>
-            </div>
-        </div>
-        <br />
+            <div class="texto_filtros" style="text-align:center;"><b>2</b> productos encontrados</div>
+            <div class="texto_filtros">Encuentra de manera rápida los mejores productos especialmente escogidos para tus clientes</div>
+            @*<div id="header-custom-filters">
 
-        <div class="right" style="">
-            <a href="#" class="link-ffc" onclick="deleteFilters();">BORRAR FILTROS</a>
-        </div>
-        <br />
-
-        <div id="content-filters" style="">
-            <div class="panel-group" id="accordion">
-                
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h4 class="panel-title">
-                            <a class="accordion-toggle" data-toggle="collapse" href="#collapseTwo" style="text-decoration: none;">
-                                <span class="title-accordion">MARCAS</span>
-                            </a>
-                        </h4>
+                <div id="title-custom-filters">
+                    <span style="font-size: 18px;">FILTROS</span>
+                </div>
+                <div id="delete-custom-filters" style="">
+                    <span style="text-align: right;" onclick="showOrderbyFilter();">
+                        <img src="~/Content/Images/mobile/icon-xclose.png" style="width: 20px; height: 20px; cursor: pointer;" />
+                    </span>
+                </div>
+            </div>*@
+            <br />
+            <div id="content-filters" style="">
+                <div class="panel-group" id="accordion">
+                    <div class="content_panel">
+                        <div class="titulo_filtro">                            
+                                <a class="accordion-toggle" data-toggle="collapse" href="#CategoriaCollpase" style="text-decoration: none;">
+                                    <span class="title-accordion">CATEGORÍAS</span>
+                                </a>                            
+                        </div>
+                        <div id="CategoriaCollpase" class="panel-collapse collapse">
+                            <div class="panel-body panel_filtro">
+                                <div class="content-category">
+                                    <div class="block-checkbox">
+                                        <input type="checkbox" id="c1" name="categoria" value="2">
+                                        <label for="c1" class="label-checkbox">Maquillajes</label>
+                                    </div>
+                                    <div class="block-checkbox">
+                                        <input type="checkbox" id="c2" name="categoria" value="1">
+                                        <label for="c2" class="label-checkbox">Perfumes</label>
+                                    </div>
+                                    <div class="block-checkbox">
+                                        <input type="checkbox" id="c3" name="categoria" value="3">
+                                        <label for="c3" class="label-checkbox">Tratamiento Facial</label>
+                                    </div>
+                                    <div class="block-checkbox">
+                                        <input type="checkbox" id="c4" name="categoria" value="3">
+                                        <label for="c4" class="label-checkbox">CUIDADO PERSONAL</label>
+                                    </div>
+                                    <div class="block-checkbox">
+                                        <input type="checkbox" id="c5" name="categoria" value="3">
+                                        <label for="c5" class="label-checkbox">ACCESORIOS</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div id="collapseTwo" class="panel-collapse collapse">
-                        <div class="panel-body">
-                            <div class="content-category">
-                                <div class="center-checkbox">
-                                    <input type="checkbox" id="b1" name="brand" value="2">
-                                    <label for="b1" class="label-checkbox">Esika</label>
+
+                    <div class="content_panel">
+                        <div class="titulo_filtro">                            
+                                <a class="accordion-toggle" data-toggle="collapse" href="#collapseTwo" style="text-decoration: none;">
+                                    <span class="title-accordion">MARCAS</span>
+                                </a>                            
+                        </div>
+                        <div id="collapseTwo" class="panel-collapse collapse">
+                            <div class="panel-body panel_filtro">
+                                <div class="content-category">
+                                    <div class="center-checkbox">
+                                        <input type="checkbox" id="b1" name="brand" value="2">
+                                        <label for="b1" class="label-checkbox">Esika</label>
+                                    </div>
+                                    <div class="center-checkbox">
+                                        <input type="checkbox" id="b2" name="brand" value="1">
+                                        <label for="b2" class="label-checkbox">Lbel</label>
+                                    </div>
+                                    <div class="center-checkbox">
+                                        <input type="checkbox" id="b3" name="brand" value="3">
+                                        <label for="b3" class="label-checkbox">Cyzone</label>
+                                    </div>
                                 </div>
-                                <div class="center-checkbox">
-                                    <input type="checkbox" id="b2" name="brand" value="1">
-                                    <label for="b2" class="label-checkbox">Lbel</label>
-                                </div>
-                                <div class="center-checkbox">
-                                    <input type="checkbox" id="b3" name="brand" value="3">
-                                    <label for="b3" class="label-checkbox">Cyzone</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="content_panel">
+                        <div class="titulo_filtro">                           
+                                <a class="accordion-toggle" data-toggle="collapse" href="#collapseThree" style="text-decoration: none;">
+                                    <span class="title-accordion">FILTRAR PRECIO</span>
+                                </a>                            
+                        </div>
+                        <div id="collapseThree" class="panel-collapse collapse">
+                            <div class="panel-body panel_filtro">
+                                <div style="font-size: 12px; width: 100%;">                                   
+
+                                    <div style="width: 100%; color: #e81c36; text-align: center;">
+                                        <input id="txt-range-price" type="text" class="span2" value="" style="width: 98%;"
+                                               data-slider-id="slider-price"
+                                               data-slider-min="0"
+                                               data-slider-max="0"
+                                               data-slider-step="1"
+                                               data-slider-value="[0,0]" />
+                                    </div>
+                                    <div style="text-align: left; width: 50%; float: left; color:#4a4a4a">
+                                        <b>@ViewBag.Simbolo <span id="min-range-price">10</span></b>
+                                    </div>
+                                    <div style="text-align: right; width: 50%; float: left; color:#4a4a4a">
+                                        <b>@ViewBag.Simbolo <span id="max-range-price">1000</span></b>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h4 class="panel-title">
-                            <a class="accordion-toggle" data-toggle="collapse" href="#collapseThree" style="text-decoration: none;">
-                                <span class="title-accordion">FILTRAR PRECIO</span>
-                            </a>
-                        </h4>
-                    </div>
-                    <div id="collapseThree" class="panel-collapse collapse">
-                        <div class="panel-body">
-                            <div style="font-size: 12px; width: 100%;">
+            </div>
+            
+            <div class="content_btn_filtros">
+                <a href="#" class="link-ffc" onclick="deleteFilters();">BORRAR FILTROS</a>
 
-                                <div style="text-align: left; width: 50%; float: left;">
-                                    <b>@ViewBag.Simbolo <span id="min-range-price">10</span></b>
-                                </div>
-                                <div style="text-align: right; width: 50%; float: left;">
-                                    <b>@ViewBag.Simbolo <span id="max-range-price">1000</span></b>
-                                </div>
-
-                                <div style="width: 100%; color: #e81c36; text-align: center;">
-                                    <input id="txt-range-price" type="text" class="span2" value="" style="width: 90%;"
-                                           data-slider-id="slider-price"
-                                           data-slider-min="0"
-                                           data-slider-max="0"
-                                           data-slider-step="1"
-                                           data-slider-value="[0,0]" />
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                <div id="save-filters" class="save-filters">
+                    <input type="button" class="btn-ffc" value="APLICAR" onclick="processFilterCatalogoPersonalizado(2);" />
                 </div>
             </div>
         </div>
-
-        <div id="save-filters">
-            <input type="button" class="btn-ffc" value="GUARDAR" onclick="processFilterCatalogoPersonalizado(2);" />
-        </div>
-
-        <br />
     </div>
+    
 
     <!--SB20-1197 - FIN -->
 
