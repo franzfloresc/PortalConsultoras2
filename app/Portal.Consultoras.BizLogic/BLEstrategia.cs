@@ -292,5 +292,25 @@ namespace Portal.Consultoras.BizLogic
             return DAEstrategia.InsertEstrategiaOfertaParaTi(lista, campaniaId, codigoUsuario);
         }
         
+        /*PL20-1226*/
+        public List<BEEstrategia> GetEstrategiaODD(int paisID, int codCampania, string codConsultora, DateTime fechaInicioFact)
+        {
+            try
+            {
+                List<BEEstrategia> listaEstrategias = new List<BEEstrategia>();
+                var DAEstrategia = new DAEstrategia(paisID);
+
+                using (IDataReader reader = DAEstrategia.GetEstrategiaODD(codCampania, codConsultora, fechaInicioFact))
+                {
+                    while (reader.Read())
+                    {
+                        listaEstrategias.Add(new BEEstrategia(reader));
+                    }
+                }
+                return listaEstrategias;
+            }
+            catch (Exception) { throw; }
+        }
+        
     }
 }

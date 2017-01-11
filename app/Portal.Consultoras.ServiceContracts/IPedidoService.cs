@@ -933,5 +933,8 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         int InsertEstrategiaOfertaParaTi(int paisId, List<BEEstrategia> lista, int campaniaId, string codigoUsuario);
+        
+        [OperationContract]
+        List<BEEstrategia> GetEstrategiaODD(int paisID, int codCampania, string codConsultora, DateTime fechaInicioFact);
     }
 }

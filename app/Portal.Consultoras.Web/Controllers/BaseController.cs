@@ -63,6 +63,22 @@ namespace Portal.Consultoras.Web.Controllers
                     //MenuBelcorpResponde();
                     ObtenerPedidoWeb();
                     ObtenerPedidoWebDetalle();
+
+                    /*PL20-1226*/
+                    ViewBag.TieneOfertaDelDia = userData.TieneOfertaDelDia;
+
+                    if (ViewBag.TieneOfertaDelDia)
+                    {
+                        // validar si se cerro el banner
+                        if (userData.CloseOfertaDelDia)
+                            ViewBag.TieneOfertaDelDia = false;
+
+                        // validar si tiene pedido reservado
+                        string msg = string.Empty;
+                        if (ValidarPedidoReservado(out msg))
+                            ViewBag.TieneOfertaDelDia = false;
+                    }
+                    /*PL20-1226*/
                 }
 
                 base.OnActionExecuting(filterContext);
@@ -743,6 +759,7 @@ namespace Portal.Consultoras.Web.Controllers
             if (!isNull)
             {
                 ViewBag.PeriodoAnalytics = fechaHoy >= model.FechaInicioCampania.Date && fechaHoy <= model.FechaFinCampania.Date ? "Facturacion" : "Venta";
+                model.EsDiasFacturacion = fechaHoy >= model.FechaInicioCampania.Date && fechaHoy <= model.FechaFinCampania.Date ? true : false;
                 ViewBag.SemanaAnalytics = ObtenerSemanaAnalytics();
             }
 
@@ -1874,5 +1891,35 @@ namespace Portal.Consultoras.Web.Controllers
             }
             return sFecha;
         }
+
+        /*PL20-1226*/
+        public TimeSpan CountdownODD(UsuarioModel model)
+        {
+            //DateTime hoy = DateTime.Now;
+            //DateTime d1 = new DateTime(hoy.Year, hoy.Month, hoy.Day, 0, 0, 0);
+            DateTime hoy;
+
+            using (SACServiceClient svc = new SACServiceClient())
+            {
+                hoy = svc.GetFechaHoraPais(model.PaisID);
+            }
+
+            DateTime d1 = new DateTime(hoy.Year, hoy.Month, hoy.Day, 0, 0, 0);
+            DateTime d2;
+
+            if (model.EsDiasFacturacion)  // dias de facturacion
+            {
+                TimeSpan t1 = model.HoraCierreZonaNormal;
+                d2 = new DateTime(hoy.Year, hoy.Month, hoy.Day, t1.Hours, t1.Minutes, t1.Seconds);
+            }
+            else
+            {
+                d2 = d1.AddDays(1);
+            }
+
+            TimeSpan t2 = (d2 - hoy);
+            return t2;
+        }
+        /*PL20-1226*/
     }
 }

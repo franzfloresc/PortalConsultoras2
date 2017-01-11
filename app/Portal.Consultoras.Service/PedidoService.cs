@@ -1725,5 +1725,10 @@ namespace Portal.Consultoras.Service
             return new BLEstrategia().InsertEstrategiaOfertaParaTi(paisId, lista, campaniaId, codigoUsuario);
         }
         
+        /*PL20-1226*/
+        public List<BEEstrategia> GetEstrategiaODD(int paisID, int codCampania, string codConsultora, DateTime fechaInicioFact)
+        {
+            return new BLEstrategia().GetEstrategiaODD(paisID, codCampania, codConsultora, fechaInicioFact);
+        }
     }
 }
