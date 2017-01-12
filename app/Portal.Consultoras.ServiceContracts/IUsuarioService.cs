@@ -262,5 +262,12 @@ namespace Portal.Consultoras.ServiceContracts
         [OperationContract]
         BEValidaLoginSB2 GetValidarLoginSB2(int paisID, string codigoUsuario, string contrasenia);
         /*EPD-1012*/
+
+        [OperationContract]
+        bool CambiarClaveUsuario(int paisId, string paisIso, string codigoUsuario, string nuevacontrasena, string correo,
+            string codigoUsuarioAutenticado, EAplicacionOrigen origen);
+
+        [OperationContract]
+        int ExisteUsuario(int paisId, string codigoUsuario, string clave);
     }
 }

@@ -9,6 +9,8 @@ using System.Configuration;
 using Portal.Consultoras.Web.Models;
 using AutoMapper;
 using System.Data;
+using System.IO;
+using DocumentFormat.OpenXml.Wordprocessing;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.ServiceODS;
 using Portal.Consultoras.Web.ServiceProductoCatalogoPersonalizado;
@@ -18,6 +20,8 @@ using Portal.Consultoras.Web.ServiceContenido;
 using Portal.Consultoras.Web.ServiceSAC;
 using Portal.Consultoras.Web.ServiceLMS;
 using Portal.Consultoras.Web.ServicePedido;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -45,10 +49,12 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 IP = GetIPCliente();
 
-                using (ServiceUsuarioExt.UsuarioWebServiceClient UsuarioServ = new ServiceUsuarioExt.UsuarioWebServiceClient())
-                {
-                    ISO = UsuarioServ.GetISObyIPAddress(IP);
-                }
+                //using (ServiceUsuarioExt.UsuarioWebServiceClient UsuarioServ = new ServiceUsuarioExt.UsuarioWebServiceClient())
+                //{
+                //    ISO = UsuarioServ.GetISObyIPAddress(IP);
+                //}
+
+                ISO = Util.GetISObyIPAddress(IP);
             }
             else
             {
@@ -1078,5 +1084,282 @@ namespace Portal.Consultoras.Web.Controllers
             return View();
         }
         /* EPD-180 */
+
+        public ActionResult Admin()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult LoginAdmin()
+        {
+            return RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        public JsonResult RecuperarContrasenia(int paisId, string correo)
+        {
+            var respuesta = OlvideContrasena(paisId, correo);
+
+            respuesta = respuesta == null ? "" : respuesta.Trim();
+            if (respuesta == "")
+                return Json(new
+                {
+                    success = false,
+                    message = "Error en la respuesta del servicio de Recuperar Contraseña."
+                }, JsonRequestBehavior.AllowGet);
+
+            string[] obj = respuesta.Split('|');
+            string exito = obj.Length > 0 ? obj[0] : "";
+            string tipomsj = obj.Length > 1 ? obj[1] : "";
+            
+            exito = exito == null ? "" : exito.Trim();
+            tipomsj = tipomsj == null ? "" : tipomsj.Trim();
+
+            if (exito == "1")
+            {
+                //mostrar popup2
+                return Json(new
+                {
+                    success = true,
+                    message = exito,
+                    correo = correo
+                }, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                string msj = MensajesOlvideContrasena(tipomsj);
+                return Json(new
+                {
+                    success = false,
+                    message = msj
+                }, JsonRequestBehavior.AllowGet);
+            }            
+        }
+
+        private string OlvideContrasena(int paisId, string correo)
+        {
+            var resultado = "";
+            var paso = "1";
+            var esEsika = false;
+
+            try
+            {
+                var mailBody = "";
+                // Validamos si pertenece a Peru, Bolivia, Chile, Guatemala, El Salvador, Colombia (Paises ESIKA)
+                if (paisId == 11 || paisId == 2 || paisId == 3 || paisId == 8 || paisId == 7 || paisId == 4)
+                    esEsika = true;
+
+                using (ServiceUsuario.UsuarioServiceClient sv = new ServiceUsuario.UsuarioServiceClient())
+                {
+                    List<BEUsuarioCorreo> lst = sv.SelectByEmail(correo, paisId).ToList();
+                    paso = "2";
+
+                    if (paisId.ToString().Trim() == "4")
+                    {
+                        if (lst.Count == 0)
+                        {
+                            resultado = "0" + "|" + "1";
+                            return resultado;
+                        }
+                        else
+                        {
+                            correo = lst[0].Descripcion;// contiene el correo del destinatario
+                            if (correo.Trim() == "")
+                            {
+                                resultado = "0" + "|" + "2";
+                                return resultado;
+                            }
+                        }
+                    }
+
+                    if (lst[0].Cantidad == 0)
+                    {
+                        resultado = "0" + "|" + "3";
+                        return resultado;
+                    }
+                    else
+                    {
+                        string urlportal = ConfigurationManager.AppSettings["UrlSiteSE"];
+
+                        DateTime diasolicitud = DateTime.Now.AddHours(DateTime.Now.Hour + 24);
+
+                        string paisid = HttpUtility.UrlEncode(Encrypt(paisId.ToString().Trim()));
+                        string email_ = HttpUtility.UrlEncode(Encrypt(correo.Trim()));
+                        string paisiso = HttpUtility.UrlEncode(Encrypt(lst[0].CodigoISO.Trim()));
+                        string codigousuario = HttpUtility.UrlEncode(Encrypt(lst[0].CodigoUsuario.Trim()));
+                        string fechasolicitud = HttpUtility.UrlEncode(Encrypt(diasolicitud.ToString("d/M/yyyy HH:mm:ss").Trim()));
+                        string nombre = HttpUtility.UrlEncode(Encrypt(lst[0].Nombre.Trim().Split(' ').First()));
+
+                        var uri = new Uri(urlportal + "/WebPages/RestablecerContrasena.aspx?xyzab=param1&abxyz=param2&yzabx=param3&bxyza=param4&zabxy=param5");
+                        var qs = HttpUtility.ParseQueryString(uri.Query);
+                        qs.Set("xyzab", paisid);
+                        qs.Set("abxyz", email_);
+                        qs.Set("yzabx", paisiso);
+                        qs.Set("bxyza", codigousuario);
+                        qs.Set("zabxy", fechasolicitud);
+                        qs.Set("xbaby", nombre);
+
+                        var uriBuilder = new UriBuilder(uri)
+                        {
+                            Query = qs.ToString()
+                        };
+                        var newUri = uriBuilder.Uri;
+
+                        paso = "3";
+
+                        #region Mensaje
+                        mailBody += "<html>";
+                        mailBody += "<body style=\"margin:0px; padding:0px; background:#FFF;\">";
+                        mailBody += "<table width=\"100%\" cellspacing=\"0\" align=\"center\" style=\"background:#FFF;\">";
+                        mailBody += "<thead>";
+                        mailBody += "<tr>";
+                        mailBody += "<th style=\"width:28%; height:50px; border-bottom:1px solid #000;\"></th>";
+                        mailBody += "<th style=\"width:44%; height:50px; border-bottom:1px solid #000; padding:12px 0px; text-align:center;\"><img src=\"" + (esEsika ? "https://s3.amazonaws.com/consultorasQAS/SomosBelcorp/Correo/logo_esika.png" : "https://s3.amazonaws.com/consultorasQAS/SomosBelcorp/Correo/logo_lbel.png") + "\" alt=\"Logo Esika\" /></th>";
+                        mailBody += "<th style=\"width:28%; height:50px; border-bottom:1px solid #000;\"></th>";
+                        mailBody += "</tr>";
+                        mailBody += "</thead>";
+                        mailBody += "<tbody>";
+                        mailBody += "<tr>";
+                        mailBody += "<td colspan=\"3\" style=\"height:30px;\"></td>";
+                        mailBody += "</tr>";
+                        mailBody += "<tr>";
+                        mailBody += "<td colspan=\"3\">";
+                        mailBody += "<table align=\"center\" style=\"width:100%; text-align:center;\">";
+                        mailBody += "<tbody>";
+                        mailBody += "<tr>";
+                        mailBody += "<td style=\"font-family:'Calibri'; font-size:17px; text-align:center; font-weight:500; color:#000; padding:0 0 26px 0;\">Hola <span>" + lst[0].Nombre.Trim().Split(' ').First() + "</span></td>";
+                        mailBody += "</tr>";
+                        mailBody += "<tr>";
+                        mailBody += "<td style=\"text-align:center; font-family:'Calibri'; font-size:22px; font-weight:700; color:#000; padding-bottom:15px;\">¿OLVIDASTE TU CONTRASE&Ntilde;A?</td>";
+                        mailBody += "</tr>";
+                        mailBody += "<tr>";
+                        mailBody += "<td style=\"text-align:center; font-family:'Calibri'; color:#000; font-weight:500; font-size:14px; padding-bottom:30px;\">No te preocupes, ingresa aquí para recuperarla:</td>";
+                        mailBody += "</tr>";
+                        mailBody += "<tr>";
+                        mailBody += "<td style=\"text-align:center;\">";
+                        mailBody += "<a href=\"" + newUri + "\" title=\"Recuperar Contrase&ntilde;a\" style=\"text-decoration:none; display:inline-block; margin:0 auto; padding:0; font-family:'Calibri'; background:#" + (esEsika ? "e81c36" : "642f80") + "; font-size:16px; font-weight:700; color:#FFF; text-align:center; line-height:45px; width:271px; height:45px;\">RECUPERAR CONTRASE&Ntilde;A</a>";
+                        mailBody += "</td>";
+                        mailBody += "</tr>";
+                        mailBody += "</tbody>";
+                        mailBody += "</table>";
+                        mailBody += "</td>";
+                        mailBody += "</tr>";
+                        mailBody += "<tr>";
+                        mailBody += "<td colspan=\"3\" style=\"text-align:center; font-family:'Calibri'; color:#000; font-size:12px; font-weight:400;padding-top:45px; padding-bottom:27px;\"></td>";
+                        mailBody += "</tr>";
+                        mailBody += "<tr>";
+                        mailBody += "<td colspan=\"3\" style=\"background:#000; height:62px;\">";
+                        mailBody += "<table align=\"center\" style=\"text-align:center; padding:0 13px; width:100%; max-width:524px; \">";
+                        mailBody += "<tbody>";
+                        mailBody += "<tr>";
+                        mailBody += "<td style=\"width:13%; text-align:left;\">";
+                        mailBody += "<img src=\"https://s3.amazonaws.com/consultorasQAS/SomosBelcorp/Correo/logo-belcorp.png\" alt=\"Logo Belcorp\" />";
+                        mailBody += "</td>";
+                        mailBody += "<td style=\"width:9%; text-align:left; padding-top:3px;\">";
+                        mailBody += "<a target='_blank' href='http://www.esika.com/'><img src=\"https://s3.amazonaws.com/consultorasQAS/SomosBelcorp/Correo/logo-esika.png\" alt=\"Logo Esika\" /></a>";
+                        mailBody += "</td>";
+                        mailBody += "<td style=\"width:9%; text-align:left; padding-bottom:3px;\">";
+                        mailBody += "<a target='_blank' href='http://www.lbel.com/pe/'><img src=\"https://s3.amazonaws.com/consultorasQAS/SomosBelcorp/Correo/logo-lbel.png\" alt=\"Logo L'bel\" /></a>";
+                        mailBody += "</td>";
+                        mailBody += "<td style=\"width:14%; text-align:left;border-right:1px solid #FFF; padding-top:5px;\">";
+                        mailBody += "<a target='_blank' href='http://www.cyzone.com/'><img src=\"https://s3.amazonaws.com/consultorasQAS/SomosBelcorp/Correo/logo-cyzone.png\" alt=\"Logo Cyzone\" /></a>";
+                        mailBody += "</td>";
+                        mailBody += "<td style=\"width:18%; font-family:'Calibri'; font-weight:400; font-size:13px; color:#FFF; text-align:right; vertical-align:middle;\">";
+                        mailBody += "<span style=\"text-align: left; display: inline-block; vertical-align: middle; width: 69%;\">SÍGUENOS EN</span>";
+                        mailBody += "<span style=\"position: relative; top: 2px; left: 10px; display: inline-block; vertical-align: top;\"><a target='_blank' href='https://es-la.facebook.com/SomosBelcorpOficial'><img src=\"https://s3.amazonaws.com/consultorasQAS/SomosBelcorp/Correo/logo-facebook.png\" alt=\"Logo Facebook\" /></span></a>";
+                        mailBody += "</td>";
+                        mailBody += "</tr>";
+                        mailBody += "</tbody>";
+                        mailBody += "</table>";
+                        mailBody += "</td>";
+                        mailBody += "</tr>";
+                        mailBody += "<tr>";
+                        mailBody += "<td colspan=\"3\">";
+                        mailBody += "<table align=\"center\" style=\"text-align:center;\">";
+                        mailBody += "<tbody>";
+                        mailBody += "<tr>";
+                        mailBody += "<td style=\"height:6px;\"></td>";
+                        mailBody += "</tr>";
+                        mailBody += "<tr>";
+                        mailBody += "<td style=\"font-family:'Calibri'; font-size:12px; color:#000; border-right:1px solid #000; padding:0 12px;\"><a target='_blank' href='http://comunidad.somosbelcorp.com/'>¿Tienes dudas?</td></a>";
+                        mailBody += "<td style=\"font-family:'Calibri'; font-size:12px; color:#000; padding:0 12px;\"><a target='_blank' href='http://www.belcorpresponde.com/'>Contáctanos</td></a>";
+                        mailBody += "</tr>";
+                        mailBody += "</tbody>";
+                        mailBody += "</table>";
+                        mailBody += "</td>";
+                        mailBody += "</tr>";
+                        mailBody += "</tbody>";
+                        mailBody += "</table>";
+                        mailBody += "</body>";
+                        mailBody += "</html>";
+                        #endregion
+
+                        Util.EnviarMail("no-responder@somosbelcorp.com", correo, "(" + lst[0].CodigoISO + ") Cambio de contraseña de Somosbelcorp", mailBody, true, "Somos Belcorp");
+                        resultado = "1" + "|" + "4" + "|" + correo;
+                        return resultado;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                resultado = "0" + "|" + "6" + "|" + ex.Message + "|" + paso;
+                return resultado;
+            }
+        }
+
+        private string MensajesOlvideContrasena(string tipoMensaje)
+        {
+            string rpta = "";
+            tipoMensaje = tipoMensaje ?? "";
+            tipoMensaje = tipoMensaje.Trim();
+            if (tipoMensaje == "1")
+            {
+                return ("El Número de Cédula ingresado no existe.");
+            }
+            if (tipoMensaje == "2")
+            {
+                return ("No tienes un correo registrado para el envío de tu clave.<br />Por favor comunícate con el Servicio de Atención al Cliente.");
+            }
+            if (tipoMensaje == "3")
+            {
+                return ("Correo electrónico no identificado.");
+            }
+            if (tipoMensaje == "4")
+            {
+                return ("Te hemos enviado una nueva clave a tu correo.");
+            }
+            if (tipoMensaje == "5")
+            {
+                return ("Ocurrió un problema al recuperar tu contraseña.");
+            }
+            if (tipoMensaje == "6")
+            {
+                return ("Error al realizar proceso, inténtelo mas tarde.");
+            }
+            return rpta;
+        }
+
+        private string Encrypt(string clearText)
+        {
+            string EncryptionKey = "MAKV2SPBNI99212";
+            byte[] clearBytes = Encoding.Unicode.GetBytes(clearText);
+            using (Aes encryptor = Aes.Create())
+            {
+                Rfc2898DeriveBytes pdb = new Rfc2898DeriveBytes(EncryptionKey, new byte[] { 0x49, 0x76, 0x61, 0x6e, 0x20, 0x4d, 0x65, 0x64, 0x76, 0x65, 0x64, 0x65, 0x76 });
+                encryptor.Key = pdb.GetBytes(32);
+                encryptor.IV = pdb.GetBytes(16);
+                using (MemoryStream ms = new MemoryStream())
+                {
+                    using (CryptoStream cs = new CryptoStream(ms, encryptor.CreateEncryptor(), CryptoStreamMode.Write))
+                    {
+                        cs.Write(clearBytes, 0, clearBytes.Length);
+                        cs.Close();
+                    }
+                    clearText = Convert.ToBase64String(ms.ToArray());
+                }
+            }
+            return clearText;
+        }
     }
 }

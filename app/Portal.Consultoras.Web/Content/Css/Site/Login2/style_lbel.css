@@ -825,7 +825,7 @@ h1, h2, h3, h4, h5, h6 {
 
 #popup_contraseniaEnviada {
     font-family: lato;
-    position: absolute;
+    position: fixed;
     z-index: 1000;
     width: 100%;
     height: 100%;
@@ -949,6 +949,7 @@ h1, h2, h3, h4, h5, h6 {
     font-size: 11pt;
     FONT-FAMILY: LATO;
     color: black;
+    text-align: center;
 }
 
 .mensaje_pop_up_contraseniaEnviada strong {

@@ -190,8 +190,8 @@ function RedirectAdministrador() {
         'event': 'pageview',
         'virtualUrl': '/Login/Administrador'
     });
-    window.open('https://identidad.belcorp.biz/adfs/ls/?wa=wsignin1.0&wtrealm=https://sts.somosbelcorp.com/adfs/services/trust', '_self');
-    return false;
+    //window.open('https://identidad.belcorp.biz/adfs/ls/?wa=wsignin1.0&wtrealm=https://sts.somosbelcorp.com/adfs/services/trust', '_self');
+    //return false;
 }
 
 function RedirectRecuperarClave() {

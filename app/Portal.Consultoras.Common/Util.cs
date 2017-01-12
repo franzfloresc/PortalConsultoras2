@@ -23,6 +23,8 @@ using System.Web.Mvc;
 using System.Web.Script.Serialization;
 using System.Drawing.Imaging;
 using System.Drawing;
+using MaxMind.Util;
+using MaxMind.Db;
 
 
 namespace Portal.Consultoras.Common
@@ -2868,6 +2870,20 @@ namespace Portal.Consultoras.Common
 
             return resultado;
         }
+
+        public static string GetISObyIPAddress(string ip)
+        {
+            string ISO = "00";
+            using (var reader = new DatabaseReader(HttpContext.Current.Request.PhysicalApplicationPath + @"\bin\MaxMind\GeoLite2-Country.mmdb", FileAccessMode.MemoryMapped))
+            {
+                CountryResponse CountryResp = reader.Country(ip);
+                if (CountryResp != null)
+                {
+                    ISO = CountryResp.Country.IsoCode;
+                }
+            }
+            return ISO;
+        }
     }
 
 
@@ -2934,5 +2950,5 @@ namespace Portal.Consultoras.Common
                 updator(item);
             }
         }
-    }
+    }    
 }

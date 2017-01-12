@@ -1098,5 +1098,42 @@ namespace Portal.Consultoras.BizLogic
 
             return consultora;
         }
+        
+        public bool CambiarClaveUsuario(int paisId, string paisIso, string codigoUsuario, string nuevacontrasena, string correo, string codigoUsuarioAutenticado, EAplicacionOrigen origen)
+        {
+            bool resultado;
+
+            try
+            {
+                var DAUsuario = new DAUsuario(paisId);
+                DAUsuario.CambiarClaveUsuario(codigoUsuario, nuevacontrasena, correo);
+                DAUsuario.InsLogCambioContrasenia(codigoUsuarioAutenticado, paisIso + codigoUsuario, nuevacontrasena,
+                    correo, Enum.GetName(typeof (EAplicacionOrigen), origen));
+                resultado = true;
+            }
+            catch (Exception ex)
+            {
+                resultado = false;
+            }
+            
+            return resultado;
+        }
+
+        public int ExisteUsuario(int paisId, string codigoUsuario, string clave)
+        {
+            int resultado;
+
+            try
+            {
+                var DAUsuario = new DAUsuario(paisId);
+                resultado = DAUsuario.ExisteUsuario(codigoUsuario, clave);
+            }
+            catch (Exception)
+            {
+                resultado = 0;
+            }
+
+            return resultado;
+        }
     }
 }

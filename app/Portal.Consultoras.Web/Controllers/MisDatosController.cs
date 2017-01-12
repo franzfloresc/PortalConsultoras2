@@ -86,7 +86,25 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 using (UsuarioServiceClient sv = new UsuarioServiceClient())
                 {
-                    rslt = sv.ValidateUserCredentialsActiveDirectory(UserData().PaisID, UserData().CodigoUsuario, UserData().CodigoISO + UserData().CodigoUsuario, OldPassword.ToUpper(), NewPassword.ToUpper());
+                    //rslt = sv.ValidateUserCredentialsActiveDirectory(UserData().PaisID, UserData().CodigoUsuario, UserData().CodigoISO + UserData().CodigoUsuario, OldPassword.ToUpper(), NewPassword.ToUpper());
+                    int resultExiste;
+                    bool result;
+
+                    //el valor de CodigoConsultora es en realidad el codigo de usuario.
+                    resultExiste = sv.ExisteUsuario(userData.PaisID, userData.CodigoConsultora, OldPassword);
+
+                    if (resultExiste == Constantes.ValidacionExisteUsuario.Existe)
+                    {
+                        result = sv.CambiarClaveUsuario(userData.PaisID, userData.CodigoISO, userData.CodigoConsultora,
+                            NewPassword, "", userData.CodigoUsuario, EAplicacionOrigen.MisDatosConsultora);
+
+                        rslt = result ? 2 : 1;
+                    }
+                    else
+                    {
+                        if (resultExiste == Constantes.ValidacionExisteUsuario.ExisteDiferenteClave)
+                            rslt = 0;
+                    }
                 }
 
                 return Json(new

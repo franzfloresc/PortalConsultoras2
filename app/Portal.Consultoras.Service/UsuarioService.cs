@@ -580,5 +580,17 @@ namespace Portal.Consultoras.Service
             return BLUsuario.GetValidarLoginSB2(paisID, codigoUsuario, contrasenia);
         }
         /*EPD-1012*/
+
+        public bool CambiarClaveUsuario(int paisId, string paisIso, string codigoUsuario, string nuevacontrasena, string correo, string codigoUsuarioAutenticado, EAplicacionOrigen origen)
+        {
+            var BLUsuario = new BLUsuario();
+            return BLUsuario.CambiarClaveUsuario(paisId, paisIso, codigoUsuario, nuevacontrasena, correo, codigoUsuarioAutenticado, origen);
+        }
+
+        public int ExisteUsuario(int paisId, string codigoUsuario, string clave)
+        {
+            var BLUsuario = new BLUsuario();
+            return BLUsuario.ExisteUsuario(paisId, codigoUsuario, clave);
+        }
     }
 }

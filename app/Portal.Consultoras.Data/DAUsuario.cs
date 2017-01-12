@@ -533,5 +533,23 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@tipo", DbType.AnsiString, tipo);
             return Convert.ToInt32(Context.ExecuteScalar(command));
         }
+
+        public void CambiarClaveUsuario(string codigoUsuario, string nuevacontrasena, string correo)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.CambiarClaveUsuario");
+            Context.Database.AddInParameter(command, "@CodigoUsuario", DbType.AnsiString, codigoUsuario);
+            Context.Database.AddInParameter(command, "@NuevaContrasenia", DbType.AnsiString, nuevacontrasena);
+            Context.Database.AddInParameter(command, "@Correo", DbType.AnsiString, correo);
+
+            Context.ExecuteNonQuery(command);
+        }
+
+        public int ExisteUsuario(string codigoUsuario, string clave)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.ExisteUsuario");
+            Context.Database.AddInParameter(command, "@CodigoUsuario", DbType.AnsiString, codigoUsuario);            
+            Context.Database.AddInParameter(command, "@Clave", DbType.AnsiString, clave);            
+            return Convert.ToInt32(Context.ExecuteScalar(command));
+        }
     }
 }

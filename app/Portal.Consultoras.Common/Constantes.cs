@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Amazon.SQS.Model;
 
 namespace Portal.Consultoras.Common
 {
@@ -305,6 +306,13 @@ namespace Portal.Consultoras.Common
             public const int ActualizarDatos = 6;
             public const int Flexipago = 7;
             public const int Comunicado = 8;
+        }
+
+        public class ValidacionExisteUsuario
+        {
+            public const int NoExiste = 0;
+            public const int ExisteDiferenteClave = 1;
+            public const int Existe = 2;
         }
     }
 }

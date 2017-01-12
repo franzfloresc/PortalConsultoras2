@@ -174,6 +174,57 @@ $(document).ready(function () {
         $('#ErrorTextLabel').html(errorLogin);
     }
     /*EPD-1012*/
+
+    $("#btnRecuperarClave").click(function() {
+        var paisId = $("#cboPaisCambioClave").val();
+        var correo = $("#txtCorreoElectronico").val();
+
+        if (paisId == '0') {
+            alert("Debe seleccionar un pais.");
+            return false;
+        }
+
+        if (correo == '') {
+            var mensaje = paisId == '4' ? 'Debe ingresar un número de cédula.' : 'Debe ingresar un correo electrónico.';
+            alert(mensaje);
+        }
+
+        var validarCorreo = validateEmail(correo);
+
+        if (!validarCorreo) {   //paisId != "4"
+            alert('El formato del correo electrónico ingresado no es correcto.');
+            return false;
+        }
+
+        var parametros = {
+            paisId: paisId,
+            correo: correo
+        };
+
+        jQuery.ajax({
+            type: 'POST',
+            url: urlRecuperarContrasenia,
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify(parametros),
+            async: true,
+            success: function (response) {
+                if (response.success) {
+                    $("#popup1").hide();
+
+                    $("#correoDestino strong").html(correo);
+                    $("#popup2").show();
+                } else {
+                    alert_msg(response.message);
+                }
+            },
+            error: function (data, error) {
+                if (checkTimeout(data)) {
+                    closeWaitingDialog();
+                }
+            }
+        });
+    });
 });
 
 function Inicializar()

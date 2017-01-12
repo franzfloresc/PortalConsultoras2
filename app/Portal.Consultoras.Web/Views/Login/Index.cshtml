@@ -196,7 +196,7 @@
             <!-- ADMINISTRADOR FORMULARIO -->
             <div class="boxform">
                 <div class="admin">
-                    <a href="javascript:void(0);" onclick="return RedirectAdministrador();" rel="menu-superior" title="Administrador">INGRESA COMO <strong>ADMINISTRADOR</strong></a>
+                    <a href="@Url.Action("Admin","Login")" onclick="return RedirectAdministrador();" rel="menu-superior" title="Administrador">INGRESA COMO <strong>ADMINISTRADOR</strong></a>
                 </div>
             </div>
         </div>
@@ -215,6 +215,7 @@
         var isoPais = '@ViewBag.IsoPais';
         var banderaOk = '@ViewBag.BanderaOk';
         var avisoASP = '@ViewBag.AvisoASP';
+        var urlRecuperarContrasenia = '@Url.Action("RecuperarContrasenia", "Login")';
 
     </script>
 
@@ -225,7 +226,8 @@
         </script>
     }
 
-    @section scripts {
-        <script src="~/Scripts/PortalConsultoras/Login/FormsSignIn.js"></script>
-    }
+@section scripts {
+    <script src="~/Scripts/General.js"></script>
+    <script src="~/Scripts/PortalConsultoras/Login/FormsSignIn.js"></script>
+}
 
