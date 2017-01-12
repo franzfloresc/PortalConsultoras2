@@ -379,6 +379,19 @@ function CargarCatalogoPersonalizado() {
             cargandoRegistros = false;
         }
     });
+    $(".seleccion_filtro_fav").on("click", function () {
+        $(this).toggleClass("seleccion_click_flitro")
+    });
+    $('.range-slider').jRange({
+        from: 0,
+        to: 100,
+        step: 3,
+        scale: [0, 100],
+        format: 'S/. %s',
+        showLabels: true,
+        isRange: true
+    });
+    $('.slider-container').css('width', '');
 }
 
 /* SB20-1197 - FIN */

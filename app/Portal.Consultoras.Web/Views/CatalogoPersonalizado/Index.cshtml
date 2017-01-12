@@ -6,26 +6,97 @@
 
 @section styles{
     <link href="@Url.Content("~/Content/Css/Site/slick.min.css")" rel="stylesheet" />
+<link href="@Url.Content("~/Content/Css/Site/jquery.range.css")" rel="stylesheet" />
+    <style>
+        body{
+        background:white;
+        }
+    </style>
+    
 }
 
-<div class="fondo_f9f9f9">
+<div class="fondo_f9f9f9"  style="background:white;">
     <div class="content_belcorp content_belcorp_misPedidos">
-        <div class="fondo_negro_lateral"></div>
-        <div class="titulo_interiores favoritosClientes"><span>LOS FAVORITOS </span> DE TUS CLIENTES ESTA CAMPAÑA</div>
+        <div class="content_img_fav"><img src="https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/xcIosEZ1FyLcPiD/group-4%403x.png" alt=""/></div>
+        <div class="texto_banner_seccion_fav">
+            Valeria, estos son los
+            <span class="altas_seccion_fav">FAVORITOS</span>
+            <span class="clientes_fav_texto">DE TUS CLIENTES</span>
+        </div>
+        <div class="texto_complementario_fav">
+            Porque conocemos a tus clientes, seleccionamos              los productos que podrás venderles fácilmente.
+        </div>
+        @*<div class="fondo_negro_lateral"></div>
+        <div class="titulo_interiores favoritosClientes"><span>LOS FAVORITOS </span> DE TUS CLIENTES ESTA CAMPAÑA</div>*@
         <div data-maq onclick="AbrirMaqueta(2)" style="display: none;"><span>Niveles</span></div>
         <div data-maq onclick="AbrirMaqueta(3)" style="display: none;"><span>Pack</span></div>
     </div>
     <hr class="clear" />
-    <div class="linea_separadora" style="margin-top: -1px; position: relative; z-index: 20;"></div>
+    <div class="linea_separadora no_mostrar_esika" style="margin-top: -1px; position: relative; z-index: 20;"></div>
 </div>
 <div id="cuerpo" class="catalogoPersonalizadoBloque" style="min-height:150px;">
     <div data-div="d">
         <div class="content_belcorp content_belcorp_misPedidos" id="contenidoGrilla">
             <div class="pestana_lbel new"></div>
             <div class="clear"></div>
-            <div class="texto_descripcionCatalogoPersonalizado paginaCatalogo">Encuentra una selección de los productos que tus clientes de seguro te solicitarán</div>
-
-            <div id="divCatalogoPersonalizado"></div>
+            @*<div class="texto_descripcionCatalogoPersonalizado paginaCatalogo">Encuentra una selección de los productos que tus clientes de seguro te solicitarán</div>*@
+            <div class="content_filtros_left">
+                <span class="titulo_filtro_fav">FILTROS</span>
+                <div class="linea_separadora" style="height:3px;"></div>
+                <div class="texto_fav_filtro"> BORRAR FILTROS</div>
+                <div class="linea_separadora"></div>
+                <!--PRIMER FILTRO-->
+                <span class="titulo_filtro_fav">CATEGORÍAS</span>
+                <hr class="clear" />              
+                <div>
+                    <div class="seleccion_filtro_fav">MAQUILLAJE</div>
+                    <div class="seleccion_filtro_fav">PERFUMES</div>
+                    <div class="seleccion_filtro_fav">TRATAMIENTO FACIAL</div>
+                    <div class="seleccion_filtro_fav">CUIDADO PERSONAL</div>
+                    <div class="seleccion_filtro_fav">ACCESORIOS</div>
+                </div>
+                <div class="linea_separadora"></div>
+                <!--SEGUNDO FILTRO-->
+                <span class="titulo_filtro_fav">MARCAS</span>
+                <hr class="clear" />
+                <div>
+                    <div class="seleccion_filtro_fav">ESIKA</div>
+                    <div class="seleccion_filtro_fav">L'BEL</div>
+                    <div class="seleccion_filtro_fav">CYZONE</div>                    
+                </div>
+                <div class="linea_separadora"></div>
+                <!--TERCER FILTRO-->
+                <span class="titulo_filtro_fav">RANGO DE PRECIO</span>
+                <div class="content_filtro_range">
+                    <input type="hidden" class="range-slider" value="50" />
+                </div>
+                
+                <hr class="clear" />
+              
+                <div class="linea_separadora"></div>
+                <!--CUARTO FILTRO-->
+                <span class="titulo_filtro_fav">TIPO DE PUBLICACIÓN</span>
+                <hr class="clear" />
+                <div>
+                    <div class="seleccion_filtro_fav">TODOS</div>
+                    <div class="seleccion_filtro_fav">SÓLO CATÁLOGO</div>
+                    <div class="seleccion_filtro_fav">SÓLO GUÍA DE NEGOCIO</div>
+                </div>
+                <hr class="clear" />
+            </div>
+             <div class="content-left-item">
+                 <div class="cantidad_productos_fav">32 productos en total</div>
+                 <div class="filtros_derecha">ORDENAR POR 
+                    <select class="select_filtros_fav">
+                        <option>PRECIO | Menor a mayor</option>
+                        <option>PRECIO | Menor a mayor</option>
+                        <option>PRECIO | Menor a mayor</option>
+                    </select>
+                 </div>
+                 <hr class="clear" />
+                <div id="divCatalogoPersonalizado"></div>
+            </div>
+           
             <div class="clear"></div>
         </div><!--PESTAÑA PARA DARLE ESTILO CON LBEL-->
     </div>
@@ -765,6 +836,7 @@
         var tipoOrigen = "1";
     </script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/slick.min.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/jquery.range.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/CatalogoPersonalizado/CatalogoPersonalizado.js")"></script>
     <script src="~/Scripts/PortalConsultoras/Mobile/CatalogoPersonalizado/bootstrap-slider.min.js"></script>
 }
