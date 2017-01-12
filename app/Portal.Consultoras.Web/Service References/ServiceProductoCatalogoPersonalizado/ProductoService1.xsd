@@ -15,8 +15,11 @@
       <xs:element minOccurs="0" name="Cuv" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Descripcion" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="DescripcionComercial" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="EsMaquillaje" type="xs:boolean" />
       <xs:element minOccurs="0" name="IdMarca" type="xs:int" />
       <xs:element minOccurs="0" name="Imagen" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ImagenBulk" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NombreBulk" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="NombreComercial" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="NombreMarca" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="PrecioCatalogo" type="xs:decimal" />

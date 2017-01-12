@@ -143,9 +143,6 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         private bool EsOFGanaMasZonaValidaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int EsOfertaDelDiaField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private bool EsOfertaFinalZonaValidaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -989,19 +986,6 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
                 if ((this.EsOFGanaMasZonaValidaField.Equals(value) != true)) {
                     this.EsOFGanaMasZonaValidaField = value;
                     this.RaisePropertyChanged("EsOFGanaMasZonaValida");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int EsOfertaDelDia {
-            get {
-                return this.EsOfertaDelDiaField;
-            }
-            set {
-                if ((this.EsOfertaDelDiaField.Equals(value) != true)) {
-                    this.EsOfertaDelDiaField = value;
-                    this.RaisePropertyChanged("EsOfertaDelDia");
                 }
             }
         }

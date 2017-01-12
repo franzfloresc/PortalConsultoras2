@@ -10,6 +10,7 @@ using System.Configuration;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.ServiceModel;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -38,7 +39,6 @@ namespace Portal.Consultoras.Web.Controllers
             cantidad = (offset + cantidad > limiteJetloreCatalogoPersonalizado) ? (limiteJetloreCatalogoPersonalizado - offset) : cantidad;
             return ObtenerProductos(cantidad, offset, lstFilters);
         }
-
 
         public JsonResult BorrarFiltros()
         {
@@ -78,7 +78,6 @@ namespace Portal.Consultoras.Web.Controllers
                     data = ""
                 });
             }
-
             //tipoOfertaFinal: 1 -> ARP; 2 -> Jetlore
             var lista = new List<Producto>();
             var listaProductoModel = new List<ProductoModel>();         
@@ -92,6 +91,8 @@ namespace Portal.Consultoras.Web.Controllers
 
                     using (ProductoServiceClient ps = new ProductoServiceClient())
                     {
+                        ((BasicHttpBinding)ps.Endpoint.Binding).MaxReceivedMessageSize = int.MaxValue;
+
                         var fechaHoy = DateTime.Now.AddHours(userData.ZonaHoraria).Date;
                         bool esFacturacion = fechaHoy >= userData.FechaInicioCampania.Date;
 
@@ -174,7 +175,11 @@ namespace Portal.Consultoras.Web.Controllers
                                 IsAgregado = false,
                                 TieneOfertaEnRevista = olstProducto[0].TieneOfertaRevista,
                                 TieneLanzamientoCatalogoPersonalizado = olstProducto[0].TieneLanzamientoCatalogoPersonalizado,
-                                TipoOfertaRevista = olstProducto[0].TipoOfertaRevista
+                                TipoOfertaRevista = olstProducto[0].TipoOfertaRevista,
+                                Volumen = producto.Volumen,
+                                EsMaquillaje = producto.EsMaquillaje,
+                                DescripcionComercial = producto.DescripcionComercial,
+                                CodigoIso = userData.CodigoISO
                             });
 
                         }
@@ -517,6 +522,131 @@ namespace Portal.Consultoras.Web.Controllers
                 });
             }
             
+        }
+        //PL20-1237
+        public JsonResult InsertarProductoCompartido(ProductoCompartidoModel ProCompModel)
+        {
+            try 
+	        {
+                int id;
+                AutoMapper.Mapper.CreateMap<ProductoCompartidoModel, BEProductoCompartido>()
+                    .ForMember(t => t.PaisID, f => f.MapFrom(c => c.mPaisID))
+                    .ForMember(t => t.PcCampaniaID, f => f.MapFrom(c => c.mCampaniaID))
+                    .ForMember(t => t.PcCuv, f => f.MapFrom(c => c.mCUV))
+                    .ForMember(t => t.PcPalanca, f => f.MapFrom(c => c.mPalanca))
+                    .ForMember(t => t.PcDetalle, f => f.MapFrom(c => c.mDetalle))
+                    .ForMember(t => t.PcApp, f => f.MapFrom(c => c.mApplicacion));
+
+                BEProductoCompartido entidad = AutoMapper.Mapper.Map<ProductoCompartidoModel, BEProductoCompartido>(ProCompModel);
+                using (ODSServiceClient svc = new ODSServiceClient())
+                {
+                    entidad.PaisID = userData.PaisID;
+                    entidad.PcCampaniaID = userData.CampaniaID;
+
+                    id = svc.InsProductoCompartido(entidad);
+                }
+
+                return Json(new
+                {
+                    success = true,
+                    message = "OK",
+                    data = new
+                    {
+                        id = id
+                    }
+                });
+	        }
+	        catch (Exception ex)
+	        {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return Json(new
+                {
+                    success = false,
+                    message = "Ocurrrio un problema con la operacion.",
+                    data = ""
+                });
+	        }
+        }
+
+        //PL20-1268
+        public JsonResult GetInfoFichaProductoFAV(string cuv)
+        {
+            try
+            {
+                var productoModel = new ProductoModel(); 
+                var listaProductoModel = new List<ProductoModel>();
+                listaProductoModel = (List<ProductoModel>)Session["ProductosCatalogoPersonalizado"] ?? new List<ProductoModel>();
+
+                productoModel = listaProductoModel.Where(x => x.CUV == cuv).FirstOrDefault();
+                if (productoModel != null)
+                {
+                    if (productoModel.EsMaquillaje)
+                    {
+                        if (productoModel.Hermanos == null)
+                        {
+                            var listaHermanos = new List<BEProducto>();
+                            using (ODSServiceClient svc = new ODSServiceClient())
+                            {
+                                listaHermanos = svc.GetListBrothersByCUV(userData.PaisID, userData.CampaniaID, cuv).ToList();
+                            }
+
+                            if (listaHermanos.Any())
+                            {
+                                string joinCuv = string.Empty;
+                                foreach (var item in listaHermanos)
+                                {
+                                    joinCuv += item.CUV + ",";
+                                }
+
+                                joinCuv = joinCuv.Substring(0, joinCuv.Length - 1);
+
+                                var listaAppCatalogo = new List<Producto>();
+                                using (ProductoServiceClient svc = new ProductoServiceClient())
+                                {
+                                    listaAppCatalogo = svc.ObtenerProductosAppCatalogoByListaCUV(userData.CodigoISO, userData.CampaniaID, joinCuv).ToList();
+                                }
+
+                                if (listaAppCatalogo.Any())
+                                {
+                                    productoModel.Hermanos = new List<ProductoModel>();
+
+                                    foreach (var item in listaAppCatalogo)
+                                    {
+                                        productoModel.Hermanos.Add(new ProductoModel
+                                        {
+                                            CUV = item.Cuv,
+                                            CodigoProducto = item.CodigoSap,
+                                            Descripcion = item.NombreComercial,
+                                            DescripcionComercial = item.DescripcionComercial,
+                                            NombreBulk = item.NombreBulk,
+                                            ImagenProductoSugerido = item.Imagen,
+                                            ImagenBulk = item.ImagenBulk
+                                        });
+                                    }
+                                }
+
+                                Session["ProductosCatalogoPersonalizadoFilter"] = listaProductoModel;
+                            }
+                        }
+                        
+                    }// EsMaquillaje
+                }
+
+                return Json(new
+                {
+                    success = true,
+                    data = productoModel
+                });
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return Json(new
+                {
+                    success = false,
+                    message = "Ocurrrio un problema con la operacion.",
+                });
+            }
         }
     }
 }

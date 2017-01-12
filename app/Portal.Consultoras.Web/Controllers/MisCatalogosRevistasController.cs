@@ -92,7 +92,8 @@ namespace Portal.Consultoras.Web.Controllers
             List<Catalogo> catalogos = new List<Catalogo>();
             string urlISSUUSearch = "http://search.issuu.com/api/2_0/document?username=somosbelcorp&q=";
             string urlISSUUVisor = "http://issuu.com/somosbelcorp/docs/";
-            string parameterDisplayMain = "?e=1/2";
+            //string parameterDisplayMain = "?e=1/2";
+            string parameterDisplayMain = "?mode=embed";
 
             try
             {
