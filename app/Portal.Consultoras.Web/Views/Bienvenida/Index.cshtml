@@ -1313,10 +1313,10 @@
 
     </div>
 </div>
-<!--POP UP FICHA PRODUCTO NUEVA-->
 
+<!--POP UP FICHA PRODUCTO NUEVA-->
 <div id="PopFichaProductoNueva" class="Content_general_pop_up">
-    <div class="content_ficha_producto_nueva">
+    @*<div class="content_ficha_producto_nueva">
         <a class="cerrar_fichaProducto" href="javascript:;" onclick="javascript: $('#PopFichaProductoNueva').hide();">
             <img src="/Content/Images/cerrar_04_blanco.png" alt=" alternate text">
         </a>
@@ -1339,12 +1339,14 @@
                         <div class="content_mascara_maquillaje">
                             <img src="https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/HfQTTPvWfVXwt3R/textura_labial.png" alt="PRODUCTO">
                         </div>
+                        <div class="tooltip_tono">CORAL Cautivante</div>
                     </div>
                     <div class="content_tono_detalle">
                         <img src="https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/PYi4dINUiOsYQ7e/labial_color.png" alt="PRODUCTO">
                         <div class="content_mascara_maquillaje">
                             <img src="https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/HfQTTPvWfVXwt3R/textura_labial.png" alt="PRODUCTO">
                         </div>
+                        <div class="tooltip_tono">CORAL Cautivante</div>
                     </div>                    
                 </div>
                 <select class="tono_labial_select">
@@ -1367,12 +1369,10 @@
                 AGRÉGALO
             </a>
         </div>
-
-    </div>
-
-
+    </div>*@
 </div>
 <!--FIN-->
+
 @*SB20 - 1110*@
 <div id="divConfirmarCUVBanner" style="display: none;">
     <div class="terminos_title_2">
@@ -1749,7 +1749,7 @@
             </div>
             <div class="producto_img_home mini" id="imagenAnimacion" data-img="">
                 <img src="{{ImagenProductoSugerido}}" style="width: auto; height: 100%;" class="imagen_producto">
-                <a class="ver_detalle_carrusel" href="javascript:;" onclick="javascript: $('#PopFichaProductoNueva').show();">VER DETALLE</a>
+                <a class="ver_detalle_carrusel" href="javascript:;" onclick="mostrarFichaProductoFAV2('{{CUV}}')">VER DETALLE</a>
             </div>
             {{#if item.TieneLanzamientoCatalogoPersonalizado}}
             <div class="etiqueta_producto nuevofavorito">
@@ -2183,6 +2183,61 @@
 
 </script>
 
+<script id="template-fichaproductofav" type="text/x-handlebars-template">
+    <div class="content_ficha_producto_nueva">
+        <a class="cerrar_fichaProducto" href="javascript:;" onclick="javascript: $('#PopFichaProductoNueva').hide();">
+            <img src="/Content/Images/cerrar_04_blanco.png" alt=" alternate text">
+        </a>
+        <div class="content_left_ficha">
+            <div class="content_ficha_producto">
+                <img id="imagen_ficha_producto" src="{{ImagenProductoSugerido}}" alt="PRODUCTO">
+            </div>
+        </div>
+        <div class="content_right_ficha">
+            <div class="titulo_ficha_producto">{{Descripcion}}</div>
+            <div class="peso_ficha_producto">{{Volumen}}</div>
+            <div class="descripcion_ficha_producto">{{DescripcionComercial}}</div>
+            <div class="precio_ficha_producto">
+                <span class="precio_tachado_ficha">{{Simbolo}} {{PrecioValorizadoString}}</span>{{Simbolo}} {{PrecioCatalogoString}}
+            </div>
+            {{#if EsMaquillaje }}
+            <div class="content_tonos">
+                <div class="linea_gris" style="height:1px;"></div>
+                <!--SELECCION DE TONOS-->
+                <div class="content_tonos_maquillaje">
+                    {{#each Hermanos as |item1|}}
+                    <div id="content_tono_{{CUV}}" class="content_tono_detalle @*borde_seleccion_tono*@" onclick="cambiarInfoFichaProductoFAV('{{CUV}}')">
+                        <img id="fav_imgbulk_{{CUV}}" src="{{item1.ImagenBulk}}" alt="PRODUCTO">
+                        @*<div class="content_mascara_maquillaje">
+                                <img src="https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/HfQTTPvWfVXwt3R/textura_labial.png" alt="PRODUCTO">
+                            </div>*@
+                        <div class="tooltip_tono">{{item1.NombreBulk}}</div>
+                    </div>
+                    {{/each}}
+                </div>
+
+                <select id="favTonoBulk{{CUV}}" class="tono_labial_select" onchange="cambiarInfoFichaProductoFAV('{{CUV}}')">
+                    {{#each Hermanos as |item2|}}
+                    <option value="{{item2.CUV}}">{{item2.NombreBulk}}</option>
+                    {{/each}}
+                </select>
+                <!--FIN-->
+            </div>
+            {{/if}}
+            <div class="liquidacion_rango_home">
+                <input type="text" value="1" size="2" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" data-input="cantidad" data-cantidad-input="-">
+                <div class="liquidacion_rango_right_pedido">
+                    <a class="mas" data-cantidad-agregar="+"><img src="/Content/Images/Esika/mas.png" alt=""></a>
+                    <a class="menos" data-cantidad-agregar="-"><img src="/Content/Images/Esika/menos.png" alt=""></a>
+                </div>
+            </div>
+            <a class="boton_Agregalo_home ficha_btn_agregar">
+                AGRÉGALO
+            </a>
+        </div>
+    </div>
+</script>
+
 <input type="hidden" id="hdDataBarra" value="@Newtonsoft.Json.JsonConvert.SerializeObject(Model.DataBarra)" />
 
 @section scripts{
@@ -2259,8 +2314,8 @@
         var mostrarPopupActualizarDatosXPais = '@Model.MostrarPopupActualizarDatosXPais';
         var mensajeFechaDA = '@Model.MensajeFechaDA';
 
-        /*PL20-1227*/
-        var origenPagina = 1;   
+        var origenPagina = 1;   /*PL20-1227*/     
+        var urlGetInfoFichaProducto = '@Url.Action("GetInfoFichaProductoFAV", "CatalogoPersonalizado")';    //PL20-1268
     </script>
     @System.Web.Optimization.Scripts.Render("~/bundles/JsSB2-Bienvenida")
     @{ Session["IsContrato"] = 0; }

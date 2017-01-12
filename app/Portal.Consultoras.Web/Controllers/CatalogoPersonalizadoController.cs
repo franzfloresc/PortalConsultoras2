@@ -177,7 +177,7 @@ namespace Portal.Consultoras.Web.Controllers
                                 TieneLanzamientoCatalogoPersonalizado = olstProducto[0].TieneLanzamientoCatalogoPersonalizado,
                                 TipoOfertaRevista = olstProducto[0].TipoOfertaRevista,
                                 Volumen = producto.Volumen,
-                                //EsMaquillaje = producto.EsMaquillaje,
+                                EsMaquillaje = producto.EsMaquillaje,
                                 DescripcionComercial = producto.DescripcionComercial,
                                 CodigoIso = userData.CodigoISO
                             });
@@ -566,6 +566,87 @@ namespace Portal.Consultoras.Web.Controllers
                     data = ""
                 });
 	        }
+        }
+
+        //PL20-1268
+        public JsonResult GetInfoFichaProductoFAV(string cuv)
+        {
+            try
+            {
+                var productoModel = new ProductoModel(); 
+                var listaProductoModel = new List<ProductoModel>();
+                listaProductoModel = (List<ProductoModel>)Session["ProductosCatalogoPersonalizado"] ?? new List<ProductoModel>();
+
+                productoModel = listaProductoModel.Where(x => x.CUV == cuv).FirstOrDefault();
+                if (productoModel != null)
+                {
+                    if (productoModel.EsMaquillaje)
+                    {
+                        if (productoModel.Hermanos == null)
+                        {
+                            var listaHermanos = new List<BEProducto>();
+                            using (ODSServiceClient svc = new ODSServiceClient())
+                            {
+                                listaHermanos = svc.GetListBrothersByCUV(userData.PaisID, userData.CampaniaID, cuv).ToList();
+                            }
+
+                            if (listaHermanos.Any())
+                            {
+                                string joinCuv = string.Empty;
+                                foreach (var item in listaHermanos)
+                                {
+                                    joinCuv += item.CUV + ",";
+                                }
+
+                                joinCuv = joinCuv.Substring(0, joinCuv.Length - 1);
+
+                                var listaAppCatalogo = new List<Producto>();
+                                using (ProductoServiceClient svc = new ProductoServiceClient())
+                                {
+                                    listaAppCatalogo = svc.ObtenerProductosAppCatalogoByListaCUV(userData.CodigoISO, userData.CampaniaID, joinCuv).ToList();
+                                }
+
+                                if (listaAppCatalogo.Any())
+                                {
+                                    productoModel.Hermanos = new List<ProductoModel>();
+
+                                    foreach (var item in listaAppCatalogo)
+                                    {
+                                        productoModel.Hermanos.Add(new ProductoModel
+                                        {
+                                            CUV = item.Cuv,
+                                            CodigoProducto = item.CodigoSap,
+                                            Descripcion = item.NombreComercial,
+                                            DescripcionComercial = item.DescripcionComercial,
+                                            NombreBulk = item.NombreBulk,
+                                            ImagenProductoSugerido = item.Imagen,
+                                            ImagenBulk = item.ImagenBulk
+                                        });
+                                    }
+                                }
+
+                                Session["ProductosCatalogoPersonalizadoFilter"] = listaProductoModel;
+                            }
+                        }
+                        
+                    }// EsMaquillaje
+                }
+
+                return Json(new
+                {
+                    success = true,
+                    data = productoModel
+                });
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return Json(new
+                {
+                    success = false,
+                    message = "Ocurrrio un problema con la operacion.",
+                });
+            }
         }
     }
 }

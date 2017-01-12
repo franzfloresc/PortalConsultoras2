@@ -32608,3 +32608,13 @@ h1#penmostreo .campana {
 .ficha_btn_agregar{
     width:162px; background:black; color:white; font-weight:400; letter-spacing:0.4px;
 }
+.tooltip_tono{
+    position:absolute;
+    top:-5px;
+    background:red;
+    color:white;
+    display:none;
+}
+.content_tono_detalle:hover .tooltip_tono{
+    display:block;
+}

@@ -9598,3 +9598,10 @@ span.icon-advertencia{
     display: block;
     margin: 0 auto;
 }
+
+.marca_ficha_producto {
+    text-align: center;
+    font-family: 'lato';
+    font-size: 14px;
+    font-weight: 300;
+}

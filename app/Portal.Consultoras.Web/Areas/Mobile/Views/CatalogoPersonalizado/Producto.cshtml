@@ -189,7 +189,7 @@
                 var urlwsp = $(".urlbasewsp").val();
                 urlwsp = urlwsp.replace("[valor]", _id);
 
-                $("#btn_wsp_oculto").attr('href', urlwsp)
+                $("#btn_wsp_oculto").prop('href', urlwsp)
                 $("#btn_wsp_oculto").click();   
             });
         });
