@@ -3478,8 +3478,8 @@ table > thead > tr > th {
     height: 30px;
     overflow: hidden;
     width: 36px;
-    padding-top: 4px;
-    padding-bottom: 4px;
+    padding: 9px;
+    /*padding-bottom: 4px;*/
     background: #ff1300;
     float: left;
     text-align: center;
@@ -10319,4 +10319,9 @@ a{
 }
 .content_slider_banner{
     position:relative;
+}
+.content_imagen_slider_showroom{
+    width: 177px;
+    display: block;
+    margin: 0 auto;
 }

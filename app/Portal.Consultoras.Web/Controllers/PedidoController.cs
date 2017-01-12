@@ -4856,19 +4856,10 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                var f = false;
-                var oddModel = new OfertaDelDiaModel();
-
-                if (userData.OfertaDelDia != null)
-                {
-                    oddModel = userData.OfertaDelDia;
-                    oddModel.TeQuedan = CountdownODD(userData);
-                    f = true;
-                }
-
+                var oddModel = this.GetOfertaDelDiaModel();
                 return Json(new
                 {
-                    success = f,
+                    success = oddModel != null,
                     data = oddModel
                 }, JsonRequestBehavior.AllowGet);
             }

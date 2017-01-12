@@ -1893,7 +1893,7 @@ namespace Portal.Consultoras.Web.Controllers
             return sFecha;
         }
 
-        /*PL20-1226*/
+        /*Inicio: OFerta del Dia*/
         public TimeSpan CountdownODD(UsuarioModel model)
         {
             //DateTime hoy = DateTime.Now;
@@ -1921,6 +1921,55 @@ namespace Portal.Consultoras.Web.Controllers
             TimeSpan t2 = (d2 - hoy);
             return t2;
         }
+
+        protected OfertaDelDiaModel GetOfertaDelDiaModel()
+        {
+            if (userData.OfertaDelDia != null)
+            {
+                OfertaDelDiaModel model = userData.OfertaDelDia;
+                model.TeQuedan = CountdownODD(userData);
+                return model;
+            }
+            return null;
+        }
         /*PL20-1226*/
+        
+        public ShowRoomBannerLateralModel GetShowRoomBannerLateral()
+        {
+            ShowRoomBannerLateralModel model = new ShowRoomBannerLateralModel();
+
+            var paisesShowRoom = ConfigurationManager.AppSettings["PaisesShowRoom"];
+            if (!paisesShowRoom.Contains(userData.CodigoISO)) return new ShowRoomBannerLateralModel { ConsultoraNoEncontrada = true };
+
+            if (!userData.CargoEntidadesShowRoom) throw new Exception("Ocurrió un error al intentar traer la información de los evento y consultora de ShowRoom.");
+            model.BEShowRoomConsultora = userData.BeShowRoomConsultora;
+            model.BEShowRoom = userData.BeShowRoom;
+
+            if (model.BEShowRoom == null)
+            {
+                model.BEShowRoom = new BEShowRoomEvento();
+                model.BEShowRoomConsultora = new BEShowRoomEventoConsultora();
+            }
+            else if (model.BEShowRoomConsultora == null) model.BEShowRoomConsultora = new BEShowRoomEventoConsultora();
+            if (model.BEShowRoom.Estado != 1) return new ShowRoomBannerLateralModel { EventoNoEncontrado = true };
+
+            model.RutaShowRoomBannerLateral = model.BEShowRoom.RutaShowRoomBannerLateral;
+            model.EstaActivoLateral = true;
+            var fechaHoy = DateTime.Now.AddHours(userData.ZonaHoraria).Date;
+
+            if (fechaHoy >= userData.FechaInicioCampania.AddDays(-model.BEShowRoom.DiasAntes).Date &&
+                fechaHoy <= userData.FechaInicioCampania.AddDays(model.BEShowRoom.DiasDespues).Date)
+            {
+                model.MostrarShowRoomProductos = true;
+                model.RutaShowRoomBannerLateral = Url.Action("Index", "ShowRoom");
+            }
+            if (fechaHoy > userData.FechaInicioCampania.AddDays(model.BEShowRoom.DiasDespues).Date) model.EstaActivoLateral = false;
+
+            model.DiasFaltantes = userData.FechaInicioCampania.Day - model.BEShowRoom.DiasAntes;
+            model.MesFaltante = userData.FechaInicioCampania.Month;
+            model.AnioFaltante = userData.FechaInicioCampania.Year;
+
+            return model;
+        }
     }
 }
