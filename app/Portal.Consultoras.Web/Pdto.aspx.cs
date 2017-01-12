@@ -54,12 +54,20 @@ namespace Portal.Consultoras.Web
                 //desconcatenar detalle
                 if (ArrayDetalle.Length > 0)
                 {
-                    RutaImagen = Convert.ToString(ArrayDetalle[0]);
-                    MarcaID = Convert.ToString(ArrayDetalle[1]);
-                    MarcaDesc = Convert.ToString(ArrayDetalle[2]);
-                    NomProducto = Convert.ToString(ArrayDetalle[3]);
-                    Volumen = Convert.ToString(ArrayDetalle[4]);
-                    DescProducto = Convert.ToString(ArrayDetalle[5]);
+                    if (ProductoCompPalanca == "FAV")
+                    {
+                        RutaImagen = Convert.ToString(ArrayDetalle[0]);
+                        MarcaDesc = Convert.ToString(ArrayDetalle[2]);
+                        NomProducto = Convert.ToString(ArrayDetalle[3]);
+                        Volumen = Convert.ToString(ArrayDetalle[4]);
+                        DescProducto = Convert.ToString(ArrayDetalle[5]);
+                    }
+                    else
+                    {
+                        RutaImagen = Convert.ToString(ArrayDetalle[0]);
+                        MarcaDesc = Convert.ToString(ArrayDetalle[2]);
+                        NomProducto = Convert.ToString(ArrayDetalle[3]);
+                    }
                 }
 
                 string subTitulo = "Este es el Subtitulo";

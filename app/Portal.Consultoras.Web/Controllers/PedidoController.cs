@@ -4094,6 +4094,7 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpGet]
         public JsonResult JsonConsultarEstrategias(string cuv)
         {
+            
             List<BEEstrategia> lst = ConsultarEstrategias(cuv ?? "");
             var listModel = Mapper.Map<List<BEEstrategia>, List<EstrategiaPedidoModel>>(lst);
 
@@ -4942,7 +4943,36 @@ namespace Portal.Consultoras.Web.Controllers
                 }, JsonRequestBehavior.AllowGet);
             }
         }
-
         /*PL20-1226*/
+
+        //PL20-1265
+        public JsonResult GetProductoFichaOPT(string pCuv)
+        {
+            try
+            {
+                //List<BEEstrategia> lst2 = new List<BEEstrategia>();
+                List<BEEstrategia> lst = (List<BEEstrategia>)Session["ListadoEstrategiaPedido"];
+                BEEstrategia objProOPT = lst.FirstOrDefault(p => p.CUV2 == pCuv) ?? new BEEstrategia();
+                //lst2 = lst.Where(g => g.CUV2 == pCuv).ToList();
+
+                return Json(new
+                {
+                    success = true,
+                    message = "OK",
+                    data = objProOPT
+                });
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return Json(new
+                {
+                    success = false,
+                    message = ex.Message,
+                    data = ""
+                    //limiteJetlore = 0
+                });
+            }
+        }
     }
 }
