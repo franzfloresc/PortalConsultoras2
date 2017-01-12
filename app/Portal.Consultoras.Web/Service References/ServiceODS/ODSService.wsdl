@@ -230,6 +230,12 @@
   <wsdl:message name="IODSService_GetProductoCompartido_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetProductoCompartidoResponse" />
   </wsdl:message>
+  <wsdl:message name="IODSService_GetListBrothersByCUV_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetListBrothersByCUV" />
+  </wsdl:message>
+  <wsdl:message name="IODSService_GetListBrothersByCUV_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetListBrothersByCUVResponse" />
+  </wsdl:message>
   <wsdl:portType name="IODSService">
     <wsdl:operation name="GetProductoComercialByPaisAndCampania">
       <wsdl:input wsaw:Action="http://tempuri.org/IODSService/GetProductoComercialByPaisAndCampania" message="tns:IODSService_GetProductoComercialByPaisAndCampania_InputMessage" />
@@ -362,6 +368,10 @@
     <wsdl:operation name="GetProductoCompartido">
       <wsdl:input wsaw:Action="http://tempuri.org/IODSService/GetProductoCompartido" message="tns:IODSService_GetProductoCompartido_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IODSService/GetProductoCompartidoResponse" message="tns:IODSService_GetProductoCompartido_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetListBrothersByCUV">
+      <wsdl:input wsaw:Action="http://tempuri.org/IODSService/GetListBrothersByCUV" message="tns:IODSService_GetListBrothersByCUV_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IODSService/GetListBrothersByCUVResponse" message="tns:IODSService_GetListBrothersByCUV_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IODSService" type="tns:IODSService">
@@ -663,6 +673,15 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GetListBrothersByCUV">
+      <soap:operation soapAction="http://tempuri.org/IODSService/GetListBrothersByCUV" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
   </wsdl:binding>
   <wsdl:binding name="BasicHttpsBinding_IODSService" type="tns:IODSService">
     <wsp:PolicyReference URI="#BasicHttpsBinding_IODSService_policy" />
@@ -957,6 +976,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetProductoCompartido">
       <soap:operation soapAction="http://tempuri.org/IODSService/GetProductoCompartido" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetListBrothersByCUV">
+      <soap:operation soapAction="http://tempuri.org/IODSService/GetListBrothersByCUV" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

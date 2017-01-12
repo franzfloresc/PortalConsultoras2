@@ -10,6 +10,7 @@ using Portal.Consultoras.Web.Areas.Mobile.Models;
 using System.Configuration;
 
 using Portal.Consultoras.Web.ServiceUsuario;
+using Portal.Consultoras.Web.ServicePedido;
 
 namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 {
@@ -26,28 +27,158 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             try
             {
                 BuildMenuMobile(userData);
-
                 CargarValoresGenerales(userData);
 
-                /*PL20-1226*/
-                ViewBag.TieneOfertaDelDia = userData.TieneOfertaDelDia;
-
-                if (ViewBag.TieneOfertaDelDia)
+                /*INICIO: PL20-1289*/
+                bool mostrarBanner, permitirCerrarBanner = false;
+                if (SiempreMostrarBannerPL20()) mostrarBanner = true;
+                else if (NuncaMostrarBannerPL20()) mostrarBanner = false;
+                else
                 {
-                    // validar si se cerro el banner
-                    if (userData.CloseOfertaDelDia)
-                        ViewBag.TieneOfertaDelDia = false;
+                    mostrarBanner = true;
+                    permitirCerrarBanner = true;
 
-                    // validar si tiene pedido reservado
-                    string msg = string.Empty;
-                    if (ValidarPedidoReservado(out msg))
-                        ViewBag.TieneOfertaDelDia = false;
+                    if (userData.CloseBannerPL20) mostrarBanner = false;
+                    else
+                    {
+                        string message = string.Empty;
+                        if (ValidarPedidoReservado(out message)) mostrarBanner = false;
+                    }
                 }
-                /*PL20-1226*/
+
+                if (mostrarBanner)
+                {
+                    ViewBag.PermitirCerrarBannerPL20 = permitirCerrarBanner;
+                    ViewBag.TieneOfertaDelDia = userData.TieneOfertaDelDia;
+                    ViewBag.OfertaDelDiaResponse = GetOfertaDelDia();
+                    ViewBag.MostrarShowRoomResponse = MostrarShowRoomBannerLateral();
+                }
+                ViewBag.MostrarBannerPL20 = mostrarBanner;
+                /*FIN: PL20-1289*/
             }
             catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+            }
+        }
+
+        public JsonResult GetOfertaDelDia()
+        {
+            try
+            {
+                var f = false;
+                var oddModel = new OfertaDelDiaModel();
+
+                if (userData.OfertaDelDia != null)
+                {
+                    oddModel = userData.OfertaDelDia;
+                    oddModel.TeQuedan = CountdownODD(userData);
+                    f = true;
+                }
+
+                return Json(new
+                {
+                    success = f,
+                    data = oddModel
+                }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return Json(new
+                {
+                    success = false,
+                    message = "No se pudo procesar la solicitud"
+                }, JsonRequestBehavior.AllowGet);
+            }
+        }
+        
+        [HttpPost]
+        public JsonResult MostrarShowRoomBannerLateral()
+        {
+            try
+            {
+                var paisesShowRoom = ConfigurationManager.AppSettings["PaisesShowRoom"];
+                if (paisesShowRoom.Contains(userData.CodigoISO))
+                {
+                    if (!userData.CargoEntidadesShowRoom) throw new Exception("Ocurrió un error al intentar traer la información de los evento y consultora de ShowRoom.");
+                    var beShowRoomConsultora = userData.BeShowRoomConsultora;
+                    var beShowRoom = userData.BeShowRoom;
+
+                    if (beShowRoom == null)
+                    {
+                        beShowRoom = new BEShowRoomEvento();
+                        beShowRoomConsultora = new BEShowRoomEventoConsultora();
+                    }
+                    else
+                    {
+                        if (beShowRoomConsultora == null)
+                        {
+                            beShowRoomConsultora = new BEShowRoomEventoConsultora();
+                        }
+                    }
+
+                    if (beShowRoom.Estado == 1)
+                    {
+                        var rutaShowRoomBannerLateral = beShowRoom.RutaShowRoomBannerLateral;
+                        bool mostrarShowRoomProductos = false;
+                        var fechaHoy = DateTime.Now.AddHours(userData.ZonaHoraria).Date;
+                        bool estaActivoLateral = true;
+
+                        int diasAntes = beShowRoom.DiasAntes;
+                        int diasDespues = beShowRoom.DiasDespues;
+
+                        if (fechaHoy >= userData.FechaInicioCampania.AddDays(-diasAntes).Date && fechaHoy <= userData.FechaInicioCampania.AddDays(diasDespues).Date)
+                        {
+                            mostrarShowRoomProductos = true;
+                            rutaShowRoomBannerLateral = Url.Action("Index", "ShowRoom");
+                        }
+                        if (fechaHoy > userData.FechaInicioCampania.AddDays(diasDespues).Date)
+                            estaActivoLateral = false;
+
+                        return Json(new
+                        {
+                            success = true,
+                            data = beShowRoomConsultora,
+                            message = "ShowRoomConsultora encontrada",
+                            diasFaltantes = userData.FechaInicioCampania.Day - diasAntes,
+                            mesFaltante = userData.FechaInicioCampania.Month,
+                            anioFaltante = userData.FechaInicioCampania.Year,
+                            evento = beShowRoom,
+                            mostrarShowRoomProductos,
+                            rutaShowRoomBannerLateral,
+                            estaActivoLateral
+                        });
+                    }
+                    else
+                    {
+                        return Json(new
+                        {
+                            success = false,
+                            data = "",
+                            message = "ShowRoomEvento no encontrado"
+                        });
+                    }
+                }
+                else
+                {
+                    return Json(new
+                    {
+                        success = false,
+                        data = "",
+                        message = "ShowRoomConsultora no encontrada"
+                    });
+                }
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return Json(new
+                {
+                    success = false,
+                    message = "Hubo un problema con el servicio, intente nuevamente",
+                    extra = ""
+                }, JsonRequestBehavior.AllowGet);
             }
         }
 
@@ -200,6 +331,24 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 ViewBag.AnalyticsSegmentoConstancia = string.IsNullOrEmpty(userData.SegmentoConstancia) ? "(not available)" : userData.SegmentoConstancia.Trim();
                 ViewBag.AnalyticsSociaNivel = string.IsNullOrEmpty(userData.DescripcionNivel) ? "(not available)" : userData.DescripcionNivel;
             }
+        }
+
+        private bool SiempreMostrarBannerPL20()
+        {
+            string controllerName = this.ControllerContext.RouteData.Values["controller"].ToString();
+            string actionName = this.ControllerContext.RouteData.Values["action"].ToString();
+
+            if (controllerName == "Bienvenida" && actionName == "Index") return true;
+            return false;
+        }
+        private bool NuncaMostrarBannerPL20()
+        {
+            string controllerName = this.ControllerContext.RouteData.Values["controller"].ToString();
+            string actionName = this.ControllerContext.RouteData.Values["action"].ToString();
+
+            if (controllerName == "ShowRoom" && actionName == "ListadoProductoShowRoom") return true;
+            if (controllerName == "Pedido") return true;
+            return false;
         }
     }
 }
