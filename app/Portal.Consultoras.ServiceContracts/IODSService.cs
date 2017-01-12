@@ -139,5 +139,8 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         BEProductoCompartido GetProductoCompartido(int paisID, int ProCompID);
+
+        [OperationContract]
+        IList<BEProducto> GetListBrothersByCUV(int paisID, int codCampania, string cuv);
     }
 }

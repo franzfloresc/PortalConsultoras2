@@ -15,6 +15,8 @@ var cargandoRegistros = false;
 var loadAdd = true;
 var urlLoad = urlLoad || "";
 
+var dataFichaProductoFAV = [];  //PL20-1268
+
 $(document).ready(function () {
     $(document).on('click', '[data-btn-agregar-catalogopersonalizado]', function () {
         if (ReservadoOEnHorarioRestringido())
@@ -926,8 +928,72 @@ function AbrirMaqueta(tipo)
     }
 }
 
-
 function mostrarFichaProductoFAV(cuv) {
     $('#CUVFP').val(cuv);
     $('#frmFichaProductoFAV').submit();
+}
+
+//PL20-1268
+function mostrarFichaProductoFAV2(cuv) {
+    debugger;
+
+    var obj = {
+        cuv: cuv
+    };
+
+    jQuery.ajax({
+        type: 'POST',
+        url: urlGetInfoFichaProducto,
+        dataType: 'json',
+        data: JSON.stringify(obj),
+        contentType: 'application/json; charset=utf-8',
+        success: function (response) {
+            if (response.success) {
+                var _data = response.data;
+                var content = SetHandlebars("#template-fichaproductofav", _data);
+                $('#PopFichaProductoNueva').html(content);
+                $('#PopFichaProductoNueva').show();
+
+                dataFichaProductoFAV = _data.Hermanos;
+                console.log(_data.Hermanos);
+
+                $('#content_tono_' + cuv).addClass("borde_seleccion_tono");
+
+                $(".content_tono_detalle").on("click", function () {
+                    $('.content_tono_detalle').removeClass('borde_seleccion_tono');
+                    $(this).addClass("borde_seleccion_tono");
+                });
+            }
+            else {
+                console.log(response.message);
+            }
+        },
+        error: function (err) {
+            console.log(err);
+        },
+        complete: function () {
+
+        }
+    });
+}
+
+function cambiarInfoFichaProductoFAV(cuv) {
+    if (dataFichaProductoFAV != null && Array.isArray(dataFichaProductoFAV)) {
+
+        var scuv = $('#favTonoBulk' + cuv).val();
+        var result = $.grep(dataFichaProductoFAV, function (e) { return e.CUV == scuv; });
+        console.log(result);
+
+        if (result != null && Array.isArray(result) && resizeBy.length > 0) {
+            var obj = result[0];
+            console.log(obj);
+            var container = $('#PopFichaProductoNueva');
+            container.find('.titulo_ficha_producto').text(obj.Descripcion);
+            container.find('.descripcion_ficha_producto').text(obj.DescripcionComercial);
+            container.find('#imagen_ficha_producto').attr('src', obj.ImagenProductoSugerido);
+            $('#favTonoBulk' + cuv).val(obj.CUV);
+            $('.content_tono_detalle').removeClass('borde_seleccion_tono');
+            $('#content_tono_' + obj.CUV).addClass("borde_seleccion_tono");
+        }
+    }
 }

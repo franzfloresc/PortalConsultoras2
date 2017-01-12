@@ -127,5 +127,14 @@ namespace Portal.Consultoras.Data
             return Context.ExecuteReader(command);
         }
 
+        public IDataReader GetListBrothersByCUV(int codCampania, string cuv)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetListBrothersByCUV");
+            Context.Database.AddInParameter(command, "@CodCampania", DbType.Int32, codCampania);
+            Context.Database.AddInParameter(command, "@CUV", DbType.String, cuv);
+
+            return Context.ExecuteReader(command);
+        }
+
     }
 }
