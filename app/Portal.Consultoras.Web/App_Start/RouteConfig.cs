@@ -15,6 +15,13 @@ namespace Portal.Consultoras.Web
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute(
+                name: "Set",
+                url: "Set/{parameter}",
+                defaults: new { controller = "Set", action = "Index", parameter = UrlParameter.Optional },
+                namespaces: new[] { "Portal.Consultoras.Web.Controllers" }
+                );
+
+            routes.MapRoute(
                 name: "ConsultoraOnlinePaginaPedido",
                 url: "ConsultoraOnline/MisPedidos/Page/{Pagina}",
                 defaults: new { controller = "ConsultoraOnline", action = "ObtenerPagina", Pagina = UrlParameter.Optional },
@@ -39,7 +46,7 @@ namespace Portal.Consultoras.Web
             //    name: "Custom",
             //    url: "{controller}/{action}/{id}/{Name}",
             //    defaults: new { controller = "Cliente", action = "PedidosWeb", id = UrlParameter.Optional }
-            //);
+            //);            
         }
     }
 }

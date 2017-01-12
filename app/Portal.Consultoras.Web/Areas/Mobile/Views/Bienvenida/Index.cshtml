@@ -82,6 +82,7 @@
         <!--RESUMEN DATOS CONSULTORA Y CAMPAÑA-->
         <div class="content_resumen_dato_mobile" style="text-align:left">
             <div class="saludo_mobile">¡Hola&nbsp;</div>
+@*            <span style="margin-top: -0.5px!important;">@((Model.CodigoISO == "PA" || Model.CodigoISO == "CR" || Model.CodigoISO == "MX") ? "¡Ilumina la Navidad" : "¡Feliz Navidad")</span>*@
             <div class="nombre_consultora_mobile"><span>@nombreConsultora</span></div>
 
             @if (Model.PortalLideres && Model.Lider == 1)

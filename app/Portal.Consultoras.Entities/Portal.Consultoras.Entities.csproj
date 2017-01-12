@@ -59,6 +59,7 @@
     <Compile Include="BEAdministracionOfertaProducto.cs" />
     <Compile Include="BEAfiliaClienteConsultora.cs" />
     <Compile Include="BEAsistenciaCompartamos.cs" />
+    <Compile Include="BEProductoAppCatalogo.cs" />
     <Compile Include="BEBanner.cs" />
     <Compile Include="BEBannerInfo.cs" />
     <Compile Include="BEBannerPedido.cs" />
@@ -248,6 +249,8 @@
     <Compile Include="CDR\BECDRWebMotivoOperacion.cs" />
     <Compile Include="Enumerations.cs" />
     <Compile Include="BEPedidoRechazado.cs" />
+    <Compile Include="BEPopupPais.cs" />
+    <Compile Include="BELogConfiguracionCronograma.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

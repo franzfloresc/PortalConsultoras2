@@ -63,6 +63,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CDR\DACDRParametria.cs" />
     <Compile Include="CDR\DACDRWeb.cs" />
     <Compile Include="CDR\DACDRWebDescripcion.cs" />
     <Compile Include="CDR\DACDRWebDetalle.cs" />
@@ -149,6 +150,7 @@
     <Compile Include="DAPedidoWebAnteriores.cs" />
     <Compile Include="DAPedidoWebDetalle.cs" />
     <Compile Include="DAPermiso.cs" />
+    <Compile Include="DAPopupPais.cs" />
     <Compile Include="DAProcesoPedidoRechazado.cs" />
     <Compile Include="DAProducto.cs" />
     <Compile Include="DAProductoDescripcion.cs" />

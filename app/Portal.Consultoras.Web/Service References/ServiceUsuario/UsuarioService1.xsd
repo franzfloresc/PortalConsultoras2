@@ -694,6 +694,7 @@
       <xs:sequence>
         <xs:element minOccurs="0" name="PaisID" type="xs:int" />
         <xs:element minOccurs="0" name="ConsultoraId" type="xs:long" />
+        <xs:element minOccurs="0" name="indicadorBloqueoCDR" type="xs:int" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -1219,6 +1220,19 @@
       <xs:sequence>
         <xs:element xmlns:q36="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="GetDatosConsultoraHanaResult" nillable="true" type="q36:BEUsuario" />
       </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdNotificacionSolicitudCdrVisualizacion">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="paisID" type="xs:int" />
+        <xs:element minOccurs="0" name="procesoId" type="xs:long" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdNotificacionSolicitudCdrVisualizacionResponse">
+    <xs:complexType>
+      <xs:sequence />
     </xs:complexType>
   </xs:element>
 </xs:schema>

@@ -1,6 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xs:schema xmlns:ser="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:tns="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" xmlns:xs="http://www.w3.org/2001/XMLSchema">
   <xs:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+  <xs:complexType name="ArrayOfBEMatrizComercial">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="BEMatrizComercial" nillable="true" type="tns:BEMatrizComercial" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfBEMatrizComercial" nillable="true" type="tns:ArrayOfBEMatrizComercial" />
+  <xs:complexType name="BEMatrizComercial">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CodigoSAP" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Descripcion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DescripcionOriginal" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FotoProducto01" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FotoProducto02" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FotoProducto03" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FotoProducto04" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FotoProducto05" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FotoProducto06" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FotoProducto07" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FotoProducto08" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FotoProducto09" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FotoProducto10" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ISOPais" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IdMatrizComercial" type="xs:int" />
+      <xs:element minOccurs="0" name="PaisID" type="xs:int" />
+      <xs:element minOccurs="0" name="UsuarioModificacion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="UsuarioRegistro" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="BEMatrizComercial" nillable="true" type="tns:BEMatrizComercial" />
   <xs:complexType name="BEProductoSugerido">
     <xs:sequence>
       <xs:element minOccurs="0" name="CUV" nillable="true" type="xs:string" />
@@ -35,6 +64,8 @@
   <xs:complexType name="BEPedidoWeb">
     <xs:sequence>
       <xs:element minOccurs="0" name="Bloqueado" type="xs:short" />
+      <xs:element minOccurs="0" name="CDRWebEstado" type="xs:int" />
+      <xs:element minOccurs="0" name="CDRWebID" type="xs:int" />
       <xs:element minOccurs="0" name="CampaniaID" type="xs:int" />
       <xs:element minOccurs="0" name="CanalIngreso" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="CantidadProductos" type="xs:int" />
@@ -66,6 +97,7 @@
       <xs:element minOccurs="0" name="MontoTotalProl" type="xs:decimal" />
       <xs:element minOccurs="0" name="MotivoCreditoID" type="xs:short" />
       <xs:element minOccurs="0" name="Nombres" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NumeroPedido" type="xs:int" />
       <xs:element minOccurs="0" name="PaisID" type="xs:int" />
       <xs:element minOccurs="0" name="PedidoID" type="xs:int" />
       <xs:element minOccurs="0" name="RutaPaqueteDocumentario" nillable="true" type="xs:string" />
@@ -803,35 +835,6 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="ArrayOfBEProductoSugerido" nillable="true" type="tns:ArrayOfBEProductoSugerido" />
-  <xs:complexType name="ArrayOfBEMatrizComercial">
-    <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="BEMatrizComercial" nillable="true" type="tns:BEMatrizComercial" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="ArrayOfBEMatrizComercial" nillable="true" type="tns:ArrayOfBEMatrizComercial" />
-  <xs:complexType name="BEMatrizComercial">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="CodigoSAP" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="Descripcion" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="DescripcionOriginal" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="FotoProducto01" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="FotoProducto02" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="FotoProducto03" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="FotoProducto04" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="FotoProducto05" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="FotoProducto06" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="FotoProducto07" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="FotoProducto08" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="FotoProducto09" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="FotoProducto10" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="ISOPais" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="IdMatrizComercial" type="xs:int" />
-      <xs:element minOccurs="0" name="PaisID" type="xs:int" />
-      <xs:element minOccurs="0" name="UsuarioModificacion" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="UsuarioRegistro" nillable="true" type="xs:string" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="BEMatrizComercial" nillable="true" type="tns:BEMatrizComercial" />
   <xs:complexType name="ArrayOfBECrossSellingProducto">
     <xs:sequence>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="BECrossSellingProducto" nillable="true" type="tns:BECrossSellingProducto" />

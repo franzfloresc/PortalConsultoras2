@@ -23,23 +23,23 @@
                 <li class="one">
                     <a href="javascript:;" data-tag="EstadoCuenta">
                         <div class="icono_pagos imagen_1"></div>
-                        ESTADO<b> DE CUENTA</b>
-                        <div class="marcador_tab oculto"></div>
-                    </a>
+                        <div class="texto_tab_pagos">ESTADO<b> DE CUENTA</b></div>
+                            <div class="marcador_tab oculto"></div>
+</a>
                 </li>
                 <li class="two">
                     <a href="javascript:;" data-tag="LugaresPago">
                         <div class="icono_pagos imagen_2"></div>
-                        LUGARES <b>DE PAGO</b>
-                        <div class="marcador_tab oculto"></div>
-                    </a>
+                        <div class="texto_tab_pagos">LUGARES <b>DE PAGO</b></div>
+                            <div class="marcador_tab oculto"></div>
+</a>
                 </li>
                 @if (Model.CodigoISO.Equals(Constantes.CodigosISOPais.Peru))
                 {
                     <li class="three">
                         <a href="javascript:;" data-tag="MisPercepciones">
                             <div class="icono_pagos imagen_4"></div>
-                            MIS <b>PERCEPCIONES</b>
+                            <div class="texto_tab_pagos">MIS <b>PERCEPCIONES<br/> HISTÓRICAS</b></div>
                             <div class="marcador_tab oculto"></div>
                         </a>
                     </li>
@@ -47,9 +47,9 @@
                 <li class="four" style="@(Model.MostrarFE)">
                     <a href="@Url.Action("Index", "FacturaElectronica")" data-action="LugaresPago" target="_blank">
                         <div class="icono_pagos imagen_3"></div>
-                        FACTURA <b>ELECTRÓNICA</b>
-                        <div class="marcador_tab oculto"></div>
-                    </a>
+                        <div class="texto_tab_pagos">FACTURA Y <b>PERCEPCIÓN <br/>ELECTRÓNICA</b></div>
+                            <div class="marcador_tab oculto"></div>
+</a>
                 </li>
                 <hr id="barCursor" />
             </ul>
@@ -184,7 +184,7 @@
                 <!--CONTENIDO DE TITULO -->
                 <div class="titulo_detalle_pago">
                     <div class="titulo_detalle_percepciones_img"></div>
-                    <div>MIS<b> PERCEPCIONES</b></div>
+                    <div>MIS<b> PERCEPCIONES HISTÓRICAS</b></div>
                 </div>
                 <div class="info_detalle_pago">Mi escala de percepciones</div>
                 <hr class="clear" />

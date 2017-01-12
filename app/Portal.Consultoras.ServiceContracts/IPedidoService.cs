@@ -118,6 +118,9 @@ namespace Portal.Consultoras.ServiceContracts
         void UpdBackOrderListPedidoWebDetalle(int paisID, int campaniaID, int pedidoID, List<BEPedidoWebDetalle> listPedidoWebDetalle);
 
         [OperationContract]
+        void QuitarBackOrderPedidoWebDetalle(BEPedidoWebDetalle pedidowebdetalle);
+
+        [OperationContract]
         IList<BEPedidoWebDetalle> SelectByPedidoValidado(int paisID, int CampaniaID, long ConsultoraID, string Consultora);
 
         [OperationContract]
@@ -854,6 +857,8 @@ namespace Portal.Consultoras.ServiceContracts
         [OperationContract]
         IList<BEShowRoomOferta> GetShowRoomOfertasConsultora(int paisID, int campaniaID, string codigoConsultora);
 
+        [OperationContract]
+        BEShowRoomOferta GetShowRoomOfertaById(int paisID, int ofertaShowRoomID);
         #endregion
 
         #region Producto SUgerido

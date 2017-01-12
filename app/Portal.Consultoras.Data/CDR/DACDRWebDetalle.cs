@@ -37,21 +37,44 @@ namespace Portal.Consultoras.Data.CDR
 
         public int DelCDRWebDetalle(BECDRWebDetalle entity)
         {
+            int result;
+
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.DelCDRWebDetalle");
             Context.Database.AddInParameter(command, "CDRWebDetalleID", DbType.Int32, entity.CDRWebDetalleID);
-            Context.Database.AddOutParameter(command, "RetornoID", DbType.Int32, 10);
 
-            Context.ExecuteNonQuery(command);
+            result = Context.ExecuteNonQuery(command);
 
-            return Convert.ToInt32(command.Parameters["@RetornoID"].Value);
-        }
+            return result;
+        }        
 
-        public IDataReader GetCDRWebDetalle(BECDRWebDetalle entity)
+        public IDataReader GetCDRWebDetalle(BECDRWebDetalle entity, int pedidoId)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetCDRWebDetalle");
             Context.Database.AddInParameter(command, "CDRWebID", DbType.Int32, entity.CDRWebID);
+            Context.Database.AddInParameter(command, "PedidoID", DbType.String, pedidoId);
 
             return Context.ExecuteReader(command);
+        }
+
+        public IDataReader GetCDRWebDetalleLog(BELogCDRWeb entity)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetCDRWebDetalleLog");
+            Context.Database.AddInParameter(command, "LogCDRWebID", DbType.Int32, entity.LogCDRWebId);
+
+            return Context.ExecuteReader(command);
+        }
+
+        public int UpdCdrWebDetalleCantidadObservado(BECDRWebDetalle entity)
+        {
+            int result;
+
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.UpdCdrWebDetalleCantidadObservado");
+            Context.Database.AddInParameter(command, "CDRWebDetalleID", DbType.Int32, entity.CDRWebDetalleID);
+            Context.Database.AddInParameter(command, "Cantidad", DbType.Int32, entity.Cantidad);
+
+            result = Context.ExecuteNonQuery(command);
+
+            return result;
         }
     }
 }

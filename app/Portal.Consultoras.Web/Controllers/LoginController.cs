@@ -418,7 +418,6 @@ namespace Portal.Consultoras.Web.Controllers
                     model.CodigoConsultora = oBEUsuario.CodigoConsultora;
                     model.NombreConsultora = oBEUsuario.Nombre;
                     model.RolID = oBEUsuario.RolID;
-                    model.EMail = oBEUsuario.EMail;
                     model.CampaniaID = oBEUsuario.CampaniaID;
                     model.BanderaImagen = oBEUsuario.BanderaImagen;
                     model.CambioClave = Convert.ToInt32(oBEUsuario.CambioClave);
@@ -459,10 +458,7 @@ namespace Portal.Consultoras.Web.Controllers
                     {
                         model.DiaPROL = false;
                         model.FechaFacturacion = oBEUsuario.FechaInicioFacturacion.AddDays(-oBEUsuario.DiasAntes);
-                        if (oBEUsuario.DiasAntes == 0)
-                            model.HoraFacturacion = oBEUsuario.HoraInicio;
-                        else
-                            model.HoraFacturacion = oBEUsuario.HoraInicioNoFacturable;
+                        model.HoraFacturacion = oBEUsuario.DiasAntes == 0 ? oBEUsuario.HoraInicio : oBEUsuario.HoraInicioNoFacturable;
                     }
                     else
                     {
@@ -532,9 +528,7 @@ namespace Portal.Consultoras.Web.Controllers
                     model.FechaFinFIC = oBEUsuario.FechaFinFIC;
                     model.MenuNotificaciones = 1;
                     if (model.MenuNotificaciones == 1)
-                    {
                         model.TieneNotificaciones = TieneNotificaciones(oBEUsuario);
-                    }
                     model.NuevoPROL = oBEUsuario.NuevoPROL;
                     model.ZonaNuevoPROL = oBEUsuario.ZonaNuevoPROL;
 
@@ -567,16 +561,31 @@ namespace Portal.Consultoras.Web.Controllers
                     model.EsquemaDAConsultora = oBEUsuario.EsquemaDAConsultora;
                     model.ValidacionInteractiva = oBEUsuario.ValidacionInteractiva;
                     model.MensajeValidacionInteractiva = oBEUsuario.MensajeValidacionInteractiva;
+
+                    // Pago Online CO - CL - PR
+                    model.IndicadorPagoOnline = model.PaisID == 4 || model.PaisID == 3 || model.PaisID == 12 ? 1 : 0;
+                    model.UrlPagoOnline = model.PaisID == 4 ? "https://www.zonapagos.com/pagosn2/LoginCliente"
+                        : model.PaisID == 3 ? "https://www.belcorpchile.cl/BotonesPagoRedireccion/PagoConsultora.aspx"
+                        : model.PaisID == 12 ? "https://www.somosbelcorp.com/Paypal"
+                        : "";
+
                     model.OfertaFinal = oBEUsuario.OfertaFinal;
                     model.EsOfertaFinalZonaValida = oBEUsuario.EsOfertaFinalZonaValida;
+
+                    model.OfertaFinalGanaMas = oBEUsuario.OfertaFinalGanaMas;
+                    model.EsOFGanaMasZonaValida = oBEUsuario.EsOFGanaMasZonaValida;
+
                     model.CatalogoPersonalizado = oBEUsuario.CatalogoPersonalizado;
                     model.EsCatalogoPersonalizadoZonaValida = oBEUsuario.EsCatalogoPersonalizadoZonaValida;
                     model.VioTutorialSalvavidas = oBEUsuario.VioTutorialSalvavidas;
                     model.TieneHana = oBEUsuario.TieneHana;
                     model.NombreGerenteZonal = oBEUsuario.NombreGerenteZona;  // SB20-907
                     model.FechaActualPais = oBEUsuario.FechaActualPais;
+                    model.IndicadorBloqueoCDR = oBEUsuario.IndicadorBloqueoCDR;
+                    model.EsCDRWebZonaValida = oBEUsuario.EsCDRWebZonaValida;
+                    model.TieneCDR = oBEUsuario.TieneCDR;
 
-                    if (model.RolID == Portal.Consultoras.Common.Constantes.Rol.Consultora)
+                    if (model.RolID == Constantes.Rol.Consultora)
                     {
                         if (model.TieneHana == 1)
                         {
@@ -727,7 +736,7 @@ namespace Portal.Consultoras.Web.Controllers
             List<BENotificaciones> olstNotificaciones = new List<BENotificaciones>();
             using (UsuarioServiceClient sv = new UsuarioServiceClient())
             {
-                olstNotificaciones = sv.GetNotificacionesConsultora(oBEUsuario.PaisID, oBEUsuario.ConsultoraID).ToList();
+                olstNotificaciones = sv.GetNotificacionesConsultora(oBEUsuario.PaisID, oBEUsuario.ConsultoraID, oBEUsuario.IndicadorBloqueoCDR).ToList();
             }
             if (olstNotificaciones.Count != 0)
             {

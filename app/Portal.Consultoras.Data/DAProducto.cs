@@ -46,7 +46,7 @@ namespace Portal.Consultoras.Data
             return Context.ExecuteReader(command);
         }
 
-        public IDataReader GetProductoComercialByCampaniaBySearchRegionZona(int CampaniaID, int RowCount, int Criterio, string CodigoDescripcion, int RegionID, int ZonaID, string CodigoRegion, string CodigoZona)
+        public IDataReader GetProductoComercialByCampaniaBySearchRegionZona(int CampaniaID, int RowCount, int Criterio, string CodigoDescripcion, int RegionID, int ZonaID, string CodigoRegion, string CodigoZona, bool validarOpt)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetProductoComercialByCampaniaBySearchRegionZona_SB2");
             Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, CampaniaID);
@@ -57,6 +57,7 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@ZonaID", DbType.Int32, ZonaID);
             Context.Database.AddInParameter(command, "@CodigoRegion", DbType.AnsiString, CodigoRegion);
             Context.Database.AddInParameter(command, "@CodigoZona", DbType.AnsiString, CodigoZona);
+            Context.Database.AddInParameter(command, "@ValidarOPT", DbType.Boolean, validarOpt);
 
             return Context.ExecuteReader(command);
         }
@@ -91,6 +92,15 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@CUV", DbType.String, cuv);
 
             return Context.ExecuteScalar(command).ToString();
+        }
+
+        public IDataReader GetNombreProducto048ByListaCUV(int campaniaID, string listaCUV)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetNombreProducto048ByListaCUV");
+            Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, campaniaID);
+            Context.Database.AddInParameter(command, "@ListaCUV", DbType.String, listaCUV);
+
+            return Context.ExecuteReader(command);
         }
     }
 }

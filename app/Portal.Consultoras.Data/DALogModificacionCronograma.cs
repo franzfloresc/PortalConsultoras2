@@ -32,5 +32,14 @@ namespace Portal.Consultoras.Data
             return Context.ExecuteNonQuery(command);
         }
 
+        public int InsLogConfiguracionCronogarma(string CodigoUsuario, string xml)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.InsLogConfiguracionCronograma");
+            Context.Database.AddInParameter(command, "@CodigoUsuario", DbType.String, CodigoUsuario);
+            Context.Database.AddInParameter(command, "@ListaEntidadXml", DbType.Xml, xml);
+
+            return Context.ExecuteNonQuery(command);
+        }
+
     }
 }

@@ -1,0 +1,426 @@
+﻿@using Portal.Consultoras.Common
+@model Portal.Consultoras.Web.Models.CDRWebModel
+
+@{
+    var formatoFechaAtencion = "--/--/----";
+    if (Model.FechaAtencion.HasValue)
+    {
+        formatoFechaAtencion = Model.FechaAtencion.Value.Day.ToString().PadLeft(2, '0') + "/" +
+    Model.FechaAtencion.Value.Month.ToString().PadLeft(2, '0') + "/" + Model.FechaAtencion.Value.Year;
+    }
+
+    var formatoCampania = Model.CampaniaID.ToString().Substring(0, 4) + "-" + Model.CampaniaID.ToString().Substring(4, 2);
+}
+
+<div class="logo_lista_detalle">
+    
+</div>
+<div class="content_datos_cdr">
+    <div class="linea_separadora"></div>
+    <div class="saludo_cdr">¡Hola @Model.NombreConsultora!</div>
+    <div class="titulo_cdr">ESTA ES LA RESPUESTA A TU SOLICITUD DE CAMBIOS <br/>Y DEVOLUCIONES</div>
+    @*<div class="respuesta_cdr">En estos momentos la estamos evaluando y en XX horas te daremos una respuesta</div>*@
+    <div style="text-align:center">
+        <div class="texto_fila_cdr">Fecha: @formatoFechaAtencion</div>
+        <div class="texto_fila_cdr">Solicitud: Nº @Model.CDRWebID</div>
+        <div class="texto_fila_cdr">Campaña: @formatoCampania</div>
+    </div>
+    <div class="resumen_aprobado_cdr">Resumen: <b>@Model.ResumenResolucion</b> </div>
+    <div class="subtitulo_cdr">DETALLE DE LA SOLICITUD</div>
+    @foreach (var item in Model.ListaDetalle)
+    {
+        var descripcionEstado = item.Estado == Constantes.EstadoCDRWeb.Aceptado
+                                ? "APROBADO"
+                                : item.Estado == Constantes.EstadoCDRWeb.Enviado
+                                    ? "ENVIADO"
+                                    : item.Estado == Constantes.EstadoCDRWeb.Observado
+                                        ? "RECHAZADO"
+                                        : item.Estado == Constantes.EstadoCDRWeb.Pendiente
+                                            ? "PENDIENTE"
+                                            : "";
+
+        var descripcionCompleta = item.Estado == Constantes.EstadoCDRWeb.Aceptado
+            ? ""
+            : item.Estado == Constantes.EstadoCDRWeb.Enviado
+                ? ""
+                : item.Estado == Constantes.EstadoCDRWeb.Observado
+                    ? item.Observacion
+                    : item.Estado == Constantes.EstadoCDRWeb.Pendiente
+                        ? "Revisa la respuesta en Somos Belcorp."
+                        : "";
+
+        <div class="content_detalle_pedido_cdr">
+            <div>
+                <div class="estado_cdr_detalle">@descripcionEstado</div>
+                <div class="estado_cdr_detalle" style="font-weight: 300;">
+                    @descripcionCompleta
+                    @if (item.Estado == Constantes.EstadoCDRWeb.Pendiente)
+                    {
+                        <span style="font-weight: 700;">
+                            <a href="#" style="text-decoration: underline; display: inline-block; margin-left: 5px;">Ir ahora</a>
+                        </span>
+                    }
+                </div>
+            </div>
+            
+            @if (item.CodigoOperacion == Constantes.CodigoOperacionCDR.Canje)
+            {
+                <div class="content_float_cdr">
+                    <div class="left_detalle_cdr">@item.CUV</div>
+                    <div class="right_detalle_cdr"> Solución solicitada: </div>
+                </div>
+                <div class="content_float_cdr">
+                    <div class="left_detalle_cdr"><b>@item.Descripcion</b>
+                    </div>
+                    <div class="right_detalle_cdr"><b>@item.Solicitud</b>
+                    </div>
+                </div>
+                <div class="content_float_cdr">
+                    <div class="left_detalle_cdr">@item.Cantidad unidades</div>
+                    <div class="right_detalle_cdr">
+                        <div class="texto_detalle_cdr"></div>
+                    </div>
+                </div>
+                <div class="content_float_cdr">
+                    <div class="left_detalle_cdr">Costo: @Model.Simbolo @Util.DecimalToStringFormat(item.Precio, Model.CodigoIso)</div>
+                    <div class="right_detalle_cdr">
+
+                    </div>
+                </div>
+            }
+            @if (item.CodigoOperacion == Constantes.CodigoOperacionCDR.Devolucion)
+            {
+                <div class="content_float_cdr">
+                    <div class="left_detalle_cdr">@item.CUV</div>
+                    <div class="right_detalle_cdr"> Solución solicitada: </div>
+                </div>
+                <div class="content_float_cdr">
+                    <div class="left_detalle_cdr"><b>@item.Descripcion</b>
+                    </div>
+                    <div class="right_detalle_cdr"><b>@item.Solicitud</b>
+                    </div>
+                </div>
+                <div class="content_float_cdr">
+                    <div class="left_detalle_cdr">@item.Cantidad unidades</div>
+                    <div class="right_detalle_cdr">
+                        <div class="texto_detalle_cdr"></div>
+                    </div>
+                </div>
+                <div class="content_float_cdr">
+                    <div class="left_detalle_cdr">Costo: @Model.Simbolo @Util.DecimalToStringFormat(item.Precio, Model.CodigoIso)</div>
+                    <div class="right_detalle_cdr">
+
+                    </div>
+                </div>
+            }
+            @if (item.CodigoOperacion == Constantes.CodigoOperacionCDR.Faltante)
+            {
+                <div class="content_float_cdr">
+                    <div class="left_detalle_cdr">@item.CUV</div>
+                    <div class="right_detalle_cdr"> Solución solicitada: </div>
+                </div>
+                <div class="content_float_cdr">
+                    <div class="left_detalle_cdr"><b>@item.Descripcion</b>
+                    </div>
+                    <div class="right_detalle_cdr"><b>@item.Solicitud</b>
+                    </div>
+                </div>
+                <div class="content_float_cdr">
+                    <div class="left_detalle_cdr">@item.Cantidad unidades</div>
+                    <div class="right_detalle_cdr">
+                        <div class="texto_detalle_cdr"></div>
+                    </div>
+                </div>
+                <div class="content_float_cdr">
+                    <div class="left_detalle_cdr">Costo: @Model.Simbolo @Util.DecimalToStringFormat(item.Precio, Model.CodigoIso)</div>
+                    <div class="right_detalle_cdr">
+
+                    </div>
+                </div>
+            }
+            @if (item.CodigoOperacion == Constantes.CodigoOperacionCDR.FaltanteAbono)
+            {
+                <div class="content_float_cdr">
+                    <div class="left_detalle_cdr">@item.CUV</div>
+                    <div class="right_detalle_cdr"> Solución solicitada: </div>
+                </div>
+                <div class="content_float_cdr">
+                    <div class="left_detalle_cdr"><b>@item.Descripcion</b>
+                    </div>
+                    <div class="right_detalle_cdr"><b>@item.Solicitud</b>
+                    </div>
+                </div>
+                <div class="content_float_cdr">
+                    <div class="left_detalle_cdr">@item.Cantidad unidades</div>
+                    <div class="right_detalle_cdr">
+                        <div class="texto_detalle_cdr"></div>
+                    </div>
+                </div>
+                <div class="content_float_cdr">
+                    <div class="left_detalle_cdr">Costo: @Model.Simbolo @Util.DecimalToStringFormat(item.Precio, Model.CodigoIso)</div>
+                    <div class="right_detalle_cdr">
+
+                    </div>
+                </div>
+            }
+            @if (item.CodigoOperacion == Constantes.CodigoOperacionCDR.Trueque)
+            {
+                <div class="content_float_cdr">
+                    <div class="left_detalle_cdr">@item.CUV</div>
+                    <div class="right_detalle_cdr"> Solución solicitada: </div>
+                </div>
+                <div class="content_float_cdr">
+                    <div class="left_detalle_cdr"><b>@item.Descripcion</b>
+                    </div>
+                    <div class="right_detalle_cdr"><b>@item.Solicitud</b>
+                    </div>
+                </div>
+                <div class="content_float_cdr">
+                    <div class="left_detalle_cdr">@item.Cantidad unidades</div>
+                    <div class="right_detalle_cdr">
+                        <div class="texto_detalle_cdr">@item.CUV2</div>
+                    </div>
+                </div>
+                <div class="content_float_cdr">
+                    <div class="left_detalle_cdr">Costo: @Model.Simbolo @Util.DecimalToStringFormat(item.Precio, Model.CodigoIso)</div>
+                    <div class="right_detalle_cdr">
+                        <div class="texto_detalle_cdr">@item.Descripcion2</div>
+                        <div class="texto_detalle_cdr">@item.Cantidad2 unidades</div>
+                        <div class="texto_detalle_cdr">Costo: @Model.Simbolo @Util.DecimalToStringFormat(item.Precio2, Model.CodigoIso)</div>
+                    </div>
+                </div>
+            }
+        </div>
+    }    
+    <a class="ver_solicitud_sb"> VER LA SOLICITUD EN SOMOS BELCORP</a>    
+</div>
+
+@*<table width="100%" border="0" cellspacing="0" cellpadding="0" align="center" style="background:#FFF;">
+    <thead>
+        <tr>
+            <th colspan="3" style="width: 100%; height: 50px; border-bottom: 1px solid #000; padding: 12px 0px; text-align: center;">
+                <img src="http://www.genesis-peru.com/mailing-belcorp/logo.png" alt="Logo Esika" />
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td colspan="3" style="height:30px;"></td>
+        </tr>
+        <tr>
+            <td colspan="3">
+                <table align="center" border="0" cellspacing="0" cellpadding="0" style="width:100%; text-align:center; padding-bottom:20px;">
+                    <tbody>
+                    <tr>
+                        <td style="font-family: 'Calibri'; font-size: 17px; text-align: center; font-weight: 500; color: #000; padding: 0 0 20px 0;">
+                            ¡Hola @Model.NombreConsultora!
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: center; font-family: 'Calibri'; font-size: 22px; font-weight: 700; color: #000; padding-bottom: 15px;">
+                            ESTA ES LA RESPUESTA A TU SOLICITUD DE CAMBIOS Y <br/>DEVOLUCIONES
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding-bottom: 15px;">
+                            <table align="center" border="0" cellspacing="0" cellpadding="0" style="width: 100%; padding-left: 14px; padding-right: 14px;">
+                                <tbody>
+                                <tr>
+                                    <td style="width: 33%; text-align: center; font-family: 'Calibri'; font-size: 15px; font-weight: 300; color: black; border-right: 1px solid black; padding-right: 14px;">
+                                        Fecha: @formatoFechaAtencion
+                                    </td>
+                                    <td style="width: 33%; text-align: center; font-family: 'Calibri'; font-size: 15px; font-weight: 300; color: black; border-right: 1px solid black; padding-left: 14px; padding-right: 14px;">
+                                        Solicitud: Nº @Model.CDRWebID
+                                    </td>
+                                    <td style="width: 33%; text-align: center; font-family: 'Calibri'; font-size: 15px; font-weight: 300; color: black; padding-left: 14px;">
+                                        Campaña: @formatoCampania
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="3" style="text-align: center; font-family: 'Calibri'; font-weight: 700; color: black; padding-top: 15px; font-size: 15px;">
+                                        <span style="font-weight: 300">
+                                                    Resumen:
+                                                </span>
+                                        @Model.ResumenResolucion
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: center; font-size: 17px; font-weight: 700; font-family: 'Calibri'; color: #262626; text-align: center; border-top: 1px solid #979797; border-bottom: 1px solid #979797; padding: 8px;">
+                            DETALLE DE LA SOLICITUD
+                        </td>
+                    </tr>
+
+                        @foreach (var item in Model.ListaDetalle)
+                        {
+                            var descripcionEstado = item.Estado == Constantes.EstadoCDRWeb.Aceptado
+                                ? "APROBADO"
+                                : item.Estado == Constantes.EstadoCDRWeb.Enviado
+                                    ? "ENVIADO"
+                                    : item.Estado == Constantes.EstadoCDRWeb.Observado
+                                        ? "RECHAZADO"
+                                        : item.Estado == Constantes.EstadoCDRWeb.Pendiente
+                                            ? "PENDIENTE"
+                                            : "";
+
+                            var descripcionCompleta = item.Estado == Constantes.EstadoCDRWeb.Aceptado
+                                ? ""
+                                : item.Estado == Constantes.EstadoCDRWeb.Enviado
+                                    ? ""
+                                    : item.Estado == Constantes.EstadoCDRWeb.Observado
+                                        ? item.Observacion
+                                        : item.Estado == Constantes.EstadoCDRWeb.Pendiente
+                                            ? "Revisa la respuesta en Somos Belcorp."
+                                            : "";
+
+                            <tr>
+                                <td style="border-bottom: 1px solid #979797; padding-top: 23px; padding-bottom: 15px">
+                                    <table align="center" border="0" cellspacing="0" cellpadding="0" style="width: 100%; padding-left: 14px; padding-right: 14px;">
+                                        <tbody>
+                                        <tr>
+                                            <td style="width: 55%; text-align: left; font-family: 'Calibri'; font-size: 16px; color: #e81c36; padding-right: 14px; padding-bottom: 6px; vertical-align: top;">
+                                                <span style="font-weight: 700">
+                                                        @descripcionEstado:
+                                                    </span>
+                                                <br/>
+                                                @descripcionCompleta
+                                                @if (item.Estado == Constantes.EstadoCDRWeb.Pendiente)
+                                                {
+                                                    <span style="text-decoration: underline; font-weight: 700; color: #e81c36;">
+                                                            <a href="#" style="text-decoration: underline; color: #e81c36;">Ir ahora</a>
+                                                        </span>
+                                                }
+                                            </td>
+                                            <td style="width: 45%; text-align: left; font-family: 'Calibri'; font-size: 16px; color: black; font-weight: 300; padding-bottom: 6px; vertical-align: top;">
+                                                &nbsp;
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="width: 55%; text-align: left; font-family: 'Calibri'; font-size: 16px; color: #000; padding-right: 14px; vertical-align: top;">
+                                                @item.CUV
+                                            </td>
+                                            <td style="width: 45%; text-align: left; font-family: 'Calibri'; font-size: 16px; color: black; font-weight: 300; vertical-align: top;">
+                                                Solución solicitada:
+                                            </td>
+                                        </tr>
+                                        @if (item.CodigoOperacion == Constantes.CodigoOperacionCDR.Canje)
+                                        {
+                                            <tr>
+                                                <td style="width: 55%; text-align: left; font-family: 'Calibri'; font-size: 16px; font-weight: 700; vertical-align: top; color: #000; padding-right: 14px;">
+                                                    @item.Descripcion
+                                                </td>
+                                                <td rowspan="2" style="width: 45%; text-align: left; font-family: 'Calibri'; font-size: 16px; vertical-align: top; color: black; font-weight: 700;">
+                                                    @item.Solicitud
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="width: 55%; text-align: left; font-family: 'Calibri'; font-size: 16px; vertical-align: top; color: black; padding-right: 14px;">
+                                                    @item.Cantidad unidades
+                                                </td>
+                                            </tr>
+                                        }
+                                        @if (item.CodigoOperacion == Constantes.CodigoOperacionCDR.Devolucion)
+                                        {
+                                            <tr>
+                                                <td style="width: 55%; text-align: left; font-family: 'Calibri'; font-size: 16px; font-weight: 700; vertical-align: top; color: #000; padding-right: 14px;">
+                                                    @item.Descripcion
+                                                </td>
+                                                <td rowspan="2" style="width: 45%; text-align: left; font-family: 'Calibri'; font-size: 16px; vertical-align: top; color: black; font-weight: 700;">
+                                                    @item.Solicitud
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="width: 55%; text-align: left; font-family: 'Calibri'; font-size: 16px; vertical-align: top; color: black; padding-right: 14px;">
+                                                    @item.Cantidad unidades
+                                                </td>
+                                            </tr>
+                                        }
+                                        @if (item.CodigoOperacion == Constantes.CodigoOperacionCDR.Faltante)
+                                        {
+                                            <tr>
+                                                <td style="width: 55%; text-align: left; font-family: 'Calibri'; font-size: 16px; font-weight: 700; vertical-align: top; color: #000; padding-right: 14px;">
+                                                    @item.Descripcion
+                                                </td>
+                                                <td rowspan="2" style="width: 45%; text-align: left; font-family: 'Calibri'; font-size: 16px; vertical-align: top; color: black; font-weight: 700;">
+                                                    @item.Solicitud
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="width: 55%; text-align: left; font-family: 'Calibri'; font-size: 16px; vertical-align: top; color: black; padding-right: 14px;">
+                                                    @item.Cantidad unidades
+                                                </td>
+                                            </tr>
+                                        }
+                                        @if (item.CodigoOperacion == Constantes.CodigoOperacionCDR.FaltanteAbono)
+                                        {
+                                            <tr>
+                                                <td style="width: 55%; text-align: left; font-family: 'Calibri'; font-size: 16px; font-weight: 700; vertical-align: top; color: #000; padding-right: 14px;">
+                                                    @item.Descripcion
+                                                </td>
+                                                <td rowspan="2" style="width: 45%; text-align: left; font-family: 'Calibri'; font-size: 16px; vertical-align: top; color: black; font-weight: 700;">
+                                                    @item.Solicitud
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="width: 55%; text-align: left; font-family: 'Calibri'; font-size: 16px; vertical-align: top; color: black; padding-right: 14px;">
+                                                    @item.Cantidad unidades
+                                                </td>
+                                            </tr>
+                                        }
+                                        @if (item.CodigoOperacion == Constantes.CodigoOperacionCDR.Trueque)
+                                        {
+                                            <tr>
+                                                <td style="width: 55%; text-align: left; font-family: 'Calibri'; font-size: 16px; font-weight: 700; vertical-align: top; color: #000; padding-right: 14px;">
+                                                    @item.Descripcion
+                                                </td>
+                                                <td style="width: 45%; text-align: left; font-family: 'Calibri'; font-size: 16px; vertical-align: top; color: black; font-weight: 700;">
+                                                    @item.Solicitud
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="width: 55%; text-align: left; font-family: 'Calibri'; font-size: 16px; vertical-align: top; color: black; padding-right: 14px;">
+                                                    @item.Cantidad unidades
+                                                </td>
+                                                <td style="width: 45%; text-align: left; font-family: 'Calibri'; font-size: 16px; vertical-align: top; color: black;">
+                                                    @item.CUV2
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="width: 55%; text-align: left; font-family: 'Calibri'; font-size: 16px; color: black; padding-right: 14px;">
+                                                    Costo: @Model.Simbolo @Util.DecimalToStringFormat(item.Precio, Model.CodigoIso)
+                                                </td>
+                                                <td style="width: 45%; text-align: left; font-family: 'Calibri'; font-size: 16px; color: black;">
+                                                    @item.Descripcion2
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="width: 55%; padding-right: 14px;">&nbsp;</td>
+                                                <td style="width: 45%; text-align: left; font-family: 'Calibri'; font-size: 16px; vertical-align: top; color: black;">
+                                                    @item.Cantidad2 unidades
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="width: 55%; padding-right: 14px;">&nbsp;</td>
+                                                <td style="width: 44%; text-align: left; font-family: 'Calibri'; font-size: 16px; vertical-align: top; color: black;">
+                                                    Costo: @Model.Simbolo @Util.DecimalToStringFormat(item.Precio2, Model.CodigoIso)
+                                                </td>
+                                            </tr>
+                                        }
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+                        }
+                    <tr>
+                        <td colspan="3" style="text-align: center; font-family: 'Calibri'; color: #000; font-size: 12px; font-weight: 400; padding-top: 25px; padding-bottom: 27px;"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+    </tbody>
+</table>*@
+

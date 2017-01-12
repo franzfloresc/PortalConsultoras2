@@ -220,6 +220,17 @@ namespace Portal.Consultoras.Data
             return result;
         }
 
+        public int QuitarBackOrderPedidoWebDetalle(BEPedidoWebDetalle pedidowebdetalle)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.QuitarBackOrderPedidoWebDetalle");
+            Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, pedidowebdetalle.CampaniaID);
+            Context.Database.AddInParameter(command, "@PedidoID", DbType.Int32, pedidowebdetalle.PedidoID);
+            Context.Database.AddInParameter(command, "@PedidoDetalleID", DbType.Int16, pedidowebdetalle.PedidoDetalleID);
+            int result = Context.ExecuteNonQuery(command);
+
+            return result;
+        }
+
         public void DelPedidoWebDetalleDesglosePedido(int CampaniaID, int PedidoID)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.DelPedidoWebDetalleDesglosePedido");

@@ -54,7 +54,7 @@ namespace Portal.Consultoras.Web.GestionPasos
                 var tieneExperiencia = entidad.TieneExperiencia.HasValue ? entidad.TieneExperiencia.Value : 0;
 
                 EnviarCorreoNotificacion(codigoIso, entidad, consultora, zona, seccion,
-                    tieneExperiencia == 1 ? "SI" : "NO", entidad.FuenteIngreso == "UB");
+                    tieneExperiencia == 1 ? "SI" : "NO", entidad.FuenteIngreso );
             }
         }
 
@@ -65,7 +65,7 @@ namespace Portal.Consultoras.Web.GestionPasos
            ZonaBE zona,
            SeccionBE seccion,
            string tieneExperiencia,
-           bool viaWeb = true)
+           string viaFuenteIngreso)
         {
             ParametroUneteCollection mensajeBuroCrediticio;
 
@@ -98,7 +98,7 @@ namespace Portal.Consultoras.Web.GestionPasos
                    solicitudPostulante.EstadoBurocrediticio == Enumeradores.EstadoBurocrediticio.PuedeSerConsultora.ToInt()
                        ? mensajeBuroCrediticio.FirstOrDefault(x => x.Valor == 1).Nombre
                        : mensajeBuroCrediticio.FirstOrDefault(x => x.Valor == 2).Nombre,
-                    ContactoUnete = viaWeb,
+                    ContactoUnete = viaFuenteIngreso,
                     CodigoSeccion = solicitudPostulante.CodigoSeccion,
                     CorreoElectronicoPostulante = solicitudPostulante.CorreoElectronico,
                     UrlSite =

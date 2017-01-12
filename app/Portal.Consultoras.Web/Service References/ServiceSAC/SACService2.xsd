@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xs:schema xmlns:ser="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:tns="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" xmlns:xs="http://www.w3.org/2001/XMLSchema">
   <xs:import schemaLocation="http://localhost:41615/SACService.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+  <xs:complexType name="ArrayOfBEProveedorDespachoCobranza">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="BEProveedorDespachoCobranza" nillable="true" type="tns:BEProveedorDespachoCobranza" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfBEProveedorDespachoCobranza" nillable="true" type="tns:ArrayOfBEProveedorDespachoCobranza" />
   <xs:complexType name="BEProveedorDespachoCobranza">
     <xs:sequence>
       <xs:element minOccurs="0" name="Accion" type="xs:int" />
@@ -24,12 +30,20 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="BEProveedorDespachoCobranza" nillable="true" type="tns:BEProveedorDespachoCobranza" />
-  <xs:complexType name="ArrayOfBEProveedorDespachoCobranza">
+  <xs:complexType name="BEBelcorpNoticia">
     <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="BEProveedorDespachoCobranza" nillable="true" type="tns:BEProveedorDespachoCobranza" />
+      <xs:element minOccurs="0" name="ArchivoPortada" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="BelcorpNoticiaID" type="xs:int" />
+      <xs:element minOccurs="0" name="CampaniaID" type="xs:int" />
+      <xs:element minOccurs="0" name="ConsultoraID" type="xs:long" />
+      <xs:element minOccurs="0" name="NombreCorto" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PaisID" type="xs:int" />
+      <xs:element minOccurs="0" name="PaisNombre" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Titulo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="UrlPDF" nillable="true" type="xs:string" />
     </xs:sequence>
   </xs:complexType>
-  <xs:element name="ArrayOfBEProveedorDespachoCobranza" nillable="true" type="tns:ArrayOfBEProveedorDespachoCobranza" />
+  <xs:element name="BEBelcorpNoticia" nillable="true" type="tns:BEBelcorpNoticia" />
   <xs:complexType name="ArrayOfBETablaLogicaDatos">
     <xs:sequence>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="BETablaLogicaDatos" nillable="true" type="tns:BETablaLogicaDatos" />
@@ -264,6 +278,21 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="ArrayOfBEComunicado" nillable="true" type="tns:ArrayOfBEComunicado" />
+  <xs:complexType name="ArrayOfBEPopupPais">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="BEPopupPais" nillable="true" type="tns:BEPopupPais" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfBEPopupPais" nillable="true" type="tns:ArrayOfBEPopupPais" />
+  <xs:complexType name="BEPopupPais">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CodigoPopup" type="xs:int" />
+      <xs:element minOccurs="0" name="Descripcion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Orden" type="xs:int" />
+      <xs:element minOccurs="0" name="PopupPaisID" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="BEPopupPais" nillable="true" type="tns:BEPopupPais" />
   <xs:complexType name="ArrayOfBEEstadoCuenta">
     <xs:sequence>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="BEEstadoCuenta" nillable="true" type="tns:BEEstadoCuenta" />
@@ -976,6 +1005,23 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="BELogModificacionCronograma" nillable="true" type="tns:BELogModificacionCronograma" />
+  <xs:complexType name="ArrayOfBELogConfiguracionCronograma">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="BELogConfiguracionCronograma" nillable="true" type="tns:BELogConfiguracionCronograma" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfBELogConfiguracionCronograma" nillable="true" type="tns:ArrayOfBELogConfiguracionCronograma" />
+  <xs:complexType name="BELogConfiguracionCronograma">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CodigoRegion" type="xs:int" />
+      <xs:element minOccurs="0" name="CodigoUsuario" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CodigoZona" type="xs:int" />
+      <xs:element minOccurs="0" name="DiasDuracionActual" type="xs:short" />
+      <xs:element minOccurs="0" name="DiasDuracionAnterior" type="xs:short" />
+      <xs:element minOccurs="0" name="FechaRegistro" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="BELogConfiguracionCronograma" nillable="true" type="tns:BELogConfiguracionCronograma" />
   <xs:complexType name="ArrayOfBELugarPago">
     <xs:sequence>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="BELugarPago" nillable="true" type="tns:BELugarPago" />
@@ -1028,18 +1074,4 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="ArrayOfBEBelcorpNoticia" nillable="true" type="tns:ArrayOfBEBelcorpNoticia" />
-  <xs:complexType name="BEBelcorpNoticia">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="ArchivoPortada" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="BelcorpNoticiaID" type="xs:int" />
-      <xs:element minOccurs="0" name="CampaniaID" type="xs:int" />
-      <xs:element minOccurs="0" name="ConsultoraID" type="xs:long" />
-      <xs:element minOccurs="0" name="NombreCorto" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="PaisID" type="xs:int" />
-      <xs:element minOccurs="0" name="PaisNombre" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="Titulo" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="UrlPDF" nillable="true" type="xs:string" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="BEBelcorpNoticia" nillable="true" type="tns:BEBelcorpNoticia" />
 </xs:schema>

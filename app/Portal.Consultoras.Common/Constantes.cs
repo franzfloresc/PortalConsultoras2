@@ -170,6 +170,7 @@ namespace Portal.Consultoras.Common
             public const string CDRDescripcion = "CDRDescripcion";
             public const string CDRWebDetalle = "CDRWebDetalle";
             public const string CDRWeb = "CDRWeb";
+            public const string CDRParametria = "CDRParametria";
         }
 
         public class TipoOfertaFinalCatalogoPersonalizado
@@ -233,7 +234,7 @@ namespace Portal.Consultoras.Common
             public const int MobileCatalogoPersonalizadoPopUp = 2432;
 
         }
-
+        
         public class COTipoAtencionMensaje
         {
             public const string Agotado = "Agotado";
@@ -246,7 +247,7 @@ namespace Portal.Consultoras.Common
             public const string Portal = "Se retiraron de tu pedido los productos de este cliente.";
             public const string Marcas = "No te olvides comunicarte con tu cliente.";
         }
-
+        
         public class TipoTutorial
         {
             public const int Video = 1;
@@ -259,13 +260,51 @@ namespace Portal.Consultoras.Common
         {
             public const string LogAccionCancelar = "El cliente no aceptó BackOrder.";
         }
-
+        
         public class EstadoCDRWeb
         {
             public const int Pendiente = 1;
             public const int Enviado = 2;
             public const int Aceptado = 3;
             public const int Observado = 4;
+        }
+
+        public class TipoMensajeCDR
+        {
+            public const string Motivo = "Motivo";
+            public const string Solucion = "Solucion";
+            public const string Propuesta = "Propuesta";
+            public const string TenerEnCuenta = "TenerEnCuenta";
+            public const string Finalizado = "Finalizado";
+            public const string MensajeFinalizado = "MensajeFinalizado"; 
+        }
+
+        public class ParametriaCDR
+        {
+            public const string Faltante = "STO_PMON_FM";
+            public const string Devolucion = "STO_PMON_DEV";
+            public const string Trueque = "STO_DESV_TRQ";
+            public const string TruequeValAbs = "STO_DESV_TRQ_OPER";
+        }
+
+        public class CodigoOperacionCDR
+        {
+            public const string Faltante = "F";
+            public const string FaltanteAbono = "G";
+            public const string Devolucion = "D";
+            public const string Trueque = "T";
+            public const string Canje = "C";
+        }
+        public class TipoPopUp
+        {
+            public const int VideoIntroductorio = 1;
+            public const int GPR = 2;
+            public const int DemandaAnticipada = 3;
+            public const int AceptacionContrato = 4;
+            public const int Showroom = 5;
+            public const int ActualizarDatos = 6;
+            public const int Flexipago = 7;
+            public const int Comunicado = 8;
         }
 
         // Constantes de los motivos de GPR.

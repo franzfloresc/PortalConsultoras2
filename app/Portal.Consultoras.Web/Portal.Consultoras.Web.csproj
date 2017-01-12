@@ -27,7 +27,7 @@
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
     <DeployOnBuild Condition=" '$(DeployWEB)'!='' ">$(DeployWEB)</DeployOnBuild>
-    <UseGlobalApplicationHostFile />
+    <UseGlobalApplicationHostFile />    
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -333,6 +333,7 @@
     <Compile Include="Controllers\RolController.cs" />
     <Compile Include="Controllers\RVDigitalController.cs" />
     <Compile Include="Controllers\ServiciosController.cs" />
+    <Compile Include="Controllers\SetController.cs" />
     <Compile Include="Controllers\ShowRoomController.cs" />
     <Compile Include="Controllers\SolicitudClienteController.cs" />
     <Compile Include="Controllers\SolicitudCreditoController.cs" />
@@ -375,6 +376,7 @@
     <Compile Include="Models\BarraConsultoraModel.cs" />
     <Compile Include="Models\EstrategiaPedidoModel.cs" />
     <Compile Include="Models\ConsultarValidacionTelefonicaModel.cs" />
+    <Compile Include="Models\FiltroResultadoModel.cs" />
     <Compile Include="Models\GestionParametroPageModel.cs" />
     <Compile Include="Models\MisPagosModel.cs" />
     <Compile Include="Models\ActualizarDatosModel.cs" />
@@ -619,6 +621,13 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
+    <Compile Include="Set.aspx.cs">
+      <DependentUpon>Set.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Set.aspx.designer.cs">
+      <DependentUpon>Set.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Web References\ServiceActualizaDatosConsultoraChile\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -635,6 +644,11 @@
       <DependentUpon>Reference.map</DependentUpon>
     </Compile>
     <Compile Include="Web References\ServiceCatalogosIssuu\Reference.cs" />
+    <Compile Include="Web References\ServiceGestionWebPROL\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
     <Compile Include="Web References\ServiceLMS\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -817,6 +831,13 @@
     </Compile>
     <Compile Include="WebPages\RestablecerContrasena.aspx.designer.cs">
       <DependentUpon>RestablecerContrasena.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="WebPages\SetVentaDigital.aspx.cs">
+      <DependentUpon>SetVentaDigital.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WebPages\SetVentaDigital.aspx.designer.cs">
+      <DependentUpon>SetVentaDigital.aspx</DependentUpon>
     </Compile>
     <Compile Include="WebPages\TerminosyReferencias_CO.aspx.cs">
       <DependentUpon>TerminosyReferencias_CO.aspx</DependentUpon>
@@ -1050,6 +1071,7 @@
     <Content Include="Content\Css\jstree\apple\dot_for_ie.gif" />
     <Content Include="Content\Css\jstree\apple\stylejstree.css" />
     <Content Include="Content\Css\jstree\apple\throbber.gif" />
+    <Content Include="Content\Css\Mobile\esika\bootstrap-slider.min.css" />
     <Content Include="Content\Css\Mobile\esika\icomon.css" />
     <Content Include="Content\Css\Mobile\esika\menu.css" />
     <Content Include="Content\Css\Mobile\esika\slick.css" />
@@ -1338,10 +1360,9 @@
     <Content Include="Content\Images\catalogos.png" />
     <Content Include="Content\Images\cerrar_04.png" />
     <Content Include="Content\Images\Esika\background_pedido.png" />
+    <Content Include="Content\Images\Esika\Banner_Esika.jpg" />
     <Content Include="Content\Images\Esika\banner_misBeneficios.png" />
     <Content Include="Content\Images\Esika\brillante2016_img.png" />
-    <Content Include="Content\Images\Esika\carta.png" />
-    <Content Include="Content\Images\Esika\carta1.png" />
     <Content Include="Content\Images\Esika\catalogos_arrow.png" />
     <Content Include="Content\Images\Esika\catalogos_arrow2.png" />
     <Content Include="Content\Images\Esika\catalogos_new.png" />
@@ -1559,6 +1580,12 @@
     <Content Include="Content\Images\Esika\catalogo_facebook.png" />
     <Content Include="Content\Images\Esika\catalogo_mensaje.png" />
     <Content Include="Content\Images\Esika\catalogo_menu.png" />
+    <Content Include="Content\Images\Esika\cdr_paso1.png" />
+    <Content Include="Content\Images\Esika\cdr_paso1_activo.png" />
+    <Content Include="Content\Images\Esika\cdr_paso2.png" />
+    <Content Include="Content\Images\Esika\cdr_paso2_activo.png" />
+    <Content Include="Content\Images\Esika\cdr_paso3.png" />
+    <Content Include="Content\Images\Esika\cdr_paso3_activo.png" />
     <Content Include="Content\Images\Esika\celular.png" />
     <Content Include="Content\Images\Esika\check_liquidacion.png" />
     <Content Include="Content\Images\Esika\circulo.png" />
@@ -1590,8 +1617,6 @@
     <Content Include="Content\Images\Esika\flechita_info.png" />
     <Content Include="Content\Images\Esika\flexipago.png" />
     <Content Include="Content\Images\Esika\fle_.png" />
-    <Content Include="Content\Images\Esika\foco.png" />
-    <Content Include="Content\Images\Esika\foco1.png" />
     <Content Include="Content\Images\Esika\fondo.png" />
     <Content Include="Content\Images\Esika\fondo_circulo.png" />
     <Content Include="Content\Images\Esika\fondo_pestana.png" />
@@ -1628,8 +1653,6 @@
     <Content Include="Content\Images\Esika\indicador_pedido.png" />
     <Content Include="Content\Images\Esika\indicador_pedido_negro.png" />
     <Content Include="Content\Images\Esika\info-copy.png" />
-    <Content Include="Content\Images\Esika\labial.png" />
-    <Content Include="Content\Images\Esika\labial1.png" />
     <Content Include="Content\Images\Esika\lapiz.png" />
     <Content Include="Content\Images\Esika\lbel_revista.png" />
     <Content Include="Content\Images\Esika\liquidacionhome.png" />
@@ -1807,6 +1830,7 @@
     <Content Include="Content\Images\Lbel\banamex.png" />
     <Content Include="Content\Images\Lbel\bancomer.png" />
     <Content Include="Content\Images\Lbel\banner.png" />
+    <Content Include="Content\Images\Lbel\Banner_LBel.jpg" />
     <Content Include="Content\Images\Lbel\banner_misBeneficios.png" />
     <Content Include="Content\Images\Lbel\belcorp.png" />
     <Content Include="Content\Images\Lbel\boton_pedido.png" />
@@ -1990,6 +2014,7 @@
     <Content Include="Content\Images\mobile\Esika\camara.png" />
     <Content Include="Content\Images\mobile\Esika\carpeta.png" />
     <Content Include="Content\Images\mobile\Esika\catalogo_facebook.png" />
+    <Content Include="Content\Images\mobile\Esika\catalogo_facebook_color.png" />
     <Content Include="Content\Images\mobile\Esika\catalogo_home.png" />
     <Content Include="Content\Images\mobile\Esika\catalogo_mensaje.png" />
     <Content Include="Content\Images\mobile\Esika\catalogo_ws.png" />
@@ -2002,6 +2027,7 @@
     <Content Include="Content\Images\mobile\Esika\fondo_app.png" />
     <Content Include="Content\Images\mobile\Esika\fondo_oferta.png" />
     <Content Include="Content\Images\mobile\Esika\ganancia.png" />
+    <Content Include="Content\Images\mobile\Esika\iconowscolor.png" />
     <Content Include="Content\Images\mobile\Esika\icono_advertencia_notificacion.svg" />
     <Content Include="Content\Images\mobile\Esika\icono_check_esika.svg" />
     <Content Include="Content\Images\mobile\Esika\icono_exclamacion_esika.svg" />
@@ -2020,6 +2046,7 @@
     <Content Include="Content\Images\mobile\Esika\mensajes.png" />
     <Content Include="Content\Images\mobile\Esika\menu_mobile.png" />
     <Content Include="Content\Images\mobile\Esika\next.png" />
+    <Content Include="Content\Images\mobile\Esika\notificaciones.png" />
     <Content Include="Content\Images\mobile\Esika\pestana_esika.png" />
     <Content Include="Content\Images\mobile\Esika\previous_ofertas_home.png" />
     <Content Include="Content\Images\mobile\Esika\revista_c09.png" />
@@ -2029,6 +2056,9 @@
     <Content Include="Content\Images\mobile\Esika\video.png" />
     <Content Include="Content\Images\mobile\Esika\ws.png" />
     <Content Include="Content\Images\mobile\Esika\youtube.png" />
+    <Content Include="Content\Images\mobile\icon-xclose.png" />
+    <Content Include="Content\Images\mobile\flecha-left.png" />
+    <Content Include="Content\Images\mobile\flecha-right.png" />
     <Content Include="Content\Images\mobile\icon_caja.png" />
     <Content Include="Content\Images\mobile\icon_casita.png" />
     <Content Include="Content\Images\mobile\icon_menu.png" />
@@ -2421,6 +2451,7 @@
     <Content Include="Scripts\PortalConsultoras\MisPedidos\ClienteOnline.js" />
     <Content Include="Scripts\PortalConsultoras\MisReclamos\Reclamo.js" />
     <Content Include="Scripts\PortalConsultoras\MisReclamos\Index.js" />
+    <Content Include="Scripts\PortalConsultoras\Mobile\CatalogoPersonalizado\bootstrap-slider.min.js" />
     <Content Include="Scripts\PortalConsultoras\Mobile\CatalogoPersonalizado\Index.js" />
     <Content Include="Scripts\PortalConsultoras\Mobile\ConsultoraOnline\DetallePedidoHistorial.js" />
     <Content Include="Scripts\PortalConsultoras\Mobile\ConsultoraOnline\DetallePedidoPendiente.js" />
@@ -2641,6 +2672,7 @@
     <Content Include="Content\FAQ\Politica_de_reclamos_CO.pdf" />
     <Content Include="Areas\Mobile\Views\Catalogo\MiRevista.cshtml" />
     <Content Include="Areas\Mobile\Views\TerminosYCondiciones\Index.cshtml" />
+    <Content Include="Content\FAQ\41577-BELCORP-SolCre-CO-400073315-300916.pdf" />
     <None Include="Service References\ServiceCDR\CDRService.wsdl" />
     <None Include="Service References\ServiceCDR\CDRService.xsd">
       <SubType>Designer</SubType>
@@ -3263,6 +3295,7 @@
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </Content>
+    <Content Include="Set.aspx" />
     <Content Include="Views\Unete\ReporteConsolidado.cshtml" />
     <Content Include="Views\CatalogoPersonalizado\Index.cshtml">
       <SubType>Code</SubType>
@@ -3319,6 +3352,7 @@
     <Content Include="WebPages\RegistroComunidad.aspx" />
     <Content Include="WebPages\ReporteActualizacionDatos.aspx" />
     <Content Include="WebPages\RestablecerContrasena.aspx" />
+    <Content Include="WebPages\SetVentaDigital.aspx" />
     <Content Include="WebPages\TerminosyReferencias_CO.aspx" />
     <Content Include="WebPages\WebTracking.aspx" />
     <None Include="Service References\ServiceCliente\ClienteService.wsdl" />
@@ -3552,9 +3586,32 @@
     <Content Include="Views\Notificaciones\ListadoDetallePedidoRechazado.cshtml" />
     <Content Include="Views\Unete\TemplatesUbigeos\_UbigeoGrupo5.cshtml" />
     <Content Include="Views\MisCatalogosRevistas\MiRevista.cshtml" />
+    <Content Include="Views\Set\Index.cshtml" />
     <Content Include="Views\MisReclamos\Reclamo.cshtml" />
     <Content Include="Views\TerminosYCondiciones\Index.cshtml" />
     <Content Include="Views\Bienvenida\ActualizarContrasenia.cshtml" />
+    <Content Include="Views\Notificaciones\ListaDetalleCdr.cshtml" />
+    <None Include="Service References\ValidacionesUnete\ValidacionesUnete1.wsdl" />
+    <None Include="Service References\ValidacionesUnete\ValidacionesUnete5.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ValidacionesUnete\ValidacionesUnete51.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ValidacionesUnete\ValidacionesUnete52.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ValidacionesUnete\ValidacionesUnete53.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ValidacionesUnete\ValidacionesUnete54.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Web References\ServiceGestionWebPROL\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </Content>
+    <None Include="Web References\ServiceGestionWebPROL\WsGestionWeb.wsdl" />
     <None Include="Web References\ServiceLMS\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
@@ -3573,22 +3630,6 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\ValidacionCrediticia\ValidacionCrediticiaService4.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\ValidacionesUnete\ValidacionesUnete.wsdl" />
-    <None Include="Service References\ValidacionesUnete\ValidacionesUnete.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\ValidacionesUnete\ValidacionesUnete1.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\ValidacionesUnete\ValidacionesUnete2.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\ValidacionesUnete\ValidacionesUnete3.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\ValidacionesUnete\ValidacionesUnete4.xsd">
       <SubType>Designer</SubType>
     </None>
     <Content Include="Views\Unete\GestionParametros.cshtml" />
@@ -3873,6 +3914,17 @@
     <WebReferences Include="Web References\" />
   </ItemGroup>
   <ItemGroup>
+    <WebReferenceUrl Include="http://qaielb-webprol-1875224445.us-east-1.elb.amazonaws.com/WsGestionWebProl/WsGestionWeb.asmx%3fwsdl">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\ServiceGestionWebPROL\</RelPath>
+      <UpdateFromURL>http://qaielb-webprol-1875224445.us-east-1.elb.amazonaws.com/WsGestionWebProl/WsGestionWeb.asmx%3fwsdl</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>Portal_Consultoras_Web_ServiceGestionWebPROL_WsGestionWeb</CachedSettingsPropName>
+    </WebReferenceUrl>
     <WebReferenceUrl Include="http://qaielb-webprol-1875224445.us-east-1.elb.amazonaws.com/WsServicesWebValidaciones/ServicesCalculosPROL.asmx%3fwsdl">
       <UrlBehavior>Dynamic</UrlBehavior>
       <RelPath>Web References\ServicesCalculosPROL\</RelPath>

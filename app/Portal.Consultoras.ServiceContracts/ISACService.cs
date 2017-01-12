@@ -252,6 +252,10 @@ namespace Portal.Consultoras.ServiceContracts
         IList<BELogModificacionCronograma> GetLogModificacionCronograma(int PaisID);
         [OperationContract]
         void InsLogModificacionCronogramaMasivo(int paisID, string CodigoUsuario, List<BELogModificacionCronograma> listaEntidades);
+
+        [OperationContract]
+        void InsLogConfiguracionCronogramaMasivo(int paisID, string CodigoUsuario, List<BELogConfiguracionCronograma> listaEntidades);
+
         [OperationContract]
         BEConfiguracionValidacionZona GetConfiguracionValidacionZona(int paisID, int campaniaID, int zonaID);
         #endregion
@@ -428,6 +432,8 @@ namespace Portal.Consultoras.ServiceContracts
         [OperationContract]
         List<BEComunicado> ObtenerComunicadoPorConsultora(int PaisID, string CodigoConsultora);
 
+        [OperationContract]
+        List<BEPopupPais> ObtenerOrdenPopUpMostrar(int PaisID);
         //R2004
         [OperationContract]
         void UpdComunicadoByConsultora(int paisID, string CodigoConsultora);

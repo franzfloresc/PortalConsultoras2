@@ -218,7 +218,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             using (ODSServiceClient sv = new ODSServiceClient())
             {
-                olstProducto = sv.SelectProductoByCodigoDescripcionSearchRegionZona(UserData().PaisID, UserData().CampaniaID, CUV, UserData().RegionID, UserData().ZonaID, UserData().CodigorRegion, UserData().CodigoZona, 1, 1).ToList();
+                olstProducto = sv.SelectProductoByCodigoDescripcionSearchRegionZona(UserData().PaisID, UserData().CampaniaID, CUV, UserData().RegionID, UserData().ZonaID, UserData().CodigorRegion, UserData().CodigoZona, 1, 1, false).ToList();
             }
 
             if (olstProducto.Count != 0)

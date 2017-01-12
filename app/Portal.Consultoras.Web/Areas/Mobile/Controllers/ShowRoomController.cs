@@ -123,6 +123,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                             var showRoomEventoModel = Mapper.Map<BEShowRoomEvento, ShowRoomEventoModel>(showRoomEvento);
                             showRoomEventoModel.Simbolo = userData.Simbolo;
                             showRoomEventoModel.CodigoIso = userData.CodigoISO;
+                            showRoomEventoModel.FormatoCampania = userData.CampaniaID.ToString();
 
                             var listaShowRoomOfertaModel = Mapper.Map<List<BEShowRoomOferta>, List<ShowRoomOfertaModel>>(listaShowRoomOferta);
 

@@ -429,7 +429,7 @@ namespace Portal.Consultoras.Web.Controllers
                 UsuarioModel oUsuarioModel = UserData();
                 using (ODSServiceClient sv = new ODSServiceClient())
                 {
-                    olstProducto = sv.SelectProductoByCodigoDescripcionSearchRegionZona(oUsuarioModel.PaisID, CampaniaSiguiente(oUsuarioModel.CampaniaID), term, oUsuarioModel.RegionID, oUsuarioModel.ZonaID, oUsuarioModel.CodigorRegion, oUsuarioModel.CodigoZona, 1, 5).ToList();
+                    olstProducto = sv.SelectProductoByCodigoDescripcionSearchRegionZona(oUsuarioModel.PaisID, CampaniaSiguiente(oUsuarioModel.CampaniaID), term, oUsuarioModel.RegionID, oUsuarioModel.ZonaID, oUsuarioModel.CodigorRegion, oUsuarioModel.CodigoZona, 1, 5, true).ToList();
                 }
 
                 foreach (var item in olstProducto)
@@ -475,7 +475,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 using (ODSServiceClient sv = new ODSServiceClient())
                 {
-                    olstProducto = sv.SelectProductoByCodigoDescripcionSearchRegionZona(oUsuarioModel.PaisID, CampaniaSiguiente(oUsuarioModel.CampaniaID), model.CUV, oUsuarioModel.RegionID, oUsuarioModel.ZonaID, oUsuarioModel.CodigorRegion, oUsuarioModel.CodigoZona, 1, 1).ToList();
+                    olstProducto = sv.SelectProductoByCodigoDescripcionSearchRegionZona(oUsuarioModel.PaisID, CampaniaSiguiente(oUsuarioModel.CampaniaID), model.CUV, oUsuarioModel.RegionID, oUsuarioModel.ZonaID, oUsuarioModel.CodigorRegion, oUsuarioModel.CodigoZona, 1, 1, true).ToList();
                 }
 
                 if (olstProducto.Count != 0)
@@ -523,7 +523,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 using (ODSServiceClient sv = new ODSServiceClient())
                 {
-                    olstProducto = sv.SelectProductoByCodigoDescripcionSearchRegionZona(oUsuarioModel.PaisID, CampaniaSiguiente(oUsuarioModel.CampaniaID), term, oUsuarioModel.RegionID, oUsuarioModel.ZonaID, oUsuarioModel.CodigorRegion, oUsuarioModel.CodigoZona, 2, 5).ToList();
+                    olstProducto = sv.SelectProductoByCodigoDescripcionSearchRegionZona(oUsuarioModel.PaisID, CampaniaSiguiente(oUsuarioModel.CampaniaID), term, oUsuarioModel.RegionID, oUsuarioModel.ZonaID, oUsuarioModel.CodigorRegion, oUsuarioModel.CodigoZona, 2, 5, true).ToList();
                 }
 
                 foreach (var item in olstProducto)

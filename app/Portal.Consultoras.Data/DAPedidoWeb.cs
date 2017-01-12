@@ -641,7 +641,7 @@ namespace Portal.Consultoras.Data
 
             return Context.ExecuteReader(command);
         }
-
+        
         public IDataReader GetPedidosIngresadoFacturado(int consultoraID, int campaniaID)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetPedidosIngresadoFacturado_SB2");
@@ -696,7 +696,7 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@maxDias", DbType.Int32, maxDias);
 
             return Context.ExecuteReader(command);
-        }
+        }            
         /*EPD-1025*/
         public IDataReader ObtenerUltimaDescargaPedido()
         {
@@ -709,5 +709,13 @@ namespace Portal.Consultoras.Data
             return Context.ExecuteReader(command);
         }
         /*EPD-1025*/
+
+        public IDataReader GetPedidosFacturadoDetalle(int pedidoID)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetPedidosFacturadoDetalle_SB2");
+            Context.Database.AddInParameter(command, "@PedidoID", DbType.Int32, pedidoID);
+
+            return Context.ExecuteReader(command);
+        }        
     }
 }

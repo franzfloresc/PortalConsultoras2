@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xs:schema xmlns:tns="http://tempuri.org/" elementFormDefault="qualified" targetNamespace="http://tempuri.org/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
-  <xs:import schemaLocation="http://internal-qaselb-portalffvvservicios-1152760669.us-east-1.elb.amazonaws.com/UneteWCF/ValidacionesUnete.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.SI.ServiceContract.Inputs" />
-  <xs:import schemaLocation="http://internal-qaselb-portalffvvservicios-1152760669.us-east-1.elb.amazonaws.com/UneteWCF/ValidacionesUnete.svc?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.SI.ServiceContract.Outputs" />
+  <xs:import schemaLocation="http://172.19.3.58/PortalService/ValidacionesUnete.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.SI.ServiceContract.Inputs" />
+  <xs:import schemaLocation="http://172.19.3.58/PortalService/ValidacionesUnete.svc?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.SI.ServiceContract.Outputs" />
   <xs:element name="ConstruirRfc">
     <xs:complexType>
       <xs:sequence>
@@ -26,6 +26,20 @@
   <xs:element name="EnviarEmailResponse">
     <xs:complexType>
       <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ValidarCedulaEcuador">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="numeroDocumento" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ValidarCedulaEcuadorResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="ValidarCedulaEcuadorResult" type="xs:boolean" />
+      </xs:sequence>
     </xs:complexType>
   </xs:element>
 </xs:schema>

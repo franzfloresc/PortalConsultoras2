@@ -98,12 +98,12 @@ namespace Portal.Consultoras.BizLogic
                     select producto).ToList();
         }
 
-        public IList<BEProducto> SelectProductoByCodigoDescripcionSearchRegionZona(int paisID, int campaniaID, string codigoDescripcion, int RegionID, int ZonaID, string CodigoRegion, string CodigoZona, int criterio, int rowCount)
+        public IList<BEProducto> SelectProductoByCodigoDescripcionSearchRegionZona(int paisID, int campaniaID, string codigoDescripcion, int RegionID, int ZonaID, string CodigoRegion, string CodigoZona, int criterio, int rowCount, bool validarOpt)
         {
             IList<BEProducto> productos = new List<BEProducto>();
             var DAProducto = new DAProducto(paisID);
 
-            using (IDataReader reader = DAProducto.GetProductoComercialByCampaniaBySearchRegionZona(campaniaID, rowCount, criterio, codigoDescripcion,RegionID,ZonaID, CodigoRegion, CodigoZona))
+            using (IDataReader reader = DAProducto.GetProductoComercialByCampaniaBySearchRegionZona(campaniaID, rowCount, criterio, codigoDescripcion,RegionID,ZonaID, CodigoRegion, CodigoZona, validarOpt))
             {
                 while (reader.Read())
                 {
@@ -193,5 +193,22 @@ namespace Portal.Consultoras.BizLogic
             var DAProducto = new DAProducto(paisID);
             return DAProducto.GetNombreProducto048ByCuv(campaniaID, cuv);
         }
+
+        public IList<BEProductoAppCatalogo> GetNombreProducto048ByListaCUV(int paisID, int campaniaID, string listaCUV)
+        {
+            IList<BEProductoAppCatalogo> productos = new List<BEProductoAppCatalogo>();
+            var DAProducto = new DAProducto(paisID);
+
+            using (IDataReader reader = DAProducto.GetNombreProducto048ByListaCUV(campaniaID, listaCUV))
+            {
+                while (reader.Read())
+                {
+                    productos.Add(new BEProductoAppCatalogo(reader));
+                }
+            }
+
+            return productos;
+        }
+        
     }
 }

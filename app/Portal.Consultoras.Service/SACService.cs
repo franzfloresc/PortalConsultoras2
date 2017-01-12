@@ -44,6 +44,7 @@ namespace Portal.Consultoras.Service
         private BLConfiguracionParametroCarga BLConfiguracionParametroCarga; //R20151221
         private BLLogParametroDiasCargaPedido BLLogParametroDiasCargaPedido; //R20151221
         private BLParticipantesDemandaAnticipada BLParticipantesDemandaAnticipada; //R20160302
+        private BLPopupPais BLPopupPais; //SB20-1095
 
         public SACService()
         {
@@ -78,6 +79,7 @@ namespace Portal.Consultoras.Service
             BLConfiguracionParametroCarga = new BLConfiguracionParametroCarga(); //R20151221
             BLLogParametroDiasCargaPedido = new BLLogParametroDiasCargaPedido(); //R20151221
             BLParticipantesDemandaAnticipada = new BLParticipantesDemandaAnticipada(); //R20160302
+            BLPopupPais = new BLPopupPais();
         }
 
         #region Cronograma Anticipado
@@ -548,6 +550,11 @@ namespace Portal.Consultoras.Service
         public void InsLogModificacionCronogramaMasivo(int paisID, string CodigoUsuario, List<BELogModificacionCronograma> listaEntidades)
         {
             BLLogModificacionCronograma.InsLogModificacionCronogramaMasivo(paisID, CodigoUsuario, listaEntidades);
+        }
+
+        public void InsLogConfiguracionCronogramaMasivo(int paisID, string CodigoUsuario, List<BELogConfiguracionCronograma> listaEntidades)
+        {
+            BLLogModificacionCronograma.InsLogConfiguracionCronogramaMasivo(paisID, CodigoUsuario, listaEntidades);
         }
 
         #endregion
@@ -1104,6 +1111,11 @@ namespace Portal.Consultoras.Service
         public List<BEComunicado> ObtenerComunicadoPorConsultora(int PaisID, string CodigoConsultora)
         {
             return BLComunicado.ObtenerComunicadoPorConsultora(PaisID, CodigoConsultora).ToList();
+        }
+
+        public List<BEPopupPais> ObtenerOrdenPopUpMostrar(int PaisID)
+        {
+            return BLPopupPais.ObtenerOrdenPopUpMostrar(PaisID).ToList();
         }
 
         //R2004

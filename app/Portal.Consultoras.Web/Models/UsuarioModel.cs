@@ -274,6 +274,9 @@ namespace Portal.Consultoras.Web.Models
 
         public bool EsOfertaFinalZonaValida { get; set; }
 
+        public int OfertaFinalGanaMas { get; set; }
+        public bool EsOFGanaMasZonaValida { get; set; }
+
         public int CatalogoPersonalizado { get; set; }
 
         public bool EjecutaProl { get; set; }
@@ -284,10 +287,15 @@ namespace Portal.Consultoras.Web.Models
         public int TieneHana { get; set; }
         public int IndicadorGPRSB { get; set; }
         public int EstadoPedido { get; set; }
+        public int IndicadorBloqueoCDR { get; set; }
+        public int EsCDRWebZonaValida { get; set; }
+        public int TieneCDR { get; set; }
+        public int IndicadorEnviado { get; set; }
+        public int IndicadorRechazado { get; set; }
         public string MotivoRechazo { get; set; }
         public DateTime FechaProceso { get; set; }
         public bool MostrarBannerRechazo { get; set; }
-
+        
         public DateTime FechaActualPais { get; set; }
         // 0: No hay Respuesta, 1: Rechazado, 2: No Rechazado
         public int CerrarRechazado { get; set; }

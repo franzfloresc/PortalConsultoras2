@@ -96,6 +96,7 @@
       <xs:sequence>
         <xs:element minOccurs="0" name="PaisID" type="xs:int" />
         <xs:element xmlns:q8="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.CDR" minOccurs="0" name="entity" nillable="true" type="q8:BECDRWebDetalle" />
+        <xs:element minOccurs="0" name="pedidoId" type="xs:int" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -106,11 +107,26 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+  <xs:element name="GetCDRWebDetalleLog">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="PaisID" type="xs:int" />
+        <xs:element xmlns:q10="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.CDR" minOccurs="0" name="entity" nillable="true" type="q10:BELogCDRWeb" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetCDRWebDetalleLogResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q11="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.CDR" minOccurs="0" name="GetCDRWebDetalleLogResult" nillable="true" type="q11:ArrayOfBECDRWebDetalle" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
   <xs:element name="InsCDRWebMotivoOperacion">
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="0" name="PaisID" type="xs:int" />
-        <xs:element xmlns:q10="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.CDR" minOccurs="0" name="entity" nillable="true" type="q10:BECDRWebMotivoOperacion" />
+        <xs:element xmlns:q12="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.CDR" minOccurs="0" name="entity" nillable="true" type="q12:BECDRWebMotivoOperacion" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -125,7 +141,7 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="0" name="PaisID" type="xs:int" />
-        <xs:element xmlns:q11="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.CDR" minOccurs="0" name="entity" nillable="true" type="q11:BECDRWebMotivoOperacion" />
+        <xs:element xmlns:q13="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.CDR" minOccurs="0" name="entity" nillable="true" type="q13:BECDRWebMotivoOperacion" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -140,14 +156,14 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="0" name="PaisID" type="xs:int" />
-        <xs:element xmlns:q12="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.CDR" minOccurs="0" name="entity" nillable="true" type="q12:BECDRWebMotivoOperacion" />
+        <xs:element xmlns:q14="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.CDR" minOccurs="0" name="entity" nillable="true" type="q14:BECDRWebMotivoOperacion" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="GetCDRWebMotivoOperacionResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q13="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.CDR" minOccurs="0" name="GetCDRWebMotivoOperacionResult" nillable="true" type="q13:ArrayOfBECDRWebMotivoOperacion" />
+        <xs:element xmlns:q15="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.CDR" minOccurs="0" name="GetCDRWebMotivoOperacionResult" nillable="true" type="q15:ArrayOfBECDRWebMotivoOperacion" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -155,7 +171,7 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="0" name="PaisID" type="xs:int" />
-        <xs:element xmlns:q14="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.CDR" minOccurs="0" name="entity" nillable="true" type="q14:BECDRWebDescripcion" />
+        <xs:element xmlns:q16="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.CDR" minOccurs="0" name="entity" nillable="true" type="q16:BECDRWebDescripcion" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -170,7 +186,7 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="0" name="PaisID" type="xs:int" />
-        <xs:element xmlns:q15="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.CDR" minOccurs="0" name="entity" nillable="true" type="q15:BECDRWebDescripcion" />
+        <xs:element xmlns:q17="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.CDR" minOccurs="0" name="entity" nillable="true" type="q17:BECDRWebDescripcion" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -185,14 +201,14 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="0" name="PaisID" type="xs:int" />
-        <xs:element xmlns:q16="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.CDR" minOccurs="0" name="entity" nillable="true" type="q16:BECDRWebDescripcion" />
+        <xs:element xmlns:q18="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.CDR" minOccurs="0" name="entity" nillable="true" type="q18:BECDRWebDescripcion" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="GetCDRWebDescripcionResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q17="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.CDR" minOccurs="0" name="GetCDRWebDescripcionResult" nillable="true" type="q17:ArrayOfBECDRWebDescripcion" />
+        <xs:element xmlns:q19="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.CDR" minOccurs="0" name="GetCDRWebDescripcionResult" nillable="true" type="q19:ArrayOfBECDRWebDescripcion" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -207,7 +223,7 @@
   <xs:element name="GetLogCDRWebByLogCDRWebIdResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q18="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.CDR" minOccurs="0" name="GetLogCDRWebByLogCDRWebIdResult" nillable="true" type="q18:BELogCDRWeb" />
+        <xs:element xmlns:q20="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.CDR" minOccurs="0" name="GetLogCDRWebByLogCDRWebIdResult" nillable="true" type="q20:BELogCDRWeb" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -237,7 +253,37 @@
   <xs:element name="GetLogCDRWebDetalleByLogCDRWebIdResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q19="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.CDR" minOccurs="0" name="GetLogCDRWebDetalleByLogCDRWebIdResult" nillable="true" type="q19:ArrayOfBELogCDRWebDetalle" />
+        <xs:element xmlns:q21="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.CDR" minOccurs="0" name="GetLogCDRWebDetalleByLogCDRWebIdResult" nillable="true" type="q21:ArrayOfBELogCDRWebDetalle" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DetalleActualizarObservado">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="paisId" type="xs:int" />
+        <xs:element xmlns:q22="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.CDR" minOccurs="0" name="lista" nillable="true" type="q22:ArrayOfBECDRWebDetalle" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DetalleActualizarObservadoResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="DetalleActualizarObservadoResult" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetCDRParametria">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="paisId" type="xs:int" />
+        <xs:element xmlns:q23="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.CDR" minOccurs="0" name="entidad" nillable="true" type="q23:BECDRParametria" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetCDRParametriaResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q24="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.CDR" minOccurs="0" name="GetCDRParametriaResult" nillable="true" type="q24:ArrayOfBECDRParametria" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
