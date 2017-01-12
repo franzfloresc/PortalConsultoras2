@@ -225,6 +225,12 @@ namespace Portal.Consultoras.BizLogic
                         usuario.IndicadorEnviado = configuracion.IndicadorEnviado;
                         usuario.IndicadorRechazado = configuracion.IndicadorRechazado;
                         usuario.FechaActualPais = configuracion.FechaActualPais;
+
+                        /*PL20-1226*/
+                        //if (usuario.OfertaDelDia)
+                        //{
+                        //    usuario.EsOfertaDelDia = DAUsuario.GetEsOfertaDelDia(usuario.CampaniaID, usuario.CodigoConsultora, usuario.FechaInicioFacturacion);
+                        //}
                     }
                 }
             }
@@ -1081,6 +1087,12 @@ namespace Portal.Consultoras.BizLogic
             BEUsuario consultora = DAHInformacionOnlineConsultora.GetDatosConsultoraHana(paisID, codigoUsuario, campaniaId);
 
             return consultora;
+        }
+
+        public int UpdateUsuarioEmailTelefono(int paisID, long ConsultoraID, string Email, string Telefono)
+        {
+            var DAUsuario = new DAUsuario(paisID);
+            return DAUsuario.UpdateUsuarioEmailTelefono(ConsultoraID, Email, Telefono);
         }
     }
 }
