@@ -1,0 +1,266 @@
+﻿@model Portal.Consultoras.Web.Models.ProductoModel
+
+@{
+    Layout = "~/Areas/Mobile/Views/Shared/_MobileLayout.cshtml";
+}
+<div class="titulo_mobile">
+    <a href="@Request.UrlReferrer" class="enlace_regresar catalogosP" title="Regresar"></a>
+    &nbsp;&nbsp;&nbsp;&nbsp;FAVORITOS DE TUS CLIENTES
+</div>
+<div class="fondo_f2f2f2" style="background:white; border-bottom:0">
+    <div class="pestana_esika"></div><!--PESTANA ESIKA-->
+    <div class="pestana_lbel mobileLiquidaciones"></div><!--PESTANA LBEL-->
+</div>
+<div class="wrapper_resumen_mobile" style="padding-bottom:96px;">
+
+    <div data-item="catalogopersonalizado">
+
+        <div style="display: none;">
+            <input type="hidden" class="hdItemCuv" value="@Model.CUV" />
+            <input type="hidden" class="hdItemTipoOfertaSisID" value="@Model.TipoOfertaSisID" />
+            <input type="hidden" class="hdItemConfiguracionOfertaID" value="@Model.ConfiguracionOfertaID" />
+            <input type="hidden" class="hdItemIndicadorMontoMinimo" value="@Model.IndicadorMontoMinimo" />
+            <input type="hidden" class="hdItemTipo" value="1" />
+            <input type="hidden" class="hdItemMarcaID" value="@Model.MarcaID" />
+            <input type="hidden" class="hdItemPrecioUnidad" value="@Model.PrecioCatalogo" />
+            <input type="hidden" class="hdItemDescripcionProd" value="@Model.Descripcion" />
+            <input type="hidden" class="hdItemPagina" value="0" />
+            <input type="hidden" class="hdItemDescripcionCategoria" value="@Model.DescripcionCategoria" />
+            <input type="hidden" class="hdItemDescripcionMarca" value="@Model.DescripcionMarca" />
+            <input type="hidden" class="hdItemDescripcionEstrategia" value="@Model.DescripcionEstrategia" />
+            <input type="hidden" class="hdItemRutaImagen" value="@Model.ImagenProductoSugerido" />
+            <input type="hidden" class="hdItemTipoOfertaRevista" value="@Model.TipoOfertaRevista" />
+            <input type="hidden" class="OrigenPedidoWeb" value="@Portal.Consultoras.Common.Constantes.OrigenPedidoWeb.MobileCatalogoPersonalizado" />
+        </div>
+
+        <div class="content_imagen_ficha"><img src="@Model.ImagenProductoSugerido" alt="PRODUCTO" class="imagen_producto" /></div>
+        <div class="titulo_ficha_producto">@Model.Descripcion</div>
+        <div class="peso_ficha_producto">@Model.Volumen</div>
+        <div class="descripcion_ficha_producto">@Model.DescripcionComercial</div>
+        <div class="precio_ficha_producto"><span class="precio_tachado_ficha">@ViewBag.Simbolo @Model.PrecioValorizadoString </span>@ViewBag.Simbolo @Model.PrecioCatalogoString</div>
+        <div>
+            <div class="content_tonos_producto">
+                <div class="content_tono_detalle borde_seleccion_tono">
+                    <img src="https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/PYi4dINUiOsYQ7e/labial_color.png" alt="PRODUCTO" />
+                    <div class="content_mascara_maquillaje">
+                        <img src="https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/HfQTTPvWfVXwt3R/textura_labial.png" alt="PRODUCTO" />
+                    </div>
+                </div>
+                <div class="content_tono_detalle">
+                    <img src="https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/PYi4dINUiOsYQ7e/labial_color.png" alt="PRODUCTO" />
+                    <div class="content_mascara_maquillaje">
+                        <img src="https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/HfQTTPvWfVXwt3R/textura_labial.png" alt="PRODUCTO" />
+                    </div>
+                </div>
+                <div class="content_tono_detalle">
+                    <img src="https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/dvVanSpBwcSATGk/textura_labial_fucsia.png" alt="PRODUCTO" />
+                    <div class="content_mascara_maquillaje">
+                        <img src="https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/HfQTTPvWfVXwt3R/textura_labial.png" alt="PRODUCTO" />
+                    </div>
+                </div>
+                <div class="content_tono_detalle">
+                    <img src="https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/PYi4dINUiOsYQ7e/labial_color.png" alt="PRODUCTO" />
+                    <div class="content_mascara_maquillaje">
+                        <img src="https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/HfQTTPvWfVXwt3R/textura_labial.png" alt="PRODUCTO" />
+                    </div>
+                </div>
+                <div class="content_tono_detalle">
+                    <img src="https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/PYi4dINUiOsYQ7e/labial_color.png" alt="PRODUCTO" />
+                    <div class="content_mascara_maquillaje">
+                        <img src="https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/HfQTTPvWfVXwt3R/textura_labial.png" alt="PRODUCTO" />
+                    </div>
+                </div>
+                <div class="content_tono_detalle">
+                    <img src="https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/PYi4dINUiOsYQ7e/labial_color.png" alt="PRODUCTO" />
+                    <div class="content_mascara_maquillaje">
+                        <img src="https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/HfQTTPvWfVXwt3R/textura_labial.png" alt="PRODUCTO" />
+                    </div>
+                </div>
+                <div class="content_tono_detalle">
+                    <img src="https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/PYi4dINUiOsYQ7e/labial_color.png" alt="PRODUCTO" />
+                    <div class="content_mascara_maquillaje">
+                        <img src="https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/HfQTTPvWfVXwt3R/textura_labial.png" alt="PRODUCTO" />
+                    </div>
+                </div>
+                <div class="content_tono_detalle">
+                    <img src="https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/dvVanSpBwcSATGk/textura_labial_fucsia.png" alt="PRODUCTO" />
+                    <div class="content_mascara_maquillaje">
+                        <img src="https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/HfQTTPvWfVXwt3R/textura_labial.png" alt="PRODUCTO" />
+                    </div>
+                </div>
+                <div class="content_tono_detalle">
+                    <img src="https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/PYi4dINUiOsYQ7e/labial_color.png" alt="PRODUCTO" />
+                    <div class="content_mascara_maquillaje">
+                        <img src="https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/HfQTTPvWfVXwt3R/textura_labial.png" alt="PRODUCTO" />
+                    </div>
+                </div>
+                <div class="content_tono_detalle">
+                    <img src="https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/PYi4dINUiOsYQ7e/labial_color.png" alt="PRODUCTO" />
+                    <div class="content_mascara_maquillaje">
+                        <img src="https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/HfQTTPvWfVXwt3R/textura_labial.png" alt="PRODUCTO" />
+                    </div>
+                </div>
+
+                <hr class="clear" />
+            </div>
+            <select class="tono_labial_select">
+                <option>Coral Cautivante</option>
+                <option>Coral Cautivante</option>
+                <option>Coral Cautivante</option>
+                <option>Coral Cautivante</option>
+            </select>
+        </div>
+    
+        <div class="content_redes_ficha">
+            @{
+                var urlWs = "";
+                string urlBase_fb = "";
+                if (System.Web.HttpContext.Current.Request.UserAgent != null)
+                {                    
+                    var request = HttpContext.Current.Request;
+                    
+                    var texto = "Producto favorito en wsp";
+                    var urlBase_wsp = request.Url.Scheme + "://" + request.Url.Authority + "/Pdto.aspx?id=" + Model.CodigoIso + "_[valor]";
+                    urlBase_fb = request.Url.Scheme + "://" + request.Url.Authority + "/Pdto.aspx?id=" + Model.CodigoIso + "_[valor]";
+
+                    urlBase_wsp = urlBase_wsp.Replace("/", "%2F");
+                    urlBase_wsp = urlBase_wsp.Replace(":", "%3A");
+                    urlBase_wsp = urlBase_wsp.Replace("?", "%3F");
+                    urlBase_wsp = urlBase_wsp.Replace("=", "%3D");
+
+                    var message = Uri.EscapeDataString(texto) + " - " + urlBase_wsp;
+                    urlWs = "whatsapp://send?text=" + message;
+                }
+            }
+            <a id="btn_wsp" class="btn_compartir_ofertas" href="#"><img src="@Url.Content("~/Content/Images/Mobile/Esika/iconowscolor.png")" alt=""></a>
+            <a id="btn_wsp_oculto" href="#" data-action="share/whatsapp/share" style="display:none;"></a>
+            <a id="btn_fb" class="btn_compartir_ofertas" href="#" onclick='CompartirFacebook("@urlBase_fb","F");'><img src="@Url.Content("~/Content/Images/Mobile/Esika/catalogo_facebook_color.png")" alt=""></a>
+        </div>
+        <div style="display: none;">
+            <input type="hidden" class="urlbasewsp" value="@urlWs" />
+        </div>
+        <hr class="clear" />
+        <div class="row">
+            <div class="content_btn_agregar">
+                <div class="content_320">
+                    <div class="content_cantidad_ficha_producto">
+                        <a class="cantidad_menos_home"><img src="/Content/Images/Mobile/Esika/menos.png" alt=""></a>
+                        <input type="tel" value="1" size="2" maxlength="2" id="txtCantidad" class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" data-input="cantidad">
+                        <a class=" cantidad_mas_home"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
+                    </div>
+                    <a class="btn_agregar_ficha_producto" data-btn-agregar-catalogopersonalizado="" href="#">AGRÉGALO</a>
+                    <hr class="clear" />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section scripts{
+
+    <script type="text/javascript">
+
+        var urlObtenerProductosCatalogoPersonalizado = '@Url.Action("ObtenerProductosCatalogoPersonalizado", "CatalogoPersonalizado", new { area = "" })';
+        var urlPedidoInsert = '@Url.Action("Insert", "Pedido", new { area = "" })';
+        var urlReservadoOEnHorarioRestringido = '@Url.Action("ReservadoOEnHorarioRestringido", "Pedido", new { area = "" })';
+        var urlPedidoValidado = '@Url.Action("Validado", "Pedido", new { area = "Mobile" })';
+        var tipoOrigen = '2';
+        var urlCatalogoPersonalizado = '@Url.Action("Index", "CatalogoPersonalizado", new { area = "Mobile" })';
+        var isAddFichaProductoFAV = 1;
+        var urlInsertarProductoCompartido = '@Url.Action("InsertarProductoCompartido", "CatalogoPersonalizado", new { area = "" })';
+
+        $(document).ready(function () {
+            $(".content_tono_detalle").on("click", function () {
+
+                $('.content_tono_detalle').removeClass('borde_seleccion_tono');
+                $(this).addClass("borde_seleccion_tono");
+
+                //if ($(this).hasClass("borde_seleccion_tono")) {
+                //    $(this).removeClass("borde_seleccion_tono");
+                //} else {
+        
+                //    $(this).addClass("borde_seleccion_tono");
+                //}
+            });
+
+            //Pl20-1237
+            $("#btn_wsp").on("click", function () {
+                var _id = InsertarProductoCompartido('W');
+
+                var urlwsp = $(".urlbasewsp").val();
+                urlwsp = urlwsp.replace("[valor]", _id);
+
+                $("#btn_wsp_oculto").prop('href', urlwsp)
+                $("#btn_wsp_oculto").click();   
+            });
+        });
+        
+        //PL20-1237
+        function InsertarProductoCompartido(app)
+        {
+            //Capturando valores
+            var _rutaImagen = $(".hdItemRutaImagen").val();
+            var _marcaID = $(".hdItemMarcaID").val();
+            var _marcaDesc = $(".hdItemDescripcionMarca").val();
+            var _nombre = $(".hdItemDescripcionProd").val();
+            var _volumen = $(".peso_ficha_producto").text();
+            var _descripcion = $(".descripcion_ficha_producto").text();
+
+            var pcCuv = $(".hdItemCuv").val();
+            var pcPalanca = "FAV";
+            var pcDetalle = _rutaImagen + "|" + _marcaID + "|" + _marcaDesc + "|" + _nombre + "|" + _volumen + "|" + _descripcion;
+            var pcApp = app;
+
+
+            var ID = 0;
+            var Item = {
+                mCUV: pcCuv,
+                mPalanca: pcPalanca,
+                mDetalle: pcDetalle,
+                mApplicacion: pcApp
+            };
+
+            jQuery.ajax({
+                type: 'POST',
+                url: urlInsertarProductoCompartido,
+                dataType: 'json',
+                contentType: 'application/json; charset=utf-8',
+                data: JSON.stringify(Item),
+                async: false,
+                success: function (response) {
+                    if (checkTimeout(response)) {
+                        if (response.success) {
+                            var datos = response.data;
+                            ID = datos.id;
+                        } else {
+                            window.messageInfo(response.message);
+                        }
+                    }
+                },
+                error: function (response, error) {
+                    if (checkTimeout(response)) {
+                        console.log(response);
+                    }
+                }
+            });
+            return ID;
+        }
+
+        function CompartirFacebook(urlBase, app) {
+            var _id = InsertarProductoCompartido(app);
+            urlBase = urlBase.replace('[valor]', _id);
+
+            var popWwidth = 570;
+            var popHeight = 420;
+            var left = (screen.width / 2) - (popWwidth / 2);
+            var top = (screen.height / 2) - (popHeight / 2);
+            var url = "http://www.facebook.com/sharer/sharer.php?u=" + urlBase;
+
+            window.open(url, 'Facebook', "width=" + popWwidth + ",height=" + popHeight + ",menubar=0,toolbar=0,directories=0,scrollbars=no,resizable=no,left=" + left + ",top=" + top + "");
+
+            //window.open('http://localhost:20267/Pdto.aspx?id=PE_2_F');
+        }
+    </script>
+
+    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/CatalogoPersonalizado/CatalogoPersonalizado.js")"></script>
+    <script src="~/Scripts/PortalConsultoras/Mobile/CatalogoPersonalizado/bootstrap-slider.min.js"></script>
+}

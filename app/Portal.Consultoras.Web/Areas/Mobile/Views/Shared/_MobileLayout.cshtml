@@ -1,5 +1,6 @@
 ﻿@using Portal.Consultoras.Common
 @using Portal.Consultoras.Web.Areas.Mobile.Helpers
+@using Newtonsoft.Json;
 
 <!DOCTYPE html>
 <html lang="es-PE">
@@ -22,6 +23,8 @@
         <link href="@Url.Content("~/Content/Images/icons/favicon_lbel.ico")" rel="shortcut icon" type="image/x-icon" />
         @Styles.Render("~/Content/Css/Mobile/Lbel/CssSB2Mobile")
     }
+    
+    <link href="@Url.Content("~/Content/Css/Mobile/flexslider.css")" rel="stylesheet" type="text/css" />
 
     <script type="text/javascript">
         var isEsika = '@(System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(ViewBag.PaisAnalytics))' == "True";
@@ -117,19 +120,7 @@
     </div>
 
     <!-- header -->
-    <header id="new-header">
-        <div id="BloqueMobileOfertaDia" class="BloqueOfertaDia" style="display:none;">
-            @*<div class="content_320" style="padding:0;" id="content_oferta_dia_mobile">
-                <div class="float_left">
-                    <div class="solo_hoy_mobile"><img src="@Url.Content("~/Content/Images/PL20/solo_hoy.png")" alt="Solo Hoy" /></div>
-                    <div class="nombre_set_oferta_mobile">SET ILUMINAS A SOLO <b>$31.99</b></div>
-                </div>
-                <div class="imagen_set_oferta_mobile"><img src="@Url.Content("~/Content/Images/PL20/set_hoy.png")" alt="Solo Hoy" /></div>
-                <hr class="clear" />
-            </div>
-            <a class="btn_cerrar_oferta_mobile" href="javascript:;" onclick="javascript: $('#BloqueMobileOfertaDia').slideUp();">X</a>*@
-            
-        </div>        
+    <header id="new-header">                
         <div id="bloquemensajesPedido" style="display:none;">
             <div class="oscurecer_animacion"></div>
             <div class="bloque_mensajesPedido">
@@ -180,6 +171,108 @@
                 </div>
             </div>
 </header>
+    <div id="pop_oferta_mobile" class="content_pop_oferta_mobile"></div>
+    @if (ViewBag.MostrarBannerPL20 == true)
+    {
+        <div id="content_slider_banner" class="content_slider_banner" style="display:none;">
+            @if (ViewBag.PermitirCerrarBannerPL20 == true)
+            {
+                <a class="btn_cerrar_oferta_mobile" href="javascript:void(0);" onclick="closeBannerPL20();">X</a>
+            }        
+            <div class="flexslider">
+                <ul class="slides">
+                    <li>
+                        <div id="divShowRoomHoy" class="ocultarPopup divShowRoom" style="display: none;">
+                            <input type="hidden" id="hdEventoIDShowRoom" />
+                            <input type="hidden" id="hdNombreEventoShowRoom" />
+                            <div class="imagen_preventa">
+                                <div class="etiqueta_2">
+                                    <img src="@Url.Content("~/Content/Images/mobile/img-showroom/etiqueta_2.png")" alt="-" />
+                                </div>
+                                <div class="titulo_contador_m">
+                                    @*PRE · VENTA DIGITAL*@
+                                    <span id="spnPreventaDigitalHoy"></span>
+                                </div>
+                            </div>
+                            <div class="fondo_white" style="height:80px;">
+                                <div class=" row_contador">
+                                    <div style="text-align: center;">
+                                        @*<a href="#" class="imagen_mobile_hoy"><img src="@Url.Content("~/Content/Images/mobile/img-showroom/set_hoy.png")" alt="-" /></a>
+                                <a href="#" class="set_mobile_hoy"> SETS DESDE <br /><span>$ 5,990</span></a>*@
+                                        <a id="lnkConoceMasShowRoomBannerLateralImagenHoy">
+                                            <img id="imgVentaSetPopupBannerHoy" alt="imgVentaSetPopupBannerHoy" />
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="contenedor_encuentralos">
+                                <div class="row_contador">
+                                    <a href="javascript:;" class="btn_encuentralos" id="lnkConoceMasShowRoomBannerLateralHoy">ENCUENTRALOS AQUI</a>
+                                </div>
+                            </div>
+                            @*<div class="indicador_red">
+
+                    </div>*@
+                        </div>
+                    </li>
+                    <li>
+                        <div id="BloqueMobileOfertaDia" class="BloqueOfertaDia" style="display: none;">
+                        </div>
+                    </li>
+                    <li>
+                        <div id="divShowRoom" class="ocultarPopup divShowRoom" style="display: none;">
+                            <input type="hidden" id="hdEventoIDShowRoom" />
+                            <input type="hidden" id="hdNombreEventoShowRoom" />
+                            <div class="imagen_preventa">
+                                <div class="etiqueta_2">
+                                    <img src="@Url.Content("~/Content/Images/mobile/img-showroom/etiqueta_2.png")" alt="-" />
+                                </div>
+                                <div class="titulo_contador_m">
+                                    @*PRE · VENTA DIGITAL*@
+                                    <span id="spnPreventaDigital"></span>
+                                </div>
+                            </div>
+                            <div class="fondo_m">
+                                <div class="row_contador">
+                                    <div style="float: left; margin-top: 12px; margin-left: 20px; width: 110px;">
+                                        <div class="texto_dias_m">
+                                            SÓLO FALTAN
+                                        </div>
+                                        <div class="texto_fecha_m">
+                                            <span id="spnDiasFaltantes">12</span>
+                                        </div>
+                                        <div class="texto_dias_m">
+                                            DÍAS
+                                        </div>
+                                    </div>
+                                    <div style="float: left; margin-top: 12px; margin-left: 22px; width: 135px;">
+                                        <div style="height: 20px; width: 135px;">
+                                            <div class="text_hora_m">hrs</div>
+                                            <div class="text_hora_m">min</div>
+                                            <div class="text_hora_m no_margin_right">sec</div>
+                                        </div>
+                                        <div class="fondo_contador">
+                                            <div class="text_numero"><span id="spnHorasFaltantes">18</span></div>
+                                            <div class="text_bolita">•</div>
+                                            <div class="text_numero"><span id="spnMinutosFaltantes">25</span></div>
+                                            <div class="text_bolita">•</div>
+                                            <div class="text_numero"><span id="spnSegundosFaltantes">02</span></div>
+                                        </div>
+                                        <div style="margin-top: 6px;">
+                                            <a href="javascript:;" class="boton_showroom" id="lnkConoceMasShowRoomBannerLateral" target="_blank">CONOCE MÁS AQUÍ</a>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    }
+
     @*<div id="pop_oferta_mobile" class="content_pop_oferta_mobile">
         <div class="header_pop_oferta">
             <div class="content_320" style="padding:0;">
@@ -224,88 +317,7 @@
         </div>
         
     </div>*@
-
-    <!-- SHOWROOM -->
-    <div id="divShowRoom" class="ocultarPopup divShowRoom" style="display: none;">
-        <input type="hidden" id="hdEventoIDShowRoom" />
-        <input type="hidden" id="hdNombreEventoShowRoom" />
-        <div class="imagen_preventa">
-            <div class="etiqueta_2">
-                <img src="@Url.Content("~/Content/Images/mobile/img-showroom/etiqueta_2.png")" alt="-" />
-            </div>
-            <div class="titulo_contador_m">
-                @*PRE · VENTA DIGITAL*@
-                <span id="spnPreventaDigital"></span>
-            </div>
-        </div>
-        <div class="fondo_m">
-            <div class="row_contador">
-                <div style="float: left; margin-top: 12px; margin-left: 20px; width: 110px;">
-                    <div class="texto_dias_m">
-                        SÓLO FALTAN
-                    </div>
-                    <div class="texto_fecha_m">
-                        <span id="spnDiasFaltantes">12</span>
-                    </div>
-                    <div class="texto_dias_m">
-                        DÍAS
-                    </div>
-                </div>
-                <div style="float: left; margin-top: 12px; margin-left: 22px; width: 135px;">
-                    <div style="height: 20px; width: 135px;">
-                        <div class="text_hora_m">hrs</div>
-                        <div class="text_hora_m">min</div>
-                        <div class="text_hora_m no_margin_right">sec</div>
-                    </div>
-                    <div class="fondo_contador">
-                        <div class="text_numero"><span id="spnHorasFaltantes">18</span></div>
-                        <div class="text_bolita">•</div>
-                        <div class="text_numero"><span id="spnMinutosFaltantes">25</span></div>
-                        <div class="text_bolita">•</div>
-                        <div class="text_numero"><span id="spnSegundosFaltantes">02</span></div>
-                    </div>
-                    <div style="margin-top: 6px;">
-                        <a href="javascript:;" class="boton_showroom" id="lnkConoceMasShowRoomBannerLateral" target="_blank">CONOCE MÁS AQUÍ</a>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-
-    </div>
-    <div id="divShowRoomHoy" class="ocultarPopup divShowRoom" style="display: none;">
-        <input type="hidden" id="hdEventoIDShowRoom" />
-        <input type="hidden" id="hdNombreEventoShowRoom" />
-        <div class="imagen_preventa">
-            <div class="etiqueta_2">
-                <img src="@Url.Content("~/Content/Images/mobile/img-showroom/etiqueta_2.png")" alt="-" />
-            </div>
-            <div class="titulo_contador_m">
-                @*PRE · VENTA DIGITAL*@
-                <span id="spnPreventaDigitalHoy"></span>
-            </div>
-        </div>
-        <div class="fondo_white">
-            <div class=" row_contador">
-                <div style="text-align: center;">
-                    @*<a href="#" class="imagen_mobile_hoy"><img src="@Url.Content("~/Content/Images/mobile/img-showroom/set_hoy.png")" alt="-" /></a>
-                        <a href="#" class="set_mobile_hoy"> SETS DESDE <br /><span>$ 5,990</span></a>*@
-                    <a id="lnkConoceMasShowRoomBannerLateralImagenHoy">
-                        <img id="imgVentaSetPopupBannerHoy" alt="imgVentaSetPopupBannerHoy" />
-                    </a>
-                </div>
-            </div>
-        </div>
-        <div class="contenedor_encuentralos">
-            <div class="row_contador">
-                <a href="javascript:;" class="btn_encuentralos" id="lnkConoceMasShowRoomBannerLateralHoy">ENCUENTRALOS AQUI</a>
-            </div>
-        </div>
-        @*<div class="indicador_red">
-
-        </div>*@
-    </div>
-
+    
     <!-- content -->
     <section style="min-height: 380px;">
 
@@ -494,7 +506,6 @@
     </div>
 
     @Scripts.Render("~/Scripts/Mobile")
-
     <script type="text/javascript" src="@Url.Content("~/Scripts/handlebars.min.js")"></script>
     <script src="@Url.Content("~/Scripts/PortalConsultoras/Shared/TrackingJetlore.js")"></script>
     
@@ -507,6 +518,9 @@
         var urlGetNotificacionesSinLeer = '@Url.Action("GetNotificacionesSinLeer", "Notificaciones", new { area = "" })';
         var urlGetCantidadPedidos = '@Url.Action("GetCantidadPedidos", "ConsultoraOnline", new { area = "Mobile" })';
         var urlGetShowRoom = '@Url.Action("MostrarShowRoomBannerLateral", "Bienvenida", new { area = "" })';
+        var urlCloseBannerPL20 = '@Url.Action("CloseBannerPL20", "Pedido", new { area = "" })';
+        var urlValidarStockEstrategia = '@Url.Action("ValidarStockEstrategia", "Pedido", new { area = "" })';
+        var urlPedidoInsertZe = '@Url.Action("AgregarProductoZE", "Pedido", new { area = "" })';
         var baseUrl = "@Url.Content("~")";
         var tipoOfertaFinalCatalogoPersonalizado = '@Constantes.TipoOfertaFinalCatalogoPersonalizado.Jetlore';
 
@@ -525,29 +539,27 @@
 
         var MobileShowRoom = @Portal.Consultoras.Common.Constantes.OrigenPedidoWeb.MobileShowRoom;
         var MobileLiquidacion = @Portal.Consultoras.Common.Constantes.OrigenPedidoWeb.MobileLiquidacion;
-
         var MobileCatalogoPersonalizado = @Portal.Consultoras.Common.Constantes.OrigenPedidoWeb.MobileCatalogoPersonalizado;
         var MobileCatalogoPersonalizadoPopUp = @Portal.Consultoras.Common.Constantes.OrigenPedidoWeb.MobileCatalogoPersonalizadoPopUp;
 
         var sesionEsShowRoom = '@Session["EsShowRoom"]';
         var urlShowRoomIndex = '@Url.Action("Index", "ShowRoom", new {area = "Mobile"})';
+        var MostrarBannerPL20 = '@ViewBag.MostrarBannerPL20';
+    </script>
 
-        var TieneOfertaDelDia = '@ViewBag.TieneOfertaDelDia'; //PL20-1226
-        var urlValidarStockEstrategia = '@Url.Action("ValidarStockEstrategia", "Pedido", new { area = "" })';
-        var urlPedidoInsertZe = '@Url.Action("AgregarProductoZE", "Pedido", new { area = "" })';
+    @if (ViewBag.MostrarBannerPL20 == true)
+    {
+        <script type="text/javascript">
+            var TieneOfertaDelDia = '@ViewBag.TieneOfertaDelDia'; //PL20-1226
+            var OfertaDelDiaResponse = JSON.parse('@Html.Raw(JsonConvert.SerializeObject(ViewBag.OfertaDelDiaResponse.Data))');
+            var MostrarShowRoomResponse = JSON.parse('@Html.Raw(JsonConvert.SerializeObject(ViewBag.MostrarShowRoomResponse.Data))');
+        </script>
+    }
 
+    <script type="text/javascript">
         $(function () {
-
-            /*PL20-1233*/
-            if (TieneOfertaDelDia == "True") {
-                loadOfertaDelDia();
-            }
-            /*PL20-1233*/
-
             SetFormatDecimalPais(formatDecimalPaisMain);
-
             MensajeEstadoPedido();
-
             HandlebarsRegisterHelper();
             $('.menu_footer').on('click', function () {
                 var $obj = $(this);
@@ -596,7 +608,6 @@
                 };
             });
 
-
             $("body").on("click", "[data-cantidad-agregar]", function () {
                 var signo = $(this).attr("data-cantidad-agregar");
                 var objPadre = $(this).parents("[data-cantidad-contenedor]");
@@ -639,7 +650,7 @@
             $("#lnkConoceMasShowRoomBannerLateralHoy, #lnkConoceMasShowRoomBannerLateralImagenHoy").click(function () {
                 AgregarTagManagerShowRoomBannerLateralConocesMas(true);
             });
-            
+
             //imgVentaSetPopupBannerHoy
 
             //$("#content_oferta_dia_mobile").click(function () {
@@ -656,7 +667,7 @@
             //    var duration = 500;
 
             //    $('#pop_oferta_mobile').toggle(effect, options, duration);
-                
+
             //});
             //$(".header_pop_oferta").click(function () {
             //    $('body').css({ 'overflow-y': 'scroll' });
@@ -671,138 +682,92 @@
             //    var duration = 500;
 
             //    $('#pop_oferta_mobile').toggle(effect, options, duration);
-               
+
             //});
 
-            CargarShowRoom();
+            if(MostrarBannerPL20) loadBannerLP20();
         });
+
+        function loadBannerLP20() {
+            cargarShowRoom();
+            loadOfertaDelDia();
+
+            var showRoomHoyVisible = ($('#divShowRoomHoy').css('display') != 'none');
+            var oddVisible = ($('#BloqueMobileOfertaDia').css('display') != 'none');
+            var showRoomVisible = ($('#divShowRoom').css('display') != 'none');
+
+            if(!showRoomHoyVisible) $('#divShowRoomHoy').parent('li').remove();
+            if(!oddVisible) $('#BloqueMobileOfertaDia').parent('li').remove();
+            if(oddVisible || !showRoomVisible) $('#divShowRoom').parent('li').remove();
+
+            if(showRoomHoyVisible || oddVisible || !showRoomVisible){
+                $("#content").css("margin-top", "0px");
+                $('#content_slider_banner').show();
+
+                //Dejar esta línea al último, ya que antes de ejecutar flexslider el div ya debe de mostrarse.
+                $('.flexslider').flexslider({ animation: "slide"});
+            }
+        }
 
         /*PL20-1233*/
         function loadOfertaDelDia() {
-            $.ajax({
-                type: 'GET',
-                url: baseUrl + 'Pedido/GetOfertaDelDia',
-                //data: '',
-                cache: false,
-                dataType: 'json',
-                contentType: 'application/json; charset=utf-8',
-                success: function (response) {
-                    if (response.success) {
-                        var _data = response.data;
-                        SetHandlebars("#bloquemobileofertadia-template", _data, '#BloqueMobileOfertaDia');
-                        var tq = _data.TeQuedan;
+            response = OfertaDelDiaResponse;
+            if (TieneOfertaDelDia != "True" || !response.success) return;
 
-                        if (tq.TotalSeconds > 0) {
+            var _data = response.data;
+            SetHandlebars("#banner-mobile-oferta-dia-template", _data, '#BloqueMobileOfertaDia');
+            SetHandlebars("#popup-mobile-oferta-dia-template", _data, '#pop_oferta_mobile');
 
-                            // config ODD
-                            $('.BloqueOfertaDia').css('background-color', _data.ColorFondo1);
-                            $('#img-banner-odd').attr('src', _data.ImagenBanner);
-                            $('#img1-solohoy-odd').attr('src', _data.ImagenSoloHoy);
-                            $('.header_pop_oferta').css('background-color', _data.ColorFondo2);
-                            $('#img2-solohoy-odd').attr('src', _data.ImagenSoloHoy);
-                            $('#img-display-odd').attr('src', _data.ImagenDisplay);
+            if (_data.SegundosQuedan > 0) {
+                // config ODD
+                $('.BloqueOfertaDia').css('background-color', _data.ColorFondo1);
+                $('#img-banner-odd').attr('src', _data.ImagenBanner);
+                $('#img1-solohoy-odd').attr('src', _data.ImagenSoloHoy);
+                $('.header_pop_oferta').css('background-color', _data.ColorFondo2);
+                $('#img2-solohoy-odd').attr('src', _data.ImagenSoloHoy);
+                $('#img-display-odd').attr('src', _data.ImagenDisplay);
+                var obj1 = $('#BloqueMobileOfertaDia').find('.nombre_set_producto_hoy');
+                obj1.html(obj1.text());
+                $('#BloqueMobileOfertaDia').show();
 
-                            var obj1 = $('#BloqueMobileOfertaDia').find('.nombre_set_producto_hoy');
-                            obj1.html(obj1.text());
+                $("#content_oferta_dia_mobile").click(function () {
+                    $('#txtCantidad').val('1');
+                    $('body').css({ 'overflow-x': 'hidden' });
+                    $('body').css({ 'overflow-y': 'hidden' });
 
-                            $('#BloqueMobileOfertaDia').show();
-                            $('#divShowRoomHoy').css('margin-top', '123px');
-                            
-                            if($('#divShowRoomHoy:visible').length > 0) {
-                                $('#content').css('top', '0px');
-                            }
-                            else {
-                                $('#content').css('top', '66px');
-                            }
-
-                            var int1odd = setInterval(function () {
-                                if ($('#divShowRoomHoy:visible').length > 0) {
-                                    $('#content').css('top', '0px');
-                                    clearInterval(int1odd);
-                                }
-                                else {
-                                    $('#content').css('top', '66px');
-                                    clearInterval(int1odd);
-                                }
-                            }, 300);
-                            
-                            $("#content_oferta_dia_mobile").click(function () {
-                                $('#txtCantidad').val('1');
-                                $('body').css({ 'overflow-x': 'hidden' });
-                                $('body').css({ 'overflow-y': 'hidden' });
-                                // Set the effect type
-                                var effect = 'slide';
-
-                                // Set the options for the effect type chosen
-                                //var options = { direction: $('.mySelect').val() };
-                                var options = {direction: 'Right' };
-
-                                // Set the duration (default: 400 milliseconds)
-                                var duration = 500;
-
-                                $('#pop_oferta_mobile').toggle(effect, options, duration);
-                            });
-                        }
-                        else {
-                            $('#BloqueMobileOfertaDia').hide();
-                            $('#divShowRoomHoy').css('margin-top', '63px');
-                        }
-                        
-                        OcultarBannerODD();
-                    }
-                },
-                error: function (err) {
-                    console.log(err);
-                }
-            });
+                    //$('#pop_oferta_mobile').toggle(effect, options, duration);
+                    $('#pop_oferta_mobile').toggle('slide', {direction: 'Right' }, 500);
+                });
+            }
+            else $('#BloqueMobileOfertaDia').hide();
+            OcultarBannerODD();
         };
 
-        function OcultarBannerODD()
-        {
+        function OcultarBannerODD() {
             $(".header_pop_oferta").click(function () {
                 $('body').css({ 'overflow-y': 'scroll' });
-                // Set the effect type
-                var effect = 'slide';
 
-                // Set the options for the effect type chosen
-                //var options = { direction: $('.mySelect').val() };
-                var options = {direction: 'right' };
-
-                // Set the duration (default: 400 milliseconds)
-                var duration = 500;
-
-                $('#pop_oferta_mobile').toggle(effect, options, duration);               
+                //$('#pop_oferta_mobile').toggle(effect, options, duration);
+                $('#pop_oferta_mobile').toggle('slide', {direction: 'right' }, 500);
             });
         };
 
-        function closeOfertaDelDia() {
+        function closeBannerPL20() {
             $.ajax({
                 type: 'GET',
-                url: baseUrl + 'Pedido/CloseOfertaDelDia',
-                //data: {},
+                url: urlCloseBannerPL20,
                 cache: false,
-                //dataType: 'json',
-                //contentType: 'application/json; charset=utf-8',
                 success: function (response) {
                     if (response.success) {
-                        $('#BloqueMobileOfertaDia').hide();
-
-                        if($('#divShowRoomHoy:visible').length > 0) {
-                            $('#divShowRoomHoy').css('margin-top', '63px');
-                        }
-                        else {
-                            $('#content').css('top', '0px');
-                        }
+                        $('#content_slider_banner').hide();
+                        $('#content').css('margin-top', '');
                     }
                 },
-                error: function (err) {
-                    console.log(err);
-                }
+                error: function (err) { console.log(err); }
             });
         };
 
         function addOfertaDelDiaPedido(){
-            debugger
             var tipoEstrategiaID = $('#tipoestrategia-id-odd').val();
             var estrategiaID = $('#estrategia-id-odd').val();
             var flagNueva = $('#flag-nueva-odd').val();
@@ -825,7 +790,7 @@
             var intLimiteVenta = parseInt(cantidadLimite);
             var msg1 = 'Solo puede llevar ' + cantidadLimite + ' unidades de este producto.';
 
-            if (intCantidad > intLimiteVenta) {            
+            if (intCantidad > intLimiteVenta) {
                 //messageInfoMalo('Solo puede llevar ' + cantidadLimite.toStrin + ' unidades de este producto.','');
                 $('#popupInformacionSB2Error').find('#mensajeInformacionSB2_Error').text(msg1);
                 $('#popupInformacionSB2Error').show();
@@ -899,7 +864,7 @@
                                     CloseLoading();
                                     return false;
                                 }
-                                
+
                                 ShowLoading();
 
                                 ActualizarGanancia(data.DataBarra);
@@ -911,15 +876,15 @@
                                         TagManagerClickAgregarProducto();
                                     }
                                 }
-                           
+
                                 CloseLoading();
-                                
+
                                 // ocultar display
                                 $('body').css({ 'overflow-y': 'scroll' });
                                 var effect = 'slide';
                                 var options = {direction: 'right' };
                                 var duration = 500;
-                                $('#pop_oferta_mobile').toggle(effect, options, duration);   
+                                $('#pop_oferta_mobile').toggle(effect, options, duration);
                                 $('#txtCantidad').val('1');
 
                                 // si es pagina de pedido, recargar el detalle
@@ -943,9 +908,9 @@
                         CloseLoading();
                     }
                 }
-            });           
+            });
         };
-        
+
         function checkCountdownODD() {
             var ok = true;
             $.ajax({
@@ -1563,10 +1528,7 @@
 
         /* Tracking Jetlore */
         function TrackingJetloreAdd(cantidad, campania, cuv) {
-            var esJetlore;
-
-            esJetlore = esPaisTrackingJetlore == "1";
-
+            var esJetlore = esPaisTrackingJetlore == "1";
             if (esJetlore) {
                 JL.tracker.addToCart({
                     count: cantidad,
@@ -1577,10 +1539,7 @@
         }
 
         function TrackingJetloreRemove(cantidad, campania, cuv) {
-            var esJetlore;
-
-            esJetlore = esPaisTrackingJetlore == "1";
-
+            var esJetlore = esPaisTrackingJetlore == "1";
             if (esJetlore) {
                 JL.tracker.removeFromCart({
                     count: cantidad,
@@ -1591,87 +1550,47 @@
         }
 
         function TrackingJetloreRemoveAll(lista) {
-            var esJetlore;
-
-            esJetlore = esPaisTrackingJetlore == "1";
-
-            if (esJetlore) {
-                JL.tracker.removeFromCart(lista);
-
-            }
+            var esJetlore = esPaisTrackingJetlore == "1";
+            if (esJetlore) JL.tracker.removeFromCart(lista);
         }
         /* Fin Tracking Jetlore */
 
-        function CargarShowRoom() {
-            if (sesionEsShowRoom == '0') {
-                return;
-            }
-            jQuery.ajax({
-                type: 'POST',
-                url: urlGetShowRoom,
-                dataType: 'json',
-                contentType: 'application/json; charset=utf-8',
-                success: function (response) {
-                    if (checkTimeout(response)) {
-                        if (response.success) {
-                            var showroomConsultora = response.data;
-                            var evento = response.evento;
+        function cargarShowRoom() {
+            response = MostrarShowRoomResponse;
+            if (sesionEsShowRoom == '0' || !response.success) return;
 
-                            if (showroomConsultora.EventoConsultoraID != 0) {
-                                if (response.estaActivoLateral) {
-                                    $("#hdNombreEventoShowRoom").val(evento.Tema);
-                                    $("#hdEventoIDShowRoom").val(evento.EventoID);
+            var showroomConsultora = response.data;
+            var evento = response.evento;
+            if (showroomConsultora.EventoConsultoraID == 0 || !response.estaActivoLateral) return;
 
-                                    ///////NOHELY
-                                    $("#content").css("margin-top", "0px");
+            $("#hdNombreEventoShowRoom").val(evento.Tema);
+            $("#hdEventoIDShowRoom").val(evento.EventoID);
+            if (response.mostrarShowRoomProductos) {
+                $("#lnkConoceMasShowRoomBannerLateralHoy").attr("href", urlShowRoomIndex);
+                $("#lnkConoceMasShowRoomBannerLateralImagenHoy").attr("href", urlShowRoomIndex);
 
-                                    if (response.mostrarShowRoomProductos) {
-                                        $("#lnkConoceMasShowRoomBannerLateralHoy").attr("href", urlShowRoomIndex);
-                                        $("#lnkConoceMasShowRoomBannerLateralImagenHoy").attr("href", urlShowRoomIndex);
-                                        
-                                        $("#spnPreventaDigitalHoy").html(evento.Nombre);
+                $("#spnPreventaDigitalHoy").html(evento.Nombre);
+                $("#imgVentaSetPopupBannerHoy").attr("src", evento.ImagenVentaSetPopup);
 
-                                        $("#imgVentaSetPopupBannerHoy").attr("src", evento.ImagenVentaSetPopup);
-
-                                        if (document.getElementById("estiloShowRoom") == null) {
-                                            $("#divShowRoomHoy").show();
-
-                                            if($('#BloqueMobileOfertaDia:visible').length > 0) {
-                                                $('#content').css('top', '0px');
-                                            }
-
-                                            AgregarTagManagerShowRoomBannerLateral(true);
-                                        }
-                                    } else {
-                                        $("#lnkConoceMasShowRoomBannerLateral").attr("href", response.rutaShowRoomBannerLateral);
-
-                                        $("#spnPreventaDigital").html(evento.Nombre);
-
-                                        AgregarTimerShowRoom(response.diasFaltantes, response.mesFaltante, response.anioFaltante);
-
-                                        if (document.getElementById("estiloShowRoom") == null) {
-                                            $("#divShowRoom").show();
-                                            AgregarTagManagerShowRoomBannerLateral(false);
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                },
-                error: function (response, error) {
-                    if (checkTimeout(response)) {
-                        console.error(error);
-                    }
+                if (document.getElementById("estiloShowRoom") == null) {
+                    $("#divShowRoomHoy").show();
+                    AgregarTagManagerShowRoomBannerLateral(true);
                 }
-            });
+            } else {
+                $("#lnkConoceMasShowRoomBannerLateral").attr("href", response.rutaShowRoomBannerLateral);
+                $("#spnPreventaDigital").html(evento.Nombre);
+                AgregarTimerShowRoom(response.diasFaltantes, response.mesFaltante, response.anioFaltante);
+
+                if (document.getElementById("estiloShowRoom") == null) {
+                    $("#divShowRoom").show();
+                    AgregarTagManagerShowRoomBannerLateral(false);
+                }
+            }
         }
 
         function AgregarTagManagerShowRoomBannerLateralConocesMas(esHoy) {
             var name = 'showroom digital ' + $("#hdNombreEventoShowRoom").val();
-
-            if (esHoy)
-                name += " - fase 2";
+            if (esHoy) name += " - fase 2";
 
             dataLayer.push({
                 'event': 'promotionClick',
@@ -1691,9 +1610,7 @@
 
         function AgregarTagManagerShowRoomBannerLateral(esHoy) {
             var name = 'showroom digital ' + $("#hdNombreEventoShowRoom").val();
-
-            if (esHoy)
-                name += " - fase 2";
+            if (esHoy) name += " - fase 2";
 
             dataLayer.push({
                 'event': 'promotionView',
@@ -1744,18 +1661,18 @@
                 }
             }, 1000);
         }
-
     </script>
 
     <!--PL20-1233-->
-    <script id="bloquemobileofertadia-template" type="text/x-handlebars-template">
+    <script id="banner-mobile-oferta-dia-template" type="text/x-handlebars-template">
         <div class="content_320" style="padding:0;" id="content_oferta_dia_mobile">
             <div class="float_left">
                 <div class="solo_hoy_mobile">
                     @*<img src="@Url.Content("~/Content/Images/PL20/solo_hoy.png")" alt="Solo Hoy" />*@
                     <img id="img1-solohoy-odd" alt="" />
                 </div>
-                <div class="nombre_set_oferta_mobile">{{NombreOferta}} A SOLO <b>@ViewBag.Simbolo {{PrecioOfertaFormat}}</b></div>
+                <div class="nombre_set_oferta_mobile">{{NombreOferta}} <br/>A SOLO <b>@ViewBag.Simbolo {{PrecioOfertaFormat}}</b></div>
+                <a class="btn_compralo_ahora" href="#">CÓMPRALO AHORA</a>
             </div>
             <div class="imagen_set_oferta_mobile">
                 <img src="@Url.Content("~/Content/Images/PL20/set_hoy.png")" alt="Solo Hoy" id="img-banner-odd" />
@@ -1772,62 +1689,58 @@
             <input type="hidden" id="indmonto-min-odd" value="{{IndicadorMontoMinimo}}" />
             <input type="hidden" id="teimagenmostrar-odd" value="{{TipoEstrategiaImagenMostrar}}" />
         </div>
-        <a class="btn_cerrar_oferta_mobile" href="javascript:;" onclick="closeOfertaDelDia();">X</a>
-
-        <div id="pop_oferta_mobile" class="content_pop_oferta_mobile">
-            <div class="header_pop_oferta">
-                <div class="content_320" style="padding:0;">
-                    <div class="float_left">
-                        <a class="btn_cerrar_pop_oferta_hoy">
-                            <img src="@Url.Content("~/Content/Images/PL20/regresar.png")" alt="regresar" />
-                        </a>
-                    </div>
-                    <div class="imagen_set_hoy_mobile">
-                        @*<img src="@Url.Content("~/Content/Images/PL20/solo_hoy.png")" alt="regresar" />*@
-                        <img id="img2-solohoy-odd" alt="regresar" />
-                    </div>
-                    <hr class="clear" />
+    </script>
+    <script id="popup-mobile-oferta-dia-template" type="text/x-handlebars-template">
+        <div class="header_pop_oferta">
+            <div class="content_320" style="padding:0;">
+                <div class="float_left">
+                    <a class="btn_cerrar_pop_oferta_hoy">
+                        <img src="@Url.Content("~/Content/Images/PL20/regresar.png")" alt="regresar" />
+                    </a>
                 </div>
+                <div class="imagen_set_hoy_mobile">
+                    @*<img src="@Url.Content("~/Content/Images/PL20/solo_hoy.png")" alt="regresar" />*@
+                    <img id="img2-solohoy-odd" alt="regresar" />
+                </div>
+                <hr class="clear" />
             </div>
-            <div class="set_oferta_content">
-
-                <div class="producto_img_mobile">
-                    <img src="@Url.Content("~/Content/Images/PL20/set_hoy.png")" alt="Solo Hoy" id="img-display-odd" />
-                </div>
-                <div class="producto_nombre_descripcion">
-                    <div class="nombre_set_producto_hoy">
-                        @*Iluminas Celebration 50 ml +
+        </div>
+        <div class="set_oferta_content">
+            <div class="producto_img_mobile">
+                <img src="@Url.Content("~/Content/Images/PL20/set_hoy.png")" alt="Solo Hoy" id="img-display-odd" />
+            </div>
+            <div class="producto_nombre_descripcion">
+                <div class="nombre_set_producto_hoy">
+                    @*Iluminas Celebration 50 ml +
                         Aventour 100 ml + <br />
                         <b> GRATIS It’s You Emotion 100 ml</b>*@
-                        {{DescripcionOferta}}
-                    </div>
-                    <div class="precio_valorizado_mobile">VALORIZADO EN <span>@ViewBag.Simbolo {{PrecioCatalogoFormat}}</span></div>
-                    <div class="producto_precio_hoy_mobile">
-                        A SOLO <span>@ViewBag.Simbolo {{PrecioOfertaFormat}}</span>
-                    </div>
-
-                    <div class="liquidacion_rango_home">
-                        <a class="cantidad_menos_home" tabindex="0"><img src="/Content/Images/Mobile/Esika/menos.png" alt=""></a>
-                        <input type="tel" value="1" size="2" maxlength="2" id="txtCantidad" class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" tabindex="0">
-                        <a class="cantidad_mas_home" tabindex="0"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
-                    </div>
-                    <div class="clear"></div>
-                    <a class="boton_Agregalo_home" href="#" onclick="addOfertaDelDiaPedido()">
-                        AGRÉGALO
-                    </a>
-                    <div style="padding-top:9px; height: 15px;">
-                        <div class="agregado product-add" style="text-align:right;display:none;">
-                            AGREGADO
-                            <div class="icono"></div>
-                        </div>
-                    </div>
+                    {{DescripcionOferta}}
+                </div>
+                <div class="precio_valorizado_mobile">VALORIZADO EN <span>@ViewBag.Simbolo {{PrecioCatalogoFormat}}</span></div>
+                <div class="producto_precio_hoy_mobile">
+                    A SOLO <span>@ViewBag.Simbolo {{PrecioOfertaFormat}}</span>
                 </div>
 
+                <div class="liquidacion_rango_home">
+                    <a class="cantidad_menos_home" tabindex="0"><img src="/Content/Images/Mobile/Esika/menos.png" alt=""></a>
+                    <input type="tel" value="1" size="2" maxlength="2" id="txtCantidad" class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" tabindex="0">
+                    <a class="cantidad_mas_home" tabindex="0"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
+                </div>
+                <div class="clear"></div>
+                <a class="boton_Agregalo_home" href="#" onclick="addOfertaDelDiaPedido()">
+                    AGRÉGALO
+                </a>
+                <div style="padding-top:9px; height: 15px;">
+                    <div class="agregado product-add" style="text-align:right;display:none;">
+                        AGREGADO
+                        <div class="icono"></div>
+                    </div>
+                </div>
             </div>
         </div>
     </script>
     <!--PL20-1233-->
-
+    <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.flexslider.js")"></script>
     @RenderSection("scripts", required: false)
     @{Html.PlaceScripts();}
 </body>

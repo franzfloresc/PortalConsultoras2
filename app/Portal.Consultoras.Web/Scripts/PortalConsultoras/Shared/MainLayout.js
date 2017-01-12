@@ -11,6 +11,30 @@ $(document).ready(function () {
     $(document).keyup(function (e) {
         if (e.keyCode == 27) { // esc keycode
             if ($('#PopOfertaDia').is(':visible')) {
+                $('#PopOfertaDia').slideUp();
+                $('.circulo_hoy span').html('+');
+                showDisplayODD = 0;
+            }
+        }
+    });
+
+    $('body').click(function (e) {
+        if (!$(e.target).closest('#OfertaDelDia').length) {
+            if ($('#PopOfertaDia').is(':visible')) {
+                if (showDisplayODD == 1) {
+                    $('#PopOfertaDia').slideUp();
+                    $('.circulo_hoy span').html('+');
+                    showDisplayODD = 0;
+                }
+            }
+        }
+
+    });
+
+
+    $(document).keyup(function (e) {
+        if (e.keyCode == 27) { // esc keycode
+            if ($('#PopOfertaDia').is(':visible')) {
                 $('#PopOfertaDia').slideUp(); 
                 $('.circulo_hoy span').html('+');
                 showDisplayODD = 0;

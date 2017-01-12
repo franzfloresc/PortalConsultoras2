@@ -21,6 +21,7 @@ namespace Portal.Consultoras.Web.Models
         public int TipoEstrategiaImagenMostrar { get; set; }
 
         public TimeSpan TeQuedan { get; set; }
+        public double SegundosQuedan { get { return this.TeQuedan.TotalSeconds; } }
         public string ImagenFondo1 { get; set; }
         public string ColorFondo1 { get; set; }
         public string ImagenBanner { get; set; }
