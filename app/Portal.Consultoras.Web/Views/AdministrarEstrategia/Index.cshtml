@@ -26,7 +26,7 @@
                 <div class="selectA borde_redondeado">
                     @Html.DropDownListFor(model => model.PaisID, new SelectList(Model.listaPaises, "PaisID", "Nombre"), "-- Seleccionar --", new { id = "ddlPais" })
                 </div>
-                <div class="titB">Campaña:</div>
+                <div class="titG">Campaña:</div>
                 <div class="selectA borde_redondeado">
                     @Html.DropDownListFor(model => model.CampaniaID, new SelectList(Model.listaCampania, "CampaniaID", "NombreCorto"), "-- Seleccionar --", new { id = "ddlCampania" })
                 </div>
@@ -54,20 +54,40 @@
                         }
                     </select>
                 </div>
-                <div class="titB">CUV<sub>2</sub>:</div>
+                <div class="titG">CUV<sub>2</sub>:</div>
                 <div class="selectA borde_redondeado">
                     <input type="text" id="CUV" name="CUV" />
                 </div>
             </div>
-            <div class="div-3">
-                <div class="titG">&nbsp;</div>
-                <div class="input_horizontal">
-                    <input type="button" name="btnBuscar" id="btnBuscar" value="Buscar" />
-                    <input type="button" name="btnNuevo" id="btnNuevo" value="Nuevo" />
-                    <input type="button" name="btnNuevoMasivo" id="btnNuevoMasivo" value="Nuevo Masivo" />
+                <div class="div-3">
+                <div class="titG">Tiene imagen?:</div>
+                <div class="selectA borde_redondeado">
+                    <select id="ddlTieneImagen" name="ddlTieneImagen">
+                        <option value="-1" selected>-- Seleccionar --</option>
+                        <option value="1">Si</option>
+                        <option value="0">No</option>
+                    </select>
+                </div>
+            
+         
+                <div class="titG">Oferta Activa?:</div>
+                <div class="selectA borde_redondeado">
+                    <select id="ddlOfertaActiva" name="ddlOfertaActiva">
+                        <option value="-1" selected>-- Seleccionar --</option>
+                        <option value="1">Si</option>
+                        <option value="0">No</option>
+                    </select>
                 </div>
             </div>
-        </div>
+                <div class="div-3">
+                    <div class="titG">&nbsp;</div>
+                    <div class="input_horizontal">
+                        <input type="button" name="btnBuscar" id="btnBuscar" value="Buscar" />
+                        <input type="button" name="btnNuevo" id="btnNuevo" value="Nuevo" />
+                        <input type="button" name="btnNuevoMasivo" id="btnNuevoMasivo" value="Nuevo Masivo" />
+                    </div>
+                </div>
+            </div>
     </div>
 </div>
 <div class="wrap">
@@ -1617,7 +1637,9 @@
                 CampaniaID: $("#ddlCampania").val(),
                 TipoEstrategiaID: $("#ddlTipoEstrategia").val(),
                 CUV: $("#CUV").val(),
-                Consulta: $("#hdTipoConsulta").val()
+                Consulta: $("#hdTipoConsulta").val(),
+                Imagen: $("#ddlTieneImagen").val(),
+                Activo: $("#ddlOfertaActiva").val()
             }),
             mtype: 'GET',
             contentType: "application/json; charset=utf-8",

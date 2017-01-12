@@ -25,6 +25,8 @@ namespace Portal.Consultoras.Data
                 Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, entidad.CampaniaID);
                 Context.Database.AddInParameter(command, "@TipoEstrategiaID", DbType.Int32, entidad.TipoEstrategiaID);
                 Context.Database.AddInParameter(command, "@CUV", DbType.String, entidad.CUV2);
+                Context.Database.AddInParameter(command, "@TieneImagen", DbType.Int32, entidad.Imagen);
+                Context.Database.AddInParameter(command, "@Activo", DbType.Int32, entidad.Activo);
                 return Context.ExecuteReader(command);
             }
         }
