@@ -49,9 +49,16 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 if (mostrarBanner)
                 {
                     ViewBag.PermitirCerrarBannerPL20 = permitirCerrarBanner;
-                    ViewBag.TieneOfertaDelDia = userData.TieneOfertaDelDia;
-                    ViewBag.OfertaDelDiaResponse = GetOfertaDelDia();
-                    ViewBag.MostrarShowRoomResponse = MostrarShowRoomBannerLateral();
+
+                    ShowRoomBannerLateralModel showRoomBannerLateral = GetShowRoomBannerLateral();
+                    ViewBag.ShowRoomBannerLateral = showRoomBannerLateral;
+                    ViewBag.MostrarShowRoomBannerLateral = Session["EsShowRoom"].ToString() != "0" &&
+                        !showRoomBannerLateral.ConsultoraNoEncontrada && !showRoomBannerLateral.ConsultoraNoEncontrada &&
+                        showRoomBannerLateral.BEShowRoomConsultora.EventoConsultoraID != 0 && showRoomBannerLateral.EstaActivoLateral;
+
+                    OfertaDelDiaModel ofertaDelDia = GetOfertaDelDiaModel();
+                    ViewBag.OfertaDelDia = ofertaDelDia;
+                    ViewBag.MostrarOfertaDelDia = userData.TieneOfertaDelDia && ofertaDelDia != null && ofertaDelDia.TeQuedan.TotalSeconds > 0;
                 }
                 ViewBag.MostrarBannerPL20 = mostrarBanner;
                 /*FIN: PL20-1289*/
@@ -66,19 +73,9 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         {
             try
             {
-                var f = false;
-                var oddModel = new OfertaDelDiaModel();
-
-                if (userData.OfertaDelDia != null)
-                {
-                    oddModel = userData.OfertaDelDia;
-                    oddModel.TeQuedan = CountdownODD(userData);
-                    f = true;
-                }
-
-                return Json(new
-                {
-                    success = f,
+                var oddModel = this.GetOfertaDelDiaModel();
+                return Json(new {
+                    success = oddModel != null,
                     data = oddModel
                 }, JsonRequestBehavior.AllowGet);
             }
@@ -89,95 +86,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 {
                     success = false,
                     message = "No se pudo procesar la solicitud"
-                }, JsonRequestBehavior.AllowGet);
-            }
-        }
-        
-        [HttpPost]
-        public JsonResult MostrarShowRoomBannerLateral()
-        {
-            try
-            {
-                var paisesShowRoom = ConfigurationManager.AppSettings["PaisesShowRoom"];
-                if (paisesShowRoom.Contains(userData.CodigoISO))
-                {
-                    if (!userData.CargoEntidadesShowRoom) throw new Exception("Ocurrió un error al intentar traer la información de los evento y consultora de ShowRoom.");
-                    var beShowRoomConsultora = userData.BeShowRoomConsultora;
-                    var beShowRoom = userData.BeShowRoom;
-
-                    if (beShowRoom == null)
-                    {
-                        beShowRoom = new BEShowRoomEvento();
-                        beShowRoomConsultora = new BEShowRoomEventoConsultora();
-                    }
-                    else
-                    {
-                        if (beShowRoomConsultora == null)
-                        {
-                            beShowRoomConsultora = new BEShowRoomEventoConsultora();
-                        }
-                    }
-
-                    if (beShowRoom.Estado == 1)
-                    {
-                        var rutaShowRoomBannerLateral = beShowRoom.RutaShowRoomBannerLateral;
-                        bool mostrarShowRoomProductos = false;
-                        var fechaHoy = DateTime.Now.AddHours(userData.ZonaHoraria).Date;
-                        bool estaActivoLateral = true;
-
-                        int diasAntes = beShowRoom.DiasAntes;
-                        int diasDespues = beShowRoom.DiasDespues;
-
-                        if (fechaHoy >= userData.FechaInicioCampania.AddDays(-diasAntes).Date && fechaHoy <= userData.FechaInicioCampania.AddDays(diasDespues).Date)
-                        {
-                            mostrarShowRoomProductos = true;
-                            rutaShowRoomBannerLateral = Url.Action("Index", "ShowRoom");
-                        }
-                        if (fechaHoy > userData.FechaInicioCampania.AddDays(diasDespues).Date)
-                            estaActivoLateral = false;
-
-                        return Json(new
-                        {
-                            success = true,
-                            data = beShowRoomConsultora,
-                            message = "ShowRoomConsultora encontrada",
-                            diasFaltantes = userData.FechaInicioCampania.Day - diasAntes,
-                            mesFaltante = userData.FechaInicioCampania.Month,
-                            anioFaltante = userData.FechaInicioCampania.Year,
-                            evento = beShowRoom,
-                            mostrarShowRoomProductos,
-                            rutaShowRoomBannerLateral,
-                            estaActivoLateral
-                        });
-                    }
-                    else
-                    {
-                        return Json(new
-                        {
-                            success = false,
-                            data = "",
-                            message = "ShowRoomEvento no encontrado"
-                        });
-                    }
-                }
-                else
-                {
-                    return Json(new
-                    {
-                        success = false,
-                        data = "",
-                        message = "ShowRoomConsultora no encontrada"
-                    });
-                }
-            }
-            catch (Exception ex)
-            {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                return Json(new
-                {
-                    success = false,
-                    message = "Hubo un problema con el servicio, intente nuevamente",
-                    extra = ""
                 }, JsonRequestBehavior.AllowGet);
             }
         }

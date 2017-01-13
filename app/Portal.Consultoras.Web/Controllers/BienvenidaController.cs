@@ -1586,74 +1586,14 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
+
         [HttpPost]
         public JsonResult MostrarShowRoomBannerLateral()
         {
             try
             {
-                var paisesShowRoom = ConfigurationManager.AppSettings["PaisesShowRoom"];
-                if (paisesShowRoom.Contains(userData.CodigoISO))
-                {
-                    if (!userData.CargoEntidadesShowRoom) throw new Exception("Ocurrió un error al intentar traer la información de los evento y consultora de ShowRoom.");
-                    var beShowRoomConsultora = userData.BeShowRoomConsultora;
-                    var beShowRoom = userData.BeShowRoom;
-
-                    if (beShowRoom == null)
-                    {
-                        beShowRoom = new BEShowRoomEvento();
-                        beShowRoomConsultora = new BEShowRoomEventoConsultora();
-                    }
-                    else
-                    {
-                        if (beShowRoomConsultora == null)
-                        {
-                            beShowRoomConsultora = new BEShowRoomEventoConsultora();
-                        }
-                    }
-
-                    if (beShowRoom.Estado == 1)
-                    {
-                        var rutaShowRoomBannerLateral = beShowRoom.RutaShowRoomBannerLateral;
-                        bool mostrarShowRoomProductos = false;
-                        var fechaHoy = DateTime.Now.AddHours(userData.ZonaHoraria).Date;
-                        bool estaActivoLateral = true;
-
-                        int diasAntes = beShowRoom.DiasAntes;
-                        int diasDespues = beShowRoom.DiasDespues;
-
-                        if (fechaHoy >= userData.FechaInicioCampania.AddDays(-diasAntes).Date && fechaHoy <= userData.FechaInicioCampania.AddDays(diasDespues).Date)
-                        {
-                            mostrarShowRoomProductos = true;
-                            rutaShowRoomBannerLateral = Url.Action("Index", "ShowRoom");
-                        }
-                        if (fechaHoy > userData.FechaInicioCampania.AddDays(diasDespues).Date)
-                            estaActivoLateral = false;
-
-                        return Json(new
-                        {
-                            success = true,
-                            data = beShowRoomConsultora,
-                            message = "ShowRoomConsultora encontrada",
-                            diasFaltantes = userData.FechaInicioCampania.Day - diasAntes,
-                            mesFaltante = userData.FechaInicioCampania.Month,
-                            anioFaltante = userData.FechaInicioCampania.Year,
-                            evento = beShowRoom,
-                            mostrarShowRoomProductos,
-                            rutaShowRoomBannerLateral,
-                            estaActivoLateral
-                        });
-                    }
-                    else
-                    {
-                        return Json(new
-                        {
-                            success = false,
-                            data = "",
-                            message = "ShowRoomEvento no encontrado"
-                        });
-                    }
-                }
-                else
+                var model = GetShowRoomBannerLateral();
+                if (model.ConsultoraNoEncontrada)
                 {
                     return Json(new
                     {
@@ -1662,6 +1602,29 @@ namespace Portal.Consultoras.Web.Controllers
                         message = "ShowRoomConsultora no encontrada"
                     });
                 }
+                if (model.EventoNoEncontrado)
+                {
+                    return Json(new
+                    {
+                        success = false,
+                        data = "",
+                        message = "ShowRoomEvento no encontrado"
+                    });
+                }
+
+                return Json(new
+                {
+                    success = true,
+                    data = model.BEShowRoomConsultora,
+                    message = "ShowRoomConsultora encontrada",
+                    diasFaltantes = model.DiasFaltantes,
+                    mesFaltante = model.MesFaltante,
+                    anioFaltante = model.AnioFaltante,
+                    evento = model.BEShowRoom,
+                    mostrarShowRoomProductos = model.MostrarShowRoomProductos,
+                    rutaShowRoomBannerLateral = model.RutaShowRoomBannerLateral,
+                    estaActivoLateral = model.EstaActivoLateral
+                });
             }
             catch (Exception ex)
             {
