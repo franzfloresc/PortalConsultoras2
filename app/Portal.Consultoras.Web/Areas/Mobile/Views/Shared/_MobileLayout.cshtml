@@ -1012,7 +1012,11 @@
                 $('#content_slider_banner').show();
 
                 //Dejar esta línea al último, ya que antes de ejecutar flexslider el div ya debe de mostrarse.
-                $('#flexslider').flexslider({ animation: "slide"});
+                $('#flexslider').flexslider({ 
+                    animation: "slide",
+                    pauseOnAction: false,
+                    //pausePlay: true 
+                });
             }
         }
         
