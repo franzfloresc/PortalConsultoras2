@@ -116,25 +116,22 @@
                 var urlWs = "";
                 string urlBase_fb = "";
                 if (System.Web.HttpContext.Current.Request.UserAgent != null)
-                {                    
+                {
                     var request = HttpContext.Current.Request;
-                    
-                    var texto = "Producto favorito en wsp";
-                    var urlBase_wsp = request.Url.Scheme + "://" + request.Url.Authority + "/Pdto.aspx?id=" + Model.CodigoIso + "_[valor]";
-                    urlBase_fb = request.Url.Scheme + "://" + request.Url.Authority + "/Pdto.aspx?id=" + Model.CodigoIso + "_[valor]";
 
+                    var urlBase_wsp = request.Url.Scheme + "://" + request.Url.Authority + "/Pdto.aspx?id=" + Model.CodigoIso + "_[valor]";
                     urlBase_wsp = urlBase_wsp.Replace("/", "%2F");
                     urlBase_wsp = urlBase_wsp.Replace(":", "%3A");
                     urlBase_wsp = urlBase_wsp.Replace("?", "%3F");
                     urlBase_wsp = urlBase_wsp.Replace("=", "%3D");
 
-                    var message = Uri.EscapeDataString(texto) + " - " + urlBase_wsp;
-                    urlWs = "whatsapp://send?text=" + message;
+                    urlWs = "whatsapp://send?text=" + urlBase_wsp;
+
+                    urlBase_fb = request.Url.Scheme + "://" + request.Url.Authority + "/Pdto.aspx?id=" + Model.CodigoIso + "_[valor]";
                 }
             }
-            <a id="btn_wsp" class="btn_compartir_ofertas" href="#"><img src="@Url.Content("~/Content/Images/Mobile/Esika/iconowscolor.png")" alt=""></a>
-            <a id="btn_wsp_oculto" href="#" data-action="share/whatsapp/share" style="display:none;"></a>
-            <a id="btn_fb" class="btn_compartir_ofertas" href="#" onclick='CompartirFacebook("@urlBase_fb","F");'><img src="@Url.Content("~/Content/Images/Mobile/Esika/catalogo_facebook_color.png")" alt=""></a>
+            <a id="btn_wsp" class="btn_compartir_ofertas" href="javascript:window.location=CompartirWsp('@urlWs');" data-action="share/whatsapp/share"><img src="@Url.Content("~/Content/Images/Mobile/Esika/iconowscolor.png")" alt=""></a>
+            <a id="btn_fb" class="btn_compartir_ofertas" href="#" onclick='CompartirFacebook("@urlBase_fb");'><img src="@Url.Content("~/Content/Images/Mobile/Esika/catalogo_facebook_color.png")" alt=""></a>
         </div>
         <div style="display: none;">
             <input type="hidden" class="urlbasewsp" value="@urlWs" />
@@ -185,18 +182,15 @@
                 //    $(this).addClass("borde_seleccion_tono");
                 //}
             });
-
-            //Pl20-1237
-            $("#btn_wsp").on("click", function () {
-                var _id = InsertarProductoCompartido('W');
-
-                var urlwsp = $(".urlbasewsp").val();
-                urlwsp = urlwsp.replace("[valor]", _id);
-
-                $("#btn_wsp_oculto").prop('href', urlwsp)
-                $("#btn_wsp_oculto").click();   
-            });
         });
+
+        //PL20-1237
+        function CompartirWsp(UrlBase) {
+            var _id = InsertarProductoCompartido('W');
+            UrlBase = UrlBase.replace("[valor]", _id);
+
+            return UrlBase;
+        }
         
         //PL20-1237
         function InsertarProductoCompartido(app)
@@ -249,8 +243,8 @@
             return ID;
         }
 
-        function CompartirFacebook(urlBase, app) {
-            var _id = InsertarProductoCompartido(app);
+        function CompartirFacebook(urlBase) {
+            var _id = InsertarProductoCompartido('F');
             urlBase = urlBase.replace('[valor]', _id);
 
             var popWwidth = 570;

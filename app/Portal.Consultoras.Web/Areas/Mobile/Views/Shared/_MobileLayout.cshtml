@@ -253,7 +253,7 @@
                                             <span id="spnPreventaDigitalHoy">@showRoomBannerLateral.BEShowRoom.Nombre</span>
                                         </div>
                                     </div>
-                                    <div class="fondo_white" style="height:80px;">
+                                    <div class="fondo_white" style="height:80px; overflow:hidden">
                                         <div class="row_contador">
                                             <div style="text-align: center;">
                                                 <a id="lnkConoceMasShowRoomBannerLateralImagenHoy" class="content_imagen_slider_showroom" href="@Url.Action("Index", "ShowRoom", new { area = "Mobile" })">
@@ -262,7 +262,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="contenedor_encuentralos">
+                                    <div class="contenedor_encuentralos2">
                                         <div class="row_contador">
                                             <a href="@Url.Action("Index", "ShowRoom", new { area = "Mobile" })" class="btn_encuentralos" id="lnkConoceMasShowRoomBannerLateralHoy">ENCUENTRALOS AQUI</a>
                                         </div>
@@ -1012,7 +1012,11 @@
                 $('#content_slider_banner').show();
 
                 //Dejar esta línea al último, ya que antes de ejecutar flexslider el div ya debe de mostrarse.
-                $('#flexslider').flexslider({ animation: "slide"});
+                $('#flexslider').flexslider({ 
+                    animation: "slide",
+                    pauseOnAction: false,
+                    //pausePlay: true 
+                });
             }
         }
         

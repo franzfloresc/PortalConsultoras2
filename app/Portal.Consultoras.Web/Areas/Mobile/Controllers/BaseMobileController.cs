@@ -254,7 +254,9 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             string controllerName = this.ControllerContext.RouteData.Values["controller"].ToString();
             string actionName = this.ControllerContext.RouteData.Values["action"].ToString();
 
-            if (controllerName == "ShowRoom" && actionName == "ListadoProductoShowRoom") return true;
+            if (controllerName == "CatalogoPersonalizado" && actionName == "Index") return true;
+            if (controllerName == "CatalogoPersonalizado" && actionName == "Producto") return true;
+            if (controllerName == "ShowRoom") return true;
             if (controllerName == "Pedido") return true;
             return false;
         }
