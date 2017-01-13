@@ -170,15 +170,7 @@ function showOrderbyFilter() {
     $('#divCatalogoPersonalizado').show();
     LinkCargarCatalogoToScroll();
 }
-$(".title-accordion").on("click", function () {
-    //if ($(this).hasClass("flecha_arriba")) {
-    //    $(this).removeClass("flecha_arriba");            
-    //}
-    //else  {
-    //    $(this).addClass("flecha_arriba");
-    //} 
-    $(this).toggleClass("flecha_arriba")
-});
+$(".title-accordion").on("click", function () { $(this).toggleClass("flecha_arriba"); });
 
 //function deleteFilters() {
 //    $('#custom-filters').hide();
@@ -232,13 +224,10 @@ function deleteFilters() {
 /* SB20-1197 - FIN */
 
 function CargarCatalogoPersonalizado() {
-
     var cataPer = $("#hdTipoCatalogoPersonalizado").val();
     if (cataPer != "1" && cataPer != "2") {
-        if (tipoOrigen == '3') 
-            $("#divMainCatalogoPersonalizado").remove();        
-        else if (tipoOrigen == '1') 
-            UnlinkCargarCatalogoToScroll();
+        if (tipoOrigen == '3') $("#divMainCatalogoPersonalizado").remove();        
+        else if (tipoOrigen == '1') UnlinkCargarCatalogoToScroll();
         
         return false;
     }
@@ -379,19 +368,25 @@ function CargarCatalogoPersonalizado() {
             cargandoRegistros = false;
         }
     });
-    $(".seleccion_filtro_fav").on("click", function () {
-        $(this).toggleClass("seleccion_click_flitro")
-    });
-    $('.range-slider').jRange({
-        from: 0,
-        to: 100,
-        step: 3,
-        scale: [0, 100],
-        format: 'S/. %s',
-        showLabels: true,
-        isRange: true
-    });
-    $('.slider-container').css('width', '');
+
+    if (tipoOrigen == '1') {
+        $(".seleccion_filtro_fav").on("click", function () {
+            $(this).toggleClass("seleccion_click_flitro")
+        });
+
+        $('.range-slider').show();
+        $('.range-slider').jRange({
+            from: 0,
+            to: 100,
+            step: 3,
+            scale: ['S/.0', 'S/.50', 'S/.100'],
+            format: 'S/.%s',
+            showLabels: true,
+            isRange: true,
+            width: ''
+        });
+        $('.slider-container').css('width', '');
+    }
 }
 
 /* SB20-1197 - FIN */
