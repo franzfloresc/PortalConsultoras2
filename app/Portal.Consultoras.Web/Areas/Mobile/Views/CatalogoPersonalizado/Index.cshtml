@@ -270,15 +270,9 @@
                     <input type="hidden" class="OrigenPedidoWeb" value="@Portal.Consultoras.Common.Constantes.OrigenPedidoWeb.MobileCatalogoPersonalizado"/>
                 </div>
                 
-                {{#if EsMaquillaje }}
                 <div class="producto_img_mobile" data-img="" onclick="mostrarFichaProductoFAV('{{CUV}}');">
                     <img src="{{ImagenProductoSugerido}}" style="width: auto; height: 100%;" class="imagen_producto">
                 </div>
-                {{else}}
-                <div class="producto_img_mobile" data-img="">
-                    <img src="{{ImagenProductoSugerido}}" style="width: auto; height: 100%;" class="imagen_producto">
-                </div>
-                {{/if}}
 
                 {{#if item.TieneLanzamientoCatalogoPersonalizado}}
                 <div class="etiqueta_producto nuevofavorito">
@@ -287,15 +281,11 @@
                 {{/if}}
                 <div class="producto_nombre_descripcion">
                     <h6>{{DescripcionMarca}}</h6>
-                    {{#if EsMaquillaje }}
-                    <p class="nombre_producto" onclick="mostrarFichaProductoFAV('{{CUV}}');">
-                        <b>{{Descripcion}} tt</b>
-                    </p>
-                    {{else}}
-                    <p class="nombre_producto">
+                    
+                    <p class="nombre_producto" onclick="mostrarFichaProductoFAV('{{CUV}}');" style="text-decoration: underline; cursor: pointer;">
                         <b>{{Descripcion}}</b>
                     </p>
-                    {{/if}}
+                   
                     <div class="producto_precio" style="margin-bottom: 2px !important;">
                         <span class="producto_precio_normal">{{Simbolo}} {{PrecioValorizadoString}}</span>
                         <span class="producto_precio_oferta"><b>{{Simbolo}} {{PrecioCatalogoString}}</b></span>
