@@ -885,10 +885,10 @@
 </script>
 
 <script id="template-fichaproductofav" type="text/x-handlebars-template">
-    <div class="content_ficha_producto_nueva">
+    <div class="content_ficha_producto_nueva" data-item="catalogopersonalizado">
         <input type="hidden" id="hdCuvFichaProductoFAV" value="{{CUV}}" />
         <input type="hidden" id="hdCuvFichaProductoFAVSelect" value="" />
-        <div id="hdValuesFichaProductoFAV" style="display: none;">
+        <div style="display: none;">
             <input type="hidden" class="hdItemCuv" value="{{CUV}}" />
             <input type="hidden" class="hdItemTipoOfertaSisID" value="{{TipoOfertaSisID}}" />
             <input type="hidden" class="hdItemConfiguracionOfertaID" value="{{ConfiguracionOfertaID}}" />
@@ -914,9 +914,9 @@
             </div>
         </div>
         <div class="content_right_ficha">
-            <div class="titulo_ficha_producto">{{Descripcion}}</div>
+            <div id="fav_nombre_prod" class="titulo_ficha_producto">{{Descripcion}}</div>
             <div class="peso_ficha_producto">{{Volumen}}</div>
-            <div class="descripcion_ficha_producto">{{DescripcionComercial}}</div>
+            <div id="fav_descripcion_prod" class="descripcion_ficha_producto">{{DescripcionComercial}}</div>
             <div class="precio_ficha_producto">
                 <span class="precio_tachado_ficha">{{Simbolo}} {{PrecioValorizadoString}}</span>{{Simbolo}} {{PrecioCatalogoString}}
             </div>
@@ -951,7 +951,7 @@
                     <a class="menos" data-cantidad-agregar="-"><img src="/Content/Images/Esika/menos.png" alt=""></a>
                 </div>
             </div>
-            <a class="boton_Agregalo_home ficha_btn_agregar" onclick="agregarCuvPedidoFichaProductoFAV()">
+            <a class="boton_Agregalo_home ficha_btn_agregar" onclick="agregarCuvPedidoFichaProductoFAV(3)">
                 AGRÉGALO
             </a>
         </div>
