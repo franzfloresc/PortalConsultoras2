@@ -52,7 +52,6 @@ $(document).ready(function () {
     $("[data-maq]").hide();
 
     //$("#txt-range-price").slider({});
-
 });
 
 function Inicializar() {
@@ -101,7 +100,23 @@ function ValidarCargaCatalogoPersonalizado() {
     cargandoRegistros = true;
 
     DialogLoadingAbrir();
-    ReservadoOEnHorarioRestringidoAsync(true, UnlinkCargarCatalogoToScroll, CargarCatalogoPersonalizado);
+    ReservadoOEnHorarioRestringidoAsync(
+        true,
+        function () {
+            UnlinkCargarCatalogoToScroll();
+            DialogLoadingCerrar();
+        },
+        function () {
+            DialogLoadingCerrar();
+            CargarCatalogoPersonalizado();
+        });
+}
+
+function MostrarNoHayProductos() {
+    if (tipoOrigen != '3') {
+        $('.texto_descripcionCatalogoPersonalizado').text('Estamos cargando los productos. Por favor regresa más tarde.');
+        $('#orderby-filter').hide();
+    }
 }
 
 
@@ -218,23 +233,24 @@ function deleteFilters() {
 /* SB20-1197 - FIN */
 
 function CargarCatalogoPersonalizado() {
-
     var cataPer = $("#hdTipoCatalogoPersonalizado").val();
     if (cataPer != "1" && cataPer != "2") {
-        if (tipoOrigen == '3') 
-            $("#divMainCatalogoPersonalizado").remove();        
-        else if (tipoOrigen == '1') 
-            UnlinkCargarCatalogoToScroll();
+        if (tipoOrigen == '3') $("#divMainCatalogoPersonalizado").remove();
+        else if (tipoOrigen == '1') UnlinkCargarCatalogoToScroll();
+
+        if (!primeraVez) MostrarNoHayProductos();
         
         return false;
     }
 
     var esCatalogoPersonalizadoZonaValida = $("#hdEsCatalogoPersonalizadoZonaValida").val();
     if (esCatalogoPersonalizadoZonaValida != "True") {
-        if (tipoOrigen == '3')
-            $("#divMainCatalogoPersonalizado").remove();
+        if (tipoOrigen == '3') $("#divMainCatalogoPersonalizado").remove();
         //else if (tipoOrigen == '1') 
         //    $('#boton_vermas').hide();  // ya no esta el btn ver mas
+
+        if (!primeraVez) MostrarNoHayProductos();
+
         return false;
     }
     
@@ -256,9 +272,7 @@ function CargarCatalogoPersonalizado() {
             }
             dataAjax = { cantidad: cantidadRegistros, offset: offsetRegistros, lstFilters: filters };
         }
-        else {
-            dataAjax = { cantidad: cantidadRegistros, offset: offsetRegistros };
-        }
+        else dataAjax = { cantidad: cantidadRegistros, offset: offsetRegistros };
         /* SB20-1197 - FIN */
     }
 
@@ -275,18 +289,12 @@ function CargarCatalogoPersonalizado() {
         success: function (data) {
             data.data = data.data || new Array();
             if (data.success) {
-                if (loadAdd) {
-                    $("#divCatalogoPersonalizado").html("");
-                }
+                if (loadAdd) $("#divCatalogoPersonalizado").html("");
                 loadAdd = false;
 
-                if (tipoOrigen == '3') {
-                    $("#linea_separadoraCP").show();
-                }
+                if (tipoOrigen == '3') $("#linea_separadoraCP").show();
                 if (data.data.length == 0) {
-                    if (tipoOrigen == '3') {
-                        $("#divMainCatalogoPersonalizado").remove();
-                    }
+                    if (tipoOrigen == '3') $("#divMainCatalogoPersonalizado").remove();
 
                     var rsnum = 'Mostrando 0 de ' + data.totalRegistros + ' productos';
                     $('#result-number').text(rsnum);
@@ -329,9 +337,8 @@ function CargarCatalogoPersonalizado() {
                 }
                 /* SB20-1197 - FIN */
 
-                if (tipoOrigen == '3') {
-                    $("#divMainCatalogoPersonalizado").show();
-                } else {
+                if (tipoOrigen == '3') $("#divMainCatalogoPersonalizado").show();
+                else {
                     if (data.data.length < cantidadRegistros) UnlinkCargarCatalogoToScroll();
                     offsetRegistros += cantidadRegistros;
                     //offsetRegistros += data.data.length;
@@ -341,25 +348,19 @@ function CargarCatalogoPersonalizado() {
                 var rsnum = 'Mostrando ' + data.totalRegistrosFilter + ' de ' + totalRegistros + ' productos';
                 $('#result-number').text(rsnum);
 
-                if (totalRegistros != data.totalRegistrosFilter) {
-                    $('#div-delete-filters').show();
-                }
-                else {
-                    $('#div-delete-filters').hide();
-                }
+                if (totalRegistros != data.totalRegistrosFilter) $('#div-delete-filters').show();
+                else $('#div-delete-filters').hide();
                 /* SB20-1197 - FIN */
             }
-            else {
-                data.data = new Array();
-            }
+            else data.data = new Array();
 
             if (data.data.length == 0) {
                 $("#divMainCatalogoPersonalizado").remove();
                 $("#linea_separadoraCP").hide();
+                if (!primeraVez) MostrarNoHayProductos();
             }
         },
-        error: function (data, error) {
-        },
+        error: function () { if (loadAdd) $("#divCatalogoPersonalizado").html("Ocurrió un problema de conexión al intentar cargar los productos."); },
         complete: function () {
             DialogLoadingCerrar();
             cargandoRegistros = false;
@@ -815,6 +816,7 @@ function alert_msg_pedido(message) {
 }
 
 function DialogLoadingCerrar() {
+    console.log('DialogLoadingCerrar');
     if (tipoOrigen == '2') {
         CloseLoading();
     }
@@ -862,8 +864,7 @@ function ReservadoOEnHorarioRestringido(mostrarAlerta) {
             if (mostrarAlerta != true) {
                 DialogLoadingAbrir();
                 location.href = urlPedidoValidado;
-            }
-            
+            }            
         },
         error: function (error) {
             DialogLoadingCerrar();
@@ -906,7 +907,7 @@ function ReservadoOEnHorarioRestringidoAsync(mostrarAlerta, fnRestringido, fnNoR
                     fnRedireccionar();
                 return false;
             }
-
+            
             fnRestringido();
         },
         error: function (error) {
