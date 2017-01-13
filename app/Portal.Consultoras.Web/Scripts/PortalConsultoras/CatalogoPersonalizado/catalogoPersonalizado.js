@@ -19,6 +19,7 @@ var dataFichaProductoFAV = [];  //PL20-1268
 
 $(document).ready(function () {
     $(document).on('click', '[data-btn-agregar-catalogopersonalizado]', function () {
+
         if (ReservadoOEnHorarioRestringido())
             return false;
 
@@ -937,6 +938,8 @@ function mostrarFichaProductoFAV(cuv) {
 function mostrarFichaProductoFAV2(cuv) {
     debugger;
 
+    waitingDialog();
+
     var obj = {
         cuv: cuv
     };
@@ -957,12 +960,14 @@ function mostrarFichaProductoFAV2(cuv) {
                 dataFichaProductoFAV = _data.Hermanos;
                 console.log(_data.Hermanos);
 
-                $('#content_tono_' + cuv).addClass("borde_seleccion_tono");
+                $('#fav_tono_' + cuv).addClass("borde_seleccion_tono");
 
                 $(".content_tono_detalle").on("click", function () {
                     $('.content_tono_detalle').removeClass('borde_seleccion_tono');
                     $(this).addClass("borde_seleccion_tono");
                 });
+
+                closeWaitingDialog();
             }
             else {
                 console.log(response.message);
@@ -977,23 +982,46 @@ function mostrarFichaProductoFAV2(cuv) {
     });
 }
 
-function cambiarInfoFichaProductoFAV(cuv) {
+function cambiarInfoFichaProductoFAV(tipo, cuv) {
     if (dataFichaProductoFAV != null && Array.isArray(dataFichaProductoFAV)) {
 
-        var scuv = $('#favTonoBulk' + cuv).val();
-        var result = $.grep(dataFichaProductoFAV, function (e) { return e.CUV == scuv; });
+        var xcuv = $('#hdCuvFichaProductoFAV').val();
+        var result;
+        if (tipo == 1) {
+            result = $.grep(dataFichaProductoFAV, function (e) { return e.CUV == cuv; });
+        }
+        else {
+            var scuv = $('#fav_tonobulk_' + xcuv).val();
+            result = $.grep(dataFichaProductoFAV, function (e) { return e.CUV == scuv; });
+        }
         console.log(result);
 
-        if (result != null && Array.isArray(result) && resizeBy.length > 0) {
+        if (result.length > 0) {
             var obj = result[0];
             console.log(obj);
             var container = $('#PopFichaProductoNueva');
             container.find('.titulo_ficha_producto').text(obj.Descripcion);
             container.find('.descripcion_ficha_producto').text(obj.DescripcionComercial);
-            container.find('#imagen_ficha_producto').attr('src', obj.ImagenProductoSugerido);
-            $('#favTonoBulk' + cuv).val(obj.CUV);
+            container.find('#fav_imagen_prod').attr('src', obj.ImagenProductoSugerido);
             $('.content_tono_detalle').removeClass('borde_seleccion_tono');
-            $('#content_tono_' + obj.CUV).addClass("borde_seleccion_tono");
+            $('#fav_tono_' + obj.CUV).addClass("borde_seleccion_tono");
+            $('#fav_tonobulk_' + xcuv).val(obj.CUV);
+            $('#hdCuvFichaProductoFAVSelect').val(obj.CUV);
         }
     }
+}
+
+function agregarCuvPedidoFichaProductoFAV() {
+    var cuv = $('#hdCuvFichaProductoFAVSelect').val();
+    var cantidad = $('#PopFichaProductoNueva').find("[data-input='cantidad']").val();
+
+    /*
+    if (ReservadoOEnHorarioRestringido())
+        return false;
+    */
+    //agregarProductoAlCarrito(this);
+
+    var contenedor = $('#hdValuesFichaProductoFAV');
+    console.log(contenedor);
+    //AgregarProductoCatalogoPersonalizado(contenedor);
 }
