@@ -1079,8 +1079,7 @@ function CompartirWsp(UrlBase, objParameter)
     var _id = InsertarProductoCompartido(objParameter,'W');
     UrlBase = UrlBase.replace("[valor]", _id);
 
-    $("#btn_wsp_oculto").prop('href', UrlBase)
-    $("#btn_wsp_oculto").click();
+    return UrlBase;
 }
 
 function CompartirFacebook(urlBase, objParameter) {
@@ -1094,8 +1093,6 @@ function CompartirFacebook(urlBase, objParameter) {
     var url = "http://www.facebook.com/sharer/sharer.php?u=" + urlBase;
 
     window.open(url, 'Facebook', "width=" + popWwidth + ",height=" + popHeight + ",menubar=0,toolbar=0,directories=0,scrollbars=no,resizable=no,left=" + left + ",top=" + top + "");
-
-    //window.open('http://localhost:20267/Pdto.aspx?id=CO_2_F');
 }
 
 function InsertarProductoCompartido(objParameter, app) {

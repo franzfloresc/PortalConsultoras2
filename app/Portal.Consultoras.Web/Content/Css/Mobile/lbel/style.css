@@ -9619,3 +9619,12 @@ span.icon-advertencia{
     font-size: 14px;
     font-weight: 300;
 }
+.contenedor_encuentralos2 {
+    height: 33px;
+    background: #613c87;
+    position: relative;
+    margin-bottom: 20px;
+}
+.flex-viewport{
+    height:142px;
+}
