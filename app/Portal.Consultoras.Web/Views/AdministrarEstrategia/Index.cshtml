@@ -41,15 +41,15 @@
                             <option value="">-- Seleccionar --</option>
                             for (int i = 0; i < Model.ListaTipoEstrategia.Count(); i++)
                             {
-                                <option flag-nueva="@Model.ListaTipoEstrategia.ToList()[i].FlagNueva"
+                            <option flag-nueva="@Model.ListaTipoEstrategia.ToList()[i].FlagNueva"
                                         flag-recoproduct="@Model.ListaTipoEstrategia.ToList()[i].FlagRecoProduc"
                                         flag-recoperfil="@Model.ListaTipoEstrategia.ToList()[i].FlagRecoPerfil"
                                         codigo-programa="@Model.ListaTipoEstrategia.ToList()[i].CodigoPrograma"
                                         imagen-tipo="@Model.ListaTipoEstrategia.ToList()[i].Imagen"
                                         value="@Model.ListaTipoEstrategia.ToList()[i].TipoEstrategiaID"
                                         data-id="@Model.ListaTipoEstrategia.ToList()[i].CodigoGeneral">
-                                    @Model.ListaTipoEstrategia.ToList()[i].Descripcion
-                                </option>
+                                @Model.ListaTipoEstrategia.ToList()[i].Descripcion
+                            </option>
                             }
                         }
                     </select>
@@ -59,7 +59,7 @@
                     <input type="text" id="CUV" name="CUV" />
                 </div>
             </div>
-                <div class="div-3">
+            <div class="div-3">
                 <div class="titG">Tiene imagen?:</div>
                 <div class="selectA borde_redondeado">
                     <select id="ddlTieneImagen" name="ddlTieneImagen">
@@ -68,8 +68,8 @@
                         <option value="0">No</option>
                     </select>
                 </div>
-            
-         
+
+
                 <div class="titG">Oferta Activa?:</div>
                 <div class="selectA borde_redondeado">
                     <select id="ddlOfertaActiva" name="ddlOfertaActiva">
@@ -79,15 +79,15 @@
                     </select>
                 </div>
             </div>
-                <div class="div-3">
-                    <div class="titG">&nbsp;</div>
-                    <div class="input_horizontal">
-                        <input type="button" name="btnBuscar" id="btnBuscar" value="Buscar" />
-                        <input type="button" name="btnNuevo" id="btnNuevo" value="Nuevo" />
-                        <input type="button" name="btnNuevoMasivo" id="btnNuevoMasivo" value="Nuevo Masivo" />
-                    </div>
+            <div class="div-3">
+                <div class="titG">&nbsp;</div>
+                <div class="input_horizontal">
+                    <input type="button" name="btnBuscar" id="btnBuscar" value="Buscar" />
+                    <input type="button" name="btnNuevo" id="btnNuevo" value="Nuevo" />
+                    <input type="button" name="btnNuevoMasivo" id="btnNuevoMasivo" value="Nuevo Masivo" />
                 </div>
             </div>
+        </div>
     </div>
 </div>
 <div class="wrap">
@@ -98,6 +98,7 @@
         </div>
     </div>
 </div>
+
 <div id="DialogAdministracionEstrategia" style="display: none;">
     <input type="hidden" id="hdPais" value="" />
     <input type="hidden" id="hdCampania" value="" />
@@ -106,95 +107,16 @@
     <input type="hidden" id="hdCodigoPrograma" value="">
     <input type="hidden" id="hdNumeroPedido" value="">
     <div class="Content_modal">
-    <div class="div-3">
-        <div class="titG">Campaña:</div>
-        <div class="selectP2 borde_redondeado">
-            <input id="spanCampania" type="text" readonly="readonly"/>
-        </div>
-        <div class="titG">Tipo de Estrategia:</div>
-        <div class="selectP2 borde_redondeado">
-            <input id="spanTipoEstrategia" type="text" readonly="readonly"/>
-        </div>
-    </div>
-    <div class="div-3 Content_modal" style="margin-left: 65px; width: 78%; padding-top: 10px; padding-bottom: 0;">
-        <div style="color: white;">
-            <div style="display: inline-block; width: 64%; text-align: center; padding: 8px; background: #00A2E8; margin-right: -3px; border-right: 1px #D0D0D0 solid;">
-                Información CUV Oferta
-            </div>
-            <div style="display: inline-block; width: 30%; text-align: center; padding: 8px; background: #00A2E8; margin-left: -3px; border-left: 1px #D0D0D0 solid;">
-                Precio Valorizado
-            </div>
-        </div>
-        <div>
-            <div style="display: inline-block; width: 64%; text-align: center; padding: 8px; margin-right: -3px; border-right: 1px #D0D0D0 solid;">
-                <div style="display: inline-block;">CUV:</div>
-                <div style="display: inline-block;">
-                    <input type="text" id="txtCUV2" maxlength="5" class="ValidaNumeral" style="width: 60px;"/>
-                </div>
-                <div style="display: inline-block; padding-left: 50px;">Precio para ti:</div>
-                <div style="display: inline-block;">
-                    <input type="text" id="txtPrecio2" maxlength="10" class="ValidaNumeral" style="width: 60px;"/>
-                </div>
-            </div>
-            <div style="display: inline-block; width: 30%; text-align: center; padding: 8px; margin-right: -3px; border-left: 1px #D0D0D0 solid;">
-                <div style="display: inline-block;">Precio:</div>
-                <div style="display: inline-block;">                    
-                    <input type="text" id="txtPrecio" style="width: 60px;"/>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="div-3">
-        <div class="titG">Descripción:</div>
-        <div class="titG">
-            <input type="text" id="txtDescripcion" style="width: 520px;"/>
-        </div>
-    </div>
-    <div>
-        <div style="display: inline-block; width: 60%;">
-            <div class="div-3">
-                <div class="titG">Talla/Color:</div>
-                <div class="titG" style="width: auto;">
-                    <a href="#" style="margin-left: 5px" id="linkTallaColor">
-                        <img src='@Url.Content("~/Content/Images/icons/small/list-icon2.png")' border="0" alt="Agregar Tonos/Tallas/Colores" title="Agregar Tonos/Tallas/Colores"/>
-                    </a>
-                </div>
-            </div>
-            <div class="div-3">
-                <div class="titG">¿Activar Oferta?</div>
-                <div class="selectCheck borde_redondeado">
-                    <input type="checkbox" class="check" id="chkHabilitarOferta" style="margin-top: 2px; margin-left: 15px;"/>
-                </div>
-            </div>
-        </div>
-        <div style="display: inline-block; width: 39%;">
-
-        </div>
-    </div>
-    <div class="Content_modal" style="margin-left: 10px; width: 94%; padding-top: 10px; padding-bottom: 0;">
         <div class="div-3">
-            <div style="color: white;">
-                <div id="divImagenEstrategia" style="display: inline-block; text-align: center; padding: 8px; background: #00A2E8; border-top-left-radius: 10px; border-top-right-radius: 10px;">
-                    Imagen
-                </div>
-                <div id="divInformacionAdicionalEstrategia" style="display: inline-block; text-align: center; padding: 8px; color: #702789; background: #D0D0D0; border-top-left-radius: 10px; border-top-right-radius: 10px;">
-                    Información Adicional
-                </div>
+            <div class="titG">Campaña:</div>
+            <div class="selectP2 borde_redondeado">
+                <input id="spanCampania" type="text" readonly="readonly" />
+            </div>
+            <div class="titG">Tipo de Estrategia:</div>
+            <div class="selectP2 borde_redondeado">
+                <input id="spanTipoEstrategia" type="text" readonly="readonly" />
             </div>
         </div>
-        <div id="divImagenEstrategiaContenido" style="display: none;">
-            Imagen
-        </div>
-        <div id="divInformacionAdicionalEstrategiaContenido" style="display: none;">
-            <div class="div-3">
-                <div class="titG">Mensaje Adicional:</div>
-                <div class="titG">
-                    <input type="text" id="txtTextoLibre" maxlength="100" />
-                </div>
-            </div>
-        </div>       
-    </div>           
-
         <div class="div-3 DatosNuevas" style="display: none">
             <div class="titG">Vigencia Hasta:</div>
             <div class="selectP2 borde_redondeado">
@@ -220,7 +142,7 @@
                 <input type="checkbox" id="chkVisible1" disabled class="activar-desactivar" checked="checked" />
             </div>
             <div class="titG">
-                @*<input type="text" id="txtDescripcion" />*@
+                <input type="text" id="txtDescripcion" />
             </div>
         </div>
         <div class="div-est-3">
@@ -246,7 +168,7 @@
             </div>
             <div class="titE">Precio:</div>
             <div class="titB">
-                @*<input type="text" id="txtPrecio" />*@
+                <input type="text" id="txtPrecio" />
             </div>
         </div>
         <div class="div-est-3">
@@ -255,11 +177,9 @@
             <div class="titB">
                 <input type="checkbox" id="chkVisible3" disabled class="activar-desactivar" checked="checked" />
             </div>
-            <div class="titA" style="text-align: right">
-                CUV<sub>2</sub>:
-            </div>
+            <div class="titA" style="text-align: right">CUV<sub>2</sub>:</div>
             <div class="titB">
-                @*<input type="text" id="txtCUV2" maxlength="5" class="ValidaNumeral" />*@
+                <input type="text" id="txtCUV2" maxlength="5" class="ValidaNumeral" />
             </div>
             <div class="titA"></div>
             <div class="titE">Etiqueta:</div>
@@ -275,13 +195,13 @@
             </div>
             <div class="titE">Precio:</div>
             <div class="titB">
-                @*<input type="text" id="txtPrecio2" maxlength="10" class="ValidaNumeral" />*@
+                <input type="text" id="txtPrecio2" maxlength="10" class="ValidaNumeral" />
             </div>
             <div class="titE" style="margin-left: 5px">Talla/Color:</div>
             &nbsp;&nbsp;&nbsp;&nbsp;
-            @*<a href="#" style="margin-left: 5px" id="linkTallaColor">
+            <a href="#" style="margin-left: 5px" id="linkTallaColor">
                 <img src='@Url.Content("~/Content/Images/icons/small/list-icon2.png")' border="0" alt="Agregar Tonos/Tallas/Colores" title="Agregar Tonos/Tallas/Colores" />
-            </a>*@
+            </a>
         </div>
         <div class="div-est-3">
             <div class="titA">&nbsp;</div>
@@ -290,7 +210,7 @@
                 <input type="checkbox" id="chkVisible4" class="activar-desactivar" />
             </div>
             <div class="titG">
-                @*<input type="text" id="txtTextoLibre" maxlength="100" />*@
+                <input type="text" id="txtTextoLibre" maxlength="100" />
             </div>
         </div>
         <div class="div-est-3 Recomendados" style="display: none">
@@ -306,10 +226,12 @@
                 Elegir color de fondo:&nbsp;<input type='text' id="txtColorFondo" />
             </div>
             <div class="titG" id="idEstrella" style="width: 130px;">
-                <span id="txt1-estrella">Mostrar estrella</span>        <!--SB20-312 -->
+                <span id="txt1-estrella">Mostrar estrella</span>
+                <!--SB20-312 -->
                 <input type="checkbox" id="chkEstrella" />
             </div>
-            <div class="titG" style="width: 380px" id="txt2-estrella">&nbsp;(Solo para Ofertas Recomendar / Ofertas Segmentadas)</div> <!--SB20-312 -->
+            <div class="titG" style="width: 380px" id="txt2-estrella">&nbsp;(Solo para Ofertas Recomendar / Ofertas Segmentadas)</div>
+            <!--SB20-312 -->
         </div>
         <div class="div-est-3">
             &nbsp;
@@ -335,9 +257,9 @@
             <div class="titG">Imagen:</div>
             <div class="div-img-estrategias">
                 @for (int i = 1; i <= nroImagenes; i++)
-            {
-                idControl = "0" + i;
-                idControl = idControl.Substring(idControl.Length - 2);
+                {
+                    idControl = "0" + i;
+                    idControl = idControl.Substring(idControl.Length - 2);
 
                     <div class="titG">
                         <div class="pdr_modal borde_redondeado aligncenter">
@@ -350,12 +272,12 @@
                 }
             </div>
         </div>
-        @*<div class="div-3">
+        <div class="div-3">
             <div class="titG">¿Activar Oferta?</div>
             <div class="selectCheck borde_redondeado">
                 <input type="checkbox" class="check" id="chkHabilitarOferta" />
             </div>
-        </div>*@
+        </div>
         <div class="div-est-3" id="div-orden">
             <!--SB20-312 -->
             <div class="titB">&nbsp;</div>
@@ -387,6 +309,117 @@
         </div>
     </div>
 </div>
+
+<div id="DialogAdministracionEstrategias" style="display: none;">
+    <input type="hidden" id="hdPais_" value="" />
+    <input type="hidden" id="hdCampania_" value="" />
+    <input type="hidden" id="hdTipoEstrategiaID_" value="" />
+    <input type="hidden" id="hdColorFondo_" value="#FFF" />
+    <input type="hidden" id="hdCodigoPrograma_" value="">
+    <input type="hidden" id="hdNumeroPedido_" value="">
+    <div class="Content_modal">
+        <div class="div-3">
+            <div class="titG">Campaña:</div>
+            <div class="selectP2 borde_redondeado">
+                <input id="spanCampania_" type="text" readonly="readonly" />
+            </div>
+            <div class="titG">Tipo de Estrategia:</div>
+            <div class="selectP2 borde_redondeado">
+                <input id="spanTipoEstrategia_" type="text" readonly="readonly" />
+            </div>
+        </div>
+        <div class="div-3 Content_modal" style="margin-left: 65px; width: 78%; padding-top: 10px; padding-bottom: 0;">
+            <div style="color: white;">
+                <div style="display: inline-block; width: 64%; text-align: center; padding: 8px; background: #00A2E8; margin-right: -3px; border-right: 1px #D0D0D0 solid;">
+                    Información CUV Oferta
+                </div>
+                <div style="display: inline-block; width: 30%; text-align: center; padding: 8px; background: #00A2E8; margin-left: -3px; border-left: 1px #D0D0D0 solid;">
+                    Precio Valorizado
+                </div>
+            </div>
+            <div>
+                <div style="display: inline-block; width: 64%; text-align: center; padding: 8px; margin-right: -3px; border-right: 1px #D0D0D0 solid;">
+                    <div style="display: inline-block;">CUV:</div>
+                    <div style="display: inline-block;">
+                        <input type="text" id="txtCUV2_" maxlength="5" class="ValidaNumeral" style="width: 60px;" />
+                    </div>
+                    <div style="display: inline-block; padding-left: 50px;">Precio para ti:</div>
+                    <div style="display: inline-block;">
+                        <input type="text" id="txtPrecio2_" maxlength="10" class="ValidaNumeral" style="width: 60px;" />
+                    </div>
+                </div>
+                <div style="display: inline-block; width: 30%; text-align: center; padding: 8px; margin-right: -3px; border-left: 1px #D0D0D0 solid;">
+                    <div style="display: inline-block;">Precio:</div>
+                    <div style="display: inline-block;">
+                        <input type="text" id="txtPrecio_" style="width: 60px;" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="div-3">
+            <div class="titG">Descripción:</div>
+            <div class="titG">
+                <input type="text" id="txtDescripcion_" style="width: 520px;" />
+            </div>
+        </div>
+        <div>
+            <div style="display: inline-block; width: 60%;">
+                <div class="div-3">
+                    <div class="titG">Talla/Color:</div>
+                    <div class="titG" style="width: auto;">
+                        <a href="#" style="margin-left: 5px" id="linkTallaColor_">
+                            <img src='@Url.Content("~/Content/Images/icons/small/list-icon2.png")' border="0" alt="Agregar Tonos/Tallas/Colores" title="Agregar Tonos/Tallas/Colores"/>
+                        </a>
+                    </div>
+                </div>
+                <div class="div-3">
+                    <div class="titG">¿Activar Oferta?</div>
+                    <div class="selectCheck borde_redondeado">
+                        <input type="checkbox" class="check" id="chkHabilitarOferta_" style="margin-top: 2px; margin-left: 15px;" />
+                    </div>
+                </div>
+            </div>
+            <div style="display: inline-block; width: 39%;">
+            </div>
+        </div>
+        <div class="Content_modal" style="margin-left: 10px; width: 94%; padding-top: 10px; padding-bottom: 0;">
+            <div class="div-3">
+                <div style="color: white;">
+                    <div id="divImagenEstrategia" style="display: inline-block; text-align: center; padding: 8px; background: #00A2E8; border-top-left-radius: 10px; border-top-right-radius: 10px; cursor: pointer;">
+                        Imagen
+                    </div>
+                    <div id="divInformacionAdicionalEstrategia" style="display: inline-block; text-align: center; padding: 8px; color: #702789; background: #D0D0D0; border-top-left-radius: 10px; border-top-right-radius: 10px; cursor: pointer;">
+                        Información Adicional
+                    </div>
+                </div>
+            </div>
+            <div id="divImagenEstrategiaContenido" style="display: none;">
+                Imagen
+            </div>
+            <div id="divInformacionAdicionalEstrategiaContenido" style="display: none;">
+                <div class="div-3">
+                    <div class="titG">Mensaje Adicional:</div>
+                    <div class="titE">
+                        <input type="text" id="txtTextoLibre_" maxlength="100" style="width: 360px;" />
+                    </div>
+                </div>
+                <div class="div-3">
+                    <div class="titH">Oferta de Último Minuto</div>
+                    <div class="selectCheck borde_redondeado">
+                        <input type="checkbox" class="check" id="chkOfertaUltimoMinuto_" style="margin-top: 2px; margin-left: 15px;" />
+                    </div>
+                </div>
+                <div class="div-3">
+                    <div class="titG">Limite de Venta:</div>
+                    <div class="titAuto">
+                        <input type="text" id="txtLimite_" value="99" style="width: 26px;" />
+                    </div>
+                    <div class="titE">&nbsp;(Número de Unidades máximas por Consultora)</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 <div id="DialogZona" style="display: none;">
     <div class="Content_modal">
         <div class="div-3">
@@ -398,7 +431,9 @@
         <div class="div-3">
             <div class="titF"></div>
             <div class="titF"></div>
-            <div class="titH"><input type="checkbox" id="chkSeleccionar" />Seleccionar todo</div>
+            <div class="titH">
+                <input type="checkbox" id="chkSeleccionar" />Seleccionar todo
+            </div>
         </div>
     </div>
 </div>
@@ -487,8 +522,8 @@
                 </div>
                 <div class="div-3">
                     <div class="input_horizontal" style="text-align: center;">
-                        <input type="button" name="btnAceptarMasivo1" id="btnAceptarMasivo1" value="Aceptar" style="float: none;"/>
-                        <input type="button" name="btnCancelarMasivo1" id="btnCancelarMasivo1" value="Cancelar" style="float: none;"/>
+                        <input type="button" name="btnAceptarMasivo1" id="btnAceptarMasivo1" value="Aceptar" style="float: none;" />
+                        <input type="button" name="btnCancelarMasivo1" id="btnCancelarMasivo1" value="Cancelar" style="float: none;" />
                     </div>
                 </div>
             </div>
@@ -606,63 +641,125 @@
             }
 
             $("#hdEstrategiaIDConsulta").val($("#ddlTipoEstrategia").val());
-            $("#hdEstrategiaID").val("0");
-            $("#hdCampania").val($("#ddlCampania").val());
-            $("#hdTipoEstrategiaID").val($("#ddlTipoEstrategia").val());
-            $("#txtAlcance").val($("#ddlPais option:selected").html());
-            $("#spanCampania").val($("#ddlCampania option:selected").html());
-            $("#spanTipoEstrategia").val($("#ddlTipoEstrategia option:selected").html().trim());
-            $('#chkHabilitarOferta').attr('checked', false);
-            $('#hdZonas').val('');
-            $('#chkVisible1').attr("checked", true);
-            $('#chkVisible2').attr("checked", false);
-            $('#chkVisible3').attr("checked", true);
-            $('#chkVisible4').attr("checked", false);
-            $('#chkVisible5').attr("checked", false);
-            $('#hdColorFondo').val("#FFF");
-            ActivarDesactivarChecks();
-            $('#mensajeErrorCUV').val("");
-            $('#mensajeErrorCUV2').val("");
-            $("#linkAlcance").click();
-            $(".checksPedidosAsociados").html('');
 
-            var aux1 = $('#ddlTipoEstrategia').find(':selected').data('id');
+            if ($("#hdEstrategiaIDConsulta").val() == 3009) {
 
-            /* SB20-312 - INICIO */
-            if (aux1 == "4") {
-                $("#txtOrden").val("");
-                $('#div-orden').hide();
+                $("#hdEstrategiaID").val("0");
+                $("#hdCampania_").val($("#ddlCampania").val());
+                $("#hdTipoEstrategiaID_").val($("#ddlTipoEstrategia").val());
+                $("#txtAlcance_").val($("#ddlPais option:selected").html());
+                $("#spanCampania_").val($("#ddlCampania option:selected").html());
+                $("#spanTipoEstrategia_").val($("#ddlTipoEstrategia option:selected").html().trim());
+                $('#chkHabilitarOferta_').attr('checked', false);
+                $('#hdZonas').val('');
+                $('#chkVisible1_').attr("checked", true);
+                $('#chkVisible2_').attr("checked", false);
+                $('#chkVisible3_').attr("checked", true);
+                $('#chkVisible4_').attr("checked", false);
+                $('#chkVisible5_').attr("checked", false);
+                $('#hdColorFondo_').val("#FFF");
+                ActivarDesactivarChecks();
+                $('#mensajeErrorCUV').val("");
+                $('#mensajeErrorCUV2').val("");
+                $("#linkAlcance_").click();
+                $(".checksPedidosAsociados").html('');
 
-                $('#txt1-estrella').html('Oferta de Último Minuto');
-                $('#txt2-estrella').hide();
+                var aux1 = $('#ddlTipoEstrategia').find(':selected').data('id');
+
+                /* SB20-312 - INICIO */
+                if (aux1 == "4") {
+                    $("#txtOrden").val("");
+                    $('#div-orden').hide();
+
+                    $('#txt1-estrella').html('Oferta de Último Minuto');
+                    $('#txt2-estrella').hide();
+                }
+                else {
+                    //$("#txtOrden").val("");
+                    $('#div-orden').show();
+
+                    $('#txt1-estrella').html('Mostrar estrella');
+                    $('#txt2-estrella').show();
+                }
+
+                $("#ddlEtiqueta1").children('option').show();
+                $("#ddlEtiqueta2").children('option').show();
+
+                if (aux1 == "2") {
+                    $("#ddlEtiqueta1").children('option').hide();
+                    $("#ddlEtiqueta1").children("option[data-id='4']").show();
+                }
+                else if (aux1 == "4" || aux1 == "5") {
+                    $("#ddlEtiqueta1").children('option').hide();
+                    $("#ddlEtiqueta1").children("option[data-id='1']").show();
+
+                    $("#ddlEtiqueta2").children('option').hide();
+                    $("#ddlEtiqueta2").children("option[data-id='3']").show();
+                }
+
+                /* SB20-312 - FIN */
+                HideDialog("DialogZona");
+                showDialog("DialogAdministracionEstrategias");
+
+            } else {
+
+                $("#hdEstrategiaID").val("0");
+                $("#hdCampania").val($("#ddlCampania").val());
+                $("#hdTipoEstrategiaID").val($("#ddlTipoEstrategia").val());
+                $("#txtAlcance").val($("#ddlPais option:selected").html());
+                $("#spanCampania").val($("#ddlCampania option:selected").html());
+                $("#spanTipoEstrategia").val($("#ddlTipoEstrategia option:selected").html().trim());
+                $('#chkHabilitarOferta').attr('checked', false);
+                $('#hdZonas').val('');
+                $('#chkVisible1').attr("checked", true);
+                $('#chkVisible2').attr("checked", false);
+                $('#chkVisible3').attr("checked", true);
+                $('#chkVisible4').attr("checked", false);
+                $('#chkVisible5').attr("checked", false);
+                $('#hdColorFondo').val("#FFF");
+                ActivarDesactivarChecks();
+                $('#mensajeErrorCUV').val("");
+                $('#mensajeErrorCUV2').val("");
+                $("#linkAlcance").click();
+                $(".checksPedidosAsociados").html('');
+
+                var aux1 = $('#ddlTipoEstrategia').find(':selected').data('id');
+
+                /* SB20-312 - INICIO */
+                if (aux1 == "4") {
+                    $("#txtOrden").val("");
+                    $('#div-orden').hide();
+
+                    $('#txt1-estrella').html('Oferta de Último Minuto');
+                    $('#txt2-estrella').hide();
+                }
+                else {
+                    //$("#txtOrden").val("");
+                    $('#div-orden').show();
+
+                    $('#txt1-estrella').html('Mostrar estrella');
+                    $('#txt2-estrella').show();
+                }
+
+                $("#ddlEtiqueta1").children('option').show();
+                $("#ddlEtiqueta2").children('option').show();
+
+                if (aux1 == "2") {
+                    $("#ddlEtiqueta1").children('option').hide();
+                    $("#ddlEtiqueta1").children("option[data-id='4']").show();
+                }
+                else if (aux1 == "4" || aux1 == "5") {
+                    $("#ddlEtiqueta1").children('option').hide();
+                    $("#ddlEtiqueta1").children("option[data-id='1']").show();
+
+                    $("#ddlEtiqueta2").children('option').hide();
+                    $("#ddlEtiqueta2").children("option[data-id='3']").show();
+                }
+
+                /* SB20-312 - FIN */
+                HideDialog("DialogZona");
+                showDialog("DialogAdministracionEstrategia");
             }
-            else {
-                //$("#txtOrden").val("");
-                $('#div-orden').show();
-
-                $('#txt1-estrella').html('Mostrar estrella');
-                $('#txt2-estrella').show();
-            }
-
-            $("#ddlEtiqueta1").children('option').show();
-            $("#ddlEtiqueta2").children('option').show();
-
-            if (aux1 == "2") {
-                $("#ddlEtiqueta1").children('option').hide();
-                $("#ddlEtiqueta1").children("option[data-id='4']").show();
-            }
-            else if (aux1 == "4" || aux1 == "5") {
-                $("#ddlEtiqueta1").children('option').hide();
-                $("#ddlEtiqueta1").children("option[data-id='1']").show();
-
-                $("#ddlEtiqueta2").children('option').hide();
-                $("#ddlEtiqueta2").children("option[data-id='3']").show();
-            }
-
-            /* SB20-312 - FIN */
-
-            HideDialog("DialogZona");
-            showDialog("DialogAdministracionEstrategia");
         });
         $("#ddlTipoEstrategia").change(function () {
             SeleccionarTipoOferta();
@@ -998,25 +1095,6 @@
                                 objChkImagen.attr('checked', false);
                             }
 
-                            //$("#preview1").attr("src", data.imagen1);
-                            //$("#preview2").attr("src", data.imagen2);
-                            //$("#preview3").attr("src", data.imagen3);
-
-                            //if (data.imagen1 == "") {
-                            //    $("#preview1").attr("src", rutaImagenVacia);
-                            //    $("#chkImagenProducto01").attr('disabled', true);
-                            //} else { $("#chkImagenProducto01").attr('disabled', false); }
-                            //if (data.imagen2 == "") {
-                            //    $("#preview2").attr("src", rutaImagenVacia);
-                            //    $("#chkImagenProducto02").attr('disabled', true);
-                            //} else { $("#chkImagenProducto02").attr('disabled', false); }
-                            //if (data.imagen3 == "") {
-                            //    $("#preview3").attr("src", rutaImagenVacia);
-                            //    $("#chkImagenProducto03").attr('disabled', true);
-                            //} else { $("#chkImagenProducto03").attr('disabled', false); }
-                            //$('#chkImagenProducto01').attr('checked', false);
-                            //$('#chkImagenProducto02').attr('checked', false);
-                            //$('#chkImagenProducto03').attr('checked', false);
                             closeWaitingDialog();
                         }
                     },
@@ -1130,7 +1208,7 @@
                 success: function (data) {
                     if (data.success) {
                         closeWaitingDialog();
-                        fnGrillaEstrategias2();                                              
+                        fnGrillaEstrategias2();
                     } else {
                         alert(data.message);
                     }
@@ -1141,11 +1219,11 @@
             });
         });
 
-        $("#btnCancelarMasivo1").click(function() {
+        $("#btnCancelarMasivo1").click(function () {
             HideDialog("DialogNuevoMasivo");
         });
 
-        $("#btnAceptarMasivo2").click(function() {
+        $("#btnAceptarMasivo2").click(function () {
             var params = {
                 campaniaId: parseInt($("#ddlCampania").val()),
                 tipoConfigurado: 1
@@ -1200,21 +1278,21 @@
                 async: true,
                 success: function (data) {
                     if (data.success) {
-                        HideDialog("DialogNuevoMasivo");                        
+                        HideDialog("DialogNuevoMasivo");
                     }
                     alert(data.message);
                 },
                 error: function (data, error) {
                     alert(data.message);
                 }
-            });            
+            });
         });
 
         $("#btnAceptarMasivo3").click(function () {
             HideDialog("DialogNuevoMasivo");
         });
 
-        $("#divImagenEstrategia").click(function() {
+        $("#divImagenEstrategia").click(function () {
             $(this).css("color", "white");
             $(this).css("background", "#00A2E8");
 
@@ -1290,13 +1368,13 @@
             altRows: true,
             altclass: 'jQGridAltRowClass',
             loadComplete: function () { },
-            gridComplete: function() {
+            gridComplete: function () {
                 if (cantidadPrecargar == 0) {
                     $("#divMostrarPreCarga").css("display", "none");
                 } else {
                     $("#divMostrarPreCarga").css("display", "");
                     $("#spnCantidadConfigurar1").html(cantidadPrecargar);
-                }                
+                }
             }
         });
         jQuery("#listCargaMasiva1").jqGrid('navGrid', "#pagerCargaMasiva1", { edit: false, add: false, refresh: false, del: false, search: false });
@@ -1880,7 +1958,7 @@
             contentType: "application/json; charset=utf-8",
             colNames: ['CUV', 'Descripción'],
             colModel: [
-                { name: 'CUV2', index: 'CUV', width: 10, editable: true, resizable: false},
+                { name: 'CUV2', index: 'CUV', width: 10, editable: true, resizable: false },
                 { name: 'DescripcionCUV2', index: 'DescripcionCUV2', width: 90, editable: true, resizable: false },
             ],
             jsonReader:
@@ -2109,6 +2187,242 @@
                             return false;
                         }
                         if ($("#txtOrden").val() <= 0) {
+                            alert("Ingrese un valor para el orden a mostrar mayor a cero.");
+                            return false;
+                        }
+                    }
+                    /* SB20-312 - FIN */
+                    if ($("#hdZonas").val() == "") {
+                        alert("Debe seleccionar el alcance de la estrategia.");
+                        return false;
+                    }
+                    if ($.trim($("#txtLimite").val()) == "" || $.isNumeric($("#txtLimite").val()) == false) {
+                        alert("Ingrese un valor para el limite de venta.");
+                        return false;
+                    }
+                    if ($("#txtLimite").val() <= 0) {
+                        alert("Ingrese un valor para el limite de venta mayor a cero.");
+                        return false;
+                    }
+                    var EstrategiaID = $("#hdEstrategiaID").val();
+                    var TipoEstrategiaID = $("#hdTipoEstrategiaID").val();
+                    var CampaniaID = $("#hdCampania").val();
+                    var CampaniaIDFin = $("#ddlCampaniaFin").val();
+                    var Activo = ($("#chkHabilitarOferta").attr("checked")) ? "1" : "0";
+                    var ImagenURL = $("#ImagenProducto").val();
+                    var LimiteVenta = $("#txtLimite").val();
+                    var DescripcionCUV2 = $("#txtDescripcion").val();
+                    var FlagDescripcion = ($("#chkVisible1").attr("checked")) ? "1" : "0";
+                    var CUV = $("#txtCUV").val();
+                    var EtiquetaID = $("#ddlEtiqueta1").val();
+                    var Precio = $("#txtPrecio").val();
+                    var FlagCEP = ($("#chkVisible2").attr("checked")) ? "1" : "0";
+                    var CUV2 = $("#txtCUV2").val();
+                    var EtiquetaID2 = $("#ddlEtiqueta2").val();
+                    var Precio2 = $("#txtPrecio2").val();
+                    var FlagCEP2 = ($("#chkVisible3").attr("checked")) ? "1" : "0";
+                    var TextoLibre = $("#txtTextoLibre").val();
+                    var FlagTextoLibre = ($("#chkVisible4").attr("checked")) ? "1" : "0";
+                    var Cantidad = $("#txtCantidad").val();
+                    var FlagCantidad = ($("#chkVisible5").attr("checked")) ? "1" : "0";
+                    var Zona = $("#hdZonas").val();
+                    var Orden = $("#txtOrden").val();
+                    var flagEstrella = ($("#chkEstrella").attr("checked")) ? "1" : "0";
+                    var colorFondo = $("#hdColorFondo").val();
+
+                    var NumeroPedidoAsociado = $(".checksPedidosAsociados input:checked").map(function () {
+                        return $(this).val();
+                    }).get().join(",");
+
+                    if (NumeroPedidoAsociado == "" && $("#txtPedidoAsociado").length) {
+                        NumeroPedidoAsociado = $("#txtPedidoAsociado").val();
+                    }
+                    var params = {
+                        EstrategiaID: EstrategiaID,
+                        TipoEstrategiaID: TipoEstrategiaID,
+                        CampaniaID: CampaniaID,
+                        CampaniaIDFin: CampaniaIDFin,
+                        NumeroPedido: NumeroPedidoAsociado,
+                        Activo: Activo,
+                        ImagenURL: ImagenURL,
+                        LimiteVenta: LimiteVenta,
+                        DescripcionCUV2: DescripcionCUV2,
+                        FlagDescripcion: FlagDescripcion,
+                        CUV: CUV,
+                        EtiquetaID: EtiquetaID,
+                        Precio: Precio,
+                        FlagCEP: FlagCEP,
+                        CUV2: CUV2,
+                        EtiquetaID2: EtiquetaID2,
+                        Precio2: Precio2,
+                        FlagCEP2: FlagCEP2,
+                        TextoLibre: TextoLibre,
+                        FlagTextoLibre: FlagTextoLibre,
+                        Cantidad: Cantidad,
+                        FlagCantidad: FlagCantidad,
+                        Zona: Zona,
+                        Orden: Orden,
+                        ColorFondo: colorFondo,
+                        FlagEstrella: flagEstrella
+                    };
+                    jQuery.ajax({
+                        type: 'POST',
+                        url: baseUrl + 'AdministrarEstrategia/RegistrarEstrategia',
+                        dataType: 'json',
+                        contentType: 'application/json; charset=utf-8',
+                        data: JSON.stringify(params),
+                        async: true,
+                        success: function (data) {
+                            if (data.success) {
+                                alert(data.message);
+                                $("#ddlTipoEstrategia").val($("#hdEstrategiaIDConsulta").val());
+                                HideDialog("DialogAdministracionEstrategia");
+                                fnGrilla();
+                            } else {
+                                alert(data.message);
+                            }
+                        },
+                        error: function (data, error) {
+                            alert(data.message);
+                        }
+                    });
+
+                },
+                "Salir": function () {
+                    $("#ddlTipoEstrategia").val($("#hdEstrategiaIDConsulta").val());
+                    $('input:checkbox').removeAttr('checked');
+                    $(this).dialog('close');
+                }
+            }
+        });
+        // 
+        $('#DialogAdministracionEstrategias').dialog({
+            autoOpen: false,
+            resizable: false,
+            modal: true,
+            closeOnEscape: true,
+            width: 800,
+            close: function () { $('input:checkbox').removeAttr('checked'); },
+            draggable: false,
+            title: "Registro de Estrategias",
+            buttons:
+            {
+                "Guardar": function () {
+                    if (!$("#chkVisible2_").attr("checked")) {
+                        $('#mensajeErrorCUV').val('');
+                    }
+
+                    if ($('#mensajeErrorCUV').val() != "") {
+                        alert($('#mensajeErrorCUV').val());
+                        return false;
+                    }
+                    if ($('#mensajeErrorCUV2').val() != "") {
+                        alert($('#mensajeErrorCUV2').val());
+                        return false;
+                    }
+
+                    if ($(".DatosNuevas").css("display") == "block") {
+                        if ($("#ddlCampaniaFin").val() == "") {
+                            alert("Seleccione la campaña de vigencia hasta.");
+                            return false;
+                        }
+                        var campaniaIni = $("#spanCampania_").val();
+                        var campaniaFin = $("#ddlCampaniaFin").val();
+                        if (parseInt(campaniaFin) < parseInt(campaniaIni)) {
+                            alert("La campaña de vigencia final  no puede ser menor a la campaña de inicio.");
+                            return false;
+                        }
+                        //if ($("#txtPedidoAsociado").val() == "") {
+                        //    alert("Ingrese un número de pedido asociado.");
+                        //    return false;
+                        //}
+                        //var nroPedido = $("#txtPedidoAsociado").val();
+                        //if (!$.isNumeric(nroPedido)) {
+                        //    alert("Ingrese un valor válido para el número de pedido asociado.");
+                        //    return false;
+                        //}
+                        //if (parseInt(nroPedido) <= 0 || parseInt(nroPedido) > 4) {
+                        //    alert("Ingrese un valor entre 1 y 4 para el número de pedido asociado.");
+                        //    return false;
+                        //}
+                    }
+                    if ($("#chkVisible1_").attr("checked")) {
+                        var valor = $("#txtDescripcion_").val();
+                        if ($.trim(valor) == "") {
+                            alert("Ingrese el valor del CUV2 para obtener la descripción o ingrese una.");
+                            return false;
+                        }
+                    }
+                    if ($("#chkVisible2_").attr("checked")) {
+                        var m = "";
+                        if ($.trim($("#txtCUV_").val()) == "" && $("#txtCUV_").css("visibility") == "visible") {
+                            m += "- Ingrese un valor para el CUV1." + "\n";
+                        }
+                        if ($.trim($("#ddlEtiqueta1_ option:selected").html()) == "-- Seleccionar --") {
+                            m += "- Seleccione la etiqueta correspondiente." + "\n";
+                        }
+                        if ($.trim($("#txtPrecio_").val()) == "" || $.isNumeric($("#txtPrecio_").val()) == false) {
+                            m += "- Digite un valor correspondiente para el precio." + "\n";
+                        }
+                        if ($("#txtPrecio_").val() <= 0) {
+                            m += "- Ingrese un valor para el precio mayor a cero." + "\n";
+                        }
+                        if (m != "") {
+                            alert(m);
+                            return false;
+                        }
+                    }
+                    if ($("#chkVisible3_").attr("checked")) {
+                        var m = "";
+                        if ($.trim($("#txtCUV2_").val()) == "") {
+                            m += "- Ingrese un valor para el CUV2." + "\n";
+                        }
+                        if ($.trim($("#ddlEtiqueta2_ option:selected").html()) == "-- Seleccionar --") {
+                            m += "- Seleccione la etiqueta correspondiente." + "\n";
+                        }
+                        if ($.trim($("#txtPrecio2_").val()) == "" || $.isNumeric($("#txtPrecio2").val()) == false) {
+                            m += "- Digite un valor correspondiente para el precio." + "\n";
+                        }
+                        if ($("#txtPrecio2_").val() <= 0) {
+                            m += "- Ingrese un valor para el precio mayor a cero." + "\n";
+                        }
+                        if (m != "") {
+                            alert(m);
+                            return false;
+                        }
+                    }
+                    if ($.trim($("#txtCUV2_").val()) == "") {
+                        alert("Debe ingresar un valor para el CUV2.");
+                        return false;
+                    }
+                    if ($("#chkVisible4_").attr("checked")) {
+                        if ($.trim($("#txtTextoLibre").val()) == "") {
+                            alert("Ingrese un valor de texto libre");
+                            return false;
+                        }
+                    }
+                    if ($("#chkVisible5_").attr("checked")) {
+                        if ($("#idEstrella_").css("display") == "block") {
+                            if (!$("#chkEstrella").attr("checked")) {
+                                alert("Debe activar el la opción para mostrar estrella en la zona de producto.  ");
+                                return false;
+                            }
+                        }
+                    } else $("#hdColorFondo_").val("");
+
+                    if ($('.chk-estrategia-imagen:checked').length == 0) {
+                        alert("Seleccione una imagen a mostrar.");
+                        return false;
+                    }
+
+                    /* SB20-312 - INICIO */
+                    var aux2 = $('#ddlTipoEstrategia').find(':selected').data('id');
+                    if (aux2 != "4") {
+                        if ($.trim($("#txtOrden_").val()) == "" || $.isNumeric($("#txtOrden").val()) == false) {
+                            alert("Ingrese un orden para mostrar.");
+                            return false;
+                        }
+                        if ($("#txtOrden_").val() <= 0) {
                             alert("Ingrese un valor para el orden a mostrar mayor a cero.");
                             return false;
                         }

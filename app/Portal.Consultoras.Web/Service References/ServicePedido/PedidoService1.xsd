@@ -282,6 +282,7 @@
       <xs:element minOccurs="0" name="FotoProducto09" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="FotoProducto10" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ID" type="xs:int" />
+      <xs:element minOccurs="0" name="Imagen" type="xs:int" />
       <xs:element minOccurs="0" name="ImagenURL" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="IndicadorMontoMinimo" type="xs:int" />
       <xs:element minOccurs="0" name="LimiteVenta" type="xs:int" />
