@@ -1371,6 +1371,7 @@
     <Content Include="Content\Images\carrusel_p.png" />
     <Content Include="Content\Images\catalogos.png" />
     <Content Include="Content\Images\cerrar_04.png" />
+    <Content Include="Content\Images\cerrar_04_blanco.png" />
     <Content Include="Content\Images\Esika\background_pedido.png" />
     <Content Include="Content\Images\Esika\Banner_Esika.jpg" />
     <Content Include="Content\Images\Esika\banner_misBeneficios.png" />
@@ -2721,10 +2722,10 @@
     <None Include="Service References\ServiceProductoCatalogoPersonalizado\ProductoService3.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\ServiceProductoCatalogoPersonalizado\ProductoService31.xsd">
+    <None Include="Service References\ServiceProductoCatalogoPersonalizado\ProductoService4.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\ServiceProductoCatalogoPersonalizado\ProductoService32.xsd">
+    <None Include="Service References\ServiceProductoCatalogoPersonalizado\ProductoService5.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\ServiceProductoCatalogoPersonalizado\Reference.svcmap">
