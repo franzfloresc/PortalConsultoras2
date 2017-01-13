@@ -3016,8 +3016,8 @@ table > thead > tr > th {
     height: 30px;
     overflow: hidden;
     width: 36px;
-    padding-top: 4px;
-    padding-bottom: 4px;
+    padding: 9px;
+    
     background: #613c87;
     float: left;
     text-align: center;
@@ -9606,6 +9606,11 @@ span.icon-advertencia{
 }
 .content_slider_banner{
     position:relative;
+}
+.content_imagen_slider_showroom{
+    width: 177px;
+    display: block;
+    margin: 0 auto;
 }
 
 .marca_ficha_producto {
