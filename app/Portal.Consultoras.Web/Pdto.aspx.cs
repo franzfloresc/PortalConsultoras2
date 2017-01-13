@@ -45,7 +45,7 @@ namespace Portal.Consultoras.Web
                 string ProductoCompApp = objProComp.PcApp;
 
                 string RutaImagen = "";
-                string MarcaID = "";
+                //string MarcaID = "";
                 string MarcaDesc = "";
                 string NomProducto = "";
                 string Volumen = "";
@@ -70,7 +70,7 @@ namespace Portal.Consultoras.Web
                     }
                 }
 
-                string subTitulo = "Este es el Subtitulo";
+                //string subTitulo = "Este es el Subtitulo";
 
                 HtmlMeta meta1 = new HtmlMeta();
                 meta1.Name = "og:image";
@@ -80,7 +80,7 @@ namespace Portal.Consultoras.Web
                 HtmlMeta meta2 = new HtmlMeta();
                 meta2.Name = "og:title";
                 meta2.Attributes.Add("property", "og:title");
-                meta2.Content = DescProducto + ": " + subTitulo + ".";
+                meta2.Content = DescProducto;// +": " + subTitulo + ".";
 
                 HtmlMeta meta3 = new HtmlMeta();
                 meta3.Name = "og:image:secure_url";
