@@ -69,9 +69,7 @@ namespace Portal.Consultoras.Web
                         NomProducto = Convert.ToString(ArrayDetalle[3]);
                     }
                 }
-
-                //string subTitulo = "Este es el Subtitulo";
-
+                
                 HtmlMeta meta1 = new HtmlMeta();
                 meta1.Name = "og:image";
                 meta1.Attributes.Add("property", "og:image");
@@ -80,7 +78,7 @@ namespace Portal.Consultoras.Web
                 HtmlMeta meta2 = new HtmlMeta();
                 meta2.Name = "og:title";
                 meta2.Attributes.Add("property", "og:title");
-                meta2.Content = DescProducto;// +": " + subTitulo + ".";
+                meta2.Content = NomProducto;
 
                 HtmlMeta meta3 = new HtmlMeta();
                 meta3.Name = "og:image:secure_url";
