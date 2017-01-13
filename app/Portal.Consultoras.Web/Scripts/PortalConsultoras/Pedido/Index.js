@@ -3331,7 +3331,7 @@ function Update(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion, CUV) {
 }
 
 function UpdateLiquidacion(CampaniaID, PedidoID, PedidoDetalleID, TipoOfertaSisID, CUV, FlagValidacion, CantidadModi) {
-    debugger;
+    //debugger;
 
     AbrirSplash();
     if (HorarioRestringido()) {

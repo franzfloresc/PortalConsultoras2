@@ -401,11 +401,8 @@ function waitingDialog(waiting) {
     }
 }
 function closeWaitingDialog() {
-    try {
-        $("#loadingScreen").dialog('close');
-    }
+    try { $("#loadingScreen").dialog('close'); }
     catch (err) {
-
     }
 
 }
