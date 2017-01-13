@@ -496,6 +496,7 @@
     <Compile Include="Models\RVDigitalPaqueteDocumentarioModel.cs" />
     <Compile Include="Models\ServicioCampaniaModel.cs" />
     <Compile Include="Models\ServicioModel.cs" />
+    <Compile Include="Models\ShowRoomBannerLateralModel.cs" />
     <Compile Include="Models\ShowRoomEventoModel.cs" />
     <Compile Include="Models\ShowRoomOfertaDetalleModel.cs" />
     <Compile Include="Models\ShowRoomOfertaModel.cs" />

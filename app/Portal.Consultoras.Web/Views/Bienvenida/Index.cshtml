@@ -1746,6 +1746,7 @@
                 <input type="hidden" class="hdItemDescripcionEstrategia" value="{{DescripcionEstrategia}}" />
                 <input type="hidden" class="hdItemTipoOfertaRevista" value="{{TipoOfertaRevista}}" />
                 <input type="hidden" class="OrigenPedidoWeb" value="@Portal.Consultoras.Common.Constantes.OrigenPedidoWeb.DesktopHomeCatalogoPersonalizado" />
+                <input type="hidden" class="hdItemEsMaquillaje" value="{{EsMaquillaje}}" />
             </div>
             <div class="producto_img_home mini" id="imagenAnimacion" data-img="">
                 <img src="{{ImagenProductoSugerido}}" style="width: auto; height: 100%;" class="imagen_producto">
@@ -2185,12 +2186,31 @@
 
 <script id="template-fichaproductofav" type="text/x-handlebars-template">
     <div class="content_ficha_producto_nueva">
+        <input type="hidden" id="hdCuvFichaProductoFAV" value="{{CUV}}" />
+        <input type="hidden" id="hdCuvFichaProductoFAVSelect" value="" />
+        <div id="hdValuesFichaProductoFAV" style="display: none;">
+            <input type="hidden" class="hdItemCuv" value="{{CUV}}" />
+            <input type="hidden" class="hdItemTipoOfertaSisID" value="{{TipoOfertaSisID}}" />
+            <input type="hidden" class="hdItemConfiguracionOfertaID" value="{{ConfiguracionOfertaID}}" />
+            <input type="hidden" class="hdItemIndicadorMontoMinimo" value="{{IndicadorMontoMinimo}}" />
+            <input type="hidden" class="hdItemTipo" value="1" />
+            <input type="hidden" class="hdItemMarcaID" value="{{MarcaID}}" />
+            <input type="hidden" class="hdItemPrecioUnidad" value="{{PrecioCatalogo}}" />
+            <input type="hidden" class="hdItemDescripcionProd" value="{{Descripcion}}" />
+            <input type="hidden" class="hdItemPagina" value="0" />
+            <input type="hidden" class="hdItemDescripcionCategoria" value="{{DescripcionCategoria}}" />
+            <input type="hidden" class="hdItemDescripcionMarca" value="{{DescripcionMarca}}" />
+            <input type="hidden" class="hdItemDescripcionEstrategia" value="{{DescripcionEstrategia}}" />
+            <input type="hidden" class="hdItemTipoOfertaRevista" value="{{TipoOfertaRevista}}" />
+            <input type="hidden" class="OrigenPedidoWeb" value="@Portal.Consultoras.Common.Constantes.OrigenPedidoWeb.DesktopCatalogoPersonalizado" />
+            <input type="hidden" class="hdItemEsMaquillaje" value="{{EsMaquillaje}}" />
+        </div>
         <a class="cerrar_fichaProducto" href="javascript:;" onclick="javascript: $('#PopFichaProductoNueva').hide();">
             <img src="/Content/Images/cerrar_04_blanco.png" alt=" alternate text">
         </a>
         <div class="content_left_ficha">
             <div class="content_ficha_producto">
-                <img id="imagen_ficha_producto" src="{{ImagenProductoSugerido}}" alt="PRODUCTO">
+                <img id="fav_imagen_prod" src="{{ImagenProductoSugerido}}" alt="PRODUCTO">
             </div>
         </div>
         <div class="content_right_ficha">
@@ -2206,8 +2226,8 @@
                 <!--SELECCION DE TONOS-->
                 <div class="content_tonos_maquillaje">
                     {{#each Hermanos as |item1|}}
-                    <div id="content_tono_{{CUV}}" class="content_tono_detalle @*borde_seleccion_tono*@" onclick="cambiarInfoFichaProductoFAV('{{CUV}}')">
-                        <img id="fav_imgbulk_{{CUV}}" src="{{item1.ImagenBulk}}" alt="PRODUCTO">
+                    <div id="fav_tono_{{CUV}}" class="content_tono_detalle" onclick="cambiarInfoFichaProductoFAV(1,'{{item1.CUV}}')">
+                        <img src="{{item1.ImagenBulk}}" alt="PRODUCTO">
                         @*<div class="content_mascara_maquillaje">
                                 <img src="https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/HfQTTPvWfVXwt3R/textura_labial.png" alt="PRODUCTO">
                             </div>*@
@@ -2216,7 +2236,7 @@
                     {{/each}}
                 </div>
 
-                <select id="favTonoBulk{{CUV}}" class="tono_labial_select" onchange="cambiarInfoFichaProductoFAV('{{CUV}}')">
+                <select id="fav_tonobulk_{{CUV}}" class="tono_labial_select" onchange="cambiarInfoFichaProductoFAV(2)">
                     {{#each Hermanos as |item2|}}
                     <option value="{{item2.CUV}}">{{item2.NombreBulk}}</option>
                     {{/each}}
