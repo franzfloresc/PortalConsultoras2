@@ -4025,14 +4025,20 @@ namespace Portal.Consultoras.Web.Controllers
         // Valida si estamos en dia PROL y fuera del horario permitido (true = en horario restringido, false = en horario normal)
         public ActionResult EnHorarioRestringido()
         {
-            /* CGI(RSA) – REQ – 571 – 03/06/2015 – Invocacion de metodo para validar sesion */
-            var result = ValidarSession();
-            if (result != null) return result;
-
             try
             {
                 string mensaje = string.Empty;
-                bool estado = ValidarHorarioRestringido(out mensaje);
+                bool estado = false;
+
+                if (userData == null)
+                {
+                    mensaje = "Sesión expirada.";
+                }
+                else
+                {
+                    estado = ValidarHorarioRestringido(out mensaje);
+                }
+
                 return Json(new
                 {
                     success = estado,
@@ -4056,18 +4062,23 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                var result = ValidarSession();
-                if (result != null) return result;
-
                 string mensaje = string.Empty;
                 bool pedidoReservado = false;
+                bool estado = false;
 
-                bool estado = EstaProcesoFacturacion(out mensaje);
-                if (!estado)
+                if (userData == null)
                 {
-                    pedidoReservado = ValidarPedidoReservado(out mensaje);
-                    estado = pedidoReservado;
-                    if (!estado) estado = ValidarHorarioRestringido(out mensaje);
+                    mensaje = "Sesión expirada.";
+                }
+                else
+                {
+                    estado = EstaProcesoFacturacion(out mensaje);
+                    if (!estado)
+                    {
+                        pedidoReservado = ValidarPedidoReservado(out mensaje);
+                        estado = pedidoReservado;
+                        if (!estado) estado = ValidarHorarioRestringido(out mensaje);
+                    }
                 }
 
                 return Json(new

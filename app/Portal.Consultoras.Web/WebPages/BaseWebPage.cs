@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-//using System.IdentityModel.Services;
-using System.Linq;
-using System.Web;
-using System.Web.Security;
+﻿using Portal.Consultoras.Common;
+using Portal.Consultoras.Web.Models;
+using System;
 
 namespace Portal.Consultoras.Web.WebPages
 {
@@ -13,35 +10,25 @@ namespace Portal.Consultoras.Web.WebPages
     {
         protected void Page_PreInit(object sender, EventArgs e)
         {
-            if (Context.Session != null)
+            UsuarioModel userData = (UsuarioModel)Context.Session["UserData"];
+
+            if (userData == null)
             {
-                if (Context.Session.IsNewSession)
-                {
-                    var sessionCookie = Page.Request.Headers["Cookie"];
-                    if ((sessionCookie != null) && (sessionCookie.IndexOf("ASP.NET_SessionId") >= 0))
-                    {
-                        CerrarSesion();
-                        // url de signout de qa
-                        //string URLSignOut = "https://10.12.6.208/adfs/ls/?wa=wsignout1.0";
-                        //string urlTimeout = "/Login/Timeout";
-                        string urlTimeout = "portalqadev/SesionExpirada.html";
-                        Response.Redirect(urlTimeout);
-                    }
-                }
+                CerrarSesion();
+
+                Uri urlPortal = Util.GetUrlHost(Request);
+
+                string urlSesionExpirada = string.Format("{0}/Login/SesionExpirada", urlPortal.AbsolutePath);
+
+                Response.Redirect(urlSesionExpirada);
             }
         }
 
         private void CerrarSesion()
         {
             Context.Session["UserData"] = null;
+            Context.Session.Clear();
             Context.Session.Abandon();
-
-            //FederatedAuthentication.WSFederationAuthenticationModule.SignOut(false);
-            //FederatedAuthentication.SessionAuthenticationModule.SignOut();
-            //FederatedAuthentication.SessionAuthenticationModule.CookieHandler.Delete();
-            //FederatedAuthentication.SessionAuthenticationModule.DeleteSessionTokenCookie();
-
-            //FormsAuthentication.SignOut();
         }
     }
 }

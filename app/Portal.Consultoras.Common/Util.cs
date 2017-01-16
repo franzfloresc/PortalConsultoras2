@@ -2220,14 +2220,14 @@ namespace Portal.Consultoras.Common
 
         public static Uri GetUrlHost(HttpRequestBase request)
         {
-            //string hostHeader = request.Headers["host"];
             string baseUrl = request.Url.Scheme + "://" + request.Url.Authority + (request.ApplicationPath.ToString().Equals("/") ? "/" : (request.ApplicationPath + "/"));
-            //return new Uri(string.Format("{0}://{1}",
-            //   request.Url.Scheme,
-            //   hostHeader
-            //   ));
             return new Uri(baseUrl);
+        }
 
+        public static Uri GetUrlHost(HttpRequest request)
+        {
+            string baseUrl = request.Url.Scheme + "://" + request.Url.Authority + (request.ApplicationPath.ToString().Equals("/") ? "/" : (request.ApplicationPath + "/"));
+            return new Uri(baseUrl);
         }
 
         public static string CreateRandomPassword(int PasswordLength)

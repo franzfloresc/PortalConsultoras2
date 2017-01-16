@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-//using System.IdentityModel.Services;
-using System.Linq;
-using System.Web;
-using System.Web.Security;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using LithiumSSOClient;
+﻿using LithiumSSOClient;
+using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.ServiceComunidad;
+using System;
+using System.Configuration;
 
 namespace Portal.Consultoras.Web.WebPages
 {
@@ -41,13 +35,11 @@ namespace Portal.Consultoras.Web.WebPages
                     Session.Clear();
                     Session.Abandon();
 
-                    //FederatedAuthentication.WSFederationAuthenticationModule.SignOut(false);
-                    //FederatedAuthentication.SessionAuthenticationModule.SignOut();
-                    //FederatedAuthentication.SessionAuthenticationModule.CookieHandler.Delete();
-                    //FederatedAuthentication.SessionAuthenticationModule.DeleteSessionTokenCookie();
+                    Uri urlPortal = Util.GetUrlHost(Request);
 
-                    //FormsAuthentication.SignOut();
-                    Response.Redirect(ConfigurationManager.AppSettings.Get("URLSignOut"));
+                    string urlLogin = string.Format("{0}/Login", urlPortal.AbsolutePath);
+
+                    Response.Redirect(urlLogin);
                 }
                 else
                 {

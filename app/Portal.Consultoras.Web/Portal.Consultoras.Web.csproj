@@ -52,15 +52,6 @@
     <Reference Include="Antlr3.Runtime">
       <HintPath>..\Binaries\Antlr3.Runtime.dll</HintPath>
     </Reference>
-    <Reference Include="Autofac">
-      <HintPath>..\Binaries\Autofac.dll</HintPath>
-    </Reference>
-    <Reference Include="Autofac.Configuration">
-      <HintPath>..\Binaries\Autofac.Configuration.dll</HintPath>
-    </Reference>
-    <Reference Include="Autofac.Integration.Mvc">
-      <HintPath>..\Binaries\Autofac.Integration.Mvc.dll</HintPath>
-    </Reference>
     <Reference Include="AutoMapper">
       <HintPath>..\Binaries\AutoMapper.dll</HintPath>
     </Reference>
@@ -194,7 +185,6 @@
     <Compile Include="Annotations\RequiredIfAttribute.cs" />
     <Compile Include="Annotations\RequiredIfPropertiesNotNullAttribute.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
-    <Compile Include="App_Start\IoCConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -298,7 +288,6 @@
     <Compile Include="Controllers\LiderController.cs" />
     <Compile Include="Controllers\CronogramaController.cs" />
     <Compile Include="Controllers\DescargaPedidosController.cs" />
-    <Compile Include="Controllers\DummyController.cs" />
     <Compile Include="Controllers\DuplaSACController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\FacturaElectronicaController.cs">

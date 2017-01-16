@@ -21,7 +21,8 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
         public ActionResult Index()
         {
-            SessionKeys.ClearSessionCantidadNotificaciones();
+            Session["fechaGetNotificacionesSinLeer"] = null;
+            Session["cantidadGetNotificacionesSinLeer"] = null;
 
             var model = new NotificacionesModel();
             model.ListaNotificaciones = ObtenerNotificaciones();

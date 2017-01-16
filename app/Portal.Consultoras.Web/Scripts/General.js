@@ -468,25 +468,10 @@ function checkTimeout(data) {
         }
 
         if (!thereIsStillTime) {
-            //window.location.href = "/Login/Timeout";
-            //window.location.href = "https://stsqa.somosbelcorp.com/adfs/ls/?wa=wsignout1.0";
-            //window.location.href = "/SesionExpirada.html";
             window.location.href = "/Login/SesionExpirada";
         }
     }
     else {
-        //debugger;
-        //$.ajax({
-        //    url: '/Dummy/',
-        //    type: 'POST',
-        //    dataType: 'json',
-        //    contentType: 'application/json; charset=utf-8',
-        //    async: false,
-        //    complete: function (result) {
-        //        thereIsStillTime = checkTimeout(result);
-        //    }
-        //});
-
         // validar si se perdio la sesion
         checkUserSession();
     }

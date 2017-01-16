@@ -6,14 +6,11 @@ using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.ServiceSAC;
 using Portal.Consultoras.Web.ServicesCalculosPROL;
 using Portal.Consultoras.Web.ServiceUsuario;
-using Portal.Consultoras.Web.ServiceZonificacion;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Linq;
-using System.Security.Claims;
-using System.Web;
 using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Controllers
@@ -46,7 +43,7 @@ namespace Portal.Consultoras.Web.Controllers
                 if (userData == null)
                 {
                     string URLSignOut = string.Empty;
-
+                    
                     if (Request.UrlReferrer != null && Request.UrlReferrer.ToString().Contains(Request.Url.Host))
                     {
                         URLSignOut = "/Login/SesionExpirada";
@@ -62,25 +59,28 @@ namespace Portal.Consultoras.Web.Controllers
                     filterContext.Result = new RedirectResult(URLSignOut);
                     return;
                 }
-
-                ViewBag.Permiso = BuildMenu();
-                ViewBag.ProgramasBelcorpMenu = BuildMenuService();
-                ViewBag.codigoISOMenu = userData.CodigoISO;
-                if (userData.CodigoISO == "VE")
-                {
-                    ViewBag.SegmentoConsultoraMenu = userData.SegmentoID;
-                }
                 else
                 {
-                    ViewBag.SegmentoConsultoraMenu = (userData.SegmentoInternoID == null) ? userData.SegmentoID : (int)userData.SegmentoInternoID;
+                    ViewBag.Permiso = BuildMenu();
+                    ViewBag.ProgramasBelcorpMenu = BuildMenuService();
+                    ViewBag.codigoISOMenu = userData.CodigoISO;
+
+                    if (userData.CodigoISO == Constantes.CodigosISOPais.Venezuela)
+                    {
+                        ViewBag.SegmentoConsultoraMenu = userData.SegmentoID;
+                    }
+                    else
+                    {
+                        ViewBag.SegmentoConsultoraMenu = userData.SegmentoInternoID.HasValue ? userData.SegmentoInternoID.Value : userData.SegmentoID;
+                    }
+
+                    ViewBag.UrlRaizS3 = string.Format("{0}/{1}/{2}/", ConfigurationManager.AppSettings["URL_S3"], ConfigurationManager.AppSettings["BUCKET_NAME"], ConfigurationManager.AppSettings["ROOT_DIRECTORY"]);
+                    ViewBag.ServiceController = ConfigurationManager.AppSettings["ServiceController"].ToString();
+                    ViewBag.ServiceAction = ConfigurationManager.AppSettings["ServiceAction"].ToString();
+
+                    ObtenerPedidoWeb();
+                    ObtenerPedidoWebDetalle();
                 }
-
-                ViewBag.ServiceController = ConfigurationManager.AppSettings["ServiceController"].ToString();
-                ViewBag.ServiceAction = ConfigurationManager.AppSettings["ServiceAction"].ToString();
-                ViewBag.UrlRaizS3 = ConfigurationManager.AppSettings["URL_S3"].ToString() + "/" + ConfigurationManager.AppSettings["BUCKET_NAME"].ToString() + "/" + ConfigurationManager.AppSettings["ROOT_DIRECTORY"] + "/";
-
-                ObtenerPedidoWeb();
-                ObtenerPedidoWebDetalle();
 
                 base.OnActionExecuting(filterContext);
             }
@@ -294,10 +294,12 @@ namespace Portal.Consultoras.Web.Controllers
 
         protected bool ReservadoEnHorarioRestringido(out string mensaje)
         {
-            var result = ValidarSession();
-            if (result != null)
+            if (userData == null)
             {
                 mensaje = "Se sessión expiró, por favor vuelva a loguearse.";
+                HttpContext.Session["UserData"] = null;
+                HttpContext.Session.Clear();
+                HttpContext.Session.Abandon();
                 return true;
             }
 
@@ -317,58 +319,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             return false;
         }
-
-        protected ActionResult ValidarSession()
-        {
-            ActionResult Result = null;
-
-            if (HttpContext.Session != null)
-            {
-                if (HttpContext.Session.IsNewSession)
-                {
-                    var sessionCookie = HttpContext.Request.Headers["Cookie"];
-                    if ((sessionCookie != null) && (sessionCookie.IndexOf("ASP.NET_SessionId") >= 0))
-                    {
-                        // loggear datos de variable de sesion clave
-                        UsuarioModel usuario = (UsuarioModel)HttpContext.Session["UserData"];
-                        if (usuario != null)
-                        {
-                            LogManager.LogManager.LogErrorWebServicesBus(new ApplicationException("Si existe Session[UserData]"), usuario.CodigoConsultora, usuario.CodigoISO);
-                        }
-                        else
-                        {
-                            LogManager.LogManager.LogErrorWebServicesBus(new ApplicationException("No existe Session[UserData]"), string.Empty, string.Empty);
-                        }
-                        // loggear datos de variable de sesion clave
-
-                        CerrarSesion();
-
-                        // version 2
-                        if (HttpContext.Request.IsAjaxRequest())
-                        {
-                            Result = new JsonResult { Data = "_Logon_", JsonRequestBehavior = JsonRequestBehavior.AllowGet };
-                        }
-                        else
-                        {
-                            //string URLSignOut = "https://stsqa.somosbelcorp.com/adfs/ls/?wa=wsignout1.0";
-                            //string URLSignOut = "/SesionExpirada.html";
-                            string URLSignOut = "/Login/SesionExpirada";
-                            //filterContext.Result = new RedirectResult(URLSignOut);
-                            Result = new RedirectResult(URLSignOut);
-                        }
-                        // version 2
-                    }
-                }
-            }
-            return Result;
-        }
-
-        protected void CerrarSesion()
-        {
-            HttpContext.Session["UserData"] = null;
-            HttpContext.Session.Abandon();
-        }
-
+        
         protected bool ValidarPedidoReservado(out string mensaje)
         {
             mensaje = string.Empty;
@@ -520,23 +471,6 @@ namespace Portal.Consultoras.Web.Controllers
 
                 SepararItemsMenu(ref temp, menuOriginal, itemMenu.PermisoID);
 
-                //if (itemMenu.EsServicios)
-                //{
-                //    var servicios = BuildMenuService();
-
-                //    foreach (var progs in servicios)
-                //    {
-                //        temp.Add(new PermisoModel()
-                //        {
-                //            Descripcion = progs.Descripcion,
-                //            UrlItem = progs.Url,
-                //            PaginaNueva = true,
-                //            Mostrar = true,
-                //            EsDireccionExterior = progs.Url.ToLower().StartsWith("http")
-                //        });
-                //    }
-                //}
-
                 itemMenu.SubMenus = temp;
                 itemMenu.SubMenus = itemMenu.SubMenus.OrderBy(p => p.OrdenItem).ToList();
             }
@@ -544,7 +478,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         private List<ServicioCampaniaModel> BuildMenuService()
         {
-            if (Session["UserData"] != null)
+            if (userData.MenuService == null)
             {
                 int Campaniaid = userData.CampaniaID;
                 IList<ServiceSAC.BEServicioCampania> lstTemp_1 = new List<ServiceSAC.BEServicioCampania>();
@@ -555,18 +489,18 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     lstTemp_1 = sv.GetServicioByCampaniaPais(userData.PaisID, userData.CampaniaID).ToList();
                 }
-
-                /*RE2544 - CS*/
+                
                 int SegmentoID;
-                if (userData.CodigoISO == "VE")
+                if (userData.CodigoISO == Constantes.CodigosISOPais.Venezuela)
                 {
                     SegmentoID = userData.SegmentoID;
                 }
                 else
                 {
-                    SegmentoID = (userData.SegmentoInternoID == null) ? userData.SegmentoID : (int)userData.SegmentoInternoID;
+                    SegmentoID = userData.SegmentoInternoID.HasValue ? userData.SegmentoInternoID.Value : userData.SegmentoID;
                 }
-                int SegmentoServicio = userData.EsJoven == 1 ? 99 : SegmentoID;/*RE2544 - CS*/ //R2161
+
+                int SegmentoServicio = userData.EsJoven == 1 ? 99 : SegmentoID;
 
                 lstTemp_2 = lstTemp_1.Where(p => p.ConfiguracionZona == string.Empty || p.ConfiguracionZona.Contains(userData.ZonaID.ToString())).ToList();
                 lst = lstTemp_2.Where(p => p.Segmento == "-1" || p.Segmento == SegmentoServicio.ToString()).ToList();
@@ -576,10 +510,9 @@ namespace Portal.Consultoras.Web.Controllers
                         .ForMember(x => x.Descripcion, t => t.MapFrom(c => c.Descripcion))
                         .ForMember(x => x.Url, t => t.MapFrom(c => c.Url));
 
-                return Mapper.Map<IList<ServiceSAC.BEServicioCampania>, List<ServicioCampaniaModel>>(lst);
+                userData.MenuService = Mapper.Map<IList<ServiceSAC.BEServicioCampania>, List<ServicioCampaniaModel>>(lst);
             }
-            else
-                return new List<ServicioCampaniaModel>();
+            return userData.MenuService;
         }
 
         #endregion
@@ -672,7 +605,7 @@ namespace Portal.Consultoras.Web.Controllers
                 ViewBag.Dias = fechaHoy >= model.FechaInicioCampania.Date && fechaHoy <= model.FechaFinCampania.Date ? 0 : (model.FechaInicioCampania.Subtract(DateTime.Now.AddHours(model.ZonaHoraria)).Days + 1);
 
                 ViewBag.PeriodoAnalytics = fechaHoy >= model.FechaInicioCampania.Date && fechaHoy <= model.FechaFinCampania.Date ? "Facturacion" : "Venta";
-                ViewBag.SemanaAnalytics = ObtenerSemanaAnalytics();
+                ViewBag.SemanaAnalytics = "No Disponible";
 
                 DateTime FechaHoraActual = DateTime.Now.AddHours(model.ZonaHoraria);
                 TimeSpan HoraCierrePortal = model.EsZonaDemAnti == 0 ? model.HoraCierreZonaNormal : model.HoraCierreZonaDemAnti;
@@ -795,11 +728,6 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
             return model;
-        }
-
-        private string ObtenerSemanaAnalytics()
-        {
-            return "No Disponible";
         }
 
         private string GetFormatDecimalPais(string isoPais)
@@ -1071,67 +999,6 @@ namespace Portal.Consultoras.Web.Controllers
             return (BEConfiguracionProgramaNuevas)Session[constSession];
         }
 
-        protected BEConsultorasProgramaNuevas GetConsultorasProgramaNuevas(string constSession, string codigoPrograma)
-        {
-            constSession = constSession ?? "";
-            constSession = constSession.Trim();
-            if (constSession == "")
-                return new BEConsultorasProgramaNuevas();
-
-            if (Session[constSession] != null)
-                return (BEConsultorasProgramaNuevas)Session[constSession];
-
-            try
-            {
-                var oBEConsultorasProgramaNuevas = new BEConsultorasProgramaNuevas();
-                oBEConsultorasProgramaNuevas.CodigoConsultora = userData.CodigoConsultora;
-                oBEConsultorasProgramaNuevas.Campania = userData.CampaniaID.ToString();
-                oBEConsultorasProgramaNuevas.CodigoPrograma = codigoPrograma;
-                using (PedidoServiceClient sv = new PedidoServiceClient())
-                {
-                    oBEConsultorasProgramaNuevas = sv.GetConsultorasProgramaNuevas(userData.PaisID, oBEConsultorasProgramaNuevas);
-                }
-
-                Session[constSession] = oBEConsultorasProgramaNuevas ?? new BEConsultorasProgramaNuevas();
-            }
-            catch (Exception)
-            {
-                Session[constSession] = new BEConsultorasProgramaNuevas();
-            }
-
-            return (BEConsultorasProgramaNuevas)Session[constSession];
-        }
-
-        protected List<BEMensajeMetaConsultora> GetMensajeMetaConsultora(string constSession, string tipoMensaje)
-        {
-            constSession = constSession ?? "";
-            constSession = constSession.Trim();
-            if (constSession == "")
-                return new List<BEMensajeMetaConsultora>();
-
-            if (Session[constSession] != null)
-                return (List<BEMensajeMetaConsultora>)Session[constSession];
-
-            try
-            {
-                var lista = new List<BEMensajeMetaConsultora>();
-                var entity = new BEMensajeMetaConsultora();
-                entity.TipoMensaje = tipoMensaje ?? "";
-                using (PedidoServiceClient sv = new PedidoServiceClient())
-                {
-                    lista = sv.GetMensajeMetaConsultora(userData.PaisID, entity).ToList();
-                }
-
-                Session[constSession] = lista ?? new List<BEMensajeMetaConsultora>();
-            }
-            catch (Exception)
-            {
-                Session[constSession] = new List<BEMensajeMetaConsultora>();
-            }
-
-            return (List<BEMensajeMetaConsultora>)Session[constSession];
-        }
-
         protected Converter<decimal, string> CreateConverterDecimalToString(int paisID)
         {
             if (paisID == 4) return new Converter<decimal, string>(p => p.ToString("n0", new System.Globalization.CultureInfo("es-CO")));
@@ -1168,9 +1035,6 @@ namespace Portal.Consultoras.Web.Controllers
             return displayTiempo;
         }
 
-        #endregion
-
-        #region barra
         public BarraConsultoraModel GetDataBarra(bool inEscala = true, bool inMensaje = false)
         {
             var objR = new BarraConsultoraModel();
@@ -1298,9 +1162,67 @@ namespace Portal.Consultoras.Web.Controllers
 
             return listaEscalaDescuento;
         }
-        #endregion
 
-        #region Estado de Cuenta
+        protected BEConsultorasProgramaNuevas GetConsultorasProgramaNuevas(string constSession, string codigoPrograma)
+        {
+            constSession = constSession ?? "";
+            constSession = constSession.Trim();
+            if (constSession == "")
+                return new BEConsultorasProgramaNuevas();
+
+            if (Session[constSession] != null)
+                return (BEConsultorasProgramaNuevas)Session[constSession];
+
+            try
+            {
+                var oBEConsultorasProgramaNuevas = new BEConsultorasProgramaNuevas();
+                oBEConsultorasProgramaNuevas.CodigoConsultora = userData.CodigoConsultora;
+                oBEConsultorasProgramaNuevas.Campania = userData.CampaniaID.ToString();
+                oBEConsultorasProgramaNuevas.CodigoPrograma = codigoPrograma;
+                using (PedidoServiceClient sv = new PedidoServiceClient())
+                {
+                    oBEConsultorasProgramaNuevas = sv.GetConsultorasProgramaNuevas(userData.PaisID, oBEConsultorasProgramaNuevas);
+                }
+
+                Session[constSession] = oBEConsultorasProgramaNuevas ?? new BEConsultorasProgramaNuevas();
+            }
+            catch (Exception)
+            {
+                Session[constSession] = new BEConsultorasProgramaNuevas();
+            }
+
+            return (BEConsultorasProgramaNuevas)Session[constSession];
+        }
+
+        protected List<BEMensajeMetaConsultora> GetMensajeMetaConsultora(string constSession, string tipoMensaje)
+        {
+            constSession = constSession ?? "";
+            constSession = constSession.Trim();
+            if (constSession == "")
+                return new List<BEMensajeMetaConsultora>();
+
+            if (Session[constSession] != null)
+                return (List<BEMensajeMetaConsultora>)Session[constSession];
+
+            try
+            {
+                var lista = new List<BEMensajeMetaConsultora>();
+                var entity = new BEMensajeMetaConsultora();
+                entity.TipoMensaje = tipoMensaje ?? "";
+                using (PedidoServiceClient sv = new PedidoServiceClient())
+                {
+                    lista = sv.GetMensajeMetaConsultora(userData.PaisID, entity).ToList();
+                }
+
+                Session[constSession] = lista ?? new List<BEMensajeMetaConsultora>();
+            }
+            catch (Exception)
+            {
+                Session[constSession] = new List<BEMensajeMetaConsultora>();
+            }
+
+            return (List<BEMensajeMetaConsultora>)Session[constSession];
+        }
 
         public List<EstadoCuentaModel> ObtenerEstadoCuenta()
         {
@@ -1355,10 +1277,6 @@ namespace Portal.Consultoras.Web.Controllers
             return lst;
         }
 
-        #endregion
-
-        #region Obtener valores para el usuario de Hana
-
         private void ActualizarDatosHana(ref UsuarioModel model)
         {
             using (UsuarioServiceClient us = new UsuarioServiceClient())
@@ -1377,8 +1295,6 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-        #endregion
-
         private string CalcularNroCampaniaSiguiente(string CampaniaActual, int nroCampanias)
         {
             CampaniaActual = CampaniaActual ?? "";
@@ -1391,7 +1307,7 @@ namespace Portal.Consultoras.Web.Controllers
             return (Convert.ToInt32(campAct) + 1).ToString().PadLeft(2, '0');
         }
 
-        public List<ServiceSAC.BEProductoFaltante> GetModelPedidoAgotado(int PaisID, int CampaniaID, int ZonaID)
+        public List<BEProductoFaltante> GetModelPedidoAgotado(int PaisID, int CampaniaID, int ZonaID)
         {
             List<ServiceSAC.BEProductoFaltante> olstProductoFaltante = new List<ServiceSAC.BEProductoFaltante>();
             using (ServiceSAC.SACServiceClient sv = new ServiceSAC.SACServiceClient())
@@ -1401,9 +1317,9 @@ namespace Portal.Consultoras.Web.Controllers
             return olstProductoFaltante;
         }
 
-        public String GetFechaPromesaEntrega(int PaisId, int CampaniaId, string CodigoConsultora, DateTime FechaFact)
+        public string GetFechaPromesaEntrega(int PaisId, int CampaniaId, string CodigoConsultora, DateTime FechaFact)
         {
-            String sFecha = Convert.ToDateTime("2000-01-01").ToString();
+            string sFecha = Convert.ToDateTime("2000-01-01").ToString();
             DateTime Fecha = Convert.ToDateTime("2000-01-01");
             try
             {
@@ -1418,5 +1334,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             return sFecha;
         }
+
+        #endregion
     }
 }

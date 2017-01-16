@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Portal.Consultoras.Common;
+using System;
 using System.Configuration;
-//using System.IdentityModel.Services;
-using System.Linq;
-using System.Web;
-using System.Web.Security;
-using System.Web.UI;
-using System.Web.UI.WebControls;
 
 namespace Portal.Consultoras.Web.WebPages
 {
@@ -20,14 +14,13 @@ namespace Portal.Consultoras.Web.WebPages
         protected void btnRegresar_Click(object sender, EventArgs e)
         {
             Session["UserData"] = null;
+            Session.Clear();
             Session.Abandon();
 
-            //FederatedAuthentication.SessionAuthenticationModule.CookieHandler.Delete();
-            //FederatedAuthentication.SessionAuthenticationModule.DeleteSessionTokenCookie();
-            //FederatedAuthentication.WSFederationAuthenticationModule.SignOut(false);
-            //FormsAuthentication.SignOut();
+            Uri urlPortal = Util.GetUrlHost(Request);
+            string urlLogin = string.Format("{0}/Login", urlPortal.AbsolutePath);
 
-            Response.Redirect(ConfigurationManager.AppSettings.Get("URLSignOut"));
+            Response.Redirect(urlLogin);
         }
     }
 }
