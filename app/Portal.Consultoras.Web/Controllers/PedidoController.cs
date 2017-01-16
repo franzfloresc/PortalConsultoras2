@@ -4117,7 +4117,7 @@ namespace Portal.Consultoras.Web.Controllers
             var entidad = new BEEstrategia();
             entidad.PaisID = userData.PaisID;
             entidad.CampaniaID = userData.CampaniaID;
-            entidad.ConsultoraID = userData.ConsultoraID.ToString();
+            entidad.ConsultoraID = userData.UsuarioPrueba == 1 ? userData.ConsultoraAsociadaID.ToString() : userData.ConsultoraID.ToString();
             entidad.CUV2 = cuv ?? "";
             entidad.Zona = userData.ZonaID.ToString();
 

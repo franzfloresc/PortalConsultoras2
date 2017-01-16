@@ -31,8 +31,8 @@ namespace Portal.Consultoras.Web.Controllers
 
         public ActionResult Index()
         {
-            return Login();
-            //return View(new LoginModel() { listaPaises = DropDowListPaises() });
+            //return Login();
+            return View(new LoginModel() { listaPaises = DropDowListPaises() });
         }
 
         private ActionResult Login()
@@ -176,12 +176,12 @@ namespace Portal.Consultoras.Web.Controllers
 
         public ActionResult LogOut()
         {
-            return CerrarSesion();
+            //return CerrarSesion();
 
-            //Session["UserData"] = null;
-            //Session.Clear();
-            //Session.Abandon();
-            //return RedirectToAction("Index", "Login");
+            Session["UserData"] = null;
+            Session.Clear();
+            Session.Abandon();
+            return RedirectToAction("Index", "Login");
         }
 
         private ActionResult CerrarSesion()
@@ -443,6 +443,7 @@ namespace Portal.Consultoras.Web.Controllers
                     model.EsJoven = oBEUsuario.EsJoven;
                     model.PROLSinStock = oBEUsuario.PROLSinStock;
                     model.HoraCierreZonaDemAntiCierre = oBEUsuario.HoraCierreZonaDemAntiCierre;
+                    model.ConsultoraAsociadaID = oBEUsuario.ConsultoraAsociadaID;
 
                     if (DateTime.Now.AddHours(oBEUsuario.ZonaHoraria) < oBEUsuario.FechaInicioFacturacion)
                         model.DiaPROLMensajeCierreCampania = false;
