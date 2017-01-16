@@ -32235,7 +32235,7 @@ h1#penmostreo .campana {
     text-align: center;
 }
 .producto_set img{
-    width:66%;
+    width:86%;
    
 }
 .precio_set_dia{
@@ -32351,12 +32351,13 @@ h1#penmostreo .campana {
 .imagen_set_Oferta_pop{
     width: 240px;
     height: auto;
-    float:left;
-    /*margin-top: 5px;*/
+    float: left;
+    margin-left: 15px;
+    /* margin-top: 5px; */
     text-align: center;
 }
 .imagen_set_Oferta_pop img{
-    width:68%;
+    width:90%;
 }
 .descripcion_set_ofertaDia{
     margin: 0 auto;
@@ -32427,7 +32428,7 @@ h1#penmostreo .campana {
 }
 .right_set_hoy{
     float:left;
-    width:210px;
+    width:190px;
     margin-top: 45px;
 }
 .precio_valorizado_oferta{
@@ -32532,17 +32533,18 @@ h1#penmostreo .campana {
 }
 .content_tonos{
     width:100%;
-    margin-bottom:33px;
+    margin-bottom:15px;
 }
 .content_tonos_maquillaje{
     margin-top:15px;
     max-height:118px;
     overflow-y:auto;
+    overflow-x:hidden;
 }
 .content_tono_detalle {
     position: relative;
     width: 15%;
-    height: 36px;
+    height: 34px;
     margin-right: 2%;
     float: left;    
     margin-bottom: 5px;
@@ -32581,3 +32583,23 @@ h1#penmostreo .campana {
 .ficha_btn_agregar{
     width:162px; background:black; color:white; font-weight:400; letter-spacing:0.4px;
 }
+.tooltip_tono{
+    position: absolute;
+    top: -25px;
+    background: rgba(255,255,255,0.8);
+    color: black;
+    display: none;
+    font-family: 'Lato';
+    border: 1px solid black;
+    border-radius: 3px;
+    width: 53px;
+    text-align: center;
+    left: 0;
+    line-height: 11px;
+    padding: 2px;
+    z-index: 10;
+}
+.content_tono_detalle:hover .tooltip_tono{
+    display:block;
+}
+.tooltip_tono:nth-child(2n+1)
