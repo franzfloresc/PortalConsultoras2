@@ -166,6 +166,10 @@
         var urlInsertarProductoCompartido = '@Url.Action("InsertarProductoCompartido", "CatalogoPersonalizado", new { area = "" })';
 
         $(document).ready(function () {
+
+            //Pl20-1237
+            $('.footer-page').hide();
+
             $(".content_tono_detalle").on("click", function () {
 
                 $('.content_tono_detalle').removeClass('borde_seleccion_tono');
