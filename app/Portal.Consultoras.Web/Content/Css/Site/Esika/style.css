@@ -32486,7 +32486,8 @@ h1#penmostreo .campana {
     z-index: 1000;
     overflow: auto;
     display:none;
-}
+}
+
 .content_ficha_producto_nueva{
     width:686px;
     height:450px;
@@ -32494,7 +32495,8 @@ h1#penmostreo .campana {
     top:50%;
     margin:-225px auto auto auto;
     background:white;
-    padding:43px 51px;
+    padding:43px 51px;
+
 }
 
 /*FICHA PRODUCTO FAV DESKTOP*/
