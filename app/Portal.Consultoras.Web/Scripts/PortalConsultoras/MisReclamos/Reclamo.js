@@ -180,7 +180,31 @@ $(document).ready(function () {
         CambioPaso(3);
         DetalleCargar();
     }
+
+
+    $('#alertEMailDialogMensajes').dialog({
+        autoOpen: false,
+        resizable: false,
+        modal: true,
+        closeOnEscape: true,
+        width: 400,
+        draggable: true,
+        buttons:
+        {
+            "Aceptar": function () {
+                $(this).dialog('close');
+                $("#SolicitudEnviada").show();
+            }
+        }
+    });
 });
+
+function alertEMail_msg(message, titulo) {
+    titulo = titulo || "MENSAJE";
+    $('#alertEMailDialogMensajes .terminos_title_2').html(titulo);
+    $('#alertEMailDialogMensajes .pop_pedido_mensaje').html(message);
+    $('#alertEMailDialogMensajes').dialog('open');
+}
 
 // Paso 1
 function BuscarCUV(CUV) {
@@ -952,6 +976,8 @@ function SolicitudEnviar() {
     var item = {
         CDRWebID: $("#CDRWebID").val() || 0,
         PedidoID: $("#txtPedidoID").val() || 0,
+        Email: $("#txtEmail").val(),
+        Telefono: $("#txtTelefono").val(),
     };
     waitingDialog();
 
@@ -991,6 +1017,24 @@ function SolicitudEnviar() {
                     formatoCampania = data.cdrWeb.CampaniaID.toString().substring(0, 4) + "-" + data.cdrWeb.CampaniaID.toString().substring(4);
                 }
 
+            }
+
+            debugger;
+
+            if (data.Cantidad == 1) {
+                $("#spnSolicitudFechaCulminado").html(formatoFechaCulminado);
+                $("#spnSolicitudNumeroSolicitud").html(numeroSolicitud);
+                $("#spnSolicitudCampania").html(formatoCampania);
+                $("#divProcesoReclamo").hide();
+                $("#divUltimasSolicitudes").hide();
+
+                debugger;
+                //$("#divAceptarEMail").show();
+                alertEMail_msg(data.message, "MENSAJE")
+
+                $("#TituloReclamo").hide();
+
+                return false;
             }
 
             $("#spnSolicitudFechaCulminado").html(formatoFechaCulminado);

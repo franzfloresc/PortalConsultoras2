@@ -939,8 +939,40 @@ namespace Portal.Consultoras.Web.Controllers
                     listaCdrWeb = cdr.GetCDRWeb(userData.PaisID, cdrWeb).ToList();
                 }
 
+                int SiNoEmail = 0;
+                string cadena = "";
+                //Actualiza correo y telefono de la tabla Usuario
+                using (UsuarioServiceClient us = new UsuarioServiceClient())
+                {
+                    SiNoEmail = us.UpdateUsuarioEmailTelefono(userData.PaisID, cdrWeb.ConsultoraID, model.Email, model.Telefono);
+                }
+
+                //Proceso de envio de correo en caso el email sea nuevo.
+                if (SiNoEmail == 1)
+                {
+                    string[] parametros = new string[] { userData.CodigoUsuario, userData.PaisID.ToString(), userData.CodigoISO, model.Email };
+                    string param_querystring = Util.EncriptarQueryString(parametros);
+
+                    HttpRequestBase request = this.HttpContext.Request;
+
+                    cadena = cadena + "<br /><br /> Estimada consultora " + userData.NombreConsultora + " Para confirmar la dirección de correo electrónico ingresada haga click " +
+                                     "<br /> <a href='" + Util.GetUrlHost(request) + "WebPages/MailConfirmation.aspx?data=" + param_querystring + "'>aquí</a><br/><br/>Belcorp";//2442
+                    Util.EnviarMailMasivoColas("no-responder@somosbelcorp.com", model.Email, "(" + userData.CodigoISO + ") Confimacion de Correo", cadena, true, userData.NombreConsultora);
+
+
+                    return Json(new
+                    {
+                        Cantidad = SiNoEmail,
+                        success = true,
+                        message = "Sus datos se actualizaron correctamente.\n Se ha enviado un correo electrónico de verificación a la dirección ingresada.",
+                        extra = "",
+                        cdrWeb = listaCdrWeb.FirstOrDefault() ?? new BECDRWeb()
+                    }, JsonRequestBehavior.AllowGet);
+                }
+
                 return Json(new
                 {
+                    Cantidad = 0,
                     success = model.CDRWebID > 0,
                     message = model.CDRWebID > 0 ? "" : "Error, vuelva a intentarlo",
                     cdrWeb = listaCdrWeb.FirstOrDefault() ?? new BECDRWeb()                    

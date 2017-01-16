@@ -523,6 +523,18 @@ namespace Portal.Consultoras.Data
             return Convert.ToInt32(Context.ExecuteScalar(command));
         }
 
+        public int UpdateUsuarioEmailTelefono(long ConsultoraID, string Email, string Telefono)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.UpdUsuarioEMailCDRWeb");
+            Context.Database.AddInParameter(command, "@ConsultoraID", DbType.Int64, ConsultoraID);
+            Context.Database.AddInParameter(command, "@EMail", DbType.String, Email);
+            Context.Database.AddInParameter(command, "@Telefono", DbType.String, Telefono);
+            Context.Database.AddOutParameter(command, "@RetornoSiNoCorreoNuevo", DbType.Int32, 10);
+            Context.ExecuteNonQuery(command);
+
+            return Convert.ToInt32(command.Parameters["@RetornoSiNoCorreoNuevo"].Value);
+        }
+        
         /*PL20-1226*/
         //public int GetEsOfertaDelDia(int codCampania, string codConsultora, DateTime fechaInicioFact)
         //{
