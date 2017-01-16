@@ -134,7 +134,7 @@ $(document).ready(function () {
             return false;
         }
 
-        $('hdePaisID').val(PaisID);
+        $('#HdePaisID').val(PaisID);
         $('#ddlPais option:not(:selected)').prop('disabled', true);
         $('#txtUsuario').attr('readonly', true);
         $('#txtContrasenia').attr('readonly', true);

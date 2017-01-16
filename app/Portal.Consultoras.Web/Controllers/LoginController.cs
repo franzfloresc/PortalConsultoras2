@@ -75,7 +75,7 @@ namespace Portal.Consultoras.Web.Controllers
                 //cboPaisCambioClave.SelectedValue = getValByISO(val);
             }
 
-            var model = new LoginModel();
+            var model = new UsuarioModel();
             model.listaPaises = DropDowListPaises();
 
             return View(model);
@@ -90,10 +90,10 @@ namespace Portal.Consultoras.Web.Controllers
                 BEValidaLoginSB2 validaLogin = null;
                 using (UsuarioServiceClient svc = new UsuarioServiceClient())
                 {
-                    if (model.PaisID == 0)
-                        model.PaisID = model.HdePaisID;
+                    //if (model.PaisID == 0)
+                    //    model.PaisID = model.HdePaisID;
 
-                    validaLogin = svc.GetValidarLoginSB2(model.PaisID, model.CodigoUsuario, model.ClaveSecreta);
+                    validaLogin = svc.GetValidarLoginSB2(model.HdePaisID, model.CodigoUsuario, model.ClaveSecreta);
                 }
 
                 if (validaLogin.Result == 3)
@@ -101,7 +101,7 @@ namespace Portal.Consultoras.Web.Controllers
                     if (string.IsNullOrEmpty(model.CodigoConsultora))
                         model.CodigoConsultora = model.CodigoUsuario;
 
-                    UsuarioModel usuario = GetUserData(model.PaisID, model.CodigoConsultora, 1);
+                    UsuarioModel usuario = GetUserData(model.HdePaisID, model.CodigoConsultora, 1);
                     if (usuario != null)
                     {
                         if (usuario.RolID == Portal.Consultoras.Common.Constantes.Rol.Consultora)

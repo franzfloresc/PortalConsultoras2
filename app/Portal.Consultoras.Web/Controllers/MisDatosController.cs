@@ -90,12 +90,11 @@ namespace Portal.Consultoras.Web.Controllers
                     int resultExiste;
                     bool result;
 
-                    //el valor de CodigoConsultora es en realidad el codigo de usuario.
-                    resultExiste = sv.ExisteUsuario(userData.PaisID, userData.CodigoConsultora, OldPassword);
+                    resultExiste = sv.ExisteUsuario(userData.PaisID, userData.CodigoUsuario, OldPassword);
 
                     if (resultExiste == Constantes.ValidacionExisteUsuario.Existe)
                     {
-                        result = sv.CambiarClaveUsuario(userData.PaisID, userData.CodigoISO, userData.CodigoConsultora,
+                        result = sv.CambiarClaveUsuario(userData.PaisID, userData.CodigoISO, userData.CodigoUsuario,
                             NewPassword, "", userData.CodigoUsuario, EAplicacionOrigen.MisDatosConsultora);
 
                         rslt = result ? 2 : 1;
