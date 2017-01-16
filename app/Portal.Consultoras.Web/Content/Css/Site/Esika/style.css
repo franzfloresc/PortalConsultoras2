@@ -32612,7 +32612,7 @@ h1#penmostreo .campana {
 }
 .tooltip_tono{
     position: absolute;
-    top: -25px;
+    top: 11px;
     background: rgba(255,255,255,0.8);
     color: black;
     display: none;
@@ -32625,6 +32625,7 @@ h1#penmostreo .campana {
     line-height: 11px;
     padding: 2px;
     z-index: 10;
+    overflow: hidden;
 }
 .content_tono_detalle:hover .tooltip_tono{
     display:block;
