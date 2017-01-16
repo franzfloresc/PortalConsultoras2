@@ -823,7 +823,7 @@ function alert_msg_pedido(message) {
 }
 
 function DialogLoadingCerrar() {
-    console.log('DialogLoadingCerrar');
+    //console.log('DialogLoadingCerrar');
     if (tipoOrigen == '2') {
         CloseLoading();
     }
@@ -958,7 +958,7 @@ function mostrarFichaProductoFAV2(cuv) {
         success: function (response) {
             if (response.success) {
                 var _data = response.data;
-                console.log(_data);
+                //console.log(_data);
                 var content = SetHandlebars("#template-fichaproductofav", _data);
                 $('#PopFichaProductoNueva').html(content);
                 $('#PopFichaProductoNueva').show();
@@ -1000,11 +1000,11 @@ function cambiarInfoFichaProductoFAV(tipo, cuv) {
             var scuv = $('#fav_tonobulk_' + xcuv).val();
             result = $.grep(dataFichaProductoFAV, function (e) { return e.CUV == scuv; });
         }
-        console.log(result);
+        //console.log(result);
 
         if (result != null && result.length > 0) {
             var obj = result[0];
-            console.log(obj);
+            //console.log(obj);
             var container = $('#PopFichaProductoNueva');
             container.find('#fav_imagen_prod').attr('src', obj.ImagenProductoSugerido);
             container.find('#fav_nombre_prod').text(obj.Descripcion);
@@ -1034,7 +1034,7 @@ function agregarCuvPedidoFichaProductoFAV(tipo) {
             }
 
             tipoOrigen = tipo;
-            console.log(container);
+            //console.log(container);
 
             if (ReservadoOEnHorarioRestringido())
                 return false;

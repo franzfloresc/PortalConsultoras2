@@ -26,6 +26,11 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
         public ActionResult Producto(FichaProductoFAVModel model)
         {
+            if (string.IsNullOrEmpty(model.CUVFP))
+            {
+                return RedirectToAction("Index");
+            }
+
             ProductoModel model2 = new ProductoModel();
             if (Session["ProductosCatalogoPersonalizado"] != null)
             {
@@ -39,6 +44,11 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                         model2 = xitem;
                     }
                 }
+            }
+
+            if (string.IsNullOrEmpty(model2.CUV))
+            {
+                return RedirectToAction("Index");
             }
 
             return View(model2);

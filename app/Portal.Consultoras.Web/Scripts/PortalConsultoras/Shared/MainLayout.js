@@ -38,42 +38,24 @@ $(document).ready(function () {
         }
     });
 
+    /*PL20-1226*/
+
     $('.Content_general_pop_up').click(function (e) {
-        if ($('#PopFichaProductoNueva').is(':visible')) {
-            $('#PopFichaProductoNueva').hide();
+        if (!$(e.target).closest('.content_ficha_producto_nueva').length) {
+            if ($('#PopFichaProductoNueva').is(':visible')) {
+                $('#PopFichaProductoNueva').hide();
+            }
         }
     });
 
     $('.contenedor_popup_detalleCarousel').click(function (e) {
-        if ($('#popupDetalleCarousel_lanzamiento').is(':visible')) {
-            $('#popupDetalleCarousel_lanzamiento').hide();
-        }
-    });
-
-
-    $(document).keyup(function (e) {
-        if (e.keyCode == 27) { // esc keycode
-            if ($('#PopOfertaDia').is(':visible')) {
-                $('#PopOfertaDia').slideUp(); 
-                $('.circulo_hoy span').html('+');
-                showDisplayODD = 0;
+        if (!$(e.target).closest('.popup_detalleCarousel').length) {
+            if ($('#popupDetalleCarousel_lanzamiento').is(':visible')) {
+                $('#popupDetalleCarousel_lanzamiento').hide();
             }
         }
     });
 
-    $('body').click(function (e) {
-        if (!$(e.target).closest('#OfertaDelDia').length) {
-            if ($('#PopOfertaDia').is(':visible')) {
-                if (showDisplayODD == 1) {
-                    $('#PopOfertaDia').slideUp();
-                    $('.circulo_hoy span').html('+');
-                    showDisplayODD = 0;
-                }
-            }
-        }
-        
-    });
-    /*PL20-1226*/
     waitingDialog();
 
     MensajeEstadoPedido();
