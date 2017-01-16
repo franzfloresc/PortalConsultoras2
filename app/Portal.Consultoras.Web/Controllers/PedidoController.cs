@@ -4094,6 +4094,7 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpGet]
         public JsonResult JsonConsultarEstrategias(string cuv)
         {
+            
             List<BEEstrategia> lst = ConsultarEstrategias(cuv ?? "");
             var listModel = Mapper.Map<List<BEEstrategia>, List<EstrategiaPedidoModel>>(lst);
 
@@ -4849,6 +4850,143 @@ namespace Portal.Consultoras.Web.Controllers
 
             Session["ProductosOfertaFinal"] = listaProductoModel;
             return listaProductoModel;
+        }
+
+        /*PL20-1226*/
+        public JsonResult GetOfertaDelDia()
+        {
+            try
+            {
+                var oddModel = this.GetOfertaDelDiaModel();
+                return Json(new
+                {
+                    success = oddModel != null,
+                    data = oddModel
+                }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return Json(new
+                {
+                    success = false,
+                    message = "No se pudo procesar la solicitud"
+                }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        public JsonResult CloseOfertaDelDia()
+        {
+            try
+            {
+                userData.CloseOfertaDelDia = true;
+                Session["UserData"] = userData;
+
+                return Json(new
+                {
+                    success = true,
+                }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return Json(new
+                {
+                    success = false,
+                    message = "No se pudo procesar la solicitud"
+                }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        public JsonResult GetQtyPedidoDetalleByCuvODD(string cuv, string tipoEstrategiaID)
+        {
+            try
+            {
+                var qty = 0;
+                var lstPedidoDetalle = ObtenerPedidoWebDetalle();
+
+                if (lstPedidoDetalle.Any())
+                {
+                    foreach (var item in lstPedidoDetalle)
+                    {
+                        if (item.TipoOfertaSisID == int.Parse(tipoEstrategiaID)
+                            && item.CUV.Trim().Contains(cuv.Trim()))
+                        {
+                            qty = item.Cantidad;
+                            break;
+                        }
+                    }
+                }
+
+                return Json(new
+                {
+                    success = true,
+                    cantidad = qty
+                }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return Json(new
+                {
+                    success = false,
+                    message = "No se pudo procesar la solicitud"
+                }, JsonRequestBehavior.AllowGet);
+            }
+        }
+        public JsonResult CloseBannerPL20()
+        {
+            try
+            {
+                userData.CloseBannerPL20 = true;
+                Session["UserData"] = userData;
+
+                return Json(new
+                {
+                    success = true,
+                }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return Json(new
+                {
+                    success = false,
+                    message = "No se pudo procesar la solicitud"
+                }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        /*PL20-1226*/
+
+        //PL20-1265
+        public JsonResult GetProductoFichaOPT(string pCuv)
+        {
+            try
+            {
+                //List<BEEstrategia> lst2 = new List<BEEstrategia>();
+                List<BEEstrategia> lst = (List<BEEstrategia>)Session["ListadoEstrategiaPedido"];
+                BEEstrategia objProOPT = lst.FirstOrDefault(p => p.CUV2 == pCuv) ?? new BEEstrategia();
+                //lst2 = lst.Where(g => g.CUV2 == pCuv).ToList();
+
+                return Json(new
+                {
+                    success = true,
+                    message = "OK",
+                    data = objProOPT
+                });
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return Json(new
+                {
+                    success = false,
+                    message = ex.Message,
+                    data = ""
+                    //limiteJetlore = 0
+                });
+            }
         }
     }
 }

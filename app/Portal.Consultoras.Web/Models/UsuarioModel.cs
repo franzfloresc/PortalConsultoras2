@@ -299,6 +299,15 @@ namespace Portal.Consultoras.Web.Models
         public int CerrarRechazado { get; set; }
         public string NombreGerenteZonal { get; set; }  // SB20-907
         public decimal MontoDeuda { get; set; }
-        public string MontoMinimoFlexipago { get; set; } 
+        public string MontoMinimoFlexipago { get; set; }
+
+        /*PL20-1226*/
+        public int EsOfertaDelDia { get; set; }
+        public bool TieneOfertaDelDia { get; set; }
+        public OfertaDelDiaModel OfertaDelDia { get; set; }
+        public bool CloseOfertaDelDia { get; set; }
+        public bool CloseBannerPL20 { get; set; }
+        public bool EsDiasFacturacion { get; set; }
+        /*PL20-1226*/
     }
 }

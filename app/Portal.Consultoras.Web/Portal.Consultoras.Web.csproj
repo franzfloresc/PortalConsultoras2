@@ -374,8 +374,10 @@
     <Compile Include="Models\ClienteOnlineDetalleModel.cs" />
     <Compile Include="Models\ClienteSb2Model.cs" />
     <Compile Include="Models\BarraConsultoraModel.cs" />
+    <Compile Include="Models\ComunModel.cs" />
     <Compile Include="Models\EstrategiaPedidoModel.cs" />
     <Compile Include="Models\ConsultarValidacionTelefonicaModel.cs" />
+    <Compile Include="Models\FichaProductoFAVModel.cs" />
     <Compile Include="Models\FiltroResultadoModel.cs" />
     <Compile Include="Models\GestionParametroPageModel.cs" />
     <Compile Include="Models\MisPagosModel.cs" />
@@ -453,6 +455,7 @@
     <Compile Include="Models\NivelesRiesgoModel.cs" />
     <Compile Include="Models\NotificacionesModelDetallePedido.cs" />
     <Compile Include="Models\NotificacionesModel.cs" />
+    <Compile Include="Models\OfertaDelDiaModel.cs" />
     <Compile Include="Models\OfertaFlexipagoModel.cs" />
     <Compile Include="Models\OfertaFICModel.cs" />
     <Compile Include="Models\OfertaLiquidacionModel.cs" />
@@ -477,6 +480,7 @@
     <Compile Include="Models\PercepcionesModel.cs" />
     <Compile Include="Models\PermisoModel.cs" />
     <Compile Include="Models\PosicionBannerPedidoModel.cs" />
+    <Compile Include="Models\ProductoCompartidoModel.cs" />
     <Compile Include="Models\ProductoFaltanteModel.cs" />
     <Compile Include="Models\ProveedorDespachoCobranzaModel.cs" />
     <Compile Include="Models\RechazoModel.cs" />
@@ -493,6 +497,7 @@
     <Compile Include="Models\RVDigitalPaqueteDocumentarioModel.cs" />
     <Compile Include="Models\ServicioCampaniaModel.cs" />
     <Compile Include="Models\ServicioModel.cs" />
+    <Compile Include="Models\ShowRoomBannerLateralModel.cs" />
     <Compile Include="Models\ShowRoomEventoModel.cs" />
     <Compile Include="Models\ShowRoomOfertaDetalleModel.cs" />
     <Compile Include="Models\ShowRoomOfertaModel.cs" />
@@ -510,6 +515,13 @@
     <Compile Include="Models\ValidacionStockModel.cs" />
     <Compile Include="Models\ValidacionTelefonicaModel.cs" />
     <Compile Include="Models\ZonaModel.cs" />
+    <Compile Include="Pdto.aspx.cs">
+      <DependentUpon>Pdto.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pdto.aspx.designer.cs">
+      <DependentUpon>Pdto.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Settings1.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -1077,6 +1089,7 @@
     <Content Include="Content\Css\Mobile\esika\slick.css" />
     <Content Include="Content\Css\Mobile\esika\style.css" />
     <Content Include="Content\Css\Mobile\esika\theme.css" />
+    <Content Include="Content\Css\Mobile\flexslider.css" />
     <Content Include="Content\Css\Mobile\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Content\Css\Mobile\fonts\icomoon.eot" />
     <Content Include="Content\Css\Mobile\fonts\icomoon.svg" />
@@ -1096,6 +1109,7 @@
     <Content Include="Content\Css\Site\Esika\reset.css" />
     <Content Include="Content\Css\Site\Esika\style.css" />
     <Content Include="Content\Css\Site\flexslider.css" />
+    <Content Include="Content\Css\Site\flipclock.css" />
     <Content Include="Content\Css\Site\fonts\flexslider-icon.svg" />
     <Content Include="Content\Css\Site\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Content\Css\Site\fonts\icomoon.svg" />
@@ -1359,6 +1373,7 @@
     <Content Include="Content\Images\carrusel_p.png" />
     <Content Include="Content\Images\catalogos.png" />
     <Content Include="Content\Images\cerrar_04.png" />
+    <Content Include="Content\Images\cerrar_04_blanco.png" />
     <Content Include="Content\Images\Esika\background_pedido.png" />
     <Content Include="Content\Images\Esika\Banner_Esika.jpg" />
     <Content Include="Content\Images\Esika\banner_misBeneficios.png" />
@@ -2245,6 +2260,14 @@
     <Content Include="Content\Images\paypal_exito.png" />
     <Content Include="Content\Images\paypal_tarjetas.png" />
     <Content Include="Content\Images\PE_2014813641_01_pibfepfhqu.jpg" />
+    <Content Include="Content\Images\PL20\fondo_oferta.jpg" />
+    <Content Include="Content\Images\PL20\fondo_pop.png" />
+    <Content Include="Content\Images\PL20\mas.png" />
+    <Content Include="Content\Images\PL20\menos.png" />
+    <Content Include="Content\Images\PL20\regresar.png" />
+    <Content Include="Content\Images\PL20\set_hoy.png" />
+    <Content Include="Content\Images\PL20\solo_hoy.png" />
+    <Content Include="Content\Images\PL20\textura_fondo.png" />
     <Content Include="Content\Images\Pop Up Navidad 2-01.png" />
     <Content Include="Content\Images\Pop Up Navidad 2-02.png" />
     <Content Include="Content\Images\Pop Up Navidad 2-04.png" />
@@ -2394,6 +2417,7 @@
     <Content Include="Global.asax" />
     <Content Include="Key\KeyPrivadaEnvioCadena.xml" />
     <Content Include="Key\KeyPublicaEnvioCadena.xml" />
+    <Content Include="Pdto.aspx" />
     <Content Include="Scripts\accordion.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -2405,6 +2429,7 @@
     <Content Include="Scripts\DD_roundies.js" />
     <Content Include="Scripts\donetyping.js" />
     <Content Include="Scripts\fileuploader.min.js" />
+    <Content Include="Scripts\flipclock.js" />
     <Content Include="Scripts\fuzemodal-1.3\fuzemodal-1.3.1.min.js" />
     <Content Include="Scripts\fuzemodal-1.3\fuzemodal-1.3.2.min.js" />
     <Content Include="Scripts\fuzemodal-1.3\fuzemodal-1.3.css" />
@@ -2673,6 +2698,7 @@
     <Content Include="Areas\Mobile\Views\Catalogo\MiRevista.cshtml" />
     <Content Include="Areas\Mobile\Views\TerminosYCondiciones\Index.cshtml" />
     <Content Include="Content\FAQ\41577-BELCORP-SolCre-CO-400073315-300916.pdf" />
+    <Content Include="Areas\Mobile\Views\CatalogoPersonalizado\Producto.cshtml" />
     <None Include="Service References\ServiceCDR\CDRService.wsdl" />
     <None Include="Service References\ServiceCDR\CDRService.xsd">
       <SubType>Designer</SubType>
@@ -2695,14 +2721,14 @@
     </None>
     <None Include="Service References\ServiceProductoCatalogoPersonalizado\configuration91.svcinfo" />
     <None Include="Service References\ServiceProductoCatalogoPersonalizado\configuration.svcinfo" />
-    <None Include="Service References\ServiceProductoCatalogoPersonalizado\ProductoService.wsdl" />
-    <None Include="Service References\ServiceProductoCatalogoPersonalizado\ProductoService.xsd">
+    <None Include="Service References\ServiceProductoCatalogoPersonalizado\ProductoService1.wsdl" />
+    <None Include="Service References\ServiceProductoCatalogoPersonalizado\ProductoService3.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\ServiceProductoCatalogoPersonalizado\ProductoService1.xsd">
+    <None Include="Service References\ServiceProductoCatalogoPersonalizado\ProductoService4.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\ServiceProductoCatalogoPersonalizado\ProductoService2.xsd">
+    <None Include="Service References\ServiceProductoCatalogoPersonalizado\ProductoService5.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\ServiceProductoCatalogoPersonalizado\Reference.svcmap">
@@ -3065,7 +3091,7 @@
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
-    <None Include="Service References\ServiceProductoCatalogoPersonalizado\ProductoService.disco" />
+    <None Include="Service References\ServiceProductoCatalogoPersonalizado\ProductoService1.disco" />
     <Content Include="Service References\ServiceSAC\Portal.Consultoras.Web.ServiceSAC.BEBannerPedido.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Content>
