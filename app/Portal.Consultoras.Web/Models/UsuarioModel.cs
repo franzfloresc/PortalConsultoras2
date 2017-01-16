@@ -304,5 +304,13 @@ namespace Portal.Consultoras.Web.Models
         public string MontoMinimoFlexipago { get; set; }
 
         public IEnumerable<PaisModel> listaPaises { get; set; }
+        
+        /*PL20-1226*/
+        public int EsOfertaDelDia { get; set; }
+        public bool TieneOfertaDelDia { get; set; }
+        public OfertaDelDiaModel OfertaDelDia { get; set; }
+        public bool CloseOfertaDelDia { get; set; }
+        public bool EsDiasFacturacion { get; set; }
+        /*PL20-1226*/
     }
 }

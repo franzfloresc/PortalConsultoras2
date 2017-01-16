@@ -1689,5 +1689,46 @@ namespace Portal.Consultoras.Service
         {
             return BLPedidoWeb.GetPedidosFacturadoSegunDias(paisID, campaniaID, consultoraID, maxDias);
         }
+
+        public int GetCantidadOfertasParaTi(int paisId, int campaniaId, int tipoConfigurado)
+        {
+            return new BLEstrategia().GetCantidadOfertasParaTi(paisId, campaniaId, tipoConfigurado);
+        }
+
+        public List<BEEstrategia> GetOfertasParaTiByTipoConfigurado(int paisId, int campaniaId, int tipoConfigurado)
+        {
+            return new BLEstrategia().GetOfertasParaTiByTipoConfigurado(paisId, campaniaId, tipoConfigurado);
+        }
+
+        public int InsertEstrategiaTemporal(int paisId, List<BEEstrategia> lista, int campaniaId, string codigoUsuario)
+        {
+            return new BLEstrategia().InsertEstrategiaTemporal(paisId, lista, campaniaId, codigoUsuario);
+        }
+
+        public int GetCantidadOfertasParaTiTemporal(int paisId, int campaniaId, int tipoConfigurado)
+        {
+            return new BLEstrategia().GetCantidadOfertasParaTiTemporal(paisId, campaniaId, tipoConfigurado);
+        }
+
+        public List<BEEstrategia> GetOfertasParaTiByTipoConfiguradoTemporal(int paisId, int campaniaId, int tipoConfigurado)
+        {
+            return new BLEstrategia().GetOfertasParaTiByTipoConfiguradoTemporal(paisId, campaniaId, tipoConfigurado);
+        }
+
+        public int DeleteEstrategiaTemporal(int paisId, int campaniaId)
+        {
+            return new BLEstrategia().DeleteEstrategiaTemporal(paisId, campaniaId);
+        }
+
+        public int InsertEstrategiaOfertaParaTi(int paisId, List<BEEstrategia> lista, int campaniaId, string codigoUsuario)
+        {
+            return new BLEstrategia().InsertEstrategiaOfertaParaTi(paisId, lista, campaniaId, codigoUsuario);
+        }
+        
+        /*PL20-1226*/
+        public List<BEEstrategia> GetEstrategiaODD(int paisID, int codCampania, string codConsultora, DateTime fechaInicioFact)
+        {
+            return new BLEstrategia().GetEstrategiaODD(paisID, codCampania, codConsultora, fechaInicioFact);
+        }
     }
 }

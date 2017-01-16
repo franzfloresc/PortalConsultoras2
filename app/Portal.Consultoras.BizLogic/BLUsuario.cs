@@ -225,6 +225,12 @@ namespace Portal.Consultoras.BizLogic
                         usuario.IndicadorEnviado = configuracion.IndicadorEnviado;
                         usuario.IndicadorRechazado = configuracion.IndicadorRechazado;
                         usuario.FechaActualPais = configuracion.FechaActualPais;
+
+                        /*PL20-1226*/
+                        //if (usuario.OfertaDelDia)
+                        //{
+                        //    usuario.EsOfertaDelDia = DAUsuario.GetEsOfertaDelDia(usuario.CampaniaID, usuario.CodigoConsultora, usuario.FechaInicioFacturacion);
+                        //}
                     }
                 }
             }
@@ -1099,6 +1105,12 @@ namespace Portal.Consultoras.BizLogic
             return consultora;
         }
         
+        public int UpdateUsuarioEmailTelefono(int paisID, long ConsultoraID, string Email, string Telefono)
+        {
+            var DAUsuario = new DAUsuario(paisID);
+            return DAUsuario.UpdateUsuarioEmailTelefono(ConsultoraID, Email, Telefono);
+        }
+
         public bool CambiarClaveUsuario(int paisId, string paisIso, string codigoUsuario, string nuevacontrasena, string correo, string codigoUsuarioAutenticado, EAplicacionOrigen origen)
         {
             bool resultado;
