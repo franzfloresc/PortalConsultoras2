@@ -1,4 +1,5 @@
-use [BelcorpBolivia]
+
+USE [BelcorpBolivia]
 GO
 /****** Object:  StoredProcedure [dbo].[InsProductoCompartido]    Script Date: 06/01/2017 16:51:22 ******/
 SET ANSI_NULLS ON
@@ -7,7 +8,15 @@ SET QUOTED_IDENTIFIER ON
 GO
 -- InsProductoCompartido 201701,00037,'FAV','/..../../','w'
 
-CREATE PROC [dbo].[InsProductoCompartido]
+IF EXISTS(SELECT 1 FROM sys.procedures 
+          WHERE object_id = OBJECT_ID(N'dbo.InsProductoCompartido'))
+BEGIN
+    DROP PROCEDURE dbo.InsProductoCompartido
+END
+
+GO
+
+CREATE PROCEDURE [dbo].[InsProductoCompartido]
 (
 @ProductoCompCampaniaID int,
 @ProductoCompCUV varchar(20),
@@ -18,7 +27,7 @@ CREATE PROC [dbo].[InsProductoCompartido]
 )
 as
 BEGIN
-	if not exists (select * from [dbo].[ProductoCompartido] where CampaniaID = @ProductoCompCampaniaID 
+	if not exists (select 1 from [dbo].[ProductoCompartido] where CampaniaID = @ProductoCompCampaniaID 
 	and CUV = @ProductoCompCUV and Palanca = @ProductoCompPalanca)
 	BEGIN
 		insert into [dbo].[ProductoCompartido]
@@ -48,9 +57,12 @@ BEGIN
 			and CUV = @ProductoCompCUV and Palanca = @ProductoCompPalanca
 	END
 END
-go
 
-use [BelcorpChile]
+GO
+
+/*end*/
+
+USE [BelcorpChile]
 GO
 /****** Object:  StoredProcedure [dbo].[InsProductoCompartido]    Script Date: 06/01/2017 16:51:22 ******/
 SET ANSI_NULLS ON
@@ -59,7 +71,15 @@ SET QUOTED_IDENTIFIER ON
 GO
 -- InsProductoCompartido 201701,00037,'FAV','/..../../','w'
 
-CREATE PROC [dbo].[InsProductoCompartido]
+IF EXISTS(SELECT 1 FROM sys.procedures 
+          WHERE object_id = OBJECT_ID(N'dbo.InsProductoCompartido'))
+BEGIN
+    DROP PROCEDURE dbo.InsProductoCompartido
+END
+
+GO
+
+CREATE PROCEDURE [dbo].[InsProductoCompartido]
 (
 @ProductoCompCampaniaID int,
 @ProductoCompCUV varchar(20),
@@ -70,7 +90,7 @@ CREATE PROC [dbo].[InsProductoCompartido]
 )
 as
 BEGIN
-	if not exists (select * from [dbo].[ProductoCompartido] where CampaniaID = @ProductoCompCampaniaID 
+	if not exists (select 1 from [dbo].[ProductoCompartido] where CampaniaID = @ProductoCompCampaniaID 
 	and CUV = @ProductoCompCUV and Palanca = @ProductoCompPalanca)
 	BEGIN
 		insert into [dbo].[ProductoCompartido]
@@ -100,10 +120,12 @@ BEGIN
 			and CUV = @ProductoCompCUV and Palanca = @ProductoCompPalanca
 	END
 END
-go
 
+GO
 
-use [BelcorpColombia]
+/*end*/
+
+USE [BelcorpColombia]
 GO
 /****** Object:  StoredProcedure [dbo].[InsProductoCompartido]    Script Date: 06/01/2017 16:51:22 ******/
 SET ANSI_NULLS ON
@@ -112,7 +134,15 @@ SET QUOTED_IDENTIFIER ON
 GO
 -- InsProductoCompartido 201701,00037,'FAV','/..../../','w'
 
-CREATE PROC [dbo].[InsProductoCompartido]
+IF EXISTS(SELECT 1 FROM sys.procedures 
+          WHERE object_id = OBJECT_ID(N'dbo.InsProductoCompartido'))
+BEGIN
+    DROP PROCEDURE dbo.InsProductoCompartido
+END
+
+GO
+
+CREATE PROCEDURE [dbo].[InsProductoCompartido]
 (
 @ProductoCompCampaniaID int,
 @ProductoCompCUV varchar(20),
@@ -123,7 +153,7 @@ CREATE PROC [dbo].[InsProductoCompartido]
 )
 as
 BEGIN
-	if not exists (select * from [dbo].[ProductoCompartido] where CampaniaID = @ProductoCompCampaniaID 
+	if not exists (select 1 from [dbo].[ProductoCompartido] where CampaniaID = @ProductoCompCampaniaID 
 	and CUV = @ProductoCompCUV and Palanca = @ProductoCompPalanca)
 	BEGIN
 		insert into [dbo].[ProductoCompartido]
@@ -153,11 +183,12 @@ BEGIN
 			and CUV = @ProductoCompCUV and Palanca = @ProductoCompPalanca
 	END
 END
-go
 
+GO
 
+/*end*/
 
-use [BelcorpCostaRica]
+USE [BelcorpCostaRica]
 GO
 /****** Object:  StoredProcedure [dbo].[InsProductoCompartido]    Script Date: 06/01/2017 16:51:22 ******/
 SET ANSI_NULLS ON
@@ -166,7 +197,15 @@ SET QUOTED_IDENTIFIER ON
 GO
 -- InsProductoCompartido 201701,00037,'FAV','/..../../','w'
 
-CREATE PROC [dbo].[InsProductoCompartido]
+IF EXISTS(SELECT 1 FROM sys.procedures 
+          WHERE object_id = OBJECT_ID(N'dbo.InsProductoCompartido'))
+BEGIN
+    DROP PROCEDURE dbo.InsProductoCompartido
+END
+
+GO
+
+CREATE PROCEDURE [dbo].[InsProductoCompartido]
 (
 @ProductoCompCampaniaID int,
 @ProductoCompCUV varchar(20),
@@ -177,7 +216,7 @@ CREATE PROC [dbo].[InsProductoCompartido]
 )
 as
 BEGIN
-	if not exists (select * from [dbo].[ProductoCompartido] where CampaniaID = @ProductoCompCampaniaID 
+	if not exists (select 1 from [dbo].[ProductoCompartido] where CampaniaID = @ProductoCompCampaniaID 
 	and CUV = @ProductoCompCUV and Palanca = @ProductoCompPalanca)
 	BEGIN
 		insert into [dbo].[ProductoCompartido]
@@ -207,11 +246,12 @@ BEGIN
 			and CUV = @ProductoCompCUV and Palanca = @ProductoCompPalanca
 	END
 END
-go
 
+GO
 
+/*end*/
 
-use [BelcorpDominicana]
+USE [BelcorpDominicana]
 GO
 /****** Object:  StoredProcedure [dbo].[InsProductoCompartido]    Script Date: 06/01/2017 16:51:22 ******/
 SET ANSI_NULLS ON
@@ -220,7 +260,15 @@ SET QUOTED_IDENTIFIER ON
 GO
 -- InsProductoCompartido 201701,00037,'FAV','/..../../','w'
 
-CREATE PROC [dbo].[InsProductoCompartido]
+IF EXISTS(SELECT 1 FROM sys.procedures 
+          WHERE object_id = OBJECT_ID(N'dbo.InsProductoCompartido'))
+BEGIN
+    DROP PROCEDURE dbo.InsProductoCompartido
+END
+
+GO
+
+CREATE PROCEDURE [dbo].[InsProductoCompartido]
 (
 @ProductoCompCampaniaID int,
 @ProductoCompCUV varchar(20),
@@ -231,7 +279,7 @@ CREATE PROC [dbo].[InsProductoCompartido]
 )
 as
 BEGIN
-	if not exists (select * from [dbo].[ProductoCompartido] where CampaniaID = @ProductoCompCampaniaID 
+	if not exists (select 1 from [dbo].[ProductoCompartido] where CampaniaID = @ProductoCompCampaniaID 
 	and CUV = @ProductoCompCUV and Palanca = @ProductoCompPalanca)
 	BEGIN
 		insert into [dbo].[ProductoCompartido]
@@ -261,11 +309,12 @@ BEGIN
 			and CUV = @ProductoCompCUV and Palanca = @ProductoCompPalanca
 	END
 END
-go
 
+GO
 
+/*end*/
 
-use [BelcorpEcuador]
+USE [BelcorpEcuador]
 GO
 /****** Object:  StoredProcedure [dbo].[InsProductoCompartido]    Script Date: 06/01/2017 16:51:22 ******/
 SET ANSI_NULLS ON
@@ -274,7 +323,15 @@ SET QUOTED_IDENTIFIER ON
 GO
 -- InsProductoCompartido 201701,00037,'FAV','/..../../','w'
 
-CREATE PROC [dbo].[InsProductoCompartido]
+IF EXISTS(SELECT 1 FROM sys.procedures 
+          WHERE object_id = OBJECT_ID(N'dbo.InsProductoCompartido'))
+BEGIN
+    DROP PROCEDURE dbo.InsProductoCompartido
+END
+
+GO
+
+CREATE PROCEDURE [dbo].[InsProductoCompartido]
 (
 @ProductoCompCampaniaID int,
 @ProductoCompCUV varchar(20),
@@ -285,7 +342,7 @@ CREATE PROC [dbo].[InsProductoCompartido]
 )
 as
 BEGIN
-	if not exists (select * from [dbo].[ProductoCompartido] where CampaniaID = @ProductoCompCampaniaID 
+	if not exists (select 1 from [dbo].[ProductoCompartido] where CampaniaID = @ProductoCompCampaniaID 
 	and CUV = @ProductoCompCUV and Palanca = @ProductoCompPalanca)
 	BEGIN
 		insert into [dbo].[ProductoCompartido]
@@ -315,11 +372,12 @@ BEGIN
 			and CUV = @ProductoCompCUV and Palanca = @ProductoCompPalanca
 	END
 END
-go
 
+GO
 
+/*end*/
 
-use [BelcorpGuatemala]
+USE [BelcorpGuatemala]
 GO
 /****** Object:  StoredProcedure [dbo].[InsProductoCompartido]    Script Date: 06/01/2017 16:51:22 ******/
 SET ANSI_NULLS ON
@@ -328,7 +386,15 @@ SET QUOTED_IDENTIFIER ON
 GO
 -- InsProductoCompartido 201701,00037,'FAV','/..../../','w'
 
-CREATE PROC [dbo].[InsProductoCompartido]
+IF EXISTS(SELECT 1 FROM sys.procedures 
+          WHERE object_id = OBJECT_ID(N'dbo.InsProductoCompartido'))
+BEGIN
+    DROP PROCEDURE dbo.InsProductoCompartido
+END
+
+GO
+
+CREATE PROCEDURE [dbo].[InsProductoCompartido]
 (
 @ProductoCompCampaniaID int,
 @ProductoCompCUV varchar(20),
@@ -339,7 +405,7 @@ CREATE PROC [dbo].[InsProductoCompartido]
 )
 as
 BEGIN
-	if not exists (select * from [dbo].[ProductoCompartido] where CampaniaID = @ProductoCompCampaniaID 
+	if not exists (select 1 from [dbo].[ProductoCompartido] where CampaniaID = @ProductoCompCampaniaID 
 	and CUV = @ProductoCompCUV and Palanca = @ProductoCompPalanca)
 	BEGIN
 		insert into [dbo].[ProductoCompartido]
@@ -369,11 +435,12 @@ BEGIN
 			and CUV = @ProductoCompCUV and Palanca = @ProductoCompPalanca
 	END
 END
-go
 
+GO
 
+/*end*/
 
-use [BelcorpMexico]
+USE [BelcorpMexico]
 GO
 /****** Object:  StoredProcedure [dbo].[InsProductoCompartido]    Script Date: 06/01/2017 16:51:22 ******/
 SET ANSI_NULLS ON
@@ -382,7 +449,15 @@ SET QUOTED_IDENTIFIER ON
 GO
 -- InsProductoCompartido 201701,00037,'FAV','/..../../','w'
 
-CREATE PROC [dbo].[InsProductoCompartido]
+IF EXISTS(SELECT 1 FROM sys.procedures 
+          WHERE object_id = OBJECT_ID(N'dbo.InsProductoCompartido'))
+BEGIN
+    DROP PROCEDURE dbo.InsProductoCompartido
+END
+
+GO
+
+CREATE PROCEDURE [dbo].[InsProductoCompartido]
 (
 @ProductoCompCampaniaID int,
 @ProductoCompCUV varchar(20),
@@ -393,7 +468,7 @@ CREATE PROC [dbo].[InsProductoCompartido]
 )
 as
 BEGIN
-	if not exists (select * from [dbo].[ProductoCompartido] where CampaniaID = @ProductoCompCampaniaID 
+	if not exists (select 1 from [dbo].[ProductoCompartido] where CampaniaID = @ProductoCompCampaniaID 
 	and CUV = @ProductoCompCUV and Palanca = @ProductoCompPalanca)
 	BEGIN
 		insert into [dbo].[ProductoCompartido]
@@ -423,11 +498,12 @@ BEGIN
 			and CUV = @ProductoCompCUV and Palanca = @ProductoCompPalanca
 	END
 END
-go
 
+GO
 
+/*end*/
 
-use [BelcorpPanama]
+USE [BelcorpPanama]
 GO
 /****** Object:  StoredProcedure [dbo].[InsProductoCompartido]    Script Date: 06/01/2017 16:51:22 ******/
 SET ANSI_NULLS ON
@@ -436,7 +512,15 @@ SET QUOTED_IDENTIFIER ON
 GO
 -- InsProductoCompartido 201701,00037,'FAV','/..../../','w'
 
-CREATE PROC [dbo].[InsProductoCompartido]
+IF EXISTS(SELECT 1 FROM sys.procedures 
+          WHERE object_id = OBJECT_ID(N'dbo.InsProductoCompartido'))
+BEGIN
+    DROP PROCEDURE dbo.InsProductoCompartido
+END
+
+GO
+
+CREATE PROCEDURE [dbo].[InsProductoCompartido]
 (
 @ProductoCompCampaniaID int,
 @ProductoCompCUV varchar(20),
@@ -447,7 +531,7 @@ CREATE PROC [dbo].[InsProductoCompartido]
 )
 as
 BEGIN
-	if not exists (select * from [dbo].[ProductoCompartido] where CampaniaID = @ProductoCompCampaniaID 
+	if not exists (select 1 from [dbo].[ProductoCompartido] where CampaniaID = @ProductoCompCampaniaID 
 	and CUV = @ProductoCompCUV and Palanca = @ProductoCompPalanca)
 	BEGIN
 		insert into [dbo].[ProductoCompartido]
@@ -477,11 +561,12 @@ BEGIN
 			and CUV = @ProductoCompCUV and Palanca = @ProductoCompPalanca
 	END
 END
-go
 
+GO
 
+/*end*/
 
-use [BelcorpPeru]
+USE [BelcorpPeru]
 GO
 /****** Object:  StoredProcedure [dbo].[InsProductoCompartido]    Script Date: 06/01/2017 16:51:22 ******/
 SET ANSI_NULLS ON
@@ -490,7 +575,15 @@ SET QUOTED_IDENTIFIER ON
 GO
 -- InsProductoCompartido 201701,00037,'FAV','/..../../','w'
 
-CREATE PROC [dbo].[InsProductoCompartido]
+IF EXISTS(SELECT 1 FROM sys.procedures 
+          WHERE object_id = OBJECT_ID(N'dbo.InsProductoCompartido'))
+BEGIN
+    DROP PROCEDURE dbo.InsProductoCompartido
+END
+
+GO
+
+CREATE PROCEDURE [dbo].[InsProductoCompartido]
 (
 @ProductoCompCampaniaID int,
 @ProductoCompCUV varchar(20),
@@ -501,7 +594,7 @@ CREATE PROC [dbo].[InsProductoCompartido]
 )
 as
 BEGIN
-	if not exists (select * from [dbo].[ProductoCompartido] where CampaniaID = @ProductoCompCampaniaID 
+	if not exists (select 1 from [dbo].[ProductoCompartido] where CampaniaID = @ProductoCompCampaniaID 
 	and CUV = @ProductoCompCUV and Palanca = @ProductoCompPalanca)
 	BEGIN
 		insert into [dbo].[ProductoCompartido]
@@ -531,11 +624,12 @@ BEGIN
 			and CUV = @ProductoCompCUV and Palanca = @ProductoCompPalanca
 	END
 END
-go
 
+GO
 
+/*end*/
 
-use [BelcorpPuertoRico]
+USE [BelcorpPuertoRico]
 GO
 /****** Object:  StoredProcedure [dbo].[InsProductoCompartido]    Script Date: 06/01/2017 16:51:22 ******/
 SET ANSI_NULLS ON
@@ -544,7 +638,15 @@ SET QUOTED_IDENTIFIER ON
 GO
 -- InsProductoCompartido 201701,00037,'FAV','/..../../','w'
 
-CREATE PROC [dbo].[InsProductoCompartido]
+IF EXISTS(SELECT 1 FROM sys.procedures 
+          WHERE object_id = OBJECT_ID(N'dbo.InsProductoCompartido'))
+BEGIN
+    DROP PROCEDURE dbo.InsProductoCompartido
+END
+
+GO
+
+CREATE PROCEDURE [dbo].[InsProductoCompartido]
 (
 @ProductoCompCampaniaID int,
 @ProductoCompCUV varchar(20),
@@ -555,7 +657,7 @@ CREATE PROC [dbo].[InsProductoCompartido]
 )
 as
 BEGIN
-	if not exists (select * from [dbo].[ProductoCompartido] where CampaniaID = @ProductoCompCampaniaID 
+	if not exists (select 1 from [dbo].[ProductoCompartido] where CampaniaID = @ProductoCompCampaniaID 
 	and CUV = @ProductoCompCUV and Palanca = @ProductoCompPalanca)
 	BEGIN
 		insert into [dbo].[ProductoCompartido]
@@ -585,11 +687,12 @@ BEGIN
 			and CUV = @ProductoCompCUV and Palanca = @ProductoCompPalanca
 	END
 END
-go
 
+GO
 
+/*end*/
 
-use [BelcorpSalvador]
+USE [BelcorpSalvador]
 GO
 /****** Object:  StoredProcedure [dbo].[InsProductoCompartido]    Script Date: 06/01/2017 16:51:22 ******/
 SET ANSI_NULLS ON
@@ -598,7 +701,15 @@ SET QUOTED_IDENTIFIER ON
 GO
 -- InsProductoCompartido 201701,00037,'FAV','/..../../','w'
 
-CREATE PROC [dbo].[InsProductoCompartido]
+IF EXISTS(SELECT 1 FROM sys.procedures 
+          WHERE object_id = OBJECT_ID(N'dbo.InsProductoCompartido'))
+BEGIN
+    DROP PROCEDURE dbo.InsProductoCompartido
+END
+
+GO
+
+CREATE PROCEDURE [dbo].[InsProductoCompartido]
 (
 @ProductoCompCampaniaID int,
 @ProductoCompCUV varchar(20),
@@ -609,7 +720,7 @@ CREATE PROC [dbo].[InsProductoCompartido]
 )
 as
 BEGIN
-	if not exists (select * from [dbo].[ProductoCompartido] where CampaniaID = @ProductoCompCampaniaID 
+	if not exists (select 1 from [dbo].[ProductoCompartido] where CampaniaID = @ProductoCompCampaniaID 
 	and CUV = @ProductoCompCUV and Palanca = @ProductoCompPalanca)
 	BEGIN
 		insert into [dbo].[ProductoCompartido]
@@ -639,11 +750,12 @@ BEGIN
 			and CUV = @ProductoCompCUV and Palanca = @ProductoCompPalanca
 	END
 END
-go
 
+GO
 
+/*end*/
 
-use [BelcorpVenezuela]
+USE [BelcorpVenezuela]
 GO
 /****** Object:  StoredProcedure [dbo].[InsProductoCompartido]    Script Date: 06/01/2017 16:51:22 ******/
 SET ANSI_NULLS ON
@@ -652,7 +764,15 @@ SET QUOTED_IDENTIFIER ON
 GO
 -- InsProductoCompartido 201701,00037,'FAV','/..../../','w'
 
-CREATE PROC [dbo].[InsProductoCompartido]
+IF EXISTS(SELECT 1 FROM sys.procedures 
+          WHERE object_id = OBJECT_ID(N'dbo.InsProductoCompartido'))
+BEGIN
+    DROP PROCEDURE dbo.InsProductoCompartido
+END
+
+GO
+
+CREATE PROCEDURE [dbo].[InsProductoCompartido]
 (
 @ProductoCompCampaniaID int,
 @ProductoCompCUV varchar(20),
@@ -663,7 +783,7 @@ CREATE PROC [dbo].[InsProductoCompartido]
 )
 as
 BEGIN
-	if not exists (select * from [dbo].[ProductoCompartido] where CampaniaID = @ProductoCompCampaniaID 
+	if not exists (select 1 from [dbo].[ProductoCompartido] where CampaniaID = @ProductoCompCampaniaID 
 	and CUV = @ProductoCompCUV and Palanca = @ProductoCompPalanca)
 	BEGIN
 		insert into [dbo].[ProductoCompartido]
@@ -693,7 +813,9 @@ BEGIN
 			and CUV = @ProductoCompCUV and Palanca = @ProductoCompPalanca
 	END
 END
-go
+
+
+GO
 
 
 

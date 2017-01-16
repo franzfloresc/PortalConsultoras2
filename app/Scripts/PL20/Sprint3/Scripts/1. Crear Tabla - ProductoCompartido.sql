@@ -11,6 +11,14 @@ GO
 SET ANSI_PADDING ON
 GO
 
+IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES 
+           WHERE TABLE_NAME = N'dbo.ProductoCompartido')
+BEGIN
+  DROP TABLE dbo.ProductoCompartido
+END
+
+GO
+
 CREATE TABLE [dbo].[ProductoCompartido](
 	[ProductoCompID] [int] IDENTITY(1,1) NOT NULL,
 	[CampaniaID] [int] NULL,
@@ -30,6 +38,7 @@ GO
 SET ANSI_PADDING OFF
 GO
 
+/*end*/
 
 USE [BelcorpChile]
 GO
@@ -44,6 +53,14 @@ GO
 SET ANSI_PADDING ON
 GO
 
+IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES 
+           WHERE TABLE_NAME = N'dbo.ProductoCompartido')
+BEGIN
+  DROP TABLE dbo.ProductoCompartido
+END
+
+GO
+
 CREATE TABLE [dbo].[ProductoCompartido](
 	[ProductoCompID] [int] IDENTITY(1,1) NOT NULL,
 	[CampaniaID] [int] NULL,
@@ -63,6 +80,7 @@ GO
 SET ANSI_PADDING OFF
 GO
 
+/*end*/
 
 USE [BelcorpColombia]
 GO
@@ -77,6 +95,14 @@ GO
 SET ANSI_PADDING ON
 GO
 
+IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES 
+           WHERE TABLE_NAME = N'dbo.ProductoCompartido')
+BEGIN
+  DROP TABLE dbo.ProductoCompartido
+END
+
+GO
+
 CREATE TABLE [dbo].[ProductoCompartido](
 	[ProductoCompID] [int] IDENTITY(1,1) NOT NULL,
 	[CampaniaID] [int] NULL,
@@ -96,6 +122,7 @@ GO
 SET ANSI_PADDING OFF
 GO
 
+/*end*/
 
 USE [BelcorpCostaRica]
 GO
@@ -110,6 +137,14 @@ GO
 SET ANSI_PADDING ON
 GO
 
+IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES 
+           WHERE TABLE_NAME = N'dbo.ProductoCompartido')
+BEGIN
+  DROP TABLE dbo.ProductoCompartido
+END
+
+GO
+
 CREATE TABLE [dbo].[ProductoCompartido](
 	[ProductoCompID] [int] IDENTITY(1,1) NOT NULL,
 	[CampaniaID] [int] NULL,
@@ -129,6 +164,7 @@ GO
 SET ANSI_PADDING OFF
 GO
 
+/*end*/
 
 USE [BelcorpDominicana]
 GO
@@ -143,6 +179,14 @@ GO
 SET ANSI_PADDING ON
 GO
 
+IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES 
+           WHERE TABLE_NAME = N'dbo.ProductoCompartido')
+BEGIN
+  DROP TABLE dbo.ProductoCompartido
+END
+
+GO
+
 CREATE TABLE [dbo].[ProductoCompartido](
 	[ProductoCompID] [int] IDENTITY(1,1) NOT NULL,
 	[CampaniaID] [int] NULL,
@@ -162,6 +206,7 @@ GO
 SET ANSI_PADDING OFF
 GO
 
+/*end*/
 
 USE [BelcorpEcuador]
 GO
@@ -176,6 +221,14 @@ GO
 SET ANSI_PADDING ON
 GO
 
+IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES 
+           WHERE TABLE_NAME = N'dbo.ProductoCompartido')
+BEGIN
+  DROP TABLE dbo.ProductoCompartido
+END
+
+GO
+
 CREATE TABLE [dbo].[ProductoCompartido](
 	[ProductoCompID] [int] IDENTITY(1,1) NOT NULL,
 	[CampaniaID] [int] NULL,
@@ -195,6 +248,7 @@ GO
 SET ANSI_PADDING OFF
 GO
 
+/*end*/
 
 USE [BelcorpGuatemala]
 GO
@@ -209,6 +263,14 @@ GO
 SET ANSI_PADDING ON
 GO
 
+IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES 
+           WHERE TABLE_NAME = N'dbo.ProductoCompartido')
+BEGIN
+  DROP TABLE dbo.ProductoCompartido
+END
+
+GO
+
 CREATE TABLE [dbo].[ProductoCompartido](
 	[ProductoCompID] [int] IDENTITY(1,1) NOT NULL,
 	[CampaniaID] [int] NULL,
@@ -228,6 +290,7 @@ GO
 SET ANSI_PADDING OFF
 GO
 
+/*end*/
 
 USE [BelcorpMexico]
 GO
@@ -242,6 +305,14 @@ GO
 SET ANSI_PADDING ON
 GO
 
+IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES 
+           WHERE TABLE_NAME = N'dbo.ProductoCompartido')
+BEGIN
+  DROP TABLE dbo.ProductoCompartido
+END
+
+GO
+
 CREATE TABLE [dbo].[ProductoCompartido](
 	[ProductoCompID] [int] IDENTITY(1,1) NOT NULL,
 	[CampaniaID] [int] NULL,
@@ -261,6 +332,7 @@ GO
 SET ANSI_PADDING OFF
 GO
 
+/*end*/
 
 USE [BelcorpPanama]
 GO
@@ -275,6 +347,14 @@ GO
 SET ANSI_PADDING ON
 GO
 
+IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES 
+           WHERE TABLE_NAME = N'dbo.ProductoCompartido')
+BEGIN
+  DROP TABLE dbo.ProductoCompartido
+END
+
+GO
+
 CREATE TABLE [dbo].[ProductoCompartido](
 	[ProductoCompID] [int] IDENTITY(1,1) NOT NULL,
 	[CampaniaID] [int] NULL,
@@ -294,6 +374,7 @@ GO
 SET ANSI_PADDING OFF
 GO
 
+/*end*/
 
 USE [BelcorpPeru]
 GO
@@ -308,6 +389,14 @@ GO
 SET ANSI_PADDING ON
 GO
 
+IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES 
+           WHERE TABLE_NAME = N'dbo.ProductoCompartido')
+BEGIN
+  DROP TABLE dbo.ProductoCompartido
+END
+
+GO
+
 CREATE TABLE [dbo].[ProductoCompartido](
 	[ProductoCompID] [int] IDENTITY(1,1) NOT NULL,
 	[CampaniaID] [int] NULL,
@@ -327,6 +416,7 @@ GO
 SET ANSI_PADDING OFF
 GO
 
+/*end*/
 
 USE [BelcorpPuertoRico]
 GO
@@ -341,6 +431,14 @@ GO
 SET ANSI_PADDING ON
 GO
 
+IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES 
+           WHERE TABLE_NAME = N'dbo.ProductoCompartido')
+BEGIN
+  DROP TABLE dbo.ProductoCompartido
+END
+
+GO
+
 CREATE TABLE [dbo].[ProductoCompartido](
 	[ProductoCompID] [int] IDENTITY(1,1) NOT NULL,
 	[CampaniaID] [int] NULL,
@@ -360,6 +458,7 @@ GO
 SET ANSI_PADDING OFF
 GO
 
+/*end*/
 
 USE [BelcorpSalvador]
 GO
@@ -374,6 +473,14 @@ GO
 SET ANSI_PADDING ON
 GO
 
+IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES 
+           WHERE TABLE_NAME = N'dbo.ProductoCompartido')
+BEGIN
+  DROP TABLE dbo.ProductoCompartido
+END
+
+GO
+
 CREATE TABLE [dbo].[ProductoCompartido](
 	[ProductoCompID] [int] IDENTITY(1,1) NOT NULL,
 	[CampaniaID] [int] NULL,
@@ -393,6 +500,7 @@ GO
 SET ANSI_PADDING OFF
 GO
 
+/*end*/
 
 USE [BelcorpVenezuela]
 GO
@@ -405,6 +513,14 @@ SET QUOTED_IDENTIFIER ON
 GO
 
 SET ANSI_PADDING ON
+GO
+
+IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES 
+           WHERE TABLE_NAME = N'dbo.ProductoCompartido')
+BEGIN
+  DROP TABLE dbo.ProductoCompartido
+END
+
 GO
 
 CREATE TABLE [dbo].[ProductoCompartido](
