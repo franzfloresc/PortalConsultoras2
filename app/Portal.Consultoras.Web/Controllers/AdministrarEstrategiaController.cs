@@ -13,6 +13,8 @@ using System.ServiceModel;
 using System.Web.Script.Serialization;
 using System.Web.UI.WebControls;
 using Portal.Consultoras.Web.ServiceGestionWebPROL;
+using System.IO;
+using System.Drawing;
 
 
 namespace Portal.Consultoras.Web.Controllers
@@ -426,6 +428,46 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         [HttpPost]
+        public ActionResult ImagenEstrategiaUpload(string qqfile)
+        {
+            string FileName = string.Empty;
+            try
+            {
+                // req. 1664 - Unificando todo en una unica carpeta temporal
+                Stream inputStream = Request.InputStream;
+                byte[] fileBytes = ReadFully(inputStream);
+                string ffFileName = qqfile; // qqfile;
+                var path = Path.Combine(Globals.RutaTemporales, ffFileName);
+                System.IO.File.WriteAllBytes(path, fileBytes);
+                if (!System.IO.File.Exists(Globals.RutaTemporales))
+                    System.IO.Directory.CreateDirectory(Globals.RutaTemporales);
+                var failImage = false;
+                var image =  System.Drawing.Image.FromFile(path);
+                if (image.Width > 62)
+                {
+                    failImage = true;
+                }
+                if (image.Height > 62)
+                {
+                    failImage = true;
+                }
+
+                if (failImage)
+                {
+                    image.Dispose();
+                    System.IO.File.Delete(path);
+                    return Json(new { success = false, message = "El tamaño de imagen excede el máximo permitido. (Ancho: 62px - Alto: 62px)." }, "text/html");
+                }
+                image.Dispose();
+                return Json(new { success = true, name = Path.GetFileName(path) }, "text/html");
+            }
+            catch (Exception)
+            {
+                return Json(new { success = false, message = "Hubo un error al cargar el archivo, intente nuevamente." }, "text/html");
+            }
+        }
+
+        [HttpPost]
         public JsonResult GetOfertaByCUV(string CampaniaID, string CUV2,
             string TipoEstrategiaID, string CUV1, string flag,
             string FlagNueva, string FlagRecoProduc, string FlagRecoPerfil)
@@ -455,7 +497,7 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                 }
 
-                string mensaje = "", descripcion = "", precio = "";
+                string mensaje = "", descripcion = "", precio = "", CodigoSAP= "";
                 string imagen1 = "", imagen2 = "", imagen3 = "", imagen4 = "", imagen5 = "", imagen6 = "", imagen7 = "", imagen8 = "", imagen9 = "", imagen10 = "";
                 string carpetaPais = Globals.UrlMatriz + "/" + UserData().CodigoISO;
                 string wsprecio = ""; ///GR-1060
@@ -499,10 +541,10 @@ namespace Portal.Consultoras.Web.Controllers
                     }
 
                     ///end GR-1060
-
                     descripcion = lst[0].DescripcionCUV2;
                     precio = lst[0].PrecioUnitario.ToString();
-                    wsprecio = wspreciopack.ToString();
+                    CodigoSAP = lst[0].CodigoSAP.ToString();
+                    wsprecio = wspreciopack.ToString();                    
                     imagen1 = ConfigS3.GetUrlFileS3(carpetaPais, lst[0].FotoProducto01, Globals.RutaImagenesMatriz + "/" + userData.CodigoISO);
                     imagen2 = ConfigS3.GetUrlFileS3(carpetaPais, lst[0].FotoProducto02, Globals.RutaImagenesMatriz + "/" + userData.CodigoISO);
                     imagen3 = ConfigS3.GetUrlFileS3(carpetaPais, lst[0].FotoProducto03, Globals.RutaImagenesMatriz + "/" + userData.CodigoISO);
@@ -522,6 +564,7 @@ namespace Portal.Consultoras.Web.Controllers
                     descripcion = descripcion,
                     precio = precio,
                     wsprecio = wsprecio,
+                    codigoSAP = CodigoSAP,
                     imagen1 = imagen1,
                     imagen2 = imagen2,
                     imagen3 = imagen3,
@@ -1490,6 +1533,20 @@ namespace Portal.Consultoras.Web.Controllers
                     message = ex.Message
                 }, JsonRequestBehavior.AllowGet);
             }
-        }        
+        }
+
+        public static byte[] ReadFully(Stream input)
+        {
+            byte[] buffer = new byte[16 * 1024];
+            using (MemoryStream ms = new MemoryStream())
+            {
+                int read;
+                while ((read = input.Read(buffer, 0, buffer.Length)) > 0)
+                {
+                    ms.Write(buffer, 0, read);
+                }
+                return ms.ToArray();
+            }
+        }
     }
 }
