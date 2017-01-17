@@ -170,6 +170,8 @@ namespace Portal.Consultoras.Web.Models
         public DateTime FechaNacimiento { get; set; }
         public string Nivel { get; set; }
 
+        public long ConsultoraAsociadaID { get; set; }
+
         public string Direccion { get; set; }
         public string IPUsuario { get; set; }
         public bool MostrarBotonValidar { get; set; }

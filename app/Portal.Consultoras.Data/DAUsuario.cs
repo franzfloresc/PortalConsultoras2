@@ -523,16 +523,6 @@ namespace Portal.Consultoras.Data
             return Convert.ToInt32(Context.ExecuteScalar(command));
         }
 
-        /*PL20-1226*/
-        //public int GetEsOfertaDelDia(int codCampania, string codConsultora, DateTime fechaInicioFact)
-        //{
-        //    DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetEsOfertaDelDia");
-        //    Context.Database.AddInParameter(command, "@CodCampania", DbType.Int32, codCampania);
-        //    Context.Database.AddInParameter(command, "@CodConsultora", DbType.AnsiString, codConsultora);
-        //    Context.Database.AddInParameter(command, "@FechaInicioFact", DbType.DateTime, fechaInicioFact);
-
-        //    return Convert.ToInt16(Context.ExecuteScalar(command));
-        //}
         
         public int UpdateUsuarioEmailTelefono(long ConsultoraID, string Email, string Telefono)
         {
@@ -545,5 +535,15 @@ namespace Portal.Consultoras.Data
 
             return Convert.ToInt32(command.Parameters["@RetornoSiNoCorreoNuevo"].Value);
         }
+        /*PL20-1226*/
+        //public int GetEsOfertaDelDia(int codCampania, string codConsultora, DateTime fechaInicioFact)
+        //{
+        //    DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetEsOfertaDelDia");
+        //    Context.Database.AddInParameter(command, "@CodCampania", DbType.Int32, codCampania);
+        //    Context.Database.AddInParameter(command, "@CodConsultora", DbType.AnsiString, codConsultora);
+        //    Context.Database.AddInParameter(command, "@FechaInicioFact", DbType.DateTime, fechaInicioFact);
+
+        //    return Convert.ToInt16(Context.ExecuteScalar(command));
+        //}
     }
 }
