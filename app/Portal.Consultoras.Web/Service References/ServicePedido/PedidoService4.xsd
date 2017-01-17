@@ -269,23 +269,6 @@
       <xs:sequence />
     </xs:complexType>
   </xs:element>
-  <xs:element name="GetEstrategiaODD">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element minOccurs="0" name="paisID" type="xs:int" />
-        <xs:element minOccurs="0" name="codCampania" type="xs:int" />
-        <xs:element minOccurs="0" name="codConsultora" nillable="true" type="xs:string" />
-        <xs:element minOccurs="0" name="fechaInicioFact" type="xs:dateTime" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="GetEstrategiaODDResponse">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element xmlns:q18="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="GetEstrategiaODDResult" nillable="true" type="q18:ArrayOfBEEstrategia" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
   <xs:element name="GetCantidadOfertasParaTi">
     <xs:complexType>
       <xs:sequence>
@@ -314,7 +297,7 @@
   <xs:element name="GetOfertasParaTiByTipoConfiguradoResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q19="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="GetOfertasParaTiByTipoConfiguradoResult" nillable="true" type="q19:ArrayOfBEEstrategia" />
+        <xs:element xmlns:q18="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="GetOfertasParaTiByTipoConfiguradoResult" nillable="true" type="q18:ArrayOfBEEstrategia" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -322,7 +305,7 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="0" name="paisId" type="xs:int" />
-        <xs:element xmlns:q20="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="lista" nillable="true" type="q20:ArrayOfBEEstrategia" />
+        <xs:element xmlns:q19="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="lista" nillable="true" type="q19:ArrayOfBEEstrategia" />
         <xs:element minOccurs="0" name="campaniaId" type="xs:int" />
         <xs:element minOccurs="0" name="codigoUsuario" nillable="true" type="xs:string" />
       </xs:sequence>
@@ -363,7 +346,7 @@
   <xs:element name="GetOfertasParaTiByTipoConfiguradoTemporalResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q21="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="GetOfertasParaTiByTipoConfiguradoTemporalResult" nillable="true" type="q21:ArrayOfBEEstrategia" />
+        <xs:element xmlns:q20="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="GetOfertasParaTiByTipoConfiguradoTemporalResult" nillable="true" type="q20:ArrayOfBEEstrategia" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -386,7 +369,7 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="0" name="paisId" type="xs:int" />
-        <xs:element xmlns:q22="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="lista" nillable="true" type="q22:ArrayOfBEEstrategia" />
+        <xs:element xmlns:q21="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="lista" nillable="true" type="q21:ArrayOfBEEstrategia" />
         <xs:element minOccurs="0" name="campaniaId" type="xs:int" />
         <xs:element minOccurs="0" name="codigoUsuario" nillable="true" type="xs:string" />
       </xs:sequence>
@@ -396,6 +379,23 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="0" name="InsertEstrategiaOfertaParaTiResult" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetEstrategiaODD">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="paisID" type="xs:int" />
+        <xs:element minOccurs="0" name="codCampania" type="xs:int" />
+        <xs:element minOccurs="0" name="codConsultora" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="fechaInicioFact" type="xs:dateTime" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetEstrategiaODDResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q22="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="GetEstrategiaODDResult" nillable="true" type="q22:ArrayOfBEEstrategia" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
