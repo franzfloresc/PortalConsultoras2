@@ -1238,12 +1238,29 @@ namespace Portal.Consultoras.Web.Controllers
                     .ForMember(t => t.CodigoCampania, f => f.MapFrom(c => c.CodigoCampania))
                     .ForMember(t => t.FlagHabilitarProducto, f => f.MapFrom(c => c.FlagHabilitarProducto))
                     .ForMember(t => t.TipoOferta, f => f.MapFrom(c => c.CodigoTipoOferta))
-                    .ForMember(t => t.ImagenMini, f => f.MapFrom(c => c.ImagenMini));
+                    .ForMember(t => t.ImagenMini, f => f.MapFrom(c => c.ImagenMini))
+                    .ForMember(t => t.Incrementa, f => f.MapFrom(c => c.Incrementa))
+                    .ForMember(t => t.CantidadIncrementa, f => f.MapFrom(c => c.CantidadIncrementa))
+                    .ForMember(t => t.FlagAgotado, f => f.MapFrom(c => c.Agotado));
 
                 BEShowRoomOferta entidad = Mapper.Map<ShowRoomOfertaModel, BEShowRoomOferta>(model);
 
                 using (PedidoServiceClient sv = new PedidoServiceClient())
                 {
+
+                    int Stock = 0;
+                    Stock = sv.ValidadStockOfertaShowRoom(userData.PaisID, entidad);
+
+                    if (entidad.Incrementa == 1 && Stock < 0)
+                    {
+                        return Json(new
+                        {
+                            success = false,
+                            message = "La cantidad ingresada supera el stock actual.",
+                            extra = ""
+                        });
+                    }
+
                     entidad.TipoOfertaSisID = Constantes.ConfiguracionOferta.ShowRoom;
                     entidad.ConfiguracionOfertaID = lstConfiguracion.Find(x => x.CodigoOferta == model.CodigoTipoOferta).ConfiguracionOfertaID;
                     entidad.UsuarioModificacion = userData.CodigoConsultora;
@@ -1724,6 +1741,7 @@ namespace Portal.Consultoras.Web.Controllers
                     .ForMember(t => t.UsuarioCreacion, f => f.MapFrom(c => c.UsuarioCreacion))
                     .ForMember(t => t.FechaModificacion, f => f.MapFrom(c => c.FechaModificacion))
                     .ForMember(t => t.UsuarioModificacion, f => f.MapFrom(c => c.UsuarioModificacion));
+                  
 
                 BEShowRoomOfertaDetalle entidad = Mapper.Map<ShowRoomOfertaDetalleModel, BEShowRoomOfertaDetalle>(model);
 
