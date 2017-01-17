@@ -1,5 +1,6 @@
 ﻿
 var tipoOrigen = tipoOrigen || "";// 1: escritorio (no home)     2: mobile,  3: home
+var cantidadTonosPorFila = 6;
 var cantidadRegistros = cantidadRegistros || 12;
 var offsetRegistros = 0;
 /* SB20-1197 - INICIO */
@@ -823,7 +824,7 @@ function alert_msg_pedido(message) {
 }
 
 function DialogLoadingCerrar() {
-    console.log('DialogLoadingCerrar');
+    //console.log('DialogLoadingCerrar');
     if (tipoOrigen == '2') {
         CloseLoading();
     }
@@ -958,9 +959,10 @@ function mostrarFichaProductoFAV2(cuv) {
         success: function (response) {
             if (response.success) {
                 var _data = response.data;
-                console.log(_data);
+                //console.log(_data);
                 var content = SetHandlebars("#template-fichaproductofav", _data);
                 $('#PopFichaProductoNueva').html(content);
+                AjustarTonoTooltips($('#PopFichaProductoNueva'))
                 $('#PopFichaProductoNueva').show();
 
                 dataFichaProductoFAV = _data.Hermanos;
@@ -988,6 +990,19 @@ function mostrarFichaProductoFAV2(cuv) {
     });
 }
 
+function AjustarTonoTooltips(objcontenedor) {
+    var arrayObjTooltip = objcontenedor.find('.content_tonos_maquillaje .tooltip_tono');
+    var length = arrayObjTooltip.length;
+
+    //arrayObjTooltip.slice(0, cantidadTonosPorFila).css('top', length > cantidadTonosPorFila ? '30px' : '11px');
+
+    var index = cantidadTonosPorFila - 1;
+    while (index < length) {
+        arrayObjTooltip.eq(index).css('left', '-20px');
+        index += cantidadTonosPorFila;
+    }
+}
+
 function cambiarInfoFichaProductoFAV(tipo, cuv) {
     if (dataFichaProductoFAV != null && dataFichaProductoFAV.length > 0) {
 
@@ -1000,11 +1015,11 @@ function cambiarInfoFichaProductoFAV(tipo, cuv) {
             var scuv = $('#fav_tonobulk_' + xcuv).val();
             result = $.grep(dataFichaProductoFAV, function (e) { return e.CUV == scuv; });
         }
-        console.log(result);
+        //console.log(result);
 
         if (result != null && result.length > 0) {
             var obj = result[0];
-            console.log(obj);
+            //console.log(obj);
             var container = $('#PopFichaProductoNueva');
             container.find('#fav_imagen_prod').attr('src', obj.ImagenProductoSugerido);
             container.find('#fav_nombre_prod').text(obj.Descripcion);
@@ -1034,7 +1049,7 @@ function agregarCuvPedidoFichaProductoFAV(tipo) {
             }
 
             tipoOrigen = tipo;
-            console.log(container);
+            //console.log(container);
 
             if (ReservadoOEnHorarioRestringido())
                 return false;
