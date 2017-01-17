@@ -6478,6 +6478,7 @@ body {
     margin-top: 15px;
     padding: 20px;
     overflow: hidden;
+    font-family:'Lato';
 }
 
 .titulo_compartir {
@@ -10668,7 +10669,7 @@ a{
     align-content: center;
     flex-direction: column;
 }
-.content_detalle_048 .content_pack_048:last-child .nombre_producto_pack_048{
+.content_pack_048:last-child .nombre_producto_pack_048{
     border-bottom: 0; 
 }
 .content_pack_048:last-child{
@@ -10702,4 +10703,25 @@ a{
     /* padding-bottom: 14px; */
     /* padding-left: 14px; */
     padding: 14px;
+}
+.texto_gratis_pop{
+    font-size:15px;
+    font-weight:700;
+    margin-top:20px;
+    margin-bottom:10px;
+}
+.btn_anuncio_agregado{
+    display:block;
+    margin:0 auto;
+    width:165px;
+    height:58px;
+    border: 1px solid black;
+    text-align:center;
+    font-family:'Lato';
+    font-size:14px;
+    color:black;
+    font-weight:700;
+    line-height:56px;
+    margin-top:25px;
+    margin-bottom:10px;
 }

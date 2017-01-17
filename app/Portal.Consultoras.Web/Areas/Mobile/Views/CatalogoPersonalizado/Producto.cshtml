@@ -31,7 +31,7 @@
 
 <div id="GuiaNegocio">
     <!--FICHA 003A-->
-    <div id="Ficha_003A">
+    <div id="Ficha_003A" style="display:none;">
         <div class="content_oferta_guia_negocio">
             <div class="content_imagen_048">
                 <img src="https://s3-sa-east-1.amazonaws.com/appcatalogo/CL/201702/E/productos/CL_200078945.jpg" class="imagen_producto">
@@ -63,7 +63,7 @@
     </div>
     <!--FIN-->
     <!--FICHA 048B-->
-    <div class="content_oferta_guia_negocio" style="display:none;">
+    <div class="content_oferta_guia_negocio">
         <div class="content_imagen_048">
             <img src="https://s3-sa-east-1.amazonaws.com/appcatalogo/CL/201702/E/productos/CL_200078945.jpg" class="imagen_producto">
             <div class="etiqueta_guia_negocio">GUÍA DE NEGOCIO</div>
@@ -227,6 +227,42 @@
     </div>   
     <!--FIN-->
 </div>
+<!--POP UP GUIA NEGOCIO-->
+    <!--HAY QUE DESAPARECER EL SCROLL DEL BODY, CUANDO GENEREN ESTE POP UP ME AVISAN-->
+<div class="PopMobile1" id="PopGuiaNegocio" style="display:block;"> 
+    <div class="content_popMobile" style="text-align:center; max-width:400px;">
+        <a class="cerrar_popMobile" href="javascript:;" onclick="javascript: $('#PopGuiaNegocio').hide();">
+            <img src="/Content/Images/mobile/Esika/cerrar_04.png" alt="-">
+        </a>
+        <hr class="clear">
+        <div class="titulo_pack_detalle">HAS COMPRADO</div>
+        <div class="linea_separadora_black flecha_048"></div>
+        <div class="detalle_Cantidad_pack"> <b>7</b> Dorsay 100 ml</div>
+        <div class="precio_para_ti_048">Precio para ti <b>$ 29.900</b></div>
+        <div class="gana_048">Gana $ 10.000</div>
+        <div class="texto_gratis_pop">Vas a recibir GRATIS</div>
+        <div class="linea_separadora_black flecha_048"></div>
+        <!--DEFINIR DENTRO DE ESTE DIV LA CANTIDAD DE PRODUCTO -->
+        <div class="content_unidad_producto">            
+            <div class="content_pack_048">
+                <div class="imagen_pack_048"><img src="https://s3-sa-east-1.amazonaws.com/appcatalogo/CL/201702/E/productos/CL_200078945.jpg" class="imagen_producto"></div>
+                <div class="nombre_producto_pack_048">2 Pulso 100ml</div>
+            </div>
+            <div class="content_pack_048">
+                <div class="imagen_pack_048"><img src="https://s3-sa-east-1.amazonaws.com/appcatalogo/CL/201702/E/productos/CL_200078945.jpg" class="imagen_producto"></div>
+                <div class="nombre_producto_pack_048">2 Pulso 100ml</div>
+            </div>
+            <div class="content_pack_048">
+                <div class="imagen_pack_048"><img src="https://s3-sa-east-1.amazonaws.com/appcatalogo/CL/201702/E/productos/CL_200078945.jpg" class="imagen_producto"></div>
+                <div class="nombre_producto_pack_048">2 Pulso 100ml</div>
+            </div>
+        </div>
+        <a class="btn_anuncio_agregado" href="javascript:;" onclick="javascript: $('#PopGuiaNegocio').hide();">OK, ENTENDIDO</a>
+
+    </div>
+</div>
+<!--FIN-->
+
 <div id="PrecioCatalogo" style="display:none;">
     <div class="wrapper_resumen_mobile" style="padding-bottom:96px;">
 
