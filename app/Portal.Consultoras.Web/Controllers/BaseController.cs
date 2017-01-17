@@ -43,15 +43,11 @@ namespace Portal.Consultoras.Web.Controllers
                 if (userData == null)
                 {
                     string URLSignOut = string.Empty;
-                    
+
                     if (Request.UrlReferrer != null && Request.UrlReferrer.ToString().Contains(Request.Url.Host))
-                    {
                         URLSignOut = "/Login/SesionExpirada";
-                    }
                     else
-                    {
                         URLSignOut = "/Login/UserUnknown";
-                    }
 
                     Session.Clear();
                     Session.Abandon();
@@ -80,6 +76,20 @@ namespace Portal.Consultoras.Web.Controllers
 
                     ObtenerPedidoWeb();
                     ObtenerPedidoWebDetalle();
+
+                    ViewBag.TieneOfertaDelDia = userData.TieneOfertaDelDia;
+
+                    if (userData.TieneOfertaDelDia)
+                    {
+                        // validar si se cerro el banner
+                        if (userData.CloseOfertaDelDia)
+                            ViewBag.TieneOfertaDelDia = false;
+
+                        // validar si tiene pedido reservado
+                        string msg = string.Empty;
+                        if (ValidarPedidoReservado(out msg))
+                            ViewBag.TieneOfertaDelDia = false;
+                    }
                 }
 
                 base.OnActionExecuting(filterContext);
@@ -319,7 +329,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             return false;
         }
-        
+
         protected bool ValidarPedidoReservado(out string mensaje)
         {
             mensaje = string.Empty;
@@ -489,7 +499,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     lstTemp_1 = sv.GetServicioByCampaniaPais(userData.PaisID, userData.CampaniaID).ToList();
                 }
-                
+
                 int SegmentoID;
                 if (userData.CodigoISO == Constantes.CodigosISOPais.Venezuela)
                 {
@@ -601,12 +611,13 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
                 DateTime fechaHoy = DateTime.Now.AddHours(model.ZonaHoraria).Date;
+                model.EsDiasFacturacion = fechaHoy >= model.FechaInicioCampania.Date && fechaHoy <= model.FechaFinCampania.Date ? true : false;
+
                 ViewBag.FechaActualPais = fechaHoy.ToShortDateString();
                 ViewBag.Dias = fechaHoy >= model.FechaInicioCampania.Date && fechaHoy <= model.FechaFinCampania.Date ? 0 : (model.FechaInicioCampania.Subtract(DateTime.Now.AddHours(model.ZonaHoraria)).Days + 1);
 
                 ViewBag.PeriodoAnalytics = fechaHoy >= model.FechaInicioCampania.Date && fechaHoy <= model.FechaFinCampania.Date ? "Facturacion" : "Venta";
                 ViewBag.SemanaAnalytics = "No Disponible";
-
                 DateTime FechaHoraActual = DateTime.Now.AddHours(model.ZonaHoraria);
                 TimeSpan HoraCierrePortal = model.EsZonaDemAnti == 0 ? model.HoraCierreZonaNormal : model.HoraCierreZonaDemAnti;
 
@@ -1333,6 +1344,34 @@ namespace Portal.Consultoras.Web.Controllers
 
             }
             return sFecha;
+        }
+        
+        public TimeSpan CountdownODD(UsuarioModel model)
+        {
+            //DateTime hoy = DateTime.Now;
+            //DateTime d1 = new DateTime(hoy.Year, hoy.Month, hoy.Day, 0, 0, 0);
+            DateTime hoy;
+
+            using (SACServiceClient svc = new SACServiceClient())
+            {
+                hoy = svc.GetFechaHoraPais(model.PaisID);
+            }
+
+            DateTime d1 = new DateTime(hoy.Year, hoy.Month, hoy.Day, 0, 0, 0);
+            DateTime d2;
+
+            if (model.EsDiasFacturacion)  // dias de facturacion
+            {
+                TimeSpan t1 = model.HoraCierreZonaNormal;
+                d2 = new DateTime(hoy.Year, hoy.Month, hoy.Day, t1.Hours, t1.Minutes, t1.Seconds);
+            }
+            else
+            {
+                d2 = d1.AddDays(1);
+            }
+
+            TimeSpan t2 = (d2 - hoy);
+            return t2;
         }
 
         #endregion

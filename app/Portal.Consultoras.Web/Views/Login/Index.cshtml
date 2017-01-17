@@ -1,5 +1,5 @@
 ﻿
-@model Portal.Consultoras.Web.Models.LoginModel
+@model Portal.Consultoras.Web.Models.UsuarioModel
 @{
     Layout = "~/Views/Shared/_LoginLayout.cshtml";
     ViewBag.Title = "Login";
@@ -10,7 +10,6 @@
     <div id="popup1" style="display: none;">
         <div id="popup_olvidasteContrasenia">
             <div class="content_bg_olvidasteContrasenia">
-                @*<asp:LinkButton ID="btnCerrarContraseniaPopup" runat="server" class="cerrar" OnClick="btnCerrarContraseniaPopup_Click"></asp:LinkButton>*@
                 <a id="btnCerrarContraseniaPopup" href="#" class="cerrar" onclick="$('#popup1').hide();"></a>
 
                 <div id="header">¿OLVIDASTE TU CONTRASEÑA?</div>
@@ -41,7 +40,6 @@
 
                     <div class="boxform">
                         <div class="formbtn">
-                            @*<asp:Button ID="btnRecuperarClave" class="btnCrear" Text="ENVIAR" runat="server" OnClick="btnRecuperarClave_Click" />*@
                             <input type="button" id="btnRecuperarClave" class="btnCrear" value="ENVIAR" onclick="" />
                         </div>
                     </div>
@@ -54,7 +52,6 @@
     <div id="popup2" style="display: none;">
         <div id="popup_contraseniaEnviada">
             <div class="content_bg_contraseniaEnviada">
-                @*<asp:LinkButton ID="btnCerrarContraseniaEnviadaPopup" runat="server" class="cerrar" OnClick="btnCerrarContraseniaEnviadaPopup_Click"></asp:LinkButton>*@
                 <a id="btnCerrarContraseniaEnviadaPopup" href="#" class="cerrar" onclick="$('#popup2').hide();"></a>
                 <div class="mensaje_pop_up_contraseniaEnviada">
                     <h1>Por favor, revisa tu correo</h1>
@@ -91,7 +88,6 @@
             <img src="~/Content/Images/Login2/logo_welcome.png" alt="" />
         </div>
 
-        @*<asp:HiddenField ID="hdfContrasenia" runat="server" />*@
         <input type="hidden" id="hdfContrasenia" />
 
         <div class="formCont">
@@ -120,7 +116,8 @@
                         <input type="hidden" id="hdf_VE" value="fondo_default.jpg" />
                         <input type="hidden" id="hdeCodigoISO" name="hdeCodigoISO" />
 
-                        <input type="hidden" id="hdePaisID" name="HdePaisID" />
+                        <input type="hidden" id="HdePaisID" name="HdePaisID"/>
+                        
 
                         <select id="ddlPais" name="PaisID" class="DropDown" tabindex="1">
                             <option value="00">Elige tu País</option>
@@ -156,7 +153,6 @@
             <div class="boxform">
                 <div class="formbtn">
                     <div style="color: Red; text-align: left; padding-left: 4px; margin-bottom: 5px;">
-                        @*<asp:Label ID="ErrorTextLabel" runat="server" Text=""></asp:Label>*@
                         <label id="ErrorTextLabel"></label>
                     </div>
                 </div>
@@ -188,8 +184,7 @@
                     <input type="submit" id="btnLogin" class="btnCrear" value="INGRESA A TU CUENTA" />
                 </div>
                 <div style="display: none;">
-                    @*<asp:Button ID="SubmitButton" runat="server" OnClick="SubmitButton_Click" />*@
-                    <input type="button" id="SubmitButton" />
+                    <input type="submit" id="SubmitButton" />
                 </div>
             </div>
 
@@ -207,16 +202,13 @@
 
     
     <script type="text/javascript">
-        //var paisesEsika = '<%= ConfigurationManager.AppSettings.Get("paisesEsika") %>';
-        //var paisesLBel = '<%= ConfigurationManager.AppSettings.Get("paisesLBel") %>';
-        var paisesEsika = 'EC;PE;CO;CL;BO;GT;SV;PR;DO;VE';
-        var paisesLBel = 'CR;PA;MX';
+        var paisesEsika = '@System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika")'; 
+        var paisesLBel = '@System.Configuration.ConfigurationManager.AppSettings.Get("PaisesLBel")'; 
 
         var isoPais = '@ViewBag.IsoPais';
         var banderaOk = '@ViewBag.BanderaOk';
         var avisoASP = '@ViewBag.AvisoASP';
         var urlRecuperarContrasenia = '@Url.Action("RecuperarContrasenia", "Login")';
-
     </script>
 
     @if (TempData["errorLogin"] != null)

@@ -1,43 +1,29 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-
-//
-using System.Configuration;
-using Portal.Consultoras.Web.Models;
-using AutoMapper;
-using System.Data;
-using System.IO;
-using DocumentFormat.OpenXml.Wordprocessing;
+﻿using AutoMapper;
 using Portal.Consultoras.Common;
-using Portal.Consultoras.Web.ServiceODS;
-using Portal.Consultoras.Web.ServiceProductoCatalogoPersonalizado;
-using Portal.Consultoras.Web.ServiceUsuario;
-using Portal.Consultoras.Web.ServiceZonificacion;
+using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.ServiceContenido;
-using Portal.Consultoras.Web.ServiceSAC;
 using Portal.Consultoras.Web.ServiceLMS;
 using Portal.Consultoras.Web.ServicePedido;
+using Portal.Consultoras.Web.ServiceSAC;
+using Portal.Consultoras.Web.ServiceUsuario;
+using Portal.Consultoras.Web.ServiceZonificacion;
+using System;
+using System.Collections.Generic;
+using System.Configuration;
+using System.Data;
+using System.IO;
+using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
+using System.Web;
+using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Controllers
 {
     public class LoginController : Controller
     {
-        //
-        // GET: /Login/
-
         private string pasoLog;
-
-        //public ActionResult Index()
-        //{
-        //    //return Login();
-        //    return View(new LoginModel() { listaPaises = DropDowListPaises() });
-        //}
-
+        
         public ActionResult Index()
         {
             string IP = string.Empty;
@@ -48,12 +34,6 @@ namespace Portal.Consultoras.Web.Controllers
             if (buscarISOPorIP == "1")
             {
                 IP = GetIPCliente();
-
-                //using (ServiceUsuarioExt.UsuarioWebServiceClient UsuarioServ = new ServiceUsuarioExt.UsuarioWebServiceClient())
-                //{
-                //    ISO = UsuarioServ.GetISObyIPAddress(IP);
-                //}
-
                 ISO = Util.GetISObyIPAddress(IP);
             }
             else
@@ -62,7 +42,6 @@ namespace Portal.Consultoras.Web.Controllers
                 ISO = "PE";
             }
             
-            //string val = "";
             if (IP.IndexOf(":") > 0)
             {
                 IP = IP.Substring(0, IP.IndexOf(":") - 1);
@@ -71,11 +50,9 @@ namespace Portal.Consultoras.Web.Controllers
             if (ISO != "")
             {
                 AsignarHojaEstilos(ISO);
-                //val = ddlPais.SelectedValue;
-                //cboPaisCambioClave.SelectedValue = getValByISO(val);
             }
 
-            var model = new LoginModel();
+            var model = new UsuarioModel();
             model.listaPaises = DropDowListPaises();
 
             return View(model);
@@ -90,10 +67,7 @@ namespace Portal.Consultoras.Web.Controllers
                 BEValidaLoginSB2 validaLogin = null;
                 using (UsuarioServiceClient svc = new UsuarioServiceClient())
                 {
-                    if (model.PaisID == 0)
-                        model.PaisID = model.HdePaisID;
-
-                    validaLogin = svc.GetValidarLoginSB2(model.PaisID, model.CodigoUsuario, model.ClaveSecreta);
+                    validaLogin = svc.GetValidarLoginSB2(model.HdePaisID, model.CodigoUsuario, model.ClaveSecreta);
                 }
 
                 if (validaLogin.Result == 3)
@@ -101,10 +75,10 @@ namespace Portal.Consultoras.Web.Controllers
                     if (string.IsNullOrEmpty(model.CodigoConsultora))
                         model.CodigoConsultora = model.CodigoUsuario;
 
-                    UsuarioModel usuario = GetUserData(model.PaisID, model.CodigoConsultora, 1);
+                    UsuarioModel usuario = GetUserData(model.HdePaisID, model.CodigoConsultora, 1);
                     if (usuario != null)
                     {
-                        if (usuario.RolID == Portal.Consultoras.Common.Constantes.Rol.Consultora)
+                        if (usuario.RolID == Constantes.Rol.Consultora)
                         {
                             bool esMovil = Request.Browser.IsMobileDevice;
 
@@ -147,121 +121,6 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-        //private ActionResult Login()
-        //{
-        //    string usuarioLog = "";
-        //    string paisLog = "";
-        //    try
-        //    {
-        //        //ClaimsPrincipal claimsPrincipal = User as ClaimsPrincipal;
-        //        //Claim FederationClaimName = claimsPrincipal.FindFirst(ClaimTypes.Name);
-        //        //string claimUser = FederationClaimName.Value.ToUpper();
-        //        //string DomConsultora = ConfigurationManager.AppSettings.Get("DomConsultora");
-        //        //string DomBelcorp = ConfigurationManager.AppSettings.Get("DomBelcorp");
-
-        //        //string UserPortal = string.Empty;
-        //        //bool UsuarioSAC = false;
-        //        //int Tipo = 0;
-
-        //        //if (claimUser.Contains(DomConsultora))
-        //        //{
-        //        //    UserPortal = claimUser.Replace(DomConsultora + @"\", "");
-        //        //    Tipo = 1;
-        //        //}
-        //        //else if (claimUser.Contains(DomBelcorp))
-        //        //{
-        //        //    UserPortal = claimUser.Replace(DomBelcorp + @"\", "");
-        //        //    UsuarioSAC = true;
-        //        //    Tipo = 2;
-        //        //}
-
-        //        //usuarioLog = UserPortal;
-
-        //        //if (!string.IsNullOrEmpty(UserPortal))
-        //        //{
-        //            List<BEPais> lst = new List<BEPais>();
-
-        //            using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
-        //            {
-        //                lst = sv.SelectPaises().ToList();
-        //            }
-
-        //        //    string Pais = string.Empty;
-        //        //    string Codigo = string.Empty;
-
-        //        //    if (!UsuarioSAC)
-        //        //    {
-        //        //        Pais = UserPortal.Substring(0, 2);
-        //        //        Codigo = UserPortal.Substring(2, UserPortal.Length - 2);
-        //        //    }
-        //        //    else
-        //        //    {
-        //        //        Claim FederationClaimCountry = claimsPrincipal.FindFirst(ClaimTypes.Country);
-        //        //        Pais = FederationClaimCountry.Value.ToUpper();
-        //        //        Codigo = UserPortal;
-        //        //    }
-
-        //        //    paisLog = Pais;
-        //        //    usuarioLog = Codigo;
-
-        //            string Codigo = string.Empty;
-        //            int Tipo = 0;
-        //            string Pais = string.Empty;
-
-        //            BEPais PaisModel = lst.First(p => p.CodigoISO == Pais);
-        //            if (PaisModel != null)
-        //            {
-        //                UsuarioModel usuario = GetUserData(PaisModel.PaisID, Codigo, Tipo);
-        //                if (usuario != null)
-        //                {
-        //                    if (usuario.RolID == Portal.Consultoras.Common.Constantes.Rol.Consultora)
-        //                    {
-        //                        bool esMovil = Request.Browser.IsMobileDevice;
-
-        //                        if (esMovil)
-        //                        {
-        //                            return RedirectToAction("Index", "Bienvenida", new { area = "Mobile" });
-        //                        }
-        //                        else
-        //                        {
-        //                            if (usuario.EMail == null || usuario.EMail == "" || usuario.EMailActivo == false)
-        //                            {
-        //                                Session["PrimeraVezSession"] = 0;
-        //                            }
-        //                            return RedirectToAction("Index", "Bienvenida");
-        //                        }
-        //                    }
-        //                    else
-        //                    {
-        //                        return RedirectToAction("Index", "Bienvenida");
-        //                    }
-        //                }
-        //                else
-        //                {
-        //                    string Url = Request.Url.Scheme + "://" + Request.Url.Authority + (Request.ApplicationPath.ToString().Equals("/") ? "/" : (Request.ApplicationPath + "/")) + "WebPages/UserUnknown.aspx";
-        //                    return Redirect(Url);
-        //                }
-        //            }
-        //            else
-        //            {
-        //                string Url = Request.Url.Scheme + "://" + Request.Url.Authority + (Request.ApplicationPath.ToString().Equals("/") ? "/" : (Request.ApplicationPath + "/")) + "WebPages/UserUnknown.aspx";
-        //                return Redirect(Url);
-        //            }
-        //        //}
-        //        //else
-        //        //{
-        //        //    string Url = Request.Url.Scheme + "://" + Request.Url.Authority + (Request.ApplicationPath.ToString().Equals("/") ? "/" : (Request.ApplicationPath + "/")) + "WebPages/UserUnknown.aspx";
-        //        //    return Redirect(Url);
-        //        //}
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        LogManager.LogManager.LogErrorWebServicesBus(ex, usuarioLog, paisLog, pasoLog);
-        //        string Url = Request.Url.Scheme + "://" + Request.Url.Authority + (Request.ApplicationPath.ToString().Equals("/") ? "/" : (Request.ApplicationPath + "/")) + "WebPages/UserUnknown.aspx";
-        //        return Redirect(Url);
-        //    }
-        //}
-
         private IEnumerable<PaisModel> DropDowListPaises()
         {
             IList<BEPais> lst;
@@ -294,11 +153,6 @@ namespace Portal.Consultoras.Web.Controllers
         public ActionResult LogOut()
         {
             return CerrarSesion();
-
-            //Session["UserData"] = null;
-            //Session.Clear();
-            //Session.Abandon();
-            //return RedirectToAction("Index", "Login");
         }
 
         private ActionResult CerrarSesion()
@@ -339,34 +193,14 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 Tipo = ((UsuarioModel)Session["UserData"]).TipoUsuario;
             }
+
             Session["UserData"] = null;
             Session.Clear();
             Session.Abandon();
 
-            //FederatedAuthentication.WSFederationAuthenticationModule.SignOut(false);
-            //FederatedAuthentication.SessionAuthenticationModule.SignOut();
-            //FederatedAuthentication.SessionAuthenticationModule.CookieHandler.Delete();
-            //FederatedAuthentication.SessionAuthenticationModule.DeleteSessionTokenCookie();
-
-            //FormsAuthentication.SignOut();
-
-            //string URLSignOut = string.Empty;
-            //switch (Tipo)
-            //{
-            //    case 0:
-            //        URLSignOut = ConfigurationManager.AppSettings.Get("URLSignOut");
-            //        break;
-            //    case 1:
-            //        URLSignOut = ConfigurationManager.AppSettings.Get("URLSignOut");
-            //        break;
-            //    case 2:
-            //        URLSignOut = ConfigurationManager.AppSettings.Get("URLSignOutPartner");
-            //        break;
-            //}
-
             string URLSignOut = "/Login/SesionExpirada";
             if (Tipo == 2)
-                URLSignOut = ConfigurationManager.AppSettings.Get("URLSignOutPartner");
+                URLSignOut = "/Login/Admin";
 
             return Redirect(URLSignOut);
         }
@@ -744,6 +578,96 @@ namespace Portal.Consultoras.Web.Controllers
                                 }
                             }
                         }
+
+                        /*PL20-1226*/
+                        //model.EsOfertaDelDia = oBEUsuario.EsOfertaDelDia;
+                        //if (model.EsOfertaDelDia > 0)
+                        //{
+
+                        if (oBEUsuario.OfertaDelDia)
+                        {
+                            var lstOfertaDelDia = new List<BEEstrategia>();
+                            using (PedidoServiceClient svc = new PedidoServiceClient())
+                            {
+                                lstOfertaDelDia = svc.GetEstrategiaODD(model.PaisID, model.CampaniaID, model.CodigoConsultora, model.FechaInicioCampania.Date).ToList();
+                            }
+
+                            if (lstOfertaDelDia.Any())
+                            {
+                                var configOfertaDelDia = new List<BETablaLogicaDatos>();
+                                using (SACServiceClient svc = new SACServiceClient())
+                                {
+                                    configOfertaDelDia = svc.GetTablaLogicaDatos(model.PaisID, 93).ToList();
+                                }
+
+                                if (configOfertaDelDia.Any())
+                                {
+                                    var ofertaDelDia = lstOfertaDelDia[0];
+                                    var arr1 = ofertaDelDia.DescripcionCUV2.Split('|');
+                                    var nombreODD = arr1[0].Trim();
+                                    var descripcionODD = string.Empty;
+
+                                    for (int i = 1; i < arr1.Length; i++)
+                                    {
+                                        if (!string.IsNullOrEmpty(arr1[i]))
+                                            descripcionODD += arr1[i].Trim() + "|";
+                                    }
+
+                                    descripcionODD = descripcionODD.Substring(0, descripcionODD.Length - 1);
+
+                                    var countdown = CountdownODD(model);
+                                    var imgF1 = string.Format(ConfigurationManager.AppSettings.Get("UrlImgFondo1ODD"), model.CodigoISO);
+                                    var imgF2 = string.Format(ConfigurationManager.AppSettings.Get("UrlImgFondo2ODD"), model.CodigoISO);
+                                    var imgSh = string.Format(ConfigurationManager.AppSettings.Get("UrlImgSoloHoyODD"), model.CodigoISO);
+                                    //var imgBanner = string.Format(ConfigurationManager.AppSettings.Get("UrlImgBannerODD"), model.CodigoISO, ofertaDelDia.ImagenURL);
+                                    //var imgDisplay = string.Format(ConfigurationManager.AppSettings.Get("UrlImgDisplayODD"), model.CodigoISO, ofertaDelDia.ImagenURL);
+                                    var colorF1 = configOfertaDelDia.Where(x => x.TablaLogicaDatosID == 9301).First().Codigo ?? string.Empty;
+                                    var colorF2 = configOfertaDelDia.Where(x => x.TablaLogicaDatosID == 9302).First().Codigo ?? string.Empty;
+                                    descripcionODD = descripcionODD.Replace("|", " +<br />");
+                                    descripcionODD = descripcionODD.Replace("\\", "");
+                                    descripcionODD = descripcionODD.Replace("(GRATIS)", "<b>GRATIS</b>");
+
+                                    var carpetaPais = Globals.UrlMatriz + "/" + model.CodigoISO;
+
+                                    ofertaDelDia.FotoProducto01 = ConfigS3.GetUrlFileS3(carpetaPais, ofertaDelDia.FotoProducto01, carpetaPais);
+                                    ofertaDelDia.ImagenURL = ConfigS3.GetUrlFileS3(carpetaPais, ofertaDelDia.ImagenURL, carpetaPais);
+                                    var imgBanner = ofertaDelDia.FotoProducto01;
+                                    var imgDisplay = ofertaDelDia.FotoProducto01;
+
+                                    var oddModel = new OfertaDelDiaModel();
+                                    oddModel.CodigoIso = model.CodigoISO;
+                                    oddModel.TipoEstrategiaID = ofertaDelDia.TipoEstrategiaID;
+                                    oddModel.EstrategiaID = ofertaDelDia.EstrategiaID;
+                                    oddModel.MarcaID = ofertaDelDia.MarcaID;
+                                    oddModel.CUV2 = ofertaDelDia.CUV2;
+                                    oddModel.LimiteVenta = ofertaDelDia.LimiteVenta;
+                                    oddModel.IndicadorMontoMinimo = ofertaDelDia.IndicadorMontoMinimo;
+                                    oddModel.TipoEstrategiaImagenMostrar = ofertaDelDia.TipoEstrategiaImagenMostrar;
+                                    oddModel.TeQuedan = countdown;
+                                    oddModel.ImagenFondo1 = imgF1;
+                                    oddModel.ColorFondo1 = colorF1;
+                                    oddModel.ImagenBanner = imgBanner;
+                                    oddModel.ImagenSoloHoy = imgSh;
+                                    oddModel.ImagenFondo2 = imgF2;
+                                    oddModel.ColorFondo2 = colorF2;
+                                    oddModel.ImagenDisplay = imgDisplay;
+                                    oddModel.NombreOferta = nombreODD;
+                                    oddModel.DescripcionOferta = descripcionODD;
+                                    oddModel.PrecioOferta = ofertaDelDia.Precio2;
+                                    oddModel.PrecioCatalogo = ofertaDelDia.Precio;
+
+                                    model.TieneOfertaDelDia = true;
+                                    //Session["OfertaDelDia"] = oddModel;
+                                    //Session["CloseODD"] = false;
+                                    model.OfertaDelDia = oddModel;
+                                    //model.IdTipoEstrategiaODD = ofertaDelDia.TipoEstrategiaID;
+                                    //model.LimiteVentaOfertaDelDia = oddModel.LimiteVenta;
+
+                                }// config ODD
+                            }// list ODD
+                            
+                            /*PL20-1226*/
+                        }
                     }
                 }
 
@@ -757,20 +681,20 @@ namespace Portal.Consultoras.Web.Controllers
             return model;
         }
 
-        public List<ServiceSAC.BEProductoFaltante> GetModelPedidoAgotado(int PaisID, int CampaniaID, int ZonaID)
+        private List<BEProductoFaltante> GetModelPedidoAgotado(int PaisID, int CampaniaID, int ZonaID)
         {
-            List<ServiceSAC.BEProductoFaltante> olstProductoFaltante = new List<ServiceSAC.BEProductoFaltante>();
-            using (ServiceSAC.SACServiceClient sv = new ServiceSAC.SACServiceClient())
+            List<BEProductoFaltante> olstProductoFaltante = new List<BEProductoFaltante>();
+            using (SACServiceClient sv = new SACServiceClient())
             {
                 olstProductoFaltante = sv.GetProductoFaltanteByCampaniaAndZonaID(PaisID, CampaniaID, ZonaID).ToList();
             }
             return olstProductoFaltante;
         }
 
-        public List<TipoLinkModel> GetLinksPorPais(int PaisID)
+        private List<TipoLinkModel> GetLinksPorPais(int PaisID)
         {
-            List<ServiceContenido.BETipoLink> listModel = new List<ServiceContenido.BETipoLink>();
-            using (ServiceContenido.ContenidoServiceClient sv = new ServiceContenido.ContenidoServiceClient())
+            List<BETipoLink> listModel = new List<BETipoLink>();
+            using (ContenidoServiceClient sv = new ContenidoServiceClient())
             {
                 listModel = sv.GetLinksPorPais(PaisID).ToList();
             }
@@ -783,7 +707,7 @@ namespace Portal.Consultoras.Web.Controllers
             return Mapper.Map<IList<BETipoLink>, List<TipoLinkModel>>(listModel);
         }
 
-        public bool GetPermisoFlexipago(int PaisID, string PaisISO, string CodigoConsultora, int CampaniaID)
+        private bool GetPermisoFlexipago(int PaisID, string PaisISO, string CodigoConsultora, int CampaniaID)
         {
             bool Result = false;
             string hasFlexipago = ConfigurationManager.AppSettings.Get("PaisesFlexipago") ?? string.Empty;
@@ -797,12 +721,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             return Result;
         }
-
-        public ActionResult Timeout()
-        {
-            return View();
-        }
-
+        
         private string GetIPCliente()
         {
             string IP = string.Empty;
@@ -836,23 +755,12 @@ namespace Portal.Consultoras.Web.Controllers
 
         private void AsignarHojaEstilos(string iso)
         {
-            //HtmlTitle tituloPagina = this.Master.FindControl("tituloPagina") as HtmlTitle;
-            //HtmlLink iconoPagina = this.Master.FindControl("iconoPagina") as HtmlLink;
-            //HtmlLink cssPrincipalEsika = this.Master.FindControl("cssStyle") as HtmlLink;
-            //HtmlLink cssPrincipalLbel = this.Master.FindControl("cssStyleLbel") as HtmlLink;
             ViewBag.IsoPais = iso;
 
             if (iso == "BR") iso = "00";
-            //ddlPais.SelectedValue = iso;
 
             if (ConfigurationManager.AppSettings.Get("paisesEsika").Contains(iso))
             {
-                //iconoPagina.Href = "http://www.esika.com/wp-content/themes/nuevaesika/favicon.ico";
-                //tituloPagina.Text = " ÉSIKA ";
-                //cssPrincipalEsika.Disabled = false;
-                //cssPrincipalLbel.Disabled = true;
-                //AvisoASP.Attributes.Add("Style", "display: none");
-                //cargarBandera.Attributes.Add("Style", "background: url('Images/Banderas/" + iso + ".png') top 10px left 2px no-repeat");
                 ViewBag.TituloPagina = " ÉSIKA ";
                 ViewBag.IconoPagina = "http://www.esika.com/wp-content/themes/nuevaesika/favicon.ico";
                 ViewBag.EsPaisEsika = true;
@@ -864,13 +772,6 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 if (ConfigurationManager.AppSettings.Get("paisesLBel").Contains(iso))
                 {
-                    //iconoPagina.Href = "http://cdn.lbel.com/wp-content/themes/lbel2/images/icons/favicon.ico";
-                    //tituloPagina.Text = " L'BEL ";
-                    //cssPrincipalEsika.Disabled = true;
-                    //cssPrincipalLbel.Disabled = false;
-                    //if (iso == "MX") AvisoASP.Attributes.Add("Style", "display: block; color: #959595; font-family: lato;font-size: 12px; font-weight: 700; text-align: right; text-decoration: none;");
-                    //cargarBandera.Attributes.Add("Style", "background: url('Images/Banderas/" + iso + ".png') top 10px left 2px no-repeat");
-
                     ViewBag.TituloPagina = " L'BEL ";
                     ViewBag.IconoPagina = "http://cdn.lbel.com/wp-content/themes/lbel2/images/icons/favicon.ico";
                     ViewBag.EsPaisEsika = false;
@@ -885,13 +786,6 @@ namespace Portal.Consultoras.Web.Controllers
                 }
                 else
                 {
-                    //iconoPagina.Href = "http://www.esika.com/wp-content/themes/nuevaesika/favicon.ico";
-                    //tituloPagina.Text = " ÉSIKA ";
-                    //cssPrincipalEsika.Disabled = false;
-                    //cssPrincipalLbel.Disabled = true;
-                    //AvisoASP.Attributes.Add("Style", "display: none");
-                    //cargarBandera.Attributes.Add("Style", "background: url('Images/Banderas/00.png') top -7px left -10px no-repeat");
-
                     ViewBag.TituloPagina = " ÉSIKA ";
                     ViewBag.IconoPagina = "http://www.esika.com/wp-content/themes/nuevaesika/favicon.ico";
                     ViewBag.EsPaisEsika = true;
@@ -902,7 +796,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-        public int MenuNotificaciones(BEUsuario oBEUsuario)
+        private int MenuNotificaciones(BEUsuario oBEUsuario)
         {
             if (oBEUsuario.NuevoPROL && oBEUsuario.ZonaNuevoPROL)
                 return 1;
@@ -910,7 +804,7 @@ namespace Portal.Consultoras.Web.Controllers
                 return 0;
         }
 
-        public bool RegionPROL(string ISOPais, string CodRegion)
+        private bool RegionPROL(string ISOPais, string CodRegion)
         {
             bool Result = false;
             string[] paises = ConfigurationManager.AppSettings["RegionesPROLv2"].Split(';');
@@ -934,7 +828,7 @@ namespace Portal.Consultoras.Web.Controllers
             return Result;
         }
 
-        public int TieneNotificaciones(BEUsuario oBEUsuario)
+        private int TieneNotificaciones(BEUsuario oBEUsuario)
         {
             int Tiene = 0;
             List<BENotificaciones> olstNotificaciones = new List<BENotificaciones>();
@@ -951,7 +845,7 @@ namespace Portal.Consultoras.Web.Controllers
             return Tiene;
         }
 
-        public String GetFechaPromesaEntrega(int PaisId, int CampaniaId, string CodigoConsultora, DateTime FechaFact)
+        private string GetFechaPromesaEntrega(int PaisId, int CampaniaId, string CodigoConsultora, DateTime FechaFact)
         {
             String sFecha = Convert.ToDateTime("2000-01-01").ToString();
             DateTime Fecha = Convert.ToDateTime("2000-01-01");
@@ -969,7 +863,7 @@ namespace Portal.Consultoras.Web.Controllers
             return sFecha;
         }
 
-        public bool EsUsuarioComunidad(int PaisId, string CodigoUsuario)
+        private bool EsUsuarioComunidad(int PaisId, string CodigoUsuario)
         {
             ServiceComunidad.BEUsuarioComunidad result = null;
             try
@@ -1047,8 +941,35 @@ namespace Portal.Consultoras.Web.Controllers
                 }
             }
         }
+        
+        public TimeSpan CountdownODD(UsuarioModel model)
+        {
+            //DateTime hoy = DateTime.Now;
+            //DateTime d1 = new DateTime(hoy.Year, hoy.Month, hoy.Day, 0, 0, 0);
+            DateTime hoy;
 
-        /* EPD-180 */
+            using (SACServiceClient svc = new SACServiceClient())
+            {
+                hoy = svc.GetFechaHoraPais(model.PaisID);
+            }
+
+            DateTime d1 = new DateTime(hoy.Year, hoy.Month, hoy.Day, 0, 0, 0);
+            DateTime d2;
+
+            if (model.EsDiasFacturacion)  // dias de facturacion
+            {
+                TimeSpan t1 = model.HoraCierreZonaNormal;
+                d2 = new DateTime(hoy.Year, hoy.Month, hoy.Day, t1.Hours, t1.Minutes, t1.Seconds);
+            }
+            else
+            {
+                d2 = d1.AddDays(1);
+            }
+
+            TimeSpan t2 = (d2 - hoy);
+            return t2;
+        }
+
         public ActionResult SesionExpirada()
         {
             return View();
@@ -1083,7 +1004,6 @@ namespace Portal.Consultoras.Web.Controllers
         {
             return View();
         }
-        /* EPD-180 */
 
         public ActionResult Admin()
         {
