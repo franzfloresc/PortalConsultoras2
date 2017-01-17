@@ -1452,6 +1452,7 @@ ul.tabs {
         text-align: left;
     }
 
+
     .div-3 p {
         float: left;
         height: auto;
@@ -1582,6 +1583,19 @@ ul.tabs {
     }
 
     .div-3 .titG {
+        float: left;
+        width: 125px;
+        height: auto;
+        padding: 9px;
+        background: none;
+        color: #702789;
+        font-size: 14px;
+        margin: 0;
+        border: 0;
+        text-align:left;
+    }
+
+    .div-3 .titX {
         float: left;
         width: 125px;
         height: auto;
@@ -2608,6 +2622,8 @@ border: 0;
         border: 0;
         margin: 12px 10px 0 0;
     }
+
+
 
 .div-3 .input_modifica input {
     float: left;
