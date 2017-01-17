@@ -57,6 +57,7 @@
                     <a class="cantidad_mas_home"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
                 </div>
                 <a class="btn_agregar_ficha_producto" href="#">AGRÉGALO</a>
+<div class="wrapper_resumen_mobile" style="padding-bottom:96px;" id="PopFichaProductoNueva">
                 <hr class="clear" />
             </div>
         </div>
@@ -232,6 +233,9 @@
 
         <div data-item="catalogopersonalizado">
 
+        <input type="hidden" id="hdCuvFichaProductoFAV" value="@Model.CUV" />
+        <input type="hidden" id="hdCuvFichaProductoFAVSelect" />
+
             <div style="display: none;">
                 <input type="hidden" class="hdItemCuv" value="@Model.CUV" />
                 <input type="hidden" class="hdItemTipoOfertaSisID" value="@Model.TipoOfertaSisID" />
@@ -245,40 +249,47 @@
                 <input type="hidden" class="hdItemDescripcionCategoria" value="@Model.DescripcionCategoria" />
                 <input type="hidden" class="hdItemDescripcionMarca" value="@Model.DescripcionMarca" />
                 <input type="hidden" class="hdItemDescripcionEstrategia" value="@Model.DescripcionEstrategia" />
-                <input type="hidden" class="hdItemRutaImagen" value="@Model.ImagenProductoSugerido" />
                 <input type="hidden" class="hdItemTipoOfertaRevista" value="@Model.TipoOfertaRevista" />
-                <input type="hidden" class="OrigenPedidoWeb" value="@Portal.Consultoras.Common.Constantes.OrigenPedidoWeb.MobileCatalogoPersonalizado" />
+            <input type="hidden" class="OrigenPedidoWeb" value="@Portal.Consultoras.Common.Constantes.OrigenPedidoWeb.DesktopCatalogoPersonalizado" />
+            <input type="hidden" class="hdItemEsMaquillaje" value="@Model.EsMaquillaje" />
+            <input type="hidden" class="hdItemRutaImagen" value="@Model.ImagenProductoSugerido" />
             </div>
 
-            <div class="content_imagen_ficha"><img src="@Model.ImagenProductoSugerido" alt="PRODUCTO" class="imagen_producto" /></div>
-            <div class="titulo_ficha_producto">@Model.Descripcion</div>
-            <div class="peso_ficha_producto">@Model.Volumen</div>
-            <div class="descripcion_ficha_producto">@Model.DescripcionComercial</div>
-            <div class="precio_ficha_producto"><span class="precio_tachado_ficha">@ViewBag.Simbolo @Model.PrecioValorizadoString </span>@ViewBag.Simbolo @Model.PrecioCatalogoString</div>
-            @*<div>
-                    <div class="content_tonos_producto">
-                        <div class="content_tono_detalle borde_seleccion_tono">
-                            <img src="https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/PYi4dINUiOsYQ7e/labial_color.png" alt="PRODUCTO" />
-                            <div class="content_mascara_maquillaje">
-                                <img src="https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/HfQTTPvWfVXwt3R/textura_labial.png" alt="PRODUCTO" />
-                            </div>
+        <div class="content_imagen_ficha">
+            <img id="fav_imagen_prod" src="@Model.ImagenProductoSugerido" alt="PRODUCTO" class="imagen_producto" />
+        </div>
+        <div id="fav_nombre_prod" class="titulo_ficha_producto">@Model.Descripcion</div>
+        <div class="peso_ficha_producto">@Model.Volumen</div>
+        <div id="fav_descripcion_prod" class="descripcion_ficha_producto">@Model.DescripcionComercial</div>
+        <div class="precio_ficha_producto">
+            <span class="precio_tachado_ficha">@ViewBag.Simbolo @Model.PrecioValorizadoString </span>@ViewBag.Simbolo @Model.PrecioCatalogoString
+        </div>
+
+        <div>
+            <div class="content_tonos_producto">
+
+                @if (Model.Hermanos != null)
+                {
+                    foreach (var item in Model.Hermanos)
+                    {
+                        <div id="fav_tono_@Model.CUV" class="content_tono_detalle" onclick="cambiarInfoFichaProductoFAV(1,'@item.CUV')">
+                            <img src="@item.ImagenBulk" alt="@item.NombreBulk" />
+                            @*<div class="content_mascara_maquillaje">
+                                    <img src="https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/HfQTTPvWfVXwt3R/textura_labial.png" alt="PRODUCTO" />
+                                </div>*@
                         </div>
-                        <div class="content_tono_detalle">
-                            <img src="https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/PYi4dINUiOsYQ7e/labial_color.png" alt="PRODUCTO" />
-                            <div class="content_mascara_maquillaje">
-                                <img src="https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/HfQTTPvWfVXwt3R/textura_labial.png" alt="PRODUCTO" />
-                            </div>
-                        </div>
+                    }
                      
-                        <hr class="clear" />
-                    </div>
-                    <select class="tono_labial_select">
-                        <option>Coral Cautivante</option>
-                        <option>Coral Cautivante</option>
-                        <option>Coral Cautivante</option>
-                        <option>Coral Cautivante</option>
+                    <hr class="clear" />
+                    <select id="fav_tonobulk_@Model.CUV" class="tono_labial_select" onchange="cambiarInfoFichaProductoFAV(2)">
+                        @foreach (var item in Model.Hermanos)
+                        {
+                            <option value="@item.CUV">@item.NombreBulk</option>
+                        }
                     </select>
-                </div>*@
+                }
+            </div>
+        </div>
 
             <div class="content_redes_ficha">
                 @{
@@ -314,7 +325,7 @@
                             <input type="tel" value="1" size="2" maxlength="2" id="txtCantidad" class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" data-input="cantidad">
                             <a class=" cantidad_mas_home"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
                         </div>
-                        <a class="btn_agregar_ficha_producto" data-btn-agregar-catalogopersonalizado="" href="#">AGRÉGALO</a>
+                    <a class="btn_agregar_ficha_producto" onclick="agregarCuvPedidoFichaProductoFAV(2)" style="cursor: pointer;">AGRÉGALO</a>
                         <hr class="clear" />
                     </div>
                 </div>
@@ -339,6 +350,7 @@
         $(document).ready(function () {
 
             $("#VerPrecioCatalogo").on("click", function () {
+            //PL20-1237
                 $('#GuiaNegocio').hide(); //muestro mediante id             
                 $('#PrecioCatalogo').show(); //oculto mediante id  
             });
@@ -346,21 +358,18 @@
                 $('#GuiaNegocio').show(); //muestro mediante id             
                 $('#PrecioCatalogo').hide(); //oculto mediante id  
             });
-            //Pl20-1237
             $('.footer-page').hide();
+
+            dataFichaProductoFAV = JSON.parse('@Html.Raw(Json.Encode(Model.Hermanos))');
+
+            setInfoCUV();
 
             $(".content_tono_detalle").on("click", function () {
 
                 $('.content_tono_detalle').removeClass('borde_seleccion_tono');
                 $(this).addClass("borde_seleccion_tono");
-
-                //if ($(this).hasClass("borde_seleccion_tono")) {
-                //    $(this).removeClass("borde_seleccion_tono");
-                //} else {
-        
-                //    $(this).addClass("borde_seleccion_tono");
-                //}
             });
+
         });
 
         //PL20-1237
@@ -419,6 +428,7 @@
                     }
                 }
             });
+
             return ID;
         }
 
@@ -436,8 +446,16 @@
 
             //window.open('http://localhost:20267/Pdto.aspx?id=PE_2_F');
         }
+
+        //PL20-1269
+        function setInfoCUV() {
+            var cuv = $('#hdCuvFichaProductoFAV').val();
+            $('#fav_tono_' + cuv).addClass("borde_seleccion_tono");
+            $('#hdCuvFichaProductoFAVSelect').val(cuv);
+        }
     </script>
 
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/CatalogoPersonalizado/CatalogoPersonalizado.js")"></script>
     <script src="~/Scripts/PortalConsultoras/Mobile/CatalogoPersonalizado/bootstrap-slider.min.js"></script>
+    
 }
