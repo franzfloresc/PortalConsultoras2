@@ -328,9 +328,9 @@ h4.re3 {
 }
 
 @media only screen and (max-width: 320px) {
-    .divShowRoom{
+    /*.divShowRoom{
         zoom:93%
-    }
+    }*/
     .zoom-320 {
         margin-right: -15px;
         margin-top: 5px;
@@ -10159,7 +10159,7 @@ a{
     padding-top:12px;
 }
 .solo_hoy_mobile{
-    margin-left:35px;
+    margin-left:25px;
     margin-top:13px;
     width:133px;
 }
@@ -10170,7 +10170,7 @@ a{
      font-family: 'Lato';
     font-size: 12px;
     letter-spacing:0.4px;
-    margin-left: 40px;
+    margin-left: 30px;
     margin-top: 3px;
     color:white;
     line-height:15px;
@@ -10181,9 +10181,9 @@ a{
 }
 .imagen_set_oferta_mobile{
     float: left;
-    width: 96px;
-    margin-top: 6px;
-    margin-left: 5px;
+    width: 125px;
+    margin-top: 9px;
+    margin-left: 9px;
     text-align: center;
 }
 .imagen_set_oferta_mobile img{
@@ -10262,7 +10262,7 @@ a{
     text-align: center;
     margin: 0 auto;
     margin-top: 15px;
-    width: 100%;
+    width: 90%;
     /* margin: 0 auto; */
 }
 .set_oferta_content .producto_img_mobile img {
@@ -10324,7 +10324,7 @@ a{
     letter-spacing:0.8px;
     height:26px;
     line-height:23px;
-    margin-left:35px;
+    margin-left:25px;
     margin-top:7px;
     text-align:center;
 }
