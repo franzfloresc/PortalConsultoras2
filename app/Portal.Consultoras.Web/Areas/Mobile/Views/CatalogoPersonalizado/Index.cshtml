@@ -185,8 +185,9 @@
     
 
     <!--SB20-1197 - FIN -->
-
-    <div id="divCatalogoPersonalizado" class="contenedor_productos_liquidacion">
+    <div class="Content_favoritos_new">
+        <div id="divCatalogoPersonalizado" class="contenedor_productos_liquidacion">
+        </div>
     </div>
     <div class="clear"></div>
 
@@ -302,7 +303,7 @@
                 </div>
                 
                 <div class="producto_img_mobile" data-img="" onclick="mostrarFichaProductoFAV('{{CUV}}');">
-                    <img src="{{ImagenProductoSugerido}}" style="width: auto; height: 100%;" class="imagen_producto">
+                    <img src="{{ImagenProductoSugerido}}" class="imagen_producto">
                 </div>
 
                 {{#if item.TieneLanzamientoCatalogoPersonalizado}}
@@ -313,11 +314,11 @@
                 <div class="producto_nombre_descripcion">
                     <h6>{{DescripcionMarca}}</h6>
                     
-                    <p class="nombre_producto" onclick="mostrarFichaProductoFAV('{{CUV}}');" style="text-decoration: underline; cursor: pointer;">
+                    <p class="nombre_producto" onclick="mostrarFichaProductoFAV('{{CUV}}');" style=" cursor: pointer;">
                         <b>{{Descripcion}}</b>
                     </p>
                    
-                    <div class="producto_precio" style="margin-bottom: 2px !important;">
+                    <div class="producto_precio" style="margin-bottom: 2px !important; margin-top: 10px;">
                         <span class="producto_precio_normal">{{Simbolo}} {{PrecioValorizadoString}}</span>
                         <span class="producto_precio_oferta"><b>{{Simbolo}} {{PrecioCatalogoString}}</b></span>
                     </div>
@@ -330,16 +331,16 @@
                     </div>
 
                     <hr class="clear">
-                    <div class="liquidacion_rango_home" data-cantidad-contenedor="">
+                    @*@*<div class="liquidacion_rango_home" data-cantidad-contenedor="">
                         <a class="cantidad_menos_home"><img src="/Content/Images/Mobile/Esika/menos.png" alt=""></a>
                         <input type="tel" value="1" size="2" maxlength="2" id="txtCantidad" class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" data-input="cantidad" data-cantidad-input="-">
                         <a class="cantidad_mas_home"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
-                    </div>
-                    <div class="clear"></div>
+                    </div>*@
+                    @*<div class="clear"></div>
 
-                    <a class="boton_Agregalo_home btnAgregarOfertaProducto" data-btn-agregar-catalogopersonalizado=""> AGREGALO</a>
+                    <a class="boton_Agregalo_home btnAgregarOfertaProducto" data-btn-agregar-catalogopersonalizado=""> AGREGALO</a>*@
 
-                    <div class="clear"></div>
+                    
                     <div style="padding-top:9px; height: 15px;">
                         <div class="agregado product-add" style="text-align: right; display:{{#if IsAgregado }}block;{{else}}none;{{/if}}">
                             AGREGADO
