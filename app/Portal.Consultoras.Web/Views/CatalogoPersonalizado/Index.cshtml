@@ -1022,7 +1022,7 @@
                     <a class="menos" data-cantidad-agregar="-"><img src="/Content/Images/Esika/menos.png" alt=""></a>
                 </div>
             </div>
-            <a class="boton_Agregalo_home ficha_btn_agregar" onclick="agregarCuvPedidoFichaProductoFAV(1)">
+            <a class="boton_Agregalo_home ficha_btn_agregar" onclick="agregarCuvPedidoFichaProductoFAV(1)" style="cursor: pointer;">
                 AGRÉGALO
             </a>
         </div>
@@ -1040,7 +1040,7 @@
         var offsetRegistros = 0;
         var cargandoRegistros = false;
 
-        var tipoOrigen = "1";   /*PL20-1227*/
+        var tipoOrigen = "1";   //PL20-1227
         var urlGetInfoFichaProducto = '@Url.Action("GetInfoFichaProductoFAV", "CatalogoPersonalizado")';    //PL20-1268
     </script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/slick.min.js")"></script>
