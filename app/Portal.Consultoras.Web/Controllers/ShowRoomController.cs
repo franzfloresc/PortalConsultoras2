@@ -55,6 +55,7 @@ namespace Portal.Consultoras.Web.Controllers
                                 var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
                                 using (PedidoServiceClient sv = new PedidoServiceClient())
                                 {
+                                    userData.CodigoConsultora = userData.UsuarioPrueba == 1 ? userData.CodigoConsultora.ToString() : userData.CodigoConsultora.ToString();
                                     listaShowRoomOferta = sv.GetShowRoomOfertasConsultora(userData.PaisID, userData.CampaniaID, userData.CodigoConsultora).ToList();
 
                                     if (listaShowRoomOferta != null)
