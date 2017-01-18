@@ -149,8 +149,8 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public int Imagen { get; set; }
          
-        [DataMember]
-        public string CodigoSAP { get; set; }
+        //[DataMember]
+        //public string CodigoSAP { get; set; }
         
         public BEEstrategia(IDataRecord row)
         {
@@ -313,8 +313,8 @@ namespace Portal.Consultoras.Entities
             if (DataRecord.HasColumn(row, "OfertaUltimoMinuto") && row["OfertaUltimoMinuto"] != DBNull.Value)
                 FlagMostrarImg = Convert.ToInt32(row["OfertaUltimoMinuto"]);
 
-            if (DataRecord.HasColumn(row, "CodigoSAP")&& row["CodigoSAP"] != DBNull.Value )            
-                CodigoSAP = row["CodigoSAP"].ToString().Trim();
+            //if (DataRecord.HasColumn(row, "CodigoSAP")&& row["CodigoSAP"] != DBNull.Value )            
+            //    CodigoSAP = row["CodigoSAP"].ToString().Trim();
             
         }
     }

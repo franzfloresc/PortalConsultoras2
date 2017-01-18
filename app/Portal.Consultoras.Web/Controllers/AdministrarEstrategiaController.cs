@@ -198,7 +198,7 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         public ActionResult Consultar(string sidx, string sord, int page, int rows, string CampaniaID,
-            string TipoEstrategiaID, string CUV, string Consulta, int Imagen, int Activo)
+            string TipoEstrategiaID, string CUV, string Consulta)
         {
             if (ModelState.IsValid)
             {
@@ -210,8 +210,6 @@ namespace Portal.Consultoras.Web.Controllers
                     entidad.TipoEstrategiaID = Convert.ToInt32(TipoEstrategiaID);
                     entidad.CUV2 = (CUV != "") ? CUV : "0";
                     entidad.CampaniaID = Convert.ToInt32(CampaniaID);
-                    entidad.Activo = Activo;
-                    entidad.Imagen = Imagen;
                    
 
                     using (PedidoServiceClient sv = new PedidoServiceClient())
@@ -543,7 +541,7 @@ namespace Portal.Consultoras.Web.Controllers
                     ///end GR-1060
                     descripcion = lst[0].DescripcionCUV2;
                     precio = lst[0].PrecioUnitario.ToString();
-                    CodigoSAP = lst[0].CodigoSAP.ToString();
+                    //CodigoSAP = lst[0].CodigoSAP.ToString();
                     wsprecio = wspreciopack.ToString();                    
                     imagen1 = ConfigS3.GetUrlFileS3(carpetaPais, lst[0].FotoProducto01, Globals.RutaImagenesMatriz + "/" + userData.CodigoISO);
                     imagen2 = ConfigS3.GetUrlFileS3(carpetaPais, lst[0].FotoProducto02, Globals.RutaImagenesMatriz + "/" + userData.CodigoISO);
@@ -564,7 +562,7 @@ namespace Portal.Consultoras.Web.Controllers
                     descripcion = descripcion,
                     precio = precio,
                     wsprecio = wsprecio,
-                    codigoSAP = CodigoSAP,
+                    //codigoSAP = CodigoSAP,
                     imagen1 = imagen1,
                     imagen2 = imagen2,
                     imagen3 = imagen3,
