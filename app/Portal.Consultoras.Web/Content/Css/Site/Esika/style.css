@@ -32278,9 +32278,9 @@ h1#penmostreo .campana {
 }
 /*PAGINA CATALOGO PERSONALIZADO*/
 .content_img_fav{
-    width:116px;
-    height:auto;
-    float:left;
+    width: 140px;
+    height: 132px;
+    float: left;
 }
 .content_img_fav img{
     width:100%;
@@ -32817,7 +32817,7 @@ h1#penmostreo .campana {
 }
 .tooltip_tono{
     position: absolute;
-    top: 11px;
+    top: -25px;
     background: rgba(255,255,255,0.8);
     color: black;
     display: none;
@@ -32830,8 +32830,15 @@ h1#penmostreo .campana {
     line-height: 11px;
     padding: 2px;
     z-index: 10;
-    overflow: hidden;
 }
 .content_tono_detalle:hover .tooltip_tono{
     display:block;
+}
+
+
+.content_imagen_fav{
+    width: 100%;
+    margin-left: 8%;
+    z-index: 10;
+    position: relative;
 }

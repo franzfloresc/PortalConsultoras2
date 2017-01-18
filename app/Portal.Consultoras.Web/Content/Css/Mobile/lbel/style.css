@@ -9236,6 +9236,7 @@ span.icon-advertencia{
 .content_imagen_banner_fav{
     width:45%;
     float:left;
+    margin-top:4px;
 }
 .content_imagen_banner_fav img{
     width:100%;
