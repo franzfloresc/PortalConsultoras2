@@ -656,10 +656,29 @@
             <div class="selectP2 borde_redondeado">
                 <input type="text" id="txtUnidadesPermitidasModal" maxlength="6">
             </div>
-            <div class="titG">¿Habilitar Oferta?</div>
-            <div class="selectCheck borde_redondeado">
-                <input type="checkbox" class="check" id="chkHabilitarOferta" />
+            
+            <div  class="selectCheck borde_redondeado">
+                <input style="text-align:left; position:absolute; right:192px; top:-4px;" type="checkbox" class="check" id="chkHabilitarOferta" />
             </div>
+            <div style="text-align:left; position:absolute; right:62px;" class="titG">¿Habilitar Oferta?</div>
+        </div>
+        <div class="div-3">
+            <div class="titG">Actualizar Stock:</div>
+            <div class="selectP2 borde_redondeado" id="dvincrementa">
+                <select id="ddlIncrementar" name="ddlIncrementar">
+                    <option value="0" selected>Incrementar</option>
+                    <option value="1">Disminuir</option>
+                </select>
+            </div>
+            <div class="selectP2 borde_redondeado" id="dvcantidad">
+                <input type="text" id="txtCantidad" maxlength="4">
+            </div>
+            
+            <div class="selectCheck borde_redondeado">
+                <input style="text-align:left; position:absolute; right:192px; top:-4px;" type="checkbox" class="check" id="chkAgotado" />
+            </div>
+            <div style="text-align:left; position:absolute; right:62px;" class="titG">Agotado</div>
+
         </div>
         <div class="div-3">
             <div class="titG">Imagen:</div>
@@ -882,6 +901,66 @@
         CargarDialog();
         CargarAjaxForm();
         CargarEventos();
+
+
+        $('#txtCantidad').keydown(function (event) {
+            if (event.shiftKey) {
+                event.preventDefault();
+            }
+            if (event.keyCode == 46 || event.keyCode == 8) {
+            }
+            else {
+                if (event.keyCode < 95) {
+                    if (event.keyCode < 48 || event.keyCode > 57) {
+                        event.preventDefault();
+                    }
+                }
+                else {
+                    if (event.keyCode < 96 || event.keyCode > 105) {
+                        event.preventDefault();
+                    }
+                }
+            }
+        });
+
+        $('#txtUnidadesPermitidasModal').keydown(function (event) {
+            if (event.shiftKey) {
+                event.preventDefault();
+            }
+            if (event.keyCode == 46 || event.keyCode == 8) {
+            }
+            else {
+                if (event.keyCode < 95) {
+                    if (event.keyCode < 48 || event.keyCode > 57) {
+                        event.preventDefault();
+                    }
+                }
+                else {
+                    if (event.keyCode < 96 || event.keyCode > 105) {
+                        event.preventDefault();
+                    }
+                }
+            }
+        });
+
+        $('#chkAgotado').on('change', function () {
+            if (this.checked) {
+                $('#ddlIncrementar').attr('disabled', 'disabled');
+                $('#txtCantidad').attr('disabled', 'disabled');
+                $('#txtCantidad').css('background-color', '#F9F9F0');
+                $('#ddlIncrementar').css('background-color', '#F9F9F0');
+                $('#dvcantidad').attr('style', 'background-color : #F9F9F0');
+                $('#dvincrementa').attr('style', 'background-color : #F9F9F0');
+            } else {
+                $('#ddlIncrementar').removeAttr('disabled');
+                $('#txtCantidad').removeAttr('disabled');
+                $('#txtCantidad').css('background-color', '');
+                $('#ddlIncrementar').css('background-color', '');
+                $('#dvcantidad').removeAttr('style');
+                $('#dvincrementa').removeAttr('style');
+            }
+        });
+
     });
 
     function CargarDialog() {
@@ -1833,7 +1912,10 @@
             CodigoCampania: $("#txtCampaniaModal").val(),
             FlagHabilitarProducto: $("#chkHabilitarOferta").attr('checked') ? 1 : 0,
             CodigoTipoOferta: $.trim($("#hdCodigoOferta").val()),
-            PaisID: paisID
+            PaisID: paisID,
+            CantidadIncrementa: $("#txtCantidad").val() == '' ? '0' : $("#txtCantidad").val(),
+            Incrementa: $("#ddlIncrementar").val(),
+            Agotado: $("#chkAgotado").attr('checked') ? 1 : 0
         };
         waitingDialog({ title: "Procesando" });
         jQuery.ajax({
@@ -2162,6 +2244,17 @@
                     $('#chkHabilitarOferta').removeAttr('checked');
 
                 $('#hdCodigoOferta').val(CodigoOferta);
+
+                $('#ddlIncrementar').val('0');
+                $('#txtCantidad').val('0');
+                $('#chkAgotado').removeAttr('checked');
+
+                $('#ddlIncrementar').removeAttr('disabled');
+                $('#txtCantidad').removeAttr('disabled');
+                $('#txtCantidad').css('background-color', '');
+                $('#ddlIncrementar').css('background-color', '');
+                $('#dvcantidad').removeAttr('style');
+                $('#dvincrementa').removeAttr('style');
 
                 showDialog("DialogRegistroOfertaShowRoom");
 

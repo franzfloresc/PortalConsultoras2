@@ -1486,6 +1486,11 @@ namespace Portal.Consultoras.Service
             return BLShowRoomEvento.ValidarPriorizacionShowRoom(paisID, ConfiguracionOfertaID, CampaniaID, Orden);
         }
 
+        public int ValidadStockOfertaShowRoom(int paisID, BEShowRoomOferta entity)
+        {
+            return BLShowRoomEvento.ValidadStockOfertaShowRoom(paisID, entity);
+        }
+
         public int InsOfertaShowRoom(int paisID, BEShowRoomOferta entity)
         {
             return BLShowRoomEvento.InsOfertaShowRoom(paisID, entity);

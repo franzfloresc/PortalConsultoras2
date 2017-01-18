@@ -774,6 +774,9 @@ namespace Portal.Consultoras.ServiceContracts
         int CargarMasivaConsultora(int paisID, List<BEShowRoomEventoConsultora> listaConsultora);
 
         [OperationContract]
+        int ValidadStockOfertaShowRoom(int paisID, BEShowRoomOferta entity);
+
+        [OperationContract]
         int UpdOfertaShowRoomStockMasivo(int paisID, List<BEShowRoomOferta> stockProductos);
 
         [OperationContract]
