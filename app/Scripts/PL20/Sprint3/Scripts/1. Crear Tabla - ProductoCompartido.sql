@@ -11,8 +11,9 @@ GO
 SET ANSI_PADDING ON
 GO
 
+
 IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES 
-           WHERE TABLE_NAME = N'dbo.ProductoCompartido')
+           WHERE TABLE_NAME = N'ProductoCompartido')
 BEGIN
   DROP TABLE dbo.ProductoCompartido
 END
@@ -54,7 +55,7 @@ SET ANSI_PADDING ON
 GO
 
 IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES 
-           WHERE TABLE_NAME = N'dbo.ProductoCompartido')
+           WHERE TABLE_NAME = N'ProductoCompartido')
 BEGIN
   DROP TABLE dbo.ProductoCompartido
 END
@@ -96,7 +97,7 @@ SET ANSI_PADDING ON
 GO
 
 IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES 
-           WHERE TABLE_NAME = N'dbo.ProductoCompartido')
+           WHERE TABLE_NAME = N'ProductoCompartido')
 BEGIN
   DROP TABLE dbo.ProductoCompartido
 END
@@ -138,7 +139,7 @@ SET ANSI_PADDING ON
 GO
 
 IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES 
-           WHERE TABLE_NAME = N'dbo.ProductoCompartido')
+           WHERE TABLE_NAME = N'ProductoCompartido')
 BEGIN
   DROP TABLE dbo.ProductoCompartido
 END
@@ -180,7 +181,7 @@ SET ANSI_PADDING ON
 GO
 
 IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES 
-           WHERE TABLE_NAME = N'dbo.ProductoCompartido')
+           WHERE TABLE_NAME = N'ProductoCompartido')
 BEGIN
   DROP TABLE dbo.ProductoCompartido
 END
@@ -222,7 +223,7 @@ SET ANSI_PADDING ON
 GO
 
 IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES 
-           WHERE TABLE_NAME = N'dbo.ProductoCompartido')
+           WHERE TABLE_NAME = N'ProductoCompartido')
 BEGIN
   DROP TABLE dbo.ProductoCompartido
 END
@@ -264,7 +265,7 @@ SET ANSI_PADDING ON
 GO
 
 IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES 
-           WHERE TABLE_NAME = N'dbo.ProductoCompartido')
+           WHERE TABLE_NAME = N'ProductoCompartido')
 BEGIN
   DROP TABLE dbo.ProductoCompartido
 END
@@ -306,7 +307,7 @@ SET ANSI_PADDING ON
 GO
 
 IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES 
-           WHERE TABLE_NAME = N'dbo.ProductoCompartido')
+           WHERE TABLE_NAME = N'ProductoCompartido')
 BEGIN
   DROP TABLE dbo.ProductoCompartido
 END
@@ -348,7 +349,7 @@ SET ANSI_PADDING ON
 GO
 
 IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES 
-           WHERE TABLE_NAME = N'dbo.ProductoCompartido')
+           WHERE TABLE_NAME = N'ProductoCompartido')
 BEGIN
   DROP TABLE dbo.ProductoCompartido
 END
@@ -390,7 +391,7 @@ SET ANSI_PADDING ON
 GO
 
 IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES 
-           WHERE TABLE_NAME = N'dbo.ProductoCompartido')
+           WHERE TABLE_NAME = N'ProductoCompartido')
 BEGIN
   DROP TABLE dbo.ProductoCompartido
 END
@@ -432,7 +433,7 @@ SET ANSI_PADDING ON
 GO
 
 IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES 
-           WHERE TABLE_NAME = N'dbo.ProductoCompartido')
+           WHERE TABLE_NAME = N'ProductoCompartido')
 BEGIN
   DROP TABLE dbo.ProductoCompartido
 END
@@ -474,7 +475,7 @@ SET ANSI_PADDING ON
 GO
 
 IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES 
-           WHERE TABLE_NAME = N'dbo.ProductoCompartido')
+           WHERE TABLE_NAME = N'ProductoCompartido')
 BEGIN
   DROP TABLE dbo.ProductoCompartido
 END
@@ -516,7 +517,7 @@ SET ANSI_PADDING ON
 GO
 
 IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES 
-           WHERE TABLE_NAME = N'dbo.ProductoCompartido')
+           WHERE TABLE_NAME = N'ProductoCompartido')
 BEGIN
   DROP TABLE dbo.ProductoCompartido
 END
