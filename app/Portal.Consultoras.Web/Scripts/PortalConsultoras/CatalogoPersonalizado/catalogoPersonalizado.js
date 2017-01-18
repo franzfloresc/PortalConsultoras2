@@ -1,5 +1,6 @@
 ﻿
 var tipoOrigen = tipoOrigen || "";// 1: escritorio (no home)     2: mobile,  3: home
+var cantidadTonosPorFila = 6;
 var cantidadRegistros = cantidadRegistros || 12;
 var offsetRegistros = 0;
 //SB20-1197
@@ -986,6 +987,7 @@ function mostrarFichaProductoFAV2(cuv) {
                 //console.log(_data);
                 var content = SetHandlebars("#template-fichaproductofav", _data);
                 $('#PopFichaProductoNueva').html(content);
+                AjustarTonoTooltips($('#PopFichaProductoNueva'))
                 $('#PopFichaProductoNueva').show();
 
                 dataFichaProductoFAV = _data.Hermanos;
@@ -1011,6 +1013,19 @@ function mostrarFichaProductoFAV2(cuv) {
 
         }
     });
+}
+
+function AjustarTonoTooltips(objcontenedor) {
+    var arrayObjTooltip = objcontenedor.find('.content_tonos_maquillaje .tooltip_tono');
+    var length = arrayObjTooltip.length;
+
+    //arrayObjTooltip.slice(0, cantidadTonosPorFila).css('top', length > cantidadTonosPorFila ? '30px' : '11px');
+
+    var index = cantidadTonosPorFila - 1;
+    while (index < length) {
+        arrayObjTooltip.eq(index).css('left', '-20px');
+        index += cantidadTonosPorFila;
+    }
 }
 
 function cambiarInfoFichaProductoFAV(tipo, cuv) {

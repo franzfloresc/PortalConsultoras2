@@ -32250,10 +32250,11 @@ h1#penmostreo .campana {
     width:381px;
 }
 /*PAGINA CATALOGO PERSONALIZADO*/
-.content_img_fav{
-    width:116px;
-    height:auto;
-    float:left;
+.content_img_fav {
+    width: 140px;
+    height: 132
+    px;
+    float: left;
 }
 .content_img_fav img{
     width:100%;
@@ -32811,4 +32812,3 @@ h1#penmostreo .campana {
 .content_tono_detalle:hover .tooltip_tono{
     display:block;
 }
-.tooltip_tono:nth-child(2n+1)

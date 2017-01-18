@@ -32278,9 +32278,9 @@ h1#penmostreo .campana {
 }
 /*PAGINA CATALOGO PERSONALIZADO*/
 .content_img_fav{
-    width:116px;
-    height:auto;
-    float:left;
+    width: 140px;
+    height: 132px;
+    float: left;
 }
 .content_img_fav img{
     width:100%;
@@ -32833,4 +32833,12 @@ h1#penmostreo .campana {
 }
 .content_tono_detalle:hover .tooltip_tono{
     display:block;
+}
+
+
+.content_imagen_fav{
+    width: 100%;
+    margin-left: 8%;
+    z-index: 10;
+    position: relative;
 }
