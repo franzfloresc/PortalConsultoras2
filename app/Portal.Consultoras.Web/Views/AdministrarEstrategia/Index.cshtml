@@ -2742,7 +2742,7 @@
                         }
                     } else $("#hdColorFondo_").val("");
 
-                    if ($('.chk-estrategia-imagen:checked').length == 0) {
+                    if ($('.chk-estrategiaCUV-imagen:checked').length == 0) {
                         alert("Seleccione una imagen a mostrar.");
                         return false;
                     }
@@ -2760,10 +2760,10 @@
                         }
                     }
                     /* SB20-312 - FIN */
-                    if ($("#hdZonas").val() == "") {
-                        alert("Debe seleccionar el alcance de la estrategia.");
-                        return false;
-                    }
+                    //if ($("#hdZonas").val() == "") {
+                    //    alert("Debe seleccionar el alcance de la estrategia.");
+                    //    return false;
+                    //}
                     if ($.trim($("#txtLimite").val()) == "" || $.isNumeric($("#txtLimite").val()) == false) {
                         alert("Ingrese un valor para el limite de venta.");
                         return false;
