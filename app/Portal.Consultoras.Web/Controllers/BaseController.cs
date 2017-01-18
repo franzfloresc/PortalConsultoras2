@@ -1250,6 +1250,30 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                 }
             }
+            
+            //PL20-1234
+            var lstFiltersFAV = new List<BETablaLogicaDatos>();
+            using (SACServiceClient svc = new SACServiceClient())
+            {
+                for (int i = 94; i <= 97; i++)
+                {
+                    var lstItems = svc.GetTablaLogicaDatos(userData.PaisID, (short)i);
+                    if (lstItems.Any())
+                    {
+                        foreach (var item in lstItems)
+                        {
+                            lstFiltersFAV.Add(item);
+                        }
+                    }
+                }
+            }
+
+            if (lstFiltersFAV.Any())
+            {
+                Session["ListFiltersFAV"] = lstFiltersFAV;
+            }
+            //PL20-1234
+
             Session["UserData"] = model;
 
             return model;

@@ -1,4 +1,7 @@
-﻿@{
+﻿
+@model Portal.Consultoras.Web.Models.CatalogoPersonalizadoModel
+
+@{
     ViewBag.Title = "Los favoritos de tus clientes esta campaña";
 }
 
@@ -87,14 +90,26 @@
              <div class="content-left-item">
                  <div class="cantidad_productos_fav">32 productos en total</div>
                  <div class="filtros_derecha">ORDENAR POR 
-                    <select class="select_filtros_fav">
+
+                     @*<select class="select_filtros_fav">
                         <option>PRECIO | Menor a mayor</option>
                         <option>PRECIO | Menor a mayor</option>
                         <option>PRECIO | Menor a mayor</option>
+                    </select>*@
+
+                    @if (Model.FiltersBySorting != null)
+                    {
+                        <select id="filter-sorting" class="select_filtros_fav" onchange="filterFAVDesktop(1)">
+                        @foreach (var item in Model.FiltersBySorting)
+                        {
+                            <option value="@item.Codigo">@item.Descripcion</option>
+                        }
                     </select>
+                    }
+
                  </div>
                  <hr class="clear" />
-                <div id="divCatalogoPersonalizado"></div>
+                 <div id="divCatalogoPersonalizado"></div>
             </div>
            
             <div class="clear"></div>
