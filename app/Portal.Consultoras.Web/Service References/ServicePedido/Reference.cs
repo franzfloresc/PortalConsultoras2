@@ -3070,9 +3070,6 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private string CodigoProductoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string CodigoSAPField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string ColorFondoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -3337,19 +3334,6 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((object.ReferenceEquals(this.CodigoProductoField, value) != true)) {
                     this.CodigoProductoField = value;
                     this.RaisePropertyChanged("CodigoProducto");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string CodigoSAP {
-            get {
-                return this.CodigoSAPField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.CodigoSAPField, value) != true)) {
-                    this.CodigoSAPField = value;
-                    this.RaisePropertyChanged("CodigoSAP");
                 }
             }
         }
