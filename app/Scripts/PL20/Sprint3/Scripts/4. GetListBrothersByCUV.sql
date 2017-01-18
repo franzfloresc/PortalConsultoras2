@@ -29,12 +29,16 @@ INNER JOIN ods.SAP_PRODUCTO sp ON sp.CodigoSap = pc.CodigoProducto
 WHERE pc.CampaniaID = (SELECT CampaniaID FROM ods.Campania WHERE Codigo = @CodCampania)
 AND pc.CUV = @CUV
 
-SELECT pc.CUV, pc.Descripcion 
-FROM ods.ProductoComercial pc
-INNER JOIN ods.SAP_PRODUCTO sp ON sp.CodigoSap = pc.CodigoProducto 
-	AND sp.CodigoGenerico = @CodigoGenerico
-WHERE pc.CampaniaID = (SELECT CampaniaID FROM ods.Campania WHERE Codigo = @CodCampania)
-AND pc.CodigoTipoOferta = @CodigoTipoOferta
+IF (ISNULL(@CodigoGenerico,'') <> '')
+BEGIN
+	SELECT pc.CUV, pc.Descripcion 
+	FROM ods.ProductoComercial pc
+	INNER JOIN ods.SAP_PRODUCTO sp ON sp.CodigoSap = pc.CodigoProducto 
+		AND sp.CodigoGenerico = @CodigoGenerico
+	WHERE pc.CampaniaID = (SELECT CampaniaID FROM ods.Campania WHERE Codigo = @CodCampania)
+	AND pc.CodigoTipoOferta = @CodigoTipoOferta
+END
+
 
 GO
 /*end*/
@@ -69,12 +73,16 @@ INNER JOIN ods.SAP_PRODUCTO sp ON sp.CodigoSap = pc.CodigoProducto
 WHERE pc.CampaniaID = (SELECT CampaniaID FROM ods.Campania WHERE Codigo = @CodCampania)
 AND pc.CUV = @CUV
 
-SELECT pc.CUV, pc.Descripcion 
-FROM ods.ProductoComercial pc
-INNER JOIN ods.SAP_PRODUCTO sp ON sp.CodigoSap = pc.CodigoProducto 
-	AND sp.CodigoGenerico = @CodigoGenerico
-WHERE pc.CampaniaID = (SELECT CampaniaID FROM ods.Campania WHERE Codigo = @CodCampania)
-AND pc.CodigoTipoOferta = @CodigoTipoOferta
+IF (ISNULL(@CodigoGenerico,'') <> '')
+BEGIN
+	SELECT pc.CUV, pc.Descripcion 
+	FROM ods.ProductoComercial pc
+	INNER JOIN ods.SAP_PRODUCTO sp ON sp.CodigoSap = pc.CodigoProducto 
+		AND sp.CodigoGenerico = @CodigoGenerico
+	WHERE pc.CampaniaID = (SELECT CampaniaID FROM ods.Campania WHERE Codigo = @CodCampania)
+	AND pc.CodigoTipoOferta = @CodigoTipoOferta
+END
+
 
 GO
 /*end*/
@@ -109,12 +117,16 @@ INNER JOIN ods.SAP_PRODUCTO sp ON sp.CodigoSap = pc.CodigoProducto
 WHERE pc.CampaniaID = (SELECT CampaniaID FROM ods.Campania WHERE Codigo = @CodCampania)
 AND pc.CUV = @CUV
 
-SELECT pc.CUV, pc.Descripcion 
-FROM ods.ProductoComercial pc
-INNER JOIN ods.SAP_PRODUCTO sp ON sp.CodigoSap = pc.CodigoProducto 
-	AND sp.CodigoGenerico = @CodigoGenerico
-WHERE pc.CampaniaID = (SELECT CampaniaID FROM ods.Campania WHERE Codigo = @CodCampania)
-AND pc.CodigoTipoOferta = @CodigoTipoOferta
+IF (ISNULL(@CodigoGenerico,'') <> '')
+BEGIN
+	SELECT pc.CUV, pc.Descripcion 
+	FROM ods.ProductoComercial pc
+	INNER JOIN ods.SAP_PRODUCTO sp ON sp.CodigoSap = pc.CodigoProducto 
+		AND sp.CodigoGenerico = @CodigoGenerico
+	WHERE pc.CampaniaID = (SELECT CampaniaID FROM ods.Campania WHERE Codigo = @CodCampania)
+	AND pc.CodigoTipoOferta = @CodigoTipoOferta
+END
+
 
 GO
 /*end*/
@@ -149,12 +161,16 @@ INNER JOIN ods.SAP_PRODUCTO sp ON sp.CodigoSap = pc.CodigoProducto
 WHERE pc.CampaniaID = (SELECT CampaniaID FROM ods.Campania WHERE Codigo = @CodCampania)
 AND pc.CUV = @CUV
 
-SELECT pc.CUV, pc.Descripcion 
-FROM ods.ProductoComercial pc
-INNER JOIN ods.SAP_PRODUCTO sp ON sp.CodigoSap = pc.CodigoProducto 
-	AND sp.CodigoGenerico = @CodigoGenerico
-WHERE pc.CampaniaID = (SELECT CampaniaID FROM ods.Campania WHERE Codigo = @CodCampania)
-AND pc.CodigoTipoOferta = @CodigoTipoOferta
+IF (ISNULL(@CodigoGenerico,'') <> '')
+BEGIN
+	SELECT pc.CUV, pc.Descripcion 
+	FROM ods.ProductoComercial pc
+	INNER JOIN ods.SAP_PRODUCTO sp ON sp.CodigoSap = pc.CodigoProducto 
+		AND sp.CodigoGenerico = @CodigoGenerico
+	WHERE pc.CampaniaID = (SELECT CampaniaID FROM ods.Campania WHERE Codigo = @CodCampania)
+	AND pc.CodigoTipoOferta = @CodigoTipoOferta
+END
+
 
 GO
 /*end*/
@@ -189,12 +205,16 @@ INNER JOIN ods.SAP_PRODUCTO sp ON sp.CodigoSap = pc.CodigoProducto
 WHERE pc.CampaniaID = (SELECT CampaniaID FROM ods.Campania WHERE Codigo = @CodCampania)
 AND pc.CUV = @CUV
 
-SELECT pc.CUV, pc.Descripcion 
-FROM ods.ProductoComercial pc
-INNER JOIN ods.SAP_PRODUCTO sp ON sp.CodigoSap = pc.CodigoProducto 
-	AND sp.CodigoGenerico = @CodigoGenerico
-WHERE pc.CampaniaID = (SELECT CampaniaID FROM ods.Campania WHERE Codigo = @CodCampania)
-AND pc.CodigoTipoOferta = @CodigoTipoOferta
+IF (ISNULL(@CodigoGenerico,'') <> '')
+BEGIN
+	SELECT pc.CUV, pc.Descripcion 
+	FROM ods.ProductoComercial pc
+	INNER JOIN ods.SAP_PRODUCTO sp ON sp.CodigoSap = pc.CodigoProducto 
+		AND sp.CodigoGenerico = @CodigoGenerico
+	WHERE pc.CampaniaID = (SELECT CampaniaID FROM ods.Campania WHERE Codigo = @CodCampania)
+	AND pc.CodigoTipoOferta = @CodigoTipoOferta
+END
+
 
 GO
 /*end*/
@@ -229,12 +249,16 @@ INNER JOIN ods.SAP_PRODUCTO sp ON sp.CodigoSap = pc.CodigoProducto
 WHERE pc.CampaniaID = (SELECT CampaniaID FROM ods.Campania WHERE Codigo = @CodCampania)
 AND pc.CUV = @CUV
 
-SELECT pc.CUV, pc.Descripcion 
-FROM ods.ProductoComercial pc
-INNER JOIN ods.SAP_PRODUCTO sp ON sp.CodigoSap = pc.CodigoProducto 
-	AND sp.CodigoGenerico = @CodigoGenerico
-WHERE pc.CampaniaID = (SELECT CampaniaID FROM ods.Campania WHERE Codigo = @CodCampania)
-AND pc.CodigoTipoOferta = @CodigoTipoOferta
+IF (ISNULL(@CodigoGenerico,'') <> '')
+BEGIN
+	SELECT pc.CUV, pc.Descripcion 
+	FROM ods.ProductoComercial pc
+	INNER JOIN ods.SAP_PRODUCTO sp ON sp.CodigoSap = pc.CodigoProducto 
+		AND sp.CodigoGenerico = @CodigoGenerico
+	WHERE pc.CampaniaID = (SELECT CampaniaID FROM ods.Campania WHERE Codigo = @CodCampania)
+	AND pc.CodigoTipoOferta = @CodigoTipoOferta
+END
+
 
 GO
 /*end*/
@@ -269,12 +293,16 @@ INNER JOIN ods.SAP_PRODUCTO sp ON sp.CodigoSap = pc.CodigoProducto
 WHERE pc.CampaniaID = (SELECT CampaniaID FROM ods.Campania WHERE Codigo = @CodCampania)
 AND pc.CUV = @CUV
 
-SELECT pc.CUV, pc.Descripcion 
-FROM ods.ProductoComercial pc
-INNER JOIN ods.SAP_PRODUCTO sp ON sp.CodigoSap = pc.CodigoProducto 
-	AND sp.CodigoGenerico = @CodigoGenerico
-WHERE pc.CampaniaID = (SELECT CampaniaID FROM ods.Campania WHERE Codigo = @CodCampania)
-AND pc.CodigoTipoOferta = @CodigoTipoOferta
+IF (ISNULL(@CodigoGenerico,'') <> '')
+BEGIN
+	SELECT pc.CUV, pc.Descripcion 
+	FROM ods.ProductoComercial pc
+	INNER JOIN ods.SAP_PRODUCTO sp ON sp.CodigoSap = pc.CodigoProducto 
+		AND sp.CodigoGenerico = @CodigoGenerico
+	WHERE pc.CampaniaID = (SELECT CampaniaID FROM ods.Campania WHERE Codigo = @CodCampania)
+	AND pc.CodigoTipoOferta = @CodigoTipoOferta
+END
+
 
 GO
 /*end*/
@@ -309,12 +337,16 @@ INNER JOIN ods.SAP_PRODUCTO sp ON sp.CodigoSap = pc.CodigoProducto
 WHERE pc.CampaniaID = (SELECT CampaniaID FROM ods.Campania WHERE Codigo = @CodCampania)
 AND pc.CUV = @CUV
 
-SELECT pc.CUV, pc.Descripcion 
-FROM ods.ProductoComercial pc
-INNER JOIN ods.SAP_PRODUCTO sp ON sp.CodigoSap = pc.CodigoProducto 
-	AND sp.CodigoGenerico = @CodigoGenerico
-WHERE pc.CampaniaID = (SELECT CampaniaID FROM ods.Campania WHERE Codigo = @CodCampania)
-AND pc.CodigoTipoOferta = @CodigoTipoOferta
+IF (ISNULL(@CodigoGenerico,'') <> '')
+BEGIN
+	SELECT pc.CUV, pc.Descripcion 
+	FROM ods.ProductoComercial pc
+	INNER JOIN ods.SAP_PRODUCTO sp ON sp.CodigoSap = pc.CodigoProducto 
+		AND sp.CodigoGenerico = @CodigoGenerico
+	WHERE pc.CampaniaID = (SELECT CampaniaID FROM ods.Campania WHERE Codigo = @CodCampania)
+	AND pc.CodigoTipoOferta = @CodigoTipoOferta
+END
+
 
 GO
 /*end*/
@@ -349,12 +381,16 @@ INNER JOIN ods.SAP_PRODUCTO sp ON sp.CodigoSap = pc.CodigoProducto
 WHERE pc.CampaniaID = (SELECT CampaniaID FROM ods.Campania WHERE Codigo = @CodCampania)
 AND pc.CUV = @CUV
 
-SELECT pc.CUV, pc.Descripcion 
-FROM ods.ProductoComercial pc
-INNER JOIN ods.SAP_PRODUCTO sp ON sp.CodigoSap = pc.CodigoProducto 
-	AND sp.CodigoGenerico = @CodigoGenerico
-WHERE pc.CampaniaID = (SELECT CampaniaID FROM ods.Campania WHERE Codigo = @CodCampania)
-AND pc.CodigoTipoOferta = @CodigoTipoOferta
+IF (ISNULL(@CodigoGenerico,'') <> '')
+BEGIN
+	SELECT pc.CUV, pc.Descripcion 
+	FROM ods.ProductoComercial pc
+	INNER JOIN ods.SAP_PRODUCTO sp ON sp.CodigoSap = pc.CodigoProducto 
+		AND sp.CodigoGenerico = @CodigoGenerico
+	WHERE pc.CampaniaID = (SELECT CampaniaID FROM ods.Campania WHERE Codigo = @CodCampania)
+	AND pc.CodigoTipoOferta = @CodigoTipoOferta
+END
+
 
 GO
 /*end*/
@@ -389,12 +425,16 @@ INNER JOIN ods.SAP_PRODUCTO sp ON sp.CodigoSap = pc.CodigoProducto
 WHERE pc.CampaniaID = (SELECT CampaniaID FROM ods.Campania WHERE Codigo = @CodCampania)
 AND pc.CUV = @CUV
 
-SELECT pc.CUV, pc.Descripcion 
-FROM ods.ProductoComercial pc
-INNER JOIN ods.SAP_PRODUCTO sp ON sp.CodigoSap = pc.CodigoProducto 
-	AND sp.CodigoGenerico = @CodigoGenerico
-WHERE pc.CampaniaID = (SELECT CampaniaID FROM ods.Campania WHERE Codigo = @CodCampania)
-AND pc.CodigoTipoOferta = @CodigoTipoOferta
+IF (ISNULL(@CodigoGenerico,'') <> '')
+BEGIN
+	SELECT pc.CUV, pc.Descripcion 
+	FROM ods.ProductoComercial pc
+	INNER JOIN ods.SAP_PRODUCTO sp ON sp.CodigoSap = pc.CodigoProducto 
+		AND sp.CodigoGenerico = @CodigoGenerico
+	WHERE pc.CampaniaID = (SELECT CampaniaID FROM ods.Campania WHERE Codigo = @CodCampania)
+	AND pc.CodigoTipoOferta = @CodigoTipoOferta
+END
+
 
 GO
 /*end*/
@@ -429,12 +469,16 @@ INNER JOIN ods.SAP_PRODUCTO sp ON sp.CodigoSap = pc.CodigoProducto
 WHERE pc.CampaniaID = (SELECT CampaniaID FROM ods.Campania WHERE Codigo = @CodCampania)
 AND pc.CUV = @CUV
 
-SELECT pc.CUV, pc.Descripcion 
-FROM ods.ProductoComercial pc
-INNER JOIN ods.SAP_PRODUCTO sp ON sp.CodigoSap = pc.CodigoProducto 
-	AND sp.CodigoGenerico = @CodigoGenerico
-WHERE pc.CampaniaID = (SELECT CampaniaID FROM ods.Campania WHERE Codigo = @CodCampania)
-AND pc.CodigoTipoOferta = @CodigoTipoOferta
+IF (ISNULL(@CodigoGenerico,'') <> '')
+BEGIN
+	SELECT pc.CUV, pc.Descripcion 
+	FROM ods.ProductoComercial pc
+	INNER JOIN ods.SAP_PRODUCTO sp ON sp.CodigoSap = pc.CodigoProducto 
+		AND sp.CodigoGenerico = @CodigoGenerico
+	WHERE pc.CampaniaID = (SELECT CampaniaID FROM ods.Campania WHERE Codigo = @CodCampania)
+	AND pc.CodigoTipoOferta = @CodigoTipoOferta
+END
+
 
 GO
 /*end*/
@@ -469,12 +513,16 @@ INNER JOIN ods.SAP_PRODUCTO sp ON sp.CodigoSap = pc.CodigoProducto
 WHERE pc.CampaniaID = (SELECT CampaniaID FROM ods.Campania WHERE Codigo = @CodCampania)
 AND pc.CUV = @CUV
 
-SELECT pc.CUV, pc.Descripcion 
-FROM ods.ProductoComercial pc
-INNER JOIN ods.SAP_PRODUCTO sp ON sp.CodigoSap = pc.CodigoProducto 
-	AND sp.CodigoGenerico = @CodigoGenerico
-WHERE pc.CampaniaID = (SELECT CampaniaID FROM ods.Campania WHERE Codigo = @CodCampania)
-AND pc.CodigoTipoOferta = @CodigoTipoOferta
+IF (ISNULL(@CodigoGenerico,'') <> '')
+BEGIN
+	SELECT pc.CUV, pc.Descripcion 
+	FROM ods.ProductoComercial pc
+	INNER JOIN ods.SAP_PRODUCTO sp ON sp.CodigoSap = pc.CodigoProducto 
+		AND sp.CodigoGenerico = @CodigoGenerico
+	WHERE pc.CampaniaID = (SELECT CampaniaID FROM ods.Campania WHERE Codigo = @CodCampania)
+	AND pc.CodigoTipoOferta = @CodigoTipoOferta
+END
+
 
 GO
 /*end*/
@@ -509,12 +557,16 @@ INNER JOIN ods.SAP_PRODUCTO sp ON sp.CodigoSap = pc.CodigoProducto
 WHERE pc.CampaniaID = (SELECT CampaniaID FROM ods.Campania WHERE Codigo = @CodCampania)
 AND pc.CUV = @CUV
 
-SELECT pc.CUV, pc.Descripcion 
-FROM ods.ProductoComercial pc
-INNER JOIN ods.SAP_PRODUCTO sp ON sp.CodigoSap = pc.CodigoProducto 
-	AND sp.CodigoGenerico = @CodigoGenerico
-WHERE pc.CampaniaID = (SELECT CampaniaID FROM ods.Campania WHERE Codigo = @CodCampania)
-AND pc.CodigoTipoOferta = @CodigoTipoOferta
+IF (ISNULL(@CodigoGenerico,'') <> '')
+BEGIN
+	SELECT pc.CUV, pc.Descripcion 
+	FROM ods.ProductoComercial pc
+	INNER JOIN ods.SAP_PRODUCTO sp ON sp.CodigoSap = pc.CodigoProducto 
+		AND sp.CodigoGenerico = @CodigoGenerico
+	WHERE pc.CampaniaID = (SELECT CampaniaID FROM ods.Campania WHERE Codigo = @CodCampania)
+	AND pc.CodigoTipoOferta = @CodigoTipoOferta
+END
+
 
 GO
 
