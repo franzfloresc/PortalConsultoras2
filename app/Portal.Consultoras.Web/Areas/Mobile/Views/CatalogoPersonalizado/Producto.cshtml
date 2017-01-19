@@ -120,13 +120,9 @@
                     var request = HttpContext.Current.Request;
 
                     var urlBase_wsp = request.Url.Scheme + "://" + request.Url.Authority + "/Pdto.aspx?id=" + Model.CodigoIso + "_[valor]";
-                    urlBase_wsp = urlBase_wsp.Replace("/", "%2F");
-                    urlBase_wsp = urlBase_wsp.Replace(":", "%3A");
-                    urlBase_wsp = urlBase_wsp.Replace("?", "%3F");
-                    urlBase_wsp = urlBase_wsp.Replace("=", "%3D");
 
-                    urlWs = "whatsapp://send?text=" + urlBase_wsp;
-
+                    urlWs = urlBase_wsp;
+                    
                     urlBase_fb = request.Url.Scheme + "://" + request.Url.Authority + "/Pdto.aspx?id=" + Model.CodigoIso + "_[valor]";
                 }
             }
@@ -189,7 +185,12 @@
             var _id = InsertarProductoCompartido('W');
             UrlBase = UrlBase.replace("[valor]", _id);
 
-            return UrlBase;
+            UrlBase = UrlBase.ReplaceAll('/', '%2F');
+            UrlBase = UrlBase.ReplaceAll(":", "%3A");
+            UrlBase = UrlBase.ReplaceAll("?", "%3F");
+            UrlBase = UrlBase.ReplaceAll("=", "%3D");
+
+            return "whatsapp://send?text=" + UrlBase;
         }
         
         //PL20-1237
