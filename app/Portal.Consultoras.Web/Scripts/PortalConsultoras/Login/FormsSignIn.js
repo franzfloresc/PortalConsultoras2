@@ -4,8 +4,7 @@ var activarHover = true;
 var val_comboLogin = "";
 var temp = "";
 
-$(document).ready(function () {
-
+$(document).ready(function () {    
     $('#ddlPais').val(isoPais);
     //$('#cboPaisCambioClave').val(isoPais);
 
@@ -31,9 +30,7 @@ $(document).ready(function () {
     else {
         $('#cargarBandera').css('background', "url('/Content/Images/Login2/Banderas/00.png') top -7px left -10px no-repeat");
         //$('#cargarBandera2').css('background', "url('/Content/Images/Login2/Banderas/00.png') top -7px left -10px no-repeat");
-    }
-
-    EsconderLogoEsikaPanama($("#ddlPais").val());
+    }    
 
     _gaq.push(['_trackPageview', '/Somosbelcorp/Login']);
 
@@ -230,6 +227,7 @@ $(document).ready(function () {
 function Inicializar()
 {
     $(".cboPaisCambioClave").trigger('change');
+    $("#ddlPais").trigger('change');
 }
 
 $(document).keypress(function (e) {
@@ -392,24 +390,24 @@ function ValidarFormulario() {
 
 function AsignarHojaEstilos() {
     if (paisesEsika.indexOf(imgISO) != -1) {
-        if ($("link[data-id='cssStyle']").attr('disabled') !== undefined) {
+        if ($("link[data-id='cssStyle']").prop('disabled') !== undefined) {
             $("body").css("visibility", "hidden");
             document.title = ' ÉSIKA ';
             $("link[data-id='iconPagina']").attr("href", "http://www.esika.com/wp-content/themes/nuevaesika/favicon.ico");
-            $("link[data-id='cssStyle']").removeAttr('disabled');
-            $("link[data-id='cssStyleLbel']").attr('disabled', 'disabled');
+            $("link[data-id='cssStyle']").prop('disabled', false);
+            $("link[data-id='cssStyleLbel']").prop('disabled', true);
             window.setTimeout(function () { $("body").css("visibility", "visible"); }, 100);
         }
         $("#cargarBandera").css("background", "url('/Content/Images/Login2/Banderas/" + imgISO + ".png') top 10px left 2px no-repeat");
     }
     else {
         if (paisesLBel.indexOf(imgISO) != -1) {
-            if ($("link[data-id='cssStyleLbel']").attr('disabled') !== undefined) {
+            if ($("link[data-id='cssStyleLbel']").prop('disabled') !== undefined) {
                 $("body").css("visibility", "hidden");
                 document.title = " L'BEL ";
                 $("link[data-id='iconPagina']").attr("href", "http://cdn.lbel.com/wp-content/themes/lbel2/images/icons/favicon.ico");
-                $("link[data-id='cssStyle']").attr('disabled', 'disabled');
-                $("link[data-id='cssStyleLbel']").removeAttr('disabled');
+                $("link[data-id='cssStyle']").prop('disabled', true);
+                $("link[data-id='cssStyleLbel']").prop('disabled', false);
                 window.setTimeout(function () { $("body").css("visibility", "visible"); }, 100);
             }
             $("#cargarBandera").css("background", "url('/Content/Images/Login2/Banderas/" + imgISO + ".png') top 10px left 2px no-repeat");
@@ -418,8 +416,8 @@ function AsignarHojaEstilos() {
                 $("body").css("visibility", "hidden");
                 document.title = ' ÉSIKA ';
                 $("link[data-id='iconPagina']").attr("href", "http://www.esika.com/wp-content/themes/nuevaesika/favicon.ico");
-                $("link[data-id='cssStyle']").removeAttr('disabled');
-                $("link[data-id='cssStyleLbel']").attr('disabled', 'disabled');
+                $("link[data-id='cssStyle']").prop('disabled', false);
+                $("link[data-id='cssStyleLbel']").prop('disabled', true);
                 window.setTimeout(function () { $("body").css("visibility", "visible"); }, 100);
             }
             $("#cargarBandera").css("background", "url('/Content/Images/Login2/Banderas/" + imgISO + ".png') top -7px left -10px no-repeat");
