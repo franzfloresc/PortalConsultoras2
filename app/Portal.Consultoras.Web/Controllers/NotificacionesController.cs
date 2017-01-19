@@ -299,7 +299,14 @@ namespace Portal.Consultoras.Web.Controllers
 
             foreach (var item in olstObservacionesPedido)
             {
-                item.ObservacionPROL = string.Format("El producto {0} - {1} - cuenta nuevamente con stock. Si deseas agrégalo a tu pedido.", item.CUV, item.Descripcion);
+                if (item.StockDisponible == 0) item.ObservacionPROL = string.Format("El producto {0} - {1} - cuenta nuevamente con stock. Si deseas agrégalo a tu pedido.", item.CUV, item.Descripcion);
+                else
+                {
+                    if (item.StockDisponible == 1) item.ObservacionPROL = "Nos ingresó 1 unidad";
+                    else item.ObservacionPROL = "Nos ingresaron " + item.StockDisponible + " unidades";
+
+                    item.ObservacionPROL += string.Format(" del producto {0} - {1}. Si deseas agrégalo a tu pedido.", item.CUV, item.Descripcion);
+                }
             }
 
             model.ListaNotificacionesDetalle = olstObservaciones;
