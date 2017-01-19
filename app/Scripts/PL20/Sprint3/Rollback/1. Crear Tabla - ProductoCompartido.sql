@@ -2,7 +2,7 @@ USE [BelcorpBolivia]
 GO
 
 IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES 
-           WHERE TABLE_NAME = N'dbo.ProductoCompartido')
+           WHERE TABLE_NAME = N'ProductoCompartido')
 BEGIN
   DROP TABLE dbo.ProductoCompartido
 END
@@ -14,7 +14,7 @@ USE [BelcorpChile]
 GO
 
 IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES 
-           WHERE TABLE_NAME = N'dbo.ProductoCompartido')
+           WHERE TABLE_NAME = N'ProductoCompartido')
 BEGIN
   DROP TABLE dbo.ProductoCompartido
 END
@@ -26,7 +26,7 @@ USE [BelcorpColombia]
 GO
 
 IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES 
-           WHERE TABLE_NAME = N'dbo.ProductoCompartido')
+           WHERE TABLE_NAME = N'ProductoCompartido')
 BEGIN
   DROP TABLE dbo.ProductoCompartido
 END
@@ -39,7 +39,7 @@ GO
 
 
 IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES 
-           WHERE TABLE_NAME = N'dbo.ProductoCompartido')
+           WHERE TABLE_NAME = N'ProductoCompartido')
 BEGIN
   DROP TABLE dbo.ProductoCompartido
 END
@@ -51,7 +51,7 @@ USE [BelcorpDominicana]
 GO
 
 IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES 
-           WHERE TABLE_NAME = N'dbo.ProductoCompartido')
+           WHERE TABLE_NAME = N'ProductoCompartido')
 BEGIN
   DROP TABLE dbo.ProductoCompartido
 END
@@ -63,7 +63,7 @@ USE [BelcorpEcuador]
 GO
 
 IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES 
-           WHERE TABLE_NAME = N'dbo.ProductoCompartido')
+           WHERE TABLE_NAME = N'ProductoCompartido')
 BEGIN
   DROP TABLE dbo.ProductoCompartido
 END
@@ -75,7 +75,7 @@ USE [BelcorpGuatemala]
 GO
 
 IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES 
-           WHERE TABLE_NAME = N'dbo.ProductoCompartido')
+           WHERE TABLE_NAME = N'ProductoCompartido')
 BEGIN
   DROP TABLE dbo.ProductoCompartido
 END
@@ -87,7 +87,7 @@ USE [BelcorpMexico]
 GO
 
 IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES 
-           WHERE TABLE_NAME = N'dbo.ProductoCompartido')
+           WHERE TABLE_NAME = N'ProductoCompartido')
 BEGIN
   DROP TABLE dbo.ProductoCompartido
 END
@@ -99,7 +99,7 @@ USE [BelcorpPanama]
 GO
 
 IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES 
-           WHERE TABLE_NAME = N'dbo.ProductoCompartido')
+           WHERE TABLE_NAME = N'ProductoCompartido')
 BEGIN
   DROP TABLE dbo.ProductoCompartido
 END
@@ -111,7 +111,7 @@ USE [BelcorpPeru]
 GO
 
 IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES 
-           WHERE TABLE_NAME = N'dbo.ProductoCompartido')
+           WHERE TABLE_NAME = N'ProductoCompartido')
 BEGIN
   DROP TABLE dbo.ProductoCompartido
 END
@@ -123,7 +123,7 @@ USE [BelcorpPuertoRico]
 GO
 
 IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES 
-           WHERE TABLE_NAME = N'dbo.ProductoCompartido')
+           WHERE TABLE_NAME = N'ProductoCompartido')
 BEGIN
   DROP TABLE dbo.ProductoCompartido
 END
@@ -135,7 +135,7 @@ USE [BelcorpSalvador]
 GO
 
 IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES 
-           WHERE TABLE_NAME = N'dbo.ProductoCompartido')
+           WHERE TABLE_NAME = N'ProductoCompartido')
 BEGIN
   DROP TABLE dbo.ProductoCompartido
 END
@@ -147,7 +147,7 @@ USE [BelcorpVenezuela]
 GO
 
 IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES 
-           WHERE TABLE_NAME = N'dbo.ProductoCompartido')
+           WHERE TABLE_NAME = N'ProductoCompartido')
 BEGIN
   DROP TABLE dbo.ProductoCompartido
 END

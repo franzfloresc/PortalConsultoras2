@@ -696,6 +696,10 @@ namespace Portal.Consultoras.Web.Controllers
 
                                 Session["ProductosCatalogoPersonalizadoFilter"] = listaProductoModel;
                             }
+                            else
+                            {
+                                productoModel.EsMaquillaje = false;
+                            }
                         }
                         
                     }// EsMaquillaje

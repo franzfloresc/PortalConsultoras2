@@ -26,11 +26,14 @@
     {
         <link href="@Url.Content("~/Content/Images/icons/favicon_esika.ico")" rel="shortcut icon" type="image/x-icon" />
         @Styles.Render("~/Content/Css/Mobile/Esika/CssSB2Mobile")
+
     }
     else
     {
         <link href="@Url.Content("~/Content/Images/icons/favicon_lbel.ico")" rel="shortcut icon" type="image/x-icon" />
         @Styles.Render("~/Content/Css/Mobile/Lbel/CssSB2Mobile")
+        
+       
     }
     
     <link href="@Url.Content("~/Content/Css/Mobile/flexslider.css")" rel="stylesheet" type="text/css" />
@@ -202,6 +205,7 @@
                     <div class="producto_img_mobile">
                         <img src="@ofertaDelDia.ImagenDisplay" alt="Solo Hoy" id="img-display-odd" />
                     </div>
+                    <div class="nombre_set_display">@ofertaDelDia.NombreOferta</div>
                     <div class="producto_nombre_descripcion">
                         <div class="nombre_set_producto_hoy">@Html.Raw(ofertaDelDia.DescripcionOferta)</div>
                         <div class="precio_valorizado_mobile">VALORIZADO EN <span>@ViewBag.Simbolo @ofertaDelDia.PrecioCatalogoFormat</span></div>
@@ -215,7 +219,7 @@
                             <a class="cantidad_mas_home" tabindex="0"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
                         </div>
                         <div class="clear"></div>
-                        <a class="boton_Agregalo_home" href="#" onclick="addOfertaDelDiaPedido()">
+                        <a class="boton_Agregalo_home boton_estilo_marca" href="#" onclick="addOfertaDelDiaPedido()">
                             AGRÉGALO
                         </a>
                         <div style="padding-top:9px; height: 15px;">
