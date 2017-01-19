@@ -51,21 +51,44 @@
                 <!--PRIMER FILTRO-->
                 <span class="titulo_filtro_fav">CATEGORÍAS</span>
                 <hr class="clear" />              
-                <div>
-                    <div class="seleccion_filtro_fav">MAQUILLAJE</div>
-                    <div class="seleccion_filtro_fav">PERFUMES</div>
-                    <div class="seleccion_filtro_fav">TRATAMIENTO FACIAL</div>
-                    <div class="seleccion_filtro_fav">CUIDADO PERSONAL</div>
-                    <div class="seleccion_filtro_fav">ACCESORIOS</div>
+                <div id="div-filter-category">
+
+                    @if (Model.FiltersByCategory != null)
+                    {
+                        foreach(var item in Model.FiltersByCategory)
+                        {
+                            <div data-value="@item.Codigo" class="seleccion_filtro_fav">@item.Descripcion</div>
+                        }
+                    }
+                    else
+                    {
+                        <div class="seleccion_filtro_fav">MAQUILLAJE</div>
+                        <div class="seleccion_filtro_fav">PERFUMES</div>
+                        <div class="seleccion_filtro_fav">TRATAMIENTO FACIAL</div>
+                        <div class="seleccion_filtro_fav">CUIDADO PERSONAL</div>
+                        <div class="seleccion_filtro_fav">ACCESORIOS</div>
+                    }
                 </div>
                 <div class="linea_separadora"></div>
                 <!--SEGUNDO FILTRO-->
                 <span class="titulo_filtro_fav">MARCAS</span>
                 <hr class="clear" />
-                <div>
-                    <div class="seleccion_filtro_fav">ESIKA</div>
-                    <div class="seleccion_filtro_fav">L'BEL</div>
-                    <div class="seleccion_filtro_fav">CYZONE</div>                    
+                <div id="div-filter-brand">
+
+                    @if (Model.FiltersByBrand != null)
+                    {
+                        foreach(var item in Model.FiltersByBrand)
+                        {
+                            <div data-value="@item.Codigo" class="seleccion_filtro_fav">@item.Descripcion</div>
+                        }
+                    }
+                    else
+                    {
+                        <div class="seleccion_filtro_fav">ESIKA</div>
+                        <div class="seleccion_filtro_fav">L'BEL</div>
+                        <div class="seleccion_filtro_fav">CYZONE</div>
+                    }
+                                        
                 </div>
                 <div class="linea_separadora"></div>
                 <!--TERCER FILTRO-->
@@ -80,10 +103,20 @@
                 <!--CUARTO FILTRO-->
                 <span class="titulo_filtro_fav">TIPO DE PUBLICACIÓN</span>
                 <hr class="clear" />
-                <div>
-                    <div class="seleccion_filtro_fav">TODOS</div>
-                    <div class="seleccion_filtro_fav">SÓLO CATÁLOGO</div>
-                    <div class="seleccion_filtro_fav">SÓLO GUÍA DE NEGOCIO</div>
+                <div id="div-filter-published">
+                    @if (Model.FiltersByPublished != null)
+                    {
+                        foreach (var item in Model.FiltersByPublished)
+                        {
+                            <div data-value="@item.Codigo" class="seleccion_filtro_fav">@item.Descripcion</div>
+                        }
+                    }
+                    else
+                    {
+                        <div class="seleccion_filtro_fav">TODOS</div>
+                        <div class="seleccion_filtro_fav">SÓLO CATÁLOGO</div>
+                        <div class="seleccion_filtro_fav">SÓLO GUÍA DE NEGOCIO</div>
+                    }
                 </div>
                 <hr class="clear" />
             </div>
@@ -91,20 +124,22 @@
                  <div class="cantidad_productos_fav">32 productos en total</div>
                  <div class="filtros_derecha">ORDENAR POR 
 
-                     @*<select class="select_filtros_fav">
-                        <option>PRECIO | Menor a mayor</option>
-                        <option>PRECIO | Menor a mayor</option>
-                        <option>PRECIO | Menor a mayor</option>
-                    </select>*@
-
                     @if (Model.FiltersBySorting != null)
                     {
-                        <select id="filter-sorting" class="select_filtros_fav" onchange="filterFAVDesktop(1)">
+                        <select class="select_filtros_fav" onchange="filterFAVDesktop()">
                         @foreach (var item in Model.FiltersBySorting)
                         {
                             <option value="@item.Codigo">@item.Descripcion</option>
                         }
-                    </select>
+                        </select>
+                    }
+                    else
+                    {
+                        <select class="select_filtros_fav">
+                            <option>PRECIO | Menor a mayor</option>
+                            <option>PRECIO | Menor a mayor</option>
+                            <option>PRECIO | Menor a mayor</option>
+                        </select>
                     }
 
                  </div>
@@ -1057,6 +1092,7 @@
 
         var tipoOrigen = "1";   //PL20-1227
         var urlGetInfoFichaProducto = '@Url.Action("GetInfoFichaProductoFAV", "CatalogoPersonalizado")';    //PL20-1268
+        var simbolo = '@ViewBag.Simbolo';
     </script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/slick.min.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.range.js")"></script>

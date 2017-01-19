@@ -111,13 +111,16 @@ namespace Portal.Consultoras.Web.Controllers
                         bool esFacturacion = fechaHoy >= userData.FechaInicioCampania.Date;
 
                         lista = ps.ObtenerTodosProductos(userData.CatalogoPersonalizado, userData.CodigoISO,
-                                userData.CampaniaID, userData.CodigoConsultora,
-                                userData.ZonaID, userData.CodigorRegion, userData.CodigoZona, tipoProductoMostrar,
+                                userData.CampaniaID, userData.CodigoConsultora, userData.ZonaID, 
+                                userData.CodigorRegion, userData.CodigoZona, tipoProductoMostrar,
                                 cantidad, esFacturacion).ToList();
                     }
 
                     if (lista.Any())
                     {
+                        int limiteJetlore = int.Parse(ConfigurationManager.AppSettings.Get("LimiteJetloreCatalogoPersonalizado"));
+                        lista = lista.Take(limiteJetlore).ToList();
+
                         string joinCuv = string.Empty;
                         foreach (var producto in lista)
                         {
@@ -240,8 +243,9 @@ namespace Portal.Consultoras.Web.Controllers
                                     EsMaquillaje = producto.EsMaquillaje,
                                     DescripcionComercial = producto.DescripcionComercial,
                                     CodigoIso = userData.CodigoISO,
-                                    Relevancia = 0,
-                                    CodigoCategoria = producto.CodigoCategoria
+                                    Relevancia = producto.Relevancia,
+                                    CodigoCategoria = producto.CodigoCategoria,
+                                    CodigoMarca = producto.CodigoMarca
                                 });
 
                             }
@@ -274,10 +278,10 @@ namespace Portal.Consultoras.Web.Controllers
 
                     if (Session["UserFiltersFAV"] != null)
                     {
-                        var lstFiltroSession = (List<FiltroResultadoModel>)Session["UserFiltersFAV"] ?? new List<FiltroResultadoModel>();
+                        var userFilters = (List<FiltroResultadoModel>)Session["UserFiltersFAV"] ?? new List<FiltroResultadoModel>();
                         foreach (var item1 in lstFilters)
                         {
-                            var item2 = lstFiltroSession.Where(x => x.Id == item1.Id).FirstOrDefault();
+                            var item2 = userFilters.Where(x => x.Id == item1.Id).FirstOrDefault();
                             if (item2 != null)
                             {
                                 if (item1.Valor1 != item2.Valor1 || item1.Valor2 != item2.Valor2 || item1.Orden != item2.Orden)
@@ -318,21 +322,40 @@ namespace Portal.Consultoras.Web.Controllers
                                 {
                                     lstProductoModelFilter = lstProductoModelFilter.OrderBy(x => x.Relevancia).ToList();
                                 }
-                            }// brand
+                            }// category
                             else if (item.Id == "2")
                             {
-                                string[] arrIds = item.Valor1.Split(',');
-                                lstProductoModelFilter = lstProductoModelFilter.Where(x => arrIds.Contains(x.MarcaID.ToString())).ToList();
-                            }// price
+                                if (!string.IsNullOrEmpty(item.Valor1))
+                                {
+                                    string[] arrIds = item.Valor1.Split(',');
+                                    lstProductoModelFilter = lstProductoModelFilter.Where(x => arrIds.Contains(x.CodigoCategoria.ToString())).ToList();
+                                }
+                                
+                            }// brand
                             else if (item.Id == "3")
                             {
-                                lstProductoModelFilter = lstProductoModelFilter.Where(x => Convert.ToDecimal(x.PrecioCatalogoString) >= Convert.ToDecimal(item.Valor1)
-                                        && Convert.ToDecimal(x.PrecioCatalogoString) <= Convert.ToDecimal(item.Valor2)).ToList();
-                            }// category
+                                if (!string.IsNullOrEmpty(item.Valor1))
+                                {
+                                    string[] arrIds = item.Valor1.Split(',');
+                                    lstProductoModelFilter = lstProductoModelFilter.Where(x => arrIds.Contains(x.CodigoMarca.ToString())).ToList();
+                                }
+                            }// price
                             else if (item.Id == "4")
                             {
-                                string[] arrIds = item.Valor1.Split(',');
-                                lstProductoModelFilter = lstProductoModelFilter.Where(x => arrIds.Contains(x.CodigoCategoria.ToString())).ToList();
+                                lstProductoModelFilter = lstProductoModelFilter.Where(x => Convert.ToDecimal(x.PrecioCatalogoString) >= Convert.ToDecimal(item.Valor1) 
+                                    && Convert.ToDecimal(x.PrecioCatalogoString) <= Convert.ToDecimal(item.Valor2)).ToList();
+                            }// published
+                            else if (item.Id == "5")
+                            {
+                                if (!string.IsNullOrEmpty(item.Valor1))
+                                {
+                                    int ind = (item.Valor1.Contains(",")) ? -1 : 1;
+                                    if (ind == 1)
+                                    {
+                                        bool er = (item.Valor1 == "SC") ? false : true;
+                                        lstProductoModelFilter = lstProductoModelFilter.Where(x => x.EstaEnRevista == er).ToList();
+                                    }
+                                }
                             }
                         }
 
