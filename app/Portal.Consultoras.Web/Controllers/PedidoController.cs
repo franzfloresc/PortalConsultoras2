@@ -366,7 +366,6 @@ namespace Portal.Consultoras.Web.Controllers
 
                 #endregion
 
-
             }
             catch (FaultException ex)
             {
@@ -4099,6 +4098,7 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpGet]
         public JsonResult JsonConsultarEstrategias(string cuv)
         {
+            
             List<BEEstrategia> lst = ConsultarEstrategias(cuv ?? "");
             var listModel = Mapper.Map<List<BEEstrategia>, List<EstrategiaPedidoModel>>(lst);
 
@@ -4861,19 +4861,10 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                var f = false;
-                var oddModel = new OfertaDelDiaModel();
-
-                if (userData.OfertaDelDia != null)
-                {
-                    oddModel = userData.OfertaDelDia;
-                    oddModel.TeQuedan = CountdownODD(userData);
-                    f = true;
-                }
-
+                var oddModel = this.GetOfertaDelDiaModel();
                 return Json(new
                 {
-                    success = f,
+                    success = oddModel != null,
                     data = oddModel
                 }, JsonRequestBehavior.AllowGet);
             }
@@ -4947,7 +4938,59 @@ namespace Portal.Consultoras.Web.Controllers
                 }, JsonRequestBehavior.AllowGet);
             }
         }
+        public JsonResult CloseBannerPL20()
+        {
+            try
+            {
+                userData.CloseBannerPL20 = true;
+                Session["UserData"] = userData;
+
+                return Json(new
+                {
+                    success = true,
+                }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return Json(new
+                {
+                    success = false,
+                    message = "No se pudo procesar la solicitud"
+                }, JsonRequestBehavior.AllowGet);
+            }
+        }
 
         /*PL20-1226*/
+
+        //PL20-1265
+        public JsonResult GetProductoFichaOPT(string pCuv)
+        {
+            try
+            {
+                //List<BEEstrategia> lst2 = new List<BEEstrategia>();
+                List<BEEstrategia> lst = (List<BEEstrategia>)Session["ListadoEstrategiaPedido"];
+                BEEstrategia objProOPT = lst.FirstOrDefault(p => p.CUV2 == pCuv) ?? new BEEstrategia();
+                //lst2 = lst.Where(g => g.CUV2 == pCuv).ToList();
+
+                return Json(new
+                {
+                    success = true,
+                    message = "OK",
+                    data = objProOPT
+                });
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return Json(new
+                {
+                    success = false,
+                    message = ex.Message,
+                    data = ""
+                    //limiteJetlore = 0
+                });
+            }
+        }
     }
 }

@@ -1,5 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://tempuri.org/" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="ODSService" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsp:Policy wsu:Id="BasicHttpsBinding_IODSService_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <sp:TransportBinding xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <wsp:Policy>
+            <sp:TransportToken>
+              <wsp:Policy>
+                <sp:HttpsToken RequireClientCertificate="false" />
+              </wsp:Policy>
+            </sp:TransportToken>
+            <sp:AlgorithmSuite>
+              <wsp:Policy>
+                <sp:Basic256 />
+              </wsp:Policy>
+            </sp:AlgorithmSuite>
+            <sp:Layout>
+              <wsp:Policy>
+                <sp:Strict />
+              </wsp:Policy>
+            </sp:Layout>
+          </wsp:Policy>
+        </sp:TransportBinding>
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
   <wsdl:types>
     <xsd:schema targetNamespace="http://tempuri.org/Imports">
       <xsd:import schemaLocation="http://localhost:41615/ODSService.svc?xsd=xsd0" namespace="http://tempuri.org/" />
@@ -193,6 +218,24 @@
   <wsdl:message name="IODSService_GetNombreProducto048ByListaCUV_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetNombreProducto048ByListaCUVResponse" />
   </wsdl:message>
+  <wsdl:message name="IODSService_InsProductoCompartido_InputMessage">
+    <wsdl:part name="parameters" element="tns:InsProductoCompartido" />
+  </wsdl:message>
+  <wsdl:message name="IODSService_InsProductoCompartido_OutputMessage">
+    <wsdl:part name="parameters" element="tns:InsProductoCompartidoResponse" />
+  </wsdl:message>
+  <wsdl:message name="IODSService_GetProductoCompartido_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetProductoCompartido" />
+  </wsdl:message>
+  <wsdl:message name="IODSService_GetProductoCompartido_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetProductoCompartidoResponse" />
+  </wsdl:message>
+  <wsdl:message name="IODSService_GetListBrothersByCUV_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetListBrothersByCUV" />
+  </wsdl:message>
+  <wsdl:message name="IODSService_GetListBrothersByCUV_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetListBrothersByCUVResponse" />
+  </wsdl:message>
   <wsdl:portType name="IODSService">
     <wsdl:operation name="GetProductoComercialByPaisAndCampania">
       <wsdl:input wsaw:Action="http://tempuri.org/IODSService/GetProductoComercialByPaisAndCampania" message="tns:IODSService_GetProductoComercialByPaisAndCampania_InputMessage" />
@@ -317,6 +360,18 @@
     <wsdl:operation name="GetNombreProducto048ByListaCUV">
       <wsdl:input wsaw:Action="http://tempuri.org/IODSService/GetNombreProducto048ByListaCUV" message="tns:IODSService_GetNombreProducto048ByListaCUV_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IODSService/GetNombreProducto048ByListaCUVResponse" message="tns:IODSService_GetNombreProducto048ByListaCUV_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="InsProductoCompartido">
+      <wsdl:input wsaw:Action="http://tempuri.org/IODSService/InsProductoCompartido" message="tns:IODSService_InsProductoCompartido_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IODSService/InsProductoCompartidoResponse" message="tns:IODSService_InsProductoCompartido_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetProductoCompartido">
+      <wsdl:input wsaw:Action="http://tempuri.org/IODSService/GetProductoCompartido" message="tns:IODSService_GetProductoCompartido_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IODSService/GetProductoCompartidoResponse" message="tns:IODSService_GetProductoCompartido_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetListBrothersByCUV">
+      <wsdl:input wsaw:Action="http://tempuri.org/IODSService/GetListBrothersByCUV" message="tns:IODSService_GetListBrothersByCUV_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IODSService/GetListBrothersByCUVResponse" message="tns:IODSService_GetListBrothersByCUV_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IODSService" type="tns:IODSService">
@@ -600,10 +655,350 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="InsProductoCompartido">
+      <soap:operation soapAction="http://tempuri.org/IODSService/InsProductoCompartido" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetProductoCompartido">
+      <soap:operation soapAction="http://tempuri.org/IODSService/GetProductoCompartido" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetListBrothersByCUV">
+      <soap:operation soapAction="http://tempuri.org/IODSService/GetListBrothersByCUV" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="BasicHttpsBinding_IODSService" type="tns:IODSService">
+    <wsp:PolicyReference URI="#BasicHttpsBinding_IODSService_policy" />
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetProductoComercialByPaisAndCampania">
+      <soap:operation soapAction="http://tempuri.org/IODSService/GetProductoComercialByPaisAndCampania" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SelectProductoByCodigoDescripcion">
+      <soap:operation soapAction="http://tempuri.org/IODSService/SelectProductoByCodigoDescripcion" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SelectProductoByCodigoDescripcionSearchRegionZona">
+      <soap:operation soapAction="http://tempuri.org/IODSService/SelectProductoByCodigoDescripcionSearchRegionZona" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SelectConsultoraCodigo">
+      <soap:operation soapAction="http://tempuri.org/IODSService/SelectConsultoraCodigo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SelectConsultoraByCodigo">
+      <soap:operation soapAction="http://tempuri.org/IODSService/SelectConsultoraByCodigo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SelectConsultoraCodigo_A">
+      <soap:operation soapAction="http://tempuri.org/IODSService/SelectConsultoraCodigo_A" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SelectConsultoraByID">
+      <soap:operation soapAction="http://tempuri.org/IODSService/SelectConsultoraByID" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SelectComprobantePercepcion">
+      <soap:operation soapAction="http://tempuri.org/IODSService/SelectComprobantePercepcion" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SelectComprobantePercepcionDetalle">
+      <soap:operation soapAction="http://tempuri.org/IODSService/SelectComprobantePercepcionDetalle" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LoadConsultoraCodigo">
+      <soap:operation soapAction="http://tempuri.org/IODSService/LoadConsultoraCodigo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSaldoActualConsultora">
+      <soap:operation soapAction="http://tempuri.org/IODSService/GetSaldoActualConsultora" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetMensajesCUVsByPaisAndCampania">
+      <soap:operation soapAction="http://tempuri.org/IODSService/GetMensajesCUVsByPaisAndCampania" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetMensajesCUVsByPaisAndCampania">
+      <soap:operation soapAction="http://tempuri.org/IODSService/SetMensajesCUVsByPaisAndCampania" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteMensajesCUVsByPaisAndCampania">
+      <soap:operation soapAction="http://tempuri.org/IODSService/DeleteMensajesCUVsByPaisAndCampania" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetMensajeByCUV">
+      <soap:operation soapAction="http://tempuri.org/IODSService/GetMensajeByCUV" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetConsultoraIdByCodigo">
+      <soap:operation soapAction="http://tempuri.org/IODSService/GetConsultoraIdByCodigo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetValidarCUVMisPedidos">
+      <soap:operation soapAction="http://tempuri.org/IODSService/GetValidarCUVMisPedidos" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SelectConsultoraDatos">
+      <soap:operation soapAction="http://tempuri.org/IODSService/SelectConsultoraDatos" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetConsultoraByCodigo">
+      <soap:operation soapAction="http://tempuri.org/IODSService/GetConsultoraByCodigo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetConsultoraByCodigoByZona">
+      <soap:operation soapAction="http://tempuri.org/IODSService/GetConsultoraByCodigoByZona" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetConsultoraByNumeroDocumento">
+      <soap:operation soapAction="http://tempuri.org/IODSService/GetConsultoraByNumeroDocumento" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetProductosByCampaniaCuv">
+      <soap:operation soapAction="http://tempuri.org/IODSService/GetProductosByCampaniaCuv" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetProductoByCampaniaCuv">
+      <soap:operation soapAction="http://tempuri.org/IODSService/GetProductoByCampaniaCuv" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTipoMeta">
+      <soap:operation soapAction="http://tempuri.org/IODSService/GetTipoMeta" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTipoMetaPorCodigo">
+      <soap:operation soapAction="http://tempuri.org/IODSService/GetTipoMetaPorCodigo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUbigeoPorCodigoTerritorio">
+      <soap:operation soapAction="http://tempuri.org/IODSService/GetUbigeoPorCodigoTerritorio" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUbigeoPorCodigoUbigeo">
+      <soap:operation soapAction="http://tempuri.org/IODSService/GetUbigeoPorCodigoUbigeo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetProductoSugeridoByCUV">
+      <soap:operation soapAction="http://tempuri.org/IODSService/GetProductoSugeridoByCUV" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SelectProductoToKitInicio">
+      <soap:operation soapAction="http://tempuri.org/IODSService/SelectProductoToKitInicio" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetNombreProducto048ByCuv">
+      <soap:operation soapAction="http://tempuri.org/IODSService/GetNombreProducto048ByCuv" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetNombreProducto048ByListaCUV">
+      <soap:operation soapAction="http://tempuri.org/IODSService/GetNombreProducto048ByListaCUV" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InsProductoCompartido">
+      <soap:operation soapAction="http://tempuri.org/IODSService/InsProductoCompartido" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetProductoCompartido">
+      <soap:operation soapAction="http://tempuri.org/IODSService/GetProductoCompartido" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetListBrothersByCUV">
+      <soap:operation soapAction="http://tempuri.org/IODSService/GetListBrothersByCUV" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
   </wsdl:binding>
   <wsdl:service name="ODSService">
     <wsdl:port name="BasicHttpBinding_IODSService" binding="tns:BasicHttpBinding_IODSService">
       <soap:address location="http://localhost:41615/ODSService.svc" />
+    </wsdl:port>
+    <wsdl:port name="BasicHttpsBinding_IODSService" binding="tns:BasicHttpsBinding_IODSService">
+      <soap:address location="https://localhost:44300/ODSService.svc" />
     </wsdl:port>
   </wsdl:service>
 </wsdl:definitions>
