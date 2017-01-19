@@ -31,13 +31,12 @@
 <br />
 
 <div class="col-xs-12 notificaciones_detalle_mobile">
-    <p class="consultora_saludo_noti"><b>Hola @Model.NombreConsultora</b></p>
-    <br /><br />
-
-    <span id="sMensajeFacturacion">Te informamos lo siguiente:</span>
+    <p class="consultora_saludo_noti" style="margin-bottom:5px;"><b>Hola @Model.NombreConsultora</b></p>
+    
+    <span id="sMensajeFacturacion" style="margin-bottom:10px; display:block">Te informamos lo siguiente:</span>
     @foreach (var item in Model.ListaNotificacionesDetallePedido)
     {
-        <div class="detalle_notificaciones">
+        <div class="detalle_notificaciones" style="border-bottom:0; padding-bottom:0; padding-top:0px; padding-left:20px;">
             @Html.DisplayTextFor(modelItem => item.ObservacionPROL)
         </div>
     }
