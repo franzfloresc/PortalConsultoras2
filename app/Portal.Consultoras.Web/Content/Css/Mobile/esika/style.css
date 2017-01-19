@@ -10256,17 +10256,17 @@ a{
 }
 .nombre_set_producto_hoy{
     font-family:'Lato';
-    font-size:12.5px;
+    font-size:13.5px;
     color:black;
     width:100%;
     line-height:17px;
     margin:0 auto;
-    margin-top:10px;
+    /*margin-top:10px;*/
     margin-bottom:13px;
 }
 .precio_valorizado_mobile{
     font-family:'Lato';
-    font-size:11px;
+    font-size:11.5px;
     color:black;
     text-align:center;
 }
@@ -10277,7 +10277,7 @@ a{
     padding-left:16px;
     padding-right:16px;
     text-align:center;
-    font-size:12.5px;
+    font-size:13.5px;
     font-family:'Lato';
     color:black;
     margin-bottom:20px;
@@ -10340,4 +10340,23 @@ a{
 }
 .flex-viewport{
     height:142px;
+}
+.boton_estilo_marca{
+    background: #e81c36;
+    color:white;
+    border:0;
+    font-size:13px;
+}
+.boton_estilo_marca:hover{
+    color:white;
+}
+.nombre_set_display{
+    font-family:'Lato';
+    font-size:14.5px;
+    color:black;
+    font-weight:700;
+    margin-top:10px;
+    text-align:center;
+    text-transform:uppercase;
+    margin-bottom:3px;
 }
