@@ -31,6 +31,9 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             ViewBag.EsConsultoraNueva = userData.ConsultoraNueva == Constantes.EstadoActividadConsultora.Registrada ||
                 userData.ConsultoraNueva == Constantes.EstadoActividadConsultora.Retirada;
 
+            string PaisesCatalogoWhatsUp = ConfigurationManager.AppSettings.Get("PaisesCatalogoWhatsUp") ?? string.Empty;
+            ViewBag.ActivacionAppCatalogoWhastUp = PaisesCatalogoWhatsUp.Contains(userData.CodigoISO) ? 1 : 0;
+            
             return View(clienteModel);
         }
 

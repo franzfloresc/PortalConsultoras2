@@ -120,6 +120,18 @@ namespace Portal.Consultoras.Entities
         [ViewProperty]
         public int MarcaID { get; set; }
 
+        [DataMember]
+        public int Incrementa { get; set; }
+
+        [DataMember]
+        public int CantidadIncrementa { get; set; }
+
+        [DataMember]
+        public int FlagAgotado { get; set; }
+
+        [DataMember]
+        public int StockResultado { get; set; }
+
         public BEShowRoomOferta(IDataRecord row)
         {
             if (DataRecord.HasColumn(row, "OfertaShowRoomID") && row["OfertaShowRoomID"] != DBNull.Value)
