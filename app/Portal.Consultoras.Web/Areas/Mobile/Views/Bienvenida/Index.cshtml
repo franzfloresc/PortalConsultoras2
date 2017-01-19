@@ -834,12 +834,8 @@
                     var request = HttpContext.Current.Request;
 
                     var urlBase_wsp = request.Url.Scheme + "://" + request.Url.Authority + "/Pdto.aspx?id=" + Model.CodigoISO + "_[valor]";
-                    urlBase_wsp = urlBase_wsp.Replace("/", "%2F");
-                    urlBase_wsp = urlBase_wsp.Replace(":", "%3A");
-                    urlBase_wsp = urlBase_wsp.Replace("?", "%3F");
-                    urlBase_wsp = urlBase_wsp.Replace("=", "%3D");
 
-                    urlWs = "whatsapp://send?text=" + urlBase_wsp;
+                    urlWs = urlBase_wsp;
 
                     urlBase_fb = request.Url.Scheme + "://" + request.Url.Authority + "/Pdto.aspx?id=" + Model.CodigoISO + "_[valor]";
                 }
