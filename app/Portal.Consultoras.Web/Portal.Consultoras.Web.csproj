@@ -645,6 +645,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.map</DependentUpon>
     </Compile>
+    <Compile Include="Web References\ServiceActualizarDatosPrueba\Reference.cs" />
     <Compile Include="Web References\ServiceCatalogosIssuu\Reference.cs" />
     <Compile Include="Web References\ServiceGestionWebPROL\Reference.cs">
       <AutoGen>True</AutoGen>
@@ -660,11 +661,6 @@
     <Compile Include="Web References\ServiceOSBBelcorpPedido\Reference.cs" />
     <Compile Include="Web References\ServiceOSBBelcorp\Reference.cs" />
     <Compile Include="Web References\ServicePROLArchivoReserva\Reference.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Reference.map</DependentUpon>
-    </Compile>
-    <Compile Include="Web References\ServicePROLBO\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.map</DependentUpon>
@@ -3852,6 +3848,8 @@
       <LastGenOutput>Reference.cs</LastGenOutput>
     </Content>
     <Content Include="Views\Login\Admin.cshtml" />
+    <None Include="Web References\ServiceActualizarDatosPrueba\ProcesoMAEPortalConsultoraWebService.wsdl" />
+    <Content Include="Web References\ServiceActualizarDatosPrueba\Reference.map" />
     <None Include="Web References\ServiceGestionWebPROL\WsGestionWeb.wsdl" />
     <None Include="Web References\ServiceLMS\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
@@ -3913,11 +3911,6 @@
     <Content Include="WebPages\TerminosyReferencias_VE.aspx" />
     <Content Include="WebPages\UserUnknownLogin.aspx" />
     <Content Include="WebPages\UsuarioBloqueado.aspx" />
-    <Content Include="Web References\ServicePROLBO\Reference.map">
-      <Generator>MSDiscoCodeGenerator</Generator>
-      <LastGenOutput>Reference.cs</LastGenOutput>
-    </Content>
-    <Content Include="Web References\ServicePROLBO\ServiceStockV2.disco" />
     <Content Include="WebPages\BloqueoPedidoImp.aspx" />
     <Content Include="WebPages\ConsultaPedidoImp.aspx" />
     <Content Include="WebPages\Download.aspx" />
@@ -4124,7 +4117,6 @@
     <Content Include="Web References\ServicePROL\TransferirDatos.datasource">
       <DependentUpon>Reference.map</DependentUpon>
     </Content>
-    <Content Include="Web References\ServicePROLBO\ServiceStockV2.wsdl" />
     <Content Include="WebPages\MasterComunidad.Master" />
     <None Include="Web References\ServicesCalculosPROL\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
@@ -4207,17 +4199,6 @@
       </CachedDynamicPropName>
       <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
       <CachedSettingsPropName>Portal_Consultoras_Web_ServicePROL_ServiceStockSsic</CachedSettingsPropName>
-    </WebReferenceUrl>
-    <WebReferenceUrl Include="http://200.87.204.148/WS/ServiceStockV2.asmx">
-      <UrlBehavior>Dynamic</UrlBehavior>
-      <RelPath>Web References\ServicePROLBO\</RelPath>
-      <UpdateFromURL>http://200.87.204.148/WS/ServiceStockV2.asmx</UpdateFromURL>
-      <ServiceLocationURL>
-      </ServiceLocationURL>
-      <CachedDynamicPropName>
-      </CachedDynamicPropName>
-      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
-      <CachedSettingsPropName>Portal_Consultoras_Web_ServicePROLBO_ServiceStockV2</CachedSettingsPropName>
     </WebReferenceUrl>
     <WebReferenceUrl Include="http://pelnx12.galileo.ebel:7777/ssiccpeesprd/services/ProcesoMAEPortalConsultoraWebService%3fwsdl">
       <UrlBehavior>Dynamic</UrlBehavior>

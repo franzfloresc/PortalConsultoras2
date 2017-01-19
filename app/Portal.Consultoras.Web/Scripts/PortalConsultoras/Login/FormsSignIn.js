@@ -191,7 +191,7 @@ $(document).ready(function () {
 
         var validarCorreo = validateEmail(correo);
 
-        if (!validarCorreo) {   //paisId != "4"
+        if (!validarCorreo && paisId != "4") {   //paisId != "4"
             alert('El formato del correo electrónico ingresado no es correcto.');
             return false;
         }
@@ -215,7 +215,7 @@ $(document).ready(function () {
                     $("#correoDestino strong").html(correo);
                     $("#popup2").show();
                 } else {
-                    alert_msg(response.message);
+                    alert(response.message);
                 }
             },
             error: function (data, error) {
