@@ -2738,6 +2738,12 @@
     <None Include="Service References\ServiceProductoCatalogoPersonalizado\ProductoService7.xsd">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Service References\ServiceProductoCatalogoPersonalizado\ProductoService8.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceProductoCatalogoPersonalizado\ProductoService9.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Service References\ServiceProductoCatalogoPersonalizado\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
