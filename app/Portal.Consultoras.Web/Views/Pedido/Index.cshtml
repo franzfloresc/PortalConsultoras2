@@ -400,33 +400,42 @@
                 <ul>
                     <li data-id="1" data-name="Productos Descontinuados" data-position="pedido-inferior-1">
                         <a onclick="AnalyticsBannersInferiores({ id: '1', name: 'Productos Descontinuados', position: 'pedido-inferior-1' })" href="@Model.accionBanner_01" title="Productos Descontinuados" target="_blank">
-                            <img src="@Model.UrlBanner01" alt="Productos Descontinuados" />
-                            <div>PRODUCTOS DESCONTINUADOS</div>
+                            <div style="height:140px; overflow:hidden">
+                                <img src="@Model.UrlBanner01" alt="Descúbrelos aquí" />
+                            </div>
+                            <div class="nombre_banner_inferior">DESCÚBRELOS AQUÍ</div>
                         </a>
                     </li>
 
                     @if (Model.CodigoIso == Constantes.CodigosISOPais.Venezuela)
                     {
-                    <li data-id="2" data-name="Monto Mínimo" data-position="pedido-inferior-2">
-                        <a onclick="AnalyticsBannersInferiores({ id: '2', name: 'Monto Mínimo', position: 'pedido-inferior-2' })" href="javascript:;" title="Monto Mínimo">
-                            <img src="@Model.UrlBanner02" alt="Monto Mínimo" />
-                            <div>MONTO MÍNIMO</div>
-                        </a>
-                    </li>
+                        <li data-id="2" data-name="Monto Mínimo" data-position="pedido-inferior-2">
+                            <a onclick="AnalyticsBannersInferiores({ id: '2', name: 'Monto Mínimo', position: 'pedido-inferior-2' })" href="javascript:;" title="Monto Mínimo">
+                                <div style="height:140px; overflow:hidden">
+                                    <img src="@Model.UrlBanner02" alt="Monto Mínimo" />
+                                </div>
+                                <div class="nombre_banner_inferior">MONTO MÍNIMO</div>
+                            </a>
+                        </li>
                     }
                     else
                     {
-                    <li data-id="3" data-name="Liquidaciones Web" data-position="pedido-inferior-3">
-                        <a onclick="AnalyticsBannersInferiores({ id: '3', name: 'Liquidaciones Web', position: 'pedido-inferior-3' })" href="@Url.Action("OfertasLiquidacion", "OfertaLiquidacion")" title="Liquidaciones Web">
-                            <img src="@Model.UrlBanner02" alt="Liquidaciones Web" />
-                            <div>LIQUIDACIONES WEB</div>
-                        </a>
-                    </li>
+                        <li data-id="3" data-name="Liquidaciones Web" data-position="pedido-inferior-3">
+                            <a onclick="AnalyticsBannersInferiores({ id: '3', name: 'Liquidaciones Web', position: 'pedido-inferior-3' })" href="@Url.Action("OfertasLiquidacion", "OfertaLiquidacion")" title="Liquidaciones Web">
+                                <div style="height:140px; overflow:hidden">
+                                    <img src="@Model.UrlBanner02" alt="Entérate aquí" />
+                                </div>
+                                <div class="nombre_banner_inferior">ENTERATE AQUI</div>
+                            </a>
+                        </li>
                     }
+
                     <li data-id="4" data-name="Productos Agotados" data-position="pedido-inferior-4">
                         <a onclick="AnalyticsBannersInferiores({ id: '4', name: 'Productos Agotados', position: 'pedido-inferior-4' }); CargarProductoAgotados();" href="javascript:;" title="Productos Agotados">
-                            <img src="@Model.UrlBanner03" alt="Productos Agotados" />
-                            <div>PRODUCTOS AGOTADOS</div>
+                            <div style="height:140px; overflow:hidden">
+                                <img src="@Model.UrlBanner03" alt="Infórmate aquí" />
+                            </div>
+                            <div class="nombre_banner_inferior">INFÓRMATE AQUÍ</div>
                         </a>
                     </li>
                 </ul>
