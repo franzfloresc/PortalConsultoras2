@@ -268,11 +268,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             }
 
             model.Asunto = notificacion.Asunto;
-            model.Campania = notificacion.CampaniaId;
-            model.estado = notificacion.Estado;
-            model.Observaciones = notificacion.Observaciones;
-            model.FechaFacturacion = notificacion.FechaFacturacion;
-            model.FacturaHoy = notificacion.FacturaHoy;
+            model.FechaFacturacion = notificacion.FechaHoraValidación;
 
             model.ListaNotificacionesDetalle = new List<BENotificacionesDetalle>();
             model.ListaNotificacionesDetallePedido = lstObservacionesPedido;
@@ -280,7 +276,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             model.Origen = 3;
             ViewBag.Simbolo = userData.Simbolo;
 
-            return View("ListadoObservaciones", model);
+            return View("DetalleObservacionesStock", model);
         }
 
         public ActionResult DetalleSolicitudClienteCatalogo(long SolicitudId)
