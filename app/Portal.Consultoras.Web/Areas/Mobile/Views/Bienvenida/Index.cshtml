@@ -417,7 +417,7 @@
 @if (Model.CatalogoPersonalizadoMobile != 0 && Model.EsCatalogoPersonalizadoZonaValida)
 {
     <input type="hidden" id="flagCatalogoPersonalizado" />
-    <div class="banner_inferior_mobile oculto_lbel">
+    <div class="banner_inferior_mobile">
         <a href="@Url.Action("Index", "CatalogoPersonalizado", new { area = "Mobile" })"><img src="@Model.UrlImagenCatalogoPersonalizado" alt="Los favoritos de tus clientes" /></a>
     </div>
 }
@@ -853,8 +853,8 @@
                     urlBase_fb = request.Url.Scheme + "://" + request.Url.Authority + "/Pdto.aspx?id=" + Model.CodigoISO + "_[valor]";
                 }
             }
-            <a class="btn_compartir_ofertas" href="javascript:window.location=CompartirWsp('@urlWs', {RutaImagen: '{{FotoProducto01}}', MarcaID:'{{MarcaID}}', MarcaDesc:'{{DescripcionMarca}}', NombrePro:'{{DescripcionCUV2}}', Cuv:'{{CUV2}}'});" data-action="share/whatsapp/share"><img src="@Url.Content("~/Content/Images/Mobile/Esika/iconowscolor.png")" alt=""></a>
-            <a class="btn_compartir_ofertas" href="javascript:void(0);" onclick="javascript:CompartirFacebook('@urlBase_fb',  {RutaImagen: '{{FotoProducto01}}', MarcaID:'{{MarcaID}}', MarcaDesc:'{{DescripcionMarca}}', NombrePro:'{{DescripcionCUV2}}', Cuv:'{{CUV2}}'});"><img src="@Url.Content("~/Content/Images/Mobile/Esika/catalogo_facebook_color.png")" alt=""></a>
+            <a class="btn_compartir_ofertas" href="javascript:window.location=CompartirWsp('@urlWs', {RutaImagen: '{{FotoProducto01}}', MarcaID:'{{MarcaID}}', MarcaDesc:'{{DescripcionMarca}}', NombrePro:'{{DescripcionCUV2}}', Cuv:'{{CUV2}}'});" data-action="share/whatsapp/share"><img src="@Url.Content("~/Content/Images/Mobile/Esika/catalogo_ws.png")" alt=""></a>
+            <a class="btn_compartir_ofertas" href="javascript:void(0);" onclick="javascript:CompartirFacebook('@urlBase_fb',  {RutaImagen: '{{FotoProducto01}}', MarcaID:'{{MarcaID}}', MarcaDesc:'{{DescripcionMarca}}', NombrePro:'{{DescripcionCUV2}}', Cuv:'{{CUV2}}'});"><img src="@Url.Content("~/Content/Images/Mobile/Esika/facebook.png")" alt=""></a>
         </div>
         <hr class="clear" />
         <div style="margin-left:-20px; margin-right:-20px;">

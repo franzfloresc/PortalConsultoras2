@@ -8,6 +8,7 @@ using System.Configuration;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.ServiceODS;
 using Portal.Consultoras.Web.ServiceProductoCatalogoPersonalizado;
+using Portal.Consultoras.Web.ServiceSAC;
 
 namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 {
@@ -15,6 +16,8 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
     {
         public ActionResult Index()
         {
+            var model = new CatalogoPersonalizadoModel(); //PL20-1273
+
             if (!userData.EsCatalogoPersonalizadoZonaValida)
             {
                 return RedirectToAction("Index", "Bienvenida", new { area = "Mobile" });
@@ -23,7 +26,18 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             ViewBag.Simbolo = userData.Simbolo;
             ViewBag.RutaImagenNoDisponible = ConfigurationManager.AppSettings.Get("rutaImagenNotFoundAppCatalogo");
 
-            return View();
+            //PL20-1273
+            if (Session["ListFiltersFAV"] != null)
+            {
+                var lst = (List<BETablaLogicaDatos>)Session["ListFiltersFAV"] ?? new List<BETablaLogicaDatos>();
+                model.FiltersBySorting = lst.Where(x => x.TablaLogicaID == 94).ToList();
+                model.FiltersByCategory = lst.Where(x => x.TablaLogicaID == 95).ToList();
+                model.FiltersByBrand = lst.Where(x => x.TablaLogicaID == 96).ToList();
+                model.FiltersByPublished = lst.Where(x => x.TablaLogicaID == 97).ToList();
+            }
+            //PL20-1273
+
+            return View(model);
         }
 
         public ActionResult Producto(FichaProductoFAVModel model)
