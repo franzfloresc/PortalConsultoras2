@@ -18,6 +18,9 @@ var urlLoad = urlLoad || "";
 
 //PL20-1268
 var dataFichaProductoFAV = [];
+//PL20-1234
+var cantidadActual = 0;
+
 
 $(document).ready(function () {
     $(document).on('click', '[data-btn-agregar-catalogopersonalizado]', function () {
@@ -172,6 +175,7 @@ function processFilterCatalogoPersonalizado(type)
         LinkCargarCatalogoToScroll();
         CargarCatalogoPersonalizado();
         $('body').css({ 'overflow-y': 'scroll' });
+        cantidadActual = 0;
     }
 }
 
@@ -324,6 +328,9 @@ function CargarCatalogoPersonalizado() {
                 var htmlDiv = SetHandlebars("#template-catalogopersonalizado", data.data);
                 $('#divCatalogoPersonalizado').append(htmlDiv);
 
+                cantidadActual = cantidadActual + data.data.length;
+                $("#divCantProductos").html('Mostrando ' + cantidadActual + " de " + data.totalRegistros + " productos");
+
                 //SB20-1197
                 if (!primeraVez) {
                     totalRegistros = data.totalRegistros;
@@ -356,7 +363,8 @@ function CargarCatalogoPersonalizado() {
                 }
 
                 //SB20-1197 
-                var rsnum = 'Mostrando ' + data.totalRegistrosFilter + ' de ' + totalRegistros + ' productos';
+                //var rsnum = 'Mostrando ' + data.totalRegistrosFilter + ' de ' + totalRegistros + ' productos';
+                var rsnum = 'Mostrando ' + cantidadActual + ' de ' + totalRegistros + ' productos'; //PL20 - 1273
                 $('#result-number').text(rsnum);
 
                 if (totalRegistros != data.totalRegistrosFilter) $('#div-delete-filters').show();
@@ -1099,4 +1107,6 @@ function filterFAVDesktop(tipo) {
 
     filters.push(f);
     CargarCatalogoPersonalizado();
+    LinkCargarCatalogoToScroll();
+    cantidadActual = 0;
 }

@@ -1,4 +1,6 @@
-﻿@{
+﻿@model Portal.Consultoras.Web.Models.CatalogoPersonalizadoModel
+
+@{
     Layout = "~/Areas/Mobile/Views/Shared/_MobileLayout.cshtml";
 }
 
@@ -39,11 +41,22 @@
 
     <div id="orderby-filter">
         <div id="content-orderby">
-            <select id="orderby-price" class="select-ffc" onchange="processFilterCatalogoPersonalizado(1);">
+            @*<select id="orderby-price" class="select-ffc" onchange="processFilterCatalogoPersonalizado(1);">
                 <option value="-1">ORDENAR POR</option>
                 <option value="asc">PRECIO | Menor a mayor</option>
                 <option value="desc">PRECIO | Mayor a menor</option>
-            </select>
+            </select>*@
+
+            @*PL20 - 1273*@
+            @if (Model.FiltersBySorting != null)
+            {
+                <select id="orderby-price" class="select-ffc" onchange="processFilterCatalogoPersonalizado(1);">
+                    @foreach (var item in Model.FiltersBySorting)
+                    {
+                        <option value="@item.Codigo">@item.Descripcion</option>
+                    }
+                </select>
+            }
 
             <input type="button" class="btn2-ffc" value="FILTROS" onclick="showCustomFilters();" />
         </div>
