@@ -13,7 +13,8 @@ using System.ServiceModel;
 using System.Web.Script.Serialization;
 using System.Web.UI.WebControls;
 using Portal.Consultoras.Web.ServiceGestionWebPROL;
-
+using System.IO;
+using System.Drawing;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -419,6 +420,47 @@ namespace Portal.Consultoras.Web.Controllers
                     message = ex.Message,
                     extra = ""
                 });
+            }
+        }
+
+
+        [HttpPost]
+        public ActionResult ImagenEstrategiaUpload(string qqfile)
+        {
+            string FileName = string.Empty;
+            try
+            {
+                // req. 1664 - Unificando todo en una unica carpeta temporal
+                Stream inputStream = Request.InputStream;
+                byte[] fileBytes = ReadFully(inputStream);
+                string ffFileName = qqfile; // qqfile;
+                var path = Path.Combine(Globals.RutaTemporales, ffFileName);
+                System.IO.File.WriteAllBytes(path, fileBytes);
+                if (!System.IO.File.Exists(Globals.RutaTemporales))
+                    System.IO.Directory.CreateDirectory(Globals.RutaTemporales);
+                var failImage = false;
+                var image = System.Drawing.Image.FromFile(path);
+                if (image.Width > 62)
+                {
+                    failImage = true;
+                }
+                if (image.Height > 62)
+                {
+                    failImage = true;
+                }
+
+                if (failImage)
+                {
+                    image.Dispose();
+                    System.IO.File.Delete(path);
+                    return Json(new { success = false, message = "El tamaño de imagen excede el máximo permitido. (Ancho: 62px - Alto: 62px)." }, "text/html");
+                }
+                image.Dispose();
+                return Json(new { success = true, name = Path.GetFileName(path) }, "text/html");
+            }
+            catch (Exception)
+            {
+                return Json(new { success = false, message = "Hubo un error al cargar el archivo, intente nuevamente." }, "text/html");
             }
         }
 
@@ -1495,6 +1537,21 @@ namespace Portal.Consultoras.Web.Controllers
                     message = ex.Message
                 }, JsonRequestBehavior.AllowGet);
             }
-        }        
+        }
+
+        public static byte[] ReadFully(Stream input)
+        {
+            byte[] buffer = new byte[16 * 1024];
+            using (MemoryStream ms = new MemoryStream())
+            {
+                int read;
+                while ((read = input.Read(buffer, 0, buffer.Length)) > 0)
+                {
+                    ms.Write(buffer, 0, read);
+                }
+                return ms.ToArray();
+            }
+        }
+
     }
 }
