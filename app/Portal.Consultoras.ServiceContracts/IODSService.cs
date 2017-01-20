@@ -24,6 +24,9 @@ namespace Portal.Consultoras.ServiceContracts
             int rowCount, bool validarOpt);
 
         [OperationContract]
+        IList<BEProducto> GetProductoComercialByListaCuv(int paisID, int campaniaID, int regionID, int zonaID, string codigoRegion, string codigoZona, string listaCuv);
+
+        [OperationContract]
         IList<BEConsultoraCodigo> SelectConsultoraCodigo(int paisID, int regionID, int zonaID, string codigo, int rowCount);
 
         [OperationContract]

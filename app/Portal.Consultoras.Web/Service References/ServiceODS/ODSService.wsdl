@@ -25,6 +25,12 @@
   <wsdl:message name="IODSService_SelectProductoByCodigoDescripcionSearchRegionZona_OutputMessage">
     <wsdl:part name="parameters" element="tns:SelectProductoByCodigoDescripcionSearchRegionZonaResponse" />
   </wsdl:message>
+  <wsdl:message name="IODSService_GetProductoComercialByListaCuv_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetProductoComercialByListaCuv" />
+  </wsdl:message>
+  <wsdl:message name="IODSService_GetProductoComercialByListaCuv_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetProductoComercialByListaCuvResponse" />
+  </wsdl:message>
   <wsdl:message name="IODSService_SelectConsultoraCodigo_InputMessage">
     <wsdl:part name="parameters" element="tns:SelectConsultoraCodigo" />
   </wsdl:message>
@@ -206,6 +212,10 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IODSService/SelectProductoByCodigoDescripcionSearchRegionZona" message="tns:IODSService_SelectProductoByCodigoDescripcionSearchRegionZona_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IODSService/SelectProductoByCodigoDescripcionSearchRegionZonaResponse" message="tns:IODSService_SelectProductoByCodigoDescripcionSearchRegionZona_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="GetProductoComercialByListaCuv">
+      <wsdl:input wsaw:Action="http://tempuri.org/IODSService/GetProductoComercialByListaCuv" message="tns:IODSService_GetProductoComercialByListaCuv_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IODSService/GetProductoComercialByListaCuvResponse" message="tns:IODSService_GetProductoComercialByListaCuv_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="SelectConsultoraCodigo">
       <wsdl:input wsaw:Action="http://tempuri.org/IODSService/SelectConsultoraCodigo" message="tns:IODSService_SelectConsultoraCodigo_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IODSService/SelectConsultoraCodigoResponse" message="tns:IODSService_SelectConsultoraCodigo_OutputMessage" />
@@ -341,6 +351,15 @@
     </wsdl:operation>
     <wsdl:operation name="SelectProductoByCodigoDescripcionSearchRegionZona">
       <soap:operation soapAction="http://tempuri.org/IODSService/SelectProductoByCodigoDescripcionSearchRegionZona" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetProductoComercialByListaCuv">
+      <soap:operation soapAction="http://tempuri.org/IODSService/GetProductoComercialByListaCuv" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
