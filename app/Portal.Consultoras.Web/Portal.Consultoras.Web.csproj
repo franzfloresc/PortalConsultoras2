@@ -2756,8 +2756,12 @@
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
+    <None Include="Service References\ServiceUnete\PortalService.wsdl" />
     <None Include="Service References\ServiceUnete\PortalService1.wsdl" />
     <None Include="Service References\ServiceUnete\PortalService.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceUnete\PortalService1.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\ServiceUnete\PortalService81.xsd">
