@@ -62,6 +62,19 @@ namespace Portal.Consultoras.Data
             return Context.ExecuteReader(command);
         }
 
+        public IDataReader GetProductoComercialByListaCuv(int campaniaID, int regionID, int zonaID, string codigoRegion, string codigoZona, string listaCuv)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetProductoComercialByListaCuv");
+            Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, campaniaID);
+            Context.Database.AddInParameter(command, "@RegionID", DbType.Int32, regionID);
+            Context.Database.AddInParameter(command, "@ZonaID", DbType.Int32, zonaID);
+            Context.Database.AddInParameter(command, "@CodigoRegion", DbType.String, codigoRegion);
+            Context.Database.AddInParameter(command, "@CodigoZona", DbType.String, codigoZona);
+            Context.Database.AddInParameter(command, "@ListaCuv", DbType.String, listaCuv);
+
+            return Context.ExecuteReader(command);
+        }
+
         public IDataReader GetProductoSugeridoByCUV(int campaniaID, int consultoraID, string cuv, int regionID, int zonaID, string codigoRegion, string codigoZona)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetProductoSugeridoByCUV_SB2");
