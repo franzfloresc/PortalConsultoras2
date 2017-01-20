@@ -101,6 +101,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
+        [AllowAnonymous]
         [HttpPost]
         public ActionResult LoginAdmin(UsuarioModel model)
         {
