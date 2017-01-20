@@ -301,6 +301,10 @@ namespace Portal.Consultoras.Web.Controllers
                                 {
                     ServiceUnete.ParametroUneteBE parametro = null;
                     string tipoRechazoNombre = string.Empty;
+                    string cantDias = string.Empty;
+                                    string cantDiasRechazados = string.Empty;
+                                    string cantDiasAproFFVV = string.Empty;
+                    
 
                     if (!string.IsNullOrEmpty(i.TipoRechazo))
                     {
@@ -366,13 +370,51 @@ namespace Portal.Consultoras.Web.Controllers
                             string.IsNullOrWhiteSpace(i.ImagenPagare) ? string.Empty : i.ImagenPagare.ToString(), //24
                             string.IsNullOrWhiteSpace(i.ImagenDniAval) ? string.Empty : i.ImagenDniAval.ToString(), //25
                             string.IsNullOrWhiteSpace(i.MotivoRechazo) ? string.Empty : i.MotivoRechazo.ToString(), //26
-                            tipoRechazoNombre //27
+                            tipoRechazoNombre,//27,
+                            cantDias = CalcularDias(i.FechaCreacion), //28
+                            i.EsConsultora.ToString(), //29
+                            i.ZonaGZ.ToString(), //30
+                            i.ZonaConsultoraLider.ToString(), //31
+                            i.SeccionConsultoraLider.ToString(), //32
+                            //i.FechaCreacionCodigo.ToString(), //33
+                            ((i.FechaCreacionCodigo.HasValue ) ?  i.FechaCreacionCodigo: (DateTime?) null).ToString(), //33
+                            ////i.AnoCampanaIngreso.ToString(), //34
+                             string.IsNullOrWhiteSpace(i.AnoCampanaIngreso) ? string.Empty: i.AnoCampanaIngreso.ToString(), //34
+                            ////i.campania1erPasePedido.ToString(), //35
+                            string.IsNullOrWhiteSpace(i.campania1erPasePedido) ? string.Empty: i.campania1erPasePedido.ToString(), //35
+                            cantDiasRechazados = ((CalcularDias(i.FechaRechazo)=="-1")? "-": CalcularDias(i.FechaRechazo)).ToString(),  //36
+                            //((i.FechaRechazo.HasValue)? cantDiasRechazados = CalcularDias(i.FechaRechazo) : null).ToString(),  // cantDiasRechazados = CalcularDias(i.FechaRechazo) , //36
+                            ////cantDiasAproFFVV = CalcularDias(i.FechaAproFVVV)  //37
+                            cantDiasAproFFVV = ((CalcularDias(i.FechaAproFVVV)=="-1")? "-":CalcularDias(i.FechaAproFVVV)).ToString() //37
+                            // ((i.FechaAproFVVV.HasValue)? cantDiasAproFFVV = CalcularDias(i.FechaAproFVVV) : null).ToString()  // cantDiasAproFFVV = CalcularDias(i.FechaAproFVVV) 
                         }
                     };
                 })
         };
 
             return Json(data, JsonRequestBehavior.AllowGet);
+        }
+
+        private string CalcularDias(DateTime? fechaCreacion)
+        {
+            DateTime newDate = DateTime.Now;
+            DateTime? oldDate = (DateTime?) fechaCreacion;
+            TimeSpan ts;
+            int diferenciaDias = 0;
+
+            if (fechaCreacion.HasValue)
+            {
+                ts = newDate - (DateTime) oldDate;
+                diferenciaDias = ts.Days;
+            }
+            else
+            {
+                diferenciaDias = -1;
+            }
+    
+
+            return diferenciaDias.ToString();
+
         }
 
         [HttpPost]
@@ -1237,186 +1279,259 @@ namespace Portal.Consultoras.Web.Controllers
 
         // TODO: Implementacion Niveles Geograficos CAM
 
-        /*
+        
         public ActionResult NivelesGeograficos()
         {
-            return View(new NivelesGeograficosModel { CodigoISO = "CR"});
+            return View(new NivelesGeograficosModel { CodigoISO = Constantes.CodigosISOPais.CostaRica });
         }
 
-        [HttpPost]
-        public JsonResult ConsultarNivelesGeograficos(NivelesGeograficosModel model)
-        {
-            var grid = new BEGrid
-            {
-                PageSize = model.rows,
-                CurrentPage = model.page,
-                SortColumn = model.sidx,
-                SortOrder = model.sord
-            };
-            ServiceUnete.ParametroUneteCollection lstSelect;
+        //public ActionResult ExportarExcelNivelGeograficos()
+        //{
+        //    //ServiceUnete.ParametroUneteCollection lstSelect;
+        //    ServiceUnete.UbigeoCRCollection lstSelect;
+            
+        //    using (var sv = new PortalServiceClient())
+        //    {
+        //        lstSelect = sv.ObtenerListaNivelesGeograficosCR(CodigoISO);//, EnumsTipoParametro.TipoNivelesRiesgo, 0);
+        //    }
+        //    List<NivelesGeograficosModel> items = new List<NivelesGeograficosModel>();
+        //    NivelesGeograficosModel objNivel;
+        //    foreach (var item in lstSelect)
+        //    {
+        //        objNivel = new NivelesGeograficosModel
+        //        {
+        //            REG = item.REG,
+        //            ZONA = item.ZONA,
+        //            SECC = item.SECC,
+        //            TERRITO = item.TERRITO,
+        //            UBIGEO = item.UBIGEO,
+        //            PROVINCIA = item.PROVINCIA,
+        //            CANTON = item.CANTON,
+        //            DISTRITO = item.DISTRITO,
+        //            BARRIO_COLONIA_URBANIZACION_REFERENCIAS = item.BARRIO_COLONIA_URBANIZACION_REFERENCIAS,
 
-            using (var sv = new PortalServiceClient())
-            {
-                lstSelect = sv.ObtenerParametrosUnete(CodigoISO, EnumsTipoParametro.TipoNivelesRiesgo, 0);
-            }
-
-            List<NivelesGeograficosModel> items = new List<NivelesGeograficosModel>();
-            NivelesGeograficosModel objNivel;
-            foreach (var item in lstSelect)
-            {
-                objNivel = new NivelesGeograficosModel();
-                objNivel.NivelRiesgo = item.Descripcion;
-                objNivel.ZonaSeccion = item.Nombre;
-                items.Add(objNivel);
-            }
-            ParametroUneteBE obj = new ParametroUneteBE();
-
-            #region Sort Section
-            if (model.sord == "asc")
-            {
-                #region ascendente
-                switch (model.sidx)
-                {
-                    case "NivelRiesgo":
-                        items = items.AsEnumerable<NivelesGeograficosModel>().ToList().OrderBy(x => x.NivelRiesgo).ToList();
-                        break;
-                    case "ZonaSeccion":
-                        items = items.AsEnumerable<NivelesGeograficosModel>().ToList().OrderBy(x => x.ZonaSeccion).ToList();
-                        break;
-                }
-                #endregion
-            }
-            else
-            {
-                #region descendente
-                switch (model.sidx)
-                {
-                    case "NivelRiesgo":
-                        items = items.AsEnumerable<NivelesGeograficosModel>().ToList().OrderByDescending(x => x.NivelRiesgo).ToList();
-                        break;
-                    case "ZonaSeccion":
-                        items = items.AsEnumerable<NivelesGeograficosModel>().ToList().OrderByDescending(x => x.ZonaSeccion).ToList();
-                        break;
-                }
-                #endregion
-            }
-            #endregion
-
-            items = items.AsEnumerable<NivelesGeograficosModel>().ToList().Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize).ToList();
-
-            var pag = Paginador(grid, lstSelect);
-
-            var data = new
-            {
-                total = pag.PageCount,
-                page = pag.CurrentPage,
-                records = pag.RecordCount,
-                rows = items.Select(i => new
-                {
-                    cell = new string[]
-                    {
-                        string.IsNullOrWhiteSpace(i.ZonaSeccion) ? string.Empty : i.ZonaSeccion.ToUpper(),//0
-                        string.IsNullOrWhiteSpace(i.NivelRiesgo) ? string.Empty : i.NivelRiesgo.ToUpper()//1                    
-                    }
-                })
-            };
-
-            return Json(data, JsonRequestBehavior.AllowGet);
-        }
-
-        [HttpPost]
-        public string NivelesGeograficosInsertar(HttpPostedFileBase uplArchivo, NivelesGeograficosModel model)
-        {
-            string message = string.Empty;
-            model.CodigoISO = "PE";
-            try
-            {
-                // valida que el archivo exista
-                if (uplArchivo == null)
-                {
-                    return message = "El archivo especificado no existe.";
-                }
-
-                // valida la extensión del archivo
-                if (!Util.isFileExtension(uplArchivo.FileName, Enumeradores.TypeDocExtension.Excel))
-                {
-                    return message = "El archivo especificado no es un documento de tipo MS-Excel.";
-                }
+        //        };
+        //        items.Add(objNivel);
+        //    }
+        //    Dictionary<string, string> dic = new Dictionary<string, string>
+        //    {
+        //        {"REG", "REG"},
+        //        {"ZONA", "ZONA"},
+        //        {"SECC", "SECC"},
+        //        {"TERRITO", "TERRITO"},
+        //        {"UBIGEO", "UBIGEO"},
+        //        {"PROVINCIA", "PROVINCIA"},
+        //        {"CANTON", "CANTON"},
+        //        {"DISTRITO", "DISTRITO"},
+        //        {"BARRIO_COLONIA_URBANIZACION_REFERENCIAS", "BARRIO_COLONIA_URBANIZACION_REFERENCIAS"}
+        //    };
+        //    Util.ExportToExcel("ReporteNivelesGeograficos", items, dic);
+        //    return View();
+        //}
 
 
-                //Guarda el archivo en una ruta del servidor
-                string finalPath = string.Empty, httpPath = string.Empty;
-                string fileextension = Path.GetExtension(uplArchivo.FileName);
+        //[HttpPost]
+        //public JsonResult ConsultarNivelesGeograficos(NivelesGeograficosModel model)
+        //{
+        //    var grid = new BEGrid
+        //    {
+        //        PageSize = model.rows,
+        //        CurrentPage = model.page,
+        //        SortColumn = model.sidx,
+        //        SortOrder = model.sord
+        //    };
+            
+        //    ServiceUnete.UbigeoCRCollection lstSelect;
+            
 
-                if (!fileextension.ToLower().Equals(".xlsx"))
-                {
-                    return message = "Sólo se permiten archivos MS-Excel versiones 2007-2012.";
-                }
+        //    using (var sv = new PortalServiceClient())
+        //    {
+        //        lstSelect = sv.ObtenerListaNivelesGeograficosCR(CodigoISO);
+        //    }
 
-                string fileName = Guid.NewGuid().ToString();
-                string pathfaltante = Server.MapPath("~/Content/ArchivoNivelGeografico");
-                httpPath = Url.Content("~/Content/ArchivoNivelGeografico") + "/" + fileName;
-                if (!Directory.Exists(pathfaltante))
-                    Directory.CreateDirectory(pathfaltante);
-                finalPath = Path.Combine(pathfaltante, fileName + fileextension);
-                uplArchivo.SaveAs(finalPath);
+        //    List<NivelesGeograficosModel> items = new List<NivelesGeograficosModel>();
+        //    NivelesGeograficosModel objNivel;
+        //    foreach (var item in lstSelect)
+        //    {
+        //        objNivel = new NivelesGeograficosModel
+        //        {
+        //           // CodigoISO = item.CodigoISO,
+        //            BARRIO_COLONIA_URBANIZACION_REFERENCIAS =
+        //                item.BARRIO_COLONIA_URBANIZACION_REFERENCIAS,
+        //            CANTON = item.CANTON,
+        //            DISTRITO = item.DISTRITO,
+        //            PROVINCIA = item.PROVINCIA,
+        //            REG = item.REG,
+        //            SECC = item.SECC,
+        //            TERRITO = item.TERRITO,
+        //            UBIGEO = item.UBIGEO,
+        //            ZONA = item.ZONA
+        //        };
 
-                bool IsCorrect = false;
-                NivelesGeograficosModel prod = new NivelesGeograficosModel();
-                IList<NivelesGeograficosModel> lista = Util.ReadXmlFile(finalPath, prod, false, ref IsCorrect);
+        //        items.Add(objNivel);
+        //    }
+        //    ParametroUneteBE obj = new ParametroUneteBE();
 
-                //elimina el documento, una vez que haya sido procesado
-                System.IO.File.Delete(finalPath);
-                List<ServiceUnete.ParametroUnete> listafinal = new List<ServiceUnete.ParametroUnete>();
-                if (IsCorrect && lista != null)
-                {
-                    foreach (var item in lista)
-                    {
-                        var parametroTodos = new ServiceUnete.ParametroUnete
-                        {
-                            Nombre = item.ZonaSeccion,
-                            Descripcion = item.NivelRiesgo,
-                            Valor = string.IsNullOrWhiteSpace(item.NivelRiesgo) ? Enumeradores.TipoNivelesRiesgo.Otro.ToInt()
-                                                                            : item.NivelRiesgo.ToUpper() == Constantes.TipoNivelesRiesgo.Bajo ? Enumeradores.TipoNivelesRiesgo.Bajo.ToInt()
-                                                                            : item.NivelRiesgo.ToUpper() == Constantes.TipoNivelesRiesgo.Medio ? Enumeradores.TipoNivelesRiesgo.Medio.ToInt()
-                                                                            : item.NivelRiesgo.ToUpper() == Constantes.TipoNivelesRiesgo.Alto ? Enumeradores.TipoNivelesRiesgo.Alto.ToInt()
-                                                                            : Enumeradores.TipoNivelesRiesgo.Otro.ToInt(),
-                            FK_IdTipoParametro = EnumsTipoParametro.TipoNivelesRiesgo.ToInt(),
-                            Estado = 1
-                        };
-                        listafinal.Add(parametroTodos);
-                    }
-                    if (listafinal.Count > 0)
-                    {
-                        using (var sv = new PortalServiceClient())
-                        {
+        //    #region Sort Section
+        //    if (model.sord == "asc")
+        //    {
+        //        #region ascendente
+        //        switch (model.sidx)
+        //        {
+        //            case "DISTRITO":
+        //                items = items.AsEnumerable<NivelesGeograficosModel>().ToList().OrderBy(x => x.DISTRITO).ToList();
+        //                break;
+        //            case "PROVINCIA":
+        //                items = items.AsEnumerable<NivelesGeograficosModel>().ToList().OrderBy(x => x.PROVINCIA).ToList();
+        //                break;
+        //        }
+        //        #endregion
+        //    }
+        //    else
+        //    {
+        //        #region descendente
+        //        switch (model.sidx)
+        //        {
+        //            case "DISTRITO":
+        //                items = items.AsEnumerable<NivelesGeograficosModel>().ToList().OrderByDescending(x => x.DISTRITO).ToList();
+        //                break;
+        //            case "PROVINCIA":
+        //                items = items.AsEnumerable<NivelesGeograficosModel>().ToList().OrderByDescending(x => x.PROVINCIA).ToList();
+        //                break;
+        //        }
+        //        #endregion
+        //    }
+        //    #endregion
 
-                            sv.InsertarNivelesRiesgo(model.CodigoISO, listafinal.ToArray());
-                        }
-                        return message = "Se realizo satisfactoriamente la carga de datos.";
-                    }
-                    else
-                    {
-                        return message = "No se Guardo ningun registro";
-                    }
-                }
-                else
-                {
-                    return message = "Ocurrió un problema al cargar el documento o tal vez se encuentra vacío.";
-                }
-            }
-            catch (FaultException ex)
-            {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
-                return message = "Verifique el formato del Documento, posiblemente no sea igual al de la Plantilla.";
-            }
-            catch (Exception ex)
-            {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
-                return message = "Verifique el formato del Documento, posiblemente no sea igual al de la Plantilla.";
-            }
-        }
-        */
+        //    items = items.AsEnumerable<NivelesGeograficosModel>().ToList().Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize).ToList();
+
+        //    var pag = Paginador(grid, lstSelect);
+
+        //    var data = new
+        //    {
+        //        total = pag.PageCount,
+        //        page = pag.CurrentPage,
+        //        records = pag.RecordCount,
+        //        rows = items.Select(i => new
+        //        {
+        //            cell = new string[]
+        //            {
+        //                string.IsNullOrWhiteSpace(i.REG) ? string.Empty : i.REG.ToUpper(),//0
+        //                string.IsNullOrWhiteSpace(i.ZONA) ? string.Empty : i.ZONA.ToUpper(),//1                    
+        //                string.IsNullOrWhiteSpace(i.SECC) ? string.Empty : i.SECC.ToUpper(),//2                    
+        //                string.IsNullOrWhiteSpace(i.TERRITO) ? string.Empty : i.TERRITO.ToUpper(),//3                    
+        //                string.IsNullOrWhiteSpace(i.UBIGEO) ? string.Empty : i.UBIGEO.ToUpper(),//4                   
+        //                string.IsNullOrWhiteSpace(i.PROVINCIA) ? string.Empty : i.PROVINCIA.ToUpper(),//5                    
+        //                string.IsNullOrWhiteSpace(i.CANTON) ? string.Empty : i.CANTON.ToUpper(),//6                 
+        //                string.IsNullOrWhiteSpace(i.DISTRITO) ? string.Empty : i.DISTRITO.ToUpper(),//7                    
+        //                string.IsNullOrWhiteSpace(i.BARRIO_COLONIA_URBANIZACION_REFERENCIAS) ? string.Empty : i.BARRIO_COLONIA_URBANIZACION_REFERENCIAS.ToUpper()//8
+                        
+
+        //            }
+        //        })
+        //    };
+
+        //    return Json(data, JsonRequestBehavior.AllowGet);
+        //}
+
+        //[HttpPost]
+        //public string NivelesGeograficosInsertar(HttpPostedFileBase uplArchivo, NivelesGeograficosModel model)
+        //{
+        //    string message = string.Empty;
+        //    model.CodigoISO = Constantes.CodigosISOPais.CostaRica;
+        //    try
+        //    {
+        //        // valida que el archivo exista
+        //        if (uplArchivo == null)
+        //        {
+        //            return message = "El archivo especificado no existe.";
+        //        }
+
+        //        // valida la extensión del archivo
+        //        if (!Util.isFileExtension(uplArchivo.FileName, Enumeradores.TypeDocExtension.Excel))
+        //        {
+        //            return message = "El archivo especificado no es un documento de tipo MS-Excel.";
+        //        }
+
+
+        //        //Guarda el archivo en una ruta del servidor
+        //        string finalPath = string.Empty, httpPath = string.Empty;
+        //        string fileextension = Path.GetExtension(uplArchivo.FileName);
+
+        //        if (!fileextension.ToLower().Equals(".xlsx"))
+        //        {
+        //            return message = "Sólo se permiten archivos MS-Excel versiones 2007-2012.";
+        //        }
+
+        //        string fileName = Guid.NewGuid().ToString();
+        //        string pathfaltante = Server.MapPath("~/Content/ArchivoNivelGeografico");
+        //        httpPath = Url.Content("~/Content/ArchivoNivelGeografico") + "/" + fileName;
+        //        if (!Directory.Exists(pathfaltante))
+        //            Directory.CreateDirectory(pathfaltante);
+        //        finalPath = Path.Combine(pathfaltante, fileName + fileextension);
+        //        uplArchivo.SaveAs(finalPath);
+
+        //        bool IsCorrect = false;
+        //        NivelesGeograficosModel prod = new NivelesGeograficosModel();
+        //        IList<NivelesGeograficosModel> lista = Util.ReadXmlFile(finalPath, prod, false, ref IsCorrect);
+
+        //        //elimina el documento, una vez que haya sido procesado
+        //        System.IO.File.Delete(finalPath);
+
+        //        List<ServiceUnete.UbigeoCR> listaUbigeo = new List<UbigeoCR>();
+
+        //        if (IsCorrect && lista != null)
+        //        {
+        //            foreach (var item in lista)
+        //            {
+        //                var parametro = new ServiceUnete.UbigeoCR()
+        //                {
+        //                    REG = item.REG,
+        //                    ZONA = item.ZONA,
+        //                    SECC = item .SECC,
+        //                    TERRITO = item.TERRITO,
+        //                    UBIGEO = item.UBIGEO,
+        //                    PROVINCIA = item.PROVINCIA,
+        //                    CANTON = item.CANTON,
+        //                    DISTRITO = item.DISTRITO,
+        //                    BARRIO_COLONIA_URBANIZACION_REFERENCIAS = item.BARRIO_COLONIA_URBANIZACION_REFERENCIAS
+                            
+                            
+        //                };
+
+        //                listaUbigeo.Add(parametro);
+
+        //            }
+        //            if (listaUbigeo.Count > 0)
+        //            {
+        //                using (var sv = new PortalServiceClient())
+        //                {
+        //                    sv.InsertarNivelesGeograficos(model.CodigoISO, listaUbigeo.ToArray());
+        //                }
+        //                return message = "Se realizo satisfactoriamente la carga de datos.";
+        //            }
+        //            else
+        //            {
+        //                return message = "No se Guardo ningun registro";
+        //            }
+        //        }
+        //        else
+        //        {
+        //            return message = "Ocurrió un problema al cargar el documento o tal vez se encuentra vacío.";
+        //        }
+        //    }
+        //    catch (FaultException ex)
+        //    {
+        //        LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+        //        return message = "Verifique el formato del Documento, posiblemente no sea igual al de la Plantilla.";
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+        //        return message = "Verifique el formato del Documento, posiblemente no sea igual al de la Plantilla.";
+        //    }
+        //}
+        
 
 
         [HttpPost]
@@ -2150,7 +2265,9 @@ namespace Portal.Consultoras.Web.Controllers
                     TelefonoFijo = c.TelefonoFijo,
                     EstadoPostulante = c.EstadoPostulante,
                     TipoRechazo = tipoRechazoNombre,
-                    MotivoRechazo = c.MotivoRechazo
+                    MotivoRechazo = c.MotivoRechazo, 
+                    FechaEnvio = c.FechaEnvio,
+                    
                 };
                 
             });
@@ -2558,7 +2675,7 @@ namespace Portal.Consultoras.Web.Controllers
         private List<SolicitudPostulanteBE> ObtenerSolicitudesPostulanteFiltro(GestionaPostulanteModel model)
         {
             List<SolicitudPostulanteBE> solicitudes;
-
+            
             DateTime? fechaDesde = string.IsNullOrWhiteSpace(model.FechaDesde)
                 ? default(DateTime?)
                 : DateTime.ParseExact(model.FechaDesde, "dd/MM/yyyy", CultureInfo.InvariantCulture);
@@ -2587,7 +2704,8 @@ namespace Portal.Consultoras.Web.Controllers
             };
             using (var sv = new PortalServiceClient())
             {
-                solicitudes = sv.ObtenerSolicitudesPostulanteV2(objSolicitudPostulanteParameter);
+                solicitudes = sv.ObtenerSolicitudesPostulanteV3(objSolicitudPostulanteParameter);
+                
             }
             return solicitudes;
         }
