@@ -167,7 +167,7 @@ namespace Portal.Consultoras.Web.Controllers
                                 IsAgregado = false,
                                 TieneOfertaEnRevista = beProducto.TieneOfertaRevista,
                                 TieneLanzamientoCatalogoPersonalizado = beProducto.TieneLanzamientoCatalogoPersonalizado,
-                                TipoOfertaRevista = beProducto.TipoOfertaRevista
+                                TipoOfertaRevista = beProducto.TipoOfertaRevista,
                                 Volumen = producto.Volumen,
                                 EsMaquillaje = producto.EsMaquillaje,
                                 DescripcionComercial = producto.DescripcionComercial,
