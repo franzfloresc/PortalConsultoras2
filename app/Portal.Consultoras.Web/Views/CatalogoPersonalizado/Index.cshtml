@@ -12,7 +12,12 @@
 <link href="@Url.Content("~/Content/Css/Site/jquery.range.css")" rel="stylesheet" />
     <style>
         body{
-        background:white;
+            background:white;
+        }
+
+        .disabledbutton {
+            pointer-events: none;
+            opacity: 0.4;
         }
     </style>
     
@@ -126,7 +131,7 @@
 
                     @if (Model.FiltersBySorting != null)
                     {
-                        <select class="select_filtros_fav" onchange="filterFAVDesktop()">
+                        <select id="filter-sorting" class="select_filtros_fav" onchange="filterFAVDesktop()">
                         @foreach (var item in Model.FiltersBySorting)
                         {
                             <option value="@item.Codigo">@item.Descripcion</option>

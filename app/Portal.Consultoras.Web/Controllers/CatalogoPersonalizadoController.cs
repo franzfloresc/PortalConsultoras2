@@ -279,12 +279,12 @@ namespace Portal.Consultoras.Web.Controllers
                     if (Session["UserFiltersFAV"] != null)
                     {
                         var userFilters = (List<FiltroResultadoModel>)Session["UserFiltersFAV"] ?? new List<FiltroResultadoModel>();
-                        foreach (var item1 in lstFilters)
+                        foreach (var filter in lstFilters)
                         {
-                            var item2 = userFilters.Where(x => x.Id == item1.Id).FirstOrDefault();
-                            if (item2 != null)
+                            var userFilter = userFilters.Where(x => x.Id == filter.Id).FirstOrDefault();
+                            if (userFilter != null)
                             {
-                                if (item1.Valor1 != item2.Valor1 || item1.Valor2 != item2.Valor2 || item1.Orden != item2.Orden)
+                                if (filter.Valor1 != userFilter.Valor1 || filter.Valor2 != userFilter.Valor2 || filter.Orden != userFilter.Orden)
                                 {
                                     changedFilters = true;
                                     break;
@@ -328,7 +328,7 @@ namespace Portal.Consultoras.Web.Controllers
                                 if (!string.IsNullOrEmpty(item.Valor1))
                                 {
                                     string[] arrIds = item.Valor1.Split(',');
-                                    lstProductoModelFilter = lstProductoModelFilter.Where(x => arrIds.Contains(x.CodigoCategoria.ToString())).ToList();
+                                    lstProductoModelFilter = lstProductoModelFilter.Where(x => arrIds.Contains(x.CodigoCategoria)).ToList();
                                 }
                                 
                             }// brand
@@ -337,7 +337,7 @@ namespace Portal.Consultoras.Web.Controllers
                                 if (!string.IsNullOrEmpty(item.Valor1))
                                 {
                                     string[] arrIds = item.Valor1.Split(',');
-                                    lstProductoModelFilter = lstProductoModelFilter.Where(x => arrIds.Contains(x.CodigoMarca.ToString())).ToList();
+                                    lstProductoModelFilter = lstProductoModelFilter.Where(x => arrIds.Contains(x.CodigoMarca)).ToList();
                                 }
                             }// price
                             else if (item.Id == "4")
@@ -349,15 +349,15 @@ namespace Portal.Consultoras.Web.Controllers
                             {
                                 if (!string.IsNullOrEmpty(item.Valor1))
                                 {
-                                    int ind = (item.Valor1.Contains(",")) ? -1 : 1;
-                                    if (ind == 1)
+                                    int ind = (item.Valor1.Contains(",")) ? -1 : 0;
+                                    if (ind == 0)
                                     {
                                         bool er = (item.Valor1 == "SC") ? false : true;
                                         lstProductoModelFilter = lstProductoModelFilter.Where(x => x.EstaEnRevista == er).ToList();
                                     }
                                 }
                             }
-                        }
+                        }// for
 
                         Session["UserFiltersFAV"] = lstFilters;
                         Session["ProductosCatalogoPersonalizadoFilter"] = lstProductoModelFilter;

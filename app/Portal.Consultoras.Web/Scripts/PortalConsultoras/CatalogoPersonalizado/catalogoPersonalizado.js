@@ -20,6 +20,7 @@ var urlLoad = urlLoad || "";
 var dataFichaProductoFAV = [];
 //PL20-1234
 var cantidadActual = 0;
+var rangoPrecios = 0;
 
 
 $(document).ready(function () {
@@ -59,6 +60,7 @@ $(document).ready(function () {
 
     //$("#txt-range-price").slider({});
 
+    // PL20-1270
     $(".seleccion_filtro_fav").on("click", function () {
         $(this).toggleClass("seleccion_click_flitro");
 
@@ -76,23 +78,39 @@ $(document).ready(function () {
             from: 0,
             to: 100,
             step: 1,
-            //scale: ['S/.0', 'S/.50', 'S/.100'],
-            format: myformat,
+            scale: ['0,100'],
+            format: '%s',
             //width: 0
             showLabels: true,
             isRange: true,
             onstatechange: function () {
-                //$('.range-slider').trigger('change');
+                
+            },
+            ondragend: function (myvalue) {
+                console.log('dragend')
+                console.log(myvalue);
+                rangoPrecios = myvalue;
+
+                $(".slider-container").addClass("disabledbutton");
+
+                filterFAVDesktop();
+
+            },
+            onbarclicked: function (myvalue) {
+                console.log('clicked');
+                console.log(myvalue);
+                rangoPrecios = myvalue;
+
+                $(".slider-container").addClass("disabledbutton");
+                filterFAVDesktop();
             }
         });
 
         $('.slider-container').css('width', '');
-
-        jQuery('.range-slider').change(function () {
-            //console.log(this.value);
-        });
     }
+    // PL20-1270
 });
+
 
 function Inicializar() {
     IniDialog();
@@ -341,18 +359,22 @@ function CargarCatalogoPersonalizado() {
                 loadAdd = false;
 
                 if (tipoOrigen == 1) {
-                    var rs = data.precioMinimo + ',' + data.precioMaximo;
-                    $('.range-slider').jRange('setValue', rs);
+                    if (!primeraVez) {
+                        var rs = data.precioMinimo + ',' + data.precioMaximo;
+                        $('.range-slider').jRange('setValue', rs);
+                        $('.range-slider').jRange('updateRange', rs);
+                    }
                 }
 
                 if (tipoOrigen == '3') $("#linea_separadoraCP").show();
                 if (data.data.length == 0) {
-                    if (tipoOrigen == '3') $("#divMainCatalogoPersonalizado").remove();
+                    if (tipoOrigen == '3') {
+                        $("#divMainCatalogoPersonalizado").remove();
 
-                    var rsnum = 'Mostrando 0 de ' + data.totalRegistros + ' productos';
-                    $('#result-number').text(rsnum);
-                    $('#div-delete-filters').show();
-
+                        var rsnum = 'Mostrando 0 de ' + data.totalRegistros + ' productos';
+                        $('#result-number').text(rsnum);
+                        $('#div-delete-filters').show();
+                    }
                     return false;
                 }
 
@@ -373,21 +395,23 @@ function CargarCatalogoPersonalizado() {
                 if (!primeraVez) {
                     totalRegistros = data.totalRegistros;
 
-                    var min = parseFloat(data.precioMinimo);
-                    var max = parseFloat(data.precioMaximo);
-                    var rr = [];
-                    rr.push(min);
-                    rr.push(max);
+                    if (tipoOrigen == 3) {
+                        var min = parseFloat(data.precioMinimo);
+                        var max = parseFloat(data.precioMaximo);
+                        var rr = [];
+                        rr.push(min);
+                        rr.push(max);
 
-                    $('#min-range-price').text(min);
-                    $('#max-range-price').text(max);
+                        $('#min-range-price').text(min);
+                        $('#max-range-price').text(max);
 
-                    $('#txt-range-price').bootstrapSlider({
-                        'precision': 2,
-                        'min': min,
-                        'max': max,
-                        'value': rr,
-                    });
+                        $('#txt-range-price').bootstrapSlider({
+                            'precision': 2,
+                            'min': min,
+                            'max': max,
+                            'value': rr,
+                        });
+                    }
 
                     primeraVez = true;
                 }
@@ -402,12 +426,18 @@ function CargarCatalogoPersonalizado() {
 
                 //SB20-1197 
                 //var rsnum = 'Mostrando ' + data.totalRegistrosFilter + ' de ' + totalRegistros + ' productos';
-                var rsnum = 'Mostrando ' + cantidadActual + ' de ' + totalRegistros + ' productos'; //PL20 - 1273
-                $('#result-number').text(rsnum);
+                if (tipoOrigen == 3) {
+                    var rsnum = 'Mostrando ' + cantidadActual + ' de ' + totalRegistros + ' productos'; //PL20 - 1273
+                    $('#result-number').text(rsnum);
 
-                if (totalRegistros != data.totalRegistrosFilter) $('#div-delete-filters').show();
-                else $('#div-delete-filters').hide();
+                    if (totalRegistros != data.totalRegistrosFilter) $('#div-delete-filters').show();
+                    else $('#div-delete-filters').hide();
+                }
+                
+                rangoPrecios = 0;
+
                 //SB20-1197
+
             }
             else data.data = new Array();
 
@@ -1116,6 +1146,7 @@ function agregarCuvPedidoFichaProductoFAV(tipo) {
     
 }
 
+// PL20-1270
 function filterFAVDesktop() {
 
     $('.seleccion_filtro_fav').prop('disabled', true);
@@ -1127,40 +1158,51 @@ function filterFAVDesktop() {
     // sorting
     var f = {
         Id: 1,
-        Valor1: $('#filter-sorting').val()
+        Orden: $('#filter-sorting').val()
     }
     filters.push(f);
 
+    // category
     var values = "";
     $('#div-filter-category').find('div[class*="seleccion_click_flitro"]').each(function () {
         values += $(this).data('value') + ',';
     });
 
-    // category
     var f = {
         Id: 2,
         Valor1: values.substring(0, values.length - 1)
     }
     filters.push(f);
     
+    // brand
     values = "";
     $('#div-filter-brand').find('div[class*="seleccion_click_flitro"]').each(function () {
         values += $(this).data('value') + ',';
     });
 
-    // brand
     var f = {
         Id: 3,
         Valor1: values.substring(0, values.length - 1)
     }
     filters.push(f);
 
+    // range prices
+    if (rangoPrecios != 0) {
+        var arr = rangoPrecios.toString().split(',');
+        var f = {
+            Id: 4,
+            Valor1: arr[0],
+            Valor2: arr[1]
+        }
+        filters.push(f);
+    }
+
+    // published
     values = "";
     $('#div-filter-published').find('div[class*="seleccion_click_flitro"]').each(function () {
         values += $(this).data('value') + ',';
     });
 
-    // published
     var f = {
         Id: 5,
         Valor1: values.substring(0, values.length - 1)
@@ -1171,8 +1213,10 @@ function filterFAVDesktop() {
 
     $('.seleccion_filtro_fav').prop('disabled', false);
     $('.select_filtros_fav option:not(:selected)').prop('disabled', false);
+    $(".slider-container").removeClass("disabledbutton");
 
     CargarCatalogoPersonalizado();
-    LinkCargarCatalogoToScroll();
-    cantidadActual = 0;
+    //LinkCargarCatalogoToScroll();
+    //cantidadActual = 0;
 }
+// PL20-1270
