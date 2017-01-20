@@ -119,6 +119,11 @@ namespace Portal.Consultoras.Service
             return BLConsultora.GetConsultoraIdByCodigo(paisID, CodigoConsultora);
         }
 
+        public IList<BEProducto> GetProductoComercialByListaCuv(int paisID, int campaniaID, int regionID, int zonaID, string codigoRegion, string codigoZona, string listaCuv)
+        {
+            return BLProducto.GetProductoComercialByListaCuv(paisID, campaniaID, regionID, zonaID, codigoRegion, codigoZona, listaCuv);
+        }
+
 
         #region Digitacion Distribuida
 
