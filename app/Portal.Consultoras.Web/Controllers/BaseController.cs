@@ -15,6 +15,7 @@ using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Controllers
 {
+    [Authorize]
     public class BaseController : Controller
     {
         #region Variables

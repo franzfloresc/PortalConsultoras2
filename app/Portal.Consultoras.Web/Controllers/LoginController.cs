@@ -17,13 +17,15 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
 
 namespace Portal.Consultoras.Web.Controllers
 {
     public class LoginController : Controller
     {
         private string pasoLog;
-        
+
+        [AllowAnonymous]
         public ActionResult Index()
         {
             string IP = string.Empty;
@@ -58,6 +60,7 @@ namespace Portal.Consultoras.Web.Controllers
             return View(model);
         }
 
+        [AllowAnonymous]
         [HttpPost]
         public ActionResult Login(UsuarioModel model)
         {
@@ -78,6 +81,8 @@ namespace Portal.Consultoras.Web.Controllers
                     UsuarioModel usuario = GetUserData(model.HdePaisID, model.CodigoConsultora, 1);
                     if (usuario != null)
                     {
+                        FormsAuthentication.SetAuthCookie(usuario.CodigoUsuario, false);
+
                         if (usuario.RolID == Constantes.Rol.Consultora)
                         {
                             bool esMovil = Request.Browser.IsMobileDevice;
@@ -137,19 +142,7 @@ namespace Portal.Consultoras.Web.Controllers
             return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);
         }
 
-        public JsonResult ValidarAutenticacion(UsuarioModel model)
-        {
-            UsuarioModel userData = GetUserData(model.PaisID, model.CodigoConsultora, 1);
-            if (userData != null)
-            {
-                return Json(new { result = true, mensaje = string.Empty }, JsonRequestBehavior.AllowGet);
-            }
-            else
-            {
-                return Json(new { result = false, mensaje = "El usuario no pertenece al Portal de Consultoras, verifique." }, JsonRequestBehavior.AllowGet);
-            }
-        }
-
+        [AllowAnonymous]
         public ActionResult LogOut()
         {
             return CerrarSesion();
@@ -198,13 +191,16 @@ namespace Portal.Consultoras.Web.Controllers
             Session.Clear();
             Session.Abandon();
 
-            string URLSignOut = "/Login/SesionExpirada";
+            FormsAuthentication.SignOut();
+
+            string URLSignOut = "/Login";
             if (Tipo == 2)
                 URLSignOut = "/Login/Admin";
 
             return Redirect(URLSignOut);
         }
 
+        [AllowAnonymous]
         public JsonResult ValidateResult()
         {
             var url = string.Empty;
@@ -217,6 +213,7 @@ namespace Portal.Consultoras.Web.Controllers
             }, JsonRequestBehavior.AllowGet);
         }
 
+        [AllowAnonymous]
         public ActionResult LoginCargarConfiguracion(int paisID, string codigoUsuario)
         {
             GetUserData(paisID, codigoUsuario, 1, 1);
@@ -225,7 +222,7 @@ namespace Portal.Consultoras.Web.Controllers
             return RedirectToAction("Index", "Bienvenida");
         }
 
-        public UsuarioModel GetUserData(int PaisID, string CodigoUsuario, int Tipo, int refrescarDatos = 0)
+        private UsuarioModel GetUserData(int PaisID, string CodigoUsuario, int Tipo, int refrescarDatos = 0)
         {
             Session["IsContrato"] = 1;
             Session["IsOfertaPack"] = 1;
@@ -942,7 +939,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
         
-        public TimeSpan CountdownODD(UsuarioModel model)
+        private TimeSpan CountdownODD(UsuarioModel model)
         {
             //DateTime hoy = DateTime.Now;
             //DateTime d1 = new DateTime(hoy.Year, hoy.Month, hoy.Day, 0, 0, 0);
@@ -970,11 +967,13 @@ namespace Portal.Consultoras.Web.Controllers
             return t2;
         }
 
+        [AllowAnonymous]
         public ActionResult SesionExpirada()
         {
             return View();
         }
 
+        [AllowAnonymous]
         public JsonResult CheckUserSession()
         {
             int res = 0;
@@ -999,23 +998,27 @@ namespace Portal.Consultoras.Web.Controllers
                 Exists = res
             }, JsonRequestBehavior.AllowGet);
         }
-        
+
+        [AllowAnonymous]
         public ActionResult UserUnknown()
         {
             return View();
         }
 
+        [AllowAnonymous]
         public ActionResult Admin()
         {
             return View();
         }
 
+        [AllowAnonymous]
         [HttpPost]
         public ActionResult LoginAdmin()
         {
             return RedirectToAction("Index");
         }
 
+        [AllowAnonymous]
         [HttpPost]
         public JsonResult RecuperarContrasenia(int paisId, string correo)
         {
