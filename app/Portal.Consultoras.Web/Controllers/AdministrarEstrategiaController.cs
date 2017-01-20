@@ -196,7 +196,7 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         public ActionResult Consultar(string sidx, string sord, int page, int rows, string CampaniaID,
-            string TipoEstrategiaID, string CUV, string Consulta, int Imagen, int Activo)
+            string TipoEstrategiaID, string CUV, string Consulta)
         {
             if (ModelState.IsValid)
             {
@@ -208,9 +208,6 @@ namespace Portal.Consultoras.Web.Controllers
                     entidad.TipoEstrategiaID = Convert.ToInt32(TipoEstrategiaID);
                     entidad.CUV2 = (CUV != "") ? CUV : "0";
                     entidad.CampaniaID = Convert.ToInt32(CampaniaID);
-                    entidad.Activo = Activo;
-                    entidad.Imagen = Imagen;
-                   
 
                     using (PedidoServiceClient sv = new PedidoServiceClient())
                     {
