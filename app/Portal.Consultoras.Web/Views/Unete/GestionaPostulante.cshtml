@@ -212,7 +212,8 @@
       'cantDiasAproFFVV',
       'Fecha Creacion Codigo',
       'Codigo Campaña',
-      'Campaña 1er pedido'
+      'Campaña 1er pedido',
+      'Diferencia Dias'
 
     ];
     function fnGrilla() {
@@ -387,6 +388,10 @@
                     name: 'Campaña 1er pedido', index: 'Campaña 1er pedido', width: 9, editable: true, resizable: false, align: 'center', formatter: function (cellvalue, options, rowObject) {
                         return rowObject[35];
                     }
+                }, {
+                    name: 'Diferencia Dias', index: 'Diferencia Dias', width: 9, editable: true, resizable: false, align: 'center', formatter: function (cellvalue, options, rowObject) {
+                        return rowObject[38];
+                    }
                 }
             ],
             jsonReader:
@@ -456,6 +461,7 @@
                             jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'Fecha Creacion Codigo');
                             jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'Codigo Campaña');
                             jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'Campaña 1er pedido');
+                            jQuery("#gvwSolicitudesPostulante").jqGrid('showCol', 'Diferencia Dias');
                             break;
                         case "2":
                             jQuery("#gvwSolicitudesPostulante").jqGrid('showCol', 'ZonaConsultora');
@@ -490,6 +496,7 @@
                             jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'Fecha Creacion Codigo');
                             jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'Codigo Campaña');
                             jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'Campaña 1er pedido');
+                            jQuery("#gvwSolicitudesPostulante").jqGrid('showCol', 'Diferencia Dias');
                             break;
                         case "4":
                             jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'Aprobar');
@@ -515,6 +522,7 @@
                             jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'Fecha Creacion Codigo');
                             jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'Codigo Campaña');
                             jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'Campaña 1er pedido');
+                            jQuery("#gvwSolicitudesPostulante").jqGrid('showCol', 'Diferencia Dias');
                             break;
                         case "5":
                             jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'Aprobar');
@@ -539,6 +547,7 @@
                             jQuery("#gvwSolicitudesPostulante").jqGrid('showCol', 'Fecha Creacion Codigo');
                             jQuery("#gvwSolicitudesPostulante").jqGrid('showCol', 'Codigo Campaña');
                             jQuery("#gvwSolicitudesPostulante").jqGrid('showCol', 'Campaña 1er pedido');
+                            jQuery("#gvwSolicitudesPostulante").jqGrid('showCol', 'Diferencia Dias');
                             break;
                         case "7":
                             jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'Aprobar');
@@ -563,6 +572,7 @@
                             jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'Fecha Creacion Codigo');
                             jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'Codigo Campaña');
                             jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'Campaña 1er pedido');
+                            jQuery("#gvwSolicitudesPostulante").jqGrid('showCol', 'Diferencia Dias');
                             break;
                             // inicio pendiente por confirmar Estado 8 para Perú
                         case "8":
@@ -590,6 +600,7 @@
                             jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'Fecha Creacion Codigo');
                             jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'Codigo Campaña');
                             jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'Campaña 1er pedido');
+                            jQuery("#gvwSolicitudesPostulante").jqGrid('showCol', 'Diferencia Dias');
                             break;
                             // fin pendiente por confirmar Estado 8 para Perú
                         case "9":
@@ -616,6 +627,7 @@
                             jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'Fecha Creacion Codigo');
                             jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'Codigo Campaña');
                             jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'Campaña 1er pedido');
+                            jQuery("#gvwSolicitudesPostulante").jqGrid('showCol', 'Diferencia Dias');
                             break;
                     }
                 }

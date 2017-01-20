@@ -385,8 +385,9 @@ namespace Portal.Consultoras.Web.Controllers
                             cantDiasRechazados = ((CalcularDias(i.FechaRechazo)=="-1")? "-": CalcularDias(i.FechaRechazo)).ToString(),  //36
                             //((i.FechaRechazo.HasValue)? cantDiasRechazados = CalcularDias(i.FechaRechazo) : null).ToString(),  // cantDiasRechazados = CalcularDias(i.FechaRechazo) , //36
                             ////cantDiasAproFFVV = CalcularDias(i.FechaAproFVVV)  //37
-                            cantDiasAproFFVV = ((CalcularDias(i.FechaAproFVVV)=="-1")? "-":CalcularDias(i.FechaAproFVVV)).ToString() //37
+                            cantDiasAproFFVV = ((CalcularDias(i.FechaAproFVVV)=="-1")? "-":CalcularDias(i.FechaAproFVVV)).ToString(), //37
                             // ((i.FechaAproFVVV.HasValue)? cantDiasAproFFVV = CalcularDias(i.FechaAproFVVV) : null).ToString()  // cantDiasAproFFVV = CalcularDias(i.FechaAproFVVV) 
+                            i.DiferenciaDias.ToString() //38
                         }
                     };
                 })
