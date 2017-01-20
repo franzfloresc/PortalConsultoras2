@@ -301,6 +301,10 @@ namespace Portal.Consultoras.Web.Controllers
                                 {
                     ServiceUnete.ParametroUneteBE parametro = null;
                     string tipoRechazoNombre = string.Empty;
+                    string cantDias = string.Empty;
+                                    string cantDiasRechazados = string.Empty;
+                                    string cantDiasAproFFVV = string.Empty;
+                    
 
                     if (!string.IsNullOrEmpty(i.TipoRechazo))
                     {
@@ -364,13 +368,52 @@ namespace Portal.Consultoras.Web.Controllers
                             string.IsNullOrWhiteSpace(i.ImagenPagare) ? string.Empty : i.ImagenPagare.ToString(), //24
                             string.IsNullOrWhiteSpace(i.ImagenDniAval) ? string.Empty : i.ImagenDniAval.ToString(), //25
                             string.IsNullOrWhiteSpace(i.MotivoRechazo) ? string.Empty : i.MotivoRechazo.ToString(), //26
-                            tipoRechazoNombre //27
+                            tipoRechazoNombre,//27,
+                            cantDias = CalcularDias(i.FechaCreacion), //28
+                            i.EsConsultora.ToString(), //29
+                            i.ZonaGZ.ToString(), //30
+                            i.ZonaConsultoraLider.ToString(), //31
+                            i.SeccionConsultoraLider.ToString(), //32
+                            //i.FechaCreacionCodigo.ToString(), //33
+                            ((i.FechaCreacionCodigo.HasValue ) ?  i.FechaCreacionCodigo: (DateTime?) null).ToString(), //33
+                            ////i.AnoCampanaIngreso.ToString(), //34
+                             string.IsNullOrWhiteSpace(i.AnoCampanaIngreso) ? string.Empty: i.AnoCampanaIngreso.ToString(), //34
+                            ////i.campania1erPasePedido.ToString(), //35
+                            string.IsNullOrWhiteSpace(i.campania1erPasePedido) ? string.Empty: i.campania1erPasePedido.ToString(), //35
+                            cantDiasRechazados = ((CalcularDias(i.FechaRechazo)=="-1")? "-": CalcularDias(i.FechaRechazo)).ToString(),  //36
+                            //((i.FechaRechazo.HasValue)? cantDiasRechazados = CalcularDias(i.FechaRechazo) : null).ToString(),  // cantDiasRechazados = CalcularDias(i.FechaRechazo) , //36
+                            ////cantDiasAproFFVV = CalcularDias(i.FechaAproFVVV)  //37
+                            cantDiasAproFFVV = ((CalcularDias(i.FechaAproFVVV)=="-1")? "-":CalcularDias(i.FechaAproFVVV)).ToString(), //37
+                            // ((i.FechaAproFVVV.HasValue)? cantDiasAproFFVV = CalcularDias(i.FechaAproFVVV) : null).ToString()  // cantDiasAproFFVV = CalcularDias(i.FechaAproFVVV) 
+                            i.DiferenciaDias.ToString() //38
                         }
                     };
                 })
         };
 
             return Json(data, JsonRequestBehavior.AllowGet);
+        }
+
+        private string CalcularDias(DateTime? fechaCreacion)
+        {
+            DateTime newDate = DateTime.Now;
+            DateTime? oldDate = (DateTime?) fechaCreacion;
+            TimeSpan ts;
+            int diferenciaDias = 0;
+
+            if (fechaCreacion.HasValue)
+            {
+                ts = newDate - (DateTime) oldDate;
+                diferenciaDias = ts.Days;
+            }
+            else
+            {
+                diferenciaDias = -1;
+            }
+    
+
+            return diferenciaDias.ToString();
+
         }
 
         [HttpPost]
@@ -1239,7 +1282,7 @@ namespace Portal.Consultoras.Web.Controllers
         
         public ActionResult NivelesGeograficos()
         {
-            return View(new NivelesGeograficosModel { CodigoISO = Constantes.CodigosISOPais.CostaRica });
+           return View(new NivelesGeograficosModel { CodigoISO = Constantes.CodigosISOPais.CostaRica });
         }
 
         public ActionResult ExportarExcelNivelGeograficos()
@@ -2222,7 +2265,9 @@ namespace Portal.Consultoras.Web.Controllers
                     TelefonoFijo = c.TelefonoFijo,
                     EstadoPostulante = c.EstadoPostulante,
                     TipoRechazo = tipoRechazoNombre,
-                    MotivoRechazo = c.MotivoRechazo
+                    MotivoRechazo = c.MotivoRechazo, 
+                    FechaEnvio = c.FechaEnvio,
+                    
                 };
                 
             });
@@ -2630,7 +2675,7 @@ namespace Portal.Consultoras.Web.Controllers
         private List<SolicitudPostulanteBE> ObtenerSolicitudesPostulanteFiltro(GestionaPostulanteModel model)
         {
             List<SolicitudPostulanteBE> solicitudes;
-
+            
             DateTime? fechaDesde = string.IsNullOrWhiteSpace(model.FechaDesde)
                 ? default(DateTime?)
                 : DateTime.ParseExact(model.FechaDesde, "dd/MM/yyyy", CultureInfo.InvariantCulture);
@@ -2659,7 +2704,8 @@ namespace Portal.Consultoras.Web.Controllers
             };
             using (var sv = new PortalServiceClient())
             {
-                solicitudes = sv.ObtenerSolicitudesPostulanteV2(objSolicitudPostulanteParameter);
+                solicitudes = sv.ObtenerSolicitudesPostulanteV3(objSolicitudPostulanteParameter);
+                
             }
             return solicitudes;
         }
