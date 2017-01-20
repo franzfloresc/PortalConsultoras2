@@ -79,7 +79,7 @@ $(document).ready(function () {
             to: 100,
             step: 1,
             scale: ['0,100'],
-            format: '%s',
+            format: myformat,
             //width: 0
             showLabels: true,
             isRange: true,
@@ -358,14 +358,6 @@ function CargarCatalogoPersonalizado() {
                 if (loadAdd) $("#divCatalogoPersonalizado").html("");
                 loadAdd = false;
 
-                if (tipoOrigen == 1) {
-                    if (!primeraVez) {
-                        var rs = data.precioMinimo + ',' + data.precioMaximo;
-                        $('.range-slider').jRange('setValue', rs);
-                        $('.range-slider').jRange('updateRange', rs);
-                    }
-                }
-
                 if (tipoOrigen == '3') $("#linea_separadoraCP").show();
                 if (data.data.length == 0) {
                     if (tipoOrigen == '3') {
@@ -433,10 +425,11 @@ function CargarCatalogoPersonalizado() {
                     if (totalRegistros != data.totalRegistrosFilter) $('#div-delete-filters').show();
                     else $('#div-delete-filters').hide();
                 }
-                
-                rangoPrecios = 0;
-
                 //SB20-1197
+
+                if (tipoOrigen == 3) {
+                    $('#fav-home-total').text('Te mostramos ' + cantidadRegistros.toString() + ' de ' + data.totalRegistros + ' productos.');
+                }
 
             }
             else data.data = new Array();

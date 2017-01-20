@@ -269,9 +269,9 @@
 
                 <a class="ver_mas_favoritos" style="z-index:inherit;" href="@Url.Action("Index", "CatalogoPersonalizado")">Ver más +</a>*@
             <div class="banner_favoritos_home">
-                <div class="titulo_banner_fav">Valeria, estos son los <span class="texto_altas_fav">FAVORITOS</span> <span class="texto_2_fav">DE TUS CLIENTES</span></div>
+                <div class="titulo_banner_fav">@(Model.NombreConsultora.ToUpper()), estos son los <span class="texto_altas_fav">FAVORITOS</span> <span class="texto_2_fav">DE TUS CLIENTES</span></div>
                 <div class="content_imagen_fav">
-                    <img style="width:100%;" src="https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/OPmTswjbTf9pV1e/banner_fav_home.png" alt="favoritos" />
+                    <img style="width:100%;" src="@ViewBag.UrlImagenFAVHome" alt="favoritos" />
                 </div>
                 <div class="texto_inf_banner">Porque conocemos a tus clientes, seleccionamos los productos que podrás venderles fácilmente</div>
                 <hr class="clear" />
@@ -1743,7 +1743,7 @@
 
 <script id="template-catalogopersonalizado" type="text/x-handlebars-template">
     <div class="clear"></div>
-    <div class="texto_filtros_fav">Te mostramos 6 de 32 productos. <a class="btn_ver_todo_filtros" href="@Url.Action("Index", "CatalogoPersonalizado")">VER TODOS</a></div>
+    <div class="texto_filtros_fav"><span id="fav-home-total">Te mostramos 6 de 32 productos.</span><a class="btn_ver_todo_filtros" href="@Url.Action("Index", "CatalogoPersonalizado")">VER TODOS</a></div>
     <hr class="clear" />
     @*<div class="texto_descripcionCatalogoPersonalizado">Encuentra una selección de los productos que tus clientes de seguro te solicitarán</div>*@
     <div class="">

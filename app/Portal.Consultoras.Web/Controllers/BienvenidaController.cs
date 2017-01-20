@@ -366,6 +366,10 @@ namespace Portal.Consultoras.Web.Controllers
                 #endregion
 
                 ViewBag.RutaImagenNoDisponible = ConfigurationManager.AppSettings.Get("rutaImagenNotFoundAppCatalogo");
+
+                //PL20-1284
+                var url1 = ConfigurationManager.AppSettings.Get("UrlImagenFAVHome");
+                ViewBag.UrlImagenFAVHome = string.Format(url1, userData.CodigoISO);
             }
             catch (FaultException ex)
             {
