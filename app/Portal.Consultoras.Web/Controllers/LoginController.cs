@@ -28,32 +28,39 @@ namespace Portal.Consultoras.Web.Controllers
         {
             string IP = string.Empty;
             string ISO = string.Empty;
-
-            var buscarISOPorIP = ConfigurationManager.AppSettings.Get("BuscarISOPorIP");
-
-            if (buscarISOPorIP == "1")
-            {
-                IP = GetIPCliente();
-                ISO = Util.GetISObyIPAddress(IP);
-            }
-            else
-            {
-                IP = "190.187.154.154";
-                ISO = "PE";
-            }
-            
-            if (IP.IndexOf(":") > 0)
-            {
-                IP = IP.Substring(0, IP.IndexOf(":") - 1);
-            }
-
-            if (ISO != "")
-            {
-                AsignarHojaEstilos(ISO);
-            }
-
             var model = new UsuarioModel();
-            model.listaPaises = DropDowListPaises();
+
+            try
+            {
+                var buscarISOPorIP = ConfigurationManager.AppSettings.Get("BuscarISOPorIP");
+
+                if (buscarISOPorIP == "1")
+                {
+                    IP = GetIPCliente();
+                    ISO = Util.GetISObyIPAddress(IP);
+                }
+                else
+                {
+                    IP = "190.187.154.154";
+                    ISO = "PE";
+                }
+
+                if (IP.IndexOf(":") > 0)
+                {
+                    IP = IP.Substring(0, IP.IndexOf(":") - 1);
+                }
+
+                if (ISO != "")
+                {
+                    AsignarHojaEstilos(ISO);
+                }
+                
+                model.listaPaises = DropDowListPaises();                
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, "", "", "Ingreso al portal - Index()");
+            }
 
             return View(model);
         }
@@ -72,39 +79,9 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (validaLogin.Result == 3)
                 {
-                    if (string.IsNullOrEmpty(model.CodigoConsultora))
-                        model.CodigoConsultora = model.CodigoUsuario;
-
-                    UsuarioModel usuario = GetUserData(model.HdePaisID, model.CodigoConsultora, 1);
-                    if (usuario != null)
-                    {
-                        if (usuario.RolID == Constantes.Rol.Consultora)
-                        {
-                            bool esMovil = Request.Browser.IsMobileDevice;
-
-                            if (esMovil)
-                            {
-                                return RedirectToAction("Index", "Bienvenida", new { area = "Mobile" });
-                            }
-                            else
-                            {
-                                if (string.IsNullOrEmpty(usuario.EMail) || usuario.EMailActivo == false)
-                                {
-                                    Session["PrimeraVezSession"] = 0;
-                                }
-                                return RedirectToAction("Index", "Bienvenida");
-                            }
-                        }
-                        else
-                        {
-                            return RedirectToAction("Index", "Bienvenida");
-                        }
-                    }
-                    else
-                    {
-                        string Url = Request.Url.Scheme + "://" + Request.Url.Authority + (Request.ApplicationPath.ToString().Equals("/") ? "/" : (Request.ApplicationPath + "/")) + "WebPages/UserUnknown.aspx";
-                        return Redirect(Url);
-                    }
+                    //if (string.IsNullOrEmpty(model.CodigoConsultora))
+                    //    model.CodigoConsultora = model.CodigoUsuario;
+                    return Redireccionar(model.HdePaisID, model.CodigoUsuario);                    
                 }
                 else
                 {
@@ -118,6 +95,60 @@ namespace Portal.Consultoras.Web.Controllers
 
                 TempData["errorLogin"] = "Error al procesar la solicitud";
                 return RedirectToAction("Index", "Login");
+            }
+        }
+
+        [HttpPost]
+        public ActionResult LoginAdmin(UsuarioModel model)
+        {
+            string resultado = Util.ValidarUsuarioADFS(model.CodigoUsuario, model.ClaveSecreta);
+
+            string codigoResultado = resultado.Split('|')[0];
+            string mensajeResultado = resultado.Split('|')[1];
+            string paisIso= resultado.Split('|')[2];            
+
+            if (codigoResultado == "000")
+            {                
+                int paisId = Util.GetPaisID(paisIso);
+                return Redireccionar(paisId, model.CodigoUsuario);
+            }
+
+            TempData["errorLoginAdmin"] = mensajeResultado;
+            return RedirectToAction("Admin", "Login");
+            //return RedirectToAction("Index");
+        }
+
+        public ActionResult Redireccionar(int paisId, string codigoUsuario)
+        {
+            UsuarioModel usuario = GetUserData(paisId, codigoUsuario, 1);
+            if (usuario != null)
+            {
+                if (usuario.RolID == Constantes.Rol.Consultora)
+                {
+                    bool esMovil = Request.Browser.IsMobileDevice;
+
+                    if (esMovil)
+                    {
+                        return RedirectToAction("Index", "Bienvenida", new { area = "Mobile" });
+                    }
+                    else
+                    {
+                        if (string.IsNullOrEmpty(usuario.EMail) || usuario.EMailActivo == false)
+                        {
+                            Session["PrimeraVezSession"] = 0;
+                        }
+                        return RedirectToAction("Index", "Bienvenida");
+                    }
+                }
+                else
+                {
+                    return RedirectToAction("Index", "Bienvenida");
+                }
+            }
+            else
+            {
+                string Url = Request.Url.Scheme + "://" + Request.Url.Authority + (Request.ApplicationPath.ToString().Equals("/") ? "/" : (Request.ApplicationPath + "/")) + "WebPages/UserUnknown.aspx";
+                return Redirect(Url);
             }
         }
 
@@ -1008,13 +1039,7 @@ namespace Portal.Consultoras.Web.Controllers
         public ActionResult Admin()
         {
             return View();
-        }
-
-        [HttpPost]
-        public ActionResult LoginAdmin()
-        {
-            return RedirectToAction("Index");
-        }
+        }        
 
         [HttpPost]
         public JsonResult RecuperarContrasenia(int paisId, string correo)

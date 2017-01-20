@@ -1,4 +1,4 @@
-﻿
+﻿@model Portal.Consultoras.Web.Models.UsuarioModel
 @{
     Layout = "";
     ViewBag.Title = "Admin";
@@ -177,12 +177,12 @@
                     belcorp.biz
                 </div>
                 <div class="right_usuario">
-                    <input name="txtNombreUsuario" type="text" id="txtNombreUsuario" placeholder="Nombre Usuario"/>
+                    <input name="CodigoUsuario" type="text" id="txtNombreUsuario" placeholder="Nombre Usuario"/>
                 </div>
                 <div class="right_password">
-                    <input name="txtClaveUsuario" type="password" id="txtClaveUsuario" placeholder="Contraseña"/>
+                    <input name="ClaveSecreta" type="password" id="txtClaveUsuario" placeholder="Contraseña"/>
                 </div>
-                <div class="right_error">
+                <div class="right_error" id="divErrorAdmin">
 
                 </div>
                 <div class="right_iniciar">
@@ -230,8 +230,19 @@
 <script src="@Url.Content("~/Scripts/jquery-1.11.2.js")"></script>
 <script src="@Url.Content("~/Scripts/jquery-ui-1.9.2.custom.js")"></script>
 
+@if (TempData["errorLoginAdmin"] != null)
+{
+    <script type="text/javascript">
+        var errorLoginAdmin = '@TempData["errorLoginAdmin"]';
+    </script>
+}
+
 <script type="text/javascript">
-    $(document).ready(function() {
+    $(document).ready(function () {
+        if (typeof errorLoginAdmin !== 'undefined') {
+            $('#divErrorAdmin').html(errorLoginAdmin);
+        }
+
         $('#frmLoginAdmin').on('submit', function (e) {
             var valid = true;
 

@@ -48,6 +48,9 @@
     <Reference Include="AWSSDK">
       <HintPath>..\Binaries\AWSSDK.dll</HintPath>
     </Reference>
+    <Reference Include="Belcorp.Security.Federation">
+      <HintPath>..\Binaries\Belcorp.Security.Federation.dll</HintPath>
+    </Reference>
     <Reference Include="ClosedXML">
       <HintPath>..\Binaries\ClosedXML.dll</HintPath>
     </Reference>
@@ -60,6 +63,9 @@
     <Reference Include="MaxMind.Db, Version=2.0.0.0, Culture=neutral, PublicKeyToken=66afa4cc5ae853ac, processorArchitecture=MSIL">
       <HintPath>..\packages\MaxMind.Db.2.1.3\lib\net45\MaxMind.Db.dll</HintPath>
       <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.IdentityModel">
+      <HintPath>..\Binaries\Microsoft.IdentityModel.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
@@ -78,6 +84,7 @@
     <Reference Include="System.DirectoryServices" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Numerics" />
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">

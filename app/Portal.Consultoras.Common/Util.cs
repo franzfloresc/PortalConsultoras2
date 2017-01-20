@@ -23,9 +23,13 @@ using System.Web.Mvc;
 using System.Web.Script.Serialization;
 using System.Drawing.Imaging;
 using System.Drawing;
+using Belcorp.Security.Federation.Connections;
 using MaxMind.Util;
 using MaxMind.Db;
-
+using Microsoft.IdentityModel.Protocols.WSIdentity;
+using Microsoft.IdentityModel.Protocols.WSTrust;
+using System.ServiceModel;
+using System.ServiceModel.Security;
 
 namespace Portal.Consultoras.Common
 {
@@ -2883,6 +2887,87 @@ namespace Portal.Consultoras.Common
                 }
             }
             return ISO;
+        }
+
+        public static string ValidarUsuarioADFS(string usuario, string clave)
+        {
+            string resultado = "";
+            string codigoMensaje = "";
+            string mensaje = "";
+            string paisIso = "";
+
+            try
+            {
+                // 1. definir la DTO con datos de configuración de conexión
+                var dto = new WSTrustDTO
+                {
+                    Username = string.Format("Galileo\\{0}", usuario), // dominio + usuario
+                    Password = clave, // contraseña del usuario
+                    WSTrustEndpointAddress = ConfigurationManager.AppSettings["WSTrustEndpointUrl"]
+                    // endpoint de pruebas (modificar en producción)
+                };
+
+                // 2. Configuración para el acceso del relying party
+                var rst = new RequestSecurityToken
+                {
+                    RequestType = WSTrust13Constants.RequestTypes.Issue,
+                    AppliesTo = new EndpointAddress(ConfigurationManager.AppSettings["RequestSecurityTokenUrl"]),
+                    // <- no cambiar, configuración actual del relying party para consultoras
+                    KeyType = WSTrust13Constants.KeyTypes.Bearer,
+                    RequestDisplayToken = true
+                };
+
+                // 3. Obteniendo los claims
+                var ws = new WSTrustConnection(dto);
+                DisplayClaimCollection respuestaADFS = ws.GetDisplayClaims(rst);
+
+                // 4. Verificar datos del usuario
+                if (respuestaADFS.Count < 2)
+                {
+                    // Usuario no encontrado
+                    codigoMensaje = "003";  //CodigosMensajesError.CodigoAutenticacionInvalida;
+                    mensaje = "Autenticación invalida, Usuario no encontrado.";
+                }
+                else
+                {
+                    if (string.IsNullOrEmpty(respuestaADFS[0].DisplayValue))
+                    {
+                        // País deshabilitado
+                        codigoMensaje = "003";  //CodigosMensajesError.CodigoAutenticacionInvalida;
+                        mensaje = "Autenticación invalida, País deshabilitado.";
+                    }
+                    else
+                    {
+                        codigoMensaje = "000";  //CodigosMensajesError.CodigoOk;
+                        mensaje = "Ok";
+                        paisIso = respuestaADFS[0].DisplayValue;
+                    }
+                }
+            }
+            catch (MessageSecurityException securityException)
+            {
+                var innerException = securityException.InnerException as FaultException;
+                if (innerException != null && innerException.Code != null && innerException.Code.IsSenderFault &&
+                    innerException.Code.Name == "Sender")
+                {
+                    codigoMensaje = "003";  //CodigosMensajesError.CodigoAutenticacionInvalida;
+                    mensaje = "Autenticación inválida: asegúrese que los datos ingresados sean los correctos.";
+                }
+                else
+                {
+                    codigoMensaje = "001";  //CodigosMensajesError.CodigoExcepcion;
+                    mensaje = "Ocurrió un error durante la validación ADFS.";
+                }                
+            }
+            catch (Exception ex)
+            {
+                codigoMensaje = "001";  //CodigosMensajesError.CodigoExcepcion;
+                mensaje = "Ocurrió un error durante la validación ADFS.";
+            }
+
+            resultado = codigoMensaje + "|" + mensaje + "|" + paisIso;
+
+            return resultado;
         }
     }
 
