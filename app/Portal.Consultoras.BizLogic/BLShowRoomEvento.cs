@@ -65,6 +65,12 @@ namespace Portal.Consultoras.BizLogic
             return dataAccess.CargarMasivaConsultora(listaConsultora);
         }
 
+        public int ValidadStockOfertaShowRoom(int paisID,BEShowRoomOferta entity)
+        {
+            var dataAccess = new DAShowRoomEvento(paisID);
+            return dataAccess.ValidadStockOfertaShowRoom(entity);
+        }
+
         public int UpdOfertaShowRoomStockMasivo(int paisID, List<BEShowRoomOferta> stockProductos)
         {
             var dataAccess = new DAShowRoomEvento(paisID);

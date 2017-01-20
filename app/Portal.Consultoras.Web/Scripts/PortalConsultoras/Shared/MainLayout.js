@@ -11,9 +11,17 @@ $(document).ready(function () {
     $(document).keyup(function (e) {
         if (e.keyCode == 27) { // esc keycode
             if ($('#PopOfertaDia').is(':visible')) {
-                $('#PopOfertaDia').slideUp(); 
+                $('#PopOfertaDia').slideUp();
                 $('.circulo_hoy span').html('+');
                 showDisplayODD = 0;
+            }
+
+            if ($('#PopFichaProductoNueva').is(':visible')) {
+                $('#PopFichaProductoNueva').hide();
+            }
+
+            if ($('#popupDetalleCarousel_lanzamiento').is(':visible')) {
+                $('#popupDetalleCarousel_lanzamiento').hide();
             }
         }
     });
@@ -28,9 +36,26 @@ $(document).ready(function () {
                 }
             }
         }
-        
     });
+
     /*PL20-1226*/
+
+    $('.Content_general_pop_up').click(function (e) {
+        if (!$(e.target).closest('.content_ficha_producto_nueva').length) {
+            if ($('#PopFichaProductoNueva').is(':visible')) {
+                $('#PopFichaProductoNueva').hide();
+            }
+        }
+    });
+
+    $('.contenedor_popup_detalleCarousel').click(function (e) {
+        if (!$(e.target).closest('.popup_detalleCarousel').length) {
+            if ($('#popupDetalleCarousel_lanzamiento').is(':visible')) {
+                $('#popupDetalleCarousel_lanzamiento').hide();
+            }
+        }
+    });
+
     waitingDialog();
 
     MensajeEstadoPedido();
@@ -1019,7 +1044,7 @@ function closeOfertaDelDia() {
 };
 
 function addOfertaDelDiaPedido(tipo) {
-    debugger;
+    //debugger;
     var tipoEstrategiaID = $('#tipoestrategia-id-odd').val();
     var estrategiaID = $('#estrategia-id-odd').val();
     var marcaID = $('#marca-id-odd').val();
@@ -1234,11 +1259,9 @@ function animacionFlechaScroll() {
 }
 
 function agregarProductoAlCarrito(o) {
-    debugger;
-    //var btnClickeado = $(o);
-    //var contenedorItem = btnClickeado.parent().parent();
-    //var imagenProducto = $('.imagen_producto', contenedorItem);
-    var imagenProducto = $(o);
+    var btnClickeado = $(o);
+    var contenedorItem = btnClickeado.parent().parent();
+    var imagenProducto = $('.imagen_producto', contenedorItem);
 
     if (imagenProducto.length > 0) {
         var carrito = $('.campana');
