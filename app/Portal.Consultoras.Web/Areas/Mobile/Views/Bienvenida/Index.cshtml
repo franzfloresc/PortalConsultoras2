@@ -333,7 +333,7 @@
                    @ViewBag.NombreConsultora, estos son los
                    <span class="favoritos_txt">FAVORITOS</span>
                    <span class="texto_2_fav">DE TUS CLIENTES</span>
-                   <a class="btn_compralos_banner_fav">CÓMPRALOS</a>
+                   <a class="btn_compralos_banner_fav" href="@Url.Action("Index", "CatalogoPersonalizado", new { area = "Mobile" })" >CÓMPRALOS</a>
                </div>
            </div>            
         </div>
@@ -419,9 +419,9 @@
 @if (Model.CatalogoPersonalizadoMobile != 0 && Model.EsCatalogoPersonalizadoZonaValida)
 {
     <input type="hidden" id="flagCatalogoPersonalizado" />
-    <div class="banner_inferior_mobile">
+    @*<div class="banner_inferior_mobile">
         <a href="@Url.Action("Index", "CatalogoPersonalizado", new { area = "Mobile" })"><img src="@Model.UrlImagenCatalogoPersonalizado" alt="Los favoritos de tus clientes" /></a>
-    </div>
+    </div>*@
 }
 <div class="disclaimer_b">@(pieEscala)</div>
 
