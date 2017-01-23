@@ -5018,6 +5018,7 @@ table > thead > tr > th {
         color: #000;
         margin-top: 8px;
         margin-bottom: 2px;
+        text-transform:uppercase;
     }
 
     .producto_nombre_descripcion .nombre_producto, .producto_nombre_descripcion .producto_gramos_onzas {
@@ -6415,7 +6416,7 @@ body {
     text-align: center;
     width: 32.5%;
     height: 34px;
-    line-height: 34px;
+    line-height: 31px;
     background: rgb(105,182,103);
     text-align: center;
     margin-top: 30px;
@@ -6492,6 +6493,7 @@ body {
     margin-top: 15px;
     padding: 20px;
     overflow: hidden;
+    font-family:'Lato';
 }
 
 .titulo_compartir {
@@ -9793,7 +9795,7 @@ a{
 }
 
 #div-result-number {
-    width: 60%; 
+    /*width: 60%;*/ 
     text-align: left; 
     float: left; 
     margin-left: 7px;
@@ -9833,9 +9835,10 @@ a{
     font-family: 'lato';
     background: #e81c36;
     color: #fff;
-    width: 140px;
+    width: 130px;
     height: 35px;
-    border: none;
+    font-size: 12.4px;
+    border: 1px solid #e81c36;
 }
 
 .btn2-ffc {
@@ -9867,9 +9870,17 @@ a{
 
 .link-ffc {
     font-family: 'lato';
-    font-size: 12px;
-    color: #e81c36;
-    font-weight: bold;
+    font-size: 12.4px;
+    color: black;
+    /* font-weight: bold; */
+    width: 130px;
+    height: 35px;
+    line-height: 35px;
+    display: inline-block;
+    background: white;
+    border: 1px solid black;
+    margin-right: 11px;
+    text-align:center;
 }
 
 .right {
@@ -9897,7 +9908,10 @@ a{
     font-size: 13px !important;
     padding-left: 25px;
     position: relative;
-    color: #9e9e9e;
+    color: #4a4a4a;
+    font-family:'Lato';
+    font-weight:400 !important;
+    text-transform:uppercase;
 }
 
 .label-checkbox span a {
@@ -9914,9 +9928,9 @@ a{
     /*margin-top: 3px;*/
     margin-right: 10px;
     margin-bottom: 10px;
-    border-radius: 3px;
+    /*border-radius: 3px;*/
     background: #fff;
-    border: 2px solid #bababa;
+    border: 1px solid #bababa;
     cursor: pointer;
     z-index: 10;
 }
@@ -9925,7 +9939,7 @@ a{
     content: "";
     width: 20px;
     height: 20px;
-    border-radius: 3px;
+    /*border-radius: 3px;*/
     background: #e81c36;
     text-align: center;
 }
@@ -9946,6 +9960,145 @@ a{
 }
 
 /*SB20-1197 - FIN*/
+
+.nueva_seccion_fav{
+    margin-left:-14px;
+    margin-right:-14px;
+    margin-top:30px;
+    margin-bottom:30px; 
+    background: #f0f0f0;
+}
+.content_banner_fav{
+    width:320px;
+    height:auto;
+    margin:0 auto;
+   overflow:hidden;
+}
+.content_imagen_banner_fav{
+    width:45%;
+    float:left;
+    margin-top:4px;
+}
+.content_imagen_banner_fav img{
+    width:100%;
+}
+.texto_fav_banner{
+    width:55%;
+    float:left;
+    padding-top:20px;
+    font-family:'Lato';
+    font-size:14px;
+    font-weight:300;
+    padding-left:10px;
+    padding-right:14px;
+    color:black;
+    line-height: 22px;
+}
+
+.favoritos_txt{
+    display:block;
+    font-size:26px;
+    font-weight:700;
+}
+.texto_2_fav{
+    display:block;
+    font-size:18px;
+    margin-top:3px;
+}
+.btn_compralos_banner_fav{
+    width:100%;
+    height:36px;
+    line-height:34px;
+    border:1px solid black;
+    font-family:'Lato';
+    font-size:12px;
+    font-weight:700;
+    margin-top:10px;
+    display:block;
+    text-align:center;
+    margin-bottom:15px;
+}
+/*FILTROS*/
+.filtros_new{
+    top: 0;
+    display: block;
+    position: fixed;
+    width: 100.1%;
+    height: 100%;
+    padding-top: 63px;
+    /* margin-top: -94px; */
+    z-index: 999;
+    background: #f3f3f5;
+    overflow-y: auto;
+}
+.flecha_black{
+    background:url(https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/zoYB32Gbu77JwMd/flecha_black.png);
+}
+.texto_filtros{
+    font-family:'Lato';
+    font-size:13px;
+    padding-left:14px;
+    padding-right:14px;
+    letter-spacing:0.3px;
+    line-height:19px;
+    margin-top:15px;
+}
+.titulo_filtro{   
+    padding-left: 14px;
+    padding-right: 14px;
+    font-size: 13px;
+    font-family: 'Lato';
+    font-weight: 700;
+    padding-top: 14px;
+    padding-bottom: 14px;
+}
+.content_panel{
+    background:white;
+    border-top:1px solid #ddd;    
+}
+.content_panel:last-child{
+    border-bottom:1px solid #ddd;
+}
+.panel_filtro{
+    border-top:1px solid #ddd;
+    background:#f3f3f5;
+    font-family:'LAto';
+}
+.slider.slider-horizontal .slider-track{
+    height:3px !important;
+    background: #c6c6c6;
+}
+.panel_filtro .slider-handle{
+    top: 1px !important;
+    width: 11px;
+    height: 11px;
+}
+.block-checkbox{
+    width: 100%; 
+    height: 25px;
+    /* float: left; */
+    text-align: left;
+    margin-bottom:7px;
+}
+.block-checkbox:last-child{
+    margin-bottom:0;
+}
+.content_btn_filtros{
+    background:#d4d4d4;
+    padding:17px 14px;
+    margin-top:70px;
+    text-align:center;
+}
+.save-filters{
+    display:inline-block;
+}
+.titulo_filtro .title-accordion{    
+    background:url(https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/0xqS1DLiQCE5xmM/fle_ab.png) no-repeat right;
+    
+}
+.titulo_filtro .flecha_arriba{
+     background:url(https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/5FGReohxFhibs8X/fle_ar.png) no-repeat right;
+}
 
 /*FICHA PRODCUTO*/
 
@@ -10356,6 +10509,25 @@ a{
 .flex-viewport{
     height:142px;
 }
+
+.Content_favoritos_new .producto_nombre_descripcion {
+    padding-left:10px;
+    padding-right:10px;
+}
+.Content_favoritos_new .nombre_producto{
+    font-family:'Lato';
+    font-size:13px;
+    letter-spacing:0.2px;
+}
+@media screen and (max-width: 425px) and (min-width: 0px) {
+   .Content_favoritos_new .contenedor_productos_liquidacion .content_item_home {
+        width: 48%;
+    }
+   .Content_favoritos_new .producto_precio_normal{
+       display:block;
+       font-weight:300;
+   }
+}
 .boton_estilo_marca{
     background: #e81c36;
     color:white;
@@ -10374,4 +10546,217 @@ a{
     text-align:center;
     text-transform:uppercase;
     margin-bottom:3px;
+}
+/*FICHA 048B*/
+.content_oferta_guia_negocio{
+    width:100%;
+    max-width:400px;
+    margin:0 auto;
+    height:auto;
+    padding-left:14px;
+    padding-right:14px;
+    text-align:center;
+    font-family:'Lato';
+    position:relative;
+}
+.etiqueta_guia_negocio{
+    background:#e81c36;
+    width:70px;
+    height:70px;
+    border-radius:100px;
+    position:absolute;
+    right:0;
+    top:10px;
+    color:white;
+    font-family:'Lato';
+    font-size:11px;
+    letter-spacing:0.4px;
+    font-weight:700;
+    text-transform:uppercase;    
+    padding-top:18px;
+}
+.content_imagen_048{
+    width: 100%;
+    margin: 0 auto;
+    padding:40px 15% 0 15%;   
+    margin-bottom: 10px;
+    position:relative;
+}
+.content_imagen_048 img{
+    width:100%;
+}
+.marca_oferta048{    
+    font-size:11px;
+    color:#5b5b5b;    
+}
+.nombre_producto_048{
+    font-weight:700;
+    font-size:17px;
+    color:black;
+    letter-spacing:0.3px;
+    /*margin-bottom:2px;*/
+}
+.precio_tachado_048{
+    color:#7c7c7c;
+    font-size:12px;
+    font-weight:700;
+    text-decoration:line-through;
+}
+.precio_para_ti_048{
+    color:black;
+    font-size:12px;
+}
+.precio_para_ti_048 b{
+    font-size:16px;
+}
+.gana_048{
+    font-size:13px;
+    color:#e81c36;
+    font-weight:700;
+    margin-bottom:10px;
+}
+.btn_agregar_ficha_048{
+    float:left;
+    width:43%;
+    height:48px;
+    line-height:48px;
+    font-family:'Lato';
+    font-size:13px;
+    font-weight: 700;
+    letter-spacing: 0.2px;
+    color:white;
+    background:black;
+    display:block;
+}
+.texto_detalle_048{
+    font-family:'Lato';
+    font-size:16px;
+    color:black;
+    /*margin-top:30px;*/
+    text-transform:uppercase;
+}
+.content_detalle_048{
+    width:100%;
+    margin-top:19px;
+    height:auto;
+    padding:19px 14px 16px 14px;
+    -webkit-box-shadow: 0px 4px 23px -2px rgba(135,132,135,1);
+    -moz-box-shadow: 0px 4px 23px -2px rgba(135,132,135,1);
+    box-shadow: 0px 4px 23px -2px rgba(135,132,135,1);
+}
+.titulo_pack_detalle{
+    font-size:17px;
+    margin-bottom:14px;
+    font-weight:700;
+    letter-spacing:0.3px;
+}
+.flecha_048{
+    position:relative;
+    margin-bottom:20px;
+}
+.flecha_048:after, .flecha_048:before {
+	top: 0;
+	left: 50%;
+	border: solid transparent;
+	content: " ";
+	height: 0;
+	width: 0;
+	position: absolute;
+	pointer-events: none;
+}
+
+.flecha_048:after {
+	border-color: rgba(255, 255, 255, 0);
+	border-top-color: #ffffff;
+	border-width: 7px;
+	margin-left: -7px;
+}
+.flecha_048:before {
+	border-color: rgba(2, 2, 3, 0);
+	border-top-color: black;
+	border-width: 8px;
+	margin-left: -8px;
+}
+.content_pack_048{
+    overflow:hidden;
+    position:relative;
+    margin-bottom:10px;
+}
+.imagen_pack_048{
+    float: left;
+    width: 20%;
+    margin-right: 5%;    
+}
+.imagen_pack_048 img{
+    width:100%;
+}
+.nombre_producto_pack_048{
+    width: 75%;
+    height: 100%;
+    position: absolute;
+    right: 0;    
+    text-align: left;    
+    border-bottom: 1px solid #dadada; 
+    font-size: 12px;
+    color: black;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    flex-direction: column;
+}
+.content_pack_048:last-child .nombre_producto_pack_048{
+    border-bottom: 0; 
+}
+.content_pack_048:last-child{
+    margin-bottom:0;
+}
+.texto_comparte{
+    margin-top:20px;
+    font-size:13px;
+    color:black;
+}
+.recibe_gratis{
+    font-size:11px;
+    text-transform:uppercase;
+    font-weight:900;
+}
+.detalle_Cantidad_pack{
+    font-size:13px;
+    color:black;
+    margin-top:-10px;
+}
+.detalle_Cantidad_pack b{
+    font-size: 19px;
+    margin-left: 3px;
+    margin-right: 3px;
+}
+.content_agregar_048{
+    max-width: 400px;
+    height: auto;
+    margin: 0 auto;
+    /* padding-top: 14px; */
+    /* padding-bottom: 14px; */
+    /* padding-left: 14px; */
+    padding: 14px;
+}
+.texto_gratis_pop{
+    font-size:15px;
+    font-weight:700;
+    margin-top:20px;
+    margin-bottom:10px;
+}
+.btn_anuncio_agregado{
+    display:block;
+    margin:0 auto;
+    width:165px;
+    height:58px;
+    border: 1px solid black;
+    text-align:center;
+    font-family:'Lato';
+    font-size:14px;
+    color:black;
+    font-weight:700;
+    line-height:56px;
+    margin-top:25px;
+    margin-bottom:10px;
 }

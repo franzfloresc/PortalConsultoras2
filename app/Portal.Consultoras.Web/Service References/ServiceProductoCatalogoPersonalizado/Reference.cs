@@ -27,6 +27,9 @@ namespace Portal.Consultoras.Web.ServiceProductoCatalogoPersonalizado {
         private int CampaniaIdField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CodigoCategoriaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string CodigoIsoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -72,6 +75,9 @@ namespace Portal.Consultoras.Web.ServiceProductoCatalogoPersonalizado {
         private decimal PrecioValorizadoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int RelevanciaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string SelloField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -96,6 +102,19 @@ namespace Portal.Consultoras.Web.ServiceProductoCatalogoPersonalizado {
                 if ((this.CampaniaIdField.Equals(value) != true)) {
                     this.CampaniaIdField = value;
                     this.RaisePropertyChanged("CampaniaId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string CodigoCategoria {
+            get {
+                return this.CodigoCategoriaField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CodigoCategoriaField, value) != true)) {
+                    this.CodigoCategoriaField = value;
+                    this.RaisePropertyChanged("CodigoCategoria");
                 }
             }
         }
@@ -291,6 +310,19 @@ namespace Portal.Consultoras.Web.ServiceProductoCatalogoPersonalizado {
                 if ((this.PrecioValorizadoField.Equals(value) != true)) {
                     this.PrecioValorizadoField = value;
                     this.RaisePropertyChanged("PrecioValorizado");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int Relevancia {
+            get {
+                return this.RelevanciaField;
+            }
+            set {
+                if ((this.RelevanciaField.Equals(value) != true)) {
+                    this.RelevanciaField = value;
+                    this.RaisePropertyChanged("Relevancia");
                 }
             }
         }

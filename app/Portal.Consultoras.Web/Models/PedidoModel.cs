@@ -177,6 +177,9 @@ namespace Portal.Consultoras.Web.Models
         public List<ProductoModel> Hermanos { get; set; }
 
         public string CodigoIso { get; set; }
+        public int Relevancia { get; set; }
+        public string CodigoCategoria { get; set; }
+        public string CodigoMarca { get; set; }
     }
 
     public class ObservacionModel

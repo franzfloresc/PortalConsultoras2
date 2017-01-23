@@ -7,147 +7,368 @@
     <a href="@Request.UrlReferrer" class="enlace_regresar catalogosP" title="Regresar"></a>
     &nbsp;&nbsp;&nbsp;&nbsp;FAVORITOS DE TUS CLIENTES
 </div>
-<div class="fondo_f2f2f2" style="background:white; border-bottom:0">
+<div class="fondo_f2f2f2" style="border-bottom:0">
     <div class="pestana_esika"></div><!--PESTANA ESIKA-->
     <div class="pestana_lbel mobileLiquidaciones"></div><!--PESTANA LBEL-->
+    <ul class="tabs_pagos" data-tab="tab" style="margin-bottom:0">
+        <li class="one">
+            <a href="#" id="VerGuiaNegocio">
+                GUÍA DE NEGOCIO
+                <div class="marcador_tab"></div>
+            </a>
+        </li>
+        <li class="two">
+            <a href="#" id="VerPrecioCatalogo">
+                PRECIO CATÁLOGO
+                <div class="marcador_tab oculto"></div>
+            </a>
+        </li>
+
+        <hr id="barCursor">
+    </ul>
+    <hr class="clear" />
 </div>
-<div class="wrapper_resumen_mobile" style="padding-bottom:96px;">
 
-    <div data-item="catalogopersonalizado">
-
-        <div style="display: none;">
-            <input type="hidden" class="hdItemCuv" value="@Model.CUV" />
-            <input type="hidden" class="hdItemTipoOfertaSisID" value="@Model.TipoOfertaSisID" />
-            <input type="hidden" class="hdItemConfiguracionOfertaID" value="@Model.ConfiguracionOfertaID" />
-            <input type="hidden" class="hdItemIndicadorMontoMinimo" value="@Model.IndicadorMontoMinimo" />
-            <input type="hidden" class="hdItemTipo" value="1" />
-            <input type="hidden" class="hdItemMarcaID" value="@Model.MarcaID" />
-            <input type="hidden" class="hdItemPrecioUnidad" value="@Model.PrecioCatalogo" />
-            <input type="hidden" class="hdItemDescripcionProd" value="@Model.Descripcion" />
-            <input type="hidden" class="hdItemPagina" value="0" />
-            <input type="hidden" class="hdItemDescripcionCategoria" value="@Model.DescripcionCategoria" />
-            <input type="hidden" class="hdItemDescripcionMarca" value="@Model.DescripcionMarca" />
-            <input type="hidden" class="hdItemDescripcionEstrategia" value="@Model.DescripcionEstrategia" />
-            <input type="hidden" class="hdItemRutaImagen" value="@Model.ImagenProductoSugerido" />
-            <input type="hidden" class="hdItemTipoOfertaRevista" value="@Model.TipoOfertaRevista" />
-            <input type="hidden" class="OrigenPedidoWeb" value="@Portal.Consultoras.Common.Constantes.OrigenPedidoWeb.MobileCatalogoPersonalizado" />
+<div id="GuiaNegocio">
+    <!--FICHA 003A-->
+    <div id="Ficha_003A" style="display:none;">
+        <div class="content_oferta_guia_negocio">
+            <div class="content_imagen_048">
+                <img src="https://s3-sa-east-1.amazonaws.com/appcatalogo/CL/201702/E/productos/CL_200078945.jpg" class="imagen_producto">
+                <div class="etiqueta_guia_negocio">GUÍA DE NEGOCIO</div>
+            </div>
+            <div class="marca_oferta048">Esika</div>
+            <div class="nombre_producto_048">Dorsay 100ml</div>
+            <div class="precio_tachado_048">$49.900</div>
+            <div class="precio_para_ti_048">Precio para ti <b>$ 29.900</b></div>
+            <div class="gana_048" style="margin-bottom:0">Gana $ 10.000</div>
+            <hr class="clear" />            
+            <div style="overflow:hidden; margin-bottom:100px;">
+                <div class="texto_comparte">Comparte este producto con tus clientes</div>
+                <a id="btn_wsp" class="btn_compartir_ofertas" href="#"><img src="/Content/Images/Mobile/Esika/catalogo_ws.png" alt=""></a>
+                <a id="btn_fb" class="btn_compartir_ofertas" href="#"> <img src="/Content/Images/Mobile/Esika/facebook.png" alt=""></a>
+            </div>
         </div>
-
-        <div class="content_imagen_ficha"><img src="@Model.ImagenProductoSugerido" alt="PRODUCTO" class="imagen_producto" /></div>
-        <div class="titulo_ficha_producto">@Model.Descripcion</div>
-        <div class="peso_ficha_producto">@Model.Volumen</div>
-        <div class="descripcion_ficha_producto">@Model.DescripcionComercial</div>
-        <div class="precio_ficha_producto"><span class="precio_tachado_ficha">@ViewBag.Simbolo @Model.PrecioValorizadoString </span>@ViewBag.Simbolo @Model.PrecioCatalogoString</div>
-        @*<div>
-            <div class="content_tonos_producto">
-                <div class="content_tono_detalle borde_seleccion_tono">
-                    <img src="https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/PYi4dINUiOsYQ7e/labial_color.png" alt="PRODUCTO" />
-                    <div class="content_mascara_maquillaje">
-                        <img src="https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/HfQTTPvWfVXwt3R/textura_labial.png" alt="PRODUCTO" />
-                    </div>
+        <div class="content_btn_agregar">
+            <div class="content_agregar_048">
+                <div class="content_cantidad_ficha_producto">
+                    <a class="cantidad_menos_home"><img src="/Content/Images/Mobile/Esika/menos.png" alt=""></a>
+                    <input type="tel" value="1" size="2" maxlength="2" id="txtCantidad" class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" data-input="cantidad">
+                    <a class="cantidad_mas_home"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
                 </div>
-                <div class="content_tono_detalle">
-                    <img src="https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/PYi4dINUiOsYQ7e/labial_color.png" alt="PRODUCTO" />
-                    <div class="content_mascara_maquillaje">
-                        <img src="https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/HfQTTPvWfVXwt3R/textura_labial.png" alt="PRODUCTO" />
-                    </div>
-                </div>
-                <div class="content_tono_detalle">
-                    <img src="https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/dvVanSpBwcSATGk/textura_labial_fucsia.png" alt="PRODUCTO" />
-                    <div class="content_mascara_maquillaje">
-                        <img src="https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/HfQTTPvWfVXwt3R/textura_labial.png" alt="PRODUCTO" />
-                    </div>
-                </div>
-                <div class="content_tono_detalle">
-                    <img src="https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/PYi4dINUiOsYQ7e/labial_color.png" alt="PRODUCTO" />
-                    <div class="content_mascara_maquillaje">
-                        <img src="https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/HfQTTPvWfVXwt3R/textura_labial.png" alt="PRODUCTO" />
-                    </div>
-                </div>
-                <div class="content_tono_detalle">
-                    <img src="https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/PYi4dINUiOsYQ7e/labial_color.png" alt="PRODUCTO" />
-                    <div class="content_mascara_maquillaje">
-                        <img src="https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/HfQTTPvWfVXwt3R/textura_labial.png" alt="PRODUCTO" />
-                    </div>
-                </div>
-                <div class="content_tono_detalle">
-                    <img src="https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/PYi4dINUiOsYQ7e/labial_color.png" alt="PRODUCTO" />
-                    <div class="content_mascara_maquillaje">
-                        <img src="https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/HfQTTPvWfVXwt3R/textura_labial.png" alt="PRODUCTO" />
-                    </div>
-                </div>
-                <div class="content_tono_detalle">
-                    <img src="https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/PYi4dINUiOsYQ7e/labial_color.png" alt="PRODUCTO" />
-                    <div class="content_mascara_maquillaje">
-                        <img src="https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/HfQTTPvWfVXwt3R/textura_labial.png" alt="PRODUCTO" />
-                    </div>
-                </div>
-                <div class="content_tono_detalle">
-                    <img src="https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/dvVanSpBwcSATGk/textura_labial_fucsia.png" alt="PRODUCTO" />
-                    <div class="content_mascara_maquillaje">
-                        <img src="https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/HfQTTPvWfVXwt3R/textura_labial.png" alt="PRODUCTO" />
-                    </div>
-                </div>
-                <div class="content_tono_detalle">
-                    <img src="https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/PYi4dINUiOsYQ7e/labial_color.png" alt="PRODUCTO" />
-                    <div class="content_mascara_maquillaje">
-                        <img src="https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/HfQTTPvWfVXwt3R/textura_labial.png" alt="PRODUCTO" />
-                    </div>
-                </div>
-                <div class="content_tono_detalle">
-                    <img src="https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/PYi4dINUiOsYQ7e/labial_color.png" alt="PRODUCTO" />
-                    <div class="content_mascara_maquillaje">
-                        <img src="https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/HfQTTPvWfVXwt3R/textura_labial.png" alt="PRODUCTO" />
-                    </div>
-                </div>
-
+                <a class="btn_agregar_ficha_producto" href="#">AGRÉGALO</a>                
                 <hr class="clear" />
             </div>
-            <select class="tono_labial_select">
-                <option>Coral Cautivante</option>
-                <option>Coral Cautivante</option>
-                <option>Coral Cautivante</option>
-                <option>Coral Cautivante</option>
-            </select>
-        </div>*@
-    
-        <div class="content_redes_ficha">
-            @{
-                var urlWs = "";
-                string urlBase_fb = "";
-                if (System.Web.HttpContext.Current.Request.UserAgent != null)
-                {
-                    var request = HttpContext.Current.Request;
-
-                    var urlBase_wsp = request.Url.Scheme + "://" + request.Url.Authority + "/Pdto.aspx?id=" + Model.CodigoIso + "_[valor]";
-
-                    urlWs = urlBase_wsp;
-                    
-                    urlBase_fb = request.Url.Scheme + "://" + request.Url.Authority + "/Pdto.aspx?id=" + Model.CodigoIso + "_[valor]";
-                }
-            }
-            <a id="btn_wsp" class="btn_compartir_ofertas" href="javascript:window.location=CompartirWsp('@urlWs');" data-action="share/whatsapp/share"><img src="@Url.Content("~/Content/Images/Mobile/Esika/iconowscolor.png")" alt=""></a>
-            <a id="btn_fb" class="btn_compartir_ofertas" href="#" onclick='CompartirFacebook("@urlBase_fb");'><img src="@Url.Content("~/Content/Images/Mobile/Esika/catalogo_facebook_color.png")" alt=""></a>
         </div>
-        <div style="display: none;">
-            <input type="hidden" class="urlbasewsp" value="@urlWs" />
+    </div>
+    <!--FIN-->
+    <!--FICHA 048B-->
+    <div class="content_oferta_guia_negocio">
+        <div class="content_imagen_048">
+            <img src="https://s3-sa-east-1.amazonaws.com/appcatalogo/CL/201702/E/productos/CL_200078945.jpg" class="imagen_producto">
+            <div class="etiqueta_guia_negocio">GUÍA DE NEGOCIO</div>
+        </div>
+        <div class="marca_oferta048">Esika</div>
+        <div class="nombre_producto_048">Dorsay 100ml</div>
+        <div class="precio_tachado_048">$49.900</div>
+        <div class="precio_para_ti_048">Precio para ti <b>$ 29.900</b></div>
+        <div class="gana_048">Gana $ 10.000</div>
+        <hr class="clear" />
+        <div style="margin-bottom:30px; margin-top:5px;">
+            <div class="content_cantidad_ficha_producto" style="width:52%;">
+                <a class="cantidad_menos_home"><img src="/Content/Images/Mobile/Esika/menos.png" alt=""></a>
+                <input type="tel" value="1" size="2" maxlength="2" id="txtCantidad" class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" data-input="cantidad">
+                <a class="cantidad_mas_home"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
+            </div>
+            <a class="btn_agregar_ficha_048"> AGREGALO</a>
+            <hr class="clear" />
+        </div>                
+        <div class="texto_detalle_048">Cómpralo por pack y gana más</div>
+        <!--PACK-->
+        <div class="content_detalle_048">
+            <div class="titulo_pack_detalle">PACK GANANCIA</div>
+            <div class="linea_separadora_black flecha_048"></div>
+            <div class="precio_para_ti_048">Precio para ti <b>$ 29.900</b></div>
+            <div class="gana_048">Gana $ 10.000</div>
+            <div class="content_unidad_producto">
+                <!--DEFINIR DENTRO DE ESTE DIV LA CANTIDAD DE PRODUCTO -->
+                <div class="content_pack_048">
+                    <div class="imagen_pack_048"><img src="https://s3-sa-east-1.amazonaws.com/appcatalogo/CL/201702/E/productos/CL_200078945.jpg" class="imagen_producto"></div>
+                    <div class="nombre_producto_pack_048">2 Pulso 100ml</div>
+                </div>
+                <div class="content_pack_048">
+                    <div class="imagen_pack_048"><img src="https://s3-sa-east-1.amazonaws.com/appcatalogo/CL/201702/E/productos/CL_200078945.jpg" class="imagen_producto"></div>
+                    <div class="nombre_producto_pack_048">2 Pulso 100ml 2 Pulso 100ml 2 Pulso 100ml 2 Pulso 2 Pulso 100ml 2 Pulso 100ml</div>
+                </div>
+            </div>                      
+            <div style="margin-top:20px;">
+                <div class="content_cantidad_ficha_producto" style="width:52%;">
+                    <a class="cantidad_menos_home"><img src="/Content/Images/Mobile/Esika/menos.png" alt=""></a>
+                    <input type="tel" value="1" size="2" maxlength="2" id="txtCantidad" class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" data-input="cantidad">
+                    <a class="cantidad_mas_home"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
+                </div>
+                <a class="btn_agregar_ficha_048"> AGREGALO</a>
+                <hr class="clear" />
+            </div>
+        </div>
+        <!--FIN-->
+        <!--PACK-->
+        <div class="content_detalle_048">
+            <div class="titulo_pack_detalle">PACK MÁXIMA GANANCIA</div>
+            <div class="linea_separadora_black flecha_048"></div>
+            <div class="precio_para_ti_048">Precio para ti <b>$ 29.900</b></div>
+            <div class="gana_048">Gana $ 10.000</div>
+            <div>
+                <div class="content_pack_048">
+                    <div class="imagen_pack_048"><img src="https://s3-sa-east-1.amazonaws.com/appcatalogo/CL/201702/E/productos/CL_200078945.jpg" class="imagen_producto"></div>
+                    <div class="nombre_producto_pack_048">2 Pulso 100ml</div>
+                </div>
+                <div class="content_pack_048">
+                    <div class="imagen_pack_048"><img src="https://s3-sa-east-1.amazonaws.com/appcatalogo/CL/201702/E/productos/CL_200078945.jpg" class="imagen_producto"></div>
+                    <div class="nombre_producto_pack_048">2 Pulso 100ml 2 Pulso 100ml</div>
+                </div>
+                <div class="content_pack_048">
+                    <div class="imagen_pack_048"><img src="https://s3-sa-east-1.amazonaws.com/appcatalogo/CL/201702/E/productos/CL_200078945.jpg" class="imagen_producto"></div>
+                    <div class="nombre_producto_pack_048">2 Pulso 100ml 2 Pulso 100ml</div>
+                </div>
+            </div>
+            <div style="margin-top:20px;">
+                <div class="content_cantidad_ficha_producto" style="width:52%;">
+                    <a class="cantidad_menos_home"><img src="/Content/Images/Mobile/Esika/menos.png" alt=""></a>
+                    <input type="tel" value="1" size="2" maxlength="2" id="txtCantidad" class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" data-input="cantidad">
+                    <a class="cantidad_mas_home"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
+                </div>
+                <a class="btn_agregar_ficha_048"> AGREGALO</a>
+                <hr class="clear" />
+            </div>
+        </div>
+        <!--FIN-->
+        <div>
+            <div class="texto_comparte">Comparte este producto con tus clientes</div>
+            <a id="btn_wsp" class="btn_compartir_ofertas" href="#"><img src="/Content/Images/Mobile/Esika/catalogo_ws.png" alt=""></a>
+            <a id="btn_fb" class="btn_compartir_ofertas" href="#"> <img src="/Content/Images/Mobile/Esika/facebook.png" alt=""></a>
+            
         </div>
         <hr class="clear" />
-        <div class="row">
-            <div class="content_btn_agregar">
-                <div class="content_320">
-                    <div class="content_cantidad_ficha_producto">
-                        <a class="cantidad_menos_home"><img src="/Content/Images/Mobile/Esika/menos.png" alt=""></a>
-                        <input type="tel" value="1" size="2" maxlength="2" id="txtCantidad" class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" data-input="cantidad">
-                        <a class=" cantidad_mas_home"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
+        <br/>
+    </div>
+    <!--FIN-->
+    <!--FICHA 048A-->
+    <div id="Ficha_048A" style="display:none;">
+        <div class="content_oferta_guia_negocio">
+            <div class="content_imagen_048">
+                <img src="https://s3-sa-east-1.amazonaws.com/appcatalogo/CL/201702/E/productos/CL_200078945.jpg" class="imagen_producto">
+                <div class="etiqueta_guia_negocio">GUÍA DE NEGOCIO</div>
+            </div>
+            <div class="marca_oferta048">Esika</div>
+            <div class="nombre_producto_048">Dorsay 100ml</div>
+            <div class="precio_tachado_048">$49.900</div>
+            <div class="precio_para_ti_048">Precio para ti <b>$ 29.900</b></div>
+            <div class="gana_048">Gana $ 10.000</div>
+            <hr class="clear" />
+            <div class="texto_detalle_048">CÓMPRALO POR CANTIDAD<br />Y OBTÉN MAS GANANCIAs</div>
+            <!--PACK-->
+            <div class="content_detalle_048">
+                <div class="detalle_Cantidad_pack">Compra <b>2</b> Dorsay 100 ml</div>
+                <div class="precio_para_ti_048">Precio para ti <b>$ 29.900</b></div>
+                <div class="gana_048">Gana $ 10.000</div>
+                <div class="linea_separadora_black flecha_048"></div>
+                <div class="recibe_gratis">RECIBE GRATIS:</div>
+                <div class="content_unidad_producto">
+                    <!--DEFINIR DENTRO DE ESTE DIV LA CANTIDAD DE PRODUCTO -->
+                    <div class="content_pack_048">
+                        <div class="imagen_pack_048"><img src="https://s3-sa-east-1.amazonaws.com/appcatalogo/CL/201702/E/productos/CL_200078945.jpg" class="imagen_producto"></div>
+                        <div class="nombre_producto_pack_048">2 Pulso 100ml</div>
                     </div>
-                    <a class="btn_agregar_ficha_producto" data-btn-agregar-catalogopersonalizado="" href="#">AGRÉGALO</a>
+                </div>
+            </div>
+            <!--FIN-->
+            <!--PACK-->
+            <div class="content_detalle_048">
+                <div class="detalle_Cantidad_pack">Compra <b>4</b> Dorsay 100 ml</div>
+                <div class="precio_para_ti_048">Precio para ti <b>$ 29.900</b></div>
+                <div class="gana_048">Gana $ 10.000</div>
+                <div class="linea_separadora_black flecha_048"></div>
+                <div class="recibe_gratis">RECIBE GRATIS:</div>
+                <div class="content_unidad_producto">
+                    <!--DEFINIR DENTRO DE ESTE DIV LA CANTIDAD DE PRODUCTO -->
+                    <div class="content_pack_048">
+                        <div class="imagen_pack_048"><img src="https://s3-sa-east-1.amazonaws.com/appcatalogo/CL/201702/E/productos/CL_200078945.jpg" class="imagen_producto"></div>
+                        <div class="nombre_producto_pack_048">2 Pulso 100ml</div>
+                    </div>
+                    <div class="content_pack_048">
+                        <div class="imagen_pack_048"><img src="https://s3-sa-east-1.amazonaws.com/appcatalogo/CL/201702/E/productos/CL_200078945.jpg" class="imagen_producto"></div>
+                        <div class="nombre_producto_pack_048">2 Pulso 100ml</div>
+                    </div>
+                    <div class="content_pack_048">
+                        <div class="imagen_pack_048"><img src="https://s3-sa-east-1.amazonaws.com/appcatalogo/CL/201702/E/productos/CL_200078945.jpg" class="imagen_producto"></div>
+                        <div class="nombre_producto_pack_048">2 Pulso 100ml</div>
+                    </div>
+                </div>
+            </div>
+            <!--FIN-->
+            <div style="overflow:hidden; margin-bottom:100px;">
+                <div class="texto_comparte">Comparte este producto con tus clientes</div>
+                <a id="btn_wsp" class="btn_compartir_ofertas" href="#"><img src="/Content/Images/Mobile/Esika/catalogo_ws.png" alt=""></a>
+                <a id="btn_fb" class="btn_compartir_ofertas" href="#"> <img src="/Content/Images/Mobile/Esika/facebook.png" alt=""></a>
+            </div> 
+        </div>
+        <div class="content_btn_agregar">
+            <div class="content_agregar_048">
+                <div class="content_cantidad_ficha_producto">
+                    <a class="cantidad_menos_home"><img src="/Content/Images/Mobile/Esika/menos.png" alt=""></a>
+                    <input type="tel" value="1" size="2" maxlength="2" id="txtCantidad" class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" data-input="cantidad">
+                    <a class="cantidad_mas_home"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
+                </div>
+                <a class="btn_agregar_ficha_producto" href="#">AGRÉGALO</a>
+                <hr class="clear" />
+            </div>
+        </div>
+    </div>   
+    <!--FIN-->
+</div>
+<!--POP UP GUIA NEGOCIO-->
+    <!--HAY QUE DESAPARECER EL SCROLL DEL BODY, CUANDO GENEREN ESTE POP UP ME AVISAN-->
+<div class="PopMobile1" id="PopGuiaNegocio" style="display:block;"> 
+    <div class="content_popMobile" style="text-align:center; max-width:400px;">
+        <a class="cerrar_popMobile" href="javascript:;" onclick="javascript: $('#PopGuiaNegocio').hide();">
+            <img src="/Content/Images/mobile/Esika/cerrar_04.png" alt="-">
+        </a>
+        <hr class="clear">
+        <div class="titulo_pack_detalle">HAS COMPRADO</div>
+        <div class="linea_separadora_black flecha_048"></div>
+        <div class="detalle_Cantidad_pack"> <b>7</b> Dorsay 100 ml</div>
+        <div class="precio_para_ti_048">Precio para ti <b>$ 29.900</b></div>
+        <div class="gana_048">Gana $ 10.000</div>
+        <div class="texto_gratis_pop">Vas a recibir GRATIS</div>
+        <div class="linea_separadora_black flecha_048"></div>
+        <!--DEFINIR DENTRO DE ESTE DIV LA CANTIDAD DE PRODUCTO -->
+        <div class="content_unidad_producto">            
+            <div class="content_pack_048">
+                <div class="imagen_pack_048"><img src="https://s3-sa-east-1.amazonaws.com/appcatalogo/CL/201702/E/productos/CL_200078945.jpg" class="imagen_producto"></div>
+                <div class="nombre_producto_pack_048">2 Pulso 100ml</div>
+            </div>
+            <div class="content_pack_048">
+                <div class="imagen_pack_048"><img src="https://s3-sa-east-1.amazonaws.com/appcatalogo/CL/201702/E/productos/CL_200078945.jpg" class="imagen_producto"></div>
+                <div class="nombre_producto_pack_048">2 Pulso 100ml</div>
+            </div>
+            <div class="content_pack_048">
+                <div class="imagen_pack_048"><img src="https://s3-sa-east-1.amazonaws.com/appcatalogo/CL/201702/E/productos/CL_200078945.jpg" class="imagen_producto"></div>
+                <div class="nombre_producto_pack_048">2 Pulso 100ml</div>
+            </div>
+        </div>
+        <a class="btn_anuncio_agregado" href="javascript:;" onclick="javascript: $('#PopGuiaNegocio').hide();">OK, ENTENDIDO</a>
+
+    </div>
+</div>
+<!--FIN-->
+
+<div id="PrecioCatalogo" style="display:none;">
+    <div class="wrapper_resumen_mobile" style="padding-bottom:96px;">
+
+        <div data-item="catalogopersonalizado">
+
+        <input type="hidden" id="hdCuvFichaProductoFAV" value="@Model.CUV" />
+        <input type="hidden" id="hdCuvFichaProductoFAVSelect" />
+
+            <div style="display: none;">
+                <input type="hidden" class="hdItemCuv" value="@Model.CUV" />
+                <input type="hidden" class="hdItemTipoOfertaSisID" value="@Model.TipoOfertaSisID" />
+                <input type="hidden" class="hdItemConfiguracionOfertaID" value="@Model.ConfiguracionOfertaID" />
+                <input type="hidden" class="hdItemIndicadorMontoMinimo" value="@Model.IndicadorMontoMinimo" />
+                <input type="hidden" class="hdItemTipo" value="1" />
+                <input type="hidden" class="hdItemMarcaID" value="@Model.MarcaID" />
+                <input type="hidden" class="hdItemPrecioUnidad" value="@Model.PrecioCatalogo" />
+                <input type="hidden" class="hdItemDescripcionProd" value="@Model.Descripcion" />
+                <input type="hidden" class="hdItemPagina" value="0" />
+                <input type="hidden" class="hdItemDescripcionCategoria" value="@Model.DescripcionCategoria" />
+                <input type="hidden" class="hdItemDescripcionMarca" value="@Model.DescripcionMarca" />
+                <input type="hidden" class="hdItemDescripcionEstrategia" value="@Model.DescripcionEstrategia" />
+                <input type="hidden" class="hdItemTipoOfertaRevista" value="@Model.TipoOfertaRevista" />
+            <input type="hidden" class="OrigenPedidoWeb" value="@Portal.Consultoras.Common.Constantes.OrigenPedidoWeb.DesktopCatalogoPersonalizado" />
+            <input type="hidden" class="hdItemEsMaquillaje" value="@Model.EsMaquillaje" />
+            <input type="hidden" class="hdItemRutaImagen" value="@Model.ImagenProductoSugerido" />
+            </div>
+
+        <div class="content_imagen_ficha">
+            <img id="fav_imagen_prod" src="@Model.ImagenProductoSugerido" alt="PRODUCTO" class="imagen_producto" />
+        </div>
+        <div id="fav_nombre_prod" class="titulo_ficha_producto">@Model.Descripcion</div>
+        <div class="peso_ficha_producto">@Model.Volumen</div>
+        <div id="fav_descripcion_prod" class="descripcion_ficha_producto">@Model.DescripcionComercial</div>
+        <div class="precio_ficha_producto">
+            <span class="precio_tachado_ficha">@ViewBag.Simbolo @Model.PrecioValorizadoString </span>@ViewBag.Simbolo @Model.PrecioCatalogoString
+        </div>
+
+        <div>
+            <div class="content_tonos_producto">
+
+                @if (Model.Hermanos != null)
+                {
+                    foreach (var item in Model.Hermanos)
+                    {
+                        <div id="fav_tono_@Model.CUV" class="content_tono_detalle" onclick="cambiarInfoFichaProductoFAV(1,'@item.CUV')">
+                            <img src="@item.ImagenBulk" alt="@item.NombreBulk" />
+                            @*<div class="content_mascara_maquillaje">
+                                    <img src="https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/HfQTTPvWfVXwt3R/textura_labial.png" alt="PRODUCTO" />
+                                </div>*@
+                        </div>
+                    }
+                     
                     <hr class="clear" />
+                    <select id="fav_tonobulk_@Model.CUV" class="tono_labial_select" onchange="cambiarInfoFichaProductoFAV(2)">
+                        @foreach (var item in Model.Hermanos)
+                        {
+                            <option value="@item.CUV">@item.NombreBulk</option>
+                        }
+                    </select>
+                }
+            </div>
+        </div>
+
+            <div class="content_redes_ficha">
+                @{
+                    var urlWs = "";
+                    string urlBase_fb = "";
+                    if (System.Web.HttpContext.Current.Request.UserAgent != null)
+                    {
+                        var request = HttpContext.Current.Request;
+
+                        var urlBase_wsp = request.Url.Scheme + "://" + request.Url.Authority + "/Pdto.aspx?id=" + Model.CodigoIso + "_[valor]";
+                        urlBase_wsp = urlBase_wsp.Replace("/", "%2F");
+                        urlBase_wsp = urlBase_wsp.Replace(":", "%3A");
+                        urlBase_wsp = urlBase_wsp.Replace("?", "%3F");
+                        urlBase_wsp = urlBase_wsp.Replace("=", "%3D");
+
+                        urlWs = "whatsapp://send?text=" + urlBase_wsp;
+                    
+                        urlBase_fb = request.Url.Scheme + "://" + request.Url.Authority + "/Pdto.aspx?id=" + Model.CodigoIso + "_[valor]";
+                    }
+                }
+                <a id="btn_wsp" class="btn_compartir_ofertas" href="javascript:window.location=CompartirWsp('@urlWs');" data-action="share/whatsapp/share"><img src="@Url.Content("~/Content/Images/Mobile/Esika/catalogo_ws.png")" alt=""></a>
+                <a id="btn_fb" class="btn_compartir_ofertas" href="#" onclick='CompartirFacebook("@urlBase_fb");'><img src="@Url.Content("~/Content/Images/Mobile/Esika/facebook.png")" alt=""></a>
+            </div>
+            <div style="display: none;">
+                <input type="hidden" class="urlbasewsp" value="@urlWs" />
+            </div>
+            <hr class="clear" />
+            <div class="row">
+                <div class="content_btn_agregar">
+                    <div class="content_320">
+                        <div class="content_cantidad_ficha_producto">
+                            <a class="cantidad_menos_home"><img src="/Content/Images/Mobile/Esika/menos.png" alt=""></a>
+                            <input type="tel" value="1" size="2" maxlength="2" id="txtCantidad" class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" data-input="cantidad">
+                            <a class=" cantidad_mas_home"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
+                        </div>
+                    <a class="btn_agregar_ficha_producto" onclick="agregarCuvPedidoFichaProductoFAV(2)" style="cursor: pointer;">AGRÉGALO</a>
+                        <hr class="clear" />
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
 @section scripts{
 
     <script type="text/javascript">
@@ -163,21 +384,27 @@
 
         $(document).ready(function () {
 
-            //Pl20-1237
+            $("#VerPrecioCatalogo").on("click", function () {
+            //PL20-1237
+                $('#GuiaNegocio').hide(); //muestro mediante id             
+                $('#PrecioCatalogo').show(); //oculto mediante id  
+            });
+            $("#VerGuiaNegocio").on("click", function () {
+                $('#GuiaNegocio').show(); //muestro mediante id             
+                $('#PrecioCatalogo').hide(); //oculto mediante id  
+            });
             $('.footer-page').hide();
+
+            dataFichaProductoFAV = JSON.parse('@Html.Raw(Json.Encode(Model.Hermanos))');
+
+            setInfoCUV();
 
             $(".content_tono_detalle").on("click", function () {
 
                 $('.content_tono_detalle').removeClass('borde_seleccion_tono');
                 $(this).addClass("borde_seleccion_tono");
-
-                //if ($(this).hasClass("borde_seleccion_tono")) {
-                //    $(this).removeClass("borde_seleccion_tono");
-                //} else {
-        
-                //    $(this).addClass("borde_seleccion_tono");
-                //}
             });
+
         });
 
         //PL20-1237
@@ -241,6 +468,7 @@
                     }
                 }
             });
+
             return ID;
         }
 
@@ -258,8 +486,16 @@
 
             //window.open('http://localhost:20267/Pdto.aspx?id=PE_2_F');
         }
+
+        //PL20-1269
+        function setInfoCUV() {
+            var cuv = $('#hdCuvFichaProductoFAV').val();
+            $('#fav_tono_' + cuv).addClass("borde_seleccion_tono");
+            $('#hdCuvFichaProductoFAVSelect').val(cuv);
+        }
     </script>
 
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/CatalogoPersonalizado/CatalogoPersonalizado.js")"></script>
     <script src="~/Scripts/PortalConsultoras/Mobile/CatalogoPersonalizado/bootstrap-slider.min.js"></script>
+    
 }
