@@ -269,7 +269,11 @@
 
                 <a class="ver_mas_favoritos" style="z-index:inherit;" href="@Url.Action("Index", "CatalogoPersonalizado")">Ver más +</a>*@
             <div class="banner_favoritos_home">
-                <div class="titulo_banner_fav">@(Model.NombreConsultora.ToUpper()), estos son los <span class="texto_altas_fav">FAVORITOS</span> <span class="texto_2_fav">DE TUS CLIENTES</span></div>
+                <div class="titulo_banner_fav">
+                    @(Model.NombreConsultora.ToUpper()), estos son los 
+                    <span class="texto_altas_fav">FAVORITOS</span> 
+                    <span class="texto_2_fav">DE TUS CLIENTES</span>
+                </div>
                 <div class="content_imagen_fav">
                     <img style="width:100%;" src="@ViewBag.UrlImagenFAVHome" alt="favoritos" />
                 </div>

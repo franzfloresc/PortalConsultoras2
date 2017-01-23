@@ -40,7 +40,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             //PL20-1234
 
-            //PL20-1284
+            //PL20-1283
             var nombre1 = (string.IsNullOrEmpty(userData.Sobrenombre) ? userData.NombreConsultora : userData.Sobrenombre);
             ViewBag.NombreConsultora = Util.SubStr(nombre1, 0).ToUpper();
             var url1 = ConfigurationManager.AppSettings.Get("UrlImagenFAVLanding");
