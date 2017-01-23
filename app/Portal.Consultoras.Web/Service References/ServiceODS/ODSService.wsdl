@@ -677,15 +677,6 @@
       </wsdl:output>
     </wsdl:operation>
   </wsdl:binding>
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="SelectProductoByListaCuvSearchRegionZona">
-      <soap:operation soapAction="http://tempuri.org/IODSService/SelectProductoByListaCuvSearchRegionZona" style="document" />
   <wsdl:service name="ODSService">
     <wsdl:port name="BasicHttpBinding_IODSService" binding="tns:BasicHttpBinding_IODSService">
       <soap:address location="http://localhost:41615/ODSService.svc" />

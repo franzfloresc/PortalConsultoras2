@@ -9,6 +9,7 @@
   <xs:complexType name="Producto">
     <xs:sequence>
       <xs:element minOccurs="0" name="CampaniaId" type="xs:int" />
+      <xs:element minOccurs="0" name="CodigoCategoria" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="CodigoIso" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="CodigoMarca" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="CodigoSap" nillable="true" type="xs:string" />
@@ -24,6 +25,7 @@
       <xs:element minOccurs="0" name="NombreMarca" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="PrecioCatalogo" type="xs:decimal" />
       <xs:element minOccurs="0" name="PrecioValorizado" type="xs:decimal" />
+      <xs:element minOccurs="0" name="Relevancia" type="xs:int" />
       <xs:element minOccurs="0" name="Sello" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Volumen" nillable="true" type="xs:string" />
     </xs:sequence>
