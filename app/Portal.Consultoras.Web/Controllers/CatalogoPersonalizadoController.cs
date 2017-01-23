@@ -39,6 +39,15 @@ namespace Portal.Consultoras.Web.Controllers
                 model.FiltersByPublished = lst.Where(x => x.TablaLogicaID == 97).ToList();
             }
             //PL20-1234
+
+            //PL20-1270
+            var listaProductoModel = (List<ProductoModel>)Session["ProductosCatalogoPersonalizado"] ?? new List<ProductoModel>();
+            if (listaProductoModel.Any())
+            {
+                ViewBag.PrecioMin = listaProductoModel.OrderBy(x => x.PrecioCatalogo).FirstOrDefault().PrecioCatalogoString;
+                ViewBag.PrecioMax = listaProductoModel.OrderByDescending(x => x.PrecioCatalogo).FirstOrDefault().PrecioCatalogoString;
+            }
+
             return View(model);
         }
 
@@ -373,7 +382,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 //SB20-1197
 
-                listaProductoModel = listaProductoModel.Skip(offset).Take(cantidad).ToList();
+               listaProductoModel = listaProductoModel.Skip(offset).Take(cantidad).ToList();
 
                 return Json(new
                 {
