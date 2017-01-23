@@ -350,40 +350,28 @@ namespace Portal.Consultoras.Web.Controllers
             var model = new CDRWebModel();
 
             var logCdrWeb = new BELogCDRWeb();
-            var cdrWeb = new BECDRWeb();
             var listaCdrWebDetalle = new List<BECDRWebDetalle>();
             using (CDRServiceClient sv = new CDRServiceClient())
             {
-                logCdrWeb = sv.GetLogCDRWebByLogCDRWebId(userData.PaisID, solicitudId);
-
-                var entidad = new BECDRWeb();
-                entidad.ConsultoraID = logCdrWeb.ConsultoraId;
-                entidad.PedidoID = 0;
-                entidad.CampaniaID = 0;
-                entidad.CDRWebID = logCdrWeb.CDRWebID;
-                cdrWeb = sv.GetCDRWeb(userData.PaisID, entidad).FirstOrDefault() ?? new BECDRWeb();
-                
-                listaCdrWebDetalle = sv.GetCDRWebDetalleLog(userData.PaisID, logCdrWeb).ToList();
-
-                listaCdrWebDetalle = listaCdrWebDetalle ?? new List<BECDRWebDetalle>();
-
+                logCdrWeb = sv.GetLogCDRWebByLogCDRWebId(userData.PaisID, solicitudId);         
+                       
+                listaCdrWebDetalle = sv.GetCDRWebDetalleLog(userData.PaisID, logCdrWeb).ToList() ?? new List<BECDRWebDetalle>();
                 listaCdrWebDetalle.Update(p => p.Solicitud = ObtenerDescripcion(p.CodigoOperacion, Constantes.TipoMensajeCDR.Finalizado).Descripcion);
                 listaCdrWebDetalle.Update(p => p.SolucionSolicitada = ObtenerDescripcion(p.CodigoOperacion, Constantes.TipoMensajeCDR.MensajeFinalizado).Descripcion);
             }
 
-            model.CDRWebID = cdrWeb.CDRWebID;
-            model.PedidoID = cdrWeb.PedidoID;
-            model.PedidoNumero = cdrWeb.PedidoNumero;
-            model.CampaniaID = cdrWeb.CampaniaID;
-            model.FechaRegistro = cdrWeb.FechaRegistro;
-            model.Estado = cdrWeb.Estado;
-            model.FechaCulminado = cdrWeb.FechaCulminado;
+            model.CDRWebID = logCdrWeb.CDRWebID;
+            model.PedidoID = logCdrWeb.PedidoId;
+            model.PedidoNumero = logCdrWeb.PedidoFacturadoId;
+            model.CampaniaID = string.IsNullOrEmpty(logCdrWeb.CampaniaId) ? 0 : Convert.ToInt32(logCdrWeb.CampaniaId);
+            model.FechaRegistro = logCdrWeb.FechaRegistro;
+            model.Estado = logCdrWeb.EstadoCDR;
+            model.FechaCulminado = logCdrWeb.FechaCulminado;
             model.FechaAtencion = logCdrWeb.FechaAtencion;
-            model.Importe = cdrWeb.Importe;
+            model.Importe = logCdrWeb.ImporteCDR;
             model.NombreConsultora = userData.NombreConsultora;
             model.CodigoIso = userData.CodigoISO;
             model.Simbolo = userData.Simbolo;
-
             model.ListaDetalle = listaCdrWebDetalle;
 
             return PartialView("ListaDetalleCdr", model);
