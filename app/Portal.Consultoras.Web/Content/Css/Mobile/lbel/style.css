@@ -9348,3 +9348,7 @@ span.icon-advertencia{
     font-size:18px;
     font-weight:700;
 }
+.form-control{
+    box-sizing:border-box;
+    height:39px !important;
+}

@@ -1644,10 +1644,13 @@ header {
     font-family: 'lato';
     font-size: 11pt;
     font-weight: 400;
-    color: #060000;
+    border: 1px solid #ccc;
     margin-right: 8px;
-    height: 30px;
+    height: 40px;
+    line-height: 40px;
     margin-top: 2px;
+    color: #999999;
+     padding-left:10PX;
 }
 .pedido_ingreso_c {
     width:100%;
@@ -32470,4 +32473,33 @@ h1#penmostreo .campana {
 }
 .content_pop_oferta_dia .liquidacion_rango_right_pedido{
     background:transparent !important;
+}
+/*PAYPAL*/
+.monto_texto{
+    font-family:'Lato';
+    font-size:13px;
+    margin-top:5px;
+    margin-bottom:5px;
+}
+.cuadro_tarjeta{
+    width:250px;
+    height: 40px;
+    line-height: 40px;
+    color: #999999;
+    font-family: 'Lato';    
+    border: 1px solid #ccc;
+    padding-left: 10px;
+    margin-left:10px;
+}
+.select_fecha_pago select{
+    color: #999999;
+    font-family: 'Lato';    
+    border: 1px solid #ccc;
+    font-size:13px;
+    height: 40px;
+    padding:10px;
+    margin-left:10px;
+    margin-top: -9px;
+    display: block;
+    float: left;
 }
