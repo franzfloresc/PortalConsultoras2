@@ -1304,4 +1304,20 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+  <xs:element name="ValidarUsuario">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="paisIso" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="codigoUsuario" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="clave" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ValidarUsuarioResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="ValidarUsuarioResult" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
 </xs:schema>

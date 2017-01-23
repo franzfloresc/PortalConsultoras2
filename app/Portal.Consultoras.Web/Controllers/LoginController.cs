@@ -127,7 +127,7 @@ namespace Portal.Consultoras.Web.Controllers
             UsuarioModel usuario = GetUserData(paisId, codigoUsuario, 1);
             if (usuario != null)
             {
-                        FormsAuthentication.SetAuthCookie(usuario.CodigoUsuario, false);
+                FormsAuthentication.SetAuthCookie(usuario.CodigoUsuario, false);
 
                 if (usuario.RolID == Constantes.Rol.Consultora)
                 {

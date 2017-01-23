@@ -1147,5 +1147,22 @@ namespace Portal.Consultoras.BizLogic
 
             return resultado;
         }
+
+        public bool ValidarUsuario(int paisId, string codigoUsuario, string clave)
+        {
+            bool resultado;
+
+            try
+            {
+                var DAUsuario = new DAUsuario(paisId);
+                resultado = DAUsuario.ValidarUsuario(codigoUsuario, clave);
+            }
+            catch (Exception)
+            {
+                resultado = false;
+            }
+
+            return resultado;
+        }
     }
 }

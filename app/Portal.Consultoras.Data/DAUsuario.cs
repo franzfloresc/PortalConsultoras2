@@ -552,6 +552,14 @@ namespace Portal.Consultoras.Data
             return Convert.ToInt32(Context.ExecuteScalar(command));
         }
 
+        public bool ValidarUsuario(string codigoUsuario, string clave)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.ValidarUsuario");
+            Context.Database.AddInParameter(command, "@CodigoUsuario", DbType.AnsiString, codigoUsuario);
+            Context.Database.AddInParameter(command, "@Clave", DbType.AnsiString, clave);
+            return Convert.ToBoolean(Context.ExecuteScalar(command));
+        }
+
         public int UpdateUsuarioEmailTelefono(long ConsultoraID, string Email, string Telefono)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.UpdUsuarioEMailCDRWeb");

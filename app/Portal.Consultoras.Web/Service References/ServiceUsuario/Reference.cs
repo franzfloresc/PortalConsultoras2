@@ -5937,6 +5937,12 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/ExisteUsuario", ReplyAction="http://tempuri.org/IUsuarioService/ExisteUsuarioResponse")]
         System.Threading.Tasks.Task<int> ExisteUsuarioAsync(int paisId, string codigoUsuario, string clave);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/ValidarUsuario", ReplyAction="http://tempuri.org/IUsuarioService/ValidarUsuarioResponse")]
+        bool ValidarUsuario(string paisIso, string codigoUsuario, string clave);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/ValidarUsuario", ReplyAction="http://tempuri.org/IUsuarioService/ValidarUsuarioResponse")]
+        System.Threading.Tasks.Task<bool> ValidarUsuarioAsync(string paisIso, string codigoUsuario, string clave);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -6636,6 +6642,14 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         
         public System.Threading.Tasks.Task<int> ExisteUsuarioAsync(int paisId, string codigoUsuario, string clave) {
             return base.Channel.ExisteUsuarioAsync(paisId, codigoUsuario, clave);
+        }
+        
+        public bool ValidarUsuario(string paisIso, string codigoUsuario, string clave) {
+            return base.Channel.ValidarUsuario(paisIso, codigoUsuario, clave);
+        }
+        
+        public System.Threading.Tasks.Task<bool> ValidarUsuarioAsync(string paisIso, string codigoUsuario, string clave) {
+            return base.Channel.ValidarUsuarioAsync(paisIso, codigoUsuario, clave);
         }
     }
 }

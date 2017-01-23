@@ -2424,7 +2424,7 @@ namespace Portal.Consultoras.Common
             {
                 throw new Exception("Hubo un error en obtener el País");
             }
-            return int.Parse((paisID == null ? "0" : paisID));
+            return int.Parse((paisID ?? "0"));
         }
 
         public static string GetPaisISO(int paisID)
