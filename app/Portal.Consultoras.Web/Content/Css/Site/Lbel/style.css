@@ -27476,7 +27476,7 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
     display: inline-block;
     position: relative;
     vertical-align: top!important;
-    width: 274px;
+    width: 272px;
     margin-bottom: 15px;
     margin-top: 15px;
     vertical-align:top;
@@ -32220,6 +32220,214 @@ h1#penmostreo .campana {
     vertical-align:middle;
     line-height:14px;
 }
+/*SPRINT 4*/
+
+.banner_favoritos_home{
+
+    width:26%;
+    min-height:700px;
+    float:left;
+    background:#f3f3f5;
+}
+
+.texto_filtros_fav{
+
+    font-family:'Lato';
+    font-size:13px;
+    float:right;
+    margin-top:10px;
+}
+
+.btn_ver_todo_filtros{
+
+    display:inline-block;
+    background: url(../../../Images/Esika/indicador_pedido.png) no-repeat;
+    background-position: 0px 5px;
+    padding-left:15px;
+    margin-left:20px;
+    cursor:pointer;
+}
+
+.titulo_banner_fav{
+    /*background: #e81c36;*/
+    padding: 55px 17.5%;
+    width:100%;
+    font-family: 'Lato';
+    color: black;
+    font-size: 18px;
+    line-height: 20px;
+    text-align: left;
+    /*letter-spacing: 0.75px;*/
+    font-weight:300;
+}
+
+.texto_altas_fav{
+    display:block;
+    font-size:35px;
+    margin-top:10px;
+    margin-bottom:12px;
+    font-weight:700;
+
+}
+
+.texto_2_fav{
+
+    font-size:22.5px;
+    line-height:25px;
+}
+.titulo_banner {
+    padding: 20px 11% !important;
+}
+.texto_inf_banner{
+    font-family: 'Lato';
+    color: black;
+    font-size: 16px;
+    line-height: 20px;
+    font-weight:300;
+    margin:55px 40px;
+    text-align:left;
+}
+.btn_ver_mas_fav{
+    margin:5px 40px;
+    /*width:100%;*/
+    height:45px;
+    border:1px solid black;
+    font-family: 'Lato';
+    color: black;
+    font-size: 13px;
+    font-weight:700;
+    letter-spacing:0.3px;
+    line-height:43px;
+    margin-bottom:100px;
+    width:381px;
+}
+/*PAGINA CATALOGO PERSONALIZADO*/
+.content_img_fav {
+    width: 140px;
+    height: 132
+    px;
+    float: left;
+}
+.content_img_fav img{
+    width:100%;
+}
+.no_mostrar_esika{
+    display:none;
+}
+.texto_banner_seccion_fav{
+    margin-top:15px;
+    margin-left:35px;
+    margin-right:35px;
+    font-family:'Lato';
+    font-size:16px;
+    line-height:20px;
+    font-weight:300;
+    float:left;
+}
+.altas_seccion_fav{
+    display:block;
+    font-weight:700;
+    font-size:31px;
+    margin-top:5px;
+}
+.clientes_fav_texto{
+    display:block;
+    margin-top:10px;
+    font-size:21px;
+}
+.texto_complementario_fav{
+    width:381px;
+    margin-top:31px;
+    font-family:'Lato';
+    font-size:16px;
+    line-height:20px;
+    font-weight:300;
+    padding-left:40px;
+    float:left;
+    border-left:2px solid #979797;
+}
+.content-left-item{
+    float:left;
+    width:75%;
+}
+.content_filtros_left{
+    font-family:'Lato';
+    font-size:11px;
+    float:left;
+    width:20%;
+    /*height:100px;*/
+    margin-right:5%;
+    margin-top:25px;
+    color:#4a4a4a;
+}
+.titulo_filtro_fav{
+    display:block;
+    margin-bottom:10px;
+    color:black;
+    font-weight:900;
+    margin-left:10px;
+    margin-top: 25px;
+}
+.cantidad_productos_fav{
+    float:left;
+    font-family:'Lato';
+    font-size:13px;
+    margin-top:20px;
+}
+.filtros_derecha{
+    float:right;
+    font-family:'Lato';
+    font-size:13px;
+    margin-top:20px;
+}
+.select_filtros_fav{
+    width:162px;
+    height:27px;
+    padding:5px;
+    font-size:11px;
+    color:black;
+    margin-left:20px;
+    border:1px solid black;
+}
+.texto_fav_filtro{
+    margin-top:16px;
+    margin-bottom:16px;
+    margin-left:10px;
+}
+.seleccion_filtro_fav{
+    position:relative;
+    margin-left:10px;
+    padding-left:33px;
+    padding-top:3px;
+    margin-bottom:15px;
+    cursor:pointer;
+}
+.seleccion_filtro_fav:first-child{
+    margin-top:6px;
+}
+.seleccion_filtro_fav:last-child{
+    margin-bottom:30px;
+}
+.seleccion_filtro_fav:before{
+    position:absolute;
+    left:0;
+    top:0;
+    height:22px;
+    width:22px;
+    background:white;
+    border:1px solid #b8b8b8;
+    content:"";
+    z-index:1;
+}
+.seleccion_click_flitro:before{
+    background:#613c87;
+}
+.content_filtro_range{
+    margin-bottom:50px;
+    margin-top:40px;
+    padding-left: 12px;
+   
+}
 
 /*GPR*/
 .logo_lista_detalle {
@@ -32691,7 +32899,7 @@ h1#penmostreo .campana {
 }
 .tooltip_tono{
     position: absolute;
-    top: 11px;
+    top: -25px;
     background: rgba(255,255,255,0.8);
     color: black;
     display: none;
@@ -32704,9 +32912,8 @@ h1#penmostreo .campana {
     line-height: 11px;
     padding: 2px;
     z-index: 10;
-    overflow: hidden;
 }
 .content_tono_detalle:hover .tooltip_tono{
     display:block;
 }
-.tooltip_tono:nth-child(2n+1)
+

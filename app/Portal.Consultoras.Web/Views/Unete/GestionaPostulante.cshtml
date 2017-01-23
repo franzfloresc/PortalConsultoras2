@@ -205,9 +205,9 @@
         '@Dictionaries.CabeceraComprobanteDomicilio[Model.CodigoIso]',
         'Contrato',
       'Pagare',
-      'CantDias',
-      'ZonaConsultora',
-      'SeccionConsultora',
+      'Dias en Espera',
+      'Zona Origen',
+      'Seccion Origen',
       'cantDiasRechazados',
       'cantDiasAproFFVV',
       'Fecha Creacion Codigo',
@@ -356,17 +356,18 @@
                         return rowObject[24].length > 0 ? '<a href="javascript:void(0);"><img src="@Url.Content("~/Content/Images/Detail.png")" onclick="verAdjunto(\'' + rowObject[24] + '\', 4)" /></a>' : '';
                     }
                 }
-                ,{ name: 'CantDias', index: 'CantDias', width: 9, editable: true, resizable: false, align: 'center',formatter: function(cellvalue, options, rowObject) {
+                , {
+                    name: 'Dias en Espera', index: 'Dias en Espera', width: 9, editable: true, resizable: false, align: 'center', formatter: function (cellvalue, options, rowObject) {
                     return rowObject[28];
                    }
                 },
                 {
-                    name: 'ZonaConsultora', index: 'ZonaConsultora', width: 9, editable: true, resizable: false, align: 'center', formatter: function (cellvalue, options, rowObject) {
+                    name: 'Zona Origen', index: 'Zona Origen', width: 9, editable: true, resizable: false, align: 'center', formatter: function (cellvalue, options, rowObject) {
                         return rowObject[29] == '1' ? rowObject[31] : rowObject[30];
                     }
                 },
                 {
-                    name: 'SeccionConsultora', index: 'SeccionConsultora', width: 9, editable: true, resizable: false, align: 'center', formatter: function (cellvalue, options, rowObject) {
+                    name: 'Seccion Origen', index: 'Seccion Origen', width: 9, editable: true, resizable: false, align: 'center', formatter: function (cellvalue, options, rowObject) {
                         return rowObject[29] == '1' ? rowObject[32] : '-';
                     }
                 }, {
@@ -471,7 +472,18 @@
                             jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'cantDiasAproFFVV');
                             jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'Fecha Creacion Codigo');
                             jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'Codigo Campaña');
-                            jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'Campaña 1er pedido');
+                            jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'Campaña 1er pedido'); 
+                            jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'Tipo Rechazo');
+                            jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'Motivo Rechazo');
+                            jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'Pendiente de Confirmación'); 
+                            jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'Aprobar');
+                            jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'Rechazar');
+                            jQuery("#gvwSolicitudesPostulante").jqGrid('showCol', 'Contrato');
+                            jQuery("#gvwSolicitudesPostulante").jqGrid('showCol', 'Pagare');
+                            jQuery("#gvwSolicitudesPostulante").jqGrid('showCol', '@Dictionaries.CabeceraNumeroDocumento[Model.CodigoIso]'); 
+                            jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'Reactivar');
+                            jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'Enviar a FFVV');
+
                             break;
                         case "3":
                             jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'Aprobar');

@@ -404,7 +404,7 @@ namespace Portal.Consultoras.Web.Controllers
             if (fechaCreacion.HasValue)
             {
                 ts = newDate - (DateTime) oldDate;
-                diferenciaDias = ts.Days;
+                diferenciaDias = ts.Days + 1;
             }
             else
             {
