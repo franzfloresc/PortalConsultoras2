@@ -192,6 +192,18 @@ namespace Portal.Consultoras.Data
             return int.Parse(Context.ExecuteScalar(command).ToString());
         }
 
+        public int ValidadStockOfertaShowRoom(BEShowRoomOferta entity)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("ShowRoom.UpdOfertaShowRoomValidaStock");
+            Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, entity.CampaniaID);
+            Context.Database.AddInParameter(command, "@CUV", DbType.AnsiString, entity.CUV);
+            Context.Database.AddInParameter(command, "@CantidadIncrementa", DbType.Int32, entity.CantidadIncrementa);
+            Context.Database.AddOutParameter(command, "@StockResultado", DbType.Int32, entity.StockResultado);
+            Context.ExecuteNonQuery(command);
+            return Convert.ToInt32(command.Parameters["@StockResultado"].Value);
+        }
+
+
         public int InsOfertaShowRoom(BEShowRoomOferta entity)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("ShowRoom.InsOfertaShowRoom");
@@ -227,9 +239,14 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@UsuarioModificacion", DbType.AnsiString, entity.UsuarioModificacion);
             Context.Database.AddInParameter(command, "@PrecioOferta", DbType.Decimal, entity.PrecioOferta);
             Context.Database.AddInParameter(command, "@ImagenMini", DbType.AnsiString, entity.ImagenMini);
+            Context.Database.AddInParameter(command, "@Incrementa", DbType.Int32, entity.Incrementa);
+            Context.Database.AddInParameter(command, "@CantidadIncrementa", DbType.Int32, entity.CantidadIncrementa);
+            Context.Database.AddInParameter(command, "@FlagAgotado", DbType.Int32, entity.FlagAgotado);
 
             return Context.ExecuteNonQuery(command);
         }
+
+
 
         public int DelOfertaShowRoom(BEShowRoomOferta entity)
         {

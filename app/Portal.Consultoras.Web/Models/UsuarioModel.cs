@@ -170,6 +170,8 @@ namespace Portal.Consultoras.Web.Models
         public DateTime FechaNacimiento { get; set; }
         public string Nivel { get; set; }
 
+        public long ConsultoraAsociadaID { get; set; }
+
         public string Direccion { get; set; }
         public string IPUsuario { get; set; }
         public bool MostrarBotonValidar { get; set; }
@@ -313,6 +315,7 @@ namespace Portal.Consultoras.Web.Models
         public bool TieneOfertaDelDia { get; set; }
         public OfertaDelDiaModel OfertaDelDia { get; set; }
         public bool CloseOfertaDelDia { get; set; }
+        public bool CloseBannerPL20 { get; set; }
         public bool EsDiasFacturacion { get; set; }
         /*PL20-1226*/
     }

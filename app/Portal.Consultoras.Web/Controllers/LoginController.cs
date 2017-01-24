@@ -428,6 +428,7 @@ namespace Portal.Consultoras.Web.Controllers
                     model.EsJoven = oBEUsuario.EsJoven;
                     model.PROLSinStock = oBEUsuario.PROLSinStock;
                     model.HoraCierreZonaDemAntiCierre = oBEUsuario.HoraCierreZonaDemAntiCierre;
+                    model.ConsultoraAsociadaID = oBEUsuario.ConsultoraAsociadaID;
 
                     if (DateTime.Now.AddHours(oBEUsuario.ZonaHoraria) < oBEUsuario.FechaInicioFacturacion)
                         model.DiaPROLMensajeCierreCampania = false;

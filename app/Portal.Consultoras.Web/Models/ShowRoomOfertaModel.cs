@@ -72,5 +72,9 @@ namespace Portal.Consultoras.Web.Models
         public IList<ShowRoomOfertaDetalleModel> ListaDetalleOfertaShowRoom { get; set; }
 
         public string Subtitulo { get; set; }
+
+        public int Incrementa { get; set; }
+        public int CantidadIncrementa { get; set; }
+        public int Agotado { get; set; }
     }
 }

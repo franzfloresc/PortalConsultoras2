@@ -169,6 +169,15 @@ namespace Portal.Consultoras.Web.Models
         public bool TieneLanzamientoCatalogoPersonalizado { get; set; }
 
         public string TipoOfertaRevista { get; set; }
+
+        public string Volumen { get; set; }
+        public bool EsMaquillaje { get; set; }
+        public string DescripcionComercial { get; set; }
+        public string ImagenBulk { get; set; }
+        public string NombreBulk { get; set; }
+        public List<ProductoModel> Hermanos { get; set; }
+
+        public string CodigoIso { get; set; }
     }
 
     public class ObservacionModel
