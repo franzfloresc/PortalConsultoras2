@@ -133,6 +133,22 @@ namespace Portal.Consultoras.BizLogic
                     orderby producto.CUV
                     select producto).ToList();
         }
+        
+        public IList<BEProducto> GetProductoComercialByListaCuv(int paisID, int campaniaID, int regionID, int zonaID, string codigoRegion, string codigoZona, string listaCuv)
+        {
+            IList<BEProducto> productos = new List<BEProducto>();
+            var DAProducto = new DAProducto(paisID);
+
+            using (IDataReader reader = DAProducto.GetProductoComercialByListaCuv(campaniaID, regionID, zonaID, codigoRegion, codigoZona, listaCuv))
+            {
+                while (reader.Read())
+                {
+                    productos.Add(new BEProducto(reader));
+                }
+            }
+
+            return productos;
+        }
 
         public int UpdProductoDescripcion(BEProductoDescripcion producto, string codigoUsuario)
         {

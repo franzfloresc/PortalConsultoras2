@@ -371,9 +371,13 @@ namespace Portal.Consultoras.Web.Controllers
         {
             mensaje = string.Empty;
 
+            userData.ConsultoraID = userData.UsuarioPrueba == 1 ? userData.ConsultoraAsociadaID : userData.ConsultoraID;
+
             BEConfiguracionCampania oBEConfiguracionCampania = null;
             using (PedidoServiceClient sv = new PedidoServiceClient())
             {
+                
+
                 oBEConfiguracionCampania = sv.GetEstadoPedido(userData.PaisID, userData.CampaniaID, userData.ConsultoraID, userData.ZonaID, userData.RegionID);
             }
             if (oBEConfiguracionCampania != null && oBEConfiguracionCampania.EstadoPedido == Constantes.EstadoPedido.Procesado &&
@@ -1429,6 +1433,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     using (PedidoServiceClient sv = new PedidoServiceClient())
                     {
+                        model.CodigoConsultora = model.UsuarioPrueba == 1 ? model.ConsultoraAsociada.ToString() : model.CodigoConsultora;
                         model.BeShowRoomConsultora = sv.GetShowRoomConsultora(model.PaisID, model.CampaniaID, model.CodigoConsultora);
                         model.BeShowRoom = sv.GetShowRoomEventoByCampaniaID(model.PaisID, model.CampaniaID);
 

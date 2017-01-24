@@ -365,7 +365,7 @@ function GetCatalogosLinksByCampania(data, campania) {
                 var n = campania.substring(4, 6);
                 var a = campania.substring(0, 4);
                 $(idCat).find(elemItem).find("[data-tipo='img']").attr("onclick", "SetGoogleAnalytics('" + codigoISSUU + "','Ver catálogo','" + tagCat + "')");
-                var urlCat = urlISSUU + tagCat.toLowerCase() + "." + ObtenerNombrePais(idPais) + ".c" + n + "." + a + "?e=1/2";
+                var urlCat = urlISSUU + tagCat.toLowerCase() + "." + ObtenerNombrePais(idPais) + ".c" + n + "." + a + "?mode=embed";
                 $(idCat).find(elemItem).find("[data-tipo='img']").attr("href", urlCat);
                 $(idCat).find(elemItem).find("#txtUrl" + tagCat).val(urlCat);
                 $(idCat).find(elemItem).find("[data-tipo='img'] img").attr("src", imgIssuu.replace("{img}", codigoISSUU));
@@ -876,7 +876,8 @@ function ObtenerUrlRevista(campania) {
     var prefijoPais = codigoIso.toLowerCase();
     var numeroCampania = campania.substring(4, 6);;
     var anioCampania = campania.substring(0, 4);;
-    return 'http://issuu.com/somosbelcorp/docs/revista.' + prefijoPais + '.c' + numeroCampania + '.' + anioCampania + "?e=11111/22222";
+    //return 'http://issuu.com/somosbelcorp/docs/revista.' + prefijoPais + '.c' + numeroCampania + '.' + anioCampania + "?e=11111/22222";
+    return 'http://issuu.com/somosbelcorp/docs/revista.' + prefijoPais + '.c' + numeroCampania + '.' + anioCampania + "?mode=embed";
 }
 
 // mensaje alerta

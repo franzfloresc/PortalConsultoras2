@@ -2710,6 +2710,16 @@
     <None Include="Service References\ServiceCDR\CDRService2.xsd">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Service References\ServiceODS\ODSService.wsdl" />
+    <None Include="Service References\ServiceODS\ODSService.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceODS\ODSService1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceODS\ODSService2.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Service References\ServicePedidoRechazado\PedidoRechazadoService.wsdl" />
     <None Include="Service References\ServicePedidoRechazado\PedidoRechazadoService.xsd">
       <SubType>Designer</SubType>
@@ -2923,19 +2933,6 @@
     <None Include="Service References\ServiceEvaluacionCrediticia\EvaluacionCrediticiaService3.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\ServiceODS\ODSService.wsdl" />
-    <None Include="Service References\ServiceODS\ODSService.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\ServiceODS\ODSService1.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\ServiceODS\ODSService2.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\ServiceODS\ODSService.disco" />
-    <None Include="Service References\ServiceODS\configuration91.svcinfo" />
-    <None Include="Service References\ServiceODS\configuration.svcinfo" />
     <None Include="Service References\ServiceContenido\ContenidoService.disco" />
     <None Include="Service References\ServiceContenido\configuration91.svcinfo" />
     <None Include="Service References\ServiceContenido\configuration.svcinfo" />
@@ -2949,40 +2946,6 @@
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
-    <Content Include="Service References\ServiceODS\Portal.Consultoras.Web.ServiceODS.BEComprobantePercepcion.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </Content>
-    <Content Include="Service References\ServiceODS\Portal.Consultoras.Web.ServiceODS.BEComprobantePercepcionDetalle.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </Content>
-    <Content Include="Service References\ServiceODS\Portal.Consultoras.Web.ServiceODS.BEConsultora.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </Content>
-    <Content Include="Service References\ServiceODS\Portal.Consultoras.Web.ServiceODS.BEConsultoraCodigo.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </Content>
-    <Content Include="Service References\ServiceODS\Portal.Consultoras.Web.ServiceODS.BEConsultoraDD.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </Content>
-    <Content Include="Service References\ServiceODS\Portal.Consultoras.Web.ServiceODS.BEMensajeCUV.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </Content>
-    <Content Include="Service References\ServiceODS\Portal.Consultoras.Web.ServiceODS.BEProducto.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </Content>
-    <Content Include="Service References\ServiceODS\Portal.Consultoras.Web.ServiceODS.BEProductoDescripcion.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </Content>
-    <Content Include="Service References\ServiceODS\Portal.Consultoras.Web.ServiceODS.BETipoMeta.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </Content>
-    <Content Include="Service References\ServiceODS\Portal.Consultoras.Web.ServiceODS.BEUbigeo.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </Content>
-    <None Include="Service References\ServiceODS\Reference.svcmap">
-      <Generator>WCF Proxy Generator</Generator>
-      <LastGenOutput>Reference.cs</LastGenOutput>
-    </None>
     <None Include="Service References\ServicePedido\PedidoService.disco" />
     <None Include="Service References\ServicePedido\configuration91.svcinfo">
       <SubType>Designer</SubType>
@@ -2991,6 +2954,13 @@
     <None Include="Service References\ServicePedidoRechazado\configuration91.svcinfo" />
     <None Include="Service References\ServicePedidoRechazado\configuration.svcinfo" />
     <None Include="Service References\ServicePedidoRechazado\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Service References\ServiceODS\ODSService.disco" />
+    <None Include="Service References\ServiceODS\configuration91.svcinfo" />
+    <None Include="Service References\ServiceODS\configuration.svcinfo" />
+    <None Include="Service References\ServiceODS\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
