@@ -406,7 +406,7 @@ namespace Portal.Consultoras.Web.Controllers
             if (fechaCreacion.HasValue)
             {
                 ts = newDate - (DateTime) oldDate;
-                diferenciaDias = ts.Days + 1;
+                diferenciaDias = ts.Days;
             }
             else
             {
@@ -2018,30 +2018,36 @@ namespace Portal.Consultoras.Web.Controllers
                     EstadoPostulante = c.EstadoPostulante,
                     TipoRechazo = tipoRechazoNombre,
                     MotivoRechazo = c.MotivoRechazo, 
-                    FechaEnvio = c.FechaEnvio,
+                    FechaEnvio = c.FechaEnvio
                     
                 };
                 
             });
-            
 
-            Dictionary< string, string> dic = new Dictionary<string, string>();
-            dic.Add("Fecha Registro", "FechaCreacion");
-            dic.Add("Tipo", "TipoSolicitud");
-            dic.Add("Fuente", "FuenteIngreso");
-            dic.Add("Nombre", "NombreCompleto");
-            dic.Add("Documento", "NumeroDocumento");
-            dic.Add("Zona", "CodigoZona");
-            dic.Add("Sección", "CodigoSeccion");
-            dic.Add("Territorio", "CodigoTerritorio");
-            dic.Add("Dirección", "Direccion"); //dic.Add("Dirección", "DireccionCompleta");
-            dic.Add(Dictionaries.LabelLugar1[CodigoISO], "LugarPadre"); //  dic.Add("Region", "LugarPadre");   
-            dic.Add(Dictionaries.LabelLugar2[CodigoISO], "LugarHijo"); //dic.Add("Comuna", "LugarHijo");
-            dic.Add("Telefono Celular", "TelefonoCelular");
-            dic.Add("Telefono Red Fija", "TelefonoFijo");
-            dic.Add("Estado Postulante", "EstadoPostulante");
-            dic.Add("Tipo Rechazo", "TipoRechazo");
-            dic.Add("Motivo Rechazo", "MotivoRechazo");
+
+            Dictionary<string, string> dic = new Dictionary<string, string>
+            {
+                {"Fecha Registro", "FechaCreacion"},
+                {"Tipo", "TipoSolicitud"},
+                {"Fuente", "FuenteIngreso"},
+                {"Nombre", "NombreCompleto"},
+                {"Documento", "NumeroDocumento"},
+                {"Zona", "CodigoZona"},
+                {"Sección", "CodigoSeccion"},
+                {"Territorio", "CodigoTerritorio"},
+                {"Dirección", "Direccion"},
+                {Dictionaries.LabelLugar1[CodigoISO], "LugarPadre"},
+                {Dictionaries.LabelLugar2[CodigoISO], "LugarHijo"},
+                {"Telefono Celular", "TelefonoCelular"},
+                {"Telefono Red Fija", "TelefonoFijo"},
+                {"Estado Postulante", "EstadoPostulante"},
+                {"Tipo Rechazo", "TipoRechazo"},
+                {"Motivo Rechazo", "MotivoRechazo"},
+                {"FechaEnvio", "FechaEnvio"}
+            };
+            //dic.Add("Dirección", "DireccionCompleta");
+            //  dic.Add("Region", "LugarPadre");   
+            //dic.Add("Comuna", "LugarHijo");
             Util.ExportToExcel("ReportePostulantes", resultado.ToList(), dic);
             return View();            
         }
@@ -2440,7 +2446,7 @@ namespace Portal.Consultoras.Web.Controllers
                 booIndiciadorActivo = false;
             else
                 booIndiciadorActivo = true;
-
+            
             SolicitudPostulanteParameter objSolicitudPostulanteParameter = new SolicitudPostulanteParameter
             {
                 Aplicacion = EnumsAplicacion.HerramientaGestionSAC,

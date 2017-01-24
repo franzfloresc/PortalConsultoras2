@@ -208,8 +208,8 @@
       'Dias en Espera',
       'Zona Origen',
       'Seccion Origen',
-      'cantDiasRechazados',
-      'cantDiasAproFFVV',
+      'Num Dias Rechazados',
+      'Num Dias Aprobado FFVV',
       'Fecha Creacion Codigo',
       'Codigo Campaña',
       'Campaña 1er pedido',
@@ -370,11 +370,11 @@
                         return rowObject[29] == '1' ? rowObject[32] : '-';
                     }
                 }, {
-                    name: 'cantDiasRechazados', index: 'cantDiasRechazados', width: 9, editable: true, resizable: false, align: 'center', formatter: function (cellvalue, options, rowObject) {
+                    name: 'Num Dias Rechazados', index: 'Num Dias Rechazados', width: 9, editable: true, resizable: false, align: 'center', formatter: function (cellvalue, options, rowObject) {
                         return rowObject[36];
                     }
                 }, {
-                    name: 'cantDiasAproFFVV', index: 'cantDiasAproFFVV', width: 9, editable: true, resizable: false, align: 'center', formatter: function (cellvalue, options, rowObject) {
+                    name: 'Num Dias Aprobado FFVV', index: 'Num Dias Aprobado FFVV', width: 9, editable: true, resizable: false, align: 'center', formatter: function (cellvalue, options, rowObject) {
                         return rowObject[37];
                     }
                 }, {
@@ -438,7 +438,7 @@
                 if (typeof option != 'undefined' && option != null) {
 
                     switch (option) {
-                        case "0":
+                        case "0": // TODOS
                             jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'Aprobar');
                             jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'Rechazar');
                             jQuery("#gvwSolicitudesPostulante").jqGrid('showCol', 'Reactivar');
@@ -454,21 +454,21 @@
                             jQuery("#gvwSolicitudesPostulante").jqGrid('showCol', 'Contrato');
                             jQuery("#gvwSolicitudesPostulante").jqGrid('showCol', 'Pagare');
                             jQuery("#gvwSolicitudesPostulante").jqGrid('showCol', 'DNI Aval');
-                            jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'CantDias'); 
+                            jQuery("#gvwSolicitudesPostulante").jqGrid('showCol', 'Dias en Espera');
                             jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'ZonaConsultora'); 
                             jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'SeccionConsultora');
-                            jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'cantDiasRechazados'); 
-                            jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'cantDiasAproFFVV');
+                            jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'Num Dias Rechazados');
+                            jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'Num Dias Aprobado FFVV');
                             jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'Fecha Creacion Codigo');
                             jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'Codigo Campaña');
                             jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'Campaña 1er pedido');
-                            jQuery("#gvwSolicitudesPostulante").jqGrid('showCol', 'Diferencia Dias');
+                            jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'Diferencia Dias');
                             break;
-                        case "2":
+                        case "2": //Gestion servicio al cliente
                             jQuery("#gvwSolicitudesPostulante").jqGrid('showCol', 'ZonaConsultora');
                             jQuery("#gvwSolicitudesPostulante").jqGrid('showCol', 'SeccionConsultora');
-                            jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'cantDiasRechazados');
-                            jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'cantDiasAproFFVV');
+                            jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'Num Dias Rechazados');
+                            jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'Num Dias Aprobado FFVV');
                             jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'Fecha Creacion Codigo');
                             jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'Codigo Campaña');
                             jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'Campaña 1er pedido'); 
@@ -484,7 +484,7 @@
                             jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'Enviar a FFVV');
 
                             break;
-                        case "3":
+                        case "3": //En aprobacion FFVV
                             jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'Aprobar');
                             jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'Rechazar');
                             jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'Reactivar');
@@ -500,17 +500,17 @@
                             jQuery("#gvwSolicitudesPostulante").jqGrid('showCol', 'Contrato');
                             jQuery("#gvwSolicitudesPostulante").jqGrid('showCol', 'Pagare');
                             jQuery("#gvwSolicitudesPostulante").jqGrid('showCol', 'DNI Aval');
-                            jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'CantDias');
+                            jQuery("#gvwSolicitudesPostulante").jqGrid('showCol', 'Dias en Espera');
                             jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'ZonaConsultora');
                             jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'SeccionConsultora');
-                            jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'cantDiasRechazados');
-                            jQuery("#gvwSolicitudesPostulante").jqGrid('showCol', 'cantDiasAproFFVV');
+                            jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'Num Dias Rechazados');
+                            jQuery("#gvwSolicitudesPostulante").jqGrid('showCol', 'Num Dias Aprobado FFVV');
                             jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'Fecha Creacion Codigo');
                             jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'Codigo Campaña');
                             jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'Campaña 1er pedido');
-                            jQuery("#gvwSolicitudesPostulante").jqGrid('showCol', 'Diferencia Dias');
+                            jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'Diferencia Dias');
                             break;
-                        case "4":
+                        case "4": // Rechazado
                             jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'Aprobar');
                             jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'Rechazar');
                             jQuery("#gvwSolicitudesPostulante").jqGrid('showCol', 'Reactivar');
@@ -526,17 +526,17 @@
                             jQuery("#gvwSolicitudesPostulante").jqGrid('showCol', 'Contrato');
                             jQuery("#gvwSolicitudesPostulante").jqGrid('showCol', 'Pagare');
                             jQuery("#gvwSolicitudesPostulante").jqGrid('showCol', 'DNI Aval');
-                            jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'CantDias');
+                            jQuery("#gvwSolicitudesPostulante").jqGrid('showCol', 'Dias en Espera');
                             jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'ZonaConsultora');
                             jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'SeccionConsultora');
-                            jQuery("#gvwSolicitudesPostulante").jqGrid('showCol', 'cantDiasRechazados');
-                            jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'cantDiasAproFFVV');
+                            jQuery("#gvwSolicitudesPostulante").jqGrid('showCol', 'Num Dias Rechazados');
+                            jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'Num Dias Aprobado FFVV');
                             jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'Fecha Creacion Codigo');
                             jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'Codigo Campaña');
                             jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'Campaña 1er pedido');
-                            jQuery("#gvwSolicitudesPostulante").jqGrid('showCol', 'Diferencia Dias');
+                            jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'Diferencia Dias');
                             break;
-                        case "5":
+                        case "5":  // Ya con codigo
                             jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'Aprobar');
                             jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'Rechazar');
                             jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'Pendiente de Confirmación');
@@ -551,17 +551,17 @@
                             jQuery("#gvwSolicitudesPostulante").jqGrid('showCol', 'Contrato');
                             jQuery("#gvwSolicitudesPostulante").jqGrid('showCol', 'Pagare');
                             jQuery("#gvwSolicitudesPostulante").jqGrid('showCol', 'DNI Aval');
-                            jQuery("#gvwSolicitudesPostulante").jqGrid('showCol', 'CantDias');
+                            jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'Dias en Espera');
                             jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'ZonaConsultora');
                             jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'SeccionConsultora');
-                            jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'cantDiasRechazados');
-                            jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'cantDiasAproFFVV');
+                            jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'Num Dias Rechazados');
+                            jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'Num Dias Aprobado FFVV');
                             jQuery("#gvwSolicitudesPostulante").jqGrid('showCol', 'Fecha Creacion Codigo');
                             jQuery("#gvwSolicitudesPostulante").jqGrid('showCol', 'Codigo Campaña');
                             jQuery("#gvwSolicitudesPostulante").jqGrid('showCol', 'Campaña 1er pedido');
                             jQuery("#gvwSolicitudesPostulante").jqGrid('showCol', 'Diferencia Dias');
                             break;
-                        case "7":
+                        case "7": // Generando Codigo
                             jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'Aprobar');
                             jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'Rechazar');
                             jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'Pendiente de Confirmación');
@@ -576,18 +576,18 @@
                             jQuery("#gvwSolicitudesPostulante").jqGrid('showCol', 'Contrato');
                             jQuery("#gvwSolicitudesPostulante").jqGrid('showCol', 'Pagare');
                             jQuery("#gvwSolicitudesPostulante").jqGrid('showCol', 'DNI Aval');
-                            jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'CantDias');
+                            jQuery("#gvwSolicitudesPostulante").jqGrid('showCol', 'Dias en Espera');
                             jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'ZonaConsultora');
                             jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'SeccionConsultora');
-                            jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'cantDiasRechazados');
-                            jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'cantDiasAproFFVV');
+                            jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'Num Dias Rechazados');
+                            jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'Num Dias Aprobado FFVV');
                             jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'Fecha Creacion Codigo');
                             jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'Codigo Campaña');
                             jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'Campaña 1er pedido');
-                            jQuery("#gvwSolicitudesPostulante").jqGrid('showCol', 'Diferencia Dias');
+                            jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'Diferencia Dias');
                             break;
                             // inicio pendiente por confirmar Estado 8 para Perú
-                        case "8":
+                        case "8": //En aprobacion SAC
                             jQuery("#gvwSolicitudesPostulante").jqGrid('showCol', 'Aprobar');
                             jQuery("#gvwSolicitudesPostulante").jqGrid('showCol', 'Rechazar');
                             jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'Reactivar');
@@ -604,18 +604,18 @@
                             jQuery("#gvwSolicitudesPostulante").jqGrid('showCol', 'Contrato');
                             jQuery("#gvwSolicitudesPostulante").jqGrid('showCol', 'Pagare');
                             jQuery("#gvwSolicitudesPostulante").jqGrid('showCol', 'DNI Aval');
-                            jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'CantDias');
+                            jQuery("#gvwSolicitudesPostulante").jqGrid('showCol', 'Dias en Espera');
                             jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'ZonaConsultora');
                             jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'SeccionConsultora');
-                            jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'cantDiasRechazados');
-                            jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'cantDiasAproFFVV');
+                            jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'Num Dias Rechazados');
+                            jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'Num Dias Aprobado FFVV');
                             jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'Fecha Creacion Codigo');
                             jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'Codigo Campaña');
                             jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'Campaña 1er pedido');
-                            jQuery("#gvwSolicitudesPostulante").jqGrid('showCol', 'Diferencia Dias');
+                            jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'Diferencia Dias');
                             break;
                             // fin pendiente por confirmar Estado 8 para Perú
-                        case "9":
+                        case "9":  // Pendiente de confirmar correo.
                             jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'Aprobar');
                             jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'Rechazar');
                             jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'Reactivar');
@@ -631,15 +631,15 @@
                             jQuery("#gvwSolicitudesPostulante").jqGrid('showCol', 'Contrato');
                             jQuery("#gvwSolicitudesPostulante").jqGrid('showCol', 'Pagare');
                             jQuery("#gvwSolicitudesPostulante").jqGrid('showCol', 'DNI Aval');
-                            jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'CantDias');
+                            jQuery("#gvwSolicitudesPostulante").jqGrid('showCol', 'Dias en Espera');
                             jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'ZonaConsultora');
                             jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'SeccionConsultora');
-                            jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'cantDiasRechazados');
-                            jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'cantDiasAproFFVV');
+                            jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'Num Dias Rechazados');
+                            jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'Num Dias Aprobado FFVV');
                             jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'Fecha Creacion Codigo');
                             jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'Codigo Campaña');
                             jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'Campaña 1er pedido');
-                            jQuery("#gvwSolicitudesPostulante").jqGrid('showCol', 'Diferencia Dias');
+                            jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'Diferencia Dias');
                             break;
                     }
                 }
