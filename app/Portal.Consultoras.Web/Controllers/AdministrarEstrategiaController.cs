@@ -210,7 +210,6 @@ namespace Portal.Consultoras.Web.Controllers
                     entidad.TipoEstrategiaID = Convert.ToInt32(TipoEstrategiaID);
                     entidad.CUV2 = (CUV != "") ? CUV : "0";
                     entidad.CampaniaID = Convert.ToInt32(CampaniaID);
-                   
 
                     using (PedidoServiceClient sv = new PedidoServiceClient())
                     {
