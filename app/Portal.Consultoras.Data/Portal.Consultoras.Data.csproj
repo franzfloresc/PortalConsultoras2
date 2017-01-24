@@ -65,6 +65,7 @@
   <ItemGroup>
     <Compile Include="CDR\DACDRParametria.cs" />
     <Compile Include="CDR\DACDRWeb.cs" />
+    <Compile Include="CDR\DACDRWebDatos.cs" />
     <Compile Include="CDR\DACDRWebDescripcion.cs" />
     <Compile Include="CDR\DACDRWebDetalle.cs" />
     <Compile Include="CDR\DACDRWebMotivoOperacion.cs" />
