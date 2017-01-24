@@ -104,6 +104,9 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         private string ConsultoraAsociadaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private long ConsultoraAsociadaIDField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private long ConsultoraIDField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -814,6 +817,19 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
                 if ((object.ReferenceEquals(this.ConsultoraAsociadaField, value) != true)) {
                     this.ConsultoraAsociadaField = value;
                     this.RaisePropertyChanged("ConsultoraAsociada");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public long ConsultoraAsociadaID {
+            get {
+                return this.ConsultoraAsociadaIDField;
+            }
+            set {
+                if ((this.ConsultoraAsociadaIDField.Equals(value) != true)) {
+                    this.ConsultoraAsociadaIDField = value;
+                    this.RaisePropertyChanged("ConsultoraAsociadaID");
                 }
             }
         }
