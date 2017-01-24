@@ -28,6 +28,7 @@
     <RestorePackages>true</RestorePackages>
     <DeployOnBuild Condition=" '$(DeployWEB)'!='' ">$(DeployWEB)</DeployOnBuild>
     <UseGlobalApplicationHostFile />
+   
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -2298,6 +2299,7 @@
     <Content Include="Content\Images\showroom\check_off.png" />
     <Content Include="Content\Images\showroom\check_on.png" />
     <Content Include="Content\Images\showroom\conoce_mas_aqui.png" />
+    <Content Include="Content\Images\showroom\conoce_mas_aqui_lbel.png" />
     <Content Include="Content\Images\showroom\contador_hoy.png" />
     <Content Include="Content\Images\showroom\CORTE-GIF.gif" />
     <Content Include="Content\Images\showroom\deco_nombre.png" />
