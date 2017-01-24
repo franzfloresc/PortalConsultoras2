@@ -161,7 +161,7 @@ namespace Portal.Consultoras.Web.Controllers
                                 using (PedidoServiceClient sv = new PedidoServiceClient())
                                 {
                                     //infoEstrategia = sv.GetImagenOfertaPersonalizadaOF(userData.PaisID, userData.CampaniaID, olstProducto[0].CUV.Trim());
-                                    infoEstrategia = sv.GetImagenOfertaPersonalizadaOF(userData.PaisID, userData.CampaniaID, xproducto.CUV.Trim());
+                                    infoEstrategia = sv.GetImagenOfertaPersonalizadaOF(userData.PaisID, userData.CampaniaID, beProducto.CUV.Trim());
                                 }
                                 if (!string.IsNullOrEmpty(infoEstrategia))
                                 {
