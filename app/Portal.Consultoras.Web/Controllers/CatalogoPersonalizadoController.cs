@@ -128,18 +128,12 @@ namespace Portal.Consultoras.Web.Controllers
                         int limiteJetlore = int.Parse(ConfigurationManager.AppSettings.Get("LimiteJetloreCatalogoPersonalizado"));
                         lista = lista.Take(limiteJetlore).ToList();
 
-                        string joinCuv = string.Empty;
-                        foreach (var producto in lista)
-                        {
-                            joinCuv += producto.Cuv + ",";
-                        }
-
-                        joinCuv = joinCuv.Substring(0, joinCuv.Length - 1);
+                        string codigosCuv = string.Join(",", lista.Select(x => x.Cuv));
 
                         List<BEProducto> olstProducto = new List<BEProducto>();
                         using (ODSServiceClient sv = new ODSServiceClient())
                         {
-                            olstProducto = sv.SelectProductoByListaCuvSearchRegionZona(userData.PaisID, userData.CampaniaID, joinCuv,
+                            olstProducto = sv.SelectProductoByListaCuvSearchRegionZona(userData.PaisID, userData.CampaniaID, codigosCuv,
                                     userData.RegionID, userData.ZonaID, userData.CodigorRegion, userData.CodigoZona, false).ToList();
                         }
 
