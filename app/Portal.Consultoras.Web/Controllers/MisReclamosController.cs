@@ -1163,7 +1163,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 var precio = decimal.Round(cDRWebDetalle.Precio, 2);
                 var precio2 = decimal.Round(cDRWebDetalle.Precio2, 2);
-                var simbolo = "S/.";
+                var simbolo = userData.Simbolo;
 
                 htmlOperacion = htmlOperacion.Replace("#FORMATO_DESCRIPCIONCUV1#", cDRWebDetalle.Descripcion);
                 htmlOperacion = htmlOperacion.Replace("#FORMATO_SOLICITUD#", cDRWebDetalle.Solicitud);

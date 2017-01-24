@@ -66,5 +66,11 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         void CreateLogCDRWebCulminadoFromCDRWeb(int PaisID, int cDRWebId);
+
+        [OperationContract]
+        BECDRWeb GetCDRWebByLogCDRWebCulminadoId(int PaisID, long logCDRWebCulminadoId);
+
+        [OperationContract]
+        List<BECDRWebDetalle> GetCDRWebDetalleByLogCDRWebCulminadoId(int PaisID, long logCDRWebCulminadoId);
     }
 }

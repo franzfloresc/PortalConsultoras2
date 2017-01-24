@@ -72,6 +72,7 @@ namespace Portal.Consultoras.Web.Controllers
                     else if (TipoOrigen == 5) sv.UpdNotificacionSolicitudClienteCatalogoVisualizacion(paisId, ProcesoId);
                     else if (TipoOrigen == 4) sv.UpdNotificacionSolicitudClienteVisualizacion(paisId, ProcesoId);
                     else if (TipoOrigen == 7) sv.UpdNotificacionSolicitudCdrVisualizacion(paisId, ProcesoId);
+                    else if (TipoOrigen == 8) sv.UpdNotificacionCdrCulminadoVisualizacion(paisId, ProcesoId);
                     else sv.UpdNotificacionesConsultoraVisualizacion(paisId, ProcesoId, TipoOrigen);
                 }
                 SessionKeys.ClearSessionCantidadNotificaciones();
@@ -375,6 +376,35 @@ namespace Portal.Consultoras.Web.Controllers
             model.ListaDetalle = listaCdrWebDetalle;
 
             return PartialView("ListaDetalleCdr", model);
+        }
+
+        public ActionResult ListarDetalleCdrCulminado(long solicitudId)
+        {
+            var model = new CDRWebModel();
+
+            var cdrWeb = new BECDRWeb();
+            var listaCdrWebDetalle = new List<BECDRWebDetalle>();
+            using (CDRServiceClient sv = new CDRServiceClient())
+            {
+                cdrWeb = sv.GetCDRWebByLogCDRWebCulminadoId(userData.PaisID, solicitudId);
+
+                listaCdrWebDetalle = sv.GetCDRWebDetalleByLogCDRWebCulminadoId(userData.PaisID, solicitudId).ToList() ?? new List<BECDRWebDetalle>();
+                listaCdrWebDetalle.Update(p => p.Solicitud = ObtenerDescripcion(p.CodigoOperacion, Constantes.TipoMensajeCDR.Finalizado).Descripcion);
+                listaCdrWebDetalle.Update(p => p.SolucionSolicitada = ObtenerDescripcion(p.CodigoOperacion, Constantes.TipoMensajeCDR.MensajeFinalizado).Descripcion);
+            }
+
+            model.CDRWebID = cdrWeb.CDRWebID;
+            model.PedidoID = cdrWeb.PedidoID;
+            model.PedidoNumero = cdrWeb.PedidoNumero;
+            model.CampaniaID = cdrWeb.CampaniaID;
+            model.FechaRegistro = cdrWeb.FechaRegistro;
+            model.FechaCulminado = cdrWeb.FechaCulminado;
+            model.NombreConsultora = userData.NombreConsultora;
+            model.CodigoIso = userData.CodigoISO;
+            model.Simbolo = userData.Simbolo;
+            model.ListaDetalle = listaCdrWebDetalle;
+
+            return PartialView("ListaDetalleCdrCulminado", model);
         }
 
         private BECDRWebDescripcion ObtenerDescripcion(string codigoSsic, string tipo)

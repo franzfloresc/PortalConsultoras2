@@ -1,4 +1,5 @@
 ﻿using Portal.Consultoras.Data.CDR;
+using Portal.Consultoras.Entities.CDR;
 using System.Transactions;
 
 namespace Portal.Consultoras.BizLogic.CDR
@@ -16,6 +17,16 @@ namespace Portal.Consultoras.BizLogic.CDR
                 dALogCDRWebCulminado.CreateLogCDRWebCulminadoFromCDRWeb(cDRWebId);
                 transaction.Complete();
             }
+        }
+
+        public int UpdateVisualizado(int paisId, long logCDRWebCulminadoId)
+        {
+            return new DALogCDRWebCulminado(paisId).UpdateVisualizado(logCDRWebCulminadoId);
+        }
+
+        public BECDRWeb GetByLogCDRWebCulminadoId(int paisId, long logCDRWebCulminadoId)
+        {
+            return new DALogCDRWebCulminado(paisId).GetByLogCDRWebCulminadoId(logCDRWebCulminadoId);
         }
     }
 }

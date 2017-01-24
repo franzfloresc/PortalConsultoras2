@@ -69,6 +69,7 @@
     <Compile Include="CDR\DACDRWebDetalle.cs" />
     <Compile Include="CDR\DACDRWebMotivoOperacion.cs" />
     <Compile Include="CDR\DALogCDRWebCulminado.cs" />
+    <Compile Include="CDR\DALogCDRWebDetalleCulminado.cs" />
     <Compile Include="CDR\DALogCDRWebDetalle.cs" />
     <Compile Include="CDR\DALogCDRWeb.cs" />
     <Compile Include="DAAfiliaClienteConsultora.cs" />

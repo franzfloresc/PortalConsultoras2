@@ -15,6 +15,7 @@ namespace Portal.Consultoras.Service
         private BLLogCDRWebDetalle bLLogCDRWebDetalle;
         private BLCDRParametria BLCDRParametria;
         private BLLogCDRWebCulminado BLLogCDRWebCulminado;
+        private BLLogCDRWebDetalleCulminado BLLogCDRWebDetalleCulminado;
 
         public CDRService()
         {
@@ -26,6 +27,7 @@ namespace Portal.Consultoras.Service
             bLLogCDRWebDetalle = new BLLogCDRWebDetalle();
             BLCDRParametria=new BLCDRParametria();
             BLLogCDRWebCulminado = new BLLogCDRWebCulminado();
+            BLLogCDRWebDetalleCulminado = new BLLogCDRWebDetalleCulminado();
         }
 
         public int InsCDRWeb(int PaisID, BECDRWeb entity)
@@ -127,6 +129,16 @@ namespace Portal.Consultoras.Service
         public void CreateLogCDRWebCulminadoFromCDRWeb(int PaisID, int cDRWebId)
         {
             BLLogCDRWebCulminado.CreateLogCDRWebCulminadoFromCDRWeb(PaisID, cDRWebId);
+        }
+
+        public BECDRWeb GetCDRWebByLogCDRWebCulminadoId(int PaisID, long logCDRWebCulminadoId)
+        {
+            return BLLogCDRWebCulminado.GetByLogCDRWebCulminadoId(PaisID, logCDRWebCulminadoId);
+        }
+
+        public List<BECDRWebDetalle> GetCDRWebDetalleByLogCDRWebCulminadoId(int PaisID, long logCDRWebCulminadoId)
+        {
+            return BLLogCDRWebDetalleCulminado.GetByLogCDRWebCulminadoId(PaisID, logCDRWebCulminadoId);
         }
     }
 }

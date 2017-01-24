@@ -1,0 +1,237 @@
+﻿@model Portal.Consultoras.Web.Models.CDRWebModel
+
+@{
+    var formatoCampania = Model.CampaniaID.ToString().Substring(0, 4) + "-" + Model.CampaniaID.ToString().Substring(4, 2);
+}
+
+
+<table width="100%" border="0" cellspacing="0" cellpadding="0" align="center" style="background:#FFF;">
+    <thead>
+        <tr>
+            <th colspan="3" style="width: 100%; height: 50px; border-bottom: 1px solid #000; padding: 12px 0px; text-align: center;">
+                <img src="http://www.genesis-peru.com/mailing-belcorp/logo.png" alt="Logo Esika" />
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td colspan="3" style="height:30px;"></td>
+        </tr>
+        <tr>
+            <td colspan="3">
+                <table align="center" border="0" cellspacing="0" cellpadding="0" style="width:100%; text-align:center; padding-bottom:20px;">
+                    <tbody>
+                        <tr>
+                            <td style="font-family: 'Calibri'; font-size: 17px; text-align: center; font-weight: 500; color: #000; padding: 0 0 20px 0;">
+                                ¡Hola @Model.NombreConsultora!
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: center; font-family: 'Calibri'; font-size: 22px; font-weight: 700; color: #000; padding-bottom: 15px;">
+                                HEMOS RECIBIDO TU SOLICITUD DE CAMBIOS Y <br />DEVOLUCIONES
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: center; font-family: 'Calibri'; color: #000; font-weight: 700; font-size: 14px; padding-bottom: 30px;">
+                                En estos momentos la estamos evaluando y en 30 minutos te daremos una respuesta
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="padding-bottom:15px;">
+                                <table align="center" border="0" cellspacing="0" cellpadding="0" style="width:100%; padding-left:14px; padding-right:14px;">
+                                    <tbody>
+                                        <tr>
+                                            <td style="width: 33%; text-align: center; font-family: 'Calibri'; font-size: 15px; font-weight: 300; color: black; border-right: 1px solid black; padding-right: 14px;">
+                                                Fecha: @Model.FechaCulminado.Value.ToString("dd/MM/yyyy")
+                                            </td>
+                                            <td style="width: 33%; text-align: center; font-family: 'Calibri'; font-size: 15px; font-weight: 300; color: black; border-right: 1px solid black; padding-left: 14px; padding-right: 14px;">
+                                                Solicitud: Nº @Model.CDRWebID
+                                            </td>
+                                            <td style="width: 33%; text-align: center; font-family: 'Calibri'; font-size: 15px; font-weight: 300; color: black; padding-left: 14px;">
+                                                Campaña: @formatoCampania
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: center; font-size: 17px; font-weight: 700; font-family: 'Calibri'; color: #262626; text-align: center; border-top: 1px solid #979797; border-bottom: 1px solid #979797; padding: 8px;">
+                                DETALLE DE LA SOLICITUD
+                            </td>
+                        </tr>
+
+                        @foreach (var detalle in Model.ListaDetalle)
+                        {
+                            <tr>
+                                <td style="border-bottom:1px solid #979797; padding-top:23px; padding-bottom:15px">
+                                    <table align="center" border="0" cellspacing="0" cellpadding="0" style="width:100%; padding-left:14px; padding-right:14px;">
+                                        <tbody>
+                                            <tr>
+                                                <td style="width: 55%; text-align: left; font-family: 'Calibri'; font-size: 16px; color: #000; padding-right: 14px; vertical-align: top;">
+                                                    @detalle.CUV
+                                                </td>
+                                                <td style="width: 45%; text-align: left; font-family: 'Calibri'; font-size: 16px; color: black; font-weight: 300; vertical-align: top;">
+                                                    Solución solicitada:
+                                                </td>
+                                            </tr>
+                                            
+                                            @if (detalle.CodigoOperacion == "C")
+                                            {
+                                                <tr>
+                                                    <td style="width: 55%; text-align: left; font-family: 'Calibri'; font-size: 16px; font-weight: 700; vertical-align: top; color: #000; padding-right: 14px;">
+                                                        @detalle.Descripcion
+                                                    </td>
+                                                    <td rowspan="2" style="width: 45%; text-align: left; font-family: 'Calibri'; font-size: 16px; vertical-align: top; color: black; font-weight: 700;">
+                                                        @detalle.Solicitud
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="width: 55%; text-align: left; font-family: 'Calibri'; font-size: 16px; vertical-align: top; color: black; padding-right: 14px;">
+                                                        @detalle.Cantidad unidades
+                                                    </td>
+                                                    <td style="width: 45%; text-align: left; font-family: 'Calibri'; font-size: 16px; vertical-align: top; color: black;"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="width: 55%; text-align: left; font-family: 'Calibri'; font-size: 16px; color: black; padding-right: 14px;">
+                                                        Costo: @(Model.Simbolo + " " + decimal.Round(detalle.Precio, 2))
+                                                    </td>
+                                                    <td style="width: 45%; text-align: left; font-family: 'Calibri'; font-size: 16px; color: black;"></td>
+                                                </tr>
+                                            }
+                                            else if (detalle.CodigoOperacion == "D")
+                                            {
+                                                <tr>
+                                                    <td style="width: 55%; text-align: left; font-family: 'Calibri'; font-size: 16px; font-weight: 700; vertical-align: top; color: #000; padding-right: 14px;">
+                                                        @detalle.Descripcion
+                                                    </td>
+                                                    <td rowspan="2" style="width: 45%; text-align: left; font-family: 'Calibri'; font-size: 16px; vertical-align: top; color: black; font-weight: 700;">
+                                                        @detalle.Solicitud
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="width: 55%; text-align: left; font-family: 'Calibri'; font-size: 16px; vertical-align: top; color: black; padding-right: 14px;">
+                                                        @detalle.Cantidad unidades
+                                                    </td>
+                                                    <td style="width: 45%; text-align: left; font-family: 'Calibri'; font-size: 16px; vertical-align: top; color: black;"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="width: 55%; text-align: left; font-family: 'Calibri'; font-size: 16px; color: black; padding-right: 14px;">
+                                                        Costo: @(Model.Simbolo + " " + decimal.Round(detalle.Precio, 2))
+                                                    </td>
+                                                    <td style="width: 45%; text-align: left; font-family: 'Calibri'; font-size: 16px; color: black;"></td>
+                                                </tr>
+                                            }
+                                            else if (detalle.CodigoOperacion == "F")
+                                            {
+                                                <tr>
+                                                    <td style="width: 55%; text-align: left; font-family: 'Calibri'; font-size: 16px; font-weight: 700; vertical-align: top; color: #000; padding-right: 14px;">
+                                                        @detalle.Descripcion
+                                                    </td>
+                                                    <td rowspan="2" style="width: 45%; text-align: left; font-family: 'Calibri'; font-size: 16px; vertical-align: top; color: black; font-weight: 700;">
+                                                        @detalle.Solicitud
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="width: 55%; text-align: left; font-family: 'Calibri'; font-size: 16px; vertical-align: top; color: black; padding-right: 14px;">
+                                                        @detalle.Cantidad unidades
+                                                    </td>
+                                                    <td style="width: 45%; text-align: left; font-family: 'Calibri'; font-size: 16px; vertical-align: top; color: black;"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="width: 55%; text-align: left; font-family: 'Calibri'; font-size: 16px; color: black; padding-right: 14px;">
+                                                        Costo: @(Model.Simbolo + " " + decimal.Round(detalle.Precio, 2))
+                                                    </td>
+                                                    <td style="width: 45%; text-align: left; font-family: 'Calibri'; font-size: 16px; color: black;"></td>
+                                                </tr>
+                                            }
+                                            else if (detalle.CodigoOperacion == "G")
+                                            {
+                                                <tr>
+                                                    <td style="width: 55%; text-align: left; font-family: 'Calibri'; font-size: 16px; font-weight: 700; vertical-align: top; color: #000; padding-right: 14px;">
+                                                        @detalle.Descripcion
+                                                    </td>
+                                                    <td rowspan="2" style="width: 45%; text-align: left; font-family: 'Calibri'; font-size: 16px; vertical-align: top; color: black; font-weight: 700;">
+                                                        @detalle.Solicitud
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="width: 55%; text-align: left; font-family: 'Calibri'; font-size: 16px; vertical-align: top; color: black; padding-right: 14px;">
+                                                        @detalle.Cantidad unidades
+                                                    </td>
+                                                    <td style="width: 45%; text-align: left; font-family: 'Calibri'; font-size: 16px; vertical-align: top; color: black;"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="width: 55%; text-align: left; font-family: 'Calibri'; font-size: 16px; color: black; padding-right: 14px;">
+                                                        Costo: @(Model.Simbolo + " " + decimal.Round(detalle.Precio, 2))
+                                                    </td>
+                                                    <td style="width: 45%; text-align: left; font-family: 'Calibri'; font-size: 16px; color: black;"></td>
+                                                </tr>
+                                            }
+                                            else
+                                            {
+                                                <tr>
+                                                    <td style="width: 55%; text-align: left; font-family: 'Calibri'; font-size: 16px; font-weight: 700; vertical-align: top; color: #000; padding-right: 14px;">
+                                                        @detalle.Descripcion
+                                                    </td>
+                                                    <td style="width: 45%; text-align: left; font-family: 'Calibri'; font-size: 16px; vertical-align: top; color: black; font-weight: 700;">
+                                                        @detalle.Solicitud
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="width: 55%; text-align: left; font-family: 'Calibri'; font-size: 16px; vertical-align: top; color: black; padding-right: 14px;">
+                                                        @detalle.Cantidad unidades unidades
+                                                    </td>
+                                                    <td style="width: 45%; text-align: left; font-family: 'Calibri'; font-size: 16px; vertical-align: top; color: black;">
+                                                        @detalle.CUV2
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="width: 55%; text-align: left; font-family: 'Calibri'; font-size: 16px; color: black; padding-right: 14px;">
+                                                        Costo: @(Model.Simbolo + " " + decimal.Round(detalle.Precio, 2))
+                                                    </td>
+                                                    <td style="width: 45%; text-align: left; font-family: 'Calibri'; font-size: 16px; color: black;">
+                                                        @detalle.Descripcion2
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="width: 55%; padding-right: 14px;">&nbsp;</td>
+                                                    <td style="width: 45%; text-align: left; font-family: 'Calibri'; font-size: 16px; vertical-align: top; color: black;">
+                                                        @detalle.Cantidad2 unidades
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="width: 55%; padding-right: 14px;">&nbsp;</td>
+                                                    <td style="width: 44%; text-align: left; font-family: 'Calibri'; font-size: 16px; vertical-align: top; color: black;">
+                                                        Costo: @(Model.Simbolo + " " + decimal.Round(detalle.Precio2, 2))
+                                                    </td>
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+                        }
+
+                        <tr>
+                            <td style="padding-top:30px;">
+                                <table align="center" border="0" cellspacing="0" cellpadding="0" style="width:55%; padding-left:14px; padding-right:14px;">
+                                    <tbody>
+                                        <tr>
+                                            <td style="font-weight: 700; color: black; font-size: 14px; width: 100%; border: 2px solid #979797; font-family: 'Calibri'; text-align: center; padding: 10px;">
+                                                <a href="@Url.Action("Index","MisReclamos")" style="text-decoration: none; font-family: 'Calibri'; font-weight: 700; color: black; font-size: 14px;">
+                                                    VER LA SOLICITUD EN SOMOS BELCORP
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
