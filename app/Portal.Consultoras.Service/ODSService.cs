@@ -119,6 +119,11 @@ namespace Portal.Consultoras.Service
             return BLConsultora.GetConsultoraIdByCodigo(paisID, CodigoConsultora);
         }
 
+        public IList<BEProducto> GetProductoComercialByListaCuv(int paisID, int campaniaID, int regionID, int zonaID, string codigoRegion, string codigoZona, string listaCuv)
+        {
+            return BLProducto.GetProductoComercialByListaCuv(paisID, campaniaID, regionID, zonaID, codigoRegion, codigoZona, listaCuv);
+        }
+
 
         #region Digitacion Distribuida
 
@@ -219,6 +224,22 @@ namespace Portal.Consultoras.Service
         public IList<BEProductoAppCatalogo> GetNombreProducto048ByListaCUV(int paisID, int campaniaId, string listaCUV)
         {
             return BLProducto.GetNombreProducto048ByListaCUV(paisID, campaniaId, listaCUV);
+        }
+
+        //PL20-1237
+        public int InsProductoCompartido(BEProductoCompartido ProComp)
+        {
+            return BLProducto.InsProductoCompartido(ProComp);
+        }
+
+        public BEProductoCompartido GetProductoCompartido(int paisID, int ProCompID)
+        {
+            return BLProducto.GetProductoCompartido(paisID, ProCompID);
+        }
+
+        public IList<BEProducto> GetListBrothersByCUV(int paisID, int codCampania, string cuv)
+        {
+            return BLProducto.GetListBrothersByCUV(paisID, codCampania, cuv);
         }
     }
 }

@@ -31,6 +31,9 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             ViewBag.EsConsultoraNueva = userData.ConsultoraNueva == Constantes.EstadoActividadConsultora.Registrada ||
                 userData.ConsultoraNueva == Constantes.EstadoActividadConsultora.Retirada;
 
+            string PaisesCatalogoWhatsUp = ConfigurationManager.AppSettings.Get("PaisesCatalogoWhatsUp") ?? string.Empty;
+            ViewBag.ActivacionAppCatalogoWhastUp = PaisesCatalogoWhatsUp.Contains(userData.CodigoISO) ? 1 : 0;
+            
             return View(clienteModel);
         }
 
@@ -99,7 +102,8 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             List<Catalogo> catalogos = new List<Catalogo>();
             string urlISSUUSearch = "http://search.issuu.com/api/2_0/document?username=somosbelcorp&q=";
             string urlISSUUVisor = "http://issuu.com/somosbelcorp/docs/";
-            string parameterDisplayMain = "?e=1/2";
+            //string parameterDisplayMain = "?e=1/2";
+            string parameterDisplayMain = "?mode=embed"; 
 
             try
             {
