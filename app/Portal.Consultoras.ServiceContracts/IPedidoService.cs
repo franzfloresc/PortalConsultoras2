@@ -936,5 +936,8 @@ namespace Portal.Consultoras.ServiceContracts
         
         [OperationContract]
         List<BEEstrategia> GetEstrategiaODD(int paisID, int codCampania, string codConsultora, DateTime fechaInicioFact);
+
+        [OperationContract]
+        int ActivarDesactivarEstrategias(int PaisID, string Usuario, string EstrategiasActivas, string EstrategiasDesactivas);
     }
 }

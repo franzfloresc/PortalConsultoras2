@@ -25,6 +25,8 @@ namespace Portal.Consultoras.Data
                 Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, entidad.CampaniaID);
                 Context.Database.AddInParameter(command, "@TipoEstrategiaID", DbType.Int32, entidad.TipoEstrategiaID);
                 Context.Database.AddInParameter(command, "@CUV", DbType.String, entidad.CUV2);
+                Context.Database.AddInParameter(command, "@TieneImagen", DbType.Int32, entidad.Imagen);
+                Context.Database.AddInParameter(command, "@Activo", DbType.Int32, entidad.Activo);
                 return Context.ExecuteReader(command);
             }
         }
@@ -329,5 +331,20 @@ namespace Portal.Consultoras.Data
                 return Context.ExecuteReader(command);
             }
         }
+
+        public int ActivarDesactivarEstrategias(string UsuarioModificacion, string EstrategiasActivas, string EstrategiasDesactivas)
+        {
+            int result;
+            using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.ActivarDesactivarEstrategias"))
+            {
+                Context.Database.AddInParameter(command, "@UsuarioModificacion", DbType.String, UsuarioModificacion);
+                Context.Database.AddInParameter(command, "@EstrategiasActivas", DbType.String, EstrategiasActivas);
+                Context.Database.AddInParameter(command, "@EstrategiasDesactivas", DbType.String, EstrategiasDesactivas);
+
+                result = Context.ExecuteNonQuery(command);
+            }
+            return result;
+        }
+
     }
 }
