@@ -164,6 +164,12 @@
   <wsdl:message name="IUsuarioService_ValidarEmailConsultora_OutputMessage">
     <wsdl:part name="parameters" element="tns:ValidarEmailConsultoraResponse" />
   </wsdl:message>
+  <wsdl:message name="IUsuarioService_ValidarTelefonoConsultora_InputMessage">
+    <wsdl:part name="parameters" element="tns:ValidarTelefonoConsultora" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_ValidarTelefonoConsultora_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ValidarTelefonoConsultoraResponse" />
+  </wsdl:message>
   <wsdl:message name="IUsuarioService_GetEstadosRestringidos_InputMessage">
     <wsdl:part name="parameters" element="tns:GetEstadosRestringidos" />
   </wsdl:message>
@@ -598,6 +604,10 @@
     <wsdl:operation name="ValidarEmailConsultora">
       <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/ValidarEmailConsultora" message="tns:IUsuarioService_ValidarEmailConsultora_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/ValidarEmailConsultoraResponse" message="tns:IUsuarioService_ValidarEmailConsultora_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ValidarTelefonoConsultora">
+      <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/ValidarTelefonoConsultora" message="tns:IUsuarioService_ValidarTelefonoConsultora_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/ValidarTelefonoConsultoraResponse" message="tns:IUsuarioService_ValidarTelefonoConsultora_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="GetEstadosRestringidos">
       <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/GetEstadosRestringidos" message="tns:IUsuarioService_GetEstadosRestringidos_InputMessage" />
@@ -1049,6 +1059,15 @@
     </wsdl:operation>
     <wsdl:operation name="ValidarEmailConsultora">
       <soap:operation soapAction="http://tempuri.org/IUsuarioService/ValidarEmailConsultora" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ValidarTelefonoConsultora">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/ValidarTelefonoConsultora" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -1552,6 +1571,33 @@
       </wsdl:output>
     </wsdl:operation>
   </wsdl:binding>
+    <wsdl:operation name="ValidarTelefonoConsultora">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/ValidarTelefonoConsultora" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdNotificacionSolicitudCdrVisualizacion">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/UpdNotificacionSolicitudCdrVisualizacion" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateUsuarioEmailTelefono">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/UpdateUsuarioEmailTelefono" style="document" />
   <wsdl:service name="UsuarioService">
     <wsdl:port name="BasicHttpBinding_IUsuarioService" binding="tns:BasicHttpBinding_IUsuarioService">
       <soap:address location="http://localhost:41615/UsuarioService.svc" />

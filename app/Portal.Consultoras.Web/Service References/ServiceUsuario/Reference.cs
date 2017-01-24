@@ -5529,6 +5529,12 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/ValidarEmailConsultora", ReplyAction="http://tempuri.org/IUsuarioService/ValidarEmailConsultoraResponse")]
         System.Threading.Tasks.Task<int> ValidarEmailConsultoraAsync(int PaisID, string Email, string CodigoUsuario);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/ValidarTelefonoConsultora", ReplyAction="http://tempuri.org/IUsuarioService/ValidarTelefonoConsultoraResponse")]
+        int ValidarTelefonoConsultora(int PaisID, string Telefono, string CodigoUsuario);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/ValidarTelefonoConsultora", ReplyAction="http://tempuri.org/IUsuarioService/ValidarTelefonoConsultoraResponse")]
+        System.Threading.Tasks.Task<int> ValidarTelefonoConsultoraAsync(int PaisID, string Telefono, string CodigoUsuario);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetEstadosRestringidos", ReplyAction="http://tempuri.org/IUsuarioService/GetEstadosRestringidosResponse")]
         int[] GetEstadosRestringidos(int paisID);
         
@@ -6109,6 +6115,14 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         
         public System.Threading.Tasks.Task<int> ValidarEmailConsultoraAsync(int PaisID, string Email, string CodigoUsuario) {
             return base.Channel.ValidarEmailConsultoraAsync(PaisID, Email, CodigoUsuario);
+        }
+        
+        public int ValidarTelefonoConsultora(int PaisID, string Telefono, string CodigoUsuario) {
+            return base.Channel.ValidarTelefonoConsultora(PaisID, Telefono, CodigoUsuario);
+        }
+        
+        public System.Threading.Tasks.Task<int> ValidarTelefonoConsultoraAsync(int PaisID, string Telefono, string CodigoUsuario) {
+            return base.Channel.ValidarTelefonoConsultoraAsync(PaisID, Telefono, CodigoUsuario);
         }
         
         public int[] GetEstadosRestringidos(int paisID) {
