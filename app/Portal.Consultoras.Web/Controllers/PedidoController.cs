@@ -80,8 +80,8 @@ namespace Portal.Consultoras.Web.Controllers
                 BEConfiguracionCampania oBEConfiguracionCampania;
                 using (PedidoServiceClient sv = new PedidoServiceClient())
                 {
-                    userData.ConsultoraID = userData.UsuarioPrueba == 1 ? userData.ConsultoraAsociadaID : userData.ConsultoraID;
-                    oBEConfiguracionCampania = sv.GetEstadoPedido(userData.PaisID, userData.CampaniaID, userData.ConsultoraID, userData.ZonaID, userData.RegionID);
+                    var ConsultoraID = userData.UsuarioPrueba == 1 ? userData.ConsultoraAsociadaID : userData.ConsultoraID;
+                    oBEConfiguracionCampania = sv.GetEstadoPedido(userData.PaisID, userData.CampaniaID, ConsultoraID, userData.ZonaID, userData.RegionID);
                 }
 
                 if (oBEConfiguracionCampania != null)
@@ -3371,9 +3371,10 @@ namespace Portal.Consultoras.Web.Controllers
                         }
                         //Dado que no se usa el indicador de ModificaPedidoReservado, este campo en el servicio será utilizado para enviar el campo: ValidacionAbierta
 
-                        userData.CodigoUsuario = userData.UsuarioPrueba == 1 ? userData.ConsultoraAsociada : userData.CodigoUsuario.ToString();
+                     
+                        var CodigoUsuario = userData.UsuarioPrueba == 1 ? userData.ConsultoraAsociada : userData.CodigoUsuario.ToString();
 
-                        sv.UpdPedidoWebByEstado(userData.PaisID, userData.CampaniaID, userData.PedidoID, Estado, false, true, userData.CodigoUsuario, ValidacionAbierta);
+                        sv.UpdPedidoWebByEstado(userData.PaisID, userData.CampaniaID, userData.PedidoID, Estado, false, true, CodigoUsuario, ValidacionAbierta);
                         if (Tipo == "PI")
                         {
                             //Inserta Aceptacion Reemplazos
