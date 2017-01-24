@@ -39,7 +39,8 @@
             @{ var posicion = 1; }
             @foreach (var item in Model.ListaShowRoomOferta)
             {
-                var ganaHasta = Convert.ToInt32(item.PrecioOferta) - Convert.ToInt32(item.PrecioCatalogo);
+                //var ganaHasta = Convert.ToInt32(item.PrecioOferta) - Convert.ToInt32(item.PrecioCatalogo);
+                var ganaHasta = Convert.ToDecimal(item.PrecioOferta) - Convert.ToDecimal(item.PrecioCatalogo);
                 var formatoGanaHasta = Util.DecimalToStringFormat(ganaHasta, Model.CodigoIso);
                 var formatoPrecioCatalogo = Util.DecimalToStringFormat(item.PrecioCatalogo, Model.CodigoIso);
                 

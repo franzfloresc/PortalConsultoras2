@@ -92,6 +92,9 @@ namespace Portal.Consultoras.ServiceContracts
         int ValidarEmailConsultora(int PaisID, string Email, string CodigoUsuario);
 
         [OperationContract]
+        int ValidarTelefonoConsultora(int PaisID, string Telefono, string CodigoUsuario);
+
+        [OperationContract]
         List<int> GetEstadosRestringidos(int paisID);
 
         [OperationContract]
