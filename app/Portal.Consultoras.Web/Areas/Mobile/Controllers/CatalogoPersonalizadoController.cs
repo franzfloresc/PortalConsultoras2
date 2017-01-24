@@ -37,6 +37,10 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             }
             //PL20-1273
 
+            //PL20-1284
+            var url1 = ConfigurationManager.AppSettings.Get("UrlImagenFAVMobile");
+            ViewBag.UrlImagenFAVMobile = string.Format(url1, userData.CodigoISO);
+
             return View(model);
         }
 

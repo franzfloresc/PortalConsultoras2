@@ -458,8 +458,11 @@ function CargarCatalogoPersonalizado() {
                     if (totalRegistros != data.totalRegistrosFilter) $('#div-delete-filters').show();
                     else $('#div-delete-filters').hide();
                 }
-
                 //SB20-1197
+
+                if (tipoOrigen == 3) {
+                    $('#fav-home-total').text('Te mostramos ' + cantidadRegistros.toString() + ' de ' + data.totalRegistros + ' productos.');
+                }
 
             }
             else data.data = new Array();

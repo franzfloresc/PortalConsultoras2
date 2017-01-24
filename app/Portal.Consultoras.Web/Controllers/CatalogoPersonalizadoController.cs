@@ -46,6 +46,12 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 ViewBag.PrecioMin = listaProductoModel.OrderBy(x => x.PrecioCatalogo).FirstOrDefault().PrecioCatalogoString;
                 ViewBag.PrecioMax = listaProductoModel.OrderByDescending(x => x.PrecioCatalogo).FirstOrDefault().PrecioCatalogoString;
+            //PL20-1283
+            var nombre1 = (string.IsNullOrEmpty(userData.Sobrenombre) ? userData.NombreConsultora : userData.Sobrenombre);
+            ViewBag.NombreConsultora = Util.SubStr(nombre1, 0).ToUpper();
+            var url1 = ConfigurationManager.AppSettings.Get("UrlImagenFAVLanding");
+            ViewBag.UrlImagenFAVLanding = string.Format(url1, userData.CodigoISO);
+
             }
 
             return View(model);

@@ -133,6 +133,7 @@ GO
 
 USE BelcorpDominicana
 GO
+
 IF EXISTS(SELECT 1 FROM sys.procedures 
           WHERE object_id = OBJECT_ID(N'dbo.GetDatosSapProductoByListaCuv_SB2'))
 BEGIN
