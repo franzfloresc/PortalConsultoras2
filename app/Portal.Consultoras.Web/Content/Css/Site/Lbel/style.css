@@ -19492,7 +19492,7 @@ html {
 }
 .btn_conoce_mas_aqui {
     margin-top:18px;
-    background: url("/Content/Images/showroom/conoce_mas_aqui.png") no-repeat;
+    background: url("/Content/Images/showroom/conoce_mas_aqui_lbel.png") no-repeat;
     height:25px;
     text-align:center;
     width:182px;
@@ -19724,6 +19724,7 @@ label.checkpop.c_on {
     float:left;
     margin-top:30px;
     margin-bottom: 40px;
+    position:relative;
     }
 .producto_showroom:nth-child(3n){
     margin-right:0;
@@ -19890,11 +19891,11 @@ label.checkpop.c_on {
     width:148px;
     height:33px;
     margin:0 auto;
-    margin-top:150px;
-    font-family: 'ArialBoldMT';
+    margin-top:-16px;
+    font-family: 'Lato';
     font-size:14px;
     text-align:center;
-    padding-top:10px;
+    line-height: 32px;
     border:2px solid #ffffff;
 }
 .footerTerminos a{

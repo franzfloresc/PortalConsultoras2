@@ -107,6 +107,7 @@
                 var urlWs = "";
                 var urlBase = "";
                 var urlBase2 = "";
+                
                 if (System.Web.HttpContext.Current.Request.UserAgent != null)
                 {
                     var request = HttpContext.Current.Request;
@@ -122,13 +123,14 @@
                     urlBase = urlBase.Replace("=", "%3D");
 
                     var message = Uri.EscapeDataString(texto) + " - " + urlBase;
-                    urlWs = "whatsapp://send?text=" + message;
-                    //var urlWs = "whatsapp://send?text=" ;                    
+                    //urlWs = "whatsapp://send?text=" + message;
+                    urlWs = Uri.EscapeDataString(texto);
+                    //var urlWs = "whatsapp://sendUri.EscapeDataString(texto)text=" ;                    
                 }
 
 
             }
-            <a class="btn_ws_showroom" href="@urlWs" data-action="share/whatsapp/share"><img src="@Url.Content("~/Content/Images/mobile/Esika/iconowscolor.png")" alt="-" /></a>
+            <a class="btn_ws_showroom" onclick="TagManagerSWR('{@urlWs}');"><img src="@Url.Content("~/Content/Images/mobile/Esika/iconowscolor.png")" alt="-" /></a>
             <a class="btn_facebook_showroom" href="" data-accion="face" onclick='CompartirFacebook("@urlBase2");'><img src="@Url.Content("~/Content/Images/mobile/Esika/catalogo_facebook_color.png")" alt="-" /></a>
             <hr class="clear" />
         </div>
@@ -459,5 +461,8 @@
 
             window.open(url, 'Facebook', "width=" + popWwidth + ",height=" + popHeight + ",menubar=0,toolbar=0,directories=0,scrollbars=no,resizable=no,left=" + left + ",top=" + top + "");
         }
+
+       
     </script>
+    <script src="@Url.Content("~/Scripts/PortalConsultoras/Mobile/CatalogoPersonalizado/Index.js")"></script>
 }
