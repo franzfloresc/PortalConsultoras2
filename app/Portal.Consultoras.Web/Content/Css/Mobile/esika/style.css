@@ -10760,3 +10760,7 @@ a{
     margin-top:25px;
     margin-bottom:10px;
 }
+.form-control{
+    box-sizing:border-box;
+    height:39px !important;
+}
