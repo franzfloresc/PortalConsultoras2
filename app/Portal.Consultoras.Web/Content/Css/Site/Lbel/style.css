@@ -1621,10 +1621,14 @@ header {
     font-family: 'lato';
     font-size: 11pt;
     font-weight: 400;
-    color: #060000;
+    border: 1px solid #ccc;
     margin-right: 8px;
-    height: 30px;
+    height: 40px;
+    line-height: 40px;
     margin-top: 2px;
+    color: #999999;
+    padding-left:10PX;
+
 }
 .pedido_ingreso_c {
     width:100%;
@@ -3081,7 +3085,7 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido{
     height:auto;
     /*width:218px;
     height:211px;*/
-    background:#CCC;
+    background:white;
     /*margin-right:24.5px;*/
     margin-right:2.4%;
     float:left;
@@ -3091,9 +3095,9 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido{
     margin-right:0px;
 }
 
-.contenedor_banners ul li div{
+.contenedor_banners ul li .nombre_banner_inferior{
     background:#000;
-    margin-top:-5px;
+    margin-top:9px;
     height:57px;
     text-align:center;
     color:#FFF;
@@ -19493,7 +19497,7 @@ html {
 }
 .btn_conoce_mas_aqui {
     margin-top:18px;
-    background: url("/Content/Images/showroom/conoce_mas_aqui.png") no-repeat;
+    background: url("/Content/Images/showroom/conoce_mas_aqui_lbel.png") no-repeat;
     height:25px;
     text-align:center;
     width:182px;
@@ -19726,6 +19730,7 @@ label.checkpop.c_on {
     float:left;
     margin-top:30px;
     margin-bottom: 40px;
+    position:relative;
     }
 .producto_showroom:nth-child(3n){
     margin-right:0;
@@ -19893,11 +19898,11 @@ label.checkpop.c_on {
     width:148px;
     height:33px;
     margin:0 auto;
-    margin-top:150px;
-    font-family: 'ArialBoldMT';
+    margin-top:-16px;
+    font-family: 'Lato';
     font-size:14px;
     text-align:center;
-    padding-top:10px;
+    line-height: 32px;
     border:2px solid #ffffff;
 }
 .footerTerminos a{
@@ -32757,6 +32762,35 @@ h1#penmostreo .campana {
 
 .content_pop_oferta_dia .liquidacion_rango_right_pedido{
     background:transparent !important;
+}
+/*PAYPAL*/
+.monto_texto{
+    font-family:'Lato';
+    font-size:13px;
+    margin-top:5px;
+    margin-bottom:5px;
+}
+.cuadro_tarjeta{
+    width:250px;
+    height: 40px;
+    line-height: 40px;
+    color: #999999;
+    font-family: 'Lato';    
+    border: 1px solid #ccc;
+    padding-left: 10px;
+    margin-left:10px;
+}
+.select_fecha_pago select{
+    color: #999999;
+    font-family: 'Lato';    
+    border: 1px solid #ccc;
+    font-size:13px;
+    height: 40px;
+    padding:10px;
+    margin-left:10px;
+    margin-top: -9px;
+    display: block;
+    float: left;
 }
 /*POP UP GENERALES*/
 .Content_general_pop_up{

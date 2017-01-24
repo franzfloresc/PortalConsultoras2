@@ -4164,6 +4164,7 @@ table > thead > tr > th {
     margin-bottom: 25px;
     border: 1px solid #60b78d;
     height: 34px;
+    cursor:pointer;
 }
 .btn_facebook_showroom{
     float: left;
@@ -10759,4 +10760,8 @@ a{
     line-height:56px;
     margin-top:25px;
     margin-bottom:10px;
+}
+.form-control{
+    box-sizing:border-box;
+    height:39px !important;
 }
