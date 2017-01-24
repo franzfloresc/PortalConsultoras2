@@ -39,8 +39,8 @@ $(document).ready(function () {
         CargarCatalogoPersonalizado();
     });
     $(document).on('click', '.pop-ofertarevista', function () {
-        var contenedor = $(this).parents('[data-item="catalogopersonalizado"]');
-        ObtenerOfertaRevista(contenedor);
+        //var contenedor = $(this).parents('[data-item="catalogopersonalizado"]');
+        //ObtenerOfertaRevista(contenedor);
     });
     $(document).on('click', '.agregar-ofertarevista', function () {
         if (ReservadoOEnHorarioRestringido())

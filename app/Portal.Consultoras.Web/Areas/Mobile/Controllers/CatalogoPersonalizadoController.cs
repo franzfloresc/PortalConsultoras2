@@ -84,18 +84,12 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
                                 if (listaHermanos.Any())
                                 {
-                                    string joinCuv = string.Empty;
-                                    foreach (var item in listaHermanos)
-                                    {
-                                        joinCuv += item.CUV + ",";
-                                    }
-
-                                    joinCuv = joinCuv.Substring(0, joinCuv.Length - 1);
+                                    string codigosCuv = string.Join(",", listaHermanos.Select(x => x.CUV));
 
                                     var listaAppCatalogo = new List<Producto>();
                                     using (ProductoServiceClient svc = new ProductoServiceClient())
                                     {
-                                        listaAppCatalogo = svc.ObtenerProductosAppCatalogoByListaCUV(userData.CodigoISO, userData.CampaniaID, joinCuv).ToList();
+                                        listaAppCatalogo = svc.ObtenerProductosAppCatalogoByListaCUV(userData.CodigoISO, userData.CampaniaID, codigosCuv).ToList();
                                     }
 
                                     if (listaAppCatalogo.Any())
@@ -115,6 +109,10 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                                                 ImagenBulk = item.ImagenBulk
                                             });
                                         }
+                                    }
+                                    else
+                                    {
+                                        productoModel.EsMaquillaje = false;
                                     }
 
                                     Session["ProductosCatalogoPersonalizadoFilter"] = listaProductoModel;
