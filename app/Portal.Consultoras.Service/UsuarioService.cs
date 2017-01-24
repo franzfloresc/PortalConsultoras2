@@ -179,6 +179,12 @@ namespace Portal.Consultoras.Service
             return BLUsuario.ValidarEmailConsultora(PaisID, Email, CodigoUsuario);
         }
 
+        public int ValidarTelefonoConsultora(int PaisID, string Telefono, string CodigoUsuario)
+        {
+            var BLUsuario = new BLUsuario();
+            return BLUsuario.ValidarTelefonoConsultora(PaisID, Telefono, CodigoUsuario);
+        }
+
         public List<int> GetEstadosRestringidos(int paisID)
         {
             var BLUsuario = new BLUsuario();

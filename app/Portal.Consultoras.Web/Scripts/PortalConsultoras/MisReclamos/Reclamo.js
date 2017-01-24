@@ -887,10 +887,14 @@ function DetalleEliminar(objItem) {
 }
 
 function SolicitudEnviar() {
+    debugger;
     var ok = true;
 
     var correo = $.trim($("#txtEmail").val());
     var celular = $.trim($("#txtTelefono").val());
+    var telefono = $.trim($("#txtTelefono").val());
+
+    
 
     if (correo == "" || celular == "") {
         alert_msg("Debe completar la sección de VALIDA TUS DATOS para finalizar");
@@ -932,6 +936,18 @@ function SolicitudEnviar() {
         $("#txtTelefono").css("border-color", "#b5b5b5");
     }
 
+    var esTelefonoValido = ValidarTelefono(telefono);
+    if (!esTelefonoValido) {
+        $("#spnTelefonoError").css("display", "");
+        $("#spnTelefonoError").html("*Este teléfono ya está siendo utilizado. Intenta con otro");
+        $("#txtTelefono").css("border-color", "red");
+        ok = false;
+    } else {
+        $("#spnTelefonoError").css("display", "none");
+        $("#txtTelefono").css("border-color", "#b5b5b5");
+    }
+    
+
     if (!ok) {
         return false;
     }
@@ -954,6 +970,8 @@ function SolicitudEnviar() {
     if (!ok) {
         return false;
     }
+
+
 
     ok = $("#btnAceptoPoliticas").hasClass("politica_reclamos_icono_active");
     if (!ok) {
@@ -1109,6 +1127,36 @@ function ObtenerMontoProductosDevolver(codigoOperacion) {
             }
 
             resultado = data.montoProductos;
+        },
+        error: function (data, error) {
+            closeWaitingDialog();
+        }
+    });
+
+    return resultado;
+}
+
+function ValidarTelefono() {
+    var resultado = false;
+
+    var item = {
+        Telefono: $("#txtTelefono").val()
+    };
+
+    jQuery.ajax({
+        type: 'POST',
+        url: baseUrl + 'MisReclamos/ValidadTelefonoConsultora',
+        dataType: 'json',
+        contentType: 'application/json; charset=utf-8',
+        data: JSON.stringify(item),
+        async: false,
+        cache: false,
+        success: function (data) {
+            closeWaitingDialog();
+            if (!checkTimeout(data))
+                resultado = false;
+            else
+                resultado = data.success;
         },
         error: function (data, error) {
             closeWaitingDialog();

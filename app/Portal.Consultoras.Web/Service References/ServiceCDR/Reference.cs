@@ -601,10 +601,16 @@ namespace Portal.Consultoras.Web.ServiceCDR {
         private System.DateTime FechaRegistroField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private decimal ImporteCDRField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private long LogCDRWebIdField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int PedidoFacturadoIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int PedidoIdField;
         
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
@@ -721,6 +727,19 @@ namespace Portal.Consultoras.Web.ServiceCDR {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public decimal ImporteCDR {
+            get {
+                return this.ImporteCDRField;
+            }
+            set {
+                if ((this.ImporteCDRField.Equals(value) != true)) {
+                    this.ImporteCDRField = value;
+                    this.RaisePropertyChanged("ImporteCDR");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public long LogCDRWebId {
             get {
                 return this.LogCDRWebIdField;
@@ -742,6 +761,19 @@ namespace Portal.Consultoras.Web.ServiceCDR {
                 if ((this.PedidoFacturadoIdField.Equals(value) != true)) {
                     this.PedidoFacturadoIdField = value;
                     this.RaisePropertyChanged("PedidoFacturadoId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int PedidoId {
+            get {
+                return this.PedidoIdField;
+            }
+            set {
+                if ((this.PedidoIdField.Equals(value) != true)) {
+                    this.PedidoIdField = value;
+                    this.RaisePropertyChanged("PedidoId");
                 }
             }
         }

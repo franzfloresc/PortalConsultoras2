@@ -116,7 +116,7 @@
     @{ var posicionCarrusel = 1; }
     @foreach (var item2 in Model.ListaShowRoomOferta)
     {
-        var ganaHasta = Convert.ToInt32(item2.PrecioOferta) - Convert.ToInt32(item2.PrecioCatalogo);
+        var ganaHasta = Convert.ToDecimal(item2.PrecioOferta) - Convert.ToDecimal(item2.PrecioCatalogo);
         var formatoGanaHasta = Util.DecimalToStringFormat(ganaHasta, Model.CodigoIso);
         var formatoPrecioCatalogo = Util.DecimalToStringFormat(item2.PrecioCatalogo, Model.CodigoIso);      
 
@@ -323,7 +323,8 @@
                     $(cajaTexto).val(Number(cantidad) - 1);
             });
 
-            $("body").on("click", ".btnAgregarOfertaShowRoom", function(e) {
+            $("body").on("click", ".btnAgregarOfertaShowRoom", function (e) {
+                debugger;
                 var article = $(this).parents(".producto_showroom").eq(0);
                 var cantidad = $(article).find(".txtCantidad").val();
 
@@ -507,6 +508,7 @@
         }
 
         function AgregarOfertaShowRoom(article, cantidad) {
+            debugger;
             //var cantidad = $(article).find(".txtCantidad").val();
             var CUV = $(article).find(".valorCuv").val();
             var MarcaID = $(article).find(".claseMarcaID").val();

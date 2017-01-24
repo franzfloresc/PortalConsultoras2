@@ -446,3 +446,14 @@ function ReservadoOEnHorarioRestringidoAsync(mostrarAlerta, fnRestringido, fnNoR
         }
     });
 }
+
+function TagManagerSWR(item) {
+    debugger;
+    dataLayer.push({
+        'event': 'virtualEvent',
+        'category': 'Ofertas Showroom',
+        'action': 'Compartir WhatsApp',
+        'label': item,
+        'value': 0
+    });
+}

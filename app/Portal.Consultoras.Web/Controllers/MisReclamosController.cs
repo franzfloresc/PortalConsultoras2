@@ -1040,6 +1040,43 @@ namespace Portal.Consultoras.Web.Controllers
             }, JsonRequestBehavior.AllowGet);
         }
 
+        public JsonResult ValidadTelefonoConsultora(string Telefono)
+        {
+            try
+            {
+                int cantidad = 0;
+                using (UsuarioServiceClient svr = new UsuarioServiceClient())
+                {
+                    cantidad = svr.ValidarTelefonoConsultora(userData.PaisID, Telefono, userData.CodigoUsuario);
+                    if (cantidad > 0)
+                    {
+                        return Json(new
+                        {
+                            success = false,
+                            message = "*Este teléfono ya está siendo utilizado. Intenta con otro",
+                            extra = ""
+                        }, JsonRequestBehavior.AllowGet);
+                    }
+                }
+
+                return Json(new
+                {
+                    success = true,
+                    message = "OK",
+                    extra = ""
+                }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new
+                {
+                    success = false,
+                    message = "Error al intentar validar el teléfono",
+                    extra = ""
+                }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
         public JsonResult ValidarCorreoDuplicado(string correo)
         {
             try
