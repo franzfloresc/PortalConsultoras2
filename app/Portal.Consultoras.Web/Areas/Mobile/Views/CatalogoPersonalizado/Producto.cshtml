@@ -301,6 +301,7 @@
             </div>
 
             <div class="content_redes_ficha">
+            <div class="content_redes_ficha">
                 @{
                     var urlWs = "";
                     string urlBase_fb = "";
@@ -309,18 +310,14 @@
                         var request = HttpContext.Current.Request;
 
                         var urlBase_wsp = request.Url.Scheme + "://" + request.Url.Authority + "/Pdto.aspx?id=" + Model.CodigoIso + "_[valor]";
-                        urlBase_wsp = urlBase_wsp.Replace("/", "%2F");
-                        urlBase_wsp = urlBase_wsp.Replace(":", "%3A");
-                        urlBase_wsp = urlBase_wsp.Replace("?", "%3F");
-                        urlBase_wsp = urlBase_wsp.Replace("=", "%3D");
 
-                        urlWs = "whatsapp://send?text=" + urlBase_wsp;
+                        urlWs = urlBase_wsp;
                     
                         urlBase_fb = request.Url.Scheme + "://" + request.Url.Authority + "/Pdto.aspx?id=" + Model.CodigoIso + "_[valor]";
                     }
                 }
-                <a id="btn_wsp" class="btn_compartir_ofertas" href="javascript:window.location=CompartirWsp('@urlWs');" data-action="share/whatsapp/share"><img src="@Url.Content("~/Content/Images/Mobile/Esika/catalogo_ws.png")" alt=""></a>
-                <a id="btn_fb" class="btn_compartir_ofertas" href="#" onclick='CompartirFacebook("@urlBase_fb");'><img src="@Url.Content("~/Content/Images/Mobile/Esika/facebook.png")" alt=""></a>
+                <a id="btn_wsp" class="btn_compartir_ofertas" href="javascript:window.location=CompartirWsp('@urlWs');" data-action="share/whatsapp/share"><img src="@Url.Content("~/Content/Images/Mobile/Esika/iconowscolor.png")" alt=""></a>
+                <a id="btn_fb" class="btn_compartir_ofertas" href="#" onclick='CompartirFacebook("@urlBase_fb");'><img src="@Url.Content("~/Content/Images/Mobile/Esika/catalogo_facebook_color.png")" alt=""></a>
             </div>
 
             <div style="display: none;">
