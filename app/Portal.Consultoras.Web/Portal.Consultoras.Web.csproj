@@ -1328,6 +1328,7 @@
     <Content Include="Content\Images\btn_03c.png" />
     <Content Include="Content\Images\btn_03t.png" />
     <Content Include="Content\Images\btn_03v.png" />
+    <Content Include="Content\Images\btn_cerrar_popup.png" />
     <Content Include="Content\Images\btn_cerrar_popup.svg" />
     <Content Include="Content\Images\btn_cerrar_popupPercepcion.png" />
     <Content Include="Content\Images\btn_cerrar_popup_color_negro.svg" />
@@ -1797,6 +1798,7 @@
     <Content Include="Content\Images\iconos_acordion_despliegues.png" />
     <Content Include="Content\Images\icono_check.png" />
     <Content Include="Content\Images\icono_check.svg" />
+    <Content Include="Content\Images\icono_exclamacion_estado_pedido.png" />
     <Content Include="Content\Images\icono_exclamacion_estado_pedido.svg" />
     <Content Include="Content\Images\icono_lupa.png" />
     <Content Include="Content\Images\icons.png" />
