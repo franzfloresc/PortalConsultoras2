@@ -494,6 +494,12 @@
   <wsdl:message name="IUsuarioService_UpdNotificacionSolicitudCdrVisualizacion_OutputMessage">
     <wsdl:part name="parameters" element="tns:UpdNotificacionSolicitudCdrVisualizacionResponse" />
   </wsdl:message>
+  <wsdl:message name="IUsuarioService_UpdNotificacionCdrCulminadoVisualizacion_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdNotificacionCdrCulminadoVisualizacion" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_UpdNotificacionCdrCulminadoVisualizacion_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdNotificacionCdrCulminadoVisualizacionResponse" />
+  </wsdl:message>
   <wsdl:message name="IUsuarioService_UpdateUsuarioEmailTelefono_InputMessage">
     <wsdl:part name="parameters" element="tns:UpdateUsuarioEmailTelefono" />
   </wsdl:message>
@@ -824,6 +830,10 @@
     <wsdl:operation name="UpdNotificacionSolicitudCdrVisualizacion">
       <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/UpdNotificacionSolicitudCdrVisualizacion" message="tns:IUsuarioService_UpdNotificacionSolicitudCdrVisualizacion_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/UpdNotificacionSolicitudCdrVisualizacionResponse" message="tns:IUsuarioService_UpdNotificacionSolicitudCdrVisualizacion_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdNotificacionCdrCulminadoVisualizacion">
+      <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/UpdNotificacionCdrCulminadoVisualizacion" message="tns:IUsuarioService_UpdNotificacionCdrCulminadoVisualizacion_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/UpdNotificacionCdrCulminadoVisualizacionResponse" message="tns:IUsuarioService_UpdNotificacionCdrCulminadoVisualizacion_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="UpdateUsuarioEmailTelefono">
       <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/UpdateUsuarioEmailTelefono" message="tns:IUsuarioService_UpdateUsuarioEmailTelefono_InputMessage" />
@@ -1561,6 +1571,15 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="UpdNotificacionCdrCulminadoVisualizacion">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/UpdNotificacionCdrCulminadoVisualizacion" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="UpdateUsuarioEmailTelefono">
       <soap:operation soapAction="http://tempuri.org/IUsuarioService/UpdateUsuarioEmailTelefono" style="document" />
       <wsdl:input>
@@ -1571,33 +1590,6 @@
       </wsdl:output>
     </wsdl:operation>
   </wsdl:binding>
-    <wsdl:operation name="ValidarTelefonoConsultora">
-      <soap:operation soapAction="http://tempuri.org/IUsuarioService/ValidarTelefonoConsultora" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="UpdNotificacionSolicitudCdrVisualizacion">
-      <soap:operation soapAction="http://tempuri.org/IUsuarioService/UpdNotificacionSolicitudCdrVisualizacion" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="UpdateUsuarioEmailTelefono">
-      <soap:operation soapAction="http://tempuri.org/IUsuarioService/UpdateUsuarioEmailTelefono" style="document" />
   <wsdl:service name="UsuarioService">
     <wsdl:port name="BasicHttpBinding_IUsuarioService" binding="tns:BasicHttpBinding_IUsuarioService">
       <soap:address location="http://localhost:41615/UsuarioService.svc" />

@@ -302,4 +302,47 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+  <xs:element name="CreateLogCDRWebCulminadoFromCDRWeb">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="PaisID" type="xs:int" />
+        <xs:element minOccurs="0" name="cDRWebId" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CreateLogCDRWebCulminadoFromCDRWebResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetCDRWebByLogCDRWebCulminadoId">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="PaisID" type="xs:int" />
+        <xs:element minOccurs="0" name="logCDRWebCulminadoId" type="xs:long" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetCDRWebByLogCDRWebCulminadoIdResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q27="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.CDR" minOccurs="0" name="GetCDRWebByLogCDRWebCulminadoIdResult" nillable="true" type="q27:BECDRWeb" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetCDRWebDetalleByLogCDRWebCulminadoId">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="PaisID" type="xs:int" />
+        <xs:element minOccurs="0" name="logCDRWebCulminadoId" type="xs:long" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetCDRWebDetalleByLogCDRWebCulminadoIdResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q28="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.CDR" minOccurs="0" name="GetCDRWebDetalleByLogCDRWebCulminadoIdResult" nillable="true" type="q28:ArrayOfBECDRWebDetalle" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
 </xs:schema>
