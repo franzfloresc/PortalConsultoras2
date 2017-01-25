@@ -246,7 +246,13 @@
     <script src="@Url.Content("~/Scripts/slick-vertical.min.js")"></script>
 
     <script type="text/javascript">
-        $(document).ready(function() {
+
+        
+
+        $(document).ready(function () {
+
+            var listatipo = "";
+
             TagManagerOfertaShowRoom();
 
             $('#DialogMensajesBanner').dialog({
@@ -327,7 +333,7 @@
                 debugger;
                 var article = $(this).parents(".producto_showroom").eq(0);
                 var cantidad = $(article).find(".txtCantidad").val();
-
+                listatipo = "0";
                 AgregarOfertaShowRoom(article, cantidad);
                 e.preventDefault();
                 (this).blur();
@@ -339,7 +345,7 @@
                 var posicion = $(divPadre).attr("data-carrusel-posicion");
 
                 var article = $(".producto_showroom[data-posicion=" + posicion + "]");
-
+                listatipo = "1";
                 AgregarOfertaShowRoom(article, cantidad);
                 e.preventDefault();
                 (this).blur();
@@ -622,7 +628,7 @@
                                                 $(div2).find(".txtCantidad").val("1");
                                             }
 
-                                            AgregarTagManagerProductoAgregado(CUV, nombreProducto, PrecioUnidad, cantidad, descripcionMarca);
+                                            AgregarTagManagerProductoAgregadoSW(CUV, nombreProducto, PrecioUnidad, cantidad, descripcionMarca, listatipo);
                                             CargarResumenCampaniaHeader(true);
                                             TrackingJetloreAdd(cantidad, $("#hdCampaniaCodigo").val(), CUV);
                                         }
@@ -729,6 +735,27 @@
                 'event': 'addToCart',
                 'ecommerce': {
                     'add': {
+                        'products': [{
+                            'name': nombreProducto,
+                            'id': CUV,
+                            'price': PrecioUnidad,
+                            'brand': descripcionMarca,
+                            'variant': 'Ofertas Showroom',
+                            'category': 'NO DISPONIBLE',
+                            'quantity': cantidad
+                        }]
+                    }
+                }
+            });
+        }
+
+        function AgregarTagManagerProductoAgregadoSW(CUV, nombreProducto, PrecioUnidad, cantidad, descripcionMarca, tipo) {
+            var lista = tipo == 0 ? "Ofertas Showroom" : "Ofertas Showroom popUp";
+            dataLayer.push({
+                'event': 'addToCart',
+                'ecommerce': {
+                    'add': {
+                        'actionField': { 'list': lista },
                         'products': [{
                             'name': nombreProducto,
                             'id': CUV,
