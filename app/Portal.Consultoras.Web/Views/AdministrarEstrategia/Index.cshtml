@@ -622,6 +622,11 @@
             $("#spanTipoEstrategia").val($("#ddlTipoEstrategia option:selected").html().trim());
             $('#chkHabilitarOferta').attr('checked', false);
             $('#hdZonas').val('');
+            $('#txtCUV2').val('');
+            $('#txtDescripcion').val('');
+            $('#txtPrecio2').val('');
+            $('#ContenidoImagenes').empty();
+            $('#imgSeleccionada').attr("src", '');
             //$('#chkVisible1').attr("checked", true);
             //$('#chkVisible2').attr("checked", false);
             //$('#chkVisible3').attr("checked", true);
@@ -2144,7 +2149,7 @@
 
     function IniDialog() {
 
-        
+
         $('#DialogAdministracionEstrategia').dialog({
             autoOpen: false,
             resizable: false,
@@ -2153,11 +2158,12 @@
             width: 800,
             close: function () {
                 $('input:checkbox').removeAttr('checked');
-                $("#DialogAdministracionEstrategia").html(originalContent);
-            },
-            open: function (event, ui) {
-                originalContent = $("#DialogAdministracionEstrategia").html();
-            },
+                //$(this).dialog('destroy');
+                //$("#DialogAdministracionEstrategia").html(originalContent);
+            },           
+            //open: function (event, ui) {
+            //    originalContent = $("#DialogAdministracionEstrategia").html();
+            //},
             draggable: false,
             title: "Registro de Estrategias",
             buttons:
