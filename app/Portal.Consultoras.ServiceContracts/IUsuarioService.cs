@@ -262,6 +262,9 @@ namespace Portal.Consultoras.ServiceContracts
         void UpdNotificacionSolicitudCdrVisualizacion(int paisID, long procesoId);
 
         [OperationContract]
+        void UpdNotificacionCdrCulminadoVisualizacion(int paisID, long procesoId);
+
+        [OperationContract]
         int UpdateUsuarioEmailTelefono(int paisID, long ConsultoraID, string Email, string Telefono);
     }
 }

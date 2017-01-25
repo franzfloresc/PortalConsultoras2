@@ -329,12 +329,14 @@
 <div class="wrapper_resumen_mobile">
     <div class="nueva_seccion_fav">
            <div class="content_banner_fav">
-               <div class="content_imagen_banner_fav"><img  src="https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/7Rorcmg6hjVqTFM/banner_mobile.png"/></div>
+               <div class="content_imagen_banner_fav">
+                   <img src="@ViewBag.UrlImagenFAVMobile" alt="favoritos" />
+               </div>
                <div class="texto_fav_banner">
-                   Valeria, estos son los
+                   @ViewBag.NombreConsultora, estos son los
                    <span class="favoritos_txt">FAVORITOS</span>
                    <span class="texto_2_fav">DE TUS CLIENTES</span>
-                   <a class="btn_compralos_banner_fav">CÓMPRALOS</a>
+                   <a class="btn_compralos_banner_fav" href="@Url.Action("Index", "CatalogoPersonalizado", new { area = "Mobile" })" >CÓMPRALOS</a>
                </div>
            </div>            
         </div>
@@ -420,9 +422,9 @@
 @if (Model.CatalogoPersonalizadoMobile != 0 && Model.EsCatalogoPersonalizadoZonaValida)
 {
     <input type="hidden" id="flagCatalogoPersonalizado" />
-    <div class="banner_inferior_mobile">
+    @*<div class="banner_inferior_mobile">
         <a href="@Url.Action("Index", "CatalogoPersonalizado", new { area = "Mobile" })"><img src="@Model.UrlImagenCatalogoPersonalizado" alt="Los favoritos de tus clientes" /></a>
-    </div>
+    </div>*@
 }
 <div class="disclaimer_b">@(pieEscala)</div>
 
@@ -847,13 +849,13 @@
 
                     var urlBase_wsp = request.Url.Scheme + "://" + request.Url.Authority + "/Pdto.aspx?id=" + Model.CodigoISO + "_[valor]";
 
-                    urlWs = urlBase_wsp;
+                    urlWs = urlBase_wsp; //"whatsapp://send?text=" + urlBase_wsp;
 
                     urlBase_fb = request.Url.Scheme + "://" + request.Url.Authority + "/Pdto.aspx?id=" + Model.CodigoISO + "_[valor]";
                 }
             }
-            <a class="btn_compartir_ofertas" href="javascript:window.location=CompartirWsp('@urlWs', {RutaImagen: '{{FotoProducto01}}', MarcaID:'{{MarcaID}}', MarcaDesc:'{{DescripcionMarca}}', NombrePro:'{{DescripcionCUV2}}', Cuv:'{{CUV2}}'});" data-action="share/whatsapp/share"><img src="@Url.Content("~/Content/Images/Mobile/Esika/catalogo_ws.png")" alt=""></a>
-            <a class="btn_compartir_ofertas" href="javascript:void(0);" onclick="javascript:CompartirFacebook('@urlBase_fb',  {RutaImagen: '{{FotoProducto01}}', MarcaID:'{{MarcaID}}', MarcaDesc:'{{DescripcionMarca}}', NombrePro:'{{DescripcionCUV2}}', Cuv:'{{CUV2}}'});"><img src="@Url.Content("~/Content/Images/Mobile/Esika/facebook.png")" alt=""></a>
+            <a class="btn_compartir_ofertas" href='javascript:window.location=CompartirWsp("@urlWs", {RutaImagen: "{{FotoProducto01}}", MarcaID:"{{MarcaID}}", MarcaDesc:"{{DescripcionMarca}}", NombrePro:"{{DescripcionCUV2}}", Cuv:"{{CUV2}}"});' data-action="share/whatsapp/share"><img src="@Url.Content("~/Content/Images/Mobile/Esika/iconowscolor.png")" alt=""></a>
+            <a class="btn_compartir_ofertas" href="javascript:void(0);" onclick='javascript:CompartirFacebook("@urlBase_fb",  {RutaImagen: "{{FotoProducto01}}", MarcaID:"{{MarcaID}}", MarcaDesc:"{{DescripcionMarca}}", NombrePro:"{{DescripcionCUV2}}", Cuv:"{{CUV2}}"});'><img src="@Url.Content("~/Content/Images/Mobile/Esika/catalogo_facebook_color.png")" alt=""></a>
         </div>
         <hr class="clear" />
         <div style="margin-left:-20px; margin-right:-20px;">

@@ -162,4 +162,18 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="ArrayOfBECDRParametria" nillable="true" type="tns:ArrayOfBECDRParametria" />
+  <xs:complexType name="BECDRWebDatos">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CDRWebDatosID" type="xs:int" />
+      <xs:element minOccurs="0" name="Codigo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Valor" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="BECDRWebDatos" nillable="true" type="tns:BECDRWebDatos" />
+  <xs:complexType name="ArrayOfBECDRWebDatos">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="BECDRWebDatos" nillable="true" type="tns:BECDRWebDatos" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfBECDRWebDatos" nillable="true" type="tns:ArrayOfBECDRWebDatos" />
 </xs:schema>

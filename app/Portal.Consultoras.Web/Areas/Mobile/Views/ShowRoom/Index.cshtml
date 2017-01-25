@@ -201,7 +201,7 @@
             $("body").on("click", ".btnAgregarOfertaShowRoom", function (e) {
                 var article = $(this).parents(".listado_item").eq(0);
                 var cantidad = $(article).find(".txtCantidad").val();
-
+                
                 AgregarOfertaShowRoom(article, cantidad);
                 e.preventDefault();
                 (this).blur();
@@ -235,6 +235,7 @@
         }
 
         function AgregarOfertaShowRoom(article, cantidad) {
+            
             var CUV = $(article).find(".valorCuv").val();
             var MarcaID = $(article).find(".claseMarcaID").val();
             var PrecioUnidad = $(article).find(".clasePrecioUnidad").val();
@@ -328,8 +329,8 @@
                                                 $(article).find(".claseStock").text(stockRestante);
                                                 $(article).find(".txtCantidad").val("1");
                                             }
-
-                                            AgregarTagManagerProductoAgregado(CUV, nombreProducto, PrecioUnidad, cantidad, descripcionMarca);
+                                            
+                                            AgregarTagManagerProductoAgregadoSWR(CUV, nombreProducto, PrecioUnidad, cantidad, descripcionMarca,0);
                                             //ActualizarCantidadTotalPedido();
                                             CargarCantidadProductosPedidos();
                                             TrackingJetloreAdd(cantidad, $("#hdCampaniaCodigo").val(), CUV);
@@ -411,6 +412,28 @@
                     }
                 });
             }
+        }
+
+        function AgregarTagManagerProductoAgregadoSWR(CUV, nombreProducto, PrecioUnidad, cantidad, descripcionMarca, tipo) {
+            
+            var lista = tipo == 0 ? "Ofertas Showroom" : "Ofertas Showroom popUp";
+            dataLayer.push({
+                'event': 'addToCart',
+                'ecommerce': {
+                    'add': {
+                        'actionField': { 'list': lista },
+                        'products': [{
+                            'name': nombreProducto,
+                            'id': CUV,
+                            'price': PrecioUnidad,
+                            'brand': descripcionMarca,
+                            'variant': 'Ofertas Showroom',
+                            'category': 'NO DISPONIBLE',
+                            'quantity': cantidad
+                        }]
+                    }
+                }
+            });
         }
 
         function AgregarTagManagerProductoAgregado(CUV, nombreProducto, PrecioUnidad, cantidad, descripcionMarca) {

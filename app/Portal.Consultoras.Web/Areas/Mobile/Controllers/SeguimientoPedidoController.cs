@@ -21,7 +21,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             try
             {
                 var codigoConsultora = userData.UsuarioPrueba == 1 ? userData.ConsultoraAsociada : userData.CodigoConsultora;
-
                 BETracking[] listaPedidos;
                 using (var service = new PedidoServiceClient())
                 {

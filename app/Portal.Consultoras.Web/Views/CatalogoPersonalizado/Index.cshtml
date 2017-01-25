@@ -25,7 +25,9 @@
 
 <div class="fondo_f9f9f9"  style="background:white;overflow: visible; height:116px;">
     <div class="content_belcorp content_belcorp_misPedidos">
-        <div class="content_img_fav"><img src="@ViewBag.UrlImagenFAVLanding" alt=""/></div>
+        <div class="content_img_fav">
+            <img src="@ViewBag.UrlImagenFAVLanding" alt="favoritos"/>
+        </div>
         <div class="texto_banner_seccion_fav">
             @ViewBag.NombreConsultora, estos son los
             <span class="altas_seccion_fav">FAVORITOS</span>
@@ -99,7 +101,7 @@
                 <!--TERCER FILTRO-->
                 <span class="titulo_filtro_fav">RANGO DE PRECIO</span>
                 <div class="content_filtro_range">
-                    <input class="range-slider" value="0,100" style="width:100%; display:none;"/>
+                    <input class="range-slider" value="" style="width:100%; display:none;"/>
                 </div>
                 
                 <hr class="clear" />
@@ -1096,6 +1098,8 @@
         var tipoOrigen = "1";   //PL20-1227
         var urlGetInfoFichaProducto = '@Url.Action("GetInfoFichaProductoFAV", "CatalogoPersonalizado")';    //PL20-1268
         var simbolo = '@ViewBag.Simbolo';
+        var precioMin = '@ViewBag.PrecioMin';
+        var precioMax = '@ViewBag.PrecioMax';
     </script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/slick.min.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.range.js")"></script>

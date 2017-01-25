@@ -24,7 +24,9 @@
     <div class="pestana_lbel mobileLiquidaciones pestana_favoritos"></div><!--PESTANA LBEL-->
 </div>
 <div class="content_favoritos_banner">
-    <div class="content_banner_imagen_fav"><img src="https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/7Rorcmg6hjVqTFM/banner_mobile.png" alt="favoritos" /></div>
+    <div class="content_banner_imagen_fav">
+        <img src="@ViewBag.UrlImagenFAVMobile" alt="favoritos" />
+    </div>
     <div class="texto_favoritos">
         Porque conocemos a tus clientes, seleccionamos
         los productos que podrás venderles fácilmente
@@ -104,27 +106,42 @@
                         </div>
                         <div id="CategoriaCollpase" class="panel-collapse collapse">
                             <div class="panel-body panel_filtro">
-                                <div class="content-category">
-                                    <div class="block-checkbox">
-                                        <input type="checkbox" id="c1" name="categoria" value="2">
-                                        <label for="c1" class="label-checkbox">Maquillajes</label>
-                                    </div>
-                                    <div class="block-checkbox">
-                                        <input type="checkbox" id="c2" name="categoria" value="1">
-                                        <label for="c2" class="label-checkbox">Perfumes</label>
-                                    </div>
-                                    <div class="block-checkbox">
-                                        <input type="checkbox" id="c3" name="categoria" value="3">
-                                        <label for="c3" class="label-checkbox">Tratamiento Facial</label>
-                                    </div>
-                                    <div class="block-checkbox">
-                                        <input type="checkbox" id="c4" name="categoria" value="3">
-                                        <label for="c4" class="label-checkbox">CUIDADO PERSONAL</label>
-                                    </div>
-                                    <div class="block-checkbox">
-                                        <input type="checkbox" id="c5" name="categoria" value="3">
-                                        <label for="c5" class="label-checkbox">ACCESORIOS</label>
-                                    </div>
+                                <div id="idcategory" class="content-category">
+                                    @if (Model.FiltersByCategory != null)
+                                    {
+                                        int cont = 1;
+                                        foreach (var item in Model.FiltersByCategory)
+                                        {                                   
+                                            <div class="block-checkbox">
+                                                <input type="checkbox" id="c@(cont)" name="categoria" value="@item.Codigo">
+                                                <label for="c@(cont)" class="label-checkbox">@item.Descripcion</label>
+                                            </div>                                            
+                                            cont++;
+                                        }
+                                    }
+                                    else
+                                    { 
+                                        <div class="block-checkbox">
+                                            <input type="checkbox" id="c1" name="categoria" value="01">
+                                            <label for="c1" class="label-checkbox">FRAGANCIAS</label>
+                                        </div>
+                                        <div class="block-checkbox">
+                                            <input type="checkbox" id="c2" name="categoria" value="02">
+                                            <label for="c2" class="label-checkbox">MAQUILLAJE</label>
+                                        </div>
+                                        <div class="block-checkbox">
+                                            <input type="checkbox" id="c3" name="categoria" value="04">
+                                            <label for="c3" class="label-checkbox">CUIDADO PERSONAL</label>
+                                        </div>
+                                        <div class="block-checkbox">
+                                            <input type="checkbox" id="c4" name="categoria" value="09">
+                                            <label for="c4" class="label-checkbox">TRATAMIENTO CORPORAL</label>
+                                        </div>
+                                        <div class="block-checkbox">
+                                            <input type="checkbox" id="c5" name="categoria" value="10">
+                                            <label for="c5" class="label-checkbox">TRATAMIENTO FACIAL</label>
+                                        </div>
+                                    }
                                 </div>
                             </div>
                         </div>
@@ -138,19 +155,34 @@
                         </div>
                         <div id="collapseTwo" class="panel-collapse collapse">
                             <div class="panel-body panel_filtro">
-                                <div class="content-category">
-                                    <div class="center-checkbox">
-                                        <input type="checkbox" id="b1" name="brand" value="2">
-                                        <label for="b1" class="label-checkbox">Esika</label>
-                                    </div>
-                                    <div class="center-checkbox">
-                                        <input type="checkbox" id="b2" name="brand" value="1">
-                                        <label for="b2" class="label-checkbox">Lbel</label>
-                                    </div>
-                                    <div class="center-checkbox">
-                                        <input type="checkbox" id="b3" name="brand" value="3">
-                                        <label for="b3" class="label-checkbox">Cyzone</label>
-                                    </div>
+                                <div id="idmarca" class="content-category">
+                                    @if (Model.FiltersByBrand != null)
+                                    {
+                                        int cont2 = 1;
+                                        foreach (var item in Model.FiltersByBrand)
+                                        {
+                                            <div class="center-checkbox">
+                                                <input type="checkbox" id="b(@cont2)" name="brand" value="@item.Codigo">
+                                                <label for="b(@cont2)" class="label-checkbox">@item.Descripcion</label>
+                                            </div>
+                                            cont2++;
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <div class="center-checkbox">
+                                            <input type="checkbox" id="b1" name="brand" value="L">
+                                            <label for="b1" class="label-checkbox">L´BEL</label>
+                                        </div>
+                                        <div class="center-checkbox">
+                                            <input type="checkbox" id="b2" name="brand" value="E">
+                                            <label for="b2" class="label-checkbox">ÉSIKA</label>
+                                        </div>
+                                        <div class="center-checkbox">
+                                            <input type="checkbox" id="b3" name="brand" value="C">
+                                            <label for="b3" class="label-checkbox">CYZONE</label>
+                                        </div>
+                                    }
                                 </div>
                             </div>
                         </div>
@@ -318,7 +350,9 @@
                 <div class="producto_img_mobile" data-img="" onclick="mostrarFichaProductoFAV('{{CUV}}');">
                     <img src="{{ImagenProductoSugerido}}" class="imagen_producto">
                 </div>
-
+                {{#if TieneOfertaEnRevista}}
+                <div class="etiqueta_guia_negocio">GUÍA DE NEGOCIO</div>
+                {{/if}}
                 {{#if item.TieneLanzamientoCatalogoPersonalizado}}
                 <div class="etiqueta_producto nuevofavorito">
                     <img src="@Url.Content("~/Content/Images/producto_lanzamiento_CP.png")" alt="Etiqueta Producto" />
@@ -330,15 +364,18 @@
                     <p class="nombre_producto" onclick="mostrarFichaProductoFAV('{{CUV}}');" style=" cursor: pointer;">
                         <b>{{Descripcion}}</b>
                     </p>
-                   
                     <div class="producto_precio" style="margin-bottom: 2px !important; margin-top: 10px;">
+                        {{#if TieneOfertaEnRevista}}
+
+                        {{else}}
                         <span class="producto_precio_normal">{{Simbolo}} {{PrecioValorizadoString}}</span>
                         <span class="producto_precio_oferta"><b>{{Simbolo}} {{PrecioCatalogoString}}</b></span>
+                        {{/if}}
                     </div>
                     <div style="min-height:38px">
                         {{#if TieneOfertaEnRevista}}
                         <div class="seguir_pedido enlace_popupCatalogoPersonalizado">
-                            <a title="AQUÍ" class="pop-ofertarevista" style="cursor: pointer;">¡MIRA LA OFERTA!</a>
+                            <a title="AQUÍ" class="pop-ofertarevista" onclick="mostrarFichaProductoFAV('{{CUV}}')" style="cursor: pointer;">¡MIRA LA OFERTA!</a>
                         </div>
                         {{/if}}
                     </div>
@@ -355,10 +392,14 @@
 
                     
                     <div style="padding-top:9px; height: 15px;">
+                        {{#if TieneOfertaEnRevista}}
+
+                        {{else}}
                         <div class="agregado product-add" style="text-align: right; display:{{#if IsAgregado }}block;{{else}}none;{{/if}}">
                             AGREGADO
                             <div class="icono"></div>
                         </div>
+                        {{/if}}
                     </div>
                 </div>
             </div>

@@ -171,6 +171,7 @@ namespace Portal.Consultoras.Common
             public const string CDRWebDetalle = "CDRWebDetalle";
             public const string CDRWeb = "CDRWeb";
             public const string CDRParametria = "CDRParametria";
+            public const string CDRWebDatos = "CDRWebDatos";
         }
 
         public class TipoOfertaFinalCatalogoPersonalizado
@@ -302,6 +303,11 @@ namespace Portal.Consultoras.Common
             public const string Devolucion = "STO_PMON_DEV";
             public const string Trueque = "STO_DESV_TRQ";
             public const string TruequeValAbs = "STO_DESV_TRQ_OPER";
+        }
+
+        public class CdrWebDatos
+        {
+            public const string UnidadesPermitidasFaltante = "UnidadesPermitidasFaltante";
         }
 
         public class CodigoOperacionCDR

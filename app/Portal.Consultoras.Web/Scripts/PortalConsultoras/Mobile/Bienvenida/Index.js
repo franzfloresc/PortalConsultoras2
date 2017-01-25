@@ -1074,9 +1074,8 @@ function CerrarFichaOPT()
     $('#PopFichaOPT').hide();
 }
 
-function CompartirWsp(UrlBase, objParameter)
-{
-    var _id = InsertarProductoCompartido(objParameter,'W');
+function CompartirWsp(UrlBase, objParameter) {
+    var _id = InsertarProductoCompartido(objParameter, 'W');
     UrlBase = UrlBase.replace("[valor]", _id);
 
     UrlBase = UrlBase.ReplaceAll('/', '%2F');
