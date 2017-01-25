@@ -268,9 +268,11 @@
         <div class="contenedor_banners">
             <ul>
                 <li>
-                    <a href="@Model.accionBanner_01" title="Productos Descontinuados" target="_blank">
-                        <img src="@ViewBag.UrlBanner01" alt="Catálogo Personalizado" />
-                        <div>PRODUCTOS DESCONTINUADOS</div>
+                    <a href="@Model.accionBanner_01" title="Descúbrelos aquí" target="_blank">
+                        <div style="height:203px; overflow:hidden">
+                            <img src="@ViewBag.UrlBanner01" alt="Descúbrelos aquí" />
+                        </div>
+                        <div class="nombre_banner_inferior">DESCÚBRELOS AQUÍ</div>
                     </a>
                 </li>
 
@@ -278,24 +280,31 @@
                 {
                     <li>
                         <a href="javascript:;" title="Monto Mínimo">
-                            <img src="@ViewBag.UrlBanner02" alt="Monto Mínimo" />
-                            <div>MONTO MÍNIMO</div>
+                            <div style="height:203px; overflow:hidden">
+                                <img src="@ViewBag.UrlBanner02" alt="Monto Mínimo" />
+                            </div>
+                            <div class="nombre_banner_inferior">MONTO MÍNIMO</div>
                         </a>
                     </li>
                 }
                 else
                 {
                     <li>
-                        <a href="javascript:void(0);" onclick="MostrarMensaje('Para acceder a esta opción primero debes Modificar tu Pedido.');" title="Liquidaciones Web">
-                            <img src="@ViewBag.UrlBanner02" alt="Liquidaciones Web" />
-                            <div>LIQUIDACIONES WEB</div>
+                        <a href="javascript:void(0);" onclick="MostrarMensaje('Para acceder a esta opción primero debes Modificar tu Pedido.');" title="Entérate aquí">
+                            <div style="height:203px; overflow:hidden">
+                                <img src="@ViewBag.UrlBanner02" alt="Entérate aquí" />
+                            </div>
+                            <div class="nombre_banner_inferior">ENTÉRATE AQUÍ</div>
                         </a>
                     </li>
                 }
+
                 <li>
-                    <a href="javascript:;" title="Productos Agregados" onclick="CargarProductoAgotados();">
-                        <img src="@ViewBag.UrlBanner03" alt="Productos Agotados" />
-                        <div>PRODUCTOS AGOTADOS</div>
+                    <a href="javascript:;" title="Infórmate aquí" onclick="CargarProductoAgotados();">
+                        <div style="height:203px; overflow:hidden">
+                            <img src="@ViewBag.UrlBanner03" alt="Infórmate aquí" />
+                        </div>
+                        <div class="nombre_banner_inferior">INFÓRMATE AQUÍ</div>
                     </a>
                 </li>
             </ul>
