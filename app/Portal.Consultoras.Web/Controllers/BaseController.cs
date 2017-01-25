@@ -63,6 +63,22 @@ namespace Portal.Consultoras.Web.Controllers
                     //MenuBelcorpResponde();
                     ObtenerPedidoWeb();
                     ObtenerPedidoWebDetalle();
+
+                    /*PL20-1226*/
+                    ViewBag.TieneOfertaDelDia = userData.TieneOfertaDelDia;
+
+                    if (ViewBag.TieneOfertaDelDia)
+                    {
+                        // validar si se cerro el banner
+                        if (userData.CloseOfertaDelDia)
+                            ViewBag.TieneOfertaDelDia = false;
+
+                        // validar si tiene pedido reservado
+                        string msg = string.Empty;
+                        if (ValidarPedidoReservado(out msg))
+                            ViewBag.TieneOfertaDelDia = false;
+                    }
+                    /*PL20-1226*/
                 }
 
                 base.OnActionExecuting(filterContext);
@@ -355,9 +371,13 @@ namespace Portal.Consultoras.Web.Controllers
         {
             mensaje = string.Empty;
 
+            userData.ConsultoraID = userData.UsuarioPrueba == 1 ? userData.ConsultoraAsociadaID : userData.ConsultoraID;
+
             BEConfiguracionCampania oBEConfiguracionCampania = null;
             using (PedidoServiceClient sv = new PedidoServiceClient())
             {
+                
+
                 oBEConfiguracionCampania = sv.GetEstadoPedido(userData.PaisID, userData.CampaniaID, userData.ConsultoraID, userData.ZonaID, userData.RegionID);
             }
             if (oBEConfiguracionCampania != null && oBEConfiguracionCampania.EstadoPedido == Constantes.EstadoPedido.Procesado &&
@@ -439,6 +459,7 @@ namespace Portal.Consultoras.Web.Controllers
                     bool mostrarClienteOnline = (mostrarPedidosPendientes == "1" && strpaises.Contains(userData.CodigoISO));
                     if (!mostrarClienteOnline) lst.Remove(lst.FirstOrDefault(p => p.UrlItem.ToLower() == "consultoraonline/index"));
                     if (userData.IndicadorPermisoFIC == 0) lst.Remove(lst.FirstOrDefault(p => p.UrlItem.ToLower() == "pedidofic/index"));
+                    if(userData.CatalogoPersonalizado == 0 || !userData.EsCatalogoPersonalizadoZonaValida) lst.Remove(lst.FirstOrDefault(p => p.UrlItem.ToLower() == "catalogopersonalizado/index"));
 
                     List<PermisoModel> lstModel = new List<PermisoModel>();
                     foreach (var permiso in lst)
@@ -744,6 +765,7 @@ namespace Portal.Consultoras.Web.Controllers
             if (!isNull)
             {
                 ViewBag.PeriodoAnalytics = fechaHoy >= model.FechaInicioCampania.Date && fechaHoy <= model.FechaFinCampania.Date ? "Facturacion" : "Venta";
+                model.EsDiasFacturacion = fechaHoy >= model.FechaInicioCampania.Date && fechaHoy <= model.FechaFinCampania.Date ? true : false;
                 ViewBag.SemanaAnalytics = ObtenerSemanaAnalytics();
             }
 
@@ -1389,6 +1411,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     using (PedidoServiceClient sv = new PedidoServiceClient())
                     {
+                        model.CodigoConsultora = model.UsuarioPrueba == 1 ? model.ConsultoraAsociada.ToString() : model.CodigoConsultora;
                         model.BeShowRoomConsultora = sv.GetShowRoomConsultora(model.PaisID, model.CampaniaID, model.CodigoConsultora);
                         model.BeShowRoom = sv.GetShowRoomEventoByCampaniaID(model.PaisID, model.CampaniaID);
 
@@ -1875,6 +1898,85 @@ namespace Portal.Consultoras.Web.Controllers
 
             }
             return sFecha;
+        }
+
+        /*Inicio: OFerta del Dia*/
+        public TimeSpan CountdownODD(UsuarioModel model)
+        {
+            //DateTime hoy = DateTime.Now;
+            //DateTime d1 = new DateTime(hoy.Year, hoy.Month, hoy.Day, 0, 0, 0);
+            DateTime hoy;
+
+            using (SACServiceClient svc = new SACServiceClient())
+            {
+                hoy = svc.GetFechaHoraPais(model.PaisID);
+            }
+
+            DateTime d1 = new DateTime(hoy.Year, hoy.Month, hoy.Day, 0, 0, 0);
+            DateTime d2;
+
+            if (model.EsDiasFacturacion)  // dias de facturacion
+            {
+                TimeSpan t1 = model.HoraCierreZonaNormal;
+                d2 = new DateTime(hoy.Year, hoy.Month, hoy.Day, t1.Hours, t1.Minutes, t1.Seconds);
+            }
+            else
+            {
+                d2 = d1.AddDays(1);
+            }
+
+            TimeSpan t2 = (d2 - hoy);
+            return t2;
+        }
+
+        protected OfertaDelDiaModel GetOfertaDelDiaModel()
+        {
+            if (userData.OfertaDelDia != null)
+            {
+                OfertaDelDiaModel model = userData.OfertaDelDia;
+                model.TeQuedan = CountdownODD(userData);
+                return model;
+            }
+            return null;
+        }
+        /*PL20-1226*/
+        
+        public ShowRoomBannerLateralModel GetShowRoomBannerLateral()
+        {
+            ShowRoomBannerLateralModel model = new ShowRoomBannerLateralModel();
+
+            var paisesShowRoom = ConfigurationManager.AppSettings["PaisesShowRoom"];
+            if (!paisesShowRoom.Contains(userData.CodigoISO)) return new ShowRoomBannerLateralModel { ConsultoraNoEncontrada = true };
+
+            if (!userData.CargoEntidadesShowRoom) throw new Exception("Ocurrió un error al intentar traer la información de los evento y consultora de ShowRoom.");
+            model.BEShowRoomConsultora = userData.BeShowRoomConsultora;
+            model.BEShowRoom = userData.BeShowRoom;
+
+            if (model.BEShowRoom == null)
+            {
+                model.BEShowRoom = new BEShowRoomEvento();
+                model.BEShowRoomConsultora = new BEShowRoomEventoConsultora();
+            }
+            else if (model.BEShowRoomConsultora == null) model.BEShowRoomConsultora = new BEShowRoomEventoConsultora();
+            if (model.BEShowRoom.Estado != 1) return new ShowRoomBannerLateralModel { EventoNoEncontrado = true };
+
+            model.RutaShowRoomBannerLateral = model.BEShowRoom.RutaShowRoomBannerLateral;
+            model.EstaActivoLateral = true;
+            var fechaHoy = DateTime.Now.AddHours(userData.ZonaHoraria).Date;
+
+            if (fechaHoy >= userData.FechaInicioCampania.AddDays(-model.BEShowRoom.DiasAntes).Date &&
+                fechaHoy <= userData.FechaInicioCampania.AddDays(model.BEShowRoom.DiasDespues).Date)
+            {
+                model.MostrarShowRoomProductos = true;
+                model.RutaShowRoomBannerLateral = Url.Action("Index", "ShowRoom");
+            }
+            if (fechaHoy > userData.FechaInicioCampania.AddDays(model.BEShowRoom.DiasDespues).Date) model.EstaActivoLateral = false;
+
+            model.DiasFaltantes = userData.FechaInicioCampania.Day - model.BEShowRoom.DiasAntes;
+            model.MesFaltante = userData.FechaInicioCampania.Month;
+            model.AnioFaltante = userData.FechaInicioCampania.Year;
+
+            return model;
         }
     }
 }

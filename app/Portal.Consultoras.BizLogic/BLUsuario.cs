@@ -1083,5 +1083,11 @@ namespace Portal.Consultoras.BizLogic
 
             return consultora;
         }
+
+        public int UpdateUsuarioEmailTelefono(int paisID, long ConsultoraID, string Email, string Telefono)
+        {
+            var DAUsuario = new DAUsuario(paisID);
+            return DAUsuario.UpdateUsuarioEmailTelefono(ConsultoraID, Email, Telefono);
+        }
     }
 }

@@ -774,6 +774,9 @@ namespace Portal.Consultoras.ServiceContracts
         int CargarMasivaConsultora(int paisID, List<BEShowRoomEventoConsultora> listaConsultora);
 
         [OperationContract]
+        int ValidadStockOfertaShowRoom(int paisID, BEShowRoomOferta entity);
+
+        [OperationContract]
         int UpdOfertaShowRoomStockMasivo(int paisID, List<BEShowRoomOferta> stockProductos);
 
         [OperationContract]
@@ -926,5 +929,29 @@ namespace Portal.Consultoras.ServiceContracts
         [OperationContract]
         void DeshacerUltimaDescargaPedido(int PaisID);
         /*EPD-1025*/
+
+        [OperationContract]
+        int GetCantidadOfertasParaTi(int paisId, int campaniaId, int tipoConfigurado);
+
+        [OperationContract]
+        List<BEEstrategia> GetOfertasParaTiByTipoConfigurado(int paisId, int campaniaId, int tipoConfigurado);
+
+        [OperationContract]
+        int InsertEstrategiaTemporal(int paisId, List<BEEstrategia> lista, int campaniaId, string codigoUsuario);
+
+        [OperationContract]
+        int GetCantidadOfertasParaTiTemporal(int paisId, int campaniaId, int tipoConfigurado);
+
+        [OperationContract]
+        List<BEEstrategia> GetOfertasParaTiByTipoConfiguradoTemporal(int paisId, int campaniaId, int tipoConfigurado);
+
+        [OperationContract]
+        int DeleteEstrategiaTemporal(int paisId, int campaniaId);
+
+        [OperationContract]
+        int InsertEstrategiaOfertaParaTi(int paisId, List<BEEstrategia> lista, int campaniaId, string codigoUsuario);
+        
+        [OperationContract]
+        List<BEEstrategia> GetEstrategiaODD(int paisID, int codCampania, string codConsultora, DateTime fechaInicioFact);
     }
 }

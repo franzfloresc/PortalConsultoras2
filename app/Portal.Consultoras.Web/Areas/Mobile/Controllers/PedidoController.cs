@@ -267,7 +267,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             //var dataBarraMobile = AutoMapper.Mapper.Map<BarraConsultoraModel, BarraConsultoraMobileModel>(dataBarra);
             model.DataBarra = GetDataBarra(true, true);
             /* SB20-565 - FIN */
-
+                      
             return View(model);
         }
         

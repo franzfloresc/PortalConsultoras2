@@ -1313,6 +1313,66 @@
 
     </div>
 </div>
+
+<!--POP UP FICHA PRODUCTO NUEVA-->
+<div id="PopFichaProductoNueva" class="Content_general_pop_up">
+    @*<div class="content_ficha_producto_nueva">
+        <a class="cerrar_fichaProducto" href="javascript:;" onclick="javascript: $('#PopFichaProductoNueva').hide();">
+            <img src="/Content/Images/cerrar_04_blanco.png" alt=" alternate text">
+        </a>
+        <div class="content_left_ficha">
+            <div class="content_ficha_producto">
+                <img src="https://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Matriz/PE/PE_200080472_201612367_01_pwifsvbxar.png" alt="PRODUCTO">
+            </div>
+        </div>
+        <div class="content_right_ficha">
+            <div class="titulo_ficha_producto">Perfect Match volumen</div>
+            <div class="peso_ficha_producto">4g / 14 oz</div>
+            <div class="descripcion_ficha_producto">Labial FPS 20 + delineador para máximo volumen</div>
+            <div class="precio_ficha_producto"><span class="precio_tachado_ficha">S/.55.00</span>S/.35.00</div>
+            <div class="content_tonos">
+                <div class="linea_gris" style="height:1px;"></div>
+                <!--SELECCION DE TONOS-->
+                <div class="content_tonos_maquillaje">
+                    <div class="content_tono_detalle borde_seleccion_tono">
+                        <img src="https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/PYi4dINUiOsYQ7e/labial_color.png" alt="PRODUCTO">
+                        <div class="content_mascara_maquillaje">
+                            <img src="https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/HfQTTPvWfVXwt3R/textura_labial.png" alt="PRODUCTO">
+                        </div>
+                        <div class="tooltip_tono">CORAL Cautivante</div>
+                    </div>
+                    <div class="content_tono_detalle">
+                        <img src="https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/PYi4dINUiOsYQ7e/labial_color.png" alt="PRODUCTO">
+                        <div class="content_mascara_maquillaje">
+                            <img src="https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/HfQTTPvWfVXwt3R/textura_labial.png" alt="PRODUCTO">
+                        </div>
+                        <div class="tooltip_tono">CORAL Cautivante</div>
+                    </div>                    
+                </div>
+                <select class="tono_labial_select">
+                    <option>Coral Cautivante</option>
+                    <option>Coral Cautivante</option>
+                    <option>Coral Cautivante</option>
+                    <option>Coral Cautivante</option>
+                </select>
+
+                <!--FIN-->
+            </div>
+            <div class="liquidacion_rango_home">
+                <input type="text" value="1" size="2" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" data-input="cantidad" data-cantidad-input="-">
+                <div class="liquidacion_rango_right_pedido">
+                    <a class="mas" data-cantidad-agregar="+"><img src="/Content/Images/Esika/mas.png" alt=""></a>
+                    <a class="menos" data-cantidad-agregar="-"><img src="/Content/Images/Esika/menos.png" alt=""></a>
+                </div>
+            </div>
+            <a class="boton_Agregalo_home ficha_btn_agregar">
+                AGRÉGALO
+            </a>
+        </div>
+    </div>*@
+</div>
+<!--FIN-->
+
 @*SB20 - 1110*@
 <div id="divConfirmarCUVBanner" style="display: none;">
     <div class="terminos_title_2">
@@ -1326,6 +1386,7 @@
         <input id="btnAgregarCUVBannerPedidoSi" type="button" value="ACEPTAR" onclick="AgregarCUVBannerPedido()" class="input_modifica_horizontal" style="width: 100px; margin-left: 20px;" />
     </div>
 </div>
+
 <script id="estrategia-template" type="text/x-handlebars-template">
     {{#each this as |item|}}
     <div data-item="{{EstrategiaID}}" data-tipoestrategiaimagenmostrar="{{#if_eq FlagMostrarImg '1'}}{{TipoEstrategiaImagenMostrar}}{{/if_eq}}">
@@ -1685,9 +1746,11 @@
                 <input type="hidden" class="hdItemDescripcionEstrategia" value="{{DescripcionEstrategia}}" />
                 <input type="hidden" class="hdItemTipoOfertaRevista" value="{{TipoOfertaRevista}}" />
                 <input type="hidden" class="OrigenPedidoWeb" value="@Portal.Consultoras.Common.Constantes.OrigenPedidoWeb.DesktopHomeCatalogoPersonalizado" />
+                <input type="hidden" class="hdItemEsMaquillaje" value="{{EsMaquillaje}}" />
             </div>
             <div class="producto_img_home mini" id="imagenAnimacion" data-img="">
                 <img src="{{ImagenProductoSugerido}}" style="width: auto; height: 100%;" class="imagen_producto">
+                <a class="ver_detalle_carrusel" href="javascript:;" onclick="mostrarFichaProductoFAV2('{{CUV}}')">VER DETALLE</a>
             </div>
             {{#if item.TieneLanzamientoCatalogoPersonalizado}}
             <div class="etiqueta_producto nuevofavorito">
@@ -2121,6 +2184,80 @@
 
 </script>
 
+<script id="template-fichaproductofav" type="text/x-handlebars-template">
+    <div class="content_ficha_producto_nueva" data-item="catalogopersonalizado">
+        <input type="hidden" id="hdCuvFichaProductoFAV" value="{{CUV}}" />
+        <input type="hidden" id="hdCuvFichaProductoFAVSelect" value="" />
+        <div style="display: none;">
+            <input type="hidden" class="hdItemCuv" value="{{CUV}}" />
+            <input type="hidden" class="hdItemTipoOfertaSisID" value="{{TipoOfertaSisID}}" />
+            <input type="hidden" class="hdItemConfiguracionOfertaID" value="{{ConfiguracionOfertaID}}" />
+            <input type="hidden" class="hdItemIndicadorMontoMinimo" value="{{IndicadorMontoMinimo}}" />
+            <input type="hidden" class="hdItemTipo" value="1" />
+            <input type="hidden" class="hdItemMarcaID" value="{{MarcaID}}" />
+            <input type="hidden" class="hdItemPrecioUnidad" value="{{PrecioCatalogo}}" />
+            <input type="hidden" class="hdItemDescripcionProd" value="{{Descripcion}}" />
+            <input type="hidden" class="hdItemPagina" value="0" />
+            <input type="hidden" class="hdItemDescripcionCategoria" value="{{DescripcionCategoria}}" />
+            <input type="hidden" class="hdItemDescripcionMarca" value="{{DescripcionMarca}}" />
+            <input type="hidden" class="hdItemDescripcionEstrategia" value="{{DescripcionEstrategia}}" />
+            <input type="hidden" class="hdItemTipoOfertaRevista" value="{{TipoOfertaRevista}}" />
+            <input type="hidden" class="OrigenPedidoWeb" value="@Portal.Consultoras.Common.Constantes.OrigenPedidoWeb.DesktopCatalogoPersonalizado" />
+            <input type="hidden" class="hdItemEsMaquillaje" value="{{EsMaquillaje}}" />
+        </div>
+        <a class="cerrar_fichaProducto" href="javascript:;" onclick="javascript: $('#PopFichaProductoNueva').hide();">
+            <img src="/Content/Images/cerrar_04_blanco.png" alt=" alternate text">
+        </a>
+        <div class="content_left_ficha">
+            <div class="content_ficha_producto">
+                <img id="fav_imagen_prod" class="imagen_producto" src="{{ImagenProductoSugerido}}" alt="PRODUCTO">
+            </div>
+        </div>
+        <div class="content_right_ficha">
+            <div id="fav_nombre_prod" class="titulo_ficha_producto">{{Descripcion}}</div>
+            <div class="peso_ficha_producto">{{Volumen}}</div>
+            <div id="fav_descripcion_prod" class="descripcion_ficha_producto">{{DescripcionComercial}}</div>
+            <div class="precio_ficha_producto">
+                <span class="precio_tachado_ficha">{{Simbolo}} {{PrecioValorizadoString}}</span>{{Simbolo}} {{PrecioCatalogoString}}
+            </div>
+            {{#if EsMaquillaje }}
+            <div class="content_tonos">
+                <div class="linea_gris" style="height:1px;"></div>
+                <!--SELECCION DE TONOS-->
+                <div class="content_tonos_maquillaje">
+                    {{#each Hermanos as |item1|}}
+                    <div id="fav_tono_{{CUV}}" class="content_tono_detalle" onclick="cambiarInfoFichaProductoFAV(1,'{{item1.CUV}}')">
+                        <img src="{{item1.ImagenBulk}}" alt="PRODUCTO">
+                        @*<div class="content_mascara_maquillaje">
+                                <img src="https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/HfQTTPvWfVXwt3R/textura_labial.png" alt="PRODUCTO">
+                            </div>*@
+                        <div class="tooltip_tono">{{item1.NombreBulk}}</div>
+                    </div>
+                    {{/each}}
+                </div>
+
+                <select id="fav_tonobulk_{{CUV}}" class="tono_labial_select" onchange="cambiarInfoFichaProductoFAV(2)">
+                    {{#each Hermanos as |item2|}}
+                    <option value="{{item2.CUV}}">{{item2.NombreBulk}}</option>
+                    {{/each}}
+                </select>
+                <!--FIN-->
+            </div>
+            {{/if}}
+            <div class="liquidacion_rango_home">
+                <input type="text" value="1" size="2" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" data-input="cantidad" data-cantidad-input="-">
+                <div class="liquidacion_rango_right_pedido">
+                    <a class="mas" data-cantidad-agregar="+"><img src="/Content/Images/Esika/mas.png" alt=""></a>
+                    <a class="menos" data-cantidad-agregar="-"><img src="/Content/Images/Esika/menos.png" alt=""></a>
+                </div>
+            </div>
+            <a class="boton_Agregalo_home ficha_btn_agregar" onclick="agregarCuvPedidoFichaProductoFAV(1)">
+                AGRÉGALO
+            </a>
+        </div>
+    </div>
+</script>
+
 <input type="hidden" id="hdDataBarra" value="@Newtonsoft.Json.JsonConvert.SerializeObject(Model.DataBarra)" />
 
 @section scripts{
@@ -2196,6 +2333,9 @@
         //data para Popup Actualizar datos
         var mostrarPopupActualizarDatosXPais = '@Model.MostrarPopupActualizarDatosXPais';
         var mensajeFechaDA = '@Model.MensajeFechaDA';
+
+        var origenPagina = 1;   /*PL20-1227*/     
+        var urlGetInfoFichaProducto = '@Url.Action("GetInfoFichaProductoFAV", "CatalogoPersonalizado")';    //PL20-1268
     </script>
     @System.Web.Optimization.Scripts.Render("~/bundles/JsSB2-Bienvenida")
     @{ Session["IsContrato"] = 0; }
