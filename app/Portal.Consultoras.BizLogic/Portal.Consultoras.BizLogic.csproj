@@ -189,6 +189,7 @@
     <Compile Include="BLLugarPago.cs" />
     <Compile Include="BLIncentivo.cs" />
     <Compile Include="CDR\BLCDRParametria.cs" />
+    <Compile Include="CDR\BLCDRWebDatos.cs" />
     <Compile Include="CDR\BLLogCDRWebCulminado.cs" />
     <Compile Include="CDR\BLLogCDRWebDetalleCulminado.cs" />
     <Compile Include="CDR\BLLogCDRWebDetalle.cs" />

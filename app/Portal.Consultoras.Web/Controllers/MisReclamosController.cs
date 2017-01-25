@@ -188,6 +188,7 @@ namespace Portal.Consultoras.Web.Controllers
             Session[Constantes.ConstSession.CDRCampanias] = listaCampanias;
 
             CargarParametriaCdr();
+            CargarCdrWebDatos();
         }
 
         private List<BECDRWebMotivoOperacion> CargarMotivoOperacion()
@@ -438,6 +439,35 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
+        private List<BECDRWebDatos> CargarCdrWebDatos()
+        {
+            try
+            {
+                if (Session[Constantes.ConstSession.CDRWebDatos] != null)
+                {
+                    var listacdrWebDatos = (List<BECDRWebDatos>)Session[Constantes.ConstSession.CDRWebDatos];
+                    if (listacdrWebDatos.Count > 0)
+                        return listacdrWebDatos;
+                }
+
+                var lista = new List<BECDRWebDatos>();
+                var entidad = new BECDRWebDatos();
+                using (CDRServiceClient sv = new CDRServiceClient())
+                {
+                    lista = sv.GetCDRWebDatos(userData.PaisID, entidad).ToList();
+                }
+
+                Session[Constantes.ConstSession.CDRWebDatos] = lista;
+                return lista;
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                Session[Constantes.ConstSession.CDRWebDatos] = null;
+                return new List<BECDRWebDatos>();
+            }
+        }
+
         private bool ValidarRegistro(MisReclamosModel model, out string mensajeError)
         {
             mensajeError = "";
@@ -657,6 +687,35 @@ namespace Portal.Consultoras.Web.Controllers
                 message = "",
                 detalle = parametria,
                 detalleAbs = parametriaAbs
+            }, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult BuscarCdrWebDatos(MisReclamosModel model)
+        {
+            string codigoValor = "";
+            switch (model.EstadoSsic)
+            {
+                case "T":                    
+                    break;
+                case "D":                    
+                    break;
+                case "F":
+                    codigoValor = Constantes.CdrWebDatos.UnidadesPermitidasFaltante;
+                    break;
+                default:                    
+                    break;
+            }
+
+            var listaCdrWebDatos = CargarCdrWebDatos();
+
+            var cdrWebdatos = listaCdrWebDatos.FirstOrDefault(p => p.Codigo == codigoValor);
+            cdrWebdatos = cdrWebdatos ?? new BECDRWebDatos();
+
+            return Json(new
+            {
+                success = true,
+                message = "",
+                cdrWebdatos = cdrWebdatos
             }, JsonRequestBehavior.AllowGet);
         }
 
@@ -1045,6 +1104,23 @@ namespace Portal.Consultoras.Web.Controllers
                 success = true,
                 message = "",
                 montoProductos,
+            }, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult ObtenerCantidadProductosByCodigoSsic(MisReclamosModel model)
+        {
+            var listaByCodigoOperacion = new List<BECDRWebDetalle>();
+            var lista = CargarDetalle(model);
+
+            listaByCodigoOperacion = lista.FindAll(p => p.CodigoOperacion == model.EstadoSsic);
+
+            var cantidadProductos = listaByCodigoOperacion.Sum(p => p.Cantidad);
+
+            return Json(new
+            {
+                success = true,
+                message = "",
+                cantidadProductos,
             }, JsonRequestBehavior.AllowGet);
         }
 

@@ -287,46 +287,18 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  <xs:element name="CreateLogCDRWebCulminadoFromCDRWeb">
+  <xs:element name="GetCDRWebDatos">
     <xs:complexType>
       <xs:sequence>
-        <xs:element minOccurs="0" name="PaisID" type="xs:int" />
-        <xs:element minOccurs="0" name="cDRWebId" type="xs:int" />
+        <xs:element minOccurs="0" name="paisId" type="xs:int" />
+        <xs:element xmlns:q25="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.CDR" minOccurs="0" name="entidad" nillable="true" type="q25:BECDRWebDatos" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  <xs:element name="CreateLogCDRWebCulminadoFromCDRWebResponse">
-    <xs:complexType>
-      <xs:sequence />
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="GetCDRWebByLogCDRWebCulminadoId">
+  <xs:element name="GetCDRWebDatosResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element minOccurs="0" name="PaisID" type="xs:int" />
-        <xs:element minOccurs="0" name="logCDRWebCulminadoId" type="xs:long" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="GetCDRWebByLogCDRWebCulminadoIdResponse">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element xmlns:q25="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.CDR" minOccurs="0" name="GetCDRWebByLogCDRWebCulminadoIdResult" nillable="true" type="q25:BECDRWeb" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="GetCDRWebDetalleByLogCDRWebCulminadoId">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element minOccurs="0" name="PaisID" type="xs:int" />
-        <xs:element minOccurs="0" name="logCDRWebCulminadoId" type="xs:long" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="GetCDRWebDetalleByLogCDRWebCulminadoIdResponse">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element xmlns:q26="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.CDR" minOccurs="0" name="GetCDRWebDetalleByLogCDRWebCulminadoIdResult" nillable="true" type="q26:ArrayOfBECDRWebDetalle" />
+        <xs:element xmlns:q26="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.CDR" minOccurs="0" name="GetCDRWebDatosResult" nillable="true" type="q26:ArrayOfBECDRWebDatos" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
