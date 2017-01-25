@@ -200,7 +200,7 @@
             $("body").on("click", ".btnAgregarOfertaShowRoom", function (e) {
                 var article = $(this).parents(".listado_item").eq(0);
                 var cantidad = $(article).find(".txtCantidad").val();
-                debugger;
+                
                 AgregarOfertaShowRoom(article, cantidad);
                 e.preventDefault();
                 (this).blur();
@@ -234,7 +234,7 @@
         }
 
         function AgregarOfertaShowRoom(article, cantidad) {
-            debugger;
+            
             var CUV = $(article).find(".valorCuv").val();
             var MarcaID = $(article).find(".claseMarcaID").val();
             var PrecioUnidad = $(article).find(".clasePrecioUnidad").val();
@@ -328,7 +328,7 @@
                                                 $(article).find(".claseStock").text(stockRestante);
                                                 $(article).find(".txtCantidad").val("1");
                                             }
-                                            debugger;
+                                            
                                             AgregarTagManagerProductoAgregadoSWR(CUV, nombreProducto, PrecioUnidad, cantidad, descripcionMarca,0);
                                             //ActualizarCantidadTotalPedido();
                                             CargarCantidadProductosPedidos();
@@ -414,7 +414,7 @@
         }
 
         function AgregarTagManagerProductoAgregadoSWR(CUV, nombreProducto, PrecioUnidad, cantidad, descripcionMarca, tipo) {
-            debugger;
+            
             var lista = tipo == 0 ? "Ofertas Showroom" : "Ofertas Showroom popUp";
             dataLayer.push({
                 'event': 'addToCart',
