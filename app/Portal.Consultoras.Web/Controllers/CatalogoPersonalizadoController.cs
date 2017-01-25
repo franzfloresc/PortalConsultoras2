@@ -40,11 +40,19 @@ namespace Portal.Consultoras.Web.Controllers
             }
             //PL20-1234
 
-            //PL20-1284
+            //PL20-1270
+            var listaProductoModel = (List<ProductoModel>)Session["ProductosCatalogoPersonalizado"] ?? new List<ProductoModel>();
+            if (listaProductoModel.Any())
+            {
+                ViewBag.PrecioMin = listaProductoModel.OrderBy(x => x.PrecioCatalogo).FirstOrDefault().PrecioCatalogoString;
+                ViewBag.PrecioMax = listaProductoModel.OrderByDescending(x => x.PrecioCatalogo).FirstOrDefault().PrecioCatalogoString;
+            //PL20-1283
             var nombre1 = (string.IsNullOrEmpty(userData.Sobrenombre) ? userData.NombreConsultora : userData.Sobrenombre);
             ViewBag.NombreConsultora = Util.SubStr(nombre1, 0).ToUpper();
             var url1 = ConfigurationManager.AppSettings.Get("UrlImagenFAVLanding");
             ViewBag.UrlImagenFAVLanding = string.Format(url1, userData.CodigoISO);
+
+            }
 
             return View(model);
         }
@@ -161,13 +169,13 @@ namespace Portal.Consultoras.Web.Controllers
                                     var listSplit = infoEstrategia.Split('|');
                                     descripcion = listSplit.Count() > 0 ? listSplit[0] : "";
                                     string imagen = listSplit.Count() > 1 ? listSplit[1] : "";
-                                    if (!string.IsNullOrEmpty(beProducto.ImagenProductoSugerido))
-                                    {
-                                        string carpetapais = Globals.UrlMatriz + "/" + userData.CodigoISO;
-                                        imagenUrl = ConfigS3.GetUrlFileS3(carpetapais, beProducto.ImagenProductoSugerido, carpetapais);
-                                        add = true;
-                                    }
-                                }
+                                  if (!string.IsNullOrEmpty(beProducto.ImagenProductoSugerido))
+                                  {
+                                      string carpetapais = Globals.UrlMatriz + "/" + userData.CodigoISO;
+                                      imagenUrl = ConfigS3.GetUrlFileS3(carpetapais, beProducto.ImagenProductoSugerido, carpetapais);
+                                      add = true;
+                                   }
+                                 }
                             }
 
                             if (add)
@@ -181,18 +189,20 @@ namespace Portal.Consultoras.Web.Controllers
                                 listaProductoModel.Add(new ProductoModel()
                                 {
                                     CUV = beProducto.CUV.Trim(),
-                                    Descripcion = descripcion,
-                                    PrecioCatalogoString = Util.DecimalToStringFormat(beProducto.PrecioCatalogo, userData.CodigoISO),
-                                    PrecioCatalogo = beProducto.PrecioCatalogo,
-                                    MarcaID = beProducto.MarcaID,
-                                    EstaEnRevista = beProducto.EstaEnRevista,
-                                    TieneStock = true,
-                                    EsExpoOferta = beProducto.EsExpoOferta,
-                                    CUVRevista = beProducto.CUVRevista.Trim(),
-                                    CUVComplemento = beProducto.CUVComplemento.Trim(),
-                                    IndicadorMontoMinimo = beProducto.IndicadorMontoMinimo.ToString().Trim(),
-                                    TipoOfertaSisID = beProducto.TipoOfertaSisID,
-                                    ConfiguracionOfertaID = beProducto.ConfiguracionOfertaID,
+                                     Descripcion = descripcion,
+                                     PrecioCatalogoString = Util.DecimalToStringFormat(beProducto.PrecioCatalogo, userData.CodigoISO),
+                                     PrecioCatalogo = beProducto.PrecioCatalogo,
+                                     MarcaID = beProducto.MarcaID,
+                                     EstaEnRevista = beProducto.EstaEnRevista,
+                              
+                                     TieneStock = true,
+                                     EsExpoOferta = beProducto.EsExpoOferta,
+                                     CUVRevista = beProducto.CUVRevista.Trim(),
+                                     CUVComplemento = beProducto.CUVComplemento.Trim(),
+                                     IndicadorMontoMinimo = beProducto.IndicadorMontoMinimo.ToString().Trim(),
+                                     TipoOfertaSisID = beProducto.TipoOfertaSisID,
+                                     ConfiguracionOfertaID = beProducto.ConfiguracionOfertaID,
+
                                     MensajeCUV = "",
                                     DesactivaRevistaGana = -1,
                                     DescripcionMarca = beProducto.DescripcionMarca,
@@ -200,6 +210,7 @@ namespace Portal.Consultoras.Web.Controllers
                                     DescripcionCategoria = beProducto.DescripcionCategoria,
                                     FlagNueva = beProducto.FlagNueva,
                                     TipoEstrategiaID = beProducto.TipoEstrategiaID,
+
                                     ImagenProductoSugerido = imagenUrl,
                                     CodigoProducto = beProducto.CodigoProducto,
                                     TieneStockPROL = true,
@@ -211,6 +222,7 @@ namespace Portal.Consultoras.Web.Controllers
                                     TieneOfertaEnRevista = beProducto.TieneOfertaRevista,
                                     TieneLanzamientoCatalogoPersonalizado = beProducto.TieneLanzamientoCatalogoPersonalizado,
                                     TipoOfertaRevista = beProducto.TipoOfertaRevista,
+
                                     Volumen = producto.Volumen,
                                     EsMaquillaje = producto.EsMaquillaje,
                                     DescripcionComercial = producto.DescripcionComercial,
@@ -345,7 +357,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 //SB20-1197
 
-                listaProductoModel = listaProductoModel.Skip(offset).Take(cantidad).ToList();
+               listaProductoModel = listaProductoModel.Skip(offset).Take(cantidad).ToList();
 
                 return Json(new
                 {

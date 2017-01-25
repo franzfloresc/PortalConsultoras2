@@ -10,29 +10,34 @@
 <div class="fondo_f2f2f2" style="border-bottom:0">
     <div class="pestana_esika"></div><!--PESTANA ESIKA-->
     <div class="pestana_lbel mobileLiquidaciones"></div><!--PESTANA LBEL-->
-    <ul class="tabs_pagos" data-tab="tab" style="margin-bottom:0">
-        <li class="one">
-            <a href="#" id="VerGuiaNegocio">
-                GUÍA DE NEGOCIO
-                <div class="marcador_tab"></div>
-            </a>
-        </li>
-        <li class="two">
-            <a href="#" id="VerPrecioCatalogo">
-                PRECIO CATÁLOGO
-                <div class="marcador_tab oculto"></div>
-            </a>
-        </li>
 
-        <hr id="barCursor">
-    </ul>
+    @if (Model.TieneOfertaEnRevista)
+    {
+        <ul class="tabs_pagos" data-tab="tab" style="margin-bottom:0">
+            <li class="one">
+                <a href="#" id="VerGuiaNegocio">
+                    GUÍA DE NEGOCIO
+                    <div class="marcador_tab"></div>
+                </a>
+            </li>
+            <li class="two">
+                <a href="#" id="VerPrecioCatalogo">
+                    PRECIO CATÁLOGO
+                    <div class="marcador_tab oculto"></div>
+                </a>
+            </li>
+
+            <hr id="barCursor">
+        </ul>
+    }
+
     <hr class="clear" />
 </div>
 
-<div id="GuiaNegocio">
+<div id="GuiaNegocio" style="display: none;">
     <!--FICHA 003A-->
-    <div id="Ficha_003A" style="display:none;">
-        <div class="content_oferta_guia_negocio">
+    <div id="Ficha_003A" style="display: none;">
+        @*<div class="content_oferta_guia_negocio">
             <div class="content_imagen_048">
                 <img src="https://s3-sa-east-1.amazonaws.com/appcatalogo/CL/201702/E/productos/CL_200078945.jpg" class="imagen_producto">
                 <div class="etiqueta_guia_negocio">GUÍA DE NEGOCIO</div>
@@ -59,11 +64,12 @@
                 <a class="btn_agregar_ficha_producto" href="#">AGRÉGALO</a>                
                 <hr class="clear" />
             </div>
-        </div>
+        </div>*@
     </div>
     <!--FIN-->
+
     <!--FICHA 048B-->
-    <div class="content_oferta_guia_negocio">
+    <div class="content_oferta_guia_negocio" style="display: none;">
         <div class="content_imagen_048">
             <img src="https://s3-sa-east-1.amazonaws.com/appcatalogo/CL/201702/E/productos/CL_200078945.jpg" class="imagen_producto">
             <div class="etiqueta_guia_negocio">GUÍA DE NEGOCIO</div>
@@ -153,6 +159,7 @@
         <br/>
     </div>
     <!--FIN-->
+
     <!--FICHA 048A-->
     <div id="Ficha_048A" style="display:none;">
         <div class="content_oferta_guia_negocio">
@@ -228,48 +235,14 @@
     <!--FIN-->
 </div>
 <!--POP UP GUIA NEGOCIO-->
-    <!--HAY QUE DESAPARECER EL SCROLL DEL BODY, CUANDO GENEREN ESTE POP UP ME AVISAN-->
-<div class="PopMobile1" id="PopGuiaNegocio" style="display:block;"> 
-    <div class="content_popMobile" style="text-align:center; max-width:400px;">
-        <a class="cerrar_popMobile" href="javascript:;" onclick="javascript: $('#PopGuiaNegocio').hide();">
-            <img src="/Content/Images/mobile/Esika/cerrar_04.png" alt="-">
-        </a>
-        <hr class="clear">
-        <div class="titulo_pack_detalle">HAS COMPRADO</div>
-        <div class="linea_separadora_black flecha_048"></div>
-        <div class="detalle_Cantidad_pack"> <b>7</b> Dorsay 100 ml</div>
-        <div class="precio_para_ti_048">Precio para ti <b>$ 29.900</b></div>
-        <div class="gana_048">Gana $ 10.000</div>
-        <div class="texto_gratis_pop">Vas a recibir GRATIS</div>
-        <div class="linea_separadora_black flecha_048"></div>
-        <!--DEFINIR DENTRO DE ESTE DIV LA CANTIDAD DE PRODUCTO -->
-        <div class="content_unidad_producto">            
-            <div class="content_pack_048">
-                <div class="imagen_pack_048"><img src="https://s3-sa-east-1.amazonaws.com/appcatalogo/CL/201702/E/productos/CL_200078945.jpg" class="imagen_producto"></div>
-                <div class="nombre_producto_pack_048">2 Pulso 100ml</div>
-            </div>
-            <div class="content_pack_048">
-                <div class="imagen_pack_048"><img src="https://s3-sa-east-1.amazonaws.com/appcatalogo/CL/201702/E/productos/CL_200078945.jpg" class="imagen_producto"></div>
-                <div class="nombre_producto_pack_048">2 Pulso 100ml</div>
-            </div>
-            <div class="content_pack_048">
-                <div class="imagen_pack_048"><img src="https://s3-sa-east-1.amazonaws.com/appcatalogo/CL/201702/E/productos/CL_200078945.jpg" class="imagen_producto"></div>
-                <div class="nombre_producto_pack_048">2 Pulso 100ml</div>
-            </div>
-        </div>
-        <a class="btn_anuncio_agregado" href="javascript:;" onclick="javascript: $('#PopGuiaNegocio').hide();">OK, ENTENDIDO</a>
-
-    </div>
-</div>
-<!--FIN-->
 
 <div id="PrecioCatalogo" style="display:none;">
     <div class="wrapper_resumen_mobile" style="padding-bottom:96px;">
 
         <div data-item="catalogopersonalizado">
 
-        <input type="hidden" id="hdCuvFichaProductoFAV" value="@Model.CUV" />
-        <input type="hidden" id="hdCuvFichaProductoFAVSelect" />
+            <input type="hidden" id="hdCuvFichaProductoFAV" value="@Model.CUV" />
+            <input type="hidden" id="hdCuvFichaProductoFAVSelect" />
 
             <div style="display: none;">
                 <input type="hidden" class="hdItemCuv" value="@Model.CUV" />
@@ -285,23 +258,24 @@
                 <input type="hidden" class="hdItemDescripcionMarca" value="@Model.DescripcionMarca" />
                 <input type="hidden" class="hdItemDescripcionEstrategia" value="@Model.DescripcionEstrategia" />
                 <input type="hidden" class="hdItemTipoOfertaRevista" value="@Model.TipoOfertaRevista" />
-            <input type="hidden" class="OrigenPedidoWeb" value="@Portal.Consultoras.Common.Constantes.OrigenPedidoWeb.DesktopCatalogoPersonalizado" />
-            <input type="hidden" class="hdItemEsMaquillaje" value="@Model.EsMaquillaje" />
-            <input type="hidden" class="hdItemRutaImagen" value="@Model.ImagenProductoSugerido" />
+                <input type="hidden" class="OrigenPedidoWeb" value="@Portal.Consultoras.Common.Constantes.OrigenPedidoWeb.DesktopCatalogoPersonalizado" />
+                <input type="hidden" class="hdItemEsMaquillaje" value="@Model.EsMaquillaje" />
+                <input type="hidden" class="hdItemRutaImagen" value="@Model.ImagenProductoSugerido" />
+                <input type="hidden" class="hdItemVolumen" value="@Model.Volumen" />
             </div>
 
-        <div class="content_imagen_ficha">
-            <img id="fav_imagen_prod" src="@Model.ImagenProductoSugerido" alt="PRODUCTO" class="imagen_producto" />
-        </div>
-        <div id="fav_nombre_prod" class="titulo_ficha_producto">@Model.Descripcion</div>
-        <div class="peso_ficha_producto">@Model.Volumen</div>
-        <div id="fav_descripcion_prod" class="descripcion_ficha_producto">@Model.DescripcionComercial</div>
-        <div class="precio_ficha_producto">
-            <span class="precio_tachado_ficha">@ViewBag.Simbolo @Model.PrecioValorizadoString </span>@ViewBag.Simbolo @Model.PrecioCatalogoString
-        </div>
+            <div class="content_imagen_ficha">
+                <img id="fav_imagen_prod" src="@Model.ImagenProductoSugerido" alt="PRODUCTO" class="imagen_producto" />
+            </div>
+            <div id="fav_nombre_prod" class="titulo_ficha_producto">@Model.Descripcion</div>
+            <div class="peso_ficha_producto">@Model.Volumen</div>
+            <div id="fav_descripcion_prod" class="descripcion_ficha_producto">@Model.DescripcionComercial</div>
+            <div class="precio_ficha_producto">
+                <span class="precio_tachado_ficha">@ViewBag.Simbolo @Model.PrecioValorizadoString </span>@ViewBag.Simbolo @Model.PrecioCatalogoString
+            </div>
 
-        <div>
-            <div class="content_tonos_producto">
+            <div>
+                <div class="content_tonos_producto">
 
                 @if (Model.Hermanos != null)
                 {
@@ -323,8 +297,8 @@
                         }
                     </select>
                 }
+                </div>
             </div>
-        </div>
 
             <div class="content_redes_ficha">
                 @{
@@ -348,10 +322,13 @@
                 <a id="btn_wsp" class="btn_compartir_ofertas" href="javascript:window.location=CompartirWsp('@urlWs');" data-action="share/whatsapp/share"><img src="@Url.Content("~/Content/Images/Mobile/Esika/catalogo_ws.png")" alt=""></a>
                 <a id="btn_fb" class="btn_compartir_ofertas" href="#" onclick='CompartirFacebook("@urlBase_fb");'><img src="@Url.Content("~/Content/Images/Mobile/Esika/facebook.png")" alt=""></a>
             </div>
+
             <div style="display: none;">
                 <input type="hidden" class="urlbasewsp" value="@urlWs" />
             </div>
+
             <hr class="clear" />
+
             <div class="row">
                 <div class="content_btn_agregar">
                     <div class="content_320">
@@ -360,7 +337,7 @@
                             <input type="tel" value="1" size="2" maxlength="2" id="txtCantidad" class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" data-input="cantidad">
                             <a class=" cantidad_mas_home"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
                         </div>
-                    <a class="btn_agregar_ficha_producto" onclick="agregarCuvPedidoFichaProductoFAV(2)" style="cursor: pointer;">AGRÉGALO</a>
+                        <a class="btn_agregar_ficha_producto" onclick="agregarCuvPedidoFichaProductoFAV(2)" style="cursor: pointer;">AGRÉGALO</a>
                         <hr class="clear" />
                     </div>
                 </div>
@@ -369,6 +346,71 @@
     </div>
 </div>
 
+<!--HAY QUE DESAPARECER EL SCROLL DEL BODY, CUANDO GENEREN ESTE POP UP ME AVISAN-->
+<div class="PopMobile1" id="PopGuiaNegocio" style="display: none;">
+    <div class="content_popMobile" style="text-align:center; max-width:400px;">
+        <a class="cerrar_popMobile" href="javascript:;" onclick="javascript: $('#PopGuiaNegocio').hide();">
+            <img src="/Content/Images/mobile/Esika/cerrar_04.png" alt="-">
+        </a>
+        <hr class="clear">
+        <div class="titulo_pack_detalle">HAS COMPRADO</div>
+        <div class="linea_separadora_black flecha_048"></div>
+        <div class="detalle_Cantidad_pack"> <b>7</b> Dorsay 100 ml</div>
+        <div class="precio_para_ti_048">Precio para ti <b>$ 29.900</b></div>
+        <div class="gana_048">Gana $ 10.000</div>
+        <div class="texto_gratis_pop">Vas a recibir GRATIS</div>
+        <div class="linea_separadora_black flecha_048"></div>
+        <!--DEFINIR DENTRO DE ESTE DIV LA CANTIDAD DE PRODUCTO -->
+        <div class="content_unidad_producto">
+            <div class="content_pack_048">
+                <div class="imagen_pack_048"><img src="https://s3-sa-east-1.amazonaws.com/appcatalogo/CL/201702/E/productos/CL_200078945.jpg" class="imagen_producto"></div>
+                <div class="nombre_producto_pack_048">2 Pulso 100ml</div>
+            </div>
+            <div class="content_pack_048">
+                <div class="imagen_pack_048"><img src="https://s3-sa-east-1.amazonaws.com/appcatalogo/CL/201702/E/productos/CL_200078945.jpg" class="imagen_producto"></div>
+                <div class="nombre_producto_pack_048">2 Pulso 100ml</div>
+            </div>
+            <div class="content_pack_048">
+                <div class="imagen_pack_048"><img src="https://s3-sa-east-1.amazonaws.com/appcatalogo/CL/201702/E/productos/CL_200078945.jpg" class="imagen_producto"></div>
+                <div class="nombre_producto_pack_048">2 Pulso 100ml</div>
+            </div>
+        </div>
+        <a class="btn_anuncio_agregado" href="javascript:;" onclick="javascript: $('#PopGuiaNegocio').hide();">OK, ENTENDIDO</a>
+
+    </div>
+</div>
+<!--FIN-->
+
+<script id="template-oferta003" type="text/x-handlebars-template">
+    <div class="content_oferta_guia_negocio">
+        <div class="content_imagen_048">
+            <img src="{{UrlImagen}}" class="imagen_producto">
+            <div class="etiqueta_guia_negocio">GUÍA DE NEGOCIO</div>
+        </div>
+        <div class="marca_oferta048">{{DescripcionMarca}}</div>
+        <div class="nombre_producto_048">{{Volumen}}</div>
+        <div class="precio_tachado_048">@ViewBag.Simbolo {{precio_catalogo}}</div>
+        <div class="precio_para_ti_048">Precio para ti <b>@ViewBag.Simbolo {{precio_revista}}</b></div>
+        <div class="gana_048" style="margin-bottom:0">{{TxtGanancia}} @ViewBag.Simbolo {{ganancia}}</div>
+        <hr class="clear" />
+        <div style="overflow:hidden; margin-bottom:100px;">
+            <div class="texto_comparte">Comparte este producto con tus clientes</div>
+            <a id="btn_wsp" class="btn_compartir_ofertas" href="#"><img src="/Content/Images/Mobile/Esika/catalogo_ws.png" alt=""></a>
+            <a id="btn_fb" class="btn_compartir_ofertas" href="#"> <img src="/Content/Images/Mobile/Esika/facebook.png" alt=""></a>
+        </div>
+    </div>
+    <div class="content_btn_agregar">
+        <div class="content_agregar_048">
+            <div class="content_cantidad_ficha_producto">
+                <a class="cantidad_menos_home"><img src="/Content/Images/Mobile/Esika/menos.png" alt=""></a>
+                <input type="tel" value="1" size="2" maxlength="2" id="txtCantidad" class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" data-input="cantidad">
+                <a class="cantidad_mas_home"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
+            </div>
+            <a class="btn_agregar_ficha_producto" href="#">AGRÉGALO</a>
+            <hr class="clear" />
+        </div>
+    </div>
+</script>
 @section scripts{
 
     <script type="text/javascript">
@@ -382,17 +424,36 @@
         var isAddFichaProductoFAV = 1;
         var urlInsertarProductoCompartido = '@Url.Action("InsertarProductoCompartido", "CatalogoPersonalizado", new { area = "" })';
 
+        var cuv = '@Model.CUV';
+        var tieneOfertaEnRevista = '@Model.TieneOfertaEnRevista';
+
+        if (tieneOfertaEnRevista == 'True') $('#PrecioCatalogo').show();
+
         $(document).ready(function () {
 
             $("#VerPrecioCatalogo").on("click", function () {
-            //PL20-1237
                 $('#GuiaNegocio').hide(); //muestro mediante id             
                 $('#PrecioCatalogo').show(); //oculto mediante id  
+
+                $('ul[data-tab="tab"] li a').find("div.marcador_tab").addClass("oculto");
+                $(this).find("div.marcador_tab").removeClass("oculto");
             });
+
             $("#VerGuiaNegocio").on("click", function () {
                 $('#GuiaNegocio').show(); //muestro mediante id             
                 $('#PrecioCatalogo').hide(); //oculto mediante id  
+
+                $('ul[data-tab="tab"] li a').find("div.marcador_tab").addClass("oculto");
+                $(this).find("div.marcador_tab").removeClass("oculto");
             });
+
+            $('.tabs_pagos').mouseover(function () {
+                $("#barCursor").css("opacity", "1");
+            }).mouseout(function () {
+                $("#barCursor").css("opacity", "0");
+            });
+
+            //PL20-1237
             $('.footer-page').hide();
 
             dataFichaProductoFAV = JSON.parse('@Html.Raw(Json.Encode(Model.Hermanos))');
@@ -404,6 +465,9 @@
                 $('.content_tono_detalle').removeClass('borde_seleccion_tono');
                 $(this).addClass("borde_seleccion_tono");
             });
+
+            //PL20-1239
+            ObtenerOfertaRevista2($('[data-item="catalogopersonalizado"]'));
 
         });
 
@@ -492,6 +556,82 @@
             var cuv = $('#hdCuvFichaProductoFAV').val();
             $('#fav_tono_' + cuv).addClass("borde_seleccion_tono");
             $('#hdCuvFichaProductoFAVSelect').val(cuv);
+        }
+
+        //PL20-1239
+        function ObtenerOfertaRevista2(item) {
+            // 201615 - 032610099 peru
+            DialogLoadingAbrir();
+            var $contenedor = item;
+            var cuv = $contenedor.find('.hdItemCuv').val();
+            // 11791 (mucha data) "10989" (niveles);// 
+            var tipoOfertaRevista = $.trim($contenedor.find('.hdItemTipoOfertaRevista').val());
+
+            var obj = {
+                //UrlImagen: $contenedor.find('[data-img]>img').attr('src'),
+                UrlImagen: $contenedor.find('.hdItemRutaImagen').val(),
+                CUV: $contenedor.find('.hdItemCuv').val(),
+                TipoOfertaSisID: $contenedor.find('.hdItemTipoOfertaSisID').val(),
+                ConfiguracionOfertaID: $contenedor.find('.hdItemConfiguracionOfertaID').val(),
+                IndicadorMontoMinimo: $contenedor.find('.hdItemIndicadorMontoMinimo').val(),
+                MarcaID: $contenedor.find('.hdItemMarcaID').val(),
+                PrecioCatalogo: $contenedor.find('.hdItemPrecioUnidad').val(),
+                Descripcion: $contenedor.find('.hdItemDescripcionProd').val(),
+                DescripcionCategoria: $contenedor.find('.hdItemDescripcionCategoria').val(),
+                DescripcionMarca: $contenedor.find('.hdItemDescripcionMarca').val(),
+                DescripcionEstrategia: $contenedor.find('.hdItemDescripcionEstrategia').val(),
+                Volumen: $contenedor.find('.hdItemVolumen').val()
+            };
+
+            jQuery.ajax({
+                type: 'POST',
+                url: baseUrl + 'CatalogoPersonalizado/ObtenerOfertaRevista',
+                dataType: 'json',
+                data: JSON.stringify({ cuv: cuv, tipoOfertaRevista: tipoOfertaRevista }),
+                contentType: 'application/json; charset=utf-8',
+                success: function (response) {
+                    //$('[data-oferta]').attr("class", "").hide();
+                    //if (tipoOrigen == '2') {
+                    //    $('[data-oferta]').addClass("MensajeAlertaMobile");
+                    //}
+                    if (!response.success) {
+                        DialogLoadingCerrar();
+                        return false;
+                    }
+
+                    console.log(response.data.dataPROL);
+                    console.log(obj);
+
+                    response.data.dataPROL.Simbolo = vbSimbolo;
+                    response.data.dataPROL.TxtGanancia = response.data.txtGanancia;
+                    response.data.dataPROL.TxtRecibeGratis = response.data.txtRecibeGratis;
+
+                    var settings = $.extend({}, response.data.dataPROL, obj);
+                    settings.productoRevista = response.data.producto;
+                    //TrackingJetloreView(cuv, $("#hdCampaniaCodigo").val())
+
+                    if (response.data.dataPROL != undefined && response.data.dataPROL != null) {
+                        switch (settings.tipo_oferta) {
+                            case '003':
+                                //settings.precio_catalogo = DecimalToStringFormat(settings.precio_catalogo);
+                                //settings.precio_revista = DecimalToStringFormat(settings.precio_revista);
+                                //settings.ganancia = DecimalToStringFormat(settings.ganancia);
+                                SetHandlebars("#template-oferta003", settings, '#Ficha_003A');
+                                //$('[data-oferta]').addClass('mod-ofer1').show();
+                                $('#Ficha_003A').show();
+                                break;
+                            case '048':
+                                break;
+                        }
+                    }
+                    
+
+                    DialogLoadingCerrar();
+                },
+                error: function (response, error) {
+                    DialogLoadingCerrar();
+                }
+            });
         }
     </script>
 
