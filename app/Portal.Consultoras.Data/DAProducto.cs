@@ -62,6 +62,19 @@ namespace Portal.Consultoras.Data
             return Context.ExecuteReader(command);
         }
 
+        public IDataReader GetProductoComercialByListaCuv(int campaniaID, int regionID, int zonaID, string codigoRegion, string codigoZona, string listaCuv)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetProductoComercialByListaCuv");
+            Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, campaniaID);
+            Context.Database.AddInParameter(command, "@RegionID", DbType.Int32, regionID);
+            Context.Database.AddInParameter(command, "@ZonaID", DbType.Int32, zonaID);
+            Context.Database.AddInParameter(command, "@CodigoRegion", DbType.String, codigoRegion);
+            Context.Database.AddInParameter(command, "@CodigoZona", DbType.String, codigoZona);
+            Context.Database.AddInParameter(command, "@ListaCuv", DbType.String, listaCuv);
+
+            return Context.ExecuteReader(command);
+        }
+
         public IDataReader GetProductoSugeridoByCUV(int campaniaID, int consultoraID, string cuv, int regionID, int zonaID, string codigoRegion, string codigoZona)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetProductoSugeridoByCUV_SB2");
@@ -102,5 +115,39 @@ namespace Portal.Consultoras.Data
 
             return Context.ExecuteReader(command);
         }
+
+        //PL20-1237
+        public int InsProductoCompartido(BEProductoCompartido ProComp)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.InsProductoCompartido");
+            Context.Database.AddInParameter(command, "@ProductoCompCampaniaID", DbType.Int32, ProComp.PcCampaniaID);
+            Context.Database.AddInParameter(command, "@ProductoCompCUV", DbType.String, ProComp.PcCuv);
+            Context.Database.AddInParameter(command, "@ProductoCompPalanca", DbType.String, ProComp.PcPalanca);
+            Context.Database.AddInParameter(command, "@ProductoCompDetalle", DbType.String, ProComp.PcDetalle);
+            Context.Database.AddInParameter(command, "@ProductoCompApp", DbType.String, ProComp.PcApp);
+            Context.Database.AddOutParameter(command, "@ProductoCompID", DbType.Int32, 0);
+
+            Context.ExecuteNonQuery(command);
+            int id = Convert.ToInt32(command.Parameters["@ProductoCompID"].Value);
+            return id;
+        }
+
+        public IDataReader GetProductoCompartido(int ProCompID)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetProductoCompartido");
+            Context.Database.AddInParameter(command, "@ProductoCompID", DbType.Int32, ProCompID);
+
+            return Context.ExecuteReader(command);
+        }
+
+        public IDataReader GetListBrothersByCUV(int codCampania, string cuv)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetListBrothersByCUV");
+            Context.Database.AddInParameter(command, "@CodCampania", DbType.Int32, codCampania);
+            Context.Database.AddInParameter(command, "@CUV", DbType.String, cuv);
+
+            return Context.ExecuteReader(command);
+        }
+
     }
 }
