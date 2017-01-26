@@ -80,6 +80,7 @@ namespace Portal.Consultoras.Web.Controllers
                 BEConfiguracionCampania oBEConfiguracionCampania;
                 using (PedidoServiceClient sv = new PedidoServiceClient())
                 {
+                    userData.ConsultoraID = userData.UsuarioPrueba == 1 ? userData.ConsultoraAsociadaID : userData.ConsultoraID;
                     oBEConfiguracionCampania = sv.GetEstadoPedido(userData.PaisID, userData.CampaniaID, userData.ConsultoraID, userData.ZonaID, userData.RegionID);
                 }
 
@@ -364,7 +365,6 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
                 #endregion
-
 
             }
             catch (FaultException ex)
@@ -3370,6 +3370,9 @@ namespace Portal.Consultoras.Web.Controllers
                             Estado = Constantes.EstadoPedido.Pendiente;
                         }
                         //Dado que no se usa el indicador de ModificaPedidoReservado, este campo en el servicio será utilizado para enviar el campo: ValidacionAbierta
+
+                        userData.CodigoUsuario = userData.UsuarioPrueba == 1 ? userData.ConsultoraAsociada : userData.CodigoUsuario.ToString();
+
                         sv.UpdPedidoWebByEstado(userData.PaisID, userData.CampaniaID, userData.PedidoID, Estado, false, true, userData.CodigoUsuario, ValidacionAbierta);
                         if (Tipo == "PI")
                         {
@@ -4095,6 +4098,7 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpGet]
         public JsonResult JsonConsultarEstrategias(string cuv)
         {
+            
             List<BEEstrategia> lst = ConsultarEstrategias(cuv ?? "");
             var listModel = Mapper.Map<List<BEEstrategia>, List<EstrategiaPedidoModel>>(lst);
 
@@ -4117,7 +4121,7 @@ namespace Portal.Consultoras.Web.Controllers
             var entidad = new BEEstrategia();
             entidad.PaisID = userData.PaisID;
             entidad.CampaniaID = userData.CampaniaID;
-            entidad.ConsultoraID = userData.ConsultoraID.ToString();
+            entidad.ConsultoraID = userData.UsuarioPrueba == 1 ? userData.ConsultoraAsociadaID.ToString() : userData.ConsultoraID.ToString();
             entidad.CUV2 = cuv ?? "";
             entidad.Zona = userData.ZonaID.ToString();
 
@@ -4671,22 +4675,12 @@ namespace Portal.Consultoras.Web.Controllers
 
         public JsonResult ObtenerProductosOfertaFinal(int tipoOfertaFinal)
         {
-            var listaProductoModel = new List<ProductoModel>();
-            var lista = new List<Producto>();
-
             try
             {
                 int limiteJetlore = int.Parse(ConfigurationManager.AppSettings.Get("LimiteJetloreOfertaFinal"));
 
-                if (Session["ProductosOfertaFinal"] == null)
-                {
-                    listaProductoModel = ObtenerListadoProductosOfertaFinal();
-                }
-                else
-                {
-                    listaProductoModel = (List<ProductoModel>)Session["ProductosOfertaFinal"] ?? new List<ProductoModel>();
-                }
-
+                var listaProductoModel = ObtenerListadoProductosOfertaFinal();
+                
                 // Si ya esta en pedido detalle no se debe mostrar
                 var pedidoDetalle = ObtenerPedidoWebDetalle();
                 var listaRetorno = new List<ProductoModel>();
@@ -4785,18 +4779,21 @@ namespace Portal.Consultoras.Web.Controllers
                     userData.ZonaID, userData.CodigorRegion, userData.CodigoZona, tipoProductoMostrar).ToList();
             }
 
+            string listaCuv = string.Join(",", lista.Select(p => p.Cuv));
+
+            List<BEProducto> lstProducto = new List<BEProducto>();
+            using (ODSServiceClient sv = new ODSServiceClient())
+            {
+                lstProducto = sv.GetProductoComercialByListaCuv(userData.PaisID, userData.CampaniaID, userData.RegionID, userData.ZonaID, userData.CodigorRegion, userData.CodigoZona, listaCuv).ToList();
+            }
+
             foreach (var producto in lista)
             {
-                List<BEProducto> olstProducto = new List<BEProducto>();
-                using (ODSServiceClient sv = new ODSServiceClient())
-                {
-                    olstProducto = sv.SelectProductoByCodigoDescripcionSearchRegionZona(userData.PaisID, userData.CampaniaID, producto.Cuv,
-                        userData.RegionID, userData.ZonaID, userData.CodigorRegion, userData.CodigoZona, 1, 1, false).ToList();
-                }
-                if (olstProducto.Count == 0)
-                    continue;
+                BEProducto beProducto = lstProducto.FirstOrDefault(p => p.CUV == producto.Cuv);
 
-                if (!olstProducto[0].TieneStock)
+                if (beProducto == null) continue;
+                
+                if (!beProducto.TieneStock)
                     continue;
 
                 string descripcion = producto.NombreComercial;
@@ -4818,28 +4815,28 @@ namespace Portal.Consultoras.Web.Controllers
 
                 listaProductoModel.Add(new ProductoModel()
                 {
-                    CUV = olstProducto[0].CUV.Trim(),
+                    CUV = beProducto.CUV.Trim(),
                     Descripcion = descripcion,
-                    PrecioCatalogoString = Util.DecimalToStringFormat(olstProducto[0].PrecioCatalogo, userData.CodigoISO),
-                    PrecioCatalogo = olstProducto[0].PrecioCatalogo,
-                    MarcaID = olstProducto[0].MarcaID,
-                    EstaEnRevista = olstProducto[0].EstaEnRevista,
+                    PrecioCatalogoString = Util.DecimalToStringFormat(beProducto.PrecioCatalogo, userData.CodigoISO),
+                    PrecioCatalogo = beProducto.PrecioCatalogo,
+                    MarcaID = beProducto.MarcaID,
+                    EstaEnRevista = beProducto.EstaEnRevista,
                     TieneStock = true,
-                    EsExpoOferta = olstProducto[0].EsExpoOferta,
-                    CUVRevista = olstProducto[0].CUVRevista.Trim(),
-                    CUVComplemento = olstProducto[0].CUVComplemento.Trim(),
-                    IndicadorMontoMinimo = olstProducto[0].IndicadorMontoMinimo.ToString().Trim(),
-                    TipoOfertaSisID = olstProducto[0].TipoOfertaSisID,
-                    ConfiguracionOfertaID = olstProducto[0].ConfiguracionOfertaID,
+                    EsExpoOferta = beProducto.EsExpoOferta,
+                    CUVRevista = beProducto.CUVRevista.Trim(),
+                    CUVComplemento = beProducto.CUVComplemento.Trim(),
+                    IndicadorMontoMinimo = beProducto.IndicadorMontoMinimo.ToString().Trim(),
+                    TipoOfertaSisID = beProducto.TipoOfertaSisID,
+                    ConfiguracionOfertaID = beProducto.ConfiguracionOfertaID,
                     MensajeCUV = "",
                     DesactivaRevistaGana = -1,
-                    DescripcionMarca = olstProducto[0].DescripcionMarca,
-                    DescripcionEstrategia = olstProducto[0].DescripcionEstrategia,
-                    DescripcionCategoria = olstProducto[0].DescripcionCategoria,
-                    FlagNueva = olstProducto[0].FlagNueva,
-                    TipoEstrategiaID = olstProducto[0].TipoEstrategiaID,
+                    DescripcionMarca = beProducto.DescripcionMarca,
+                    DescripcionEstrategia = beProducto.DescripcionEstrategia,
+                    DescripcionCategoria = beProducto.DescripcionCategoria,
+                    FlagNueva = beProducto.FlagNueva,
+                    TipoEstrategiaID = beProducto.TipoEstrategiaID,
                     ImagenProductoSugerido = imagenUrl,
-                    CodigoProducto = olstProducto[0].CodigoProducto,
+                    CodigoProducto = beProducto.CodigoProducto,
                     TieneStockPROL = true,
                     PrecioValorizado = precioTachado,
                     PrecioValorizadoString = Util.DecimalToStringFormat(precioTachado, userData.CodigoISO),
@@ -4857,19 +4854,10 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                var f = false;
-                var oddModel = new OfertaDelDiaModel();
-
-                if (userData.OfertaDelDia != null)
-                {
-                    oddModel = userData.OfertaDelDia;
-                    oddModel.TeQuedan = CountdownODD(userData);
-                    f = true;
-                }
-
+                var oddModel = this.GetOfertaDelDiaModel();
                 return Json(new
                 {
-                    success = f,
+                    success = oddModel != null,
                     data = oddModel
                 }, JsonRequestBehavior.AllowGet);
             }
@@ -4943,7 +4931,59 @@ namespace Portal.Consultoras.Web.Controllers
                 }, JsonRequestBehavior.AllowGet);
             }
         }
+        public JsonResult CloseBannerPL20()
+        {
+            try
+            {
+                userData.CloseBannerPL20 = true;
+                Session["UserData"] = userData;
+
+                return Json(new
+                {
+                    success = true,
+                }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return Json(new
+                {
+                    success = false,
+                    message = "No se pudo procesar la solicitud"
+                }, JsonRequestBehavior.AllowGet);
+            }
+        }
 
         /*PL20-1226*/
+
+        //PL20-1265
+        public JsonResult GetProductoFichaOPT(string pCuv)
+        {
+            try
+            {
+                //List<BEEstrategia> lst2 = new List<BEEstrategia>();
+                List<BEEstrategia> lst = (List<BEEstrategia>)Session["ListadoEstrategiaPedido"];
+                BEEstrategia objProOPT = lst.FirstOrDefault(p => p.CUV2 == pCuv) ?? new BEEstrategia();
+                //lst2 = lst.Where(g => g.CUV2 == pCuv).ToList();
+
+                return Json(new
+                {
+                    success = true,
+                    message = "OK",
+                    data = objProOPT
+                });
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return Json(new
+                {
+                    success = false,
+                    message = ex.Message,
+                    data = ""
+                    //limiteJetlore = 0
+                });
+            }
+        }
     }
 }

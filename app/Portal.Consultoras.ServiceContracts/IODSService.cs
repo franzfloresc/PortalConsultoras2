@@ -24,6 +24,9 @@ namespace Portal.Consultoras.ServiceContracts
             int rowCount, bool validarOpt);
 
         [OperationContract]
+        IList<BEProducto> GetProductoComercialByListaCuv(int paisID, int campaniaID, int regionID, int zonaID, string codigoRegion, string codigoZona, string listaCuv);
+
+        [OperationContract]
         IList<BEConsultoraCodigo> SelectConsultoraCodigo(int paisID, int regionID, int zonaID, string codigo, int rowCount);
 
         [OperationContract]
@@ -132,5 +135,15 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         IList<BEProductoAppCatalogo> GetNombreProducto048ByListaCUV(int paisID, int campaniaId, string listaCUV);
+
+        //PL20-1237
+        [OperationContract]
+        int InsProductoCompartido(BEProductoCompartido ProComp);
+
+        [OperationContract]
+        BEProductoCompartido GetProductoCompartido(int paisID, int ProCompID);
+
+        [OperationContract]
+        IList<BEProducto> GetListBrothersByCUV(int paisID, int codCampania, string cuv);
     }
 }

@@ -617,10 +617,16 @@ namespace Portal.Consultoras.Web.ServiceCDR {
         private System.DateTime FechaRegistroField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private decimal ImporteCDRField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private long LogCDRWebIdField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int PedidoFacturadoIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int PedidoIdField;
         
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
@@ -737,6 +743,19 @@ namespace Portal.Consultoras.Web.ServiceCDR {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public decimal ImporteCDR {
+            get {
+                return this.ImporteCDRField;
+            }
+            set {
+                if ((this.ImporteCDRField.Equals(value) != true)) {
+                    this.ImporteCDRField = value;
+                    this.RaisePropertyChanged("ImporteCDR");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public long LogCDRWebId {
             get {
                 return this.LogCDRWebIdField;
@@ -758,6 +777,19 @@ namespace Portal.Consultoras.Web.ServiceCDR {
                 if ((this.PedidoFacturadoIdField.Equals(value) != true)) {
                     this.PedidoFacturadoIdField = value;
                     this.RaisePropertyChanged("PedidoFacturadoId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int PedidoId {
+            get {
+                return this.PedidoIdField;
+            }
+            set {
+                if ((this.PedidoIdField.Equals(value) != true)) {
+                    this.PedidoIdField = value;
+                    this.RaisePropertyChanged("PedidoId");
                 }
             }
         }
@@ -1754,6 +1786,24 @@ namespace Portal.Consultoras.Web.ServiceCDR {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICDRService/GetCDRWebDatos", ReplyAction="http://tempuri.org/ICDRService/GetCDRWebDatosResponse")]
         System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceCDR.BECDRWebDatos[]> GetCDRWebDatosAsync(int paisId, Portal.Consultoras.Web.ServiceCDR.BECDRWebDatos entidad);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICDRService/CreateLogCDRWebCulminadoFromCDRWeb", ReplyAction="http://tempuri.org/ICDRService/CreateLogCDRWebCulminadoFromCDRWebResponse")]
+        void CreateLogCDRWebCulminadoFromCDRWeb(int PaisID, int cDRWebId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICDRService/CreateLogCDRWebCulminadoFromCDRWeb", ReplyAction="http://tempuri.org/ICDRService/CreateLogCDRWebCulminadoFromCDRWebResponse")]
+        System.Threading.Tasks.Task CreateLogCDRWebCulminadoFromCDRWebAsync(int PaisID, int cDRWebId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICDRService/GetCDRWebByLogCDRWebCulminadoId", ReplyAction="http://tempuri.org/ICDRService/GetCDRWebByLogCDRWebCulminadoIdResponse")]
+        Portal.Consultoras.Web.ServiceCDR.BECDRWeb GetCDRWebByLogCDRWebCulminadoId(int PaisID, long logCDRWebCulminadoId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICDRService/GetCDRWebByLogCDRWebCulminadoId", ReplyAction="http://tempuri.org/ICDRService/GetCDRWebByLogCDRWebCulminadoIdResponse")]
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceCDR.BECDRWeb> GetCDRWebByLogCDRWebCulminadoIdAsync(int PaisID, long logCDRWebCulminadoId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICDRService/GetCDRWebDetalleByLogCDRWebCulminadoId", ReplyAction="http://tempuri.org/ICDRService/GetCDRWebDetalleByLogCDRWebCulminadoIdResponse")]
+        Portal.Consultoras.Web.ServiceCDR.BECDRWebDetalle[] GetCDRWebDetalleByLogCDRWebCulminadoId(int PaisID, long logCDRWebCulminadoId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICDRService/GetCDRWebDetalleByLogCDRWebCulminadoId", ReplyAction="http://tempuri.org/ICDRService/GetCDRWebDetalleByLogCDRWebCulminadoIdResponse")]
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceCDR.BECDRWebDetalle[]> GetCDRWebDetalleByLogCDRWebCulminadoIdAsync(int PaisID, long logCDRWebCulminadoId);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -1941,6 +1991,30 @@ namespace Portal.Consultoras.Web.ServiceCDR {
         
         public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceCDR.BECDRWebDatos[]> GetCDRWebDatosAsync(int paisId, Portal.Consultoras.Web.ServiceCDR.BECDRWebDatos entidad) {
             return base.Channel.GetCDRWebDatosAsync(paisId, entidad);
+        }
+        
+        public void CreateLogCDRWebCulminadoFromCDRWeb(int PaisID, int cDRWebId) {
+            base.Channel.CreateLogCDRWebCulminadoFromCDRWeb(PaisID, cDRWebId);
+        }
+        
+        public System.Threading.Tasks.Task CreateLogCDRWebCulminadoFromCDRWebAsync(int PaisID, int cDRWebId) {
+            return base.Channel.CreateLogCDRWebCulminadoFromCDRWebAsync(PaisID, cDRWebId);
+        }
+        
+        public Portal.Consultoras.Web.ServiceCDR.BECDRWeb GetCDRWebByLogCDRWebCulminadoId(int PaisID, long logCDRWebCulminadoId) {
+            return base.Channel.GetCDRWebByLogCDRWebCulminadoId(PaisID, logCDRWebCulminadoId);
+        }
+        
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceCDR.BECDRWeb> GetCDRWebByLogCDRWebCulminadoIdAsync(int PaisID, long logCDRWebCulminadoId) {
+            return base.Channel.GetCDRWebByLogCDRWebCulminadoIdAsync(PaisID, logCDRWebCulminadoId);
+        }
+        
+        public Portal.Consultoras.Web.ServiceCDR.BECDRWebDetalle[] GetCDRWebDetalleByLogCDRWebCulminadoId(int PaisID, long logCDRWebCulminadoId) {
+            return base.Channel.GetCDRWebDetalleByLogCDRWebCulminadoId(PaisID, logCDRWebCulminadoId);
+        }
+        
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceCDR.BECDRWebDetalle[]> GetCDRWebDetalleByLogCDRWebCulminadoIdAsync(int PaisID, long logCDRWebCulminadoId) {
+            return base.Channel.GetCDRWebDetalleByLogCDRWebCulminadoIdAsync(PaisID, logCDRWebCulminadoId);
         }
     }
 }

@@ -144,7 +144,10 @@ namespace Portal.Consultoras.Entities
         public int FlagMostrarImg { get; set; }      // SB2-353     
         
         [DataMember]
-        public int OfertaUltimoMinuto { get; set; }                
+        public int OfertaUltimoMinuto { get; set; }
+
+        [DataMember]
+        public int Imagen { get; set; }
 
         public BEEstrategia(IDataRecord row)
         {
