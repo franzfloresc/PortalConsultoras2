@@ -731,7 +731,7 @@
             waitingDialog({});
 
             var estrategias = jQuery("#list").jqGrid('getDataIDs', 'EstrategiaID');
-            var estrategiasSeleccionadas = jQuery("#list").jqGrid('getGridParam', 'selarrrow');           
+            var estrategiasSeleccionadas = jQuery("#list").jqGrid('getGridParam', 'selarrrow');
             var estrategiasNoSeleccionadas = estrategias.filter(function (obj) { return estrategiasSeleccionadas.indexOf(obj) == -1; });
 
             var params = {
@@ -1286,8 +1286,8 @@
                             $("#txtPrecio2").focus();
                         }
 
-                        $("#txtPrecio").val("");
-                        $("#txtCUV").val("");
+                        //$("#txtPrecio").val("");
+                        //$("#txtCUV").val("");
 
                         $("#ContenidoImagenes").empty();
                         $("#imgSeleccionada").attr("src", rutaImagenVacia);
@@ -1790,7 +1790,7 @@
             mtype: 'GET',
             contentType: "application/json; charset=utf-8",
             multiselect: (tipo == '4') ? true : false,
-            multiPageSelection: (tipo == '4') ? true : false,
+            //multiPageSelection: (tipo == '4') ? true : false,
             colNames: ['EstrategiaID', 'Orden', '#', 'Pedido Asociado', 'Precio', 'CUV2', 'Descripción', 'Limite Venta', 'Código SAP', 'Foto', ''],
             colModel: [
                 { name: 'EstrategiaID', index: 'EstrategiaID', width: 20, editable: true, resizable: false, hidden: true },
@@ -1805,59 +1805,16 @@
                 { name: 'ImagenURL', index: 'ImagenURL', width: 70, align: 'center', editable: true, resizable: false, formatter: ShowImage },
                 { name: 'Activo', index: 'Activo', width: 30, align: 'center', editable: true, resizable: false, formatter: ShowActions }
             ],
-            onSelectAll: function (aRowids, select) {
-
-                //$.each(arrayDataDelete, function (i, rowDataDelete) {
-                //    rowDataDelete.eliminar = select;
-                //});
-            },
-            onSelectRow: function (id, select) {
-                if (!flag) {
-                    //debugger
-                    return false;
-                }
-            },
-            beforeSelectRow: function (rowid, e) {
-
-                var $self = $(this),
-                iCol = $.jgrid.getCellIndex($(e.target).closest("td")[0]),
-                cm = $self.jqGrid("getGridParam", "colModel");
-                if (iCol === 11) {
-                    //debugger;
-                    flag = false;
-                }
-            },
-            onPaging: function (a) {
-                var pagerId = this.p.pager.substr(1); // ger paper id like "pager"               
-                var pageValue = $('input.ui-pg-input', "#pg_" + $.jgrid.jqID(pagerId)).val();
-                var saveSelectedRows = $(this).getGridParam('selarrrow');
-                //Store any selected rows 
-                $(this).data(pageValue.toString(), saveSelectedRows);
-            },
-            //onSelectRow: function (id, select) {
-            //    var oneItemsDeselect = false;
-            //    $.each(arrayDataDelete, function (i, rowDataDelete) {
-            //        if (rowDataDelete.id == id) {
-            //            rowDataDelete.eliminar = select;
-            //        }
-            //        if (!rowDataDelete.eliminar) {
-            //            oneItemsDeselect = true;
-            //        }
-            //    });
-
-            //    flagSelectAll = !oneItemsDeselect;
-            //    $("#cb_list").attr("checked", flagSelectAll);
-            //},
             jsonReader:
-        {
-            root: "rows",
-            page: "page",
-            total: "total",
-            records: "records",
-            repeatitems: true,
-            cell: "cell",
-            id: "id"
-        },
+            {
+                root: "rows",
+                page: "page",
+                total: "total",
+                records: "records",
+                repeatitems: true,
+                cell: "cell",
+                id: "id"
+            },
             pager: jQuery('#pager'),
             loadtext: 'Cargando datos...',
             recordtext: "{0} - {1} de {2} Registros",
@@ -1867,8 +1824,7 @@
             rowList: [10, 20, 30, 40, 50],
             sortname: 'Orden',
             sortorder: 'asc',
-            viewrecords: true,
-            //multiselect: false,
+            viewrecords: true,            
             height: 'auto',
             width: 930,
             pgtext: 'Pág: {0} de {1}',
@@ -1878,9 +1834,6 @@
                 if (data.rows.length > 0) {
                     for (var i = 0; i < data.rows.length; i++) {
                         if (data.rows[i].cell[10] == '1') {
-
-                            //$("#jqg_list_" + data.rows[i].id).css("visibility", "hidden");
-                            //$grid.jqGrid('setSelection', data[i], false);
                             $("#list").jqGrid('setSelection', data.rows[i].id, true);
 
                         }
@@ -2745,11 +2698,16 @@
                                 imagenesProductos.push(imagen);
                             }
                         }
-
+                        (imagenesProductos.length == 10) ? $("#fpUpload").hide() : $("#fpUpload").show();
                         $('#ImagenCUV-template').tmpl(imagenesProductos).appendTo("#ContenidoImagenes");
 
                         $("#divImagenEstrategiaContenido").show();
                         $("#divInformacionAdicionalEstrategiaContenido").hide();
+
+                        $("#divImagenEstrategia").css("color", "white");
+                        $("#divImagenEstrategia").css("background", "#00A2E8");
+                        $("#divInformacionAdicionalEstrategia").css("color", "#702789");
+                        $("#divInformacionAdicionalEstrategia").css("background", "#D0D0D0");
 
                         $("#txtLimite").val(data.LimiteVenta);
                         $("#txtDescripcion").val(data.DescripcionCUV2);
