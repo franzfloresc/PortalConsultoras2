@@ -47,13 +47,13 @@ BEGIN
 		,pc.Descripcion as NombreProducto
 		,isnull(pc2.Descripcion,'') as NombreProducto2
 		,case
-			when isnull(cd.CUV2,'') = '' or cd.CUV = cd.CUV2 then (pwd.MontoPagar * cd.Cantidad / pwd.Cantidad)
-			else (pwd.PrecioUnidad * pwd.FactorRepeticion * cd.Cantidad)			
+			when cd.CodigoOperacionCDR = LTRIM(RTRIM('T')) then (pwd.PrecioUnidad * pwd.FactorRepeticion * cd.Cantidad)
+			else (pwd.MontoPagar * cd.Cantidad / pwd.Cantidad)		
 		end as Precio
 		,case
 			when isnull(cd.CUV2,'') = '' then 0
-			when cd.CUV = cd.CUV2 then (pwd.MontoPagar * cd.Cantidad / pwd.Cantidad)
-			else (pc2.PrecioCatalogo * pc2.FactorRepeticion * cd.Cantidad2)
+			when cd.CodigoOperacionCDR = LTRIM(RTRIM('T')) then (pc2.PrecioCatalogo * pc2.FactorRepeticion * cd.Cantidad2)
+			else (pwd.MontoPagar * cd.Cantidad / pwd.Cantidad)
 		end as Precio2
 	FROM interfaces.LogCDRWeb c
 	INNER JOIN interfaces.LogCDRWebDetalle cd on c.LogCDRWebID = cd.LogCDRWebID
@@ -115,13 +115,13 @@ BEGIN
 		,pc.Descripcion as NombreProducto
 		,isnull(pc2.Descripcion,'') as NombreProducto2
 		,case
-			when isnull(cd.CUV2,'') = '' or cd.CUV = cd.CUV2 then (pwd.MontoPagar * cd.Cantidad / pwd.Cantidad)
-			else (pwd.PrecioUnidad * pwd.FactorRepeticion * cd.Cantidad)			
+			when cd.CodigoOperacionCDR = LTRIM(RTRIM('T')) then (pwd.PrecioUnidad * pwd.FactorRepeticion * cd.Cantidad)
+			else (pwd.MontoPagar * cd.Cantidad / pwd.Cantidad)		
 		end as Precio
 		,case
 			when isnull(cd.CUV2,'') = '' then 0
-			when cd.CUV = cd.CUV2 then (pwd.MontoPagar * cd.Cantidad / pwd.Cantidad)
-			else (pc2.PrecioCatalogo * pc2.FactorRepeticion * cd.Cantidad2)
+			when cd.CodigoOperacionCDR = LTRIM(RTRIM('T')) then (pc2.PrecioCatalogo * pc2.FactorRepeticion * cd.Cantidad2)
+			else (pwd.MontoPagar * cd.Cantidad / pwd.Cantidad)
 		end as Precio2
 	FROM interfaces.LogCDRWeb c
 	INNER JOIN interfaces.LogCDRWebDetalle cd on c.LogCDRWebID = cd.LogCDRWebID
@@ -183,13 +183,13 @@ BEGIN
 		,pc.Descripcion as NombreProducto
 		,isnull(pc2.Descripcion,'') as NombreProducto2
 		,case
-			when isnull(cd.CUV2,'') = '' or cd.CUV = cd.CUV2 then (pwd.MontoPagar * cd.Cantidad / pwd.Cantidad)
-			else (pwd.PrecioUnidad * pwd.FactorRepeticion * cd.Cantidad)			
+			when cd.CodigoOperacionCDR = LTRIM(RTRIM('T')) then (pwd.PrecioUnidad * pwd.FactorRepeticion * cd.Cantidad)
+			else (pwd.MontoPagar * cd.Cantidad / pwd.Cantidad)		
 		end as Precio
 		,case
 			when isnull(cd.CUV2,'') = '' then 0
-			when cd.CUV = cd.CUV2 then (pwd.MontoPagar * cd.Cantidad / pwd.Cantidad)
-			else (pc2.PrecioCatalogo * pc2.FactorRepeticion * cd.Cantidad2)
+			when cd.CodigoOperacionCDR = LTRIM(RTRIM('T')) then (pc2.PrecioCatalogo * pc2.FactorRepeticion * cd.Cantidad2)
+			else (pwd.MontoPagar * cd.Cantidad / pwd.Cantidad)
 		end as Precio2
 	FROM interfaces.LogCDRWeb c
 	INNER JOIN interfaces.LogCDRWebDetalle cd on c.LogCDRWebID = cd.LogCDRWebID
@@ -251,13 +251,13 @@ BEGIN
 		,pc.Descripcion as NombreProducto
 		,isnull(pc2.Descripcion,'') as NombreProducto2
 		,case
-			when isnull(cd.CUV2,'') = '' or cd.CUV = cd.CUV2 then (pwd.MontoPagar * cd.Cantidad / pwd.Cantidad)
-			else (pwd.PrecioUnidad * pwd.FactorRepeticion * cd.Cantidad)			
+			when cd.CodigoOperacionCDR = LTRIM(RTRIM('T')) then (pwd.PrecioUnidad * pwd.FactorRepeticion * cd.Cantidad)
+			else (pwd.MontoPagar * cd.Cantidad / pwd.Cantidad)		
 		end as Precio
 		,case
 			when isnull(cd.CUV2,'') = '' then 0
-			when cd.CUV = cd.CUV2 then (pwd.MontoPagar * cd.Cantidad / pwd.Cantidad)
-			else (pc2.PrecioCatalogo * pc2.FactorRepeticion * cd.Cantidad2)
+			when cd.CodigoOperacionCDR = LTRIM(RTRIM('T')) then (pc2.PrecioCatalogo * pc2.FactorRepeticion * cd.Cantidad2)
+			else (pwd.MontoPagar * cd.Cantidad / pwd.Cantidad)
 		end as Precio2
 	FROM interfaces.LogCDRWeb c
 	INNER JOIN interfaces.LogCDRWebDetalle cd on c.LogCDRWebID = cd.LogCDRWebID
@@ -319,13 +319,13 @@ BEGIN
 		,pc.Descripcion as NombreProducto
 		,isnull(pc2.Descripcion,'') as NombreProducto2
 		,case
-			when isnull(cd.CUV2,'') = '' or cd.CUV = cd.CUV2 then (pwd.MontoPagar * cd.Cantidad / pwd.Cantidad)
-			else (pwd.PrecioUnidad * pwd.FactorRepeticion * cd.Cantidad)			
+			when cd.CodigoOperacionCDR = LTRIM(RTRIM('T')) then (pwd.PrecioUnidad * pwd.FactorRepeticion * cd.Cantidad)
+			else (pwd.MontoPagar * cd.Cantidad / pwd.Cantidad)		
 		end as Precio
 		,case
 			when isnull(cd.CUV2,'') = '' then 0
-			when cd.CUV = cd.CUV2 then (pwd.MontoPagar * cd.Cantidad / pwd.Cantidad)
-			else (pc2.PrecioCatalogo * pc2.FactorRepeticion * cd.Cantidad2)
+			when cd.CodigoOperacionCDR = LTRIM(RTRIM('T')) then (pc2.PrecioCatalogo * pc2.FactorRepeticion * cd.Cantidad2)
+			else (pwd.MontoPagar * cd.Cantidad / pwd.Cantidad)
 		end as Precio2
 	FROM interfaces.LogCDRWeb c
 	INNER JOIN interfaces.LogCDRWebDetalle cd on c.LogCDRWebID = cd.LogCDRWebID
@@ -387,13 +387,13 @@ BEGIN
 		,pc.Descripcion as NombreProducto
 		,isnull(pc2.Descripcion,'') as NombreProducto2
 		,case
-			when isnull(cd.CUV2,'') = '' or cd.CUV = cd.CUV2 then (pwd.MontoPagar * cd.Cantidad / pwd.Cantidad)
-			else (pwd.PrecioUnidad * pwd.FactorRepeticion * cd.Cantidad)			
+			when cd.CodigoOperacionCDR = LTRIM(RTRIM('T')) then (pwd.PrecioUnidad * pwd.FactorRepeticion * cd.Cantidad)
+			else (pwd.MontoPagar * cd.Cantidad / pwd.Cantidad)		
 		end as Precio
 		,case
 			when isnull(cd.CUV2,'') = '' then 0
-			when cd.CUV = cd.CUV2 then (pwd.MontoPagar * cd.Cantidad / pwd.Cantidad)
-			else (pc2.PrecioCatalogo * pc2.FactorRepeticion * cd.Cantidad2)
+			when cd.CodigoOperacionCDR = LTRIM(RTRIM('T')) then (pc2.PrecioCatalogo * pc2.FactorRepeticion * cd.Cantidad2)
+			else (pwd.MontoPagar * cd.Cantidad / pwd.Cantidad)
 		end as Precio2
 	FROM interfaces.LogCDRWeb c
 	INNER JOIN interfaces.LogCDRWebDetalle cd on c.LogCDRWebID = cd.LogCDRWebID
@@ -455,13 +455,13 @@ BEGIN
 		,pc.Descripcion as NombreProducto
 		,isnull(pc2.Descripcion,'') as NombreProducto2
 		,case
-			when isnull(cd.CUV2,'') = '' or cd.CUV = cd.CUV2 then (pwd.MontoPagar * cd.Cantidad / pwd.Cantidad)
-			else (pwd.PrecioUnidad * pwd.FactorRepeticion * cd.Cantidad)			
+			when cd.CodigoOperacionCDR = LTRIM(RTRIM('T')) then (pwd.PrecioUnidad * pwd.FactorRepeticion * cd.Cantidad)
+			else (pwd.MontoPagar * cd.Cantidad / pwd.Cantidad)		
 		end as Precio
 		,case
 			when isnull(cd.CUV2,'') = '' then 0
-			when cd.CUV = cd.CUV2 then (pwd.MontoPagar * cd.Cantidad / pwd.Cantidad)
-			else (pc2.PrecioCatalogo * pc2.FactorRepeticion * cd.Cantidad2)
+			when cd.CodigoOperacionCDR = LTRIM(RTRIM('T')) then (pc2.PrecioCatalogo * pc2.FactorRepeticion * cd.Cantidad2)
+			else (pwd.MontoPagar * cd.Cantidad / pwd.Cantidad)
 		end as Precio2
 	FROM interfaces.LogCDRWeb c
 	INNER JOIN interfaces.LogCDRWebDetalle cd on c.LogCDRWebID = cd.LogCDRWebID
@@ -523,13 +523,13 @@ BEGIN
 		,pc.Descripcion as NombreProducto
 		,isnull(pc2.Descripcion,'') as NombreProducto2
 		,case
-			when isnull(cd.CUV2,'') = '' or cd.CUV = cd.CUV2 then (pwd.MontoPagar * cd.Cantidad / pwd.Cantidad)
-			else (pwd.PrecioUnidad * pwd.FactorRepeticion * cd.Cantidad)			
+			when cd.CodigoOperacionCDR = LTRIM(RTRIM('T')) then (pwd.PrecioUnidad * pwd.FactorRepeticion * cd.Cantidad)
+			else (pwd.MontoPagar * cd.Cantidad / pwd.Cantidad)		
 		end as Precio
 		,case
 			when isnull(cd.CUV2,'') = '' then 0
-			when cd.CUV = cd.CUV2 then (pwd.MontoPagar * cd.Cantidad / pwd.Cantidad)
-			else (pc2.PrecioCatalogo * pc2.FactorRepeticion * cd.Cantidad2)
+			when cd.CodigoOperacionCDR = LTRIM(RTRIM('T')) then (pc2.PrecioCatalogo * pc2.FactorRepeticion * cd.Cantidad2)
+			else (pwd.MontoPagar * cd.Cantidad / pwd.Cantidad)
 		end as Precio2
 	FROM interfaces.LogCDRWeb c
 	INNER JOIN interfaces.LogCDRWebDetalle cd on c.LogCDRWebID = cd.LogCDRWebID
@@ -591,13 +591,13 @@ BEGIN
 		,pc.Descripcion as NombreProducto
 		,isnull(pc2.Descripcion,'') as NombreProducto2
 		,case
-			when isnull(cd.CUV2,'') = '' or cd.CUV = cd.CUV2 then (pwd.MontoPagar * cd.Cantidad / pwd.Cantidad)
-			else (pwd.PrecioUnidad * pwd.FactorRepeticion * cd.Cantidad)			
+			when cd.CodigoOperacionCDR = LTRIM(RTRIM('T')) then (pwd.PrecioUnidad * pwd.FactorRepeticion * cd.Cantidad)
+			else (pwd.MontoPagar * cd.Cantidad / pwd.Cantidad)		
 		end as Precio
 		,case
 			when isnull(cd.CUV2,'') = '' then 0
-			when cd.CUV = cd.CUV2 then (pwd.MontoPagar * cd.Cantidad / pwd.Cantidad)
-			else (pc2.PrecioCatalogo * pc2.FactorRepeticion * cd.Cantidad2)
+			when cd.CodigoOperacionCDR = LTRIM(RTRIM('T')) then (pc2.PrecioCatalogo * pc2.FactorRepeticion * cd.Cantidad2)
+			else (pwd.MontoPagar * cd.Cantidad / pwd.Cantidad)
 		end as Precio2
 	FROM interfaces.LogCDRWeb c
 	INNER JOIN interfaces.LogCDRWebDetalle cd on c.LogCDRWebID = cd.LogCDRWebID
@@ -659,13 +659,13 @@ BEGIN
 		,pc.Descripcion as NombreProducto
 		,isnull(pc2.Descripcion,'') as NombreProducto2
 		,case
-			when isnull(cd.CUV2,'') = '' or cd.CUV = cd.CUV2 then (pwd.MontoPagar * cd.Cantidad / pwd.Cantidad)
-			else (pwd.PrecioUnidad * pwd.FactorRepeticion * cd.Cantidad)			
+			when cd.CodigoOperacionCDR = LTRIM(RTRIM('T')) then (pwd.PrecioUnidad * pwd.FactorRepeticion * cd.Cantidad)
+			else (pwd.MontoPagar * cd.Cantidad / pwd.Cantidad)		
 		end as Precio
 		,case
 			when isnull(cd.CUV2,'') = '' then 0
-			when cd.CUV = cd.CUV2 then (pwd.MontoPagar * cd.Cantidad / pwd.Cantidad)
-			else (pc2.PrecioCatalogo * pc2.FactorRepeticion * cd.Cantidad2)
+			when cd.CodigoOperacionCDR = LTRIM(RTRIM('T')) then (pc2.PrecioCatalogo * pc2.FactorRepeticion * cd.Cantidad2)
+			else (pwd.MontoPagar * cd.Cantidad / pwd.Cantidad)
 		end as Precio2
 	FROM interfaces.LogCDRWeb c
 	INNER JOIN interfaces.LogCDRWebDetalle cd on c.LogCDRWebID = cd.LogCDRWebID
@@ -727,13 +727,13 @@ BEGIN
 		,pc.Descripcion as NombreProducto
 		,isnull(pc2.Descripcion,'') as NombreProducto2
 		,case
-			when isnull(cd.CUV2,'') = '' or cd.CUV = cd.CUV2 then (pwd.MontoPagar * cd.Cantidad / pwd.Cantidad)
-			else (pwd.PrecioUnidad * pwd.FactorRepeticion * cd.Cantidad)			
+			when cd.CodigoOperacionCDR = LTRIM(RTRIM('T')) then (pwd.PrecioUnidad * pwd.FactorRepeticion * cd.Cantidad)
+			else (pwd.MontoPagar * cd.Cantidad / pwd.Cantidad)		
 		end as Precio
 		,case
 			when isnull(cd.CUV2,'') = '' then 0
-			when cd.CUV = cd.CUV2 then (pwd.MontoPagar * cd.Cantidad / pwd.Cantidad)
-			else (pc2.PrecioCatalogo * pc2.FactorRepeticion * cd.Cantidad2)
+			when cd.CodigoOperacionCDR = LTRIM(RTRIM('T')) then (pc2.PrecioCatalogo * pc2.FactorRepeticion * cd.Cantidad2)
+			else (pwd.MontoPagar * cd.Cantidad / pwd.Cantidad)
 		end as Precio2
 	FROM interfaces.LogCDRWeb c
 	INNER JOIN interfaces.LogCDRWebDetalle cd on c.LogCDRWebID = cd.LogCDRWebID
@@ -795,13 +795,13 @@ BEGIN
 		,pc.Descripcion as NombreProducto
 		,isnull(pc2.Descripcion,'') as NombreProducto2
 		,case
-			when isnull(cd.CUV2,'') = '' or cd.CUV = cd.CUV2 then (pwd.MontoPagar * cd.Cantidad / pwd.Cantidad)
-			else (pwd.PrecioUnidad * pwd.FactorRepeticion * cd.Cantidad)			
+			when cd.CodigoOperacionCDR = LTRIM(RTRIM('T')) then (pwd.PrecioUnidad * pwd.FactorRepeticion * cd.Cantidad)
+			else (pwd.MontoPagar * cd.Cantidad / pwd.Cantidad)		
 		end as Precio
 		,case
 			when isnull(cd.CUV2,'') = '' then 0
-			when cd.CUV = cd.CUV2 then (pwd.MontoPagar * cd.Cantidad / pwd.Cantidad)
-			else (pc2.PrecioCatalogo * pc2.FactorRepeticion * cd.Cantidad2)
+			when cd.CodigoOperacionCDR = LTRIM(RTRIM('T')) then (pc2.PrecioCatalogo * pc2.FactorRepeticion * cd.Cantidad2)
+			else (pwd.MontoPagar * cd.Cantidad / pwd.Cantidad)
 		end as Precio2
 	FROM interfaces.LogCDRWeb c
 	INNER JOIN interfaces.LogCDRWebDetalle cd on c.LogCDRWebID = cd.LogCDRWebID
@@ -863,13 +863,13 @@ BEGIN
 		,pc.Descripcion as NombreProducto
 		,isnull(pc2.Descripcion,'') as NombreProducto2
 		,case
-			when isnull(cd.CUV2,'') = '' or cd.CUV = cd.CUV2 then (pwd.MontoPagar * cd.Cantidad / pwd.Cantidad)
-			else (pwd.PrecioUnidad * pwd.FactorRepeticion * cd.Cantidad)			
+			when cd.CodigoOperacionCDR = LTRIM(RTRIM('T')) then (pwd.PrecioUnidad * pwd.FactorRepeticion * cd.Cantidad)
+			else (pwd.MontoPagar * cd.Cantidad / pwd.Cantidad)		
 		end as Precio
 		,case
 			when isnull(cd.CUV2,'') = '' then 0
-			when cd.CUV = cd.CUV2 then (pwd.MontoPagar * cd.Cantidad / pwd.Cantidad)
-			else (pc2.PrecioCatalogo * pc2.FactorRepeticion * cd.Cantidad2)
+			when cd.CodigoOperacionCDR = LTRIM(RTRIM('T')) then (pc2.PrecioCatalogo * pc2.FactorRepeticion * cd.Cantidad2)
+			else (pwd.MontoPagar * cd.Cantidad / pwd.Cantidad)
 		end as Precio2
 	FROM interfaces.LogCDRWeb c
 	INNER JOIN interfaces.LogCDRWebDetalle cd on c.LogCDRWebID = cd.LogCDRWebID
