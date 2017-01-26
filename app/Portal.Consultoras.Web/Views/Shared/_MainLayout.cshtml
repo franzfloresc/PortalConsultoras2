@@ -462,6 +462,19 @@
     </div>
     <!-- FIN POPUP MENSAJE ERROR - exclamacion -->
 
+    <div id="divMensajeConfirmacion" style="display: none;">
+        <div class="terminos_title_2 divTitle">
+            IMPORTANTE
+        </div>
+        <div class="pop_pedido_mensaje divTexto">
+            <p></p>
+        </div>
+        <div style="text-align: center; margin-top: 30px;">
+            <input type="button" value="CANCELAR" onclick="$('#divMensajeConfirmacion').dialog('close');" class="input_modifica_horizontal btnMensajeCancelar" style="width: 100px; margin-left: 0;" />
+            <input type="button" value="ACEPTAR" onclick="$('#divMensajeConfirmacion').dialog('close');" class="input_modifica_horizontal btnMensajeAceptar" style="width: 100px; margin-left: 20px;" />
+        </div>
+    </div>
+
     <script id="resumenCampania-template" type="text/x-handlebars-template">
         <div class="info_productos_carrito">
             He agregado <span>{{cantidadProductos}}</span> unidades.<br />

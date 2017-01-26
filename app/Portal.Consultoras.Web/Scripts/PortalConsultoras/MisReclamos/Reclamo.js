@@ -110,8 +110,17 @@ $(document).ready(function () {
     });
 
     $("#IrSolicitudEnviada").on("click", function () {
-        $("#ddlCampania").removeAttr("disabled");
-        SolicitudEnviar();
+        var cantidadDetalle = $("#divDetallePaso3 .content_listado_reclamo").length || 0;
+
+        if (cantidadDetalle > 0) {
+            $("#ddlCampania").removeAttr("disabled");
+            SolicitudEnviar();
+        } else {
+            var functionRegresar = function() {
+                window.location = urlRegresar;
+            };
+            messageConfirmacion("", "No se puede finalizar la solicitud porque no cuenta con registros.", functionRegresar);
+        }
     });
 
     $(document).on('click', '[data-accion]', function () {
@@ -895,8 +904,13 @@ function DetalleAccion(obj) {
             CDRWebDetalleID: pedidodetalleid
         };
 
-        DetalleEliminar(item);
 
+        var functionEliminar = function() {
+            DetalleEliminar(item);
+        };
+        messageConfirmacion("", "Se eliminará el registro seleccionado. <br/>¿Deseas continuar?", functionEliminar);
+
+        //DetalleEliminar(item);
         //var pedidoID = $("#txtPedidoID").val();
     }
 }
@@ -934,7 +948,7 @@ function DetalleEliminar(objItem) {
 }
 
 function SolicitudEnviar() {
-    debugger;
+    //debugger;
     var ok = true;
 
     var correo = $.trim($("#txtEmail").val());

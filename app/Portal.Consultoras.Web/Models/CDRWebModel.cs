@@ -19,6 +19,7 @@ namespace Portal.Consultoras.Web.Models
         public DateTime? FechaCulminado { get; set; }        
         public DateTime? FechaAtencion { get; set; }        
         public decimal Importe { get; set; }
+        public int CantidadDetalle { get; set; }
         public string NombreConsultora { get; set; }
 
         public string CodigoIso { get; set; }
