@@ -351,7 +351,11 @@
                     <img src="{{ImagenProductoSugerido}}" class="imagen_producto">
                 </div>
                 {{#if TieneOfertaEnRevista}}
-                <div class="etiqueta_guia_negocio">GUÍA DE NEGOCIO</div>
+                    {{#if PaisEsikizado}}
+                        <div class="etiqueta_guia_negocio">GUÍA DE NEGOCIO</div>
+                    {{else}}
+                        <div class="etiqueta_guia_negocio">GUÍA DE NEGOCIO L'BEL</div>
+                    {{/if}}
                 {{/if}}
                 {{#if item.TieneLanzamientoCatalogoPersonalizado}}
                 <div class="etiqueta_producto nuevofavorito">
@@ -722,6 +726,7 @@
             var divPadreOfertaRevista;
             var tipoOrigen = '2';
             var urlFichaProductoFAV = '@Url.Action("Producto", "CatalogoPersonalizado")';
+            var urlCargarFiltros = '@Url.Action("CargarFiltros", "CatalogoPersonalizado", new { area = "" })';
         </script>
         <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/CatalogoPersonalizado/CatalogoPersonalizado.js")"></script>
         <script src="~/Scripts/PortalConsultoras/Mobile/CatalogoPersonalizado/bootstrap-slider.min.js"></script>

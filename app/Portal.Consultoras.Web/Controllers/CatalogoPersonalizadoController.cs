@@ -59,7 +59,8 @@ namespace Portal.Consultoras.Web.Controllers
 
         public JsonResult ObtenerProductosCatalogoPersonalizadoHome()
         {
-            return ObtenerProductos(8);
+            int CantProFav = Convert.ToInt32(System.Configuration.ConfigurationManager.AppSettings.Get("LimiteJetloreCatalogoPersonalizadoHome"));
+            return ObtenerProductos(CantProFav);
         }
 
         public JsonResult ObtenerProductosCatalogoPersonalizado(int cantidad, int offset, List<FiltroResultadoModel> lstFilters = null)
@@ -115,6 +116,8 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 if (Session["ProductosCatalogoPersonalizado"] == null)
                 {
+                    string PaisesEsika = System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika").ToString(); //PL20-1239
+                    bool Esikizado = (PaisesEsika.Contains(userData.CodigoISO == null ? "" : userData.CodigoISO)) == true ? true : false; //PL20-1239
                     string paisesConPcm = ConfigurationManager.AppSettings.Get("PaisesConPcm");
                     int tipoProductoMostrar = paisesConPcm.Contains(userData.CodigoISO) ? 2 : 1;
 
@@ -228,7 +231,8 @@ namespace Portal.Consultoras.Web.Controllers
                                     CodigoIso = userData.CodigoISO,
                                     Relevancia = producto.Relevancia,
                                     CodigoCategoria = producto.CodigoCategoria,
-                                    CodigoMarca = producto.CodigoMarca
+                                    CodigoMarca = producto.CodigoMarca,
+                                    PaisEsikizado = Esikizado //PL20-1239
                                 });
 
                             }
@@ -336,7 +340,7 @@ namespace Portal.Consultoras.Web.Controllers
                                     if (ind == 0)
                                     {
                                         bool er = (item.Valor1 == "SC") ? false : true;
-                                        lstProductoModelFilter = lstProductoModelFilter.Where(x => x.EstaEnRevista == er).ToList();
+                                        lstProductoModelFilter = lstProductoModelFilter.Where(x => x.TieneOfertaEnRevista == er).ToList();
                                     }
                                 }
                             }
@@ -727,6 +731,32 @@ namespace Portal.Consultoras.Web.Controllers
                 });
             }
         }
+        
+        public JsonResult CargarFiltros()
+        {
+            try
+            {
+                var lstProductoModelFilter = new List<FiltroResultadoModel>();
+                if (Session["UserFiltersFAV"] != null)
+                {                  
+                    lstProductoModelFilter = (List<FiltroResultadoModel>)Session["UserFiltersFAV"] ?? new List<FiltroResultadoModel>();                    
+                }
 
+                return Json(new
+                {
+                    success = true,
+                    message = "OK",
+                    data = lstProductoModelFilter
+                });
+            }
+            catch (Exception)
+            {                
+                return Json(new
+                {
+                    success = false,
+                    message = "Error al cargar los filtros"
+                });
+            }
+        }
     }
 }
