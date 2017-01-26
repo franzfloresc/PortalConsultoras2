@@ -1753,11 +1753,16 @@ namespace Portal.Consultoras.Service
         {
             return new BLEstrategia().InsertEstrategiaOfertaParaTi(paisId, lista, campaniaId, codigoUsuario);
         }
-        
+
         /*PL20-1226*/
         public List<BEEstrategia> GetEstrategiaODD(int paisID, int codCampania, string codConsultora, DateTime fechaInicioFact)
         {
             return new BLEstrategia().GetEstrategiaODD(paisID, codCampania, codConsultora, fechaInicioFact);
+        }
+
+        public int ActivarDesactivarEstrategias(int PaisID, string Usuario, string EstrategiasActivas, string EstrategiasDesactivas)
+        {
+            return new BLEstrategia().ActivarDesactivarEstrategias(PaisID, Usuario, EstrategiasActivas, EstrategiasDesactivas);
         }
     }
 }

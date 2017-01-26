@@ -26,7 +26,7 @@
                 <div class="selectA borde_redondeado">
                     @Html.DropDownListFor(model => model.PaisID, new SelectList(Model.listaPaises, "PaisID", "Nombre"), "-- Seleccionar --", new { id = "ddlPais" })
                 </div>
-                <div class="titB">Campaña:</div>
+                <div class="titG">Campaña:</div>
                 <div class="selectA borde_redondeado">
                     @Html.DropDownListFor(model => model.CampaniaID, new SelectList(Model.listaCampania, "CampaniaID", "NombreCorto"), "-- Seleccionar --", new { id = "ddlCampania" })
                 </div>
@@ -54,17 +54,40 @@
                         }
                     </select>
                 </div>
-                <div class="titB">CUV<sub>2</sub>:</div>
+                <div class="titG">CUV<sub>2</sub>:</div>
                 <div class="selectA borde_redondeado">
                     <input type="text" id="CUV" name="CUV" />
                 </div>
             </div>
+
+            <div class="div-3">
+                <div class="titG">Tiene imagen?:</div>
+                 <div class="selectA borde_redondeado">
+                    <select id="ddlTieneImagen" name="ddlTieneImagen">
+                        <option value="-1" selected>-- Seleccionar --</option>
+                        <option value="1">Si</option>
+                        <option value="0">No</option>
+                    </select>
+                </div>   
+                <div class="titG">Oferta Activa?:</div>
+                <div class="selectA borde_redondeado">
+                    <select id="ddlOfertaActiva" name="ddlOfertaActiva">
+                        <option value="-1" selected>-- Seleccionar --</option>
+                        <option value="1">Si</option>
+                        <option value="0">No</option>
+                    </select>
+                </div>
+            </div>
+
             <div class="div-3">
                 <div class="titG">&nbsp;</div>
                 <div class="input_horizontal">
                     <input type="button" name="btnBuscar" id="btnBuscar" value="Buscar" />
                     <input type="button" name="btnNuevo" id="btnNuevo" value="Nuevo" />
                     <input type="button" name="btnNuevoMasivo" id="btnNuevoMasivo" value="Nuevo Masivo" />
+                    </div>
+                <div class="input_modifica_pedido">                    
+                    <input type="button" name="btnActivarDesactivar" id="btnActivarDesactivar" value="Activar/Desactivar" style="display: none;" />
                 </div>
             </div>
         </div>
@@ -78,6 +101,7 @@
         </div>
     </div>
 </div>
+
 <div id="DialogAdministracionEstrategia" style="display: none;">
     <input type="hidden" id="hdPais" value="" />
     <input type="hidden" id="hdCampania" value="" />
@@ -86,6 +110,7 @@
     <input type="hidden" id="hdCodigoPrograma" value="">
     <input type="hidden" id="hdNumeroPedido" value="">
     <div class="Content_modal">
+
         <div class="div-3">
             <div class="titG">Campaña:</div>
             <div class="selectP2 borde_redondeado">
@@ -96,8 +121,9 @@
                 <input id="spanTipoEstrategia" type="text" readonly="readonly" />
             </div>
         </div>
+
         <div class="div-3 DatosNuevas" style="display: none">
-            <div class="titG">Vigencia Hasta:</div>
+            <div class="titG">Campaña fin:</div>
             <div class="selectP2 borde_redondeado">
                 @Html.DropDownListFor(model => model.CampaniaID, new SelectList(Model.listaCampania, "CampaniaID", "NombreCorto"), "-- Seleccionar --", new { id = "ddlCampaniaFin" })
             </div>
@@ -105,187 +131,254 @@
             <div class="checksPedidosAsociados">
             </div>
         </div>
-        <div class="div-est-3">
-            &nbsp;
-        </div>
-        <div class="div-est-3">
-            <div class="titA">&nbsp;</div>
-            <div class="titA">Orden</div>
-            <div class="titB">Visible</div>
-            <div class="titG">Descripción</div>
-        </div>
-        <div class="div-est-3">
-            <div class="titA">&nbsp;</div>
-            <div class="titA">1</div>
-            <div class="titB">
-                <input type="checkbox" id="chkVisible1" disabled class="activar-desactivar" checked="checked" />
+        <div class="div-3 Content_modal" style="margin-left: 12px; width: 92%; padding-top: 10px; padding-bottom: 0;">
+            <div style="color: white;">
+                <div style="display: inline-block; width: 47%; text-align: center; padding: 8px; background: #00A2E8; border-top-left-radius: 10px;">
+                    Información CUV Oferta
+                </div>
+                <div style="display: inline-block; width: 48%; text-align: center; padding: 8px; background: #00A2E8; margin-left: -3px; border-left: 1px #D0D0D0 solid; border-top-right-radius: 10px;">
+                    Precio Valorizado
+                </div>
             </div>
-            <div class="titG">
-                <input type="text" id="txtDescripcion" />
-            </div>
-        </div>
-        <div class="div-est-3">
-            <div class="titA">&nbsp;</div>
-            <div class="titA">2</div>
-            <div class="titB">
-                <input type="checkbox" id="chkVisible2" class="activar-desactivar" />
-            </div>
-            <div class="titA" style="text-align: right"><span class="OcultarNuevas">CUV:</span></div>
-            <div class="titB">
-                <input type="text" id="txtCUV" class="OcultarNuevas ValidaNumeral" maxlength="5" />
-            </div>
-            <div class="titE">Etiqueta:</div>
-            <div class="titD">
-                @*@Html.DropDownListFor(model => model.CampaniaID, new SelectList(Model.ListaEtiquetas, "EtiquetaID", "Descripcion"), "-- Seleccionar --", new { id = "ddlEtiqueta1" })*@
-                <select name="CampaniaID" id="ddlEtiqueta1">
-                    <option value="">-- Seleccionar --</option>
-                    @foreach (var x in Model.ListaEtiquetas)
-                    {
-                        <option value="@x.EtiquetaID" data-id="@x.CodigoGeneral">@x.Descripcion</option>
-                    }
-                </select>
-            </div>
-            <div class="titE">Precio:</div>
-            <div class="titB">
-                <input type="text" id="txtPrecio" />
-            </div>
-        </div>
-        <div class="div-est-3">
-            <div class="titA">&nbsp;</div>
-            <div class="titA">3</div>
-            <div class="titB">
-                <input type="checkbox" id="chkVisible3" disabled class="activar-desactivar" checked="checked" />
-            </div>
-            <div class="titA" style="text-align: right">CUV<sub>2</sub>:</div>
-            <div class="titB">
-                <input type="text" id="txtCUV2" maxlength="5" class="ValidaNumeral" />
-            </div>
-            <div class="titA"></div>
-            <div class="titE">Etiqueta:</div>
-            <div class="titD">
-                @*@Html.DropDownListFor(model => model.CampaniaID, new SelectList(Model.ListaEtiquetas, "EtiquetaID", "Descripcion"), "-- Seleccionar --", new { id = "ddlEtiqueta2" })*@
-                <select name="CampaniaID" id="ddlEtiqueta2">
-                    <option value="">-- Seleccionar --</option>
-                    @foreach (var x in Model.ListaEtiquetas)
-                    {
-                        <option value="@x.EtiquetaID" data-id="@x.CodigoGeneral">@x.Descripcion</option>
-                    }
-                </select>
-            </div>
-            <div class="titE">Precio:</div>
-            <div class="titB">
-                <input type="text" id="txtPrecio2" maxlength="10" class="ValidaNumeral" />
-            </div>
-            <div class="titE" style="margin-left: 5px">Talla/Color:</div>
-            &nbsp;&nbsp;&nbsp;&nbsp;
-            <a href="#" style="margin-left: 5px" id="linkTallaColor">
-                <img src='@Url.Content("~/Content/Images/icons/small/list-icon2.png")' border="0" alt="Agregar Tonos/Tallas/Colores" title="Agregar Tonos/Tallas/Colores" />
-            </a>
-        </div>
-        <div class="div-est-3">
-            <div class="titA">&nbsp;</div>
-            <div class="titA">4</div>
-            <div class="titB">
-                <input type="checkbox" id="chkVisible4" class="activar-desactivar" />
-            </div>
-            <div class="titG">
-                <input type="text" id="txtTextoLibre" maxlength="100" />
-            </div>
-        </div>
-        <div class="div-est-3 Recomendados" style="display: none">
-            <div class="titA">&nbsp;</div>
-            <div class="titA">5</div>
-            <div class="titB">
-                <input type="checkbox" id="chkVisible5" class="activar-desactivar" />
-            </div>
-            <div class="titA" style="display: none">
-                <input type="text" id="txtCantidad" />
-            </div>
-            <div class="titG" id="idColorFondo" style="display: none; width:200px;">
-                Elegir color de fondo:&nbsp;<input type='text' id="txtColorFondo" />
-            </div>
-            <div class="titG" id="idEstrella" style="width:130px;">
-                <span id="txt1-estrella">Mostrar estrella</span>        <!--SB20-312 -->
-                <input type="checkbox" id="chkEstrella" />
-            </div>
-            <div class="titG" style="width:380px" id="txt2-estrella">&nbsp;(Solo para Ofertas Recomendar / Ofertas Segmentadas)</div>   <!--SB20-312 -->
-        </div>
-        <div class="div-est-3">
-            &nbsp;
-        </div>
-        <div class="div-3">
-            <style>
-                .div-img-estrategias {
-                    float: left;
-                    width: 600px;
-                }
-
-                    .div-img-estrategias > .titG {
-                        width: 100px;
-                    }
-
-                .img-estrategia-preview {
-                    cursor: pointer;
-                    width: 100%;
-                    height: 35px;
-                }
-            </style>
-
-            <div class="titG">Imagen:</div>
-            <div class="div-img-estrategias">
-                @for (int i = 1; i <= nroImagenes; i++)
-                {
-                    idControl = "0" + i;
-                    idControl = idControl.Substring(idControl.Length - 2);
-
-                    <div class="titG">
-                        <div class="pdr_modal borde_redondeado aligncenter">
-                            <img src='@Url.Content("~/Content/Images/" + imagenVacia)' id="preview@(i)" class="img-estrategia-preview" data-id="@(i)">
-                        </div>
-                        <div class="pdr_modal_check aligncenter">
-                            <input type="checkbox" id="chkImagenProducto@(idControl)" class="chk-estrategia-imagen" data-id="@(i)">
-                        </div>
+            <div>
+                <div style="display: inline-block; width: 47%; text-align: center; padding: 8px; margin-right: -3px; border-right: 1px #D0D0D0 solid;">
+                    <div style="display: inline-block;">CUV2:</div>
+                    <div style="display: inline-block;">
+                        <input type="text" id="txtCUV2" maxlength="5" class="ValidaNumeral" style="width: 60px;" />
                     </div>
-                }
+                    <div style="display: inline-block; padding-left: 40px;">Precio para ti:</div>
+                    <div style="display: inline-block;">
+                        <input type="text" id="txtPrecio2" maxlength="10" class="ValidaNumeral" style="width: 60px;" />
+                    </div>
+                </div>
+                <div style="display: inline-block; width: 48%; text-align: center; padding: 8px; margin-right: -3px;">
+                    <div style="display: inline-block;">CUV:</div>
+                    <div style="display: inline-block;">
+                        <input type="text" id="txtCUV" maxlength="5" class="ValidaNumeral" style="width: 60px;" />
+                    </div>
+                    <div style="display: inline-block;">Precio:</div>
+                    <div style="display: inline-block;">
+                        <input type="text" id="txtPrecio" style="width: 60px;" />
+                    </div>
+                </div>
             </div>
         </div>
         <div class="div-3">
-            <div class="titG">¿Activar Oferta?</div>
-            <div class="selectCheck borde_redondeado">
-                <input type="checkbox" class="check" id="chkHabilitarOferta" />
+            <div class="titG">Descripción:</div>
+            <div class="titG">
+                <input type="text" id="txtDescripcion" style="width: 520px;" />
             </div>
         </div>
-        <div class="div-est-3" id="div-orden">
-            <!--SB20-312 -->
-            <div class="titB">&nbsp;</div>
-            <div class="titB">Orden:</div>
-            <div class="titB">
-                <input type="text" id="txtOrden" value="" maxlength="3" />
-            </div>
-        </div>
-        <div class="div-est-3">
-            <div class="titB">&nbsp;</div>
-            <div class="titB">Alcance:</div>
-            <div class="titD">
-                <input type="text" id="txtAlcance" readonly="readonly" />
-            </div>
-            <div class="titA" style="width:20px">
-                <a href="#" style="margin-left: 5px" id="linkAlcance">
-                    <img src='@Url.Content("~/Content/Images/search.png")' border="0" alt="Seleccionar alcance" title="Seleccionar alcance" />
+        <div class="div-3">
+            <div class="titG">Talla/Color:</div>
+            <div class="titG" style="width: auto;">
+                <a href="#" style="margin-left: 5px" id="linkTallaColor">
+                    <img src='@Url.Content("~/Content/Images/icons/small/list-icon2.png")' border="0" alt="Agregar Tonos/Tallas/Colores" title="Agregar Tonos/Tallas/Colores"/>
                 </a>
             </div>
-            <div class="titG" style="width:300px">&nbsp;(Seleccionar Pa&iacute;s, Regi&oacute;n o Zona)</div>
-        </div>
-        <div class="div-est-3">
-            <div class="titB">&nbsp;</div>
-            <div class="titB">Limite de Venta:</div>
-            <div class="titB">
-                <input type="text" id="txtLimite" value="99" />
+            <div class="titG">¿Activar Oferta?</div>
+            <div class="selectCheck borde_redondeado">
+                <input type="checkbox" class="check" id="chkHabilitarOferta" style="margin-top: 2px; margin-left: 15px;" />
             </div>
-            <div class="titG">&nbsp;(N&uacute;mero de Unidades m&aacute;ximas por Consultora)</div>
+        </div>
+        <div class="div-3">
+            <div class="titG">
+                <span>Imagen Seleccionada:</span>
+            </div>
+            <div class="titG">
+                <div class="pdr_modal borde_redondeado alignrigth">
+                    <img src='@Url.Content("~/Content/Images/" + imagenVacia)' id="imgSeleccionada" class="img-estrategia-preview" data-id="">
+                </div>
+            </div>
+        </div>
+        <div style="display: inline-block; width: 39%;">
+        </div>
+
+        <div class="Content_modal" style="margin-left: 10px; width: 94%; padding-top: 10px; padding-bottom: 0;">
+            <div class="div-3">
+                <div style="color: white;">
+                    <div id="divImagenEstrategia" style="display: inline-block; text-align: center; padding: 8px; background: #00A2E8; border-top-left-radius: 10px; border-top-right-radius: 10px; cursor: pointer;">
+                        Imagen - Matriz Somos Belcorp
+                    </div>
+                    <div id="divInformacionAdicionalEstrategia" style="display: inline-block; text-align: center; padding: 8px; color: #702789; background: #D0D0D0; border-top-left-radius: 10px; border-top-right-radius: 10px; cursor: pointer;">
+                        Información Adicional
+                    </div>
+                </div>
+            </div>
+            <div id="divImagenEstrategiaContenido" style="display: none;">
+                <style>
+                    .div-img-estrategias {
+                        float: left;
+                        width: 600px;
+                    }
+
+                        .div-img-estrategias > .titG {
+                            width: 100px;
+                        }
+
+                    .img-estrategia-preview {
+                        cursor: pointer;
+                        width: 100%;
+                        height: 35px;
+                    }
+                </style>
+                <div class="div-3">
+                    <div class="titG">
+                        
+                        <div class="input_search">
+                            @*<img src='@Url.Content("~/Content/Images/subirimagen.png")' id="imgBuscar" class="img-estrategia-preview">*@
+                            <input type="hidden" id="hdnCodigoSAP" class="input-imagen-producto" />
+                           <input type="hidden" id="hdnimagenProducto" class="input-imagen-producto" />
+                            <input type="hidden" id="hdnDescripcion" class="input-imagen-producto" />
+                            <input type="hidden" id="fotoProducto_Id" class="input-imagen-producto" />
+                            <input type="hidden" id="imagenProductoAnterior" class="input-imagen-producto-anterior" />
+                            <input type="hidden" id="hdnEtiqueta1" class="input-imagen-producto" />
+                            <input type="hidden" id="hdnEtiqueta2" class="input-imagen-producto" />                            
+                            <div id="fpUpload">                               
+                            </div>
+                             <script src="@Url.Content("~/Scripts/fileuploader.js")" type="text/javascript"></script>
+                             <script type="text/javascript">
+                                 var uploader = new qq.FileUploader({
+                                     allowedExtensions: ['jpg', 'png', 'jpeg'],
+                                     element: document.getElementById('fpUpload'),
+                                     action: '@Url.Action("ImageMatrizUpload", "FileUpload")',
+                                     onComplete: function (id, fileName, responseJSON) {
+                                         if (checkTimeout(responseJSON)) {
+                                             //$(".qq-upload-list").css("display", "none");
+                                             if (responseJSON.success) {
+                                                 $("#hdnimagenProducto").val(responseJSON.name);
+                                                 $("#imagenProductoAnterior").val("");
+                                                 $("#fotoProducto_Id").val(('0' + ($("#ContenidoImagenes .titG").length + 1)).substr(-2));
+                                                 // req. 1664                                                    
+                                                 ActualizarImagenMatriz();
+                                                 mostrarInformacionCUV($("#txtCUV2").val());
+                                             }
+                                             else alert(responseJSON.message);
+                                         }
+                                     },
+                                     onSubmit: function (id, fileName) { $(".qq-upload-list").css("display", "none"); },
+                                     onProgress: function (id, fileName, loaded, total) { $(".qq-upload-list").css("display", "none"); },
+                                     onCancel: function (id, fileName) { $(".qq-upload-list").css("display", "none"); }
+                                 });
+
+                                 // $('.qq-upload-button').text("cargar imagen");
+                                 function ActualizarImagenMatriz() {
+
+                                     var imagenNueva = {
+                                         "idImagen": $("#fotoProducto_Id").val(),
+                                         "dataImagen": $("#hdnimagenProducto").val(),
+                                         "fotoProducto": $("#hdnimagenProducto").val(),
+                                         "fotoProductoAnterior": $("#imagenProductoAnterior").val(),
+                                         "selected": false
+                                     }
+
+                                     imagenesProductos.push(imagenNueva);
+                                     var idImagen;
+
+                                     var item = {
+                                         CodigoSAP: $.trim($('#hdnCodigoSAP').val()),
+                                         DescripcionOriginal: $.trim($('#hdnDescripcion').val()),
+                                         Descripcion: $.trim($("#hdnDescripcion").val()),
+                                         PaisID: $('#ddlPais').val()
+                                     };
+
+                                     var i = 1;
+                                     imagenesProductos.forEach(function (imagen) {
+                                         idImagen = ('0' + i).substr(-2);
+                                         item['FotoProducto' + idImagen] = imagen.fotoProducto;
+                                         item['FotoProductoAnterior' + idImagen] = imagen.fotoProductoAnterior;
+                                         i++;
+                                     });
+
+                                     for (i = imagenesProductos.length + 1; i <= nroImagenes; i++) {
+                                         idImagen = ('0' + i).substr(-2);
+                                         item['FotoProducto' + idImagen] = "";
+                                         item['FotoProductoAnterior' + idImagen] = "";
+                                     }
+                                     jQuery.ajax({
+                                         type: 'POST',
+                                         url: baseUrl + 'MatrizComercial/UpdateMatrizComercial',
+                                         dataType: 'json',
+                                         contentType: 'application/json; charset=utf-8',
+                                         data: JSON.stringify(item),
+                                         async: true,
+                                         success: function (data) {
+                                             if (checkTimeout(data)) {
+                                                 closeWaitingDialog();
+                                                 if (data.success == true) {
+                                                     alert(data.message);
+                                                     //HideDialog("DialogMatrizComercial");
+                                                     //LimpiarDatos();
+                                                     //jQuery("#list").setGridParam({ datatype: 'json', page: 1 }).trigger('reloadGrid');
+                                                 }
+                                                 else {
+                                                     alert(data.message);
+                                                 }
+                                             }
+                                         },
+                                         error: function (data, error) {
+                                             if (checkTimeout(data)) {
+                                                 closeWaitingDialog();
+                                                 alert(data.message);
+                                                 // HideDialog("DialogMatrizComercial");
+                                             }
+                                         }
+                                     });
+                                 }
+                                </script>
+                        </div>
+                    </div>
+                </div>
+                <div class="div-3" id="ContenidoImagenes">
+
+                </div>
+            </div>
+            <div id="divInformacionAdicionalEstrategiaContenido" style="display: none;">
+                <div class="div-3">
+                    <div class="titG">Mensaje Adicional:</div>
+                    <div class="titE">
+                        <input type="text" id="txtTextoLibre" maxlength="100" style="width: 360px;" />
+                    </div>
+                </div>
+                <div class="div-3">
+                    <div class="titH">Oferta de Último Minuto</div>
+                    <div class="selectCheck borde_redondeado">
+                        <input type="checkbox" class="check" id="chkOfertaUltimoMinuto" style="margin-top: 2px; margin-left: 15px;" />
+                    </div>
+                </div>
+                <div class="div-est-3 DatosNuevas" id="div-orden" style="display: none">
+                    <!--SB20-312 -->
+                    <div class="titB">&nbsp;</div>
+                    <div class="titB">Orden:</div>
+                    <div class="titB">
+                        <input type="text" id="txtOrden" value="" maxlength="3" />
+                    </div>
+                </div>
+                <div class="div-3">
+                    <div class="titG">Limite de Venta:</div>
+                    <div class="titAuto">
+                        <input type="text" id="txtLimite" value="99" style="width: 26px;" />
+                    </div>
+                    <div class="titE">&nbsp;(Número de Unidades máximas por Consultora)</div>
+                </div>
+                <div class="div-est-3 DatosNuevas" style="display: none">
+                    <div class="titB">&nbsp;</div>
+                    <div class="titB">Alcance:</div>
+                    <div class="titD">
+                        <input type="text" id="txtAlcance" readonly="readonly" />
+                    </div>
+                    <div class="titA" style="width: 20px">
+                        <a href="#" style="margin-left: 5px" id="linkAlcance">
+                            <img src='@Url.Content("~/Content/Images/search.png")' border="0" alt="Seleccionar alcance" title="Seleccionar alcance" />
+                        </a>
+                    </div>
+                    <div class="titG" style="width: 300px">&nbsp;(Seleccionar Pa&iacute;s, Regi&oacute;n o Zona)</div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
+
 <div id="DialogZona" style="display: none;">
     <div class="Content_modal">
         <div class="div-3">
@@ -297,7 +390,9 @@
         <div class="div-3">
             <div class="titF"></div>
             <div class="titF"></div>
-            <div class="titH"><input type="checkbox" id="chkSeleccionar" />Seleccionar todo</div>
+            <div class="titH">
+                <input type="checkbox" id="chkSeleccionar" />Seleccionar todo
+            </div>
             </div>
         </div>
     </div>
@@ -386,8 +481,8 @@
                 </div>
                 <div class="div-3">
                     <div class="input_horizontal" style="text-align: center;">
-                        <input type="button" name="btnAceptarMasivo1" id="btnAceptarMasivo1" value="Aceptar" style="float: none;"/>
-                        <input type="button" name="btnCancelarMasivo1" id="btnCancelarMasivo1" value="Cancelar" style="float: none;"/>
+                        <input type="button" name="btnAceptarMasivo1" id="btnAceptarMasivo1" value="Aceptar" style="float: none;" />
+                        <input type="button" name="btnCancelarMasivo1" id="btnCancelarMasivo1" value="Cancelar" style="float: none;" />
                     </div>
                 </div>
             </div>
@@ -454,6 +549,17 @@
 </div>
 <div id="loadingScreen"></div>
 
+<script id="ImagenCUV-template" type="text/x-jquery-tmpl">
+    <div class="titG">
+        <div class="pdr_modal borde_redondeado aligncenter">
+            <img src="${dataImagen}" id="preview${idImagen}" class="img-estrategia-preview" data-id="${idImagen}">
+        </div>
+        <div class="pdr_modal_check aligncenter">
+            <input type="checkbox" id="chk-estrategia-imagen${idImagen}" class="chk-estrategia-imagen" {{if selected}} checked{{/if}} data-id="${idImagen}">
+        </div>
+    </div>
+</script>
+
 <script type="text/javascript">
     var nroImagenes = '@nroImagenes';
     var imagenVacia = '@imagenVacia';
@@ -465,10 +571,17 @@
     var rutaImagenDelete = '@Url.Content("~/Content/Images/Delete.png")';
     var urlFiltrarEstrategia = baseUrl + 'AdministrarEstrategia/FiltrarEstrategia';
     var urlDeshabilitarEstrategia = baseUrl + 'AdministrarEstrategia/DeshabilitarEstrategia';
+    var urlActivarDesactivarEstrategias = baseUrl + 'AdministrarEstrategia/ActivarDesactivarEstrategias';
     var cantidadPrecargar = 0;
     var cantidadPrecargar2 = 0;
     var urlConsultarCuvTipoConfigurado = baseUrl + 'AdministrarEstrategia/ConsultarCuvTipoConfigurado';
     var urlConsultarCuvTipoConfiguradoTemporal = baseUrl + 'AdministrarEstrategia/ConsultarCuvTipoConfiguradoTemporal';
+    var imagenesProductos = [];
+    var originalContent;
+
+
+
+
 
     jQuery(document).ready(function () {
         fnGrilla();
@@ -495,15 +608,6 @@
             SeleccionarTipoOferta();
             PedidoAsociadoChecks();
 
-            var objPreview, objChkImagen, idImagen;
-            for (var i = 1; i <= nroImagenes; i++) {
-                idImagen = ('0' + i).substr(-2);
-                objPreview = $('#preview' + i);
-                objChkImagen = $('#chkImagenProducto' + idImagen);
-                objPreview.attr("src", rutaImagenVacia);
-                objChkImagen.attr('disabled', true).attr('checked', false);
-            }
-
             $("#hdEstrategiaIDConsulta").val($("#ddlTipoEstrategia").val());
                 $("#hdEstrategiaID").val("0");
                 $("#hdCampania").val($("#ddlCampania").val());
@@ -513,11 +617,27 @@
                 $("#spanTipoEstrategia").val($("#ddlTipoEstrategia option:selected").html().trim());
                 $('#chkHabilitarOferta').attr('checked', false);
                 $('#hdZonas').val('');
-                $('#chkVisible1').attr("checked", true);
-                $('#chkVisible2').attr("checked", false);
-                $('#chkVisible3').attr("checked", true);
-                $('#chkVisible4').attr("checked", false);
-                $('#chkVisible5').attr("checked", false);
+
+            /*Limpiar datos*/
+            $('#txtCUV2').val('');
+            $('#txtPrecio2').val('');
+            $('#txtCUV').val('');
+            $('#txtPrecio').val('');
+            $('#txtDescripcion').val('');
+
+            $('#ContenidoImagenes').empty();
+            $('#imgSeleccionada').attr("src", rutaImagenVacia);
+            $('#imgZonaEstrategia').attr("src", rutaImagenVacia);
+
+            $("#divImagenEstrategiaContenido").show();
+            $("#divInformacionAdicionalEstrategiaContenido").hide();
+
+            $("#divImagenEstrategia").css("color", "white");
+            $("#divImagenEstrategia").css("background", "#00A2E8");
+            $("#divInformacionAdicionalEstrategia").css("color", "#702789");
+            $("#divInformacionAdicionalEstrategia").css("background", "#D0D0D0");
+            $("#txtTextoLibre").val("");
+
                 $('#hdColorFondo').val("#FFF");
                 ActivarDesactivarChecks();
                 $('#mensajeErrorCUV').val("");
@@ -526,6 +646,7 @@
                 $(".checksPedidosAsociados").html('');
 
                 var aux1 = $('#ddlTipoEstrategia').find(':selected').data('id');
+            $("#btnActivarDesactivar").hide();
 
                 /* SB20-312 - INICIO */
                 if (aux1 == "4") {
@@ -534,6 +655,7 @@
 
                     $('#txt1-estrella').html('Oferta de Último Minuto');
                     $('#txt2-estrella').hide();
+                $("#btnActivarDesactivar").show();
                 }
                 else {
                     //$("#txtOrden").val("");
@@ -549,19 +671,28 @@
                 if (aux1 == "2") {
                     $("#ddlEtiqueta1").children('option').hide();
                     $("#ddlEtiqueta1").children("option[data-id='4']").show();
+
+                $("#hdnEtiqueta1").val('4');
                 }
                 else if (aux1 == "4" || aux1 == "5") {
-                    $("#ddlEtiqueta1").children('option').hide();
-                    $("#ddlEtiqueta1").children("option[data-id='1']").show();
 
-                    $("#ddlEtiqueta2").children('option').hide();
-                    $("#ddlEtiqueta2").children("option[data-id='3']").show();
+                //$("#ddlEtiqueta1").children('option').hide();
+                //$("#ddlEtiqueta1").children("option[data-id='1']").show();
+
+                //$("#ddlEtiqueta2").children('option').hide();
+                //$("#ddlEtiqueta2").children("option[data-id='3']").show();
+
+                $("#hdnEtiqueta1").val('1');
+                $("#hdnEtiqueta2").val('3');
+
                 }
 
             /**** PL20-1225 *****/
             if (aux1 == "0" || aux1 == '6') {
                 $("#ddlEtiqueta1").children("option[data-id='5']").hide();
                 $("#ddlEtiqueta2").children("option[data-id='5']").hide();
+                $("#hdnEtiqueta1").val('5');
+                $("#hdnEtiqueta2").val('5');
             }
 
             if (aux1 == "7") {
@@ -575,6 +706,9 @@
 
                 $('#div-orden').hide(); //Ocultando Orden
 
+                $("#hdnEtiqueta1").val('1');
+                $("#hdnEtiqueta2").val('5');
+
                 //$('#txtLimite').prop('readonly', true); //Modo lectura on
             }
             else {
@@ -587,7 +721,55 @@
                 HideDialog("DialogZona");
                 showDialog("DialogAdministracionEstrategia");
         });
+        // Activar/Desactivar las estrategias de Ofertas de forma masiva
+        $("#btnActivarDesactivar").click(function () {
+
+            var proceder = confirm('¿ Desea habilitar/deshabiltar las estrategias?');
+            if (!proceder)
+                return false;
+
+            waitingDialog({});
+
+            var estrategias = jQuery("#list").jqGrid('getDataIDs', 'EstrategiaID');
+            var estrategiasSeleccionadas = jQuery("#list").jqGrid('getGridParam', 'selarrrow');           
+            var estrategiasNoSeleccionadas = estrategias.filter(function (obj) { return estrategiasSeleccionadas.indexOf(obj) == -1; });
+
+            var params = {
+                EstrategiasActivas: estrategiasSeleccionadas.join(','),
+                EstrategiasDesactivas: estrategiasNoSeleccionadas.join(',')
+            };
+
+            jQuery.ajax({
+                type: 'POST',
+                url: urlActivarDesactivarEstrategias,
+                dataType: 'json',
+                contentType: 'application/json; charset=utf-8',
+                data: JSON.stringify(params),
+                async: true,
+                success: function (data) {
+                    alert(data.message);
+                    fnGrilla();
+                    closeWaitingDialog();
+                },
+                error: function (data, error) {
+                    alert(data.message);
+                    closeWaitingDialog();
+                }
+            });
+
+            //for (var i = 0; i < estrategiasSelecionadas.length; i++) {
+            //    var data = $('#list').jqGrid('getRowData', estrategiasSelecionadas[i]);
+            //    debugger;
+            //    estrategiasActivas += (data.EstrategiaID + ",");
+            //    //batch.push(data);
+            //}
+        });
         $("#ddlTipoEstrategia").change(function () {
+            var aux1 = $('#ddlTipoEstrategia').find(':selected').data('id');
+            $("#btnActivarDesactivar").hide();
+            if (aux1 == "4")
+                $("#btnActivarDesactivar").show();
+
             SeleccionarTipoOferta();
             PedidoAsociadoChecks();
         });
@@ -826,152 +1008,12 @@
 
         });
         $("#txtCUV2").keyup(function () {
-            if ($(this).val().length == 5) {
-                waitingDialog({});
-                $.ajaxSetup({ cache: false });
-
-                var flagNueva = $("#ddlTipoEstrategia option:selected").attr("flag-nueva");
-                var flagRecoProduc = $("#ddlTipoEstrategia option:selected").attr("flag-recoproduct");
-                var flagRecoPerfil = $("#ddlTipoEstrategia option:selected").attr("flag-recoperfil");
-                var auxOD = $('#ddlTipoEstrategia').find(':selected').data('id'); // PL20-1225
-
-                /**** PL20-1225 *****/
-                var flagOD = "";
-                if (auxOD == '7') {
-                    flagOD = '4';
-                }
-                else {
-                    flagOD = '0';
-                }
-                /********/
-
-                var params = {
-                    CampaniaID: $("#ddlCampania").val(),
-                    CUV2: $("#txtCUV2").val(),
-                    TipoEstrategiaID: $("#ddlTipoEstrategia").val(),
-                    CUV1: "0",
-                    flag: flagOD,
-                    FlagNueva: flagNueva,
-                    FlagRecoProduc: flagRecoProduc,
-                    FlagRecoPerfil: flagRecoPerfil
-                };
-
-                jQuery.ajax({
-                    type: 'POST',
-                    url: urlGetOfertaByCUV,
-                    dataType: 'json',
-                    contentType: 'application/json; charset=utf-8',
-                    data: JSON.stringify(params),
-                    async: true,
-                    success: function (data) {
-                        var objPreview, objChkImagen, idImagen, dataImagen, imgFormat;
-                        $('#mensajeErrorCUV').val("");
-
-                        if (data.message == "OK") {
-                            $("#txtDescripcion").val(data.descripcion);
-
-                            if (data.wsprecio > 0) {
-                                $("#txtPrecio2").val(parseFloat(data.wsprecio).toFixed(2));
-                                $("#txtPrecio2")[0].disabled = true;
-                            }
-                            else if (data.wsprecio == 0) {
-                                if (data.precio == 0) {
-                                    $("#txtPrecio2").val(parseFloat(data.precio).toFixed(2));
-                                    $("#txtPrecio2")[0].disabled = true;
-                                }
-                                else {
-                                    $("#txtPrecio2").val(parseFloat(data.precio).toFixed(2));
-                                    $("#txtPrecio2")[0].disabled = true;
-                                }
-                            }
-                            else if (data.wsprecio == -1) {
-                                $("#txtPrecio2")[0].disabled = true;
-                                alert("No se pudo  obtener el precio del producto. Por favor, comunicarse con Soporte Digital Consultoras");
-                            }
-                            else if (data.wsprecio == -2) {
-                                $("#txtPrecio2")[0].disabled = false;
-                                $("#txtPrecio2").val("");
-                                $("#txtPrecio2").focus();
-                            }
-                            $("#txtPrecio").val("");
-                            $("#txtCUV").val("");
-
-                            for (var i = 1; i <= nroImagenes; i++) {
-                                idImagen = ('0' + i).substr(-2);
-                                objPreview = $('#preview' + i);
-                                objChkImagen = $('#chkImagenProducto' + idImagen);
-                                dataImagen = data['imagen' + i];
-
-                                if (dataImagen != '') {
-                                    objPreview.attr('src', dataImagen);
-                                    objChkImagen.attr('disabled', false);
-                                }
-                                else {
-                                    objPreview.attr('src', rutaImagenVacia);
-                                    objChkImagen.attr('disabled', true);
-                                }
-
-                                imgFormat = dataImagen.replace(/^.*[\\\/]/, '');
-                                if (imgFormat.lastIndexOf("?") >= 0) imgFormat = imgFormat.substring(0, imgFormat.lastIndexOf("?"));
-                                objChkImagen.val(imgFormat);
-                            }
-                            $('#mensajeErrorCUV2').val("");
-                            closeWaitingDialog();
-                        } else {
-                            $('#mensajeErrorCUV2').val(data.message);
-                            alert($('#mensajeErrorCUV2').val());
-                            $("#txtDescripcion").val("");
-                            $("#txtPrecio2").val("");
-
-                            $("#txtPrecio").val("");
-                            $("#txtCUV").val("");
-
-                            for (var i = 1; i <= nroImagenes; i++) {
-                                idImagen = ('0' + i).substr(-2);
-                                objPreview = $('#preview' + i);
-                                objChkImagen = $('#chkImagenProducto' + idImagen);
-                                dataImagen = data['imagen' + i];
-
-                                if (dataImagen != '') {
-                                    objPreview.attr('src', data.imagen1);
-                                    objChkImagen.attr('disabled', false);
-                                }
-                                else {
-                                    objPreview.attr('src', rutaImagenVacia);
-                                    objChkImagen.attr('disabled', true);
-                                }
-                                objChkImagen.attr('checked', false);
-                            }
-
-                            //$("#preview1").attr("src", data.imagen1);
-                            //$("#preview2").attr("src", data.imagen2);
-                            //$("#preview3").attr("src", data.imagen3);
-
-                            //if (data.imagen1 == "") {
-                            //    $("#preview1").attr("src", rutaImagenVacia);
-                            //    $("#chkImagenProducto01").attr('disabled', true);
-                            //} else { $("#chkImagenProducto01").attr('disabled', false); }
-                            //if (data.imagen2 == "") {
-                            //    $("#preview2").attr("src", rutaImagenVacia);
-                            //    $("#chkImagenProducto02").attr('disabled', true);
-                            //} else { $("#chkImagenProducto02").attr('disabled', false); }
-                            //if (data.imagen3 == "") {
-                            //    $("#preview3").attr("src", rutaImagenVacia);
-                            //    $("#chkImagenProducto03").attr('disabled', true);
-                            //} else { $("#chkImagenProducto03").attr('disabled', false); }
-                            //$('#chkImagenProducto01').attr('checked', false);
-                            //$('#chkImagenProducto02').attr('checked', false);
-                            //$('#chkImagenProducto03').attr('checked', false);
-                            closeWaitingDialog();
-                        }
-                    },
-                    error: function (data, error) {
-                        alert(data.message);
-                        closeWaitingDialog();
-                    }
-                });
-            }
+            var cuvIngresado = $(this).val();
+            $("#imgSeleccionada").attr("src", rutaImagenVacia);
+            $("#imgSeleccionada").attr("data-id", "0");
+            mostrarInformacionCUV(cuvIngresado);
         });
+
         $(".chk-estrategia-imagen").click(function () {
             var id = $(this).attr('data-id');
             if ($(this).attr('checked')) {
@@ -1009,13 +1051,7 @@
                 PaletaColores();
             }
         });
-        $(".img-estrategia-preview").click(function () {
-            var id = $(this).attr('data-id');
-            var idImagen = ('0' + id).substr(-2);
-            var objChkImagen = $('#chkImagenProducto' + idImagen);
 
-            if (objChkImagen.attr("disabled") != "disabled") MostrarVistaPrevia('preview' + id);
-        });
 
         $("#btnNuevoMasivo").click(function () {
             if ($("#ddlPais").val() == "") {
@@ -1160,6 +1196,186 @@
         });
 
         });
+
+    $(".chk-estrategia-imagen").live("click", function () {
+        var id = $(this).attr('data-id');
+        var imagenURL = ""
+        if ($(this).attr('checked')) {
+            $("#imgSeleccionada").attr("src", $("#preview" + id).attr("src"));
+            imagenURL = $("#imgSeleccionada").attr("src");
+            $("#ImagenProducto").val(imagenURL.substr(imagenURL.lastIndexOf("/") + 1));
+            $('.chk-estrategia-imagen[data-id!="' + id + '"]').removeAttr('checked');
+            $("#imgSeleccionada").attr('data-id', id);
+        }
+    });
+
+    $(".img-estrategia-preview").live("click", function () {
+        var id = $(this).attr('data-id');
+        var idImagen = ('0' + id).substr(-2);
+        var objChkImagen = $('#chkImagenProducto' + idImagen);
+        if (objChkImagen.attr("disabled") != "disabled") MostrarVistaPrevia('preview' + id);
+    });
+
+    function mostrarInformacionCUV(cuvIngresado) {
+
+        if (cuvIngresado.length == 5) {
+            waitingDialog({});
+            $.ajaxSetup({ cache: false });
+
+            var flagNueva = $("#ddlTipoEstrategia option:selected").attr("flag-nueva");
+            var flagRecoProduc = $("#ddlTipoEstrategia option:selected").attr("flag-recoproduct");
+            var flagRecoPerfil = $("#ddlTipoEstrategia option:selected").attr("flag-recoperfil");
+            var auxOD = $('#ddlTipoEstrategia').find(':selected').data('id'); // PL20-1225
+
+            /**** PL20-1225 *****/
+            var flagOD = "";
+            if (auxOD == '7') {
+                flagOD = '4';
+            }
+            else {
+                flagOD = '0';
+            }
+            /********/
+
+            var params = {
+                CampaniaID: $("#ddlCampania").val(),
+                CUV2: $("#txtCUV2").val(),
+                TipoEstrategiaID: $("#ddlTipoEstrategia").val(),
+                CUV1: "0",
+                flag: flagOD,
+                FlagNueva: flagNueva,
+                FlagRecoProduc: flagRecoProduc,
+                FlagRecoPerfil: flagRecoPerfil
+            };
+
+            jQuery.ajax({
+                type: 'POST',
+                url: urlGetOfertaByCUV,
+                dataType: 'json',
+                contentType: 'application/json; charset=utf-8',
+                data: JSON.stringify(params),
+                async: true,
+                success: function (data) {
+                    var objPreview, objChkImagen, idImagen, dataImagen, imgFormat;
+                    $('#mensajeErrorCUV').val("");
+
+                    if (data.message == "OK") {
+                        $("#txtDescripcion").val(data.descripcion);
+
+                        if (data.wsprecio > 0) {
+                            $("#txtPrecio2").val(parseFloat(data.wsprecio).toFixed(2));
+                            $("#txtPrecio2")[0].disabled = true;
+                        }
+                        else if (data.wsprecio == 0) {
+                            if (data.precio == 0) {
+                                $("#txtPrecio2").val(parseFloat(data.precio).toFixed(2));
+                                $("#txtPrecio2")[0].disabled = true;
+                            }
+                            else {
+                                $("#txtPrecio2").val(parseFloat(data.precio).toFixed(2));
+                                $("#txtPrecio2")[0].disabled = true;
+                            }
+                        }
+                        else if (data.wsprecio == -1) {
+                            $("#txtPrecio2")[0].disabled = true;
+                            alert("No se pudo  obtener el precio del producto. Por favor, comunicarse con Soporte Digital Consultoras");
+                        }
+                        else if (data.wsprecio == -2) {
+                            $("#txtPrecio2")[0].disabled = false;
+                            $("#txtPrecio2").val("");
+                            $("#txtPrecio2").focus();
+                        }
+
+                        $("#txtPrecio").val("");
+                        $("#txtCUV").val("");
+
+                        $("#ContenidoImagenes").empty();
+                        $("#imgSeleccionada").attr("src", rutaImagenVacia);
+                        $("#hdnCodigoSAP").val(data.codigoSAP)
+                        imagenesProductos = [];
+
+                        for (var i = 1; i <= nroImagenes; i++) {
+                            idImagen = ('0' + i).substr(-2);
+                            dataImagen = data['imagen' + i];
+                            if (dataImagen != '') {
+                                var imagen = {
+                                    "idImagen": idImagen,
+                                    "dataImagen": dataImagen,
+                                    "fotoProducto": dataImagen.substr(dataImagen.lastIndexOf("/") + 1),
+                                    "fotoProductoAnterior": dataImagen.substr(dataImagen.lastIndexOf("/") + 1),
+                                    "selected": false
+                                }
+                                imagenesProductos.push(imagen);
+                            }
+                        }
+
+                        $('#ImagenCUV-template').tmpl(imagenesProductos).appendTo("#ContenidoImagenes");
+
+                        $("#divImagenEstrategiaContenido").show();
+                        $("#divInformacionAdicionalEstrategiaContenido").hide();
+
+                        (imagenesProductos.length == 10) ? $("#fpUpload").hide() : $("#fpUpload").show();
+
+                        $('#mensajeErrorCUV2').val("");
+                        closeWaitingDialog();
+                    } else {
+                        $('#mensajeErrorCUV2').val(data.message);
+                        alert($('#mensajeErrorCUV2').val());
+                        $("#txtDescripcion").val("");
+                        $("#txtPrecio2").val("");
+
+                        $("#txtPrecio").val("");
+                        $("#txtCUV").val("");
+
+                        for (var i = 1; i <= nroImagenes; i++) {
+                            idImagen = ('0' + i).substr(-2);
+                            objPreview = $('#preview' + i);
+                            objChkImagen = $('#chkImagenProducto' + idImagen);
+                            dataImagen = data['imagen' + i];
+
+                            if (dataImagen != '') {
+                                objPreview.attr('src', data.imagen1);
+                                objChkImagen.attr('disabled', false);
+                            }
+                            else {
+                                objPreview.attr('src', rutaImagenVacia);
+                                objChkImagen.attr('disabled', true);
+                            }
+                            objChkImagen.attr('checked', false);
+                        }
+
+                        closeWaitingDialog();
+                    }
+                },
+                error: function (data, error) {
+                    alert(data.message);
+                    closeWaitingDialog();
+                }
+            });
+        }
+    }
+
+    $("#divImagenEstrategia").click(function () {
+        $(this).css("color", "white");
+        $(this).css("background", "#00A2E8");
+
+        $("#divInformacionAdicionalEstrategia").css("color", "#702789");
+        $("#divInformacionAdicionalEstrategia").css("background", "#D0D0D0");
+
+        $("#divImagenEstrategiaContenido").show();
+        $("#divInformacionAdicionalEstrategiaContenido").hide();
+    });
+
+    $("#divInformacionAdicionalEstrategia").click(function () {
+        $(this).css("color", "white");
+        $(this).css("background", "#00A2E8");
+
+        $("#divImagenEstrategia").css("color", "#702789");
+        $("#divImagenEstrategia").css("background", "#D0D0D0");
+
+        $("#divInformacionAdicionalEstrategiaContenido").show();
+        $("#divImagenEstrategiaContenido").hide();
+    });
 
     ///////////////
     $(document).keydown(function (e) {
@@ -1335,7 +1551,10 @@
     }
     // 2209 - Fin
     function MostrarVistaPrevia(id) {
+
         $("#imgZonaEstrategia").attr("src", $("#" + id).attr("src"));
+        if (id == "preview0") $("#imgZonaEstrategia").attr("src", rutaImagenVacia);
+
         $("#imgTipoOferta").attr("src", $("#ddlTipoEstrategia option:selected").attr('imagen-tipo'));
         $("#imgEstrella").hide();
         $(".zona_estrategia_1").html("");
@@ -1373,7 +1592,7 @@
             }
         }
         else { $(".Content_modal_ZE").css("background-color", "#FFF"); }
-
+        $("#imgTipoOferta").hide();
         showDialog('divVistaPrevia');
         return false;
     }
@@ -1553,6 +1772,9 @@
 
     function fnGrilla() {
         $("#list").jqGrid("GridUnload");
+        var tipo = $('#ddlTipoEstrategia').find(':selected').data('id');
+        var allRowsInGrid = [];
+        var flag = true;
         jQuery("#list").jqGrid({
             url: baseUrl + "AdministrarEstrategia/Consultar",
             hidegrid: false,
@@ -1561,10 +1783,14 @@
                 CampaniaID: $("#ddlCampania").val(),
                 TipoEstrategiaID: $("#ddlTipoEstrategia").val(),
                 CUV: $("#CUV").val(),
-                Consulta: $("#hdTipoConsulta").val()
+                Consulta: $("#hdTipoConsulta").val(),
+                Imagen: $("#ddlTieneImagen").val(),
+                Activo: $("#ddlOfertaActiva").val()
             }),
             mtype: 'GET',
             contentType: "application/json; charset=utf-8",
+            multiselect: (tipo == '4') ? true : false,
+            multiPageSelection: (tipo == '4') ? true : false,
             colNames: ['EstrategiaID', 'Orden', '#', 'Pedido Asociado', 'Precio', 'CUV2', 'Descripción', 'Limite Venta', 'Código SAP', 'Foto', ''],
             colModel: [
                 { name: 'EstrategiaID', index: 'EstrategiaID', width: 20, editable: true, resizable: false, hidden: true },
@@ -1579,16 +1805,59 @@
                 { name: 'ImagenURL', index: 'ImagenURL', width: 70, align: 'center', editable: true, resizable: false, formatter: ShowImage },
                 { name: 'Activo', index: 'Activo', width: 30, align: 'center', editable: true, resizable: false, formatter: ShowActions }
             ],
-            jsonReader:
-            {
-                root: "rows",
-                page: "page",
-                total: "total",
-                records: "records",
-                repeatitems: true,
-                cell: "cell",
-                id: "id"
+            onSelectAll: function (aRowids, select) {
+
+                //$.each(arrayDataDelete, function (i, rowDataDelete) {
+                //    rowDataDelete.eliminar = select;
+                //});
             },
+            onSelectRow: function (id, select) {
+                if (!flag) {
+                    //debugger
+                    return false;
+                }
+            },
+            beforeSelectRow: function (rowid, e) {
+
+                var $self = $(this),
+                iCol = $.jgrid.getCellIndex($(e.target).closest("td")[0]),
+                cm = $self.jqGrid("getGridParam", "colModel");
+                if (iCol === 11) {
+                    //debugger;
+                    flag = false;
+                }
+            },
+            onPaging: function (a) {
+                var pagerId = this.p.pager.substr(1); // ger paper id like "pager"               
+                var pageValue = $('input.ui-pg-input', "#pg_" + $.jgrid.jqID(pagerId)).val();
+                var saveSelectedRows = $(this).getGridParam('selarrrow');
+                //Store any selected rows 
+                $(this).data(pageValue.toString(), saveSelectedRows);
+            },
+            //onSelectRow: function (id, select) {
+            //    var oneItemsDeselect = false;
+            //    $.each(arrayDataDelete, function (i, rowDataDelete) {
+            //        if (rowDataDelete.id == id) {
+            //            rowDataDelete.eliminar = select;
+            //        }
+            //        if (!rowDataDelete.eliminar) {
+            //            oneItemsDeselect = true;
+            //        }
+            //    });
+
+            //    flagSelectAll = !oneItemsDeselect;
+            //    $("#cb_list").attr("checked", flagSelectAll);
+            //},
+            jsonReader:
+        {
+            root: "rows",
+            page: "page",
+            total: "total",
+            records: "records",
+            repeatitems: true,
+            cell: "cell",
+            id: "id"
+        },
             pager: jQuery('#pager'),
             loadtext: 'Cargando datos...',
             recordtext: "{0} - {1} de {2} Registros",
@@ -1599,17 +1868,30 @@
             sortname: 'Orden',
             sortorder: 'asc',
             viewrecords: true,
-            multiselect: false,
+            //multiselect: false,
             height: 'auto',
             width: 930,
             pgtext: 'Pág: {0} de {1}',
             altRows: true,
             altclass: 'jQGridAltRowClass',
-            loadComplete: function () { },
+            loadComplete: function (data) {
+                if (data.rows.length > 0) {
+                    for (var i = 0; i < data.rows.length; i++) {
+                        if (data.rows[i].cell[10] == '1') {
+
+                            //$("#jqg_list_" + data.rows[i].id).css("visibility", "hidden");
+                            //$grid.jqGrid('setSelection', data[i], false);
+                            $("#list").jqGrid('setSelection', data.rows[i].id, true);
+
+                        }
+                    }
+                }
+            },
             gridComplete: function () { }
         });
         jQuery("#list").jqGrid('navGrid', "#pager", { edit: false, add: false, refresh: false, del: false, search: false });
         jQuery("#list").setGridParam({ datatype: 'json', page: 1 }).trigger('reloadGrid');
+        // allRowsInGrid = $('#list').getGridParam('data');
         //  $("#list").jqGrid('hideCol', ["NumeroPedido"]); /*R20160301*/
     }
 
@@ -1904,21 +2186,31 @@
     }
 
     function IniDialog() {
+
+
         $('#DialogAdministracionEstrategia').dialog({
             autoOpen: false,
             resizable: false,
             modal: true,
             closeOnEscape: true,
-            width: 800,
-            close: function () { $('input:checkbox').removeAttr('checked'); },
+            width: 830,
+            close: function () {
+                $('input:checkbox').removeAttr('checked');
+                //$(this).dialog('destroy');
+                //$("#DialogAdministracionEstrategia").html(originalContent);
+                $("#list").jqGrid("clearGridData", true).trigger("reloadGrid");
+            },
+            //open: function (event, ui) {
+            //    originalContent = $("#DialogAdministracionEstrategia").html();
+            //},
             draggable: false,
             title: "Registro de Estrategias",
             buttons:
             {
                 "Guardar": function () {
-                    if (!$("#chkVisible2").attr("checked")) {
-                        $('#mensajeErrorCUV').val('');
-                    }
+                    //if (!$("#chkVisible2").attr("checked")) {
+                    //    $('#mensajeErrorCUV').val('');
+                    //}
 
                     if ($('#mensajeErrorCUV').val() != "") {
                         alert($('#mensajeErrorCUV').val());
@@ -1940,19 +2232,6 @@
                             alert("La campaña de vigencia final  no puede ser menor a la campaña de inicio.");
                             return false;
                         }
-                        //if ($("#txtPedidoAsociado").val() == "") {
-                        //    alert("Ingrese un número de pedido asociado.");
-                        //    return false;
-                        //}
-                        //var nroPedido = $("#txtPedidoAsociado").val();
-                        //if (!$.isNumeric(nroPedido)) {
-                        //    alert("Ingrese un valor válido para el número de pedido asociado.");
-                        //    return false;
-                        //}
-                        //if (parseInt(nroPedido) <= 0 || parseInt(nroPedido) > 4) {
-                        //    alert("Ingrese un valor entre 1 y 4 para el número de pedido asociado.");
-                        //    return false;
-                        //}
                     }
 
                     /**** // PL20-1225 ****/
@@ -1986,69 +2265,68 @@
                     /****/
 
 
-                    if ($("#chkVisible1").attr("checked")) {
-                        var valor = $("#txtDescripcion").val();
-                        if ($.trim(valor) == "") {
-                            alert("Ingrese el valor del CUV2 para obtener la descripción o ingrese una.");
-                            return false;
-                        }
-                    }
-                    if ($("#chkVisible2").attr("checked")) {
-                        var m = "";
-                        if ($.trim($("#txtCUV").val()) == "" && $("#txtCUV").css("visibility") == "visible") {
-                            m += "- Ingrese un valor para el CUV1." + "\n";
-                        }
-                        if ($.trim($("#ddlEtiqueta1 option:selected").html()) == "-- Seleccionar --") {
-                            m += "- Seleccione la etiqueta correspondiente." + "\n";
-                        }
-                        if ($.trim($("#txtPrecio").val()) == "" || $.isNumeric($("#txtPrecio").val()) == false) {
-                            m += "- Digite un valor correspondiente para el precio." + "\n";
-                        }
-                        if ($("#txtPrecio").val() <= 0) {
-                            m += "- Ingrese un valor para el precio mayor a cero." + "\n";
-                        }
-                        if (m != "") {
-                            alert(m);
-                            return false;
-                        }
-                    }
-                    if ($("#chkVisible3").attr("checked")) {
-                        var m = "";
-                        if ($.trim($("#txtCUV2").val()) == "") {
-                            m += "- Ingrese un valor para el CUV2." + "\n";
-                        }
-                        if ($.trim($("#ddlEtiqueta2 option:selected").html()) == "-- Seleccionar --") {
-                            m += "- Seleccione la etiqueta correspondiente." + "\n";
-                        }
-                        if ($.trim($("#txtPrecio2").val()) == "" || $.isNumeric($("#txtPrecio2").val()) == false) {
-                            m += "- Digite un valor correspondiente para el precio." + "\n";
-                        }
-                        if ($("#txtPrecio2").val() <= 0) {
-                            m += "- Ingrese un valor para el precio mayor a cero." + "\n";
-                        }
-                        if (m != "") {
-                            alert(m);
-                            return false;
-                        }
-                    }
-                    if ($.trim($("#txtCUV2").val()) == "") {
-                        alert("Debe ingresar un valor para el CUV2.");
+                    var valor = $("#txtDescripcion").val();
+                    if ($.trim(valor) == "") {
+                        alert("Ingrese el valor del CUV2 para obtener la descripción o ingrese una.");
                         return false;
                     }
-                    if ($("#chkVisible4").attr("checked")) {
-                        if ($.trim($("#txtTextoLibre").val()) == "") {
-                            alert("Ingrese un valor de texto libre");
+
+                    //if ($("#chkVisible2").attr("checked")) {
+                    var m = "";
+                    //if ($.trim($("#txtCUV").val()) == "" && $("#txtCUV").css("visibility") == "visible") { NO ES OBLIGATORIO
+                    //    m += "- Ingrese un valor para el CUV1." + "\n";
+                    //}
+                    //if ($.trim($("#ddlEtiqueta1 option:selected").html()) == "-- Seleccionar --") {
+                    //    m += "- Seleccione la etiqueta correspondiente." + "\n";
+                    //}
+                    if (($.trim($("#txtCUV").val()) != "" && $.trim($("#txtPrecio").val()) == "") || ($.trim($("#txtCUV").val()) != "" && $.isNumeric($("#txtPrecio").val()) == false)) {
+                        m += "- Digite un valor correspondiente para el precio." + "\n";
+                    }
+                    if ($.trim($("#txtCUV").val()) != "" && $("#txtPrecio").val() <= 0) {
+                        m += "- Ingrese un valor para el precio mayor a cero." + "\n";
+                    }
+                    //if (m != "") {
+                    //    alert(m);
+                    //    return false;
+                    //}
+                    // }
+                    //if ($("#chkVisible3").attr("checked")) {
+                    //   var m = "";
+                    if ($.trim($("#txtCUV2").val()) == "") {
+                        m += "- Ingrese un valor para el CUV2." + "\n";
+                    }
+                    //if ($.trim($("#ddlEtiqueta2 option:selected").html()) == "-- Seleccionar --") {
+                    //    m += "- Seleccione la etiqueta correspondiente." + "\n";
+                    //}
+                    if ($.trim($("#txtPrecio2").val()) == "" || $.isNumeric($("#txtPrecio2").val()) == false) {
+                        m += "- Digite un valor correspondiente para el precio." + "\n";
+                    }
+                    if ($("#txtPrecio2").val() <= 0) {
+                        m += "- Ingrese un valor para el precio mayor a cero." + "\n";
+                    }
+                    if (m != "") {
+                        alert(m);
+                        return false;
+                    }
+                    //}
+                    //if ($.trim($("#txtCUV2").val()) == "") {
+                    //    alert("Debe ingresar un valor para el CUV2.");
+                    //    return false;
+                    //}
+                    //if ($("#chkVisible4").attr("checked")) {
+                    //if ($.trim($("#txtTextoLibre").val()) == "") {
+                    //    alert("Ingrese un valor de texto libre");
+                    //    return false;
+                    //}
+                    //}
+                    //if ($("#chkVisible5").attr("checked")) {
+                    if ($("#idEstrella").css("display") == "block") {
+                        if (!$("#chkEstrella").attr("checked")) {
+                            alert("Debe activar el la opción para mostrar estrella en la zona de producto.  ");
                             return false;
                         }
                     }
-                    if ($("#chkVisible5").attr("checked")) {
-                        if ($("#idEstrella").css("display") == "block") {
-                            if (!$("#chkEstrella").attr("checked")) {
-                                alert("Debe activar el la opción para mostrar estrella en la zona de producto.  ");
-                                return false;
-                            }
-                        }
-                    } else $("#hdColorFondo").val("");
+                    //} else $("#hdColorFondo").val("");
 
                     if ($('.chk-estrategia-imagen:checked').length == 0) {
                         alert("Seleccione una imagen a mostrar.");
@@ -2088,19 +2366,19 @@
                     var ImagenURL = $("#ImagenProducto").val();
                     var LimiteVenta = $("#txtLimite").val();
                     var DescripcionCUV2 = $("#txtDescripcion").val();
-                    var FlagDescripcion = ($("#chkVisible1").attr("checked")) ? "1" : "0";
+                    var FlagDescripcion = (DescripcionCUV2 != "") ? "1" : "0"; //($("#chkVisible1").attr("checked")) ? "1" : "0";
                     var CUV = $("#txtCUV").val();
-                    var EtiquetaID = $("#ddlEtiqueta1").val();
+                    var EtiquetaID = $("#hdnEtiqueta1").val(); //$("#ddlEtiqueta1").val();
                     var Precio = $("#txtPrecio").val();
-                    var FlagCEP = ($("#chkVisible2").attr("checked")) ? "1" : "0";
+                    var FlagCEP = (CUV != "") ? "1" : "0"; //($("#chkVisible2").attr("checked")) ? "1" : "0";
                     var CUV2 = $("#txtCUV2").val();
-                    var EtiquetaID2 = $("#ddlEtiqueta2").val();
+                    var EtiquetaID2 = $("#hdnEtiqueta2").val();//$("#ddlEtiqueta2").val();
                     var Precio2 = $("#txtPrecio2").val();
-                    var FlagCEP2 = ($("#chkVisible3").attr("checked")) ? "1" : "0";
+                    var FlagCEP2 = (CUV2 != "") ? "1" : "0"; //($("#chkVisible3").attr("checked")) ? "1" : "0";
                     var TextoLibre = $("#txtTextoLibre").val();
-                    var FlagTextoLibre = ($("#chkVisible4").attr("checked")) ? "1" : "0";
-                    var Cantidad = $("#txtCantidad").val();
-                    var FlagCantidad = ($("#chkVisible5").attr("checked")) ? "1" : "0";
+                    var FlagTextoLibre = (TextoLibre != "") ? "1" : "0"; //($("#chkVisible4").attr("checked")) ? "1" : "0";
+                    var Cantidad = "";//$("#txtCantidad").val();
+                    var FlagCantidad = "0"; //($("#chkVisible5").attr("checked")) ? "1" : "0";
                     var Zona = $("#hdZonas").val();
                     var Orden = $("#txtOrden").val();
                     var flagEstrella = ($("#chkEstrella").attr("checked")) ? "1" : "0";
@@ -2149,6 +2427,7 @@
                         data: JSON.stringify(params),
                         async: true,
                         success: function (data) {
+
                             if (data.success) {
                                 alert(data.message);
                                 $("#ddlTipoEstrategia").val($("#hdEstrategiaIDConsulta").val());
@@ -2372,7 +2651,8 @@
     }
 
     $.jgrid.extend({
-        Editar: function (id) {
+        Editar: function (id, event) {
+
             if (id) {
                 waitingDialog({});
 
@@ -2384,7 +2664,7 @@
                 var params = {
                     EstrategiaID: $("#hdEstrategiaID").val()
                 };
-
+                $('#ContenidoImagenes').empty();
                 jQuery.ajax({
                     type: 'POST',
                     url: urlFiltrarEstrategia,
@@ -2439,31 +2719,37 @@
                         $("#hdCampania").val(data.CampaniaID);
                         $("#ddlCampaniaFin").val(data.CampaniaIDFin);
                         $("#hdNumeroPedido").val(data.NumeroPedido);
-                        $("#ImagenProducto").val(data.ImagenURL);
 
                         var objPreview, objChkImagen, idImagen, dataImagen, imgFormat;
+                        var imagenesProductos = [];
+
+                        var i = 1;
                         for (var i = 1; i <= nroImagenes; i++) {
+
                             idImagen = ('0' + i).substr(-2);
-                            objPreview = $('#preview' + i);
-                            objChkImagen = $('#chkImagenProducto' + idImagen);
                             dataImagen = data['FotoProducto' + idImagen];
 
                             if (dataImagen != '') {
-                                objPreview.attr('src', dataImagen);
-                                objChkImagen.attr('disabled', false);
-                            }
-                            else {
-                                objPreview.attr('src', rutaImagenVacia);
-                                objChkImagen.attr('disabled', true);
-                            }
 
-                            imgFormat = dataImagen.replace(/^.*[\\\/]/, '');
-                            if (imgFormat.lastIndexOf("?") >= 0) imgFormat = imgFormat.substring(0, imgFormat.lastIndexOf("?"));
-                            objChkImagen.val(imgFormat);
-
-                            var checkedImagen = data['ImagenURL'] == '' ? false : objChkImagen.val() == data['ImagenURL'];
-                            objChkImagen.attr('checked', checkedImagen);
+                                if (dataImagen.substr(dataImagen.lastIndexOf("/") + 1) == data['ImagenURL']) {
+                                    $("#imgSeleccionada").attr('src', dataImagen);
+                                    $("#imgSeleccionada").attr('data-id', idImagen);
+                                }
+                                var imagen = {
+                                    "idImagen": idImagen,
+                                    "dataImagen": dataImagen,
+                                    "fotoProducto": dataImagen.substr(dataImagen.lastIndexOf("/") + 1),
+                                    "fotoProductoAnterior": dataImagen.substr(dataImagen.lastIndexOf("/") + 1),
+                                    "selected": dataImagen.substr(dataImagen.lastIndexOf("/") + 1) == data['ImagenURL'] ? true : false
+                                }
+                                imagenesProductos.push(imagen);
+                            }
                         }
+
+                        $('#ImagenCUV-template').tmpl(imagenesProductos).appendTo("#ContenidoImagenes");
+
+                        $("#divImagenEstrategiaContenido").show();
+                        $("#divInformacionAdicionalEstrategiaContenido").hide();
 
                         $("#txtLimite").val(data.LimiteVenta);
                         $("#txtDescripcion").val(data.DescripcionCUV2);
@@ -2544,7 +2830,6 @@
                             $('#div-orden').show(); //Ocultando Orden
                         }
                         /* SB20-312 - FIN */
-
                         if (data.FlagEstrella == "1") $("#chkEstrella").attr("checked", true);
                         else $("#chkEstrella").attr("checked", false);
                         $(".checksPedidosAsociados").append('<div class="selectP2 borde_redondeado"><input type="text" id="txtPedidoAsociado" value="' + data.NumeroPedido + '" readonly /></div>');

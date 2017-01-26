@@ -3070,6 +3070,9 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private string CodigoProductoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CodigoSAPField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string ColorFondoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -3334,6 +3337,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((object.ReferenceEquals(this.CodigoProductoField, value) != true)) {
                     this.CodigoProductoField = value;
                     this.RaisePropertyChanged("CodigoProducto");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string CodigoSAP {
+            get {
+                return this.CodigoSAPField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CodigoSAPField, value) != true)) {
+                    this.CodigoSAPField = value;
+                    this.RaisePropertyChanged("CodigoSAP");
                 }
             }
         }
@@ -17747,6 +17763,12 @@ namespace Portal.Consultoras.Web.ServicePedido {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetEstrategiaODD", ReplyAction="http://tempuri.org/IPedidoService/GetEstrategiaODDResponse")]
         System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEEstrategia[]> GetEstrategiaODDAsync(int paisID, int codCampania, string codConsultora, System.DateTime fechaInicioFact);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/ActivarDesactivarEstrategias", ReplyAction="http://tempuri.org/IPedidoService/ActivarDesactivarEstrategiasResponse")]
+        int ActivarDesactivarEstrategias(int PaisID, string Usuario, string EstrategiasActivas, string EstrategiasDesactivas);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/ActivarDesactivarEstrategias", ReplyAction="http://tempuri.org/IPedidoService/ActivarDesactivarEstrategiasResponse")]
+        System.Threading.Tasks.Task<int> ActivarDesactivarEstrategiasAsync(int PaisID, string Usuario, string EstrategiasActivas, string EstrategiasDesactivas);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/InsertarTipoEstrategia", ReplyAction="http://tempuri.org/IPedidoService/InsertarTipoEstrategiaResponse")]
         int InsertarTipoEstrategia(Portal.Consultoras.Web.ServicePedido.BETipoEstrategia entidad);
         
@@ -19535,6 +19557,14 @@ namespace Portal.Consultoras.Web.ServicePedido {
         
         public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEEstrategia[]> GetEstrategiaODDAsync(int paisID, int codCampania, string codConsultora, System.DateTime fechaInicioFact) {
             return base.Channel.GetEstrategiaODDAsync(paisID, codCampania, codConsultora, fechaInicioFact);
+        }
+        
+        public int ActivarDesactivarEstrategias(int PaisID, string Usuario, string EstrategiasActivas, string EstrategiasDesactivas) {
+            return base.Channel.ActivarDesactivarEstrategias(PaisID, Usuario, EstrategiasActivas, EstrategiasDesactivas);
+        }
+        
+        public System.Threading.Tasks.Task<int> ActivarDesactivarEstrategiasAsync(int PaisID, string Usuario, string EstrategiasActivas, string EstrategiasDesactivas) {
+            return base.Channel.ActivarDesactivarEstrategiasAsync(PaisID, Usuario, EstrategiasActivas, EstrategiasDesactivas);
         }
         
         public int InsertarTipoEstrategia(Portal.Consultoras.Web.ServicePedido.BETipoEstrategia entidad) {

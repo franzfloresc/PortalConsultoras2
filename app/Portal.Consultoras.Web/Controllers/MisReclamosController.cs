@@ -1018,6 +1018,10 @@ namespace Portal.Consultoras.Web.Controllers
                     SiNoEmail = us.UpdateUsuarioEmailTelefono(userData.PaisID, cdrWeb.ConsultoraID, model.Email, model.Telefono);
                 }
 
+                userData.EMail = model.Email;
+                userData.Celular = model.Telefono;
+                SetUserData(userData);
+
                 string contenidoMailCulminado = CrearEmailReclamoCulminado(cDRWebMailConfirmacion);
                 Util.EnviarMail("no-responder@somosbelcorp.com", model.Email, "CDR: REGISTRADO", contenidoMailCulminado, true, userData.NombreConsultora);
 

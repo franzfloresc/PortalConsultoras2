@@ -20,28 +20,19 @@ BEGIN
 		,LCDRWDC.CodigoReclamo
 		,LCDRWDC.CUV
 		,LCDRWDC.Cantidad
-		,case 
-			when LCDRWDC.CUV2 is null or LCDRWDC.CUV2='' then LCDRWDC.CUV
-			else LCDRWDC.CUV2
-		end as CUV2
-		,case
-			when LCDRWDC.CUV2 is null or LCDRWDC.CUV2='' then LCDRWDC.Cantidad
-			else LCDRWDC.Cantidad2
-		end as Cantidad2
+		,iif(isnull(LCDRWDC.CUV2,'') = '', LCDRWDC.CUV, LCDRWDC.CUV2) as CUV2
+		,iif(isnull(LCDRWDC.CUV2,'') = '', LCDRWDC.Cantidad, LCDRWDC.Cantidad2) as Cantidad2
 		,LCDRWDC.FechaRegistro
 		,pc.Descripcion as Descripcion
+		,iif(isnull(LCDRWDC.CUV2,'') = '', pc.Descripcion, pc2.Descripcion) as Descripcion2
 		,case
-			when LCDRWDC.CUV2 is null or LCDRWDC.CUV2='' then pc.Descripcion
-			else pc2.Descripcion
-		end as Descripcion2
-		,case
-			when isnull(LCDRWDC.CUV2,'') = '' or LCDRWDC.CUV = LCDRWDC.CUV2 then (pwd.MontoPagar * LCDRWDC.Cantidad / pwd.Cantidad)
-			else (pwd.PrecioUnidad * pwd.FactorRepeticion * LCDRWDC.Cantidad)			
+			when LCDRWDC.CodigoOperacion = LTRIM(RTRIM('T')) then (pwd.PrecioUnidad * pwd.FactorRepeticion * LCDRWDC.Cantidad)
+			else (pwd.MontoPagar * LCDRWDC.Cantidad / pwd.Cantidad)		
 		end as Precio
 		,case
 			when isnull(LCDRWDC.CUV2,'') = '' then (pwd.PrecioUnidad * pwd.FactorRepeticion * LCDRWDC.Cantidad)
-			when LCDRWDC.CUV = LCDRWDC.CUV2 then (pwd.MontoPagar * LCDRWDC.Cantidad / pwd.Cantidad)
-			else (pc2.PrecioCatalogo * pc2.FactorRepeticion * LCDRWDC.Cantidad2)
+			when LCDRWDC.CodigoOperacion = LTRIM(RTRIM('T')) then (pc2.PrecioCatalogo * pc2.FactorRepeticion * LCDRWDC.Cantidad2)
+			else (pwd.MontoPagar * LCDRWDC.Cantidad / pwd.Cantidad)
 		end as Precio2
 	FROM LogCDRWebDetalleCulminado LCDRWDC
 	INNER JOIN LogCDRWebCulminado LCDRWC on LCDRWDC.LogCDRWebCulminadoId = LCDRWC.LogCDRWebCulminadoId
@@ -75,28 +66,19 @@ BEGIN
 		,LCDRWDC.CodigoReclamo
 		,LCDRWDC.CUV
 		,LCDRWDC.Cantidad
-		,case 
-			when LCDRWDC.CUV2 is null or LCDRWDC.CUV2='' then LCDRWDC.CUV
-			else LCDRWDC.CUV2
-		end as CUV2
-		,case
-			when LCDRWDC.CUV2 is null or LCDRWDC.CUV2='' then LCDRWDC.Cantidad
-			else LCDRWDC.Cantidad2
-		end as Cantidad2
+		,iif(isnull(LCDRWDC.CUV2,'') = '', LCDRWDC.CUV, LCDRWDC.CUV2) as CUV2
+		,iif(isnull(LCDRWDC.CUV2,'') = '', LCDRWDC.Cantidad, LCDRWDC.Cantidad2) as Cantidad2
 		,LCDRWDC.FechaRegistro
 		,pc.Descripcion as Descripcion
+		,iif(isnull(LCDRWDC.CUV2,'') = '', pc.Descripcion, pc2.Descripcion) as Descripcion2
 		,case
-			when LCDRWDC.CUV2 is null or LCDRWDC.CUV2='' then pc.Descripcion
-			else pc2.Descripcion
-		end as Descripcion2
-		,case
-			when isnull(LCDRWDC.CUV2,'') = '' or LCDRWDC.CUV = LCDRWDC.CUV2 then (pwd.MontoPagar * LCDRWDC.Cantidad / pwd.Cantidad)
-			else (pwd.PrecioUnidad * pwd.FactorRepeticion * LCDRWDC.Cantidad)			
+			when LCDRWDC.CodigoOperacion = LTRIM(RTRIM('T')) then (pwd.PrecioUnidad * pwd.FactorRepeticion * LCDRWDC.Cantidad)
+			else (pwd.MontoPagar * LCDRWDC.Cantidad / pwd.Cantidad)		
 		end as Precio
 		,case
 			when isnull(LCDRWDC.CUV2,'') = '' then (pwd.PrecioUnidad * pwd.FactorRepeticion * LCDRWDC.Cantidad)
-			when LCDRWDC.CUV = LCDRWDC.CUV2 then (pwd.MontoPagar * LCDRWDC.Cantidad / pwd.Cantidad)
-			else (pc2.PrecioCatalogo * pc2.FactorRepeticion * LCDRWDC.Cantidad2)
+			when LCDRWDC.CodigoOperacion = LTRIM(RTRIM('T')) then (pc2.PrecioCatalogo * pc2.FactorRepeticion * LCDRWDC.Cantidad2)
+			else (pwd.MontoPagar * LCDRWDC.Cantidad / pwd.Cantidad)
 		end as Precio2
 	FROM LogCDRWebDetalleCulminado LCDRWDC
 	INNER JOIN LogCDRWebCulminado LCDRWC on LCDRWDC.LogCDRWebCulminadoId = LCDRWC.LogCDRWebCulminadoId
@@ -130,28 +112,19 @@ BEGIN
 		,LCDRWDC.CodigoReclamo
 		,LCDRWDC.CUV
 		,LCDRWDC.Cantidad
-		,case 
-			when LCDRWDC.CUV2 is null or LCDRWDC.CUV2='' then LCDRWDC.CUV
-			else LCDRWDC.CUV2
-		end as CUV2
-		,case
-			when LCDRWDC.CUV2 is null or LCDRWDC.CUV2='' then LCDRWDC.Cantidad
-			else LCDRWDC.Cantidad2
-		end as Cantidad2
+		,iif(isnull(LCDRWDC.CUV2,'') = '', LCDRWDC.CUV, LCDRWDC.CUV2) as CUV2
+		,iif(isnull(LCDRWDC.CUV2,'') = '', LCDRWDC.Cantidad, LCDRWDC.Cantidad2) as Cantidad2
 		,LCDRWDC.FechaRegistro
 		,pc.Descripcion as Descripcion
+		,iif(isnull(LCDRWDC.CUV2,'') = '', pc.Descripcion, pc2.Descripcion) as Descripcion2
 		,case
-			when LCDRWDC.CUV2 is null or LCDRWDC.CUV2='' then pc.Descripcion
-			else pc2.Descripcion
-		end as Descripcion2
-		,case
-			when isnull(LCDRWDC.CUV2,'') = '' or LCDRWDC.CUV = LCDRWDC.CUV2 then (pwd.MontoPagar * LCDRWDC.Cantidad / pwd.Cantidad)
-			else (pwd.PrecioUnidad * pwd.FactorRepeticion * LCDRWDC.Cantidad)			
+			when LCDRWDC.CodigoOperacion = LTRIM(RTRIM('T')) then (pwd.PrecioUnidad * pwd.FactorRepeticion * LCDRWDC.Cantidad)
+			else (pwd.MontoPagar * LCDRWDC.Cantidad / pwd.Cantidad)		
 		end as Precio
 		,case
 			when isnull(LCDRWDC.CUV2,'') = '' then (pwd.PrecioUnidad * pwd.FactorRepeticion * LCDRWDC.Cantidad)
-			when LCDRWDC.CUV = LCDRWDC.CUV2 then (pwd.MontoPagar * LCDRWDC.Cantidad / pwd.Cantidad)
-			else (pc2.PrecioCatalogo * pc2.FactorRepeticion * LCDRWDC.Cantidad2)
+			when LCDRWDC.CodigoOperacion = LTRIM(RTRIM('T')) then (pc2.PrecioCatalogo * pc2.FactorRepeticion * LCDRWDC.Cantidad2)
+			else (pwd.MontoPagar * LCDRWDC.Cantidad / pwd.Cantidad)
 		end as Precio2
 	FROM LogCDRWebDetalleCulminado LCDRWDC
 	INNER JOIN LogCDRWebCulminado LCDRWC on LCDRWDC.LogCDRWebCulminadoId = LCDRWC.LogCDRWebCulminadoId
@@ -185,28 +158,19 @@ BEGIN
 		,LCDRWDC.CodigoReclamo
 		,LCDRWDC.CUV
 		,LCDRWDC.Cantidad
-		,case 
-			when LCDRWDC.CUV2 is null or LCDRWDC.CUV2='' then LCDRWDC.CUV
-			else LCDRWDC.CUV2
-		end as CUV2
-		,case
-			when LCDRWDC.CUV2 is null or LCDRWDC.CUV2='' then LCDRWDC.Cantidad
-			else LCDRWDC.Cantidad2
-		end as Cantidad2
+		,iif(isnull(LCDRWDC.CUV2,'') = '', LCDRWDC.CUV, LCDRWDC.CUV2) as CUV2
+		,iif(isnull(LCDRWDC.CUV2,'') = '', LCDRWDC.Cantidad, LCDRWDC.Cantidad2) as Cantidad2
 		,LCDRWDC.FechaRegistro
 		,pc.Descripcion as Descripcion
+		,iif(isnull(LCDRWDC.CUV2,'') = '', pc.Descripcion, pc2.Descripcion) as Descripcion2
 		,case
-			when LCDRWDC.CUV2 is null or LCDRWDC.CUV2='' then pc.Descripcion
-			else pc2.Descripcion
-		end as Descripcion2
-		,case
-			when isnull(LCDRWDC.CUV2,'') = '' or LCDRWDC.CUV = LCDRWDC.CUV2 then (pwd.MontoPagar * LCDRWDC.Cantidad / pwd.Cantidad)
-			else (pwd.PrecioUnidad * pwd.FactorRepeticion * LCDRWDC.Cantidad)			
+			when LCDRWDC.CodigoOperacion = LTRIM(RTRIM('T')) then (pwd.PrecioUnidad * pwd.FactorRepeticion * LCDRWDC.Cantidad)
+			else (pwd.MontoPagar * LCDRWDC.Cantidad / pwd.Cantidad)		
 		end as Precio
 		,case
 			when isnull(LCDRWDC.CUV2,'') = '' then (pwd.PrecioUnidad * pwd.FactorRepeticion * LCDRWDC.Cantidad)
-			when LCDRWDC.CUV = LCDRWDC.CUV2 then (pwd.MontoPagar * LCDRWDC.Cantidad / pwd.Cantidad)
-			else (pc2.PrecioCatalogo * pc2.FactorRepeticion * LCDRWDC.Cantidad2)
+			when LCDRWDC.CodigoOperacion = LTRIM(RTRIM('T')) then (pc2.PrecioCatalogo * pc2.FactorRepeticion * LCDRWDC.Cantidad2)
+			else (pwd.MontoPagar * LCDRWDC.Cantidad / pwd.Cantidad)
 		end as Precio2
 	FROM LogCDRWebDetalleCulminado LCDRWDC
 	INNER JOIN LogCDRWebCulminado LCDRWC on LCDRWDC.LogCDRWebCulminadoId = LCDRWC.LogCDRWebCulminadoId
@@ -240,28 +204,19 @@ BEGIN
 		,LCDRWDC.CodigoReclamo
 		,LCDRWDC.CUV
 		,LCDRWDC.Cantidad
-		,case 
-			when LCDRWDC.CUV2 is null or LCDRWDC.CUV2='' then LCDRWDC.CUV
-			else LCDRWDC.CUV2
-		end as CUV2
-		,case
-			when LCDRWDC.CUV2 is null or LCDRWDC.CUV2='' then LCDRWDC.Cantidad
-			else LCDRWDC.Cantidad2
-		end as Cantidad2
+		,iif(isnull(LCDRWDC.CUV2,'') = '', LCDRWDC.CUV, LCDRWDC.CUV2) as CUV2
+		,iif(isnull(LCDRWDC.CUV2,'') = '', LCDRWDC.Cantidad, LCDRWDC.Cantidad2) as Cantidad2
 		,LCDRWDC.FechaRegistro
 		,pc.Descripcion as Descripcion
+		,iif(isnull(LCDRWDC.CUV2,'') = '', pc.Descripcion, pc2.Descripcion) as Descripcion2
 		,case
-			when LCDRWDC.CUV2 is null or LCDRWDC.CUV2='' then pc.Descripcion
-			else pc2.Descripcion
-		end as Descripcion2
-		,case
-			when isnull(LCDRWDC.CUV2,'') = '' or LCDRWDC.CUV = LCDRWDC.CUV2 then (pwd.MontoPagar * LCDRWDC.Cantidad / pwd.Cantidad)
-			else (pwd.PrecioUnidad * pwd.FactorRepeticion * LCDRWDC.Cantidad)			
+			when LCDRWDC.CodigoOperacion = LTRIM(RTRIM('T')) then (pwd.PrecioUnidad * pwd.FactorRepeticion * LCDRWDC.Cantidad)
+			else (pwd.MontoPagar * LCDRWDC.Cantidad / pwd.Cantidad)		
 		end as Precio
 		,case
 			when isnull(LCDRWDC.CUV2,'') = '' then (pwd.PrecioUnidad * pwd.FactorRepeticion * LCDRWDC.Cantidad)
-			when LCDRWDC.CUV = LCDRWDC.CUV2 then (pwd.MontoPagar * LCDRWDC.Cantidad / pwd.Cantidad)
-			else (pc2.PrecioCatalogo * pc2.FactorRepeticion * LCDRWDC.Cantidad2)
+			when LCDRWDC.CodigoOperacion = LTRIM(RTRIM('T')) then (pc2.PrecioCatalogo * pc2.FactorRepeticion * LCDRWDC.Cantidad2)
+			else (pwd.MontoPagar * LCDRWDC.Cantidad / pwd.Cantidad)
 		end as Precio2
 	FROM LogCDRWebDetalleCulminado LCDRWDC
 	INNER JOIN LogCDRWebCulminado LCDRWC on LCDRWDC.LogCDRWebCulminadoId = LCDRWC.LogCDRWebCulminadoId
@@ -295,28 +250,19 @@ BEGIN
 		,LCDRWDC.CodigoReclamo
 		,LCDRWDC.CUV
 		,LCDRWDC.Cantidad
-		,case 
-			when LCDRWDC.CUV2 is null or LCDRWDC.CUV2='' then LCDRWDC.CUV
-			else LCDRWDC.CUV2
-		end as CUV2
-		,case
-			when LCDRWDC.CUV2 is null or LCDRWDC.CUV2='' then LCDRWDC.Cantidad
-			else LCDRWDC.Cantidad2
-		end as Cantidad2
+		,iif(isnull(LCDRWDC.CUV2,'') = '', LCDRWDC.CUV, LCDRWDC.CUV2) as CUV2
+		,iif(isnull(LCDRWDC.CUV2,'') = '', LCDRWDC.Cantidad, LCDRWDC.Cantidad2) as Cantidad2
 		,LCDRWDC.FechaRegistro
 		,pc.Descripcion as Descripcion
+		,iif(isnull(LCDRWDC.CUV2,'') = '', pc.Descripcion, pc2.Descripcion) as Descripcion2
 		,case
-			when LCDRWDC.CUV2 is null or LCDRWDC.CUV2='' then pc.Descripcion
-			else pc2.Descripcion
-		end as Descripcion2
-		,case
-			when isnull(LCDRWDC.CUV2,'') = '' or LCDRWDC.CUV = LCDRWDC.CUV2 then (pwd.MontoPagar * LCDRWDC.Cantidad / pwd.Cantidad)
-			else (pwd.PrecioUnidad * pwd.FactorRepeticion * LCDRWDC.Cantidad)			
+			when LCDRWDC.CodigoOperacion = LTRIM(RTRIM('T')) then (pwd.PrecioUnidad * pwd.FactorRepeticion * LCDRWDC.Cantidad)
+			else (pwd.MontoPagar * LCDRWDC.Cantidad / pwd.Cantidad)		
 		end as Precio
 		,case
 			when isnull(LCDRWDC.CUV2,'') = '' then (pwd.PrecioUnidad * pwd.FactorRepeticion * LCDRWDC.Cantidad)
-			when LCDRWDC.CUV = LCDRWDC.CUV2 then (pwd.MontoPagar * LCDRWDC.Cantidad / pwd.Cantidad)
-			else (pc2.PrecioCatalogo * pc2.FactorRepeticion * LCDRWDC.Cantidad2)
+			when LCDRWDC.CodigoOperacion = LTRIM(RTRIM('T')) then (pc2.PrecioCatalogo * pc2.FactorRepeticion * LCDRWDC.Cantidad2)
+			else (pwd.MontoPagar * LCDRWDC.Cantidad / pwd.Cantidad)
 		end as Precio2
 	FROM LogCDRWebDetalleCulminado LCDRWDC
 	INNER JOIN LogCDRWebCulminado LCDRWC on LCDRWDC.LogCDRWebCulminadoId = LCDRWC.LogCDRWebCulminadoId
@@ -350,28 +296,19 @@ BEGIN
 		,LCDRWDC.CodigoReclamo
 		,LCDRWDC.CUV
 		,LCDRWDC.Cantidad
-		,case 
-			when LCDRWDC.CUV2 is null or LCDRWDC.CUV2='' then LCDRWDC.CUV
-			else LCDRWDC.CUV2
-		end as CUV2
-		,case
-			when LCDRWDC.CUV2 is null or LCDRWDC.CUV2='' then LCDRWDC.Cantidad
-			else LCDRWDC.Cantidad2
-		end as Cantidad2
+		,iif(isnull(LCDRWDC.CUV2,'') = '', LCDRWDC.CUV, LCDRWDC.CUV2) as CUV2
+		,iif(isnull(LCDRWDC.CUV2,'') = '', LCDRWDC.Cantidad, LCDRWDC.Cantidad2) as Cantidad2
 		,LCDRWDC.FechaRegistro
 		,pc.Descripcion as Descripcion
+		,iif(isnull(LCDRWDC.CUV2,'') = '', pc.Descripcion, pc2.Descripcion) as Descripcion2
 		,case
-			when LCDRWDC.CUV2 is null or LCDRWDC.CUV2='' then pc.Descripcion
-			else pc2.Descripcion
-		end as Descripcion2
-		,case
-			when isnull(LCDRWDC.CUV2,'') = '' or LCDRWDC.CUV = LCDRWDC.CUV2 then (pwd.MontoPagar * LCDRWDC.Cantidad / pwd.Cantidad)
-			else (pwd.PrecioUnidad * pwd.FactorRepeticion * LCDRWDC.Cantidad)			
+			when LCDRWDC.CodigoOperacion = LTRIM(RTRIM('T')) then (pwd.PrecioUnidad * pwd.FactorRepeticion * LCDRWDC.Cantidad)
+			else (pwd.MontoPagar * LCDRWDC.Cantidad / pwd.Cantidad)		
 		end as Precio
 		,case
 			when isnull(LCDRWDC.CUV2,'') = '' then (pwd.PrecioUnidad * pwd.FactorRepeticion * LCDRWDC.Cantidad)
-			when LCDRWDC.CUV = LCDRWDC.CUV2 then (pwd.MontoPagar * LCDRWDC.Cantidad / pwd.Cantidad)
-			else (pc2.PrecioCatalogo * pc2.FactorRepeticion * LCDRWDC.Cantidad2)
+			when LCDRWDC.CodigoOperacion = LTRIM(RTRIM('T')) then (pc2.PrecioCatalogo * pc2.FactorRepeticion * LCDRWDC.Cantidad2)
+			else (pwd.MontoPagar * LCDRWDC.Cantidad / pwd.Cantidad)
 		end as Precio2
 	FROM LogCDRWebDetalleCulminado LCDRWDC
 	INNER JOIN LogCDRWebCulminado LCDRWC on LCDRWDC.LogCDRWebCulminadoId = LCDRWC.LogCDRWebCulminadoId
@@ -405,28 +342,19 @@ BEGIN
 		,LCDRWDC.CodigoReclamo
 		,LCDRWDC.CUV
 		,LCDRWDC.Cantidad
-		,case 
-			when LCDRWDC.CUV2 is null or LCDRWDC.CUV2='' then LCDRWDC.CUV
-			else LCDRWDC.CUV2
-		end as CUV2
-		,case
-			when LCDRWDC.CUV2 is null or LCDRWDC.CUV2='' then LCDRWDC.Cantidad
-			else LCDRWDC.Cantidad2
-		end as Cantidad2
+		,iif(isnull(LCDRWDC.CUV2,'') = '', LCDRWDC.CUV, LCDRWDC.CUV2) as CUV2
+		,iif(isnull(LCDRWDC.CUV2,'') = '', LCDRWDC.Cantidad, LCDRWDC.Cantidad2) as Cantidad2
 		,LCDRWDC.FechaRegistro
 		,pc.Descripcion as Descripcion
+		,iif(isnull(LCDRWDC.CUV2,'') = '', pc.Descripcion, pc2.Descripcion) as Descripcion2
 		,case
-			when LCDRWDC.CUV2 is null or LCDRWDC.CUV2='' then pc.Descripcion
-			else pc2.Descripcion
-		end as Descripcion2
-		,case
-			when isnull(LCDRWDC.CUV2,'') = '' or LCDRWDC.CUV = LCDRWDC.CUV2 then (pwd.MontoPagar * LCDRWDC.Cantidad / pwd.Cantidad)
-			else (pwd.PrecioUnidad * pwd.FactorRepeticion * LCDRWDC.Cantidad)			
+			when LCDRWDC.CodigoOperacion = LTRIM(RTRIM('T')) then (pwd.PrecioUnidad * pwd.FactorRepeticion * LCDRWDC.Cantidad)
+			else (pwd.MontoPagar * LCDRWDC.Cantidad / pwd.Cantidad)		
 		end as Precio
 		,case
 			when isnull(LCDRWDC.CUV2,'') = '' then (pwd.PrecioUnidad * pwd.FactorRepeticion * LCDRWDC.Cantidad)
-			when LCDRWDC.CUV = LCDRWDC.CUV2 then (pwd.MontoPagar * LCDRWDC.Cantidad / pwd.Cantidad)
-			else (pc2.PrecioCatalogo * pc2.FactorRepeticion * LCDRWDC.Cantidad2)
+			when LCDRWDC.CodigoOperacion = LTRIM(RTRIM('T')) then (pc2.PrecioCatalogo * pc2.FactorRepeticion * LCDRWDC.Cantidad2)
+			else (pwd.MontoPagar * LCDRWDC.Cantidad / pwd.Cantidad)
 		end as Precio2
 	FROM LogCDRWebDetalleCulminado LCDRWDC
 	INNER JOIN LogCDRWebCulminado LCDRWC on LCDRWDC.LogCDRWebCulminadoId = LCDRWC.LogCDRWebCulminadoId
@@ -460,28 +388,19 @@ BEGIN
 		,LCDRWDC.CodigoReclamo
 		,LCDRWDC.CUV
 		,LCDRWDC.Cantidad
-		,case 
-			when LCDRWDC.CUV2 is null or LCDRWDC.CUV2='' then LCDRWDC.CUV
-			else LCDRWDC.CUV2
-		end as CUV2
-		,case
-			when LCDRWDC.CUV2 is null or LCDRWDC.CUV2='' then LCDRWDC.Cantidad
-			else LCDRWDC.Cantidad2
-		end as Cantidad2
+		,iif(isnull(LCDRWDC.CUV2,'') = '', LCDRWDC.CUV, LCDRWDC.CUV2) as CUV2
+		,iif(isnull(LCDRWDC.CUV2,'') = '', LCDRWDC.Cantidad, LCDRWDC.Cantidad2) as Cantidad2
 		,LCDRWDC.FechaRegistro
 		,pc.Descripcion as Descripcion
+		,iif(isnull(LCDRWDC.CUV2,'') = '', pc.Descripcion, pc2.Descripcion) as Descripcion2
 		,case
-			when LCDRWDC.CUV2 is null or LCDRWDC.CUV2='' then pc.Descripcion
-			else pc2.Descripcion
-		end as Descripcion2
-		,case
-			when isnull(LCDRWDC.CUV2,'') = '' or LCDRWDC.CUV = LCDRWDC.CUV2 then (pwd.MontoPagar * LCDRWDC.Cantidad / pwd.Cantidad)
-			else (pwd.PrecioUnidad * pwd.FactorRepeticion * LCDRWDC.Cantidad)			
+			when LCDRWDC.CodigoOperacion = LTRIM(RTRIM('T')) then (pwd.PrecioUnidad * pwd.FactorRepeticion * LCDRWDC.Cantidad)
+			else (pwd.MontoPagar * LCDRWDC.Cantidad / pwd.Cantidad)		
 		end as Precio
 		,case
 			when isnull(LCDRWDC.CUV2,'') = '' then (pwd.PrecioUnidad * pwd.FactorRepeticion * LCDRWDC.Cantidad)
-			when LCDRWDC.CUV = LCDRWDC.CUV2 then (pwd.MontoPagar * LCDRWDC.Cantidad / pwd.Cantidad)
-			else (pc2.PrecioCatalogo * pc2.FactorRepeticion * LCDRWDC.Cantidad2)
+			when LCDRWDC.CodigoOperacion = LTRIM(RTRIM('T')) then (pc2.PrecioCatalogo * pc2.FactorRepeticion * LCDRWDC.Cantidad2)
+			else (pwd.MontoPagar * LCDRWDC.Cantidad / pwd.Cantidad)
 		end as Precio2
 	FROM LogCDRWebDetalleCulminado LCDRWDC
 	INNER JOIN LogCDRWebCulminado LCDRWC on LCDRWDC.LogCDRWebCulminadoId = LCDRWC.LogCDRWebCulminadoId
@@ -515,28 +434,19 @@ BEGIN
 		,LCDRWDC.CodigoReclamo
 		,LCDRWDC.CUV
 		,LCDRWDC.Cantidad
-		,case 
-			when LCDRWDC.CUV2 is null or LCDRWDC.CUV2='' then LCDRWDC.CUV
-			else LCDRWDC.CUV2
-		end as CUV2
-		,case
-			when LCDRWDC.CUV2 is null or LCDRWDC.CUV2='' then LCDRWDC.Cantidad
-			else LCDRWDC.Cantidad2
-		end as Cantidad2
+		,iif(isnull(LCDRWDC.CUV2,'') = '', LCDRWDC.CUV, LCDRWDC.CUV2) as CUV2
+		,iif(isnull(LCDRWDC.CUV2,'') = '', LCDRWDC.Cantidad, LCDRWDC.Cantidad2) as Cantidad2
 		,LCDRWDC.FechaRegistro
 		,pc.Descripcion as Descripcion
+		,iif(isnull(LCDRWDC.CUV2,'') = '', pc.Descripcion, pc2.Descripcion) as Descripcion2
 		,case
-			when LCDRWDC.CUV2 is null or LCDRWDC.CUV2='' then pc.Descripcion
-			else pc2.Descripcion
-		end as Descripcion2
-		,case
-			when isnull(LCDRWDC.CUV2,'') = '' or LCDRWDC.CUV = LCDRWDC.CUV2 then (pwd.MontoPagar * LCDRWDC.Cantidad / pwd.Cantidad)
-			else (pwd.PrecioUnidad * pwd.FactorRepeticion * LCDRWDC.Cantidad)			
+			when LCDRWDC.CodigoOperacion = LTRIM(RTRIM('T')) then (pwd.PrecioUnidad * pwd.FactorRepeticion * LCDRWDC.Cantidad)
+			else (pwd.MontoPagar * LCDRWDC.Cantidad / pwd.Cantidad)		
 		end as Precio
 		,case
 			when isnull(LCDRWDC.CUV2,'') = '' then (pwd.PrecioUnidad * pwd.FactorRepeticion * LCDRWDC.Cantidad)
-			when LCDRWDC.CUV = LCDRWDC.CUV2 then (pwd.MontoPagar * LCDRWDC.Cantidad / pwd.Cantidad)
-			else (pc2.PrecioCatalogo * pc2.FactorRepeticion * LCDRWDC.Cantidad2)
+			when LCDRWDC.CodigoOperacion = LTRIM(RTRIM('T')) then (pc2.PrecioCatalogo * pc2.FactorRepeticion * LCDRWDC.Cantidad2)
+			else (pwd.MontoPagar * LCDRWDC.Cantidad / pwd.Cantidad)
 		end as Precio2
 	FROM LogCDRWebDetalleCulminado LCDRWDC
 	INNER JOIN LogCDRWebCulminado LCDRWC on LCDRWDC.LogCDRWebCulminadoId = LCDRWC.LogCDRWebCulminadoId
@@ -570,28 +480,19 @@ BEGIN
 		,LCDRWDC.CodigoReclamo
 		,LCDRWDC.CUV
 		,LCDRWDC.Cantidad
-		,case 
-			when LCDRWDC.CUV2 is null or LCDRWDC.CUV2='' then LCDRWDC.CUV
-			else LCDRWDC.CUV2
-		end as CUV2
-		,case
-			when LCDRWDC.CUV2 is null or LCDRWDC.CUV2='' then LCDRWDC.Cantidad
-			else LCDRWDC.Cantidad2
-		end as Cantidad2
+		,iif(isnull(LCDRWDC.CUV2,'') = '', LCDRWDC.CUV, LCDRWDC.CUV2) as CUV2
+		,iif(isnull(LCDRWDC.CUV2,'') = '', LCDRWDC.Cantidad, LCDRWDC.Cantidad2) as Cantidad2
 		,LCDRWDC.FechaRegistro
 		,pc.Descripcion as Descripcion
+		,iif(isnull(LCDRWDC.CUV2,'') = '', pc.Descripcion, pc2.Descripcion) as Descripcion2
 		,case
-			when LCDRWDC.CUV2 is null or LCDRWDC.CUV2='' then pc.Descripcion
-			else pc2.Descripcion
-		end as Descripcion2
-		,case
-			when isnull(LCDRWDC.CUV2,'') = '' or LCDRWDC.CUV = LCDRWDC.CUV2 then (pwd.MontoPagar * LCDRWDC.Cantidad / pwd.Cantidad)
-			else (pwd.PrecioUnidad * pwd.FactorRepeticion * LCDRWDC.Cantidad)			
+			when LCDRWDC.CodigoOperacion = LTRIM(RTRIM('T')) then (pwd.PrecioUnidad * pwd.FactorRepeticion * LCDRWDC.Cantidad)
+			else (pwd.MontoPagar * LCDRWDC.Cantidad / pwd.Cantidad)		
 		end as Precio
 		,case
 			when isnull(LCDRWDC.CUV2,'') = '' then (pwd.PrecioUnidad * pwd.FactorRepeticion * LCDRWDC.Cantidad)
-			when LCDRWDC.CUV = LCDRWDC.CUV2 then (pwd.MontoPagar * LCDRWDC.Cantidad / pwd.Cantidad)
-			else (pc2.PrecioCatalogo * pc2.FactorRepeticion * LCDRWDC.Cantidad2)
+			when LCDRWDC.CodigoOperacion = LTRIM(RTRIM('T')) then (pc2.PrecioCatalogo * pc2.FactorRepeticion * LCDRWDC.Cantidad2)
+			else (pwd.MontoPagar * LCDRWDC.Cantidad / pwd.Cantidad)
 		end as Precio2
 	FROM LogCDRWebDetalleCulminado LCDRWDC
 	INNER JOIN LogCDRWebCulminado LCDRWC on LCDRWDC.LogCDRWebCulminadoId = LCDRWC.LogCDRWebCulminadoId
@@ -625,28 +526,19 @@ BEGIN
 		,LCDRWDC.CodigoReclamo
 		,LCDRWDC.CUV
 		,LCDRWDC.Cantidad
-		,case 
-			when LCDRWDC.CUV2 is null or LCDRWDC.CUV2='' then LCDRWDC.CUV
-			else LCDRWDC.CUV2
-		end as CUV2
-		,case
-			when LCDRWDC.CUV2 is null or LCDRWDC.CUV2='' then LCDRWDC.Cantidad
-			else LCDRWDC.Cantidad2
-		end as Cantidad2
+		,iif(isnull(LCDRWDC.CUV2,'') = '', LCDRWDC.CUV, LCDRWDC.CUV2) as CUV2
+		,iif(isnull(LCDRWDC.CUV2,'') = '', LCDRWDC.Cantidad, LCDRWDC.Cantidad2) as Cantidad2
 		,LCDRWDC.FechaRegistro
 		,pc.Descripcion as Descripcion
+		,iif(isnull(LCDRWDC.CUV2,'') = '', pc.Descripcion, pc2.Descripcion) as Descripcion2
 		,case
-			when LCDRWDC.CUV2 is null or LCDRWDC.CUV2='' then pc.Descripcion
-			else pc2.Descripcion
-		end as Descripcion2
-		,case
-			when isnull(LCDRWDC.CUV2,'') = '' or LCDRWDC.CUV = LCDRWDC.CUV2 then (pwd.MontoPagar * LCDRWDC.Cantidad / pwd.Cantidad)
-			else (pwd.PrecioUnidad * pwd.FactorRepeticion * LCDRWDC.Cantidad)			
+			when LCDRWDC.CodigoOperacion = LTRIM(RTRIM('T')) then (pwd.PrecioUnidad * pwd.FactorRepeticion * LCDRWDC.Cantidad)
+			else (pwd.MontoPagar * LCDRWDC.Cantidad / pwd.Cantidad)		
 		end as Precio
 		,case
 			when isnull(LCDRWDC.CUV2,'') = '' then (pwd.PrecioUnidad * pwd.FactorRepeticion * LCDRWDC.Cantidad)
-			when LCDRWDC.CUV = LCDRWDC.CUV2 then (pwd.MontoPagar * LCDRWDC.Cantidad / pwd.Cantidad)
-			else (pc2.PrecioCatalogo * pc2.FactorRepeticion * LCDRWDC.Cantidad2)
+			when LCDRWDC.CodigoOperacion = LTRIM(RTRIM('T')) then (pc2.PrecioCatalogo * pc2.FactorRepeticion * LCDRWDC.Cantidad2)
+			else (pwd.MontoPagar * LCDRWDC.Cantidad / pwd.Cantidad)
 		end as Precio2
 	FROM LogCDRWebDetalleCulminado LCDRWDC
 	INNER JOIN LogCDRWebCulminado LCDRWC on LCDRWDC.LogCDRWebCulminadoId = LCDRWC.LogCDRWebCulminadoId
@@ -680,28 +572,19 @@ BEGIN
 		,LCDRWDC.CodigoReclamo
 		,LCDRWDC.CUV
 		,LCDRWDC.Cantidad
-		,case 
-			when LCDRWDC.CUV2 is null or LCDRWDC.CUV2='' then LCDRWDC.CUV
-			else LCDRWDC.CUV2
-		end as CUV2
-		,case
-			when LCDRWDC.CUV2 is null or LCDRWDC.CUV2='' then LCDRWDC.Cantidad
-			else LCDRWDC.Cantidad2
-		end as Cantidad2
+		,iif(isnull(LCDRWDC.CUV2,'') = '', LCDRWDC.CUV, LCDRWDC.CUV2) as CUV2
+		,iif(isnull(LCDRWDC.CUV2,'') = '', LCDRWDC.Cantidad, LCDRWDC.Cantidad2) as Cantidad2
 		,LCDRWDC.FechaRegistro
 		,pc.Descripcion as Descripcion
+		,iif(isnull(LCDRWDC.CUV2,'') = '', pc.Descripcion, pc2.Descripcion) as Descripcion2
 		,case
-			when LCDRWDC.CUV2 is null or LCDRWDC.CUV2='' then pc.Descripcion
-			else pc2.Descripcion
-		end as Descripcion2
-		,case
-			when isnull(LCDRWDC.CUV2,'') = '' or LCDRWDC.CUV = LCDRWDC.CUV2 then (pwd.MontoPagar * LCDRWDC.Cantidad / pwd.Cantidad)
-			else (pwd.PrecioUnidad * pwd.FactorRepeticion * LCDRWDC.Cantidad)			
+			when LCDRWDC.CodigoOperacion = LTRIM(RTRIM('T')) then (pwd.PrecioUnidad * pwd.FactorRepeticion * LCDRWDC.Cantidad)
+			else (pwd.MontoPagar * LCDRWDC.Cantidad / pwd.Cantidad)		
 		end as Precio
 		,case
 			when isnull(LCDRWDC.CUV2,'') = '' then (pwd.PrecioUnidad * pwd.FactorRepeticion * LCDRWDC.Cantidad)
-			when LCDRWDC.CUV = LCDRWDC.CUV2 then (pwd.MontoPagar * LCDRWDC.Cantidad / pwd.Cantidad)
-			else (pc2.PrecioCatalogo * pc2.FactorRepeticion * LCDRWDC.Cantidad2)
+			when LCDRWDC.CodigoOperacion = LTRIM(RTRIM('T')) then (pc2.PrecioCatalogo * pc2.FactorRepeticion * LCDRWDC.Cantidad2)
+			else (pwd.MontoPagar * LCDRWDC.Cantidad / pwd.Cantidad)
 		end as Precio2
 	FROM LogCDRWebDetalleCulminado LCDRWDC
 	INNER JOIN LogCDRWebCulminado LCDRWC on LCDRWDC.LogCDRWebCulminadoId = LCDRWC.LogCDRWebCulminadoId
