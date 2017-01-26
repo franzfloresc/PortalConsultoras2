@@ -346,7 +346,7 @@ function AsignarCUV(pedido) {
 
     $("#divMotivo").html("");
 
-    if (pedido.CDRWebID > 0 && pedido.CDRWebEstado != 1) {        
+    if (pedido.CDRWebID > 0 && pedido.CDRWebEstado != 1 && pedido.CDRWebEstado != 4) {
         alert_msg("Lo sentimos, ya cuentas con una solicitud web para este pedido. Por favor, contáctate con nuestro Call Center");
     } else {
         pedido.olstBEPedidoWebDetalle = pedido.olstBEPedidoWebDetalle || new Array();
@@ -364,7 +364,7 @@ function AsignarCUV(pedido) {
 
         BuscarMotivo();
         DetalleCargar(true);
-    }    
+    }
 }
 
 function BuscarMotivo() {
@@ -413,17 +413,17 @@ function ValidarPaso1() {
     ok = $.trim($("#txtPedidoID").val()) > 0 ? ok : false;
     ok = $.trim($("#txtCUV").val()) != "" ? ok : false;
     //ok = $.trim($("#txtCUVDescripcion").val()) != "" ? ok : false;
-    //ok = $.trim($("#txtCantidad").val()) > 0 && $.trim($("#txtCantidad").val()) <= $.trim($("#txtCantidad").attr("data-maxvalue")) ? ok : false;
+    //ok = $.trim($("#txtCantidad").val()) > 0 && $.trim($("#txtCantidad").val()) <= $.trim($("#txtCantidad").attr("data-maxvalue")) ? ok : false;                
+    ok = $.trim($("#divMotivo [data-check='1']").attr("id")) != "" ? ok : false;
+
+    if (!ok) {
+        alert_msg("Datos incorrectos");
+        return false;
+    }
 
     if (!($.trim($("#txtCantidad").val()) > 0 && $.trim($("#txtCantidad").val()) <= $.trim($("#txtCantidad").attr("data-maxvalue")))) {
         alert_msg("Lamentablemente la cantidad ingresada supera a la cantidad facturada en tu pedido (" +
             $.trim($("#txtCantidad").attr("data-maxvalue")) + ")");
-        return false;
-    }                
-
-    ok = $.trim($("#divMotivo [data-check='1']").attr("id")) != "" ? ok : false;
-    if (!ok) {
-        alert_msg("Datos incorrectos");
         return false;
     }
 
