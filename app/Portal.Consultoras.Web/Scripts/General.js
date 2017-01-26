@@ -472,26 +472,38 @@ function checkTimeout(data) {
         }
 
         if (!thereIsStillTime) {
-            //window.location.href = "/Login/Timeout";
-            //window.location.href = "https://stsqa.somosbelcorp.com/adfs/ls/?wa=wsignout1.0";
-            window.location.href = "/SesionExpirada.html";
+            window.location.href = "/Login/SesionExpirada";
         }
     }
     else {
-        //debugger;
-        $.ajax({
-            url: "/Dummy/",
-            type: 'POST',
-            dataType: 'json',
-            contentType: 'application/json; charset=utf-8',
-            async: false,
-            complete: function (result) {
-                thereIsStillTime = checkTimeout(result);
-            }
-        });
+        // validar si se perdio la sesion
+        checkUserSession();
     }
     return thereIsStillTime;
 }
+
+/*EPD-180*/
+function checkUserSession() {
+    //debugger;
+    var res = -1;
+    
+    $.ajax({
+        url: '/Login/CheckUserSession',
+        type: 'POST',
+        dataType: 'json',
+        contentType: 'application/json; charset=utf-8',
+        async: false,
+        success: function (data) {
+            res = data.Exists;
+        }
+    });
+
+    //alert(res);
+    if (res == 0) {
+        window.location.href = '/Login/SesionExpirada';
+    }
+}
+/*EPD-180*/
 
 // paginacion
 function paginadorAccionGenerico(obj) {

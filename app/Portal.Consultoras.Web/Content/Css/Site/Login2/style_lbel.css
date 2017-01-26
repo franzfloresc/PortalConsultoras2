@@ -1,0 +1,1680 @@
+﻿#container, body, html {
+    height: 100%;
+    width: 100%;
+}
+
+#container, *, body, html, img, input, li, span, textarea, ul {
+    margin: 0;
+    padding: 0;
+}
+
+#ctl00_ContentPlaceHolder1_AvisoASP {
+    color: #959595;
+    font-family: lato;
+    font-size: 12px;
+    font-weight: 700;
+    text-align: right;
+    text-decoration: none;
+}
+
+#container, #content, .nav, .top .logo-lbel {
+    position: relative;
+}
+
+#det1, #det2 {
+    right: -233px;
+}
+
+body {
+    font-size: 13px;
+    font-family: lato-medium;
+    color: #555;
+    text-align: center;
+    /*background: url(../Images/login-lbel-1920.jpg) center center no-repeat fixed;*/
+     background: url(../Images/loggin_lbel.jpg) center center no-repeat fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+li {
+    list-style-type: none;
+}
+
+img {
+    vertical-align: top;
+    border: 0;
+}
+
+input, textarea {
+    outline: 0;
+    font-family: Arial,Helvetica;
+    color: #666;
+    -webkit-appearance: none;
+    border-radius: 0;
+}
+
+    input:-webkit-autofill, input:-webkit-autofill:active, input:-webkit-autofill:focus, input:-webkit-autofill:hover {
+        -webkit-transition: color 9999s ease-out,background-color 9999s ease-out;
+    }
+
+span {
+    font-family: lato;
+}
+
+.h1, h1 {
+    font-size: 36px;
+}
+
+.h2, h2 {
+    font-size: 30px;
+}
+
+.h3, h3 {
+    font-size: 24px;
+}
+
+.h4, h4 {
+    font-size: 18px;
+}
+
+.h5, h5 {
+    font-size: 14px;
+}
+
+.h6, h6 {
+    font-size: 12px;
+}
+
+* {
+    font-family: lato;
+}
+
+#container {
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+#content {
+    width: 100%;
+    margin-left: 0;
+    clear: both;
+    height: auto;
+    min-height: 550px;
+    overflow: hidden;
+}
+
+.content-left {
+    width: 34%;
+    height: 100%;
+    float: left;
+    background-size: 30%;
+}
+
+.content-right {
+    width: 62%;
+    height: auto;
+    overflow: hidden;
+    padding: 0 2% 3px;
+    float: right;
+}
+
+.wrapper {
+    width: 100%;
+    margin: 0 auto;
+    text-align: left;
+}
+
+    .wrapper.top {
+        height: 100px;
+        float: right;
+    }
+
+.top .boxMenu {
+    display: block;
+    width: 100%;
+}
+
+.top .logo-lbel {
+    float: right;
+    display: block;
+    text-align: center;
+    z-index: 1;
+}
+
+#det1, #det2, .detalle2 {
+    z-index: 1000;
+}
+
+.logo-esika {
+    margin-bottom: 30px;
+    text-align: center;
+    font-family: icomoon;
+}
+
+    .logo-esika:before {
+        content: "\e905";
+        font-size: 64px;
+        color: #fff;
+    }
+
+.logo {
+    display: none;
+}
+
+.nav {
+    height: 98px;
+}
+
+.slogan {
+    display: block;
+    position: absolute;
+    top: 128px;
+    left: 560px;
+    font-size: 19px;
+    font-weight: 400;
+    line-height: 24px;
+    font-family: museo_sans_100regular;
+    text-align: right;
+    width: 250px;
+}
+
+.btn_detail, .nav a figure, .nav a span, .webForm, .wrapMain {
+    position: relative;
+}
+
+.slogan span i {
+    color: #939;
+}
+
+.slogan span {
+    color: #748591;
+    display: block;
+}
+
+.nav a {
+    width: 24%;
+    float: right;
+    text-align: center;
+    margin-top: 15px;
+    color: #FFF;
+    text-decoration: none;
+    font-size: 13px;
+}
+
+    .nav a figure {
+        float: left;
+        height: 25px;
+        margin: 0 5px 0 0 !important;
+    }
+
+    .nav a span {
+        font-family: lato;
+        font-weight: 700;
+        font-size: 12px;
+    }
+
+.nav0, .nav1, .nav2 {
+    background: url(../Images/separador.png) right no-repeat;
+}
+
+.wrapMain {
+    padding: 0;
+    top: 0;
+}
+
+.webForm {
+    max-width: 349px;
+    padding: 65px 18% 36px;
+}
+
+    .webForm .title {
+        display: none;
+    }
+
+    .boxform, .btn a, .formcontrol, .webForm .formCont {
+        display: block;
+    }
+
+.boxform {
+    overflow: hidden;
+    height: 100%;
+}
+
+.formcontrol {
+    border-bottom: 1px solid #959595;
+    width: 80%;
+    height: 30px;
+    margin-bottom: 24px;
+    float: left;
+    box-sizing: border-box;
+}
+
+    .formcontrol:focus {
+        border: 1px solid #e51538;
+    }
+
+    .formcontrol .email .inputFormEmail {
+        height: 30px;
+        padding: 0;
+        background: 0 0;
+        width: 80%;
+        border: none;
+        font-size: 13px;
+        color: #000;
+        font-family: lato;
+        letter-spacing: .1pt;
+        float: left;
+    }
+
+    .formcontrol .inputForm, .formcontrol select {
+        height: 30px;
+        background: 0 0;
+        border: none;
+        color: #fff;
+        font-family: lato;
+        letter-spacing: .1pt;
+        font-size: 13px;
+        float: left;
+    }
+
+    .formcontrol .inputForm {
+        padding: 0;
+        width: 80%;
+    }
+
+    .formcontrol select {
+        padding: 4px;
+        width: 90%;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        -ms-appearance: none;
+        -o-appearance: none;
+        appearance: none;
+    }
+
+        .formcontrol select option {
+            padding-left: 5px;
+            padding-top: 2px;
+            padding-bottom: 2px;
+            color: #666;
+        }
+
+        .formcontrol select:focus {
+            outline: 0;
+        }
+
+.btn {
+    width: 20%;
+    float: left;
+    padding-top: 6px;
+    padding-left: 10px;
+    padding-bottom: 3px;
+    box-sizing: border-box;
+    border-bottom: 1px solid #959595;
+}
+
+.email, .formbtn, .pais {
+    width: 100%;
+}
+
+.formbtn {
+    text-align: right;
+    float: left;
+}
+
+    .formbtn .btnCrear {
+        width: 100%;
+        height: 48px;
+        border: none;
+        cursor: pointer;
+        color: #FFF;
+        background: #652b82;
+        font-family: lato;
+        letter-spacing: .5px;
+        font-size: 13px;
+        font-weight: 700;
+        margin-top: 30px;
+    }
+
+    .formbtn label a {
+        color: #959595;
+        display: block;
+        font-family: lato;
+        font-size: 12px;
+        font-weight: 700;
+        text-align: left;
+        text-decoration: none;
+    }
+
+.email, .helper, .pais, .pass, .user {
+    font-family: icomoon;
+}
+
+    .pass:before, .user:before {
+        font-size: 20px;
+        text-align: left;
+        color: #949494;
+        margin-right: 7px;
+    }
+
+.formbtn label a:hover {
+    text-decoration: underline;
+}
+
+.user:before {
+    content: "\e903";
+    float: left;
+}
+
+.pass {
+    margin-bottom: 8px;
+}
+
+    .pass:before {
+        content: "\e900";
+        float: left;
+    }
+
+.email:before, .pais:before {
+    visibility: hidden;
+    font-size: 20px;
+    margin-right: 1%;
+    float: left;
+    color: #949494;
+    text-align: left;
+}
+
+.pais {
+    background: url(../Images/Banderas/00.png) top -7px left -10px no-repeat;
+}
+
+    .pais:before {
+        content: "\e901";
+    }
+
+.email {
+    background: url(../Images/email.png) top 8px left 1px no-repeat;
+    background-size: 5%;
+}
+
+    .email:before {
+        content: "\e906";
+    }
+
+.helper {
+    background-repeat: no-repeat;
+    width: 20px;
+    height: 20px;
+    float: right;
+    text-decoration: none;
+    margin-top: -4px;
+    padding-bottom: 4px;
+    padding-right: 8px;
+}
+
+.boxform .admin a, .text_bienvenida_esika {
+    font-family: lato;
+}
+
+.helper:before {
+    content: "\e902";
+    font-size: 18px;
+    text-align: left;
+    color: #949494;
+}
+
+.footer {
+    display: none;
+}
+
+.btn_detail, .helper:hover .alerta_esika {
+    display: block;
+}
+
+.boxform .admin {
+    margin-top: 28px;
+    text-align: left;
+}
+
+    .boxform .admin a {
+        text-decoration: none;
+        color: #959595;
+        background: url(../images/ico_admin_esika.png) no-repeat;
+        padding-left: 15px;
+        font-size: 11px;
+        font-weight: 300;
+        padding-top: 2px;
+    }
+
+.detalle, .detalle2 {
+    background: url(../images/tooltip.png) top left no-repeat;
+    width: 242px;
+    height: 69px;
+    -khtml-border-radius: 10px;
+    behavior: url(Pie/PIE.htc);
+}
+
+.boxform .admin a:hover {
+    text-decoration: underline;
+}
+
+#det1, #det2, .detalle2, .fondo_form {
+    position: absolute;
+}
+
+.detalle {
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+}
+
+#det1 {
+    top: 133px;
+}
+
+#det2 {
+    top: 192px;
+}
+
+.detalle2 {
+    top: -16px;
+    right: -245px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+}
+
+.detalle_item {
+    padding: 5px 3px 0 14px;
+    font-size: 12px;
+    color: #666;
+    font-style: italic;
+}
+
+.text_bienvenida_esika {
+    color: #fff;
+    font-size: 16px;
+    margin-bottom: 30px;
+}
+
+@font-face {
+    font-family: icomoon;
+    src: url(../fonts/icomoon/icomoon.eot?ur7cdc);
+    src: url(../fonts/icomoon/icomoon.eot?ur7cdc#iefix) format('embedded-opentype'),url(../fonts/icomoon/icomoon.ttf?ur7cdc) format('truetype'),url(../fonts/icomoon/icomoon.woff?ur7cdc) format('woff'),url(../fonts/icomoon/icomoon.svg?ur7cdc#icomoon) format('svg');
+    font-weight: 400;
+    font-style: normal;
+}
+
+[class*=" icon-"], [class^=icon-] {
+    font-family: icomoon !important;
+    speak: none;
+    font-style: normal;
+    font-weight: 400;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.fondo_form {
+    left: 0;
+    width: 34%;
+    height: 100%;
+    background: url(../Images/bg_form_esika.png);
+}
+
+.ui-dialog.ui-widget-content {
+    background: #FFF !important;
+    border: 3px solid #F3F3F3;
+    color: #555 !important;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -khtml-border-radius: 10px;
+    border-radius: 10px;
+    behavior: url(../../../Content/Css/Pie/PIE.htc);
+}
+
+.ui-dialog .ui-dialog-buttonpane {
+    background: #FFF;
+}
+
+.ui-dialog .ui-dialog-title {
+    float: left;
+    font-weight: 400 !important;
+    margin: .1em 16px .2em 0;
+    color: #702789 !important;
+    text-align: left;
+}
+
+p {
+    margin: 0 0 1.5em;
+    padding: 0;
+    line-height: 1.6em;
+    font-size: 12px;
+}
+
+h1 {
+    font-size: 0;
+}
+
+h2 {
+    font-size: 26px;
+}
+
+h3 {
+    font-size: 22px;
+}
+
+h4 {
+    font-size: 18px;
+}
+
+h5 {
+    font-size: 16px;
+}
+
+h6 {
+    font-size: 12px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    margin-bottom: 10px;
+    color: #e51538;
+    line-height: 1.25;
+    font-family: lato;
+}
+
+.Mensaje_SignOut {
+    text-align: center;
+    font-family: lato-regular;
+    font-size: 16px;
+}
+
+.content-alerta-red-clave, .content-alerta-red-user {
+    position: absolute;
+    left: 397px;
+}
+
+.content-alerta-red-user {
+    top: 268px;
+}
+
+.content-alerta-red-clave {
+    top: 324px;
+}
+
+.alerta_red_cam_clave.left::after, .alerta_red_cam_user7.left::after, .alerta_red_cam_user9.left::after, .alerta_red_mx_clave.left::after, .alerta_red_mx_user.left::after {
+    top: 10px;
+    left: -10px;
+    border-width: 8px 10px 8px 0;
+    border-color: transparent #fff;
+    bottom: auto;
+}
+
+.alerta_red_bolivia_clave, .alerta_red_bolivia_user, .alerta_red_cam_clave, .alerta_red_cam_user7, .alerta_red_cam_user9, .alerta_red_chile_clave, .alerta_red_chile_user, .alerta_red_co_clave, .alerta_red_co_user, .alerta_red_do_clave, .alerta_red_do_user, .alerta_red_ec_clave, .alerta_red_ec_user, .alerta_red_mx_clave, .alerta_red_mx_user, .alerta_red_peru_clave, .alerta_red_peru_user, .alerta_red_pr_clave, .alerta_red_pr_user, .alerta_red_ve_clave, .alerta_red_ve_user {
+    display: none;
+    position: relative;
+}
+
+.alerta_red_cam_user7, .alerta_red_cam_user9, .alerta_red_mx_user {
+    position: relative;
+    padding: 10px;
+    color: #000;
+    font-size: 9pt;
+    font-family: lato;
+    background: #fff;
+    -webkit-box-shadow: 0 0 8px 0 rgba(0,0,0,.75);
+    -moz-box-shadow: 0 0 8px 0 rgba(0,0,0,.75);
+    box-shadow: 0 0 8px 0 rgba(0,0,0,.75);
+}
+
+    .alerta_red_cam_user7::after, .alerta_red_cam_user9::after, .alerta_red_mx_user::after {
+        content: "";
+        position: absolute;
+        border-style: solid;
+        display: block;
+        width: 0;
+    }
+
+.alerta_red_cam_clave, .alerta_red_mx_clave {
+    position: relative;
+    padding: 10px;
+    color: #000;
+    background: #fff;
+    font-size: 9pt;
+    font-family: lato;
+    -webkit-box-shadow: 0 0 8px 0 rgba(0,0,0,.75);
+    -moz-box-shadow: 0 0 8px 0 rgba(0,0,0,.75);
+    box-shadow: 0 0 8px 0 rgba(0,0,0,.75);
+}
+
+    .alerta_red_cam_clave::after, .alerta_red_mx_clave::after {
+        content: "";
+        position: absolute;
+        border-width: 20px 0 0 20px;
+        border-style: solid;
+        display: block;
+        width: 0;
+    }
+
+.alerta_red_block {
+    display: block;
+}
+
+.clear {
+    clear: both;
+    height: 0;
+    width: 0;
+    margin: 0;
+    padding: 0;
+    line-height: 0;
+}
+
+.p-right {
+    padding-right: 20px;
+}
+
+.p-right2 {
+    padding-right: 70px;
+}
+
+.posicion {
+    display: none;
+    position: absolute;
+    top: 25%;
+    left: 25%;
+    z-index: 1111;
+}
+
+#box-pop-up {
+    overflow-y: scroll;
+    position: fixed;
+    z-index: 1000;
+    width: 100%;
+    height: 100%;
+    background: url(../Images/popup_esika/fondo_pop_up.png);
+}
+
+.cabecera {
+    width: 100%;
+    font-family: lato;
+    color: #000;
+    line-height: 55px;
+    text-align: left;
+    padding-top: 29px;
+    padding-left: 15%;
+    box-sizing: border-box;
+    font-weight: 700;
+    letter-spacing: .4px;
+    font-size: 11pt;
+    border-bottom: 1px solid #000;
+}
+
+.cerrar-p {
+    background-image: url(../Images/popup/cerrar_04.png);
+    background-repeat: no-repeat;
+    height: 16px;
+    width: 16px;
+    position: absolute;
+    z-index: 3;
+    right: 11px;
+    top: 15px;
+}
+
+#divMant, .sombra_superior {
+    width: 100%;
+    position: absolute;
+}
+
+#divMant {
+    left: 0;
+    top: 20%;
+    z-index: 1111;
+}
+
+@media only screen and (max-width :654px) {
+    .footer .footerWrap .logosRight a {
+        padding-left: 0;
+        padding-right: 10px;
+    }
+
+    .p-right, .p-right2 {
+        padding-right: 0;
+    }
+
+    .m-width {
+        max-width: 80%;
+    }
+
+    .media {
+        font-size: 11px;
+    }
+
+    .zoom-img {
+        zoom: 64%;
+    }
+}
+
+.titulo-popup-mx {
+    text-align: left;
+    line-height: 2;
+    font-size: 16px;
+    color: #e51538;
+}
+
+.flecha_select {
+    background: url(../Images/flecha_select.png) right no-repeat;
+    height: 32px;
+}
+
+.sombra_superior {
+    background: url(../Images/sombra_superior.png);
+    height: 126px;
+    z-index: -1;
+}
+
+.alerta_red_cam_clave.right::after, .alerta_red_cam_user7.right::after, .alerta_red_cam_user9.right::after, .alerta_red_mx_clave.right::after, .alerta_red_mx_user.right::after {
+    top: 10px;
+    right: -10px;
+    bottom: auto;
+    border-width: 8px 0 8px 10px;
+    border-color: transparent #fff;
+}
+
+.logo_content_ab {
+    position: fixed;
+    bottom: 12px;
+    left: -16px;
+    width: 34%;
+    text-align: center;
+}
+
+.logos_footer {
+    vertical-align: middle;
+    display: inline-block;
+    width: 19%;
+    text-align: center;
+}
+
+.float_r {
+    float: right;
+    width: 50%;
+}
+
+
+
+/*  Main Navigation
+/* -------------------------------------------------- */
+
+#bg_1, #popup_olvidasteContrasenia {
+    font-family: lato;
+    /* height: 463px; */
+    /* width: 868px; */
+    /* top: 5%; */
+    overflow-y: scroll;
+    position: fixed;
+    z-index: 1000;
+    /* margin: 0 18%; */
+    width: 100%;
+    height: 100%;
+    background: url(../Images/popup_esika/fondo_pop_up.png);
+}
+
+#popup_contraseniaEnviada {
+    font-family: lato;
+    position: fixed;
+    z-index: 1000;
+    width: 100%;
+    height: 100%;
+    background: url(../Images/popup_esika/fondo_pop_up.png);
+}
+
+#popup_olvidasteContrasenia .formcontrol {
+    width: 100%;
+}
+
+    #popup_olvidasteContrasenia .formcontrol input::-webkit-input-placeholder {
+        color: black;
+    }
+
+    #popup_olvidasteContrasenia .formcontrol input:-moz-placeholder {
+        color: black;
+    }
+
+    #popup_olvidasteContrasenia .formcontrol input::-moz-placeholder {
+        color: black;
+    }
+
+    #popup_olvidasteContrasenia .formcontrol input:-ms-input-placeholder {
+        color: black;
+    }
+
+.content_bg_1 {
+    width: 40%;
+    top: 20%;
+    margin: 0 auto;
+    position: relative;
+    background: white;
+    padding-bottom: 55px;
+}
+
+.content_bg_olvidasteContrasenia {
+    width: 35%;
+    top: 13.5%;
+    margin: 0 auto;
+    position: relative;
+    background: white;
+    padding-bottom: 55px;
+}
+
+.content_bg_contraseniaEnviada {
+    width: 35%;
+    top: 25%;
+    margin: 0 auto;
+    position: relative;
+    background: white;
+    padding-bottom: 50px;
+    padding-top: 10px;
+}
+
+#header {
+    /* height: 55px; */
+    width: 100%;
+    /* background: black url(../Images/popup_esika/fondo_header.png) top left no-repeat; */
+    /* background-position: right; */
+    FONT-FAMILY: LATO;
+    color: black;
+    line-height: 55px;
+    text-align: left;
+    padding-top: 29px;
+    padding-left: 15%;
+    box-sizing: border-box;
+    font-weight: 700;
+    letter-spacing: 0.4px;
+    font-size: 11pt;
+    border-bottom: 1px solid black;
+}
+
+.indicador_lbel {
+    background: white url(../Images/popup_esika/bg_lbel.png) top left no-repeat;
+    width: 23px;
+    height: 15px;
+    margin-left: 20%;
+    margin-top: -1px;
+}
+
+.mensaje_pop_up {
+    margin-top: 60px;
+    margin-bottom: 80px;
+    font-size: 11pt;
+    color: black;
+    margin-left: 15%;
+    margin-right: 15%;
+    FONT-FAMILY: LATO;
+    line-height: 15pt;
+    font-weight: 400;
+    text-align: left;
+}
+
+.mensaje_pop_up2 {
+    margin-top: 56px;
+    margin-bottom: 41px;
+    font-size: 11pt;
+    color: black;
+    margin-left: 15%;
+    margin-right: 15%;
+    FONT-FAMILY: LATO;
+    line-height: 15pt;
+    font-weight: 400;
+    text-align: left;
+}
+
+.mensaje_pop_up_contraseniaEnviada h1 {
+    margin-top: 56px;
+    margin-bottom: 0px;
+    font-size: 16pt;
+    color: black;
+    margin-left: 15%;
+    margin-right: 15%;
+    FONT-FAMILY: LATO;
+    line-height: 15pt;
+    font-weight: 400;
+    text-align: center;
+}
+
+.mensaje_pop_up_contraseniaEnviada p {
+    font-size: 11pt;
+    FONT-FAMILY: LATO;
+    color: black;
+    text-align: center;
+}
+
+.mensaje_pop_up_contraseniaEnviada strong {
+    font-size: 13pt;
+    FONT-FAMILY: LATO;
+    color: black;
+}
+
+.icono_correo {
+    margin: 0 auto;
+    width: 94px;
+}
+
+    .icono_correo img {
+        width: 100%;
+        height: auto;
+    }
+
+#popup_olvidasteContrasenia .formCont {
+    margin-left: 15%;
+    margin-right: 15%;
+}
+
+.logo_gmail {
+    margin-bottom: 10px;
+}
+
+.content-pop-up {
+    width: 40%;
+    top: 11%;
+    margin: 0 auto;
+    position: relative;
+    background: white;
+    padding-bottom: 55px;
+}
+
+#bg_2 {
+    height: 438px;
+    width: 100%;
+    z-index: 0;
+    position: absolute;
+    margin-top: 25px;
+    background-color: #fff;
+    border: 2px solid #ccc;
+    border-radius: 8px;
+}
+
+#cuadro1 {
+    float: left;
+    height: 346px;
+    width: 416px;
+    z-index: 1;
+    left: 0px;
+    top: 90px;
+    position: relative;
+}
+
+#cuadro2 {
+    height: auto;
+    width: 409px;
+    z-index: 1;
+    top: 90px;
+    position: relative;
+    float: left;
+}
+
+.text_bold {
+    font-family: 'lato-medium';
+    font-size: 13px;
+    line-height: 18px;
+    color: #4c4c4c;
+}
+
+#text1 {
+    font-family: 'lato-medium';
+    font-weight: normal;
+    text-align: left;
+    float: left;
+    height: 50px;
+    width: 100%;
+    margin-left: 56px;
+    margin-top: 14px;
+    font-size: 13px;
+    line-height: 18px;
+    color: #4c4c4c;
+}
+
+#text2 {
+    font-family: 'lato-medium';
+    font-weight: normal;
+    text-align: left;
+    float: left;
+    height: 52px;
+    width: 100%;
+    margin-left: 56px;
+    font-size: 13px;
+    line-height: 18px;
+    color: #4c4c4c;
+}
+
+#text3 {
+    font-family: 'lato-medium';
+    font-weight: normal;
+    text-align: left;
+    float: left;
+    height: 124px;
+    width: 95%;
+    font-size: 13px;
+    line-height: 18px;
+    margin-top: 7px;
+    margin-left: 40px;
+    color: #4c4c4c;
+}
+
+#titulo1 {
+    float: left;
+    height: 39px;
+    width: 100%;
+    background-image: url(../Images/popup_esika/titulos_03.png);
+    background-repeat: no-repeat;
+}
+
+#titulo2 {
+    float: left;
+    height: 39px;
+    width: 100%;
+    background-image: url(../Images/popup_esika/titulos_06.png);
+    background-repeat: no-repeat;
+}
+
+#titulo3 {
+    float: left;
+    height: 39px;
+    width: 100%;
+    background-image: url(../Images/popup_esika/titulos_08.png);
+    background-repeat: no-repeat;
+}
+
+#titulo4 {
+    float: left;
+    height: 63px;
+    width: 100%;
+    background-image: url(../Images/popup_esika/corre_titulo_03.png);
+    background-repeat: no-repeat;
+}
+
+#botones {
+    float: left;
+    height: 134px;
+    width: 100%;
+    margin-left: 35px;
+}
+
+.gmail {
+    height: 67px;
+    width: 187px;
+    background-image: url(../Images/popup_esika/gmail_03.png);
+    background-repeat: no-repeat;
+    background-position: top;
+    float: left;
+}
+
+    .gmail:hover {
+        background-position: bottom;
+    }
+
+.yahoo {
+    height: 67px;
+    width: 187px;
+    background-image: url(../Images/popup_esika/yahoo_03.png);
+    background-repeat: no-repeat;
+    background-position: top;
+    float: left;
+}
+
+    .yahoo:hover {
+        background-position: bottom;
+    }
+
+.hotmail {
+    height: 67px;
+    width: 187px;
+    background-image: url(../Images/popup_esika/hotmail_03.png);
+    background-repeat: no-repeat;
+    background-position: top;
+    float: left;
+}
+
+    .hotmail:hover {
+        background-position: bottom;
+    }
+
+.outlook {
+    height: 67px;
+    width: 187px;
+    background-image: url(../Images/popup_esika/outlook_03.png);
+    background-repeat: no-repeat;
+    background-position: top;
+    float: left;
+}
+
+    .outlook:hover {
+        background-position: bottom;
+    }
+
+.cerrar {
+    background-image: url(../Images/popup_esika/cerrar_04.png);
+    background-repeat: no-repeat;
+    height: 24px;
+    width: 24px;
+    position: absolute;
+    z-index: 3;
+    right: 11px;
+    top: 11px;
+}
+
+@media only screen and (max-height : 700px) {
+    .footer {
+        position: relative;
+    }
+}
+
+@media only screen and (max-width : 960px) {
+
+
+    #bg_2 {
+        width: 80%;
+        height: auto;
+        border: none;
+    }
+
+    .cerrar {
+        right: 10px;
+        top: 10px;
+    }
+
+    #cuadro1 {
+        width: 85%;
+        top: 73px;
+    }
+
+    #cuadro2 {
+        width: 85%;
+        top: 0px;
+        padding-top: 67px;
+        padding-bottom: 10px;
+    }
+
+
+
+    #botones {
+        height: auto;
+        zoom: 80%;
+    }
+
+    #titulo1 {
+        zoom: 80%;
+    }
+
+    #titulo2 {
+        zoom: 80%;
+    }
+
+    #titulo3 {
+        zoom: 80%;
+    }
+
+    #titulo4 {
+        zoom: 67%;
+    }
+
+    .posicion {
+        left: 16%;
+    }
+
+    .zoom-img {
+        zoom: 86%;
+    }
+}
+
+@media only screen and (max-width : 1093px) {
+    .content-pop-up {
+        width: 50%;
+        top: 7%;
+    }
+
+    .logo_content_ab {
+        margin-top: 25px !important;
+        width: 75%;
+        margin: 0 auto;
+        position: relative;
+        bottom: 10px;
+    }
+
+    .sombra_superior {
+        display: none;
+    }
+
+    .content_bg_1, .content_bg_contraseniaEnviada {
+        width: 50%;
+        top: 12%;
+    }
+
+    .content_bg_olvidasteContrasenia {
+        width: 46%;
+        top: 12%;
+    }
+
+    .content-alerta-red-clave {
+        top: 321px;
+    }
+
+    #container {
+        background: url('../Images/bg_form_esika.png') 0px 0px repeat;
+        height: 100%;
+    }
+
+    .content-left, .content-right {
+        background: none;
+    }
+
+    body {
+        background: url('../images/login-lbel-1920.jpg');
+    }
+
+    .logo-esika {
+        margin-left: 0px;
+    }
+
+    .fondo_form {
+        display: none;
+    }
+
+    #header {
+    }
+
+    #cuadro1 {
+        top: 47px;
+    }
+
+    #cuadro2 {
+        padding-top: 29px;
+    }
+
+    .zoom-img {
+        zoom: 65%;
+    }
+
+    .posicion {
+        left: 18%;
+    }
+
+    /*.top {
+        width: 200%;
+        zoom: 78%;
+    }
+       */
+    .content-right {
+        width: 100%;
+        overflow: hidden;
+        padding: 0;
+        /*padding-right: 100%;*/
+        float: none;
+        /*padding-bottom: 3px;*/
+        padding-bottom: 12px;
+    }
+
+    .content-left {
+        float: none;
+        width: 100%;
+    }
+
+    .webForm {
+        background: none;
+    }
+
+    .nav {
+        height: auto;
+        overflow: hidden;
+        text-align: center;
+    }
+
+        .nav a {
+            float: none;
+            display: inline-block;
+        }
+
+    .nav0 {
+        background-position: left;
+    }
+
+    .nav1 {
+        background-position: left;
+    }
+
+    .nav2 {
+        background-position: left;
+    }
+
+    .nav3 {
+        background: none;
+    }
+
+    .nav a span br {
+        display: none;
+    }
+    /*
+        .nav a span {
+            position: absolute;
+            left: 75px;
+            font-size: 14px;
+        }*/
+
+    .nav a figure {
+        padding: 0;
+    }
+
+    .nav a img {
+        margin: 0 0 0 40px;
+    }
+
+        .nav a img.icono {
+            margin-top: -5px;
+        }
+
+    img.imgc {
+        margin: 0px;
+        padding: 0px;
+        vertical-align: top;
+        border: 0px;
+        float: left;
+    }
+
+    .content-left {
+        text-align: center;
+    }
+
+    .webForm {
+        max-width: 360px;
+        margin: 0 auto;
+        padding-left: 0%;
+        padding-right: 0%;
+        /* display: inline-block;*/
+    }
+
+    /*#box-pop-up {
+        left: 10%;
+        width: 80%;
+    }*/
+
+    .content-alerta-red-user, .content-alerta-red-clave {
+        left: 0px;
+        width: 100%;
+        text-align: center;
+    }
+
+    .content-alerta-red-clave {
+        top: 321px;
+    }
+
+    .alerta_red_peru_user, .alerta_red_peru_clave, .alerta_red_bolivia_user, .alerta_red_bolivia, .alerta_red_chile_user,
+    .alerta_red_chile_clave, .alerta_red_pr_user, .alerta_red_pr_clave, .alerta_red_do_user, .alerta_red_do_clave,
+    .alerta_red_mx_user, .alerta_red_mx_clave, .alerta_red_ec_user, .alerta_red_ec_clave, .alerta_red_ve_user, .alerta_red_ve_clave,
+    .alerta_red_co_user, .alerta_red_co_clave, .alerta_red_cam_user7, .alerta_red_cam_user9, .alerta_red_cam_clave {
+        left: 0px;
+    }
+
+    .alerta_red_block {
+        display: inline-block;
+    }
+
+    #divMant {
+        width: 80%;
+        left: 10%;
+    }
+
+        #divMant img {
+            width: 100%;
+        }
+}
+
+@media only screen and (max-width: 768px) {
+    #pop-up-body {
+        margin: 0 auto;
+    }
+
+    .content-pop-up {
+        width: 75%;
+    }
+
+    .content_bg_1, .content_bg_contraseniaEnviada {
+        width: 75%;
+    }
+
+    .content_bg_olvidasteContrasenia {
+        width: 65%;
+    }
+
+    .content_bg_contraseniaEnviada {
+        width: 65%;
+    }
+}
+
+@media only screen and (max-width : 595px) {
+
+    .content_bg_olvidasteContrasenia {
+        width: 75%;
+    }
+}
+
+@media only screen and (max-width : 480px) {
+
+    .content_bg_olvidasteContrasenia {
+        width: 90%;
+    }
+
+        .content_bg_olvidasteContrasenia #header {
+            padding-left: 4%;
+            font-size: 10pt;
+        }
+
+    .mensaje_pop_up2 {
+        margin-left: 10%;
+        margin-right: 10%;
+    }
+
+    #popup_olvidasteContrasenia .formCont {
+        margin-left: 10%;
+        margin-right: 10%;
+    }
+
+    .content_bg_contraseniaEnviada {
+        width: 94%;
+    }
+
+    #titulo1 {
+        zoom: 67%;
+    }
+
+    #titulo2 {
+        zoom: 67%;
+    }
+
+    #titulo3 {
+        zoom: 67%;
+    }
+
+    #titulo4 {
+        zoom: 64%;
+    }
+
+    #text1, #text2, #text3 {
+        font-size: 12px;
+    }
+
+    .zoom-img {
+        zoom: 44%;
+    }
+
+    .wrapMain {
+        zoom: 90%;
+    }
+
+    #container {
+        background: url('../Images/bg_form_esika.png') 0px 0px repeat;
+        height: 100%;
+    }
+
+    .content-left, .content-right {
+        background: none;
+    }
+}
+
+@media only screen and (max-width : 410px) {
+    .formbtn label {
+        font-size: 8.2pt;
+    }
+
+    .top {
+        zoom: 90%;
+    }
+
+    .content-left {
+        float: none;
+    }
+
+    .formcontrol {
+        /*
+    width: 182px;*/
+    }
+}
+
+@media only screen and (max-width : 405px) {
+    .formbtn label a {
+        text-align: right !important;
+    }
+
+    .float_r {
+        width: 100%;
+    }
+
+    .logo_content_ab {
+        zoom: 85%;
+        width: 100%;
+    }
+
+    .webForm {
+        padding-bottom: 10px;
+    }
+    /*.nav a {
+       width: 100% !important;    
+}*/
+    .footer .footerWrap .logosRight a {
+        padding-right: 0px;
+    }
+
+    .footer .footerWrap .logoFoot {
+        width: 49px;
+    }
+
+    .webForm {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+
+        .webForm .title {
+            padding: 37px 19px 25px 20px;
+        }
+
+    #cuadro1, #cuadro2 {
+        zoom: 68%;
+    }
+}
+
+@media only screen and (max-width : 375px) {
+
+    #popup_olvidasteContrasenia .formCont {
+        margin-left: 10%;
+        margin-right: 10%;
+        display: block;
+    }
+
+    .formCont {
+        display: inline-block;
+    }
+
+    .content_bg_1 {
+        width: 90%;
+    }
+
+    .content-alerta-red-user {
+        top: 238px;
+    }
+
+    .content-alerta-red-clave {
+        top: 288px;
+    }
+}
+
+
+@media only screen and (max-width : 320px) {
+    .content-alerta-red-clave {
+        top: 298px;
+    }
+
+    .formCont {
+        display: block;
+    }
+
+    #main_formulaio {
+        margin-left: 0;
+    }
+
+    .content-left {
+        /* margin-left: 10px;*/
+    }
+
+    .content-right {
+        /* margin-left: 10px;*/
+    }
+
+    .zoom-img {
+        margin-left: -112px;
+    }
+
+    .btn {
+        float: left;
+    }
+
+    .flecha_select {
+        /*
+    width: 213px;*/
+    }
+}
+
+@media only screen and (max-width : 701px) {
+    .nav a {
+        display: inline-block;
+        /*width: 100%;*/
+        width: 49%;
+        box-sizing: border-box;
+        text-align: center;
+        /*float: none;*/
+        /* float: right; */
+    }
+
+    .nav1 {
+        background: none;
+    }
+
+    .nav a span {
+        float: none !important;
+    }
+
+    body {
+        background: url('../images/login-lbel-1920.jpg') no-repeat fixed !important;
+    }
+}
+
+@media only screen and (max-width : 375px) {
+    .webForm {
+        padding-top: 35px;
+    }
+
+    .content-pop-up {
+        width: 90%;
+    }
+}

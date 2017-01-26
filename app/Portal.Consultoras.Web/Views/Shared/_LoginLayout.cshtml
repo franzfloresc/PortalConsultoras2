@@ -1,81 +1,405 @@
 ﻿<!DOCTYPE html>
-<html lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width" />
-    <title>.: Portal de Consultoras :.</title>
-    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
-    <script type="text/javascript">var baseUrl = "@Url.Content("~")"; </script>
-    @*ITG - 1869 Empaquetado y minificacion de archivos css y js - Inicio*@
-    @System.Web.Optimization.Styles.Render("~/Content/Css/Site/CssLogin")
-    @* ITG - 1869 Empaquetado y minificacion de archivos css y js - Fin*@
-</head>
-<body class="body_login">
-    @*<h1>Login</h1>*@
-    <div id="body">
-        @RenderSection("featured", required: false)
-        <section class="content-wrapper main-content clear-fix">
-            @RenderBody()
-        </section>
-    </div>
-    <footer>
-        <div class="content-wrapper">
-            <div class="float-left">
-            </div>
-        </div>
-    </footer>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <meta http-equiv="pragma" content="no-cache" />
+    <meta http-equiv="cache-control" content="no-cache" />
+    <meta name="expires" content="0" />
+    <title data-id="titulo" id="tituloPagina">@ViewBag.TituloPagina</title>
+    <meta name="description" content="Pasa tu pedido e informate de lo último de las marcas de Belcorp." />
+    <meta name="author" content="Belcorp" />
+    <meta property="og:title" content="Somos Belcorp| Cree en ti" />
+    <meta property="og:description" content="Pasa tu pedido e informate de lo último de las marcas de Belcorp." />
+    <meta property="og:image" content="~/Content/Images/Login2/logo_intro.png" />
+    <meta property="og:site_name" content="Somos Belcorp" />
+    <link rel="shortcut icon" type="image/x-icon" id="iconoPagina" data-id="iconPagina" href="@ViewBag.IconoPagina" />
 
-    @System.Web.Optimization.Scripts.Render("~/bundles/JQueryJs")
-    
-    @System.Web.Optimization.Scripts.Render("~/bundles/JsLogin")
+    <link href="~/Content/Css/Site/Login2/style_esika.css" rel="stylesheet" data-id="cssStyle" id="cssStyle" />
+    <link href="~/Content/Css/Site/Login2/style_lbel.css" rel="stylesheet" data-id="cssStyleLbel" id="cssStyleLbel" />
+    <link href="~/Content/Css/ui.jquery/jquery-ui.css" rel="stylesheet" />
+    @*<link href="~/Content/Css/Site/jquery.custom-scrollbar.min.css" rel="stylesheet" />*@
+
+    <link href='https://fonts.googleapis.com/css?family=Lato:400,100,300,700,900' rel='stylesheet' type='text/css' />
 
     <script type="text/javascript">
-        var showUser = false;
-        $(document).ready(function () {
-            $(".detalle").hide();
+        if (typeof InstallTrigger !== 'undefined') {
+            if (document.getElementById("cssStyle").getAttribute("disabled") == "disabled")
+                document.getElementById("cssStyle").disabled = true;
+            if (document.getElementById("cssStyleLbel").getAttribute("disabled") == "disabled")
+                document.getElementById("cssStyleLbel").disabled = true;
+        };
 
-            $("#btn1").click(function () {
-                var detalle = $(this).parent().find(".detalle");
+        var esPaisEsika = '@ViewBag.EsPaisEsika';
+        var esPaisLbel = '@ViewBag.EsPaisLbel';
 
-                if (detalle.is(":visible")) {
-                    detalle.slideUp();
-                    show = false;
-                }
-                else {
-                    $(detalle).slideDown();
-                    show = true;
-                }
-                if ($("#det2").is(":visible"))
-                    $("#det2").slideUp();
-            });
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-38299403-1']);
+        _gaq.push(['_setDomainName', 'none']);
+        _gaq.push(['_setAllowLinker', true]);
+        _gaq.push(['_trackPageview']);
 
-            $("#btn2").click(function () {
-                var detalle = $(this).parent().find(".detalle");
-
-                if (detalle.is(":visible")) {
-                    detalle.slideUp();
-                    show = false;
-                }
-                else {
-                    $(detalle).slideDown();
-                    show = true;
-                }
-                if ($("#det1").is(":visible"))
-                    $("#det1").slideUp();
-            });
-
-
-            $(document).click(function () {
-                if ($("#det1").is(":visible") && !show)
-                    $("#det1").slideUp();
-                if ($("#det2").is(":visible") && !show)
-                    $("#det2").slideUp();
-                show = false;
-            })
-        })
-
+        (function () {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        })();
     </script>
 
+    <script type="text/javascript">
+        var CE_SNAPSHOT_NAME = "Login";
+    </script>
+
+    <script type="text/javascript">
+        setTimeout(function () {
+            var a = document.createElement("script");
+            var b = document.getElementsByTagName("script")[0];
+            a.src = document.location.protocol + "//dnn506yrbagrg.cloudfront.net/pages/scripts/0017/4400.js?" + Math.floor(new Date().getTime() / 3600000);
+            a.async = true; a.type = "text/javascript"; b.parentNode.insertBefore(a, b)
+        }, 1);
+    </script>
+</head>
+<body class="body_login" onload="noback();" onpageshow="if(event.persisted) noback();" onunload="">
+    <!--[if lt IE 9]>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <!-- Google Tag Manager -->
+    <noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-M8QMC8" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <script>
+        (function (w, d, s, l, i) {
+            w[l] = w[l] || []; w[l].push({
+                'gtm.start':
+                new Date().getTime(), event: 'gtm.js'
+            }); var f = d.getElementsByTagName(s)[0],
+            j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+            '//www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+        })(window, document, 'script', 'dataLayer', 'GTM-M8QMC8');
+    </script>
+    <!-- End Google Tag Manager -->
+    <!-- MANTENIMIENTO -->
+    <div id="divMant" style="display: none;" class="modal_mantenimiento">
+        <a href="#" onclick="closeMant();">
+        </a>
+    </div>
+    <!-- CIERRA MANTENIMIENTO -->
+    <!-- AVISO PRIVACIDAD -->
+    <div id="box-pop-up" style="display: none;">
+        <div class="content-pop-up">
+            <div class="cabecera">
+                AVISO DE PRIVACIDAD
+            </div>
+            <div class="indicador_lbel"></div>
+            <div style="height: 275px; padding-right: 15%; padding-left: 15%; margin-top: 55px;">
+
+                <div style="color: #222;" id="pop-up-body" class="default-skin">
+                    Belcorp México, S.A. de C.V., con domicilio en Prolongación Paseo de la Reforma
+                    No. 1015, Torre B, Piso 7, Col. Desarrollo Santa Fe C.P.01376 México, D.F., México
+                    (en adelante “Belcorp”) pone a su disposición el presente Aviso de Privacidad, a
+                    fin de dar cumplimiento a la Ley Federal de Protección de Datos Personales en Posesión
+                    de los Particulares (en adelante la “Ley”).
+
+                    <br />
+                    <br />
+                    Datos Personales que se recaban.- Nombre, fecha de nacimiento, documento de identidad,
+                    domicilio, dirección de correo electrónico, número de teléfono fijo y celular.
+
+                    <br />
+                    Finalidades y/o Usos de los datos personales.- Los datos personales que recaba Belcorp
+                    son utilizados para tramitar su solicitud de inscripción como consultora de Belcorp.
+
+                    <br />
+                    Transferencias de datos personales.- Belcorp no cederá o transferirá sus datos personales
+                    a terceros ajenos a Belcorp sin su conocimiento previo. Sin embargo, Belcorp podrá
+                    transferir sus datos personales cuando dicha transferencia esté prevista en la Ley.
+
+                    <br />
+                    Derechos que le corresponden respecto a sus datos personales.- Usted podrá ejercitar
+                    ante la Persona responsable de Datos Personales de Belcorp los derechos de acceso,
+                    rectificación cancelación y oposición (derechos ARCO), establecidos en la Ley. Asimismo,
+                    podrá revocar, en todo momento, el consentimiento que haya otorgado y que fuese
+                    necesario para el tratamiento de sus datos personales, así como solicitar que se
+                    limite el uso o divulgación de sus datos personales. Lo anterior, enviando su petición
+                    al correo electrónico: privacidadbelcorpmx@belcorp.biz o a Prolongación Paseo de
+                    la Reforma No. 1015, Torre B, Piso 7, Col. Desarrollo Santa Fe C.P. 01376 México,
+                    D.F., México.
+
+                    <br />
+                    <br />
+                    Cambios al Aviso de Privacidad.- En caso de existir cambios en el presente se pondrá
+                    a su disposición la versión actualizada del mismo a través de la página web www.somosbelcorp.com
+                    - www.uneteabelcorp.com o se le enviará la versión actualizada al domicilio que
+                    nos proporcionó.
+
+                    <br />
+                    <br />
+                    En caso de no estar de acuerdo con los términos del presente, le pedimos que lo
+                    informe a la Persona responsable de Datos Personales de Belcorp dentro de los 5
+                    días hábiles siguientes a haber recibido este Aviso de Privacidad, de lo contario,
+                    se entenderá que está de acuerdo en que sus datos personales sean tratados de conformidad
+                    con el presente.
+
+                    <br />
+                    <br />
+                    De haber proporcionado datos de terceros, usted garantiza que ha obtenido las autorizaciones
+                    necesarias para tal efecto y que les ha informado del tratamiento que se les dará
+                    a sus datos personales en los términos de este aviso de Privacidad. En término de
+                    la Ley y su Reglamento, le informamos que, ante la negativa de respuesta a la solicitudes
+                    de derechos ARCO o inconformidad con la misma, usted puede presentar ante el Instituto
+                    Federal de Acceso a la información y Protección de Datos, la correspondiente Solicitud
+                    de Protección de Derechos en los plazos y términos fijados por la Ley y su Reglamento.
+
+                    <br />
+                    <br />
+                    HAGO CONSTAR BAJO PROTESTA DE DECIR VERDAD QUE TODOS LOS DATOS REGISTRADOS EN ESTA
+                    SOLICITUD Y CONTRATO SON VERDADEROS; POR LO QUE ASUMO MI RESPONSABLIDAD CON TODAS
+                    LAS CONSECUENCIAS JURIDICAS EN LA PARTE CIVIL, PENAL Y COMERCIAL SOBRE DATOS INCLUIDOS
+                    EN ESTE DOCUMENTO.
+
+                    <br />
+                    <br />
+                    AL PULSAR EN EL BOTÓN “ENVIAR EL FORMULARIO” USTED ACEPTA EL TRATAMIENTO DE SUS
+                    DATOS PERSONALES DE CONFORMIDAD CON LOS TÉRMINOS DEL PRESENTE AVISO DE PRIVACIDAD.
+                </div>
+            </div>
+            <div style="height: 50px;">
+                <div style="text-align: right; padding-top: 15px; padding-right: 15%; color: #000; font-weight: bold;">
+                    <span style="border-bottom: medium solid #DDD; cursor: pointer;" onclick="CloseDialog()">OK, GRACIAS</span>
+                </div>
+            </div>
+
+            <div class="clear"></div>
+        </div>
+    </div>
+
+    <!--POPUP MODAL CREA TU CORREO AQUI-->
+    <div id="bg_1" style="display: none;">
+        <div class="content_bg_1">
+            <a href="javascript:closeit()" class="cerrar"></a>
+            <div id="header">CREA TU CORREO</div>
+            <div class="indicador_lbel"></div>
+            <div class="mensaje_pop_up">
+                Necesitas tener un correo electrónico para utilizar nuestra plataforma.
+                <br />
+                <br />
+                Si no lo tienes, create una cuenta en Gmail:
+            </div>
+            <div class="logo_gmail">
+                <a href="https://www.gmail.com" target="_blank">
+                    <img src="~/Content/Images/Login2/popup_esika/gmail.png" alt="" />
+                </a>
+            </div>
+            Gmail
+        </div>
+    </div>
+
+    <div id="ContentPlaceHolderPopup">
+    </div>
+
+    <div id="container">
+        <div class="fondo_form"></div>
+        <span class="hola"></span>
+        <div id="content">
+            <section id="main_formulaio">
+                <!-- wrapper -->
+                <div class="wrapper">
+                    <!-- wrapMain -->
+                    <div class="wrapMain">
+                        <div class="content-left">
+                            <label id="PageTitleLabel" style="display: none;"></label>
+                            <label id="STSLabel" style="display: none;"></label>
+
+                            <section class="content-wrapper main-content clear-fix">
+                                @RenderBody()
+                            </section>
+                        </div>
+                        <!-- MENU PARTE SUPERIOR -->
+                        <div class="content-right">
+                            <!-- top -->
+                            <div class="top">
+                                <div class="boxMenu">
+                                    <div class="nav">
+                                        <a id="RecuadroComunidad" href="http://comunidad.somosbelcorp.com" title="DESCUBRE NUESTRA COMUNIDAD SOMOS BELCORP" class="nav3 m-left-tres" role="menu" region="Superior" parent="DESCUBRE NUESTRA COMUNIDAD SOMOS BELCORP">
+                                            <span>COMUNIDAD VIRTUAL</span>
+                                        </a>
+                                        <a href="javascript:openDialog()" rel="banner-login" title="CREA TU CORREO AQUÍ" class="nav2 m-left-uno" role="menu" region="Superior" parent="CREA TU CORREO AQUÍ">
+                                            <span>
+                                                CREA TU
+                                                CORREO AQUÍ
+                                            </span>
+                                        </a>
+
+                                        <a href="#" onclick="return RedirectUneteaBelcorp();" rel="banner-login" title="ÚNETE A BELCORP" class="nav1 m-left-dos" role="outbound-link" region="Outbound Link" parent="ÚNETE A BELCORP">
+                                            <span>
+                                                ÚNETE A
+                                                BELCORP
+                                            </span>
+                                        </a>
+
+                                        <a id="PagoLinea" style="display: none;" href="#" onclick="return RedirectPagoLinea();" rel="banner-login" title="Pagos en Linea" class="nav0 m-left-cuatro">
+                                            <span>
+                                                PAGOS EN
+                                                LÍNEA AQUÍ
+                                            </span>
+                                        </a>
+                                        <a id="DespachosCobranza" style="display: none;" href="#" onclick="return RedirectDespachosCobranza();" rel="banner-login" title="Informacion de Despachos de Cobranza" class="nav0 m-left-cuatro">
+                                            <span>
+                                                ENTREGAS Y
+                                                COBRANZAS
+                                            </span>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- cierra top -->
+                        </div>
+                        <div class="sombra_superior"></div>
+
+                        <!-- ALERTAS PARA VALIDACION DE INPUTS USUARIO-->
+                        <div class="content-alerta-red-user  left">
+                            <div class="alerta_red_peru_user left">
+                                Los 9 dígitos de tu<br />
+                                código de consultora,<br />
+                                incluyendo el cero inicial<br />
+                                o correo electrónico.
+                            </div>
+                            <div class="alerta_red_bolivia_user left">
+                                Tu código de consultora
+                                <br />
+                                o correo electrónico.
+                            </div>
+                            <div class="alerta_red_chile_user left">
+                                Tu número de RUT
+                                <br />
+                                (sin puntos ni guión).<br />
+                                Ejem:12345678k<br />
+                                o correo electrónico.
+                            </div>
+                            <div class="alerta_red_pr_user left">
+                                Tu código de consultora<br />
+                                o correo electrónico.
+                            </div>
+                            <div class="alerta_red_do_user left">
+                                Tu código de consultora<br />
+                                o correo electrónico.
+                            </div>
+                            <div class="alerta_red_mx_user left">
+                                Tu código de consultora<br />
+                                o correo electrónico.
+                            </div>
+                            <div class="alerta_red_ec_user left">
+                                Tu número de cédula de identidad<br />
+                                o correo electrónico.
+                            </div>
+                            <div class="alerta_red_ve_user left">
+                                Los 7 primeros dígitos de<br />
+                                tu código de consultora<br />
+                                incluidos los ceros<br />
+                                o correo electrónico.
+                            </div>
+                            <div class="alerta_red_cam_user7 left">
+                                Los 7 dígitos de tu código<br />
+                                de consultora, incluyendo<br />
+                                el cero inicial o
+                                <br />
+                                correo electrónico.
+                            </div>
+                            <div class="alerta_red_cam_user9 left">
+                                Los 9 dígitos de tu<br />
+                                código de consultora,<br />
+                                incluyendo el cero inicial<br />
+                                o correo electrónico.
+                            </div>
+                            <div class="alerta_red_co_user left">
+                                El número de tu
+                                <br />
+                                cédula de identidad<br />
+                                o correo electrónico.
+                            </div>
+                        </div>
+                        <!-- ALERTAS PARA VALIDACION DE INPUTS CLAVE-->
+                        <div class="content-alerta-red-clave">
+                            <div class="alerta_red_peru_clave left">
+                                Si es la primera vez que<br />
+                                ingresas, es tu número<br />
+                                de DNI.
+                            </div>
+                            <div class="alerta_red_bolivia_clave left">
+                                Si es la primera vez que ingresas, es<br />
+                                el número de tu Carné de Identidad,<br />
+                                con las 3 letras de la extensión del<br />
+                                lugar de emisión.
+                            </div>
+                            <div class="alerta_red_chile_clave left">
+                                Si es la primera vez que ingresas, es<br />
+                                tu código de consultora de 7 dígitos<br />
+                                (incluido el 0 inicial, si lo tuviera).
+                            </div>
+                            <div class="alerta_red_pr_clave left">
+                                Los 4 últimos dígitos de<br />
+                                tu Seguro Social (sin guiones).
+                            </div>
+                            <div class="alerta_red_do_clave left">
+                                Los 4 últimos dígitos de<br />
+                                tu Cédula de Identidad<br />
+                                (sin guiones).
+                            </div>
+                            <div class="alerta_red_mx_clave left">
+                                Los 4 últimos dígitos de<br />
+                                tu código de consultora.
+                            </div>
+                            <div class="alerta_red_ec_clave left">
+                                El número de tu<br />
+                                cédula de identidad.
+                            </div>
+                            <div class="alerta_red_ve_clave left">
+                                Los 4 últimos dígitos de<br />
+                                tu Cédula de Identidad.
+                            </div>
+                            <div class="alerta_red_co_clave left">
+                                El número de tu<br />
+                                cédula de identidad.
+                            </div>
+                            <div class="alerta_red_cam_clave left">
+                                Si es la primera vez<br />
+                                que ingresas, son los<br />
+                                4 últimos dígitos de tu<br />
+                                documento de identidad.
+                            </div>
+                        </div>
+
+                    </div>
+                    <!-- Cierra wrapMain -->
+                </div>
+                <!-- wrapper -->
+            </section>
+        </div>
+        <div class="logo_content_ab">
+            <a class="logos_footer" href="http://www.belcorp.biz/">
+                <img src="~/Content/Images/Login2/logo_belcorp.png" alt="" />
+            </a>
+            <a class="logos_footer" id="footer_esika" href="http://www.esika.com/">
+                <img src="~/Content/Images/Login2/logo_esika2.png" alt="" />
+            </a>
+            <a class="logos_footer" href="http://www.lbel.com/pe/">
+                <img src="~/Content/Images/Login2/logo_lbel2.png" alt="http://www.lbel.com/pe/" />
+            </a>
+            <a class="logos_footer" href="http://www.cyzone.com/">
+                <img src="~/Content/Images/Login2/logo_cyzone.png" alt="" />
+            </a>
+            <a class="" href="https://es-la.facebook.com/SomosBelcorpOficial" target="_blank">
+                <img src="~/Content/Images/Login2/separador.png" style="height: 20px; width: 1px; margin-top: 13px;" />
+                <img src="~/Content/Images/Login2/logo_facebook.png" alt="" style="width: 15px; margin-top: 16px; margin-left: 15px;" />
+            </a>
+        </div>
+    </div>
+
+    <!--[if lt IE 11>
+        <script src="http://github.com/aFarkas/html5shiv/blob/master/dist/html5shiv.js"></script>
+     <![endif]-->
+
+    @System.Web.Optimization.Scripts.Render("~/bundles/JsLogin2")
+
     @RenderSection("scripts", required: false)
+
 </body>
 </html>

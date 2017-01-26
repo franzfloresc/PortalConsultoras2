@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Web;
-using System.Web.Optimization;
+﻿using System.Web.Optimization;
 
 namespace Portal.Consultoras.Web
 {
@@ -13,14 +6,14 @@ namespace Portal.Consultoras.Web
     {
         public static void RegisterBundles(BundleCollection bundles)
         {
-            //ITG - 1869 Empaquetado y minificacion de archivos css y js - Inicio
             bundles.Add(new StyleBundle("~/Content/Css/Site/CssLogin").Include(
                 "~/Content/Css/ui.jquery/jquery-ui.css",
                 "~/Content/Css/Site/style.css"));
-
-            bundles.Add(new ScriptBundle("~/bundles/JsLogin").Include(
-                "~/Scripts/General.js",
-                "~/Scripts/JsonSupport.js"));
+            
+            bundles.Add(new ScriptBundle("~/bundles/JsLogin2").Include(
+                "~/Scripts/jquery-{version}.js",
+                "~/Scripts/jquery-ui-1.9.2.custom.js",
+                "~/Scripts/PortalConsultoras/Shared/LoginLayout.js"));
 
             bundles.Add(new StyleBundle("~/Content/Css/Site/CssMain").Include(
                 "~/Content/Css/ui.jquery/jquery-ui.css",
@@ -28,7 +21,6 @@ namespace Portal.Consultoras.Web
                 "~/Content/Css/Site/style-tismart.css", //Cambios_Landing_Comunidad
                 "~/Content/Css/ui.jqgrid/ui.jqgrid.css"
                 ));
-            //ITG - 1869 Empaquetado y minificacion de archivos css y js - Fin
 
             bundles.Add(new ScriptBundle("~/bundles/JQueryJs").Include(
                "~/Scripts/jquery-{version}.js",

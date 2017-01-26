@@ -62,20 +62,20 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                         var listaEstadoSeguimiento = new List<BETracking>();
                         var novedades = new List<BENovedadTracking>();
 
-                        /* PCABRERA GR-1883 - INICIO */
+                        /* GR-1883 - INICIO */
                         if (string.IsNullOrEmpty(model.NumeroPedido))
                         {
                             model.ListaEstadoSeguimiento = new List<SeguimientoMobileModel>();
                             return View(model);
                         }
-                        /* PCABRERA GR-1883 - FIN */
+                        /* GR-1883 - FIN */
 
                         using (var service = new PedidoServiceClient())
                         {
-                            /* PCABRERA GR-1883 - INICIO */
+                            /* GR-1883 - INICIO */
                             //listaEstadoSeguimiento = service.GetTrackingByPedido(userData.PaisID, codigoConsultora, model.Campana.ToString(), model.Fecha.Value).ToList();
                             listaEstadoSeguimiento = service.GetTrackingByPedido(userData.PaisID, codigoConsultora, model.Campana.ToString(), model.NumeroPedido).ToList();
-                            /* PCABRERA GR-1883 - FIN */
+                            /* GR-1883 - FIN */
 
                             var paisIso = Util.GetPaisISO(userData.PaisID);
                             if (ConfigurationManager.AppSettings["WebTrackingConfirmacion"].Contains(paisIso))

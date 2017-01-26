@@ -15,12 +15,10 @@ namespace Portal.Consultoras.Web.Controllers
 {
     public class NotificacionesController : BaseController
     {
-        //
-        // GET: /Notificaciones/
-
         public ActionResult Index()
         {
-            SessionKeys.ClearSessionCantidadNotificaciones();
+            Session["fechaGetNotificacionesSinLeer"] = null;
+            Session["cantidadGetNotificacionesSinLeer"] = null;
 
             List<BENotificaciones> olstNotificaciones = new List<BENotificaciones>();
             NotificacionesModel model = new NotificacionesModel();
@@ -75,7 +73,10 @@ namespace Portal.Consultoras.Web.Controllers
                     else if (TipoOrigen == 8) sv.UpdNotificacionCdrCulminadoVisualizacion(paisId, ProcesoId);
                     else sv.UpdNotificacionesConsultoraVisualizacion(paisId, ProcesoId, TipoOrigen);
                 }
-                SessionKeys.ClearSessionCantidadNotificaciones();
+
+                Session["fechaGetNotificacionesSinLeer"] = null;
+                Session["cantidadGetNotificacionesSinLeer"] = null;
+
                 return Json(new { success = true }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
@@ -477,9 +478,9 @@ namespace Portal.Consultoras.Web.Controllers
             var mensaje = string.Empty;
             try
             {
-                if (SessionKeys.CheckDataSessionCantidadNotificaciones())
+                if (CheckDataSessionCantidadNotificaciones())
                 {
-                    cantidadNotificaciones = SessionKeys.GetDataSessionCantidadNotificaciones();
+                    cantidadNotificaciones = Convert.ToInt32(Session["cantidadGetNotificacionesSinLeer"]);
                 }
                 else
                 {
@@ -487,7 +488,8 @@ namespace Portal.Consultoras.Web.Controllers
 
                     cantidadNotificaciones = listaNotificaciones.Count(p => p.Visualizado == false);
 
-                    SessionKeys.SetDataSessionCantidadNotificaciones(cantidadNotificaciones);
+                    Session["fechaGetNotificacionesSinLeer"] = DateTime.Now;
+                    Session["cantidadGetNotificacionesSinLeer"] = cantidadNotificaciones;
                 }
             }
             catch (Exception ex)
@@ -506,6 +508,20 @@ namespace Portal.Consultoras.Web.Controllers
                 list = sv.GetNotificacionesConsultora(userData.PaisID, userData.ConsultoraID, userData.IndicadorBloqueoCDR).ToList();
             }
             return list;
+        }
+
+        public bool CheckDataSessionCantidadNotificaciones()
+        {
+            if (Session["fechaGetNotificacionesSinLeer"] != null &&
+                Session["cantidadGetNotificacionesSinLeer"] != null)
+            {
+                var fecha = Convert.ToDateTime(Session["fechaGetNotificacionesSinLeer"]);
+                var diferencia = DateTime.Now - fecha;
+                if (diferencia.TotalMinutes > 30)
+                    return false;
+                return true;
+            }
+            return false;
         }
     }
 }

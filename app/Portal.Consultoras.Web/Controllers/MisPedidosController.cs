@@ -1,13 +1,14 @@
-﻿using ClosedXML.Excel;
+﻿using AutoMapper;
+using ClosedXML.Excel;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
-using Portal.Consultoras.Web.ServiceCatalogosIssuu;
-using sc = Portal.Consultoras.Web.ServiceCliente;
 using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.ServiceSAC;
+using Portal.Consultoras.Web.ServiceUsuario;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -16,10 +17,6 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
 using SC = Portal.Consultoras.Web.ServiceCliente;
-using Portal.Consultoras.Web.ServiceUsuario;
-using AutoMapper;
-using System.Globalization;
-using Portal.Consultoras.Common;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -38,7 +35,7 @@ namespace Portal.Consultoras.Web.Controllers
                     listaPedidoFacturados = sv.GetPedidosIngresadoFacturado(userData.PaisID, Convert.ToInt32(userData.ConsultoraID), userData.CampaniaID,
                         userData.CodigoConsultora).ToList();
                 }
-                using (sc.ClienteServiceClient sv = new sc.ClienteServiceClient())
+                using (SC.ClienteServiceClient sv = new SC.ClienteServiceClient())
                 {
                     model.Clientes = sv.SelectByConsultora(userData.PaisID, userData.ConsultoraID).ToList();
                 }
