@@ -43,7 +43,8 @@ namespace Portal.Consultoras.Web.Controllers
                         .ForMember(t => t.Estado, f => f.MapFrom(c => c.Estado))
                         .ForMember(t => t.FechaCulminado, f => f.MapFrom(c => c.FechaCulminado))
                         .ForMember(t => t.Importe, f => f.MapFrom(c => c.Importe))
-                        .ForMember(t => t.FechaAtencion, f => f.MapFrom(c => c.FechaAtencion));
+                        .ForMember(t => t.FechaAtencion, f => f.MapFrom(c => c.FechaAtencion))
+                        .ForMember(t => t.CantidadDetalle, f => f.MapFrom(c => c.CantidadDetalle));
                     listaCDRWebModel = Mapper.Map<List<BECDRWeb>, List<CDRWebModel>>(listaReclamo);
                 }
             }
@@ -52,7 +53,7 @@ namespace Portal.Consultoras.Web.Controllers
                 listaCDRWebModel = new List<CDRWebModel>();
             }
 
-            model.ListaCDRWeb = listaCDRWebModel;
+            model.ListaCDRWeb = listaCDRWebModel.FindAll(p => p.CantidadDetalle > 0);
             model.IndicadorBloqueoCDR = userData.IndicadorBloqueoCDR;
             model.EsCDRWebZonaValida = userData.EsCDRWebZonaValida;
             model.CumpleRangoCampaniaCDR = CumpleRangoCampaniaCDR();
@@ -103,12 +104,17 @@ namespace Portal.Consultoras.Web.Controllers
                 modelCdr.PedidoID = pedidoId;
                 var listaCdr = CargarBECDRWeb(modelCdr);
 
+                if (listaCdr.Count == 0)
+                {
+                    return RedirectToAction("Index");
+                }
+
                 if (listaCdr.Count == 1)
                 {
                     model.CampaniaID = listaCdr[0].CampaniaID;
                     model.CDRWebID = listaCdr[0].CDRWebID;
                     model.NumeroPedido = listaCdr[0].PedidoNumero;
-                }                    
+                }
             }
 
             model.MontoMinimo = userData.MontoMinimo;

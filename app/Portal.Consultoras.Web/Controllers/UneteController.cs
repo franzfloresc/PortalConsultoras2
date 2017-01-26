@@ -22,7 +22,7 @@ using ParametroUneteBE = Portal.Consultoras.Web.HojaInscripcionBelcorpPais.Param
 using Pais = Portal.Consultoras.Common.Constantes.CodigosISOPais;
 using System.ServiceModel;
 using System.Web;
-
+using Microsoft.Ajax.Utilities;
 using ConsultoraBE = Portal.Consultoras.Web.HojaInscripcionBelcorpPais.ConsultoraBE;
 
 namespace Portal.Consultoras.Web.Controllers
@@ -403,8 +403,10 @@ namespace Portal.Consultoras.Web.Controllers
 
             if (fechaCreacion.HasValue)
             {
-                ts = newDate - (DateTime) oldDate;
-                diferenciaDias = ts.Days;
+                //ts = newDate - (DateTime) oldDate;
+
+                diferenciaDias = (newDate - oldDate.Value).TotalDays.ToInt();
+                ; //ts.Days;
             }
             else
             {
@@ -1289,7 +1291,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             //ServiceUnete.ParametroUneteCollection lstSelect;
             ServiceUnete.UbigeoCRCollection lstSelect;
-            
+
             using (var sv = new PortalServiceClient())
             {
                 lstSelect = sv.ObtenerListaNivelesGeograficosCR(CodigoISO);//, EnumsTipoParametro.TipoNivelesRiesgo, 0);
@@ -1340,9 +1342,9 @@ namespace Portal.Consultoras.Web.Controllers
                 SortColumn = model.sidx,
                 SortOrder = model.sord
             };
-            
+
             ServiceUnete.UbigeoCRCollection lstSelect;
-            
+
 
             using (var sv = new PortalServiceClient())
             {
@@ -1355,7 +1357,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 objNivel = new NivelesGeograficosModel
                 {
-                   // CodigoISO = item.CodigoISO,
+                    // CodigoISO = item.CodigoISO,
                     BARRIO_COLONIA_URBANIZACION_REFERENCIAS =
                         item.BARRIO_COLONIA_URBANIZACION_REFERENCIAS,
                     CANTON = item.CANTON,
@@ -1488,15 +1490,15 @@ namespace Portal.Consultoras.Web.Controllers
                         {
                             REG = item.REG,
                             ZONA = item.ZONA,
-                            SECC = item .SECC,
+                            SECC = item.SECC,
                             TERRITO = item.TERRITO,
                             UBIGEO = item.UBIGEO,
                             PROVINCIA = item.PROVINCIA,
                             CANTON = item.CANTON,
                             DISTRITO = item.DISTRITO,
                             BARRIO_COLONIA_URBANIZACION_REFERENCIAS = item.BARRIO_COLONIA_URBANIZACION_REFERENCIAS
-                            
-                            
+
+
                         };
 
                         listaUbigeo.Add(parametro);
@@ -1532,7 +1534,8 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
         
-    
+
+
 
         [HttpPost]
         public ActionResult RechazarPostulante(RechazoModel model)
@@ -1630,6 +1633,8 @@ namespace Portal.Consultoras.Web.Controllers
                     Portal.Consultoras.Web.ServiceUnete.SolicitudPostulante solicitudPostulante =
                         sv.ObtenerSolicitudPostulante(CodigoISO, model.SolicitudPostulanteID);
 
+                  
+
                     Mapper.CreateMap<SolicitudPostulanteModel, Portal.Consultoras.Web.ServiceUnete.SolicitudPostulante>()
                         .ForMember(d => d.NumeroDocumento, o => o.Ignore())
                         .ForMember(d => d.PrimerNombre,
@@ -1676,6 +1681,12 @@ namespace Portal.Consultoras.Web.Controllers
                     Mapper.Map<SolicitudPostulanteModel, Portal.Consultoras.Web.ServiceUnete.SolicitudPostulante>(
                         model, solicitudPostulante);
 
+                    if (model.CodigoConsultoraRecomienda != null)
+                    {
+                        solicitudPostulante.CodigoConsultoraRecomienda =
+                                         String.Concat("0000000", model.CodigoConsultoraRecomienda).Substring(model.CodigoConsultoraRecomienda.Length);
+                        //model.CodigoConsultoraRecomienda.PadLeft(7, '0');
+                    }
                     //solicitudPostulante.NumeroDocumento =
                     //    AplicarFormatoNumeroDocumentoPorPais(CodigoISO, model.NumeroDocumento).ToUpper();
 
