@@ -33,11 +33,11 @@ BEGIN
 		,cd.CUV
 		,cd.Cantidad
 		,case 
-			when cd.CUV2 is null or cd.CUV2='' then cd.CUV
+			when isnull(cd.CUV2,'') = '' then cd.CUV
 			else cd.CUV2
 		end as CUV2
 		,case
-			when cd.CUV2 is null or cd.CUV2='' then cd.Cantidad
+			when isnull(cd.CUV2,'') = '' then cd.Cantidad
 			else cd.Cantidad2
 		end as Cantidad2
 		,cd.FechaRegistro
@@ -48,17 +48,17 @@ BEGIN
 		,cd.Eliminado
 		,pc.Descripcion as Descripcion
 		,case
-			when cd.CUV2 is null or cd.CUV2='' then pc.Descripcion
+			when isnull(cd.CUV2, '') = '' then pc.Descripcion
 			else pc2.Descripcion
 		end as Descripcion2
 		,case
-			when isnull(cd.CUV2,'') = '' or cd.CUV = cd.CUV2 then (pwd.MontoPagar * cd.Cantidad / pwd.Cantidad)
-			else (pwd.PrecioUnidad * pwd.FactorRepeticion * cd.Cantidad)			
+			when cd.CodigoOperacion = LTRIM(RTRIM('T')) then (pwd.PrecioUnidad * pwd.FactorRepeticion * cd.Cantidad)
+			else (pwd.MontoPagar * cd.Cantidad / pwd.Cantidad)
 		end as Precio
 		,case
 			when isnull(cd.CUV2,'') = '' then (pwd.PrecioUnidad * pwd.FactorRepeticion * cd.Cantidad)
-			when cd.CUV = cd.CUV2 then (pwd.MontoPagar * cd.Cantidad / pwd.Cantidad)
-			else (pc2.PrecioCatalogo * pc2.FactorRepeticion * cd.Cantidad2)
+			when cd.CodigoOperacion = LTRIM(RTRIM('T')) then (pc2.PrecioCatalogo * pc2.FactorRepeticion * cd.Cantidad2)
+			else (pwd.MontoPagar * cd.Cantidad / pwd.Cantidad)
 		end as Precio2
 	FROM CDRWebDetalle cd
 	INNER JOIN ods.ProductoComercial pc on cd.CUV = pc.CUV and pc.AnoCampania = @CampaniaId
@@ -105,11 +105,11 @@ BEGIN
 		,cd.CUV
 		,cd.Cantidad
 		,case 
-			when cd.CUV2 is null or cd.CUV2='' then cd.CUV
+			when isnull(cd.CUV2,'') = '' then cd.CUV
 			else cd.CUV2
 		end as CUV2
 		,case
-			when cd.CUV2 is null or cd.CUV2='' then cd.Cantidad
+			when isnull(cd.CUV2,'') = '' then cd.Cantidad
 			else cd.Cantidad2
 		end as Cantidad2
 		,cd.FechaRegistro
@@ -120,17 +120,17 @@ BEGIN
 		,cd.Eliminado
 		,pc.Descripcion as Descripcion
 		,case
-			when cd.CUV2 is null or cd.CUV2='' then pc.Descripcion
+			when isnull(cd.CUV2, '') = '' then pc.Descripcion
 			else pc2.Descripcion
 		end as Descripcion2
 		,case
-			when isnull(cd.CUV2,'') = '' or cd.CUV = cd.CUV2 then (pwd.MontoPagar * cd.Cantidad / pwd.Cantidad)
-			else (pwd.PrecioUnidad * pwd.FactorRepeticion * cd.Cantidad)			
+			when cd.CodigoOperacion = LTRIM(RTRIM('T')) then (pwd.PrecioUnidad * pwd.FactorRepeticion * cd.Cantidad)
+			else (pwd.MontoPagar * cd.Cantidad / pwd.Cantidad)
 		end as Precio
 		,case
 			when isnull(cd.CUV2,'') = '' then (pwd.PrecioUnidad * pwd.FactorRepeticion * cd.Cantidad)
-			when cd.CUV = cd.CUV2 then (pwd.MontoPagar * cd.Cantidad / pwd.Cantidad)
-			else (pc2.PrecioCatalogo * pc2.FactorRepeticion * cd.Cantidad2)
+			when cd.CodigoOperacion = LTRIM(RTRIM('T')) then (pc2.PrecioCatalogo * pc2.FactorRepeticion * cd.Cantidad2)
+			else (pwd.MontoPagar * cd.Cantidad / pwd.Cantidad)
 		end as Precio2
 	FROM CDRWebDetalle cd
 	INNER JOIN ods.ProductoComercial pc on cd.CUV = pc.CUV and pc.AnoCampania = @CampaniaId
@@ -177,11 +177,11 @@ BEGIN
 		,cd.CUV
 		,cd.Cantidad
 		,case 
-			when cd.CUV2 is null or cd.CUV2='' then cd.CUV
+			when isnull(cd.CUV2,'') = '' then cd.CUV
 			else cd.CUV2
 		end as CUV2
 		,case
-			when cd.CUV2 is null or cd.CUV2='' then cd.Cantidad
+			when isnull(cd.CUV2,'') = '' then cd.Cantidad
 			else cd.Cantidad2
 		end as Cantidad2
 		,cd.FechaRegistro
@@ -192,17 +192,17 @@ BEGIN
 		,cd.Eliminado
 		,pc.Descripcion as Descripcion
 		,case
-			when cd.CUV2 is null or cd.CUV2='' then pc.Descripcion
+			when isnull(cd.CUV2, '') = '' then pc.Descripcion
 			else pc2.Descripcion
 		end as Descripcion2
 		,case
-			when isnull(cd.CUV2,'') = '' or cd.CUV = cd.CUV2 then (pwd.MontoPagar * cd.Cantidad / pwd.Cantidad)
-			else (pwd.PrecioUnidad * pwd.FactorRepeticion * cd.Cantidad)			
+			when cd.CodigoOperacion = LTRIM(RTRIM('T')) then (pwd.PrecioUnidad * pwd.FactorRepeticion * cd.Cantidad)
+			else (pwd.MontoPagar * cd.Cantidad / pwd.Cantidad)
 		end as Precio
 		,case
 			when isnull(cd.CUV2,'') = '' then (pwd.PrecioUnidad * pwd.FactorRepeticion * cd.Cantidad)
-			when cd.CUV = cd.CUV2 then (pwd.MontoPagar * cd.Cantidad / pwd.Cantidad)
-			else (pc2.PrecioCatalogo * pc2.FactorRepeticion * cd.Cantidad2)
+			when cd.CodigoOperacion = LTRIM(RTRIM('T')) then (pc2.PrecioCatalogo * pc2.FactorRepeticion * cd.Cantidad2)
+			else (pwd.MontoPagar * cd.Cantidad / pwd.Cantidad)
 		end as Precio2
 	FROM CDRWebDetalle cd
 	INNER JOIN ods.ProductoComercial pc on cd.CUV = pc.CUV and pc.AnoCampania = @CampaniaId
@@ -249,11 +249,11 @@ BEGIN
 		,cd.CUV
 		,cd.Cantidad
 		,case 
-			when cd.CUV2 is null or cd.CUV2='' then cd.CUV
+			when isnull(cd.CUV2,'') = '' then cd.CUV
 			else cd.CUV2
 		end as CUV2
 		,case
-			when cd.CUV2 is null or cd.CUV2='' then cd.Cantidad
+			when isnull(cd.CUV2,'') = '' then cd.Cantidad
 			else cd.Cantidad2
 		end as Cantidad2
 		,cd.FechaRegistro
@@ -264,17 +264,17 @@ BEGIN
 		,cd.Eliminado
 		,pc.Descripcion as Descripcion
 		,case
-			when cd.CUV2 is null or cd.CUV2='' then pc.Descripcion
+			when isnull(cd.CUV2, '') = '' then pc.Descripcion
 			else pc2.Descripcion
 		end as Descripcion2
 		,case
-			when isnull(cd.CUV2,'') = '' or cd.CUV = cd.CUV2 then (pwd.MontoPagar * cd.Cantidad / pwd.Cantidad)
-			else (pwd.PrecioUnidad * pwd.FactorRepeticion * cd.Cantidad)			
+			when cd.CodigoOperacion = LTRIM(RTRIM('T')) then (pwd.PrecioUnidad * pwd.FactorRepeticion * cd.Cantidad)
+			else (pwd.MontoPagar * cd.Cantidad / pwd.Cantidad)
 		end as Precio
 		,case
 			when isnull(cd.CUV2,'') = '' then (pwd.PrecioUnidad * pwd.FactorRepeticion * cd.Cantidad)
-			when cd.CUV = cd.CUV2 then (pwd.MontoPagar * cd.Cantidad / pwd.Cantidad)
-			else (pc2.PrecioCatalogo * pc2.FactorRepeticion * cd.Cantidad2)
+			when cd.CodigoOperacion = LTRIM(RTRIM('T')) then (pc2.PrecioCatalogo * pc2.FactorRepeticion * cd.Cantidad2)
+			else (pwd.MontoPagar * cd.Cantidad / pwd.Cantidad)
 		end as Precio2
 	FROM CDRWebDetalle cd
 	INNER JOIN ods.ProductoComercial pc on cd.CUV = pc.CUV and pc.AnoCampania = @CampaniaId
@@ -321,11 +321,11 @@ BEGIN
 		,cd.CUV
 		,cd.Cantidad
 		,case 
-			when cd.CUV2 is null or cd.CUV2='' then cd.CUV
+			when isnull(cd.CUV2,'') = '' then cd.CUV
 			else cd.CUV2
 		end as CUV2
 		,case
-			when cd.CUV2 is null or cd.CUV2='' then cd.Cantidad
+			when isnull(cd.CUV2,'') = '' then cd.Cantidad
 			else cd.Cantidad2
 		end as Cantidad2
 		,cd.FechaRegistro
@@ -336,17 +336,17 @@ BEGIN
 		,cd.Eliminado
 		,pc.Descripcion as Descripcion
 		,case
-			when cd.CUV2 is null or cd.CUV2='' then pc.Descripcion
+			when isnull(cd.CUV2, '') = '' then pc.Descripcion
 			else pc2.Descripcion
 		end as Descripcion2
 		,case
-			when isnull(cd.CUV2,'') = '' or cd.CUV = cd.CUV2 then (pwd.MontoPagar * cd.Cantidad / pwd.Cantidad)
-			else (pwd.PrecioUnidad * pwd.FactorRepeticion * cd.Cantidad)			
+			when cd.CodigoOperacion = LTRIM(RTRIM('T')) then (pwd.PrecioUnidad * pwd.FactorRepeticion * cd.Cantidad)
+			else (pwd.MontoPagar * cd.Cantidad / pwd.Cantidad)
 		end as Precio
 		,case
 			when isnull(cd.CUV2,'') = '' then (pwd.PrecioUnidad * pwd.FactorRepeticion * cd.Cantidad)
-			when cd.CUV = cd.CUV2 then (pwd.MontoPagar * cd.Cantidad / pwd.Cantidad)
-			else (pc2.PrecioCatalogo * pc2.FactorRepeticion * cd.Cantidad2)
+			when cd.CodigoOperacion = LTRIM(RTRIM('T')) then (pc2.PrecioCatalogo * pc2.FactorRepeticion * cd.Cantidad2)
+			else (pwd.MontoPagar * cd.Cantidad / pwd.Cantidad)
 		end as Precio2
 	FROM CDRWebDetalle cd
 	INNER JOIN ods.ProductoComercial pc on cd.CUV = pc.CUV and pc.AnoCampania = @CampaniaId
@@ -393,11 +393,11 @@ BEGIN
 		,cd.CUV
 		,cd.Cantidad
 		,case 
-			when cd.CUV2 is null or cd.CUV2='' then cd.CUV
+			when isnull(cd.CUV2,'') = '' then cd.CUV
 			else cd.CUV2
 		end as CUV2
 		,case
-			when cd.CUV2 is null or cd.CUV2='' then cd.Cantidad
+			when isnull(cd.CUV2,'') = '' then cd.Cantidad
 			else cd.Cantidad2
 		end as Cantidad2
 		,cd.FechaRegistro
@@ -408,17 +408,17 @@ BEGIN
 		,cd.Eliminado
 		,pc.Descripcion as Descripcion
 		,case
-			when cd.CUV2 is null or cd.CUV2='' then pc.Descripcion
+			when isnull(cd.CUV2, '') = '' then pc.Descripcion
 			else pc2.Descripcion
 		end as Descripcion2
 		,case
-			when isnull(cd.CUV2,'') = '' or cd.CUV = cd.CUV2 then (pwd.MontoPagar * cd.Cantidad / pwd.Cantidad)
-			else (pwd.PrecioUnidad * pwd.FactorRepeticion * cd.Cantidad)			
+			when cd.CodigoOperacion = LTRIM(RTRIM('T')) then (pwd.PrecioUnidad * pwd.FactorRepeticion * cd.Cantidad)
+			else (pwd.MontoPagar * cd.Cantidad / pwd.Cantidad)
 		end as Precio
 		,case
 			when isnull(cd.CUV2,'') = '' then (pwd.PrecioUnidad * pwd.FactorRepeticion * cd.Cantidad)
-			when cd.CUV = cd.CUV2 then (pwd.MontoPagar * cd.Cantidad / pwd.Cantidad)
-			else (pc2.PrecioCatalogo * pc2.FactorRepeticion * cd.Cantidad2)
+			when cd.CodigoOperacion = LTRIM(RTRIM('T')) then (pc2.PrecioCatalogo * pc2.FactorRepeticion * cd.Cantidad2)
+			else (pwd.MontoPagar * cd.Cantidad / pwd.Cantidad)
 		end as Precio2
 	FROM CDRWebDetalle cd
 	INNER JOIN ods.ProductoComercial pc on cd.CUV = pc.CUV and pc.AnoCampania = @CampaniaId
@@ -465,11 +465,11 @@ BEGIN
 		,cd.CUV
 		,cd.Cantidad
 		,case 
-			when cd.CUV2 is null or cd.CUV2='' then cd.CUV
+			when isnull(cd.CUV2,'') = '' then cd.CUV
 			else cd.CUV2
 		end as CUV2
 		,case
-			when cd.CUV2 is null or cd.CUV2='' then cd.Cantidad
+			when isnull(cd.CUV2,'') = '' then cd.Cantidad
 			else cd.Cantidad2
 		end as Cantidad2
 		,cd.FechaRegistro
@@ -480,17 +480,17 @@ BEGIN
 		,cd.Eliminado
 		,pc.Descripcion as Descripcion
 		,case
-			when cd.CUV2 is null or cd.CUV2='' then pc.Descripcion
+			when isnull(cd.CUV2, '') = '' then pc.Descripcion
 			else pc2.Descripcion
 		end as Descripcion2
 		,case
-			when isnull(cd.CUV2,'') = '' or cd.CUV = cd.CUV2 then (pwd.MontoPagar * cd.Cantidad / pwd.Cantidad)
-			else (pwd.PrecioUnidad * pwd.FactorRepeticion * cd.Cantidad)			
+			when cd.CodigoOperacion = LTRIM(RTRIM('T')) then (pwd.PrecioUnidad * pwd.FactorRepeticion * cd.Cantidad)
+			else (pwd.MontoPagar * cd.Cantidad / pwd.Cantidad)
 		end as Precio
 		,case
 			when isnull(cd.CUV2,'') = '' then (pwd.PrecioUnidad * pwd.FactorRepeticion * cd.Cantidad)
-			when cd.CUV = cd.CUV2 then (pwd.MontoPagar * cd.Cantidad / pwd.Cantidad)
-			else (pc2.PrecioCatalogo * pc2.FactorRepeticion * cd.Cantidad2)
+			when cd.CodigoOperacion = LTRIM(RTRIM('T')) then (pc2.PrecioCatalogo * pc2.FactorRepeticion * cd.Cantidad2)
+			else (pwd.MontoPagar * cd.Cantidad / pwd.Cantidad)
 		end as Precio2
 	FROM CDRWebDetalle cd
 	INNER JOIN ods.ProductoComercial pc on cd.CUV = pc.CUV and pc.AnoCampania = @CampaniaId
@@ -537,11 +537,11 @@ BEGIN
 		,cd.CUV
 		,cd.Cantidad
 		,case 
-			when cd.CUV2 is null or cd.CUV2='' then cd.CUV
+			when isnull(cd.CUV2,'') = '' then cd.CUV
 			else cd.CUV2
 		end as CUV2
 		,case
-			when cd.CUV2 is null or cd.CUV2='' then cd.Cantidad
+			when isnull(cd.CUV2,'') = '' then cd.Cantidad
 			else cd.Cantidad2
 		end as Cantidad2
 		,cd.FechaRegistro
@@ -552,17 +552,17 @@ BEGIN
 		,cd.Eliminado
 		,pc.Descripcion as Descripcion
 		,case
-			when cd.CUV2 is null or cd.CUV2='' then pc.Descripcion
+			when isnull(cd.CUV2, '') = '' then pc.Descripcion
 			else pc2.Descripcion
 		end as Descripcion2
 		,case
-			when isnull(cd.CUV2,'') = '' or cd.CUV = cd.CUV2 then (pwd.MontoPagar * cd.Cantidad / pwd.Cantidad)
-			else (pwd.PrecioUnidad * pwd.FactorRepeticion * cd.Cantidad)			
+			when cd.CodigoOperacion = LTRIM(RTRIM('T')) then (pwd.PrecioUnidad * pwd.FactorRepeticion * cd.Cantidad)
+			else (pwd.MontoPagar * cd.Cantidad / pwd.Cantidad)
 		end as Precio
 		,case
 			when isnull(cd.CUV2,'') = '' then (pwd.PrecioUnidad * pwd.FactorRepeticion * cd.Cantidad)
-			when cd.CUV = cd.CUV2 then (pwd.MontoPagar * cd.Cantidad / pwd.Cantidad)
-			else (pc2.PrecioCatalogo * pc2.FactorRepeticion * cd.Cantidad2)
+			when cd.CodigoOperacion = LTRIM(RTRIM('T')) then (pc2.PrecioCatalogo * pc2.FactorRepeticion * cd.Cantidad2)
+			else (pwd.MontoPagar * cd.Cantidad / pwd.Cantidad)
 		end as Precio2
 	FROM CDRWebDetalle cd
 	INNER JOIN ods.ProductoComercial pc on cd.CUV = pc.CUV and pc.AnoCampania = @CampaniaId
@@ -609,11 +609,11 @@ BEGIN
 		,cd.CUV
 		,cd.Cantidad
 		,case 
-			when cd.CUV2 is null or cd.CUV2='' then cd.CUV
+			when isnull(cd.CUV2,'') = '' then cd.CUV
 			else cd.CUV2
 		end as CUV2
 		,case
-			when cd.CUV2 is null or cd.CUV2='' then cd.Cantidad
+			when isnull(cd.CUV2,'') = '' then cd.Cantidad
 			else cd.Cantidad2
 		end as Cantidad2
 		,cd.FechaRegistro
@@ -624,17 +624,17 @@ BEGIN
 		,cd.Eliminado
 		,pc.Descripcion as Descripcion
 		,case
-			when cd.CUV2 is null or cd.CUV2='' then pc.Descripcion
+			when isnull(cd.CUV2, '') = '' then pc.Descripcion
 			else pc2.Descripcion
 		end as Descripcion2
 		,case
-			when isnull(cd.CUV2,'') = '' or cd.CUV = cd.CUV2 then (pwd.MontoPagar * cd.Cantidad / pwd.Cantidad)
-			else (pwd.PrecioUnidad * pwd.FactorRepeticion * cd.Cantidad)			
+			when cd.CodigoOperacion = LTRIM(RTRIM('T')) then (pwd.PrecioUnidad * pwd.FactorRepeticion * cd.Cantidad)
+			else (pwd.MontoPagar * cd.Cantidad / pwd.Cantidad)
 		end as Precio
 		,case
 			when isnull(cd.CUV2,'') = '' then (pwd.PrecioUnidad * pwd.FactorRepeticion * cd.Cantidad)
-			when cd.CUV = cd.CUV2 then (pwd.MontoPagar * cd.Cantidad / pwd.Cantidad)
-			else (pc2.PrecioCatalogo * pc2.FactorRepeticion * cd.Cantidad2)
+			when cd.CodigoOperacion = LTRIM(RTRIM('T')) then (pc2.PrecioCatalogo * pc2.FactorRepeticion * cd.Cantidad2)
+			else (pwd.MontoPagar * cd.Cantidad / pwd.Cantidad)
 		end as Precio2
 	FROM CDRWebDetalle cd
 	INNER JOIN ods.ProductoComercial pc on cd.CUV = pc.CUV and pc.AnoCampania = @CampaniaId
@@ -681,11 +681,11 @@ BEGIN
 		,cd.CUV
 		,cd.Cantidad
 		,case 
-			when cd.CUV2 is null or cd.CUV2='' then cd.CUV
+			when isnull(cd.CUV2,'') = '' then cd.CUV
 			else cd.CUV2
 		end as CUV2
 		,case
-			when cd.CUV2 is null or cd.CUV2='' then cd.Cantidad
+			when isnull(cd.CUV2,'') = '' then cd.Cantidad
 			else cd.Cantidad2
 		end as Cantidad2
 		,cd.FechaRegistro
@@ -696,17 +696,17 @@ BEGIN
 		,cd.Eliminado
 		,pc.Descripcion as Descripcion
 		,case
-			when cd.CUV2 is null or cd.CUV2='' then pc.Descripcion
+			when isnull(cd.CUV2, '') = '' then pc.Descripcion
 			else pc2.Descripcion
 		end as Descripcion2
 		,case
-			when isnull(cd.CUV2,'') = '' or cd.CUV = cd.CUV2 then (pwd.MontoPagar * cd.Cantidad / pwd.Cantidad)
-			else (pwd.PrecioUnidad * pwd.FactorRepeticion * cd.Cantidad)			
+			when cd.CodigoOperacion = LTRIM(RTRIM('T')) then (pwd.PrecioUnidad * pwd.FactorRepeticion * cd.Cantidad)
+			else (pwd.MontoPagar * cd.Cantidad / pwd.Cantidad)
 		end as Precio
 		,case
 			when isnull(cd.CUV2,'') = '' then (pwd.PrecioUnidad * pwd.FactorRepeticion * cd.Cantidad)
-			when cd.CUV = cd.CUV2 then (pwd.MontoPagar * cd.Cantidad / pwd.Cantidad)
-			else (pc2.PrecioCatalogo * pc2.FactorRepeticion * cd.Cantidad2)
+			when cd.CodigoOperacion = LTRIM(RTRIM('T')) then (pc2.PrecioCatalogo * pc2.FactorRepeticion * cd.Cantidad2)
+			else (pwd.MontoPagar * cd.Cantidad / pwd.Cantidad)
 		end as Precio2
 	FROM CDRWebDetalle cd
 	INNER JOIN ods.ProductoComercial pc on cd.CUV = pc.CUV and pc.AnoCampania = @CampaniaId
@@ -753,11 +753,11 @@ BEGIN
 		,cd.CUV
 		,cd.Cantidad
 		,case 
-			when cd.CUV2 is null or cd.CUV2='' then cd.CUV
+			when isnull(cd.CUV2,'') = '' then cd.CUV
 			else cd.CUV2
 		end as CUV2
 		,case
-			when cd.CUV2 is null or cd.CUV2='' then cd.Cantidad
+			when isnull(cd.CUV2,'') = '' then cd.Cantidad
 			else cd.Cantidad2
 		end as Cantidad2
 		,cd.FechaRegistro
@@ -768,17 +768,17 @@ BEGIN
 		,cd.Eliminado
 		,pc.Descripcion as Descripcion
 		,case
-			when cd.CUV2 is null or cd.CUV2='' then pc.Descripcion
+			when isnull(cd.CUV2, '') = '' then pc.Descripcion
 			else pc2.Descripcion
 		end as Descripcion2
 		,case
-			when isnull(cd.CUV2,'') = '' or cd.CUV = cd.CUV2 then (pwd.MontoPagar * cd.Cantidad / pwd.Cantidad)
-			else (pwd.PrecioUnidad * pwd.FactorRepeticion * cd.Cantidad)			
+			when cd.CodigoOperacion = LTRIM(RTRIM('T')) then (pwd.PrecioUnidad * pwd.FactorRepeticion * cd.Cantidad)
+			else (pwd.MontoPagar * cd.Cantidad / pwd.Cantidad)
 		end as Precio
 		,case
 			when isnull(cd.CUV2,'') = '' then (pwd.PrecioUnidad * pwd.FactorRepeticion * cd.Cantidad)
-			when cd.CUV = cd.CUV2 then (pwd.MontoPagar * cd.Cantidad / pwd.Cantidad)
-			else (pc2.PrecioCatalogo * pc2.FactorRepeticion * cd.Cantidad2)
+			when cd.CodigoOperacion = LTRIM(RTRIM('T')) then (pc2.PrecioCatalogo * pc2.FactorRepeticion * cd.Cantidad2)
+			else (pwd.MontoPagar * cd.Cantidad / pwd.Cantidad)
 		end as Precio2
 	FROM CDRWebDetalle cd
 	INNER JOIN ods.ProductoComercial pc on cd.CUV = pc.CUV and pc.AnoCampania = @CampaniaId
@@ -825,11 +825,11 @@ BEGIN
 		,cd.CUV
 		,cd.Cantidad
 		,case 
-			when cd.CUV2 is null or cd.CUV2='' then cd.CUV
+			when isnull(cd.CUV2,'') = '' then cd.CUV
 			else cd.CUV2
 		end as CUV2
 		,case
-			when cd.CUV2 is null or cd.CUV2='' then cd.Cantidad
+			when isnull(cd.CUV2,'') = '' then cd.Cantidad
 			else cd.Cantidad2
 		end as Cantidad2
 		,cd.FechaRegistro
@@ -840,17 +840,17 @@ BEGIN
 		,cd.Eliminado
 		,pc.Descripcion as Descripcion
 		,case
-			when cd.CUV2 is null or cd.CUV2='' then pc.Descripcion
+			when isnull(cd.CUV2, '') = '' then pc.Descripcion
 			else pc2.Descripcion
 		end as Descripcion2
 		,case
-			when isnull(cd.CUV2,'') = '' or cd.CUV = cd.CUV2 then (pwd.MontoPagar * cd.Cantidad / pwd.Cantidad)
-			else (pwd.PrecioUnidad * pwd.FactorRepeticion * cd.Cantidad)			
+			when cd.CodigoOperacion = LTRIM(RTRIM('T')) then (pwd.PrecioUnidad * pwd.FactorRepeticion * cd.Cantidad)
+			else (pwd.MontoPagar * cd.Cantidad / pwd.Cantidad)
 		end as Precio
 		,case
 			when isnull(cd.CUV2,'') = '' then (pwd.PrecioUnidad * pwd.FactorRepeticion * cd.Cantidad)
-			when cd.CUV = cd.CUV2 then (pwd.MontoPagar * cd.Cantidad / pwd.Cantidad)
-			else (pc2.PrecioCatalogo * pc2.FactorRepeticion * cd.Cantidad2)
+			when cd.CodigoOperacion = LTRIM(RTRIM('T')) then (pc2.PrecioCatalogo * pc2.FactorRepeticion * cd.Cantidad2)
+			else (pwd.MontoPagar * cd.Cantidad / pwd.Cantidad)
 		end as Precio2
 	FROM CDRWebDetalle cd
 	INNER JOIN ods.ProductoComercial pc on cd.CUV = pc.CUV and pc.AnoCampania = @CampaniaId
@@ -897,11 +897,11 @@ BEGIN
 		,cd.CUV
 		,cd.Cantidad
 		,case 
-			when cd.CUV2 is null or cd.CUV2='' then cd.CUV
+			when isnull(cd.CUV2,'') = '' then cd.CUV
 			else cd.CUV2
 		end as CUV2
 		,case
-			when cd.CUV2 is null or cd.CUV2='' then cd.Cantidad
+			when isnull(cd.CUV2,'') = '' then cd.Cantidad
 			else cd.Cantidad2
 		end as Cantidad2
 		,cd.FechaRegistro
@@ -912,17 +912,17 @@ BEGIN
 		,cd.Eliminado
 		,pc.Descripcion as Descripcion
 		,case
-			when cd.CUV2 is null or cd.CUV2='' then pc.Descripcion
+			when isnull(cd.CUV2, '') = '' then pc.Descripcion
 			else pc2.Descripcion
 		end as Descripcion2
 		,case
-			when isnull(cd.CUV2,'') = '' or cd.CUV = cd.CUV2 then (pwd.MontoPagar * cd.Cantidad / pwd.Cantidad)
-			else (pwd.PrecioUnidad * pwd.FactorRepeticion * cd.Cantidad)			
+			when cd.CodigoOperacion = LTRIM(RTRIM('T')) then (pwd.PrecioUnidad * pwd.FactorRepeticion * cd.Cantidad)
+			else (pwd.MontoPagar * cd.Cantidad / pwd.Cantidad)
 		end as Precio
 		,case
 			when isnull(cd.CUV2,'') = '' then (pwd.PrecioUnidad * pwd.FactorRepeticion * cd.Cantidad)
-			when cd.CUV = cd.CUV2 then (pwd.MontoPagar * cd.Cantidad / pwd.Cantidad)
-			else (pc2.PrecioCatalogo * pc2.FactorRepeticion * cd.Cantidad2)
+			when cd.CodigoOperacion = LTRIM(RTRIM('T')) then (pc2.PrecioCatalogo * pc2.FactorRepeticion * cd.Cantidad2)
+			else (pwd.MontoPagar * cd.Cantidad / pwd.Cantidad)
 		end as Precio2
 	FROM CDRWebDetalle cd
 	INNER JOIN ods.ProductoComercial pc on cd.CUV = pc.CUV and pc.AnoCampania = @CampaniaId
