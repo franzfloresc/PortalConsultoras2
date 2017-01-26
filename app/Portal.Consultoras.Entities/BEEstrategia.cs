@@ -149,9 +149,6 @@ namespace Portal.Consultoras.Entities
         public int Imagen { get; set; }
         [DataMember]
         public string CodigoSAP { get; set; }
-
-        [DataMember]
-        public int Imagen { get; set; }
          
         //[DataMember]
         //public string CodigoSAP { get; set; }

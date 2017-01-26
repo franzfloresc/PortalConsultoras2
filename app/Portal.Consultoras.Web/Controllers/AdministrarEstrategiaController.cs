@@ -467,46 +467,6 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         [HttpPost]
-        public ActionResult ImagenEstrategiaUpload(string qqfile)
-        {
-            string FileName = string.Empty;
-            try
-            {
-                // req. 1664 - Unificando todo en una unica carpeta temporal
-                Stream inputStream = Request.InputStream;
-                byte[] fileBytes = ReadFully(inputStream);
-                string ffFileName = qqfile; // qqfile;
-                var path = Path.Combine(Globals.RutaTemporales, ffFileName);
-                System.IO.File.WriteAllBytes(path, fileBytes);
-                if (!System.IO.File.Exists(Globals.RutaTemporales))
-                    System.IO.Directory.CreateDirectory(Globals.RutaTemporales);
-                var failImage = false;
-                var image =  System.Drawing.Image.FromFile(path);
-                if (image.Width > 62)
-                {
-                    failImage = true;
-                }
-                if (image.Height > 62)
-                {
-                    failImage = true;
-                }
-
-                if (failImage)
-                {
-                    image.Dispose();
-                    System.IO.File.Delete(path);
-                    return Json(new { success = false, message = "El tamaño de imagen excede el máximo permitido. (Ancho: 62px - Alto: 62px)." }, "text/html");
-                }
-                image.Dispose();
-                return Json(new { success = true, name = Path.GetFileName(path) }, "text/html");
-            }
-            catch (Exception)
-            {
-                return Json(new { success = false, message = "Hubo un error al cargar el archivo, intente nuevamente." }, "text/html");
-            }
-        }
-
-        [HttpPost]
         public JsonResult GetOfertaByCUV(string CampaniaID, string CUV2,
             string TipoEstrategiaID, string CUV1, string flag,
             string FlagNueva, string FlagRecoProduc, string FlagRecoPerfil)
