@@ -955,8 +955,6 @@ function SolicitudEnviar() {
     var celular = $.trim($("#txtTelefono").val());
     var telefono = $.trim($("#txtTelefono").val());
 
-    
-
     if (correo == "" || celular == "") {
         alert_msg("Debe completar la sección de VALIDA TUS DATOS para finalizar");
 
@@ -965,7 +963,7 @@ function SolicitudEnviar() {
         $("#txtEmail").css("border-color", "red");
 
         $("#spnTelefonoError").css("display", "");
-        $("#spnTelefonoError").html("*Teléfono incorrecto");
+        $("#spnTelefonoError").html("*Celular incorrecto");
         $("#txtTelefono").css("border-color", "red");
 
         return false;
@@ -987,9 +985,9 @@ function SolicitudEnviar() {
         $("#txtEmail").css("border-color", "#b5b5b5");
     }
 
-    if (celular.length <= 6) {
+    if (celular.length < 6) {
         $("#spnTelefonoError").css("display", "");
-        $("#spnTelefonoError").html("*Teléfono incorrecto");
+        $("#spnTelefonoError").html("*Celular incorrecto");
         $("#txtTelefono").css("border-color", "red");
         ok = false;
     } else {
@@ -997,17 +995,18 @@ function SolicitudEnviar() {
         $("#txtTelefono").css("border-color", "#b5b5b5");
     }
 
-    var esTelefonoValido = ValidarTelefono(telefono);
-    if (!esTelefonoValido) {
-        $("#spnTelefonoError").css("display", "");
-        $("#spnTelefonoError").html("*Este teléfono ya está siendo utilizado. Intenta con otro");
-        $("#txtTelefono").css("border-color", "red");
-        ok = false;
-    } else {
-        $("#spnTelefonoError").css("display", "none");
-        $("#txtTelefono").css("border-color", "#b5b5b5");
+    if (ok) {
+        var esTelefonoValido = ValidarTelefono(telefono);
+        if (!esTelefonoValido) {
+            $("#spnTelefonoError").css("display", "");
+            $("#spnTelefonoError").html("*Este teléfono ya está siendo utilizado. Intenta con otro");
+            $("#txtTelefono").css("border-color", "red");
+            ok = false;
+        } else {
+            $("#spnTelefonoError").css("display", "none");
+            $("#txtTelefono").css("border-color", "#b5b5b5");
+        }
     }
-    
 
     if (!ok) {
         return false;
@@ -1031,8 +1030,6 @@ function SolicitudEnviar() {
     if (!ok) {
         return false;
     }
-
-
 
     ok = $("#btnAceptoPoliticas").hasClass("politica_reclamos_icono_active");
     if (!ok) {
@@ -1109,7 +1106,7 @@ function SolicitudEnviar() {
 
                 debugger;
                 //$("#divAceptarEMail").show();
-                alertEMail_msg(data.message, "MENSAJE")
+                alertEMail_msg(data.message, "MENSAJE");
 
                 $("#TituloReclamo").hide();
 
