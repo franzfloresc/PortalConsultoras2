@@ -32,6 +32,9 @@ namespace Portal.Consultoras.Web.ServiceCDR {
         private int CampaniaIDField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int CantidadDetalleField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private long ConsultoraIDField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -100,6 +103,19 @@ namespace Portal.Consultoras.Web.ServiceCDR {
                 if ((this.CampaniaIDField.Equals(value) != true)) {
                     this.CampaniaIDField = value;
                     this.RaisePropertyChanged("CampaniaID");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int CantidadDetalle {
+            get {
+                return this.CantidadDetalleField;
+            }
+            set {
+                if ((this.CantidadDetalleField.Equals(value) != true)) {
+                    this.CantidadDetalleField = value;
+                    this.RaisePropertyChanged("CantidadDetalle");
                 }
             }
         }
