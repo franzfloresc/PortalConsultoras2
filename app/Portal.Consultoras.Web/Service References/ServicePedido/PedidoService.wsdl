@@ -171,6 +171,12 @@
   <wsdl:message name="IPedidoService_GetEstrategiaODD_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetEstrategiaODDResponse" />
   </wsdl:message>
+  <wsdl:message name="IPedidoService_ActivarDesactivarEstrategias_InputMessage">
+    <wsdl:part name="parameters" element="tns:ActivarDesactivarEstrategias" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_ActivarDesactivarEstrategias_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ActivarDesactivarEstrategiasResponse" />
+  </wsdl:message>
   <wsdl:message name="IPedidoService_InsertarTipoEstrategia_InputMessage">
     <wsdl:part name="parameters" element="tns:InsertarTipoEstrategia" />
   </wsdl:message>
@@ -1810,6 +1816,10 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetEstrategiaODD" message="tns:IPedidoService_GetEstrategiaODD_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/GetEstrategiaODDResponse" message="tns:IPedidoService_GetEstrategiaODD_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="ActivarDesactivarEstrategias">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/ActivarDesactivarEstrategias" message="tns:IPedidoService_ActivarDesactivarEstrategias_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/ActivarDesactivarEstrategiasResponse" message="tns:IPedidoService_ActivarDesactivarEstrategias_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="InsertarTipoEstrategia">
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/InsertarTipoEstrategia" message="tns:IPedidoService_InsertarTipoEstrategia_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/InsertarTipoEstrategiaResponse" message="tns:IPedidoService_InsertarTipoEstrategia_OutputMessage" />
@@ -3069,6 +3079,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetEstrategiaODD">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/GetEstrategiaODD" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ActivarDesactivarEstrategias">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/ActivarDesactivarEstrategias" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

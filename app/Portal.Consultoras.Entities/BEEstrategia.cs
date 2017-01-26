@@ -34,15 +34,15 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public int ID { get; set; }
         [DataMember]
-        public decimal Precio { get; set; } 
+        public decimal Precio { get; set; }
         [DataMember]
-        public decimal Precio2 { get; set; } 
+        public decimal Precio2 { get; set; }
         [DataMember]
         public decimal PrecioUnitario { get; set; }
         [DataMember]
         public string PrecioString { get; set; }
         [DataMember]
-        public string PrecioTachado { get; set; }        
+        public string PrecioTachado { get; set; }
         [DataMember]
         public string CUV1 { get; set; }
         [DataMember]
@@ -139,12 +139,16 @@ namespace Portal.Consultoras.Entities
 
         [DataMember]
         public bool TieneStockProl { get; set; }
-        
+
         [DataMember]
         public int FlagMostrarImg { get; set; }      // SB2-353     
-        
+
         [DataMember]
         public int OfertaUltimoMinuto { get; set; }
+        [DataMember]
+        public int Imagen { get; set; }
+        [DataMember]
+        public string CodigoSAP { get; set; }
 
         [DataMember]
         public int Imagen { get; set; }
@@ -154,7 +158,7 @@ namespace Portal.Consultoras.Entities
         
         public BEEstrategia(IDataRecord row)
         {
-            if(DataRecord.HasColumn(row, "TipoTallaColor") && row["TipoTallaColor"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "TipoTallaColor") && row["TipoTallaColor"] != DBNull.Value)
                 TipoTallaColor = row["TipoTallaColor"].ToString();
 
             if (DataRecord.HasColumn(row, "EstrategiaID") && row["EstrategiaID"] != DBNull.Value)
@@ -313,12 +317,12 @@ namespace Portal.Consultoras.Entities
             if (DataRecord.HasColumn(row, "OfertaUltimoMinuto") && row["OfertaUltimoMinuto"] != DBNull.Value)
                 FlagMostrarImg = Convert.ToInt32(row["OfertaUltimoMinuto"]);
 
-            //if (DataRecord.HasColumn(row, "CodigoSAP")&& row["CodigoSAP"] != DBNull.Value )            
-            //    CodigoSAP = row["CodigoSAP"].ToString().Trim();
+            if (DataRecord.HasColumn(row, "CodigoSAP") && row["CodigoSAP"] != DBNull.Value)
+                CodigoSAP = row["CodigoSAP"].ToString().Trim();
             
         }
     }
-	// 1747 - Inicio
+    // 1747 - Inicio
     [DataContract]
     public class BEConfiguracionValidacionZE
     {
@@ -374,5 +378,5 @@ namespace Portal.Consultoras.Entities
 
         public string UsuarioCreacion { get; set; }
     }
-	// 1747 - Fin
+    // 1747 - Fin
 }

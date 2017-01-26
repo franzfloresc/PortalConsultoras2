@@ -66,7 +66,7 @@ namespace Portal.Consultoras.BizLogic
             }
             catch (Exception) { throw; }
         }
-        
+
         public int InsertTallaColorCUV(BETallaColor entidad)
         {
             try
@@ -184,7 +184,7 @@ namespace Portal.Consultoras.BizLogic
             var DAEstrategia = new DAEstrategia(entidad.PaisID);
             return DAEstrategia.ValidarStockEstrategia(entidad);
         }
-		// 1747 - Inicio
+        // 1747 - Inicio
         public IList<BEConfiguracionValidacionZE> GetRegionZonaZE(int PaisID, int RegionID, int ZonaID)
         {
             var lista = new List<BEConfiguracionValidacionZE>();
@@ -199,7 +199,7 @@ namespace Portal.Consultoras.BizLogic
 
             return lista;
         }
-		// 1747 - Fin
+        // 1747 - Fin
 
         public string GetImagenOfertaPersonalizadaOF(int paisID, int campaniaID, string cuv)
         {
@@ -291,7 +291,7 @@ namespace Portal.Consultoras.BizLogic
             var DAEstrategia = new DAEstrategia(paisId);
             return DAEstrategia.InsertEstrategiaOfertaParaTi(lista, campaniaId, codigoUsuario);
         }
-        
+
         /*PL20-1226*/
         public List<BEEstrategia> GetEstrategiaODD(int paisID, int codCampania, string codConsultora, DateTime fechaInicioFact)
         {
@@ -311,6 +311,12 @@ namespace Portal.Consultoras.BizLogic
             }
             catch (Exception) { throw; }
         }
-        
+
+        public int ActivarDesactivarEstrategias(int paisID, String UsuarioModificacion, String EstrategiasActivas, String EstrategiasDesactivas)
+        {
+            var DAEstrategia = new DAEstrategia(paisID);
+            return DAEstrategia.ActivarDesactivarEstrategias(UsuarioModificacion, EstrategiasActivas, EstrategiasDesactivas);
+        }
+
     }
 }
