@@ -537,6 +537,15 @@
         var urlValidarStockEstrategia = '@Url.Action("ValidarStockEstrategia", "Pedido", new { area = "" })';
         var urlPedidoInsertZe = '@Url.Action("AgregarProductoZE", "Pedido", new { area = "" })';
 
+        var userData = {
+            'campana': '@ViewBag.AnalyticsCampania',
+            'region': '@ViewBag.AnalyticsRegion',
+            'zona': '@ViewBag.AnalyticsZona',
+            'seccion': '@ViewBag.AnalyticsSeccion',
+            'pais': '@ViewBag.AnalyticsPais',
+            'codigoConsultora': '@ViewBag.AnalyticsCodigoConsultora'
+        };
+
         $(function () {
 
             /*PL20-1233*/
@@ -640,7 +649,7 @@
             $("#lnkConoceMasShowRoomBannerLateralHoy, #lnkConoceMasShowRoomBannerLateralImagenHoy").click(function () {
                 AgregarTagManagerShowRoomBannerLateralConocesMas(true);
             });
-            
+
             //imgVentaSetPopupBannerHoy
 
             //$("#content_oferta_dia_mobile").click(function () {
@@ -657,7 +666,7 @@
             //    var duration = 500;
 
             //    $('#pop_oferta_mobile').toggle(effect, options, duration);
-                
+
             //});
             //$(".header_pop_oferta").click(function () {
             //    $('body').css({ 'overflow-y': 'scroll' });
@@ -672,7 +681,7 @@
             //    var duration = 500;
 
             //    $('#pop_oferta_mobile').toggle(effect, options, duration);
-               
+
             //});
 
             CargarShowRoom();
@@ -708,7 +717,7 @@
 
                             $('#BloqueMobileOfertaDia').show();
                             $('#divShowRoomHoy').css('margin-top', '123px');
-                            
+
                             if($('#divShowRoomHoy:visible').length > 0) {
                                 $('#content').css('top', '0px');
                             }
@@ -726,7 +735,7 @@
                                     clearInterval(int1odd);
                                 }
                             }, 300);
-                            
+
                             $("#content_oferta_dia_mobile").click(function () {
                                 $('#txtCantidad').val('1');
                                 $('body').css({ 'overflow-x': 'hidden' });
@@ -748,7 +757,7 @@
                             $('#BloqueMobileOfertaDia').hide();
                             $('#divShowRoomHoy').css('margin-top', '63px');
                         }
-                        
+
                         OcultarBannerODD();
                     }
                 },
@@ -772,7 +781,7 @@
                 // Set the duration (default: 400 milliseconds)
                 var duration = 500;
 
-                $('#pop_oferta_mobile').toggle(effect, options, duration);               
+                $('#pop_oferta_mobile').toggle(effect, options, duration);
             });
         };
 
@@ -826,7 +835,7 @@
             var intLimiteVenta = parseInt(cantidadLimite);
             var msg1 = 'Solo puede llevar ' + cantidadLimite + ' unidades de este producto.';
 
-            if (intCantidad > intLimiteVenta) {            
+            if (intCantidad > intLimiteVenta) {
                 //messageInfoMalo('Solo puede llevar ' + cantidadLimite.toStrin + ' unidades de este producto.','');
                 $('#popupInformacionSB2Error').find('#mensajeInformacionSB2_Error').text(msg1);
                 $('#popupInformacionSB2Error').show();
@@ -900,7 +909,7 @@
                                     CloseLoading();
                                     return false;
                                 }
-                                
+
                                 ShowLoading();
 
                                 ActualizarGanancia(data.DataBarra);
@@ -912,15 +921,15 @@
                                         TagManagerClickAgregarProducto();
                                     }
                                 }
-                           
+
                                 CloseLoading();
-                                
+
                                 // ocultar display
                                 $('body').css({ 'overflow-y': 'scroll' });
                                 var effect = 'slide';
                                 var options = {direction: 'right' };
                                 var duration = 500;
-                                $('#pop_oferta_mobile').toggle(effect, options, duration);   
+                                $('#pop_oferta_mobile').toggle(effect, options, duration);
                                 $('#txtCantidad').val('1');
 
                                 // si es pagina de pedido, recargar el detalle
@@ -944,9 +953,9 @@
                         CloseLoading();
                     }
                 }
-            });           
+            });
         };
-        
+
         function checkCountdownODD() {
             var ok = true;
             $.ajax({
@@ -1629,7 +1638,7 @@
                                     if (response.mostrarShowRoomProductos) {
                                         $("#lnkConoceMasShowRoomBannerLateralHoy").attr("href", urlShowRoomIndex);
                                         $("#lnkConoceMasShowRoomBannerLateralImagenHoy").attr("href", urlShowRoomIndex);
-                                        
+
                                         $("#spnPreventaDigitalHoy").html(evento.Nombre);
 
                                         $("#imgVentaSetPopupBannerHoy").attr("src", evento.ImagenVentaSetPopup);
