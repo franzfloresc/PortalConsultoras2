@@ -655,6 +655,36 @@ FuncionesGenerales = {
 };
 //R2116-FIN
 
+function InsertarLogDymnamo(pantallaOpcion, opcionAccion, esMobile, extra) {
+    data = {
+        'Fecha': '',
+        'Aplicacion': 'PORTALCONSULTORAS',
+        'Pais': userData.pais,
+        'Region': userData.region,
+        'Zona': userData.zona,
+        'Seccion': userData.seccion,
+        'Rol': 'CO',
+        'Campania': userData.campana,
+        'Usuario': userData.codigoConsultora,
+        'PantallaOpcion': pantallaOpcion,
+        'OpcionAccion': opcionAccion,
+        'DispositivoCategoria': esMobile ? 'MOBILE' : 'WEB',
+        'DispositivoID': '',
+        'Version': '2.0',
+        'Extra': extra
+    }
+    console.log(data);
+
+    //jQuery.ajax({
+    //    type: "GET",
+    //    url: baseUrl + 'MisCatalogosRevistas/AutocompleteCorreo',
+    //    dataType: "json",
+    //    data: data,
+    //    async: false,
+    //    success: function (result) { console.log(result); },
+    //    error: function (x, xh, xhr) { console.log(x); }
+    //});
+}
 
 function InfoCommerceGoogleDestacadoProductClick(name, id, category, variant, position) {
 

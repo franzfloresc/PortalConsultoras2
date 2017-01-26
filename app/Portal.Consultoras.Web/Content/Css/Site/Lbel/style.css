@@ -3095,6 +3095,11 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido{
     margin-right:0px;
 }
 
+.contenedor_banners ul li .imagen_banner_inferior{
+    overflow: hidden;
+    height: auto;
+}
+
 .contenedor_banners ul li .nombre_banner_inferior{
     background:#000;
     margin-top:9px;

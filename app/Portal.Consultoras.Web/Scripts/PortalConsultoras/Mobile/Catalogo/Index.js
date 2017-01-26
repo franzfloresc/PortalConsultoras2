@@ -128,6 +128,10 @@ var valContenidoCorreoDefecto = "Hola,\nRevisa los catálogos de esta campaña y
 var urlISSUU = "http://issuu.com/somosbelcorp/docs/";
 imgIssuu = imgIssuu.startsWith("https") ? imgIssuu.replace("https://", "http://") : imgIssuu;
 
+function InsertarLogCatalogoDynamo(opcionAccion, campaniaCatalogo, marca, cantidad) {
+    InsertarLogDymnamo('Catalogo-Compartir', opcionAccion, true, { 'CampaniaCatalogo': campaniaCatalogo, 'Marca': marca, 'Cantidad': cantidad });
+}
+
 function CargarCarruselCatalogo() {
     ShowLoading();
 
@@ -621,15 +625,17 @@ function CatalogoMostrar(accion, btn) {
         });
     }
 }
-function CompartirFacebook(Catalogo, btn) {
+function CompartirFacebook(catalogo, campaniaCatalogo, btn) {
     dataLayer.push({
         'event': 'virtualEvent',
         'category': 'Catálogos y revistas',
         'action': 'Compartir FB',
-        'label': Catalogo,
+        'label': catalogo,
         'value': 0
     });
-    var u = $(btn).parents("[data-cat='" + Catalogo + "']").find("#txtUrl" + Catalogo).val();
+    InsertarLogCatalogoDynamo('Facebook', campaniaCatalogo, catalogo, 1);
+
+    var u = $(btn).parents("[data-cat='" + catalogo + "']").find("#txtUrl" + catalogo).val();
 
     var popWwidth = 570;
     var popHeight = 420;
@@ -681,7 +687,6 @@ function CatalogoEnviarEmail() {
 
     var clientes = new Array();
     for (var i = 0; i < correoEnviar.length; i++) {
-
         var objCorreo = {
             "ClienteID": correoEnviar[i].obj.clienteID,
             "Nombre": correoEnviar[i].obj.nombre,
@@ -715,7 +720,7 @@ function CatalogoEnviarEmail() {
     var Tipo = campActual == campComparte ? "1" : "2";
 
     var mensaje = $("#comentarios").val();
-    if (_Flagchklbel == "1")
+    if (_Flagchklbel == "1") {
         dataLayer.push({
             'event': 'virtualEvent',
             'category': 'Catálogos y revistas',
@@ -723,7 +728,9 @@ function CatalogoEnviarEmail() {
             'label': 'Lbel',
             'value': clientes.length
         });
-    if (_Flagchkesika == "1")
+        InsertarLogCatalogoDynamo('Email', campaniaEmail, 'Lbel', clientes.length);
+    }
+    if (_Flagchkesika == "1") {
         dataLayer.push({
             'event': 'virtualEvent',
             'category': 'Catálogos y revistas',
@@ -731,7 +738,9 @@ function CatalogoEnviarEmail() {
             'label': 'Esika',
             'value': clientes.length
         });
-    if (_Flagchkcyzone == "1")
+        InsertarLogCatalogoDynamo('Email', campaniaEmail, 'Esika', clientes.length);
+    }
+    if (_Flagchkcyzone == "1") {
         dataLayer.push({
             'event': 'virtualEvent',
             'category': 'Catálogos y revistas',
@@ -739,9 +748,10 @@ function CatalogoEnviarEmail() {
             'label': 'Cyzone',
             'value': clientes.length
         });
+        InsertarLogCatalogoDynamo('Email', campaniaEmail, 'Cyzone', clientes.length);
+    }
 
     var mensaje = $("#comentarios").val();
-
     jQuery.ajax({
         type: 'POST',
         url: urlEnviarMail,
@@ -935,14 +945,14 @@ function TagManagerPaginasVirtuales() {
         'pageName': 'Catálogo – Revistas | Somos Belcorp'
     });
 }
-function TagManagerWS(Catalogo) {
+function TagManagerWS(catalogo, campaniaCatalogo) {
     dataLayer.push({
         'event': 'virtualEvent',
         'category': 'Catálogos y revistas',
         'action': 'Compartir WhatsApp',
-        'label': Catalogo,
+        'label': catalogo,
         'value': 0
     });
-
+    InsertarLogCatalogoDynamo('Whatsapp', campaniaCatalogo, catalogo, 1);
 }
 
