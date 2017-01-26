@@ -16,8 +16,6 @@ var cargandoRegistros = false;
 var loadAdd = true;
 var urlLoad = urlLoad || "";
 
-//PL20-1268
-var dataFichaProductoFAV = [];
 //PL20-1234
 var rangoPrecios = 0;
 //Mobile
@@ -54,8 +52,16 @@ $(document).ready(function () {
     });
 
     if (tipoOrigen != '3') {
-        Inicializar();
+        if (typeof cargarItemsFAV != 'undefined') {
+            if (cargarItemsFAV) {
+                Inicializar();
+            }
+        }
+        else {
+            Inicializar();
+        }
     }
+
     $("#divmaquetaof48nivel").hide();
     $("[data-maq]").hide();
 
@@ -93,8 +99,6 @@ $(document).ready(function () {
                 
             //},
             ondragend: function (myvalue) {
-                console.log('dragend')
-                console.log(myvalue);
                 rangoPrecios = myvalue;
 
                 $(".slider-container").addClass("disabledbutton");
@@ -102,9 +106,6 @@ $(document).ready(function () {
 
             },
             onbarclicked: function (myvalue) {
-
-                console.log('clicked');
-                console.log(myvalue);
                 rangoPrecios = myvalue;
 
                 $(".slider-container").addClass("disabledbutton");
@@ -186,7 +187,6 @@ function MostrarNoHayProductos() {
 }
 
 //SB20-1197
-
 function processFilterCatalogoPersonalizado(type)
 {
     // reset values
@@ -571,6 +571,7 @@ function AgregarProductoCatalogoPersonalizado(item) {
     AgregarProducto('Insert', model, function () { $(divPadre).find(".product-add").show(); });
     //TrackingJetloreAdd(cantidad, $("#hdCampaniaCodigo").val(), cuv);    
 }
+
 function AgregarProducto(url, item, otraFunct) {
     DialogLoadingAbrir();
 
@@ -943,6 +944,7 @@ function DialogLoadingCerrar() {
         closeWaitingDialog();
     }
 }
+
 function DialogLoadingAbrir() {
     if (tipoOrigen == '2') {
         ShowLoading();
@@ -1098,19 +1100,6 @@ function mostrarFichaProductoFAV2(cuv) {
     });
 }
 
-function AjustarTonoTooltips(objcontenedor) {
-    var arrayObjTooltip = objcontenedor.find('.content_tonos_maquillaje .tooltip_tono');
-    var length = arrayObjTooltip.length;
-
-    //arrayObjTooltip.slice(0, cantidadTonosPorFila).css('top', length > cantidadTonosPorFila ? '30px' : '11px');
-
-    var index = cantidadTonosPorFila - 1;
-    while (index < length) {
-        arrayObjTooltip.eq(index).css('left', '-20px');
-        index += cantidadTonosPorFila;
-    }
-}
-
 function cambiarInfoFichaProductoFAV(tipo, cuv) {
     if (dataFichaProductoFAV != null && dataFichaProductoFAV.length > 0) {
 
@@ -1128,7 +1117,7 @@ function cambiarInfoFichaProductoFAV(tipo, cuv) {
         if (result != null && result.length > 0) {
             var obj = result[0];
             //console.log(obj);
-            var container = $('#PopFichaProductoNueva');
+            var container = $('#PrecioCatalogo');
             container.find('#fav_imagen_prod').attr('src', obj.ImagenProductoSugerido);
             container.find('#fav_nombre_prod').text(obj.Descripcion);
             container.find('#fav_descripcion_prod').text(obj.DescripcionComercial);
@@ -1142,7 +1131,7 @@ function cambiarInfoFichaProductoFAV(tipo, cuv) {
 
 function agregarCuvPedidoFichaProductoFAV(tipo) {
 
-    var container = $('#PopFichaProductoNueva').find('[data-item="catalogopersonalizado"]');
+    var container = $('#PrecioCatalogo').find('[data-item="catalogopersonalizado"]');
 
     if (typeof container != 'undefined') {
 
@@ -1167,6 +1156,19 @@ function agregarCuvPedidoFichaProductoFAV(tipo) {
         }
     }
     
+}
+
+function AjustarTonoTooltips(objcontenedor) {
+    var arrayObjTooltip = objcontenedor.find('.content_tonos_maquillaje .tooltip_tono');
+    var length = arrayObjTooltip.length;
+
+    //arrayObjTooltip.slice(0, cantidadTonosPorFila).css('top', length > cantidadTonosPorFila ? '30px' : '11px');
+
+    var index = cantidadTonosPorFila - 1;
+    while (index < length) {
+        arrayObjTooltip.eq(index).css('left', '-20px');
+        index += cantidadTonosPorFila;
+    }
 }
 
 // PL20-1270
@@ -1231,7 +1233,7 @@ function filterFAVDesktop() {
     }
     filters.push(f);
 
-    console.log(filters);
+    //console.log(filters);
 
     $('.seleccion_filtro_fav').prop('disabled', false);
     $('.select_filtros_fav option:not(:selected)').prop('disabled', false);
@@ -1241,3 +1243,4 @@ function filterFAVDesktop() {
     LinkCargarCatalogoToScroll();  
 }
 // PL20-1270
+

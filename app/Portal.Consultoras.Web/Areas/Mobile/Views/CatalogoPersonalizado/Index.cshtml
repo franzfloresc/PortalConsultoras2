@@ -654,37 +654,37 @@
                 <div class="titulo_producto_oferta"><span class="texto_unidad_pack">Precio para ti: </span>{{../Simbolo}} {{DecimalToStringFormat pack.precio_pack}}</div>
                 <div class="texto_ganancia_oferta" style="text-transform: uppercase;">{{../TxtGanancia}}: {{../Simbolo}} {{DecimalToStringFormat pack.ganancia_pack}}</div>
                 @*<div class="left_70"><div class="titulo_producto_oferta" style="text-align:left">INCLUYE</div></div>*@
-    <hr class="clear" />
-    {{#each ../lista_oObjItemPack as |item|}}
-    {{#if_eq pack.cuv_pack item.cuv_pack_item}}
-    <div class="content_sub_items">
-        <div class="sub_imagen_oferta">
-            {{#IsNullOrEmpty item.imagen_item_pack '!='}}
-            <img src="{{item.imagen_item_pack}}" alt="" />
-            {{/IsNullOrEmpty}}
+                <hr class="clear" />
+                {{#each ../lista_oObjItemPack as |item|}}
+                {{#if_eq pack.cuv_pack item.cuv_pack_item}}
+                <div class="content_sub_items">
+                    <div class="sub_imagen_oferta">
+                        {{#IsNullOrEmpty item.imagen_item_pack '!='}}
+                        <img src="{{item.imagen_item_pack}}" alt="" />
+                        {{/IsNullOrEmpty}}
 
-            {{#IsNullOrEmpty item.imagen_item_pack '=='}}
-            <div style="margin: 0 auto; text-align: center;">
-                <img src="@Url.Content(ViewBag.RutaImagenNoDisponible)" alt="" style="width: 55px; height: 55px; border: 0;" />
+                        {{#IsNullOrEmpty item.imagen_item_pack '=='}}
+                        <div style="margin: 0 auto; text-align: center;">
+                            <img src="@Url.Content(ViewBag.RutaImagenNoDisponible)" alt="" style="width: 55px; height: 55px; border: 0;" />
+                        </div>
+                        {{/IsNullOrEmpty}}
+                    </div>
+                    <div class="sub_descripcion_oferta"><p><span>x{{item.cantidad_item_pack}} </span>{{item.descripcion_item_pack}}</p></div>
+                </div>
+                <hr class="clear" />
+                {{/if_eq}}
+                {{/each}}
+                <br />
+                <div class="liquidacion_rango_home">
+                    <a class="cantidad_menos_home" tabindex="0"><img src="/Content/Images/Mobile/Esika/menos.png" alt=""></a>
+                    <input type="tel" value="1" size="2" maxlength="2" id="txtCantidad" class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" tabindex="0" data-cantidad-input="pack">
+                    <a class="cantidad_mas_home" tabindex="0"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
+                </div>
+                <div class="clear"></div>
+                <a class="boton_Agregalo_home agregar-ofertarevista" data-cuv="pack" data-cuvadd="{{pack.cuv_pack}}" tabindex="0">AGRÉGALO</a>
             </div>
-            {{/IsNullOrEmpty}}
         </div>
-        <div class="sub_descripcion_oferta"><p><span>x{{item.cantidad_item_pack}} </span>{{item.descripcion_item_pack}}</p></div>
-    </div>
-    <hr class="clear" />
-    {{/if_eq}}
-    {{/each}}
-    <br />
-    <div class="liquidacion_rango_home">
-        <a class="cantidad_menos_home" tabindex="0"><img src="/Content/Images/Mobile/Esika/menos.png" alt=""></a>
-        <input type="tel" value="1" size="2" maxlength="2" id="txtCantidad" class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" tabindex="0" data-cantidad-input="pack">
-        <a class="cantidad_mas_home" tabindex="0"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
-    </div>
-    <div class="clear"></div>
-    <a class="boton_Agregalo_home agregar-ofertarevista" data-cuv="pack" data-cuvadd="{{pack.cuv_pack}}" tabindex="0">AGRÉGALO</a>
-    </div>
-    </div>
-    {{/each}}
+        {{/each}}
     <!--ULTIMO-->
     <div class="row_20">
         <div class="sombra_oferta">
