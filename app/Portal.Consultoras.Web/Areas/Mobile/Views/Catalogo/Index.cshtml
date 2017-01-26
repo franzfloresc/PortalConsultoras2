@@ -20,8 +20,7 @@
 <span id="spNroCampania" style="display:none;">@Model.CampaniaActual</span>
 
 @{
-    if (HttpContext.Current.Request.Browser.IsMobileDevice &&
-        ("MX, CL, PE, CO, EC").ToUpper().Contains(Convert.ToString(ViewBag.CodigoISO).ToUpper()))
+    if (HttpContext.Current.Request.Browser.IsMobileDevice && ViewBag.ActivacionAppCatalogoWhastUp == 1)
     {
         <div class="wrapper_resumen_mobile">
             <div class="content_320">

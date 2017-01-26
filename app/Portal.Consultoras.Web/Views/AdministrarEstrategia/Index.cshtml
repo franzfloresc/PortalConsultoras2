@@ -1075,7 +1075,7 @@
                 success: function (data) {
                     if (data.success) {
                         closeWaitingDialog();
-                        fnGrillaEstrategias2();                                              
+                        fnGrillaEstrategias2();
                     } else {
                         alert(data.message);
                     }
@@ -1086,11 +1086,11 @@
             });
         });
 
-        $("#btnCancelarMasivo1").click(function() {
+        $("#btnCancelarMasivo1").click(function () {
             HideDialog("DialogNuevoMasivo");
         });
 
-        $("#btnAceptarMasivo2").click(function() {
+        $("#btnAceptarMasivo2").click(function () {
             var params = {
                 campaniaId: parseInt($("#ddlCampania").val()),
                 tipoConfigurado: 1
@@ -1145,20 +1145,20 @@
                 async: true,
                 success: function (data) {
                     if (data.success) {
-                        HideDialog("DialogNuevoMasivo");                        
+                        HideDialog("DialogNuevoMasivo");
                     }
                     alert(data.message);
                 },
                 error: function (data, error) {
                     alert(data.message);
                 }
-            });            
+            });
         });
 
         $("#btnAceptarMasivo3").click(function () {
             HideDialog("DialogNuevoMasivo");
         });
-        
+
     });
 
     ///////////////
@@ -1214,13 +1214,13 @@
             altRows: true,
             altclass: 'jQGridAltRowClass',
             loadComplete: function () { },
-            gridComplete: function() {
+            gridComplete: function () {
                 if (cantidadPrecargar == 0) {
                     $("#divMostrarPreCarga").css("display", "none");
                 } else {
                     $("#divMostrarPreCarga").css("display", "");
                     $("#spnCantidadConfigurar1").html(cantidadPrecargar);
-                }                
+                }
             }
         });
         jQuery("#listCargaMasiva1").jqGrid('navGrid', "#pagerCargaMasiva1", { edit: false, add: false, refresh: false, del: false, search: false });
@@ -1802,7 +1802,7 @@
             contentType: "application/json; charset=utf-8",
             colNames: ['CUV', 'Descripción'],
             colModel: [
-                { name: 'CUV2', index: 'CUV', width: 10, editable: true, resizable: false},
+                { name: 'CUV2', index: 'CUV', width: 10, editable: true, resizable: false },
                 { name: 'DescripcionCUV2', index: 'DescripcionCUV2', width: 90, editable: true, resizable: false },
             ],
             jsonReader:
@@ -1957,8 +1957,7 @@
 
                     /**** // PL20-1225 ****/
                     var auxOD = $('#ddlTipoEstrategia').find(':selected').data('id');
-                    if (auxOD == "7")
-                    {
+                    if (auxOD == "7") {
                         var desc1 = $("#txtDescripcion").val();
                         if ($.trim(desc1) == "") {
                             alert("Ingrese una descripción.");

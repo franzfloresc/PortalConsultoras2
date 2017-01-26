@@ -1,7 +1,6 @@
 ﻿var arrayOfertasParaTi = [];
 
-$(document).ready(function () {
-    
+$(document).ready(function () {    
     $('.flexsliderTutorialMobile').flexslider({
         animation: "slide"
     });
@@ -33,6 +32,11 @@ $(document).ready(function () {
         stopVideo();
         $('#VideoIntroductorio').hide();
     });
+
+    $("#imgProductoMobile").click(function () {
+
+    });
+
 
     CargarCarouselEstrategias("");
     CargarPopupsConsultora();
@@ -306,6 +310,18 @@ function ArmarCarouselEstrategias(data) {
 
     SetHandlebars("#estrategia-template", data, '#divCarouseHorizontalMobile');
 
+    //$("#AbrirPopOPT").click(function () {
+    //    //$('body').css({ 'overflow-x': 'hidden' });
+    //    //$('body').css({ 'overflow-y': 'hidden' });
+    //    //$('#PopFichaOPT').show();
+
+    //});    
+    //$("#CerrarFichaOPT").click(function () {
+    //    $('body').css({ 'overflow-y': 'scroll' });
+    //    $('#PopFichaOPT').hide();
+
+    //});
+
     if ($.trim($('#divCarouseHorizontalMobile').html()).length > 0) {
         $("#divListaEstrategias").show();
         $('#divCarouseHorizontalMobile').slick({
@@ -314,8 +330,8 @@ function ArmarCarouselEstrategias(data) {
             slidesToShow: 4,
             slidesToScroll: 1,
             autoplay: false,
-            prevArrow: '<a class="previous_ofertas_mobile js-slick-prev" style="margin-left:-13%"><img src="' + baseUrl + 'Content/Images/mobile/Esika/previous_ofertas_home.png")" alt="" /></a>',
-            nextArrow: '<a class="previous_ofertas_mobile js-slick-next" style="margin-right:-13%; text-align:right; right:0"><img src="' + baseUrl + 'Content/Images/mobile/Esika/next.png")" alt="" /></a>',
+            prevArrow: '<a class="previous_ofertas_mobile js-slick-prev" style="margin-left:-12%; text-align:left;"><img src="' + baseUrl + 'Content/Images/mobile/Esika/previous_ofertas_home.png")" alt="" /></a>',
+            nextArrow: '<a class="previous_ofertas_mobile js-slick-next" style="margin-right:-12%; text-align:right; right:0"><img src="' + baseUrl + 'Content/Images/mobile/Esika/next.png")" alt="" /></a>',
             responsive: [
                 {
                     breakpoint: 1200,
@@ -438,6 +454,13 @@ function CargarProductoDestacado(objParameter, objInput) {
     var flagNueva = objParameter.FlagNueva;
     var cantidadIngresada = $(objInput).parent().find("input.rango_cantidad_pedido").val();
     var tipoEstrategiaImagen = $(objInput).parents("[data-item]").attr("data-tipoestrategiaimagenmostrar");
+
+    //pl20-1265
+    if ($('#PopFichaOPT').is(":visible"))
+    {
+        CerrarFichaOPT();
+        posicionItem = $('#hdPosicion').val();
+    }
 
     $("#hdTipoEstrategiaID").val(tipoEstrategiaID);
 
@@ -602,6 +625,11 @@ function AgregarProductoDestacado(tipoEstrategiaImagen) {
     var posicion = $("#txtCantidadZE").attr("est-posicion");
     var urlImagen = $("#imgZonaEstrategiaEdit").attr("src");
     var OrigenPedidoWeb = MobileHomeOfertasParaTi;
+
+    //Encaso la Ficha Popup sea Visible - PL20-1265
+    if ($('#PopFichaOPT').is(":visible")) {
+        cantidad = $('#txtCantidadFichaOPT').val();
+    }
 
     // validar que se existan tallas
     if ($.trim($("#ddlTallaColor").html()) != "") {
@@ -999,3 +1027,117 @@ function TagManagerCarruselSiguiente() {
     });
 
 }
+//PL20-1265
+function mostrarFichaProductoOPT(cuv, posicion){
+    ShowLoading();
+    $('#hdPosicion').val(posicion);
+    jQuery.ajax({
+        type: 'POST',
+        url: urlGetProductoFichaOPT,
+        dataType: 'json',
+        contentType: 'application/json; charset=utf-8',
+        data: JSON.stringify({ pCuv: cuv }),
+        async: false,
+        success: function (response) {
+            if (checkTimeout(response)) {
+                if (response.success) {
+                    var datos = response.data;
+                    SetHandlebars("#PopFichaOPT-template", datos, '#PopFichaOPT');
+
+                    $('#imgFichaProOPT').attr('src', datos.FotoProducto01);                    
+                    $('.marca_ficha_producto').text(datos.DescripcionMarca);
+                    $('.titulo_ficha_producto').text(datos.DescripcionCUV2);
+                    $('.precio_ficha_producto').text(datos.Simbolo + ' ' + datos.PrecioString);
+
+                    $('body').css({ 'overflow-x': 'hidden' });
+                    $('body').css({ 'overflow-y': 'hidden' });
+                    CloseLoading();
+                    $('#PopFichaOPT').show();
+                    
+                } else {
+                    window.messageInfo(response.message);
+                }
+            }
+        },
+        error: function (response, error) {
+            if (checkTimeout(response)) {
+                console.log(response);
+            }
+        }
+    });
+}
+
+function CerrarFichaOPT()
+{
+    $('body').css({ 'overflow-y': 'scroll' });
+    $('#PopFichaOPT').hide();
+}
+
+function CompartirWsp(UrlBase, objParameter)
+{
+    var _id = InsertarProductoCompartido(objParameter,'W');
+    UrlBase = UrlBase.replace("[valor]", _id);
+
+    return UrlBase;
+}
+
+function CompartirFacebook(urlBase, objParameter) {
+    var _id = InsertarProductoCompartido(objParameter,'F');
+    urlBase = urlBase.replace('[valor]', _id);
+
+    var popWwidth = 570;
+    var popHeight = 420;
+    var left = (screen.width / 2) - (popWwidth / 2);
+    var top = (screen.height / 2) - (popHeight / 2);
+    var url = "http://www.facebook.com/sharer/sharer.php?u=" + urlBase;
+
+    window.open(url, 'Facebook', "width=" + popWwidth + ",height=" + popHeight + ",menubar=0,toolbar=0,directories=0,scrollbars=no,resizable=no,left=" + left + ",top=" + top + "");
+}
+
+function InsertarProductoCompartido(objParameter, app) {
+    //Capturando valores
+    var _rutaImagen = objParameter.RutaImagen;
+    var _marcaID = objParameter.MarcaID;
+    var _marcaDesc = objParameter.MarcaDesc;
+    var _nombre = objParameter.NombrePro;
+
+    var pcCuv = objParameter.Cuv;
+    var pcPalanca = "OPT";
+    var pcDetalle = _rutaImagen + "|" + _marcaID + "|" + _marcaDesc + "|" + _nombre;
+    var pcApp = app;
+
+
+    var ID = 0;
+    var Item = {
+        mCUV: pcCuv,
+        mPalanca: pcPalanca,
+        mDetalle: pcDetalle,
+        mApplicacion: pcApp
+    };
+
+    jQuery.ajax({
+        type: 'POST',
+        url: urlInsertarProductoCompartido,
+        dataType: 'json',
+        contentType: 'application/json; charset=utf-8',
+        data: JSON.stringify(Item),
+        async: false,
+        success: function (response) {
+            if (checkTimeout(response)) {
+                if (response.success) {
+                    var datos = response.data;
+                    ID = datos.id;
+                } else {
+                    window.messageInfo(response.message);
+                }
+            }
+        },
+        error: function (response, error) {
+            if (checkTimeout(response)) {
+                console.log(response);
+            }
+        }
+    });
+    return ID;
+}
+
