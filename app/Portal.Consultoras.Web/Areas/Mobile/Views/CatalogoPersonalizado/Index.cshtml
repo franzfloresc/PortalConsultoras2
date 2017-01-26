@@ -327,7 +327,7 @@
 <script id="template-catalogopersonalizado" type="text/x-handlebars-template">
     <div>
         {{#each this as |item|}}
-        <div class="content_item_home" style="position: relative;">
+        <div class="content_item_home landing_cat" style="position: relative;">
             <div class="liquidacion_item" data-item="catalogopersonalizado">
                 <div style="display: none;">
                     <input type="hidden" class="hdItemCuv" value="{{CUV}}" />
@@ -350,8 +350,9 @@
                 <div class="producto_img_mobile" data-img="" onclick="mostrarFichaProductoFAV('{{CUV}}');">
                     <img src="{{ImagenProductoSugerido}}" class="imagen_producto">
                 </div>
-                {{#if TieneOfertaEnRevista}}
-                <div class="etiqueta_guia_negocio">GUÍA DE NEGOCIO</div>
+                {{#if TieneOfertaEnRevista}}                    
+                    <div class="etiqueta_guia_negocio">GUÍA DE NEGOCIO</div> <!--ETIQUETA PARA ESIKA-->
+                     @*<div class="etiqueta_guia_negocio"><span>OFERTA</span> GUÍA DE NEGOCIO</div>*@ <!--ETIQUETA PARA LBEL-->
                 {{/if}}
                 {{#if item.TieneLanzamientoCatalogoPersonalizado}}
                 <div class="etiqueta_producto nuevofavorito">
@@ -372,7 +373,7 @@
                         <span class="producto_precio_oferta"><b>{{Simbolo}} {{PrecioCatalogoString}}</b></span>
                         {{/if}}
                     </div>
-                    <div style="min-height:38px">
+                    <div>
                         {{#if TieneOfertaEnRevista}}
                         <div class="seguir_pedido enlace_popupCatalogoPersonalizado">
                             <a title="AQUÍ" class="pop-ofertarevista" onclick="mostrarFichaProductoFAV('{{CUV}}')" style="cursor: pointer;">¡MIRA LA OFERTA!</a>
@@ -391,7 +392,7 @@
                     <a class="boton_Agregalo_home btnAgregarOfertaProducto" data-btn-agregar-catalogopersonalizado=""> AGREGALO</a>*@
 
                     
-                    <div style="padding-top:9px; height: 15px;">
+                    @*<div style="padding-top:9px; height: 15px;">
                         {{#if TieneOfertaEnRevista}}
 
                         {{else}}
@@ -400,7 +401,7 @@
                             <div class="icono"></div>
                         </div>
                         {{/if}}
-                    </div>
+                    </div>*@
                 </div>
             </div>
         </div>

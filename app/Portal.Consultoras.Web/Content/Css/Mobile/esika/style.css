@@ -6195,8 +6195,8 @@ body {
 
     .contenedor_productos_liquidacion .content_item_home {
         width: 47%;
-        margin-left: 5px;
-        margin-right: 5px;
+        margin-left: 4px;
+        margin-right: 4px;
     }
 
 }
@@ -8804,9 +8804,11 @@ span.title-app-b {
 }
 .enlace_popupCatalogoPersonalizado {
     display: block;
-    width: 48%;
+    /*width: 48%;*/
     text-decoration: none;
-    margin-bottom: 6px;
+    margin-bottom: 9px;
+    background: none !important;
+    padding-left: 0 !important;
 }
 
 .texto_descripcionCatalogoPersonalizado {
@@ -10550,7 +10552,7 @@ a{
     height:70px;
     border-radius:100px;
     position:absolute;
-    right:0;
+    right:10px;
     top:10px;
     color:white;
     font-family:'Lato';
@@ -10744,4 +10746,13 @@ a{
     line-height:56px;
     margin-top:25px;
     margin-bottom:10px;
+}
+@media only screen and (max-width: 425px) {
+    .landing_cat .etiqueta_guia_negocio {
+        zoom: 65%;
+    }
+    .enlace_popupCatalogoPersonalizado{
+         margin-bottom: 29px;
+    }
+   
 }
