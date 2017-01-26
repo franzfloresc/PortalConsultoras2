@@ -32842,3 +32842,19 @@ h1#penmostreo .campana {
     z-index: 10;
     position: relative;
 }
+.etiqueta_guia_negocio{
+    background:#e81c36;
+    width:70px;
+    height:70px;
+    border-radius:100px;
+    position:absolute;
+    right:10px;
+    top:10px;
+    color:white;
+    font-family:'Lato';
+    font-size:11px;
+    letter-spacing:0.4px;
+    font-weight:700;
+    text-transform:uppercase;    
+    padding-top:18px;
+}

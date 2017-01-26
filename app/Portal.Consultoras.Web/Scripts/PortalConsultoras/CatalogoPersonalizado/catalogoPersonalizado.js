@@ -37,8 +37,8 @@ $(document).ready(function () {
         CargarCatalogoPersonalizado();
     });
     $(document).on('click', '.pop-ofertarevista', function () {
-        //var contenedor = $(this).parents('[data-item="catalogopersonalizado"]');
-        //ObtenerOfertaRevista(contenedor);
+        var contenedor = $(this).parents('[data-item="catalogopersonalizado"]');
+        ObtenerOfertaRevista(contenedor);
     });
     $(document).on('click', '.agregar-ofertarevista', function () {
         if (ReservadoOEnHorarioRestringido())
@@ -175,6 +175,7 @@ function ValidarCargaCatalogoPersonalizado() {
         },
         function () {
             DialogLoadingCerrar();
+            CargarFiltros();
             CargarCatalogoPersonalizado();
         });
 }
@@ -207,7 +208,6 @@ function processFilterCatalogoPersonalizado(type)
     $('#divCatalogoPersonalizado').show();
    
     //Categorias
-    debugger
     var values = "";
     $('#idcategory').find('input[type="checkbox"]:checked').each(function () {
         values += $(this).val() + ',';
@@ -461,7 +461,7 @@ function CargarCatalogoPersonalizado() {
                 //SB20-1197
 
                 if (tipoOrigen == 3) {
-                    $('#fav-home-total').text('Te mostramos ' + cantidadRegistros.toString() + ' de ' + data.totalRegistros + ' productos.');
+                    $('#fav-home-total').text('Te mostramos ' + /*cantidadRegistros.toString()*/ data.data.length + ' de ' + data.totalRegistros + ' productos.');
                 }
 
             }
@@ -1173,7 +1173,7 @@ function AjustarTonoTooltips(objcontenedor) {
 
 // PL20-1270
 function filterFAVDesktop() {
-
+    debugger
     $('.seleccion_filtro_fav').prop('disabled', true);
     $('.select_filtros_fav option:not(:selected)').prop('disabled', true);
 
@@ -1244,3 +1244,67 @@ function filterFAVDesktop() {
 }
 // PL20-1270
 
+//
+function CargarFiltros()
+{
+    jQuery.ajax({
+        type: 'POST',
+        url: urlCargarFiltros,
+        dataType: 'json',
+        contentType: 'application/json; charset=utf-8',
+        success: function (data) {
+            var datos = data.data;
+            if (datos.length != 0) {
+                $.each(datos, function (i) {
+                    var h = datos[i].Id;
+                    if (datos[i].Id == "1") {
+                        $('#filter-sorting').val(datos[i].Orden);
+                    }
+
+                    if (datos[i].Id == "2") {
+                        if (datos[i].Valor1 != null) {
+                            $('#div-filter-category').find('div[class*="seleccion_filtro_fav"]').each(function () {
+                                var valor = $(this).data('value');
+                                if (datos[i].Valor1.indexOf(valor) != -1)
+                                    $(this).toggleClass("seleccion_click_flitro");
+                            });
+                        }
+                    }
+
+                    if (datos[i].Id == "3") {
+                        if (datos[i].Valor1 != null) {
+                            $('#div-filter-brand').find('div[class*="seleccion_filtro_fav"]').each(function () {
+                                var valor = $(this).data('value');
+                                if (datos[i].Valor1.indexOf(valor) != -1)
+                                    $(this).toggleClass("seleccion_click_flitro");
+                            });
+                        }
+                    }
+
+                    if (datos[i].Id == "4") {
+                        var nRango = datos[i].Valor1 + ',' + datos[i].Valor2;
+                        $('.range-slider').jRange('setValue', nRango);
+                    }
+
+                    if (datos[i].Id == "5") {
+                        if (datos[i].Valor1 != null) {
+                            $('#div-filter-published').find('div[class*="seleccion_filtro_fav"]').each(function () {
+                                var valor = $(this).data('value');
+                                if (datos[i].Valor1.indexOf(valor) != -1)
+                                    $(this).toggleClass("seleccion_click_flitro");
+                            });
+                        }
+                    }                    
+                });
+                filterFAVDesktop();
+            }
+        },
+        error: function (err) {
+            console.log(err);
+        },
+        complete: function () {
+            DialogLoadingCerrar();
+            cargandoRegistros = false;
+        }
+    });
+}

@@ -1750,7 +1750,7 @@
     <div class="texto_filtros_fav"><span id="fav-home-total">Te mostramos 6 de 32 productos.</span><a class="btn_ver_todo_filtros" href="@Url.Action("Index", "CatalogoPersonalizado")">VER TODOS</a></div>
     <hr class="clear" />
     @*<div class="texto_descripcionCatalogoPersonalizado">Encuentra una selección de los productos que tus clientes de seguro te solicitarán</div>*@
-    <div class="">
+    <div class="" style="position:relative;">
         {{#each this as |item|}}
         <div class="contiene-productos" data-item="catalogopersonalizado">
             <div style="display: none;">
@@ -1774,6 +1774,11 @@
                 <img src="{{ImagenProductoSugerido}}" style="width: auto; height: 100%;" class="imagen_producto">
                 <a class="ver_detalle_carrusel" href="javascript:;" onclick="mostrarFichaProductoFAV2('{{CUV}}')">VER DETALLE</a>
             </div>
+            <!--ETIQUETA GUIA DE NEGOCIO -->
+            <div class="etiqueta_guia_negocio">GUÍA DE NEGOCIO</div> <!--ETIQUETA PARA ESIKA-->
+            @*<div class="etiqueta_guia_negocio"><span>OFERTA</span> GUÍA DE NEGOCIO</div>*@ <!--ETIQUETA PARA LBEL-->
+
+            <!--FIN-->
             {{#if item.TieneLanzamientoCatalogoPersonalizado}}
             <div class="etiqueta_producto nuevofavorito">
                 <img src="@Url.Content("~/Content/Images/producto_lanzamiento_CP.png")" alt="Etiqueta Producto" />
