@@ -22,7 +22,7 @@ using ParametroUneteBE = Portal.Consultoras.Web.HojaInscripcionBelcorpPais.Param
 using Pais = Portal.Consultoras.Common.Constantes.CodigosISOPais;
 using System.ServiceModel;
 using System.Web;
-
+using Microsoft.Ajax.Utilities;
 using ConsultoraBE = Portal.Consultoras.Web.HojaInscripcionBelcorpPais.ConsultoraBE;
 
 namespace Portal.Consultoras.Web.Controllers
@@ -405,8 +405,10 @@ namespace Portal.Consultoras.Web.Controllers
 
             if (fechaCreacion.HasValue)
             {
-                ts = newDate - (DateTime) oldDate;
-                diferenciaDias = ts.Days;
+                //ts = newDate - (DateTime) oldDate;
+
+                diferenciaDias = (newDate - oldDate.Value).TotalDays.ToInt();
+                ; //ts.Days;
             }
             else
             {
@@ -1286,6 +1288,256 @@ namespace Portal.Consultoras.Web.Controllers
             return View(new NivelesGeograficosModel { CodigoISO = Constantes.CodigosISOPais.CostaRica });
         }
 
+        public ActionResult ExportarExcelNivelGeograficos()
+        {
+            //ServiceUnete.ParametroUneteCollection lstSelect;
+            ServiceUnete.UbigeoCRCollection lstSelect;
+
+            using (var sv = new PortalServiceClient())
+            {
+                lstSelect = sv.ObtenerListaNivelesGeograficosCR(CodigoISO);//, EnumsTipoParametro.TipoNivelesRiesgo, 0);
+            }
+            List<NivelesGeograficosModel> items = new List<NivelesGeograficosModel>();
+            NivelesGeograficosModel objNivel;
+            foreach (var item in lstSelect)
+            {
+                objNivel = new NivelesGeograficosModel
+                {
+                    REG = item.REG,
+                    ZONA = item.ZONA,
+                    SECC = item.SECC,
+                    TERRITO = item.TERRITO,
+                    UBIGEO = item.UBIGEO,
+                    PROVINCIA = item.PROVINCIA,
+                    CANTON = item.CANTON,
+                    DISTRITO = item.DISTRITO,
+                    BARRIO_COLONIA_URBANIZACION_REFERENCIAS = item.BARRIO_COLONIA_URBANIZACION_REFERENCIAS,
+
+                };
+                items.Add(objNivel);
+            }
+            Dictionary<string, string> dic = new Dictionary<string, string>
+            {
+                {"REG", "REG"},
+                {"ZONA", "ZONA"},
+                {"SECC", "SECC"},
+                {"TERRITO", "TERRITO"},
+                {"UBIGEO", "UBIGEO"},
+                {"PROVINCIA", "PROVINCIA"},
+                {"CANTON", "CANTON"},
+                {"DISTRITO", "DISTRITO"},
+                {"BARRIO_COLONIA_URBANIZACION_REFERENCIAS", "BARRIO_COLONIA_URBANIZACION_REFERENCIAS"}
+            };
+            Util.ExportToExcel("ReporteNivelesGeograficos", items, dic);
+            return View();
+        }
+
+
+        [HttpPost]
+        public JsonResult ConsultarNivelesGeograficos(NivelesGeograficosModel model)
+        {
+            var grid = new BEGrid
+            {
+                PageSize = model.rows,
+                CurrentPage = model.page,
+                SortColumn = model.sidx,
+                SortOrder = model.sord
+            };
+
+            ServiceUnete.UbigeoCRCollection lstSelect;
+
+
+            using (var sv = new PortalServiceClient())
+            {
+                lstSelect = sv.ObtenerListaNivelesGeograficosCR(CodigoISO);
+            }
+
+            List<NivelesGeograficosModel> items = new List<NivelesGeograficosModel>();
+            NivelesGeograficosModel objNivel;
+            foreach (var item in lstSelect)
+            {
+                objNivel = new NivelesGeograficosModel
+                {
+                    // CodigoISO = item.CodigoISO,
+                    BARRIO_COLONIA_URBANIZACION_REFERENCIAS =
+                        item.BARRIO_COLONIA_URBANIZACION_REFERENCIAS,
+                    CANTON = item.CANTON,
+                    DISTRITO = item.DISTRITO,
+                    PROVINCIA = item.PROVINCIA,
+                    REG = item.REG,
+                    SECC = item.SECC,
+                    TERRITO = item.TERRITO,
+                    UBIGEO = item.UBIGEO,
+                    ZONA = item.ZONA
+                };
+
+                items.Add(objNivel);
+            }
+            ParametroUneteBE obj = new ParametroUneteBE();
+
+            #region Sort Section
+            if (model.sord == "asc")
+            {
+                #region ascendente
+                switch (model.sidx)
+                {
+                    case "DISTRITO":
+                        items = items.AsEnumerable<NivelesGeograficosModel>().ToList().OrderBy(x => x.DISTRITO).ToList();
+                        break;
+                    case "PROVINCIA":
+                        items = items.AsEnumerable<NivelesGeograficosModel>().ToList().OrderBy(x => x.PROVINCIA).ToList();
+                        break;
+                }
+                #endregion
+            }
+            else
+            {
+                #region descendente
+                switch (model.sidx)
+                {
+                    case "DISTRITO":
+                        items = items.AsEnumerable<NivelesGeograficosModel>().ToList().OrderByDescending(x => x.DISTRITO).ToList();
+                        break;
+                    case "PROVINCIA":
+                        items = items.AsEnumerable<NivelesGeograficosModel>().ToList().OrderByDescending(x => x.PROVINCIA).ToList();
+                        break;
+                }
+                #endregion
+            }
+            #endregion
+
+            items = items.AsEnumerable<NivelesGeograficosModel>().ToList().Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize).ToList();
+
+            var pag = Paginador(grid, lstSelect);
+
+            var data = new
+            {
+                total = pag.PageCount,
+                page = pag.CurrentPage,
+                records = pag.RecordCount,
+                rows = items.Select(i => new
+                {
+                    cell = new string[]
+                    {
+                        string.IsNullOrWhiteSpace(i.REG) ? string.Empty : i.REG.ToUpper(),//0
+                        string.IsNullOrWhiteSpace(i.ZONA) ? string.Empty : i.ZONA.ToUpper(),//1                    
+                        string.IsNullOrWhiteSpace(i.SECC) ? string.Empty : i.SECC.ToUpper(),//2                    
+                        string.IsNullOrWhiteSpace(i.TERRITO) ? string.Empty : i.TERRITO.ToUpper(),//3                    
+                        string.IsNullOrWhiteSpace(i.UBIGEO) ? string.Empty : i.UBIGEO.ToUpper(),//4                   
+                        string.IsNullOrWhiteSpace(i.PROVINCIA) ? string.Empty : i.PROVINCIA.ToUpper(),//5                    
+                        string.IsNullOrWhiteSpace(i.CANTON) ? string.Empty : i.CANTON.ToUpper(),//6                 
+                        string.IsNullOrWhiteSpace(i.DISTRITO) ? string.Empty : i.DISTRITO.ToUpper(),//7                    
+                        string.IsNullOrWhiteSpace(i.BARRIO_COLONIA_URBANIZACION_REFERENCIAS) ? string.Empty : i.BARRIO_COLONIA_URBANIZACION_REFERENCIAS.ToUpper()//8
+                        
+
+                    }
+                })
+            };
+
+            return Json(data, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public string NivelesGeograficosInsertar(HttpPostedFileBase uplArchivo, NivelesGeograficosModel model)
+        {
+            string message = string.Empty;
+            model.CodigoISO = Constantes.CodigosISOPais.CostaRica;
+            try
+            {
+                // valida que el archivo exista
+                if (uplArchivo == null)
+                {
+                    return message = "El archivo especificado no existe.";
+                }
+
+                // valida la extensión del archivo
+                if (!Util.isFileExtension(uplArchivo.FileName, Enumeradores.TypeDocExtension.Excel))
+                {
+                    return message = "El archivo especificado no es un documento de tipo MS-Excel.";
+                }
+
+
+                //Guarda el archivo en una ruta del servidor
+                string finalPath = string.Empty, httpPath = string.Empty;
+                string fileextension = Path.GetExtension(uplArchivo.FileName);
+
+                if (!fileextension.ToLower().Equals(".xlsx"))
+                {
+                    return message = "Sólo se permiten archivos MS-Excel versiones 2007-2012.";
+                }
+
+                string fileName = Guid.NewGuid().ToString();
+                string pathfaltante = Server.MapPath("~/Content/ArchivoNivelGeografico");
+                httpPath = Url.Content("~/Content/ArchivoNivelGeografico") + "/" + fileName;
+                if (!Directory.Exists(pathfaltante))
+                    Directory.CreateDirectory(pathfaltante);
+                finalPath = Path.Combine(pathfaltante, fileName + fileextension);
+                uplArchivo.SaveAs(finalPath);
+
+                bool IsCorrect = false;
+                NivelesGeograficosModel prod = new NivelesGeograficosModel();
+                IList<NivelesGeograficosModel> lista = Util.ReadXmlFile(finalPath, prod, false, ref IsCorrect);
+
+                //elimina el documento, una vez que haya sido procesado
+                System.IO.File.Delete(finalPath);
+
+                List<ServiceUnete.UbigeoCR> listaUbigeo = new List<UbigeoCR>();
+
+                if (IsCorrect && lista != null)
+                {
+                    foreach (var item in lista)
+                    {
+                        var parametro = new ServiceUnete.UbigeoCR()
+                        {
+                            REG = item.REG,
+                            ZONA = item.ZONA,
+                            SECC = item.SECC,
+                            TERRITO = item.TERRITO,
+                            UBIGEO = item.UBIGEO,
+                            PROVINCIA = item.PROVINCIA,
+                            CANTON = item.CANTON,
+                            DISTRITO = item.DISTRITO,
+                            BARRIO_COLONIA_URBANIZACION_REFERENCIAS = item.BARRIO_COLONIA_URBANIZACION_REFERENCIAS
+
+
+                        };
+
+                        listaUbigeo.Add(parametro);
+
+                    }
+                    if (listaUbigeo.Count > 0)
+                    {
+                        using (var sv = new PortalServiceClient())
+                        {
+                            sv.InsertarNivelesGeograficos(model.CodigoISO, listaUbigeo.ToArray());
+                        }
+                        return message = "Se realizo satisfactoriamente la carga de datos.";
+                    }
+                    else
+                    {
+                        return message = "No se Guardo ningun registro";
+                    }
+                }
+                else
+                {
+                    return message = "Ocurrió un problema al cargar el documento o tal vez se encuentra vacío.";
+                }
+            }
+            catch (FaultException ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                return message = "Verifique el formato del Documento, posiblemente no sea igual al de la Plantilla.";
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                return message = "Verifique el formato del Documento, posiblemente no sea igual al de la Plantilla.";
+            }
+        }
+        
+
+
+
         [HttpPost]
         public ActionResult RechazarPostulante(RechazoModel model)
         {
@@ -1382,6 +1634,8 @@ namespace Portal.Consultoras.Web.Controllers
                     Portal.Consultoras.Web.ServiceUnete.SolicitudPostulante solicitudPostulante =
                         sv.ObtenerSolicitudPostulante(CodigoISO, model.SolicitudPostulanteID);
 
+                  
+
                     Mapper.CreateMap<SolicitudPostulanteModel, Portal.Consultoras.Web.ServiceUnete.SolicitudPostulante>()
                         .ForMember(d => d.NumeroDocumento, o => o.Ignore())
                         .ForMember(d => d.PrimerNombre,
@@ -1428,6 +1682,12 @@ namespace Portal.Consultoras.Web.Controllers
                     Mapper.Map<SolicitudPostulanteModel, Portal.Consultoras.Web.ServiceUnete.SolicitudPostulante>(
                         model, solicitudPostulante);
 
+                    if (model.CodigoConsultoraRecomienda != null)
+                    {
+                        solicitudPostulante.CodigoConsultoraRecomienda =
+                                         String.Concat("0000000", model.CodigoConsultoraRecomienda).Substring(model.CodigoConsultoraRecomienda.Length);
+                        //model.CodigoConsultoraRecomienda.PadLeft(7, '0');
+                    }
                     //solicitudPostulante.NumeroDocumento =
                     //    AplicarFormatoNumeroDocumentoPorPais(CodigoISO, model.NumeroDocumento).ToUpper();
 
