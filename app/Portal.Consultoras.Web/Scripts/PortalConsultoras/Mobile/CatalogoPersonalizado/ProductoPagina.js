@@ -174,7 +174,7 @@ function ObtenerOfertaRevista2(item) {
             var settings = $.extend({}, response.data.dataPROL, obj);
             settings.productoRevista = response.data.producto;
             //TrackingJetloreView(cuv, $("#hdCampaniaCodigo").val())
-            console.log(settings);
+            //console.log(settings);
 
             if (response.data.dataPROL != 'undefined' && response.data.dataPROL != null) {
                 switch (settings.tipo_oferta) {

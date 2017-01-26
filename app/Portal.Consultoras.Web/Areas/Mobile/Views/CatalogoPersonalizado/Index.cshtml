@@ -351,11 +351,14 @@
                     <img src="{{ImagenProductoSugerido}}" class="imagen_producto">
                 </div>
                 {{#if TieneOfertaEnRevista}}                    
-                    {{#if PaisEsikizado}}
+                    @if (ViewBag.PaisEsika)
+                    {
                         <div class="etiqueta_guia_negocio">GUÍA DE NEGOCIO</div>
-                    {{else}}
+                    }
+                    else
+                    {
                         <div class="etiqueta_guia_negocio"><span>OFERTA</span> GUÍA DE NEGOCIO</div>
-                    {{/if}}
+                    }
                 {{/if}}
                 {{#if item.TieneLanzamientoCatalogoPersonalizado}}
                 <div class="etiqueta_producto nuevofavorito">
