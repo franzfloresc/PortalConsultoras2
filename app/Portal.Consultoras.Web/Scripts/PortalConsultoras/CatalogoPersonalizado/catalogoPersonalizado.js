@@ -37,8 +37,8 @@ $(document).ready(function () {
         CargarCatalogoPersonalizado();
     });
     $(document).on('click', '.pop-ofertarevista', function () {
-        var contenedor = $(this).parents('[data-item="catalogopersonalizado"]');
-        ObtenerOfertaRevista(contenedor);
+        //var contenedor = $(this).parents('[data-item="catalogopersonalizado"]');
+        //ObtenerOfertaRevista(contenedor);
     });
     $(document).on('click', '.agregar-ofertarevista', function () {
         if (ReservadoOEnHorarioRestringido())
@@ -50,6 +50,8 @@ $(document).ready(function () {
     $(document).on('click', '[data-close]', function () {
         $('[data-oferta]').attr("class", "").hide();
     });
+
+    CargarFiltros();
 
     if (tipoOrigen != '3') {
         if (typeof cargarItemsFAV != 'undefined') {
@@ -118,6 +120,8 @@ $(document).ready(function () {
         
     }
     // PL20-1270
+
+
 });
 
 
@@ -175,7 +179,6 @@ function ValidarCargaCatalogoPersonalizado() {
         },
         function () {
             DialogLoadingCerrar();
-            CargarFiltros();
             CargarCatalogoPersonalizado();
         });
 }
@@ -360,9 +363,9 @@ function CargarCatalogoPersonalizado() {
                 offsetRegistros = 0;
                 loadAdd = true;
             }
-            dataAjax = { cantidad: cantidadRegistros, offset: offsetRegistros, lstFilters: filters };
+            dataAjax = { cantidad: cantidadRegistros, offset: offsetRegistros, lstFilters: filters, tipoOrigen: 1 };
         }
-        else dataAjax = { cantidad: cantidadRegistros, offset: offsetRegistros };
+        else dataAjax = { cantidad: cantidadRegistros, offset: offsetRegistros, tipoOrigen: 1 };
         //SB20-1197
     }
 
@@ -1173,7 +1176,7 @@ function AjustarTonoTooltips(objcontenedor) {
 
 // PL20-1270
 function filterFAVDesktop() {
-    debugger
+    //debugger
     $('.seleccion_filtro_fav').prop('disabled', true);
     $('.select_filtros_fav option:not(:selected)').prop('disabled', true);
 
@@ -1244,7 +1247,7 @@ function filterFAVDesktop() {
 }
 // PL20-1270
 
-//
+// PL20-1270
 function CargarFiltros()
 {
     jQuery.ajax({
@@ -1255,6 +1258,7 @@ function CargarFiltros()
         success: function (data) {
             var datos = data.data;
             if (datos.length != 0) {
+
                 $.each(datos, function (i) {
                     var h = datos[i].Id;
                     if (datos[i].Id == "1") {
@@ -1281,10 +1285,16 @@ function CargarFiltros()
                         }
                     }
 
-                    if (datos[i].Id == "4") {
-                        var nRango = datos[i].Valor1 + ',' + datos[i].Valor2;
-                        $('.range-slider').jRange('setValue', nRango);
+                    if (tipoOrigen == 2) {
+                        // completar con el rango de mobile
                     }
+                    else {
+                        if (datos[i].Id == "4") {
+                            var nRango = datos[i].Valor1 + ',' + datos[i].Valor2;
+                            $('.range-slider').jRange('setValue', nRango);
+                        }
+                    }
+                    
 
                     if (datos[i].Id == "5") {
                         if (datos[i].Valor1 != null) {
@@ -1294,9 +1304,8 @@ function CargarFiltros()
                                     $(this).toggleClass("seleccion_click_flitro");
                             });
                         }
-                    }                    
+                    }                   
                 });
-                filterFAVDesktop();
             }
         },
         error: function (err) {

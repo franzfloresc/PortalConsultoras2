@@ -63,11 +63,11 @@ namespace Portal.Consultoras.Web.Controllers
             return ObtenerProductos(CantProFav);
         }
 
-        public JsonResult ObtenerProductosCatalogoPersonalizado(int cantidad, int offset, List<FiltroResultadoModel> lstFilters = null)
+        public JsonResult ObtenerProductosCatalogoPersonalizado(int cantidad, int offset, List<FiltroResultadoModel> lstFilters = null, int tipoOrigen = 0)
         {
             int limiteJetloreCatalogoPersonalizado = int.Parse(ConfigurationManager.AppSettings.Get("LimiteJetloreCatalogoPersonalizado"));
             cantidad = (offset + cantidad > limiteJetloreCatalogoPersonalizado) ? (limiteJetloreCatalogoPersonalizado - offset) : cantidad;
-            return ObtenerProductos(cantidad, offset, lstFilters);
+            return ObtenerProductos(cantidad, offset, lstFilters, tipoOrigen);
         }
 
         public JsonResult BorrarFiltros()
@@ -96,7 +96,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-        private JsonResult ObtenerProductos(int cantidad, int offset = 0, List<FiltroResultadoModel> lstFilters = null)
+        private JsonResult ObtenerProductos(int cantidad, int offset = 0, List<FiltroResultadoModel> lstFilters = null, int tipoOrigen = 0)
         {            
             if (userData.CatalogoPersonalizado != Constantes.TipoOfertaFinalCatalogoPersonalizado.Arp
                 && userData.CatalogoPersonalizado != Constantes.TipoOfertaFinalCatalogoPersonalizado.Jetlore)
@@ -116,8 +116,6 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 if (Session["ProductosCatalogoPersonalizado"] == null)
                 {
-                    string PaisesEsika = System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika").ToString(); //PL20-1239
-                    bool Esikizado = (PaisesEsika.Contains(userData.CodigoISO == null ? "" : userData.CodigoISO)) == true ? true : false; //PL20-1239
                     string paisesConPcm = ConfigurationManager.AppSettings.Get("PaisesConPcm");
                     int tipoProductoMostrar = paisesConPcm.Contains(userData.CodigoISO) ? 2 : 1;
 
@@ -234,8 +232,7 @@ namespace Portal.Consultoras.Web.Controllers
                                     CodigoIso = userData.CodigoISO,
                                     Relevancia = producto.Relevancia,
                                     CodigoCategoria = producto.CodigoCategoria,
-                                    CodigoMarca = producto.CodigoMarca,
-                                    PaisEsikizado = Esikizado //PL20-1239
+                                    CodigoMarca = producto.CodigoMarca
                                 });
 
                             }
@@ -260,6 +257,15 @@ namespace Portal.Consultoras.Web.Controllers
                 var precioMinimo = listaProductoModel.OrderBy(x => x.PrecioCatalogo).FirstOrDefault().PrecioCatalogoString;
                 var precioMaximo = listaProductoModel.OrderByDescending(x => x.PrecioCatalogo).FirstOrDefault().PrecioCatalogoString;
                 var totalRegistrosFilter = totalRegistros;
+
+                // PL20-1270
+                if (lstFilters == null && tipoOrigen == 1)
+                {
+                    if (Session["UserFiltersFAV"] != null)
+                    {
+                        lstFilters = (List<FiltroResultadoModel>)Session["UserFiltersFAV"] ?? new List<FiltroResultadoModel>();
+                    }
+                }
 
                 if (lstFilters != null)
                 {
