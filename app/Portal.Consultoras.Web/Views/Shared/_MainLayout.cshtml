@@ -1,4 +1,5 @@
 ﻿@using Portal.Consultoras.Common
+
 <!DOCTYPE html>
 <html lang="es" class="no-js">
 <head>
@@ -40,6 +41,7 @@
         var PaisesChatEMTELCO ='@(System.Configuration.ConfigurationManager.AppSettings["PaisesBelcorpChatEMTELCO"])';
         var FechaActual = '@(System.DateTime.Now.ToString("dd/MM/yyyy"))';
 
+        var urlLogDynamo = '@System.Configuration.ConfigurationManager.AppSettings["UrlLogDynamo"]';
         var userData = {
             'campana': '@ViewBag.CampaniaCodigo',
             'region': '@ViewBag.RegionAnalytics',

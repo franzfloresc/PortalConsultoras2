@@ -5552,8 +5552,8 @@ body{
 
     .contenedor_productos_liquidacion .content_item_home {
         width: 47%;
-        margin-left: 5px;
-        margin-right: 5px;
+        margin-left: 4px;
+        margin-right: 4px;
     }
 
 }
@@ -8479,9 +8479,11 @@ a{
 }
 .enlace_popupCatalogoPersonalizado {
     display: block;
-    width: 48%;
+    /*width: 48%;*/
     text-decoration: none;
-    margin-bottom: 6px;
+    margin-bottom: 9px;
+    background: none !important;
+    padding-left: 0 !important;
 }
 
 .texto_descripcionCatalogoPersonalizado {
@@ -9832,20 +9834,27 @@ span.icon-advertencia{
     position:relative;
 }
 .etiqueta_guia_negocio{
-    background:#613c87;
-    width:70px;
-    height:70px;
-    border-radius:100px;
-    position:absolute;
-    right:0;
-    top:10px;
-    color:white;
-    font-family:'Lato';
-    font-size:11px;
-    letter-spacing:0.4px;
-    font-weight:700;
-    text-transform:uppercase;    
-    padding-top:18px;
+    background: black;
+    width: 70px;
+    height: 70px;
+    border-radius: 100px;
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    color: white;
+    font-family: 'Lato';
+    font-size: 10px;
+    letter-spacing: 0.2px;
+    font-weight: 700;
+    text-transform: uppercase;
+    padding-top: 17px;
+    line-height: 12px;
+}
+.etiqueta_guia_negocio span{
+    display: block;
+    font-size: 13.9px;
+    font-weight: 700;
+    height: 14px;
 }
 .content_imagen_048{
     width: 100%;
@@ -10035,4 +10044,13 @@ span.icon-advertencia{
 .form-control{
     box-sizing:border-box;
     height:39px !important;
+    }
+@media only screen and (max-width: 425px) {
+    .landing_cat .etiqueta_guia_negocio {
+        zoom: 65%;
+    }
+    .enlace_popupCatalogoPersonalizado{
+         margin-bottom: 29px;
+    }
+   
 }

@@ -16,8 +16,6 @@ var cargandoRegistros = false;
 var loadAdd = true;
 var urlLoad = urlLoad || "";
 
-//PL20-1268
-var dataFichaProductoFAV = [];
 //PL20-1234
 var rangoPrecios = 0;
 //Mobile
@@ -53,9 +51,19 @@ $(document).ready(function () {
         $('[data-oferta]').attr("class", "").hide();
     });
 
+    CargarFiltros();
+
     if (tipoOrigen != '3') {
-        Inicializar();
+        if (typeof cargarItemsFAV != 'undefined') {
+            if (cargarItemsFAV) {
+                Inicializar();
+            }
+        }
+        else {
+            Inicializar();
+        }
     }
+
     $("#divmaquetaof48nivel").hide();
     $("[data-maq]").hide();
 
@@ -93,8 +101,6 @@ $(document).ready(function () {
                 
             //},
             ondragend: function (myvalue) {
-                console.log('dragend')
-                console.log(myvalue);
                 rangoPrecios = myvalue;
 
                 $(".slider-container").addClass("disabledbutton");
@@ -102,9 +108,6 @@ $(document).ready(function () {
 
             },
             onbarclicked: function (myvalue) {
-
-                console.log('clicked');
-                console.log(myvalue);
                 rangoPrecios = myvalue;
 
                 $(".slider-container").addClass("disabledbutton");
@@ -117,6 +120,8 @@ $(document).ready(function () {
         
     }
     // PL20-1270
+
+
 });
 
 
@@ -186,7 +191,6 @@ function MostrarNoHayProductos() {
 }
 
 //SB20-1197
-
 function processFilterCatalogoPersonalizado(type)
 {
     // reset values
@@ -207,7 +211,6 @@ function processFilterCatalogoPersonalizado(type)
     $('#divCatalogoPersonalizado').show();
    
     //Categorias
-    debugger
     var values = "";
     $('#idcategory').find('input[type="checkbox"]:checked').each(function () {
         values += $(this).val() + ',';
@@ -360,9 +363,9 @@ function CargarCatalogoPersonalizado() {
                 offsetRegistros = 0;
                 loadAdd = true;
             }
-            dataAjax = { cantidad: cantidadRegistros, offset: offsetRegistros, lstFilters: filters };
+            dataAjax = { cantidad: cantidadRegistros, offset: offsetRegistros, lstFilters: filters, tipoOrigen: 1 };
         }
-        else dataAjax = { cantidad: cantidadRegistros, offset: offsetRegistros };
+        else dataAjax = { cantidad: cantidadRegistros, offset: offsetRegistros, tipoOrigen: 1 };
         //SB20-1197
     }
 
@@ -461,7 +464,7 @@ function CargarCatalogoPersonalizado() {
                 //SB20-1197
 
                 if (tipoOrigen == 3) {
-                    $('#fav-home-total').text('Te mostramos ' + cantidadRegistros.toString() + ' de ' + data.totalRegistros + ' productos.');
+                    $('#fav-home-total').text('Te mostramos ' + /*cantidadRegistros.toString()*/ data.data.length + ' de ' + data.totalRegistros + ' productos.');
                 }
 
             }
@@ -571,6 +574,7 @@ function AgregarProductoCatalogoPersonalizado(item) {
     AgregarProducto('Insert', model, function () { $(divPadre).find(".product-add").show(); });
     //TrackingJetloreAdd(cantidad, $("#hdCampaniaCodigo").val(), cuv);    
 }
+
 function AgregarProducto(url, item, otraFunct) {
     DialogLoadingAbrir();
 
@@ -943,6 +947,7 @@ function DialogLoadingCerrar() {
         closeWaitingDialog();
     }
 }
+
 function DialogLoadingAbrir() {
     if (tipoOrigen == '2') {
         ShowLoading();
@@ -1098,19 +1103,6 @@ function mostrarFichaProductoFAV2(cuv) {
     });
 }
 
-function AjustarTonoTooltips(objcontenedor) {
-    var arrayObjTooltip = objcontenedor.find('.content_tonos_maquillaje .tooltip_tono');
-    var length = arrayObjTooltip.length;
-
-    //arrayObjTooltip.slice(0, cantidadTonosPorFila).css('top', length > cantidadTonosPorFila ? '30px' : '11px');
-
-    var index = cantidadTonosPorFila - 1;
-    while (index < length) {
-        arrayObjTooltip.eq(index).css('left', '-20px');
-        index += cantidadTonosPorFila;
-    }
-}
-
 function cambiarInfoFichaProductoFAV(tipo, cuv) {
     if (dataFichaProductoFAV != null && dataFichaProductoFAV.length > 0) {
 
@@ -1128,7 +1120,7 @@ function cambiarInfoFichaProductoFAV(tipo, cuv) {
         if (result != null && result.length > 0) {
             var obj = result[0];
             //console.log(obj);
-            var container = $('#PopFichaProductoNueva');
+            var container = $('#PrecioCatalogo');
             container.find('#fav_imagen_prod').attr('src', obj.ImagenProductoSugerido);
             container.find('#fav_nombre_prod').text(obj.Descripcion);
             container.find('#fav_descripcion_prod').text(obj.DescripcionComercial);
@@ -1142,7 +1134,7 @@ function cambiarInfoFichaProductoFAV(tipo, cuv) {
 
 function agregarCuvPedidoFichaProductoFAV(tipo) {
 
-    var container = $('#PopFichaProductoNueva').find('[data-item="catalogopersonalizado"]');
+    var container = $('#PrecioCatalogo').find('[data-item="catalogopersonalizado"]');
 
     if (typeof container != 'undefined') {
 
@@ -1169,9 +1161,22 @@ function agregarCuvPedidoFichaProductoFAV(tipo) {
     
 }
 
+function AjustarTonoTooltips(objcontenedor) {
+    var arrayObjTooltip = objcontenedor.find('.content_tonos_maquillaje .tooltip_tono');
+    var length = arrayObjTooltip.length;
+
+    //arrayObjTooltip.slice(0, cantidadTonosPorFila).css('top', length > cantidadTonosPorFila ? '30px' : '11px');
+
+    var index = cantidadTonosPorFila - 1;
+    while (index < length) {
+        arrayObjTooltip.eq(index).css('left', '-20px');
+        index += cantidadTonosPorFila;
+    }
+}
+
 // PL20-1270
 function filterFAVDesktop() {
-
+    //debugger
     $('.seleccion_filtro_fav').prop('disabled', true);
     $('.select_filtros_fav option:not(:selected)').prop('disabled', true);
 
@@ -1231,7 +1236,7 @@ function filterFAVDesktop() {
     }
     filters.push(f);
 
-    console.log(filters);
+    //console.log(filters);
 
     $('.seleccion_filtro_fav').prop('disabled', false);
     $('.select_filtros_fav option:not(:selected)').prop('disabled', false);
@@ -1241,3 +1246,74 @@ function filterFAVDesktop() {
     LinkCargarCatalogoToScroll();  
 }
 // PL20-1270
+
+// PL20-1270
+function CargarFiltros()
+{
+    jQuery.ajax({
+        type: 'POST',
+        url: urlCargarFiltros,
+        dataType: 'json',
+        contentType: 'application/json; charset=utf-8',
+        success: function (data) {
+            var datos = data.data;
+            if (datos.length != 0) {
+
+                $.each(datos, function (i) {
+                    var h = datos[i].Id;
+                    if (datos[i].Id == "1") {
+                        $('#filter-sorting').val(datos[i].Orden);
+                    }
+
+                    if (datos[i].Id == "2") {
+                        if (datos[i].Valor1 != null) {
+                            $('#div-filter-category').find('div[class*="seleccion_filtro_fav"]').each(function () {
+                                var valor = $(this).data('value');
+                                if (datos[i].Valor1.indexOf(valor) != -1)
+                                    $(this).toggleClass("seleccion_click_flitro");
+                            });
+                        }
+                    }
+
+                    if (datos[i].Id == "3") {
+                        if (datos[i].Valor1 != null) {
+                            $('#div-filter-brand').find('div[class*="seleccion_filtro_fav"]').each(function () {
+                                var valor = $(this).data('value');
+                                if (datos[i].Valor1.indexOf(valor) != -1)
+                                    $(this).toggleClass("seleccion_click_flitro");
+                            });
+                        }
+                    }
+
+                    if (tipoOrigen == 2) {
+                        // completar con el rango de mobile
+                    }
+                    else {
+                        if (datos[i].Id == "4") {
+                            var nRango = datos[i].Valor1 + ',' + datos[i].Valor2;
+                            $('.range-slider').jRange('setValue', nRango);
+                        }
+                    }
+                    
+
+                    if (datos[i].Id == "5") {
+                        if (datos[i].Valor1 != null) {
+                            $('#div-filter-published').find('div[class*="seleccion_filtro_fav"]').each(function () {
+                                var valor = $(this).data('value');
+                                if (datos[i].Valor1.indexOf(valor) != -1)
+                                    $(this).toggleClass("seleccion_click_flitro");
+                            });
+                        }
+                    }                   
+                });
+            }
+        },
+        error: function (err) {
+            console.log(err);
+        },
+        complete: function () {
+            DialogLoadingCerrar();
+            cargandoRegistros = false;
+        }
+    });
+}

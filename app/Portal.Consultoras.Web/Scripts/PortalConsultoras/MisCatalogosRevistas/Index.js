@@ -144,7 +144,16 @@ $(document).ready(function () {
 });
 
 function InsertarLogCatalogoDynamo(opcionAccion, campaniaCatalogo, marca, cantidad) {
-    InsertarLogDymnamo('Catalogo-Compartir', opcionAccion, false, { 'CampaniaCatalogo': campaniaCatalogo, 'Marca': marca, 'Cantidad': cantidad });
+    InsertarLogDymnamo(
+        'Catalogo-Compartir',
+        opcionAccion,
+        false,
+        [
+            {'key': 'CampaniaCatalogo', 'value': campaniaCatalogo },
+            {'key': 'Marca', 'value': marca },
+            {'key': 'Cantidad', 'value': cantidad }
+        ]
+    );
 }
 
 function ObtenerURLExpofertas() {
