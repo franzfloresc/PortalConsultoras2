@@ -340,7 +340,7 @@
                         <input type="text" id="txtTextoLibre" maxlength="100" style="width: 360px;" />
                     </div>
                 </div>
-                <div class="div-3">
+                <div class="div-3 OfertaUltimoMinuto">
                     <div class="titH">Oferta de Último Minuto</div>
                     <div class="selectCheck borde_redondeado">
                         <input type="checkbox" class="check" id="chkOfertaUltimoMinuto" style="margin-top: 2px; margin-left: 15px;" />
@@ -676,12 +676,6 @@
             }
             else if (aux1 == "4" || aux1 == "5") {
 
-                //$("#ddlEtiqueta1").children('option').hide();
-                //$("#ddlEtiqueta1").children("option[data-id='1']").show();
-
-                //$("#ddlEtiqueta2").children('option').hide();
-                //$("#ddlEtiqueta2").children("option[data-id='3']").show();
-
                 $("#hdnEtiqueta1").val('1');
                 $("#hdnEtiqueta2").val('3');
 
@@ -694,6 +688,10 @@
                 $("#hdnEtiqueta1").val('5');
                 $("#hdnEtiqueta2").val('5');
             }
+
+            if (aux1 == "6") {
+                $('.OfertaUltimoMinuto').hide();
+            } else { $('.OfertaUltimoMinuto').show(); }
 
             if (aux1 == "7") {
                 $('.Recomendados').hide();
@@ -757,12 +755,6 @@
                 }
             });
 
-            //for (var i = 0; i < estrategiasSelecionadas.length; i++) {
-            //    var data = $('#list').jqGrid('getRowData', estrategiasSelecionadas[i]);
-            //    debugger;
-            //    estrategiasActivas += (data.EstrategiaID + ",");
-            //    //batch.push(data);
-            //}
         });
         $("#ddlTipoEstrategia").change(function () {
             var aux1 = $('#ddlTipoEstrategia').find(':selected').data('id');
@@ -1824,7 +1816,7 @@
             rowList: [10, 20, 30, 40, 50],
             sortname: 'Orden',
             sortorder: 'asc',
-            viewrecords: true,            
+            viewrecords: true,
             height: 'auto',
             width: 930,
             pgtext: 'Pág: {0} de {1}',
@@ -1835,15 +1827,14 @@
                     for (var i = 0; i < data.rows.length; i++) {
                         if (data.rows[i].cell[10] == '1') {
                             $("#list").jqGrid('setSelection', data.rows[i].id, true);
-
                         }
                     }
                 }
-            },
-            gridComplete: function () { }
+            }
+            //gridComplete: function () { }
         });
         jQuery("#list").jqGrid('navGrid', "#pager", { edit: false, add: false, refresh: false, del: false, search: false });
-        jQuery("#list").setGridParam({ datatype: 'json', page: 1 }).trigger('reloadGrid');
+        //jQuery("#list").setGridParam({ datatype: 'json', page: 1 }).trigger('reloadGrid');
         // allRowsInGrid = $('#list').getGridParam('data');
         //  $("#list").jqGrid('hideCol', ["NumeroPedido"]); /*R20160301*/
     }
@@ -2261,26 +2252,14 @@
                         alert(m);
                         return false;
                     }
-                    //}
-                    //if ($.trim($("#txtCUV2").val()) == "") {
-                    //    alert("Debe ingresar un valor para el CUV2.");
-                    //    return false;
-                    //}
-                    //if ($("#chkVisible4").attr("checked")) {
-                    //if ($.trim($("#txtTextoLibre").val()) == "") {
-                    //    alert("Ingrese un valor de texto libre");
-                    //    return false;
-                    //}
-                    //}
-                    //if ($("#chkVisible5").attr("checked")) {
+                   
                     if ($("#idEstrella").css("display") == "block") {
                         if (!$("#chkEstrella").attr("checked")) {
                             alert("Debe activar el la opción para mostrar estrella en la zona de producto.  ");
                             return false;
                         }
                     }
-                    //} else $("#hdColorFondo").val("");
-
+                    
                     if ($('.chk-estrategia-imagen:checked').length == 0) {
                         alert("Seleccione una imagen a mostrar.");
                         return false;
@@ -2385,7 +2364,8 @@
                                 alert(data.message);
                                 $("#ddlTipoEstrategia").val($("#hdEstrategiaIDConsulta").val());
                                 HideDialog("DialogAdministracionEstrategia");
-                                fnGrilla();
+                                //fnGrilla(); Observación.
+                                $("#list").jqGrid("clearGridData", true).trigger("reloadGrid");
                             } else {
                                 alert(data.message);
                             }
@@ -2769,6 +2749,10 @@
                             $("#ddlEtiqueta1").children('option').show();
                             $("#ddlEtiqueta2").children('option').show();
                         }
+
+                        if (aux1 == "6") {
+                            $('.OfertaUltimoMinuto').hide();
+                        } else { $('.OfertaUltimoMinuto').show(); }
 
                         if (aux1 == "7") {
                             $('.Recomendados').hide();
