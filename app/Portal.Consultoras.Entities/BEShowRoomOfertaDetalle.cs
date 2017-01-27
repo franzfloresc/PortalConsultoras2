@@ -59,6 +59,9 @@ namespace Portal.Consultoras.Entities
         [ViewProperty]
         public DateTime FechaModificacion { get; set; }
 
+        [DataMember]
+        public int Posicion { get; set; }
+
         public BEShowRoomOfertaDetalle(IDataRecord row)
         {
             if (DataRecord.HasColumn(row, "OfertaShowRoomDetalleID") && row["OfertaShowRoomDetalleID"] != DBNull.Value)
@@ -69,6 +72,8 @@ namespace Portal.Consultoras.Entities
                 CUV = Convert.ToString(row["CUV"]);
             if (DataRecord.HasColumn(row, "NombreSet") && row["NombreSet"] != DBNull.Value)
                 NombreSet = Convert.ToString(row["NombreSet"]);
+            if (DataRecord.HasColumn(row, "Posicion") && row["Posicion"] != DBNull.Value)
+                Posicion = Convert.ToInt32(row["Posicion"]);
             if (DataRecord.HasColumn(row, "NombreProducto") && row["NombreProducto"] != DBNull.Value)
                 NombreProducto = Convert.ToString(row["NombreProducto"]);
             if (DataRecord.HasColumn(row, "Descripcion1") && row["Descripcion1"] != DBNull.Value)
