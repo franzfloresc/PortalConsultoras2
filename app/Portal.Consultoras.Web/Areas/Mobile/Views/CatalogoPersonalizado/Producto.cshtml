@@ -7,12 +7,12 @@
     <a href="@Request.UrlReferrer" class="enlace_regresar catalogosP" title="Regresar"></a>
     &nbsp;&nbsp;&nbsp;&nbsp;FAVORITOS DE TUS CLIENTES
 </div>
-<div class="fondo_f2f2f2" style="border-bottom:0">
-    <div class="pestana_esika"></div><!--PESTANA ESIKA-->
-    <div class="pestana_lbel mobileLiquidaciones"></div><!--PESTANA LBEL-->
 
-    @if (Model.TieneOfertaEnRevista)
-    {
+@if (Model.TieneOfertaEnRevista)
+{
+    <div class="fondo_f2f2f2" style="border-bottom:0">
+        <div class="pestana_esika"></div><!--PESTANA ESIKA-->
+        <div class="pestana_lbel mobileLiquidaciones"></div><!--PESTANA LBEL-->
         <ul class="tabs_pagos" data-tab="tab" style="margin-bottom:0">
             <li class="one">
                 <a href="#" id="VerGuiaNegocio">
@@ -29,218 +29,39 @@
 
             <hr id="barCursor">
         </ul>
-    }
 
-    <hr class="clear" />
-</div>
+        <hr class="clear" />
+    </div>
+}
+else
+{
+    <div class="">
+        <div class="pestana_esika"></div><!--PESTANA ESIKA-->
+        <div class="pestana_lbel mobileLiquidaciones"></div><!--PESTANA LBEL-->
+    </div>
+}
+
 
 <div id="GuiaNegocio" style="display: none;">
     <!--FICHA 003A-->
     <div id="Ficha_003A" style="display: none;">
-        @*<div class="content_oferta_guia_negocio">
-            <div class="content_imagen_048">
-                <img src="https://s3-sa-east-1.amazonaws.com/appcatalogo/CL/201702/E/productos/CL_200078945.jpg" class="imagen_producto">
-                <div class="etiqueta_guia_negocio">GUÍA DE NEGOCIO</div>
-            </div>
-            <div class="marca_oferta048">Esika</div>
-            <div class="nombre_producto_048">Dorsay 100ml</div>
-            <div class="precio_tachado_048">$49.900</div>
-            <div class="precio_para_ti_048">Precio para ti <b>$ 29.900</b></div>
-            <div class="gana_048" style="margin-bottom:0">Gana $ 10.000</div>
-            <hr class="clear" />            
-            <div style="overflow:hidden; margin-bottom:100px;">
-                <div class="texto_comparte">Comparte este producto con tus clientes</div>
-                <a id="btn_wsp" class="btn_compartir_ofertas" href="#"><img src="/Content/Images/Mobile/Esika/catalogo_ws.png" alt=""></a>
-                <a id="btn_fb" class="btn_compartir_ofertas" href="#"> <img src="/Content/Images/Mobile/Esika/facebook.png" alt=""></a>
-            </div>
-        </div>
-        <div class="content_btn_agregar">
-            <div class="content_agregar_048">
-                <div class="content_cantidad_ficha_producto">
-                    <a class="cantidad_menos_home"><img src="/Content/Images/Mobile/Esika/menos.png" alt=""></a>
-                    <input type="tel" value="1" size="2" maxlength="2" id="txtCantidad" class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" data-input="cantidad">
-                    <a class="cantidad_mas_home"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
-                </div>
-                <a class="btn_agregar_ficha_producto" href="#">AGRÉGALO</a>                
-                <hr class="clear" />
-            </div>
-        </div>*@
+        
     </div>
     <!--FIN-->
-
     <!--FICHA 048B-->
-    <div class="content_oferta_guia_negocio" style="display: none;">
-        <div class="content_imagen_048">
-            <img src="https://s3-sa-east-1.amazonaws.com/appcatalogo/CL/201702/E/productos/CL_200078945.jpg" class="imagen_producto">
-            <div class="etiqueta_guia_negocio">GUÍA DE NEGOCIO</div>
-        </div>
-        <div class="marca_oferta048">Esika</div>
-        <div class="nombre_producto_048">Dorsay 100ml</div>
-        <div class="precio_tachado_048">$49.900</div>
-        <div class="precio_para_ti_048">Precio para ti <b>$ 29.900</b></div>
-        <div class="gana_048">Gana $ 10.000</div>
-        <hr class="clear" />
-        <div style="margin-bottom:30px; margin-top:5px;">
-            <div class="content_cantidad_ficha_producto" style="width:52%;">
-                <a class="cantidad_menos_home"><img src="/Content/Images/Mobile/Esika/menos.png" alt=""></a>
-                <input type="tel" value="1" size="2" maxlength="2" id="txtCantidad" class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" data-input="cantidad">
-                <a class="cantidad_mas_home"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
-            </div>
-            <a class="btn_agregar_ficha_048"> AGREGALO</a>
-            <hr class="clear" />
-        </div>                
-        <div class="texto_detalle_048">Cómpralo por pack y gana más</div>
-        <!--PACK-->
-        <div class="content_detalle_048">
-            <div class="titulo_pack_detalle">PACK GANANCIA</div>
-            <div class="linea_separadora_black flecha_048"></div>
-            <div class="precio_para_ti_048">Precio para ti <b>$ 29.900</b></div>
-            <div class="gana_048">Gana $ 10.000</div>
-            <div class="content_unidad_producto">
-                <!--DEFINIR DENTRO DE ESTE DIV LA CANTIDAD DE PRODUCTO -->
-                <div class="content_pack_048">
-                    <div class="imagen_pack_048"><img src="https://s3-sa-east-1.amazonaws.com/appcatalogo/CL/201702/E/productos/CL_200078945.jpg" class="imagen_producto"></div>
-                    <div class="nombre_producto_pack_048">2 Pulso 100ml</div>
-                </div>
-                <div class="content_pack_048">
-                    <div class="imagen_pack_048"><img src="https://s3-sa-east-1.amazonaws.com/appcatalogo/CL/201702/E/productos/CL_200078945.jpg" class="imagen_producto"></div>
-                    <div class="nombre_producto_pack_048">2 Pulso 100ml 2 Pulso 100ml 2 Pulso 100ml 2 Pulso 2 Pulso 100ml 2 Pulso 100ml</div>
-                </div>
-            </div>                      
-            <div style="margin-top:20px;">
-                <div class="content_cantidad_ficha_producto" style="width:52%;">
-                    <a class="cantidad_menos_home"><img src="/Content/Images/Mobile/Esika/menos.png" alt=""></a>
-                    <input type="tel" value="1" size="2" maxlength="2" id="txtCantidad" class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" data-input="cantidad">
-                    <a class="cantidad_mas_home"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
-                </div>
-                <a class="btn_agregar_ficha_048"> AGREGALO</a>
-                <hr class="clear" />
-            </div>
-        </div>
-        <!--FIN-->
-        <!--PACK-->
-        <div class="content_detalle_048">
-            <div class="titulo_pack_detalle">PACK MÁXIMA GANANCIA</div>
-            <div class="linea_separadora_black flecha_048"></div>
-            <div class="precio_para_ti_048">Precio para ti <b>$ 29.900</b></div>
-            <div class="gana_048">Gana $ 10.000</div>
-            <div>
-                <div class="content_pack_048">
-                    <div class="imagen_pack_048"><img src="https://s3-sa-east-1.amazonaws.com/appcatalogo/CL/201702/E/productos/CL_200078945.jpg" class="imagen_producto"></div>
-                    <div class="nombre_producto_pack_048">2 Pulso 100ml</div>
-                </div>
-                <div class="content_pack_048">
-                    <div class="imagen_pack_048"><img src="https://s3-sa-east-1.amazonaws.com/appcatalogo/CL/201702/E/productos/CL_200078945.jpg" class="imagen_producto"></div>
-                    <div class="nombre_producto_pack_048">2 Pulso 100ml 2 Pulso 100ml</div>
-                </div>
-                <div class="content_pack_048">
-                    <div class="imagen_pack_048"><img src="https://s3-sa-east-1.amazonaws.com/appcatalogo/CL/201702/E/productos/CL_200078945.jpg" class="imagen_producto"></div>
-                    <div class="nombre_producto_pack_048">2 Pulso 100ml 2 Pulso 100ml</div>
-                </div>
-            </div>
-            <div style="margin-top:20px;">
-                <div class="content_cantidad_ficha_producto" style="width:52%;">
-                    <a class="cantidad_menos_home"><img src="/Content/Images/Mobile/Esika/menos.png" alt=""></a>
-                    <input type="tel" value="1" size="2" maxlength="2" id="txtCantidad" class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" data-input="cantidad">
-                    <a class="cantidad_mas_home"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
-                </div>
-                <a class="btn_agregar_ficha_048"> AGREGALO</a>
-                <hr class="clear" />
-            </div>
-        </div>
-        <!--FIN-->
-        <div>
-            <div class="texto_comparte">Comparte este producto con tus clientes</div>
-            <a id="btn_wsp" class="btn_compartir_ofertas" href="#"><img src="/Content/Images/Mobile/Esika/catalogo_ws.png" alt=""></a>
-            <a id="btn_fb" class="btn_compartir_ofertas" href="#"> <img src="/Content/Images/Mobile/Esika/facebook.png" alt=""></a>
-            
-        </div>
-        <hr class="clear" />
-        <br/>
+    <div id="Ficha_048B" class="content_oferta_guia_negocio" style="display: none;">
     </div>
-    <!--FIN-->
 
-    <!--FICHA 048A-->
     <div id="Ficha_048A" style="display:none;">
-        <div class="content_oferta_guia_negocio">
-            <div class="content_imagen_048">
-                <img src="https://s3-sa-east-1.amazonaws.com/appcatalogo/CL/201702/E/productos/CL_200078945.jpg" class="imagen_producto">
-                <div class="etiqueta_guia_negocio">GUÍA DE NEGOCIO</div>
-            </div>
-            <div class="marca_oferta048">Esika</div>
-            <div class="nombre_producto_048">Dorsay 100ml</div>
-            <div class="precio_tachado_048">$49.900</div>
-            <div class="precio_para_ti_048">Precio para ti <b>$ 29.900</b></div>
-            <div class="gana_048">Gana $ 10.000</div>
-            <hr class="clear" />
-            <div class="texto_detalle_048">CÓMPRALO POR CANTIDAD<br />Y OBTÉN MAS GANANCIAs</div>
-            <!--PACK-->
-            <div class="content_detalle_048">
-                <div class="detalle_Cantidad_pack">Compra <b>2</b> Dorsay 100 ml</div>
-                <div class="precio_para_ti_048">Precio para ti <b>$ 29.900</b></div>
-                <div class="gana_048">Gana $ 10.000</div>
-                <div class="linea_separadora_black flecha_048"></div>
-                <div class="recibe_gratis">RECIBE GRATIS:</div>
-                <div class="content_unidad_producto">
-                    <!--DEFINIR DENTRO DE ESTE DIV LA CANTIDAD DE PRODUCTO -->
-                    <div class="content_pack_048">
-                        <div class="imagen_pack_048"><img src="https://s3-sa-east-1.amazonaws.com/appcatalogo/CL/201702/E/productos/CL_200078945.jpg" class="imagen_producto"></div>
-                        <div class="nombre_producto_pack_048">2 Pulso 100ml</div>
-                    </div>
-                </div>
-            </div>
-            <!--FIN-->
-            <!--PACK-->
-            <div class="content_detalle_048">
-                <div class="detalle_Cantidad_pack">Compra <b>4</b> Dorsay 100 ml</div>
-                <div class="precio_para_ti_048">Precio para ti <b>$ 29.900</b></div>
-                <div class="gana_048">Gana $ 10.000</div>
-                <div class="linea_separadora_black flecha_048"></div>
-                <div class="recibe_gratis">RECIBE GRATIS:</div>
-                <div class="content_unidad_producto">
-                    <!--DEFINIR DENTRO DE ESTE DIV LA CANTIDAD DE PRODUCTO -->
-                    <div class="content_pack_048">
-                        <div class="imagen_pack_048"><img src="https://s3-sa-east-1.amazonaws.com/appcatalogo/CL/201702/E/productos/CL_200078945.jpg" class="imagen_producto"></div>
-                        <div class="nombre_producto_pack_048">2 Pulso 100ml</div>
-                    </div>
-                    <div class="content_pack_048">
-                        <div class="imagen_pack_048"><img src="https://s3-sa-east-1.amazonaws.com/appcatalogo/CL/201702/E/productos/CL_200078945.jpg" class="imagen_producto"></div>
-                        <div class="nombre_producto_pack_048">2 Pulso 100ml</div>
-                    </div>
-                    <div class="content_pack_048">
-                        <div class="imagen_pack_048"><img src="https://s3-sa-east-1.amazonaws.com/appcatalogo/CL/201702/E/productos/CL_200078945.jpg" class="imagen_producto"></div>
-                        <div class="nombre_producto_pack_048">2 Pulso 100ml</div>
-                    </div>
-                </div>
-            </div>
-            <!--FIN-->
-            <div style="overflow:hidden; margin-bottom:100px;">
-                <div class="texto_comparte">Comparte este producto con tus clientes</div>
-                <a id="btn_wsp" class="btn_compartir_ofertas" href="#"><img src="/Content/Images/Mobile/Esika/catalogo_ws.png" alt=""></a>
-                <a id="btn_fb" class="btn_compartir_ofertas" href="#"> <img src="/Content/Images/Mobile/Esika/facebook.png" alt=""></a>
-            </div> 
-        </div>
-        <div class="content_btn_agregar">
-            <div class="content_agregar_048">
-                <div class="content_cantidad_ficha_producto">
-                    <a class="cantidad_menos_home"><img src="/Content/Images/Mobile/Esika/menos.png" alt=""></a>
-                    <input type="tel" value="1" size="2" maxlength="2" id="txtCantidad" class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" data-input="cantidad">
-                    <a class="cantidad_mas_home"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
-                </div>
-                <a class="btn_agregar_ficha_producto" href="#">AGRÉGALO</a>
-                <hr class="clear" />
-            </div>
-        </div>
-    </div>   
+        
+    </div>
     <!--FIN-->
 </div>
 <!--POP UP GUIA NEGOCIO-->
 
 <div id="PrecioCatalogo" style="display:none;">
     <div class="wrapper_resumen_mobile" style="padding-bottom:96px;">
-
         <div data-item="catalogopersonalizado">
-
             <input type="hidden" id="hdCuvFichaProductoFAV" value="@Model.CUV" />
             <input type="hidden" id="hdCuvFichaProductoFAVSelect" />
 
@@ -276,27 +97,23 @@
 
             <div>
                 <div class="content_tonos_producto">
-
-                @if (Model.Hermanos != null)
-                {
-                    foreach (var item in Model.Hermanos)
+                    @if (Model.Hermanos != null)
                     {
-                        <div id="fav_tono_@Model.CUV" class="content_tono_detalle" onclick="cambiarInfoFichaProductoFAV(1,'@item.CUV')">
-                            <img src="@item.ImagenBulk" alt="@item.NombreBulk" />
-                            @*<div class="content_mascara_maquillaje">
-                                    <img src="https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/HfQTTPvWfVXwt3R/textura_labial.png" alt="PRODUCTO" />
-                                </div>*@
-                        </div>
-                    }
-                     
-                    <hr class="clear" />
-                    <select id="fav_tonobulk_@Model.CUV" class="tono_labial_select" onchange="cambiarInfoFichaProductoFAV(2)">
-                        @foreach (var item in Model.Hermanos)
+                        foreach (var item in Model.Hermanos)
                         {
-                            <option value="@item.CUV">@item.NombreBulk</option>
+                            <div id="fav_tono_@Model.CUV" class="content_tono_detalle" onclick="cambiarInfoFichaProductoFAV(1,'@item.CUV')">
+                                <img src="@item.ImagenBulk" alt="@item.NombreBulk" />
+                            </div>
                         }
-                    </select>
-                }
+
+                        <hr class="clear" />
+                        <select id="fav_tonobulk_@Model.CUV" class="tono_labial_select" onchange="cambiarInfoFichaProductoFAV(2)">
+                            @foreach (var item in Model.Hermanos)
+                            {
+                                <option value="@item.CUV">@item.NombreBulk</option>
+                            }
+                        </select>
+                    }
                 </div>
             </div>
 
@@ -334,7 +151,7 @@
                             <input type="tel" value="1" size="2" maxlength="2" id="txtCantidad" class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" data-input="cantidad">
                             <a class=" cantidad_mas_home"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
                         </div>
-                        <a class="btn_agregar_ficha_producto" onclick="agregarCuvPedidoFichaProductoFAV(2)" style="cursor: pointer;">AGRÉGALO</a>
+                        <a class="btn_agregar_ficha_producto" onclick="agregarCuvPedidoFichaProductoFAV(2)">AGRÉGALO</a>
                         <hr class="clear" />
                     </div>
                 </div>
@@ -379,35 +196,303 @@
 <!--FIN-->
 
 <script id="template-oferta003" type="text/x-handlebars-template">
-    <div class="content_oferta_guia_negocio">
-        <div class="content_imagen_048">
-            <img src="{{UrlImagen}}" class="imagen_producto">
-            <div class="etiqueta_guia_negocio">GUÍA DE NEGOCIO</div>
+    <div data-oferta-popup="">
+
+        <div style="display:none;" id="hiddenCatalogo">
+            <input type="hidden" class="hdItemCuv" value="{{CUV}}" />
+            <input type="hidden" class="hdItemTipoOfertaSisID" value="{{TipoOfertaSisID}}" />
+            <input type="hidden" class="hdItemConfiguracionOfertaID" value="{{ConfiguracionOfertaID}}" />
+            <input type="hidden" class="hdItemIndicadorMontoMinimo" value="{{IndicadorMontoMinimo}}" />
+            <input type="hidden" class="hdItemTipo" value="1" />
+            <input type="hidden" class="hdItemMarcaID" value="{{MarcaID}}" />
+            <input type="hidden" class="hdItemPrecioUnidad" value="{{PrecioCatalogo}}" />
+            <input type="hidden" class="hdItemDescripcionProd" value="{{Descripcion}}" />
+            <input type="hidden" class="hdItemPagina" value="0" />
+            <input type="hidden" class="hdItemDescripcionCategoria" value="{{DescripcionCategoria}}" />
+            <input type="hidden" class="hdItemDescripcionMarca" value="{{DescripcionMarca}}" />
+            <input type="hidden" class="hdItemDescripcionEstrategia" value="{{DescripcionEstrategia}}" />
+            <input type="hidden" class="OrigenPedidoWeb" value="@Portal.Consultoras.Common.Constantes.OrigenPedidoWeb.MobileCatalogoPersonalizadoPopUp" />
         </div>
-        <div class="marca_oferta048">{{DescripcionMarca}}</div>
-        <div class="nombre_producto_048">{{Volumen}}</div>
-        <div class="precio_tachado_048">@ViewBag.Simbolo {{precio_catalogo}}</div>
-        <div class="precio_para_ti_048">Precio para ti <b>@ViewBag.Simbolo {{precio_revista}}</b></div>
-        <div class="gana_048" style="margin-bottom:0">{{TxtGanancia}} @ViewBag.Simbolo {{ganancia}}</div>
+        <div style="display:none;" id="hiddenRevista">
+            <input type="hidden" class="hdItemCuv" value="{{productoRevista.CUV}}" />
+            <input type="hidden" class="hdItemTipoOfertaSisID" value="{{productoRevista.TipoOfertaSisID}}" />
+            <input type="hidden" class="hdItemConfiguracionOfertaID" value="{{productoRevista.ConfiguracionOfertaID}}" />
+            <input type="hidden" class="hdItemIndicadorMontoMinimo" value="{{productoRevista.IndicadorMontoMinimo}}" />
+            <input type="hidden" class="hdItemTipo" value="1" />
+            <input type="hidden" class="hdItemMarcaID" value="{{productoRevista.MarcaID}}" />
+            <input type="hidden" class="hdItemPrecioUnidad" value="{{productoRevista.PrecioCatalogo}}" />
+            <input type="hidden" class="hdItemDescripcionProd" value="{{productoRevista.Descripcion}}" />
+            <input type="hidden" class="hdItemPagina" value="0" />
+            <input type="hidden" class="hdItemDescripcionCategoria" value="{{productoRevista.DescripcionCategoria}}" />
+            <input type="hidden" class="hdItemDescripcionMarca" value="{{productoRevista.DescripcionMarca}}" />
+            <input type="hidden" class="hdItemDescripcionEstrategia" value="{{productoRevista.DescripcionEstrategia}}" />
+            <input type="hidden" class="OrigenPedidoWeb" value="@Portal.Consultoras.Common.Constantes.OrigenPedidoWeb.MobileCatalogoPersonalizadoPopUp" />
+        </div>
+
+        <div class="content_oferta_guia_negocio">
+            <div class="content_imagen_048">
+                <img src="{{UrlImagen}}" class="imagen_producto">
+                @if (ViewBag.PaisEsika)
+                {
+                    <div class="etiqueta_guia_negocio">GUÍA DE NEGOCIO</div>
+                }
+                else
+                {
+                    <div class="etiqueta_guia_negocio"><span>OFERTA</span> GUÍA DE NEGOCIO</div>
+                }
+            </div>
+            <div class="marca_oferta048">{{DescripcionMarca}}</div>
+            <div class="nombre_producto_048">{{Descripcion}}</div>
+            <div class="precio_tachado_048">{{Simbolo}} {{DecimalToStringFormat precio_catalogo}}</div>
+            <div class="precio_para_ti_048">Precio para ti <b>{{Simbolo}} {{DecimalToStringFormat precio_revista}}</b></div>
+            <div class="gana_048" style="margin-bottom:0">{{TxtGanancia}} {{Simbolo}} {{DecimalToStringFormat ganancia}}</div>
+            <hr class="clear" />
+            <div style="overflow:hidden; margin-bottom:100px;">
+                <div class="texto_comparte">Comparte este producto con tus clientes</div>
+                <a id="btn_wsp" class="btn_compartir_ofertas" href="#"><img src="/Content/Images/Mobile/Esika/catalogo_ws.png" alt=""></a>
+                <a id="btn_fb" class="btn_compartir_ofertas" href="#"> <img src="/Content/Images/Mobile/Esika/facebook.png" alt=""></a>
+            </div>
+        </div>
+        <div class="content_btn_agregar">
+            <div class="content_agregar_048">
+                <div class="content_cantidad_ficha_producto">
+                    <a class="cantidad_menos_home"><img src="/Content/Images/Mobile/Esika/menos.png" alt=""></a>
+                    <input type="tel" value="1" size="2" maxlength="2" id="txtCantidad" class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" data-cantidad-input="revista">
+                    <a class="cantidad_mas_home"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
+                </div>
+                <a class="btn_agregar_ficha_producto agregar-ofertarevista" data-cuv="revista">AGRÉGALO</a>
+                <hr class="clear" />
+            </div>
+        </div>
+    </div>
+</script>
+
+<script id="template-oferta048P" type="text/x-handlebars-template">
+    <div data-oferta-popup="">
+
+        <div style="display:none;" id="hiddenCatalogo">
+            <input type="hidden" class="hdItemCuv" value="{{CUV}}" />
+            <input type="hidden" class="hdItemTipoOfertaSisID" value="{{TipoOfertaSisID}}" />
+            <input type="hidden" class="hdItemConfiguracionOfertaID" value="{{ConfiguracionOfertaID}}" />
+            <input type="hidden" class="hdItemIndicadorMontoMinimo" value="{{IndicadorMontoMinimo}}" />
+            <input type="hidden" class="hdItemTipo" value="1" />
+            <input type="hidden" class="hdItemMarcaID" value="{{MarcaID}}" />
+            <input type="hidden" class="hdItemPrecioUnidad" value="{{PrecioCatalogo}}" />
+            <input type="hidden" class="hdItemDescripcionProd" value="{{Descripcion}}" />
+            <input type="hidden" class="hdItemPagina" value="0" />
+            <input type="hidden" class="hdItemDescripcionCategoria" value="{{DescripcionCategoria}}" />
+            <input type="hidden" class="hdItemDescripcionMarca" value="{{DescripcionMarca}}" />
+            <input type="hidden" class="hdItemDescripcionEstrategia" value="{{DescripcionEstrategia}}" />
+            <input type="hidden" class="OrigenPedidoWeb" value="@Portal.Consultoras.Common.Constantes.OrigenPedidoWeb.MobileCatalogoPersonalizadoPopUp" />
+        </div>
+        <div style="display:none;" id="hiddenRevista">
+            <input type="hidden" class="hdItemCuv" value="{{productoRevista.CUV}}" />
+            <input type="hidden" class="hdItemTipoOfertaSisID" value="{{productoRevista.TipoOfertaSisID}}" />
+            <input type="hidden" class="hdItemConfiguracionOfertaID" value="{{productoRevista.ConfiguracionOfertaID}}" />
+            <input type="hidden" class="hdItemIndicadorMontoMinimo" value="{{productoRevista.IndicadorMontoMinimo}}" />
+            <input type="hidden" class="hdItemTipo" value="1" />
+            <input type="hidden" class="hdItemMarcaID" value="{{productoRevista.MarcaID}}" />
+            <input type="hidden" class="hdItemPrecioUnidad" value="{{productoRevista.PrecioCatalogo}}" />
+            <input type="hidden" class="hdItemDescripcionProd" value="{{productoRevista.Descripcion}}" />
+            <input type="hidden" class="hdItemPagina" value="0" />
+            <input type="hidden" class="hdItemDescripcionCategoria" value="{{productoRevista.DescripcionCategoria}}" />
+            <input type="hidden" class="hdItemDescripcionMarca" value="{{productoRevista.DescripcionMarca}}" />
+            <input type="hidden" class="hdItemDescripcionEstrategia" value="{{productoRevista.DescripcionEstrategia}}" />
+            <input type="hidden" class="OrigenPedidoWeb" value="@Portal.Consultoras.Common.Constantes.OrigenPedidoWeb.MobileCatalogoPersonalizadoPopUp" />
+        </div>
+
+            UrlBase = UrlBase.ReplaceAll('/', '%2F');
+            UrlBase = UrlBase.ReplaceAll(":", "%3A");
+            UrlBase = UrlBase.ReplaceAll("?", "%3F");
+            UrlBase = UrlBase.ReplaceAll("=", "%3D");
+
+            return "whatsapp://send?text=" + UrlBase;
+            
+            <div class="content_imagen_048">
+            <img src="{{UrlImagen}}" class="imagen_producto">
+            @if (ViewBag.PaisEsika)
+            {
+                <div class="etiqueta_guia_negocio">GUÍA DE NEGOCIO</div>
+            
+            }
+            else
+            {
+                <div class="etiqueta_guia_negocio"><span>OFERTA</span> GUÍA DE NEGOCIO</div>
+            }
+        </div>
+        <div class="marca_oferta048">Esika</div>
+        <div class="nombre_producto_048">{{Descripcion}}</div>
+        <div class="precio_tachado_048">{{Simbolo}} {{DecimalToStringFormat precio_catalogo}}</div>
+        <div class="precio_para_ti_048">Precio para ti <b>{{Simbolo}} {{DecimalToStringFormat precio_revista}}</b></div>
+        <div class="gana_048">{{TxtGanancia}} {{Simbolo}} {{DecimalToStringFormat ganancia}}</div>
         <hr class="clear" />
-        <div style="overflow:hidden; margin-bottom:100px;">
+        <div style="margin-bottom:30px; margin-top:5px;">
+            <div class="content_cantidad_ficha_producto" style="width:52%;">
+                <a class="cantidad_menos_home"><img src="/Content/Images/Mobile/Esika/menos.png" alt=""></a>
+                <input type="tel" value="1" size="2" maxlength="2" id="txtCantidad" class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" data-cantidad-input="revista">
+                <a class="cantidad_mas_home"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
+            </div>
+            <a class="btn_agregar_ficha_048 agregar-ofertarevista" data-cuv="revista"> AGREGALO</a>
+            <hr class="clear" />
+        </div>
+        <div class="texto_detalle_048">Cómpralo por pack y gana más</div>
+
+        <!--PACK-->
+        {{#each lista_oObjPack as |pack|}}
+        <div class="content_detalle_048 item_pack_personalizado">
+            <input type="hidden" class="hdItemPackCuv" value="{{pack.cuv_pack}}" />
+            <input type="hidden" class="hdItemPackValorizado" value="{{DecimalToStringFormat pack.valorizado}}" />
+            <input type="hidden" class="hdItemPackPrecio" value="{{DecimalToStringFormat pack.precio_pack}}" />
+
+            <div class="titulo_pack_detalle">{{pack.nombre_pack}}</div>
+            <div class="linea_separadora_black flecha_048"></div>
+            <div class="precio_para_ti_048">Precio para ti <b>{{../Simbolo}} {{DecimalToStringFormat pack.precio_pack}}</b></div>
+            <div class="gana_048">{{../TxtGanancia}} {{../Simbolo}} {{DecimalToStringFormat pack.ganancia_pack}}</div>
+
+            <div class="content_unidad_producto">
+                {{#each ../lista_oObjItemPack as |item|}}
+                {{#if_eq pack.cuv_pack item.cuv_pack_item}}
+                <div class="content_pack_048">
+                    {{#IsNullOrEmpty item.imagen_item_pack '!='}}
+                    <div class="imagen_pack_048"><img src="{{item.imagen_item_pack}}" class="imagen_producto"></div>
+                    {{/IsNullOrEmpty}}
+                    {{#IsNullOrEmpty item.imagen_item_pack '=='}}
+                    <div class="imagen_pack_048"><img src="@Url.Content(ViewBag.RutaImagenNoDisponible)" class="imagen_producto"></div>
+                    {{/IsNullOrEmpty}}
+                    <div class="nombre_producto_pack_048">{{item.cantidad_item_pack}} {{item.descripcion_item_pack}}</div>
+                </div>
+                {{/if_eq}}
+                {{/each}}
+            </div>
+
+            <div style="margin-top:20px;">
+                <div class="content_cantidad_ficha_producto" style="width:52%;">
+                    <a class="cantidad_menos_home"><img src="/Content/Images/Mobile/Esika/menos.png" alt=""></a>
+                    <input type="tel" value="1" size="2" maxlength="2" id="txtCantidad" class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" data-cantidad-input="pack">
+                    <a class="cantidad_mas_home"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
+                </div>
+                <a class="btn_agregar_ficha_048 agregar-ofertarevista" data-cuv="pack" data-cuvadd="{{pack.cuv_pack}}"> AGREGALO</a>
+                <hr class="clear" />
+            </div>
+
+        </div>
+        <!--FIN-->
+        {{/each}}
+
+        <div>
             <div class="texto_comparte">Comparte este producto con tus clientes</div>
             <a id="btn_wsp" class="btn_compartir_ofertas" href="#"><img src="/Content/Images/Mobile/Esika/catalogo_ws.png" alt=""></a>
             <a id="btn_fb" class="btn_compartir_ofertas" href="#"> <img src="/Content/Images/Mobile/Esika/facebook.png" alt=""></a>
         </div>
+        <hr class="clear" />
+        <br />
     </div>
-    <div class="content_btn_agregar">
-        <div class="content_agregar_048">
-            <div class="content_cantidad_ficha_producto">
-                <a class="cantidad_menos_home"><img src="/Content/Images/Mobile/Esika/menos.png" alt=""></a>
-                <input type="tel" value="1" size="2" maxlength="2" id="txtCantidad" class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" data-input="cantidad">
-                <a class="cantidad_mas_home"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
+</script>
+
+<script id="template-oferta048N" type="text/x-handlebars-template">
+    <div data-oferta-popup="">
+
+        <div style="display:none;" id="hiddenCatalogo">
+            <input type="hidden" class="hdItemCuv" value="{{CUV}}" />
+            <input type="hidden" class="hdItemTipoOfertaSisID" value="{{TipoOfertaSisID}}" />
+            <input type="hidden" class="hdItemConfiguracionOfertaID" value="{{ConfiguracionOfertaID}}" />
+            <input type="hidden" class="hdItemIndicadorMontoMinimo" value="{{IndicadorMontoMinimo}}" />
+            <input type="hidden" class="hdItemTipo" value="1" />
+            <input type="hidden" class="hdItemMarcaID" value="{{MarcaID}}" />
+            <input type="hidden" class="hdItemPrecioUnidad" value="{{PrecioCatalogo}}" />
+            <input type="hidden" class="hdItemDescripcionProd" value="{{Descripcion}}" />
+            <input type="hidden" class="hdItemPagina" value="0" />
+            <input type="hidden" class="hdItemDescripcionCategoria" value="{{DescripcionCategoria}}" />
+            <input type="hidden" class="hdItemDescripcionMarca" value="{{DescripcionMarca}}" />
+            <input type="hidden" class="hdItemDescripcionEstrategia" value="{{DescripcionEstrategia}}" />
+            <input type="hidden" class="OrigenPedidoWeb" value="@Portal.Consultoras.Common.Constantes.OrigenPedidoWeb.MobileCatalogoPersonalizadoPopUp" />
+        </div>
+        <div style="display:none;" id="hiddenRevista">
+            <input type="hidden" class="hdItemCuv" value="{{productoRevista.CUV}}" />
+            <input type="hidden" class="hdItemTipoOfertaSisID" value="{{productoRevista.TipoOfertaSisID}}" />
+            <input type="hidden" class="hdItemConfiguracionOfertaID" value="{{productoRevista.ConfiguracionOfertaID}}" />
+            <input type="hidden" class="hdItemIndicadorMontoMinimo" value="{{productoRevista.IndicadorMontoMinimo}}" />
+            <input type="hidden" class="hdItemTipo" value="1" />
+            <input type="hidden" class="hdItemMarcaID" value="{{productoRevista.MarcaID}}" />
+            <input type="hidden" class="hdItemPrecioUnidad" value="{{productoRevista.PrecioCatalogo}}" />
+            <input type="hidden" class="hdItemDescripcionProd" value="{{productoRevista.Descripcion}}" />
+            <input type="hidden" class="hdItemPagina" value="0" />
+            <input type="hidden" class="hdItemDescripcionCategoria" value="{{productoRevista.DescripcionCategoria}}" />
+            <input type="hidden" class="hdItemDescripcionMarca" value="{{productoRevista.DescripcionMarca}}" />
+            <input type="hidden" class="hdItemDescripcionEstrategia" value="{{productoRevista.DescripcionEstrategia}}" />
+            <input type="hidden" class="OrigenPedidoWeb" value="@Portal.Consultoras.Common.Constantes.OrigenPedidoWeb.MobileCatalogoPersonalizadoPopUp" />
+        </div>
+
+        <div class="content_oferta_guia_negocio">
+            <div class="content_imagen_048">
+                <img src="{{UrlImagen}}" class="imagen_producto">
+                @if (ViewBag.PaisEsika)
+                {
+                    <div class="etiqueta_guia_negocio">GUÍA DE NEGOCIO</div>
+                }
+                else
+                {
+                    <div class="etiqueta_guia_negocio"><span>OFERTA</span> GUÍA DE NEGOCIO</div>
+                }
             </div>
-            <a class="btn_agregar_ficha_producto" href="#">AGRÉGALO</a>
+            <div class="marca_oferta048">{{DescripcionMarca}}</div>
+            <div class="nombre_producto_048">{{Descripcion}}</div>
+            <div class="precio_tachado_048">{{Simbolo}} {{DecimalToStringFormat precio_catalogo}}</div>
+            <div class="precio_para_ti_048">Precio para ti <b>{{Simbolo}} {{DecimalToStringFormat precio_revista}}</b></div>
+            <div class="gana_048">{{TxtGanancia}} {{Simbolo}} {{DecimalToStringFormat ganancia}}</div>
             <hr class="clear" />
+            <div class="texto_detalle_048">CÓMPRALO POR CANTIDAD<br />Y OBTÉN MAS GANANCIAs</div>
+
+            <!--NIVEL-->
+            {{#each lista_ObjNivel as |nivel|}}
+            <div class="content_detalle_048">
+                <div class="detalle_Cantidad_pack">Compra <b>{{nivel.escala_nivel}}</b>{{../Descripcion}}</div>
+                <div class="precio_para_ti_048">Precio para ti <b>{{../Simbolo}} {{DecimalToStringFormat nivel.precio_nivel}}</b></div>
+                <div class="gana_048">{{../TxtGanancia}} {{../Simbolo}} {{DecimalToStringFormat nivel.ganancia_nivel}}</div>
+                <div class="linea_separadora_black flecha_048"></div>
+                <div class="recibe_gratis">{{../TxtRecibeGratis}}:</div>
+
+                <div class="content_unidad_producto">
+                    {{#each ../lista_oObjGratis as |item|}}
+                    {{#if_eq nivel.escala_nivel item.escala_nivel_gratis}}
+                    <div class="content_pack_048">
+                        {{#IsNullOrEmpty item.imagen_gratis '!='}}
+                        <div class="imagen_pack_048"><img src="{{item.imagen_gratis}}" class="imagen_producto"></div>
+                        {{/IsNullOrEmpty}}
+                        {{#IsNullOrEmpty item.imagen_gratis '=='}}
+                        <div class="imagen_pack_048"><img src="@Url.Content(ViewBag.RutaImagenNoDisponible)" class="imagen_producto"></div>
+                        {{/IsNullOrEmpty}}
+                        <div class="nombre_producto_pack_048">{{item.cantidad}} {{item.descripcion_gratis}}</div>
+                    </div>
+                    {{/if_eq}}
+                    {{/each}}
+                </div>
+
+            </div>
+            {{/each}}
+            <!--FIN-->
+
+            <div style="overflow:hidden; margin-bottom:100px;">
+                <div class="texto_comparte">Comparte este producto con tus clientes</div>
+                <a id="btn_wsp" class="btn_compartir_ofertas" href="#"><img src="/Content/Images/Mobile/Esika/catalogo_ws.png" alt=""></a>
+                <a id="btn_fb" class="btn_compartir_ofertas" href="#"> <img src="/Content/Images/Mobile/Esika/facebook.png" alt=""></a>
+            </div>
+        </div>
+
+        <div class="content_btn_agregar">
+            <div class="content_agregar_048">
+                <div class="content_cantidad_ficha_producto">
+                    <a class="cantidad_menos_home"><img src="/Content/Images/Mobile/Esika/menos.png" alt=""></a>
+                    <input type="tel" value="1" size="2" maxlength="2" id="txtCantidad" class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" data-cantidad-input="revista">
+                    <a class="cantidad_mas_home"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
+                </div>
+                <a class="btn_agregar_ficha_producto agregar-ofertarevista" data-cuv="revista">AGRÉGALO</a>
+                <hr class="clear" />
+            </div>
         </div>
     </div>
 </script>
+
 @section scripts{
 
     <script type="text/javascript">
@@ -420,219 +505,24 @@
         var urlCatalogoPersonalizado = '@Url.Action("Index", "CatalogoPersonalizado", new { area = "Mobile" })';
         var isAddFichaProductoFAV = 1;
         var urlInsertarProductoCompartido = '@Url.Action("InsertarProductoCompartido", "CatalogoPersonalizado", new { area = "" })';
+        var urlCargarFiltros = '@Url.Action("CargarFiltros", "CatalogoPersonalizado", new { area = "" })';
 
-        var cuv = '@Model.CUV';
-        var tieneOfertaEnRevista = '@Model.TieneOfertaEnRevista';
-
-        if (tieneOfertaEnRevista == 'True') $('#PrecioCatalogo').show();
-
-        $(document).ready(function () {
-
-            $("#VerPrecioCatalogo").on("click", function () {
-                $('#GuiaNegocio').hide(); //muestro mediante id             
-                $('#PrecioCatalogo').show(); //oculto mediante id  
-
-                $('ul[data-tab="tab"] li a').find("div.marcador_tab").addClass("oculto");
-                $(this).find("div.marcador_tab").removeClass("oculto");
-            });
-
-            $("#VerGuiaNegocio").on("click", function () {
-                $('#GuiaNegocio').show(); //muestro mediante id             
-                $('#PrecioCatalogo').hide(); //oculto mediante id  
-
-                $('ul[data-tab="tab"] li a').find("div.marcador_tab").addClass("oculto");
-                $(this).find("div.marcador_tab").removeClass("oculto");
-            });
-
-            $('.tabs_pagos').mouseover(function () {
-                $("#barCursor").css("opacity", "1");
-            }).mouseout(function () {
-                $("#barCursor").css("opacity", "0");
-            });
-
-            //PL20-1237
-            $('.footer-page').hide();
-
-            dataFichaProductoFAV = JSON.parse('@Html.Raw(Json.Encode(Model.Hermanos))');
-
-            setInfoCUV();
-
-            $(".content_tono_detalle").on("click", function () {
-
-                $('.content_tono_detalle').removeClass('borde_seleccion_tono');
-                $(this).addClass("borde_seleccion_tono");
-            });
-
-            //PL20-1239
-            ObtenerOfertaRevista2($('[data-item="catalogopersonalizado"]'));
-
-        });
-
-        //PL20-1237
-        function CompartirWsp(UrlBase) {
-            var _id = InsertarProductoCompartido('W');
-            UrlBase = UrlBase.replace("[valor]", _id);
-
-            UrlBase = UrlBase.ReplaceAll('/', '%2F');
-            UrlBase = UrlBase.ReplaceAll(":", "%3A");
-            UrlBase = UrlBase.ReplaceAll("?", "%3F");
-            UrlBase = UrlBase.ReplaceAll("=", "%3D");
-
-            return "whatsapp://send?text=" + UrlBase;
-        }
-        
-        //PL20-1237
-        function InsertarProductoCompartido(app)
-        {
-            //Capturando valores
-            var _rutaImagen = $(".hdItemRutaImagen").val();
-            var _marcaID = $(".hdItemMarcaID").val();
-            var _marcaDesc = $(".hdItemDescripcionMarca").val();
-            var _nombre = $(".hdItemDescripcionProd").val();
-            var _volumen = $(".peso_ficha_producto").text();
-            var _descripcion = $(".descripcion_ficha_producto").text();
-
-            var pcCuv = $(".hdItemCuv").val();
-            var pcPalanca = "FAV";
-            var pcDetalle = _rutaImagen + "|" + _marcaID + "|" + _marcaDesc + "|" + _nombre + "|" + _volumen + "|" + _descripcion;
-            var pcApp = app;
-
-
-            var ID = 0;
-            var Item = {
-                mCUV: pcCuv,
-                mPalanca: pcPalanca,
-                mDetalle: pcDetalle,
-                mApplicacion: pcApp
-            };
-
-            jQuery.ajax({
-                type: 'POST',
-                url: urlInsertarProductoCompartido,
-                dataType: 'json',
-                contentType: 'application/json; charset=utf-8',
-                data: JSON.stringify(Item),
-                async: false,
-                success: function (response) {
-                    if (checkTimeout(response)) {
-                        if (response.success) {
-                            var datos = response.data;
-                            ID = datos.id;
-                        } else {
-                            window.messageInfo(response.message);
-                        }
-                    }
-                },
-                error: function (response, error) {
-                    if (checkTimeout(response)) {
-                        console.log(response);
-                    }
-                }
-            });
-
-            return ID;
-        }
-
-        function CompartirFacebook(urlBase) {
-            var _id = InsertarProductoCompartido('F');
-            urlBase = urlBase.replace('[valor]', _id);
-
-            var popWwidth = 570;
-            var popHeight = 420;
-            var left = (screen.width / 2) - (popWwidth / 2);
-            var top = (screen.height / 2) - (popHeight / 2);
-            var url = "http://www.facebook.com/sharer/sharer.php?u=" + urlBase;
-
-            window.open(url, 'Facebook', "width=" + popWwidth + ",height=" + popHeight + ",menubar=0,toolbar=0,directories=0,scrollbars=no,resizable=no,left=" + left + ",top=" + top + "");
-
-            //window.open('http://localhost:20267/Pdto.aspx?id=PE_2_F');
-        }
-
-        //PL20-1269
-        function setInfoCUV() {
-            var cuv = $('#hdCuvFichaProductoFAV').val();
-            $('#fav_tono_' + cuv).addClass("borde_seleccion_tono");
-            $('#hdCuvFichaProductoFAVSelect').val(cuv);
-        }
-
-        //PL20-1239
-        function ObtenerOfertaRevista2(item) {
-            // 201615 - 032610099 peru
-            DialogLoadingAbrir();
-            var $contenedor = item;
-            var cuv = $contenedor.find('.hdItemCuv').val();
-            // 11791 (mucha data) "10989" (niveles);// 
-            var tipoOfertaRevista = $.trim($contenedor.find('.hdItemTipoOfertaRevista').val());
-
-            var obj = {
-                //UrlImagen: $contenedor.find('[data-img]>img').attr('src'),
-                UrlImagen: $contenedor.find('.hdItemRutaImagen').val(),
-                CUV: $contenedor.find('.hdItemCuv').val(),
-                TipoOfertaSisID: $contenedor.find('.hdItemTipoOfertaSisID').val(),
-                ConfiguracionOfertaID: $contenedor.find('.hdItemConfiguracionOfertaID').val(),
-                IndicadorMontoMinimo: $contenedor.find('.hdItemIndicadorMontoMinimo').val(),
-                MarcaID: $contenedor.find('.hdItemMarcaID').val(),
-                PrecioCatalogo: $contenedor.find('.hdItemPrecioUnidad').val(),
-                Descripcion: $contenedor.find('.hdItemDescripcionProd').val(),
-                DescripcionCategoria: $contenedor.find('.hdItemDescripcionCategoria').val(),
-                DescripcionMarca: $contenedor.find('.hdItemDescripcionMarca').val(),
-                DescripcionEstrategia: $contenedor.find('.hdItemDescripcionEstrategia').val(),
-                Volumen: $contenedor.find('.hdItemVolumen').val()
-            };
-
-            jQuery.ajax({
-                type: 'POST',
-                url: baseUrl + 'CatalogoPersonalizado/ObtenerOfertaRevista',
-                dataType: 'json',
-                data: JSON.stringify({ cuv: cuv, tipoOfertaRevista: tipoOfertaRevista }),
-                contentType: 'application/json; charset=utf-8',
-                success: function (response) {
-                    //$('[data-oferta]').attr("class", "").hide();
-                    //if (tipoOrigen == '2') {
-                    //    $('[data-oferta]').addClass("MensajeAlertaMobile");
-                    //}
-                    if (!response.success) {
-                        DialogLoadingCerrar();
-                        return false;
-                    }
-
-                    console.log(response.data.dataPROL);
-                    console.log(obj);
-
-                    response.data.dataPROL.Simbolo = vbSimbolo;
-                    response.data.dataPROL.TxtGanancia = response.data.txtGanancia;
-                    response.data.dataPROL.TxtRecibeGratis = response.data.txtRecibeGratis;
-
-                    var settings = $.extend({}, response.data.dataPROL, obj);
-                    settings.productoRevista = response.data.producto;
-                    //TrackingJetloreView(cuv, $("#hdCampaniaCodigo").val())
-
-                    if (response.data.dataPROL != undefined && response.data.dataPROL != null) {
-                        switch (settings.tipo_oferta) {
-                            case '003':
-                                //settings.precio_catalogo = DecimalToStringFormat(settings.precio_catalogo);
-                                //settings.precio_revista = DecimalToStringFormat(settings.precio_revista);
-                                //settings.ganancia = DecimalToStringFormat(settings.ganancia);
-                                SetHandlebars("#template-oferta003", settings, '#Ficha_003A');
-                                //$('[data-oferta]').addClass('mod-ofer1').show();
-                                $('#Ficha_003A').show();
-                                break;
-                            case '048':
-                                break;
-                        }
-                    }
-                    
-
-                    DialogLoadingCerrar();
-                },
-                error: function (response, error) {
-                    DialogLoadingCerrar();
-                }
-            });
-        }
     </script>
 
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/CatalogoPersonalizado/CatalogoPersonalizado.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Mobile/CatalogoPersonalizado/ProductoPagina.js")"></script>
     <script src="~/Scripts/PortalConsultoras/Mobile/CatalogoPersonalizado/bootstrap-slider.min.js"></script>
-    
 }
+
+
+<script>
+    //PL20-1268
+    var dataFichaProductoFAV = [];
+    dataFichaProductoFAV = JSON.parse('@Html.Raw(Json.Encode(Model.Hermanos))');
+
+    //PL20-1239
+    var cuv = '@Model.CUV';
+    var tieneOfertaEnRevista = '@Model.TieneOfertaEnRevista';
+    var cargarItemsFAV = false;
+
+</script>

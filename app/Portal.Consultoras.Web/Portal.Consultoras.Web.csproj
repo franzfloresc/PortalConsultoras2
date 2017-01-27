@@ -2486,6 +2486,7 @@
     <Content Include="Scripts\PortalConsultoras\MisReclamos\Index.js" />
     <Content Include="Scripts\PortalConsultoras\Mobile\CatalogoPersonalizado\bootstrap-slider.min.js" />
     <Content Include="Scripts\PortalConsultoras\Mobile\CatalogoPersonalizado\Index.js" />
+    <Content Include="Scripts\PortalConsultoras\Mobile\CatalogoPersonalizado\ProductoPagina.js" />
     <Content Include="Scripts\PortalConsultoras\Mobile\ConsultoraOnline\DetallePedidoHistorial.js" />
     <Content Include="Scripts\PortalConsultoras\Mobile\ConsultoraOnline\DetallePedidoPendiente.js" />
     <Content Include="Scripts\PortalConsultoras\Mobile\ConsultoraOnline\Historial.js" />
