@@ -4985,8 +4985,8 @@ table > thead > tr > th {
 
 .producto_nombre_descripcion {
     width: 100%;
-    padding-left: 30px;
-    padding-right: 30px;
+    padding-left: 8%;
+    padding-right: 8%;
     margin-bottom: 16px;
     height: auto;
     font-family: 'Lato';
@@ -6166,7 +6166,7 @@ body {
 
 .contenedor_productos_liquidacion .content_item_home {
     margin-bottom: 30px;
-    display: inline-block;
+    float:left;
     vertical-align:top;
 }
 
@@ -6183,20 +6183,15 @@ body {
     font-size: 12px !important;
 }
 
-@media screen and (min-width:0px) and (max-width:425px){
+
+@media screen and (min-width:320px) and (max-width:735px){
 
     .contenedor_productos_liquidacion .content_item_home {
-        width: 100%;
+        width: 48%;        
+        margin-right: 4%;
     }
-
-}
-
-@media screen and (min-width:426px) and (max-width:735px){
-
-    .contenedor_productos_liquidacion .content_item_home {
-        width: 47%;
-        margin-left: 4px;
-        margin-right: 4px;
+     .contenedor_productos_liquidacion .content_item_home:nth-child(2n){
+        margin-right:0;
     }
 
 }
@@ -6205,18 +6200,23 @@ body {
 
     .contenedor_productos_liquidacion .content_item_home {
         width: 31%;
-        margin-left: 5px;
-        margin-right: 5px;
+        /*margin-left: 5px;*/
+        margin-right:3.5%;
     }
-
+    .contenedor_productos_liquidacion .content_item_home:nth-child(3n){
+        margin-right:0;
+    }
 }
 
 @media screen and (min-width:941px){
 
     .contenedor_productos_liquidacion .content_item_home {
         width: 23%;
-        margin-left: 5px;
-        margin-right: 5px;
+        /*margin-left: 5px;*/
+        margin-right: 2.6%;
+    }
+    .contenedor_productos_liquidacion .content_item_home:nth-child(4n){
+        margin-right:0;
     }
 
 }
@@ -9833,10 +9833,11 @@ a{
     background: white;
     color: black;
     font-weight: 700;
-    width: 108px;
+  
     height: 45px;
     border: 1px solid black;
-    display: inline-block;
+    float:left;
+    width:38%;
     /* line-height: 32px; */
 
     /* border-radius: 0; */
@@ -9846,13 +9847,16 @@ a{
     font-family: 'lato';
     font-size: 13px;
     font-weight: 700;
-    max-width: 162px;
+    width: 60%;
+    margin-right: 2%;
     height: 45px;
     padding: 6px 30px 6px 14px;
-    display: inline-block;
-    /*border-radius: 0;*/
-    /*-webkit-appearance: none;*/
+    /* display: inline-block; */
+    /* border-radius: 0; */
+    /* -webkit-appearance: none; */
     border: 1px solid #ccc;
+    float: left;
+    margin-bottom: 18px;
 }
 
 .link-ffc {
@@ -9868,6 +9872,12 @@ a{
     border: 1px solid black;
     margin-right: 11px;
     text-align:center;
+}
+.link-ffc_landing{
+    color:#9b9b9b;
+    font-family:'Lato';
+    font-size:13px;
+    text-decoration:underline;
 }
 
 .right {
@@ -10507,9 +10517,7 @@ a{
     letter-spacing:0.2px;
 }
 @media screen and (max-width: 425px) and (min-width: 0px) {
-   .Content_favoritos_new .contenedor_productos_liquidacion .content_item_home {
-        width: 48%;
-    }
+   
    .Content_favoritos_new .producto_precio_normal{
        display:block;
        font-weight:300;
@@ -10552,8 +10560,8 @@ a{
     height: 70px;
     border-radius: 100px;
     position: absolute;
-    right: 10px;
-    top: 10px;
+    right: 0;
+    top: 20px;
     color: white;
     font-family: 'Lato';
     font-size: 10px;
@@ -10756,10 +10764,17 @@ a{
 }
 @media only screen and (max-width: 425px) {
     .landing_cat .etiqueta_guia_negocio {
-        zoom: 65%;
+        zoom:70%;
     }
     .enlace_popupCatalogoPersonalizado{
          margin-bottom: 29px;
     }
+    #liquidacionMobile .content_item_home{
+        width:100%;
+    }
    
 }
+.landing_cat .etiqueta_guia_negocio {
+       right:10px;
+       top:10px;
+    }

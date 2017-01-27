@@ -233,7 +233,7 @@ else
                 <img src="{{UrlImagen}}" class="imagen_producto">
                 @if (ViewBag.PaisEsika)
                 {
-                    <div class="etiqueta_guia_negocio">GUÍA DE NEGOCIO</div>
+                    <div class="etiqueta_guia_negocio"><span>OFERTA</span> GUÍA DE NEGOCIO</div>
                 }
                 else
                 {
@@ -304,7 +304,7 @@ else
             <img src="{{UrlImagen}}" class="imagen_producto">
             @if (ViewBag.PaisEsika)
             {
-                <div class="etiqueta_guia_negocio">GUÍA DE NEGOCIO</div>
+                <div class="etiqueta_guia_negocio"><span>OFERTA</span>GUÍA DE NEGOCIO</div>
             }
             else
             {
@@ -350,7 +350,7 @@ else
                     {{#IsNullOrEmpty item.imagen_item_pack '=='}}
                     <div class="imagen_pack_048"><img src="@Url.Content(ViewBag.RutaImagenNoDisponible)" class="imagen_producto"></div>
                     {{/IsNullOrEmpty}}
-                    <div class="nombre_producto_pack_048">{{item.cantidad_item_pack}} {{item.descripcion_item_pack}}</div>
+                    <div class="nombre_producto_pack_048"><b style="font-size:14px;">{{item.cantidad_item_pack}}</b>{{item.descripcion_item_pack}}</div>
                 </div>
                 {{/if_eq}}
                 {{/each}}
@@ -419,7 +419,7 @@ else
                 <img src="{{UrlImagen}}" class="imagen_producto">
                 @if (ViewBag.PaisEsika)
                 {
-                    <div class="etiqueta_guia_negocio">GUÍA DE NEGOCIO</div>
+                    <div class="etiqueta_guia_negocio"><span>OFERTA</span> GUÍA DE NEGOCIO</div>
                 }
                 else
                 {
@@ -453,7 +453,7 @@ else
                         {{#IsNullOrEmpty item.imagen_gratis '=='}}
                         <div class="imagen_pack_048"><img src="@Url.Content(ViewBag.RutaImagenNoDisponible)" class="imagen_producto"></div>
                         {{/IsNullOrEmpty}}
-                        <div class="nombre_producto_pack_048">{{item.cantidad}} {{item.descripcion_gratis}}</div>
+                        <div class="nombre_producto_pack_048"><b style="font-size:14px;">{{item.cantidad}}</b> {{item.descripcion_gratis}}</div>
                     </div>
                     {{/if_eq}}
                     {{/each}}
