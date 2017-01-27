@@ -679,10 +679,7 @@
                 $("#hdnEtiqueta1").val('1');
                 $("#hdnEtiqueta2").val('3');
 
-            }
-
-            /**** PL20-1225 *****/
-            if (aux1 == "0" || aux1 == '6') {
+            } else if (aux1 == "0" || aux1 == '6') {
                 $("#ddlEtiqueta1").children("option[data-id='5']").hide();
                 $("#ddlEtiqueta2").children("option[data-id='5']").hide();
                 $("#hdnEtiqueta1").val('5');
@@ -709,10 +706,10 @@
 
                 //$('#txtLimite').prop('readonly', true); //Modo lectura on
             }
-            else {
-                $('#div-orden').show(); //Ocultando Orden
-                //$('#txtLimite').prop('readonly', false); //Modo lectura off
-            }
+            //else {
+            //    $('#div-orden').show(); //Ocultando Orden
+            //    //$('#txtLimite').prop('readonly', false); //Modo lectura off
+            //}
             /*********************/
             /* SB20-312 - FIN */
 
@@ -1837,7 +1834,7 @@
 
         //jQuery("#list").setGridParam({ datatype: 'json', page: 1 }).trigger('reloadGrid');
         // allRowsInGrid = $('#list').getGridParam('data');
-        if (tipo == '4') { $("#list").jqGrid('hideCol', ["Orden"]); }/*R20160301*/
+        if (tipo == '4') { $("#list").jqGrid('hideCol', ["Orden"]); }
     }
 
     function fnGrillaTC() {
@@ -2653,11 +2650,13 @@
                         $("#hdCampania").val(data.CampaniaID);
                         $("#ddlCampaniaFin").val(data.CampaniaIDFin);
                         $("#hdNumeroPedido").val(data.NumeroPedido);
+                        $("#imgSeleccionada").attr('src', rutaImagenVacia);
 
                         var objPreview, objChkImagen, idImagen, dataImagen, imgFormat;
                         var imagenesProductos = [];
 
                         var i = 1;
+
                         for (var i = 1; i <= nroImagenes; i++) {
 
                             idImagen = ('0' + i).substr(-2);
@@ -2666,9 +2665,11 @@
                             if (dataImagen != '') {
 
                                 if (dataImagen.substr(dataImagen.lastIndexOf("/") + 1) == data['ImagenURL']) {
+
                                     $("#imgSeleccionada").attr('src', dataImagen);
                                     $("#imgSeleccionada").attr('data-id', idImagen);
                                 }
+                                console.log(dataImagen.substr(dataImagen.lastIndexOf("/") + 1));
                                 var imagen = {
                                     "idImagen": idImagen,
                                     "dataImagen": dataImagen,
@@ -2768,10 +2769,10 @@
 
                             //$('#txtLimite').prop('readonly', true); //Modo lectura on
                         }
-                        else {
-                            //$('#txtLimite').prop('readonly', false); //Modo lectura on
-                            $('#div-orden').show(); //Ocultando Orden
-                        }
+                        //else {
+                        //    //$('#txtLimite').prop('readonly', false); //Modo lectura on
+                        //    $('#div-orden').show(); //Ocultando Orden
+                        //}
                         /* SB20-312 - FIN */
                         if (data.FlagEstrella == "1") $("#chkEstrella").attr("checked", true);
                         else $("#chkEstrella").attr("checked", false);
