@@ -4543,6 +4543,10 @@ a.subir_carousel, a.bajar_carousel {
     overflow: auto;
 }
 
+.contenedor_popup_error {    
+    z-index: 2000;
+}
+
 .fondo_tutorial {
     background: transparent url(../../../Images/bg_popup_tutorial.png) repeat left top;
 }
