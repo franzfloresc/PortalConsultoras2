@@ -958,13 +958,17 @@ function SolicitudEnviar() {
     if (correo == "" || celular == "") {
         alert_msg("Debe completar la sección de VALIDA TUS DATOS para finalizar");
 
-        $("#spnEmailError").css("display", "");
-        $("#spnEmailError").html("*Correo Electrónico incorrecto");
-        $("#txtEmail").css("border-color", "red");
+        if (correo == "") {
+            $("#spnEmailError").css("display", "");
+            $("#spnEmailError").html("*Correo Electrónico incorrecto");
+            $("#txtEmail").css("border-color", "red");
+        }        
 
-        $("#spnTelefonoError").css("display", "");
-        $("#spnTelefonoError").html("*Celular incorrecto");
-        $("#txtTelefono").css("border-color", "red");
+        if (celular == "") {
+            $("#spnTelefonoError").css("display", "");
+            $("#spnTelefonoError").html("*Celular incorrecto");
+            $("#txtTelefono").css("border-color", "red");
+        }
 
         return false;
     } else {
