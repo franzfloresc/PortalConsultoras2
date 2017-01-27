@@ -1834,9 +1834,10 @@
             //gridComplete: function () { }
         });
         jQuery("#list").jqGrid('navGrid', "#pager", { edit: false, add: false, refresh: false, del: false, search: false });
+
         //jQuery("#list").setGridParam({ datatype: 'json', page: 1 }).trigger('reloadGrid');
         // allRowsInGrid = $('#list').getGridParam('data');
-        //  $("#list").jqGrid('hideCol', ["NumeroPedido"]); /*R20160301*/
+        if (tipo == '4') { $("#list").jqGrid('hideCol', ["Orden"]); }/*R20160301*/
     }
 
     function fnGrillaTC() {
@@ -2252,14 +2253,14 @@
                         alert(m);
                         return false;
                     }
-                   
+
                     if ($("#idEstrella").css("display") == "block") {
                         if (!$("#chkEstrella").attr("checked")) {
                             alert("Debe activar el la opción para mostrar estrella en la zona de producto.  ");
                             return false;
                         }
                     }
-                    
+
                     if ($('.chk-estrategia-imagen:checked').length == 0) {
                         alert("Seleccione una imagen a mostrar.");
                         return false;
