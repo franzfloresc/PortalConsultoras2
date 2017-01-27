@@ -5464,6 +5464,18 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="ServiceUsuario.IUsuarioService")]
     public interface IUsuarioService {
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/ExisteUsuario", ReplyAction="http://tempuri.org/IUsuarioService/ExisteUsuarioResponse")]
+        int ExisteUsuario(int paisId, string codigoUsuario, string clave);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/ExisteUsuario", ReplyAction="http://tempuri.org/IUsuarioService/ExisteUsuarioResponse")]
+        System.Threading.Tasks.Task<int> ExisteUsuarioAsync(int paisId, string codigoUsuario, string clave);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/ValidarUsuario", ReplyAction="http://tempuri.org/IUsuarioService/ValidarUsuarioResponse")]
+        bool ValidarUsuario(string paisIso, string codigoUsuario, string clave);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/ValidarUsuario", ReplyAction="http://tempuri.org/IUsuarioService/ValidarUsuarioResponse")]
+        System.Threading.Tasks.Task<bool> ValidarUsuarioAsync(string paisIso, string codigoUsuario, string clave);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/Select", ReplyAction="http://tempuri.org/IUsuarioService/SelectResponse")]
         Portal.Consultoras.Web.ServiceUsuario.BEUsuario Select(int paisID, string codigoUsuario);
         
@@ -5993,18 +6005,6 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/CambiarClaveUsuario", ReplyAction="http://tempuri.org/IUsuarioService/CambiarClaveUsuarioResponse")]
         System.Threading.Tasks.Task<bool> CambiarClaveUsuarioAsync(int paisId, string paisIso, string codigoUsuario, string nuevacontrasena, string correo, string codigoUsuarioAutenticado, Portal.Consultoras.Web.ServiceUsuario.EAplicacionOrigen origen);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/ExisteUsuario", ReplyAction="http://tempuri.org/IUsuarioService/ExisteUsuarioResponse")]
-        int ExisteUsuario(int paisId, string codigoUsuario, string clave);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/ExisteUsuario", ReplyAction="http://tempuri.org/IUsuarioService/ExisteUsuarioResponse")]
-        System.Threading.Tasks.Task<int> ExisteUsuarioAsync(int paisId, string codigoUsuario, string clave);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/ValidarUsuario", ReplyAction="http://tempuri.org/IUsuarioService/ValidarUsuarioResponse")]
-        bool ValidarUsuario(string paisIso, string codigoUsuario, string clave);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/ValidarUsuario", ReplyAction="http://tempuri.org/IUsuarioService/ValidarUsuarioResponse")]
-        System.Threading.Tasks.Task<bool> ValidarUsuarioAsync(string paisIso, string codigoUsuario, string clave);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -6032,6 +6032,22 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         
         public UsuarioServiceClient(System.ServiceModel.Channels.Binding binding, System.ServiceModel.EndpointAddress remoteAddress) : 
                 base(binding, remoteAddress) {
+        }
+        
+        public int ExisteUsuario(int paisId, string codigoUsuario, string clave) {
+            return base.Channel.ExisteUsuario(paisId, codigoUsuario, clave);
+        }
+        
+        public System.Threading.Tasks.Task<int> ExisteUsuarioAsync(int paisId, string codigoUsuario, string clave) {
+            return base.Channel.ExisteUsuarioAsync(paisId, codigoUsuario, clave);
+        }
+        
+        public bool ValidarUsuario(string paisIso, string codigoUsuario, string clave) {
+            return base.Channel.ValidarUsuario(paisIso, codigoUsuario, clave);
+        }
+        
+        public System.Threading.Tasks.Task<bool> ValidarUsuarioAsync(string paisIso, string codigoUsuario, string clave) {
+            return base.Channel.ValidarUsuarioAsync(paisIso, codigoUsuario, clave);
         }
         
         public Portal.Consultoras.Web.ServiceUsuario.BEUsuario Select(int paisID, string codigoUsuario) {
@@ -6712,22 +6728,6 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         
         public System.Threading.Tasks.Task<bool> CambiarClaveUsuarioAsync(int paisId, string paisIso, string codigoUsuario, string nuevacontrasena, string correo, string codigoUsuarioAutenticado, Portal.Consultoras.Web.ServiceUsuario.EAplicacionOrigen origen) {
             return base.Channel.CambiarClaveUsuarioAsync(paisId, paisIso, codigoUsuario, nuevacontrasena, correo, codigoUsuarioAutenticado, origen);
-        }
-        
-        public int ExisteUsuario(int paisId, string codigoUsuario, string clave) {
-            return base.Channel.ExisteUsuario(paisId, codigoUsuario, clave);
-        }
-        
-        public System.Threading.Tasks.Task<int> ExisteUsuarioAsync(int paisId, string codigoUsuario, string clave) {
-            return base.Channel.ExisteUsuarioAsync(paisId, codigoUsuario, clave);
-        }
-        
-        public bool ValidarUsuario(string paisIso, string codigoUsuario, string clave) {
-            return base.Channel.ValidarUsuario(paisIso, codigoUsuario, clave);
-        }
-        
-        public System.Threading.Tasks.Task<bool> ValidarUsuarioAsync(string paisIso, string codigoUsuario, string clave) {
-            return base.Channel.ValidarUsuarioAsync(paisIso, codigoUsuario, clave);
         }
     }
 }
