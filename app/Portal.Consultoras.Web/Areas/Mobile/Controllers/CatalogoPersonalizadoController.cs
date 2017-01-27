@@ -51,7 +51,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 return RedirectToAction("Index");
             }
 
-            //ProductoModel model2 = new ProductoModel();
             var productoModel = new ProductoModel();
 
             if (Session["ProductosCatalogoPersonalizado"] != null)
@@ -61,13 +60,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
                 if (listaProductoModel.Any())
                 {
-                    //var xitem = listaProductoModel.Where(x => x.CUV.ToLower() == model.CUVFP).FirstOrDefault();
-                    //if (xitem != null)
-                    //{
-                    //    model2 = xitem;
-                    //}
-
-                    //var productoModel = new ProductoModel();
                     productoModel = listaProductoModel.Where(x => x.CUV == model.CUVFP).FirstOrDefault();
 
                     if (productoModel != null)
@@ -128,6 +120,8 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             {
                 return RedirectToAction("Index");
             }
+
+            ViewBag.RutaImagenNoDisponible = ConfigurationManager.AppSettings.Get("rutaImagenNotFoundAppCatalogo");
 
             return View(productoModel);
         }
