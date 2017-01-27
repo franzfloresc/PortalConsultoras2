@@ -1951,9 +1951,9 @@
 
     function ShowActions(cellvalue, options, rowObject) {
         var cellValueInt = parseInt(cellvalue);
-        var Des = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('#list').Editar('" + rowObject[0] + "');\" >" + "<img src='" + rutaImagenEdit + "' alt='Editar Estrategia' title='Editar Estrategia' border='0' /></a>";
+        var Des = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('#list').Editar('" + rowObject[0] + "',event);\" >" + "<img src='" + rutaImagenEdit + "' alt='Editar Estrategia' title='Editar Estrategia' border='0' /></a>";
         if (cellValueInt == "1") {
-            Des += "&nbsp;&nbsp;<a href='javascript:;' onclick=\"return jQuery('#list').Eliminar('" + rowObject[0] + "');\" >" + "<img src='" + rutaImagenDelete + "' alt='Deshabilitar Estrategia' title='Deshabilitar Estrategia' border='0' /></a>";
+            Des += "&nbsp;&nbsp;<a href='javascript:;' onclick=\"return jQuery('#list').Eliminar('" + rowObject[0] + "',event);\" >" + "<img src='" + rutaImagenDelete + "' alt='Deshabilitar Estrategia' title='Deshabilitar Estrategia' border='0' /></a>";
         }
         return Des;
     }
@@ -2583,7 +2583,8 @@
 
     $.jgrid.extend({
         Editar: function (id, event) {
-
+            event.preventDefault();
+            event.stopPropagation();
             if (id) {
                 waitingDialog({});
 
@@ -2769,10 +2770,7 @@
 
                             //$('#txtLimite').prop('readonly', true); //Modo lectura on
                         }
-                        //else {
-                        //    //$('#txtLimite').prop('readonly', false); //Modo lectura on
-                        //    $('#div-orden').show(); //Ocultando Orden
-                        //}
+                       
                         /* SB20-312 - FIN */
                         if (data.FlagEstrella == "1") $("#chkEstrella").attr("checked", true);
                         else $("#chkEstrella").attr("checked", false);
@@ -2786,9 +2784,13 @@
                     }
                 });
             }
+            
             return false;
         },
-        Eliminar: function (id) {
+        Eliminar: function (id, event) {
+            event.preventDefault();
+            event.stopPropagation();
+
             var elimina = confirm('¿ Está seguro que desea deshabiltar la estrategia seleccionada?');
             if (!elimina)
                 return false;
