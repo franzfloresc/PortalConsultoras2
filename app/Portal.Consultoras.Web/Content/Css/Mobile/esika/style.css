@@ -10547,20 +10547,27 @@ a{
     position:relative;
 }
 .etiqueta_guia_negocio{
-    background:#e81c36;
-    width:70px;
-    height:70px;
-    border-radius:100px;
-    position:absolute;
-    right:10px;
-    top:10px;
-    color:white;
-    font-family:'Lato';
-    font-size:11px;
-    letter-spacing:0.4px;
-    font-weight:700;
-    text-transform:uppercase;    
-    padding-top:18px;
+    background: black;
+    width: 70px;
+    height: 70px;
+    border-radius: 100px;
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    color: white;
+    font-family: 'Lato';
+    font-size: 10px;
+    letter-spacing: 0.2px;
+    font-weight: 700;
+    text-transform: uppercase;
+    padding-top: 17px;
+    line-height: 12px;
+}
+.etiqueta_guia_negocio span{
+    display: block;
+    font-size: 13.9px;
+    font-weight: 700;
+    height: 14px;
 }
 .content_imagen_048{
     width: 100%;
