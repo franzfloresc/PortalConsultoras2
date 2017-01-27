@@ -340,7 +340,7 @@
                         <input type="text" id="txtTextoLibre" maxlength="100" style="width: 360px;" />
                     </div>
                 </div>
-                <div class="div-3">
+                <div class="div-3 OfertaUltimoMinuto">
                     <div class="titH">Oferta de Último Minuto</div>
                     <div class="selectCheck borde_redondeado">
                         <input type="checkbox" class="check" id="chkOfertaUltimoMinuto" style="margin-top: 2px; margin-left: 15px;" />
@@ -676,12 +676,6 @@
                 }
                 else if (aux1 == "4" || aux1 == "5") {
 
-                //$("#ddlEtiqueta1").children('option').hide();
-                //$("#ddlEtiqueta1").children("option[data-id='1']").show();
-
-                //$("#ddlEtiqueta2").children('option').hide();
-                //$("#ddlEtiqueta2").children("option[data-id='3']").show();
-
                 $("#hdnEtiqueta1").val('1');
                 $("#hdnEtiqueta2").val('3');
 
@@ -694,6 +688,10 @@
                 $("#hdnEtiqueta1").val('5');
                 $("#hdnEtiqueta2").val('5');
             }
+
+            if (aux1 == "6") {
+                $('.OfertaUltimoMinuto').hide();
+            } else { $('.OfertaUltimoMinuto').show(); }
 
             if (aux1 == "7") {
                 $('.Recomendados').hide();
@@ -731,7 +729,7 @@
             waitingDialog({});
 
             var estrategias = jQuery("#list").jqGrid('getDataIDs', 'EstrategiaID');
-            var estrategiasSeleccionadas = jQuery("#list").jqGrid('getGridParam', 'selarrrow');           
+            var estrategiasSeleccionadas = jQuery("#list").jqGrid('getGridParam', 'selarrrow');
             var estrategiasNoSeleccionadas = estrategias.filter(function (obj) { return estrategiasSeleccionadas.indexOf(obj) == -1; });
 
             var params = {
@@ -757,12 +755,6 @@
                 }
             });
 
-            //for (var i = 0; i < estrategiasSelecionadas.length; i++) {
-            //    var data = $('#list').jqGrid('getRowData', estrategiasSelecionadas[i]);
-            //    debugger;
-            //    estrategiasActivas += (data.EstrategiaID + ",");
-            //    //batch.push(data);
-            //}
         });
         $("#ddlTipoEstrategia").change(function () {
             var aux1 = $('#ddlTipoEstrategia').find(':selected').data('id');
@@ -1286,8 +1278,8 @@
                             $("#txtPrecio2").focus();
                         }
 
-                        $("#txtPrecio").val("");
-                        $("#txtCUV").val("");
+                        //$("#txtPrecio").val("");
+                        //$("#txtCUV").val("");
 
                         $("#ContenidoImagenes").empty();
                         $("#imgSeleccionada").attr("src", rutaImagenVacia);
@@ -1790,7 +1782,7 @@
             mtype: 'GET',
             contentType: "application/json; charset=utf-8",
             multiselect: (tipo == '4') ? true : false,
-            multiPageSelection: (tipo == '4') ? true : false,
+            //multiPageSelection: (tipo == '4') ? true : false,
             colNames: ['EstrategiaID', 'Orden', '#', 'Pedido Asociado', 'Precio', 'CUV2', 'Descripción', 'Limite Venta', 'Código SAP', 'Foto', ''],
             colModel: [
                 { name: 'EstrategiaID', index: 'EstrategiaID', width: 20, editable: true, resizable: false, hidden: true },
@@ -1805,59 +1797,16 @@
                 { name: 'ImagenURL', index: 'ImagenURL', width: 70, align: 'center', editable: true, resizable: false, formatter: ShowImage },
                 { name: 'Activo', index: 'Activo', width: 30, align: 'center', editable: true, resizable: false, formatter: ShowActions }
             ],
-            onSelectAll: function (aRowids, select) {
-
-                //$.each(arrayDataDelete, function (i, rowDataDelete) {
-                //    rowDataDelete.eliminar = select;
-                //});
-            },
-            onSelectRow: function (id, select) {
-                if (!flag) {
-                    //debugger
-                    return false;
-                }
-            },
-            beforeSelectRow: function (rowid, e) {
-
-                var $self = $(this),
-                iCol = $.jgrid.getCellIndex($(e.target).closest("td")[0]),
-                cm = $self.jqGrid("getGridParam", "colModel");
-                if (iCol === 11) {
-                    //debugger;
-                    flag = false;
-                }
-            },
-            onPaging: function (a) {
-                var pagerId = this.p.pager.substr(1); // ger paper id like "pager"               
-                var pageValue = $('input.ui-pg-input', "#pg_" + $.jgrid.jqID(pagerId)).val();
-                var saveSelectedRows = $(this).getGridParam('selarrrow');
-                //Store any selected rows 
-                $(this).data(pageValue.toString(), saveSelectedRows);
-            },
-            //onSelectRow: function (id, select) {
-            //    var oneItemsDeselect = false;
-            //    $.each(arrayDataDelete, function (i, rowDataDelete) {
-            //        if (rowDataDelete.id == id) {
-            //            rowDataDelete.eliminar = select;
-            //        }
-            //        if (!rowDataDelete.eliminar) {
-            //            oneItemsDeselect = true;
-            //        }
-            //    });
-
-            //    flagSelectAll = !oneItemsDeselect;
-            //    $("#cb_list").attr("checked", flagSelectAll);
-            //},
             jsonReader:
-        {
-            root: "rows",
-            page: "page",
-            total: "total",
-            records: "records",
-            repeatitems: true,
-            cell: "cell",
-            id: "id"
-        },
+            {
+                root: "rows",
+                page: "page",
+                total: "total",
+                records: "records",
+                repeatitems: true,
+                cell: "cell",
+                id: "id"
+            },
             pager: jQuery('#pager'),
             loadtext: 'Cargando datos...',
             recordtext: "{0} - {1} de {2} Registros",
@@ -1868,7 +1817,6 @@
             sortname: 'Orden',
             sortorder: 'asc',
             viewrecords: true,
-            //multiselect: false,
             height: 'auto',
             width: 930,
             pgtext: 'Pág: {0} de {1}',
@@ -1878,21 +1826,18 @@
                 if (data.rows.length > 0) {
                     for (var i = 0; i < data.rows.length; i++) {
                         if (data.rows[i].cell[10] == '1') {
-
-                            //$("#jqg_list_" + data.rows[i].id).css("visibility", "hidden");
-                            //$grid.jqGrid('setSelection', data[i], false);
                             $("#list").jqGrid('setSelection', data.rows[i].id, true);
-
                         }
                     }
                 }
-            },
-            gridComplete: function () { }
+            }
+            //gridComplete: function () { }
         });
         jQuery("#list").jqGrid('navGrid', "#pager", { edit: false, add: false, refresh: false, del: false, search: false });
-        jQuery("#list").setGridParam({ datatype: 'json', page: 1 }).trigger('reloadGrid');
+
+        //jQuery("#list").setGridParam({ datatype: 'json', page: 1 }).trigger('reloadGrid');
         // allRowsInGrid = $('#list').getGridParam('data');
-        //  $("#list").jqGrid('hideCol', ["NumeroPedido"]); /*R20160301*/
+        if (tipo == '4') { $("#list").jqGrid('hideCol', ["Orden"]); }/*R20160301*/
     }
 
     function fnGrillaTC() {
@@ -2308,25 +2253,13 @@
                         alert(m);
                         return false;
                     }
-                    //}
-                    //if ($.trim($("#txtCUV2").val()) == "") {
-                    //    alert("Debe ingresar un valor para el CUV2.");
-                    //    return false;
-                    //}
-                    //if ($("#chkVisible4").attr("checked")) {
-                    //if ($.trim($("#txtTextoLibre").val()) == "") {
-                    //    alert("Ingrese un valor de texto libre");
-                    //    return false;
-                    //}
-                    //}
-                    //if ($("#chkVisible5").attr("checked")) {
+
                     if ($("#idEstrella").css("display") == "block") {
                         if (!$("#chkEstrella").attr("checked")) {
                             alert("Debe activar el la opción para mostrar estrella en la zona de producto.  ");
                             return false;
                         }
                     }
-                    //} else $("#hdColorFondo").val("");
 
                     if ($('.chk-estrategia-imagen:checked').length == 0) {
                         alert("Seleccione una imagen a mostrar.");
@@ -2432,7 +2365,8 @@
                                 alert(data.message);
                                 $("#ddlTipoEstrategia").val($("#hdEstrategiaIDConsulta").val());
                                 HideDialog("DialogAdministracionEstrategia");
-                                fnGrilla();
+                                //fnGrilla(); Observación.
+                                $("#list").jqGrid("clearGridData", true).trigger("reloadGrid");
                             } else {
                                 alert(data.message);
                             }
@@ -2745,11 +2679,16 @@
                                 imagenesProductos.push(imagen);
                             }
                         }
-
+                        (imagenesProductos.length == 10) ? $("#fpUpload").hide() : $("#fpUpload").show();
                         $('#ImagenCUV-template').tmpl(imagenesProductos).appendTo("#ContenidoImagenes");
 
                         $("#divImagenEstrategiaContenido").show();
                         $("#divInformacionAdicionalEstrategiaContenido").hide();
+
+                        $("#divImagenEstrategia").css("color", "white");
+                        $("#divImagenEstrategia").css("background", "#00A2E8");
+                        $("#divInformacionAdicionalEstrategia").css("color", "#702789");
+                        $("#divInformacionAdicionalEstrategia").css("background", "#D0D0D0");
 
                         $("#txtLimite").val(data.LimiteVenta);
                         $("#txtDescripcion").val(data.DescripcionCUV2);
@@ -2811,6 +2750,10 @@
                             $("#ddlEtiqueta1").children('option').show();
                             $("#ddlEtiqueta2").children('option').show();
                         }
+
+                        if (aux1 == "6") {
+                            $('.OfertaUltimoMinuto').hide();
+                        } else { $('.OfertaUltimoMinuto').show(); }
 
                         if (aux1 == "7") {
                             $('.Recomendados').hide();
