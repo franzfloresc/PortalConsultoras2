@@ -19,9 +19,7 @@ var urlLoad = urlLoad || "";
 //PL20-1234
 var rangoPrecios = 0;
 //Mobile
-var mPremax = 0.00;
-var mPremin = 0.00;
-
+var mPremax = 0.00; 
 $(document).ready(function () {
     $(document).on('click', '[data-btn-agregar-catalogopersonalizado]', function () {
 
@@ -69,18 +67,19 @@ $(document).ready(function () {
 
     //$("#txt-range-price").slider({});
 
-    // PL20-1270
-    //if (tipoOrigen == '2') {
-    //    $(".label-checkbox").on("click", function () {
-    //        processFilterCatalogoPersonalizado();
-    //        $('#divProductosEncontrados b').text(8); //PL1274
-    //    });
-    //}
+     //PL20-1270
+    if (tipoOrigen == '2') {
+        $(".label-checkbox").on("click", function () {
+            //debugger
+            //processFilterCatalogoPersonalizado();
+            
+        });
+    }
 
     //PL20-1274
     $(".seleccion_filtro_fav").on("click", function () {
         $(this).toggleClass("seleccion_click_flitro");
-
+        
         filterFAVDesktop();
     });
 
@@ -214,9 +213,9 @@ function processFilterCatalogoPersonalizado(type)
         filters.push(f);
     }
 
-    $('#custom-filters').hide();  
-    $('#orderby-filter').show();
-    $('#divCatalogoPersonalizado').show();
+    //$('#custom-filters').hide();  
+    //$('#orderby-filter').show();
+    //$('#divCatalogoPersonalizado').show();
    
     //Categorias
     var values = "";
@@ -474,7 +473,7 @@ function CargarCatalogoPersonalizado() {
                     if (totalRegistros != data.totalRegistrosFilter) $('#div-delete-filters').show();
                     else $('#div-delete-filters').hide();
 
-                    //$('.texto_filtros p').text(data.data.length); //PL1274
+                    $('#divProductosEncontrados b').text(data.data.length); //PL1274
                 }
                 //SB20-1197
 
