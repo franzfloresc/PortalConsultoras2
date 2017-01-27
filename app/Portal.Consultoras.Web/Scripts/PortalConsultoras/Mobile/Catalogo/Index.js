@@ -929,7 +929,7 @@ function TagManagerPaginasVirtuales() {
         'pageName': 'Catálogo – Revistas | Somos Belcorp'
     });
 }
-function TagManagerWS(Catalogo) {
+function TagManagerWS(Catalogo) {  
     dataLayer.push({
         'event': 'virtualEvent',
         'category': 'Catálogos y revistas',
