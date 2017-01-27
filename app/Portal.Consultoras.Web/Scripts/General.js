@@ -665,17 +665,17 @@ function InsertarLogDymnamo(pantallaOpcion, opcionAccion, esMobile, extra) {
         'Version': '2.0',
         'Extra': extra
     }
-    console.log(data);
 
-    //jQuery.ajax({
-    //    type: "GET",
-    //    url: baseUrl + 'MisCatalogosRevistas/AutocompleteCorreo',
-    //    dataType: "json",
-    //    data: data,
-    //    async: false,
-    //    success: function (result) { console.log(result); },
-    //    error: function (x, xh, xhr) { console.log(x); }
-    //});
+    jQuery.ajax({
+        type: "POST",
+        async: true,
+        crossDomain: true,
+        url: urlLogDynamo,
+        dataType: "json",
+        data: data,
+        success: function (result) { console.log(result); },
+        error: function (x, xh, xhr) { console.log(x); }
+    });
 }
 
 function InfoCommerceGoogleDestacadoProductClick(name, id, category, variant, position) {

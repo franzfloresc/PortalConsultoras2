@@ -130,7 +130,16 @@ var urlISSUU = "http://issuu.com/somosbelcorp/docs/";
 imgIssuu = imgIssuu.startsWith("https") ? imgIssuu.replace("https://", "http://") : imgIssuu;
 
 function InsertarLogCatalogoDynamo(opcionAccion, campaniaCatalogo, marca, cantidad) {
-    InsertarLogDymnamo('Catalogo-Compartir', opcionAccion, true, { 'CampaniaCatalogo': campaniaCatalogo, 'Marca': marca, 'Cantidad': cantidad });
+    InsertarLogDymnamo(
+        'Catalogo-Compartir',
+        opcionAccion,
+        true,
+        [
+            { 'key': 'CampaniaCatalogo', 'value': campaniaCatalogo },
+            { 'key': 'Marca', 'value': marca },
+            { 'key': 'Cantidad', 'value': cantidad }
+        ]
+    );
 }
 
 function CargarCarruselCatalogo() {
