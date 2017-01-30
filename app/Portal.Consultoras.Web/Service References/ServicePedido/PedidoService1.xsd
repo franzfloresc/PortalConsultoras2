@@ -243,6 +243,21 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="BEPedidoRechazado" nillable="true" type="tns:BEPedidoRechazado" />
+  <xs:complexType name="BEPedidoDescarga">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Desmarcado" type="xs:boolean" />
+      <xs:element minOccurs="0" name="Estado" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FechaFacturacion" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="FechaHoraFin" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="FechaHoraInicio" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="Mensaje" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NroLote" type="xs:int" />
+      <xs:element minOccurs="0" name="NumeroPedidosDD" type="xs:int" />
+      <xs:element minOccurs="0" name="NumeroPedidosWeb" type="xs:int" />
+      <xs:element minOccurs="0" name="TipoProceso" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="BEPedidoDescarga" nillable="true" type="tns:BEPedidoDescarga" />
   <xs:complexType name="ArrayOfBEEstrategia">
     <xs:sequence>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="BEEstrategia" nillable="true" type="tns:BEEstrategia" />
@@ -1180,8 +1195,7 @@
       <xs:element minOccurs="0" name="HoraInicio" type="ser:duration" />
       <xs:element minOccurs="0" name="HoraInicioNoFacturable" type="ser:duration" />
       <xs:element minOccurs="0" name="HorasDuracionRestriccion" type="xs:int" />
-      <xs:element minOccurs="0" name="IndicadorEnviado" type="xs:int" />
-      <xs:element minOccurs="0" name="IndicadorRechazado" type="xs:int" />
+      <xs:element minOccurs="0" name="IndicadorGPRSB" type="xs:int" />
       <xs:element minOccurs="0" name="MensajeValidacionInteractiva" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ModificaPedidoReservado" type="xs:boolean" />
       <xs:element minOccurs="0" name="NroCampanias" type="xs:int" />

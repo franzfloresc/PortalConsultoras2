@@ -9,7 +9,7 @@
     <meta name="author" content="Belcorp" />
 
     <title>Belcorp | Portal Consultoras</title>
-    
+
     <link href="@Url.Content("~/Content/Css/Site/flipclock.css")" rel="stylesheet" type="text/css" />
 
     <link href="https://fonts.googleapis.com/css?family=Lato:400,700italic,300,700,900" rel="stylesheet" type="text/css" />
@@ -24,7 +24,7 @@
         <link href="@Url.Content("~/Content/Images/icons/favicon_lbel.ico")" rel="shortcut icon" type="image/x-icon" />
         @System.Web.Optimization.Styles.Render("~/Content/Css/Site/Lbel/CssSB2")
     }
-    
+
 
     <script type="text/javascript">
         var baseUrl = "@Url.Content("~")";
@@ -32,10 +32,10 @@
         var trackingJetloreAccessToken = '@System.Configuration.ConfigurationManager.AppSettings.Get("TrackingJetloreAccessToken")';
         var tipoOfertaFinalCatalogoPersonalizado = '@Constantes.TipoOfertaFinalCatalogoPersonalizado.Jetlore';
         var esPaisTrackingJetlore = '@ViewBag.PaisesConTrackingJetlore';
-        var indicadorEnviadoDescarga = '@ViewBag.IndicadorEnviado';
-        var estaRechazado = '@ViewBag.EstaRechazado';
+        var estaRechazado = '@ViewBag.IndicadorGPRSB';
         var cerrarRechazado = '@ViewBag.CerrarRechazado';
         var motivoRechazo = '@ViewBag.MotivoRechazo';
+        var mostrarBannerRechazo = '@ViewBag.MostrarBannerRechazo';
         var UrlChat = '@ViewBag.UrlBelcorpChat';
         var UrlChatAnterior = 'https://chat1-cls1-cgn-bct.i6.inconcertcc.com/inconcert/apps/webdesigner/BelcorpNew?token=@ViewBag.TokenAtento';
         var IsoPais = '@ViewBag.CodigoISODL';
@@ -66,7 +66,7 @@
         }];
     </script>
     <noscript>
-        <iframe src="//www.googletagmanager.com/ns.html?id=GTM-M8QMC8" height="0" width="0" style="display:none; visibility:hidden;"></iframe>
+        <iframe src="//www.googletagmanager.com/ns.html?id=GTM-M8QMC8" height="0" width="0" style="display: none; visibility: hidden;"></iframe>
     </noscript>
     <script>
         (function (w, d, s, l, i) {
@@ -134,28 +134,27 @@
 
         <div id="bloquemensajesPedido" style="display:none">
             <div class="oscurecer_animacion"></div>
-            <div class="bloque_mensajesPedido" style="display:block">
-                <div class="icono_cerrar_mensaje" style="top:16px">
+            <div class="bloque_mensajesPedido" style="display: block">
+                <div class="icono_cerrar_mensaje" style="top: 16px">
                     <span>
                         <a href="javascript:void();" id="cerrarMensajeEstadoPedido" title="Cerrar" onclick="cerrarMensajeEstadoPedido();">
-                            <img src="/Content/Images/btn_cerrar_popup.svg" alt="Cerrar">
+                            <img src="/Content/Images/btn_cerrar_popup.png" alt="Cerrar">
                         </a>
                     </span>
                     <span>CERRAR</span>
                 </div>
                 <div class="icono_estadoPedido">
-                    <img src="@Url.Content("~/Content/Images/icono_exclamacion_estado_pedido.svg")" alt="Icono Estado Pedido" />
+                    <img src="@Url.Content("~/Content/Images/icono_exclamacion_estado_pedido.png")" alt="Icono Estado Pedido" />
                 </div>
                 <div class="mensajes_estadoPedido">
                     @*<span class="mensaje_estadoActualPedido">NOS ENCONTRAMOS FACTURANDO TU PEDIDO</span>
             <span class="mensaje_horarioIngresoPedido">Si quieres ingresar pedido, lo puedes hacer desde mañana a las 7 a.m.</span>*@
                     <span class="mensaje_estadoActualPedido">TU PEDIDO HA SIDO RECHAZADO</span>
-                    <span class="mensaje_horarioIngresoPedido">
-                        Tienes una deuda de S/. <span>200</span> que debes regularizar.
+                    <span class="mensaje_horarioIngresoPedido">Tienes una deuda de S/. <span>200</span> que debes regularizar.
                         <a href="#" title="MIRA LOS LUGARES DE PAGO">MIRA LOS LUGARES DE PAGO</a>
                     </span>
                 </div>
-            </div>  
+            </div>            
         </div>
         <div class="wrapper_header">
             <div class="logo_esika">
@@ -171,7 +170,8 @@
             }
             <div class="menu_esika_b">
                 <div class="campana user-profile">
-                    <img class="mostrar_perfil oculto" region="Superior" src="/Content/Images/Esika/user.jpg" alt="Esika"> @*CAMBIAR LA CLASE POR "OCULTAR_PERFIL"*@
+                    <img class="mostrar_perfil oculto" region="Superior" src="/Content/Images/Esika/user.jpg" alt="Esika">
+                    @*CAMBIAR LA CLASE POR "OCULTAR_PERFIL"*@
                 </div>
 
                 <div class="campana">
@@ -182,7 +182,7 @@
                 </div>
 
                 <div class="borde_c @(controllerAction == "BienvenidaIndex" ? "invisible" : "")"></div>
-                <div class="campana cart_compras" style="width:auto;">
+                <div class="campana cart_compras" style="width: auto;">
                     <div class="contenedor_circulos">
                         <div class="circulo-1 iniciarTransicion"></div>
                         <div class="circulo-2 iniciarTransicion"></div>
@@ -190,7 +190,7 @@
                     </div>
                     <a href="#">
                         <div class="campana_svg"></div>
-                        <p class="notificaciones" id="pCantidadProductosPedido" style="width:14px;">0</p>
+                        <p class="notificaciones" id="pCantidadProductosPedido" style="width: 14px;">0</p>
                     </a>
 
                     <div class="info_cam">
@@ -198,7 +198,10 @@
                         <div class="linea_blanca"></div>
                         <div id="SinProductos">
                             <div class="sin_productos">
-                                Todavía no has agregado <br />ningún producto a tu<br /> pedido.
+                                Todavía no has agregado
+                                <br />
+                                ningún producto a tu<br />
+                                pedido.
                             </div>
                             <a href="javascript:;" onclick="RedirectIngresaTuPedido();" class="ver_pedido esika">INGRESA TU PEDIDO</a>
                         </div>
@@ -219,14 +222,14 @@
                 </div>
 
                 <div class="borde_c"></div>
-                <div class="mensaje_header" id="salvavidaTutorial" style="display:none;">
+                <div class="mensaje_header" id="salvavidaTutorial" style="display: none;">
                     <div class="campana_svg tutoriales_svg">
                         <div class="contenedor_circulosTutorial">
                             <div class="circulo-1 iniciarTransicion"></div>
                             <div class="circulo-2 iniciarTransicion"></div>
                             <div class="circulo-3 iniciarTransicion"></div>
                         </div>
-                        <div class="tooltip_tutorial" style="display:none;">
+                        <div class="tooltip_tutorial" style="display: none;">
                             <div class="cerrar_tooltipTutorial">
                                 <a href="javascript:void();" onclick="ocultarUbicacionTutorial();" title="Cerrar">
                                     <img src="@Url.Content("~/Content/Images/btn_cerrar_popup_color_negro.svg")" alt="Cerrar" />
@@ -251,8 +254,9 @@
                     }
                 </div>
                 <div class="boton_cerrar_s">
-                    <a href="javascript:;" onclick="CerrarSesion();" role="menu" region="Superior" title="Cerrar Sesión" id="lnk-sup-cerrar-sesion">
-                        CERRAR <br /> SESIÓN
+                    <a href="javascript:;" onclick="CerrarSesion();" role="menu" region="Superior" title="Cerrar Sesión" id="lnk-sup-cerrar-sesion">CERRAR
+                        <br />
+                        SESIÓN
                     </a>
                 </div>
             </div>
@@ -261,9 +265,9 @@
     </header>
     <div class="fondo_oscuro"></div>
     <div class="ubicacion_web @(controllerAction == "BienvenidaIndex" ? "oculto" : "")">
-        <span><a href="@Url.Action("Index", "Bienvenida")">Home</a></span> <span> | @ViewBag.Title</span>
+        <span><a href="@Url.Action("Index", "Bienvenida")">Home</a></span> <span>| @ViewBag.Title</span>
     </div>
-    
+
     <!-- end cabecera -->
     <!-- contenedor -->
     <div class="content" data-content="">
@@ -442,11 +446,11 @@
     </div>
     
     <!-- POPUP MENSAJE ERROR - exclamacion  -->
-    <div class="contenedor_popup_agregarUnidades" id="dialog_ErrorMainLayout" style="display: none;">
+    <div class="contenedor_popup_agregarUnidades contenedor_popup_error" id="dialog_ErrorMainLayout" style="display: none;">
         <div class="popup_agregarUnidades">
             <div class="btn_cerrar_agregarUnidades">
                 <a href="javascript:;" onclick="return $('#dialog_ErrorMainLayout').hide();">
-                    <img src="@Url.Content("~/Content/Images/btn_cerrar_popup.svg")" alt="Cerrar" />
+                    <img src="@Url.Content("~/Content/Images/btn_cerrar_popup.png")" alt="Cerrar" />
                     <span class="texto_btn_cerrar">CERRAR</span>
                 </a>
             </div>

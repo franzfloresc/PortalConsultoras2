@@ -80,8 +80,8 @@ namespace Portal.Consultoras.Web.Controllers
                 BEConfiguracionCampania oBEConfiguracionCampania;
                 using (PedidoServiceClient sv = new PedidoServiceClient())
                 {
-                    userData.ConsultoraID = userData.UsuarioPrueba == 1 ? userData.ConsultoraAsociadaID : userData.ConsultoraID;
-                    oBEConfiguracionCampania = sv.GetEstadoPedido(userData.PaisID, userData.CampaniaID, userData.ConsultoraID, userData.ZonaID, userData.RegionID);
+                    var ConsultoraID = userData.UsuarioPrueba == 1 ? userData.ConsultoraAsociadaID : userData.ConsultoraID;
+                    oBEConfiguracionCampania = sv.GetEstadoPedido(userData.PaisID, userData.CampaniaID, ConsultoraID, userData.ZonaID, userData.RegionID);
                 }
 
                 if (oBEConfiguracionCampania != null)
@@ -317,6 +317,9 @@ namespace Portal.Consultoras.Web.Controllers
                         ObtenerListadoProductosOfertaFinal();
                 }
 
+
+
+
                 #region Pedidos Pendientes
 
                 ViewBag.MostrarPedidosPendientes = "0";
@@ -341,6 +344,8 @@ namespace Portal.Consultoras.Web.Controllers
                                 }
                             }
                         }
+
+
 
                         //List<BEMisPedidos> olstMisPedidos = new List<BEMisPedidos>();
                         //using (UsuarioServiceClient svc = new UsuarioServiceClient())
@@ -3063,6 +3068,25 @@ namespace Portal.Consultoras.Web.Controllers
 
             #endregion
 
+            #region GPR
+
+            userData.ValidacionAbierta = oBEConfiguracionCampania.ValidacionAbierta;
+           
+            bool MostrarBannerPedidoRechazado = false;
+
+            if (userData.IndicadorGPRSB == 2)
+            {
+                MostrarBannerPedidoRechazado = true;
+                if (!oBEConfiguracionCampania.ValidacionAbierta && userData.EstadoPedido == 202) { MostrarBannerPedidoRechazado = false; }
+            }
+            userData.MostrarBannerRechazo = MostrarBannerPedidoRechazado;
+            SetUserData(userData);
+            ViewBag.IndicadorGPRSB = userData.IndicadorGPRSB;
+            //ViewBag.EstadoPedido = userData.EstadoPedido;
+            ViewBag.MostrarBannerRechazo = MostrarBannerPedidoRechazado;
+
+            #endregion
+
             return View(model);
         }
 
@@ -3371,9 +3395,10 @@ namespace Portal.Consultoras.Web.Controllers
                         }
                         //Dado que no se usa el indicador de ModificaPedidoReservado, este campo en el servicio será utilizado para enviar el campo: ValidacionAbierta
 
-                        userData.CodigoUsuario = userData.UsuarioPrueba == 1 ? userData.ConsultoraAsociada : userData.CodigoUsuario.ToString();
+                     
+                        var CodigoUsuario = userData.UsuarioPrueba == 1 ? userData.ConsultoraAsociada : userData.CodigoUsuario.ToString();
 
-                        sv.UpdPedidoWebByEstado(userData.PaisID, userData.CampaniaID, userData.PedidoID, Estado, false, true, userData.CodigoUsuario, ValidacionAbierta);
+                        sv.UpdPedidoWebByEstado(userData.PaisID, userData.CampaniaID, userData.PedidoID, Estado, false, true, CodigoUsuario, ValidacionAbierta);
                         if (Tipo == "PI")
                         {
                             //Inserta Aceptacion Reemplazos

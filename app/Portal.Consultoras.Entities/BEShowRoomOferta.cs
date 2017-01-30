@@ -121,15 +121,19 @@ namespace Portal.Consultoras.Entities
         public int MarcaID { get; set; }
 
         [DataMember]
+        [ViewProperty]
         public int Incrementa { get; set; }
 
         [DataMember]
+        [ViewProperty]
         public int CantidadIncrementa { get; set; }
 
         [DataMember]
+        [ViewProperty]
         public int FlagAgotado { get; set; }
 
         [DataMember]
+        [ViewProperty]
         public int StockResultado { get; set; }
 
         public BEShowRoomOferta(IDataRecord row)

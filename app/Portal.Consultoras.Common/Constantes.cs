@@ -314,6 +314,15 @@ namespace Portal.Consultoras.Common
             public const int Flexipago = 7;
             public const int Comunicado = 8;
         }
+
+        // Constantes de los motivos de GPR.
+        public class GPRMotivoRechazo
+        {
+            public const string MontoMinino = "OCC-16"; //MONTO MINIMO
+            public const string MontoMaximo = "OCC-17"; // MONTO MAXIMO
+            public const string ActualizacionDeuda = "OCC-19"; //ACTUALIZACION DE DEUDA
+            public const string ValidacionMontoMinimoStock = "OCC-51"; //VALIDACION MONTO MINIMO STOCK
+        }
     }
 }
 

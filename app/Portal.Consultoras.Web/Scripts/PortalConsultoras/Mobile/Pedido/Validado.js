@@ -36,7 +36,7 @@ function ConfirmarModificarPedido() {
                     location.href = urlIngresarPedido;
                 } else {
                     CloseLoading();
-                    messageInfo(data.message);
+                    messageInfoError(data.message);
                 }
             }
         },
