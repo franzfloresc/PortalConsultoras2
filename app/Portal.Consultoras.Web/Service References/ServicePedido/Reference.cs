@@ -3091,6 +3091,9 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private string DescripcionMarcaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int EnMatrizComercialField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int EstrategiaIDField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -3428,6 +3431,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((object.ReferenceEquals(this.DescripcionMarcaField, value) != true)) {
                     this.DescripcionMarcaField = value;
                     this.RaisePropertyChanged("DescripcionMarca");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int EnMatrizComercial {
+            get {
+                return this.EnMatrizComercialField;
+            }
+            set {
+                if ((this.EnMatrizComercialField.Equals(value) != true)) {
+                    this.EnMatrizComercialField = value;
+                    this.RaisePropertyChanged("EnMatrizComercial");
                 }
             }
         }

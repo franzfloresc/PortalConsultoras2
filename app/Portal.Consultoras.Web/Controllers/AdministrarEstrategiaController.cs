@@ -496,7 +496,7 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                 }
 
-                string mensaje = "", descripcion = "", precio = "", CodigoSAP = "";
+                string mensaje = "", descripcion = "", precio = "", codigoSAP = ""; int enMatrizComercial = 1;
                 string imagen1 = "", imagen2 = "", imagen3 = "", imagen4 = "", imagen5 = "", imagen6 = "", imagen7 = "", imagen8 = "", imagen9 = "", imagen10 = "";
                 string carpetaPais = Globals.UrlMatriz + "/" + UserData().CodigoISO;
                 string wsprecio = ""; ///GR-1060
@@ -542,7 +542,8 @@ namespace Portal.Consultoras.Web.Controllers
                     ///end GR-1060
                     descripcion = lst[0].DescripcionCUV2;
                     precio = lst[0].PrecioUnitario.ToString();
-                    CodigoSAP = lst[0].CodigoSAP.ToString();
+                    codigoSAP = lst[0].CodigoSAP.ToString();
+                    enMatrizComercial = lst[0].EnMatrizComercial.ToInt();
                     wsprecio = wspreciopack.ToString();                    
                     imagen1 = ConfigS3.GetUrlFileS3(carpetaPais, lst[0].FotoProducto01, Globals.RutaImagenesMatriz + "/" + userData.CodigoISO);
                     imagen2 = ConfigS3.GetUrlFileS3(carpetaPais, lst[0].FotoProducto02, Globals.RutaImagenesMatriz + "/" + userData.CodigoISO);
@@ -563,7 +564,8 @@ namespace Portal.Consultoras.Web.Controllers
                     descripcion = descripcion,
                     precio = precio,
                     wsprecio = wsprecio,
-                    codigoSAP = CodigoSAP,
+                    codigoSAP = codigoSAP,
+                    enMatrizComercial = enMatrizComercial,
                     imagen1 = imagen1,
                     imagen2 = imagen2,
                     imagen3 = imagen3,
