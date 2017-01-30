@@ -250,7 +250,8 @@
                                                  $("#hdnimagenProducto").val(responseJSON.name);
                                                  $("#imagenProductoAnterior").val("");
                                                  $("#fotoProducto_Id").val(('0' + ($("#ContenidoImagenes .titG").length + 1)).substr(-2));
-                                                 // req. 1664                                                    
+                                                 // req. 1664   
+
                                                  ActualizarImagenMatriz();
                                                  mostrarInformacionCUV($("#txtCUV2").val());
                                              }
@@ -332,6 +333,7 @@
                                                      //HideDialog("DialogMatrizComercial");
                                                      //LimpiarDatos();
                                                      //jQuery("#list").setGridParam({ datatype: 'json', page: 1 }).trigger('reloadGrid');
+
                                                  }
                                                  else {
                                                      alert(data.message);
@@ -1306,17 +1308,21 @@
                         $("#hdnCodigoSAP").val(data.codigoSAP);
                         $("#hdnEnMatrizComercial").val(data.enMatrizComercial);
                         imagenesProductos = [];
+                        var imagenProductoSeleccionada = $("#imgSeleccionada").attr('src');
+                        imagenProductoSeleccionada = imagenProductoSeleccionada.substr(imagenProductoSeleccionada.lastIndexOf("/") + 1);
 
                         for (var i = 1; i <= nroImagenes; i++) {
                             idImagen = ('0' + i).substr(-2);
                             dataImagen = data['imagen' + i];
+
+
                             if (dataImagen != '') {
                                 var imagen = {
                                     "idImagen": idImagen,
                                     "dataImagen": dataImagen,
                                     "fotoProducto": dataImagen.substr(dataImagen.lastIndexOf("/") + 1),
                                     "fotoProductoAnterior": dataImagen.substr(dataImagen.lastIndexOf("/") + 1),
-                                    "selected": false
+                                    "selected": dataImagen.substr(dataImagen.lastIndexOf("/") + 1) == imagenProductoSeleccionada ? true : false
                                 }
                                 imagenesProductos.push(imagen);
                             }
