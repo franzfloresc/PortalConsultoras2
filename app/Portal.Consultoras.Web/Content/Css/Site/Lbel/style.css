@@ -4393,6 +4393,10 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
     overflow:auto;
 }
 
+.contenedor_popup_error {    
+    z-index: 2000;
+}
+
 .fondo_tutorial{
     background:transparent url(../../../Images/bg_popup_tutorial.png) repeat left top;
 }
@@ -19229,7 +19233,7 @@ float: right;
 .content_show_right {
     float: right;
     height: 480px;
-    width: 343px;
+    width: 379px;
     overflow: hidden;
 }
 .borde_superior {
@@ -19936,6 +19940,20 @@ label.checkpop.c_on {
 .titulo_producto_agregado span{
     font-weight:bold;
 }
+
+.div_bonotes_producto {
+   float:right;
+   position:relative;
+   left:-50%;
+   text-align:left;
+}
+
+.div_bonotes_producto > .child_center_botones{
+    position:relative;
+    left:47%;
+}
+
+
 .divAgregarShowRoom .volver_set {
     width: 159px;
     display: block;
@@ -24697,7 +24715,7 @@ img
 }
 .cont_pregunta h3
 {
-	font-size:16px;
+	font-size:15px;
 	color:#405160;
 	font-weight:600 !important;
 	height:78px;

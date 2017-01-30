@@ -244,7 +244,7 @@ namespace Portal.Consultoras.Common
             public const int DesktopGeneralBannerOfertaDelDia = 1991;
             public const int DesktopGeneralDisplayOfertaDelDia = 1992;
         }
-
+        
         public class TipoTutorial
         {
             public const int Video = 1;
@@ -265,12 +265,12 @@ namespace Portal.Consultoras.Common
             public const string Portal = "Se retiraron de tu pedido los productos de este cliente.";
             public const string Marcas = "No te olvides comunicarte con tu cliente.";
         }
-
+        
         public class BackOrder
         {
             public const string LogAccionCancelar = "El cliente no aceptó BackOrder.";
         }
-
+        
         public class EstadoCDRWeb
         {
             public const int Pendiente = 1;
@@ -279,14 +279,6 @@ namespace Portal.Consultoras.Common
             public const int Observado = 4;
         }
 
-        // Constantes de los motivos de GPR.
-        public class GPRMotivoRechazo
-        {
-            public const string MontoMinino = "OCC-16"; //MONTO MINIMO
-            public const string MontoMaximo = "OCC-17"; // MONTO MAXIMO
-            public const string ActualizacionDeuda = "OCC-19"; //ACTUALIZACION DE DEUDA
-            public const string ValidacionMontoMinimoStock = "OCC-51"; //VALIDACION MONTO MINIMO STOCK
-        }
 
         public class TipoMensajeCDR
         {
@@ -331,12 +323,22 @@ namespace Portal.Consultoras.Common
             public const int Comunicado = 8;
         }
 
+        // Constantes de los motivos de GPR.
+        public class GPRMotivoRechazo
+        {
+            public const string MontoMinino = "OCC-16"; //MONTO MINIMO
+            public const string MontoMaximo = "OCC-17"; // MONTO MAXIMO
+            public const string ActualizacionDeuda = "OCC-19"; //ACTUALIZACION DE DEUDA
+            public const string ValidacionMontoMinimoStock = "OCC-51"; //VALIDACION MONTO MINIMO STOCK
+        }
+        
         public class ValidacionExisteUsuario
         {
             public const int NoExiste = 0;
             public const int ExisteDiferenteClave = 1;
             public const int Existe = 2;
         }
+
     }
 }
 
