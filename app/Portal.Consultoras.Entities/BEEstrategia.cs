@@ -149,6 +149,8 @@ namespace Portal.Consultoras.Entities
         public int Imagen { get; set; }
         [DataMember]
         public string CodigoSAP { get; set; }
+        [DataMember]
+        public int  EnMatrizComercial { get; set; }
 
         public BEEstrategia(IDataRecord row)
         {
@@ -313,6 +315,9 @@ namespace Portal.Consultoras.Entities
 
             if (DataRecord.HasColumn(row, "CodigoSAP") && row["CodigoSAP"] != DBNull.Value)
                 CodigoSAP = row["CodigoSAP"].ToString().Trim();
+
+            if (DataRecord.HasColumn(row, "EnMatrizComercial") && row["EnMatrizComercial"] != DBNull.Value)
+                EnMatrizComercial = Convert.ToInt32(row["EnMatrizComercial"]); 
         }
     }
     // 1747 - Inicio
