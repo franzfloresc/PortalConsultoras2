@@ -144,6 +144,19 @@ $(document).ready(function () {
         
 });
 
+function InsertarLogCatalogoDynamo(opcionAccion, campaniaCatalogo, marca, cantidad) {
+    InsertarLogDymnamo(
+        'Catalogo-Compartir',
+        opcionAccion,
+        false,
+        [
+            {'key': 'CampaniaCatalogo', 'value': campaniaCatalogo },
+            {'key': 'Marca', 'value': marca },
+            {'key': 'Cantidad', 'value': cantidad }
+        ]
+    );
+}
+
 function ObtenerURLExpofertas() {
     $.ajax({
         type: 'POST',
@@ -225,14 +238,11 @@ function CargarCarruselCatalogo() {
         }
 
         htmlBase = $("#xHtmlItemCatalogo").html();
-        htmlBase = htmlBase.replace("{campania}", anio + nro);
-        htmlBase = htmlBase.replace("{campania}", anio + nro);
-        htmlBase = htmlBase.replace("{tipoCatalogo}", tipo);
-        htmlBase = htmlBase.replace("{tipoCatalogo}", tipo);
-        htmlBase = htmlBase.replace("{tipoCatalogo}", tipo);
-        htmlBase = htmlBase.replace("{comp}", tipo);
-        htmlBase = htmlBase.replace("{descripcion}", descrCat[tipo]);
-        htmlBase = htmlBase.replace("{estado}", "0");
+        htmlBase = htmlBase.replace(/{campania}/g, anio + nro);
+        htmlBase = htmlBase.replace(/{tipoCatalogo}/g, tipo);
+        htmlBase = htmlBase.replace(/{comp}/g, tipo);
+        htmlBase = htmlBase.replace(/{descripcion}/g, descrCat[tipo]);
+        htmlBase = htmlBase.replace(/{estado}/g, "0");
 
         $("#divCatalogo").append(htmlBase);
 
@@ -365,7 +375,7 @@ function GetCatalogosLinksByCampania(data, campania) {
                 var n = campania.substring(4, 6);
                 var a = campania.substring(0, 4);
                 $(idCat).find(elemItem).find("[data-tipo='img']").attr("onclick", "SetGoogleAnalytics('" + codigoISSUU + "','Ver catálogo','" + tagCat + "')");
-                var urlCat = urlISSUU + tagCat.toLowerCase() + "." + ObtenerNombrePais(idPais) + ".c" + n + "." + a + "?e=1/2";
+                var urlCat = urlISSUU + tagCat.toLowerCase() + "." + ObtenerNombrePais(idPais) + ".c" + n + "." + a + "?mode=embed";
                 $(idCat).find(elemItem).find("[data-tipo='img']").attr("href", urlCat);
                 $(idCat).find(elemItem).find("#txtUrl" + tagCat).val(urlCat);
                 $(idCat).find(elemItem).find("[data-tipo='img'] img").attr("src", imgIssuu.replace("{img}", codigoISSUU));
@@ -508,15 +518,17 @@ function SetGoogleAnalytics(Imagen, Accion, Label) {
     });
 }
 
-function CompartirFacebook(Catalogo, btn) {
+function CompartirFacebook(catalogo, campaniaCatalogo, btn) {
     dataLayer.push({
         'event': 'virtualEvent',
         'category': 'Catálogos y revistas',
         'action': 'Compartir FB',
-        'label': Catalogo,
+        'label': catalogo,
         'value': 0
     });
-    var u = $(btn).parents("[data-cat='" + Catalogo + "']").find("#txtUrl" + Catalogo).val();
+    InsertarLogCatalogoDynamo('Facebook', campaniaCatalogo, catalogo, 1);
+
+    var u = $(btn).parents("[data-cat='" + catalogo + "']").find("#txtUrl" + catalogo).val();
 
     var popWwidth = 570;
     var popHeight = 420;
@@ -554,8 +566,7 @@ function AbrirCompartirCorreo(tipoCatalogo, campania) {
     }
 }
 
-function CargarTodosCorreo() {
-    
+function CargarTodosCorreo() {    
     listaCorreo = listaCorreo || new Array();
     if (listaCorreo.length > 0) {
         return listaCorreo;
@@ -604,7 +615,6 @@ function CatalogoEnviarEmail() {
 
     var clientes = new Array();
     for (var i = 0; i < correoEnviar.length; i++) {
-
         var objCorreo = {
             "ClienteID": correoEnviar[i].obj.clienteID,
             "Nombre": correoEnviar[i].obj.nombre,
@@ -638,7 +648,7 @@ function CatalogoEnviarEmail() {
     var Tipo = campActual == campComparte ? "1" : "2";
 
     var mensaje = $("#comentarios").val();
-    if (_Flagchklbel == "1")
+    if (_Flagchklbel == "1") {
         dataLayer.push({
             'event': 'virtualEvent',
             'category': 'Catálogos y revistas',
@@ -646,7 +656,9 @@ function CatalogoEnviarEmail() {
             'label': 'Lbel',
             'value': clientes.length
         });
-    if (_Flagchkesika == "1")
+        InsertarLogCatalogoDynamo('Email', campaniaEmail, 'Lbel', clientes.length);
+    }
+    if (_Flagchkesika == "1") {
         dataLayer.push({
             'event': 'virtualEvent',
             'category': 'Catálogos y revistas',
@@ -654,7 +666,9 @@ function CatalogoEnviarEmail() {
             'label': 'Esika',
             'value': clientes.length
         });
-    if (_Flagchkcyzone == "1")
+        InsertarLogCatalogoDynamo('Email', campaniaEmail, 'Esika', clientes.length);
+    }
+    if (_Flagchkcyzone == "1") {
         dataLayer.push({
             'event': 'virtualEvent',
             'category': 'Catálogos y revistas',
@@ -662,6 +676,9 @@ function CatalogoEnviarEmail() {
             'label': 'Cyzone',
             'value': clientes.length
         });
+        InsertarLogCatalogoDynamo('Email', campaniaEmail, 'Cyzone', clientes.length);
+    }
+
     jQuery.ajax({
         type: 'POST',
         url: baseUrl + 'MisCatalogosRevistas/EnviarEmail',
@@ -876,7 +893,8 @@ function ObtenerUrlRevista(campania) {
     var prefijoPais = codigoIso.toLowerCase();
     var numeroCampania = campania.substring(4, 6);;
     var anioCampania = campania.substring(0, 4);;
-    return 'http://issuu.com/somosbelcorp/docs/revista.' + prefijoPais + '.c' + numeroCampania + '.' + anioCampania + "?e=11111/22222";
+    //return 'http://issuu.com/somosbelcorp/docs/revista.' + prefijoPais + '.c' + numeroCampania + '.' + anioCampania + "?e=11111/22222";
+    return 'http://issuu.com/somosbelcorp/docs/revista.' + prefijoPais + '.c' + numeroCampania + '.' + anioCampania + "?mode=embed";
 }
 
 // mensaje alerta

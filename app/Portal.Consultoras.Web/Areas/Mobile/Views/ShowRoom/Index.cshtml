@@ -24,12 +24,6 @@
         <span>¡Oportunidad única! Sets exclusivos sólo por la Web!</span><br>
         @*Los productos no otorgan puntaje en concursos ni participan en ofertas de niveles. Precio neto Consultora.*@
     </div>
-
-    <div class="titulo_showroom_mobile">
-        <a onclick="SetMarcaGoogleAnalyticsTermino();"
-           href="@Model.RutaShowRoomPopup" target="_blank">T&eacute;rminos y condiciones de la @Model.Nombre<br />@Model.Tema</a>
-    </div>
-
     <br />
 </div>
 
@@ -145,6 +139,13 @@
             }
 }
 
+<div class="titulo_showroom_mobile">
+    <a onclick="SetMarcaGoogleAnalyticsTermino();" href="@Model.RutaShowRoomPopup" target="_blank">
+        T&eacute;rminos y condiciones de la @Model.Nombre<br />
+        @Model.Tema
+    </a>
+</div>
+
 <!--MODAL AGREGAR PEDIDO-->
 <div id="divMensajeProductoAgregado" class="modal fade" data-backdrop="static" data-keyboard="false">
     <div class="modal-dialog modal-alert ">
@@ -200,7 +201,7 @@
             $("body").on("click", ".btnAgregarOfertaShowRoom", function (e) {
                 var article = $(this).parents(".listado_item").eq(0);
                 var cantidad = $(article).find(".txtCantidad").val();
-                debugger;
+                
                 AgregarOfertaShowRoom(article, cantidad);
                 e.preventDefault();
                 (this).blur();
@@ -234,7 +235,7 @@
         }
 
         function AgregarOfertaShowRoom(article, cantidad) {
-            debugger;
+            
             var CUV = $(article).find(".valorCuv").val();
             var MarcaID = $(article).find(".claseMarcaID").val();
             var PrecioUnidad = $(article).find(".clasePrecioUnidad").val();
@@ -328,7 +329,7 @@
                                                 $(article).find(".claseStock").text(stockRestante);
                                                 $(article).find(".txtCantidad").val("1");
                                             }
-                                            debugger;
+                                            
                                             AgregarTagManagerProductoAgregadoSWR(CUV, nombreProducto, PrecioUnidad, cantidad, descripcionMarca,0);
                                             //ActualizarCantidadTotalPedido();
                                             CargarCantidadProductosPedidos();
@@ -414,7 +415,7 @@
         }
 
         function AgregarTagManagerProductoAgregadoSWR(CUV, nombreProducto, PrecioUnidad, cantidad, descripcionMarca, tipo) {
-            debugger;
+            
             var lista = tipo == 0 ? "Ofertas Showroom" : "Ofertas Showroom popUp";
             dataLayer.push({
                 'event': 'addToCart',

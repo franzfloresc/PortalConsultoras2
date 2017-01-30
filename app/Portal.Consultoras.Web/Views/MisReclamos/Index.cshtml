@@ -578,12 +578,15 @@
                     CDRWebDetalleID: pedidodetalleid
                 };
 
-                var eliminado = DetalleEliminar(item);
+                var functionEliminar = function () {
+                    var eliminado = DetalleEliminar(item);
 
-                if (eliminado) {
-                    var parent = $(obj).parents(".content_listado_reclamo").eq(0);
-                    $(parent).remove();
-                }
+                    if (eliminado) {
+                        var parent = $(obj).parents(".content_listado_reclamo").eq(0);
+                        $(parent).remove();
+                    }
+                };
+                messageConfirmacion("", "Se eliminará el registro seleccionado. <br/>¿Deseas continuar?", functionEliminar);                
             }
         }
 

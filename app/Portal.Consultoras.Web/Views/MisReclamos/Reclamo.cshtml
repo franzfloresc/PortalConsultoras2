@@ -101,6 +101,7 @@
                 <input type="hidden" id="hdCuvPrecio2"/>
                 <input type="hidden" id="hdParametriaCdr" />
                 <input type="hidden" id="hdParametriaAbsCdr"/>
+                <input type="hidden" id="hdCdrWebDatos_Ssic"/>
                 <div class="rango_reclamo">
                     <input type="text" name="Cantidad" id="txtCantidad2" value="1" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral valid" onkeypress=" PreValidarCUV(); " onfocus=" SeleccionarContenido(this) ">
                     <div class="liquidacion_rango_right_pedido">
@@ -225,7 +226,7 @@
                 </div>
             </div>
             <div class="float_left">
-                <span class="texto_correo">Teléfono de contacto</span>
+                <span class="texto_correo">Celular de contacto</span>
                 <input type="hidden" id="hdTelefono" value="@Model.Telefono" />
                 @Html.TextBox("txtTelefono", (string) Model.Telefono, new {@class = "correo_reclamo"})
                 <br />
@@ -490,6 +491,8 @@
 <script type="text/javascript">
     var imgCheck = '@Url.Content("~/Content/Images/Esika/paso_realizado.png")';
     var imgPasos = '@Url.Content("~/Content/Images/Esika/{0}.png")';
+    var urlRegresar = '@Url.Action("Index","MisReclamos")';
+    var urlRegresarReclamo = '@Url.Action("Reclamo","MisReclamos")';
 </script>
 <script src="@Url.Content("~/Scripts/PortalConsultoras/MisReclamos/Reclamo.js")"></script>
 }

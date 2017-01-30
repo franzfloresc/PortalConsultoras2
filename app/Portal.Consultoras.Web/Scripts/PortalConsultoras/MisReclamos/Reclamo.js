@@ -110,8 +110,17 @@ $(document).ready(function () {
     });
 
     $("#IrSolicitudEnviada").on("click", function () {
-        $("#ddlCampania").removeAttr("disabled");
-        SolicitudEnviar();
+        var cantidadDetalle = $("#divDetallePaso3 .content_listado_reclamo").length || 0;
+
+        if (cantidadDetalle > 0) {
+            $("#ddlCampania").removeAttr("disabled");
+            SolicitudEnviar();
+        } else {
+            var functionRegresar = function() {
+                window.location = urlRegresar;
+            };
+            messageConfirmacion("", "No se puede finalizar la solicitud porque no cuenta con registros.", functionRegresar);
+        }
     });
 
     $(document).on('click', '[data-accion]', function () {
@@ -337,7 +346,7 @@ function AsignarCUV(pedido) {
 
     $("#divMotivo").html("");
 
-    if (pedido.CDRWebID > 0 && pedido.CDRWebEstado != 1) {        
+    if (pedido.CDRWebID > 0 && pedido.CDRWebEstado != 1 && pedido.CDRWebEstado != 4) {
         alert_msg("Lo sentimos, ya cuentas con una solicitud web para este pedido. Por favor, contáctate con nuestro Call Center");
     } else {
         pedido.olstBEPedidoWebDetalle = pedido.olstBEPedidoWebDetalle || new Array();
@@ -355,7 +364,7 @@ function AsignarCUV(pedido) {
 
         BuscarMotivo();
         DetalleCargar(true);
-    }    
+    }
 }
 
 function BuscarMotivo() {
@@ -404,17 +413,17 @@ function ValidarPaso1() {
     ok = $.trim($("#txtPedidoID").val()) > 0 ? ok : false;
     ok = $.trim($("#txtCUV").val()) != "" ? ok : false;
     //ok = $.trim($("#txtCUVDescripcion").val()) != "" ? ok : false;
-    //ok = $.trim($("#txtCantidad").val()) > 0 && $.trim($("#txtCantidad").val()) <= $.trim($("#txtCantidad").attr("data-maxvalue")) ? ok : false;
+    //ok = $.trim($("#txtCantidad").val()) > 0 && $.trim($("#txtCantidad").val()) <= $.trim($("#txtCantidad").attr("data-maxvalue")) ? ok : false;                
+    ok = $.trim($("#divMotivo [data-check='1']").attr("id")) != "" ? ok : false;
+
+    if (!ok) {
+        alert_msg("Datos incorrectos");
+        return false;
+    }
 
     if (!($.trim($("#txtCantidad").val()) > 0 && $.trim($("#txtCantidad").val()) <= $.trim($("#txtCantidad").attr("data-maxvalue")))) {
         alert_msg("Lamentablemente la cantidad ingresada supera a la cantidad facturada en tu pedido (" +
             $.trim($("#txtCantidad").attr("data-maxvalue")) + ")");
-        return false;
-    }                
-
-    ok = $.trim($("#divMotivo [data-check='1']").attr("id")) != "" ? ok : false;
-    if (!ok) {
-        alert_msg("Datos incorrectos");
         return false;
     }
 
@@ -595,6 +604,34 @@ function ObtenerValorParametria(codigoSsic) {
     });
 }
 
+function ObtenerValorCDRWebDatos(codigoSsic) {
+    var item = {
+        EstadoSsic: codigoSsic
+    };
+
+    jQuery.ajax({
+        type: 'POST',
+        url: baseUrl + 'MisReclamos/BuscarCdrWebDatos',
+        dataType: 'json',
+        contentType: 'application/json; charset=utf-8',
+        data: JSON.stringify(item),
+        async: false,
+        cache: false,
+        success: function (data) {
+            closeWaitingDialog();
+            if (!checkTimeout(data))
+                return false;
+
+            var cdrWebDatos = data.cdrWebdatos;
+
+            $("#hdCdrWebDatos_Ssic").val(cdrWebDatos.Valor);
+        },
+        error: function (data, error) {
+            closeWaitingDialog();
+        }
+    });
+}
+
 function CargarPropuesta(codigoSsic) {
     var tipo = (codigoSsic == "C" || codigoSsic == "D" || codigoSsic == "F" || codigoSsic == "G") ? "canje" : "cambio";
 
@@ -724,10 +761,28 @@ function ValidarPaso2Devolucion(codigoSsic) {
 }
 
 function ValidarPaso2Faltante(codigoSsic) {
+    /*Validacion de cantidad maxima para faltante*/
+    ObtenerValorCDRWebDatos(codigoSsic);
+    var cantidadProductosFaltanteActual = ObtenerCantidadProductosByCodigoSsic(codigoSsic);
+    var cantidadCuvActual = parseInt($("#txtCantidad").val()) || 0;
+
+    var cantidadFaltante = cantidadProductosFaltanteActual + cantidadCuvActual;
+
+    var valorCdrWebDatos = $("#hdCdrWebDatos_Ssic").val() || 0;
+    valorCdrWebDatos = parseInt(valorCdrWebDatos);
+
+    if (cantidadFaltante > valorCdrWebDatos) {
+        alert_msg("Superas la cantidad máxima permitida de (" + valorCdrWebDatos +
+            ") unidades a reclamar para este servicio postventa, por favor modifica tu solicitud");
+        return false;
+    }
+    /*Fin Validacion de cantidad maxima para faltante*/
+
+    /*Validacion de Porcentaje Maximo permitido*/
     var montoTotalPedido = $("#hdImporteTotalPedido").val();
-    var montoProductosDevolverActual = ObtenerMontoProductosDevolver(codigoSsic);
+    var montoProductosFaltanteActual = ObtenerMontoProductosDevolver(codigoSsic);
     var montoCuvActual = (parseFloat($("#txtPrecioUnidad").val()) || 0) * (parseInt($("#txtCantidad").val()) || 0);
-    var montoDevolver = montoProductosDevolverActual + montoCuvActual;
+    var montoDevolver = montoProductosFaltanteActual + montoCuvActual;
 
     ObtenerValorParametria(codigoSsic);
     var valorParametria = $("#hdParametriaCdr").val() || 0;
@@ -740,6 +795,7 @@ function ValidarPaso2Faltante(codigoSsic) {
         alert_msg("Por favor, selecciona otra solución, ya que superas el porcentaje de faltante permitido en tu pedido facturado");
         return false;
     }
+    /*Fin Validacion de Porcentaje Maximo permitido*/
 
     return true;
 }
@@ -848,8 +904,13 @@ function DetalleAccion(obj) {
             CDRWebDetalleID: pedidodetalleid
         };
 
-        DetalleEliminar(item);
 
+        var functionEliminar = function() {
+            DetalleEliminar(item);
+        };
+        messageConfirmacion("", "Se eliminará el registro seleccionado. <br/>¿Deseas continuar?", functionEliminar);
+
+        //DetalleEliminar(item);
         //var pedidoID = $("#txtPedidoID").val();
     }
 }
@@ -887,25 +948,27 @@ function DetalleEliminar(objItem) {
 }
 
 function SolicitudEnviar() {
-    debugger;
+    //debugger;
     var ok = true;
 
     var correo = $.trim($("#txtEmail").val());
     var celular = $.trim($("#txtTelefono").val());
     var telefono = $.trim($("#txtTelefono").val());
 
-    
-
     if (correo == "" || celular == "") {
         alert_msg("Debe completar la sección de VALIDA TUS DATOS para finalizar");
 
-        $("#spnEmailError").css("display", "");
-        $("#spnEmailError").html("*Correo Electrónico incorrecto");
-        $("#txtEmail").css("border-color", "red");
+        if (correo == "") {
+            $("#spnEmailError").css("display", "");
+            $("#spnEmailError").html("*Correo Electrónico incorrecto");
+            $("#txtEmail").css("border-color", "red");
+        }        
 
-        $("#spnTelefonoError").css("display", "");
-        $("#spnTelefonoError").html("*Teléfono incorrecto");
-        $("#txtTelefono").css("border-color", "red");
+        if (celular == "") {
+            $("#spnTelefonoError").css("display", "");
+            $("#spnTelefonoError").html("*Celular incorrecto");
+            $("#txtTelefono").css("border-color", "red");
+        }
 
         return false;
     } else {
@@ -926,9 +989,9 @@ function SolicitudEnviar() {
         $("#txtEmail").css("border-color", "#b5b5b5");
     }
 
-    if (celular.length <= 6) {
+    if (celular.length < 6) {
         $("#spnTelefonoError").css("display", "");
-        $("#spnTelefonoError").html("*Teléfono incorrecto");
+        $("#spnTelefonoError").html("*Celular incorrecto");
         $("#txtTelefono").css("border-color", "red");
         ok = false;
     } else {
@@ -936,17 +999,18 @@ function SolicitudEnviar() {
         $("#txtTelefono").css("border-color", "#b5b5b5");
     }
 
-    var esTelefonoValido = ValidarTelefono(telefono);
-    if (!esTelefonoValido) {
-        $("#spnTelefonoError").css("display", "");
-        $("#spnTelefonoError").html("*Este teléfono ya está siendo utilizado. Intenta con otro");
-        $("#txtTelefono").css("border-color", "red");
-        ok = false;
-    } else {
-        $("#spnTelefonoError").css("display", "none");
-        $("#txtTelefono").css("border-color", "#b5b5b5");
+    if (ok) {
+        var esTelefonoValido = ValidarTelefono(telefono);
+        if (!esTelefonoValido) {
+            $("#spnTelefonoError").css("display", "");
+            $("#spnTelefonoError").html("*Este teléfono ya está siendo utilizado. Intenta con otro");
+            $("#txtTelefono").css("border-color", "red");
+            ok = false;
+        } else {
+            $("#spnTelefonoError").css("display", "none");
+            $("#txtTelefono").css("border-color", "#b5b5b5");
+        }
     }
-    
 
     if (!ok) {
         return false;
@@ -970,8 +1034,6 @@ function SolicitudEnviar() {
     if (!ok) {
         return false;
     }
-
-
 
     ok = $("#btnAceptoPoliticas").hasClass("politica_reclamos_icono_active");
     if (!ok) {
@@ -1048,7 +1110,7 @@ function SolicitudEnviar() {
 
                 debugger;
                 //$("#divAceptarEMail").show();
-                alertEMail_msg(data.message, "MENSAJE")
+                alertEMail_msg(data.message, "MENSAJE");
 
                 $("#TituloReclamo").hide();
 
@@ -1127,6 +1189,44 @@ function ObtenerMontoProductosDevolver(codigoOperacion) {
             }
 
             resultado = data.montoProductos;
+        },
+        error: function (data, error) {
+            closeWaitingDialog();
+        }
+    });
+
+    return resultado;
+}
+
+function ObtenerCantidadProductosByCodigoSsic(codigoSsic) {
+    var resultado = 0;
+
+    var item = {
+        CDRWebID: $("#CDRWebID").val() || 0,
+        PedidoID: $("#txtPedidoID").val() || 0,
+        EstadoSsic: codigoSsic
+    };
+    waitingDialog();
+
+    jQuery.ajax({
+        type: 'POST',
+        url: baseUrl + 'MisReclamos/ObtenerCantidadProductosByCodigoSsic',
+        dataType: 'json',
+        contentType: 'application/json; charset=utf-8',
+        data: JSON.stringify(item),
+        async: false,
+        cache: false,
+        success: function (data) {
+            closeWaitingDialog();
+            if (!checkTimeout(data))
+                return false;
+
+            if (data.success != true) {
+                alert_msg(data.message);
+                return false;
+            }
+
+            resultado = data.cantidadProductos;
         },
         error: function (data, error) {
             closeWaitingDialog();

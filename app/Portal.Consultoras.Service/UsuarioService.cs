@@ -579,6 +579,12 @@ namespace Portal.Consultoras.Service
             bLLogCDRWeb.UpdateVisualizado(paisID, procesoId);
         }
 
+        public void UpdNotificacionCdrCulminadoVisualizacion(int paisID, long procesoId)
+        {
+            var bLLogCDRWebCulminado = new BLLogCDRWebCulminado();
+            bLLogCDRWebCulminado.UpdateVisualizado(paisID, procesoId);
+        }
+
         public int UpdateUsuarioEmailTelefono(int paisID, long ConsultoraID, string Email, string Telefono)
         {
             var BLUsuario = new BLUsuario();

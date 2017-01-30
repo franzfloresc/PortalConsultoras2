@@ -30,6 +30,7 @@
       <xs:element minOccurs="0" name="CompraOfertaEspecial" type="xs:int" />
       <xs:element minOccurs="0" name="ConfirmarClave" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ConsultoraAsociada" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ConsultoraAsociadaID" type="xs:long" />
       <xs:element minOccurs="0" name="ConsultoraID" type="xs:long" />
       <xs:element minOccurs="0" name="ConsultoraNueva" type="xs:int" />
       <xs:element minOccurs="0" name="DescripcionNivel" nillable="true" type="xs:string" />
@@ -43,7 +44,6 @@
       <xs:element minOccurs="0" name="EsCatalogoPersonalizadoZonaValida" type="xs:boolean" />
       <xs:element minOccurs="0" name="EsJoven" type="xs:int" />
       <xs:element minOccurs="0" name="EsOFGanaMasZonaValida" type="xs:boolean" />
-      <xs:element minOccurs="0" name="EsOfertaDelDia" type="xs:int" />
       <xs:element minOccurs="0" name="EsOfertaFinalZonaValida" type="xs:boolean" />
       <xs:element minOccurs="0" name="EsZonaDemAnti" type="xs:int" />
       <xs:element minOccurs="0" name="EsquemaDAConsultora" type="xs:boolean" />
@@ -357,6 +357,7 @@
       <xs:element minOccurs="0" name="MontoTotalProl" type="xs:decimal" />
       <xs:element minOccurs="0" name="ObservacionPROL" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="PrecioUnidad" type="xs:decimal" />
+      <xs:element minOccurs="0" name="StockDisponible" type="xs:int" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="BENotificacionesDetallePedido" nillable="true" type="tns:BENotificacionesDetallePedido" />

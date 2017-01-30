@@ -72,6 +72,7 @@ namespace Portal.Consultoras.Web.Controllers
                     else if (TipoOrigen == 5) sv.UpdNotificacionSolicitudClienteCatalogoVisualizacion(paisId, ProcesoId);
                     else if (TipoOrigen == 4) sv.UpdNotificacionSolicitudClienteVisualizacion(paisId, ProcesoId);
                     else if (TipoOrigen == 7) sv.UpdNotificacionSolicitudCdrVisualizacion(paisId, ProcesoId);
+                    else if (TipoOrigen == 8) sv.UpdNotificacionCdrCulminadoVisualizacion(paisId, ProcesoId);
                     else sv.UpdNotificacionesConsultoraVisualizacion(paisId, ProcesoId, TipoOrigen);
                 }
                 SessionKeys.ClearSessionCantidadNotificaciones();
@@ -299,7 +300,14 @@ namespace Portal.Consultoras.Web.Controllers
 
             foreach (var item in olstObservacionesPedido)
             {
-                item.ObservacionPROL = string.Format("El producto {0} - {1} - cuenta nuevamente con stock. Si deseas agrégalo a tu pedido.", item.CUV, item.Descripcion);
+                if (item.StockDisponible == 0) item.ObservacionPROL = string.Format("El producto {0} - {1} - cuenta nuevamente con stock. Si deseas agrégalo a tu pedido.", item.CUV, item.Descripcion);
+                else
+                {
+                    if (item.StockDisponible == 1) item.ObservacionPROL = "Nos ingresó 1 unidad";
+                    else item.ObservacionPROL = "Nos ingresaron " + item.StockDisponible + " unidades";
+
+                    item.ObservacionPROL += string.Format(" del producto {0} - {1}. Si deseas agrégalo a tu pedido.", item.CUV, item.Descripcion);
+                }
             }
 
             model.ListaNotificacionesDetalle = olstObservaciones;
@@ -343,23 +351,44 @@ namespace Portal.Consultoras.Web.Controllers
             var model = new CDRWebModel();
 
             var logCdrWeb = new BELogCDRWeb();
+            var listaCdrWebDetalle = new List<BECDRWebDetalle>();
+            using (CDRServiceClient sv = new CDRServiceClient())
+            {
+                logCdrWeb = sv.GetLogCDRWebByLogCDRWebId(userData.PaisID, solicitudId);         
+                       
+                listaCdrWebDetalle = sv.GetCDRWebDetalleLog(userData.PaisID, logCdrWeb).ToList() ?? new List<BECDRWebDetalle>();
+                listaCdrWebDetalle.Update(p => p.Solicitud = ObtenerDescripcion(p.CodigoOperacion, Constantes.TipoMensajeCDR.Finalizado).Descripcion);
+                listaCdrWebDetalle.Update(p => p.SolucionSolicitada = ObtenerDescripcion(p.CodigoOperacion, Constantes.TipoMensajeCDR.MensajeFinalizado).Descripcion);
+            }
+
+            model.CDRWebID = logCdrWeb.CDRWebID;
+            model.PedidoID = logCdrWeb.PedidoId;
+            model.PedidoNumero = logCdrWeb.PedidoFacturadoId;
+            model.CampaniaID = string.IsNullOrEmpty(logCdrWeb.CampaniaId) ? 0 : Convert.ToInt32(logCdrWeb.CampaniaId);
+            model.FechaRegistro = logCdrWeb.FechaRegistro;
+            model.Estado = logCdrWeb.EstadoCDR;
+            model.FechaCulminado = logCdrWeb.FechaCulminado;
+            model.FechaAtencion = logCdrWeb.FechaAtencion;
+            model.Importe = logCdrWeb.ImporteCDR;
+            model.NombreConsultora = userData.NombreConsultora;
+            model.CodigoIso = userData.CodigoISO;
+            model.Simbolo = userData.Simbolo;
+            model.ListaDetalle = listaCdrWebDetalle;
+
+            return PartialView("ListaDetalleCdr", model);
+        }
+
+        public ActionResult ListarDetalleCdrCulminado(long solicitudId)
+        {
+            var model = new CDRWebModel();
+
             var cdrWeb = new BECDRWeb();
             var listaCdrWebDetalle = new List<BECDRWebDetalle>();
             using (CDRServiceClient sv = new CDRServiceClient())
             {
-                logCdrWeb = sv.GetLogCDRWebByLogCDRWebId(userData.PaisID, solicitudId);
+                cdrWeb = sv.GetCDRWebByLogCDRWebCulminadoId(userData.PaisID, solicitudId);
 
-                var entidad = new BECDRWeb();
-                entidad.ConsultoraID = logCdrWeb.ConsultoraId;
-                entidad.PedidoID = 0;
-                entidad.CampaniaID = 0;
-                entidad.CDRWebID = logCdrWeb.CDRWebID;
-                cdrWeb = sv.GetCDRWeb(userData.PaisID, entidad).FirstOrDefault() ?? new BECDRWeb();
-                
-                listaCdrWebDetalle = sv.GetCDRWebDetalleLog(userData.PaisID, logCdrWeb).ToList();
-
-                listaCdrWebDetalle = listaCdrWebDetalle ?? new List<BECDRWebDetalle>();
-
+                listaCdrWebDetalle = sv.GetCDRWebDetalleByLogCDRWebCulminadoId(userData.PaisID, solicitudId).ToList() ?? new List<BECDRWebDetalle>();
                 listaCdrWebDetalle.Update(p => p.Solicitud = ObtenerDescripcion(p.CodigoOperacion, Constantes.TipoMensajeCDR.Finalizado).Descripcion);
                 listaCdrWebDetalle.Update(p => p.SolucionSolicitada = ObtenerDescripcion(p.CodigoOperacion, Constantes.TipoMensajeCDR.MensajeFinalizado).Descripcion);
             }
@@ -369,17 +398,13 @@ namespace Portal.Consultoras.Web.Controllers
             model.PedidoNumero = cdrWeb.PedidoNumero;
             model.CampaniaID = cdrWeb.CampaniaID;
             model.FechaRegistro = cdrWeb.FechaRegistro;
-            model.Estado = cdrWeb.Estado;
             model.FechaCulminado = cdrWeb.FechaCulminado;
-            model.FechaAtencion = logCdrWeb.FechaAtencion;
-            model.Importe = cdrWeb.Importe;
             model.NombreConsultora = userData.NombreConsultora;
             model.CodigoIso = userData.CodigoISO;
             model.Simbolo = userData.Simbolo;
-
             model.ListaDetalle = listaCdrWebDetalle;
 
-            return PartialView("ListaDetalleCdr", model);
+            return PartialView("ListaDetalleCdrCulminado", model);
         }
 
         private BECDRWebDescripcion ObtenerDescripcion(string codigoSsic, string tipo)
