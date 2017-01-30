@@ -62,16 +62,17 @@
 
             <input type="button" class="btn2-ffc" value="FILTROS" onclick="showCustomFilters();" />
         </div>
-        <br />
+        <hr class="clear" />
+        
 
         <div id="summary-filters">
-            <div id="div-result-number">
+            <div id="div-result-number"  style="margin-left:0; float: left; width: 65%; font-size:13px;">
                 <span id="result-number">
                 </span>
             </div>
             
-            <div id="div-delete-filters" style="display: none;">
-                <a href="#" class="link-ffc" onclick="deleteFilters();">BORRAR FILTROS</a>
+            <div id="div-delete-filters" style="display: none; margin-right:0px;">
+                <a href="#" class="link-ffc_landing" onclick="deleteFilters();">Borrar Filtros</a>
             </div>
             <br /><br />
         </div>
@@ -82,7 +83,7 @@
                 <a onclick="showOrderbyFilter();" class="enlace_regresar catalogosP flecha_black" title="Regresar"></a>
                 &nbsp;&nbsp;&nbsp;&nbsp;SELECCIONA TUS FILTROS
             </div>
-            <div class="texto_filtros" style="text-align:center;"><b>2</b> productos encontrados</div>
+            <div id="divProductosEncontrados" class="texto_filtros" style="text-align:center;"><b>2</b> productos encontrados</div>
             <div class="texto_filtros">Encuentra de manera rápida los mejores productos especialmente escogidos para tus clientes</div>
             @*<div id="header-custom-filters">
 
@@ -351,14 +352,7 @@
                     <img src="{{ImagenProductoSugerido}}" class="imagen_producto">
                 </div>
                 {{#if TieneOfertaEnRevista}}                    
-                    @if (ViewBag.PaisEsika)
-                    {
-                        <div class="etiqueta_guia_negocio">GUÍA DE NEGOCIO</div>
-                    }
-                    else
-                    {
-                        <div class="etiqueta_guia_negocio"><span>OFERTA</span> GUÍA DE NEGOCIO</div>
-                    }
+                    <div class="etiqueta_guia_negocio"><span>OFERTA</span> GUÍA DE NEGOCIO</div> <!--BORRAR DEL CONTROLADOR-->
                 {{/if}}
                 {{#if item.TieneLanzamientoCatalogoPersonalizado}}
                 <div class="etiqueta_producto nuevofavorito">
