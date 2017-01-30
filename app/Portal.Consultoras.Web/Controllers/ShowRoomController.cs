@@ -870,10 +870,12 @@ namespace Portal.Consultoras.Web.Controllers
                                 BEShowRoomOfertaDetalle ent = new BEShowRoomOfertaDetalle();
                                 ent.CUV = values[0].Trim().Replace("\"", "");
                                 ent.NombreSet = values[1].Trim().Replace("\"", "");
-                                ent.NombreProducto = values[2].Trim().Replace("\"", "");
-                                ent.Descripcion1 = values[3].Trim().Replace("\"", "");
-                                ent.Descripcion2 = values[4].Trim().Replace("\"", "");
-                                ent.Descripcion3 = values[5].Trim().Replace("\"", "");
+                                ent.Posicion = values[2].Replace("\"", "0").ToInt();
+                                //ent.Posicion = values[2].Trim().Replace("\"", "").ToString();
+                                ent.NombreProducto = values[3].Trim().Replace("\"", "");
+                                ent.Descripcion1 = values[4].Trim().Replace("\"", "");
+                                ent.Descripcion2 = values[5].Trim().Replace("\"", "");
+                                ent.Descripcion3 = values[6].Trim().Replace("\"", "");
                                 ent.FechaCreacion = DateTime.Now;
                                 ent.UsuarioCreacion = userData.CodigoConsultora;
                                 ent.FechaModificacion = DateTime.Now;

@@ -19224,7 +19224,7 @@ float: right;
 .content_show_right {
     float: right;
     height: 485px;
-    width: 343px;
+    width: 379px;
     overflow: hidden;
 }
 .borde_superior {
@@ -19921,55 +19921,71 @@ label.checkpop.c_on {
     overflow: hidden;
 }
 .titulo_producto_agregado {
-    font-family:'ArialMT';
+    font-family:'Lato';
     font-size:18px;
     text-align:center;
+    color:#000;
 }
 .titulo_producto_agregado span{
     font-weight:bold;
 }
+
+.div_bonotes_producto {
+   float:right;
+   position:relative;
+   left:-50%;
+   text-align:left;
+}
+
+.div_bonotes_producto > .child_center_botones{
+    position:relative;
+    left:47%;
+}
+
+
 .divAgregarShowRoom .volver_set {
     width: 159px;
     display: block;
     padding-top: 8px;
     padding-bottom: 8px;
-    border: 2px solid #979797;
-    font-family: 'ArialMT';
+    border: 1px solid #000;
+    font-family: 'Lato';
     font-size: 14px;
     color: black;
     font-weight: bold;
     text-align: center;
-     -webkit-border-radius: 4px; /* Para Safari y Chrome */
-    -moz-border-radius: 4px; /* Para Firefox */
-    -khtml-border-radius: 4px; /* Navegadores de Linux */
-    border-radius: 4px; /* CSS3 */
+     /*-webkit-border-radius: 4px;  Para Safari y Chrome */
+    -moz-border-radius: 4px;  /* Para Firefox */
+     -khtml-border-radius: 4px; /* Navegadores de Linux */
+    /* border-radius: 4px;  CSS3 */
     behavior: url(/Content/Css/Pie/PIE.htc); /* Para IE */
     float: left;
     cursor: pointer;
     text-decoration: none;
     margin-top: 24px;
     margin-right: 10px;
+    margin-left: 39px;
 }
 .divAgregarShowRoom .volver_set:hover {
         text-decoration:none !important;
     }
 .divAgregarShowRoom .volver_set2 {
     font-weight: bold;
-    background:red !important;
+    background:#6C398A !important;
     width: 159px;
     display: block;
     padding-top: 8px;
     padding-bottom: 8px;
     color: white; 
-    border: 2px solid #f11935;
-    font-family: 'ArialMT';
+    border: 1px solid #6C398A;
+    font-family: 'Lato';
     text-align:center;
     font-size: 14px;
-     -webkit-border-radius: 4px !important; /* Para Safari y Chrome */
-    -moz-border-radius: 4px !important; /* Para Firefox */
-    -khtml-border-radius: 4px !important; /* Navegadores de Linux */
-    border-radius: 4px !important; /* CSS3 */
-    border-radius:4px;
+    /* -webkit-border-radius: 4px !important;  Para Safari y Chrome */
+    /*-moz-border-radius: 4px !important;  Para Firefox */
+    /*-khtml-border-radius: 4px !important;  Navegadores de Linux */
+    /*border-radius: 4px !important;  CSS3 */
+    /*border-radius:4px;*/
     behavior: url(/Content/Css/Pie/PIE.htc) !important; /* Para IE */
     float: left;
     cursor: pointer;
@@ -24685,7 +24701,7 @@ img
 }
 .cont_pregunta h3
 {
-	font-size:16px;
+	font-size:15px;
 	color:#405160;
 	font-weight:600 !important;
 	height:78px;
