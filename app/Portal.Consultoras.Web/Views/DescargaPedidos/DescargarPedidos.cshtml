@@ -5,9 +5,13 @@
 <script type="text/javascript">
     jQuery(function () {
         IniFecha();
-
+        fnGrilla();
         $("#btnDescargar").click(function () {
             RealizarDescarga();
+        });
+
+        $("#btnDesmarcarUltimoPedido").click(function () {
+            DeshacerUltimaDescargaPedidos();
         });
 
         $("#cboTipoCronograma").change(function () {
@@ -76,6 +80,8 @@
                         if (checkTimeout(data)) {
                             closeWaitingDialog();
                             if (data.success == true) {
+                                $("#list").GridUnload(); //EPD-1435
+                                fnGrilla(); // EPD-1435
                                 alert(data.mensaje);
                                 //setInterval(function () { Confirmacion(JsonData) }, 10000);
                                 if (data.cabecera) {
@@ -343,10 +349,79 @@
         }
         document.body.appendChild(iframe_);
     }
+
+    /*EPD-1025*/
+    function fnGrilla() {
+        jQuery("#list").jqGrid({
+            url: baseUrl + "DescargaPedidos/ObtenerUltimaDescargaPedido",
+            hidegrid: false,
+            datatype: 'json',
+            mtype: 'GET',
+            contentType: "application/json; charset=utf-8",
+            colNames: ['Fecha/Hora Inicio', 'Fecha/Hora Fin', 'Estado', 'Mensaje', 'Número de pedidos', 'Tipo de proceso', 'Fecha Facturación', 'Desmarcado'],
+            colModel: [
+                { name: 'FechaHoraInicio', index: 'FechaHoraInicio', width: 22, editable: false, resizable: false },
+                { name: 'FechaHoraFin', index: 'FechaHoraFin', width: 22, editable: false, resizable: false },
+                { name: 'Estado', index: 'Estado', width: 15, editable: false, resizable: true },
+                { name: 'Mensaje', index: 'Mensaje', width: 30, editable: false, resizable: true },
+                { name: 'NumeroPedidos', index: 'NumeroPedidos', width: 20, editable: true, resizable: false },
+                { name: 'TipoProceso', index: 'TipoProceso', width: 15, editable: true, resizable: false },
+                { name: 'FechaFacturacion', index: 'FechaFacturacion', width: 22, editable: false, resizable: false, hidden: false },
+                { name: 'Desmarcado', index: 'Desmarcado', width: 22, editable: false, resizable: false, hidden: false }
+            ],
+            loadtext: 'Cargando datos...',
+            emptyrecords: 'No hay resultados',
+            height: 'auto',
+            width: 930,
+            altRows: true,
+            altclass: 'jQGridAltRowClass',
+            loadComplete: function () {
+            },
+            gridComplete: function () { },
+            cache: false
+        });
+    }
+    function DeshacerUltimaDescargaPedidos() {
+        var waiting = {
+            message: 'Espere unos minutos, por favor...',
+            title: 'Ejecutando Proceso'
+        };
+
+        waitingDialog(waiting);
+
+        $.ajax({
+            type: 'POST',
+            url: baseUrl + 'DescargaPedidos/DeshacerUltimaDescargaPedidos',
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            async: true,
+            cache: false,
+            success: function (data) {
+                if (checkTimeout(data)) {
+
+                    if (data.success == true) {
+                        $("#list").GridUnload();
+                        fnGrilla();
+                        closeWaitingDialog();
+                    }
+                    else {
+                        alert(data.mensaje);
+                        closeWaitingDialog();
+                    }
+                }
+            },
+            error: function (data, error) {
+                if (checkTimeout(data)) {
+                    closeWaitingDialog();
+                    alert("Error del Sistema.");
+                }
+            }
+        });
+    }
+    /*EPD-1025*/
 </script>
 
 <div class="wrap_cab">
-
     <div class="filtros">
         <div class="elements">
             <div class="div-2">
@@ -376,7 +451,7 @@
             <div class="div-3">
                 <div class="titF">Tipo de Proceso:</div>
                 <div class="selectP2 borde_redondeado">
-                    @if (ViewBag.NombrePais == "México" || ViewBag.NombrePais == "Costa Rica" || ViewBag.NombrePais == "Guatemala" || ViewBag.NombrePais == "El Salvador" || ViewBag.NombrePais == "Panamá") 
+                    @if (ViewBag.NombrePais == "México" || ViewBag.NombrePais == "Costa Rica" || ViewBag.NombrePais == "Guatemala" || ViewBag.NombrePais == "El Salvador" || ViewBag.NombrePais == "Panamá")
                     {
                         <select id="cboTipoCronograma">
                             <option value="0">-- Seleccionar --</option>
@@ -389,7 +464,7 @@
                             @*2382*@
                         </select>
                     }
-                    else if (ViewBag.NombrePais == "Puerto Rico" || ViewBag.NombrePais == "República Dominicana") 
+                    else if (ViewBag.NombrePais == "Puerto Rico" || ViewBag.NombrePais == "República Dominicana")
                     {
                         <select id="cboTipoCronograma">
                             <option value="0">-- Seleccionar --</option>
@@ -400,7 +475,8 @@
                             <option value="5">Generar Líderes</option>                        
                             @*2382*@
                         </select>
-                    }else
+                    }
+                    else
                     {
                         <select id="cboTipoCronograma">
                             <option value="0">-- Seleccionar --</option>
@@ -417,6 +493,12 @@
                 <div class="titF"></div>
                 <div class="input_add_alert_left">
                     <input type="button" name="" id="btnDescargar" value="Descargar" />
+                </div>
+                <div class="textoDescarga">
+                    <img src='@Url.Content("~/Content/Images/faq.png")' alt="" />
+                    <span>Si ocurrió un problema con la última descarga de pedidos y deseas desmarcarlos, haz click 
+                        <a id="btnDesmarcarUltimoPedido" href="#">aquí</a>
+                    </span>
                 </div>
             </div>
             <div id="DivDescargas" class="div-4" style="display:none">
@@ -443,5 +525,13 @@
     <input type="hidden" id="hdnfileDetailAct" name="hdnfileDetailAct" />
 
 
+</div>
+<div class="wrap">
+    <div class="container clearfix">
+        <div class="border-wrapper">
+            <table id="list"></table>
+            <div id="pager"></div>
+        </div>
+    </div>
 </div>
 <div id="loadingScreen"></div>

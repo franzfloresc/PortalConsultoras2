@@ -526,7 +526,7 @@
   <xs:element name="InsProductoCompartido">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q26="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="ProComp" nillable="true" type="q26:BEProductoCompartido" />
+        <xs:element xmlns:q27="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="ProComp" nillable="true" type="q27:BEProductoCompartido" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -548,7 +548,7 @@
   <xs:element name="GetProductoCompartidoResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q27="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="GetProductoCompartidoResult" nillable="true" type="q27:BEProductoCompartido" />
+        <xs:element xmlns:q28="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="GetProductoCompartidoResult" nillable="true" type="q28:BEProductoCompartido" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -564,7 +564,7 @@
   <xs:element name="GetListBrothersByCUVResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q28="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="GetListBrothersByCUVResult" nillable="true" type="q28:ArrayOfBEProducto" />
+        <xs:element xmlns:q29="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="GetListBrothersByCUVResult" nillable="true" type="q29:ArrayOfBEProducto" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
