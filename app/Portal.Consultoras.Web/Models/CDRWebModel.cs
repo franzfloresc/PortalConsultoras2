@@ -38,7 +38,7 @@ namespace Portal.Consultoras.Web.Models
                         : Estado == Constantes.EstadoCDRWeb.Observado
                         ? "OBSERVADO"
                         : Estado == Constantes.EstadoCDRWeb.Aceptado
-                            ? "ACEPTADO"
+                            ? "APROBADO"
                             : "";
             }
         }
