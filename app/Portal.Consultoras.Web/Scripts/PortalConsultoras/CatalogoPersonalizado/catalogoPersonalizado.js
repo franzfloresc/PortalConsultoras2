@@ -69,7 +69,7 @@ $(document).ready(function () {
 
     //$("#txt-range-price").slider({});
 
-    // PL20-1270
+    //PL20-1270
     $(".seleccion_filtro_fav").on("click", function () {
         $(this).toggleClass("seleccion_click_flitro");
 
@@ -121,9 +121,7 @@ $(document).ready(function () {
     }
     // PL20-1270
 
-
 });
-
 
 function Inicializar() {
     IniDialog();
@@ -577,7 +575,6 @@ function AgregarProductoCatalogoPersonalizado(item) {
 
 function AgregarProducto(url, item, otraFunct) {
     DialogLoadingAbrir();
-
     tieneMicroefecto = true;
 
     jQuery.ajax({
@@ -590,7 +587,7 @@ function AgregarProducto(url, item, otraFunct) {
         success: function (data) {
             if (data.success == true) {
                 //ActualizarGanancia(data.DataBarra);
-                if (tipoOrigen == "3") {
+                if (tipoOrigen == '3') {
                     MostrarBarra(data, '1');
                 }
                 else {
@@ -610,17 +607,33 @@ function AgregarProducto(url, item, otraFunct) {
                     setTimeout(otraFunct, 50);
                 }
 
-                /*PL20-1237*/
+                //PL20-1237
                 if (tipoOrigen == '2') {
+
+                    //PL20-1239
+                    if (typeof codTipoOferta != 'undefined') {
+                        if (codTipoOferta == '048N') {
+                            var resumen = getDatosResumenOferta048N(parseInt(item.Cantidad));
+                            if (resumen != null) {
+                                SetHandlebars("#template-resumenoferta048N", resumen, '#PopupResumenOferta048N');
+                                $('#PopupResumenOferta048N').show();
+                                return false;
+                            }
+                        }
+                    }
+
                     if (typeof isAddFichaProductoFAV !== 'undefined') {
                         document.location.href = urlCatalogoPersonalizado;
                     }
                 }
 
                 //PL20-1268
-                if ($('#PopFichaProductoNueva').is(':visible')) {
-                    $('#PopFichaProductoNueva').hide();
+                if (tipoOrigen != 2) {
+                    if ($('#PopFichaProductoNueva').is(':visible')) {
+                        $('#PopFichaProductoNueva').hide();
+                    }
                 }
+                
             }
             else messageInfoError(data.message);
             DialogLoadingCerrar();
@@ -1316,4 +1329,83 @@ function CargarFiltros()
             cargandoRegistros = false;
         }
     });
+}
+
+// PL20-1239
+function getDatosResumenOferta048N(cantidad) {
+
+    var datos = Clone(dataOfertaEnRevista);
+    datos.lista_ObjNivel = new Array();
+    datos.lista_oObjGratis = new Array();
+    datos['Cantidad_Total'] = cantidad;
+
+    var escalas = [];
+    escalas.push(1);
+
+    $.each(dataOfertaEnRevista.lista_ObjNivel, function (i, obj) {
+        escalas.push(parseInt(obj.escala_nivel));
+    });
+
+    escalas.sort();
+    var xescalas = [];
+
+    for (var i = escalas.length - 1; i >= 0; i--) {
+        var m = (cantidad % escalas[i]);
+        if (m == 0) {
+            var d = { nivel: escalas[i], cant: 1 }
+            xescalas.push(d);
+            break;
+        }
+        else {
+            if ((cantidad - m) > 0) {
+                var a = ((cantidad - m) / escalas[i]);
+                var d = { nivel: escalas[i], cant: a }
+                xescalas.push(d);
+                cantidad = m;
+            }
+        }
+    }
+
+    //console.log(xescalas);
+
+    var tprecio = 0;
+    var tganancia = 0;
+    var arrGratis = [];
+
+    $.each(xescalas, function (i, obj1) {
+        if (obj1.nivel == 1) {
+            tprecio += parseFloat(datos.precio_revista);
+            tganancia += parseFloat(datos.ganancia);
+        }
+        else {
+            var objNivel = $.grep(dataOfertaEnRevista.lista_ObjNivel, function (e) { return e.escala_nivel == obj1.nivel; });
+            if (objNivel != null && objNivel.length > 0) {
+                tprecio += parseFloat(objNivel[0].precio_nivel);
+                tganancia += parseFloat(objNivel[0].ganancia_nivel);
+
+                var objGratis = $.grep(dataOfertaEnRevista.lista_oObjGratis, function (e) { return e.escala_nivel_gratis == obj1.nivel; });
+                if (objGratis != null && objGratis.length > 0) {
+
+                    $.each(objGratis, function (j, obj2) {
+
+                        var d = {
+                            'cantidad': (parseInt(obj2.cantidad) * obj1.cant),
+                            'codsap_nivel_gratis': obj2.codsap_nivel_gratis,
+                            'descripcion_gratis': obj2.descripcion_gratis,
+                            'escala_nivel_gratis': obj2.escala_nivel_gratis,
+                            'imagen_gratis': obj2.imagen_gratis
+                        };
+                        arrGratis.push(d);
+
+                    });
+                }
+            }
+        }
+    });
+
+    datos['Precio_Total'] = tprecio;
+    datos['Ganancia_Total'] = tganancia;
+    datos.lista_oObjGratis = arrGratis;
+
+    return datos;
 }

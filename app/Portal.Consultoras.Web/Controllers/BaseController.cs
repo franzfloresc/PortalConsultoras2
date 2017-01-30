@@ -705,9 +705,6 @@ namespace Portal.Consultoras.Web.Controllers
             ViewBag.HorasDuracionRestriccion = model.HorasDuracionRestriccion;
             ViewBag.UrlBelcorpChat = String.Format(UrlEMTELCO, model.Segmento.Trim(), model.CodigoUsuario.Trim(), model.PrimerNombre.Split(' ').First().Trim(), model.EMail.Trim(), model.CodigoISO.Trim());
 
-            string PaisesEsika = System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika").ToString(); //PL20-1239
-            ViewBag.PaisEsika = (PaisesEsika.Contains(model.CodigoISO)) ? true : false; //PL20-1239
-
             if (isNull)
             {
                 ViewBag.SegmentoAnalytics = string.IsNullOrEmpty(model.Segmento) ? string.Empty : model.Segmento.ToString().Trim();

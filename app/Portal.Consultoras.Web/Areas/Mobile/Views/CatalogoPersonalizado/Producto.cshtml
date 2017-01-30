@@ -41,24 +41,25 @@ else
     </div>
 }
 
-
+<!--GUIA NEGOCIO-->
 <div id="GuiaNegocio" style="display: none;">
     <!--FICHA 003A-->
     <div id="Ficha_003A" style="display: none;">
-        
     </div>
     <!--FIN-->
+
     <!--FICHA 048B-->
     <div id="Ficha_048B" class="content_oferta_guia_negocio" style="display: none;">
     </div>
 
+    <!--FICHA 048A-->
     <div id="Ficha_048A" style="display:none;">
-        
     </div>
     <!--FIN-->
 </div>
-<!--POP UP GUIA NEGOCIO-->
+<!--GUIA NEGOCIO-->
 
+<!--PRECIO CATALOGO-->
 <div id="PrecioCatalogo" style="display:none;">
     <div class="wrapper_resumen_mobile" style="padding-bottom:96px;">
         <div data-item="catalogopersonalizado">
@@ -158,39 +159,11 @@ else
         </div>
     </div>
 </div>
+<!--PRECIO CATALOGO-->
 
 <!--HAY QUE DESAPARECER EL SCROLL DEL BODY, CUANDO GENEREN ESTE POP UP ME AVISAN-->
-<div class="PopMobile1" id="PopGuiaNegocio" style="display: none;">
-    <div class="content_popMobile" style="text-align:center; max-width:400px;">
-        <a class="cerrar_popMobile" href="javascript:;" onclick="javascript: $('#PopGuiaNegocio').hide();">
-            <img src="/Content/Images/mobile/Esika/cerrar_04.png" alt="-">
-        </a>
-        <hr class="clear">
-        <div class="titulo_pack_detalle">HAS COMPRADO</div>
-        <div class="linea_separadora_black flecha_048"></div>
-        <div class="detalle_Cantidad_pack"> <b>7</b> Dorsay 100 ml</div>
-        <div class="precio_para_ti_048">Precio para ti <b>$ 29.900</b></div>
-        <div class="gana_048">Gana $ 10.000</div>
-        <div class="texto_gratis_pop">Vas a recibir GRATIS</div>
-        <div class="linea_separadora_black flecha_048"></div>
-        <!--DEFINIR DENTRO DE ESTE DIV LA CANTIDAD DE PRODUCTO -->
-        <div class="content_unidad_producto">
-            <div class="content_pack_048">
-                <div class="imagen_pack_048"><img src="https://s3-sa-east-1.amazonaws.com/appcatalogo/CL/201702/E/productos/CL_200078945.jpg" class="imagen_producto"></div>
-                <div class="nombre_producto_pack_048">2 Pulso 100ml</div>
-            </div>
-            <div class="content_pack_048">
-                <div class="imagen_pack_048"><img src="https://s3-sa-east-1.amazonaws.com/appcatalogo/CL/201702/E/productos/CL_200078945.jpg" class="imagen_producto"></div>
-                <div class="nombre_producto_pack_048">2 Pulso 100ml</div>
-            </div>
-            <div class="content_pack_048">
-                <div class="imagen_pack_048"><img src="https://s3-sa-east-1.amazonaws.com/appcatalogo/CL/201702/E/productos/CL_200078945.jpg" class="imagen_producto"></div>
-                <div class="nombre_producto_pack_048">2 Pulso 100ml</div>
-            </div>
-        </div>
-        <a class="btn_anuncio_agregado" href="javascript:;" onclick="javascript: $('#PopGuiaNegocio').hide();">OK, ENTENDIDO</a>
-
-    </div>
+<div class="PopMobile1" id="PopupResumenOferta048N" style="display: none;">
+    
 </div>
 <!--FIN-->
 
@@ -484,10 +457,49 @@ else
     </div>
 </script>
 
+<script id="template-resumenoferta048N" type="text/x-handlebars-template">
+
+    <div class="content_popMobile" style="text-align:center; max-width:400px;">
+        <a class="cerrar_popMobile" href="javascript:;" onclick="javascript: $('#PopupResumenOferta048N').hide();">
+            <img src="/Content/Images/mobile/Esika/cerrar_04.png" alt="-">
+        </a>
+        <hr class="clear">
+
+        <!--NIVEL-->
+
+            <div class="titulo_pack_detalle">HAS COMPRADO</div>
+            <div class="linea_separadora_black flecha_048"></div>
+            <div class="detalle_Cantidad_pack"> <b>{{Cantidad_Total}}</b>{{Descripcion}}</div>
+            <div class="precio_para_ti_048">Precio para ti <b>{{Simbolo}} {{DecimalToStringFormat Precio_Total}}</b></div>
+            <div class="gana_048">{{TxtGanancia}} {{Simbolo}} {{DecimalToStringFormat Ganancia_Total}}</div>
+            <div class="texto_gratis_pop">{{TxtRecibeGratis}}</div>
+            <div class="linea_separadora_black flecha_048"></div>
+
+            {{#each lista_oObjGratis as |item|}}
+            
+            <div class="content_unidad_producto">
+                <div class="content_pack_048">
+                    {{#IsNullOrEmpty item.imagen_gratis '!='}}
+                    <div class="imagen_pack_048"><img src="{{item.imagen_gratis}}" class="imagen_producto"></div>
+                    {{/IsNullOrEmpty}}
+                    {{#IsNullOrEmpty item.imagen_gratis '=='}}
+                    <div class="imagen_pack_048"><img src="@Url.Content(ViewBag.RutaImagenNoDisponible)" class="imagen_producto"></div>
+                    {{/IsNullOrEmpty}}
+                    <div class="nombre_producto_pack_048">{{item.cantidad}} {{item.descripcion_gratis}}</div>
+                </div>
+            </div>
+            {{/each}}
+
+        <!--FIN-->
+
+        <a class="btn_anuncio_agregado" href="javascript:;" onclick="javascript: $('#PopupResumenOferta048N').hide();">OK, ENTENDIDO</a>
+
+    </div>
+
+</script>
+
 @section scripts{
-
     <script type="text/javascript">
-
         var urlObtenerProductosCatalogoPersonalizado = '@Url.Action("ObtenerProductosCatalogoPersonalizado", "CatalogoPersonalizado", new { area = "" })';
         var urlPedidoInsert = '@Url.Action("Insert", "Pedido", new { area = "" })';
         var urlReservadoOEnHorarioRestringido = '@Url.Action("ReservadoOEnHorarioRestringido", "Pedido", new { area = "" })';
@@ -505,7 +517,6 @@ else
     <script src="~/Scripts/PortalConsultoras/Mobile/CatalogoPersonalizado/bootstrap-slider.min.js"></script>
 }
 
-
 <script>
     //PL20-1268
     var dataFichaProductoFAV = [];
@@ -515,5 +526,7 @@ else
     var cuv = '@Model.CUV';
     var tieneOfertaEnRevista = '@Model.TieneOfertaEnRevista';
     var cargarItemsFAV = false;
+    var codTipoOferta = null;
+    var dataOfertaEnRevista = [];
 
 </script>
