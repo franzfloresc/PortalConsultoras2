@@ -101,7 +101,10 @@ $(document).ready(function () {
         $("#txtCUVDescripcion").val("");
         $("#txtCantidad").val("1");
         $("#txtCUV2").val("");
-        $("#txtCUVDescripcion2").val("");
+        $("#txtCUVPrecio2").val("");
+        $("#spnImporteTotal2").html("");
+        $("#hdImporteTotal2").val(0);
+        $("#txtCUVDescripcion2").val(""); 
         $("#txtCantidad2").val("1");
         CambioPaso(-100);
         BuscarMotivo();
