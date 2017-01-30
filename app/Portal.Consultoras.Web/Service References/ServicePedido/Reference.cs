@@ -9125,6 +9125,9 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private int OfertaShowRoomDetalleIDField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int PosicionField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string UsuarioCreacionField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -9279,6 +9282,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((this.OfertaShowRoomDetalleIDField.Equals(value) != true)) {
                     this.OfertaShowRoomDetalleIDField = value;
                     this.RaisePropertyChanged("OfertaShowRoomDetalleID");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int Posicion {
+            get {
+                return this.PosicionField;
+            }
+            set {
+                if ((this.PosicionField.Equals(value) != true)) {
+                    this.PosicionField = value;
+                    this.RaisePropertyChanged("Posicion");
                 }
             }
         }
