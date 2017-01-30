@@ -20056,6 +20056,20 @@ label.checkpop.c_on {
 .titulo_producto_agregado span{
     font-weight:bold;
 }
+
+
+.div_bonotes_producto {
+   float:right;
+   position:relative;
+   left:-50%;
+   text-align:left;
+}
+
+.div_bonotes_producto > .child_center_botones{
+    position:relative;
+    left:47%;
+}
+
 .divAgregarShowRoom .volver_set {
     width: 159px;
     display: block;
