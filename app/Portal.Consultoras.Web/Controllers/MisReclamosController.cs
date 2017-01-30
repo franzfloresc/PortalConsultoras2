@@ -1122,7 +1122,13 @@ namespace Portal.Consultoras.Web.Controllers
             var listaByCodigoOperacion = new List<BECDRWebDetalle>();
             var lista = CargarDetalle(model);
 
-            listaByCodigoOperacion = lista.FindAll(p => p.CodigoOperacion == model.EstadoSsic);
+            if (model.EstadoSsic == Constantes.CodigoOperacionCDR.Faltante ||
+                model.EstadoSsic == Constantes.CodigoOperacionCDR.FaltanteAbono)
+                listaByCodigoOperacion = lista.FindAll(p => p.CodigoOperacion == Constantes.CodigoOperacionCDR.Faltante ||
+                                       p.CodigoOperacion == Constantes.CodigoOperacionCDR.FaltanteAbono);
+            else
+                listaByCodigoOperacion = lista.FindAll(p => p.CodigoOperacion == model.EstadoSsic);
+
 
             var cantidadProductos = listaByCodigoOperacion.Sum(p => p.Cantidad);
 

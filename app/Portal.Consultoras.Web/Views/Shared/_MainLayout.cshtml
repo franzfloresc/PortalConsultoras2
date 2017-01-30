@@ -246,11 +246,11 @@
                     @{
                         if (ViewBag.CampaniaCodigo == null || ViewBag.CampaniaCodigo.ToString().Length < 6)
                         {
-                        @:ESTÁS EN <br /> <span>-</span>
+                            @:ESTÁS EN <br /> <span>-</span>
                         }
                         else
                         {
-                        @:ESTÁS EN <br /> <span>C-@(Portal.Consultoras.Common.Util.SubStr((ViewBag.CampaniaCodigo ?? "").ToString(), 4, 2))</span>
+                            @:ESTÁS EN <br /> <span>C-@(Portal.Consultoras.Common.Util.SubStr((ViewBag.CampaniaCodigo ?? "").ToString(), 4, 2))</span>
                         }
                     }
                 </div>
@@ -438,7 +438,7 @@
     </div>
 
     <!-- POPUP MENSAJE ERROR - exclamacion  -->
-    <div class="contenedor_popup_agregarUnidades" id="dialog_ErrorMainLayout" style="display: none;">
+    <div class="contenedor_popup_agregarUnidades contenedor_popup_error" id="dialog_ErrorMainLayout" style="display: none;">
         <div class="popup_agregarUnidades">
             <div class="btn_cerrar_agregarUnidades">
                 <a href="javascript:;" onclick="return $('#dialog_ErrorMainLayout').hide();">

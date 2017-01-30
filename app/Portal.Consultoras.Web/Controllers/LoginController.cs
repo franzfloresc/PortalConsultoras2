@@ -626,7 +626,7 @@ namespace Portal.Consultoras.Web.Controllers
                                     model.MontoMinimoFlexipago = string.Format("{0:#,##0.00}", (beOfertaFlexipago.MontoMinimoFlexipago < 0 ? 0M : beOfertaFlexipago.MontoMinimoFlexipago));
                                 }
                             }
-                        }
+                        }   
 
                         /*PL20-1226*/
                         //model.EsOfertaDelDia = oBEUsuario.EsOfertaDelDia;

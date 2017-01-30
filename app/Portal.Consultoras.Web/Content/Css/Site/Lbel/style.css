@@ -4393,6 +4393,10 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
     overflow:auto;
 }
 
+.contenedor_popup_error {    
+    z-index: 2000;
+}
+
 .fondo_tutorial{
     background:transparent url(../../../Images/bg_popup_tutorial.png) repeat left top;
 }
@@ -30925,7 +30929,8 @@ h1#penmostreo .campana {
     margin-bottom: 50px;
     margin-left: 200px;
     margin-right: 200px;
-    font-size: 18px
+    font-size: 18px;
+    text-align: center;
 }
 .content_pasos{
     width:310px;
@@ -31602,7 +31607,7 @@ h1#penmostreo .campana {
      padding-left: 40px;
 }
 .listado_resumen_general{
-    width:22%;
+    width:21%;
     margin-left:1%;
     padding-left:2%;
 }

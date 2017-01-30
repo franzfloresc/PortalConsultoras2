@@ -56,10 +56,10 @@ namespace Portal.Consultoras.Web.Controllers
                     else
                     {
                         ViewBag.SegmentoConsultoraMenu = (userData.SegmentoInternoID == null) ? userData.SegmentoID : (int)userData.SegmentoInternoID;
-                    }
+                    }                    
 
                     ViewBag.ServiceController = ConfigurationManager.AppSettings["ServiceController"].ToString();
-                    ViewBag.ServiceAction = ConfigurationManager.AppSettings["ServiceAction"].ToString();
+                    ViewBag.ServiceAction = ConfigurationManager.AppSettings["ServiceAction"].ToString();                  
                     //MenuBelcorpResponde();
                     ObtenerPedidoWeb();
                     ObtenerPedidoWebDetalle();
@@ -269,7 +269,7 @@ namespace Portal.Consultoras.Web.Controllers
                 Decimal.TryParse(datos.MontoTotalDescuento, out montoDescuento);
                 Decimal.TryParse(datos.MontoEscala, out montoEscala);
             }
-
+            
             using (PedidoServiceClient sv = new PedidoServiceClient())
             {
                 BEPedidoWeb bePedidoWeb = new BEPedidoWeb();
@@ -290,7 +290,7 @@ namespace Portal.Consultoras.Web.Controllers
                 ObtenerPedidoWeb();
             }
         }
-
+        
         protected bool ReservadoEnHorarioRestringido(out string mensaje)
         {
             var result = ValidarSession();
@@ -726,7 +726,7 @@ namespace Portal.Consultoras.Web.Controllers
                 ViewBag.DescripcionNivelAnalytics = model.DescripcionNivel != null && model.DescripcionNivel != "" ? model.DescripcionNivel : "(not available)";
                 ViewBag.ConsultoraAsociada = model.ConsultoraAsociada;
             }
-
+            
             if (model.RolID == Portal.Consultoras.Common.Constantes.Rol.Consultora)
             {
                 if (model.ConsultoraNueva != Constantes.ConsultoraNueva.Sicc &&
@@ -874,7 +874,7 @@ namespace Portal.Consultoras.Web.Controllers
                 ViewBag.MensajeFechaPromesa = string.Empty;
                 ViewBag.DiaFechaPromesa = 0;
             }
-
+            
             ViewBag.TieneNotificaciones = model.TieneNotificaciones;
             ViewBag.EsUsuarioComunidad = model.EsUsuarioComunidad ? 1 : 0;
             ViewBag.NombreC = model.PrimerNombre;
@@ -914,7 +914,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             var listaPaises = ConfigurationManager.AppSettings["KeyPaisFormatDecimal"] ?? "";
             if (listaPaises == "" || isoPais == "") return ",|.|2";
-            if (listaPaises.Contains(isoPais)) return ".||0";
+            if (listaPaises.Contains(isoPais)) return ".||0";            
             return ",|.|2";
         }
 
@@ -1156,7 +1156,7 @@ namespace Portal.Consultoras.Web.Controllers
                 if (model.MenuNotificaciones == 1)
                     model.TieneNotificaciones = TieneNotificaciones(oBEUsuario);
                 model.NuevoPROL = oBEUsuario.NuevoPROL;
-                model.ZonaNuevoPROL = oBEUsuario.ZonaNuevoPROL;                                                                
+                model.ZonaNuevoPROL = oBEUsuario.ZonaNuevoPROL;
 
                 if (oBEUsuario.CampaniaID != 0)
                 {
@@ -1213,24 +1213,24 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (model.RolID == Constantes.Rol.Consultora)
                 {
-                    if (model.TieneHana == 1)
-                    {
-                        ActualizarDatosHana(ref model);
-                    }
-                    else
-                    {
-                        model.MontoMinimo = oBEUsuario.MontoMinimoPedido;
-                        model.MontoMaximo = oBEUsuario.MontoMaximoPedido;
-                        model.FechaLimPago = oBEUsuario.FechaLimPago;
+                if (model.TieneHana == 1)
+                {
+                    ActualizarDatosHana(ref model);
+                }
+                else
+                {
+                    model.MontoMinimo = oBEUsuario.MontoMinimoPedido;
+                    model.MontoMaximo = oBEUsuario.MontoMaximoPedido;
+                    model.FechaLimPago = oBEUsuario.FechaLimPago;
 
                         BEResumenCampania[] infoDeuda = null;
-                        using (ContenidoServiceClient sv = new ContenidoServiceClient())
-                        {
+                    using (ContenidoServiceClient sv = new ContenidoServiceClient())
+                    {
                             if (model.CodigoISO == Constantes.CodigosISOPais.Colombia || model.CodigoISO == Constantes.CodigosISOPais.Peru)
                             {
                                 infoDeuda = sv.GetDeudaTotal(model.PaisID, Convert.ToInt32(model.ConsultoraID));
                             }
-                            else
+                        else
                             {
                                 infoDeuda = sv.GetSaldoPendiente(model.PaisID, model.CampaniaID, Convert.ToInt32(model.ConsultoraID));
                             }
@@ -1253,7 +1253,7 @@ namespace Portal.Consultoras.Web.Controllers
                             }
                         }
                     }
-                }
+                } 
             }
             
             //PL20-1234
@@ -1751,7 +1751,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     //if (objR.MontoMaximoStr == "")
                     //{
-                    listaEscalaDescuento = GetListaEscalaDescuento() ?? new List<BEEscalaDescuento>();
+                        listaEscalaDescuento = GetListaEscalaDescuento() ?? new List<BEEscalaDescuento>();
                     //}
                 }
 
@@ -1846,7 +1846,7 @@ namespace Portal.Consultoras.Web.Controllers
                         Cargo = monto > 0 ? monto : 0,
                         Abono = monto < 0 ? 0 : monto
                     });
-                }
+                }                
 
                 Session["ListadoEstadoCuenta"] = lst;
             }
