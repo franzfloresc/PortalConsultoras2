@@ -499,6 +499,7 @@ namespace Portal.Consultoras.Web.Controllers
                     model.TipoUsuario = Tipo;
                     model.EsZonaDemAnti = oBEUsuario.EsZonaDemAnti;
                     model.Segmento = oBEUsuario.Segmento;
+                    model.SegmentoAbreviatura = oBEUsuario.Segmento;
                     model.Sobrenombre = oBEUsuario.Sobrenombre;
                     model.SobrenombreOriginal = oBEUsuario.Sobrenombre;
                     model.Direccion = oBEUsuario.Direccion;

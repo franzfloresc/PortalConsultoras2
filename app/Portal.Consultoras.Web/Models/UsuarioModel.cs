@@ -150,6 +150,7 @@ namespace Portal.Consultoras.Web.Models
         public int EsZonaDemAnti { get; set; }
         public decimal MontoMaximo { get; set; }
         public string Segmento { get; set; }
+        public string SegmentoAbreviatura { get; set; }
         public string Sobrenombre { get; set; }
         public string SobrenombreOriginal { get; set; }
         public int IndicadorDupla { get; set; }

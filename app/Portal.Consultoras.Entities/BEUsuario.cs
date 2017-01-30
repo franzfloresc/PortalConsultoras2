@@ -58,6 +58,7 @@ namespace Portal.Consultoras.Entities
         private string mNombrePais;
         private int mConsultoraNueva;
         private string mSegmento;
+        private string mSegmentoAbreviatura;
         private int miDiasDuracionCronograma;
         private bool mHabilitarRestriccionHoraria;
         private string mAnoCampaniaIngreso;
@@ -171,6 +172,7 @@ namespace Portal.Consultoras.Entities
             msTelefono = Convert.ToString(row["Telefono"]);
             msCelular = Convert.ToString(row["Celular"]);
             mSegmento = Convert.ToString(row["Segmento"]);
+            mSegmentoAbreviatura = Convert.ToString(row["SegmentoAbreviatura"]);
             msSobrenombre = Convert.ToString(row["Sobrenombre"]) == string.Empty ? Convert.ToString(row["PrimerNombre"]) : Convert.ToString(row["Sobrenombre"]);
             //EMailActivo = Convert.ToBoolean(row["EMailActivo"]);//2532 EGL
 
@@ -737,6 +739,13 @@ namespace Portal.Consultoras.Entities
         {
             get { return mSegmento; }
             set { mSegmento = value; }
+        }
+
+        [DataMember]
+        public string SegmentoAbreviatura
+        {
+            get { return mSegmentoAbreviatura; }
+            set { mSegmentoAbreviatura = value; }
         }
 
         [DataMember]
