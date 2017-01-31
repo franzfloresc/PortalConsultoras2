@@ -262,10 +262,30 @@
 <!--CATALOGO PERSONALIZADO-->
 @if (Model.CatalogoPersonalizadoDesktop != 0 && Model.EsCatalogoPersonalizadoZonaValida)
 {
-    <div class="content-favclientes content_carrusel_agregado" id="divMainCatalogoPersonalizado" style="display:none;">
-        <div class="pestania"><h5><b>LOS FAVORITOS</b> DE TUS CLIENTES ESTA CAMPAÑA</h5><div class="imagen-curvatura"></div></div>
-        <a class="ver_mas_favoritos" style="z-index:inherit;" href="@Url.Action("Index", "CatalogoPersonalizado")">Ver más +</a>
-        <div id="divCatalogoPersonalizado"></div>
+    <div class="content_belcorp">
+        <div class="content-favclientes content_carrusel_agregado" id="divMainCatalogoPersonalizado" style="display:none;">
+            <div class="linea_separadora"></div>
+            @*<div class="pestania"><h5><b>LOS FAVORITOS</b> DE TUS CLIENTES ESTA CAMPAÑA</h5><div class="imagen-curvatura"></div></div>
+
+                <a class="ver_mas_favoritos" style="z-index:inherit;" href="@Url.Action("Index", "CatalogoPersonalizado")">Ver más +</a>*@
+            <div class="banner_favoritos_home">
+                <div class="titulo_banner_fav">
+                    @(Model.NombreConsultora.ToUpper()), estos son los 
+                    <span class="texto_altas_fav">FAVORITOS</span> 
+                    <span class="texto_2_fav">DE TUS CLIENTES</span>
+                </div>
+                <div class="content_imagen_fav">
+                    <img style="width:100%;" src="@ViewBag.UrlImagenFAVHome" alt="favoritos" />
+                </div>
+                <div class="texto_inf_banner">Porque conocemos a tus clientes, seleccionamos los productos que podrás venderles fácilmente</div>
+                <hr class="clear" />
+                <a class="btn_ver_mas_fav" href="@Url.Action("Index","CatalogoPersonalizado")" >VER MÁS PRODUCTOS</a>
+            </div>
+            <div id="divCatalogoPersonalizado" style="width:74%;float:left;"></div>
+            <hr class="clear" />
+
+        </div>
+
     </div>
 }
 
@@ -1727,8 +1747,10 @@
 
 <script id="template-catalogopersonalizado" type="text/x-handlebars-template">
     <div class="clear"></div>
-    <div class="texto_descripcionCatalogoPersonalizado">Encuentra una selección de los productos que tus clientes de seguro te solicitarán</div>
-    <div class="">
+    <div class="texto_filtros_fav"><span id="fav-home-total">Te mostramos 6 de 32 productos.</span><a class="btn_ver_todo_filtros" href="@Url.Action("Index", "CatalogoPersonalizado")">VER TODOS</a></div>
+    <hr class="clear" />
+    @*<div class="texto_descripcionCatalogoPersonalizado">Encuentra una selección de los productos que tus clientes de seguro te solicitarán</div>*@
+    <div class="" style="position:relative;">
         {{#each this as |item|}}
         <div class="contiene-productos" data-item="catalogopersonalizado">
             <div style="display: none;">
@@ -1752,6 +1774,11 @@
                 <img src="{{ImagenProductoSugerido}}" style="width: auto; height: 100%;" class="imagen_producto">
                 <a class="ver_detalle_carrusel" href="javascript:;" onclick="mostrarFichaProductoFAV2('{{CUV}}')">VER DETALLE</a>
             </div>
+            <!--ETIQUETA GUIA DE NEGOCIO -->
+            @*<div class="etiqueta_guia_negocio">GUÍA DE NEGOCIO</div> <!--ETIQUETA PARA ESIKA--> DESCOMENTAR LUEGO*@
+            @*<div class="etiqueta_guia_negocio"><span>OFERTA</span> GUÍA DE NEGOCIO</div>*@ <!--ETIQUETA PARA LBEL-->
+
+            <!--FIN-->
             {{#if item.TieneLanzamientoCatalogoPersonalizado}}
             <div class="etiqueta_producto nuevofavorito">
                 <img src="@Url.Content("~/Content/Images/producto_lanzamiento_CP.png")" alt="Etiqueta Producto" />
@@ -2336,6 +2363,7 @@
 
         var origenPagina = 1;   /*PL20-1227*/     
         var urlGetInfoFichaProducto = '@Url.Action("GetInfoFichaProductoFAV", "CatalogoPersonalizado")';    //PL20-1268
+        var urlCargarFiltros = '@Url.Action("CargarFiltros", "CatalogoPersonalizado", new { area = "" })'; 
     </script>
     @System.Web.Optimization.Scripts.Render("~/bundles/JsSB2-Bienvenida")
     @{ Session["IsContrato"] = 0; }

@@ -704,6 +704,9 @@ namespace Portal.Consultoras.Web.Controllers
             ViewBag.HorasDuracionRestriccion = model.HorasDuracionRestriccion;
             ViewBag.UrlBelcorpChat = String.Format(UrlEMTELCO, model.Segmento.Trim(), model.CodigoUsuario.Trim(), model.PrimerNombre.Split(' ').First().Trim(), model.EMail.Trim(), model.CodigoISO.Trim());
 
+            string PaisesEsika = System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika").ToString(); //PL20-1239
+            ViewBag.PaisEsika = (PaisesEsika.Contains(model.CodigoISO)) ? true : false; //PL20-1239
+
             if (isNull)
             {
                 ViewBag.SegmentoAnalytics = string.IsNullOrEmpty(model.Segmento) ? string.Empty : model.Segmento.ToString().Trim();
@@ -1255,6 +1258,30 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                 } 
             }
+            
+            //PL20-1234
+            var lstFiltersFAV = new List<BETablaLogicaDatos>();
+            using (SACServiceClient svc = new SACServiceClient())
+            {
+                for (int i = 94; i <= 97; i++)
+                {
+                    var lstItems = svc.GetTablaLogicaDatos(userData.PaisID, (short)i);
+                    if (lstItems.Any())
+                    {
+                        foreach (var item in lstItems)
+                        {
+                            lstFiltersFAV.Add(item);
+                        }
+                    }
+                }
+            }
+
+            if (lstFiltersFAV.Any())
+            {
+                Session["ListFiltersFAV"] = lstFiltersFAV;
+            }
+            //PL20-1234
+
             Session["UserData"] = model;
 
             return model;

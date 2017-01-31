@@ -327,7 +327,22 @@
 </div>
 <!--FIN CARRUSEL-->
 <div class="wrapper_resumen_mobile">
-       
+    <div class="linea_separadora_mobile"></div> <!--SI TIENE OFERTAS PARA TI NO DEBERIA ESTAR ESTA LINEA-->
+    <div class="nueva_seccion_fav">
+           <div class="content_banner_fav">
+               <div class="content_imagen_banner_fav">
+                   <img src="@ViewBag.UrlImagenFAVMobile" alt="favoritos" />
+               </div>
+               <div class="texto_fav_banner">
+                   @ViewBag.NombreConsultora, estos son los
+                   <span class="favoritos_txt">FAVORITOS</span>
+                   <span class="texto_2_fav">DE TUS CLIENTES</span>
+                   <a class="btn_compralos_banner_fav" href="@Url.Action("Index", "CatalogoPersonalizado", new { area = "Mobile" })" >CÓMPRALOS</a>
+               </div>
+           </div>            
+        </div>
+    
+    
     <div class="linea_separadora_mobile" style="margin-top:-1px;"></div>
     <!--VIDEOS-->
     <div class="comartir_home_mobile">
@@ -408,9 +423,9 @@
 @if (Model.CatalogoPersonalizadoMobile != 0 && Model.EsCatalogoPersonalizadoZonaValida)
 {
     <input type="hidden" id="flagCatalogoPersonalizado" />
-    <div class="banner_inferior_mobile">
+    @*<div class="banner_inferior_mobile">
         <a href="@Url.Action("Index", "CatalogoPersonalizado", new { area = "Mobile" })"><img src="@Model.UrlImagenCatalogoPersonalizado" alt="Los favoritos de tus clientes" /></a>
-    </div>
+    </div>*@
 }
 <div class="disclaimer_b">@(pieEscala)</div>
 
