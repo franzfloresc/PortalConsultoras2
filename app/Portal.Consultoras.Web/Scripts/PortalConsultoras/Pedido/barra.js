@@ -88,7 +88,7 @@ function MostrarBarra(datax, destino) {
             });
         }
 
-        var dif = parseFloat(data.MontoMaximo - vLogro).toFixed(2);
+        var dif = parseFloat(data.MontoMaximo - vLogro).toFixed(2);       
         listaLimite.push({
             nombre: textoPunto.replace("{titulo}", "L. crédito").replace("{detalle}", vbSimbolo + " " + data.MontoMaximoStr),
             tipoMensaje: 'MontoMaximo',

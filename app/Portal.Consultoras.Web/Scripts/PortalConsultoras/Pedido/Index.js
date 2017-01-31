@@ -26,10 +26,9 @@ $(document).ready(function () {
 
     AnalyticsBannersInferioresImpression();
     $('#salvavidaTutorial').show();
-    $(".abrir_tutorial").click(function () {
-        abrir_popup_tutorial();
+    $("#salvavidaTutorial").click(function () {
+        abrir_popup_tutorial(true);
     });
-
     $(".cerrar_tutorial").click(function () {
         cerrar_popup_tutorial();
     });
@@ -254,6 +253,10 @@ $(document).ready(function () {
             return false;
         }
 
+        if (HorarioRestringido()) {         
+            CerrarSplash();
+            return;
+        }
         if (cantidad <= 0) {
             alert_msg("La cantidad ingresada debe ser mayor que cero, verifique");
             $('.liquidacion_rango_cantidad_pedido').val(1);
@@ -1868,102 +1871,6 @@ function alert_msg(message, titulo) {
 function CambiarCliente(elem) {
     var rows = $($('[data-paginacion="rows"]')[0]).val() || 10;
     CargarDetallePedido(1, rows, elem.value);
-
-    //var item = {
-    //    ClienteID: elem.value
-    //};
-
-    //jQuery.ajax({
-    //    type: 'POST',
-    //    url: baseUrl + "Pedido/CambiarCliente",
-    //    dataType: 'json',
-    //    contentType: 'application/json; charset=utf-8',
-    //    data: JSON.stringify(item),
-    //    async: true,
-    //    success: function (response) {
-    //        if (checkTimeout(response)) {
-    //            if (response.success == true) {
-    //                var data = response.data;
-
-    //                ActualizarMontosPedido(data.FormatoTotal, data.Total, data.TotalCliente);
-
-    //                //Index
-    //                $("#hdnRegistrosPaginar").val(data.Registros);
-    //                $("#hdnRegistrosDePaginar").val(data.RegistrosDe);
-    //                $("#hdnRegistrosTotalPaginar").val(data.RegistrosTotal);
-    //                $("#hdnPaginaPaginar").val(data.Pagina);
-    //                $("#hdnPaginaDePaginar").val(data.PaginaDe);
-
-    //                //ListadoPedido
-    //                $("#hdnRegistros").val(data.Registros);
-    //                $("#hdnRegistrosDe").val(data.RegistrosDe);
-    //                $("#hdnRegistrosTotal").val(data.RegistrosTotal);
-    //                $("#hdnPagina").val(data.Pagina);
-    //                $("#hdnPaginaDe").val(data.PaginaDe);
-
-    //                var html = ArmarDetallePedido(data.ListaDetalleModel);
-    //                $('#tbobyDetallePedido').html(html);
-
-    //                var htmlPaginador = ArmarDetallePedidoPaginador(data);
-    //                $('#paginadorCab').html(htmlPaginador);
-    //                $('#paginadorPie').html(htmlPaginador);
-
-    //                $("#hdnClienteID_").val(elem.value);
-
-    //                var nomCli = $("#ddlClientes option:selected").text();
-    //                var simbolo = $("#hdfSimbolo").val();
-    //                var monto = $("#hdfTotalCliente").val();
-
-    //                $(".pMontoCliente").css("display", "none");
-
-    //                if ($("#hdnClienteID_").val() != "-1") {
-    //                    $(".pMontoCliente").css("display", "block");
-    //                    $("#spnNombreCliente").html(nomCli + " :");
-    //                    $("#spnTotalCliente").html(simbolo + monto);
-    //                }
-
-    //                CerrarSplash();
-    //            } else {
-    //                CerrarSplash();
-    //                alert_msg(response.message);
-    //            }
-
-    //        }
-    //    },
-    //    error: function (response, error) {
-    //        if (checkTimeout(response)) {
-    //            alert_msg(response.message);
-    //        }
-    //    }
-    //});
-
-    //$.get(baseUrl + "Pedido/CambiarCliente?ClienteID=" + elem.value, function (data) {
-    //    if (checkTimeout(data)) {
-    //        $('#divListadoPedido').html(data);
-    //        CalcularTotal();
-    //        $("#ddlClientes").val(elem.value);
-    //        $("#hdnRegistrosPaginar").val($("#hdnRegistros").val());
-    //        $("#hdnRegistrosDePaginar").val($("#hdnRegistrosDe").val());
-    //        $("#hdnRegistrosTotalPaginar").val($("#hdnRegistrosTotal").val());
-    //        $("#hdnPaginaPaginar").val($("#hdnPagina").val());
-    //        $("#hdnPaginaDePaginar").val($("#hdnPaginaDe").val());
-    //        $("#hdnClienteID_").val(elem.value);
-
-    //        var nomCli = $("#ddlClientes option:selected").text();
-    //        var simbolo = $("#hdfSimbolo").val();
-    //        var monto = $("#hdfTotalCliente").val();
-
-    //        $(".pMontoCliente").css("display", "none");
-
-    //        if ($("#hdnClienteID_").val() != "-1") {
-    //            $(".pMontoCliente").css("display", "block");
-    //            $("#spnNombreCliente").html(nomCli + " :");
-    //            $("#spnTotalCliente").html(simbolo + monto);
-    //        }
-
-    //        CerrarSplash();
-    //    }
-    //});
 }
 
 function ObservacionesProducto(item) {
@@ -2231,6 +2138,9 @@ function CargarProductoDestacado(objParameter, objInput, popup, limite) {
 
     popup = popup || false;
     limite = limite || 0;
+
+    if (HorarioRestringido())
+        return;
 
     var tipoEstrategiaID = objParameter.TipoEstrategiaID;
     var estrategiaID = objParameter.EstrategiaID;
@@ -2526,6 +2436,11 @@ function DeletePedido(campaniaId, pedidoId, pedidoDetalleId, tipoOfertaSisId, cu
     };
 
     AbrirSplash();
+
+    if (HorarioRestringido()) {
+        CerrarSplash();
+        return;
+    }
 
     jQuery.ajax({
         type: 'POST',
@@ -3416,8 +3331,12 @@ function Update(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion, CUV) {
 }
 
 function UpdateLiquidacion(CampaniaID, PedidoID, PedidoDetalleID, TipoOfertaSisID, CUV, FlagValidacion, CantidadModi) {
+    //debugger;
+
     AbrirSplash();
     if (HorarioRestringido()) {
+        var CantidadAnti = $('#txtLPTempCant' + PedidoDetalleID).val();
+        $('#txtLPCant' + PedidoDetalleID).val(CantidadAnti);
         CerrarSplash();
         return false;
     }
@@ -3781,16 +3700,25 @@ function UpdateLiquidacion(CampaniaID, PedidoID, PedidoDetalleID, TipoOfertaSisI
                 }
             });
         } else {
+            /*PL20-1227*/
             var CantidadAnti = $('#txtLPTempCant' + PedidoDetalleID).val();
+            var CantidadNueva = $('#txtLPCant' + PedidoDetalleID).val();
+
+            var CantidadSoli = CantidadNueva;
+            if (TipoOfertaSisID) {
+                CantidadSoli = (CantidadNueva - CantidadAnti);
+            }
+            /*PL20-1227*/
 
             var param = ({
                 MarcaID: 0,
                 CUV: CUV,
                 PrecioUnidad: 0,
                 Descripcion: 0,
-                Cantidad: $('#txtLPCant' + PedidoDetalleID).val(),
+                //Cantidad: $('#txtLPCant' + PedidoDetalleID).val(),
+                Cantidad: CantidadSoli,
                 IndicadorMontoMinimo: 0,
-                TipoOferta: 0
+                TipoOferta: TipoOfertaSisID || 0
             });
 
             jQuery.ajax({
@@ -3802,7 +3730,12 @@ function UpdateLiquidacion(CampaniaID, PedidoID, PedidoDetalleID, TipoOfertaSisI
                 async: true,
                 success: function (datos) {
                     if (!datos.result) {
-                        alert_msg(datos.message);
+                        /*PL20-1227*/
+                        //alert_msg(datos.message);
+                        $('#dialog_ErrorMainLayout').find('.mensaje_agregarUnidades').text(datos.message);
+                        $('#dialog_ErrorMainLayout').show();
+                        /*PL20-1227*/
+
                         CerrarSplash();
                         $('#txtLPCant' + PedidoDetalleID).val(CantidadAnti);
                         return false;

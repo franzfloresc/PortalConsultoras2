@@ -15,7 +15,6 @@
             background: #FFF !important;
         }
     </style>
-    <link href="@Url.Content("~/Content/Css/Site/flexslider.css")" rel="stylesheet" type="text/css" />
     <link href="@Url.Content("~/Content/Css/Site/slick.min.css")" rel="stylesheet" />
 }
 
@@ -81,8 +80,8 @@
         </div>
         <!--RESUMEN DATOS CONSULTORA Y CAMPAÑA-->
         <div class="content_resumen_dato_mobile" style="text-align:left">
-            @*<div class="saludo_mobile">¡Hola&nbsp;</div>*@
-            <span style="margin-top: -0.5px!important;">@((Model.CodigoISO == "PA" || Model.CodigoISO == "CR" || Model.CodigoISO == "MX") ? "¡Ilumina la Navidad" : "¡Feliz Navidad")</span>
+            <div class="saludo_mobile">¡Hola&nbsp;</div>
+@*            <span style="margin-top: -0.5px!important;">@((Model.CodigoISO == "PA" || Model.CodigoISO == "CR" || Model.CodigoISO == "MX") ? "¡Ilumina la Navidad" : "¡Feliz Navidad")</span>*@
             <div class="nombre_consultora_mobile"><span>@nombreConsultora</span></div>
 
             @if (Model.PortalLideres && Model.Lider == 1)
@@ -256,8 +255,8 @@
     {
         <!--APP CATÁLOGOS-->
         <div class="comartir_home_mobile">
-            MULTIPLICA TUS CLIENTES CON<br />
-            EL APP DE CATÁLOGO
+            HAZ CRECER TU NEGOCIO CON<br />
+            EL APP DE CATÁLOGOS
             @*<a role="link" region="Central" parent="App de Catálogos" title="Entérate Más"
                class="btn_compartelos" href="@Model.UrlEnterateMas">ENTÉRATE MÁS</a>*@
             <a role="link" region="Central" parent="App de Catálogos" title="Entérate Más"
@@ -276,6 +275,9 @@
                         UsuarioTipo = "código";
                         break;
                     case "CR":
+                        UsuarioTipo = "código";
+                        break;
+                    case "BO":
                         UsuarioTipo = "código";
                         break;
                     case "CO":
@@ -325,6 +327,21 @@
 </div>
 <!--FIN CARRUSEL-->
 <div class="wrapper_resumen_mobile">
+    <div class="nueva_seccion_fav">
+           <div class="content_banner_fav">
+               <div class="content_imagen_banner_fav">
+                   <img src="@ViewBag.UrlImagenFAVMobile" alt="favoritos" />
+               </div>
+               <div class="texto_fav_banner">
+                   @ViewBag.NombreConsultora, estos son los
+                   <span class="favoritos_txt">FAVORITOS</span>
+                   <span class="texto_2_fav">DE TUS CLIENTES</span>
+                   <a class="btn_compralos_banner_fav" href="@Url.Action("Index", "CatalogoPersonalizado", new { area = "Mobile" })" >CÓMPRALOS</a>
+               </div>
+           </div>            
+        </div>
+    
+    
     <div class="linea_separadora_mobile" style="margin-top:-1px;"></div>
     <!--VIDEOS-->
     <div class="comartir_home_mobile">
@@ -357,6 +374,7 @@
     <!--FIN-->
 </div>
 <input type="hidden" id="hdTipoEstrategiaID" value="0" />
+<input type="hidden" id="hdPosicion" value="0" />
 <!-- DIV PARA FUNCIONALIDAD DE AGREGAR PRODUCTO DESDE CAROUSEL HORIZONTAL-->
 <div id="divVistaPrevia" class="Content_modal_ZE" style="display: none; background-color: #fff; overflow: hidden;">
     <div class="Content_modal_ZE texto-centrado" style="overflow: hidden;">
@@ -404,9 +422,9 @@
 @if (Model.CatalogoPersonalizadoMobile != 0 && Model.EsCatalogoPersonalizadoZonaValida)
 {
     <input type="hidden" id="flagCatalogoPersonalizado" />
-    <div class="banner_inferior_mobile oculto_lbel">
+    @*<div class="banner_inferior_mobile">
         <a href="@Url.Action("Index", "CatalogoPersonalizado", new { area = "Mobile" })"><img src="@Model.UrlImagenCatalogoPersonalizado" alt="Los favoritos de tus clientes" /></a>
-    </div>
+    </div>*@
 }
 <div class="disclaimer_b">@(pieEscala)</div>
 
@@ -627,13 +645,46 @@
     </div>
 </div>
 <!-- FIN POPUP VIDEO INTRODUCTORIO -->
+<!--POP UP COMPARTIR FACEBOOK Y WS EN OFERTAS PARA TI-->
+<div class="PopMobile1"  id="PopFichaOPT">
+        @*<div class="content_popMobile" style="padding-bottom:0;">
+            <a class="cerrar_popMobile" onclick="CerrarFichaOPT()">
+                <img src="/Content/Images/mobile/Esika/cerrar_04.png" alt="-">
+            </a>
+        <hr class="clear" />
+        <div class="content_imagen_ficha"><img id="imgFichaProOPT"src="https://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Matriz/PE/PE_200080472_201612367_01_pwifsvbxar.png" alt="PRODUCTO" /></div>
+        <div class="marca_ficha_producto"></div>
+        <div class="titulo_ficha_producto">Perfect Match volumen</div>
 
+        <div class="precio_ficha_producto">S/.35.00</div>
+        <div class="content_redes_ficha">
+            <a class="btn_compartir_ofertas" href="#"><img src="@Url.Content("~/Content/Images/Mobile/Esika/iconowscolor.png")" alt=""></a>
+            <a class="btn_compartir_ofertas" href="#"><img src="@Url.Content("~/Content/Images/Mobile/Esika/catalogo_facebook_color.png")" alt=""></a>
+        </div>
+        <hr class="clear" />
+        <div style="margin-left:-20px; margin-right:-20px;">
+            <div class="content_btn_agregar content_OPT">
+                <div class="content_320" style="max-width:292px; width:auto;">
+                    <div class="content_cantidad_ficha_producto">
+                        <a class="cantidad_menos_home"><img src="/Content/Images/Mobile/Esika/menos.png" alt=""></a>
+                        <input type="tel" value="1" size="2" maxlength="2" id="txtCantidad" class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);">
+                        <a class="cantidad_mas_home"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
+                    </div>
+                    <a class="btn_agregar_ficha_producto" href="#">AGRÉGALO</a>
+                    <hr class="clear" />
+                </div>
+            </div>
+        </div>
+    </div>*@   
+</div>
+
+<!--FIN-->
     <script id="estrategia-template" type="text/x-handlebars-template">
         {{#each this}}
         <div data-item="{{EstrategiaID}}" data-tipoestrategiaimagenmostrar="{{#if_eq FlagMostrarImg '1'}}{{TipoEstrategiaImagenMostrar}}{{/if_eq}}">
             <input type="hidden" class="PosicionEstrategia" value="{{Posicion}}" />
             <div class="content_item_home">
-                <div class="producto_img_mobile">
+                <div class="producto_img_mobile" onclick="mostrarFichaProductoOPT('{{CUV2}}',{{Posicion}})">
                     <img src="{{FotoProducto01}}" />
                 </div>
                 {{#if_eq FlagMostrarImg '1'}}
@@ -656,11 +707,11 @@
                 <div class="producto_nombre_descripcion">
                     <h6>{{DescripcionMarca}}</h6>
                     {{#if_eq FlagNueva '1'}}
-                    <p class="nombre_producto">
+                    <p class="nombre_producto" style="text-decoration:underline; cursor:pointer;">
                         {{DescripcionCUVSplit}}
                     </p>
                     {{else}}
-                    <p class="nombre_producto">
+                    <p class="nombre_producto" style="text-decoration:underline; cursor:pointer;" onclick="mostrarFichaProductoOPT('{{CUV2}}',{{Posicion}})">
                         {{DescripcionCUV2}}
                     </p>
                     {{/if_eq}}
@@ -777,10 +828,56 @@
     </div>
 </div>
 
+<script id="PopFichaOPT-template" type="text/x-handlebars-template">
+    <div class="content_popMobile" style="padding-bottom:0;">
+        <a class="cerrar_popMobile" onclick="CerrarFichaOPT()">
+            <img src="/Content/Images/mobile/Esika/cerrar_04.png" alt="-">
+        </a>
+        <hr class="clear" />
+        <div class="content_imagen_ficha"><img id="imgFichaProOPT" src="https://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Matriz/PE/PE_200080472_201612367_01_pwifsvbxar.png" alt="PRODUCTO" /></div>
+        <div class="marca_ficha_producto">--</div>
+        <div class="titulo_ficha_producto">--</div>
+
+        <div class="precio_ficha_producto">--</div>
+        <div class="content_redes_ficha">
+            @{
+                var urlWs = "";
+                string urlBase_fb = "";
+                if (System.Web.HttpContext.Current.Request.UserAgent != null)
+                {
+                    var request = HttpContext.Current.Request;
+
+                    var urlBase_wsp = request.Url.Scheme + "://" + request.Url.Authority + "/Pdto.aspx?id=" + Model.CodigoISO + "_[valor]";
+
+                    urlWs = urlBase_wsp; //"whatsapp://send?text=" + urlBase_wsp;
+
+                    urlBase_fb = request.Url.Scheme + "://" + request.Url.Authority + "/Pdto.aspx?id=" + Model.CodigoISO + "_[valor]";
+                }
+            }
+            <a class="btn_compartir_ofertas" href='javascript:window.location=CompartirWsp("@urlWs", {RutaImagen: "{{FotoProducto01}}", MarcaID:"{{MarcaID}}", MarcaDesc:"{{DescripcionMarca}}", NombrePro:"{{DescripcionCUV2}}", Cuv:"{{CUV2}}"});' data-action="share/whatsapp/share"><img src="@Url.Content("~/Content/Images/Mobile/Esika/iconowscolor.png")" alt=""></a>
+            <a class="btn_compartir_ofertas" href="javascript:void(0);" onclick='javascript:CompartirFacebook("@urlBase_fb",  {RutaImagen: "{{FotoProducto01}}", MarcaID:"{{MarcaID}}", MarcaDesc:"{{DescripcionMarca}}", NombrePro:"{{DescripcionCUV2}}", Cuv:"{{CUV2}}"});'><img src="@Url.Content("~/Content/Images/Mobile/Esika/catalogo_facebook_color.png")" alt=""></a>
+        </div>
+        <hr class="clear" />
+        <div style="margin-left:-20px; margin-right:-20px;">
+            <div class="content_btn_agregar content_OPT">
+                <div class="content_320" style="max-width:292px; width:auto;">
+                    <div class="content_cantidad_ficha_producto">
+                        <a class="cantidad_menos_home"><img src="/Content/Images/Mobile/Esika/menos.png" alt=""></a>
+                        <input type="tel" value="1" size="2" maxlength="2" id="txtCantidadFichaOPT" class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);">
+                        <a class="cantidad_mas_home"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
+                    </div>
+                    <a class="btn_agregar_ficha_producto" href="#" onclick="javascript:CargarProductoDestacado({ EstrategiaID: '{{EstrategiaID}}' , TipoEstrategiaID: '{{TipoEstrategiaID}}' , Posicion: '{{Posicion}}' , FlagNueva: '{{FlagNueva}}' }, this); ">AGRÉGALO</a>
+                    <hr class="clear" />
+                </div>
+            </div>
+        </div>
+    </div>
+</script>
+
     @section scripts{
-        <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.flexslider.js")"></script>
         <script type="text/javascript" src="@Url.Content("~/Scripts/slick.min.js")"></script>
-        <script type="text/javascript">
+        <script type="text/javascript">            
+
             var urlGetEstrategiasCarousel = '@Url.Action("JsonConsultarEstrategias", "Pedido", new { area = "" })';
             var urlFiltrarEstrategiasPedido = '@Url.Action("FiltrarEstrategiaPedido", "AdministrarEstrategia", new { area = "" })';
             var urlValidarStockEstrategia = '@Url.Action("ValidarStockEstrategia", "Pedido", new { area = "" })';
@@ -793,9 +890,13 @@
             var urlLoad = '@Url.Content("~/Content/Images/Loading.gif")';
             var contadorFondoPopUp = 0;
             var viewBagVioTutorial = '@Model.VioTutorial';
-        var urlUpdatePopupShowRoom = '@Url.Action("UpdatePopupShowRoom", "ShowRoom", new { area = "" })';
-        var urlMostrarShowRoomPopup = '@Url.Action("MostrarShowRoomPopup", "Bienvenida", new { area = "" })';
-        var urlShowRoomBienvenida = '@Url.Action("Index", "ShowRoom", new { area = "Mobile" })';
+            var origenPagina = 1;//PL20-1233
+            var urlUpdatePopupShowRoom = '@Url.Action("UpdatePopupShowRoom", "ShowRoom", new { area = "" })';
+            var urlMostrarShowRoomPopup = '@Url.Action("MostrarShowRoomPopup", "Bienvenida", new { area = "" })';
+            var urlShowRoomBienvenida = '@Url.Action("Index", "ShowRoom", new { area = "Mobile" })';
+            var urlGetProductoFichaOPT = '@Url.Action("GetProductoFichaOPT", "Pedido", new { area = ""})'; //PL20-1265
+            var urlInsertarProductoCompartido = '@Url.Action("InsertarProductoCompartido", "CatalogoPersonalizado", new { area = "" })'; //PL20-1266
         </script>
+        
         <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Mobile/Bienvenida/Index.js")"></script>
     }

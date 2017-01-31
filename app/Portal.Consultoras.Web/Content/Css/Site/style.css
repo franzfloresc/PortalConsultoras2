@@ -1452,6 +1452,7 @@ ul.tabs {
         text-align: left;
     }
 
+
     .div-3 p {
         float: left;
         height: auto;
@@ -1528,6 +1529,30 @@ ul.tabs {
         text-align: right;
     }
 
+    /*EPD-1025*/
+    .div-3 .textoDescarga { 
+        float: right;
+        width: 380px;
+        height: auto;
+        padding: 9px;
+        background: none;
+        color: #702789;
+        font-size: 14px;
+        margin: 0;
+        border: 0;
+        text-align: left;
+    }
+        .div-3 .textoDescarga img {           
+            float: left;
+        }
+        .div-3 .textoDescarga span {
+            padding-left: 6px;
+            color:#536576;
+        }
+            .div-3 .textoDescarga span a {
+                color: #ec1a3a;              
+            }
+    /*EPD-1025*/
     .div-3 .titD {
         float: left;
         width: 30px;
@@ -1582,6 +1607,19 @@ ul.tabs {
     }
 
     .div-3 .titG {
+        float: left;
+        width: 125px;
+        height: auto;
+        padding: 9px;
+        background: none;
+        color: #702789;
+        font-size: 14px;
+        margin: 0;
+        border: 0;
+        text-align:left;
+    }
+
+    .div-3 .titX {
         float: left;
         width: 125px;
         height: auto;
@@ -2194,6 +2232,18 @@ border: 0;
     position: relative;
 }
 
+.div-3 .selectP22 {
+    float: left;
+    width: 105px;
+    height: auto;
+    padding: 9px;
+    background: #fff;
+    color: #702789;
+    margin-right: 10px;
+    border: 1px solid #cfcfcf;
+    position: relative;
+}
+
     .div-3 .selectP2:hover {
         border: 1px solid #9D9D9D;
     }
@@ -2221,6 +2271,19 @@ border: 0;
         margin: 0;
         border: 0;
     }
+
+   .div-3 .selectP22 input {
+        float: left;
+        width: 100px;
+        height: 18px;
+        padding: 0;
+        background: #fff;
+        color: #702789;
+        font-size: 14px;
+        margin: 0;
+        border: 0;
+    }
+
 
 .div-3 .textarea_zona {
     float: left;
@@ -2608,6 +2671,8 @@ border: 0;
         border: 0;
         margin: 12px 10px 0 0;
     }
+
+
 
 .div-3 .input_modifica input {
     float: left;
@@ -12731,4 +12796,38 @@ label.checkpop.c_on {
 
 #tdTotalPrecio {
 margin-left:25px;
+}
+
+.boton_redondo_admcontenido_on {
+    width: 50px;
+    height: 50px;
+    border-radius: 100px;
+    background: #00A2E8;
+    display: inline-block;
+    vertical-align: middle;
+    margin: 10px;
+    font-family: 'Tahoma';
+    color: white;
+    line-height: 50px;
+    font-size: 25px;
+}
+.boton_redondo_admcontenido_off {
+    width: 50px;
+    height: 50px;
+    border-radius: 100px;
+    background: white;
+    display: inline-block;
+    vertical-align: middle;
+    margin: 10px;
+    font-family: 'Tahoma';
+    color: #00A2E8;
+    line-height: 50px;
+    font-size: 25px;
+    border: 1px solid #00A2E8;
+}
+.signo_admcontenido_estrategia {
+    display: inline-block;
+    vertical-align: middle;
+    color: #00A2E8;
+    font-size: 25px;
 }

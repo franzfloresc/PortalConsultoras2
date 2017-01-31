@@ -61,4 +61,20 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+  <xs:element name="ObtenerProductosAppCatalogoByListaCUV">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="codigoIso" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="campaniaId" type="xs:int" />
+        <xs:element minOccurs="0" name="listaCuv" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ObtenerProductosAppCatalogoByListaCUVResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/Portal.Consultoras.ServiceCatalogoPersonalizado.Entities" minOccurs="0" name="ObtenerProductosAppCatalogoByListaCUVResult" nillable="true" type="q4:ArrayOfProducto" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
 </xs:schema>

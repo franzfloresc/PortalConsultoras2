@@ -185,13 +185,21 @@ function GetProductoEntidad(id) {
 // Actualizar pedido delsde el detalle => Cantidad Detalle
 
 function UpdateLiquidacionEvento(evento) {
-    var obj = $(evento.currentTarget);
+    debugger;
+
+    var obj = $(evento.currentTarget);    
     var id = $.trim(obj.attr("data-pedidodetalleid")) || "0";
     if (parseInt(id, 10) <= 0 || parseInt(id, 10) == NaN) {
         return false;
     }
 
+    if (ReservadoOEnHorarioRestringido()) {     
+        $('#Cantidad_'+id).val($("#CantidadTemporal_" + id).val());
+        return false;
+    }
+
     var obj = GetProductoEntidad(id);
+
 
     UpdateLiquidacionSegunTipoOfertaSis(obj.CampaniaID, obj.PedidoID, obj.PedidoDetalleID, obj.TipoOfertaSisID, obj.CUV, obj.FlagValidacion, obj.CantidadInicial, obj.EsBackOrder);
 
@@ -242,14 +250,23 @@ function UpdateLiquidacionSegunTipoOfertaSis(CampaniaID, PedidoID, PedidoDetalle
             return false;
         }
 
+        /*PL20-1227*/
+        var CantidadSoli = Cantidad;
+        if (TipoOfertaSisID) {
+            CantidadSoli = (Cantidad - cantidadAnterior);
+        }
+        /*PL20-1227*/
+
         var param = ({
             MarcaID: 0,
             CUV: CUV,
             PrecioUnidad: 0,
             Descripcion: 0,
-            Cantidad: Cantidad,
+            //Cantidad: Cantidad,
+            Cantidad: CantidadSoli,
             IndicadorMontoMinimo: 0,
-            TipoOferta: 1
+            //TipoOferta: 0   // 0=actualizar cantidad, 1=agregar cantidad
+            TipoOferta: TipoOfertaSisID || 0
         });
         ShowLoading();
 
@@ -263,7 +280,12 @@ function UpdateLiquidacionSegunTipoOfertaSis(CampaniaID, PedidoID, PedidoDetalle
             success: function (datos) {
                 CloseLoading();
                 if (!datos.result) {
-                    messageInfoMalo(datos.message);
+                    /*PL20-1227*/
+                    //messageInfoMalo(datos.message);
+                    $('#popupInformacionSB2Error').find('#mensajeInformacionSB2_Error').text(datos.message);
+                    $('#popupInformacionSB2Error').show();
+                    /*PL20-1227*/
+
                     $('#Cantidad_' + PedidoDetalleID).val(cantidadAnterior);
                     return false;
                 }
@@ -979,7 +1001,7 @@ function EjecutarServicioPROL() {
                     mensaje_ = data.mensaje;
                 }
                 messageInfoMalo('<h3>' + mensaje_ + '</h3>')
-                console.error(data);
+                //console.error(data);
             }
         }
     });

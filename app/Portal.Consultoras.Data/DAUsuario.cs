@@ -238,6 +238,15 @@ namespace Portal.Consultoras.Data
             return Convert.ToInt32(Context.ExecuteScalar(command));
         }
 
+        public int ValidarTelefonoConsultora(string Telefono, string CodigoUsuario)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.ValidateConsultoraTelefono");
+            Context.Database.AddInParameter(command, "@Telefono", DbType.AnsiString, Telefono);
+            Context.Database.AddInParameter(command, "@CodigoUsuario", DbType.AnsiString, CodigoUsuario);
+
+            return Convert.ToInt32(Context.ExecuteScalar(command));
+        }
+
         public IDataReader GetEstadosRestringidos()
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetEstadosRestringidos");
@@ -522,5 +531,28 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@tipo", DbType.AnsiString, tipo);
             return Convert.ToInt32(Context.ExecuteScalar(command));
         }
+
+        
+        public int UpdateUsuarioEmailTelefono(long ConsultoraID, string Email, string Telefono)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.UpdUsuarioEMailCDRWeb");
+            Context.Database.AddInParameter(command, "@ConsultoraID", DbType.Int64, ConsultoraID);
+            Context.Database.AddInParameter(command, "@EMail", DbType.String, Email);
+            Context.Database.AddInParameter(command, "@Telefono", DbType.String, Telefono);
+            Context.Database.AddOutParameter(command, "@RetornoSiNoCorreoNuevo", DbType.Int32, 10);
+            Context.ExecuteNonQuery(command);
+
+            return Convert.ToInt32(command.Parameters["@RetornoSiNoCorreoNuevo"].Value);
+        }
+        /*PL20-1226*/
+        //public int GetEsOfertaDelDia(int codCampania, string codConsultora, DateTime fechaInicioFact)
+        //{
+        //    DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetEsOfertaDelDia");
+        //    Context.Database.AddInParameter(command, "@CodCampania", DbType.Int32, codCampania);
+        //    Context.Database.AddInParameter(command, "@CodConsultora", DbType.AnsiString, codConsultora);
+        //    Context.Database.AddInParameter(command, "@FechaInicioFact", DbType.DateTime, fechaInicioFact);
+
+        //    return Convert.ToInt16(Context.ExecuteScalar(command));
+        //}
     }
 }

@@ -240,9 +240,9 @@ namespace Portal.Consultoras.Entities
 
             if (DataRecord.HasColumn(datarec, "TieneLanzamientoCatalogoPersonalizado") && datarec["TieneLanzamientoCatalogoPersonalizado"] != DBNull.Value)
                 TieneLanzamientoCatalogoPersonalizado = Convert.ToBoolean(datarec["TieneLanzamientoCatalogoPersonalizado"]);
-            
+                
             if (DataRecord.HasColumn(datarec, "TipoOfertaRevista") && datarec["TipoOfertaRevista"] != DBNull.Value)
-                TipoOfertaRevista = Convert.ToString(datarec["TipoOfertaRevista"]).Trim();    
+                TipoOfertaRevista = Convert.ToString(datarec["TipoOfertaRevista"]).Trim();
         }
 
         public BEProducto()

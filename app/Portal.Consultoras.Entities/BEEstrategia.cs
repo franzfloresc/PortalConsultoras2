@@ -34,15 +34,15 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public int ID { get; set; }
         [DataMember]
-        public decimal Precio { get; set; } 
+        public decimal Precio { get; set; }
         [DataMember]
-        public decimal Precio2 { get; set; } 
+        public decimal Precio2 { get; set; }
         [DataMember]
         public decimal PrecioUnitario { get; set; }
         [DataMember]
         public string PrecioString { get; set; }
         [DataMember]
-        public string PrecioTachado { get; set; }        
+        public string PrecioTachado { get; set; }
         [DataMember]
         public string CUV1 { get; set; }
         [DataMember]
@@ -139,13 +139,25 @@ namespace Portal.Consultoras.Entities
 
         [DataMember]
         public bool TieneStockProl { get; set; }
-        
+
         [DataMember]
-        public int FlagMostrarImg { get; set; }      // SB2-353        
+        public int FlagMostrarImg { get; set; }      // SB2-353     
+
+        [DataMember]
+        public int OfertaUltimoMinuto { get; set; }
+        [DataMember]
+        public int Imagen { get; set; }
+        [DataMember]
+        public string CodigoSAP { get; set; }
+        [DataMember]
+        public int  EnMatrizComercial { get; set; }
+         
+        //[DataMember]
+        //public string CodigoSAP { get; set; }
         
         public BEEstrategia(IDataRecord row)
         {
-            if(DataRecord.HasColumn(row, "TipoTallaColor") && row["TipoTallaColor"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "TipoTallaColor") && row["TipoTallaColor"] != DBNull.Value)
                 TipoTallaColor = row["TipoTallaColor"].ToString();
 
             if (DataRecord.HasColumn(row, "EstrategiaID") && row["EstrategiaID"] != DBNull.Value)
@@ -299,10 +311,19 @@ namespace Portal.Consultoras.Entities
 
             // SB2-353
             if (DataRecord.HasColumn(row, "FlagMostrarImg") && row["FlagMostrarImg"] != DBNull.Value)
-                FlagMostrarImg = Convert.ToInt32(row["FlagMostrarImg"]);                
+                FlagMostrarImg = Convert.ToInt32(row["FlagMostrarImg"]);
+
+            if (DataRecord.HasColumn(row, "OfertaUltimoMinuto") && row["OfertaUltimoMinuto"] != DBNull.Value)
+                FlagMostrarImg = Convert.ToInt32(row["OfertaUltimoMinuto"]);
+
+            if (DataRecord.HasColumn(row, "CodigoSAP") && row["CodigoSAP"] != DBNull.Value)
+                CodigoSAP = row["CodigoSAP"].ToString().Trim();
+            
+            if (DataRecord.HasColumn(row, "EnMatrizComercial") && row["EnMatrizComercial"] != DBNull.Value)
+                EnMatrizComercial = Convert.ToInt32(row["EnMatrizComercial"]); 
         }
     }
-	// 1747 - Inicio
+    // 1747 - Inicio
     [DataContract]
     public class BEConfiguracionValidacionZE
     {
@@ -344,5 +365,19 @@ namespace Portal.Consultoras.Entities
                 DiasDuracionCronograma = Convert.ToInt16(Convert.IsDBNull(row["DiasDuracionCronograma"]) ? 1 : row["DiasDuracionCronograma"]);
         }
     }
-	// 1747 - Fin
+
+    public class BEEstrategiaType
+    {
+        public int CampaniaId { get; set; }
+        public string CUV { get; set; }
+        public string Descripción { get; set; }
+        public decimal PrecioOferta { get; set; }
+        public decimal PrecioTachado { get; set; }
+        public string CodigoSap { get; set; }
+        public int OfertaUltimoMinuto { get; set; }
+        public int LimiteVenta { get; set; }
+
+        public string UsuarioCreacion { get; set; }
+    }
+    // 1747 - Fin
 }

@@ -168,6 +168,20 @@ namespace Portal.Consultoras.Web.Models
         public bool TieneLanzamientoCatalogoPersonalizado { get; set; }
 
         public string TipoOfertaRevista { get; set; }
+
+        public string Volumen { get; set; }
+        public bool EsMaquillaje { get; set; }
+        public string DescripcionComercial { get; set; }
+        public string ImagenBulk { get; set; }
+        public string NombreBulk { get; set; }
+        public List<ProductoModel> Hermanos { get; set; }
+
+        public string CodigoIso { get; set; }
+        public int Relevancia { get; set; }
+        public string CodigoCategoria { get; set; }
+        public string CodigoMarca { get; set; }
+        //PL20-1239
+        public bool PaisEsikizado { get; set; }
     }
 
     public class ObservacionModel

@@ -4,6 +4,8 @@ using Portal.Consultoras.ServiceContracts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Portal.Consultoras.BizLogic.CDR;
+using Portal.Consultoras.Entities.CDR;
 
 namespace Portal.Consultoras.Service
 {
@@ -177,6 +179,12 @@ namespace Portal.Consultoras.Service
             return BLUsuario.ValidarEmailConsultora(PaisID, Email, CodigoUsuario);
         }
 
+        public int ValidarTelefonoConsultora(int PaisID, string Telefono, string CodigoUsuario)
+        {
+            var BLUsuario = new BLUsuario();
+            return BLUsuario.ValidarTelefonoConsultora(PaisID, Telefono, CodigoUsuario);
+        }
+
         public List<int> GetEstadosRestringidos(int paisID)
         {
             var BLUsuario = new BLUsuario();
@@ -284,10 +292,10 @@ namespace Portal.Consultoras.Service
         }
 
         //CCSS_JZ_PROL2
-        public IList<BENotificaciones> GetNotificacionesConsultora(int PaisID, long ConsultoraId)
+        public IList<BENotificaciones> GetNotificacionesConsultora(int PaisID, long ConsultoraId, int indicadorBloqueoCDR)
         {
             var BLNotificaciones = new BLNotificaciones();
-            return BLNotificaciones.GetNotificacionesConsultora(PaisID, ConsultoraId);
+            return BLNotificaciones.GetNotificacionesConsultora(PaisID, ConsultoraId, indicadorBloqueoCDR);
         }
 
         //R2073
@@ -332,7 +340,6 @@ namespace Portal.Consultoras.Service
             var BLMisPedidos = new BLConsultoraOnline();
             return BLMisPedidos.GetSaldoHorasSolicitudesPedido(PaisID, ConsultoraId, Campania);
         }
-
         /* SB20-463 - FIN */
 
         public IList<BEMisPedidos> GetMisPedidosClienteOnline(int paisID, long consultoraId, int campania)
@@ -563,6 +570,24 @@ namespace Portal.Consultoras.Service
         {
             var BLUsuario = new BLUsuario();
             return BLUsuario.GetDatosConsultoraHana(paisID, codigoUsuario, campaniaId);
+        }
+
+        public void UpdNotificacionSolicitudCdrVisualizacion(int paisID, long procesoId)
+        {
+            var bLLogCDRWeb = new BLLogCDRWeb();
+            bLLogCDRWeb.UpdateVisualizado(paisID, procesoId);
+        }
+
+        public void UpdNotificacionCdrCulminadoVisualizacion(int paisID, long procesoId)
+        {
+            var bLLogCDRWebCulminado = new BLLogCDRWebCulminado();
+            bLLogCDRWebCulminado.UpdateVisualizado(paisID, procesoId);
+        }
+
+        public int UpdateUsuarioEmailTelefono(int paisID, long ConsultoraID, string Email, string Telefono)
+        {
+            var BLUsuario = new BLUsuario();
+            return BLUsuario.UpdateUsuarioEmailTelefono(paisID, ConsultoraID, Email, Telefono);
         }
     }
 }

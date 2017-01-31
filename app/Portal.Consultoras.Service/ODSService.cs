@@ -105,15 +105,29 @@ namespace Portal.Consultoras.Service
             return new BLConsultora().GetSaldoActualConsultora(paisID, Codigo);
         }
 
-
-        public IList<BEProducto> SelectProductoByCodigoDescripcionSearchRegionZona(int paisID, int campaniaID, string codigoDescripcion, int RegionID, int ZonaID, string CodigoRegion, string CodigoZona, int criterio, int rowCount)
+        public IList<BEProducto> SelectProductoByCodigoDescripcionSearchRegionZona(int paisID, int campaniaID,
+            string codigoDescripcion, int RegionID, int ZonaID, string CodigoRegion, string CodigoZona, int criterio,
+            int rowCount, bool validarOpt)
         {
-            return BLProducto.SelectProductoByCodigoDescripcionSearchRegionZona(paisID, campaniaID, codigoDescripcion, RegionID, ZonaID, CodigoRegion, CodigoZona, criterio, rowCount);
+            return BLProducto.SelectProductoByCodigoDescripcionSearchRegionZona(paisID, campaniaID, codigoDescripcion,
+                RegionID, ZonaID, CodigoRegion, CodigoZona, criterio, rowCount, validarOpt);
+        }
+
+        public IList<BEProducto> SelectProductoByListaCuvSearchRegionZona(int paisID, int campaniaID,
+            string listaCuv, int regionID, int zonaID, string codigoRegion, string codigoZona, bool validarOpt)
+        {
+            return BLProducto.SelectProductoByListaCuvSearchRegionZona(paisID, campaniaID, listaCuv,
+                regionID, zonaID, codigoRegion, codigoZona, validarOpt);
         }
 
         public long GetConsultoraIdByCodigo(int paisID, string CodigoConsultora)
         {
             return BLConsultora.GetConsultoraIdByCodigo(paisID, CodigoConsultora);
+        }
+
+        public IList<BEProducto> GetProductoComercialByListaCuv(int paisID, int campaniaID, int regionID, int zonaID, string codigoRegion, string codigoZona, string listaCuv)
+        {
+            return BLProducto.GetProductoComercialByListaCuv(paisID, campaniaID, regionID, zonaID, codigoRegion, codigoZona, listaCuv);
         }
 
 
@@ -216,6 +230,22 @@ namespace Portal.Consultoras.Service
         public IList<BEProductoAppCatalogo> GetNombreProducto048ByListaCUV(int paisID, int campaniaId, string listaCUV)
         {
             return BLProducto.GetNombreProducto048ByListaCUV(paisID, campaniaId, listaCUV);
+        }
+
+        //PL20-1237
+        public int InsProductoCompartido(BEProductoCompartido ProComp)
+        {
+            return BLProducto.InsProductoCompartido(ProComp);
+        }
+
+        public BEProductoCompartido GetProductoCompartido(int paisID, int ProCompID)
+        {
+            return BLProducto.GetProductoCompartido(paisID, ProCompID);
+        }
+
+        public IList<BEProducto> GetListBrothersByCUV(int paisID, int codCampania, string cuv)
+        {
+            return BLProducto.GetListBrothersByCUV(paisID, codCampania, cuv);
         }
     }
 }

@@ -26,8 +26,11 @@ namespace Portal.Consultoras.ServiceContracts
         int DelCDRWebDetalle(int PaisID, BECDRWebDetalle entity);
 
         [OperationContract]
-        List<BECDRWebDetalle> GetCDRWebDetalle(int PaisID, BECDRWebDetalle entity);
-        
+        List<BECDRWebDetalle> GetCDRWebDetalle(int PaisID, BECDRWebDetalle entity, int pedidoId);
+
+        [OperationContract]
+        List<BECDRWebDetalle> GetCDRWebDetalleLog(int PaisID, BELogCDRWeb entity);
+
         [OperationContract]
         int InsCDRWebMotivoOperacion(int PaisID, BECDRWebMotivoOperacion entity);
 
@@ -53,6 +56,24 @@ namespace Portal.Consultoras.ServiceContracts
         int UpdateLogCDRWebVisualizado(int paisId, long logCDRWebId);
 
         [OperationContract]
-        List<BELogCDRWebDetalle> GetLogCDRWebDetalleByLogCDRWebId(int paisId, long logCDRWebId);        
+        List<BELogCDRWebDetalle> GetLogCDRWebDetalleByLogCDRWebId(int paisId, long logCDRWebId);
+
+        [OperationContract]
+        bool DetalleActualizarObservado(int paisId, List<BECDRWebDetalle> lista);
+
+        [OperationContract]
+        List<BECDRParametria> GetCDRParametria(int paisId, BECDRParametria entidad);
+
+        [OperationContract]
+        List<BECDRWebDatos> GetCDRWebDatos(int paisId, BECDRWebDatos entidad);
+        
+        [OperationContract]
+        void CreateLogCDRWebCulminadoFromCDRWeb(int PaisID, int cDRWebId);
+
+        [OperationContract]
+        BECDRWeb GetCDRWebByLogCDRWebCulminadoId(int PaisID, long logCDRWebCulminadoId);
+
+        [OperationContract]
+        List<BECDRWebDetalle> GetCDRWebDetalleByLogCDRWebCulminadoId(int PaisID, long logCDRWebCulminadoId);
     }
 }

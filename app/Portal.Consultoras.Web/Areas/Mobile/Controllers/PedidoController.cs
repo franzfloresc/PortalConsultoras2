@@ -154,12 +154,12 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 ViewBag.AccionBoton = "guardar";
                 model.Prol = "GUARDA TU PEDIDO";
                 model.ProlTooltip = "Es importante que guardes tu pedido";
-                model.ProlTooltip += string.Format("|Puedes realizar cambios hasta el {0}", ViewBag.FechaFacturacionPedido);
+                model.ProlTooltip += string.Format("|Puedes realizar cambios hasta el {0}", fechaFacturacionFormat);
 
                 if (userData.CodigoISO == "BO")
                 {
                     model.ProlTooltip = "Es importante que guardes tu pedido";
-                    model.ProlTooltip += string.Format("|No olvides reservar tu pedido el dia {0} para que sea enviado a facturar", ViewBag.FechaFacturacionPedido);
+                    model.ProlTooltip += string.Format("|No olvides reservar tu pedido el dia {0} para que sea enviado a facturar", fechaFacturacionFormat);
                 }
             }
             else // Periodo de facturacion
@@ -267,7 +267,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             //var dataBarraMobile = AutoMapper.Mapper.Map<BarraConsultoraModel, BarraConsultoraMobileModel>(dataBarra);
             model.DataBarra = GetDataBarra(true, true);
             /* SB20-565 - FIN */
-
+                      
             return View(model);
         }
         
@@ -351,12 +351,12 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             {
                 model.Prol = "GUARDA TU PEDIDO";
                 model.ProlTooltip = "Es importante que guardes tu pedido";
-                model.ProlTooltip += string.Format("|Puedes realizar cambios hasta el {0}", ViewBag.FechaFacturacionPedido);
+                model.ProlTooltip += string.Format("|Puedes realizar cambios hasta el {0}", fechaFacturacionFormat);
 
                 if (userData.CodigoISO == "BO")
                 {
                     model.ProlTooltip = "Es importante que guardes tu pedido";
-                    model.ProlTooltip += string.Format("|No olvides reservar tu pedido el dia {0} para que sea enviado a facturar", ViewBag.FechaFacturacionPedido);
+                    model.ProlTooltip += string.Format("|No olvides reservar tu pedido el dia {0} para que sea enviado a facturar", fechaFacturacionFormat);
                 }
             }
             else // Periodo de facturacion

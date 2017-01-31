@@ -67,8 +67,8 @@
             else
             {
                 <div class="nombre_consultora">
-                    @*<span style="margin-top: -0.5px!important;">¡Hola</span>*@
-                    <span style="margin-top: -0.5px!important;">@((Model.PrefijoPais == "PA" || Model.PrefijoPais == "CR" || Model.PrefijoPais == "MX") ? "¡Ilumina la Navidad" : "¡Feliz Navidad")</span>
+                    <span style="margin-top: -0.5px!important;">¡Hola</span>
+@*                    <span style="margin-top: -0.5px!important;">@((Model.PrefijoPais == "PA" || Model.PrefijoPais == "CR" || Model.PrefijoPais == "MX") ? "¡Ilumina la Navidad" : "¡Feliz Navidad")</span>*@
                 </div>
                 <div class="consultora_home">
                     <span>@(nombreConsultora)</span>
@@ -262,10 +262,30 @@
 <!--CATALOGO PERSONALIZADO-->
 @if (Model.CatalogoPersonalizadoDesktop != 0 && Model.EsCatalogoPersonalizadoZonaValida)
 {
-    <div class="content-favclientes content_carrusel_agregado" id="divMainCatalogoPersonalizado" style="display:none;">
-        <div class="pestania"><h5><b>LOS FAVORITOS</b> DE TUS CLIENTES ESTA CAMPAÑA</h5><div class="imagen-curvatura"></div></div>
-        <a class="ver_mas_favoritos" style="z-index:inherit;" href="@Url.Action("Index", "CatalogoPersonalizado")">Ver más +</a>
-        <div id="divCatalogoPersonalizado"></div>
+    <div class="content_belcorp">
+        <div class="content-favclientes content_carrusel_agregado" id="divMainCatalogoPersonalizado" style="display:none;">
+            <div class="linea_separadora"></div>
+            @*<div class="pestania"><h5><b>LOS FAVORITOS</b> DE TUS CLIENTES ESTA CAMPAÑA</h5><div class="imagen-curvatura"></div></div>
+
+                <a class="ver_mas_favoritos" style="z-index:inherit;" href="@Url.Action("Index", "CatalogoPersonalizado")">Ver más +</a>*@
+            <div class="banner_favoritos_home">
+                <div class="titulo_banner_fav">
+                    @(Model.NombreConsultora.ToUpper()), estos son los 
+                    <span class="texto_altas_fav">FAVORITOS</span> 
+                    <span class="texto_2_fav">DE TUS CLIENTES</span>
+                </div>
+                <div class="content_imagen_fav">
+                    <img style="width:100%;" src="@ViewBag.UrlImagenFAVHome" alt="favoritos" />
+                </div>
+                <div class="texto_inf_banner">Porque conocemos a tus clientes, seleccionamos los productos que podrás venderles fácilmente</div>
+                <hr class="clear" />
+                <a class="btn_ver_mas_fav" href="@Url.Action("Index","CatalogoPersonalizado")" >VER MÁS PRODUCTOS</a>
+            </div>
+            <div id="divCatalogoPersonalizado" style="width:74%;float:left;"></div>
+            <hr class="clear" />
+
+        </div>
+
     </div>
 }
 
@@ -853,7 +873,14 @@
                     <div class="checkbox_condiciones">
                         <input type="checkbox" name="condiciones" id="chkAceptoContrato" />
                         <label for="chkAceptoContrato" class="texto_terminosCondiciones">
-                            <text>Declaro que he leído los <span><a href="javascript:;" id="hrefTerminos">términos y condiciones</a></span> sobre Protección de Datos Personales y que me encuentro de acuerdo con los mismos.</text>
+                            @if (Model.PaisID == 4)
+                            {
+                                <text>Declaro que he leído los <span><a href="javascript:;" id="hrefTerminos">términos y condiciones</a></span> sobre Protección de Datos Personales y recepción de la factura a través de medios electrónicos, y que me encuentro de acuerdo con los mismos.</text>
+                            }
+                            else
+                            {
+                                <text>Declaro que he leído los <span><a href="javascript:;" id="hrefTerminos">términos y condiciones</a></span> sobre Protección de Datos Personales y que me encuentro de acuerdo con los mismos.</text>                                
+                            }
                         </label>
                     </div>
                 </div>
@@ -1040,7 +1067,14 @@
                     <div class="checkbox_condiciones">
                         <input type="checkbox" name="condiciones" id="chkAceptoContratoMD" />
                         <label for="chkAceptoContratoMD" class="texto_terminosCondiciones">
-                            <span class="asterisco_actualizar_datos">(*)&nbsp;</span>Declaro que he leído los <span><a href="javascript:;" id="hrefTerminosMD">términos y condiciones</a></span> sobre Protección de  Datos Personales y que me encuentro de acuerdo con los mismos.
+                            @if(Model.PaisID == 4)
+                            {
+                                <span class="asterisco_actualizar_datos">(*)&nbsp;</span><span>Declaro que he leído los <span><a href="javascript:;" id="hrefTerminosMD">términos y condiciones</a></span> sobre Protección de  Datos Personales y recepción de la factura a través de medios electrónicos, y que me encuentro de acuerdo con los mismos.</span>
+                            }
+                            else
+                            {
+                                <span class="asterisco_actualizar_datos">(*)&nbsp;</span><span>Declaro que he leído los <span><a href="javascript:;" id="hrefTerminosMD">términos y condiciones</a></span> sobre Protección de  Datos Personales y que me encuentro de acuerdo con los mismos.</span>
+                            }
                         </label>
                     </div>
                 </div>
@@ -1238,7 +1272,7 @@
                 </div>
                 <div class="titulo_padre_s"><span id="spnShowRoomEvento">DÍA DEL PADRE</span></div>
                 <div class="fecha_promocion_s">Del <span id="spnShowRoomDiaInicio">XX</span> al <span id="spnShowRoomDiaFin">XX</span> de <span id="spnShowRoomMes">Junio</span></div>
-                <div><img src="@Url.Content("~/Content/Images/showroom/exclusiva.png")" alt="" /></div>
+                <div><img src="@Url.Content("~/Content/Images/showroom/solo-para-ti.png")" alt="" /></div>
                 <div class="btn_conoce_mas_aqui">
                     <a href="" class="btn_conoce_mas_2" id="lnkConoceMasShowRoomPopup" target="_blank">CONOCE MÁS AQUÍ</a>
                 </div>
@@ -1299,6 +1333,66 @@
 
     </div>
 </div>
+
+<!--POP UP FICHA PRODUCTO NUEVA-->
+<div id="PopFichaProductoNueva" class="Content_general_pop_up">
+    @*<div class="content_ficha_producto_nueva">
+        <a class="cerrar_fichaProducto" href="javascript:;" onclick="javascript: $('#PopFichaProductoNueva').hide();">
+            <img src="/Content/Images/cerrar_04_blanco.png" alt=" alternate text">
+        </a>
+        <div class="content_left_ficha">
+            <div class="content_ficha_producto">
+                <img src="https://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Matriz/PE/PE_200080472_201612367_01_pwifsvbxar.png" alt="PRODUCTO">
+            </div>
+        </div>
+        <div class="content_right_ficha">
+            <div class="titulo_ficha_producto">Perfect Match volumen</div>
+            <div class="peso_ficha_producto">4g / 14 oz</div>
+            <div class="descripcion_ficha_producto">Labial FPS 20 + delineador para máximo volumen</div>
+            <div class="precio_ficha_producto"><span class="precio_tachado_ficha">S/.55.00</span>S/.35.00</div>
+            <div class="content_tonos">
+                <div class="linea_gris" style="height:1px;"></div>
+                <!--SELECCION DE TONOS-->
+                <div class="content_tonos_maquillaje">
+                    <div class="content_tono_detalle borde_seleccion_tono">
+                        <img src="https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/PYi4dINUiOsYQ7e/labial_color.png" alt="PRODUCTO">
+                        <div class="content_mascara_maquillaje">
+                            <img src="https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/HfQTTPvWfVXwt3R/textura_labial.png" alt="PRODUCTO">
+                        </div>
+                        <div class="tooltip_tono">CORAL Cautivante</div>
+                    </div>
+                    <div class="content_tono_detalle">
+                        <img src="https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/PYi4dINUiOsYQ7e/labial_color.png" alt="PRODUCTO">
+                        <div class="content_mascara_maquillaje">
+                            <img src="https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/HfQTTPvWfVXwt3R/textura_labial.png" alt="PRODUCTO">
+                        </div>
+                        <div class="tooltip_tono">CORAL Cautivante</div>
+                    </div>                    
+                </div>
+                <select class="tono_labial_select">
+                    <option>Coral Cautivante</option>
+                    <option>Coral Cautivante</option>
+                    <option>Coral Cautivante</option>
+                    <option>Coral Cautivante</option>
+                </select>
+
+                <!--FIN-->
+            </div>
+            <div class="liquidacion_rango_home">
+                <input type="text" value="1" size="2" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" data-input="cantidad" data-cantidad-input="-">
+                <div class="liquidacion_rango_right_pedido">
+                    <a class="mas" data-cantidad-agregar="+"><img src="/Content/Images/Esika/mas.png" alt=""></a>
+                    <a class="menos" data-cantidad-agregar="-"><img src="/Content/Images/Esika/menos.png" alt=""></a>
+                </div>
+            </div>
+            <a class="boton_Agregalo_home ficha_btn_agregar">
+                AGRÉGALO
+            </a>
+        </div>
+    </div>*@
+</div>
+<!--FIN-->
+
 @*SB20 - 1110*@
 <div id="divConfirmarCUVBanner" style="display: none;">
     <div class="terminos_title_2">
@@ -1312,6 +1406,7 @@
         <input id="btnAgregarCUVBannerPedidoSi" type="button" value="ACEPTAR" onclick="AgregarCUVBannerPedido()" class="input_modifica_horizontal" style="width: 100px; margin-left: 20px;" />
     </div>
 </div>
+
 <script id="estrategia-template" type="text/x-handlebars-template">
     {{#each this as |item|}}
     <div data-item="{{EstrategiaID}}" data-tipoestrategiaimagenmostrar="{{#if_eq FlagMostrarImg '1'}}{{TipoEstrategiaImagenMostrar}}{{/if_eq}}">
@@ -1652,8 +1747,10 @@
 
 <script id="template-catalogopersonalizado" type="text/x-handlebars-template">
     <div class="clear"></div>
-    <div class="texto_descripcionCatalogoPersonalizado">Encuentra una selección de los productos que tus clientes de seguro te solicitarán</div>
-    <div class="">
+    <div class="texto_filtros_fav"><span id="fav-home-total">Te mostramos 6 de 32 productos.</span><a class="btn_ver_todo_filtros" href="@Url.Action("Index", "CatalogoPersonalizado")">VER TODOS</a></div>
+    <hr class="clear" />
+    @*<div class="texto_descripcionCatalogoPersonalizado">Encuentra una selección de los productos que tus clientes de seguro te solicitarán</div>*@
+    <div class="" style="position:relative;">
         {{#each this as |item|}}
         <div class="contiene-productos" data-item="catalogopersonalizado">
             <div style="display: none;">
@@ -1671,10 +1768,17 @@
                 <input type="hidden" class="hdItemDescripcionEstrategia" value="{{DescripcionEstrategia}}" />
                 <input type="hidden" class="hdItemTipoOfertaRevista" value="{{TipoOfertaRevista}}" />
                 <input type="hidden" class="OrigenPedidoWeb" value="@Portal.Consultoras.Common.Constantes.OrigenPedidoWeb.DesktopHomeCatalogoPersonalizado" />
+                <input type="hidden" class="hdItemEsMaquillaje" value="{{EsMaquillaje}}" />
             </div>
             <div class="producto_img_home mini" id="imagenAnimacion" data-img="">
                 <img src="{{ImagenProductoSugerido}}" style="width: auto; height: 100%;" class="imagen_producto">
+                <a class="ver_detalle_carrusel" href="javascript:;" onclick="mostrarFichaProductoFAV2('{{CUV}}')">VER DETALLE</a>
             </div>
+            <!--ETIQUETA GUIA DE NEGOCIO -->
+            @*<div class="etiqueta_guia_negocio">GUÍA DE NEGOCIO</div> <!--ETIQUETA PARA ESIKA--> DESCOMENTAR LUEGO*@
+            @*<div class="etiqueta_guia_negocio"><span>OFERTA</span> GUÍA DE NEGOCIO</div>*@ <!--ETIQUETA PARA LBEL-->
+
+            <!--FIN-->
             {{#if item.TieneLanzamientoCatalogoPersonalizado}}
             <div class="etiqueta_producto nuevofavorito">
                 <img src="@Url.Content("~/Content/Images/producto_lanzamiento_CP.png")" alt="Etiqueta Producto" />
@@ -1690,9 +1794,9 @@
                     <span class="producto_precio_oferta"><b>{{Simbolo}} {{PrecioCatalogoString}}</b></span>
                 </div>
                 {{#if TieneOfertaEnRevista}}
-                <div class="seguir_pedido enlace_popupCatalogoPersonalizado" style="width:auto; left:50%; margin-left:-52.5px;">
+                @*<div class="seguir_pedido enlace_popupCatalogoPersonalizado" style="width:auto; left:50%; margin-left:-52.5px;">
                     <a title="AQUÍ" class="pop-ofertarevista">¡MIRA LA OFERTA!</a>
-                </div>
+                </div>DESCOMENTAR DESPUES*@
                 {{/if}}
                 <div class="liquidacion_rango_home" data-cantidad-contenedor="">
                     <input type="text" value="1" size="2" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" data-input="cantidad" data-cantidad-input="-">
@@ -2078,6 +2182,8 @@
         </div>
     </div>
 </script>
+<input type="hidden" id="hdDataBarra" value="@Newtonsoft.Json.JsonConvert.SerializeObject(Model.DataBarra)" />
+
 
 <script id="template-comunicado" type="text/x-handlebars-template">
 
@@ -2107,7 +2213,80 @@
 
 </script>
 
-<input type="hidden" id="hdDataBarra" value="@Newtonsoft.Json.JsonConvert.SerializeObject(Model.DataBarra)" />
+<script id="template-fichaproductofav" type="text/x-handlebars-template">
+    <div class="content_ficha_producto_nueva" data-item="catalogopersonalizado">
+        <input type="hidden" id="hdCuvFichaProductoFAV" value="{{CUV}}" />
+        <input type="hidden" id="hdCuvFichaProductoFAVSelect" value="" />
+        <div style="display: none;">
+            <input type="hidden" class="hdItemCuv" value="{{CUV}}" />
+            <input type="hidden" class="hdItemTipoOfertaSisID" value="{{TipoOfertaSisID}}" />
+            <input type="hidden" class="hdItemConfiguracionOfertaID" value="{{ConfiguracionOfertaID}}" />
+            <input type="hidden" class="hdItemIndicadorMontoMinimo" value="{{IndicadorMontoMinimo}}" />
+            <input type="hidden" class="hdItemTipo" value="1" />
+            <input type="hidden" class="hdItemMarcaID" value="{{MarcaID}}" />
+            <input type="hidden" class="hdItemPrecioUnidad" value="{{PrecioCatalogo}}" />
+            <input type="hidden" class="hdItemDescripcionProd" value="{{Descripcion}}" />
+            <input type="hidden" class="hdItemPagina" value="0" />
+            <input type="hidden" class="hdItemDescripcionCategoria" value="{{DescripcionCategoria}}" />
+            <input type="hidden" class="hdItemDescripcionMarca" value="{{DescripcionMarca}}" />
+            <input type="hidden" class="hdItemDescripcionEstrategia" value="{{DescripcionEstrategia}}" />
+            <input type="hidden" class="hdItemTipoOfertaRevista" value="{{TipoOfertaRevista}}" />
+            <input type="hidden" class="OrigenPedidoWeb" value="@Portal.Consultoras.Common.Constantes.OrigenPedidoWeb.DesktopCatalogoPersonalizado" />
+            <input type="hidden" class="hdItemEsMaquillaje" value="{{EsMaquillaje}}" />
+        </div>
+        <a class="cerrar_fichaProducto" href="javascript:;" onclick="javascript: $('#PopFichaProductoNueva').hide();">
+            <img src="/Content/Images/cerrar_04_blanco.png" alt=" alternate text">
+        </a>
+        <div class="content_left_ficha">
+            <div class="content_ficha_producto">
+                <img id="fav_imagen_prod" class="imagen_producto" src="{{ImagenProductoSugerido}}" alt="PRODUCTO">
+            </div>
+        </div>
+        <div class="content_right_ficha">
+            <div id="fav_nombre_prod" class="titulo_ficha_producto">{{Descripcion}}</div>
+            <div class="peso_ficha_producto">{{Volumen}}</div>
+            <div id="fav_descripcion_prod" class="descripcion_ficha_producto">{{DescripcionComercial}}</div>
+            <div class="precio_ficha_producto">
+                <span class="precio_tachado_ficha">{{Simbolo}} {{PrecioValorizadoString}}</span>{{Simbolo}} {{PrecioCatalogoString}}
+            </div>
+            {{#if EsMaquillaje }}
+            <div class="content_tonos">
+                <div class="linea_gris" style="height:1px;"></div>
+                <!--SELECCION DE TONOS-->
+                <div class="content_tonos_maquillaje">
+                    {{#each Hermanos as |item1|}}
+                    <div id="fav_tono_{{CUV}}" class="content_tono_detalle" onclick="cambiarInfoFichaProductoFAV(1,'{{item1.CUV}}')">
+                        <img src="{{item1.ImagenBulk}}" alt="PRODUCTO">
+                        @*<div class="content_mascara_maquillaje">
+                                <img src="https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/HfQTTPvWfVXwt3R/textura_labial.png" alt="PRODUCTO">
+                            </div>*@
+                        <div class="tooltip_tono">{{item1.NombreBulk}}</div>
+                    </div>
+                    {{/each}}
+                </div>
+
+                <select id="fav_tonobulk_{{CUV}}" class="tono_labial_select" onchange="cambiarInfoFichaProductoFAV(2)">
+                    {{#each Hermanos as |item2|}}
+                    <option value="{{item2.CUV}}">{{item2.NombreBulk}}</option>
+                    {{/each}}
+                </select>
+                <!--FIN-->
+            </div>
+            {{/if}}
+            <div class="liquidacion_rango_home">
+                <input type="text" value="1" size="2" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" data-input="cantidad" data-cantidad-input="-">
+                <div class="liquidacion_rango_right_pedido">
+                    <a class="mas" data-cantidad-agregar="+"><img src="/Content/Images/Esika/mas.png" alt=""></a>
+                    <a class="menos" data-cantidad-agregar="-"><img src="/Content/Images/Esika/menos.png" alt=""></a>
+                </div>
+            </div>
+            <a class="boton_Agregalo_home ficha_btn_agregar" onclick="agregarCuvPedidoFichaProductoFAV(1)">
+                AGRÉGALO
+            </a>
+        </div>
+    </div>
+</script>
+
 
 @section scripts{
     @*<script type="text/javascript" src="http://pixlcore.com/demos/webcamjs/webcam.js"></script>
@@ -2142,7 +2321,7 @@
         var viewBagValidaDatosActualizados = '@Model.ValidaDatosActualizados';
         var viewBagValidaTiempoVentana = '@Model.ValidaTiempoVentana';
         var viewBagValidaSegmento = '@Model.ValidaSegmento';
-        var urlContratoCOpdf = '@Url.Content("~/Content/FAQ/Contrato_CO.pdf")';
+        var urlContratoCOpdf = '@Url.Content("~/Content/FAQ/41577-BELCORP-SolCre-CO-400073315-300916.pdf")';
         var urlLoad = '@Url.Content("~/Content/Images/Loading.gif")';
         var viewBagSimbolo = '@(Html.Raw(Model.Simbolo))';
         var cantProdCarouselLiquidaciones = '@Model.CantProductosCarouselLiq';
@@ -2182,6 +2361,10 @@
         //data para Popup Actualizar datos
         var mostrarPopupActualizarDatosXPais = '@Model.MostrarPopupActualizarDatosXPais';
         var mensajeFechaDA = '@Model.MensajeFechaDA';
+
+        var origenPagina = 1;   /*PL20-1227*/     
+        var urlGetInfoFichaProducto = '@Url.Action("GetInfoFichaProductoFAV", "CatalogoPersonalizado")';    //PL20-1268
+        var urlCargarFiltros = '@Url.Action("CargarFiltros", "CatalogoPersonalizado", new { area = "" })'; 
     </script>
     @System.Web.Optimization.Scripts.Render("~/bundles/JsSB2-Bienvenida")
     @{ Session["IsContrato"] = 0; }

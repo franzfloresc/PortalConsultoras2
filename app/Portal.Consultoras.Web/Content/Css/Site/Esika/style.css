@@ -268,7 +268,7 @@ header {
     position:absolute;
     top: 39px;
     margin-left: -90px;
-    width:918px;
+    width:937px;
     height:220px;
     padding-left:65px;
     padding-right:60px;
@@ -314,7 +314,7 @@ header {
 
 .content_left_menu{
     float:left;
-    margin-right:53px;
+    margin-right:35px;
     margin-top:40px;
     
 }
@@ -1644,10 +1644,13 @@ header {
     font-family: 'lato';
     font-size: 11pt;
     font-weight: 400;
-    color: #060000;
+    border: 1px solid #ccc;
     margin-right: 8px;
-    height: 30px;
+    height: 40px;
+    line-height: 40px;
     margin-top: 2px;
+    color: #999999;
+     padding-left:10PX;
 }
 .pedido_ingreso_c {
     width:100%;
@@ -1761,8 +1764,8 @@ header {
     /*top: 9%;*/
     left: 0%;
     z-index: 1;
-    /*background: #000 url("../../../Images/Esika/background_pedido.png") no-repeat center bottom;*/
-    background: #000 url("../../../Images/Esika/Banner_Esika.jpg") no-repeat center bottom;
+    background: #000 url("../../../Images/Esika/background_pedido.png") no-repeat center bottom;
+    /*background: #000 url("../../../Images/Esika/Banner_Esika.jpg") no-repeat center bottom;*/
     /*background-size:cover;*/
 }
 
@@ -3130,7 +3133,7 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido{
     height:auto;
     /*width:218px;
     height:211px;*/
-    background:#CCC;
+    background:white;
     /*margin-right:24.5px;*/
     margin-right:2.4%;
     float:left;
@@ -3140,9 +3143,14 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido{
     margin-right:0px;
 }
 
-.contenedor_banners ul li div{
+.contenedor_banners ul li .imagen_banner_inferior{
+    overflow: hidden;
+    height: auto;
+}
+
+.contenedor_banners ul li .nombre_banner_inferior{
     background:#000;
-    margin-top:-5px;
+    margin-top:9px;
     height:57px;
     text-align:center;
     color:#FFF;
@@ -4423,6 +4431,10 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
     overflow:auto;
 }
 
+.contenedor_popup_error {    
+    z-index: 2000;
+}
+
 .fondo_tutorial{
     background:transparent url(../../../Images/bg_popup_tutorial.png) repeat left top;
 }
@@ -4781,7 +4793,7 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
     width:60px;
     height:60px;
     margin:0 auto;
-    background:url(../../../Images/Esika/icono_check_esika.svg) center center no-repeat;
+    background:url(../../../Images/Esika/icono_check_esika.png) center center no-repeat;
     margin-bottom:18px;
     background-size:cover;
 }
@@ -4791,7 +4803,7 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
     width:60px;
     height:60px;
     margin:0 auto;
-    background:url(../../../Images/Esika/icono_exclamacion_esika.svg) center center no-repeat;
+    background:url(../../../Images/Esika/icono_exclamacion_esika.png) center center no-repeat;
     margin-bottom:18px;
     background-size:cover;
 }
@@ -14146,9 +14158,9 @@ table-layout: initial !important;
         width: auto !important;
     background: #FFFFFF !important;
     color: #555 !important;
-    -webkit-box-shadow: -2px 1px 21px -2px rgba(107,104,107,1);
+    /*-webkit-box-shadow: -2px 1px 21px -2px rgba(107,104,107,1);
     -moz-box-shadow: -2px 1px 21px -2px rgba(107,104,107,1);
-    box-shadow: -2px 1px 21px -2px rgba(107,104,107,1);
+    box-shadow: -2px 1px 21px -2px rgba(107,104,107,1);*/
    
 }
 
@@ -19336,13 +19348,14 @@ float: right;
     position: relative;
     /* margin-left: 20px; */
     width: 442px;
+    height:480px;
     float: left;
     /* margin-top: 17px; */
   
 }
 .content_show_right {
     float: left;
-    height: 485px;
+    height: 480px;
     width: 379px;
     overflow: hidden;
 }
@@ -19685,6 +19698,7 @@ html {
     width: 442px;
     height: 511px;
     background: white;
+    overflow:hidden;
 }
 .titulo_hoy {
    font-family: 'lato';
@@ -19889,7 +19903,7 @@ label.checkpop.c_on {
     line-height: 21px;
     color: black;
     font-family: 'Lato';
-    font-size: 16px;
+    font-size: 18px;
     text-align: center;
     font-weight: bold;
 }
@@ -19915,7 +19929,7 @@ label.checkpop.c_on {
 .precio_showroom span{
     margin-right:10px; 
     color:black;
-    font-weight:300;
+    font-weight:700;
     font-size:13px;
     text-decoration:line-through;
    }
@@ -19927,6 +19941,7 @@ label.checkpop.c_on {
     color:black;
     float:left;
     margin-top:5px;
+    font-weight:700;
 }
 .stock_showroom span{
    font-family: 'Lato';
@@ -20037,66 +20052,82 @@ label.checkpop.c_on {
     overflow: hidden;
 }
 .titulo_producto_agregado {
-    font-family:'ArialMT';
+    font-family:'Lato';
     font-size:18px;
     text-align:center;
+    color:black;
 }
 .titulo_producto_agregado span{
     font-weight:bold;
 }
+
+
+.div_bonotes_producto {
+   float:right;
+   position:relative;
+   left:-50%;
+   text-align:left;
+}
+
+.div_bonotes_producto > .child_center_botones{
+    position:relative;
+    left:47%;
+}
+
 .divAgregarShowRoom .volver_set {
     width: 159px;
     display: block;
     padding-top: 8px;
     padding-bottom: 8px;
-    border: 2px solid #979797;
-    font-family: 'ArialMT';
+    border: 1px solid black;
+    font-family: 'Lato';
     font-size: 14px;
     color: black;
     font-weight: bold;
     text-align: center;
-     -webkit-border-radius: 4px; /* Para Safari y Chrome */
-    -moz-border-radius: 4px; /* Para Firefox */
-    -khtml-border-radius: 4px; /* Navegadores de Linux */
-    border-radius: 4px; /* CSS3 */
-    behavior: url(/Content/Css/Pie/PIE.htc); /* Para IE */
+    /* -webkit-border-radius: 4px; */
+    -moz-border-radius: 4px;
+    -khtml-border-radius: 4px;
+    /* border-radius: 4px; */
+    behavior: url(/Content/Css/Pie/PIE.htc);
     float: left;
     cursor: pointer;
     text-decoration: none;
     margin-top: 24px;
     margin-right: 10px;
+    margin-left: 39px;
 }
 .divAgregarShowRoom .volver_set:hover {
         text-decoration:none !important;
     }
 .divAgregarShowRoom .volver_set2 {
-    font-weight: bold;
-    background:red !important;
+   font-weight: bold;
+    background: #e81c36 !important;
     width: 159px;
     display: block;
     padding-top: 8px;
     padding-bottom: 8px;
-    color: white; 
-    border: 2px solid #f11935;
-    font-family: 'ArialMT';
-    text-align:center;
+    color: white;
+    border: 1px solid #e81c36;
+    font-family: 'Lato';
+    text-align: center;
     font-size: 14px;
-     -webkit-border-radius: 4px !important; /* Para Safari y Chrome */
-    -moz-border-radius: 4px !important; /* Para Firefox */
-    -khtml-border-radius: 4px !important; /* Navegadores de Linux */
-    border-radius: 4px !important; /* CSS3 */
-    border-radius:4px;
-    behavior: url(/Content/Css/Pie/PIE.htc) !important; /* Para IE */
+    /* -webkit-border-radius: 4px !important; */
+    -moz-border-radius: 4px !important;
+    -khtml-border-radius: 4px !important;
+    /* border-radius: 4px !important; */
+    /* border-radius: 4px; */
+    behavior: url(/Content/Css/Pie/PIE.htc) !important;
     float: left;
     cursor: pointer;
     text-decoration: none;
-    margin-top: 24px;         
+    margin-top: 24px;
    }
 
     .divAgregarShowRoom .volver_set2:hover {
         text-decoration: none !important;
         background: black !important;
-        border: 2px solid black;
+        border: 1px solid black;
         color: white;
     }
 /*POP UP SET SHOWROOM*/
@@ -20188,6 +20219,8 @@ label.checkpop.c_on {
 }
 
 .set_precio span{
+    display: block;
+    margin-top: 3px;
     font-family: 'Lato';
     font-weight:bold;
     font-size: 23px;
@@ -20203,7 +20236,8 @@ label.checkpop.c_on {
     font-size: 11.5px;
     color:black;
     line-height: 20px;
-    margin-top:5px;
+    margin-top:4px;
+    font-weight:700;
    
 }
 .set_precio_gana span{
@@ -20345,13 +20379,13 @@ label.checkpop.c_on {
      color:#f11935 !important;   
 }
 .agotado_carrusel {
-    width:100%;
+    width: 100%;
     height: 75px;
-    font-size:14px;
+    font-size: 14px;
     font-family: 'Lato';
-    text-align:center;
-    padding-top:50px;
-    position:absolute;
+    text-align: center;
+    padding-top: 29px;
+    position: absolute;
     z-index: 100;
     background: url("/Content/Images/showroom/opacity.png");
 
@@ -20464,10 +20498,6 @@ label.checkpop.c_on {
 
 /*HEADER SECCION INGRESA TU PEDIDO*/
 
-/*.content{
-    background:#000;
-    height:280px;
-}*/
 
 /*ESTILOS PARA LIQUIDACIÓN*/
 .wrapper_home_interiores{
@@ -21893,7 +21923,7 @@ hr{
 }
 .content{
    position:relative;
-   background: white;
+   background: white;      
 }
 body{
     background: #f9f9f9;
@@ -22275,7 +22305,7 @@ body{
         margin-bottom: 16px;
     }
     .sub_menu_home1{
-        width: 879px;
+        width: 892px;
         margin-left: -95px;
     }
     .sub_menu_home2 {
@@ -27489,7 +27519,7 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
     display: inline-block;
     position: relative;
     vertical-align: top!important;
-    width: 274px;
+    width: 272px;
     margin-bottom: 15px;
     margin-top: 15px;
     vertical-align:top;
@@ -27730,6 +27760,10 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
 
 .caja_montos_cantidades_sinDescuento span:last-child{
     line-height:30px;
+}
+
+.dscto_ofertasNiveles{
+    margin-left:20px;
 }
 
 .separador_montos{
@@ -28904,26 +28938,27 @@ h1#penmostreo .campana {
     position:relative;
 }
 .ver_detalle_carrusel{
-    display: block;
-    font-size: 12px;
+     display: block;
+    font-size: 13px;
     position: absolute;
-    height: 35px;
-    line-height: 32px;
-    width: 60%;
+    height: 45px;
+    line-height: 42px;
+    width: 42%;
     font-weight: 700;
-    border: 1px solid #ddd8d8;
+    border: 1px solid black;
     font-family: 'Lato';
     background: #FFF;
-    opacity:0;
+    opacity: 0;
     left: 0;
     right: 0;
     bottom: 10px;
     margin: 0 auto;
-    transition:all 0.3s ease;
-    -moz-transition:all 0.3s ease;
-    -o-transition:all 0.3s ease;
-    -ms-transition:all 0.3s ease;
-    -webkit-transition:all 0.3s ease;
+    transition: all 0.3s ease;
+    -moz-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    -ms-transition: all 0.3s ease;
+    -webkit-transition: all 0.3s ease;
+    LETTER-SPACING: 0.2px;
     /*-webkit-animation: opacidad-bottom 500ms linear 0ms 1 normal;
     -moz-animation: opacidad-bottom 500ms linear 0ms 1 normal;
     -ms-animation: opacidad-bottom 500ms linear 0ms 1 normal;
@@ -29051,135 +29086,6 @@ h1#penmostreo .campana {
 
 /* FIN PROCESO CARGA FOTO */
 
-/* MENSAJES PEDIDO RECHAZADO */
-
-.bloque_mensajesPedido{
-    background: #82c7bf;
-    width: 100%;
-    height: 64px;
-    display: none;
-    padding: 11px 84px;
-    text-align: center;
-    position: relative;
-    z-index: 5;
-}
-
-.icono_cerrar_mensaje{
-    display: block;
-    position: absolute;
-    top: 8px;
-    right: 23px;
-    width: 21px;
-}
-
-.icono_cerrar_mensaje span{
-    display:block;
-}
-
-.icono_cerrar_mensaje span img{
-    width:100%;
-    height:auto;
-}
-
-.icono_cerrar_mensaje span:nth-child(2){
-    font-family:'Lato';
-    font-size:10px;
-    text-align:center;
-    color:#FFF;
-    margin-left:-9px;
-}
-
-.icono_estadoPedido, .mensajes_estadoPedido{
-    display:inline-block;
-    vertical-align:top;
-}
-
-.icono_estadoPedido{
-    width: 44px;
-    height: 46px;
-    margin-right: 16.8px;
-    padding-top: 1px;
-    margin-top: -3px;
-}
-
-.icono_estadoPedido img{
-    width:100%;
-    height:auto;
-}
-
-.mensajes_estadoPedido {
-    color: #FFF;
-    font-family: 'Lato';
-    line-height:21px;
-}
-
-.mensaje_estadoActualPedido, .mensaje_horarioIngresoPedido{
-    display:block;
-    text-align:left;
-}
-
-.mensaje_estadoActualPedido{
-    font-size:20px;
-    letter-spacing:0.5px;
-    font-weight:700;
-}
-
-.mensaje_horarioIngresoPedido{
-    font-size:12.5px;
-    font-weight:normal;
-}
-
-.mensaje_horarioIngresoPedido a{
-    display: inline-block;
-    margin-left: 2px;
-    text-decoration:underline;
-}
-
-.mensaje_horarioIngresoPedido a:hover{
-    text-decoration:underline;
-}
-
-/* FIN MENSAJES PEDIDO RECHAZADO */
-
-
-
-/*SB20-863* Inicio*/
-
-.producto_precio2 {
-        width: 100%;
-        padding-left: 16px;
-        padding-right: 16px;
-        font-family: 'Lato';
-        letter-spacing: 0.2px;
-        color: #000;
-        margin-bottom: 16px;
-        margin-top: 35px;
-        }
-
-        .nombre_producto2 {
-            height: 40px;
-            padding-left: 10px;
-            padding-right: 10px;
-        }
-        
-        .nombre_producto22 {
-            /*padding: 0px;*/
-            padding-left: 6px;
-            padding-right: 6px;
-            font-size: 13px;
-            margin: 0 auto;
-            width: 100%;
-            /* height: auto; */
-            max-width: 500px;
-            height: auto;
-            /*max-height: 40px;*/
-            margin-bottom:10px;
-            margin-top: 5px;
-        }
-
-
-/*Sb20-863 - Fín*/
-
 .mod-ofer1 *{
     font-family: Lato;
 }
@@ -29217,6 +29123,43 @@ h1#penmostreo .campana {
     z-index: 3;
     padding-top: 27px;
 }
+
+/*SB20-863* Inicio*/
+
+.producto_precio2 {
+        width: 100%;
+        padding-left: 16px;
+        padding-right: 16px;
+        font-family: 'Lato';
+        letter-spacing: 0.2px;
+        color: #000;
+        margin-bottom: 16px;
+        margin-top: 35px;
+        }
+
+        .nombre_producto2 {
+            height: 40px;
+            padding-left: 10px;
+            padding-right: 10px;
+        }
+        
+        .nombre_producto22 {
+            /*padding: 0px;*/
+            padding-left: 6px;
+            padding-right: 6px;
+            font-size: 13px;
+            margin: 0 auto;
+            width: 100%;
+            /* height: auto; */
+            max-width: 500px;
+            height: auto;
+            /*max-height: 40px;*/
+            margin-bottom:10px;
+            margin-top: 5px;
+        }
+
+
+/*Sb20-863 - Fín*/
 
 .encabezado_popupCatalogoPersonalizado {
     display: block;
@@ -29289,6 +29232,7 @@ h1#penmostreo .campana {
     margin-top: 53px;
     background-color: #ededed;
 }
+
 
 .mod-ofer1 .pos-baja .mod-cantidades{
     float: right;
@@ -29883,8 +29827,38 @@ h1#penmostreo .campana {
     margin-top: 7px !important;
 }
 
-/* FIN POPUPS OFERTAS REVISTA */
+/* POPUP COMUNICADOS */
 
+.fondo_popupComunicados{
+    display:none;
+    width:100%;
+    height:100%;
+    background:url(../../../Images/bg_popups.png) repeat;
+    position:fixed;
+    top:0px;
+    z-index:1100;
+}
+
+.popup_comunicados{
+    display: block;
+    /*opacity:0;*/
+    position: relative;
+    top:9%;
+    margin: 0 auto 20px auto;
+    background: #FFF;
+    height: auto;
+    padding-bottom: 13px;
+    box-sizing: border-box;
+    font-family: 'Lato';
+    z-index: 5;
+}
+
+.contenedor_imagen_comunicado{
+    display:block;
+    width:100%;
+    margin:0 auto;
+    height:auto;
+}
 
 /*POP UP CATALOGO PERSONALIZADO*/
 
@@ -30120,10 +30094,15 @@ h1#penmostreo .campana {
 .pack_inter .content_sub_items .sub_descripcion_oferta:nth-child(2) {
      /*border-top:1px solid #dadada;*/      /*SB20-1198*/
     }
-    
-    
-/* ACTUALIZAR CONTRASEÑA */
+.franja_noVolverMostrar{
+    border-top: 1px solid #000;
+    padding: 14px 20px 3px 20px;
+    margin-top: -7px;
+    position:relative;
+}
 
+/* FIN POPUPS OFERTAS REVISTA */
+/* ACTUALIZAR CONTRASEÑA */
 .contenedor_actualizarContraseniaForm{
     display: block;
     margin: 50px auto 119px auto;
@@ -30193,7 +30172,6 @@ h1#penmostreo .campana {
     font-weight:normal;
     padding:0 20px;
 }
-
 .campoContrasenia::-webkit-input-placeholder{
    color:#000;
 }
@@ -30269,46 +30247,92 @@ h1#penmostreo .campana {
 
 /* FIN ACTUALIZAR CONTRASEÑA */
 
-/* POPUP COMUNICADOS */
+/* MENSAJES PEDIDO RECHAZADO */
 
-.fondo_popupComunicados{
-    display:none;
+.bloque_mensajesPedido{
+    background: #82c7bf;
     width:100%;
-    height:100%;
-    background:url(../../../Images/bg_popups.png) repeat;
-    position:fixed;
-    top:0px;
-    z-index:1100;
-}
-
-.popup_comunicados{
-    display: block;
-    /*opacity:0;*/
-    position: relative;
-    top:9%;
-    /*width: 323px;*/
-    margin: 0 auto 20px auto;
-    background: #FFF;
-    height: auto;
-    padding-bottom: 13px;
-    box-sizing: border-box;
-    font-family: 'Lato';
+    height: 64px;
+    display: none;
+    padding: 11px 84px;
+    text-align:center;
+    position:relative;
     z-index: 5;
 }
 
-.contenedor_imagen_comunicado{
+.icono_cerrar_mensaje{
+    display: block;
+    position: absolute;
+    top: 8px;
+    right: 23px;
+    width: 21px;
+}
+
+.icono_cerrar_mensaje span{
     display:block;
+}
+
+.icono_cerrar_mensaje span img{
     width:100%;
-    margin:0 auto;
+    height:auto;
+}
+.icono_cerrar_mensaje span:nth-child(2){
+    font-family:'Lato';
+    font-size:10px;
+    text-align:center;
+    color:#FFF;
+    margin-left:-9px;
+}
+.icono_estadoPedido, .mensajes_estadoPedido{
+    display:inline-block;
+    vertical-align:top;
+}
+
+.icono_estadoPedido{
+    width:44px;
+    height:46px;
+    margin-right:16.8px;
+    padding-top:1px;
+    margin-top: -3px;
+}
+
+.icono_estadoPedido img{
+    width:100%;
     height:auto;
 }
 
-.franja_noVolverMostrar{
-    border-top: 1px solid #000;
-    padding: 14px 20px 3px 20px;
-    margin-top: -7px;
-    position:relative;
+.mensajes_estadoPedido {
+    color: #FFF;
+    font-family: 'Lato';
+    line-height:21px;
 }
+
+.mensaje_estadoActualPedido, .mensaje_horarioIngresoPedido{
+    display:block;
+    text-align:left;
+}
+
+.mensaje_estadoActualPedido{
+	font-size:20px;
+    letter-spacing:0.5px;
+    font-weight:700;
+}
+
+.mensaje_horarioIngresoPedido{
+    font-size:12.5px;
+    font-weight:normal;
+}
+
+.mensaje_horarioIngresoPedido a{
+    display: inline-block;
+    margin-left: 2px;
+}
+
+.mensaje_horarioIngresoPedido a:hover{
+    text-decoration:underline;
+}
+
+/* FIN MENSAJES PEDIDO RECHAZADO */
 
 /*PEDIDO DE CLIENTES ONLINE*/
 .icono_pagos{
@@ -30472,9 +30496,22 @@ h1#penmostreo .campana {
     font-weight:700;
     text-transform:uppercase;
 }
-.estado_cancelado{
-    background:#e7e7e7;
-    color:black;
+.estado_cancelado {
+    background: #e7e7e7;
+    color: black;
+}
+.popup_rechazarPendientes{
+    position: relative;
+    top: 15%;
+    margin: 0 auto;
+    background: #FFF;
+    width: 100%;
+    max-width: 505px;
+    height: 300px;
+    padding-top: 40px;
+    padding-bottom: 40px;
+    box-sizing: border-box;
+    font-family: 'Lato';
 }
 @media screen and (max-width: 1024px) {
     .truco_bloqueo.sim1 {
@@ -30670,27 +30707,33 @@ h1#penmostreo .campana {
   .mis_pagos_tabs  .two:hover ~ hr {
   margin-left: 38%;
     }
+
+
 }
 
-.oscurecer_animacion{
-    position:fixed;
-    z-index:1;
-    width:100%;
-    height:100%;
-    -webkit-animation: opacidad-gestion-pedido 1500ms linear 0ms 1 normal;
-    -moz-animation: opacidad-gestion-pedido 1500ms linear 0ms 1 normal;
-    -ms-animation: opacidad-gestion-pedido 1500ms linear 0ms 1 normal;
-    animation: opacidad-gestion-pedido 1500ms linear 0ms 1 normal;
-   
+#divCatalogoPersonalizado .nombre_producto {
+    padding: 0;
+    font-size: 13px;
+    margin: 0 auto;
+    width: 100%;
+    max-width: 177px;
+    overflow: hidden;
+    height:76px;
+    display:flex;
+    justify-content: center;
+    align-content: center;
+    flex-direction: column;
 }
+
 .stock_content{
     width: 100%;
     height: auto;
     /*padding: 25px 43px;*/
-    padding: 17px 43px;
+    padding: 10px 43px;     /*EPD-1378*/
     position: relative;
     background: #fee5e7;
-    margin-bottom: 22px;
+    /*margin-bottom: 22px;*/
+    margin-bottom: 15px;    /*EPD-1378*/
 }
 .stock_content:after {
 	bottom: 100%;
@@ -30716,12 +30759,15 @@ h1#penmostreo .campana {
     vertical-align:middle;    
 }
 .texto_stock{
-     width:100%;
+    /*width:100%;*/
+    width:70%;      /*EPD-1378*/
     display:inline-block;
     vertical-align:middle;
     font-family:'LAto';
     font-size:14px;
     color:#d20000;
+
+    float: left;    /*EPD-1378*/
 }
 .btn_no_stock{
     font-family:'LAto';
@@ -30733,28 +30779,16 @@ h1#penmostreo .campana {
     
     margin-top: 25px;
 }
-.btn_si_stock{
-    font-family: 'LAto';
-    font-size: 13px;
-    font-weight: 700;
-    float: right;
-    display: block;
-    width: 160px;
-    height: 45px;
-    text-align: center;
-    /*margin-top: 13px;*/
-    margin-top: 2px;
-    color: white;
-    background: #e81c36;
-    line-height: 45px;
-}
 .stock_content_aceptado{
     width: 100%;
-    height: auto;
-    padding: 25px 43px;
+    /*height: auto;
+    padding: 25px 43px;*/
+    height: 50px;           /*EPD-1378*/
+    padding: 15px 43px;     /*EPD-1378*/
     position: relative;
     background: #f3f3f3;
-    margin-bottom: 22px;
+    /*margin-bottom: 22px;*/
+    margin-bottom: 15px;    /*EPD-1378*/
 }
 .stock_content_aceptado:after {
 	bottom: 100%;
@@ -30809,7 +30843,7 @@ h1#penmostreo .campana {
 
 .oscurecer_animacion{
     position:fixed;
-    z-index:1;
+    z-index:300;
     width:100%;
     height:100%;
     -webkit-animation: opacidad-gestion-pedido 1500ms linear 0ms 1 normal;
@@ -30847,19 +30881,7 @@ h1#penmostreo .campana {
     }
 }
 
-#divCatalogoPersonalizado .nombre_producto {
-    padding: 0;
-    font-size: 13px;
-    margin: 0 auto;
-    width: 100%;
-    max-width: 177px;
-    overflow: hidden;
-    height:76px;
-    display:flex;
-    justify-content: center;
-    align-content: center;
-    flex-direction: column;
-}
+
 /*MIS RECLAMOS*/
 .revista_content:last-child{
     margin-left:80px;
@@ -30874,6 +30896,14 @@ h1#penmostreo .campana {
 }
 .texto_titulo_reclamos span{
     font-size:14px;
+}
+.texto_reclamos_bloqueada {
+    margin-top: 50px;
+    margin-bottom: 50px;
+    margin-left: 200px;
+    margin-right: 200px;
+    font-size: 18px;
+    text-align: center;
 }
 .content_pasos{
     width:310px;
@@ -30916,7 +30946,7 @@ h1#penmostreo .campana {
     overflow:hidden;
 }
 .content_reclamo {
-    max-width: 704px;
+    max-width: 760px;
     margin:0 auto;
     position:relative;
 }
@@ -30950,7 +30980,7 @@ h1#penmostreo .campana {
     color:#b5b5b5;
     line-height:45px;
     padding:10px;
-    margin-right:10px;
+    margin-right:9px;
     float:left;
 }
 
@@ -30968,12 +30998,37 @@ h1#penmostreo .campana {
 .btn_no_stock{
     font-family:'LAto';
     font-size:13px;
-    float:left;    
-    display:block;
+    /*float:left;    
+    display:block;*/
     text-decoration:underline;    
     margin-top: 30px; /*SEGURO VA HABER CONFLICTO SOLO CONSERVAR EL MARGIN TOP DE AQUI*/
+
+    /*EPD-1378*/
+    float: right;
+    display: inline-block;
+    vertical-align: middle;
+    margin-top: 15px;
+    margin-right: 5%;
+    /*EPD-1378*/
 }
 .btn_si_stock{
+    font-family: 'LAto';
+    font-size: 13px;
+    font-weight: 700;
+    /*float: right;*/
+    display: block;
+    width: 160px;
+    /*height: 45px;*/
+    height: 40px;
+    text-align: center;
+    margin-top: 2px; /*SEGURO VA HABER CONFLICTO SOLO CONSERVAR EL MARGIN TOP DE AQUI*/
+    color: white;
+    background: #e81c36;
+    line-height: 45px;
+
+    float: left;    /*EPD-1378*/
+}
+.btn_si_stock_cdr{
     font-family: 'LAto';
     font-size: 13px;
     font-weight: 700;
@@ -30982,7 +31037,7 @@ h1#penmostreo .campana {
     width: 160px;
     height: 45px;
     text-align: center;
-    margin-top: 2px; /*SEGURO VA HABER CONFLICTO SOLO CONSERVAR EL MARGIN TOP DE AQUI*/
+    margin-top: 34px;
     color: white;
     background: #e81c36;
     line-height: 45px;
@@ -31058,6 +31113,7 @@ h1#penmostreo .campana {
     font-weight:bold;
     text-align:center;
     margin-right:36px;
+    margin-bottom: 10px;
 }
 .btn_solución_reclamo:last-child{
     margin-right:0px;
@@ -31117,7 +31173,7 @@ h1#penmostreo .campana {
     font-family: 'Lato';
     font-size: 13px;
     font-weight: 700;
-    margin-top: 25px;
+    margin-top: 40px;
     height: 30px;
     line-height: 30px;
     padding-left: 20px;
@@ -31226,8 +31282,21 @@ h1#penmostreo .campana {
     float: left;
     padding: 10px;
     margin-left: 50px;
-    margin-bottom:20px;
+    /*margin-bottom:20px;*/
 }
+.correo_reclamo_error{
+    margin-bottom: 20px; 
+    display: inline-block;
+    width: 270px;
+    margin-left: 60px;
+}
+    .correo_reclamo_error span {
+        font-family: 'Lato';
+        font-size: 14px;
+        color: red;
+        line-height: 14px;
+        margin-top: 5px;
+    }
 .texto_correo{
     display:block;
     margin-left:60px;
@@ -31245,11 +31314,23 @@ h1#penmostreo .campana {
     font-size: 15px;    
     line-height:30px;
     width:330px;
-    padding-left: 35px;
+    /*padding-left: 35px;
     background: url(../../../Images/Esika/terminos.png) no-repeat;
-    background-position:0px 2px;
+    background-position:0px 2px;*/
     text-decoration:underline;
 }
+.politica_reclamos_icono {
+    padding-left: 35px; 
+    padding-bottom: 10px; 
+    padding-top: 2px; 
+    background: url(../../../Images/Esika/terminos.png) no-repeat; 
+    display: inline;
+}
+.politica_reclamos_icono_active {
+    background: url(../../../Images/Esika/icono_check_esika.png) no-repeat;
+    background-size: 75%;
+}
+
 .btn_agrega_otro_reclamo{
     font-family: 'LAto';
     font-size: 13px;
@@ -31259,7 +31340,7 @@ h1#penmostreo .campana {
     width: 297px;
     height: 45px;
     text-align: center;
-    margin-top: 18px;
+    margin-top: 2px;
     color: black;
     background:white;
     border:1px solid black;
@@ -31336,6 +31417,7 @@ h1#penmostreo .campana {
 }
 .UltimasSolicitudes{
     position:absolute;
+    
     width:204px;
     height:auto;
     padding:15px 20px 15px 20px;
@@ -31358,11 +31440,11 @@ h1#penmostreo .campana {
     font-family: 'LAto';
     font-size: 13px;
 }
-.content_ultima_soli{
-    border-bottom:1px solid #e1e1e1;
-    padding-bottom:10px;
-    margin-bottom:10px;
-    overflow:hidden;
+.content_ultima_soli {
+    border-bottom: 1px solid #e1e1e1;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+    overflow: hidden;
 }
 /*AJUSTES PACK POR NIVELES*/
 .content_carrusel_pack{
@@ -31501,7 +31583,7 @@ h1#penmostreo .campana {
      padding-left: 40px;
 }
 .listado_resumen_general{
-    width:22%;
+    width:21%;
     margin-left:1%;
     padding-left:2%;
 }
@@ -31539,7 +31621,6 @@ h1#penmostreo .campana {
     background: white;
     border:1px solid #e81c36;
     color:#e81c36;
-
 }
 .listado_estado_general div:hover .icono_verDetalle {
     margin-top: -10px;
@@ -31592,12 +31673,6 @@ h1#penmostreo .campana {
     padding-bottom: 25px;
     color: black;
 }
-.text_gris_reclamo{
-    padding-top:20px;
-    padding-bottom:15px;
-    font-size:13px;
-    font-weight:300;
-}
 .pop_solicitud_producto{
     width:32%;
     padding-left: 2%;
@@ -31643,6 +31718,23 @@ h1#penmostreo .campana {
     border:1px solid black;
     margin-right:20px;
 }
+    .btn_pedido_white:hover {
+        font-family: 'Lato';
+        font-size: 13px;
+        text-align: center;
+        display: inline-block;
+        width: 180px;
+        height: 50px;
+        padding-top: 5px;
+        border: 1px solid black;
+        background: black;
+        color: white;
+    }
+
+        .btn_pedido_white:hover > * {
+            color: white;
+        }
+
 .btn_pedido_black{
     font-family:'Lato';
     font-size:13px;
@@ -31906,6 +31998,83 @@ h1#penmostreo .campana {
     color:#9b9b9b; 
 }
 
+/*TABLA DE NOTIFICACIONES*/
+.logo_lista_detalle{
+    width:100px;
+    height:38px;
+    margin:0 auto;
+    margin-top:20px;
+    margin-bottom:20px;
+    background:url(http://www.genesis-peru.com/mailing-belcorp/logo.png) no-repeat center center;
+}
+.content_datos_cdr{
+    width:96%;
+    height:auto;
+    margin:0 auto;
+}
+.saludo_cdr{
+    font-family: 'Lato';
+    font-size: 16px;
+    text-align: center;
+    font-weight: 500;
+    color: #000;
+    padding: 18px;
+}
+.titulo_cdr{
+    text-align: center;
+    font-family: 'Lato';
+    font-size: 18px;
+    font-weight: 700;
+    color: #000;
+    padding-bottom: 15px;
+    letter-spacing:0.2px;
+}
+.respuesta_cdr{
+    text-align: center;
+    font-family: 'Lato';
+    color: #000;
+    font-weight: 700;
+    font-size: 14px;
+    padding-bottom: 30px
+}
+.texto_fila_cdr{
+    display:inline-block;
+    width:33%;
+    border-right:1px solid black;
+        
+    font-family: 'Lato';
+    font-size: 14px;
+    
+}
+.texto_fila_cdr:last-child{
+    border-right:0;
+}
+.resumen_aprobado_cdr{
+    text-align: center;
+    font-family: 'Lato';
+     color: black;
+    padding-top: 15px;
+    font-size: 15px;
+}
+.subtitulo_cdr{
+    text-align: center;
+    font-family: 'Lato';
+    font-weight: 700;
+    color: black;
+    margin-top:15px;
+    padding-top: 8px;
+    padding-bottom:8px;
+    font-size: 15px;
+    border-top:1px solid #979797;
+    border-bottom:1px solid #979797;
+}
+.content_detalle_pedido_cdr{
+    border-bottom:1px solid #979797;
+    padding-top:15px;
+    padding-bottom:15px;
+    font-family: 'Lato';
+    overflow:hidden;
+}
 /*SB20-1198 - INICIO */
 .contenido_compra_nivel {
     width: 100%; 
@@ -31956,6 +32125,21 @@ h1#penmostreo .campana {
     margin-right: 5px;
 }
 
+/*SB20-1198 - FIN */
+
+/*EPD-877*/
+.resumen_belcorp_cam_modificado {
+    font-family: 'lato';
+    font-size: 18px;
+    letter-spacing: 0.3px;
+    color: black;
+    float: left;
+    margin-left: 2%;
+    margin-right: 8%;
+    /*width: 19.5%;*/
+    width: 215px;
+}
+
 .sub_descripcion_oferta_048 p{
     margin: 0;
     padding: 0;
@@ -31983,7 +32167,27 @@ h1#penmostreo .campana {
     height: 55px; 
     border: 0;
 }
+.estado_cdr_detalle{
+    text-align: left;
+    font-family: 'Lato';
+    font-size: 14px;
+    color: #e81c36;
+    /*margin-bottom:10px;*/
+    font-weight:900;
+}
+.estado_cdr_detalle:last-child {
+    margin-bottom:10px;
+}
 
+.left_detalle_cdr{
+    width:55%;
+    padding-right:14px;
+    float:left;
+    text-align: left;
+    font-family: 'Lato';
+    font-size: 14.4px;
+    color: black;
+}
 /*SB20-1198 - FIN */
 
 /*EPD-877*/
@@ -31997,4 +32201,786 @@ h1#penmostreo .campana {
     margin-right: 8%;
     /*width: 19.5%;*/
     width: 215px;
+    }
+.texto_detalle_cdr{
+     text-align: left;
+    font-family: 'Lato';
+    font-size: 14.4px;    
+    color: black;
+    }
+.right_detalle_cdr{
+    float:right;
+    width:45%;
+    text-align: left;
+    font-family: 'Lato';
+    font-size: 14.4px;    
+    color: black;
+}
+.ver_solicitud_sb{
+    text-decoration: none;
+    font-family: 'Lato';
+    font-weight: 700;
+    color: black;
+    font-size: 14px;
+    border: 2px solid #979797;
+    text-align:center;
+    padding:10px;
+    width:50%;
+    margin:0 auto;
+    margin-top:25px;
+}
+.cerrar_cdr_noti{
+    font-family:'Lato';
+    font-size:13px;
+    text-align:right;
+    font-weight:700;
+}
+.texto_tab_pagos {
+    display:inline-block;
+    vertical-align:middle;
+    line-height:14px;
+}
+
+/*GPR*/
+.logo_lista_detalle {
+    width: 100px;
+    height: 38px;
+    margin: 0 auto;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    background: url(http://www.genesis-peru.com/mailing-belcorp/logo.png) no-repeat center center;
+}
+
+.content_datos_gpr {
+    width: 96%;
+    height: auto;
+    margin: 0 auto;
+}
+
+.saludo_gpr {
+    font-family: 'Lato';
+    font-size: 16px;
+    text-align: center;
+    font-weight: 500;
+    color: #000;
+    padding: 18px;
+}
+
+.cuerpo_gpr {
+    text-align: center;
+    font-family: 'Lato';
+    font-size: 18px;
+    font-weight: 700;
+    color: #000;
+    padding-bottom: 15px;
+    letter-spacing: 0.2px;
+}
+
+    .cuerpo_gpr div {
+        display: inline-block;
+    }
+
+    .cuerpo_gpr a {
+        text-decoration: underline;
+    }
+
+.respuesta_cdr {
+    text-align: center;
+    font-family: 'Lato';
+    color: #000;
+    font-weight: 700;
+    font-size: 14px;
+    padding-bottom: 30px;
+}
+/*SPRINT 4*/
+
+.banner_favoritos_home{
+
+    width:26%;
+    min-height:700px;
+    float:left;
+    background:#f3f3f5;
+}
+
+.texto_filtros_fav{
+
+    font-family:'Lato';
+    font-size:13px;
+    float:right;
+    margin-top:10px;
+}
+
+.btn_ver_todo_filtros{
+
+    display:inline-block;
+    background: url(../../../Images/Esika/indicador_pedido.png) no-repeat;
+    background-position: 0px 5px;
+    padding-left:15px;
+    margin-left:20px;
+    cursor:pointer;
+}
+
+.titulo_banner_fav{
+    /*background: #e81c36;*/
+    padding: 55px 17.5%;
+    width:100%;
+    font-family: 'Lato';
+    color: black;
+    font-size: 18px;
+    line-height: 20px;
+    text-align: left;
+    /*letter-spacing: 0.75px;*/
+    font-weight:300;
+}
+
+.texto_altas_fav{
+    display:block;
+    font-size:35px;
+    margin-top:10px;
+    margin-bottom:12px;
+    font-weight:700;
+
+}
+
+.texto_2_fav{
+
+    font-size:22.5px;
+    line-height:25px;
+}
+.titulo_banner {
+    padding: 20px 11% !important;
+}
+.texto_inf_banner{
+    font-family: 'Lato';
+    color: black;
+    font-size: 16px;
+    line-height: 20px;
+    font-weight:300;
+    margin:55px 40px;
+    text-align:left;
+}
+.btn_ver_mas_fav{
+    margin:5px 40px;
+    /*width:100%;*/
+    height:45px;
+    border:1px solid black;
+    font-family: 'Lato';
+    color: black;
+    font-size: 13px;
+    font-weight:700;
+    letter-spacing:0.3px;
+    line-height:43px;
+    margin-bottom:100px;
+}
+/*PAGINA CATALOGO PERSONALIZADO*/
+.content_img_fav{
+    width: 140px;
+    height: 132px;
+    float: left;
+}
+.content_img_fav img{
+    width:100%;
+}
+.no_mostrar_esika{
+    display:none;
+}
+.texto_banner_seccion_fav{
+    margin-top:15px;
+    margin-left:35px;
+    margin-right:35px;
+    font-family:'Lato';
+    font-size:16px;
+    line-height:20px;
+    font-weight:300;
+    float:left;
+}
+.altas_seccion_fav{
+    display:block;
+    font-weight:700;
+    font-size:31px;
+    margin-top:5px;
+}
+.clientes_fav_texto{
+    display:block;
+    margin-top:10px;
+    font-size:21px;
+}
+.texto_complementario_fav{
+    width:381px;
+    margin-top:31px;
+    font-family:'Lato';
+    font-size:16px;
+    line-height:20px;
+    font-weight:300;
+    padding-left:40px;
+    float:left;
+    border-left:2px solid #979797;
+}
+.content-left-item{
+    float:left;
+    width:75%;
+}
+.content_filtros_left{
+    font-family:'Lato';
+    font-size:11px;
+    float:left;
+    width:20%;
+    /*height:100px;*/
+    margin-right:5%;
+    margin-top:25px;
+    color:#4a4a4a;
+}
+.titulo_filtro_fav{
+    display:block;
+    margin-bottom:10px;
+    color:black;
+    font-weight:900;
+    margin-left:10px;
+    margin-top: 25px;
+}
+.cantidad_productos_fav{
+    float:left;
+    font-family:'Lato';
+    font-size:13px;
+    margin-top:20px;
+}
+.filtros_derecha{
+    float:right;
+    font-family:'Lato';
+    font-size:13px;
+    margin-top:20px;
+}
+.select_filtros_fav{
+    width:162px;
+    height:27px;
+    padding:5px;
+    font-size:11px;
+    color:black;
+    margin-left:20px;
+    border:1px solid black;
+}
+.texto_fav_filtro{
+    margin-top:16px;
+    margin-bottom:16px;
+    margin-left:10px;
+}
+.seleccion_filtro_fav{
+    position:relative;
+    margin-left:10px;
+    padding-left:33px;
+    padding-top:3px;
+    margin-bottom:15px;
+    cursor:pointer;
+}
+.seleccion_filtro_fav:first-child{
+    margin-top:6px;
+}
+.seleccion_filtro_fav:last-child{
+    margin-bottom:30px;
+}
+.seleccion_filtro_fav:before{
+    position:absolute;
+    left:0;
+    top:0;
+    height:22px;
+    width:22px;
+    background:white;
+    border:1px solid #b8b8b8;
+    content:"";
+    z-index:1;
+}
+.seleccion_click_flitro:before{
+    background:#e81c36;
+}
+.content_filtro_range{
+    margin-bottom:50px;
+    margin-top:40px;
+    padding-left: 12px;
+}
+/*OFERTA DEL DIA*/
+.bloque_oferta_dia{
+    width:100%;
+    height:100px;
+    /*background: url(../../../Images/PL20/textura_fondo.png) repeat-x;*/   /*PL20-1226*/
+    position:relative;
+    z-index:6;
+}
+.content_oferta_dia{
+    max-width:1024px;
+    height:100px;
+    margin:0 auto;
+    /*background: black;      /*PL20-1226*/
+    background-size:cover;
+}
+.reloj_oferta{
+    font-family: 'Lato';
+    font-size: 15px;
+    color: white;
+    margin-top: 27px;
+    margin-left: 10px;
+    float: left;
+    text-align: center;
+    width: 135px;
+    letter-spacing: 1px;
+    height: 70px;
+}
+.reloj_oferta span{
+    display:block;
+    text-align:center;
+    display: block;
+    text-align: center;
+    font-size: 26px;
+    letter-spacing: 1px;
+    /*margin-top:5px;*/
+}
+.solo_hoy{
+    float: left;
+    width: 270px;
+    /*height: 90px;*/
+    margin-top: 28px;
+    margin-left: 10px;
+}
+.solo_hoy img{
+    width:100%;
+}
+.nombre_set_oferta{
+    font-family: 'Lato';
+    font-size: 13px;
+    height: 15px;
+    letter-spacing: 0.75px;
+    text-transform: uppercase;
+    /* margin-top: 3px; */
+    color: white;
+    text-align: center;
+    margin-bottom: 5px;
+}
+.producto_set{
+    width:130px;
+    height:auto;
+    float:left;
+    margin-left:12px;
+    margin-top: 6px;
+    text-align: center;
+}
+.producto_set img{
+    width:86%;
+   
+}
+.precio_set_dia{
+    float: left;
+    font-family: 'Lato';
+    font-size: 16px;
+    text-align: center;
+    margin-top: 18px;
+    color: white;
+    margin-left: 15px;
+    line-height: 25px;
+    width: 135px;
+}
+.precio_set_dia span{
+     font-size:24px;
+     display: block;
+     text-align: center;
+}
+.btn_agrega_set_dia{
+    display: block;
+    font-family: 'Lato';
+    font-size: 12px;
+    color: white;
+    border: 1px solid white;
+    width: 145px;
+    height: 30px;
+    line-height: 28px;
+    text-align: center;
+    font-weight: 700;
+    margin-top: 40px;
+    margin-left: 18px;
+    letter-spacing: 0.3px;
+}
+.btn_detalle_hoy{
+    display:block;
+    margin-top:47px;
+    margin-left:19px;
+    float:left;
+    overflow:hidden;
+}
+.circulo_hoy{
+    width: 16px;
+    height: 16px;
+    background: white;
+    border-radius: 100px;
+    line-height: 15px;
+    color: black;
+    font-size: 14px;
+    font-family: 'Lato';
+    float: left;
+    text-align: center;
+    /*padding-left: 2px;*/
+}
+.texto_detalle_set{
+    float:left;
+    margin-left:10px;
+    /*margin-top:4px;*/
+    font-size:11px;
+    font-family:'Lato';
+    font-weight:700;
+    color:white;    
+    letter-spacing:0.75px;    
+}
+.btn_cerrar_ofertaDia{
+     font-family: 'Lato';
+    font-weight: 300;
+    font-size: 33px;
+    color: white;
+    text-align: center;
+    position: absolute;
+    right: 7px;
+    top: -12px;
+}
+.btn_cerrar_ofertaDia span{
+    display: block;
+    font-size: 15px;
+    color: white;
+    margin-top: -5px;
+    
+}
+/*POP UP OFERTA*/
+.pop_up_oferta{
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.8);
+    z-index: 2000;
+    top: 0;
+}
+.content_pop_oferta_dia{
+    margin: 0 auto;
+    left: 0;
+    right: 0;
+    position: absolute;
+    margin-top: 0px;
+    width: 570px;
+    height: 384px;
+    z-index: 2010;
+    /*background-color: black;*/        /*PL20-1226*/
+    /*background: url(../../../Images/PL20/fondo_pop.png) no-repeat;*/    /*PL20-1226*/
+}
+.reloj_popOferta{
+    font-family:'Lato';
+    float:right;
+    display: block;
+    text-align: center;
+    font-size: 16px;
+    letter-spacing: 1px;
+    margin-top: 30px;
+    margin-right:40px;
+    color:white;
+}
+.imagen_set_Oferta_pop{
+    width: 240px;
+    height: auto;
+    float: left;
+    margin-left: 15px;
+    /* margin-top: 5px; */
+    text-align: center;
+}
+.imagen_set_Oferta_pop img{
+    width:90%;
+}
+.descripcion_set_ofertaDia{
+    margin: 0 auto;
+    margin-top: 5px;
+    width: 210px;
+    font-family: 'Lato';
+    color: white;
+    font-size: 14.5px;
+    text-align: center;
+    /* letter-spacing: 0.75px; */
+    line-height: 20px;
+    /* font-weight: 300; */
+}
+.producto_gratis_ofertaDia{
+    padding-left:20px;
+    padding-right:20px;
+    color:white;
+    font-family: 'Lato';
+    font-size: 16px;
+    font-weight:700;
+    letter-spacing:0.75px;
+    text-align:center;
+}
+.precio_ofertaDia{
+     width: 200px;
+    margin: 0 auto;
+    font-family: 'Lato';
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 1.2px;
+    text-align: center;
+    color: white;
+    margin-bottom: 7px;
+}
+.precio_ofertaDia span{
+    font-size:30px;
+    display:block;
+    height:40px;
+    margin-top:-6px;
+}
+.btn_pop_agregalo_oferta{
+    display:inline-block;
+    width:212px;
+    height:45px;
+    margin-top:7px;
+    margin-left:5px;
+    border:1px solid #ccc;
+    color:white;
+    font-family: 'Lato';
+    font-weight:700;
+    font-size: 12.5px;
+    text-align:center;
+    line-height:45px;
+    vertical-align: top;
+}
+.cerrar_pop_oferta{
+    top:1;
+    right:-43px;
+    position:absolute;
+}
+.content_set_pop_hoy{
+    width:450px;
+    height:166px;
+    margin:0 auto;
+    margin-top:45px;
+    overflow:hidden;
+}
+.right_set_hoy{
+    float:left;
+    width:190px;
+    margin-top: 45px;
+}
+.precio_valorizado_oferta{
+    color:white;
+    font-family:'Lato';
+    font-size:12px;
+    margin-top:10px;
+    text-align:center;
+    margin-bottom:2px;
+}
+.precio_valorizado_oferta span{
+    text-decoration:line-through;
+}
+.content_pop_oferta_dia .liquidacion_rango_right_pedido{
+    background:transparent !important;
+}
+/*POP UP GENERALES*/
+.Content_general_pop_up{
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    background: transparent url(../../../Images/bg_popups.png) repeat left top;
+    z-index: 1000;
+    overflow: auto;
+    display:none;
+}
+
+.content_ficha_producto_nueva{
+    width:686px;
+    height:450px;
+    position:relative;
+    top:50%;
+    margin:-225px auto auto auto;
+    background:white;
+    padding:43px 51px;
+
+}
+
+/*FICHA PRODUCTO FAV DESKTOP*/
+.content_left_ficha{
+    float:left;
+    width:300px;
+    margin-right:45px;
+}
+.content_ficha_producto{
+    width:300px;
+    height:300px;
+}
+.content_ficha_producto img{
+    width:100%;
+   }
+.content_right_ficha{
+    float:left;
+    width:238px;
+}
+.titulo_ficha_producto {
+    font-family: 'Lato';
+    color: black;
+    font-size: 17px;
+    font-weight: 700;
+    /*text-align: center;*/
+    letter-spacing: 0.3px;
+    margin-top:-5px;
+}
+.cerrar_fichaProducto{
+    position:absolute;
+    right:-40px;
+    top:0;
+}
+.peso_ficha_producto {
+    font-family: 'Lato';
+    color: #6a6a6a;
+    font-size: 12px;
+    /*text-align: center;*/
+    margin-top: -3px;
+    letter-spacing: 0.2px;
+}
+.descripcion_ficha_producto {
+    font-family: 'Lato';
+    color: black;
+    font-size: 12.5px;
+    line-height: 16px;
+    margin-top: 6px;
+    margin-bottom: 7px;
+}
+.precio_ficha_producto {
+    font-family: 'Lato';
+    color: black;
+    font-weight: 900;
+    font-size: 16px;    
+    margin-bottom: 7px;
+}
+.precio_tachado_ficha {
+    font-size: 12px;
+    color: #7c7c7c;
+    font-weight: 900;
+    text-decoration: line-through;
+    margin-right: 10px;
+}
+.content_tonos{
+    width:100%;
+    margin-bottom:15px;
+}
+.content_tonos_maquillaje{
+    margin-top:15px;
+    max-height:118px;
+    overflow-y:auto;
+    overflow-x:hidden;
+}
+.content_tono_detalle {
+    position: relative;
+    width: 15%;
+    height: 34px;
+    margin-right: 2%;
+    float: left;    
+    margin-bottom: 5px;
+}
+.content_tono_detalle:nth-child(6n){
+    margin-right:0;
+}
+.content_tono_detalle img{
+    width:100%;
+}
+
+.content_mascara_maquillaje {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+}
+.content_mascara_maquillaje img {
+    width: 100%;
+}
+.borde_seleccion_tono{
+    border:1px solid black;
+}
+.tono_labial_select {
+    
+    width: 100%;
+    height: 37px;
+    border: 1px solid #b0b0b0;
+    padding: 4px;
+    font-family: 'Lato';
+    font-size: 13px;
+    color: black;
+    margin-top: 5px;
+    display: block;
+}
+.ficha_btn_agregar{
+    width:162px; background:black; color:white; font-weight:400; letter-spacing:0.4px;
+}
+.tooltip_tono{
+    position: absolute;
+    top: -25px;
+    background: rgba(255,255,255,0.8);
+    color: black;
+    display: none;
+    font-family: 'Lato';
+    border: 1px solid black;
+    border-radius: 3px;
+    width: 53px;
+    text-align: center;
+    left: 0;
+    line-height: 11px;
+    padding: 2px;
+    z-index: 10;
+}
+.content_tono_detalle:hover .tooltip_tono{
+    display:block;
+}
+
+
+.content_imagen_fav{
+    width: 100%;
+    margin-left: 8%;
+    z-index: 10;
+    position: relative;
+}
+
+/*PAYPAL*/
+.monto_texto{
+    font-family:'Lato';
+    font-size:13px;
+    margin-top:5px;
+    margin-bottom:5px;
+}
+.cuadro_tarjeta{
+    width:250px;
+    height: 40px;
+    line-height: 40px;
+    color: #999999;
+    font-family: 'Lato';    
+    border: 1px solid #ccc;
+    padding-left: 10px;
+    margin-left:10px;
+}
+.select_fecha_pago select{
+    color: #999999;
+    font-family: 'Lato';    
+    border: 1px solid #ccc;
+    font-size:13px;
+    height: 40px;
+    padding:10px;
+    margin-left:10px;
+    margin-top: -9px;
+    display: block;
+    float: left;
+}
+.etiqueta_guia_negocio{
+    background:#e81c36;
+    width:70px;
+    height:70px;
+    border-radius:100px;
+    position:absolute;
+    right:10px;
+    top:10px;
+    color:white;
+    font-family:'Lato';
+    font-size:11px;
+    letter-spacing:0.4px;
+    font-weight:700;
+    text-transform:uppercase;    
+    padding-top:18px;
 }

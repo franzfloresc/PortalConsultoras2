@@ -98,12 +98,12 @@ namespace Portal.Consultoras.BizLogic
                     select producto).ToList();
         }
 
-        public IList<BEProducto> SelectProductoByCodigoDescripcionSearchRegionZona(int paisID, int campaniaID, string codigoDescripcion, int RegionID, int ZonaID, string CodigoRegion, string CodigoZona, int criterio, int rowCount)
+        public IList<BEProducto> SelectProductoByCodigoDescripcionSearchRegionZona(int paisID, int campaniaID, string codigoDescripcion, int RegionID, int ZonaID, string CodigoRegion, string CodigoZona, int criterio, int rowCount, bool validarOpt)
         {
             IList<BEProducto> productos = new List<BEProducto>();
             var DAProducto = new DAProducto(paisID);
 
-            using (IDataReader reader = DAProducto.GetProductoComercialByCampaniaBySearchRegionZona(campaniaID, rowCount, criterio, codigoDescripcion,RegionID,ZonaID, CodigoRegion, CodigoZona))
+            using (IDataReader reader = DAProducto.GetProductoComercialByCampaniaBySearchRegionZona(campaniaID, rowCount, criterio, codigoDescripcion,RegionID,ZonaID, CodigoRegion, CodigoZona, validarOpt))
             {
                 while (reader.Read())
                 {
@@ -114,6 +114,40 @@ namespace Portal.Consultoras.BizLogic
             return (from producto in productos
                     orderby (criterio == 1 ? producto.CUV : producto.Descripcion)
                     select producto).ToList();
+        }
+
+        public IList<BEProducto> SelectProductoByListaCuvSearchRegionZona(int paisID, int campaniaID, string listaCuv, int regionID, int zonaID, string codigoRegion, string codigoZona, bool validarOpt)
+        {
+            IList<BEProducto> productos = new List<BEProducto>();
+            var DAProducto = new DAProducto(paisID);
+
+            using (IDataReader reader = DAProducto.GetProductoComercialByCampaniaBySearchRegionZonaListaCuv(campaniaID, listaCuv, regionID, zonaID, codigoRegion, codigoZona, validarOpt))
+            {
+                while (reader.Read())
+                {
+                    productos.Add(new BEProducto(reader));
+                }
+            }
+
+            return (from producto in productos
+                    orderby producto.CUV
+                    select producto).ToList();
+        }
+        
+        public IList<BEProducto> GetProductoComercialByListaCuv(int paisID, int campaniaID, int regionID, int zonaID, string codigoRegion, string codigoZona, string listaCuv)
+        {
+            IList<BEProducto> productos = new List<BEProducto>();
+            var DAProducto = new DAProducto(paisID);
+
+            using (IDataReader reader = DAProducto.GetProductoComercialByListaCuv(campaniaID, regionID, zonaID, codigoRegion, codigoZona, listaCuv))
+            {
+                while (reader.Read())
+                {
+                    productos.Add(new BEProducto(reader));
+                }
+            }
+
+            return productos;
         }
 
         public int UpdProductoDescripcion(BEProductoDescripcion producto, string codigoUsuario)
@@ -170,8 +204,7 @@ namespace Portal.Consultoras.BizLogic
         }
 
         #endregion
-
-
+        
         public IList<BEProducto> SelectProductoToKitInicio(int paisID, int campaniaID, string cuv)
         {
             IList<BEProducto> productos = new List<BEProducto>();
@@ -209,6 +242,44 @@ namespace Portal.Consultoras.BizLogic
 
             return productos;
         }
-        
+
+        //PL20-1237
+        public int InsProductoCompartido(BEProductoCompartido ProComp)
+        {
+            var DAProducto = new DAProducto(ProComp.PaisID);
+            return DAProducto.InsProductoCompartido(ProComp);
+        }
+
+        public BEProductoCompartido GetProductoCompartido(int paisID, int ProCompID)
+        {
+            BEProductoCompartido ProComp = null;
+            var DAProducto = new DAProducto(paisID);
+
+            using (IDataReader reader = DAProducto.GetProductoCompartido(ProCompID))
+            {
+                if (reader.Read())
+                {
+                    ProComp = new BEProductoCompartido(reader);
+                }
+            }
+
+            return ProComp;
+        }
+
+        public IList<BEProducto> GetListBrothersByCUV(int paisID, int codCampania, string cuv)
+        {
+            IList<BEProducto> productos = new List<BEProducto>();
+            var DAProducto = new DAProducto(paisID);
+
+            using (IDataReader reader = DAProducto.GetListBrothersByCUV(codCampania, cuv))
+            {
+                while (reader.Read())
+                {
+                    productos.Add(new BEProducto(reader));
+                }
+            }
+
+            return productos;
+        }
     }
 }

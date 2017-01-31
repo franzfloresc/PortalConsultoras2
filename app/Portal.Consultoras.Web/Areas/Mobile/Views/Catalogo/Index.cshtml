@@ -9,8 +9,6 @@
     var textApp = userAgent.Contains("iphone;") ? "Gratis en App Store" : "Gratis en Play Store";
 }
 
-
-
 <input type="hidden" id="hdPaisId" value="@Model.PaisID" />
 <input type="hidden" id="hdCampaniaAnterior" value="@Model.CampaniaAnterior" />
 <input type="hidden" id="hdCampaniaActual" value="@Model.CampaniaActual" />
@@ -22,8 +20,7 @@
 <span id="spNroCampania" style="display:none;">@Model.CampaniaActual</span>
 
 @{
-    if (HttpContext.Current.Request.Browser.IsMobileDevice &&
-        ("MX, CL, PE, CO, EC").ToUpper().Contains(Convert.ToString(ViewBag.CodigoISO).ToUpper()))
+    if (HttpContext.Current.Request.Browser.IsMobileDevice && ViewBag.ActivacionAppCatalogoWhastUp == 1)
     {
         <div class="wrapper_resumen_mobile">
             <div class="content_320">
@@ -192,11 +189,10 @@
             </a>
             <input id="txtUrl{{tipoCatalogo}}" type="hidden" value="" />
             <div style="max-width:440px; margin:0 auto;">
-                <a class="btn_ws" onclick="TagManagerWS('{{comp}}');"><img src="@Url.Content("~/Content/Images/mobile/Esika/catalogo_ws.png")" alt="-" /></a>
-                <a class="btn_facebook" href="" data-accion="face" onclick="CompartirFacebook('{{comp}}', this); return false;"><img src="@Url.Content("~/Content/Images/mobile/Esika/catalogo_facebook.png")" alt="-" /></a>
+                <a class="btn_ws" onclick="TagManagerWS('{{comp}}','{{campania}}');"><img src="@Url.Content("~/Content/Images/mobile/Esika/catalogo_ws.png")" alt="-" /></a>
+                <a class="btn_facebook" href="" data-accion="face" onclick="CompartirFacebook('{{comp}}','{{campania}}', this); return false;"><img src="@Url.Content("~/Content/Images/mobile/Esika/catalogo_facebook.png")" alt="-" /></a>
                 <a class="btn_mensaje" onclick="javascript: AbrirCompartirCorreo('{{tipoCatalogo}}','{{campania}}');"><img src="@Url.Content("~/Content/Images/mobile/Esika/catalogo_mensaje.png")" alt="-" /></a>
             </div>
-            
         </div>
     </div>
 </script>

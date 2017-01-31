@@ -25,7 +25,9 @@
       <xs:element minOccurs="0" name="EstadoSimplificacionCUV" type="xs:boolean" />
       <xs:element minOccurs="0" name="FechaFinValidacion" type="xs:dateTime" />
       <xs:element minOccurs="0" name="LogGPRValidacionId" type="xs:long" />
+      <xs:element minOccurs="0" name="MotivoRechazo" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="SubTotal" type="xs:decimal" />
+      <xs:element minOccurs="0" name="Valor" nillable="true" type="xs:string" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="BELogGPRValidacion" nillable="true" type="tns:BELogGPRValidacion" />

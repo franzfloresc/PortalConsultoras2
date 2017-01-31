@@ -1486,6 +1486,11 @@ namespace Portal.Consultoras.Service
             return BLShowRoomEvento.ValidarPriorizacionShowRoom(paisID, ConfiguracionOfertaID, CampaniaID, Orden);
         }
 
+        public int ValidadStockOfertaShowRoom(int paisID, BEShowRoomOferta entity)
+        {
+            return BLShowRoomEvento.ValidadStockOfertaShowRoom(paisID, entity);
+        }
+
         public int InsOfertaShowRoom(int paisID, BEShowRoomOferta entity)
         {
             return BLShowRoomEvento.InsOfertaShowRoom(paisID, entity);
@@ -1600,7 +1605,8 @@ namespace Portal.Consultoras.Service
 
         #region Producto SUgerido
 
-        public IList<BEProductoSugerido> GetPaginateProductoSugerido(int PaisID, int CampaniaID, string CUVAgotado, string CUVSugerido) {
+        public IList<BEProductoSugerido> GetPaginateProductoSugerido(int PaisID, int CampaniaID, string CUVAgotado, string CUVSugerido)
+        {
             return BLProductoSugerido.GetPaginateProductoSugerido(PaisID, CampaniaID, CUVAgotado, CUVSugerido);
         }
 
@@ -1688,6 +1694,75 @@ namespace Portal.Consultoras.Service
         public List<BEPedidoWeb> GetPedidosFacturadoSegunDias(int paisID, int campaniaID, long consultoraID, int maxDias)
         {
             return BLPedidoWeb.GetPedidosFacturadoSegunDias(paisID, campaniaID, consultoraID, maxDias);
+        }
+
+        //GPR397
+        public void ActualizarIndicadorGPRPedidosRechazados(int PaisID, long ProcesoID)
+        {
+            BLPedidoWeb.ActualizarIndicadorGPRPedidosRechazados(PaisID, ProcesoID);
+        }
+        public void ActualizarIndicadorGPRPedidosFacturados(int PaisID, long ProcesoID)
+        {
+            BLPedidoWeb.ActualizarIndicadorGPRPedidosFacturados(PaisID, ProcesoID);
+        }
+
+        /*EPD-1025*/
+        public BEPedidoDescarga ObtenerUltimaDescargaPedido(int PaisID)
+        {
+            return BLPedidoWeb.ObtenerUltimaDescargaPedido(PaisID);
+        }
+
+        public void DeshacerUltimaDescargaPedido(int PaisID)
+        {
+            BLPedidoWeb.DeshacerUltimaDescargaPedido(PaisID);
+        }
+        /*EPD-1025*/
+        
+
+        public int GetCantidadOfertasParaTi(int paisId, int campaniaId, int tipoConfigurado)
+        {
+            return new BLEstrategia().GetCantidadOfertasParaTi(paisId, campaniaId, tipoConfigurado);
+        }
+
+        public List<BEEstrategia> GetOfertasParaTiByTipoConfigurado(int paisId, int campaniaId, int tipoConfigurado)
+        {
+            return new BLEstrategia().GetOfertasParaTiByTipoConfigurado(paisId, campaniaId, tipoConfigurado);
+        }
+
+        public int InsertEstrategiaTemporal(int paisId, List<BEEstrategia> lista, int campaniaId, string codigoUsuario)
+        {
+            return new BLEstrategia().InsertEstrategiaTemporal(paisId, lista, campaniaId, codigoUsuario);
+        }
+
+        public int GetCantidadOfertasParaTiTemporal(int paisId, int campaniaId, int tipoConfigurado)
+        {
+            return new BLEstrategia().GetCantidadOfertasParaTiTemporal(paisId, campaniaId, tipoConfigurado);
+        }
+
+        public List<BEEstrategia> GetOfertasParaTiByTipoConfiguradoTemporal(int paisId, int campaniaId, int tipoConfigurado)
+        {
+            return new BLEstrategia().GetOfertasParaTiByTipoConfiguradoTemporal(paisId, campaniaId, tipoConfigurado);
+        }
+
+        public int DeleteEstrategiaTemporal(int paisId, int campaniaId)
+        {
+            return new BLEstrategia().DeleteEstrategiaTemporal(paisId, campaniaId);
+        }
+
+        public int InsertEstrategiaOfertaParaTi(int paisId, List<BEEstrategia> lista, int campaniaId, string codigoUsuario)
+        {
+            return new BLEstrategia().InsertEstrategiaOfertaParaTi(paisId, lista, campaniaId, codigoUsuario);
+        }
+
+        /*PL20-1226*/
+        public List<BEEstrategia> GetEstrategiaODD(int paisID, int codCampania, string codConsultora, DateTime fechaInicioFact)
+        {
+            return new BLEstrategia().GetEstrategiaODD(paisID, codCampania, codConsultora, fechaInicioFact);
+        }
+
+        public int ActivarDesactivarEstrategias(int PaisID, string Usuario, string EstrategiasActivas, string EstrategiasDesactivas)
+        {
+            return new BLEstrategia().ActivarDesactivarEstrategias(PaisID, Usuario, EstrategiasActivas, EstrategiasDesactivas);
         }
     }
 }

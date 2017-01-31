@@ -112,12 +112,8 @@ $(document).ready(function () {
                     opacity: 1
                 }, 100, 'swing');
             });
-
-
         } else {
-
             $(".flecha_scroll a").removeClass("flecha_scroll_arriba");
-
         }
 
     });
@@ -145,7 +141,6 @@ $(document).ready(function () {
 
     /* SB20-834 - INICIO */
     //ObtenerComunicadosPopup();
-
     CrearDialogs();
     CargarCarouselEstrategias("");
     CargarCarouselLiquidaciones();
@@ -3596,7 +3591,6 @@ function ObtenerComunicadosPopup() {
                     loadedImgNum += 1;
                     if (loadedImgNum == images.length) {
                         closeWaitingDialog();
-
                         mostrarComunicadosPopup();
                     }
                 });
@@ -3751,8 +3745,6 @@ function clickImagenComunicado(obj) {
     var vclose = mostrarComunicadosPopup();
 
     if (vclose) {
-        closeComunicadosPopup = true;
-        PopupCerrar('popupComunicados');
     }
 }
 

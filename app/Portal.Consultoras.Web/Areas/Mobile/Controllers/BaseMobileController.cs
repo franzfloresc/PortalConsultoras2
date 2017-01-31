@@ -10,6 +10,7 @@ using Portal.Consultoras.Web.Areas.Mobile.Models;
 using System.Configuration;
 
 using Portal.Consultoras.Web.ServiceUsuario;
+using Portal.Consultoras.Web.ServicePedido;
 
 namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 {
@@ -26,12 +27,66 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             try
             {
                 BuildMenuMobile(userData);
-
                 CargarValoresGenerales(userData);
+
+                /*INICIO: PL20-1289*/
+                bool mostrarBanner, permitirCerrarBanner = false;
+                if (SiempreMostrarBannerPL20()) mostrarBanner = true;
+                else if (NuncaMostrarBannerPL20()) mostrarBanner = false;
+                else
+                {
+                    mostrarBanner = true;
+                    permitirCerrarBanner = true;
+
+                    if (userData.CloseBannerPL20) mostrarBanner = false;
+                    else
+                    {
+                        string message = string.Empty;
+                        if (ValidarPedidoReservado(out message)) mostrarBanner = false;
+                    }
+                }
+
+                if (mostrarBanner)
+                {
+                    ViewBag.PermitirCerrarBannerPL20 = permitirCerrarBanner;
+
+                    ShowRoomBannerLateralModel showRoomBannerLateral = GetShowRoomBannerLateral();
+                    ViewBag.ShowRoomBannerLateral = showRoomBannerLateral;
+                    ViewBag.MostrarShowRoomBannerLateral = Session["EsShowRoom"].ToString() != "0" &&
+                        !showRoomBannerLateral.ConsultoraNoEncontrada && !showRoomBannerLateral.ConsultoraNoEncontrada &&
+                        showRoomBannerLateral.BEShowRoomConsultora.EventoConsultoraID != 0 && showRoomBannerLateral.EstaActivoLateral;
+
+                    OfertaDelDiaModel ofertaDelDia = GetOfertaDelDiaModel();
+                    ViewBag.OfertaDelDia = ofertaDelDia;
+                    ViewBag.MostrarOfertaDelDia = userData.TieneOfertaDelDia && ofertaDelDia != null && ofertaDelDia.TeQuedan.TotalSeconds > 0;
+                }
+                ViewBag.MostrarBannerPL20 = mostrarBanner;
+                /*FIN: PL20-1289*/
             }
             catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+            }
+        }
+
+        public JsonResult GetOfertaDelDia()
+        {
+            try
+            {
+                var oddModel = this.GetOfertaDelDiaModel();
+                return Json(new {
+                    success = oddModel != null,
+                    data = oddModel
+                }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return Json(new
+                {
+                    success = false,
+                    message = "No se pudo procesar la solicitud"
+                }, JsonRequestBehavior.AllowGet);
             }
         }
 
@@ -48,6 +103,8 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     {
                         lst = sv.GetItemsMenuMobile(userData.PaisID).ToList();
                     }
+
+                    if (userData.CatalogoPersonalizado == 0 || !userData.EsCatalogoPersonalizadoZonaValida) lst.Remove(lst.FirstOrDefault(p => p.UrlItem.ToLower() == "mobile/catalogopersonalizado/index"));
 
                     var menuConsultoraOnlinePadre = lst.FirstOrDefault(m => m.Descripcion.ToLower().Trim() == "consultora online" && m.MenuPadreID == 0);
                     var menuConsultoraOnlineHijo = lst.FirstOrDefault(m => m.Descripcion.ToLower().Trim() == "consultora online" && m.MenuPadreID != 0);
@@ -182,6 +239,26 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 ViewBag.AnalyticsSegmentoConstancia = string.IsNullOrEmpty(userData.SegmentoConstancia) ? "(not available)" : userData.SegmentoConstancia.Trim();
                 ViewBag.AnalyticsSociaNivel = string.IsNullOrEmpty(userData.DescripcionNivel) ? "(not available)" : userData.DescripcionNivel;
             }
+        }
+
+        private bool SiempreMostrarBannerPL20()
+        {
+            string controllerName = this.ControllerContext.RouteData.Values["controller"].ToString();
+            string actionName = this.ControllerContext.RouteData.Values["action"].ToString();
+
+            if (controllerName == "Bienvenida" && actionName == "Index") return true;
+            return false;
+        }
+        private bool NuncaMostrarBannerPL20()
+        {
+            string controllerName = this.ControllerContext.RouteData.Values["controller"].ToString();
+            string actionName = this.ControllerContext.RouteData.Values["action"].ToString();
+
+            if (controllerName == "CatalogoPersonalizado" && actionName == "Index") return true;
+            if (controllerName == "CatalogoPersonalizado" && actionName == "Producto") return true;
+            if (controllerName == "ShowRoom") return true;
+            if (controllerName == "Pedido") return true;
+            return false;
         }
     }
 }

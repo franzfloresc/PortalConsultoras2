@@ -92,6 +92,9 @@ namespace Portal.Consultoras.ServiceContracts
         int ValidarEmailConsultora(int PaisID, string Email, string CodigoUsuario);
 
         [OperationContract]
+        int ValidarTelefonoConsultora(int PaisID, string Telefono, string CodigoUsuario);
+
+        [OperationContract]
         List<int> GetEstadosRestringidos(int paisID);
 
         [OperationContract]
@@ -151,7 +154,7 @@ namespace Portal.Consultoras.ServiceContracts
         //CCSS_JZ_PROL2
 
         [OperationContract]
-        IList<BENotificaciones> GetNotificacionesConsultora(int PaisID, long ConsultoraId);
+        IList<BENotificaciones> GetNotificacionesConsultora(int PaisID, long ConsultoraId, int indicadorBloqueoCDR);
 
         [OperationContract]
         IList<BENotificacionesDetalle> GetNotificacionesConsultoraDetalle(int PaisID, long ValAutomaticaPROLLogId, int TipoOrigen); //R2073
@@ -254,5 +257,14 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         BEUsuario GetDatosConsultoraHana(int paisID, string codigoUsuario, int campaniaId);
+
+        [OperationContract]
+        void UpdNotificacionSolicitudCdrVisualizacion(int paisID, long procesoId);
+
+        [OperationContract]
+        void UpdNotificacionCdrCulminadoVisualizacion(int paisID, long procesoId);
+
+        [OperationContract]
+        int UpdateUsuarioEmailTelefono(int paisID, long ConsultoraID, string Email, string Telefono);
     }
 }

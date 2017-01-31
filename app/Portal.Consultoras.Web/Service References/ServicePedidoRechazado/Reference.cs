@@ -140,7 +140,13 @@ namespace Portal.Consultoras.Web.ServicePedidoRechazado {
         private long LogGPRValidacionIdField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string MotivoRechazoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private decimal SubTotalField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ValorField;
         
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
@@ -257,6 +263,19 @@ namespace Portal.Consultoras.Web.ServicePedidoRechazado {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public string MotivoRechazo {
+            get {
+                return this.MotivoRechazoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.MotivoRechazoField, value) != true)) {
+                    this.MotivoRechazoField = value;
+                    this.RaisePropertyChanged("MotivoRechazo");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public decimal SubTotal {
             get {
                 return this.SubTotalField;
@@ -265,6 +284,19 @@ namespace Portal.Consultoras.Web.ServicePedidoRechazado {
                 if ((this.SubTotalField.Equals(value) != true)) {
                     this.SubTotalField = value;
                     this.RaisePropertyChanged("SubTotal");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Valor {
+            get {
+                return this.ValorField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ValorField, value) != true)) {
+                    this.ValorField = value;
+                    this.RaisePropertyChanged("Valor");
                 }
             }
         }

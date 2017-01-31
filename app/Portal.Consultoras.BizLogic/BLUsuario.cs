@@ -222,9 +222,10 @@ namespace Portal.Consultoras.BizLogic
                         usuario.HoraCierreZonaDemAntiCierre = configuracion.HoraCierreZonaDemAntiCierre; //R20151126
                         usuario.ValidacionInteractiva = configuracion.ValidacionInteractiva; //R20160306
                         usuario.MensajeValidacionInteractiva = configuracion.MensajeValidacionInteractiva; //R20160306
-                        usuario.IndicadorEnviado = configuracion.IndicadorEnviado;
-                        usuario.IndicadorRechazado = configuracion.IndicadorRechazado;
+                        usuario.IndicadorGPRSB = configuracion.IndicadorGPRSB;
                         usuario.FechaActualPais = configuracion.FechaActualPais;
+                        usuario.EstadoPedido = configuracion.EstadoPedido;
+                        usuario.ValidacionAbierta = configuracion.ValidacionAbierta;
                     }
                 }
             }
@@ -352,6 +353,12 @@ namespace Portal.Consultoras.BizLogic
         {
             var DAUsuario = new DAUsuario(PaisID);
             return DAUsuario.ValidarEmailConsultora(Email, CodigoUsuario);
+        }
+
+        public int ValidarTelefonoConsultora(int PaisID, string Telefono, string CodigoUsuario)
+        {
+            var DAUsuario = new DAUsuario(PaisID);
+            return DAUsuario.ValidarTelefonoConsultora(Telefono, CodigoUsuario);
         }
 
         public List<int> GetEstadosRestringidos(int paisID)
@@ -1081,6 +1088,12 @@ namespace Portal.Consultoras.BizLogic
             BEUsuario consultora = DAHInformacionOnlineConsultora.GetDatosConsultoraHana(paisID, codigoUsuario, campaniaId);
 
             return consultora;
+        }
+
+        public int UpdateUsuarioEmailTelefono(int paisID, long ConsultoraID, string Email, string Telefono)
+        {
+            var DAUsuario = new DAUsuario(paisID);
+            return DAUsuario.UpdateUsuarioEmailTelefono(ConsultoraID, Email, Telefono);
         }
     }
 }

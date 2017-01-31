@@ -27,6 +27,9 @@ namespace Portal.Consultoras.Web.ServiceProductoCatalogoPersonalizado {
         private int CampaniaIdField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CodigoCategoriaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string CodigoIsoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -45,10 +48,19 @@ namespace Portal.Consultoras.Web.ServiceProductoCatalogoPersonalizado {
         private string DescripcionComercialField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool EsMaquillajeField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int IdMarcaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string ImagenField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ImagenBulkField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string NombreBulkField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string NombreComercialField;
@@ -61,6 +73,9 @@ namespace Portal.Consultoras.Web.ServiceProductoCatalogoPersonalizado {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private decimal PrecioValorizadoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int RelevanciaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string SelloField;
@@ -87,6 +102,19 @@ namespace Portal.Consultoras.Web.ServiceProductoCatalogoPersonalizado {
                 if ((this.CampaniaIdField.Equals(value) != true)) {
                     this.CampaniaIdField = value;
                     this.RaisePropertyChanged("CampaniaId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string CodigoCategoria {
+            get {
+                return this.CodigoCategoriaField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CodigoCategoriaField, value) != true)) {
+                    this.CodigoCategoriaField = value;
+                    this.RaisePropertyChanged("CodigoCategoria");
                 }
             }
         }
@@ -170,6 +198,19 @@ namespace Portal.Consultoras.Web.ServiceProductoCatalogoPersonalizado {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool EsMaquillaje {
+            get {
+                return this.EsMaquillajeField;
+            }
+            set {
+                if ((this.EsMaquillajeField.Equals(value) != true)) {
+                    this.EsMaquillajeField = value;
+                    this.RaisePropertyChanged("EsMaquillaje");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public int IdMarca {
             get {
                 return this.IdMarcaField;
@@ -191,6 +232,32 @@ namespace Portal.Consultoras.Web.ServiceProductoCatalogoPersonalizado {
                 if ((object.ReferenceEquals(this.ImagenField, value) != true)) {
                     this.ImagenField = value;
                     this.RaisePropertyChanged("Imagen");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string ImagenBulk {
+            get {
+                return this.ImagenBulkField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ImagenBulkField, value) != true)) {
+                    this.ImagenBulkField = value;
+                    this.RaisePropertyChanged("ImagenBulk");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string NombreBulk {
+            get {
+                return this.NombreBulkField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.NombreBulkField, value) != true)) {
+                    this.NombreBulkField = value;
+                    this.RaisePropertyChanged("NombreBulk");
                 }
             }
         }
@@ -243,6 +310,19 @@ namespace Portal.Consultoras.Web.ServiceProductoCatalogoPersonalizado {
                 if ((this.PrecioValorizadoField.Equals(value) != true)) {
                     this.PrecioValorizadoField = value;
                     this.RaisePropertyChanged("PrecioValorizado");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int Relevancia {
+            get {
+                return this.RelevanciaField;
+            }
+            set {
+                if ((this.RelevanciaField.Equals(value) != true)) {
+                    this.RelevanciaField = value;
+                    this.RaisePropertyChanged("Relevancia");
                 }
             }
         }
@@ -304,6 +384,14 @@ namespace Portal.Consultoras.Web.ServiceProductoCatalogoPersonalizado {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IProductoService/ObtenerProductosByCodigoSap", ReplyAction="http://tempuri.org/IProductoService/ObtenerProductosByCodigoSapResponse")]
         System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceProductoCatalogoPersonalizado.Producto[]> ObtenerProductosByCodigoSapAsync(string codigoIso, int campaniaId, string codigoSap);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IProductoService/ObtenerProductosAppCatalogoByListaCUV", ReplyAction="http://tempuri.org/IProductoService/ObtenerProductosAppCatalogoByListaCUVResponse" +
+            "")]
+        Portal.Consultoras.Web.ServiceProductoCatalogoPersonalizado.Producto[] ObtenerProductosAppCatalogoByListaCUV(string codigoIso, int campaniaId, string listaCuv);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IProductoService/ObtenerProductosAppCatalogoByListaCUV", ReplyAction="http://tempuri.org/IProductoService/ObtenerProductosAppCatalogoByListaCUVResponse" +
+            "")]
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceProductoCatalogoPersonalizado.Producto[]> ObtenerProductosAppCatalogoByListaCUVAsync(string codigoIso, int campaniaId, string listaCuv);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -355,6 +443,14 @@ namespace Portal.Consultoras.Web.ServiceProductoCatalogoPersonalizado {
         
         public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceProductoCatalogoPersonalizado.Producto[]> ObtenerProductosByCodigoSapAsync(string codigoIso, int campaniaId, string codigoSap) {
             return base.Channel.ObtenerProductosByCodigoSapAsync(codigoIso, campaniaId, codigoSap);
+        }
+        
+        public Portal.Consultoras.Web.ServiceProductoCatalogoPersonalizado.Producto[] ObtenerProductosAppCatalogoByListaCUV(string codigoIso, int campaniaId, string listaCuv) {
+            return base.Channel.ObtenerProductosAppCatalogoByListaCUV(codigoIso, campaniaId, listaCuv);
+        }
+        
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceProductoCatalogoPersonalizado.Producto[]> ObtenerProductosAppCatalogoByListaCUVAsync(string codigoIso, int campaniaId, string listaCuv) {
+            return base.Channel.ObtenerProductosAppCatalogoByListaCUVAsync(codigoIso, campaniaId, listaCuv);
         }
     }
 }

@@ -1,6 +1,4 @@
-﻿
-
-$(document).ready(function () {
+﻿$(document).ready(function () {
     //if (checkTimeout()) {
     //    fnGrilla();
     //    IniDialog();
@@ -21,7 +19,6 @@ $(document).ready(function () {
 
             }
         });
-
 
     //$(".ui-pg-input").keypress(
     //function (evt) {

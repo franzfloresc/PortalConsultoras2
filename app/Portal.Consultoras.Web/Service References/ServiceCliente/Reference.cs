@@ -801,6 +801,9 @@ namespace Portal.Consultoras.Web.ServiceCliente {
         private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool AceptoBackOrderField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string CUVField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -859,6 +862,9 @@ namespace Portal.Consultoras.Web.ServiceCliente {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private bool EliminadoTemporalField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool EsBackOrderField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private bool EsKitNuevaField;
@@ -978,6 +984,19 @@ namespace Portal.Consultoras.Web.ServiceCliente {
             }
             set {
                 this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool AceptoBackOrder {
+            get {
+                return this.AceptoBackOrderField;
+            }
+            set {
+                if ((this.AceptoBackOrderField.Equals(value) != true)) {
+                    this.AceptoBackOrderField = value;
+                    this.RaisePropertyChanged("AceptoBackOrder");
+                }
             }
         }
         
@@ -1237,6 +1256,19 @@ namespace Portal.Consultoras.Web.ServiceCliente {
                 if ((this.EliminadoTemporalField.Equals(value) != true)) {
                     this.EliminadoTemporalField = value;
                     this.RaisePropertyChanged("EliminadoTemporal");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool EsBackOrder {
+            get {
+                return this.EsBackOrderField;
+            }
+            set {
+                if ((this.EsBackOrderField.Equals(value) != true)) {
+                    this.EsBackOrderField = value;
+                    this.RaisePropertyChanged("EsBackOrder");
                 }
             }
         }

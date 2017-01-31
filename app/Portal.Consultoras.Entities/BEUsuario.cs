@@ -74,7 +74,8 @@ namespace Portal.Consultoras.Entities
         private bool mesConsultoraLider;//R2469(CSR)
         private bool bEstadoSimplificacionCUV { get; set; }
         private bool bEsquemaDAConsultora;
-        private int digitoVerificador;
+        private string digitoVerificador;
+        private long ConsultoraAsociadoID;
 
         public BEUsuario()
         {
@@ -98,7 +99,7 @@ namespace Portal.Consultoras.Entities
             mbCambioClave = Convert.ToBoolean(row["CambioClave"]);
 
             if (DataRecord.HasColumn(row, "TelefonoTrabajo") && row["TelefonoTrabajo"] != DBNull.Value)
-                msTelefonoTrabajo = Convert.ToString(row["TelefonoTrabajo"]);
+                msTelefonoTrabajo = Convert.ToString(row["TelefonoTrabajo"]);  
             if (DataRecord.HasColumn(row, "AceptoContrato") && row["AceptoContrato"] != DBNull.Value)
                 this.AceptoContrato = Convert.ToBoolean(row["AceptoContrato"]);
             if (DataRecord.HasColumn(row, "MostrarAyudaWebTraking") && row["MostrarAyudaWebTraking"] != DBNull.Value)
@@ -138,7 +139,7 @@ namespace Portal.Consultoras.Entities
                 bEsquemaDAConsultora = Convert.ToBoolean(row["EsquemaDAConsultora"]);
             /*EPD-1068*/
             if (DataRecord.HasColumn(row, "DigitoVerificador") && row["DigitoVerificador"] != DBNull.Value)
-                digitoVerificador = Convert.ToInt32(row["DigitoVerificador"]);
+                digitoVerificador = (row["DigitoVerificador"]).ToString();
 
 
         }
@@ -211,7 +212,7 @@ namespace Portal.Consultoras.Entities
             if (DataRecord.HasColumn(row, "Direccion") && row["Direccion"] != DBNull.Value)
                 Direccion = Convert.ToString(row["Direccion"]);
             if (DataRecord.HasColumn(row, "TelefonoTrabajo") && row["TelefonoTrabajo"] != DBNull.Value)
-                msTelefonoTrabajo = Convert.ToString(row["TelefonoTrabajo"]);
+                msTelefonoTrabajo = Convert.ToString(row["TelefonoTrabajo"]);            
             if (DataRecord.HasColumn(row, "AnoCampanaIngreso") && row["AnoCampanaIngreso"] != DBNull.Value)
                 AnoCampaniaIngreso = Convert.ToString(row["AnoCampanaIngreso"]);
             if (DataRecord.HasColumn(row, "PrimerNombre") && row["PrimerNombre"] != DBNull.Value)
@@ -349,21 +350,45 @@ namespace Portal.Consultoras.Entities
                 VioTutorialSalvavidas = Convert.ToInt32(row["VioTutorialSalvavidas"]);
             if (DataRecord.HasColumn(row, "TieneHana") && row["TieneHana"] != DBNull.Value)
                 TieneHana = Convert.ToInt32(row["TieneHana"]);
+            if (DataRecord.HasColumn(row, "IndicadorBloqueoCDR") && row["IndicadorBloqueoCDR"] != DBNull.Value)
+                IndicadorBloqueoCDR = Convert.ToInt32(row["IndicadorBloqueoCDR"]);
+            if (DataRecord.HasColumn(row, "EsCDRWebZonaValida") && row["EsCDRWebZonaValida"] != DBNull.Value)
+                EsCDRWebZonaValida = Convert.ToInt32(row["EsCDRWebZonaValida"]);
+            if (DataRecord.HasColumn(row, "TieneCDR") && row["TieneCDR"] != DBNull.Value)
+                TieneCDR = Convert.ToInt32(row["TieneCDR"]);
+            
+            if (DataRecord.HasColumn(row, "IndicadorGPRSB") && row["IndicadorGPRSB"] != DBNull.Value)
+                IndicadorGPRSB = Convert.ToInt32(row["IndicadorGPRSB"]);
 
-            if (DataRecord.HasColumn(row, "IndicadorEnviado") && row["IndicadorEnviado"] != DBNull.Value)
-                IndicadorEnviado = Convert.ToInt32(row["IndicadorEnviado"]);
-            if (DataRecord.HasColumn(row, "IndicadorRechazado") && row["IndicadorRechazado"] != DBNull.Value)
-                IndicadorRechazado = Convert.ToInt32(row["IndicadorRechazado"]);
+            if (DataRecord.HasColumn(row, "EstadoPedido") && row["EstadoPedido"] != DBNull.Value)
+                EstadoPedido = Convert.ToInt32(row["EstadoPedido"]);
+
+            if (DataRecord.HasColumn(row, "ValidacionAbierta") && row["ValidacionAbierta"] != DBNull.Value)
+                ValidacionAbierta = Convert.ToBoolean(row["ValidacionAbierta"]);
 
             // SB20-907
             if (DataRecord.HasColumn(row, "GerenteZona") && row["GerenteZona"] != DBNull.Value)
                 NombreGerenteZona = Convert.ToString(row["GerenteZona"]);
             /*EPD-1068*/
             if (DataRecord.HasColumn(row, "DigitoVerificador") && row["DigitoVerificador"] != DBNull.Value)
-                digitoVerificador = Convert.ToInt32(row["DigitoVerificador"]);
+                digitoVerificador = (row["DigitoVerificador"]).ToString();
 
-            
+            /*PL20-1226*/
+            if (DataRecord.HasColumn(row, "TieneODD") && row["TieneODD"] != DBNull.Value)
+                OfertaDelDia = Convert.ToBoolean(row["TieneODD"]);
 
+            if (DataRecord.HasColumn(row, "ConsultoraAsociadoID") && row["ConsultoraAsociadoID"] != DBNull.Value)//1688
+                ConsultoraAsociadoID = Convert.ToInt64(row["ConsultoraAsociadoID"]);
+            else
+                ConsultoraAsociadoID = 0;
+
+        }
+
+        [DataMember]
+        public long ConsultoraAsociadaID
+        {
+            get { return ConsultoraAsociadoID; }
+            set { ConsultoraAsociadoID = value; }
         }
 
         [DataMember]
@@ -864,7 +889,7 @@ namespace Portal.Consultoras.Entities
             set { mesConsultoraLider = value; }
         }
         [DataMember]
-        public int DigitoVerificador
+        public string DigitoVerificador
         {
             get { return digitoVerificador; }
             set { digitoVerificador = value; }
@@ -942,6 +967,15 @@ namespace Portal.Consultoras.Entities
         public int TieneHana { get; set; }
 
         [DataMember]
+        public int IndicadorBloqueoCDR { get; set; }
+
+        [DataMember]
+        public int EsCDRWebZonaValida { get; set; }
+
+        [DataMember]
+        public int TieneCDR { get; set; }
+
+        [DataMember]
         public decimal MontoDeuda { get; set; }
 
         [DataMember]
@@ -1016,7 +1050,7 @@ namespace Portal.Consultoras.Entities
                 bEsquemaDAConsultora = Convert.ToBoolean(row["EsquemaDAConsultora"]);
             /*EPD-1068*/
             if (DataRecord.HasColumn(row, "DigitoVerificador") && row["DigitoVerificador"] != DBNull.Value)
-                digitoVerificador = Convert.ToInt32(row["DigitoVerificador"]);
+                digitoVerificador = (row["DigitoVerificador"]).ToString();
 
         }
         /* R2392 - AHAA - LIDERES - FIN */
@@ -1040,13 +1074,22 @@ namespace Portal.Consultoras.Entities
         private string msRpta4 { get; set; }
 
         [DataMember]
-        public int IndicadorEnviado { get; set; }
+        public int IndicadorGPRSB { get; set; }
         [DataMember]
-        public int IndicadorRechazado { get; set; }
+        public int EstadoPedido { get; set; }
+        [DataMember]
+        public bool ValidacionAbierta { get; set; }
         [DataMember]
         public string NombreGerenteZona { get; set; }
         [DataMember]
         public DateTime FechaActualPais { get; set; }
+
+        /*PL20-1226*/
+        [DataMember]
+        public bool OfertaDelDia { get; set; }
+
+        //[DataMember]
+        //public int EsOfertaDelDia { get; set; }
 
         public BEUsuario(IDataRecord row, string tipo1, string tipo2)
         {

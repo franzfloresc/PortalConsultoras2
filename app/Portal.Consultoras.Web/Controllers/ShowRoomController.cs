@@ -55,7 +55,8 @@ namespace Portal.Consultoras.Web.Controllers
                                 var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
                                 using (PedidoServiceClient sv = new PedidoServiceClient())
                                 {
-                                    listaShowRoomOferta = sv.GetShowRoomOfertasConsultora(userData.PaisID, userData.CampaniaID, userData.CodigoConsultora).ToList();
+                                    var CodigoConsultora = userData.UsuarioPrueba == 1 ? userData.CodigoConsultora.ToString() : userData.CodigoConsultora.ToString();
+                                    listaShowRoomOferta = sv.GetShowRoomOfertasConsultora(userData.PaisID, userData.CampaniaID, CodigoConsultora).ToList();
 
                                     if (listaShowRoomOferta != null)
                                     {
@@ -869,10 +870,12 @@ namespace Portal.Consultoras.Web.Controllers
                                 BEShowRoomOfertaDetalle ent = new BEShowRoomOfertaDetalle();
                                 ent.CUV = values[0].Trim().Replace("\"", "");
                                 ent.NombreSet = values[1].Trim().Replace("\"", "");
-                                ent.NombreProducto = values[2].Trim().Replace("\"", "");
-                                ent.Descripcion1 = values[3].Trim().Replace("\"", "");
-                                ent.Descripcion2 = values[4].Trim().Replace("\"", "");
-                                ent.Descripcion3 = values[5].Trim().Replace("\"", "");
+                                ent.Posicion = values[2].Replace("\"", "0").ToInt();
+                                //ent.Posicion = values[2].Trim().Replace("\"", "").ToString();
+                                ent.NombreProducto = values[3].Trim().Replace("\"", "");
+                                ent.Descripcion1 = values[4].Trim().Replace("\"", "");
+                                ent.Descripcion2 = values[5].Trim().Replace("\"", "");
+                                ent.Descripcion3 = values[6].Trim().Replace("\"", "");
                                 ent.FechaCreacion = DateTime.Now;
                                 ent.UsuarioCreacion = userData.CodigoConsultora;
                                 ent.FechaModificacion = DateTime.Now;
@@ -1237,12 +1240,29 @@ namespace Portal.Consultoras.Web.Controllers
                     .ForMember(t => t.CodigoCampania, f => f.MapFrom(c => c.CodigoCampania))
                     .ForMember(t => t.FlagHabilitarProducto, f => f.MapFrom(c => c.FlagHabilitarProducto))
                     .ForMember(t => t.TipoOferta, f => f.MapFrom(c => c.CodigoTipoOferta))
-                    .ForMember(t => t.ImagenMini, f => f.MapFrom(c => c.ImagenMini));
+                    .ForMember(t => t.ImagenMini, f => f.MapFrom(c => c.ImagenMini))
+                    .ForMember(t => t.Incrementa, f => f.MapFrom(c => c.Incrementa))
+                    .ForMember(t => t.CantidadIncrementa, f => f.MapFrom(c => c.CantidadIncrementa))
+                    .ForMember(t => t.FlagAgotado, f => f.MapFrom(c => c.Agotado));
 
                 BEShowRoomOferta entidad = Mapper.Map<ShowRoomOfertaModel, BEShowRoomOferta>(model);
 
                 using (PedidoServiceClient sv = new PedidoServiceClient())
                 {
+
+                    int Stock = 0;
+                    Stock = sv.ValidadStockOfertaShowRoom(userData.PaisID, entidad);
+
+                    if (entidad.Incrementa == 1 && Stock < 0)
+                    {
+                        return Json(new
+                        {
+                            success = false,
+                            message = "La cantidad ingresada supera el stock actual.",
+                            extra = ""
+                        });
+                    }
+
                     entidad.TipoOfertaSisID = Constantes.ConfiguracionOferta.ShowRoom;
                     entidad.ConfiguracionOfertaID = lstConfiguracion.Find(x => x.CodigoOferta == model.CodigoTipoOferta).ConfiguracionOfertaID;
                     entidad.UsuarioModificacion = userData.CodigoConsultora;
@@ -1723,6 +1743,7 @@ namespace Portal.Consultoras.Web.Controllers
                     .ForMember(t => t.UsuarioCreacion, f => f.MapFrom(c => c.UsuarioCreacion))
                     .ForMember(t => t.FechaModificacion, f => f.MapFrom(c => c.FechaModificacion))
                     .ForMember(t => t.UsuarioModificacion, f => f.MapFrom(c => c.UsuarioModificacion));
+                  
 
                 BEShowRoomOfertaDetalle entidad = Mapper.Map<ShowRoomOfertaDetalleModel, BEShowRoomOfertaDetalle>(model);
 

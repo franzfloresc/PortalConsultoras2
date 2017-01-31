@@ -8,6 +8,7 @@ using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.ServiceProductoCatalogoPersonalizado;
 using Portal.Consultoras.Web.ServicePROLConsultas;
 using Portal.Consultoras.Web.ServiceSAC;
+using Portal.Consultoras.Web.ServicesCalculosPROL;
 using Portal.Consultoras.Web.ServiceUsuario;
 using System;
 using System.Collections.Generic;
@@ -80,7 +81,8 @@ namespace Portal.Consultoras.Web.Controllers
                 BEConfiguracionCampania oBEConfiguracionCampania;
                 using (PedidoServiceClient sv = new PedidoServiceClient())
                 {
-                    oBEConfiguracionCampania = sv.GetEstadoPedido(userData.PaisID, userData.CampaniaID, userData.ConsultoraID, userData.ZonaID, userData.RegionID);
+                    var ConsultoraID = userData.UsuarioPrueba == 1 ? userData.ConsultoraAsociadaID : userData.ConsultoraID;
+                    oBEConfiguracionCampania = sv.GetEstadoPedido(userData.PaisID, userData.CampaniaID, ConsultoraID, userData.ZonaID, userData.RegionID);
                 }
 
                 if (oBEConfiguracionCampania != null)
@@ -134,12 +136,12 @@ namespace Portal.Consultoras.Web.Controllers
                     model.AccionBoton = "guardar";
                     model.Prol = "GUARDA TU PEDIDO";
                     model.ProlTooltip = "Es importante que guardes tu pedido";
-                    model.ProlTooltip += string.Format("|Puedes realizar cambios hasta el {0}", ViewBag.FechaFacturacionPedido);
+                    model.ProlTooltip += string.Format("|Puedes realizar cambios hasta el {0}", fechaFacturacionFormat);
 
                     if (userData.CodigoISO == "BO")
                     {
                         model.ProlTooltip = "Es importante que guardes tu pedido";
-                        model.ProlTooltip += string.Format("|No olvides reservar tu pedido el dia {0} para que sea enviado a facturar", ViewBag.FechaFacturacionPedido);
+                        model.ProlTooltip += string.Format("|No olvides reservar tu pedido el dia {0} para que sea enviado a facturar", fechaFacturacionFormat);
                     }
                 }
                 else // Periodo de facturacion
@@ -309,12 +311,8 @@ namespace Portal.Consultoras.Web.Controllers
 
                 #endregion
 
-                if (model.OfertaFinal == Constantes.TipoOfertaFinalCatalogoPersonalizado.Jetlore ||
-                        model.OfertaFinal == Constantes.TipoOfertaFinalCatalogoPersonalizado.Arp)
-                {
-                    if (esFacturacion)
-                        ObtenerListadoProductosOfertaFinal();
-                }
+
+
 
                 #region Pedidos Pendientes
 
@@ -341,6 +339,8 @@ namespace Portal.Consultoras.Web.Controllers
                             }
                         }
 
+
+
                         //List<BEMisPedidos> olstMisPedidos = new List<BEMisPedidos>();
                         //using (UsuarioServiceClient svc = new UsuarioServiceClient())
                         //{
@@ -364,7 +364,14 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
                 #endregion
-
+                
+                if (model.OfertaFinal == Constantes.TipoOfertaFinalCatalogoPersonalizado.Jetlore ||
+                        model.OfertaFinal == Constantes.TipoOfertaFinalCatalogoPersonalizado.Arp)
+                {
+                    if (esFacturacion)
+                        ObtenerListadoProductosOfertaFinal();
+                }
+                
             }
             catch (FaultException ex)
             {
@@ -1289,7 +1296,7 @@ namespace Portal.Consultoras.Web.Controllers
                 UsuarioModel oUsuarioModel = userData;
                 using (ODSServiceClient sv = new ODSServiceClient())
                 {
-                    olstProducto = sv.SelectProductoByCodigoDescripcionSearchRegionZona(oUsuarioModel.PaisID, oUsuarioModel.CampaniaID, term, oUsuarioModel.RegionID, oUsuarioModel.ZonaID, oUsuarioModel.CodigorRegion, oUsuarioModel.CodigoZona, 1, 5).ToList();
+                    olstProducto = sv.SelectProductoByCodigoDescripcionSearchRegionZona(oUsuarioModel.PaisID, oUsuarioModel.CampaniaID, term, oUsuarioModel.RegionID, oUsuarioModel.ZonaID, oUsuarioModel.CodigorRegion, oUsuarioModel.CodigoZona, 1, 5, true).ToList();
                 }
 
                 var strCUV = string.Empty;
@@ -1357,7 +1364,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 using (ODSServiceClient sv = new ODSServiceClient())
                 {
-                    olstProducto = sv.SelectProductoByCodigoDescripcionSearchRegionZona(oUsuarioModel.PaisID, oUsuarioModel.CampaniaID, model.CUV, oUsuarioModel.RegionID, oUsuarioModel.ZonaID, oUsuarioModel.CodigorRegion, oUsuarioModel.CodigoZona, 1, 1).ToList();
+                    olstProducto = sv.SelectProductoByCodigoDescripcionSearchRegionZona(oUsuarioModel.PaisID, oUsuarioModel.CampaniaID, model.CUV, oUsuarioModel.RegionID, oUsuarioModel.ZonaID, oUsuarioModel.CodigorRegion, oUsuarioModel.CodigoZona, 1, 1, true).ToList();
                 }
 
                 if (olstProducto.Count == 0)
@@ -1597,7 +1604,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 using (ODSServiceClient sv = new ODSServiceClient())
                 {
-                    olstProducto = sv.SelectProductoByCodigoDescripcionSearchRegionZona(oUsuarioModel.PaisID, oUsuarioModel.CampaniaID, CUV, oUsuarioModel.RegionID, oUsuarioModel.ZonaID, oUsuarioModel.CodigorRegion, oUsuarioModel.CodigoZona, 1, 1).ToList();
+                    olstProducto = sv.SelectProductoByCodigoDescripcionSearchRegionZona(oUsuarioModel.PaisID, oUsuarioModel.CampaniaID, CUV, oUsuarioModel.RegionID, oUsuarioModel.ZonaID, oUsuarioModel.CodigorRegion, oUsuarioModel.CodigoZona, 1, 1, false).ToList();
                 }
 
                 if (olstProducto.Count == 0)
@@ -1699,7 +1706,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 using (ODSServiceClient sv = new ODSServiceClient())
                 {
-                    olstProducto = sv.SelectProductoByCodigoDescripcionSearchRegionZona(oUsuarioModel.PaisID, oUsuarioModel.CampaniaID, term, oUsuarioModel.RegionID, oUsuarioModel.ZonaID, oUsuarioModel.CodigorRegion, oUsuarioModel.CodigoZona, 2, 5).ToList();
+                    olstProducto = sv.SelectProductoByCodigoDescripcionSearchRegionZona(oUsuarioModel.PaisID, oUsuarioModel.CampaniaID, term, oUsuarioModel.RegionID, oUsuarioModel.ZonaID, oUsuarioModel.CodigorRegion, oUsuarioModel.CodigoZona, 2, 5, true).ToList();
                 }
 
                 var strCUV = string.Empty;
@@ -2028,12 +2035,12 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 model.Prol = "GUARDA TU PEDIDO";
                 model.ProlTooltip = "Es importante que guardes tu pedido";
-                model.ProlTooltip += string.Format("|Puedes realizar cambios hasta el {0}", ViewBag.FechaFacturacionPedido);
+                model.ProlTooltip += string.Format("|Puedes realizar cambios hasta el {0}", fechaFacturacionFormat);
 
                 if (userData.CodigoISO == "BO")
                 {
                     model.ProlTooltip = "Es importante que guardes tu pedido";
-                    model.ProlTooltip += string.Format("|No olvides reservar tu pedido el dia {0} para que sea enviado a facturar", ViewBag.FechaFacturacionPedido);
+                    model.ProlTooltip += string.Format("|No olvides reservar tu pedido el dia {0} para que sea enviado a facturar", fechaFacturacionFormat);
                 }
             }
             else // Periodo de facturacion
@@ -2413,6 +2420,8 @@ namespace Portal.Consultoras.Web.Controllers
                     bePedidoWeb.MontoEscala = montoEscala;
 
                     sv.UpdateMontosPedidoWeb(bePedidoWeb);
+                    
+                    UpdateSesionProlMontos(bePedidoWeb);
 
                     Session["PedidoWeb"] = null;
                 }
@@ -2610,11 +2619,14 @@ namespace Portal.Consultoras.Web.Controllers
 
                     sv.UpdateMontosPedidoWeb(bePedidoWeb);
 
+                    UpdateSesionProlMontos(bePedidoWeb);
+
                     Session["PedidoWeb"] = null;
                 }
 
                 #endregion
 
+                #region
                 if (datos.codigoMensaje != "00")
                 {
                     foreach (DataRow row in dtr.Rows)
@@ -2682,6 +2694,7 @@ namespace Portal.Consultoras.Web.Controllers
                         Reserva = true;
                     }
                 }
+                #endregion
             }
             return olstPedidoWebDetalleObs;
         }
@@ -2822,6 +2835,18 @@ namespace Portal.Consultoras.Web.Controllers
                 decimal gananciaEstimada = CalcularGananciaEstimada(PaisID, CampaniaID, PedidoID, totalPedido);
                 sv.UpdatePedidoWebEstimadoGanancia(PaisID, CampaniaID, PedidoID, gananciaEstimada);
             }
+        }
+
+        private void UpdateSesionProlMontos(BEPedidoWeb pedido)
+        {
+            var modeloProl = new ObjMontosProl();
+            modeloProl.AhorroCatalogo = pedido.MontoAhorroCatalogo.ToString();
+            modeloProl.AhorroRevista = pedido.MontoAhorroRevista.ToString();
+            modeloProl.MontoTotalDescuento = pedido.DescuentoProl.ToString();
+            modeloProl.MontoEscala = pedido.MontoEscala.ToString();
+            var lista = new List<ObjMontosProl>();
+            lista.Add(modeloProl);
+            Session[Constantes.ConstSession.PROL_CalculoMontosProl] = lista;
         }
 
         #region Campaña y Zona No Configurada
@@ -2982,12 +3007,12 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 //ViewBag.Prol = "GUARDA TU PEDIDO";
                 ViewBag.ProlTooltip = "Es importante que guardes tu pedido";
-                ViewBag.ProlTooltip += string.Format("|Puedes realizar cambios hasta el {0}", ViewBag.FechaFacturacionPedido);
+                ViewBag.ProlTooltip += string.Format("|Puedes realizar cambios hasta el {0}", fechaFacturacionFormat);
 
                 if (userData.CodigoISO == "BO")
                 {
                     ViewBag.ProlTooltip = "Es importante que guardes tu pedido";
-                    ViewBag.ProlTooltip += string.Format("|No olvides reservar tu pedido el dia {0} para que sea enviado a facturar", ViewBag.FechaFacturacionPedido);
+                    ViewBag.ProlTooltip += string.Format("|No olvides reservar tu pedido el dia {0} para que sea enviado a facturar", fechaFacturacionFormat);
                 }
             }
             else // Periodo de facturacion
@@ -3059,6 +3084,25 @@ namespace Portal.Consultoras.Web.Controllers
             ViewBag.UrlBanner03 = ConfigS3.GetUrlFileS3(urlCarpeta, banner03, String.Empty);
 
             model.accionBanner_01 = ConfigS3.GetUrlFileS3(urlProdDesc, userData.CampaniaID + ".pdf", String.Empty);
+
+            #endregion
+
+            #region GPR
+
+            userData.ValidacionAbierta = oBEConfiguracionCampania.ValidacionAbierta;
+           
+            bool MostrarBannerPedidoRechazado = false;
+
+            if (userData.IndicadorGPRSB == 2)
+            {
+                MostrarBannerPedidoRechazado = true;
+                if (!oBEConfiguracionCampania.ValidacionAbierta && userData.EstadoPedido == 202) { MostrarBannerPedidoRechazado = false; }
+            }
+            userData.MostrarBannerRechazo = MostrarBannerPedidoRechazado;
+            SetUserData(userData);
+            ViewBag.IndicadorGPRSB = userData.IndicadorGPRSB;
+            //ViewBag.EstadoPedido = userData.EstadoPedido;
+            ViewBag.MostrarBannerRechazo = MostrarBannerPedidoRechazado;
 
             #endregion
 
@@ -3369,7 +3413,11 @@ namespace Portal.Consultoras.Web.Controllers
                             Estado = Constantes.EstadoPedido.Pendiente;
                         }
                         //Dado que no se usa el indicador de ModificaPedidoReservado, este campo en el servicio será utilizado para enviar el campo: ValidacionAbierta
-                        sv.UpdPedidoWebByEstado(userData.PaisID, userData.CampaniaID, userData.PedidoID, Estado, false, true, userData.CodigoUsuario, ValidacionAbierta);
+
+                     
+                        var CodigoUsuario = userData.UsuarioPrueba == 1 ? userData.ConsultoraAsociada : userData.CodigoUsuario.ToString();
+
+                        sv.UpdPedidoWebByEstado(userData.PaisID, userData.CampaniaID, userData.PedidoID, Estado, false, true, CodigoUsuario, ValidacionAbierta);
                         if (Tipo == "PI")
                         {
                             //Inserta Aceptacion Reemplazos
@@ -4094,6 +4142,7 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpGet]
         public JsonResult JsonConsultarEstrategias(string cuv)
         {
+            
             List<BEEstrategia> lst = ConsultarEstrategias(cuv ?? "");
             var listModel = Mapper.Map<List<BEEstrategia>, List<EstrategiaPedidoModel>>(lst);
 
@@ -4116,7 +4165,7 @@ namespace Portal.Consultoras.Web.Controllers
             var entidad = new BEEstrategia();
             entidad.PaisID = userData.PaisID;
             entidad.CampaniaID = userData.CampaniaID;
-            entidad.ConsultoraID = userData.ConsultoraID.ToString();
+            entidad.ConsultoraID = userData.UsuarioPrueba == 1 ? userData.ConsultoraAsociadaID.ToString() : userData.ConsultoraID.ToString();
             entidad.CUV2 = cuv ?? "";
             entidad.Zona = userData.ZonaID.ToString();
 
@@ -4665,27 +4714,16 @@ namespace Portal.Consultoras.Web.Controllers
 
             return listaParametriaOfertaFinal;
         }
-
         #endregion
 
         public JsonResult ObtenerProductosOfertaFinal(int tipoOfertaFinal)
         {
-            var listaProductoModel = new List<ProductoModel>();
-            var lista = new List<Producto>();
-
             try
             {
                 int limiteJetlore = int.Parse(ConfigurationManager.AppSettings.Get("LimiteJetloreOfertaFinal"));
 
-                if (Session["ProductosOfertaFinal"] == null)
-                {
-                    listaProductoModel = ObtenerListadoProductosOfertaFinal();
-                }
-                else
-                {
-                    listaProductoModel = (List<ProductoModel>)Session["ProductosOfertaFinal"] ?? new List<ProductoModel>();
-                }
-
+                var listaProductoModel = ObtenerListadoProductosOfertaFinal();
+                
                 // Si ya esta en pedido detalle no se debe mostrar
                 var pedidoDetalle = ObtenerPedidoWebDetalle();
                 var listaRetorno = new List<ProductoModel>();
@@ -4740,7 +4778,7 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpPost]
         public JsonResult InsertarOfertaFinalLog(string CUV, int cantidad, string tipoOfertaFinal_Log, decimal gap_Log, int tipoRegistro)
         {
-            try
+            try 
             {
                 using (PedidoServiceClient svp = new PedidoServiceClient())
                 {
@@ -4784,18 +4822,21 @@ namespace Portal.Consultoras.Web.Controllers
                     userData.ZonaID, userData.CodigorRegion, userData.CodigoZona, tipoProductoMostrar).ToList();
             }
 
+            string listaCuv = string.Join(",", lista.Select(p => p.Cuv));
+
+            List<BEProducto> lstProducto = new List<BEProducto>();
+            using (ODSServiceClient sv = new ODSServiceClient())
+            {
+                lstProducto = sv.GetProductoComercialByListaCuv(userData.PaisID, userData.CampaniaID, userData.RegionID, userData.ZonaID, userData.CodigorRegion, userData.CodigoZona, listaCuv).ToList();
+            }
+
             foreach (var producto in lista)
             {
-                List<BEProducto> olstProducto = new List<BEProducto>();
-                using (ODSServiceClient sv = new ODSServiceClient())
-                {
-                    olstProducto = sv.SelectProductoByCodigoDescripcionSearchRegionZona(userData.PaisID, userData.CampaniaID, producto.Cuv,
-                        userData.RegionID, userData.ZonaID, userData.CodigorRegion, userData.CodigoZona, 1, 1).ToList();
-                }
-                if (olstProducto.Count == 0)
-                    continue;
+                BEProducto beProducto = lstProducto.FirstOrDefault(p => p.CUV == producto.Cuv);
 
-                if (!olstProducto[0].TieneStock)
+                if (beProducto == null) continue;
+                
+                if (!beProducto.TieneStock)
                     continue;
 
                 string descripcion = producto.NombreComercial;
@@ -4817,28 +4858,28 @@ namespace Portal.Consultoras.Web.Controllers
 
                 listaProductoModel.Add(new ProductoModel()
                 {
-                    CUV = olstProducto[0].CUV.Trim(),
+                    CUV = beProducto.CUV.Trim(),
                     Descripcion = descripcion,
-                    PrecioCatalogoString = Util.DecimalToStringFormat(olstProducto[0].PrecioCatalogo, userData.CodigoISO),
-                    PrecioCatalogo = olstProducto[0].PrecioCatalogo,
-                    MarcaID = olstProducto[0].MarcaID,
-                    EstaEnRevista = olstProducto[0].EstaEnRevista,
+                    PrecioCatalogoString = Util.DecimalToStringFormat(beProducto.PrecioCatalogo, userData.CodigoISO),
+                    PrecioCatalogo = beProducto.PrecioCatalogo,
+                    MarcaID = beProducto.MarcaID,
+                    EstaEnRevista = beProducto.EstaEnRevista,
                     TieneStock = true,
-                    EsExpoOferta = olstProducto[0].EsExpoOferta,
-                    CUVRevista = olstProducto[0].CUVRevista.Trim(),
-                    CUVComplemento = olstProducto[0].CUVComplemento.Trim(),
-                    IndicadorMontoMinimo = olstProducto[0].IndicadorMontoMinimo.ToString().Trim(),
-                    TipoOfertaSisID = olstProducto[0].TipoOfertaSisID,
-                    ConfiguracionOfertaID = olstProducto[0].ConfiguracionOfertaID,
+                    EsExpoOferta = beProducto.EsExpoOferta,
+                    CUVRevista = beProducto.CUVRevista.Trim(),
+                    CUVComplemento = beProducto.CUVComplemento.Trim(),
+                    IndicadorMontoMinimo = beProducto.IndicadorMontoMinimo.ToString().Trim(),
+                    TipoOfertaSisID = beProducto.TipoOfertaSisID,
+                    ConfiguracionOfertaID = beProducto.ConfiguracionOfertaID,
                     MensajeCUV = "",
                     DesactivaRevistaGana = -1,
-                    DescripcionMarca = olstProducto[0].DescripcionMarca,
-                    DescripcionEstrategia = olstProducto[0].DescripcionEstrategia,
-                    DescripcionCategoria = olstProducto[0].DescripcionCategoria,
-                    FlagNueva = olstProducto[0].FlagNueva,
-                    TipoEstrategiaID = olstProducto[0].TipoEstrategiaID,
+                    DescripcionMarca = beProducto.DescripcionMarca,
+                    DescripcionEstrategia = beProducto.DescripcionEstrategia,
+                    DescripcionCategoria = beProducto.DescripcionCategoria,
+                    FlagNueva = beProducto.FlagNueva,
+                    TipoEstrategiaID = beProducto.TipoEstrategiaID,
                     ImagenProductoSugerido = imagenUrl,
-                    CodigoProducto = olstProducto[0].CodigoProducto,
+                    CodigoProducto = beProducto.CodigoProducto,
                     TieneStockPROL = true,
                     PrecioValorizado = precioTachado,
                     PrecioValorizadoString = Util.DecimalToStringFormat(precioTachado, userData.CodigoISO),
@@ -4849,6 +4890,143 @@ namespace Portal.Consultoras.Web.Controllers
 
             Session["ProductosOfertaFinal"] = listaProductoModel;
             return listaProductoModel;
+        }
+
+        /*PL20-1226*/
+        public JsonResult GetOfertaDelDia()
+        {
+            try
+            {
+                var oddModel = this.GetOfertaDelDiaModel();
+                return Json(new
+                {
+                    success = oddModel != null,
+                    data = oddModel
+                }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return Json(new
+                {
+                    success = false,
+                    message = "No se pudo procesar la solicitud"
+                }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        public JsonResult CloseOfertaDelDia()
+        {
+            try
+            {
+                userData.CloseOfertaDelDia = true;
+                Session["UserData"] = userData;
+
+                return Json(new
+                {
+                    success = true,
+                }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return Json(new
+                {
+                    success = false,
+                    message = "No se pudo procesar la solicitud"
+                }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        public JsonResult GetQtyPedidoDetalleByCuvODD(string cuv, string tipoEstrategiaID)
+        {
+            try
+            {
+                var qty = 0;
+                var lstPedidoDetalle = ObtenerPedidoWebDetalle();
+
+                if (lstPedidoDetalle.Any())
+                {
+                    foreach (var item in lstPedidoDetalle)
+                    {
+                        if (item.TipoOfertaSisID == int.Parse(tipoEstrategiaID)
+                            && item.CUV.Trim().Contains(cuv.Trim()))
+                        {
+                            qty = item.Cantidad;
+                            break;
+                        }
+                    }
+                }
+
+                return Json(new
+                {
+                    success = true,
+                    cantidad = qty
+                }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return Json(new
+                {
+                    success = false,
+                    message = "No se pudo procesar la solicitud"
+                }, JsonRequestBehavior.AllowGet);
+            }
+        }
+        public JsonResult CloseBannerPL20()
+        {
+            try
+            {
+                userData.CloseBannerPL20 = true;
+                Session["UserData"] = userData;
+
+                return Json(new
+                {
+                    success = true,
+                }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return Json(new
+                {
+                    success = false,
+                    message = "No se pudo procesar la solicitud"
+                }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        /*PL20-1226*/
+
+        //PL20-1265
+        public JsonResult GetProductoFichaOPT(string pCuv)
+        {
+            try
+            {
+                //List<BEEstrategia> lst2 = new List<BEEstrategia>();
+                List<BEEstrategia> lst = (List<BEEstrategia>)Session["ListadoEstrategiaPedido"];
+                BEEstrategia objProOPT = lst.FirstOrDefault(p => p.CUV2 == pCuv) ?? new BEEstrategia();
+                //lst2 = lst.Where(g => g.CUV2 == pCuv).ToList();
+
+                return Json(new
+                {
+                    success = true,
+                    message = "OK",
+                    data = objProOPT
+                });
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return Json(new
+                {
+                    success = false,
+                    message = ex.Message,
+                    data = ""
+                    //limiteJetlore = 0
+                });
+            }
         }
     }
 }

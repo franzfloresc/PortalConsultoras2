@@ -63,10 +63,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CDR\DACDRParametria.cs" />
     <Compile Include="CDR\DACDRWeb.cs" />
+    <Compile Include="CDR\DACDRWebDatos.cs" />
     <Compile Include="CDR\DACDRWebDescripcion.cs" />
     <Compile Include="CDR\DACDRWebDetalle.cs" />
     <Compile Include="CDR\DACDRWebMotivoOperacion.cs" />
+    <Compile Include="CDR\DALogCDRWebCulminado.cs" />
+    <Compile Include="CDR\DALogCDRWebDetalleCulminado.cs" />
     <Compile Include="CDR\DALogCDRWebDetalle.cs" />
     <Compile Include="CDR\DALogCDRWeb.cs" />
     <Compile Include="DAAfiliaClienteConsultora.cs" />

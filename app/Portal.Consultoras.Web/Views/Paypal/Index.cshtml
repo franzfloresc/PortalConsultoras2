@@ -53,10 +53,10 @@
 
                 <br />
                 <div class="titulo_detalle_pago titulo_campanias">
-                    <div>TOTAL DEUDA:&nbsp;<div id="divSaldo"><b>@ViewBag.SaldoActual</b></div></div>
+                    <div>TOTAL DEUDA:&nbsp;<div id="divSaldo" style="float:right"><b>@ViewBag.SaldoActual</b></div></div>
                 </div>
                 <div>
-                    <div>Monto a Abonar:</div>
+                    <div class="monto_texto">Monto a Abonar:</div>
                     <div>
                         <div>
                             <input type="text" maxlength="9" id="AMOUNT2" class="pago_ingreso_datos">
@@ -64,32 +64,35 @@
                                 <input type="checkbox" id="chkMontoPagar" style="float:left;">
                                 @*<span class="inputfalso" id="spkMontoPagar"></span>
                             </div>*@
-                            <div class="check_label">TODO</div>
+                            <div class="check_label" style="margin-top:7px;">TODO</div>
 
                         </div>
                     </div>
-                </div><br />
+                </div>
                 <hr class="clear">
+                <br />
                 <div class="linea_separadora" style="height:1px;margin-top:10px;"></div>
                 <br />
                 <div class="titulo_detalle_pago titulo_campanias">
-                    <div>TARJETA <b>DE CRÉDITO:</b></div>
+                    <div style="margin-top:8px;">TARJETA <b>DE CRÉDITO:</b></div>
                     <div>
-                        <input id="CARDNUM2" type="text" maxlength="25" /><img alt="Buscar Cod. Venta" src="" style="display: none" />
+                        <input id="CARDNUM2" type="text" maxlength="25" class="cuadro_tarjeta" /><img alt="Buscar Cod. Venta" src="" style="display: none" />
                     </div>
                 </div>
                 <br />
-                <div class="texto_descripcion" style="padding-top:27px;">
+                <div class="texto_descripcion" style="padding-top:20px;">
                     Estas son las tarjetas que aceptamos:&nbsp;
-                    <div>
+                    
+                    <div style="margin-top:10px;">
                         <img src="~/Content/Images/paypal_tarjetas.png" alt="" />
                     </div>
                 </div>
                 <hr class="clear">
                 <div class="linea_separadora" style="height:1px;margin-top:10px;"></div>
                 <div class="titulo_detalle_pago titulo_campanias">
+                    <br/>
                     <div>FECHA  <b>DE VENCIMIENTO:&nbsp;</b></div>
-                    <div>
+                    <div class="select_fecha_pago">
                         <select data-val="true" id="ddlMes" name="ddlMes">
                             <option value="01">Enero</option>
                             <option value="02">Febrero</option>

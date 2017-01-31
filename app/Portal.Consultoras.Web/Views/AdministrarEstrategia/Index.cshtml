@@ -5,9 +5,607 @@
     int nroImagenes = 10;
     string idControl;
 }
+
+<input type="hidden" id="mensajeErrorCUV" />
+<input type="hidden" id="mensajeErrorCUV2" />
+<input type="hidden" id="hdEstrategiaIDConsulta" />
+<input type="hidden" id="ImagenProducto" />
+<input type="hidden" id="hdEstrategiaID" />
+<input type="hidden" id="hdTipoConsulta" value="0" />
+<input type="hidden" id="hdZonas" value="" />
+<input type="hidden" id="hdSimbolo" />
+<input type="hidden" id="hdTallaColorID" />
+<div class="wrap_cab">
+    <div class="filtros2">
+        <div class="elements">
+            <div class="div-2">
+                <h1><span>Zona de Estrategias</span></h1>
+            </div>
+            <div class="div-3">
+                <div class="titG">País:</div>
+                <div class="selectA borde_redondeado">
+                    @Html.DropDownListFor(model => model.PaisID, new SelectList(Model.listaPaises, "PaisID", "Nombre"), "-- Seleccionar --", new { id = "ddlPais" })
+                </div>
+                <div class="titG">Campaña:</div>
+                <div class="selectA borde_redondeado">
+                    @Html.DropDownListFor(model => model.CampaniaID, new SelectList(Model.listaCampania, "CampaniaID", "NombreCorto"), "-- Seleccionar --", new { id = "ddlCampania" })
+                </div>
+            </div>
+            <div class="div-3">
+                <div class="titG">Tipo de Estrategia:</div>
+                <div class="selectA borde_redondeado">
+                    @*Html.DropDownListFor(model => model.TipoEstrategiaID, new SelectList(Model.ListaTipoEstrategia, "TipoEstrategiaID", "Descripcion"), new { id = "ddlTipoEstrategia" })*@
+                    <select id="ddlTipoEstrategia" name="ddlTipoEstrategia">
+                        @if (Model.ListaTipoEstrategia != null)
+                        {
+                            <option value="">-- Seleccionar --</option>
+                            for (int i = 0; i < Model.ListaTipoEstrategia.Count(); i++)
+                            {
+                            <option flag-nueva="@Model.ListaTipoEstrategia.ToList()[i].FlagNueva"
+                                        flag-recoproduct="@Model.ListaTipoEstrategia.ToList()[i].FlagRecoProduc"
+                                        flag-recoperfil="@Model.ListaTipoEstrategia.ToList()[i].FlagRecoPerfil"
+                                        codigo-programa="@Model.ListaTipoEstrategia.ToList()[i].CodigoPrograma"
+                                        imagen-tipo="@Model.ListaTipoEstrategia.ToList()[i].Imagen"
+                                        value="@Model.ListaTipoEstrategia.ToList()[i].TipoEstrategiaID"
+                                        data-id="@Model.ListaTipoEstrategia.ToList()[i].CodigoGeneral">
+                                @Model.ListaTipoEstrategia.ToList()[i].Descripcion
+                            </option>
+                            }
+                        }
+                    </select>
+                </div>
+                <div class="titG">CUV<sub>2</sub>:</div>
+                <div class="selectA borde_redondeado">
+                    <input type="text" id="CUV" name="CUV" />
+                </div>
+            </div>
+
+            <div class="div-3">
+                <div class="titG">Tiene imagen?:</div>
+                 <div class="selectA borde_redondeado">
+                    <select id="ddlTieneImagen" name="ddlTieneImagen">
+                        <option value="-1" selected>-- Seleccionar --</option>
+                        <option value="1">Si</option>
+                        <option value="0">No</option>
+                    </select>
+                </div>   
+                <div class="titG">Oferta Activa?:</div>
+                <div class="selectA borde_redondeado">
+                    <select id="ddlOfertaActiva" name="ddlOfertaActiva">
+                        <option value="-1" selected>-- Seleccionar --</option>
+                        <option value="1">Si</option>
+                        <option value="0">No</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="div-3">
+                <div class="titG">&nbsp;</div>
+                <div class="input_horizontal">
+                    <input type="button" name="btnBuscar" id="btnBuscar" value="Buscar" />
+                    <input type="button" name="btnNuevo" id="btnNuevo" value="Nuevo" />
+                    <input type="button" name="btnNuevoMasivo" id="btnNuevoMasivo" value="Nuevo Masivo" />
+                    </div>
+                <div class="input_modifica_pedido">                    
+                    <input type="button" name="btnActivarDesactivar" id="btnActivarDesactivar" value="Activar/Desactivar" style="display: none;" />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="wrap">
+    <div class="container clearfix">
+        <div class="border-wrapper">
+            <table id="list"></table>
+            <div id="pager"></div>
+        </div>
+    </div>
+</div>
+
+<div id="DialogAdministracionEstrategia" style="display: none;">
+    <input type="hidden" id="hdPais" value="" />
+    <input type="hidden" id="hdCampania" value="" />
+    <input type="hidden" id="hdTipoEstrategiaID" value="" />
+    <input type="hidden" id="hdColorFondo" value="#FFF" />
+    <input type="hidden" id="hdCodigoPrograma" value="">
+    <input type="hidden" id="hdNumeroPedido" value="">
+    <div class="Content_modal">
+
+        <div class="div-3">
+            <div class="titG">Campaña:</div>
+            <div class="selectP2 borde_redondeado">
+                <input id="spanCampania" type="text" readonly="readonly" />
+            </div>
+            <div class="titG">Tipo de Estrategia:</div>
+            <div class="selectP2 borde_redondeado">
+                <input id="spanTipoEstrategia" type="text" readonly="readonly" />
+            </div>
+        </div>
+
+        <div class="div-3 DatosNuevas" style="display: none">
+            <div class="titG">Campaña fin:</div>
+            <div class="selectP2 borde_redondeado">
+                @Html.DropDownListFor(model => model.CampaniaID, new SelectList(Model.listaCampania, "CampaniaID", "NombreCorto"), "-- Seleccionar --", new { id = "ddlCampaniaFin" })
+            </div>
+            <div class="titG">Pedido Asociado:</div>
+            <div class="checksPedidosAsociados">
+            </div>
+        </div>
+        <div class="div-3 Content_modal" style="margin-left: 12px; width: 92%; padding-top: 10px; padding-bottom: 0;">
+            <div style="color: white;">
+                <div style="display: inline-block; width: 47%; text-align: center; padding: 8px; background: #00A2E8; border-top-left-radius: 10px;">
+                    Información CUV Oferta
+                </div>
+                <div style="display: inline-block; width: 48%; text-align: center; padding: 8px; background: #00A2E8; margin-left: -3px; border-left: 1px #D0D0D0 solid; border-top-right-radius: 10px;">
+                    Precio Valorizado
+                </div>
+            </div>
+            <div>
+                <div style="display: inline-block; width: 47%; text-align: center; padding: 8px; margin-right: -3px; border-right: 1px #D0D0D0 solid;">
+                    <div style="display: inline-block;">CUV2:</div>
+                    <div style="display: inline-block;">
+                        <input type="text" id="txtCUV2" maxlength="5" class="ValidaNumeral" style="width: 60px;" />
+                    </div>
+                    <div style="display: inline-block; padding-left: 40px;">Precio para ti:</div>
+                    <div style="display: inline-block;">
+                        <input type="text" id="txtPrecio2" maxlength="10" class="ValidaNumeral" style="width: 60px;" />
+                    </div>
+                </div>
+                <div style="display: inline-block; width: 48%; text-align: center; padding: 8px; margin-right: -3px;">
+                    <div style="display: inline-block;">CUV:</div>
+                    <div style="display: inline-block;">
+                        <input type="text" id="txtCUV" maxlength="5" class="ValidaNumeral" style="width: 60px;" />
+                    </div>
+                    <div style="display: inline-block;">Precio:</div>
+                    <div style="display: inline-block;">
+                        <input type="text" id="txtPrecio" style="width: 60px;" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="div-3">
+            <div class="titG">Descripción:</div>
+            <div class="titG">
+                <input type="text" id="txtDescripcion" style="width: 520px;" />
+            </div>
+        </div>
+        <div class="div-3">
+            <div class="titG">Talla/Color:</div>
+            <div class="titG" style="width: auto;">
+                <a href="#" style="margin-left: 5px" id="linkTallaColor">
+                    <img src='@Url.Content("~/Content/Images/icons/small/list-icon2.png")' border="0" alt="Agregar Tonos/Tallas/Colores" title="Agregar Tonos/Tallas/Colores"/>
+                </a>
+            </div>
+            <div class="titG">¿Activar Oferta?</div>
+            <div class="selectCheck borde_redondeado">
+                <input type="checkbox" class="check" id="chkHabilitarOferta" style="margin-top: 2px; margin-left: 15px;" />
+            </div>
+        </div>
+        <div class="div-3">
+            <div class="titG">
+                <span>Imagen Seleccionada:</span>
+            </div>
+            <div class="titG">
+                <div class="pdr_modal borde_redondeado alignrigth">
+                    <img src='@Url.Content("~/Content/Images/" + imagenVacia)' id="imgSeleccionada" class="img-estrategia-preview" data-id="">
+                </div>
+            </div>
+        </div>
+        <div style="display: inline-block; width: 39%;">
+        </div>
+
+        <div class="Content_modal" style="margin-left: 10px; width: 94%; padding-top: 10px; padding-bottom: 0;">
+            <div class="div-3">
+                <div style="color: white;">
+                    <div id="divImagenEstrategia" style="display: inline-block; text-align: center; padding: 8px; background: #00A2E8; border-top-left-radius: 10px; border-top-right-radius: 10px; cursor: pointer;">
+                        Imagen - Matriz Somos Belcorp
+                    </div>
+                    <div id="divInformacionAdicionalEstrategia" style="display: inline-block; text-align: center; padding: 8px; color: #702789; background: #D0D0D0; border-top-left-radius: 10px; border-top-right-radius: 10px; cursor: pointer;">
+                        Información Adicional
+                    </div>
+                </div>
+            </div>
+            <div id="divImagenEstrategiaContenido" style="display: none;">
+                <style>
+                    .div-img-estrategias {
+                        float: left;
+                        width: 600px;
+                    }
+
+                        .div-img-estrategias > .titG {
+                            width: 100px;
+                        }
+
+                    .img-estrategia-preview {
+                        cursor: pointer;
+                        width: 100%;
+                        height: 35px;
+                    }
+                </style>
+                <div class="div-3">
+                    <div class="titG">
+                        
+                        <div class="input_search">
+                            @*<img src='@Url.Content("~/Content/Images/subirimagen.png")' id="imgBuscar" class="img-estrategia-preview">*@
+                            <input type="hidden" id="hdnCodigoSAP" class="input-imagen-producto" />
+                           <input type="hidden" id="hdnimagenProducto" class="input-imagen-producto" />
+                            <input type="hidden" id="hdnDescripcion" class="input-imagen-producto" />
+                            <input type="hidden" id="fotoProducto_Id" class="input-imagen-producto" />
+                            <input type="hidden" id="imagenProductoAnterior" class="input-imagen-producto-anterior" />
+                            <input type="hidden" id="hdnEtiqueta1" class="input-imagen-producto" />
+                            <input type="hidden" id="hdnEtiqueta2" class="input-imagen-producto" />     
+                             <input type="hidden" id="hdnEnMatrizComercial" class="input-imagen-producto" />                        
+                            <div id="fpUpload">                               
+                            </div>
+                             <script src="@Url.Content("~/Scripts/fileuploader.js")" type="text/javascript"></script>
+                             <script type="text/javascript">
+                                 var uploader = new qq.FileUploader({
+                                     allowedExtensions: ['jpg', 'png', 'jpeg'],
+                                     element: document.getElementById('fpUpload'),
+                                     action: '@Url.Action("ImageMatrizUpload", "FileUpload")',
+                                     onComplete: function (id, fileName, responseJSON) {
+                                         if (checkTimeout(responseJSON)) {
+                                             //$(".qq-upload-list").css("display", "none");
+                                             if (responseJSON.success) {
+                                                 $("#hdnimagenProducto").val(responseJSON.name);
+                                                 $("#imagenProductoAnterior").val("");
+                                                 $("#fotoProducto_Id").val(('0' + ($("#ContenidoImagenes .titG").length + 1)).substr(-2));
+                                                 // req. 1664   
+
+                                                 ActualizarImagenMatriz();
+                                                 mostrarInformacionCUV($("#txtCUV2").val());
+                                             }
+                                             else alert(responseJSON.message);
+                                         }
+                                     },
+                                     onSubmit: function (id, fileName) { $(".qq-upload-list").css("display", "none"); },
+                                     onProgress: function (id, fileName, loaded, total) { $(".qq-upload-list").css("display", "none"); },
+                                     onCancel: function (id, fileName) { $(".qq-upload-list").css("display", "none"); }
+                                 });
+
+                                 // $('.qq-upload-button').text("cargar imagen");
+                                 function ActualizarImagenMatriz() {
+                                     var fotosProductos = [];
+                                     var imagenNueva = {
+                                         "idImagen": $("#fotoProducto_Id").val(),
+                                         "dataImagen": $("#hdnimagenProducto").val(),
+                                         "fotoProducto": $("#hdnimagenProducto").val(),
+                                         "fotoProductoAnterior": $("#imagenProductoAnterior").val(),
+                                         "selected": false
+                                     }
+
+                                     var idImagen;
+                                     var dataImagen;
+                                     var item = {
+                                         CodigoSAP: $.trim($('#hdnCodigoSAP').val()),
+                                         DescripcionOriginal: $.trim($('#hdnDescripcion').val()),
+                                         Descripcion: $.trim($("#hdnDescripcion").val()),
+                                         PaisID: $('#ddlPais').val()
+                                     };
+
+                                     var prd = 0;
+                                     $.each($("#ContenidoImagenes .titG"), function (j) {
+                                         prd++;
+                                         if (prd != 0) {
+                                             idImagen = ('0' + prd).substr(-2);
+                                             dataImagen = $('#preview' + idImagen).attr('src');
+
+                                             var imagen = {
+                                                 "idImagen": idImagen,
+                                                 "dataImagen": dataImagen,
+                                                 "fotoProducto": dataImagen.substr(dataImagen.lastIndexOf("/") + 1),
+                                                 "fotoProductoAnterior": dataImagen.substr(dataImagen.lastIndexOf("/") + 1),
+                                                 "selected": $('#chk-estrategia-imagen' + idImagen).is(":checked") ? true : false
+                                             }
+                                             fotosProductos.push(imagen);
+                                         }
+                                     });
+                                     fotosProductos.push(imagenNueva);
+
+                                     var i = 1;
+                                     fotosProductos.forEach(function (imagen) {
+                                         idImagen = ('0' + i).substr(-2);
+                                         item['FotoProducto' + idImagen] = imagen.fotoProducto;
+                                         item['FotoProductoAnterior' + idImagen] = imagen.fotoProductoAnterior;
+                                         i++;
+                                     });
+
+                                     for (i = fotosProductos.length + 1; i <= nroImagenes; i++) {
+                                         idImagen = ('0' + i).substr(-2);
+                                         item['FotoProducto' + idImagen] = imagenVacia;
+                                         item['FotoProductoAnterior' + idImagen] = imagenVacia;
+                                     }
+
+                                     var enMatriz = $.trim($('#hdnEnMatrizComercial').val());
+                                     var accion = (enMatriz == "0" ? baseUrl + 'MatrizComercial/InsertMatrizComercial' : baseUrl + 'MatrizComercial/UpdateMatrizComercial');
+                                     jQuery.ajax({
+                                         type: 'POST',
+                                         url: accion,
+                                         dataType: 'json',
+                                         contentType: 'application/json; charset=utf-8',
+                                         data: JSON.stringify(item),
+                                         async: true,
+                                         success: function (data) {
+                                             if (checkTimeout(data)) {
+                                                 closeWaitingDialog();
+                                                 if (data.success == true) {
+                                                     alert(data.message);
+                                                     //HideDialog("DialogMatrizComercial");
+                                                     //LimpiarDatos();
+                                                     //jQuery("#list").setGridParam({ datatype: 'json', page: 1 }).trigger('reloadGrid');
+
+                                                 }
+                                                 else {
+                                                     alert(data.message);
+                                                 }
+                                             }
+                                         },
+                                         error: function (data, error) {
+                                             if (checkTimeout(data)) {
+                                                 closeWaitingDialog();
+                                                 alert(data.message);
+                                                 // HideDialog("DialogMatrizComercial");
+                                             }
+                                         }
+                                     });
+                                 }
+                                </script>
+                        </div>
+                    </div>
+                </div>
+                <div class="div-3" id="ContenidoImagenes">
+
+                </div>
+            </div>
+            <div id="divInformacionAdicionalEstrategiaContenido" style="display: none;">
+                <div class="div-3">
+                    <div class="titG">Mensaje Adicional:</div>
+                    <div class="titE">
+                        <input type="text" id="txtTextoLibre" maxlength="100" style="width: 360px;" />
+                    </div>
+                </div>
+                <div class="div-3 OfertaUltimoMinuto">
+                    <div class="titH">Oferta de Último Minuto</div>
+                    <div class="selectCheck borde_redondeado">
+                        <input type="checkbox" class="check" id="chkOfertaUltimoMinuto" style="margin-top: 2px; margin-left: 15px;" />
+                    </div>
+                </div>
+                <div class="div-est-3 DatosNuevas" id="div-orden" style="display: none">
+                    <!--SB20-312 -->
+                    <div class="titB">&nbsp;</div>
+                    <div class="titB">Orden:</div>
+                    <div class="titB">
+                        <input type="text" id="txtOrden" value="" maxlength="3" />
+                    </div>
+                </div>
+                <div class="div-3">
+                    <div class="titG">Limite de Venta:</div>
+                    <div class="titAuto">
+                        <input type="text" id="txtLimite" value="99" style="width: 26px;" />
+                    </div>
+                    <div class="titE">&nbsp;(Número de Unidades máximas por Consultora)</div>
+                </div>
+                <div class="div-est-3 DatosNuevas" style="display: none">
+                    <div class="titB">&nbsp;</div>
+                    <div class="titB">Alcance:</div>
+                    <div class="titD">
+                        <input type="text" id="txtAlcance" readonly="readonly" />
+                    </div>
+                    <div class="titA" style="width: 20px">
+                        <a href="#" style="margin-left: 5px" id="linkAlcance">
+                            <img src='@Url.Content("~/Content/Images/search.png")' border="0" alt="Seleccionar alcance" title="Seleccionar alcance" />
+                        </a>
+                    </div>
+                    <div class="titG" style="width: 300px">&nbsp;(Seleccionar Pa&iacute;s, Regi&oacute;n o Zona)</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="DialogZona" style="display: none;">
+    <div class="Content_modal">
+        <div class="div-3">
+            <div class="treeview_est_content">
+                <div id="arbolRegionZona" class="demo">
+                </div>
+            </div>
+        </div>
+        <div class="div-3">
+            <div class="titF"></div>
+            <div class="titF"></div>
+            <div class="titH">
+                <input type="checkbox" id="chkSeleccionar" />Seleccionar todo
+            </div>
+            </div>
+        </div>
+    </div>
+<div id="DialogEditarTallaColor" style="display: none;">
+    <div class="Content_modal">
+        <div class="div-3">
+            <div class="titG">CUV:</div>
+            <div class="selectP2 borde_redondeado">
+                <input type="text" id="txtCUVTC" />
+            </div>
+        </div>
+        <div class="div-3">
+            <div class="titG">Descripción:</div>
+            <div class="selectP2 borde_redondeado" style="width: 300px">
+                <input type="text" id="txtDescripcionCUVTC" style="width: 290px" readonly="readonly" />
+            </div>
+        </div>
+        <div class="div-3">
+            <div class="titG">Precio:</div>
+            <div class="selectP2 borde_redondeado">
+                <input type="text" id="txtPrecioCUVTC" readonly="readonly" />
+            </div>
+        </div>
+        <div class="div-3">
+            <div class="titG">Tipo:</div>
+            <div class="selectP2 borde_redondeado">
+                <select id="ddlTallaColor">
+                    <option value='0'>-- Seleccionar --</option>
+                    <option value='C'>Color</option>
+                    <option value='T'>Talla</option>
+                </select>
+            </div>
+        </div>
+        <div class="div-3">
+            <div class="titG">Descripción (Talla/Color):</div>
+            <div class="selectP2 borde_redondeado">
+                <input type="text" id="txtDescripcionTC" />
+            </div>
+        </div>
+    </div>
+</div>
+<div id="DialogTonoMarca" style="display: none;">
+    <div class="Content_modal">
+        <table id="listTC"></table>
+        <div id="pagerTC"></div>
+    </div>
+</div>
+<div id="divVistaPrevia" class="Content_modal_ZE" style="display: none; background-color: #fff; width: 200px; height: 330px; overflow: hidden; text-align: center">
+    <div class="Content_modal_ZE" style="margin: 5px; overflow: hidden;">
+        <div style="position: absolute; width: 100%;">
+            <img id="imgTipoOferta" style="float: right; margin-top: 10px;" src="">
+        </div>
+        <div style="position: absolute; width: 100%;">
+            <img id="imgEstrella" style="float: left; margin-top: 10px; width: 23px; height: 23px;" src="@Url.Content("~/Content/Images/star_reco.png")">
+        </div>
+        <img id="imgZonaEstrategia" style="width: 128px; height: 161px; margin: 5px;" src="" alt="Imagen Producto">
+    </div>
+    <div class="zona_estrategia_1"></div>
+    <div>&nbsp;</div>
+    <div class="zona_estrategia_2"></div>
+    <div class="zona_estrategia_3"></div>
+    <div class="zona_estrategia_4"></div>
+</div>
+<div id="DialogNuevoMasivo" style="display: none;">
+    <div class="Content_modal">
+        <div class="div-3" style="text-align: center;">
+            <div class="boton_redondo_admcontenido_on" id="divPaso1">1</div>
+            <div class="signo_admcontenido_estrategia">></div>
+            <div class="boton_redondo_admcontenido_off" id="divPaso2">2</div>
+            <div class="signo_admcontenido_estrategia">></div>
+            <div class="boton_redondo_admcontenido_off" id="divPaso3">3</div>
+        </div>
+        <div id="divMasivoPaso1">
+            <div class="div-3" style="text-align: center; color: #00A2E8;">
+                Pre Carga de CUVS pendientes por configurar en Zona de Estrategias
+            </div>
+            <div class="container" style="width: auto;">
+                <div class="border-wrapper">
+                    <table id="listCargaMasiva1"></table>
+                    <div id="pagerCargaMasiva1"></div>
+                </div>
+            </div>
+            <div id="divMostrarPreCarga">
+                <div class="div-3" style="text-align: center; color: #00A2E8; margin-top: 20px;">
+                    ¿Deseas pre cargar la información de los CUVS pendientes por configurar? (<span id="spnCantidadConfigurar1">11</span>) CUVS
+                </div>
+                <div class="div-3">
+                    <div class="input_horizontal" style="text-align: center;">
+                        <input type="button" name="btnAceptarMasivo1" id="btnAceptarMasivo1" value="Aceptar" style="float: none;" />
+                        <input type="button" name="btnCancelarMasivo1" id="btnCancelarMasivo1" value="Cancelar" style="float: none;" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="divMasivoPaso2" style="display: none;">
+            <div class="div-3" style="text-align: center; color: #00A2E8;">
+                Grabar información en Zona de Estrategias
+            </div>
+            <div class="container" style="width: auto;">
+                <div class="border-wrapper">
+                    <table id="listCargaMasiva2"></table>
+                    <div id="pagerCargaMasiva2"></div>
+                </div>
+            </div>
+            <div id="divMostrarPreCarga2">
+                <div class="div-3" style="text-align: center; color: #00A2E8; margin-top: 20px;">
+                    ¿Deseas grabar la información de los CUVS pre cargados correctamente en la Zona de Estrategias? (<span id="spnCantidadConfigurar2">11</span>) CUVS
+                </div>
+                <div class="div-3">
+                    <div class="input_horizontal" style="text-align: center;">
+                        <input type="button" name="btnAceptarMasivo2" id="btnAceptarMasivo2" value="Aceptar" style="float: none;" />
+                        <input type="button" name="btnCancelarMasivo2" id="btnCancelarMasivo2" value="Cancelar" style="float: none;" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="divMasivoPaso3" style="display: none;">
+            <div class="div-3" style="text-align: center; color: #00A2E8;">
+                Confirmación de grabación en Zona de Estrategias
+            </div>
+            <div class="div-3" style="text-align: center; margin-top: 20px;">
+                Se grabó la información de los <a onclick=" VerCuvsTipo2(1); "><span id="spnCantidadConfigurar3">11</span> CUVS</a>
+            </div>
+            <div id="divMostrarNoCargados" class="div-3" style="text-align: center; margin-top: 20px;">
+                Quedan <a onclick=" VerCuvsTipo2(2); "><span id="spnCantidadNoConfigurar3">11</span> CUVS</a> pendientes para cargar.
+            </div>
+            <div class="div-3">
+                <div class="input_horizontal" style="text-align: center;">
+                    <input type="button" name="btnAceptarMasivo3" id="btnAceptarMasivo3" value="Aceptar" style="float: none;" />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="DialogGrillaCuv1">
+    <div class="Content_modal">
+        <div class="container" style="width: auto;">
+            <div class="border-wrapper">
+                <table id="listGrillaCuv1"></table>
+                <div id="pagerGrillaCuv1"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="DialogGrillaCuv2">
+    <div class="Content_modal">
+        <div class="container" style="width: auto;">
+            <div class="border-wrapper">
+                <table id="listGrillaCuv2"></table>
+                <div id="pagerGrillaCuv2"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="loadingScreen"></div>
+
+<script id="ImagenCUV-template" type="text/x-jquery-tmpl">
+    <div class="titG">
+        <div class="pdr_modal borde_redondeado aligncenter">
+            <img src="${dataImagen}" id="preview${idImagen}" class="img-estrategia-preview" data-id="${idImagen}">
+        </div>
+        <div class="pdr_modal_check aligncenter">
+            <input type="checkbox" id="chk-estrategia-imagen${idImagen}" class="chk-estrategia-imagen" {{if selected}} checked{{/if}} data-id="${idImagen}">
+        </div>
+    </div>
+</script>
+
 <script type="text/javascript">
     var nroImagenes = '@nroImagenes';
     var imagenVacia = '@imagenVacia';
+    var rutaImagenVacia = '@Url.Content("~/Content/Images/" + imagenVacia)';
+    var urlGetOfertaByCUV = baseUrl + 'AdministrarEstrategia/GetOfertaByCUV';
+    var urlCargarArbolRegionesZonas = baseUrl + "AdministrarEstrategia/CargarArbolRegionesZonas";
+    var rutastylejstree = '@Url.Content("~/Content/Css/jstree/apple/stylejstree.css")';
+    var rutaImagenEdit = '@Url.Content("~/Content/Images/Edit.png")';
+    var rutaImagenDelete = '@Url.Content("~/Content/Images/Delete.png")';
+    var urlFiltrarEstrategia = baseUrl + 'AdministrarEstrategia/FiltrarEstrategia';
+    var urlDeshabilitarEstrategia = baseUrl + 'AdministrarEstrategia/DeshabilitarEstrategia';
+    var urlActivarDesactivarEstrategias = baseUrl + 'AdministrarEstrategia/ActivarDesactivarEstrategias';
+    var cantidadPrecargar = 0;
+    var cantidadPrecargar2 = 0;
+    var urlConsultarCuvTipoConfigurado = baseUrl + 'AdministrarEstrategia/ConsultarCuvTipoConfigurado';
+    var urlConsultarCuvTipoConfiguradoTemporal = baseUrl + 'AdministrarEstrategia/ConsultarCuvTipoConfiguradoTemporal';
+    var imagenesProductos = [];
+    var originalContent;
+
+
+
+
 
     jQuery(document).ready(function () {
         fnGrilla();
@@ -34,75 +632,158 @@
             SeleccionarTipoOferta();
             PedidoAsociadoChecks();
 
-            var objPreview, objChkImagen, idImagen;
-            for (var i = 1; i <= nroImagenes; i++) {
-                idImagen = ('0' + i).substr(-2);
-                objPreview = $('#preview' + i);
-                objChkImagen = $('#chkImagenProducto' + idImagen);
-                objPreview.attr("src", '@Url.Content("~/Content/Images/" + imagenVacia)');
-                objChkImagen.attr('disabled', true).attr('checked', false);
-            }
-
             $("#hdEstrategiaIDConsulta").val($("#ddlTipoEstrategia").val());
-            $("#hdEstrategiaID").val("0");
-            $("#hdCampania").val($("#ddlCampania").val());
-            $("#hdTipoEstrategiaID").val($("#ddlTipoEstrategia").val());
-            $("#txtAlcance").val($("#ddlPais option:selected").html());
-            $("#spanCampania").val($("#ddlCampania option:selected").html());
-            $("#spanTipoEstrategia").val($("#ddlTipoEstrategia option:selected").html().trim());
-            $('#chkHabilitarOferta').attr('checked', false);
-            $('#hdZonas').val('');
-            $('#chkVisible1').attr("checked", true);
-            $('#chkVisible2').attr("checked", false);
-            $('#chkVisible3').attr("checked", true);
-            $('#chkVisible4').attr("checked", false);
-            $('#chkVisible5').attr("checked", false);
-            $('#hdColorFondo').val("#FFF");
-            ActivarDesactivarChecks();
-            $('#mensajeErrorCUV').val("");
-            $('#mensajeErrorCUV2').val("");
-            $("#linkAlcance").click();
-            $(".checksPedidosAsociados").html('');
+                $("#hdEstrategiaID").val("0");
+                $("#hdCampania").val($("#ddlCampania").val());
+                $("#hdTipoEstrategiaID").val($("#ddlTipoEstrategia").val());
+                $("#txtAlcance").val($("#ddlPais option:selected").html());
+                $("#spanCampania").val($("#ddlCampania option:selected").html());
+                $("#spanTipoEstrategia").val($("#ddlTipoEstrategia option:selected").html().trim());
+                $('#chkHabilitarOferta').attr('checked', false);
+            $('#chkOfertaUltimoMinuto').attr('checked', false);
+                $('#hdZonas').val('');
 
-            var aux1 = $('#ddlTipoEstrategia').find(':selected').data('id');
+            /*Limpiar datos*/
+            $('#txtCUV2').val('');
+            $('#txtPrecio2').val('');
+            $('#txtCUV').val('');
+            $('#txtPrecio').val('');
+            $('#txtDescripcion').val('');
 
-            /* SB20-312 - INICIO */
-            if (aux1 == "4") {
-                $("#txtOrden").val("");
-                $('#div-orden').hide();
+            $('#ContenidoImagenes').empty();
+            $('#imgSeleccionada').attr("src", rutaImagenVacia);
+            $('#imgZonaEstrategia').attr("src", rutaImagenVacia);
 
-                $('#txt1-estrella').html('Oferta de Último Minuto');
-                $('#txt2-estrella').hide();
+            $("#divImagenEstrategiaContenido").show();
+            $("#divInformacionAdicionalEstrategiaContenido").hide();
+
+            $("#divImagenEstrategia").css("color", "white");
+            $("#divImagenEstrategia").css("background", "#00A2E8");
+            $("#divInformacionAdicionalEstrategia").css("color", "#702789");
+            $("#divInformacionAdicionalEstrategia").css("background", "#D0D0D0");
+            $("#txtTextoLibre").val("");
+
+                $('#hdColorFondo').val("#FFF");
+                ActivarDesactivarChecks();
+                $('#mensajeErrorCUV').val("");
+                $('#mensajeErrorCUV2').val("");
+                $("#linkAlcance").click();
+                $(".checksPedidosAsociados").html('');
+
+                var aux1 = $('#ddlTipoEstrategia').find(':selected').data('id');
+            $("#btnActivarDesactivar").hide();
+
+                /* SB20-312 - INICIO */
+                if (aux1 == "4") {
+                    $("#txtOrden").val("");
+                    $('#div-orden').hide();
+
+                    $('#txt1-estrella').html('Oferta de Último Minuto');
+                    $('#txt2-estrella').hide();
+                $("#btnActivarDesactivar").show();
+                }
+                else {
+                    //$("#txtOrden").val("");
+                    $('#div-orden').show();
+
+                    $('#txt1-estrella').html('Mostrar estrella');
+                    $('#txt2-estrella').show();
+                }
+
+                $("#ddlEtiqueta1").children('option').show();
+                $("#ddlEtiqueta2").children('option').show();
+
+                if (aux1 == "2") {
+                    $("#ddlEtiqueta1").children('option').hide();
+                    $("#ddlEtiqueta1").children("option[data-id='4']").show();
+
+                $("#hdnEtiqueta1").val('4');
+                }
+                else if (aux1 == "4" || aux1 == "5") {
+
+                $("#hdnEtiqueta1").val('1');
+                $("#hdnEtiqueta2").val('3');
+
+                } else if (aux1 == "0" || aux1 == '6') {
+                $("#ddlEtiqueta1").children("option[data-id='5']").hide();
+                $("#ddlEtiqueta2").children("option[data-id='5']").hide();
+                $("#hdnEtiqueta1").val('5');
+                $("#hdnEtiqueta2").val('5');
             }
-            else {
-                //$("#txtOrden").val("");
-                $('#div-orden').show();
 
-                $('#txt1-estrella').html('Mostrar estrella');
-                $('#txt2-estrella').show();
-            }
+            if (aux1 == "6") {
+                $('.OfertaUltimoMinuto').hide();
+            } else { $('.OfertaUltimoMinuto').show(); }
 
-            $("#ddlEtiqueta1").children('option').show();
-            $("#ddlEtiqueta2").children('option').show();
+            if (aux1 == "7") {
+                $('.Recomendados').hide();
 
-            if (aux1 == "2") {
-                $("#ddlEtiqueta1").children('option').hide();
-                $("#ddlEtiqueta1").children("option[data-id='4']").show();
-            }
-            else if (aux1 == "4" || aux1 == "5") {
                 $("#ddlEtiqueta1").children('option').hide();
                 $("#ddlEtiqueta1").children("option[data-id='1']").show();
 
                 $("#ddlEtiqueta2").children('option').hide();
-                $("#ddlEtiqueta2").children("option[data-id='3']").show();
+                $("#ddlEtiqueta2").children("option[data-id='5']").show();
+
+                $('#div-orden').hide(); //Ocultando Orden
+
+                $("#hdnEtiqueta1").val('1');
+                $("#hdnEtiqueta2").val('5');
+
+                //$('#txtLimite').prop('readonly', true); //Modo lectura on
             }
+            //else {
+            //    $('#div-orden').show(); //Ocultando Orden
+            //    //$('#txtLimite').prop('readonly', false); //Modo lectura off
+            //}
+            /*********************/
+                /* SB20-312 - FIN */
 
-            /* SB20-312 - FIN */
+                HideDialog("DialogZona");
+                showDialog("DialogAdministracionEstrategia");
+        });
+        // Activar/Desactivar las estrategias de Ofertas de forma masiva
+        $("#btnActivarDesactivar").click(function () {
 
-            HideDialog("DialogZona");
-            showDialog("DialogAdministracionEstrategia");
+            var proceder = confirm('¿ Desea habilitar/deshabiltar las estrategias?');
+            if (!proceder)
+                return false;
+
+            waitingDialog({});
+
+            var estrategias = jQuery("#list").jqGrid('getDataIDs', 'EstrategiaID');
+            var estrategiasSeleccionadas = jQuery("#list").jqGrid('getGridParam', 'selarrrow');
+            var estrategiasNoSeleccionadas = estrategias.filter(function (obj) { return estrategiasSeleccionadas.indexOf(obj) == -1; });
+
+            var params = {
+                EstrategiasActivas: estrategiasSeleccionadas.join(','),
+                EstrategiasDesactivas: estrategiasNoSeleccionadas.join(',')
+            };
+
+            jQuery.ajax({
+                type: 'POST',
+                url: urlActivarDesactivarEstrategias,
+                dataType: 'json',
+                contentType: 'application/json; charset=utf-8',
+                data: JSON.stringify(params),
+                async: true,
+                success: function (data) {
+                    alert(data.message);
+                    fnGrilla();
+                    closeWaitingDialog();
+                },
+                error: function (data, error) {
+                    alert(data.message);
+                    closeWaitingDialog();
+                }
+            });
+
         });
         $("#ddlTipoEstrategia").change(function () {
+            var aux1 = $('#ddlTipoEstrategia').find(':selected').data('id');
+            $("#btnActivarDesactivar").hide();
+            if (aux1 == "4")
+                $("#btnActivarDesactivar").show();
+
             SeleccionarTipoOferta();
             PedidoAsociadoChecks();
         });
@@ -238,13 +919,24 @@
                 var flagNueva = $("#ddlTipoEstrategia option:selected").attr("flag-nueva");
                 var flagRecoProduc = $("#ddlTipoEstrategia option:selected").attr("flag-recoproduct");
                 var flagRecoPerfil = $("#ddlTipoEstrategia option:selected").attr("flag-recoperfil");
+                var auxOD = $('#ddlTipoEstrategia').find(':selected').data('id'); // PL20-1225
+
+                /**** PL20-1225 *****/
+                var flagOD = "";
+                if (auxOD == '7') {
+                    flagOD = '4';
+                }
+                else {
+                    flagOD = '0';
+                }
+                /********/
 
                 var params = {
                     CampaniaID: $("#ddlCampania").val(),
                     CUV2: $("#txtCUV2").val(),
                     TipoEstrategiaID: $("#ddlTipoEstrategia").val(),
                     CUV1: $("#txtCUV").val(),
-                    flag: "1",
+                    flag: flagOD,//"1",
                     FlagNueva: flagNueva,
                     FlagRecoProduc: flagRecoProduc,
                     FlagRecoPerfil: flagRecoPerfil
@@ -330,141 +1022,12 @@
 
         });
         $("#txtCUV2").keyup(function () {
-            if ($(this).val().length == 5) {
-                waitingDialog({});
-                $.ajaxSetup({ cache: false });
+            var cuvIngresado = $(this).val();
+            $("#imgSeleccionada").attr("src", rutaImagenVacia);
+            $("#imgSeleccionada").attr("data-id", "0");
+            mostrarInformacionCUV(cuvIngresado);
+        });
 
-                var flagNueva = $("#ddlTipoEstrategia option:selected").attr("flag-nueva");
-                var flagRecoProduc = $("#ddlTipoEstrategia option:selected").attr("flag-recoproduct");
-                var flagRecoPerfil = $("#ddlTipoEstrategia option:selected").attr("flag-recoperfil");
-
-                var params = {
-                    CampaniaID: $("#ddlCampania").val(),
-                    CUV2: $("#txtCUV2").val(),
-                    TipoEstrategiaID: $("#ddlTipoEstrategia").val(),
-                    CUV1: "0",
-                    flag: "0",
-                    FlagNueva: flagNueva,
-                    FlagRecoProduc: flagRecoProduc,
-                    FlagRecoPerfil: flagRecoPerfil
-                };
-
-                jQuery.ajax({
-                    type: 'POST',
-                    url: baseUrl + 'AdministrarEstrategia/GetOfertaByCUV',
-                    dataType: 'json',
-                    contentType: 'application/json; charset=utf-8',
-                    data: JSON.stringify(params),
-                    async: true,
-                    success: function (data) {
-                        var objPreview, objChkImagen, idImagen, dataImagen, imgFormat;
-                        $('#mensajeErrorCUV').val("");
-
-                        if (data.message == "OK") {
-                            $("#txtDescripcion").val(data.descripcion);
-
-                            if (data.wsprecio > 0) {
-                                $("#txtPrecio2").val(parseFloat(data.wsprecio).toFixed(2));
-                                $("#txtPrecio2")[0].disabled = true;
-                            }
-                            else if (data.wsprecio == 0) {
-                                if (data.precio == 0) {
-                                    $("#txtPrecio2").val(parseFloat(data.precio).toFixed(2));
-                                    $("#txtPrecio2")[0].disabled = true;
-                                }
-                                else {
-                                    $("#txtPrecio2").val(parseFloat(data.precio).toFixed(2));
-                                    $("#txtPrecio2")[0].disabled = true;
-                                }
-                            }
-                            else if (data.wsprecio == -1) {
-                                $("#txtPrecio2")[0].disabled = true;
-                                alert("No se pudo  obtener el precio del producto. Por favor, comunicarse con Soporte Digital Consultoras");
-                            }
-                            else if (data.wsprecio == -2) {
-                                $("#txtPrecio2")[0].disabled = false;
-                                $("#txtPrecio2").val("");
-                                $("#txtPrecio2").focus();
-                            }
-                            $("#txtPrecio").val("");
-                            $("#txtCUV").val("");
-
-                            for (var i = 1; i <= nroImagenes; i++) {
-                                idImagen = ('0' + i).substr(-2);
-                                objPreview = $('#preview' + i);
-                                objChkImagen = $('#chkImagenProducto' + idImagen);
-                                dataImagen = data['imagen' + i];
-
-                                if (dataImagen != '') {
-                                    objPreview.attr('src', dataImagen);
-                                    objChkImagen.attr('disabled', false);
-                                }
-                                else {
-                                    objPreview.attr('src', '@Url.Content("~/Content/Images/" + imagenVacia)');
-                                    objChkImagen.attr('disabled', true);
-                                }
-
-                                imgFormat = dataImagen.replace(/^.*[\\\/]/, '');
-                                if (imgFormat.lastIndexOf("?") >= 0) imgFormat = imgFormat.substring(0, imgFormat.lastIndexOf("?"));
-                                objChkImagen.val(imgFormat);
-                            }
-                            $('#mensajeErrorCUV2').val("");
-                            closeWaitingDialog();
-                        } else {
-                            $('#mensajeErrorCUV2').val(data.message);
-                            alert($('#mensajeErrorCUV2').val());
-                            $("#txtDescripcion").val("");
-                            $("#txtPrecio2").val("");
-
-                            $("#txtPrecio").val("");
-                            $("#txtCUV").val("");
-
-                            for (var i = 1; i <= nroImagenes; i++) {
-                                idImagen = ('0' + i).substr(-2);
-                                objPreview = $('#preview' + i);
-                                objChkImagen = $('#chkImagenProducto' + idImagen);
-                                dataImagen = data['imagen' + i];
-
-                                if (dataImagen != '') {
-                                    objPreview.attr('src', data.imagen1);
-                                    objChkImagen.attr('disabled', false);
-                                }
-                                else {
-                                    objPreview.attr('src', '@Url.Content("~/Content/Images/" + imagenVacia)');
-                                    objChkImagen.attr('disabled', true);
-                                }
-                                objChkImagen.attr('checked', false);
-                            }
-
-                            @*$("#preview1").attr("src", data.imagen1);
-                            $("#preview2").attr("src", data.imagen2);
-                            $("#preview3").attr("src", data.imagen3);
-
-                            if (data.imagen1 == "") {
-                                $("#preview1").attr("src", '@Url.Content("~/Content/Images/" + imagenVacia)');
-                                $("#chkImagenProducto01").attr('disabled', true);
-                            } else { $("#chkImagenProducto01").attr('disabled', false); }
-                            if (data.imagen2 == "") {
-                                $("#preview2").attr("src", '@Url.Content("~/Content/Images/" + imagenVacia)');
-                                $("#chkImagenProducto02").attr('disabled', true);
-                            } else { $("#chkImagenProducto02").attr('disabled', false); }
-                            if (data.imagen3 == "") {
-                                $("#preview3").attr("src", '@Url.Content("~/Content/Images/" + imagenVacia)');
-                                $("#chkImagenProducto03").attr('disabled', true);
-                            } else { $("#chkImagenProducto03").attr('disabled', false); }*@
-                            //$('#chkImagenProducto01').attr('checked', false);
-                            //$('#chkImagenProducto02').attr('checked', false);
-                            //$('#chkImagenProducto03').attr('checked', false);
-                            closeWaitingDialog();
-                        }
-                    },
-                    error: function (data, error) {
-                        alert(data.message);
-                        closeWaitingDialog();
-                    }
-                });
-            }
-        });        
         $(".chk-estrategia-imagen").click(function () {
             var id = $(this).attr('data-id');
             if ($(this).attr('checked')) {
@@ -501,25 +1064,471 @@
                 $(this).attr('disabled', false);
                 PaletaColores();
             }
-        });        
-        $(".img-estrategia-preview").click(function () {
-            var id = $(this).attr('data-id');
-            var idImagen = ('0' + id).substr(-2);
-            var objChkImagen = $('#chkImagenProducto' + idImagen);
-
-            if (objChkImagen.attr("disabled") != "disabled") MostrarVistaPrevia('preview' + id);
         });
+
+
+        $("#btnNuevoMasivo").click(function () {
+            if ($("#ddlPais").val() == "") {
+                alert("Debe seleccionar el País, verifique.");
+                return false;
+            }
+            if ($("#ddlCampania").val() == "") {
+                alert("Debe seleccionar la Campaña, verifique.");
+                return false;
+            }
+            if ($("#ddlTipoEstrategia").val() == "") {
+                alert("Debe seleccionar un tipo de estrategia, verifique.");
+                return false;
+            } else {
+                var estrategiaId = $("#ddlTipoEstrategia option:selected").attr("data-id");
+                if (estrategiaId != 4) {
+                    alert("Debe seleccionar el tipo de Estrategia Oferta para Ti, verifique.");
+                    return false;
+                }
+            }
+
+            $("#divMasivoPaso1").show();
+            $("#divMasivoPaso2").hide();
+            $("#divMasivoPaso3").hide();
+
+            $("#divPaso1").removeClass("boton_redondo_admcontenido_off");
+            $("#divPaso1").addClass("boton_redondo_admcontenido_on");
+
+            $("#divPaso2").removeClass("boton_redondo_admcontenido_on");
+            $("#divPaso2").addClass("boton_redondo_admcontenido_off");
+
+            $("#divPaso3").removeClass("boton_redondo_admcontenido_on");
+            $("#divPaso3").addClass("boton_redondo_admcontenido_off");
+
+            fnGrillaEstrategias1();
+
+            //$(".ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset").css("float", "none");
+            //$(".ui-dialog .ui-dialog-buttonpane").css("text-align", "center");
+            showDialog("DialogNuevoMasivo");
+        });
+
+        $("#btnAceptarMasivo1").click(function () {
+            var params = {
+                campaniaId: parseInt($("#ddlCampania").val()),
+                tipoConfigurado: 2
+            };
+
+            waitingDialog({});
+
+            jQuery.ajax({
+                type: 'POST',
+                url: baseUrl + 'AdministrarEstrategia/InsertEstrategiaTemporal',
+                dataType: 'json',
+                contentType: 'application/json; charset=utf-8',
+                data: JSON.stringify(params),
+                async: true,
+                success: function (data) {
+                    if (data.success) {
+                        closeWaitingDialog();
+                        fnGrillaEstrategias2();
+                    } else {
+                        alert(data.message);
+                    }
+                },
+                error: function (data, error) {
+                    alert(data.message);
+                }
+            });
+        });
+
+        $("#btnCancelarMasivo1").click(function () {
+            HideDialog("DialogNuevoMasivo");
+        });
+
+        $("#btnAceptarMasivo2").click(function () {
+            var params = {
+                campaniaId: parseInt($("#ddlCampania").val()),
+                tipoConfigurado: 1
+            };
+
+            waitingDialog({});
+
+            jQuery.ajax({
+                type: 'POST',
+                url: baseUrl + 'AdministrarEstrategia/InsertEstrategiaOfertaParaTi',
+                dataType: 'json',
+                contentType: 'application/json; charset=utf-8',
+                data: JSON.stringify(params),
+                async: true,
+                success: function (data) {
+                    if (data.success) {
+                        closeWaitingDialog();
+                        //fnGrillaEstrategias2();
+                        $("#divMasivoPaso1").hide();
+                        $("#divMasivoPaso2").hide();
+                        $("#divMasivoPaso3").show();
+
+                        $("#divPaso1").removeClass("boton_redondo_admcontenido_on");
+                        $("#divPaso1").addClass("boton_redondo_admcontenido_off");
+
+                        $("#divPaso2").removeClass("boton_redondo_admcontenido_on");
+                        $("#divPaso2").addClass("boton_redondo_admcontenido_off");
+
+                        $("#divPaso3").removeClass("boton_redondo_admcontenido_off");
+                        $("#divPaso3").addClass("boton_redondo_admcontenido_on");
+                    } else {
+                        alert(data.message);
+                    }
+                },
+                error: function (data, error) {
+                    alert(data.message);
+                }
+            });
+        });
+
+        $("#btnCancelarMasivo2").click(function () {
+            var params = {
+                campaniaId: parseInt($("#ddlCampania").val())
+            };
+
+            jQuery.ajax({
+                type: 'POST',
+                url: baseUrl + 'AdministrarEstrategia/CancelarInsertEstrategiaTemporal',
+                dataType: 'json',
+                contentType: 'application/json; charset=utf-8',
+                data: JSON.stringify(params),
+                async: true,
+                success: function (data) {
+                    if (data.success) {
+                        HideDialog("DialogNuevoMasivo");
+                    }
+                    alert(data.message);
+                },
+                error: function (data, error) {
+                    alert(data.message);
+                }
+            });
+        });
+
+        $("#btnAceptarMasivo3").click(function () {
+            HideDialog("DialogNuevoMasivo");
+        });
+
+        });
+
+    $(".chk-estrategia-imagen").live("click", function () {
+        var id = $(this).attr('data-id');
+        var imagenURL = ""
+        if ($(this).attr('checked')) {
+            $("#imgSeleccionada").attr("src", $("#preview" + id).attr("src"));
+            imagenURL = $("#imgSeleccionada").attr("src");
+            $("#ImagenProducto").val(imagenURL.substr(imagenURL.lastIndexOf("/") + 1));
+            $('.chk-estrategia-imagen[data-id!="' + id + '"]').removeAttr('checked');
+            $("#imgSeleccionada").attr('data-id', id);
+        }
+    });
+
+    $(".img-estrategia-preview").live("click", function () {
+        var id = $(this).attr('data-id');
+        var idImagen = ('0' + id).substr(-2);
+        var objChkImagen = $('#chkImagenProducto' + idImagen);
+        if (objChkImagen.attr("disabled") != "disabled") MostrarVistaPrevia('preview' + id);
+    });
+
+    function mostrarInformacionCUV(cuvIngresado) {
+        $("#hdnCodigoSAP").val("");
+        $("#hdnEnMatrizComercial").val("");
+        if (cuvIngresado.length == 5) {
+            waitingDialog({});
+            $.ajaxSetup({ cache: false });
+
+            var flagNueva = $("#ddlTipoEstrategia option:selected").attr("flag-nueva");
+            var flagRecoProduc = $("#ddlTipoEstrategia option:selected").attr("flag-recoproduct");
+            var flagRecoPerfil = $("#ddlTipoEstrategia option:selected").attr("flag-recoperfil");
+            var auxOD = $('#ddlTipoEstrategia').find(':selected').data('id'); // PL20-1225
+
+            /**** PL20-1225 *****/
+            var flagOD = "";
+            if (auxOD == '7') {
+                flagOD = '4';
+            }
+            else {
+                flagOD = '0';
+            }
+            /********/
+
+            var params = {
+                CampaniaID: $("#ddlCampania").val(),
+                CUV2: $("#txtCUV2").val(),
+                TipoEstrategiaID: $("#ddlTipoEstrategia").val(),
+                CUV1: "0",
+                flag: flagOD,
+                FlagNueva: flagNueva,
+                FlagRecoProduc: flagRecoProduc,
+                FlagRecoPerfil: flagRecoPerfil
+            };
+
+            jQuery.ajax({
+                type: 'POST',
+                url: urlGetOfertaByCUV,
+                dataType: 'json',
+                contentType: 'application/json; charset=utf-8',
+                data: JSON.stringify(params),
+                async: true,
+                success: function (data) {
+                    var objPreview, objChkImagen, idImagen, dataImagen, imgFormat;
+                    $('#mensajeErrorCUV').val("");
+
+                    if (data.message == "OK") {
+                        $("#txtDescripcion").val(data.descripcion);
+
+                        if (data.wsprecio > 0) {
+                            $("#txtPrecio2").val(parseFloat(data.wsprecio).toFixed(2));
+                            $("#txtPrecio2")[0].disabled = true;
+                        }
+                        else if (data.wsprecio == 0) {
+                            if (data.precio == 0) {
+                                $("#txtPrecio2").val(parseFloat(data.precio).toFixed(2));
+                                $("#txtPrecio2")[0].disabled = true;
+                            }
+                            else {
+                                $("#txtPrecio2").val(parseFloat(data.precio).toFixed(2));
+                                $("#txtPrecio2")[0].disabled = true;
+                            }
+                        }
+                        else if (data.wsprecio == -1) {
+                            $("#txtPrecio2")[0].disabled = true;
+                            alert("No se pudo  obtener el precio del producto. Por favor, comunicarse con Soporte Digital Consultoras");
+                        }
+                        else if (data.wsprecio == -2) {
+                            $("#txtPrecio2")[0].disabled = false;
+                            $("#txtPrecio2").val("");
+                            $("#txtPrecio2").focus();
+                        }
+
+                        //$("#txtPrecio").val("");
+                        //$("#txtCUV").val("");
+
+                        $("#ContenidoImagenes").empty();
+                        //$("#imgSeleccionada").attr("src", rutaImagenVacia);
+                        $("#hdnCodigoSAP").val(data.codigoSAP);
+                        $("#hdnEnMatrizComercial").val(data.enMatrizComercial);
+                        imagenesProductos = [];
+                        var imagenProductoSeleccionada = $("#imgSeleccionada").attr('src');
+                        imagenProductoSeleccionada = imagenProductoSeleccionada.substr(imagenProductoSeleccionada.lastIndexOf("/") + 1);
+
+                        for (var i = 1; i <= nroImagenes; i++) {
+                            idImagen = ('0' + i).substr(-2);
+                            dataImagen = data['imagen' + i];
+
+
+                            if (dataImagen != '') {
+                                var imagen = {
+                                    "idImagen": idImagen,
+                                    "dataImagen": dataImagen,
+                                    "fotoProducto": dataImagen.substr(dataImagen.lastIndexOf("/") + 1),
+                                    "fotoProductoAnterior": dataImagen.substr(dataImagen.lastIndexOf("/") + 1),
+                                    "selected": dataImagen.substr(dataImagen.lastIndexOf("/") + 1) == imagenProductoSeleccionada ? true : false
+                                }
+                                imagenesProductos.push(imagen);
+                            }
+                        }
+
+                        $('#ImagenCUV-template').tmpl(imagenesProductos).appendTo("#ContenidoImagenes");
+
+                        $("#divImagenEstrategiaContenido").show();
+                        $("#divInformacionAdicionalEstrategiaContenido").hide();
+
+                        (imagenesProductos.length == 10) ? $("#fpUpload").hide() : $("#fpUpload").show();
+
+                        $('#mensajeErrorCUV2').val("");
+                        closeWaitingDialog();
+                    } else {
+                        $('#mensajeErrorCUV2').val(data.message);
+                        alert($('#mensajeErrorCUV2').val());
+                        $("#txtDescripcion").val("");
+                        $("#txtPrecio2").val("");
+
+                        $("#txtPrecio").val("");
+                        $("#txtCUV").val("");
+
+                        for (var i = 1; i <= nroImagenes; i++) {
+                            idImagen = ('0' + i).substr(-2);
+                            objPreview = $('#preview' + i);
+                            objChkImagen = $('#chkImagenProducto' + idImagen);
+                            dataImagen = data['imagen' + i];
+
+                            if (dataImagen != '') {
+                                objPreview.attr('src', data.imagen1);
+                                objChkImagen.attr('disabled', false);
+                            }
+                            else {
+                                objPreview.attr('src', rutaImagenVacia);
+                                objChkImagen.attr('disabled', true);
+                            }
+                            objChkImagen.attr('checked', false);
+                        }
+
+                        closeWaitingDialog();
+                    }
+                },
+                error: function (data, error) {
+                    alert(data.message);
+                    closeWaitingDialog();
+                }
+            });
+        }
+    }
+
+    $("#divImagenEstrategia").click(function () {
+        $(this).css("color", "white");
+        $(this).css("background", "#00A2E8");
+
+        $("#divInformacionAdicionalEstrategia").css("color", "#702789");
+        $("#divInformacionAdicionalEstrategia").css("background", "#D0D0D0");
+
+        $("#divImagenEstrategiaContenido").show();
+        $("#divInformacionAdicionalEstrategiaContenido").hide();
+    });
+
+    $("#divInformacionAdicionalEstrategia").click(function () {
+        $(this).css("color", "white");
+        $(this).css("background", "#00A2E8");
+
+        $("#divImagenEstrategia").css("color", "#702789");
+        $("#divImagenEstrategia").css("background", "#D0D0D0");
+
+        $("#divInformacionAdicionalEstrategiaContenido").show();
+        $("#divImagenEstrategiaContenido").hide();
     });
 
     ///////////////
-
     $(document).keydown(function (e) {
         if (e.keyCode == 8 && e.target.tagName != 'INPUT' && e.target.tagName != 'TEXTAREA') {
             e.preventDefault();
         }
-    })
-
+    });
     //////////////
+
+    function fnGrillaEstrategias1() {
+        $("#listCargaMasiva1").jqGrid("GridUnload");
+        jQuery("#listCargaMasiva1").jqGrid({
+            url: baseUrl + "AdministrarEstrategia/ConsultarOfertasParaTi",
+            hidegrid: false,
+            datatype: 'json',
+            postData: ({
+                CampaniaID: $("#ddlCampania").val()
+            }),
+            mtype: 'GET',
+            contentType: "application/json; charset=utf-8",
+            //colNames: ['Descripcion', 'Cantidad'],
+            colNames: ['Id', 'Descripción', 'Cantidad'],
+            colModel: [
+                { name: 'Id', index: 'Id', width: 100, editable: true, resizable: false, hidden: true },
+                { name: 'Descripcion', index: 'Descripcion', width: 100, editable: true, resizable: false },
+                { name: 'Activo', index: 'Activo', width: 30, align: 'center', editable: true, resizable: false, formatter: ShowActionsVer1 }
+            ],
+            jsonReader:
+            {
+                root: "rows",
+                page: "page",
+                total: "total",
+                records: "records",
+                repeatitems: true,
+                cell: "cell",
+                id: "id"
+            },
+            pager: jQuery('#pagerCargaMasiva1'),
+            loadtext: 'Cargando datos...',
+            recordtext: "{0} - {1} de {2} Registros",
+            emptyrecords: 'No hay resultados',
+            rowNum: 10,
+            scrollOffset: 0,
+            rowList: [10, 20, 30, 40, 50],
+            sortname: 'Orden',
+            sortorder: 'asc',
+            viewrecords: true,
+            multiselect: false,
+            height: 'auto',
+            width: 540,
+            pgtext: 'Pág: {0} de {1}',
+            altRows: true,
+            altclass: 'jQGridAltRowClass',
+            loadComplete: function () { },
+            gridComplete: function () {
+                if (cantidadPrecargar == 0) {
+                    $("#divMostrarPreCarga").css("display", "none");
+                } else {
+                    $("#divMostrarPreCarga").css("display", "");
+                    $("#spnCantidadConfigurar1").html(cantidadPrecargar);
+                }
+            }
+        });
+        jQuery("#listCargaMasiva1").jqGrid('navGrid', "#pagerCargaMasiva1", { edit: false, add: false, refresh: false, del: false, search: false });
+        jQuery("#listCargaMasiva1").setGridParam({ datatype: 'json', page: 1 }).trigger('reloadGrid');
+    }
+
+    function fnGrillaEstrategias2() {
+        $("#listCargaMasiva2").jqGrid("GridUnload");
+        jQuery("#listCargaMasiva2").jqGrid({
+            url: baseUrl + "AdministrarEstrategia/ConsultarOfertasParaTiTemporal",
+            hidegrid: false,
+            datatype: 'json',
+            postData: ({
+                CampaniaID: $("#ddlCampania").val()
+            }),
+            mtype: 'GET',
+            contentType: "application/json; charset=utf-8",
+            //colNames: ['Descripcion', 'Cantidad'],
+            colNames: ['Id', 'Descripción', 'Cantidad'],
+            colModel: [
+                { name: 'Id', index: 'Id', width: 100, editable: true, resizable: false, hidden: true },
+                { name: 'Descripcion', index: 'Descripcion', width: 100, editable: true, resizable: false },
+                { name: 'Activo', index: 'Activo', width: 30, align: 'center', editable: true, resizable: false, formatter: ShowActionsVer2 }
+            ],
+            jsonReader:
+            {
+                root: "rows",
+                page: "page",
+                total: "total",
+                records: "records",
+                repeatitems: true,
+                cell: "cell",
+                id: "id"
+            },
+            pager: jQuery('#pagerCargaMasiva2'),
+            loadtext: 'Cargando datos...',
+            recordtext: "{0} - {1} de {2} Registros",
+            emptyrecords: 'No hay resultados',
+            rowNum: 10,
+            scrollOffset: 0,
+            rowList: [10, 20, 30, 40, 50],
+            sortname: 'Orden',
+            sortorder: 'asc',
+            viewrecords: true,
+            multiselect: false,
+            height: 'auto',
+            width: 540,
+            pgtext: 'Pág: {0} de {1}',
+            altRows: true,
+            altclass: 'jQGridAltRowClass',
+            loadComplete: function () { },
+            gridComplete: function () {
+                if (cantidadPrecargar2 == 0) {
+                    $("#divMostrarPreCarga2").css("display", "none");
+                } else {
+                    $("#divMostrarPreCarga2").css("display", "");
+                    $("#spnCantidadConfigurar2").html(cantidadPrecargar2);
+                }
+
+                $("#divMasivoPaso1").hide();
+                $("#divMasivoPaso2").show();
+
+                $("#divPaso1").removeClass("boton_redondo_admcontenido_on");
+                $("#divPaso1").addClass("boton_redondo_admcontenido_off");
+
+                $("#divPaso2").removeClass("boton_redondo_admcontenido_off");
+                $("#divPaso2").addClass("boton_redondo_admcontenido_on");
+            }
+        });
+        jQuery("#listCargaMasiva2").jqGrid('navGrid', "#pagerCargaMasiva2", { edit: false, add: false, refresh: false, del: false, search: false });
+        jQuery("#listCargaMasiva2").setGridParam({ datatype: 'json', page: 1 }).trigger('reloadGrid');
+    }
 
     // 2209 - Inicio
     function CerrarTallaColor() {
@@ -562,7 +1571,10 @@
     }
     // 2209 - Fin
     function MostrarVistaPrevia(id) {
+
         $("#imgZonaEstrategia").attr("src", $("#" + id).attr("src"));
+        if (id == "preview0") $("#imgZonaEstrategia").attr("src", rutaImagenVacia);
+
         $("#imgTipoOferta").attr("src", $("#ddlTipoEstrategia option:selected").attr('imagen-tipo'));
         $("#imgEstrella").hide();
         $(".zona_estrategia_1").html("");
@@ -600,13 +1612,15 @@
             }
         }
         else { $(".Content_modal_ZE").css("background-color", "#FFF"); }
-
+        $("#imgTipoOferta").hide();
         showDialog('divVistaPrevia');
         return false;
     }
+
     function InitCap(str) {
         return str.replace(/([^\W_]+[^\s-]*) */g, function (txt) { return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase(); });
     }
+
     function PaletaColores() {
         $("#txtColorFondo").spectrum({
             color: $("#hdColorFondo").val(),
@@ -651,6 +1665,7 @@
             ]
         });
     }
+
     function SeleccionarTipoOferta() {
         var flagNueva = $("#ddlTipoEstrategia option:selected").attr("flag-nueva");
         var flagRecoProduc = $("#ddlTipoEstrategia option:selected").attr("flag-recoproduct");
@@ -747,11 +1762,12 @@
             }
         });
     }
+
     function cargarArbol() {
         $("#arbolRegionZona").jstree({
             json_data: {
                 ajax: {
-                    url: baseUrl + "AdministrarEstrategia/CargarArbolRegionesZonas",
+                    url: urlCargarArbolRegionesZonas,
                     data: function (n) {
                         return { pais: $("#ddlPais").val(), region: 0, zona: 0 };
                     },
@@ -760,7 +1776,7 @@
                     success: function (data, textStatus, jqXHR) { },
                     complete: function () {
                         // $.jstree._reference($("#arbolRegionZona")).check_all();
-                        $("#arbolRegionZona").jstree("set_theme", "apple", "@Url.Content("~/Content/Css/jstree/apple/stylejstree.css")");
+                        $("#arbolRegionZona").jstree("set_theme", "apple", rutastylejstree);
                         closeWaitingDialog();
                     }
                 }
@@ -773,8 +1789,12 @@
             plugins: ["themes", "json_data", "ui", "checkbox"]
         });
     }
+
     function fnGrilla() {
         $("#list").jqGrid("GridUnload");
+        var tipo = $('#ddlTipoEstrategia').find(':selected').data('id');
+        var allRowsInGrid = [];
+        var flag = true;
         jQuery("#list").jqGrid({
             url: baseUrl + "AdministrarEstrategia/Consultar",
             hidegrid: false,
@@ -783,10 +1803,14 @@
                 CampaniaID: $("#ddlCampania").val(),
                 TipoEstrategiaID: $("#ddlTipoEstrategia").val(),
                 CUV: $("#CUV").val(),
-                Consulta: $("#hdTipoConsulta").val()
+                Consulta: $("#hdTipoConsulta").val(),
+                Imagen: $("#ddlTieneImagen").val(),
+                Activo: $("#ddlOfertaActiva").val()
             }),
             mtype: 'GET',
             contentType: "application/json; charset=utf-8",
+            multiselect: (tipo == '4') ? true : false,
+            //multiPageSelection: (tipo == '4') ? true : false,
             colNames: ['EstrategiaID', 'Orden', '#', 'Pedido Asociado', 'Precio', 'CUV2', 'Descripción', 'Limite Venta', 'Código SAP', 'Foto', ''],
             colModel: [
                 { name: 'EstrategiaID', index: 'EstrategiaID', width: 20, editable: true, resizable: false, hidden: true },
@@ -821,19 +1845,29 @@
             sortname: 'Orden',
             sortorder: 'asc',
             viewrecords: true,
-            multiselect: false,
             height: 'auto',
             width: 930,
             pgtext: 'Pág: {0} de {1}',
             altRows: true,
             altclass: 'jQGridAltRowClass',
-            loadComplete: function () { },
-            gridComplete: function () { }
+            loadComplete: function (data) {
+                if (data.rows.length > 0) {
+                    for (var i = 0; i < data.rows.length; i++) {
+                        if (data.rows[i].cell[10] == '1') {
+                            $("#list").jqGrid('setSelection', data.rows[i].id, true);
+                        }
+                    }
+                }
+            }
+            //gridComplete: function () { }
         });
         jQuery("#list").jqGrid('navGrid', "#pager", { edit: false, add: false, refresh: false, del: false, search: false });
-        jQuery("#list").setGridParam({ datatype: 'json', page: 1 }).trigger('reloadGrid');
-        //  $("#list").jqGrid('hideCol', ["NumeroPedido"]); /*R20160301*/
+
+        //jQuery("#list").setGridParam({ datatype: 'json', page: 1 }).trigger('reloadGrid');
+        // allRowsInGrid = $('#list').getGridParam('data');
+        if (tipo == '4') { $("#list").jqGrid('hideCol', ["Orden"]); }
     }
+
     function fnGrillaTC() {
         $("#listTC").jqGrid("GridUnload");
         jQuery("#listTC").jqGrid({
@@ -892,19 +1926,22 @@
         jQuery("#listTC").jqGrid('navGrid', "#pagerTC", { edit: false, add: false, refresh: false, del: false, search: false });
         jQuery("#listTC").setGridParam({ datatype: 'json', page: 1 }).trigger('reloadGrid');
     }
+
     function ShowInputTC(cellvalue, options, rowObject) {
         var Des = "";
         Des += "<input type='text' value='" + cellvalue + "' style='width:160px' />";
         return Des;
     }
+
     function ShowActionsTC(cellvalue, options, rowObject) {
         var cellValueInt = parseInt(rowObject[0]);
-        var Des = "<a href='javascript:;' onclick=\"return EditarTalla('" + rowObject[0] + "');\" >" + "<img src='@Url.Content("~/Content/Images/Edit.png")' alt='Editar Talla/Color' title='Editar Talla/Color' border='0' /></a>";
+        var Des = "<a href='javascript:;' onclick=\"return EditarTalla('" + rowObject[0] + "');\" >" + "<img src='" + rutaImagenEdit + "' alt='Editar Talla/Color' title='Editar Talla/Color' border='0' /></a>";
         if ($.trim(rowObject[1]) != $.trim($("#txtCUV2").val())) {
-            Des += "<a href='javascript:;' onclick=\"return Eliminar('" + rowObject[0] + "');\" >" + "<img src='@Url.Content("~/Content/Images/Delete.png")' alt='Quitar Talla/Color' title='Quitar Talla/Color' border='0' /></a>";
+            Des += "<a href='javascript:;' onclick=\"return Eliminar('" + rowObject[0] + "');\" >" + "<img src='" + rutaImagenDelete + "' alt='Quitar Talla/Color' title='Quitar Talla/Color' border='0' /></a>";
         }
         return Des;
     }
+
     function EditarTalla(id) {
         $("#hdTallaColorID").val(id);
         $('#txtCUVTC').val(jQuery("#listTC").jqGrid('getCell', id, 'CUV'));
@@ -916,6 +1953,7 @@
         showDialog("DialogEditarTallaColor");
         return false;
     }
+
     function Eliminar(id) {
         var elimina = confirm('¿ Está seguro que desea eliminar el registro seleccionado?');
         if (!elimina)
@@ -941,36 +1979,210 @@
             }
         });
     }
+
     function ShowActions(cellvalue, options, rowObject) {
         var cellValueInt = parseInt(cellvalue);
-        var Des = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('#list').Editar('" + rowObject[0] + "');\" >" + "<img src='@Url.Content("~/Content/Images/Edit.png")' alt='Editar Estrategia' title='Editar Estrategia' border='0' /></a>";
+        var Des = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('#list').Editar('" + rowObject[0] + "',event);\" >" + "<img src='" + rutaImagenEdit + "' alt='Editar Estrategia' title='Editar Estrategia' border='0' /></a>";
         if (cellValueInt == "1") {
-            Des += "&nbsp;&nbsp;<a href='javascript:;' onclick=\"return jQuery('#list').Eliminar('" + rowObject[0] + "');\" >" + "<img src='@Url.Content("~/Content/Images/Delete.png")' alt='Deshabilitar Estrategia' title='Deshabilitar Estrategia' border='0' /></a>";
+            Des += "&nbsp;&nbsp;<a href='javascript:;' onclick=\"return jQuery('#list').Eliminar('" + rowObject[0] + "',event);\" >" + "<img src='" + rutaImagenDelete + "' alt='Deshabilitar Estrategia' title='Deshabilitar Estrategia' border='0' /></a>";
         }
         return Des;
     }
+
     function ShowImage(cellvalue, options, rowObject) {
         var image = "";
         if (cellvalue != "") image = '<img src="' + cellvalue + '" alt="" width="60px" height="60px" title="" border="0" />';
-        else image = '<img src="@Url.Content("~/Content/Images/" + imagenVacia)" alt="" width="60px" height="60px" title="" border="0" />';
+        else image = '<img src="' + rutaImagenVacia + '" alt="" width="60px" height="60px" title="" border="0" />';
         return image;
     }
+
+    function ShowActionsVer1(cellvalue, options, rowObject) {
+        var text = "";
+
+        var cantidad = rowObject[2];
+        var tipo = rowObject[3];
+
+        if (tipo == "2")
+            cantidadPrecargar = parseInt(cantidad);
+
+        if (cantidad != "0")
+            text = rowObject[2] + " <a href='javascript:;' onclick=VerCuvsTipo('" + tipo + "')>ver</a>";
+        else
+            text = rowObject[2];
+
+        return text;
+    }
+
+    function ShowActionsVer2(cellvalue, options, rowObject) {
+        var text = "";
+
+        var cantidad = rowObject[2];
+        var tipo = rowObject[3];
+
+        if (tipo == "1") {
+            cantidadPrecargar2 = parseInt(cantidad);
+            $("#spnCantidadConfigurar3").html(parseInt(cantidad));
+        }
+        if (tipo == '2')
+            $("#spnCantidadNoConfigurar3").html(parseInt(cantidad));
+
+        if (cantidad != "0")
+            text = rowObject[2] + " <a href='javascript:;' onclick=VerCuvsTipo2('" + tipo + "')>ver</a>";
+        else
+            text = rowObject[2];
+
+        return text;
+    }
+
+    function VerCuvsTipo(tipo) {
+        fnGrillaCuv1(tipo);
+    }
+
+    function fnGrillaCuv1(tipo) {
+        $("#listGrillaCuv1").jqGrid("clearGridData");
+
+        var parametros = {
+            campaniaId: parseInt($("#ddlCampania").val()),
+            tipoConfigurado: parseInt(tipo)
+        };
+
+        $('#listGrillaCuv1').setGridParam({ postData: parametros });
+
+        jQuery("#listGrillaCuv1").jqGrid({
+            url: urlConsultarCuvTipoConfigurado,
+            hidegrid: false,
+            datatype: 'json',
+            postData: (parametros),
+            mtype: 'GET',
+            contentType: "application/json; charset=utf-8",
+            colNames: ['CUV', 'Descripción'],
+            colModel: [
+                { name: 'CUV2', index: 'CUV', width: 10, editable: true, resizable: false },
+                { name: 'DescripcionCUV2', index: 'DescripcionCUV2', width: 90, editable: true, resizable: false },
+            ],
+            jsonReader:
+            {
+                root: "rows",
+                page: "page",
+                total: "total",
+                records: "records",
+                repeatitems: true,
+                cell: "cell",
+                id: "id"
+            },
+            pager: jQuery('#pagerGrillaCuv1'),
+            loadtext: 'Cargando datos...',
+            recordtext: "{0} - {1} de {2} Registros",
+            emptyrecords: 'No hay resultados',
+            rowNum: 10,
+            scrollOffset: 0,
+            rowList: [10, 20, 30, 40, 50],
+            sortname: 'Nombre',
+            sortorder: 'asc',
+            viewrecords: true,
+            multiselect: false,
+            height: 'auto',
+            width: 540,
+            pgtext: 'Pág: {0} de {1}',
+            altRows: true,
+            altclass: 'jQGridAltRowClass',
+            loadComplete: function () {
+            },
+            gridComplete: function () {
+                showDialog("DialogGrillaCuv1");
+            }
+        });
+        jQuery("#listGrillaCuv1").jqGrid('navGrid', "#pagerGrillaCuv1", { edit: false, add: false, refresh: false, del: false, search: false });
+        jQuery("#listGrillaCuv1").setGridParam({ datatype: 'json', page: 1 }).trigger('reloadGrid');
+    }
+
+    function VerCuvsTipo2(tipo) {
+        fnGrillaCuv2(tipo);
+    }
+
+    function fnGrillaCuv2(tipo) {
+        $("#listGrillaCuv2").jqGrid("clearGridData");
+
+        var parametros = {
+            campaniaId: parseInt($("#ddlCampania").val()),
+            tipoConfigurado: parseInt(tipo)
+        };
+
+        $('#listGrillaCuv2').setGridParam({ postData: parametros });
+
+        jQuery("#listGrillaCuv2").jqGrid({
+            url: urlConsultarCuvTipoConfiguradoTemporal,
+            hidegrid: false,
+            datatype: 'json',
+            postData: (parametros),
+            mtype: 'GET',
+            contentType: "application/json; charset=utf-8",
+            colNames: ['CUV', 'Descripción'],
+            colModel: [
+                { name: 'CUV2', index: 'CUV', width: 10, editable: true, resizable: false },
+                { name: 'DescripcionCUV2', index: 'DescripcionCUV2', width: 90, editable: true, resizable: false },
+            ],
+            jsonReader:
+            {
+                root: "rows",
+                page: "page",
+                total: "total",
+                records: "records",
+                repeatitems: true,
+                cell: "cell",
+                id: "id"
+            },
+            pager: jQuery('#pagerGrillaCuv2'),
+            loadtext: 'Cargando datos...',
+            recordtext: "{0} - {1} de {2} Registros",
+            emptyrecords: 'No hay resultados',
+            rowNum: 10,
+            scrollOffset: 0,
+            rowList: [10, 20, 30, 40, 50],
+            sortname: 'Nombre',
+            sortorder: 'asc',
+            viewrecords: true,
+            multiselect: false,
+            height: 'auto',
+            width: 540,
+            pgtext: 'Pág: {0} de {1}',
+            altRows: true,
+            altclass: 'jQGridAltRowClass',
+            loadComplete: function () {
+            },
+            gridComplete: function () {
+                showDialog("DialogGrillaCuv2");
+            }
+        });
+        jQuery("#listGrillaCuv2").jqGrid('navGrid', "#pagerGrillaCuv2", { edit: false, add: false, refresh: false, del: false, search: false });
+        jQuery("#listGrillaCuv2").setGridParam({ datatype: 'json', page: 1 }).trigger('reloadGrid');
+    }
+
     function IniDialog() {
+
+
         $('#DialogAdministracionEstrategia').dialog({
             autoOpen: false,
             resizable: false,
             modal: true,
             closeOnEscape: true,
-            width: 800,
-            close: function () { $('input:checkbox').removeAttr('checked'); },
+            width: 830,
+            close: function () {
+                //$('input:checkbox').removeAttr('checked');               
+                //$(this).dialog('destroy');
+                //$("#list").jqGrid("clearGridData", true).trigger("reloadGrid");
+            },
+            //open: function (event, ui) {
+            //    originalContent = $("#DialogAdministracionEstrategia").html();
+            //},
             draggable: false,
             title: "Registro de Estrategias",
             buttons:
             {
                 "Guardar": function () {
-                    if (!$("#chkVisible2").attr("checked")) {
-                        $('#mensajeErrorCUV').val('');
-                    }
+                    //if (!$("#chkVisible2").attr("checked")) {
+                    //    $('#mensajeErrorCUV').val('');
+                    //}
 
                     if ($('#mensajeErrorCUV').val() != "") {
                         alert($('#mensajeErrorCUV').val());
@@ -992,83 +2204,89 @@
                             alert("La campaña de vigencia final  no puede ser menor a la campaña de inicio.");
                             return false;
                         }
-                        //if ($("#txtPedidoAsociado").val() == "") {
-                        //    alert("Ingrese un número de pedido asociado.");
-                        //    return false;
-                        //}
-                        //var nroPedido = $("#txtPedidoAsociado").val();
-                        //if (!$.isNumeric(nroPedido)) {
-                        //    alert("Ingrese un valor válido para el número de pedido asociado.");
-                        //    return false;
-                        //}
-                        //if (parseInt(nroPedido) <= 0 || parseInt(nroPedido) > 4) {
-                        //    alert("Ingrese un valor entre 1 y 4 para el número de pedido asociado.");
-                        //    return false;
-                        //}
                     }
-                    if ($("#chkVisible1").attr("checked")) {
-                        var valor = $("#txtDescripcion").val();
-                        if ($.trim(valor) == "") {
-                            alert("Ingrese el valor del CUV2 para obtener la descripción o ingrese una.");
+
+                    /**** // PL20-1225 ****/
+                    var auxOD = $('#ddlTipoEstrategia').find(':selected').data('id');
+                    if (auxOD == "7") {
+                        var desc1 = $("#txtDescripcion").val();
+                        if ($.trim(desc1) == "") {
+                            alert("Ingrese una descripción.");
                             return false;
                         }
-                    }
-                    if ($("#chkVisible2").attr("checked")) {
-                        var m = "";
-                        if ($.trim($("#txtCUV").val()) == "" && $("#txtCUV").css("visibility") == "visible") {
-                            m += "- Ingrese un valor para el CUV1." + "\n";
-                        }
-                        if ($.trim($("#ddlEtiqueta1 option:selected").html()) == "-- Seleccionar --") {
-                            m += "- Seleccione la etiqueta correspondiente." + "\n";
-                        }
-                        if ($.trim($("#txtPrecio").val()) == "" || $.isNumeric($("#txtPrecio").val()) == false) {
-                            m += "- Digite un valor correspondiente para el precio." + "\n";
-                        }
-                        if ($("#txtPrecio").val() <= 0) {
-                            m += "- Ingrese un valor para el precio mayor a cero." + "\n";
-                        }
-                        if (m != "") {
-                            alert(m);
-                            return false;
-                        }
-                    }
-                    if ($("#chkVisible3").attr("checked")) {
-                        var m = "";
-                        if ($.trim($("#txtCUV2").val()) == "") {
-                            m += "- Ingrese un valor para el CUV2." + "\n";
-                        }
-                        if ($.trim($("#ddlEtiqueta2 option:selected").html()) == "-- Seleccionar --") {
-                            m += "- Seleccione la etiqueta correspondiente." + "\n";
-                        }
-                        if ($.trim($("#txtPrecio2").val()) == "" || $.isNumeric($("#txtPrecio2").val()) == false) {
-                            m += "- Digite un valor correspondiente para el precio." + "\n";
-                        }
-                        if ($("#txtPrecio2").val() <= 0) {
-                            m += "- Ingrese un valor para el precio mayor a cero." + "\n";
-                        }
-                        if (m != "") {
-                            alert(m);
-                            return false;
-                        }
-                    }
-                    if ($.trim($("#txtCUV2").val()) == "") {
-                        alert("Debe ingresar un valor para el CUV2.");
-                        return false;
-                    }
-                    if ($("#chkVisible4").attr("checked")) {
-                        if ($.trim($("#txtTextoLibre").val()) == "") {
-                            alert("Ingrese un valor de texto libre");
-                            return false;
-                        }
-                    }
-                    if ($("#chkVisible5").attr("checked")) {
-                        if ($("#idEstrella").css("display") == "block") {
-                            if (!$("#chkEstrella").attr("checked")) {
-                                alert("Debe activar el la opción para mostrar estrella en la zona de producto.  ");
+                        else {
+                            if (desc1.indexOf('|') < 0) {
+                                alert("La descripcion debe contener dos pipes (|) como minimo.");
                                 return false;
                             }
+                            else {
+                                var arr1 = desc1.split('|');
+                                if (arr1.length <= 2) {
+                                    alert("La descripcion debe contener dos pipes (|) como minimo.");
+                                    return false;
+                                }
+                                for (var i = 0; i < arr1.length; i++) {
+                                    if ($.trim(arr1[i]) == "") {
+                                        alert("La descripcion despues de un pipe (|) no puede ser vacia.");
+                                        return false;
+                                    }
+                                }
+                            }
                         }
-                    } else $("#hdColorFondo").val("");
+                    }
+                    /****/
+
+
+                    var valor = $("#txtDescripcion").val();
+                    if ($.trim(valor) == "") {
+                        alert("Ingrese el valor del CUV2 para obtener la descripción o ingrese una.");
+                        return false;
+                    }
+
+                    //if ($("#chkVisible2").attr("checked")) {
+                    var m = "";
+                    //if ($.trim($("#txtCUV").val()) == "" && $("#txtCUV").css("visibility") == "visible") { NO ES OBLIGATORIO
+                    //    m += "- Ingrese un valor para el CUV1." + "\n";
+                    //}
+                    //if ($.trim($("#ddlEtiqueta1 option:selected").html()) == "-- Seleccionar --") {
+                    //    m += "- Seleccione la etiqueta correspondiente." + "\n";
+                    //}
+                    if (($.trim($("#txtCUV").val()) != "" && $.trim($("#txtPrecio").val()) == "") || ($.trim($("#txtCUV").val()) != "" && $.isNumeric($("#txtPrecio").val()) == false)) {
+                        m += "- Digite un valor correspondiente para el precio." + "\n";
+                    }
+                    if ($.trim($("#txtCUV").val()) != "" && $("#txtPrecio").val() <= 0) {
+                        m += "- Ingrese un valor para el precio mayor a cero." + "\n";
+                    }
+                    //if (m != "") {
+                    //    alert(m);
+                    //    return false;
+                    //}
+                    // }
+                    //if ($("#chkVisible3").attr("checked")) {
+                    //   var m = "";
+                    if ($.trim($("#txtCUV2").val()) == "") {
+                        m += "- Ingrese un valor para el CUV2." + "\n";
+                    }
+                    //if ($.trim($("#ddlEtiqueta2 option:selected").html()) == "-- Seleccionar --") {
+                    //    m += "- Seleccione la etiqueta correspondiente." + "\n";
+                    //}
+                    if ($.trim($("#txtPrecio2").val()) == "" || $.isNumeric($("#txtPrecio2").val()) == false) {
+                        m += "- Digite un valor correspondiente para el precio." + "\n";
+                    }
+                    if ($("#txtPrecio2").val() <= 0) {
+                        m += "- Ingrese un valor para el precio mayor a cero." + "\n";
+                    }
+                    if (m != "") {
+                        alert(m);
+                        return false;
+                    }
+
+                    if ($("#idEstrella").css("display") == "block") {
+                        if (!$("#chkEstrella").attr("checked")) {
+                            alert("Debe activar el la opción para mostrar estrella en la zona de producto.  ");
+                            return false;
+                        }
+                    }
 
                     if ($('.chk-estrategia-imagen:checked').length == 0) {
                         alert("Seleccione una imagen a mostrar.");
@@ -1077,7 +2295,7 @@
 
                     /* SB20-312 - INICIO */
                     var aux2 = $('#ddlTipoEstrategia').find(':selected').data('id');
-                    if (aux2 != "4") {
+                    if (aux2 != "4" && aux2 != '7') { /**** PL20-1225 *****/
                         if ($.trim($("#txtOrden").val()) == "" || $.isNumeric($("#txtOrden").val()) == false) {
                             alert("Ingrese un orden para mostrar.");
                             return false;
@@ -1100,27 +2318,28 @@
                         alert("Ingrese un valor para el limite de venta mayor a cero.");
                         return false;
                     }
+                    var imagenEstrategiaProducto = $("#imgSeleccionada").attr("src");
                     var EstrategiaID = $("#hdEstrategiaID").val();
                     var TipoEstrategiaID = $("#hdTipoEstrategiaID").val();
                     var CampaniaID = $("#hdCampania").val();
                     var CampaniaIDFin = $("#ddlCampaniaFin").val();
                     var Activo = ($("#chkHabilitarOferta").attr("checked")) ? "1" : "0";
-                    var ImagenURL = $("#ImagenProducto").val();
+                    var ImagenURL = imagenEstrategiaProducto.substr(imagenEstrategiaProducto.lastIndexOf("/") + 1);
                     var LimiteVenta = $("#txtLimite").val();
                     var DescripcionCUV2 = $("#txtDescripcion").val();
-                    var FlagDescripcion = ($("#chkVisible1").attr("checked")) ? "1" : "0";
+                    var FlagDescripcion = (DescripcionCUV2 != "") ? "1" : "0"; //($("#chkVisible1").attr("checked")) ? "1" : "0";
                     var CUV = $("#txtCUV").val();
-                    var EtiquetaID = $("#ddlEtiqueta1").val();
+                    var EtiquetaID = $("#hdnEtiqueta1").val(); //$("#ddlEtiqueta1").val();
                     var Precio = $("#txtPrecio").val();
-                    var FlagCEP = ($("#chkVisible2").attr("checked")) ? "1" : "0";
+                    var FlagCEP = (CUV != "") ? "1" : "0"; //($("#chkVisible2").attr("checked")) ? "1" : "0";
                     var CUV2 = $("#txtCUV2").val();
-                    var EtiquetaID2 = $("#ddlEtiqueta2").val();
+                    var EtiquetaID2 = $("#hdnEtiqueta2").val();//$("#ddlEtiqueta2").val();
                     var Precio2 = $("#txtPrecio2").val();
-                    var FlagCEP2 = ($("#chkVisible3").attr("checked")) ? "1" : "0";
+                    var FlagCEP2 = (CUV2 != "") ? "1" : "0"; //($("#chkVisible3").attr("checked")) ? "1" : "0";
                     var TextoLibre = $("#txtTextoLibre").val();
-                    var FlagTextoLibre = ($("#chkVisible4").attr("checked")) ? "1" : "0";
-                    var Cantidad = $("#txtCantidad").val();
-                    var FlagCantidad = ($("#chkVisible5").attr("checked")) ? "1" : "0";
+                    var FlagTextoLibre = (TextoLibre != "") ? "1" : "0"; //($("#chkVisible4").attr("checked")) ? "1" : "0";
+                    var Cantidad = "";//$("#txtCantidad").val();
+                    var FlagCantidad = "0"; //($("#chkVisible5").attr("checked")) ? "1" : "0";
                     var Zona = $("#hdZonas").val();
                     var Orden = $("#txtOrden").val();
                     var flagEstrella = ($("#chkEstrella").attr("checked")) ? "1" : "0";
@@ -1169,11 +2388,13 @@
                         data: JSON.stringify(params),
                         async: true,
                         success: function (data) {
+
                             if (data.success) {
                                 alert(data.message);
                                 $("#ddlTipoEstrategia").val($("#hdEstrategiaIDConsulta").val());
                                 HideDialog("DialogAdministracionEstrategia");
-                                fnGrilla();
+                                //fnGrilla(); Observación.
+                                $("#list").jqGrid("clearGridData", true).trigger("reloadGrid");
                             } else {
                                 alert(data.message);
                             }
@@ -1186,7 +2407,7 @@
                 },
                 "Salir": function () {
                     $("#ddlTipoEstrategia").val($("#hdEstrategiaIDConsulta").val());
-                    $('input:checkbox').removeAttr('checked');
+                    //$('input:checkbox').removeAttr('checked');
                     $(this).dialog('close');
                 }
             }
@@ -1347,14 +2568,59 @@
                 }
             }
         });
+
+        $('#DialogNuevoMasivo').dialog({
+            autoOpen: false,
+            resizable: false,
+            modal: true,
+            closeOnEscape: true,
+            width: 600,
+            draggable: false,
+            title: "Carga Masiva de Estrategias"
+        });
+
+        $('#DialogGrillaCuv1').dialog({
+            autoOpen: false,
+            resizable: false,
+            modal: true,
+            closeOnEscape: true,
+            width: 600,
+            draggable: false,
+            title: "Carga Masiva de Estrategias",
+            buttons:
+            {
+                "Salir": function () {
+                    $(this).dialog('close');
+                }
+            }
+        });
+
+        $('#DialogGrillaCuv2').dialog({
+            autoOpen: false,
+            resizable: false,
+            modal: true,
+            closeOnEscape: true,
+            width: 600,
+            draggable: false,
+            title: "Carga Masiva de Estrategias",
+            buttons:
+            {
+                "Salir": function () {
+                    $(this).dialog('close');
+                }
+            }
+        });
     }
 
     $.jgrid.extend({
-        Editar: function (id) {
+        Editar: function (id, event) {
+            event.preventDefault();
+            event.stopPropagation();
             if (id) {
                 waitingDialog({});
 
                 $("#hdEstrategiaID").val(id);
+                $("#hdnCodigoSAP").val("")
                 $('#mensajeErrorCUV').val("")
                 $('#mensajeErrorCUV2').val("");
                 $(".checksPedidosAsociados").html('');
@@ -1362,16 +2628,16 @@
                 var params = {
                     EstrategiaID: $("#hdEstrategiaID").val()
                 };
-
+                $('#ContenidoImagenes').empty();
                 jQuery.ajax({
                     type: 'POST',
-                    url: baseUrl + 'AdministrarEstrategia/FiltrarEstrategia',
+                    url: urlFiltrarEstrategia,
                     dataType: 'json',
                     contentType: 'application/json; charset=utf-8',
                     data: JSON.stringify(params),
                     async: true,
                     success: function (data) {
-                        console.log(data);
+
                         if (data.success == false) {
                             alert(data.message);
                             closeWaitingDialog();
@@ -1399,14 +2665,14 @@
                         if (data.FlagCantidad == "1") $("#chkVisible5").attr("checked", true);
                         else $("#chkVisible5").attr("checked", false);
 
-                        if (data.ColorFondo != "")  $("#hdColorFondo").val(data.ColorFondo);
+                        if (data.ColorFondo != "") $("#hdColorFondo").val(data.ColorFondo);
                         else $("#hdColorFondo").val("#FFF");
                         ActivarDesactivarChecks();
 
                         $("#hdCampania").val($("#ddlCampania").val());
                         $("#hdTipoEstrategiaID").val(data.TipoEstrategiaID);
                         $("#ddlTipoEstrategia").val(data.TipoEstrategiaID);
-
+                        $("#hdnCodigoSAP").val(data.codigoSAP);
                         SeleccionarTipoOferta();
 
                         $("#txtAlcance").val($("#ddlPais option:selected").html());
@@ -1417,29 +2683,45 @@
                         $("#hdCampania").val(data.CampaniaID);
                         $("#ddlCampaniaFin").val(data.CampaniaIDFin);
                         $("#hdNumeroPedido").val(data.NumeroPedido);
-                        $("#ImagenProducto").val(data.ImagenURL);
+                        $("#imgSeleccionada").attr('src', rutaImagenVacia);
 
                         var objPreview, objChkImagen, idImagen, dataImagen, imgFormat;
-                        for (var i = 1; i <= nroImagenes; i++) {
-                            idImagen = ('0' + i).substr(-2);
-                            objPreview = $('#preview' + i);
-                            objChkImagen = $('#chkImagenProducto' + idImagen);
-                            dataImagen = data['FotoProducto' + idImagen];
-                            
-                            if (dataImagen != '') {
-                                objPreview.attr('src', dataImagen);
-                                objChkImagen.attr('disabled', false);
-                            }
-                            else {
-                                objPreview.attr('src', '@Url.Content("~/Content/Images/" + imagenVacia)');
-                                objChkImagen.attr('disabled', true);
-                            }
+                        var imagenesProductos = [];
 
-                            imgFormat = dataImagen.replace(/^.*[\\\/]/, '');
-                            if (imgFormat.lastIndexOf("?") >= 0) imgFormat = imgFormat.substring(0, imgFormat.lastIndexOf("?"));
-                            objChkImagen.val(imgFormat);
-                            objChkImagen.attr('checked', objChkImagen.val() == data['ImagenURL']);
+                        var i = 1;
+
+                        for (var i = 1; i <= nroImagenes; i++) {
+
+                            idImagen = ('0' + i).substr(-2);
+                            dataImagen = data['FotoProducto' + idImagen];
+
+                            if (dataImagen != '') {
+
+                                if (dataImagen.substr(dataImagen.lastIndexOf("/") + 1) == data['ImagenURL']) {
+                                    $("#imgSeleccionada").attr('src', dataImagen);
+                                    $("#imgSeleccionada").attr('data-id', idImagen);
+                                }
+
+                                var imagen = {
+                                    "idImagen": idImagen,
+                                    "dataImagen": dataImagen,
+                                    "fotoProducto": dataImagen.substr(dataImagen.lastIndexOf("/") + 1),
+                                    "fotoProductoAnterior": dataImagen.substr(dataImagen.lastIndexOf("/") + 1),
+                                    "selected": dataImagen.substr(dataImagen.lastIndexOf("/") + 1) == data['ImagenURL'] ? true : false
+                                }
+                                imagenesProductos.push(imagen);
+                            }
                         }
+                        (imagenesProductos.length == 10) ? $("#fpUpload").hide() : $("#fpUpload").show();
+                        $('#ImagenCUV-template').tmpl(imagenesProductos).appendTo("#ContenidoImagenes");
+
+                        $("#divImagenEstrategiaContenido").show();
+                        $("#divInformacionAdicionalEstrategiaContenido").hide();
+
+                        $("#divImagenEstrategia").css("color", "white");
+                        $("#divImagenEstrategia").css("background", "#00A2E8");
+                        $("#divInformacionAdicionalEstrategia").css("color", "#702789");
+                        $("#divInformacionAdicionalEstrategia").css("background", "#D0D0D0");
 
                         $("#txtLimite").val(data.LimiteVenta);
                         $("#txtDescripcion").val(data.DescripcionCUV2);
@@ -1502,8 +2784,25 @@
                             $("#ddlEtiqueta2").children('option').show();
                         }
 
-                        /* SB20-312 - FIN */
+                        if (aux1 == "6") {
+                            $('.OfertaUltimoMinuto').hide();
+                        } else { $('.OfertaUltimoMinuto').show(); }
 
+                        if (aux1 == "7") {
+                            $('.Recomendados').hide();
+
+                            $("#ddlEtiqueta1").children('option').hide();
+                            $("#ddlEtiqueta1").children("option[data-id='1']").show();
+
+                            $("#ddlEtiqueta2").children('option').hide();
+                            $("#ddlEtiqueta2").children("option[data-id='5']").show();
+
+                            $('#div-orden').hide(); //Ocultando Orden
+
+                            //$('#txtLimite').prop('readonly', true); //Modo lectura on
+                        }
+
+                        /* SB20-312 - FIN */
                         if (data.FlagEstrella == "1") $("#chkEstrella").attr("checked", true);
                         else $("#chkEstrella").attr("checked", false);
                         $(".checksPedidosAsociados").append('<div class="selectP2 borde_redondeado"><input type="text" id="txtPedidoAsociado" value="' + data.NumeroPedido + '" readonly /></div>');
@@ -1516,9 +2815,13 @@
                     }
                 });
             }
+
             return false;
         },
-        Eliminar: function (id) {
+        Eliminar: function (id, event) {
+            event.preventDefault();
+            event.stopPropagation();
+
             var elimina = confirm('¿ Está seguro que desea deshabiltar la estrategia seleccionada?');
             if (!elimina)
                 return false;
@@ -1534,7 +2837,7 @@
 
                 jQuery.ajax({
                     type: 'POST',
-                    url: baseUrl + 'AdministrarEstrategia/DeshabilitarEstrategia',
+                    url: urlDeshabilitarEstrategia,
                     dataType: 'json',
                     contentType: 'application/json; charset=utf-8',
                     data: JSON.stringify(params),
@@ -1555,357 +2858,3 @@
     });
 
 </script>
-<input type="hidden" id="mensajeErrorCUV" />
-<input type="hidden" id="mensajeErrorCUV2" />
-<input type="hidden" id="hdEstrategiaIDConsulta" />
-<input type="hidden" id="ImagenProducto" />
-<input type="hidden" id="hdEstrategiaID" />
-<input type="hidden" id="hdTipoConsulta" value="0" />
-<input type="hidden" id="hdZonas" value="" />
-<input type="hidden" id="hdSimbolo" />
-<input type="hidden" id="hdTallaColorID" />
-<div class="wrap_cab">
-    <div class="filtros2">
-        <div class="elements">
-            <div class="div-2">
-                <h1><span>Zona de Estrategias</span></h1>
-            </div>
-            <div class="div-3">
-                <div class="titG">País:</div>
-                <div class="selectA borde_redondeado">
-                    @Html.DropDownListFor(model => model.PaisID, new SelectList(Model.listaPaises, "PaisID", "Nombre"), "-- Seleccionar --", new { id = "ddlPais" })
-                </div>
-                <div class="titB">Campaña:</div>
-                <div class="selectA borde_redondeado">
-                    @Html.DropDownListFor(model => model.CampaniaID, new SelectList(Model.listaCampania, "CampaniaID", "NombreCorto"), "-- Seleccionar --", new { id = "ddlCampania" })
-                </div>
-            </div>
-            <div class="div-3">
-                <div class="titG">Tipo de Estrategia:</div>
-                <div class="selectA borde_redondeado">
-                    @*Html.DropDownListFor(model => model.TipoEstrategiaID, new SelectList(Model.ListaTipoEstrategia, "TipoEstrategiaID", "Descripcion"), new { id = "ddlTipoEstrategia" })*@
-                    <select id="ddlTipoEstrategia" name="ddlTipoEstrategia">
-                        @if (Model.ListaTipoEstrategia != null)
-                        {
-                            <option value="">-- Seleccionar --</option>
-                            for (int i = 0; i < Model.ListaTipoEstrategia.Count(); i++)
-                            {
-                                <option flag-nueva="@Model.ListaTipoEstrategia.ToList()[i].FlagNueva"
-                                        flag-recoproduct="@Model.ListaTipoEstrategia.ToList()[i].FlagRecoProduc"
-                                        flag-recoperfil="@Model.ListaTipoEstrategia.ToList()[i].FlagRecoPerfil"
-                                        codigo-programa="@Model.ListaTipoEstrategia.ToList()[i].CodigoPrograma"
-                                        imagen-tipo="@Model.ListaTipoEstrategia.ToList()[i].Imagen"
-                                        value="@Model.ListaTipoEstrategia.ToList()[i].TipoEstrategiaID"
-                                        data-id="@Model.ListaTipoEstrategia.ToList()[i].CodigoGeneral">
-                                    @Model.ListaTipoEstrategia.ToList()[i].Descripcion
-                                </option>
-                            }
-                        }
-                    </select>
-                </div>
-                <div class="titB">CUV<sub>2</sub>:</div>
-                <div class="selectA borde_redondeado">
-                    <input type="text" id="CUV" name="CUV" />
-                </div>
-            </div>
-            <div class="div-3">
-                <div class="titG">&nbsp;</div>
-                <div class="input_horizontal">
-                    <input type="button" name="btnBuscar" id="btnBuscar" value="Buscar" />
-                    <input type="button" name="btnNuevo" id="btnNuevo" value="Nuevo" />
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="wrap">
-    <div class="container clearfix">
-        <div class="border-wrapper">
-            <table id="list"></table>
-            <div id="pager"></div>
-        </div>
-    </div>
-</div>
-<div id="DialogAdministracionEstrategia" style="display: none;">
-    <input type="hidden" id="hdPais" value="" />
-    <input type="hidden" id="hdCampania" value="" />
-    <input type="hidden" id="hdTipoEstrategiaID" value="" />
-    <input type="hidden" id="hdColorFondo" value="#FFF" />
-    <input type="hidden" id="hdCodigoPrograma" value="">
-    <input type="hidden" id="hdNumeroPedido" value="">
-    <div class="Content_modal">
-        <div class="div-3">
-            <div class="titG">Campaña:</div>
-            <div class="selectP2 borde_redondeado">
-                <input id="spanCampania" type="text" readonly="readonly" />
-            </div>
-            <div class="titG">Tipo de Estrategia:</div>
-            <div class="selectP2 borde_redondeado">
-                <input id="spanTipoEstrategia" type="text" readonly="readonly" />
-            </div>
-        </div>
-        <div class="div-3 DatosNuevas" style="display: none">
-            <div class="titG">Vigencia Hasta:</div>
-            <div class="selectP2 borde_redondeado">
-                @Html.DropDownListFor(model => model.CampaniaID, new SelectList(Model.listaCampania, "CampaniaID", "NombreCorto"), "-- Seleccionar --", new { id = "ddlCampaniaFin" })
-            </div>
-            <div class="titG">Pedido Asociado:</div>
-            <div class="checksPedidosAsociados">
-            </div>
-        </div>
-        <div class="div-est-3">
-            &nbsp;
-        </div>
-        <div class="div-est-3">
-            <div class="titA">&nbsp;</div>
-            <div class="titA">Orden</div>
-            <div class="titB">Visible</div>
-            <div class="titG">Descripción</div>
-        </div>
-        <div class="div-est-3">
-            <div class="titA">&nbsp;</div>
-            <div class="titA">1</div>
-            <div class="titB">
-                <input type="checkbox" id="chkVisible1" disabled class="activar-desactivar" checked="checked" />
-            </div>
-            <div class="titG">
-                <input type="text" id="txtDescripcion" />
-            </div>
-        </div>
-        <div class="div-est-3">
-            <div class="titA">&nbsp;</div>
-            <div class="titA">2</div>
-            <div class="titB">
-                <input type="checkbox" id="chkVisible2" class="activar-desactivar" />
-            </div>
-            <div class="titA" style="text-align: right"><span class="OcultarNuevas">CUV:</span></div>
-            <div class="titB">
-                <input type="text" id="txtCUV" class="OcultarNuevas ValidaNumeral" maxlength="5" />
-            </div>
-            <div class="titE">Etiqueta:</div>
-            <div class="titD">
-                @*@Html.DropDownListFor(model => model.CampaniaID, new SelectList(Model.ListaEtiquetas, "EtiquetaID", "Descripcion"), "-- Seleccionar --", new { id = "ddlEtiqueta1" })*@
-                <select name="CampaniaID" id="ddlEtiqueta1">
-                    <option value="">-- Seleccionar --</option>
-                    @foreach (var x in Model.ListaEtiquetas)
-                    {
-                        <option value="@x.EtiquetaID" data-id="@x.CodigoGeneral">@x.Descripcion</option>
-                    }
-                </select>
-            </div>
-            <div class="titE">Precio:</div>
-            <div class="titB">
-                <input type="text" id="txtPrecio" />
-            </div>
-        </div>
-        <div class="div-est-3">
-            <div class="titA">&nbsp;</div>
-            <div class="titA">3</div>
-            <div class="titB">
-                <input type="checkbox" id="chkVisible3" disabled class="activar-desactivar" checked="checked" />
-            </div>
-            <div class="titA" style="text-align: right">CUV<sub>2</sub>:</div>
-            <div class="titB">
-                <input type="text" id="txtCUV2" maxlength="5" class="ValidaNumeral" />
-            </div>
-            <div class="titA"></div>
-            <div class="titE">Etiqueta:</div>
-            <div class="titD">
-                @*@Html.DropDownListFor(model => model.CampaniaID, new SelectList(Model.ListaEtiquetas, "EtiquetaID", "Descripcion"), "-- Seleccionar --", new { id = "ddlEtiqueta2" })*@
-                <select name="CampaniaID" id="ddlEtiqueta2">
-                    <option value="">-- Seleccionar --</option>
-                    @foreach (var x in Model.ListaEtiquetas)
-                    {
-                        <option value="@x.EtiquetaID" data-id="@x.CodigoGeneral">@x.Descripcion</option>
-                    }
-                </select>
-            </div>
-            <div class="titE">Precio:</div>
-            <div class="titB">
-                <input type="text" id="txtPrecio2" maxlength="10" class="ValidaNumeral" />
-            </div>
-            <div class="titE" style="margin-left: 5px">Talla/Color:</div>
-            &nbsp;&nbsp;&nbsp;&nbsp;
-            <a href="#" style="margin-left: 5px" id="linkTallaColor">
-                <img src='@Url.Content("~/Content/Images/icons/small/list-icon2.png")' border="0" alt="Agregar Tonos/Tallas/Colores" title="Agregar Tonos/Tallas/Colores" />
-            </a>
-        </div>
-        <div class="div-est-3">
-            <div class="titA">&nbsp;</div>
-            <div class="titA">4</div>
-            <div class="titB">
-                <input type="checkbox" id="chkVisible4" class="activar-desactivar" />
-            </div>
-            <div class="titG">
-                <input type="text" id="txtTextoLibre" maxlength="100" />
-            </div>
-        </div>
-        <div class="div-est-3 Recomendados" style="display: none">
-            <div class="titA">&nbsp;</div>
-            <div class="titA">5</div>
-            <div class="titB">
-                <input type="checkbox" id="chkVisible5" class="activar-desactivar" />
-            </div>
-            <div class="titA" style="display: none">
-                <input type="text" id="txtCantidad" />
-            </div>
-            <div class="titG" id="idColorFondo" style="display: none; width:200px;">
-                Elegir color de fondo:&nbsp;<input type='text' id="txtColorFondo" />
-            </div>
-            <div class="titG" id="idEstrella" style="width:130px;">
-                <span id="txt1-estrella">Mostrar estrella</span>        <!--SB20-312 -->
-                <input type="checkbox" id="chkEstrella" />
-            </div>
-            <div class="titG" style="width:380px" id="txt2-estrella">&nbsp;(Solo para Ofertas Recomendar / Ofertas Segmentadas)</div>   <!--SB20-312 -->
-        </div>
-        <div class="div-est-3">
-            &nbsp;
-        </div>
-        <div class="div-3">
-            <style>
-                .div-img-estrategias {
-                    float: left;
-                    width: 600px;
-                }
-                .div-img-estrategias > .titG {
-                    width: 100px;
-                }
-
-                .img-estrategia-preview {
-                    cursor: pointer;
-                    width: 100%;
-                    height: 35px;
-                }
-            </style>
-
-            <div class="titG">Imagen:</div>
-            <div class="div-img-estrategias">
-                @for (int i = 1; i <= nroImagenes; i++)
-                {
-                    idControl = "0" + i;
-                    idControl = idControl.Substring(idControl.Length - 2);
-
-                    <div class="titG">
-                        <div class="pdr_modal borde_redondeado aligncenter">
-                            <img src='@Url.Content("~/Content/Images/" + imagenVacia)' id="preview@(i)" class="img-estrategia-preview" data-id="@(i)">
-                        </div>
-                        <div class="pdr_modal_check aligncenter">
-                            <input type="checkbox" id="chkImagenProducto@(idControl)" class="chk-estrategia-imagen" data-id="@(i)">
-                        </div>
-                    </div>
-                }
-            </div>
-        </div>
-        <div class="div-3">
-            <div class="titG">¿Activar Oferta?</div>
-            <div class="selectCheck borde_redondeado">
-                <input type="checkbox" class="check" id="chkHabilitarOferta" />
-            </div>
-        </div>
-        <div class="div-est-3" id="div-orden">
-            <!--SB20-312 -->
-            <div class="titB">&nbsp;</div>
-            <div class="titB">Orden:</div>
-            <div class="titB">
-                <input type="text" id="txtOrden" value="" maxlength="3" />
-            </div>
-        </div>
-        <div class="div-est-3">
-            <div class="titB">&nbsp;</div>
-            <div class="titB">Alcance:</div>
-            <div class="titD">
-                <input type="text" id="txtAlcance" readonly="readonly" />
-            </div>
-            <div class="titA" style="width:20px">
-                <a href="#" style="margin-left: 5px" id="linkAlcance">
-                    <img src='@Url.Content("~/Content/Images/search.png")' border="0" alt="Seleccionar alcance" title="Seleccionar alcance" />
-                </a>
-            </div>
-            <div class="titG" style="width:300px">&nbsp;(Seleccionar Pa&iacute;s, Regi&oacute;n o Zona)</div>
-        </div>
-        <div class="div-est-3">
-            <div class="titB">&nbsp;</div>
-            <div class="titB">Limite de Venta:</div>
-            <div class="titB">
-                <input type="text" id="txtLimite" value="99" />
-            </div>
-            <div class="titG">&nbsp;(N&uacute;mero de Unidades m&aacute;ximas por Consultora)</div>
-        </div>
-    </div>
-</div>
-<div id="DialogZona" style="display: none;">
-    <div class="Content_modal">
-        <div class="div-3">
-            <div class="treeview_est_content">
-                <div id="arbolRegionZona" class="demo">
-                </div>
-            </div>
-        </div>
-        <div class="div-3">
-            <div class="titF"></div>
-            <div class="titF"></div>
-            <div class="titH"><input type="checkbox" id="chkSeleccionar" />Seleccionar todo</div>
-        </div>
-    </div>
-</div>
-<div id="DialogEditarTallaColor" style="display: none;">
-    <div class="Content_modal">
-        <div class="div-3">
-            <div class="titG">CUV:</div>
-            <div class="selectP2 borde_redondeado">
-                <input type="text" id="txtCUVTC" />
-            </div>
-        </div>
-        <div class="div-3">
-            <div class="titG">Descripción:</div>
-            <div class="selectP2 borde_redondeado" style="width: 300px">
-                <input type="text" id="txtDescripcionCUVTC" style="width: 290px" readonly="readonly" />
-            </div>
-        </div>
-        <div class="div-3">
-            <div class="titG">Precio:</div>
-            <div class="selectP2 borde_redondeado">
-                <input type="text" id="txtPrecioCUVTC" readonly="readonly" />
-            </div>
-        </div>
-        <div class="div-3">
-            <div class="titG">Tipo:</div>
-            <div class="selectP2 borde_redondeado">
-                <select id="ddlTallaColor">
-                    <option value='0'>-- Seleccionar --</option>
-                    <option value='C'>Color</option>
-                    <option value='T'>Talla</option>
-                </select>
-            </div>
-        </div>
-        <div class="div-3">
-            <div class="titG">Descripción (Talla/Color):</div>
-            <div class="selectP2 borde_redondeado">
-                <input type="text" id="txtDescripcionTC" />
-            </div>
-        </div>
-    </div>
-</div>
-<div id="DialogTonoMarca" style="display: none;">
-    <div class="Content_modal">
-        <table id="listTC"></table>
-        <div id="pagerTC"></div>
-    </div>
-</div>
-<div id="divVistaPrevia" class="Content_modal_ZE" style="display:none; background-color: #fff;width: 200px;height: 330px;overflow:hidden; text-align: center">
-    <div class="Content_modal_ZE" style="margin:5px; overflow: hidden;">
-        <div style="position: absolute; width:100%;">
-            <img id="imgTipoOferta" style="float:right; margin-top:10px;" src="">
-        </div>
-        <div style="position: absolute; width:100%;">
-            <img id="imgEstrella" style="float:left; margin-top:10px; width:23px; height:23px;" src="@Url.Content("~/Content/Images/star_reco.png")">
-        </div>
-        <img id="imgZonaEstrategia" style="width:128px; height: 161px; margin:5px;" src="" alt="Imagen Producto">
-    </div>
-    <div class="zona_estrategia_1"></div>
-    <div>&nbsp;</div>
-    <div class="zona_estrategia_2"></div>
-    <div class="zona_estrategia_3"></div>
-    <div class="zona_estrategia_4"></div>
-</div>
-<div id="loadingScreen"></div>

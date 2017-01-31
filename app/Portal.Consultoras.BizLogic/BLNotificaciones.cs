@@ -11,12 +11,12 @@ namespace Portal.Consultoras.BizLogic
 {
     public class BLNotificaciones
     {
-        public IList<BENotificaciones> GetNotificacionesConsultora(int PaisID, long ConsultoraId)
+        public IList<BENotificaciones> GetNotificacionesConsultora(int PaisID, long ConsultoraId, int indicadorBloqueoCDR)
         {
 
             var DANotificaciones = new DANotificaciones(PaisID);
             var notificaciones = new List<BENotificaciones>();
-            using (IDataReader reader = DANotificaciones.GetNotificacionesConsultora(ConsultoraId))
+            using (IDataReader reader = DANotificaciones.GetNotificacionesConsultora(ConsultoraId, indicadorBloqueoCDR))
                 while (reader.Read())
                 {
                     var entidad = new BENotificaciones(reader);

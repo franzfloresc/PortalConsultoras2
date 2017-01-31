@@ -170,6 +170,8 @@ namespace Portal.Consultoras.Common
             public const string CDRDescripcion = "CDRDescripcion";
             public const string CDRWebDetalle = "CDRWebDetalle";
             public const string CDRWeb = "CDRWeb";
+            public const string CDRParametria = "CDRParametria";
+            public const string CDRWebDatos = "CDRWebDatos";
         }
 
         public class TipoOfertaFinalCatalogoPersonalizado
@@ -188,13 +190,14 @@ namespace Portal.Consultoras.Common
             // Segundo Dígito
             // 1: Home                      2: Pedido
             // 3: Liquidacion               4: Catalogo Personalizado
-            // 5: ShowRoom
+            // 5: ShowRoom                  9: General
 
             // Tercer Dígito
             // 1: Banners                   2: Ofertas para ti
             // 3: Catalogo Personalizado    4: Liquidacion
             // 5: Producto Sugerido         6: Oferta Final
             // 7: ShowRoom                  8: Consultora Online
+            // 9: Oferta del dia
 
             // Cuarto Dígito
             // 1. Sin popUp                 2. Con popUp
@@ -232,8 +235,23 @@ namespace Portal.Consultoras.Common
             public const int MobileCatalogoPersonalizado = 2431;
             public const int MobileCatalogoPersonalizadoPopUp = 2432;
 
+            /*PL20-1227*/
+            public const int DesktopHomeBannerOfertaDelDia = 1191;
+            public const int DesktopHomeDisplayOfertaDelDia = 1192;
+            public const int DesktopPedidoBannerOfertaDelDia = 1291;
+            public const int DesktopPedidoDisplayOfertaDelDia = 1292;
+            public const int DesktopGeneralBannerOfertaDelDia = 1991;
+            public const int DesktopGeneralDisplayOfertaDelDia = 1992;
         }
         
+        public class TipoTutorial
+        {
+            public const int Video = 1;
+            public const int Desktop = 2;
+            public const int Salvavidas = 3;
+            public const int Mobile = 4;
+        }
+
         public class COTipoAtencionMensaje
         {
             public const string Agotado = "Agotado";
@@ -247,14 +265,6 @@ namespace Portal.Consultoras.Common
             public const string Marcas = "No te olvides comunicarte con tu cliente.";
         }
         
-        public class TipoTutorial
-        {
-            public const int Video = 1;
-            public const int Desktop = 2;
-            public const int Salvavidas = 3;
-            public const int Mobile = 4;
-        }
-
         public class BackOrder
         {
             public const string LogAccionCancelar = "El cliente no aceptó BackOrder.";
@@ -267,6 +277,39 @@ namespace Portal.Consultoras.Common
             public const int Aceptado = 3;
             public const int Observado = 4;
         }
+
+
+        public class TipoMensajeCDR
+        {
+            public const string Motivo = "Motivo";
+            public const string Solucion = "Solucion";
+            public const string Propuesta = "Propuesta";
+            public const string TenerEnCuenta = "TenerEnCuenta";
+            public const string Finalizado = "Finalizado";
+            public const string MensajeFinalizado = "MensajeFinalizado";
+        }
+
+        public class ParametriaCDR
+        {
+            public const string Faltante = "STO_PMON_FM";
+            public const string Devolucion = "STO_PMON_DEV";
+            public const string Trueque = "STO_DESV_TRQ";
+            public const string TruequeValAbs = "STO_DESV_TRQ_OPER";
+        }
+
+        public class CdrWebDatos
+        {
+            public const string UnidadesPermitidasFaltante = "UnidadesPermitidasFaltante";
+        }
+
+        public class CodigoOperacionCDR
+        {
+            public const string Faltante = "F";
+            public const string FaltanteAbono = "G";
+            public const string Devolucion = "D";
+            public const string Trueque = "T";
+            public const string Canje = "C";
+        }
         public class TipoPopUp
         {
             public const int VideoIntroductorio = 1;
@@ -278,6 +321,16 @@ namespace Portal.Consultoras.Common
             public const int Flexipago = 7;
             public const int Comunicado = 8;
         }
+
+        // Constantes de los motivos de GPR.
+        public class GPRMotivoRechazo
+        {
+            public const string MontoMinino = "OCC-16"; //MONTO MINIMO
+            public const string MontoMaximo = "OCC-17"; // MONTO MAXIMO
+            public const string ActualizacionDeuda = "OCC-19"; //ACTUALIZACION DE DEUDA
+            public const string ValidacionMontoMinimoStock = "OCC-51"; //VALIDACION MONTO MINIMO STOCK
+        }
     }
 }
+
 

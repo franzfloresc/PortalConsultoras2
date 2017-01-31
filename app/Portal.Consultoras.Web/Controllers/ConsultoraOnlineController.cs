@@ -1060,8 +1060,8 @@ namespace Portal.Consultoras.Web.Controllers
             pedido.DetallePedido = olstMisPedidosDet.Where(x => x.PedidoId == pedido.PedidoId).ToArray();
 
             //ViewBag.Simbolo = UserData().Simbolo;
-            //string marcaPedido = pedido.DetallePedido.Count() > 0 ? pedido.DetallePedido[0].Marca : "";
 
+            //string marcaPedido = pedido.DetallePedido.Count() > 0 ? pedido.DetallePedido[0].Marca : "";
             int tipo;
             string marcaPedido;
 

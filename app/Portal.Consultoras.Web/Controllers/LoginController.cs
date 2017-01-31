@@ -304,10 +304,17 @@ namespace Portal.Consultoras.Web.Controllers
                     model = new UsuarioModel();
 
                     #region Obtener Respuesta del SSiCC
-
                     model.MotivoRechazo = "A partir de mañana podrás ingresar tu pedido de C" + CalcularNroCampaniaSiguiente(oBEUsuario.CampaniaID.ToString(), oBEUsuario.NroCampanias);
-                    model.EstaRechazado = oBEUsuario.IndicadorRechazado == 2 ? 2 : 0;
-                    if (oBEUsuario.IndicadorEnviado == 1 && oBEUsuario.IndicadorRechazado == 1)
+                    model.IndicadorGPRSB = oBEUsuario.IndicadorGPRSB;
+                    bool MostrarBannerPedidoRechazado = false;
+
+                    if (oBEUsuario.IndicadorGPRSB == 2)
+                    {
+                        MostrarBannerPedidoRechazado = true;
+                        if (!oBEUsuario.ValidacionAbierta && oBEUsuario.EstadoPedido == 202) { MostrarBannerPedidoRechazado = false; }
+                    }
+
+                    if (MostrarBannerPedidoRechazado)
                     {
                         var procesoRechazado = new BEProcesoPedidoRechazado();
                         try
@@ -321,85 +328,82 @@ namespace Portal.Consultoras.Web.Controllers
 
                         if (procesoRechazado.IdProcesoPedidoRechazado > 0)
                         {
-                            model.EstaRechazado = 2;
-                            var listaRechazo = procesoRechazado.olstBEPedidoRechazado != null ? procesoRechazado.olstBEPedidoRechazado.ToList() : new List<BEPedidoRechazado>();
+                            List<BEPedidoRechazado> listaRechazo = procesoRechazado.olstBEPedidoRechazado != null ? procesoRechazado.olstBEPedidoRechazado.ToList() : new List<BEPedidoRechazado>();
                             if (listaRechazo.Any())
                             {
-                                model.EstaRechazado = 0;
                                 listaRechazo = listaRechazo.Where(r => r.Rechazado).ToList();
-                                //listaRechazo = listaRechazo.Where(r => r.RequiereGestion).ToList();
-                                //var d = listaRechazo.Where(r => r.Procesado).ToList();
+
                                 if (listaRechazo.Any())
                                 {
-                                    model.EstaRechazado = 1;
                                     model.MotivoRechazo = "";
                                     string valor = oBEUsuario.Simbolo + " ";
                                     string valorx = "";
 
-                                    // deuda, monto mínimo/máximo/MinStock
-
-                                    listaRechazo.Update(p => p.MotivoRechazo = Util.SubStr(p.MotivoRechazo, 0).ToLower());
+                                    //listaRechazo.Update(p => p.MotivoRechazo = Util.SubStr(p.MotivoRechazo, 0).ToLower());
                                     listaRechazo = listaRechazo.Where(p => p.MotivoRechazo != "").ToList();
 
-                                    var listaMotivox = listaRechazo.Where(p => p.MotivoRechazo == "deuda").ToList();
+                                    var listaMotivox = listaRechazo.Where(p => p.MotivoRechazo == Constantes.GPRMotivoRechazo.ActualizacionDeuda).ToList(); //deuda
                                     if (listaMotivox.Any())
                                     {
+                                        bool esMovil = Request.Browser.IsMobileDevice;
+
                                         valorx = valor + listaMotivox[0].Valor;
-                                        model.MotivoRechazo = "Tienes una deuda de " + valorx + " que debes regularizar. <a href='javascript:;' onclick=RedirectMenu('Index','MisPagos',0,'') >MIRA LOS LUGARES DE PAGO</a>";
+                                        model.MotivoRechazo = "Tienes una deuda de " + valorx + " que debes regularizar. <a class='CerrarBanner' href='javascript:;' onclick=RedirectMenu('Index','MisPagos',0,'');cerrarMensajeEstadoPedido() >MIRA LOS LUGARES DE PAGO</a>";
+
+                                        if (esMovil)
+                                            model.MotivoRechazo = "Tienes una deuda de " + valorx + " que debes regularizar.";
                                     }
 
-                                    listaMotivox = listaRechazo.Where(p => p.MotivoRechazo == "minimo").ToList();
+                                    listaMotivox = listaRechazo.Where(p => p.MotivoRechazo == Constantes.GPRMotivoRechazo.MontoMinino).ToList(); // minimo
                                     if (listaMotivox.Any())
                                     {
                                         if (model.MotivoRechazo != "")
                                         {
                                             model.MotivoRechazo = "Tienes una deuda pendiente de " + valorx;
                                             valorx = valor + listaMotivox[0].Valor;
-                                            model.MotivoRechazo += ". Además, para pasar pedido debes alcanzar el monto mínimo de " + valorx + ". <a href='javascript:;' onclick=RedirectMenu('Index','Pedido',0,'Pedido') >MODIFICA TU PEDIDO</a>";
+                                            model.MotivoRechazo += ". Además, para pasar pedido debes alcanzar el monto mínimo de " + oBEUsuario.Simbolo + ". " + oBEUsuario.MontoMinimoPedido + ". <a class='CerrarBanner' href='javascript:;' onclick=RedirectMenu('Index','Pedido',0,'Pedido');cerrarMensajeEstadoPedido() >MODIFICA TU PEDIDO</a>";
                                         }
                                         else
                                         {
                                             valorx = valor + listaMotivox[0].Valor;
-                                            model.MotivoRechazo = "No llegaste al mínimo de " + valorx + ". <a href='javascript:;' onclick=RedirectMenu('Index','Pedido',0,'Pedido') >MODIFICA TU PEDIDO</a>";
+                                            model.MotivoRechazo = "No llegaste al monto mínimo de " + oBEUsuario.Simbolo + ". " + oBEUsuario.MontoMinimoPedido + " <a class='CerrarBanner' href='javascript:;' onclick=RedirectMenu('Index','Pedido',0,'Pedido');cerrarMensajeEstadoPedido() >MODIFICA TU PEDIDO</a>";
                                         }
                                     }
                                     else
                                     {
-                                        listaMotivox = listaRechazo.Where(p => p.MotivoRechazo == "maximo").ToList();
+                                        listaMotivox = listaRechazo.Where(p => p.MotivoRechazo == Constantes.GPRMotivoRechazo.MontoMaximo).ToList(); //maximo
                                         if (listaMotivox.Any())
                                         {
                                             if (model.MotivoRechazo != "")
                                             {
                                                 model.MotivoRechazo = "Tienes una deuda pendiente de " + valorx;
                                                 valorx = valor + listaMotivox[0].Valor;
-                                                model.MotivoRechazo += ". Además, superaste tu línea de crédito de " + valorx + ". <a href='javascript:;' onclick=RedirectMenu('Index','Pedido',0,'Pedido') >MODIFICA TU PEDIDO</a>";
+                                                model.MotivoRechazo += ". Además, superaste tu línea de crédito de " + oBEUsuario.Simbolo + ". " + oBEUsuario.MontoMaximoPedido + ". <a class='CerrarBanner' href='javascript:;' onclick=RedirectMenu('Index','Pedido',0,'Pedido');cerrarMensajeEstadoPedido() >MODIFICA TU PEDIDO</a>";
                                             }
                                             else
                                             {
                                                 valorx = valor + listaMotivox[0].Valor;
-                                                model.MotivoRechazo = "Superaste tu línea de crédito de " + valorx + ". <a href='javascript:;' onclick=RedirectMenu('Index','Pedido',0,'Pedido') >MODIFICA TU PEDIDO</a>";
+                                                model.MotivoRechazo = "Superaste tu línea de crédito de " + oBEUsuario.Simbolo + ". " + oBEUsuario.MontoMaximoPedido + ". <a class='CerrarBanner' href='javascript:;' onclick=RedirectMenu('Index','Pedido',0,'Pedido');cerrarMensajeEstadoPedido() >MODIFICA TU PEDIDO</a>";
                                             }
                                         }
                                     }
 
-
-                                    listaMotivox = listaRechazo.Where(p => p.MotivoRechazo == "minstock").ToList();
+                                    listaMotivox = listaRechazo.Where(p => p.MotivoRechazo == Constantes.GPRMotivoRechazo.ValidacionMontoMinimoStock).ToList(); //minstock
                                     if (listaMotivox.Any())
                                     {
                                         valorx = valor + listaMotivox[0].Valor;
-                                        model.MotivoRechazo = "No llegaste al mínimo de " + valorx + ". <a href='javascript:;' onclick=RedirectMenu('Index','Pedido',0,'Pedido') >MODIFICA TU PEDIDO</a>";
+                                        model.MotivoRechazo = "No llegaste al mínimo de " + valorx + ". <a class='CerrarBanner' href='javascript:;' onclick=RedirectMenu('Index','Pedido',0,'Pedido');cerrarMensajeEstadoPedido() >MODIFICA TU PEDIDO</a>";
                                     }
                                 }
-
                                 // llamar al maestro de mensajes
                             }
                         }
                     }
                     #endregion
-
                     model.MotivoRechazo = model.MotivoRechazo.Trim();
-                    model.IndicadorEnviado = oBEUsuario.IndicadorEnviado;
-                    model.IndicadorRechazado = oBEUsuario.IndicadorRechazado;
+                    model.IndicadorGPRSB = oBEUsuario.IndicadorGPRSB;
+                    model.EstadoPedido = oBEUsuario.EstadoPedido;
+                    model.MostrarBannerRechazo = MostrarBannerPedidoRechazado;
                     model.NombrePais = oBEUsuario.NombrePais;
                     model.PaisID = oBEUsuario.PaisID;
                     model.CodigoISO = oBEUsuario.CodigoISO;
@@ -443,6 +447,7 @@ namespace Portal.Consultoras.Web.Controllers
                     model.EsJoven = oBEUsuario.EsJoven;
                     model.PROLSinStock = oBEUsuario.PROLSinStock;
                     model.HoraCierreZonaDemAntiCierre = oBEUsuario.HoraCierreZonaDemAntiCierre;
+                    model.ConsultoraAsociadaID = oBEUsuario.ConsultoraAsociadaID;
 
                     if (DateTime.Now.AddHours(oBEUsuario.ZonaHoraria) < oBEUsuario.FechaInicioFacturacion)
                         model.DiaPROLMensajeCierreCampania = false;
@@ -576,6 +581,9 @@ namespace Portal.Consultoras.Web.Controllers
                     model.TieneHana = oBEUsuario.TieneHana;
                     model.NombreGerenteZonal = oBEUsuario.NombreGerenteZona;  // SB20-907
                     model.FechaActualPais = oBEUsuario.FechaActualPais;
+                    model.IndicadorBloqueoCDR = oBEUsuario.IndicadorBloqueoCDR;
+                    model.EsCDRWebZonaValida = oBEUsuario.EsCDRWebZonaValida;
+                    model.TieneCDR = oBEUsuario.TieneCDR;
 
                     if (model.RolID == Constantes.Rol.Consultora)
                     {
@@ -619,8 +627,121 @@ namespace Portal.Consultoras.Web.Controllers
                                 }
                             }
                         }   
+
+                        /*PL20-1226*/
+                        //model.EsOfertaDelDia = oBEUsuario.EsOfertaDelDia;
+                        //if (model.EsOfertaDelDia > 0)
+                        //{
+
+                        if (oBEUsuario.OfertaDelDia)
+                        {
+                            var lstOfertaDelDia = new List<BEEstrategia>();
+                            using (PedidoServiceClient svc = new PedidoServiceClient())
+                            {
+                                lstOfertaDelDia = svc.GetEstrategiaODD(model.PaisID, model.CampaniaID, model.CodigoConsultora, model.FechaInicioCampania.Date).ToList();
+                            }
+
+                            if (lstOfertaDelDia.Any())
+                            {
+                                var configOfertaDelDia = new List<BETablaLogicaDatos>();
+                                using (SACServiceClient svc = new SACServiceClient())
+                                {
+                                    configOfertaDelDia = svc.GetTablaLogicaDatos(model.PaisID, 93).ToList();
+                                }
+
+                                if (configOfertaDelDia.Any())
+                                {
+                                    var ofertaDelDia = lstOfertaDelDia[0];
+                                    var arr1 = ofertaDelDia.DescripcionCUV2.Split('|');
+                                    var nombreODD = arr1[0].Trim();
+                                    var descripcionODD = string.Empty;
+
+                                    for (int i = 1; i < arr1.Length; i++)
+                                    {
+                                        if (!string.IsNullOrEmpty(arr1[i]))
+                                            descripcionODD += arr1[i].Trim() + "|";
+                                    }
+
+                                    descripcionODD = descripcionODD.Substring(0, descripcionODD.Length - 1);
+
+                                    var countdown = CountdownODD(model);
+                                    var imgF1 = string.Format(ConfigurationManager.AppSettings.Get("UrlImgFondo1ODD"), model.CodigoISO);
+                                    var imgF2 = string.Format(ConfigurationManager.AppSettings.Get("UrlImgFondo2ODD"), model.CodigoISO);
+                                    var imgSh = string.Format(ConfigurationManager.AppSettings.Get("UrlImgSoloHoyODD"), model.CodigoISO);
+                                    //var imgBanner = string.Format(ConfigurationManager.AppSettings.Get("UrlImgBannerODD"), model.CodigoISO, ofertaDelDia.ImagenURL);
+                                    //var imgDisplay = string.Format(ConfigurationManager.AppSettings.Get("UrlImgDisplayODD"), model.CodigoISO, ofertaDelDia.ImagenURL);
+                                    var colorF1 = configOfertaDelDia.Where(x => x.TablaLogicaDatosID == 9301).First().Codigo ?? string.Empty;
+                                    var colorF2 = configOfertaDelDia.Where(x => x.TablaLogicaDatosID == 9302).First().Codigo ?? string.Empty;
+                                    descripcionODD = descripcionODD.Replace("|", " +<br />");
+                                    descripcionODD = descripcionODD.Replace("\\", "");
+                                    descripcionODD = descripcionODD.Replace("(GRATIS)", "<b>GRATIS</b>");
+
+                                    var carpetaPais = Globals.UrlMatriz + "/" + model.CodigoISO;
+
+                                    ofertaDelDia.FotoProducto01 = ConfigS3.GetUrlFileS3(carpetaPais, ofertaDelDia.FotoProducto01, carpetaPais);
+                                    ofertaDelDia.ImagenURL = ConfigS3.GetUrlFileS3(carpetaPais, ofertaDelDia.ImagenURL, carpetaPais);
+                                    var imgBanner = ofertaDelDia.FotoProducto01;
+                                    var imgDisplay = ofertaDelDia.FotoProducto01;
+
+                                    var oddModel = new OfertaDelDiaModel();
+                                    oddModel.CodigoIso = model.CodigoISO;
+                                    oddModel.TipoEstrategiaID = ofertaDelDia.TipoEstrategiaID;
+                                    oddModel.EstrategiaID = ofertaDelDia.EstrategiaID;
+                                    oddModel.MarcaID = ofertaDelDia.MarcaID;
+                                    oddModel.CUV2 = ofertaDelDia.CUV2;
+                                    oddModel.LimiteVenta = ofertaDelDia.LimiteVenta;
+                                    oddModel.IndicadorMontoMinimo = ofertaDelDia.IndicadorMontoMinimo;
+                                    oddModel.TipoEstrategiaImagenMostrar = ofertaDelDia.TipoEstrategiaImagenMostrar;
+                                    oddModel.TeQuedan = countdown;
+                                    oddModel.ImagenFondo1 = imgF1;
+                                    oddModel.ColorFondo1 = colorF1;
+                                    oddModel.ImagenBanner = imgBanner;
+                                    oddModel.ImagenSoloHoy = imgSh;
+                                    oddModel.ImagenFondo2 = imgF2;
+                                    oddModel.ColorFondo2 = colorF2;
+                                    oddModel.ImagenDisplay = imgDisplay;
+                                    oddModel.NombreOferta = nombreODD;
+                                    oddModel.DescripcionOferta = descripcionODD;
+                                    oddModel.PrecioOferta = ofertaDelDia.Precio2;
+                                    oddModel.PrecioCatalogo = ofertaDelDia.Precio;
+
+                                    model.TieneOfertaDelDia = true;
+                                    //Session["OfertaDelDia"] = oddModel;
+                                    //Session["CloseODD"] = false;
+                                    model.OfertaDelDia = oddModel;
+                                    //model.IdTipoEstrategiaODD = ofertaDelDia.TipoEstrategiaID;
+                                    //model.LimiteVentaOfertaDelDia = oddModel.LimiteVenta;
+
+                                }// config ODD
+                            }// list ODD
+                            
+                            /*PL20-1226*/
+                        }
                     }
                 }
+
+                //PL20-1234
+                var lstFiltersFAV = new List<BETablaLogicaDatos>();
+                using (SACServiceClient svc = new SACServiceClient())
+                {
+                    for (int i = 94; i <= 97; i++)
+                    {
+                        var lstItems = svc.GetTablaLogicaDatos(model.PaisID, (short)i);
+                        if (lstItems.Any())
+                        {
+                            foreach (var item in lstItems)
+                            {
+                                lstFiltersFAV.Add(item);
+                            }
+                        }
+                    }
+                }
+
+                if (lstFiltersFAV.Any())
+                {
+                    Session["ListFiltersFAV"] = lstFiltersFAV;
+                }
+                //PL20-1234
 
                 Session["UserData"] = model;
             }
@@ -728,7 +849,7 @@ namespace Portal.Consultoras.Web.Controllers
             List<BENotificaciones> olstNotificaciones = new List<BENotificaciones>();
             using (UsuarioServiceClient sv = new UsuarioServiceClient())
             {
-                olstNotificaciones = sv.GetNotificacionesConsultora(oBEUsuario.PaisID, oBEUsuario.ConsultoraID).ToList();
+                olstNotificaciones = sv.GetNotificacionesConsultora(oBEUsuario.PaisID, oBEUsuario.ConsultoraID, oBEUsuario.IndicadorBloqueoCDR).ToList();
             }
             if (olstNotificaciones.Count != 0)
             {
@@ -835,5 +956,35 @@ namespace Portal.Consultoras.Web.Controllers
                 }
             }
         }
+
+        /*PL20-1226*/
+        public TimeSpan CountdownODD(UsuarioModel model)
+        {
+            //DateTime hoy = DateTime.Now;
+            //DateTime d1 = new DateTime(hoy.Year, hoy.Month, hoy.Day, 0, 0, 0);
+            DateTime hoy;
+
+            using (SACServiceClient svc = new SACServiceClient())
+            {
+                hoy = svc.GetFechaHoraPais(model.PaisID);
+            }
+
+            DateTime d1 = new DateTime(hoy.Year, hoy.Month, hoy.Day, 0, 0, 0);
+            DateTime d2;
+
+            if (model.EsDiasFacturacion)  // dias de facturacion
+            {
+                TimeSpan t1 = model.HoraCierreZonaNormal;
+                d2 = new DateTime(hoy.Year, hoy.Month, hoy.Day, t1.Hours, t1.Minutes, t1.Seconds);
+            }
+            else
+            {
+                d2 = d1.AddDays(1);
+            }
+
+            TimeSpan t2 = (d2 - hoy);
+            return t2;
+        }
+        /*PL20-1226*/
     }
 }
