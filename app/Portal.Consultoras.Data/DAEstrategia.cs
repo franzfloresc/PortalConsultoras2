@@ -341,7 +341,7 @@ namespace Portal.Consultoras.Data
                 Context.Database.AddInParameter(command, "@EstrategiasActivas", DbType.String, EstrategiasActivas);
                 Context.Database.AddInParameter(command, "@EstrategiasDesactivas", DbType.String, EstrategiasDesactivas);
 
-                result = Context.ExecuteNonQuery(command);
+                result = int.Parse(Context.ExecuteScalar(command).ToString());
             }
             return result;
         }

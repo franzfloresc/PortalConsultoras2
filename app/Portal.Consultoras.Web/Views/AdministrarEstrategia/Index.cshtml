@@ -766,7 +766,7 @@
                 contentType: 'application/json; charset=utf-8',
                 data: JSON.stringify(params),
                 async: true,
-                success: function (data) {
+                success: function (data) {                    
                     alert(data.message);
                     fnGrilla();
                     closeWaitingDialog();
@@ -2342,7 +2342,7 @@
                     var FlagCantidad = "0"; //($("#chkVisible5").attr("checked")) ? "1" : "0";
                     var Zona = $("#hdZonas").val();
                     var Orden = $("#txtOrden").val();
-                    var flagEstrella = ($("#chkEstrella").attr("checked")) ? "1" : "0";
+                    var flagEstrella = ($("#chkOfertaUltimoMinuto").attr("checked")) ? "1" : "0";
                     var colorFondo = $("#hdColorFondo").val();
 
                     var NumeroPedidoAsociado = $(".checksPedidosAsociados input:checked").map(function () {
@@ -2803,7 +2803,7 @@
                         }
 
                         /* SB20-312 - FIN */
-                        if (data.FlagEstrella == "1") $("#chkEstrella").attr("checked", true);
+                        if (data.FlagEstrella == "1") $("#chkOfertaUltimoMinuto").attr("checked", true);
                         else $("#chkEstrella").attr("checked", false);
                         $(".checksPedidosAsociados").append('<div class="selectP2 borde_redondeado"><input type="text" id="txtPedidoAsociado" value="' + data.NumeroPedido + '" readonly /></div>');
                         closeWaitingDialog();
