@@ -708,6 +708,9 @@ namespace Portal.Consultoras.Web.Controllers
                 case "F":
                     codigoValor = Constantes.CdrWebDatos.UnidadesPermitidasFaltante;
                     break;
+                case "G":
+                    codigoValor = Constantes.CdrWebDatos.UnidadesPermitidasFaltante;
+                    break;
                 default:                    
                     break;
             }
