@@ -114,11 +114,9 @@ $(document).ready(function () {
                 
             //},
             ondragend: function (myvalue) {
-                debugger
                 flt = 0;
                 rangoPrecios = myvalue;
                 $(".slider-container").addClass("disabledbutton");
-                debugger
                 flt++;
                 filterFAVDesktop();
 
@@ -206,7 +204,6 @@ function MostrarNoHayProductos() {
 //SB20-1197
 function processFilterCatalogoPersonalizado()
 {
-    debugger
     flt = 0;
     // reset values
     filters = [];
@@ -224,7 +221,6 @@ function processFilterCatalogoPersonalizado()
     var values = "";
     $('#idcategory').find('input[type="checkbox"]:checked').each(function () {
         values += $(this).val() + ',';
-        debugger
         flt++;
     });       
 
@@ -238,7 +234,6 @@ function processFilterCatalogoPersonalizado()
     values = "";
     $('#idmarca').find('input[type="checkbox"]:checked').each(function () {
         values += $(this).val() + ',';
-        debugger
         flt++;
     });        
 
@@ -512,7 +507,7 @@ function CargarCatalogoPersonalizado() {
                     $('#divProductosEncontrados b').text(cont.toString()); //PL1274 
 
                     var btnflt = "FILTROS";
-                    debugger
+                    
                     if (flt != 0)
                         btnflt = "FILTROS (" + flt + ")";
                     $("#btnfltm").attr('value', btnflt);
@@ -1249,8 +1244,7 @@ function filterFAVDesktop() {
     // category
     var values = "";
     $('#div-filter-category').find('div[class*="seleccion_click_flitro"]').each(function () {
-        values += $(this).data('value') + ',';
-        debugger
+        values += $(this).data('value') + ',';        
         flt++;
     });
 
@@ -1264,7 +1258,6 @@ function filterFAVDesktop() {
     values = "";
     $('#div-filter-brand').find('div[class*="seleccion_click_flitro"]').each(function () {
         values += $(this).data('value') + ',';
-        debugger
         flt++;
     });
 
@@ -1288,7 +1281,6 @@ function filterFAVDesktop() {
     values = "";
     $('#div-filter-published').find('div[class*="seleccion_click_flitro"]').each(function () {
         values += $(this).data('value') + ',';
-        debugger
         flt++;
     });
 
@@ -1311,7 +1303,6 @@ function filterFAVDesktop() {
 // PL20-1270
 function CargarFiltros()
 {
-    debugger
     flt = 0;
     jQuery.ajax({
         type: 'POST',
@@ -1340,7 +1331,6 @@ function CargarFiltros()
                                     var valor = $(this).val();
                                     if (datos[i].Valor1.indexOf(valor) != -1) {
                                         $(this).trigger("click");
-                                        debugger
                                         flt++;
                                     }                                            
                                 });
@@ -1350,7 +1340,6 @@ function CargarFiltros()
                                     var valor = $(this).data('value');
                                     if (datos[i].Valor1.indexOf(valor) != -1) {
                                         $(this).toggleClass("seleccion_click_flitro");
-                                        debugger
                                         flt++;
                                     }
                                 });
@@ -1365,7 +1354,6 @@ function CargarFiltros()
                                     var valor = $(this).val();
                                     if (datos[i].Valor1.indexOf(valor) != -1) {
                                         $(this).trigger("click");
-                                        debugger
                                         flt++;
                                     }
                                 });
@@ -1375,7 +1363,6 @@ function CargarFiltros()
                                     var valor = $(this).data('value');
                                     if (datos[i].Valor1.indexOf(valor) != -1) {
                                         $(this).toggleClass("seleccion_click_flitro");
-                                        debugger
                                         flt++;
                                     }
                                 });
@@ -1403,7 +1390,6 @@ function CargarFiltros()
                                 var valor = $(this).data('value');
                                 if (datos[i].Valor1.indexOf(valor) != -1) {
                                     $(this).toggleClass("seleccion_click_flitro");
-                                    debugger
                                     flt++;
                                 }
                             });
