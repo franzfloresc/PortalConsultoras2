@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="3a1a088e-78fe-420e-8ea8-c8ad2fefb5f8" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="a4c9ebe7-ed5b-4ebb-bc28-354877d4ea04" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
   <ClientOptions>
     <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
     <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
@@ -22,11 +22,11 @@
     <MetadataSource Address="http://localhost:41615/CDRService.svc" Protocol="http" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="CDRService.xsd" MetadataType="Schema" ID="44917199-0edb-4a29-ba78-64c71de78c6d" SourceId="1" SourceUrl="http://localhost:41615/CDRService.svc?xsd=xsd2" />
-    <MetadataFile FileName="CDRService.wsdl" MetadataType="Wsdl" ID="c5e065bd-17c5-4dd3-8f58-edbd11a79cf5" SourceId="1" SourceUrl="http://localhost:41615/CDRService.svc?wsdl" />
-    <MetadataFile FileName="CDRService.disco" MetadataType="Disco" ID="c06d26b5-c7c3-4c78-9b09-2410ed2feddf" SourceId="1" SourceUrl="http://localhost:41615/CDRService.svc?disco" />
-    <MetadataFile FileName="CDRService1.xsd" MetadataType="Schema" ID="a0c6f141-dcda-4951-9f21-8e926753b13c" SourceId="1" SourceUrl="http://localhost:41615/CDRService.svc?xsd=xsd0" />
-    <MetadataFile FileName="CDRService2.xsd" MetadataType="Schema" ID="853c32c0-0348-4175-9404-29c2d3fa2ee3" SourceId="1" SourceUrl="http://localhost:41615/CDRService.svc?xsd=xsd1" />
+    <MetadataFile FileName="CDRService.xsd" MetadataType="Schema" ID="d08aab88-743f-4b4c-b702-a23d1250ca94" SourceId="1" SourceUrl="http://localhost:41615/CDRService.svc?xsd=xsd2" />
+    <MetadataFile FileName="CDRService.wsdl" MetadataType="Wsdl" ID="dd421211-8005-49f4-9f4b-ba7e845388b7" SourceId="1" SourceUrl="http://localhost:41615/CDRService.svc?wsdl" />
+    <MetadataFile FileName="CDRService.disco" MetadataType="Disco" ID="eb9598a9-e14b-4632-9c38-e416ee7d21d4" SourceId="1" SourceUrl="http://localhost:41615/CDRService.svc?disco" />
+    <MetadataFile FileName="CDRService1.xsd" MetadataType="Schema" ID="dc8ffb62-2e76-4429-9b3b-0cc48fa665e8" SourceId="1" SourceUrl="http://localhost:41615/CDRService.svc?xsd=xsd0" />
+    <MetadataFile FileName="CDRService2.xsd" MetadataType="Schema" ID="224c666a-29cf-4c18-8f22-b84dd6dcccb5" SourceId="1" SourceUrl="http://localhost:41615/CDRService.svc?xsd=xsd1" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
