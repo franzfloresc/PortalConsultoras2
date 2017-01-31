@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="2d82ab1e-454e-4a18-b8bb-dcb9c38228df" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="b89f0ab1-165c-4f05-848e-388de3cdea4a" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
   <ClientOptions>
     <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
     <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
@@ -22,13 +22,13 @@
     <MetadataSource Address="http://localhost:41615/SACService.svc" Protocol="http" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="SACService.wsdl" MetadataType="Wsdl" ID="4ae0118c-a9d4-4339-8f00-8f9eab0e14d0" SourceId="1" SourceUrl="http://localhost:41615/SACService.svc?wsdl" />
-    <MetadataFile FileName="SACService.xsd" MetadataType="Schema" ID="a97fb1ba-f61c-4e7a-9b07-b909f98132a8" SourceId="1" SourceUrl="http://localhost:41615/SACService.svc?xsd=xsd0" />
-    <MetadataFile FileName="SACService1.xsd" MetadataType="Schema" ID="b03de54e-9584-4b72-b249-c8a570640358" SourceId="1" SourceUrl="http://localhost:41615/SACService.svc?xsd=xsd1" />
-    <MetadataFile FileName="SACService2.xsd" MetadataType="Schema" ID="15553391-8994-4176-88be-379781aedcc0" SourceId="1" SourceUrl="http://localhost:41615/SACService.svc?xsd=xsd2" />
-    <MetadataFile FileName="SACService.disco" MetadataType="Disco" ID="49564ae9-16f7-491f-8372-f59643da2e59" SourceId="1" SourceUrl="http://localhost:41615/SACService.svc?disco" />
-    <MetadataFile FileName="SACService3.xsd" MetadataType="Schema" ID="9b1e56bb-920e-4ce9-8641-02bd549d5b90" SourceId="1" SourceUrl="http://localhost:41615/SACService.svc?xsd=xsd4" />
-    <MetadataFile FileName="SACService4.xsd" MetadataType="Schema" ID="d9a7a52d-0c9a-4083-9ce6-e091d690ae51" SourceId="1" SourceUrl="http://localhost:41615/SACService.svc?xsd=xsd3" />
+    <MetadataFile FileName="SACService.wsdl" MetadataType="Wsdl" ID="13dc68d5-d0d0-4880-ab56-f6cfd2733410" SourceId="1" SourceUrl="http://localhost:41615/SACService.svc?wsdl" />
+    <MetadataFile FileName="SACService.xsd" MetadataType="Schema" ID="658c609d-4521-4a76-a26b-c6fdf20dc89c" SourceId="1" SourceUrl="http://localhost:41615/SACService.svc?xsd=xsd0" />
+    <MetadataFile FileName="SACService1.xsd" MetadataType="Schema" ID="55d6d466-eeb3-4158-97e7-6baa934dc4b6" SourceId="1" SourceUrl="http://localhost:41615/SACService.svc?xsd=xsd1" />
+    <MetadataFile FileName="SACService2.xsd" MetadataType="Schema" ID="cac23acc-a6ca-43b2-b6ac-cb397f241cf8" SourceId="1" SourceUrl="http://localhost:41615/SACService.svc?xsd=xsd2" />
+    <MetadataFile FileName="SACService.disco" MetadataType="Disco" ID="589ba9c4-b5e4-4e4e-bfc2-d8f05ec1b176" SourceId="1" SourceUrl="http://localhost:41615/SACService.svc?disco" />
+    <MetadataFile FileName="SACService3.xsd" MetadataType="Schema" ID="bb1eed02-1ff5-4cbc-9a51-6f317697733f" SourceId="1" SourceUrl="http://localhost:41615/SACService.svc?xsd=xsd4" />
+    <MetadataFile FileName="SACService4.xsd" MetadataType="Schema" ID="77ba646f-e2ad-4cbf-84c1-0c24785585e6" SourceId="1" SourceUrl="http://localhost:41615/SACService.svc?xsd=xsd3" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
