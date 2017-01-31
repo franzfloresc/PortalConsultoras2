@@ -583,12 +583,14 @@ function AnalizarOperacion(id) {
     }
 
     if (id == "G") {
-        // ir al final del paso 2
-        CambioPaso2(100);
-        $("[data-tipo-confirma='cambio']").hide();
-        $("[data-tipo-confirma=canje]").show();
+        if (ValidarPaso2FaltanteAbono(id)) {
+            // ir al final del paso 2
+            CambioPaso2(100);
+            $("[data-tipo-confirma='cambio']").hide();
+            $("[data-tipo-confirma=canje]").show();
 
-        CargarPropuesta(id);
+            CargarPropuesta(id);
+        }       
     }
 
     if (id == "T") {
@@ -805,43 +807,35 @@ function ValidarPaso2Devolucion(codigoSsic) {
 }
 
 function ValidarPaso2Faltante(codigoSsic) {
-    /*Validacion de cantidad maxima para faltante*/
-    ObtenerValorCDRWebDatos(codigoSsic);
-    var cantidadProductosFaltanteActual = ObtenerCantidadProductosByCodigoSsic(codigoSsic);
-    var cantidadCuvActual = parseInt($("#txtCantidad").val()) || 0;
+    var esCantidadPermitidaValida = ValidarCantidadMaximaPermitida(codigoSsic);
 
-    var cantidadFaltante = cantidadProductosFaltanteActual + cantidadCuvActual;
+    if (esCantidadPermitidaValida) {
+        /*Validacion de Porcentaje Maximo permitido*/
+        var montoTotalPedido = $("#hdImporteTotalPedido").val();
+        var montoProductosFaltanteActual = ObtenerMontoProductosDevolver(codigoSsic);
+        var montoCuvActual = (parseFloat($("#txtPrecioUnidad").val()) || 0) * (parseInt($("#txtCantidad").val()) || 0);
+        var montoDevolver = montoProductosFaltanteActual + montoCuvActual;
 
-    var valorCdrWebDatos = $("#hdCdrWebDatos_Ssic").val() || 0;
-    valorCdrWebDatos = parseInt(valorCdrWebDatos);
+        ObtenerValorParametria(codigoSsic);
+        var valorParametria = $("#hdParametriaCdr").val() || 0;
 
-    if (cantidadFaltante > valorCdrWebDatos) {
-        alert_msg("Superas la cantidad máxima permitida de (" + valorCdrWebDatos +
-            ") unidades a reclamar para este servicio postventa, por favor modifica tu solicitud");
+        valorParametria = parseFloat(valorParametria);
+
+        var montoMaximoDevolver = montoTotalPedido * valorParametria / 100;
+
+        if (montoMaximoDevolver < montoDevolver) {
+            alert_msg("Por favor, selecciona otra solución, ya que superas el porcentaje de faltante permitido en tu pedido facturado");
+            return false;
+        }
+        /*Fin Validacion de Porcentaje Maximo permitido*/
+
+        return true;
+    } else
         return false;
-    }
-    /*Fin Validacion de cantidad maxima para faltante*/
+}
 
-    /*Validacion de Porcentaje Maximo permitido*/
-    var montoTotalPedido = $("#hdImporteTotalPedido").val();
-    var montoProductosFaltanteActual = ObtenerMontoProductosDevolver(codigoSsic);
-    var montoCuvActual = (parseFloat($("#txtPrecioUnidad").val()) || 0) * (parseInt($("#txtCantidad").val()) || 0);
-    var montoDevolver = montoProductosFaltanteActual + montoCuvActual;
-
-    ObtenerValorParametria(codigoSsic);
-    var valorParametria = $("#hdParametriaCdr").val() || 0;
-
-    valorParametria = parseFloat(valorParametria);
-
-    var montoMaximoDevolver = montoTotalPedido * valorParametria / 100;
-
-    if (montoMaximoDevolver < montoDevolver) {
-        alert_msg("Por favor, selecciona otra solución, ya que superas el porcentaje de faltante permitido en tu pedido facturado");
-        return false;
-    }
-    /*Fin Validacion de Porcentaje Maximo permitido*/
-
-    return true;
+function ValidarPaso2FaltanteAbono(codigoSsic) {
+    return ValidarCantidadMaximaPermitida(codigoSsic);
 }
 
 function ValidarPaso2Trueque() {
@@ -893,7 +887,28 @@ function ValidarPaso2Trueque() {
     }
 
     return ok;
-} 
+}
+
+function ValidarCantidadMaximaPermitida(codigoSsic) {
+    /*Validacion de cantidad maxima para faltante*/
+    ObtenerValorCDRWebDatos(codigoSsic);
+    var cantidadProductosFaltanteActual = ObtenerCantidadProductosByCodigoSsic(codigoSsic);
+    var cantidadCuvActual = parseInt($("#txtCantidad").val()) || 0;
+
+    var cantidadFaltante = cantidadProductosFaltanteActual + cantidadCuvActual;
+
+    var valorCdrWebDatos = $("#hdCdrWebDatos_Ssic").val() || 0;
+    valorCdrWebDatos = parseInt(valorCdrWebDatos);
+
+    if (cantidadFaltante > valorCdrWebDatos) {
+        alert_msg("Superas la cantidad máxima permitida de (" + valorCdrWebDatos +
+            ") unidades a reclamar para este servicio postventa, por favor modifica tu solicitud");
+        return false;
+    }
+    /*Fin Validacion de cantidad maxima para faltante*/
+
+    return true;
+}
 // FIN Paso 2
 
 // Paso 3
