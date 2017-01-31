@@ -117,6 +117,7 @@ namespace Portal.Consultoras.Web.Models
         public int OrigenPedidoWeb { get; set; }
     }
 
+    [Serializable()]
     public class ProductoModel
     {
         public string CUV { get; set; }

@@ -386,6 +386,22 @@ namespace Portal.Consultoras.BizLogic
             return DAUsuario.GetNroDocumentoConsultora(CodigoConsultora);
         }
 
+        /*EPD-1012*/
+        public BEValidaLoginSB2 GetValidarLoginSB2(int paisID, string CodigoUsuario, string Contrasenia)
+        {
+            BEValidaLoginSB2 validaLogin = null; 
+            var DAUsuario = new DAUsuario(paisID);
+
+            using (IDataReader reader = DAUsuario.GetValidarLoginSB2(CodigoUsuario, Contrasenia))
+            {
+                if (reader.Read())
+                    validaLogin = new BEValidaLoginSB2(reader);
+            }
+
+            return validaLogin;
+        }
+        /*EPD-1012*/
+
         public int GetInfoPreLogin(int paisID, string CodigoUsuario)
         {
             int Result = -1;
@@ -1089,11 +1105,65 @@ namespace Portal.Consultoras.BizLogic
 
             return consultora;
         }
-
+        
         public int UpdateUsuarioEmailTelefono(int paisID, long ConsultoraID, string Email, string Telefono)
         {
             var DAUsuario = new DAUsuario(paisID);
             return DAUsuario.UpdateUsuarioEmailTelefono(ConsultoraID, Email, Telefono);
+        }
+
+        public bool CambiarClaveUsuario(int paisId, string paisIso, string codigoUsuario, string nuevacontrasena, string correo, string codigoUsuarioAutenticado, EAplicacionOrigen origen)
+        {
+            bool resultado;
+
+            try
+            {
+                var DAUsuario = new DAUsuario(paisId);
+                DAUsuario.CambiarClaveUsuario(codigoUsuario, nuevacontrasena, correo);
+                DAUsuario.InsLogCambioContrasenia(codigoUsuarioAutenticado, paisIso + codigoUsuario, nuevacontrasena,
+                    correo, Enum.GetName(typeof (EAplicacionOrigen), origen));
+                resultado = true;
+            }
+            catch (Exception ex)
+            {
+                resultado = false;
+            }
+            
+            return resultado;
+        }
+
+        public int ExisteUsuario(int paisId, string codigoUsuario, string clave)
+        {
+            int resultado;
+
+            try
+            {
+                var DAUsuario = new DAUsuario(paisId);
+                resultado = DAUsuario.ExisteUsuario(codigoUsuario, clave);
+            }
+            catch (Exception)
+            {
+                resultado = 0;
+            }
+
+            return resultado;
+        }
+
+        public bool ValidarUsuario(int paisId, string codigoUsuario, string clave)
+        {
+            bool resultado;
+
+            try
+            {
+                var DAUsuario = new DAUsuario(paisId);
+                resultado = DAUsuario.ValidarUsuario(codigoUsuario, clave);
+            }
+            catch (Exception)
+            {
+                resultado = false;
+            }
+
+            return resultado;
         }
     }
 }

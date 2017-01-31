@@ -2320,79 +2320,20 @@ namespace Portal.Consultoras.Web.Controllers
             if (ds.Tables[0].Rows.Count == 0)
                 return new List<ObservacionModel>();
 
-            if (Constantes.CodigosISOPais.Peru.ToString().Equals(userData.CodigoISO.ToUpper()) ||
-                Constantes.CodigosISOPais.Chile.ToString().Equals(userData.CodigoISO.ToUpper()) ||
-                Constantes.CodigosISOPais.Ecuador.ToString().Equals(userData.CodigoISO.ToUpper()) ||
-                Constantes.CodigosISOPais.CostaRica.ToString().Equals(userData.CodigoISO.ToUpper()) ||
-                Constantes.CodigosISOPais.Salvador.ToString().Equals(userData.CodigoISO.ToUpper()) ||
-                Constantes.CodigosISOPais.Panama.ToString().Equals(userData.CodigoISO.ToUpper()) ||
-                Constantes.CodigosISOPais.Guatemala.ToString().Equals(userData.CodigoISO.ToUpper()) ||
-                Constantes.CodigosISOPais.Venezuela.ToString().Equals(userData.CodigoISO.ToUpper()) ||
-                Constantes.CodigosISOPais.Colombia.ToString().Equals(userData.CodigoISO.ToUpper()) ||
-                Constantes.CodigosISOPais.PuertoRico.ToString().Equals(userData.CodigoISO.ToUpper()) ||
-                Constantes.CodigosISOPais.Dominicana.ToString().Equals(userData.CodigoISO.ToUpper()) ||
-                Constantes.CodigosISOPais.Mexico.ToString().Equals(userData.CodigoISO.ToUpper()) ||
-                Constantes.CodigosISOPais.Bolivia.ToString().Equals(userData.CodigoISO.ToUpper())
-                )
+            using (ServicePROL.ServiceStockSsic sv = new ServicePROL.ServiceStockSsic())
             {
-                using (ServicePROL.ServiceStockSsic sv = new ServicePROL.ServiceStockSsic())
+                if (userData.DiaPROL && userData.MostrarBotonValidar)
                 {
-                    if (userData.DiaPROL && userData.MostrarBotonValidar)
-                    {
-                        sv.Url = ConfigurarUrlServiceProl();
-                        bool valida = sv.wsDesReservarPedido(userData.CodigoConsultora, userData.CodigoISO);
-                        datos = sv.wsValidarPedidoEX(ds, montoenviar, userData.CodigoZona, userData.CodigoISO, userData.CampaniaID.ToString(), userData.ConsultoraNueva, userData.MontoMaximo);
-                    }
-                    else
-                    {
-                        sv.Url = ConfigurarUrlServiceProl();
-                        datos = sv.wsValidarEstrategia(ds, montoenviar, userData.CodigoZona, userData.CodigoISO, userData.CampaniaID.ToString(), userData.ConsultoraNueva, userData.MontoMaximo);
-                    }
+                    sv.Url = ConfigurarUrlServiceProl();
+                    bool valida = sv.wsDesReservarPedido(userData.CodigoConsultora, userData.CodigoISO);
+                    datos = sv.wsValidarPedidoEX(ds, montoenviar, userData.CodigoZona, userData.CodigoISO, userData.CampaniaID.ToString(), userData.ConsultoraNueva, userData.MontoMaximo);
+                }
+                else
+                {
+                    sv.Url = ConfigurarUrlServiceProl();
+                    datos = sv.wsValidarEstrategia(ds, montoenviar, userData.CodigoZona, userData.CodigoISO, userData.CampaniaID.ToString(), userData.ConsultoraNueva, userData.MontoMaximo);
                 }
             }
-            else if (
-                /* Constantes.CodigosISOPais.Mexico.ToString().Equals(userData.CodigoISO.ToUpper()) || R2455 Se Retiro la Linea y se agrego en la condicion superior*/
-                Constantes.CodigosISOPais.Argentina.ToString().Equals(userData.CodigoISO.ToUpper()))
-            {
-                using (ServicePROLBO.ServiceStockV2 svb = new ServicePROLBO.ServiceStockV2())
-                {
-                    datos = new ServicePROL.TransferirDatos();
-                    if (userData.DiaPROL && userData.MostrarBotonValidar)
-                    {
-                        svb.Url = ConfigurarUrlServiceProl();
-                        bool valida = false;
-                        if (Constantes.CodigosISOPais.Bolivia.ToString().Equals(userData.CodigoISO.ToUpper()))
-                        {
-                            valida = svb.wsDesReservarPedido(userData.CodigoConsultora);
-                            datos.data = svb.wsValidarPedido(ds, montoenviar, userData.MontoMaximo);
-                        }
-                        else
-                        {
-                            valida = svb.wsDesReservarPedidoPais(userData.CodigoConsultora, userData.CodigoISO);
-                            datos.data = svb.wsValidarPedidoPais(ds, montoenviar, userData.MontoMaximo, userData.CodigoZona, userData.CodigoISO);
-                        }
-
-                        if (datos.data != null && datos.data.Tables[0] != null && datos.data.Tables[0].Rows.Count != 0)
-                        {
-                            datos.codigoMensaje = "01";
-                        }
-                        else
-                        {
-                            datos.data = new DataSet();
-                            datos.data.Tables.Add(new DataTable());
-                            datos.codigoMensaje = "00";
-                        }
-                    }
-                    else
-                    {
-                        datos.data = new DataSet();
-                        datos.data.Tables.Add(new DataTable());
-                        datos.codigoMensaje = "00";
-                    }
-                }
-            }
-
-            //datos = Devolver2();
 
             List<ObservacionModel> olstPedidoWebDetalleObs = new List<ObservacionModel>();
 
@@ -2439,35 +2380,7 @@ namespace Portal.Consultoras.Web.Controllers
                         switch (TipoObs)
                         {
                             case 0:
-                                if (Constantes.CodigosISOPais.Peru.ToString().Equals(userData.CodigoISO.ToUpper()) ||
-                                    Constantes.CodigosISOPais.Chile.ToString().Equals(userData.CodigoISO.ToUpper()) ||
-                                    Constantes.CodigosISOPais.Ecuador.ToString().Equals(userData.CodigoISO.ToUpper()) ||
-                                    Constantes.CodigosISOPais.CostaRica.ToString().Equals(userData.CodigoISO.ToUpper()) ||
-                                    Constantes.CodigosISOPais.Salvador.ToString().Equals(userData.CodigoISO.ToUpper()) ||
-                                    Constantes.CodigosISOPais.Panama.ToString().Equals(userData.CodigoISO.ToUpper()) ||
-                                    Constantes.CodigosISOPais.Guatemala.ToString().Equals(userData.CodigoISO.ToUpper()) ||
-                                    Constantes.CodigosISOPais.Venezuela.ToString().Equals(userData.CodigoISO.ToUpper()) ||
-                                    Constantes.CodigosISOPais.Colombia.ToString().Equals(userData.CodigoISO.ToUpper()) ||
-                                    Constantes.CodigosISOPais.PuertoRico.ToString().Equals(userData.CodigoISO.ToUpper()) ||
-                                    Constantes.CodigosISOPais.Dominicana.ToString().Equals(userData.CodigoISO.ToUpper()) ||
-                                     Constantes.CodigosISOPais.Mexico.ToString().Equals(userData.CodigoISO.ToUpper()) ||
-                                    Constantes.CodigosISOPais.Bolivia.ToString().Equals(userData.CodigoISO.ToUpper())
-                                    )
-                                {
-                                    olstPedidoWebDetalleObs.Add(new ObservacionModel() { Caso = 0, CUV = Convert.ToString(row.ItemArray.GetValue(1)), Tipo = 1, Descripcion = string.Format("{0}", Convert.ToString(row.ItemArray.GetValue(3)).Replace("+", "")) });
-                                }
-                                else if (/* Constantes.CodigosISOPais.Mexico.ToString().Equals(userData.CodigoISO.ToUpper()) || R2455 Se Retiro la Linea y se agrego en la condicion superior*/
-                                            Constantes.CodigosISOPais.Argentina.ToString().Equals(userData.CodigoISO.ToUpper()))
-                                {
-                                    if (Convert.ToString(row.ItemArray.GetValue(3)) == "-Reemplazo")
-                                    {
-                                        olstPedidoWebDetalleObs.Add(new ObservacionModel() { Caso = 0, CUV = Convert.ToString(row.ItemArray.GetValue(1)), Tipo = 1, Descripcion = string.Format("{0}", Convert.ToString(row.ItemArray.GetValue(2)).Replace("+", "")) });
-                                    }
-                                    else
-                                    {
-                                        olstPedidoWebDetalleObs.Add(new ObservacionModel() { Caso = 0, CUV = Convert.ToString(row.ItemArray.GetValue(1)), Tipo = 1, Descripcion = string.Format("{0} {1}", Convert.ToString(row.ItemArray.GetValue(2)).Replace("+", ""), Convert.ToString(row.ItemArray.GetValue(3)).Replace("+", "")) });
-                                    }
-                                }
+                                olstPedidoWebDetalleObs.Add(new ObservacionModel() { Caso = 0, CUV = Convert.ToString(row.ItemArray.GetValue(1)), Tipo = 1, Descripcion = string.Format("{0}", Convert.ToString(row.ItemArray.GetValue(3)).Replace("+", "")) });
                                 Informativas = true;
                                 break;
                             case 1:
@@ -4073,14 +3986,20 @@ namespace Portal.Consultoras.Web.Controllers
         // Valida si estamos en dia PROL y fuera del horario permitido (true = en horario restringido, false = en horario normal)
         public ActionResult EnHorarioRestringido()
         {
-            /* CGI(RSA) – REQ – 571 – 03/06/2015 – Invocacion de metodo para validar sesion */
-            var result = ValidarSession();
-            if (result != null) return result;
-
             try
             {
                 string mensaje = string.Empty;
-                bool estado = ValidarHorarioRestringido(out mensaje);
+                bool estado = false;
+
+                if (userData == null)
+                {
+                    mensaje = "Sesión expirada.";
+                }
+                else
+                {
+                    estado = ValidarHorarioRestringido(out mensaje);
+                }
+
                 return Json(new
                 {
                     success = estado,
@@ -4104,18 +4023,23 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                var result = ValidarSession();
-                if (result != null) return result;
-
                 string mensaje = string.Empty;
                 bool pedidoReservado = false;
+                bool estado = false;
 
-                bool estado = EstaProcesoFacturacion(out mensaje);
-                if (!estado)
+                if (userData == null)
                 {
-                    pedidoReservado = ValidarPedidoReservado(out mensaje);
-                    estado = pedidoReservado;
-                    if (!estado) estado = ValidarHorarioRestringido(out mensaje);
+                    mensaje = "Sesión expirada.";
+                }
+                else
+                {
+                    estado = EstaProcesoFacturacion(out mensaje);
+                    if (!estado)
+                    {
+                        pedidoReservado = ValidarPedidoReservado(out mensaje);
+                        estado = pedidoReservado;
+                        if (!estado) estado = ValidarHorarioRestringido(out mensaje);
+                    }
                 }
 
                 return Json(new

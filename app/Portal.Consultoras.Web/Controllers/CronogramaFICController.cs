@@ -700,38 +700,5 @@ namespace Portal.Consultoras.Web.Controllers
                 });
             }
         }
-
-        public string NombreMes(int Mes)
-        {
-            string Result = string.Empty;
-            switch (Mes)
-            {
-                case 1: Result = "Enero";
-                    break;
-                case 2: Result = "Febrero";
-                    break;
-                case 3: Result = "Marzo";
-                    break;
-                case 4: Result = "Abril";
-                    break;
-                case 5: Result = "Mayo";
-                    break;
-                case 6: Result = "Junio";
-                    break;
-                case 7: Result = "Julio";
-                    break;
-                case 8: Result = "Agosto";
-                    break;
-                case 9: Result = "Setiembre";
-                    break;
-                case 10: Result = "Octubre";
-                    break;
-                case 11: Result = "Noviembre";
-                    break;
-                case 12: Result = "Diciembre";
-                    break;
-            }
-            return Result;
-        }
     }
 }
