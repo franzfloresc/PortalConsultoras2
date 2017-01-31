@@ -327,17 +327,17 @@
 </div>
 <!--FIN CARRUSEL-->
 <div class="wrapper_resumen_mobile">
-    <div class="linea_separadora_mobile"></div> <!--SI TIENE OFERTAS PARA TI NO DEBERIA ESTAR ESTA LINEA-->
-    <div class="nueva_seccion_fav">
+    <div id="div-linea-OPT" class="linea_separadora_mobile" style="display: none;"></div> <!--SI TIENE OFERTAS PARA TI NO DEBERIA ESTAR ESTA LINEA-->
+    <div class="nueva_seccion_fav" onclick="mostrarCatalogoPersonalizado();" style="cursor: pointer;">
            <div class="content_banner_fav">
                <div class="content_imagen_banner_fav">
                    <img src="@ViewBag.UrlImagenFAVMobile" alt="favoritos" />
                </div>
                <div class="texto_fav_banner">
-                   @ViewBag.NombreConsultora, estos son los
+                   @ViewBag.NombreConsultoraFAV, estos son los
                    <span class="favoritos_txt">FAVORITOS</span>
                    <span class="texto_2_fav">DE TUS CLIENTES</span>
-                   <a class="btn_compralos_banner_fav" href="@Url.Action("Index", "CatalogoPersonalizado", new { area = "Mobile" })" >CÓMPRALOS</a>
+                   <a class="btn_compralos_banner_fav" href="javascript:" >CÓMPRALOS</a>
                </div>
            </div>            
         </div>
@@ -897,6 +897,7 @@
             var urlShowRoomBienvenida = '@Url.Action("Index", "ShowRoom", new { area = "Mobile" })';
             var urlGetProductoFichaOPT = '@Url.Action("GetProductoFichaOPT", "Pedido", new { area = ""})'; //PL20-1265
             var urlInsertarProductoCompartido = '@Url.Action("InsertarProductoCompartido", "CatalogoPersonalizado", new { area = "" })'; //PL20-1266
+            var urlCatalogoPersonalizado = '@Url.Action("Index", "CatalogoPersonalizado", new { area = "Mobile" })';
         </script>
         
         <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Mobile/Bienvenida/Index.js")"></script>

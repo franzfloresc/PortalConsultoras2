@@ -46,12 +46,11 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 ViewBag.PrecioMin = listaProductoModel.OrderBy(x => x.PrecioCatalogo).FirstOrDefault().PrecioCatalogoString;
                 ViewBag.PrecioMax = listaProductoModel.OrderByDescending(x => x.PrecioCatalogo).FirstOrDefault().PrecioCatalogoString;
-            //PL20-1283
-            var nombre1 = (string.IsNullOrEmpty(userData.Sobrenombre) ? userData.NombreConsultora : userData.Sobrenombre);
-            ViewBag.NombreConsultora = Util.SubStr(nombre1, 0).ToUpper();
-            var url1 = ConfigurationManager.AppSettings.Get("UrlImagenFAVLanding");
-            ViewBag.UrlImagenFAVLanding = string.Format(url1, userData.CodigoISO);
 
+                //PL20-1283
+                var sobrenombre = (string.IsNullOrEmpty(userData.Sobrenombre) ? userData.NombreConsultora : userData.Sobrenombre);
+                ViewBag.NombreConsultoraFAV = sobrenombre.First().ToString().ToUpper() + sobrenombre.ToLower().Substring(1);
+                ViewBag.UrlImagenFAVLanding = string.Format(ConfigurationManager.AppSettings.Get("UrlImagenFAVLanding"), userData.CodigoISO);
             }
 
             return View(model);
@@ -220,7 +219,8 @@ namespace Portal.Consultoras.Web.Controllers
                                     TipoOfertaRevista = beProducto.TipoOfertaRevista,
                                     Volumen = producto.Volumen,
                                     EsMaquillaje = producto.EsMaquillaje,
-                                    DescripcionComercial = producto.DescripcionComercial,
+                                    //DescripcionComercial = producto.DescripcionComercial,
+                                    DescripcionComercial = producto.Descripcion,
                                     CodigoIso = userData.CodigoISO,
                                     Relevancia = producto.Relevancia,
                                     CodigoCategoria = producto.CodigoCategoria,
@@ -281,7 +281,7 @@ namespace Portal.Consultoras.Web.Controllers
                                 changedFilters = true;
                                 break;
                             }
-                        }
+                        }// for
                     }
                     else
                     {
@@ -358,7 +358,6 @@ namespace Portal.Consultoras.Web.Controllers
                     totalRegistrosFilter = lstProductoModelFilter.Count;
                 }
 
-                //SB20-1197
                 listaProductoModel = listaProductoModel.Skip(offset).Take(cantidad).ToList();
 
                 return Json(new
@@ -534,7 +533,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                                     if (!string.IsNullOrEmpty(itemSap.NombreComercial))
                                     {
-                                        objGrati.descripcion_gratis = itemSap.NombreComercial;
+                                        objGrati.descripcion_gratis = itemSap.NombreComercial + "|" + itemSap.Volumen;
                                     }
                                 }
                             }
@@ -554,7 +553,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                                     if (!string.IsNullOrEmpty(itemSap.NombreComercial))
                                     {
-                                        objItemPack.descripcion_item_pack = itemSap.NombreComercial;
+                                        objItemPack.descripcion_item_pack = itemSap.NombreComercial + "|" + itemSap.Volumen;
                                     }
                                 }
                             }
@@ -695,9 +694,9 @@ namespace Portal.Consultoras.Web.Controllers
                                             CUV = item.Cuv,
                                             CodigoProducto = item.CodigoSap,
                                             Descripcion = item.NombreComercial,
-                                            DescripcionComercial = item.DescripcionComercial,
-                                            NombreBulk = item.NombreBulk,
+                                            DescripcionComercial = item.Descripcion,
                                             ImagenProductoSugerido = item.Imagen,
+                                            NombreBulk = item.NombreBulk,
                                             ImagenBulk = item.ImagenBulk
                                         });
                                     }

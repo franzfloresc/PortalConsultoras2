@@ -321,7 +321,7 @@
     </div>
 </script>
 
-<form id="frmFichaProductoFAV" method="post" action="@Url.Action("Producto","CatalogoPersonalizado")">
+<form id="frmFichaProductoFAV" method="post" action="@Url.Action("Producto", "CatalogoPersonalizado", new { Area = "Mobile" })">
     <input type="hidden" id="CUVFP" name="CUVFP" />
 </form>
 
@@ -349,10 +349,10 @@
                 </div>
                 
                 <div class="producto_img_mobile" data-img="" onclick="mostrarFichaProductoFAV('{{CUV}}');">
-                    <img src="{{ImagenProductoSugerido}}" class="imagen_producto">
+                    <img src="{{ImagenProductoSugerido}}" class="imagen_producto" />
                 </div>
                 {{#if TieneOfertaEnRevista}}                    
-                    <div class="etiqueta_guia_negocio"><span>OFERTA</span> GUÍA DE NEGOCIO</div> <!--BORRAR DEL CONTROLADOR-->
+                    <div class="etiqueta_guia_negocio"><span>OFERTA</span> GUÍA DE NEGOCIO</div>
                 {{/if}}
                 {{#if item.TieneLanzamientoCatalogoPersonalizado}}
                 <div class="etiqueta_producto nuevofavorito">

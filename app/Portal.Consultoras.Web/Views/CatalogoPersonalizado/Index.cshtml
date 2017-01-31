@@ -29,7 +29,7 @@
             <img src="@ViewBag.UrlImagenFAVLanding" alt="favoritos"/>
         </div>
         <div class="texto_banner_seccion_fav">
-            @ViewBag.NombreConsultora, estos son los
+            @ViewBag.NombreConsultoraFAV, estos son los
             <span class="altas_seccion_fav">FAVORITOS</span>
             <span class="clientes_fav_texto">DE TUS CLIENTES</span>
         </div>
@@ -1054,7 +1054,7 @@
                 <!--SELECCION DE TONOS-->
                 <div class="content_tonos_maquillaje">
                     {{#each Hermanos as |item1|}}
-                    <div id="fav_tono_{{CUV}}" class="content_tono_detalle" onclick="cambiarInfoFichaProductoFAV(1,'{{item1.CUV}}')">
+                    <div id="fav_tono_{{item1.CUV}}" class="content_tono_detalle" onclick="cambiarInfoFichaProductoFAV(1,'{{item1.CUV}}',1)">
                         <img src="{{item1.ImagenBulk}}" alt="PRODUCTO">
                         @*<div class="content_mascara_maquillaje">
                                 <img src="https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/HfQTTPvWfVXwt3R/textura_labial.png" alt="PRODUCTO">
@@ -1064,7 +1064,7 @@
                     {{/each}}
                 </div>
 
-                <select id="fav_tonobulk_{{CUV}}" class="tono_labial_select" onchange="cambiarInfoFichaProductoFAV(2)">
+                <select id="fav_cbo_tono" class="tono_labial_select" onchange="cambiarInfoFichaProductoFAV(2,null,1)">
                     {{#each Hermanos as |item2|}}
                     <option value="{{item2.CUV}}">{{item2.NombreBulk}}</option>
                     {{/each}}

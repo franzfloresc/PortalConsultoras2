@@ -3849,3 +3849,7 @@ function PopupCerrar(idPopup) {
     //contadorFondoPopUp = contadorFondoPopUp < 0 ? 0 : contadorFondoPopUp;
 }
 // Fin Popup
+
+function mostrarCatalogoPersonalizado() {
+    document.location.href = urlCatalogoPersonalizado;
+}

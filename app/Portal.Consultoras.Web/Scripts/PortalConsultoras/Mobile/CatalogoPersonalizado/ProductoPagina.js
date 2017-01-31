@@ -123,6 +123,7 @@ function CompartirFacebook(urlBase) {
 //PL20-1269
 function setInfoCUV() {
     var cuv = $('#hdCuvFichaProductoFAV').val();
+    $('#fav_cbo_tono').val(cuv);
     $('#fav_tono_' + cuv).addClass("borde_seleccion_tono");
     $('#hdCuvFichaProductoFAVSelect').val(cuv);
 }

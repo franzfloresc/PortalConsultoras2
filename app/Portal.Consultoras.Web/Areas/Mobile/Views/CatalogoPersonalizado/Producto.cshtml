@@ -100,20 +100,23 @@ else
                 <div class="content_tonos_producto">
                     @if (Model.Hermanos != null)
                     {
-                        foreach (var item in Model.Hermanos)
-                        {
-                            <div id="fav_tono_@Model.CUV" class="content_tono_detalle" onclick="cambiarInfoFichaProductoFAV(1,'@item.CUV')">
-                                <img src="@item.ImagenBulk" alt="@item.NombreBulk" />
-                            </div>
-                        }
-
-                        <hr class="clear" />
-                        <select id="fav_tonobulk_@Model.CUV" class="tono_labial_select" onchange="cambiarInfoFichaProductoFAV(2)">
+                        <br />
+                        <select id="fav_cbo_tono" class="tono_labial_select" onchange="cambiarInfoFichaProductoFAV(2,null,2)">
                             @foreach (var item in Model.Hermanos)
                             {
                                 <option value="@item.CUV">@item.NombreBulk</option>
                             }
                         </select>
+                        <br />
+                        
+                        foreach (var item in Model.Hermanos)
+                        {
+                            <div id="fav_tono_@item.CUV" class="content_tono_detalle" onclick="cambiarInfoFichaProductoFAV(1,'@item.CUV',2)">
+                                <img src="@item.ImagenBulk" alt="@item.NombreBulk" />
+                            </div>
+                        }
+
+                        <hr class="clear" />
                     }
                 </div>
             </div>
@@ -203,15 +206,8 @@ else
 
         <div class="content_oferta_guia_negocio">
             <div class="content_imagen_048">
-                <img src="{{UrlImagen}}" class="imagen_producto">
-                @if (ViewBag.PaisEsika)
-                {
-                    <div class="etiqueta_guia_negocio"><span>OFERTA</span> GUÍA DE NEGOCIO</div>
-                }
-                else
-                {
-                    <div class="etiqueta_guia_negocio"><span>OFERTA</span> GUÍA DE NEGOCIO</div>
-                }
+                <img src="{{UrlImagen}}" class="imagen_producto" />
+                <div class="etiqueta_guia_negocio"><span>OFERTA</span> GUÍA DE NEGOCIO</div>
             </div>
             <div class="marca_oferta048">{{DescripcionMarca}}</div>
             <div class="nombre_producto_048">{{Descripcion}}</div>
@@ -274,15 +270,8 @@ else
         </div>
 
         <div class="content_imagen_048">
-            <img src="{{UrlImagen}}" class="imagen_producto">
-            @if (ViewBag.PaisEsika)
-            {
-                <div class="etiqueta_guia_negocio"><span>OFERTA</span>GUÍA DE NEGOCIO</div>
-            }
-            else
-            {
-                <div class="etiqueta_guia_negocio"><span>OFERTA</span> GUÍA DE NEGOCIO</div>
-            }
+            <img src="{{UrlImagen}}" class="imagen_producto" />
+            <div class="etiqueta_guia_negocio"><span>OFERTA</span>GUÍA DE NEGOCIO</div>
         </div>
         <div class="marca_oferta048">Esika</div>
         <div class="nombre_producto_048">{{Descripcion}}</div>
@@ -323,7 +312,10 @@ else
                     {{#IsNullOrEmpty item.imagen_item_pack '=='}}
                     <div class="imagen_pack_048"><img src="@Url.Content(ViewBag.RutaImagenNoDisponible)" class="imagen_producto"></div>
                     {{/IsNullOrEmpty}}
-                    <div class="nombre_producto_pack_048"><b style="font-size:14px;">{{item.cantidad_item_pack}}</b>{{item.descripcion_item_pack}}</div>
+                    <div class="nombre_producto_pack_048"><b style="font-size:14px;">{{item.cantidad_item_pack}}</b>{{Split item.descripcion_item_pack '|' 0}}
+                        <div class="peso_ficha_producto" style="text-align:left; margin-top:0">{{Split item.descripcion_gratis '|' 1}}</div>
+                    </div>
+                    
                 </div>
                 {{/if_eq}}
                 {{/each}}
@@ -389,15 +381,8 @@ else
 
         <div class="content_oferta_guia_negocio">
             <div class="content_imagen_048">
-                <img src="{{UrlImagen}}" class="imagen_producto">
-                @if (ViewBag.PaisEsika)
-                {
-                    <div class="etiqueta_guia_negocio"><span>OFERTA</span> GUÍA DE NEGOCIO</div>
-                }
-                else
-                {
-                    <div class="etiqueta_guia_negocio"><span>OFERTA</span> GUÍA DE NEGOCIO</div>
-                }
+                <img src="{{UrlImagen}}" class="imagen_producto" />
+                <div class="etiqueta_guia_negocio"><span>OFERTA</span> GUÍA DE NEGOCIO</div>
             </div>
             <div class="marca_oferta048">{{DescripcionMarca}}</div>
             <div class="nombre_producto_048">{{Descripcion}}</div>
@@ -426,7 +411,10 @@ else
                         {{#IsNullOrEmpty item.imagen_gratis '=='}}
                         <div class="imagen_pack_048"><img src="@Url.Content(ViewBag.RutaImagenNoDisponible)" class="imagen_producto"></div>
                         {{/IsNullOrEmpty}}
-                        <div class="nombre_producto_pack_048"><b style="font-size:14px;">{{item.cantidad}}</b> {{item.descripcion_gratis}}</div>
+                        <div class="nombre_producto_pack_048"><b style="font-size:14px;">{{item.cantidad}}</b> {{Split item.descripcion_gratis '|' 0}}
+                            <div class="peso_ficha_producto" style="text-align:left; margin-top:0">{{Split item.descripcion_gratis '|' 1}}</div>
+                        </div>
+                        
                     </div>
                     {{/if_eq}}
                     {{/each}}
@@ -460,7 +448,7 @@ else
 <script id="template-resumenoferta048N" type="text/x-handlebars-template">
 
     <div class="content_popMobile" style="text-align:center; max-width:400px;">
-        <a class="cerrar_popMobile" href="javascript:;" onclick="javascript: $('#PopupResumenOferta048N').hide();">
+        <a class="cerrar_popMobile" href="javascript:;" onclick="closeResumenOferta048Mobile()">
             <img src="/Content/Images/mobile/Esika/cerrar_04.png" alt="-">
         </a>
         <hr class="clear">
@@ -492,7 +480,7 @@ else
 
         <!--FIN-->
 
-        <a class="btn_anuncio_agregado" href="javascript:;" onclick="javascript: $('#PopupResumenOferta048N').hide();">OK, ENTENDIDO</a>
+        <a class="btn_anuncio_agregado" href="javascript:;" onclick="closeResumenOferta048Mobile()">OK, ENTENDIDO</a>
 
     </div>
 
