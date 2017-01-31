@@ -19,7 +19,11 @@ var urlLoad = urlLoad || "";
 //PL20-1234
 var rangoPrecios = 0;
 //Mobile
-var mPremax = 0.00; 
+var mPremax = 0.00;
+var mPremin = 0.00;
+var flt = 0;
+var flagEvento = true;
+
 $(document).ready(function () {
     $(document).on('click', '[data-btn-agregar-catalogopersonalizado]', function () {
 
@@ -67,19 +71,21 @@ $(document).ready(function () {
 
     //$("#txt-range-price").slider({});
 
-     //PL20-1270
-    if (tipoOrigen == '2') {
-        $(".label-checkbox").on("click", function () {
-            //debugger
-            //processFilterCatalogoPersonalizado();
-            
+    //PL20-1270
+    if (tipoOrigen == '2' /*&& $('#custom-filters').is(":visible")*/) {
+        $(".chkFiltroMobile").on("click", function () {
+            if ($('#custom-filters').is(":visible"))
+                processFilterCatalogoPersonalizado();
         });
     }
 
+    $(".texto_fav_filtro").on("click", function () {
+        deleteFilters();
+    });
+
     //PL20-1274
     $(".seleccion_filtro_fav").on("click", function () {
-        $(this).toggleClass("seleccion_click_flitro");
-        
+        $(this).toggleClass("seleccion_click_flitro");        
         filterFAVDesktop();
     });
 
@@ -108,9 +114,12 @@ $(document).ready(function () {
                 
             //},
             ondragend: function (myvalue) {
+                debugger
+                flt = 0;
                 rangoPrecios = myvalue;
-
                 $(".slider-container").addClass("disabledbutton");
+                debugger
+                flt++;
                 filterFAVDesktop();
 
             },
@@ -126,9 +135,6 @@ $(document).ready(function () {
         $('.slider-container').css('width', '');
         
     }
-    // PL20-1270
-
-
 });
 
 
@@ -198,12 +204,13 @@ function MostrarNoHayProductos() {
 }
 
 //SB20-1197
-function processFilterCatalogoPersonalizado(type)
+function processFilterCatalogoPersonalizado()
 {
+    debugger
+    flt = 0;
     // reset values
     filters = [];
     primerScroll = false;
-
     //ordenamiento
     if ($('#orderby-price').val() != '-1') {
         var f = {
@@ -212,16 +219,14 @@ function processFilterCatalogoPersonalizado(type)
         }
         filters.push(f);
     }
-
-    //$('#custom-filters').hide();  
-    //$('#orderby-filter').show();
-    //$('#divCatalogoPersonalizado').show();
    
     //Categorias
     var values = "";
     $('#idcategory').find('input[type="checkbox"]:checked').each(function () {
         values += $(this).val() + ',';
-    });
+        debugger
+        flt++;
+    });       
 
     var f = {
         Id: '2',
@@ -233,7 +238,9 @@ function processFilterCatalogoPersonalizado(type)
     values = "";
     $('#idmarca').find('input[type="checkbox"]:checked').each(function () {
         values += $(this).val() + ',';
-    });
+        debugger
+        flt++;
+    });        
 
     var f = {
         Id: '3',
@@ -242,7 +249,6 @@ function processFilterCatalogoPersonalizado(type)
     filters.push(f);
     
     //precio
-    
     var range = $('#txt-range-price').bootstrapSlider('getValue');
     if (range != 'undefined') {
         var f = {
@@ -258,6 +264,16 @@ function processFilterCatalogoPersonalizado(type)
         CargarCatalogoPersonalizado();
         $('body').css({ 'overflow-y': 'scroll' });
     }
+
+    flagEvento = true;
+}
+
+function OcultarSliderMobile()
+{
+    processFilterCatalogoPersonalizado()
+    $('#custom-filters').hide();  
+    $('#orderby-filter').show();
+    $('#divCatalogoPersonalizado').show();
 }
 
 function showCustomFilters() {
@@ -290,21 +306,31 @@ $(".title-accordion").on("click", function () { $(this).toggleClass("flecha_arri
 //}
 
 function deleteFilters() {
-    $('#custom-filters').hide();
-    //$('#summary-filters').hide();
-    $('#div-delete-filters').hide();
-    $('#orderby-filter').show();
-    $('#divCatalogoPersonalizado').show();
+    if (tipoOrigen == '2') {
+        $('#custom-filters').hide();
+        //$('#summary-filters').hide();
+        $('#div-delete-filters').hide();
+        $('#orderby-filter').show();
+        $('#divCatalogoPersonalizado').show();
 
-    // reset values
-    filters = [];
-    $('#orderby-price').val('03');
-    //$('input[name="category"]:checkbox').attr('checked', false);
-    $('input[name="brand"]:checkbox').attr('checked', false);
-    $('input[name="categoria"]:checkbox').attr('checked', false);
+        // reset values
+        filters = [];
+        $('#orderby-price').val('03');
+        //$('input[name="category"]:checkbox').attr('checked', false);
+        $('input[name="brand"]:checkbox').attr('checked', false);
+        $('input[name="categoria"]:checkbox').attr('checked', false);
+        //PL20-1274
+    }
 
-    //PL20-1274
-    
+    if (tipoOrigen == '1') {
+        filters = [];
+        $('.seleccion_filtro_fav').removeClass("seleccion_click_flitro");
+        var rs = precioMin + ',' + precioMax;
+        $('.range-slider').jRange('setValue', rs);
+        $('.texto_fav_filtro').hide();
+        //filterFAVDesktop();
+    }
+
     $('#txt-range-price').bootstrapSlider('setValue', [mPremin, mPremax]);
 
     jQuery.ajax({
@@ -331,11 +357,21 @@ function deleteFilters() {
     });
 
     LinkCargarCatalogoToScroll();
+    //PL20 - 1274
+    flt = 0;
+    $("#btnfltm").attr('value', 'FILTROS');
 }
 
 //SB20-1197
 
 function CargarCatalogoPersonalizado() {
+    if (tipoOrigen == 1) {
+        if (flt == 0) {
+            $('.texto_fav_filtro').hide();
+        } else {
+            $('.texto_fav_filtro').show();
+        }
+    }
 
     var cataPer = $("#hdTipoCatalogoPersonalizado").val();
     if (cataPer != "1" && cataPer != "2") {
@@ -443,7 +479,7 @@ function CargarCatalogoPersonalizado() {
 
                         $('#min-range-price').text(data.precioMinimo);
                         $('#max-range-price').text(data.precioMaximo);
-
+                        
                         $('#txt-range-price').bootstrapSlider({
                             'precision': 2,
                             'min': parseFloat(data.precioMinimo),
@@ -472,8 +508,14 @@ function CargarCatalogoPersonalizado() {
 
                     if (totalRegistros != data.totalRegistrosFilter) $('#div-delete-filters').show();
                     else $('#div-delete-filters').hide();
+                    
+                    $('#divProductosEncontrados b').text(cont.toString()); //PL1274 
 
-                    $('#divProductosEncontrados b').text(data.data.length); //PL1274
+                    var btnflt = "FILTROS";
+                    debugger
+                    if (flt != 0)
+                        btnflt = "FILTROS (" + flt + ")";
+                    $("#btnfltm").attr('value', btnflt);
                 }
                 //SB20-1197
 
@@ -1208,6 +1250,8 @@ function filterFAVDesktop() {
     var values = "";
     $('#div-filter-category').find('div[class*="seleccion_click_flitro"]').each(function () {
         values += $(this).data('value') + ',';
+        debugger
+        flt++;
     });
 
     var f = {
@@ -1220,6 +1264,8 @@ function filterFAVDesktop() {
     values = "";
     $('#div-filter-brand').find('div[class*="seleccion_click_flitro"]').each(function () {
         values += $(this).data('value') + ',';
+        debugger
+        flt++;
     });
 
     var f = {
@@ -1242,6 +1288,8 @@ function filterFAVDesktop() {
     values = "";
     $('#div-filter-published').find('div[class*="seleccion_click_flitro"]').each(function () {
         values += $(this).data('value') + ',';
+        debugger
+        flt++;
     });
 
     var f = {
@@ -1255,7 +1303,6 @@ function filterFAVDesktop() {
     $('.seleccion_filtro_fav').prop('disabled', false);
     $('.select_filtros_fav option:not(:selected)').prop('disabled', false);
     $(".slider-container").removeClass("disabledbutton");
-
     CargarCatalogoPersonalizado();
     LinkCargarCatalogoToScroll();  
 }
@@ -1264,6 +1311,8 @@ function filterFAVDesktop() {
 // PL20-1270
 function CargarFiltros()
 {
+    debugger
+    flt = 0;
     jQuery.ajax({
         type: 'POST',
         url: urlCargarFiltros,
@@ -1291,16 +1340,21 @@ function CargarFiltros()
                                     var valor = $(this).val();
                                     if (datos[i].Valor1.indexOf(valor) != -1) {
                                         $(this).trigger("click");
+                                        debugger
+                                        flt++;
                                     }                                            
                                 });
                             }
                             else {
                                 $('#div-filter-category').find('div[class*="seleccion_filtro_fav"]').each(function () {
                                     var valor = $(this).data('value');
-                                    if (datos[i].Valor1.indexOf(valor) != -1)
+                                    if (datos[i].Valor1.indexOf(valor) != -1) {
                                         $(this).toggleClass("seleccion_click_flitro");
+                                        debugger
+                                        flt++;
+                                    }
                                 });
-                            }
+                            }                           
                         }                        
                     }
 
@@ -1311,14 +1365,19 @@ function CargarFiltros()
                                     var valor = $(this).val();
                                     if (datos[i].Valor1.indexOf(valor) != -1) {
                                         $(this).trigger("click");
+                                        debugger
+                                        flt++;
                                     }
                                 });
                             }
                             else {
                                 $('#div-filter-brand').find('div[class*="seleccion_filtro_fav"]').each(function () {
                                     var valor = $(this).data('value');
-                                    if (datos[i].Valor1.indexOf(valor) != -1)
+                                    if (datos[i].Valor1.indexOf(valor) != -1) {
                                         $(this).toggleClass("seleccion_click_flitro");
+                                        debugger
+                                        flt++;
+                                    }
                                 });
                             }
                         }
@@ -1328,6 +1387,7 @@ function CargarFiltros()
                         if (tipoOrigen == 2) {
                             mPremin = parseFloat(datos[i].Valor1);
                             mPremax = parseFloat(datos[i].Valor2);
+                            
                             if(primeraVez)
                                 $('#txt-range-price').bootstrapSlider('setValue', [mPremin, mPremax]);
                         }
@@ -1341,8 +1401,11 @@ function CargarFiltros()
                         if (datos[i].Valor1 != null) {
                             $('#div-filter-published').find('div[class*="seleccion_filtro_fav"]').each(function () {
                                 var valor = $(this).data('value');
-                                if (datos[i].Valor1.indexOf(valor) != -1)
+                                if (datos[i].Valor1.indexOf(valor) != -1) {
                                     $(this).toggleClass("seleccion_click_flitro");
+                                    debugger
+                                    flt++;
+                                }
                             });
                         }
                     }                   
