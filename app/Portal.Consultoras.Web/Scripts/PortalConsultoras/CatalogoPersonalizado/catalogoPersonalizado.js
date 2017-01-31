@@ -25,20 +25,20 @@ var mPremax = 0.00;
 $(document).ready(function () {
     $(document).on('click', '[data-btn-agregar-catalogopersonalizado]', function () {
 
-    //    if (ReservadoOEnHorarioRestringido())
-    //        return false;
+        if (ReservadoOEnHorarioRestringido())
+            return false;
 
-    //    agregarProductoAlCarrito(this);
+        agregarProductoAlCarrito(this);
 
-    //    var contenedor = $(this).parents("[data-item='catalogopersonalizado']");
-    //    AgregarProductoCatalogoPersonalizado(contenedor);
+        var contenedor = $(this).parents("[data-item='catalogopersonalizado']");
+        AgregarProductoCatalogoPersonalizado(contenedor);
     });
     $(document).on('click', '#boton_vermas', function () {
         CargarCatalogoPersonalizado();
     });
     $(document).on('click', '.pop-ofertarevista', function () {
-        //var contenedor = $(this).parents('[data-item="catalogopersonalizado"]');
-        //ObtenerOfertaRevista(contenedor);
+        var contenedor = $(this).parents('[data-item="catalogopersonalizado"]');
+        ObtenerOfertaRevista(contenedor);
     });
     $(document).on('click', '.agregar-ofertarevista', function () {
         if (ReservadoOEnHorarioRestringido())
@@ -590,6 +590,7 @@ function AgregarProductoCatalogoPersonalizado(item) {
 }
 
 function AgregarProducto(url, item, otraFunct) {
+
     DialogLoadingAbrir();
     tieneMicroefecto = true;
 
@@ -1403,7 +1404,7 @@ function getDatosResumenOferta048N(cantidad) {
     for (var i = escalas.length - 1; i >= 0; i--) {
         var m = (cantidad % escalas[i]);
         if (m == 0) {
-            var d = { nivel: escalas[i], cant: 1 }
+            var d = { nivel: escalas[i], cant: (cantidad / escalas[i]) }
             xescalas.push(d);
             break;
         }
@@ -1431,22 +1432,48 @@ function getDatosResumenOferta048N(cantidad) {
         else {
             var objNivel = $.grep(dataOfertaEnRevista.lista_ObjNivel, function (e) { return e.escala_nivel == obj1.nivel; });
             if (objNivel != null && objNivel.length > 0) {
-                tprecio += parseFloat(objNivel[0].precio_nivel);
-                tganancia += parseFloat(objNivel[0].ganancia_nivel);
+                tprecio += parseFloat(objNivel[0].precio_nivel * obj1.cant);
+                tganancia += parseFloat(objNivel[0].ganancia_nivel * obj1.cant);
 
                 var objGratis = $.grep(dataOfertaEnRevista.lista_oObjGratis, function (e) { return e.escala_nivel_gratis == obj1.nivel; });
                 if (objGratis != null && objGratis.length > 0) {
 
                     $.each(objGratis, function (j, obj2) {
 
-                        var d = {
-                            'cantidad': (parseInt(obj2.cantidad) * obj1.cant),
-                            'codsap_nivel_gratis': obj2.codsap_nivel_gratis,
-                            'descripcion_gratis': obj2.descripcion_gratis,
-                            'escala_nivel_gratis': obj2.escala_nivel_gratis,
-                            'imagen_gratis': obj2.imagen_gratis
-                        };
-                        arrGratis.push(d);
+                        if (arrGratis.length == 0) {
+                            var d = {
+                                'cantidad': (parseInt(obj2.cantidad) * obj1.cant),
+                                'codsap_nivel_gratis': obj2.codsap_nivel_gratis,
+                                'descripcion_gratis': obj2.descripcion_gratis,
+                                'escala_nivel_gratis': obj2.escala_nivel_gratis,
+                                'imagen_gratis': obj2.imagen_gratis
+                            };
+                            arrGratis.push(d);
+                        }
+                        else {
+                            var indexes = $.map(arrGratis, function (obj, index) {
+                                if (obj.codsap_nivel_gratis == obj2.codsap_nivel_gratis) {
+                                    return index;
+                                }
+                            })
+
+                            if (indexes.length > 0) {
+                                var ind = indexes[0];
+                                var old = arrGratis[ind]['cantidad'];
+                                var nv = old + (obj2.cantidad * obj1.cant)
+                                arrGratis[ind]['cantidad'] = nv;
+                            }
+                            else {
+                                var d = {
+                                    'cantidad': (parseInt(obj2.cantidad) * obj1.cant),
+                                    'codsap_nivel_gratis': obj2.codsap_nivel_gratis,
+                                    'descripcion_gratis': obj2.descripcion_gratis,
+                                    'escala_nivel_gratis': obj2.escala_nivel_gratis,
+                                    'imagen_gratis': obj2.imagen_gratis
+                                };
+                                arrGratis.push(d);
+                            }
+                        }
 
                     });
                 }

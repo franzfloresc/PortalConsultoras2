@@ -312,8 +312,8 @@ else
                     {{#IsNullOrEmpty item.imagen_item_pack '=='}}
                     <div class="imagen_pack_048"><img src="@Url.Content(ViewBag.RutaImagenNoDisponible)" class="imagen_producto"></div>
                     {{/IsNullOrEmpty}}
-                    <div class="nombre_producto_pack_048"><b style="font-size:14px;">{{item.cantidad_item_pack}}</b>{{Split item.descripcion_item_pack '|' 0}}
-                        <div class="peso_ficha_producto" style="text-align:left; margin-top:0">{{Split item.descripcion_gratis '|' 1}}</div>
+                    <div class="nombre_producto_pack_048"><b style="font-size:14px;">{{item.cantidad_item_pack}}</b>{{item.descripcion_item_pack}}
+                        <div class="peso_ficha_producto" style="text-align:left; margin-top:0">{{item.volumen}}</div>
                     </div>
                     
                 </div>
@@ -411,8 +411,8 @@ else
                         {{#IsNullOrEmpty item.imagen_gratis '=='}}
                         <div class="imagen_pack_048"><img src="@Url.Content(ViewBag.RutaImagenNoDisponible)" class="imagen_producto"></div>
                         {{/IsNullOrEmpty}}
-                        <div class="nombre_producto_pack_048"><b style="font-size:14px;">{{item.cantidad}}</b> {{Split item.descripcion_gratis '|' 0}}
-                            <div class="peso_ficha_producto" style="text-align:left; margin-top:0">{{Split item.descripcion_gratis '|' 1}}</div>
+                        <div class="nombre_producto_pack_048"><b style="font-size:14px;">{{item.cantidad}}</b> {{item.descripcion_gratis}}
+                            <div class="peso_ficha_producto" style="text-align:left; margin-top:0">{{item.volumen}}</div>
                         </div>
                         
                     </div>
@@ -448,7 +448,7 @@ else
 <script id="template-resumenoferta048N" type="text/x-handlebars-template">
 
     <div class="content_popMobile" style="text-align:center; max-width:400px;">
-        <a class="cerrar_popMobile" href="javascript:;" onclick="closeResumenOferta048Mobile()">
+        <a class="cerrar_popMobile" href="javascript:;" onclick="closeResumenOferta048Mobile();">
             <img src="/Content/Images/mobile/Esika/cerrar_04.png" alt="-">
         </a>
         <hr class="clear">
@@ -480,7 +480,7 @@ else
 
         <!--FIN-->
 
-        <a class="btn_anuncio_agregado" href="javascript:;" onclick="closeResumenOferta048Mobile()">OK, ENTENDIDO</a>
+        <a class="btn_anuncio_agregado" href="javascript:;" onclick="closeResumenOferta048Mobile();">OK, ENTENDIDO</a>
 
     </div>
 

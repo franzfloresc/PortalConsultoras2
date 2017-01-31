@@ -533,7 +533,8 @@ namespace Portal.Consultoras.Web.Controllers
 
                                     if (!string.IsNullOrEmpty(itemSap.NombreComercial))
                                     {
-                                        objGrati.descripcion_gratis = itemSap.NombreComercial + "|" + itemSap.Volumen;
+                                        objGrati.descripcion_gratis = itemSap.NombreComercial;
+                                        objGrati.volumen = itemSap.Volumen;
                                     }
                                 }
                             }
@@ -553,7 +554,8 @@ namespace Portal.Consultoras.Web.Controllers
 
                                     if (!string.IsNullOrEmpty(itemSap.NombreComercial))
                                     {
-                                        objItemPack.descripcion_item_pack = itemSap.NombreComercial + "|" + itemSap.Volumen;
+                                        objItemPack.descripcion_item_pack = itemSap.NombreComercial;
+                                        objItemPack.volumen = itemSap.Volumen;
                                     }
                                 }
                             }
