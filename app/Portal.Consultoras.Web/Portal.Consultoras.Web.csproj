@@ -3000,15 +3000,15 @@
     <None Include="Service References\ServiceODS\ODSService2.xsd">
       <SubType>Designer</SubType>
     </None>
-    <Content Include="Service References\ServicePedidoRechazado\PedidoRechazadoService.disco" />
-    <Content Include="Service References\ServicePedidoRechazado\configuration91.svcinfo" />
-    <Content Include="Service References\ServicePedidoRechazado\configuration.svcinfo" />
-    <Content Include="Service References\ServicePedidoRechazado\Reference.svcmap">
+    <None Include="Service References\ServicePedidoRechazado\PedidoRechazadoService.disco" />
+    <None Include="Service References\ServicePedidoRechazado\configuration91.svcinfo" />
+    <None Include="Service References\ServicePedidoRechazado\configuration.svcinfo" />
+    <None Include="Service References\ServicePedidoRechazado\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
-    </Content>
+    </None>
     <Content Include="Service References\ServicePedido\PedidoService.wsdl" />
-    <Content Include="Service References\ServicePedidoRechazado\PedidoRechazadoService.wsdl" />
+    <None Include="Service References\ServicePedidoRechazado\PedidoRechazadoService.wsdl" />
     <None Include="Service References\ServicePedidoRechazado\PedidoRechazadoService.xsd">
       <SubType>Designer</SubType>
     </None>
