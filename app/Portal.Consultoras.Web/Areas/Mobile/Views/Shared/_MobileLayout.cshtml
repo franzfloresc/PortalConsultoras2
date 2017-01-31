@@ -35,7 +35,7 @@
         
        
     }
-    
+
     <link href="@Url.Content("~/Content/Css/Mobile/flexslider.css")" rel="stylesheet" type="text/css" />
 
     <script type="text/javascript">
@@ -132,19 +132,19 @@
     </div>
 
     <!-- header -->
-    <header id="new-header">                
+    <header id="new-header">
         <div id="bloquemensajesPedido" style="display:none;">
             <div class="oscurecer_animacion"></div>
             <div class="bloque_mensajesPedido">
                 <div class="icono_cerrar_mensaje">
                     <span>
                         <a href="javascript:void();" id="cerrarMensajeEstadoPedido" title="Cerrar" onclick="cerrarMensajeEstadoPedido();">
-                            <img src="/Content/Images/btn_cerrar_popup.svg" alt="Cerrar">
+                            <img src="/Content/Images/btn_cerrar_popup.png" alt="Cerrar">
                         </a>
                     </span>
                 </div>
                 <div class="icono_estadoPedido">
-                    <img src="@Url.Content("~/Content/Images/icono_exclamacion_estado_pedido.svg")" alt="Icono Estado Pedido" />
+                    <img src="@Url.Content("~/Content/Images/icono_exclamacion_estado_pedido.png")" alt="Icono Estado Pedido" />
                 </div>
                 <div class="mensajes_estadoPedido">
                     @*<span class="mensaje_estadoActualPedido">NOS ENCONTRAMOS FACTURANDO TU PEDIDO</span>
@@ -182,7 +182,7 @@
                     </div>
                 </div>
             </div>
-    </header>
+</header>
     @if (ViewBag.MostrarBannerPL20 == true)
     {
         if (ViewBag.MostrarOfertaDelDia == true)
@@ -248,15 +248,15 @@
                                 <div id="divShowRoomHoy" class="divShowRoom">
                                     <input type="hidden" id="hdEventoIDShowRoom" value="@showRoomBannerLateral.BEShowRoom.EventoID" />
                                     <input type="hidden" id="hdNombreEventoShowRoom" value="@showRoomBannerLateral.BEShowRoom.Tema" />
-                                    <div class="imagen_preventa">
-                                        <div class="etiqueta_2">
-                                            <img src="@Url.Content("~/Content/Images/mobile/img-showroom/etiqueta_2.png")" alt="-" />
-                                        </div>
-                                        <div class="titulo_contador_m">
-                                            @*PRE · VENTA DIGITAL*@
+        <div class="imagen_preventa">
+            <div class="etiqueta_2">
+                <img src="@Url.Content("~/Content/Images/mobile/img-showroom/etiqueta_2.png")" alt="-" />
+            </div>
+            <div class="titulo_contador_m">
+                @*PRE · VENTA DIGITAL*@
                                             <span id="spnPreventaDigitalHoy">@showRoomBannerLateral.BEShowRoom.Nombre</span>
-                                        </div>
-                                    </div>
+            </div>
+        </div>
                                     <div class="fondo_white" style="height:80px; overflow:hidden">
                                         <div class="row_contador">
                                             <div style="text-align: center;">
@@ -289,41 +289,41 @@
                                             <span id="spnPreventaDigital">@showRoomBannerLateral.BEShowRoom.Nombre</span>
                                         </div>
                                     </div>
-                                    <div class="fondo_m">
-                                        <div class="row_contador">
-                                            <div style="float: left; margin-top: 12px; margin-left: 20px; width: 110px;">
-                                                <div class="texto_dias_m">
-                                                    SÓLO FALTAN
-                                                </div>
-                                                <div class="texto_fecha_m">
-                                                    <span id="spnDiasFaltantes">12</span>
-                                                </div>
-                                                <div class="texto_dias_m">
-                                                    DÍAS
-                                                </div>
-                                            </div>
-                                            <div style="float: left; margin-top: 12px; margin-left: 22px; width: 135px;">
-                                                <div style="height: 20px; width: 135px;">
-                                                    <div class="text_hora_m">hrs</div>
-                                                    <div class="text_hora_m">min</div>
-                                                    <div class="text_hora_m no_margin_right">sec</div>
-                                                </div>
-                                                <div class="fondo_contador">
-                                                    <div class="text_numero"><span id="spnHorasFaltantes">18</span></div>
-                                                    <div class="text_bolita">•</div>
-                                                    <div class="text_numero"><span id="spnMinutosFaltantes">25</span></div>
-                                                    <div class="text_bolita">•</div>
-                                                    <div class="text_numero"><span id="spnSegundosFaltantes">02</span></div>
-                                                </div>
-                                                <div style="margin-top: 6px;">
+        <div class="fondo_m">
+            <div class="row_contador">
+                <div style="float: left; margin-top: 12px; margin-left: 20px; width: 110px;">
+                    <div class="texto_dias_m">
+                        SÓLO FALTAN
+                    </div>
+                    <div class="texto_fecha_m">
+                        <span id="spnDiasFaltantes">12</span>
+                    </div>
+                    <div class="texto_dias_m">
+                        DÍAS
+                    </div>
+                </div>
+                <div style="float: left; margin-top: 12px; margin-left: 22px; width: 135px;">
+                    <div style="height: 20px; width: 135px;">
+                        <div class="text_hora_m">hrs</div>
+                        <div class="text_hora_m">min</div>
+                        <div class="text_hora_m no_margin_right">sec</div>
+                    </div>
+                    <div class="fondo_contador">
+                        <div class="text_numero"><span id="spnHorasFaltantes">18</span></div>
+                        <div class="text_bolita">•</div>
+                        <div class="text_numero"><span id="spnMinutosFaltantes">25</span></div>
+                        <div class="text_bolita">•</div>
+                        <div class="text_numero"><span id="spnSegundosFaltantes">02</span></div>
+                    </div>
+                    <div style="margin-top: 6px;">
                                                     <a href="@showRoomBannerLateral.RutaShowRoomBannerLateral" class="boton_showroom" id="lnkConoceMasShowRoomBannerLateral" target="_blank">CONOCE MÁS AQUÍ</a>
-                                                </div>
-                                            </div>
+                    </div>
+                </div>
 
-                                        </div>
-                                    </div>
+            </div>
+        </div>
 
-                                </div>
+    </div>
                             </li>
                         }
                     }
@@ -335,13 +335,13 @@
                                     <div class="float_left">
                                         <div class="solo_hoy_mobile">
                                             <img id="img1-solohoy-odd" alt="" src="@ofertaDelDia.ImagenSoloHoy" />
-                                        </div>
+            </div>
                                         <div class="nombre_set_oferta_mobile">@ofertaDelDia.NombreOferta <br />A SOLO <b>@ViewBag.Simbolo @ofertaDelDia.PrecioOfertaFormat</b></div>
                                         <a class="btn_compralo_ahora" href="#">CÓMPRALO AHORA</a>
-                                    </div>
+            </div>
                                     <div class="imagen_set_oferta_mobile">
                                         <img src="@ofertaDelDia.ImagenBanner" alt="Solo Hoy" id="img-banner-odd" />
-                                    </div>
+        </div>
                                     <hr class="clear" />
 
                                     <input type="hidden" id="tipoestrategia-id-odd" value="@ofertaDelDia.TipoEstrategiaID" />
@@ -353,15 +353,15 @@
                                     <input type="hidden" id="nombre-odd" value="@ofertaDelDia.NombreOferta" />
                                     <input type="hidden" id="indmonto-min-odd" value="@ofertaDelDia.IndicadorMontoMinimo" />
                                     <input type="hidden" id="teimagenmostrar-odd" value="@ofertaDelDia.TipoEstrategiaImagenMostrar" />
-                                </div>
-                            </div>
+                </div>
+            </div>
                         </li>
                     }
                 </ul>
-            </div>
         </div>
+            </div>
     }
-    
+
     <!-- content -->
     <section style="min-height: 380px;">
         <div id="content" data-content="">
@@ -418,7 +418,7 @@
             </a>
             <hr class="clear">
             <div class="icono_alerta exclamacion_icono_mobile"></div>
-            <div class="titulo_compartir"><b>IMPORTANTE</b></div>
+            <div class="titulo_compartir"><b>LO SENTIMOS</b></div>
             <div id="mensajeInformacionvalidado" class="mensaje_alerta"></div>
             <a href="javascript:;" onclick="$('#popupInformacionValidado').hide();" class="btn_ok_mobile"><b>OK</b></a>
         </div>
@@ -574,9 +574,10 @@
         var MobilePedidoSugerido = @Constantes.OrigenPedidoWeb.MobilePedidoSugerido;
         var MobilePedidoOfertaFinal = @Constantes.OrigenPedidoWeb.MobilePedidoOfertaFinal;
         var indicadorEnviadoDescarga = '@ViewBag.IndicadorEnviado';
-        var estaRechazado = '@ViewBag.EstaRechazado';
+        var estaRechazado = '@ViewBag.IndicadorGPRSB';
         var cerrarRechazado = '@ViewBag.CerrarRechazado';
         var motivoRechazo = '@ViewBag.MotivoRechazo';
+        var mostrarBannerRechazo = '@ViewBag.MostrarBannerRechazo';
 
         var MobileShowRoom = @Constantes.OrigenPedidoWeb.MobileShowRoom;
         var MobileLiquidacion = @Constantes.OrigenPedidoWeb.MobileLiquidacion;
@@ -1003,9 +1004,9 @@
 
                 $txtcantidad.val(cantidad);
             });
-                        
+
             if(MostrarBannerPL20) loadBannerLP20();
-        });
+            });
 
         function loadBannerLP20() {
             if(typeof CargarShowRoom !== 'undefined' && $.isFunction(CargarShowRoom)) CargarShowRoom();
@@ -1020,7 +1021,7 @@
                     animation: "slide",
                     pauseOnAction: false,
                     //pausePlay: true 
-                });
+            });
             }
         }
         
@@ -1042,7 +1043,7 @@
                     if (!checkTimeout(data)) {
                         return false;
                     }
-
+            
                     if (data.success == false) {
                         restringido = false;
                         return false;
@@ -1067,7 +1068,7 @@
                     console.log(error);
                     messageInfo('Ocurrió un error al intentar validar el horario restringido o si el pedido está reservado. Por favor inténtelo en unos minutos.');
                 }
-            });
+        });
             return restringido;
         };
 
@@ -1618,7 +1619,7 @@
         function TrackingJetloreRemoveAll(lista) {
             var esJetlore = esPaisTrackingJetlore == "1";
             if (esJetlore) JL.tracker.removeFromCart(lista);
-        }
+            }
         /* Fin Tracking Jetlore */
     </script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.flexslider.js")"></script>

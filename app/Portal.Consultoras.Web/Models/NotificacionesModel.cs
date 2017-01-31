@@ -27,5 +27,6 @@ namespace Portal.Consultoras.Web.Models
         public string DescuentoString { get; set; }
         public string TotalString { get; set; }
         public Converter<decimal, string> DecimalToString { get; set; }
+        public string MotivoRechazo { get; set; }
     }
 }

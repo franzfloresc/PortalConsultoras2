@@ -87,7 +87,7 @@ function ConfirmarModificar() {
                 }
                 else {
                     closeWaitingDialog();
-                    alert_msg(data.message);
+                    messageInfoError(data.message);
                 }
             }
         },
