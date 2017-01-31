@@ -6,6 +6,7 @@
 }
 
 @section styles{
+    @*<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet" />*@
     <link href="@Url.Content("~/Content/Css/Site/slick-pedido.css")" rel="stylesheet" />
     <link href="@Url.Content("~/Content/Css/Site/style-pedido.css")" rel="stylesheet" />
 }
@@ -905,39 +906,43 @@
             </a>
         </div>
         <div class="contenido_popUp">
-            <div id="divIconoOfertaFinal"></div>
-            <h1 class="titulo_ofertaFinal">
-                <span id="spnTituloOfertaFinal">TODAVIA<b>&nbsp;TE FALTA UN POCO</b></span>
-            </h1>
-            <div id="spCabeceraMontominimo" style="display:none; margin-top: -5px;">
+            <div class="content_texto_oferta">
+                <div class="icono_mensaje_alerta icono_check_alerta"></div>
+                <h1 class="titulo_ofertaFinal">
+                    <span id="spnTituloOfertaFinal"><b>&nbsp;LO SENTIMOS…</b> NO PUDIMOS GUARDAR TU PEDIDO</span>
+                </h1>
+                @*<div id="spCabeceraMontominimo" style="display:none; margin-top: -5px;">
                 <span style="display: block;text-align: center;font-size: 12px;">Recuerda que esta campaña el monto mínimo es de @Model.Simbolo<span id="spMontoMinimoCabecera"></span></span>
+            </div>*@
+                <span class="descripcion_ofertaFinal" id="of_descripcion1">
+                    Agrega @Model.Simbolo <span id="spnMontoFaltanteOfertaFinal"></span>
+                    <span id="spnMensajeOfertaFinal">&nbsp;para conseguir 30% DSCTO y gana más esta campaña.</span>
+                </span>
+                <div class="texto_complemento_oferta">Compra en oferta los complementos de tu pedido</div>
+
+                <span class="descripcion_ofertaFinal" id="of_descripcion2" style="display: none;">
+                    Agrega estos productos para ganar más esta campaña
+                </span>
             </div>
-            <span class="descripcion_ofertaFinal" id="of_descripcion1">
-                Agrega @Model.Simbolo <span id="spnMontoFaltanteOfertaFinal"></span> 
-                <span id="spnMensajeOfertaFinal">&nbsp;para conseguir 30% DSCTO y gana más esta campaña.</span>
-            </span>
-
-            <span class="descripcion_ofertaFinal" id="of_descripcion2" style="display: none;">
-                Agrega estos productos para ganar más esta campaña
-            </span>
-
             <div class="contenedor_bloques_agregaProductos">
-                <div class="bloque_descripciones">
+                @*<div class="bloque_descripciones">
                     <h6 class="descripcion_principal"><b><span id="spnSubTituloOfertaFinal">Consigue más ganancias agregando uno de estos productos</span></b></h6>
-                    @*<span class="enlace_catalogos">
+                    <span class="enlace_catalogos">
                         También puedes buscarlo en tus
                         <a href="#" title="Tus Catálogos">TUS CATÁLOGOS</a>
-                    </span>*@
-                    <button name="btn_noGracias_agregarProductos" class="btn_noGracias_agregarProductos" id="btnNoGraciasOfertaFinal">
-                        NO, GRACIAS
-                    </button>
-                </div>
-                <div style="display: inline-block;" class="bloque_carousel">
-                    <div style="margin-left: 27px; margin-right: 27px; position: relative; bottom: 19px;">
+                    </span>
+
+                </div>*@
+                <div style="margin: 0 auto; width:90%;" class="bloque_carousel">
+                    <div style="margin-left: 27px; margin-right: 27px; position: relative;margin-top:-95px;">
                         <div class="slider center" id="divCarruselOfertaFinal" style="width: 100%">
                         </div>
                     </div>
+                    <button name="btn_noGracias_agregarProductos" class="btn_noGracias_agregarProductos" id="btnNoGraciasOfertaFinal">
+                        TERMINAR PEDIDO
+                    </button>
                 </div>
+                <hr class="clear" />
             </div>
         </div>
     </div>
@@ -1928,10 +1933,12 @@
             <input type="hidden" class="hdOfertaFinalDescripcionMarca" value="{{DescripcionMarca}}" />
             <input type="hidden" class="hdOfertaFinalDescripcionEstrategia" value="{{DescripcionEstrategia}}" />
         </div>
-        <div class="contenido_item_carrusel_ofertaFinal">
-            <div class="producto_img_home">
+        <div class="contenido_item_carrusel_ofertaFinal" style="height:280px;">
+            <div class="nohely producto_img_home" style="height:115px;">
                 <img src="{{ImagenProductoSugerido}}" style="height: 100%;">
+                <i class="img-tooltip" data-toggle="tooltip" data-placement="right" title="Cómpralo porque ya tienes Shampoo Essens..." data-animation="false" data-trigger="manual"/>
             </div>
+
             <div class="etiqueta_producto">
             </div>
             <div class="producto_nombre_descripcion">
@@ -2004,6 +2011,7 @@
         
     </script>
     @System.Web.Optimization.Scripts.Render("~/bundles/JsSB2-Pedido")
+    <script type="text/javascript" src="@Url.Content("~/Scripts/bootstrap.min.js")"></script>
 
     @if (ViewBag.MostrarPedidosPendientes == "1")
     {

@@ -4871,7 +4871,7 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
     margin:-298.5px auto 0 auto;
     background:#FFF;
     width:100%;
-    max-width:597px;
+    max-width:892px;
     height:auto;
     padding-top:40px;
     box-sizing:border-box;
@@ -4893,21 +4893,30 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
 
 .titulo_ofertaFinal{
     width:100%;
-    margin:0 0 9px 0;
+    margin-top:10px;
     padding:0;
     font-family:'Lato';
-    font-size:21px;
+    font-size:23px;
     color:#000;
     font-weight:300!important;
     text-align:center;
 }
 
 .descripcion_ofertaFinal{
-    display:block;
+    display: block;
+    font-size: 17px;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 18px;
+    margin-top: 18px;
+    TEXT-TRANSFORM: uppercase;
+}
+.texto_complemento_oferta{
+    text-transform:uppercase;
+    /*margin-bottom:65px;*/
     font-size:14px;
-    font-weight:700;
+    color:black;
     text-align:center;
-    margin-bottom:29.8px;
 }
 
 .contenedor_bloques_agregaProductos{
@@ -4915,15 +4924,15 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
     background:#f5f5f5;
     height:auto;
     padding-top:25px;
-    padding-bottom:41px;
+    /*padding-bottom:20px;*/
 }
 
-.bloque_descripciones, .bloque_carousel{
+/*.bloque_descripciones, .bloque_carousel{
     display:inline-block;
     height:auto;
     vertical-align:top;
     position:relative;
-}
+}*/
 
 .bloque_descripciones{
     width: 42%;
@@ -4951,21 +4960,24 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
 }
 
 .btn_noGracias_agregarProductos{
-    display: block;
-    position: absolute;
-    margin-left: 10px;
-    bottom: -1px;
+        display: block;
+    /* position: absolute; */
+    /* margin-left: 10px; */
+    /* bottom: -1px; */
     border: none;
     background: transparent;
     width: 139px;
-    height: 45px;
-    line-height: 45px;
+    margin: 0 auto;
+    height: 50px;
+    text-align: center;
+   
     color: #000;
     font-family: 'Lato';
-    font-size: 13px;
+    font-size: 11px;
     font-weight: normal;
-    text-align: left;
-    text-decoration:underline;
+    /* text-align: left; */
+    text-decoration: underline;
+    margin-top: -13px;
     transition: all 0.3s ease;
     -moz-transition: all 0.3s ease;
     -o-transition: all 0.3s ease;
@@ -4981,12 +4993,13 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
 
 .bloque_carousel{
     width:53%;
-    height:329px;
+    /*height:329px;*/
 }
 
 .bloque_carousel .content_item_carrusel_ofertaFinal{
-    height:348px;
-    margin-right:0px;
+    padding-bottom:20px;
+    margin-left:17px;
+    margin-right:17px;
     float:left;
     vertical-align:middle;
     overflow:hidden;
@@ -21068,8 +21081,8 @@ label.checkpop.c_on {
 .content_item_carrusel_ofertaFinal{
     position:relative;
     float: left;
-    width:248px;
-    margin-right:25px;
+    /*width:248px;
+    margin-right:25px;*/
     height: 357px;
     background:none;
     border:none;
@@ -21077,7 +21090,7 @@ label.checkpop.c_on {
 
 .contenido_item_carrusel_ofertaFinal {
     background: #FFF;
-    width: 248px;
+    /*width: 248px;*/
     display: block;
     margin: 0 auto;
     height: 335px;
@@ -32819,7 +32832,8 @@ h1#penmostreo .campana {
 }
 .tooltip_tono{
     position: absolute;
-    top: -25px;
+    top: 11px;
+    overflow:hidden;
     background: rgba(255,255,255,0.8);
     color: black;
     display: none;
@@ -32859,4 +32873,35 @@ h1#penmostreo .campana {
     font-weight:700;
     text-transform:uppercase;    
     padding-top:18px;
+}
+.content_texto_oferta{
+    margin-bottom:65px;
+}
+
+
+.img-tooltip {
+  position: absolute;
+     background: url("http://www.psdgraphics.com/file/light-wooden-background.jpg");
+     background-color: transparent;
+     border: none;
+}
+
+.tooltip-inner {
+    max-width: 130px;
+    padding: 3px 8px;
+    color: #000;
+    text-align: left;
+    background-color: #E8E8E8;
+    border-radius: 2px;
+    border: #DBDBDB;
+    font-size: 10px;
+    font-family: 'Lato', sans-serif;
+}
+
+.tooltip.right .tooltip-arrow {
+    top: 50%;
+    left: 0;
+    margin-top: -5px;
+    border-width: 5px 5px 5px 0;
+    border-right-color: #E8E8E8;
 }
