@@ -109,7 +109,8 @@ namespace Portal.Consultoras.Web.Controllers
             }
             //tipoOfertaFinal: 1 -> ARP; 2 -> Jetlore
             var lista = new List<Producto>();
-            var listaProductoModel = new List<ProductoModel>();         
+            var listaProductoModel = new List<ProductoModel>();
+            int flt = 0;
    
             try
             {
@@ -257,6 +258,26 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                 }
 
+                //Contador de Filtros
+                if (lstFilters != null)
+                {
+                    string v1 = "";
+                    for (int i = 0; i < lstFilters.Count(); i++)
+                    {
+                        v1 = lstFilters[i].Valor1 == null ? "" : lstFilters[i].Valor1;
+                        if (Convert.ToInt32(lstFilters[i].Id) > 1 && v1.Length > 0)
+                        {
+                            if (lstFilters[i].Id == "4" && Convert.ToDouble(lstFilters[i].Valor1) == Convert.ToDouble(precioMinimo) && Convert.ToDouble(lstFilters[i].Valor2) == Convert.ToDouble(precioMaximo))
+                            {
+                            }
+                            else
+                            {
+                                flt += v1.Split(',').Count();
+                            }
+                        }                            
+                    }
+                }
+
                 if (lstFilters != null)
                 {
                     var lstProductoModelFilter = new List<ProductoModel>();
@@ -368,7 +389,8 @@ namespace Portal.Consultoras.Web.Controllers
                     totalRegistros = totalRegistros,
                     precioMinimo = precioMinimo,
                     precioMaximo = precioMaximo,
-                    totalRegistrosFilter = totalRegistrosFilter
+                    totalRegistrosFilter = totalRegistrosFilter,
+                    totalFiltros = flt
                 });
             }
             catch (Exception ex)
