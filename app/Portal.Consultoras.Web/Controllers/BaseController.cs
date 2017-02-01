@@ -1976,5 +1976,17 @@ namespace Portal.Consultoras.Web.Controllers
 
             return model;
         }
+
+        protected string GetRevistaCodigoIssuu(string campania)
+        {
+            string codigo = null;
+            string zonas = ConfigurationManager.AppSettings["RevistaPiloto_Zonas_" + userData.CodigoISO + campania] ?? "";
+            bool esRevistaPiloto = zonas.Split(new char[1] { ',' }).Contains(userData.CodigoZona);
+            if (esRevistaPiloto) codigo = ConfigurationManager.AppSettings["RevistaPiloto_Codigo_" + userData.CodigoISO + campania];
+            if (!string.IsNullOrEmpty(codigo)) return codigo;
+
+            codigo = ConfigurationManager.AppSettings["CodigoRevistaIssuu"].ToString();
+            return string.Format(codigo, userData.CodigoISO.ToLower(), campania.Substring(4, 2), campania.Substring(0, 4));
+        }
     }
 }

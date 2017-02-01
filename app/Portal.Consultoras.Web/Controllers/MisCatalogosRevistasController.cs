@@ -18,12 +18,15 @@ namespace Portal.Consultoras.Web.Controllers
     {
         public ActionResult Index()
         {
-            var clienteModel = new ClienteModel();
+            var clienteModel = new MisCatalogosRevistasModel();
             clienteModel.PaisID = userData.PaisID;
+            clienteModel.CodigoZona = userData.CodigoZona; //R20160204
             clienteModel.CampaniaActual = userData.CampaniaID.ToString();
             clienteModel.CampaniaAnterior = CalcularCampaniaAnterior(clienteModel.CampaniaActual);
             clienteModel.CampaniaSiguiente = CalcularCampaniaSiguiente(clienteModel.CampaniaActual);
-            clienteModel.CodigoZona = userData.CodigoZona; //R20160204
+            clienteModel.CodigoRevistaActual = GetRevistaCodigoIssuu(clienteModel.CampaniaActual);
+            clienteModel.CodigoRevistaAnterior = GetRevistaCodigoIssuu(clienteModel.CampaniaAnterior);
+            clienteModel.CodigoRevistaSiguiente = GetRevistaCodigoIssuu(clienteModel.CampaniaSiguiente);
 
             ViewBag.CodigoISO = userData.CodigoISO;
             ViewBag.EsConsultoraNueva = userData.ConsultoraNueva == Constantes.EstadoActividadConsultora.Registrada ||
@@ -944,36 +947,17 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                if (!string.IsNullOrEmpty(campania))
-                {
-                    var p = userData.CodigoISO.ToLower();
-                    var n = campania.Substring(4, 2);
-                    var a = campania.Substring(0, 4);
-                    var key = ConfigurationManager.AppSettings.Get("UrlRevistaIssuu").ToString();
-                    var url = string.Format(key, p, n, a);
+                if (string.IsNullOrEmpty(campania)) return Json(new { success = false }, JsonRequestBehavior.AllowGet);
 
-                    return Json(new
-                    {
-                        success = true,
-                        urlRevista = url
-                    }, JsonRequestBehavior.AllowGet);
-                }
-                else
-                {
-                    return Json(new
-                    {
-                        success = false
-                    }, JsonRequestBehavior.AllowGet);
-                }
+                string codigo = GetRevistaCodigoIssuu(campania);
+                if (string.IsNullOrEmpty(codigo)) return Json(new { success = false }, JsonRequestBehavior.AllowGet);
+
+                string url = ConfigurationManager.AppSettings["UrlIssuu"].ToString();
+                url = string.Format(url, codigo);
+                return Json(new { success = true, urlRevista = url }, JsonRequestBehavior.AllowGet);
             }
-            catch (Exception ex)
-            {
-                return Json(new
-                {
-                    success = false,
-                }, JsonRequestBehavior.AllowGet);
-            }
-            
+            catch { }
+            return Json(new { success = false }, JsonRequestBehavior.AllowGet);
         }
     }
 }

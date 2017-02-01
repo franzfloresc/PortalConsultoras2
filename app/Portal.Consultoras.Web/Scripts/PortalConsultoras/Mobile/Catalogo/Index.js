@@ -95,15 +95,6 @@ $(document).ready(function () {
     $("#btnEnviarCorreo").on("click", function () {
         CatalogoEnviarEmail();
     });
-    $("#lbPortadaGana").on("click", function () {
-        dataLayer.push({
-            'event': 'virtualEvent',
-            'category': 'Catálogos y revistas',
-            'action': 'Ver revista',
-            'label': 'Revista',
-            'value': 0
-        });
-    });
 });
 
 //VARIABLES
@@ -805,97 +796,49 @@ var aCamRev = new Array();
 
 
 function MostrarRevistaCorrecta(campania) {
-
     var urlImagen = "";
     var defered = jQuery.Deferred();
     defered = ObtenerImagenRevista(campania, defered);
-    defered.done(function (urlRevista) {
-        urlImagen = urlRevista;
-    });
+    defered.done(function (urlRevista) { urlImagen = urlRevista; });
 
     $.when(defered).done(function () {
         $("#imgPortadaGana").attr("src", !urlImagen || urlImagen == "" ? defaultImageRevista : urlImagen);
-
-        var urlExterno = ObtenerUrlRevista(rCampSelect);
         $('[data-tag-html="Revistas"] .titulo_catalogo').text("REVISTA C-" + rCampSelect.substring(4, 6));
-        //$("#lbPortadaGana").attr("href", urlExterno);
-
         FinRenderCatalogo();
     });
 }
 
 function MostrarMiRevista() {
+    dataLayer.push({
+        'event': 'virtualEvent',
+        'category': 'Catálogos y revistas',
+        'action': 'Ver revista',
+        'label': 'Revista',
+        'value': 0
+    });
+
     var frmMiRevista = $('#frmMiRevista');
-    //frmMiRevista.attr('action', '');
     frmMiRevista.submit();
 }
 
 function ObtenerImagenRevista(campania, defered) {
-
-    var src = "";
-    var anio = campania.substring(0, 4);
-    var numero = campania.substring(4, 6);
-    var prefijoPais = codigoIso.toLowerCase();
-
-    var codigoRevista = 'sbconsultorarevista.' + prefijoPais + '.c' + numero + '.' + anio;
-    
-
     jQuery.ajax({
         type: 'POST',
         url: urlObtenerPortadaRevista,
         dataType: 'json',
         contentType: 'application/json; charset=utf-8',
-        data: JSON.stringify({ codigoRevista: codigoRevista }),
+        data: JSON.stringify({ codigoRevista: RevistaCodigoIssuu[campania] }),
         success: function (response) {
             if (checkTimeout(response)) {
-                if (response) {
-                    response = response.startsWith("https") ? response.replace("https://", "http://") : response;
-                    src = response;
-                } else {
-                    src = defaultImageRevista;
-                }
-
-                defered.resolve(src);
+                defered.resolve(!response ? defaultImageRevista :
+                    response.startsWith("https") ? response.replace("https://", "http://") : response);
             }
         },
         error: function (data, error) {
-            if (checkTimeout(data)) {
-                src = defaultImageRevista;
-                defered.resolve(src);
-            }
+            if (checkTimeout(data)) defered.resolve(defaultImageRevista);
         }
     });
-
     return defered.promise();
-}
-function ObtenerUrlRevista(campania) {
-
-    var prefijoPais = codigoIso.toLowerCase();
-    var numeroCampania = campania.substring(4, 6);;
-    var anioCampania = campania.substring(0, 4);;
-
-    //EPD
-    var paisid = $('#divCatalogo')[0].dataset.paisid;
-    var codigozona = $('#divCatalogo')[0].dataset.codigozona;
-    var arrC201614 = new Array("1072", "1075", "3035", "3036", "5035");
-    var arrC201615 = new Array("1081", "3033", "3035", "3036", "5035");
-    var arrC201616 = new Array("1081", "3033", "3035", "3036", "5035");
-
-    if (paisid == 11 && campania == "201614" && (arrC201614.indexOf(codigozona) > -1)) {
-        return "http://issuu.com/somosbelcorp/docs/piloto_rev1614pe_1/";
-    }
-    else if (paisid == 11 && campania == "201615" && (arrC201615.indexOf(codigozona) > -1)) {
-        return "http://issuu.com/somosbelcorp/docs/piloto_rev1615pe/";
-    }
-    else if (paisid == 11 && campania == "201616" && (arrC201616.indexOf(codigozona) > -1)) {
-        return "https://issuu.com/somosbelcorp/docs/piloto_rev1616pe";
-    }
-        //EPD
-    else {
-        //return 'http://issuu.com/somosbelcorp/docs/revista.' + prefijoPais + '.c' + numeroCampania + '.' + anioCampania + "?e=11111/22222";
-        return 'http://issuu.com/somosbelcorp/docs/revista.' + prefijoPais + '.c' + numeroCampania + '.' + anioCampania + "?mode=embed";
-    }
-
 }
 function RevistaMostrar(accion, btn) {
 
