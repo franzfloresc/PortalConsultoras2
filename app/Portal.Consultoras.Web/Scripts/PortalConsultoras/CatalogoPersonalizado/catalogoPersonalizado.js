@@ -20,7 +20,6 @@ var urlLoad = urlLoad || "";
 var rangoPrecios = 0;
 //Mobile
 var mPremax = 0.00;
-
 var mPremin = 0.00;
 var flt = 0;
 var flagEvento = true;
@@ -86,7 +85,9 @@ $(document).ready(function () {
 
     //PL20-1274
     $(".seleccion_filtro_fav").on("click", function () {
-        $(this).toggleClass("seleccion_click_flitro");        
+        $(this).toggleClass("seleccion_click_flitro");
+        
+        flt = 0;
         filterFAVDesktop();
     });
 
@@ -137,6 +138,8 @@ $(document).ready(function () {
 });
 
 function Inicializar() {
+    
+    flt = 0;
     IniDialog();
     ValidarCargaCatalogoPersonalizado();
     LinkCargarCatalogoToScroll();
@@ -204,6 +207,7 @@ function MostrarNoHayProductos() {
 //SB20-1197
 function processFilterCatalogoPersonalizado()
 {
+    
     flt = 0;
     // reset values
     filters = [];
@@ -301,6 +305,9 @@ $(".title-accordion").on("click", function () { $(this).toggleClass("flecha_arri
 //}
 
 function deleteFilters() {
+    
+    flt = 0;
+    
     if (tipoOrigen == '2') {
         $('#custom-filters').hide();
         //$('#summary-filters').hide();
@@ -315,6 +322,7 @@ function deleteFilters() {
         $('input[name="brand"]:checkbox').attr('checked', false);
         $('input[name="categoria"]:checkbox').attr('checked', false);
         //PL20-1274
+        $("#btnfltm").attr('value', 'FILTROS');
     }
 
     if (tipoOrigen == '1') {
@@ -322,7 +330,9 @@ function deleteFilters() {
         $('.seleccion_filtro_fav').removeClass("seleccion_click_flitro");
         var rs = precioMin + ',' + precioMax;
         $('.range-slider').jRange('setValue', rs);
+        $('#filter-sorting').val('03');
         $('.texto_fav_filtro').hide();
+        $('#limiteFlt').hide();
         //filterFAVDesktop();
     }
 
@@ -335,7 +345,7 @@ function deleteFilters() {
         //data: JSON.stringify(obj),
         contentType: 'application/json; charset=utf-8',
         success: function (response) {
-            if (response.success) {
+            if (response.success) {                
                 clearFilters = true;
                 CargarCatalogoPersonalizado();
                 $('body').css({ 'overflow-y': 'scroll' });
@@ -350,21 +360,21 @@ function deleteFilters() {
         complete: function () {
         }
     });
-
-    LinkCargarCatalogoToScroll();
-    //PL20 - 1274
-    flt = 0;
-    $("#btnfltm").attr('value', 'FILTROS');
+    //LinkCargarCatalogoToScroll();
+    //PL20 - 1274    
 }
 
 //SB20-1197
 
 function CargarCatalogoPersonalizado() {
     if (tipoOrigen == 1) {
+        
         if (flt == 0) {
             $('.texto_fav_filtro').hide();
+            $('#limiteFlt').hide();
         } else {
             $('.texto_fav_filtro').show();
+            $('#limiteFlt').show();
         }
     }
 
@@ -436,7 +446,7 @@ function CargarCatalogoPersonalizado() {
                         $('#div-delete-filters').show();
                     }
 
-                    //PL20-1270
+                    //PL20-1270                    
                     if (tipoOrigen == '1') {
                         $("#divCantProductos").html("Mostrando 0 de " + data.totalRegistros + " productos");
                         UnlinkCargarCatalogoToScroll();
@@ -449,11 +459,11 @@ function CargarCatalogoPersonalizado() {
                 //data.data[1].TieneOfertaEnRevista = true;
                 //data.data[1].TipoOfertaRevista = '048';
                 //data.data[1].CUV = '01411';
-
+                
                 var htmlDiv = SetHandlebars("#template-catalogopersonalizado", data.data);
                 $('#divCatalogoPersonalizado').append(htmlDiv);
 
-                //PL20-1270
+                //PL20-1270                
                 if (tipoOrigen == 1) {
                     var t = offsetRegistros + data.data.length
                     $("#divCantProductos").html('Mostrando ' + t.toString() + " de " + data.totalRegistros + " productos");
@@ -861,7 +871,7 @@ function ObtenerOfertaRevista(item) {
 }
 
 function AgregarProductoOfertaRevista(btn) {
-
+    debugger
     var tipoCUV = $(btn).attr('data-cuv');
     var item = $(btn).parents("[data-oferta-popup]");
 
@@ -1131,6 +1141,7 @@ function mostrarFichaProductoFAV(cuv) {
 
 //PL20-1268
 function mostrarFichaProductoFAV2(cuv) {
+    debugger
     waitingDialog();
     var obj = { cuv: cuv };
 
@@ -1153,6 +1164,7 @@ function mostrarFichaProductoFAV2(cuv) {
 
                 $('#fav_tono_' + cuv).addClass("borde_seleccion_tono");
                 $('#fav_cbo_tono').val(cuv);
+                debugger
                 $('#hdCuvFichaProductoFAVSelect').val(cuv);
 
                 $(".content_tono_detalle").on("click", function () {
@@ -1208,8 +1220,13 @@ function cambiarInfoFichaProductoFAV(tipo, cuv, origen) {
 }
 
 function agregarCuvPedidoFichaProductoFAV(tipo) {
+    debugger
 
-    var container = $('#PrecioCatalogo').find('[data-item="catalogopersonalizado"]');
+    var container = null;
+    if (tipo == 2)
+        container = $('#PrecioCatalogo').find('[data-item="catalogopersonalizado"]');
+    else
+        container = $('#PopFichaProductoNueva').find('[data-item="catalogopersonalizado"]');
 
     if (typeof container != 'undefined') {
 
@@ -1251,7 +1268,8 @@ function AjustarTonoTooltips(objcontenedor) {
 
 // PL20-1270
 function filterFAVDesktop() {
-    //debugger
+    //flt = 0;
+    //
     $('.seleccion_filtro_fav').prop('disabled', true);
     $('.select_filtros_fav option:not(:selected)').prop('disabled', true);
 
@@ -1319,15 +1337,14 @@ function filterFAVDesktop() {
     $('.seleccion_filtro_fav').prop('disabled', false);
     $('.select_filtros_fav option:not(:selected)').prop('disabled', false);
     $(".slider-container").removeClass("disabledbutton");
+    LinkCargarCatalogoToScroll();
     CargarCatalogoPersonalizado();
-    LinkCargarCatalogoToScroll();  
 }
 // PL20-1270
 
 // PL20-1270
 function CargarFiltros()
-{
-    flt = 0;
+{    
     jQuery.ajax({
         type: 'POST',
         url: urlCargarFiltros,
@@ -1354,7 +1371,7 @@ function CargarFiltros()
                                 $('#idcategory').find('input[type="checkbox"]').each(function () {
                                     var valor = $(this).val();
                                     if (datos[i].Valor1.indexOf(valor) != -1) {
-                                        $(this).trigger("click");
+                                        $(this).trigger("click");                                        
                                         flt++;
                                     }                                            
                                 });
@@ -1363,7 +1380,7 @@ function CargarFiltros()
                                 $('#div-filter-category').find('div[class*="seleccion_filtro_fav"]').each(function () {
                                     var valor = $(this).data('value');
                                     if (datos[i].Valor1.indexOf(valor) != -1) {
-                                        $(this).toggleClass("seleccion_click_flitro");
+                                        $(this).toggleClass("seleccion_click_flitro");                                        
                                         flt++;
                                     }
                                 });
@@ -1387,6 +1404,7 @@ function CargarFiltros()
                                     var valor = $(this).data('value');
                                     if (datos[i].Valor1.indexOf(valor) != -1) {
                                         $(this).toggleClass("seleccion_click_flitro");
+                                        
                                         flt++;
                                     }
                                 });
@@ -1414,6 +1432,7 @@ function CargarFiltros()
                                 var valor = $(this).data('value');
                                 if (datos[i].Valor1.indexOf(valor) != -1) {
                                     $(this).toggleClass("seleccion_click_flitro");
+                                    
                                     flt++;
                                 }
                             });
