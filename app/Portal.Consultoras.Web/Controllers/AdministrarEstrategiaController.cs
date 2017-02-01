@@ -13,7 +13,8 @@ using System.ServiceModel;
 using System.Web.Script.Serialization;
 using System.Web.UI.WebControls;
 using Portal.Consultoras.Web.ServiceGestionWebPROL;
-
+using System.IO;
+using System.Drawing;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -196,7 +197,7 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         public ActionResult Consultar(string sidx, string sord, int page, int rows, string CampaniaID,
-            string TipoEstrategiaID, string CUV, string Consulta)
+            string TipoEstrategiaID, string CUV, string Consulta, int Imagen, int Activo)
         {
             if (ModelState.IsValid)
             {
@@ -208,6 +209,8 @@ namespace Portal.Consultoras.Web.Controllers
                     entidad.TipoEstrategiaID = Convert.ToInt32(TipoEstrategiaID);
                     entidad.CUV2 = (CUV != "") ? CUV : "0";
                     entidad.CampaniaID = Convert.ToInt32(CampaniaID);
+                    entidad.Activo = Activo;
+                    entidad.Imagen = Imagen;
 
                     using (PedidoServiceClient sv = new PedidoServiceClient())
                     {
@@ -422,6 +425,47 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
+
+        [HttpPost]
+        public ActionResult ImagenEstrategiaUpload(string qqfile)
+        {
+            string FileName = string.Empty;
+            try
+            {
+                // req. 1664 - Unificando todo en una unica carpeta temporal
+                Stream inputStream = Request.InputStream;
+                byte[] fileBytes = ReadFully(inputStream);
+                string ffFileName = qqfile; // qqfile;
+                var path = Path.Combine(Globals.RutaTemporales, ffFileName);
+                System.IO.File.WriteAllBytes(path, fileBytes);
+                if (!System.IO.File.Exists(Globals.RutaTemporales))
+                    System.IO.Directory.CreateDirectory(Globals.RutaTemporales);
+                var failImage = false;
+                var image = System.Drawing.Image.FromFile(path);
+                if (image.Width > 62)
+                {
+                    failImage = true;
+                }
+                if (image.Height > 62)
+                {
+                    failImage = true;
+                }
+
+                if (failImage)
+                {
+                    image.Dispose();
+                    System.IO.File.Delete(path);
+                    return Json(new { success = false, message = "El tamaño de imagen excede el máximo permitido. (Ancho: 62px - Alto: 62px)." }, "text/html");
+                }
+                image.Dispose();
+                return Json(new { success = true, name = Path.GetFileName(path) }, "text/html");
+            }
+            catch (Exception)
+            {
+                return Json(new { success = false, message = "Hubo un error al cargar el archivo, intente nuevamente." }, "text/html");
+            }
+        }
+
         [HttpPost]
         public JsonResult GetOfertaByCUV(string CampaniaID, string CUV2,
             string TipoEstrategiaID, string CUV1, string flag,
@@ -452,7 +496,7 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                 }
 
-                string mensaje = "", descripcion = "", precio = "";
+                string mensaje = "", descripcion = "", precio = "", codigoSAP = ""; int enMatrizComercial = 1;
                 string imagen1 = "", imagen2 = "", imagen3 = "", imagen4 = "", imagen5 = "", imagen6 = "", imagen7 = "", imagen8 = "", imagen9 = "", imagen10 = "";
                 string carpetaPais = Globals.UrlMatriz + "/" + UserData().CodigoISO;
                 string wsprecio = ""; ///GR-1060
@@ -499,6 +543,8 @@ namespace Portal.Consultoras.Web.Controllers
 
                     descripcion = lst[0].DescripcionCUV2;
                     precio = lst[0].PrecioUnitario.ToString();
+                    codigoSAP = lst[0].CodigoSAP.ToString();
+                    enMatrizComercial = lst[0].EnMatrizComercial.ToInt();
                     wsprecio = wspreciopack.ToString();
                     imagen1 = ConfigS3.GetUrlFileS3(carpetaPais, lst[0].FotoProducto01, Globals.RutaImagenesMatriz + "/" + userData.CodigoISO);
                     imagen2 = ConfigS3.GetUrlFileS3(carpetaPais, lst[0].FotoProducto02, Globals.RutaImagenesMatriz + "/" + userData.CodigoISO);
@@ -519,6 +565,8 @@ namespace Portal.Consultoras.Web.Controllers
                     descripcion = descripcion,
                     precio = precio,
                     wsprecio = wsprecio,
+                    codigoSAP = codigoSAP,
+                    enMatrizComercial = enMatrizComercial,
                     imagen1 = imagen1,
                     imagen2 = imagen2,
                     imagen3 = imagen3,
@@ -817,6 +865,48 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
+
+        [HttpPost]
+        public JsonResult ActivarDesactivarEstrategias(string EstrategiasActivas, string EstrategiasDesactivas)
+        {
+            try
+            {
+                int resultado = 0;
+
+                using (PedidoServiceClient sv = new PedidoServiceClient())
+                {
+                    resultado = sv.ActivarDesactivarEstrategias(UserData().PaisID, UserData().CodigoUsuario, EstrategiasActivas, EstrategiasDesactivas);
+                }
+
+                return Json(new
+                {
+                    success = true,
+                    message = resultado > 0 ? "No se activaron algunas estrategias por no contar con los requisitos de límite de venta o imagen" : "Se actualizaron las estrategias correctamente.",
+                    extra = ""
+                }, JsonRequestBehavior.AllowGet);
+            }
+            catch (FaultException ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                return Json(new
+                {
+                    success = false,
+                    message = "Ocurrió un problema al intentar acceder al servicio, intente nuevamente.",
+                    extra = ""
+                }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                return Json(new
+                {
+                    success = false,
+                    message = "Ocurrió un problema al intentar acceder al servicio, intente nuevamente.",
+                    extra = ""
+                }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
         private void ValidarStatusCampania(BEConfiguracionCampania oBEConfiguracionCampania)
         {
             UsuarioModel usuario = UserData();
@@ -1032,7 +1122,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             return View();
         }
-        
+
         public ActionResult ConsultarOfertasParaTi(string sidx, string sord, int page, int rows, string CampaniaID)
         {
             if (ModelState.IsValid)
@@ -1046,7 +1136,7 @@ namespace Portal.Consultoras.Web.Controllers
                     using (PedidoServiceClient ps = new PedidoServiceClient())
                     {
                         cantidadEstrategiasConfiguradas = ps.GetCantidadOfertasParaTi(userData.PaisID, int.Parse(CampaniaID), 1);
-                        cantidadEstrategiasSinConfigurar= ps.GetCantidadOfertasParaTi(userData.PaisID, int.Parse(CampaniaID), 2);
+                        cantidadEstrategiasSinConfigurar = ps.GetCantidadOfertasParaTi(userData.PaisID, int.Parse(CampaniaID), 2);
                     }
                 }
                 catch (Exception ex)
@@ -1130,7 +1220,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }
                 catch (Exception ex)
                 {
-                    lst=new List<BEEstrategia>();
+                    lst = new List<BEEstrategia>();
                 }
 
                 // Usamos el modelo para obtener los datos
@@ -1197,7 +1287,7 @@ namespace Portal.Consultoras.Web.Controllers
                     //var listaRespuestaCuv = new List<RptPrecioValorizado>();
                     //try
                     //{
-                        
+
                     //    using (WsGestionWeb sv = new WsGestionWeb())
                     //    {
                     //        listaRespuestaCuv = sv.GetConsultaPrecioValorizado(campaniaId.ToString(), listaCuv,
@@ -1495,6 +1585,21 @@ namespace Portal.Consultoras.Web.Controllers
                     message = ex.Message
                 }, JsonRequestBehavior.AllowGet);
             }
-        }        
+        }
+
+        public static byte[] ReadFully(Stream input)
+        {
+            byte[] buffer = new byte[16 * 1024];
+            using (MemoryStream ms = new MemoryStream())
+            {
+                int read;
+                while ((read = input.Read(buffer, 0, buffer.Length)) > 0)
+                {
+                    ms.Write(buffer, 0, read);
+                }
+                return ms.ToArray();
+            }
+        }
+
     }
 }

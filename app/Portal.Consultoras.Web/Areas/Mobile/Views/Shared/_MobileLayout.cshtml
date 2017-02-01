@@ -586,6 +586,16 @@
 
         var sesionEsShowRoom = '@Session["EsShowRoom"]';
         var MostrarBannerPL20 = '@ViewBag.MostrarBannerPL20';
+
+        var urlLogDynamo = '@System.Configuration.ConfigurationManager.AppSettings["UrlLogDynamo"]';
+        var userData = {
+            'campana': '@ViewBag.AnalyticsCampania',
+            'region': '@ViewBag.AnalyticsRegion',
+            'zona': '@ViewBag.AnalyticsZona',
+            'seccion': '@ViewBag.AnalyticsSeccion',
+            'pais': '@ViewBag.AnalyticsPais',
+            'codigoConsultora': '@ViewBag.AnalyticsCodigoConsultora'
+        };
     </script>
 
     @if (ViewBag.MostrarBannerPL20 == true)

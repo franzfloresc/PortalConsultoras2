@@ -28,6 +28,7 @@
     <RestorePackages>true</RestorePackages>
     <DeployOnBuild Condition=" '$(DeployWEB)'!='' ">$(DeployWEB)</DeployOnBuild>
     <UseGlobalApplicationHostFile />
+   
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -2313,6 +2314,7 @@
     <Content Include="Content\Images\showroom\check_off.png" />
     <Content Include="Content\Images\showroom\check_on.png" />
     <Content Include="Content\Images\showroom\conoce_mas_aqui.png" />
+    <Content Include="Content\Images\showroom\conoce_mas_aqui_lbel.png" />
     <Content Include="Content\Images\showroom\contador_hoy.png" />
     <Content Include="Content\Images\showroom\CORTE-GIF.gif" />
     <Content Include="Content\Images\showroom\deco_nombre.png" />
@@ -2699,6 +2701,7 @@
     <Content Include="Areas\Mobile\Views\Catalogo\MiRevista.cshtml" />
     <Content Include="Areas\Mobile\Views\TerminosYCondiciones\Index.cshtml" />
     <Content Include="Content\FAQ\41577-BELCORP-SolCre-CO-400073315-300916.pdf" />
+    <Content Include="Areas\Mobile\Views\Notificaciones\DetalleObservacionesStock.cshtml" />
     <Content Include="Areas\Mobile\Views\CatalogoPersonalizado\Producto.cshtml" />
     <Content Include="Content\ArchivoNivelRiesgo\09c7704a-8f6e-435e-80b8-bfabc1aee123.xlsx" />
     <Content Include="Content\ArchivoNivelRiesgo\0ddd711e-3e27-4742-8cd9-1605a67ac0a5.xlsx" />
@@ -3326,6 +3329,27 @@
       <LastGenOutput>Reference.cs</LastGenOutput>
     </Content>
     <Content Include="Set.aspx" />
+    <Content Include="Content\Template\mailing.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Template\mailing_detalle.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Template\mailing_detalle_codigo_operacion_canje.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Template\mailing_detalle_codigo_operacion_devolucion.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Template\mailing_detalle_codigo_operacion_faltante.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Template\mailing_detalle_codigo_operacion_faltanteAbono.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Template\mailing_detalle_codigo_operacion_trueque.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Views\Unete\ReporteConsolidado.cshtml" />
     <Content Include="Views\CatalogoPersonalizado\Index.cshtml">
       <SubType>Code</SubType>
@@ -3642,6 +3666,7 @@
       <LastGenOutput>Reference.cs</LastGenOutput>
     </Content>
     <Content Include="Views\Unete\NivelesGeograficos.cshtml" />
+    <Content Include="Views\Notificaciones\ListaDetalleCdrCulminado.cshtml" />
     <None Include="Web References\ServiceGestionWebPROL\WsGestionWeb.wsdl" />
     <None Include="Web References\ServiceLMS\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
