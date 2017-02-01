@@ -273,12 +273,14 @@
       <xs:element minOccurs="0" name="CampaniaIDFin" type="xs:int" />
       <xs:element minOccurs="0" name="Cantidad" type="xs:int" />
       <xs:element minOccurs="0" name="CodigoProducto" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CodigoSAP" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ColorFondo" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ConsultoraID" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="DescripcionCUV2" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="DescripcionCategoria" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="DescripcionEstrategia" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="DescripcionMarca" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="EnMatrizComercial" type="xs:int" />
       <xs:element minOccurs="0" name="EstrategiaID" type="xs:int" />
       <xs:element minOccurs="0" name="EtiquetaDescripcion" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="EtiquetaDescripcion2" nillable="true" type="xs:string" />
