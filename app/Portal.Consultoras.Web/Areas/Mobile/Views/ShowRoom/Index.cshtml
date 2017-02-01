@@ -101,6 +101,9 @@
                 var urlWs = "";
                 var urlBase = "";
                 var urlBase2 = "";
+                var urlwsr = "";
+                var urlLabel = "";
+
                 if (System.Web.HttpContext.Current.Request.UserAgent != null)
                 {
                     var request = HttpContext.Current.Request;
@@ -110,6 +113,8 @@
                     urlBase = request.Url.Scheme + "://" + request.Url.Authority + "/Set.aspx?id="+ Model.CodigoIso + "_" + item.OfertaShowRoomID + "_" + Model.FormatoCampania + "_W";
                     urlBase2 = request.Url.Scheme + "://" + request.Url.Authority + "/Set.aspx?id=" + Model.CodigoIso + "_" + item.OfertaShowRoomID + "_" + Model.FormatoCampania + "_F";
 
+                    urlwsr = urlBase;
+
                     urlBase = urlBase.Replace("/", "%2F");
                     urlBase = urlBase.Replace(":", "%3A");
                     urlBase = urlBase.Replace("?", "%3F");
@@ -117,13 +122,15 @@
 
                     var message = Uri.EscapeDataString(texto) + " - " + urlBase;
                     urlWs = "whatsapp://send?text=" + message;
-                    //var urlWs = "whatsapp://send?text=" ;                    
+                    urlLabel = message;
+                    //urlWs = Uri.EscapeDataString(texto);
+                    //var urlWs = "whatsapp://sendUri.EscapeDataString(texto)text=" ;                    
                 }
 
 
             }
-            <a class="btn_ws_showroom" href="@urlWs" data-action="share/whatsapp/share"><img src="@Url.Content("~/Content/Images/mobile/Esika/iconowscolor.png")" alt="-" /></a>
-            <a class="btn_facebook_showroom" href="" data-accion="face" onclick='CompartirFacebook("@urlBase2");'><img src="@Url.Content("~/Content/Images/mobile/Esika/catalogo_facebook_color.png")" alt="-" /></a>
+            <a class="btn_ws_showroom" onclick="TagManagerSWR('@urlLabel');" action="share/whatsapp/share" href="@urlWs"><img src="@Url.Content("~/Content/Images/mobile/Esika/iconowscolor.png")" alt="-" /></a>
+            <a class="btn_facebook_showroom" href="" data-accion="face" onclick='CompartirFacebookSWR("@urlLabel", "@urlBase2");'><img src="@Url.Content("~/Content/Images/mobile/Esika/catalogo_facebook_color.png")" alt="-" /></a>
             <hr class="clear" />
         </div>
     </div>    
@@ -194,7 +201,7 @@
             $("body").on("click", ".btnAgregarOfertaShowRoom", function (e) {
                 var article = $(this).parents(".listado_item").eq(0);
                 var cantidad = $(article).find(".txtCantidad").val();
-
+                
                 AgregarOfertaShowRoom(article, cantidad);
                 e.preventDefault();
                 (this).blur();
@@ -228,6 +235,7 @@
         }
 
         function AgregarOfertaShowRoom(article, cantidad) {
+            
             var CUV = $(article).find(".valorCuv").val();
             var MarcaID = $(article).find(".claseMarcaID").val();
             var PrecioUnidad = $(article).find(".clasePrecioUnidad").val();
@@ -321,8 +329,8 @@
                                                 $(article).find(".claseStock").text(stockRestante);
                                                 $(article).find(".txtCantidad").val("1");
                                             }
-
-                                            AgregarTagManagerProductoAgregado(CUV, nombreProducto, PrecioUnidad, cantidad, descripcionMarca);
+                                            
+                                            AgregarTagManagerProductoAgregadoSWR(CUV, nombreProducto, PrecioUnidad, cantidad, descripcionMarca,0);
                                             //ActualizarCantidadTotalPedido();
                                             CargarCantidadProductosPedidos();
                                             TrackingJetloreAdd(cantidad, $("#hdCampaniaCodigo").val(), CUV);
@@ -406,6 +414,28 @@
             }
         }
 
+        function AgregarTagManagerProductoAgregadoSWR(CUV, nombreProducto, PrecioUnidad, cantidad, descripcionMarca, tipo) {
+            
+            var lista = tipo == 0 ? "Ofertas Showroom" : "Ofertas Showroom popUp";
+            dataLayer.push({
+                'event': 'addToCart',
+                'ecommerce': {
+                    'add': {
+                        'actionField': { 'list': lista },
+                        'products': [{
+                            'name': nombreProducto,
+                            'id': CUV,
+                            'price': PrecioUnidad,
+                            'brand': descripcionMarca,
+                            'variant': 'Ofertas Showroom',
+                            'category': 'NO DISPONIBLE',
+                            'quantity': cantidad
+                        }]
+                    }
+                }
+            });
+        }
+
         function AgregarTagManagerProductoAgregado(CUV, nombreProducto, PrecioUnidad, cantidad, descripcionMarca) {
             dataLayer.push({
                 'event': 'addToCart',
@@ -460,5 +490,8 @@
 
             window.open(url, 'Facebook', "width=" + popWwidth + ",height=" + popHeight + ",menubar=0,toolbar=0,directories=0,scrollbars=no,resizable=no,left=" + left + ",top=" + top + "");
         }
+
+       
     </script>
+    <script src="@Url.Content("~/Scripts/PortalConsultoras/Mobile/CatalogoPersonalizado/Index.js")"></script>
 }

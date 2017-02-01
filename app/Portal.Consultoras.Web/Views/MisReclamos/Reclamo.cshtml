@@ -61,7 +61,7 @@
             <hr class="clear"/>
             <!--MOTIVO SELECCIONADO-->
             <div>
-                <div class="subtitulo_reclamo">¿Cuál fué el inconveniente?</div>
+                <div class="subtitulo_reclamo">¿Cuál fue el inconveniente?</div>
                 <div>
                     <div class="content_motivo_select" id="divMotivo"></div>
                 </div>
@@ -101,6 +101,7 @@
                 <input type="hidden" id="hdCuvPrecio2"/>
                 <input type="hidden" id="hdParametriaCdr" />
                 <input type="hidden" id="hdParametriaAbsCdr"/>
+                <input type="hidden" id="hdCdrWebDatos_Ssic"/>
                 <div class="rango_reclamo">
                     <input type="text" name="Cantidad" id="txtCantidad2" value="1" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral valid" onkeypress=" PreValidarCUV(); " onfocus=" SeleccionarContenido(this) ">
                     <div class="liquidacion_rango_right_pedido">
@@ -167,7 +168,7 @@
                     <br/>
                     <div class="linea_gris" style="height: 1px;"></div>
                     <div class="mensaje_advertencia_reclamo">
-                        <span style="margin-bottom: 10px; display: block">TEN EN CUENTA: </span>
+                        <span style="margin-bottom: 10px; display: block">TENER EN CUENTA: </span>
                         <span id="spnMensajeTenerEnCuentaCanje"></span>
                     </div>
                     <div class="linea_separadora_roja" style="height: 2px;"></div>
@@ -212,7 +213,7 @@
             </div>
             <div class="linea_separadora_roja" style="height: 2px;"></div>
             <div class="subtitulo_listado">VALIDA TUS DATOS</div>
-            <div class="texto_valida_datos">En caso de necesitar contactarnos contigo, lo haremos a traves de:</div>
+            <div class="texto_valida_datos">En caso de necesitar contactarnos contigo, lo haremos a través de:</div>
             <div class="float_left">
                 <span class="texto_correo">Correo Electrónico</span>
                 <input type="hidden" id="hdEmail" value="@Model.Email"/>
@@ -225,7 +226,7 @@
                 </div>
             </div>
             <div class="float_left">
-                <span class="texto_correo">Teléfono de contacto</span>
+                <span class="texto_correo">Celular de contacto</span>
                 <input type="hidden" id="hdTelefono" value="@Model.Telefono" />
                 @Html.TextBox("txtTelefono", (string) Model.Telefono, new {@class = "correo_reclamo"})
                 <br />
@@ -257,7 +258,7 @@
         <div id="divDetalleUltimasSolicitudes">
 
         </div>
-        <a class="btn_ver_solicitudes" href="javascript:;" style="width:100px;margin-top:30px;">IR AL FINAL</a>
+        <a class="btn_ver_solicitudes" id="btn_ver_solicitudes" href="javascript:void(0);" onclick="CambioPaso(3)" style="width:100px;margin-top:30px;">IR AL FINAL</a>
     </div>
     <!--FIN SOLICITUDES-->
     </div>
@@ -490,6 +491,8 @@
 <script type="text/javascript">
     var imgCheck = '@Url.Content("~/Content/Images/Esika/paso_realizado.png")';
     var imgPasos = '@Url.Content("~/Content/Images/Esika/{0}.png")';
+    var urlRegresar = '@Url.Action("Index","MisReclamos")';
+    var urlRegresarReclamo = '@Url.Action("Reclamo","MisReclamos")';
 </script>
 <script src="@Url.Content("~/Scripts/PortalConsultoras/MisReclamos/Reclamo.js")"></script>
 }
