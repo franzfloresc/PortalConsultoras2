@@ -34016,9 +34016,9 @@ h1#penmostreo .campana {
 
 /*FICHA PRODUCTO FAV DESKTOP*/
 .content_left_ficha{
-    float:left;
-    width:300px;
-    margin-right:45px;
+        float: left;
+    width: 52%;
+    margin-right: 5%;
 }
 .content_ficha_producto{
     width:300px;
@@ -34028,8 +34028,8 @@ h1#penmostreo .campana {
     width:100%;
    }
 .content_right_ficha{
-    float:left;
-    width:238px;
+    float: RIGHT;
+    width: 41%;
 }
 .titulo_ficha_producto {
     font-family: 'Lato';
@@ -34174,8 +34174,14 @@ h1#penmostreo .campana {
 .content_texto_oferta{
     margin-bottom:65px;
 }
+.etiqueta_guia_negocio span{
+    display: block;
+    font-size: 13.9px;
+    font-weight: 700;
+    height: 14px;
+}
 
-
+/*OFERTA FINAL*/
 .img-tooltip {
   position: absolute;
      background: url("http://www.psdgraphics.com/file/light-wooden-background.jpg");
@@ -34201,4 +34207,99 @@ h1#penmostreo .campana {
     margin-top: -5px;
     border-width: 5px 5px 5px 0;
     border-right-color: #E8E8E8;
+}
+.ganancia_total_pop{
+    font-family:'Lato';
+    font-size:14px;
+    line-height:18px;
+    text-align:center;
+    margin-bottom:20px;
+    margin-top:5px;
+}
+.compartir_redes_ficha{
+    margin-top:30px;
+    padding-left:50px;
+}
+.texto_compartelo{
+    float:left;
+    margin-right:15px;
+    font-family:'Lato';
+    font-size:12.5px;
+    margin-top:9px;
+}
+.btn_compartir_facebook_ficha{
+    width:73px;
+    border:1px solid #cbcbcb;
+    display:block;
+    height:30px;
+    line-height:36px;
+    margin-right:5px;
+    text-align:center;
+    float:left;
+}
+.opcion_escala_descuento {
+	position: relative;
+	background: #e8e8e8;
+	border: 1px solid #dbdbdb;
+    height:auto;
+    width:92%;  
+    z-index:20;
+    padding:20px;
+    border-radius:2px;
+    
+}
+.opcion_escala_descuento:after, .opcion_escala_descuento:before {
+    
+	right: 100%;
+	top: 50%;
+	border: solid transparent;
+	content: " ";
+	height: 0;
+	width: 0;
+	position: absolute;
+	pointer-events: none;    
+}
+
+.opcion_escala_descuento:after {
+	border-color: rgba(232, 232, 232, 0);
+	border-right-color: #e8e8e8;
+	border-width: 10px;
+	margin-top: -10px;
+}
+.opcion_escala_descuento:before {
+	border-color: rgba(219, 219, 219, 0);
+	border-right-color: #dbdbdb;
+	border-width: 11px;
+	margin-top: -11px;
+}
+.texto_producto_relacionado {
+    font-family: 'LAto';
+    font-size: 13px;
+    line-height: 16px;
+    color: black;
+    float: left;
+    width: 70%;
+    margin-right:4%;
+}
+.imagen_relacionada{
+    float:left;
+    width:26%;
+    height:60px;
+    
+}
+.imagen_relacionada img{
+    height:100%;
+}
+.btn_cerrar_escala{   
+  font-family: 'Lato';
+  font-size: 12px;
+  font-weight:bold;
+  float: right;
+  color: #000000;
+  margin-bottom:70px;
+  margin-top:-10px;
+  margin-right:-10px;
+  padding-left:20px;
+  background: url(../../../Images/Esika/arrow_left.png) no-repeat left;
+  background-size: 18px 18px;
 }
