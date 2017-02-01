@@ -1280,6 +1280,7 @@
     <Content Include="Content\Css\Site\Images\UsuarioMX.png" />
     <Content Include="Content\Css\Site\Images\UsuarioPR.png" />
     <Content Include="Content\Css\Site\Images\UsuarioVe.png" />
+    <Content Include="Content\Css\Site\jquery.custom-scrollbar.css" />
     <Content Include="Content\Css\Site\jquery.custom-scrollbar.min.css" />
     <Content Include="Content\Css\Site\jquery.tag-editor.css" />
     <Content Include="Content\Css\Site\Lbel\reset.css" />
@@ -2807,6 +2808,7 @@
     <Content Include="Scripts\jquery-migrate-1.2.1.min.js" />
     <Content Include="Scripts\jquery-ui-1.9.2.custom.js" />
     <Content Include="Scripts\jquery.betterTooltip.js" />
+    <Content Include="Scripts\jquery.custom-scrollbar.js" />
     <Content Include="Scripts\jquery.custom-scrollbar.min.js" />
     <Content Include="Scripts\jquery.easy-pie-chart.js" />
     <Content Include="Scripts\jquery.maskedinput.min.js" />
