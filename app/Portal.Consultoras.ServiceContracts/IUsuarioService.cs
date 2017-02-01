@@ -92,6 +92,9 @@ namespace Portal.Consultoras.ServiceContracts
         int ValidarEmailConsultora(int PaisID, string Email, string CodigoUsuario);
 
         [OperationContract]
+        int ValidarTelefonoConsultora(int PaisID, string Telefono, string CodigoUsuario);
+
+        [OperationContract]
         List<int> GetEstadosRestringidos(int paisID);
 
         [OperationContract]
@@ -257,6 +260,9 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         void UpdNotificacionSolicitudCdrVisualizacion(int paisID, long procesoId);
+
+        [OperationContract]
+        void UpdNotificacionCdrCulminadoVisualizacion(int paisID, long procesoId);
 
         [OperationContract]
         int UpdateUsuarioEmailTelefono(int paisID, long ConsultoraID, string Email, string Telefono);

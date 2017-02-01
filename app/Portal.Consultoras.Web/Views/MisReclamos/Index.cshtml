@@ -36,7 +36,7 @@
             <span>
                 Si tuviste inconvenientes con algún producto y estás dentro del
                 <a href="@Model.UrlPoliticaCdr" style="text-decoration: underline; font-weight: bold; display: inline;" target="_blank">plazo permitido</a>
-                sigue estos pasos:
+                puedes registrar una solicitud de cambios y devoluciones:
             </span>
         </div>
         <div class="content_registro_reclamos">
@@ -128,12 +128,12 @@
                             </div>
                         }
                         <div class="listado_estado_general">
-                            <div>
+                            <div class="verDetalle">
                                 <span class="estado_texto @claseEstado">
                                     @item.EstadoDescripcion
                                 </span>
                                 <span>
-                                    <a data-cdrwebid="@item.CDRWebID" data-pedidoid="@item.PedidoID" href="javascript:;" title="Ver Estado / Detalles" class="icono_verDetalle verDetalle">
+                                    <a data-cdrwebid="@item.CDRWebID" data-pedidoid="@item.PedidoID" href="javascript:;" title="Ver Estado / Detalles" class="icono_verDetalle">
                                         <img src="/Content/Images/icono-ver-estado.png" alt="Ver Estado / Detalles">
                                     </a>
                                 </span>
@@ -227,7 +227,7 @@
                 
             </div>
             <div class="linea_separadora_roja" style="height: 2px;"></div>
-            <a id="btnFinalizar" class="btn_si_stock_cdr" href="#" style="width: 296px;">FINALIZA Y ENVÍA TU SOLICITUD</a>
+            <a id="btnFinalizar" class="btn_si_stock_cdr" href="#" style="width: 296px;">CONTINUAR</a>
             <hr class="clear" />
         </div>
     </div>
@@ -578,12 +578,15 @@
                     CDRWebDetalleID: pedidodetalleid
                 };
 
-                var eliminado = DetalleEliminar(item);
+                var functionEliminar = function () {
+                    var eliminado = DetalleEliminar(item);
 
-                if (eliminado) {
-                    var parent = $(obj).parents(".content_listado_reclamo").eq(0);
-                    $(parent).remove();
-                }
+                    if (eliminado) {
+                        var parent = $(obj).parents(".content_listado_reclamo").eq(0);
+                        $(parent).remove();
+                    }
+                };
+                messageConfirmacion("", "Se eliminará el registro seleccionado. <br/>¿Deseas continuar?", functionEliminar);                
             }
         }
 
