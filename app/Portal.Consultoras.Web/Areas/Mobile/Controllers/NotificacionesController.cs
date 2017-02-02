@@ -242,21 +242,34 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             return View("ListadoObservaciones", model);
         }
 
-        public ActionResult ListarObservacionesStock(long ValStockId)
+        public ActionResult ListarObservacionesStock(long ProcesoId)
         {
             var userData = UserData();
+            var notificaciones = ObtenerNotificaciones();
+            var notificacion = notificaciones.FirstOrDefault(p => p.ProcesoId == ProcesoId);
             var lstObservacionesPedido = new List<BENotificacionesDetallePedido>();
             var model = new NotificacionesMobileModel();
 
+            long ValStockId = Int64.Parse(notificacion.Observaciones);
             using (var service = new UsuarioServiceClient())
             {
                 lstObservacionesPedido = service.GetValidacionStockProductos(userData.PaisID, userData.ConsultoraID, ValStockId).ToList();
             }
-
+            
             foreach (var item in lstObservacionesPedido)
             {
-                item.ObservacionPROL = string.Format("El producto {0} - {1} - cuenta nuevamente con stock. Si deseas agrégalo a tu pedido.", item.CUV, item.Descripcion);
+                if (item.StockDisponible == 0) item.ObservacionPROL = string.Format("El producto {0} - {1} - cuenta nuevamente con stock. Si deseas agrégalo a tu pedido.", item.CUV, item.Descripcion);
+                else
+                {
+                    if (item.StockDisponible == 1) item.ObservacionPROL = "Nos ingresó 1 unidad";
+                    else item.ObservacionPROL = "Nos ingresaron " + item.StockDisponible + " unidades";
+
+                    item.ObservacionPROL += string.Format(" del producto {0} - {1}. Si deseas agrégalo a tu pedido.", item.CUV, item.Descripcion);
+                }
             }
+
+            model.Asunto = notificacion.Asunto;
+            model.FechaFacturacion = notificacion.FechaHoraValidación;
 
             model.ListaNotificacionesDetalle = new List<BENotificacionesDetalle>();
             model.ListaNotificacionesDetallePedido = lstObservacionesPedido;
@@ -264,7 +277,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             model.Origen = 3;
             ViewBag.Simbolo = userData.Simbolo;
 
-            return View("ListadoObservaciones", model);
+            return View("DetalleObservacionesStock", model);
         }
 
         public ActionResult DetalleSolicitudClienteCatalogo(long SolicitudId)

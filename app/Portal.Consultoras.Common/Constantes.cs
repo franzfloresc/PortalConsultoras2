@@ -172,6 +172,7 @@ namespace Portal.Consultoras.Common
             public const string CDRWebDetalle = "CDRWebDetalle";
             public const string CDRWeb = "CDRWeb";
             public const string CDRParametria = "CDRParametria";
+            public const string CDRWebDatos = "CDRWebDatos";
         }
 
         public class TipoOfertaFinalCatalogoPersonalizado
@@ -296,6 +297,11 @@ namespace Portal.Consultoras.Common
             public const string TruequeValAbs = "STO_DESV_TRQ_OPER";
         }
 
+        public class CdrWebDatos
+        {
+            public const string UnidadesPermitidasFaltante = "UnidadesPermitidasFaltante";
+        }
+
         public class CodigoOperacionCDR
         {
             public const string Faltante = "F";
@@ -316,12 +322,22 @@ namespace Portal.Consultoras.Common
             public const int Comunicado = 8;
         }
 
+        // Constantes de los motivos de GPR.
+        public class GPRMotivoRechazo
+        {
+            public const string MontoMinino = "OCC-16"; //MONTO MINIMO
+            public const string MontoMaximo = "OCC-17"; // MONTO MAXIMO
+            public const string ActualizacionDeuda = "OCC-19"; //ACTUALIZACION DE DEUDA
+            public const string ValidacionMontoMinimoStock = "OCC-51"; //VALIDACION MONTO MINIMO STOCK
+        }
+        
         public class ValidacionExisteUsuario
         {
             public const int NoExiste = 0;
             public const int ExisteDiferenteClave = 1;
             public const int Existe = 2;
         }
+
     }
 }
 

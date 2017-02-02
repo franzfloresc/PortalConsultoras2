@@ -255,8 +255,8 @@
     {
         <!--APP CATÁLOGOS-->
         <div class="comartir_home_mobile">
-            MULTIPLICA TUS CLIENTES CON<br />
-            EL APP DE CATÁLOGO
+            HAZ CRECER TU NEGOCIO CON<br />
+            EL APP DE CATÁLOGOS
             @*<a role="link" region="Central" parent="App de Catálogos" title="Entérate Más"
                class="btn_compartelos" href="@Model.UrlEnterateMas">ENTÉRATE MÁS</a>*@
             <a role="link" region="Central" parent="App de Catálogos" title="Entérate Más"
@@ -834,12 +834,8 @@
                     var request = HttpContext.Current.Request;
 
                     var urlBase_wsp = request.Url.Scheme + "://" + request.Url.Authority + "/Pdto.aspx?id=" + Model.CodigoISO + "_[valor]";
-                    urlBase_wsp = urlBase_wsp.Replace("/", "%2F");
-                    urlBase_wsp = urlBase_wsp.Replace(":", "%3A");
-                    urlBase_wsp = urlBase_wsp.Replace("?", "%3F");
-                    urlBase_wsp = urlBase_wsp.Replace("=", "%3D");
 
-                    urlWs = "whatsapp://send?text=" + urlBase_wsp;
+                    urlWs = urlBase_wsp; //"whatsapp://send?text=" + urlBase_wsp;
 
                     urlBase_fb = request.Url.Scheme + "://" + request.Url.Authority + "/Pdto.aspx?id=" + Model.CodigoISO + "_[valor]";
                 }

@@ -15,6 +15,6 @@
     if (TipoOrigen == 6) location.href = urlDetallePedidoRechazado + "?ProcesoId=" + ProcesoId;
     else if (TipoOrigen == 5) location.href = urlDetalleSolicitudClienteCatalogo + "?SolicitudId=" + ProcesoId;
     else if (TipoOrigen == 4) location.href = Estado == 0 ? urlConsultoraOnlinePendientes : urlConsultoraOnlineHistorial;
-    else if (TipoOrigen == 3) location.href = urlListarObservacionesStock + "?ValStockId=" + Observaciones;
+    else if (TipoOrigen == 3) location.href = urlListarObservacionesStock + "?ProcesoId=" + ProcesoId;
     else location.href = urlListarObservaciones + "?ProcesoId=" + ProcesoId + "&TipoOrigen=" + TipoOrigen;
 }

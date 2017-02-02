@@ -238,6 +238,15 @@ namespace Portal.Consultoras.Data
             return Convert.ToInt32(Context.ExecuteScalar(command));
         }
 
+        public int ValidarTelefonoConsultora(string Telefono, string CodigoUsuario)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.ValidateConsultoraTelefono");
+            Context.Database.AddInParameter(command, "@Telefono", DbType.AnsiString, Telefono);
+            Context.Database.AddInParameter(command, "@CodigoUsuario", DbType.AnsiString, CodigoUsuario);
+
+            return Convert.ToInt32(Context.ExecuteScalar(command));
+        }
+
         public IDataReader GetEstadosRestringidos()
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetEstadosRestringidos");

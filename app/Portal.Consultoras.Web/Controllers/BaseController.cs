@@ -323,7 +323,7 @@ namespace Portal.Consultoras.Web.Controllers
         protected bool EstaProcesoFacturacion(out string mensaje)
         {
             mensaje = "";
-            if (userData.IndicadorEnviado == 1 && userData.EstaRechazado == 0)
+            if (userData.IndicadorGPRSB == 1)
             {
                 mensaje = "En este momento nos encontramos facturando tu pedido de C" + userData.CampaniaID.ToString().Substring(4, 2) + ", inténtalo más tarde";
                 return true;
@@ -334,15 +334,14 @@ namespace Portal.Consultoras.Web.Controllers
         protected bool ValidarPedidoReservado(out string mensaje)
         {
             mensaje = string.Empty;
-
-            userData.ConsultoraID = userData.UsuarioPrueba == 1 ? userData.ConsultoraAsociadaID : userData.ConsultoraID;
-
+            var ConsultoraID = userData.UsuarioPrueba == 1 ? userData.ConsultoraAsociadaID : userData.ConsultoraID;
+            
             BEConfiguracionCampania oBEConfiguracionCampania = null;
             using (PedidoServiceClient sv = new PedidoServiceClient())
             {
                 
 
-                oBEConfiguracionCampania = sv.GetEstadoPedido(userData.PaisID, userData.CampaniaID, userData.ConsultoraID, userData.ZonaID, userData.RegionID);
+                oBEConfiguracionCampania = sv.GetEstadoPedido(userData.PaisID, userData.CampaniaID, ConsultoraID, userData.ZonaID, userData.RegionID);
             }
             if (oBEConfiguracionCampania != null && oBEConfiguracionCampania.EstadoPedido == Constantes.EstadoPedido.Procesado &&
                 !oBEConfiguracionCampania.ModificaPedidoReservado && !oBEConfiguracionCampania.ValidacionAbierta)
@@ -620,7 +619,8 @@ namespace Portal.Consultoras.Web.Controllers
                 model.EsDiasFacturacion = fechaHoy >= model.FechaInicioCampania.Date && fechaHoy <= model.FechaFinCampania.Date ? true : false;
 
                 ViewBag.FechaActualPais = fechaHoy.ToShortDateString();
-                ViewBag.Dias = fechaHoy >= model.FechaInicioCampania.Date && fechaHoy <= model.FechaFinCampania.Date ? 0 : (model.FechaInicioCampania.Subtract(DateTime.Now.AddHours(model.ZonaHoraria)).Days + 1);
+            ViewBag.Dias = ((fechaHoy >= model.FechaInicioCampania.Date && fechaHoy <= model.FechaFinCampania.Date) || (fechaHoy >= model.FechaInicioCampania.Date && fechaHoy >= model.FechaFinCampania.Date)) ? 0 : (model.FechaInicioCampania.Subtract(DateTime.Now.AddHours(model.ZonaHoraria)).Days + 1);
+            //ViewBag.Dias = fechaHoy >= model.FechaInicioCampania.Date && fechaHoy <= model.FechaFinCampania.Date ? 0 : (model.FechaInicioCampania.Subtract(DateTime.Now.AddHours(model.ZonaHoraria)).Days + 1);
 
                 ViewBag.PeriodoAnalytics = fechaHoy >= model.FechaInicioCampania.Date && fechaHoy <= model.FechaFinCampania.Date ? "Facturacion" : "Venta";
                 ViewBag.SemanaAnalytics = "No Disponible";
@@ -735,10 +735,10 @@ namespace Portal.Consultoras.Web.Controllers
                 ViewBag.PaisesConTrackingJetlore = paisesConTrackingJetlore.Contains(model.CodigoISO) ? "1" : "0";
                 ViewBag.EsCatalogoPersonalizadoZonaValida = model.EsCatalogoPersonalizadoZonaValida;
 
-                ViewBag.IndicadorEnviado = model.IndicadorEnviado;
-                ViewBag.EstaRechazado = model.EstaRechazado;
+            ViewBag.IndicadorGPRSB = model.IndicadorGPRSB;
                 ViewBag.CerrarRechazado = model.CerrarRechazado;
-                ViewBag.MotivoRechazo = model.MotivoRechazo;
+            ViewBag.MostrarBannerRechazo = model.MostrarBannerRechazo;
+            ViewBag.MotivoRechazo = model.MotivoRechazo.Trim();
                 ViewBag.Efecto_TutorialSalvavidas = ConfigurationManager.AppSettings.Get("Efecto_TutorialSalvavidas") ?? "1";
 
                 #endregion

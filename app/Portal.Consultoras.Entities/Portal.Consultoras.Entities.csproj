@@ -162,6 +162,7 @@
     <Compile Include="BEOfertaFIC.cs" />
     <Compile Include="BEOfertaNueva.cs" />
     <Compile Include="BEOfertaProducto.cs" />
+    <Compile Include="BEPedidoDescarga.cs" />
     <Compile Include="BEPedidoRechazadoSicc.cs" />
     <Compile Include="BEProcesoPedidoRechazado.cs" />
     <Compile Include="BEProductoCompartido.cs" />
@@ -242,6 +243,7 @@
     <Compile Include="CDR\BECDRMotivoReclamo.cs" />
     <Compile Include="CDR\BECDRParametria.cs" />
     <Compile Include="CDR\BECDRTipoOperacion.cs" />
+    <Compile Include="CDR\BECDRWebDatos.cs" />
     <Compile Include="CDR\BELogCDRWebDetalle.cs" />
     <Compile Include="CDR\BELogCDRWeb.cs" />
     <Compile Include="CDR\BECDRWeb.cs" />

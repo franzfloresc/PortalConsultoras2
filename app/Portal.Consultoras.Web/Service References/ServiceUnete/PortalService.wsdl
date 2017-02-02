@@ -4,14 +4,20 @@
     <xsd:schema targetNamespace="http://tempuri.org/Imports">
       <xsd:import schemaLocation="http://internal-qaselb-portalffvvservicios-1152760669.us-east-1.elb.amazonaws.com/UneteWCF/PortalService.svc?xsd=xsd0" namespace="http://tempuri.org/" />
       <xsd:import schemaLocation="http://internal-qaselb-portalffvvservicios-1152760669.us-east-1.elb.amazonaws.com/UneteWCF/PortalService.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
-      <xsd:import schemaLocation="http://internal-qaselb-portalffvvservicios-1152760669.us-east-1.elb.amazonaws.com/UneteWCF/PortalService.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.Utils" />
-      <xsd:import schemaLocation="http://internal-qaselb-portalffvvservicios-1152760669.us-east-1.elb.amazonaws.com/UneteWCF/PortalService.svc?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.SI.ServiceContract.Collections" />
-      <xsd:import schemaLocation="http://internal-qaselb-portalffvvservicios-1152760669.us-east-1.elb.amazonaws.com/UneteWCF/PortalService.svc?xsd=xsd4" namespace="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.BL.BE" />
+      <xsd:import schemaLocation="http://internal-qaselb-portalffvvservicios-1152760669.us-east-1.elb.amazonaws.com/UneteWCF/PortalService.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.SI.ServiceContract.Collections" />
+      <xsd:import schemaLocation="http://internal-qaselb-portalffvvservicios-1152760669.us-east-1.elb.amazonaws.com/UneteWCF/PortalService.svc?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.BL.BE" />
+      <xsd:import schemaLocation="http://internal-qaselb-portalffvvservicios-1152760669.us-east-1.elb.amazonaws.com/UneteWCF/PortalService.svc?xsd=xsd4" namespace="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.Utils" />
       <xsd:import schemaLocation="http://internal-qaselb-portalffvvservicios-1152760669.us-east-1.elb.amazonaws.com/UneteWCF/PortalService.svc?xsd=xsd5" namespace="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.DL.DataModel.BelcorpPais" />
       <xsd:import schemaLocation="http://internal-qaselb-portalffvvservicios-1152760669.us-east-1.elb.amazonaws.com/UneteWCF/PortalService.svc?xsd=xsd6" namespace="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.BL.BC.Parameter" />
       <xsd:import schemaLocation="http://internal-qaselb-portalffvvservicios-1152760669.us-east-1.elb.amazonaws.com/UneteWCF/PortalService.svc?xsd=xsd7" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
     </xsd:schema>
   </wsdl:types>
+  <wsdl:message name="IPortalService_ObtenerListaNivelesGeograficosCR_InputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenerListaNivelesGeograficosCR" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_ObtenerListaNivelesGeograficosCR_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenerListaNivelesGeograficosCRResponse" />
+  </wsdl:message>
   <wsdl:message name="IPortalService_ObtenerParametrosUnete_InputMessage">
     <wsdl:part name="parameters" element="tns:ObtenerParametrosUnete" />
   </wsdl:message>
@@ -108,6 +114,12 @@
   <wsdl:message name="IPortalService_ObtenerSolicitudesPostulanteV2_OutputMessage">
     <wsdl:part name="parameters" element="tns:ObtenerSolicitudesPostulanteV2Response" />
   </wsdl:message>
+  <wsdl:message name="IPortalService_ObtenerSolicitudesPostulanteV3_InputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenerSolicitudesPostulanteV3" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_ObtenerSolicitudesPostulanteV3_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenerSolicitudesPostulanteV3Response" />
+  </wsdl:message>
   <wsdl:message name="IPortalService_ObtenerCantidadNuevasSolicitudesPostulante_InputMessage">
     <wsdl:part name="parameters" element="tns:ObtenerCantidadNuevasSolicitudesPostulante" />
   </wsdl:message>
@@ -138,6 +150,12 @@
   <wsdl:message name="IPortalService_ObtenerSolicitudPostulantePorId_OutputMessage">
     <wsdl:part name="parameters" element="tns:ObtenerSolicitudPostulantePorIdResponse" />
   </wsdl:message>
+  <wsdl:message name="IPortalService_ActualizarEstadoPostulanteRechazoZonificacion_InputMessage">
+    <wsdl:part name="parameters" element="tns:ActualizarEstadoPostulanteRechazoZonificacion" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_ActualizarEstadoPostulanteRechazoZonificacion_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ActualizarEstadoPostulanteRechazoZonificacionResponse" />
+  </wsdl:message>
   <wsdl:message name="IPortalService_ActualizarEstadoPostulante_InputMessage">
     <wsdl:part name="parameters" element="tns:ActualizarEstadoPostulante" />
   </wsdl:message>
@@ -150,7 +168,17 @@
   <wsdl:message name="IPortalService_InsertarNivelesRiesgo_OutputMessage">
     <wsdl:part name="parameters" element="tns:InsertarNivelesRiesgoResponse" />
   </wsdl:message>
+  <wsdl:message name="IPortalService_InsertarNivelesGeograficos_InputMessage">
+    <wsdl:part name="parameters" element="tns:InsertarNivelesGeograficos" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_InsertarNivelesGeograficos_OutputMessage">
+    <wsdl:part name="parameters" element="tns:InsertarNivelesGeograficosResponse" />
+  </wsdl:message>
   <wsdl:portType name="IPortalService">
+    <wsdl:operation name="ObtenerListaNivelesGeograficosCR">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/ObtenerListaNivelesGeograficosCR" message="tns:IPortalService_ObtenerListaNivelesGeograficosCR_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/ObtenerListaNivelesGeograficosCRResponse" message="tns:IPortalService_ObtenerListaNivelesGeograficosCR_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="ObtenerParametrosUnete">
       <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/ObtenerParametrosUnete" message="tns:IPortalService_ObtenerParametrosUnete_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/ObtenerParametrosUneteResponse" message="tns:IPortalService_ObtenerParametrosUnete_OutputMessage" />
@@ -215,6 +243,10 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/ObtenerSolicitudesPostulanteV2" message="tns:IPortalService_ObtenerSolicitudesPostulanteV2_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/ObtenerSolicitudesPostulanteV2Response" message="tns:IPortalService_ObtenerSolicitudesPostulanteV2_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="ObtenerSolicitudesPostulanteV3">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/ObtenerSolicitudesPostulanteV3" message="tns:IPortalService_ObtenerSolicitudesPostulanteV3_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/ObtenerSolicitudesPostulanteV3Response" message="tns:IPortalService_ObtenerSolicitudesPostulanteV3_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="ObtenerCantidadNuevasSolicitudesPostulante">
       <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/ObtenerCantidadNuevasSolicitudesPostulante" message="tns:IPortalService_ObtenerCantidadNuevasSolicitudesPostulante_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/ObtenerCantidadNuevasSolicitudesPostulanteResponse" message="tns:IPortalService_ObtenerCantidadNuevasSolicitudesPostulante_OutputMessage" />
@@ -235,6 +267,10 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/ObtenerSolicitudPostulantePorId" message="tns:IPortalService_ObtenerSolicitudPostulantePorId_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/ObtenerSolicitudPostulantePorIdResponse" message="tns:IPortalService_ObtenerSolicitudPostulantePorId_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="ActualizarEstadoPostulanteRechazoZonificacion">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/ActualizarEstadoPostulanteRechazoZonificacion" message="tns:IPortalService_ActualizarEstadoPostulanteRechazoZonificacion_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/ActualizarEstadoPostulanteRechazoZonificacionResponse" message="tns:IPortalService_ActualizarEstadoPostulanteRechazoZonificacion_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="ActualizarEstadoPostulante">
       <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/ActualizarEstadoPostulante" message="tns:IPortalService_ActualizarEstadoPostulante_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/ActualizarEstadoPostulanteResponse" message="tns:IPortalService_ActualizarEstadoPostulante_OutputMessage" />
@@ -243,9 +279,22 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/InsertarNivelesRiesgo" message="tns:IPortalService_InsertarNivelesRiesgo_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/InsertarNivelesRiesgoResponse" message="tns:IPortalService_InsertarNivelesRiesgo_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="InsertarNivelesGeograficos">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/InsertarNivelesGeograficos" message="tns:IPortalService_InsertarNivelesGeograficos_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/InsertarNivelesGeograficosResponse" message="tns:IPortalService_InsertarNivelesGeograficos_OutputMessage" />
+    </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IPortalService" type="tns:IPortalService">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="ObtenerListaNivelesGeograficosCR">
+      <soap:operation soapAction="http://tempuri.org/IPortalService/ObtenerListaNivelesGeograficosCR" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="ObtenerParametrosUnete">
       <soap:operation soapAction="http://tempuri.org/IPortalService/ObtenerParametrosUnete" style="document" />
       <wsdl:input>
@@ -390,6 +439,15 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="ObtenerSolicitudesPostulanteV3">
+      <soap:operation soapAction="http://tempuri.org/IPortalService/ObtenerSolicitudesPostulanteV3" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="ObtenerCantidadNuevasSolicitudesPostulante">
       <soap:operation soapAction="http://tempuri.org/IPortalService/ObtenerCantidadNuevasSolicitudesPostulante" style="document" />
       <wsdl:input>
@@ -435,6 +493,15 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="ActualizarEstadoPostulanteRechazoZonificacion">
+      <soap:operation soapAction="http://tempuri.org/IPortalService/ActualizarEstadoPostulanteRechazoZonificacion" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="ActualizarEstadoPostulante">
       <soap:operation soapAction="http://tempuri.org/IPortalService/ActualizarEstadoPostulante" style="document" />
       <wsdl:input>
@@ -446,6 +513,15 @@
     </wsdl:operation>
     <wsdl:operation name="InsertarNivelesRiesgo">
       <soap:operation soapAction="http://tempuri.org/IPortalService/InsertarNivelesRiesgo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InsertarNivelesGeograficos">
+      <soap:operation soapAction="http://tempuri.org/IPortalService/InsertarNivelesGeograficos" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

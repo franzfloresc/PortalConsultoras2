@@ -76,6 +76,7 @@ namespace Portal.Consultoras.Web.Models
         [ExpressionRequiredIf("CodigoPais", "MX", Expresion = @"(\d)\1{5,}", RegexNotMatch = true, ErrorMessage = "Formato Incorrecto")]
         [ExpressionRequiredIf("CodigoPais", "CO", Expresion = @"^(?:[0-9]{7}|)$", RegexNotMatch = false, ErrorMessage = "Formato Incorrecto")]
         [ExpressionRequiredIf("CodigoPais", "EC", Expresion = @"^(?:[0-9]{9}|)$", RegexNotMatch = false, ErrorMessage = "Formato Incorrecto")]
+        [ExpressionRequiredIf("CodigoPais", "CR", Expresion = @"^(?:[0-9]{8}|)$", RegexNotMatch = false, ErrorMessage = "Formato Incorrecto")]
         public string Telefono { get; set; }
 
         [RequiredIf("CodigoPais", "CO,MX,EC", ErrorMessage = "Campo obligatorio")]

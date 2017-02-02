@@ -180,6 +180,12 @@ namespace Portal.Consultoras.Service
             return BLUsuario.ValidarEmailConsultora(PaisID, Email, CodigoUsuario);
         }
 
+        public int ValidarTelefonoConsultora(int PaisID, string Telefono, string CodigoUsuario)
+        {
+            var BLUsuario = new BLUsuario();
+            return BLUsuario.ValidarTelefonoConsultora(PaisID, Telefono, CodigoUsuario);
+        }
+
         public List<int> GetEstadosRestringidos(int paisID)
         {
             var BLUsuario = new BLUsuario();
@@ -572,6 +578,12 @@ namespace Portal.Consultoras.Service
         {
             var bLLogCDRWeb = new BLLogCDRWeb();
             bLLogCDRWeb.UpdateVisualizado(paisID, procesoId);
+        }
+
+        public void UpdNotificacionCdrCulminadoVisualizacion(int paisID, long procesoId)
+        {
+            var bLLogCDRWebCulminado = new BLLogCDRWebCulminado();
+            bLLogCDRWebCulminado.UpdateVisualizado(paisID, procesoId);
         }
         
         public int UpdateUsuarioEmailTelefono(int paisID, long ConsultoraID, string Email, string Telefono)

@@ -29,6 +29,8 @@ namespace Portal.Consultoras.Entities.CDR
         [DataMember]
         public decimal Importe { get; set; }
         [DataMember]
+        public int CantidadDetalle { get; set; }
+        [DataMember]
         public List<BECDRWebDetalle> CDRWebDetalle { get; set; }
 
         public BECDRWeb()
@@ -36,16 +38,17 @@ namespace Portal.Consultoras.Entities.CDR
 
         public BECDRWeb(IDataRecord row)
         {
-            if (DataRecord.HasColumn(row, "CDRWebID")) CDRWebID = Convert.ToInt32(row["CDRWebID"]);
-            if (DataRecord.HasColumn(row, "PedidoID")) PedidoID = Convert.ToInt32(row["PedidoID"]);
-            if (DataRecord.HasColumn(row, "PedidoNumero")) PedidoNumero = Convert.ToInt32(row["PedidoNumero"]);
-            if (DataRecord.HasColumn(row, "CampaniaID")) CampaniaID = Convert.ToInt32(row["CampaniaID"]);
-            if (DataRecord.HasColumn(row, "ConsultoraID")) ConsultoraID = Convert.ToInt64(row["ConsultoraID"]);
-            if (DataRecord.HasColumn(row, "FechaRegistro")) FechaRegistro = Convert.ToDateTime(row["FechaRegistro"]);
-            if (DataRecord.HasColumn(row, "Estado")) Estado = Convert.ToInt32(row["Estado"]);
-            if (DataRecord.HasColumn(row, "FechaCulminado")) FechaCulminado = Convert.ToDateTime(row["FechaCulminado"]);
-            if (DataRecord.HasColumn(row, "FechaAtencion")) FechaAtencion = Convert.ToDateTime(row["FechaAtencion"]);
-            if (DataRecord.HasColumn(row, "Importe")) Importe = Convert.ToDecimal(row["Importe"]);
+            if (row.HasColumn("CDRWebID")) CDRWebID = Convert.ToInt32(row["CDRWebID"]);
+            if (row.HasColumn("PedidoID")) PedidoID = Convert.ToInt32(row["PedidoID"]);
+            if (row.HasColumn("PedidoNumero")) PedidoNumero = Convert.ToInt32(row["PedidoNumero"]);
+            if (row.HasColumn("CampaniaID")) CampaniaID = Convert.ToInt32(row["CampaniaID"]);
+            if (row.HasColumn("ConsultoraID")) ConsultoraID = Convert.ToInt64(row["ConsultoraID"]);
+            if (row.HasColumn("FechaRegistro")) FechaRegistro = Convert.ToDateTime(row["FechaRegistro"]);
+            if (row.HasColumn("Estado")) Estado = Convert.ToInt32(row["Estado"]);
+            if (row.HasColumn("FechaCulminado")) FechaCulminado = Convert.ToDateTime(row["FechaCulminado"]);
+            if (row.HasColumn("FechaAtencion")) FechaAtencion = Convert.ToDateTime(row["FechaAtencion"]);
+            if (row.HasColumn("Importe")) Importe = Convert.ToDecimal(row["Importe"]);
+            if (row.HasColumn("CantidadDetalle")) CantidadDetalle = Convert.ToInt32(row["CantidadDetalle"]);
             CDRWebDetalle = new List<BECDRWebDetalle>();
         }
     }

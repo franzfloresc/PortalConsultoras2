@@ -28,6 +28,7 @@
     <RestorePackages>true</RestorePackages>
     <DeployOnBuild Condition=" '$(DeployWEB)'!='' ">$(DeployWEB)</DeployOnBuild>
     <UseGlobalApplicationHostFile />
+   
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -447,6 +448,7 @@
     <Compile Include="Models\MatrizComercialModel.cs" />
     <Compile Include="Models\MisDatosModel.cs" />
     <Compile Include="Models\NavidadConsultoraModel.cs" />
+    <Compile Include="Models\NivelesGeograficosModel.cs" />
     <Compile Include="Models\NivelesRiesgoModel.cs" />
     <Compile Include="Models\NotificacionesModelDetallePedido.cs" />
     <Compile Include="Models\NotificacionesModel.cs" />
@@ -1508,6 +1510,7 @@
     <Content Include="Content\Images\btn_03c.png" />
     <Content Include="Content\Images\btn_03t.png" />
     <Content Include="Content\Images\btn_03v.png" />
+    <Content Include="Content\Images\btn_cerrar_popup.png" />
     <Content Include="Content\Images\btn_cerrar_popup.svg" />
     <Content Include="Content\Images\btn_cerrar_popupPercepcion.png" />
     <Content Include="Content\Images\btn_cerrar_popup_color_negro.svg" />
@@ -1979,6 +1982,7 @@
     <Content Include="Content\Images\iconos_acordion_despliegues.png" />
     <Content Include="Content\Images\icono_check.png" />
     <Content Include="Content\Images\icono_check.svg" />
+    <Content Include="Content\Images\icono_exclamacion_estado_pedido.png" />
     <Content Include="Content\Images\icono_exclamacion_estado_pedido.svg" />
     <Content Include="Content\Images\icono_lupa.png" />
     <Content Include="Content\Images\icons.png" />
@@ -2671,6 +2675,7 @@
     <Content Include="Content\Images\showroom\check_off.png" />
     <Content Include="Content\Images\showroom\check_on.png" />
     <Content Include="Content\Images\showroom\conoce_mas_aqui.png" />
+    <Content Include="Content\Images\showroom\conoce_mas_aqui_lbel.png" />
     <Content Include="Content\Images\showroom\contador_hoy.png" />
     <Content Include="Content\Images\showroom\CORTE-GIF.gif" />
     <Content Include="Content\Images\showroom\deco_nombre.png" />
@@ -3062,7 +3067,16 @@
     <Content Include="Areas\Mobile\Views\Catalogo\MiRevista.cshtml" />
     <Content Include="Areas\Mobile\Views\TerminosYCondiciones\Index.cshtml" />
     <Content Include="Content\FAQ\41577-BELCORP-SolCre-CO-400073315-300916.pdf" />
+    <Content Include="Areas\Mobile\Views\Notificaciones\DetalleObservacionesStock.cshtml" />
     <Content Include="Areas\Mobile\Views\CatalogoPersonalizado\Producto.cshtml" />
+    <Content Include="Content\ArchivoNivelRiesgo\09c7704a-8f6e-435e-80b8-bfabc1aee123.xlsx" />
+    <Content Include="Content\ArchivoNivelRiesgo\0ddd711e-3e27-4742-8cd9-1605a67ac0a5.xlsx" />
+    <Content Include="Content\ArchivoNivelRiesgo\6c6c9b46-a0ce-41e1-bff2-677306222d68.xlsx" />
+    <Content Include="Content\ArchivoNivelRiesgo\6d46fbf3-f0bc-42b8-82ca-c1446d54b442.xlsx" />
+    <Content Include="Content\ArchivoNivelRiesgo\849ec3e9-cb7e-4797-bb7a-988796d172aa.xlsx" />
+    <Content Include="Content\ArchivoNivelRiesgo\887acf53-7e6e-4d73-b019-1fbc17bbccd4.xlsx" />
+    <Content Include="Content\ArchivoNivelRiesgo\943850fb-3596-4a36-9b34-8a0e1ded13fe.xlsx" />
+    <Content Include="Content\ArchivoNivelRiesgo\a9cb131a-dc65-4f64-841b-c9dcab63c5c6.xlsx" />
     <Content Include="Content\fonts\icomoon\icomoon.eot" />
     <Content Include="Content\fonts\icomoon\icomoon.svg" />
     <Content Include="Content\fonts\icomoon\icomoon.ttf" />
@@ -3240,6 +3254,9 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\ServiceUnete\PortalService1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceUnete\PortalService2.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\ServiceUnete\PortalService3.xsd">
@@ -3468,6 +3485,27 @@
       <LastGenOutput>Reference.cs</LastGenOutput>
     </Content>
     <Content Include="Set.aspx" />
+    <Content Include="Content\Template\mailing.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Template\mailing_detalle.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Template\mailing_detalle_codigo_operacion_canje.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Template\mailing_detalle_codigo_operacion_devolucion.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Template\mailing_detalle_codigo_operacion_faltante.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Template\mailing_detalle_codigo_operacion_faltanteAbono.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Template\mailing_detalle_codigo_operacion_trueque.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Views\Unete\ReporteConsolidado.cshtml" />
     <Content Include="Views\CatalogoPersonalizado\Index.cshtml">
       <SubType>Code</SubType>
@@ -3714,6 +3752,8 @@
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </Content>
+    <Content Include="Views\Unete\NivelesGeograficos.cshtml" />
+    <Content Include="Views\Notificaciones\ListaDetalleCdrCulminado.cshtml" />
     <Content Include="Views\Login\Admin.cshtml" />
     <None Include="Web References\ServiceActualizarDatosPrueba\ProcesoMAEPortalConsultoraWebService.wsdl" />
     <Content Include="Web References\ServiceActualizarDatosPrueba\Reference.map" />
@@ -3993,6 +4033,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Content\ArchivoNivelGeografico\" />
     <Folder Include="Content\Css\Site\Login\" />
     <Folder Include="GestionPasos\Asignaciones\" />
   </ItemGroup>
