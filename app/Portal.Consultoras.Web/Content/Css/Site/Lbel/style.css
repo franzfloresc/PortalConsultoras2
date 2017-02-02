@@ -34035,7 +34035,7 @@ h1#penmostreo .campana {
     font-size: 12.5px;
     line-height: 16px;
     margin-top: 6px;
-    margin-bottom: 7px;
+    /*margin-bottom: 7px;*/
 }
 .precio_ficha_producto {
     font-family: 'Lato';
@@ -34043,6 +34043,7 @@ h1#penmostreo .campana {
     font-weight: 900;
     font-size: 16px;    
     margin-bottom: 7px;
+    margin-top:7px;
 }
 .precio_tachado_ficha {
     font-size: 12px;
@@ -34269,4 +34270,15 @@ h1#penmostreo .campana {
   padding-left:20px;
   background: url(../../../Images/Esika/arrow_left.png) no-repeat left;
   background-size: 18px 18px;
+}
+.btn_compartir_facebook_ficha:nth-child(3){
+    margin-right:0;
+}
+.notificacion_cantidad{
+    font-family:'Lato';
+    font-size:12.5px;
+    padding-left:25px;
+    background:url(../../../Images/Lbel/icono_advertencia_notificacion.png) no-repeat left;
+    padding-top:3px;
+    margin-top:30px;
 }
