@@ -142,20 +142,6 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="ArrayOfSolicitudPostulante" nillable="true" type="tns:ArrayOfSolicitudPostulante" />
-  <xs:complexType name="ResponseResult">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="data" nillable="true" type="tns:DataResult" />
-      <xs:element minOccurs="0" name="message" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="sucess" type="xs:boolean" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="ResponseResult" nillable="true" type="tns:ResponseResult" />
-  <xs:complexType name="DataResult">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="Id" type="xs:int" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="DataResult" nillable="true" type="tns:DataResult" />
   <xs:complexType name="ArrayOfParametroUnete">
     <xs:sequence>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="ParametroUnete" nillable="true" type="tns:ParametroUnete" />
