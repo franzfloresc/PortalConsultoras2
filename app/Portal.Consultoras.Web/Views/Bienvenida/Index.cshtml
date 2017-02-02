@@ -1406,6 +1406,43 @@
         <input id="btnAgregarCUVBannerPedidoSi" type="button" value="ACEPTAR" onclick="AgregarCUVBannerPedido()" class="input_modifica_horizontal" style="width: 100px; margin-left: 20px;" />
     </div>
 </div>
+<!--NUEVO POP UP OPT-->
+<div id="PopNuevoOPT" class="Content_general_pop_up" style="display: block;">
+    <div class="content_ficha_producto_nueva">        
+        <a class="cerrar_fichaProducto" href="javascript:;" onclick="javascript: $('#PopNuevoOPT').hide();">
+            <img src="/Content/Images/cerrar_04_blanco.png" alt=" alternate text">
+        </a>
+        <div class="content_left_ficha">
+            <div class="content_ficha_producto">
+                <img id="fav_imagen_prod" src="https://s3-sa-east-1.amazonaws.com/appcatalogo/PE/201703/L/productos/PE_200083940.jpg" alt="PRODUCTO">
+            </div>
+            <div class="compartir_redes_ficha" style="padding-left:0;margin-left: -16px;">
+                <div class="texto_compartelo">Compártelo con tus clientes</div>
+                <a class="btn_compartir_facebook_ficha"><img src="/Content/Images/Esika/facebook_ficha.png" width="7" height="16"></a>
+                <a class="btn_compartir_facebook_ficha"><img src="/Content/Images/Esika/mensaje_ficha.png" width="20" height="15"></a>
+                <hr class="clear">
+            </div>
+        </div>
+        <div class="content_right_ficha">
+            <div id="fav_nombre_prod" class="titulo_ficha_producto">Devos Magnetic</div>
+            <div class="precio_ficha_producto">
+                S/. 124.00
+            </div>
+            <div class="liquidacion_rango_home">
+                <input type="text" value="1" size="2" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" data-input="cantidad" data-cantidad-input="-">
+                <div class="liquidacion_rango_right_pedido">
+                    <a class="mas" data-cantidad-agregar="+"><img src="/Content/Images/Esika/mas.png" alt=""></a>
+                    <a class="menos" data-cantidad-agregar="-"><img src="/Content/Images/Esika/menos.png" alt=""></a>
+                </div>
+            </div>
+            <a class="boton_Agregalo_home ficha_btn_agregar" onclick="agregarCuvPedidoFichaProductoFAV(1)" style="cursor: pointer;">
+                AGRÉGALO
+            </a>
+            <div class="notificacion_cantidad">Limitado a 5 packs por consultora</div>
+        </div>
+    </div>
+</div>
+<!--FIN-->
 
 <script id="estrategia-template" type="text/x-handlebars-template">
     {{#each this as |item|}}
