@@ -487,6 +487,7 @@
     <Compile Include="Models\ReportePedidoDDWebModel.cs" />
     <Compile Include="Models\ReportePedidoFICModel.cs" />
     <Compile Include="Models\ResponseGeoCoDto.cs" />
+    <Compile Include="Models\ResponseGeoCoDtoTemp.cs" />
     <Compile Include="Models\ResumenCampaniaModel.cs" />
     <Compile Include="Models\RolModel.cs" />
     <Compile Include="Models\RootMiCurso.cs" />
@@ -3072,6 +3073,7 @@
     <Content Include="Areas\Mobile\Views\TerminosYCondiciones\Index.cshtml" />
     <Content Include="Content\FAQ\41577-BELCORP-SolCre-CO-400073315-300916.pdf" />
     <Content Include="Areas\Mobile\Views\Catalogo\MiRevista.cshtml" />
+    <Content Include="Areas\Mobile\Views\CatalogoPersonalizado\Producto.cshtml" />
     <Content Include="Areas\Mobile\Views\Notificaciones\DetalleObservacionesStock.cshtml" />
     <Content Include="Areas\Mobile\Views\CatalogoPersonalizado\Producto.cshtml" />
     <Content Include="Content\ArchivoNivelRiesgo\09c7704a-8f6e-435e-80b8-bfabc1aee123.xlsx" />
@@ -3250,6 +3252,10 @@
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </Content>
+    <Content Include="Service References\ServiceUnete\PortalService.wsdl" />
+    <None Include="Service References\ServiceUnete\PortalService.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <Content Include="Service References\ServiceSAC\SACService.disco" />
     <Content Include="Service References\ServiceSAC\configuration91.svcinfo" />
     <Content Include="Service References\ServiceSAC\configuration.svcinfo" />
@@ -3289,6 +3295,23 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\ServiceUnete\PortalService1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceUnete\PortalService3.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceUnete\PortalService4.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceUnete\PortalService5.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceUnete\PortalService6.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceUnete\PortalService7.xsd">
+      <SubType>Designer</SubType>
+    </None>
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\ServiceUnete\PortalService81.xsd">

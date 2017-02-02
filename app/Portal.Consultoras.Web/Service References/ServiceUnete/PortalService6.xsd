@@ -11,6 +11,7 @@
   <xs:element name="TablaLogicaDatos" nillable="true" type="tns:TablaLogicaDatos" />
   <xs:complexType name="SolicitudPostulante">
     <xs:sequence>
+      <xs:element minOccurs="0" name="AnoCampanaIngreso" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ApellidoFamiliar" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ApellidoMaterno" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ApellidoMaternoAval" nillable="true" type="xs:string" />
@@ -37,21 +38,26 @@
       <xs:element minOccurs="0" name="CorreoElectronico" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="CumpleValidacionesInternas" nillable="true" type="xs:boolean" />
       <xs:element minOccurs="0" name="DescripcionMeta" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DiferenciaDias" nillable="true" type="xs:int" />
       <xs:element minOccurs="0" name="Direccion" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="DireccionAval" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="DireccionEntrega" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="DireccionFamiliar" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="DireccionNoFamiliar" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="EsConsultora" type="xs:int" />
       <xs:element minOccurs="0" name="EstadoBurocrediticio" nillable="true" type="xs:int" />
       <xs:element minOccurs="0" name="EstadoCivil" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="EstadoGEO" nillable="true" type="xs:int" />
       <xs:element minOccurs="0" name="EstadoPostulante" nillable="true" type="xs:int" />
       <xs:element minOccurs="0" name="EstadoTelefonico" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="FechaAproFVVV" nillable="true" type="xs:dateTime" />
       <xs:element minOccurs="0" name="FechaCreacion" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="FechaCreacionCodigo" nillable="true" type="xs:dateTime" />
       <xs:element minOccurs="0" name="FechaEnvio" nillable="true" type="xs:dateTime" />
       <xs:element minOccurs="0" name="FechaIngreso" nillable="true" type="xs:dateTime" />
       <xs:element minOccurs="0" name="FechaNacimiento" nillable="true" type="xs:dateTime" />
       <xs:element minOccurs="0" name="FechaNacimientoAval" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="FechaRechazo" nillable="true" type="xs:dateTime" />
       <xs:element minOccurs="0" name="FechaRegValidacionTelefonica" nillable="true" type="xs:dateTime" />
       <xs:element minOccurs="0" name="FuenteIngreso" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ImagenCDD" nillable="true" type="xs:string" />
@@ -87,6 +93,7 @@
       <xs:element minOccurs="0" name="ReferenciaEntrega" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="RequiereAval" nillable="true" type="xs:boolean" />
       <xs:element minOccurs="0" name="RespuestaGEO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SeccionConsultoraLider" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="SegundoNombre" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="SegundoNombreAval" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Sexo" nillable="true" type="xs:string" />
@@ -114,6 +121,9 @@
       <xs:element minOccurs="0" name="VistoPorGZ" type="xs:boolean" />
       <xs:element minOccurs="0" name="VistoPorSAC" type="xs:boolean" />
       <xs:element minOccurs="0" name="VistoPorSE" type="xs:boolean" />
+      <xs:element minOccurs="0" name="ZonaConsultoraLider" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ZonaGZ" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="campania1erPasePedido" nillable="true" type="xs:string" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="SolicitudPostulante" nillable="true" type="tns:SolicitudPostulante" />
