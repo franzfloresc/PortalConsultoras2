@@ -661,68 +661,83 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                var productoModel = new ProductoModel(); 
+                var productoModel = new ProductoModel();
                 var listaProductoModel = new List<ProductoModel>();
                 listaProductoModel = (List<ProductoModel>)Session["ProductosCatalogoPersonalizado"] ?? new List<ProductoModel>();
 
                 productoModel = listaProductoModel.Where(x => x.CUV == cuv).FirstOrDefault();
-                if (productoModel != null)
+
+                if (productoModel == null || !productoModel.EsMaquillaje || productoModel.Hermanos != null)
                 {
-                    if (productoModel.EsMaquillaje)
+                    productoModel = productoModel ?? new ProductoModel();
+                    productoModel.UrlCompartirFB = GetUrlCompartirFB();
+                    return Json(new
                     {
-                        if (productoModel.Hermanos == null)
-                        {
-                            var listaHermanos = new List<BEProducto>();
-                            using (ODSServiceClient svc = new ODSServiceClient())
-                            {
-                                listaHermanos = svc.GetListBrothersByCUV(userData.PaisID, userData.CampaniaID, cuv).ToList();
-                            }
-
-                            if (listaHermanos.Any())
-                            {
-                                string joinCuv = string.Empty;
-                                foreach (var item in listaHermanos)
-                                {
-                                    joinCuv += item.CUV + ",";
-                                }
-
-                                joinCuv = joinCuv.Substring(0, joinCuv.Length - 1);
-
-                                var listaAppCatalogo = new List<Producto>();
-                                using (ProductoServiceClient svc = new ProductoServiceClient())
-                                {
-                                    listaAppCatalogo = svc.ObtenerProductosAppCatalogoByListaCUV(userData.CodigoISO, userData.CampaniaID, joinCuv).ToList();
-                                }
-
-                                if (listaAppCatalogo.Any())
-                                {
-                                    productoModel.Hermanos = new List<ProductoModel>();
-
-                                    foreach (var item in listaAppCatalogo)
-                                    {
-                                        productoModel.Hermanos.Add(new ProductoModel
-                                        {
-                                            CUV = item.Cuv,
-                                            CodigoProducto = item.CodigoSap,
-                                            Descripcion = item.NombreComercial,
-                                            DescripcionComercial = item.DescripcionComercial,
-                                            NombreBulk = item.NombreBulk,
-                                            ImagenProductoSugerido = item.Imagen,
-                                            ImagenBulk = item.ImagenBulk
-                                        });
-                                    }
-                                }
-
-                                Session["ProductosCatalogoPersonalizadoFilter"] = listaProductoModel;
-                            }
-                            else
-                            {
-                                productoModel.EsMaquillaje = false;
-                            }
-                        }
-                        
-                    }// EsMaquillaje
+                        success = true,
+                        data = productoModel
+                    });
                 }
+
+                productoModel.UrlCompartirFB = GetUrlCompartirFB();
+                
+                //if (productoModel != null)
+                //{
+                //    if (productoModel.EsMaquillaje)
+                //    {
+                //        if (productoModel.Hermanos == null)
+                //        {
+
+                var listaHermanos = new List<BEProducto>();
+                using (ODSServiceClient svc = new ODSServiceClient())
+                {
+                    listaHermanos = svc.GetListBrothersByCUV(userData.PaisID, userData.CampaniaID, cuv).ToList();
+                }
+
+                if (listaHermanos.Any())
+                {
+                    string joinCuv = string.Empty;
+                    foreach (var item in listaHermanos)
+                    {
+                        joinCuv += item.CUV + ",";
+                    }
+
+                    joinCuv = joinCuv.Substring(0, joinCuv.Length - 1);
+
+                    var listaAppCatalogo = new List<Producto>();
+                    using (ProductoServiceClient svc = new ProductoServiceClient())
+                    {
+                        listaAppCatalogo = svc.ObtenerProductosAppCatalogoByListaCUV(userData.CodigoISO, userData.CampaniaID, joinCuv).ToList();
+                    }
+
+                    if (listaAppCatalogo.Any())
+                    {
+                        productoModel.Hermanos = new List<ProductoModel>();
+
+                        foreach (var item in listaAppCatalogo)
+                        {
+                            productoModel.Hermanos.Add(new ProductoModel
+                            {
+                                CUV = item.Cuv,
+                                CodigoProducto = item.CodigoSap,
+                                Descripcion = item.NombreComercial,
+                                DescripcionComercial = item.DescripcionComercial,
+                                NombreBulk = item.NombreBulk,
+                                ImagenProductoSugerido = item.Imagen,
+                                ImagenBulk = item.ImagenBulk
+                            });
+                        }
+                    }
+
+                    Session["ProductosCatalogoPersonalizadoFilter"] = listaProductoModel;
+                }
+                else
+                {
+                    productoModel.EsMaquillaje = false;
+                }
+
+                //        }
+                //    }// EsMaquillaje
+                //}
 
                 return Json(new
                 {
