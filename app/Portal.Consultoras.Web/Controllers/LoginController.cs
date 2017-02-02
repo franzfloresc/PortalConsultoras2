@@ -160,16 +160,27 @@ namespace Portal.Consultoras.Web.Controllers
 
         private IEnumerable<PaisModel> DropDowListPaises()
         {
-            IList<BEPais> lst;
-            using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
+            List<BEPais> lst;
+
+            try
             {
-                lst = sv.SelectPaises();
+                using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
+                {
+                    lst = sv.SelectPaises().ToList();
+                }
+
+                lst.RemoveAll(p => p.CodigoISO == Constantes.CodigosISOPais.Argentina);
+
+                Mapper.CreateMap<BEPais, PaisModel>()
+                        .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID))
+                        .ForMember(t => t.CodigoISO, f => f.MapFrom(c => c.CodigoISO))
+                        .ForMember(t => t.Nombre, f => f.MapFrom(c => c.Nombre))
+                        .ForMember(t => t.NombreCorto, f => f.MapFrom(c => c.NombreCorto));
             }
-            Mapper.CreateMap<BEPais, PaisModel>()
-                    .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID))
-                    .ForMember(t => t.CodigoISO, f => f.MapFrom(c => c.CodigoISO))
-                    .ForMember(t => t.Nombre, f => f.MapFrom(c => c.Nombre))
-                    .ForMember(t => t.NombreCorto, f => f.MapFrom(c => c.NombreCorto));
+            catch (Exception ex)
+            {
+                lst = new List<BEPais>();
+            }            
 
             return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);
         }
