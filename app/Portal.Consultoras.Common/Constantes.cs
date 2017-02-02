@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Amazon.SQS.Model;
 
 namespace Portal.Consultoras.Common
 {
@@ -330,6 +331,14 @@ namespace Portal.Consultoras.Common
             public const string ActualizacionDeuda = "OCC-19"; //ACTUALIZACION DE DEUDA
             public const string ValidacionMontoMinimoStock = "OCC-51"; //VALIDACION MONTO MINIMO STOCK
         }
+        
+        public class ValidacionExisteUsuario
+        {
+            public const int NoExiste = 0;
+            public const int ExisteDiferenteClave = 1;
+            public const int Existe = 2;
+        }
+
     }
 }
 

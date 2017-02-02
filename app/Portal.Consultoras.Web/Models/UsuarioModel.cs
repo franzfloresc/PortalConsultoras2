@@ -7,6 +7,7 @@ using System.Web;
 
 namespace Portal.Consultoras.Web.Models
 {
+    [Serializable()]
     public class UsuarioModel
     {
         public UsuarioModel()
@@ -78,6 +79,7 @@ namespace Portal.Consultoras.Web.Models
         public string CodigoFuente { get; set; }
         public string ClaveSecreta { get; set; }
         public int PaisID { get; set; }
+        public int HdePaisID { get; set; }
         public string CodigoISO { get; set; }
         public int RolID { get; set; }
         public int RegionID { get; set; }
@@ -306,6 +308,11 @@ namespace Portal.Consultoras.Web.Models
         public decimal MontoDeuda { get; set; }
         public string MontoMinimoFlexipago { get; set; }
 
+        public IEnumerable<PaisModel> listaPaises { get; set; }
+        
+        public List<PermisoModel> Menu { get; internal set; }
+        public List<ServicioCampaniaModel> MenuService { get; internal set; }
+        
         /*PL20-1226*/
         public int EsOfertaDelDia { get; set; }
         public bool TieneOfertaDelDia { get; set; }

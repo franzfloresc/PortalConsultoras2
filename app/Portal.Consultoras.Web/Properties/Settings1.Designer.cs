@@ -12,7 +12,7 @@ namespace Portal.Consultoras.Web.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "12.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "14.0.0.0")]
     internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
         
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
@@ -93,16 +93,6 @@ namespace Portal.Consultoras.Web.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.WebServiceUrl)]
-        [global::System.Configuration.DefaultSettingValueAttribute("http://200.87.204.148/WS/ServiceStockV2.asmx")]
-        public string Portal_Consultoras_Web_ServicePROLBO_ServiceStockV2 {
-            get {
-                return ((string)(this["Portal_Consultoras_Web_ServicePROLBO_ServiceStockV2"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.WebServiceUrl)]
         [global::System.Configuration.DefaultSettingValueAttribute("http://osb.soa.galileo.ebel:8102/AppBelcorp-proConsultora-context-root/portConsul" +
             "toraPSSOAP11?WSDL")]
         public string Portal_Consultoras_Web_ServiceOSBBelcorpConsultora_ConsultoraBS {
@@ -169,21 +159,30 @@ namespace Portal.Consultoras.Web.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.WebServiceUrl)]
-        [global::System.Configuration.DefaultSettingValueAttribute("http://miscursos.somosbelcorp.com/auth/consultoralogin/ws_server.php")]
-        public string Portal_Consultoras_Web_ServiceLMS_ws_server {
-            get {
-                return ((string)(this["Portal_Consultoras_Web_ServiceLMS_ws_server"]));
-            }
-        }
-		
-		[global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.WebServiceUrl)]
         [global::System.Configuration.DefaultSettingValueAttribute("http://qaielb-webprol-1875224445.us-east-1.elb.amazonaws.com/WsGestionWebProl/WsG" +
             "estionWeb.asmx")]
         public string Portal_Consultoras_Web_ServiceGestionWebPROL_WsGestionWeb {
             get {
                 return ((string)(this["Portal_Consultoras_Web_ServiceGestionWebPROL_WsGestionWeb"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://qasucb.cyzone.com/moodleventas/auth/consultoralogin/ws_server.php")]
+        public string Portal_Consultoras_Web_ServicioLMS_ws_server {
+            get {
+                return ((string)(this["Portal_Consultoras_Web_ServicioLMS_ws_server"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.WebServiceUrl)]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://qasucb.cyzone.com/moodleventas/auth/consultoralogin/ws_server.php")]
+        public string Portal_Consultoras_Web_ServiceLMS_ws_server {
+            get {
+                return ((string)(this["Portal_Consultoras_Web_ServiceLMS_ws_server"]));
             }
         }
     }
