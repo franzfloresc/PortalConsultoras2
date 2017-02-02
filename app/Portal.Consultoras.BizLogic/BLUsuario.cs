@@ -355,6 +355,12 @@ namespace Portal.Consultoras.BizLogic
             return DAUsuario.ValidarEmailConsultora(Email, CodigoUsuario);
         }
 
+        public int ValidarTelefonoConsultora(int PaisID, string Telefono, string CodigoUsuario)
+        {
+            var DAUsuario = new DAUsuario(PaisID);
+            return DAUsuario.ValidarTelefonoConsultora(Telefono, CodigoUsuario);
+        }
+
         public List<int> GetEstadosRestringidos(int paisID)
         {
             List<int> EstadosRestringidos = new List<int>();
