@@ -180,6 +180,7 @@ namespace Portal.Consultoras.Web.Models
         public string CodigoIso { get; set; }
     }
 
+    [Serializable]
     public class ObservacionModel
     {
         public string CUV { get; set; }
