@@ -45,6 +45,15 @@
         $("#btnRegresar").click(function () {
             location.href = '@Url.Action("ReportePedidosDDWeb", "ReportePedidoDDWeb")';
         });
+        // Si el pedido esta rechazado... mostrar el motivo.
+        var EsRechazado = $('#EsRechazado').data("tienemotivo");
+        if (EsRechazado.length > 0) {
+            $('#EsRechazado').text('SI');
+            $('.motivoRechazo').show();
+        } else {
+            $('#EsRechazado').text('NO');
+            $('.motivoRechazo').hide();
+        }
     });
 
     function DownloadAttachPDF(vPaisISO, vCampaniaCod, vConsultoraCod, vConsultoraNombre, vUsuarioNombre, vOrigen,
@@ -105,7 +114,8 @@
         var content = baseUrl + "ReportePedidoDDWeb/ExportarExcel?vCampania=" + vCampania +
                             "&vPaisISO=" + vPaisISO +
                             "&vConsultoraCodigo=" + vConsultoraCodigo +
-                            "&vTipoProceso=" + vTipoProceso;
+                            "&vTipoProceso=" + vTipoProceso +
+                            "&vMotivoRechazo=" + vMotivoRechazo;
 
         // TODO: probar las repercusiones de este if
         if (checkTimeout()) {
@@ -289,9 +299,15 @@
                 <tr>
                     <td>
                         <div class="module_1">
+                            <div class="label1">Rechazado:</div>
+                        </div>
+                        <div class="module_2">
+                            <div class="label2" id="EsRechazado" data-tienemotivo="@Model.MotivoRechazo"></div>
+                        </div>
+                        <div class="module_1 motivoRechazo">
                             <div class="label1">Motivo de rechazo:</div>
                         </div>
-                        <div class="module_1">
+                        <div class="module_2 motivoRechazo">
                             <div class="label2">@Model.MotivoRechazo</div>
                         </div>
                     </td>
