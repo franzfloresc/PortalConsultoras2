@@ -268,9 +268,9 @@
             @*<div class="pestania"><h5><b>LOS FAVORITOS</b> DE TUS CLIENTES ESTA CAMPAÑA</h5><div class="imagen-curvatura"></div></div>
 
                 <a class="ver_mas_favoritos" style="z-index:inherit;" href="@Url.Action("Index", "CatalogoPersonalizado")">Ver más +</a>*@
-            <div class="banner_favoritos_home">
+            <div class="banner_favoritos_home" onclick="mostrarCatalogoPersonalizado();" style="cursor: pointer;">
                 <div class="titulo_banner_fav">
-                    @(Model.NombreConsultora.ToUpper()), estos son los 
+                    @ViewBag.NombreConsultoraFAV, estos son los 
                     <span class="texto_altas_fav">FAVORITOS</span> 
                     <span class="texto_2_fav">DE TUS CLIENTES</span>
                 </div>
@@ -279,7 +279,7 @@
                 </div>
                 <div class="texto_inf_banner">Porque conocemos a tus clientes, seleccionamos los productos que podrás venderles fácilmente</div>
                 <hr class="clear" />
-                <a class="btn_ver_mas_fav" href="@Url.Action("Index","CatalogoPersonalizado")" >VER MÁS PRODUCTOS</a>
+                <a class="btn_ver_mas_fav" href="javascript:" >VER MÁS PRODUCTOS</a>
             </div>
             <div id="divCatalogoPersonalizado" style="width:74%;float:left;"></div>
             <hr class="clear" />
@@ -1794,9 +1794,9 @@
                     <span class="producto_precio_oferta"><b>{{Simbolo}} {{PrecioCatalogoString}}</b></span>
                 </div>
                 {{#if TieneOfertaEnRevista}}
-                @*<div class="seguir_pedido enlace_popupCatalogoPersonalizado" style="width:auto; left:50%; margin-left:-52.5px;">
+                <div class="seguir_pedido enlace_popupCatalogoPersonalizado" style="width:auto; left:50%; margin-left:-52.5px;">
                     <a title="AQUÍ" class="pop-ofertarevista">¡MIRA LA OFERTA!</a>
-                </div>DESCOMENTAR DESPUES*@
+                </div>
                 {{/if}}
                 <div class="liquidacion_rango_home" data-cantidad-contenedor="">
                     <input type="text" value="1" size="2" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" data-input="cantidad" data-cantidad-input="-">
@@ -2004,7 +2004,10 @@
                                     </div>
                                     {{/IsNullOrEmpty}}
                                 </div>
-                                <div class="sub_descripcion_oferta"><p><span>x{{item.cantidad}}</span>&nbsp;{{item.descripcion_gratis}}</p></div>
+                                <div class="sub_descripcion_oferta">
+                                    <p><span>x{{item.cantidad}}</span>&nbsp;{{item.descripcion_gratis}}</p>
+                                    <div class="peso_ficha_producto">{{item.volumen}}</div>
+                                </div>
                                 <hr class="clear">
                                 {{/if_eq}}
                                 {{/each}}
@@ -2140,7 +2143,10 @@
                                     </div>
                                     {{/IsNullOrEmpty}}
                                 </div>
-                                <div class="sub_descripcion_oferta"><p><span>x{{item.cantidad_item_pack}}</span>&nbsp;{{item.descripcion_item_pack}}</p></div>
+                                <div class="sub_descripcion_oferta">
+                                    <p><span>x{{item.cantidad_item_pack}}</span>&nbsp;{{item.descripcion_item_pack}}</p>
+                                    <div class="peso_ficha_producto">{{item.volumen}}</div>
+                                </div>
                                 <hr class="clear" />
                                 @*<div class="sub_imagen_oferta"><img src="https://s3-sa-east-1.amazonaws.com/appcatalogo/PE/201616/C/productos/PE_200069929.jpg" alt=""></div>
                                     <div class="sub_descripcion_oferta"><p><span>x2</span>&nbsp;Desodorante roll-on. Girlink</p></div>
@@ -2255,7 +2261,7 @@
                 <!--SELECCION DE TONOS-->
                 <div class="content_tonos_maquillaje">
                     {{#each Hermanos as |item1|}}
-                    <div id="fav_tono_{{CUV}}" class="content_tono_detalle" onclick="cambiarInfoFichaProductoFAV(1,'{{item1.CUV}}')">
+                    <div id="fav_tono_{{CUV}}" class="content_tono_detalle" onclick="cambiarInfoFichaProductoFAV(1,'{{item1.CUV}}',1)">
                         <img src="{{item1.ImagenBulk}}" alt="PRODUCTO">
                         @*<div class="content_mascara_maquillaje">
                                 <img src="https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/HfQTTPvWfVXwt3R/textura_labial.png" alt="PRODUCTO">
@@ -2265,7 +2271,7 @@
                     {{/each}}
                 </div>
 
-                <select id="fav_tonobulk_{{CUV}}" class="tono_labial_select" onchange="cambiarInfoFichaProductoFAV(2)">
+                <select id="fav_cbo_tono" class="tono_labial_select" onchange="cambiarInfoFichaProductoFAV(2,null,1)">
                     {{#each Hermanos as |item2|}}
                     <option value="{{item2.CUV}}">{{item2.NombreBulk}}</option>
                     {{/each}}
@@ -2365,6 +2371,7 @@
         var origenPagina = 1;   /*PL20-1227*/     
         var urlGetInfoFichaProducto = '@Url.Action("GetInfoFichaProductoFAV", "CatalogoPersonalizado")';    //PL20-1268
         var urlCargarFiltros = '@Url.Action("CargarFiltros", "CatalogoPersonalizado", new { area = "" })'; 
+        var urlCatalogoPersonalizado = '@Url.Action("Index", "CatalogoPersonalizado", new { area = "" })';
     </script>
     @System.Web.Optimization.Scripts.Render("~/bundles/JsSB2-Bienvenida")
     @{ Session["IsContrato"] = 0; }

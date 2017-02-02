@@ -60,18 +60,19 @@
                 </select>
             }
 
-            <input type="button" class="btn2-ffc" value="FILTROS" onclick="showCustomFilters();" />
+            <input id="btnfltm" type="button" class="btn2-ffc" value="FILTROS" onclick="showCustomFilters();" />
         </div>
-        <br />
+        <hr class="clear" />
+        
 
         <div id="summary-filters">
-            <div id="div-result-number">
+            <div id="div-result-number"  style="margin-left:0; float: left; width: 65%; font-size:13px;">
                 <span id="result-number">
                 </span>
             </div>
             
-            <div id="div-delete-filters" style="display: none;">
-                <a href="#" class="link-ffc" onclick="deleteFilters();">BORRAR FILTROS</a>
+            <div id="div-delete-filters" style="display: none; margin-right:0px;">
+                <a href="#" class="link-ffc_landing" onclick="deleteFilters();">Borrar Filtros</a>
             </div>
             <br /><br />
         </div>
@@ -82,7 +83,7 @@
                 <a onclick="showOrderbyFilter();" class="enlace_regresar catalogosP flecha_black" title="Regresar"></a>
                 &nbsp;&nbsp;&nbsp;&nbsp;SELECCIONA TUS FILTROS
             </div>
-            <div class="texto_filtros" style="text-align:center;"><b>2</b> productos encontrados</div>
+            <div id="divProductosEncontrados" class="texto_filtros" style="text-align:center;"><b>2</b> productos encontrados</div>
             <div class="texto_filtros">Encuentra de manera rápida los mejores productos especialmente escogidos para tus clientes</div>
             @*<div id="header-custom-filters">
 
@@ -113,7 +114,7 @@
                                         foreach (var item in Model.FiltersByCategory)
                                         {                                   
                                             <div class="block-checkbox">
-                                                <input type="checkbox" id="c@(cont)" name="categoria" value="@item.Codigo">
+                                                <input class="chkFiltroMobile" type="checkbox" id="c@(cont)" name="categoria" value="@item.Codigo">
                                                 <label for="c@(cont)" class="label-checkbox">@item.Descripcion</label>
                                             </div>                                            
                                             cont++;
@@ -162,7 +163,7 @@
                                         foreach (var item in Model.FiltersByBrand)
                                         {
                                             <div class="center-checkbox">
-                                                <input type="checkbox" id="b(@cont2)" name="brand" value="@item.Codigo">
+                                                <input class="chkFiltroMobile" type="checkbox" id="b(@cont2)" name="brand" value="@item.Codigo">
                                                 <label for="b(@cont2)" class="label-checkbox">@item.Descripcion</label>
                                             </div>
                                             cont2++;
@@ -202,7 +203,7 @@
                                                data-slider-id="slider-price"
                                                data-slider-min="0"
                                                data-slider-max="0"
-                                               data-slider-step="1"
+                                               data-slider-step="0.1"
                                                data-slider-value="[0,0]" />
                                     </div>
                                     <div style="text-align: left; width: 50%; float: left; color:#4a4a4a">
@@ -222,7 +223,7 @@
                 <a href="#" class="link-ffc" onclick="deleteFilters();">BORRAR FILTROS</a>
 
                 <div id="save-filters" class="save-filters">
-                    <input type="button" class="btn-ffc" value="APLICAR" onclick="processFilterCatalogoPersonalizado(2);" />
+                    <input type="button" class="btn-ffc" value="APLICAR" onclick="OcultarSliderMobile();" />
                 </div>
             </div>
         </div>
@@ -320,7 +321,7 @@
     </div>
 </script>
 
-<form id="frmFichaProductoFAV" method="post" action="@Url.Action("Producto","CatalogoPersonalizado")">
+<form id="frmFichaProductoFAV" method="post" action="@Url.Action("Producto", "CatalogoPersonalizado", new { Area = "Mobile" })">
     <input type="hidden" id="CUVFP" name="CUVFP" />
 </form>
 
@@ -348,17 +349,10 @@
                 </div>
                 
                 <div class="producto_img_mobile" data-img="" onclick="mostrarFichaProductoFAV('{{CUV}}');">
-                    <img src="{{ImagenProductoSugerido}}" class="imagen_producto">
+                    <img src="{{ImagenProductoSugerido}}" class="imagen_producto" />
                 </div>
                 {{#if TieneOfertaEnRevista}}                    
-                    @if (ViewBag.PaisEsika)
-                    {
-                        <div class="etiqueta_guia_negocio">GUÍA DE NEGOCIO</div>
-                    }
-                    else
-                    {
-                        <div class="etiqueta_guia_negocio"><span>OFERTA</span> GUÍA DE NEGOCIO</div>
-                    }
+                    <div class="etiqueta_guia_negocio"><span>OFERTA</span> GUÍA DE NEGOCIO</div>
                 {{/if}}
                 {{#if item.TieneLanzamientoCatalogoPersonalizado}}
                 <div class="etiqueta_producto nuevofavorito">
@@ -382,7 +376,7 @@
                     <div>
                         {{#if TieneOfertaEnRevista}}
                         <div class="seguir_pedido enlace_popupCatalogoPersonalizado">
-                            <a title="AQUÍ" class="pop-ofertarevista" onclick="mostrarFichaProductoFAV('{{CUV}}')" style="cursor: pointer;">¡MIRA LA OFERTA!</a>
+                            <a title="AQUÍ" class="pop-ofertarevista22" onclick="mostrarFichaProductoFAV('{{CUV}}')" style="cursor: pointer;">¡MIRA LA OFERTA!</a>
                         </div>
                         {{/if}}
                     </div>
