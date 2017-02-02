@@ -25,5 +25,5 @@ namespace Portal.Consultoras.Web.Models
         public string zona1 { get; set; }
         public string zonapostal { get; set; }
         public string estado { get; set; }
-    }
+    } 
 }
