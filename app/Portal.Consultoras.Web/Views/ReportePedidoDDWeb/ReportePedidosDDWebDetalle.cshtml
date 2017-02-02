@@ -11,9 +11,10 @@
             var vPaisISO = $('#hdn_PaisISO').val();
             var vConsultoraCodigo = $('#hdn_ConsultoraCod').val();
             var vTipoProceso = $("#hdn_vTipoProceso").val();
+            var vMotivoRechazo = $("#hdn_MotivoRechazo").val();
 
             setTimeout(function () {
-                DownloadAttachExcel(vCampania, vPaisISO, vConsultoraCodigo, vTipoProceso)
+                DownloadAttachExcel(vCampania, vPaisISO, vConsultoraCodigo, vTipoProceso, vMotivoRechazo)
             }, 0);
         });
         $("#btnImprimir").click(function () {
@@ -30,6 +31,7 @@
             var vImporteConDescuento = $('#hdn_ImporteConDescuento').val();
             var vUsuario = $('#hdn_vUsuario').val();
             var vTipoProceso = $("#hdn_vTipoProceso").val();
+            var vMotivoRechazo = $("#hdn_MotivoRechazo").val();
             var vpage = "";
             var vsortname = "";
             var vsortorder = "";
@@ -37,7 +39,7 @@
 
             setTimeout(function () {
                 DownloadAttachPDF(vPaisISO, vCampaniaCod, vConsultoraCod, vConsultoraNombre, vUsuarioNombre, vOrigen,
-                    vValidado, vSaldo, vImporte, vImporteConDescuento, vpage, vsortname, vsortorder, vrowNum, vUsuario, vTipoProceso)
+                    vValidado, vSaldo, vImporte, vImporteConDescuento, vpage, vsortname, vsortorder, vrowNum, vUsuario, vTipoProceso, vMotivoRechazo)
             }, 0);
         });
         $("#btnRegresar").click(function () {
@@ -46,7 +48,7 @@
     });
 
     function DownloadAttachPDF(vPaisISO, vCampaniaCod, vConsultoraCod, vConsultoraNombre, vUsuarioNombre, vOrigen,
-                    vValidado, vSaldo, vImporte, vImporteConDescuento, vpage, vsortname, vsortorder, vrowNum, vUsuario, vTipoProceso) {
+                    vValidado, vSaldo, vImporte, vImporteConDescuento, vpage, vsortname, vsortorder, vrowNum, vUsuario, vTipoProceso, vMotivoRechazo) {
         // TODO: probar las repercusiones de este if
         if (checkTimeout()) {
             var content = baseUrl + "ReportePedidoDDWeb/ExportarPDF?" +
@@ -65,7 +67,8 @@
                     "&vsortorder=" + vsortorder +
                     "&vrowNum=" + vrowNum +
                     "&vUsuario=" + vUsuario +
-                    "&vTipoProceso=" + vTipoProceso;
+                     "&vTipoProceso=" + vTipoProceso +
+                    "&vMotivoRechazo=" + encodeURIComponent(vMotivoRechazo.length > 122 ? vMotivoRechazo.substring(0, 121) + '...' : vMotivoRechazo);
 
             var iframe_ = document.createElement("iframe");
             iframe_.style.display = "none";
@@ -98,7 +101,7 @@
         }
     }
 
-    function DownloadAttachExcel(vCampania, vPaisISO, vConsultoraCodigo, vTipoProceso) {
+    function DownloadAttachExcel(vCampania, vPaisISO, vConsultoraCodigo, vTipoProceso, vMotivoRechazo) {
         var content = baseUrl + "ReportePedidoDDWeb/ExportarExcel?vCampania=" + vCampania +
                             "&vPaisISO=" + vPaisISO +
                             "&vConsultoraCodigo=" + vConsultoraCodigo +
@@ -261,16 +264,6 @@
                         </div>
                     </td>
                 </tr>
-                @*<tr>
-                    <td>
-                        <div class="module_1">
-                            <div class="label1">Usuario Responsable:</div>
-                        </div>
-                        <div class="module_1">
-                            <div class="label2">@Model.lblUsuarioNombre </div>
-                        </div>
-                    </td>
-                </tr>*@
                 <tr>
                     <td>
                         <div class="module_2">
@@ -290,6 +283,16 @@
                         </div>
                         <div class="module_2">
                             <div class="label2">@Model.lblSaldo </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="module_1">
+                            <div class="label1">Motivo de rechazo:</div>
+                        </div>
+                        <div class="module_1">
+                            <div class="label2">@Model.MotivoRechazo</div>
                         </div>
                     </td>
                 </tr>
@@ -327,7 +330,7 @@
     <div class="container clearfix">
         <p>* Descuento por ofertas con más de un precio</p>
     </div>
-    
+
 </div>
 
 <div id="loadingScreen"></div>
@@ -344,3 +347,4 @@
 @Html.Hidden("hdn_ImporteConDescuento", (string)Model.lblImporteConDescuento)
 @Html.Hidden("hdn_vUsuario", Model.Usuario)
 @Html.Hidden("hdn_vTipoProceso", Model.TipoProceso)
+@Html.Hidden("hdn_MotivoRechazo", Model.MotivoRechazo)

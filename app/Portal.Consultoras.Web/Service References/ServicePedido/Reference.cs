@@ -12145,6 +12145,9 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private bool IndicadorPromocionField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string MotivoRechazoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int PedidoDetalleIDField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -12279,6 +12282,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((this.IndicadorPromocionField.Equals(value) != true)) {
                     this.IndicadorPromocionField = value;
                     this.RaisePropertyChanged("IndicadorPromocion");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string MotivoRechazo {
+            get {
+                return this.MotivoRechazoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.MotivoRechazoField, value) != true)) {
+                    this.MotivoRechazoField = value;
+                    this.RaisePropertyChanged("MotivoRechazo");
                 }
             }
         }
@@ -15710,6 +15726,9 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private decimal ConsultoraSaldoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int EsRechazadoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int EstadoValidacionField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -15735,6 +15754,9 @@ namespace Portal.Consultoras.Web.ServicePedido {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private decimal MontoMinimoPedidoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string MotivoRechazoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string NroRegistroField;
@@ -15886,6 +15908,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public int EsRechazado {
+            get {
+                return this.EsRechazadoField;
+            }
+            set {
+                if ((this.EsRechazadoField.Equals(value) != true)) {
+                    this.EsRechazadoField = value;
+                    this.RaisePropertyChanged("EsRechazado");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public int EstadoValidacion {
             get {
                 return this.EstadoValidacionField;
@@ -15998,6 +16033,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((this.MontoMinimoPedidoField.Equals(value) != true)) {
                     this.MontoMinimoPedidoField = value;
                     this.RaisePropertyChanged("MontoMinimoPedido");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string MotivoRechazo {
+            get {
+                return this.MotivoRechazoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.MotivoRechazoField, value) != true)) {
+                    this.MotivoRechazoField = value;
+                    this.RaisePropertyChanged("MotivoRechazo");
                 }
             }
         }
