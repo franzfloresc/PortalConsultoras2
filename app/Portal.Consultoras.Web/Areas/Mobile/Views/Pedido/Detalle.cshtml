@@ -100,28 +100,102 @@
         <a class="cerrar_popMobile" href="javascript:;" id="lnkCerrarPopupOfertaFinal">
             <img src="/Content/Images/mobile/Esika/cerrar_04.png" alt="Cerrar">
         </a>
-        <div id="divIconoOfertaFinal">
-        </div>
-        <h1 class="ofertaFinal_titulo">
-            <span id="spnTituloOfertaFinal">GUARDASTE TU <b>PEDIDO CON ÉXITO !</b></span>
-        </h1>
+        <!---->
+        <div class="content_texto_OPT">
+            <div class="icono_alerta check_icono_mobile" style="margin-top:10px; margin-bottom:10px;"></div>
+            <!--OF_mobile_montomin-->
+            <div class="OF_mobile_montomin" style="display:none;">                
+                <h1 class="ofertaFinal_titulo">
+                    <span id="spnTituloOfertaFinal">GUARDASTE TU <b>PEDIDO CON ÉXITO !</b></span>
+                </h1>
 
-        <div class="ofertaFinal_descripcion" id="of_descripcion1">
-            Agrega <span>@Model.Simbolo </span><span id="spnMontoFaltanteOfertaFinal"></span>
-            <span id="spnMensajeOfertaFinal">para ganar más esta campaña.</span>
-        </div>
+                <div class="ofertaFinal_descripcion" id="of_descripcion1">
+                    Agrega <span>@Model.Simbolo </span><span id="spnMontoFaltanteOfertaFinal"></span>
+                    <span id="spnMensajeOfertaFinal">para ganar más esta campaña.</span>
+                </div>
 
-        <div class="ofertaFinal_descripcion" id="of_descripcion2" style="display: none;">
+                @*<div class="ofertaFinal_descripcion" id="of_descripcion2" style="display: none;">
             Agrega estos productos para ganar más esta campaña
-        </div>
-
-        <div class="contenedor_carruselOfertaFinal">
-            
-            <div class="ofertaFinal_info">
-                <span id="spnSubTituloOfertaFinal">Gana más con estas ofertas que tenemos solo para ti</span>
+        </div>*@
+                <div class="ofertaFinal_info">
+                    <span id="spnSubTituloOfertaFinal">=)</span>
+                </div>
             </div>
+            <!--FIN-->
+            <!--OF_mobile_montomin-->
+            <div class="OF_mobile_montomin" style="display:none;">                
+                <h1 class="ofertaFinal_titulo">
+                    <span>GUARDASTE TU <b>PEDIDO CON ÉXITO !</b></span>
+                </h1>
 
-            <div class="bloque_carousel">
+                <div class="ofertaFinal_descripcion">
+                    Ganancia estimada total: S/. 200.00<br/>
+                    Monto total: S/. 600.00
+                </div>
+                <div class="ofertaFinal_info">
+                    <span id="spnSubTituloOfertaFinal">Compra en oferta los complementos de tu pedido</span>
+                </div>
+            </div>
+            <!--FIN-->
+            <!--GanaMas-->
+            <div class="GanaMas" style="display:none">                
+                <h1 class="ofertaFinal_titulo">
+                    <span>¡FELICITACIONES AHORA TU GANANCIA ESTIMADA ES DE <b>S/.300.00</b>!</span>
+                </h1>
+                <div class="ofertaFinal_descripcion">                   
+                    Monto total: S/. 600.00
+                </div>
+                <div class="ofertaFinal_info">
+                    <span id="spnSubTituloOfertaFinal">Compra en oferta los complementos de tu pedido</span>
+                </div>
+            </div>
+            <!--FIN--> 
+            <!--GanaMas 2-->
+            <div class="GanaMas2" style="display:none;">
+                <h1 class="ofertaFinal_titulo">
+                    <span>¡GUARDASTE TU <b>PEDIDO CON ÉXITO</b>!</span>
+                </h1>
+                <div class="ofertaFinal_descripcion">
+                    Agrega un producto y <b>gana más</b> en esta campaña
+                </div>
+                <div class="ofertaFinal_info">
+                    <span>Compra en oferta los complementos de tu pedido</span>
+                </div>
+            </div>
+            <!--FIN-->    
+            <!--MOBILE ESCALA DESCUENTO-->
+            <div class="ESCALADESCUENTO" style="display:none;">
+                <h1 class="ofertaFinal_titulo">
+                    <span>¡FELICITACIONES LLEGASTE AL <b>30% DSCTO</b>!</span>
+                </h1>
+                <div class="ofertaFinal_descripcion">
+                    Ganancia estimada total: S/. 200.00<br />
+                    Monto total: S/. 600.00
+                </div>
+                <div class="ofertaFinal_info">
+                    <span>Compra en oferta los complementos de tu pedido</span>
+                </div>
+            </div>
+            <!--FIN-->      
+            <!--MOBILE ESCALA DESCUENTO 2-->
+            <div class="ESCALADESCUENTO2">
+                <h1 class="ofertaFinal_titulo">
+                    <span>¡GUARDASTE TU <b>PEDIDO CON ÉXITO</b>!</span>
+                </h1>
+                <div class="ofertaFinal_descripcion">
+                    Agrega S/.21.00 y obtén <b>30%</b> dscto en tu compra
+                </div>
+                <div class="ofertaFinal_info">
+                    <span>Compra en oferta los complementos de tu pedido</span>
+                </div>
+            </div>
+            <!--FIN-->                
+        </div>
+       
+
+        <div class="contenedor_carruselOfertaFinal">   
+
+            <div class="bloque_carousel" style="margin-top:-90px;">
                 @*<div class="btn_controles_carousel btn_control_atras">
                     <img src="@Url.Content("~/Content/Images/mobile/flecha-left.png")" alt="Atrás" />
                 </div>*@

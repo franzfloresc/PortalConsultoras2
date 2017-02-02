@@ -8559,12 +8559,12 @@ span.icon-advertencia{
 .ofertaFinal_titulo{
     display: block;
     margin: 0 0 8px 0;
-    padding: 0 28px;
+    padding: 0 17px;
     font-family: 'Lato';
-    font-size: 21px;
+    font-size: 17px;
     font-weight: 300;
     text-align: center;
-    line-height: 29.38px;
+    line-height: 21px;
     color: #000;
 }
 
@@ -8572,9 +8572,9 @@ span.icon-advertencia{
     display: block;
     margin: 0 0 22px 0;
     font-family: 'Lato';
-    font-size: 14px;
+    font-size: 13px;
     text-align: center;
-    font-weight: bold;
+    /*font-weight: bold;*/
     padding: 0 19px;
 }
 
@@ -8586,12 +8586,12 @@ span.icon-advertencia{
 .ofertaFinal_info {
     font-family: 'Lato';
     text-align: center;
-    font-size: 18px;
-    font-weight: bold;
+    font-size: 13px;
+    font-weight: 300;
     color: #000;
-    margin:0 0 28px 0;
+    margin: 0 0 28px 0;
     padding: 0px 26px;
-    line-height:22px;
+    line-height: 14px;
 }
 
 .bloque_carousel{
@@ -10049,3 +10049,8 @@ span.icon-advertencia{
        right:10px;
        top:10px;
     }
+
+/*NUEVO OF*/
+.content_texto_OPT{
+    margin-bottom:70px;
+}
