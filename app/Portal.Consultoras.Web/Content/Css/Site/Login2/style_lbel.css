@@ -30,8 +30,8 @@ body {
     font-family: lato-medium;
     color: #555;
     text-align: center;
-    /*background: url(../Images/login-lbel-1920.jpg) center center no-repeat fixed;*/
-     background: url(../Images/loggin_lbel.jpg) center center no-repeat fixed;
+    background: url(../Images/login-lbel-1920.jpg) center center no-repeat fixed;
+     /*background: url(../Images/loggin_lbel.jpg) center center no-repeat fixed;*/
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
