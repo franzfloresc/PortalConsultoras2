@@ -185,6 +185,7 @@ namespace Portal.Consultoras.Web.Models
         public bool PaisEsikizado { get; set; }
     }
 
+    [Serializable]
     public class ObservacionModel
     {
         public string CUV { get; set; }
