@@ -68,6 +68,7 @@ namespace Portal.Consultoras.Web.Controllers
             model.hdnpaisISO = data["paisISO"].ToString();
             model.Usuario = Convert.ToString(data["Usuario"]);
             model.TipoProceso = data["TipoProceso"].ToString();
+            model.MotivoRechazo = data["MotivoRechazo"].ToString();
             return View(model);
         }
         public ActionResult ReportePedidosDDWebDetalleImp(string parametros)
@@ -89,6 +90,7 @@ namespace Portal.Consultoras.Web.Controllers
             string rowNum = lista[12];
             string usuario = lista[13];
             string TipoProceso = lista[17];
+            string MotivoRechazo = lista[18];
 
             var model = new ReportePedidoDDWebModel();
 
@@ -109,13 +111,13 @@ namespace Portal.Consultoras.Web.Controllers
             model.TipoProceso = TipoProceso;
             return View(model);
         }
-        public ActionResult ConsultarPedidosDDWeb(string sidx, string sord, int page, int rows, string vPaisID, string vCampania, string vConsultora, string vRegionID, string vZonaID, string vOrigen, string vEstadoValidacion)
+        public ActionResult ConsultarPedidosDDWeb(string sidx, string sord, int page, int rows, string vPaisID, string vCampania, string vConsultora, string vRegionID, string vZonaID, string vOrigen, string vEstadoValidacion, string vEsRechazado)
         {
             if (ModelState.IsValid)
             {
                 ViewBag.PaisOcultoID = UserData().PaisID;
 
-                string cadena = vPaisID + vCampania + vConsultora + vRegionID + vZonaID + vOrigen + vEstadoValidacion;
+                string cadena = vPaisID + vCampania + vConsultora + vRegionID + vZonaID + vOrigen + vEstadoValidacion + vEsRechazado;
 
                 if (Session["PedidosWebDDConf"] == null)
                     Session["PedidosWebDDConf"] = cadena;
@@ -166,7 +168,8 @@ namespace Portal.Consultoras.Web.Controllers
                                     ZonaCodigo = vZonaID,
                                     Origen = Convert.ToInt32(vOrigen),
                                     ConsultoraCodigo = (string.IsNullOrEmpty(vConsultora) || vConsultora == "0" ? string.Empty : vConsultora),
-                                    EstadoValidacion = int.Parse(vEstadoValidacion)
+                                    EstadoValidacion = int.Parse(vEstadoValidacion),
+                                    EsRechazado = int.Parse(vEsRechazado)
                                 }).ToList();
                         }
 
@@ -209,7 +212,8 @@ namespace Portal.Consultoras.Web.Controllers
                             Zona = item.Zona,
                             IndicadorEnviado = item.IndicadorEnviado,
                             PrimeraCampaniaCodigo = item.PrimeraCampaniaCodigo,
-                            Region = item.Region
+                            Region = item.Region,
+                            MotivoRechazo = item.MotivoRechazo
                         });
                         fila = fila + 1;
                     }
@@ -349,8 +353,8 @@ namespace Portal.Consultoras.Web.Controllers
                                    a.OrigenNombre.ToString(),
                                    a.EstadoValidacionNombre.ToString(),               
                                    a.IndicadorEnviado,
-                                   a.TipoProceso
-
+                                   a.TipoProceso,
+                                   a.MotivoRechazo
                                 }
                            }
                 };
@@ -522,7 +526,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             return RedirectToAction("Index", "Bienvenida");
         }
-        public ActionResult ExportarExcel(string vCampania, string vPaisISO, string vConsultoraCodigo, string vTipoProceso)
+        public ActionResult ExportarExcel(string vCampania, string vPaisISO, string vConsultoraCodigo, string vTipoProceso, string vMotivoRechazo)
         {
 
             List<BEPedidoDDWebDetalle> lst;
@@ -554,7 +558,8 @@ namespace Portal.Consultoras.Web.Controllers
                                Descripcion = c.descripcion,
                                Cantidad = c.cantidad,
                                PrecioUnitario = Convert.ToDecimal(c.precioUnidad),
-                               PrecioTotal = Convert.ToDecimal(c.importeTotal)
+                               PrecioTotal = Convert.ToDecimal(c.importeTotal),
+                               MotivoRechazo = vMotivoRechazo
                            }).ToList();
 
                     //foreach (var pedidoWebAnteriorDetalleBean in lista)
@@ -586,7 +591,8 @@ namespace Portal.Consultoras.Web.Controllers
                            Descripcion = c.Descripcion,
                            Cantidad = c.Cantidad,
                            PrecioUnitario = c.PrecioUnitario,
-                           PrecioTotal = c.PrecioTotal
+                           PrecioTotal = c.PrecioTotal,
+                           MotivoRechazo = vMotivoRechazo
                        }).ToList();
             }
 
@@ -597,6 +603,7 @@ namespace Portal.Consultoras.Web.Controllers
             dic.Add("Cantidad", "Cantidad");
             dic.Add("Precio Unitario", "PrecioUnitario");
             dic.Add("Precio Total", "PrecioTotal");
+            dic.Add("MotivoRechazo", "MotivoRechazo");
 
             ExportToExcelDetallePedido("exportar", lst, dic, "DescargaCompleta", "1");
             return View();
@@ -716,7 +723,8 @@ namespace Portal.Consultoras.Web.Controllers
                         TipoProceso = item.OrigenNombre,
                         Zona = item.Zona,
                         IndicadorEnviado = item.IndicadorEnviado,
-                        Region = item.Region // 2446
+                        Region = item.Region, // 2446
+                        MotivoRechazo = item.MotivoRechazo
                     });
                     fila = fila + 1;
                 }
@@ -745,6 +753,7 @@ namespace Portal.Consultoras.Web.Controllers
             dic.Add("OrigenNombre", "Origen,");
             dic.Add("EstadoValidacionNombre", "Validado,");
             dic.Add("IndicadorEnviado", "Estado");
+            dic.Add("MotivoRechazo", "Motivo Rechazo");
 
             var lista = from a in lst
                         select new
@@ -764,7 +773,8 @@ namespace Portal.Consultoras.Web.Controllers
                             ConsultoraSaldo = UserData().Simbolo + " " + ((UserData().PaisID == 4)? a.ConsultoraSaldo.ToString("#,##0").Replace(',','.') : a.ConsultoraSaldo.ToString("0.00")),
                             a.OrigenNombre,
                             a.EstadoValidacionNombre,
-                            a.IndicadorEnviado
+                            a.IndicadorEnviado,
+                            a.MotivoRechazo
                         };
 
             ExportToCSV("exportar", lista.ToList(), dic, "DescargaCompleta", "1");
@@ -1085,9 +1095,9 @@ namespace Portal.Consultoras.Web.Controllers
 
         public ActionResult ExportarPDF(string vPaisISO, string vCampaniaCod, string vConsultoraCod, string vConsultoraNombre,
                                         string vUsuarioNombre, string vOrigen, string vValidado, string vSaldo, string vImporte, string vImporteConDescuento,
-                                        string vpage, string vsortname, string vsortorder, string vrowNum, string vUsuario, string vTipoProceso)
+                                        string vpage, string vsortname, string vsortorder, string vrowNum, string vUsuario, string vTipoProceso, string vMotivoRechazo)
         {
-            string[] lista = new string[20];
+            string[] lista = new string[21];
 
             Session["PaisID"] = UserData().PaisID;
 
@@ -1095,7 +1105,7 @@ namespace Portal.Consultoras.Web.Controllers
             lista[4] = vUsuarioNombre; lista[5] = vOrigen; lista[6] = vValidado; lista[7] = vSaldo;
             lista[8] = vImporte; lista[9] = vImporteConDescuento; lista[10] = vpage; lista[11] = vsortname; lista[12] = vsortorder;
             lista[13] = vrowNum; lista[14] = vUsuario; lista[15] = UserData().Simbolo; lista[16] = UserData().BanderaImagen;
-            lista[17] = UserData().NombrePais; lista[18] = vTipoProceso; lista[19] = UserData().PaisID.ToString();
+            lista[17] = UserData().NombrePais; lista[18] = vTipoProceso; lista[19] = UserData().PaisID.ToString(); lista[20] = vMotivoRechazo;
 
             //Util.ExportToPdf(this, "PedidosPDF.pdf", "ReportePedidosDDWebDetalleImp", Util.EncriptarQueryString(lista));
             Util.ExportToPdfWebPages(this, "PedidoDDWeb.pdf", "ReportePedidoDDWebDetalleImp", Util.EncriptarQueryString(lista));

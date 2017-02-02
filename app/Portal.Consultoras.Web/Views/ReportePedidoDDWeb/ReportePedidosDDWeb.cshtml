@@ -27,6 +27,7 @@
             var vZonaID = jQuery.trim($("#ddlZona").val());
             var vOrigen = jQuery.trim($("#ddlOrigen").val());
             var vEstadoValidacion = jQuery.trim($("#ddlEnviadosValidacion").val());
+            var vEsRechazado = jQuery.trim($("#ddlEsRechazado option:selected").val());
 
             setTimeout(function () {
                 DownloadAttachExcel(vPaisID, vCampania, vConsultora, vRegionID, vZonaID, vOrigen, vEstadoValidacion)
@@ -170,6 +171,21 @@
                 return re.test(keyChar);
             }
         });
+        // SB20-871
+        $("#ddlEsRechazado").change(function () {
+            var value = this.value;
+            if (value == "1") {
+                $("#ddlOrigen").val(2).change();
+                $("#ddlEnviadosValidacion").val(0).change();
+            }
+        });
+
+        $("#ddlOrigen").change(function () {
+            if ($(this).val() == 1) {
+                //$("#chkEsRechazado").attr('checked', false);
+            }
+        });
+
         fnGrilla();
     });
     function DownloadAttachExcel(vPaisID, vCampania, vConsultora, vRegionID, vZonaID, vOrigen, vEstadoValidacion) {
@@ -281,11 +297,12 @@
                 vRegionID: function () { return jQuery.trim($('#ddlRegion option:selected').text()); },
                 vZonaID: function () { return jQuery.trim($("#ddlZona").val()); },
                 vOrigen: function () { return jQuery.trim($("#ddlOrigen").val()); },
-                vEstadoValidacion: function () { return jQuery.trim($("#ddlEnviadosValidacion").val()); }
+                vEstadoValidacion: function () { return jQuery.trim($("#ddlEnviadosValidacion").val()); },
+                vEsRechazado: function () { return $("#ddlEsRechazado option:selected").val(); }
             }),
             mtype: 'GET',
             contentType: "application/json; charset=utf-8",
-            colNames: ['PaisISO', 'N° Registro', 'Fecha Ingreso', 'Fecha/Hora Validación', 'Año / Campaña', 'Sección', 'Región', 'Zona', 'Cod. Consultora', 'Nombre Consultora', 'Campaña de 1er Pedido', 'Monto Total Pedido', 'Monto Total Pedido con Descuento', 'Saldo', 'Origen', 'Validado', 'Estado', 'Tipo Proceso', 'Detalle'],
+            colNames: ['PaisISO', 'N° Registro', 'Fecha Ingreso', 'Fecha/Hora Validación', 'Año / Campaña', 'Sección', 'Región', 'Zona', 'Cod. Consultora', 'Nombre Consultora', 'Campaña de 1er Pedido', 'Monto Total Pedido', 'Monto Total Pedido con Descuento', 'Saldo', 'Origen', 'Validado', 'Estado', 'Tipo Proceso', 'Motivo de Rechazo', 'Detalle'],
             colModel: [
                 { name: 'paisISO', index: 'paisISO', width: 0, editable: false, align: 'center', hidden: true },
                 { name: 'NroRegistro', index: 'NroRegistro', width: 6, editable: true, resizable: false },
@@ -305,6 +322,11 @@
                 { name: 'EstadoValidacionNombre', index: 'EstadoValidacionNombre', width: 6, editable: true, resizable: false },
                 { name: 'IndicadorEnviado', index: 'IndicadorEnviado', width: 6, editable: true, resizable: false },
                 { name: 'TipoProceso', index: 'TipoProceso', width: 0, editable: false, align: 'center', hidden: true },
+                {
+                    name: 'MotivoRechazo', index: 'MotivoRechazo', width: 10, editable: true, resizable: false, cellattr: function (rowId, tv, rawObject, cm, rdata) {
+                        return 'style="white-space:normal !important;word-break: break-all;"'
+                    }
+                },
                 { name: 'Detalle', index: 'Detalle', width: 6, editable: true, sortable: false, align: 'center', resizable: false, formatter: ShowActions }
             ],
             jsonReader:
@@ -350,7 +372,7 @@
 
     }
 
-    function SendData(paisISO, CampaniaCod, ConsultoraCod, ConsultoraNombre, UsuarioNombre, Origen, Validado, Saldo, Importe, importeConDescuento, tipoProceso) {
+    function SendData(paisISO, CampaniaCod, ConsultoraCod, ConsultoraNombre, UsuarioNombre, Origen, Validado, Saldo, Importe, importeConDescuento, tipoProceso, motivoRechazo) {
         var form1 = document.createElement("form");
         var data = document.createElement("input");
         form1.setAttribute("id", "form1");
@@ -370,7 +392,8 @@
             Importe: Importe,
             ImporteConDescuento: importeConDescuento,
             Usuario: $("#hdnUsuario").val(),
-            TipoProceso: tipoProceso
+            TipoProceso: tipoProceso,
+            MotivoRechazo: motivoRechazo == 'null' ? '' : motivoRechazo
         }
         data.value = JSON.stringify(d);
         form1.appendChild(data);
@@ -390,7 +413,8 @@
                                                                                                                                        rowObject[13] + "','" +
                                                                                                                                        rowObject[11] + "','" +
                                                                                                                                        rowObject[12] + "','" +
-                                                                                                                                       rowObject[17] + "');\" border='0' /></a>";
+                                                                                                                                       rowObject[17] + "','" +
+                                                                                                                                       rowObject[18] + "');\" border='0' /></a>";
         return Edit;
     }
 
@@ -447,7 +471,14 @@
                 <div class="selectP2 borde_redondeado">
                     <input id="txtCodConsultora" type="text" />
                 </div>
-                <div class="titC"></div>
+                <div class="titC">Rechazado?:</div>
+                <div class="selectP2 borde_redondeado">
+                    <select id="ddlEsRechazado">
+                        <option value="2">-- Todos --</option>
+                        <option value="1">SI</option>
+                        <option value="0">NO</option>
+                    </select>
+                </div>
                 <div class="input_search">
                     <input type="submit" name="" id="btnBuscar" value="Buscar" />
                 </div>

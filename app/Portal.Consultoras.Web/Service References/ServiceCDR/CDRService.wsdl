@@ -121,6 +121,30 @@
   <wsdl:message name="ICDRService_GetCDRParametria_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetCDRParametriaResponse" />
   </wsdl:message>
+  <wsdl:message name="ICDRService_GetCDRWebDatos_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetCDRWebDatos" />
+  </wsdl:message>
+  <wsdl:message name="ICDRService_GetCDRWebDatos_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetCDRWebDatosResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICDRService_CreateLogCDRWebCulminadoFromCDRWeb_InputMessage">
+    <wsdl:part name="parameters" element="tns:CreateLogCDRWebCulminadoFromCDRWeb" />
+  </wsdl:message>
+  <wsdl:message name="ICDRService_CreateLogCDRWebCulminadoFromCDRWeb_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CreateLogCDRWebCulminadoFromCDRWebResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICDRService_GetCDRWebByLogCDRWebCulminadoId_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetCDRWebByLogCDRWebCulminadoId" />
+  </wsdl:message>
+  <wsdl:message name="ICDRService_GetCDRWebByLogCDRWebCulminadoId_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetCDRWebByLogCDRWebCulminadoIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICDRService_GetCDRWebDetalleByLogCDRWebCulminadoId_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetCDRWebDetalleByLogCDRWebCulminadoId" />
+  </wsdl:message>
+  <wsdl:message name="ICDRService_GetCDRWebDetalleByLogCDRWebCulminadoId_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetCDRWebDetalleByLogCDRWebCulminadoIdResponse" />
+  </wsdl:message>
   <wsdl:portType name="ICDRService">
     <wsdl:operation name="InsCDRWeb">
       <wsdl:input wsaw:Action="http://tempuri.org/ICDRService/InsCDRWeb" message="tns:ICDRService_InsCDRWeb_InputMessage" />
@@ -197,6 +221,22 @@
     <wsdl:operation name="GetCDRParametria">
       <wsdl:input wsaw:Action="http://tempuri.org/ICDRService/GetCDRParametria" message="tns:ICDRService_GetCDRParametria_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ICDRService/GetCDRParametriaResponse" message="tns:ICDRService_GetCDRParametria_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCDRWebDatos">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICDRService/GetCDRWebDatos" message="tns:ICDRService_GetCDRWebDatos_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICDRService/GetCDRWebDatosResponse" message="tns:ICDRService_GetCDRWebDatos_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="CreateLogCDRWebCulminadoFromCDRWeb">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICDRService/CreateLogCDRWebCulminadoFromCDRWeb" message="tns:ICDRService_CreateLogCDRWebCulminadoFromCDRWeb_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICDRService/CreateLogCDRWebCulminadoFromCDRWebResponse" message="tns:ICDRService_CreateLogCDRWebCulminadoFromCDRWeb_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCDRWebByLogCDRWebCulminadoId">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICDRService/GetCDRWebByLogCDRWebCulminadoId" message="tns:ICDRService_GetCDRWebByLogCDRWebCulminadoId_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICDRService/GetCDRWebByLogCDRWebCulminadoIdResponse" message="tns:ICDRService_GetCDRWebByLogCDRWebCulminadoId_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCDRWebDetalleByLogCDRWebCulminadoId">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICDRService/GetCDRWebDetalleByLogCDRWebCulminadoId" message="tns:ICDRService_GetCDRWebDetalleByLogCDRWebCulminadoId_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICDRService/GetCDRWebDetalleByLogCDRWebCulminadoIdResponse" message="tns:ICDRService_GetCDRWebDetalleByLogCDRWebCulminadoId_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_ICDRService" type="tns:ICDRService">
@@ -365,6 +405,42 @@
     </wsdl:operation>
     <wsdl:operation name="GetCDRParametria">
       <soap:operation soapAction="http://tempuri.org/ICDRService/GetCDRParametria" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCDRWebDatos">
+      <soap:operation soapAction="http://tempuri.org/ICDRService/GetCDRWebDatos" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateLogCDRWebCulminadoFromCDRWeb">
+      <soap:operation soapAction="http://tempuri.org/ICDRService/CreateLogCDRWebCulminadoFromCDRWeb" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCDRWebByLogCDRWebCulminadoId">
+      <soap:operation soapAction="http://tempuri.org/ICDRService/GetCDRWebByLogCDRWebCulminadoId" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCDRWebDetalleByLogCDRWebCulminadoId">
+      <soap:operation soapAction="http://tempuri.org/ICDRService/GetCDRWebDetalleByLogCDRWebCulminadoId" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
