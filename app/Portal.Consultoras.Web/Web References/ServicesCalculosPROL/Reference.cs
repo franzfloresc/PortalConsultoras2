@@ -24,7 +24,7 @@ namespace Portal.Consultoras.Web.ServicesCalculosPROL {
     
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1055.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1087.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Web.Services.WebServiceBindingAttribute(Name="ServicesCalculoPrecioNivelesSoap", Namespace="http://tempuri.org/")]
@@ -216,7 +216,7 @@ namespace Portal.Consultoras.Web.ServicesCalculosPROL {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1067.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1087.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -261,7 +261,7 @@ namespace Portal.Consultoras.Web.ServicesCalculosPROL {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1067.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1087.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -279,6 +279,8 @@ namespace Portal.Consultoras.Web.ServicesCalculosPROL {
         private string codsap_item_packField;
         
         private string imagen_item_packField;
+        
+        private string volumenField;
         
         /// <remarks/>
         public string cuv_pack_item {
@@ -339,10 +341,20 @@ namespace Portal.Consultoras.Web.ServicesCalculosPROL {
                 this.imagen_item_packField = value;
             }
         }
+        
+        /// <remarks/>
+        public string volumen {
+            get {
+                return this.volumenField;
+            }
+            set {
+                this.volumenField = value;
+            }
+        }
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1067.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1087.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -411,7 +423,7 @@ namespace Portal.Consultoras.Web.ServicesCalculosPROL {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1067.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1087.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -427,6 +439,8 @@ namespace Portal.Consultoras.Web.ServicesCalculosPROL {
         private string descripcion_gratisField;
         
         private string imagen_gratisField;
+        
+        private string volumenField;
         
         /// <remarks/>
         public string escala_nivel_gratis {
@@ -477,10 +491,20 @@ namespace Portal.Consultoras.Web.ServicesCalculosPROL {
                 this.imagen_gratisField = value;
             }
         }
+        
+        /// <remarks/>
+        public string volumen {
+            get {
+                return this.volumenField;
+            }
+            set {
+                this.volumenField = value;
+            }
+        }
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1067.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1087.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -537,7 +561,7 @@ namespace Portal.Consultoras.Web.ServicesCalculosPROL {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1067.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1087.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -690,7 +714,7 @@ namespace Portal.Consultoras.Web.ServicesCalculosPROL {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1067.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1087.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -747,11 +771,11 @@ namespace Portal.Consultoras.Web.ServicesCalculosPROL {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1055.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1087.0")]
     public delegate void CalculoOfertasNivelesCompletedEventHandler(object sender, CalculoOfertasNivelesCompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1055.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1087.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class CalculoOfertasNivelesCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
@@ -773,11 +797,11 @@ namespace Portal.Consultoras.Web.ServicesCalculosPROL {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1055.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1087.0")]
     public delegate void CalculoMontosProlCompletedEventHandler(object sender, CalculoMontosProlCompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1055.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1087.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class CalculoMontosProlCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
@@ -799,11 +823,11 @@ namespace Portal.Consultoras.Web.ServicesCalculosPROL {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1055.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1087.0")]
     public delegate void Ofertas_catalogoCompletedEventHandler(object sender, Ofertas_catalogoCompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1055.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1087.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class Ofertas_catalogoCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {

@@ -100,7 +100,7 @@
                         <input type="hidden" id="hdfPaisSelect" value="00" />
                         <input type="hidden" id="hdfPaises" value="PE;BO;CL;SV;CR;PA;GT;EC;AR;MX;DO;PR;VE;CO" />
                         <input type="hidden" id="hdfURL" value="https://www2.somosbelcorp.com" />
-                        <input type="hidden" id="hdf_AR" value="fondo_default.jpg" />
+                        @*<input type="hidden" id="hdf_AR" value="fondo_default.jpg" />*@
                         <input type="hidden" id="hdf_BO" value="LoginLoveBomb.jpg" />
                         <input type="hidden" id="hdf_CL" value="LoginLoveBomb.jpg" />
                         <input type="hidden" id="hdf_CO" value="LoginLoveBomb.jpg" />
@@ -161,7 +161,7 @@
             <div class="boxform float_r">
                 <div class="formbtn">
                     <div style="padding-left: 4px;">
-                        <a id="AvisoASP" href="javascript:void(0)" style="display: none;">Aviso de Privacidad</a>
+                        <a id="AvisoASP" class="aviso_privacidad" href="javascript:void(0)" style="display: none;">Aviso de Privacidad</a>
                     </div>
                 </div>
             </div>
@@ -221,5 +221,6 @@
 @section scripts {
     <script src="~/Scripts/General.js"></script>
     <script src="~/Scripts/PortalConsultoras/Login/FormsSignIn.js"></script>
+    
 }
 

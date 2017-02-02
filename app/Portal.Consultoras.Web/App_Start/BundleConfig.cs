@@ -13,6 +13,7 @@ namespace Portal.Consultoras.Web
             bundles.Add(new ScriptBundle("~/bundles/JsLogin2").Include(
                 "~/Scripts/jquery-{version}.js",
                 "~/Scripts/jquery-ui-1.9.2.custom.js",
+                "~/Scripts/jquery.custom-scrollbar.js",
                 "~/Scripts/PortalConsultoras/Shared/LoginLayout.js"));
 
             bundles.Add(new StyleBundle("~/Content/Css/Site/CssMain").Include(

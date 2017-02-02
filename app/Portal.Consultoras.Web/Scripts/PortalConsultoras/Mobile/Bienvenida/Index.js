@@ -309,6 +309,7 @@ function ArmarCarouselEstrategias(data) {
     arrayOfertasParaTi = data;
 
     SetHandlebars("#estrategia-template", data, '#divCarouseHorizontalMobile');
+    $('#div-linea-OPT').show();
 
     //$("#AbrirPopOPT").click(function () {
     //    //$('body').css({ 'overflow-x': 'hidden' });
@@ -1146,3 +1147,6 @@ function InsertarProductoCompartido(objParameter, app) {
     return ID;
 }
 
+function mostrarCatalogoPersonalizado() {
+    document.location.href = urlCatalogoPersonalizado;
+}

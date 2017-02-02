@@ -15,10 +15,10 @@
     <meta property="og:site_name" content="Somos Belcorp" />
     <link rel="shortcut icon" type="image/x-icon" id="iconoPagina" data-id="iconPagina" href="@ViewBag.IconoPagina" />
 
-    <link href="~/Content/Css/Site/Login2/style_esika.css" rel="stylesheet" data-id="cssStyle" id="cssStyle" />
-    <link href="~/Content/Css/Site/Login2/style_lbel.css" rel="stylesheet" data-id="cssStyleLbel" id="cssStyleLbel" />
+    <link href="~/Content/Css/Site/Login2/style_esika.css" rel="stylesheet" data-id="cssStyle" id="cssStyle" @(ViewBag.EsPaisEsika==false ? "disabled='disabled'":"") />
+    <link href="~/Content/Css/Site/Login2/style_lbel.css" rel="stylesheet" data-id="cssStyleLbel" id="cssStyleLbel"  @(ViewBag.EsPaisLbel==false ? "disabled='disabled'":"") />
     <link href="~/Content/Css/ui.jquery/jquery-ui.css" rel="stylesheet" />
-    @*<link href="~/Content/Css/Site/jquery.custom-scrollbar.min.css" rel="stylesheet" />*@
+    <link href="~/Content/Css/Site/jquery.custom-scrollbar.css" rel="stylesheet" />
 
     <link href='https://fonts.googleapis.com/css?family=Lato:400,100,300,700,900' rel='stylesheet' type='text/css' />
 
