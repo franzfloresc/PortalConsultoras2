@@ -811,6 +811,10 @@ function MostrarMensajePedidoRechazado() {
 // Compartir Face
 
 function CompartirFacebook(urlBase, objParameter) {
+    urlBase = $.trim(urlBase);
+    if (urlBase == "") 
+        return false;
+    
     var _id = InsertarProductoCompartido(objParameter, 'F');
     urlBase = urlBase.replace('[valor]', _id);
 
@@ -826,13 +830,16 @@ function CompartirFacebook(urlBase, objParameter) {
 function InsertarProductoCompartido(objParameter, app) {
     //Capturando valores
     var _rutaImagen = objParameter.RutaImagen;
-    var _marcaID = objParameter.MarcaID;
-    var _marcaDesc = objParameter.MarcaDesc;
-    var _nombre = objParameter.NombrePro;
-    var _vol = objParameter.Volumen;
-    var _descProd = objParameter.DescProducto;
+    var _marcaID = $.trim(objParameter.MarcaID);
+    var _marcaDesc = $.trim(objParameter.MarcaDesc);
+    var _nombre = $.trim(objParameter.NombrePro);
+    var _vol = $.trim(objParameter.Volumen);
+    var _descProd = $.trim(objParameter.DescProducto);
 
-    var pcDetalle = _rutaImagen + "|" + _marcaID + "|" + _marcaDesc + "|" + _nombre + "|" + _vol + "|" + _descProd;
+    var pcDetalle = _rutaImagen + "|" + _marcaID + "|" + _marcaDesc + "|" + _nombre;
+    if (objParameter.Palanca == "FAV") {
+        pcDetalle += "|" + _vol + "|" + _descProd;
+    }
 
     var ID = 0;
     var Item = {
