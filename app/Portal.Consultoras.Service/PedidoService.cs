@@ -1605,7 +1605,8 @@ namespace Portal.Consultoras.Service
 
         #region Producto SUgerido
 
-        public IList<BEProductoSugerido> GetPaginateProductoSugerido(int PaisID, int CampaniaID, string CUVAgotado, string CUVSugerido) {
+        public IList<BEProductoSugerido> GetPaginateProductoSugerido(int PaisID, int CampaniaID, string CUVAgotado, string CUVSugerido)
+        {
             return BLProductoSugerido.GetPaginateProductoSugerido(PaisID, CampaniaID, CUVAgotado, CUVSugerido);
         }
 
@@ -1684,7 +1685,7 @@ namespace Portal.Consultoras.Service
         {
             return BLProcesoPedidoRechazado.ObtenerProcesoPedidoRechazadoGPR(paisID, campaniaID, consultoraID);
         }
-        
+
         public void InsLogOfertaFinal(int PaisID, int CampaniaID, string CodigoConsultora, string CUV, int cantidad, string tipoOfertaFinal, decimal GAP, int tipoRegistro)
         {
             BLPedidoWeb.InsLogOfertaFinal(PaisID, CampaniaID, CodigoConsultora, CUV, cantidad, tipoOfertaFinal, GAP, tipoRegistro);
@@ -1694,6 +1695,28 @@ namespace Portal.Consultoras.Service
         {
             return BLPedidoWeb.GetPedidosFacturadoSegunDias(paisID, campaniaID, consultoraID, maxDias);
         }
+
+        //GPR397
+        public void ActualizarIndicadorGPRPedidosRechazados(int PaisID, long ProcesoID)
+        {
+            BLPedidoWeb.ActualizarIndicadorGPRPedidosRechazados(PaisID, ProcesoID);
+        }
+        public void ActualizarIndicadorGPRPedidosFacturados(int PaisID, long ProcesoID)
+        {
+            BLPedidoWeb.ActualizarIndicadorGPRPedidosFacturados(PaisID, ProcesoID);
+        }
+
+        /*EPD-1025*/
+        public BEPedidoDescarga ObtenerUltimaDescargaPedido(int PaisID)
+        {
+            return BLPedidoWeb.ObtenerUltimaDescargaPedido(PaisID);
+        }
+
+        public void DeshacerUltimaDescargaPedido(int PaisID)
+        {
+            BLPedidoWeb.DeshacerUltimaDescargaPedido(PaisID);
+        }
+        /*EPD-1025*/
 
         public int GetCantidadOfertasParaTi(int paisId, int campaniaId, int tipoConfigurado)
         {
@@ -1729,11 +1752,16 @@ namespace Portal.Consultoras.Service
         {
             return new BLEstrategia().InsertEstrategiaOfertaParaTi(paisId, lista, campaniaId, codigoUsuario);
         }
-        
+
         /*PL20-1226*/
         public List<BEEstrategia> GetEstrategiaODD(int paisID, int codCampania, string codConsultora, DateTime fechaInicioFact)
         {
             return new BLEstrategia().GetEstrategiaODD(paisID, codCampania, codConsultora, fechaInicioFact);
+        }
+
+        public int ActivarDesactivarEstrategias(int PaisID, string Usuario, string EstrategiasActivas, string EstrategiasDesactivas)
+        {
+            return new BLEstrategia().ActivarDesactivarEstrategias(PaisID, Usuario, EstrategiasActivas, EstrategiasDesactivas);
         }
     }
 }

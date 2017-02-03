@@ -1,123 +1,36 @@
-﻿@model Portal.Consultoras.Web.Models.NotificacionesModel
+﻿@using Portal.Consultoras.Common
+@model Portal.Consultoras.Web.Models.NotificacionesModel
 
-<div style='font-family: Arial, Helvetica, sans-serif; font-size: 12px; color: #333333; margin: 0; padding: 0; background-color: #F0F0F0;'>
-    <table width='100%' border='0' cellpadding='0' cellspacing='0'>
-        <tr>
-            <td width='100%' style='height: 50px; background: #6C207F;'>&nbsp;</td>
-        </tr>
-    </table>
-    <table width='100%' border='0' cellpadding='0' cellspacing='0' style='padding: 0px; margin: 0px;'>
-        <tr>
-            <td width='100%' style='text-align: center; background-color: #F0F0F0; overflow: hidden; display: block; padding: 24px 0px 24px 0px;'>
-                <table border='0' cellpadding='0' cellspacing='0' style='width: 675px; margin: 0px auto; text-align: left;'>
-                    <tr>
-                        <td valign='top'>
-                            <table width='675' border='0' cellpadding='0' cellspacing='0'>
-                                <tr>
-                                    <td align='left' style='color: #6C207F; font-size: 25px; padding: 0px 0px 10px 0px; text-align: left;'>BELCORP</td>
-                                </tr>
-                                <tr>
-                                    <td width='675' valign='top' style='background: #E5E5E5; line-height: 18px; padding: 20px 20px 30px 20px;'>
-                                        <table width='100%' border='0' cellpadding='0'>
-                                            <tr>
-                                                <td style='padding: 0px 0px 15px 0px; text-align: left; display: block;'>Hola @Model.NombreConsultora,</td>
-                                            </tr>
-                                            <tr>
-                                                <td style='padding: 0px 0px 15px 0px; text-align: left; display: block;'><span>Tu Pedido fue rechazado debido a: @Model.DescripcionRechazo </span></td>
-                                            </tr>
-                                            <tr>
-                                                <td style='padding: 0px 0px 0px 0px; text-align: left; display: block;'><span id="SaltoLinea" ></span></td>
-                                            </tr>
+<div class="logo_lista_detalle">
+</div>
+<div class="content_datos_gpr">
+    <div class="linea_separadora"></div>
+    <div class="saludo_gpr">¡Hola @Model.NombreConsultora!</div>
+    <div class="cuerpo_gpr">
+        <span>Tu Pedido ha sido rechazado. @Model.DescripcionRechazo</span>
+        <div>
+            @{
+                switch (Model.MotivoRechazo)
+                {
+                    case Constantes.GPRMotivoRechazo.ActualizacionDeuda:
+                <a class='CerrarBanner' href="javascript:;" onclick="RedirectMenu('Index','MisPagos',0,'');cerrarMensajeEstadoPedido()">MIRA LOS LUGARES DE PAGO</a>
+                        break;
 
-                                            <tr>
-                                                <td style='padding: 0px 0px 0px 0px; text-align: left;'>Detalle de pedido:</td>
-                                            </tr>
-                                            <tr>
-                                                <td style='padding: 0px 0px 15px 0px; text-align: center;'>
-                                                    @if (Model.ListaNotificacionesDetallePedido.Count != 0)
-                                                    {
-                                                        <table style='border: 1px solid #8064A2; width: 100%;' cellspacing='0'>
-                                                            <tr>
-                                                                <td style='font-weight: bold; text-align: center; color: #FFFFFF; background-color: #8064A2;'>Cód. Venta</td>
-                                                                <td style='font-weight: bold; text-align: center; color: #FFFFFF; background-color: #8064A2;'>Descripción</td>
-                                                                <td style='font-weight: bold; text-align: center; color: #FFFFFF; background-color: #8064A2;'>Cantidad</td>
-                                                                <td style='font-weight: bold; text-align: center; color: #FFFFFF; background-color: #8064A2;'>Precio Unit.</td>
-                                                                <td style='font-weight: bold; text-align: center; color: #FFFFFF; background-color: #8064A2;'>Precio Total</td>
-                                                            </tr>
-                                                            @foreach (var item in Model.ListaNotificacionesDetallePedido)
-                                                            {
-                                                                <tr>
-                                                                    <td style='border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #8064A2'>@item.CUV</td>
-                                                                    <td style='border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #8064A2; text-align: left'>@item.Descripcion</td>
-                                                                    <td style='border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #8064A2'>@item.Cantidad</td>
-                                                                    <td style='border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #8064A2'>@item.PrecioUnidadString</td>
-                                                                    <td style='border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #8064A2'>
-                                                                        @item.ImporteTotalString
-                                                                        @if (Model.TieneDescuentoCuv && item.IndicadorOferta == 1)
-                                                                        {
-                                                                            <img id="IndicadorOfercarCUVImage" src="@Url.Content("~/Content/Images/indicador.png")" style="vertical-align:middle;" />
-                                                                        }
-                                                                    </td>
-                                                                </tr>
-                                                            }
-                                                            <tr>
-                                                                <td colspan="3">
-                                                                    @if (Model.TieneDescuentoCuv) {
-                                                                        <div id="leyendaIndicadorPROLMensaje"  class="leyendaIndicadorPROLMensaje">
-                                                                            * Descuento para ofertas con mas de un precio
-                                                                        </div> 
-                                                                    }
-                                                                </td>
-                                                                    @if (Model.TieneDescuentoCuv) { <td><b>SUBTOTAL:</b></td> }
-                                                                    else { <td><b>TOTAL:</b></td> }
-                                                                    <td><b>@Model.SubTotalString</b></td>
-                                                            </tr>
-                                                            @if (Model.TieneDescuentoCuv)
-                                                            {
-                                                                <tr>
-                                                                    <td></td>
-                                                                    <td></td>
-                                                                    <td></td>                                                                    
-                                                                    <td><b>DESCUENTO*:</b></td>
-                                                                    <td><b>@Model.DescuentoString</b></td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td></td>
-                                                                    <td></td>
-                                                                    <td></td>                   
-                                                                    <td><b>TOTAL:</b></td>
-                                                                    <td><b>@Model.TotalString</b></td>
-                                                                </tr>                                                                
-                                                            }
-                                                        </table>
-                                                    }
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td style='text-align: left;'>Gracias,</td>
-                                            </tr>
-                                            <tr>  
-                                                <td><img src='@Url.Content("~/Content/Images/belcorp_logo.png")' alt="SomosBelcorp" width="82" height="82" /></td>                                                      
-                                            </tr>
-                                        </table>
-                                    </td>
-                                </tr>
-                            </table>
-                        </td>
-                    </tr>
-                </table>
-            </td>
-        </tr>
-    </table>
-    <table width='100%' border='0' cellpadding='0' cellspacing='0' style='text-align: center;'>
-        <tr>
-            <td width='100%' style='height: 50px; background: #FFFFFF;'>
-                <table border='0' cellpadding='0' cellspacing='0' style='width: 675px; margin: 0px auto;'>
-                    <tr>
-                        <td style='padding: 5px 0px 0px 0px; font-size: 11px; color: #6C207F; text-align: right;'>Copyright Belcorp 2016. All rights reserved</td>
-                    </tr>
-                </table>
-            </td>
-        </tr>
-    </table>
+                    case Constantes.GPRMotivoRechazo.MontoMinino:
+                <a class='CerrarBanner' href="javascript:;" onclick="RedirectMenu('Index','Pedido',0,'Pedido');cerrarMensajeEstadoPedido()">MODIFICA TU PEDIDO</a>
+                        
+                        break;
+
+                    case Constantes.GPRMotivoRechazo.MontoMaximo:
+                <a class='CerrarBanner' href="javascript:;" onclick="RedirectMenu('Index','Pedido',0,'Pedido');cerrarMensajeEstadoPedido()">MODIFICA TU PEDIDO</a>
+                        
+                        break;
+
+                    case Constantes.GPRMotivoRechazo.ValidacionMontoMinimoStock:
+                <a class='CerrarBanner' href="javascript:;" onclick="RedirectMenu('Index','Pedido',0,'Pedido');cerrarMensajeEstadoPedido()">MODIFICA TU PEDIDO</a>
+                        break;
+                }
+            }
+        </div>
+    </div>
 </div>

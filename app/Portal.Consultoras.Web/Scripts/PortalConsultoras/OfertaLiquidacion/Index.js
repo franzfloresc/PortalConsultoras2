@@ -625,7 +625,7 @@ function ReservadoOEnHorarioRestringido(mostrarAlerta) {
             if (!checkTimeout(data)) {
                 return false;
             }
-
+         
             if (data.success == false) {
                 restringido = false;
                 return false;
@@ -670,7 +670,7 @@ function ReservadoOEnHorarioRestringidoAsync(mostrarAlerta, fnRestringido, fnNoR
                 fnNoRestringido();
                 return false;
             }
-
+            
             if (data.pedidoReservado && !mostrarAlerta) {
                 waitingDialog();
                 location.href = location.href = baseUrl + 'Pedido/PedidoValidado';
@@ -679,7 +679,7 @@ function ReservadoOEnHorarioRestringidoAsync(mostrarAlerta, fnRestringido, fnNoR
 
             if (mostrarAlerta) {
                 closeWaitingDialog();
-                alert_msg_pedido(data.message);
+                messageInfoError(data.message);
             }
             fnRestringido();
         },

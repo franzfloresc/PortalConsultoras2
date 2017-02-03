@@ -10,7 +10,7 @@
     using System.Data.SqlClient;
     using System.IO;
     using System.Text; //R2044
-    using System.Transactions; 
+    using System.Transactions;
 
     public class BLSolicitudCredito
     {
@@ -111,7 +111,7 @@
             var solicitudes = new List<BESolicitudCredito>();
             DASolicitudCredito daSolicitudCredito = new DASolicitudCredito(paisID);
             // C20150926 - CAH --> Se agrego el parametro paisID
-            using (IDataReader reader = daSolicitudCredito.BuscarSolicitudCredito(paisID,codigoZona, codigoTerritorio, fechaInicioSolicitud, fechaFinSolicitud, numeroDocumento, estadoSolicitud, TipoSolicitud, CodigoConsultora))
+            using (IDataReader reader = daSolicitudCredito.BuscarSolicitudCredito(paisID, codigoZona, codigoTerritorio, fechaInicioSolicitud, fechaFinSolicitud, numeroDocumento, estadoSolicitud, TipoSolicitud, CodigoConsultora))
             {
                 var columns = ((IDataRecord)reader).GetAllNames();
 
@@ -282,16 +282,16 @@
                     {
                         if (ConfigurationManager.AppSettings["OrderDownloadFtpUpload"] == "1")
                         {
-                        try
-                        {
-                            BLFileManager.FtpUploadFile(ftpElementSolCredito.Address + ftpElementSolCredito.Header, pathFileSolCredito, ftpElementSolCredito.UserName, ftpElementSolCredito.Password);
+                            try
+                            {
+                                BLFileManager.FtpUploadFile(ftpElementSolCredito.Address + ftpElementSolCredito.Header, pathFileSolCredito, ftpElementSolCredito.UserName, ftpElementSolCredito.Password);
 
-                            BLFileManager.FtpUploadFile(ftpElementSolActualizacion.Address + ftpElementSolActualizacion.Header, pathFileSolActualizacion, ftpElementSolActualizacion.UserName, ftpElementSolActualizacion.Password);
-                        }
-                        catch (Exception ex)
-                        {
-                            throw new BizLogicException("No se pudo subir los archivos de solicitudes al destino FTP.", ex);
-                        }
+                                BLFileManager.FtpUploadFile(ftpElementSolActualizacion.Address + ftpElementSolActualizacion.Header, pathFileSolActualizacion, ftpElementSolActualizacion.UserName, ftpElementSolActualizacion.Password);
+                            }
+                            catch (Exception ex)
+                            {
+                                throw new BizLogicException("No se pudo subir los archivos de solicitudes al destino FTP.", ex);
+                            }
                         }
                         pathFileSolCredito = string.Empty;
                         pathFileSolActualizacion = string.Empty;
@@ -365,18 +365,18 @@
                     {
                         throw new BizLogicException("No se pudo generar el archivo para la descarga de Flexipago.", ex);
                     }
-                    
+
                     if (ConfigurationManager.AppSettings["OrderDownloadFtpUpload"] == "1")
                     {
-                    try
-                    {
-                        BLFileManager.FtpUploadFile(ftpElementConsuFlex.Address + ftpElementConsuFlex.Header, pathFileConsuFlex, ftpElementConsuFlex.UserName, ftpElementConsuFlex.Password);
+                        try
+                        {
+                            BLFileManager.FtpUploadFile(ftpElementConsuFlex.Address + ftpElementConsuFlex.Header, pathFileConsuFlex, ftpElementConsuFlex.UserName, ftpElementConsuFlex.Password);
+                        }
+                        catch (Exception ex)
+                        {
+                            throw new BizLogicException("No se pudo subir los archivos de solicitudes al destino FTP.", ex);
+                        }
                     }
-                    catch (Exception ex)
-                    {
-                        throw new BizLogicException("No se pudo subir los archivos de solicitudes al destino FTP.", ex);
-                    }
-                }
                 }
 
                 #endregion
@@ -491,6 +491,10 @@
                 {
                     if (row[field.FieldName] != DBNull.Value)
                     {
+                        if (row[field.FieldName].ToString().Length > field.Size)
+                        {
+                            row[field.FieldName] = row[field.FieldName].ToString().Substring(0,field.Size);
+                        }
                         item = row[field.FieldName].ToString();
                     }
                 }
@@ -539,22 +543,22 @@
         }
         //R20150909 - Fin		   
 
-   public DataTable ReporteSolidCreditDia(int paisID, string codigoRegion, DateTime? fechaInicioSolicitud, DateTime? fechaFinSolicitud)
+        public DataTable ReporteSolidCreditDia(int paisID, string codigoRegion, DateTime? fechaInicioSolicitud, DateTime? fechaFinSolicitud)
         {
-           // var solicitudes = new List<BESolicitudCredito>();
+            // var solicitudes = new List<BESolicitudCredito>();
             DASolicitudCredito daSolicitudCredito = new DASolicitudCredito(paisID);
-            DataTable dtRepRegion= new  DataTable();
+            DataTable dtRepRegion = new DataTable();
             DataSet dsRepRegion = dsRepRegion = daSolicitudCredito.ReporteSolidCreditDia(codigoRegion, fechaInicioSolicitud, fechaFinSolicitud);
 
             try
             {
-                if (dsRepRegion.Tables.Count != 0 ) dtRepRegion = dsRepRegion.Tables[0];
-             }
+                if (dsRepRegion.Tables.Count != 0) dtRepRegion = dsRepRegion.Tables[0];
+            }
             catch (SqlException ex)
             {
                 throw new BizLogicException("No se pudo obtener el set de datos con las Solicitudes.", ex);
             }
- 
+
             return dtRepRegion;
         }
     }

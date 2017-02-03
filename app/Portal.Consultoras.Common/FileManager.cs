@@ -15,6 +15,14 @@ namespace Portal.Consultoras.Common
         {
         }
 
+        public static string GetContenido(string filepath)
+        {
+            using (StreamReader reader = new StreamReader(filepath))
+            {
+                return reader.ReadToEnd();
+            }
+        }
+
         public static void DeleteImages(string root, string filename)
         {
             try

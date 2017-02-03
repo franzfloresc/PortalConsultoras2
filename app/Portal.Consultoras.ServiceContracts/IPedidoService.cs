@@ -915,6 +915,20 @@ namespace Portal.Consultoras.ServiceContracts
         
         [OperationContract]
         List<BEPedidoWeb> GetPedidosFacturadoSegunDias(int paisID, int campaniaID, long consultoraID, int maxDias);
+        //GPR397
+        [OperationContract]
+        void ActualizarIndicadorGPRPedidosRechazados(int PaisID, long ProcesoID);
+
+        [OperationContract]
+        void ActualizarIndicadorGPRPedidosFacturados(int PaisID, long ProcesoID);
+
+        /*EPD-1025*/
+        [OperationContract]
+        BEPedidoDescarga ObtenerUltimaDescargaPedido(int PaisID);
+        
+        [OperationContract]
+        void DeshacerUltimaDescargaPedido(int PaisID);
+        /*EPD-1025*/
 
         [OperationContract]
         int GetCantidadOfertasParaTi(int paisId, int campaniaId, int tipoConfigurado);
@@ -939,5 +953,8 @@ namespace Portal.Consultoras.ServiceContracts
         
         [OperationContract]
         List<BEEstrategia> GetEstrategiaODD(int paisID, int codCampania, string codConsultora, DateTime fechaInicioFact);
+
+        [OperationContract]
+        int ActivarDesactivarEstrategias(int PaisID, string Usuario, string EstrategiasActivas, string EstrategiasDesactivas);
     }
 }

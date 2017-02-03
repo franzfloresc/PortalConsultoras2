@@ -520,7 +520,7 @@ namespace Portal.Consultoras.BizLogic
                         ConfigS3.SetFileS3(dataConFileS3, carpetaPais, Path.GetFileName(dataConFileS3), false, false, true);
                         DAPedidoWeb.UpdConsultoraDescargaGuardoS3(nroLote, true, null, null);
                     }
-                    catch(Exception ex)
+                    catch (Exception ex)
                     {
                         try { DAPedidoWeb.UpdConsultoraDescargaGuardoS3(nroLote, false, "Terminado OK; pero con error al guardar backups en S3", ex.Message + "(" + ex.StackTrace + ")"); }
                         catch (Exception ex2) { LogManager.SaveLog(ex2, usuario, codigoPais); }
@@ -1238,7 +1238,7 @@ namespace Portal.Consultoras.BizLogic
 
         private TemplateField[] ParseTemplate(string templateText, bool descargaActDatosv2 = true)
         {
-            List<string> CamposActDatosv2 = new List<string>{ "TELEFONOTRABAJO", "LATITUD", "LONGITUD"};
+            List<string> CamposActDatosv2 = new List<string> { "TELEFONOTRABAJO", "LATITUD", "LONGITUD" };
             string[] parts = templateText.Split(';');
             var listTemplate = new List<TemplateField>();
             TemplateField templateField;
@@ -1246,7 +1246,7 @@ namespace Portal.Consultoras.BizLogic
             for (int index = 0; index < parts.Length; index++)
             {
                 templateField = new TemplateField(parts[index]);
-                if(!descargaActDatosv2 && CamposActDatosv2.Contains(templateField.FieldName)) continue;
+                if (!descargaActDatosv2 && CamposActDatosv2.Contains(templateField.FieldName)) continue;
                 listTemplate.Add(templateField);
             }
             return listTemplate.ToArray();
@@ -1357,7 +1357,7 @@ namespace Portal.Consultoras.BizLogic
         /*GR2089*/
         public void InsertarLogPedidoWeb(int PaisID, int CampaniaID, string CodigoConsultora, int PedidoId, string Accion, string CodigoUsuario)
         {
-            new DAPedidoWeb(PaisID).InsertarLogPedidoWeb(CampaniaID, CodigoConsultora,PedidoId,Accion, CodigoUsuario);
+            new DAPedidoWeb(PaisID).InsertarLogPedidoWeb(CampaniaID, CodigoConsultora, PedidoId, Accion, CodigoUsuario);
         }
         
         public void UpdDesbloqueoPedido(BEPedidoWeb BEPedidoWeb)
@@ -2017,6 +2017,17 @@ namespace Portal.Consultoras.BizLogic
             new DAPedidoWeb(PaisID).InsLogOfertaFinal(CampaniaID, CodigoConsultora, CUV, cantidad, tipoOfertaFinal, GAP, tipoRegistro);
         }
 
+        public void ActualizarIndicadorGPRPedidosRechazados(int PaisID, long ProcesoID)
+        {
+            DAPedidoWeb DAPedidoWeb = new DAPedidoWeb(PaisID);
+            DAPedidoWeb.ActualizarIndicadorGPRPedidosRechazados(ProcesoID);
+        }
+
+        public void ActualizarIndicadorGPRPedidosFacturados(int PaisID, long ProcesoID)
+        {
+            DAPedidoWeb DAPedidoWeb = new DAPedidoWeb(PaisID);
+            DAPedidoWeb.ActualizarIndicadorGPRPedidosFacturados(ProcesoID);
+        }
         public List<BEPedidoWeb> GetPedidosFacturadoSegunDias(int paisID, int campaniaID, long consultoraID, int maxDias)
         {
             var listaPedidosFacturados = new List<BEPedidoWeb>();
@@ -2031,7 +2042,7 @@ namespace Portal.Consultoras.BizLogic
                     var listaDetalle = new List<BEPedidoWebDetalle>();
 
                     using (IDataReader readerDetalle = DAPedidoWeb.GetPedidosFacturadoDetalle(entidad.PedidoID))
-                    {                        
+                    {
                         while (readerDetalle.Read())
                         {
                             var detalle = new BEPedidoWebDetalle(readerDetalle);
@@ -2042,7 +2053,7 @@ namespace Portal.Consultoras.BizLogic
 
                     entidad.olstBEPedidoWebDetalle = listaDetalle;
 
-                    listaPedidosFacturados.Add(entidad);
+                        listaPedidosFacturados.Add(entidad);
 
                     //var entidad = new BEPedidoWeb(reader);
                     //var entidadDetalle = new BEPedidoWebDetalle(reader);
@@ -2060,12 +2071,32 @@ namespace Portal.Consultoras.BizLogic
                     //    entidad.olstBEPedidoWebDetalle.Add(entidadDetalle);
                     //    listaPedidosFacturados.Add(entidad);
                     //}
-
+                   
                 }
 
             return listaPedidosFacturados;
         }
 
+        /*EPD-1025*/
+        public BEPedidoDescarga ObtenerUltimaDescargaPedido(int PaisID)
+        {
+            BEPedidoDescarga PedidoDescarga = new BEPedidoDescarga();
+            DAPedidoWeb DAPedidoWeb = new DAPedidoWeb(PaisID);
+
+            using (IDataReader reader = DAPedidoWeb.ObtenerUltimaDescargaPedido())
+                while (reader.Read())
+                {
+                    PedidoDescarga = new BEPedidoDescarga(reader);
+                }
+            return PedidoDescarga;
+        }
+
+        public void DeshacerUltimaDescargaPedido(int PaisID)
+        {
+            DAPedidoWeb DAPedidoWeb = new DAPedidoWeb(PaisID);
+            DAPedidoWeb.DesmarcarUltimaDescargaPedido();
+    }
+        /*EPD-1025*/
     }
 
     internal class TemplateField
@@ -2091,14 +2122,4 @@ namespace Portal.Consultoras.BizLogic
         }
     }
 
-    //public static class LinqExtensions
-    //{
-    //    public static void Update<TSource>(this IEnumerable<TSource> outer, Action<TSource> updator)
-    //    {
-    //        foreach (var item in outer)
-    //        {
-    //            updator(item);
-    //        }
-    //    }
-    //}
 }

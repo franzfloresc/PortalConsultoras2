@@ -123,7 +123,7 @@ jQuery(document).ready(function () {
                     }
                 }
             }
-            
+
         });
         return array;
     };
@@ -205,7 +205,7 @@ jQuery(document).ready(function () {
             Handlebars.registerHelper('JSON2string', function (context) {
                 return JSON.stringify(context);
             });
-            
+
             Handlebars.registerHelper('UpperCase', function (context) {
                 return context.toUpperCase();
             });
@@ -303,7 +303,7 @@ jQuery(document).ready(function () {
 
         return pEnteraFinal + pDecimal;
     }
-    
+
     RemoverRepetidos = function (lista, campo) {
         campo = $.trim(campo);
         var newLista = new Array();
@@ -552,7 +552,7 @@ function ActualizarGanancia(data) {
 
     // Los Montos resumen de pedido
     $("[data-ganancia]").html(data.MontoGananciaStr || "");
-    $("[data-ganancia2]").html(vbSimbolo + " " +data.MontoGananciaStr || "");
+    $("[data-ganancia2]").html(vbSimbolo + " " + data.MontoGananciaStr || "");
     $("[data-pedidocondescuento]").html(DecimalToStringFormat(data.TotalPedido - data.MontoDescuento));
     $("[data-montodescuento]").html(vbSimbolo + (data.MontoDescuento == 0 ? " " : " -") + data.MontoDescuentoStr);
     $("[data-pedidototal]").html(vbSimbolo + " " + data.TotalPedidoStr);
@@ -562,7 +562,7 @@ function ActualizarGanancia(data) {
 
     $(".num-menu-shop").html(data.CantidadProductos);
     $(".js-span-pedidoingresado").html(data.TotalPedidoStr);
-    
+
     setTimeout(function () {
         $('.num-menu-shop').addClass('microefecto_color');
         $('[data-cantidadproducto]').parent().addClass('microefecto_color');
@@ -647,6 +647,36 @@ FuncionesGenerales = {
 };
 //R2116-FIN
 
+function InsertarLogDymnamo(pantallaOpcion, opcionAccion, esMobile, extra) {
+    data = {
+        'Fecha': '',
+        'Aplicacion': 'PORTALCONSULTORAS',
+        'Pais': userData.pais,
+        'Region': userData.region,
+        'Zona': userData.zona,
+        'Seccion': userData.seccion,
+        'Rol': 'CO',
+        'Campania': userData.campana,
+        'Usuario': userData.codigoConsultora,
+        'PantallaOpcion': pantallaOpcion,
+        'OpcionAccion': opcionAccion,
+        'DispositivoCategoria': esMobile ? 'MOBILE' : 'WEB',
+        'DispositivoID': '',
+        'Version': '2.0',
+        'Extra': extra
+    }
+
+    jQuery.ajax({
+        type: "POST",
+        async: true,
+        crossDomain: true,
+        url: urlLogDynamo,
+        dataType: "json",
+        data: data,
+        success: function (result) { console.log(result); },
+        error: function (x, xh, xhr) { console.log(x); }
+    });
+}
 
 function InfoCommerceGoogleDestacadoProductClick(name, id, category, variant, position) {
 
@@ -676,21 +706,20 @@ function InfoCommerceGoogleDestacadoProductClick(name, id, category, variant, po
 
 // Pedido Rechazado
 function MensajeEstadoPedido() {
-    //indicadorEnviadoDescarga = "1";
 
     xMensajeEstadoPedido(false);
     if (cerrarRechazado == '1')
         return false;
 
-    if (indicadorEnviadoDescarga != 1 || estaRechazado == '2')
+    if (estaRechazado == 0)
         return false;
-    
+
     $("#bloquemensajesPedido").find(".mensaje_horarioIngresoPedido").html("");
     $("#bloquemensajesPedido").find(".mensaje_horarioIngresoPedido").append((motivoRechazo || "").CodificarHtmlToAnsi());
-    if (estaRechazado == '1') {
+    if (mostrarBannerRechazo == 'True') { //estaRechazado == 2 && motivoRechazo != "") {
         $("#bloquemensajesPedido").find(".mensaje_estadoActualPedido").html("TU PEDIDO HA SIDO RECHAZADO");
     }
-    else if (estaRechazado == '0') {
+    else if (estaRechazado == 1) {
         $("#bloquemensajesPedido").find(".mensaje_estadoActualPedido").html("NOS ENCONTRAMOS FACTURANDO TU PEDIDO C" + $.trim($("#hdCampaniaCodigo").val()).substring(4, 6));
     }
     else {
@@ -698,17 +727,19 @@ function MensajeEstadoPedido() {
     }
     xMensajeEstadoPedido(true);
     MostrarMensajePedidoRechazado();
-    
-    return true;    
+
+    return true;
 }
 
 function xMensajeEstadoPedido(estado) {
     var url = location.href.toLowerCase();
     var identi = url.indexOf("/mobile/") > 0;
+    var wheight = $(window).innerHeight();
     if (estado) {
-        $("#bloquemensajesPedido").slideDown("slow", function () { });
+        $("#bloquemensajesPedido").show();//.slideDown("slow", function () { });
         ResizeMensajeEstadoPedido();
         var wtop = $("#bloquemensajesPedido").height();
+
         if (identi) {
             $("[data-content]").animate({ "top": wtop + "px" });
             $(".footer-page").animate({ "top": wtop + "px" });
@@ -716,13 +747,15 @@ function xMensajeEstadoPedido(estado) {
         else {
             identi = url.indexOf("/bienvenida") > 0;
             if (identi) {
-                $("[data-content]").animate({ "top": wtop + "px" });
+                $(".oscurecer_animacion").css({ "top": wtop + "px", "height": wheight + "px" });
+                //$("[data-content]").animate({ "top": wtop + "px" });
             }
             else {
+                $("#bloquemensajesPedido").slideDown("slow", function () { });
                 wtop = $("header").height();
                 $(".ubicacion_web").animate({ "margin-top": (wtop + 22) + "px" });
             }
-        }    
+        }
     }
     else {
         $("#bloquemensajesPedido").slideUp();
@@ -788,12 +821,17 @@ function cerrarMensajeEstadoPedido() {
 
 function MostrarMensajePedidoRechazado() {
     if (location.pathname.toLowerCase().indexOf("/bienvenida") >= 0) {
-        setTimeout(function () {
-            $(".oscurecer_animacion").hide();
-        }, 1500);
+        //setTimeout(function () {
+        //    $(".oscurecer_animacion").fadeOut(1500);
+        //    var elem = $(".oscurecer_animacion");
+        //    $(elem).remove();
+        //}, 3000);
+
+        $(".oscurecer_animacion").delay(3000).fadeOut(1500);
     }
     else {
-        $(".oscurecer_animacion").hide();
+        // $(".oscurecer_animacion").hide();
+        $("[data-content]").removeClass("oscurecer_animacion");
     }
 }
 

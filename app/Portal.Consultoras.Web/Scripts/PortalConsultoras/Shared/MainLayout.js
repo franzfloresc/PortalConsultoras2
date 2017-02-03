@@ -125,6 +125,19 @@ $(document).ready(function () {
         }
     });
 
+    $('#divMensajeConfirmacion').dialog({
+        autoOpen: false,
+        resizable: false,
+        modal: true,
+        closeOnEscape: true,
+        width: 500,
+        draggable: true,
+        title: "",
+        close: function (event, ui) {
+            $(this).dialog('close');
+        }
+    });
+
     $(".ValidaAlfanumericoCom").keypress(function (evt) {
         var charCode = (evt.which) ? evt.which : window.event.keyCode;
         if (charCode <= 13) {
@@ -1344,3 +1357,22 @@ function getQtyPedidoDetalleByCuvODD(cuv2, tipoEstrategiaID) {
     return qty;
 };
 /*PL20-1226*/
+
+function messageConfirmacion(title, message, fnAceptar) {
+    title = $.trim(title);
+    if (title == "")
+        title = "MENSAJE";
+
+    message = $.trim(message);
+    if (message == "") {
+        return false;
+    }
+
+    $('#divMensajeConfirmacion .divTitle').html(title);
+    $('#divMensajeConfirmacion .divTexto p').html(message);
+    $('#divMensajeConfirmacion').dialog('open');
+    if ($.isFunction(fnAceptar)) {
+        $('#divMensajeConfirmacion .btnMensajeAceptar').off('click');
+        $('#divMensajeConfirmacion .btnMensajeAceptar').on('click', fnAceptar);
+    }
+}

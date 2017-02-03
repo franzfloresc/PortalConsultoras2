@@ -4149,6 +4149,7 @@ table > thead > tr > th {
     margin-bottom: 25px;
     border: 1px solid #60b78d;
     height: 34px;
+    cursor:pointer;
 }
 .btn_facebook_showroom{
     float: left;
@@ -6663,7 +6664,7 @@ input[type="checkbox"]:checked + span:after {
 }
 
 .exclamacion_icono_mobile {
-    background: url("../../../Images/Esika/icono_exclamacion_esika.svg") no-repeat;
+    background: url("../../../Images/Esika/icono_exclamacion_esika.png") no-repeat;
     background-size: cover;
    
 }
@@ -7189,7 +7190,7 @@ input[type="checkbox"]:checked + span:after {
     float: left;
     margin-left: 10px;
     font-family: 'Lato';
-    font-size: 14px;
+    font-size: 13px;
     line-height: 17px;
     color: black;
 }
@@ -9580,7 +9581,7 @@ a{
 
 .oscurecer_animacion{
     position:fixed;
-    z-index:1;
+    z-index:99;
     width:100%;
     height:100%;
     -webkit-animation: opacidad-gestion-pedido 1500ms linear 0ms 1 normal;
