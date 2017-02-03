@@ -2004,5 +2004,21 @@ namespace Portal.Consultoras.Web.Controllers
 
             return model;
         }
+
+        public String GetUrlCompartirFB()
+        {
+            //var urlWs = "";
+            string urlBase_fb = "";
+            if (System.Web.HttpContext.Current.Request.UserAgent != null)
+            {
+                var request = HttpContext.Request;
+
+                //var urlBase_wsp = request.Url.Scheme + "://" + request.Url.Authority + "/Pdto.aspx?id=" + userData.CodigoISO + "_[valor]";
+                //urlWs = urlBase_wsp; //"whatsapp://send?text=" + urlBase_wsp;
+
+                urlBase_fb = request.Url.Scheme + "://" + request.Url.Authority + "/Pdto.aspx?id=" + userData.CodigoISO + "_[valor]";
+            }
+            return urlBase_fb;
+        }
     }
 }

@@ -1013,7 +1013,7 @@
 </script>
 
 <script id="template-fichaproductofav" type="text/x-handlebars-template">
-    <div class="content_ficha_producto_nueva" data-item="catalogopersonalizado">
+    <div class="content_ficha_producto_nueva" data-item="catalogopersonalizado" data-popup-body="">
         <input type="hidden" id="hdCuvFichaProductoFAV" value="{{CUV}}" />
         <input type="hidden" id="hdCuvFichaProductoFAVSelect" value="" />
         <div style="display: none;">
@@ -1039,6 +1039,17 @@
         <div class="content_left_ficha">
             <div class="content_ficha_producto">
                 <img id="fav_imagen_prod" src="{{ImagenProductoSugerido}}" alt="PRODUCTO">
+            </div>
+            <div class="compartir_redes_ficha" style="margin-left: -20px; padding-left: 0px;">
+                <div class="texto_compartelo">Compártelo con tus clientes</div>
+                <a class="btn_compartir_facebook_ficha" href="javascript:void(0);"
+                   onclick='javascript:CompartirFacebook("{{UrlCompartirFB}}",  {Palanca: "FAV", RutaImagen: "{{ImagenProductoSugerido}}", MarcaID:"{{MarcaID}}", MarcaDesc:"{{DescripcionMarca}}", NombrePro:"{{Descripcion}}", Volumen: "{{Volumen}}", DescProducto:"{{DescripcionComercial}}", Cuv:"{{CUV2}}"});'>
+                    <img src="@Url.Content("~/Content/Images/Esika/facebook_ficha.png")" width="7" height="16" />
+                </a>
+                @*<a class="btn_compartir_facebook_ficha" href="javascript:void(0);">
+                    <img src="@Url.Content("~/Content/Images/Esika/mensaje_ficha.png")" width="20" height="15" />
+                </a>*@
+                <hr class="clear" />
             </div>
         </div>
         <div class="content_right_ficha">
