@@ -11,6 +11,7 @@
     <link href="@Url.Content("~/Content/Css/Site/style-pedido.css")" rel="stylesheet" />
 }
 
+<span id="img-tooltip" class="img-tooltip" data-toggle="tooltip" data-placement="right" title="dEMO DEMO DEMO DEM O..." data-animation="false" data-trigger="manual"></span>
 <div class="franja_negra"></div>
 <div class="envolvente_pop_up">
     <div class="pop_pedido" id="pop_liquidacion" style="display: none;">
@@ -2108,9 +2109,9 @@
                     <input type="hidden" class="hdOfertaFinalDescripcionEstrategia" value="{{DescripcionEstrategia}}" />
                 </div>
                 <div class="contenido_item_carrusel_ofertaFinal" style="height:280px;">
-                    <div class="nohely producto_img_home" style="height:115px;">
+                    <div class="nohely producto_img_home" style="height:115px;" data-tooltip-text="Cómpralo porque ya tienes Shampoo Essens...">
                         <img src="{{ImagenProductoSugerido}}" style="height: 100%;">
-                        <i class="img-tooltip" data-toggle="tooltip" data-placement="right" title="Cómpralo porque ya tienes Shampoo Essens..." data-animation="false" data-trigger="manual" />
+                        @*<i class="img-tooltip" data-toggle="tooltip" data-placement="right" title="Cómpralo porque ya tienes Shampoo Essens..." data-animation="false" data-trigger="manual" />*@
                     </div>
 
                     <div class="etiqueta_producto">
