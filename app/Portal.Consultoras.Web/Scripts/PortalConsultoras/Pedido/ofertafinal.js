@@ -119,9 +119,9 @@ function CargandoValoresPopupOfertaFinal(tipoPopupMostrar, montoFaltante, porcen
         $('#spCabeceraMontominimo').show();
         $("#spnMensajeOfertaFinal").html("&nbsp;para poder pasar tu pedido.");
         if (viewBagPaisID == "3") {
-            $("#spnSubTituloOfertaFinal").html("Completa tu pedido con estas ofertas que tenemos solo para ti");
+            $("#spnSubTituloOfertaFinal").html("Compra en oferta los complementos de tu pedido");
         } else if (viewBagPaisID == "11") {
-            $("#spnSubTituloOfertaFinal").html("Completa tu pedido con estos productos que tenemos para ti");
+            $("#spnSubTituloOfertaFinal").html("Compra en oferta los complementos de tu pedido");
         }
     }
     if (tipoOrigen == "2") 
