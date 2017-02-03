@@ -59,6 +59,9 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     OfertaDelDiaModel ofertaDelDia = GetOfertaDelDiaModel();
                     ViewBag.OfertaDelDia = ofertaDelDia;
                     ViewBag.MostrarOfertaDelDia = userData.TieneOfertaDelDia && ofertaDelDia != null && ofertaDelDia.TeQuedan.TotalSeconds > 0;
+
+                    if (userData.CloseOfertaDelDia)
+                        ViewBag.MostrarOfertaDelDia = false;
                 }
                 ViewBag.MostrarBannerPL20 = mostrarBanner;
                 /*FIN: PL20-1289*/
