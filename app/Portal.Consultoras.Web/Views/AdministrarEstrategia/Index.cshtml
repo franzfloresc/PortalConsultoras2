@@ -1242,22 +1242,12 @@
             var flagRecoPerfil = $("#ddlTipoEstrategia option:selected").attr("flag-recoperfil");
             var auxOD = $('#ddlTipoEstrategia').find(':selected').data('id'); // PL20-1225
 
-            /**** PL20-1225 *****/
-            var flagOD = "";
-            if (auxOD == '7' || auxOD == '4') {
-                flagOD = '1';
-            }
-            else {
-                flagOD = '0';
-            }
-            /********/
-
             var params = {
                 CampaniaID: $("#ddlCampania").val(),
                 CUV2: $("#txtCUV2").val(),
                 TipoEstrategiaID: $("#ddlTipoEstrategia").val(),
                 CUV1: "0",
-                flag: flagOD,
+                flag: "1",
                 FlagNueva: flagNueva,
                 FlagRecoProduc: flagRecoProduc,
                 FlagRecoPerfil: flagRecoPerfil
