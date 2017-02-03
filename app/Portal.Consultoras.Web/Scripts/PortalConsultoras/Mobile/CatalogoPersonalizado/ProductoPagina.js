@@ -48,7 +48,6 @@ $(document).ready(function () {
 
 //PL20-1237
 function CompartirWsp(UrlBase) {
-    debugger
     var _id = InsertarProductoCompartido('W');
     UrlBase = UrlBase.replace("[valor]", _id);
 
@@ -112,7 +111,6 @@ function InsertarProductoCompartido(app) {
 }
 
 function CompartirFacebook(urlBase) {
-    debugger
     var _id = InsertarProductoCompartido('F');
     urlBase = urlBase.replace('[valor]', _id);
 
