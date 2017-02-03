@@ -3070,30 +3070,27 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido{
     width:100%;
     margin-bottom:100px;
 }
-
 .contenedor_banners ul{
     height:auto;
     margin:0px;
     padding:0px;
     list-style-type:none;
-}
-
+    }
 .contenedor_banners ul li{
     width:31.7%;
-    /*max-width:256.2px;*/
-    /*height:249px;*/
+            /*max-width:256.2px;*/
+            /*height:249px;*/
     height:auto;
-    /*width:218px;
-    height:211px;*/
-    background:white;
-    /*margin-right:24.5px;*/
+            /*width:218px;
+            height:211px;*/
+            background: white;
+            /*margin-right:24.5px;*/
     margin-right:2.4%;
     float:left;
-}
-
+        }
 .contenedor_banners ul li:nth-child(3){
     margin-right:0px;
-}
+            }
 
 .contenedor_banners ul li .imagen_banner_inferior{
     overflow: hidden;
@@ -3101,15 +3098,15 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido{
 }
 
 .contenedor_banners ul li .nombre_banner_inferior{
-    background:#000;
-    margin-top:9px;
-    height:57px;
-    text-align:center;
-    color:#FFF;
-    font-family:'Lato';
-    font-size:12.9px;
-    letter-spacing:0.8px;
-    line-height:57px;
+                background: #000;
+                margin-top:9px;
+                height: 57px;
+                text-align: center;
+                color: #FFF;
+                font-family: 'Lato';
+                font-size: 12.9px;
+                letter-spacing: 0.8px;
+                line-height: 57px;
     position: relative;
     z-index: 5;
 }
@@ -19505,12 +19502,12 @@ html {
     
 }
 .btn_conoce_mas_aqui {
-    margin-top:18px;
+    margin-top: 18px;
     background: url("/Content/Images/showroom/conoce_mas_aqui_lbel.png") no-repeat;
-    height:25px;
-    text-align:center;
-    width:182px;
-   padding-top:5px;
+    height: 25px;
+    text-align: center;
+    width: 182px;
+    padding-top: 5px;
 }
 /*POP UP SHOWROOM HOY*/
 .btn_conoce_mas_2 {
@@ -19903,16 +19900,12 @@ label.checkpop.c_on {
     /* padding-top: 10px; */
     border: 2px solid #ffffff;
     position: relative;
-    font-weight: 700; color:white;
-    width:148px;
-    height:33px;
-    margin:0 auto;
     margin-top:-16px;
     font-family: 'Lato';
-    font-size:14px;
-    text-align:center;
+    font-size: 14px;
+    text-align: center;
     line-height: 32px;
-    border:2px solid #ffffff;
+    border: 2px solid #ffffff;
 }
 .footerTerminos a{
     background:#f7f7f7;
@@ -19933,8 +19926,8 @@ label.checkpop.c_on {
 }
 .titulo_producto_agregado {
     font-family:'Lato';
-    font-size:18px;
-    text-align:center;
+    font-size: 18px;
+    text-align: center;
     color:black;
 }
 .titulo_producto_agregado span{
@@ -19982,13 +19975,13 @@ label.checkpop.c_on {
     }
 .divAgregarShowRoom .volver_set2 {
    font-weight: bold;
-    background: #613c87 !important;
+    background:#6C398A !important;
     width: 159px;
     display: block;
     padding-top: 8px;
     padding-bottom: 8px;
     color: white;
-    border: 1px solid #e81c36;
+    border: 1px solid #6C398A;
     font-family: 'Lato';
     text-align: center;
     font-size: 14px;
@@ -24713,13 +24706,11 @@ img
     vertical-align: top;
 	text-align:left;
 }
-.cont_pregunta h3
-{
 	font-size:15px;
-	color:#405160;
-	font-weight:600 !important;
-	height:78px;
-   font-family:'Lato';
+        color: #405160;
+        font-weight: 600 !important;
+        height: 78px;
+        font-family: 'Lato';
 }
 .centrar_preguntas
 {
@@ -31608,10 +31599,9 @@ h1#penmostreo .campana {
      width:15%;
      padding-left: 40px;
 }
-.listado_resumen_general{
     width:21%;
-    margin-left:1%;
-    padding-left:2%;
+    margin-left: 1%;
+    padding-left: 2%;
 }
 .icono_resumen_resolucion{
     background: url(../../../Images/Lbel/icono_advertencia_notificacion.png) no-repeat top left;
