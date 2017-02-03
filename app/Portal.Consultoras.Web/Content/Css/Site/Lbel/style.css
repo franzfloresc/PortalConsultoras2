@@ -32018,15 +32018,6 @@ h1#penmostreo .campana {
     z-index: 1;
 }
 
-    .content_pasos::after {
-        position: absolute;
-        content: "";
-        width: 99%;
-        height: 2px;
-        top: 50%;
-        z-index: -1;
-        background: #d1d1d1;
-}
 
 .paso_reclamo {
     width: 36px;
@@ -33923,4 +33914,15 @@ h1#penmostreo .campana {
 .content_tono_detalle:hover .tooltip_tono{
     display:block;
 }
-.tooltip_tono:nth-child(2n+1)
+
+.content_pasos_linea{
+        position: relative;
+        width: 99%;
+        height: 2px;      
+        z-index: 3;
+        left:0;
+        width:310px;
+        margin:0 auto;
+        margin-top:-18px;
+        background: #d1d1d1;
+}
