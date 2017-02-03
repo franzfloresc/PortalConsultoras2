@@ -167,7 +167,7 @@ function UnlinkCargarCatalogoToScroll() {
 }
 
 function CargarCatalogoScroll() {
-    if ($(window).scrollTop() + $(window).height() > ($(document).height() - $('footer').outerHeight()) + 150) {
+    if ($(window).scrollTop() + $(window).height() > ($(document).height() - $('footer').outerHeight())) {
         ValidarCargaCatalogoPersonalizado();
         primerScroll = true;
     }

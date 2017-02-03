@@ -3118,30 +3118,27 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido{
     width:100%;
     margin-bottom:100px;
 }
-
 .contenedor_banners ul{
     height:auto;
     margin:0px;
     padding:0px;
     list-style-type:none;
-}
-
+    }
 .contenedor_banners ul li{
     width:31.7%;
-    /*max-width:256.2px;*/
-    /*height:249px;*/
+            /*max-width:256.2px;*/
+            /*height:249px;*/
     height:auto;
-    /*width:218px;
-    height:211px;*/
-    background:white;
-    /*margin-right:24.5px;*/
+            /*width:218px;
+            height:211px;*/
+            background: white;
+            /*margin-right:24.5px;*/
     margin-right:2.4%;
     float:left;
-}
-
+        }
 .contenedor_banners ul li:nth-child(3){
     margin-right:0px;
-}
+            }
 
 .contenedor_banners ul li .imagen_banner_inferior{
     overflow: hidden;
@@ -3149,15 +3146,15 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido{
 }
 
 .contenedor_banners ul li .nombre_banner_inferior{
-    background:#000;
-    margin-top:9px;
-    height:57px;
-    text-align:center;
-    color:#FFF;
-    font-family:'Lato';
-    font-size:12.9px;
-    letter-spacing:0.8px;
-    line-height:57px;
+                background: #000;
+                margin-top:9px;
+                height: 57px;
+                text-align: center;
+                color: #FFF;
+                font-family: 'Lato';
+                font-size: 12.9px;
+                letter-spacing: 0.8px;
+                line-height: 57px;
     position: relative;
     z-index: 5;
 }
@@ -20053,8 +20050,8 @@ label.checkpop.c_on {
 }
 .titulo_producto_agregado {
     font-family:'Lato';
-    font-size:18px;
-    text-align:center;
+    font-size: 18px;
+    text-align: center;
     color:black;
 }
 .titulo_producto_agregado span{
@@ -31584,10 +31581,9 @@ h1#penmostreo .campana {
      width:15%;
      padding-left: 40px;
 }
-.listado_resumen_general{
     width:21%;
-    margin-left:1%;
-    padding-left:2%;
+    margin-left: 1%;
+    padding-left: 2%;
 }
 .icono_resumen_resolucion{
     background: url(../../../Images/Esika/icono_advertencia_notificacion.png) no-repeat top left;
