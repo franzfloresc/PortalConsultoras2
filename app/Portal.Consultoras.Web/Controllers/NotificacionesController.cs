@@ -336,11 +336,13 @@ namespace Portal.Consultoras.Web.Controllers
                     break;
 
                 case Constantes.GPRMotivoRechazo.MontoMinino:
-                    model.DescripcionRechazo = string.Format("No llegaste al monto mínimo de {0}. {1} ", userData.Simbolo, userData.MontoMinimo);
+                    //model.DescripcionRechazo = string.Format("No llegaste al monto mínimo de {0}. {1} ", userData.Simbolo, userData.MontoMinimo);
+                    model.DescripcionRechazo = string.Format("Luego de haber revisado tu pedido, te informamos que éste no se ha podido facturar porque no cumple con el monto mínimo de {0}. {1}. Te invitamos a añadir más productos y reservar tu pedido el día de hoy para que sea facturado exitosamente.", userData.Simbolo, userData.MontoMinimo);
                     break;
 
                 case Constantes.GPRMotivoRechazo.MontoMaximo:
-                    model.DescripcionRechazo = string.Format("Superaste tu línea de crédito de {0}. {1}.", userData.Simbolo, userData.MontoMaximo);
+                   // model.DescripcionRechazo = string.Format("Superaste tu línea de crédito de {0}. {1}.", userData.Simbolo, userData.MontoMaximo);
+                    model.DescripcionRechazo = string.Format("Luego de haber revisado tu pedido, te informamos que éste no se ha podido facturar por superar el monto máximo permitido de {0}. {1}. Te invitamos a modificar y reservar tu pedido el día de hoy para que sea facturado exitosamente", userData.Simbolo, userData.MontoMaximo);
                     break;
 
                 case Constantes.GPRMotivoRechazo.ValidacionMontoMinimoStock:

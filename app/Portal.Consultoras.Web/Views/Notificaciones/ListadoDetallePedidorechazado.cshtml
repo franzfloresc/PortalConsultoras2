@@ -7,7 +7,7 @@
     <div class="linea_separadora"></div>
     <div class="saludo_gpr">¡Hola @Model.NombreConsultora!</div>
     <div class="cuerpo_gpr">
-        <span>Tu Pedido ha sido rechazado. @Model.DescripcionRechazo</span>
+        <span>@Model.DescripcionRechazo</span>
         <div>
             @{
                 switch (Model.MotivoRechazo)
