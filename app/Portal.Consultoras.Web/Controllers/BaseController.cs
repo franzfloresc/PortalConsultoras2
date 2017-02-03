@@ -74,9 +74,9 @@ namespace Portal.Consultoras.Web.Controllers
                             ViewBag.TieneOfertaDelDia = false;
 
                         // validar si tiene pedido reservado
-                        string msg = string.Empty;
-                        if (ValidarPedidoReservado(out msg))
-                            ViewBag.TieneOfertaDelDia = false;
+                        //string msg = string.Empty;
+                        //if (ValidarPedidoReservado(out msg))
+                        //    ViewBag.TieneOfertaDelDia = false;
                     }
                     /*PL20-1226*/
                 }
