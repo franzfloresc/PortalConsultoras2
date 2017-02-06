@@ -1,5 +1,5 @@
-﻿@using Portal.Consultoras.Web.Areas.Mobile.Models
-@model ClienteMobileModel
+﻿@using Portal.Consultoras.Web.Models
+@model MisCatalogosRevistasModel
 
 @{
     Layout = "~/Areas/Mobile/Views/Shared/_MobileLayout.cshtml";
@@ -210,7 +210,6 @@
 }
 @section scripts{
     <script type="text/javascript">
-
         var imgNoDisponible = '@Url.Content("~/Content/Images/catalogo_no_disponible.jpg")';
         var imgIssuu = '@Portal.Consultoras.Common.Constantes.CatalogoUrlParameters.UrlPart01' + '{img}' + '@Portal.Consultoras.Common.Constantes.CatalogoUrlParameters.UrlPart02Alternativo'
         var codigoIso = '@ViewBag.CodigoISO';
@@ -218,8 +217,13 @@
         var urlObtenerPortadaRevista = '@Url.Action("ObtenerPortadaRevista", "Catalogo", new { area = "Mobile" })';
         var urlIconoClienteAutoCompletar = '@Url.Content("~/Content/Images/Esika/user.jpg")';
         var urlBienvenidaMobile = '@Url.Action("Index", "Bienvenida", new { area = "Mobile" })';
-        var urlEnviarMail = '@Url.Action("EnviarEmail", "Catalogo", new { area = "Mobile" })'
+        var urlEnviarMail = '@Url.Action("EnviarEmail", "MisCatalogosRevistas", new { area = "" })';
         var valContenidoCorreoDefecto = "Hola,\n" + "@Html.Raw(ViewBag.TextoMensajeSaludoCorreo)";
+        var RevistaCodigoIssuu = {
+            '@Model.CampaniaAnterior': '@Model.CodigoRevistaAnterior',
+            '@Model.CampaniaActual': '@Model.CodigoRevistaActual',
+            '@Model.CampaniaSiguiente': '@Model.CodigoRevistaSiguiente'
+        };
     </script>
     <script src="@Url.Content("~/Scripts/slick-vertical.min.js")"></script>
     <script src="@Url.Content("~/Scripts/Tag/jquery.tags.input.js")"></script>
