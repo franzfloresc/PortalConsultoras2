@@ -51,7 +51,12 @@ function CompartirWsp(UrlBase) {
     var _id = InsertarProductoCompartido('W');
     UrlBase = UrlBase.replace("[valor]", _id);
 
-    return UrlBase;
+    UrlBase = UrlBase.ReplaceAll('/', '%2F');
+    UrlBase = UrlBase.ReplaceAll(":", "%3A");
+    UrlBase = UrlBase.ReplaceAll("?", "%3F");
+    UrlBase = UrlBase.ReplaceAll("=", "%3D");
+
+    return "whatsapp://send?text=" + UrlBase;
 }
 
 //PL20-1237
@@ -116,8 +121,6 @@ function CompartirFacebook(urlBase) {
     var url = "http://www.facebook.com/sharer/sharer.php?u=" + urlBase;
 
     window.open(url, 'Facebook', "width=" + popWwidth + ",height=" + popHeight + ",menubar=0,toolbar=0,directories=0,scrollbars=no,resizable=no,left=" + left + ",top=" + top + "");
-
-    //window.open('http://localhost:20267/Pdto.aspx?id=PE_2_F');
 }
 
 //PL20-1269

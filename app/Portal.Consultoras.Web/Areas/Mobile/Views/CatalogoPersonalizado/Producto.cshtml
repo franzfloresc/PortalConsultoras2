@@ -108,13 +108,15 @@ else
                             }
                         </select>
                         <br />
-                        
-                        foreach (var item in Model.Hermanos)
-                        {
+                        <div>
+                           @foreach (var item in Model.Hermanos)
+                            {
                             <div id="fav_tono_@item.CUV" class="content_tono_detalle" onclick="cambiarInfoFichaProductoFAV(1,'@item.CUV',2)">
                                 <img src="@item.ImagenBulk" alt="@item.NombreBulk" />
                             </div>
-                        }
+
+                            }
+                        </div>
 
                         <hr class="clear" />
                     }
@@ -217,8 +219,8 @@ else
             <hr class="clear" />
             <div style="overflow:hidden; margin-bottom:100px;">
                 <div class="texto_comparte">Comparte este producto con tus clientes</div>
-                <a id="btn_wsp" class="btn_compartir_ofertas" href="#"><img src="/Content/Images/Mobile/Esika/catalogo_ws.png" alt=""></a>
-                <a id="btn_fb" class="btn_compartir_ofertas" href="#"> <img src="/Content/Images/Mobile/Esika/facebook.png" alt=""></a>
+                <a id="btn_wsp" class="btn_compartir_ofertas" href="javascript:window.location=CompartirWsp('@urlWs');" data-action="share/whatsapp/share"><img src="/Content/Images/Mobile/Esika/catalogo_ws.png" alt=""></a>
+                <a id="btn_fb" class="btn_compartir_ofertas" href="#" onclick='CompartirFacebook("@urlBase_fb");'> <img src="/Content/Images/Mobile/Esika/facebook.png" alt=""></a>
             </div>
         </div>
         <div class="content_btn_agregar">
@@ -337,8 +339,8 @@ else
 
         <div>
             <div class="texto_comparte">Comparte este producto con tus clientes</div>
-            <a id="btn_wsp" class="btn_compartir_ofertas" href="#"><img src="/Content/Images/Mobile/Esika/catalogo_ws.png" alt=""></a>
-            <a id="btn_fb" class="btn_compartir_ofertas" href="#"> <img src="/Content/Images/Mobile/Esika/facebook.png" alt=""></a>
+            <a id="btn_wsp" class="btn_compartir_ofertas" href="javascript:window.location=CompartirWsp('@urlWs');" data-action="share/whatsapp/share"><img src="/Content/Images/Mobile/Esika/catalogo_ws.png" alt=""></a>
+            <a id="btn_fb" class="btn_compartir_ofertas" href="#" onclick='CompartirFacebook("@urlBase_fb");'> <img src="/Content/Images/Mobile/Esika/facebook.png" alt=""></a>
         </div>
         <hr class="clear" />
         <br />
@@ -426,8 +428,8 @@ else
 
             <div style="overflow:hidden; margin-bottom:100px;">
                 <div class="texto_comparte">Comparte este producto con tus clientes</div>
-                <a id="btn_wsp" class="btn_compartir_ofertas" href="#"><img src="/Content/Images/Mobile/Esika/catalogo_ws.png" alt=""></a>
-                <a id="btn_fb" class="btn_compartir_ofertas" href="#"> <img src="/Content/Images/Mobile/Esika/facebook.png" alt=""></a>
+                <a id="btn_wsp" class="btn_compartir_ofertas" href="javascript:window.location=CompartirWsp('@urlWs');" data-action="share/whatsapp/share"><img src="/Content/Images/Mobile/Esika/catalogo_ws.png" alt=""></a>
+                <a id="btn_fb" class="btn_compartir_ofertas" href="#" onclick='CompartirFacebook("@urlBase_fb");'> <img src="/Content/Images/Mobile/Esika/facebook.png" alt=""></a>
             </div>
         </div>
 
