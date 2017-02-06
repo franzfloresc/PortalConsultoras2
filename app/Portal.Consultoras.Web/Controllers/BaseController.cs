@@ -1982,7 +1982,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             string codigo = null;
             string zonas = ConfigurationManager.AppSettings["RevistaPiloto_Zonas_" + userData.CodigoISO + campania] ?? "";
-            bool esRevistaPiloto = zonas.Split(new char[1] { ',' }).Contains(userData.CodigoZona);
+            bool esRevistaPiloto = zonas.Split(new char[1] { ',' }).Select(zona => zona.Trim()).Contains(userData.CodigoZona);
             if (esRevistaPiloto) codigo = ConfigurationManager.AppSettings["RevistaPiloto_Codigo_" + userData.CodigoISO + campania];
             if (!string.IsNullOrEmpty(codigo)) return codigo;
 
@@ -2014,7 +2014,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             string codigo = null;
             string zonas = ConfigurationManager.AppSettings[nombreCatalogoConfig + "Piloto_Zonas_" + userData.CodigoISO + campania] ?? "";
-            bool esCatalogoPiloto = zonas.Split(new char[1] { ',' }).Contains(userData.CodigoZona);
+            bool esCatalogoPiloto = zonas.Split(new char[1] { ',' }).Select(zona => zona.Trim()).Contains(userData.CodigoZona);
             if (esCatalogoPiloto) codigo = ConfigurationManager.AppSettings[nombreCatalogoConfig + "Piloto_Codigo_" + userData.CodigoISO + campania];
             if (!string.IsNullOrEmpty(codigo)) return codigo;
 
