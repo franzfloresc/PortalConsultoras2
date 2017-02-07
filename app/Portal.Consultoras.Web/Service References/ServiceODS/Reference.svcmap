@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="a04fc7d5-b6dd-4398-9273-1699a1276ba9" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="45068bda-df7e-4af8-b400-2f53297ae154" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
   <ClientOptions>
     <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
     <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
@@ -22,11 +22,11 @@
     <MetadataSource Address="http://localhost:41615/ODSService.svc" Protocol="http" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="ODSService.xsd" MetadataType="Schema" ID="2a4a8b61-60f0-4c34-be51-0fa405aa599f" SourceId="1" SourceUrl="http://localhost:41615/ODSService.svc?xsd=xsd1" />
-    <MetadataFile FileName="ODSService1.xsd" MetadataType="Schema" ID="c3d6700f-541f-4b04-a84f-8722bc1a8337" SourceId="1" SourceUrl="http://localhost:41615/ODSService.svc?xsd=xsd2" />
-    <MetadataFile FileName="ODSService.wsdl" MetadataType="Wsdl" ID="8892595d-1a90-40ea-8730-9246c1fbec26" SourceId="1" SourceUrl="http://localhost:41615/ODSService.svc?wsdl" />
-    <MetadataFile FileName="ODSService.disco" MetadataType="Disco" ID="c543d313-baa6-4c02-936e-229217d6c41e" SourceId="1" SourceUrl="http://localhost:41615/ODSService.svc?disco" />
-    <MetadataFile FileName="ODSService2.xsd" MetadataType="Schema" ID="77914984-d63b-4fd1-8c45-48ccd2121ea5" SourceId="1" SourceUrl="http://localhost:41615/ODSService.svc?xsd=xsd0" />
+    <MetadataFile FileName="ODSService.xsd" MetadataType="Schema" ID="8713fca8-df7e-4075-948f-5c15f5bb16dd" SourceId="1" SourceUrl="http://localhost:41615/ODSService.svc?xsd=xsd1" />
+    <MetadataFile FileName="ODSService1.xsd" MetadataType="Schema" ID="a3d36af5-0c08-4abc-9068-440d69eb7c90" SourceId="1" SourceUrl="http://localhost:41615/ODSService.svc?xsd=xsd2" />
+    <MetadataFile FileName="ODSService.wsdl" MetadataType="Wsdl" ID="7042b7b8-e283-4720-b202-6651f5a5cfd0" SourceId="1" SourceUrl="http://localhost:41615/ODSService.svc?wsdl" />
+    <MetadataFile FileName="ODSService.disco" MetadataType="Disco" ID="82271892-68b6-471e-ab6a-dcdfd82d9dfd" SourceId="1" SourceUrl="http://localhost:41615/ODSService.svc?disco" />
+    <MetadataFile FileName="ODSService2.xsd" MetadataType="Schema" ID="69aead5e-bd13-43d7-8b1b-782eb8e724c8" SourceId="1" SourceUrl="http://localhost:41615/ODSService.svc?xsd=xsd0" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />

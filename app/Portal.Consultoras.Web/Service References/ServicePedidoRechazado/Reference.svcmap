@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="86c32b7b-99e9-4505-a693-3112d2ea283d" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="68537bc6-f6d1-4e3d-aa72-80565cc20140" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
   <ClientOptions>
     <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
     <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
@@ -22,11 +22,11 @@
     <MetadataSource Address="http://localhost:41615/PedidoRechazadoService.svc" Protocol="http" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="PedidoRechazadoService.xsd" MetadataType="Schema" ID="2c29c3e4-9fed-48d2-92b0-4fdd5d8f3774" SourceId="1" SourceUrl="http://localhost:41615/PedidoRechazadoService.svc?xsd=xsd0" />
-    <MetadataFile FileName="PedidoRechazadoService.wsdl" MetadataType="Wsdl" ID="7efe5922-56a2-4ace-840a-82a8615855de" SourceId="1" SourceUrl="http://localhost:41615/PedidoRechazadoService.svc?wsdl" />
-    <MetadataFile FileName="PedidoRechazadoService.disco" MetadataType="Disco" ID="b79fa2ef-e67b-4122-a1bf-3f109384d044" SourceId="1" SourceUrl="http://localhost:41615/PedidoRechazadoService.svc?disco" />
-    <MetadataFile FileName="PedidoRechazadoService1.xsd" MetadataType="Schema" ID="5222f5bc-d10b-4c22-bd00-042a5adbc834" SourceId="1" SourceUrl="http://localhost:41615/PedidoRechazadoService.svc?xsd=xsd2" />
-    <MetadataFile FileName="PedidoRechazadoService2.xsd" MetadataType="Schema" ID="3459aaad-fadb-4ca1-b696-02cf9c7339a5" SourceId="1" SourceUrl="http://localhost:41615/PedidoRechazadoService.svc?xsd=xsd1" />
+    <MetadataFile FileName="PedidoRechazadoService.xsd" MetadataType="Schema" ID="7f4ec5fc-e6f4-4199-a9b5-9c65091793f4" SourceId="1" SourceUrl="http://localhost:41615/PedidoRechazadoService.svc?xsd=xsd0" />
+    <MetadataFile FileName="PedidoRechazadoService.wsdl" MetadataType="Wsdl" ID="58de2abd-5e5b-4fbc-8d94-0f9b84b1b9a3" SourceId="1" SourceUrl="http://localhost:41615/PedidoRechazadoService.svc?wsdl" />
+    <MetadataFile FileName="PedidoRechazadoService.disco" MetadataType="Disco" ID="73120a11-cf62-4c20-bfb2-9a4782b929e9" SourceId="1" SourceUrl="http://localhost:41615/PedidoRechazadoService.svc?disco" />
+    <MetadataFile FileName="PedidoRechazadoService1.xsd" MetadataType="Schema" ID="5a8c94d2-672b-43c7-8452-867ec3ef21eb" SourceId="1" SourceUrl="http://localhost:41615/PedidoRechazadoService.svc?xsd=xsd2" />
+    <MetadataFile FileName="PedidoRechazadoService2.xsd" MetadataType="Schema" ID="e501d06d-cb2b-4ee4-90cb-4de6d49cd5c8" SourceId="1" SourceUrl="http://localhost:41615/PedidoRechazadoService.svc?xsd=xsd1" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />

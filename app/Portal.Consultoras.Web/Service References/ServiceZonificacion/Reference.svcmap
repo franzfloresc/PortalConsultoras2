@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="21eaa752-0a30-4af7-a66e-0235b01bd088" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="e547652b-3bb2-45df-b8e0-6f5083c959ff" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
   <ClientOptions>
     <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
     <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
@@ -22,11 +22,11 @@
     <MetadataSource Address="http://localhost:41615/ZonificacionService.svc" Protocol="http" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="ZonificacionService.disco" MetadataType="Disco" ID="1844e13e-e8dd-4686-90de-a7998f20184d" SourceId="1" SourceUrl="http://localhost:41615/ZonificacionService.svc?disco" />
-    <MetadataFile FileName="ZonificacionService.xsd" MetadataType="Schema" ID="4a7d491a-79a4-4473-a360-bbbc7812edd3" SourceId="1" SourceUrl="http://localhost:41615/ZonificacionService.svc?xsd=xsd2" />
-    <MetadataFile FileName="ZonificacionService.wsdl" MetadataType="Wsdl" ID="923d86cf-1c68-404e-bee8-93e58a58c9fe" SourceId="1" SourceUrl="http://localhost:41615/ZonificacionService.svc?wsdl" />
-    <MetadataFile FileName="ZonificacionService1.xsd" MetadataType="Schema" ID="d83c7dad-1927-449f-8a00-d9a83ce22ec2" SourceId="1" SourceUrl="http://localhost:41615/ZonificacionService.svc?xsd=xsd1" />
-    <MetadataFile FileName="ZonificacionService2.xsd" MetadataType="Schema" ID="93b10e7c-72b9-473b-b98c-636dfd69a69f" SourceId="1" SourceUrl="http://localhost:41615/ZonificacionService.svc?xsd=xsd0" />
+    <MetadataFile FileName="ZonificacionService.disco" MetadataType="Disco" ID="6809e5fa-0df1-4211-a1cf-b1aba184ca50" SourceId="1" SourceUrl="http://localhost:41615/ZonificacionService.svc?disco" />
+    <MetadataFile FileName="ZonificacionService.xsd" MetadataType="Schema" ID="e9e5476f-edec-42ec-8e34-1d5dab09f50b" SourceId="1" SourceUrl="http://localhost:41615/ZonificacionService.svc?xsd=xsd2" />
+    <MetadataFile FileName="ZonificacionService.wsdl" MetadataType="Wsdl" ID="7f783a04-8570-4192-8042-f8b28222eb14" SourceId="1" SourceUrl="http://localhost:41615/ZonificacionService.svc?wsdl" />
+    <MetadataFile FileName="ZonificacionService1.xsd" MetadataType="Schema" ID="742ef38a-28b5-433d-b69f-4a9a4100e446" SourceId="1" SourceUrl="http://localhost:41615/ZonificacionService.svc?xsd=xsd1" />
+    <MetadataFile FileName="ZonificacionService2.xsd" MetadataType="Schema" ID="e1bc0ff0-fb55-4e75-89e9-f01bce780f9f" SourceId="1" SourceUrl="http://localhost:41615/ZonificacionService.svc?xsd=xsd0" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
