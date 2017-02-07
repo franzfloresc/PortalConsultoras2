@@ -108,7 +108,7 @@
         <div class="Label_compartir">Mensaje (Editable):</div>
         <hr class="clear" />
 
-        <textarea name="comentarios" class="text_compartir" id="comentarios" maxlength="500">Hola, Revisa los catálogos de esta campaña y comunícate conmigo si estás interesada en algunos de los productos.
+        <textarea name="comentarios" class="text_compartir" id="comentarios" maxlength="500">
         </textarea>
         <div class="Label_compartir">Catálogos a enviar:</div>
         <hr class="clear" />
@@ -217,7 +217,7 @@
         var urlIconoClienteAutoCompletar = '@Url.Content("~/Content/Images/Esika/user.jpg")';
         var urlBienvenidaMobile = '@Url.Action("Index", "Bienvenida", new { area = "Mobile" })';
         var urlEnviarMail = '@Url.Action("EnviarEmail", "MisCatalogosRevistas", new { area = "" })';
-
+        var valContenidoCorreoDefecto = "Hola,\n" + "@Html.Raw(ViewBag.TextoMensajeSaludoCorreo)";
         var RevistaCodigoIssuu = {
             '@Model.CampaniaAnterior': '@Model.CodigoRevistaAnterior',
             '@Model.CampaniaActual': '@Model.CodigoRevistaActual',

@@ -18,6 +18,8 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 {
     public class CatalogoController : BaseMobileController
     {
+        private const string TextoMensajeSaludoCorreo = "Revisa los catálogos de esta campaña y comunícate conmigo si estás interesada en algunos de los productos.";
+
         public ActionResult Index()
         {
             var clienteModel = new MisCatalogosRevistasModel();
@@ -36,7 +38,9 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
             string PaisesCatalogoWhatsUp = ConfigurationManager.AppSettings.Get("PaisesCatalogoWhatsUp") ?? string.Empty;
             ViewBag.ActivacionAppCatalogoWhastUp = PaisesCatalogoWhatsUp.Contains(userData.CodigoISO) ? 1 : 0;
-            
+
+            ViewBag.TextoMensajeSaludoCorreo = TextoMensajeSaludoCorreo;
+
             return View(clienteModel);
         }
 
@@ -89,6 +93,8 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         }
 		
         [HttpPost]
+
+
         public JsonResult ObtenerPortadaRevista(string codigoRevista)
         {
             var url = string.Empty;
