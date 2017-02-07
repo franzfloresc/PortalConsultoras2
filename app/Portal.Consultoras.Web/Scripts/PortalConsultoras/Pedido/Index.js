@@ -458,6 +458,9 @@ $(document).ready(function () {
             MostrarMensajeProl(response);
         }
     });
+    $('#producto-faltante-busqueda-cuv, #producto-faltante-busqueda-descripcion').on('keypress', function (e) {
+        if (e.which == 13) CargarProductoAgotados();
+    });
 
     $(document).on('click', '#idImagenCerrar', function (e) {
         $(this).parent().remove();

@@ -1,5 +1,4 @@
 ﻿$(document).ready(function () {
-
     history.pushState(null, null, document.location.href);
     window.addEventListener('popstate', function () {
         history.pushState(null, null, document.location.href);
@@ -51,6 +50,25 @@
         if (accion === "page" || accion === "rows") {
             CambioPagina(obj);
         }
+    });
+
+    $('.ValidaNumeralPedido').live('keyup', function (evt) {
+        var theEvent = evt || window.event;
+        var key = theEvent.keyCode || theEvent.which;
+        key = String.fromCharCode(key);
+        var regex = /[0-9]|\./;
+        if (!regex.test(key)) {
+            theEvent.returnValue = false;
+            if (theEvent.preventDefault) theEvent.preventDefault();
+        }
+    });
+    $('.ValidaNumeralPedido').live('keypress', function (e) {
+        if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+            return false;
+        }
+    });
+    $('#producto-faltante-busqueda-cuv, #producto-faltante-busqueda-descripcion').on('keypress', function (e) {
+        if (e.which == 13) CargarProductoAgotados();
     });
 
     CargarListado();

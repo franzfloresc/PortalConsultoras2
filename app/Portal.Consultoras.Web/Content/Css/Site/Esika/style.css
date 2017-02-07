@@ -33975,10 +33975,8 @@ h1#penmostreo .campana {
     width: 40px;
     height: 32px;
     border: 1px solid #ccc;
-    border-left: 0;
     /* display: block; */
     vertical-align: middle;
-    margin-left: -18px;
     margin-top: -3px;
 }
 .buscar_icono:hover{
