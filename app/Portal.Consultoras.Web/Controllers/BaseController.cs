@@ -682,7 +682,6 @@ namespace Portal.Consultoras.Web.Controllers
 
             ViewBag.Usuario = "Hola, " + (string.IsNullOrEmpty(model.Sobrenombre) ? model.NombreConsultora : model.Sobrenombre);
             ViewBag.Rol = model.RolID;
-            ViewBag.ListaProductoFaltante = model.ListaProductoFaltante;
             ViewBag.Campania = NombreCampania(model.NombreCorto);
             ViewBag.CampaniaCodigo = model.CampaniaID;
             ViewBag.BanderaImagen = model.BanderaImagen;
@@ -1123,7 +1122,6 @@ namespace Portal.Consultoras.Web.Controllers
                 model.ZonaValida = oBEUsuario.ZonaValida;
                 model.Simbolo = oBEUsuario.Simbolo;
                 model.CodigoTerritorio = oBEUsuario.CodigoTerritorio;
-                model.ListaProductoFaltante = GetModelPedidoAgotado(model.PaisID, model.CampaniaID, model.ZonaID);
                 model.HoraCierreZonaDemAnti = oBEUsuario.HoraCierreZonaDemAnti;
                 model.HoraCierreZonaNormal = oBEUsuario.HoraCierreZonaNormal;
                 model.ZonaHoraria = oBEUsuario.ZonaHoraria;
@@ -1260,12 +1258,16 @@ namespace Portal.Consultoras.Web.Controllers
             return model;
         }
 
-        private List<BEProductoFaltante> GetProductosFaltantes(int PaisID, int CampaniaID, int ZonaID)
+        protected List<BEProductoFaltante> GetProductosFaltantes()
+        {
+            return this.GetProductosFaltantes("", "");
+        }
+        protected List<BEProductoFaltante> GetProductosFaltantes(string cuv, string descripcion)
         {
             List<BEProductoFaltante> olstProductoFaltante = new List<BEProductoFaltante>();
             using (SACServiceClient sv = new SACServiceClient())
             {
-                olstProductoFaltante = sv.GetProductoFaltanteByCampaniaAndZonaID(PaisID, CampaniaID, ZonaID).ToList();
+                olstProductoFaltante = sv.GetProductoFaltanteByCampaniaAndZonaID(userData.PaisID, userData.CampaniaID, userData.ZonaID, cuv, descripcion).ToList();
             }
             return olstProductoFaltante;
         }
@@ -1869,16 +1871,6 @@ namespace Portal.Consultoras.Web.Controllers
             var campAct = CampaniaActual.Substring(4, 2);
             if (campAct == nroCampanias.ToString()) return "01";
             return (Convert.ToInt32(campAct) + 1).ToString().PadLeft(2, '0');
-        }
-
-        public List<ServiceSAC.BEProductoFaltante> GetModelPedidoAgotado(int PaisID, int CampaniaID, int ZonaID)
-        {
-            List<ServiceSAC.BEProductoFaltante> olstProductoFaltante = new List<ServiceSAC.BEProductoFaltante>();
-            using (ServiceSAC.SACServiceClient sv = new ServiceSAC.SACServiceClient())
-            {
-                olstProductoFaltante = sv.GetProductoFaltanteByCampaniaAndZonaID(PaisID, CampaniaID, ZonaID).ToList();
-            }
-            return olstProductoFaltante;
         }
 
         public String GetFechaPromesaEntrega(int PaisId, int CampaniaId, string CodigoConsultora, DateTime FechaFact)

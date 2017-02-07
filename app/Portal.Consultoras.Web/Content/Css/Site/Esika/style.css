@@ -4118,17 +4118,17 @@ a.subir_carousel, a.bajar_carousel {
     margin: -294.5px auto 0 auto;
     background: #fff;
     width: 100%;
-    max-width: 547px;
+    max-width: 800px;
     height: auto;
     padding-top: 56px;
     box-sizing: border-box;
 }
 
     .popup_productosAgotados .contenedor_lista_productosAgotados {
-    margin: 0 auto;
-    width: 455px;
-    margin-bottom: 58px;
-}
+        margin: 0 auto;
+        width: 710px;
+        margin-bottom: 58px;
+    }
 
         .popup_productosAgotados .contenedor_lista_productosAgotados h6 {
             display: block;

@@ -714,11 +714,14 @@
         <xs:sequence>
           <xs:element minOccurs="0" name="CUV" nillable="true" type="xs:string" />
           <xs:element minOccurs="0" name="CampaniaID" type="xs:int" />
+          <xs:element minOccurs="0" name="Catalogo" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Categoria" nillable="true" type="xs:string" />
           <xs:element minOccurs="0" name="Codigo" nillable="true" type="xs:string" />
           <xs:element minOccurs="0" name="Descripcion" nillable="true" type="xs:string" />
           <xs:element minOccurs="0" name="Estado" type="xs:int" />
           <xs:element minOccurs="0" name="FaltanteUltimoMinuto" type="xs:boolean" />
           <xs:element minOccurs="0" name="Fecha" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="NumeroPagina" type="xs:int" />
           <xs:element minOccurs="0" name="PaisID" type="xs:int" />
           <xs:element minOccurs="0" name="Zona" nillable="true" type="xs:string" />
           <xs:element minOccurs="0" name="ZonaID" type="xs:int" />

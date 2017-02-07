@@ -67,12 +67,9 @@ namespace Portal.Consultoras.Entities
 
         public BEProductoFaltante(IDataRecord datarec)
         {
-            if (DataRecord.HasColumn(datarec, "RowNumber")) //R1957
-                rowID = Convert.ToString(datarec["RowNumber"]);
-            if (DataRecord.HasColumn(datarec, "CampaniaID"))
-                CampaniaID = Convert.ToInt32(datarec["CampaniaID"]);
-            if (DataRecord.HasColumn(datarec, "CUV"))
-                CUV = Convert.ToString(datarec["CUV"]);
+            if (DataRecord.HasColumn(datarec, "RowNumber")) rowID = Convert.ToString(datarec["RowNumber"]);
+            if (DataRecord.HasColumn(datarec, "CampaniaID")) CampaniaID = Convert.ToInt32(datarec["CampaniaID"]);
+            if (DataRecord.HasColumn(datarec, "CUV")) CUV = Convert.ToString(datarec["CUV"]);
             if (DataRecord.HasColumn(datarec, "ZonaID")) ZonaID = Convert.ToInt32(datarec["ZonaID"]);
             if (DataRecord.HasColumn(datarec, "Zona")) Zona = Convert.ToString(datarec["Zona"]);
             if (DataRecord.HasColumn(datarec, "Descripcion")) Descripcion = Convert.ToString(datarec["Descripcion"]);
