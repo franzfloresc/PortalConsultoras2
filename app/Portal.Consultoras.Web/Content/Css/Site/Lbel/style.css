@@ -3228,30 +3228,27 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido {
     width: 100%;
     margin-bottom: 100px;
 }
-
     .contenedor_banners ul {
         height: auto;
         margin: 0px;
         padding: 0px;
         list-style-type: none;
-}
-
+    }
         .contenedor_banners ul li {
             width: 31.7%;
-    /*max-width:256.2px;*/
-    /*height:249px;*/
+            /*max-width:256.2px;*/
+            /*height:249px;*/
             height: auto;
-    /*width:218px;
-    height:211px;*/
-            background: #CCC;
-    /*margin-right:24.5px;*/
+            /*width:218px;
+            height:211px;*/
+            background: white;
+            /*margin-right:24.5px;*/
             margin-right: 2.4%;
             float: left;
-}
-
+        }
             .contenedor_banners ul li:nth-child(3) {
                 margin-right: 0px;
-}
+            }
 
 .contenedor_banners ul li .imagen_banner_inferior{
     overflow: hidden;
