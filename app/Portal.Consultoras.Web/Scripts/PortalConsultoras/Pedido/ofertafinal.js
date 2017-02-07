@@ -39,14 +39,14 @@ function MostrarPopupOfertaFinal(cumpleOferta, tipoPopupMostrar) {
         $('#divCarruselOfertaFinal').slick({
             infinite: true,
             vertical: false,
-            slidesToShow: 1,
+            slidesToShow: 3,
             slidesToScroll: 1,
             autoplay: false,
             centerMode: false,
             centerPadding: '0',
             tipo: 'p', // popup
-            prevArrow: '<a class="previous_ofertas js-slick-prev-of" style="left:-10%;" ><img src="/Content/Images/Esika/previous_ofertas_home.png" style="width:100%; height:auto;" alt="" /></a>',
-            nextArrow: '<a class="previous_ofertas next js-slick-next-of" style="right:-9.7%;"><img src="/Content/Images/Esika/next.png" style="width:100%; height:auto;" alt="" /></a>'
+            prevArrow: '<a class="previous_ofertas js-slick-prev-of" style="left:-5%;" ><img src="/Content/Images/Esika/previous_ofertas_home.png" style="width:100%; height:auto;" alt="" /></a>',
+            nextArrow: '<a class="previous_ofertas next js-slick-next-of" style="right:-5%; text-align:right;"><img src="/Content/Images/Esika/next.png" style="width:100%; height:auto;" alt="" /></a>'
         });
     }
     $('#divCarruselOfertaFinal').prepend($(".js-slick-prev-" + aux));
@@ -57,6 +57,20 @@ function MostrarPopupOfertaFinal(cumpleOferta, tipoPopupMostrar) {
     //var contenedorMostrarInicial = $(".content_item_carrusel_ofertaFinal.slick-active")[0];
     //var cuvMostrado = $(contenedorMostrarInicial).find(".hdOfertaFinalCuv").val();
     AgregarOfertaFinalLog("", 0, tipoOfertaFinal_Log, gap_Log, 2);
+
+    $(".nohely").on('mousemove', function (e) {
+        var texto = $(e.target).attr('data-tooltip-text');
+        $("#img-tooltip").attr('data-original-title', texto);
+        var p = $("#img-tooltip").attr('aria-describedby');
+        $('#' + p).css("z-index",10000);
+        $("#img-tooltip").css({ top: e.pageY - 150, left: e.pageX + 5});
+        $('[data-toggle="tooltip"]').tooltip('show');
+    });
+
+    $(".nohely").on('mouseleave', function (e) {
+        console.log('mouseleave');
+        $('[data-toggle="tooltip"]').tooltip('hide');
+    });
 }
 
 function CargandoValoresPopupOfertaFinal(tipoPopupMostrar, montoFaltante, porcentajeDescuento) {
@@ -104,15 +118,15 @@ function CargandoValoresPopupOfertaFinal(tipoPopupMostrar, montoFaltante, porcen
     else {
         $("#divIconoOfertaFinal").removeClass("icono_aprobacion");
         $("#divIconoOfertaFinal").addClass("icono_exclamacion");
-        $("#spnTituloOfertaFinal").html("TODAVÍA<b>&nbsp;TE FALTA UN POCO...</b>");
+        $("#spnTituloOfertaFinal").html("<b>LO SENTIMOS...</b>&nbsp; NO PUDIMOS GUARDAR TU PEDIDO");
         $("#spnMontoFaltanteOfertaFinal").html(formatoMontoFaltante);
         $('#spMontoMinimoCabecera').html(montoMinimo);
         $('#spCabeceraMontominimo').show();
         $("#spnMensajeOfertaFinal").html("&nbsp;para poder pasar tu pedido.");
         if (viewBagPaisID == "3") {
-            $("#spnSubTituloOfertaFinal").html("Completa tu pedido con estas ofertas que tenemos solo para ti");
+            $("#spnSubTituloOfertaFinal").html("Compra en oferta los complementos de tu pedido");
         } else if (viewBagPaisID == "11") {
-            $("#spnSubTituloOfertaFinal").html("Completa tu pedido con estos productos que tenemos para ti");
+            $("#spnSubTituloOfertaFinal").html("Compra en oferta los complementos de tu pedido");
         }
     }
     if (tipoOrigen == "2") 
@@ -210,6 +224,7 @@ function validarOfertaFinalGanMas() {
 
     return mostrar;
 }
+
 /*EPD-991*/
 
 function CumpleParametriaOfertaFinal(montoPedido, montoEscala, tipoPopupMostrar, codigoMensajeProl, listaObservacionesProl) {

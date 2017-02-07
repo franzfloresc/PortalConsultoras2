@@ -262,10 +262,30 @@
 <!--CATALOGO PERSONALIZADO-->
 @if (Model.CatalogoPersonalizadoDesktop != 0 && Model.EsCatalogoPersonalizadoZonaValida)
 {
-    <div class="content-favclientes content_carrusel_agregado" id="divMainCatalogoPersonalizado" style="display:none;">
-        <div class="pestania"><h5><b>LOS FAVORITOS</b> DE TUS CLIENTES ESTA CAMPAÑA</h5><div class="imagen-curvatura"></div></div>
-        <a class="ver_mas_favoritos" style="z-index:inherit;" href="@Url.Action("Index", "CatalogoPersonalizado")">Ver más +</a>
-        <div id="divCatalogoPersonalizado"></div>
+    <div class="content_belcorp">
+        <div class="content-favclientes content_carrusel_agregado" id="divMainCatalogoPersonalizado" style="display:none;">
+            <div class="linea_separadora"></div>
+            @*<div class="pestania"><h5><b>LOS FAVORITOS</b> DE TUS CLIENTES ESTA CAMPAÑA</h5><div class="imagen-curvatura"></div></div>
+
+                <a class="ver_mas_favoritos" style="z-index:inherit;" href="@Url.Action("Index", "CatalogoPersonalizado")">Ver más +</a>*@
+            <div class="banner_favoritos_home">
+                <div class="titulo_banner_fav">
+                    @(Model.NombreConsultora.ToUpper()), estos son los 
+                    <span class="texto_altas_fav">FAVORITOS</span> 
+                    <span class="texto_2_fav">DE TUS CLIENTES</span>
+                </div>
+                <div class="content_imagen_fav">
+                    <img style="width:100%;" src="@ViewBag.UrlImagenFAVHome" alt="favoritos" />
+                </div>
+                <div class="texto_inf_banner">Porque conocemos a tus clientes, seleccionamos los productos que podrás venderles fácilmente</div>
+                <hr class="clear" />
+                <a class="btn_ver_mas_fav" href="@Url.Action("Index","CatalogoPersonalizado")" >VER MÁS PRODUCTOS</a>
+            </div>
+            <div id="divCatalogoPersonalizado" style="width:74%;float:left;"></div>
+            <hr class="clear" />
+
+        </div>
+
     </div>
 }
 
@@ -1386,6 +1406,49 @@
         <input id="btnAgregarCUVBannerPedidoSi" type="button" value="ACEPTAR" onclick="AgregarCUVBannerPedido()" class="input_modifica_horizontal" style="width: 100px; margin-left: 20px;" />
     </div>
 </div>
+<!--NUEVO POP UP OPT-->
+<div id="PopNuevoOPT" class="Content_general_pop_up" style="display: none;">
+    <div class="content_ficha_producto_nueva" data-popup-body="">        
+        <a class="cerrar_fichaProducto" href="javascript:;" onclick="javascript: $('#PopNuevoOPT').hide();">
+            <img src="/Content/Images/cerrar_04_blanco.png" alt=" alternate text">
+        </a>
+        <div class="content_left_ficha">
+            <div class="content_ficha_producto">
+                <img id="fav_imagen_prod" src="https://s3-sa-east-1.amazonaws.com/appcatalogo/PE/201703/L/productos/PE_200083940.jpg" alt="PRODUCTO">
+            </div>
+            <div class="compartir_redes_ficha" style="padding-left:0;margin-left: -16px;">
+                <div class="texto_compartelo">Compártelo con tus clientes</div>
+                <a class="btn_compartir_facebook_ficha"><img src="/Content/Images/Esika/facebook_ficha.png" width="7" height="16"></a>
+                <a class="btn_compartir_facebook_ficha"><img src="/Content/Images/Esika/mensaje_ficha.png" width="20" height="15"></a>
+                <hr class="clear">
+            </div>
+        </div>
+        <div class="content_right_ficha">
+            <div id="fav_nombre_prod" class="titulo_ficha_producto">Devos Magnetic</div>
+            <div class="precio_ficha_producto">
+                S/. 124.00
+                <span class="producto_precio_normal"> S/. 124as.00</span>
+                S/. 124asw.00
+            </div>
+            <div class="liquidacion_rango_home">
+                <input type="text" value="1" size="2" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" data-input="cantidad" data-cantidad-input="-">
+                <div class="liquidacion_rango_right_pedido">
+                    <a class="mas" data-cantidad-agregar="+"><img src="/Content/Images/Esika/mas.png" alt=""></a>
+                    <a class="menos" data-cantidad-agregar="-"><img src="/Content/Images/Esika/menos.png" alt=""></a>
+                </div>
+            </div>
+            <a class="boton_Agregalo_home ficha_btn_agregar" onclick="agregarCuvPedidoFichaProductoFAV(1)" style="cursor: pointer;">
+                AGRÉGALO
+            </a>
+            <div class="notificacion_cantidad">Limitado a 5 packs por consultora</div>
+            <div class="mensaje_advertencia_detalleCarousel">
+                <span class="icono_advertencia_notificacion"></span>
+                <span>TextoLibre</span>
+            </div>
+        </div>
+    </div>
+</div>
+<!--FIN-->
 
 <script id="estrategia-template" type="text/x-handlebars-template">
     {{#each this as |item|}}
@@ -1541,7 +1604,7 @@
 </script>
 
 <script id="packnuevas-template" type="text/x-handlebars-template">
-    <div class="popup_detalleCarousel packNuevas">
+    <div class="popup_detalleCarousel packNuevas" data-popup-body="">
         <div class="btn_cerrar_detalleCarousel">
             <a href="javascript:;" onclick="return $('#popupDetalleCarousel_packNuevas').hide();" title="Cerrar">
                 <img src="@Url.Content("~/Content/Images/btn_cerrar_popup.svg")" alt="Cerrar" />
@@ -1605,8 +1668,66 @@
     </div>
 </script>
 
+
 <script id="lanzamiento-template" type="text/x-handlebars-template">
-    <div class="popup_detalleCarousel lanzamiento">
+    <div class="content_ficha_producto_nueva" data-popup-body="">
+        <a class="cerrar_fichaProducto" href="javascript:;" onclick="return $('#popupDetalleCarousel_lanzamiento').hide();" title="Cerrar">
+            <img src="/Content/Images/cerrar_04_blanco.png" alt="Cerrar">
+        </a>
+        <div data-item="">
+            <input type="hidden" class="OrigenPedidoWeb" value="@Constantes.OrigenPedidoWeb.DesktopHomeOfertasParaTiPopUp" />
+            <div class="content_left_ficha">
+                {{#if_eq FlagMostrarImg '1'}}
+                {{#if_eq TipoEstrategiaImagenMostrar '@Constantes.TipoEstrategia.Lanzamiento'}}
+                <div class="etiqueta_producto">
+                    <img src="{{ImagenURL}}" alt="Etiqueta Producto" />
+                </div>
+                {{/if_eq}}
+                {{/if_eq}}
+                <div class="content_ficha_producto">
+                    <img id="fav_imagen_prod" src="{{FotoProducto01}}">
+                </div>
+                <div class="compartir_redes_ficha" style="padding-left:0;margin-left: -16px;">
+                    <div class="texto_compartelo">Compártelo con tus clientes</div>
+                    <a class="btn_compartir_facebook_ficha" onclick='javascript:CompartirFacebook("{{UrlCompartirFB}}",  {Palanca: "OPT", RutaImagen: "{{FotoProducto01}}", MarcaID:"{{MarcaID}}", MarcaDesc:"{{DescripcionMarca}}", NombrePro:"{{DescripcionCompleta}}", Cuv:"{{CUV2}}"});'>
+                        <img src="/Content/Images/Esika/facebook.png">
+                    </a>
+                    @*<a class="btn_compartir_facebook_ficha"><img src="/Content/Images/Esika/mensaje_ficha.png" width="20" height="15"></a>*@
+                    <hr class="clear">
+                </div>
+            </div>
+            <div class="content_right_ficha">
+                <h6>{{DescripcionMarca}}</h6>
+                <div id="fav_nombre_prod" class="titulo_ficha_producto" data-prod-descripcion>{{DescripcionCUV2}}</div>
+                <div class="precio_ficha_producto">
+                    {{#iff Precio '>' 0}}
+                    <span class="producto_precio_normal">{{Simbolo}} {{PrecioTachado}}</span>
+                    {{/iff}}
+                    {{Simbolo}} {{PrecioString}}
+                </div>
+                <div class="liquidacion_rango_home">
+                    <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" data-input="cantidad" data-cantidad-input="-">
+                    <div class="liquidacion_rango_right_pedido">
+                        <a class="mas" data-cantidad-agregar="+"><img src="/Content/Images/Esika/mas.png" alt=""></a>
+                        <a class="menos" data-cantidad-agregar="-"><img src="/Content/Images/Esika/menos.png" alt=""></a>
+                    </div>
+                </div>
+                <a class="boton_Agregalo_home ficha_btn_agregar" onclick="javascript:CargarProductoDestacado({ EstrategiaID: '{{EstrategiaID}}' , TipoEstrategiaID: '{{TipoEstrategiaID}}' , Posicion: {{Posicion}} , FlagNueva: '{{FlagNueva}}' }, this, true);" style="cursor: pointer;">
+                    AGRÉGALO
+                </a>
+                {{#if MostrarTextoLibre}}
+                <div class="mensaje_advertencia_detalleCarousel">
+                    <span class="icono_advertencia_notificacion"></span>
+                    <span>{{TextoLibre}}</span>
+                </div>
+                {{/if}}
+                @*<div class="notificacion_cantidad">Limitado a 5 packs por consultora</div>*@
+            </div>
+        </div>
+    </div>
+</script>
+<script id="lanzamiento-templateX" type="text/x-handlebars-template">
+    <div class="popup_detalleCarousel lanzamiento" data-popup-body="">
         <div class="btn_cerrar_detalleCarousel">
             <a href="javascript:;" onclick="return $('#popupDetalleCarousel_lanzamiento').hide();" title="Cerrar">
                 <img src="@Url.Content("~/Content/Images/btn_cerrar_popup.svg")" alt="Cerrar" />
@@ -1626,8 +1747,7 @@
                 <div class="producto_img_home">
                     <img src="{{FotoProducto01}}">
                 </div>
-                <div class="etiqueta_producto">
-                </div>
+                <div class="etiqueta_producto"></div>
                 <div class="producto_nombre_descripcion">
                     <h6>{{DescripcionMarca}}</h6>
                     <p class="nombre_producto">
@@ -1727,8 +1847,10 @@
 
 <script id="template-catalogopersonalizado" type="text/x-handlebars-template">
     <div class="clear"></div>
-    <div class="texto_descripcionCatalogoPersonalizado">Encuentra una selección de los productos que tus clientes de seguro te solicitarán</div>
-    <div class="">
+    <div class="texto_filtros_fav"><span id="fav-home-total">Te mostramos 6 de 32 productos.</span><a class="btn_ver_todo_filtros" href="@Url.Action("Index", "CatalogoPersonalizado")">VER TODOS</a></div>
+    <hr class="clear" />
+    @*<div class="texto_descripcionCatalogoPersonalizado">Encuentra una selección de los productos que tus clientes de seguro te solicitarán</div>*@
+    <div class="" style="position:relative;">
         {{#each this as |item|}}
         <div class="contiene-productos" data-item="catalogopersonalizado">
             <div style="display: none;">
@@ -1752,6 +1874,11 @@
                 <img src="{{ImagenProductoSugerido}}" style="width: auto; height: 100%;" class="imagen_producto">
                 <a class="ver_detalle_carrusel" href="javascript:;" onclick="mostrarFichaProductoFAV2('{{CUV}}')">VER DETALLE</a>
             </div>
+            <!--ETIQUETA GUIA DE NEGOCIO -->
+            @*<div class="etiqueta_guia_negocio">GUÍA DE NEGOCIO</div> <!--ETIQUETA PARA ESIKA--> DESCOMENTAR LUEGO*@
+            @*<div class="etiqueta_guia_negocio"><span>OFERTA</span> GUÍA DE NEGOCIO</div>*@ <!--ETIQUETA PARA LBEL-->
+
+            <!--FIN-->
             {{#if item.TieneLanzamientoCatalogoPersonalizado}}
             <div class="etiqueta_producto nuevofavorito">
                 <img src="@Url.Content("~/Content/Images/producto_lanzamiento_CP.png")" alt="Etiqueta Producto" />
@@ -2185,7 +2312,7 @@
 </script>
 
 <script id="template-fichaproductofav" type="text/x-handlebars-template">
-    <div class="content_ficha_producto_nueva" data-item="catalogopersonalizado">
+    <div class="content_ficha_producto_nueva" data-item="catalogopersonalizado" data-popup-body="">
         <input type="hidden" id="hdCuvFichaProductoFAV" value="{{CUV}}" />
         <input type="hidden" id="hdCuvFichaProductoFAVSelect" value="" />
         <div style="display: none;">
@@ -2211,6 +2338,17 @@
         <div class="content_left_ficha">
             <div class="content_ficha_producto">
                 <img id="fav_imagen_prod" class="imagen_producto" src="{{ImagenProductoSugerido}}" alt="PRODUCTO">
+            </div>
+            <div class="compartir_redes_ficha" style="margin-left: -20px; padding-left: 0px;">
+                <div class="texto_compartelo">Compártelo con tus clientes</div>
+                <a class="btn_compartir_facebook_ficha" href="javascript:void(0);"
+                   onclick='javascript:CompartirFacebook("{{UrlCompartirFB}}",  {Palanca: "FAV", RutaImagen: "{{ImagenProductoSugerido}}", MarcaID:"{{MarcaID}}", MarcaDesc:"{{DescripcionMarca}}", NombrePro:"{{Descripcion}}", Volumen: "{{Volumen}}", DescProducto:"{{DescripcionComercial}}"});'>
+                    <img src="@Url.Content("~/Content/Images/Esika/facebook.png")" />
+                </a>
+                @*<a class="btn_compartir_facebook_ficha" href="javascript:void(0);">
+                    <img src="@Url.Content("~/Content/Images/Esika/mensaje_ficha.png")" width="20" height="15" />
+                </a>*@
+                <hr class="clear" />
             </div>
         </div>
         <div class="content_right_ficha">
@@ -2336,6 +2474,7 @@
 
         var origenPagina = 1;   /*PL20-1227*/     
         var urlGetInfoFichaProducto = '@Url.Action("GetInfoFichaProductoFAV", "CatalogoPersonalizado")';    //PL20-1268
+        var urlCargarFiltros = '@Url.Action("CargarFiltros", "CatalogoPersonalizado", new { area = "" })'; 
     </script>
     @System.Web.Optimization.Scripts.Render("~/bundles/JsSB2-Bienvenida")
     @{ Session["IsContrato"] = 0; }

@@ -3,7 +3,7 @@ var tipoOrigen = tipoOrigen || "";// 1: escritorio (no home)     2: mobile,  3: 
 var cantidadTonosPorFila = 6;
 var cantidadRegistros = cantidadRegistros || 12;
 var offsetRegistros = 0;
-/* SB20-1197 - INICIO */
+//SB20-1197
 var totalRegistros = 0;
 //var precioMinimo = 0;
 //var precioMaximo = 0;
@@ -11,14 +11,15 @@ var primeraVez = false;
 var primerScroll = false;
 var filters = [];
 var clearFilters = false;
-/* SB20-1197 - FIN */
+//SB20-1197
 var cargandoRegistros = false;
 var loadAdd = true;
 var urlLoad = urlLoad || "";
 
-//PL20-1268
-var dataFichaProductoFAV = [];
-
+//PL20-1234
+var rangoPrecios = 0;
+//Mobile
+var mPremax = 0.00; 
 $(document).ready(function () {
     $(document).on('click', '[data-btn-agregar-catalogopersonalizado]', function () {
 
@@ -48,14 +49,88 @@ $(document).ready(function () {
         $('[data-oferta]').attr("class", "").hide();
     });
 
+    CargarFiltros();
+
     if (tipoOrigen != '3') {
-        Inicializar();
+        if (typeof cargarItemsFAV != 'undefined') {
+            if (cargarItemsFAV) {
+                Inicializar();
+            }
+        }
+        else {
+            Inicializar();
+        }
     }
+
     $("#divmaquetaof48nivel").hide();
     $("[data-maq]").hide();
 
     //$("#txt-range-price").slider({});
+
+     //PL20-1270
+    if (tipoOrigen == '2') {
+        $(".label-checkbox").on("click", function () {
+            //debugger
+            //processFilterCatalogoPersonalizado();
+            
+        });
+    }
+
+    //PL20-1274
+    $(".seleccion_filtro_fav").on("click", function () {
+        $(this).toggleClass("seleccion_click_flitro");
+        
+        filterFAVDesktop();
+    });
+
+    $('#filter-sorting').val('03');
+    //PL20-1273
+    if (tipoOrigen == 2) $('#orderby-price').val('03'); 
+
+    if (tipoOrigen == '1') {
+
+        var myformat = simbolo + '%s';
+        var scala1 = simbolo + precioMin;
+        var scala2 = simbolo + precioMax;
+        $('.range-slider').val(precioMin + ',' + precioMax);
+
+        $('.range-slider').show();
+        $('.range-slider').jRange({
+            from: precioMin,
+            to: precioMax,
+            step: 0.01,
+            scale: [scala1,scala2],
+            format: myformat,
+            width: '',
+            showLabels: true,
+            isRange: true,
+            //onstatechange: function () {
+                
+            //},
+            ondragend: function (myvalue) {
+                rangoPrecios = myvalue;
+
+                $(".slider-container").addClass("disabledbutton");
+                filterFAVDesktop();
+
+            },
+            onbarclicked: function (myvalue) {
+                rangoPrecios = myvalue;
+
+                $(".slider-container").addClass("disabledbutton");
+                filterFAVDesktop();
+            }
+        });
+        //$('.range-slider').jRange('setValue', '0,100');
+        //$('.range-slider').jRange('updateRange', '0,100');
+        $('.slider-container').css('width', '');
+        
+    }
+    // PL20-1270
+
+
 });
+
 
 function Inicializar() {
     IniDialog();
@@ -122,15 +197,14 @@ function MostrarNoHayProductos() {
     }
 }
 
-
-/* SB20-1197- INICIO */
-
+//SB20-1197
 function processFilterCatalogoPersonalizado(type)
 {
     // reset values
     filters = [];
     primerScroll = false;
 
+    //ordenamiento
     if ($('#orderby-price').val() != '-1') {
         var f = {
             Id: '1',
@@ -139,27 +213,40 @@ function processFilterCatalogoPersonalizado(type)
         filters.push(f);
     }
 
-    $('#custom-filters').hide();
-    $('#orderby-filter').show();
-    $('#divCatalogoPersonalizado').show();
+    //$('#custom-filters').hide();  
+    //$('#orderby-filter').show();
+    //$('#divCatalogoPersonalizado').show();
    
-    var marcaIds = "";
-    $('.content-category').find('input[type="checkbox"]:checked').each(function () {
-        marcaIds += $(this).val() + ',';
+    //Categorias
+    var values = "";
+    $('#idcategory').find('input[type="checkbox"]:checked').each(function () {
+        values += $(this).val() + ',';
     });
 
-    if (marcaIds != "") {
-        var f = {
-            Id: '2',
-            Valor1: marcaIds.substring(0, marcaIds.length - 1)
-        }
-        filters.push(f);
+    var f = {
+        Id: '2',
+        Valor1: values.substring(0, values.length - 1)
     }
+    filters.push(f);
+
+    //Marca
+    values = "";
+    $('#idmarca').find('input[type="checkbox"]:checked').each(function () {
+        values += $(this).val() + ',';
+    });
+
+    var f = {
+        Id: '3',
+        Valor1: values.substring(0, values.length - 1)
+    }
+    filters.push(f);
+    
+    //precio
     
     var range = $('#txt-range-price').bootstrapSlider('getValue');
     if (range != 'undefined') {
         var f = {
-            Id: '3',
+            Id: '4',
             Valor1: range[0],
             Valor2: range[1]
         }
@@ -169,22 +256,28 @@ function processFilterCatalogoPersonalizado(type)
     if (filters.length > 0) {
         LinkCargarCatalogoToScroll();
         CargarCatalogoPersonalizado();
+        $('body').css({ 'overflow-y': 'scroll' });
     }
 }
 
 function showCustomFilters() {
+    $('body').css({ 'overflow-x': 'hidden' });
+    $('body').css({ 'overflow-y': 'hidden' });
     $('#orderby-filter').hide();
     $('#divCatalogoPersonalizado').hide();
     $('#custom-filters').show();
+
     UnlinkCargarCatalogoToScroll();
 }
 
 function showOrderbyFilter() {
+    $('body').css({ 'overflow-y': 'scroll' });
     $('#custom-filters').hide();
     $('#orderby-filter').show();
     $('#divCatalogoPersonalizado').show();
     LinkCargarCatalogoToScroll();
 }
+$(".title-accordion").on("click", function () { $(this).toggleClass("flecha_arriba"); });
 
 //function deleteFilters() {
 //    $('#custom-filters').hide();
@@ -197,7 +290,6 @@ function showOrderbyFilter() {
 //}
 
 function deleteFilters() {
-
     $('#custom-filters').hide();
     //$('#summary-filters').hide();
     $('#div-delete-filters').hide();
@@ -206,9 +298,14 @@ function deleteFilters() {
 
     // reset values
     filters = [];
-    $('#orderby-price').val('-1');
+    $('#orderby-price').val('03');
     //$('input[name="category"]:checkbox').attr('checked', false);
     $('input[name="brand"]:checkbox').attr('checked', false);
+    $('input[name="categoria"]:checkbox').attr('checked', false);
+
+    //PL20-1274
+    
+    $('#txt-range-price').bootstrapSlider('setValue', [mPremin, mPremax]);
 
     jQuery.ajax({
         type: 'POST',
@@ -220,6 +317,7 @@ function deleteFilters() {
             if (response.success) {
                 clearFilters = true;
                 CargarCatalogoPersonalizado();
+                $('body').css({ 'overflow-y': 'scroll' });
             }
             else {
                 alert(response.message);
@@ -231,18 +329,21 @@ function deleteFilters() {
         complete: function () {
         }
     });
+
+    LinkCargarCatalogoToScroll();
 }
 
-/* SB20-1197 - FIN */
+//SB20-1197
 
 function CargarCatalogoPersonalizado() {
+
     var cataPer = $("#hdTipoCatalogoPersonalizado").val();
     if (cataPer != "1" && cataPer != "2") {
-        if (tipoOrigen == '3') $("#divMainCatalogoPersonalizado").remove();
+        if (tipoOrigen == '3') $("#divMainCatalogoPersonalizado").remove();        
         else if (tipoOrigen == '1') UnlinkCargarCatalogoToScroll();
 
         if (!primeraVez) MostrarNoHayProductos();
-        
+
         return false;
     }
 
@@ -263,21 +364,20 @@ function CargarCatalogoPersonalizado() {
         clearFilters = false;
     }
 
-    /* SB20-1197 - FIN */
-
     var dataAjax = null;
     if (tipoOrigen != '3') {
-        /* SB20-1197 - INICIO */
+        ///SB20-1197
         if (filters.length > 0) {
             if (!primerScroll) {
                 offsetRegistros = 0;
                 loadAdd = true;
             }
-            dataAjax = { cantidad: cantidadRegistros, offset: offsetRegistros, lstFilters: filters };
+            dataAjax = { cantidad: cantidadRegistros, offset: offsetRegistros, lstFilters: filters, tipoOrigen: 1 };
         }
-        else dataAjax = { cantidad: cantidadRegistros, offset: offsetRegistros };
-        /* SB20-1197 - FIN */
+        else dataAjax = { cantidad: cantidadRegistros, offset: offsetRegistros, tipoOrigen: 1 };
+        //SB20-1197
     }
+
 
     if (loadAdd) {
         $('#divCatalogoPersonalizado').html('<div style="text-align: center; min-height:150px;"><br><br><br><br>Cargando Catalogo Personalizado<br><img src="' + urlLoad + '" /></div>');
@@ -297,15 +397,21 @@ function CargarCatalogoPersonalizado() {
 
                 if (tipoOrigen == '3') $("#linea_separadoraCP").show();
                 if (data.data.length == 0) {
-                    if (tipoOrigen == '3') $("#divMainCatalogoPersonalizado").remove();
+                    if (tipoOrigen == '3') {
+                        $("#divMainCatalogoPersonalizado").remove();
 
-                    var rsnum = 'Mostrando 0 de ' + data.totalRegistros + ' productos';
-                    $('#result-number').text(rsnum);
-                    $('#div-delete-filters').show();
+                        var rsnum = 'Mostrando 0 de ' + data.totalRegistros + ' productos';
+                        $('#result-number').text(rsnum);
+                        $('#div-delete-filters').show();
+                    }
 
+                    //PL20-1270
+                    if (tipoOrigen == '1') {
+                        $("#divCantProductos").html("Mostrando 0 de " + data.totalRegistros + " productos");
+                        UnlinkCargarCatalogoToScroll();
+                    }
                     return false;
                 }
-
                 //data.data[0].TieneOfertaEnRevista = true;
                 //data.data[0].TipoOfertaRevista = '048';
                 //data.data[0].CUV = '96847'; //03184
@@ -316,44 +422,65 @@ function CargarCatalogoPersonalizado() {
                 var htmlDiv = SetHandlebars("#template-catalogopersonalizado", data.data);
                 $('#divCatalogoPersonalizado').append(htmlDiv);
 
-                /* SB20-1197 - INICIO */
+                //PL20-1270
+                if (tipoOrigen == 1) {
+                    var t = offsetRegistros + data.data.length
+                    $("#divCantProductos").html('Mostrando ' + t.toString() + " de " + data.totalRegistros + " productos");
+                }
+
+                //SB20-1197
                 if (!primeraVez) {
                     totalRegistros = data.totalRegistros;
+                    if (tipoOrigen == 2) {
+                        if (mPremin == 0.00 || mPremax == 0.00) {
+                            mPremin = parseFloat(data.precioMinimo);
+                            mPremax = parseFloat(data.precioMaximo);
+                        }
 
-                    var min = parseFloat(data.precioMinimo);
-                    var max = parseFloat(data.precioMaximo);
-                    var rr = [];
-                    rr.push(min);
-                    rr.push(max);
+                        var rr = [];
+                        rr.push(mPremin);
+                        rr.push(mPremax);
 
-                    $('#min-range-price').text(min);
-                    $('#max-range-price').text(max);
+                        $('#min-range-price').text(data.precioMinimo);
+                        $('#max-range-price').text(data.precioMaximo);
 
-                    $('#txt-range-price').bootstrapSlider({
-                        'precision': 2,
-                        'min': min,
-                        'max': max,
-                        'value': rr,
-                    });
+                        $('#txt-range-price').bootstrapSlider({
+                            'precision': 2,
+                            'min': parseFloat(data.precioMinimo),
+                            'max': parseFloat(data.precioMaximo),
+                            'value': rr,
+                        });
+                    }
 
                     primeraVez = true;
                 }
-                /* SB20-1197 - FIN */
+                //SB20-1197
 
                 if (tipoOrigen == '3') $("#divMainCatalogoPersonalizado").show();
                 else {
                     if (data.data.length < cantidadRegistros) UnlinkCargarCatalogoToScroll();
-                    offsetRegistros += cantidadRegistros;
-                    //offsetRegistros += data.data.length;
+                    //offsetRegistros += cantidadRegistros;
+                    offsetRegistros += data.data.length;
                 }
 
-                /* SB20-1197 - INICIO */
-                var rsnum = 'Mostrando ' + data.totalRegistrosFilter + ' de ' + totalRegistros + ' productos';
-                $('#result-number').text(rsnum);
+                //SB20-1197 
+                //var rsnum = 'Mostrando ' + data.totalRegistrosFilter + ' de ' + totalRegistros + ' productos';
+                if (tipoOrigen == 2) {
+                    var cont = offsetRegistros;
+                    var rsnum = 'Mostrando ' + cont.toString() + ' de ' + totalRegistros + ' productos'; //PL20 - 1273
+                    $('#result-number').text(rsnum);
 
-                if (totalRegistros != data.totalRegistrosFilter) $('#div-delete-filters').show();
-                else $('#div-delete-filters').hide();
-                /* SB20-1197 - FIN */
+                    if (totalRegistros != data.totalRegistrosFilter) $('#div-delete-filters').show();
+                    else $('#div-delete-filters').hide();
+
+                    $('#divProductosEncontrados b').text(data.data.length); //PL1274
+                }
+                //SB20-1197
+
+                if (tipoOrigen == 3) {
+                    $('#fav-home-total').text('Te mostramos ' + /*cantidadRegistros.toString()*/ data.data.length + ' de ' + data.totalRegistros + ' productos.');
+                }
+
             }
             else data.data = new Array();
 
@@ -361,6 +488,7 @@ function CargarCatalogoPersonalizado() {
                 $("#divMainCatalogoPersonalizado").remove();
                 $("#linea_separadoraCP").hide();
                 if (!primeraVez) MostrarNoHayProductos();
+                
             }
         },
         error: function () { if (loadAdd) $("#divCatalogoPersonalizado").html("Ocurrió un problema de conexión al intentar cargar los productos."); },
@@ -369,9 +497,9 @@ function CargarCatalogoPersonalizado() {
             cargandoRegistros = false;
         }
     });
-}
 
-/* SB20-1197 - FIN */
+    
+}
 
 function AgregarProductoCatalogoPersonalizado(item) {
     DialogLoadingAbrir();
@@ -460,6 +588,7 @@ function AgregarProductoCatalogoPersonalizado(item) {
     AgregarProducto('Insert', model, function () { $(divPadre).find(".product-add").show(); });
     //TrackingJetloreAdd(cantidad, $("#hdCampaniaCodigo").val(), cuv);    
 }
+
 function AgregarProducto(url, item, otraFunct) {
     DialogLoadingAbrir();
 
@@ -832,6 +961,7 @@ function DialogLoadingCerrar() {
         closeWaitingDialog();
     }
 }
+
 function DialogLoadingAbrir() {
     if (tipoOrigen == '2') {
         ShowLoading();
@@ -944,10 +1074,7 @@ function mostrarFichaProductoFAV(cuv) {
 
 //PL20-1268
 function mostrarFichaProductoFAV2(cuv) {
-    //debugger;
-
     waitingDialog();
-
     var obj = { cuv: cuv };
 
     jQuery.ajax({
@@ -990,19 +1117,6 @@ function mostrarFichaProductoFAV2(cuv) {
     });
 }
 
-function AjustarTonoTooltips(objcontenedor) {
-    var arrayObjTooltip = objcontenedor.find('.content_tonos_maquillaje .tooltip_tono');
-    var length = arrayObjTooltip.length;
-
-    //arrayObjTooltip.slice(0, cantidadTonosPorFila).css('top', length > cantidadTonosPorFila ? '30px' : '11px');
-
-    var index = cantidadTonosPorFila - 1;
-    while (index < length) {
-        arrayObjTooltip.eq(index).css('left', '-20px');
-        index += cantidadTonosPorFila;
-    }
-}
-
 function cambiarInfoFichaProductoFAV(tipo, cuv) {
     if (dataFichaProductoFAV != null && dataFichaProductoFAV.length > 0) {
 
@@ -1020,7 +1134,7 @@ function cambiarInfoFichaProductoFAV(tipo, cuv) {
         if (result != null && result.length > 0) {
             var obj = result[0];
             //console.log(obj);
-            var container = $('#PopFichaProductoNueva');
+            var container = $('#PrecioCatalogo');
             container.find('#fav_imagen_prod').attr('src', obj.ImagenProductoSugerido);
             container.find('#fav_nombre_prod').text(obj.Descripcion);
             container.find('#fav_descripcion_prod').text(obj.DescripcionComercial);
@@ -1033,9 +1147,8 @@ function cambiarInfoFichaProductoFAV(tipo, cuv) {
 }
 
 function agregarCuvPedidoFichaProductoFAV(tipo) {
-    //debugger;
 
-    var container = $('#PopFichaProductoNueva').find('[data-item="catalogopersonalizado"]');
+    var container = $('#PrecioCatalogo').find('[data-item="catalogopersonalizado"]');
 
     if (typeof container != 'undefined') {
 
@@ -1060,4 +1173,188 @@ function agregarCuvPedidoFichaProductoFAV(tipo) {
         }
     }
     
+}
+
+function AjustarTonoTooltips(objcontenedor) {
+    var arrayObjTooltip = objcontenedor.find('.content_tonos_maquillaje .tooltip_tono');
+    var length = arrayObjTooltip.length;
+
+    //arrayObjTooltip.slice(0, cantidadTonosPorFila).css('top', length > cantidadTonosPorFila ? '30px' : '11px');
+
+    var index = cantidadTonosPorFila - 1;
+    while (index < length) {
+        arrayObjTooltip.eq(index).css('left', '-20px');
+        index += cantidadTonosPorFila;
+    }
+}
+
+// PL20-1270
+function filterFAVDesktop() {
+    //debugger
+    $('.seleccion_filtro_fav').prop('disabled', true);
+    $('.select_filtros_fav option:not(:selected)').prop('disabled', true);
+
+    filters = [];
+    primerScroll = false;
+
+    // sorting
+    var f = {
+        Id: 1,
+        Orden: $('#filter-sorting').val()
+    }
+    filters.push(f);
+
+    // category
+    var values = "";
+    $('#div-filter-category').find('div[class*="seleccion_click_flitro"]').each(function () {
+        values += $(this).data('value') + ',';
+    });
+
+    var f = {
+        Id: 2,
+        Valor1: values.substring(0, values.length - 1)
+    }
+    filters.push(f);
+    
+    // brand
+    values = "";
+    $('#div-filter-brand').find('div[class*="seleccion_click_flitro"]').each(function () {
+        values += $(this).data('value') + ',';
+    });
+
+    var f = {
+        Id: 3,
+        Valor1: values.substring(0, values.length - 1)
+    }
+    filters.push(f);
+    // range prices
+    if (rangoPrecios != 0) {
+        var arr = rangoPrecios.toString().split(',');
+        var f = {
+            Id: 4,
+            Valor1: arr[0],
+            Valor2: arr[1]
+        }
+        filters.push(f);
+    }
+
+    // published
+    values = "";
+    $('#div-filter-published').find('div[class*="seleccion_click_flitro"]').each(function () {
+        values += $(this).data('value') + ',';
+    });
+
+    var f = {
+        Id: 5,
+        Valor1: values.substring(0, values.length - 1)
+    }
+    filters.push(f);
+
+    //console.log(filters);
+
+    $('.seleccion_filtro_fav').prop('disabled', false);
+    $('.select_filtros_fav option:not(:selected)').prop('disabled', false);
+    $(".slider-container").removeClass("disabledbutton");
+
+    CargarCatalogoPersonalizado();
+    LinkCargarCatalogoToScroll();  
+}
+// PL20-1270
+
+// PL20-1270
+function CargarFiltros()
+{
+    jQuery.ajax({
+        type: 'POST',
+        url: urlCargarFiltros,
+        dataType: 'json',
+        contentType: 'application/json; charset=utf-8',
+        success: function (data) {
+            var datos = data.data;
+            if (datos.length != 0) {
+
+                $.each(datos, function (i) {
+                    var h = datos[i].Id;
+                    if (datos[i].Id == "1") {
+                        if (tipoOrigen == 2) {
+                            $('#orderby-price').val(datos[i].Orden);
+                        }
+                        else {
+                            $('#filter-sorting').val(datos[i].Orden);
+                        }
+                    }
+
+                    if (datos[i].Id == "2") {
+                        if (datos[i].Valor1 != null) {
+                            if (tipoOrigen == 2) {
+                                $('#idcategory').find('input[type="checkbox"]').each(function () {
+                                    var valor = $(this).val();
+                                    if (datos[i].Valor1.indexOf(valor) != -1) {
+                                        $(this).trigger("click");
+                                    }                                            
+                                });
+                            }
+                            else {
+                                $('#div-filter-category').find('div[class*="seleccion_filtro_fav"]').each(function () {
+                                    var valor = $(this).data('value');
+                                    if (datos[i].Valor1.indexOf(valor) != -1)
+                                        $(this).toggleClass("seleccion_click_flitro");
+                                });
+                            }
+                        }                        
+                    }
+
+                    if (datos[i].Id == "3") {
+                        if (datos[i].Valor1 != null) {
+                            if (tipoOrigen == 2) {
+                                $('#idmarca').find('input[type="checkbox"]').each(function () {
+                                    var valor = $(this).val();
+                                    if (datos[i].Valor1.indexOf(valor) != -1) {
+                                        $(this).trigger("click");
+                                    }
+                                });
+                            }
+                            else {
+                                $('#div-filter-brand').find('div[class*="seleccion_filtro_fav"]').each(function () {
+                                    var valor = $(this).data('value');
+                                    if (datos[i].Valor1.indexOf(valor) != -1)
+                                        $(this).toggleClass("seleccion_click_flitro");
+                                });
+                            }
+                        }
+                    }
+                    
+                    if (datos[i].Id == "4") {                        
+                        if (tipoOrigen == 2) {
+                            mPremin = parseFloat(datos[i].Valor1);
+                            mPremax = parseFloat(datos[i].Valor2);
+                            if(primeraVez)
+                                $('#txt-range-price').bootstrapSlider('setValue', [mPremin, mPremax]);
+                        }
+                        else {
+                            var nRango = datos[i].Valor1 + ',' + datos[i].Valor2;
+                            $('.range-slider').jRange('setValue', nRango);
+                        }
+                    }
+
+                    if (datos[i].Id == "5") {
+                        if (datos[i].Valor1 != null) {
+                            $('#div-filter-published').find('div[class*="seleccion_filtro_fav"]').each(function () {
+                                var valor = $(this).data('value');
+                                if (datos[i].Valor1.indexOf(valor) != -1)
+                                    $(this).toggleClass("seleccion_click_flitro");
+                            });
+                        }
+                    }                   
+                });
+            }
+        },
+        error: function (err) {
+            console.log(err);
+        },
+        complete: function () {
+            DialogLoadingCerrar();
+            cargandoRegistros = false;
+        }
+    });
 }

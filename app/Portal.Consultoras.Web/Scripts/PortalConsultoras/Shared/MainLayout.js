@@ -40,19 +40,24 @@ $(document).ready(function () {
 
     /*PL20-1226*/
 
-    $('.Content_general_pop_up').click(function (e) {
-        if (!$(e.target).closest('.content_ficha_producto_nueva').length) {
-            if ($('#PopFichaProductoNueva').is(':visible')) {
-                $('#PopFichaProductoNueva').hide();
-            }
-        }
-    });
+    //$('.Content_general_pop_up').click(function (e) {
+    //    if (!$(e.target).closest('.content_ficha_producto_nueva').length) {
+    //        if ($('#PopFichaProductoNueva').is(':visible')) {
+    //            $('#PopFichaProductoNueva').hide();
+    //        }
+    //    }
+    //});
 
-    $('.contenedor_popup_detalleCarousel').click(function (e) {
-        if (!$(e.target).closest('.popup_detalleCarousel').length) {
-            if ($('#popupDetalleCarousel_lanzamiento').is(':visible')) {
-                $('#popupDetalleCarousel_lanzamiento').hide();
+    $('.contenedor_popup_detalleCarousel, .Content_general_pop_up').click(function (e) {
+        if (!$(e.target).closest('[data-popup-body]').length) {
+
+            if ($(e.target).is(':visible')) {
+                $(e.target).hide();
             }
+
+            //if ($('#popupDetalleCarousel_lanzamiento').is(':visible')) {
+            //    $('#popupDetalleCarousel_lanzamiento').hide();
+            //}
         }
     });
 

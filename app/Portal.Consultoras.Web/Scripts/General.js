@@ -837,3 +837,72 @@ function MostrarMensajePedidoRechazado() {
 
 // FIN Pedido Rechazado
 
+
+// Compartir Face
+
+function CompartirFacebook(urlBase, objParameter) {
+    urlBase = $.trim(urlBase);
+    if (urlBase == "") 
+        return false;
+    
+    var _id = InsertarProductoCompartido(objParameter, 'F');
+    urlBase = urlBase.replace('[valor]', _id);
+
+    var popWwidth = 570;
+    var popHeight = 420;
+    var left = (screen.width / 2) - (popWwidth / 2);
+    var top = (screen.height / 2) - (popHeight / 2);
+    var url = "http://www.facebook.com/sharer/sharer.php?u=" + urlBase;
+
+    window.open(url, 'Facebook', "width=" + popWwidth + ",height=" + popHeight + ",menubar=0,toolbar=0,directories=0,scrollbars=no,resizable=no,left=" + left + ",top=" + top + "");
+}
+
+function InsertarProductoCompartido(objParameter, app) {
+    //Capturando valores
+    var _rutaImagen = objParameter.RutaImagen;
+    var _marcaID = $.trim(objParameter.MarcaID);
+    var _marcaDesc = $.trim(objParameter.MarcaDesc);
+    var _nombre = $.trim(objParameter.NombrePro);
+    var _vol = $.trim(objParameter.Volumen);
+    var _descProd = $.trim(objParameter.DescProducto);
+
+    var pcDetalle = _rutaImagen + "|" + _marcaID + "|" + _marcaDesc + "|" + _nombre;
+    if (objParameter.Palanca == "FAV") {
+        pcDetalle += "|" + _vol + "|" + _descProd;
+    }
+
+    var ID = 0;
+    var Item = {
+        mCUV: objParameter.Cuv,
+        mPalanca: objParameter.Palanca,
+        mDetalle: pcDetalle,
+        mApplicacion: app
+    };
+
+    jQuery.ajax({
+        type: 'POST',
+        url: "/CatalogoPersonalizado/InsertarProductoCompartido",
+        dataType: 'json',
+        contentType: 'application/json; charset=utf-8',
+        data: JSON.stringify(Item),
+        async: false,
+        success: function (response) {
+            if (checkTimeout(response)) {
+                if (response.success) {
+                    var datos = response.data;
+                    ID = datos.id;
+                } else {
+                    window.messageInfo(response.message);
+                }
+            }
+        },
+        error: function (response, error) {
+            if (checkTimeout(response)) {
+                console.log(response);
+            }
+        }
+    });
+    return ID;
+}
+
+// Compartir Face

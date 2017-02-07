@@ -100,28 +100,102 @@
         <a class="cerrar_popMobile" href="javascript:;" id="lnkCerrarPopupOfertaFinal">
             <img src="/Content/Images/mobile/Esika/cerrar_04.png" alt="Cerrar">
         </a>
-        <div id="divIconoOfertaFinal">
-        </div>
-        <h1 class="ofertaFinal_titulo">
-            <span id="spnTituloOfertaFinal">GUARDASTE TU <b>PEDIDO CON ÉXITO !</b></span>
-        </h1>
+        <!---->
+        <div class="content_texto_OPT">
+            <div class="icono_alerta check_icono_mobile" style="margin-top:10px; margin-bottom:10px;"></div>
+            <!--OF_mobile_montomin-->
+            <div class="OF_mobile_montomin" style="display:none;">                
+                <h1 class="ofertaFinal_titulo">
+                    <span id="spnTituloOfertaFinal">GUARDASTE TU <b>PEDIDO CON ÉXITO !</b></span>
+                </h1>
 
-        <div class="ofertaFinal_descripcion" id="of_descripcion1">
-            Agrega <span>@Model.Simbolo </span><span id="spnMontoFaltanteOfertaFinal"></span>
-            <span id="spnMensajeOfertaFinal">para ganar más esta campaña.</span>
-        </div>
+                <div class="ofertaFinal_descripcion" id="of_descripcion1">
+                    Agrega <span>@Model.Simbolo </span><span id="spnMontoFaltanteOfertaFinal"></span>
+                    <span id="spnMensajeOfertaFinal">para ganar más esta campaña.</span>
+                </div>
 
-        <div class="ofertaFinal_descripcion" id="of_descripcion2" style="display: none;">
+                @*<div class="ofertaFinal_descripcion" id="of_descripcion2" style="display: none;">
             Agrega estos productos para ganar más esta campaña
-        </div>
-
-        <div class="contenedor_carruselOfertaFinal">
-            
-            <div class="ofertaFinal_info">
-                <span id="spnSubTituloOfertaFinal">Gana más con estas ofertas que tenemos solo para ti</span>
+        </div>*@
+                <div class="ofertaFinal_info">
+                    <span id="spnSubTituloOfertaFinal">=)</span>
+                </div>
             </div>
+            <!--FIN-->
+            <!--OF_mobile_montomin-->
+            <div class="OF_mobile_montomin" style="display:none;">                
+                <h1 class="ofertaFinal_titulo">
+                    <span>GUARDASTE TU <b>PEDIDO CON ÉXITO !</b></span>
+                </h1>
 
-            <div class="bloque_carousel">
+                <div class="ofertaFinal_descripcion">
+                    Ganancia estimada total: S/. 200.00<br/>
+                    Monto total: S/. 600.00
+                </div>
+                <div class="ofertaFinal_info">
+                    <span id="spnSubTituloOfertaFinal">Compra en oferta los complementos de tu pedido</span>
+                </div>
+            </div>
+            <!--FIN-->
+            <!--GanaMas-->
+            <div class="GanaMas" style="display:none">                
+                <h1 class="ofertaFinal_titulo">
+                    <span>¡FELICITACIONES AHORA TU GANANCIA ESTIMADA ES DE <b>S/.300.00</b>!</span>
+                </h1>
+                <div class="ofertaFinal_descripcion">                   
+                    Monto total: S/. 600.00
+                </div>
+                <div class="ofertaFinal_info">
+                    <span id="spnSubTituloOfertaFinal">Compra en oferta los complementos de tu pedido</span>
+                </div>
+            </div>
+            <!--FIN--> 
+            <!--GanaMas 2-->
+            <div class="GanaMas2" style="display:none;">
+                <h1 class="ofertaFinal_titulo">
+                    <span>¡GUARDASTE TU <b>PEDIDO CON ÉXITO</b>!</span>
+                </h1>
+                <div class="ofertaFinal_descripcion">
+                    Agrega un producto y <b>gana más</b> en esta campaña
+                </div>
+                <div class="ofertaFinal_info">
+                    <span>Compra en oferta los complementos de tu pedido</span>
+                </div>
+            </div>
+            <!--FIN-->    
+            <!--MOBILE ESCALA DESCUENTO-->
+            <div class="ESCALADESCUENTO" style="display:none;">
+                <h1 class="ofertaFinal_titulo">
+                    <span>¡FELICITACIONES LLEGASTE AL <b>30% DSCTO</b>!</span>
+                </h1>
+                <div class="ofertaFinal_descripcion">
+                    Ganancia estimada total: S/. 200.00<br />
+                    Monto total: S/. 600.00
+                </div>
+                <div class="ofertaFinal_info">
+                    <span>Compra en oferta los complementos de tu pedido</span>
+                </div>
+            </div>
+            <!--FIN-->      
+            <!--MOBILE ESCALA DESCUENTO 2-->
+            <div class="ESCALADESCUENTO2">
+                <h1 class="ofertaFinal_titulo">
+                    <span>¡GUARDASTE TU <b>PEDIDO CON ÉXITO</b>!</span>
+                </h1>
+                <div class="ofertaFinal_descripcion">
+                    Agrega S/.21.00 y obtén <b>30%</b> dscto en tu compra
+                </div>
+                <div class="ofertaFinal_info">
+                    <span>Compra en oferta los complementos de tu pedido</span>
+                </div>
+            </div>
+            <!--FIN-->                
+        </div>
+       
+
+        <div class="contenedor_carruselOfertaFinal">   
+
+            <div class="bloque_carousel" style="margin-top:-90px;">
                 @*<div class="btn_controles_carousel btn_control_atras">
                     <img src="@Url.Content("~/Content/Images/mobile/flecha-left.png")" alt="Atrás" />
                 </div>*@
@@ -139,6 +213,43 @@
 </div>
 
 <!-- FIN POPUP OFERTA FINAL -->
+<!--POP UP ESCALA DE DESCUENTOS-->
+<div class="PopMobile1" id="EscalaDescuentoOF" style="display: block;"> <!--AVISEN CUANDO REALICEN EL LLAMADO DE ESTE POP UP PARA DESAPARECER EL SCROLL DEL BODY-->
+    <div class="content_popMobile" style="padding-bottom:0;">
+        <a class="btn_cerrar_escala" href="javascript:;" onclick="javascript: $('#EscalaDescuentoOF').hide();">REGRESAR</a>
+        <hr class="clear">
+        <div class="content_imagen_ficha" style="overflow:hidden;"><img src="http://S3.amazonaws.com/consultorasQAS/SomosBelcorp/Matriz/PE/PE_200062879_2017253419_08_bxrfxhphkv.png" alt="PRODUCTO" style="width:90%;"></div>
+        <div class="marca_ficha_producto">Ésika</div>
+        <div class="titulo_ficha_producto" style="line-height:16px;">Acondicionador Essens para cabello liso</div>
+        <div class="precio_ficha_producto">
+            <span class="precio_tachado_ficha">S/. 146.00 </span> <br/><span class="texto_comple_ficha">Precio para ti </span>&nbsp;S/. 94.90
+        </div>
+        <div class="producto_sugerido_texto">
+            Cómpralo porque ya tienes<br/>
+            <b>Shampoo Essens para cabello liso</b><br/>
+            en tu pedido
+        </div>
+        <div class="content_redes_ficha">
+            <a class="btn_compartir_ofertas"> <img src="/Content/Images/Mobile/Esika/catalogo_ws.png" alt=""></a>
+            <a class="btn_compartir_ofertas"><img src="/Content/Images/Mobile/Esika/facebook.png" alt=""></a>
+        </div>
+        <hr class="clear">
+        <div style="margin-left:-20px; margin-right:-20px;">
+            <div class="content_btn_agregar content_OPT">
+                <div class="content_320" style="max-width:292px; width:auto;">
+                    <div class="content_cantidad_ficha_producto">
+                        <a class="cantidad_menos_home"><img src="/Content/Images/Mobile/Esika/menos.png" alt=""></a>
+                        <input type="tel" value="1" size="2" maxlength="2" id="txtCantidadFichaOPT" class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);">
+                        <a class="cantidad_mas_home"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
+                    </div>
+                    <a class="btn_agregar_ficha_producto" href="#">AGRÉGALO</a>
+                    <hr class="clear">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--FIN-->
 @*<div id="popup-eliminar-mensaje" class="modal fade" data-backdrop="static" data-keyboard="false">
         <div class="modal-dialog modal-alert ">
             <div class="modal-content">
