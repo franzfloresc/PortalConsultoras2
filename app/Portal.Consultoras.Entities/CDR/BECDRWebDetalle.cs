@@ -54,9 +54,10 @@ namespace Portal.Consultoras.Entities.CDR
 
         [DataMember]
         public int TipoMotivoRechazo { get; set; }
-
+        
         public BECDRWebDetalle()
         { }
+   
 
         public BECDRWebDetalle(IDataRecord row)
         {
@@ -79,6 +80,101 @@ namespace Portal.Consultoras.Entities.CDR
             if (row.HasColumn("Precio2")) Precio2 = Convert.ToDecimal(row["Precio2"]);
             if (row.HasColumn("SolucionSolicitada")) SolucionSolicitada = Convert.ToString(row["SolucionSolicitada"]);
             if (row.HasColumn("TipoMotivoRechazo")) TipoMotivoRechazo = Convert.ToInt32(row["TipoMotivoRechazo"]);
+        }
+
+        
+    }
+
+    [DataContract]
+    public class BECDRWebDetalleReporte
+    {
+        [DataMember]
+        public string CUV { get; set; }
+
+        [DataMember]
+        public string CUV2 { get; set; }
+
+        [DataMember]
+        public string NroCDR { get; set; }
+
+        [DataMember]
+        public string ConsultoraCodigo { get; set; }
+
+        [DataMember]
+        public string ZonaCodigo { get; set; }
+
+        [DataMember]
+        public string RegionCodigo { get; set; }
+
+        [DataMember]
+        public string SeccionCodigo { get; set; }
+
+        [DataMember]
+        public string CampaniaOrigenPedido { get; set; }
+
+        [DataMember]
+        public string FechaHoraSolicitud { get; set; }
+
+        [DataMember]
+        public string EstadoDescripcion { get; set; }
+
+        [DataMember]
+        public string FechaAtencion { get; set; }
+
+        [DataMember]
+        public int UnidadesFacturadas { get; set; }
+
+        [DataMember]
+        public decimal MontoFacturado { get; set; }
+
+        [DataMember]
+        public int UnidadesDevueltas { get; set; }
+
+        [DataMember]
+        public int UnidadesEnviar { get; set; }
+
+        [DataMember]
+        public decimal MontoProductoEnviar { get; set; }
+
+        [DataMember]
+        public string Operacion { get; set; }
+
+        [DataMember]
+        public string Reclamo { get; set; }
+
+        [DataMember]
+        public string EstadoDetalle { get; set; }
+        [DataMember]
+        public string MotivoRechazo { get; set; }
+
+        [DataMember]
+        public decimal MontoDevuelto { get; set; }
+
+        public BECDRWebDetalleReporte()
+        { }
+        public BECDRWebDetalleReporte(IDataRecord row)
+        {
+            if (row.HasColumn("NroCDR")) NroCDR = Convert.ToString(row["NroCDR"]);
+            if (row.HasColumn("ConsultoraCodigo")) ConsultoraCodigo = Convert.ToString(row["ConsultoraCodigo"]);
+            if (row.HasColumn("ZonaCodigo")) ZonaCodigo = Convert.ToString(row["ZonaCodigo"]);
+            if (row.HasColumn("RegionCodigo")) RegionCodigo = Convert.ToString(row["RegionCodigo"]);
+            if (row.HasColumn("SeccionCodigo")) SeccionCodigo = Convert.ToString(row["SeccionCodigo"]);
+            if (row.HasColumn("CampaniaOrigenPedido")) CampaniaOrigenPedido = Convert.ToString(row["CampaniaOrigenPedido"]);
+            if (row.HasColumn("FechaHoraSolicitud")) FechaHoraSolicitud = Convert.ToString(row["FechaHoraSolicitud"]);
+            if (row.HasColumn("FechaAtencion")) FechaAtencion = Convert.ToString(row["FechaAtencion"]);
+            if (row.HasColumn("EstadoDescripcion")) EstadoDescripcion = Convert.ToString(row["EstadoDescripcion"]);
+            if (row.HasColumn("CUV")) CUV = Convert.ToString(row["CUV"]);
+            if (row.HasColumn("UnidadesFacturadas")) UnidadesFacturadas = Convert.ToInt32(row["UnidadesFacturadas"]);
+            if (row.HasColumn("MontoFacturado")) MontoFacturado = Convert.ToDecimal(row["MontoFacturado"]);
+            if (row.HasColumn("UnidadesDevueltas")) UnidadesDevueltas = Convert.ToInt32(row["UnidadesDevueltas"]);
+            if (row.HasColumn("MontoDevuelto")) MontoDevuelto = Convert.ToDecimal(row["MontoDevuelto"]);
+            if (row.HasColumn("CodigoProductoEnviar")) CUV2 = Convert.ToString(row["CodigoProductoEnviar"]);
+            if (row.HasColumn("UnidadesEnviar")) UnidadesEnviar = Convert.ToInt32(row["UnidadesEnviar"]);
+            if (row.HasColumn("MontoProductoEnviar")) MontoProductoEnviar = Convert.ToDecimal(row["MontoProductoEnviar"]);
+            if (row.HasColumn("Operacion")) Operacion = Convert.ToString(row["Operacion"]);
+            if (row.HasColumn("Reclamo")) Reclamo = Convert.ToString(row["Reclamo"]);
+            if (row.HasColumn("EstadoDetalle")) EstadoDetalle = Convert.ToString(row["EstadoDetalle"]);
+            if (row.HasColumn("MotivoRechazo")) MotivoRechazo = Convert.ToString(row["MotivoRechazo"]);
         }
     }
 }
