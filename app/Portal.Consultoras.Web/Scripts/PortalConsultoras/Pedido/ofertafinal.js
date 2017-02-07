@@ -59,12 +59,17 @@ function MostrarPopupOfertaFinal(cumpleOferta, tipoPopupMostrar) {
     AgregarOfertaFinalLog("", 0, tipoOfertaFinal_Log, gap_Log, 2);
 
     $(".nohely").on('mousemove', function (e) {
-        $("#img-tooltip").css({ top: e.pageY, left: e.pageX });
-        $('[data-toggle="tooltip"]').tooltip('show')
+        var texto = $(e.target).attr('data-tooltip-text');
+        $("#img-tooltip").attr('data-original-title', texto);
+        var p = $("#img-tooltip").attr('aria-describedby');
+        $('#' + p).css("z-index",10000);
+        $("#img-tooltip").css({ top: e.pageY - 150, left: e.pageX + 5});
+        $('[data-toggle="tooltip"]').tooltip('show');
     });
 
     $(".nohely").on('mouseleave', function (e) {
-        $('[data-toggle="tooltip"]').tooltip('hide')
+        console.log('mouseleave');
+        $('[data-toggle="tooltip"]').tooltip('hide');
     });
 }
 

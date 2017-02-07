@@ -11,6 +11,7 @@
     <link href="@Url.Content("~/Content/Css/Site/style-pedido.css")" rel="stylesheet" />
 }
 
+<span id="img-tooltip" class="img-tooltip" data-toggle="tooltip" data-placement="right" title="dEMO DEMO DEMO DEM O..." data-animation="false" data-trigger="manual"></span>
 <div class="franja_negra"></div>
 <div class="envolvente_pop_up">
     <div class="pop_pedido" id="pop_liquidacion" style="display: none;">
@@ -1992,7 +1993,7 @@
                 <div class="compartir_redes_ficha" style="padding-left:0;margin-left: -16px;">
                     <div class="texto_compartelo">Compártelo con tus clientes</div>
                     <a class="btn_compartir_facebook_ficha" onclick='javascript:CompartirFacebook("{{UrlCompartirFB}}",  {Palanca: "OPT", RutaImagen: "{{FotoProducto01}}", MarcaID:"{{MarcaID}}", MarcaDesc:"{{DescripcionMarca}}", NombrePro:"{{DescripcionCompleta}}", Cuv:"{{CUV2}}"});'>
-                        <img src="/Content/Images/Esika/facebook_ficha.png" width="7" height="16">
+                        <img src="/Content/Images/Esika/facebook.png">
                     </a>
                     @*<a class="btn_compartir_facebook_ficha"><img src="/Content/Images/Esika/mensaje_ficha.png" width="20" height="15"></a>*@
                     <hr class="clear">
@@ -2107,9 +2108,9 @@
                     <input type="hidden" class="hdOfertaFinalDescripcionEstrategia" value="{{DescripcionEstrategia}}" />
                 </div>
                 <div class="contenido_item_carrusel_ofertaFinal" style="height:280px;">
-                    <div class="nohely producto_img_home" style="height:115px;">
+                    <div class="nohely producto_img_home" style="height:115px;" data-tooltip-text="Cómpralo porque ya tienes Shampoo Essens...">
                         <img src="{{ImagenProductoSugerido}}" style="height: 100%;">
-                        <i class="img-tooltip" data-toggle="tooltip" data-placement="right" title="Cómpralo porque ya tienes Shampoo Essens..." data-animation="false" data-trigger="manual" />
+                        @*<i class="img-tooltip" data-toggle="tooltip" data-placement="right" title="Cómpralo porque ya tienes Shampoo Essens..." data-animation="false" data-trigger="manual" />*@
                     </div>
 
                     <div class="etiqueta_producto">
