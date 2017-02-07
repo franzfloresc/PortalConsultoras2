@@ -1763,5 +1763,11 @@ namespace Portal.Consultoras.Service
         {
             return new BLEstrategia().ActivarDesactivarEstrategias(PaisID, Usuario, EstrategiasActivas, EstrategiasDesactivas);
         }
+
+        // producto estrategia
+        public int InsertarEstrategiaProducto(BEEstrategiaProducto entidad)
+        {
+            return new BLEstrategiaProducto().InsertEstrategiaProducto(entidad);
+        }
     }
 }
