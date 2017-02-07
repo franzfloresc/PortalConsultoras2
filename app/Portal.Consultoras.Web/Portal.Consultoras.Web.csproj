@@ -365,7 +365,6 @@
     <Compile Include="Models\AutoMapper\DomainToModelMappingProfile.cs" />
     <Compile Include="Models\BarraConsultoraEscalaDescuentoModel.cs" />
     <Compile Include="Models\BaseVM.cs" />
-    <Compile Include="Models\CatalogoIssuModel.cs" />
     <Compile Include="Models\CDRWebModel.cs" />
     <Compile Include="Models\ClienteOnlineDetalleModel.cs" />
     <Compile Include="Models\ClienteSb2Model.cs" />
@@ -394,7 +393,7 @@
     <Compile Include="Models\BienvenidaHomeModel.cs" />
     <Compile Include="Models\CampaniaModel.cs" />
     <Compile Include="Models\CatalogoClienteModel.cs" />
-    <Compile Include="Models\CatalogoModel.cs" />
+    <Compile Include="Models\MisCatalogosRevistasModel.cs" />
     <Compile Include="Models\ClienteContactaConsultoraModel.cs" />
     <Compile Include="Models\ConfiguracionCrossSellingModel.cs" />
     <Compile Include="Models\ConfiguracionOfertaModel.cs" />
