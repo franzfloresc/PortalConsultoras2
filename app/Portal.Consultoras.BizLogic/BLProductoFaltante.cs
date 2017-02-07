@@ -100,7 +100,6 @@ namespace Portal.Consultoras.BizLogic
 
         public IList<BEProductoFaltante> GetProductoFaltanteByCampaniaAndZonaID(int paisID, int CampaniaID, int ZonaID, string cuv, string descripcion)
         {
-            CampaniaID = 201702;
             var productos = new List<BEProductoFaltante>();
             var DAproductofaltante = new DAProductoFaltante(paisID);
             var BLPais = new BLPais();

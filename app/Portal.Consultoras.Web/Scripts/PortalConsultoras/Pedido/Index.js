@@ -4060,10 +4060,7 @@ function CargarProductoAgotados() {
         data: data,
         async: true,
         success: function (response) {
-            if (!checkTimeout(response)) {
-                CerrarSplash();
-                return false;
-            }
+            if (!checkTimeout(response)) return false;
 
             CerrarSplash();
             if (response.result) {
