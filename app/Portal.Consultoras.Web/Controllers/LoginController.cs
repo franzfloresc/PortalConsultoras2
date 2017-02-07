@@ -84,7 +84,8 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     //if (string.IsNullOrEmpty(model.CodigoConsultora))
                     //    model.CodigoConsultora = model.CodigoUsuario;
-                    return Redireccionar(model.HdePaisID, model.CodigoUsuario);                    
+
+                    return Redireccionar(model.HdePaisID, validaLogin.CodigoUsuario);                    
                 }
                 else
                 {
