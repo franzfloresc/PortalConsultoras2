@@ -1690,20 +1690,50 @@
                 <div class="compartir_redes_ficha" style="padding-left:0;margin-left: -16px;">
                     <div class="texto_compartelo">Compártelo con tus clientes</div>
                     <a class="btn_compartir_facebook_ficha" onclick='javascript:CompartirFacebook("{{UrlCompartirFB}}",  {Palanca: "OPT", RutaImagen: "{{FotoProducto01}}", MarcaID:"{{MarcaID}}", MarcaDesc:"{{DescripcionMarca}}", NombrePro:"{{DescripcionCompleta}}", Cuv:"{{CUV2}}"});'>
-                        <img src="/Content/Images/Esika/facebook.png">
+                        <img src="@Url.Content("~/Content/Images/Mobile/Esika/facebook.png")" />
                     </a>
                     @*<a class="btn_compartir_facebook_ficha"><img src="/Content/Images/Esika/mensaje_ficha.png" width="20" height="15"></a>*@
                     <hr class="clear">
                 </div>
             </div>
             <div class="content_right_ficha">
-                <h6>{{DescripcionMarca}}</h6>
+                <div class="marca_producto">{{DescripcionMarca}}</div>
                 <div id="fav_nombre_prod" class="titulo_ficha_producto" data-prod-descripcion>{{DescripcionCUV2}}</div>
+                <div class="peso_ficha_producto">1.5 g</div>
+                <div id="fav_descripcion_prod" class="descripcion_ficha_producto">CY STUDIO DEL 1.5 G BROWN</div>
                 <div class="precio_ficha_producto">
                     {{#iff Precio '>' 0}}
-                    <span class="producto_precio_normal">{{Simbolo}} {{PrecioTachado}}</span>
+                    <span class="producto_precio_normal">{{Simbolo}} {{PrecioTachado}}</span><br/>
                     {{/iff}}
-                    {{Simbolo}} {{PrecioString}}
+                    <div style="margin-top:-5px;"><span class="texto_precio_ficha">Precio para ti:</span>{{Simbolo}} {{PrecioString}}</div>
+                    <div class="ganancia_ficha">Gana S/.90</div>
+                </div>
+                <div class="content_tonos">
+                    <div class="linea_gris" style="height:1px;"></div>
+                    <!--SELECCION DE TONOS-->
+                    <div class="content_tonos_maquillaje">
+                        <div id="fav_tono_03071" class="content_tono_detalle borde_seleccion_tono" onclick="cambiarInfoFichaProductoFAV(1,'03071')">
+                            <img src="https://s3-sa-east-1.amazonaws.com/appcatalogo/PE/201703/C/productos/bulk/PE_200084502_B.jpg " alt="PRODUCTO">
+                            <div class="tooltip_tono">Brown</div>
+                        </div>
+                        <div id="fav_tono_03071" class="content_tono_detalle" onclick="cambiarInfoFichaProductoFAV(1,'03071')">
+                            <img src="https://s3-sa-east-1.amazonaws.com/appcatalogo/PE/201703/C/productos/bulk/PE_200084502_B.jpg " alt="PRODUCTO">
+                            <div class="tooltip_tono">Brown</div>
+                        </div>
+                        <div id="fav_tono_03071" class="content_tono_detalle" onclick="cambiarInfoFichaProductoFAV(1,'03071')">
+                            <img src="https://s3-sa-east-1.amazonaws.com/appcatalogo/PE/201703/C/productos/bulk/PE_200084502_B.jpg " alt="PRODUCTO">
+                            <div class="tooltip_tono">Brown</div>
+                        </div>                        
+                    </div>
+
+                    <select id="fav_tonobulk_03071" class="tono_labial_select" onchange="cambiarInfoFichaProductoFAV(2)">
+                        <option value="03071">Brown</option>
+                        <option value="03085">Blue</option>
+                        <option value="03266">Gold</option>
+                        <option value="03058">Black</option>
+                        <option value="03269">Copper</option>
+                    </select>
+                    <!--FIN-->
                 </div>
                 <div class="liquidacion_rango_home">
                     <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" data-input="cantidad" data-cantidad-input="-">
@@ -1716,7 +1746,7 @@
                     AGRÉGALO
                 </a>
                 {{#if MostrarTextoLibre}}
-                <div class="mensaje_advertencia_detalleCarousel">
+                <div class="mensaje_advertencia_detalleCarousel" style="margin-top:10px; margin-left:0px;">
                     <span class="icono_advertencia_notificacion"></span>
                     <span>{{TextoLibre}}</span>
                 </div>
