@@ -4817,6 +4817,13 @@ namespace Portal.Consultoras.Web.Controllers
 
             var listaProductoModel = Mapper.Map<List<Producto>, List<ProductoModel>>(lista);
 
+            listaProductoModel.Update(p=> {
+                p.ImagenProductoSugerido = p.Imagen;
+                p.PrecioCatalogoString = Util.DecimalToStringFormat(p.PrecioCatalogo, userData.CodigoISO);
+                p.PrecioValorizadoString = Util.DecimalToStringFormat(p.PrecioValorizado, userData.CodigoISO);
+                p.Simbolo = userData.Simbolo;
+            });
+
             //string listaCuv = string.Join(",", lista.Select(p => p.Cuv));
 
             //List<BEProducto> lstProducto = new List<BEProducto>();

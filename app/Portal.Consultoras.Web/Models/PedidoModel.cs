@@ -147,6 +147,7 @@ namespace Portal.Consultoras.Web.Models
 
         public int LimiteVenta { get; set; }
 
+        public string Imagen { get; set; }
         public string ImagenProductoSugerido { get; set; }
 
         public int TieneSugerido { get; set; }

@@ -63,7 +63,7 @@ function MostrarPopupOfertaFinal(cumpleOferta, tipoPopupMostrar) {
         $("#img-tooltip").attr('data-original-title', texto);
         var p = $("#img-tooltip").attr('aria-describedby');
         $('#' + p).css("z-index",10000);
-        $("#img-tooltip").css({ top: e.pageY - 150, left: e.pageX + 5});
+        $("#img-tooltip").css({ top: e.pageY, left: e.pageX + 5});
         $('[data-toggle="tooltip"]').tooltip('show');
     });
 
@@ -198,7 +198,7 @@ function CumpleOfertaFinal(tipoPopupMostrar) {
 
     return {
         resultado: resultado,
-        productosMostrar: productoOfertaFinal,
+        productosMostrar: productoOfertaFinal.lista,
         montoFaltante: montoFaltante, //REVISAR
         porcentajeDescuento: porcentajeDescuento, //REVISAR
         muestraGanaMas: 0, //REVISAR
