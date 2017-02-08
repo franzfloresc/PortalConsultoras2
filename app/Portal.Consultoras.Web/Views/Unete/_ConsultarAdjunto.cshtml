@@ -42,6 +42,22 @@
 
 
                 }
+                else if (Model.Item3 == 6)
+                {
+                    <text>Recibo Otra Marca</text>
+                }
+                else if (Model.Item3 == 7)
+                {
+                    <text>Recibo Pago Aval</text>
+                }
+                else if (Model.Item3 == 8)
+                {
+                    <text>Credito Aval</text>
+                }
+                else if (Model.Item3 == 9)
+                {
+                    <text>Constancia Laboral Aval</text>
+                }
 
                 <img id="imgCerrar" src="@Url.Content("~/Content/Images/btnCerrar_AD.png")" class="float_rigth" style="cursor: pointer;" />
             </h2>
@@ -53,7 +69,11 @@
                                 Model.Item3 == 2 ? AppSettingsKeys.DocumentosDomicilioStorage :
                                 Model.Item3 == 3 ? AppSettingsKeys.DocumentosContratoStorage :
                                 Model.Item3 == 4 ? AppSettingsKeys.DocumentosPagareStorage :
-                                    AppSettingsKeys.DocumentosAvalStorage
+                                   Model.Item3 == 5 ? AppSettingsKeys.DocumentosAvalStorage :
+                                      Model.Item3 == 6 ? AppSettingsKeys.ContenedoraReciboOtraMarca :
+                                         Model.Item3 == 7 ? AppSettingsKeys.ContenedoraReciboPagoAval :
+                                            Model.Item3 == 8 ? AppSettingsKeys.ContenedoraCreditoAval :
+                                    AppSettingsKeys.ContenedoraConstanciaLaboralAval
                                 ], Model.Item1, Model.Item2)))' height='280' width='380' />
         </div>
     </div>
