@@ -16,6 +16,8 @@ namespace Portal.Consultoras.Web.Controllers
 {
     public class MisCatalogosRevistasController : BaseController
     {
+        private const string TextoMensajeSaludoCorreo = "Revisa los catálogos de esta campaña y comunícate conmigo si estás interesada en algunos de los productos.";
+
         public ActionResult Index()
         {
             var clienteModel = new MisCatalogosRevistasModel();
@@ -30,8 +32,9 @@ namespace Portal.Consultoras.Web.Controllers
 
             ViewBag.CodigoISO = userData.CodigoISO;
             ViewBag.EsConsultoraNueva = userData.ConsultoraNueva == Constantes.EstadoActividadConsultora.Registrada ||
-                userData.ConsultoraNueva == Constantes.EstadoActividadConsultora.Retirada;            
-                
+                userData.ConsultoraNueva == Constantes.EstadoActividadConsultora.Retirada;
+            ViewBag.TextoMensajeSaludoCorreo = TextoMensajeSaludoCorreo;
+
             return View(clienteModel);
         }
 
@@ -389,28 +392,30 @@ namespace Portal.Consultoras.Web.Controllers
                     mailBody += "<td width=\"228\" valign=\"top\" style=\"background:#E5E5E5; line-height: 18px; padding: 20px 20px 30px 20px;\">";
                     mailBody += "<table width=\"100%\" border=\"0\" cellpadding=\"0\">";
                     mailBody += " <tr>";
+
                     item.Nombre = Util.SubStr(item.Nombre, 0);
                     String[] NombreClienteConsultora = item.Nombre.Split(' ');
+
                     mailBody += " <td style=\"padding: 0px 0px 15px 0px; text-align:left; display:block;\"><b>Hola </b>" + NombreClienteConsultora[0] + ",</td>";
                     mailBody += " </tr>";
-                    /*RE2584 - CS(CGI) - INI */
-                    mailBody += "<tr>";
-                    mailBody += "<td style=\"padding: 0px 0px 15px 0px; text-align:left; display:block;\">";
-                    mailBody += "Soy <b>" + userData.NombreConsultora + "</b>, tu consultora de belleza Belcorp, te envío los catálogos de esta campaña.";
-                    mailBody += "</td>";
-                    mailBody += "</tr>";
-                    mailBody += "<tr>";
+
+                    if (!string.IsNullOrEmpty(Mensaje))
+                    {
+                        mailBody += "<tr>";
+                        mailBody += "<td style=\"padding: 0px 0px 15px 0px; text-align:left; display:block;\">";
+                        mailBody += Mensaje.Replace("Hola,", "");
+                        mailBody += "</td>";
+                        mailBody += "</tr>";
+                        mailBody += "<tr>";
+                    }
+                    
                     mailBody += "<td style=\"padding: 0px 0px 15px 0px; text-align:left; display:block;\">Recuerda que tienes hasta el día <b>" + FechaFacturacion + "</b> para enviarme tu pedido.";
                     mailBody += "</td>";
                     mailBody += " </tr>";
-                    //mailBody += "<tr>";
-                    //mailBody += "<td style=\"padding: 0px 0px 15px 0px; text-align:left;\">Cualquier duda comunícate conmigo</td>";                       
-                    //mailBody += " </tr>";
                     if (!userData.EMail.ToString().Equals(string.Empty))
                     {
                         mailBody += "<tr>";
-                        mailBody += "<td>Cualquier duda comunícate conmigo; mi correo electrónico es: </td>";
-                        /*RE2584 - CS(CGI) - FIN*/
+                        mailBody += "<td>Para cualquier duda; mi correo electrónico es: </td>";
                         mailBody += "</tr>";
                         mailBody += "<tr>";
                         mailBody += "<td><b><a href=\"#\" style=\"color:#333333; text-align:left;\">" + userData.EMail + "</a></b></td>";
@@ -428,7 +433,6 @@ namespace Portal.Consultoras.Web.Controllers
                         mailBody += "<td style=\"text-align:left;\">Mi Celular es: <b>" + userData.Celular + "</b></td>";
                         mailBody += "</tr>";
                     }
-                    mailBody += "<tr><td>" + Mensaje + "</td></tr>";
                     mailBody += "</tr></table></td></tr></table></td></tr></table></td></tr></table>";
                     mailBody += "<table width=\"100%\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\" style=\"text-align:center;\">";
                     mailBody += "<tr>";

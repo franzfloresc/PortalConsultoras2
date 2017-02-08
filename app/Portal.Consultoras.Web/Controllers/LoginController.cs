@@ -84,7 +84,8 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     //if (string.IsNullOrEmpty(model.CodigoConsultora))
                     //    model.CodigoConsultora = model.CodigoUsuario;
-                    return Redireccionar(model.HdePaisID, model.CodigoUsuario);                    
+
+                    return Redireccionar(model.HdePaisID, validaLogin.CodigoUsuario);                    
                 }
                 else
                 {
@@ -493,7 +494,6 @@ namespace Portal.Consultoras.Web.Controllers
                     model.ZonaValida = oBEUsuario.ZonaValida;
                     model.Simbolo = oBEUsuario.Simbolo;
                     model.CodigoTerritorio = oBEUsuario.CodigoTerritorio;
-                    model.ListaProductoFaltante = GetModelPedidoAgotado(model.PaisID, model.CampaniaID, model.ZonaID);
                     model.HoraCierreZonaDemAnti = oBEUsuario.HoraCierreZonaDemAnti;
                     model.HoraCierreZonaNormal = oBEUsuario.HoraCierreZonaNormal;
                     model.ZonaHoraria = oBEUsuario.ZonaHoraria;
@@ -747,16 +747,6 @@ namespace Portal.Consultoras.Web.Controllers
                 throw;
             }
             return model;
-        }
-
-        private List<BEProductoFaltante> GetModelPedidoAgotado(int PaisID, int CampaniaID, int ZonaID)
-        {
-            List<BEProductoFaltante> olstProductoFaltante = new List<BEProductoFaltante>();
-            using (SACServiceClient sv = new SACServiceClient())
-            {
-                olstProductoFaltante = sv.GetProductoFaltanteByCampaniaAndZonaID(PaisID, CampaniaID, ZonaID).ToList();
-            }
-            return olstProductoFaltante;
         }
 
         private List<TipoLinkModel> GetLinksPorPais(int PaisID)

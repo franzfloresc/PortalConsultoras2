@@ -593,7 +593,7 @@ namespace Portal.Consultoras.Web.Controllers
                            Cantidad = c.Cantidad,
                            PrecioUnitario = c.PrecioUnitario,
                            PrecioTotal = c.PrecioTotal,
-                           MotivoRechazo =  vMotivoRechazo
+                           MotivoRechazo = vMotivoRechazo
                        }).ToList();
             }
 

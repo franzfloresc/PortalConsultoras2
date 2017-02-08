@@ -477,6 +477,7 @@
   <xs:element name="BENotificacionesDetalleCatalogo" nillable="true" type="tns:BENotificacionesDetalleCatalogo" />
   <xs:complexType name="BEValidaLoginSB2">
     <xs:sequence>
+      <xs:element minOccurs="0" name="CodigoUsuario" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Mensaje" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Result" type="xs:int" />
     </xs:sequence>

@@ -18,15 +18,20 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public string Mensaje { get; set; }
 
+        [DataMember]
+        public string CodigoUsuario { get; set; }
+
         public BEValidaLoginSB2()
         { }
 
         public BEValidaLoginSB2(IDataRecord row)
         {
-            if (DataRecord.HasColumn(row, "Result"))
+            if (row.HasColumn("Result"))
                 Result = Convert.ToInt16(row["Result"]);
-            if (DataRecord.HasColumn(row, "Mensaje"))
+            if (row.HasColumn("Mensaje"))
                 Mensaje = Convert.ToString(row["Mensaje"]);
+            if (row.HasColumn("CodigoUsuario"))
+                CodigoUsuario = Convert.ToString(row["CodigoUsuario"]);
         }
     }
 }

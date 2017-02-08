@@ -74,7 +74,7 @@ namespace Portal.Consultoras.Entities
                 FechaEnvio = Convert.ToDateTime(row["FechaEnvio"]);  // R20151003 - Fin
             // SB20-871
             if (DataRecord.HasColumn(row, "MotivoRechazo"))
-                this.MotivoRechazo = Convert.ToString(row["MotivoRechazo"]);
+                MotivoRechazo = Convert.ToString(row["MotivoRechazo"]);
         }
     }
 }
