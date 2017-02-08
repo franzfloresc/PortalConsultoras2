@@ -816,6 +816,9 @@ function CompartirFacebook(urlBase, objParameter) {
         return false;
     
     var _id = InsertarProductoCompartido(objParameter, 'F');
+    if ($.trim(_id) == "0" || $.trim(_id) == "")
+        return false;
+    
     urlBase = urlBase.replace('[valor]', _id);
 
     var popWwidth = 570;

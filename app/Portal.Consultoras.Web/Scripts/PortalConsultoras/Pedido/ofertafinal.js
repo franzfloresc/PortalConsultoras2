@@ -10,16 +10,31 @@ function MostrarPopupOfertaFinal(cumpleOferta, tipoPopupMostrar) {
         aux = "h";
     }
 
+    cumpleOferta.productosMostrar = cumpleOferta.productosMostrar || new Array();
+
+    if (cumpleOferta.productosMostrar.length == 0) {
+        return false;
+    }
+
     $('.js-slick-prev-' + aux).remove();
     $('.js-slick-next-' + aux).remove();
     $('#divCarruselOfertaFinal.slick-initialized').slick('unslick');
 
-    $('#divCarruselOfertaFinal').html('<div style="text-align: center;">Actualizando Productos de Oferta Final<br><img src="' + urlLoad + '" /></div>');
+    $('#divOfertaFinal').html('<div style="text-align: center;">Actualizando Productos de Oferta Final<br><img src="' + urlLoad + '" /></div>');
+    console.log(cumpleOferta.productosMostrar);
+    var objOf = cumpleOferta.productosMostrar[0];
+    objOf.MetaPorcentaje = objOf.TipoMeta;
+    objOf.TipoMeta = parseInt(objOf.TipoMeta) == NaN ? objOf.TipoMeta : "ME";
+    objOf.Detalle = cumpleOferta.productosMostrar;
 
-    SetHandlebars("#ofertaFinal-template", cumpleOferta.productosMostrar, "#divCarruselOfertaFinal");
+    //objOf.TipoMeta = "ME";
+    //objOf.MetaMontoStr = "100.00";
+    //objOf.MetaPorcentaje = "30";
 
+    //SetHandlebars("#ofertaFinal-template", cumpleOferta.productosMostrar, "#divOfertaFinal");
 
     if (tipoOrigen == "2") {
+        SetHandlebars("#ofertaFinal-template", objOf, "#popupOfertaFinal");
         $("#popupOfertaFinal").show();
         $('#divCarruselOfertaFinal').slick({
             infinite: true,
@@ -35,6 +50,7 @@ function MostrarPopupOfertaFinal(cumpleOferta, tipoPopupMostrar) {
         });
     }
     else {
+        SetHandlebars("#ofertaFinal-template", objOf, "#divOfertaFinal");
         $("#divOfertaFinal").show();
         $('#divCarruselOfertaFinal').slick({
             infinite: true,
@@ -159,8 +175,8 @@ function CumpleOfertaFinal(tipoPopupMostrar) {
         resultado = esFacturacion == "True" && esOfertaFinalZonaValida == "True";
     }
 
-    var productoOfertaFinal;
-
+    var productoOfertaFinal = new Object();
+    resultado = true;
     if (resultado == true) {
         productoOfertaFinal = ObtenerProductosOfertaFinal(tipoOfertaFinal);
     }
@@ -198,7 +214,7 @@ function CumpleOfertaFinal(tipoPopupMostrar) {
 
     return {
         resultado: resultado,
-        productosMostrar: productoOfertaFinal.lista,
+        productosMostrar: productoOfertaFinal.lista || new Array(),
         montoFaltante: montoFaltante, //REVISAR
         porcentajeDescuento: porcentajeDescuento, //REVISAR
         muestraGanaMas: 0, //REVISAR

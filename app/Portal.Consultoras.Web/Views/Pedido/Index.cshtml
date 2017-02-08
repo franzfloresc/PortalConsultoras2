@@ -968,12 +968,10 @@
                     <h1 class="titulo_ofertaFinal">
                         <span>¡GUARDASTE TU<b> PEDIDO CON ÉXITO</b></span>
                     </h1>
-
                     <span class="descripcion_ofertaFinal">
                         <span>AGREGA UN PRODUCTO Y GANA MÁS EN ESTA CAMPAÑA</span>
                     </span>
                     <div class="texto_complemento_oferta">Compra en oferta los complementos de tu pedido</div>
-
                 </div>
                 <!--FIN-->
                 <!--OF_escaladescuento_pedidoguardado-->
@@ -981,15 +979,12 @@
                     <h1 class="titulo_ofertaFinal">
                         <span>¡GUARDASTE TU<b> PEDIDO CON ÉXITO</b></span>
                     </h1>
-
                     <span class="descripcion_ofertaFinal">
                         <span>AGREGA S/. 21.00 Y OBTÉN <b style="font-size:23px;">&nbsp;30% &nbsp;</b>DSCTO EN TU COMPRA</span>
                     </span>
                     <div class="texto_complemento_oferta">Compra en oferta los complementos de tu pedido</div>
-
                 </div>
                 <!--FIN-->
-
             </div>
             <div class="contenedor_bloques_agregaProductos">
                 @*<div class="bloque_descripciones">
@@ -998,12 +993,10 @@
                             También puedes buscarlo en tus
                             <a href="#" title="Tus Catálogos">TUS CATÁLOGOS</a>
                         </span>
-
                     </div>*@
                 <div style="margin: 0 auto; width:90%;" class="bloque_carousel">
                     <div style="margin-left: 27px; margin-right: 27px; position: relative;margin-top:-95px;">
-                        <div class="slider center" id="divCarruselOfertaFinal" style="width: 100%">
-                        </div>
+                        <div class="slider center" id="divCarruselOfertaFinal" style="width: 100%"></div>
                     </div>
                     <button name="btn_noGracias_agregarProductos" class="btn_noGracias_agregarProductos" id="btnNoGraciasOfertaFinal">
                         TERMINAR PEDIDO
@@ -1016,7 +1009,7 @@
 </div>
 <!-- FIN POPUP OFERTA FINAL -->
 <!--POP UP ESCALA DE DESCUENTO FICHA-->
-        <div class="contenedor_popup_ofertaFinal" id="contenedor_popup_ofertaFinal" style="display: block;">
+        <div class="contenedor_popup_ofertaFinal" id="contenedor_popup_ofertaFinal" style="display: none;">
             <div class="popup_ofertaFinal" style="padding:35px;">
                 <a class="btn_cerrar_escala" href="javascript:;" onclick="javascript: $('#contenedor_popup_ofertaFinal').hide();">REGRESAR</a>
                 <hr class="clear" />
@@ -1067,12 +1060,10 @@
         </div>
         <!--FIN-->
         <!-- POPUP DETALLE CARRUSEL OFERTAS PARA TI LANZAMIENTO -->
-        <div class="contenedor_popup_detalleCarousel" id="popupDetalleCarousel_lanzamiento">
-        </div>
+        <div class="contenedor_popup_detalleCarousel" id="popupDetalleCarousel_lanzamiento"></div>
         <!-- FIN POPUP DETALLE CARRUSEL OFERTAS PARA TI LANZAMIENTO -->
         <!-- POPUP DETALLE CARRUSEL OFERTAS PARA TI PACK NUEVAS -->
-        <div class="contenedor_popup_detalleCarousel" id="popupDetalleCarousel_packNuevas">
-        </div>
+        <div class="contenedor_popup_detalleCarousel" id="popupDetalleCarousel_packNuevas"></div>
         <!-- FIN POPUP DETALLE CARRUSEL OFERTAS PARA TI PACK NUEVAS -->
 
         @if (ViewBag.MostrarPedidosPendientes == "1")
@@ -2090,8 +2081,52 @@
             </div>
         </script>
 
-        <script id="ofertaFinal-template" type="text/x-handlebars-template">
-            {{#each this}}
+<script id="ofertaFinal-template" type="text/x-handlebars-template">
+    <div class="popup_ofertaFinal">
+        <div class="btn_cerrar_ofertaFinal">
+            <a href="javascript:;" title="Cerrar" id="lnkCerrarPopupOfertaFinal">
+                <img src="@Url.Content("~/Content/Images/btn_cerrar_popup.svg")" alt="Cerrar" />
+                <span class="texto_btn_cerrar">CERRAR</span>
+            </a>
+        </div>
+        <div class="contenido_popUp">
+            <div class="content_texto_oferta">
+                <div class="icono_mensaje_alerta icono_check_alerta"></div>
+
+                <div data-meta="{{TipoMeta}}">
+                    <h1 class="titulo_ofertaFinal"  id="spnTituloOfertaFinal">
+                        {{#iff TipoMeta '==' 'MM'}}
+                            <span><b>&nbsp;LO SENTIMOS…</b> NO PUDIMOS GUARDAR TU PEDIDO</span>
+                        {{/iff}}
+                        {{#iff TipoMeta '==' 'GM'}}
+                            <span>¡GUARDASTE TU<b> PEDIDO CON ÉXITO</b></span>
+                        {{/iff}}
+                        {{#iff TipoMeta '==' 'ME'}}
+                            <span>¡GUARDASTE TU<b> PEDIDO CON ÉXITO</b></span>
+                        {{/iff}}
+                    </h1>
+                    <hr class="clear" />
+                    <div class="descripcion_ofertaFinal" id="msjOfertaFinal">
+                        {{#iff TipoMeta '==' 'MM'}}
+                            <span>AGREGA S/. <span data-monto="">{{MetaMontoStr}}</span> PARA COMPLETAR TU PEDIDO</span>
+                        {{/iff}}
+                        {{#iff TipoMeta '==' 'GM'}}
+                            <span>AGREGA UN PRODUCTO Y GANA MÁS EN ESTA CAMPAÑA</span>
+                        {{/iff}}
+                        {{#iff TipoMeta '==' 'ME'}}
+                            <span>AGREGA S/. <span data-monto="">{{MetaMontoStr}}</span> Y OBTÉN <b style="font-size:23px;">{{MetaPorcentaje}}%</b> DSCTO EN TU COMPRA</span>
+                        {{/iff}}
+                    </div>
+                    <div class="texto_complemento_oferta">Compra en oferta los complementos de tu pedido</div>
+                </div>
+
+            </div>
+            <div class="contenedor_bloques_agregaProductos">
+                <div style="margin: 0 auto; width:90%;" class="bloque_carousel">
+                    <div style="margin-left: 27px; margin-right: 27px; position: relative;margin-top:-95px;">
+                        <div class="slider center" id="divCarruselOfertaFinal" style="width: 100%">
+
+            {{#each this.Detalle}}
             <div class="content_item_carrusel_ofertaFinal" data-item="ofertaFinal">
                 <div style="display: none;">
                     <input type="hidden" class="hdOfertaFinalCuv" value="{{CUV}}" />
@@ -2112,13 +2147,12 @@
                         <img src="{{ImagenProductoSugerido}}" style="height: 100%;">
                         @*<i class="img-tooltip" data-toggle="tooltip" data-placement="right" title="Cómpralo porque ya tienes Shampoo Essens..." data-animation="false" data-trigger="manual" />*@
                     </div>
-
-                    <div class="etiqueta_producto">
-                    </div>
+                    @*<div class="etiqueta_producto"></div>*@
                     <div class="producto_nombre_descripcion">
                         <h6>{{DescripcionMarca}}</h6>
                         <p class="nombre_producto">
-                            <b>{{Descripcion}}</b>
+                            <b>{{DescripcionComercial}}</b>
+                            <b>{{NombreComercial}}</b>
                         </p>
                         <div class="producto_precio">
                             {{#iff PrecioValorizadoString '!=' '0'}}
@@ -2136,13 +2170,23 @@
                         <a class="boton_Agregalo_home agregarOfertaFinal">
                             AGRÉGALO
                         </a>
-
                         <div class="clear"></div>
                     </div>
                 </div>
             </div>
             {{/each}}
-        </script>
+                        
+                        </div>
+                    </div>
+                    <button name="btn_noGracias_agregarProductos" class="btn_noGracias_agregarProductos" id="btnNoGraciasOfertaFinal">
+                        TERMINAR PEDIDO
+                    </button>
+                </div>
+                <hr class="clear" />
+            </div>       
+         </div>
+    </div>
+</script>
 
         @section scripts{
             <script type="text/javascript" src="@Url.Content("~/Scripts/slick.min.js")"></script>
@@ -2188,7 +2232,7 @@
             <script type="text/javascript" src="@Url.Content("~/Scripts/bootstrap.min.js")"></script>
 
             @if (ViewBag.MostrarPedidosPendientes == "1")
-    {
+            {
                 <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Pedido/ConsultoraOnline.js")"></script>
             }
         }
