@@ -74,9 +74,9 @@ namespace Portal.Consultoras.Web.Controllers
                             ViewBag.TieneOfertaDelDia = false;
 
                         // validar si tiene pedido reservado
-                        string msg = string.Empty;
-                        if (ValidarPedidoReservado(out msg))
-                            ViewBag.TieneOfertaDelDia = false;
+                        //string msg = string.Empty;
+                        //if (ValidarPedidoReservado(out msg))
+                        //    ViewBag.TieneOfertaDelDia = false;
                     }
                     /*PL20-1226*/
                 }
@@ -1255,6 +1255,30 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                 } 
             }
+            
+            //PL20-1234
+            var lstFiltersFAV = new List<BETablaLogicaDatos>();
+            using (SACServiceClient svc = new SACServiceClient())
+            {
+                for (int i = 94; i <= 97; i++)
+                {
+                    var lstItems = svc.GetTablaLogicaDatos(userData.PaisID, (short)i);
+                    if (lstItems.Any())
+                    {
+                        foreach (var item in lstItems)
+                        {
+                            lstFiltersFAV.Add(item);
+                        }
+                    }
+                }
+            }
+
+            if (lstFiltersFAV.Any())
+            {
+                Session["ListFiltersFAV"] = lstFiltersFAV;
+            }
+            //PL20-1234
+
             Session["UserData"] = model;
 
             return model;
