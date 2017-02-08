@@ -5514,8 +5514,8 @@ body{
 
 .contenedor_productos_liquidacion .content_item_home {
     margin-bottom: 30px;
-    display: inline-block;
-    vertical-align:top;
+    float: left;
+    vertical-align: top;
 }
 
 .contenedor_productos_liquidacion .producto_img_mobile{
