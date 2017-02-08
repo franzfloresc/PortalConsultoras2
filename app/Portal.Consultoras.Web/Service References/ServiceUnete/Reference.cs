@@ -3178,6 +3178,9 @@ namespace Portal.Consultoras.Web.ServiceUnete {
         private string CalleField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string Campania1PedidoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string CelularAvalField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -3188,6 +3191,9 @@ namespace Portal.Consultoras.Web.ServiceUnete {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string CiudadField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CodigoCampaniaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string CodigoConsultoraField;
@@ -3221,6 +3227,9 @@ namespace Portal.Consultoras.Web.ServiceUnete {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string DescripcionMetaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string DiasEnEsperaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private System.Nullable<int> DiferenciaDiasField;
@@ -3379,6 +3388,12 @@ namespace Portal.Consultoras.Web.ServiceUnete {
         private string NombreNoFamiliarField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string NumDiasAprobadoFFVVField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string NumDiasRechazadosField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string NumeroField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -3415,10 +3430,16 @@ namespace Portal.Consultoras.Web.ServiceUnete {
         private System.Nullable<bool> RequiereAvalField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string RespuestaGEOField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string SeccionField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string SeccionConsultoraLiderField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string SeccionOrigenField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string SegundoNombreField;
@@ -3494,6 +3515,9 @@ namespace Portal.Consultoras.Web.ServiceUnete {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private System.Nullable<int> TipoVinculoNoFamiliarField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string UsuarioCreacionField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string ZonaConsultoraLiderField;
@@ -3619,6 +3643,19 @@ namespace Portal.Consultoras.Web.ServiceUnete {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Campania1Pedido {
+            get {
+                return this.Campania1PedidoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.Campania1PedidoField, value) != true)) {
+                    this.Campania1PedidoField = value;
+                    this.RaisePropertyChanged("Campania1Pedido");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public string CelularAval {
             get {
                 return this.CelularAvalField;
@@ -3666,6 +3703,19 @@ namespace Portal.Consultoras.Web.ServiceUnete {
                 if ((object.ReferenceEquals(this.CiudadField, value) != true)) {
                     this.CiudadField = value;
                     this.RaisePropertyChanged("Ciudad");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string CodigoCampania {
+            get {
+                return this.CodigoCampaniaField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CodigoCampaniaField, value) != true)) {
+                    this.CodigoCampaniaField = value;
+                    this.RaisePropertyChanged("CodigoCampania");
                 }
             }
         }
@@ -3809,6 +3859,19 @@ namespace Portal.Consultoras.Web.ServiceUnete {
                 if ((object.ReferenceEquals(this.DescripcionMetaField, value) != true)) {
                     this.DescripcionMetaField = value;
                     this.RaisePropertyChanged("DescripcionMeta");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string DiasEnEspera {
+            get {
+                return this.DiasEnEsperaField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.DiasEnEsperaField, value) != true)) {
+                    this.DiasEnEsperaField = value;
+                    this.RaisePropertyChanged("DiasEnEspera");
                 }
             }
         }
@@ -4490,6 +4553,32 @@ namespace Portal.Consultoras.Web.ServiceUnete {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public string NumDiasAprobadoFFVV {
+            get {
+                return this.NumDiasAprobadoFFVVField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.NumDiasAprobadoFFVVField, value) != true)) {
+                    this.NumDiasAprobadoFFVVField = value;
+                    this.RaisePropertyChanged("NumDiasAprobadoFFVV");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string NumDiasRechazados {
+            get {
+                return this.NumDiasRechazadosField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.NumDiasRechazadosField, value) != true)) {
+                    this.NumDiasRechazadosField = value;
+                    this.RaisePropertyChanged("NumDiasRechazados");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public string Numero {
             get {
                 return this.NumeroField;
@@ -4646,6 +4735,19 @@ namespace Portal.Consultoras.Web.ServiceUnete {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public string RespuestaGEO {
+            get {
+                return this.RespuestaGEOField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.RespuestaGEOField, value) != true)) {
+                    this.RespuestaGEOField = value;
+                    this.RaisePropertyChanged("RespuestaGEO");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public string Seccion {
             get {
                 return this.SeccionField;
@@ -4667,6 +4769,19 @@ namespace Portal.Consultoras.Web.ServiceUnete {
                 if ((object.ReferenceEquals(this.SeccionConsultoraLiderField, value) != true)) {
                     this.SeccionConsultoraLiderField = value;
                     this.RaisePropertyChanged("SeccionConsultoraLider");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string SeccionOrigen {
+            get {
+                return this.SeccionOrigenField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.SeccionOrigenField, value) != true)) {
+                    this.SeccionOrigenField = value;
+                    this.RaisePropertyChanged("SeccionOrigen");
                 }
             }
         }
@@ -4992,6 +5107,19 @@ namespace Portal.Consultoras.Web.ServiceUnete {
                 if ((this.TipoVinculoNoFamiliarField.Equals(value) != true)) {
                     this.TipoVinculoNoFamiliarField = value;
                     this.RaisePropertyChanged("TipoVinculoNoFamiliar");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string UsuarioCreacion {
+            get {
+                return this.UsuarioCreacionField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.UsuarioCreacionField, value) != true)) {
+                    this.UsuarioCreacionField = value;
+                    this.RaisePropertyChanged("UsuarioCreacion");
                 }
             }
         }
