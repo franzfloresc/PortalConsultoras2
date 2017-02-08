@@ -2223,6 +2223,7 @@
     <Content Include="Content\Images\Login2\cyzone.png" />
     <Content Include="Content\Images\Login2\email.png" />
     <Content Include="Content\Images\Login2\empleado.png" />
+    <Content Include="Content\Images\Login2\error_login.svg" />
     <Content Include="Content\Images\Login2\esika.png" />
     <Content Include="Content\Images\Login2\face.png" />
     <Content Include="Content\Images\Login2\faq.png" />
