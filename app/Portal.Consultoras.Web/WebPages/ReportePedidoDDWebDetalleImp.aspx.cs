@@ -37,6 +37,7 @@ namespace Portal.Consultoras.Web.WebPages
             string TipoProceso = lst[18];
             string MotivoRechazo = lst[20];
             int PaisID = Convert.ToInt32(lst[19]);
+            string MotivoRechazo = lst[20];
 
             Usuario.Text = usuario;
             lblCampaniaCod.Text = CampaniaCod;

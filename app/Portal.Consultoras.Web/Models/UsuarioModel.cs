@@ -142,7 +142,6 @@ namespace Portal.Consultoras.Web.Models
         public string CodigoTerritorio { get; set; }
         public string Simbolo { get; set; }
         public decimal MontoMinimo { get; set; }
-        public List<BEProductoFaltante> ListaProductoFaltante { get; set; }
         public string UrlAyuda { get; set; }
         public string UrlCapedevi { get; set; }
         public string UrlTerminos { get; set; }

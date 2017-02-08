@@ -1,14 +1,12 @@
-﻿using System;
+﻿using Portal.Consultoras.Web.ServiceSAC;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
 namespace Portal.Consultoras.Web.Models
 {
     public class ProductoFaltanteModel
     {
-        public string CUV { set; get; }
-        public int ZonaID { set; get; }
-        public string Zona { set; get; }
+        public string Categoria { set; get; }
+        public int CantidadDetalles { get { return this.Detalle.Count; } }
+        public List<BEProductoFaltante> Detalle { set; get; }
     }
 }

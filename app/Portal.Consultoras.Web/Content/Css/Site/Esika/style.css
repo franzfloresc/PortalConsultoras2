@@ -2561,7 +2561,10 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido{
 
 .tabla_productos_agotados th{
     padding-bottom:12px;
-    font-weight:900!important;
+    font-weight: 300!important;
+    font-family: 'Lato';
+    text-transform: uppercase;
+    border-bottom: 2px solid black;
 }
 
 .tabla_pedidos tr.fila_mensajeProductoAgotado td{
@@ -3960,17 +3963,17 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
     margin: -294.5px auto 0 auto;
     background: #fff;
     width: 100%;
-    max-width: 547px;
+    max-width: 800px;
     height: auto;
     padding-top: 56px;
     box-sizing: border-box;
 }
 
 .popup_productosAgotados .contenedor_lista_productosAgotados{
-    margin: 0 auto;
-    width: 455px;
-    margin-bottom: 58px;
-}
+        margin: 0 auto;
+        width: 710px;
+        margin-bottom: 58px;
+    }
 
 .popup_productosAgotados .contenedor_lista_productosAgotados h6{
     display:block;
@@ -30916,6 +30919,7 @@ h1#penmostreo .campana {
     display: -o-flex;
     justify-content:space-between;
     z-index:1;
+    z-index:5;
 }
 .content_pasos::after{
     position:absolute;
@@ -32984,4 +32988,44 @@ h1#penmostreo .campana {
 }
 .mod-ofer1 .boton_Agregalo_home{
     width:139px;
+}
+
+.content_pasos_linea{
+        position: relative;
+        width: 99%;
+        height: 2px;      
+        z-index: 3;
+        left:0;
+        width:310px;
+        margin:0 auto;
+        margin-top:-18px;
+        background: #d1d1d1;
+}
+/*POP UP PRODUCTO FALTANTE*/
+.producto_faltante{
+    height: 32px;
+    line-height: 40px;
+    color: #999999;
+    font-family: 'Lato';
+    border:1px solid #cccccc;
+    padding:8px;
+    margin-right:15px;
+    margin-left:5px;
+}
+.content_cuv{
+    font-family:'Lato';
+    font-size:14px;
+    margin-top:20px;
+}
+.buscar_icono{
+    background: white url(../../../Images/Esika/lupa.png) no-repeat center right;
+    width: 40px;
+    height: 32px;
+    border: 1px solid #ccc;
+    /* display: block; */
+    vertical-align: middle;
+    margin-top: -3px;
+}
+.buscar_icono:hover{
+    background: #ecebf0 url(../../../Images/Esika/lupa.png) no-repeat center right;
 }

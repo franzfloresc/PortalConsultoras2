@@ -755,12 +755,16 @@ namespace Portal.Consultoras.Web.Controllers
             return ",|.|2";
         }
 
-        private List<BEProductoFaltante> GetProductosFaltantes(int PaisID, int CampaniaID, int ZonaID)
+        protected List<BEProductoFaltante> GetProductosFaltantes()
+        {
+            return this.GetProductosFaltantes("", "");
+        }
+        protected List<BEProductoFaltante> GetProductosFaltantes(string cuv, string descripcion)
         {
             List<BEProductoFaltante> olstProductoFaltante = new List<BEProductoFaltante>();
             using (SACServiceClient sv = new SACServiceClient())
             {
-                olstProductoFaltante = sv.GetProductoFaltanteByCampaniaAndZonaID(PaisID, CampaniaID, ZonaID).ToList();
+                olstProductoFaltante = sv.GetProductoFaltanteByCampaniaAndZonaID(userData.PaisID, userData.CampaniaID, userData.ZonaID, cuv, descripcion).ToList();
             }
             return olstProductoFaltante;
         }

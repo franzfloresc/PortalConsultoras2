@@ -1835,48 +1835,21 @@ namespace Portal.Consultoras.Web.Controllers
         #region Productos Faltantes
 
         [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
-        public JsonResult GetProductoFaltante()
+        public JsonResult GetProductoFaltante(string cuv, string descripcion)
         {
             try
             {
-                List<ServiceSAC.BEProductoFaltante> olstProductoFaltante = new List<BEProductoFaltante>();
-                using (ServiceSAC.SACServiceClient sv = new SACServiceClient())
-                {
-                    olstProductoFaltante = sv.GetProductoFaltanteByCampaniaAndZonaID(userData.PaisID, userData.CampaniaID, userData.ZonaID).ToList();
-                }
-
-                return Json(new
-                {
-                    result = true,
-                    data = olstProductoFaltante
-                }, JsonRequestBehavior.AllowGet);
+                var productosFaltantes = this.GetProductosFaltantes(cuv, descripcion);
+                var model = productosFaltantes.GroupBy(pf => pf.Categoria).Select(pfg => new ProductoFaltanteModel {
+                    Categoria = pfg.Key,
+                    Detalle = pfg.Select(pf => pf).OrderBy(pf => pf.Catalogo).ThenBy(pf => pf.NumeroPagina).ToList()
+                });
+                return Json(new { result = true, data = model }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {
-                return Json(new
-                {
-                    result = false,
-                    data = ex.Message
-                }, JsonRequestBehavior.AllowGet);
+                return Json(new { result = false, data = ex.Message }, JsonRequestBehavior.AllowGet);
             }
-
-        }
-
-        public ActionResult ExportarExcelProductoFaltante()
-        {
-            List<ServiceSAC.BEProductoFaltante> lst = new List<ServiceSAC.BEProductoFaltante>();
-            using (ServiceSAC.SACServiceClient sv = new ServiceSAC.SACServiceClient())
-            {
-                lst = sv.GetProductoFaltanteByCampaniaAndZonaID(userData.PaisID, userData.CampaniaID, userData.ZonaID).ToList();
-            }
-
-            Dictionary<string, string> dic = new Dictionary<string, string>();
-            dic.Add("Codigo", "CUV");
-            dic.Add("Producto", "Descripcion");
-
-            Util.ExportToExcel("FaltantesAnunciadosExcel", lst, dic);
-
-            return new EmptyResult();
         }
 
         #endregion

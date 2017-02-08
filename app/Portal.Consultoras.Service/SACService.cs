@@ -176,9 +176,9 @@ namespace Portal.Consultoras.Service
             return BLproductofaltante.GetProductoFaltanteByEntity(paisID, productofaltante, ColumnaOrden, Ordenamiento, PaginaActual, FlagPaginacion, RegistrosPorPagina);
         }
 
-        public IList<BEProductoFaltante> GetProductoFaltanteByCampaniaAndZonaID(int paisID, int CampaniaID, int ZonaID)
+        public IList<BEProductoFaltante> GetProductoFaltanteByCampaniaAndZonaID(int paisID, int CampaniaID, int ZonaID, string cuv, string descripcion)
         {
-            return BLproductofaltante.GetProductoFaltanteByCampaniaAndZonaID(paisID, CampaniaID, ZonaID);
+            return BLproductofaltante.GetProductoFaltanteByCampaniaAndZonaID(paisID, CampaniaID, ZonaID, cuv, descripcion);
         }
 
         public string InsProductoFaltanteMasivo(int paisID, string paisISO, string CodigoUsuario, int campaniaID, IList<BEProductoFaltante> productosFaltantes, bool FaltanteUltimoMinuto)
