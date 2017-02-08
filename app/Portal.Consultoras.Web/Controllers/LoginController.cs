@@ -14,6 +14,7 @@ using System.Data;
 using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
+using System.ServiceModel;
 using System.Text;
 using System.Web;
 using System.Web.Mvc;
@@ -28,9 +29,9 @@ namespace Portal.Consultoras.Web.Controllers
         [AllowAnonymous]
         public ActionResult Index()
         {
-            string IP = string.Empty;
-            string ISO = string.Empty;
-            var model = new UsuarioModel();
+            var IP = string.Empty;
+            var ISO = string.Empty;
+            var model = new LoginModel();
 
             try
             {
@@ -56,12 +57,16 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     AsignarHojaEstilos(ISO);
                 }
-                
-                model.listaPaises = DropDowListPaises();                
+
+                model.ListaPaises = DropDowListPaises();
+            }
+            catch (FaultException ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, IP, ISO);
             }
             catch (Exception ex)
             {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, "", "", "Ingreso al portal - Index()");
+                LogManager.LogManager.LogErrorWebServicesBus(ex, IP, ISO, "Login.GET.Index");
             }
 
             return View(model);
@@ -69,23 +74,20 @@ namespace Portal.Consultoras.Web.Controllers
 
         [AllowAnonymous]
         [HttpPost]
-        public ActionResult Login(UsuarioModel model)
+        public ActionResult Login(LoginModel model)
         {
-            pasoLog = "Ingreso al portal";
+            pasoLog = "Login.POST.Index";
             try
             {
                 BEValidaLoginSB2 validaLogin = null;
                 using (UsuarioServiceClient svc = new UsuarioServiceClient())
                 {
-                    validaLogin = svc.GetValidarLoginSB2(model.HdePaisID, model.CodigoUsuario, model.ClaveSecreta);
+                    validaLogin = svc.GetValidarLoginSB2(model.PaisID, model.CodigoUsuario, model.ClaveSecreta);
                 }
 
                 if (validaLogin.Result == 3)
                 {
-                    //if (string.IsNullOrEmpty(model.CodigoConsultora))
-                    //    model.CodigoConsultora = model.CodigoUsuario;
-
-                    return Redireccionar(model.HdePaisID, validaLogin.CodigoUsuario);                    
+                    return Redireccionar(model.PaisID, validaLogin.CodigoUsuario);
                 }
                 else
                 {
@@ -93,13 +95,18 @@ namespace Portal.Consultoras.Web.Controllers
                     return RedirectToAction("Index", "Login");
                 }
             }
+            catch (FaultException ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, model.CodigoUsuario, model.CodigoISO);
+                TempData["errorLogin"] = "Error al procesar la solicitud";
+            }
             catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, model.CodigoUsuario, model.CodigoISO, pasoLog);
-
                 TempData["errorLogin"] = "Error al procesar la solicitud";
-                return RedirectToAction("Index", "Login");
             }
+
+            return RedirectToAction("Index", "Login");
         }
 
         [AllowAnonymous]
@@ -110,10 +117,10 @@ namespace Portal.Consultoras.Web.Controllers
 
             string codigoResultado = resultado.Split('|')[0];
             string mensajeResultado = resultado.Split('|')[1];
-            string paisIso= resultado.Split('|')[2];            
+            string paisIso = resultado.Split('|')[2];
 
             if (codigoResultado == "000")
-            {                
+            {
                 int paisId = Util.GetPaisID(paisIso);
                 return Redireccionar(paisId, model.CodigoUsuario);
             }
@@ -125,9 +132,13 @@ namespace Portal.Consultoras.Web.Controllers
 
         public ActionResult Redireccionar(int paisId, string codigoUsuario)
         {
+            pasoLog = "Login.Redireccionar";
+
             UsuarioModel usuario = GetUserData(paisId, codigoUsuario, 1);
             if (usuario != null)
             {
+                pasoLog = "Login.Redireccionar.SetAuthCookie";
+
                 FormsAuthentication.SetAuthCookie(usuario.CodigoUsuario, false);
 
                 if (usuario.RolID == Constantes.Rol.Consultora)
@@ -181,7 +192,7 @@ namespace Portal.Consultoras.Web.Controllers
             catch (Exception ex)
             {
                 lst = new List<BEPais>();
-            }            
+            }
 
             return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);
         }
@@ -268,6 +279,8 @@ namespace Portal.Consultoras.Web.Controllers
 
         private UsuarioModel GetUserData(int PaisID, string CodigoUsuario, int Tipo, int refrescarDatos = 0)
         {
+            pasoLog = "Login.GetUserData";
+
             Session["IsContrato"] = 1;
             Session["IsOfertaPack"] = 1;
 
@@ -624,7 +637,7 @@ namespace Portal.Consultoras.Web.Controllers
                                     model.MontoMinimoFlexipago = string.Format("{0:#,##0.00}", (beOfertaFlexipago.MontoMinimoFlexipago < 0 ? 0M : beOfertaFlexipago.MontoMinimoFlexipago));
                                 }
                             }
-                        }   
+                        }
 
                         /*PL20-1226*/
                         //model.EsOfertaDelDia = oBEUsuario.EsOfertaDelDia;
@@ -637,7 +650,7 @@ namespace Portal.Consultoras.Web.Controllers
                             using (PedidoServiceClient svc = new PedidoServiceClient())
                             {
                                 lstOfertaDelDia = svc.GetEstrategiaODD(model.PaisID, model.CampaniaID, model.CodigoConsultora, model.FechaInicioCampania.Date).ToList();
-                    }
+                            }
 
                             if (lstOfertaDelDia.Any())
                             {
@@ -645,7 +658,7 @@ namespace Portal.Consultoras.Web.Controllers
                                 using (SACServiceClient svc = new SACServiceClient())
                                 {
                                     configOfertaDelDia = svc.GetTablaLogicaDatos(model.PaisID, 93).ToList();
-                }
+                                }
 
                                 if (configOfertaDelDia.Any())
                                 {
@@ -712,7 +725,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                                 }// config ODD
                             }// list ODD
-                            
+
                             /*PL20-1226*/
                         }
                     }
@@ -768,7 +781,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             return Result;
         }
-        
+
         private string GetIPCliente()
         {
             string IP = string.Empty;
@@ -988,7 +1001,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }
             }
         }
-        
+
         private TimeSpan CountdownODD(UsuarioModel model)
         {
             //DateTime hoy = DateTime.Now;
@@ -1059,7 +1072,7 @@ namespace Portal.Consultoras.Web.Controllers
         public ActionResult Admin()
         {
             return View();
-        }        
+        }
 
         [AllowAnonymous]
         [HttpPost]
@@ -1078,7 +1091,7 @@ namespace Portal.Consultoras.Web.Controllers
             string[] obj = respuesta.Split('|');
             string exito = obj.Length > 0 ? obj[0] : "";
             string tipomsj = obj.Length > 1 ? obj[1] : "";
-            
+
             exito = exito == null ? "" : exito.Trim();
             tipomsj = tipomsj == null ? "" : tipomsj.Trim();
 
@@ -1100,7 +1113,7 @@ namespace Portal.Consultoras.Web.Controllers
                     success = false,
                     message = msj
                 }, JsonRequestBehavior.AllowGet);
-            }            
+            }
         }
 
         private string OlvideContrasena(int paisId, string correo)
