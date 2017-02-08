@@ -309,6 +309,7 @@ function ArmarCarouselEstrategias(data) {
     arrayOfertasParaTi = data;
 
     SetHandlebars("#estrategia-template", data, '#divCarouseHorizontalMobile');
+    $('#div-linea-OPT').show();
 
     //$("#AbrirPopOPT").click(function () {
     //    //$('body').css({ 'overflow-x': 'hidden' });
@@ -1075,6 +1076,9 @@ function CerrarFichaOPT()
 
 function CompartirWsp(UrlBase, objParameter) {
     var _id = InsertarProductoCompartido(objParameter, 'W');
+    if (_id == 0)
+        return false;
+
     UrlBase = UrlBase.replace("[valor]", _id);
 
     UrlBase = UrlBase.ReplaceAll('/', '%2F');
@@ -1086,7 +1090,9 @@ function CompartirWsp(UrlBase, objParameter) {
 }
 
 function CompartirFacebook(urlBase, objParameter) {
-    var _id = InsertarProductoCompartido(objParameter,'F');
+    var _id = InsertarProductoCompartido(objParameter, 'F');
+    if (_id == 0)
+        return false;
     urlBase = urlBase.replace('[valor]', _id);
 
     var popWwidth = 570;
@@ -1145,3 +1151,6 @@ function InsertarProductoCompartido(objParameter, app) {
     return ID;
 }
 
+function mostrarCatalogoPersonalizado() {
+    document.location.href = urlCatalogoPersonalizado;
+}

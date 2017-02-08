@@ -1,4 +1,6 @@
-﻿@{
+﻿@model Portal.Consultoras.Web.Models.CatalogoPersonalizadoModel
+
+@{
     Layout = "~/Areas/Mobile/Views/Shared/_MobileLayout.cshtml";
 }
 
@@ -22,7 +24,9 @@
     <div class="pestana_lbel mobileLiquidaciones pestana_favoritos"></div><!--PESTANA LBEL-->
 </div>
 <div class="content_favoritos_banner">
-    <div class="content_banner_imagen_fav"><img src="https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/WxYjGFThYiTsf4M/banner_favoritos.png" alt="favoritos" /></div>
+    <div class="content_banner_imagen_fav">
+        <img src="@ViewBag.UrlImagenFAVMobile" alt="favoritos" />
+    </div>
     <div class="texto_favoritos">
         Porque conocemos a tus clientes, seleccionamos
         los productos que podrás venderles fácilmente
@@ -39,123 +43,197 @@
 
     <div id="orderby-filter">
         <div id="content-orderby">
-            <select id="orderby-price" class="select-ffc" onchange="processFilterCatalogoPersonalizado(1);">
+            @*<select id="orderby-price" class="select-ffc" onchange="processFilterCatalogoPersonalizado(1);">
                 <option value="-1">ORDENAR POR</option>
                 <option value="asc">PRECIO | Menor a mayor</option>
                 <option value="desc">PRECIO | Mayor a menor</option>
-            </select>
+            </select>*@
 
-            <input type="button" class="btn2-ffc" value="FILTROS" onclick="showCustomFilters();" />
+            @*PL20 - 1273*@
+            @if (Model.FiltersBySorting != null)
+            {
+                <select id="orderby-price" class="select-ffc" onchange="processFilterCatalogoPersonalizado(1);">
+                    @foreach (var item in Model.FiltersBySorting)
+                    {
+                        <option value="@item.Codigo">@item.Descripcion</option>
+                    }
+                </select>
+            }
+
+            <input id="btnfltm" type="button" class="btn2-ffc" value="FILTROS" onclick="showCustomFilters();" />
         </div>
-        <br />
+        <hr class="clear" />
+        
 
         <div id="summary-filters">
-            <div id="div-result-number">
+            <div id="div-result-number"  style="margin-left:0; float: left; width: 65%; font-size:13px;">
                 <span id="result-number">
                 </span>
             </div>
             
-            <div id="div-delete-filters" style="display: none;">
-                <a href="#" class="link-ffc" onclick="deleteFilters();">BORRAR FILTROS</a>
+            <div id="div-delete-filters" style="display: none; margin-right:0px;">
+                <a href="#" class="link-ffc_landing" onclick="deleteFilters();">Borrar Filtros</a>
             </div>
             <br /><br />
         </div>
     </div>
-
-    <div id="custom-filters" style="display: none;">
-
-        <div id="header-custom-filters">
-
-            <div id="title-custom-filters">
-                <span style="font-size: 18px;">FILTROS</span>
+    <div class="row">
+        <div id="custom-filters" style="display: none;" class="filtros_new">
+            <div class="titulo_mobile" style="color:black; background:white">
+                <a onclick="showOrderbyFilter();" class="enlace_regresar catalogosP flecha_black" title="Regresar"></a>
+                &nbsp;&nbsp;&nbsp;&nbsp;SELECCIONA TUS FILTROS
             </div>
-            <div id="delete-custom-filters" style="">
-                <span style="text-align: right;" onclick="showOrderbyFilter();">
-                    <img src="~/Content/Images/mobile/icon-xclose.png" style="width: 20px; height: 20px; cursor: pointer;" />
-                </span>
-            </div>
-        </div>
-        <br />
+            <div id="divProductosEncontrados" class="texto_filtros" style="text-align:center;"><b>2</b> productos encontrados</div>
+            <div class="texto_filtros">Encuentra de manera rápida los mejores productos especialmente escogidos para tus clientes</div>
+            @*<div id="header-custom-filters">
 
-        <div class="right" style="">
-            <a href="#" class="link-ffc" onclick="deleteFilters();">BORRAR FILTROS</a>
-        </div>
-        <br />
-
-        <div id="content-filters" style="">
-            <div class="panel-group" id="accordion">
-                
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h4 class="panel-title">
-                            <a class="accordion-toggle" data-toggle="collapse" href="#collapseTwo" style="text-decoration: none;">
-                                <span class="title-accordion">MARCAS</span>
-                            </a>
-                        </h4>
+                <div id="title-custom-filters">
+                    <span style="font-size: 18px;">FILTROS</span>
+                </div>
+                <div id="delete-custom-filters" style="">
+                    <span style="text-align: right;" onclick="showOrderbyFilter();">
+                        <img src="~/Content/Images/mobile/icon-xclose.png" style="width: 20px; height: 20px; cursor: pointer;" />
+                    </span>
+                </div>
+            </div>*@
+            <br />
+            <div id="content-filters" style="">
+                <div class="panel-group" id="accordion">
+                    <div class="content_panel">
+                        <div class="titulo_filtro">                            
+                                <a class="accordion-toggle" data-toggle="collapse" href="#CategoriaCollpase" style="text-decoration: none;">
+                                    <span class="title-accordion">CATEGORÍAS</span>
+                                </a>                            
+                        </div>
+                        <div id="CategoriaCollpase" class="panel-collapse collapse">
+                            <div class="panel-body panel_filtro">
+                                <div id="idcategory" class="content-category">
+                                    @if (Model.FiltersByCategory != null)
+                                    {
+                                        int cont = 1;
+                                        foreach (var item in Model.FiltersByCategory)
+                                        {                                   
+                                            <div class="block-checkbox">
+                                                <input class="chkFiltroMobile" type="checkbox" id="c@(cont)" name="categoria" value="@item.Codigo">
+                                                <label for="c@(cont)" class="label-checkbox">@item.Descripcion</label>
+                                            </div>                                            
+                                            cont++;
+                                        }
+                                    }
+                                    else
+                                    { 
+                                        <div class="block-checkbox">
+                                            <input type="checkbox" id="c1" name="categoria" value="01">
+                                            <label for="c1" class="label-checkbox">FRAGANCIAS</label>
+                                        </div>
+                                        <div class="block-checkbox">
+                                            <input type="checkbox" id="c2" name="categoria" value="02">
+                                            <label for="c2" class="label-checkbox">MAQUILLAJE</label>
+                                        </div>
+                                        <div class="block-checkbox">
+                                            <input type="checkbox" id="c3" name="categoria" value="04">
+                                            <label for="c3" class="label-checkbox">CUIDADO PERSONAL</label>
+                                        </div>
+                                        <div class="block-checkbox">
+                                            <input type="checkbox" id="c4" name="categoria" value="09">
+                                            <label for="c4" class="label-checkbox">TRATAMIENTO CORPORAL</label>
+                                        </div>
+                                        <div class="block-checkbox">
+                                            <input type="checkbox" id="c5" name="categoria" value="10">
+                                            <label for="c5" class="label-checkbox">TRATAMIENTO FACIAL</label>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div id="collapseTwo" class="panel-collapse collapse">
-                        <div class="panel-body">
-                            <div class="content-category">
-                                <div class="center-checkbox">
-                                    <input type="checkbox" id="b1" name="brand" value="2">
-                                    <label for="b1" class="label-checkbox">Esika</label>
+
+                    <div class="content_panel">
+                        <div class="titulo_filtro">                            
+                                <a class="accordion-toggle" data-toggle="collapse" href="#collapseTwo" style="text-decoration: none;">
+                                    <span class="title-accordion">MARCAS</span>
+                                </a>                            
+                        </div>
+                        <div id="collapseTwo" class="panel-collapse collapse">
+                            <div class="panel-body panel_filtro">
+                                <div id="idmarca" class="content-category">
+                                    @if (Model.FiltersByBrand != null)
+                                    {
+                                        int cont2 = 1;
+                                        foreach (var item in Model.FiltersByBrand)
+                                        {
+                                            <div class="center-checkbox">
+                                                <input class="chkFiltroMobile" type="checkbox" id="b(@cont2)" name="brand" value="@item.Codigo">
+                                                <label for="b(@cont2)" class="label-checkbox">@item.Descripcion</label>
+                                            </div>
+                                            cont2++;
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <div class="center-checkbox">
+                                            <input type="checkbox" id="b1" name="brand" value="L">
+                                            <label for="b1" class="label-checkbox">L´BEL</label>
+                                        </div>
+                                        <div class="center-checkbox">
+                                            <input type="checkbox" id="b2" name="brand" value="E">
+                                            <label for="b2" class="label-checkbox">ÉSIKA</label>
+                                        </div>
+                                        <div class="center-checkbox">
+                                            <input type="checkbox" id="b3" name="brand" value="C">
+                                            <label for="b3" class="label-checkbox">CYZONE</label>
+                                        </div>
+                                    }
                                 </div>
-                                <div class="center-checkbox">
-                                    <input type="checkbox" id="b2" name="brand" value="1">
-                                    <label for="b2" class="label-checkbox">Lbel</label>
-                                </div>
-                                <div class="center-checkbox">
-                                    <input type="checkbox" id="b3" name="brand" value="3">
-                                    <label for="b3" class="label-checkbox">Cyzone</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="content_panel">
+                        <div class="titulo_filtro">                           
+                                <a class="accordion-toggle" data-toggle="collapse" href="#collapseThree" style="text-decoration: none;">
+                                    <span class="title-accordion">FILTRAR PRECIO</span>
+                                </a>                            
+                        </div>
+                        <div id="collapseThree" class="panel-collapse collapse">
+                            <div class="panel-body panel_filtro">
+                                <div style="font-size: 12px; width: 100%;">                                   
+
+                                    <div style="width: 100%; color: #e81c36; text-align: center;">
+                                        <input id="txt-range-price" type="text" class="span2" value="" style="width: 98%;"
+                                               data-slider-id="slider-price"
+                                               data-slider-min="0"
+                                               data-slider-max="0"
+                                               data-slider-step="0.1"
+                                               data-slider-value="[0,0]" />
+                                    </div>
+                                    <div style="text-align: left; width: 50%; float: left; color:#4a4a4a">
+                                        <b>@ViewBag.Simbolo <span id="min-range-price">10</span></b>
+                                    </div>
+                                    <div style="text-align: right; width: 50%; float: left; color:#4a4a4a">
+                                        <b>@ViewBag.Simbolo <span id="max-range-price">1000</span></b>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h4 class="panel-title">
-                            <a class="accordion-toggle" data-toggle="collapse" href="#collapseThree" style="text-decoration: none;">
-                                <span class="title-accordion">FILTRAR PRECIO</span>
-                            </a>
-                        </h4>
-                    </div>
-                    <div id="collapseThree" class="panel-collapse collapse">
-                        <div class="panel-body">
-                            <div style="font-size: 12px; width: 100%;">
+            </div>
+            
+            <div class="content_btn_filtros">
+                <a href="#" class="link-ffc" onclick="deleteFilters();">BORRAR FILTROS</a>
 
-                                <div style="text-align: left; width: 50%; float: left;">
-                                    <b>@ViewBag.Simbolo <span id="min-range-price">10</span></b>
-                                </div>
-                                <div style="text-align: right; width: 50%; float: left;">
-                                    <b>@ViewBag.Simbolo <span id="max-range-price">1000</span></b>
-                                </div>
-
-                                <div style="width: 100%; color: #e81c36; text-align: center;">
-                                    <input id="txt-range-price" type="text" class="span2" value="" style="width: 90%;"
-                                           data-slider-id="slider-price"
-                                           data-slider-min="0"
-                                           data-slider-max="0"
-                                           data-slider-step="1"
-                                           data-slider-value="[0,0]" />
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                <div id="save-filters" class="save-filters">
+                    <input type="button" class="btn-ffc" value="APLICAR" onclick="OcultarSliderMobile();" />
                 </div>
             </div>
         </div>
-
-        <div id="save-filters">
-            <input type="button" class="btn-ffc" value="GUARDAR" onclick="processFilterCatalogoPersonalizado(2);" />
-        </div>
-
-        <br />
     </div>
+    
 
     <!--SB20-1197 - FIN -->
-
-    <div id="divCatalogoPersonalizado" class="contenedor_productos_liquidacion">
+    <div class="Content_favoritos_new">
+        <div id="divCatalogoPersonalizado" class="contenedor_productos_liquidacion">
+        </div>
     </div>
     <div class="clear"></div>
 
@@ -243,14 +321,14 @@
     </div>
 </script>
 
-<form id="frmFichaProductoFAV" method="post" action="@Url.Action("Producto","CatalogoPersonalizado")">
+<form id="frmFichaProductoFAV" method="post" action="@Url.Action("Producto", "CatalogoPersonalizado", new { Area = "Mobile" })">
     <input type="hidden" id="CUVFP" name="CUVFP" />
 </form>
 
 <script id="template-catalogopersonalizado" type="text/x-handlebars-template">
     <div>
         {{#each this as |item|}}
-        <div class="content_item_home" style="position: relative;">
+        <div class="content_item_home landing_cat" style="position: relative;">
             <div class="liquidacion_item" data-item="catalogopersonalizado">
                 <div style="display: none;">
                     <input type="hidden" class="hdItemCuv" value="{{CUV}}" />
@@ -271,9 +349,11 @@
                 </div>
                 
                 <div class="producto_img_mobile" data-img="" onclick="mostrarFichaProductoFAV('{{CUV}}');">
-                    <img src="{{ImagenProductoSugerido}}" style="width: auto; height: 100%;" class="imagen_producto">
+                    <img src="{{ImagenProductoSugerido}}" class="imagen_producto" />
                 </div>
-
+                {{#if TieneOfertaEnRevista}}                    
+                    <div class="etiqueta_guia_negocio"><span>OFERTA</span> GUÍA DE NEGOCIO</div>
+                {{/if}}
                 {{#if item.TieneLanzamientoCatalogoPersonalizado}}
                 <div class="etiqueta_producto nuevofavorito">
                     <img src="@Url.Content("~/Content/Images/producto_lanzamiento_CP.png")" alt="Etiqueta Producto" />
@@ -282,39 +362,46 @@
                 <div class="producto_nombre_descripcion">
                     <h6>{{DescripcionMarca}}</h6>
                     
-                    <p class="nombre_producto" onclick="mostrarFichaProductoFAV('{{CUV}}');" style="text-decoration: underline; cursor: pointer;">
+                    <p class="nombre_producto" onclick="mostrarFichaProductoFAV('{{CUV}}');" style=" cursor: pointer;">
                         <b>{{Descripcion}}</b>
                     </p>
-                   
-                    <div class="producto_precio" style="margin-bottom: 2px !important;">
+                    <div class="producto_precio" style="margin-bottom: 2px !important; margin-top: 10px;">
+                        {{#if TieneOfertaEnRevista}}
+
+                        {{else}}
                         <span class="producto_precio_normal">{{Simbolo}} {{PrecioValorizadoString}}</span>
                         <span class="producto_precio_oferta"><b>{{Simbolo}} {{PrecioCatalogoString}}</b></span>
+                        {{/if}}
                     </div>
-                    <div style="min-height:38px">
+                    <div>
                         {{#if TieneOfertaEnRevista}}
                         <div class="seguir_pedido enlace_popupCatalogoPersonalizado">
-                            <a title="AQUÍ" class="pop-ofertarevista" style="cursor: pointer;">¡MIRA LA OFERTA!</a>
+                            <a title="AQUÍ" class="pop-ofertarevista22" onclick="mostrarFichaProductoFAV('{{CUV}}')" style="cursor: pointer;">¡MIRA LA OFERTA!</a>
                         </div>
                         {{/if}}
                     </div>
 
                     <hr class="clear">
-                    <div class="liquidacion_rango_home" data-cantidad-contenedor="">
+                    @*@*<div class="liquidacion_rango_home" data-cantidad-contenedor="">
                         <a class="cantidad_menos_home"><img src="/Content/Images/Mobile/Esika/menos.png" alt=""></a>
                         <input type="tel" value="1" size="2" maxlength="2" id="txtCantidad" class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" data-input="cantidad" data-cantidad-input="-">
                         <a class="cantidad_mas_home"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
-                    </div>
-                    <div class="clear"></div>
+                    </div>*@
+                    @*<div class="clear"></div>
 
-                    <a class="boton_Agregalo_home btnAgregarOfertaProducto" data-btn-agregar-catalogopersonalizado=""> AGREGALO</a>
+                    <a class="boton_Agregalo_home btnAgregarOfertaProducto" data-btn-agregar-catalogopersonalizado=""> AGREGALO</a>*@
 
-                    <div class="clear"></div>
-                    <div style="padding-top:9px; height: 15px;">
+                    
+                    @*<div style="padding-top:9px; height: 15px;">
+                        {{#if TieneOfertaEnRevista}}
+
+                        {{else}}
                         <div class="agregado product-add" style="text-align: right; display:{{#if IsAgregado }}block;{{else}}none;{{/if}}">
                             AGREGADO
                             <div class="icono"></div>
                         </div>
-                    </div>
+                        {{/if}}
+                    </div>*@
                 </div>
             </div>
         </div>
@@ -568,37 +655,37 @@
                 <div class="titulo_producto_oferta"><span class="texto_unidad_pack">Precio para ti: </span>{{../Simbolo}} {{DecimalToStringFormat pack.precio_pack}}</div>
                 <div class="texto_ganancia_oferta" style="text-transform: uppercase;">{{../TxtGanancia}}: {{../Simbolo}} {{DecimalToStringFormat pack.ganancia_pack}}</div>
                 @*<div class="left_70"><div class="titulo_producto_oferta" style="text-align:left">INCLUYE</div></div>*@
-    <hr class="clear" />
-    {{#each ../lista_oObjItemPack as |item|}}
-    {{#if_eq pack.cuv_pack item.cuv_pack_item}}
-    <div class="content_sub_items">
-        <div class="sub_imagen_oferta">
-            {{#IsNullOrEmpty item.imagen_item_pack '!='}}
-            <img src="{{item.imagen_item_pack}}" alt="" />
-            {{/IsNullOrEmpty}}
+                <hr class="clear" />
+                {{#each ../lista_oObjItemPack as |item|}}
+                {{#if_eq pack.cuv_pack item.cuv_pack_item}}
+                <div class="content_sub_items">
+                    <div class="sub_imagen_oferta">
+                        {{#IsNullOrEmpty item.imagen_item_pack '!='}}
+                        <img src="{{item.imagen_item_pack}}" alt="" />
+                        {{/IsNullOrEmpty}}
 
-            {{#IsNullOrEmpty item.imagen_item_pack '=='}}
-            <div style="margin: 0 auto; text-align: center;">
-                <img src="@Url.Content(ViewBag.RutaImagenNoDisponible)" alt="" style="width: 55px; height: 55px; border: 0;" />
+                        {{#IsNullOrEmpty item.imagen_item_pack '=='}}
+                        <div style="margin: 0 auto; text-align: center;">
+                            <img src="@Url.Content(ViewBag.RutaImagenNoDisponible)" alt="" style="width: 55px; height: 55px; border: 0;" />
+                        </div>
+                        {{/IsNullOrEmpty}}
+                    </div>
+                    <div class="sub_descripcion_oferta"><p><span>x{{item.cantidad_item_pack}} </span>{{item.descripcion_item_pack}}</p></div>
+                </div>
+                <hr class="clear" />
+                {{/if_eq}}
+                {{/each}}
+                <br />
+                <div class="liquidacion_rango_home">
+                    <a class="cantidad_menos_home" tabindex="0"><img src="/Content/Images/Mobile/Esika/menos.png" alt=""></a>
+                    <input type="tel" value="1" size="2" maxlength="2" id="txtCantidad" class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" tabindex="0" data-cantidad-input="pack">
+                    <a class="cantidad_mas_home" tabindex="0"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
+                </div>
+                <div class="clear"></div>
+                <a class="boton_Agregalo_home agregar-ofertarevista" data-cuv="pack" data-cuvadd="{{pack.cuv_pack}}" tabindex="0">AGRÉGALO</a>
             </div>
-            {{/IsNullOrEmpty}}
         </div>
-        <div class="sub_descripcion_oferta"><p><span>x{{item.cantidad_item_pack}} </span>{{item.descripcion_item_pack}}</p></div>
-    </div>
-    <hr class="clear" />
-    {{/if_eq}}
-    {{/each}}
-    <br />
-    <div class="liquidacion_rango_home">
-        <a class="cantidad_menos_home" tabindex="0"><img src="/Content/Images/Mobile/Esika/menos.png" alt=""></a>
-        <input type="tel" value="1" size="2" maxlength="2" id="txtCantidad" class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" tabindex="0" data-cantidad-input="pack">
-        <a class="cantidad_mas_home" tabindex="0"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
-    </div>
-    <div class="clear"></div>
-    <a class="boton_Agregalo_home agregar-ofertarevista" data-cuv="pack" data-cuvadd="{{pack.cuv_pack}}" tabindex="0">AGRÉGALO</a>
-    </div>
-    </div>
-    {{/each}}
+        {{/each}}
     <!--ULTIMO-->
     <div class="row_20">
         <div class="sombra_oferta">
@@ -636,6 +723,7 @@
             var divPadreOfertaRevista;
             var tipoOrigen = '2';
             var urlFichaProductoFAV = '@Url.Action("Producto", "CatalogoPersonalizado")';
+            var urlCargarFiltros = '@Url.Action("CargarFiltros", "CatalogoPersonalizado", new { area = "" })';
         </script>
         <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/CatalogoPersonalizado/CatalogoPersonalizado.js")"></script>
         <script src="~/Scripts/PortalConsultoras/Mobile/CatalogoPersonalizado/bootstrap-slider.min.js"></script>
