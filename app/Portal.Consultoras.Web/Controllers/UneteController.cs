@@ -387,7 +387,12 @@ namespace Portal.Consultoras.Web.Controllers
                             ////cantDiasAproFFVV = CalcularDias(i.FechaAproFVVV)  //37
                             cantDiasAproFFVV = ((CalcularDias(i.FechaAproFVVV)=="-1")? "-":CalcularDias(i.FechaAproFVVV)).ToString(), //37
                             // ((i.FechaAproFVVV.HasValue)? cantDiasAproFFVV = CalcularDias(i.FechaAproFVVV) : null).ToString()  // cantDiasAproFFVV = CalcularDias(i.FechaAproFVVV) 
-                            i.DiferenciaDias.ToString() //38
+                            i.DiferenciaDias.ToString(), //38
+                               string.IsNullOrWhiteSpace(i.ImagenReciboOtraMarca) ? string.Empty : i.ImagenReciboOtraMarca.ToString(), //39
+                               string.IsNullOrWhiteSpace(i.ImagenReciboPagoAval) ? string.Empty : i.ImagenReciboPagoAval.ToString(), //40
+                               string.IsNullOrWhiteSpace(i.ImagenCreditoAval) ? string.Empty : i.ImagenCreditoAval.ToString(), //41
+                               string.IsNullOrWhiteSpace(i.ImagenConstanciaLaboralAval) ? string.Empty : i.ImagenConstanciaLaboralAval.ToString(), //42
+
                         }
                     };
                 })
@@ -2259,8 +2264,8 @@ namespace Portal.Consultoras.Web.Controllers
                     tipoRechazoNombre = parametro.Nombre;
                 }
                 return new SolicitudPostulanteBE
-                { 
-                     FechaCreacion = c.FechaCreacion,
+                {
+                    FechaCreacion = c.FechaCreacion,
                     TipoSolicitud = c.TipoSolicitud,
                     FuenteIngreso = c.FuenteIngreso,
                     NombreCompleto = c.NombreCompleto,
@@ -2269,7 +2274,7 @@ namespace Portal.Consultoras.Web.Controllers
                     CodigoSeccion = c.CodigoSeccion,
                     CodigoTerritorio = c.CodigoTerritorio,
                     Direccion =
-                        string.Format("{0}, {1}, {2}, {3}", c.LugarPadre, c.LugarHijo, c.Direccion.Replace("|", ", "),
+                        string.Format("{0}, {1}, {2}, {3}", c.LugarPadre!=null? c.LugarPadre:"", c.LugarHijo!=null ? c.LugarHijo:"", c.Direccion!=null? c.Direccion.Replace("|", ", "):"",
                             c.Referencia),
                     LugarPadre = c.LugarPadre,
                     LugarHijo = c.LugarHijo,
@@ -2277,12 +2282,23 @@ namespace Portal.Consultoras.Web.Controllers
                     TelefonoFijo = c.TelefonoFijo,
                     EstadoPostulante = c.EstadoPostulante,
                     TipoRechazo = tipoRechazoNombre,
-                    MotivoRechazo = c.MotivoRechazo, 
-                    FechaEnvio = c.FechaEnvio
-                    
+                    MotivoRechazo = c.MotivoRechazo,
+                    FechaEnvio = c.FechaEnvio,
+                    DiasEnEspera = CalcularDias(c.FechaCreacion),
+                    ZonaGZ = c.EsConsultora.ToString() == "1" ? c.ZonaConsultoraLider : c.ZonaGZ,
+                    SeccionOrigen = c.EsConsultora.ToString() == "1" ? c.SeccionConsultoraLider : "-",
+                    NumDiasRechazados = ((CalcularDias(c.FechaRechazo) == "-1") ? "-" : CalcularDias(c.FechaRechazo)).ToString(),
+                    NumDiasAprobadoFFVV = ((CalcularDias(c.FechaAproFVVV) == "-1") ? "-" : CalcularDias(c.FechaAproFVVV)).ToString(),
+                    FechaCreacionCodigo = ((c.FechaCreacionCodigo.HasValue) ? c.FechaCreacionCodigo : null),
+                    CodigoCampania = string.IsNullOrWhiteSpace(c.AnoCampanaIngreso) ? string.Empty : c.AnoCampanaIngreso,
+                    Campania1Pedido = string.IsNullOrWhiteSpace(c.campania1erPasePedido) ? string.Empty : c.campania1erPasePedido,
+                    DiferenciaDias = c.DiferenciaDias,
+                    CodigoConsultora = c.CodigoConsultora,
+                    FechaIngreso = c.FechaIngreso
                 };
                 
             });
+
 
 
             Dictionary<string, string> dic = new Dictionary<string, string>
@@ -2301,10 +2317,83 @@ namespace Portal.Consultoras.Web.Controllers
                 {"Telefono Celular", "TelefonoCelular"},
                 {"Telefono Red Fija", "TelefonoFijo"},
                 {"Estado Postulante", "EstadoPostulante"},
-                {"Tipo Rechazo", "TipoRechazo"},
-                {"Motivo Rechazo", "MotivoRechazo"},
-                {"FechaEnvio", "FechaEnvio"}
+                //{"Tipo Rechazo", "TipoRechazo"},
+                //{"Motivo Rechazo", "MotivoRechazo"},
+                //{"FechaEnvio", "FechaEnvio"},
+                //{"Dias en Espera", "DiasEnEspera"},
+                //{"Zona Origen", "ZonaGZ"},
+                //{"Seccion Origen", "SeccionOrigen"},
+                //{"Num Dias Rechazados", "NumDiasRechazados"},
+                //{"Num Dias Aprobado FFVV", "NumDiasAprobadoFFVV"},
+                //{"Fecha Creacion Codigo", "FechaCreacionCodigo"},
+                //{"Codigo Campaña", "CodigoCampania"},
+                //{"Campaña 1er pedido", "Campania1Pedido"},
+                // {"Diferencia Dias", "DiferenciaDias"}
             };
+
+            if (Estado == 0)
+            {
+                dic.Add("Dias en Espera", "DiasEnEspera");
+                dic.Add("Zona Origen", "ZonaGZ");
+                dic.Add("Seccion Origen", "SeccionOrigen");
+            }
+            else if (Estado == 3)
+            {
+                dic.Add("Dias en Espera", "DiasEnEspera");
+                dic.Add("Zona Origen", "ZonaGZ");
+                dic.Add("Seccion Origen", "SeccionOrigen");
+                dic.Add("Num Dias Aprobado FFVV", "NumDiasAprobadoFFVV");
+
+            }
+            else if (Estado == 2)
+            {
+                dic.Add("Dias en Espera", "DiasEnEspera");
+                dic.Add("Zona Origen", "ZonaGZ");
+                dic.Add("Seccion Origen", "SeccionOrigen");
+                //dic.Add("Diferencia Dias", "DiferenciaDias");
+            }
+            else if (Estado == 7)
+            {
+                dic.Add("Codigo de Consultora", "CodigoConsultora");
+                dic.Add("Fecha de Ingreso", "FechaIngreso");
+                dic.Add("Fecha Envio", "FechaEnvio");
+ 
+                dic.Add("Dias en Espera", "DiasEnEspera");
+                dic.Add("Zona Origen", "ZonaGZ");
+                dic.Add("Seccion Origen", "SeccionOrigen");
+            }
+            else if (Estado == 4)
+            {
+                dic.Add("Tipo Rechazo", "TipoRechazo");
+                dic.Add("Motivo Rechazo", "MotivoRechazo");
+                dic.Add("Dias en Espera", "DiasEnEspera");
+                dic.Add("Zona Origen", "ZonaGZ");
+                dic.Add("Seccion Origen", "SeccionOrigen");
+                dic.Add("Num Dias Rechazados", "NumDiasRechazados");
+
+           
+
+            }
+            else   if (Estado == 5)
+            {                 
+                dic.Add("Codigo de Consultora", "CodigoConsultora");
+                dic.Add("Fecha de Ingreso", "FechaIngreso");
+                dic.Add("Zona Origen", "ZonaGZ");
+                dic.Add("Seccion Origen", "SeccionOrigen");
+                dic.Add("Fecha Creacion Codigo", "FechaCreacionCodigo");
+                dic.Add("Codigo Campaña", "CodigoCampania");
+                dic.Add("Campaña 1er pedido", "Campania1Pedido");
+                dic.Add("Diferencia Dias", "DiferenciaDias");
+
+            }
+            else if (Estado == 9)
+            {
+                dic.Add("Dias en Espera", "DiasEnEspera");
+                dic.Add("Zona Origen", "ZonaGZ");
+                dic.Add("Seccion Origen", "SeccionOrigen");
+            }
+
+      
             //dic.Add("Dirección", "DireccionCompleta");
             //  dic.Add("Region", "LugarPadre");   
             //dic.Add("Comuna", "LugarHijo");
