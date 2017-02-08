@@ -49,6 +49,8 @@ $(document).ready(function () {
 //PL20-1237
 function CompartirWsp(UrlBase) {
     var _id = InsertarProductoCompartido('W');
+    if (_id == 0)
+        return false;
     UrlBase = UrlBase.replace("[valor]", _id);
 
     UrlBase = UrlBase.ReplaceAll('/', '%2F');
@@ -95,6 +97,9 @@ function InsertarProductoCompartido(app) {
                 if (response.success) {
                     var datos = response.data;
                     ID = datos.id;
+
+                    if (ID == 0)
+                        return false;
                 } else {
                     window.messageInfo(response.message);
                 }
@@ -112,6 +117,8 @@ function InsertarProductoCompartido(app) {
 
 function CompartirFacebook(urlBase) {
     var _id = InsertarProductoCompartido('F');
+    if (_id == 0)
+        return false;
     urlBase = urlBase.replace('[valor]', _id);
 
     var popWwidth = 570;
