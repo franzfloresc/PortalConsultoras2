@@ -749,16 +749,6 @@ namespace Portal.Consultoras.Web.Controllers
             return model;
         }
 
-        private List<BEProductoFaltante> GetModelPedidoAgotado(int PaisID, int CampaniaID, int ZonaID)
-        {
-            List<BEProductoFaltante> olstProductoFaltante = new List<BEProductoFaltante>();
-            using (SACServiceClient sv = new SACServiceClient())
-            {
-                olstProductoFaltante = sv.GetProductoFaltanteByCampaniaAndZonaID(PaisID, CampaniaID, ZonaID).ToList();
-            }
-            return olstProductoFaltante;
-        }
-
         private List<TipoLinkModel> GetLinksPorPais(int PaisID)
         {
             List<BETipoLink> listModel = new List<BETipoLink>();

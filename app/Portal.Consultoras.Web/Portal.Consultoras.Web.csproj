@@ -3216,7 +3216,7 @@
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
-    <Content Include="Service References\ServiceSAC\SACService.wsdl" />
+    <None Include="Service References\ServiceSAC\SACService.wsdl" />
     <None Include="Service References\ServiceSAC\SACService.xsd">
       <SubType>Designer</SubType>
     </None>
@@ -3507,13 +3507,13 @@
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </Content>
-    <Content Include="Service References\ServiceSAC\SACService.disco" />
-    <Content Include="Service References\ServiceSAC\configuration91.svcinfo" />
-    <Content Include="Service References\ServiceSAC\configuration.svcinfo" />
-    <Content Include="Service References\ServiceSAC\Reference.svcmap">
+    <None Include="Service References\ServiceSAC\SACService.disco" />
+    <None Include="Service References\ServiceSAC\configuration91.svcinfo" />
+    <None Include="Service References\ServiceSAC\configuration.svcinfo" />
+    <None Include="Service References\ServiceSAC\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
-    </Content>
+    </None>
     <Content Include="Service References\ServiceSeguridad\SeguridadService.disco" />
     <Content Include="Service References\ServiceSeguridad\configuration91.svcinfo" />
     <Content Include="Service References\ServiceSeguridad\configuration.svcinfo" />

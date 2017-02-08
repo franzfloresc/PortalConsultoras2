@@ -551,7 +551,6 @@ namespace Portal.Consultoras.Web.Controllers
 
                 ViewBag.Usuario = "Hola, " + (string.IsNullOrEmpty(model.Sobrenombre) ? model.NombreConsultora : model.Sobrenombre);
                 ViewBag.Rol = model.RolID;
-                ViewBag.ListaProductoFaltante = model.ListaProductoFaltante;
                 ViewBag.Campania = NombreCampania(model.NombreCorto);
                 ViewBag.CampaniaCodigo = model.CampaniaID;
                 ViewBag.BanderaImagen = model.BanderaImagen;
@@ -1326,16 +1325,6 @@ namespace Portal.Consultoras.Web.Controllers
             var campAct = CampaniaActual.Substring(4, 2);
             if (campAct == nroCampanias.ToString()) return "01";
             return (Convert.ToInt32(campAct) + 1).ToString().PadLeft(2, '0');
-        }
-
-        public List<BEProductoFaltante> GetModelPedidoAgotado(int PaisID, int CampaniaID, int ZonaID)
-        {
-            List<ServiceSAC.BEProductoFaltante> olstProductoFaltante = new List<ServiceSAC.BEProductoFaltante>();
-            using (ServiceSAC.SACServiceClient sv = new ServiceSAC.SACServiceClient())
-            {
-                olstProductoFaltante = sv.GetProductoFaltanteByCampaniaAndZonaID(PaisID, CampaniaID, ZonaID).ToList();
-            }
-            return olstProductoFaltante;
         }
 
         public string GetFechaPromesaEntrega(int PaisId, int CampaniaId, string CodigoConsultora, DateTime FechaFact)
