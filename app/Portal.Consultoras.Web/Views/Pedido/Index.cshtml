@@ -1009,7 +1009,7 @@
 </div>
 <!-- FIN POPUP OFERTA FINAL -->
 <!--POP UP ESCALA DE DESCUENTO FICHA-->
-        <div class="contenedor_popup_ofertaFinal" id="contenedor_popup_ofertaFinal" style="display: none;">
+        <div class="contenedor_popup_ofertaFinal" id="contenedor_popup_ofertaFinalVerDetalle" style="display: none;">
             <div class="popup_ofertaFinal" style="padding:35px;">
                 <a class="btn_cerrar_escala" href="javascript:;" onclick="javascript: $('#contenedor_popup_ofertaFinal').hide();">REGRESAR</a>
                 <hr class="clear" />
@@ -1019,7 +1019,8 @@
                     </div>
                     <div class="compartir_redes_ficha">
                         <div class="texto_compartelo">Compártelo con tus clientes</div>
-                        <a class="btn_compartir_facebook_ficha"><img src="@Url.Content("~/Content/Images/Mobile/Esika/facebook.png")" width="19" height="18" /></a>                        <a class="btn_compartir_facebook_ficha"><img src="@Url.Content("~/Content/Images/Esika/mensaje_ficha.png")" width="20" height="15" /></a>
+                        <a class="btn_compartir_facebook_ficha"><img src="@Url.Content("~/Content/Images/Mobile/Esika/facebook.png")" width="19" height="18" /></a>
+                        <a class="btn_compartir_facebook_ficha"><img src="@Url.Content("~/Content/Images/Esika/mensaje_ficha.png")" width="20" height="15" /></a>
                         <hr class="clear" />
                     </div>
                 </div>
@@ -1043,7 +1044,6 @@
                             <hr class="clear" />
                         </div>
                     </div>
-                    
                     <div class="liquidacion_rango_home">
                         <input type="text" value="1" size="2" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" data-input="cantidad" data-cantidad-input="-">
                         <div class="liquidacion_rango_right_pedido">
@@ -2127,7 +2127,7 @@
                         <div class="slider center" id="divCarruselOfertaFinal" style="width: 100%">
 
             {{#each this.Detalle}}
-            <div class="content_item_carrusel_ofertaFinal" data-item="ofertaFinal">
+            <div class="content_item_carrusel_ofertaFinal" data-item="ofertaFinal" onclick="javascript:CargarVerDetalleOF(this, event);" data-id="{{id}}">
                 <div style="display: none;">
                     <input type="hidden" class="hdOfertaFinalCuv" value="{{CUV}}" />
                     <input type="hidden" class="hdOfertaFinalTipoOfertaSisID" value="{{TipoOfertaSisID}}" />
@@ -2137,15 +2137,21 @@
                     <input type="hidden" class="hdOfertaFinalMarcaID" value="{{MarcaID}}" />
                     <input type="hidden" class="hdOfertaFinalPrecioUnidad" value="{{PrecioCatalogo}}" />
                     <input type="hidden" class="hdOfertaFinalDescripcionProd" value="{{Descripcion}}" />
+                    <input type="hidden" class="hdOfertaFinalVolumen" value="{{Volumen}}" />
                     <input type="hidden" class="hdOfertaFinalPagina" value="0" />
                     <input type="hidden" class="hdOfertaFinalDescripcionCategoria" value="{{DescripcionCategoria}}" />
                     <input type="hidden" class="hdOfertaFinalDescripcionMarca" value="{{DescripcionMarca}}" />
                     <input type="hidden" class="hdOfertaFinalDescripcionEstrategia" value="{{DescripcionEstrategia}}" />
+                    <input type="hidden" class="hdOfertaFinalImagenProductoSugerido" value="{{ImagenProductoSugerido}}" />
+                    <input type="hidden" class="hdOfertaFinalImagenProductoSugerido" value="{{ImagenProductoSugerido}}" />
+                    <input type="hidden" class="hdOfertaFinalPrecioValorizadoString" value="{{PrecioValorizadoString}}" />
+                    <input type="hidden" class="hdOfertaFinalPrecioCatalogoString" value="{{PrecioCatalogoString}}" />
                 </div>
                 <div class="contenido_item_carrusel_ofertaFinal" style="height:280px;">
                     <div class="nohely producto_img_home" style="height:115px;" data-tooltip-text="Cómpralo porque ya tienes Shampoo Essens...">
                         <img src="{{ImagenProductoSugerido}}" style="height: 100%;">
                         @*<i class="img-tooltip" data-toggle="tooltip" data-placement="right" title="Cómpralo porque ya tienes Shampoo Essens..." data-animation="false" data-trigger="manual" />*@
+                        <a class="ver_detalle_carrusel" style="bottom:23px;">VER DETALLE</a>
                     </div>
                     @*<div class="etiqueta_producto"></div>*@
                     <div class="producto_nombre_descripcion">
@@ -2194,6 +2200,57 @@
     </div>
 </script>
 
+<script id="ofertaFinalVerDetalle-template" type="text/x-handlebars-template">
+    <div class="popup_ofertaFinal" style="padding:35px;">
+        <a class="btn_cerrar_escala" href="javascript:;" onclick="javascript: $('#contenedor_popup_ofertaFinalVerDetalle').hide();">REGRESAR</a>
+        <hr class="clear" />
+        <div class="content_left_ficha">
+            <div class="content_ficha_producto" style="width:72%; height:auto; margin:0 auto;">
+                <img id="fav_imagen_prod" class="imagen_producto" src="{{ImagenProductoSugerido}}" alt="PRODUCTO">
+            </div>
+            <div class="compartir_redes_ficha">
+                <div class="texto_compartelo">Compártelo con tus clientes</div>
+                <a class="btn_compartir_facebook_ficha" onclick='javascript:CompartirFacebook("{{UrlCompartirFB}}",  {Palanca: "OF", RutaImagen: "{{ImagenProductoSugerido}}", MarcaID:"{{MarcaID}}", MarcaDesc:"{{DescripcionMarca}}", NombrePro:"{{DescripcionCompleta}}", Cuv:"{{CUV}}"});'>
+                    <img src="@Url.Content("~/Content/Images/Mobile/Esika/facebook.png")" width="19" height="18" />
+                </a>
+                @*<a class="btn_compartir_facebook_ficha"><img src="@Url.Content("~/Content/Images/Esika/mensaje_ficha.png")" width="20" height="15" /></a>*@
+                <hr class="clear" />
+            </div>
+        </div>
+        <div class="content_right_ficha">
+            <div style="height:130px;">
+                <div class="titulo_ficha_producto">{{DescripcionComercial}}</div>
+                <div class="peso_ficha_producto">{{Volumen}}</div>
+                <div class="descripcion_ficha_producto">{{Descripcion}}</div>
+                <div class="precio_ficha_producto">
+                    <span class="precio_tachado_ficha">{{Simbolo}} {{PrecioValorizadoString}}</span>{{Simbolo}} {{PrecioCatalogoString}}
+                </div>
+            </div>
+            <div style="height:196px;">
+                <div class="opcion_escala_descuento">
+                    <div class="texto_producto_relacionado">
+                        Cómpralo porque ya tienes <b>{{DescripcionRelacionado}}</b> en tu pedido
+                    </div>
+                    <div class="imagen_relacionada">
+                        <img src="{{ImagenProductoSugerido}}" alt="PRODUCTO">
+                    </div>
+                    <hr class="clear" />
+                </div>
+            </div>
+            <div class="liquidacion_rango_home">
+                <input type="text" value="1" size="2" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" data-input="cantidad" data-cantidad-input="-">
+                <div class="liquidacion_rango_right_pedido">
+                    <a class="mas" data-cantidad-agregar="+"><img src="/Content/Images/Esika/mas.png" alt=""></a>
+                    <a class="menos" data-cantidad-agregar="-"><img src="/Content/Images/Esika/menos.png" alt=""></a>
+                </div>
+            </div>
+            <a class="boton_Agregalo_home ficha_btn_agregar agregarOfertaFinalVerDetalle" data-popup-verdetalle="{{id}}" style="width:238px;">
+                AGRÉGALO
+            </a>
+        </div>
+        <hr class="clear" />
+    </div>
+</script>
         @section scripts{
             <script type="text/javascript" src="@Url.Content("~/Scripts/slick.min.js")"></script>
             <script type="text/javascript">

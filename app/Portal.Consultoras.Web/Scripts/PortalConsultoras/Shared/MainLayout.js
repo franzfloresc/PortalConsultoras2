@@ -84,7 +84,7 @@ $(document).ready(function () {
     });
 
 
-    $("body").on("click", "[data-popup-close]", function () {
+    $("body").on("click", "[data-popup-close]", function (e) {
         var popupClose = $("#" + $(this).attr("data-popup-close")) || $(this).parent("[data-popup-main]");
 
         var functionHide = $(popupClose).attr("data-popup-function-hide");
