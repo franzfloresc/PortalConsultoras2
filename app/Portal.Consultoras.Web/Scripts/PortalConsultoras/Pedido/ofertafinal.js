@@ -73,7 +73,9 @@ $(document).ready(function () {
         //}, 1000);
         
         ActulizarValoresPopupOfertaFinal(add);
-        $(divPadre).find(".product-add").show();
+
+        $("#divCarruselOfertaFinal").find(".hdOfertaFinalCuv[value='" + cuv + "']").parents('[data-item="ofertaFinal"]').find('.agregado').show();
+        //$(divPadre).find(".product-add").show();
         CerrarSplash();
     });
 
@@ -143,14 +145,9 @@ $(document).ready(function () {
         }
 
         AgregarOfertaFinalLog(cuv, cantidad, tipoOfertaFinal_Log, gap_Log, 1);
-        //TrackingJetloreAdd(cantidad, $("#hdCampaniaCodigo").val(), cuv);
-        //setTimeout(function () {
-        //    $("#divOfertaFinal").hide();
-        //    EjecutarServicioPROLSinOfertaFinal();
-        //}, 1000);
-
         ActulizarValoresPopupOfertaFinal(add);
-        $(divPadre).find(".product-add").show();
+        $("#divCarruselOfertaFinal").find(".hdOfertaFinalCuv[value='" + cuv + "']").parents('[data-item="ofertaFinal"]').find('.agregado').show();
+        //$(divPadre).find(".product-add").show();
         $("#contenedor_popup_ofertaFinalVerDetalle").hide();
         CerrarSplash();
     });
