@@ -2442,7 +2442,7 @@ namespace Portal.Consultoras.Web.Controllers
                 dic.Add("Zona Origen", "ZonaGZ");
                 dic.Add("Seccion Origen", "SeccionOrigen");
                 dic.Add("Fecha Creacion Codigo", "FechaCreacionCodigo");
-                dic.Add("Codigo Campaña", "CodigoCampania");
+                dic.Add("Campaña Ingreso", "CodigoCampania");
                 dic.Add("Campaña 1er pedido", "Campania1Pedido");
                 dic.Add("Diferencia Dias", "DiferenciaDias");
 
