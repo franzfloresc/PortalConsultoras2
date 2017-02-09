@@ -23,6 +23,14 @@ $(document).ready(function () {
             if ($('#popupDetalleCarousel_lanzamiento').is(':visible')) {
                 $('#popupDetalleCarousel_lanzamiento').hide();
             }
+
+            if ($('[data-popup-main]').is(':visible')) {
+                var functionHide = $('[data-popup-main]').attr("data-popup-function-hide");
+                if (functionHide != "") {
+                    setTimeout(functionHide + "()", 100);
+                }
+                $('[data-popup-main]').hide();
+            }
         }
     });
 
@@ -59,6 +67,31 @@ $(document).ready(function () {
             //    $('#popupDetalleCarousel_lanzamiento').hide();
             //}
         }
+    });
+
+    $("body").on("click", "[data-popup-main]", function (e) {
+        if (!$(e.target).closest('[data-popup-body]').length) {
+
+            if ($(e.target).is(':visible')) {
+
+                var functionHide = $('[data-popup-main]').attr("data-popup-function-hide");
+                if (functionHide != "") {
+                    setTimeout(functionHide + "()", 100);
+                }
+                $(e.target).hide();
+            }
+        }
+    });
+
+
+    $("body").on("click", "[data-popup-close]", function () {
+        var popupClose = $("#" + $(this).attr("data-popup-close")) || $(this).parent("[data-popup-main]");
+
+        var functionHide = $(popupClose).attr("data-popup-function-hide");
+        if (functionHide != "") {
+            setTimeout(functionHide + "()", 100);
+        }
+        $(popupClose).hide();
     });
 
     waitingDialog();
