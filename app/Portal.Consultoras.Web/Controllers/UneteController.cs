@@ -996,9 +996,38 @@ namespace Portal.Consultoras.Web.Controllers
             using (var sv = new PortalServiceClient())
             {
                 var solicitudPostulante = sv.ObtenerSolicitudPostulante(CodigoISO, int.Parse(id));
+                var PaisesOmitirBuroCrediticio = new List<string>();
 
-                solicitudPostulante.EstadoBurocrediticio = Enumeradores.EstadoBurocrediticio.SinConsultar.ToInt();
+
+                PaisesOmitirBuroCrediticio.Add(Pais.Mexico);
+
+                if (PaisesOmitirBuroCrediticio.FirstOrDefault(x => x == CodigoISO) == null)
+                {
+                    solicitudPostulante.EstadoBurocrediticio = Enumeradores.EstadoBurocrediticio.SinConsultar.ToInt();
+                }
+                else
+                {
+                    solicitudPostulante.EstadoTelefonico = Enumeradores.TipoEstadoTelefonico.SinAsignar.ToInt();
+                    //solicitudPostulante.ImagenConstanciaLaboralAval = null;
+                    //solicitudPostulante.ImagenCreditoAval = null;
+                    //solicitudPostulante.ImagenReciboPagoAval = null;
+                    //solicitudPostulante.ImagenDniAval = null;
+                    //solicitudPostulante.ImagenPagare = null;
+                    //solicitudPostulante.ImagenContrato = null;
+                    //solicitudPostulante.ImagenReciboOtraMarca = null;
+                    //solicitudPostulante.ImagenDniAval = null;
+                    //solicitudPostulante.ImagenPagare = null;
+                    //solicitudPostulante.ImagenContrato = null;
+                    //solicitudPostulante.ImagenCDD = null;
+                    //solicitudPostulante.ImagenIFE = null;
+                }
+
                 solicitudPostulante.EstadoGEO = Enumeradores.EstadoGEO.SinConsultar.ToInt();
+
+                solicitudPostulante.CodigoSeccion = null;
+                solicitudPostulante.CodigoTerritorio = null;
+                solicitudPostulante.CodigoZona = null;
+
                 solicitudPostulante.SubEstadoPostulante = default(int?);
                 solicitudPostulante.EstadoPostulante = Enumeradores.EstadoPostulante.EnGestionServicioAlCliente.ToInt();
 
