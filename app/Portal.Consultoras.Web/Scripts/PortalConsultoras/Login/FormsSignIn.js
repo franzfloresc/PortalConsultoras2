@@ -4,7 +4,8 @@ var activarHover = true;
 var val_comboLogin = "";
 var temp = "";
 
-$(document).ready(function () {    
+$(document).ready(function () {
+    $("#ErrorTextLabel").css("padding-left", "0");
     $('#ddlPais').val(isoPais);
     //$('#cboPaisCambioClave').val(isoPais);
 
@@ -167,8 +168,9 @@ $(document).ready(function () {
             }
         });
 
-    if (typeof errorLogin !== 'undefined') {
+    if (typeof errorLogin !== 'undefined') {        
         $('#ErrorTextLabel').html(errorLogin);
+        $("#ErrorTextLabel").css("padding-left", "20px");
     }
     /*EPD-1012*/
 
