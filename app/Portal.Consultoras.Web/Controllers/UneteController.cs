@@ -1021,25 +1021,13 @@ namespace Portal.Consultoras.Web.Controllers
                 else
                 {
                     solicitudPostulante.EstadoTelefonico = Enumeradores.TipoEstadoTelefonico.SinAsignar.ToInt();
-                    solicitudPostulante.ImagenConstanciaLaboralAval = null;
-                    solicitudPostulante.ImagenCreditoAval = null;
-                    solicitudPostulante.ImagenReciboPagoAval = null;
-                    solicitudPostulante.ImagenDniAval = null;
-                    solicitudPostulante.ImagenPagare = null;
-                    solicitudPostulante.ImagenContrato = null;
-                    solicitudPostulante.ImagenReciboOtraMarca = null;
-                    solicitudPostulante.ImagenDniAval = null;
-                    solicitudPostulante.ImagenPagare = null;
-                    solicitudPostulante.ImagenContrato = null;
-                    solicitudPostulante.ImagenCDD = null;
-                    solicitudPostulante.ImagenIFE = null;
-                } 
+                }
 
                 solicitudPostulante.EstadoGEO = Enumeradores.EstadoGEO.SinConsultar.ToInt();
 
                 solicitudPostulante.CodigoSeccion = null;
                 solicitudPostulante.CodigoTerritorio = null;
-                solicitudPostulante.CodigoZona = null;  
+                solicitudPostulante.CodigoZona = null;
 
                 solicitudPostulante.SubEstadoPostulante = default(int?);
                 solicitudPostulante.EstadoPostulante = Enumeradores.EstadoPostulante.EnGestionServicioAlCliente.ToInt();
