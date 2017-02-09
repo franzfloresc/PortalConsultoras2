@@ -34003,13 +34003,14 @@ h1#penmostreo .campana {
 }
 
 .content_ficha_producto_nueva{
-         width: 800px;
+   width: 850px;
     min-height: 450px;
     position: relative;
-    top: 10%;
+    top:40px;
     margin: auto auto auto auto;
     background: white;
     padding: 43px 51px;
+    margin-bottom:40px;
 
 }
 
@@ -34026,9 +34027,10 @@ h1#penmostreo .campana {
 .content_ficha_producto img{
     width:100%;
    }
-.content_right_ficha{
+.content_right_ficha {
     float: RIGHT;
     width: 55%;
+    position: relative;
 }
 .titulo_ficha_producto {
     font-family: 'Lato';
@@ -34039,6 +34041,8 @@ h1#penmostreo .campana {
     letter-spacing: 0.3px;
     /* margin-top: -5px; */
     line-height: 18px;
+    padding-left:0;
+    margin-bottom:8px;
 }
 .cerrar_fichaProducto{
     position:absolute;
@@ -34066,7 +34070,7 @@ h1#penmostreo .campana {
     color: black;
     font-weight: 900;
     font-size: 16px;    
-    margin-bottom: 7px;
+    margin-bottom: 15px;
     margin-top:7px;
 }
 .precio_tachado_ficha {
@@ -34089,12 +34093,13 @@ h1#penmostreo .campana {
 .content_tono_detalle {
     position: relative;
     width: 10%;
-    height: 39px;
+    height: 41px;
     margin-right: 1.25%;
     float: left;
     margin-bottom: 3px;
     box-sizing: border-box;
     padding: 0;
+    border: 1px solid white;
 }
 .content_tono_detalle:nth-child(9n){
     margin-right:0;
@@ -34128,7 +34133,7 @@ h1#penmostreo .campana {
     display: block;
 }
 .ficha_btn_agregar{
-    width:308px; background:black; color:white; font-weight:400; letter-spacing:0.4px;
+    width:336px; background:black; color:white; font-weight:400; letter-spacing:0.4px;
 }
 .tooltip_tono{
     position: absolute;
@@ -34319,7 +34324,85 @@ h1#penmostreo .campana {
     margin-right:10px;
 }
 .ganancia_ficha{
-        color: #e81c36;
+    color: #613c87;
     font-weight: 400;
     font-size: 13px;
+    margin-top:-3px;
+}
+
+.content_producto_tono{
+    border-top:1px solid #ccc;
+    width:100%;  
+    padding-top:15px;
+    padding-bottom:10px;
+    position:relative;
+}
+.sub_nombre_producto{
+    font-size:13px;
+    font-weight:700;
+    font-family: 'lato';
+}
+.sub_precio{
+    font-family: 'lato';
+    font-size:11px;
+}
+.content_tono_principal{
+    width: 20%;
+    height: auto;
+    float: left;
+    margin-left: 5%;
+}
+.content_tono_principal img{
+    width:100%;
+
+}
+.detalle_precio_opt{
+    overflow:hidden;
+}
+.combo_select_tono{
+    border:1px solid #b0b0b0;
+    margin-left:2%;
+    margin-top:4px;
+    width:73%;
+    float:right;
+    height:33px;
+    line-height:33px;
+    padding-left:10px;
+    font-family: 'lato';
+    font-size:13px;
+    position:relative;
+}
+.mas_info_tono{
+    display: block;
+    float: right;
+    padding-right: 7px;
+}
+.content_tonos_ficha{
+    width:73%;
+    position:absolute;
+    border:1px solid #b0b0b0;
+    border-top:0;
+    z-index:5;
+    height:auto;
+    top:35px;
+    right:0;
+    background:white;
+    padding:0 10px 10px 10px;
+    -webkit-box-shadow: 0px 12px 11px -9px rgba(173,168,173,1);
+    -moz-box-shadow: 0px 12px 11px -9px rgba(173,168,173,1);
+    box-shadow: 0px 12px 11px -9px rgba(173,168,173,1);
+    display:none;
+}
+.content_tono_combo{
+    width:15%;
+    height:23px;
+    margin-right:2%;   
+    float:left;
+}
+.content_tono_combo img{
+    width:100%;
+}
+.content_tono_combo:nth-child(6n){
+    margin-right:0;
+    
 }
