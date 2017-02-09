@@ -1,6 +1,6 @@
 ﻿@model Portal.Consultoras.Web.Models.CDRWebModel
 @{
-    ViewBag.Title = "Reporte CDR Detalle";
+    ViewBag.Title = "Reporte Cambios y Devoluciones";
 }
 <script type="text/javascript">
 
@@ -58,7 +58,7 @@
         fnGrilla();
      
         $("#btnBuscar").click(function () {
-            ger;
+            
             if (jQuery.trim($("#ddlPais").val()) == "") {
                 alert("Debe seleccionar un País, verifique");
                 return false;
@@ -171,12 +171,12 @@
                 }),
                 mtype: 'GET',
                 contentType: "application/json; charset=utf-8",
-                colNames: ['Nro. CDR', 'Código de cliente', 'Zona', 'Región', 'Sección', 'Campaña Origen Pedido', 'Fecha Hora Solicitud', 'Fecha Hora Atención', 'Estado del Reclamo', 'Código de Venta', 'Unidades facturadas', 'Monto Facturado', 'Unidades devueltas', 'Monto Devuelto', 'Código de Venta Producto a Enviar', 'Unidades a Enviar', 'Monto Producto a Enviar', 'Operación', 'Motivo', 'Estado', 'Motivo Rechazo'],
+                colNames: ['Nro. CDR', 'Código de cliente', 'Región', 'Zona', 'Sección', 'Campaña Origen Pedido', 'Fecha Hora Solicitud', 'Fecha Hora Atención', 'Estado del Reclamo', 'Código de Venta', 'Unidades facturadas', 'Monto Facturado', 'Unidades devueltas', 'Monto Devuelto', 'Código de Venta Producto a Enviar', 'Unidades a Enviar', 'Monto Producto a Enviar', 'Operación', 'Motivo', 'Estado', 'Motivo Rechazo'],
                 colModel: [
                     { name: 'NroCDR', index: 'NroCDR', width: 10, editable: true, resizable: false },
                     { name: 'ConsultoraCodigo', index: 'ConsultoraCodigo', width: 25, editable: true, resizable: false, align: 'center' },
-                    { name: 'ZonaCodigo', index: 'ZonaCodigo', width: 10, editable: true, resizable: false, align: 'center' },
                     { name: 'RegionCodigo', index: 'RegionCodigo', width: 15, editable: true, resizable: false, align: 'center' },
+                    { name: 'ZonaCodigo', index: 'ZonaCodigo', width: 10, editable: true, resizable: false, align: 'center' },
                     { name: 'SeccionCodigo', index: 'SeccionCodigo', width: 20, editable: true, resizable: false, align: 'center' },
                     { name: 'CampaniaOrigenPedido', index: 'CampaniaOrigenPedido', width: 20, editable: true, resizable: false, align: 'center' },
                     { name: 'FechaHoraSolicitud', index: 'FechaHoraSolicitud', width: 25, editable: true, resizable: false, align: 'center' },
