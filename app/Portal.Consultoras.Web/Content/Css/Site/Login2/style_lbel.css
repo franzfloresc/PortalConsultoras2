@@ -1678,3 +1678,9 @@ h1, h2, h3, h4, h5, h6 {
         width: 90%;
     }
 }
+
+.img_error_login {
+    background: url('../../../Images/Login2/error_login.svg') no-repeat;
+    padding-left: 20px;
+    background-size: 15px;
+}
