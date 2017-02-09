@@ -228,8 +228,9 @@ namespace Portal.Consultoras.Web.Controllers
                                     EsMaquillaje = producto.EsMaquillaje,
                                     DescripcionComercial = producto.DescripcionComercial,
                                     CodigoIso = userData.CodigoISO,
-                                    Relevancia = producto.Relevancia,
-                                    CodigoCategoria = producto.CodigoCategoria,
+                                    //DESCOMENTAR LUEGO
+                                    //Relevancia = producto.Relevancia,
+                                    //CodigoCategoria = producto.CodigoCategoria,
                                     CodigoMarca = producto.CodigoMarca
                                 });
 
@@ -609,6 +610,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             
         }
+
         //PL20-1237
         public JsonResult InsertarProductoCompartido(ProductoCompartidoModel ProCompModel)
         {
@@ -752,8 +754,8 @@ namespace Portal.Consultoras.Web.Controllers
                     message = "Ocurrrio un problema con la operacion.",
                 });
             }
-        }
-        
+        }        
+
         public JsonResult CargarFiltros()
         {
             try

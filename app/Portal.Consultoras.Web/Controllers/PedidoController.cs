@@ -4800,13 +4800,22 @@ namespace Portal.Consultoras.Web.Controllers
 
             ListaParametroOfertaFinal ObjOfertaFinal = new ListaParametroOfertaFinal();
 
-            ObjOfertaFinal.tipoOferta = userData.OfertaFinal;
-            ObjOfertaFinal.codigoIso = userData.CodigoISO;
             ObjOfertaFinal.campaniaID = userData.CampaniaID;
             ObjOfertaFinal.codigoConsultora = userData.CodigoConsultora;
+            ObjOfertaFinal.tipoOferta = userData.OfertaFinal;
             ObjOfertaFinal.ZonaID = userData.ZonaID;
+            ObjOfertaFinal.montoMinimo = userData.MontoMinimo;
+            //ObjOfertaFinal.MontoTotal = userData.MontoMaximo; // Verificar
+            //ObjOfertaFinal.DescuentoProl = userData
+
+            ObjOfertaFinal.codigoIso = userData.CodigoISO;           
+            
+            
             ObjOfertaFinal.codigoZona = userData.CodigoZona;
             ObjOfertaFinal.tipoProducto = tipoProductoMostrar;
+            //ObjOfertaFinal.codigoRegion = userData.CodigorRegion;
+             
+
 
             using (ProductoServiceClient ps = new ProductoServiceClient())
             {
