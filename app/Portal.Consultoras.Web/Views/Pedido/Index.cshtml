@@ -2223,9 +2223,13 @@
                 <div class="peso_ficha_producto">{{Volumen}}</div>
                 <div class="descripcion_ficha_producto">{{Descripcion}}</div>
                 <div class="precio_ficha_producto">
-                    <span class="precio_tachado_ficha">{{Simbolo}} {{PrecioValorizadoString}}</span>{{Simbolo}} {{PrecioCatalogoString}}
+                    {{#iff PrecioValorizadoString '!=' '0'}}
+                    <span class="precio_tachado_ficha">{{Simbolo}} {{PrecioValorizadoString}}</span>
+                    {{/iff}}
+                    {{Simbolo}} {{PrecioCatalogoString}}
                 </div>
             </div>
+            {{#iff DescripcionRelacionado '!=' ''}}
             <div style="height:196px;">
                 <div class="opcion_escala_descuento">
                     <div class="texto_producto_relacionado">
@@ -2237,6 +2241,7 @@
                     <hr class="clear" />
                 </div>
             </div>
+            {{/iff}}
             <div class="liquidacion_rango_home">
                 <input type="text" value="1" size="2" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" data-input="cantidad" data-cantidad-input="-">
                 <div class="liquidacion_rango_right_pedido">

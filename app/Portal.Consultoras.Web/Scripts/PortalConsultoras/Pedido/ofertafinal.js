@@ -675,7 +675,7 @@ function CargarVerDetalleOF(objInput, e) {
     objEntidad.Simbolo = $("#hdSimbolo").val();
     objEntidad.PrecioValorizadoString = $(divPadre).find(".hdOfertaFinal" + "PrecioValorizadoString").val();
     objEntidad.PrecioCatalogoString = $(divPadre).find(".hdOfertaFinal" + "PrecioCatalogoString").val();
-    objEntidad.DescripcionRelacionado = $(divPadre).find(".hdOfertaFinal" + "DescripcionRelacionado").val();
+    objEntidad.DescripcionRelacionado = $.trim($(divPadre).find(".hdOfertaFinal" + "DescripcionRelacionado").val());
     objEntidad.MarcaID = $(divPadre).find(".hdOfertaFinal" + "MarcaID").val();
     objEntidad.DescripcionMarca = $(divPadre).find(".hdOfertaFinal" + "DescripcionMarca").val();
     objEntidad.DescripcionCompleta = $(divPadre).find(".hdOfertaFinal" + "DescripcionProd").val();
