@@ -228,9 +228,8 @@ namespace Portal.Consultoras.Web.Controllers
                                     EsMaquillaje = producto.EsMaquillaje,
                                     DescripcionComercial = producto.DescripcionComercial,
                                     CodigoIso = userData.CodigoISO,
-                                    //DESCOMENTAR LUEGO
-                                    //Relevancia = producto.Relevancia,
-                                    //CodigoCategoria = producto.CodigoCategoria,
+                                    Relevancia = producto.Relevancia,
+                                    CodigoCategoria = producto.CodigoCategoria,
                                     CodigoMarca = producto.CodigoMarca
                                 });
 
