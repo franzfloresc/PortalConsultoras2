@@ -8,7 +8,12 @@ var esParaOFGanaMas = false;
 
 $(document).ready(function () {
     $("body").on("click", ".agregarOfertaFinal", function () {
-        AbrirSplash();
+        if (tipoOrigen == "1") {
+            AbrirSplash();
+        }
+        else {
+            ShowLoading();
+        }
 
         var divPadre = $(this).parents("[data-item='ofertaFinal']").eq(0);
         var cuv = $(divPadre).find(".hdOfertaFinalCuv").val();
@@ -24,19 +29,29 @@ $(document).ready(function () {
         var descripcionCategoria = $(divPadre).find(".hdOfertaFinalDescripcionCategoria").val();
         var descripcionMarca = $(divPadre).find(".hdOfertaFinalDescripcionMarca").val();
         var descripcionEstrategia = $(divPadre).find(".hdOfertaFinalDescripcionEstrategia").val();
-        var OrigenPedidoWeb = DesktopPedidoOfertaFinal;
+        var OrigenPedidoWeb = tipoOrigen == "1" ? DesktopPedidoOfertaFinal : MobilePedidoOfertaFinal;
 
         if (!isInt(cantidad)) {
             alert_msg("La cantidad ingresada debe ser un número mayor que cero, verifique");
-            $('.liquidacion_rango_cantidad_pedido').val(1);
-            CerrarSplash();
+            $(this).parent().find('[data-input="cantidad"]').val(1);
+            if (tipoOrigen == "1") {
+                CerrarSplash();
+            }
+            else {
+                CloseLoading();
+            }
             return false;
         }
 
         if (cantidad <= 0) {
             alert_msg("La cantidad ingresada debe ser mayor que cero, verifique");
-            $('.liquidacion_rango_cantidad_pedido').val(1);
-            CerrarSplash();
+            $(this).parent().find('[data-input="cantidad"]').val(1);
+            if (tipoOrigen == "1") {
+                CerrarSplash();
+            }
+            else {
+                CloseLoading();
+            }
             return false;
         }
 
@@ -57,11 +72,22 @@ $(document).ready(function () {
             EsSugerido: false,
             OrigenPedidoWeb: OrigenPedidoWeb
         };
-
-        var add = AgregarProducto('Insert', model, "", false, false);
+        var add = new Object();
+        if (tipoOrigen == "1") {
+            var add = AgregarProducto('Insert', model, "", false, false);
+        }
+        else
+        {
+            var add = InsertarProducto(model, false);
+        }
         if (!add.success) {
             alert_msg("Vuelva a intentarlo.");
-            CerrarSplash();
+            if (tipoOrigen == "1") {
+                CerrarSplash();
+            }
+            else {
+                CloseLoading();
+            }
             return false;
         }
 
@@ -75,8 +101,12 @@ $(document).ready(function () {
         ActulizarValoresPopupOfertaFinal(add);
 
         $("#divCarruselOfertaFinal").find(".hdOfertaFinalCuv[value='" + cuv + "']").parents('[data-item="ofertaFinal"]').find('.agregado').show();
-        //$(divPadre).find(".product-add").show();
-        CerrarSplash();
+        if (tipoOrigen == "1") {
+            CerrarSplash();
+        }
+        else {
+            CloseLoading();
+        }
     });
 
     $("body").on("click", '#btnNoGraciasOfertaFinal').click(function () {
@@ -197,8 +227,8 @@ function MostrarPopupOfertaFinal(cumpleOferta, tipoPopupMostrar) {
     //SetHandlebars("#ofertaFinal-template", cumpleOferta.productosMostrar, "#divOfertaFinal");
 
     if (tipoOrigen == "2") {
-        SetHandlebars("#ofertaFinal-template", objOf.Detalle, "#popupOfertaFinal");
-        $("#popupOfertaFinal").show();
+        SetHandlebars("#ofertaFinal-template", objOf, "#divOfertaFinal");
+        $("#divOfertaFinal").show();
         $('#divCarruselOfertaFinal').slick({
             infinite: true,
             vertical: false,
@@ -261,9 +291,10 @@ function ActulizarValoresPopupOfertaFinal(data) {
         var montolimite = parseFloat(faltante) + parseFloat(totalPedido);
 
         if (parseFloat(data.total) >= montolimite) {
+            var msj = tipoOrigen == "2" ? "Ganancia estimada total: " : "Ahora tu ganancia estimada total es ";
             $("#spnTituloOfertaFinal span").html("¡FELICITACIONES GUARDASTE TU <b>PEDIDO CON ÉXITO</b>!");
             $("#msjOfertaFinal").attr("class", "ganancia_total_pop");
-            $("#msjOfertaFinal span").html("<b>Ahora tu ganancia estimada total es " + simbolo + " " + data.DataBarra.MontoGananciaStr + "</b><br />Monto total: " + simbolo + " " + data.formatoTotal);
+            $("#msjOfertaFinal span").html("<b>" + msj + simbolo + " " + data.DataBarra.MontoGananciaStr + "</b><br />Monto total: " + simbolo + " " + data.formatoTotal);
             agregoOfertaFinal = 1;
         }
         else {
@@ -285,10 +316,11 @@ function ActulizarValoresPopupOfertaFinal(data) {
         var montolimite = parseFloat(faltante) + parseFloat(totalPedido);
 
         if (parseFloat(data.total) >= montolimite) {
+            var msj = tipoOrigen == "2" ? "Ganancia estimada total: " : "Ahora tu ganancia estimada total es ";
             var porc = $("#msjOfertaFinal").attr("data-meta-porcentaje");
             $("#spnTituloOfertaFinal span").html("¡FELICITACIONES LLEGASTE AL <b>" + porc + "% DSCTO</b>!");
             $("#msjOfertaFinal").attr("class", "ganancia_total_pop");
-            $("#msjOfertaFinal span").html("<b>Ahora tu ganancia estimada total es " + simbolo + " " + data.DataBarra.MontoGananciaStr + "</b><br />Monto total: " + simbolo + " " + data.formatoTotal);
+            $("#msjOfertaFinal span").html("<b>" + msj + simbolo + " " + data.DataBarra.MontoGananciaStr + "</b><br />Monto total: " + simbolo + " " + data.formatoTotal);
         }
         else {
             $("#msjOfertaFinal span[data-monto]").html(DecimalToStringFormat(montolimite - parseFloat(data.total)));
@@ -356,10 +388,8 @@ function CargandoValoresPopupOfertaFinal(tipoPopupMostrar, mostrarGanaMas, monto
             $("#spnSubTituloOfertaFinal").html("Compra en oferta los complementos de tu pedido");
         }
     }
-    if (tipoOrigen == "2") 
-        $("#popupOfertaFinal").show();
-    else
-        $("#divOfertaFinal").show();
+
+    $("#divOfertaFinal").show();
 }
 
 function CumpleOfertaFinalMostrar(montoPedido, montoEscala, tipoPopupMostrar, codigoMensajeProl, listaObservacionesProl) {
@@ -613,6 +643,7 @@ function ObtenerProductosOfertaFinal(tipoOfertaFinal) {
                 if (response.success) {
                     lista = response.data;
                     limite = response.limiteJetlore;
+                    console.log(lista);
                 } else {
                     lista = null;
                 }
@@ -662,25 +693,25 @@ function AgregarOfertaFinalLog(cuv, cantidad, tipoOfertaFinal_log, gap_Log, tipo
 
 function CargarVerDetalleOF(objInput, e) {
     idProdOf = idProdOf + 1;
-    $(objInput).attr("data-id", idProdOf);
+    $(objInput).parents('[data-item="ofertaFinal"]').attr("data-id", idProdOf);
 
-    var divPadre = $(objInput).eq(0);
+    var divPadre = $(objInput).parents('[data-item="ofertaFinal"]').eq(0);
 
     var objEntidad = new Object();
     objEntidad.id = idProdOf;
     objEntidad.ImagenProductoSugerido = $(divPadre).find(".hdOfertaFinal" + "ImagenProductoSugerido").val();
     objEntidad.DescripcionComercial = $(divPadre).find(".hdOfertaFinal" + "DescripcionComercial").val();
     objEntidad.Volumen = $(divPadre).find(".hdOfertaFinal" + "Volumen").val();
-    objEntidad.Descripcion = $(divPadre).find(".hdOfertaFinal" + "Descripcion").val();
+    objEntidad.Descripcion = $(divPadre).find(".hdOfertaFinal" + "DescripcionProd").val();
     objEntidad.Simbolo = $("#hdSimbolo").val();
     objEntidad.PrecioValorizadoString = $(divPadre).find(".hdOfertaFinal" + "PrecioValorizadoString").val();
     objEntidad.PrecioCatalogoString = $(divPadre).find(".hdOfertaFinal" + "PrecioCatalogoString").val();
     objEntidad.DescripcionRelacionado = $.trim($(divPadre).find(".hdOfertaFinal" + "DescripcionRelacionado").val());
     objEntidad.MarcaID = $(divPadre).find(".hdOfertaFinal" + "MarcaID").val();
     objEntidad.DescripcionMarca = $(divPadre).find(".hdOfertaFinal" + "DescripcionMarca").val();
-    objEntidad.DescripcionCompleta = $(divPadre).find(".hdOfertaFinal" + "DescripcionProd").val();
     objEntidad.CUV = $(divPadre).find(".hdOfertaFinal" + "Cuv").val();
-    objEntidad.UrlCompartirFB = location.protocol + "//" + location.host + "/Pdto.aspx?id=PE_[valor]";
+    objEntidad.UrlCompartirFB = $(divPadre).find(".hdOfertaFinal" + "UrlCompartirFB").val();
+    objEntidad.NombreComercial = $(divPadre).find(".hdOfertaFinal" + "NombreComercial").val();
 
     SetHandlebars("#ofertaFinalVerDetalle-template", objEntidad, "#contenedor_popup_ofertaFinalVerDetalle");
 

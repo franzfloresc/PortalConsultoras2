@@ -4827,8 +4827,9 @@ namespace Portal.Consultoras.Web.Controllers
                 //p.ImagenProductoSugerido = p.Imagen;
                 p.PrecioCatalogoString = Util.DecimalToStringFormat(p.PrecioCatalogo, userData.CodigoISO);
                 p.PrecioValorizadoString = Util.DecimalToStringFormat(p.PrecioValorizado, userData.CodigoISO);
+                p.MetaMontoStr = Util.DecimalToStringFormat(p.MontoMeta, userData.CodigoISO);
                 p.Simbolo = userData.Simbolo;
-
+                p.UrlCompartirFB = GetUrlCompartirFB();
                 string imagenUrl = Util.SubStr(p.Imagen, 0);
                 if (userData.OfertaFinal == Constantes.TipoOfertaFinalCatalogoPersonalizado.Arp)
                 {

@@ -2099,10 +2099,10 @@
                             <span><b>&nbsp;LO SENTIMOS…</b> NO PUDIMOS GUARDAR TU PEDIDO</span>
                         {{/iff}}
                         {{#iff TipoMeta '==' 'GM'}}
-                            <span>¡GUARDASTE TU<b> PEDIDO CON ÉXITO</b></span>
+                            <span>¡GUARDASTE TU<b> PEDIDO CON ÉXITO</b>!</span>
                         {{/iff}}
                         {{#iff TipoMeta '==' 'ME'}}
-                            <span>¡GUARDASTE TU<b> PEDIDO CON ÉXITO</b></span>
+                            <span>¡GUARDASTE TU<b> PEDIDO CON ÉXITO</b>!</span>
                         {{/iff}}
                     </h1>
                     <hr class="clear" />
@@ -2127,7 +2127,7 @@
                         <div class="slider center" id="divCarruselOfertaFinal" style="width: 100%">
 
             {{#each this.Detalle}}
-            <div class="content_item_carrusel_ofertaFinal" data-item="ofertaFinal" onclick="javascript:CargarVerDetalleOF(this, event);" data-id="{{id}}">
+            <div class="content_item_carrusel_ofertaFinal" data-item="ofertaFinal" data-id="{{id}}">
                 <div style="display: none;">
                     <input type="hidden" class="hdOfertaFinalCuv" value="{{CUV}}" />
                     <input type="hidden" class="hdOfertaFinalTipoOfertaSisID" value="{{TipoOfertaSisID}}" />
@@ -2146,8 +2146,10 @@
                     <input type="hidden" class="hdOfertaFinalImagenProductoSugerido" value="{{ImagenProductoSugerido}}" />
                     <input type="hidden" class="hdOfertaFinalPrecioValorizadoString" value="{{PrecioValorizadoString}}" />
                     <input type="hidden" class="hdOfertaFinalPrecioCatalogoString" value="{{PrecioCatalogoString}}" />
+                    <input type="hidden" class="hdOfertaFinalNombreComercial" value="{{NombreComercial}}" />
+                    <input type="hidden" class="hdOfertaFinalUrlCompartirFB" value="{{UrlCompartirFB}}" />
                 </div>
-                <div class="contenido_item_carrusel_ofertaFinal" style="height:280px;">
+                <div class="contenido_item_carrusel_ofertaFinal" style="height:280px;" onclick="javascript:CargarVerDetalleOF(this, event);" >
                     <div class="nohely producto_img_home" style="height:115px;" data-tooltip-text="Cómpralo porque ya tienes Shampoo Essens...">
                         <img src="{{ImagenProductoSugerido}}" style="height: 100%;">
                         @*<i class="img-tooltip" data-toggle="tooltip" data-placement="right" title="Cómpralo porque ya tienes Shampoo Essens..." data-animation="false" data-trigger="manual" />*@
@@ -2157,8 +2159,7 @@
                     <div class="producto_nombre_descripcion">
                         <h6>{{DescripcionMarca}}</h6>
                         <p class="nombre_producto">
-                            <b>{{DescripcionComercial}}</b>
-                            <b>{{NombreComercial}}</b>
+                            <b>{{Descripcion}}</b>
                         </p>
                         <div class="producto_precio">
                             {{#iff PrecioValorizadoString '!=' '0'}}
@@ -2219,9 +2220,9 @@
         </div>
         <div class="content_right_ficha">
             <div style="height:130px;">
-                <div class="titulo_ficha_producto">{{DescripcionComercial}}</div>
+                <div class="titulo_ficha_producto">{{Descripcion}}</div>
                 <div class="peso_ficha_producto">{{Volumen}}</div>
-                <div class="descripcion_ficha_producto">{{Descripcion}}</div>
+                <div class="descripcion_ficha_producto">{{NombreComercial}}</div>
                 <div class="precio_ficha_producto">
                     {{#iff PrecioValorizadoString '!=' '0'}}
                     <span class="precio_tachado_ficha">{{Simbolo}} {{PrecioValorizadoString}}</span>
