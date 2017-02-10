@@ -830,16 +830,142 @@
 </div>
 
 <script id="PopFichaOPT-template" type="text/x-handlebars-template">
-    <div class="content_popMobile" style="padding-bottom:0;">
-        <a class="cerrar_popMobile" onclick="CerrarFichaOPT()">
-            <img src="/Content/Images/mobile/Esika/cerrar_04.png" alt="-">
-        </a>
+    <div class="content_popMobile" style="padding-bottom:0; max-width:450px;">
+        
+        <a class="btn_cerrar_escala"  onclick="CerrarFichaOPT()" style="float:left;">REGRESAR</a>
         <hr class="clear" />
         <div class="content_imagen_ficha"><img id="imgFichaProOPT" src="https://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Matriz/PE/PE_200080472_201612367_01_pwifsvbxar.png" alt="PRODUCTO" /></div>
-        <div class="marca_ficha_producto">--</div>
-        <div class="titulo_ficha_producto">--</div>
+       
+        <div class="titulo_ficha_producto" style="text-align:left; font-size:19px; line-height:22px; margin-bottom:10px;">--</div>
+        <div class="precio_tachado_048">$ 4.990</div>
+        <div class="precio_para_ti_048">Precio para ti <b>$ 3.490</b></div>
+        <div class="gana_048">Gana $ 1.500</div>
 
-        <div class="precio_ficha_producto">--</div>
+        @*<div class="precio_ficha_producto">--</div>*@
+        <div class="content_detalle_producto">
+            <div class="marca_ficha_producto" style="text-align:left;">--</div>
+            <div class="nombre_producto_individual">Delineador Kohl 4g/.14 o.z</div>
+            <div class="precio_regular_individual">Precio regular: S/.150</div>
+            <div id="bloque_tonos_opt">
+                <div class="nombre_tono">Azul Kohl <div class="indicador_tono"><p>+ TONOS</p></div></div>
+                <div class="content_tonos_principal">
+                    <div class="content_tono_detalle_opt borde_seleccion_tono">
+                        <img src="https://s3-sa-east-1.amazonaws.com/appcatalogo/PE/201704/E/productos/bulk/PE_200088049_B.jpg " alt="PRODUCTO">
+                    </div>
+                    <div class="content_tono_detalle_opt">
+                        <img src="https://s3-sa-east-1.amazonaws.com/appcatalogo/PE/201704/E/productos/bulk/PE_200088049_B.jpg " alt="PRODUCTO">
+                    </div>
+                    <div class="content_tono_detalle_opt">
+                        <img src="https://s3-sa-east-1.amazonaws.com/appcatalogo/PE/201704/E/productos/bulk/PE_200088049_B.jpg " alt="PRODUCTO">
+                    </div>
+                    <div class="content_tono_detalle_opt">
+                        <img src="https://s3-sa-east-1.amazonaws.com/appcatalogo/PE/201704/E/productos/bulk/PE_200088049_B.jpg " alt="PRODUCTO">
+                    </div>
+                    <div class="content_tono_detalle_opt">
+                        <img src="https://s3-sa-east-1.amazonaws.com/appcatalogo/PE/201704/E/productos/bulk/PE_200088049_B.jpg " alt="PRODUCTO">
+                    </div>
+                    <div class="content_tono_detalle_opt">
+                        <img src="https://s3-sa-east-1.amazonaws.com/appcatalogo/PE/201704/E/productos/bulk/PE_200088049_B.jpg " alt="PRODUCTO">
+                    </div>
+                </div>
+                <hr class="clear" />
+                <div class="content_tonos_secundarios">
+                    <div class="content_tono_detalle_opt">
+                        <img src="https://s3-sa-east-1.amazonaws.com/appcatalogo/PE/201704/E/productos/bulk/PE_200088049_B.jpg " alt="PRODUCTO">
+                    </div>
+                    <div class="content_tono_detalle_opt">
+                        <img src="https://s3-sa-east-1.amazonaws.com/appcatalogo/PE/201704/E/productos/bulk/PE_200088049_B.jpg " alt="PRODUCTO">
+                    </div>
+                    <div class="content_tono_detalle_opt">
+                        <img src="https://s3-sa-east-1.amazonaws.com/appcatalogo/PE/201704/E/productos/bulk/PE_200088049_B.jpg " alt="PRODUCTO">
+                    </div>
+                    <div class="content_tono_detalle_opt">
+                        <img src="https://s3-sa-east-1.amazonaws.com/appcatalogo/PE/201704/E/productos/bulk/PE_200088049_B.jpg " alt="PRODUCTO">
+                    </div>
+                    <div class="content_tono_detalle_opt">
+                        <img src="https://s3-sa-east-1.amazonaws.com/appcatalogo/PE/201704/E/productos/bulk/PE_200088049_B.jpg " alt="PRODUCTO">
+                    </div>
+                    <div class="content_tono_detalle_opt">
+                        <img src="https://s3-sa-east-1.amazonaws.com/appcatalogo/PE/201704/E/productos/bulk/PE_200088049_B.jpg " alt="PRODUCTO">
+                    </div>
+                </div>
+                <select class="tono_labial_select" style="width:100%;">
+                    <option value="12189">Rojo tropical</option>
+                    <option value="04155">Fucsia cautivante</option>
+                </select>
+            </div>
+        </div>
+        <div class="content_detalle_producto">
+            <div class="marca_ficha_producto" style="text-align:left;">--</div>
+            <div class="nombre_producto_individual">Delineador Kohl 4g/.14 o.z</div>
+            <div class="precio_regular_individual">Precio regular: S/.150</div>
+            <div id="bloque_tonos_opt">
+                <div class="nombre_tono">Azul Kohl <div class="indicador_tono"><p>+ TONOS</p></div></div>
+                <div class="content_tonos_principal">
+                    <div class="content_tono_detalle_opt borde_seleccion_tono">
+                        <img src="https://s3-sa-east-1.amazonaws.com/appcatalogo/PE/201704/E/productos/bulk/PE_200088049_B.jpg " alt="PRODUCTO">
+                    </div>
+                    <div class="content_tono_detalle_opt">
+                        <img src="https://s3-sa-east-1.amazonaws.com/appcatalogo/PE/201704/E/productos/bulk/PE_200088049_B.jpg " alt="PRODUCTO">
+                    </div>
+                    <div class="content_tono_detalle_opt">
+                        <img src="https://s3-sa-east-1.amazonaws.com/appcatalogo/PE/201704/E/productos/bulk/PE_200088049_B.jpg " alt="PRODUCTO">
+                    </div>
+                    <div class="content_tono_detalle_opt">
+                        <img src="https://s3-sa-east-1.amazonaws.com/appcatalogo/PE/201704/E/productos/bulk/PE_200088049_B.jpg " alt="PRODUCTO">
+                    </div>
+                    <div class="content_tono_detalle_opt">
+                        <img src="https://s3-sa-east-1.amazonaws.com/appcatalogo/PE/201704/E/productos/bulk/PE_200088049_B.jpg " alt="PRODUCTO">
+                    </div>
+                    <div class="content_tono_detalle_opt">
+                        <img src="https://s3-sa-east-1.amazonaws.com/appcatalogo/PE/201704/E/productos/bulk/PE_200088049_B.jpg " alt="PRODUCTO">
+                    </div>
+                </div>
+                <hr class="clear" />
+                <div class="content_tonos_secundarios">
+                    <div class="content_tono_detalle_opt borde_seleccion_tono">
+                        <img src="https://s3-sa-east-1.amazonaws.com/appcatalogo/PE/201704/E/productos/bulk/PE_200088049_B.jpg " alt="PRODUCTO">
+                    </div>
+                    <div class="content_tono_detalle_opt">
+                        <img src="https://s3-sa-east-1.amazonaws.com/appcatalogo/PE/201704/E/productos/bulk/PE_200088049_B.jpg " alt="PRODUCTO">
+                    </div>
+                    <div class="content_tono_detalle_opt">
+                        <img src="https://s3-sa-east-1.amazonaws.com/appcatalogo/PE/201704/E/productos/bulk/PE_200088049_B.jpg " alt="PRODUCTO">
+                    </div>
+                    <div class="content_tono_detalle_opt">
+                        <img src="https://s3-sa-east-1.amazonaws.com/appcatalogo/PE/201704/E/productos/bulk/PE_200088049_B.jpg " alt="PRODUCTO">
+                    </div>
+                    <div class="content_tono_detalle_opt">
+                        <img src="https://s3-sa-east-1.amazonaws.com/appcatalogo/PE/201704/E/productos/bulk/PE_200088049_B.jpg " alt="PRODUCTO">
+                    </div>
+                    <div class="content_tono_detalle_opt">
+                        <img src="https://s3-sa-east-1.amazonaws.com/appcatalogo/PE/201704/E/productos/bulk/PE_200088049_B.jpg " alt="PRODUCTO">
+                    </div>
+                    <div class="content_tono_detalle_opt">
+                        <img src="https://s3-sa-east-1.amazonaws.com/appcatalogo/PE/201704/E/productos/bulk/PE_200088049_B.jpg " alt="PRODUCTO">
+                    </div>
+                    <div class="content_tono_detalle_opt">
+                        <img src="https://s3-sa-east-1.amazonaws.com/appcatalogo/PE/201704/E/productos/bulk/PE_200088049_B.jpg " alt="PRODUCTO">
+                    </div>
+                    <div class="content_tono_detalle_opt">
+                        <img src="https://s3-sa-east-1.amazonaws.com/appcatalogo/PE/201704/E/productos/bulk/PE_200088049_B.jpg " alt="PRODUCTO">
+                    </div>
+                    <div class="content_tono_detalle_opt">
+                        <img src="https://s3-sa-east-1.amazonaws.com/appcatalogo/PE/201704/E/productos/bulk/PE_200088049_B.jpg " alt="PRODUCTO">
+                    </div>
+                    <div class="content_tono_detalle_opt">
+                        <img src="https://s3-sa-east-1.amazonaws.com/appcatalogo/PE/201704/E/productos/bulk/PE_200088049_B.jpg " alt="PRODUCTO">
+                    </div>
+                    <div class="content_tono_detalle_opt">
+                        <img src="https://s3-sa-east-1.amazonaws.com/appcatalogo/PE/201704/E/productos/bulk/PE_200088049_B.jpg " alt="PRODUCTO">
+                    </div>
+                </div>
+                <select class="tono_labial_select" style="width:100%;">
+                    <option value="12189">Rojo tropical</option>
+                    <option value="04155">Fucsia cautivante</option>
+                </select>
+            </div>
+        </div>
         <div class="content_redes_ficha">
             @{
                 var urlWs = "";
@@ -855,8 +981,8 @@
                     urlBase_fb = request.Url.Scheme + "://" + request.Url.Authority + "/Pdto.aspx?id=" + Model.CodigoISO + "_[valor]";
                 }
             }
-            <a class="btn_compartir_ofertas" href='javascript:window.location=CompartirWsp("@urlWs", {RutaImagen: "{{FotoProducto01}}", MarcaID:"{{MarcaID}}", MarcaDesc:"{{DescripcionMarca}}", NombrePro:"{{DescripcionCUV2}}", Cuv:"{{CUV2}}"});' data-action="share/whatsapp/share"><img src="@Url.Content("~/Content/Images/Mobile/Esika/iconowscolor.png")" alt=""></a>
-            <a class="btn_compartir_ofertas" href="javascript:void(0);" onclick='javascript:CompartirFacebook("@urlBase_fb",  {Palanca: "OPT", RutaImagen: "{{FotoProducto01}}", MarcaID:"{{MarcaID}}", MarcaDesc:"{{DescripcionMarca}}", NombrePro:"{{DescripcionCUV2}}", Cuv:"{{CUV2}}"});'><img src="@Url.Content("~/Content/Images/Mobile/Esika/catalogo_facebook_color.png")" alt=""></a>
+            <a class="btn_compartir_ofertas" href='javascript:window.location=CompartirWsp("@urlWs", {RutaImagen: "{{FotoProducto01}}", MarcaID:"{{MarcaID}}", MarcaDesc:"{{DescripcionMarca}}", NombrePro:"{{DescripcionCUV2}}", Cuv:"{{CUV2}}"});' data-action="share/whatsapp/share"><img src="@Url.Content("~/Content/Images/Mobile/Esika/catalogo_ws.png")" alt=""></a>
+            <a class="btn_compartir_ofertas" href="javascript:void(0);" onclick='javascript:CompartirFacebook("@urlBase_fb",  {Palanca: "OPT", RutaImagen: "{{FotoProducto01}}", MarcaID:"{{MarcaID}}", MarcaDesc:"{{DescripcionMarca}}", NombrePro:"{{DescripcionCUV2}}", Cuv:"{{CUV2}}"});'><img src="@Url.Content("~/Content/Images/Mobile/Esika/facebook.png")" alt=""></a>
         </div>
         <hr class="clear" />
         <div style="margin-left:-20px; margin-right:-20px;">
@@ -898,6 +1024,7 @@
             var urlGetProductoFichaOPT = '@Url.Action("GetProductoFichaOPT", "Pedido", new { area = ""})'; //PL20-1265
             var urlInsertarProductoCompartido = '@Url.Action("InsertarProductoCompartido", "CatalogoPersonalizado", new { area = "" })'; //PL20-1266
         </script>
-        
+                
         <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Mobile/Bienvenida/Index.js")"></script>
+        
     }

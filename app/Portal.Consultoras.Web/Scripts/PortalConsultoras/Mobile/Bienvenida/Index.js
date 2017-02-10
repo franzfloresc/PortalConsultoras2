@@ -58,7 +58,9 @@ $(document).ready(function () {
     });
 
     CrearPopShow();
-    MostrarShowRoom();    
+    MostrarShowRoom();
+
+    
 });
 
 function CrearPopShow() {
@@ -1044,6 +1046,21 @@ function mostrarFichaProductoOPT(cuv, posicion){
                     var datos = response.data;
                     SetHandlebars("#PopFichaOPT-template", datos, '#PopFichaOPT');
 
+                    var IndicadorTono = 0;
+                    $(".indicador_tono").on("click", function () {
+                        if (IndicadorTono == 0) {
+                            $('.content_tonos_secundarios').slideDown(); //muestro mediante id 
+                            $(".indicador_tono p").html("- TONOS");
+                            IndicadorTono = 1;
+                        }
+                        else {
+                            $('.content_tonos_secundarios').slideUp(); //muestro mediante id 
+                            $(".indicador_tono p").html("+ TONOS");
+                            IndicadorTono = 0;
+                        }
+
+                    });
+
                     $('#imgFichaProOPT').attr('src', datos.FotoProducto01);                    
                     $('.marca_ficha_producto').text(datos.DescripcionMarca);
                     $('.titulo_ficha_producto').text(datos.DescripcionCUV2);
@@ -1066,12 +1083,10 @@ function mostrarFichaProductoOPT(cuv, posicion){
         }
     });
 }
+$("#content_oferta_dia_mobile").click(function () {
+    $('#PopOfertaDia').slideDown();
+});
 
-function CerrarFichaOPT()
-{
-    $('body').css({ 'overflow-y': 'scroll' });
-    $('#PopFichaOPT').hide();
-}
 
 function CompartirWsp(UrlBase, objParameter) {
     var _id = InsertarProductoCompartido(objParameter, 'W');

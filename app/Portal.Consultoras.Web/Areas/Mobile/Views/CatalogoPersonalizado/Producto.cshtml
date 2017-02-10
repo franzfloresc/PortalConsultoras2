@@ -353,7 +353,7 @@ else
                     {{#IsNullOrEmpty item.imagen_item_pack '=='}}
                     <div class="imagen_pack_048"><img src="@Url.Content(ViewBag.RutaImagenNoDisponible)" class="imagen_producto"></div>
                     {{/IsNullOrEmpty}}
-                    <div class="nombre_producto_pack_048"><b style="font-size:14px;">{{item.cantidad_item_pack}}</b>{{item.descripcion_item_pack}}</div>
+                    <div class="nombre_producto_pack_048"><p style="margin:0;"><span style="font-size:14px; font-weight:bold;">{{item.cantidad_item_pack}}</span>{{item.descripcion_item_pack}}</p></div>
                 </div>
                 {{/if_eq}}
                 {{/each}}
@@ -456,7 +456,7 @@ else
                         {{#IsNullOrEmpty item.imagen_gratis '=='}}
                         <div class="imagen_pack_048"><img src="@Url.Content(ViewBag.RutaImagenNoDisponible)" class="imagen_producto"></div>
                         {{/IsNullOrEmpty}}
-                        <div class="nombre_producto_pack_048"><b style="font-size:14px;">{{item.cantidad}}</b> {{item.descripcion_gratis}}</div>
+                        <div class="nombre_producto_pack_048"><p style="margin:0;"><span style="font-size:14px; font-weight:bold">{{item.cantidad}}</span> {{item.descripcion_gratis}}</p></div>
                     </div>
                     {{/if_eq}}
                     {{/each}}

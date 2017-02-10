@@ -5793,6 +5793,7 @@ body{
     position: relative;
     background: white;
     margin-top: 15px;
+    margin-bottom:15px;
     padding: 20px;
     overflow:hidden;
     font-family:'Lato';
@@ -9871,14 +9872,15 @@ span.icon-advertencia{
     /*margin-bottom:2px;*/
 }
 .precio_tachado_048{
-    color:#7c7c7c;
-    font-size:12px;
-    font-weight:700;
-    text-decoration:line-through;
+    color: black;
+    font-size: 13.5px;
+    font-weight: 300;
+    height: 15px;
+    text-decoration: line-through;
 }
 .precio_para_ti_048{
     color:black;
-    font-size:12px;
+    font-size:13px;
 }
 .precio_para_ti_048 b{
     font-size:16px;
@@ -10082,4 +10084,54 @@ span.icon-advertencia{
     padding-left: 20px;
     background: url(../../../Images/Esika/arrow_left.png) no-repeat left;
     background-size: 18px 18px;
+}
+.content_detalle_producto{
+    margin-top:13px;
+    border-top:1px solid #9b9b9b;
+    padding-top:10px;
+    padding-bottom:8px;
+}
+.nombre_producto_individual{
+    font-size:13px;
+    font-weight:700;
+}
+.precio_regular_individual{
+    font-size:12px;
+}
+.nombre_tono{
+    font-size:13px;
+    margin-top:7px;
+}
+.indicador_tono{
+    float:right;
+    display:block;
+    text-decoration:underline;
+    font-size:11px;
+    
+}
+.indicador_tono p::first-letter{
+    font-size:15px;
+    /*color:red;*/
+}
+.content_tonos_principal{
+    overflow: hidden;
+    width: 100%;
+}
+.content_tono_detalle_opt{
+    position: relative;
+    width: 16%;
+    height: auto;
+    margin-right: 0.8%;
+    float: left;
+    margin-bottom: 5px;
+}
+.content_tono_detalle_opt img{
+    width:100%;
+}
+.content_tono_detalle_opt:nth-child(6n){
+    margin-right:0;
+}
+.content_tonos_secundarios{
+    display:none;
+    overflow:hidden;
 }
