@@ -498,7 +498,6 @@ namespace Portal.Consultoras.Web.Controllers
                     model.ZonaValida = oBEUsuario.ZonaValida;
                     model.Simbolo = oBEUsuario.Simbolo;
                     model.CodigoTerritorio = oBEUsuario.CodigoTerritorio;
-                    model.ListaProductoFaltante = GetModelPedidoAgotado(model.PaisID, model.CampaniaID, model.ZonaID);
                     model.HoraCierreZonaDemAnti = oBEUsuario.HoraCierreZonaDemAnti;
                     model.HoraCierreZonaNormal = oBEUsuario.HoraCierreZonaNormal;
                     model.ZonaHoraria = oBEUsuario.ZonaHoraria;
@@ -729,16 +728,6 @@ namespace Portal.Consultoras.Web.Controllers
                 throw;
             }
             return model;
-        }
-
-        public List<ServiceSAC.BEProductoFaltante> GetModelPedidoAgotado(int PaisID, int CampaniaID, int ZonaID)
-        {
-            List<ServiceSAC.BEProductoFaltante> olstProductoFaltante = new List<ServiceSAC.BEProductoFaltante>();
-            using (ServiceSAC.SACServiceClient sv = new ServiceSAC.SACServiceClient())
-            {
-                olstProductoFaltante = sv.GetProductoFaltanteByCampaniaAndZonaID(PaisID, CampaniaID, ZonaID).ToList();
-            }
-            return olstProductoFaltante;
         }
 
         public List<TipoLinkModel> GetLinksPorPais(int PaisID)

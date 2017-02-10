@@ -12,6 +12,9 @@ using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.ServiceGestionWebPROL;
 using Portal.Consultoras.Web.ServiceODS;
 using Portal.Consultoras.Web.ServiceUsuario;
+using Portal.Consultoras.Web.ServiceZonificacion;
+using System.ServiceModel;
+
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -1218,6 +1221,297 @@ namespace Portal.Consultoras.Web.Controllers
             }                            
         }
 
+
+        public ActionResult ReporteDetalle()
+        {
+            try
+            {
+                if (!UsuarioModel.HasAcces(ViewBag.Permiso, "MisReclamos/ReporteDetalle"))
+                    return RedirectToAction("Index", "Bienvenida");
+            }
+            catch (FaultException ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+            }
+
+            int PaisId = UserData().PaisID;
+            int CampaniaIDActual = 0;
+            using (Portal.Consultoras.Web.ServiceSAC.SACServiceClient sv = new Portal.Consultoras.Web.ServiceSAC.SACServiceClient())
+            {
+                CampaniaIDActual = sv.GetCampaniaFacturacionPais(PaisId);
+            }
+
+            var cdrWebModel = new CDRWebModel()
+            {
+                listaPaises = DropDowListPaises(),
+                lista = DropDowListCampanias(PaisId),
+                listaRegiones = DropDowListRegiones(PaisId),
+                listaZonas = DropDowListZonas(PaisId),
+                PaisID = PaisId,
+                CampaniaID = CampaniaIDActual
+            };
+
+            return View(cdrWebModel);
+        }
+
+        public ActionResult ConsultaCRDWebDetalleReporte(string sidx, string sord, int page, int rows, string CampaniaID, string RegionID, string ZonaID, string PaisID, string CodigoConsultora, string Estado, string Consulta)
+        {
+            if (ModelState.IsValid)
+            {
+                BECDRWeb entidad = new BECDRWeb();
+                entidad.CampaniaID = CampaniaID == "" ? 0 : int.Parse(CampaniaID);
+                entidad.RegionID = RegionID.Equals(string.Empty) ? 0 : int.Parse(RegionID);
+                entidad.ZonaID = ZonaID.Equals(string.Empty) ? 0 : int.Parse(ZonaID);
+                entidad.ConsultoraCodigo = CodigoConsultora;
+                entidad.Estado = Estado.Equals(string.Empty) ? 0 : int.Parse(Estado);
+
+                List<BECDRWebDetalleReporte> lst;
+
+                if (Consulta == "1")
+                {
+                    using (CDRServiceClient sv = new CDRServiceClient())
+                    {
+                        lst = sv.GetCDRWebDetalleReporte(PaisID == string.Empty ? 11 : int.Parse(PaisID), entidad).ToList();
+                    }
+                }
+                else
+                {
+                    lst = new List<BECDRWebDetalleReporte>();
+                }
+
+                // Usamos el modelo para obtener los datos
+                BEGrid grid = new BEGrid();
+                grid.PageSize = rows;
+                grid.CurrentPage = page;
+                grid.SortColumn = sidx;
+                grid.SortOrder = sord;
+                //int buscar = int.Parse(txtBuscar);
+                BEPager pag = new BEPager();
+                IEnumerable<BECDRWebDetalleReporte> items = lst;
+
+                #region Sort Section
+                if (sord == "asc")
+                {
+                    switch (sidx)
+                    {
+                        case "NroCDR":
+                            items = lst.OrderBy(x => x.NroCDR);
+                            break;
+                        case "ConsultoraCodigo":
+                            items = lst.OrderBy(x => x.ConsultoraCodigo);
+                            break;
+                        case "ZonaCodigo":
+                            items = lst.OrderBy(x => x.ZonaCodigo);
+                            break;
+                        case "SeccionCodigo":
+                            items = lst.OrderBy(x => x.SeccionCodigo);
+                            break;
+                        case "CampaniaOrigenPedido":
+                            items = lst.OrderBy(x => x.CampaniaOrigenPedido);
+                            break;
+                        case "FechaHoraSolicitud":
+                            items = lst.OrderBy(x => x.FechaHoraSolicitud);
+                            break;
+                        case "FechaAtencion":
+                            items = lst.OrderBy(x => x.FechaAtencion);
+                            break;
+                        case "EstadoDescripcion":
+                            items = lst.OrderBy(x => x.EstadoDescripcion);
+                            break;
+                        case "CUV":
+                            items = lst.OrderBy(x => x.CUV);
+                            break;
+                        case "UnidadesFacturadas":
+                            items = lst.OrderBy(x => x.UnidadesFacturadas);
+                            break;
+                        case "MontoFacturado":
+                            items = lst.OrderBy(x => x.MontoFacturado);
+                            break;
+                        case "UnidadesDevueltas":
+                            items = lst.OrderBy(x => x.UnidadesDevueltas);
+                            break;
+                        case "MontoDevuelto":
+                            items = lst.OrderBy(x => x.MontoDevuelto);
+                            break;
+                        case "CUV2":
+                            items = lst.OrderBy(x => x.CUV2);
+                            break;
+                        case "UnidadesEnviar":
+                            items = lst.OrderBy(x => x.UnidadesEnviar);
+                            break;
+                        case "MontoProductoEnviar":
+                            items = lst.OrderBy(x => x.MontoProductoEnviar);
+                            break;
+                        case "Operacion":
+                            items = lst.OrderBy(x => x.Operacion);
+                            break;
+                        case "Reclamo":
+                            items = lst.OrderBy(x => x.Reclamo);
+                            break;
+                        case "EstadoDetalle":
+                            items = lst.OrderBy(x => x.EstadoDetalle);
+                            break;
+                        case "MotivoRechazo":
+                            items = lst.OrderBy(x => x.MotivoRechazo);
+                            break;
+
+                    }
+                }
+                else
+                {
+                    switch (sidx)
+                    {
+                        case "NroCDR":
+                            items = lst.OrderByDescending(x => x.NroCDR);
+                            break;
+                        case "ConsultoraCodigo":
+                            items = lst.OrderByDescending(x => x.ConsultoraCodigo);
+                            break;
+                        case "ZonaCodigo":
+                            items = lst.OrderByDescending(x => x.ZonaCodigo);
+                            break;
+                        case "SeccionCodigo":
+                            items = lst.OrderByDescending(x => x.SeccionCodigo);
+                            break;
+                        case "CampaniaOrigenPedido":
+                            items = lst.OrderByDescending(x => x.CampaniaOrigenPedido);
+                            break;
+                        case "FechaHoraSolicitud":
+                            items = lst.OrderByDescending(x => x.FechaHoraSolicitud);
+                            break;
+                        case "FechaAtencion":
+                            items = lst.OrderByDescending(x => x.FechaAtencion);
+                            break;
+                        case "EstadoDescripcion":
+                            items = lst.OrderByDescending(x => x.EstadoDescripcion);
+                            break;
+                        case "CUV":
+                            items = lst.OrderByDescending(x => x.CUV);
+                            break;
+                        case "UnidadesFacturadas":
+                            items = lst.OrderByDescending(x => x.UnidadesFacturadas);
+                            break;
+                        case "MontoFacturado":
+                            items = lst.OrderByDescending(x => x.MontoFacturado);
+                            break;
+                        case "UnidadesDevueltas":
+                            items = lst.OrderByDescending(x => x.UnidadesDevueltas);
+                            break;
+                        case "MontoDevuelto":
+                            items = lst.OrderByDescending(x => x.MontoDevuelto);
+                            break;
+                        case "CUV2":
+                            items = lst.OrderByDescending(x => x.CUV2);
+                            break;
+                        case "UnidadesEnviar":
+                            items = lst.OrderBy(x => x.UnidadesEnviar);
+                            break;
+                        case "MontoProductoEnviar":
+                            items = lst.OrderByDescending(x => x.MontoProductoEnviar);
+                            break;
+                        case "Operacion":
+                            items = lst.OrderByDescending(x => x.Operacion);
+                            break;
+                        case "Reclamo":
+                            items = lst.OrderByDescending(x => x.Reclamo);
+                            break;
+                        case "EstadoDetalle":
+                            items = lst.OrderByDescending(x => x.EstadoDetalle);
+                            break;
+                        case "MotivoRechazo":
+                            items = lst.OrderByDescending(x => x.MotivoRechazo);
+                            break;
+
+                    }
+                }
+                #endregion
+                items = items.ToList().Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
+                pag = Util.PaginadorGenerico(grid, lst);
+                // Creamos la estructura
+
+                var data = new
+                {
+                    total = pag.PageCount,
+                    page = pag.CurrentPage,
+                    records = pag.RecordCount,
+                    rows = from a in items
+                           select new
+                           {
+                               id = a.NroCDR,
+                               cell = new string[]
+                               {
+                                   a.NroCDR.ToString(),
+                                   a.ConsultoraCodigo.ToString(),
+                                   a.RegionCodigo.ToString(),
+                                   a.ZonaCodigo.ToString(),
+                                   a.SeccionCodigo.ToString(),
+                                   a.CampaniaOrigenPedido.ToString(),
+                                   a.FechaHoraSolicitud.ToString(),
+                                   a.FechaAtencion.ToString(),
+                                   a.EstadoDescripcion.ToString(),
+                                   a.CUV.ToString(),
+                                   a.UnidadesFacturadas.ToString(),
+                                   a.MontoFacturado.ToString(),
+                                   a.UnidadesDevueltas.ToString(),
+                                   a.MontoDevuelto.ToString(),
+                                   a.CUV2.ToString(),
+                                   a.UnidadesEnviar.ToString(),
+                                   a.MontoProductoEnviar.ToString(),
+                                   a.Operacion.ToString(),
+                                   a.Reclamo.ToString(),
+                                   a.EstadoDetalle.ToString(),
+                                   a.MotivoRechazo.ToString()
+                                   //Convert.ToDateTime(a.FechaFinDD.ToString()).ToShortDateString(),
+                                   //a.ZonaID.ToString()
+                                }
+                           }
+                };
+                return Json(data, JsonRequestBehavior.AllowGet);
+            }
+            return RedirectToAction("Index", "Bienvenida");
+        }
+
+        public ActionResult ExportarExcel(string CampaniaID, string RegionID, string ZonaID, string PaisID, string CodigoConsultora, string Estado)
+        {
+            BECDRWeb entidad = new BECDRWeb();
+            entidad.CampaniaID = CampaniaID == "" ? 0 : int.Parse(CampaniaID);
+            entidad.RegionID = RegionID.Equals(string.Empty) ? 0 : int.Parse(RegionID);
+            entidad.ZonaID = ZonaID.Equals(string.Empty) ? 0 : int.Parse(ZonaID);
+            entidad.ConsultoraCodigo = CodigoConsultora;
+            entidad.Estado = Estado.Equals(string.Empty) ? 0 : int.Parse(Estado);
+
+            IList<BECDRWebDetalleReporte> lst;
+            using (CDRServiceClient sv = new CDRServiceClient())
+            {
+                lst = sv.GetCDRWebDetalleReporte(PaisID == string.Empty ? 11 : int.Parse(PaisID), entidad).ToList();
+            }
+
+            Dictionary<string, string> dic = new Dictionary<string, string>();
+            dic.Add("Nro. CDR", "NroCDR");
+            dic.Add("Código de cliente", "ConsultoraCodigo");
+            dic.Add("Región", "RegionCodigo");
+            dic.Add("Zona", "ZonaCodigo");
+            dic.Add("Sección", "SeccionCodigo");
+            dic.Add("Campaña Origen Pedido", "CampaniaOrigenPedido");
+            dic.Add("Fecha Hora Solicitud", "FechaHoraSolicitud");
+            dic.Add("Fecha Hora Atención", "FechaAtencion");
+            dic.Add("Estado del Reclamo", "EstadoDescripcion");
+            dic.Add("Código de Venta", "CUV");
+            dic.Add("Unidades facturadas", "UnidadesFacturadas");
+            dic.Add("Monto Facturado", "MontoFacturado");
+            dic.Add("Unidades devueltas", "UnidadesDevueltas");
+            dic.Add("Monto Devuelto", "MontoDevuelto");
+            dic.Add("Código de Venta Producto a Enviar", "CUV2");
+            dic.Add("Unidades a Enviar", "UnidadesEnviar");
+            dic.Add("Monto Producto a Enviar", "MontoProductoEnviar");
+            dic.Add("Operación", "Operacion");
+            dic.Add("Motivo", "Reclamo");
+            dic.Add("Estado", "EstadoDetalle");
+            dic.Add("Motivo Rechazo", "MotivoRechazo");
+            Util.ExportToExcel<BECDRWebDetalleReporte>("ReporteCDRWebDetalleExcel", lst.ToList(), dic);
+            return View();
+        }
+
         private string CrearEmailReclamoCulminado(BECDRWeb cDRWeb)
         {
             string templatePath = AppDomain.CurrentDomain.BaseDirectory + "Content\\Template\\mailing.html";
@@ -1278,5 +1572,102 @@ namespace Portal.Consultoras.Web.Controllers
 
             return htmlTemplate;
         }
+
+        private IEnumerable<ZonaModel> DropDowListZonas(int PaisID)
+        {
+            List<BEZona> lst;
+            using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
+            {
+                lst = sv.SelectAllZonas(PaisID).ToList();
+            }
+            Mapper.CreateMap<BEZona, ZonaModel>()
+                    .ForMember(t => t.ZonaID, f => f.MapFrom(c => c.ZonaID))
+                    .ForMember(t => t.Codigo, f => f.MapFrom(c => c.Codigo))
+                    .ForMember(t => t.RegionID, f => f.MapFrom(c => c.RegionID));
+
+            return Mapper.Map<IList<BEZona>, IEnumerable<ZonaModel>>(lst);
+        }
+
+        private IEnumerable<CampaniaModel> DropDowListCampanias(int PaisID)
+        {
+            IList<BECampania> lst;
+            using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
+            {
+                lst = sv.SelectCampanias(PaisID);
+            }
+            Mapper.CreateMap<BECampania, CampaniaModel>()
+                    .ForMember(t => t.CampaniaID, f => f.MapFrom(c => c.CampaniaID))
+                    .ForMember(t => t.Codigo, f => f.MapFrom(c => c.Codigo))
+                    .ForMember(t => t.Anio, f => f.MapFrom(c => c.Anio))
+                    .ForMember(t => t.NombreCorto, f => f.MapFrom(c => c.NombreCorto))
+                    .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID))
+                    .ForMember(t => t.Activo, f => f.MapFrom(c => c.Activo));
+
+            return Mapper.Map<IList<BECampania>, IEnumerable<CampaniaModel>>(lst);
+        }
+
+        public JsonResult ObtenterCampanias(int PaisID)
+        {
+            PaisID = UserData().PaisID;
+            IEnumerable<CampaniaModel> lst = DropDowListCampanias(PaisID);
+
+            return Json(new
+            {
+                lista = lst
+            }, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult ObtenterCampaniasPorPais(int PaisID)
+        {
+            //PaisID = 11;
+            IEnumerable<CampaniaModel> lst = DropDowListCampanias(PaisID);
+            IEnumerable<ZonaModel> lstZonas = DropDowListZonas(PaisID);
+            IEnumerable<RegionModel> lstRegiones = DropDowListRegiones(PaisID);
+
+            return Json(new
+            {
+                lista = lst,
+                listaZonas = lstZonas,
+                listaRegiones = lstRegiones.OrderBy(x => x.Codigo)
+            }, JsonRequestBehavior.AllowGet);
+        }
+
+        private IEnumerable<RegionModel> DropDowListRegiones(int PaisID)
+        {
+            //PaisID = 11;
+            IList<BERegion> lst;
+            using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
+            {
+                lst = sv.SelectAllRegiones(PaisID);
+            }
+            Mapper.CreateMap<BERegion, RegionModel>()
+                    .ForMember(t => t.RegionID, f => f.MapFrom(c => c.RegionID))
+                    .ForMember(t => t.Codigo, f => f.MapFrom(c => c.Codigo))
+                    .ForMember(t => t.Nombre, f => f.MapFrom(c => c.Nombre));
+
+            return Mapper.Map<IList<BERegion>, IEnumerable<RegionModel>>(lst);
+        }
+
+        private IEnumerable<PaisModel> DropDowListPaises()
+        {
+            List<BEPais> lst;
+            using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
+            {
+                if (UserData().RolID == 2) lst = sv.SelectPaises().ToList();
+                else
+                {
+                    lst = new List<BEPais>();
+                    lst.Add(sv.SelectPais(UserData().PaisID));
+                }
+
+            }
+            Mapper.CreateMap<BEPais, PaisModel>()
+                    .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID))
+                    .ForMember(t => t.Nombre, f => f.MapFrom(c => c.Nombre))
+                    .ForMember(t => t.NombreCorto, f => f.MapFrom(c => c.NombreCorto));
+
+            return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);
+        }
+
     }
 }
