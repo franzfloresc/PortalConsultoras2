@@ -216,7 +216,7 @@ namespace Portal.Consultoras.Web.ServicesCalculosPROL {
     }
     
     /// <comentarios/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.0.30319.34281")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.0.30319.34209")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -261,7 +261,7 @@ namespace Portal.Consultoras.Web.ServicesCalculosPROL {
     }
     
     /// <comentarios/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.0.30319.34281")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.0.30319.34209")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -279,6 +279,8 @@ namespace Portal.Consultoras.Web.ServicesCalculosPROL {
         private string codsap_item_packField;
         
         private string imagen_item_packField;
+        
+        private string volumenField;
         
         /// <comentarios/>
         public string cuv_pack_item {
@@ -339,10 +341,20 @@ namespace Portal.Consultoras.Web.ServicesCalculosPROL {
                 this.imagen_item_packField = value;
             }
         }
+        
+        /// <comentarios/>
+        public string volumen {
+            get {
+                return this.volumenField;
+            }
+            set {
+                this.volumenField = value;
+            }
+        }
     }
     
     /// <comentarios/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.0.30319.34281")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.0.30319.34209")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -411,7 +423,7 @@ namespace Portal.Consultoras.Web.ServicesCalculosPROL {
     }
     
     /// <comentarios/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.0.30319.34281")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.0.30319.34209")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -427,6 +439,8 @@ namespace Portal.Consultoras.Web.ServicesCalculosPROL {
         private string descripcion_gratisField;
         
         private string imagen_gratisField;
+        
+        private string volumenField;
         
         /// <comentarios/>
         public string escala_nivel_gratis {
@@ -477,10 +491,20 @@ namespace Portal.Consultoras.Web.ServicesCalculosPROL {
                 this.imagen_gratisField = value;
             }
         }
+        
+        /// <comentarios/>
+        public string volumen {
+            get {
+                return this.volumenField;
+            }
+            set {
+                this.volumenField = value;
+            }
+        }
     }
     
     /// <comentarios/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.0.30319.34281")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.0.30319.34209")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -537,7 +561,7 @@ namespace Portal.Consultoras.Web.ServicesCalculosPROL {
     }
     
     /// <comentarios/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.0.30319.34281")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.0.30319.34209")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -690,7 +714,7 @@ namespace Portal.Consultoras.Web.ServicesCalculosPROL {
     }
     
     /// <comentarios/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.0.30319.34281")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.0.30319.34209")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
