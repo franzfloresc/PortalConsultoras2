@@ -330,6 +330,7 @@ namespace Portal.Consultoras.Common
             public const string MontoMaximo = "OCC-17"; // MONTO MAXIMO
             public const string ActualizacionDeuda = "OCC-19"; //ACTUALIZACION DE DEUDA
             public const string ValidacionMontoMinimoStock = "OCC-51"; //VALIDACION MONTO MINIMO STOCK
+            public const string Mostrar2OpcionesNotificacion = "1"; // Flag para mostrar dos opciones en notificaciones.
         }
         
         public class ValidacionExisteUsuario
