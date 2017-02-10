@@ -5,8 +5,7 @@ IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[GetPed
 	DROP PROCEDURE [dbo].[GetPedidoWebNoFacturado]
 GO
 
-
-CREATE PROCEDURE GetPedidoWebNoFacturado
+CREATE PROCEDURE [dbo].[GetPedidoWebNoFacturado]
 	@PaisID				INT,
 	@CampaniaID			INT,
 	@RegionCodigo		VARCHAR(8) = NULL,
@@ -17,7 +16,12 @@ CREATE PROCEDURE GetPedidoWebNoFacturado
 AS
 BEGIN
 
-	SELECT
+	SELECT PedidoID,FechaRegistro,FechaReserva,CampaniaCodigo,Seccion ,ConsultoraCodigo,ConsultoraNombre,ImporteTotal,DescuentoProl,ConsultoraSaldo,
+			OrigenNombre,EstadoValidacionNombre,Zona,Region ,IndicadorEnviado,MontoMinimoPedido,ImporteTotalMM,MotivoRechazo,EstadoPedido
+
+	FROM(
+	SELECT  pr.idprocesopedidorechazado,
+	
 		p.PedidoID,
 		p.FechaRegistro FechaRegistro,
 		CASE WHEN p.EstadoPedido = 202 
@@ -30,7 +34,7 @@ BEGIN
 		c.NombreCompleto ConsultoraNombre,
 		p.ImporteTotal,
 		p.DescuentoProl,
-		'' UsuarioResponsable,
+		--'' UsuarioResponsable,
 		c.MontoSaldoActual ConsultoraSaldo,
 		'Web' OrigenNombre,
 		CASE WHEN p.EstadoPedido = 202 AND p.ValidacionAbierta = 0 AND p.ModificaPedidoReservadoMovil = 0
@@ -47,10 +51,11 @@ BEGIN
 			CASE MR.Codigo WHEN 'OCC-16' THEN 'MINIMO' 
 				WHEN 'OCC-17' THEN 'MAXIMO'
 				WHEN 'OCC-19' THEN 'DEUDA'
-				WHEN 'OCC-51' THEN 'MINIMO STOCK' END + ': ' + P.Valor AS VARCHAR(MAX))
-		FROM GPR.PedidoRechazado  P
-		INNER JOIN GPR.MotivoRechazo MR ON P.MotivoRechazo = MR.Codigo
-		WHERE (P.CodigoConsultora = c.codigo AND CAST(Campania AS INT) = @CampaniaID)  
+				WHEN 'OCC-51' THEN 'MINIMO STOCK' END + ': ' + P1.Valor AS VARCHAR(MAX))
+		FROM GPR.PedidoRechazado  P1
+		INNER JOIN GPR.MotivoRechazo MR ON P1.MotivoRechazo = MR.Codigo
+
+		WHERE p1.codigoconsultora=pr.codigoconsultora and p1.campania=pr.campania and p1.idprocesopedidorechazado=pr.idprocesopedidorechazado
 		FOR XML PATH ('')), 1, 1, '')) AS MotivoRechazo,
 		p.EstadoPedido	
 	FROM dbo.PedidoWeb p (NOLOCK)
@@ -58,7 +63,9 @@ BEGIN
 	INNER JOIN ods.Region r (NOLOCK) on c.regionid = r.regionid
 	INNER JOIN ods.Zona z (NOLOCK) on r.regionid = z.regionid and c.zonaid = z.zonaid
 	INNER JOIN ods.Seccion s (NOLOCK) on c.seccionid = s.seccionid and r.regionid = s.regionid and z.zonaid = s.zonaid
-	LEFT JOIN GPR.PedidoRechazado pr (NOLOCK) ON c.codigo = pr.CodigoConsultora AND CAST(pr.Campania AS INT) = @CampaniaID
+	LEFT JOIN GPR.PedidoRechazado pr (NOLOCK) ON c.codigo = pr.CodigoConsultora AND CAST(pr.Campania AS INT) =@CampaniaID
+	AND PR.Campania=P.CAMPANIAID
+	
 	WHERE 
 		(@CampaniaID is null or p.CampaniaID = @CampaniaID) and
 		p.ImporteTotal <> 0  
@@ -71,11 +78,17 @@ BEGIN
 		and (@ZonaCodigo = '0' or @ZonaCodigo is null or z.Codigo = @ZonaCodigo)
 		and (@CodigoConsultora = '' or c.Codigo like '%' + @CodigoConsultora + '%') 
 
+		AND PR.PROCESADO=1
+
+		) T
+
+		GROUP BY idprocesopedidorechazado,PedidoID,FechaRegistro,FechaReserva,CampaniaCodigo,Seccion ,ConsultoraCodigo,ConsultoraNombre,ImporteTotal,
+		DescuentoProl,ConsultoraSaldo,OrigenNombre,EstadoValidacionNombre,Zona,Region ,IndicadorEnviado,MontoMinimoPedido,ImporteTotalMM,MotivoRechazo,EstadoPedido
+
 END
 
-GO
 
-----------------------------------------------------------------------------------------------
+GO
 
 USE BelcorpMexico
 GO
@@ -84,8 +97,7 @@ IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[GetPed
 	DROP PROCEDURE [dbo].[GetPedidoWebNoFacturado]
 GO
 
-
-CREATE PROCEDURE GetPedidoWebNoFacturado
+CREATE PROCEDURE [dbo].[GetPedidoWebNoFacturado]
 	@PaisID				INT,
 	@CampaniaID			INT,
 	@RegionCodigo		VARCHAR(8) = NULL,
@@ -96,7 +108,12 @@ CREATE PROCEDURE GetPedidoWebNoFacturado
 AS
 BEGIN
 
-	SELECT
+	SELECT PedidoID,FechaRegistro,FechaReserva,CampaniaCodigo,Seccion ,ConsultoraCodigo,ConsultoraNombre,ImporteTotal,DescuentoProl,ConsultoraSaldo,
+			OrigenNombre,EstadoValidacionNombre,Zona,Region ,IndicadorEnviado,MontoMinimoPedido,ImporteTotalMM,MotivoRechazo,EstadoPedido
+
+	FROM(
+	SELECT  pr.idprocesopedidorechazado,
+	
 		p.PedidoID,
 		p.FechaRegistro FechaRegistro,
 		CASE WHEN p.EstadoPedido = 202 
@@ -109,7 +126,7 @@ BEGIN
 		c.NombreCompleto ConsultoraNombre,
 		p.ImporteTotal,
 		p.DescuentoProl,
-		'' UsuarioResponsable,
+		--'' UsuarioResponsable,
 		c.MontoSaldoActual ConsultoraSaldo,
 		'Web' OrigenNombre,
 		CASE WHEN p.EstadoPedido = 202 AND p.ValidacionAbierta = 0 AND p.ModificaPedidoReservadoMovil = 0
@@ -126,10 +143,11 @@ BEGIN
 			CASE MR.Codigo WHEN 'OCC-16' THEN 'MINIMO' 
 				WHEN 'OCC-17' THEN 'MAXIMO'
 				WHEN 'OCC-19' THEN 'DEUDA'
-				WHEN 'OCC-51' THEN 'MINIMO STOCK' END + ': ' + P.Valor AS VARCHAR(MAX))
-		FROM GPR.PedidoRechazado  P
-		INNER JOIN GPR.MotivoRechazo MR ON P.MotivoRechazo = MR.Codigo
-		WHERE (P.CodigoConsultora = c.codigo AND CAST(Campania AS INT) = @CampaniaID)  
+				WHEN 'OCC-51' THEN 'MINIMO STOCK' END + ': ' + P1.Valor AS VARCHAR(MAX))
+		FROM GPR.PedidoRechazado  P1
+		INNER JOIN GPR.MotivoRechazo MR ON P1.MotivoRechazo = MR.Codigo
+
+		WHERE p1.codigoconsultora=pr.codigoconsultora and p1.campania=pr.campania and p1.idprocesopedidorechazado=pr.idprocesopedidorechazado
 		FOR XML PATH ('')), 1, 1, '')) AS MotivoRechazo,
 		p.EstadoPedido	
 	FROM dbo.PedidoWeb p (NOLOCK)
@@ -137,7 +155,9 @@ BEGIN
 	INNER JOIN ods.Region r (NOLOCK) on c.regionid = r.regionid
 	INNER JOIN ods.Zona z (NOLOCK) on r.regionid = z.regionid and c.zonaid = z.zonaid
 	INNER JOIN ods.Seccion s (NOLOCK) on c.seccionid = s.seccionid and r.regionid = s.regionid and z.zonaid = s.zonaid
-	LEFT JOIN GPR.PedidoRechazado pr (NOLOCK) ON c.codigo = pr.CodigoConsultora AND CAST(pr.Campania AS INT) = @CampaniaID
+	LEFT JOIN GPR.PedidoRechazado pr (NOLOCK) ON c.codigo = pr.CodigoConsultora AND CAST(pr.Campania AS INT) =@CampaniaID
+	AND PR.Campania=P.CAMPANIAID
+	
 	WHERE 
 		(@CampaniaID is null or p.CampaniaID = @CampaniaID) and
 		p.ImporteTotal <> 0  
@@ -150,11 +170,17 @@ BEGIN
 		and (@ZonaCodigo = '0' or @ZonaCodigo is null or z.Codigo = @ZonaCodigo)
 		and (@CodigoConsultora = '' or c.Codigo like '%' + @CodigoConsultora + '%') 
 
+		AND PR.PROCESADO=1
+
+		) T
+
+		GROUP BY idprocesopedidorechazado,PedidoID,FechaRegistro,FechaReserva,CampaniaCodigo,Seccion ,ConsultoraCodigo,ConsultoraNombre,ImporteTotal,
+		DescuentoProl,ConsultoraSaldo,OrigenNombre,EstadoValidacionNombre,Zona,Region ,IndicadorEnviado,MontoMinimoPedido,ImporteTotalMM,MotivoRechazo,EstadoPedido
+
 END
 
-GO
 
-----------------------------------------------------------------------------------------------
+GO
 
 USE BelcorpColombia
 GO
@@ -163,8 +189,7 @@ IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[GetPed
 	DROP PROCEDURE [dbo].[GetPedidoWebNoFacturado]
 GO
 
-
-CREATE PROCEDURE GetPedidoWebNoFacturado
+CREATE PROCEDURE [dbo].[GetPedidoWebNoFacturado]
 	@PaisID				INT,
 	@CampaniaID			INT,
 	@RegionCodigo		VARCHAR(8) = NULL,
@@ -175,7 +200,12 @@ CREATE PROCEDURE GetPedidoWebNoFacturado
 AS
 BEGIN
 
-	SELECT
+	SELECT PedidoID,FechaRegistro,FechaReserva,CampaniaCodigo,Seccion ,ConsultoraCodigo,ConsultoraNombre,ImporteTotal,DescuentoProl,ConsultoraSaldo,
+			OrigenNombre,EstadoValidacionNombre,Zona,Region ,IndicadorEnviado,MontoMinimoPedido,ImporteTotalMM,MotivoRechazo,EstadoPedido
+
+	FROM(
+	SELECT  pr.idprocesopedidorechazado,
+	
 		p.PedidoID,
 		p.FechaRegistro FechaRegistro,
 		CASE WHEN p.EstadoPedido = 202 
@@ -188,7 +218,7 @@ BEGIN
 		c.NombreCompleto ConsultoraNombre,
 		p.ImporteTotal,
 		p.DescuentoProl,
-		'' UsuarioResponsable,
+		--'' UsuarioResponsable,
 		c.MontoSaldoActual ConsultoraSaldo,
 		'Web' OrigenNombre,
 		CASE WHEN p.EstadoPedido = 202 AND p.ValidacionAbierta = 0 AND p.ModificaPedidoReservadoMovil = 0
@@ -205,10 +235,11 @@ BEGIN
 			CASE MR.Codigo WHEN 'OCC-16' THEN 'MINIMO' 
 				WHEN 'OCC-17' THEN 'MAXIMO'
 				WHEN 'OCC-19' THEN 'DEUDA'
-				WHEN 'OCC-51' THEN 'MINIMO STOCK' END + ': ' + P.Valor AS VARCHAR(MAX))
-		FROM GPR.PedidoRechazado  P
-		INNER JOIN GPR.MotivoRechazo MR ON P.MotivoRechazo = MR.Codigo
-		WHERE (P.CodigoConsultora = c.codigo AND CAST(Campania AS INT) = @CampaniaID)  
+				WHEN 'OCC-51' THEN 'MINIMO STOCK' END + ': ' + P1.Valor AS VARCHAR(MAX))
+		FROM GPR.PedidoRechazado  P1
+		INNER JOIN GPR.MotivoRechazo MR ON P1.MotivoRechazo = MR.Codigo
+
+		WHERE p1.codigoconsultora=pr.codigoconsultora and p1.campania=pr.campania and p1.idprocesopedidorechazado=pr.idprocesopedidorechazado
 		FOR XML PATH ('')), 1, 1, '')) AS MotivoRechazo,
 		p.EstadoPedido	
 	FROM dbo.PedidoWeb p (NOLOCK)
@@ -216,7 +247,9 @@ BEGIN
 	INNER JOIN ods.Region r (NOLOCK) on c.regionid = r.regionid
 	INNER JOIN ods.Zona z (NOLOCK) on r.regionid = z.regionid and c.zonaid = z.zonaid
 	INNER JOIN ods.Seccion s (NOLOCK) on c.seccionid = s.seccionid and r.regionid = s.regionid and z.zonaid = s.zonaid
-	LEFT JOIN GPR.PedidoRechazado pr (NOLOCK) ON c.codigo = pr.CodigoConsultora AND CAST(pr.Campania AS INT) = @CampaniaID
+	LEFT JOIN GPR.PedidoRechazado pr (NOLOCK) ON c.codigo = pr.CodigoConsultora AND CAST(pr.Campania AS INT) =@CampaniaID
+	AND PR.Campania=P.CAMPANIAID
+	
 	WHERE 
 		(@CampaniaID is null or p.CampaniaID = @CampaniaID) and
 		p.ImporteTotal <> 0  
@@ -229,11 +262,17 @@ BEGIN
 		and (@ZonaCodigo = '0' or @ZonaCodigo is null or z.Codigo = @ZonaCodigo)
 		and (@CodigoConsultora = '' or c.Codigo like '%' + @CodigoConsultora + '%') 
 
+		AND PR.PROCESADO=1
+
+		) T
+
+		GROUP BY idprocesopedidorechazado,PedidoID,FechaRegistro,FechaReserva,CampaniaCodigo,Seccion ,ConsultoraCodigo,ConsultoraNombre,ImporteTotal,
+		DescuentoProl,ConsultoraSaldo,OrigenNombre,EstadoValidacionNombre,Zona,Region ,IndicadorEnviado,MontoMinimoPedido,ImporteTotalMM,MotivoRechazo,EstadoPedido
+
 END
 
-GO
 
-----------------------------------------------------------------------------------------------
+GO
 
 USE BelcorpVenezuela
 GO
@@ -242,8 +281,7 @@ IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[GetPed
 	DROP PROCEDURE [dbo].[GetPedidoWebNoFacturado]
 GO
 
-
-CREATE PROCEDURE GetPedidoWebNoFacturado
+CREATE PROCEDURE [dbo].[GetPedidoWebNoFacturado]
 	@PaisID				INT,
 	@CampaniaID			INT,
 	@RegionCodigo		VARCHAR(8) = NULL,
@@ -254,7 +292,12 @@ CREATE PROCEDURE GetPedidoWebNoFacturado
 AS
 BEGIN
 
-	SELECT
+	SELECT PedidoID,FechaRegistro,FechaReserva,CampaniaCodigo,Seccion ,ConsultoraCodigo,ConsultoraNombre,ImporteTotal,DescuentoProl,ConsultoraSaldo,
+			OrigenNombre,EstadoValidacionNombre,Zona,Region ,IndicadorEnviado,MontoMinimoPedido,ImporteTotalMM,MotivoRechazo,EstadoPedido
+
+	FROM(
+	SELECT  pr.idprocesopedidorechazado,
+	
 		p.PedidoID,
 		p.FechaRegistro FechaRegistro,
 		CASE WHEN p.EstadoPedido = 202 
@@ -267,7 +310,7 @@ BEGIN
 		c.NombreCompleto ConsultoraNombre,
 		p.ImporteTotal,
 		p.DescuentoProl,
-		'' UsuarioResponsable,
+		--'' UsuarioResponsable,
 		c.MontoSaldoActual ConsultoraSaldo,
 		'Web' OrigenNombre,
 		CASE WHEN p.EstadoPedido = 202 AND p.ValidacionAbierta = 0 AND p.ModificaPedidoReservadoMovil = 0
@@ -284,10 +327,11 @@ BEGIN
 			CASE MR.Codigo WHEN 'OCC-16' THEN 'MINIMO' 
 				WHEN 'OCC-17' THEN 'MAXIMO'
 				WHEN 'OCC-19' THEN 'DEUDA'
-				WHEN 'OCC-51' THEN 'MINIMO STOCK' END + ': ' + P.Valor AS VARCHAR(MAX))
-		FROM GPR.PedidoRechazado  P
-		INNER JOIN GPR.MotivoRechazo MR ON P.MotivoRechazo = MR.Codigo
-		WHERE (P.CodigoConsultora = c.codigo AND CAST(Campania AS INT) = @CampaniaID)  
+				WHEN 'OCC-51' THEN 'MINIMO STOCK' END + ': ' + P1.Valor AS VARCHAR(MAX))
+		FROM GPR.PedidoRechazado  P1
+		INNER JOIN GPR.MotivoRechazo MR ON P1.MotivoRechazo = MR.Codigo
+
+		WHERE p1.codigoconsultora=pr.codigoconsultora and p1.campania=pr.campania and p1.idprocesopedidorechazado=pr.idprocesopedidorechazado
 		FOR XML PATH ('')), 1, 1, '')) AS MotivoRechazo,
 		p.EstadoPedido	
 	FROM dbo.PedidoWeb p (NOLOCK)
@@ -295,7 +339,9 @@ BEGIN
 	INNER JOIN ods.Region r (NOLOCK) on c.regionid = r.regionid
 	INNER JOIN ods.Zona z (NOLOCK) on r.regionid = z.regionid and c.zonaid = z.zonaid
 	INNER JOIN ods.Seccion s (NOLOCK) on c.seccionid = s.seccionid and r.regionid = s.regionid and z.zonaid = s.zonaid
-	LEFT JOIN GPR.PedidoRechazado pr (NOLOCK) ON c.codigo = pr.CodigoConsultora AND CAST(pr.Campania AS INT) = @CampaniaID
+	LEFT JOIN GPR.PedidoRechazado pr (NOLOCK) ON c.codigo = pr.CodigoConsultora AND CAST(pr.Campania AS INT) =@CampaniaID
+	AND PR.Campania=P.CAMPANIAID
+	
 	WHERE 
 		(@CampaniaID is null or p.CampaniaID = @CampaniaID) and
 		p.ImporteTotal <> 0  
@@ -308,11 +354,17 @@ BEGIN
 		and (@ZonaCodigo = '0' or @ZonaCodigo is null or z.Codigo = @ZonaCodigo)
 		and (@CodigoConsultora = '' or c.Codigo like '%' + @CodigoConsultora + '%') 
 
+		AND PR.PROCESADO=1
+
+		) T
+
+		GROUP BY idprocesopedidorechazado,PedidoID,FechaRegistro,FechaReserva,CampaniaCodigo,Seccion ,ConsultoraCodigo,ConsultoraNombre,ImporteTotal,
+		DescuentoProl,ConsultoraSaldo,OrigenNombre,EstadoValidacionNombre,Zona,Region ,IndicadorEnviado,MontoMinimoPedido,ImporteTotalMM,MotivoRechazo,EstadoPedido
+
 END
 
-GO
 
-----------------------------------------------------------------------------------------------
+GO
 
 USE BelcorpSalvador
 GO
@@ -321,8 +373,7 @@ IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[GetPed
 	DROP PROCEDURE [dbo].[GetPedidoWebNoFacturado]
 GO
 
-
-CREATE PROCEDURE GetPedidoWebNoFacturado
+CREATE PROCEDURE [dbo].[GetPedidoWebNoFacturado]
 	@PaisID				INT,
 	@CampaniaID			INT,
 	@RegionCodigo		VARCHAR(8) = NULL,
@@ -333,7 +384,12 @@ CREATE PROCEDURE GetPedidoWebNoFacturado
 AS
 BEGIN
 
-	SELECT
+	SELECT PedidoID,FechaRegistro,FechaReserva,CampaniaCodigo,Seccion ,ConsultoraCodigo,ConsultoraNombre,ImporteTotal,DescuentoProl,ConsultoraSaldo,
+			OrigenNombre,EstadoValidacionNombre,Zona,Region ,IndicadorEnviado,MontoMinimoPedido,ImporteTotalMM,MotivoRechazo,EstadoPedido
+
+	FROM(
+	SELECT  pr.idprocesopedidorechazado,
+	
 		p.PedidoID,
 		p.FechaRegistro FechaRegistro,
 		CASE WHEN p.EstadoPedido = 202 
@@ -346,7 +402,7 @@ BEGIN
 		c.NombreCompleto ConsultoraNombre,
 		p.ImporteTotal,
 		p.DescuentoProl,
-		'' UsuarioResponsable,
+		--'' UsuarioResponsable,
 		c.MontoSaldoActual ConsultoraSaldo,
 		'Web' OrigenNombre,
 		CASE WHEN p.EstadoPedido = 202 AND p.ValidacionAbierta = 0 AND p.ModificaPedidoReservadoMovil = 0
@@ -363,10 +419,11 @@ BEGIN
 			CASE MR.Codigo WHEN 'OCC-16' THEN 'MINIMO' 
 				WHEN 'OCC-17' THEN 'MAXIMO'
 				WHEN 'OCC-19' THEN 'DEUDA'
-				WHEN 'OCC-51' THEN 'MINIMO STOCK' END + ': ' + P.Valor AS VARCHAR(MAX))
-		FROM GPR.PedidoRechazado  P
-		INNER JOIN GPR.MotivoRechazo MR ON P.MotivoRechazo = MR.Codigo
-		WHERE (P.CodigoConsultora = c.codigo AND CAST(Campania AS INT) = @CampaniaID)  
+				WHEN 'OCC-51' THEN 'MINIMO STOCK' END + ': ' + P1.Valor AS VARCHAR(MAX))
+		FROM GPR.PedidoRechazado  P1
+		INNER JOIN GPR.MotivoRechazo MR ON P1.MotivoRechazo = MR.Codigo
+
+		WHERE p1.codigoconsultora=pr.codigoconsultora and p1.campania=pr.campania and p1.idprocesopedidorechazado=pr.idprocesopedidorechazado
 		FOR XML PATH ('')), 1, 1, '')) AS MotivoRechazo,
 		p.EstadoPedido	
 	FROM dbo.PedidoWeb p (NOLOCK)
@@ -374,7 +431,9 @@ BEGIN
 	INNER JOIN ods.Region r (NOLOCK) on c.regionid = r.regionid
 	INNER JOIN ods.Zona z (NOLOCK) on r.regionid = z.regionid and c.zonaid = z.zonaid
 	INNER JOIN ods.Seccion s (NOLOCK) on c.seccionid = s.seccionid and r.regionid = s.regionid and z.zonaid = s.zonaid
-	LEFT JOIN GPR.PedidoRechazado pr (NOLOCK) ON c.codigo = pr.CodigoConsultora AND CAST(pr.Campania AS INT) = @CampaniaID
+	LEFT JOIN GPR.PedidoRechazado pr (NOLOCK) ON c.codigo = pr.CodigoConsultora AND CAST(pr.Campania AS INT) =@CampaniaID
+	AND PR.Campania=P.CAMPANIAID
+	
 	WHERE 
 		(@CampaniaID is null or p.CampaniaID = @CampaniaID) and
 		p.ImporteTotal <> 0  
@@ -387,11 +446,17 @@ BEGIN
 		and (@ZonaCodigo = '0' or @ZonaCodigo is null or z.Codigo = @ZonaCodigo)
 		and (@CodigoConsultora = '' or c.Codigo like '%' + @CodigoConsultora + '%') 
 
+		AND PR.PROCESADO=1
+
+		) T
+
+		GROUP BY idprocesopedidorechazado,PedidoID,FechaRegistro,FechaReserva,CampaniaCodigo,Seccion ,ConsultoraCodigo,ConsultoraNombre,ImporteTotal,
+		DescuentoProl,ConsultoraSaldo,OrigenNombre,EstadoValidacionNombre,Zona,Region ,IndicadorEnviado,MontoMinimoPedido,ImporteTotalMM,MotivoRechazo,EstadoPedido
+
 END
 
-GO
 
-----------------------------------------------------------------------------------------------
+GO
 
 USE BelcorpPuertoRico
 GO
@@ -400,8 +465,7 @@ IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[GetPed
 	DROP PROCEDURE [dbo].[GetPedidoWebNoFacturado]
 GO
 
-
-CREATE PROCEDURE GetPedidoWebNoFacturado
+CREATE PROCEDURE [dbo].[GetPedidoWebNoFacturado]
 	@PaisID				INT,
 	@CampaniaID			INT,
 	@RegionCodigo		VARCHAR(8) = NULL,
@@ -412,7 +476,12 @@ CREATE PROCEDURE GetPedidoWebNoFacturado
 AS
 BEGIN
 
-	SELECT
+	SELECT PedidoID,FechaRegistro,FechaReserva,CampaniaCodigo,Seccion ,ConsultoraCodigo,ConsultoraNombre,ImporteTotal,DescuentoProl,ConsultoraSaldo,
+			OrigenNombre,EstadoValidacionNombre,Zona,Region ,IndicadorEnviado,MontoMinimoPedido,ImporteTotalMM,MotivoRechazo,EstadoPedido
+
+	FROM(
+	SELECT  pr.idprocesopedidorechazado,
+	
 		p.PedidoID,
 		p.FechaRegistro FechaRegistro,
 		CASE WHEN p.EstadoPedido = 202 
@@ -425,7 +494,7 @@ BEGIN
 		c.NombreCompleto ConsultoraNombre,
 		p.ImporteTotal,
 		p.DescuentoProl,
-		'' UsuarioResponsable,
+		--'' UsuarioResponsable,
 		c.MontoSaldoActual ConsultoraSaldo,
 		'Web' OrigenNombre,
 		CASE WHEN p.EstadoPedido = 202 AND p.ValidacionAbierta = 0 AND p.ModificaPedidoReservadoMovil = 0
@@ -442,10 +511,11 @@ BEGIN
 			CASE MR.Codigo WHEN 'OCC-16' THEN 'MINIMO' 
 				WHEN 'OCC-17' THEN 'MAXIMO'
 				WHEN 'OCC-19' THEN 'DEUDA'
-				WHEN 'OCC-51' THEN 'MINIMO STOCK' END + ': ' + P.Valor AS VARCHAR(MAX))
-		FROM GPR.PedidoRechazado  P
-		INNER JOIN GPR.MotivoRechazo MR ON P.MotivoRechazo = MR.Codigo
-		WHERE (P.CodigoConsultora = c.codigo AND CAST(Campania AS INT) = @CampaniaID)  
+				WHEN 'OCC-51' THEN 'MINIMO STOCK' END + ': ' + P1.Valor AS VARCHAR(MAX))
+		FROM GPR.PedidoRechazado  P1
+		INNER JOIN GPR.MotivoRechazo MR ON P1.MotivoRechazo = MR.Codigo
+
+		WHERE p1.codigoconsultora=pr.codigoconsultora and p1.campania=pr.campania and p1.idprocesopedidorechazado=pr.idprocesopedidorechazado
 		FOR XML PATH ('')), 1, 1, '')) AS MotivoRechazo,
 		p.EstadoPedido	
 	FROM dbo.PedidoWeb p (NOLOCK)
@@ -453,7 +523,9 @@ BEGIN
 	INNER JOIN ods.Region r (NOLOCK) on c.regionid = r.regionid
 	INNER JOIN ods.Zona z (NOLOCK) on r.regionid = z.regionid and c.zonaid = z.zonaid
 	INNER JOIN ods.Seccion s (NOLOCK) on c.seccionid = s.seccionid and r.regionid = s.regionid and z.zonaid = s.zonaid
-	LEFT JOIN GPR.PedidoRechazado pr (NOLOCK) ON c.codigo = pr.CodigoConsultora AND CAST(pr.Campania AS INT) = @CampaniaID
+	LEFT JOIN GPR.PedidoRechazado pr (NOLOCK) ON c.codigo = pr.CodigoConsultora AND CAST(pr.Campania AS INT) =@CampaniaID
+	AND PR.Campania=P.CAMPANIAID
+	
 	WHERE 
 		(@CampaniaID is null or p.CampaniaID = @CampaniaID) and
 		p.ImporteTotal <> 0  
@@ -466,11 +538,17 @@ BEGIN
 		and (@ZonaCodigo = '0' or @ZonaCodigo is null or z.Codigo = @ZonaCodigo)
 		and (@CodigoConsultora = '' or c.Codigo like '%' + @CodigoConsultora + '%') 
 
+		AND PR.PROCESADO=1
+
+		) T
+
+		GROUP BY idprocesopedidorechazado,PedidoID,FechaRegistro,FechaReserva,CampaniaCodigo,Seccion ,ConsultoraCodigo,ConsultoraNombre,ImporteTotal,
+		DescuentoProl,ConsultoraSaldo,OrigenNombre,EstadoValidacionNombre,Zona,Region ,IndicadorEnviado,MontoMinimoPedido,ImporteTotalMM,MotivoRechazo,EstadoPedido
+
 END
 
-GO
 
-----------------------------------------------------------------------------------------------
+GO
 
 USE BelcorpPanama
 GO
@@ -479,8 +557,7 @@ IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[GetPed
 	DROP PROCEDURE [dbo].[GetPedidoWebNoFacturado]
 GO
 
-
-CREATE PROCEDURE GetPedidoWebNoFacturado
+CREATE PROCEDURE [dbo].[GetPedidoWebNoFacturado]
 	@PaisID				INT,
 	@CampaniaID			INT,
 	@RegionCodigo		VARCHAR(8) = NULL,
@@ -491,7 +568,12 @@ CREATE PROCEDURE GetPedidoWebNoFacturado
 AS
 BEGIN
 
-	SELECT
+	SELECT PedidoID,FechaRegistro,FechaReserva,CampaniaCodigo,Seccion ,ConsultoraCodigo,ConsultoraNombre,ImporteTotal,DescuentoProl,ConsultoraSaldo,
+			OrigenNombre,EstadoValidacionNombre,Zona,Region ,IndicadorEnviado,MontoMinimoPedido,ImporteTotalMM,MotivoRechazo,EstadoPedido
+
+	FROM(
+	SELECT  pr.idprocesopedidorechazado,
+	
 		p.PedidoID,
 		p.FechaRegistro FechaRegistro,
 		CASE WHEN p.EstadoPedido = 202 
@@ -504,7 +586,7 @@ BEGIN
 		c.NombreCompleto ConsultoraNombre,
 		p.ImporteTotal,
 		p.DescuentoProl,
-		'' UsuarioResponsable,
+		--'' UsuarioResponsable,
 		c.MontoSaldoActual ConsultoraSaldo,
 		'Web' OrigenNombre,
 		CASE WHEN p.EstadoPedido = 202 AND p.ValidacionAbierta = 0 AND p.ModificaPedidoReservadoMovil = 0
@@ -521,10 +603,11 @@ BEGIN
 			CASE MR.Codigo WHEN 'OCC-16' THEN 'MINIMO' 
 				WHEN 'OCC-17' THEN 'MAXIMO'
 				WHEN 'OCC-19' THEN 'DEUDA'
-				WHEN 'OCC-51' THEN 'MINIMO STOCK' END + ': ' + P.Valor AS VARCHAR(MAX))
-		FROM GPR.PedidoRechazado  P
-		INNER JOIN GPR.MotivoRechazo MR ON P.MotivoRechazo = MR.Codigo
-		WHERE (P.CodigoConsultora = c.codigo AND CAST(Campania AS INT) = @CampaniaID)  
+				WHEN 'OCC-51' THEN 'MINIMO STOCK' END + ': ' + P1.Valor AS VARCHAR(MAX))
+		FROM GPR.PedidoRechazado  P1
+		INNER JOIN GPR.MotivoRechazo MR ON P1.MotivoRechazo = MR.Codigo
+
+		WHERE p1.codigoconsultora=pr.codigoconsultora and p1.campania=pr.campania and p1.idprocesopedidorechazado=pr.idprocesopedidorechazado
 		FOR XML PATH ('')), 1, 1, '')) AS MotivoRechazo,
 		p.EstadoPedido	
 	FROM dbo.PedidoWeb p (NOLOCK)
@@ -532,7 +615,9 @@ BEGIN
 	INNER JOIN ods.Region r (NOLOCK) on c.regionid = r.regionid
 	INNER JOIN ods.Zona z (NOLOCK) on r.regionid = z.regionid and c.zonaid = z.zonaid
 	INNER JOIN ods.Seccion s (NOLOCK) on c.seccionid = s.seccionid and r.regionid = s.regionid and z.zonaid = s.zonaid
-	LEFT JOIN GPR.PedidoRechazado pr (NOLOCK) ON c.codigo = pr.CodigoConsultora AND CAST(pr.Campania AS INT) = @CampaniaID
+	LEFT JOIN GPR.PedidoRechazado pr (NOLOCK) ON c.codigo = pr.CodigoConsultora AND CAST(pr.Campania AS INT) =@CampaniaID
+	AND PR.Campania=P.CAMPANIAID
+	
 	WHERE 
 		(@CampaniaID is null or p.CampaniaID = @CampaniaID) and
 		p.ImporteTotal <> 0  
@@ -545,11 +630,17 @@ BEGIN
 		and (@ZonaCodigo = '0' or @ZonaCodigo is null or z.Codigo = @ZonaCodigo)
 		and (@CodigoConsultora = '' or c.Codigo like '%' + @CodigoConsultora + '%') 
 
+		AND PR.PROCESADO=1
+
+		) T
+
+		GROUP BY idprocesopedidorechazado,PedidoID,FechaRegistro,FechaReserva,CampaniaCodigo,Seccion ,ConsultoraCodigo,ConsultoraNombre,ImporteTotal,
+		DescuentoProl,ConsultoraSaldo,OrigenNombre,EstadoValidacionNombre,Zona,Region ,IndicadorEnviado,MontoMinimoPedido,ImporteTotalMM,MotivoRechazo,EstadoPedido
+
 END
 
-GO
 
-----------------------------------------------------------------------------------------------
+GO
 
 USE BelcorpGuatemala
 GO
@@ -558,8 +649,7 @@ IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[GetPed
 	DROP PROCEDURE [dbo].[GetPedidoWebNoFacturado]
 GO
 
-
-CREATE PROCEDURE GetPedidoWebNoFacturado
+CREATE PROCEDURE [dbo].[GetPedidoWebNoFacturado]
 	@PaisID				INT,
 	@CampaniaID			INT,
 	@RegionCodigo		VARCHAR(8) = NULL,
@@ -570,7 +660,12 @@ CREATE PROCEDURE GetPedidoWebNoFacturado
 AS
 BEGIN
 
-	SELECT
+	SELECT PedidoID,FechaRegistro,FechaReserva,CampaniaCodigo,Seccion ,ConsultoraCodigo,ConsultoraNombre,ImporteTotal,DescuentoProl,ConsultoraSaldo,
+			OrigenNombre,EstadoValidacionNombre,Zona,Region ,IndicadorEnviado,MontoMinimoPedido,ImporteTotalMM,MotivoRechazo,EstadoPedido
+
+	FROM(
+	SELECT  pr.idprocesopedidorechazado,
+	
 		p.PedidoID,
 		p.FechaRegistro FechaRegistro,
 		CASE WHEN p.EstadoPedido = 202 
@@ -583,7 +678,7 @@ BEGIN
 		c.NombreCompleto ConsultoraNombre,
 		p.ImporteTotal,
 		p.DescuentoProl,
-		'' UsuarioResponsable,
+		--'' UsuarioResponsable,
 		c.MontoSaldoActual ConsultoraSaldo,
 		'Web' OrigenNombre,
 		CASE WHEN p.EstadoPedido = 202 AND p.ValidacionAbierta = 0 AND p.ModificaPedidoReservadoMovil = 0
@@ -600,10 +695,11 @@ BEGIN
 			CASE MR.Codigo WHEN 'OCC-16' THEN 'MINIMO' 
 				WHEN 'OCC-17' THEN 'MAXIMO'
 				WHEN 'OCC-19' THEN 'DEUDA'
-				WHEN 'OCC-51' THEN 'MINIMO STOCK' END + ': ' + P.Valor AS VARCHAR(MAX))
-		FROM GPR.PedidoRechazado  P
-		INNER JOIN GPR.MotivoRechazo MR ON P.MotivoRechazo = MR.Codigo
-		WHERE (P.CodigoConsultora = c.codigo AND CAST(Campania AS INT) = @CampaniaID)  
+				WHEN 'OCC-51' THEN 'MINIMO STOCK' END + ': ' + P1.Valor AS VARCHAR(MAX))
+		FROM GPR.PedidoRechazado  P1
+		INNER JOIN GPR.MotivoRechazo MR ON P1.MotivoRechazo = MR.Codigo
+
+		WHERE p1.codigoconsultora=pr.codigoconsultora and p1.campania=pr.campania and p1.idprocesopedidorechazado=pr.idprocesopedidorechazado
 		FOR XML PATH ('')), 1, 1, '')) AS MotivoRechazo,
 		p.EstadoPedido	
 	FROM dbo.PedidoWeb p (NOLOCK)
@@ -611,7 +707,9 @@ BEGIN
 	INNER JOIN ods.Region r (NOLOCK) on c.regionid = r.regionid
 	INNER JOIN ods.Zona z (NOLOCK) on r.regionid = z.regionid and c.zonaid = z.zonaid
 	INNER JOIN ods.Seccion s (NOLOCK) on c.seccionid = s.seccionid and r.regionid = s.regionid and z.zonaid = s.zonaid
-	LEFT JOIN GPR.PedidoRechazado pr (NOLOCK) ON c.codigo = pr.CodigoConsultora AND CAST(pr.Campania AS INT) = @CampaniaID
+	LEFT JOIN GPR.PedidoRechazado pr (NOLOCK) ON c.codigo = pr.CodigoConsultora AND CAST(pr.Campania AS INT) =@CampaniaID
+	AND PR.Campania=P.CAMPANIAID
+	
 	WHERE 
 		(@CampaniaID is null or p.CampaniaID = @CampaniaID) and
 		p.ImporteTotal <> 0  
@@ -624,11 +722,17 @@ BEGIN
 		and (@ZonaCodigo = '0' or @ZonaCodigo is null or z.Codigo = @ZonaCodigo)
 		and (@CodigoConsultora = '' or c.Codigo like '%' + @CodigoConsultora + '%') 
 
+		AND PR.PROCESADO=1
+
+		) T
+
+		GROUP BY idprocesopedidorechazado,PedidoID,FechaRegistro,FechaReserva,CampaniaCodigo,Seccion ,ConsultoraCodigo,ConsultoraNombre,ImporteTotal,
+		DescuentoProl,ConsultoraSaldo,OrigenNombre,EstadoValidacionNombre,Zona,Region ,IndicadorEnviado,MontoMinimoPedido,ImporteTotalMM,MotivoRechazo,EstadoPedido
+
 END
 
-GO
 
-----------------------------------------------------------------------------------------------
+GO
 
 USE BelcorpEcuador
 GO
@@ -637,8 +741,7 @@ IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[GetPed
 	DROP PROCEDURE [dbo].[GetPedidoWebNoFacturado]
 GO
 
-
-CREATE PROCEDURE GetPedidoWebNoFacturado
+CREATE PROCEDURE [dbo].[GetPedidoWebNoFacturado]
 	@PaisID				INT,
 	@CampaniaID			INT,
 	@RegionCodigo		VARCHAR(8) = NULL,
@@ -649,7 +752,12 @@ CREATE PROCEDURE GetPedidoWebNoFacturado
 AS
 BEGIN
 
-	SELECT
+	SELECT PedidoID,FechaRegistro,FechaReserva,CampaniaCodigo,Seccion ,ConsultoraCodigo,ConsultoraNombre,ImporteTotal,DescuentoProl,ConsultoraSaldo,
+			OrigenNombre,EstadoValidacionNombre,Zona,Region ,IndicadorEnviado,MontoMinimoPedido,ImporteTotalMM,MotivoRechazo,EstadoPedido
+
+	FROM(
+	SELECT  pr.idprocesopedidorechazado,
+	
 		p.PedidoID,
 		p.FechaRegistro FechaRegistro,
 		CASE WHEN p.EstadoPedido = 202 
@@ -662,7 +770,7 @@ BEGIN
 		c.NombreCompleto ConsultoraNombre,
 		p.ImporteTotal,
 		p.DescuentoProl,
-		'' UsuarioResponsable,
+		--'' UsuarioResponsable,
 		c.MontoSaldoActual ConsultoraSaldo,
 		'Web' OrigenNombre,
 		CASE WHEN p.EstadoPedido = 202 AND p.ValidacionAbierta = 0 AND p.ModificaPedidoReservadoMovil = 0
@@ -679,10 +787,11 @@ BEGIN
 			CASE MR.Codigo WHEN 'OCC-16' THEN 'MINIMO' 
 				WHEN 'OCC-17' THEN 'MAXIMO'
 				WHEN 'OCC-19' THEN 'DEUDA'
-				WHEN 'OCC-51' THEN 'MINIMO STOCK' END + ': ' + P.Valor AS VARCHAR(MAX))
-		FROM GPR.PedidoRechazado  P
-		INNER JOIN GPR.MotivoRechazo MR ON P.MotivoRechazo = MR.Codigo
-		WHERE (P.CodigoConsultora = c.codigo AND CAST(Campania AS INT) = @CampaniaID)  
+				WHEN 'OCC-51' THEN 'MINIMO STOCK' END + ': ' + P1.Valor AS VARCHAR(MAX))
+		FROM GPR.PedidoRechazado  P1
+		INNER JOIN GPR.MotivoRechazo MR ON P1.MotivoRechazo = MR.Codigo
+
+		WHERE p1.codigoconsultora=pr.codigoconsultora and p1.campania=pr.campania and p1.idprocesopedidorechazado=pr.idprocesopedidorechazado
 		FOR XML PATH ('')), 1, 1, '')) AS MotivoRechazo,
 		p.EstadoPedido	
 	FROM dbo.PedidoWeb p (NOLOCK)
@@ -690,7 +799,9 @@ BEGIN
 	INNER JOIN ods.Region r (NOLOCK) on c.regionid = r.regionid
 	INNER JOIN ods.Zona z (NOLOCK) on r.regionid = z.regionid and c.zonaid = z.zonaid
 	INNER JOIN ods.Seccion s (NOLOCK) on c.seccionid = s.seccionid and r.regionid = s.regionid and z.zonaid = s.zonaid
-	LEFT JOIN GPR.PedidoRechazado pr (NOLOCK) ON c.codigo = pr.CodigoConsultora AND CAST(pr.Campania AS INT) = @CampaniaID
+	LEFT JOIN GPR.PedidoRechazado pr (NOLOCK) ON c.codigo = pr.CodigoConsultora AND CAST(pr.Campania AS INT) =@CampaniaID
+	AND PR.Campania=P.CAMPANIAID
+	
 	WHERE 
 		(@CampaniaID is null or p.CampaniaID = @CampaniaID) and
 		p.ImporteTotal <> 0  
@@ -703,11 +814,17 @@ BEGIN
 		and (@ZonaCodigo = '0' or @ZonaCodigo is null or z.Codigo = @ZonaCodigo)
 		and (@CodigoConsultora = '' or c.Codigo like '%' + @CodigoConsultora + '%') 
 
+		AND PR.PROCESADO=1
+
+		) T
+
+		GROUP BY idprocesopedidorechazado,PedidoID,FechaRegistro,FechaReserva,CampaniaCodigo,Seccion ,ConsultoraCodigo,ConsultoraNombre,ImporteTotal,
+		DescuentoProl,ConsultoraSaldo,OrigenNombre,EstadoValidacionNombre,Zona,Region ,IndicadorEnviado,MontoMinimoPedido,ImporteTotalMM,MotivoRechazo,EstadoPedido
+
 END
 
-GO
 
-----------------------------------------------------------------------------------------------
+GO
 
 USE BelcorpDominicana
 GO
@@ -716,8 +833,7 @@ IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[GetPed
 	DROP PROCEDURE [dbo].[GetPedidoWebNoFacturado]
 GO
 
-
-CREATE PROCEDURE GetPedidoWebNoFacturado
+CREATE PROCEDURE [dbo].[GetPedidoWebNoFacturado]
 	@PaisID				INT,
 	@CampaniaID			INT,
 	@RegionCodigo		VARCHAR(8) = NULL,
@@ -728,7 +844,12 @@ CREATE PROCEDURE GetPedidoWebNoFacturado
 AS
 BEGIN
 
-	SELECT
+	SELECT PedidoID,FechaRegistro,FechaReserva,CampaniaCodigo,Seccion ,ConsultoraCodigo,ConsultoraNombre,ImporteTotal,DescuentoProl,ConsultoraSaldo,
+			OrigenNombre,EstadoValidacionNombre,Zona,Region ,IndicadorEnviado,MontoMinimoPedido,ImporteTotalMM,MotivoRechazo,EstadoPedido
+
+	FROM(
+	SELECT  pr.idprocesopedidorechazado,
+	
 		p.PedidoID,
 		p.FechaRegistro FechaRegistro,
 		CASE WHEN p.EstadoPedido = 202 
@@ -741,7 +862,7 @@ BEGIN
 		c.NombreCompleto ConsultoraNombre,
 		p.ImporteTotal,
 		p.DescuentoProl,
-		'' UsuarioResponsable,
+		--'' UsuarioResponsable,
 		c.MontoSaldoActual ConsultoraSaldo,
 		'Web' OrigenNombre,
 		CASE WHEN p.EstadoPedido = 202 AND p.ValidacionAbierta = 0 AND p.ModificaPedidoReservadoMovil = 0
@@ -758,10 +879,11 @@ BEGIN
 			CASE MR.Codigo WHEN 'OCC-16' THEN 'MINIMO' 
 				WHEN 'OCC-17' THEN 'MAXIMO'
 				WHEN 'OCC-19' THEN 'DEUDA'
-				WHEN 'OCC-51' THEN 'MINIMO STOCK' END + ': ' + P.Valor AS VARCHAR(MAX))
-		FROM GPR.PedidoRechazado  P
-		INNER JOIN GPR.MotivoRechazo MR ON P.MotivoRechazo = MR.Codigo
-		WHERE (P.CodigoConsultora = c.codigo AND CAST(Campania AS INT) = @CampaniaID)  
+				WHEN 'OCC-51' THEN 'MINIMO STOCK' END + ': ' + P1.Valor AS VARCHAR(MAX))
+		FROM GPR.PedidoRechazado  P1
+		INNER JOIN GPR.MotivoRechazo MR ON P1.MotivoRechazo = MR.Codigo
+
+		WHERE p1.codigoconsultora=pr.codigoconsultora and p1.campania=pr.campania and p1.idprocesopedidorechazado=pr.idprocesopedidorechazado
 		FOR XML PATH ('')), 1, 1, '')) AS MotivoRechazo,
 		p.EstadoPedido	
 	FROM dbo.PedidoWeb p (NOLOCK)
@@ -769,7 +891,9 @@ BEGIN
 	INNER JOIN ods.Region r (NOLOCK) on c.regionid = r.regionid
 	INNER JOIN ods.Zona z (NOLOCK) on r.regionid = z.regionid and c.zonaid = z.zonaid
 	INNER JOIN ods.Seccion s (NOLOCK) on c.seccionid = s.seccionid and r.regionid = s.regionid and z.zonaid = s.zonaid
-	LEFT JOIN GPR.PedidoRechazado pr (NOLOCK) ON c.codigo = pr.CodigoConsultora AND CAST(pr.Campania AS INT) = @CampaniaID
+	LEFT JOIN GPR.PedidoRechazado pr (NOLOCK) ON c.codigo = pr.CodigoConsultora AND CAST(pr.Campania AS INT) =@CampaniaID
+	AND PR.Campania=P.CAMPANIAID
+	
 	WHERE 
 		(@CampaniaID is null or p.CampaniaID = @CampaniaID) and
 		p.ImporteTotal <> 0  
@@ -782,11 +906,17 @@ BEGIN
 		and (@ZonaCodigo = '0' or @ZonaCodigo is null or z.Codigo = @ZonaCodigo)
 		and (@CodigoConsultora = '' or c.Codigo like '%' + @CodigoConsultora + '%') 
 
+		AND PR.PROCESADO=1
+
+		) T
+
+		GROUP BY idprocesopedidorechazado,PedidoID,FechaRegistro,FechaReserva,CampaniaCodigo,Seccion ,ConsultoraCodigo,ConsultoraNombre,ImporteTotal,
+		DescuentoProl,ConsultoraSaldo,OrigenNombre,EstadoValidacionNombre,Zona,Region ,IndicadorEnviado,MontoMinimoPedido,ImporteTotalMM,MotivoRechazo,EstadoPedido
+
 END
 
-GO
 
-----------------------------------------------------------------------------------------------
+GO
 
 USE BelcorpCostaRica
 GO
@@ -795,8 +925,7 @@ IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[GetPed
 	DROP PROCEDURE [dbo].[GetPedidoWebNoFacturado]
 GO
 
-
-CREATE PROCEDURE GetPedidoWebNoFacturado
+CREATE PROCEDURE [dbo].[GetPedidoWebNoFacturado]
 	@PaisID				INT,
 	@CampaniaID			INT,
 	@RegionCodigo		VARCHAR(8) = NULL,
@@ -807,7 +936,12 @@ CREATE PROCEDURE GetPedidoWebNoFacturado
 AS
 BEGIN
 
-	SELECT
+	SELECT PedidoID,FechaRegistro,FechaReserva,CampaniaCodigo,Seccion ,ConsultoraCodigo,ConsultoraNombre,ImporteTotal,DescuentoProl,ConsultoraSaldo,
+			OrigenNombre,EstadoValidacionNombre,Zona,Region ,IndicadorEnviado,MontoMinimoPedido,ImporteTotalMM,MotivoRechazo,EstadoPedido
+
+	FROM(
+	SELECT  pr.idprocesopedidorechazado,
+	
 		p.PedidoID,
 		p.FechaRegistro FechaRegistro,
 		CASE WHEN p.EstadoPedido = 202 
@@ -820,7 +954,7 @@ BEGIN
 		c.NombreCompleto ConsultoraNombre,
 		p.ImporteTotal,
 		p.DescuentoProl,
-		'' UsuarioResponsable,
+		--'' UsuarioResponsable,
 		c.MontoSaldoActual ConsultoraSaldo,
 		'Web' OrigenNombre,
 		CASE WHEN p.EstadoPedido = 202 AND p.ValidacionAbierta = 0 AND p.ModificaPedidoReservadoMovil = 0
@@ -837,10 +971,11 @@ BEGIN
 			CASE MR.Codigo WHEN 'OCC-16' THEN 'MINIMO' 
 				WHEN 'OCC-17' THEN 'MAXIMO'
 				WHEN 'OCC-19' THEN 'DEUDA'
-				WHEN 'OCC-51' THEN 'MINIMO STOCK' END + ': ' + P.Valor AS VARCHAR(MAX))
-		FROM GPR.PedidoRechazado  P
-		INNER JOIN GPR.MotivoRechazo MR ON P.MotivoRechazo = MR.Codigo
-		WHERE (P.CodigoConsultora = c.codigo AND CAST(Campania AS INT) = @CampaniaID)  
+				WHEN 'OCC-51' THEN 'MINIMO STOCK' END + ': ' + P1.Valor AS VARCHAR(MAX))
+		FROM GPR.PedidoRechazado  P1
+		INNER JOIN GPR.MotivoRechazo MR ON P1.MotivoRechazo = MR.Codigo
+
+		WHERE p1.codigoconsultora=pr.codigoconsultora and p1.campania=pr.campania and p1.idprocesopedidorechazado=pr.idprocesopedidorechazado
 		FOR XML PATH ('')), 1, 1, '')) AS MotivoRechazo,
 		p.EstadoPedido	
 	FROM dbo.PedidoWeb p (NOLOCK)
@@ -848,7 +983,9 @@ BEGIN
 	INNER JOIN ods.Region r (NOLOCK) on c.regionid = r.regionid
 	INNER JOIN ods.Zona z (NOLOCK) on r.regionid = z.regionid and c.zonaid = z.zonaid
 	INNER JOIN ods.Seccion s (NOLOCK) on c.seccionid = s.seccionid and r.regionid = s.regionid and z.zonaid = s.zonaid
-	LEFT JOIN GPR.PedidoRechazado pr (NOLOCK) ON c.codigo = pr.CodigoConsultora AND CAST(pr.Campania AS INT) = @CampaniaID
+	LEFT JOIN GPR.PedidoRechazado pr (NOLOCK) ON c.codigo = pr.CodigoConsultora AND CAST(pr.Campania AS INT) =@CampaniaID
+	AND PR.Campania=P.CAMPANIAID
+	
 	WHERE 
 		(@CampaniaID is null or p.CampaniaID = @CampaniaID) and
 		p.ImporteTotal <> 0  
@@ -861,11 +998,17 @@ BEGIN
 		and (@ZonaCodigo = '0' or @ZonaCodigo is null or z.Codigo = @ZonaCodigo)
 		and (@CodigoConsultora = '' or c.Codigo like '%' + @CodigoConsultora + '%') 
 
+		AND PR.PROCESADO=1
+
+		) T
+
+		GROUP BY idprocesopedidorechazado,PedidoID,FechaRegistro,FechaReserva,CampaniaCodigo,Seccion ,ConsultoraCodigo,ConsultoraNombre,ImporteTotal,
+		DescuentoProl,ConsultoraSaldo,OrigenNombre,EstadoValidacionNombre,Zona,Region ,IndicadorEnviado,MontoMinimoPedido,ImporteTotalMM,MotivoRechazo,EstadoPedido
+
 END
 
-GO
 
-----------------------------------------------------------------------------------------------
+GO
 
 USE BelcorpChile
 GO
@@ -874,8 +1017,7 @@ IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[GetPed
 	DROP PROCEDURE [dbo].[GetPedidoWebNoFacturado]
 GO
 
-
-CREATE PROCEDURE GetPedidoWebNoFacturado
+CREATE PROCEDURE [dbo].[GetPedidoWebNoFacturado]
 	@PaisID				INT,
 	@CampaniaID			INT,
 	@RegionCodigo		VARCHAR(8) = NULL,
@@ -886,7 +1028,12 @@ CREATE PROCEDURE GetPedidoWebNoFacturado
 AS
 BEGIN
 
-	SELECT
+	SELECT PedidoID,FechaRegistro,FechaReserva,CampaniaCodigo,Seccion ,ConsultoraCodigo,ConsultoraNombre,ImporteTotal,DescuentoProl,ConsultoraSaldo,
+			OrigenNombre,EstadoValidacionNombre,Zona,Region ,IndicadorEnviado,MontoMinimoPedido,ImporteTotalMM,MotivoRechazo,EstadoPedido
+
+	FROM(
+	SELECT  pr.idprocesopedidorechazado,
+	
 		p.PedidoID,
 		p.FechaRegistro FechaRegistro,
 		CASE WHEN p.EstadoPedido = 202 
@@ -899,7 +1046,7 @@ BEGIN
 		c.NombreCompleto ConsultoraNombre,
 		p.ImporteTotal,
 		p.DescuentoProl,
-		'' UsuarioResponsable,
+		--'' UsuarioResponsable,
 		c.MontoSaldoActual ConsultoraSaldo,
 		'Web' OrigenNombre,
 		CASE WHEN p.EstadoPedido = 202 AND p.ValidacionAbierta = 0 AND p.ModificaPedidoReservadoMovil = 0
@@ -916,10 +1063,11 @@ BEGIN
 			CASE MR.Codigo WHEN 'OCC-16' THEN 'MINIMO' 
 				WHEN 'OCC-17' THEN 'MAXIMO'
 				WHEN 'OCC-19' THEN 'DEUDA'
-				WHEN 'OCC-51' THEN 'MINIMO STOCK' END + ': ' + P.Valor AS VARCHAR(MAX))
-		FROM GPR.PedidoRechazado  P
-		INNER JOIN GPR.MotivoRechazo MR ON P.MotivoRechazo = MR.Codigo
-		WHERE (P.CodigoConsultora = c.codigo AND CAST(Campania AS INT) = @CampaniaID)  
+				WHEN 'OCC-51' THEN 'MINIMO STOCK' END + ': ' + P1.Valor AS VARCHAR(MAX))
+		FROM GPR.PedidoRechazado  P1
+		INNER JOIN GPR.MotivoRechazo MR ON P1.MotivoRechazo = MR.Codigo
+
+		WHERE p1.codigoconsultora=pr.codigoconsultora and p1.campania=pr.campania and p1.idprocesopedidorechazado=pr.idprocesopedidorechazado
 		FOR XML PATH ('')), 1, 1, '')) AS MotivoRechazo,
 		p.EstadoPedido	
 	FROM dbo.PedidoWeb p (NOLOCK)
@@ -927,7 +1075,9 @@ BEGIN
 	INNER JOIN ods.Region r (NOLOCK) on c.regionid = r.regionid
 	INNER JOIN ods.Zona z (NOLOCK) on r.regionid = z.regionid and c.zonaid = z.zonaid
 	INNER JOIN ods.Seccion s (NOLOCK) on c.seccionid = s.seccionid and r.regionid = s.regionid and z.zonaid = s.zonaid
-	LEFT JOIN GPR.PedidoRechazado pr (NOLOCK) ON c.codigo = pr.CodigoConsultora AND CAST(pr.Campania AS INT) = @CampaniaID
+	LEFT JOIN GPR.PedidoRechazado pr (NOLOCK) ON c.codigo = pr.CodigoConsultora AND CAST(pr.Campania AS INT) =@CampaniaID
+	AND PR.Campania=P.CAMPANIAID
+	
 	WHERE 
 		(@CampaniaID is null or p.CampaniaID = @CampaniaID) and
 		p.ImporteTotal <> 0  
@@ -940,11 +1090,17 @@ BEGIN
 		and (@ZonaCodigo = '0' or @ZonaCodigo is null or z.Codigo = @ZonaCodigo)
 		and (@CodigoConsultora = '' or c.Codigo like '%' + @CodigoConsultora + '%') 
 
+		AND PR.PROCESADO=1
+
+		) T
+
+		GROUP BY idprocesopedidorechazado,PedidoID,FechaRegistro,FechaReserva,CampaniaCodigo,Seccion ,ConsultoraCodigo,ConsultoraNombre,ImporteTotal,
+		DescuentoProl,ConsultoraSaldo,OrigenNombre,EstadoValidacionNombre,Zona,Region ,IndicadorEnviado,MontoMinimoPedido,ImporteTotalMM,MotivoRechazo,EstadoPedido
+
 END
 
-GO
 
-----------------------------------------------------------------------------------------------
+GO
 
 USE BelcorpBolivia
 GO
@@ -953,8 +1109,7 @@ IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[GetPed
 	DROP PROCEDURE [dbo].[GetPedidoWebNoFacturado]
 GO
 
-
-CREATE PROCEDURE GetPedidoWebNoFacturado
+CREATE PROCEDURE [dbo].[GetPedidoWebNoFacturado]
 	@PaisID				INT,
 	@CampaniaID			INT,
 	@RegionCodigo		VARCHAR(8) = NULL,
@@ -965,7 +1120,12 @@ CREATE PROCEDURE GetPedidoWebNoFacturado
 AS
 BEGIN
 
-	SELECT
+	SELECT PedidoID,FechaRegistro,FechaReserva,CampaniaCodigo,Seccion ,ConsultoraCodigo,ConsultoraNombre,ImporteTotal,DescuentoProl,ConsultoraSaldo,
+			OrigenNombre,EstadoValidacionNombre,Zona,Region ,IndicadorEnviado,MontoMinimoPedido,ImporteTotalMM,MotivoRechazo,EstadoPedido
+
+	FROM(
+	SELECT  pr.idprocesopedidorechazado,
+	
 		p.PedidoID,
 		p.FechaRegistro FechaRegistro,
 		CASE WHEN p.EstadoPedido = 202 
@@ -978,7 +1138,7 @@ BEGIN
 		c.NombreCompleto ConsultoraNombre,
 		p.ImporteTotal,
 		p.DescuentoProl,
-		'' UsuarioResponsable,
+		--'' UsuarioResponsable,
 		c.MontoSaldoActual ConsultoraSaldo,
 		'Web' OrigenNombre,
 		CASE WHEN p.EstadoPedido = 202 AND p.ValidacionAbierta = 0 AND p.ModificaPedidoReservadoMovil = 0
@@ -995,10 +1155,11 @@ BEGIN
 			CASE MR.Codigo WHEN 'OCC-16' THEN 'MINIMO' 
 				WHEN 'OCC-17' THEN 'MAXIMO'
 				WHEN 'OCC-19' THEN 'DEUDA'
-				WHEN 'OCC-51' THEN 'MINIMO STOCK' END + ': ' + P.Valor AS VARCHAR(MAX))
-		FROM GPR.PedidoRechazado  P
-		INNER JOIN GPR.MotivoRechazo MR ON P.MotivoRechazo = MR.Codigo
-		WHERE (P.CodigoConsultora = c.codigo AND CAST(Campania AS INT) = @CampaniaID)  
+				WHEN 'OCC-51' THEN 'MINIMO STOCK' END + ': ' + P1.Valor AS VARCHAR(MAX))
+		FROM GPR.PedidoRechazado  P1
+		INNER JOIN GPR.MotivoRechazo MR ON P1.MotivoRechazo = MR.Codigo
+
+		WHERE p1.codigoconsultora=pr.codigoconsultora and p1.campania=pr.campania and p1.idprocesopedidorechazado=pr.idprocesopedidorechazado
 		FOR XML PATH ('')), 1, 1, '')) AS MotivoRechazo,
 		p.EstadoPedido	
 	FROM dbo.PedidoWeb p (NOLOCK)
@@ -1006,7 +1167,9 @@ BEGIN
 	INNER JOIN ods.Region r (NOLOCK) on c.regionid = r.regionid
 	INNER JOIN ods.Zona z (NOLOCK) on r.regionid = z.regionid and c.zonaid = z.zonaid
 	INNER JOIN ods.Seccion s (NOLOCK) on c.seccionid = s.seccionid and r.regionid = s.regionid and z.zonaid = s.zonaid
-	LEFT JOIN GPR.PedidoRechazado pr (NOLOCK) ON c.codigo = pr.CodigoConsultora AND CAST(pr.Campania AS INT) = @CampaniaID
+	LEFT JOIN GPR.PedidoRechazado pr (NOLOCK) ON c.codigo = pr.CodigoConsultora AND CAST(pr.Campania AS INT) =@CampaniaID
+	AND PR.Campania=P.CAMPANIAID
+	
 	WHERE 
 		(@CampaniaID is null or p.CampaniaID = @CampaniaID) and
 		p.ImporteTotal <> 0  
@@ -1019,9 +1182,15 @@ BEGIN
 		and (@ZonaCodigo = '0' or @ZonaCodigo is null or z.Codigo = @ZonaCodigo)
 		and (@CodigoConsultora = '' or c.Codigo like '%' + @CodigoConsultora + '%') 
 
+		AND PR.PROCESADO=1
+
+		) T
+
+		GROUP BY idprocesopedidorechazado,PedidoID,FechaRegistro,FechaReserva,CampaniaCodigo,Seccion ,ConsultoraCodigo,ConsultoraNombre,ImporteTotal,
+		DescuentoProl,ConsultoraSaldo,OrigenNombre,EstadoValidacionNombre,Zona,Region ,IndicadorEnviado,MontoMinimoPedido,ImporteTotalMM,MotivoRechazo,EstadoPedido
+
 END
 
-GO
 
-----------------------------------------------------------------------------------------------
+GO
 

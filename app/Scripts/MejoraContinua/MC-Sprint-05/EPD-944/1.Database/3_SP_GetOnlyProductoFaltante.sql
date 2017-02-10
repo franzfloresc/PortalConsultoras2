@@ -16,7 +16,7 @@ begin
 		SC.DescripcionCategoria as Categoria,
 		PF.CUV,
 		PC.Descripcion,
-		isnull(Cat.DescripcionCatalogo,'') as Catalogo,
+		isnull(Cat.Descripcion,'') as Catalogo,
 		PC.NumeroPagina
 	from (
 		select distinct	CUV
@@ -61,7 +61,7 @@ begin
 		SC.DescripcionCategoria as Categoria,
 		PF.CUV,
 		PC.Descripcion,
-		isnull(Cat.DescripcionCatalogo,'') as Catalogo,
+		isnull(Cat.Descripcion,'') as Catalogo,
 		PC.NumeroPagina
 	from (
 		select distinct	CUV
@@ -106,7 +106,7 @@ begin
 		SC.DescripcionCategoria as Categoria,
 		PF.CUV,
 		PC.Descripcion,
-		isnull(Cat.DescripcionCatalogo,'') as Catalogo,
+		isnull(Cat.Descripcion,'') as Catalogo,
 		PC.NumeroPagina
 	from (
 		select distinct	CUV
@@ -151,7 +151,7 @@ begin
 		SC.DescripcionCategoria as Categoria,
 		PF.CUV,
 		PC.Descripcion,
-		isnull(Cat.DescripcionCatalogo,'') as Catalogo,
+		isnull(Cat.Descripcion,'') as Catalogo,
 		PC.NumeroPagina
 	from (
 		select distinct	CUV
@@ -196,7 +196,7 @@ begin
 		SC.DescripcionCategoria as Categoria,
 		PF.CUV,
 		PC.Descripcion,
-		isnull(Cat.DescripcionCatalogo,'') as Catalogo,
+		isnull(Cat.Descripcion,'') as Catalogo,
 		PC.NumeroPagina
 	from (
 		select distinct	CUV
@@ -241,7 +241,7 @@ begin
 		SC.DescripcionCategoria as Categoria,
 		PF.CUV,
 		PC.Descripcion,
-		isnull(Cat.DescripcionCatalogo,'') as Catalogo,
+		isnull(Cat.Descripcion,'') as Catalogo,
 		PC.NumeroPagina
 	from (
 		select distinct	CUV
@@ -286,7 +286,7 @@ begin
 		SC.DescripcionCategoria as Categoria,
 		PF.CUV,
 		PC.Descripcion,
-		isnull(Cat.DescripcionCatalogo,'') as Catalogo,
+		isnull(Cat.Descripcion,'') as Catalogo,
 		PC.NumeroPagina
 	from (
 		select distinct	CUV
@@ -331,7 +331,7 @@ begin
 		SC.DescripcionCategoria as Categoria,
 		PF.CUV,
 		PC.Descripcion,
-		isnull(Cat.DescripcionCatalogo,'') as Catalogo,
+		isnull(Cat.Descripcion,'') as Catalogo,
 		PC.NumeroPagina
 	from (
 		select distinct	CUV
@@ -376,7 +376,7 @@ begin
 		SC.DescripcionCategoria as Categoria,
 		PF.CUV,
 		PC.Descripcion,
-		isnull(Cat.DescripcionCatalogo,'') as Catalogo,
+		isnull(Cat.Descripcion,'') as Catalogo,
 		PC.NumeroPagina
 	from (
 		select distinct	CUV
@@ -421,7 +421,7 @@ begin
 		SC.DescripcionCategoria as Categoria,
 		PF.CUV,
 		PC.Descripcion,
-		isnull(Cat.DescripcionCatalogo,'') as Catalogo,
+		isnull(Cat.Descripcion,'') as Catalogo,
 		PC.NumeroPagina
 	from (
 		select distinct	CUV
@@ -466,7 +466,7 @@ begin
 		SC.DescripcionCategoria as Categoria,
 		PF.CUV,
 		PC.Descripcion,
-		isnull(Cat.DescripcionCatalogo,'') as Catalogo,
+		isnull(Cat.Descripcion,'') as Catalogo,
 		PC.NumeroPagina
 	from (
 		select distinct	CUV
@@ -511,7 +511,7 @@ begin
 		SC.DescripcionCategoria as Categoria,
 		PF.CUV,
 		PC.Descripcion,
-		isnull(Cat.DescripcionCatalogo,'') as Catalogo,
+		isnull(Cat.Descripcion,'') as Catalogo,
 		PC.NumeroPagina
 	from (
 		select distinct	CUV
@@ -556,7 +556,7 @@ begin
 		SC.DescripcionCategoria as Categoria,
 		PF.CUV,
 		PC.Descripcion,
-		isnull(Cat.DescripcionCatalogo,'') as Catalogo,
+		isnull(Cat.Descripcion,'') as Catalogo,
 		PC.NumeroPagina
 	from (
 		select distinct	CUV

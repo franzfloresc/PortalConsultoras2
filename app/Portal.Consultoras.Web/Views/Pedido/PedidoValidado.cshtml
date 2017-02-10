@@ -331,7 +331,7 @@
             </a>
         </div>
         <div class="contenedor_lista_productosAgotados">
-            <h6>PRODUCTOS <b>AGOTADOS</b></h6>
+            <h6>PRODUCTOS <b>AGOTADOS</b> de <b>@((string)ViewBag.Campania.ToUpper())</b></h6>
             <div class="content_cuv">
                 CUV:
                 <input id="producto-faltante-busqueda-cuv" type="text" class="producto_faltante ValidaNumeralPedido" maxlength="5">
@@ -499,11 +499,11 @@
 <script id="productos-faltantes-template" type="text/x-handlebars-template">
     <table>
         <tr>
-            <th class="codigo_productoAgotado">Categoría</th>
+            <th class="categoria_productoAgotado">Categoría</th>
             <th class="codigo_productoAgotado">Código</th>
             <th class="producto_productoAgotado">Descripción Producto</th>
-            <th class="codigo_productoAgotado">Catalogo o Revista</th>
-            <th class="producto_productoAgotado">Página</th>
+            <th class="catalogo_productoAgotado">Catálogo o Revista</th>
+            <th class="pagina_productoAgotado">Página</th>
         </tr>
         {{#each this}}
         {{#each Detalle}}
@@ -514,7 +514,7 @@
             <td>{{CUV}}</td>
             <td>{{Descripcion}}</td>
             <td>{{Catalogo}}</td>
-            <td>{{NumeroPagina}}</td>
+            <td class="text-right">{{NumeroPagina}}</td>
         </tr>
         {{/each}}
         {{/each}}
