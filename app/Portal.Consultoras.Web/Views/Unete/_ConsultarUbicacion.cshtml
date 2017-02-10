@@ -237,13 +237,13 @@
     {
         <text>$('#btnAceptar').hide();</text>
     }
-    
+
     $(function () {
         setTimeout(cargarMapa, 1000);
     });
 
     $('#imgCerrar').click(function () {
-        modal.dialog('close');        
+        modal.dialog('close');
     })
 
     $('#btnEditarDireccion').click(function () {
@@ -252,11 +252,11 @@
         modalOpcion.dialog("option", "width", 500);
         modalOpcion.dialog("option", "height", 400);
 
-        $.get('@Url.Action("EditarDireccion", "Unete")', { id: solicitudPostulanteID }, function (html) {           
+        $.get('@Url.Action("EditarDireccion", "Unete")', { id: solicitudPostulanteID }, function (html) {
             $('#modal_opcion').html(html);
             modalOpcion.dialog('open');
         }).complete(function () {
-            closeWaitingDialog({});     
+            closeWaitingDialog({});
         });
     });
 
@@ -324,7 +324,7 @@
                 if (marker.setAnimation) {
                     marker.setAnimation(null);
                 }
-            } 
+            }
             markers[$(this).attr('data-nro')].setAnimation(google.maps.Animation.BOUNCE);
 
             // Consultar servicio para buscar territorio
@@ -376,7 +376,7 @@
                     $('datos_territorio').hide();
                     $('mensaje_territorio').show();
                 }
-                
+
                 $('#mapa').removeClass('height_100');
 
             }).complete(function () {
@@ -413,7 +413,7 @@
                          </text>
                     }
 
-                    @if (Model.FuenteIngreso == "MovilSE")
+                    @if( (Model.FuenteIngreso == "MovilSE") && Model.Latitud!=null && Model.Longitud!=null)
                     {
                         // Markers Purple
                         <text>
@@ -430,9 +430,9 @@
 
                         </text>
                     }
-                    
+
                 </text>
-                
+
                 if (Model.Puntos.Count == 1)
                 {
                     if (!string.IsNullOrWhiteSpace(Model.Vertices))

@@ -105,13 +105,19 @@ namespace Portal.Consultoras.Service
             return new BLConsultora().GetSaldoActualConsultora(paisID, Codigo);
         }
 
-
         public IList<BEProducto> SelectProductoByCodigoDescripcionSearchRegionZona(int paisID, int campaniaID,
             string codigoDescripcion, int RegionID, int ZonaID, string CodigoRegion, string CodigoZona, int criterio,
             int rowCount, bool validarOpt)
         {
             return BLProducto.SelectProductoByCodigoDescripcionSearchRegionZona(paisID, campaniaID, codigoDescripcion,
                 RegionID, ZonaID, CodigoRegion, CodigoZona, criterio, rowCount, validarOpt);
+        }
+
+        public IList<BEProducto> SelectProductoByListaCuvSearchRegionZona(int paisID, int campaniaID,
+            string listaCuv, int regionID, int zonaID, string codigoRegion, string codigoZona, bool validarOpt)
+        {
+            return BLProducto.SelectProductoByListaCuvSearchRegionZona(paisID, campaniaID, listaCuv,
+                regionID, zonaID, codigoRegion, codigoZona, validarOpt);
         }
 
         public long GetConsultoraIdByCodigo(int paisID, string CodigoConsultora)
