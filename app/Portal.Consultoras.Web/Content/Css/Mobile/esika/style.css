@@ -8974,7 +8974,8 @@ span.icon-advertencia{
 
 .enlace_btnNoGracias{
     display: block;
-    width: 87px;
+    /*dth: 87px;*/
+    text-align:center;
     margin: 0 auto;
     font-family: 'Lato';
     font-size: 13px;

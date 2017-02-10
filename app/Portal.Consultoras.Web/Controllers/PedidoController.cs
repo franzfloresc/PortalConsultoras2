@@ -4822,22 +4822,30 @@ namespace Portal.Consultoras.Web.Controllers
 
             var listaProductoModel = Mapper.Map<List<Producto>, List<ProductoModel>>(lista);
 
-            listaProductoModel.Update(p =>
+            if (lista.Count != 0)
             {
-                //p.ImagenProductoSugerido = p.Imagen;
-                p.PrecioCatalogoString = Util.DecimalToStringFormat(p.PrecioCatalogo, userData.CodigoISO);
-                p.PrecioValorizadoString = Util.DecimalToStringFormat(p.PrecioValorizado, userData.CodigoISO);
-                p.MetaMontoStr = Util.DecimalToStringFormat(p.MontoMeta, userData.CodigoISO);
-                p.Simbolo = userData.Simbolo;
-                p.UrlCompartirFB = GetUrlCompartirFB();
-                string imagenUrl = Util.SubStr(p.Imagen, 0);
-                if (userData.OfertaFinal == Constantes.TipoOfertaFinalCatalogoPersonalizado.Arp)
+                bool TipoCross = lista[0].TipoCross;
+                listaProductoModel.Update(p =>
                 {
-                    string carpetapais = Globals.UrlMatriz + "/" + userData.CodigoISO;
-                    imagenUrl = ConfigS3.GetUrlFileS3(carpetapais, imagenUrl, carpetapais);
-                }
-                p.ImagenProductoSugerido = imagenUrl;
-            });
+                    //p.ImagenProductoSugerido = p.Imagen;
+                    p.PrecioCatalogoString = Util.DecimalToStringFormat(p.PrecioCatalogo, userData.CodigoISO);
+                    p.PrecioValorizadoString = Util.DecimalToStringFormat(p.PrecioValorizado, userData.CodigoISO);
+                    p.MetaMontoStr = Util.DecimalToStringFormat(p.MontoMeta, userData.CodigoISO);
+                    p.Simbolo = userData.Simbolo;
+                    p.UrlCompartirFB = GetUrlCompartirFB();
+                    string imagenUrl = Util.SubStr(p.Imagen, 0);
+
+                    if (!TipoCross)
+                    {
+                        if (userData.OfertaFinal == Constantes.TipoOfertaFinalCatalogoPersonalizado.Arp)
+                        {
+                            string carpetapais = Globals.UrlMatriz + "/" + userData.CodigoISO;
+                            imagenUrl = ConfigS3.GetUrlFileS3(carpetapais, imagenUrl, carpetapais);
+                        }
+                    }
+                    p.ImagenProductoSugerido = imagenUrl;
+                });
+            }
 
             //string listaCuv = string.Join(",", lista.Select(p => p.Cuv));
 
