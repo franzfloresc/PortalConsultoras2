@@ -1,6 +1,6 @@
 ﻿@model Portal.Consultoras.Web.Models.CDRWebModel
 @{
-    ViewBag.Title = "Reporte CDR Detalle";
+    ViewBag.Title = "Reporte Cambios y Devoluciones";
 }
 <script type="text/javascript">
 
@@ -58,7 +58,7 @@
         fnGrilla();
      
         $("#btnBuscar").click(function () {
-            ger;
+            
             if (jQuery.trim($("#ddlPais").val()) == "") {
                 alert("Debe seleccionar un País, verifique");
                 return false;
@@ -171,12 +171,12 @@
                 }),
                 mtype: 'GET',
                 contentType: "application/json; charset=utf-8",
-                colNames: ['Nro. CDR', 'Código de cliente', 'Zona', 'Región', 'Sección', 'Campaña Origen Pedido', 'Fecha Hora Solicitud', 'Fecha Hora Atención', 'Estado del Reclamo', 'Código de Venta', 'Unidades facturadas', 'Monto Facturado', 'Unidades devueltas', 'Monto Devuelto', 'Código de Venta Producto a Enviar', 'Unidades a Enviar', 'Monto Producto a Enviar', 'Operación', 'Motivo', 'Estado', 'Motivo Rechazo'],
+                colNames: ['Nro. CDR', 'Código de cliente', 'Región', 'Zona', 'Sección', 'Campaña Origen Pedido', 'Fecha Hora Solicitud', 'Fecha Hora Atención', 'Estado del Reclamo', 'Código de Venta', 'Unidades facturadas', 'Monto Facturado', 'Unidades devueltas', 'Monto Devuelto', 'Código de Venta Producto a Enviar', 'Unidades a Enviar', 'Monto Producto a Enviar', 'Operación', 'Motivo', 'Estado', 'Motivo Rechazo'],
                 colModel: [
                     { name: 'NroCDR', index: 'NroCDR', width: 10, editable: true, resizable: false },
                     { name: 'ConsultoraCodigo', index: 'ConsultoraCodigo', width: 25, editable: true, resizable: false, align: 'center' },
-                    { name: 'ZonaCodigo', index: 'ZonaCodigo', width: 10, editable: true, resizable: false, align: 'center' },
                     { name: 'RegionCodigo', index: 'RegionCodigo', width: 15, editable: true, resizable: false, align: 'center' },
+                    { name: 'ZonaCodigo', index: 'ZonaCodigo', width: 10, editable: true, resizable: false, align: 'center' },
                     { name: 'SeccionCodigo', index: 'SeccionCodigo', width: 20, editable: true, resizable: false, align: 'center' },
                     { name: 'CampaniaOrigenPedido', index: 'CampaniaOrigenPedido', width: 20, editable: true, resizable: false, align: 'center' },
                     { name: 'FechaHoraSolicitud', index: 'FechaHoraSolicitud', width: 25, editable: true, resizable: false, align: 'center' },
@@ -303,7 +303,7 @@
     <div class="filtros2">
         <div class="elements">
             <div class="div-2">
-                <h1><span>Reporte CDR Web</span></h1>
+                <h1><span>Reporte Cambios y Devoluciones</span></h1>
             </div>
             <div class="div-3">
                 <div class="titG">País:</div>
@@ -319,12 +319,12 @@
             <div class="div-3">
                 <div class="titG">Región:</div>
                 <div class="selectA borde_redondeado">
-                    @Html.DropDownListFor(model => model.RegionID, new SelectList(Model.listaRegiones, "RegionID", "Nombre"), "-- Seleccionar --", new { id = "ddlRegion" })
+                    @Html.DropDownListFor(model => model.RegionID, new SelectList(Model.listaRegiones, "RegionID", "Codigo"), "-- Seleccionar --", new { id = "ddlRegion" })
                 </div>
        
                 <div class="titB">Zona:</div>
                 <div class="selectA borde_redondeado">
-                    @Html.DropDownListFor(model => model.ZonaID, new SelectList(Model.listaZonas, "ZonaID", "Codigo"), "-- Seleccionar --", new { id = "ddlZona" })
+                    @Html.DropDownListFor(model => model.ZonaID, new SelectList(Model.listaZonas, "ZonaID", "Nombre"), "-- Seleccionar --", new { id = "ddlZona" })
                 </div>
                 
                 <input type="hidden" id="hdNombreAnt" />
@@ -355,7 +355,6 @@
                         <div class="input_search">
                             <input type="submit" name="" id="btnBuscar" value="Buscar"  />
                         </div>
-                        <input type="button" value="Exportar xls" id="btnExportarExcel" name="btnExportarExcel" onclick="ExportarExcel();">
                     </div>
                 </div>
             </div>
@@ -370,6 +369,13 @@
             <table id="list"></table>
             <div id="pager"></div>
 
+        </div>
+    </div>
+</div>
+<div class="wrap">
+    <div class="container clearfix" style="text-align: center">
+        <div class="input_global">
+            <input type="button" value="Exportar Excel" id="btnExportarExcel" name="btnExportarExcel" onclick="ExportarExcel();">
         </div>
     </div>
 </div>

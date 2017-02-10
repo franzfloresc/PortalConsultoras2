@@ -1491,8 +1491,8 @@ namespace Portal.Consultoras.Web.Controllers
             Dictionary<string, string> dic = new Dictionary<string, string>();
             dic.Add("Nro. CDR", "NroCDR");
             dic.Add("Código de cliente", "ConsultoraCodigo");
-            dic.Add("Zona", "ZonaCodigo");
             dic.Add("Región", "RegionCodigo");
+            dic.Add("Zona", "ZonaCodigo");
             dic.Add("Sección", "SeccionCodigo");
             dic.Add("Campaña Origen Pedido", "CampaniaOrigenPedido");
             dic.Add("Fecha Hora Solicitud", "FechaHoraSolicitud");
@@ -1630,7 +1630,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 lista = lst,
                 listaZonas = lstZonas,
-                listaRegiones = lstRegiones.OrderBy(x => x.Codigo)
+                listaRegiones = lstRegiones.OrderBy(x => x.Nombre)
             }, JsonRequestBehavior.AllowGet);
         }
 
