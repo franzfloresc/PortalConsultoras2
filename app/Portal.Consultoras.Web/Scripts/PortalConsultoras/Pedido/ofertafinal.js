@@ -293,7 +293,9 @@ function ActulizarValoresPopupOfertaFinal(data) {
         if (parseFloat(data.total) >= montolimite) {
             var msj = tipoOrigen == "2" ? "Ganancia estimada total: " : "Ahora tu ganancia estimada total es ";
             $("#spnTituloOfertaFinal span").html("¡FELICITACIONES GUARDASTE TU <b>PEDIDO CON ÉXITO</b>!");
-            $("#msjOfertaFinal").attr("class", "ganancia_total_pop");
+            if (tipoOrigen == "1") {
+                $("#msjOfertaFinal").attr("class", "ganancia_total_pop");
+            }
             $("#msjOfertaFinal span").html("<b>" + msj + simbolo + " " + data.DataBarra.MontoGananciaStr + "</b><br />Monto total: " + simbolo + " " + data.formatoTotal);
             agregoOfertaFinal = 1;
         }
@@ -319,7 +321,9 @@ function ActulizarValoresPopupOfertaFinal(data) {
             var msj = tipoOrigen == "2" ? "Ganancia estimada total: " : "Ahora tu ganancia estimada total es ";
             var porc = $("#msjOfertaFinal").attr("data-meta-porcentaje");
             $("#spnTituloOfertaFinal span").html("¡FELICITACIONES LLEGASTE AL <b>" + porc + "% DSCTO</b>!");
-            $("#msjOfertaFinal").attr("class", "ganancia_total_pop");
+            if (tipoOrigen == "1") {
+                $("#msjOfertaFinal").attr("class", "ganancia_total_pop");
+            }
             $("#msjOfertaFinal span").html("<b>" + msj + simbolo + " " + data.DataBarra.MontoGananciaStr + "</b><br />Monto total: " + simbolo + " " + data.formatoTotal);
         }
         else {
