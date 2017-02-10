@@ -3071,7 +3071,7 @@ namespace Portal.Consultoras.Web.Controllers
             #region GPR
 
             userData.ValidacionAbierta = oBEConfiguracionCampania.ValidacionAbierta;
-           
+
             bool MostrarBannerPedidoRechazado = false;
 
             if (userData.IndicadorGPRSB == 2)
@@ -3385,6 +3385,17 @@ namespace Portal.Consultoras.Web.Controllers
                         {
                             ValidacionAbierta = true;
                             Estado = Constantes.EstadoPedido.Procesado;
+
+                        //    if (userData.IndicadorGPRSB == 2)
+                        //    {
+                        //        if (ValidacionAbierta && userData.EstadoPedido == 202)
+                        //        {
+                        //            userData.CerrarRechazado = 0;
+                        //            userData.MostrarBannerRechazo = true;
+                        //            ViewBag.MostrarBannerRechazo = true;
+                        //            SetUserData(userData);
+                        //        }
+                        //    }
                         }
                         olstPedidoWebDetalle = ObtenerPedidoWebDetalle();
 
@@ -3395,7 +3406,7 @@ namespace Portal.Consultoras.Web.Controllers
                         }
                         //Dado que no se usa el indicador de ModificaPedidoReservado, este campo en el servicio será utilizado para enviar el campo: ValidacionAbierta
 
-                     
+
                         var CodigoUsuario = userData.UsuarioPrueba == 1 ? userData.ConsultoraAsociada : userData.CodigoUsuario.ToString();
 
                         sv.UpdPedidoWebByEstado(userData.PaisID, userData.CampaniaID, userData.PedidoID, Estado, false, true, CodigoUsuario, ValidacionAbierta);
@@ -3414,7 +3425,6 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
                 //Session["ProductosOfertaFinal"] = null;
-
                 return Json(new
                 {
                     success = true,
@@ -4123,7 +4133,7 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpGet]
         public JsonResult JsonConsultarEstrategias(string cuv)
         {
-            
+
             List<BEEstrategia> lst = ConsultarEstrategias(cuv ?? "");
             var listModel = Mapper.Map<List<BEEstrategia>, List<EstrategiaPedidoModel>>(lst);
 
@@ -4705,7 +4715,7 @@ namespace Portal.Consultoras.Web.Controllers
                 int limiteJetlore = int.Parse(ConfigurationManager.AppSettings.Get("LimiteJetloreOfertaFinal"));
 
                 var listaProductoModel = ObtenerListadoProductosOfertaFinal();
-                
+
                 // Si ya esta en pedido detalle no se debe mostrar
                 var pedidoDetalle = ObtenerPedidoWebDetalle();
                 var listaRetorno = new List<ProductoModel>();
@@ -4817,7 +4827,7 @@ namespace Portal.Consultoras.Web.Controllers
                 BEProducto beProducto = lstProducto.FirstOrDefault(p => p.CUV == producto.Cuv);
 
                 if (beProducto == null) continue;
-                
+
                 if (!beProducto.TieneStock)
                     continue;
 

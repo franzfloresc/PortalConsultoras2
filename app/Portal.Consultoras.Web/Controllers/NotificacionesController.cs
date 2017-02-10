@@ -319,50 +319,76 @@ namespace Portal.Consultoras.Web.Controllers
         public ActionResult ListarDetallePedidoRechazado(long ProcesoId)
         {
             NotificacionesModel model = new NotificacionesModel();
-            BELogGPRValidacion logGPRValidacion;
-            List<BELogGPRValidacionDetalle> lstLogGPRValidacionDetalle = new List<BELogGPRValidacionDetalle>();
+            List<BELogGPRValidacion> LogsGPRValidacion = new List<BELogGPRValidacion>();
+            //List<BELogGPRValidacionDetalle> lstLogGPRValidacionDetalle = new List<BELogGPRValidacionDetalle>();
 
             using (PedidoRechazadoServiceClient sv = new PedidoRechazadoServiceClient())
             {
-                logGPRValidacion = sv.GetBELogGPRValidacionByGetLogGPRValidacionId(userData.PaisID, ProcesoId);
-                lstLogGPRValidacionDetalle = sv.GetListBELogGPRValidacionDetalleBELogGPRValidacionByLogGPRValidacionId(userData.PaisID, ProcesoId).ToList();
+                LogsGPRValidacion = sv.GetBELogGPRValidacionByGetLogGPRValidacionId(userData.PaisID, ProcesoId, userData.ConsultoraID).ToList();
+                // lstLogGPRValidacionDetalle = sv.GetListBELogGPRValidacionDetalleBELogGPRValidacionByLogGPRValidacionId(userData.PaisID, ProcesoId).ToList();
             }
-            model = Mapper.Map<NotificacionesModel>(logGPRValidacion);
+            //model = Mapper.Map<NotificacionesModel>(logGPRValidacion);
 
-            switch (logGPRValidacion.MotivoRechazo)
+            if (LogsGPRValidacion.Any())
             {
-                case Constantes.GPRMotivoRechazo.ActualizacionDeuda:
-                    model.DescripcionRechazo = string.Format("Tienes una deuda de {0} que debes regularizar.", logGPRValidacion.Valor);
-                    break;
-
-                case Constantes.GPRMotivoRechazo.MontoMinino:
-                    //model.DescripcionRechazo = string.Format("No llegaste al monto mínimo de {0}. {1} ", userData.Simbolo, userData.MontoMinimo);
+                // Monto mínimo - deuda
+                var items = LogsGPRValidacion.Where(l => l.MotivoRechazo.Equals(Constantes.GPRMotivoRechazo.MontoMinino));
+                var deuda = LogsGPRValidacion.Where(x => x.MotivoRechazo.Equals(Constantes.GPRMotivoRechazo.ActualizacionDeuda));
+                if (items.Any() && deuda.Any())
+                {
+                    model.DescripcionRechazo = string.Format("Luego de haber revisado tu pedido, te informamos que éste no se ha podido facturar porque no cumple con el monto mínimo de {0}. {1} y adicionalmente por tener una deuda pendiente con nosotros de {0}. {2}. Te invitamos a añadir más productos, cancelar el saldo pendiente y reservar tu pedido el día de hoy para que sea facturado exitosamente.", userData.Simbolo, userData.MontoMinimo, deuda.FirstOrDefault().Valor);
+                    model.MotivoRechazo = Constantes.GPRMotivoRechazo.Mostrar2OpcionesNotificacion;
+                    goto jmp;
+                }
+                else if (items.Any()) // Monto mínimo
+                {
                     model.DescripcionRechazo = string.Format("Luego de haber revisado tu pedido, te informamos que éste no se ha podido facturar porque no cumple con el monto mínimo de {0}. {1}. Te invitamos a añadir más productos y reservar tu pedido el día de hoy para que sea facturado exitosamente.", userData.Simbolo, userData.MontoMinimo);
-                    break;
-
-                case Constantes.GPRMotivoRechazo.MontoMaximo:
-                   // model.DescripcionRechazo = string.Format("Superaste tu línea de crédito de {0}. {1}.", userData.Simbolo, userData.MontoMaximo);
-                    model.DescripcionRechazo = string.Format("Luego de haber revisado tu pedido, te informamos que éste no se ha podido facturar por superar el monto máximo permitido de {0}. {1}. Te invitamos a modificar y reservar tu pedido el día de hoy para que sea facturado exitosamente", userData.Simbolo, userData.MontoMaximo);
-                    break;
-
-                case Constantes.GPRMotivoRechazo.ValidacionMontoMinimoStock:
-                    model.DescripcionRechazo = string.Format("No llegaste al mínimo de {0}. ", logGPRValidacion.Valor);
-                    break;
+                    model.MotivoRechazo = Constantes.GPRMotivoRechazo.MontoMinino;
+                    goto jmp;
+                }
+                //Monto máximo - deuda:
+                items = LogsGPRValidacion.Where(l => l.MotivoRechazo.Contains(Constantes.GPRMotivoRechazo.MontoMaximo));
+                if (items.Any() && deuda.Any())
+                {
+                    model.DescripcionRechazo = string.Format("Luego de haber revisado tu pedido, te informamos que éste no se ha podido facturar por superar el monto máximo permitido de {0}. {1} y adicionalmente por tener una deuda pendiente con nosotros de {0}. {2}. Te invitamos a modificar tu pedido, cancelar el saldo pendiente y reservar tu pedido el día de hoy para que sea facturado exitosamente.", userData.Simbolo, userData.MontoMaximo, deuda.FirstOrDefault().Valor);
+                    model.MotivoRechazo = Constantes.GPRMotivoRechazo.Mostrar2OpcionesNotificacion;
+                    goto jmp;
+                }
+                else if (items.Any())//Monto máximo
+                {
+                    model.DescripcionRechazo = string.Format("Luego de haber revisado tu pedido, te informamos que éste no se ha podido facturar por superar el monto máximo permitido de {0}. {1}. Te invitamos a modificar y reservar tu pedido el día de hoy para que sea facturado exitosamente.", userData.Simbolo, userData.MontoMaximo);
+                    model.MotivoRechazo = Constantes.GPRMotivoRechazo.MontoMaximo;
+                    goto jmp;
+                }
+                //Monto mínimo stock + deuda:
+                items = LogsGPRValidacion.Where(l => l.MotivoRechazo.Contains(Constantes.GPRMotivoRechazo.ValidacionMontoMinimoStock));
+                if (items.Any() && deuda.Any())
+                {
+                    model.DescripcionRechazo = string.Format("Luego de haber revisado tu pedido, te informamos que éste no se ha podido facturar porque no cumple con el monto mínimo debido a que no contamos con stock de algunos productos, y adicionalmente por tener una deuda pendiente con nosotros de {0}. {1}. Te invitamos a añadir más productos, cancelar el saldo pendiente y reservar tu pedido el día de hoy para que sea facturado exitosamente.", userData.Simbolo, deuda.FirstOrDefault().Valor);
+                    model.MotivoRechazo = Constantes.GPRMotivoRechazo.Mostrar2OpcionesNotificacion;
+                    goto jmp;
+                }
+                else if (items.Any())//Monto mínimo stock
+                {
+                    model.DescripcionRechazo = "Luego de haber revisado tu pedido, te informamos que éste no se ha podido facturar porque no cumple con el monto mínimo debido a que no contamos con stock de algunos productos. Te invitamos a añadir más productos y reservar tu pedido el día de hoy para que sea facturado exitosamente.";
+                    model.MotivoRechazo = Constantes.GPRMotivoRechazo.ValidacionMontoMinimoStock;
+                    goto jmp;
+                }
+                if (deuda.Any()) //Deuda
+                {
+                    model.DescripcionRechazo = string.Format("Lamentamos informarte que tu pedido no se ha podido facturar porque tener una deuda pendiente con nosotros de {0}. Te invitamos a cancelar el saldo pendiente y reservar tu pedido el día de hoy para que sea facturado exitosamente.", deuda.FirstOrDefault().Valor);
+                    model.MotivoRechazo = Constantes.GPRMotivoRechazo.ActualizacionDeuda;
+                    goto jmp;
+                }
             }
+        jmp:
 
             model.NombreConsultora = userData.NombreConsultora;
             model.Total = model.SubTotal + model.Descuento;
             model.SubTotalString = Util.DecimalToStringFormat(model.SubTotal, userData.CodigoISO);
             model.DescuentoString = Util.DecimalToStringFormat(model.Descuento, userData.CodigoISO);
             model.TotalString = Util.DecimalToStringFormat(model.Total, userData.CodigoISO);
-            model.TieneDescuentoCuv = logGPRValidacion.EstadoSimplificacionCUV && lstLogGPRValidacionDetalle.Any(p => p.IndicadorOferta);
 
-            model.ListaNotificacionesDetallePedido = Mapper.Map<List<NotificacionesModelDetallePedido>>(lstLogGPRValidacionDetalle);
-            model.ListaNotificacionesDetallePedido.Update(detalle =>
-            {
-                detalle.PrecioUnidadString = Util.DecimalToStringFormat(detalle.PrecioUnidad, userData.CodigoISO);
-                detalle.ImporteTotalString = Util.DecimalToStringFormat(detalle.ImporteTotal, userData.CodigoISO);
-            });
 
             return PartialView("ListadoDetallePedidoRechazado", model);
         }
@@ -375,8 +401,8 @@ namespace Portal.Consultoras.Web.Controllers
             var listaCdrWebDetalle = new List<BECDRWebDetalle>();
             using (CDRServiceClient sv = new CDRServiceClient())
             {
-                logCdrWeb = sv.GetLogCDRWebByLogCDRWebId(userData.PaisID, solicitudId);         
-                       
+                logCdrWeb = sv.GetLogCDRWebByLogCDRWebId(userData.PaisID, solicitudId);
+
                 listaCdrWebDetalle = sv.GetCDRWebDetalleLog(userData.PaisID, logCdrWeb).ToList() ?? new List<BECDRWebDetalle>();
                 listaCdrWebDetalle.Update(p => p.Solicitud = ObtenerDescripcion(p.CodigoOperacion, Constantes.TipoMensajeCDR.Finalizado).Descripcion);
                 listaCdrWebDetalle.Update(p => p.SolucionSolicitada = ObtenerDescripcion(p.CodigoOperacion, Constantes.TipoMensajeCDR.MensajeFinalizado).Descripcion);
