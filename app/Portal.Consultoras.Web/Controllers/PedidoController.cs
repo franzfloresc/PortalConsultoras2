@@ -4801,18 +4801,17 @@ namespace Portal.Consultoras.Web.Controllers
             ListaParametroOfertaFinal ObjOfertaFinal = new ListaParametroOfertaFinal();
 
             ObjOfertaFinal.ZonaID = userData.ZonaID;
-            ObjOfertaFinal.campaniaID = userData.CampaniaID;
-            ObjOfertaFinal.codigoConsultora = userData.CodigoConsultora;
-            ObjOfertaFinal.codigoIso = userData.CodigoISO;
-            ObjOfertaFinal.codigoRegion = userData.CodigorRegion;
-            ObjOfertaFinal.codigoZona = userData.CodigoZona;
-            ObjOfertaFinal.descuentoProl = GetDataBarra().MontoDescuento;
-            ObjOfertaFinal.limite = limiteJetlore;
-            ObjOfertaFinal.montoDescuento = 20328;
-            ObjOfertaFinal.montoMinimo = userData.MontoMinimo;
-            ObjOfertaFinal.montoTotal = ObtenerPedidoWebDetalle().Sum(p => p.ImporteTotal);
-            ObjOfertaFinal.tipoOferta = tipoOfertaFinal;
-            ObjOfertaFinal.tipoProducto = tipoProductoMostrar;
+            ObjOfertaFinal.CampaniaID = userData.CampaniaID;
+            ObjOfertaFinal.CodigoConsultora = userData.CodigoConsultora;
+            ObjOfertaFinal.CodigoISO = userData.CodigoISO;
+            ObjOfertaFinal.CodigoRegion = userData.CodigorRegion;
+            ObjOfertaFinal.CodigoZona = userData.CodigoZona;
+            ObjOfertaFinal.Limite = limiteJetlore;
+            ObjOfertaFinal.MontoEscala = GetDataBarra().MontoEscala;
+            ObjOfertaFinal.MontoMinimo = userData.MontoMinimo;
+            ObjOfertaFinal.MontoTotal = ObtenerPedidoWebDetalle().Sum(p => p.ImporteTotal);
+            ObjOfertaFinal.TipoOfertaFinal = tipoOfertaFinal;
+            ObjOfertaFinal.TipoProductoMostrar = tipoProductoMostrar;
 
             using (ProductoServiceClient ps = new ProductoServiceClient())
             {
