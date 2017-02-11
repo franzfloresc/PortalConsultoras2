@@ -2906,7 +2906,7 @@ function RespuestaEjecutarServicioPROL(response, inicio) {
     $('.tooltip_importanteGuardarPedido')[0].children[0].innerHTML = tooltips[0];
     $('.tooltip_importanteGuardarPedido')[0].children[1].innerHTML = tooltips[1];
 
-    $("#btnNoGraciasOfertaFinal")[0].data = response;
+    //$("#btnNoGraciasOfertaFinal")[0].data = response;
 }
 
 function MostrarMensajeProl(response) {

@@ -998,7 +998,7 @@
                     <div style="margin-left: 27px; margin-right: 27px; position: relative;margin-top:-95px;">
                         <div class="slider center" id="divCarruselOfertaFinal" style="width: 100%"></div>
                     </div>
-                    <button name="btn_noGracias_agregarProductos" class="btn_noGracias_agregarProductos" id="btnNoGraciasOfertaFinal">
+                    <button name="btn_noGracias_agregarProductos" class="btn_noGracias_agregarProductos">
                         TERMINAR PEDIDO
                     </button>
                 </div>
@@ -2137,30 +2137,34 @@
                     <input type="hidden" class="hdOfertaFinalMarcaID" value="{{MarcaID}}" />
                     <input type="hidden" class="hdOfertaFinalPrecioUnidad" value="{{PrecioCatalogo}}" />
                     <input type="hidden" class="hdOfertaFinalDescripcionProd" value="{{Descripcion}}" />
+                    <input type="hidden" class="hdOfertaFinalNombreComercial" value="{{NombreComercial}}" />
                     <input type="hidden" class="hdOfertaFinalVolumen" value="{{Volumen}}" />
                     <input type="hidden" class="hdOfertaFinalPagina" value="0" />
                     <input type="hidden" class="hdOfertaFinalDescripcionCategoria" value="{{DescripcionCategoria}}" />
                     <input type="hidden" class="hdOfertaFinalDescripcionMarca" value="{{DescripcionMarca}}" />
                     <input type="hidden" class="hdOfertaFinalDescripcionEstrategia" value="{{DescripcionEstrategia}}" />
                     <input type="hidden" class="hdOfertaFinalImagenProductoSugerido" value="{{ImagenProductoSugerido}}" />
-                    <input type="hidden" class="hdOfertaFinalImagenProductoSugerido" value="{{ImagenProductoSugerido}}" />
                     <input type="hidden" class="hdOfertaFinalPrecioValorizadoString" value="{{PrecioValorizadoString}}" />
                     <input type="hidden" class="hdOfertaFinalPrecioCatalogoString" value="{{PrecioCatalogoString}}" />
                     <input type="hidden" class="hdOfertaFinalNombreComercial" value="{{NombreComercial}}" />
+                    <input type="hidden" class="hdOfertaFinalDescripcionComercial" value="{{DescripcionComercial}}" />
                     <input type="hidden" class="hdOfertaFinalUrlCompartirFB" value="{{UrlCompartirFB}}" />
+                    <input type="hidden" class="hdOfertaFinalDescripcionRelacionado" value="{{DescripcionRelacionado}}" />
                 </div>
-                <div class="contenido_item_carrusel_ofertaFinal" style="height:280px;" onclick="javascript:CargarVerDetalleOF(this, event);" >
-                    <div class="nohely producto_img_home" style="height:115px;" data-tooltip-text="Cómpralo porque ya tienes Shampoo Essens...">
+                <div class="contenido_item_carrusel_ofertaFinal" style="height:280px;" >
+                    <div class="nohely producto_img_home" style="height:115px;" data-tooltip-text="{{DescripcionRelacionado}}"  onclick="javascript:CargarVerDetalleOF(this, event);">
                         <img src="{{ImagenProductoSugerido}}" style="height: 100%;">
                         @*<i class="img-tooltip" data-toggle="tooltip" data-placement="right" title="Cómpralo porque ya tienes Shampoo Essens..." data-animation="false" data-trigger="manual" />*@
                         <a class="ver_detalle_carrusel" style="bottom:23px;">VER DETALLE</a>
                     </div>
                     @*<div class="etiqueta_producto"></div>*@
                     <div class="producto_nombre_descripcion">
-                        <h6>{{DescripcionMarca}}</h6>
-                        <p class="nombre_producto">
-                            <b>{{Descripcion}}</b>
-                        </p>
+                        <div onclick="javascript:CargarVerDetalleOF(this, event);">
+                            <h6>{{DescripcionMarca}}</h6>
+                            <p class="nombre_producto">
+                                <b>{{NombreComercial}}</b>
+                            </p>
+                        </div>
                         <div class="producto_precio">
                             {{#iff PrecioValorizadoString '!=' '0'}}
                             <span class="producto_precio_normal">{{Simbolo}} {{PrecioValorizadoString}}</span>
@@ -2220,9 +2224,9 @@
         </div>
         <div class="content_right_ficha">
             <div style="height:130px;">
-                <div class="titulo_ficha_producto">{{Descripcion}}</div>
+                <div class="titulo_ficha_producto">{{NombreComercial}}</div>
                 <div class="peso_ficha_producto">{{Volumen}}</div>
-                <div class="descripcion_ficha_producto">{{NombreComercial}}</div>
+                <div class="descripcion_ficha_producto">{{DescripcionComercial}}</div>
                 <div class="precio_ficha_producto">
                     {{#iff PrecioValorizadoString '!=' '0'}}
                     <span class="precio_tachado_ficha">{{Simbolo}} {{PrecioValorizadoString}}</span>

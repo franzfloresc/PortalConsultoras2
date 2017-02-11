@@ -81,7 +81,7 @@ $(document).ready(function () {
             var add = InsertarProducto(model, false);
         }
         if (!add.success) {
-            alert_msg("Vuelva a intentarlo.");
+            //alert_msg("Vuelva a intentarlo.");
             if (tipoOrigen == "1") {
                 CerrarSplash();
             }
@@ -114,7 +114,12 @@ $(document).ready(function () {
     });
 
     $("body").on("click", ".agregarOfertaFinalVerDetalle", function () {
-        AbrirSplash();
+        if (tipoOrigen == "1") {
+            AbrirSplash();
+        }
+        else {
+            ShowLoading();
+        }
 
         var prodId = $(this).attr("data-popup-verdetalle");
 
@@ -138,14 +143,24 @@ $(document).ready(function () {
         if (!isInt(cantidad)) {
             alert_msg("La cantidad ingresada debe ser un número mayor que cero, verifique");
             $('.liquidacion_rango_cantidad_pedido').val(1);
-            CerrarSplash();
+            if (tipoOrigen == "1") {
+                CerrarSplash();
+            }
+            else {
+                CloseLoading();
+            }
             return false;
         }
 
         if (cantidad <= 0) {
             alert_msg("La cantidad ingresada debe ser mayor que cero, verifique");
             $('.liquidacion_rango_cantidad_pedido').val(1);
-            CerrarSplash();
+            if (tipoOrigen == "1") {
+                CerrarSplash();
+            }
+            else {
+                CloseLoading();
+            }
             return false;
         }
 
@@ -167,19 +182,35 @@ $(document).ready(function () {
             OrigenPedidoWeb: OrigenPedidoWeb
         };
 
-        var add = AgregarProducto('Insert', model, "", false, false);
+        var add = new Object();
+        if (tipoOrigen == "1") {
+            var add = AgregarProducto('Insert', model, "", false, false);
+        }
+        else {
+            var add = InsertarProducto(model, false);
+        }
+
         if (!add.success) {
-            alert_msg("Vuelva a intentarlo.");
-            CerrarSplash();
+            //alert_msg("Vuelva a intentarlo.");
+            if (tipoOrigen == "1") {
+                CerrarSplash();
+            }
+            else {
+                CloseLoading();
+            }
             return false;
         }
 
         AgregarOfertaFinalLog(cuv, cantidad, tipoOfertaFinal_Log, gap_Log, 1);
         ActulizarValoresPopupOfertaFinal(add);
         $("#divCarruselOfertaFinal").find(".hdOfertaFinalCuv[value='" + cuv + "']").parents('[data-item="ofertaFinal"]').find('.agregado').show();
-        //$(divPadre).find(".product-add").show();
         $("#contenedor_popup_ofertaFinalVerDetalle").hide();
-        CerrarSplash();
+        if (tipoOrigen == "1") {
+            CerrarSplash();
+        }
+        else {
+            CloseLoading();
+        }
     });
 });
 
@@ -214,7 +245,7 @@ function MostrarPopupOfertaFinal(cumpleOferta, tipoPopupMostrar) {
 
     var objOf = cumpleOferta.productosMostrar[0];
     objOf.MetaPorcentaje = objOf.TipoMeta;
-    objOf.TipoMeta = parseInt(objOf.TipoMeta) == NaN ? objOf.TipoMeta : "ME";
+    objOf.TipoMeta = objOf.TipoMeta == "MM" || objOf.TipoMeta == "GM" ? objOf.TipoMeta : "ME";
     objOf.Detalle = cumpleOferta.productosMostrar;
     objOf.TotalPedido = $("#hdfTotal").val();
     objOf.Simbolo = objOf.Simbolo || $("#hdSimbolo").val();
@@ -268,7 +299,11 @@ function MostrarPopupOfertaFinal(cumpleOferta, tipoPopupMostrar) {
     AgregarOfertaFinalLog("", 0, cumpleOferta.tipoOfertaFinal_Log, cumpleOferta.gap_Log, 2);
 
     $(".nohely").on('mousemove', function (e) {
-        var texto = $(e.target).attr('data-tooltip-text');
+        var texto = $.trim($(e.target).attr('data-tooltip-text'));
+        if (texto == "") {
+            $('[data-toggle="tooltip"]').tooltip('hide');
+            return false;
+        }
         $("#img-tooltip").attr('data-original-title', texto);
         var p = $("#img-tooltip").attr('aria-describedby');
         $('#' + p).css("z-index",10000);
@@ -706,7 +741,7 @@ function CargarVerDetalleOF(objInput, e) {
     objEntidad.ImagenProductoSugerido = $(divPadre).find(".hdOfertaFinal" + "ImagenProductoSugerido").val();
     objEntidad.DescripcionComercial = $(divPadre).find(".hdOfertaFinal" + "DescripcionComercial").val();
     objEntidad.Volumen = $(divPadre).find(".hdOfertaFinal" + "Volumen").val();
-    objEntidad.Descripcion = $(divPadre).find(".hdOfertaFinal" + "DescripcionProd").val();
+    objEntidad.Descripcion = $(divPadre).find(".hdOfertaFinal" + "NombreComercial").val();
     objEntidad.Simbolo = $("#hdSimbolo").val();
     objEntidad.PrecioValorizadoString = $(divPadre).find(".hdOfertaFinal" + "PrecioValorizadoString").val();
     objEntidad.PrecioCatalogoString = $(divPadre).find(".hdOfertaFinal" + "PrecioCatalogoString").val();
