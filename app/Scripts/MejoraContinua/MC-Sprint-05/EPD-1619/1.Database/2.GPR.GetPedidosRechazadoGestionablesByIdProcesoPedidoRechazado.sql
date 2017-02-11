@@ -29,49 +29,61 @@ BEGIN
 		SubTotal,
 		Descuento,
 		EstadoSimplificacionCUV,
+		Valor,
 		MontoMinimoPedido,
 		MontoMaximoPedido
 	)
-	SELECT DISTINCT 
-		@ProcesoValidacionPedidoRechazadoId,
-		PR.IdProcesoPedidoRechazado,
-		STUFF(
-		(
-			SELECT ',' + PR1.MotivoRechazo
-			FROM GPR.PedidoRechazado AS PR1			
-			WHERE
-				C.Codigo =  PR1.CodigoConsultora
-				AND U.CodigoConsultora =  PR1.CodigoConsultora
-				AND PR1.IdProcesoPedidoRechazado = @IdProcesoPedidoRechazado
-			FOR xml path('')),1,1,''
-		),
-		C.ConsultoraID,
-		PR.CodigoConsultora,
-		PR.Campania,
-		U.CodigoUsuario,
-		U.Nombre,
-		IIF(U.EmailActivo = 1, U.EMail, ''),
-		ISNULL((
-			SELECT TOP 1 1
-			FROM ConfiguracionValidacionNuevoPROL CVNP WITH(NOLOCK)
-			WHERE CVNP.ZonaId = C.ZonaId
-		),0),
-		PW.PedidoID,		
-		PW.ImporteTotal,
-		PW.DescuentoProl,
-		ISNULL((
-			SELECT TOP 1 EstadoSimplificacionCUV
-			FROM Pais
-			WHERE CodigoISO = @PaisISO
-		), 0),
-		C.MontoMinimoPedido,
-		C.MontoMaximoPedido
-	FROM GPR.PedidoRechazado PR
-	INNER JOIN GPR.MotivoRechazo MR WITH(NOLOCK) ON PR.MotivoRechazo = MR.Codigo AND MR.RequiereGestion = 1
-	LEFT JOIN ods.Consultora C WITH(NOLOCK) ON C.Codigo =  PR.CodigoConsultora
-	LEFT JOIN Usuario U WITH(NOLOCK) ON U.CodigoConsultora =  PR.CodigoConsultora
-	LEFT JOIN PedidoWeb PW WITH(NOLOCK) ON PW.CampaniaID = PR.Campania AND PW.ConsultoraID = C.ConsultoraID
-	WHERE PR.IdProcesoPedidoRechazado = @IdProcesoPedidoRechazado AND PR.Procesado = 0;
+	
+	SELECT ProcesoValidacionPedidoRechazadoId, IdProcesoPedidoRechazado,DescripcionRechazo, ConsultoraID , CodigoConsultora, Campania, CodigoUsuario, Nombre, 
+	EMail, ZonaNuevoProl, PedidoID, ImporteTotal, DescuentoProl, EstadoSimplificacionCUV, Valor, MontoMinimoPedido, MontoMaximoPedido
+	FROM(
+
+		SELECT DISTINCT 
+			@ProcesoValidacionPedidoRechazadoId AS ProcesoValidacionPedidoRechazadoId,
+			PR.IdProcesoPedidoRechazado,
+			STUFF(
+			(
+				SELECT ',' + PR1.MotivoRechazo
+				FROM GPR.PedidoRechazado AS PR1			
+				WHERE
+					C.Codigo =  PR1.CodigoConsultora
+					AND U.CodigoConsultora =  PR1.CodigoConsultora
+					AND PR1.IdProcesoPedidoRechazado = @IdProcesoPedidoRechazado
+				FOR xml path('')),1,1,''
+			) AS DescripcionRechazo,
+			C.ConsultoraID,
+			PR.CodigoConsultora,
+			PR.Campania,
+			U.CodigoUsuario,
+			U.Nombre,
+			IIF(U.EmailActivo = 1, U.EMail, '') AS EMail,
+			ISNULL((
+				SELECT TOP 1 1
+				FROM ConfiguracionValidacionNuevoPROL CVNP WITH(NOLOCK)
+				WHERE CVNP.ZonaId = C.ZonaId
+			),0) AS ZonaNuevoProl,
+			PW.PedidoID,		
+			PW.ImporteTotal,
+			PW.DescuentoProl,
+			ISNULL((
+				SELECT TOP 1 EstadoSimplificacionCUV
+				FROM Pais
+				WHERE CodigoISO = @PaisISO
+			), 0) AS EstadoSimplificacionCUV,
+			IIF(PR.MotivoRechazo = 'OCC-19', PR.VALOR, '') AS VALOR,
+			C.MontoMinimoPedido,		
+			C.MontoMaximoPedido
+		FROM GPR.PedidoRechazado PR
+		INNER JOIN GPR.MotivoRechazo MR WITH(NOLOCK) ON PR.MotivoRechazo = MR.Codigo AND MR.RequiereGestion = 1
+		LEFT JOIN ods.Consultora C WITH(NOLOCK) ON C.Codigo =  PR.CodigoConsultora
+		LEFT JOIN Usuario U WITH(NOLOCK) ON U.CodigoConsultora =  PR.CodigoConsultora
+		LEFT JOIN PedidoWeb PW WITH(NOLOCK) ON PW.CampaniaID = PR.Campania AND PW.ConsultoraID = C.ConsultoraID
+		WHERE PR.IdProcesoPedidoRechazado = @IdProcesoPedidoRechazado AND PR.Procesado = 0
+		) T
+
+	WHERE T.Valor <> ''
+	GROUP BY ProcesoValidacionPedidoRechazadoId, IdProcesoPedidoRechazado,DescripcionRechazo, ConsultoraID , CodigoConsultora, Campania, CodigoUsuario, Nombre, 
+	EMail, ZonaNuevoProl, PedidoID, ImporteTotal, DescuentoProl, EstadoSimplificacionCUV, Valor, MontoMinimoPedido, MontoMaximoPedido
 		
 	SELECT DISTINCT
 		LGPRV.LogGPRValidacionId,
@@ -97,6 +109,7 @@ BEGIN
 	INNER JOIN [dbo].[Pais] P (nolock) ON U.PaisID = P.PaisID
 	WHERE LGPRV.ProcesoValidacionPedidoRechazadoId = @ProcesoValidacionPedidoRechazadoId;
 END
+
 
 
 GO
@@ -132,49 +145,61 @@ BEGIN
 		SubTotal,
 		Descuento,
 		EstadoSimplificacionCUV,
+		Valor,
 		MontoMinimoPedido,
 		MontoMaximoPedido
 	)
-	SELECT DISTINCT 
-		@ProcesoValidacionPedidoRechazadoId,
-		PR.IdProcesoPedidoRechazado,
-		STUFF(
-		(
-			SELECT ',' + PR1.MotivoRechazo
-			FROM GPR.PedidoRechazado AS PR1			
-			WHERE
-				C.Codigo =  PR1.CodigoConsultora
-				AND U.CodigoConsultora =  PR1.CodigoConsultora
-				AND PR1.IdProcesoPedidoRechazado = @IdProcesoPedidoRechazado
-			FOR xml path('')),1,1,''
-		),
-		C.ConsultoraID,
-		PR.CodigoConsultora,
-		PR.Campania,
-		U.CodigoUsuario,
-		U.Nombre,
-		IIF(U.EmailActivo = 1, U.EMail, ''),
-		ISNULL((
-			SELECT TOP 1 1
-			FROM ConfiguracionValidacionNuevoPROL CVNP WITH(NOLOCK)
-			WHERE CVNP.ZonaId = C.ZonaId
-		),0),
-		PW.PedidoID,		
-		PW.ImporteTotal,
-		PW.DescuentoProl,
-		ISNULL((
-			SELECT TOP 1 EstadoSimplificacionCUV
-			FROM Pais
-			WHERE CodigoISO = @PaisISO
-		), 0),
-		C.MontoMinimoPedido,
-		C.MontoMaximoPedido
-	FROM GPR.PedidoRechazado PR
-	INNER JOIN GPR.MotivoRechazo MR WITH(NOLOCK) ON PR.MotivoRechazo = MR.Codigo AND MR.RequiereGestion = 1
-	LEFT JOIN ods.Consultora C WITH(NOLOCK) ON C.Codigo =  PR.CodigoConsultora
-	LEFT JOIN Usuario U WITH(NOLOCK) ON U.CodigoConsultora =  PR.CodigoConsultora
-	LEFT JOIN PedidoWeb PW WITH(NOLOCK) ON PW.CampaniaID = PR.Campania AND PW.ConsultoraID = C.ConsultoraID
-	WHERE PR.IdProcesoPedidoRechazado = @IdProcesoPedidoRechazado AND PR.Procesado = 0;
+	
+	SELECT ProcesoValidacionPedidoRechazadoId, IdProcesoPedidoRechazado,DescripcionRechazo, ConsultoraID , CodigoConsultora, Campania, CodigoUsuario, Nombre, 
+	EMail, ZonaNuevoProl, PedidoID, ImporteTotal, DescuentoProl, EstadoSimplificacionCUV, Valor, MontoMinimoPedido, MontoMaximoPedido
+	FROM(
+
+		SELECT DISTINCT 
+			@ProcesoValidacionPedidoRechazadoId AS ProcesoValidacionPedidoRechazadoId,
+			PR.IdProcesoPedidoRechazado,
+			STUFF(
+			(
+				SELECT ',' + PR1.MotivoRechazo
+				FROM GPR.PedidoRechazado AS PR1			
+				WHERE
+					C.Codigo =  PR1.CodigoConsultora
+					AND U.CodigoConsultora =  PR1.CodigoConsultora
+					AND PR1.IdProcesoPedidoRechazado = @IdProcesoPedidoRechazado
+				FOR xml path('')),1,1,''
+			) AS DescripcionRechazo,
+			C.ConsultoraID,
+			PR.CodigoConsultora,
+			PR.Campania,
+			U.CodigoUsuario,
+			U.Nombre,
+			IIF(U.EmailActivo = 1, U.EMail, '') AS EMail,
+			ISNULL((
+				SELECT TOP 1 1
+				FROM ConfiguracionValidacionNuevoPROL CVNP WITH(NOLOCK)
+				WHERE CVNP.ZonaId = C.ZonaId
+			),0) AS ZonaNuevoProl,
+			PW.PedidoID,		
+			PW.ImporteTotal,
+			PW.DescuentoProl,
+			ISNULL((
+				SELECT TOP 1 EstadoSimplificacionCUV
+				FROM Pais
+				WHERE CodigoISO = @PaisISO
+			), 0) AS EstadoSimplificacionCUV,
+			IIF(PR.MotivoRechazo = 'OCC-19', PR.VALOR, '') AS VALOR,
+			C.MontoMinimoPedido,		
+			C.MontoMaximoPedido
+		FROM GPR.PedidoRechazado PR
+		INNER JOIN GPR.MotivoRechazo MR WITH(NOLOCK) ON PR.MotivoRechazo = MR.Codigo AND MR.RequiereGestion = 1
+		LEFT JOIN ods.Consultora C WITH(NOLOCK) ON C.Codigo =  PR.CodigoConsultora
+		LEFT JOIN Usuario U WITH(NOLOCK) ON U.CodigoConsultora =  PR.CodigoConsultora
+		LEFT JOIN PedidoWeb PW WITH(NOLOCK) ON PW.CampaniaID = PR.Campania AND PW.ConsultoraID = C.ConsultoraID
+		WHERE PR.IdProcesoPedidoRechazado = @IdProcesoPedidoRechazado AND PR.Procesado = 0
+		) T
+
+	WHERE T.Valor <> ''
+	GROUP BY ProcesoValidacionPedidoRechazadoId, IdProcesoPedidoRechazado,DescripcionRechazo, ConsultoraID , CodigoConsultora, Campania, CodigoUsuario, Nombre, 
+	EMail, ZonaNuevoProl, PedidoID, ImporteTotal, DescuentoProl, EstadoSimplificacionCUV, Valor, MontoMinimoPedido, MontoMaximoPedido
 		
 	SELECT DISTINCT
 		LGPRV.LogGPRValidacionId,
@@ -200,6 +225,7 @@ BEGIN
 	INNER JOIN [dbo].[Pais] P (nolock) ON U.PaisID = P.PaisID
 	WHERE LGPRV.ProcesoValidacionPedidoRechazadoId = @ProcesoValidacionPedidoRechazadoId;
 END
+
 
 
 GO
@@ -235,49 +261,61 @@ BEGIN
 		SubTotal,
 		Descuento,
 		EstadoSimplificacionCUV,
+		Valor,
 		MontoMinimoPedido,
 		MontoMaximoPedido
 	)
-	SELECT DISTINCT 
-		@ProcesoValidacionPedidoRechazadoId,
-		PR.IdProcesoPedidoRechazado,
-		STUFF(
-		(
-			SELECT ',' + PR1.MotivoRechazo
-			FROM GPR.PedidoRechazado AS PR1			
-			WHERE
-				C.Codigo =  PR1.CodigoConsultora
-				AND U.CodigoConsultora =  PR1.CodigoConsultora
-				AND PR1.IdProcesoPedidoRechazado = @IdProcesoPedidoRechazado
-			FOR xml path('')),1,1,''
-		),
-		C.ConsultoraID,
-		PR.CodigoConsultora,
-		PR.Campania,
-		U.CodigoUsuario,
-		U.Nombre,
-		IIF(U.EmailActivo = 1, U.EMail, ''),
-		ISNULL((
-			SELECT TOP 1 1
-			FROM ConfiguracionValidacionNuevoPROL CVNP WITH(NOLOCK)
-			WHERE CVNP.ZonaId = C.ZonaId
-		),0),
-		PW.PedidoID,		
-		PW.ImporteTotal,
-		PW.DescuentoProl,
-		ISNULL((
-			SELECT TOP 1 EstadoSimplificacionCUV
-			FROM Pais
-			WHERE CodigoISO = @PaisISO
-		), 0),
-		C.MontoMinimoPedido,
-		C.MontoMaximoPedido
-	FROM GPR.PedidoRechazado PR
-	INNER JOIN GPR.MotivoRechazo MR WITH(NOLOCK) ON PR.MotivoRechazo = MR.Codigo AND MR.RequiereGestion = 1
-	LEFT JOIN ods.Consultora C WITH(NOLOCK) ON C.Codigo =  PR.CodigoConsultora
-	LEFT JOIN Usuario U WITH(NOLOCK) ON U.CodigoConsultora =  PR.CodigoConsultora
-	LEFT JOIN PedidoWeb PW WITH(NOLOCK) ON PW.CampaniaID = PR.Campania AND PW.ConsultoraID = C.ConsultoraID
-	WHERE PR.IdProcesoPedidoRechazado = @IdProcesoPedidoRechazado AND PR.Procesado = 0;
+	
+	SELECT ProcesoValidacionPedidoRechazadoId, IdProcesoPedidoRechazado,DescripcionRechazo, ConsultoraID , CodigoConsultora, Campania, CodigoUsuario, Nombre, 
+	EMail, ZonaNuevoProl, PedidoID, ImporteTotal, DescuentoProl, EstadoSimplificacionCUV, Valor, MontoMinimoPedido, MontoMaximoPedido
+	FROM(
+
+		SELECT DISTINCT 
+			@ProcesoValidacionPedidoRechazadoId AS ProcesoValidacionPedidoRechazadoId,
+			PR.IdProcesoPedidoRechazado,
+			STUFF(
+			(
+				SELECT ',' + PR1.MotivoRechazo
+				FROM GPR.PedidoRechazado AS PR1			
+				WHERE
+					C.Codigo =  PR1.CodigoConsultora
+					AND U.CodigoConsultora =  PR1.CodigoConsultora
+					AND PR1.IdProcesoPedidoRechazado = @IdProcesoPedidoRechazado
+				FOR xml path('')),1,1,''
+			) AS DescripcionRechazo,
+			C.ConsultoraID,
+			PR.CodigoConsultora,
+			PR.Campania,
+			U.CodigoUsuario,
+			U.Nombre,
+			IIF(U.EmailActivo = 1, U.EMail, '') AS EMail,
+			ISNULL((
+				SELECT TOP 1 1
+				FROM ConfiguracionValidacionNuevoPROL CVNP WITH(NOLOCK)
+				WHERE CVNP.ZonaId = C.ZonaId
+			),0) AS ZonaNuevoProl,
+			PW.PedidoID,		
+			PW.ImporteTotal,
+			PW.DescuentoProl,
+			ISNULL((
+				SELECT TOP 1 EstadoSimplificacionCUV
+				FROM Pais
+				WHERE CodigoISO = @PaisISO
+			), 0) AS EstadoSimplificacionCUV,
+			IIF(PR.MotivoRechazo = 'OCC-19', PR.VALOR, '') AS VALOR,
+			C.MontoMinimoPedido,		
+			C.MontoMaximoPedido
+		FROM GPR.PedidoRechazado PR
+		INNER JOIN GPR.MotivoRechazo MR WITH(NOLOCK) ON PR.MotivoRechazo = MR.Codigo AND MR.RequiereGestion = 1
+		LEFT JOIN ods.Consultora C WITH(NOLOCK) ON C.Codigo =  PR.CodigoConsultora
+		LEFT JOIN Usuario U WITH(NOLOCK) ON U.CodigoConsultora =  PR.CodigoConsultora
+		LEFT JOIN PedidoWeb PW WITH(NOLOCK) ON PW.CampaniaID = PR.Campania AND PW.ConsultoraID = C.ConsultoraID
+		WHERE PR.IdProcesoPedidoRechazado = @IdProcesoPedidoRechazado AND PR.Procesado = 0
+		) T
+
+	WHERE T.Valor <> ''
+	GROUP BY ProcesoValidacionPedidoRechazadoId, IdProcesoPedidoRechazado,DescripcionRechazo, ConsultoraID , CodigoConsultora, Campania, CodigoUsuario, Nombre, 
+	EMail, ZonaNuevoProl, PedidoID, ImporteTotal, DescuentoProl, EstadoSimplificacionCUV, Valor, MontoMinimoPedido, MontoMaximoPedido
 		
 	SELECT DISTINCT
 		LGPRV.LogGPRValidacionId,
@@ -303,6 +341,7 @@ BEGIN
 	INNER JOIN [dbo].[Pais] P (nolock) ON U.PaisID = P.PaisID
 	WHERE LGPRV.ProcesoValidacionPedidoRechazadoId = @ProcesoValidacionPedidoRechazadoId;
 END
+
 
 
 GO
@@ -338,49 +377,61 @@ BEGIN
 		SubTotal,
 		Descuento,
 		EstadoSimplificacionCUV,
+		Valor,
 		MontoMinimoPedido,
 		MontoMaximoPedido
 	)
-	SELECT DISTINCT 
-		@ProcesoValidacionPedidoRechazadoId,
-		PR.IdProcesoPedidoRechazado,
-		STUFF(
-		(
-			SELECT ',' + PR1.MotivoRechazo
-			FROM GPR.PedidoRechazado AS PR1			
-			WHERE
-				C.Codigo =  PR1.CodigoConsultora
-				AND U.CodigoConsultora =  PR1.CodigoConsultora
-				AND PR1.IdProcesoPedidoRechazado = @IdProcesoPedidoRechazado
-			FOR xml path('')),1,1,''
-		),
-		C.ConsultoraID,
-		PR.CodigoConsultora,
-		PR.Campania,
-		U.CodigoUsuario,
-		U.Nombre,
-		IIF(U.EmailActivo = 1, U.EMail, ''),
-		ISNULL((
-			SELECT TOP 1 1
-			FROM ConfiguracionValidacionNuevoPROL CVNP WITH(NOLOCK)
-			WHERE CVNP.ZonaId = C.ZonaId
-		),0),
-		PW.PedidoID,		
-		PW.ImporteTotal,
-		PW.DescuentoProl,
-		ISNULL((
-			SELECT TOP 1 EstadoSimplificacionCUV
-			FROM Pais
-			WHERE CodigoISO = @PaisISO
-		), 0),
-		C.MontoMinimoPedido,
-		C.MontoMaximoPedido
-	FROM GPR.PedidoRechazado PR
-	INNER JOIN GPR.MotivoRechazo MR WITH(NOLOCK) ON PR.MotivoRechazo = MR.Codigo AND MR.RequiereGestion = 1
-	LEFT JOIN ods.Consultora C WITH(NOLOCK) ON C.Codigo =  PR.CodigoConsultora
-	LEFT JOIN Usuario U WITH(NOLOCK) ON U.CodigoConsultora =  PR.CodigoConsultora
-	LEFT JOIN PedidoWeb PW WITH(NOLOCK) ON PW.CampaniaID = PR.Campania AND PW.ConsultoraID = C.ConsultoraID
-	WHERE PR.IdProcesoPedidoRechazado = @IdProcesoPedidoRechazado AND PR.Procesado = 0;
+	
+	SELECT ProcesoValidacionPedidoRechazadoId, IdProcesoPedidoRechazado,DescripcionRechazo, ConsultoraID , CodigoConsultora, Campania, CodigoUsuario, Nombre, 
+	EMail, ZonaNuevoProl, PedidoID, ImporteTotal, DescuentoProl, EstadoSimplificacionCUV, Valor, MontoMinimoPedido, MontoMaximoPedido
+	FROM(
+
+		SELECT DISTINCT 
+			@ProcesoValidacionPedidoRechazadoId AS ProcesoValidacionPedidoRechazadoId,
+			PR.IdProcesoPedidoRechazado,
+			STUFF(
+			(
+				SELECT ',' + PR1.MotivoRechazo
+				FROM GPR.PedidoRechazado AS PR1			
+				WHERE
+					C.Codigo =  PR1.CodigoConsultora
+					AND U.CodigoConsultora =  PR1.CodigoConsultora
+					AND PR1.IdProcesoPedidoRechazado = @IdProcesoPedidoRechazado
+				FOR xml path('')),1,1,''
+			) AS DescripcionRechazo,
+			C.ConsultoraID,
+			PR.CodigoConsultora,
+			PR.Campania,
+			U.CodigoUsuario,
+			U.Nombre,
+			IIF(U.EmailActivo = 1, U.EMail, '') AS EMail,
+			ISNULL((
+				SELECT TOP 1 1
+				FROM ConfiguracionValidacionNuevoPROL CVNP WITH(NOLOCK)
+				WHERE CVNP.ZonaId = C.ZonaId
+			),0) AS ZonaNuevoProl,
+			PW.PedidoID,		
+			PW.ImporteTotal,
+			PW.DescuentoProl,
+			ISNULL((
+				SELECT TOP 1 EstadoSimplificacionCUV
+				FROM Pais
+				WHERE CodigoISO = @PaisISO
+			), 0) AS EstadoSimplificacionCUV,
+			IIF(PR.MotivoRechazo = 'OCC-19', PR.VALOR, '') AS VALOR,
+			C.MontoMinimoPedido,		
+			C.MontoMaximoPedido
+		FROM GPR.PedidoRechazado PR
+		INNER JOIN GPR.MotivoRechazo MR WITH(NOLOCK) ON PR.MotivoRechazo = MR.Codigo AND MR.RequiereGestion = 1
+		LEFT JOIN ods.Consultora C WITH(NOLOCK) ON C.Codigo =  PR.CodigoConsultora
+		LEFT JOIN Usuario U WITH(NOLOCK) ON U.CodigoConsultora =  PR.CodigoConsultora
+		LEFT JOIN PedidoWeb PW WITH(NOLOCK) ON PW.CampaniaID = PR.Campania AND PW.ConsultoraID = C.ConsultoraID
+		WHERE PR.IdProcesoPedidoRechazado = @IdProcesoPedidoRechazado AND PR.Procesado = 0
+		) T
+
+	WHERE T.Valor <> ''
+	GROUP BY ProcesoValidacionPedidoRechazadoId, IdProcesoPedidoRechazado,DescripcionRechazo, ConsultoraID , CodigoConsultora, Campania, CodigoUsuario, Nombre, 
+	EMail, ZonaNuevoProl, PedidoID, ImporteTotal, DescuentoProl, EstadoSimplificacionCUV, Valor, MontoMinimoPedido, MontoMaximoPedido
 		
 	SELECT DISTINCT
 		LGPRV.LogGPRValidacionId,
@@ -406,6 +457,7 @@ BEGIN
 	INNER JOIN [dbo].[Pais] P (nolock) ON U.PaisID = P.PaisID
 	WHERE LGPRV.ProcesoValidacionPedidoRechazadoId = @ProcesoValidacionPedidoRechazadoId;
 END
+
 
 
 GO
@@ -441,49 +493,61 @@ BEGIN
 		SubTotal,
 		Descuento,
 		EstadoSimplificacionCUV,
+		Valor,
 		MontoMinimoPedido,
 		MontoMaximoPedido
 	)
-	SELECT DISTINCT 
-		@ProcesoValidacionPedidoRechazadoId,
-		PR.IdProcesoPedidoRechazado,
-		STUFF(
-		(
-			SELECT ',' + PR1.MotivoRechazo
-			FROM GPR.PedidoRechazado AS PR1			
-			WHERE
-				C.Codigo =  PR1.CodigoConsultora
-				AND U.CodigoConsultora =  PR1.CodigoConsultora
-				AND PR1.IdProcesoPedidoRechazado = @IdProcesoPedidoRechazado
-			FOR xml path('')),1,1,''
-		),
-		C.ConsultoraID,
-		PR.CodigoConsultora,
-		PR.Campania,
-		U.CodigoUsuario,
-		U.Nombre,
-		IIF(U.EmailActivo = 1, U.EMail, ''),
-		ISNULL((
-			SELECT TOP 1 1
-			FROM ConfiguracionValidacionNuevoPROL CVNP WITH(NOLOCK)
-			WHERE CVNP.ZonaId = C.ZonaId
-		),0),
-		PW.PedidoID,		
-		PW.ImporteTotal,
-		PW.DescuentoProl,
-		ISNULL((
-			SELECT TOP 1 EstadoSimplificacionCUV
-			FROM Pais
-			WHERE CodigoISO = @PaisISO
-		), 0),
-		C.MontoMinimoPedido,
-		C.MontoMaximoPedido
-	FROM GPR.PedidoRechazado PR
-	INNER JOIN GPR.MotivoRechazo MR WITH(NOLOCK) ON PR.MotivoRechazo = MR.Codigo AND MR.RequiereGestion = 1
-	LEFT JOIN ods.Consultora C WITH(NOLOCK) ON C.Codigo =  PR.CodigoConsultora
-	LEFT JOIN Usuario U WITH(NOLOCK) ON U.CodigoConsultora =  PR.CodigoConsultora
-	LEFT JOIN PedidoWeb PW WITH(NOLOCK) ON PW.CampaniaID = PR.Campania AND PW.ConsultoraID = C.ConsultoraID
-	WHERE PR.IdProcesoPedidoRechazado = @IdProcesoPedidoRechazado AND PR.Procesado = 0;
+	
+	SELECT ProcesoValidacionPedidoRechazadoId, IdProcesoPedidoRechazado,DescripcionRechazo, ConsultoraID , CodigoConsultora, Campania, CodigoUsuario, Nombre, 
+	EMail, ZonaNuevoProl, PedidoID, ImporteTotal, DescuentoProl, EstadoSimplificacionCUV, Valor, MontoMinimoPedido, MontoMaximoPedido
+	FROM(
+
+		SELECT DISTINCT 
+			@ProcesoValidacionPedidoRechazadoId AS ProcesoValidacionPedidoRechazadoId,
+			PR.IdProcesoPedidoRechazado,
+			STUFF(
+			(
+				SELECT ',' + PR1.MotivoRechazo
+				FROM GPR.PedidoRechazado AS PR1			
+				WHERE
+					C.Codigo =  PR1.CodigoConsultora
+					AND U.CodigoConsultora =  PR1.CodigoConsultora
+					AND PR1.IdProcesoPedidoRechazado = @IdProcesoPedidoRechazado
+				FOR xml path('')),1,1,''
+			) AS DescripcionRechazo,
+			C.ConsultoraID,
+			PR.CodigoConsultora,
+			PR.Campania,
+			U.CodigoUsuario,
+			U.Nombre,
+			IIF(U.EmailActivo = 1, U.EMail, '') AS EMail,
+			ISNULL((
+				SELECT TOP 1 1
+				FROM ConfiguracionValidacionNuevoPROL CVNP WITH(NOLOCK)
+				WHERE CVNP.ZonaId = C.ZonaId
+			),0) AS ZonaNuevoProl,
+			PW.PedidoID,		
+			PW.ImporteTotal,
+			PW.DescuentoProl,
+			ISNULL((
+				SELECT TOP 1 EstadoSimplificacionCUV
+				FROM Pais
+				WHERE CodigoISO = @PaisISO
+			), 0) AS EstadoSimplificacionCUV,
+			IIF(PR.MotivoRechazo = 'OCC-19', PR.VALOR, '') AS VALOR,
+			C.MontoMinimoPedido,		
+			C.MontoMaximoPedido
+		FROM GPR.PedidoRechazado PR
+		INNER JOIN GPR.MotivoRechazo MR WITH(NOLOCK) ON PR.MotivoRechazo = MR.Codigo AND MR.RequiereGestion = 1
+		LEFT JOIN ods.Consultora C WITH(NOLOCK) ON C.Codigo =  PR.CodigoConsultora
+		LEFT JOIN Usuario U WITH(NOLOCK) ON U.CodigoConsultora =  PR.CodigoConsultora
+		LEFT JOIN PedidoWeb PW WITH(NOLOCK) ON PW.CampaniaID = PR.Campania AND PW.ConsultoraID = C.ConsultoraID
+		WHERE PR.IdProcesoPedidoRechazado = @IdProcesoPedidoRechazado AND PR.Procesado = 0
+		) T
+
+	WHERE T.Valor <> ''
+	GROUP BY ProcesoValidacionPedidoRechazadoId, IdProcesoPedidoRechazado,DescripcionRechazo, ConsultoraID , CodigoConsultora, Campania, CodigoUsuario, Nombre, 
+	EMail, ZonaNuevoProl, PedidoID, ImporteTotal, DescuentoProl, EstadoSimplificacionCUV, Valor, MontoMinimoPedido, MontoMaximoPedido
 		
 	SELECT DISTINCT
 		LGPRV.LogGPRValidacionId,
@@ -509,6 +573,7 @@ BEGIN
 	INNER JOIN [dbo].[Pais] P (nolock) ON U.PaisID = P.PaisID
 	WHERE LGPRV.ProcesoValidacionPedidoRechazadoId = @ProcesoValidacionPedidoRechazadoId;
 END
+
 
 
 GO
@@ -544,49 +609,61 @@ BEGIN
 		SubTotal,
 		Descuento,
 		EstadoSimplificacionCUV,
+		Valor,
 		MontoMinimoPedido,
 		MontoMaximoPedido
 	)
-	SELECT DISTINCT 
-		@ProcesoValidacionPedidoRechazadoId,
-		PR.IdProcesoPedidoRechazado,
-		STUFF(
-		(
-			SELECT ',' + PR1.MotivoRechazo
-			FROM GPR.PedidoRechazado AS PR1			
-			WHERE
-				C.Codigo =  PR1.CodigoConsultora
-				AND U.CodigoConsultora =  PR1.CodigoConsultora
-				AND PR1.IdProcesoPedidoRechazado = @IdProcesoPedidoRechazado
-			FOR xml path('')),1,1,''
-		),
-		C.ConsultoraID,
-		PR.CodigoConsultora,
-		PR.Campania,
-		U.CodigoUsuario,
-		U.Nombre,
-		IIF(U.EmailActivo = 1, U.EMail, ''),
-		ISNULL((
-			SELECT TOP 1 1
-			FROM ConfiguracionValidacionNuevoPROL CVNP WITH(NOLOCK)
-			WHERE CVNP.ZonaId = C.ZonaId
-		),0),
-		PW.PedidoID,		
-		PW.ImporteTotal,
-		PW.DescuentoProl,
-		ISNULL((
-			SELECT TOP 1 EstadoSimplificacionCUV
-			FROM Pais
-			WHERE CodigoISO = @PaisISO
-		), 0),
-		C.MontoMinimoPedido,
-		C.MontoMaximoPedido
-	FROM GPR.PedidoRechazado PR
-	INNER JOIN GPR.MotivoRechazo MR WITH(NOLOCK) ON PR.MotivoRechazo = MR.Codigo AND MR.RequiereGestion = 1
-	LEFT JOIN ods.Consultora C WITH(NOLOCK) ON C.Codigo =  PR.CodigoConsultora
-	LEFT JOIN Usuario U WITH(NOLOCK) ON U.CodigoConsultora =  PR.CodigoConsultora
-	LEFT JOIN PedidoWeb PW WITH(NOLOCK) ON PW.CampaniaID = PR.Campania AND PW.ConsultoraID = C.ConsultoraID
-	WHERE PR.IdProcesoPedidoRechazado = @IdProcesoPedidoRechazado AND PR.Procesado = 0;
+	
+	SELECT ProcesoValidacionPedidoRechazadoId, IdProcesoPedidoRechazado,DescripcionRechazo, ConsultoraID , CodigoConsultora, Campania, CodigoUsuario, Nombre, 
+	EMail, ZonaNuevoProl, PedidoID, ImporteTotal, DescuentoProl, EstadoSimplificacionCUV, Valor, MontoMinimoPedido, MontoMaximoPedido
+	FROM(
+
+		SELECT DISTINCT 
+			@ProcesoValidacionPedidoRechazadoId AS ProcesoValidacionPedidoRechazadoId,
+			PR.IdProcesoPedidoRechazado,
+			STUFF(
+			(
+				SELECT ',' + PR1.MotivoRechazo
+				FROM GPR.PedidoRechazado AS PR1			
+				WHERE
+					C.Codigo =  PR1.CodigoConsultora
+					AND U.CodigoConsultora =  PR1.CodigoConsultora
+					AND PR1.IdProcesoPedidoRechazado = @IdProcesoPedidoRechazado
+				FOR xml path('')),1,1,''
+			) AS DescripcionRechazo,
+			C.ConsultoraID,
+			PR.CodigoConsultora,
+			PR.Campania,
+			U.CodigoUsuario,
+			U.Nombre,
+			IIF(U.EmailActivo = 1, U.EMail, '') AS EMail,
+			ISNULL((
+				SELECT TOP 1 1
+				FROM ConfiguracionValidacionNuevoPROL CVNP WITH(NOLOCK)
+				WHERE CVNP.ZonaId = C.ZonaId
+			),0) AS ZonaNuevoProl,
+			PW.PedidoID,		
+			PW.ImporteTotal,
+			PW.DescuentoProl,
+			ISNULL((
+				SELECT TOP 1 EstadoSimplificacionCUV
+				FROM Pais
+				WHERE CodigoISO = @PaisISO
+			), 0) AS EstadoSimplificacionCUV,
+			IIF(PR.MotivoRechazo = 'OCC-19', PR.VALOR, '') AS VALOR,
+			C.MontoMinimoPedido,		
+			C.MontoMaximoPedido
+		FROM GPR.PedidoRechazado PR
+		INNER JOIN GPR.MotivoRechazo MR WITH(NOLOCK) ON PR.MotivoRechazo = MR.Codigo AND MR.RequiereGestion = 1
+		LEFT JOIN ods.Consultora C WITH(NOLOCK) ON C.Codigo =  PR.CodigoConsultora
+		LEFT JOIN Usuario U WITH(NOLOCK) ON U.CodigoConsultora =  PR.CodigoConsultora
+		LEFT JOIN PedidoWeb PW WITH(NOLOCK) ON PW.CampaniaID = PR.Campania AND PW.ConsultoraID = C.ConsultoraID
+		WHERE PR.IdProcesoPedidoRechazado = @IdProcesoPedidoRechazado AND PR.Procesado = 0
+		) T
+
+	WHERE T.Valor <> ''
+	GROUP BY ProcesoValidacionPedidoRechazadoId, IdProcesoPedidoRechazado,DescripcionRechazo, ConsultoraID , CodigoConsultora, Campania, CodigoUsuario, Nombre, 
+	EMail, ZonaNuevoProl, PedidoID, ImporteTotal, DescuentoProl, EstadoSimplificacionCUV, Valor, MontoMinimoPedido, MontoMaximoPedido
 		
 	SELECT DISTINCT
 		LGPRV.LogGPRValidacionId,
@@ -612,6 +689,7 @@ BEGIN
 	INNER JOIN [dbo].[Pais] P (nolock) ON U.PaisID = P.PaisID
 	WHERE LGPRV.ProcesoValidacionPedidoRechazadoId = @ProcesoValidacionPedidoRechazadoId;
 END
+
 
 
 GO
@@ -647,49 +725,61 @@ BEGIN
 		SubTotal,
 		Descuento,
 		EstadoSimplificacionCUV,
+		Valor,
 		MontoMinimoPedido,
 		MontoMaximoPedido
 	)
-	SELECT DISTINCT 
-		@ProcesoValidacionPedidoRechazadoId,
-		PR.IdProcesoPedidoRechazado,
-		STUFF(
-		(
-			SELECT ',' + PR1.MotivoRechazo
-			FROM GPR.PedidoRechazado AS PR1			
-			WHERE
-				C.Codigo =  PR1.CodigoConsultora
-				AND U.CodigoConsultora =  PR1.CodigoConsultora
-				AND PR1.IdProcesoPedidoRechazado = @IdProcesoPedidoRechazado
-			FOR xml path('')),1,1,''
-		),
-		C.ConsultoraID,
-		PR.CodigoConsultora,
-		PR.Campania,
-		U.CodigoUsuario,
-		U.Nombre,
-		IIF(U.EmailActivo = 1, U.EMail, ''),
-		ISNULL((
-			SELECT TOP 1 1
-			FROM ConfiguracionValidacionNuevoPROL CVNP WITH(NOLOCK)
-			WHERE CVNP.ZonaId = C.ZonaId
-		),0),
-		PW.PedidoID,		
-		PW.ImporteTotal,
-		PW.DescuentoProl,
-		ISNULL((
-			SELECT TOP 1 EstadoSimplificacionCUV
-			FROM Pais
-			WHERE CodigoISO = @PaisISO
-		), 0),
-		C.MontoMinimoPedido,
-		C.MontoMaximoPedido
-	FROM GPR.PedidoRechazado PR
-	INNER JOIN GPR.MotivoRechazo MR WITH(NOLOCK) ON PR.MotivoRechazo = MR.Codigo AND MR.RequiereGestion = 1
-	LEFT JOIN ods.Consultora C WITH(NOLOCK) ON C.Codigo =  PR.CodigoConsultora
-	LEFT JOIN Usuario U WITH(NOLOCK) ON U.CodigoConsultora =  PR.CodigoConsultora
-	LEFT JOIN PedidoWeb PW WITH(NOLOCK) ON PW.CampaniaID = PR.Campania AND PW.ConsultoraID = C.ConsultoraID
-	WHERE PR.IdProcesoPedidoRechazado = @IdProcesoPedidoRechazado AND PR.Procesado = 0;
+	
+	SELECT ProcesoValidacionPedidoRechazadoId, IdProcesoPedidoRechazado,DescripcionRechazo, ConsultoraID , CodigoConsultora, Campania, CodigoUsuario, Nombre, 
+	EMail, ZonaNuevoProl, PedidoID, ImporteTotal, DescuentoProl, EstadoSimplificacionCUV, Valor, MontoMinimoPedido, MontoMaximoPedido
+	FROM(
+
+		SELECT DISTINCT 
+			@ProcesoValidacionPedidoRechazadoId AS ProcesoValidacionPedidoRechazadoId,
+			PR.IdProcesoPedidoRechazado,
+			STUFF(
+			(
+				SELECT ',' + PR1.MotivoRechazo
+				FROM GPR.PedidoRechazado AS PR1			
+				WHERE
+					C.Codigo =  PR1.CodigoConsultora
+					AND U.CodigoConsultora =  PR1.CodigoConsultora
+					AND PR1.IdProcesoPedidoRechazado = @IdProcesoPedidoRechazado
+				FOR xml path('')),1,1,''
+			) AS DescripcionRechazo,
+			C.ConsultoraID,
+			PR.CodigoConsultora,
+			PR.Campania,
+			U.CodigoUsuario,
+			U.Nombre,
+			IIF(U.EmailActivo = 1, U.EMail, '') AS EMail,
+			ISNULL((
+				SELECT TOP 1 1
+				FROM ConfiguracionValidacionNuevoPROL CVNP WITH(NOLOCK)
+				WHERE CVNP.ZonaId = C.ZonaId
+			),0) AS ZonaNuevoProl,
+			PW.PedidoID,		
+			PW.ImporteTotal,
+			PW.DescuentoProl,
+			ISNULL((
+				SELECT TOP 1 EstadoSimplificacionCUV
+				FROM Pais
+				WHERE CodigoISO = @PaisISO
+			), 0) AS EstadoSimplificacionCUV,
+			IIF(PR.MotivoRechazo = 'OCC-19', PR.VALOR, '') AS VALOR,
+			C.MontoMinimoPedido,		
+			C.MontoMaximoPedido
+		FROM GPR.PedidoRechazado PR
+		INNER JOIN GPR.MotivoRechazo MR WITH(NOLOCK) ON PR.MotivoRechazo = MR.Codigo AND MR.RequiereGestion = 1
+		LEFT JOIN ods.Consultora C WITH(NOLOCK) ON C.Codigo =  PR.CodigoConsultora
+		LEFT JOIN Usuario U WITH(NOLOCK) ON U.CodigoConsultora =  PR.CodigoConsultora
+		LEFT JOIN PedidoWeb PW WITH(NOLOCK) ON PW.CampaniaID = PR.Campania AND PW.ConsultoraID = C.ConsultoraID
+		WHERE PR.IdProcesoPedidoRechazado = @IdProcesoPedidoRechazado AND PR.Procesado = 0
+		) T
+
+	WHERE T.Valor <> ''
+	GROUP BY ProcesoValidacionPedidoRechazadoId, IdProcesoPedidoRechazado,DescripcionRechazo, ConsultoraID , CodigoConsultora, Campania, CodigoUsuario, Nombre, 
+	EMail, ZonaNuevoProl, PedidoID, ImporteTotal, DescuentoProl, EstadoSimplificacionCUV, Valor, MontoMinimoPedido, MontoMaximoPedido
 		
 	SELECT DISTINCT
 		LGPRV.LogGPRValidacionId,
@@ -715,6 +805,7 @@ BEGIN
 	INNER JOIN [dbo].[Pais] P (nolock) ON U.PaisID = P.PaisID
 	WHERE LGPRV.ProcesoValidacionPedidoRechazadoId = @ProcesoValidacionPedidoRechazadoId;
 END
+
 
 
 GO
@@ -750,49 +841,61 @@ BEGIN
 		SubTotal,
 		Descuento,
 		EstadoSimplificacionCUV,
+		Valor,
 		MontoMinimoPedido,
 		MontoMaximoPedido
 	)
-	SELECT DISTINCT 
-		@ProcesoValidacionPedidoRechazadoId,
-		PR.IdProcesoPedidoRechazado,
-		STUFF(
-		(
-			SELECT ',' + PR1.MotivoRechazo
-			FROM GPR.PedidoRechazado AS PR1			
-			WHERE
-				C.Codigo =  PR1.CodigoConsultora
-				AND U.CodigoConsultora =  PR1.CodigoConsultora
-				AND PR1.IdProcesoPedidoRechazado = @IdProcesoPedidoRechazado
-			FOR xml path('')),1,1,''
-		),
-		C.ConsultoraID,
-		PR.CodigoConsultora,
-		PR.Campania,
-		U.CodigoUsuario,
-		U.Nombre,
-		IIF(U.EmailActivo = 1, U.EMail, ''),
-		ISNULL((
-			SELECT TOP 1 1
-			FROM ConfiguracionValidacionNuevoPROL CVNP WITH(NOLOCK)
-			WHERE CVNP.ZonaId = C.ZonaId
-		),0),
-		PW.PedidoID,		
-		PW.ImporteTotal,
-		PW.DescuentoProl,
-		ISNULL((
-			SELECT TOP 1 EstadoSimplificacionCUV
-			FROM Pais
-			WHERE CodigoISO = @PaisISO
-		), 0),
-		C.MontoMinimoPedido,
-		C.MontoMaximoPedido
-	FROM GPR.PedidoRechazado PR
-	INNER JOIN GPR.MotivoRechazo MR WITH(NOLOCK) ON PR.MotivoRechazo = MR.Codigo AND MR.RequiereGestion = 1
-	LEFT JOIN ods.Consultora C WITH(NOLOCK) ON C.Codigo =  PR.CodigoConsultora
-	LEFT JOIN Usuario U WITH(NOLOCK) ON U.CodigoConsultora =  PR.CodigoConsultora
-	LEFT JOIN PedidoWeb PW WITH(NOLOCK) ON PW.CampaniaID = PR.Campania AND PW.ConsultoraID = C.ConsultoraID
-	WHERE PR.IdProcesoPedidoRechazado = @IdProcesoPedidoRechazado AND PR.Procesado = 0;
+	
+	SELECT ProcesoValidacionPedidoRechazadoId, IdProcesoPedidoRechazado,DescripcionRechazo, ConsultoraID , CodigoConsultora, Campania, CodigoUsuario, Nombre, 
+	EMail, ZonaNuevoProl, PedidoID, ImporteTotal, DescuentoProl, EstadoSimplificacionCUV, Valor, MontoMinimoPedido, MontoMaximoPedido
+	FROM(
+
+		SELECT DISTINCT 
+			@ProcesoValidacionPedidoRechazadoId AS ProcesoValidacionPedidoRechazadoId,
+			PR.IdProcesoPedidoRechazado,
+			STUFF(
+			(
+				SELECT ',' + PR1.MotivoRechazo
+				FROM GPR.PedidoRechazado AS PR1			
+				WHERE
+					C.Codigo =  PR1.CodigoConsultora
+					AND U.CodigoConsultora =  PR1.CodigoConsultora
+					AND PR1.IdProcesoPedidoRechazado = @IdProcesoPedidoRechazado
+				FOR xml path('')),1,1,''
+			) AS DescripcionRechazo,
+			C.ConsultoraID,
+			PR.CodigoConsultora,
+			PR.Campania,
+			U.CodigoUsuario,
+			U.Nombre,
+			IIF(U.EmailActivo = 1, U.EMail, '') AS EMail,
+			ISNULL((
+				SELECT TOP 1 1
+				FROM ConfiguracionValidacionNuevoPROL CVNP WITH(NOLOCK)
+				WHERE CVNP.ZonaId = C.ZonaId
+			),0) AS ZonaNuevoProl,
+			PW.PedidoID,		
+			PW.ImporteTotal,
+			PW.DescuentoProl,
+			ISNULL((
+				SELECT TOP 1 EstadoSimplificacionCUV
+				FROM Pais
+				WHERE CodigoISO = @PaisISO
+			), 0) AS EstadoSimplificacionCUV,
+			IIF(PR.MotivoRechazo = 'OCC-19', PR.VALOR, '') AS VALOR,
+			C.MontoMinimoPedido,		
+			C.MontoMaximoPedido
+		FROM GPR.PedidoRechazado PR
+		INNER JOIN GPR.MotivoRechazo MR WITH(NOLOCK) ON PR.MotivoRechazo = MR.Codigo AND MR.RequiereGestion = 1
+		LEFT JOIN ods.Consultora C WITH(NOLOCK) ON C.Codigo =  PR.CodigoConsultora
+		LEFT JOIN Usuario U WITH(NOLOCK) ON U.CodigoConsultora =  PR.CodigoConsultora
+		LEFT JOIN PedidoWeb PW WITH(NOLOCK) ON PW.CampaniaID = PR.Campania AND PW.ConsultoraID = C.ConsultoraID
+		WHERE PR.IdProcesoPedidoRechazado = @IdProcesoPedidoRechazado AND PR.Procesado = 0
+		) T
+
+	WHERE T.Valor <> ''
+	GROUP BY ProcesoValidacionPedidoRechazadoId, IdProcesoPedidoRechazado,DescripcionRechazo, ConsultoraID , CodigoConsultora, Campania, CodigoUsuario, Nombre, 
+	EMail, ZonaNuevoProl, PedidoID, ImporteTotal, DescuentoProl, EstadoSimplificacionCUV, Valor, MontoMinimoPedido, MontoMaximoPedido
 		
 	SELECT DISTINCT
 		LGPRV.LogGPRValidacionId,
@@ -818,6 +921,7 @@ BEGIN
 	INNER JOIN [dbo].[Pais] P (nolock) ON U.PaisID = P.PaisID
 	WHERE LGPRV.ProcesoValidacionPedidoRechazadoId = @ProcesoValidacionPedidoRechazadoId;
 END
+
 
 
 GO
@@ -853,49 +957,61 @@ BEGIN
 		SubTotal,
 		Descuento,
 		EstadoSimplificacionCUV,
+		Valor,
 		MontoMinimoPedido,
 		MontoMaximoPedido
 	)
-	SELECT DISTINCT 
-		@ProcesoValidacionPedidoRechazadoId,
-		PR.IdProcesoPedidoRechazado,
-		STUFF(
-		(
-			SELECT ',' + PR1.MotivoRechazo
-			FROM GPR.PedidoRechazado AS PR1			
-			WHERE
-				C.Codigo =  PR1.CodigoConsultora
-				AND U.CodigoConsultora =  PR1.CodigoConsultora
-				AND PR1.IdProcesoPedidoRechazado = @IdProcesoPedidoRechazado
-			FOR xml path('')),1,1,''
-		),
-		C.ConsultoraID,
-		PR.CodigoConsultora,
-		PR.Campania,
-		U.CodigoUsuario,
-		U.Nombre,
-		IIF(U.EmailActivo = 1, U.EMail, ''),
-		ISNULL((
-			SELECT TOP 1 1
-			FROM ConfiguracionValidacionNuevoPROL CVNP WITH(NOLOCK)
-			WHERE CVNP.ZonaId = C.ZonaId
-		),0),
-		PW.PedidoID,		
-		PW.ImporteTotal,
-		PW.DescuentoProl,
-		ISNULL((
-			SELECT TOP 1 EstadoSimplificacionCUV
-			FROM Pais
-			WHERE CodigoISO = @PaisISO
-		), 0),
-		C.MontoMinimoPedido,
-		C.MontoMaximoPedido
-	FROM GPR.PedidoRechazado PR
-	INNER JOIN GPR.MotivoRechazo MR WITH(NOLOCK) ON PR.MotivoRechazo = MR.Codigo AND MR.RequiereGestion = 1
-	LEFT JOIN ods.Consultora C WITH(NOLOCK) ON C.Codigo =  PR.CodigoConsultora
-	LEFT JOIN Usuario U WITH(NOLOCK) ON U.CodigoConsultora =  PR.CodigoConsultora
-	LEFT JOIN PedidoWeb PW WITH(NOLOCK) ON PW.CampaniaID = PR.Campania AND PW.ConsultoraID = C.ConsultoraID
-	WHERE PR.IdProcesoPedidoRechazado = @IdProcesoPedidoRechazado AND PR.Procesado = 0;
+	
+	SELECT ProcesoValidacionPedidoRechazadoId, IdProcesoPedidoRechazado,DescripcionRechazo, ConsultoraID , CodigoConsultora, Campania, CodigoUsuario, Nombre, 
+	EMail, ZonaNuevoProl, PedidoID, ImporteTotal, DescuentoProl, EstadoSimplificacionCUV, Valor, MontoMinimoPedido, MontoMaximoPedido
+	FROM(
+
+		SELECT DISTINCT 
+			@ProcesoValidacionPedidoRechazadoId AS ProcesoValidacionPedidoRechazadoId,
+			PR.IdProcesoPedidoRechazado,
+			STUFF(
+			(
+				SELECT ',' + PR1.MotivoRechazo
+				FROM GPR.PedidoRechazado AS PR1			
+				WHERE
+					C.Codigo =  PR1.CodigoConsultora
+					AND U.CodigoConsultora =  PR1.CodigoConsultora
+					AND PR1.IdProcesoPedidoRechazado = @IdProcesoPedidoRechazado
+				FOR xml path('')),1,1,''
+			) AS DescripcionRechazo,
+			C.ConsultoraID,
+			PR.CodigoConsultora,
+			PR.Campania,
+			U.CodigoUsuario,
+			U.Nombre,
+			IIF(U.EmailActivo = 1, U.EMail, '') AS EMail,
+			ISNULL((
+				SELECT TOP 1 1
+				FROM ConfiguracionValidacionNuevoPROL CVNP WITH(NOLOCK)
+				WHERE CVNP.ZonaId = C.ZonaId
+			),0) AS ZonaNuevoProl,
+			PW.PedidoID,		
+			PW.ImporteTotal,
+			PW.DescuentoProl,
+			ISNULL((
+				SELECT TOP 1 EstadoSimplificacionCUV
+				FROM Pais
+				WHERE CodigoISO = @PaisISO
+			), 0) AS EstadoSimplificacionCUV,
+			IIF(PR.MotivoRechazo = 'OCC-19', PR.VALOR, '') AS VALOR,
+			C.MontoMinimoPedido,		
+			C.MontoMaximoPedido
+		FROM GPR.PedidoRechazado PR
+		INNER JOIN GPR.MotivoRechazo MR WITH(NOLOCK) ON PR.MotivoRechazo = MR.Codigo AND MR.RequiereGestion = 1
+		LEFT JOIN ods.Consultora C WITH(NOLOCK) ON C.Codigo =  PR.CodigoConsultora
+		LEFT JOIN Usuario U WITH(NOLOCK) ON U.CodigoConsultora =  PR.CodigoConsultora
+		LEFT JOIN PedidoWeb PW WITH(NOLOCK) ON PW.CampaniaID = PR.Campania AND PW.ConsultoraID = C.ConsultoraID
+		WHERE PR.IdProcesoPedidoRechazado = @IdProcesoPedidoRechazado AND PR.Procesado = 0
+		) T
+
+	WHERE T.Valor <> ''
+	GROUP BY ProcesoValidacionPedidoRechazadoId, IdProcesoPedidoRechazado,DescripcionRechazo, ConsultoraID , CodigoConsultora, Campania, CodigoUsuario, Nombre, 
+	EMail, ZonaNuevoProl, PedidoID, ImporteTotal, DescuentoProl, EstadoSimplificacionCUV, Valor, MontoMinimoPedido, MontoMaximoPedido
 		
 	SELECT DISTINCT
 		LGPRV.LogGPRValidacionId,
@@ -921,6 +1037,7 @@ BEGIN
 	INNER JOIN [dbo].[Pais] P (nolock) ON U.PaisID = P.PaisID
 	WHERE LGPRV.ProcesoValidacionPedidoRechazadoId = @ProcesoValidacionPedidoRechazadoId;
 END
+
 
 
 GO
@@ -956,49 +1073,61 @@ BEGIN
 		SubTotal,
 		Descuento,
 		EstadoSimplificacionCUV,
+		Valor,
 		MontoMinimoPedido,
 		MontoMaximoPedido
 	)
-	SELECT DISTINCT 
-		@ProcesoValidacionPedidoRechazadoId,
-		PR.IdProcesoPedidoRechazado,
-		STUFF(
-		(
-			SELECT ',' + PR1.MotivoRechazo
-			FROM GPR.PedidoRechazado AS PR1			
-			WHERE
-				C.Codigo =  PR1.CodigoConsultora
-				AND U.CodigoConsultora =  PR1.CodigoConsultora
-				AND PR1.IdProcesoPedidoRechazado = @IdProcesoPedidoRechazado
-			FOR xml path('')),1,1,''
-		),
-		C.ConsultoraID,
-		PR.CodigoConsultora,
-		PR.Campania,
-		U.CodigoUsuario,
-		U.Nombre,
-		IIF(U.EmailActivo = 1, U.EMail, ''),
-		ISNULL((
-			SELECT TOP 1 1
-			FROM ConfiguracionValidacionNuevoPROL CVNP WITH(NOLOCK)
-			WHERE CVNP.ZonaId = C.ZonaId
-		),0),
-		PW.PedidoID,		
-		PW.ImporteTotal,
-		PW.DescuentoProl,
-		ISNULL((
-			SELECT TOP 1 EstadoSimplificacionCUV
-			FROM Pais
-			WHERE CodigoISO = @PaisISO
-		), 0),
-		C.MontoMinimoPedido,
-		C.MontoMaximoPedido
-	FROM GPR.PedidoRechazado PR
-	INNER JOIN GPR.MotivoRechazo MR WITH(NOLOCK) ON PR.MotivoRechazo = MR.Codigo AND MR.RequiereGestion = 1
-	LEFT JOIN ods.Consultora C WITH(NOLOCK) ON C.Codigo =  PR.CodigoConsultora
-	LEFT JOIN Usuario U WITH(NOLOCK) ON U.CodigoConsultora =  PR.CodigoConsultora
-	LEFT JOIN PedidoWeb PW WITH(NOLOCK) ON PW.CampaniaID = PR.Campania AND PW.ConsultoraID = C.ConsultoraID
-	WHERE PR.IdProcesoPedidoRechazado = @IdProcesoPedidoRechazado AND PR.Procesado = 0;
+	
+	SELECT ProcesoValidacionPedidoRechazadoId, IdProcesoPedidoRechazado,DescripcionRechazo, ConsultoraID , CodigoConsultora, Campania, CodigoUsuario, Nombre, 
+	EMail, ZonaNuevoProl, PedidoID, ImporteTotal, DescuentoProl, EstadoSimplificacionCUV, Valor, MontoMinimoPedido, MontoMaximoPedido
+	FROM(
+
+		SELECT DISTINCT 
+			@ProcesoValidacionPedidoRechazadoId AS ProcesoValidacionPedidoRechazadoId,
+			PR.IdProcesoPedidoRechazado,
+			STUFF(
+			(
+				SELECT ',' + PR1.MotivoRechazo
+				FROM GPR.PedidoRechazado AS PR1			
+				WHERE
+					C.Codigo =  PR1.CodigoConsultora
+					AND U.CodigoConsultora =  PR1.CodigoConsultora
+					AND PR1.IdProcesoPedidoRechazado = @IdProcesoPedidoRechazado
+				FOR xml path('')),1,1,''
+			) AS DescripcionRechazo,
+			C.ConsultoraID,
+			PR.CodigoConsultora,
+			PR.Campania,
+			U.CodigoUsuario,
+			U.Nombre,
+			IIF(U.EmailActivo = 1, U.EMail, '') AS EMail,
+			ISNULL((
+				SELECT TOP 1 1
+				FROM ConfiguracionValidacionNuevoPROL CVNP WITH(NOLOCK)
+				WHERE CVNP.ZonaId = C.ZonaId
+			),0) AS ZonaNuevoProl,
+			PW.PedidoID,		
+			PW.ImporteTotal,
+			PW.DescuentoProl,
+			ISNULL((
+				SELECT TOP 1 EstadoSimplificacionCUV
+				FROM Pais
+				WHERE CodigoISO = @PaisISO
+			), 0) AS EstadoSimplificacionCUV,
+			IIF(PR.MotivoRechazo = 'OCC-19', PR.VALOR, '') AS VALOR,
+			C.MontoMinimoPedido,		
+			C.MontoMaximoPedido
+		FROM GPR.PedidoRechazado PR
+		INNER JOIN GPR.MotivoRechazo MR WITH(NOLOCK) ON PR.MotivoRechazo = MR.Codigo AND MR.RequiereGestion = 1
+		LEFT JOIN ods.Consultora C WITH(NOLOCK) ON C.Codigo =  PR.CodigoConsultora
+		LEFT JOIN Usuario U WITH(NOLOCK) ON U.CodigoConsultora =  PR.CodigoConsultora
+		LEFT JOIN PedidoWeb PW WITH(NOLOCK) ON PW.CampaniaID = PR.Campania AND PW.ConsultoraID = C.ConsultoraID
+		WHERE PR.IdProcesoPedidoRechazado = @IdProcesoPedidoRechazado AND PR.Procesado = 0
+		) T
+
+	WHERE T.Valor <> ''
+	GROUP BY ProcesoValidacionPedidoRechazadoId, IdProcesoPedidoRechazado,DescripcionRechazo, ConsultoraID , CodigoConsultora, Campania, CodigoUsuario, Nombre, 
+	EMail, ZonaNuevoProl, PedidoID, ImporteTotal, DescuentoProl, EstadoSimplificacionCUV, Valor, MontoMinimoPedido, MontoMaximoPedido
 		
 	SELECT DISTINCT
 		LGPRV.LogGPRValidacionId,
@@ -1024,6 +1153,7 @@ BEGIN
 	INNER JOIN [dbo].[Pais] P (nolock) ON U.PaisID = P.PaisID
 	WHERE LGPRV.ProcesoValidacionPedidoRechazadoId = @ProcesoValidacionPedidoRechazadoId;
 END
+
 
 
 GO
@@ -1059,49 +1189,61 @@ BEGIN
 		SubTotal,
 		Descuento,
 		EstadoSimplificacionCUV,
+		Valor,
 		MontoMinimoPedido,
 		MontoMaximoPedido
 	)
-	SELECT DISTINCT 
-		@ProcesoValidacionPedidoRechazadoId,
-		PR.IdProcesoPedidoRechazado,
-		STUFF(
-		(
-			SELECT ',' + PR1.MotivoRechazo
-			FROM GPR.PedidoRechazado AS PR1			
-			WHERE
-				C.Codigo =  PR1.CodigoConsultora
-				AND U.CodigoConsultora =  PR1.CodigoConsultora
-				AND PR1.IdProcesoPedidoRechazado = @IdProcesoPedidoRechazado
-			FOR xml path('')),1,1,''
-		),
-		C.ConsultoraID,
-		PR.CodigoConsultora,
-		PR.Campania,
-		U.CodigoUsuario,
-		U.Nombre,
-		IIF(U.EmailActivo = 1, U.EMail, ''),
-		ISNULL((
-			SELECT TOP 1 1
-			FROM ConfiguracionValidacionNuevoPROL CVNP WITH(NOLOCK)
-			WHERE CVNP.ZonaId = C.ZonaId
-		),0),
-		PW.PedidoID,		
-		PW.ImporteTotal,
-		PW.DescuentoProl,
-		ISNULL((
-			SELECT TOP 1 EstadoSimplificacionCUV
-			FROM Pais
-			WHERE CodigoISO = @PaisISO
-		), 0),
-		C.MontoMinimoPedido,
-		C.MontoMaximoPedido
-	FROM GPR.PedidoRechazado PR
-	INNER JOIN GPR.MotivoRechazo MR WITH(NOLOCK) ON PR.MotivoRechazo = MR.Codigo AND MR.RequiereGestion = 1
-	LEFT JOIN ods.Consultora C WITH(NOLOCK) ON C.Codigo =  PR.CodigoConsultora
-	LEFT JOIN Usuario U WITH(NOLOCK) ON U.CodigoConsultora =  PR.CodigoConsultora
-	LEFT JOIN PedidoWeb PW WITH(NOLOCK) ON PW.CampaniaID = PR.Campania AND PW.ConsultoraID = C.ConsultoraID
-	WHERE PR.IdProcesoPedidoRechazado = @IdProcesoPedidoRechazado AND PR.Procesado = 0;
+	
+	SELECT ProcesoValidacionPedidoRechazadoId, IdProcesoPedidoRechazado,DescripcionRechazo, ConsultoraID , CodigoConsultora, Campania, CodigoUsuario, Nombre, 
+	EMail, ZonaNuevoProl, PedidoID, ImporteTotal, DescuentoProl, EstadoSimplificacionCUV, Valor, MontoMinimoPedido, MontoMaximoPedido
+	FROM(
+
+		SELECT DISTINCT 
+			@ProcesoValidacionPedidoRechazadoId AS ProcesoValidacionPedidoRechazadoId,
+			PR.IdProcesoPedidoRechazado,
+			STUFF(
+			(
+				SELECT ',' + PR1.MotivoRechazo
+				FROM GPR.PedidoRechazado AS PR1			
+				WHERE
+					C.Codigo =  PR1.CodigoConsultora
+					AND U.CodigoConsultora =  PR1.CodigoConsultora
+					AND PR1.IdProcesoPedidoRechazado = @IdProcesoPedidoRechazado
+				FOR xml path('')),1,1,''
+			) AS DescripcionRechazo,
+			C.ConsultoraID,
+			PR.CodigoConsultora,
+			PR.Campania,
+			U.CodigoUsuario,
+			U.Nombre,
+			IIF(U.EmailActivo = 1, U.EMail, '') AS EMail,
+			ISNULL((
+				SELECT TOP 1 1
+				FROM ConfiguracionValidacionNuevoPROL CVNP WITH(NOLOCK)
+				WHERE CVNP.ZonaId = C.ZonaId
+			),0) AS ZonaNuevoProl,
+			PW.PedidoID,		
+			PW.ImporteTotal,
+			PW.DescuentoProl,
+			ISNULL((
+				SELECT TOP 1 EstadoSimplificacionCUV
+				FROM Pais
+				WHERE CodigoISO = @PaisISO
+			), 0) AS EstadoSimplificacionCUV,
+			IIF(PR.MotivoRechazo = 'OCC-19', PR.VALOR, '') AS VALOR,
+			C.MontoMinimoPedido,		
+			C.MontoMaximoPedido
+		FROM GPR.PedidoRechazado PR
+		INNER JOIN GPR.MotivoRechazo MR WITH(NOLOCK) ON PR.MotivoRechazo = MR.Codigo AND MR.RequiereGestion = 1
+		LEFT JOIN ods.Consultora C WITH(NOLOCK) ON C.Codigo =  PR.CodigoConsultora
+		LEFT JOIN Usuario U WITH(NOLOCK) ON U.CodigoConsultora =  PR.CodigoConsultora
+		LEFT JOIN PedidoWeb PW WITH(NOLOCK) ON PW.CampaniaID = PR.Campania AND PW.ConsultoraID = C.ConsultoraID
+		WHERE PR.IdProcesoPedidoRechazado = @IdProcesoPedidoRechazado AND PR.Procesado = 0
+		) T
+
+	WHERE T.Valor <> ''
+	GROUP BY ProcesoValidacionPedidoRechazadoId, IdProcesoPedidoRechazado,DescripcionRechazo, ConsultoraID , CodigoConsultora, Campania, CodigoUsuario, Nombre, 
+	EMail, ZonaNuevoProl, PedidoID, ImporteTotal, DescuentoProl, EstadoSimplificacionCUV, Valor, MontoMinimoPedido, MontoMaximoPedido
 		
 	SELECT DISTINCT
 		LGPRV.LogGPRValidacionId,
@@ -1127,6 +1269,7 @@ BEGIN
 	INNER JOIN [dbo].[Pais] P (nolock) ON U.PaisID = P.PaisID
 	WHERE LGPRV.ProcesoValidacionPedidoRechazadoId = @ProcesoValidacionPedidoRechazadoId;
 END
+
 
 
 GO
@@ -1162,49 +1305,61 @@ BEGIN
 		SubTotal,
 		Descuento,
 		EstadoSimplificacionCUV,
+		Valor,
 		MontoMinimoPedido,
 		MontoMaximoPedido
 	)
-	SELECT DISTINCT 
-		@ProcesoValidacionPedidoRechazadoId,
-		PR.IdProcesoPedidoRechazado,
-		STUFF(
-		(
-			SELECT ',' + PR1.MotivoRechazo
-			FROM GPR.PedidoRechazado AS PR1			
-			WHERE
-				C.Codigo =  PR1.CodigoConsultora
-				AND U.CodigoConsultora =  PR1.CodigoConsultora
-				AND PR1.IdProcesoPedidoRechazado = @IdProcesoPedidoRechazado
-			FOR xml path('')),1,1,''
-		),
-		C.ConsultoraID,
-		PR.CodigoConsultora,
-		PR.Campania,
-		U.CodigoUsuario,
-		U.Nombre,
-		IIF(U.EmailActivo = 1, U.EMail, ''),
-		ISNULL((
-			SELECT TOP 1 1
-			FROM ConfiguracionValidacionNuevoPROL CVNP WITH(NOLOCK)
-			WHERE CVNP.ZonaId = C.ZonaId
-		),0),
-		PW.PedidoID,		
-		PW.ImporteTotal,
-		PW.DescuentoProl,
-		ISNULL((
-			SELECT TOP 1 EstadoSimplificacionCUV
-			FROM Pais
-			WHERE CodigoISO = @PaisISO
-		), 0),
-		C.MontoMinimoPedido,
-		C.MontoMaximoPedido
-	FROM GPR.PedidoRechazado PR
-	INNER JOIN GPR.MotivoRechazo MR WITH(NOLOCK) ON PR.MotivoRechazo = MR.Codigo AND MR.RequiereGestion = 1
-	LEFT JOIN ods.Consultora C WITH(NOLOCK) ON C.Codigo =  PR.CodigoConsultora
-	LEFT JOIN Usuario U WITH(NOLOCK) ON U.CodigoConsultora =  PR.CodigoConsultora
-	LEFT JOIN PedidoWeb PW WITH(NOLOCK) ON PW.CampaniaID = PR.Campania AND PW.ConsultoraID = C.ConsultoraID
-	WHERE PR.IdProcesoPedidoRechazado = @IdProcesoPedidoRechazado AND PR.Procesado = 0;
+	
+	SELECT ProcesoValidacionPedidoRechazadoId, IdProcesoPedidoRechazado,DescripcionRechazo, ConsultoraID , CodigoConsultora, Campania, CodigoUsuario, Nombre, 
+	EMail, ZonaNuevoProl, PedidoID, ImporteTotal, DescuentoProl, EstadoSimplificacionCUV, Valor, MontoMinimoPedido, MontoMaximoPedido
+	FROM(
+
+		SELECT DISTINCT 
+			@ProcesoValidacionPedidoRechazadoId AS ProcesoValidacionPedidoRechazadoId,
+			PR.IdProcesoPedidoRechazado,
+			STUFF(
+			(
+				SELECT ',' + PR1.MotivoRechazo
+				FROM GPR.PedidoRechazado AS PR1			
+				WHERE
+					C.Codigo =  PR1.CodigoConsultora
+					AND U.CodigoConsultora =  PR1.CodigoConsultora
+					AND PR1.IdProcesoPedidoRechazado = @IdProcesoPedidoRechazado
+				FOR xml path('')),1,1,''
+			) AS DescripcionRechazo,
+			C.ConsultoraID,
+			PR.CodigoConsultora,
+			PR.Campania,
+			U.CodigoUsuario,
+			U.Nombre,
+			IIF(U.EmailActivo = 1, U.EMail, '') AS EMail,
+			ISNULL((
+				SELECT TOP 1 1
+				FROM ConfiguracionValidacionNuevoPROL CVNP WITH(NOLOCK)
+				WHERE CVNP.ZonaId = C.ZonaId
+			),0) AS ZonaNuevoProl,
+			PW.PedidoID,		
+			PW.ImporteTotal,
+			PW.DescuentoProl,
+			ISNULL((
+				SELECT TOP 1 EstadoSimplificacionCUV
+				FROM Pais
+				WHERE CodigoISO = @PaisISO
+			), 0) AS EstadoSimplificacionCUV,
+			IIF(PR.MotivoRechazo = 'OCC-19', PR.VALOR, '') AS VALOR,
+			C.MontoMinimoPedido,		
+			C.MontoMaximoPedido
+		FROM GPR.PedidoRechazado PR
+		INNER JOIN GPR.MotivoRechazo MR WITH(NOLOCK) ON PR.MotivoRechazo = MR.Codigo AND MR.RequiereGestion = 1
+		LEFT JOIN ods.Consultora C WITH(NOLOCK) ON C.Codigo =  PR.CodigoConsultora
+		LEFT JOIN Usuario U WITH(NOLOCK) ON U.CodigoConsultora =  PR.CodigoConsultora
+		LEFT JOIN PedidoWeb PW WITH(NOLOCK) ON PW.CampaniaID = PR.Campania AND PW.ConsultoraID = C.ConsultoraID
+		WHERE PR.IdProcesoPedidoRechazado = @IdProcesoPedidoRechazado AND PR.Procesado = 0
+		) T
+
+	WHERE T.Valor <> ''
+	GROUP BY ProcesoValidacionPedidoRechazadoId, IdProcesoPedidoRechazado,DescripcionRechazo, ConsultoraID , CodigoConsultora, Campania, CodigoUsuario, Nombre, 
+	EMail, ZonaNuevoProl, PedidoID, ImporteTotal, DescuentoProl, EstadoSimplificacionCUV, Valor, MontoMinimoPedido, MontoMaximoPedido
 		
 	SELECT DISTINCT
 		LGPRV.LogGPRValidacionId,
@@ -1230,6 +1385,7 @@ BEGIN
 	INNER JOIN [dbo].[Pais] P (nolock) ON U.PaisID = P.PaisID
 	WHERE LGPRV.ProcesoValidacionPedidoRechazadoId = @ProcesoValidacionPedidoRechazadoId;
 END
+
 
 
 GO
@@ -1265,49 +1421,61 @@ BEGIN
 		SubTotal,
 		Descuento,
 		EstadoSimplificacionCUV,
+		Valor,
 		MontoMinimoPedido,
 		MontoMaximoPedido
 	)
-	SELECT DISTINCT 
-		@ProcesoValidacionPedidoRechazadoId,
-		PR.IdProcesoPedidoRechazado,
-		STUFF(
-		(
-			SELECT ',' + PR1.MotivoRechazo
-			FROM GPR.PedidoRechazado AS PR1			
-			WHERE
-				C.Codigo =  PR1.CodigoConsultora
-				AND U.CodigoConsultora =  PR1.CodigoConsultora
-				AND PR1.IdProcesoPedidoRechazado = @IdProcesoPedidoRechazado
-			FOR xml path('')),1,1,''
-		),
-		C.ConsultoraID,
-		PR.CodigoConsultora,
-		PR.Campania,
-		U.CodigoUsuario,
-		U.Nombre,
-		IIF(U.EmailActivo = 1, U.EMail, ''),
-		ISNULL((
-			SELECT TOP 1 1
-			FROM ConfiguracionValidacionNuevoPROL CVNP WITH(NOLOCK)
-			WHERE CVNP.ZonaId = C.ZonaId
-		),0),
-		PW.PedidoID,		
-		PW.ImporteTotal,
-		PW.DescuentoProl,
-		ISNULL((
-			SELECT TOP 1 EstadoSimplificacionCUV
-			FROM Pais
-			WHERE CodigoISO = @PaisISO
-		), 0),
-		C.MontoMinimoPedido,
-		C.MontoMaximoPedido
-	FROM GPR.PedidoRechazado PR
-	INNER JOIN GPR.MotivoRechazo MR WITH(NOLOCK) ON PR.MotivoRechazo = MR.Codigo AND MR.RequiereGestion = 1
-	LEFT JOIN ods.Consultora C WITH(NOLOCK) ON C.Codigo =  PR.CodigoConsultora
-	LEFT JOIN Usuario U WITH(NOLOCK) ON U.CodigoConsultora =  PR.CodigoConsultora
-	LEFT JOIN PedidoWeb PW WITH(NOLOCK) ON PW.CampaniaID = PR.Campania AND PW.ConsultoraID = C.ConsultoraID
-	WHERE PR.IdProcesoPedidoRechazado = @IdProcesoPedidoRechazado AND PR.Procesado = 0;
+	
+	SELECT ProcesoValidacionPedidoRechazadoId, IdProcesoPedidoRechazado,DescripcionRechazo, ConsultoraID , CodigoConsultora, Campania, CodigoUsuario, Nombre, 
+	EMail, ZonaNuevoProl, PedidoID, ImporteTotal, DescuentoProl, EstadoSimplificacionCUV, Valor, MontoMinimoPedido, MontoMaximoPedido
+	FROM(
+
+		SELECT DISTINCT 
+			@ProcesoValidacionPedidoRechazadoId AS ProcesoValidacionPedidoRechazadoId,
+			PR.IdProcesoPedidoRechazado,
+			STUFF(
+			(
+				SELECT ',' + PR1.MotivoRechazo
+				FROM GPR.PedidoRechazado AS PR1			
+				WHERE
+					C.Codigo =  PR1.CodigoConsultora
+					AND U.CodigoConsultora =  PR1.CodigoConsultora
+					AND PR1.IdProcesoPedidoRechazado = @IdProcesoPedidoRechazado
+				FOR xml path('')),1,1,''
+			) AS DescripcionRechazo,
+			C.ConsultoraID,
+			PR.CodigoConsultora,
+			PR.Campania,
+			U.CodigoUsuario,
+			U.Nombre,
+			IIF(U.EmailActivo = 1, U.EMail, '') AS EMail,
+			ISNULL((
+				SELECT TOP 1 1
+				FROM ConfiguracionValidacionNuevoPROL CVNP WITH(NOLOCK)
+				WHERE CVNP.ZonaId = C.ZonaId
+			),0) AS ZonaNuevoProl,
+			PW.PedidoID,		
+			PW.ImporteTotal,
+			PW.DescuentoProl,
+			ISNULL((
+				SELECT TOP 1 EstadoSimplificacionCUV
+				FROM Pais
+				WHERE CodigoISO = @PaisISO
+			), 0) AS EstadoSimplificacionCUV,
+			IIF(PR.MotivoRechazo = 'OCC-19', PR.VALOR, '') AS VALOR,
+			C.MontoMinimoPedido,		
+			C.MontoMaximoPedido
+		FROM GPR.PedidoRechazado PR
+		INNER JOIN GPR.MotivoRechazo MR WITH(NOLOCK) ON PR.MotivoRechazo = MR.Codigo AND MR.RequiereGestion = 1
+		LEFT JOIN ods.Consultora C WITH(NOLOCK) ON C.Codigo =  PR.CodigoConsultora
+		LEFT JOIN Usuario U WITH(NOLOCK) ON U.CodigoConsultora =  PR.CodigoConsultora
+		LEFT JOIN PedidoWeb PW WITH(NOLOCK) ON PW.CampaniaID = PR.Campania AND PW.ConsultoraID = C.ConsultoraID
+		WHERE PR.IdProcesoPedidoRechazado = @IdProcesoPedidoRechazado AND PR.Procesado = 0
+		) T
+
+	WHERE T.Valor <> ''
+	GROUP BY ProcesoValidacionPedidoRechazadoId, IdProcesoPedidoRechazado,DescripcionRechazo, ConsultoraID , CodigoConsultora, Campania, CodigoUsuario, Nombre, 
+	EMail, ZonaNuevoProl, PedidoID, ImporteTotal, DescuentoProl, EstadoSimplificacionCUV, Valor, MontoMinimoPedido, MontoMaximoPedido
 		
 	SELECT DISTINCT
 		LGPRV.LogGPRValidacionId,
@@ -1333,6 +1501,7 @@ BEGIN
 	INNER JOIN [dbo].[Pais] P (nolock) ON U.PaisID = P.PaisID
 	WHERE LGPRV.ProcesoValidacionPedidoRechazadoId = @ProcesoValidacionPedidoRechazadoId;
 END
+
 
 
 GO
