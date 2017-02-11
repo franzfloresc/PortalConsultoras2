@@ -835,11 +835,6 @@ function cerrarMensajeEstadoPedido() {
 
 function MostrarMensajePedidoRechazado() {
     if (location.pathname.toLowerCase().indexOf("/bienvenida") >= 0) {
-        //setTimeout(function () {
-        //    $(".oscurecer_animacion").fadeOut(1500);
-        //    var elem = $(".oscurecer_animacion");
-        //    $(elem).remove();
-        //}, 3000);
 
         $(".oscurecer_animacion").delay(3000).fadeOut(1500);
     }

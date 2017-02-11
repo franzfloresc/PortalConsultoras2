@@ -2362,7 +2362,7 @@ function ActualizarDatos() {
         return false;
     }
 
-    if (correoElectronico != confirmacionCorreoElectronico) {
+    if (correoElectronico.toUpperCase() != confirmacionCorreoElectronico.toUpperCase()) {
         alert('Los correos electrónicos ingresados no coinciden');
         return false;
     }

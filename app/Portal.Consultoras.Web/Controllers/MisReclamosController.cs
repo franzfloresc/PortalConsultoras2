@@ -1473,8 +1473,6 @@ namespace Portal.Consultoras.Web.Controllers
 
         public ActionResult ExportarExcel(string CampaniaID, string RegionID, string ZonaID, string PaisID, string CodigoConsultora, string Estado)
         {
-            
-
             BECDRWeb entidad = new BECDRWeb();
             entidad.CampaniaID = CampaniaID == "" ? 0 : int.Parse(CampaniaID);
             entidad.RegionID = RegionID.Equals(string.Empty) ? 0 : int.Parse(RegionID);
