@@ -56,4 +56,10 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="UbigeoCRCollection" nillable="true" type="tns:UbigeoCRCollection" />
+  <xs:complexType name="UbigeoTemplateCollection">
+    <xs:sequence>
+      <xs:element xmlns:q10="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.DL.DataModel.BelcorpPais" minOccurs="0" maxOccurs="unbounded" name="UbigeoTemplate" nillable="true" type="q10:UbigeoTemplate" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="UbigeoTemplateCollection" nillable="true" type="tns:UbigeoTemplateCollection" />
 </xs:schema>
