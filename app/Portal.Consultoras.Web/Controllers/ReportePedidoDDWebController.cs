@@ -608,7 +608,7 @@ namespace Portal.Consultoras.Web.Controllers
             ExportToExcelDetallePedido("exportar", lst, dic, "DescargaCompleta", "1");
             return View();
         }
-        public ActionResult ExportarExcelDetallePedido(string vPaisID, string vCampania, string vConsultora, string vRegionID, string vZonaID, string vOrigen, string vEstadoValidacion)
+        public ActionResult ExportarExcelDetallePedido(string vPaisID, string vCampania, string vConsultora, string vRegionID, string vZonaID, string vOrigen, string vEstadoValidacion, string vEsRechazado)
         {
             List<BEPedidoDDWeb> lst = new List<BEPedidoDDWeb>();
 
@@ -629,7 +629,8 @@ namespace Portal.Consultoras.Web.Controllers
                         ZonaCodigo = vZonaID,
                         Origen = Convert.ToInt32(vOrigen),
                         ConsultoraCodigo = (string.IsNullOrEmpty(vConsultora) || vConsultora == "0" ? string.Empty : vConsultora),
-                        EstadoValidacion = int.Parse(vEstadoValidacion)
+                        EstadoValidacion = int.Parse(vEstadoValidacion),
+                        EsRechazado = int.Parse(vEsRechazado)
                     }).ToList();
             }
 
@@ -645,7 +646,7 @@ namespace Portal.Consultoras.Web.Controllers
             return View();
         }
 
-        public ActionResult ExportarExcelCabecera(string vPaisID, string vCampania, string vConsultora, string vRegionID, string vZonaID, string vOrigen, string vEstadoValidacion)
+        public ActionResult ExportarExcelCabecera(string vPaisID, string vCampania, string vConsultora, string vRegionID, string vZonaID, string vOrigen, string vEstadoValidacion, string vEsRechazado)
         {
 
             List<BEPedidoDDWeb> lst = new List<BEPedidoDDWeb>();
@@ -687,7 +688,8 @@ namespace Portal.Consultoras.Web.Controllers
                             ZonaCodigo = vZonaID,
                             Origen = Convert.ToInt32(vOrigen),
                             ConsultoraCodigo = (string.IsNullOrEmpty(vConsultora) || vConsultora == "0" ? string.Empty : vConsultora),
-                            EstadoValidacion = int.Parse(vEstadoValidacion)
+                            EstadoValidacion = int.Parse(vEstadoValidacion),
+                            EsRechazado = int.Parse(vEsRechazado)
                         }).ToList();
                 }
             }
@@ -732,7 +734,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
             // 2446 - Inicio
-            Dictionary<string, string> dic = new Dictionary<string,string>();
+            Dictionary<string, string> dic = new Dictionary<string, string>();
 
             dic.Add("NroRegistro", "Nro. Registro,");
             dic.Add("FechaRegistro", "Fecha/Hora Ingreso,");
@@ -752,7 +754,7 @@ namespace Portal.Consultoras.Web.Controllers
             dic.Add("ConsultoraSaldo", "Saldo,");
             dic.Add("OrigenNombre", "Origen,");
             dic.Add("EstadoValidacionNombre", "Validado,");
-            dic.Add("IndicadorEnviado", "Estado");
+            dic.Add("IndicadorEnviado", "Estado,");
             dic.Add("MotivoRechazo", "Motivo Rechazo");
 
             var lista = from a in lst
@@ -770,14 +772,14 @@ namespace Portal.Consultoras.Web.Controllers
                             a.PrimeraCampaniaCodigo,
                             ImporteTotal = UserData().Simbolo + " " + ((UserData().PaisID == 4) ? a.ImporteTotal.ToString("#,##0").Replace(',', '.') : a.ImporteTotal.ToString("0.00")),
                             ImporteTotalConDescuento = UserData().Simbolo + " " + ((UserData().PaisID == 4) ? a.ImporteTotalConDescuento.ToString("#,##0").Replace(',', '.') : a.ImporteTotalConDescuento.ToString("0.00")),
-                            ConsultoraSaldo = UserData().Simbolo + " " + ((UserData().PaisID == 4)? a.ConsultoraSaldo.ToString("#,##0").Replace(',','.') : a.ConsultoraSaldo.ToString("0.00")),
+                            ConsultoraSaldo = UserData().Simbolo + " " + ((UserData().PaisID == 4) ? a.ConsultoraSaldo.ToString("#,##0").Replace(',', '.') : a.ConsultoraSaldo.ToString("0.00")),
                             a.OrigenNombre,
                             a.EstadoValidacionNombre,
                             a.IndicadorEnviado,
                             a.MotivoRechazo
                         };
 
-            ExportToCSV("exportar", lista.ToList(), dic, "DescargaCompleta", "1");
+            ExportToCSV("exportar", lista.ToList(), dic, "DescargaCompleta", "1");            
             // 2446 - Fin
             return View();
         }
@@ -928,7 +930,7 @@ namespace Portal.Consultoras.Web.Controllers
                                     {
                                         ws.Cell(row, col).Value = System.Web.UI.DataBinder.GetPropertyValue(dataItem, property.Name, null);
                                     }
-                                    
+
                                 }
                                 break;
                             }
