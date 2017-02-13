@@ -364,7 +364,7 @@ namespace Portal.Consultoras.Web.Controllers
                                         {
                                             model.MotivoRechazo = "Tienes una deuda pendiente de " + valorx;
                                             valorx = valor + listaMotivox[0].Valor;
-                                            model.MotivoRechazo += ". Además, para pasar pedido debes alcanzar el monto mínimo de " + oBEUsuario.Simbolo + ". " + oBEUsuario.MontoMinimoPedido + ". <a class='CerrarBanner' href='javascript:;' onclick=RedirectMenu('Index','Pedido',0,'Pedido');cerrarMensajeEstadoPedido() >MODIFICA TU PEDIDO</a>";
+                                            model.MotivoRechazo += ". Además, para pasar pedido debes alcanzar el monto mínimo de " + oBEUsuario.Simbolo + ". " + oBEUsuario.MontoMinimoPedido + ". <a class='CerrarBanner' href='javascript:;' onclick=RedirectMenu('Index','Pedido',0,'Pedido'); >MODIFICA TU PEDIDO</a>";
                                         }
                                         else
                                         {
@@ -374,7 +374,7 @@ namespace Portal.Consultoras.Web.Controllers
                                                 model.MotivoRechazo = "No llegaste al monto mínimo de " + oBEUsuario.Simbolo + ". " + oBEUsuario.MontoMinimoPedido + " <a class='CerrarBanner' href='" + @Url.Action("Index", "Pedido", new { area = "Mobile" }) + "' >MODIFICA TU PEDIDO</a>";
                                             }
                                             else { 
-                                                model.MotivoRechazo = "No llegaste al monto mínimo de " + oBEUsuario.Simbolo + ". " + oBEUsuario.MontoMinimoPedido + " <a class='CerrarBanner' href='javascript:;' onclick=RedirectMenu('Index','Pedido',0,'Pedido');cerrarMensajeEstadoPedido() >MODIFICA TU PEDIDO</a>";
+                                                model.MotivoRechazo = "No llegaste al monto mínimo de " + oBEUsuario.Simbolo + ". " + oBEUsuario.MontoMinimoPedido + " <a class='CerrarBanner' href='javascript:;' onclick=RedirectMenu('Index','Pedido',0,'Pedido'); >MODIFICA TU PEDIDO</a>";
                                             }
                                         }
                                     }
@@ -387,12 +387,12 @@ namespace Portal.Consultoras.Web.Controllers
                                             {
                                                 model.MotivoRechazo = "Tienes una deuda pendiente de " + valorx;
                                                 valorx = valor + listaMotivox[0].Valor;
-                                                model.MotivoRechazo += ". Además, superaste tu línea de crédito de " + oBEUsuario.Simbolo + ". " + oBEUsuario.MontoMaximoPedido + ". <a class='CerrarBanner' href='javascript:;' onclick=RedirectMenu('Index','Pedido',0,'Pedido');cerrarMensajeEstadoPedido() >MODIFICA TU PEDIDO</a>";
+                                                model.MotivoRechazo += ". Además, superaste tu línea de crédito de " + oBEUsuario.Simbolo + ". " + oBEUsuario.MontoMaximoPedido + ". <a class='CerrarBanner' href='javascript:;' onclick=RedirectMenu('Index','Pedido',0,'Pedido'); >MODIFICA TU PEDIDO</a>";
                                             }
                                             else
                                             {
                                                 valorx = valor + listaMotivox[0].Valor;
-                                                model.MotivoRechazo = "Superaste tu línea de crédito de " + oBEUsuario.Simbolo + ". " + oBEUsuario.MontoMaximoPedido + ". <a class='CerrarBanner' href='javascript:;' onclick=RedirectMenu('Index','Pedido',0,'Pedido');cerrarMensajeEstadoPedido() >MODIFICA TU PEDIDO</a>";
+                                                model.MotivoRechazo = "Superaste tu línea de crédito de " + oBEUsuario.Simbolo + ". " + oBEUsuario.MontoMaximoPedido + ". <a class='CerrarBanner' href='javascript:;' onclick=RedirectMenu('Index','Pedido',0,'Pedido'); >MODIFICA TU PEDIDO</a>";
                                             }
                                         }
                                     }
@@ -401,7 +401,7 @@ namespace Portal.Consultoras.Web.Controllers
                                     if (listaMotivox.Any())
                                     {
                                         valorx = valor + listaMotivox[0].Valor;
-                                        model.MotivoRechazo = "No llegaste al mínimo de " + valorx + ". <a class='CerrarBanner' href='javascript:;' onclick=RedirectMenu('Index','Pedido',0,'Pedido');cerrarMensajeEstadoPedido() >MODIFICA TU PEDIDO</a>";
+                                        model.MotivoRechazo = "No llegaste al mínimo de " + valorx + ". <a class='CerrarBanner' href='javascript:;' onclick=RedirectMenu('Index','Pedido',0,'Pedido'); >MODIFICA TU PEDIDO</a>";
                                     }
                                 }
                                 // llamar al maestro de mensajes
@@ -459,6 +459,7 @@ namespace Portal.Consultoras.Web.Controllers
                     model.HoraCierreZonaDemAntiCierre = oBEUsuario.HoraCierreZonaDemAntiCierre;
                     model.ConsultoraAsociadaID = oBEUsuario.ConsultoraAsociadaID;
                     model.ValidacionAbierta = oBEUsuario.ValidacionAbierta;
+                    
 
                     if (DateTime.Now.AddHours(oBEUsuario.ZonaHoraria) < oBEUsuario.FechaInicioFacturacion)
                         model.DiaPROLMensajeCierreCampania = false;
@@ -514,6 +515,7 @@ namespace Portal.Consultoras.Web.Controllers
                     model.TipoUsuario = Tipo;
                     model.EsZonaDemAnti = oBEUsuario.EsZonaDemAnti;
                     model.Segmento = oBEUsuario.Segmento;
+                    model.SegmentoAbreviatura = oBEUsuario.SegmentoAbreviatura;
                     model.Sobrenombre = oBEUsuario.Sobrenombre;
                     model.SobrenombreOriginal = oBEUsuario.Sobrenombre;
                     model.Direccion = oBEUsuario.Direccion;

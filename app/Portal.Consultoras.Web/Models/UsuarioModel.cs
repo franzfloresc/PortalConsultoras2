@@ -65,7 +65,8 @@ namespace Portal.Consultoras.Web.Models
             this.EsquemaDAConsultora = false;
             this.TipoCasoPromesa = string.Empty;
             this.DiasCasoPromesa = 0;
-           
+            this.SegmentoAbreviatura = string.Empty;
+
         }
 
         public string Celular { get; set; }
@@ -216,6 +217,8 @@ namespace Portal.Consultoras.Web.Models
 
         public string TipoCasoPromesa { get; set; }
         public int DiasCasoPromesa { get; set; }
+
+        public string SegmentoAbreviatura { get; set; }
 
         /*Inicio Cambios_Landing_Comunidad*/
         public static bool HasAcces(List<PermisoModel> lista, string Action)

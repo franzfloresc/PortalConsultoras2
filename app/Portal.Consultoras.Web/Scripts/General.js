@@ -773,7 +773,12 @@ function xMensajeEstadoPedido(estado) {
         else {
             identi = url.indexOf("/bienvenida") > 0;
             if (identi) {
-                $("[data-content]").animate({ "top": "61px" });
+                if (cerrarRechazado == 1) {
+                    $("[data-content]").animate({ "top": "0px" });
+                } else {
+                    $("[data-content]").animate({ "top": "61px" });
+                }
+                
             }
             else {
                 $(".ubicacion_web").animate({ "margin-top": "83px" });
@@ -816,6 +821,7 @@ function ResizeMensajeEstadoPedido() {
 }
 
 function cerrarMensajeEstadoPedido() {
+    debugger;
     $.ajax({
         type: 'Post',
         url: baseUrl + 'Bienvenida/CerrarMensajeEstadoPedido',
@@ -825,6 +831,7 @@ function cerrarMensajeEstadoPedido() {
         contentType: 'application/json; charset=utf-8',
         success: function (data) {
             cerrarRechazado = data || '0';
+            debugger;
             MensajeEstadoPedido();
         },
         error: function (data, error) {
