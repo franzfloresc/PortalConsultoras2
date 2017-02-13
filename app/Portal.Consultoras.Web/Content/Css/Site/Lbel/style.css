@@ -27456,7 +27456,7 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
     font-family: 'Lato';
 }
 
-.catalogoPersonalizadoBloque{
+.catalogoPersonalizadoBloque {
     background:#f6f6f6;
 }
 
@@ -30963,9 +30963,9 @@ h1#penmostreo .campana {
     display: -ms-flexbox;
     display: -o-flex;
     justify-content:space-between;
-    z-index:1;
+    z-index:5;
 }
-.content_pasos::after{
+/*.content_pasos::after{
     position:absolute;
     content:"";
     width:99%;
@@ -30973,7 +30973,19 @@ h1#penmostreo .campana {
     top:50%;
     z-index:-1;
     background:#d1d1d1;
-}
+}*/
+
+.content_pasos_linea{
+  position: relative;
+  width: 99%;
+  height: 2px;      
+  z-index: 3;
+  left:0;
+  width:310px;
+  margin:0 auto;
+  margin-top:-18px;
+  background: #d1d1d1;
+} 
 .paso_reclamo{
     width:36px;
     height:36px;
@@ -32350,6 +32362,7 @@ h1#penmostreo .campana {
     font-size: 14px;
     padding-bottom: 30px;
 }
+
 /*SPRINT 4*/
 
 .banner_favoritos_home{
@@ -32563,50 +32576,6 @@ h1#penmostreo .campana {
     padding-left: 12px;
    
 }
-
-/*GPR*/
-.logo_lista_detalle {
-    width: 100px;
-    height: 38px;
-    margin: 0 auto;
-    margin-top: 20px;
-    margin-bottom: 20px;
-    background: url(http://www.genesis-peru.com/mailing-belcorp/logo.png) no-repeat center center;
-}
-
-.content_datos_gpr {
-    width: 96%;
-    height: auto;
-    margin: 0 auto;
-}
-
-.saludo_gpr {
-    font-family: 'Lato';
-    font-size: 16px;
-    text-align: center;
-    font-weight: 500;
-    color: #000;
-    padding: 18px;
-}
-
-.cuerpo_gpr {
-    text-align: center;
-    font-family: 'Lato';
-    font-size: 18px;
-    font-weight: 500;
-    color: #000;
-    padding-bottom: 15px;
-    letter-spacing: 0.2px;
-}
-
-    .cuerpo_gpr div {
-        display: flex;
-    }
-
-    .cuerpo_gpr a {
-        text-decoration: underline;
-    }
-
 .btnnotificacion {
     text-decoration: none;
     font-family: 'Lato';

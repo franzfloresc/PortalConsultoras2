@@ -361,6 +361,25 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+  <xs:element name="ActualizarEstadoPostulanteRechazoZonificacionMotivo">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="codigoISO" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="solicitudPostulanteID" type="xs:int" />
+        <xs:element minOccurs="0" name="estadoPostulante" type="xs:int" />
+        <xs:element minOccurs="0" name="estadoGEO" type="xs:int" />
+        <xs:element minOccurs="0" name="tipoRechazo" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="motivoRechazo" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ActualizarEstadoPostulanteRechazoZonificacionMotivoResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="ActualizarEstadoPostulanteRechazoZonificacionMotivoResult" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
   <xs:element name="ActualizarEstadoPostulante">
     <xs:complexType>
       <xs:sequence>
@@ -406,6 +425,19 @@
       <xs:sequence />
     </xs:complexType>
   </xs:element>
+  <xs:element name="InsertarNivelesGeograficosGeneral">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="codigoISO" nillable="true" type="xs:string" />
+        <xs:element xmlns:q33="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.DL.DataModel.BelcorpPais" minOccurs="0" name="ubigeoList" nillable="true" type="q33:ArrayOfUbigeoTemplate" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="InsertarNivelesGeograficosGeneralResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
   <xs:element name="ObtenerListaNivelesGeograficosCR">
     <xs:complexType>
       <xs:sequence>
@@ -416,7 +448,21 @@
   <xs:element name="ObtenerListaNivelesGeograficosCRResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q33="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.SI.ServiceContract.Collections" minOccurs="0" name="ObtenerListaNivelesGeograficosCRResult" nillable="true" type="q33:UbigeoCRCollection" />
+        <xs:element xmlns:q34="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.SI.ServiceContract.Collections" minOccurs="0" name="ObtenerListaNivelesGeograficosCRResult" nillable="true" type="q34:UbigeoCRCollection" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ObtenerListaNivelesGeograficosGeneral">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="codigoISO" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ObtenerListaNivelesGeograficosGeneralResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q35="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.SI.ServiceContract.Collections" minOccurs="0" name="ObtenerListaNivelesGeograficosGeneralResult" nillable="true" type="q35:UbigeoTemplateCollection" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
