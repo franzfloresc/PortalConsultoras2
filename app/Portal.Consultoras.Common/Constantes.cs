@@ -154,6 +154,7 @@ namespace Portal.Consultoras.Common
 
         public class ConstSession
         {
+            public const string IngresoPortalLideres = "IngresoPortalLideres";
             public const string ListaEscalaDescuento = "ListaEscalaDescuento";
             public const string ClientesByConsultora = "ClientesByConsultora";
             public const string TippingPoint = "TippingPoint";
