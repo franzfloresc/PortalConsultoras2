@@ -4154,15 +4154,24 @@ a.subir_carousel, a.bajar_carousel {
     padding-left: 10px;
     padding-right: 7px;
 }
-
-    .tabla_productos_agotados .codigo_productoAgotado, .tabla_productos_agotados .producto_productoAgotado {
+    .tabla_productos_agotados .categoria_productoAgotado,
+    .tabla_productos_agotados .codigo_productoAgotado,
+    .tabla_productos_agotados .producto_productoAgotado,
+    .tabla_productos_agotados .catalogo_productoAgotado,
+    .tabla_productos_agotados .pagina_productoAgotado
+    {
         text-align: left;
         font-weight: 400;
-}
-
-    .tabla_productos_agotados .codigo_productoAgotado {
-        width: 20%;
-}
+    }
+    .tabla_productos_agotados .pagina_productoAgotado
+    {
+        text-align: right;
+        font-weight: 400;
+    }
+    .tabla_productos_agotados .categoria_productoAgotado { width: 20%; }
+    .tabla_productos_agotados .codigo_productoAgotado { width: 15%; }
+    .tabla_productos_agotados .catalogo_productoAgotado { width: 22%; }
+    .tabla_productos_agotados .pagina_productoAgotado { width: 13%; }
 
 /* POPUP ESCOGER TONO */
 
@@ -32654,6 +32663,10 @@ h1#penmostreo .campana {
 
 .text-center {
     text-align: center;
+}
+
+.text-right {
+    text-align: right;
 }
 
 .width_100 {

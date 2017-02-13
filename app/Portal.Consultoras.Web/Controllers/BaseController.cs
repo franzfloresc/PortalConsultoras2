@@ -66,6 +66,25 @@ namespace Portal.Consultoras.Web.Controllers
 
                     /*PL20-1226*/
                     ViewBag.TieneOfertaDelDia = userData.TieneOfertaDelDia;
+                
+                    if (userData.TieneOfertaDelDia)
+                    {
+                        if (!userData.ValidacionAbierta && userData.EstadoPedido == 202 && userData.IndicadorGPRSB == 2)
+                        {
+                            ViewBag.TieneOfertaDelDia = userData.TieneOfertaDelDia;
+                        }
+                        else if (userData.IndicadorGPRSB == 0)
+                        {
+                            ViewBag.TieneOfertaDelDia = userData.TieneOfertaDelDia;
+                        }
+                        else
+                        {
+                            ViewBag.TieneOfertaDelDia = false;
+                        }
+                    }
+
+                   
+                   
 
                     if (ViewBag.TieneOfertaDelDia)
                     {
@@ -899,6 +918,8 @@ namespace Portal.Consultoras.Web.Controllers
             ViewBag.MostrarBannerRechazo = model.MostrarBannerRechazo;
             ViewBag.MotivoRechazo = model.MotivoRechazo.Trim();
             ViewBag.Efecto_TutorialSalvavidas = ConfigurationManager.AppSettings.Get("Efecto_TutorialSalvavidas") ?? "1";
+            ViewBag.EstadoPedido = model.EstadoPedido;
+            ViewBag.ValidacionAbierta = model.ValidacionAbierta;
             return model;
 
             #endregion
@@ -936,7 +957,8 @@ namespace Portal.Consultoras.Web.Controllers
                 #region Obtener Respuesta del SSiCC
 
                 model.MotivoRechazo = "A partir de mañana podrás ingresar tu pedido de C" + CalcularNroCampaniaSiguiente(oBEUsuario.CampaniaID.ToString(), oBEUsuario.NroCampanias);
-                model.IndicadorGPRSB = oBEUsuario.IndicadorGPRSB;
+                model.IndicadorGPRSB = 0; //oBEUsuario.IndicadorGPRSB;
+                oBEUsuario.IndicadorGPRSB = 0;
                 bool MostrarBannerPedidoRechazado = false;
 
                 if (oBEUsuario.IndicadorGPRSB == 2)
@@ -1073,7 +1095,9 @@ namespace Portal.Consultoras.Web.Controllers
                 model.HorasDuracionRestriccion = oBEUsuario.HorasDuracionRestriccion;
                 model.EsJoven = oBEUsuario.EsJoven;
                 model.PROLSinStock = oBEUsuario.PROLSinStock;
-                model.HoraCierreZonaDemAntiCierre = oBEUsuario.HoraCierreZonaDemAntiCierre;                             
+                model.HoraCierreZonaDemAntiCierre = oBEUsuario.HoraCierreZonaDemAntiCierre;
+                model.EstadoPedido = oBEUsuario.EstadoPedido;
+                model.ValidacionAbierta = oBEUsuario.ValidacionAbierta;                         
 
                 if (DateTime.Now.AddHours(oBEUsuario.ZonaHoraria) < oBEUsuario.FechaInicioFacturacion)
                     model.DiaPROLMensajeCierreCampania = false;
