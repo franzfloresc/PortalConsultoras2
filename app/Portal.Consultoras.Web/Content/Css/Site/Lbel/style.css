@@ -27456,7 +27456,7 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
     font-family: 'Lato';
 }
 
-.catalogoPersonalizadoBloque{
+.catalogoPersonalizadoBloque {
     background:#f6f6f6;
 }
 
@@ -32362,6 +32362,7 @@ h1#penmostreo .campana {
     font-size: 14px;
     padding-bottom: 30px;
 }
+
 /*SPRINT 4*/
 
 .banner_favoritos_home{
@@ -32575,50 +32576,6 @@ h1#penmostreo .campana {
     padding-left: 12px;
    
 }
-
-/*GPR*/
-.logo_lista_detalle {
-    width: 100px;
-    height: 38px;
-    margin: 0 auto;
-    margin-top: 20px;
-    margin-bottom: 20px;
-    background: url(http://www.genesis-peru.com/mailing-belcorp/logo.png) no-repeat center center;
-}
-
-.content_datos_gpr {
-    width: 96%;
-    height: auto;
-    margin: 0 auto;
-}
-
-.saludo_gpr {
-    font-family: 'Lato';
-    font-size: 16px;
-    text-align: center;
-    font-weight: 500;
-    color: #000;
-    padding: 18px;
-}
-
-.cuerpo_gpr {
-    text-align: center;
-    font-family: 'Lato';
-    font-size: 18px;
-    font-weight: 500;
-    color: #000;
-    padding-bottom: 15px;
-    letter-spacing: 0.2px;
-}
-
-    .cuerpo_gpr div {
-        display: flex;
-    }
-
-    .cuerpo_gpr a {
-        text-decoration: underline;
-    }
-
 .btnnotificacion {
     text-decoration: none;
     font-family: 'Lato';
