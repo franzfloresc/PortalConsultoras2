@@ -138,7 +138,7 @@ $(document).ready(function () {
         var descripcionCategoria = $(divPadre).find(".hdOfertaFinalDescripcionCategoria").val();
         var descripcionMarca = $(divPadre).find(".hdOfertaFinalDescripcionMarca").val();
         var descripcionEstrategia = $(divPadre).find(".hdOfertaFinalDescripcionEstrategia").val();
-        var OrigenPedidoWeb = DesktopPedidoOfertaFinal;
+        var OrigenPedidoWeb = tipoOrigen == "1" ? DesktopPedidoOfertaFinal : MobilePedidoOfertaFinal;
 
         if (!isInt(cantidad)) {
             alert_msg("La cantidad ingresada debe ser un número mayor que cero, verifique");
@@ -314,6 +314,8 @@ function MostrarPopupOfertaFinal(cumpleOferta, tipoPopupMostrar) {
     $(".nohely").on('mouseleave', function (e) {
         $('[data-toggle="tooltip"]').tooltip('hide');
     });
+
+    return true;
 }
 
 function ActulizarValoresPopupOfertaFinal(data) {
@@ -343,7 +345,9 @@ function ActulizarValoresPopupOfertaFinal(data) {
     }
     else if (tipoMeta == "GM") {
         $("#spnTituloOfertaFinal span").html("¡FELICITACIONES AHORA TU GANANCIA ESTIMADA ES <b>" + simbolo + " " + data.DataBarra.MontoGananciaStr + "</b>!");
-        $("#msjOfertaFinal").attr("class", "ganancia_total_pop");
+        if (tipoOrigen == "1") {
+            $("#msjOfertaFinal").attr("class", "ganancia_total_pop");
+        }
         $("#msjOfertaFinal span").html("Monto total: " + simbolo + " " + data.formatoTotal);
         agregoOfertaFinal = 1;
     }
@@ -434,7 +438,7 @@ function CargandoValoresPopupOfertaFinal(tipoPopupMostrar, mostrarGanaMas, monto
 function CumpleOfertaFinalMostrar(montoPedido, montoEscala, tipoPopupMostrar, codigoMensajeProl, listaObservacionesProl) {
     var cumpleOferta = CumpleOfertaFinal(montoPedido, montoEscala, tipoPopupMostrar, codigoMensajeProl, listaObservacionesProl);
     if (cumpleOferta.resultado) {
-        MostrarPopupOfertaFinal(cumpleOferta, tipoPopupMostrar);
+        cumpleOferta.resultado = MostrarPopupOfertaFinal(cumpleOferta, tipoPopupMostrar);
     }
     return cumpleOferta;
 }

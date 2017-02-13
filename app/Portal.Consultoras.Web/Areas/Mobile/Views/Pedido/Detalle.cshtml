@@ -304,6 +304,7 @@
 <input id="hdfPROLSinStock" type="hidden" value="0" />
 <input id="hdfModificaPedido" type="hidden" value="0" />
 <input type="hidden" id="hdfTotal" value="@Model.Total" />
+<input id="hdSimbolo" type="hidden" value="@Model.Simbolo" />
 <!--SB20-483 - INICIO -->
 
 <!-- POPUP MIS GANANCIAS -->
@@ -733,7 +734,7 @@
         <div class="content_texto_OPT">
             <div class="icono_alerta check_icono_mobile" style="margin-top:10px; margin-bottom:10px;"></div>
 
-            <h1 class="ofertaFinal_titulo">
+            <h1 class="ofertaFinal_titulo" id="spnTituloOfertaFinal">
                 {{#iff TipoMeta '==' 'MM'}}
                 <span><b>&nbsp;LO SENTIMOS…</b> NO PUDIMOS GUARDAR TU PEDIDO</span>
                 {{/iff}}
@@ -771,6 +772,7 @@
                             <input type="hidden" class="hdOfertaFinalMarcaID" value="{{MarcaID}}" />
                             <input type="hidden" class="hdOfertaFinalPrecioUnidad" value="{{PrecioCatalogo}}" />
                             <input type="hidden" class="hdOfertaFinalDescripcionProd" value="{{Descripcion}}" />
+                            <input type="hidden" class="hdOfertaFinalNombreComercial" value="{{NombreComercial}}" />
                             <input type="hidden" class="hdOfertaFinalVolumen" value="{{Volumen}}" />
                             <input type="hidden" class="hdOfertaFinalPagina" value="0" />
                             <input type="hidden" class="hdOfertaFinalDescripcionCategoria" value="{{DescripcionCategoria}}" />
@@ -780,22 +782,26 @@
                             <input type="hidden" class="hdOfertaFinalPrecioValorizadoString" value="{{PrecioValorizadoString}}" />
                             <input type="hidden" class="hdOfertaFinalPrecioCatalogoString" value="{{PrecioCatalogoString}}" />
                             <input type="hidden" class="hdOfertaFinalNombreComercial" value="{{NombreComercial}}" />
+                            <input type="hidden" class="hdOfertaFinalDescripcionComercial" value="{{DescripcionComercial}}" />
                             <input type="hidden" class="hdOfertaFinalUrlCompartirFB" value="{{UrlCompartirFB}}" />
+                            <input type="hidden" class="hdOfertaFinalDescripcionRelacionado" value="{{DescripcionRelacionado}}" />
                         </div>
                         <div class="contenido_item_ofertaFinal">
                             <div class="producto_img_home" onclick="javascript:CargarVerDetalleOF(this, event);" data-id="{{id}}">
                                 <img src="{{ImagenProductoSugerido}}">
                             </div>
                             <div class="producto_nombre_descripcion">
-                                <h6>{{DescripcionMarca}}</h6>
-                                <p class="nombre_producto">
-                                    <b>{{Descripcion}}</b>
-                                </p>
-                                <div class="producto_precio">
-                                    {{#iff PrecioValorizadoString '!=' ''}}
-                                    <span class="producto_precio_normal" style="display:none;">{{Simbolo}} {{PrecioValorizadoString}}</span>
-                                    {{/iff}}
-                                    <span class="producto_precio_oferta"><b>{{Simbolo}} {{PrecioCatalogoString}}</b></span>
+                                <div onclick="javascript:CargarVerDetalleOF(this, event);" data-id="{{id}}">
+                                    <h6>{{DescripcionMarca}}</h6>
+                                    <p class="nombre_producto">
+                                        <b>{{NombreComercial}}</b>
+                                    </p>
+                                    <div class="producto_precio">
+                                        {{#iff PrecioValorizadoString '!=' ''}}
+                                        <span class="producto_precio_normal" style="display:none;">{{Simbolo}} {{PrecioValorizadoString}}</span>
+                                        {{/iff}}
+                                        <span class="producto_precio_oferta"><b>{{Simbolo}} {{PrecioCatalogoString}}</b></span>
+                                    </div>
                                 </div>
                                 <div class="contenedor_cantidadProductos">
                                     <span class="textoCantidad">CANTIDAD:</span>
