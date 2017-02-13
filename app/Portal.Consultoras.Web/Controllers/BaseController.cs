@@ -720,7 +720,7 @@ namespace Portal.Consultoras.Web.Controllers
             ViewBag.IndicadorPermisoFIC = model.IndicadorPermisoFIC;
             ViewBag.IndicadorPermisoFlexipago = model.IndicadorPermisoFlexipago;
             ViewBag.HorasDuracionRestriccion = model.HorasDuracionRestriccion;
-            ViewBag.UrlBelcorpChat = String.Format(UrlEMTELCO, model.Segmento.Trim(), model.CodigoUsuario.Trim(), model.PrimerNombre.Split(' ').First().Trim(), model.EMail.Trim(), model.CodigoISO.Trim());
+            ViewBag.UrlBelcorpChat = String.Format(UrlEMTELCO, model.SegmentoAbreviatura.Trim(), model.CodigoUsuario.Trim(), model.PrimerNombre.Split(' ').First().Trim(), model.EMail.Trim(), model.CodigoISO.Trim());
 
             if (isNull)
             {
