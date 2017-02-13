@@ -387,6 +387,7 @@
     });
 
     function cargarMapa() {
+      
         if (google && google.maps) {
             var markerBounds = new google.maps.LatLngBounds();
             modalOpcion.dialog('close');
@@ -397,7 +398,7 @@
                     map = new google.maps.Map(document.getElementById('mapa'), {
                         center: new google.maps.LatLng(parseFloat('@Model.Puntos[0].Item1'.replace(",",".")), parseFloat('@Model.Puntos[0].Item2'.replace(",",".")))
                     });
-
+            debugger;
                     // Markers
                     @for (var i = 0; i < Model.Puntos.Count; i++)
                     {
@@ -413,11 +414,11 @@
                          </text>
                     }
 
-                    @if (Model.FuenteIngreso == "MovilSE")
+                    @if( (Model.FuenteIngreso == "MovilSE") && Model.Latitud!=null && Model.Longitud!=null)
                     {
                         // Markers Purple
                         <text>
-
+          
                              marker = new google.maps.Marker({
                                  position: new google.maps.LatLng(parseFloat('@Model.Latitud'.replace(",",".")), parseFloat('@Model.Longitud'.replace(",","."))),
                                  map: map,

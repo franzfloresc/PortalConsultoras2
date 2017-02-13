@@ -213,7 +213,11 @@
       'Fecha Creacion Codigo',
       'Codigo Campaña',
       'Campaña 1er pedido',
-      'Diferencia Dias'
+      'Diferencia Dias',
+      'Recibo Otra Marca',
+      'Recibo de Pago de Servicios de Fiador',
+      'Autorizacion de consulta de credito Fiador',
+      'Constancia Laboral Fiador' 
 
     ];
     function fnGrilla() {
@@ -393,7 +397,31 @@
                     name: 'Diferencia Dias', index: 'Diferencia Dias', width: 9, editable: true, resizable: false, align: 'center', formatter: function (cellvalue, options, rowObject) {
                         return rowObject[38];
                     }
+                },
+
+                {
+                    name: 'Recibo Otra Marca', index: 'Recibo Otra Marca', width: 10, editable: true, resizable: false, align: 'center', formatter: function (cellvalue, options, rowObject) {
+                        return rowObject[39].length > 0 ? '<a href="javascript:void(0);"><img src="@Url.Content("~/Content/Images/Detail.png")" onclick="verAdjunto(\'' + rowObject[39] + '\', 5)" /></a>' : '';
+                    }
+                },
+                {
+                    name: 'Recibo de Pago de Servicios de Fiador', index: 'Recibo de Pago de Servicios de Fiador', width: 10, editable: true, resizable: false, align: 'center', formatter: function (cellvalue, options, rowObject) {
+                        return rowObject[40].length > 0 ? '<a href="javascript:void(0);"><img src="@Url.Content("~/Content/Images/Detail.png")" onclick="verAdjunto(\'' + rowObject[40] + '\', 5)" /></a>' : '';
+                    }
+                },
+                {
+                    name: 'Autorizacion de consulta de credito Fiador', index: 'Autorizacion de consulta de credito Fiador', width: 10, editable: true, resizable: false, align: 'center', formatter: function (cellvalue, options, rowObject) {
+                        return rowObject[41].length > 0 ? '<a href="javascript:void(0);"><img src="@Url.Content("~/Content/Images/Detail.png")" onclick="verAdjunto(\'' + rowObject[41] + '\', 5)" /></a>' : '';
+                    }
+                },
+                {
+                    name: 'Constancia Laboral Fiador', index: 'Constancia Laboral Fiador', width: 10, editable: true, resizable: false, align: 'center', formatter: function (cellvalue, options, rowObject) {
+                        return rowObject[42].length > 0 ? '<a href="javascript:void(0);"><img src="@Url.Content("~/Content/Images/Detail.png")" onclick="verAdjunto(\'' + rowObject[42] + '\', 5)" /></a>' : '';
+                    }
                 }
+
+
+
             ],
             jsonReader:
                 {
@@ -434,6 +462,11 @@
                     jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'EvaluacionTelefonica');
                 }
 
+              
+                jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'Recibo Otra Marca');
+                jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'Recibo de Pago de Servicios de Fiador');
+                jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'Autorizacion de consulta de credito Fiador');
+                jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'Constancia Laboral Fiador');
 
                 if (typeof option != 'undefined' && option != null) {
 
@@ -654,6 +687,21 @@
                     jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'DNI Aval');
                     jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'Tipo Rechazo');
                     jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'Motivo Rechazo');
+                    
+                    var showImageColumnsWhenStatusIn = ['0','2','3','4','5','7','8','9'];
+                  
+                    if (jQuery.inArray(option, showImageColumnsWhenStatusIn) !== -1)
+                    {
+                        jQuery("#gvwSolicitudesPostulante").jqGrid('showCol', 'Recibo Otra Marca');
+                        jQuery("#gvwSolicitudesPostulante").jqGrid('showCol', 'Recibo Pago Aval');
+                        jQuery("#gvwSolicitudesPostulante").jqGrid('showCol', 'Credito Aval');
+                        jQuery("#gvwSolicitudesPostulante").jqGrid('showCol', 'Constancia Laboral Aval');
+
+                    }
+
+
+      
+
                 } else if ('@Model.CodigoIso' === 'CL') {
                     jQuery("#gvwSolicitudesPostulante").jqGrid('showCol', 'Contrato');
                     jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'Pagare');
