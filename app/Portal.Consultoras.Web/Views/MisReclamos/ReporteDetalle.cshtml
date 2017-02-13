@@ -1,6 +1,6 @@
 ﻿@model Portal.Consultoras.Web.Models.CDRWebModel
 @{
-    ViewBag.Title = "Reporte CDR Detalle";
+    ViewBag.Title = "Reporte Cambios y Devoluciones";
 }
 <script type="text/javascript">
 
@@ -319,12 +319,12 @@
             <div class="div-3">
                 <div class="titG">Región:</div>
                 <div class="selectA borde_redondeado">
-                    @Html.DropDownListFor(model => model.RegionID, new SelectList(Model.listaRegiones, "RegionID", "Nombre"), "-- Seleccionar --", new { id = "ddlRegion" })
+                    @Html.DropDownListFor(model => model.RegionID, new SelectList(Model.listaRegiones, "RegionID", "Codigo"), "-- Seleccionar --", new { id = "ddlRegion" })
                 </div>
        
                 <div class="titB">Zona:</div>
                 <div class="selectA borde_redondeado">
-                    @Html.DropDownListFor(model => model.ZonaID, new SelectList(Model.listaZonas, "ZonaID", "Codigo"), "-- Seleccionar --", new { id = "ddlZona" })
+                    @Html.DropDownListFor(model => model.ZonaID, new SelectList(Model.listaZonas, "ZonaID", "Nombre"), "-- Seleccionar --", new { id = "ddlZona" })
                 </div>
                 
                 <input type="hidden" id="hdNombreAnt" />
@@ -355,7 +355,6 @@
                         <div class="input_search">
                             <input type="submit" name="" id="btnBuscar" value="Buscar"  />
                         </div>
-                        <input type="button" value="Exportar xls" id="btnExportarExcel" name="btnExportarExcel" onclick="ExportarExcel();">
                     </div>
                 </div>
             </div>
@@ -370,6 +369,13 @@
             <table id="list"></table>
             <div id="pager"></div>
 
+        </div>
+    </div>
+</div>
+<div class="wrap">
+    <div class="container clearfix" style="text-align: center">
+        <div class="input_global">
+            <input type="button" value="Exportar Excel" id="btnExportarExcel" name="btnExportarExcel" onclick="ExportarExcel();">
         </div>
     </div>
 </div>

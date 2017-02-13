@@ -1808,6 +1808,7 @@
     <Content Include="Content\Images\Esika\expoferta_c09.png" />
     <Content Include="Content\Images\Esika\expoferta_c13.png" />
     <Content Include="Content\Images\Esika\facebook.png" />
+    <Content Include="Content\Images\Esika\facebook_ficha.png" />
     <Content Include="Content\Images\Esika\facturacion_electronica.png" />
     <Content Include="Content\Images\Esika\flecha_abajo.png" />
     <Content Include="Content\Images\Esika\flechita.png" />
@@ -1866,6 +1867,7 @@
     <Content Include="Content\Images\Esika\mas.png" />
     <Content Include="Content\Images\Esika\menos.png" />
     <Content Include="Content\Images\Esika\mensajes.png" />
+    <Content Include="Content\Images\Esika\mensaje_ficha.png" />
     <Content Include="Content\Images\Esika\mobile.png" />
     <Content Include="Content\Images\Esika\mobile2.png" />
     <Content Include="Content\Images\Esika\next.png" />
@@ -3438,7 +3440,6 @@
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
-    <None Include="Service References\ServiceProductoCatalogoPersonalizado\ProductoService1.disco" />
     <None Include="Service References\ServiceProductoCatalogoPersonalizado\ProductoService.disco" />
     <None Include="Service References\ServiceUnete\configuration91.svcinfo" />
     <None Include="Service References\ServiceUnete\configuration.svcinfo" />

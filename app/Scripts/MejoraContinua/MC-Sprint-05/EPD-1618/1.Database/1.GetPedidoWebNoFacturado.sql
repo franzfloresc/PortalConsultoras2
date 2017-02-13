@@ -18,7 +18,6 @@ BEGIN
 
 	SELECT PedidoID,FechaRegistro,FechaReserva,CampaniaCodigo,Seccion ,ConsultoraCodigo,ConsultoraNombre,ImporteTotal,DescuentoProl,ConsultoraSaldo,
 			OrigenNombre,EstadoValidacionNombre,Zona,Region ,IndicadorEnviado,MontoMinimoPedido,ImporteTotalMM,MotivoRechazo,EstadoPedido
-
 	FROM(
 	SELECT  pr.idprocesopedidorechazado,
 	
@@ -54,8 +53,7 @@ BEGIN
 				WHEN 'OCC-51' THEN 'MINIMO STOCK' END + ': ' + P1.Valor AS VARCHAR(MAX))
 		FROM GPR.PedidoRechazado  P1
 		INNER JOIN GPR.MotivoRechazo MR ON P1.MotivoRechazo = MR.Codigo
-
-		WHERE p1.codigoconsultora=pr.codigoconsultora and p1.campania=pr.campania and p1.idprocesopedidorechazado=pr.idprocesopedidorechazado
+		WHERE p1.codigoconsultora=pr.codigoconsultora and p1.campania=pr.campania and p1.idprocesopedidorechazado=pr.idprocesopedidorechazado AND p.GPRSB = 2
 		FOR XML PATH ('')), 1, 1, '')) AS MotivoRechazo,
 		p.EstadoPedido	
 	FROM dbo.PedidoWeb p (NOLOCK)
@@ -110,7 +108,6 @@ BEGIN
 
 	SELECT PedidoID,FechaRegistro,FechaReserva,CampaniaCodigo,Seccion ,ConsultoraCodigo,ConsultoraNombre,ImporteTotal,DescuentoProl,ConsultoraSaldo,
 			OrigenNombre,EstadoValidacionNombre,Zona,Region ,IndicadorEnviado,MontoMinimoPedido,ImporteTotalMM,MotivoRechazo,EstadoPedido
-
 	FROM(
 	SELECT  pr.idprocesopedidorechazado,
 	
@@ -146,8 +143,7 @@ BEGIN
 				WHEN 'OCC-51' THEN 'MINIMO STOCK' END + ': ' + P1.Valor AS VARCHAR(MAX))
 		FROM GPR.PedidoRechazado  P1
 		INNER JOIN GPR.MotivoRechazo MR ON P1.MotivoRechazo = MR.Codigo
-
-		WHERE p1.codigoconsultora=pr.codigoconsultora and p1.campania=pr.campania and p1.idprocesopedidorechazado=pr.idprocesopedidorechazado
+		WHERE p1.codigoconsultora=pr.codigoconsultora and p1.campania=pr.campania and p1.idprocesopedidorechazado=pr.idprocesopedidorechazado AND p.GPRSB = 2
 		FOR XML PATH ('')), 1, 1, '')) AS MotivoRechazo,
 		p.EstadoPedido	
 	FROM dbo.PedidoWeb p (NOLOCK)
@@ -202,7 +198,6 @@ BEGIN
 
 	SELECT PedidoID,FechaRegistro,FechaReserva,CampaniaCodigo,Seccion ,ConsultoraCodigo,ConsultoraNombre,ImporteTotal,DescuentoProl,ConsultoraSaldo,
 			OrigenNombre,EstadoValidacionNombre,Zona,Region ,IndicadorEnviado,MontoMinimoPedido,ImporteTotalMM,MotivoRechazo,EstadoPedido
-
 	FROM(
 	SELECT  pr.idprocesopedidorechazado,
 	
@@ -238,8 +233,7 @@ BEGIN
 				WHEN 'OCC-51' THEN 'MINIMO STOCK' END + ': ' + P1.Valor AS VARCHAR(MAX))
 		FROM GPR.PedidoRechazado  P1
 		INNER JOIN GPR.MotivoRechazo MR ON P1.MotivoRechazo = MR.Codigo
-
-		WHERE p1.codigoconsultora=pr.codigoconsultora and p1.campania=pr.campania and p1.idprocesopedidorechazado=pr.idprocesopedidorechazado
+		WHERE p1.codigoconsultora=pr.codigoconsultora and p1.campania=pr.campania and p1.idprocesopedidorechazado=pr.idprocesopedidorechazado AND p.GPRSB = 2
 		FOR XML PATH ('')), 1, 1, '')) AS MotivoRechazo,
 		p.EstadoPedido	
 	FROM dbo.PedidoWeb p (NOLOCK)
@@ -294,7 +288,6 @@ BEGIN
 
 	SELECT PedidoID,FechaRegistro,FechaReserva,CampaniaCodigo,Seccion ,ConsultoraCodigo,ConsultoraNombre,ImporteTotal,DescuentoProl,ConsultoraSaldo,
 			OrigenNombre,EstadoValidacionNombre,Zona,Region ,IndicadorEnviado,MontoMinimoPedido,ImporteTotalMM,MotivoRechazo,EstadoPedido
-
 	FROM(
 	SELECT  pr.idprocesopedidorechazado,
 	
@@ -330,8 +323,7 @@ BEGIN
 				WHEN 'OCC-51' THEN 'MINIMO STOCK' END + ': ' + P1.Valor AS VARCHAR(MAX))
 		FROM GPR.PedidoRechazado  P1
 		INNER JOIN GPR.MotivoRechazo MR ON P1.MotivoRechazo = MR.Codigo
-
-		WHERE p1.codigoconsultora=pr.codigoconsultora and p1.campania=pr.campania and p1.idprocesopedidorechazado=pr.idprocesopedidorechazado
+		WHERE p1.codigoconsultora=pr.codigoconsultora and p1.campania=pr.campania and p1.idprocesopedidorechazado=pr.idprocesopedidorechazado AND p.GPRSB = 2
 		FOR XML PATH ('')), 1, 1, '')) AS MotivoRechazo,
 		p.EstadoPedido	
 	FROM dbo.PedidoWeb p (NOLOCK)
@@ -386,7 +378,6 @@ BEGIN
 
 	SELECT PedidoID,FechaRegistro,FechaReserva,CampaniaCodigo,Seccion ,ConsultoraCodigo,ConsultoraNombre,ImporteTotal,DescuentoProl,ConsultoraSaldo,
 			OrigenNombre,EstadoValidacionNombre,Zona,Region ,IndicadorEnviado,MontoMinimoPedido,ImporteTotalMM,MotivoRechazo,EstadoPedido
-
 	FROM(
 	SELECT  pr.idprocesopedidorechazado,
 	
@@ -422,8 +413,7 @@ BEGIN
 				WHEN 'OCC-51' THEN 'MINIMO STOCK' END + ': ' + P1.Valor AS VARCHAR(MAX))
 		FROM GPR.PedidoRechazado  P1
 		INNER JOIN GPR.MotivoRechazo MR ON P1.MotivoRechazo = MR.Codigo
-
-		WHERE p1.codigoconsultora=pr.codigoconsultora and p1.campania=pr.campania and p1.idprocesopedidorechazado=pr.idprocesopedidorechazado
+		WHERE p1.codigoconsultora=pr.codigoconsultora and p1.campania=pr.campania and p1.idprocesopedidorechazado=pr.idprocesopedidorechazado AND p.GPRSB = 2
 		FOR XML PATH ('')), 1, 1, '')) AS MotivoRechazo,
 		p.EstadoPedido	
 	FROM dbo.PedidoWeb p (NOLOCK)
@@ -478,7 +468,6 @@ BEGIN
 
 	SELECT PedidoID,FechaRegistro,FechaReserva,CampaniaCodigo,Seccion ,ConsultoraCodigo,ConsultoraNombre,ImporteTotal,DescuentoProl,ConsultoraSaldo,
 			OrigenNombre,EstadoValidacionNombre,Zona,Region ,IndicadorEnviado,MontoMinimoPedido,ImporteTotalMM,MotivoRechazo,EstadoPedido
-
 	FROM(
 	SELECT  pr.idprocesopedidorechazado,
 	
@@ -514,8 +503,7 @@ BEGIN
 				WHEN 'OCC-51' THEN 'MINIMO STOCK' END + ': ' + P1.Valor AS VARCHAR(MAX))
 		FROM GPR.PedidoRechazado  P1
 		INNER JOIN GPR.MotivoRechazo MR ON P1.MotivoRechazo = MR.Codigo
-
-		WHERE p1.codigoconsultora=pr.codigoconsultora and p1.campania=pr.campania and p1.idprocesopedidorechazado=pr.idprocesopedidorechazado
+		WHERE p1.codigoconsultora=pr.codigoconsultora and p1.campania=pr.campania and p1.idprocesopedidorechazado=pr.idprocesopedidorechazado AND p.GPRSB = 2
 		FOR XML PATH ('')), 1, 1, '')) AS MotivoRechazo,
 		p.EstadoPedido	
 	FROM dbo.PedidoWeb p (NOLOCK)
@@ -570,7 +558,6 @@ BEGIN
 
 	SELECT PedidoID,FechaRegistro,FechaReserva,CampaniaCodigo,Seccion ,ConsultoraCodigo,ConsultoraNombre,ImporteTotal,DescuentoProl,ConsultoraSaldo,
 			OrigenNombre,EstadoValidacionNombre,Zona,Region ,IndicadorEnviado,MontoMinimoPedido,ImporteTotalMM,MotivoRechazo,EstadoPedido
-
 	FROM(
 	SELECT  pr.idprocesopedidorechazado,
 	
@@ -606,8 +593,7 @@ BEGIN
 				WHEN 'OCC-51' THEN 'MINIMO STOCK' END + ': ' + P1.Valor AS VARCHAR(MAX))
 		FROM GPR.PedidoRechazado  P1
 		INNER JOIN GPR.MotivoRechazo MR ON P1.MotivoRechazo = MR.Codigo
-
-		WHERE p1.codigoconsultora=pr.codigoconsultora and p1.campania=pr.campania and p1.idprocesopedidorechazado=pr.idprocesopedidorechazado
+		WHERE p1.codigoconsultora=pr.codigoconsultora and p1.campania=pr.campania and p1.idprocesopedidorechazado=pr.idprocesopedidorechazado AND p.GPRSB = 2
 		FOR XML PATH ('')), 1, 1, '')) AS MotivoRechazo,
 		p.EstadoPedido	
 	FROM dbo.PedidoWeb p (NOLOCK)
@@ -662,7 +648,6 @@ BEGIN
 
 	SELECT PedidoID,FechaRegistro,FechaReserva,CampaniaCodigo,Seccion ,ConsultoraCodigo,ConsultoraNombre,ImporteTotal,DescuentoProl,ConsultoraSaldo,
 			OrigenNombre,EstadoValidacionNombre,Zona,Region ,IndicadorEnviado,MontoMinimoPedido,ImporteTotalMM,MotivoRechazo,EstadoPedido
-
 	FROM(
 	SELECT  pr.idprocesopedidorechazado,
 	
@@ -698,8 +683,7 @@ BEGIN
 				WHEN 'OCC-51' THEN 'MINIMO STOCK' END + ': ' + P1.Valor AS VARCHAR(MAX))
 		FROM GPR.PedidoRechazado  P1
 		INNER JOIN GPR.MotivoRechazo MR ON P1.MotivoRechazo = MR.Codigo
-
-		WHERE p1.codigoconsultora=pr.codigoconsultora and p1.campania=pr.campania and p1.idprocesopedidorechazado=pr.idprocesopedidorechazado
+		WHERE p1.codigoconsultora=pr.codigoconsultora and p1.campania=pr.campania and p1.idprocesopedidorechazado=pr.idprocesopedidorechazado AND p.GPRSB = 2
 		FOR XML PATH ('')), 1, 1, '')) AS MotivoRechazo,
 		p.EstadoPedido	
 	FROM dbo.PedidoWeb p (NOLOCK)
@@ -754,7 +738,6 @@ BEGIN
 
 	SELECT PedidoID,FechaRegistro,FechaReserva,CampaniaCodigo,Seccion ,ConsultoraCodigo,ConsultoraNombre,ImporteTotal,DescuentoProl,ConsultoraSaldo,
 			OrigenNombre,EstadoValidacionNombre,Zona,Region ,IndicadorEnviado,MontoMinimoPedido,ImporteTotalMM,MotivoRechazo,EstadoPedido
-
 	FROM(
 	SELECT  pr.idprocesopedidorechazado,
 	
@@ -790,8 +773,7 @@ BEGIN
 				WHEN 'OCC-51' THEN 'MINIMO STOCK' END + ': ' + P1.Valor AS VARCHAR(MAX))
 		FROM GPR.PedidoRechazado  P1
 		INNER JOIN GPR.MotivoRechazo MR ON P1.MotivoRechazo = MR.Codigo
-
-		WHERE p1.codigoconsultora=pr.codigoconsultora and p1.campania=pr.campania and p1.idprocesopedidorechazado=pr.idprocesopedidorechazado
+		WHERE p1.codigoconsultora=pr.codigoconsultora and p1.campania=pr.campania and p1.idprocesopedidorechazado=pr.idprocesopedidorechazado AND p.GPRSB = 2
 		FOR XML PATH ('')), 1, 1, '')) AS MotivoRechazo,
 		p.EstadoPedido	
 	FROM dbo.PedidoWeb p (NOLOCK)
@@ -846,7 +828,6 @@ BEGIN
 
 	SELECT PedidoID,FechaRegistro,FechaReserva,CampaniaCodigo,Seccion ,ConsultoraCodigo,ConsultoraNombre,ImporteTotal,DescuentoProl,ConsultoraSaldo,
 			OrigenNombre,EstadoValidacionNombre,Zona,Region ,IndicadorEnviado,MontoMinimoPedido,ImporteTotalMM,MotivoRechazo,EstadoPedido
-
 	FROM(
 	SELECT  pr.idprocesopedidorechazado,
 	
@@ -882,8 +863,7 @@ BEGIN
 				WHEN 'OCC-51' THEN 'MINIMO STOCK' END + ': ' + P1.Valor AS VARCHAR(MAX))
 		FROM GPR.PedidoRechazado  P1
 		INNER JOIN GPR.MotivoRechazo MR ON P1.MotivoRechazo = MR.Codigo
-
-		WHERE p1.codigoconsultora=pr.codigoconsultora and p1.campania=pr.campania and p1.idprocesopedidorechazado=pr.idprocesopedidorechazado
+		WHERE p1.codigoconsultora=pr.codigoconsultora and p1.campania=pr.campania and p1.idprocesopedidorechazado=pr.idprocesopedidorechazado AND p.GPRSB = 2
 		FOR XML PATH ('')), 1, 1, '')) AS MotivoRechazo,
 		p.EstadoPedido	
 	FROM dbo.PedidoWeb p (NOLOCK)
@@ -938,7 +918,6 @@ BEGIN
 
 	SELECT PedidoID,FechaRegistro,FechaReserva,CampaniaCodigo,Seccion ,ConsultoraCodigo,ConsultoraNombre,ImporteTotal,DescuentoProl,ConsultoraSaldo,
 			OrigenNombre,EstadoValidacionNombre,Zona,Region ,IndicadorEnviado,MontoMinimoPedido,ImporteTotalMM,MotivoRechazo,EstadoPedido
-
 	FROM(
 	SELECT  pr.idprocesopedidorechazado,
 	
@@ -974,8 +953,7 @@ BEGIN
 				WHEN 'OCC-51' THEN 'MINIMO STOCK' END + ': ' + P1.Valor AS VARCHAR(MAX))
 		FROM GPR.PedidoRechazado  P1
 		INNER JOIN GPR.MotivoRechazo MR ON P1.MotivoRechazo = MR.Codigo
-
-		WHERE p1.codigoconsultora=pr.codigoconsultora and p1.campania=pr.campania and p1.idprocesopedidorechazado=pr.idprocesopedidorechazado
+		WHERE p1.codigoconsultora=pr.codigoconsultora and p1.campania=pr.campania and p1.idprocesopedidorechazado=pr.idprocesopedidorechazado AND p.GPRSB = 2
 		FOR XML PATH ('')), 1, 1, '')) AS MotivoRechazo,
 		p.EstadoPedido	
 	FROM dbo.PedidoWeb p (NOLOCK)
@@ -1030,7 +1008,6 @@ BEGIN
 
 	SELECT PedidoID,FechaRegistro,FechaReserva,CampaniaCodigo,Seccion ,ConsultoraCodigo,ConsultoraNombre,ImporteTotal,DescuentoProl,ConsultoraSaldo,
 			OrigenNombre,EstadoValidacionNombre,Zona,Region ,IndicadorEnviado,MontoMinimoPedido,ImporteTotalMM,MotivoRechazo,EstadoPedido
-
 	FROM(
 	SELECT  pr.idprocesopedidorechazado,
 	
@@ -1066,8 +1043,7 @@ BEGIN
 				WHEN 'OCC-51' THEN 'MINIMO STOCK' END + ': ' + P1.Valor AS VARCHAR(MAX))
 		FROM GPR.PedidoRechazado  P1
 		INNER JOIN GPR.MotivoRechazo MR ON P1.MotivoRechazo = MR.Codigo
-
-		WHERE p1.codigoconsultora=pr.codigoconsultora and p1.campania=pr.campania and p1.idprocesopedidorechazado=pr.idprocesopedidorechazado
+		WHERE p1.codigoconsultora=pr.codigoconsultora and p1.campania=pr.campania and p1.idprocesopedidorechazado=pr.idprocesopedidorechazado AND p.GPRSB = 2
 		FOR XML PATH ('')), 1, 1, '')) AS MotivoRechazo,
 		p.EstadoPedido	
 	FROM dbo.PedidoWeb p (NOLOCK)
@@ -1122,7 +1098,6 @@ BEGIN
 
 	SELECT PedidoID,FechaRegistro,FechaReserva,CampaniaCodigo,Seccion ,ConsultoraCodigo,ConsultoraNombre,ImporteTotal,DescuentoProl,ConsultoraSaldo,
 			OrigenNombre,EstadoValidacionNombre,Zona,Region ,IndicadorEnviado,MontoMinimoPedido,ImporteTotalMM,MotivoRechazo,EstadoPedido
-
 	FROM(
 	SELECT  pr.idprocesopedidorechazado,
 	
@@ -1158,8 +1133,7 @@ BEGIN
 				WHEN 'OCC-51' THEN 'MINIMO STOCK' END + ': ' + P1.Valor AS VARCHAR(MAX))
 		FROM GPR.PedidoRechazado  P1
 		INNER JOIN GPR.MotivoRechazo MR ON P1.MotivoRechazo = MR.Codigo
-
-		WHERE p1.codigoconsultora=pr.codigoconsultora and p1.campania=pr.campania and p1.idprocesopedidorechazado=pr.idprocesopedidorechazado
+		WHERE p1.codigoconsultora=pr.codigoconsultora and p1.campania=pr.campania and p1.idprocesopedidorechazado=pr.idprocesopedidorechazado AND p.GPRSB = 2
 		FOR XML PATH ('')), 1, 1, '')) AS MotivoRechazo,
 		p.EstadoPedido	
 	FROM dbo.PedidoWeb p (NOLOCK)

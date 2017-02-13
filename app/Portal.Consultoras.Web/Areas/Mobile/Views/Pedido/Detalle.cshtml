@@ -95,33 +95,106 @@
 
 <!-- POPUP OFERTA FINAL -->
 
-<div class="contenedor_fondo_popup" id="popupOfertaFinal" style="display: none;">
+<div class="contenedor_fondo_popup" id="divOfertaFinal" style="display: none;" data-popup-main="" data-popup-function-hide="PopupOfertaFinalCerrar">
     <div class="popup_ofertaFinal">
         <a class="cerrar_popMobile" href="javascript:;" id="lnkCerrarPopupOfertaFinal">
             <img src="/Content/Images/mobile/Esika/cerrar_04.png" alt="Cerrar">
         </a>
-        <div id="divIconoOfertaFinal">
-        </div>
-        <h1 class="ofertaFinal_titulo">
-            <span id="spnTituloOfertaFinal">GUARDASTE TU <b>PEDIDO CON ÉXITO !</b></span>
-        </h1>
+        <!---->
+        <div class="content_texto_OPT">
+            <div class="icono_alerta check_icono_mobile" style="margin-top:10px; margin-bottom:10px;"></div>
+            <!--OF_mobile_montomin-->
+            <div class="OF_mobile_montomin" style="display:none;">                
+                <h1 class="ofertaFinal_titulo">
+                    <span id="spnTituloOfertaFinal">GUARDASTE TU <b>PEDIDO CON ÉXITO !</b></span>
+                </h1>
 
-        <div class="ofertaFinal_descripcion" id="of_descripcion1">
-            Agrega <span>@Model.Simbolo </span><span id="spnMontoFaltanteOfertaFinal"></span>
-            <span id="spnMensajeOfertaFinal">para ganar más esta campaña.</span>
-        </div>
+                <div class="ofertaFinal_descripcion" id="of_descripcion1">
+                    Agrega <span>@Model.Simbolo </span><span id="spnMontoFaltanteOfertaFinal"></span>
+                    <span id="spnMensajeOfertaFinal">para ganar más esta campaña.</span>
+                </div>
 
-        <div class="ofertaFinal_descripcion" id="of_descripcion2" style="display: none;">
+                @*<div class="ofertaFinal_descripcion" id="of_descripcion2" style="display: none;">
             Agrega estos productos para ganar más esta campaña
+        </div>*@
+                <div class="ofertaFinal_info">
+                    <span id="spnSubTituloOfertaFinal">=)</span>
+                </div>
+            </div>
+            <!--FIN-->
+            <!--OF_mobile_montomin-->
+            <div class="OF_mobile_montomin" style="display:none;">                
+                <h1 class="ofertaFinal_titulo">
+                    <span>GUARDASTE TU <b>PEDIDO CON ÉXITO !</b></span>
+                </h1>
+
+                <div class="ofertaFinal_descripcion">
+                    Ganancia estimada total: S/. 200.00<br/>
+                    Monto total: S/. 600.00
+                </div>
+                <div class="ofertaFinal_info">
+                    <span id="spnSubTituloOfertaFinal">Compra en oferta los complementos de tu pedido</span>
+                </div>
+            </div>
+            <!--FIN-->
+            <!--GanaMas-->
+            <div class="GanaMas" style="display:none">                
+                <h1 class="ofertaFinal_titulo">
+                    <span>¡FELICITACIONES AHORA TU GANANCIA ESTIMADA ES DE <b>S/.300.00</b>!</span>
+                </h1>
+                <div class="ofertaFinal_descripcion">                   
+                    Monto total: S/. 600.00
+                </div>
+                <div class="ofertaFinal_info">
+                    <span id="spnSubTituloOfertaFinal">Compra en oferta los complementos de tu pedido</span>
+                </div>
+            </div>
+            <!--FIN--> 
+            <!--GanaMas 2-->
+            <div class="GanaMas2" style="display:none;">
+                <h1 class="ofertaFinal_titulo">
+                    <span>¡GUARDASTE TU <b>PEDIDO CON ÉXITO</b>!</span>
+                </h1>
+                <div class="ofertaFinal_descripcion">
+                    Agrega un producto y <b>gana más</b> en esta campaña
+                </div>
+                <div class="ofertaFinal_info">
+                    <span>Compra en oferta los complementos de tu pedido</span>
+                </div>
+            </div>
+            <!--FIN-->    
+            <!--MOBILE ESCALA DESCUENTO-->
+            <div class="ESCALADESCUENTO" style="display:none;">
+                <h1 class="ofertaFinal_titulo">
+                    <span>¡FELICITACIONES LLEGASTE AL <b>30% DSCTO</b>!</span>
+                </h1>
+                <div class="ofertaFinal_descripcion">
+                    Ganancia estimada total: S/. 200.00<br />
+                    Monto total: S/. 600.00
+                </div>
+                <div class="ofertaFinal_info">
+                    <span>Compra en oferta los complementos de tu pedido</span>
+                </div>
+            </div>
+            <!--FIN-->      
+            <!--MOBILE ESCALA DESCUENTO 2-->
+            <div class="ESCALADESCUENTO2">
+                <h1 class="ofertaFinal_titulo">
+                    <span>¡GUARDASTE TU <b>PEDIDO CON ÉXITO</b>!</span>
+                </h1>
+                <div class="ofertaFinal_descripcion">
+                    Agrega S/.21.00 y obtén <b>30%</b> dscto en tu compra
+                </div>
+                <div class="ofertaFinal_info">
+                    <span>Compra en oferta los complementos de tu pedido</span>
+                </div>
+            </div>
+            <!--FIN-->                
         </div>
+       
 
         <div class="contenedor_carruselOfertaFinal">
-            
-            <div class="ofertaFinal_info">
-                <span id="spnSubTituloOfertaFinal">Gana más con estas ofertas que tenemos solo para ti</span>
-            </div>
-
-            <div class="bloque_carousel">
+            <div class="bloque_carousel" style="margin-top:-90px;">
                 @*<div class="btn_controles_carousel btn_control_atras">
                     <img src="@Url.Content("~/Content/Images/mobile/flecha-left.png")" alt="Atrás" />
                 </div>*@
@@ -129,9 +202,8 @@
                     
                 </div>
             </div>
-
-            <a href="#" title="NO, GRACIAS" class="enlace_btnNoGracias" id="btnNoGraciasOfertaFinal">
-                NO, GRACIAS
+            <a href="javascript:;" title="NO, GRACIAS" class="enlace_btnNoGracias" id="btnNoGraciasOfertaFinal">
+                TERMINAR PEDIDO
             </a>
             
         </div>
@@ -139,6 +211,43 @@
 </div>
 
 <!-- FIN POPUP OFERTA FINAL -->
+<!--POP UP ESCALA DE DESCUENTOS-->
+<div class="PopMobile1" id="contenedor_popup_ofertaFinalVerDetalle" style="display: none;"> <!--AVISEN CUANDO REALICEN EL LLAMADO DE ESTE POP UP PARA DESAPARECER EL SCROLL DEL BODY-->
+    @*<div class="content_popMobile" style="padding-bottom:0;">
+        <a class="btn_cerrar_escala" href="javascript:;" onclick="javascript: $('#EscalaDescuentoOF').hide();">REGRESAR</a>
+        <hr class="clear">
+        <div class="content_imagen_ficha" style="overflow:hidden;"><img src="http://S3.amazonaws.com/consultorasQAS/SomosBelcorp/Matriz/PE/PE_200062879_2017253419_08_bxrfxhphkv.png" alt="PRODUCTO" style="width:90%;"></div>
+        <div class="marca_ficha_producto">Ésika</div>
+        <div class="titulo_ficha_producto" style="line-height:16px;">Acondicionador Essens para cabello liso</div>
+        <div class="precio_ficha_producto">
+            <span class="precio_tachado_ficha">S/. 146.00 </span> <br/><span class="texto_comple_ficha">Precio para ti </span>&nbsp;S/. 94.90
+        </div>
+        <div class="producto_sugerido_texto">
+            Cómpralo porque ya tienes<br/>
+            <b>Shampoo Essens para cabello liso</b><br/>
+            en tu pedido
+        </div>
+        <div class="content_redes_ficha">
+            <a class="btn_compartir_ofertas"> <img src="/Content/Images/Mobile/Esika/catalogo_ws.png" alt=""></a>
+            <a class="btn_compartir_ofertas"><img src="/Content/Images/Mobile/Esika/facebook.png" alt=""></a>
+        </div>
+        <hr class="clear">
+        <div style="margin-left:-20px; margin-right:-20px;">
+            <div class="content_btn_agregar content_OPT">
+                <div class="content_320" style="max-width:292px; width:auto;">
+                    <div class="content_cantidad_ficha_producto">
+                        <a class="cantidad_menos_home"><img src="/Content/Images/Mobile/Esika/menos.png" alt=""></a>
+                        <input type="tel" value="1" size="2" maxlength="2" id="txtCantidadFichaOPT" class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);">
+                        <a class="cantidad_mas_home"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
+                    </div>
+                    <a class="btn_agregar_ficha_producto" href="javascript:;">AGRÉGALO</a>
+                    <hr class="clear">
+                </div>
+            </div>
+        </div>
+    </div>*@
+</div>
+<!--FIN-->
 @*<div id="popup-eliminar-mensaje" class="modal fade" data-backdrop="static" data-keyboard="false">
         <div class="modal-dialog modal-alert ">
             <div class="modal-content">
@@ -194,7 +303,8 @@
 
 <input id="hdfPROLSinStock" type="hidden" value="0" />
 <input id="hdfModificaPedido" type="hidden" value="0" />
-
+<input type="hidden" id="hdfTotal" value="@Model.Total" />
+<input id="hdSimbolo" type="hidden" value="@Model.Simbolo" />
 <!--SB20-483 - INICIO -->
 
 <!-- POPUP MIS GANANCIAS -->
@@ -624,67 +734,164 @@
 <!--SB20-565 - INICIO -->
 
 <script id="ofertaFinal-template" type="text/x-handlebars-template">
-    {{#each this}}
-    <div class="content_item_carrusel_ofertaFinal" data-item="ofertaFinal">
-        <div style="display: none;">
-            <input type="hidden" class="hdOfertaFinalCuv" value="{{CUV}}" />
-            <input type="hidden" class="hdOfertaFinalTipoOfertaSisID" value="{{TipoOfertaSisID}}" />
-            <input type="hidden" class="hdOfertaFinalConfiguracionOfertaID" value="{{ConfiguracionOfertaID}}" />
-            <input type="hidden" class="hdOfertaFinalIndicadorMontoMinimo" value="{{IndicadorMontoMinimo}}" />
-            <input type="hidden" class="hdOfertaFinalTipo" value="1" />
-            <input type="hidden" class="hdOfertaFinalMarcaID" value="{{MarcaID}}" />
-            <input type="hidden" class="hdOfertaFinalPrecioUnidad" value="{{PrecioCatalogo}}" />
-            <input type="hidden" class="hdOfertaFinalDescripcionProd" value="{{Descripcion}}" />
-            <input type="hidden" class="hdOfertaFinalPagina" value="0" />
-            <input type="hidden" class="hdOfertaFinalDescripcionCategoria" value="{{DescripcionCategoria}}" />
-            <input type="hidden" class="hdOfertaFinalDescripcionMarca" value="{{DescripcionMarca}}" />
-            <input type="hidden" class="hdOfertaFinalDescripcionEstrategia" value="{{DescripcionEstrategia}}" />
+    <div class="popup_ofertaFinal" data-meta="{{TipoMeta}}" data-meta-total="{{TotalPedido}}" data-popup-body="">
+        <a class="cerrar_popMobile" href="javascript:;" data-popup-close="divOfertaFinal">
+            <img src="/Content/Images/mobile/Esika/cerrar_04.png" alt="Cerrar">
+        </a>
+        <!---->
+        <div class="content_texto_OPT">
+            <div class="icono_alerta check_icono_mobile" style="margin-top:10px; margin-bottom:10px;"></div>
+
+            <h1 class="ofertaFinal_titulo" id="spnTituloOfertaFinal">
+                {{#iff TipoMeta '==' 'MM'}}
+                <span><b>&nbsp;LO SENTIMOS…</b> NO PUDIMOS GUARDAR TU PEDIDO</span>
+                {{/iff}}
+                {{#iff TipoMeta '==' 'GM'}}
+                <span>¡GUARDASTE TU<b> PEDIDO CON ÉXITO</b>!</span>
+                {{/iff}}
+                {{#iff TipoMeta '==' 'ME'}}
+                <span>¡GUARDASTE TU<b> PEDIDO CON ÉXITO</b>!</span>
+                {{/iff}}
+            </h1>
+            <div class="ofertaFinal_descripcion" id="msjOfertaFinal" data-meta-porcentaje="{{MetaPorcentaje}}" data-meta-monto="{{MontoMeta}}">
+                {{#iff TipoMeta '==' 'MM'}}
+                <span>AGREGA {{Simbolo}} <span data-monto="">{{MetaMontoStr}}</span> PARA COMPLETAR TU PEDIDO</span>
+                {{/iff}}
+                {{#iff TipoMeta '==' 'GM'}}
+                <span>AGREGA UN PRODUCTO Y GANA MÁS EN ESTA CAMPAÑA</span>
+                {{/iff}}
+                {{#iff TipoMeta '==' 'ME'}}
+                <span>Agrega{{Simbolo}} <span data-monto="">{{MetaMontoStr}}</span> y obtén <b>{{MetaPorcentaje}}%</b> dscto en tu compra</span>
+                {{/iff}}
+            </div>
         </div>
-        <div class="contenido_item_ofertaFinal">
-            <div class="producto_img_home">
-                <img src="{{ImagenProductoSugerido}}">
-            </div>
-            <div class="etiqueta_producto">
-            </div>
-            <div class="producto_nombre_descripcion">
-                <h6>{{DescripcionMarca}}</h6>
-                <p class="nombre_producto">
-                    <b>{{Descripcion}}</b>
-                </p>
-                <div class="producto_precio">
-                    {{#iff PrecioValorizadoString '!=' ''}}
-                    <span class="producto_precio_normal" style="display:none;">{{Simbolo}} {{PrecioValorizadoString}}</span>
-                    {{/iff}}
-                    <span class="producto_precio_oferta"><b>{{Simbolo}} {{PrecioCatalogoString}}</b></span>
-                </div>
-                <div class="contenedor_cantidadProductos">
-                    <span class="textoCantidad">CANTIDAD:</span>
-                    <div>
-                        @*<span class="signo_menos restar-uno" onclick="sumarUno(this);">
-                            <img src="/Content/Images/Mobile/Esika/menos.png">
-                        </span>
-                        <div class="campo_cantidadProductos">
-                            <input type="tel" name="cantidad" value="1" id="txtCantidad" min="1" max="99" maxlength="2" oninput="maxLengthCheck(this,2)" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" data-input="cantidad">
+
+        <div class="contenedor_carruselOfertaFinal">
+            <div class="bloque_carousel" style="margin-top:-90px;">
+                <div class="slider center" id="divCarruselOfertaFinal" style="width: 100%">
+                    {{#each this.Detalle}}
+                    <div class="content_item_carrusel_ofertaFinal" data-item="ofertaFinal" data-id="{{id}}">
+                        <div style="display: none;">
+                            <input type="hidden" class="hdOfertaFinalCuv" value="{{CUV}}" />
+                            <input type="hidden" class="hdOfertaFinalTipoOfertaSisID" value="{{TipoOfertaSisID}}" />
+                            <input type="hidden" class="hdOfertaFinalConfiguracionOfertaID" value="{{ConfiguracionOfertaID}}" />
+                            <input type="hidden" class="hdOfertaFinalIndicadorMontoMinimo" value="{{IndicadorMontoMinimo}}" />
+                            <input type="hidden" class="hdOfertaFinalTipo" value="1" />
+                            <input type="hidden" class="hdOfertaFinalMarcaID" value="{{MarcaID}}" />
+                            <input type="hidden" class="hdOfertaFinalPrecioUnidad" value="{{PrecioCatalogo}}" />
+                            <input type="hidden" class="hdOfertaFinalDescripcionProd" value="{{Descripcion}}" />
+                            <input type="hidden" class="hdOfertaFinalNombreComercial" value="{{NombreComercial}}" />
+                            <input type="hidden" class="hdOfertaFinalVolumen" value="{{Volumen}}" />
+                            <input type="hidden" class="hdOfertaFinalPagina" value="0" />
+                            <input type="hidden" class="hdOfertaFinalDescripcionCategoria" value="{{DescripcionCategoria}}" />
+                            <input type="hidden" class="hdOfertaFinalDescripcionMarca" value="{{DescripcionMarca}}" />
+                            <input type="hidden" class="hdOfertaFinalDescripcionEstrategia" value="{{DescripcionEstrategia}}" />
+                            <input type="hidden" class="hdOfertaFinalImagenProductoSugerido" value="{{ImagenProductoSugerido}}" />
+                            <input type="hidden" class="hdOfertaFinalPrecioValorizadoString" value="{{PrecioValorizadoString}}" />
+                            <input type="hidden" class="hdOfertaFinalPrecioCatalogoString" value="{{PrecioCatalogoString}}" />
+                            <input type="hidden" class="hdOfertaFinalNombreComercial" value="{{NombreComercial}}" />
+                            <input type="hidden" class="hdOfertaFinalDescripcionComercial" value="{{DescripcionComercial}}" />
+                            <input type="hidden" class="hdOfertaFinalUrlCompartirFB" value="{{UrlCompartirFB}}" />
+                            <input type="hidden" class="hdOfertaFinalDescripcionRelacionado" value="{{DescripcionRelacionado}}" />
                         </div>
-                        <span class="signo_mas sumar-uno" onclick="sumarUno(this);">
-                            <img src="/Content/Images/Mobile/Esika/mas.png">
-                        </span>*@
-                        <a class="cantidad_menos_home"><img src="/Content/Images/Mobile/Esika/menos.png" alt=""></a>
-                        <input type="tel" value="1" size="2" maxlength="2" id="txtCantidad" class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" data-input="cantidad">
-                        <a class="cantidad_mas_home"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
-                        <div class="clear"></div>
+                        <div class="contenido_item_ofertaFinal">
+                            <div class="producto_img_home" onclick="javascript:CargarVerDetalleOF(this, event);" data-id="{{id}}">
+                                <img src="{{ImagenProductoSugerido}}">
+                            </div>
+                            <div class="producto_nombre_descripcion">
+                                <div onclick="javascript:CargarVerDetalleOF(this, event);" data-id="{{id}}">
+                                    <h6>{{DescripcionMarca}}</h6>
+                                    <p class="nombre_producto">
+                                        <b>{{NombreComercial}}</b>
+                                    </p>
+                                    <div class="producto_precio">
+                                        {{#iff PrecioValorizadoString '!=' ''}}
+                                        <span class="producto_precio_normal" style="display:none;">{{Simbolo}} {{PrecioValorizadoString}}</span>
+                                        {{/iff}}
+                                        <span class="producto_precio_oferta"><b>{{Simbolo}} {{PrecioCatalogoString}}</b></span>
+                                    </div>
+                                </div>
+                                <div class="contenedor_cantidadProductos">
+                                    <span class="textoCantidad">CANTIDAD:</span>
+                                    <div>
+                                        <a class="cantidad_menos_home"><img src="/Content/Images/Mobile/Esika/menos.png" alt=""></a>
+                                        <input type="tel" value="1" size="2" maxlength="2" id="txtCantidad" class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" data-input="cantidad">
+                                        <a class="cantidad_mas_home"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
+                                        <div class="clear"></div>
+                                    </div>
+                                </div>
+                                <a class="boton_Agregalo_home agregarOfertaFinal">
+                                    AGRÉGALO
+                                </a>
+                                <div class="clear"></div>
+                                <div class="content_carrusel_agregado" style="padding-top:9px; height: 15px;">
+                                    <div class="agregado product-add" style="text-align:right;display:none;">
+                                        AGREGADO
+                                        <div class="icono"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
+                    {{/each}}
                 </div>
-                <a class="boton_Agregalo_home agregarOfertaFinal">
-                    AGRÉGALO
-                </a>
-                <div class="clear"></div>
             </div>
+            <a href="javascript:;" title="NO, GRACIAS" class="enlace_btnNoGracias" id="btnNoGraciasOfertaFinal">
+                TERMINAR PEDIDO
+            </a>
         </div>
     </div>
-    {{/each}}
 </script>
 <!--SB20-565 - FIN -->
+
+<!-- PL20 1287 - INICIO -->
+    <script id="ofertaFinalVerDetalle-template" type="text/x-handlebars-template">
+        <div class="content_popMobile" style="padding-bottom:0;">
+            <a class="btn_cerrar_escala" href="javascript:;" onclick="javascript: $('#contenedor_popup_ofertaFinalVerDetalle').hide();">REGRESAR</a>
+            <hr class="clear">
+            <div class="content_imagen_ficha" style="overflow:hidden;">
+                <img src="{{ImagenProductoSugerido}}" alt="PRODUCTO" style="width:90%;">
+            </div>
+            <div class="marca_ficha_producto">{{DescripcionMarca}}</div>
+            <div class="titulo_ficha_producto" style="line-height:16px;">{{NombreComercial}}</div>
+            <div class="precio_ficha_producto">
+                {{#iff PrecioValorizadoString '!=' '0'}}
+                <span class="precio_tachado_ficha">{{Simbolo}} {{PrecioValorizadoString}}</span><br />
+                {{/iff}}
+                <span class="texto_comple_ficha">Precio para ti </span>&nbsp;{{Simbolo}} {{PrecioCatalogoString}}
+            </div>
+            {{#iff DescripcionRelacionado '!=' ''}}
+            <div class="producto_sugerido_texto">
+                Cómpralo porque ya tienes<br />
+                <b>{{DescripcionRelacionado}}</b><br />
+                en tu pedido
+            </div>
+            {{/iff}}
+            <div class="content_redes_ficha">
+                <a class="btn_compartir_ofertas" href='javascript:window.location=CompartirWsp("{{UrlCompartirFB}}", {Palanca: "OF", RutaImagen: "{{ImagenProductoSugerido}}", MarcaID:"{{MarcaID}}", MarcaDesc:"{{DescripcionMarca}}", NombrePro:"{{Descripcion}}", Cuv:"{{CUV}}"});'>
+                    <img src="/Content/Images/Mobile/Esika/catalogo_ws.png" alt="">
+                </a>
+                <a class="btn_compartir_ofertas" onclick='javascript:CompartirFacebook("{{UrlCompartirFB}}",  {Palanca: "OF", RutaImagen: "{{ImagenProductoSugerido}}", MarcaID:"{{MarcaID}}", MarcaDesc:"{{DescripcionMarca}}", NombrePro:"{{Descripcion}}", Cuv:"{{CUV}}"});'>
+                    <img src="/Content/Images/Mobile/Esika/facebook.png" alt="">
+                </a>
+            </div>
+            <hr class="clear">
+            <div style="margin-left:-20px; margin-right:-20px;">
+                <div class="content_btn_agregar content_OPT">
+                    <div class="content_320" style="max-width:292px; width:auto;">
+                        <div class="content_cantidad_ficha_producto">
+                            <a class="cantidad_menos_home"><img src="/Content/Images/Mobile/Esika/menos.png" alt=""></a>
+                            <input type="tel" value="1" size="2" maxlength="2" id="txtCantidadFichaOPT" class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" data-input="cantidad">
+                            <a class="cantidad_mas_home"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
+                        </div>
+                        <a class="btn_agregar_ficha_producto agregarOfertaFinalVerDetalle" href="javascript:;" data-popup-verdetalle="{{id}}">AGRÉGALO</a>
+                        <hr class="clear">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </script>
+<!-- PL20 1287 - FIN -->
 
 
 @section Scripts{

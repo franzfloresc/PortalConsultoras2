@@ -609,7 +609,7 @@ namespace Portal.Consultoras.Web.Controllers
             ExportToExcelDetallePedido("exportar", lst, dic, "DescargaCompleta", "1");
             return View();
         }
-        public ActionResult ExportarExcelDetallePedido(string vPaisID, string vCampania, string vConsultora, string vRegionID, string vZonaID, string vOrigen, string vEstadoValidacion)
+        public ActionResult ExportarExcelDetallePedido(string vPaisID, string vCampania, string vConsultora, string vRegionID, string vZonaID, string vOrigen, string vEstadoValidacion, string vEsRechazado)
         {
             List<BEPedidoDDWeb> lst = new List<BEPedidoDDWeb>();
 
@@ -630,7 +630,8 @@ namespace Portal.Consultoras.Web.Controllers
                         ZonaCodigo = vZonaID,
                         Origen = Convert.ToInt32(vOrigen),
                         ConsultoraCodigo = (string.IsNullOrEmpty(vConsultora) || vConsultora == "0" ? string.Empty : vConsultora),
-                        EstadoValidacion = int.Parse(vEstadoValidacion)
+                        EstadoValidacion = int.Parse(vEstadoValidacion),
+                        EsRechazado = int.Parse(vEsRechazado)
                     }).ToList();
             }
 
@@ -646,7 +647,7 @@ namespace Portal.Consultoras.Web.Controllers
             return View();
         }
 
-        public ActionResult ExportarExcelCabecera(string vPaisID, string vCampania, string vConsultora, string vRegionID, string vZonaID, string vOrigen, string vEstadoValidacion)
+        public ActionResult ExportarExcelCabecera(string vPaisID, string vCampania, string vConsultora, string vRegionID, string vZonaID, string vOrigen, string vEstadoValidacion, string vEsRechazado)
         {
 
             List<BEPedidoDDWeb> lst = new List<BEPedidoDDWeb>();
@@ -688,7 +689,8 @@ namespace Portal.Consultoras.Web.Controllers
                             ZonaCodigo = vZonaID,
                             Origen = Convert.ToInt32(vOrigen),
                             ConsultoraCodigo = (string.IsNullOrEmpty(vConsultora) || vConsultora == "0" ? string.Empty : vConsultora),
-                            EstadoValidacion = int.Parse(vEstadoValidacion)
+                            EstadoValidacion = int.Parse(vEstadoValidacion),
+                            EsRechazado = int.Parse(vEsRechazado)
                         }).ToList();
                 }
             }
@@ -778,7 +780,7 @@ namespace Portal.Consultoras.Web.Controllers
                             a.MotivoRechazo
                         };
 
-            ExportToCSV("exportar", lista.ToList(), dic, "DescargaCompleta", "1");
+            ExportToCSV("exportar", lista.ToList(), dic, "DescargaCompleta", "1");            
             // 2446 - Fin
             return View();
         }
