@@ -369,13 +369,6 @@ namespace Portal.Consultoras.Web.Controllers
 
                 #endregion
                 
-                if (model.OfertaFinal == Constantes.TipoOfertaFinalCatalogoPersonalizado.Jetlore ||
-                        model.OfertaFinal == Constantes.TipoOfertaFinalCatalogoPersonalizado.Arp)
-                {
-                    if (esFacturacion)
-                        ObtenerListadoProductosOfertaFinal();
-                }
-                
             }
             catch (FaultException ex)
             {
