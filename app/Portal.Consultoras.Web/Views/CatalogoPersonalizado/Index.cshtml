@@ -29,7 +29,7 @@
             <img src="@ViewBag.UrlImagenFAVLanding" alt="favoritos"/>
         </div>
         <div class="texto_banner_seccion_fav">
-            @ViewBag.NombreConsultora, estos son los
+            @ViewBag.NombreConsultoraFAV, estos son los
             <span class="altas_seccion_fav">FAVORITOS</span>
             <span class="clientes_fav_texto">DE TUS CLIENTES</span>
         </div>
@@ -42,19 +42,19 @@
         <div data-maq onclick="AbrirMaqueta(3)" style="display: none;"><span>Pack</span></div>
     </div>
     <hr class="clear" />
-    <div class="linea_separadora no_mostrar_esika" style="margin-top: -1px; position: relative; z-index: 20;"></div>
+   
 </div>
 <div id="cuerpo" class="catalogoPersonalizadoBloque" style="min-height:150px;">
     <div data-div="d">
         <div class="content_belcorp content_belcorp_misPedidos" id="contenidoGrilla">
-            <div class="pestana_lbel new"></div>
+           
             <div class="clear"></div>
             @*<div class="texto_descripcionCatalogoPersonalizado paginaCatalogo">Encuentra una selección de los productos que tus clientes de seguro te solicitarán</div>*@
             <div class="content_filtros_left">
                 <span class="titulo_filtro_fav">FILTROS</span>
                 <div class="linea_separadora" style="height:3px;"></div>
-                <div class="texto_fav_filtro"> BORRAR FILTROS</div>
-                <div class="linea_separadora"></div>
+                <div class="texto_fav_filtro" style="cursor:pointer;display:none;"> BORRAR FILTROS</div>
+                <div id="limiteFlt" class="linea_separadora"></div>
                 <!--PRIMER FILTRO-->
                 <span class="titulo_filtro_fav">CATEGORÍAS</span>
                 <hr class="clear" />              
@@ -764,7 +764,10 @@
                                     </div>
                                     {{/IsNullOrEmpty}}                         
                                 </div>
-                                <div class="sub_descripcion_oferta"><p><span>x{{item.cantidad}}</span>&nbsp;{{item.descripcion_gratis}}</p></div>
+                                <div class="sub_descripcion_oferta">
+                                    <p><span>x{{item.cantidad}}</span>&nbsp;{{item.descripcion_gratis}}</p>
+                                    <div class="peso_ficha_producto">{{item.volumen}}</div>
+                                </div>
                                 <hr class="clear">
                                 {{/if_eq}}
                                 {{/each}}            
@@ -900,7 +903,10 @@
                                     </div>
                                     {{/IsNullOrEmpty}}                                  
                                 </div>
-                                <div class="sub_descripcion_oferta"><p><span>x{{item.cantidad_item_pack}}</span>&nbsp;{{item.descripcion_item_pack}}</p></div>
+                                <div class="sub_descripcion_oferta">
+                                    <p><span>x{{item.cantidad_item_pack}}</span>&nbsp;{{item.descripcion_item_pack}}</p>
+                                    <div class="peso_ficha_producto">{{item.volumen}}</div>
+                                </div>
                                 <hr class="clear" />
                                 @*<div class="sub_imagen_oferta"><img src="https://s3-sa-east-1.amazonaws.com/appcatalogo/PE/201616/C/productos/PE_200069929.jpg" alt=""></div>
                                 <div class="sub_descripcion_oferta"><p><span>x2</span>&nbsp;Desodorante roll-on. Girlink</p></div>
@@ -1038,7 +1044,7 @@
         </a>
         <div class="content_left_ficha">
             <div class="content_ficha_producto">
-                <img id="fav_imagen_prod" src="{{ImagenProductoSugerido}}" alt="PRODUCTO">
+                <img id="fav_imagen_prod" class="imagen_producto" src="{{ImagenProductoSugerido}}" alt="PRODUCTO">
             </div>
             <div class="compartir_redes_ficha" style="margin-left: -20px; padding-left: 0px;">
                 <div class="texto_compartelo">Compártelo con tus clientes</div>
@@ -1065,7 +1071,7 @@
                 <!--SELECCION DE TONOS-->
                 <div class="content_tonos_maquillaje">
                     {{#each Hermanos as |item1|}}
-                    <div id="fav_tono_{{CUV}}" class="content_tono_detalle" onclick="cambiarInfoFichaProductoFAV(1,'{{item1.CUV}}')">
+                    <div id="fav_tono_{{item1.CUV}}" class="content_tono_detalle" onclick="cambiarInfoFichaProductoFAV(1,'{{item1.CUV}}',1)">
                         <img src="{{item1.ImagenBulk}}" alt="PRODUCTO">
                         @*<div class="content_mascara_maquillaje">
                                 <img src="https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/HfQTTPvWfVXwt3R/textura_labial.png" alt="PRODUCTO">
@@ -1075,7 +1081,7 @@
                     {{/each}}
                 </div>
 
-                <select id="fav_tonobulk_{{CUV}}" class="tono_labial_select" onchange="cambiarInfoFichaProductoFAV(2)">
+                <select id="fav_cbo_tono" class="tono_labial_select" onchange="cambiarInfoFichaProductoFAV(2,null,1)">
                     {{#each Hermanos as |item2|}}
                     <option value="{{item2.CUV}}">{{item2.NombreBulk}}</option>
                     {{/each}}

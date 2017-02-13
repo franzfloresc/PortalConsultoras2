@@ -303,10 +303,11 @@ namespace Portal.Consultoras.Web.Controllers
                 if (item.StockDisponible == 0) item.ObservacionPROL = string.Format("El producto {0} - {1} - cuenta nuevamente con stock. Si deseas agrégalo a tu pedido.", item.CUV, item.Descripcion);
                 else
                 {
-                    if (item.StockDisponible == 1) item.ObservacionPROL = "Nos ingresó 1 unidad";
-                    else item.ObservacionPROL = "Nos ingresaron " + item.StockDisponible + " unidades";
+                    string unidades;
+                    if (item.StockDisponible == 1) unidades = "1 unidad";
+                    else unidades = item.StockDisponible + " unidades";
 
-                    item.ObservacionPROL += string.Format(" del producto {0} - {1}. Si deseas agrégalo a tu pedido.", item.CUV, item.Descripcion);
+                    item.ObservacionPROL = string.Format("Ya contamos con stock de {0} del producto {1} - {2}, para que lo puedas agregar nuevamente a tu pedido.", unidades, item.CUV, item.Descripcion);
                 }
             }
 

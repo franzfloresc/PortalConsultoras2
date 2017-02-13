@@ -4,6 +4,7 @@
 **/[Rr]elease/
 **/[Rr]eleases/
 **/[Bb]in/
+**/[Ll]og/
 
 # Mac File
 .DS_Store

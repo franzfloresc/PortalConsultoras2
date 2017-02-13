@@ -28,7 +28,6 @@
     <RestorePackages>true</RestorePackages>
     <DeployOnBuild Condition=" '$(DeployWEB)'!='' ">$(DeployWEB)</DeployOnBuild>
     <UseGlobalApplicationHostFile />
-   
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -370,7 +369,6 @@
     <Compile Include="Models\AutoMapper\DomainToModelMappingProfile.cs" />
     <Compile Include="Models\BarraConsultoraEscalaDescuentoModel.cs" />
     <Compile Include="Models\BaseVM.cs" />
-    <Compile Include="Models\CatalogoIssuModel.cs" />
     <Compile Include="Models\CatalogoPersonalizadoModel.cs" />
     <Compile Include="Models\CDRWebModel.cs" />
     <Compile Include="Models\ClienteOnlineDetalleModel.cs" />
@@ -400,7 +398,7 @@
     <Compile Include="Models\BienvenidaHomeModel.cs" />
     <Compile Include="Models\CampaniaModel.cs" />
     <Compile Include="Models\CatalogoClienteModel.cs" />
-    <Compile Include="Models\CatalogoModel.cs" />
+    <Compile Include="Models\MisCatalogosRevistasModel.cs" />
     <Compile Include="Models\ClienteContactaConsultoraModel.cs" />
     <Compile Include="Models\ConfiguracionCrossSellingModel.cs" />
     <Compile Include="Models\ConfiguracionOfertaModel.cs" />
@@ -2775,7 +2773,7 @@
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
-    <Content Include="Service References\ServiceUnete\PortalService.wsdl" />
+    <None Include="Service References\ServiceUnete\PortalService.wsdl" />
     <None Include="Service References\ServiceUnete\PortalService.xsd">
       <SubType>Designer</SubType>
     </None>
@@ -3116,7 +3114,6 @@
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
-    <None Include="Service References\ServiceProductoCatalogoPersonalizado\ProductoService1.disco" />
     <Content Include="Service References\ServiceSAC\Portal.Consultoras.Web.ServiceSAC.BEBannerPedido.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Content>

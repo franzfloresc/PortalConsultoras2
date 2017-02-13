@@ -41,24 +41,25 @@ else
     </div>
 }
 
-
+<!--GUIA NEGOCIO-->
 <div id="GuiaNegocio" style="display: none;">
     <!--FICHA 003A-->
     <div id="Ficha_003A" style="display: none;">
-        
     </div>
     <!--FIN-->
+
     <!--FICHA 048B-->
     <div id="Ficha_048B" class="content_oferta_guia_negocio" style="display: none;">
     </div>
 
+    <!--FICHA 048A-->
     <div id="Ficha_048A" style="display:none;">
-        
     </div>
     <!--FIN-->
 </div>
-<!--POP UP GUIA NEGOCIO-->
+<!--GUIA NEGOCIO-->
 
+<!--PRECIO CATALOGO-->
 <div id="PrecioCatalogo" style="display:none;">
     <div class="wrapper_resumen_mobile" style="padding-bottom:96px;">
         <div data-item="catalogopersonalizado">
@@ -99,20 +100,25 @@ else
                 <div class="content_tonos_producto">
                     @if (Model.Hermanos != null)
                     {
-                        foreach (var item in Model.Hermanos)
-                        {
-                            <div id="fav_tono_@Model.CUV" class="content_tono_detalle" onclick="cambiarInfoFichaProductoFAV(1,'@item.CUV')">
-                                <img src="@item.ImagenBulk" alt="@item.NombreBulk" />
-                            </div>
-                        }
-
-                        <hr class="clear" />
-                        <select id="fav_tonobulk_@Model.CUV" class="tono_labial_select" onchange="cambiarInfoFichaProductoFAV(2)">
+                        <br />
+                        <select id="fav_cbo_tono" class="tono_labial_select" onchange="cambiarInfoFichaProductoFAV(2,null,2)">
                             @foreach (var item in Model.Hermanos)
                             {
                                 <option value="@item.CUV">@item.NombreBulk</option>
                             }
                         </select>
+                        <br />
+                        <div>
+                           @foreach (var item in Model.Hermanos)
+                            {
+                            <div id="fav_tono_@item.CUV" class="content_tono_detalle" onclick="cambiarInfoFichaProductoFAV(1,'@item.CUV',2)">
+                                <img src="@item.ImagenBulk" alt="@item.NombreBulk" />
+                            </div>
+
+                            }
+                        </div>
+
+                        <hr class="clear" />
                     }
                 </div>
             </div>
@@ -134,7 +140,7 @@ else
                     }
                 }
                 <a id="btn_wsp" class="btn_compartir_ofertas" href="javascript:window.location=CompartirWsp('@urlWs');" data-action="share/whatsapp/share"><img src="@Url.Content("~/Content/Images/Mobile/Esika/catalogo_ws.png")" alt=""></a>
-                <a id="btn_fb" class="btn_compartir_ofertas" href="#" onclick='CompartirFacebook("@urlBase_fb");'><img src="@Url.Content("~/Content/Images/Mobile/Esika/facebook.png")" alt=""></a>
+                <a id="btn_fb" class="btn_compartir_ofertas" href="javascript:void(0);" onclick='CompartirFacebook("@urlBase_fb");'><img src="@Url.Content("~/Content/Images/Mobile/Esika/facebook.png")" alt=""></a>
             </div>
 
             <div style="display: none;">
@@ -159,39 +165,11 @@ else
         </div>
     </div>
 </div>
+<!--PRECIO CATALOGO-->
 
 <!--HAY QUE DESAPARECER EL SCROLL DEL BODY, CUANDO GENEREN ESTE POP UP ME AVISAN-->
-<div class="PopMobile1" id="PopGuiaNegocio" style="display: none;">
-    <div class="content_popMobile" style="text-align:center; max-width:400px;">
-        <a class="cerrar_popMobile" href="javascript:;" onclick="javascript: $('#PopGuiaNegocio').hide();">
-            <img src="/Content/Images/mobile/Esika/cerrar_04.png" alt="-">
-        </a>
-        <hr class="clear">
-        <div class="titulo_pack_detalle">HAS COMPRADO</div>
-        <div class="linea_separadora_black flecha_048"></div>
-        <div class="detalle_Cantidad_pack"> <b>7</b> Dorsay 100 ml</div>
-        <div class="precio_para_ti_048">Precio para ti <b>$ 29.900</b></div>
-        <div class="gana_048">Gana $ 10.000</div>
-        <div class="texto_gratis_pop">Vas a recibir GRATIS</div>
-        <div class="linea_separadora_black flecha_048"></div>
-        <!--DEFINIR DENTRO DE ESTE DIV LA CANTIDAD DE PRODUCTO -->
-        <div class="content_unidad_producto">
-            <div class="content_pack_048">
-                <div class="imagen_pack_048"><img src="https://s3-sa-east-1.amazonaws.com/appcatalogo/CL/201702/E/productos/CL_200078945.jpg" class="imagen_producto"></div>
-                <div class="nombre_producto_pack_048">2 Pulso 100ml</div>
-            </div>
-            <div class="content_pack_048">
-                <div class="imagen_pack_048"><img src="https://s3-sa-east-1.amazonaws.com/appcatalogo/CL/201702/E/productos/CL_200078945.jpg" class="imagen_producto"></div>
-                <div class="nombre_producto_pack_048">2 Pulso 100ml</div>
-            </div>
-            <div class="content_pack_048">
-                <div class="imagen_pack_048"><img src="https://s3-sa-east-1.amazonaws.com/appcatalogo/CL/201702/E/productos/CL_200078945.jpg" class="imagen_producto"></div>
-                <div class="nombre_producto_pack_048">2 Pulso 100ml</div>
-            </div>
-        </div>
-        <a class="btn_anuncio_agregado" href="javascript:;" onclick="javascript: $('#PopGuiaNegocio').hide();">OK, ENTENDIDO</a>
-
-    </div>
+<div class="PopMobile1" id="PopupResumenOferta048N" style="display: none;">
+    
 </div>
 <!--FIN-->
 
@@ -231,15 +209,8 @@ else
 
         <div class="content_oferta_guia_negocio">
             <div class="content_imagen_048">
-                <img src="{{UrlImagen}}" class="imagen_producto">
-                @if (ViewBag.PaisEsika)
-                {
-                    <div class="etiqueta_guia_negocio"><span>OFERTA</span> GUÍA DE NEGOCIO</div>
-                }
-                else
-                {
-                    <div class="etiqueta_guia_negocio"><span>OFERTA</span> GUÍA DE NEGOCIO</div>
-                }
+                <img src="{{UrlImagen}}" class="imagen_producto" />
+                <div class="etiqueta_guia_negocio"><span>OFERTA</span> GUÍA DE NEGOCIO</div>
             </div>
             <div class="marca_oferta048">{{DescripcionMarca}}</div>
             <div class="nombre_producto_048">{{Descripcion}}</div>
@@ -249,8 +220,8 @@ else
             <hr class="clear" />
             <div style="overflow:hidden; margin-bottom:100px;">
                 <div class="texto_comparte">Comparte este producto con tus clientes</div>
-                <a id="btn_wsp" class="btn_compartir_ofertas" href="#"><img src="/Content/Images/Mobile/Esika/catalogo_ws.png" alt=""></a>
-                <a id="btn_fb" class="btn_compartir_ofertas" href="#"> <img src="/Content/Images/Mobile/Esika/facebook.png" alt=""></a>
+                <a id="btn_wsp" class="btn_compartir_ofertas" href="javascript:window.location=CompartirWsp('@urlWs');" data-action="share/whatsapp/share"><img src="/Content/Images/Mobile/Esika/catalogo_ws.png" alt=""></a>
+                <a id="btn_fb" class="btn_compartir_ofertas" href="javascript:void(0);" onclick='CompartirFacebook("@urlBase_fb");'> <img src="/Content/Images/Mobile/Esika/facebook.png" alt=""></a>
             </div>
         </div>
         <div class="content_btn_agregar">
@@ -302,15 +273,8 @@ else
         </div>
 
         <div class="content_imagen_048">
-            <img src="{{UrlImagen}}" class="imagen_producto">
-            @if (ViewBag.PaisEsika)
-            {
-                <div class="etiqueta_guia_negocio"><span>OFERTA</span>GUÍA DE NEGOCIO</div>
-            }
-            else
-            {
-                <div class="etiqueta_guia_negocio"><span>OFERTA</span> GUÍA DE NEGOCIO</div>
-            }
+            <img src="{{UrlImagen}}" class="imagen_producto" />
+            <div class="etiqueta_guia_negocio"><span>OFERTA</span>GUÍA DE NEGOCIO</div>
         </div>
         <div class="marca_oferta048">Esika</div>
         <div class="nombre_producto_048">{{Descripcion}}</div>
@@ -353,7 +317,10 @@ else
                     {{#IsNullOrEmpty item.imagen_item_pack '=='}}
                     <div class="imagen_pack_048"><img src="@Url.Content(ViewBag.RutaImagenNoDisponible)" class="imagen_producto"></div>
                     {{/IsNullOrEmpty}}
-                    <div class="nombre_producto_pack_048"><p style="margin:0;"><span style="font-size:14px; font-weight:bold;">{{item.cantidad_item_pack}}</span>{{item.descripcion_item_pack}}</p></div>
+                    <div class="nombre_producto_pack_048"><p style="margin:0;"><span style="font-size:14px; font-weight:bold;">{{item.cantidad_item_pack}}</span>{{item.descripcion_item_pack}}</p>
+                        <div class="peso_ficha_producto" style="text-align:left; margin-top:0">{{item.volumen}}</div>
+                    </div>
+                    
                 </div>
                 {{/if_eq}}
                 {{/each}}
@@ -375,8 +342,8 @@ else
 
         <div>
             <div class="texto_comparte">Comparte este producto con tus clientes</div>
-            <a id="btn_wsp" class="btn_compartir_ofertas" href="#"><img src="/Content/Images/Mobile/Esika/catalogo_ws.png" alt=""></a>
-            <a id="btn_fb" class="btn_compartir_ofertas" href="#"> <img src="/Content/Images/Mobile/Esika/facebook.png" alt=""></a>
+            <a id="btn_wsp" class="btn_compartir_ofertas" href="javascript:window.location=CompartirWsp('@urlWs');" data-action="share/whatsapp/share"><img src="/Content/Images/Mobile/Esika/catalogo_ws.png" alt=""></a>
+            <a id="btn_fb" class="btn_compartir_ofertas" href="javascript:void(0);" onclick='CompartirFacebook("@urlBase_fb");'> <img src="/Content/Images/Mobile/Esika/facebook.png" alt=""></a>
         </div>
         <hr class="clear" />
         <br />
@@ -419,15 +386,8 @@ else
 
         <div class="content_oferta_guia_negocio">
             <div class="content_imagen_048">
-                <img src="{{UrlImagen}}" class="imagen_producto">
-                @if (ViewBag.PaisEsika)
-                {
-                    <div class="etiqueta_guia_negocio"><span>OFERTA</span> GUÍA DE NEGOCIO</div>
-                }
-                else
-                {
-                    <div class="etiqueta_guia_negocio"><span>OFERTA</span> GUÍA DE NEGOCIO</div>
-                }
+                <img src="{{UrlImagen}}" class="imagen_producto" />
+                <div class="etiqueta_guia_negocio"><span>OFERTA</span> GUÍA DE NEGOCIO</div>
             </div>
             <div class="marca_oferta048">{{DescripcionMarca}}</div>
             <div class="nombre_producto_048">{{Descripcion}}</div>
@@ -456,7 +416,10 @@ else
                         {{#IsNullOrEmpty item.imagen_gratis '=='}}
                         <div class="imagen_pack_048"><img src="@Url.Content(ViewBag.RutaImagenNoDisponible)" class="imagen_producto"></div>
                         {{/IsNullOrEmpty}}
-                        <div class="nombre_producto_pack_048"><p style="margin:0;"><span style="font-size:14px; font-weight:bold">{{item.cantidad}}</span> {{item.descripcion_gratis}}</p></div>
+                        <div class="nombre_producto_pack_048"><p style="margin:0;"><span style="font-size:14px; font-weight:bold">{{item.cantidad}}</span> {{item.descripcion_gratis}}</p>
+                            <div class="peso_ficha_producto" style="text-align:left; margin-top:0">{{item.volumen}}</div>
+                        </div>
+                        
                     </div>
                     {{/if_eq}}
                     {{/each}}
@@ -468,8 +431,8 @@ else
 
             <div style="overflow:hidden; margin-bottom:100px;">
                 <div class="texto_comparte">Comparte este producto con tus clientes</div>
-                <a id="btn_wsp" class="btn_compartir_ofertas" href="#"><img src="/Content/Images/Mobile/Esika/catalogo_ws.png" alt=""></a>
-                <a id="btn_fb" class="btn_compartir_ofertas" href="#"> <img src="/Content/Images/Mobile/Esika/facebook.png" alt=""></a>
+                <a id="btn_wsp" class="btn_compartir_ofertas" href="javascript:window.location=CompartirWsp('@urlWs');" data-action="share/whatsapp/share"><img src="/Content/Images/Mobile/Esika/catalogo_ws.png" alt=""></a>
+                <a id="btn_fb" class="btn_compartir_ofertas" href="javascript:void(0);" onclick='CompartirFacebook("@urlBase_fb");'> <img src="/Content/Images/Mobile/Esika/facebook.png" alt=""></a>
             </div>
         </div>
 
@@ -487,10 +450,49 @@ else
     </div>
 </script>
 
+<script id="template-resumenoferta048N" type="text/x-handlebars-template">
+
+    <div class="content_popMobile" style="text-align:center; max-width:400px;">
+        <a class="cerrar_popMobile" href="javascript:;" onclick="closeResumenOferta048Mobile();">
+            <img src="/Content/Images/mobile/Esika/cerrar_04.png" alt="-">
+        </a>
+        <hr class="clear">
+
+        <!--NIVEL-->
+
+            <div class="titulo_pack_detalle">HAS COMPRADO</div>
+            <div class="linea_separadora_black flecha_048"></div>
+            <div class="detalle_Cantidad_pack"> <b>{{Cantidad_Total}}</b>{{Descripcion}}</div>
+            <div class="precio_para_ti_048">Precio para ti <b>{{Simbolo}} {{DecimalToStringFormat Precio_Total}}</b></div>
+            <div class="gana_048">{{TxtGanancia}} {{Simbolo}} {{DecimalToStringFormat Ganancia_Total}}</div>
+            <div class="texto_gratis_pop">{{TxtRecibeGratis}}</div>
+            <div class="linea_separadora_black flecha_048"></div>
+
+            {{#each lista_oObjGratis as |item|}}
+            
+            <div class="content_unidad_producto">
+                <div class="content_pack_048">
+                    {{#IsNullOrEmpty item.imagen_gratis '!='}}
+                    <div class="imagen_pack_048"><img src="{{item.imagen_gratis}}" class="imagen_producto"></div>
+                    {{/IsNullOrEmpty}}
+                    {{#IsNullOrEmpty item.imagen_gratis '=='}}
+                    <div class="imagen_pack_048"><img src="@Url.Content(ViewBag.RutaImagenNoDisponible)" class="imagen_producto"></div>
+                    {{/IsNullOrEmpty}}
+                    <div class="nombre_producto_pack_048">{{item.cantidad}} {{item.descripcion_gratis}}</div>
+                </div>
+            </div>
+            {{/each}}
+
+        <!--FIN-->
+
+        <a class="btn_anuncio_agregado" href="javascript:;" onclick="closeResumenOferta048Mobile();">OK, ENTENDIDO</a>
+
+    </div>
+
+</script>
+
 @section scripts{
-
     <script type="text/javascript">
-
         var urlObtenerProductosCatalogoPersonalizado = '@Url.Action("ObtenerProductosCatalogoPersonalizado", "CatalogoPersonalizado", new { area = "" })';
         var urlPedidoInsert = '@Url.Action("Insert", "Pedido", new { area = "" })';
         var urlReservadoOEnHorarioRestringido = '@Url.Action("ReservadoOEnHorarioRestringido", "Pedido", new { area = "" })';
@@ -508,7 +510,6 @@ else
     <script src="~/Scripts/PortalConsultoras/Mobile/CatalogoPersonalizado/bootstrap-slider.min.js"></script>
 }
 
-
 <script>
     //PL20-1268
     var dataFichaProductoFAV = [];
@@ -518,5 +519,7 @@ else
     var cuv = '@Model.CUV';
     var tieneOfertaEnRevista = '@Model.TieneOfertaEnRevista';
     var cargarItemsFAV = false;
+    var codTipoOferta = null;
+    var dataOfertaEnRevista = [];
 
 </script>

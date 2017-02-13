@@ -23,6 +23,14 @@ $(document).ready(function () {
             if ($('#popupDetalleCarousel_lanzamiento').is(':visible')) {
                 $('#popupDetalleCarousel_lanzamiento').hide();
             }
+
+            if ($('[data-popup-main]').is(':visible')) {
+                var functionHide = $('[data-popup-main]').attr("data-popup-function-hide");
+                if (functionHide != "") {
+                    setTimeout(functionHide + "()", 100);
+                }
+                $('[data-popup-main]').hide();
+            }
         }
     });
 
@@ -39,7 +47,6 @@ $(document).ready(function () {
     });
 
     /*PL20-1226*/
-
     //$('.Content_general_pop_up').click(function (e) {
     //    if (!$(e.target).closest('.content_ficha_producto_nueva').length) {
     //        if ($('#PopFichaProductoNueva').is(':visible')) {
@@ -58,6 +65,40 @@ $(document).ready(function () {
             //if ($('#popupDetalleCarousel_lanzamiento').is(':visible')) {
             //    $('#popupDetalleCarousel_lanzamiento').hide();
             //}
+        }
+    });
+
+    $("body").on("click", "[data-popup-main]", function (e) {
+        if (!$(e.target).closest('[data-popup-body]').length) {
+
+            if ($(e.target).is(':visible')) {
+
+                var functionHide = $('[data-popup-main]').attr("data-popup-function-hide");
+                if (functionHide != "") {
+                    setTimeout(functionHide + "()", 100);
+                }
+                $(e.target).hide();
+            }
+        }
+    });
+
+
+    $("body").on("click", "[data-popup-close]", function (e) {
+        var popupClose = $("#" + $(this).attr("data-popup-close")) || $(this).parent("[data-popup-main]");
+
+        var functionHide = $(popupClose).attr("data-popup-function-hide");
+        if (functionHide != "") {
+            setTimeout(functionHide + "()", 100);
+        }
+        $(popupClose).hide();
+    });
+
+    // cerrar popup ofertas 003,048
+    $('[data-oferta]').click(function (e) {
+        if (!$(e.target).closest('.cuerpo-mod').length) {
+            if ($('[data-oferta]').is(':visible')) {
+                $('[data-oferta]').hide();
+            }
         }
     });
 

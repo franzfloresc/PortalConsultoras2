@@ -38,8 +38,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             //PL20-1273
 
             //PL20-1284
-            var url1 = ConfigurationManager.AppSettings.Get("UrlImagenFAVMobile");
-            ViewBag.UrlImagenFAVMobile = string.Format(url1, userData.CodigoISO);
+            ViewBag.UrlImagenFAVMobile = string.Format(ConfigurationManager.AppSettings.Get("UrlImagenFAVMobile"), userData.CodigoISO);
 
             return View(model);
         }
@@ -95,9 +94,9 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                                                 CUV = item.Cuv,
                                                 CodigoProducto = item.CodigoSap,
                                                 Descripcion = item.NombreComercial,
-                                                DescripcionComercial = item.DescripcionComercial,
-                                                NombreBulk = item.NombreBulk,
+                                                DescripcionComercial = item.Descripcion,
                                                 ImagenProductoSugerido = item.Imagen,
+                                                NombreBulk = item.NombreBulk,
                                                 ImagenBulk = item.ImagenBulk
                                             });
                                         }

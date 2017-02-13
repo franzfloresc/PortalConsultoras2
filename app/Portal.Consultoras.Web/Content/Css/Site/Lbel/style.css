@@ -3228,30 +3228,27 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido {
     width: 100%;
     margin-bottom: 100px;
 }
-
     .contenedor_banners ul {
         height: auto;
         margin: 0px;
         padding: 0px;
         list-style-type: none;
-}
-
+    }
         .contenedor_banners ul li {
             width: 31.7%;
-    /*max-width:256.2px;*/
-    /*height:249px;*/
+            /*max-width:256.2px;*/
+            /*height:249px;*/
             height: auto;
-    /*width:218px;
-    height:211px;*/
-            background: #CCC;
-    /*margin-right:24.5px;*/
+            /*width:218px;
+            height:211px;*/
+            background: white;
+            /*margin-right:24.5px;*/
             margin-right: 2.4%;
             float: left;
-}
-
+        }
             .contenedor_banners ul li:nth-child(3) {
                 margin-right: 0px;
-}
+            }
 
 .contenedor_banners ul li .imagen_banner_inferior{
     overflow: hidden;
@@ -28456,7 +28453,7 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
 }
 
 .catalogoPersonalizadoBloque {
-    background: #FFF;
+    background:#f6f6f6;
 }
 
 .texto_descripcionCatalogoPersonalizado {
@@ -28572,9 +28569,10 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
     box-shadow: 0px 15px 13px -8px rgba(204,200,204,1);
     margin-bottom: 15px;
     margin-top: 15px;
+    border: 1px solid #e9e9e9;
 }
 
-.content-favclientes .contiene-productos {
+/*.content-favclientes .contiene-productos {
     background-color: white;
     margin: 0px 9px;
     display: inline-block;
@@ -28582,7 +28580,7 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
     width: 276px;
     margin-bottom: 15px;
     margin-top: 15px;
-}
+}*/
 
 .content-favclientes.catper {
     padding-top: 0px;
@@ -33501,6 +33499,7 @@ h1#penmostreo .campana {
     font-size: 14px;
     padding-bottom: 30px;
 }
+
 /*SPRINT 4*/
 
 .banner_favoritos_home{
@@ -33541,7 +33540,12 @@ h1#penmostreo .campana {
     /*letter-spacing: 0.75px;*/
     font-weight:300;
 }
-
+.content_imagen_fav {
+    width: 100%;
+    margin-left: 8%;
+    z-index: 10;
+    position: relative;
+}
 .texto_altas_fav{
     display:block;
     font-size:35px;
@@ -33580,7 +33584,7 @@ h1#penmostreo .campana {
     letter-spacing:0.3px;
     line-height:43px;
     margin-bottom:100px;
-    width:381px;
+    /*width:381px;*/
 }
 /*PAGINA CATALOGO PERSONALIZADO*/
 .content_img_fav {
@@ -33592,9 +33596,9 @@ h1#penmostreo .campana {
 .content_img_fav img{
     width:100%;
 }
-.no_mostrar_esika{
+/*.no_mostrar_esika{
     display:none;
-}
+}*/
 .texto_banner_seccion_fav{
     margin-top:15px;
     margin-left:35px;
@@ -34405,4 +34409,16 @@ h1#penmostreo .campana {
 .content_tono_combo:nth-child(6n){
     margin-right:0;
     
+}
+.mod-ofer1 .boton_Agregalo_home{
+    width:139px;
+}
+.theme-green .back-bar .pointer{
+    background:#613c87 !important;
+}
+.theme-green .back-bar .selected-bar{
+    background:#613c87 !important;
+}
+.slider-container .back-bar .pointer-label{
+     color:#613c87 !important;
 }

@@ -8879,7 +8879,7 @@ span.icon-advertencia{
 
 .bloque_carousel .content_item_carrusel_ofertaFinal{
     width: 238px;
-    height: 470px;
+    /*height: 470px;*/
     display: inline-block;
     margin: 0 3px 0 3px;
     padding: 0 0 20px 0;
@@ -8893,7 +8893,7 @@ span.icon-advertencia{
     width: 237px;
     display: block;
     margin: 0 auto;
-    height: 454px;
+    height: 460px;
     border:1px solid #e7e1e1;
     box-shadow: 0px 15px 18px -7px rgba(204,200,204,1);
     -moz-box-shadow: 0px 15px 18px -7px rgba(204,200,204,1);
@@ -8976,7 +8976,8 @@ span.icon-advertencia{
 
 .enlace_btnNoGracias{
     display: block;
-    width: 87px;
+    /*dth: 87px;*/
+    text-align:center;
     margin: 0 auto;
     font-family: 'Lato';
     font-size: 13px;
