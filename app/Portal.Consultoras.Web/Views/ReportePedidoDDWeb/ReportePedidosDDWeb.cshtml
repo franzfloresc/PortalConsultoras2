@@ -30,7 +30,7 @@
             var vEsRechazado = jQuery.trim($("#ddlEsRechazado option:selected").val());
 
             setTimeout(function () {
-                DownloadAttachExcel(vPaisID, vCampania, vConsultora, vRegionID, vZonaID, vOrigen, vEstadoValidacion)
+                DownloadAttachExcel(vPaisID, vCampania, vConsultora, vRegionID, vZonaID, vOrigen, vEstadoValidacion, vEsRechazado)
             }, 0);
         });
 
@@ -188,7 +188,7 @@
 
         fnGrilla();
     });
-    function DownloadAttachExcel(vPaisID, vCampania, vConsultora, vRegionID, vZonaID, vOrigen, vEstadoValidacion) {
+    function DownloadAttachExcel(vPaisID, vCampania, vConsultora, vRegionID, vZonaID, vOrigen, vEstadoValidacion, vEsRechazado) {
         // TODO: probar la repercusion de este if
         if (checkTimeout()) {
             var isPedido = "ExportarExcelCabecera";
@@ -202,7 +202,8 @@
                                 "&vRegionID=" + vRegionID +
                                 "&vZonaID=" + vZonaID +
                                 "&vOrigen=" + vOrigen +
-                                "&vEstadoValidacion=" + vEstadoValidacion;
+                                "&vEstadoValidacion=" + vEstadoValidacion +
+                                "&vEsRechazado=" + vEsRechazado;
 
             var iframe_ = document.createElement("iframe");
             iframe_.style.display = "none";

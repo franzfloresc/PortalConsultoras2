@@ -726,6 +726,7 @@ function InfoCommerceGoogleDestacadoProductClick(name, id, category, variant, po
 
 // Pedido Rechazado
 function MensajeEstadoPedido() {
+    debugger;
 
     xMensajeEstadoPedido(false);
     if (cerrarRechazado == '1')
@@ -733,6 +734,12 @@ function MensajeEstadoPedido() {
 
     if (estaRechazado == 0)
         return false;
+    
+    if (estaRechazado == 2 && estadoPedido == 202 && !validacionAbierta)
+    {
+        return false;
+    }
+
 
     $("#bloquemensajesPedido").find(".mensaje_horarioIngresoPedido").html("");
     $("#bloquemensajesPedido").find(".mensaje_horarioIngresoPedido").append((motivoRechazo || "").CodificarHtmlToAnsi());
@@ -786,7 +793,7 @@ function xMensajeEstadoPedido(estado) {
         else {
             identi = url.indexOf("/bienvenida") > 0;
             if (identi) {
-                $("[data-content]").animate({ "top": "0px" });
+                $("[data-content]").animate({ "top": "61px" });
             }
             else {
                 $(".ubicacion_web").animate({ "margin-top": "83px" });
@@ -797,6 +804,7 @@ function xMensajeEstadoPedido(estado) {
 }
 
 function ResizeMensajeEstadoPedido() {
+    debugger;
     $("#bloquemensajesPedido").css("height", "");
     $("#bloquemensajesPedido > div").css("height", "");
     $("#bloquemensajesPedido .mensajes_estadoPedido").css("width", "");
@@ -818,6 +826,12 @@ function ResizeMensajeEstadoPedido() {
     else {
         $("#bloquemensajesPedido").css("height", (ht + 22) + "px");
         $("#bloquemensajesPedido > div").css("height", (ht + 22) + "px");
+    }
+
+    if (htx == 38) {
+        debugger;
+        $("#bloquemensajesPedido .mensajes_estadoPedido").css("padding-top", (9) + "px");
+        $("#bloquemensajesPedido .icono_estadoPedido").css("padding-top", (5) + "px");
     }
 }
 

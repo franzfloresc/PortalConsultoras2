@@ -1628,7 +1628,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 lista = lst,
                 listaZonas = lstZonas,
-                listaRegiones = lstRegiones.OrderBy(x => x.Codigo)
+                listaRegiones = lstRegiones.OrderBy(x => x.Nombre)
             }, JsonRequestBehavior.AllowGet);
         }
 
