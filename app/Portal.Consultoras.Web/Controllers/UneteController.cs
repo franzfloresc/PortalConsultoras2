@@ -1532,8 +1532,8 @@ namespace Portal.Consultoras.Web.Controllers
                             UBIGEO = item.UBIGEO,
                             PROVINCIA = item.PROVINCIA,
                             CANTON = item.CANTON,
-                            DISTRITO = item.DISTRITO,
-                            BARRIO_COLONIA_URBANIZACION_REFERENCIAS = item.BARRIO_COLONIA_URBANIZACION_REFERENCIAS
+                            DISTRITO = item.DISTRITO
+                            //BARRIO_COLONIA_URBANIZACION_REFERENCIAS = item.BARRIO_COLONIA_URBANIZACION_REFERENCIAS
 
 
                         };
