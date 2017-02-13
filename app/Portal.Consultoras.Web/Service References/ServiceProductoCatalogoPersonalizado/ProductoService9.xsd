@@ -22,6 +22,20 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+  <xs:element name="ObtenerProductosOfertaFinal">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/Portal.Consultoras.ServiceCatalogoPersonalizado.Entities" minOccurs="0" name="lstParametroOfertaFinal" nillable="true" type="q2:ListaParametroOfertaFinal" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ObtenerProductosOfertaFinalResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/Portal.Consultoras.ServiceCatalogoPersonalizado.Entities" minOccurs="0" name="ObtenerProductosOfertaFinalResult" nillable="true" type="q3:ArrayOfProducto" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
   <xs:element name="ObtenerTodosProductos">
     <xs:complexType>
       <xs:sequence>
@@ -41,7 +55,7 @@
   <xs:element name="ObtenerTodosProductosResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/Portal.Consultoras.ServiceCatalogoPersonalizado.Entities" minOccurs="0" name="ObtenerTodosProductosResult" nillable="true" type="q2:ArrayOfProducto" />
+        <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/Portal.Consultoras.ServiceCatalogoPersonalizado.Entities" minOccurs="0" name="ObtenerTodosProductosResult" nillable="true" type="q4:ArrayOfProducto" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -57,7 +71,7 @@
   <xs:element name="ObtenerProductosByCodigoSapResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/Portal.Consultoras.ServiceCatalogoPersonalizado.Entities" minOccurs="0" name="ObtenerProductosByCodigoSapResult" nillable="true" type="q3:ArrayOfProducto" />
+        <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/Portal.Consultoras.ServiceCatalogoPersonalizado.Entities" minOccurs="0" name="ObtenerProductosByCodigoSapResult" nillable="true" type="q5:ArrayOfProducto" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -73,7 +87,7 @@
   <xs:element name="ObtenerProductosAppCatalogoByListaCUVResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/Portal.Consultoras.ServiceCatalogoPersonalizado.Entities" minOccurs="0" name="ObtenerProductosAppCatalogoByListaCUVResult" nillable="true" type="q4:ArrayOfProducto" />
+        <xs:element xmlns:q6="http://schemas.datacontract.org/2004/07/Portal.Consultoras.ServiceCatalogoPersonalizado.Entities" minOccurs="0" name="ObtenerProductosAppCatalogoByListaCUVResult" nillable="true" type="q6:ArrayOfProducto" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
