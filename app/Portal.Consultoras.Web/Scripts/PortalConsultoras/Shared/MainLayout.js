@@ -47,7 +47,6 @@ $(document).ready(function () {
     });
 
     /*PL20-1226*/
-
     //$('.Content_general_pop_up').click(function (e) {
     //    if (!$(e.target).closest('.content_ficha_producto_nueva').length) {
     //        if ($('#PopFichaProductoNueva').is(':visible')) {
@@ -92,6 +91,15 @@ $(document).ready(function () {
             setTimeout(functionHide + "()", 100);
         }
         $(popupClose).hide();
+    });
+
+    // cerrar popup ofertas 003,048
+    $('[data-oferta]').click(function (e) {
+        if (!$(e.target).closest('.cuerpo-mod').length) {
+            if ($('[data-oferta]').is(':visible')) {
+                $('[data-oferta]').hide();
+            }
+        }
     });
 
     waitingDialog();
@@ -160,6 +168,19 @@ $(document).ready(function () {
             "Aceptar": function () {
                 $(this).dialog('close');
             }
+        }
+    });
+
+    $('#divMensajeConfirmacion').dialog({
+        autoOpen: false,
+        resizable: false,
+        modal: true,
+        closeOnEscape: true,
+        width: 500,
+        draggable: true,
+        title: "",
+        close: function (event, ui) {
+            $(this).dialog('close');
         }
     });
 
@@ -1382,3 +1403,22 @@ function getQtyPedidoDetalleByCuvODD(cuv2, tipoEstrategiaID) {
     return qty;
 };
 /*PL20-1226*/
+
+function messageConfirmacion(title, message, fnAceptar) {
+    title = $.trim(title);
+    if (title == "")
+        title = "MENSAJE";
+
+    message = $.trim(message);
+    if (message == "") {
+        return false;
+    }
+
+    $('#divMensajeConfirmacion .divTitle').html(title);
+    $('#divMensajeConfirmacion .divTexto p').html(message);
+    $('#divMensajeConfirmacion').dialog('open');
+    if ($.isFunction(fnAceptar)) {
+        $('#divMensajeConfirmacion .btnMensajeAceptar').off('click');
+        $('#divMensajeConfirmacion .btnMensajeAceptar').on('click', fnAceptar);
+    }
+}

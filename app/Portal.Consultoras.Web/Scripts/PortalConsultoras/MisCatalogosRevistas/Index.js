@@ -1,6 +1,5 @@
 ﻿
 var listaCorreo = new Array();
-var valContenidoCorreoDefecto = "Hola,\nRevisa los catálogos de esta campaña y comunícate conmigo si estás interesada en algunos de los productos.";
 var nombreCat = new Object();
 
 // js-RenderCatalogo
@@ -42,7 +41,7 @@ $(document).ready(function () {
         'width': '100%',
         'height': '50px',
         minInputWidth: '100%',
-        'defaultText': 'Separa los correos con ;',
+        'defaultText': 'Separa los correos con &#59;',
         'delimiter': ';',
         'unique': true,
         'validate': /^[-a-z0-9~!$%^&*_=+}{\'?]+(\.[-a-z0-9~!$%^&*_=+}{\'?]+)*@([a-z0-9_][-a-z0-9_]*(\.[-a-z0-9_]+)*\.(aero|arpa|biz|com|coop|edu|gov|info|int|mil|museum|name|net|org|pro|travel|mobi|[a-z][a-z])|([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}))(:[0-9]{1,5})?$/i,
@@ -55,8 +54,7 @@ $(document).ready(function () {
         }
     });
 
-    $(".mostrar_todos").on("click", function () {
-        
+    $(".mostrar_todos").on("click", function () {        
         CargarTodosCorreo();
         $.each(listaCorreo, function (ind, item) {
             item.email = $.trim(item.email);
@@ -73,76 +71,21 @@ $(document).ready(function () {
         obj.find("[type='checkbox']").Checked();
     });
 
-    $("#btnEnviarCorreo").on("click", function () {
-        
-        CatalogoEnviarEmail();        
-    });
-
-    //EPD-826 INICIO
-    $(".tipoClase").on("click", function () {
-
-        var idPais = $("#hdPaisId").val();
-        var Campania_ = $(this)[0].dataset.cam;
-        var Categoria = $(this)[0].dataset.cat;
-        var codigozona = $(this)[0].dataset.codigozona;
-
-        var arrC201614 = new Array("1072", "1075", "3035", "3036", "5035");
-        var arrC201615 = new Array("1081", "3033", "3035", "3036", "5035");
-        var arrC201616 = new Array("1081", "3033", "3035", "3036", "5035");
-
-        //Campaña 14
-        if (Campania_ == "201614" && idPais == 11 && (arrC201614.indexOf(codigozona) > -1)) {
-
-            if (Categoria == "Lbel") {
-
-                $(this).find('.revista')[0].attributes[3].value = "http://issuu.com/somosbelcorp/docs/piloto_lb1614pe_1/";
-            }
-            else if (Categoria == "Esika") {
-
-                $(this).find('.revista')[0].attributes[3].value = "http://issuu.com/somosbelcorp/docs/piloto_ek1614pe/";
-            }
-            else if (Categoria == "Cyzone") {
-
-                $(this).find('.revista')[0].attributes[3].value = "http://issuu.com/somosbelcorp/docs/piloto_cy1614pe/";
-            }
-        }
-            //Campaña 15
-        else if (Campania_ == "201615" && idPais == 11 && (arrC201615.indexOf(codigozona) > -1)) {
-
-            if (Categoria == "Lbel") {
-
-                $(this).find('.revista')[0].attributes[3].value = "https://issuu.com/somosbelcorp/docs/piloto_lb1615pe/";
-            }
-            else if (Categoria == "Esika") {
-
-                $(this).find('.revista')[0].attributes[3].value = "http://issuu.com/somosbelcorp/docs/piloto_ek1615pe/";
-            }
-            else if (Categoria == "Cyzone") {
-
-                $(this).find('.revista')[0].attributes[3].value = "http://issuu.com/somosbelcorp/docs/piloto_cy1615pe/";
-            }
-        }
-            //Campaña 16 - EPD-932
-        else if (Campania_ == "201616" && idPais == 11 && (arrC201616.indexOf(codigozona) > -1)) {
-
-            if (Categoria == "Lbel") {
-
-                $(this).find('.revista')[0].attributes[3].value = "https://issuu.com/somosbelcorp/docs/piloto_lb1616pe";
-            }
-            else if (Categoria == "Esika") {
-
-                $(this).find('.revista')[0].attributes[3].value = "https://issuu.com/somosbelcorp/docs/piloto_ek1616pe";
-            }
-            else if (Categoria == "Cyzone") {
-
-                $(this).find('.revista')[0].attributes[3].value = "https://issuu.com/somosbelcorp/docs/piloto_cy1616pe";
-            }
-        }
-    });
-
-    //EPD-826 – FIN
-        
+    $("#btnEnviarCorreo").on("click", function () { CatalogoEnviarEmail(); });
 });
+
+function InsertarLogCatalogoDynamo(opcionAccion, campaniaCatalogo, marca, cantidad) {
+    InsertarLogDymnamo(
+        'Catalogo-Compartir',
+        opcionAccion,
+        false,
+        [
+            {'key': 'CampaniaCatalogo', 'value': campaniaCatalogo },
+            {'key': 'Marca', 'value': marca },
+            {'key': 'Cantidad', 'value': cantidad }
+        ]
+    );
+}
 
 function ObtenerURLExpofertas() {
     $.ajax({
@@ -173,15 +116,13 @@ function ObtenerURLExpofertas() {
                                 });
                                 window.open(urlExpoferta, '_blank');
                             });
-                        } else {
-                            $('#contenedorExpofertaMCR').hide();
-                        }                       
+                        }
+                        else $('#contenedorExpofertaMCR').hide();
+
                         $("#catalogoExpoferta").css("cursor", "pointer");
                     }                   
                 }
-                else {
-                    MonstrarExclamacion('Error al cargar la informacion de Expoferta.');
-                }
+                else MonstrarExclamacion('Error al cargar la informacion de Expoferta.');
             }
         }
     });
@@ -225,14 +166,11 @@ function CargarCarruselCatalogo() {
         }
 
         htmlBase = $("#xHtmlItemCatalogo").html();
-        htmlBase = htmlBase.replace("{campania}", anio + nro);
-        htmlBase = htmlBase.replace("{campania}", anio + nro);
-        htmlBase = htmlBase.replace("{tipoCatalogo}", tipo);
-        htmlBase = htmlBase.replace("{tipoCatalogo}", tipo);
-        htmlBase = htmlBase.replace("{tipoCatalogo}", tipo);
-        htmlBase = htmlBase.replace("{comp}", tipo);
-        htmlBase = htmlBase.replace("{descripcion}", descrCat[tipo]);
-        htmlBase = htmlBase.replace("{estado}", "0");
+        htmlBase = htmlBase.replace(/{campania}/g, anio + nro);
+        htmlBase = htmlBase.replace(/{tipoCatalogo}/g, tipo);
+        htmlBase = htmlBase.replace(/{comp}/g, tipo);
+        htmlBase = htmlBase.replace(/{descripcion}/g, descrCat[tipo]);
+        htmlBase = htmlBase.replace(/{estado}/g, "0");
 
         $("#divCatalogo").append(htmlBase);
 
@@ -250,8 +188,7 @@ function CargarCarruselCatalogo() {
     closeWaitingDialog();
 }
 
-function FinRenderCatalogo() {
-   
+function FinRenderCatalogo() {   
     waitingDialog();
     if (cont >= cantCam * cantCat) {
         campSelect = campSelect || $("#hdCampaniaActual").val().substring(4, 6);
@@ -263,8 +200,7 @@ function FinRenderCatalogo() {
     }
 }
 
-function ColumnasDeshabilitadasxPais(valor, accion, label) {
-   
+function ColumnasDeshabilitadasxPais(valor, accion, label) {   
     waitingDialog();
 
     if (!(typeof (accion) === 'undefined')) {
@@ -308,8 +244,7 @@ function ObtenerEstadoCatalogo(campana, defered) {
     return defered.promise();
 }
 
-function GetCatalogosLinksByCampania(data, campania) {
-    
+function GetCatalogosLinksByCampania(data, campania) {    
     waitingDialog();
 
     $.ajaxSetup({ cache: false });
@@ -325,9 +260,9 @@ function GetCatalogosLinksByCampania(data, campania) {
     for (var i = 0; i < cantCat; i++) {
 
         var tagCat = i == 0 && data.estadoLbel != 1 ? tagLbel
-        : i == 1 && data.estadoCyzone != 1 ? tagCyzone
-        : i == 2 && data.estadoEsika != 1 ? tagEsika
-        : "";
+            : i == 1 && data.estadoCyzone != 1 ? tagCyzone
+            : i == 2 && data.estadoEsika != 1 ? tagEsika
+            : "";
 
         if (tagCat == "") {
             cont++;
@@ -349,10 +284,11 @@ function GetCatalogosLinksByCampania(data, campania) {
 
         //defered[tagCat] = ObtenerCodigoISSUU(catalogo, defered[tagCat], elemItem, tagCat, campania);
         //defered[tagCat].done(function (codigoISSUU, elem, tag, camp) {
-            var codigoISSUU = '';
+            var codigoISSUU = '', urlCat;
             $.each(data.listCatalogo, function (key, catalogo) {
                 if (catalogo.marcaCatalogo.toLowerCase() == tagCat.toLowerCase()) {
                     codigoISSUU = catalogo.DocumentID;
+                    urlCat = catalogo.SkinURL;
                 }                
             });
             cont++;
@@ -365,7 +301,6 @@ function GetCatalogosLinksByCampania(data, campania) {
                 var n = campania.substring(4, 6);
                 var a = campania.substring(0, 4);
                 $(idCat).find(elemItem).find("[data-tipo='img']").attr("onclick", "SetGoogleAnalytics('" + codigoISSUU + "','Ver catálogo','" + tagCat + "')");
-                var urlCat = urlISSUU + tagCat.toLowerCase() + "." + ObtenerNombrePais(idPais) + ".c" + n + "." + a + "?mode=embed";
                 $(idCat).find(elemItem).find("[data-tipo='img']").attr("href", urlCat);
                 $(idCat).find(elemItem).find("#txtUrl" + tagCat).val(urlCat);
                 $(idCat).find(elemItem).find("[data-tipo='img'] img").attr("src", imgIssuu.replace("{img}", codigoISSUU));
@@ -373,7 +308,6 @@ function GetCatalogosLinksByCampania(data, campania) {
                 $(idCat).find(elemItem).find("[data-accion='face']").attr("title", 'FB-' + tagCat + ' C' + n + a);
                 $(idCat).find(elemItem).find("[data-tipo='img']").attr("title", 'Ver-' + tagCat + ' C' + n + a);
             }
-
         //});
     }
 
@@ -405,58 +339,24 @@ function ObtenerCodigoISSUU(catalogo, defered, elemItem, tagCat, campaniaX) {
 }
 
 function ObtenerNombrePais(idPais) {
-    var resultado = "";
     var pais = parseInt(idPais);
-
     switch (pais) {
-        case 1:
-            resultado = "argentina";
-            break;
-        case 2:
-            resultado = "bolivia";
-            break;
-        case 3:
-            resultado = "chile";
-            break;
-        case 4:
-            resultado = "colombia";
-            break;
-        case 5:
-            resultado = "costarica";
-            break;
-        case 6:
-            resultado = "ecuador";
-            break;
-        case 7:
-            resultado = "elsalvador";
-            break;
-        case 8:
-            resultado = "guatemala";
-            break;
-        case 9:
-            resultado = "mexico";
-            break;
-        case 10:
-            resultado = "panama";
-            break;
-        case 11:
-            resultado = "peru";
-            break;
-        case 12:
-            resultado = "puertorico";
-            break;
-        case 13:
-            resultado = "republicadominicana";
-            break;
-        case 14:
-            resultado = "venezuela";
-            break;
-        default:
-            resultado = "sinpais";
-            break;
+        case 1: return "argentina";
+        case 2: return "bolivia";
+        case 3: return "chile";
+        case 4: return "colombia";
+        case 5: return "costarica";
+        case 6: return "ecuador";
+        case 7: return "elsalvador";
+        case 8: return "guatemala";
+        case 9: return "mexico";
+        case 10: return "panama";
+        case 11: return "peru";
+        case 12: return "puertorico";
+        case 13: return "republicadominicana";
+        case 14: return "venezuela";
+        default: return "sinpais";
     }
-
-    return resultado;
 }
 
 function CatalogoMostrar(accion, btn) {
@@ -508,15 +408,17 @@ function SetGoogleAnalytics(Imagen, Accion, Label) {
     });
 }
 
-function CompartirFacebook(Catalogo, btn) {
+function CompartirFacebook(catalogo, campaniaCatalogo, btn) {
     dataLayer.push({
         'event': 'virtualEvent',
         'category': 'Catálogos y revistas',
         'action': 'Compartir FB',
-        'label': Catalogo,
+        'label': catalogo,
         'value': 0
     });
-    var u = $(btn).parents("[data-cat='" + Catalogo + "']").find("#txtUrl" + Catalogo).val();
+    InsertarLogCatalogoDynamo('Facebook', campaniaCatalogo, catalogo, 1);
+
+    var u = $(btn).parents("[data-cat='" + catalogo + "']").find("#txtUrl" + catalogo).val();
 
     var popWwidth = 570;
     var popHeight = 420;
@@ -554,8 +456,7 @@ function AbrirCompartirCorreo(tipoCatalogo, campania) {
     }
 }
 
-function CargarTodosCorreo() {
-    
+function CargarTodosCorreo() {    
     listaCorreo = listaCorreo || new Array();
     if (listaCorreo.length > 0) {
         return listaCorreo;
@@ -604,7 +505,6 @@ function CatalogoEnviarEmail() {
 
     var clientes = new Array();
     for (var i = 0; i < correoEnviar.length; i++) {
-
         var objCorreo = {
             "ClienteID": correoEnviar[i].obj.clienteID,
             "Nombre": correoEnviar[i].obj.nombre,
@@ -638,7 +538,7 @@ function CatalogoEnviarEmail() {
     var Tipo = campActual == campComparte ? "1" : "2";
 
     var mensaje = $("#comentarios").val();
-    if (_Flagchklbel == "1")
+    if (_Flagchklbel == "1") {
         dataLayer.push({
             'event': 'virtualEvent',
             'category': 'Catálogos y revistas',
@@ -646,7 +546,9 @@ function CatalogoEnviarEmail() {
             'label': 'Lbel',
             'value': clientes.length
         });
-    if (_Flagchkesika == "1")
+        InsertarLogCatalogoDynamo('Email', campaniaEmail, 'Lbel', clientes.length);
+    }
+    if (_Flagchkesika == "1") {
         dataLayer.push({
             'event': 'virtualEvent',
             'category': 'Catálogos y revistas',
@@ -654,7 +556,9 @@ function CatalogoEnviarEmail() {
             'label': 'Esika',
             'value': clientes.length
         });
-    if (_Flagchkcyzone == "1")
+        InsertarLogCatalogoDynamo('Email', campaniaEmail, 'Esika', clientes.length);
+    }
+    if (_Flagchkcyzone == "1") {
         dataLayer.push({
             'event': 'virtualEvent',
             'category': 'Catálogos y revistas',
@@ -662,6 +566,9 @@ function CatalogoEnviarEmail() {
             'label': 'Cyzone',
             'value': clientes.length
         });
+        InsertarLogCatalogoDynamo('Email', campaniaEmail, 'Cyzone', clientes.length);
+    }
+
     jQuery.ajax({
         type: 'POST',
         url: baseUrl + 'MisCatalogosRevistas/EnviarEmail',
@@ -716,7 +623,6 @@ function renderItemCliente(event, ui) {
 // js-Revista
 
 jQuery(document).ready(function () {
-
     aCamRev.push($("#hdrCampaniaAnterior").val());
     aCamRev.push($("#hdrCampaniaActual").val());
     aCamRev.push($("#hdrCampaniaSiguiente").val());
@@ -724,66 +630,11 @@ jQuery(document).ready(function () {
     rCampSelect = $("#hdrCampaniaActual").val();
     $("#contentRevista .titulo_central[data-titulo='revista']").text("REVISTA C-" + rCampSelect.substring(4, 6));
 
-    $("#lbPortadaGana").on("click", function () {
-
-        dataLayer.push({
-            'event': 'virtualEvent',
-            'category': 'Catálogos y revistas',
-            'action': 'Ver revista',
-            'label': 'Revista',
-            'value': 0
-        });
-        var paisid = parseInt($('#numero_campania')[0].dataset.paisid);
-        var codigozona = $('#numero_campania')[0].dataset.codigozona;
-        var numero_campania_ = parseInt($("#numero_campania")[0].innerHTML);
-        var arrC201614 = new Array("1072", "1075", "3035", "3036", "5035");
-        var arrC201615 = new Array("1081", "3033", "3035", "3036", "5035");
-        var arrC201616 = new Array("1081", "3033", "3035", "3036", "5035");
-
-        var srcPortada = $("#imgPortadaGana").attr("src");
-        if (srcPortada == defaultImageRevista) {
-            var nroCampania = $("#spNroCampania").text();
-            alert("La portada de la campaña " + nroCampania + " aun no está disponible.");
-            return false;
-        }
-
-        if (paisid == 11) {
-            if (numero_campania_ == 201614 && (arrC201614.indexOf(codigozona) > -1)) {
-                $(this)[0].attributes[2].value = "http://issuu.com/somosbelcorp/docs/piloto_rev1614pe_1/";
-            }
-            else if (numero_campania_ == 201615 && (arrC201615.indexOf(codigozona) > -1)) {
-                $(this)[0].attributes[2].value = "http://issuu.com/somosbelcorp/docs/piloto_rev1615pe/";
-
-            }
-            else if (numero_campania_ == 201616 && (arrC201616.indexOf(codigozona) > -1)) {
-                $(this)[0].attributes[2].value = "https://issuu.com/somosbelcorp/docs/piloto_rev1616pe";
-
-            }
-            else {
-                var srcPortada = $("#imgPortadaGana").attr("src");
-                if (srcPortada == defaultImageRevista) {
-                    var nroCampania = $("#spNroCampania").text();
-                    alert("La portada de la campaña " + nroCampania + " aun no está disponible.");
-                    return false;
-                }
-            }
-        }
-        else {
-            var srcPortada = $("#imgPortadaGana").attr("src");
-            if (srcPortada == defaultImageRevista) {
-                var nroCampania = $("#spNroCampania").text();
-                alert("La portada de la campaña " + nroCampania + " aun no está disponible.");
-                return false;
-            }
-        }
-    });
-
     waitingDialog({ title: "Cargando Imagen" });
     MostrarRevistaCorrecta(rCampSelect);
 });
 
-function RevistaMostrar(accion, btn) {
-   
+function RevistaMostrar(accion, btn) {   
     rCampSelectI = accion == -1 ? rCampSelectI - 1 : accion == 1 ? rCampSelectI + 1 : rCampSelectI;
     rCampSelectI = rCampSelectI <= 0 ? 0 : rCampSelectI >= cantCamRev - 1 ? cantCamRev - 1 : rCampSelectI;
 
@@ -810,74 +661,46 @@ function RevistaMostrar(accion, btn) {
 }
 
 function MostrarMiRevista() {
+    dataLayer.push({
+        'event': 'virtualEvent',
+        'category': 'Catálogos y revistas',
+        'action': 'Ver revista',
+        'label': 'Revista',
+        'value': 0
+    });
+
     var frmMiRevista = $('#frmMiRevista');
-    //frmMiRevista.attr('action', '');
     frmMiRevista.submit();
 }
 
-function MostrarRevistaCorrecta(campania) {
-    
+function MostrarRevistaCorrecta(campania) {    
     var urlImagen = "";
     var defered = jQuery.Deferred();
     defered = ObtenerImagenRevista(campania, defered);
-    defered.done(function (urlRevista) {
-        urlImagen = urlRevista;
-    });
+    defered.done(function (urlRevista) { urlImagen = urlRevista; });
 
     $.when(defered).done(function () {
         $("#imgPortadaGana").attr("src", !urlImagen || urlImagen == "" ? defaultImageRevista : urlImagen);
-
-        var urlExterno = ObtenerUrlRevista(rCampSelect);
         $("#contentRevista .titulo_central[data-titulo='revista']").text("REVISTA C-" + rCampSelect.substring(4, 6));
-        //$("#lbPortadaGana").attr("href", urlExterno);
-
         FinRenderCatalogo();
     });
 }
 
 function ObtenerImagenRevista(campania, defered) {
-    var src = "";
-    var anio = campania.substring(0, 4);
-    var numero = campania.substring(4, 6);
-    var prefijoPais = codigoIso.toLowerCase();
-
-    var codigoRevista = 'sbconsultorarevista.' + prefijoPais + '.c' + numero + '.' + anio;
-
     jQuery.ajax({
         type: 'POST',
         url: urlObtenerPortadaRevista,
         dataType: 'json',
         contentType: 'application/json; charset=utf-8',
-        data: JSON.stringify({ codigoRevista: codigoRevista }),
+        data: JSON.stringify({ codigoRevista: RevistaCodigoIssuu[campania] }),
         success: function (response) {
-            if (checkTimeout(response)) {
-                if (response) {
-                    //response = response.startsWith("https") ? response.replace("https://", "http://") : response;
-                    src = response;
-                } else {
-                    src = defaultImageRevista;
-                }
-
-                defered.resolve(src);
-            }
+            if (checkTimeout(response)) defered.resolve(response ? response : defaultImageRevista);
         },
         error: function (data, error) {
-            if (checkTimeout(data)) {
-                src = defaultImageRevista;
-                defered.resolve(src);
-            }
+            if (checkTimeout(data)) defered.resolve(defaultImageRevista);
         }
     });
-
     return defered.promise();
-}
-
-function ObtenerUrlRevista(campania) {
-    var prefijoPais = codigoIso.toLowerCase();
-    var numeroCampania = campania.substring(4, 6);;
-    var anioCampania = campania.substring(0, 4);;
-    //return 'http://issuu.com/somosbelcorp/docs/revista.' + prefijoPais + '.c' + numeroCampania + '.' + anioCampania + "?e=11111/22222";
-    return 'http://issuu.com/somosbelcorp/docs/revista.' + prefijoPais + '.c' + numeroCampania + '.' + anioCampania + "?mode=embed";
 }
 
 // mensaje alerta

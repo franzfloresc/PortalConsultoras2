@@ -1,5 +1,5 @@
-﻿@using Portal.Consultoras.Web.Areas.Mobile.Models
-@model ClienteMobileModel
+﻿@using Portal.Consultoras.Web.Models
+@model MisCatalogosRevistasModel
 
 @{
     Layout = "~/Areas/Mobile/Views/Shared/_MobileLayout.cshtml";
@@ -8,8 +8,6 @@
                                                                                      : "https://play.google.com/store/apps/details?id=belcorp.modobeta.catalogov2&hl=es_419";
     var textApp = userAgent.Contains("iphone;") ? "Gratis en App Store" : "Gratis en Play Store";
 }
-
-
 
 <input type="hidden" id="hdPaisId" value="@Model.PaisID" />
 <input type="hidden" id="hdCampaniaAnterior" value="@Model.CampaniaAnterior" />
@@ -110,7 +108,7 @@
         <div class="Label_compartir">Mensaje (Editable):</div>
         <hr class="clear" />
 
-        <textarea name="comentarios" class="text_compartir" id="comentarios" maxlength="500">Hola, Revisa los catálogos de esta campaña y comunícate conmigo si estás interesada en algunos de los productos.
+        <textarea name="comentarios" class="text_compartir" id="comentarios" maxlength="500">
         </textarea>
         <div class="Label_compartir">Catálogos a enviar:</div>
         <hr class="clear" />
@@ -191,8 +189,8 @@
             </a>
             <input id="txtUrl{{tipoCatalogo}}" type="hidden" value="" />
             <div style="max-width:440px; margin:0 auto;">
-                <a class="btn_ws" onclick="TagManagerWS('{{comp}}');"><img src="@Url.Content("~/Content/Images/mobile/Esika/catalogo_ws.png")" alt="-" /></a>
-                <a class="btn_facebook" href="" data-accion="face" onclick="CompartirFacebook('{{comp}}', this); return false;"><img src="@Url.Content("~/Content/Images/mobile/Esika/catalogo_facebook.png")" alt="-" /></a>
+                <a class="btn_ws" onclick="TagManagerWS('{{comp}}','{{campania}}');"><img src="@Url.Content("~/Content/Images/mobile/Esika/catalogo_ws.png")" alt="-" /></a>
+                <a class="btn_facebook" href="" data-accion="face" onclick="CompartirFacebook('{{comp}}','{{campania}}', this); return false;"><img src="@Url.Content("~/Content/Images/mobile/Esika/catalogo_facebook.png")" alt="-" /></a>
                 <a class="btn_mensaje" onclick="javascript: AbrirCompartirCorreo('{{tipoCatalogo}}','{{campania}}');"><img src="@Url.Content("~/Content/Images/mobile/Esika/catalogo_mensaje.png")" alt="-" /></a>
             </div>
             
@@ -212,7 +210,6 @@
 }
 @section scripts{
     <script type="text/javascript">
-
         var imgNoDisponible = '@Url.Content("~/Content/Images/catalogo_no_disponible.jpg")';
         var imgIssuu = '@Portal.Consultoras.Common.Constantes.CatalogoUrlParameters.UrlPart01' + '{img}' + '@Portal.Consultoras.Common.Constantes.CatalogoUrlParameters.UrlPart02Alternativo'
         var codigoIso = '@ViewBag.CodigoISO';
@@ -220,8 +217,13 @@
         var urlObtenerPortadaRevista = '@Url.Action("ObtenerPortadaRevista", "Catalogo", new { area = "Mobile" })';
         var urlIconoClienteAutoCompletar = '@Url.Content("~/Content/Images/Esika/user.jpg")';
         var urlBienvenidaMobile = '@Url.Action("Index", "Bienvenida", new { area = "Mobile" })';
-        var urlEnviarMail = '@Url.Action("EnviarEmail", "Catalogo", new { area = "Mobile" })'
-
+        var urlEnviarMail = '@Url.Action("EnviarEmail", "MisCatalogosRevistas", new { area = "" })';
+        var valContenidoCorreoDefecto = "Hola,\n" + "@Html.Raw(ViewBag.TextoMensajeSaludoCorreo)";
+        var RevistaCodigoIssuu = {
+            '@Model.CampaniaAnterior': '@Model.CodigoRevistaAnterior',
+            '@Model.CampaniaActual': '@Model.CodigoRevistaActual',
+            '@Model.CampaniaSiguiente': '@Model.CodigoRevistaSiguiente'
+        };
     </script>
     <script src="@Url.Content("~/Scripts/slick-vertical.min.js")"></script>
     <script src="@Url.Content("~/Scripts/Tag/jquery.tags.input.js")"></script>

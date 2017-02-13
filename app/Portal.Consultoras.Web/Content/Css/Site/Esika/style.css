@@ -3276,34 +3276,36 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido {
     width: 100%;
     margin-bottom: 100px;
 }
-
     .contenedor_banners ul {
         height: auto;
         margin: 0px;
         padding: 0px;
         list-style-type: none;
-}
-
+    }
         .contenedor_banners ul li {
             width: 31.7%;
-    /*max-width:256.2px;*/
-    /*height:249px;*/
+            /*max-width:256.2px;*/
+            /*height:249px;*/
             height: auto;
-    /*width:218px;
-    height:211px;*/
-            background: #CCC;
-    /*margin-right:24.5px;*/
+            /*width:218px;
+            height:211px;*/
+            background: white;
+            /*margin-right:24.5px;*/
             margin-right: 2.4%;
             float: left;
-}
-
+        }
             .contenedor_banners ul li:nth-child(3) {
                 margin-right: 0px;
+            }
+
+.contenedor_banners ul li .imagen_banner_inferior{
+    overflow: hidden;
+    height: auto;
 }
 
-            .contenedor_banners ul li div {
+.contenedor_banners ul li .nombre_banner_inferior{
                 background: #000;
-                margin-top: -5px;
+                margin-top:9px;
                 height: 57px;
                 text-align: center;
                 color: #FFF;
@@ -20560,13 +20562,27 @@ label.checkpop.c_on {
 }
 
 .titulo_producto_agregado {
-    font-family: 'ArialMT';
+    font-family:'Lato';
     font-size: 18px;
     text-align: center;
+    color:#000;
 }
 
     .titulo_producto_agregado span {
         font-weight: bold;
+}
+
+
+.div_bonotes_producto {
+   float:right;
+   position:relative;
+   left:-50%;
+   text-align:left;
+}
+
+.div_bonotes_producto > .child_center_botones{
+    position:relative;
+    left:47%;
 }
 
 .divAgregarShowRoom .volver_set {
@@ -20574,22 +20590,23 @@ label.checkpop.c_on {
     display: block;
     padding-top: 8px;
     padding-bottom: 8px;
-    border: 2px solid #979797;
-    font-family: 'ArialMT';
+    border: 1px solid #000;
+    font-family: 'Lato';
     font-size: 14px;
     color: black;
     font-weight: bold;
     text-align: center;
-     -webkit-border-radius: 4px; /* Para Safari y Chrome */
-    -moz-border-radius: 4px; /* Para Firefox */
-    -khtml-border-radius: 4px; /* Navegadores de Linux */
-    border-radius: 4px; /* CSS3 */
+    /* -webkit-border-radius: 4px;  Para Safari y Chrome */
+    /*-moz-border-radius: 4px;  Para Firefox */
+   /* -khtml-border-radius: 4px;  Navegadores de Linux */
+    /*border-radius: 4px;  CSS3 */
     behavior: url(/Content/Css/Pie/PIE.htc); /* Para IE */
     float: left;
     cursor: pointer;
     text-decoration: none;
     margin-top: 24px;
     margin-right: 10px;
+    margin-left:39px;
 }
 
 .divAgregarShowRoom .volver_set:hover {
@@ -20598,21 +20615,21 @@ label.checkpop.c_on {
 
 .divAgregarShowRoom .volver_set2 {
     font-weight: bold;
-    background: red !important;
+    background:#e81c36!important;
     width: 159px;
     display: block;
     padding-top: 8px;
     padding-bottom: 8px;
     color: white; 
     border: 2px solid #f11935;
-    font-family: 'ArialMT';
+    font-family: 'Lato';
     text-align: center;
     font-size: 14px;
-     -webkit-border-radius: 4px !important; /* Para Safari y Chrome */
-    -moz-border-radius: 4px !important; /* Para Firefox */
-    -khtml-border-radius: 4px !important; /* Navegadores de Linux */
-    border-radius: 4px !important; /* CSS3 */
-    border-radius: 4px;
+    /* -webkit-border-radius: 4px !important;  Para Safari y Chrome */
+    /*-moz-border-radius: 4px !important;  Para Firefox */
+    /*-khtml-border-radius: 4px !important;  Navegadores de Linux */
+    /*border-radius: 4px !important;  CSS3 */
+    /*border-radius:4px;*/
     behavior: url(/Content/Css/Pie/PIE.htc) !important; /* Para IE */
     float: left;
     cursor: pointer;
@@ -32024,7 +32041,8 @@ h1#penmostreo .campana {
     margin-bottom: 50px;
     margin-left: 200px;
     margin-right: 200px;
-    font-size: 18px
+    font-size: 18px;
+    text-align: center;
 }
 .content_pasos{
     width:310px;
@@ -32766,7 +32784,7 @@ h1#penmostreo .campana {
 }
 
 .listado_resumen_general {
-    width: 22%;
+    width:21%;
     margin-left: 1%;
     padding-left: 2%;
 }
@@ -34175,6 +34193,10 @@ h1#penmostreo .campana {
 .content_texto_oferta{
     margin-bottom:65px;
 }
+.mod-ofer1 .boton_Agregalo_home{
+    width:139px;
+}
+    
 .etiqueta_guia_negocio span{
     display: block;
     font-size: 13.9px;

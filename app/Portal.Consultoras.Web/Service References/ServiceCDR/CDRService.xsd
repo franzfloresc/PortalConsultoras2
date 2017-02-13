@@ -5,6 +5,7 @@
       <xs:element minOccurs="0" name="CDRWebDetalle" nillable="true" type="tns:ArrayOfBECDRWebDetalle" />
       <xs:element minOccurs="0" name="CDRWebID" type="xs:int" />
       <xs:element minOccurs="0" name="CampaniaID" type="xs:int" />
+      <xs:element minOccurs="0" name="CantidadDetalle" type="xs:int" />
       <xs:element minOccurs="0" name="ConsultoraID" type="xs:long" />
       <xs:element minOccurs="0" name="Estado" type="xs:int" />
       <xs:element minOccurs="0" name="FechaAtencion" nillable="true" type="xs:dateTime" />
@@ -63,8 +64,10 @@
       <xs:element minOccurs="0" name="FechaAtencion" type="xs:dateTime" />
       <xs:element minOccurs="0" name="FechaCulminado" type="xs:dateTime" />
       <xs:element minOccurs="0" name="FechaRegistro" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="ImporteCDR" type="xs:decimal" />
       <xs:element minOccurs="0" name="LogCDRWebId" type="xs:long" />
       <xs:element minOccurs="0" name="PedidoFacturadoId" type="xs:int" />
+      <xs:element minOccurs="0" name="PedidoId" type="xs:int" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="BELogCDRWeb" nillable="true" type="tns:BELogCDRWeb" />
@@ -160,4 +163,18 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="ArrayOfBECDRParametria" nillable="true" type="tns:ArrayOfBECDRParametria" />
+  <xs:complexType name="BECDRWebDatos">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CDRWebDatosID" type="xs:int" />
+      <xs:element minOccurs="0" name="Codigo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Valor" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="BECDRWebDatos" nillable="true" type="tns:BECDRWebDatos" />
+  <xs:complexType name="ArrayOfBECDRWebDatos">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="BECDRWebDatos" nillable="true" type="tns:BECDRWebDatos" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfBECDRWebDatos" nillable="true" type="tns:ArrayOfBECDRWebDatos" />
 </xs:schema>
