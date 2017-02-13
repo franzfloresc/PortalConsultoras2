@@ -1922,16 +1922,17 @@
         <tr>
             <th class="categoria_productoAgotado">Categoría</th>
             <th class="codigo_productoAgotado">Código</th>
-            <th class="producto_productoAgotado">Descripción Producto</th>
+            <th class="producto_productoAgotado">Producto</th>
             <th class="catalogo_productoAgotado">Catálogo o Revista</th>
             <th class="pagina_productoAgotado">Página</th>
         </tr>
         {{#each this}}
             {{#each Detalle}}
                 <tr>
-                    {{#iff @@index '==' 0}}
+                    @*{{#iff @@index '==' 0}}
                         <td rowspan="{{../CantidadDetalles}}">{{../Categoria}}</td>
-                    {{/iff}}
+                    {{/iff}}*@
+                    <td>{{../Categoria}}</td>
                     <td>{{CUV}}</td>
                     <td>{{Descripcion}}</td>
                     <td>{{Catalogo}}</td>
