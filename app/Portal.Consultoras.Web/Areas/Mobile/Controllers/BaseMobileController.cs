@@ -58,9 +58,26 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
                     OfertaDelDiaModel ofertaDelDia = GetOfertaDelDiaModel();
                     ViewBag.OfertaDelDia = ofertaDelDia;
+
                     ViewBag.MostrarOfertaDelDia = userData.TieneOfertaDelDia && ofertaDelDia != null && ofertaDelDia.TeQuedan.TotalSeconds > 0;
                 }
                 ViewBag.MostrarBannerPL20 = mostrarBanner;
+                if (mostrarBanner)
+                {
+                     if (!userData.ValidacionAbierta && userData.EstadoPedido == 202 && userData.IndicadorGPRSB == 2)
+                    {
+                        ViewBag.MostrarBannerPL20 = mostrarBanner;
+                    }else if (userData.IndicadorGPRSB == 0)
+                    {
+                        ViewBag.MostrarBannerPL20 = mostrarBanner;
+                    }
+                    else
+                    {
+                        ViewBag.MostrarBannerPL20 = false;
+                        ViewBag.MostrarOfertaDelDia = false;
+                    }
+                }
+
                 /*FIN: PL20-1289*/
             }
             catch (Exception ex)
