@@ -562,6 +562,7 @@ namespace Portal.Consultoras.Web.Controllers
         public UsuarioModel UserData()
         {
             UsuarioModel model = (UsuarioModel)Session["UserData"];
+            string UrlEMTELCO = ConfigurationManager.AppSettings["UrlBelcorpChat"];
 
             if (model != null)
             {
@@ -590,8 +591,7 @@ namespace Portal.Consultoras.Web.Controllers
                 ViewBag.IndicadorPermisoFIC = model.IndicadorPermisoFIC;
                 ViewBag.IndicadorPermisoFlexipago = model.IndicadorPermisoFlexipago;
                 ViewBag.HorasDuracionRestriccion = model.HorasDuracionRestriccion;
-                string urlBelcorpChat = ConfigurationManager.AppSettings["UrlBelcorpChat"];
-                ViewBag.UrlBelcorpChat = string.Format(urlBelcorpChat, model.Segmento.Trim(), model.CodigoUsuario.Trim(), model.PrimerNombre.Split(' ').First().Trim(), model.EMail.Trim(), model.CodigoISO.Trim());
+                ViewBag.UrlBelcorpChat = String.Format(UrlEMTELCO, model.SegmentoAbreviatura.Trim(), model.CodigoUsuario.Trim(), model.PrimerNombre.Split(' ').First().Trim(), model.EMail.Trim(), model.CodigoISO.Trim());
 
                 ViewBag.RegionAnalytics = model.CodigorRegion;
                 ViewBag.SegmentoAnalytics = model.Segmento != null && model.Segmento != "" ?
