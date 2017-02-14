@@ -3028,7 +3028,8 @@ table > thead > tr > th {
 .row_contador {
     width:320px;
     margin:0 auto;
-    overflow:hidden;
+    /*overflow:hidden;*/
+    position:relative;
 }
 .titulo_contador_m {
     width: 100%;
@@ -9776,9 +9777,9 @@ span.icon-advertencia{
     position: relative;
     margin-bottom: 20px;
 }
-.flex-viewport{
+/*.flex-viewport{
     height:142px;
-}
+}*/
 .Content_favoritos_new .producto_nombre_descripcion {
     padding-left:10px;
     padding-right:10px;
@@ -10049,3 +10050,59 @@ span.icon-advertencia{
        right:10px;
        top:10px;
     }
+/*SPRINT 6*/
+.dias_faltantes{
+    margin-top:30px;
+    text-align:center;
+    color:white;
+    font-size:15px;
+    font-weight:700;
+    letter-spacing:0.8px;
+    position:absolute;
+    width:100%;
+}
+.BloqueOfertaDiaHeader{
+    background: black;
+    /* height: 142px; */
+    width: 100%;
+    overflow: hidden;
+    /* padding-top: 12px; */
+    padding-bottom: 7px;
+    height:60px;
+    position:relative;
+}
+.content_banner_header_showroom{
+    /*background: url(../../../Images/mobile/img-showroom/banner_intriga_new_header.png) no-repeat;*/
+    /*object-fit: cover;*/
+    width: 100%;    
+    height:60px;
+    position:relative;
+}
+.faltan_dias_header{
+    font-family:'Lato';
+    font-weight:300;
+    font-size:22px;
+    margin-top:25px;
+    position:absolute;
+    width:100%;
+    text-align:center;
+}
+.solo_hoy_mobile2{
+    width: 200px;
+    margin-top: 6px;
+}
+.solo_hoy_mobile2 img{
+    width:100%;
+}
+.content_banner_header_showroom img{
+   display: block;
+    width: 100vw;
+    height: 60px;
+    object-fit: cover;
+}
+.content_banner_new_showroom img{
+    display: block;
+    width: 100vw;
+    height: 174px;
+    object-fit: cover;
+}
