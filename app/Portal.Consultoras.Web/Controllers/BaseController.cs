@@ -13,7 +13,6 @@ using System.Configuration;
 using System.Data;
 using System.Linq;
 using System.Security.Claims;
-using System.Web;
 using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Controllers
@@ -1994,6 +1993,8 @@ namespace Portal.Consultoras.Web.Controllers
             return model;
         }
 
+        #region Catalogos y Revistas Issuu
+
         protected string GetRevistaCodigoIssuu(string campania)
         {
             string codigo = null;
@@ -2059,5 +2060,38 @@ namespace Portal.Consultoras.Web.Controllers
                 default: return "sinpais";
             }
         }
+
+        #endregion
+
+        #region Zonificacion
+
+        protected IEnumerable<RegionModel> DropDownListRegiones(int paisID)
+        {
+            IList<BERegion> lst;
+            using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
+            {
+                lst = sv.SelectAllRegiones(paisID);
+            }
+            return Mapper.Map<IList<BERegion>, IEnumerable<RegionModel>>(lst.OrderBy(zona => zona.Codigo).ToList());
+        }
+
+        protected IEnumerable<ZonaModel> DropDownListZonas(int PaisID)
+        {
+            IList<BEZona> lst;
+            using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
+            {
+                lst = sv.SelectAllZonas(PaisID);
+            }
+            return Mapper.Map<IList<BEZona>, IEnumerable<ZonaModel>>(lst);
+        }
+
+        public JsonResult ObtenerZonasByRegion(int PaisID, int RegionID)
+        {
+            var listaZonas = DropDownListZonas(PaisID);
+            if (RegionID > -1) listaZonas = listaZonas.Where(x => x.RegionID == RegionID).ToList();
+            return Json(new { success = true, listaZonas = listaZonas }, JsonRequestBehavior.AllowGet);
+        }
+
+        #endregion
     }
 }

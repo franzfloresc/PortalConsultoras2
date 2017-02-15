@@ -48,7 +48,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                var listaZonas = DropDowListZonas(PaisID);
+                var listaZonas = DropDownListZonas(PaisID);
                 var listaZonasActivas = DropDowListZonasActivas(PaisID);
                 List<ConfiguracionValidacionZonaModel> lstActivos = new List<ConfiguracionValidacionZonaModel>();
 
@@ -118,22 +118,6 @@ namespace Portal.Consultoras.Web.Controllers
                     .ForMember(t => t.NombreCorto, f => f.MapFrom(c => c.NombreCorto));
 
             return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);
-        }
-
-        private IEnumerable<ZonaModel> DropDowListZonas(int PaisID)
-        {
-            //PaisID = 11;
-            IList<BEZona> lst;
-            using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
-            {
-                lst = sv.SelectAllZonas(PaisID);
-            }
-            Mapper.CreateMap<BEZona, ZonaModel>()
-                    .ForMember(t => t.ZonaID, f => f.MapFrom(c => c.ZonaID))
-                    .ForMember(t => t.Codigo, f => f.MapFrom(c => c.Codigo))
-                    .ForMember(t => t.Nombre, f => f.MapFrom(c => c.Nombre));
-
-            return Mapper.Map<IList<BEZona>, IEnumerable<ZonaModel>>(lst);
         }
 
         private IEnumerable<ConfiguracionValidacionZonaModel> DropDowListZonasActivas(int PaisID)
