@@ -242,7 +242,7 @@
             </div>
         </div>
         <!--CONTENEDOR ITEM CARRUSEL-->
-        <div class="contenedor_carrusel_home content_carrusel_agregado" id="divContenidoEstrategias">
+        <div class="contenedor_carrusel_home content_carrusel_agregado" id="divListadoEstrategia">
             <div style="text-align: center;">Cargando Productos Destacados<br><img src="@Url.Content("~/Content/Images/Loading.gif")" /><br /></div>
         </div>
     </div>
@@ -595,6 +595,9 @@
     var vbSimbolo = simbolo;
     var productoSugerido = false
     var productoAgotado = false;
+        
+    var tipoOrigenEstrategia = 21;
+    var origenPedidoWebEstrategia = @Constantes.OrigenPedidoWeb.MobilePedidoOfertasParaTi;
     </script>
     <script src="@Url.Content("~/Scripts/PortalConsultoras/Mobile/Pedido/index.js")"></script>
 }

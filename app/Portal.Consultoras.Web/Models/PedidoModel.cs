@@ -191,6 +191,15 @@ namespace Portal.Consultoras.Web.Models
         public string TipoMeta { get; set; }
         public string MontoMeta { get; set; }
         public string MetaMontoStr { get; set; }
+
+        public int Digitable { get; set; }
+        public int Orden { get; set; }
+        public string Grupo { get; set; }
+
+        public object Clone()
+        {
+            return this.MemberwiseClone();
+        }
     }
 
     public class ObservacionModel

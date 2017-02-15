@@ -321,7 +321,7 @@
             EXCLUSIVO SÓLO POR WEB
         </div>
     </div>
-    <div class="contenedor_carrusel_home content_carrusel_agregado" id="divCarouseHorizontalMobile">
+    <div class="contenedor_carrusel_home content_carrusel_agregado" id="divListadoEstrategia">
         <div style="text-align: center;">Cargando Productos Destacados<br><img src="@Url.Content("~/Content/Images/Loading.gif")" /></div>
     </div>
 </div>
@@ -993,7 +993,7 @@
                         <input type="tel" value="1" size="2" maxlength="2" id="txtCantidadFichaOPT" class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);">
                         <a class="cantidad_mas_home"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
                     </div>
-                    <a class="btn_agregar_ficha_producto" href="#" onclick="javascript:CargarProductoDestacado({ EstrategiaID: '{{EstrategiaID}}' , TipoEstrategiaID: '{{TipoEstrategiaID}}' , Posicion: '{{Posicion}}' , FlagNueva: '{{FlagNueva}}' }, this); ">AGRÉGALO</a>
+                    <a class="btn_agregar_ficha_producto" href="#" onclick="javascript:CargarProductoDestacado({ EstrategiaID: '{{EstrategiaID}}' , TipoEstrategiaID: '{{TipoEstrategiaID}}' , Posicion: '{{Posicion}}' , FlagNueva: '{{FlagNueva}}' }, this, true); ">AGRÉGALO</a>
                     <hr class="clear" />
                 </div>
             </div>
@@ -1024,8 +1024,12 @@
             var urlGetProductoFichaOPT = '@Url.Action("GetProductoFichaOPT", "Pedido", new { area = ""})'; //PL20-1265
             var urlInsertarProductoCompartido = '@Url.Action("InsertarProductoCompartido", "CatalogoPersonalizado", new { area = "" })'; //PL20-1266
             var urlCatalogoPersonalizado = '@Url.Action("Index", "CatalogoPersonalizado", new { area = "Mobile" })';
+
+            var tipoOrigenEstrategia = 2;
+            var origenPedidoWebEstrategia = @Constantes.OrigenPedidoWeb.MobileHomeOfertasParaTi;
         </script>
                 
-        <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Mobile/Bienvenida/Index.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Mobile/Bienvenida/Index.js")"></script>
+        <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Bienvenida/Estrategia.js")"></script>
         
     }

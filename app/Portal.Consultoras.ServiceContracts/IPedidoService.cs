@@ -959,5 +959,8 @@ namespace Portal.Consultoras.ServiceContracts
         
         [OperationContract]
         int InsertarEstrategiaProducto(BEEstrategiaProducto entidad);
+
+        [OperationContract]
+        List<BEEstrategiaProducto> GetEstrategiaProducto(BEEstrategia entidad);
     }
 }

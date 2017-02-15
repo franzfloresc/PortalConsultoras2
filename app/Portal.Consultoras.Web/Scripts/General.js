@@ -104,6 +104,19 @@ jQuery(document).ready(function () {
 
     Array.prototype.Find = function (campo, valor) {
         var array = new Array();
+        var campoVal = $.trim(campo);
+        if (campoVal == "") {
+            $.each(this, function (index, item) {
+                if (item == valor) {
+                    try {
+                        array.push(Clone(item));
+                    } catch (e) {
+                        array.push(item);
+                    }
+                }
+            });
+            return array;
+        }
         $.each(this, function (index, item) {
             if (typeof (campo) == "string") {
                 if (item[campo] == valor) {
@@ -157,7 +170,7 @@ jQuery(document).ready(function () {
                         break;
                     case 'ContainsArray':
                         var array = (JSON.parse(b) instanceof Array) ? JSON.parse(b) : [b];
-                        bool = array.indexOf(a) > -1;
+                        bool = array.Find(null, a).length > 0;
                         break;
                     default:
                         throw "Unknown operator " + operator;

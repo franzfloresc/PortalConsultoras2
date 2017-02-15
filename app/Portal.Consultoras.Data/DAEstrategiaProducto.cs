@@ -40,5 +40,12 @@ namespace Portal.Consultoras.Data
             return result;
         }
 
+        public IDataReader GetEstrategiaProducto(BEEstrategia entidad)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetEstrategiaProducto");
+            Context.Database.AddInParameter(command, "@EstrategiaID", DbType.Int32, entidad.EstrategiaID);
+
+            return Context.ExecuteReader(command);
+        }
     }
 }

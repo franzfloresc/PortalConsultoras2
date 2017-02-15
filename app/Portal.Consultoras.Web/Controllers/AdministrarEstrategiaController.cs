@@ -604,7 +604,7 @@ namespace Portal.Consultoras.Web.Controllers
              string Precio, string FlagCEP, string CUV2, string EtiquetaID2,
              string Precio2, string FlagCEP2, string TextoLibre, string FlagTextoLibre,
              string Cantidad, string FlagCantidad, string Zona, string Orden,
-             string ColorFondo, string FlagEstrella
+             string ColorFondo, string FlagEstrella, string CodigoTipoEstrategia
             )
         {
             int resultado = 0;
@@ -644,7 +644,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 var respuestaServiceCdr = new List<RptProductoEstrategia>();
 
-                if (entidad.Activo == 1 && entidad.TipoEstrategiaID == 3009)
+                if (entidad.Activo == 1 && CodigoTipoEstrategia == Constantes.TipoEstrategiaCodigo.OfertaParaTi)
                 {
                     try
                     {

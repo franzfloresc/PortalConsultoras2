@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Portal.Consultoras.Common
+﻿namespace Portal.Consultoras.Common
 {
     public class Constantes
     {
@@ -150,6 +144,11 @@ namespace Portal.Consultoras.Common
             public const int OfertaParaTi = 3;
             public const int OfertaWeb = 4;
             public const int Lanzamiento = 5;
+        }
+
+        public class TipoEstrategiaCodigo
+        {
+            public const string OfertaParaTi = "001";
         }
 
         public class ConstSession

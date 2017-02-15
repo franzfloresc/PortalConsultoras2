@@ -4120,7 +4120,6 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpGet]
         public JsonResult JsonConsultarEstrategias(string cuv)
         {
-            
             List<BEEstrategia> lst = ConsultarEstrategias(cuv ?? "");
             var listModel = Mapper.Map<List<BEEstrategia>, List<EstrategiaPedidoModel>>(lst);
 
@@ -4176,9 +4175,7 @@ namespace Portal.Consultoras.Web.Controllers
                 foreach (var beEstrategia in listaTemporal)
                 {
                     if (!string.IsNullOrEmpty(beEstrategia.CodigoProducto))
-                    {
                         codigoSap += beEstrategia.CodigoProducto + "|";
-                    }
                 }
 
                 codigoSap = codigoSap == "" ? "" : codigoSap.Substring(0, codigoSap.Length - 1);
@@ -4249,6 +4246,169 @@ namespace Portal.Consultoras.Web.Controllers
 
 
             return lst;
+        }
+        
+        [HttpGet]
+        public JsonResult ConsultarEstrategiaSet(string cuv)
+        {
+            var listaHermanos = new List<ProductoModel>();
+            cuv = Util.SubStr(cuv, 0);
+            if (cuv == "")
+                return Json(listaHermanos, JsonRequestBehavior.AllowGet);
+           
+            var listaEstrategia = ConsultarEstrategias("");
+
+            var estrategia = listaEstrategia.SingleOrDefault(e=>e.CUV2 == cuv) ?? new BEEstrategia();
+
+            if (estrategia.EstrategiaID == 0)
+                return Json(listaHermanos, JsonRequestBehavior.AllowGet);
+
+            estrategia.CodigoEstrategia = Util.SubStr(estrategia.CodigoEstrategia, 0);
+            if (estrategia.CodigoEstrategia == "")
+                return Json(listaHermanos, JsonRequestBehavior.AllowGet);
+
+            string joinCuv = "";
+            if (estrategia.CodigoEstrategia == "2001")
+            {
+                //listaHermanos = GetBrothers(cuv);
+                //return Json(listaHermanos, JsonRequestBehavior.AllowGet);
+
+                var listaHermanosE = new List<BEProducto>();
+                using (ODSServiceClient svc = new ODSServiceClient())
+                {
+                    listaHermanosE = svc.GetListBrothersByCUV(userData.PaisID, userData.CampaniaID, cuv).ToList();
+                }
+
+                foreach (var item in listaHermanosE)
+                {
+                    joinCuv += item.CUV + ",";
+                }
+            }
+
+            var listaProducto = new List<BEEstrategiaProducto>();
+            if (estrategia.CodigoEstrategia == "2002" || estrategia.CodigoEstrategia == "2003")
+            {
+                estrategia.PaisID = userData.PaisID;
+                using (PedidoServiceClient svc = new PedidoServiceClient())
+                {
+                    listaProducto = svc.GetEstrategiaProducto(estrategia).ToList();
+                }
+
+                foreach (var item in listaProducto)
+                {
+                    joinCuv += item.CUV + ",";
+                }
+            }
+            
+            if (joinCuv == "")
+                return Json(listaHermanos, JsonRequestBehavior.AllowGet);
+
+            joinCuv = joinCuv.Substring(0, joinCuv.Length - 1);
+
+            var listaAppCatalogo = new List<Producto>();
+            using (ProductoServiceClient svc = new ProductoServiceClient())
+            {
+                listaAppCatalogo = svc.ObtenerProductosAppCatalogoByListaCUV(userData.CodigoISO, userData.CampaniaID, joinCuv).ToList();
+            }
+            
+            if (!listaAppCatalogo.Any())
+                return Json(listaHermanos, JsonRequestBehavior.AllowGet);
+
+            listaHermanos = Mapper.Map<List<Producto>, List<ProductoModel>>(listaAppCatalogo);
+
+            if (estrategia.CodigoEstrategia == "2001")
+            {
+                listaHermanos = listaHermanos.OrderBy(h => h.Orden).ToList();
+            }
+            else if (estrategia.CodigoEstrategia == "2002" || estrategia.CodigoEstrategia == "2003")
+            {
+                listaHermanos.ForEach(h =>
+                {
+                    var prod = listaProducto.Find(p => p.CUV == h.CUV);
+                    h.Orden = prod.Orden;
+                    h.Grupo = prod.Grupo;
+                    h.PrecioCatalogoString = Util.DecimalToStringFormat(prod.Precio, userData.CodigoISO);
+                    h.Digitable = prod.Digitable;
+                });
+
+                if (estrategia.CodigoEstrategia == "2002")
+                {
+                    listaHermanos.Update(h=>h.Digitable = 0);
+                }
+                else if (estrategia.CodigoEstrategia == "2003")
+                {
+                    var listaHermanosR = new List<ProductoModel>();
+                    var hermano = new ProductoModel();
+                    foreach (var item in listaHermanos)
+                    {
+                        hermano = (ProductoModel)item.Clone();
+                        hermano.Hermanos = new List<ProductoModel>();
+                        if (hermano.Digitable == 1)
+                        {
+                            var existe = false;
+                            foreach (var itemR in listaHermanosR)
+                            {
+                                existe = itemR.Hermanos.Any(h => h.CUV == hermano.CUV);
+                                if (existe)
+                                    break;
+                            }
+                            if (existe)
+                                continue;
+
+                            hermano.Hermanos = listaHermanos.Where(p => p.Grupo == hermano.Grupo).OrderBy(p => p.Orden).ToList();
+                        }
+
+                        listaHermanosR.Add(hermano);
+                    }
+
+                    listaHermanos = listaHermanosR.OrderBy(p => p.Orden).ToList();
+                }
+
+            }
+            return Json(listaHermanos, JsonRequestBehavior.AllowGet);
+        }
+
+        private List<ProductoModel> GetBrothers(string cuv)
+        {
+            var listaHermanos = new List<ProductoModel>();
+            var listaHermanosE = new List<BEProducto>();
+            using (ODSServiceClient svc = new ODSServiceClient())
+            {
+                listaHermanosE = svc.GetListBrothersByCUV(userData.PaisID, userData.CampaniaID, cuv).ToList();
+            }
+
+            if (!listaHermanosE.Any())
+                return listaHermanos;
+
+            foreach (var item in listaHermanosE)
+            {
+                listaHermanos.Add(new ProductoModel
+                {
+                    CUV = item.CUV
+                });
+            }
+
+            string joinCuv = string.Empty;
+            foreach (var item in listaHermanos)
+            {
+                joinCuv += item.CUV + ",";
+            }
+
+            joinCuv = joinCuv.Substring(0, joinCuv.Length - 1);
+
+            var listaAppCatalogo = new List<Producto>();
+            using (ProductoServiceClient svc = new ProductoServiceClient())
+            {
+                listaAppCatalogo = svc.ObtenerProductosAppCatalogoByListaCUV(userData.CodigoISO, userData.CampaniaID, joinCuv).ToList();
+            }
+
+            listaHermanos = new List<ProductoModel>();
+            if (!listaAppCatalogo.Any())
+                return listaHermanos;
+
+            listaHermanos = Mapper.Map<List<Producto>, List<ProductoModel>>(listaAppCatalogo);
+            
+            return listaHermanos;
         }
 
         public JsonResult ObtenerProductosRecomendados(string CUV)

@@ -44,8 +44,21 @@ namespace Portal.Consultoras.Entities
 
         public BEEstrategiaProducto(IDataRecord row)
         {
-            if (DataRecord.HasColumn(row, "CUV") && row["CUV"] != DBNull.Value)
-                CUV = row["CUV"].ToString();
+            EstrategiaProductoID = DataRecord.GetColumn(row, "EstrategiaProductoID", 0);
+            EstrategiaID = DataRecord.GetColumn(row, "EstrategiaID", 0);
+            Campania = DataRecord.GetColumn(row, "Campania", 0);
+            CUV = DataRecord.GetColumn(row, "CUV", "");
+            CUV2 = DataRecord.GetColumn(row, "CUV2", "");
+            SAP = DataRecord.GetColumn(row, "SAP", "");
+            Grupo = DataRecord.GetColumn(row, "Grupo", "");
+            Orden = DataRecord.GetColumn(row, "Orden", 0);
+            Cantidad = DataRecord.GetColumn(row, "Cantidad", 0);
+            Precio = DataRecord.GetColumn(row, "Precio", Convert.ToDecimal(0));
+            PrecioValorizado = DataRecord.GetColumn(row, "PrecioValorizado", Convert.ToDecimal(0));
+            Digitable = DataRecord.GetColumn(row, "Digitable", 0);
+            CodigoEstrategia = DataRecord.GetColumn(row, "CodigoEstrategia", "");
+            CodigoError = DataRecord.GetColumn(row, "CodigoError", "");
+            CodigoErrorObs = DataRecord.GetColumn(row, "CodigoErrorObs", "");
         }
     }
 }
