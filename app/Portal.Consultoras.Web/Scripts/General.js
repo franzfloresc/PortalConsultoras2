@@ -706,7 +706,6 @@ function InfoCommerceGoogleDestacadoProductClick(name, id, category, variant, po
 
 // Pedido Rechazado
 function MensajeEstadoPedido() {
-    
     xMensajeEstadoPedido(false);
     if (cerrarRechazado == '1')
         return false;
@@ -772,11 +771,21 @@ function xMensajeEstadoPedido(estado) {
         else {
             identi = url.indexOf("/bienvenida") > 0;
             if (identi) {
+
+                $("[data-content]").animate({ "top": "61px" });
+            
+                if (estaRechazado == "2" && estadoPedido == "202" && validacionAbierta == "False") {
+                    $("[data-content]").animate({ "top": "0px" });
+                }
+
+                if (estaRechazado === "0") {
+                    $("[data-content]").animate({ "top": "0px" });
+                }
+
                 if (cerrarRechazado == 1) {
                     $("[data-content]").animate({ "top": "0px" });
-                } else {
-                    $("[data-content]").animate({ "top": "61px" });
-                }
+                } 
+                    
                 
             }
             else {
@@ -820,7 +829,6 @@ function ResizeMensajeEstadoPedido() {
 }
 
 function cerrarMensajeEstadoPedido() {
-    debugger;
     $.ajax({
         type: 'Post',
         url: baseUrl + 'Bienvenida/CerrarMensajeEstadoPedido',
@@ -830,7 +838,6 @@ function cerrarMensajeEstadoPedido() {
         contentType: 'application/json; charset=utf-8',
         success: function (data) {
             cerrarRechazado = data || '0';
-            debugger;
             MensajeEstadoPedido();
         },
         error: function (data, error) {
