@@ -62,6 +62,9 @@ namespace Portal.Consultoras.Entities
         [DataMember(Order = 17)]
         public string UnidadGeografica3 { get; set; }
 
+        [DataMember(Order = 18)]
+        public int CampaniaActualID { get; set; }
+
         public string CodigoUsuario { get; set; }
         public int RolId { get; set; }
         public int IdEstadoActividad { get; set; }
@@ -147,6 +150,10 @@ namespace Portal.Consultoras.Entities
 
             if (DataRecord.HasColumn(row, "UnidadGeografica3") && row["UnidadGeografica3"] != DBNull.Value)
                 this.UnidadGeografica3 = Convert.ToString(row["UnidadGeografica3"]);
+
+            if (DataRecord.HasColumn(row, "CampaniaActualID") && row["CampaniaActualID"] != DBNull.Value)
+                this.CampaniaActualID = Convert.ToInt32(row["CampaniaActualID"]);
+           
         }
     }
 }

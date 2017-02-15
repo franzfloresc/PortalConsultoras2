@@ -156,6 +156,7 @@ namespace Portal.Consultoras.Common
         public class ConstSession
         {
             public const string IngresoPortalLideres = "IngresoPortalLideres";
+            public const string IngresoPortalConsultoras = "IngresoPortalConsultoras";
             public const string ListaEscalaDescuento = "ListaEscalaDescuento";
             public const string ClientesByConsultora = "ClientesByConsultora";
             public const string TippingPoint = "TippingPoint";
@@ -339,6 +340,16 @@ namespace Portal.Consultoras.Common
             public const int NoExiste = 0;
             public const int ExisteDiferenteClave = 1;
             public const int Existe = 2;
+            
+        }
+        
+        public class LogDynamoDB
+        {
+            public const string AplicacionPortalConsultoras = "PORTALCONSULTORAS";
+            public const string AplicacionPortalLideres = "PORTALLIDERES";
+
+            public const string RolConsultora = "CO";
+            public const string RolSociaEmpresaria = "SE";
         }
 
     }

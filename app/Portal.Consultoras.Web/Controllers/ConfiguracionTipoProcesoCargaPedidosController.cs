@@ -57,7 +57,7 @@ namespace Portal.Consultoras.Web.Controllers
                 model.TipoProcesoCarga = (configuracionPortal.TipoProcesoCarga == null ? false : configuracionPortal.TipoProcesoCarga.Value);
 
 
-                var listaZonas = DropDowListZonas(PaisID);
+                var listaZonas = DropDowListZonasNoProl(PaisID);
                 var listaZonasNuevoPROL = DropDowListZonasPROL(PaisID);
 
                 if (!model.TipoProcesoCarga)
@@ -110,7 +110,7 @@ namespace Portal.Consultoras.Web.Controllers
             return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);
         }
 
-        private IEnumerable<ZonaModel> DropDowListZonas(int PaisID)
+        private IEnumerable<ZonaModel> DropDowListZonasNoProl(int PaisID)
         {
             IList<BEConfiguracionTipoProcesoCargaPedidos> lst;
             using (SACServiceClient sv = new SACServiceClient())

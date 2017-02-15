@@ -727,8 +727,6 @@ function InfoCommerceGoogleDestacadoProductClick(name, id, category, variant, po
 
 // Pedido Rechazado
 function MensajeEstadoPedido() {
-    debugger;
-
     xMensajeEstadoPedido(false);
     if (cerrarRechazado == '1')
         return false;
@@ -794,7 +792,22 @@ function xMensajeEstadoPedido(estado) {
         else {
             identi = url.indexOf("/bienvenida") > 0;
             if (identi) {
+
                 $("[data-content]").animate({ "top": "61px" });
+            
+                if (estaRechazado == "2" && estadoPedido == "202" && validacionAbierta == "False") {
+                    $("[data-content]").animate({ "top": "0px" });
+                }
+
+                if (estaRechazado === "0") {
+                    $("[data-content]").animate({ "top": "0px" });
+                }
+
+                if (cerrarRechazado == 1) {
+                    $("[data-content]").animate({ "top": "0px" });
+                } 
+                    
+                
             }
             else {
                 $(".ubicacion_web").animate({ "margin-top": "83px" });
@@ -805,7 +818,7 @@ function xMensajeEstadoPedido(estado) {
 }
 
 function ResizeMensajeEstadoPedido() {
-    debugger;
+    
     $("#bloquemensajesPedido").css("height", "");
     $("#bloquemensajesPedido > div").css("height", "");
     $("#bloquemensajesPedido .mensajes_estadoPedido").css("width", "");
@@ -830,7 +843,7 @@ function ResizeMensajeEstadoPedido() {
     }
 
     if (htx == 38) {
-        debugger;
+        
         $("#bloquemensajesPedido .mensajes_estadoPedido").css("padding-top", (9) + "px");
         $("#bloquemensajesPedido .icono_estadoPedido").css("padding-top", (5) + "px");
     }

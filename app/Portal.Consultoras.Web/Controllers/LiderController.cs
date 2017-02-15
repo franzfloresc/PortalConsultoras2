@@ -29,7 +29,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             if (Session[Constantes.ConstSession.IngresoPortalLideres] == null)
             {
-                RegistrarLogDynamoDB("PORTALLIDERES", "SE", "SOCIAEMPRESARIA-INGRESAR", "MENÚ PRINCIPAL SB");
+                RegistrarLogDynamoDB(Constantes.LogDynamoDB.AplicacionPortalLideres, Constantes.LogDynamoDB.RolSociaEmpresaria, "HOME", "INGRESAR");
                 Session[Constantes.ConstSession.IngresoPortalLideres] = true;
             }
 

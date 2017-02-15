@@ -421,8 +421,6 @@
                     }
                 }
 
-
-
             ],
             jsonReader:
                 {
@@ -463,6 +461,11 @@
                     jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'EvaluacionTelefonica');
                 }
 
+              
+                jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'Recibo Otra Marca');
+                jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'Recibo de Pago de Servicios de Fiador');
+                jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'Autorizacion de consulta de credito Fiador');
+                jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'Constancia Laboral Fiador');
 
                 if (typeof option != 'undefined' && option != null) {
 
@@ -672,6 +675,7 @@
                             break;
                     }
                 }
+       
                 if ('@Model.CodigoIso' === 'PE') {
                     jQuery("#gvwSolicitudesPostulante").jqGrid('showCol', 'Contrato');
                     jQuery("#gvwSolicitudesPostulante").jqGrid('showCol', 'Pagare');
@@ -683,6 +687,17 @@
                     jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'DNI Aval');
                     jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'Tipo Rechazo');
                     jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'Motivo Rechazo');
+                    
+                    var showImageColumnsWhenStatusIn = ['0','2','3','4','5','7','8','9'];
+                  
+                    if (jQuery.inArray(option, showImageColumnsWhenStatusIn) !== -1)
+                    {
+                        jQuery("#gvwSolicitudesPostulante").jqGrid('showCol', 'Recibo Otra Marca');
+                        jQuery("#gvwSolicitudesPostulante").jqGrid('showCol', 'Recibo de Pago de Servicios de Fiador');
+                        jQuery("#gvwSolicitudesPostulante").jqGrid('showCol', 'Autorizacion de consulta de credito Fiador');
+                        jQuery("#gvwSolicitudesPostulante").jqGrid('showCol', 'Constancia Laboral Fiador');
+                    }  
+
                 } else if ('@Model.CodigoIso' === 'CL') {
                     jQuery("#gvwSolicitudesPostulante").jqGrid('showCol', 'Contrato');
                     jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'Pagare');

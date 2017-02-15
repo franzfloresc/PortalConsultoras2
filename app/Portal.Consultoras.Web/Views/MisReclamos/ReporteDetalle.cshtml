@@ -3,71 +3,23 @@
     ViewBag.Title = "Reporte Cambios y Devoluciones";
 }
 <script type="text/javascript">
-
-
-    function LimpiarDependencias(Id) {
-        var ddlRegion = $('#ddlRegion');
-        var ddlZona = $('#ddlZona');
-        var ddlCampania = $('#ddlCampania');
-        var ddlEstado = $('#ddlEstado');
-        ddlRegion.empty();
-        ddlCampania.empty();
-        ddlZona.empty();
-        ddlEstado.empty();
-        $('#CodigoConsultora').val('');
-        if (Id != "") {
-            ddlZona.append($('<option/>', {
-                value: "",
-                text: "-- Todas --"
-            }));
-            ddlRegion.append($('<option/>', {
-                value: "",
-                text: "-- Todas --"
-            }));
-
-            ddlEstado.append($('<option/>', {
-                value: "",
-                text: "-- Todas --"
-            }));
-            
-        } else {
-           
-            ddlZona.append($('<option/>', {
-                value: "",
-                text: "-- Seleccionar --"
-            }));
-            ddlRegion.append($('<option/>', {
-                value: "",
-                text: "-- Seleccionar --"
-            }));
-
-            ddlEstado.append($('<option/>', {
-                value: "",
-                text: "-- Seleccionar --"
-            }));
-            
-        }
-        ddlCampania.append($('<option/>', {
-            value: "",
-            text: "-- Seleccionar --"
-        }));
+    function LimpiarCombo($combo) {
+        $combo.empty();
+        $combo.append($('<option/>', { value: "", text: "-- Seleccionar --" }));
     }
 
-    jQuery(document).ready(function () {
-        
+    jQuery(document).ready(function () {        
         fnGrilla();
      
-        $("#btnBuscar").click(function () {
-            
+        $("#btnBuscar").click(function () {            
             if (jQuery.trim($("#ddlPais").val()) == "") {
                 alert("Debe seleccionar un País, verifique");
                 return false;
             }
             if (jQuery.trim($("#ddlCampania").val()) != "") {
-                $("#hdTipoConsulta").val('1');
-                
+                $("#hdTipoConsulta").val('1');                
             }
-            else{
+            else {
                 alert("Debe seleccionar una Campaña, verifique");
                 return false;
             }
@@ -78,9 +30,7 @@
             } else {
                 $("#hdTipoConsulta").val('1');
                 fnGrilla();
-            }
-
-            
+            }            
         });
 
         $('#ddlCampania').click(function () {
@@ -90,69 +40,46 @@
                 this.selectedIndex += n;
                 this.selectedIndex -= (2 * n);
                 this.selectedIndex += n;
-            } else {
+            }
+            else {
                 this.selectedIndex = ((this.selectedIndex < n) ? 0 : $(this).find('option').length - 1);
                 this.selectedIndex = val;
             }
         });
 
-        $('#ddlPais').change(function () {
-            var Id = $(this).val();
-            if (Id != "") {
-                waitingDialog({});
-                $.ajaxSetup({
-                    cache: false
-                });
-                $.getJSON(baseUrl + 'MisReclamos/ObtenterCampaniasPorPais', { PaisID: Id == "" ? 0 : Id }, function (data) {
-                    if (checkTimeout(data)) {
-                        LimpiarDependencias(Id);
+        $('#ddlRegion').change(function () {
+            LimpiarCombo($('#ddlZona'));
 
-                        var ddlCampania = $('#ddlCampania');
+            var regionId = $('#ddlRegion').val();
+            var paisId = $('#ddlPais').val();
+            if (regionId == "") return false;
+
+            waitingDialog({});
+            jQuery.ajax({
+                type: 'POST',
+                url: baseUrl + 'MisReclamos/ObtenerZonasByRegion',
+                dataType: 'json',
+                data: {PaisId: paisId, RegionId: regionId },
+                async: true,
+                success: function (data) {
+                    if (!checkTimeout(data)) return false;
+
+                    closeWaitingDialog();
+                    if (data.success == true) {
                         var ddlZona = $('#ddlZona');
-                        var ddlRegion = $('#ddlRegion');
-                        ddlCampania.empty();
-                        if (data.lista.length > 0) {
-                            ddlCampania.append($('<option/>', {
-                                value: "",
-                                text: "-- Seleccionar --"
-                            }));
-                            if (Id != "") {
-                                for (var item in data.lista) {
-                                    ddlCampania.append($('<option/>', {
-                                        value: data.lista[item].CampaniaID,
-                                        text: data.lista[item].Codigo
-                                    }));
-                                }
-                            }
-                        }
-                     
-                        if (data.listaRegiones.length > 0) {
-                            for (var item in data.listaRegiones) {
-                                if (data.listaRegiones.hasOwnProperty(item)) {
-                                    ddlRegion.append($('<option/>', {
-                                        value: data.listaRegiones[item].RegionID,
-                                        text: data.listaRegiones[item].Nombre
-                                    }));
-                                }
-                            }
-                        }
-
-                        if (data.listaZonas.length > 0) {
-                            for (var item in data.listaZonas) {
-                                if (data.listaZonas.hasOwnProperty(item)) {
-                                    ddlZona.append($('<option/>', {
-                                        value: data.listaZonas[item].ZonaID,
-                                        text: data.listaZonas[item].Nombre
-                                    }));
-                                }
-                            }
-                        }
-                        closeWaitingDialog();
+                        $.each(data.listaZonas, function (ind, item) {
+                            ddlZona.append($('<option/>', { value: item.Codigo, text: item.Nombre }));
+                        });
                     }
-                });
-            } else LimpiarDependencias(Id);
+                },
+                error: function (data, error) {
+                    if (checkTimeout(data)) {
+                        closeWaitingDialog();
+                        alert("Ocurrió un error al ejecutar la acción. Por favor inténtelo de nuevo.");
+                    }
+                }
+            });
         });
-
     });
 
     function fnGrilla() {
@@ -261,7 +188,6 @@
     }
 
     function DownloadAttachExcel(CodigoCampania, RegionID, ZonaID, PaisID, CodigoConsultora, Estado) {
-
         if (checkTimeout()) {
             var content = baseUrl + "MisReclamos/ExportarExcel?CampaniaID=" + CodigoCampania + "&RegionID=" + RegionID + "&ZonaID=" + ZonaID + "&PaisID=" + PaisID + "&CodigoConsultora=" + CodigoConsultora + "&Estado=" + Estado;
             var iframe_ = document.createElement("iframe");
@@ -293,8 +219,7 @@
             }
             document.body.appendChild(iframe_);
         }
-    }
-       
+    }       
 </script>
 
 <input type="hidden" id="hdTipoConsulta" value="0" />
