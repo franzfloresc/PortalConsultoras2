@@ -2073,35 +2073,31 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
+                var data = new
+                {
+                    Fecha = "",
+                    Aplicacion = aplicacion,
+                    Pais = userData.CodigoISO,
+                    Region = userData.CodigorRegion,
+                    Zona = userData.CodigoZona,
+                    Seccion = userData.SeccionAnalytics,
+                    Rol = rol,
+                    Campania = userData.CampaniaID.ToString(),
+                    Usuario = userData.CodigoUsuario,
+                    PantallaOpcion = pantallaOpcion,
+                    OpcionAccion = opcionAccion,
+                    DispositivoCategoria = Request.Browser.IsMobileDevice ? "MOBILE" : "WEB",
+                    DispositivoID = GetIPCliente(),
+                    Version = "2.0",
+                };
+
                 var urlApi = ConfigurationManager.AppSettings.Get("UrlLogDynamo");
 
                 using (var client = new HttpClient())
                 {
-                    var data = new 
-                    {
-                        Fecha = "",
-                        Aplicacion = aplicacion,
-                        Pais = userData.CodigoISO,
-                        Region = userData.CodigorRegion,
-                        Zona = userData.CodigoZona,
-                        Seccion = userData.SeccionAnalytics,
-                        Rol = rol,
-                        Campania = userData.CampaniaID.ToString(),
-                        Usuario = userData.CodigoUsuario,
-                        PantallaOpcion = pantallaOpcion,
-                        OpcionAccion = opcionAccion,
-                        DispositivoCategoria = Request.Browser.IsMobileDevice ? "MOBILE" : "WEB",
-                        DispositivoID = GetIPCliente(),
-                        Version = "2.0",
-                    };
-
                     var response = client.PostAsJsonAsync(urlApi, data).Result;
                     response.EnsureSuccessStatusCode();
-
-                    var oStatus = response.StatusCode;
                 }
-
-                Session[Constantes.ConstSession.IngresoPortalLideres] = true;
             }
             catch (Exception ex)
             {
