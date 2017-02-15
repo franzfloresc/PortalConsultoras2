@@ -229,21 +229,6 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-        public JsonResult ObtenerZonasByRegion(int PaisID, int RegionID)
-        {
-            var listaZonas = DropDowListZonas(PaisID);
-            List<ZonaModel> lstActivos = new List<ZonaModel>();
-
-            if (RegionID > -1)
-                listaZonas = listaZonas.Where(x => x.RegionID == RegionID).ToList();
-
-            return Json(new
-            {
-                success = true,
-                listaZonas = listaZonas
-            }, JsonRequestBehavior.AllowGet);
-        }
-
         private IEnumerable<PaisModel> DropDowListPaises()
         {
             List<BEPais> lst;
@@ -278,38 +263,6 @@ namespace Portal.Consultoras.Web.Controllers
                     .ForMember(t => t.Codigo, f => f.MapFrom(c => c.Codigo));
 
             return Mapper.Map<IList<BECampania>, IEnumerable<CampaniaModel>>(lst);
-        }
-
-        private IEnumerable<RegionModel> DropDowListRegiones(int PaisID)
-        {
-            //PaisID = 11;
-            IList<BERegion> lst;
-            using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
-            {
-                lst = sv.SelectAllRegiones(PaisID);
-            }
-            Mapper.CreateMap<BERegion, RegionModel>()
-                    .ForMember(t => t.RegionID, f => f.MapFrom(c => c.RegionID))
-                    .ForMember(t => t.Codigo, f => f.MapFrom(c => c.Codigo))
-                    .ForMember(t => t.Nombre, f => f.MapFrom(c => c.Nombre));
-
-            return Mapper.Map<IList<BERegion>, IEnumerable<RegionModel>>(lst);
-        }
-
-        private IEnumerable<ZonaModel> DropDowListZonas(int PaisID)
-        {
-            //PaisID = 11;
-            List<BEZona> lst;
-            using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
-            {
-                lst = sv.SelectAllZonas(PaisID).ToList();
-            }
-            Mapper.CreateMap<BEZona, ZonaModel>()
-                    .ForMember(t => t.ZonaID, f => f.MapFrom(c => c.ZonaID))
-                    .ForMember(t => t.Codigo, f => f.MapFrom(c => c.Codigo))
-                    .ForMember(t => t.RegionID, f => f.MapFrom(c => c.RegionID));
-
-            return Mapper.Map<IList<BEZona>, IEnumerable<ZonaModel>>(lst);
         }
 
         public JsonResult GetConsultorasIds(int RegionID, int ZonaID, int rowCount, string vBusqueda)
@@ -450,8 +403,8 @@ namespace Portal.Consultoras.Web.Controllers
             else
             {
                 lst = DropDowListCampanias(PaisID);
-                lstRegiones = DropDowListRegiones(PaisID);
-                lstZonas = DropDowListZonas(PaisID);
+                lstRegiones = DropDownListRegiones(PaisID);
+                lstZonas = DropDownListZonas(PaisID);
 
                 return Json(new
                 {

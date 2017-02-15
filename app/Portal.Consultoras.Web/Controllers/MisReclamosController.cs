@@ -1245,8 +1245,8 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 listaPaises = DropDowListPaises(),
                 lista = DropDowListCampanias(PaisId),
-                listaRegiones = DropDowListRegiones(PaisId),
-                listaZonas = DropDowListZonas(PaisId),
+                listaRegiones = DropDownListRegiones(PaisId),
+                listaZonas = DropDownListZonas(PaisId),
                 PaisID = PaisId,
                 CampaniaID = CampaniaIDActual
             };
@@ -1573,21 +1573,6 @@ namespace Portal.Consultoras.Web.Controllers
             return htmlTemplate;
         }
 
-        private IEnumerable<ZonaModel> DropDowListZonas(int PaisID)
-        {
-            List<BEZona> lst;
-            using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
-            {
-                lst = sv.SelectAllZonas(PaisID).ToList();
-            }
-            Mapper.CreateMap<BEZona, ZonaModel>()
-                    .ForMember(t => t.ZonaID, f => f.MapFrom(c => c.ZonaID))
-                    .ForMember(t => t.Codigo, f => f.MapFrom(c => c.Codigo))
-                    .ForMember(t => t.RegionID, f => f.MapFrom(c => c.RegionID));
-
-            return Mapper.Map<IList<BEZona>, IEnumerable<ZonaModel>>(lst);
-        }
-
         private IEnumerable<CampaniaModel> DropDowListCampanias(int PaisID)
         {
             IList<BECampania> lst;
@@ -1621,8 +1606,8 @@ namespace Portal.Consultoras.Web.Controllers
         {
             //PaisID = 11;
             IEnumerable<CampaniaModel> lst = DropDowListCampanias(PaisID);
-            IEnumerable<ZonaModel> lstZonas = DropDowListZonas(PaisID);
-            IEnumerable<RegionModel> lstRegiones = DropDowListRegiones(PaisID);
+            IEnumerable<ZonaModel> lstZonas = DropDownListZonas(PaisID);
+            IEnumerable<RegionModel> lstRegiones = DropDownListRegiones(PaisID);
 
             return Json(new
             {
@@ -1630,22 +1615,6 @@ namespace Portal.Consultoras.Web.Controllers
                 listaZonas = lstZonas,
                 listaRegiones = lstRegiones.OrderBy(x => x.Nombre)
             }, JsonRequestBehavior.AllowGet);
-        }
-
-        private IEnumerable<RegionModel> DropDowListRegiones(int PaisID)
-        {
-            //PaisID = 11;
-            IList<BERegion> lst;
-            using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
-            {
-                lst = sv.SelectAllRegiones(PaisID);
-            }
-            Mapper.CreateMap<BERegion, RegionModel>()
-                    .ForMember(t => t.RegionID, f => f.MapFrom(c => c.RegionID))
-                    .ForMember(t => t.Codigo, f => f.MapFrom(c => c.Codigo))
-                    .ForMember(t => t.Nombre, f => f.MapFrom(c => c.Nombre));
-
-            return Mapper.Map<IList<BERegion>, IEnumerable<RegionModel>>(lst);
         }
 
         private IEnumerable<PaisModel> DropDowListPaises()
