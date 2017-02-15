@@ -102,7 +102,7 @@ else
                     {
                         <br />
                         <select id="fav_cbo_tono" class="tono_labial_select" onchange="cambiarInfoFichaProductoFAV(2,null,2)">
-                            @foreach (var item in Model.Hermanos)
+                            @foreach (var item in Model.Tonos)
                             {
                                 <option value="@item.CUV">@item.NombreBulk</option>
                             }

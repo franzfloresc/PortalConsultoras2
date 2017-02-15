@@ -175,6 +175,7 @@ namespace Portal.Consultoras.Web.Models
         public string ImagenBulk { get; set; }
         public string NombreBulk { get; set; }
         public List<ProductoModel> Hermanos { get; set; }
+        public List<ProductoModel> Tonos { get; set; }
 
         public string CodigoIso { get; set; }
         public int Relevancia { get; set; }
