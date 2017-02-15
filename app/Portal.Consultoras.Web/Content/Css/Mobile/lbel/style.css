@@ -4396,7 +4396,7 @@ width:100%;
     text-align: center;
     border: 1px solid #000;
     font-size: 12px;
-    font-weight: 900;
+    font-weight: 700;
     cursor:pointer;
 }
 .boton_Agregalo_home:hover{
@@ -10052,14 +10052,15 @@ span.icon-advertencia{
     }
 /*SPRINT 6*/
 .dias_faltantes{
-    margin-top:30px;
+    margin-top:16%;
     text-align:center;
     color:white;
-    font-size:15px;
+    font-size:32px;
     font-weight:700;
     letter-spacing:0.8px;
     position:absolute;
     width:100%;
+    text-shadow: -0.1em 0.1em #333;
 }
 .BloqueOfertaDiaHeader{
     background: black;
@@ -10102,7 +10103,116 @@ span.icon-advertencia{
 }
 .content_banner_new_showroom img{
     display: block;
-    width: 100vw;
+    /*width: 100vw;
     height: 174px;
-    object-fit: cover;
+    object-fit: cover;*/
+}
+.titulo_mensaje_landing{
+    font-family:'Lato';
+    font-size:13px;
+    font-weight:700;
+    text-transform:uppercase;
+    text-align:center;
+       
+}
+.mensaje_landing{
+    font-family:'Lato';
+    font-size:12px;
+    text-align:center;
+    margin-top:3px;
+    margin-bottom:20px;
+}
+.correo_showroon{
+    width:253px;
+    margin:0 auto;
+    background:url(https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/YCvCk8eQKHYcmxc/page-1.png)no-repeat left bottom;
+    padding-left:32px;
+}
+.correo_showroon input{ 
+     width: 221px;
+    border-bottom: 1px solid #979797;
+    /* padding-bottom: 2px; */
+    /* height: 15px; */
+    font-size: 13px;
+    font-family: 'Lato';
+    display: block;
+    background: none;
+}
+.btn_correo_showroom{
+    display:block;
+    background:black;
+    width:251px;
+    height:45px;
+    margin:0 auto;
+    line-height:43px;
+    font-family:'Lato';
+    font-size:13px;
+    color:white;
+    text-align:center;
+    margin-top:15px;
+}
+.termino_condiciones_intriga{
+    position:relative;
+    padding-left:18px;
+    margin:0 auto;
+    margin-top:20px;
+    font-family:'Lato';
+    font-size:10px;
+    width:251px;    
+   text-align: left;
+}
+.termino_condiciones_intriga:before{
+    position:absolute;
+    content:"";
+    left:0;
+    width:13px;
+    height:13px;
+    border:1px solid #979797;
+}
+.content_imagen_intriga{
+    width:250px;
+    height:auto;
+    text-align:center;
+}
+.content_imagen_intriga img{
+   
+    height:170px;
+    margin: 0 auto;
+}
+.linea_separadora_intriga{
+    width:100%;
+    height:10px;
+    background:black;
+    margin-bottom:20px;
+    -webkit-box-shadow: 3px 7px 5px 1px rgba(212,210,212,1);
+    -moz-box-shadow: 3px 7px 5px 1px rgba(212,210,212,1);
+    box-shadow: 3px 7px 5px 1px rgba(212,210,212,1);
+ }
+.content_carrusel_intriga{
+    max-width:380px; margin:0 auto; margin-bottom:30px;
+}
+.content_carrusel_intriga .slick-slide img {
+    display: initial;
+}
+.producto_faltante{
+    width:100%;
+    height:auto;
+    text-align:center;
+}
+.producto_faltante img{
+    padding-top: 28px;
+    height: 170px;   
+    margin: 0 auto;
+}
+.content_carrusel_intriga .slick-slide {
+     padding: 0px;
+}
+.texto_adelanto{
+    font-family:'Lato';
+    font-size:13px;
+    text-transform:uppercase;
+    font-weight:700;
+    text-align:center;
+    margin-top:20px;
+    margin-bottom:27px;
 }
