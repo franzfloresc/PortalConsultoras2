@@ -47,8 +47,8 @@ BEGIN
 		ISNULL(dbo.fnObtenerImporteMM(p.CampaniaID,p.PedidoID,'WEB'), 0) AS ImporteTotalMM,
 		ISNULL(p.CodigoUsuarioModificacion, p.CodigoUsuarioCreacion) AS UsuarioResponsable,
 		(STUFF((SELECT CAST(', ' + 
-			CASE MR.Codigo WHEN 'OCC-16' THEN 'MINIMO' 
-				WHEN 'OCC-17' THEN 'MAXIMO'
+			CASE MR.Codigo WHEN 'OCC-16' THEN 'MÍNIMO' 
+				WHEN 'OCC-17' THEN 'MÁXIMO'
 				WHEN 'OCC-19' THEN 'DEUDA'
 				WHEN 'OCC-51' THEN 'MINIMO STOCK' END + ': ' + P1.Valor AS VARCHAR(MAX))
 		FROM GPR.PedidoRechazado  P1
@@ -137,8 +137,8 @@ BEGIN
 		ISNULL(dbo.fnObtenerImporteMM(p.CampaniaID,p.PedidoID,'WEB'), 0) AS ImporteTotalMM,
 		ISNULL(p.CodigoUsuarioModificacion, p.CodigoUsuarioCreacion) AS UsuarioResponsable,
 		(STUFF((SELECT CAST(', ' + 
-			CASE MR.Codigo WHEN 'OCC-16' THEN 'MINIMO' 
-				WHEN 'OCC-17' THEN 'MAXIMO'
+			CASE MR.Codigo WHEN 'OCC-16' THEN 'MÍNIMO' 
+				WHEN 'OCC-17' THEN 'MÁXIMO'
 				WHEN 'OCC-19' THEN 'DEUDA'
 				WHEN 'OCC-51' THEN 'MINIMO STOCK' END + ': ' + P1.Valor AS VARCHAR(MAX))
 		FROM GPR.PedidoRechazado  P1
@@ -227,8 +227,8 @@ BEGIN
 		ISNULL(dbo.fnObtenerImporteMM(p.CampaniaID,p.PedidoID,'WEB'), 0) AS ImporteTotalMM,
 		ISNULL(p.CodigoUsuarioModificacion, p.CodigoUsuarioCreacion) AS UsuarioResponsable,
 		(STUFF((SELECT CAST(', ' + 
-			CASE MR.Codigo WHEN 'OCC-16' THEN 'MINIMO' 
-				WHEN 'OCC-17' THEN 'MAXIMO'
+			CASE MR.Codigo WHEN 'OCC-16' THEN 'MÍNIMO' 
+				WHEN 'OCC-17' THEN 'MÁXIMO'
 				WHEN 'OCC-19' THEN 'DEUDA'
 				WHEN 'OCC-51' THEN 'MINIMO STOCK' END + ': ' + P1.Valor AS VARCHAR(MAX))
 		FROM GPR.PedidoRechazado  P1
@@ -317,8 +317,8 @@ BEGIN
 		ISNULL(dbo.fnObtenerImporteMM(p.CampaniaID,p.PedidoID,'WEB'), 0) AS ImporteTotalMM,
 		ISNULL(p.CodigoUsuarioModificacion, p.CodigoUsuarioCreacion) AS UsuarioResponsable,
 		(STUFF((SELECT CAST(', ' + 
-			CASE MR.Codigo WHEN 'OCC-16' THEN 'MINIMO' 
-				WHEN 'OCC-17' THEN 'MAXIMO'
+			CASE MR.Codigo WHEN 'OCC-16' THEN 'MÍNIMO' 
+				WHEN 'OCC-17' THEN 'MÁXIMO'
 				WHEN 'OCC-19' THEN 'DEUDA'
 				WHEN 'OCC-51' THEN 'MINIMO STOCK' END + ': ' + P1.Valor AS VARCHAR(MAX))
 		FROM GPR.PedidoRechazado  P1
@@ -407,8 +407,8 @@ BEGIN
 		ISNULL(dbo.fnObtenerImporteMM(p.CampaniaID,p.PedidoID,'WEB'), 0) AS ImporteTotalMM,
 		ISNULL(p.CodigoUsuarioModificacion, p.CodigoUsuarioCreacion) AS UsuarioResponsable,
 		(STUFF((SELECT CAST(', ' + 
-			CASE MR.Codigo WHEN 'OCC-16' THEN 'MINIMO' 
-				WHEN 'OCC-17' THEN 'MAXIMO'
+			CASE MR.Codigo WHEN 'OCC-16' THEN 'MÍNIMO' 
+				WHEN 'OCC-17' THEN 'MÁXIMO'
 				WHEN 'OCC-19' THEN 'DEUDA'
 				WHEN 'OCC-51' THEN 'MINIMO STOCK' END + ': ' + P1.Valor AS VARCHAR(MAX))
 		FROM GPR.PedidoRechazado  P1
@@ -497,8 +497,8 @@ BEGIN
 		ISNULL(dbo.fnObtenerImporteMM(p.CampaniaID,p.PedidoID,'WEB'), 0) AS ImporteTotalMM,
 		ISNULL(p.CodigoUsuarioModificacion, p.CodigoUsuarioCreacion) AS UsuarioResponsable,
 		(STUFF((SELECT CAST(', ' + 
-			CASE MR.Codigo WHEN 'OCC-16' THEN 'MINIMO' 
-				WHEN 'OCC-17' THEN 'MAXIMO'
+			CASE MR.Codigo WHEN 'OCC-16' THEN 'MÍNIMO' 
+				WHEN 'OCC-17' THEN 'MÁXIMO'
 				WHEN 'OCC-19' THEN 'DEUDA'
 				WHEN 'OCC-51' THEN 'MINIMO STOCK' END + ': ' + P1.Valor AS VARCHAR(MAX))
 		FROM GPR.PedidoRechazado  P1
@@ -587,8 +587,8 @@ BEGIN
 		ISNULL(dbo.fnObtenerImporteMM(p.CampaniaID,p.PedidoID,'WEB'), 0) AS ImporteTotalMM,
 		ISNULL(p.CodigoUsuarioModificacion, p.CodigoUsuarioCreacion) AS UsuarioResponsable,
 		(STUFF((SELECT CAST(', ' + 
-			CASE MR.Codigo WHEN 'OCC-16' THEN 'MINIMO' 
-				WHEN 'OCC-17' THEN 'MAXIMO'
+			CASE MR.Codigo WHEN 'OCC-16' THEN 'MÍNIMO' 
+				WHEN 'OCC-17' THEN 'MÁXIMO'
 				WHEN 'OCC-19' THEN 'DEUDA'
 				WHEN 'OCC-51' THEN 'MINIMO STOCK' END + ': ' + P1.Valor AS VARCHAR(MAX))
 		FROM GPR.PedidoRechazado  P1
@@ -677,8 +677,8 @@ BEGIN
 		ISNULL(dbo.fnObtenerImporteMM(p.CampaniaID,p.PedidoID,'WEB'), 0) AS ImporteTotalMM,
 		ISNULL(p.CodigoUsuarioModificacion, p.CodigoUsuarioCreacion) AS UsuarioResponsable,
 		(STUFF((SELECT CAST(', ' + 
-			CASE MR.Codigo WHEN 'OCC-16' THEN 'MINIMO' 
-				WHEN 'OCC-17' THEN 'MAXIMO'
+			CASE MR.Codigo WHEN 'OCC-16' THEN 'MÍNIMO' 
+				WHEN 'OCC-17' THEN 'MÁXIMO'
 				WHEN 'OCC-19' THEN 'DEUDA'
 				WHEN 'OCC-51' THEN 'MINIMO STOCK' END + ': ' + P1.Valor AS VARCHAR(MAX))
 		FROM GPR.PedidoRechazado  P1
@@ -767,8 +767,8 @@ BEGIN
 		ISNULL(dbo.fnObtenerImporteMM(p.CampaniaID,p.PedidoID,'WEB'), 0) AS ImporteTotalMM,
 		ISNULL(p.CodigoUsuarioModificacion, p.CodigoUsuarioCreacion) AS UsuarioResponsable,
 		(STUFF((SELECT CAST(', ' + 
-			CASE MR.Codigo WHEN 'OCC-16' THEN 'MINIMO' 
-				WHEN 'OCC-17' THEN 'MAXIMO'
+			CASE MR.Codigo WHEN 'OCC-16' THEN 'MÍNIMO' 
+				WHEN 'OCC-17' THEN 'MÁXIMO'
 				WHEN 'OCC-19' THEN 'DEUDA'
 				WHEN 'OCC-51' THEN 'MINIMO STOCK' END + ': ' + P1.Valor AS VARCHAR(MAX))
 		FROM GPR.PedidoRechazado  P1
@@ -857,8 +857,8 @@ BEGIN
 		ISNULL(dbo.fnObtenerImporteMM(p.CampaniaID,p.PedidoID,'WEB'), 0) AS ImporteTotalMM,
 		ISNULL(p.CodigoUsuarioModificacion, p.CodigoUsuarioCreacion) AS UsuarioResponsable,
 		(STUFF((SELECT CAST(', ' + 
-			CASE MR.Codigo WHEN 'OCC-16' THEN 'MINIMO' 
-				WHEN 'OCC-17' THEN 'MAXIMO'
+			CASE MR.Codigo WHEN 'OCC-16' THEN 'MÍNIMO' 
+				WHEN 'OCC-17' THEN 'MÁXIMO'
 				WHEN 'OCC-19' THEN 'DEUDA'
 				WHEN 'OCC-51' THEN 'MINIMO STOCK' END + ': ' + P1.Valor AS VARCHAR(MAX))
 		FROM GPR.PedidoRechazado  P1
@@ -947,8 +947,8 @@ BEGIN
 		ISNULL(dbo.fnObtenerImporteMM(p.CampaniaID,p.PedidoID,'WEB'), 0) AS ImporteTotalMM,
 		ISNULL(p.CodigoUsuarioModificacion, p.CodigoUsuarioCreacion) AS UsuarioResponsable,
 		(STUFF((SELECT CAST(', ' + 
-			CASE MR.Codigo WHEN 'OCC-16' THEN 'MINIMO' 
-				WHEN 'OCC-17' THEN 'MAXIMO'
+			CASE MR.Codigo WHEN 'OCC-16' THEN 'MÍNIMO' 
+				WHEN 'OCC-17' THEN 'MÁXIMO'
 				WHEN 'OCC-19' THEN 'DEUDA'
 				WHEN 'OCC-51' THEN 'MINIMO STOCK' END + ': ' + P1.Valor AS VARCHAR(MAX))
 		FROM GPR.PedidoRechazado  P1
@@ -1037,8 +1037,8 @@ BEGIN
 		ISNULL(dbo.fnObtenerImporteMM(p.CampaniaID,p.PedidoID,'WEB'), 0) AS ImporteTotalMM,
 		ISNULL(p.CodigoUsuarioModificacion, p.CodigoUsuarioCreacion) AS UsuarioResponsable,
 		(STUFF((SELECT CAST(', ' + 
-			CASE MR.Codigo WHEN 'OCC-16' THEN 'MINIMO' 
-				WHEN 'OCC-17' THEN 'MAXIMO'
+			CASE MR.Codigo WHEN 'OCC-16' THEN 'MÍNIMO' 
+				WHEN 'OCC-17' THEN 'MÁXIMO'
 				WHEN 'OCC-19' THEN 'DEUDA'
 				WHEN 'OCC-51' THEN 'MINIMO STOCK' END + ': ' + P1.Valor AS VARCHAR(MAX))
 		FROM GPR.PedidoRechazado  P1
@@ -1127,8 +1127,8 @@ BEGIN
 		ISNULL(dbo.fnObtenerImporteMM(p.CampaniaID,p.PedidoID,'WEB'), 0) AS ImporteTotalMM,
 		ISNULL(p.CodigoUsuarioModificacion, p.CodigoUsuarioCreacion) AS UsuarioResponsable,
 		(STUFF((SELECT CAST(', ' + 
-			CASE MR.Codigo WHEN 'OCC-16' THEN 'MINIMO' 
-				WHEN 'OCC-17' THEN 'MAXIMO'
+			CASE MR.Codigo WHEN 'OCC-16' THEN 'MÍNIMO' 
+				WHEN 'OCC-17' THEN 'MÁXIMO'
 				WHEN 'OCC-19' THEN 'DEUDA'
 				WHEN 'OCC-51' THEN 'MINIMO STOCK' END + ': ' + P1.Valor AS VARCHAR(MAX))
 		FROM GPR.PedidoRechazado  P1
