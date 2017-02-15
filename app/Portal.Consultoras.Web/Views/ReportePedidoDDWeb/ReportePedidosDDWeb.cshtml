@@ -324,7 +324,7 @@
                 { name: 'IndicadorEnviado', index: 'IndicadorEnviado', width: 6, editable: true, resizable: false },
                 { name: 'TipoProceso', index: 'TipoProceso', width: 0, editable: false, align: 'center', hidden: true },
                 {
-                    name: 'MotivoRechazo', index: 'MotivoRechazo', width: 10, editable: true, resizable: false, cellattr: function (rowId, tv, rawObject, cm, rdata) {
+                    name: 'MotivoRechazo', index: 'MotivoRechazo', width: 16, editable: true, resizable: false, cellattr: function (rowId, tv, rawObject, cm, rdata) {
                         return 'style="white-space:normal !important;word-break: break-all;"'
                     }
                 },
@@ -346,14 +346,13 @@
             recordtext: "{0} - {1} de {2} Registros",
             emptyrecords: 'No hay resultados',
             rowNum: 10,
-            scrollOffset: 0,
+            scrollOffset: 0,           
             rowList: [10, 20, 30, 40, 50],
             sortname: 'CampaniaCodigo',
             sortorder: 'asc',
-            viewrecords: true,
             multiselect: false,
             height: 'auto',
-            width: 930,
+            width: 1200,
             pgtext: 'Pág: {0} de {1}',
             altRows: true,
             altclass: 'jQGridAltRowClass',
@@ -497,9 +496,8 @@
 
 
 <div class="wrap">
-    <div class="container clearfix">
+    <div class="containerReporte clearfix">
         <div class="border-wrapper">
-
             <table id="gvwPedidosCampana"></table>
             <div id="pager"></div>
 
