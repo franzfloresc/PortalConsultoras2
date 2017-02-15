@@ -4824,6 +4824,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             if (lista.Count != 0)
             {
+                var detallePedido = ObtenerPedidoWebDetalle();
                 bool TipoCross = lista[0].TipoCross;
                 listaProductoModel.Update(p =>
                 {
@@ -4833,6 +4834,8 @@ namespace Portal.Consultoras.Web.Controllers
                     p.MetaMontoStr = Util.DecimalToStringFormat(p.MontoMeta, userData.CodigoISO);
                     p.Simbolo = userData.Simbolo;
                     p.UrlCompartirFB = GetUrlCompartirFB();
+                    p.NombreComercialCorto = Util.SubStrCortarNombre(p.NombreComercial, 25, "...");
+                    p.CUVPedidoNombre = Util.Trim((detallePedido.Find(d => d.CUV == p.CUVPedido) ?? new BEPedidoWebDetalle()).DescripcionProd).Split('|')[0];
                     string imagenUrl = Util.SubStr(p.Imagen, 0);
 
                     if (!TipoCross)

@@ -2155,13 +2155,13 @@
                     <input type="hidden" class="hdOfertaFinalImagenProductoSugerido" value="{{ImagenProductoSugerido}}" />
                     <input type="hidden" class="hdOfertaFinalPrecioValorizadoString" value="{{PrecioValorizadoString}}" />
                     <input type="hidden" class="hdOfertaFinalPrecioCatalogoString" value="{{PrecioCatalogoString}}" />
-                    <input type="hidden" class="hdOfertaFinalNombreComercial" value="{{NombreComercial}}" />
                     <input type="hidden" class="hdOfertaFinalDescripcionComercial" value="{{DescripcionComercial}}" />
                     <input type="hidden" class="hdOfertaFinalUrlCompartirFB" value="{{UrlCompartirFB}}" />
-                    <input type="hidden" class="hdOfertaFinalDescripcionRelacionado" value="{{DescripcionRelacionado}}" />
+                    <input type="hidden" class="hdOfertaFinalDescripcionRelacionado" value="{{CUVPedidoNombre}}" />
+                    <input type="hidden" class="hdOfertaFinalCUVPedidoImagen" value="{{CUVPedidoImagen}}" />
                 </div>
                 <div class="contenido_item_carrusel_ofertaFinal" style="height:295px;" >
-                    <div class="nohely producto_img_home" style="height:115px;" data-tooltip-text="{{DescripcionRelacionado}}"  onclick="javascript:CargarVerDetalleOF(this, event);">
+                    <div class="nohely producto_img_home" style="height:115px;" data-tooltip-text="{{CUVPedidoNombre}}"  onclick="javascript:CargarVerDetalleOF(this, event);">
                         <img src="{{ImagenProductoSugerido}}" style="height: 100%;">
                         @*<i class="img-tooltip" data-toggle="tooltip" data-placement="right" title="Cómpralo porque ya tienes Shampoo Essens..." data-animation="false" data-trigger="manual" />*@
                         <a class="ver_detalle_carrusel" style="bottom:23px;">VER DETALLE</a>
@@ -2171,7 +2171,7 @@
                         <div onclick="javascript:CargarVerDetalleOF(this, event);">
                             <h6>{{DescripcionMarca}}</h6>
                             <p class="nombre_producto">
-                                <b>{{NombreComercial}}</b>
+                                <b>{{NombreComercialCorto}}</b>
                             </p>
                         </div>
                         <div class="producto_precio">
@@ -2204,7 +2204,7 @@
                         
                         </div>
                     </div>
-                    <button name="btn_noGracias_agregarProductos" class="btn_noGracias_agregarProductos" id="btnNoGraciasOfertaFinal">
+                    <button name="btn_noGracias_agregarProductos" class="btn_noGracias_agregarProductos btnNoGraciasOfertaFinal" id="btnNoGraciasOfertaFinal">
                         TERMINAR PEDIDO
                     </button>
                 </div>
@@ -2250,7 +2250,7 @@
                         Cómpralo porque ya tienes <b>{{DescripcionRelacionado}}</b> en tu pedido
                     </div>
                     <div class="imagen_relacionada">
-                        <img src="{{ImagenProductoSugerido}}" alt="PRODUCTO">
+                        <img src="{{CUVPedidoImagen}}" alt="PRODUCTO">
                     </div>
                     <hr class="clear" />
                 </div>
