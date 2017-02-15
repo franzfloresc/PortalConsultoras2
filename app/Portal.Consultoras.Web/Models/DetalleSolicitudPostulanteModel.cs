@@ -54,7 +54,6 @@ namespace Portal.Consultoras.Web.Models
         [ExpressionRequiredIf("TipoDocumento|CodigoPais", "1|EC", Expresion = @"^[0-9]{10}$", ErrorMessage = "Debe tener 10 dígitos")]
         [ExpressionRequiredIf("TipoDocumento|CodigoPais", "2|EC", Expresion = @"^[0-9]{13}$", ErrorMessage = "Debe tener 13 dígitos")]
         [ExpressionRequiredIf("TipoDocumento|CodigoPais", "3|EC", Expresion = @"^[a-zA-ZñáéíóúÑÁÉÍÓÚüÄÜ0-9]{6,15}$", ErrorMessage = "Debe tener 6 a 15 caracteres")]
-        //[ExpressionRequiredIf("CodigoPais", "SV", Expresion = @"^(?:[0-9]{10})$", RegexNotMatch = false, ErrorMessage = "Formato Incorrecto")]
         public string NumeroDocumento { get; set; }
 
         [Required(ErrorMessage = "Este campo es obligatorio")]
