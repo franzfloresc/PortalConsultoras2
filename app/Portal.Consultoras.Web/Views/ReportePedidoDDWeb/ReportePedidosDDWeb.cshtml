@@ -324,8 +324,13 @@
                 { name: 'IndicadorEnviado', index: 'IndicadorEnviado', width: 6, editable: true, resizable: false },
                 { name: 'TipoProceso', index: 'TipoProceso', width: 0, editable: false, align: 'center', hidden: true },
                 {
-                    name: 'MotivoRechazo', index: 'MotivoRechazo', width: 16, editable: true, resizable: false, cellattr: function (rowId, tv, rawObject, cm, rdata) {
+                    name: 'MotivoRechazo', index: 'MotivoRechazo', width: 12, editable: true, resizable: false,
+                    cellattr: function (rowId, tv, rawObject, cm, rdata) {
                         return 'style="white-space:normal !important;word-break: break-all;"'
+                    },
+                    formatter: function (cellValue, options, rowObject) {
+                        console.log(cellValue);
+                        return cellValue.replace(',', '<br/>');
                     }
                 },
                 { name: 'Detalle', index: 'Detalle', width: 6, editable: true, sortable: false, align: 'center', resizable: false, formatter: ShowActions }
@@ -346,7 +351,7 @@
             recordtext: "{0} - {1} de {2} Registros",
             emptyrecords: 'No hay resultados',
             rowNum: 10,
-            scrollOffset: 0,           
+            scrollOffset: 0,
             rowList: [10, 20, 30, 40, 50],
             sortname: 'CampaniaCodigo',
             sortorder: 'asc',

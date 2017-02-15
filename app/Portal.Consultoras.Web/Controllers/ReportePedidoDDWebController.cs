@@ -213,7 +213,7 @@ namespace Portal.Consultoras.Web.Controllers
                             IndicadorEnviado = item.IndicadorEnviado,
                             PrimeraCampaniaCodigo = item.PrimeraCampaniaCodigo,
                             Region = item.Region,
-                            MotivoRechazo = item.MotivoRechazo
+                            MotivoRechazo = string.IsNullOrEmpty(item.MotivoRechazo) ? " " : item.MotivoRechazo
                         });
                         fila = fila + 1;
                     }
@@ -755,7 +755,7 @@ namespace Portal.Consultoras.Web.Controllers
             dic.Add("OrigenNombre", "Origen,");
             dic.Add("EstadoValidacionNombre", "Validado,");
             dic.Add("IndicadorEnviado", "Estado,");
-            dic.Add("MotivoRechazo", "Motivo Rechazo");
+            dic.Add("MotivoRechazo", "Motivo de Rechazo");
 
             var lista = from a in lst
                         select new
@@ -776,10 +776,10 @@ namespace Portal.Consultoras.Web.Controllers
                             a.OrigenNombre,
                             a.EstadoValidacionNombre,
                             a.IndicadorEnviado,
-                            a.MotivoRechazo
+                            MotivoRechazo = string.IsNullOrEmpty(a.MotivoRechazo) ? "" : a.MotivoRechazo.Replace(",", ";")
                         };
 
-            ExportToCSV("exportar", lista.ToList(), dic, "DescargaCompleta", "1");            
+            ExportToCSV("exportar", lista.ToList(), dic, "DescargaCompleta", "1");
             // 2446 - Fin
             return View();
         }
@@ -1311,7 +1311,10 @@ namespace Portal.Consultoras.Web.Controllers
                     HttpContext.Response.AppendCookie(new HttpCookie(cookieName, valueName));
                 HttpContext.Response.Buffer = false;
                 HttpContext.Response.AddHeader("Content-Disposition", "attachment; filename=" + nombre);
-                HttpContext.Response.Charset = "UTF-8";
+                var isoEncoding = Encoding.GetEncoding("iso-8859-1");
+                HttpContext.Response.Charset = isoEncoding.WebName;
+                HttpContext.Response.ContentEncoding = isoEncoding;
+                //HttpContext.Response.BinaryWrite(Encoding.UTF8.GetPreamble);
                 HttpContext.Response.Cache.SetCacheability(HttpCacheability.Private);
                 HttpContext.Response.ContentType = "text/csv";
                 HttpContext.Response.Write(sw);
