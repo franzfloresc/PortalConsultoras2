@@ -47,7 +47,7 @@ namespace Portal.Consultoras.Web.Controllers
                 return RedirectToAction("Index", "Bienvenida");
             CronogramaFICModel model = new CronogramaFICModel();
             model.listaPaises = DropDowListPaises();
-            model.listaZonas = DropDowListZonas(UserData().PaisID);
+            model.listaZonas = DropDownListZonas(UserData().PaisID);
             model.DropDownListCampania = CargarCampania();
             return View(model);
         }
@@ -493,22 +493,6 @@ namespace Portal.Consultoras.Web.Controllers
                 BECampania[] becampania = servicezona.SelectCampanias(11);
                 return becampania.ToList();
             }
-        }
-
-        private IEnumerable<ZonaModel> DropDowListZonas(int PaisID)
-        {
-            //PaisID = 11;
-            List<BEZona> lst;
-            using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
-            {
-                lst = sv.SelectAllZonas(PaisID).ToList();
-            }
-            Mapper.CreateMap<BEZona, ZonaModel>()
-                    .ForMember(t => t.ZonaID, f => f.MapFrom(c => c.ZonaID))
-                    .ForMember(t => t.Codigo, f => f.MapFrom(c => c.Codigo))
-                    .ForMember(t => t.RegionID, f => f.MapFrom(c => c.RegionID));
-
-            return Mapper.Map<IList<BEZona>, IEnumerable<ZonaModel>>(lst);
         }
 
         private List<ZonaModel> ObtenerZonasActivas(int PaisID, int CampaniaID)

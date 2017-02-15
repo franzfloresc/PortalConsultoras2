@@ -361,6 +361,7 @@
     <Compile Include="LogManager\LogManager.cs" />
     <Compile Include="Models\AdministrarProductoSugerido.cs" />
     <Compile Include="Models\AutoMapper\AutoMapperConfiguration.cs" />
+    <Compile Include="Models\AutoMapper\ModelToDomainMappingProfile.cs" />
     <Compile Include="Models\AutoMapper\DomainToModelMappingProfile.cs" />
     <Compile Include="Models\BarraConsultoraEscalaDescuentoModel.cs" />
     <Compile Include="Models\BaseVM.cs" />

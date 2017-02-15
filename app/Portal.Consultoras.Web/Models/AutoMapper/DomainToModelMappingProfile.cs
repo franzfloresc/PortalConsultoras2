@@ -1,9 +1,9 @@
 ﻿using AutoMapper;
 using Portal.Consultoras.Web.ServicePedido;
-using Portal.Consultoras.Web.ServiceSAC;
 using Portal.Consultoras.Web.ServicePedidoRechazado;
+using Portal.Consultoras.Web.ServiceSAC;
 using Portal.Consultoras.Web.ServiceUsuario;
-using System.Collections.Generic;
+using Portal.Consultoras.Web.ServiceZonificacion;
 using Portal.Consultoras.Web.ServiceProductoCatalogoPersonalizado;
 
 namespace Portal.Consultoras.Web.Models.AutoMapper
@@ -73,10 +73,6 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
                 .ForMember(t => t.UnidadesPermitidas, f => f.MapFrom(c => c.UnidadesPermitidas))
                 .ForMember(t => t.IndicadorPedido, f => f.MapFrom(c => c.IndicadorPedido));
 
-            Mapper.CreateMap<PedidoDetalleModel, ServiceCliente.BECliente>()
-                .ForMember(t => t.eMail, f => f.MapFrom(c => c.eMail))
-                .ForMember(t => t.Nombre, f => f.MapFrom(c => c.Nombre));
-
             Mapper.CreateMap<BEEstrategia, EstrategiaPedidoModel>();
 
             Mapper.CreateMap<BEPedidoFICDetalle, PedidoWebDetalleModel>();
@@ -98,8 +94,9 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
                 .ForMember(t => t.IndicadorOferta, f => f.MapFrom(c => c.IndicadorOferta ? 1 : 0));
 
             Mapper.CreateMap<BEMisPedidosDetalle, MisPedidosDetalleModel2>();
-
-            Mapper.CreateMap<MatrizComercialModel, BEMatrizComercial>();
+            
+            Mapper.CreateMap<BERegion, RegionModel>();
+            Mapper.CreateMap<BEZona, ZonaModel>();
 
             Mapper.CreateMap<Producto, ProductoModel>()
                 .ForMember(t => t.MarcaID, f => f.MapFrom(c => c.IdMarca))
@@ -109,7 +106,7 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
             Mapper.CreateMap<ProductoModel, Producto>()
                 .ForMember(t => t.IdMarca, f => f.MapFrom(c => c.MarcaID))
                 .ForMember(t => t.Cuv, f => f.MapFrom(c => c.CUV))
-                .ForMember(t => t.NombreMarca, f => f.MapFrom(c => c.DescripcionMarca));
+                .ForMember(t => t.NombreMarca, f => f.MapFrom(c => c.DescripcionMarca));                
         }
     }
 }
