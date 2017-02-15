@@ -676,6 +676,8 @@
                             break;
                     }
                 }
+
+                debugger;
                 if ('@Model.CodigoIso' === 'PE') {
                     jQuery("#gvwSolicitudesPostulante").jqGrid('showCol', 'Contrato');
                     jQuery("#gvwSolicitudesPostulante").jqGrid('showCol', 'Pagare');
@@ -693,14 +695,10 @@
                     if (jQuery.inArray(option, showImageColumnsWhenStatusIn) !== -1)
                     {
                         jQuery("#gvwSolicitudesPostulante").jqGrid('showCol', 'Recibo Otra Marca');
-                        jQuery("#gvwSolicitudesPostulante").jqGrid('showCol', 'Recibo Pago Aval');
-                        jQuery("#gvwSolicitudesPostulante").jqGrid('showCol', 'Credito Aval');
-                        jQuery("#gvwSolicitudesPostulante").jqGrid('showCol', 'Constancia Laboral Aval');
-
-                    }
-
-
-      
+                        jQuery("#gvwSolicitudesPostulante").jqGrid('showCol', 'Recibo de Pago de Servicios de Fiador');
+                        jQuery("#gvwSolicitudesPostulante").jqGrid('showCol', 'Autorizacion de consulta de credito Fiador');
+                        jQuery("#gvwSolicitudesPostulante").jqGrid('showCol', 'Constancia Laboral Fiador');
+                    }  
 
                 } else if ('@Model.CodigoIso' === 'CL') {
                     jQuery("#gvwSolicitudesPostulante").jqGrid('showCol', 'Contrato');

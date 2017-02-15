@@ -1,5 +1,5 @@
 ﻿@model Portal.Consultoras.Web.Models.NivelesGeograficosModel
-
+@using Pais = Portal.Consultoras.Common.Constantes.CodigosISOPais;
 @{
     Layout = "~/Views/Shared/_SACLayout.cshtml";
     ViewBag.Title = "Niveles Geograficos";
@@ -286,14 +286,37 @@
                             <div id="divuplArchivo" class="titB">
                                 <input id="uplArchivo" name="uplArchivo" type="file" />
                             </div>
+                            
                         </div>
+
                         <div style="float:left">
                             <div class="div-3">
                                 <div class="input_validar">
-                                    <input type="button" value="Grabar" id="btnProcesar" onclick="Procesar();" />
+                                    <input type="button" value="Grabar" id="btnProcesar" style="float:left;margin-left: 25px;" onclick="Procesar();" />  
                                 </div>
                             </div>
                         </div>
+
+
+                        <div style="float:left;margin-left: 25px;">
+                            @if (ViewBag.CodigoISO == Pais.CostaRica)
+                            {
+                                <span style="font-size:10px; font-weight:bold">Formato sugerido: REG, ZONA, SECC, TERRITO, UBIGEO, PROVINCIA, CANTON, DISTRITO, BARRIO_COLONIA_URBANIZACION_BARRIADAS_REFERENCIAS</span>
+                            }
+                            else if (ViewBag.CodigoISO == Pais.Panama)
+                            {
+                                <span style="font-size:10px; font-weight:bold">Formato sugerido: REG, ZONA, SECC, TERRITO, UBIGEO, PROVINCIA, DISTRITO, CORREGIMIENTO, BARRIO_COLONIA_URBANIZACION_REFERENCIAS</span>
+                            }
+                            else if (ViewBag.CodigoISO == Pais.Salvador)
+                            {
+                                <span style="font-size:10px; font-weight:bold">Formato sugerido: REG, ZONA, SECC, TERRITO, UBIGEO, DEPARTAMENTO	MUNICIPIO, CANTON_CENTRO_POBLADO, BARRIO_COLONIA_URBANIZACION_REFERENCIAS</span>
+                            }
+                            else if (ViewBag.CodigoISO == Pais.Guatemala)
+                            {
+                                <span style="font-size:10px; font-weight:bold">Formato sugerido: REG, ZONA, SECC, TERRITO, UBIGEO, DEPARTAMENTO	MUNICIPIO, CENTRO_POBLADO, ZONA_CIUDAD, BARRIO_COLONIA_URBANIZACION_ALDEA_REFERENCIAS</span>
+                            }
+                        </div>
+                     
 
                         @*<div class="div-4">
                                 <div class="noti3">
