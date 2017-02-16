@@ -991,10 +991,8 @@ function RespuestaEjecutarServicioPROL(response, inicio) {
     var cumpleOferta = { resultado: false };
 
     if (inicio) {
-        $("#btnNoGraciasOfertaFinal")[0].data = response.data;
         codigoMensajeProl = response.data.CodigoMensajeProl;
-    }   
-
+    }
 
     if (model.Reserva != true) {
         if (inicio) {

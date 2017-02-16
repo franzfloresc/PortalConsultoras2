@@ -188,10 +188,14 @@ namespace Portal.Consultoras.Web.Models
         public string UrlCompartirFB { get; set; }
         
         public string NombreComercial { get; set; }
+        public string NombreComercialCorto { get; set; }
 
         public string TipoMeta { get; set; }
         public string MontoMeta { get; set; }
         public string MetaMontoStr { get; set; }
+        public string CUVPedido { get; set; }
+        public string CUVPedidoNombre { get; set; }
+        public string CUVPedidoImagen { get; set; }
     }
 
     [Serializable]
