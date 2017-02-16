@@ -133,7 +133,7 @@
 
     <!-- header -->
     <header id="new-header">
-        <div id="flexslider" class="header_slider">
+        <div id="flexslidertop" class="header_slider" >
             <a class="btn_cerrar_oferta_mobile" href="javascript:;" onclick="javascript: $('.header_slider').slideUp();">X</a>
             <ul class="slides">
                 <li>
@@ -962,6 +962,8 @@
             SetFormatDecimalPais(formatDecimalPaisMain);
             MensajeEstadoPedido();
             HandlebarsRegisterHelper();
+            //$('.header_slider').slideUp();
+          
             $('.menu_footer').on('click', function () {
                 var $obj = $(this);
                 if ($obj.hasClass('menu_footer')) {
@@ -1054,13 +1056,19 @@
             if($('#flexslider ul.slides li').length > 0){
                 $("#content").css("margin-top", "0px");
                 $('#content_slider_banner').show();
+                //$('#content_slider_banner').hide();
 
                 //Dejar esta línea al último, ya que antes de ejecutar flexslider el div ya debe de mostrarse.
                 $('#flexslider').flexslider({ 
                     animation: "slide",
                     pauseOnAction: false,
                     //pausePlay: true 
-            });
+                });
+                $('#flexslidertop').flexslider({ 
+                    animation: "slide",
+                    pauseOnAction: false,
+                    //pausePlay: true 
+                });
             }
         }
         
