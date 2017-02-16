@@ -29,6 +29,10 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 ? (ActionResult) RedirectToAction("Index", "Bienvenida", new {area = "Mobile"})
                 : View(showRoomEventoModel);
         }
+        public ActionResult Intriga()
+        {
+            return View();
+        }
 
         public ActionResult ListadoProductoShowRoom(int id = 0)
         {

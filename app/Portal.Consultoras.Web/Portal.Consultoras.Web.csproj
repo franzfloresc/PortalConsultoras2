@@ -2175,6 +2175,7 @@
     <Content Include="Content\Images\mobile\img-showroom\opacity_items.png" />
     <Content Include="Content\Images\mobile\img-showroom\precio_detalle.png" />
     <Content Include="Content\Images\mobile\img-showroom\previous2.png" />
+    <Content Include="Content\Images\mobile\img-showroom\pronto2.png" />
     <Content Include="Content\Images\mobile\img-showroom\red.png" />
     <Content Include="Content\Images\mobile\img-showroom\selector.png" />
     <Content Include="Content\Images\mobile\img-showroom\set_hoy.png" />
@@ -2715,6 +2716,7 @@
     <Content Include="Content\ArchivoNivelRiesgo\887acf53-7e6e-4d73-b019-1fbc17bbccd4.xlsx" />
     <Content Include="Content\ArchivoNivelRiesgo\943850fb-3596-4a36-9b34-8a0e1ded13fe.xlsx" />
     <Content Include="Content\ArchivoNivelRiesgo\a9cb131a-dc65-4f64-841b-c9dcab63c5c6.xlsx" />
+    <Content Include="Areas\Mobile\Views\ShowRoom\Intriga.cshtml" />
     <None Include="Service References\ServiceCDR\CDRService.wsdl" />
     <None Include="Service References\ServiceCDR\CDRService.xsd">
       <SubType>Designer</SubType>
