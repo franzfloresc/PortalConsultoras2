@@ -10055,12 +10055,12 @@ span.icon-advertencia{
     margin-top:16%;
     text-align:center;
     color:white;
-    font-size:32px;
+        font-size: 2.3em;
     font-weight:700;
     letter-spacing:0.8px;
     position:absolute;
     width:100%;
-    text-shadow: -0.1em 0.1em #333;
+    text-shadow: -0.1em 0.1em black;
 }
 .BloqueOfertaDiaHeader{
     background: black;
@@ -10080,13 +10080,16 @@ span.icon-advertencia{
     position:relative;
 }
 .faltan_dias_header{
-    font-family:'Lato';
-    font-weight:300;
-    font-size:22px;
-    margin-top:25px;
-    position:absolute;
-    width:100%;
-    text-align:center;
+    font-family: 'Lato';
+    font-weight: 700;
+    font-size: 21px;
+    margin-top: 26px;
+    position: absolute;
+    width: 100%;
+    text-align: center;
+    color: white;
+    letter-spacing: 2px;
+    text-shadow: -0.1em 0.1em black;
 }
 .solo_hoy_mobile2{
     width: 200px;
