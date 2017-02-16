@@ -34171,3 +34171,8 @@ h1#penmostreo .campana {
 .slider-container .back-bar .pointer-label{
      color:#613c87 !important;
 }
+.enlace_chat a{
+    display:inline;
+    font-weight:bold;
+    text-decoration:underline;
+}

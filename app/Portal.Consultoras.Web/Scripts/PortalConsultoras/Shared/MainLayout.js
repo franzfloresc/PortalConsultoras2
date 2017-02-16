@@ -6,7 +6,7 @@ $(document).ready(function () {
     /*PL20-1226*/
     if (tieneOfertaDelDia == "True") {
         loadOfertaDelDia();
-    }
+    }    
 
     $(document).keyup(function (e) {
         if (e.keyCode == 27) { // esc keycode
@@ -214,8 +214,8 @@ $(document).ready(function () {
         var url = 'http://200.32.70.19/Belcorp/';
         window.open(url, '_blank');
     });
-
-    $("#belcorpChat").click(function () {
+    
+    $("body").on('click','.belcorpChat', function () {
         var FechaChatPais = BelcorpFechaChat_Pais;
         var PaisISO = IsoPais
         var fechaActual = FechaActual;
@@ -287,6 +287,8 @@ $(document).ready(function () {
                 open(res2, '', 'top=0,left=0,width=400,height=500');
             }
         }
+        //cerrar Popup
+        $(".ui-button-text").trigger("click");
     });
 
     Scrolling();

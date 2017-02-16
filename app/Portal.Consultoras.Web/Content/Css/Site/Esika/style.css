@@ -34178,3 +34178,8 @@ h1#penmostreo .campana {
 .mod-ofer1 .boton_Agregalo_home{
     width:139px;
 }
+.enlace_chat a{
+    display:inline;
+    font-weight:bold;
+    text-decoration:underline;
+}
