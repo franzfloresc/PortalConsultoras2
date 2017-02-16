@@ -17,6 +17,11 @@ namespace Portal.Consultoras.Web.Controllers
 {
     public class ShowRoomController : BaseController
     {
+        public ActionResult Intriga()
+        {
+            return View();
+        }
+
         public ActionResult Index()
         {
             ViewBag.TerminoMostrar = 1;

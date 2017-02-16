@@ -10950,3 +10950,8 @@ a{
     margin-top:20px;
     margin-bottom:27px;
 }
+.check_intriga:before{
+    content: "✓";
+    line-height: 11.5px;
+    padding-left: 2px;
+}

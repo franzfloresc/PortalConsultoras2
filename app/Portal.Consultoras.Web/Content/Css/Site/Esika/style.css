@@ -34178,3 +34178,159 @@ h1#penmostreo .campana {
 .mod-ofer1 .boton_Agregalo_home{
     width:139px;
 }
+/*SPRINT 6*/
+.content_banner_intriga{
+    position:relative;
+    width:100%;
+}
+.content_banner_intriga img{
+    display: block;
+    width: 100vw;
+    height: 171px;
+    object-fit: cover;
+}
+.texto_dias_intriga{
+    position:absolute;
+    top:50px;
+    font-family:'Lato';
+    font-size:30px;
+    color:white;
+    text-align:center;
+    width:100%;
+    letter-spacing: 0.6px;
+    font-weight:300;
+}
+/*.texto_dias_intriga b{
+    
+    text-shadow: -0.1em 0.1em black;
+}*/
+.texto_menor_intriga{
+    display:block;
+    /*margin-top:5px;*/
+    font-size:20px;
+}
+.content_set_intriga{
+    width:65%;
+    float:left;
+    overflow:hidden;
+    padding-top:30px;
+}
+.set_visible_intriga{
+    width:30%;
+    float:left;
+}
+.set_img{
+    height:213px;
+    width:auto;
+    display:block;
+}
+.linea_separadora_intriga {
+    width: 100%;
+    height: 10px;
+    background: black;
+    margin-bottom: 20px;
+    -webkit-box-shadow: 3px 4px 9px 1px rgba(212,210,212,1);
+    -moz-box-shadow: 3px 4px 9px 1px rgba(212,210,212,1);
+    box-shadow: 3px 4px 9px 1px rgba(212,210,212,1);
+}
+.set_silueta_intriga{
+    width:35%;
+    float:left;
+}
+.set_silueta_intriga img{
+    height: 213px;
+    width: auto;
+    display: block;
+    margin: 0 auto;
+    padding-top: 16px;
+}
+.content_confirmacion_correo{
+    float:right;
+    width:28%;
+    background:#f0f0f0;
+    padding:26px;
+    min-height:100px;
+    margin-top: -35px;
+        -webkit-box-shadow: 0px 15px 13px -8px rgba(204,200,204,0.7);
+    -moz-box-shadow: 0px 15px 13px -8px rgba(204,200,204,0.7);
+    box-shadow: 0px 15px 13px -8px rgba(204,200,204,0.7);
+}
+.titulo_confirmacion{
+    font-size:17px;
+    font-weight:700;
+    padding-top:10px;
+    text-align:center;
+    font-family:'LAto';
+}
+.texto_confirmacion{
+    font-size:14px;
+    line-height:16px;
+    text-align:center;
+    font-family:'LAto';
+    margin-top:5px;
+}
+.correo_showroon {
+    width:100%;
+    margin-top:20px;
+    background: url(https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/LUlPmmzPLc7VpSr/page-1.png)no-repeat left bottom;
+    padding-left: 10%;
+}
+.correo_showroon input {
+    width: 100%;
+    border: 0;
+    border-bottom: 1px solid #979797;
+    /* padding-bottom: 2px; */
+    /* height: 15px; */
+    font-size: 13px;
+    font-family: 'Lato';
+    display: block;
+    background: none;
+    color:black;
+}
+.termino_condiciones_intriga {
+    position: relative;
+    padding-left: 18px;
+    margin: 0 auto;
+    margin-top: 30px;
+    font-family: 'Lato';
+    font-size: 10.5px;
+    width: 90%;
+    color:#979797;
+    text-align: left;
+}
+.termino_condiciones_intriga:before {
+    position: absolute;
+    content: "";
+    left: 0;
+    width: 13px;
+    height: 13px;
+    border: 1px solid #979797;
+    z-index: 10;
+    line-height: 11.5px;
+    padding-left: 2px;
+}
+.check_intriga:before{
+    content: "✓";
+    line-height: 11.5px;
+    padding-left: 2px;
+}
+.btn_enviar_correo_intriga{
+    width:100%;
+    color:white;
+    background:#e81c36;
+    height:45px;
+    line-height:43px;
+    text-align:center;
+    font-family: 'Lato';
+    font-size: 14px;
+    margin-top:10px;
+}
+.texto_final_intriga{
+    font-family: 'Lato';
+    font-size: 12px;
+    margin-top:60px;
+    /*font-weight:300;*/
+    margin-bottom:35px;
+    letter-spacing:0.5px;
+    text-align:center;
+ }

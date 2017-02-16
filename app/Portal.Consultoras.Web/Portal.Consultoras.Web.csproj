@@ -2304,6 +2304,7 @@
     <Content Include="Content\Images\selectP2.png" />
     <Content Include="Content\Images\select_input_tab.png" />
     <Content Include="Content\Images\sesion_icono.png" />
+    <Content Include="Content\Images\showroom\banner_intriga_desktop.png" />
     <Content Include="Content\Images\showroom\banner_showroom.jpg" />
     <Content Include="Content\Images\showroom\borde_inferior.png" />
     <Content Include="Content\Images\showroom\borde_superior.png" />
@@ -2326,10 +2327,13 @@
     <Content Include="Content\Images\showroom\exclusiva.png" />
     <Content Include="Content\Images\showroom\f_contenedor_pop.png" />
     <Content Include="Content\Images\showroom\hoy1.png" />
+    <Content Include="Content\Images\showroom\intriga1.png" />
+    <Content Include="Content\Images\showroom\intriga2.png" />
     <Content Include="Content\Images\showroom\lbel.png" />
     <Content Include="Content\Images\showroom\no_disponible.png" />
     <Content Include="Content\Images\showroom\opacity.png" />
     <Content Include="Content\Images\showroom\opacity_items.png" />
+    <Content Include="Content\Images\showroom\popup_intriga.png" />
     <Content Include="Content\Images\showroom\precio_detalle.png" />
     <Content Include="Content\Images\showroom\precio_detalle_lbel.png" />
     <Content Include="Content\Images\showroom\preventa_digital.png" />
@@ -3685,6 +3689,7 @@
     </Content>
     <Content Include="Views\Unete\NivelesGeograficos.cshtml" />
     <Content Include="Views\Notificaciones\ListaDetalleCdrCulminado.cshtml" />
+    <Content Include="Views\ShowRoom\Intriga.cshtml" />
     <None Include="Web References\ServiceGestionWebPROL\WsGestionWeb.wsdl" />
     <None Include="Web References\ServiceLMS\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>

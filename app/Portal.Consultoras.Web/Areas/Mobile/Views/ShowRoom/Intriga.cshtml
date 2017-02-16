@@ -61,7 +61,10 @@
 @section scripts{
     <script type="text/javascript" src="@Url.Content("~/Scripts/slick.min.js")"></script>
     <script type="text/javascript">
-        $(document).ready(function () {           
+        $(document).ready(function () {
+            $(".termino_condiciones_intriga").click(function () {
+                $(this).toggleClass('check_intriga');
+            });
             $('.variable-width').on('init', function (event, slick) {
                 setTimeout(function () {
                     slick.setPosition();
