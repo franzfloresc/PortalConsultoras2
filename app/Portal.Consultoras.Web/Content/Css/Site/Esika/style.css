@@ -22132,7 +22132,7 @@ label.checkpop.c_on {
     margin-right: 3.5%;
     margin-top: 45px;
     margin-bottom: 35px;
-    background: gray;
+    /*background: gray;*/
     position: relative;
     overflow: hidden;
     opacity: 1;
@@ -22141,11 +22141,11 @@ label.checkpop.c_on {
     -o-transition: all 0.3s ease;
     -ms-transition: all 0.3s ease;
     -webkit-transition: all 0.3s ease;
-    }
+}
 
-    .enlaces_home:hover {
-        opacity: 0.5;
-    filter: alpha(opacity=50); /* For IE8 and earlier */
+.enlaces_home:hover {
+    /*opacity: 0.5;*/
+    /*filter: alpha(opacity=50);*/ /* For IE8 and earlier */
 }
 
 .enlaces_home img:hover {
@@ -24403,6 +24403,11 @@ body {
 
 .div-img.hidden {
   overflow: hidden;
+}
+
+.div-img.hidden:hover {
+    opacity: 0.5;
+    filter: alpha(opacity=50); /* For IE8 and earlier */
 }
 
 .div-img .banner-img {
