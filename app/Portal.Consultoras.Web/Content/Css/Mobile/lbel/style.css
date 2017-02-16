@@ -8560,12 +8560,12 @@ span.icon-advertencia{
 .ofertaFinal_titulo{
     display: block;
     margin: 0 0 8px 0;
-    padding: 0 28px;
+    padding: 0 17px;
     font-family: 'Lato';
-    font-size: 21px;
+    font-size: 17px;
     font-weight: 300;
     text-align: center;
-    line-height: 29.38px;
+    line-height: 21px;
     color: #000;
 }
 
@@ -8573,9 +8573,9 @@ span.icon-advertencia{
     display: block;
     margin: 0 0 22px 0;
     font-family: 'Lato';
-    font-size: 14px;
+    font-size: 13px;
     text-align: center;
-    font-weight: bold;
+    /*font-weight: bold;*/
     padding: 0 19px;
 }
 
@@ -8587,12 +8587,12 @@ span.icon-advertencia{
 .ofertaFinal_info {
     font-family: 'Lato';
     text-align: center;
-    font-size: 18px;
-    font-weight: bold;
+    font-size: 13px;
+    font-weight: 300;
     color: #000;
-    margin:0 0 28px 0;
+    margin: 0 0 28px 0;
     padding: 0px 26px;
-    line-height:22px;
+    line-height: 14px;
 }
 
 .bloque_carousel{
@@ -8605,7 +8605,7 @@ span.icon-advertencia{
 
 .bloque_carousel .content_item_carrusel_ofertaFinal{
     width: 238px;
-    height: 470px;
+    /*height: 470px;*/
     display: inline-block;
     margin: 0 3px 0 3px;
     padding: 0 0 20px 0;
@@ -8619,7 +8619,7 @@ span.icon-advertencia{
     width: 237px;
     display: block;
     margin: 0 auto;
-    height: 454px;
+    height: 460px;
     border:1px solid #e7e1e1;
     box-shadow: 0px 15px 18px -7px rgba(204,200,204,1);
     -moz-box-shadow: 0px 15px 18px -7px rgba(204,200,204,1);
@@ -8702,7 +8702,8 @@ span.icon-advertencia{
 
 .enlace_btnNoGracias{
     display: block;
-    width: 87px;
+    /*width: 87px;*/
+    text-align:center;
     margin: 0 auto;
     font-family: 'Lato';
     font-size: 13px;
@@ -10218,6 +10219,39 @@ span.icon-advertencia{
     text-align:center;
     margin-top:20px;
     margin-bottom:27px;
+}
+
+/*NUEVO OF*/
+.content_texto_OPT{
+    margin-bottom:70px;
+}
+
+.texto_comple_ficha{
+    font-size:13px;
+    font-weight:400;
+}
+.producto_sugerido_texto{
+    font-size:12.5px;
+    color:black;
+    line-height:15px;
+    padding:10px;
+    background:#e8e8e8;
+    margin-bottom:5px;
+    margin-top:5px;
+    text-align:center;
+}
+.btn_cerrar_escala {
+    font-family: 'Lato';
+    font-size: 13px;
+    font-weight: 700;
+    float: right;
+    color: #000000;
+    /* margin-bottom: 70px; */
+    /* margin-top: -10px; */
+    /* margin-right: -10px; */
+    padding-left: 20px;
+    background: url(../../../Images/Esika/arrow_left.png) no-repeat left;
+    background-size: 18px 18px;
 }
 .check_intriga:before{
     content: "?";

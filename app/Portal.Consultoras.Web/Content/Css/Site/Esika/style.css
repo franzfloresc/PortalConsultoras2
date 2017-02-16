@@ -5035,7 +5035,7 @@ a.subir_carousel, a.bajar_carousel {
     margin: -298.5px auto 0 auto;
     background: #FFF;
     width: 100%;
-    max-width: 597px;
+    max-width:892px;
     height: auto;
     padding-top: 40px;
     box-sizing: border-box;
@@ -5057,10 +5057,10 @@ a.subir_carousel, a.bajar_carousel {
 
 .titulo_ofertaFinal {
     width: 100%;
-    margin: 0 0 9px 0;
+    margin-top:10px;
     padding: 0;
     font-family: 'Lato';
-    font-size: 21px;
+    font-size:23px;
     color: #000;
     font-weight: 300!important;
     text-align: center;
@@ -5068,10 +5068,19 @@ a.subir_carousel, a.bajar_carousel {
 
 .descripcion_ofertaFinal {
     display: block;
-    font-size: 14px;
+    font-size: 17px;
     font-weight: 700;
     text-align: center;
-    margin-bottom: 29.8px;
+    margin-bottom: 18px;
+    margin-top: 18px;
+    TEXT-TRANSFORM: uppercase;
+}
+.texto_complemento_oferta{
+    text-transform:uppercase;
+    /*margin-bottom:65px;*/
+    font-size:14px;
+    color:black;
+    text-align:center;
 }
 
 .contenedor_bloques_agregaProductos {
@@ -5079,15 +5088,15 @@ a.subir_carousel, a.bajar_carousel {
     background: #f5f5f5;
     height: auto;
     padding-top: 25px;
-    padding-bottom: 41px;
+    /*padding-bottom:20px;*/
 }
 
-.bloque_descripciones, .bloque_carousel {
+/*.bloque_descripciones, .bloque_carousel{
     display: inline-block;
     height: auto;
     vertical-align: top;
     position: relative;
-}
+}*/
 
 .bloque_descripciones {
     width: 42%;
@@ -5115,21 +5124,24 @@ a.subir_carousel, a.bajar_carousel {
 }
 
 .btn_noGracias_agregarProductos {
-    display: block;
-    position: absolute;
-    margin-left: 10px;
-    bottom: -1px;
+        display: block;
+    /* position: absolute; */
+    /* margin-left: 10px; */
+    /* bottom: -1px; */
     border: none;
     background: transparent;
     width: 139px;
-    height: 45px;
-    line-height: 45px;
+    margin: 0 auto;
+    height: 50px;
+    text-align: center;
+   
     color: #000;
     font-family: 'Lato';
-    font-size: 13px;
+    font-size: 11px;
     font-weight: normal;
-    text-align: left;
+    /* text-align: left; */
     text-decoration: underline;
+    margin-top: -13px;
     transition: all 0.3s ease;
     -moz-transition: all 0.3s ease;
     -o-transition: all 0.3s ease;
@@ -5145,12 +5157,13 @@ a.subir_carousel, a.bajar_carousel {
 
 .bloque_carousel {
     width: 53%;
-    height: 329px;
+    /*height:329px;*/
 }
 
     .bloque_carousel .content_item_carrusel_ofertaFinal {
-        height: 348px;
-        margin-right: 0px;
+    padding-bottom:20px;
+    margin-left:17px;
+    margin-right:17px;
         float: left;
         vertical-align: middle;
         overflow: hidden;
@@ -21680,8 +21693,8 @@ label.checkpop.c_on {
 .content_item_carrusel_ofertaFinal {
     position: relative;
     float: left;
-    width: 248px;
-    margin-right: 25px;
+    /*width:248px;
+    margin-right:25px;*/
     height: 357px;
     background: none;
     border: none;
@@ -21689,7 +21702,7 @@ label.checkpop.c_on {
 
 .contenido_item_carrusel_ofertaFinal {
     background: #FFF;
-    width: 248px;
+    /*width: 248px;*/
     display: block;
     margin: 0 auto;
     height: 335px;
@@ -34021,9 +34034,9 @@ h1#penmostreo .campana {
 
 /*FICHA PRODUCTO FAV DESKTOP*/
 .content_left_ficha{
-    float:left;
-    width:300px;
-    margin-right:45px;
+        float: left;
+    width: 52%;
+    margin-right: 5%;
 }
 .content_ficha_producto{
     width:300px;
@@ -34033,8 +34046,8 @@ h1#penmostreo .campana {
     width:100%;
    }
 .content_right_ficha{
-    float:left;
-    width:238px;
+    float: RIGHT;
+    width: 41%;
 }
 .titulo_ficha_producto {
     font-family: 'Lato';
@@ -34064,7 +34077,7 @@ h1#penmostreo .campana {
     font-size: 12.5px;
     line-height: 16px;
     margin-top: 6px;
-    margin-bottom: 7px;
+    /*margin-bottom: 7px;*/
 }
 .precio_ficha_producto {
     font-family: 'Lato';
@@ -34072,6 +34085,7 @@ h1#penmostreo .campana {
     font-weight: 900;
     font-size: 16px;    
     margin-bottom: 7px;
+    margin-top:7px;
 }
 .precio_tachado_ficha {
     font-size: 12px;
@@ -34093,7 +34107,7 @@ h1#penmostreo .campana {
 .content_tono_detalle {
     position: relative;
     width: 15%;
-    height: 34px;
+    height: 35px;
     margin-right: 2%;
     float: left;    
     margin-bottom: 5px;
@@ -34134,7 +34148,8 @@ h1#penmostreo .campana {
 }
 .tooltip_tono{
     position: absolute;
-    top: -25px;
+    top: 11px; /*DEBE QUEDAR 11*/
+    overflow:hidden;
     background: rgba(255,255,255,0.8);
     color: black;
     display: none;
@@ -34175,8 +34190,152 @@ h1#penmostreo .campana {
     text-transform:uppercase;    
     padding-top:18px;
 }
+.content_texto_oferta{
+    margin-bottom:65px;
+}
 .mod-ofer1 .boton_Agregalo_home{
     width:139px;
+}
+    
+.etiqueta_guia_negocio span{
+    display: block;
+    font-size: 13.9px;
+    font-weight: 700;
+    height: 14px;
+}
+
+/*OFERTA FINAL*/
+.img-tooltip {
+  position: absolute;
+     background: url("http://www.psdgraphics.com/file/light-wooden-background.jpg");
+     background-color: transparent;
+     border: none;
+}
+
+.tooltip-inner {
+    max-width: 130px;
+    padding: 3px 8px;
+    color: #000;
+    text-align: left;
+    background-color: #E8E8E8;
+    border-radius: 2px;
+    border: #DBDBDB;
+    font-size: 10px;
+    font-family: 'Lato', sans-serif;
+}
+
+.tooltip.right .tooltip-arrow {
+    top: 50%;
+    left: 0;
+    margin-top: -5px;
+    border-width: 5px 5px 5px 0;
+    border-right-color: #E8E8E8;
+}
+.ganancia_total_pop{
+    font-family:'Lato';
+    font-size:14px;
+    line-height:18px;
+    text-align:center;
+    margin-bottom:20px;
+    margin-top:5px;
+}
+.compartir_redes_ficha{
+    margin-top:30px;
+    padding-left:50px;
+}
+.texto_compartelo{
+    float:left;
+    margin-right:15px;
+    font-family:'Lato';
+    font-size:12.5px;
+    margin-top:9px;
+}
+.btn_compartir_facebook_ficha{
+    width:73px;
+    border:1px solid #cbcbcb;
+    display:block;
+    height:30px;
+    line-height:36px;
+    margin-right:5px;
+    text-align:center;
+    float:left;
+}
+.opcion_escala_descuento {
+	position: relative;
+	background: #e8e8e8;
+	border: 1px solid #dbdbdb;
+    height:auto;
+    width:92%;  
+    z-index:20;
+    padding:20px;
+    border-radius:2px;
+    
+}
+.opcion_escala_descuento:after, .opcion_escala_descuento:before {
+    
+	right: 100%;
+	top: 50%;
+	border: solid transparent;
+	content: " ";
+	height: 0;
+	width: 0;
+	position: absolute;
+	pointer-events: none;    
+}
+
+.opcion_escala_descuento:after {
+	border-color: rgba(232, 232, 232, 0);
+	border-right-color: #e8e8e8;
+	border-width: 10px;
+	margin-top: -10px;
+}
+.opcion_escala_descuento:before {
+	border-color: rgba(219, 219, 219, 0);
+	border-right-color: #dbdbdb;
+	border-width: 11px;
+	margin-top: -11px;
+}
+.texto_producto_relacionado {
+    font-family: 'LAto';
+    font-size: 13px;
+    line-height: 16px;
+    color: black;
+    float: left;
+    width: 70%;
+    margin-right:4%;
+}
+.imagen_relacionada{
+    float:left;
+    width:26%;
+    height:60px;
+    
+}
+.imagen_relacionada img{
+    height:100%;
+}
+.btn_cerrar_escala{   
+  font-family: 'Lato';
+  font-size: 12px;
+  font-weight:bold;
+  float: right;
+  color: #000000;
+  margin-bottom:70px;
+  margin-top:-10px;
+  margin-right:-10px;
+  padding-left:20px;
+  background: url(../../../Images/Esika/arrow_left.png) no-repeat left;
+  background-size: 18px 18px;
+}
+.btn_compartir_facebook_ficha:nth-child(3){
+    margin-right:0;
+}
+.notificacion_cantidad{
+    font-family:'Lato';
+    font-size:12.5px;
+    padding-left:25px;
+    background:url(../../../Images/Esika/icono_advertencia_notificacion.png) no-repeat left;
+    padding-top:3px;
+    margin-top:30px;
 }
 /*SPRINT 6*/
 .content_banner_intriga{
