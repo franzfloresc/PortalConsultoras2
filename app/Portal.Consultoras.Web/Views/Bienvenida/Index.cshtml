@@ -2403,6 +2403,18 @@
 </script>
 
 <input type="hidden" id="hdDataBarra" value="@Newtonsoft.Json.JsonConvert.SerializeObject(Model.DataBarra)" />
+<!--NUEVO POP UP DE SHOWROOM INTRIGA-->
+<div class="Content_general_pop_up" style="display: block;" id="PopShowroomIntriga">
+    <div class="content_pop_up_intriga">
+        <a class="cerrar_fichaProducto" style="top:20px;" href="javascript:;" onclick="javascript: $('#PopShowroomIntriga').hide();">
+            <img src="/Content/Images/cerrar_04_blanco.png" alt="" alternate text">            
+        </a>
+        <div class="dias_intriga_home">FALTAN 5 DÍAS</div>
+        <img src="@Url.Content("~/Content/Images/showroom/popup_intriga.png")" />
+    </div>
+  
+</div>
+<!--FIN-->
 
 @section scripts{
     @*<script type="text/javascript" src="http://pixlcore.com/demos/webcamjs/webcam.js"></script>

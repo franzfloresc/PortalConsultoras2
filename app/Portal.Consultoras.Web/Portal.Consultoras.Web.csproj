@@ -2332,6 +2332,7 @@
     <Content Include="Content\Images\showroom\intriga1.png" />
     <Content Include="Content\Images\showroom\intriga2.png" />
     <Content Include="Content\Images\showroom\lbel.png" />
+    <Content Include="Content\Images\showroom\notificacion.png" />
     <Content Include="Content\Images\showroom\no_disponible.png" />
     <Content Include="Content\Images\showroom\opacity.png" />
     <Content Include="Content\Images\showroom\opacity_items.png" />

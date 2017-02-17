@@ -34044,7 +34044,7 @@ h1#penmostreo .campana {
 }
 .cerrar_fichaProducto{
     position:absolute;
-    right:-40px;
+    right:-25px;
     top:0;
 }
 .peso_ficha_producto {
@@ -34403,6 +34403,7 @@ h1#penmostreo .campana {
     padding-top:10px;
     text-align:center;
     font-family:'LAto';
+    text-transform:uppercase;
 }
 .texto_confirmacion{
     font-size:14px;
@@ -34476,3 +34477,26 @@ h1#penmostreo .campana {
     letter-spacing:0.5px;
     text-align:center;
  }
+
+.content_pop_up_intriga{
+    position:relative;
+    width:615px;
+    height:409px;
+    top:50%;
+    margin:-205px auto auto auto;
+}
+.dias_intriga_home{
+    font-family:'Lato';
+    font-size:55px;
+    letter-spacing:4px;
+    color:white;
+    text-align:center;
+    width:100%;
+    text-shadow: -0.1em 0.1em black;
+    position: absolute;
+    top: 36%;
+    font-weight: 700;
+}
+.texto_confirmacion b{
+    display:block;
+}
