@@ -28,6 +28,8 @@ $(document).ready(function () {
                 var functionHide = $('[data-popup-main]').attr("data-popup-function-hide");
                 if (functionHide != "") {
                     setTimeout(functionHide + "()", 100);
+                }
+                $('[data-popup-main]').hide();
             }
 
             //EPD-1780
