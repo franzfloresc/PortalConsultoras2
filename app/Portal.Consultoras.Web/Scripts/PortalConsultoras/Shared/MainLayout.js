@@ -27,8 +27,26 @@ $(document).ready(function () {
             if ($('[data-oferta]').is(':visible')) {
                 $('[data-oferta]').hide();
             }
+
+            //EPD-1780
+            if ($('#dialog_SesionMainLayout').is(':visible')) {
+                $('#dialog_SesionMainLayout').hide();
+                window.location.href = "/SesionExpirada.html";
+            }
+            //Fin EPD-1780
         }
     });
+
+    //EPD-1780    
+    $('.contenedor_popup_agregarUnidades').click(function (e) {
+        if (!$(e.target).closest('.popup_agregarUnidades').length) {
+            if ($('#dialog_SesionMainLayout').is(':visible')) {
+                $('#dialog_SesionMainLayout').hide();
+                window.location.href = "/SesionExpirada.html";
+            }
+        }
+    });
+    // FIN EPD-1780
 
     $('body').click(function (e) {
         if (!$(e.target).closest('#OfertaDelDia').length) {
