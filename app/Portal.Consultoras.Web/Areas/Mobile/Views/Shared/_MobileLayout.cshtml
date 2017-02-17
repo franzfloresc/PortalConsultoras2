@@ -267,7 +267,7 @@
                 <ul class="slides">
                     @if (ViewBag.MostrarShowRoomBannerLateral == true)
                     {
-                        if (showRoomBannerLateral.MostrarShowRoomProductos)
+                        if (!showRoomBannerLateral.MostrarShowRoomProductos)
                         {
                             <li>
                                 <div id="divShowRoomHoy" class="divShowRoom">
@@ -281,21 +281,29 @@
                                             <span id="spnPreventaDigitalHoy">@showRoomBannerLateral.BEShowRoom.Nombre</span>
                                         </div>
                                     </div>*@
-                                    <div class="fondo_white" style="height:80px; overflow:hidden">
-                                        <div class="row_contador">
-                                            <div style="text-align: center;">
-                                                <a id="lnkConoceMasShowRoomBannerLateralImagenHoy" class="content_imagen_slider_showroom" href="@Url.Action("Index", "ShowRoom", new { area = "Mobile" })">
-                                                    <img id="imgVentaSetPopupBannerHoy" alt="imgVentaSetPopupBannerHoy" src="@showRoomBannerLateral.BEShowRoom.ImagenVentaSetPopup" />
-                                                </a>
+                                        <div class="fondo_m">
+                                            <div class="content_banner_new_showroom">
+                                                <div class="dias_faltantes">FALTAN <span id="spnDiasFaltantes">12 </span> DÍAS</div>
+                                                <img style="width:100%;height:100%;" src="@Url.Content("~/Content/Images/mobile/img-showroom/banner_intriga_new_showroom.png")" alt="-" />
                                             </div>
                                         </div>
+                                        @*<div class="fondo_white" style="height:80px; overflow:hidden">
+                                            <div class="content_banner_new_showroom">
+                                                <div style="text-align: center;">
+                                                    <a id="lnkConoceMasShowRoomBannerLateralImagenHoy" class="content_imagen_slider_showroom" href="@Url.Action("Index", "ShowRoom", new { area = "Mobile" })">
+                                                        
+                                                        <img id="imgVentaSetPopupBannerHoy" alt="imgVentaSetPopupBannerHoy" src="@showRoomBannerLateral.BEShowRoom.ImagenVentaSetPopup" />
+                                                        
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>*@
+                                        @*<div class="contenedor_encuentralos2">
+                <div class="row_contador">
+                    <a href="@Url.Action("Index", "ShowRoom", new { area = "Mobile" })" class="btn_encuentralos" id="lnkConoceMasShowRoomBannerLateralHoy">ENCUENTRALOS AQUI</a>
+                </div>
+            </div>*@
                                     </div>
-                                    <div class="contenedor_encuentralos2">
-                                        <div class="row_contador">
-                                            <a href="@Url.Action("Index", "ShowRoom", new { area = "Mobile" })" class="btn_encuentralos" id="lnkConoceMasShowRoomBannerLateralHoy">ENCUENTRALOS AQUI</a>
-                                        </div>
-                                    </div>
-                                </div>
                             </li>
                         }
                         else if(ViewBag.MostrarOfertaDelDia == false)
@@ -317,34 +325,7 @@
                                         <div class="content_banner_new_showroom">
                                             <div class="dias_faltantes">FALTAN <span id="spnDiasFaltantes">12 </span> DÍAS</div>
                                             <img style="width:100%;" src="@Url.Content("~/Content/Images/mobile/img-showroom/banner_intriga_new_showroom.png")" alt="-" />
-                                            @*<div style="float: left; margin-top: 12px; margin-left: 20px; width: 110px;">
-                                                <div class="texto_dias_m">
-                                                    SÓLO FALTAN
-                                                </div>
-                                                <div class="texto_fecha_m">
-                                                    <span id="spnDiasFaltantes">12</span>
-                                                </div>
-                                                <div class="texto_dias_m">
-                                                    DÍAS
-                                                </div>
-                                            </div>*@
-                                            @*<div style="float: left; margin-top: 12px; margin-left: 22px; width: 135px;">
-                                                <div style="height: 20px; width: 135px;">
-                                                    <div class="text_hora_m">hrs</div>
-                                                    <div class="text_hora_m">min</div>
-                                                    <div class="text_hora_m no_margin_right">sec</div>
-                                                </div>
-                                                <div class="fondo_contador">
-                                                    <div class="text_numero"><span id="spnHorasFaltantes">18</span></div>
-                                                    <div class="text_bolita">•</div>
-                                                    <div class="text_numero"><span id="spnMinutosFaltantes">25</span></div>
-                                                    <div class="text_bolita">•</div>
-                                                    <div class="text_numero"><span id="spnSegundosFaltantes">02</span></div>
-                                                </div>
-                                                <div style="margin-top: 6px;">
-                                                    <a href="@showRoomBannerLateral.RutaShowRoomBannerLateral" class="boton_showroom" id="lnkConoceMasShowRoomBannerLateral" target="_blank">CONOCE MÁS AQUÍ</a>
-                                                </div>
-                                            </div>*@
+                                            
 
                                             </div>
                                         </div>
@@ -1050,6 +1031,7 @@
             });
 
         function loadBannerLP20() {
+            debugger;
             if(typeof CargarShowRoom !== 'undefined' && $.isFunction(CargarShowRoom)) CargarShowRoom();
             if(typeof CargarEventosODD !== 'undefined' && $.isFunction(CargarEventosODD)) CargarEventosODD();
 
@@ -1064,11 +1046,56 @@
                     pauseOnAction: false,
                     //pausePlay: true 
                 });
-                $('#flexslidertop').flexslider({ 
-                    animation: "slide",
-                    pauseOnAction: false,
-                    //pausePlay: true 
-                });
+
+                var url = location.href.toLowerCase();
+                var identi = url.indexOf("/mobile/bienvenida") > 0;
+                if (identi){
+                    $('#flexslidertop').css("display","none");
+                }
+
+                var identisegped = url.indexOf("/mobile/seguimientopedido") > 0;
+                if (identisegped){
+                    $('#flexslidertop').flexslider({ 
+                        animation: "slide",
+                        pauseOnAction: false,
+                        //pausePlay: true 
+                    });
+
+                    $('#flexslider').css("display","none");
+                }
+
+                var indeticli = url.indexOf("/mobile/cliente") > 0;
+                if (indeticli){
+                    $('#flexslidertop').flexslider({ 
+                        animation: "slide",
+                        pauseOnAction: false,
+                        //pausePlay: true 
+                    });
+
+                    $('#flexslider').css("display","none");
+                }
+
+                var indetiestado = url.indexOf("/mobile/estadocuenta") > 0;
+                if (indetiestado){
+                    $('#flexslidertop').flexslider({ 
+                        animation: "slide",
+                        pauseOnAction: false,
+                        //pausePlay: true 
+                    });
+                    $('#flexslider').css("display","none");
+                }
+
+                //$('#flexslidertop').flexslider({ 
+                //    animation: "slide",
+                //    pauseOnAction: false,
+                //    //pausePlay: true 
+                //});
+            }else{
+                var url = location.href.toLowerCase();
+                //var identi = url.indexOf("/mobile/") > 0;
+
+
+                $('#flexslidertop').css("display","none");
             }
         }
         

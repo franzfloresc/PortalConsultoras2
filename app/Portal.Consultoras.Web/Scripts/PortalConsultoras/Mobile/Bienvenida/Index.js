@@ -57,8 +57,10 @@ $(document).ready(function () {
         });
     });
 
-    CrearPopShow();
-    MostrarShowRoom();    
+    //cambios PL20 sprint 6
+    //CrearPopShow();
+    
+    //MostrarShowRoom();    
 });
 
 function CrearPopShow() {
