@@ -458,8 +458,7 @@ function isInt(n) {
 
 // valida si ha ocurrido un timeout durante una llamada ajax
 function checkTimeout(data) {
-    //debugger;
-    var thereIsStillTime = true;
+    var thereIsStillTime = true
 
     if (data) {
         if (data.responseText) {
@@ -472,7 +471,12 @@ function checkTimeout(data) {
         }
 
         if (!thereIsStillTime) {
-            window.location.href = "/Login/SesionExpirada";
+            //window.location.href = "/Login/Timeout";
+            //window.location.href = "https://stsqa.somosbelcorp.com/adfs/ls/?wa=wsignout1.0";
+            //window.location.href = "/SesionExpirada.html";
+            var message = "Tu sesión ha finalizado por inactividad. Por favor, ingresa nuevamente.";
+            $('#dialog_SesionMainLayout #mensajeSesionSB2_Error').html(message);
+            $('#dialog_SesionMainLayout').show();
         }
     }
     else {
@@ -487,16 +491,16 @@ function checkUserSession() {
     //debugger;
     var res = -1;
     
-    $.ajax({
+        $.ajax({
         url: '/Login/CheckUserSession',
-        type: 'POST',
-        dataType: 'json',
-        contentType: 'application/json; charset=utf-8',
-        async: false,
+            type: 'POST',
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            async: false,
         success: function (data) {
             res = data.Exists;
-        }
-    });
+            }
+        });
 
     //alert(res);
     if (res == 0) {
@@ -686,17 +690,17 @@ function InsertarLogDymnamo(pantallaOpcion, opcionAccion, esMobile, extra) {
         'Extra': extra
     }
     if (urlLogDynamo != "") {
-        jQuery.ajax({
-            type: "POST",
-            async: true,
-            crossDomain: true,
-            url: urlLogDynamo,
-            dataType: "json",
-            data: data,
-            success: function (result) { console.log(result); },
-            error: function (x, xh, xhr) { console.log(x); }
-        });
-    }
+    jQuery.ajax({
+        type: "POST",
+        async: true,
+        crossDomain: true,
+        url: urlLogDynamo,
+        dataType: "json",
+        data: data,
+        success: function (result) { console.log(result); },
+        error: function (x, xh, xhr) { console.log(x); }
+    });
+}
 }
 
 function InfoCommerceGoogleDestacadoProductClick(name, id, category, variant, position) {
@@ -804,8 +808,8 @@ function xMensajeEstadoPedido(estado) {
                 }
 
                 if (cerrarRechazado == 1) {
-                    $("[data-content]").animate({ "top": "0px" });
-                } 
+                $("[data-content]").animate({ "top": "0px" });
+            }
                     
                 
             }

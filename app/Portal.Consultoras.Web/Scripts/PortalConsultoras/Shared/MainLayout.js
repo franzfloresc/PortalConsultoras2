@@ -28,11 +28,28 @@ $(document).ready(function () {
                 var functionHide = $('[data-popup-main]').attr("data-popup-function-hide");
                 if (functionHide != "") {
                     setTimeout(functionHide + "()", 100);
-                }
-                $('[data-popup-main]').hide();
             }
+
+            //EPD-1780
+            if ($('#dialog_SesionMainLayout').is(':visible')) {
+                $('#dialog_SesionMainLayout').hide();
+                window.location.href = "/SesionExpirada.html";
+            }
+            //Fin EPD-1780
         }
     });
+
+    //EPD-1780    
+    $('.contenedor_popup_agregarUnidades').click(function (e) {
+        if (!$(e.target).closest('.popup_agregarUnidades').length) {
+            if ($('#dialog_SesionMainLayout').is(':visible')) {
+                $('#dialog_SesionMainLayout').hide();
+                window.location.href = "/SesionExpirada.html";
+            }
+        }
+        }
+    });
+    // FIN EPD-1780
 
     $('body').click(function (e) {
         if (!$(e.target).closest('#OfertaDelDia').length) {
@@ -253,8 +270,8 @@ $(document).ready(function () {
             alert_unidadesAgregadas("Por el momento el chat no se encuentra disponible. Volver a intentarlo más tarde", 2);
         }
     });
-    
-    $("#belcorpChat").click(function () {
+
+    $("body").on('click','.belcorpChat', function () {
         var FechaChatPais = BelcorpFechaChat_Pais;
         var PaisISO = IsoPais
         var fechaActual = FechaActual;
@@ -326,10 +343,12 @@ $(document).ready(function () {
                 open(res2, '', 'top=0,left=0,width=400,height=500');
             }
         }
+        //cerrar Popup
+        $(".ui-button-text").trigger("click");
     });
 
     Scrolling();
-    MostrarShowRoomBannerLateral();        
+    MostrarShowRoomBannerLateral();
 
     /*PL20-1226*/
     setInterval(animacionFlechaScroll, 1000);

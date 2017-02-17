@@ -12,6 +12,8 @@ using System.Net;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
 
+using System.Globalization;
+
 namespace Portal.Consultoras.Web.Controllers
 {
     public class MisCatalogosRevistasController : BaseController
@@ -251,31 +253,29 @@ namespace Portal.Consultoras.Web.Controllers
                     });
                 }
 
+                //string catalogoUnificado = "0";
+                //string ISO = userData.CodigoISO;
 
-                string catalogoUnificado = "0";
-                string ISO = userData.CodigoISO;
-
-                if (ConfigurationManager.AppSettings["PaisesCatalogoUnificado"].Contains(ISO))
-                {
-                    string[] paises = ConfigurationManager.AppSettings["PaisesCatalogoUnificado"].Split(';');
-                    if (paises.Length > 0)
-                    {
-                        foreach (var pais in paises)
-                        {
-                            if (pais.Contains(ISO))
-                            {
-                                string[] PaisCamp = pais.Split(',');
-                                if (PaisCamp.Length > 0)
-                                {
-                                    int CampaniaInicio = Convert.ToInt32(PaisCamp[1]);
-                                    if (Convert.ToInt32(CampaniaID) >= CampaniaInicio)
-                                        catalogoUnificado = "1";
-                                }
-                            }
-                        }
-                    }
-                }
-
+                //if (ConfigurationManager.AppSettings["PaisesCatalogoUnificado"].Contains(ISO))
+                //{
+                //    string[] paises = ConfigurationManager.AppSettings["PaisesCatalogoUnificado"].Split(';');
+                //    if (paises.Length > 0)
+                //    {
+                //        foreach (var pais in paises)
+                //        {
+                //            if (pais.Contains(ISO))
+                //            {
+                //                string[] PaisCamp = pais.Split(',');
+                //                if (PaisCamp.Length > 0)
+                //                {
+                //                    int CampaniaInicio = Convert.ToInt32(PaisCamp[1]);
+                //                    if (Convert.ToInt32(CampaniaID) >= CampaniaInicio)
+                //                        catalogoUnificado = "1";
+                //                }
+                //            }
+                //        }
+                //    }
+                //}
 
                 string RutaPublicaImagen = "";
                 string nombrecorto = userData.NombreCorto;
@@ -287,177 +287,245 @@ namespace Portal.Consultoras.Web.Controllers
                 Catalogo catalogoEsika = catalogos.FirstOrDefault(x => x.IdMarcaCatalogo == Constantes.Marca.Esika);
                 Catalogo catalogoCyZone = catalogos.FirstOrDefault(x => x.IdMarcaCatalogo == Constantes.Marca.Cyzone);
                 Catalogo catalogoFinart = catalogos.FirstOrDefault(x => x.IdMarcaCatalogo == Constantes.Marca.Finart);
+                /*EPD-1003*/
+                DateTime dd = DateTime.Parse(FechaFacturacion, new CultureInfo("es-ES"));
+                string fdf = dd.ToString("dd", new CultureInfo("es-ES"));
+                string fmf = dd.ToString("MMMM", new CultureInfo("es-ES"));
+                string ffechaFact = fdf + " de " + char.ToUpper(fmf[0]) + fmf.Substring(1);
+                string urlIssuCatalogo = string.Empty;
 
                 foreach (var item in ListaCatalogosCliente)
                 {
                     #region foreach
                     string mailBody = string.Empty;
 
-                    mailBody += "<table width=\"100%\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\">";
+                    mailBody += "<html>";
+                    mailBody += "<body style=\"margin:0px; padding:0px; background:#FFF;\">";
+                    mailBody += "<table width=\"100%\" cellspacing=\"0\" align=\"center\" style=\"background:#FFF;\">";
+                    mailBody += "<thead>";
                     mailBody += "<tr>";
-                    mailBody += "<td width=\"100%\" style=\"height: 50px; background:#6C207F;\">&nbsp;</td>";
+                    mailBody += "<th colspan=\"3\" style=\"width:100%; height:50px; border-bottom:1px solid #000; padding:12px 0px; text-align:center;\"><img src=\"http://www.genesis-peru.com/mailing-belcorp/logo.png\" alt=\"Logo Esika\" /></th>";
                     mailBody += "</tr>";
-                    mailBody += "</table>";
+                    mailBody += "</thead>";
+                    mailBody += "<tbody>";
+                    mailBody += "<tr>";
+                    mailBody += "<td colspan=\"3\" style=\"height:30px;\"></td>";
+                    mailBody += "</tr>";
+                    mailBody += "<tr>";
+                    mailBody += "<td colspan=\"3\">";
+                    mailBody += "<table align=\"center\" style=\"width:100%; text-align:center; padding-bottom:20px;\">";
+                    mailBody += "<tbody>";
+                    mailBody += "<tr>";
+                    mailBody += "<td style=\"font-family:'Calibri'; font-size:17px; text-align:center; font-weight:500; color:#000; padding:0 0 20px 0;\">¡Hola!</td>";
+                    mailBody += "</tr>";
+                    mailBody += "<tr>";
+                    mailBody += "<td style=\"text-align:center; font-family:'Calibri'; font-size:22px; font-weight:700; color:#000; padding-bottom:15px;\">REVISA LAS NOVEDADES DE TUS CAT&Aacute;LOGOS</td>";
+                    mailBody += "</tr>";
+                    mailBody += "<tr>";
+                    mailBody += "<td style=\"text-align:center; font-family:'Calibri'; color:#000; font-weight:500; font-size:14px; padding-bottom:30px;\">" + Mensaje.Replace("Hola,", "");
+                    mailBody += "<br/><br/>Recuerda que tienes hasta el " + ffechaFact + " para enviarme tu pedido.<br/><br />Si tienes alguna consulta no dudes en contactarme:</td>";
+                    mailBody += "</tr>";
+                    mailBody += "<tr>";
+                    mailBody += "<td>";
+                    mailBody += "<table align=\"center\" style=\"text-align:center; font-size:13px; padding:0 13px; width:100%; max-width:450px;  font-family:'Calibri'; color:#000;\">";
+                    mailBody += "<!--[if gte mso 9]>";
+                    mailBody += "<table id=\"tableForOutlook\"><tr><td>";
+                    mailBody += "<![endif]-->";
+                    mailBody += "<tbody>";
+                    mailBody += "<tr>";
+                    mailBody += "<td style=\"text-align:center; width:48%;\">";
 
-                    mailBody += "<table width=\"100%\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\" style=\"padding:0px; margin:0px;font-family:Calibri;\" >";
-                    mailBody += "<tr>";
-                    mailBody += "<td width=\"100%\" style=\"text-align:center; background-color:#F0F0F0; overflow:hidden; display:block; padding: 24px 0px 24px 0px;\">";
-                    mailBody += "<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" style=\"width:722px; margin: 0px auto; text-align:left;\" >";
-                    mailBody += "<tr>";
-                    mailBody += "<td valign=\"top\">";
-                    mailBody += "<table width=\"722\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\">";
-                    mailBody += "<tr>";
-                    mailBody += "<td width=\"454\" valign=\"top\">";
-                    mailBody += "<table width=\"100%\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\">";
-                    mailBody += "<tr>";
-                    mailBody += "<td align=\"left\" style=\"color:#000000; font-size:35px; text-align:left;\">Catálogos</td>";
-                    mailBody += "</tr>";
-                    mailBody += "<tr>";
-                    mailBody += "<td align=\"left\" style=\"color:#6C207F; font-size:25px; padding: 0px 0px 35px 50px; text-align:left;\">";
-                    mailBody += "VIRTUALES";
+                    if (!string.IsNullOrEmpty(userData.EMail))
+                    {
+                        mailBody += "<img style=\"vertical-align:middle;\" src=\"http://www.genesis-peru.com/mailing-belcorp/mensaje_mail.png\" alt=\"Icono Mensaje\" /> &nbsp;" + userData.EMail;
+
+                    }
+                    mailBody += "</td>";
+                    mailBody += "<td style=\"text-align:center; width:48%;\">";
+
+                    if (!string.IsNullOrEmpty(userData.Celular))
+                    {
+                        mailBody += "<img style=\"vertical-align:middle;\"  src=\"http://www.genesis-peru.com/mailing-belcorp/celu_mail.png\" alt=\"Icono Celular\" /> &nbsp;" + userData.Celular;
+                        if (!string.IsNullOrEmpty(userData.Telefono))
+                    {
+                            mailBody += " / " + userData.Telefono;
+                    }
+                    }
+                    
                     mailBody += "</td>";
                     mailBody += "</tr>";
+                    mailBody += "</tbody>";
+                    mailBody += "<!--[if gte mso 9]>";
+                    mailBody += "</td></tr></table>";
+                    mailBody += "<![endif]-->";
                     mailBody += "</table>";
-                    mailBody += "<table border=\"0\" cellpadding=\"0\" cellspacing=\"5\">";
-                    mailBody += "<tr>";
-
-                    if (item.LBel == "1")
-                    {
-                        if (catalogoLbel != null && !string.IsNullOrEmpty(catalogoLbel.DocumentID))
-                            mailBody += "<td width=\"98\" style=\"background:#D7D7D7; padding: 4px 0px 4px 4px;\"><img src=\"" + Constantes.CatalogoUrlParameters.UrlPart01 + catalogoLbel.DocumentID + Constantes.CatalogoUrlParameters.UrlPart02 + "\"></td>";
-                        else
-                            mailBody += "<td width=\"98\" style=\"background:#D7D7D7; padding: 4px 0px 4px 4px;\"><img src=\"" + RutaPublicaImagen + "\"></td>";
-                    }
-                    if (item.Esika == "1")
-                    {
-                        if (catalogoEsika != null && !string.IsNullOrEmpty(catalogoEsika.DocumentID))
-                            mailBody += "<td width=\"98\" style=\"background:#D7D7D7; padding: 4px 0px 4px 4px;\"><img src=\"" + Constantes.CatalogoUrlParameters.UrlPart01 + catalogoEsika.DocumentID + Constantes.CatalogoUrlParameters.UrlPart02 + "\"></td>";
-                        else
-                            mailBody += "<td width=\"98\" style=\"background:#D7D7D7; padding: 4px 0px 4px 4px;\"><img src=\"" + RutaPublicaImagen + "\"></td>";
-                    }
-                    if (item.Cyzone == "1")
-                    {
-                        if (catalogoCyZone != null && !string.IsNullOrEmpty(catalogoCyZone.DocumentID))
-                            mailBody += "<td width=\"98\" style=\"background:#D7D7D7; padding: 4px 0px 4px 4px;\"><img src=\"" + Constantes.CatalogoUrlParameters.UrlPart01 + catalogoCyZone.DocumentID + Constantes.CatalogoUrlParameters.UrlPart02 + "\"></td>";
-                        else
-                            mailBody += "<td width=\"98\" style=\"background:#D7D7D7; padding: 4px 0px 4px 4px;\"><img src=\"" + RutaPublicaImagen + "\"></td>";
-                    }
-                    if (item.Finart == "1")
-                    {
-                        if (catalogoFinart != null && !string.IsNullOrEmpty(catalogoFinart.DocumentID))
-                            mailBody += "<td width=\"98\" style=\"background:#D7D7D7; padding: 4px 0px 4px 4px;\"><img src=\"" + Constantes.CatalogoUrlParameters.UrlPart01 + catalogoFinart.DocumentID + Constantes.CatalogoUrlParameters.UrlPart02 + "\"></td>";
-                        else
-                            mailBody += "<td width=\"98\" style=\"background:#D7D7D7; padding: 4px 0px 4px 4px;\"><img src=\"" + RutaPublicaImagen + "\"></td>";
-                    }
+                    mailBody += "</td>";
                     mailBody += "</tr>";
+                    mailBody += "<tr>";
+                    mailBody += "<td>";
+                    mailBody += "<table align=\"center\" style=\"text-align:center; width:100%; max-width:500px;  font-family:'Calibri'; color:#000; padding-top:25px;\">";
+                    mailBody += "<!--[if gte mso 9]>";
+                    mailBody += "<table id=\"tableForOutlook\"><tr><td>";
+                    mailBody += "<![endif]-->";
+                    mailBody += "<tbody>";
+                    //mailBody += "<tr>";
+                    //mailBody += "<td style=\"width:29.3%; display: table-cell; padding-left:2%; padding-right:2%;\">";
+                    //mailBody += "<a href=\"#\" style=\"width:100%; display:block;\">";
+                    //mailBody += "<img width=\"100%\" display=\"block\" src=\"http://www.genesis-peru.com/mailing-belcorp/revista.png\" alt=\"Revista\" />";
+                    //mailBody += "</a>";
+                    //mailBody += "</td>";
+                    //mailBody += "<td style=\"width:29.3%; display: table-cell; padding-left:2%; padding-right:2%;\">";
+                    //mailBody += "<a href=\"#\" style=\"width:100%; display:block;\">";
+                    //mailBody += "<img width=\"100%\" display=\"block\" src=\"http://www.genesis-peru.com/mailing-belcorp/revista.png\" alt=\"Revista\" />";
+                    //mailBody += "</a>";
+                    //mailBody += "</td>";
+                    //mailBody += "<td style=\"width:29.3%; display: table-cell; padding-left:2%; padding-right:2%;\">";
+                    //mailBody += "<a href=\"#\" style=\"width:100%; display:block;\">";
+                    //mailBody += "<img width=\"100%\" display=\"block\" src=\"http://www.genesis-peru.com/mailing-belcorp/revista.png\" alt=\"Revista\" />";
+                    //mailBody += "</a>";
+                    //mailBody += "</td>";
+                    //mailBody += "</tr>";
 
                     mailBody += "<tr>";
+
                     if (item.LBel == "1")
                     {
                         if (catalogoLbel != null && !string.IsNullOrEmpty(catalogoLbel.DocumentID))
                         {
-                            mailBody += "<td width=\"98\" style=\"text-align:center;\"><a href=\"" + catalogoLbel.SkinURL + "\" style=\"color:#333;\">";
-                            if (catalogoUnificado == "1") mailBody += "LBel - Esika</a></td>";
-                            else mailBody += "LBel</a></td>";
+                            RutaPublicaImagen = Constantes.CatalogoUrlParameters.UrlPart01 + catalogoLbel.DocumentID + Constantes.CatalogoUrlParameters.UrlPart03;
+                            urlIssuCatalogo = catalogoLbel.SkinURL;
                         }
-                        else
-                            mailBody += "<td width=\"98\" style=\"text-align:center;\"><a href=\"" + "http://www.lbel.com" + "\" style=\"color:#333;\">LBel</a></td>";
+
+                        mailBody += "<td style=\"width:29.3%; display: table-cell; padding-left:2%; padding-right:2%;\">";
+                        mailBody += "<a href=\"" + urlIssuCatalogo +"\" style=\"width:100%; display:block;\">";
+                        mailBody += "<img width=\"100%\" display=\"block\" style=\"width:120px;height:150px\" src=\"" + RutaPublicaImagen + "\" alt=\"Revista\" />";
+                        mailBody += "</a>";
+                        mailBody += "</td>";
                     }
+
                     if (item.Esika == "1")
                     {
                         if (catalogoEsika != null && !string.IsNullOrEmpty(catalogoEsika.DocumentID))
-                            mailBody += "<td width=\"98\" style=\"text-align:center;\"><a href=\"" + catalogoEsika.SkinURL + "\" style=\"color:#333;\">Esika</a></td>";                            
-                        else
-                            mailBody += "<td width=\"98\" style=\"text-align:center;\"><a href=\"" + "http://www.cyzone.com" + "\" style=\"color:#333;\">Esika</a></td>";
+                        {
+                            RutaPublicaImagen = Constantes.CatalogoUrlParameters.UrlPart01 + catalogoEsika.DocumentID + Constantes.CatalogoUrlParameters.UrlPart03;
+                            urlIssuCatalogo = catalogoLbel.SkinURL;
+                        }
+
+                        mailBody += "<td style=\"width:29.3%; display: table-cell; padding-left:2%; padding-right:2%;\">";
+                        mailBody += "<a href=\"" + urlIssuCatalogo + "\" style=\"width:100%; display:block;\">";
+                        mailBody += "<img width=\"100%\" display=\"block\" style=\"width:120px;height:150px\" src=\"" + RutaPublicaImagen + "\" alt=\"Revista\" />";
+                        mailBody += "</a>";
+                        mailBody += "</td>";
                     }
+
                     if (item.Cyzone == "1")
                     {
                         if (catalogoCyZone != null && !string.IsNullOrEmpty(catalogoCyZone.DocumentID))
-                            mailBody += "<td width=\"98\" style=\"text-align:center;\"><a href=\"" + catalogoCyZone.SkinURL + "\" style=\"color:#333;\">Cyzone</a></td>";
-
-                        else
-                            mailBody += "<td width=\"98\" style=\"text-align:center;\"><a href=\"" + "http://www.esika.biz" + "\" style=\"color:#333;\">Cyzone</a></td>";
+                        {
+                            RutaPublicaImagen = Constantes.CatalogoUrlParameters.UrlPart01 + catalogoCyZone.DocumentID + Constantes.CatalogoUrlParameters.UrlPart03;
+                            urlIssuCatalogo = catalogoLbel.SkinURL;
                     }
-                    if (item.Finart == "1")
-                    {
-                        if (catalogoFinart != null && !string.IsNullOrEmpty(catalogoFinart.DocumentID))
-                            mailBody += "<td width=\"98\" style=\"text-align:center;\"><a href=\"" + catalogoFinart.SkinURL + "\" style=\"color:#333;\">Esika by Finart</a></td>";
-                        else
-                            mailBody += "<td width=\"98\" style=\"text-align:center;\"><a href=\"" + "#" + "\" style=\"color:#333;\">Esika by Finart</a></td>";
-                    }
-                    mailBody += "</tr>";
-                    mailBody += "</table>";
-                    mailBody += "</td>";
 
-                    mailBody += "<td width=\"228\" valign=\"top\" style=\"background:#E5E5E5; line-height: 18px; padding: 20px 20px 30px 20px;\">";
-                    mailBody += "<table width=\"100%\" border=\"0\" cellpadding=\"0\">";
-                    mailBody += " <tr>";
-
-                    item.Nombre = Util.SubStr(item.Nombre, 0);
-                    String[] NombreClienteConsultora = item.Nombre.Split(' ');
-
-                    mailBody += " <td style=\"padding: 0px 0px 15px 0px; text-align:left; display:block;\"><b>Hola </b>" + NombreClienteConsultora[0] + ",</td>";
-                    mailBody += " </tr>";
-
-                    if (!string.IsNullOrEmpty(Mensaje))
-                    {
-                        mailBody += "<tr>";
-                        mailBody += "<td style=\"padding: 0px 0px 15px 0px; text-align:left; display:block;\">";
-                        mailBody += Mensaje.Replace("Hola,", "");
+                        mailBody += "<td style=\"width:29.3%; display: table-cell; padding-left:2%; padding-right:2%;\">";
+                        mailBody += "<a href=\"" + urlIssuCatalogo +"\" style=\"width:100%; display:block;\">";
+                        mailBody += "<img width=\"100%\" display=\"block\" style=\"width:120px;height:150px\" src=\"" + RutaPublicaImagen + "\" alt=\"Revista\" />";
+                        mailBody += "</a>";
                         mailBody += "</td>";
-                        mailBody += "</tr>";
-                        mailBody += "<tr>";
                     }
-                    
-                    mailBody += "<td style=\"padding: 0px 0px 15px 0px; text-align:left; display:block;\">Recuerda que tienes hasta el día <b>" + FechaFacturacion + "</b> para enviarme tu pedido.";
-                    mailBody += "</td>";
-                    mailBody += " </tr>";
-                    if (!userData.EMail.ToString().Equals(string.Empty))
-                    {
-                        mailBody += "<tr>";
-                        mailBody += "<td>Para cualquier duda; mi correo electrónico es: </td>";
-                        mailBody += "</tr>";
-                        mailBody += "<tr>";
-                        mailBody += "<td><b><a href=\"#\" style=\"color:#333333; text-align:left;\">" + userData.EMail + "</a></b></td>";
-                        mailBody += " </tr>";
-                    }
-                    if (!userData.Telefono.ToString().Equals(string.Empty))
-                    {
-                        mailBody += "<tr>";
-                        mailBody += "<td style=\"text-align:left;\">Mi Teléfono es: <b>" + userData.Telefono + "</b></td>";
-                        mailBody += "</tr>";
-                    }
-                    if (!userData.Celular.ToString().Equals(string.Empty))
-                    {
-                        mailBody += "<tr>";
-                        mailBody += "<td style=\"text-align:left;\">Mi Celular es: <b>" + userData.Celular + "</b></td>";
-                        mailBody += "</tr>";
-                    }
-                    mailBody += "</tr></table></td></tr></table></td></tr></table></td></tr></table>";
-                    mailBody += "<table width=\"100%\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\" style=\"text-align:center;\">";
-                    mailBody += "<tr>";
-                    mailBody += "<td width=\"100%\" style=\"height: 50px; background:#FFFFFF;\">";
-                    mailBody += "<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" style=\"width:722px; margin:0px auto;\">";
-                    mailBody += "<tr>";
-                    mailBody += "<td width=\"400\" style=\"padding: 5px 0px 0px 0px; text-align:left;\">";
-                    mailBody += "<b>Recuerda</b> debes tener internet para ver los Catálogos";
-                    mailBody += "</td>";
 
-                    mailBody += "<td width=\"322\" style=\"padding: 5px 0px 0px 0px; font-size: 11px; color:#6C207F; text-align:right;\">";
-                    mailBody += "Copyright Belcorp 2013. All rights reserved";
-                    mailBody += "</td>";
                     mailBody += "</tr>";
+
+                    mailBody += "</tbody>";
+                    mailBody += "<!--[if gte mso 9]>";
+                    mailBody += "</td></tr></table>";
+                    mailBody += "<![endif]-->";
                     mailBody += "</table>";
                     mailBody += "</td>";
                     mailBody += "</tr>";
-
+                        mailBody += "<tr>";
+                    mailBody += "<td colspan=\"3\" style=\"text-align:center; font-family:'Calibri'; color:#000; font-size:12px; font-weight:400;padding-top:45px; padding-bottom:27px;\"></td>";
+                        mailBody += "</tr>";
+                        mailBody += "<tr>";
+                    mailBody += "<td colspan=\"3\" style=\"background:#000; height:62px;\">";
+                    mailBody += "<table align=\"center\" style=\"text-align:center; padding:0 13px; width:100%; max-width:550px; \">";
+                    mailBody += "<!--[if gte mso 9]>";
+                    mailBody += "<table id=\"tableForOutlook\"><tr><td>";
+                    mailBody += "<![endif]-->";
+                    mailBody += "<tbody>";
+                    mailBody += "<tr>";
+                    mailBody += "<td style=\"width:11%; text-align:left; vertical-align:top;\">";
+                    mailBody += "<img src=\"http://www.genesis-peru.com/mailing-belcorp/logo-belcorp.png\" alt=\"Logo Belcorp\" />";
+                    mailBody += "</td>";
+                    mailBody += "<td style=\"width:8%; text-align:left;\">";
+                    mailBody += "<a href=\"http://www.esika.biz\" style=\"width:100%; display:block;\">";
+                    mailBody += "<img src=\"https://s3.amazonaws.com/uploads.hipchat.com/583104/4019711/G9GQryrWRTreo75/logo-esika.png\" alt=\"Logo Esika\" />";
+                    mailBody += "</a>";
+                    mailBody += "</td>";
+                    mailBody += "<td style=\"width:8%; text-align:left;\">";
+                    mailBody += "<a href=\"http://www.lbel.com\" style=\"width:100%; display:block;\">";
+                    mailBody += "<img src=\"https://s3.amazonaws.com/uploads.hipchat.com/583104/4019711/T3o8rSPUKtKpe4g/logo-lbel.png\" alt=\"Logo L'bel\" />";
+                    mailBody += "</a>";
+                    mailBody += "</td>";
+                    mailBody += "<td style=\"width:15%; text-align:left;border-right:1px solid #FFF;\">";
+                    mailBody += "<a href=\"http://www.cyzone.com\" style=\"width:100%; display:block;\">";
+                    mailBody += "<img src=\"https://s3.amazonaws.com/uploads.hipchat.com/583104/4019711/qZf6NJ5d9D75LCO/logo-cyzone.png\" alt=\"Logo Cyzone\" />";
+                    mailBody += "</a>";
+                    mailBody += "</td>";
+                    mailBody += "<td style=\"width:15%; font-family:'Calibri'; font-weight:400; font-size:13px; color:#FFF; vertical-align:middle;\">";
+                    mailBody += "<table align=\"center\" style=\"text-align:center; width:100%;\">";
+                    mailBody += "<tbody>";
+                        mailBody += "<tr>";
+                    mailBody += "<td style=\"text-align: right; font-family:'Calibri'; font-weight:400; font-size:13px; vertical-align: middle; width: 69%; color:white;\">S&Iacute;GUENOS</td>";
+                    mailBody += "<td style=\"text-align: right; position: relative; top: 2px; left: 10px; width: 20%; vertical-align: top;\">";
+                    mailBody += "<a href=\"https://es-la.facebook.com/SomosBelcorpOficial\" style=\"width:100%; display:block;\">";
+                    mailBody += "<img src=\"http://www.genesis-peru.com/mailing-belcorp/logo-facebook.png\" alt=\"Logo Facebook\" /></td>";
+                    mailBody += "</a>";
+                    mailBody += "</tr>";
+                    mailBody += "</tbody>";
                     mailBody += "</table>";
+                    mailBody += "</td>";
+                    mailBody += "</tr>";
+                    mailBody += "</tbody>";
+                    mailBody += "<!--[if gte mso 9]>";
+                    mailBody += "</td></tr></table>";
+                    mailBody += "<![endif]-->";
+                    mailBody += "</table>";
+                    mailBody += "</td>";
+                        mailBody += "</tr>";
+                        mailBody += "<tr>";
+                    mailBody += "<td colspan=\"3\">";
+                    mailBody += "<table align=\"center\" style=\"text-align:center; width:200px;\">";
+                    mailBody += "<tbody>";
+                        mailBody += "<tr>";
+                    mailBody += "<td colspan=\"2\" style=\"height:6px;\"></td>";
+                        mailBody += "</tr>";
+                    mailBody += "<tr>";
+                    mailBody += "<td style=\"text-align:center; width:48%; border-right:1px solid #000;\">";
+                    mailBody += "<a href=\"http://comunidad.somosbelcorp.com\" style=\"width:100%; display:block;\">";
+                    mailBody += "<span style=\"font-family:'Calibri'; font-size:12px; color:#000;\">¿Tienes dudas?</span>";
+                    mailBody += "</a>";
+                    mailBody += "</td>";
+                    mailBody += "<td style=\"text-align:center; width:48%;\">";
+                    mailBody += "<a href=\"http://belcorpresponde.somosbelcorp.com\" style=\"width:100%; display:block;\">";
+                    mailBody += "<span style=\"font-family:'Calibri'; font-size:12px; color:#000;\">Cont&aacutectanos</span>";
+                    mailBody += "</a>";
+                    mailBody += "</td>";
+                    mailBody += "</tr>";
+                    mailBody += "</tbody>";
+                    mailBody += "</table>";
+                    mailBody += "</td>";
+                    mailBody += "</tr>";
+                    mailBody += "</tbody>";
+                    mailBody += "</table>";
+                    mailBody += "</body>";
+                    mailBody += "</html>"; 
 
                     if (!ValidarCorreoFormato(item.Email)) CorreosInvalidos += item.Email + "; ";
                     else Util.EnviarMailMasivoColas("no-responder@somosbelcorp.com", item.Email, "(" + userData.CodigoISO + ") Revisa Tus Catálogos " + CampaniaID, mailBody, true, userData.NombreConsultora);
 
                     #endregion
                 }
+                /*EPD-1003*/
 
                 using (ClienteServiceClient sv = new ClienteServiceClient())
                 {
