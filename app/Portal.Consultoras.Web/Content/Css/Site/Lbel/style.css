@@ -252,7 +252,7 @@ header {
     margin-left: 4.2%;
     margin-top: 21px;
     /*width: 15%;*/
-    
+
 }
 .nav_principal li:hover > ul {
     display:block;
@@ -920,9 +920,9 @@ header {
     font-size:8pt;
     color:black;    
 }
-.resumen_total span {
+    .resumen_total span {
      font-weight:700;
-    
+
 }
 .precio_total {
     line-height: 18px;
@@ -1555,7 +1555,7 @@ header {
     font-size:10pt;
     color:black;
     float:left;
-    
+
 }
 .pedido_numero_campaña span{
      font-family: 'OldStandard-Italic';
@@ -1659,7 +1659,7 @@ header {
     margin-right:8px;
 }
 .pedido_ingreso_datos input{
-    padding: 5px;
+        padding: 5px;
     margin-top:5px;
     height:33px;
     border:1px solid #ccc;
@@ -3078,22 +3078,22 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido{
     margin:0px;
     padding:0px;
     list-style-type:none;
-}
+    }
 .contenedor_banners ul li{
     width:31.7%;
-    /*max-width:256.2px;*/
-    /*height:249px;*/
+            /*max-width:256.2px;*/
+            /*height:249px;*/
     height:auto;
-    /*width:218px;
-    height:211px;*/
+            /*width:218px;
+            height:211px;*/
             background: white;
-    /*margin-right:24.5px;*/
+            /*margin-right:24.5px;*/
     margin-right:2.4%;
     float:left;
-}
+        }
 .contenedor_banners ul li:nth-child(3){
     margin-right:0px;
-}
+            }
 
             .contenedor_banners ul li .imagen_banner_inferior {
     overflow: hidden;
@@ -3975,7 +3975,7 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
     {
         text-align: right;
         font-weight: 400;
-    }
+}
     .tabla_productos_agotados .categoria_productoAgotado { width: 20%; }
     .tabla_productos_agotados .codigo_productoAgotado { width: 15%; }
     .tabla_productos_agotados .catalogo_productoAgotado { width: 22%; }
@@ -4941,7 +4941,7 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
 }
 
 .btn_noGracias_agregarProductos{
-        display: block;
+    display: block;
     /* position: absolute; */
     /* margin-left: 10px; */
     /* bottom: -1px; */
@@ -5813,7 +5813,7 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
     margin-top:10px;
     }
 .pedidos_subtitulo a::first-letter { 
-    
+
     color: #e81c36;
 }
 .pedidos_tabla_titulo {
@@ -19285,7 +19285,7 @@ float: right;
     background:white !important;
     border: 1px solid black !important;
 
-}
+    }
 .check_01 {
     float:left;
     width:100%;
@@ -19361,7 +19361,7 @@ a.mover{
     font-family: 'lato';
     }
 .fondo_contador {
-    
+
     background: white;
     width: 135px;
     height: 25px;
@@ -19575,7 +19575,7 @@ html {
     letter-spacing:0.5px;
     }
 .btn_hoy {
-    
+
     background: url("/Content/Images/showroom/boton_hoy_lbel.png") no-repeat;
     height:33px;
     text-align:center;
@@ -19731,7 +19731,7 @@ label.checkpop.c_on {
 }
 .titulo_showroom span{
      font-size: 18px;
-     
+
 }
 .selector_s {
     width:294px;
@@ -19774,8 +19774,8 @@ label.checkpop.c_on {
 }
 .imagen_showroom img:hover {
      filter:alpha(opacity=50); -khtml-opacity:0.5; -moz-opacity:0.5; opacity:0.5;
-   
-}
+
+    }
 .cantidad_productos_showroom {
     position:absolute;
     right: 10px;
@@ -19900,8 +19900,8 @@ label.checkpop.c_on {
 .boton_agregar_showroom:hover {
     background:black;
     color:white;
-   
-   }
+
+    }
 .producto_agotado {
     position:absolute;
     z-index:100;
@@ -19997,13 +19997,13 @@ label.checkpop.c_on {
         text-decoration:none !important;
     }
 .divAgregarShowRoom .volver_set2 {
-   font-weight: bold;
+    font-weight: bold;
     background: #6C398A !important;
     width: 159px;
     display: block;
     padding-top: 8px;
     padding-bottom: 8px;
-    color: white;
+    color: white; 
     border: 1px solid #6C398A;
     font-family: 'Lato';
     text-align: center;
@@ -20017,7 +20017,7 @@ label.checkpop.c_on {
     float: left;
     cursor: pointer;
     text-decoration: none;
-    margin-top: 24px;     
+    margin-top: 24px;         
    }
 
     .divAgregarShowRoom .volver_set2:hover {
@@ -20747,7 +20747,7 @@ label.checkpop.c_on {
     letter-spacing:0.25px;
     color:black;
     margin-top:10px;
-   
+
 }
 .info_centro span{
     font-weight:400;
@@ -20867,7 +20867,7 @@ label.checkpop.c_on {
     width: 68px;
     line-height: 11px;
     /* transform: scaleY(1.1); */
-    
+
 }
 .escala_select{
     padding-left: 4%;
@@ -20966,7 +20966,7 @@ label.checkpop.c_on {
     position: absolute;
     z-index: 100;
     margin-left: 78px;
-    
+
 }
 .btn_100_paga{
     width:100%;
@@ -21484,15 +21484,16 @@ label.checkpop.c_on {
     width: 31%;   
     float: left;
     margin-right: 3.5%;
-    margin-top:45px;
-    margin-bottom:35px;
-    background:gray;
-    position:relative;
-    overflow:hidden;
+    margin-top: 45px;
+    margin-bottom: 35px;
+    /*background: gray;*/
+    position: relative;
+    overflow: hidden;
     }
-.enlaces_home:hover{
-    opacity:0.5;
-     filter: alpha(opacity=50); /* For IE8 and earlier */
+
+.enlaces_home:hover {
+    /*opacity: 0.5;
+    filter: alpha(opacity=50); /* For IE8 and earlier */*/
 }
 .enlaces_home img {
     width: 100%;
@@ -23667,6 +23668,12 @@ body{
 .div-img.hidden {
   overflow: hidden;
 }
+
+.div-img.hidden:hover {
+    opacity: 0.5;
+    filter: alpha(opacity=50); /* For IE8 and earlier */
+}
+
 .div-img .banner-img {
   display: block;
   margin-left: auto;
@@ -24833,7 +24840,7 @@ img
 	width:100%;
 	padding-top:15px;
 	box-sizing:border-box;
-}
+        }
 .active
 /*{
 	color:#000000;
@@ -25420,8 +25427,8 @@ button
 {
 	background-color:#4d95a0;
 	color:#fff;
-	
-}
+
+    }
 .boton_linea_morado
 {
 	background-color:#ffffff;
@@ -25436,7 +25443,7 @@ button
 {
 	background-color:#e51437;
 	color:#ffffff !important;
-}
+    }
 .text_morado{font-size:16px;color:#75308c;font-weight:700;font-family:'Museo Sans', arial, sans-serif;margin-bottom:10px;}
 .text_azul{font-size:16px;color:#415261;font-weight:600;margin-bottom:10px;}
 .text_verde{font-size:16px;color:#2bbeb3;font-weight:700;font-family:'Museo Sans', arial, sans-serif;margin-bottom:10px;}
@@ -25656,7 +25663,7 @@ button
     display: block;
 	font-size:14px;
 	font-weight:bold;
-}
+    }
 @media screen and (max-height: 800px) 
 {
 	#slides_inscripcion{width:100%;height:105%;}
@@ -25674,7 +25681,7 @@ button
 	padding-top:0px !important;
 	box-sizing:border-box;
 	padding:0px 2% 20px 0px;
-	
+
 }
 .cont_beneficio h2
 {
@@ -28742,7 +28749,7 @@ button.btn_eliminarCliente.venderecha-ancho{
     width: 280px;
     margin-right: 0px;
 }
-  
+
 a#cierreRechazoPendientes img {
     width: 25px;
 }
@@ -30480,7 +30487,7 @@ h1#penmostreo .campana {
 
 @media screen and (max-width: 1024px) {
     .truco_bloqueo.sim1 {
-        width: 100%;
+    width: 100%;
         height: 470px;
     }
 
@@ -30585,12 +30592,12 @@ h1#penmostreo .campana {
     -moz-animation: opacidad-fondo 1000ms linear 0ms 1 normal;
     -ms-animation: opacidad-fondo 1000ms linear 0ms 1 normal;
     animation: opacidad-fondo 1000ms linear 0ms 1 normal;
-    }
+}
  @keyframes opacidad-fondo {
     0% {
         opacity:0;
-    
-    }
+
+}
     100% {
         opacity:1;
     }
@@ -30686,9 +30693,9 @@ h1#penmostreo .campana {
     background-size:cover;
     background:url(../../../Images/Esika/icono_advertencia_notificacion.png) no-repeat center center;
     display:inline-block;
-    vertical-align:middle;    
+    vertical-align:middle;
 }
-
+    
 .texto_stock {
     /*width:100%;*/
     width: 70%; /*EPD-1378*/
@@ -30978,15 +30985,15 @@ h1#penmostreo .campana {
 
 .content_pasos_linea{
   position: relative;
-  width: 99%;
-  height: 2px;      
+        width: 99%;
+        height: 2px;
   z-index: 3;
   left:0;
   width:310px;
   margin:0 auto;
   margin-top:-18px;
-  background: #d1d1d1;
-} 
+        background: #d1d1d1;
+}
 .paso_reclamo{
     width:36px;
     height:36px;
@@ -31543,7 +31550,7 @@ h1#penmostreo .campana {
 
 .text-center{
     text-align:center;
-}   
+}
 .text-right {
     text-align: right;
 }
