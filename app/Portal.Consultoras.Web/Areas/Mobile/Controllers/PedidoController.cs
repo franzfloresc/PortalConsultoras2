@@ -261,7 +261,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             model.EsConsultoraNueva = VerificarConsultoraNueva();
             model.MontoMinimo = userData.MontoMinimo;
             model.MontoMaximo = userData.MontoMaximo;
-
+            model.Total = pedidoWeb.ImporteTotal;
             //var dataBarra = GetDataBarra(true, true);
             //AutoMapper.Mapper.CreateMap<BarraConsultoraModel, BarraConsultoraMobileModel>();
             //var dataBarraMobile = AutoMapper.Mapper.Map<BarraConsultoraModel, BarraConsultoraMobileModel>(dataBarra);
