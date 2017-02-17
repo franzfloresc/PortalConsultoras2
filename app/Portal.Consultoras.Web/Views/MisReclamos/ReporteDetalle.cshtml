@@ -68,7 +68,7 @@
                     if (data.success == true) {
                         var ddlZona = $('#ddlZona');
                         $.each(data.listaZonas, function (ind, item) {
-                            ddlZona.append($('<option/>', { value: item.Codigo, text: item.Nombre }));
+                            ddlZona.append($('<option/>', { value: item.ZonaID, text: item.Nombre }));
                         });
                     }
                 },
