@@ -48,8 +48,7 @@ $(document).ready(function () {
                 $('#dialog_SesionMainLayout').hide();
                 window.location.href = "/SesionExpirada.html";
             }
-        }
-        }
+        }        
     });
     // FIN EPD-1780
 
