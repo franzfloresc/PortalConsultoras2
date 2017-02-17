@@ -259,12 +259,6 @@ namespace Portal.Consultoras.Web.Controllers
                         case "DiasDespues":
                             items = listaShowRoomEvento.OrderBy(x => x.DiasDespues);
                             break;
-                        case "SetAcross":
-                            items = listaShowRoomEvento.OrderBy(x => x.RutaShowRoomPopup);
-                            break;
-                        case "CuvUrlAcross":
-                            items = listaShowRoomEvento.OrderBy(x => x.RutaShowRoomBannerLateral);
-                            break;
                         case "NumeroPerfiles":
                             items = listaShowRoomEvento.OrderBy(x => x.NumeroPerfiles);
                             break;
@@ -288,12 +282,6 @@ namespace Portal.Consultoras.Web.Controllers
                             break;
                         case "DiasDespues":
                             items = listaShowRoomEvento.OrderByDescending(x => x.DiasDespues);
-                            break;
-                        case "SetAcross":
-                            items = listaShowRoomEvento.OrderByDescending(x => x.RutaShowRoomPopup);
-                            break;
-                        case "CuvUrlAcross":
-                            items = listaShowRoomEvento.OrderByDescending(x => x.RutaShowRoomBannerLateral);
                             break;
                         case "NumeroPerfiles":
                             items = listaShowRoomEvento.OrderByDescending(x => x.NumeroPerfiles);
@@ -323,8 +311,6 @@ namespace Portal.Consultoras.Web.Controllers
                                 a.Tema,
                                 a.DiasAntes.ToString(),
                                 a.DiasDespues.ToString(),
-                                a.RutaShowRoomPopup,
-                                a.RutaShowRoomBannerLateral,
                                 a.NumeroPerfiles.ToString(),
                                 a.Imagen1,
                                 a.Imagen2,
@@ -343,6 +329,44 @@ namespace Portal.Consultoras.Web.Controllers
                 };
 
                 return Json(data, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return Json(new
+                {
+                    success = false,
+                    message = ex.Message,
+                    data = ""
+                });
+            }
+        }
+
+        [HttpPost]
+        public JsonResult GetShowRoomNiveles()
+        {
+            try
+            {
+                var listaShowRoomNivel = userData.ListaShowRoomNivel ?? new List<BEShowRoomNivel>();
+
+                if (listaShowRoomNivel.Count <= 0)
+                {
+                    return Json(new
+                    {
+                        success = true,
+                        message = "OK",
+                        data = ""
+                    });
+                }
+                else
+                {
+                    return Json(new
+                    {
+                        success = true,
+                        message = "OK",
+                        data = listaShowRoomNivel
+                    });
+                }
             }
             catch (Exception ex)
             {
@@ -415,9 +439,7 @@ namespace Portal.Consultoras.Web.Controllers
                 .ForMember(t => t.ImagenVentaSetPopup, f => f.MapFrom(c => c.ImagenVentaSetPopup))
                 .ForMember(t => t.ImagenVentaTagLateral, f => f.MapFrom(c => c.ImagenVentaTagLateral))
                 .ForMember(t => t.ImagenPestaniaShowRoom, f => f.MapFrom(c => c.ImagenPestaniaShowRoom))
-                .ForMember(t => t.ImagenPreventaDigital, f => f.MapFrom(c => c.ImagenPreventaDigital))
-                .ForMember(t => t.RutaShowRoomPopup, f => f.MapFrom(c => c.RutaShowRoomPopup))
-                .ForMember(t => t.RutaShowRoomBannerLateral, f => f.MapFrom(c => c.RutaShowRoomBannerLateral))
+                .ForMember(t => t.ImagenPreventaDigital, f => f.MapFrom(c => c.ImagenPreventaDigital))                
                 .ForMember(t => t.Estado, f => f.MapFrom(c => c.Estado));
 
                 BEShowRoomEvento beShowRoomEvento = Mapper.Map<ShowRoomEventoModel, BEShowRoomEvento>(showRoomEventoModel);
@@ -1952,7 +1974,83 @@ namespace Portal.Consultoras.Web.Controllers
                     data = ""
                 });
             }
-        }                         
+        }
+
+        [HttpPost]
+        public JsonResult GetShowRoomPersonalizacionNivel(int eventoId, int nivelId)
+        {
+            try
+            {
+                var listaPersonalizacion = userData.ListaShowRoomPersonalizacion.Where(p => p.TipoPersonalizacion == "EVENTO").ToList();
+                var listaPersonalizacionNivel = new List<BEShowRoomPersonalizacionNivel>();
+
+                using (PedidoServiceClient ps = new PedidoServiceClient())
+                {
+                    listaPersonalizacionNivel = ps.GetShowRoomPersonalizacionNivel(userData.PaisID, eventoId, nivelId).ToList();
+                }
+
+                return Json(new
+                {
+                    success = true,
+                    message = "Ok",
+                    listaPersonalizacion,
+                    listaPersonalizacionNivel
+                });
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return Json(new
+                {
+                    success = false,
+                    message = ex.Message,
+                    data = ""
+                });
+            }
+        }
+
+        [HttpPost]
+        public JsonResult GuardarPersonalizacionNivelShowRoom(ShowRoomPersonalizacionNivelModel model)
+        {
+            try
+            {
+                Mapper.CreateMap<ShowRoomPersonalizacionNivelModel, BEShowRoomPersonalizacionNivel>()
+                    .ForMember(t => t.PersonalizacionNivelId, f => f.MapFrom(c => c.PersonalizacionNivelId))
+                    .ForMember(t => t.EventoID, f => f.MapFrom(c => c.EventoID))
+                    .ForMember(t => t.PersonalizacionId, f => f.MapFrom(c => c.PersonalizacionId))
+                    .ForMember(t => t.NivelId, f => f.MapFrom(c => c.NivelId))
+                    .ForMember(t => t.Valor, f => f.MapFrom(c => c.Valor));
+
+                BEShowRoomPersonalizacionNivel entidad = Mapper.Map<ShowRoomPersonalizacionNivelModel, BEShowRoomPersonalizacionNivel>(model);
+
+                return Json(new
+                {
+                    success = true,
+                    message = "Se insertó el Producto satisfactoriamente.",
+                    extra = ""
+                });
+            }
+            catch (FaultException ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return Json(new
+                {
+                    success = false,
+                    message = ex.Message,
+                    extra = ""
+                });
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return Json(new
+                {
+                    success = false,
+                    message = ex.Message,
+                    extra = ""
+                });
+            }
+        }
 
         public static bool IsNumeric(object Expression)
         {

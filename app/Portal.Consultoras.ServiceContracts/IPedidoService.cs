@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.ServiceModel;
 using Portal.Consultoras.Entities;
 using System.Data;
+using Portal.Consultoras.Entities.ShowRoom;
 
 namespace Portal.Consultoras.ServiceContracts
 {
@@ -862,6 +863,15 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         BEShowRoomOferta GetShowRoomOfertaById(int paisID, int ofertaShowRoomID);
+
+        [OperationContract]
+        IList<BEShowRoomNivel> GetShowRoomNivel(int paisId);
+
+        [OperationContract]
+        IList<BEShowRoomPersonalizacion> GetShowRoomPersonalizacion(int paisId);
+
+        [OperationContract]
+        IList<BEShowRoomPersonalizacionNivel> GetShowRoomPersonalizacionNivel(int paisId, int eventoId, int nivelId);
         #endregion
 
         #region Producto SUgerido

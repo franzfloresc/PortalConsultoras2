@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using OpenSource.Library.DataAccess;
 using Portal.Consultoras.Entities;
+using Portal.Consultoras.Entities.ShowRoom;
 
 namespace Portal.Consultoras.Data
 {
@@ -45,8 +46,6 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@DiasAntes", DbType.Int32, showRoomEvento.DiasAntes);
             Context.Database.AddInParameter(command, "@DiasDespues", DbType.Int32, showRoomEvento.DiasDespues);
             Context.Database.AddInParameter(command, "@NumeroPerfiles", DbType.Int32, showRoomEvento.NumeroPerfiles);
-            Context.Database.AddInParameter(command, "@RutaShowRoomPopup", DbType.String, showRoomEvento.RutaShowRoomPopup);
-            Context.Database.AddInParameter(command, "@RutaShowRoomBannerLateral", DbType.String, showRoomEvento.RutaShowRoomBannerLateral);
             Context.Database.AddInParameter(command, "@UsuarioCreacion", DbType.String, showRoomEvento.UsuarioCreacion);
 
             int result = Context.ExecuteNonQuery(command);
@@ -74,8 +73,6 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@DiasAntes", DbType.Int32, showRoomEvento.DiasAntes);
             Context.Database.AddInParameter(command, "@DiasDespues", DbType.Int32, showRoomEvento.DiasDespues);
             Context.Database.AddInParameter(command, "@NumeroPerfiles", DbType.Int32, showRoomEvento.NumeroPerfiles);
-            Context.Database.AddInParameter(command, "@RutaShowRoomPopup", DbType.String, showRoomEvento.RutaShowRoomPopup);
-            Context.Database.AddInParameter(command, "@RutaShowRoomBannerLateral", DbType.String, showRoomEvento.RutaShowRoomBannerLateral);
             Context.Database.AddInParameter(command, "@UsuarioModificacion", DbType.String, showRoomEvento.UsuarioModificacion);
             Context.Database.AddInParameter(command, "@Estado", DbType.Int32, showRoomEvento.Estado);
 
@@ -498,6 +495,29 @@ namespace Portal.Consultoras.Data
 
             return Context.ExecuteReader(command);
         }
-        
+
+        public IDataReader GetShowRoomNivel()
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("ShowRoom.GetShowRoomNivel");
+
+            return Context.ExecuteReader(command);
+        }
+
+        public IDataReader GetShowRoomPersonalizacion()
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("ShowRoom.GetShowRoomPersonalizacion");
+
+            return Context.ExecuteReader(command);
+        }
+
+        public IDataReader GetShowRoomPersonalizacionNivel(int eventoId, int nivelId)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("ShowRoom.GetShowRoomPersonalizacionNivel");
+
+            Context.Database.AddInParameter(command, "@EventoId", DbType.Int32, eventoId);
+            Context.Database.AddInParameter(command, "@NivelId", DbType.Int32, nivelId);
+
+            return Context.ExecuteReader(command);
+        }
     }
 }

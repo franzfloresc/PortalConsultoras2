@@ -62,6 +62,7 @@
     <MetadataFile FileName="PedidoService1.xsd" MetadataType="Schema" ID="cbd72d9c-310e-48ef-8f69-d74244a47f2e" SourceId="1" SourceUrl="http://localhost:41615/PedidoService.svc?xsd=xsd2" />
     <MetadataFile FileName="PedidoService2.xsd" MetadataType="Schema" ID="9ef0996c-ab0b-47d5-9304-278f7642c990" SourceId="1" SourceUrl="http://localhost:41615/PedidoService.svc?xsd=xsd3" />
     <MetadataFile FileName="PedidoService3.xsd" MetadataType="Schema" ID="350393ef-36bf-4699-8e3e-27e407be7771" SourceId="1" SourceUrl="http://localhost:41615/PedidoService.svc?xsd=xsd4" />
+    <MetadataFile FileName="PedidoService5.xsd" MetadataType="Schema" ID="ba7de9b6-bd7b-4f87-a25e-85dfe9697682" SourceId="1" SourceUrl="http://localhost:41615/PedidoService.svc?xsd=xsd5" />
     <MetadataFile FileName="PedidoService.disco" MetadataType="Disco" ID="84cc0c58-a207-4b7e-960f-065ecc215bcd" SourceId="1" SourceUrl="http://localhost:41615/PedidoService.svc?disco" />
     <MetadataFile FileName="PedidoService.wsdl" MetadataType="Wsdl" ID="359935a2-44e6-4500-9aa4-d54f8e9a500d" SourceId="1" SourceUrl="http://localhost:41615/PedidoService.svc?wsdl" />
     <MetadataFile FileName="PedidoService4.xsd" MetadataType="Schema" ID="e8de0294-a774-495d-9e14-848b2f3460a4" SourceId="1" SourceUrl="http://localhost:41615/PedidoService.svc?xsd=xsd0" />

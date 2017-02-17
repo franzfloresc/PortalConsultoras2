@@ -1527,7 +1527,7 @@ namespace Portal.Consultoras.Web.Controllers
                     if (beShowRoom.Estado == 1)
                     {
                         bool mostrarShowRoomProductos = false;
-                        var rutaShowRoomPopup = beShowRoom.RutaShowRoomPopup;
+                        var rutaShowRoomPopup = "";
                         var fechaHoy = DateTime.Now.AddHours(userData.ZonaHoraria).Date;
 
                         int diasAntes = beShowRoom.DiasAntes;
@@ -1625,7 +1625,7 @@ namespace Portal.Consultoras.Web.Controllers
                     anioFaltante = model.AnioFaltante,
                     evento = model.BEShowRoom,
                     mostrarShowRoomProductos = model.MostrarShowRoomProductos,
-                    rutaShowRoomBannerLateral = model.RutaShowRoomBannerLateral,
+                    rutaShowRoomBannerLateral = "",
                     estaActivoLateral = model.EstaActivoLateral
                 });
             }

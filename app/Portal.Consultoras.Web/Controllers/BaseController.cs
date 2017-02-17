@@ -1438,6 +1438,9 @@ namespace Portal.Consultoras.Web.Controllers
                         model.BeShowRoomConsultora = sv.GetShowRoomConsultora(model.PaisID, model.CampaniaID, model.CodigoConsultora);
                         model.BeShowRoom = sv.GetShowRoomEventoByCampaniaID(model.PaisID, model.CampaniaID);
 
+                        model.ListaShowRoomNivel = sv.GetShowRoomNivel(model.PaisID).ToList();
+                        model.ListaShowRoomPersonalizacion = sv.GetShowRoomPersonalizacion(model.PaisID).ToList();
+
                         if (model.BeShowRoom != null)
                         {
                             var carpetaPais = Globals.UrlMatriz + "/" + model.CodigoISO;
@@ -1983,7 +1986,7 @@ namespace Portal.Consultoras.Web.Controllers
             else if (model.BEShowRoomConsultora == null) model.BEShowRoomConsultora = new BEShowRoomEventoConsultora();
             if (model.BEShowRoom.Estado != 1) return new ShowRoomBannerLateralModel { EventoNoEncontrado = true };
 
-            model.RutaShowRoomBannerLateral = model.BEShowRoom.RutaShowRoomBannerLateral;
+            //model.RutaShowRoomBannerLateral = "";
             model.EstaActivoLateral = true;
             var fechaHoy = DateTime.Now.AddHours(userData.ZonaHoraria).Date;
 
@@ -1991,7 +1994,7 @@ namespace Portal.Consultoras.Web.Controllers
                 fechaHoy <= userData.FechaInicioCampania.AddDays(model.BEShowRoom.DiasDespues).Date)
             {
                 model.MostrarShowRoomProductos = true;
-                model.RutaShowRoomBannerLateral = Url.Action("Index", "ShowRoom");
+                //model.RutaShowRoomBannerLateral = Url.Action("Index", "ShowRoom");
             }
             if (fechaHoy > userData.FechaInicioCampania.AddDays(model.BEShowRoom.DiasDespues).Date) model.EstaActivoLateral = false;
 

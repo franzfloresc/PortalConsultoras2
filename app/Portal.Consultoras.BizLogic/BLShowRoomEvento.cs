@@ -8,6 +8,7 @@ using System.Transactions;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Data;
 using Portal.Consultoras.Entities;
+using Portal.Consultoras.Entities.ShowRoom;
 
 namespace Portal.Consultoras.BizLogic
 {
@@ -333,6 +334,48 @@ namespace Portal.Consultoras.BizLogic
                 }
             return entidad;
         }
-        
+
+        public IList<BEShowRoomNivel> GetShowRoomNivel(int paisId)
+        {
+            var lst = new List<BEShowRoomNivel>();
+            var dataAccess = new DAShowRoomEvento(paisId);
+
+            using (IDataReader reader = dataAccess.GetShowRoomNivel())
+                while (reader.Read())
+                {
+                    var entity = new BEShowRoomNivel(reader);
+                    lst.Add(entity);
+                }
+            return lst;
+        }
+
+        public IList<BEShowRoomPersonalizacion> GetShowRoomPersonalizacion(int paisId)
+        {
+            var lst = new List<BEShowRoomPersonalizacion>();
+            var dataAccess = new DAShowRoomEvento(paisId);
+
+            using (IDataReader reader = dataAccess.GetShowRoomPersonalizacion())
+                while (reader.Read())
+                {
+                    var entity = new BEShowRoomPersonalizacion(reader);
+                    lst.Add(entity);
+                }
+            return lst;
+        }
+
+        public IList<BEShowRoomPersonalizacionNivel> GetShowRoomPersonalizacionNivel(int paisId, int eventoId,
+            int nivelId)
+        {
+            var lst = new List<BEShowRoomPersonalizacionNivel>();
+            var dataAccess = new DAShowRoomEvento(paisId);
+
+            using (IDataReader reader = dataAccess.GetShowRoomPersonalizacionNivel(eventoId, nivelId))
+                while (reader.Read())
+                {
+                    var entity = new BEShowRoomPersonalizacionNivel(reader);
+                    lst.Add(entity);
+                }
+            return lst;
+        }
     }
 }
