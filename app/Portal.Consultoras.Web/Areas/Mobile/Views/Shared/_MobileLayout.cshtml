@@ -338,17 +338,18 @@
                     {
                         <li>
                             <div id="BloqueMobileOfertaDia" class="BloqueOfertaDia" style="background-color:@ofertaDelDia.ColorFondo1">
-                                <div class="content_320" style="padding:0;" id="content_oferta_dia_mobile">
-                                    <div class="float_left">
-                                        <div class="solo_hoy_mobile">
-                                            <img id="img1-solohoy-odd" alt="" src="@ofertaDelDia.ImagenSoloHoy" />
-            </div>
-                                        <div class="nombre_set_oferta_mobile">@ofertaDelDia.NombreOferta <br />A SOLO <b>@ViewBag.Simbolo @ofertaDelDia.PrecioOfertaFormat</b></div>
-                                        <a class="btn_compralo_ahora" href="#">CÓMPRALO AHORA</a>
-            </div>
+                                <div style="width:90%; margin:0 auto;" id="content_oferta_dia_mobile">
+                                    <div class="solo_hoy_mobile">
+                                        <img id="img1-solohoy-odd" alt="" src="@ofertaDelDia.ImagenSoloHoy" />
+                                    </div>
                                     <div class="imagen_set_oferta_mobile">
                                         <img src="@ofertaDelDia.ImagenBanner" alt="Solo Hoy" id="img-banner-odd" />
-        </div>
+                                    </div>
+                                    <div class="float_left" style="width:50%; margin-left:3%;">                                       
+                                        <div class="nombre_set_oferta_mobile">@ofertaDelDia.NombreOferta <br /><b> A SOLO @ViewBag.Simbolo @ofertaDelDia.PrecioOfertaFormat</b></div>
+                                        <a class="btn_compralo_ahora" href="#">CÓMPRALO AHORA</a>
+                                     </div>
+                                    
                                     <hr class="clear" />
 
                                     <input type="hidden" id="tipoestrategia-id-odd" value="@ofertaDelDia.TipoEstrategiaID" />
