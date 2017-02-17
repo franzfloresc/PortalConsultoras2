@@ -2,6 +2,8 @@
 @{
     var nro = 0;
     var textoNingunaDireccion = Model.Puntos.Count > 1 ? "Ninguna dirección coincide, asignar manualmente" : (Model.Puntos.Count > 0 ? "La dirección no coincide, asignar manualmente" : "No figura dirección, asignar manualmente");
+    var DireccionCadena = string.IsNullOrEmpty(Model.DireccionCadena) ? "" : Model.DireccionCadena + ",";
+    var NombreComuna = string.IsNullOrEmpty(Model.NombreComuna) ? "" : Model.NombreComuna + ",";
 }
 
 <style>
@@ -153,7 +155,7 @@
     {
         <div style="position:relative;float:left;width:90%;height:100%;padding:20px 40px;">
             <h4 style="font-size: 12pt;">
-                La direcci&oacute;n <span style="font-weight: bold; color: #768ea3; font-size: 13pt;">@string.Format("{0}, {1}, {2}", Model.DireccionCadena, Model.NombreComuna, Model.NombreRegion)</span> no se pudo localizar. 
+                La direcci&oacute;n <span style="font-weight: bold; color: #768ea3; font-size: 13pt;">@string.Format("{0} {1} {2}", DireccionCadena, NombreComuna, Model.NombreRegion)</span> no se pudo localizar. 
                 <br /> <br />
                 Verifica que sea la direcci&oacute;n correcta o en todo caso podr&aacute;s georeferenciar m&aacute;s adelante.
             </h4>
