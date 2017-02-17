@@ -133,56 +133,81 @@
 
     <!-- header -->
     <header id="new-header">
-        <div id="bloquemensajesPedido" style="display:none;">
-            <div class="oscurecer_animacion"></div>
-            <div class="bloque_mensajesPedido">
-                <div class="icono_cerrar_mensaje">
-                    <span>
-                        <a href="javascript:void();" id="cerrarMensajeEstadoPedido" title="Cerrar" onclick="cerrarMensajeEstadoPedido();">
-                            <img src="/Content/Images/btn_cerrar_popup.png" alt="Cerrar">
-                        </a>
-                    </span>
-                </div>
-                <div class="icono_estadoPedido">
-                    <img src="@Url.Content("~/Content/Images/icono_exclamacion_estado_pedido.png")" alt="Icono Estado Pedido" />
-                </div>
-                <div class="mensajes_estadoPedido">
-                    @*<span class="mensaje_estadoActualPedido">NOS ENCONTRAMOS FACTURANDO TU PEDIDO</span>
-                <span class="mensaje_horarioIngresoPedido">Si quieres ingresar pedido, lo puedes hacer desde mañana a las 7 a.m.</span>*@
-                    <span class="mensaje_estadoActualPedido">TU PEDIDO HA SIDO RECHAZADO</span>
-                    <span class="mensaje_horarioIngresoPedido">
-                        Tienes una deuda de S/. <span>200</span> que debes regularizar.
-                        <a href="#" title="MIRA LOS LUGARES DE PAGO">MIRA LOS LUGARES DE PAGO</a>
-                    </span>
-                </div>
-            </div>
+        <div id="flexslidertop" class="header_slider" >
+            <a class="btn_cerrar_oferta_mobile" href="javascript:;" onclick="javascript: $('.header_slider').slideUp();">X</a>
+            <ul class="slides">
+                <li>
+                    <!--OFERTA DEL DIA HEADER-->
+                    <div class="BloqueOfertaDiaHeader">
+                        <div class="row_contador" style="padding:0;">
+                            <div class="float_left">
+                                <div class="solo_hoy_mobile2"><img src="@Url.Content("~/Content/Images/PL20/solo_hoy.png")" alt="Solo Hoy" /></div>
+                                <div class="nombre_set_oferta_mobile" style="margin-left:10px;">SET ILUMINAS A SOLO <b>$31.99</b></div>
+                            </div>
+                            <div class="imagen_set_oferta_mobile" style="float:right;width:78px; margin-right:20px;"><img src="@Url.Content("~/Content/Images/PL20/set_hoy.png")" alt="Solo Hoy" /></div>
+                            <hr class="clear" />
+                        </div>                        
+                    </div>
+                    <!--FIN-->
+                </li>
+                <li>
+                    <div class="content_banner_header_showroom">
+                         <div class="faltan_dias_header">FALTAN <b>5 DÍAS</b></div>        
+                         <img src="@Url.Content("~/Content/Images/Mobile/img-showroom/banner_intriga_new_header.png")" alt="Solo Hoy" />                                          
+                    </div>
+                </li>
+            </ul>
         </div>
-            
-            <div class="container-fluid" style="padding-top:9px; padding-bottom:9px;">
-                <div class="row">
-                    <div class="col-xs-4">
-                        <img src="@Url.Content("~/Content/Images/mobile/Esika/icon_menu.png")" id="ic_menu" class="icon-menu" alt="Menú" />
-                    </div>
-                    <div class="col-xs-4 text-center">
-                        <a role="link" region="Superior" parent="Bienvenida" title="Bienvenida"
-                           class="logo_mobile" href="@Url.Action("Index", "Bienvenida", new { area = "Mobile" })"></a>
-                    </div>
-                    <div class="col-xs-4 text-right">
-                        <div class="menu-shop">
-                            <a role="link" region="Superior" parent="Pedido" title="Pedido"
-                               class="campana_mobile" href="@Url.Action("Detalle", "Pedido", new { area = "Mobile" })" id="lnk-sup-pedido">
-                                <span role="link" region="Superior" parent="Pedido" title="Pedido" class="icon-menu-shop"><i class="icon-shop-belcorp"></i></span>
-                                <span role="link" region="Superior" parent="Pedido" title="Pedido" class="num-menu-shop">0</span>
-                            </a>
-                            <a role="link" region="Superior" parent="Notificaciones" title="Notificaciones"
-                               class="campana_mobile" href="@Url.Action("Index","Notificaciones", new { area = "Mobile" })" style="margin-left: -15px;">
-                                <div role="link" region="Superior" parent="Notificaciones" title="Notificaciones" class="campana_svg_mobile"><p role="link" region="Superior" parent="Notificaciones" title="Notificaciones" class="notificaciones_mobiles">0</p></div>
-                            </a>
+        <div id="bloquemensajesPedido" style="display:none;">
+                    <div class="oscurecer_animacion"></div>
+                    <div class="bloque_mensajesPedido">
+                        <div class="icono_cerrar_mensaje">
+                            <span>
+                                <a href="javascript:void();" id="cerrarMensajeEstadoPedido" title="Cerrar" onclick="cerrarMensajeEstadoPedido();">
+                                    <img src="/Content/Images/btn_cerrar_popup.png" alt="Cerrar">
+                                </a>
+                            </span>
+                        </div>
+                        <div class="icono_estadoPedido">
+                            <img src="@Url.Content("~/Content/Images/icono_exclamacion_estado_pedido.png")" alt="Icono Estado Pedido" />
+                        </div>
+                        <div class="mensajes_estadoPedido">
+                            @*<span class="mensaje_estadoActualPedido">NOS ENCONTRAMOS FACTURANDO TU PEDIDO</span>
+                                <span class="mensaje_horarioIngresoPedido">Si quieres ingresar pedido, lo puedes hacer desde mañana a las 7 a.m.</span>*@
+                            <span class="mensaje_estadoActualPedido">TU PEDIDO HA SIDO RECHAZADO</span>
+                            <span class="mensaje_horarioIngresoPedido">
+                                Tienes una deuda de S/. <span>200</span> que debes regularizar.
+                                <a href="#" title="MIRA LOS LUGARES DE PAGO">MIRA LOS LUGARES DE PAGO</a>
+                            </span>
                         </div>
                     </div>
                 </div>
-            </div>
-</header>
+
+        <div class="container-fluid" style="padding-top:9px; padding-bottom:9px;">
+                    <div class="row">
+                        <div class="col-xs-4">
+                            <img src="@Url.Content("~/Content/Images/mobile/Esika/icon_menu.png")" id="ic_menu" class="icon-menu" alt="Menú" />
+                        </div>
+                        <div class="col-xs-4 text-center">
+                            <a role="link" region="Superior" parent="Bienvenida" title="Bienvenida"
+                               class="logo_mobile" href="@Url.Action("Index", "Bienvenida", new { area = "Mobile" })"></a>
+                        </div>
+                        <div class="col-xs-4 text-right">
+                            <div class="menu-shop">
+                                <a role="link" region="Superior" parent="Pedido" title="Pedido"
+                                   class="campana_mobile" href="@Url.Action("Detalle", "Pedido", new { area = "Mobile" })" id="lnk-sup-pedido">
+                                    <span role="link" region="Superior" parent="Pedido" title="Pedido" class="icon-menu-shop"><i class="icon-shop-belcorp"></i></span>
+                                    <span role="link" region="Superior" parent="Pedido" title="Pedido" class="num-menu-shop">0</span>
+                                </a>
+                                <a role="link" region="Superior" parent="Notificaciones" title="Notificaciones"
+                                   class="campana_mobile" href="@Url.Action("Index","Notificaciones", new { area = "Mobile" })" style="margin-left: -15px;">
+                                    <div role="link" region="Superior" parent="Notificaciones" title="Notificaciones" class="campana_svg_mobile"><p role="link" region="Superior" parent="Notificaciones" title="Notificaciones" class="notificaciones_mobiles">0</p></div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+    </header>
     @if (ViewBag.MostrarBannerPL20 == true)
     {
         if (ViewBag.MostrarOfertaDelDia == true)
@@ -242,36 +267,43 @@
                 <ul class="slides">
                     @if (ViewBag.MostrarShowRoomBannerLateral == true)
                     {
-                        if (showRoomBannerLateral.MostrarShowRoomProductos)
+                        if (!showRoomBannerLateral.MostrarShowRoomProductos)
                         {
                             <li>
                                 <div id="divShowRoomHoy" class="divShowRoom">
                                     <input type="hidden" id="hdEventoIDShowRoom" value="@showRoomBannerLateral.BEShowRoom.EventoID" />
                                     <input type="hidden" id="hdNombreEventoShowRoom" value="@showRoomBannerLateral.BEShowRoom.Tema" />
-        <div class="imagen_preventa">
-            <div class="etiqueta_2">
-                <img src="@Url.Content("~/Content/Images/mobile/img-showroom/etiqueta_2.png")" alt="-" />
-            </div>
-            <div class="titulo_contador_m">
-                @*PRE · VENTA DIGITAL*@
+                                    @*<div class="imagen_preventa">
+                                        <div class="etiqueta_2">
+                                            <img src="@Url.Content("~/Content/Images/mobile/img-showroom/etiqueta_2.png")" alt="-" />
+                                        </div>
+                                        <div class="titulo_contador_m">
                                             <span id="spnPreventaDigitalHoy">@showRoomBannerLateral.BEShowRoom.Nombre</span>
-            </div>
-        </div>
-                                    <div class="fondo_white" style="height:80px; overflow:hidden">
-                                        <div class="row_contador">
-                                            <div style="text-align: center;">
-                                                <a id="lnkConoceMasShowRoomBannerLateralImagenHoy" class="content_imagen_slider_showroom" href="@Url.Action("Index", "ShowRoom", new { area = "Mobile" })">
-                                                    <img id="imgVentaSetPopupBannerHoy" alt="imgVentaSetPopupBannerHoy" src="@showRoomBannerLateral.BEShowRoom.ImagenVentaSetPopup" />
-                                                </a>
+                                        </div>
+                                    </div>*@
+                                        <div class="fondo_m">
+                                            <div class="content_banner_new_showroom">
+                                                <div class="dias_faltantes">FALTAN <span id="spnDiasFaltantes">12 </span> DÍAS</div>
+                                                <img style="width:100%;height:100%;" src="@Url.Content("~/Content/Images/mobile/img-showroom/banner_intriga_new_showroom.png")" alt="-" />
                                             </div>
                                         </div>
+                                        @*<div class="fondo_white" style="height:80px; overflow:hidden">
+                                            <div class="content_banner_new_showroom">
+                                                <div style="text-align: center;">
+                                                    <a id="lnkConoceMasShowRoomBannerLateralImagenHoy" class="content_imagen_slider_showroom" href="@Url.Action("Index", "ShowRoom", new { area = "Mobile" })">
+                                                        
+                                                        <img id="imgVentaSetPopupBannerHoy" alt="imgVentaSetPopupBannerHoy" src="@showRoomBannerLateral.BEShowRoom.ImagenVentaSetPopup" />
+                                                        
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>*@
+                                        @*<div class="contenedor_encuentralos2">
+                <div class="row_contador">
+                    <a href="@Url.Action("Index", "ShowRoom", new { area = "Mobile" })" class="btn_encuentralos" id="lnkConoceMasShowRoomBannerLateralHoy">ENCUENTRALOS AQUI</a>
+                </div>
+            </div>*@
                                     </div>
-                                    <div class="contenedor_encuentralos2">
-                                        <div class="row_contador">
-                                            <a href="@Url.Action("Index", "ShowRoom", new { area = "Mobile" })" class="btn_encuentralos" id="lnkConoceMasShowRoomBannerLateralHoy">ENCUENTRALOS AQUI</a>
-                                        </div>
-                                    </div>
-                                </div>
                             </li>
                         }
                         else if(ViewBag.MostrarOfertaDelDia == false)
@@ -280,48 +312,23 @@
                                 <div id="divShowRoom" class="divShowRoom">
                                     <input type="hidden" id="hdEventoIDShowRoom" value="@showRoomBannerLateral.BEShowRoom.EventoID" />
                                     <input type="hidden" id="hdNombreEventoShowRoom" value="@showRoomBannerLateral.BEShowRoom.Tema" />
-                                    <div class="imagen_preventa">
+                                    @*<div class="imagen_preventa">
                                         <div class="etiqueta_2">
                                             <img src="@Url.Content("~/Content/Images/mobile/img-showroom/etiqueta_2.png")" alt="-" />
                                         </div>
                                         <div class="titulo_contador_m">
-                                            @*PRE · VENTA DIGITAL*@
+                                          
                                             <span id="spnPreventaDigital">@showRoomBannerLateral.BEShowRoom.Nombre</span>
                                         </div>
-                                    </div>
-        <div class="fondo_m">
-            <div class="row_contador">
-                <div style="float: left; margin-top: 12px; margin-left: 20px; width: 110px;">
-                    <div class="texto_dias_m">
-                        SÓLO FALTAN
-                    </div>
-                    <div class="texto_fecha_m">
-                        <span id="spnDiasFaltantes">12</span>
-                    </div>
-                    <div class="texto_dias_m">
-                        DÍAS
-                    </div>
-                </div>
-                <div style="float: left; margin-top: 12px; margin-left: 22px; width: 135px;">
-                    <div style="height: 20px; width: 135px;">
-                        <div class="text_hora_m">hrs</div>
-                        <div class="text_hora_m">min</div>
-                        <div class="text_hora_m no_margin_right">sec</div>
-                    </div>
-                    <div class="fondo_contador">
-                        <div class="text_numero"><span id="spnHorasFaltantes">18</span></div>
-                        <div class="text_bolita">•</div>
-                        <div class="text_numero"><span id="spnMinutosFaltantes">25</span></div>
-                        <div class="text_bolita">•</div>
-                        <div class="text_numero"><span id="spnSegundosFaltantes">02</span></div>
-                    </div>
-                    <div style="margin-top: 6px;">
-                                                    <a href="@showRoomBannerLateral.RutaShowRoomBannerLateral" class="boton_showroom" id="lnkConoceMasShowRoomBannerLateral" target="_blank">CONOCE MÁS AQUÍ</a>
-                    </div>
-                </div>
+                                    </div>*@
+                                    <div class="fondo_m">
+                                        <div class="content_banner_new_showroom">
+                                            <div class="dias_faltantes">FALTAN <span id="spnDiasFaltantes">12 </span> DÍAS</div>
+                                            <img style="width:100%;" src="@Url.Content("~/Content/Images/mobile/img-showroom/banner_intriga_new_showroom.png")" alt="-" />
+                                            
 
-            </div>
-        </div>
+                                            </div>
+                                        </div>
 
     </div>
                             </li>
@@ -331,17 +338,18 @@
                     {
                         <li>
                             <div id="BloqueMobileOfertaDia" class="BloqueOfertaDia" style="background-color:@ofertaDelDia.ColorFondo1">
-                                <div class="content_320" style="padding:0;" id="content_oferta_dia_mobile">
-                                    <div class="float_left">
-                                        <div class="solo_hoy_mobile">
-                                            <img id="img1-solohoy-odd" alt="" src="@ofertaDelDia.ImagenSoloHoy" />
-            </div>
-                                        <div class="nombre_set_oferta_mobile">@ofertaDelDia.NombreOferta <br />A SOLO <b>@ViewBag.Simbolo @ofertaDelDia.PrecioOfertaFormat</b></div>
-                                        <a class="btn_compralo_ahora" href="#">CÓMPRALO AHORA</a>
-            </div>
+                                <div style="width:90%; margin:0 auto;" id="content_oferta_dia_mobile">
+                                    <div class="solo_hoy_mobile">
+                                        <img id="img1-solohoy-odd" alt="" src="@ofertaDelDia.ImagenSoloHoy" />
+                                    </div>
                                     <div class="imagen_set_oferta_mobile">
                                         <img src="@ofertaDelDia.ImagenBanner" alt="Solo Hoy" id="img-banner-odd" />
-        </div>
+                                    </div>
+                                    <div class="float_left" style="width:50%; margin-left:3%;">                                       
+                                        <div class="nombre_set_oferta_mobile">@ofertaDelDia.NombreOferta <br /><b> A SOLO @ViewBag.Simbolo @ofertaDelDia.PrecioOfertaFormat</b></div>
+                                        <a class="btn_compralo_ahora" href="#">CÓMPRALO AHORA</a>
+                                     </div>
+                                    
                                     <hr class="clear" />
 
                                     <input type="hidden" id="tipoestrategia-id-odd" value="@ofertaDelDia.TipoEstrategiaID" />
@@ -713,7 +721,10 @@
                     $(".header_pop_oferta").click(function () {
                         $('body').css({ 'overflow-y': 'scroll' });
                         $('#pop_oferta_mobile').toggle('slide', {direction: 'right' }, 500);
-                    });
+                    }); 
+                    
+
+                    
                 };
 
                 function closeBannerPL20() {
@@ -933,6 +944,8 @@
             SetFormatDecimalPais(formatDecimalPaisMain);
             MensajeEstadoPedido();
             HandlebarsRegisterHelper();
+            //$('.header_slider').slideUp();
+          
             $('.menu_footer').on('click', function () {
                 var $obj = $(this);
                 if ($obj.hasClass('menu_footer')) {
@@ -1015,23 +1028,101 @@
                 $txtcantidad.val(cantidad);
             });
 
+            
+            $("body").on("click", "[data-popup-main]", function (e) {
+                if (!$(e.target).closest('[data-popup-body]').length) {
+
+                    if ($(e.target).is(':visible')) {
+
+                        var functionHide = $('[data-popup-main]').attr("data-popup-function-hide");
+                        if (functionHide != "") {
+                            setTimeout(functionHide + "()", 100);
+                        }
+                        $(e.target).hide();
+                    }
+                }
+            });
+
+
+            $("body").on("click", "[data-popup-close]", function (e) {
+                var popupClose = $("#" + $(this).attr("data-popup-close")) || $(this).parent("[data-popup-main]");
+
+                var functionHide = $(popupClose).attr("data-popup-function-hide");
+                if (functionHide != "") {
+                    setTimeout(functionHide + "()", 100);
+                }
+                $(popupClose).hide();
+            });
+
             if(MostrarBannerPL20) loadBannerLP20();
             });
 
         function loadBannerLP20() {
+            debugger;
             if(typeof CargarShowRoom !== 'undefined' && $.isFunction(CargarShowRoom)) CargarShowRoom();
             if(typeof CargarEventosODD !== 'undefined' && $.isFunction(CargarEventosODD)) CargarEventosODD();
 
             if($('#flexslider ul.slides li').length > 0){
                 $("#content").css("margin-top", "0px");
                 $('#content_slider_banner').show();
+                //$('#content_slider_banner').hide();
 
                 //Dejar esta línea al último, ya que antes de ejecutar flexslider el div ya debe de mostrarse.
                 $('#flexslider').flexslider({ 
                     animation: "slide",
                     pauseOnAction: false,
                     //pausePlay: true 
-            });
+                });
+
+                var url = location.href.toLowerCase();
+                var identi = url.indexOf("/mobile/bienvenida") > 0;
+                if (identi){
+                    $('#flexslidertop').css("display","none");
+                }
+
+                var identisegped = url.indexOf("/mobile/seguimientopedido") > 0;
+                if (identisegped){
+                    $('#flexslidertop').flexslider({ 
+                        animation: "slide",
+                        pauseOnAction: false,
+                        //pausePlay: true 
+                    });
+
+                    $('#flexslider').css("display","none");
+                }
+
+                var indeticli = url.indexOf("/mobile/cliente") > 0;
+                if (indeticli){
+                    $('#flexslidertop').flexslider({ 
+                        animation: "slide",
+                        pauseOnAction: false,
+                        //pausePlay: true 
+                    });
+
+                    $('#flexslider').css("display","none");
+                }
+
+                var indetiestado = url.indexOf("/mobile/estadocuenta") > 0;
+                if (indetiestado){
+                    $('#flexslidertop').flexslider({ 
+                        animation: "slide",
+                        pauseOnAction: false,
+                        //pausePlay: true 
+                    });
+                    $('#flexslider').css("display","none");
+                }
+
+                //$('#flexslidertop').flexslider({ 
+                //    animation: "slide",
+                //    pauseOnAction: false,
+                //    //pausePlay: true 
+                //});
+            }else{
+                var url = location.href.toLowerCase();
+                //var identi = url.indexOf("/mobile/") > 0;
+
+
+                $('#flexslidertop').css("display","none");
             }
         }
         
