@@ -133,7 +133,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 && !beConfiguracionCampania.ModificaPedidoReservado
                 && !beConfiguracionCampania.ValidacionAbierta)
                 return RedirectToAction("Validado", "Pedido", new { area = "Mobile" });
-
+ 
             var model = new PedidoDetalleMobileModel();
             model.CodigoISO = userData.CodigoISO;
             model.Simbolo = userData.Simbolo;
@@ -286,6 +286,12 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             }
             if (beConfiguracionCampania != null)
             {
+                if (userData.EstadoPedido == Constantes.EstadoPedido.Procesado && !beConfiguracionCampania.ValidacionAbierta )
+                {
+                     userData.CerrarRechazado = 1;
+                     userData.MostrarBannerRechazo = false;
+                     SetUserData(userData);
+                }
                 if (beConfiguracionCampania.CampaniaID > userData.CampaniaID)
                     return RedirectToAction("Index");
             }

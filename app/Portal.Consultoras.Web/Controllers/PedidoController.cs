@@ -222,7 +222,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 userData.PedidoID = 0;
                 if (model.PedidoWebDetalle.Count != 0)
-                {
+                {                   
                     if (userData.PedidoID == 0)
                     {
                         userData.PedidoID = model.PedidoWebDetalle[0].PedidoID;
@@ -1837,7 +1837,8 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
                 var productosFaltantes = this.GetProductosFaltantes(cuv, descripcion);
-                var model = productosFaltantes.GroupBy(pf => pf.Categoria).Select(pfg => new ProductoFaltanteModel {
+                var model = productosFaltantes.GroupBy(pf => pf.Categoria).Select(pfg => new ProductoFaltanteModel
+                {
                     Categoria = pfg.Key,
                     Detalle = pfg.Select(pf => pf).OrderBy(pf => pf.Catalogo).ThenBy(pf => pf.NumeroPagina).ToList()
                 });
@@ -3288,16 +3289,16 @@ namespace Portal.Consultoras.Web.Controllers
                             ValidacionAbierta = true;
                             Estado = Constantes.EstadoPedido.Procesado;
 
-                        //    if (userData.IndicadorGPRSB == 2)
-                        //    {
-                        //        if (ValidacionAbierta && userData.EstadoPedido == 202)
-                        //        {
-                        //            userData.CerrarRechazado = 0;
-                        //            userData.MostrarBannerRechazo = true;
-                        //            ViewBag.MostrarBannerRechazo = true;
-                        //            SetUserData(userData);
-                        //        }
-                        //    }
+                            //    if (userData.IndicadorGPRSB == 2)
+                            //    {
+                            //        if (ValidacionAbierta && userData.EstadoPedido == 202)
+                            //        {
+                            //            userData.CerrarRechazado = 0;
+                            //            userData.MostrarBannerRechazo = true;
+                            //            ViewBag.MostrarBannerRechazo = true;
+                            //            SetUserData(userData);
+                            //        }
+                            //    }
                         }
                         olstPedidoWebDetalle = ObtenerPedidoWebDetalle();
 
@@ -3322,6 +3323,16 @@ namespace Portal.Consultoras.Web.Controllers
                                 //Tipo 103: Rechazar Reemplazos
                                 sv.InsPedidoWebAccionesPROL(Reemplazos.ToArray(), 100, 103);
                             }
+                        }
+
+                        BEConfiguracionCampania oBEConfiguracionCampania = null;
+                        oBEConfiguracionCampania = sv.GetEstadoPedido(userData.PaisID, userData.CampaniaID, userData.ConsultoraID, userData.ZonaID, userData.RegionID);
+
+                        if (userData.IndicadorGPRSB == 2 && oBEConfiguracionCampania.ValidacionAbierta)
+                        {
+                            userData.MostrarBannerRechazo = true;
+                            userData.CerrarRechazado = 0;
+                            SetUserData(userData);
                         }
                     }
                 }

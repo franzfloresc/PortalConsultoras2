@@ -802,7 +802,7 @@ namespace Portal.Consultoras.Web.Controllers
                 if (oBEUsuario.IndicadorGPRSB == 2)
                 {
                     MostrarBannerPedidoRechazado = true;
-                    if (!oBEUsuario.ValidacionAbierta && oBEUsuario.EstadoPedido == 202) { MostrarBannerPedidoRechazado = false; }
+                    if (!oBEUsuario.ValidacionAbierta && oBEUsuario.EstadoPedido == 202) { model.CerrarRechazado = 1; MostrarBannerPedidoRechazado = false; }
                     model.MostrarBannerRechazo = MostrarBannerPedidoRechazado;
                     ViewBag.CerrarRechazado = MostrarBannerPedidoRechazado ? 1 : 0;
 
