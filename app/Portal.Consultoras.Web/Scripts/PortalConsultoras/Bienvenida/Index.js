@@ -51,6 +51,30 @@ $(document).ready(function () {
         });
     });
 
+    ////EDP-1564
+    $('.contenedor_fondo_popup').click(function (e) {
+        if (!$(e.target).closest('.popup_actualizarMisDatos').length) {
+            if ($('#popupActualizarMisDatos').is(':visible')) {
+                CerrarPopupActualizacionDatos();
+                $('#fondoComunPopUp').hide();
+            }
+            if ($('#popupMisDatos').is(':visible')) {
+                $('#fondoComunPopUp').hide();
+            }
+        }
+    });
+
+    $('.contenedor_popup_agregarUnidades').click(function (e) {
+        if (!$(e.target).closest('.popup_agregarUnidades').length) {
+            if ($('#popupConfirmacionDatos').is(':visible')) {
+                $('#dialog_AgregasteUnidades').hide();
+            }
+        }
+    });
+
+
+    //Fin EDP-1564
+
     document.onkeydown = function (evt) {
         evt = evt || window.event;
         if (evt.keyCode == 27) {
@@ -71,9 +95,21 @@ $(document).ready(function () {
                 closeComunicadosPopup = true;
             }
             /* SB20-834 - FIN */
+
             if ($('#popupActualizarMisDatos').is(':visible')) {
+                CerrarPopupActualizacionDatos(); //EDP-1564
                 PopupCerrar('popupActualizarMisDatos');
             }
+         
+            //EPD-1564
+            if ($('#popupMisDatos').is(':visible')) {
+                PopupCerrar('popupMisDatos');
+            }
+
+            if ($('#popupConfirmacionDatos').is(':visible')) {
+                $('#dialog_AgregasteUnidades').hide();
+            }
+            // Fin EPD-1564
             if ($('#popupActualizarMisDatosMexico').is(':visible')) {
                 PopupCerrar('popupActualizarMisDatosMexico');
             }

@@ -9,7 +9,7 @@
     <meta name="author" content="Belcorp" />
 
     <title>Belcorp | Portal Consultoras</title>
-    
+
     <link href="@Url.Content("~/Content/Css/Site/flipclock.css")" rel="stylesheet" type="text/css" />
 
     <link href="https://fonts.googleapis.com/css?family=Lato:400,700italic,300,700,900" rel="stylesheet" type="text/css" />
@@ -33,7 +33,7 @@
         var indicadorEnviadoDescarga = '@ViewBag.IndicadorEnviado';
         var estaRechazado = '@ViewBag.IndicadorGPRSB';
         var cerrarRechazado = '@ViewBag.CerrarRechazado';
-        var motivoRechazo = '@ViewBag.MotivoRechazo';       
+        var motivoRechazo = '@ViewBag.MotivoRechazo';
         var UrlChat = '@ViewBag.UrlBelcorpChat';
         var mostrarBannerRechazo = '@ViewBag.MostrarBannerRechazo';
         var UrlChatAnterior = 'https://chat1-cls1-cgn-bct.i6.inconcertcc.com/inconcert/apps/webdesigner/BelcorpNew?token=@ViewBag.TokenAtento';
@@ -111,35 +111,35 @@
         }
     </script>
     @if (ViewBag.Rol == Portal.Consultoras.Common.Constantes.Rol.Consultora)
-    {
-        string nombre_pais = ViewBag.PaisAnalytics;
+{
+    string nombre_pais = ViewBag.PaisAnalytics;
 
-        switch (nombre_pais)
-        {
-            case "EC":
-            <div class="boton_ayuda"><span id="belcorpChat1" class="boton-home"><a href="http://200.32.70.19/Belcorp/" target="_blank">¿Necesitas ayuda?</a> </span></div>            
-                break;
-            case "CO":
-            case "BO":
-            case "CL":
-            case "MX":
-            case "PR":
-            case "DO":
-            case "PE":
-            case "PA":
-            case "CR":
-            case "SV":
-            case "GT":
-        <div class="boton_ayuda"><span id="belcorpChat" class="boton-home"><a href="#">¿Necesitas ayuda?</a> </span></div>
-                break;
-        }
+    switch (nombre_pais)
+    {
+        case "EC":
+            <div class="boton_ayuda"><span id="belcorpChat1" class="boton-home"><a href="http://200.32.70.19/Belcorp/" target="_blank">¿Necesitas ayuda?</a> </span></div>
+            break;
+        case "CO":
+        case "BO":
+        case "CL":
+        case "MX":
+        case "PR":
+        case "DO":
+        case "PE":
+        case "PA":
+        case "CR":
+        case "SV":
+        case "GT":
+            <div class="boton_ayuda"><span class="boton-home belcorpChat"><a href="#">¿Necesitas ayuda?</a> </span></div>
+            break;
     }
+}
     <!-- cabecera -->
     <header>
 
         <!--OFERTA DEL DIA -->
         <div class="bloque_oferta_dia" id="OfertaDelDia" style="display: none">
-        </div>
+        </div>  
         <!--OFERTA DEL DIA -->
 
         <div id="bloquemensajesPedido" style="display: none">
@@ -156,13 +156,13 @@
                 <div class="icono_estadoPedido">
                     <img src="@Url.Content("~/Content/Images/icono_exclamacion_estado_pedido.png")" alt="Icono Estado Pedido" />
                 </div>
-                <div class="mensajes_estadoPedido">                  
+                <div class="mensajes_estadoPedido">
                     <span class="mensaje_estadoActualPedido">TU PEDIDO HA SIDO RECHAZADO</span>
                     <span class="mensaje_horarioIngresoPedido">Tienes una deuda de S/. <span>200</span> que debes regularizar.
                         <a href="#" title="MIRA LOS LUGARES DE PAGO">MIRA LOS LUGARES DE PAGO</a>
                     </span>
                 </div>
-            </div>
+            </div>            
         </div>
         <div class="wrapper_header">
             <div class="logo_esika">
@@ -235,11 +235,11 @@
                     @{
                         if (ViewBag.CampaniaCodigo == null || ViewBag.CampaniaCodigo.ToString().Length < 6)
                         {
-                        @:ESTÁS EN <br /> <span>-</span>
+                            @:ESTÁS EN <br /> <span>-</span>
                         }
                         else
                         {
-                        @:ESTÁS EN <br /> <span>C-@(Portal.Consultoras.Common.Util.SubStr((ViewBag.CampaniaCodigo ?? "").ToString(), 4, 2))</span>
+                            @:ESTÁS EN <br /> <span>C-@(Portal.Consultoras.Common.Util.SubStr((ViewBag.CampaniaCodigo ?? "").ToString(), 4, 2))</span>
                         }
                     }
                 </div>
@@ -405,7 +405,7 @@
             </div>
 
             <a href=""
-                class="boton_showroom" id="lnkConoceMasShowRoomBannerLateral" target="_blank">CONOCE MÁS AQUÍ</a>
+               class="boton_showroom" id="lnkConoceMasShowRoomBannerLateral" target="_blank">CONOCE MÁS AQUÍ</a>
         </div>
     </div>
     <div id="ctrasHoy" class="caja-traslado" style="display: none;">
@@ -425,7 +425,7 @@
         <div class="linea_superior margin_10"></div>
         <div class="pop_pedido_mensaje"></div>
     </div>
-
+    
     <!-- POPUP MENSAJE ERROR - exclamacion  -->
     <div class="contenedor_popup_agregarUnidades contenedor_popup_error" id="dialog_ErrorMainLayout" style="display: none;">
         <div class="popup_agregarUnidades">
@@ -446,6 +446,27 @@
         </div>
     </div>
     <!-- FIN POPUP MENSAJE ERROR - exclamacion -->
+
+    <!-- POPUP SESIÓN FINALIZADA - exclamacion  -->
+    <div class="contenedor_popup_agregarUnidades contenedor_popup_error" id="dialog_SesionMainLayout" style="display: none;">
+        <div class="popup_agregarUnidades">
+            <div class="btn_cerrar_agregarUnidades">
+                <a href="javascript:;" onclick="window.location.href='/SesionExpirada.html'">
+                    <img src="@Url.Content("~/Content/Images/btn_cerrar_popup.png")" alt="Cerrar" />
+                    <span class="texto_btn_cerrar">CERRAR</span>
+                </a>
+            </div>
+            <div class="contenido_popUp">
+                <span class="icono_exclamacion"></span>
+                <h1 class="titulo_agregarUnidades"><b>SESIÓN FINALIZADA</b></h1>
+                <div id="mensajeSesionSB2_Error" class="mensaje_agregarUnidades"></div>
+                <button type="button" name="btn_ok" class="btn_ok" onclick="window.location.href='/SesionExpirada.html'">
+                    OK
+                </button>
+            </div>
+        </div>
+    </div>
+    <!-- FIN POPUP SESIÓN FINALIZADA - exclamacion -->
 
     <div id="divMensajeConfirmacion" style="display: none;">
         <div class="terminos_title_2 divTitle">
@@ -607,14 +628,14 @@
     <script src="@Url.Content("~/Scripts/flipclock.js")" type="text/javascript"></script>
 
     <script type="text/javascript">
-        var clock;
+		var clock;
 
-        $(document).ready(function() {
+		$(document).ready(function() {
 
-            //clock = $('.clock').FlipClock({
-            //    clockFace: 'HourlyCounter'
-            //});
-        });
+			//clock = $('.clock').FlipClock({
+		    //    clockFace: 'HourlyCounter'
+		    //});
+		});
     </script>
     <script type="text/javascript">
         $(document).ready(function () {
@@ -635,7 +656,7 @@
         });
 
     </script>
-
+    
     <script type='text/javascript'>
         (function () {
             var proto = document.location.protocol || 'http:';

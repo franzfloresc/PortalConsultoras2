@@ -21566,7 +21566,7 @@ label.checkpop.c_on {
     -webkit-transition: all 0.3s ease;
     }
 
-.enlaces_home:hover {
+    .enlaces_home:hover {
     /*opacity: 0.5;*/
     /*filter: alpha(opacity=50);*/ /* For IE8 and earlier */
 }
@@ -33310,4 +33310,9 @@ h1#penmostreo .campana {
 }
 .buscar_icono:hover{
     background: #ecebf0 url(../../../Images/Esika/lupa.png) no-repeat center right;
+}
+.enlace_chat a{
+    display:inline;
+    font-weight:bold;
+    text-decoration:underline;
 }
