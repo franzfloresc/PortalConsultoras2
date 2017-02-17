@@ -13,8 +13,6 @@ namespace Portal.Consultoras.Web.Controllers
 {
     public class ConfiguracionValidacionNuevoPROLController : BaseController
     {
-        static int CampaniaID = 201301;
-
         public ActionResult Index()
         {
             try
