@@ -1,26 +1,16 @@
 ﻿using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.CustomFilters;
-using Portal.Consultoras.Web.Models;
+using Portal.Consultoras.Web.Models.AutoMapper;
 using System;
-using System.Collections.Generic;
-using System.Linq;
+using System.Configuration;
 using System.Web;
 using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
-using Portal.Consultoras.Web.Controllers;
-using System.Configuration;
-using Portal.Consultoras.Web.Models.AutoMapper;
-//using System.IdentityModel;
-//using System.IdentityModel.Services;
-//using System.IdentityModel.Services.Configuration;
-//using System.IdentityModel.Tokens;
 
 namespace Portal.Consultoras.Web
 {
-    // Note: For instructions on enabling IIS6 or IIS7 classic mode, 
-    // visit http://go.microsoft.com/?LinkId=9394801
     public class MvcApplication : System.Web.HttpApplication
     {
         protected void Application_Start()
@@ -31,8 +21,8 @@ namespace Portal.Consultoras.Web
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
-            //IoCConfig.RegistrarDependencias();
-            Globals.RutaTemporales = HttpContext.Current.Server.MapPath("~/Content/Temporales"); // 1664
+           
+            Globals.RutaTemporales = HttpContext.Current.Server.MapPath("~/Content/Temporales"); 
             Globals.RutaImagenesTemp = HttpContext.Current.Server.MapPath("~/Content/Images/temp");
             Globals.RutaImagenesTempOfertas = HttpContext.Current.Server.MapPath("~/Content/TemporalesOfertas");
             Globals.RutaImagenesFondoLogin = HttpContext.Current.Server.MapPath("~/Content/Images/login");
@@ -40,21 +30,16 @@ namespace Portal.Consultoras.Web
             Globals.RutaImagenesLogoPortal = HttpContext.Current.Server.MapPath("~/Content/Images/logo");
             Globals.RutaImagenesOfertasWeb = HttpContext.Current.Server.MapPath("~/Content/Ofertas");
             Globals.RutaImagenesOfertasLiquidacion = HttpContext.Current.Server.MapPath("~/Content/OfertasLiquidacion");
-            Globals.RutaImagenesMatriz = "/Content/Matriz"; // 1664
-            //Globals.RutaImagenesMatriz = HttpContext.Current.Server.MapPath("~/Content/Matriz");
+            Globals.RutaImagenesMatriz = "/Content/Matriz"; 
             Globals.RutaImagenesTempMatriz = HttpContext.Current.Server.MapPath("~/Content/TemporalesMatriz");
             Globals.RutaImagenesBanners = HttpContext.Current.Server.MapPath("~/Content/Banners");
             Globals.RutaImagenesTempBanners = HttpContext.Current.Server.MapPath("~/Content/TemporalesBanners");
-            Globals.RutaImagenesTempLugaresPago = HttpContext.Current.Server.MapPath("~/Content/TemporalesLugaresPago");            
-            //Globals.RutaImagenesLugaresPago = HttpContext.Current.Server.MapPath("~/Content/LugaresPago");
-            Globals.RutaImagenesLugaresPago = "/Content/LugaresPago"; // 1664
+            Globals.RutaImagenesTempLugaresPago = HttpContext.Current.Server.MapPath("~/Content/TemporalesLugaresPago"); 
+            Globals.RutaImagenesLugaresPago = "/Content/LugaresPago"; 
             Globals.RutaImagenesTempIncentivos = HttpContext.Current.Server.MapPath("~/Content/TemporalesIncentivos");
-            //Globals.RutaImagenesIncentivos = HttpContext.Current.Server.MapPath("~/Content/Incentivos");
-            Globals.RutaImagenesIncentivos = "/Content/Incentivos"; // 1664
-            //Globals.RutaImagenesOfertasNuevas = HttpContext.Current.Server.MapPath("~/Content/OfertasNuevas");
-            Globals.RutaImagenesOfertasNuevas = "/Content/OfertasNuevas"; // 1664
+            Globals.RutaImagenesIncentivos = "/Content/Incentivos"; 
+            Globals.RutaImagenesOfertasNuevas = "/Content/OfertasNuevas"; 
 
-            //**** 1664 Carpetas - Inicio *****//
             Globals.UrlBanner = ConfigurationManager.AppSettings["Banners"];
             Globals.UrlFileConsultoras = ConfigurationManager.AppSettings["FileConsultoras"];
             Globals.UrlIncentivos = ConfigurationManager.AppSettings["Incentivos"];
@@ -64,9 +49,7 @@ namespace Portal.Consultoras.Web
             Globals.UrlRevistaGana = ConfigurationManager.AppSettings["RevistaGana"];
             Globals.UrlEscalaDescuentos = ConfigurationManager.AppSettings["EscalaDescuentos"];
             Globals.UrlOfertasFic = ConfigurationManager.AppSettings["OfertasFic"];
-            //2106
             Globals.UrlNavidadConsultora = ConfigurationManager.AppSettings["NavidadConsultora"];
-            //**** 1664 Carpetas - Fin    *****//
 
             // configuración del Dynamic Global Action Filter de Log
             //LogActionFilterProvider providerLog = new LogActionFilterProvider();
@@ -83,6 +66,9 @@ namespace Portal.Consultoras.Web
             // configuración del Dynamic Global Action Filter de Expiración de Sesión
             SessionExpiredActionFilterProvider providerSession = new SessionExpiredActionFilterProvider();
 
+            providerSession.Add("Bienvenida", "Index");
+            providerSession.Add("Bienvenida", "ConsultarFaltantesAnunciados");
+
             providerSession.Add("ActualizarDatos", "Index");
             providerSession.Add("ActualizarDatos", "Registrar");
             providerSession.Add("ActualizarDatos", "Cancelar");
@@ -95,28 +81,15 @@ namespace Portal.Consultoras.Web
             providerSession.Add("Banner", "EliminarBanner");
             providerSession.Add("Banner", "ObtenerBannerPaginaPrincipal");
 
-            providerSession.Add("Bienvenida", "Index");
-            providerSession.Add("Bienvenida", "ConsultarFaltantesAnunciados");
-
-            providerSession.Add("Catalogo", "Index");
-            providerSession.Add("Catalogo", "ConsultarClientes");
-            providerSession.Add("Catalogo", "GetCatalogosByCampaniaId");
-            providerSession.Add("Catalogo", "ColumnasDeshabilitadasxPais");
-            providerSession.Add("Catalogo", "GetEmbedCatalogo");
-            providerSession.Add("Catalogo", "EnviarEmail");
-
             providerSession.Add("Cliente", "Index");
             providerSession.Add("Cliente", "Mantener");
             providerSession.Add("Cliente", "GetCatalogosByCampaniaId");
             providerSession.Add("Cliente", "Consultar");
             providerSession.Add("Cliente", "Eliminar");
             providerSession.Add("Cliente", "DeshacerCambios");
-
-            /* no se han ubicado */
             providerSession.Add("Cliente", "Update");
             providerSession.Add("Cliente", "Insert");
-            /* no se han ubicado */
-
+            
             providerSession.Add("ConfiguracionValidacion", "Index");
             providerSession.Add("ConfiguracionValidacion", "ObtenerConfiguracionPedidosPorPais");
             providerSession.Add("ConfiguracionValidacion", "Mantener");
@@ -157,17 +130,8 @@ namespace Portal.Consultoras.Web
             providerSession.Add("DescargaPedidos", "DescargarPedidos");
             providerSession.Add("DescargaPedidos", "RealizarDescarga");
 
-            /* no se esta invocando desde js */
             providerSession.Add("DuplaSAC", "Index");
-
-            providerSession.Add("EstadoCuenta", "Index");
-            providerSession.Add("EstadoCuenta", "ConsultarEstadoCuenta");
-            providerSession.Add("EstadoCuenta", "EnviarCorreo");
-            providerSession.Add("EstadoCuenta", "");
-            providerSession.Add("EstadoCuenta", "");
-            providerSession.Add("EstadoCuenta", "");
-
-            /* no tiene vista, por que? */
+            
             providerSession.Add("FacturaElectronica", "Index");
 
             providerSession.Add("FileUpload", "ImageUpload");
@@ -225,6 +189,10 @@ namespace Portal.Consultoras.Web
             providerSession.Add("Pedido", "PedidoReservadoEnviarCorreo");
             providerSession.Add("Pedido", "PedidoReservadoDeshacerReserva");
             providerSession.Add("Pedido", "InsertarDesglose");
+            providerSession.Add("Pedido", "EjecutarServicioPROL");
+            providerSession.Add("Pedido", "ConsultarEstrategias");
+            providerSession.Add("Pedido", "CargarDetallePedido");
+            providerSession.Add("Pedido", "ObtenerProductosOfertaFinal");
 
             providerSession.Add("PedidoWebAnteriores", "PedidoWebAnteriores");
             providerSession.Add("PedidoWebAnteriores", "ConsultarPedidoWebAnteriores");
@@ -237,12 +205,6 @@ namespace Portal.Consultoras.Web
             providerSession.Add("PedidoWeb", "ConsultarPedidoWebDetalleClientes");
             providerSession.Add("PedidoWeb", "ConsultarPedidoWebDetalleProductos");
             providerSession.Add("PedidoWeb", "EnviarEmail");
-
-            providerSession.Add("Percepciones", "Index");
-            providerSession.Add("Percepciones", "PercepcionDetalle");
-            providerSession.Add("Percepciones", "Consultar");
-            providerSession.Add("Percepciones", "ConsultarDetalle");
-            providerSession.Add("Percepciones", "GetDatosBelcorp");
 
             providerSession.Add("ReportePedidoCampania", "Index");
             providerSession.Add("ReportePedidoCampania", "ObtenterCampaniasyRegionesPorPais");
@@ -263,26 +225,12 @@ namespace Portal.Consultoras.Web
             providerSession.Add("ReportePedidoDDWeb", "ExportarExcel");
             providerSession.Add("ReportePedidoDDWeb", "ConsultarPedidosDDWebDetalle");
 
-            providerSession.Add("Rol", "Rol");
-            providerSession.Add("Rol", "Mantener");
-            providerSession.Add("Rol", "InsertarPermiso");
-            providerSession.Add("Rol", "Consultar");
-            providerSession.Add("Rol", "Eliminar");
-            providerSession.Add("Rol", "CargarPermiso");
-
-            /* no tiene vista, es una redireccion */
             providerSession.Add("Superate", "Index");
 
             providerSession.Add("UpdatePassSAC", "Index");
             providerSession.Add("UpdatePassSAC", "ResetPassConsultora");
             providerSession.Add("UpdatePassSAC", "Consultar");
             providerSession.Add("UpdatePassSAC", "CambiarPass");
-
-            providerSession.Add("UsuarioRol", "Index");
-            providerSession.Add("UsuarioRol", "ValidarUsuario");
-            providerSession.Add("UsuarioRol", "InsertarUsuarioRol");
-            providerSession.Add("UsuarioRol", "ConsultarUsuarioRol");
-            providerSession.Add("UsuarioRol", "EliminarUsuarioRol");
 
             providerSession.Add("AdministrarFactoresGanancia", "Index");
             providerSession.Add("AdministrarFactoresGanancia", "Consultar");
@@ -307,7 +255,6 @@ namespace Portal.Consultoras.Web
             providerSession.Add("Servicios", "ConsultarParametrosbyServicios");
             providerSession.Add("Servicios", "ConsultarEstadoServiciobyPais");
 
-            /*Ofertas Web y Liquidación */
             providerSession.Add("OfertaWeb", "OfertasWeb");
             providerSession.Add("OfertaWeb", "InsertOfertaWebPortal");
             providerSession.Add("OfertaWeb", "UpdateOfertaWebPortal");
@@ -350,6 +297,14 @@ namespace Portal.Consultoras.Web
             providerSession.Add("MisPedidos", "ClienteOnlineDetalle");
             providerSession.Add("MisPedidos", "ClienteOnlineCancelarSolicitud");
 
+            providerSession.Add("ShowRoom", "AdministrarShowRoom");
+
+            providerSession.Add("MisPagos", "Index");
+
+            providerSession.Add("MisCatalogosRevistas", "Index");
+
+            providerSession.Add("MisReclamos", "Index");
+
             //Web Mobile
             providerSession.Add("Bienvenida", "Index", "Mobile");
             providerSession.Add("Catalogo", "Index", "Mobile");
@@ -384,13 +339,8 @@ namespace Portal.Consultoras.Web
             providerSession.Add("ConsultoraOnline", "Historial", "Mobile");
             providerSession.Add("ConsultoraOnline", "DetallePedidoHistorial", "Mobile");
 
-            /*ShowRoom*/
-            providerSession.Add("ShowRoom", "AdministrarShowRoom");
-
-            /*Cambios y Devoluciones (CDR)*/
-            providerSession.Add("MisReclamos", "Index");
-
             FilterProviders.Providers.Add(providerSession);
+
             AutoMapperConfiguration.Configure();
         }
 

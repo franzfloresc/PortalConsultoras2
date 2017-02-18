@@ -6,6 +6,7 @@ using Portal.Consultoras.Web.ServiceUsuario;
 
 namespace Portal.Consultoras.Web.Models
 {
+    [Serializable()]
     public class MisPedidosModel
     {
         public List<BEMisPedidos> ListaPedidos { get; set; }
