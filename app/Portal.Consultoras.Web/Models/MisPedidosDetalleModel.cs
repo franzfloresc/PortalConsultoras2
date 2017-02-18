@@ -8,6 +8,7 @@ using Portal.Consultoras.Common;
 
 namespace Portal.Consultoras.Web.Models
 {
+    [Serializable()]
     public class MisPedidosDetalleModel
     {
         public List<BEMisPedidosDetalle> ListaDetalle { get; set; }
@@ -26,6 +27,7 @@ namespace Portal.Consultoras.Web.Models
         public string OpcionAcepta { get; set; }
     }
 
+    [Serializable()]
     public class MisPedidosDetalleModel2
     {
         public long PedidoDetalleId { get; set; }

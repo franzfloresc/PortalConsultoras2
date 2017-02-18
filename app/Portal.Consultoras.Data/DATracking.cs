@@ -28,7 +28,7 @@ namespace Portal.Consultoras.Data
             return Context.ExecuteReader(command);
         }
 
-        /* PCABRERA GR-1883 - INICIO */
+        /* GR-1883 - INICIO */
         //public IDataReader GetTrackingByPedido(string codigo, string campana, DateTime fecha)
         public IDataReader GetTrackingByPedido(string codigo, string campana, string nropedido)
         {
@@ -39,7 +39,7 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@NroPedido", DbType.String, nropedido);
             return Context.ExecuteReader(command);
         }
-        /* PCABRERA GR-1883 - INICIO */
+        /* GR-1883 - INICIO */
 
         //Inicio ITG 1793 HFMG
         public IDataReader GetNovedadesTracking(string NumeroPedido)
