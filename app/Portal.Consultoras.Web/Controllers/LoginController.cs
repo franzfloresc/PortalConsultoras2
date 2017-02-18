@@ -29,47 +29,63 @@ namespace Portal.Consultoras.Web.Controllers
         [AllowAnonymous]
         public ActionResult Index()
         {
-            var IP = string.Empty;
-            var ISO = string.Empty;
-            var model = new LoginModel();
-
-            try
+            if (HttpContext.User.Identity.IsAuthenticated)
             {
-                var buscarISOPorIP = ConfigurationManager.AppSettings.Get("BuscarISOPorIP");
+                bool esMovil = Request.Browser.IsMobileDevice;
 
-                if (buscarISOPorIP == "1")
+                if (esMovil)
                 {
-                    IP = GetIPCliente();
-                    ISO = Util.GetISObyIPAddress(IP);
+                    return RedirectToAction("Index", "Bienvenida", new { area = "Mobile" });
                 }
                 else
                 {
-                    IP = "190.187.154.154";
-                    ISO = "PE";
+                    return RedirectToAction("Index", "Bienvenida");
                 }
-
-                if (IP.IndexOf(":") > 0)
-                {
-                    IP = IP.Substring(0, IP.IndexOf(":") - 1);
-                }
-
-                if (ISO != "")
-                {
-                    AsignarHojaEstilos(ISO);
-                }
-
-                model.ListaPaises = DropDowListPaises();
             }
-            catch (FaultException ex)
+            else
             {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, IP, ISO);
-            }
-            catch (Exception ex)
-            {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, IP, ISO, "Login.GET.Index");
-            }
+                var IP = string.Empty;
+                var ISO = string.Empty;
+                var model = new LoginModel();
 
-            return View(model);
+                try
+                {
+                    var buscarISOPorIP = ConfigurationManager.AppSettings.Get("BuscarISOPorIP");
+
+                    if (buscarISOPorIP == "1")
+                    {
+                        IP = GetIPCliente();
+                        ISO = Util.GetISObyIPAddress(IP);
+                    }
+                    else
+                    {
+                        IP = "190.187.154.154";
+                        ISO = "PE";
+                    }
+
+                    if (IP.IndexOf(":") > 0)
+                    {
+                        IP = IP.Substring(0, IP.IndexOf(":") - 1);
+                    }
+
+                    if (ISO != "")
+                    {
+                        AsignarHojaEstilos(ISO);
+                    }
+
+                    model.ListaPaises = DropDowListPaises();
+                }
+                catch (FaultException ex)
+                {
+                    LogManager.LogManager.LogErrorWebServicesPortal(ex, IP, ISO);
+                }
+                catch (Exception ex)
+                {
+                    LogManager.LogManager.LogErrorWebServicesBus(ex, IP, ISO, "Login.GET.Index");
+                }
+
+                return View(model);
+            }
         }
 
         [AllowAnonymous]
