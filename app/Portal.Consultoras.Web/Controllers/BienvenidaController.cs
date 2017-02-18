@@ -370,6 +370,12 @@ namespace Portal.Consultoras.Web.Controllers
                 //PL20-1283
                 ViewBag.NombreConsultoraFAV = model.NombreConsultora.First().ToString().ToUpper() + model.NombreConsultora.ToLower().Substring(1);
                 ViewBag.UrlImagenFAVHome = string.Format(ConfigurationManager.AppSettings.Get("UrlImagenFAVHome"), userData.CodigoISO);
+                
+                if (Session[Constantes.ConstSession.IngresoPortalConsultoras] == null)
+                {
+                    RegistrarLogDynamoDB(Constantes.LogDynamoDB.AplicacionPortalConsultoras, Constantes.LogDynamoDB.RolConsultora, "HOME", "INGRESAR");
+                    Session[Constantes.ConstSession.IngresoPortalConsultoras] = true;
+                }
             }
             catch (FaultException ex)
             {

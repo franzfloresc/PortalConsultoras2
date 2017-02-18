@@ -11,6 +11,8 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Linq;
+using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Controllers
@@ -1495,6 +1497,42 @@ namespace Portal.Consultoras.Web.Controllers
                 case "SV": return "elsalvador";
                 case "VE": return "venezuela";
                 default: return "sinpais";
+            }
+        }
+
+        protected void RegistrarLogDynamoDB(string aplicacion, string rol, string pantallaOpcion, string opcionAccion)
+        {
+            try
+            {
+                var data = new
+                {
+                    Fecha = "",
+                    Aplicacion = aplicacion,
+                    Pais = userData.CodigoISO,
+                    Region = userData.CodigorRegion,
+                    Zona = userData.CodigoZona,
+                    Seccion = userData.SeccionAnalytics,
+                    Rol = rol,
+                    Campania = userData.CampaniaID.ToString(),
+                    Usuario = userData.CodigoUsuario,
+                    PantallaOpcion = pantallaOpcion,
+                    OpcionAccion = opcionAccion,
+                    DispositivoCategoria = Request.Browser.IsMobileDevice ? "MOBILE" : "WEB",
+                    DispositivoID = GetIPCliente(),
+                    Version = "2.0",
+                };
+
+                var urlApi = ConfigurationManager.AppSettings.Get("UrlLogDynamo");
+
+                using (var client = new HttpClient())
+                {
+                    var response = client.PostAsJsonAsync(urlApi, data).Result;
+                    response.EnsureSuccessStatusCode();
+                }
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
             }
         }
     }
