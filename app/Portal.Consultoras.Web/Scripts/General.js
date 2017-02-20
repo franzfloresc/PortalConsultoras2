@@ -451,9 +451,8 @@ function isInt(n) {
 
 // valida si ha ocurrido un timeout durante una llamada ajax
 function checkTimeout(data) {
-    //debugger;
-    var thereIsStillTime = true;
-
+    var thereIsStillTime = true
+    
     if (data) {
         if (data.responseText) {
             if ((data.responseText.indexOf("<title>Login</title>") > -1) || (data.responseText.indexOf("<title>Object moved</title>") > -1) || (data.responseText === '"_Logon_"'))
@@ -467,11 +466,13 @@ function checkTimeout(data) {
         if (!thereIsStillTime) {
             //window.location.href = "/Login/Timeout";
             //window.location.href = "https://stsqa.somosbelcorp.com/adfs/ls/?wa=wsignout1.0";
-            window.location.href = "/SesionExpirada.html";
+            //window.location.href = "/SesionExpirada.html";
+            var message = "Tu sesión ha finalizado por inactividad. Por favor, ingresa nuevamente.";
+            $('#dialog_SesionMainLayout #mensajeSesionSB2_Error').html(message);
+            $('#dialog_SesionMainLayout').show();
         }
     }
     else {
-        //debugger;
         $.ajax({
             url: "/Dummy/",
             type: 'POST',

@@ -41,7 +41,6 @@ $(document).ready(function () {
     //    $(this).animate({ 'left': '0%','opacity':'1' }, 400, 'swing');
     //});
 
-
     function abrir_popup_tutorial() {
         $('#popup_tutorial_pedido').fadeIn();
         $('html').css({ 'overflow-y': 'hidden' });
@@ -57,6 +56,21 @@ $(document).ready(function () {
         }, 3000);
 
     }
+
+    //EPD-1564
+    $("body").click(function (e) {        
+        if (!$(e.target).closest('.ui-dialog').length) {
+            if ($('#divObservacionesPROL').is(':visible'))
+                HideDialog("divObservacionesPROL");
+            if ($('#divReservaSatisfactoria').is(':visible'))
+                HideDialog("divReservaSatisfactoria");
+            if ($('#divReservaSatisfactoriaCO').is(':visible'))
+                HideDialog("divReservaSatisfactoriaCO");
+            if ($('#divReservaSatisfactoria3').is(':visible'))
+                HideDialog("divReservaSatisfactoria3");
+        }
+    })
+    //FIn EPD-1564
 
     function cerrar_popup_tutorial() {
         $('#popup_tutorial_pedido').fadeOut();
@@ -535,7 +549,7 @@ function CrearDialogs() {
         autoOpen: false,
         resizable: false,
         modal: true,
-        closeOnEscape: false,
+        closeOnEscape: true,
         width: 400,
         draggable: true,
     });
@@ -553,7 +567,7 @@ function CrearDialogs() {
         autoOpen: false,
         resizable: false,
         modal: true,
-        closeOnEscape: false,
+        closeOnEscape: true,
         width: 400,
         draggable: true
     });
@@ -581,7 +595,7 @@ function CrearDialogs() {
         autoOpen: false,
         resizable: false,
         modal: true,
-        closeOnEscape: false,
+        closeOnEscape: true,
         width: 550,
         height: 230,
         draggable: true,

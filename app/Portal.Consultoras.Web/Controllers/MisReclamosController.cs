@@ -598,11 +598,12 @@ namespace Portal.Consultoras.Web.Controllers
                     respuestaServiceCdr = sv.GetCdrWebConsulta(userData.CodigoISO, model.CampaniaID.ToString(),
                         userData.CodigoConsultora, model.CUV, model.Cantidad, userData.CodigoZona);
 
+                    
                     if (respuestaServiceCdr[0].Codigo != "00")
                         return Json(new
                         {
                             success = false,
-                            message = "No está permitido el reclamo de Packs y Sets por este medio. Por favor, contactar al Call Center.",
+                            message = "No está permitido el reclamo de Packs y Sets por este medio. Por favor, contáctate con nuestro <span class='enlace_chat belcorpChat'><a>Chat en Línea</a></span>.",
                         }, JsonRequestBehavior.AllowGet);
                 }
             }
