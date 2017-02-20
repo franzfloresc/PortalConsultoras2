@@ -334,7 +334,7 @@ namespace Portal.Consultoras.Web.Controllers
                     mailBody += "<td style=\"font-family:'Calibri'; font-size:17px; text-align:center; font-weight:500; color:#000; padding:0 0 20px 0;\">¡Hola!</td>";
                     mailBody += "</tr>";
                     mailBody += "<tr>";
-                    mailBody += "<td style=\"text-align:center; font-family:'Calibri'; font-size:22px; font-weight:700; color:#000; padding-bottom:15px;\">REVISA LAS NOVEDADES DE TUS CAT&Aacute;LOGOS</td>";
+                    mailBody += "<td style=\"text-align:center; font-family:'Calibri'; font-size:22px; font-weight:700; color:#000; padding-bottom:15px;\">ENT&Eacute;RATE DE LAS NOVEDADES DE TUS CAT&Aacute;LOGOS</td>";
                     mailBody += "</tr>";
                     mailBody += "<tr>";
                     mailBody += "<td style=\"text-align:center; font-family:'Calibri'; color:#000; font-weight:500; font-size:14px; padding-bottom:30px;\">" + Mensaje.Replace("Hola,", "");
@@ -423,7 +423,7 @@ namespace Portal.Consultoras.Web.Controllers
                         if (catalogoEsika != null && !string.IsNullOrEmpty(catalogoEsika.DocumentID))
                         {
                             RutaPublicaImagen = Constantes.CatalogoUrlParameters.UrlPart01 + catalogoEsika.DocumentID + Constantes.CatalogoUrlParameters.UrlPart03;
-                            urlIssuCatalogo = catalogoLbel.SkinURL;
+                            urlIssuCatalogo = catalogoEsika.SkinURL;
                         }
 
                         mailBody += "<td style=\"width:29.3%; display: table-cell; padding-left:2%; padding-right:2%;\">";
@@ -438,7 +438,7 @@ namespace Portal.Consultoras.Web.Controllers
                         if (catalogoCyZone != null && !string.IsNullOrEmpty(catalogoCyZone.DocumentID))
                         {
                             RutaPublicaImagen = Constantes.CatalogoUrlParameters.UrlPart01 + catalogoCyZone.DocumentID + Constantes.CatalogoUrlParameters.UrlPart03;
-                            urlIssuCatalogo = catalogoLbel.SkinURL;
+                            urlIssuCatalogo = catalogoCyZone.SkinURL;
                         }
 
                         mailBody += "<td style=\"width:29.3%; display: table-cell; padding-left:2%; padding-right:2%;\">";
@@ -522,7 +522,7 @@ namespace Portal.Consultoras.Web.Controllers
                     mailBody += "</td>";
                     mailBody += "<td style=\"text-align:center; width:48%;\">";
                     mailBody += "<a href=\"http://belcorpresponde.somosbelcorp.com\" style=\"width:100%; display:block;\">";
-                    mailBody += "<span style=\"font-family:'Calibri'; font-size:12px; color:#000;\">Cont&aacutectanos</span>";
+                    mailBody += "<span style=\"font-family:'Calibri'; font-size:12px; color:#000;\">Cont&aacute;ctanos</span>";
                     mailBody += "</a>";
                     mailBody += "</td>";
                     mailBody += "</tr>";
