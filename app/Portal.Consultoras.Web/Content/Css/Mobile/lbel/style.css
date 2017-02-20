@@ -10261,3 +10261,8 @@ span.icon-advertencia{
     line-height: 11.5px;
     padding-left: 2px;
 }
+.etiqueta_showroom{
+       background: url(https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/iV4kSDvDDYdT8M6/etiqueta.png) no-repeat;
+    background-position: 5px 14px;
+
+}
