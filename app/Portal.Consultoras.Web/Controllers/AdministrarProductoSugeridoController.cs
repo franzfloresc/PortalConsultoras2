@@ -6,6 +6,7 @@ using Portal.Consultoras.Web.ServiceProductoCatalogoPersonalizado;
 using Portal.Consultoras.Web.ServiceZonificacion;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.ServiceModel;
 using System.Web;
@@ -237,7 +238,8 @@ namespace Portal.Consultoras.Web.Controllers
                 if (modelList[0].FotoProducto02 != "") modelList[0].FotoProducto02 = ConfigS3.GetUrlFileS3(carpetaPais, modelList[0].FotoProducto02, Globals.RutaImagenesMatriz + "/" + userData.CodigoISO);
                 if (modelList[0].FotoProducto03 != "") modelList[0].FotoProducto03 = ConfigS3.GetUrlFileS3(carpetaPais, modelList[0].FotoProducto03, Globals.RutaImagenesMatriz + "/" + userData.CodigoISO);
 
-                modelList[0].FotoProductoAppCatalogo = ImagenAppCatalogo(campaniaID, lst[0].CodigoSAP, 3, pais.NroCampanias);
+                string paisesCCC = ConfigurationManager.AppSettings["Permisos_CCC"] ?? "";
+                if(paisesCCC.Contains(pais.CodigoISO)) modelList[0].FotoProductoAppCatalogo = ImagenAppCatalogo(campaniaID, lst[0].CodigoSAP, 3, pais.NroCampanias);
             }
             return Json(new { lista = modelList }, JsonRequestBehavior.AllowGet);
         }

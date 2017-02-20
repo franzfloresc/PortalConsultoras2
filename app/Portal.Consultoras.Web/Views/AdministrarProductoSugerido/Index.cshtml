@@ -122,14 +122,14 @@
                 <input type="checkbox" class="check" id="chkHabilitar" />
             </div>
         </div>
-        <div class="div-3 divPanelImagen">
+        <div class="div-3 divPanelImagen divAppCatalogo">
             <div class="titG">Imagen App Catálogo:</div>
             <div class="pdr_modal borde_redondeado aligncenter" style="width: auto;">
                 <img src='@Url.Content("~/Content/Images/prod_grilla_vacio.png")' id="previewAppCatalogo" style="cursor: pointer; width: 60px;">
             </div>
             <div><span class="color_red" style="float: none;">*</span></div>
         </div>
-        <div class="div-3 divCheckImagen">
+        <div class="div-3 divCheckImagen divAppCatalogo">
             <div class="titG"></div>
             <div class="pdr_modal_check aligncenter" style="width: 80px;">
                 <input type="checkbox" id="chkImagenProductoAppCatalogo" disabled="disabled">
@@ -455,6 +455,7 @@
         $(".divCheckImagen input").prop('checked', false);
         $(".divCheckImagen input").parent().css("width", "85px");
         $(".divCheckImagen input").val('');
+        $(".divAppCatalogo").hide();
     }
 
     function RegistroValidar() {
@@ -536,6 +537,7 @@
 
             var urlImg = (obj || new Object())["FotoProducto" + ind] || "";
             if (urlImg == "") {
+                if (i == 0) $('.divAppCatalogo').hide();
                 $("#chkImagenProducto" + ind).attr('disabled', true);
                 continue;
             }
@@ -551,6 +553,8 @@
                 $('#chkImagenProducto' + ind).attr('checked', true);
                 imagen = urlImg;
             }
+
+            if (i == 0) $('.divAppCatalogo').show();
             $("#chkImagenProducto" + ind).removeAttr('disabled');
             
             $('#preview' + ind).css("width", "150px");
