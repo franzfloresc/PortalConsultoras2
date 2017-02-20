@@ -5,6 +5,7 @@ using System.Web;
 
 namespace Portal.Consultoras.Web.Models
 {
+    [Serializable()]
     public class PermisoModel
     {
         /*Inicio Cambios_Landing_Comunidad */

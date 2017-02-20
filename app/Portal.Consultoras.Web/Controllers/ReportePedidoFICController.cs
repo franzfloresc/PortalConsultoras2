@@ -1,50 +1,40 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using Portal.Consultoras.Web.ServiceCliente;
+﻿using AutoMapper;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
-using AutoMapper;
-using Portal.Consultoras.Web.ServiceZonificacion;
 using Portal.Consultoras.Web.ServicePedido;
-using System.Threading.Tasks;
-using Portal.Consultoras.Web.WsFuncionesSoap2; //253
-using Portal.Consultoras.Web.WsFuncionesSoap; //129
-using System.Web.Services.Protocols;
-using System.ServiceModel;
+using Portal.Consultoras.Web.ServiceZonificacion;
+using System;
+using System.Collections.Generic;
 using System.Data;
+using System.Linq;
+using System.ServiceModel;
+using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Controllers
 {
     public class ReportePedidoFICController : BaseController
     {
-        //
-        // GET: /ReportePedidoFIC/
-
-        public async Task<ActionResult> Index()
+        public ActionResult Index()
         {
+            var reportePedidoCampaniaModel = new ReportePedidoFICModel();
             try
             {
-                //if (!UsuarioModel.HasAcces(ViewBag.Permiso, "ReportePedidoCampania/Index"))
-                //    return RedirectToAction("Index", "Bienvenida");
-                ViewBag.Pais = UserData().PaisID;//1501
+                ViewBag.Pais = userData.PaisID;
+
+                var listaCampanias = DropDowListCampanias(11);
+
+                reportePedidoCampaniaModel = new ReportePedidoFICModel()
+                {
+                    listaCampanias = new List<CampaniaModel>(),
+                    listaPaises = DropDowListPaises(),
+                    listaRegiones = new List<RegionModel>(),
+                    listaZonas = new List<ZonaModel>()
+                };
             }
             catch (FaultException ex)
             {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
             }
-            
-            //await Task.Run(() => LoadConsultorasCache(11));
-            var listaCampanias = DropDowListCampanias(11);
-            var reportePedidoCampaniaModel = new ReportePedidoFICModel()
-            {
-                listaCampanias = new List<CampaniaModel>(),
-                listaPaises = DropDowListPaises(),
-                listaRegiones = new List<RegionModel>(),
-                listaZonas = new List<ZonaModel>()
-            };           
             return View(reportePedidoCampaniaModel);
         }
 

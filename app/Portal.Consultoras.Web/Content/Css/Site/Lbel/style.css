@@ -1957,8 +1957,8 @@ div.texto_encabezado_pedidos {
 
 div.texto_pedidos, div.celda_cantidad_pedidos {
     display: inline-block;
-    padding-top: 25px;
-    padding-bottom: 25px;
+    padding-top: 12px;
+    padding-bottom: 14px;
     vertical-align: middle;
     position: relative;
 }
@@ -34117,6 +34117,8 @@ h1#penmostreo .campana {
 .ficha_btn_agregar{
     width:162px; background:black; color:white; font-weight:400; letter-spacing:0.4px;
 }
+
+
 .tooltip_tono{
     position: absolute;
     top: -25px;
@@ -34136,43 +34138,73 @@ h1#penmostreo .campana {
 .content_tono_detalle:hover .tooltip_tono{
     display:block;
 }
-.etiqueta_guia_negocio{
-    background: black;
-    width: 70px;
-    height: 70px;
-    border-radius: 100px;
-    position: absolute;
-    right: 10px;
-    top: 10px;
-    color: white;
-    font-family: 'Lato';
-    font-size: 10px;
-    letter-spacing: 0.2px;
-    font-weight: 700;
-    text-transform: uppercase;
-    padding-top: 17px;
-    line-height: 12px;
+.content_imagen_fav{
+    width: 100%;
+    margin-left: 8%;
+    z-index: 10;
+    position: relative;
 }
-.etiqueta_guia_negocio span{
-    display: block;
-    font-size: 13.9px;
-    font-weight: 700;
-    height: 14px;
+.etiqueta_guia_negocio{
+    background:#e81c36;
+    width:70px;
+    height:70px;
+    border-radius:100px;
+    position:absolute;
+    right:10px;
+    top:10px;
+    color:white;
+    font-family:'Lato';
+    font-size:11px;
+    letter-spacing:0.4px;
+    font-weight:700;
+    text-transform:uppercase;    
+    padding-top:18px;
 }
 .mod-ofer1 .boton_Agregalo_home{
     width:139px;
-}
-.theme-green .back-bar .pointer{
-    background:#613c87 !important;
-}
-.theme-green .back-bar .selected-bar{
-    background:#613c87 !important;
-}
-.slider-container .back-bar .pointer-label{
-     color:#613c87 !important;
 }
 .enlace_chat a{
     display:inline;
     font-weight:bold;
     text-decoration:underline;
+}
+.tooltipPedido{
+    display:none;
+    position:absolute;
+        top: 6px;
+    left: 100%;
+    background: white;
+    width: 250px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    font-weight: 400;
+    z-index: 100;
+}
+.pedidoPadreToolTip:hover .tooltipPedido {
+    display:block;
+}
+.tooltipPedido:after, .tooltipPedido:before {
+	right: 100%;
+	top: 50%;
+	border: solid transparent;
+	content: " ";
+	height: 0;
+	width: 0;
+	position: absolute;
+	pointer-events: none;
+    z-index:30;
+}
+
+.tooltipPedido:after {
+	border-color: rgba(255, 255, 255, 0);
+	border-right-color: #fff;
+	border-width: 8px;
+	margin-top: -8px;
+}
+.tooltipPedido:before {
+	border-color: rgba(204, 204, 204, 0);
+	border-right-color: #ccc;
+	border-width: 9px;
+	margin-top: -9px;
 }

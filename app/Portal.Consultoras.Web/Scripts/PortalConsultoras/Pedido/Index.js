@@ -49,8 +49,7 @@ $(document).ready(function () {
             $(".img_slide" + numImagen + "Pedido").animate({ 'opacity': '0' });
             numImagen++;
             if (numImagen > 5) {
-                numImagen = 1;
-                $(".imagen_tutorial").animate({ 'opacity': '1' });
+                numImagen = 1; ddlClientes
             }
 
         }, 3000);
@@ -635,7 +634,7 @@ function CargarDetallePedido(page, rows) {
         sidx: "",
         sord: "",
         page: page || 1,
-        rows: rows || $($('[data-paginacion="rows"]')[0]).val() || 10,
+        rows: rows || $($('[data-paginacion="rows"]')[0]).val() || 20,
         clienteId: clienteId
     };
 
@@ -1648,7 +1647,7 @@ function BuscarByCUV(CUV) {
                 CerrarSplash();
                 if (checkTimeout(data)) {
                     if (data.message == "" || data.message === undefined) {
-                        location.href = baseUrl + "SesionExpirada.html";
+                        location.href = baseUrl + "Login/SesionExpirada";
                     } else {
                         alert_msg(data.message);
                     }
@@ -1820,7 +1819,7 @@ function ObtenerProductosSugeridos(CUV) {
             CerrarSplash();
             if (checkTimeout(data)) {
                 if (data.message == "" || data.message === undefined) {
-                    location.href = baseUrl + "SesionExpirada.html";
+                    location.href = baseUrl + "Login/SesionExpirada";
                 } else {
                     alert_msg(data.message);
                 }
