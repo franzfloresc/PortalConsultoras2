@@ -1519,7 +1519,7 @@
     {{else}}
     <div class="contenido_ingresoPedido mouse_encima" data-cuv="{{CUV}}">
         <div class="texto_pedidos celda_codigo">{{CUV}}</div>
-        <div class="texto_pedidos celda_producto">
+        <div class="texto_pedidos celda_producto pedidoPadreToolTip" style="position:relative">
             {{#if_eq FlagConsultoraOnline '1'}}
             <span class="texto_pedidos_ofertas">
                 <label>CLIENTE ONLINE</label>
@@ -1556,13 +1556,18 @@
                 <p class="productos_ingresados_movil">
                     <span class="icon-mobile"><img src="@Url.Content("~/Content/Images/mobile-pedido.png")" alt="Alternate Text" /></span>
                 </p>
-                <label for="{{DescripcionProd}}" id="lblLPDesProd{{PedidoDetalleID}}">{{Split DescripcionProd '|' 0}}</label>
+                <label for="{{DescripcionProd}}" id="lblLPDesProd{{PedidoDetalleID}}">{{Split DescripcionCortadaProd '|' 0}}</label>
             </span>
             {{else}}
             <span style="position:relative">
-                <label for="{{DescripcionProd}}" id="lblLPDesProd{{PedidoDetalleID}}">{{Split DescripcionProd '|' 0}}</label>
+                <label for="{{DescripcionProd}}" id="lblLPDesProd{{PedidoDetalleID}}">{{Split DescripcionCortadaProd '|' 0}}</label>
             </span>
             {{/if_eq}}
+
+
+            <div id="tooltipDescPro" class="tooltipPedido">
+                {{Split DescripcionProd '|' 0}}
+            </div>
 
             <input type="hidden" name="hdfTipoEstrategia{{PedidoID}}" value="{{TipoEstrategiaID}}" id="hdfTipoEstrategia{{PedidoID}}" />
             <input type="hidden" name="hdfCampaniaID{{PedidoID}}" value="{{CampaniaID}}" id="hdfCampaniaID{{PedidoID}}" />

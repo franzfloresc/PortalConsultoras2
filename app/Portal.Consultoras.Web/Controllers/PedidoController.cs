@@ -4614,6 +4614,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 pedidoWebDetalleModel.Update(p => p.Simbolo = userData.Simbolo);
                 pedidoWebDetalleModel.Update(p => p.CodigoIso = userData.CodigoISO);
+                pedidoWebDetalleModel.Update(p => p.DescripcionCortadaProd = Util.SubStrCortarNombre(p.DescripcionProd, 62, ""));
 
                 model.ListaDetalleModel = pedidoWebDetalleModel;
                 model.Total = total;
