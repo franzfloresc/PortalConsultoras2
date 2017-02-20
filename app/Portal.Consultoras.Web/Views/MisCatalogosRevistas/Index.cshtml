@@ -214,7 +214,7 @@
         var urlObtenerPortadaRevista = '@Url.Action("ObtenerPortadaRevista", "Catalogo", new { area = "Mobile" })';
         var defaultImageRevista = '@Url.Content("~/Content/Images/revista_no_disponible.jpg")';
         var urlIconoClienteAutoCompletar = '@Url.Content("~/Content/Images/Esika/user.jpg")';
-        var valContenidoCorreoDefecto = "Hola,\n" + "@Html.Raw(ViewBag.TextoMensajeSaludoCorreo)";
+        var valContenidoCorreoDefecto = '@Html.Raw(ViewBag.TextoMensajeSaludoCorreo)';
         var RevistaCodigoIssuu = {
             '@Model.CampaniaAnterior': '@Model.CodigoRevistaAnterior',
             '@Model.CampaniaActual': '@Model.CodigoRevistaActual',
