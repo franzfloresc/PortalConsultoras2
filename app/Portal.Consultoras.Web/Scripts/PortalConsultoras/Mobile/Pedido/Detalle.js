@@ -1026,8 +1026,11 @@ function RespuestaEjecutarServicioPROL(response, inicio) {
                     CargarPedido();
                     return true;
                 }
-
+                
                 messageInfoBueno('<h3>Tu pedido fue validado con éxito</h3><p>Tus productos fueron reservados.</p>');
+                if (estaRechazado == "2") {
+                    cerrarMensajeEstadoPedido();
+                }
                 //PEDIDO VALIDADO
                 AnalyticsGuardarValidar(response);
                 AnalyticsPedidoValidado(response);

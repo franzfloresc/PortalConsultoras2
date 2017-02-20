@@ -215,7 +215,7 @@ jQuery(document).ready(function () {
                 return DecimalToStringFormat(context);
             });
 
-            Handlebars.registerHelper('DateTimeToStringFormat', function(context) {
+            Handlebars.registerHelper('DateTimeToStringFormat', function (context) {
                 if (context != null && context != '') {
                     var dateString = context.substr(6);
                     var currentTime = new Date(parseInt(dateString));
@@ -737,7 +737,7 @@ function MensajeEstadoPedido() {
 
     if (estaRechazado == 0)
         return false;
-    
+
     if (estaRechazado == 2 && estadoPedido == 202 && !validacionAbierta)
     {
         return false;
@@ -781,6 +781,7 @@ function xMensajeEstadoPedido(estado) {
                 //$("[data-content]").animate({ "top": wtop + "px" });
             }
             else {
+                $(".oscurecer_animacion").css({ "display": "none" });
                 $("#bloquemensajesPedido").slideDown("slow", function () { });
                 wtop = $("header").height();
                 $(".ubicacion_web").animate({ "margin-top": (wtop + 22) + "px" });
@@ -798,7 +799,7 @@ function xMensajeEstadoPedido(estado) {
             if (identi) {
 
                 $("[data-content]").animate({ "top": "61px" });
-            
+
                 if (estaRechazado == "2" && estadoPedido == "202" && validacionAbierta == "False") {
                     $("[data-content]").animate({ "top": "0px" });
                 }
@@ -808,10 +809,10 @@ function xMensajeEstadoPedido(estado) {
                 }
 
                 if (cerrarRechazado == 1) {
-                $("[data-content]").animate({ "top": "0px" });
-            }
-                    
-                
+                    $("[data-content]").animate({ "top": "0px" });
+                }
+
+
             }
             else {
                 $(".ubicacion_web").animate({ "margin-top": "83px" });
@@ -822,7 +823,7 @@ function xMensajeEstadoPedido(estado) {
 }
 
 function ResizeMensajeEstadoPedido() {
-    
+
     $("#bloquemensajesPedido").css("height", "");
     $("#bloquemensajesPedido > div").css("height", "");
     $("#bloquemensajesPedido .mensajes_estadoPedido").css("width", "");
@@ -847,7 +848,7 @@ function ResizeMensajeEstadoPedido() {
     }
 
     if (htx == 38) {
-        
+
         $("#bloquemensajesPedido .mensajes_estadoPedido").css("padding-top", (9) + "px");
         $("#bloquemensajesPedido .icono_estadoPedido").css("padding-top", (5) + "px");
     }
