@@ -7,6 +7,7 @@ using Portal.Consultoras.Common;
 
 namespace Portal.Consultoras.Web.Models
 {
+    [Serializable]
     public class OfertaDelDiaModel
     {
         public string CodigoIso { get; set; }
