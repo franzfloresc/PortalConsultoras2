@@ -9581,37 +9581,38 @@ span.icon-advertencia{
 /*OFERTA DEL DIA*/
 .BloqueOfertaDia {
     background: black;
-    height: 142px;
+    /*height: 142px;*/
     width: 100%;
-    overflow:hidden;
+    /*overflow:hidden;*/
     padding-top:12px;
 }
 .solo_hoy_mobile{
-    margin-left:25px;
-    margin-top:13px;
-    width:133px;
+    width: 70%;
+    margin: 0 auto;
+    position: relative;
+    margin-top: 5%;
 }
 .solo_hoy_mobile img{
     width:100%;
 }
 .nombre_set_oferta_mobile{
     font-family: 'Lato';
-    font-size: 12px;
-    letter-spacing:0.4px;
-    margin-left: 30px;
-    margin-top: 3px;
-    color:white;
-    line-height:15px;
-    text-align:center;
+    font-size: 13px;
+    letter-spacing: 0.4px;
+    /* margin-left: 30px; */
+    margin-top: 16%;
+    color: white;
+    line-height: 15px;
+    text-align: center;
 }
 .float_left{
     float:left;
 }
 .imagen_set_oferta_mobile{
     float: left;
-    width: 125px;
+    width:47%;
     margin-top: 9px;
-    margin-left: 9px;
+    /*margin-left: 9px;*/
     text-align: center;
 }
 .imagen_set_oferta_mobile img{
@@ -9737,11 +9738,12 @@ span.icon-advertencia{
 /*SLIDER BANNER*/
 .content_slider_banner{
     margin-top:58px;
+    background:black;
 }
 .btn_compralo_ahora {
     display:block;
     border:1px solid white;
-    width:130px;
+    width:85%;
     color:white;
     font-family:'Lato';
     font-size:10px;
@@ -9749,7 +9751,8 @@ span.icon-advertencia{
     letter-spacing:0.8px;
     height:26px;
     line-height:23px;
-    margin-left:25px;
+    /*margin-left:25px;*/
+    margin:0 auto;
     margin-top:7px;
     text-align:center;
 }
