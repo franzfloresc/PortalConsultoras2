@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Linq;
-using System.Web;
+﻿using Portal.Consultoras.Common;
+using System;
 using System.Web.UI;
-using System.Web.UI.WebControls;
 
 namespace Portal.Consultoras.Web.WebPages
 {
@@ -12,13 +8,12 @@ namespace Portal.Consultoras.Web.WebPages
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            string urlportal = ConfigurationManager.AppSettings["URLSite"];
-
             if (!Page.IsPostBack)
             {
                 string email = (string)(Session["email"]) != null ? ((string)(Session["email"])).Trim() : "";
+                Uri urlPortal = Util.GetUrlHost(Request);
 
-                idlinkingresamicuenta.NavigateUrl = urlportal;
+                idlinkingresamicuenta.NavigateUrl = urlPortal.AbsolutePath;
 
                 if (email.Length == 0)
                 {

@@ -452,7 +452,7 @@ function isInt(n) {
 // valida si ha ocurrido un timeout durante una llamada ajax
 function checkTimeout(data) {
     var thereIsStillTime = true
-    
+
     if (data) {
         if (data.responseText) {
             if ((data.responseText.indexOf("<title>Login</title>") > -1) || (data.responseText.indexOf("<title>Object moved</title>") > -1) || (data.responseText === '"_Logon_"'))
@@ -483,9 +483,14 @@ function checkTimeout(data) {
                 thereIsStillTime = checkTimeout(result);
             }
         });
+
+        //alert(res);
+        if (res == 0) {
+            window.location.href = '/Login/SesionExpirada';
+        }
     }
-    return thereIsStillTime;
 }
+/*EPD-180*/
 
 // paginacion
 function paginadorAccionGenerico(obj) {
@@ -666,7 +671,7 @@ function InsertarLogDymnamo(pantallaOpcion, opcionAccion, esMobile, extra) {
         'Version': '2.0',
         'Extra': extra
     }
-
+    if (urlLogDynamo != "") {
     jQuery.ajax({
         type: "POST",
         async: true,
@@ -677,6 +682,7 @@ function InsertarLogDymnamo(pantallaOpcion, opcionAccion, esMobile, extra) {
         success: function (result) { console.log(result); },
         error: function (x, xh, xhr) { console.log(x); }
     });
+}
 }
 
 function InfoCommerceGoogleDestacadoProductClick(name, id, category, variant, position) {
