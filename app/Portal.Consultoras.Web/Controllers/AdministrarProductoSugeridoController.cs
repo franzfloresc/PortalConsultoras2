@@ -2,6 +2,7 @@
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.ServicePedido;
+using Portal.Consultoras.Web.ServiceProductoCatalogoPersonalizado;
 using Portal.Consultoras.Web.ServiceZonificacion;
 using System;
 using System.Collections.Generic;
@@ -49,7 +50,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);
         }
-        
+
         public ActionResult Consultar(string sidx, string sord, int page, int rows, int PaisID, int CampaniaID, string CUVAgotado, string CUVSugerido)
         {
             if (!ModelState.IsValid)
@@ -184,7 +185,7 @@ namespace Portal.Consultoras.Web.Controllers
             string ISO = Util.GetPaisISO(PaisID);
             var carpetaPais = Globals.UrlMatriz + "/" + ISO;
             lst.Update(x => x.ImagenProducto = x.ImagenProducto ?? "");
-            lst.Update(x => x.ImagenProducto = (x.ImagenProducto.ToString().Equals(string.Empty) ? string.Empty : ConfigS3.GetUrlFileS3(carpetaPais, x.ImagenProducto, Globals.RutaImagenesMatriz + "/" + ISO)));
+            //lst.Update(x => x.ImagenProducto = (x.ImagenProducto.ToString().Equals(string.Empty) ? string.Empty : ConfigS3.GetUrlFileS3(carpetaPais, x.ImagenProducto, Globals.RutaImagenesMatriz + "/" + ISO)));
 
             // Creamos la estructura
             var data = new
@@ -196,7 +197,7 @@ namespace Portal.Consultoras.Web.Controllers
                        select new
                        {
                            id = a.ProductoSugeridoID,
-                           cell = new[] 
+                           cell = new[]
                             {
                                 a.ProductoSugeridoID.ToString(),
                                 a.CampaniaID.ToString(),
@@ -204,7 +205,6 @@ namespace Portal.Consultoras.Web.Controllers
                                 a.CUVSugerido,
                                 a.Orden.ToString(),
                                 a.ImagenProducto,
-                                a.CodigoProducto,
                                 a.Estado.ToString()
                             }
                        }
@@ -213,37 +213,35 @@ namespace Portal.Consultoras.Web.Controllers
 
 
         }
-        
+
         public JsonResult ObtenerImagenesByCUV(int paisID, int campaniaID, string cuv)
         {
             var userData = UserData();
-
+            BEPais pais = new BEPais();
             List<BEMatrizComercial> lst = new List<BEMatrizComercial>();
 
+            using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
+            {
+                pais = sv.SelectPais(paisID);
+            }
             using (PedidoServiceClient sv = new PedidoServiceClient())
             {
                 lst = sv.GetImagenesByCUV(paisID, campaniaID, cuv).ToList();
             }
 
-            var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
-
-            if (lst != null && lst.Count > 0)
+            List<MatrizComercialResultadoModel> modelList = Mapper.Map<List<MatrizComercialResultadoModel>>(lst);
+            if (modelList != null && modelList.Count > 0)
             {
-                if (lst[0].FotoProducto01 != "")
-                    lst[0].FotoProducto01 = ConfigS3.GetUrlFileS3(carpetaPais, lst[0].FotoProducto01, Globals.RutaImagenesMatriz + "/" + userData.CodigoISO);
+                var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
+                if (modelList[0].FotoProducto01 != "") modelList[0].FotoProducto01 = ConfigS3.GetUrlFileS3(carpetaPais, modelList[0].FotoProducto01, Globals.RutaImagenesMatriz + "/" + userData.CodigoISO);
+                if (modelList[0].FotoProducto02 != "") modelList[0].FotoProducto02 = ConfigS3.GetUrlFileS3(carpetaPais, modelList[0].FotoProducto02, Globals.RutaImagenesMatriz + "/" + userData.CodigoISO);
+                if (modelList[0].FotoProducto03 != "") modelList[0].FotoProducto03 = ConfigS3.GetUrlFileS3(carpetaPais, modelList[0].FotoProducto03, Globals.RutaImagenesMatriz + "/" + userData.CodigoISO);
 
-                if (lst[0].FotoProducto02 != "")
-                    lst[0].FotoProducto02 = ConfigS3.GetUrlFileS3(carpetaPais, lst[0].FotoProducto02, Globals.RutaImagenesMatriz + "/" + userData.CodigoISO);
-
-                if (lst[0].FotoProducto03 != "")
-                    lst[0].FotoProducto03 = ConfigS3.GetUrlFileS3(carpetaPais, lst[0].FotoProducto03, Globals.RutaImagenesMatriz + "/" + userData.CodigoISO);
+                modelList[0].FotoProductoAppCatalogo = ImagenAppCatalogo(campaniaID, lst[0].CodigoSAP, 3, pais.NroCampanias);
             }
-            return Json(new
-            {
-                lista = lst
-            }, JsonRequestBehavior.AllowGet);
+            return Json(new { lista = modelList }, JsonRequestBehavior.AllowGet);
         }
-        
+
         [HttpPost]
         public JsonResult Registrar(AdministrarProductoSugeridoModel model)
         {
@@ -252,7 +250,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 Mapper.CreateMap<AdministrarProductoSugeridoModel, BEProductoSugerido>()
                    .ForMember(t => t.ProductoSugeridoID, f => f.MapFrom(c => c.ProductoSugeridoID))
-                    //.ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID))
+                   //.ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID))
                    .ForMember(t => t.CampaniaID, f => f.MapFrom(c => c.CampaniaID))
                    .ForMember(t => t.CUV, f => f.MapFrom(c => c.CUV))
                    .ForMember(t => t.CUVSugerido, f => f.MapFrom(c => c.CUVSugerido))
@@ -302,7 +300,7 @@ namespace Portal.Consultoras.Web.Controllers
                 });
             }
         }
-        
+
         [HttpPost]
         public JsonResult Deshabilitar(AdministrarProductoSugeridoModel model)
         {
@@ -370,6 +368,23 @@ namespace Portal.Consultoras.Web.Controllers
                 extra = nro
             });
 
+        }
+
+        private string ImagenAppCatalogo(int campaniaID, string codigoSAP, int intentos, int nroCampanias)
+        {
+            int campanaAppCatalogo;
+            using (ProductoServiceClient sv = new ProductoServiceClient())
+            {
+                for (int i = 0; i < intentos; i++)
+                {
+                    campanaAppCatalogo = AddCampaniaAndNumero(campaniaID, -i, nroCampanias);
+                    var arrayProducto = sv.ObtenerProductosByCodigoSap(userData.CodigoISO, campanaAppCatalogo, codigoSAP);
+
+                    if (arrayProducto == null || arrayProducto.Length == 0) continue;
+                    if (!string.IsNullOrEmpty(arrayProducto[0].Imagen)) return arrayProducto[0].Imagen;
+                }
+            }
+            return null;
         }
     }
 }

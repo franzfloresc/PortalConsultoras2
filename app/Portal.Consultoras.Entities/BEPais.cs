@@ -12,6 +12,7 @@ namespace Portal.Consultoras.Entities
         private string msCodigoISO;
         private string msNombreSimple;
         private string msNombreComplejo;
+        private int nroCampanias;
         private string msCodigoISOProd;
 
         public BEPais() { }
@@ -21,10 +22,11 @@ namespace Portal.Consultoras.Entities
 	        msCodigoISO = row["CodigoISO"].ToString();
 	        msNombreSimple = row["NombreSimple"].ToString();
 	        msNombreComplejo = row["NombreComplejo"].ToString();
-            if (DataRecord.HasColumn(row, "CodigoISOProd") && row["CodigoISOProd"] != DBNull.Value)
-                msCodigoISOProd = row["CodigoISOProd"].ToString();
-            else
-                msCodigoISOProd = "";
+
+            if (DataRecord.HasColumn(row, "NroCampanias") && row["NroCampanias"] != DBNull.Value) nroCampanias = Convert.ToInt32(row["nroCampanias"]);
+
+            if (DataRecord.HasColumn(row, "CodigoISOProd") && row["CodigoISOProd"] != DBNull.Value) msCodigoISOProd = row["CodigoISOProd"].ToString();
+            else msCodigoISOProd = "";
         }
 
         [DataMember]
@@ -56,6 +58,12 @@ namespace Portal.Consultoras.Entities
         {
             get { return msCodigoISOProd; }
             set { msCodigoISOProd = value; }
+        }
+        [DataMember]
+        public int NroCampanias
+        {
+            get { return nroCampanias; }
+            set { nroCampanias = value; }
         }
     }
 }

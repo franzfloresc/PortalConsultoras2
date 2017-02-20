@@ -29,6 +29,7 @@
       <xs:element minOccurs="0" name="CodigoISOProd" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Nombre" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="NombreCorto" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NroCampanias" type="xs:int" />
       <xs:element minOccurs="0" name="PaisID" type="xs:int" />
     </xs:sequence>
   </xs:complexType>
