@@ -35,7 +35,9 @@ BEGIN
 	)
 	
 	SELECT ProcesoValidacionPedidoRechazadoId, IdProcesoPedidoRechazado,DescripcionRechazo, ConsultoraID , CodigoConsultora, Campania, CodigoUsuario, Nombre, 
-	EMail, ZonaNuevoProl, PedidoID, ImporteTotal, DescuentoProl, EstadoSimplificacionCUV, Valor, MontoMinimoPedido, MontoMaximoPedido
+	EMail, ZonaNuevoProl, PedidoID, ImporteTotal, DescuentoProl, EstadoSimplificacionCUV, 
+	CASE WHEN charindex('-19',DescripcionRechazo)>0 THEN Valor ELSE NULL END Valor, 
+	MontoMinimoPedido, MontoMaximoPedido
 	FROM(
 
 		SELECT DISTINCT 
@@ -70,7 +72,17 @@ BEGIN
 				FROM Pais
 				WHERE CodigoISO = @PaisISO
 			), 0) AS EstadoSimplificacionCUV,
-			IIF(PR.MotivoRechazo = 'OCC-19', PR.VALOR, '') AS VALOR,
+			STUFF(
+			(
+				SELECT ',' + PR1.valor
+				FROM GPR.PedidoRechazado AS PR1			
+				WHERE
+					C.Codigo =  PR1.CodigoConsultora
+					AND U.CodigoConsultora =  PR1.CodigoConsultora
+					AND PR1.IdProcesoPedidoRechazado = @IdProcesoPedidoRechazado
+					AND charindex('-19',PR1.MotivoRechazo)>0
+				FOR xml path('')),1,1,''
+			) AS Valor, 
 			C.MontoMinimoPedido,		
 			C.MontoMaximoPedido
 		FROM GPR.PedidoRechazado PR
@@ -80,8 +92,6 @@ BEGIN
 		LEFT JOIN PedidoWeb PW WITH(NOLOCK) ON PW.CampaniaID = PR.Campania AND PW.ConsultoraID = C.ConsultoraID
 		WHERE PR.IdProcesoPedidoRechazado = @IdProcesoPedidoRechazado AND PR.Procesado = 0
 		) T
-
-	WHERE T.Valor <> ''
 	GROUP BY ProcesoValidacionPedidoRechazadoId, IdProcesoPedidoRechazado,DescripcionRechazo, ConsultoraID , CodigoConsultora, Campania, CodigoUsuario, Nombre, 
 	EMail, ZonaNuevoProl, PedidoID, ImporteTotal, DescuentoProl, EstadoSimplificacionCUV, Valor, MontoMinimoPedido, MontoMaximoPedido
 		
@@ -151,7 +161,9 @@ BEGIN
 	)
 	
 	SELECT ProcesoValidacionPedidoRechazadoId, IdProcesoPedidoRechazado,DescripcionRechazo, ConsultoraID , CodigoConsultora, Campania, CodigoUsuario, Nombre, 
-	EMail, ZonaNuevoProl, PedidoID, ImporteTotal, DescuentoProl, EstadoSimplificacionCUV, Valor, MontoMinimoPedido, MontoMaximoPedido
+	EMail, ZonaNuevoProl, PedidoID, ImporteTotal, DescuentoProl, EstadoSimplificacionCUV, 
+	CASE WHEN charindex('-19',DescripcionRechazo)>0 THEN Valor ELSE NULL END Valor, 
+	MontoMinimoPedido, MontoMaximoPedido
 	FROM(
 
 		SELECT DISTINCT 
@@ -186,7 +198,17 @@ BEGIN
 				FROM Pais
 				WHERE CodigoISO = @PaisISO
 			), 0) AS EstadoSimplificacionCUV,
-			IIF(PR.MotivoRechazo = 'OCC-19', PR.VALOR, '') AS VALOR,
+			STUFF(
+			(
+				SELECT ',' + PR1.valor
+				FROM GPR.PedidoRechazado AS PR1			
+				WHERE
+					C.Codigo =  PR1.CodigoConsultora
+					AND U.CodigoConsultora =  PR1.CodigoConsultora
+					AND PR1.IdProcesoPedidoRechazado = @IdProcesoPedidoRechazado
+					AND charindex('-19',PR1.MotivoRechazo)>0
+				FOR xml path('')),1,1,''
+			) AS Valor, 
 			C.MontoMinimoPedido,		
 			C.MontoMaximoPedido
 		FROM GPR.PedidoRechazado PR
@@ -196,8 +218,6 @@ BEGIN
 		LEFT JOIN PedidoWeb PW WITH(NOLOCK) ON PW.CampaniaID = PR.Campania AND PW.ConsultoraID = C.ConsultoraID
 		WHERE PR.IdProcesoPedidoRechazado = @IdProcesoPedidoRechazado AND PR.Procesado = 0
 		) T
-
-	WHERE T.Valor <> ''
 	GROUP BY ProcesoValidacionPedidoRechazadoId, IdProcesoPedidoRechazado,DescripcionRechazo, ConsultoraID , CodigoConsultora, Campania, CodigoUsuario, Nombre, 
 	EMail, ZonaNuevoProl, PedidoID, ImporteTotal, DescuentoProl, EstadoSimplificacionCUV, Valor, MontoMinimoPedido, MontoMaximoPedido
 		
@@ -267,7 +287,9 @@ BEGIN
 	)
 	
 	SELECT ProcesoValidacionPedidoRechazadoId, IdProcesoPedidoRechazado,DescripcionRechazo, ConsultoraID , CodigoConsultora, Campania, CodigoUsuario, Nombre, 
-	EMail, ZonaNuevoProl, PedidoID, ImporteTotal, DescuentoProl, EstadoSimplificacionCUV, Valor, MontoMinimoPedido, MontoMaximoPedido
+	EMail, ZonaNuevoProl, PedidoID, ImporteTotal, DescuentoProl, EstadoSimplificacionCUV, 
+	CASE WHEN charindex('-19',DescripcionRechazo)>0 THEN Valor ELSE NULL END Valor, 
+	MontoMinimoPedido, MontoMaximoPedido
 	FROM(
 
 		SELECT DISTINCT 
@@ -302,7 +324,17 @@ BEGIN
 				FROM Pais
 				WHERE CodigoISO = @PaisISO
 			), 0) AS EstadoSimplificacionCUV,
-			IIF(PR.MotivoRechazo = 'OCC-19', PR.VALOR, '') AS VALOR,
+			STUFF(
+			(
+				SELECT ',' + PR1.valor
+				FROM GPR.PedidoRechazado AS PR1			
+				WHERE
+					C.Codigo =  PR1.CodigoConsultora
+					AND U.CodigoConsultora =  PR1.CodigoConsultora
+					AND PR1.IdProcesoPedidoRechazado = @IdProcesoPedidoRechazado
+					AND charindex('-19',PR1.MotivoRechazo)>0
+				FOR xml path('')),1,1,''
+			) AS Valor, 
 			C.MontoMinimoPedido,		
 			C.MontoMaximoPedido
 		FROM GPR.PedidoRechazado PR
@@ -312,8 +344,6 @@ BEGIN
 		LEFT JOIN PedidoWeb PW WITH(NOLOCK) ON PW.CampaniaID = PR.Campania AND PW.ConsultoraID = C.ConsultoraID
 		WHERE PR.IdProcesoPedidoRechazado = @IdProcesoPedidoRechazado AND PR.Procesado = 0
 		) T
-
-	WHERE T.Valor <> ''
 	GROUP BY ProcesoValidacionPedidoRechazadoId, IdProcesoPedidoRechazado,DescripcionRechazo, ConsultoraID , CodigoConsultora, Campania, CodigoUsuario, Nombre, 
 	EMail, ZonaNuevoProl, PedidoID, ImporteTotal, DescuentoProl, EstadoSimplificacionCUV, Valor, MontoMinimoPedido, MontoMaximoPedido
 		
@@ -383,7 +413,9 @@ BEGIN
 	)
 	
 	SELECT ProcesoValidacionPedidoRechazadoId, IdProcesoPedidoRechazado,DescripcionRechazo, ConsultoraID , CodigoConsultora, Campania, CodigoUsuario, Nombre, 
-	EMail, ZonaNuevoProl, PedidoID, ImporteTotal, DescuentoProl, EstadoSimplificacionCUV, Valor, MontoMinimoPedido, MontoMaximoPedido
+	EMail, ZonaNuevoProl, PedidoID, ImporteTotal, DescuentoProl, EstadoSimplificacionCUV, 
+	CASE WHEN charindex('-19',DescripcionRechazo)>0 THEN Valor ELSE NULL END Valor, 
+	MontoMinimoPedido, MontoMaximoPedido
 	FROM(
 
 		SELECT DISTINCT 
@@ -418,7 +450,17 @@ BEGIN
 				FROM Pais
 				WHERE CodigoISO = @PaisISO
 			), 0) AS EstadoSimplificacionCUV,
-			IIF(PR.MotivoRechazo = 'OCC-19', PR.VALOR, '') AS VALOR,
+			STUFF(
+			(
+				SELECT ',' + PR1.valor
+				FROM GPR.PedidoRechazado AS PR1			
+				WHERE
+					C.Codigo =  PR1.CodigoConsultora
+					AND U.CodigoConsultora =  PR1.CodigoConsultora
+					AND PR1.IdProcesoPedidoRechazado = @IdProcesoPedidoRechazado
+					AND charindex('-19',PR1.MotivoRechazo)>0
+				FOR xml path('')),1,1,''
+			) AS Valor, 
 			C.MontoMinimoPedido,		
 			C.MontoMaximoPedido
 		FROM GPR.PedidoRechazado PR
@@ -428,8 +470,6 @@ BEGIN
 		LEFT JOIN PedidoWeb PW WITH(NOLOCK) ON PW.CampaniaID = PR.Campania AND PW.ConsultoraID = C.ConsultoraID
 		WHERE PR.IdProcesoPedidoRechazado = @IdProcesoPedidoRechazado AND PR.Procesado = 0
 		) T
-
-	WHERE T.Valor <> ''
 	GROUP BY ProcesoValidacionPedidoRechazadoId, IdProcesoPedidoRechazado,DescripcionRechazo, ConsultoraID , CodigoConsultora, Campania, CodigoUsuario, Nombre, 
 	EMail, ZonaNuevoProl, PedidoID, ImporteTotal, DescuentoProl, EstadoSimplificacionCUV, Valor, MontoMinimoPedido, MontoMaximoPedido
 		
@@ -499,7 +539,9 @@ BEGIN
 	)
 	
 	SELECT ProcesoValidacionPedidoRechazadoId, IdProcesoPedidoRechazado,DescripcionRechazo, ConsultoraID , CodigoConsultora, Campania, CodigoUsuario, Nombre, 
-	EMail, ZonaNuevoProl, PedidoID, ImporteTotal, DescuentoProl, EstadoSimplificacionCUV, Valor, MontoMinimoPedido, MontoMaximoPedido
+	EMail, ZonaNuevoProl, PedidoID, ImporteTotal, DescuentoProl, EstadoSimplificacionCUV, 
+	CASE WHEN charindex('-19',DescripcionRechazo)>0 THEN Valor ELSE NULL END Valor, 
+	MontoMinimoPedido, MontoMaximoPedido
 	FROM(
 
 		SELECT DISTINCT 
@@ -534,7 +576,17 @@ BEGIN
 				FROM Pais
 				WHERE CodigoISO = @PaisISO
 			), 0) AS EstadoSimplificacionCUV,
-			IIF(PR.MotivoRechazo = 'OCC-19', PR.VALOR, '') AS VALOR,
+			STUFF(
+			(
+				SELECT ',' + PR1.valor
+				FROM GPR.PedidoRechazado AS PR1			
+				WHERE
+					C.Codigo =  PR1.CodigoConsultora
+					AND U.CodigoConsultora =  PR1.CodigoConsultora
+					AND PR1.IdProcesoPedidoRechazado = @IdProcesoPedidoRechazado
+					AND charindex('-19',PR1.MotivoRechazo)>0
+				FOR xml path('')),1,1,''
+			) AS Valor, 
 			C.MontoMinimoPedido,		
 			C.MontoMaximoPedido
 		FROM GPR.PedidoRechazado PR
@@ -544,8 +596,6 @@ BEGIN
 		LEFT JOIN PedidoWeb PW WITH(NOLOCK) ON PW.CampaniaID = PR.Campania AND PW.ConsultoraID = C.ConsultoraID
 		WHERE PR.IdProcesoPedidoRechazado = @IdProcesoPedidoRechazado AND PR.Procesado = 0
 		) T
-
-	WHERE T.Valor <> ''
 	GROUP BY ProcesoValidacionPedidoRechazadoId, IdProcesoPedidoRechazado,DescripcionRechazo, ConsultoraID , CodigoConsultora, Campania, CodigoUsuario, Nombre, 
 	EMail, ZonaNuevoProl, PedidoID, ImporteTotal, DescuentoProl, EstadoSimplificacionCUV, Valor, MontoMinimoPedido, MontoMaximoPedido
 		
@@ -615,7 +665,9 @@ BEGIN
 	)
 	
 	SELECT ProcesoValidacionPedidoRechazadoId, IdProcesoPedidoRechazado,DescripcionRechazo, ConsultoraID , CodigoConsultora, Campania, CodigoUsuario, Nombre, 
-	EMail, ZonaNuevoProl, PedidoID, ImporteTotal, DescuentoProl, EstadoSimplificacionCUV, Valor, MontoMinimoPedido, MontoMaximoPedido
+	EMail, ZonaNuevoProl, PedidoID, ImporteTotal, DescuentoProl, EstadoSimplificacionCUV, 
+	CASE WHEN charindex('-19',DescripcionRechazo)>0 THEN Valor ELSE NULL END Valor, 
+	MontoMinimoPedido, MontoMaximoPedido
 	FROM(
 
 		SELECT DISTINCT 
@@ -650,7 +702,17 @@ BEGIN
 				FROM Pais
 				WHERE CodigoISO = @PaisISO
 			), 0) AS EstadoSimplificacionCUV,
-			IIF(PR.MotivoRechazo = 'OCC-19', PR.VALOR, '') AS VALOR,
+			STUFF(
+			(
+				SELECT ',' + PR1.valor
+				FROM GPR.PedidoRechazado AS PR1			
+				WHERE
+					C.Codigo =  PR1.CodigoConsultora
+					AND U.CodigoConsultora =  PR1.CodigoConsultora
+					AND PR1.IdProcesoPedidoRechazado = @IdProcesoPedidoRechazado
+					AND charindex('-19',PR1.MotivoRechazo)>0
+				FOR xml path('')),1,1,''
+			) AS Valor, 
 			C.MontoMinimoPedido,		
 			C.MontoMaximoPedido
 		FROM GPR.PedidoRechazado PR
@@ -660,8 +722,6 @@ BEGIN
 		LEFT JOIN PedidoWeb PW WITH(NOLOCK) ON PW.CampaniaID = PR.Campania AND PW.ConsultoraID = C.ConsultoraID
 		WHERE PR.IdProcesoPedidoRechazado = @IdProcesoPedidoRechazado AND PR.Procesado = 0
 		) T
-
-	WHERE T.Valor <> ''
 	GROUP BY ProcesoValidacionPedidoRechazadoId, IdProcesoPedidoRechazado,DescripcionRechazo, ConsultoraID , CodigoConsultora, Campania, CodigoUsuario, Nombre, 
 	EMail, ZonaNuevoProl, PedidoID, ImporteTotal, DescuentoProl, EstadoSimplificacionCUV, Valor, MontoMinimoPedido, MontoMaximoPedido
 		
@@ -731,7 +791,9 @@ BEGIN
 	)
 	
 	SELECT ProcesoValidacionPedidoRechazadoId, IdProcesoPedidoRechazado,DescripcionRechazo, ConsultoraID , CodigoConsultora, Campania, CodigoUsuario, Nombre, 
-	EMail, ZonaNuevoProl, PedidoID, ImporteTotal, DescuentoProl, EstadoSimplificacionCUV, Valor, MontoMinimoPedido, MontoMaximoPedido
+	EMail, ZonaNuevoProl, PedidoID, ImporteTotal, DescuentoProl, EstadoSimplificacionCUV, 
+	CASE WHEN charindex('-19',DescripcionRechazo)>0 THEN Valor ELSE NULL END Valor, 
+	MontoMinimoPedido, MontoMaximoPedido
 	FROM(
 
 		SELECT DISTINCT 
@@ -766,7 +828,17 @@ BEGIN
 				FROM Pais
 				WHERE CodigoISO = @PaisISO
 			), 0) AS EstadoSimplificacionCUV,
-			IIF(PR.MotivoRechazo = 'OCC-19', PR.VALOR, '') AS VALOR,
+			STUFF(
+			(
+				SELECT ',' + PR1.valor
+				FROM GPR.PedidoRechazado AS PR1			
+				WHERE
+					C.Codigo =  PR1.CodigoConsultora
+					AND U.CodigoConsultora =  PR1.CodigoConsultora
+					AND PR1.IdProcesoPedidoRechazado = @IdProcesoPedidoRechazado
+					AND charindex('-19',PR1.MotivoRechazo)>0
+				FOR xml path('')),1,1,''
+			) AS Valor, 
 			C.MontoMinimoPedido,		
 			C.MontoMaximoPedido
 		FROM GPR.PedidoRechazado PR
@@ -776,8 +848,6 @@ BEGIN
 		LEFT JOIN PedidoWeb PW WITH(NOLOCK) ON PW.CampaniaID = PR.Campania AND PW.ConsultoraID = C.ConsultoraID
 		WHERE PR.IdProcesoPedidoRechazado = @IdProcesoPedidoRechazado AND PR.Procesado = 0
 		) T
-
-	WHERE T.Valor <> ''
 	GROUP BY ProcesoValidacionPedidoRechazadoId, IdProcesoPedidoRechazado,DescripcionRechazo, ConsultoraID , CodigoConsultora, Campania, CodigoUsuario, Nombre, 
 	EMail, ZonaNuevoProl, PedidoID, ImporteTotal, DescuentoProl, EstadoSimplificacionCUV, Valor, MontoMinimoPedido, MontoMaximoPedido
 		
@@ -847,7 +917,9 @@ BEGIN
 	)
 	
 	SELECT ProcesoValidacionPedidoRechazadoId, IdProcesoPedidoRechazado,DescripcionRechazo, ConsultoraID , CodigoConsultora, Campania, CodigoUsuario, Nombre, 
-	EMail, ZonaNuevoProl, PedidoID, ImporteTotal, DescuentoProl, EstadoSimplificacionCUV, Valor, MontoMinimoPedido, MontoMaximoPedido
+	EMail, ZonaNuevoProl, PedidoID, ImporteTotal, DescuentoProl, EstadoSimplificacionCUV, 
+	CASE WHEN charindex('-19',DescripcionRechazo)>0 THEN Valor ELSE NULL END Valor, 
+	MontoMinimoPedido, MontoMaximoPedido
 	FROM(
 
 		SELECT DISTINCT 
@@ -882,7 +954,17 @@ BEGIN
 				FROM Pais
 				WHERE CodigoISO = @PaisISO
 			), 0) AS EstadoSimplificacionCUV,
-			IIF(PR.MotivoRechazo = 'OCC-19', PR.VALOR, '') AS VALOR,
+			STUFF(
+			(
+				SELECT ',' + PR1.valor
+				FROM GPR.PedidoRechazado AS PR1			
+				WHERE
+					C.Codigo =  PR1.CodigoConsultora
+					AND U.CodigoConsultora =  PR1.CodigoConsultora
+					AND PR1.IdProcesoPedidoRechazado = @IdProcesoPedidoRechazado
+					AND charindex('-19',PR1.MotivoRechazo)>0
+				FOR xml path('')),1,1,''
+			) AS Valor, 
 			C.MontoMinimoPedido,		
 			C.MontoMaximoPedido
 		FROM GPR.PedidoRechazado PR
@@ -892,8 +974,6 @@ BEGIN
 		LEFT JOIN PedidoWeb PW WITH(NOLOCK) ON PW.CampaniaID = PR.Campania AND PW.ConsultoraID = C.ConsultoraID
 		WHERE PR.IdProcesoPedidoRechazado = @IdProcesoPedidoRechazado AND PR.Procesado = 0
 		) T
-
-	WHERE T.Valor <> ''
 	GROUP BY ProcesoValidacionPedidoRechazadoId, IdProcesoPedidoRechazado,DescripcionRechazo, ConsultoraID , CodigoConsultora, Campania, CodigoUsuario, Nombre, 
 	EMail, ZonaNuevoProl, PedidoID, ImporteTotal, DescuentoProl, EstadoSimplificacionCUV, Valor, MontoMinimoPedido, MontoMaximoPedido
 		
@@ -963,7 +1043,9 @@ BEGIN
 	)
 	
 	SELECT ProcesoValidacionPedidoRechazadoId, IdProcesoPedidoRechazado,DescripcionRechazo, ConsultoraID , CodigoConsultora, Campania, CodigoUsuario, Nombre, 
-	EMail, ZonaNuevoProl, PedidoID, ImporteTotal, DescuentoProl, EstadoSimplificacionCUV, Valor, MontoMinimoPedido, MontoMaximoPedido
+	EMail, ZonaNuevoProl, PedidoID, ImporteTotal, DescuentoProl, EstadoSimplificacionCUV, 
+	CASE WHEN charindex('-19',DescripcionRechazo)>0 THEN Valor ELSE NULL END Valor, 
+	MontoMinimoPedido, MontoMaximoPedido
 	FROM(
 
 		SELECT DISTINCT 
@@ -998,7 +1080,17 @@ BEGIN
 				FROM Pais
 				WHERE CodigoISO = @PaisISO
 			), 0) AS EstadoSimplificacionCUV,
-			IIF(PR.MotivoRechazo = 'OCC-19', PR.VALOR, '') AS VALOR,
+			STUFF(
+			(
+				SELECT ',' + PR1.valor
+				FROM GPR.PedidoRechazado AS PR1			
+				WHERE
+					C.Codigo =  PR1.CodigoConsultora
+					AND U.CodigoConsultora =  PR1.CodigoConsultora
+					AND PR1.IdProcesoPedidoRechazado = @IdProcesoPedidoRechazado
+					AND charindex('-19',PR1.MotivoRechazo)>0
+				FOR xml path('')),1,1,''
+			) AS Valor, 
 			C.MontoMinimoPedido,		
 			C.MontoMaximoPedido
 		FROM GPR.PedidoRechazado PR
@@ -1008,8 +1100,6 @@ BEGIN
 		LEFT JOIN PedidoWeb PW WITH(NOLOCK) ON PW.CampaniaID = PR.Campania AND PW.ConsultoraID = C.ConsultoraID
 		WHERE PR.IdProcesoPedidoRechazado = @IdProcesoPedidoRechazado AND PR.Procesado = 0
 		) T
-
-	WHERE T.Valor <> ''
 	GROUP BY ProcesoValidacionPedidoRechazadoId, IdProcesoPedidoRechazado,DescripcionRechazo, ConsultoraID , CodigoConsultora, Campania, CodigoUsuario, Nombre, 
 	EMail, ZonaNuevoProl, PedidoID, ImporteTotal, DescuentoProl, EstadoSimplificacionCUV, Valor, MontoMinimoPedido, MontoMaximoPedido
 		
@@ -1079,7 +1169,9 @@ BEGIN
 	)
 	
 	SELECT ProcesoValidacionPedidoRechazadoId, IdProcesoPedidoRechazado,DescripcionRechazo, ConsultoraID , CodigoConsultora, Campania, CodigoUsuario, Nombre, 
-	EMail, ZonaNuevoProl, PedidoID, ImporteTotal, DescuentoProl, EstadoSimplificacionCUV, Valor, MontoMinimoPedido, MontoMaximoPedido
+	EMail, ZonaNuevoProl, PedidoID, ImporteTotal, DescuentoProl, EstadoSimplificacionCUV, 
+	CASE WHEN charindex('-19',DescripcionRechazo)>0 THEN Valor ELSE NULL END Valor, 
+	MontoMinimoPedido, MontoMaximoPedido
 	FROM(
 
 		SELECT DISTINCT 
@@ -1114,7 +1206,17 @@ BEGIN
 				FROM Pais
 				WHERE CodigoISO = @PaisISO
 			), 0) AS EstadoSimplificacionCUV,
-			IIF(PR.MotivoRechazo = 'OCC-19', PR.VALOR, '') AS VALOR,
+			STUFF(
+			(
+				SELECT ',' + PR1.valor
+				FROM GPR.PedidoRechazado AS PR1			
+				WHERE
+					C.Codigo =  PR1.CodigoConsultora
+					AND U.CodigoConsultora =  PR1.CodigoConsultora
+					AND PR1.IdProcesoPedidoRechazado = @IdProcesoPedidoRechazado
+					AND charindex('-19',PR1.MotivoRechazo)>0
+				FOR xml path('')),1,1,''
+			) AS Valor, 
 			C.MontoMinimoPedido,		
 			C.MontoMaximoPedido
 		FROM GPR.PedidoRechazado PR
@@ -1124,8 +1226,6 @@ BEGIN
 		LEFT JOIN PedidoWeb PW WITH(NOLOCK) ON PW.CampaniaID = PR.Campania AND PW.ConsultoraID = C.ConsultoraID
 		WHERE PR.IdProcesoPedidoRechazado = @IdProcesoPedidoRechazado AND PR.Procesado = 0
 		) T
-
-	WHERE T.Valor <> ''
 	GROUP BY ProcesoValidacionPedidoRechazadoId, IdProcesoPedidoRechazado,DescripcionRechazo, ConsultoraID , CodigoConsultora, Campania, CodigoUsuario, Nombre, 
 	EMail, ZonaNuevoProl, PedidoID, ImporteTotal, DescuentoProl, EstadoSimplificacionCUV, Valor, MontoMinimoPedido, MontoMaximoPedido
 		
@@ -1195,7 +1295,9 @@ BEGIN
 	)
 	
 	SELECT ProcesoValidacionPedidoRechazadoId, IdProcesoPedidoRechazado,DescripcionRechazo, ConsultoraID , CodigoConsultora, Campania, CodigoUsuario, Nombre, 
-	EMail, ZonaNuevoProl, PedidoID, ImporteTotal, DescuentoProl, EstadoSimplificacionCUV, Valor, MontoMinimoPedido, MontoMaximoPedido
+	EMail, ZonaNuevoProl, PedidoID, ImporteTotal, DescuentoProl, EstadoSimplificacionCUV, 
+	CASE WHEN charindex('-19',DescripcionRechazo)>0 THEN Valor ELSE NULL END Valor, 
+	MontoMinimoPedido, MontoMaximoPedido
 	FROM(
 
 		SELECT DISTINCT 
@@ -1230,7 +1332,17 @@ BEGIN
 				FROM Pais
 				WHERE CodigoISO = @PaisISO
 			), 0) AS EstadoSimplificacionCUV,
-			IIF(PR.MotivoRechazo = 'OCC-19', PR.VALOR, '') AS VALOR,
+			STUFF(
+			(
+				SELECT ',' + PR1.valor
+				FROM GPR.PedidoRechazado AS PR1			
+				WHERE
+					C.Codigo =  PR1.CodigoConsultora
+					AND U.CodigoConsultora =  PR1.CodigoConsultora
+					AND PR1.IdProcesoPedidoRechazado = @IdProcesoPedidoRechazado
+					AND charindex('-19',PR1.MotivoRechazo)>0
+				FOR xml path('')),1,1,''
+			) AS Valor, 
 			C.MontoMinimoPedido,		
 			C.MontoMaximoPedido
 		FROM GPR.PedidoRechazado PR
@@ -1240,8 +1352,6 @@ BEGIN
 		LEFT JOIN PedidoWeb PW WITH(NOLOCK) ON PW.CampaniaID = PR.Campania AND PW.ConsultoraID = C.ConsultoraID
 		WHERE PR.IdProcesoPedidoRechazado = @IdProcesoPedidoRechazado AND PR.Procesado = 0
 		) T
-
-	WHERE T.Valor <> ''
 	GROUP BY ProcesoValidacionPedidoRechazadoId, IdProcesoPedidoRechazado,DescripcionRechazo, ConsultoraID , CodigoConsultora, Campania, CodigoUsuario, Nombre, 
 	EMail, ZonaNuevoProl, PedidoID, ImporteTotal, DescuentoProl, EstadoSimplificacionCUV, Valor, MontoMinimoPedido, MontoMaximoPedido
 		
@@ -1311,7 +1421,9 @@ BEGIN
 	)
 	
 	SELECT ProcesoValidacionPedidoRechazadoId, IdProcesoPedidoRechazado,DescripcionRechazo, ConsultoraID , CodigoConsultora, Campania, CodigoUsuario, Nombre, 
-	EMail, ZonaNuevoProl, PedidoID, ImporteTotal, DescuentoProl, EstadoSimplificacionCUV, Valor, MontoMinimoPedido, MontoMaximoPedido
+	EMail, ZonaNuevoProl, PedidoID, ImporteTotal, DescuentoProl, EstadoSimplificacionCUV, 
+	CASE WHEN charindex('-19',DescripcionRechazo)>0 THEN Valor ELSE NULL END Valor, 
+	MontoMinimoPedido, MontoMaximoPedido
 	FROM(
 
 		SELECT DISTINCT 
@@ -1346,7 +1458,17 @@ BEGIN
 				FROM Pais
 				WHERE CodigoISO = @PaisISO
 			), 0) AS EstadoSimplificacionCUV,
-			IIF(PR.MotivoRechazo = 'OCC-19', PR.VALOR, '') AS VALOR,
+			STUFF(
+			(
+				SELECT ',' + PR1.valor
+				FROM GPR.PedidoRechazado AS PR1			
+				WHERE
+					C.Codigo =  PR1.CodigoConsultora
+					AND U.CodigoConsultora =  PR1.CodigoConsultora
+					AND PR1.IdProcesoPedidoRechazado = @IdProcesoPedidoRechazado
+					AND charindex('-19',PR1.MotivoRechazo)>0
+				FOR xml path('')),1,1,''
+			) AS Valor, 
 			C.MontoMinimoPedido,		
 			C.MontoMaximoPedido
 		FROM GPR.PedidoRechazado PR
@@ -1356,8 +1478,6 @@ BEGIN
 		LEFT JOIN PedidoWeb PW WITH(NOLOCK) ON PW.CampaniaID = PR.Campania AND PW.ConsultoraID = C.ConsultoraID
 		WHERE PR.IdProcesoPedidoRechazado = @IdProcesoPedidoRechazado AND PR.Procesado = 0
 		) T
-
-	WHERE T.Valor <> ''
 	GROUP BY ProcesoValidacionPedidoRechazadoId, IdProcesoPedidoRechazado,DescripcionRechazo, ConsultoraID , CodigoConsultora, Campania, CodigoUsuario, Nombre, 
 	EMail, ZonaNuevoProl, PedidoID, ImporteTotal, DescuentoProl, EstadoSimplificacionCUV, Valor, MontoMinimoPedido, MontoMaximoPedido
 		
@@ -1427,7 +1547,9 @@ BEGIN
 	)
 	
 	SELECT ProcesoValidacionPedidoRechazadoId, IdProcesoPedidoRechazado,DescripcionRechazo, ConsultoraID , CodigoConsultora, Campania, CodigoUsuario, Nombre, 
-	EMail, ZonaNuevoProl, PedidoID, ImporteTotal, DescuentoProl, EstadoSimplificacionCUV, Valor, MontoMinimoPedido, MontoMaximoPedido
+	EMail, ZonaNuevoProl, PedidoID, ImporteTotal, DescuentoProl, EstadoSimplificacionCUV, 
+	CASE WHEN charindex('-19',DescripcionRechazo)>0 THEN Valor ELSE NULL END Valor, 
+	MontoMinimoPedido, MontoMaximoPedido
 	FROM(
 
 		SELECT DISTINCT 
@@ -1462,7 +1584,17 @@ BEGIN
 				FROM Pais
 				WHERE CodigoISO = @PaisISO
 			), 0) AS EstadoSimplificacionCUV,
-			IIF(PR.MotivoRechazo = 'OCC-19', PR.VALOR, '') AS VALOR,
+			STUFF(
+			(
+				SELECT ',' + PR1.valor
+				FROM GPR.PedidoRechazado AS PR1			
+				WHERE
+					C.Codigo =  PR1.CodigoConsultora
+					AND U.CodigoConsultora =  PR1.CodigoConsultora
+					AND PR1.IdProcesoPedidoRechazado = @IdProcesoPedidoRechazado
+					AND charindex('-19',PR1.MotivoRechazo)>0
+				FOR xml path('')),1,1,''
+			) AS Valor, 
 			C.MontoMinimoPedido,		
 			C.MontoMaximoPedido
 		FROM GPR.PedidoRechazado PR
@@ -1472,8 +1604,6 @@ BEGIN
 		LEFT JOIN PedidoWeb PW WITH(NOLOCK) ON PW.CampaniaID = PR.Campania AND PW.ConsultoraID = C.ConsultoraID
 		WHERE PR.IdProcesoPedidoRechazado = @IdProcesoPedidoRechazado AND PR.Procesado = 0
 		) T
-
-	WHERE T.Valor <> ''
 	GROUP BY ProcesoValidacionPedidoRechazadoId, IdProcesoPedidoRechazado,DescripcionRechazo, ConsultoraID , CodigoConsultora, Campania, CodigoUsuario, Nombre, 
 	EMail, ZonaNuevoProl, PedidoID, ImporteTotal, DescuentoProl, EstadoSimplificacionCUV, Valor, MontoMinimoPedido, MontoMaximoPedido
 		
