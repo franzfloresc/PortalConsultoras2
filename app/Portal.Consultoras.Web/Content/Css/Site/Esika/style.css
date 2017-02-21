@@ -2132,7 +2132,7 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido {
     height: 20px;
     top: 1px;
     margin-right: 7px;
-    background: url(../../../Images/Esika/icono_advertencia_notificacion.svg) center center no-repeat;
+    background: url(../../../Images/Esika/icono_advertencia_notificacion.png) center center no-repeat;
 }
 
 .caja_guardar_pedido {
@@ -5130,7 +5130,7 @@ a.subir_carousel, a.bajar_carousel {
     /* bottom: -1px; */
     border: none;
     background: transparent;
-    width: 139px;
+    width: 152px;
     margin: 0 auto;
     height: 50px;
     text-align: center;
@@ -5148,7 +5148,11 @@ a.subir_carousel, a.bajar_carousel {
     -ms-transition: all 0.3s ease;
     -webkit-transition: all 0.3s ease;
 }
-
+.icono_terminar_pedido{
+    background:url(https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/eFrB5kIPNXTjyJd/icono-reserva.png) no-repeat;
+    padding-left: 40px;
+    background-position: 10px 14px;
+}
 /*.btn_noGracias_agregarProductos:hover{*/
     /*opacity:0.5;*/
     /*filter:alpha(opacity=50);*/
