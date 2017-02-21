@@ -519,5 +519,25 @@ namespace Portal.Consultoras.Data
 
             return Context.ExecuteReader(command);
         }
+
+        public int InsertShowRoomPersonalizacionNivel(BEShowRoomPersonalizacionNivel entity)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("ShowRoom.InsertShowRoomPersonalizacionNivel");
+            Context.Database.AddInParameter(command, "@EventoID", DbType.Int32, entity.EventoID);
+            Context.Database.AddInParameter(command, "@PersonalizacionId", DbType.Int32, entity.PersonalizacionId);
+            Context.Database.AddInParameter(command, "@NivelId", DbType.Int32, entity.NivelId);
+            Context.Database.AddInParameter(command, "@Valor", DbType.String, entity.Valor);
+            
+            return Context.ExecuteNonQuery(command);
+        }
+
+        public int UpdateShowRoomPersonalizacionNivel(BEShowRoomPersonalizacionNivel entity)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("ShowRoom.UpdateShowRoomPersonalizacionNivel");
+            Context.Database.AddInParameter(command, "@PersonalizacionNivelId", DbType.Int32, entity.PersonalizacionNivelId);
+            Context.Database.AddInParameter(command, "@Valor", DbType.String, entity.Valor);
+            
+            return Context.ExecuteNonQuery(command);
+        }
     }
 }

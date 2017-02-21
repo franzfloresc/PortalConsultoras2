@@ -334,13 +334,20 @@ namespace Portal.Consultoras.Common
         {
             public class Desktop
             {
-                public const string BannerHomeImagen = "BannerHomeImagen";
+                public const string PopupImagenIntriga = "PopupImagenIntriga";
+                public const string PopupImagenVenta = "PopupImagenVenta";
+                public const string BannerImagenIntriga = "BannerImagenIntriga";
+                public const string BannerImagenVenta = "BannerImagenVenta";
+                public const string UrlTerminosCondiciones = "UrlTerminosCondiciones";
             }
 
             public class Mobile
             {
-                public const string BannerHomeImagen = "BannerHomeImagen";
-                public const string BannerSliderImagen = "BannerSliderImagen";
+                public const string PopupImagenIntriga = "PopupImagenIntriga";
+                public const string PopupImagenVenta = "PopupImagenVenta";
+                public const string BannerImagenIntriga = "BannerImagenIntriga";
+                public const string BannerImagenVenta = "BannerImagenVenta";
+                public const string UrlTerminosCondiciones = "BannerSliderImagen";
             }
         }
     }

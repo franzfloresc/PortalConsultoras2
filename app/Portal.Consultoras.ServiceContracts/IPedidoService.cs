@@ -872,6 +872,12 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         IList<BEShowRoomPersonalizacionNivel> GetShowRoomPersonalizacionNivel(int paisId, int eventoId, int nivelId);
+
+        [OperationContract]
+        int InsertShowRoomPersonalizacionNivel(int paisId, BEShowRoomPersonalizacionNivel beShowRoomPersonalizacionNivel);
+
+        [OperationContract]
+        int UpdateShowRoomPersonalizacionNivel(int paisId, BEShowRoomPersonalizacionNivel beShowRoomPersonalizacionNivel);
         #endregion
 
         #region Producto SUgerido

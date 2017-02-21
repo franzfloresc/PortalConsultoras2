@@ -1269,19 +1269,23 @@
             {
                 "Guardar": function () {
                     var vMessage = "";
-                    //if (jQuery.trim($('#txtNombreProductoDetalle').val()) == "")
-                    //    vMessage += "- Debe ingresar la el nombre del Producto.\n";
 
-                    //if (jQuery.trim($('#txtDescripcion1Detalle').val()) == "")
-                    //    vMessage += "- Debe ingresar la el nombre del Producto.\n";
+                    var eventoId = $("#hdEventoID").val();
+                    var nivelId = $("#cbNivelEvento").val();
 
-                    //if (vMessage != "") {
-                    //    alert(vMessage);
-                    //    return false;
-                    //}
-                    //else {
-                    //    RegistrarOfertaShowRoomDetalle();
-                    //}
+                    if (eventoId == "")
+                        vMessage += "- Debe seleccionar el evento.\n";
+
+                    if (nivelId == "")
+                        vMessage += "- Debe seleccionar el nivel de la personalización.\n";                    
+
+                    if (vMessage != "") {
+                        alert(vMessage);
+                        return false;
+                    }
+                    else {
+                        RegistrarShowRoomPersonalizacionNivel(eventoId, nivelId);
+                    }
                     return false;
                 },
                 "Cancelar": function () {
@@ -1647,80 +1651,100 @@
                         if (response.success) {
                             closeWaitingDialog();
 
+                            $("#divPersonalizacionDetalleDesktop").html("");
+                            $("#divPersonalizacionDetalleMobile").html("");
                             var listaPersonalizacion = response.listaPersonalizacion;
 
                             var listaPersonalizacionDesktop = listaPersonalizacion.Find("TipoAplicacion", "Desktop");
-                            var listaPersonalizacionMobile = listaPersonalizacion.Find("TipoAplicacion", "Mobile");
-
-                            $.each(listaPersonalizacionDesktop, function (index, value) {
-                                var htmlPersonalizacion = '';
-                                if (value.TipoAtributo == 'IMAGEN') {                                    
-                                    htmlPersonalizacion += '<div class="div-3">';
-                                    htmlPersonalizacion += '<div class="titC" style="width: 250px; margin-top: 15px;">' + value.TextoAyuda + '</div>';
-                                    htmlPersonalizacion += '<div class="titC" style="padding: 0; width: 230px;">';
-                                    htmlPersonalizacion += '<div class="input_search">';
-                                    htmlPersonalizacion += '<input type="hidden" id="hdImagenDesktop' + value.Atributo + '" />';
-                                    htmlPersonalizacion += '<input type="hidden" id="hdImagenDesktop' + value.Atributo + 'Anterior" />';
-                                    htmlPersonalizacion += '<div id="fpPopupImagenDesktop' + value.Atributo + '">';
-                                    htmlPersonalizacion += '</div>';
-                                    htmlPersonalizacion += '</div>';
-                                    htmlPersonalizacion += '<div id="divPopupImagenDesktop' + value.Atributo + '" style="width: 100px; height: 60px; float: right;">';
-                                    htmlPersonalizacion += '</div>';
-                                    htmlPersonalizacion += '</div>';
-                                    htmlPersonalizacion += '</div>';
-                                } else {
-                                    htmlPersonalizacion += '<div class="div-3">';
-                                    htmlPersonalizacion += '<div class="titC" style="width: 250px;">' + value.TextoAyuda + '</div>';
-                                    htmlPersonalizacion += '<div class="selectP2 borde_redondeado">';
-                                    htmlPersonalizacion += '<input type="text" id="txtDesktop"' + value.Atributo + '/>';
-                                    htmlPersonalizacion += '</div>';
-                                    htmlPersonalizacion += '</div>';
-                                }
-
-                                $("#divPersonalizacionDetalleDesktop").append(htmlPersonalizacion);
-
-                                if (value.TipoAtributo == 'IMAGEN') {
-                                    var elementoAgregarImagen = 'fpPopupImagenDesktop' + value.Atributo;
-                                    var elementoHiddenImagen = 'hdImagenDesktop' + value.Atributo;
-                                    var elementoDivVerImagen = 'divPopupImagenDesktop' + value.Atributo;
-
-                                    InsertarImagenPersonalizacion(elementoAgregarImagen, elementoHiddenImagen, elementoDivVerImagen, eventoId, nivelId, value.Atributo);
-                                }
-                            });
+                            var listaPersonalizacionMobile = listaPersonalizacion.Find("TipoAplicacion", "Mobile");                            
 
                             $.each(listaPersonalizacionMobile, function (index, value) {
                                 var htmlPersonalizacion = '';
+                                htmlPersonalizacion += '<div class="div-3" data-idpersonalizacion="' + value.PersonalizacionId + '">';
+                                htmlPersonalizacion += '<input type="hidden" class="hdPersonalizacionNivelId" value="' + value.PersonalizacionNivelId + '"/>';
+                                
+                                var valor = value.TipoAtributo == 'IMAGEN' ? value.Valor.replace(/^.*[\\\/]/, '') : value.Valor;
+                                htmlPersonalizacion += '<input type="hidden" class="hdValor" value="' + valor + '"/>';
+                                htmlPersonalizacion += '<input type="hidden" class="hdValorAnterior" value="' + valor + '"/>';
+
+                                htmlPersonalizacion += '<input type="hidden" class="hdAtributo" value="' + value.Atributo + '"/>';
+                                htmlPersonalizacion += '<input type="hidden" class="hdTipoAtributo" value="' + value.TipoAtributo + '"/>';
+
                                 if (value.TipoAtributo == 'IMAGEN') {
-                                    htmlPersonalizacion += '<div class="div-3">';
+                                    
                                     htmlPersonalizacion += '<div class="titC" style="width: 250px; margin-top: 15px;">' + value.TextoAyuda + '</div>';
                                     htmlPersonalizacion += '<div class="titC" style="padding: 0; width: 230px;">';
                                     htmlPersonalizacion += '<div class="input_search">';
-                                    htmlPersonalizacion += '<input type="hidden" id="hdImagenMobile' + value.Atributo + '" />';
-                                    htmlPersonalizacion += '<input type="hidden" id="hdImagenMobile' + value.Atributo + 'Anterior" />';
-                                    htmlPersonalizacion += '<div id="fpPopupImagenMobile' + value.Atributo + '">';
+                                    htmlPersonalizacion += '<div class="fpPopupImagenPersonalizacion">';
                                     htmlPersonalizacion += '</div>';
                                     htmlPersonalizacion += '</div>';
-                                    htmlPersonalizacion += '<div id="divPopupImagenMobile' + value.Atributo + '" style="width: 100px; height: 60px; float: right;">';
+                                    htmlPersonalizacion += '<div class="divPopupImagenPersonalizacion" style="width: 100px; height: 60px; float: right;">';
+
+                                    if (value.PersonalizacionNivelId != 0 && value.Valor != "") {
+                                        htmlPersonalizacion += '<img  alt="" src="' + value.Valor + '" style="width: auto; height: 60px; max-width: 300px !important;"/>';
+                                    }
+
                                     htmlPersonalizacion += '</div>';
-                                    htmlPersonalizacion += '</div>';
-                                    htmlPersonalizacion += '</div>';
+                                    htmlPersonalizacion += '</div>';                                    
                                 } else {
-                                    htmlPersonalizacion += '<div class="div-3">';
+                                    
                                     htmlPersonalizacion += '<div class="titC" style="width: 250px;">' + value.TextoAyuda + '</div>';
-                                    htmlPersonalizacion += '<div class="selectP2 borde_redondeado">';
-                                    htmlPersonalizacion += '<input type="text" id="txtMobile"' + value.Atributo + '/>';
-                                    htmlPersonalizacion += '</div>';
+                                    htmlPersonalizacion += '<div class="selectP2 borde_redondeado" style="width: 400px;">';
+                                    htmlPersonalizacion += '<input type="text" class="txtAtributoPersonalizacion" value="' + value.Valor + '"/>';
                                     htmlPersonalizacion += '</div>';
                                 }
+
+                                htmlPersonalizacion += '</div>';
 
                                 $("#divPersonalizacionDetalleMobile").append(htmlPersonalizacion);
 
                                 if (value.TipoAtributo == 'IMAGEN') {
-                                    var elementoAgregarImagen = 'fpPopupImagenMobile' + value.Atributo;
-                                    var elementoHiddenImagen = 'hdImagenMobile' + value.Atributo;
-                                    var elementoDivVerImagen = 'divPopupImagenMobile' + value.Atributo;
+                                    InsertarImagenPersonalizacion(value.PersonalizacionId);
+                                }
+                            });
 
-                                    InsertarImagenPersonalizacion(elementoAgregarImagen, elementoHiddenImagen, elementoDivVerImagen, eventoId, nivelId, value.Atributo);
+                            $.each(listaPersonalizacionDesktop, function (index, value) {
+                                var htmlPersonalizacion = '';
+                                htmlPersonalizacion += '<div class="div-3" data-idpersonalizacion="' + value.PersonalizacionId + '">';
+                                htmlPersonalizacion += '<input type="hidden" class="hdPersonalizacionNivelId" value="' + value.PersonalizacionNivelId + '"/>';
+
+                                var valor = value.TipoAtributo == 'IMAGEN' ? value.Valor.replace(/^.*[\\\/]/, '') : value.Valor;
+                                htmlPersonalizacion += '<input type="hidden" class="hdValor" value="' + valor + '"/>';
+                                htmlPersonalizacion += '<input type="hidden" class="hdValorAnterior" value="' + valor + '"/>';
+
+                                htmlPersonalizacion += '<input type="hidden" class="hdAtributo" value="' + value.Atributo + '"/>';
+                                htmlPersonalizacion += '<input type="hidden" class="hdTipoAtributo" value="' + value.TipoAtributo + '"/>';
+
+                                if (value.TipoAtributo == 'IMAGEN') {
+
+                                    htmlPersonalizacion += '<div class="titC" style="width: 250px; margin-top: 15px;">' + value.TextoAyuda + '</div>';
+                                    htmlPersonalizacion += '<div class="titC" style="padding: 0; width: 230px;">';
+                                    htmlPersonalizacion += '<div class="input_search">';
+                                    htmlPersonalizacion += '<div class="fpPopupImagenPersonalizacion">';
+                                    htmlPersonalizacion += '</div>';
+                                    htmlPersonalizacion += '</div>';
+                                    htmlPersonalizacion += '<div class="divPopupImagenPersonalizacion" style="width: 100px; height: 60px; float: right;">';
+
+                                    if (value.PersonalizacionNivelId != 0 && value.Valor != "") {
+                                        htmlPersonalizacion += '<img  alt="" src="' + value.Valor + '" style="width: auto; height: 60px; max-width: 300px !important;"/>';
+                                    }
+
+                                    htmlPersonalizacion += '</div>';
+                                    htmlPersonalizacion += '</div>';
+                                } else {
+
+                                    htmlPersonalizacion += '<div class="titC" style="width: 250px;">' + value.TextoAyuda + '</div>';
+                                    htmlPersonalizacion += '<div class="selectP2 borde_redondeado" style="width: 400px;">';
+                                    htmlPersonalizacion += '<input type="text" class="txtAtributoPersonalizacion" value="' + value.Valor + '"/>';
+                                    htmlPersonalizacion += '</div>';
+                                }
+
+                                htmlPersonalizacion += '</div>';
+
+                                $("#divPersonalizacionDetalleDesktop").append(htmlPersonalizacion);
+
+                                if (value.TipoAtributo == 'IMAGEN') {
+                                    InsertarImagenPersonalizacion(value.PersonalizacionId);
                                 }
                             });
 
@@ -2979,11 +3003,15 @@
         $('#DialogMensajes').dialog('open');
     }
 
-    function InsertarImagenPersonalizacion(elementoAgregarImagen, elementoHiddenImagen, elementoDivVerImagen, eventoId, nivelId, atributo) {
+    function InsertarImagenPersonalizacion(personalizacionId) {
+        var elementoPadre = $('.div-3[data-idpersonalizacion="' + personalizacionId + '"]');
+            var elementoAgregarImagen = $(elementoPadre).find('.fpPopupImagenPersonalizacion')[0];
+            var elementoDivVerImagen = $(elementoPadre).find('.divPopupImagenPersonalizacion')[0];
+            var elementoHiddenValor = $(elementoPadre).find('.hdValor')[0];
         $.ajaxSetup({ cache: false });
         var uploader = new qq.FileUploader({
             allowedExtensions: ['jpg', 'png', 'jpeg', 'gif'],
-            element: document.getElementById(elementoAgregarImagen),
+            element: elementoAgregarImagen,
             action: urlImageMatrizUpload,
             onComplete: function (id, fileName, responseJSON) {
                 if (checkTimeout(responseJSON)) {
@@ -2991,9 +3019,10 @@
                     if (responseJSON.success) {
                         var rutaImagen = rutaImagenTemporal + responseJSON.name;
                         
-                        $("#" + elementoHiddenImagen).val(responseJSON.name);
+                        $(elementoHiddenValor).val(responseJSON.name);
 
-                        GuardarImagenPersonalizacion(rutaImagen, responseJSON.name, elementoDivVerImagen, elementoHiddenImagen, eventoId, nivelId, atributo);
+                        var html = '<img  alt="" src="' + rutaImagen + '" style="width: auto; height: 60px; max-width: 300px !important;"/>';
+                        $(elementoDivVerImagen).html(html);
                     } else {
                         alert(responseJSON.message);
                     }
@@ -3005,36 +3034,54 @@
         });
     }
 
-    function GuardarImagenPersonalizacion(rutaImagen, nombreImagen, elementoDivVerImagen, elementoHiddenImagen, eventoId, nivelId, atributo) {
-        var html = '<img  alt="" src="' + rutaImagen + '" style="max-width: 100% !important;"/>';
-        $("#" + elementoDivVerImagen).html(html);
+    function RegistrarShowRoomPersonalizacionNivel(eventoId, nivelId) {
+        var lista = $(".div-3[data-idpersonalizacion]");
+        var array = new Array();
 
-        var item = {
-            EventoId: eventoId,
-            NivelId: nivelId,
-            Atributo: atributo,
-            Valor: '',
-            NombreImagen: nombreImagen,
-            NombreImagenAnterior: $("#" + nombreImagen + 'Anterior').val(),
-            EsImagen: true
-        };
+        $.each(lista, function (index, value) {
+            var personalizacionNivelId = $(value).find(".hdPersonalizacionNivelId").val();
+            var personalizacionId = $(value).attr("data-idpersonalizacion");
+            var atributo = $(value).find(".hdAtributo").val();
+
+            var valor = "";
+            var esImagen = false;
+            var tipoAtributo = $(value).find(".hdTipoAtributo").val();
+
+            if (tipoAtributo == "IMAGEN") {
+                valor = $(value).find(".hdValor").val();
+                esImagen = true;
+            } else {
+                valor = $(value).find(".txtAtributoPersonalizacion").val();
+            }
+
+            var item = {
+                PersonalizacionNivelId: personalizacionNivelId,
+                PersonalizacionId: personalizacionId,
+                EventoId: eventoId,
+                NivelId: nivelId,
+                Atributo: atributo,
+                Valor: valor,
+                ValorAnterior: $(value).find(".hdValorAnterior").val(),
+                EsImagen: esImagen
+            };
+
+            array.push(item);
+        });
 
         jQuery.ajax({
             type: 'POST',
             url: urlGuardarPersonalizacionNivelShowRoom,
             dataType: 'json',
             contentType: 'application/json; charset=utf-8',
-            data: JSON.stringify(item),
+            data: JSON.stringify(array),
             async: true,
             success: function (data) {
                 if (checkTimeout(data)) {
                     closeWaitingDialog();
                     if (data.success == true) {
                         alert(data.message);
-                        //actualizar los inputs de la imagen respectiva
                         
-                        $("#" + elementoHiddenImagen).val(data.extra);
-                        $("#" + elementoHiddenImagen + "Anterior").val(data.extra);
+                        HideDialog("DialogPersonalizacionDetalle");
                     }
                     else {
                         alert(data.message);
@@ -3048,6 +3095,56 @@
                 }
             }
         });
+    }
+
+    function GuardarImagenPersonalizacion(rutaImagen, nombreImagen, elementoDivVerImagen, elementoHiddenImagen, personalizacionNivelId,
+        personalizacionId, eventoId, nivelId, atributo) {
+        var html = '<img  alt="" src="' + rutaImagen + '" style="max-width: 100% !important;"/>';
+        $("#" + elementoDivVerImagen).html(html);
+
+        $("#" + elementoHiddenImagen).val(nombreImagen);
+
+        //var item = {
+        //    PersonalizacionNivelId: personalizacionNivelId,
+        //    PersonalizacionId: personalizacionId,
+        //    EventoId: eventoId,
+        //    NivelId: nivelId,
+        //    Atributo: atributo,
+        //    Valor: '',
+        //    NombreImagen: nombreImagen,
+        //    NombreImagenAnterior: $("#" + nombreImagen + 'Anterior').val(),
+        //    EsImagen: true
+        //};
+
+        //jQuery.ajax({
+        //    type: 'POST',
+        //    url: urlGuardarPersonalizacionNivelShowRoom,
+        //    dataType: 'json',
+        //    contentType: 'application/json; charset=utf-8',
+        //    data: JSON.stringify(item),
+        //    async: true,
+        //    success: function (data) {
+        //        if (checkTimeout(data)) {
+        //            closeWaitingDialog();
+        //            if (data.success == true) {
+        //                alert(data.message);
+        //                //actualizar los inputs de la imagen respectiva
+
+        //                $("#" + elementoHiddenImagen).val(data.extra);
+        //                $("#" + elementoHiddenImagen + "Anterior").val(data.extra);
+        //            }
+        //            else {
+        //                alert(data.message);
+        //            }
+        //        }
+        //    },
+        //    error: function (data, error) {
+        //        if (checkTimeout(data)) {
+        //            closeWaitingDialog();
+        //            alert(data.message);
+        //        }
+        //    }
+        //});
     }
 
 </script>

@@ -276,6 +276,10 @@ namespace Portal.Consultoras.Web.Models
 
         public List<BEShowRoomPersonalizacion> ListaShowRoomPersonalizacion { get; set; }
 
+        public List<ShowRoomPersonalizacionModel> ListaShowRoomPersonalizacionConsultora { get; set; } 
+
+        public int ShowRoomNivelId { get; set; }        
+
         public int OfertaFinal { get; set; }
 
         public bool EsOfertaFinalZonaValida { get; set; }

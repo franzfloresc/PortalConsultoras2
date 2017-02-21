@@ -377,5 +377,17 @@ namespace Portal.Consultoras.BizLogic
                 }
             return lst;
         }
+
+        public int InsertShowRoomPersonalizacionNivel(int paisID, BEShowRoomPersonalizacionNivel entity)
+        {
+            var dataAccess = new DAShowRoomEvento(paisID);
+            return dataAccess.InsertShowRoomPersonalizacionNivel(entity);
+        }
+
+        public int UpdateShowRoomPersonalizacionNivel(int paisID, BEShowRoomPersonalizacionNivel entity)
+        {
+            var dataAccess = new DAShowRoomEvento(paisID);
+            return dataAccess.UpdateShowRoomPersonalizacionNivel(entity);
+        }
     }
 }

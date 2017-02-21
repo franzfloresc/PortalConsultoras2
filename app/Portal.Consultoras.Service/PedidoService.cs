@@ -1618,6 +1618,16 @@ namespace Portal.Consultoras.Service
             return BLShowRoomEvento.GetShowRoomPersonalizacionNivel(paisId, eventoId, nivelId);
         }
 
+        public int InsertShowRoomPersonalizacionNivel(int paisId, BEShowRoomPersonalizacionNivel beShowRoomPersonalizacionNivel)
+        {
+            return BLShowRoomEvento.InsertShowRoomPersonalizacionNivel(paisId, beShowRoomPersonalizacionNivel);
+        }
+
+        public int UpdateShowRoomPersonalizacionNivel(int paisId, BEShowRoomPersonalizacionNivel beShowRoomPersonalizacionNivel)
+        {
+            return BLShowRoomEvento.UpdateShowRoomPersonalizacionNivel(paisId, beShowRoomPersonalizacionNivel);
+        }        
+
         #endregion
 
         #region Producto SUgerido

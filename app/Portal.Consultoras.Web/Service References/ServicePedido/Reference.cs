@@ -17892,6 +17892,18 @@ namespace Portal.Consultoras.Web.ServicePedido {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetShowRoomPersonalizacionNivel", ReplyAction="http://tempuri.org/IPedidoService/GetShowRoomPersonalizacionNivelResponse")]
         System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEShowRoomPersonalizacionNivel[]> GetShowRoomPersonalizacionNivelAsync(int paisId, int eventoId, int nivelId);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/InsertShowRoomPersonalizacionNivel", ReplyAction="http://tempuri.org/IPedidoService/InsertShowRoomPersonalizacionNivelResponse")]
+        int InsertShowRoomPersonalizacionNivel(int paisId, Portal.Consultoras.Web.ServicePedido.BEShowRoomPersonalizacionNivel beShowRoomPersonalizacionNivel);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/InsertShowRoomPersonalizacionNivel", ReplyAction="http://tempuri.org/IPedidoService/InsertShowRoomPersonalizacionNivelResponse")]
+        System.Threading.Tasks.Task<int> InsertShowRoomPersonalizacionNivelAsync(int paisId, Portal.Consultoras.Web.ServicePedido.BEShowRoomPersonalizacionNivel beShowRoomPersonalizacionNivel);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/UpdateShowRoomPersonalizacionNivel", ReplyAction="http://tempuri.org/IPedidoService/UpdateShowRoomPersonalizacionNivelResponse")]
+        int UpdateShowRoomPersonalizacionNivel(int paisId, Portal.Consultoras.Web.ServicePedido.BEShowRoomPersonalizacionNivel beShowRoomPersonalizacionNivel);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/UpdateShowRoomPersonalizacionNivel", ReplyAction="http://tempuri.org/IPedidoService/UpdateShowRoomPersonalizacionNivelResponse")]
+        System.Threading.Tasks.Task<int> UpdateShowRoomPersonalizacionNivelAsync(int paisId, Portal.Consultoras.Web.ServicePedido.BEShowRoomPersonalizacionNivel beShowRoomPersonalizacionNivel);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetPaginateProductoSugerido", ReplyAction="http://tempuri.org/IPedidoService/GetPaginateProductoSugeridoResponse")]
         Portal.Consultoras.Web.ServicePedido.BEProductoSugerido[] GetPaginateProductoSugerido(int PaisID, int CampaniaID, string CUVAgotado, string CUVSugerido);
         
@@ -19662,6 +19674,22 @@ namespace Portal.Consultoras.Web.ServicePedido {
         
         public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEShowRoomPersonalizacionNivel[]> GetShowRoomPersonalizacionNivelAsync(int paisId, int eventoId, int nivelId) {
             return base.Channel.GetShowRoomPersonalizacionNivelAsync(paisId, eventoId, nivelId);
+        }
+        
+        public int InsertShowRoomPersonalizacionNivel(int paisId, Portal.Consultoras.Web.ServicePedido.BEShowRoomPersonalizacionNivel beShowRoomPersonalizacionNivel) {
+            return base.Channel.InsertShowRoomPersonalizacionNivel(paisId, beShowRoomPersonalizacionNivel);
+        }
+        
+        public System.Threading.Tasks.Task<int> InsertShowRoomPersonalizacionNivelAsync(int paisId, Portal.Consultoras.Web.ServicePedido.BEShowRoomPersonalizacionNivel beShowRoomPersonalizacionNivel) {
+            return base.Channel.InsertShowRoomPersonalizacionNivelAsync(paisId, beShowRoomPersonalizacionNivel);
+        }
+        
+        public int UpdateShowRoomPersonalizacionNivel(int paisId, Portal.Consultoras.Web.ServicePedido.BEShowRoomPersonalizacionNivel beShowRoomPersonalizacionNivel) {
+            return base.Channel.UpdateShowRoomPersonalizacionNivel(paisId, beShowRoomPersonalizacionNivel);
+        }
+        
+        public System.Threading.Tasks.Task<int> UpdateShowRoomPersonalizacionNivelAsync(int paisId, Portal.Consultoras.Web.ServicePedido.BEShowRoomPersonalizacionNivel beShowRoomPersonalizacionNivel) {
+            return base.Channel.UpdateShowRoomPersonalizacionNivelAsync(paisId, beShowRoomPersonalizacionNivel);
         }
         
         public Portal.Consultoras.Web.ServicePedido.BEProductoSugerido[] GetPaginateProductoSugerido(int PaisID, int CampaniaID, string CUVAgotado, string CUVSugerido) {

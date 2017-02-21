@@ -1994,12 +1994,51 @@ namespace Portal.Consultoras.Web.Controllers
                     listaPersonalizacionNivel = ps.GetShowRoomPersonalizacionNivel(userData.PaisID, eventoId, nivelId).ToList();
                 }
 
+                Mapper.CreateMap<BEShowRoomPersonalizacion, ShowRoomPersonalizacionModel>()
+                   .ForMember(t => t.PersonalizacionId, f => f.MapFrom(c => c.PersonalizacionId))
+                   .ForMember(t => t.TipoAplicacion, f => f.MapFrom(c => c.TipoAplicacion))
+                   .ForMember(t => t.PersonalizacionId, f => f.MapFrom(c => c.PersonalizacionId))
+                   .ForMember(t => t.Atributo, f => f.MapFrom(c => c.Atributo))
+                   .ForMember(t => t.TextoAyuda, f => f.MapFrom(c => c.TextoAyuda))
+                   .ForMember(t => t.TipoAtributo, f => f.MapFrom(c => c.TipoAtributo))
+                   .ForMember(t => t.TipoPersonalizacion, f => f.MapFrom(c => c.TipoPersonalizacion))
+                   .ForMember(t => t.Orden, f => f.MapFrom(c => c.Orden))
+                   .ForMember(t => t.Estado, f => f.MapFrom(c => c.Estado));
+
+                var listaPersonalizacionModel = Mapper.Map<IList<BEShowRoomPersonalizacion>, IList<ShowRoomPersonalizacionModel>>(listaPersonalizacion);
+
+                foreach (var item in listaPersonalizacionModel)
+                {
+                    var personalizacionnivel =
+                        listaPersonalizacionNivel.FirstOrDefault(p => p.NivelId == nivelId && p.EventoID == eventoId &&
+                                p.PersonalizacionId == item.PersonalizacionId);
+
+                    if (personalizacionnivel != null)
+                    {
+                        item.PersonalizacionNivelId = personalizacionnivel.PersonalizacionNivelId;
+                        item.Valor = personalizacionnivel.Valor;
+
+                        if (item.TipoAtributo == "IMAGEN")
+                        {
+                            string ISO = Util.GetPaisISO(userData.PaisID);
+                            var carpetaPais = Globals.UrlMatriz + "/" + ISO;
+
+                            item.Valor = string.IsNullOrEmpty(item.Valor)
+                                ? "" : ConfigS3.GetUrlFileS3(carpetaPais, item.Valor, Globals.RutaImagenesMatriz + "/" + userData.CodigoISO);
+                        }
+                    }
+                    else
+                    {
+                        item.PersonalizacionNivelId = 0;
+                        item.Valor = "";
+                    }
+                }
+
                 return Json(new
                 {
                     success = true,
                     message = "Ok",
-                    listaPersonalizacion,
-                    listaPersonalizacionNivel
+                    listaPersonalizacion = listaPersonalizacionModel,
                 });
             }
             catch (Exception ex)
@@ -2015,10 +2054,28 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         [HttpPost]
-        public JsonResult GuardarPersonalizacionNivelShowRoom(ShowRoomPersonalizacionNivelModel model)
+        public JsonResult GuardarPersonalizacionNivelShowRoom(List<ShowRoomPersonalizacionNivelModel> lista)
         {
             try
             {
+                var listaFinal = new List<ShowRoomPersonalizacionNivelModel>();
+                foreach (var model in lista)
+                {
+                    model.Valor = model.Valor ?? "";
+                    model.ValorAnterior = model.ValorAnterior ?? "";
+
+                    if (model.EsImagen)
+                    {
+                        string imagenProductoFinal = GuardarImagenAmazon(model.Valor, model.ValorAnterior, userData.PaisID);
+                        model.Valor = imagenProductoFinal;
+                    }
+
+                    if (model.Valor != model.ValorAnterior)
+                    {
+                        listaFinal.Add(model);
+                    }
+                }
+
                 Mapper.CreateMap<ShowRoomPersonalizacionNivelModel, BEShowRoomPersonalizacionNivel>()
                     .ForMember(t => t.PersonalizacionNivelId, f => f.MapFrom(c => c.PersonalizacionNivelId))
                     .ForMember(t => t.EventoID, f => f.MapFrom(c => c.EventoID))
@@ -2026,12 +2083,28 @@ namespace Portal.Consultoras.Web.Controllers
                     .ForMember(t => t.NivelId, f => f.MapFrom(c => c.NivelId))
                     .ForMember(t => t.Valor, f => f.MapFrom(c => c.Valor));
 
-                BEShowRoomPersonalizacionNivel entidad = Mapper.Map<ShowRoomPersonalizacionNivelModel, BEShowRoomPersonalizacionNivel>(model);
+                var listaEntidades = Mapper.Map<IList<ShowRoomPersonalizacionNivelModel>, IList<BEShowRoomPersonalizacionNivel>>(listaFinal);
+
+                foreach (var entidad in listaEntidades)
+                {
+                    using (PedidoServiceClient ps = new PedidoServiceClient())
+                    {
+                        
+                        if (entidad.PersonalizacionNivelId == 0)
+                        {
+                            ps.InsertShowRoomPersonalizacionNivel(userData.PaisID, entidad);
+                        }
+                        else
+                        {
+                            ps.UpdateShowRoomPersonalizacionNivel(userData.PaisID, entidad);
+                        }
+                    }
+                }
 
                 return Json(new
                 {
                     success = true,
-                    message = "Se insertó el Producto satisfactoriamente.",
+                    message = "Se insertó las personalizaciones satisfactoriamente.",
                     extra = ""
                 });
             }
