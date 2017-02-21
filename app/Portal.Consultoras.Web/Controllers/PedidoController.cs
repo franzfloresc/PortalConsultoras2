@@ -4847,6 +4847,7 @@ namespace Portal.Consultoras.Web.Controllers
                         }
                     }
                     p.ImagenProductoSugerido = imagenUrl;
+                    p.TipoCross = TipoCross;
                 });
             }
 

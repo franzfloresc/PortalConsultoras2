@@ -2105,7 +2105,7 @@
                 <div>
                     <h1 class="titulo_ofertaFinal"  id="spnTituloOfertaFinal">
                         {{#iff TipoMeta '==' 'MM'}}
-                            <span><b>&nbsp;LO SENTIMOS…</b> NO PUDIMOS GUARDAR TU PEDIDO</span>
+                            <span><b>AÚN TE FALTA {{Simbolo}} <span data-monto="">{{MetaMontoStr}}</span></b> PARA LLEGAR AL MONTO MÍNIMO</span>
                         {{/iff}}
                         {{#iff TipoMeta '==' 'GM'}}
                             <span>¡GUARDASTE TU<b> PEDIDO CON ÉXITO</b>!</span>
@@ -2117,13 +2117,17 @@
                     <hr class="clear" />
                     <div class="descripcion_ofertaFinal" id="msjOfertaFinal" data-meta-porcentaje="{{MetaPorcentaje}}" data-meta-monto="{{MontoMeta}}">
                         {{#iff TipoMeta '==' 'MM'}}
-                            <span>AGREGA {{Simbolo}} <span data-monto="">{{MetaMontoStr}}</span> PARA COMPLETAR TU PEDIDO</span>
+                            <span>TE AYUDAMOS A ALCANZARLO CON ESTAS OFERTAS</span>
                         {{/iff}}
                         {{#iff TipoMeta '==' 'GM'}}
-                            <span>AGREGA UN PRODUCTO Y GANA MÁS EN ESTA CAMPAÑA</span>
+                            {{#iff Cross '==' '1'}}
+                            <span>APROVECHA ESTAS OFERTAS Y <b>GANA MÁS</b> SUMANDO LOS COMPLEMENTOS DE TU PEDIDO</span>
+                            {{else}}
+                            <span>APROVECHA ESTAS OFERTAS Y <b>GANA MÁS</b> ESTA CAMPAÑA</span>
+                            {{/iff}}
                         {{/iff}}
                         {{#iff TipoMeta '==' 'ME'}}
-                            <span>AGREGA{{Simbolo}} <span data-monto="">{{MetaMontoStr}}</span> Y OBTÉN <b style="font-size:23px;">{{MetaPorcentaje}}%</b> DSCTO EN TU COMPRA</span>
+                            <span>ALCANZA EL <b style="font-size:23px;">{{MetaPorcentaje}}%</b> DSCTO AGREGANDO {{Simbolo}} <span data-monto="">{{MetaMontoStr}}</span> DE ESTAS OFERTAS</span>
                         {{/iff}}
                     </div>
                     <div class="texto_complemento_oferta">Compra en oferta los complementos de tu pedido</div>
@@ -2157,7 +2161,7 @@
                     <input type="hidden" class="hdOfertaFinalPrecioCatalogoString" value="{{PrecioCatalogoString}}" />
                     <input type="hidden" class="hdOfertaFinalDescripcionComercial" value="{{DescripcionComercial}}" />
                     <input type="hidden" class="hdOfertaFinalUrlCompartirFB" value="{{UrlCompartirFB}}" />
-                    <input type="hidden" class="hdOfertaFinalDescripcionRelacionado" value="{{CUVPedidoNombre}}" />
+                    <input type="hidden" class="hdOfertaFinalDescripcionRelacionado" value="{{CUVComplemento}}" />
                     <input type="hidden" class="hdOfertaFinalCUVPedidoImagen" value="{{CUVPedidoImagen}}" />
                 </div>
                 <div class="contenido_item_carrusel_ofertaFinal" style="height:295px;" >
@@ -2204,7 +2208,7 @@
                         
                         </div>
                     </div>
-                    <button name="btn_noGracias_agregarProductos" class="btn_noGracias_agregarProductos btnNoGraciasOfertaFinal" id="btnNoGraciasOfertaFinal">
+                    <button name="btn_noGracias_agregarProductos" class="btn_noGracias_agregarProductos btnNoGraciasOfertaFinal" id="btnNoGraciasOfertaFinal" style="display:{{#iff TipoMeta '==' 'MM'}}none;{{else}}block;{{/iff}}">
                         TERMINAR PEDIDO
                     </button>
                 </div>
@@ -2233,6 +2237,7 @@
         </div>
         <div class="content_right_ficha">
             <div style="height:130px;">
+                <div class="marca_ficha_producto">{{DescripcionMarca}}</div>
                 <div class="titulo_ficha_producto">{{NombreComercial}}</div>
                 <div class="peso_ficha_producto">{{Volumen}}</div>
                 <div class="descripcion_ficha_producto">{{DescripcionComercial}}</div>

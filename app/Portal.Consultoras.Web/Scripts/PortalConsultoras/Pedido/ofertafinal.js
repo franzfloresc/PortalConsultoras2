@@ -98,7 +98,7 @@ $(document).ready(function () {
         //    EjecutarServicioPROLSinOfertaFinal();
         //}, 1000);
         
-        ActulizarValoresPopupOfertaFinal(add);
+        ActulizarValoresPopupOfertaFinal(add, true);
 
         $("#divCarruselOfertaFinal").find(".hdOfertaFinalCuv[value='" + cuv + "']").parents('[data-item="ofertaFinal"]').find('.agregado').show();
         if (tipoOrigen == "1") {
@@ -202,7 +202,7 @@ $(document).ready(function () {
         }
 
         AgregarOfertaFinalLog(cuv, cantidad, tipoOfertaFinal_Log, gap_Log, 1);
-        ActulizarValoresPopupOfertaFinal(add);
+        ActulizarValoresPopupOfertaFinal(add, true);
         $("#divCarruselOfertaFinal").find(".hdOfertaFinalCuv[value='" + cuv + "']").parents('[data-item="ofertaFinal"]').find('.agregado').show();
         $("#contenedor_popup_ofertaFinalVerDetalle").hide();
         if (tipoOrigen == "1") {
@@ -255,7 +255,7 @@ function MostrarPopupOfertaFinal(cumpleOferta, tipoPopupMostrar) {
     //objOf.MetaMontoStr = "24.040";
     //objOf.MetaPorcentaje = "30";
 
-    //SetHandlebars("#ofertaFinal-template", cumpleOferta.productosMostrar, "#divOfertaFinal");
+    objOf.Cross = objOf.TipoMeta == "GM" ? objOf.Detalle.Find("TipoCross", true).length > 0 ? "1" : "0" : "0";
 
     SetHandlebars("#ofertaFinal-template", objOf, "#divOfertaFinal");
     $("#divOfertaFinal").show();
@@ -319,8 +319,8 @@ function MostrarPopupOfertaFinal(cumpleOferta, tipoPopupMostrar) {
     return true;
 }
 
-function ActulizarValoresPopupOfertaFinal(data) {
-    var tipoMeta = $("#divOfertaFinal div[data-meta]").attr("data-meta");
+function ActulizarValoresPopupOfertaFinal(data, popup) {
+    var tipoMeta = $("#divOfertaFinal div[data-meta]").attr("data-meta") || data.TipoMeta;
 
     var simbolo = $("#hdSimbolo").val();
     if (tipoMeta == "MM") {
@@ -330,22 +330,24 @@ function ActulizarValoresPopupOfertaFinal(data) {
 
         if (parseFloat(data.total) >= montolimite) {
             var msj = tipoOrigen == "2" ? "Ganancia estimada total: " : "Ahora tu ganancia estimada total es ";
-            $("#spnTituloOfertaFinal span").html("¡FELICITACIONES GUARDASTE TU <b>PEDIDO CON ÉXITO</b>!");
+            $("#spnTituloOfertaFinal span").html("¡LLEGASTE AL <b>MONTO MÍNIMO!</b>");
             if (tipoOrigen == "1") {
                 $("#msjOfertaFinal").attr("class", "ganancia_total_pop");
             }
             $("#msjOfertaFinal span").html("<b>" + msj + simbolo + " " + data.DataBarra.MontoGananciaStr + "</b><br />Monto total: " + simbolo + " " + data.formatoTotal);
             agregoOfertaFinal = 1;
+            $("#btnNoGraciasOfertaFinal").show();
         }
         else {
-            $("#msjOfertaFinal span[data-monto]").html(DecimalToStringFormat(montolimite - parseFloat(data.total)));
+            $("#msjOfertaFinal").parent().find("span[data-monto]").html(DecimalToStringFormat(montolimite - parseFloat(data.total)));
+            $("#btnNoGraciasOfertaFinal").hide();
         }
 
         $("#msjOfertaFinal").attr("data-meta-monto", totalPedido - parseFloat(data.total));
         $("#divOfertaFinal > div").attr("data-meta-total", data.total);
     }
     else if (tipoMeta == "GM") {
-        $("#spnTituloOfertaFinal span").html("¡FELICITACIONES AHORA TU GANANCIA ESTIMADA ES <b>" + simbolo + " " + data.DataBarra.MontoGananciaStr + "</b>!");
+        $("#spnTituloOfertaFinal span").html("¡AHORA TU <b>GANANCIA ESTIMADA ES " + simbolo + " " + data.DataBarra.MontoGananciaStr + "!</b>");
         if (tipoOrigen == "1") {
             $("#msjOfertaFinal").attr("class", "ganancia_total_pop");
         }
@@ -360,7 +362,7 @@ function ActulizarValoresPopupOfertaFinal(data) {
         if (parseFloat(data.total) >= montolimite) {
             var msj = tipoOrigen == "2" ? "Ganancia estimada total: " : "Ahora tu ganancia estimada total es ";
             var porc = $("#msjOfertaFinal").attr("data-meta-porcentaje");
-            $("#spnTituloOfertaFinal span").html("¡FELICITACIONES LLEGASTE AL <b>" + porc + "% DSCTO</b>!");
+            $("#spnTituloOfertaFinal span").html("¡LLEGASTE AL <b>" + porc + "% DSCTO!</b>");
             if (tipoOrigen == "1") {
                 $("#msjOfertaFinal").attr("class", "ganancia_total_pop");
             }
@@ -374,6 +376,8 @@ function ActulizarValoresPopupOfertaFinal(data) {
         $("#divOfertaFinal > div").attr("data-meta-total", data.total);
         agregoOfertaFinal = 1;
     }
+
+    return data;
 }
 
 function CargandoValoresPopupOfertaFinal(tipoPopupMostrar, mostrarGanaMas, montoFaltante, porcentajeDescuento) {
@@ -471,8 +475,7 @@ function CumpleOfertaFinal(montoPedido, montoEscala, tipoPopupMostrar, codigoMen
         else { // MM
             if (codigoMensajeProl == "01") {
                 if (listaObservacionesProl.length == 1) {
-                    var tipoError = listaObservacionesProl[0].Caso;
-                    if (tipoError == 95)
+                    if (listaObservacionesProl[0].Caso == 95)
                         resultado = listaObservacionesProl[0].CUV == "XXXXX";
                 }
             }
