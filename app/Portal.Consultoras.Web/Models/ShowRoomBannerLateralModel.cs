@@ -20,5 +20,10 @@ namespace Portal.Consultoras.Web.Models
         public bool MostrarShowRoomProductos { get; set; }
 
         public bool EstaActivoLateral { get; set; }
+
+        public string RutaShowRoomBannerLateral { get; set; }
+
+        public string LetrasDias { get; set; }
+
     }
 }
