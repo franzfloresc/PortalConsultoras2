@@ -43,6 +43,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             var fechaHoy = DateTime.Now.AddHours(userData.ZonaHoraria).Date;
             ViewBag.DiasFaltan = userData.FechaInicioCampania.AddDays(-userData.BeShowRoom.DiasAntes).Day - fechaHoy.Day;
+            model.CodigoISO = userData.CodigoISO;
 
             return View(model);
         }

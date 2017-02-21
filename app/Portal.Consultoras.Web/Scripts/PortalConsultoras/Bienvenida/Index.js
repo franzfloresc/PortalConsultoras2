@@ -3879,6 +3879,7 @@ function mostrarCatalogoPersonalizado() {
 }
 
 function VerShowRoomIntriga() {
+    $('#PopShowroomIntriga').hide();
     AgregarTagManagerShowRoomPopupConocesMas(1);
 
     document.location.href = urlShowRoomIntriga;

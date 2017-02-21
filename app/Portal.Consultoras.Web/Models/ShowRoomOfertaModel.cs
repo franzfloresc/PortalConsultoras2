@@ -4,6 +4,8 @@ using System.Linq;
 using System.Web;
 using Autofac;
 
+using Portal.Consultoras.Common;
+
 namespace Portal.Consultoras.Web.Models
 {
     public class ShowRoomOfertaModel
@@ -79,5 +81,23 @@ namespace Portal.Consultoras.Web.Models
         public int Incrementa { get; set; }
         public int CantidadIncrementa { get; set; }
         public int Agotado { get; set; }
+
+        public string CodigoISO { get; set; }
+
+        public string FormatoPrecioCatalogo
+        {
+            get
+            {
+                return Util.DecimalToStringFormat(PrecioCatalogo, CodigoISO);
+            }
+        }
+
+        public string FormatoPrecioOferta
+        {
+            get
+            {
+                return Util.DecimalToStringFormat(PrecioOferta, CodigoISO);
+            }
+        }
     }
 }
