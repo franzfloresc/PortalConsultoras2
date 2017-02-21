@@ -2408,6 +2408,7 @@
 <div class="Content_general_pop_up" style="display: none;" id="PopShowroomIntriga">
     <div class="content_pop_up_intriga">
         <input type="hidden" id="hdEventoIDShowRoom" />
+        <input type="hidden" id="spnShowRoomEvento" />
         <a class="cerrar_fichaProducto" style="top:20px;" href="javascript:;" onclick="javascript: $('#PopShowroomIntriga').hide();">
             <img src="/Content/Images/cerrar_04_blanco.png" alt="" alternate text">            
         </a>
@@ -2415,12 +2416,11 @@
 
         <div class="check_01">
             <label class="checkpop">
-                <input type="checkbox" id="cbNoMostrarPopupShowRoom" />
-                No quiero volver a ver éste comunicado
+                <a href="javascript:;" id="cbNoMostrarPopupShowRoom">No quiero volver a ver éste comunicado</a>
             </label>
         </div>
 
-        <img id="imgShowRoomIntriga" src="@Url.Content("~/Content/Images/showroom/popup_intriga.png")" />
+        <img id="imgShowRoomIntriga" src="@Url.Content("~/Content/Images/showroom/popup_intriga.png")" onclick="VerShowRoomIntriga()" style="cursor: pointer;" />
     </div>
   
 </div>
@@ -2504,6 +2504,8 @@
         var urlGetInfoFichaProducto = '@Url.Action("GetInfoFichaProductoFAV", "CatalogoPersonalizado")';    //PL20-1268
         var urlCargarFiltros = '@Url.Action("CargarFiltros", "CatalogoPersonalizado", new { area = "" })'; 
         var urlCatalogoPersonalizado = '@Url.Action("Index", "CatalogoPersonalizado", new { area = "" })';
+
+        var urlShowRoomIntriga = '@Url.Action("Intriga","ShowRoom")';
     </script>
     @System.Web.Optimization.Scripts.Render("~/bundles/JsSB2-Bienvenida")
     @{ Session["IsContrato"] = 0; }

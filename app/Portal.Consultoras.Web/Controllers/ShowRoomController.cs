@@ -19,7 +19,33 @@ namespace Portal.Consultoras.Web.Controllers
     {
         public ActionResult Intriga()
         {
-            return View();
+            var model = new ShowRoomOfertaModel();
+
+            var listaShowRoomOferta = new List<BEShowRoomOferta>();
+            var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
+
+            using (PedidoServiceClient sv = new PedidoServiceClient())
+            {
+                var CodigoConsultora = userData.UsuarioPrueba == 1 ? userData.CodigoConsultora.ToString() : userData.CodigoConsultora.ToString();
+                listaShowRoomOferta = sv.GetShowRoomOfertasConsultora(userData.PaisID, userData.CampaniaID, CodigoConsultora).ToList();
+            }
+
+            if (listaShowRoomOferta.Any())
+            {
+                listaShowRoomOferta.Update(x => x.ImagenProducto = string.IsNullOrEmpty(x.ImagenProducto) 
+                    ? "" : ConfigS3.GetUrlFileS3(carpetaPais, x.ImagenProducto, Globals.UrlMatriz + "/" + userData.CodigoISO));
+                listaShowRoomOferta.Update(x => x.ImagenMini = string.IsNullOrEmpty(x.ImagenMini) 
+                    ? "" : ConfigS3.GetUrlFileS3(carpetaPais, x.ImagenMini, Globals.UrlMatriz + "/" + userData.CodigoISO));
+
+                var listaShowRoomOfertaModel = Mapper.Map<List<BEShowRoomOferta>, List<ShowRoomOfertaModel>>(listaShowRoomOferta);
+                model = listaShowRoomOfertaModel.FirstOrDefault();
+            }
+
+            var fechaHoy = DateTime.Now.AddHours(userData.ZonaHoraria).Date;
+            ViewBag.DiasFaltan = userData.FechaInicioCampania.AddDays(-userData.BeShowRoom.DiasAntes).Day - fechaHoy.Day;
+            model.CodigoISO = userData.CodigoISO;
+
+            return View(model);
         }
 
         public ActionResult Index()

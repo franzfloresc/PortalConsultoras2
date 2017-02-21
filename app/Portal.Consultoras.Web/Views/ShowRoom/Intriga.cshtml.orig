@@ -1,0 +1,149 @@
+<<<<<<< HEAD
+﻿@using Portal.Consultoras.Common
+@model Portal.Consultoras.Web.Models.ShowRoomOfertaModel
+
+@{
+    ViewBag.Title = "Intriga";
+}
+
+<div class="content_banner_intriga">
+    <div class="texto_dias_intriga">
+       FALTAN @ViewBag.DiasFaltan DÍAS
+    </div>
+    <img src="@Url.Content("~/Content/Images/showroom/banner_intriga_desktop.png")" />
+</div>
+<div class="content_belcorp">
+    <div class="content_set_intriga">
+        <div class="set_silueta_intriga">
+            <img src="@Url.Content("~/Content/Images/showroom/intriga1.png")" />
+            <div class="linea_separadora_intriga"></div>
+        </div>
+        <div class="set_visible_intriga">
+            <img class="set_img" src="https://S3.amazonaws.com/consultorasQAS/SomosBelcorp/Matriz/PE/PE_200042737_2017254271_03_mumegycqit.png">
+            <div class="linea_separadora_intriga"></div>
+            <div class="liquidacion_rango_home" data-cantidad-contenedor="">
+                <input type="text" value="1" size="2" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" data-input="cantidad" data-cantidad-input="-">
+                <div class="liquidacion_rango_right_pedido">
+                    <a class="mas" data-cantidad-agregar="+"><img src="/Content/Images/Esika/mas.png" alt=""></a>
+                    <a class="menos" data-cantidad-agregar="-"><img src="/Content/Images/Esika/menos.png" alt=""></a>
+                </div>
+            </div>
+            <a class="boton_Agregalo_home" style="width:61%;border:1px solid black;">
+                AGRÉGALO
+            </a>
+        </div>
+        <div class="set_silueta_intriga">
+            <img src="@Url.Content("~/Content/Images/showroom/intriga2.png")" />
+            <div class="linea_separadora_intriga"></div>
+        </div>
+
+    </div>
+    <div class="content_confirmacion_correo">
+        <div>
+            <div class="titulo_confirmacion">¡NO TE QUEDES FUERA!</div>
+            <div class="texto_confirmacion">Confirma tu correo <br />y entérate primero</div>
+            <div class="correo_showroon"><input type="text" value="ashimabukuro@belcorp.biz"></div>
+            <div class="termino_condiciones_intriga">Estoy de acuerdo con los términos y condiciones.</div>
+            <a class="btn_enviar_correo_intriga">CONFIRMA TU CORREO</a>
+        </div>
+        <div style="display:none;">
+            <div class="titulo_confirmacion" style="margin-top:25px;margin-bottom: 30px;">¡ahora serás la primera en enterarte!</div>
+            <div class="texto_confirmacion">Mantente atenta, te notificaremos a:<b>sandra@gmail.com</b></div>
+            <a class="link_cambiar_correo">CAMBIAR CORREO</a>            
+        </div>       
+        <div style="text-align:center; display:none;">
+            <img src="@Url.Content("~/Content/Images/showroom/notificacion.png")" />
+            <div class="titulo_confirmacion" style="margin-bottom: 30px;">AHORA SÓLO DEBES CONFIRMAR TU CORREO</div>
+            <div class="texto_confirmacion">Te hemos enviado un correo a:<b>sandra@gmail.com</b>Entra a tu cuenta para confirmarlo</div>
+            <a class="link_cambiar_correo">CAMBIAR CORREO</a>
+        </div>  
+    </div>
+    <hr class="clear" />
+    <div class="texto_final_intriga">¿Tienes dudas sobre la Gran Venta Online?. <u>Resuélvelas aquí</u>.</div>
+</div>
+@section scripts{
+    
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(".termino_condiciones_intriga").click(function () {              
+                $(this).toggleClass('check_intriga'); 
+            });
+
+        });
+    </script>
+
+=======
+﻿@{
+    ViewBag.Title = "Intriga";
+}
+
+<div class="content_banner_intriga">
+    <div class="texto_dias_intriga">
+       FALTAN 5 DÍAS
+    </div>
+    <img src="@Url.Content("~/Content/Images/showroom/banner_intriga_desktop.png")" />
+</div>
+<div class="content_belcorp">
+    <div class="content_set_intriga">
+        <div class="set_silueta_intriga">
+            <img src="@Url.Content("~/Content/Images/showroom/intriga1.png")" />
+            <div class="linea_separadora_intriga"></div>
+        </div>
+        <div class="set_visible_intriga">
+            <img class="set_img" src="https://S3.amazonaws.com/consultorasQAS/SomosBelcorp/Matriz/PE/PE_200042737_2017254271_03_mumegycqit.png">
+            <div class="linea_separadora_intriga"></div>
+            <div class="nombre_set_showroom">SET MITHYKA</div>
+            <div class="precio_showroom_intriga">  <span class="precio_oferta_showroom">S/. 127.00 </span>S/. 89.00 </div>
+            <div class="liquidacion_rango_home" data-cantidad-contenedor="">
+                <input type="text" value="1" size="2" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" data-input="cantidad" data-cantidad-input="-">
+                <div class="liquidacion_rango_right_pedido">
+                    <a class="mas" data-cantidad-agregar="+"><img src="/Content/Images/Esika/mas.png" alt=""></a>
+                    <a class="menos" data-cantidad-agregar="-"><img src="/Content/Images/Esika/menos.png" alt=""></a>
+                </div>
+            </div>
+            <a class="boton_Agregalo_home" style="width:61%;border:1px solid black;">
+                AGRÉGALO
+            </a>
+        </div>
+        <div class="set_silueta_intriga">
+            <img src="@Url.Content("~/Content/Images/showroom/intriga2.png")" />
+            <div class="linea_separadora_intriga"></div>
+        </div>
+
+    </div>
+    <div class="content_confirmacion_correo">
+        <div>
+            <div class="titulo_confirmacion">¡NO TE QUEDES FUERA!</div>
+            <div class="texto_confirmacion">Confirma tu correo <br />y entérate primero</div>
+            <div class="correo_showroon"><input type="text" value="ashimabukuro@belcorp.biz"></div>
+            <div class="termino_condiciones_intriga">Estoy de acuerdo con los términos y condiciones.</div>
+            <a class="btn_enviar_correo_intriga">CONFIRMA TU CORREO</a>
+        </div>
+        <div style="display:none;">
+            <div class="titulo_confirmacion" style="margin-top:25px;margin-bottom: 30px;">¡ahora serás la primera en enterarte!</div>
+            <div class="texto_confirmacion">Mantente atenta, te notificaremos a:<b>sandra@gmail.com</b></div>
+            <a class="link_cambiar_correo">CAMBIAR CORREO</a>            
+        </div>       
+        <div style="text-align:center; display:none;">
+            <img src="@Url.Content("~/Content/Images/showroom/notificacion.png")" />
+            <div class="titulo_confirmacion" style="margin-bottom: 30px;">AHORA SÓLO DEBES CONFIRMAR TU CORREO</div>
+            <div class="texto_confirmacion">Te hemos enviado un correo a:<b>sandra@gmail.com</b>Entra a tu cuenta para confirmarlo</div>
+            <a class="link_cambiar_correo">CAMBIAR CORREO</a>
+        </div>  
+    </div>
+    <hr class="clear" />
+    <div class="texto_final_intriga">¿Tienes dudas sobre la Gran Venta Online?. <u>Resuélvelas aquí</u>.</div>
+</div>
+@section scripts{
+    
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(".termino_condiciones_intriga").click(function () {              
+                $(this).toggleClass('check_intriga'); 
+            });
+
+        });
+    </script>
+
+>>>>>>> 48cca85e7783898a3579b2c6c2ae86be45e87289
+}
