@@ -264,12 +264,6 @@ namespace Portal.Consultoras.Web.Controllers
                         case "DiasDespues":
                             items = listaShowRoomEvento.OrderBy(x => x.DiasDespues);
                             break;
-                        case "SetAcross":
-                            items = listaShowRoomEvento.OrderBy(x => x.RutaShowRoomPopup);
-                            break;
-                        case "CuvUrlAcross":
-                            items = listaShowRoomEvento.OrderBy(x => x.RutaShowRoomBannerLateral);
-                            break;
                         case "NumeroPerfiles":
                             items = listaShowRoomEvento.OrderBy(x => x.NumeroPerfiles);
                             break;
@@ -293,12 +287,6 @@ namespace Portal.Consultoras.Web.Controllers
                             break;
                         case "DiasDespues":
                             items = listaShowRoomEvento.OrderByDescending(x => x.DiasDespues);
-                            break;
-                        case "SetAcross":
-                            items = listaShowRoomEvento.OrderByDescending(x => x.RutaShowRoomPopup);
-                            break;
-                        case "CuvUrlAcross":
-                            items = listaShowRoomEvento.OrderByDescending(x => x.RutaShowRoomBannerLateral);
                             break;
                         case "NumeroPerfiles":
                             items = listaShowRoomEvento.OrderByDescending(x => x.NumeroPerfiles);
@@ -328,8 +316,6 @@ namespace Portal.Consultoras.Web.Controllers
                                 a.Tema,
                                 a.DiasAntes.ToString(),
                                 a.DiasDespues.ToString(),
-                                a.RutaShowRoomPopup,
-                                a.RutaShowRoomBannerLateral,
                                 a.NumeroPerfiles.ToString(),
                                 a.Imagen1,
                                 a.Imagen2,
@@ -348,6 +334,44 @@ namespace Portal.Consultoras.Web.Controllers
                 };
 
                 return Json(data, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return Json(new
+                {
+                    success = false,
+                    message = ex.Message,
+                    data = ""
+                });
+            }
+        }
+
+        [HttpPost]
+        public JsonResult GetShowRoomNiveles()
+        {
+            try
+            {
+                var listaShowRoomNivel = userData.ListaShowRoomNivel ?? new List<BEShowRoomNivel>();
+
+                if (listaShowRoomNivel.Count <= 0)
+                {
+                    return Json(new
+                    {
+                        success = true,
+                        message = "OK",
+                        data = ""
+                    });
+                }
+                else
+                {
+                    return Json(new
+                    {
+                        success = true,
+                        message = "OK",
+                        data = listaShowRoomNivel
+                    });
+                }
             }
             catch (Exception ex)
             {
@@ -420,9 +444,7 @@ namespace Portal.Consultoras.Web.Controllers
                 .ForMember(t => t.ImagenVentaSetPopup, f => f.MapFrom(c => c.ImagenVentaSetPopup))
                 .ForMember(t => t.ImagenVentaTagLateral, f => f.MapFrom(c => c.ImagenVentaTagLateral))
                 .ForMember(t => t.ImagenPestaniaShowRoom, f => f.MapFrom(c => c.ImagenPestaniaShowRoom))
-                .ForMember(t => t.ImagenPreventaDigital, f => f.MapFrom(c => c.ImagenPreventaDigital))
-                .ForMember(t => t.RutaShowRoomPopup, f => f.MapFrom(c => c.RutaShowRoomPopup))
-                .ForMember(t => t.RutaShowRoomBannerLateral, f => f.MapFrom(c => c.RutaShowRoomBannerLateral))
+                .ForMember(t => t.ImagenPreventaDigital, f => f.MapFrom(c => c.ImagenPreventaDigital))                
                 .ForMember(t => t.Estado, f => f.MapFrom(c => c.Estado));
 
                 BEShowRoomEvento beShowRoomEvento = Mapper.Map<ShowRoomEventoModel, BEShowRoomEvento>(showRoomEventoModel);
@@ -1957,7 +1979,156 @@ namespace Portal.Consultoras.Web.Controllers
                     data = ""
                 });
             }
-        }                         
+        }
+
+        [HttpPost]
+        public JsonResult GetShowRoomPersonalizacionNivel(int eventoId, int nivelId)
+        {
+            try
+            {
+                var listaPersonalizacion = userData.ListaShowRoomPersonalizacion.Where(p => p.TipoPersonalizacion == "EVENTO").ToList();
+                var listaPersonalizacionNivel = new List<BEShowRoomPersonalizacionNivel>();
+
+                using (PedidoServiceClient ps = new PedidoServiceClient())
+                {
+                    listaPersonalizacionNivel = ps.GetShowRoomPersonalizacionNivel(userData.PaisID, eventoId, nivelId).ToList();
+                }
+
+                Mapper.CreateMap<BEShowRoomPersonalizacion, ShowRoomPersonalizacionModel>()
+                   .ForMember(t => t.PersonalizacionId, f => f.MapFrom(c => c.PersonalizacionId))
+                   .ForMember(t => t.TipoAplicacion, f => f.MapFrom(c => c.TipoAplicacion))
+                   .ForMember(t => t.PersonalizacionId, f => f.MapFrom(c => c.PersonalizacionId))
+                   .ForMember(t => t.Atributo, f => f.MapFrom(c => c.Atributo))
+                   .ForMember(t => t.TextoAyuda, f => f.MapFrom(c => c.TextoAyuda))
+                   .ForMember(t => t.TipoAtributo, f => f.MapFrom(c => c.TipoAtributo))
+                   .ForMember(t => t.TipoPersonalizacion, f => f.MapFrom(c => c.TipoPersonalizacion))
+                   .ForMember(t => t.Orden, f => f.MapFrom(c => c.Orden))
+                   .ForMember(t => t.Estado, f => f.MapFrom(c => c.Estado));
+
+                var listaPersonalizacionModel = Mapper.Map<IList<BEShowRoomPersonalizacion>, IList<ShowRoomPersonalizacionModel>>(listaPersonalizacion);
+
+                foreach (var item in listaPersonalizacionModel)
+                {
+                    var personalizacionnivel =
+                        listaPersonalizacionNivel.FirstOrDefault(p => p.NivelId == nivelId && p.EventoID == eventoId &&
+                                p.PersonalizacionId == item.PersonalizacionId);
+
+                    if (personalizacionnivel != null)
+                    {
+                        item.PersonalizacionNivelId = personalizacionnivel.PersonalizacionNivelId;
+                        item.Valor = personalizacionnivel.Valor;
+
+                        if (item.TipoAtributo == "IMAGEN")
+                        {
+                            string ISO = Util.GetPaisISO(userData.PaisID);
+                            var carpetaPais = Globals.UrlMatriz + "/" + ISO;
+
+                            item.Valor = string.IsNullOrEmpty(item.Valor)
+                                ? "" : ConfigS3.GetUrlFileS3(carpetaPais, item.Valor, Globals.RutaImagenesMatriz + "/" + userData.CodigoISO);
+                        }
+                    }
+                    else
+                    {
+                        item.PersonalizacionNivelId = 0;
+                        item.Valor = "";
+                    }
+                }
+
+                return Json(new
+                {
+                    success = true,
+                    message = "Ok",
+                    listaPersonalizacion = listaPersonalizacionModel,
+                });
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return Json(new
+                {
+                    success = false,
+                    message = ex.Message,
+                    data = ""
+                });
+            }
+        }
+
+        [HttpPost]
+        public JsonResult GuardarPersonalizacionNivelShowRoom(List<ShowRoomPersonalizacionNivelModel> lista)
+        {
+            try
+            {
+                var listaFinal = new List<ShowRoomPersonalizacionNivelModel>();
+                foreach (var model in lista)
+                {
+                    model.Valor = model.Valor ?? "";
+                    model.ValorAnterior = model.ValorAnterior ?? "";
+
+                    if (model.EsImagen)
+                    {
+                        string imagenProductoFinal = GuardarImagenAmazon(model.Valor, model.ValorAnterior, userData.PaisID);
+                        model.Valor = imagenProductoFinal;
+                    }
+
+                    if (model.Valor != model.ValorAnterior)
+                    {
+                        listaFinal.Add(model);
+                    }
+                }
+
+                Mapper.CreateMap<ShowRoomPersonalizacionNivelModel, BEShowRoomPersonalizacionNivel>()
+                    .ForMember(t => t.PersonalizacionNivelId, f => f.MapFrom(c => c.PersonalizacionNivelId))
+                    .ForMember(t => t.EventoID, f => f.MapFrom(c => c.EventoID))
+                    .ForMember(t => t.PersonalizacionId, f => f.MapFrom(c => c.PersonalizacionId))
+                    .ForMember(t => t.NivelId, f => f.MapFrom(c => c.NivelId))
+                    .ForMember(t => t.Valor, f => f.MapFrom(c => c.Valor));
+
+                var listaEntidades = Mapper.Map<IList<ShowRoomPersonalizacionNivelModel>, IList<BEShowRoomPersonalizacionNivel>>(listaFinal);
+
+                foreach (var entidad in listaEntidades)
+                {
+                    using (PedidoServiceClient ps = new PedidoServiceClient())
+                    {
+                        
+                        if (entidad.PersonalizacionNivelId == 0)
+                        {
+                            ps.InsertShowRoomPersonalizacionNivel(userData.PaisID, entidad);
+                        }
+                        else
+                        {
+                            ps.UpdateShowRoomPersonalizacionNivel(userData.PaisID, entidad);
+                        }
+                    }
+                }
+
+                return Json(new
+                {
+                    success = true,
+                    message = "Se insertó las personalizaciones satisfactoriamente.",
+                    extra = ""
+                });
+            }
+            catch (FaultException ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return Json(new
+                {
+                    success = false,
+                    message = ex.Message,
+                    extra = ""
+                });
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return Json(new
+                {
+                    success = false,
+                    message = ex.Message,
+                    extra = ""
+                });
+            }
+        }
 
         public static bool IsNumeric(object Expression)
         {

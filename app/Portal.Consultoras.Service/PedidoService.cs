@@ -9,6 +9,7 @@ using Portal.Consultoras.BizLogic;
 using Portal.Consultoras.ServiceContracts;
 using System.Collections;
 using System.Data;
+using Portal.Consultoras.Entities.ShowRoom;
 
 namespace Portal.Consultoras.Service
 {
@@ -1600,6 +1601,32 @@ namespace Portal.Consultoras.Service
         {
             return BLShowRoomEvento.GetShowRoomOfertaById(paisID, ofertaShowRoomID);
         }
+
+        public IList<BEShowRoomNivel> GetShowRoomNivel(int paisId)
+        {
+            return BLShowRoomEvento.GetShowRoomNivel(paisId);
+        }
+
+        public IList<BEShowRoomPersonalizacion> GetShowRoomPersonalizacion(int paisId)
+        {
+            return BLShowRoomEvento.GetShowRoomPersonalizacion(paisId);
+        }
+
+        public IList<BEShowRoomPersonalizacionNivel> GetShowRoomPersonalizacionNivel(int paisId, int eventoId,
+            int nivelId)
+        {
+            return BLShowRoomEvento.GetShowRoomPersonalizacionNivel(paisId, eventoId, nivelId);
+        }
+
+        public int InsertShowRoomPersonalizacionNivel(int paisId, BEShowRoomPersonalizacionNivel beShowRoomPersonalizacionNivel)
+        {
+            return BLShowRoomEvento.InsertShowRoomPersonalizacionNivel(paisId, beShowRoomPersonalizacionNivel);
+        }
+
+        public int UpdateShowRoomPersonalizacionNivel(int paisId, BEShowRoomPersonalizacionNivel beShowRoomPersonalizacionNivel)
+        {
+            return BLShowRoomEvento.UpdateShowRoomPersonalizacionNivel(paisId, beShowRoomPersonalizacionNivel);
+        }        
 
         #endregion
 

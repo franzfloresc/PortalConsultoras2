@@ -46,6 +46,10 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     }
                 }
 
+                //bool mostrarBannersw = true;
+                //if (MostrarBannerShowroom()) mostrarBannersw = false; 
+
+
                 if (mostrarBanner)
                 {
                     ViewBag.PermitirCerrarBannerPL20 = permitirCerrarBanner;
@@ -59,6 +63,15 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     OfertaDelDiaModel ofertaDelDia = GetOfertaDelDiaModel();
                     ViewBag.OfertaDelDia = ofertaDelDia;
                     ViewBag.MostrarOfertaDelDia = userData.TieneOfertaDelDia && ofertaDelDia != null && ofertaDelDia.TeQuedan.TotalSeconds > 0;
+
+                    var dateFuture = new DateTime(showRoomBannerLateral.AnioFaltante, showRoomBannerLateral.MesFaltante, showRoomBannerLateral.DiasFaltantes);
+                    DateTime dateNow = DateTime.Now;
+                    var seconds = Math.Floor((dateFuture - (dateNow)).TotalSeconds);
+                    var minutes = Math.Floor(seconds / 60);
+                    var hours = Math.Floor(minutes / 60);
+                    var days = Math.Floor(hours / 24);
+                    showRoomBannerLateral.DiasFaltantes = Convert.ToInt32(days);
+
 
                     if (userData.CloseOfertaDelDia)
                         ViewBag.MostrarOfertaDelDia = false;
@@ -262,6 +275,17 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             if (controllerName == "ShowRoom") return true;
             if (controllerName == "Pedido") return true;
             return false;
+        }
+
+        private bool MostrarBannerShowroom()
+        {
+            string controllerName = this.ControllerContext.RouteData.Values["controller"].ToString();
+            string actionName = this.ControllerContext.RouteData.Values["action"].ToString();
+
+            if (controllerName == "Pedido" && actionName == "Index") return false;
+            if (controllerName == "PedidoCliente" && actionName == "Index") return false;
+
+            return true;
         }
     }
 }

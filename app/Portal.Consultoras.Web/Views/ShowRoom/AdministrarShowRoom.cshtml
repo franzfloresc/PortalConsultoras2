@@ -103,7 +103,7 @@
     </div>
 </div>
 
-<div class="elements" id="divCargaArchivos" style="display: none;">
+@*<div class="elements" id="divCargaArchivos" style="display: none;">
     <div class="div-2">
         <h3>Carga de Archivo</h3>
         <div class="div-3">
@@ -406,6 +406,51 @@
             </div>
         </div>
     </div>
+</div>*@
+
+<div class="elements" id="divCargaArchivos" style="display: none;">
+    <div class="div-2">
+        <h3>Carga de Archivos</h3>
+        <div class="div-3">
+            <div class="titC" style="width: 160px; margin-top: 6px;">Carga de Consultoras</div>
+            <div class="titC" style="padding: 0; margin-top: 15px; width: 50px;">
+                <a href="#" id="lnkConsultoras">
+                    <img title="Cargar Consultoras" src='@Url.Content("~/Content/Images/email_admin.png")' alt="" alt=""/>
+                </a>
+            </div>
+
+            <div class="titC" style="width: 160px; margin-top: 6px; padding-left: 30px;">Carga de Stock/Precio de Sets/Unid. Permitidas:</div>
+            <div class="titC" style="padding: 0; margin-top: 15px; width: 50px;">
+                <a href="#" id="lnkStock">
+                    <img title="Cargar Stock" src='@Url.Content("~/Content/Images/stok.png")' alt=""/>
+                </a>
+            </div>
+
+            <div class="titC" style="width: 160px; margin-top: 6px; padding-left: 30px;">Carga de Descripción de Sets/Productos</div>
+            <div class="titC" style="padding: 0; margin-top: 15px; width: 50px;">
+                <a href="#" id="lnkDescripcionSets">
+                    <img title="Descripción Sets" src='@Url.Content("~/Content/Images/stok.png")' alt="" />
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="elements" id="divPersonalizacion" style="display: none;">
+    <div class="container clearfix">
+        <h3>Personalización</h3>
+        <div class="div-3">
+            <div class="titC">Nivel:</div>
+            <div class="selectA borde_redondeado">
+                <select id="cbNivelEvento"></select>
+            </div>
+
+            <div class="">
+                <input type="button" value="Buscar Personalización" id="btnBuscarPersonalizacionNivel" name=""
+                       style="border-radius: 10px; background: #00A2E8; color: white; -webkit-appearance: none; border: 0; height: 38px;">
+            </div>
+        </div>
+    </div>
 </div>
 
 <div class="wrap" id="divOfertasShowRoom" style="display: none;">
@@ -496,7 +541,7 @@
                 <input type="text" id="txtEventoDiasDespues" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" />
             </div>
         </div>
-        <div class="div-3">
+        @*<div class="div-3">
             <div class="titG">Ruta ShowRoom Popup</div>
             <div class="selectP2 borde_redondeado">
                 <input type="text" id="txtEventoRutaShowRoomPopup" />
@@ -505,7 +550,7 @@
             <div class="selectP2 borde_redondeado">
                 <input type="text" id="txtEventoRutaShowRoomBannerLateral" />
             </div>
-        </div>
+        </div>*@
         <div class="div-3">
             <div class="titG"># de Perfiles:</div>
             <div class="selectP2 borde_redondeado">
@@ -806,27 +851,27 @@
 
 <div id="DialogRegistroOfertaShowRoomDetalleEditar" style="display: none;">
     <div class="Content_modal">
-        <input type="hidden" id="hdOfertaShowRoomDetalleID" />
-        <input type="hidden" id="hdImagenDetalle" />
-        <input type="hidden" id="hdImagenDetalleAnterior" />
+        <input type="hidden" id="hdOfertaShowRoomDetalleID"/>
+        <input type="hidden" id="hdImagenDetalle"/>
+        <input type="hidden" id="hdImagenDetalleAnterior"/>
         <div class="div-3">
             <div class="titG">Nombre Producto:</div>
             <div class="selectP2 borde_redondeado">
-                <input type="text" id="txtNombreProductoDetalle" />
+                <input type="text" id="txtNombreProductoDetalle"/>
             </div>
             <div class="titG">Descripcion 1:</div>
             <div class="selectP2 borde_redondeado">
-                <input type="text" id="txtDescripcion1Detalle" />
+                <input type="text" id="txtDescripcion1Detalle"/>
             </div>
         </div>
         <div class="div-3">
             <div class="titG">Descripcion 2:</div>
             <div class="selectP2 borde_redondeado">
-                <input type="text" id="txtDescripcion2Detalle" />
+                <input type="text" id="txtDescripcion2Detalle"/>
             </div>
             <div class="titG">Descripcion 3:</div>
             <div class="selectP2 borde_redondeado">
-                <input type="text" id="txtDescripcion3Detalle" />
+                <input type="text" id="txtDescripcion3Detalle"/>
             </div>
         </div>
         <div class="div-3">
@@ -846,22 +891,21 @@
                                 allowedExtensions: ['jpg', 'png', 'jpeg', 'gif'],
                                 element: document.getElementById('fpPopupImagenProductoDetalle'),
                                 action: '@Url.Action("ImageMatrizUpload", "FileUpload")',
-                                onComplete: function (id, fileName, responseJSON) {
+                                onComplete: function(id, fileName, responseJSON) {
                                     if (checkTimeout(responseJSON)) {
                                         $(".qq-upload-list").css("display", "none");
                                         if (responseJSON.success) {
                                             var rutaImagen = '@Url.Content("~/Content/Temporales/")' + responseJSON.name;
                                             $("#imgProductoDetalle").attr('src', rutaImagen);
                                             $("#hdImagenDetalle").val(responseJSON.name);
-                                        }
-                                        else {
+                                        } else {
                                             alert(responseJSON.message);
                                         }
                                     }
                                 },
-                                onSubmit: function (id, fileName) { $(".qq-upload-list").css("display", "none"); },
-                                onProgress: function (id, fileName, loaded, total) { $(".qq-upload-list").css("display", "none"); },
-                                onCancel: function (id, fileName) { $(".qq-upload-list").css("display", "none"); }
+                                onSubmit: function(id, fileName) { $(".qq-upload-list").css("display", "none"); },
+                                onProgress: function(id, fileName, loaded, total) { $(".qq-upload-list").css("display", "none"); },
+                                onCancel: function(id, fileName) { $(".qq-upload-list").css("display", "none"); }
                             });
                         </script>
                     </div>
@@ -870,6 +914,102 @@
         </div>
     </div>
 </div>
+
+<div id="DialogPersonalizacionDetalle">
+    <div class="wrap">
+        <fieldset style="border: 1px black; border-style: groove; margin-bottom: 20px;">
+            <legend></legend>
+            <div class="container clearfix" style="width: 750px;">
+                <h3>Mobile</h3>
+                <div id="divPersonalizacionDetalleMobile">
+                    @*<div class="div-3">
+                        <div class="titC" style="width: 250px; margin-top: 15px;">Perfil:</div>
+                        <div class="selectP2 borde_redondeado">
+                            <input type="text" id="txtPerfilTextoDemo"/>
+                        </div>
+                    </div>
+                    <div class="div-3">
+                        <div class="titC" style="width: 250px; margin-top: 15px;">Popup / Imagen Texto</div>
+                        <div class="titC" style="padding: 0; width: 230px;">
+                            <div class="input_search">
+                                <input type="hidden" id="hdImagenPreventaDigital"/>
+                                <input type="hidden" id="hdImagenPreventaDigitalAnterior"/>
+                                <div id="fpPopupImagenDemo">
+                                    <script type="text/javascript">
+
+                                        $.ajaxSetup({ cache: false });
+                                        var uploader = new qq.FileUploader({
+                                            allowedExtensions: ['jpg', 'png', 'jpeg', 'gif'],
+                                            element: document.getElementById('fpPopupImagenDemo'),
+                                            action: '@Url.Action("ImageMatrizUpload", "FileUpload")',
+                                            onComplete: function(id, fileName, responseJSON) {
+                                                if (checkTimeout(responseJSON)) {
+                                                    $(".qq-upload-list").css("display", "none");
+                                                    if (responseJSON.success) {
+                                                        var rutaImagen = '@Url.Content("~/Content/Temporales/")' + responseJSON.name;
+                                                        var nombreDiv = 'divPopupImagenPreventaDigital';
+                                                        var tipo = 7;
+                                                        $("#hdImagenPreventaDigital").val(responseJSON.name);
+                                                        //GuardarImagenEventoShowRoom(rutaImagen, responseJSON.name, nombreDiv, tipo);
+                                                    } else {
+                                                        alert(responseJSON.message);
+                                                    }
+                                                }
+                                            },
+                                            onSubmit: function(id, fileName) { $(".qq-upload-list").css("display", "none"); },
+                                            onProgress: function(id, fileName, loaded, total) { $(".qq-upload-list").css("display", "none"); },
+                                            onCancel: function(id, fileName) { $(".qq-upload-list").css("display", "none"); }
+                                        });
+                                    </script>
+                                </div>
+                            </div>
+                            <div id="divPopupImagenDemo" style="width: 100px; height: 60px; float: right;">
+                                <img src="http://S3.amazonaws.com/consultorasQAS/SomosBelcorp/Matriz/CO/CO_imagen_preventa_digital_2017232920_01_bddprudydm.png"
+                                     alt="PopupImagenDemo" style="height: 100%;">
+                            </div>
+                        </div>
+                    </div>*@
+                </div>
+            </div>
+        </fieldset>
+        <fieldset style="border: 1px black; border-style: groove;">
+            <legend></legend>
+            <div class="container clearfix" style="width: 750px;">
+                <h3>Desktop</h3>
+                <div id="divPersonalizacionDetalleDesktop">
+                    
+                </div>
+            </div>
+        </fieldset>
+    </div>
+</div>
+
+<div style="display: none;">
+    <div id="divPersonalizacionPlantillaTexto" class="div-3">
+        <div class="titC" style="width: 250px;">Perfil:</div>
+        <div class="selectP2 borde_redondeado">
+            <input type="text" id="txtPerfilTextoDemo"/>
+        </div>
+    </div>
+</div>
+<div style="display: none;">
+    <div id="divPersonalizacionPlantillaImagen" class="div-3">
+        <div class="titC" style="width: 250px; margin-top: 15px;">Popup / Imagen Texto</div>
+        <div class="titC" style="padding: 0; width: 230px;">
+            <div class="input_search">
+                <input type="hidden" id="hdImagenPreventaDigital" />
+                <input type="hidden" id="hdImagenPreventaDigitalAnterior" />
+                <div id="fpPopupImagenDemo">
+                </div>
+            </div>
+            <div id="divPopupImagenDemo" style="width: 100px; height: 60px; float: right;">
+                <img src="http://S3.amazonaws.com/consultorasQAS/SomosBelcorp/Matriz/CO/CO_imagen_preventa_digital_2017232920_01_bddprudydm.png"
+                     alt="PopupImagenDemo" style="height: 100%;">
+            </div>
+        </div>
+    </div>
+</div>
+
 
 <script type="text/javascript">
     var paisNombre = "";
@@ -896,71 +1036,16 @@
     var urlEliminarShowRoomEvento = baseUrl + 'ShowRoom/EliminarShowRoomEvento';
     var urlEliminarOfertaShowRoomDetalleAll = baseUrl + 'ShowRoom/EliminarOfertaShowRoomDetalleAll';
     var urlEliminarOfertaShowRoomDetalle = baseUrl + 'ShowRoom/EliminarOfertaShowRoomDetalle';
+    var urlGetShowRoomNiveles = baseUrl + 'ShowRoom/GetShowRoomNiveles';
+    var urlGetShowRoomPersonalizacionNivel = baseUrl + 'ShowRoom/GetShowRoomPersonalizacionNivel';
+    var urlImageMatrizUpload = '@Url.Action("ImageMatrizUpload", "FileUpload")';
+    var rutaImagenTemporal = '@Url.Content("~/Content/Temporales/")';
+    var urlGuardarPersonalizacionNivelShowRoom = baseUrl + 'ShowRoom/GuardarPersonalizacionNivelShowRoom';
 
     jQuery(document).ready(function() {
         CargarDialog();
         CargarAjaxForm();
         CargarEventos();
-
-
-        $('#txtCantidad').keydown(function (event) {
-            if (event.shiftKey) {
-                event.preventDefault();
-            }
-            if (event.keyCode == 46 || event.keyCode == 8) {
-            }
-            else {
-                if (event.keyCode < 95) {
-                    if (event.keyCode < 48 || event.keyCode > 57) {
-                        event.preventDefault();
-                    }
-                }
-                else {
-                    if (event.keyCode < 96 || event.keyCode > 105) {
-                        event.preventDefault();
-                    }
-                }
-            }
-        });
-
-        $('#txtUnidadesPermitidasModal').keydown(function (event) {
-            if (event.shiftKey) {
-                event.preventDefault();
-            }
-            if (event.keyCode == 46 || event.keyCode == 8) {
-            }
-            else {
-                if (event.keyCode < 95) {
-                    if (event.keyCode < 48 || event.keyCode > 57) {
-                        event.preventDefault();
-                    }
-                }
-                else {
-                    if (event.keyCode < 96 || event.keyCode > 105) {
-                        event.preventDefault();
-                    }
-                }
-            }
-        });
-
-        $('#chkAgotado').on('change', function () {
-            if (this.checked) {
-                $('#ddlIncrementar').attr('disabled', 'disabled');
-                $('#txtCantidad').attr('disabled', 'disabled');
-                $('#txtCantidad').css('background-color', '#F9F9F0');
-                $('#ddlIncrementar').css('background-color', '#F9F9F0');
-                $('#dvcantidad').attr('style', 'background-color : #F9F9F0');
-                $('#dvincrementa').attr('style', 'background-color : #F9F9F0');
-            } else {
-                $('#ddlIncrementar').removeAttr('disabled');
-                $('#txtCantidad').removeAttr('disabled');
-                $('#txtCantidad').css('background-color', '');
-                $('#ddlIncrementar').css('background-color', '');
-                $('#dvcantidad').removeAttr('style');
-                $('#dvincrementa').removeAttr('style');
-            }
-        });
-
     });
 
     function CargarDialog() {
@@ -1008,10 +1093,10 @@
                         vMessage += "- Debe ingresar la cantidad de perfiles.\n";
                     if (parseInt(jQuery.trim($('#txtEventoNumeroPerfiles').val())) <= 0)
                         vMessage += "- La cantidad de perfiles debe ser mayor a cero.\n";
-                    if (jQuery.trim($('#txtEventoRutaShowRoomPopup').val()) == "")
-                        vMessage += "- Debe ingresar la ruta del Popup del Evento ShowRoom.\n";
-                    if (jQuery.trim($('#txtEventoRutaShowRoomBannerLateral').val()) == "")
-                        vMessage += "- Debe ingresar la ruta del del Banner Lateral del Evento ShowRoom.\n";
+                    //if (jQuery.trim($('#txtEventoRutaShowRoomPopup').val()) == "")
+                    //    vMessage += "- Debe ingresar la ruta del Popup del Evento ShowRoom.\n";
+                    //if (jQuery.trim($('#txtEventoRutaShowRoomBannerLateral').val()) == "")
+                    //    vMessage += "- Debe ingresar la ruta del del Banner Lateral del Evento ShowRoom.\n";
 
                     if (vMessage != "") {
                         alert(vMessage);
@@ -1172,7 +1257,42 @@
             }
         });
 
+        $('#DialogPersonalizacionDetalle').dialog({
+            autoOpen: false,
+            resizable: false,
+            modal: true,
+            closeOnEscape: true,
+            width: 800,
+            draggable: true,
+            title: "Detalle de Personalizacion por Nivel",
+            buttons:
+            {
+                "Guardar": function () {
+                    var vMessage = "";
 
+                    var eventoId = $("#hdEventoID").val();
+                    var nivelId = $("#cbNivelEvento").val();
+
+                    if (eventoId == "")
+                        vMessage += "- Debe seleccionar el evento.\n";
+
+                    if (nivelId == "")
+                        vMessage += "- Debe seleccionar el nivel de la personalización.\n";                    
+
+                    if (vMessage != "") {
+                        alert(vMessage);
+                        return false;
+                    }
+                    else {
+                        RegistrarShowRoomPersonalizacionNivel(eventoId, nivelId);
+                    }
+                    return false;
+                },
+                "Cancelar": function () {
+                    $(this).dialog('close');
+                }
+            }
+        });
     }
 
     function CargarAjaxForm() {
@@ -1317,6 +1437,7 @@
 
         $("#btnBuscar").click(function () {
             $("#divCargaArchivos").css("display", "none");
+            $("#divPersonalizacion").css("display", "none");
             $("#divOfertasShowRoom").css("display", "none");
             $("#divShowRoomPerfil").css("display", "none");
 
@@ -1442,6 +1563,206 @@
                 alert("Debe seleccionar al menos un cuv");
             }
         });
+
+        $('#txtCantidad').keydown(function (event) {
+            if (event.shiftKey) {
+                event.preventDefault();
+            }
+            if (event.keyCode == 46 || event.keyCode == 8) {
+            }
+            else {
+                if (event.keyCode < 95) {
+                    if (event.keyCode < 48 || event.keyCode > 57) {
+                        event.preventDefault();
+                    }
+                }
+                else {
+                    if (event.keyCode < 96 || event.keyCode > 105) {
+                        event.preventDefault();
+                    }
+                }
+            }
+        });
+
+        $('#txtUnidadesPermitidasModal').keydown(function (event) {
+            if (event.shiftKey) {
+                event.preventDefault();
+            }
+            if (event.keyCode == 46 || event.keyCode == 8) {
+            }
+            else {
+                if (event.keyCode < 95) {
+                    if (event.keyCode < 48 || event.keyCode > 57) {
+                        event.preventDefault();
+                    }
+                }
+                else {
+                    if (event.keyCode < 96 || event.keyCode > 105) {
+                        event.preventDefault();
+                    }
+                }
+            }
+        });
+
+        $('#chkAgotado').on('change', function () {
+            if (this.checked) {
+                $('#ddlIncrementar').attr('disabled', 'disabled');
+                $('#txtCantidad').attr('disabled', 'disabled');
+                $('#txtCantidad').css('background-color', '#F9F9F0');
+                $('#ddlIncrementar').css('background-color', '#F9F9F0');
+                $('#dvcantidad').attr('style', 'background-color : #F9F9F0');
+                $('#dvincrementa').attr('style', 'background-color : #F9F9F0');
+            } else {
+                $('#ddlIncrementar').removeAttr('disabled');
+                $('#txtCantidad').removeAttr('disabled');
+                $('#txtCantidad').css('background-color', '');
+                $('#ddlIncrementar').css('background-color', '');
+                $('#dvcantidad').removeAttr('style');
+                $('#dvincrementa').removeAttr('style');
+            }
+        });
+
+        $("#btnBuscarPersonalizacionNivel").click(function() {
+            var eventoId = $("#hdEventoID").val();
+            var nivelId = $("#cbNivelEvento").val();
+
+            if (eventoId == undefined || eventoId == 0) {
+                alert_msg("Evento no se puedo identificar");
+                return false;
+            }
+
+            if (nivelId == undefined || nivelId == 0) {
+                alert_msg("Debe seleccionar un Nivel");
+                return false;
+            }
+
+            var item = { eventoId: eventoId, nivelId: nivelId };
+
+            waitingDialog({ title: "Procesando" });
+            jQuery.ajax({
+                type: 'POST',
+                url: urlGetShowRoomPersonalizacionNivel,
+                dataType: 'json',
+                contentType: 'application/json; charset=utf-8',
+                data: JSON.stringify(item),
+                async: true,
+                success: function (response) {
+                    if (checkTimeout(response)) {
+                        if (response.success) {
+                            closeWaitingDialog();
+
+                            $("#divPersonalizacionDetalleDesktop").html("");
+                            $("#divPersonalizacionDetalleMobile").html("");
+                            var listaPersonalizacion = response.listaPersonalizacion;
+
+                            var listaPersonalizacionDesktop = listaPersonalizacion.Find("TipoAplicacion", "Desktop");
+                            var listaPersonalizacionMobile = listaPersonalizacion.Find("TipoAplicacion", "Mobile");                            
+
+                            $.each(listaPersonalizacionMobile, function (index, value) {
+                                var htmlPersonalizacion = '';
+                                htmlPersonalizacion += '<div class="div-3" data-idpersonalizacion="' + value.PersonalizacionId + '">';
+                                htmlPersonalizacion += '<input type="hidden" class="hdPersonalizacionNivelId" value="' + value.PersonalizacionNivelId + '"/>';
+                                
+                                var valor = value.TipoAtributo == 'IMAGEN' ? value.Valor.replace(/^.*[\\\/]/, '') : value.Valor;
+                                htmlPersonalizacion += '<input type="hidden" class="hdValor" value="' + valor + '"/>';
+                                htmlPersonalizacion += '<input type="hidden" class="hdValorAnterior" value="' + valor + '"/>';
+
+                                htmlPersonalizacion += '<input type="hidden" class="hdAtributo" value="' + value.Atributo + '"/>';
+                                htmlPersonalizacion += '<input type="hidden" class="hdTipoAtributo" value="' + value.TipoAtributo + '"/>';
+
+                                if (value.TipoAtributo == 'IMAGEN') {
+                                    
+                                    htmlPersonalizacion += '<div class="titC" style="width: 250px; margin-top: 15px;">' + value.TextoAyuda + '</div>';
+                                    htmlPersonalizacion += '<div class="titC" style="padding: 0; width: 230px;">';
+                                    htmlPersonalizacion += '<div class="input_search">';
+                                    htmlPersonalizacion += '<div class="fpPopupImagenPersonalizacion">';
+                                    htmlPersonalizacion += '</div>';
+                                    htmlPersonalizacion += '</div>';
+                                    htmlPersonalizacion += '<div class="divPopupImagenPersonalizacion" style="width: 100px; height: 60px; float: right;">';
+
+                                    if (value.PersonalizacionNivelId != 0 && value.Valor != "") {
+                                        htmlPersonalizacion += '<img  alt="" src="' + value.Valor + '" style="width: auto; height: 60px; max-width: 300px !important;"/>';
+                                    }
+
+                                    htmlPersonalizacion += '</div>';
+                                    htmlPersonalizacion += '</div>';                                    
+                                } else {
+                                    
+                                    htmlPersonalizacion += '<div class="titC" style="width: 250px;">' + value.TextoAyuda + '</div>';
+                                    htmlPersonalizacion += '<div class="selectP2 borde_redondeado" style="width: 400px;">';
+                                    htmlPersonalizacion += '<input type="text" class="txtAtributoPersonalizacion" value="' + value.Valor + '"/>';
+                                    htmlPersonalizacion += '</div>';
+                                }
+
+                                htmlPersonalizacion += '</div>';
+
+                                $("#divPersonalizacionDetalleMobile").append(htmlPersonalizacion);
+
+                                if (value.TipoAtributo == 'IMAGEN') {
+                                    InsertarImagenPersonalizacion(value.PersonalizacionId);
+                                }
+                            });
+
+                            $.each(listaPersonalizacionDesktop, function (index, value) {
+                                var htmlPersonalizacion = '';
+                                htmlPersonalizacion += '<div class="div-3" data-idpersonalizacion="' + value.PersonalizacionId + '">';
+                                htmlPersonalizacion += '<input type="hidden" class="hdPersonalizacionNivelId" value="' + value.PersonalizacionNivelId + '"/>';
+
+                                var valor = value.TipoAtributo == 'IMAGEN' ? value.Valor.replace(/^.*[\\\/]/, '') : value.Valor;
+                                htmlPersonalizacion += '<input type="hidden" class="hdValor" value="' + valor + '"/>';
+                                htmlPersonalizacion += '<input type="hidden" class="hdValorAnterior" value="' + valor + '"/>';
+
+                                htmlPersonalizacion += '<input type="hidden" class="hdAtributo" value="' + value.Atributo + '"/>';
+                                htmlPersonalizacion += '<input type="hidden" class="hdTipoAtributo" value="' + value.TipoAtributo + '"/>';
+
+                                if (value.TipoAtributo == 'IMAGEN') {
+
+                                    htmlPersonalizacion += '<div class="titC" style="width: 250px; margin-top: 15px;">' + value.TextoAyuda + '</div>';
+                                    htmlPersonalizacion += '<div class="titC" style="padding: 0; width: 230px;">';
+                                    htmlPersonalizacion += '<div class="input_search">';
+                                    htmlPersonalizacion += '<div class="fpPopupImagenPersonalizacion">';
+                                    htmlPersonalizacion += '</div>';
+                                    htmlPersonalizacion += '</div>';
+                                    htmlPersonalizacion += '<div class="divPopupImagenPersonalizacion" style="width: 100px; height: 60px; float: right;">';
+
+                                    if (value.PersonalizacionNivelId != 0 && value.Valor != "") {
+                                        htmlPersonalizacion += '<img  alt="" src="' + value.Valor + '" style="width: auto; height: 60px; max-width: 300px !important;"/>';
+                                    }
+
+                                    htmlPersonalizacion += '</div>';
+                                    htmlPersonalizacion += '</div>';
+                                } else {
+
+                                    htmlPersonalizacion += '<div class="titC" style="width: 250px;">' + value.TextoAyuda + '</div>';
+                                    htmlPersonalizacion += '<div class="selectP2 borde_redondeado" style="width: 400px;">';
+                                    htmlPersonalizacion += '<input type="text" class="txtAtributoPersonalizacion" value="' + value.Valor + '"/>';
+                                    htmlPersonalizacion += '</div>';
+                                }
+
+                                htmlPersonalizacion += '</div>';
+
+                                $("#divPersonalizacionDetalleDesktop").append(htmlPersonalizacion);
+
+                                if (value.TipoAtributo == 'IMAGEN') {
+                                    InsertarImagenPersonalizacion(value.PersonalizacionId);
+                                }
+                            });
+
+                            showDialog("DialogPersonalizacionDetalle");
+                        } else {
+                            closeWaitingDialog();
+                        }
+                    }
+                },
+                error: function (response, error) {
+                    if (checkTimeout(response)) {
+                        alert_msg(response.message);
+                        closeWaitingDialog();
+                    }
+                }
+            });
+
+        });
     }
 
     function ObtenerShowRoomPerfilOfertaCuvs(campaniaId, eventoId, perfilId) {
@@ -1514,7 +1835,7 @@
             }),
             mtype: 'GET',
             contentType: "application/json; charset=utf-8",
-            colNames: ['EventoID', 'Nombre', 'Tema', 'Dias Antes Fact.', 'Dias Despues Fact.', 'Ruta ShowRoom Popup', 'Ruta ShowRoom Banner Lateral', '# Perfiles',
+            colNames: ['EventoID', 'Nombre', 'Tema', 'Dias Antes Fact.', 'Dias Despues Fact.', '# Perfiles',
                 'Imagen1', 'Imagen2', 'ImagenCabeceraProducto', 'ImagenVentaSetPopup', 'ImagenVentaTagLateral', 'ImagenPestaniaShowRoom', 'ImagenPreventaDigital', ''],
             colModel: [
                 { name: 'EventoID', index: 'EventoID', width: 50, editable: true, resizable: false },
@@ -1522,8 +1843,6 @@
                 { name: 'Tema', index: 'Tema', width: 80, editable: true, resizable: false },
                 { name: 'DiasAntes', index: 'DiasAntes', width: 50, editable: true, resizable: false },
                 { name: 'DiasDespues', index: 'DiasDespues', width: 50, editable: true, resizable: false },
-                { name: 'RutaShowRoomPopup', index: 'RutaShowRoomPopup', width: 50, editable: true, resizable: false, hidden: true },
-                { name: 'RutaShowRoomBannerLateral', index: 'RutaShowRoomBannerLateral', width: 100, editable: true, resizable: false, hidden: true },
                 { name: 'NumeroPerfiles', index: 'NumeroPerfiles', width: 50, editable: true, resizable: false },
                 { name: 'Imagen1', index: 'Imagen1', width: 65, editable: true, resizable: false, hidden: true },
                 { name: 'Imagen2', index: 'Imagen2', width: 65, editable: true, resizable: false, hidden: true },
@@ -1583,6 +1902,9 @@
                     /*Carga de Imagenes*/
                     var showroomEvento = jQuery('#listEvento').jqGrid('getRowData')[0];
                     CargarImagenes(showroomEvento);
+
+                    CargarNiveles();
+                    $("#divPersonalizacion").css("display", "");
 
                     fnGrilla();
                     $("#divOfertasShowRoom").css("display", "");
@@ -1801,26 +2123,70 @@
         });
     }
 
+    function CargarNiveles() {
+        jQuery.ajax({
+            type: 'POST',
+            url: urlGetShowRoomNiveles,
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            async: true,
+            success: function (response) {
+                if (checkTimeout(response)) {
+                    if (response.success) {
+                        $("#cbNivelEvento").empty();
+
+                        if (response.data == "") {
+                            $("#divPersonalizacion").css("display", "none");
+                        } else {
+                            var listaNiveles = response.data;
+
+                            var htmlSeleccionar = '<option value="">-- Seleccionar --</option>';
+
+                            $("#cbNivelEvento").append(htmlSeleccionar);
+
+                            $.each(listaNiveles, function (index, value) {
+                                var html = '<option value="' + value.NivelId + '">' + value.Descripcion + '</option>';
+
+                                $("#cbNivelEvento").append(html);
+                            });
+
+                            $("#divPersonalizacion").css("display", "");
+                        }
+                    } else {
+                        $("#divPersonalizacion").css("display", "none");
+                        alert_msg(response.message);
+                    }
+                }
+            },
+            error: function (response, error) {
+                if (checkTimeout(response)) {
+                    alert_msg(response.message);
+                    closeWaitingDialog();
+                }
+            }
+        });
+    }
+
     function ShowActionsEvento(cellvalue, options, rowObject) {
-        var edit = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('#listEvento').EditarEvento('" + options.rowId + "','" + rowObject[15] + "','" + rowObject[19] + "');\" >" + "<img src='" + imagenEdit + "' alt='Editar Evento ShowRoom' title='Editar Evento Show Room' border='0' /></a>";
-        var del = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('#listEvento').DeshabilitarEvento('" + options.rowId + "','" + rowObject[15] + "');\" >" + "<img src='" + imagenDeshabilitar + "' alt='Deshabilitar Evento ShowRoom' title='Deshabilitar Evento ShowRoom' border='0' /></a>";
-        var remove = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('#listEvento').EliminarEvento('" + options.rowId + "','" + rowObject[15] + "');\" >" + "<img src='" + imagenEliminar + "' alt='Eliminar Evento ShowRoom' title='Eliminar Evento ShowRoom' border='0' /></a>";
+        var edit = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('#listEvento').EditarEvento('" + options.rowId + "','" + rowObject[13] + "','" + rowObject[17] + "');\" >" + "<img src='" + imagenEdit + "' alt='Editar Evento ShowRoom' title='Editar Evento Show Room' border='0' /></a>";
+        var del = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('#listEvento').DeshabilitarEvento('" + options.rowId + "','" + rowObject[13] + "');\" >" + "<img src='" + imagenDeshabilitar + "' alt='Deshabilitar Evento ShowRoom' title='Deshabilitar Evento ShowRoom' border='0' /></a>";
+        var remove = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('#listEvento').EliminarEvento('" + options.rowId + "','" + rowObject[13] + "');\" >" + "<img src='" + imagenEliminar + "' alt='Eliminar Evento ShowRoom' title='Eliminar Evento ShowRoom' border='0' /></a>";
 
         var resultado = edit;
 
-        if (rowObject[19] == "1")
+        if (rowObject[17] == "1")
             resultado += del;
 
-        if (rowObject[19] == "1")
+        if (rowObject[17] == "1")
             resultado += remove;
 
         $("#hdEventoID").val(options.rowId);
         //Carga de Consultoras
         $("#hdCargaEventoID").val(options.rowId);
-        $("#hdCargaCampaniaID").val(rowObject[15]);
+        $("#hdCargaCampaniaID").val(rowObject[13]);
         //Carga de Descripcion de Sets
         $("#hdCargaDescripcionSetsEventoID").val(options.rowId);
-        $("#hdCargaDescripcionSetsCampaniaID").val(rowObject[15]);
+        $("#hdCargaDescripcionSetsCampaniaID").val(rowObject[13]);
 
         return resultado;
     }
@@ -1832,8 +2198,6 @@
         var tema = $("#txtEventoTema").val();
         var diasAntes = $("#txtEventoDiasAntes").val();
         var diasDespues = $("#txtEventoDiasDespues").val();
-        var rutaShowRoomPopup = $("#txtEventoRutaShowRoomPopup").val();
-        var rutaShowRoomBannerLateral = $("#txtEventoRutaShowRoomBannerLateral").val();
         var numeroPerfiles = $("#txtEventoNumeroPerfiles").val();
         var estado = $("#chkEventoEstado").is(":checked");
 
@@ -1845,8 +2209,6 @@
             DiasAntes: parseInt(diasAntes),
             DiasDespues: parseInt(diasDespues),
             NumeroPerfiles: parseInt(numeroPerfiles),
-            RutaShowRoomPopup: rutaShowRoomPopup,
-            RutaShowRoomBannerLateral: rutaShowRoomBannerLateral,
             Estado: estado
         };
 
@@ -2639,6 +3001,150 @@
     function alert_msg(message) {
         $('#DialogMensajes .message_text').html(message);
         $('#DialogMensajes').dialog('open');
+    }
+
+    function InsertarImagenPersonalizacion(personalizacionId) {
+        var elementoPadre = $('.div-3[data-idpersonalizacion="' + personalizacionId + '"]');
+            var elementoAgregarImagen = $(elementoPadre).find('.fpPopupImagenPersonalizacion')[0];
+            var elementoDivVerImagen = $(elementoPadre).find('.divPopupImagenPersonalizacion')[0];
+            var elementoHiddenValor = $(elementoPadre).find('.hdValor')[0];
+        $.ajaxSetup({ cache: false });
+        var uploader = new qq.FileUploader({
+            allowedExtensions: ['jpg', 'png', 'jpeg', 'gif'],
+            element: elementoAgregarImagen,
+            action: urlImageMatrizUpload,
+            onComplete: function (id, fileName, responseJSON) {
+                if (checkTimeout(responseJSON)) {
+                    $(".qq-upload-list").css("display", "none");
+                    if (responseJSON.success) {
+                        var rutaImagen = rutaImagenTemporal + responseJSON.name;
+                        
+                        $(elementoHiddenValor).val(responseJSON.name);
+
+                        var html = '<img  alt="" src="' + rutaImagen + '" style="width: auto; height: 60px; max-width: 300px !important;"/>';
+                        $(elementoDivVerImagen).html(html);
+                    } else {
+                        alert(responseJSON.message);
+                    }
+                }
+            },
+            onSubmit: function (id, fileName) { $(".qq-upload-list").css("display", "none"); },
+            onProgress: function (id, fileName, loaded, total) { $(".qq-upload-list").css("display", "none"); },
+            onCancel: function (id, fileName) { $(".qq-upload-list").css("display", "none"); }
+        });
+    }
+
+    function RegistrarShowRoomPersonalizacionNivel(eventoId, nivelId) {
+        var lista = $(".div-3[data-idpersonalizacion]");
+        var array = new Array();
+
+        $.each(lista, function (index, value) {
+            var personalizacionNivelId = $(value).find(".hdPersonalizacionNivelId").val();
+            var personalizacionId = $(value).attr("data-idpersonalizacion");
+            var atributo = $(value).find(".hdAtributo").val();
+
+            var valor = "";
+            var esImagen = false;
+            var tipoAtributo = $(value).find(".hdTipoAtributo").val();
+
+            if (tipoAtributo == "IMAGEN") {
+                valor = $(value).find(".hdValor").val();
+                esImagen = true;
+            } else {
+                valor = $(value).find(".txtAtributoPersonalizacion").val();
+            }
+
+            var item = {
+                PersonalizacionNivelId: personalizacionNivelId,
+                PersonalizacionId: personalizacionId,
+                EventoId: eventoId,
+                NivelId: nivelId,
+                Atributo: atributo,
+                Valor: valor,
+                ValorAnterior: $(value).find(".hdValorAnterior").val(),
+                EsImagen: esImagen
+            };
+
+            array.push(item);
+        });
+
+        jQuery.ajax({
+            type: 'POST',
+            url: urlGuardarPersonalizacionNivelShowRoom,
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify(array),
+            async: true,
+            success: function (data) {
+                if (checkTimeout(data)) {
+                    closeWaitingDialog();
+                    if (data.success == true) {
+                        alert(data.message);
+                        
+                        HideDialog("DialogPersonalizacionDetalle");
+                    }
+                    else {
+                        alert(data.message);
+                    }
+                }
+            },
+            error: function (data, error) {
+                if (checkTimeout(data)) {
+                    closeWaitingDialog();
+                    alert(data.message);
+                }
+            }
+        });
+    }
+
+    function GuardarImagenPersonalizacion(rutaImagen, nombreImagen, elementoDivVerImagen, elementoHiddenImagen, personalizacionNivelId,
+        personalizacionId, eventoId, nivelId, atributo) {
+        var html = '<img  alt="" src="' + rutaImagen + '" style="max-width: 100% !important;"/>';
+        $("#" + elementoDivVerImagen).html(html);
+
+        $("#" + elementoHiddenImagen).val(nombreImagen);
+
+        //var item = {
+        //    PersonalizacionNivelId: personalizacionNivelId,
+        //    PersonalizacionId: personalizacionId,
+        //    EventoId: eventoId,
+        //    NivelId: nivelId,
+        //    Atributo: atributo,
+        //    Valor: '',
+        //    NombreImagen: nombreImagen,
+        //    NombreImagenAnterior: $("#" + nombreImagen + 'Anterior').val(),
+        //    EsImagen: true
+        //};
+
+        //jQuery.ajax({
+        //    type: 'POST',
+        //    url: urlGuardarPersonalizacionNivelShowRoom,
+        //    dataType: 'json',
+        //    contentType: 'application/json; charset=utf-8',
+        //    data: JSON.stringify(item),
+        //    async: true,
+        //    success: function (data) {
+        //        if (checkTimeout(data)) {
+        //            closeWaitingDialog();
+        //            if (data.success == true) {
+        //                alert(data.message);
+        //                //actualizar los inputs de la imagen respectiva
+
+        //                $("#" + elementoHiddenImagen).val(data.extra);
+        //                $("#" + elementoHiddenImagen + "Anterior").val(data.extra);
+        //            }
+        //            else {
+        //                alert(data.message);
+        //            }
+        //        }
+        //    },
+        //    error: function (data, error) {
+        //        if (checkTimeout(data)) {
+        //            closeWaitingDialog();
+        //            alert(data.message);
+        //        }
+        //    }
+        //});
     }
 
 </script>
