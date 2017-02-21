@@ -202,7 +202,6 @@ namespace Portal.Consultoras.Data
             return Convert.ToInt32(command.Parameters["@StockResultado"].Value);
         }
 
-
         public int InsOfertaShowRoom(BEShowRoomOferta entity)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("ShowRoom.InsOfertaShowRoom");
@@ -244,8 +243,6 @@ namespace Portal.Consultoras.Data
 
             return Context.ExecuteNonQuery(command);
         }
-
-
 
         public int DelOfertaShowRoom(BEShowRoomOferta entity)
         {

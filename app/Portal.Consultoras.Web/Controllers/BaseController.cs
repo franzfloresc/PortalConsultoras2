@@ -2043,9 +2043,23 @@ namespace Portal.Consultoras.Web.Controllers
             }
             if (fechaHoy > userData.FechaInicioCampania.AddDays(model.BEShowRoom.DiasDespues).Date) model.EstaActivoLateral = false;
 
-            model.DiasFaltantes = userData.FechaInicioCampania.Day - model.BEShowRoom.DiasAntes;
+            model.DiasFaltantes = userData.FechaInicioCampania.AddDays(- model.BEShowRoom.DiasAntes).Day; // userData.FechaInicioCampania.Day - model.BEShowRoom.DiasAntes;
             model.MesFaltante = userData.FechaInicioCampania.Month;
             model.AnioFaltante = userData.FechaInicioCampania.Year;
+            
+
+            foreach (var Item in userData.ListaShowRoomPersonalizacionConsultora)
+            {
+                if (Item.Atributo == Constantes.ShowRoomPersonalizacion.Mobile.PopupImagenIntriga && Item.TipoAplicacion == Constantes.ShowRoomPersonalizacion.TipoAplicacion.Mobile)
+                {
+                    model.ImagenPopupShowroomIntriga = Item.Valor;
+                }
+
+                if (Item.Atributo == Constantes.ShowRoomPersonalizacion.Mobile.BannerImagenIntriga && Item.TipoAplicacion == Constantes.ShowRoomPersonalizacion.TipoAplicacion.Mobile)
+                {
+                    model.ImagenBannerShowroomIntriga = Item.Valor;
+                }
+            }
 
             return model;
         }

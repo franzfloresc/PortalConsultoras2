@@ -1540,6 +1540,9 @@ namespace Portal.Consultoras.Web.Controllers
                         }
                         if (fechaHoy > userData.FechaInicioCampania.AddDays(diasDespues).Date) beShowRoomConsultora.MostrarPopup = false;
 
+                        int df = userData.FechaInicioCampania.AddDays(-diasAntes).Day - fechaHoy.Day;
+                        var lstPersonalizacionDesktop = userData.ListaShowRoomPersonalizacionConsultora.Where(x => x.TipoAplicacion == "Desktop").ToList();
+
                         return Json(new
                         {
                             success = true,
@@ -1547,13 +1550,15 @@ namespace Portal.Consultoras.Web.Controllers
                             diaInicio = userData.FechaInicioCampania.AddDays(-diasAntes).Day,
                             diaFin = userData.FechaInicioCampania.Day,
                             mesFin = NombreMes(userData.FechaInicioCampania.Month),
+                            diasFaltan = df,
                             nombre = string.IsNullOrEmpty(userData.Sobrenombre)
                                 ? userData.NombreConsultora
                                 : userData.Sobrenombre,
                             message = "ShowRoomConsultora encontrada",
                             evento = beShowRoom,
                             mostrarShowRoomProductos,
-                            rutaShowRoomPopup
+                            rutaShowRoomPopup,
+                            personalizacion = lstPersonalizacionDesktop
                         });
                     }
                     else

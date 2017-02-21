@@ -46,37 +46,66 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     }
                 }
 
-                //bool mostrarBannersw = true;
-                //if (MostrarBannerShowroom()) mostrarBannersw = false; 
+                bool mostrarBannerTop = false;
+                if (NuncaMostrarBannerTopPL20()) { mostrarBannerTop = false; } else { mostrarBannerTop = true; }
+                ViewBag.MostrarBannerTopPL20 = mostrarBannerTop;
+
+             
+
+                if (mostrarBanner || mostrarBannerTop)
+                    {
+                        ViewBag.PermitirCerrarBannerPL20 = permitirCerrarBanner;
+
+                       
+                            ShowRoomBannerLateralModel showRoomBannerLateral = GetShowRoomBannerLateral();
+                            ViewBag.ShowRoomBannerLateral = showRoomBannerLateral;
+                            ViewBag.MostrarShowRoomBannerLateral = Session["EsShowRoom"].ToString() != "0" &&
+                                !showRoomBannerLateral.ConsultoraNoEncontrada && !showRoomBannerLateral.ConsultoraNoEncontrada &&
+                                showRoomBannerLateral.BEShowRoomConsultora.EventoConsultoraID != 0 && showRoomBannerLateral.EstaActivoLateral;
+
+                            var dateFuture = new DateTime(showRoomBannerLateral.AnioFaltante, showRoomBannerLateral.MesFaltante, showRoomBannerLateral.DiasFaltantes);
+                            DateTime dateNow = DateTime.Now;
+                            var seconds = Math.Floor((dateFuture - (dateNow)).TotalSeconds);
+                            var minutes = Math.Floor(seconds / 60);
+                            var hours = Math.Floor(minutes / 60);
+                            var days = Math.Floor(hours / 24);
+
+                           if (Convert.ToInt32(days) == 0 && hours > 0)
+                            {
+                                showRoomBannerLateral.DiasFaltantes = 1;
+                            }
+                            else
+                            {
+                                showRoomBannerLateral.DiasFaltantes = Convert.ToInt32(days);
+                            }
+
+                            if (days > 1)
+                                {
+                                showRoomBannerLateral.LetrasDias = "DÍAS";
+                            }
+                            else { showRoomBannerLateral.LetrasDias = "DÍA"; }
+
+                    ViewBag.ImagenPopupShowroomIntriga = showRoomBannerLateral.ImagenPopupShowroomIntriga;
+                    ViewBag.ImagenBannerShowroomIntriga = showRoomBannerLateral.ImagenBannerShowroomIntriga;
 
 
-                if (mostrarBanner)
-                {
-                    ViewBag.PermitirCerrarBannerPL20 = permitirCerrarBanner;
-
-                    ShowRoomBannerLateralModel showRoomBannerLateral = GetShowRoomBannerLateral();
-                    ViewBag.ShowRoomBannerLateral = showRoomBannerLateral;
-                    ViewBag.MostrarShowRoomBannerLateral = Session["EsShowRoom"].ToString() != "0" &&
-                        !showRoomBannerLateral.ConsultoraNoEncontrada && !showRoomBannerLateral.ConsultoraNoEncontrada &&
-                        showRoomBannerLateral.BEShowRoomConsultora.EventoConsultoraID != 0 && showRoomBannerLateral.EstaActivoLateral;
+            ViewBag.DiasFaltantesLetras = showRoomBannerLateral.DiasFaltantes.ToString() + " " + showRoomBannerLateral.LetrasDias.ToString();
 
                     OfertaDelDiaModel ofertaDelDia = GetOfertaDelDiaModel();
-                    ViewBag.OfertaDelDia = ofertaDelDia;
-                    ViewBag.MostrarOfertaDelDia = userData.TieneOfertaDelDia && ofertaDelDia != null && ofertaDelDia.TeQuedan.TotalSeconds > 0;
+                        ViewBag.OfertaDelDia = ofertaDelDia;
+                        ViewBag.MostrarOfertaDelDia = userData.TieneOfertaDelDia && ofertaDelDia != null && ofertaDelDia.TeQuedan.TotalSeconds > 0;
+                        
 
-                    var dateFuture = new DateTime(showRoomBannerLateral.AnioFaltante, showRoomBannerLateral.MesFaltante, showRoomBannerLateral.DiasFaltantes);
-                    DateTime dateNow = DateTime.Now;
-                    var seconds = Math.Floor((dateFuture - (dateNow)).TotalSeconds);
-                    var minutes = Math.Floor(seconds / 60);
-                    var hours = Math.Floor(minutes / 60);
-                    var days = Math.Floor(hours / 24);
-                    showRoomBannerLateral.DiasFaltantes = Convert.ToInt32(days);
+                        if (userData.CloseOfertaDelDia)
+                            ViewBag.MostrarOfertaDelDia = false;
 
-
-                    if (userData.CloseOfertaDelDia)
-                        ViewBag.MostrarOfertaDelDia = false;
+                    
                 }
-                ViewBag.MostrarBannerPL20 = mostrarBanner;
+                    ViewBag.MostrarBannerPL20 = mostrarBanner;
+                    ViewBag.MostrarBannerOtros = mostrarBannerTop;
+                    
+
+
                 /*FIN: PL20-1289*/
             }
             catch (Exception ex)
@@ -270,22 +299,42 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             string controllerName = this.ControllerContext.RouteData.Values["controller"].ToString();
             string actionName = this.ControllerContext.RouteData.Values["action"].ToString();
 
-            if (controllerName == "CatalogoPersonalizado" && actionName == "Index") return true;
-            if (controllerName == "CatalogoPersonalizado" && actionName == "Producto") return true;
-            if (controllerName == "ShowRoom") return true;
+            //if (controllerName == "CatalogoPersonalizado" && actionName == "Index") return true;
+            //if (controllerName == "CatalogoPersonalizado" && actionName == "Producto") return true;
+            //if (controllerName == "ShowRoom") return true;
             if (controllerName == "Pedido") return true;
+            if (controllerName == "CatalogoPersonalizado") return true;
+            if (controllerName == "ShowRoom") return true;
+            if (controllerName == "SeguimientoPedido") return true;
+            if (controllerName == "PedidosFacturados") return true;
+            if (controllerName == "EstadoCuenta") return true;
+            if (controllerName == "Cliente") return true;
+            if (controllerName == "OfertaLiquidacion") return true;
+            if (controllerName == "ConsultoraOnline") return true;
+            if (controllerName == "ProductosAgotados") return true;
+            if (controllerName == "Catalogo") return true;
+            if (controllerName == "MiAsesorBelleza") return true;
+            if (controllerName == "Notificaciones") return true;
             return false;
         }
 
-        private bool MostrarBannerShowroom()
+        private bool NuncaMostrarBannerTopPL20()
         {
             string controllerName = this.ControllerContext.RouteData.Values["controller"].ToString();
             string actionName = this.ControllerContext.RouteData.Values["action"].ToString();
 
-            if (controllerName == "Pedido" && actionName == "Index") return false;
-            if (controllerName == "PedidoCliente" && actionName == "Index") return false;
-
-            return true;
+            //if (controllerName == "CatalogoPersonalizado" && actionName == "Index") return true;
+            //if (controllerName == "CatalogoPersonalizado" && actionName == "Producto") return true;
+            //if (controllerName == "ShowRoom") return true;
+            if (controllerName == "Bienvenida" && actionName == "Index") return true;
+            if (controllerName == "Pedido") return true;
+            if (controllerName == "CatalogoPersonalizado") return true;
+            if (controllerName == "ShowRoom") return true;
+            if (controllerName == "SeguimientoPedido") return true;
+            if (controllerName == "PedidosFacturados") return true;
+            if (controllerName == "OfertaLiquidacion") return true;
+            return false;
         }
+
     }
 }

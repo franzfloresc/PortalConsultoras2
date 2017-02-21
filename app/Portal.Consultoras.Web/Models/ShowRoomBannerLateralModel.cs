@@ -22,5 +22,13 @@ namespace Portal.Consultoras.Web.Models
         public bool MostrarShowRoomProductos { get; set; }
 
         public bool EstaActivoLateral { get; set; }
+
+        public string RutaShowRoomBannerLateral { get; set; }
+
+        public string LetrasDias { get; set; }
+        public string ImagenPopupShowroomIntriga { get; set; }
+
+        public string ImagenBannerShowroomIntriga { get; set; }
+
     }
 }
