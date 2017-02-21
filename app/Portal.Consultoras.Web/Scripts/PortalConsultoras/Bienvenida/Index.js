@@ -3340,33 +3340,33 @@ function playVideo() {
 
 //ShowRoom
 function CrearPopShow() {
-    $("body").on("click", "div.check_01 label.checkpop input", function (event) {
-        event.preventDefault();
-        if ($(this).parent().hasClass("c_on")) {
-            $(this).parent().removeClass("c_on");
-        } else {
-            $(this).parent().addClass("c_on");
-        }
-    });
+    //$("body").on("click", "div.check_01 label.checkpop input", function (event) {
+    //    event.preventDefault();
+    //    if ($(this).parent().hasClass("c_on")) {
+    //        $(this).parent().removeClass("c_on");
+    //    } else {
+    //        $(this).parent().addClass("c_on");
+    //    }
+    //});
 
-    $("body").on("click", "div.check_hoy label.checkpop input", function (event) {
-        event.preventDefault();
-        if ($(this).parent().hasClass("c_on")) {
-            $(this).parent().removeClass("c_on");
-        } else {
-            $(this).parent().addClass("c_on");
-        }
-    });
+    //$("body").on("click", "div.check_hoy label.checkpop input", function (event) {
+    //    event.preventDefault();
+    //    if ($(this).parent().hasClass("c_on")) {
+    //        $(this).parent().removeClass("c_on");
+    //    } else {
+    //        $(this).parent().addClass("c_on");
+    //    }
+    //});
 
     var noMostrarShowRoom = true;
 
-    $("#btnCerrarPopShowroom").click(function () {
-        $("#DialogoMensajeBannerShowRoom").hide();
-    });
+    //$("#btnCerrarPopShowroom").click(function () {
+    //    $("#DialogoMensajeBannerShowRoom").hide();
+    //});
 
-    $("#btnCerrarPopShowroomHoy").click(function () {
-        $("#DialogoMensajeBannerShowRoomHoy").hide();
-    });
+    //$("#btnCerrarPopShowroomHoy").click(function () {
+    //    $("#DialogoMensajeBannerShowRoomHoy").hide();
+    //});
 
     $("#cbNoMostrarPopupShowRoom, #cbNoMostrarPopupShowRoomHoy").click(function () {
         var noMostrarPopup = noMostrarShowRoom;
@@ -3405,9 +3405,9 @@ function CrearPopShow() {
         AgregarTagManagerShowRoomPopupConocesMas(1);
     });
 
-    $("#lnkConoceMasShowRoomPopupHoy").click(function () {
-        AgregarTagManagerShowRoomPopupConocesMas(2);
-    });
+    //$("#lnkConoceMasShowRoomPopupHoy").click(function () {
+    //    AgregarTagManagerShowRoomPopupConocesMas(2);
+    //});
 }
 function MostrarShowRoom() {
     if (viewBagRol == 1) {
@@ -3429,40 +3429,48 @@ function MostrarShowRoom() {
                                 $("#hdEventoIDShowRoom").val(evento.EventoID);
 
                                 if (response.mostrarShowRoomProductos) {
-                                    $("#spnShowRoomEventoHoy").html(evento.Tema);
+                                    //$("#spnShowRoomEventoHoy").html(evento.Tema);
 
-                                    $("#lnkConoceMasShowRoomPopupHoy").attr("href", response.rutaShowRoomPopup);
+                                    //$("#lnkConoceMasShowRoomPopupHoy").attr("href", response.rutaShowRoomPopup);
 
                                     //Carga de Imagenes del Popup
-                                    $("#imgPestaniaShowRoomHoy").attr("src", evento.ImagenPestaniaShowRoom);
-                                    $("#imgIntrigaHoy").attr("src", evento.Imagen2);
-                                    $("#imgPreventaDigitalHoy").attr("src", evento.ImagenPreventaDigital);
-                                    $("#imgVentaSetPopupHoy").attr("src", evento.ImagenVentaSetPopup);
+                                    //$("#imgPestaniaShowRoomHoy").attr("src", evento.ImagenPestaniaShowRoom);
+                                    //$("#imgIntrigaHoy").attr("src", evento.Imagen2);
+                                    //$("#imgPreventaDigitalHoy").attr("src", evento.ImagenPreventaDigital);
+                                    //$("#imgVentaSetPopupHoy").attr("src", evento.ImagenVentaSetPopup);
 
-                                    $("#DialogoMensajeBannerShowRoomHoy").show();
+                                    //$("#DialogoMensajeBannerShowRoomHoy").show();
 
-                                    AgregarTagManagerShowRoomPopup(evento.Tema, true);
+                                    //AgregarTagManagerShowRoomPopup(evento.Tema, true);
+
+                                    //PL20-1306
+                                    $('#PopShowoomIntriga').show();
                                 } else {
-                                    $("#spnShowRoomEvento").html(evento.Tema);
-                                    $("#spnShowRoomNombreConsultora").html(response.nombre);
-                                    $("#spnShowRoomDiaInicio").html(response.diaInicio);
-                                    $("#spnShowRoomDiaFin").html(response.diaFin);
-                                    $("#spnShowRoomMes").html(response.mesFin);
-                                    if (response.mesFin.length > 6) {
-                                        $(".fecha_promocion_s").css("font-size", "11.5pt");
-                                    }
+                                    //$("#spnShowRoomEvento").html(evento.Tema);
+                                    //$("#spnShowRoomNombreConsultora").html(response.nombre);
+                                    //$("#spnShowRoomDiaInicio").html(response.diaInicio);
+                                    //$("#spnShowRoomDiaFin").html(response.diaFin);
+                                    //$("#spnShowRoomMes").html(response.mesFin);
+                                    //if (response.mesFin.length > 6) {
+                                    //    $(".fecha_promocion_s").css("font-size", "11.5pt");
+                                    //}
 
-                                    $("#lnkConoceMasShowRoomPopup").attr("href", response.rutaShowRoomPopup);
+                                    //$("#lnkConoceMasShowRoomPopup").attr("href", response.rutaShowRoomPopup);
 
-                                    //Carga de Imagenes del Popup
-                                    $("#imgPestaniaShowRoom").attr("src", evento.ImagenPestaniaShowRoom);
-                                    $("#imgIntriga").attr("src", evento.Imagen2);
-                                    $("#imgPreventaDigital").attr("src", evento.ImagenPreventaDigital);
-                                    $("#imgShowRoomGif").attr("src", evento.Imagen1);
+                                    ////Carga de Imagenes del Popup
+                                    //$("#imgPestaniaShowRoom").attr("src", evento.ImagenPestaniaShowRoom);
+                                    //$("#imgIntriga").attr("src", evento.Imagen2);
+                                    //$("#imgPreventaDigital").attr("src", evento.ImagenPreventaDigital);
+                                    //$("#imgShowRoomGif").attr("src", evento.Imagen1);
 
-                                    $("#DialogoMensajeBannerShowRoom").show();
+                                    //$("#DialogoMensajeBannerShowRoom").show();
 
-                                    AgregarTagManagerShowRoomPopup(evento.Tema, false);
+                                    //AgregarTagManagerShowRoomPopup(evento.Tema, false);
+
+                                    // /PL20-1306
+                                    $("#spnShowRoomDiasFaltan").text(response.diasFaltan);
+                                    //$("#imgShowRoomIntriga").attr("src", evento.Imagen2);
+                                    $('#PopShowroomIntriga').show();
                                 }
 
                                 //$("#imgShowRoomGif").attr("src", evento.Imagen1);
@@ -3481,6 +3489,9 @@ function MostrarShowRoom() {
         });
     }
 }
+
+
+
 function AgregarTagManagerShowRoomPopup(nombreEvento, esHoy) {
     var name = 'showroom digital ' + nombreEvento;
 
