@@ -70,7 +70,14 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                             var hours = Math.Floor(minutes / 60);
                             var days = Math.Floor(hours / 24);
 
-                    
+                           if (Convert.ToInt32(days) == 0 && hours > 0)
+                            {
+                                showRoomBannerLateral.DiasFaltantes = 1;
+                            }
+                            else
+                            {
+                                showRoomBannerLateral.DiasFaltantes = Convert.ToInt32(days);
+                            }
 
                             if (days > 1)
                                 {
@@ -78,9 +85,11 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                             }
                             else { showRoomBannerLateral.LetrasDias = "DÍA"; }
 
-                            showRoomBannerLateral.DiasFaltantes = Convert.ToInt32(days);
+                    ViewBag.ImagenPopupShowroomIntriga = showRoomBannerLateral.ImagenPopupShowroomIntriga;
+                    ViewBag.ImagenBannerShowroomIntriga = showRoomBannerLateral.ImagenBannerShowroomIntriga;
 
-                    ViewBag.DiasFaltantesLetras = showRoomBannerLateral.DiasFaltantes.ToString() + " " + showRoomBannerLateral.LetrasDias.ToString();
+
+            ViewBag.DiasFaltantesLetras = showRoomBannerLateral.DiasFaltantes.ToString() + " " + showRoomBannerLateral.LetrasDias.ToString();
 
                     OfertaDelDiaModel ofertaDelDia = GetOfertaDelDiaModel();
                         ViewBag.OfertaDelDia = ofertaDelDia;
@@ -94,7 +103,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 }
                     ViewBag.MostrarBannerPL20 = mostrarBanner;
                     ViewBag.MostrarBannerOtros = mostrarBannerTop;
-
+                    
 
 
                 /*FIN: PL20-1289*/

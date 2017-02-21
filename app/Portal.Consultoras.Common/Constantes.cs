@@ -348,6 +348,14 @@ namespace Portal.Consultoras.Common
                 public const string BannerImagenIntriga = "BannerImagenIntriga";
                 public const string BannerImagenVenta = "BannerImagenVenta";
                 public const string UrlTerminosCondiciones = "BannerSliderImagen";
+
+               
+            }
+
+            public class TipoAplicacion
+            {
+                public const string Desktop = "Desktop";
+                public const string Mobile = "Mobile";
             }
         }
     }
