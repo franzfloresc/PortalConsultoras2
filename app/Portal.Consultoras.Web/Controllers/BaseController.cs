@@ -1027,18 +1027,20 @@ namespace Portal.Consultoras.Web.Controllers
 
         protected int AddCampaniaAndNumero(int campania, int numero)
         {
-            int nroCampanias = userData.NroCampanias;
-
+            return AddCampaniaAndNumero(campania, numero, userData.NroCampanias);
+        }
+        protected int AddCampaniaAndNumero(int campania, int numero, int nroCampanias)
+        {
             int anioCampania = campania / 100;
             int nroCampania = campania % 100;
             int sumNroCampania = (nroCampania + numero) - 1;
-            int anioCampaniaResult = anioCampania + (sumNroCampania / userData.NroCampanias);
-            int nroCampaniaResult = (sumNroCampania % userData.NroCampanias) + 1;
+            int anioCampaniaResult = anioCampania + (sumNroCampania / nroCampanias);
+            int nroCampaniaResult = (sumNroCampania % nroCampanias) + 1;
 
             if (nroCampaniaResult < 1)
             {
                 anioCampaniaResult = anioCampaniaResult - 1;
-                nroCampaniaResult = nroCampaniaResult + userData.NroCampanias;
+                nroCampaniaResult = nroCampaniaResult + nroCampanias;
             }
             return (anioCampaniaResult * 100) + nroCampaniaResult;
         }

@@ -372,6 +372,7 @@
     <Compile Include="Models\ComunModel.cs" />
     <Compile Include="Models\EstrategiaPedidoModel.cs" />
     <Compile Include="Models\ConsultarValidacionTelefonicaModel.cs" />
+    <Compile Include="Models\MatrizComercialResultadoModel.cs" />
     <Compile Include="Models\FichaProductoFAVModel.cs" />
     <Compile Include="Models\FiltroResultadoModel.cs" />
     <Compile Include="Models\GestionParametroPageModel.cs" />
