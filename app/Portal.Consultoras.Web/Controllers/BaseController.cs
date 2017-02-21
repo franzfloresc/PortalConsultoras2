@@ -2043,9 +2043,10 @@ namespace Portal.Consultoras.Web.Controllers
             }
             if (fechaHoy > userData.FechaInicioCampania.AddDays(model.BEShowRoom.DiasDespues).Date) model.EstaActivoLateral = false;
 
-            model.DiasFaltantes = userData.FechaInicioCampania.Day - model.BEShowRoom.DiasAntes;
+            model.DiasFaltantes = userData.FechaInicioCampania.AddDays(- model.BEShowRoom.DiasAntes).Day; // userData.FechaInicioCampania.Day - model.BEShowRoom.DiasAntes;
             model.MesFaltante = userData.FechaInicioCampania.Month;
             model.AnioFaltante = userData.FechaInicioCampania.Year;
+            
 
             return model;
         }
