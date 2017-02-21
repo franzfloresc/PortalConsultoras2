@@ -3872,6 +3872,9 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private decimal PrecioUnidadField;
         
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int StockDisponibleField;
+        
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
             get {
@@ -4008,6 +4011,19 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
                 if ((this.PrecioUnidadField.Equals(value) != true)) {
                     this.PrecioUnidadField = value;
                     this.RaisePropertyChanged("PrecioUnidad");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int StockDisponible {
+            get {
+                return this.StockDisponibleField;
+            }
+            set {
+                if ((this.StockDisponibleField.Equals(value) != true)) {
+                    this.StockDisponibleField = value;
+                    this.RaisePropertyChanged("StockDisponible");
                 }
             }
         }
@@ -5545,6 +5561,12 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/ValidarEmailConsultora", ReplyAction="http://tempuri.org/IUsuarioService/ValidarEmailConsultoraResponse")]
         System.Threading.Tasks.Task<int> ValidarEmailConsultoraAsync(int PaisID, string Email, string CodigoUsuario);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/ValidarTelefonoConsultora", ReplyAction="http://tempuri.org/IUsuarioService/ValidarTelefonoConsultoraResponse")]
+        int ValidarTelefonoConsultora(int PaisID, string Telefono, string CodigoUsuario);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/ValidarTelefonoConsultora", ReplyAction="http://tempuri.org/IUsuarioService/ValidarTelefonoConsultoraResponse")]
+        System.Threading.Tasks.Task<int> ValidarTelefonoConsultoraAsync(int PaisID, string Telefono, string CodigoUsuario);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetEstadosRestringidos", ReplyAction="http://tempuri.org/IUsuarioService/GetEstadosRestringidosResponse")]
         int[] GetEstadosRestringidos(int paisID);
         
@@ -5885,6 +5907,14 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
             "se")]
         System.Threading.Tasks.Task UpdNotificacionSolicitudCdrVisualizacionAsync(int paisID, long procesoId);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/UpdNotificacionCdrCulminadoVisualizacion", ReplyAction="http://tempuri.org/IUsuarioService/UpdNotificacionCdrCulminadoVisualizacionRespon" +
+            "se")]
+        void UpdNotificacionCdrCulminadoVisualizacion(int paisID, long procesoId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/UpdNotificacionCdrCulminadoVisualizacion", ReplyAction="http://tempuri.org/IUsuarioService/UpdNotificacionCdrCulminadoVisualizacionRespon" +
+            "se")]
+        System.Threading.Tasks.Task UpdNotificacionCdrCulminadoVisualizacionAsync(int paisID, long procesoId);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/UpdateUsuarioEmailTelefono", ReplyAction="http://tempuri.org/IUsuarioService/UpdateUsuarioEmailTelefonoResponse")]
         int UpdateUsuarioEmailTelefono(int paisID, long ConsultoraID, string Email, string Telefono);
         
@@ -6125,6 +6155,14 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         
         public System.Threading.Tasks.Task<int> ValidarEmailConsultoraAsync(int PaisID, string Email, string CodigoUsuario) {
             return base.Channel.ValidarEmailConsultoraAsync(PaisID, Email, CodigoUsuario);
+        }
+        
+        public int ValidarTelefonoConsultora(int PaisID, string Telefono, string CodigoUsuario) {
+            return base.Channel.ValidarTelefonoConsultora(PaisID, Telefono, CodigoUsuario);
+        }
+        
+        public System.Threading.Tasks.Task<int> ValidarTelefonoConsultoraAsync(int PaisID, string Telefono, string CodigoUsuario) {
+            return base.Channel.ValidarTelefonoConsultoraAsync(PaisID, Telefono, CodigoUsuario);
         }
         
         public int[] GetEstadosRestringidos(int paisID) {
@@ -6557,6 +6595,14 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         
         public System.Threading.Tasks.Task UpdNotificacionSolicitudCdrVisualizacionAsync(int paisID, long procesoId) {
             return base.Channel.UpdNotificacionSolicitudCdrVisualizacionAsync(paisID, procesoId);
+        }
+        
+        public void UpdNotificacionCdrCulminadoVisualizacion(int paisID, long procesoId) {
+            base.Channel.UpdNotificacionCdrCulminadoVisualizacion(paisID, procesoId);
+        }
+        
+        public System.Threading.Tasks.Task UpdNotificacionCdrCulminadoVisualizacionAsync(int paisID, long procesoId) {
+            return base.Channel.UpdNotificacionCdrCulminadoVisualizacionAsync(paisID, procesoId);
         }
         
         public int UpdateUsuarioEmailTelefono(int paisID, long ConsultoraID, string Email, string Telefono) {

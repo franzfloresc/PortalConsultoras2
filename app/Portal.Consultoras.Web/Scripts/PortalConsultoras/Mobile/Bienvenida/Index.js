@@ -309,6 +309,7 @@ function ArmarCarouselEstrategias(data) {
     arrayOfertasParaTi = data;
 
     SetHandlebars("#estrategia-template", data, '#divCarouseHorizontalMobile');
+    $('#div-linea-OPT').show();
 
     //$("#AbrirPopOPT").click(function () {
     //    //$('body').css({ 'overflow-x': 'hidden' });
@@ -1075,6 +1076,9 @@ function CerrarFichaOPT()
 
 function CompartirWsp(UrlBase, objParameter) {
     var _id = InsertarProductoCompartido(objParameter, 'W');
+    if (_id == 0)
+        return false;
+
     UrlBase = UrlBase.replace("[valor]", _id);
 
     UrlBase = UrlBase.ReplaceAll('/', '%2F');
@@ -1085,63 +1089,66 @@ function CompartirWsp(UrlBase, objParameter) {
     return "whatsapp://send?text=" + UrlBase;
 }
 
-function CompartirFacebook(urlBase, objParameter) {
-    var _id = InsertarProductoCompartido(objParameter,'F');
-    urlBase = urlBase.replace('[valor]', _id);
+//function CompartirFacebook(urlBase, objParameter) {
+//    var _id = InsertarProductoCompartido(objParameter,'F');
+//    urlBase = urlBase.replace('[valor]', _id);
 
-    var popWwidth = 570;
-    var popHeight = 420;
-    var left = (screen.width / 2) - (popWwidth / 2);
-    var top = (screen.height / 2) - (popHeight / 2);
-    var url = "http://www.facebook.com/sharer/sharer.php?u=" + urlBase;
+//    var popWwidth = 570;
+//    var popHeight = 420;
+//    var left = (screen.width / 2) - (popWwidth / 2);
+//    var top = (screen.height / 2) - (popHeight / 2);
+//    var url = "http://www.facebook.com/sharer/sharer.php?u=" + urlBase;
 
-    window.open(url, 'Facebook', "width=" + popWwidth + ",height=" + popHeight + ",menubar=0,toolbar=0,directories=0,scrollbars=no,resizable=no,left=" + left + ",top=" + top + "");
+//    window.open(url, 'Facebook', "width=" + popWwidth + ",height=" + popHeight + ",menubar=0,toolbar=0,directories=0,scrollbars=no,resizable=no,left=" + left + ",top=" + top + "");
+//}
+
+//function InsertarProductoCompartido(objParameter, app) {
+//    //Capturando valores
+//    var _rutaImagen = objParameter.RutaImagen;
+//    var _marcaID = objParameter.MarcaID;
+//    var _marcaDesc = objParameter.MarcaDesc;
+//    var _nombre = objParameter.NombrePro;
+
+//    var pcCuv = objParameter.Cuv;
+//    var pcPalanca = "OPT";
+//    var pcDetalle = _rutaImagen + "|" + _marcaID + "|" + _marcaDesc + "|" + _nombre;
+//    var pcApp = app;
+
+
+//    var ID = 0;
+//    var Item = {
+//        mCUV: pcCuv,
+//        mPalanca: pcPalanca,
+//        mDetalle: pcDetalle,
+//        mApplicacion: pcApp
+//    };
+
+//    jQuery.ajax({
+//        type: 'POST',
+//        url: urlInsertarProductoCompartido,
+//        dataType: 'json',
+//        contentType: 'application/json; charset=utf-8',
+//        data: JSON.stringify(Item),
+//        async: false,
+//        success: function (response) {
+//            if (checkTimeout(response)) {
+//                if (response.success) {
+//                    var datos = response.data;
+//                    ID = datos.id;
+//                } else {
+//                    window.messageInfo(response.message);
+//                }
+//            }
+//        },
+//        error: function (response, error) {
+//            if (checkTimeout(response)) {
+//                console.log(response);
+//            }
+//        }
+//    });
+//    return ID;
+//}
+
+function mostrarCatalogoPersonalizado() {
+    document.location.href = urlCatalogoPersonalizado;
 }
-
-function InsertarProductoCompartido(objParameter, app) {
-    //Capturando valores
-    var _rutaImagen = objParameter.RutaImagen;
-    var _marcaID = objParameter.MarcaID;
-    var _marcaDesc = objParameter.MarcaDesc;
-    var _nombre = objParameter.NombrePro;
-
-    var pcCuv = objParameter.Cuv;
-    var pcPalanca = "OPT";
-    var pcDetalle = _rutaImagen + "|" + _marcaID + "|" + _marcaDesc + "|" + _nombre;
-    var pcApp = app;
-
-
-    var ID = 0;
-    var Item = {
-        mCUV: pcCuv,
-        mPalanca: pcPalanca,
-        mDetalle: pcDetalle,
-        mApplicacion: pcApp
-    };
-
-    jQuery.ajax({
-        type: 'POST',
-        url: urlInsertarProductoCompartido,
-        dataType: 'json',
-        contentType: 'application/json; charset=utf-8',
-        data: JSON.stringify(Item),
-        async: false,
-        success: function (response) {
-            if (checkTimeout(response)) {
-                if (response.success) {
-                    var datos = response.data;
-                    ID = datos.id;
-                } else {
-                    window.messageInfo(response.message);
-                }
-            }
-        },
-        error: function (response, error) {
-            if (checkTimeout(response)) {
-                console.log(response);
-            }
-        }
-    });
-    return ID;
-}
-

@@ -1,4 +1,4 @@
-﻿@model Portal.Consultoras.Web.Models.ClienteModel
+﻿@model Portal.Consultoras.Web.Models.MisCatalogosRevistasModel
 @{
     ViewBag.Title = "Catálogos y Revistas";
 }
@@ -45,7 +45,7 @@
                     </a>
                     <div data-tipo="descrip">{descripcion}</div>
                     <input id="txtUrl{tipoCatalogo}" type="hidden" value="" />
-                    <a class="compartir_catalogo_facebook" data-accion="face" onclick="CompartirFacebook('{comp}', this)"><img src="@Url.Content("~/Content/Images/Esika/catalogo_facebook.png")" /></a>
+                    <a class="compartir_catalogo_facebook" data-accion="face" onclick="CompartirFacebook('{comp}', '{campania}', this)"><img src="@Url.Content("~/Content/Images/Esika/catalogo_facebook.png")" /></a>
                     <a class="compartir_catalogo_mensaje" onclick="javascript: AbrirCompartirCorreo('{tipoCatalogo}','{campania}');"><img src="@Url.Content("~/Content/Images/Esika/catalogo_mensaje.png")" /></a>
                 </div>
             </div>
@@ -105,8 +105,6 @@
         </div>
         <div class="Label_compartir">Mensaje (Editable):</div>
         <textarea name="comentarios" class="text_compartir" id="comentarios" maxlength="500">
-            Hola,
-            Revisa los catálogos de esta campaña y comunícate conmigo si estás interesada en algunos de los productos.
         </textarea>
         <div class="Label_compartir">Catálogos a enviar:</div>
         <hr class="clear" />
@@ -189,7 +187,6 @@
     <script src="@Url.Content("~/Scripts/Tag/jquery.tags.input.js")"></script>
 
     <script type="text/javascript" id="js-ready-Catalogo">
-
         var tagLbel = "Lbel";
         var tagEsika = "Esika";
         var tagCyzone = "Cyzone";
@@ -206,7 +203,6 @@
         var cantCam = 3;
         var cont = 0;
 
-        var urlISSUU = "http://issuu.com/somosbelcorp/docs/";
         var imgNoDisponible = '@Url.Content("~/Content/Images/catalogo_no_disponible.jpg")';
         var imgIssuu = '@Portal.Consultoras.Common.Constantes.CatalogoUrlParameters.UrlPart01' + '{img}' + '@Portal.Consultoras.Common.Constantes.CatalogoUrlParameters.UrlPart02Alternativo'
         imgIssuu = imgIssuu.startsWith("https") ? imgIssuu.replace("https://", "http://") : imgIssuu;
@@ -219,6 +215,12 @@
         var urlObtenerPortadaRevista = '@Url.Action("ObtenerPortadaRevista", "Catalogo", new { area = "Mobile" })';
         var defaultImageRevista = '@Url.Content("~/Content/Images/revista_no_disponible.jpg")';
         var urlIconoClienteAutoCompletar = '@Url.Content("~/Content/Images/Esika/user.jpg")';
+        var valContenidoCorreoDefecto = "Hola,\n" + "@Html.Raw(ViewBag.TextoMensajeSaludoCorreo)";
+        var RevistaCodigoIssuu = {
+            '@Model.CampaniaAnterior': '@Model.CodigoRevistaAnterior',
+            '@Model.CampaniaActual': '@Model.CodigoRevistaActual',
+            '@Model.CampaniaSiguiente': '@Model.CodigoRevistaSiguiente'
+        }
     </script>
 
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/MisCatalogosRevistas/Index.js")"></script>

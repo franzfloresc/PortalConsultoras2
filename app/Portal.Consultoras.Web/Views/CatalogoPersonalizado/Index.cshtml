@@ -1,4 +1,7 @@
-﻿@{
+﻿
+@model Portal.Consultoras.Web.Models.CatalogoPersonalizadoModel
+
+@{
     ViewBag.Title = "Los favoritos de tus clientes esta campaña";
 }
 
@@ -6,26 +9,151 @@
 
 @section styles{
     <link href="@Url.Content("~/Content/Css/Site/slick.min.css")" rel="stylesheet" />
+<link href="@Url.Content("~/Content/Css/Site/jquery.range.css")" rel="stylesheet" />
+    <style>
+        body{
+            background:white;
+        }
+
+        .disabledbutton {
+            pointer-events: none;
+            opacity: 0.4;
+        }
+    </style>
+    
 }
 
-<div class="fondo_f9f9f9">
+<div class="fondo_f9f9f9"  style="background:white;overflow: visible; height:116px;">
     <div class="content_belcorp content_belcorp_misPedidos">
-        <div class="fondo_negro_lateral"></div>
-        <div class="titulo_interiores favoritosClientes"><span>LOS FAVORITOS </span> DE TUS CLIENTES ESTA CAMPAÑA</div>
+        <div class="content_img_fav">
+            <img src="@ViewBag.UrlImagenFAVLanding" alt="favoritos"/>
+        </div>
+        <div class="texto_banner_seccion_fav">
+            @ViewBag.NombreConsultoraFAV, estos son los
+            <span class="altas_seccion_fav">FAVORITOS</span>
+            <span class="clientes_fav_texto">DE TUS CLIENTES</span>
+        </div>
+        <div class="texto_complementario_fav">
+            Porque conocemos a tus clientes, seleccionamos              los productos que podrás venderles fácilmente.
+        </div>
+        @*<div class="fondo_negro_lateral"></div>
+        <div class="titulo_interiores favoritosClientes"><span>LOS FAVORITOS </span> DE TUS CLIENTES ESTA CAMPAÑA</div>*@
         <div data-maq onclick="AbrirMaqueta(2)" style="display: none;"><span>Niveles</span></div>
         <div data-maq onclick="AbrirMaqueta(3)" style="display: none;"><span>Pack</span></div>
     </div>
     <hr class="clear" />
-    <div class="linea_separadora" style="margin-top: -1px; position: relative; z-index: 20;"></div>
+   
 </div>
 <div id="cuerpo" class="catalogoPersonalizadoBloque" style="min-height:150px;">
     <div data-div="d">
         <div class="content_belcorp content_belcorp_misPedidos" id="contenidoGrilla">
-            <div class="pestana_lbel new"></div>
+           
             <div class="clear"></div>
-            <div class="texto_descripcionCatalogoPersonalizado paginaCatalogo">Encuentra una selección de los productos que tus clientes de seguro te solicitarán</div>
+            @*<div class="texto_descripcionCatalogoPersonalizado paginaCatalogo">Encuentra una selección de los productos que tus clientes de seguro te solicitarán</div>*@
+            <div class="content_filtros_left">
+                <span class="titulo_filtro_fav">FILTROS</span>
+                <div class="linea_separadora" style="height:3px;"></div>
+                <div class="texto_fav_filtro" style="cursor:pointer;display:none;"> BORRAR FILTROS</div>
+                <div id="limiteFlt" class="linea_separadora"></div>
+                <!--PRIMER FILTRO-->
+                <span class="titulo_filtro_fav">CATEGORÍAS</span>
+                <hr class="clear" />              
+                <div id="div-filter-category">
 
-            <div id="divCatalogoPersonalizado"></div>
+                    @if (Model.FiltersByCategory != null)
+                    {
+                        foreach(var item in Model.FiltersByCategory)
+                        {
+                            <div data-value="@item.Codigo" class="seleccion_filtro_fav">@item.Descripcion</div>
+                        }
+                    }
+                    else
+                    {
+                        <div class="seleccion_filtro_fav">MAQUILLAJE</div>
+                        <div class="seleccion_filtro_fav">PERFUMES</div>
+                        <div class="seleccion_filtro_fav">TRATAMIENTO FACIAL</div>
+                        <div class="seleccion_filtro_fav">CUIDADO PERSONAL</div>
+                        <div class="seleccion_filtro_fav">ACCESORIOS</div>
+                    }
+                </div>
+                <div class="linea_separadora"></div>
+                <!--SEGUNDO FILTRO-->
+                <span class="titulo_filtro_fav">MARCAS</span>
+                <hr class="clear" />
+                <div id="div-filter-brand">
+
+                    @if (Model.FiltersByBrand != null)
+                    {
+                        foreach(var item in Model.FiltersByBrand)
+                        {
+                            <div data-value="@item.Codigo" class="seleccion_filtro_fav">@item.Descripcion</div>
+                        }
+                    }
+                    else
+                    {
+                        <div class="seleccion_filtro_fav">ESIKA</div>
+                        <div class="seleccion_filtro_fav">L'BEL</div>
+                        <div class="seleccion_filtro_fav">CYZONE</div>
+                    }
+                                        
+                </div>
+                <div class="linea_separadora"></div>
+                <!--TERCER FILTRO-->
+                <span class="titulo_filtro_fav">RANGO DE PRECIO</span>
+                <div class="content_filtro_range">
+                    <input class="range-slider" value="" style="width:100%; display:none;"/>
+                </div>
+                
+                <hr class="clear" />
+              
+                <div class="linea_separadora"></div>
+                <!--CUARTO FILTRO-->
+                <span class="titulo_filtro_fav">TIPO DE PUBLICACIÓN</span>
+                <hr class="clear" />
+                <div id="div-filter-published">
+                    @if (Model.FiltersByPublished != null)
+                    {
+                        foreach (var item in Model.FiltersByPublished)
+                        {
+                            <div data-value="@item.Codigo" class="seleccion_filtro_fav">@item.Descripcion</div>
+                        }
+                    }
+                    else
+                    {
+                        <div class="seleccion_filtro_fav">TODOS</div>
+                        <div class="seleccion_filtro_fav">SÓLO CATÁLOGO</div>
+                        <div class="seleccion_filtro_fav">SÓLO GUÍA DE NEGOCIO</div>
+                    }
+                </div>
+                <hr class="clear" />
+            </div>
+             <div class="content-left-item">
+                 <div id="divCantProductos" class="cantidad_productos_fav"></div>
+                 <div class="filtros_derecha">ORDENAR POR 
+
+                    @if (Model.FiltersBySorting != null)
+                    {
+                        <select id="filter-sorting" class="select_filtros_fav" onchange="filterFAVDesktop()">
+                        @foreach (var item in Model.FiltersBySorting)
+                        {
+                            <option value="@item.Codigo">@item.Descripcion</option>
+                        }
+                        </select>
+                    }
+                    else
+                    {
+                        <select class="select_filtros_fav">
+                            <option>PRECIO | Menor a mayor</option>
+                            <option>PRECIO | Menor a mayor</option>
+                            <option>PRECIO | Menor a mayor</option>
+                        </select>
+                    }
+
+                 </div>
+                 <hr class="clear" />
+                 <div id="divCatalogoPersonalizado"></div>
+            </div>
+           
             <div class="clear"></div>
         </div><!--PESTAÑA PARA DARLE ESTILO CON LBEL-->
     </div>
@@ -636,7 +764,10 @@
                                     </div>
                                     {{/IsNullOrEmpty}}                         
                                 </div>
-                                <div class="sub_descripcion_oferta"><p><span>x{{item.cantidad}}</span>&nbsp;{{item.descripcion_gratis}}</p></div>
+                                <div class="sub_descripcion_oferta">
+                                    <p><span>x{{item.cantidad}}</span>&nbsp;{{item.descripcion_gratis}}</p>
+                                    <div class="peso_ficha_producto">{{item.volumen}}</div>
+                                </div>
                                 <hr class="clear">
                                 {{/if_eq}}
                                 {{/each}}            
@@ -772,7 +903,10 @@
                                     </div>
                                     {{/IsNullOrEmpty}}                                  
                                 </div>
-                                <div class="sub_descripcion_oferta"><p><span>x{{item.cantidad_item_pack}}</span>&nbsp;{{item.descripcion_item_pack}}</p></div>
+                                <div class="sub_descripcion_oferta">
+                                    <p><span>x{{item.cantidad_item_pack}}</span>&nbsp;{{item.descripcion_item_pack}}</p>
+                                    <div class="peso_ficha_producto">{{item.volumen}}</div>
+                                </div>
                                 <hr class="clear" />
                                 @*<div class="sub_imagen_oferta"><img src="https://s3-sa-east-1.amazonaws.com/appcatalogo/PE/201616/C/productos/PE_200069929.jpg" alt=""></div>
                                 <div class="sub_descripcion_oferta"><p><span>x2</span>&nbsp;Desodorante roll-on. Girlink</p></div>
@@ -885,7 +1019,7 @@
 </script>
 
 <script id="template-fichaproductofav" type="text/x-handlebars-template">
-    <div class="content_ficha_producto_nueva" data-item="catalogopersonalizado">
+    <div class="content_ficha_producto_nueva" data-item="catalogopersonalizado" data-popup-body="">
         <input type="hidden" id="hdCuvFichaProductoFAV" value="{{CUV}}" />
         <input type="hidden" id="hdCuvFichaProductoFAVSelect" value="" />
         <div style="display: none;">
@@ -910,7 +1044,18 @@
         </a>
         <div class="content_left_ficha">
             <div class="content_ficha_producto">
-                <img id="fav_imagen_prod" src="{{ImagenProductoSugerido}}" alt="PRODUCTO">
+                <img id="fav_imagen_prod" class="imagen_producto" src="{{ImagenProductoSugerido}}" alt="PRODUCTO">
+            </div>
+            <div class="compartir_redes_ficha" style="margin-left: -20px; padding-left: 0px;">
+                <div class="texto_compartelo">Compártelo con tus clientes</div>
+                <a class="btn_compartir_facebook_ficha" href="javascript:void(0);"
+                   onclick='javascript:CompartirFacebook("{{UrlCompartirFB}}",  {Palanca: "FAV", RutaImagen: "{{ImagenProductoSugerido}}", MarcaID:"{{MarcaID}}", MarcaDesc:"{{DescripcionMarca}}", NombrePro:"{{Descripcion}}", Volumen: "{{Volumen}}", DescProducto:"{{DescripcionComercial}}", Cuv:"{{CUV2}}"});'>
+                    <img src="@Url.Content("~/Content/Images/Esika/facebook.png")" />
+                </a>
+                @*<a class="btn_compartir_facebook_ficha" href="javascript:void(0);">
+                    <img src="@Url.Content("~/Content/Images/Esika/mensaje_ficha.png")" width="20" height="15" />
+                </a>*@
+                <hr class="clear" />
             </div>
         </div>
         <div class="content_right_ficha">
@@ -926,7 +1071,7 @@
                 <!--SELECCION DE TONOS-->
                 <div class="content_tonos_maquillaje">
                     {{#each Hermanos as |item1|}}
-                    <div id="fav_tono_{{CUV}}" class="content_tono_detalle" onclick="cambiarInfoFichaProductoFAV(1,'{{item1.CUV}}')">
+                    <div id="fav_tono_{{item1.CUV}}" class="content_tono_detalle" onclick="cambiarInfoFichaProductoFAV(1,'{{item1.CUV}}',1)">
                         <img src="{{item1.ImagenBulk}}" alt="PRODUCTO">
                         @*<div class="content_mascara_maquillaje">
                                 <img src="https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/HfQTTPvWfVXwt3R/textura_labial.png" alt="PRODUCTO">
@@ -936,7 +1081,7 @@
                     {{/each}}
                 </div>
 
-                <select id="fav_tonobulk_{{CUV}}" class="tono_labial_select" onchange="cambiarInfoFichaProductoFAV(2)">
+                <select id="fav_cbo_tono" class="tono_labial_select" onchange="cambiarInfoFichaProductoFAV(2,null,1)">
                     {{#each Hermanos as |item2|}}
                     <option value="{{item2.CUV}}">{{item2.NombreBulk}}</option>
                     {{/each}}
@@ -951,7 +1096,7 @@
                     <a class="menos" data-cantidad-agregar="-"><img src="/Content/Images/Esika/menos.png" alt=""></a>
                 </div>
             </div>
-            <a class="boton_Agregalo_home ficha_btn_agregar" onclick="agregarCuvPedidoFichaProductoFAV(1)">
+            <a class="boton_Agregalo_home ficha_btn_agregar" onclick="agregarCuvPedidoFichaProductoFAV(1)" style="cursor: pointer;">
                 AGRÉGALO
             </a>
         </div>
@@ -965,14 +1110,19 @@
         var urlObtenerProductosCatalogoPersonalizado = '@Url.Action("ObtenerProductosCatalogoPersonalizado", "CatalogoPersonalizado", new { area = "" })';
         var urlReservadoOEnHorarioRestringido = '@Url.Action("ReservadoOEnHorarioRestringido", "Pedido", new { area = "" })';
         var urlPedidoValidado = '@Url.Action("PedidoValidado", "Pedido", new { area = "" })';
+        var urlCargarFiltros = '@Url.Action("CargarFiltros", "CatalogoPersonalizado", new { area = "" })'; 
         var cantidadRegistros = 12;
         var offsetRegistros = 0;
         var cargandoRegistros = false;
 
-        var tipoOrigen = "1";   /*PL20-1227*/
+        var tipoOrigen = "1";   //PL20-1227
         var urlGetInfoFichaProducto = '@Url.Action("GetInfoFichaProductoFAV", "CatalogoPersonalizado")';    //PL20-1268
+        var simbolo = '@ViewBag.Simbolo';
+        var precioMin = '@ViewBag.PrecioMin';
+        var precioMax = '@ViewBag.PrecioMax';
     </script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/slick.min.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.range.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/CatalogoPersonalizado/CatalogoPersonalizado.js")"></script>
     <script src="~/Scripts/PortalConsultoras/Mobile/CatalogoPersonalizado/bootstrap-slider.min.js"></script>
 }

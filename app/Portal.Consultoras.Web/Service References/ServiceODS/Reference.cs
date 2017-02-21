@@ -2993,6 +2993,12 @@ namespace Portal.Consultoras.Web.ServiceODS {
             "esponse")]
         System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceODS.BEProducto[]> SelectProductoByCodigoDescripcionSearchRegionZonaAsync(int paisID, int campaniaID, string codigoDescripcion, int RegionID, int ZonaID, string CodigoRegion, string CodigoZona, int criterio, int rowCount, bool validarOpt);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IODSService/SelectProductoByListaCuvSearchRegionZona", ReplyAction="http://tempuri.org/IODSService/SelectProductoByListaCuvSearchRegionZonaResponse")]
+        Portal.Consultoras.Web.ServiceODS.BEProducto[] SelectProductoByListaCuvSearchRegionZona(int paisID, int campaniaID, string codigoDescripcion, int regionID, int zonaID, string codigoRegion, string codigoZona, bool validarOpt);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IODSService/SelectProductoByListaCuvSearchRegionZona", ReplyAction="http://tempuri.org/IODSService/SelectProductoByListaCuvSearchRegionZonaResponse")]
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceODS.BEProducto[]> SelectProductoByListaCuvSearchRegionZonaAsync(int paisID, int campaniaID, string codigoDescripcion, int regionID, int zonaID, string codigoRegion, string codigoZona, bool validarOpt);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IODSService/GetProductoComercialByListaCuv", ReplyAction="http://tempuri.org/IODSService/GetProductoComercialByListaCuvResponse")]
         Portal.Consultoras.Web.ServiceODS.BEProducto[] GetProductoComercialByListaCuv(int paisID, int campaniaID, int regionID, int zonaID, string codigoRegion, string codigoZona, string listaCuv);
         
@@ -3235,6 +3241,14 @@ namespace Portal.Consultoras.Web.ServiceODS {
         
         public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceODS.BEProducto[]> SelectProductoByCodigoDescripcionSearchRegionZonaAsync(int paisID, int campaniaID, string codigoDescripcion, int RegionID, int ZonaID, string CodigoRegion, string CodigoZona, int criterio, int rowCount, bool validarOpt) {
             return base.Channel.SelectProductoByCodigoDescripcionSearchRegionZonaAsync(paisID, campaniaID, codigoDescripcion, RegionID, ZonaID, CodigoRegion, CodigoZona, criterio, rowCount, validarOpt);
+        }
+        
+        public Portal.Consultoras.Web.ServiceODS.BEProducto[] SelectProductoByListaCuvSearchRegionZona(int paisID, int campaniaID, string codigoDescripcion, int regionID, int zonaID, string codigoRegion, string codigoZona, bool validarOpt) {
+            return base.Channel.SelectProductoByListaCuvSearchRegionZona(paisID, campaniaID, codigoDescripcion, regionID, zonaID, codigoRegion, codigoZona, validarOpt);
+        }
+        
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceODS.BEProducto[]> SelectProductoByListaCuvSearchRegionZonaAsync(int paisID, int campaniaID, string codigoDescripcion, int regionID, int zonaID, string codigoRegion, string codigoZona, bool validarOpt) {
+            return base.Channel.SelectProductoByListaCuvSearchRegionZonaAsync(paisID, campaniaID, codigoDescripcion, regionID, zonaID, codigoRegion, codigoZona, validarOpt);
         }
         
         public Portal.Consultoras.Web.ServiceODS.BEProducto[] GetProductoComercialByListaCuv(int paisID, int campaniaID, int regionID, int zonaID, string codigoRegion, string codigoZona, string listaCuv) {

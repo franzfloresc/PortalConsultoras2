@@ -255,8 +255,8 @@
     {
         <!--APP CATÁLOGOS-->
         <div class="comartir_home_mobile">
-            MULTIPLICA TUS CLIENTES CON<br />
-            EL APP DE CATÁLOGO
+            HAZ CRECER TU NEGOCIO CON<br />
+            EL APP DE CATÁLOGOS
             @*<a role="link" region="Central" parent="App de Catálogos" title="Entérate Más"
                class="btn_compartelos" href="@Model.UrlEnterateMas">ENTÉRATE MÁS</a>*@
             <a role="link" region="Central" parent="App de Catálogos" title="Entérate Más"
@@ -327,7 +327,22 @@
 </div>
 <!--FIN CARRUSEL-->
 <div class="wrapper_resumen_mobile">
-       
+    <div id="div-linea-OPT" class="linea_separadora_mobile" style="display: none;"></div> <!--SI TIENE OFERTAS PARA TI NO DEBERIA ESTAR ESTA LINEA-->
+    <div class="nueva_seccion_fav" onclick="mostrarCatalogoPersonalizado();" style="cursor: pointer;">
+           <div class="content_banner_fav">
+               <div class="content_imagen_banner_fav">
+                   <img src="@ViewBag.UrlImagenFAVMobile" alt="favoritos" />
+               </div>
+               <div class="texto_fav_banner">
+                   @ViewBag.NombreConsultoraFAV, estos son los
+                   <span class="favoritos_txt">FAVORITOS</span>
+                   <span class="texto_2_fav">DE TUS CLIENTES</span>
+                   <a class="btn_compralos_banner_fav" href="javascript:" >CÓMPRALOS</a>
+               </div>
+           </div>            
+        </div>
+    
+    
     <div class="linea_separadora_mobile" style="margin-top:-1px;"></div>
     <!--VIDEOS-->
     <div class="comartir_home_mobile">
@@ -408,9 +423,9 @@
 @if (Model.CatalogoPersonalizadoMobile != 0 && Model.EsCatalogoPersonalizadoZonaValida)
 {
     <input type="hidden" id="flagCatalogoPersonalizado" />
-    <div class="banner_inferior_mobile">
+    @*<div class="banner_inferior_mobile">
         <a href="@Url.Action("Index", "CatalogoPersonalizado", new { area = "Mobile" })"><img src="@Model.UrlImagenCatalogoPersonalizado" alt="Los favoritos de tus clientes" /></a>
-    </div>
+    </div>*@
 }
 <div class="disclaimer_b">@(pieEscala)</div>
 
@@ -840,8 +855,8 @@
                     urlBase_fb = request.Url.Scheme + "://" + request.Url.Authority + "/Pdto.aspx?id=" + Model.CodigoISO + "_[valor]";
                 }
             }
-            <a class="btn_compartir_ofertas" href='javascript:window.location=CompartirWsp("@urlWs", {RutaImagen: "{{FotoProducto01}}", MarcaID:"{{MarcaID}}", MarcaDesc:"{{DescripcionMarca}}", NombrePro:"{{DescripcionCUV2}}", Cuv:"{{CUV2}}"});' data-action="share/whatsapp/share"><img src="@Url.Content("~/Content/Images/Mobile/Esika/iconowscolor.png")" alt=""></a>
-            <a class="btn_compartir_ofertas" href="javascript:void(0);" onclick='javascript:CompartirFacebook("@urlBase_fb",  {RutaImagen: "{{FotoProducto01}}", MarcaID:"{{MarcaID}}", MarcaDesc:"{{DescripcionMarca}}", NombrePro:"{{DescripcionCUV2}}", Cuv:"{{CUV2}}"});'><img src="@Url.Content("~/Content/Images/Mobile/Esika/catalogo_facebook_color.png")" alt=""></a>
+            <a class="btn_compartir_ofertas" href='javascript:window.location=CompartirWsp("@urlWs", {RutaImagen: "{{FotoProducto01}}", MarcaID:"{{MarcaID}}", MarcaDesc:"{{DescripcionMarca}}", NombrePro:"{{DescripcionCUV2}}", Cuv:"{{CUV2}}"});' data-action="share/whatsapp/share"><img src="@Url.Content("~/Content/Images/Mobile/Esika/catalogo_ws.png")" alt=""></a>
+            <a class="btn_compartir_ofertas" href="javascript:void(0);" onclick='javascript:CompartirFacebook("@urlBase_fb",  {Palanca: "OPT", RutaImagen: "{{FotoProducto01}}", MarcaID:"{{MarcaID}}", MarcaDesc:"{{DescripcionMarca}}", NombrePro:"{{DescripcionCUV2}}", Cuv:"{{CUV2}}"});'><img src="@Url.Content("~/Content/Images/Mobile/Esika/facebook.png")" alt=""></a>
         </div>
         <hr class="clear" />
         <div style="margin-left:-20px; margin-right:-20px;">
@@ -882,6 +897,7 @@
             var urlShowRoomBienvenida = '@Url.Action("Index", "ShowRoom", new { area = "Mobile" })';
             var urlGetProductoFichaOPT = '@Url.Action("GetProductoFichaOPT", "Pedido", new { area = ""})'; //PL20-1265
             var urlInsertarProductoCompartido = '@Url.Action("InsertarProductoCompartido", "CatalogoPersonalizado", new { area = "" })'; //PL20-1266
+            var urlCatalogoPersonalizado = '@Url.Action("Index", "CatalogoPersonalizado", new { area = "Mobile" })';
         </script>
         
         <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Mobile/Bienvenida/Index.js")"></script>

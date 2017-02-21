@@ -358,6 +358,7 @@
       <xs:element minOccurs="0" name="MontoTotalProl" type="xs:decimal" />
       <xs:element minOccurs="0" name="ObservacionPROL" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="PrecioUnidad" type="xs:decimal" />
+      <xs:element minOccurs="0" name="StockDisponible" type="xs:int" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="BENotificacionesDetallePedido" nillable="true" type="tns:BENotificacionesDetallePedido" />

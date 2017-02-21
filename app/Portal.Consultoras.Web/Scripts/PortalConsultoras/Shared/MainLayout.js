@@ -23,6 +23,14 @@ $(document).ready(function () {
             if ($('#popupDetalleCarousel_lanzamiento').is(':visible')) {
                 $('#popupDetalleCarousel_lanzamiento').hide();
             }
+
+            if ($('[data-popup-main]').is(':visible')) {
+                var functionHide = $('[data-popup-main]').attr("data-popup-function-hide");
+                if (functionHide != "") {
+                    setTimeout(functionHide + "()", 100);
+                }
+                $('[data-popup-main]').hide();
+            }
         }
     });
 
@@ -39,19 +47,57 @@ $(document).ready(function () {
     });
 
     /*PL20-1226*/
+    //$('.Content_general_pop_up').click(function (e) {
+    //    if (!$(e.target).closest('.content_ficha_producto_nueva').length) {
+    //        if ($('#PopFichaProductoNueva').is(':visible')) {
+    //            $('#PopFichaProductoNueva').hide();
+    //        }
+    //    }
+    //});
 
-    $('.Content_general_pop_up').click(function (e) {
-        if (!$(e.target).closest('.content_ficha_producto_nueva').length) {
-            if ($('#PopFichaProductoNueva').is(':visible')) {
-                $('#PopFichaProductoNueva').hide();
+    $('.contenedor_popup_detalleCarousel, .Content_general_pop_up').click(function (e) {
+        if (!$(e.target).closest('[data-popup-body]').length) {
+
+            if ($(e.target).is(':visible')) {
+                $(e.target).hide();
+            }
+
+            //if ($('#popupDetalleCarousel_lanzamiento').is(':visible')) {
+            //    $('#popupDetalleCarousel_lanzamiento').hide();
+            //}
+        }
+    });
+
+    $("body").on("click", "[data-popup-main]", function (e) {
+        if (!$(e.target).closest('[data-popup-body]').length) {
+
+            if ($(e.target).is(':visible')) {
+
+                var functionHide = $('[data-popup-main]').attr("data-popup-function-hide");
+                if (functionHide != "") {
+                    setTimeout(functionHide + "()", 100);
+                }
+                $(e.target).hide();
             }
         }
     });
 
-    $('.contenedor_popup_detalleCarousel').click(function (e) {
-        if (!$(e.target).closest('.popup_detalleCarousel').length) {
-            if ($('#popupDetalleCarousel_lanzamiento').is(':visible')) {
-                $('#popupDetalleCarousel_lanzamiento').hide();
+
+    $("body").on("click", "[data-popup-close]", function (e) {
+        var popupClose = $("#" + $(this).attr("data-popup-close")) || $(this).parent("[data-popup-main]");
+
+        var functionHide = $(popupClose).attr("data-popup-function-hide");
+        if (functionHide != "") {
+            setTimeout(functionHide + "()", 100);
+        }
+        $(popupClose).hide();
+    });
+
+    // cerrar popup ofertas 003,048
+    $('[data-oferta]').click(function (e) {
+        if (!$(e.target).closest('.cuerpo-mod').length) {
+            if ($('[data-oferta]').is(':visible')) {
+                $('[data-oferta]').hide();
             }
         }
     });
@@ -122,6 +168,19 @@ $(document).ready(function () {
             "Aceptar": function () {
                 $(this).dialog('close');
             }
+        }
+    });
+
+    $('#divMensajeConfirmacion').dialog({
+        autoOpen: false,
+        resizable: false,
+        modal: true,
+        closeOnEscape: true,
+        width: 500,
+        draggable: true,
+        title: "",
+        close: function (event, ui) {
+            $(this).dialog('close');
         }
     });
 
@@ -1344,3 +1403,22 @@ function getQtyPedidoDetalleByCuvODD(cuv2, tipoEstrategiaID) {
     return qty;
 };
 /*PL20-1226*/
+
+function messageConfirmacion(title, message, fnAceptar) {
+    title = $.trim(title);
+    if (title == "")
+        title = "MENSAJE";
+
+    message = $.trim(message);
+    if (message == "") {
+        return false;
+    }
+
+    $('#divMensajeConfirmacion .divTitle').html(title);
+    $('#divMensajeConfirmacion .divTexto p').html(message);
+    $('#divMensajeConfirmacion').dialog('open');
+    if ($.isFunction(fnAceptar)) {
+        $('#divMensajeConfirmacion .btnMensajeAceptar').off('click');
+        $('#divMensajeConfirmacion .btnMensajeAceptar').on('click', fnAceptar);
+    }
+}

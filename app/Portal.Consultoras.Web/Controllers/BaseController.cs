@@ -74,9 +74,9 @@ namespace Portal.Consultoras.Web.Controllers
                             ViewBag.TieneOfertaDelDia = false;
 
                         // validar si tiene pedido reservado
-                        string msg = string.Empty;
-                        if (ValidarPedidoReservado(out msg))
-                            ViewBag.TieneOfertaDelDia = false;
+                        //string msg = string.Empty;
+                        //if (ValidarPedidoReservado(out msg))
+                        //    ViewBag.TieneOfertaDelDia = false;
                     }
                     /*PL20-1226*/
                 }
@@ -1255,6 +1255,30 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                 } 
             }
+            
+            //PL20-1234
+            var lstFiltersFAV = new List<BETablaLogicaDatos>();
+            using (SACServiceClient svc = new SACServiceClient())
+            {
+                for (int i = 94; i <= 97; i++)
+                {
+                    var lstItems = svc.GetTablaLogicaDatos(userData.PaisID, (short)i);
+                    if (lstItems.Any())
+                    {
+                        foreach (var item in lstItems)
+                        {
+                            lstFiltersFAV.Add(item);
+                        }
+                    }
+                }
+            }
+
+            if (lstFiltersFAV.Any())
+            {
+                Session["ListFiltersFAV"] = lstFiltersFAV;
+            }
+            //PL20-1234
+
             Session["UserData"] = model;
 
             return model;
@@ -1976,6 +2000,88 @@ namespace Portal.Consultoras.Web.Controllers
             model.AnioFaltante = userData.FechaInicioCampania.Year;
 
             return model;
+        }
+
+        protected string GetRevistaCodigoIssuu(string campania)
+        {
+            string codigo = null;
+            string zonas = ConfigurationManager.AppSettings["RevistaPiloto_Zonas_" + userData.CodigoISO + campania] ?? "";
+            bool esRevistaPiloto = zonas.Split(new char[1] { ',' }).Select(zona => zona.Trim()).Contains(userData.CodigoZona);
+            if (esRevistaPiloto) codigo = ConfigurationManager.AppSettings["RevistaPiloto_Codigo_" + userData.CodigoISO + campania];
+            if (!string.IsNullOrEmpty(codigo)) return codigo;
+
+            codigo = ConfigurationManager.AppSettings["CodigoRevistaIssuu"].ToString();
+            return string.Format(codigo, userData.CodigoISO.ToLower(), campania.Substring(4, 2), campania.Substring(0, 4));
+        }
+
+        protected string GetCatalogoCodigoIssuu(string campania, int idMarcaCatalogo)
+        {
+            string nombreCatalogoIssuu = null, nombreCatalogoConfig = null;
+            switch (idMarcaCatalogo)
+            {
+                case Constantes.Marca.LBel:
+                    nombreCatalogoIssuu = "lbel";
+                    nombreCatalogoConfig = "Lbel";
+                    break;
+                case Constantes.Marca.Esika:
+                    nombreCatalogoIssuu = "esika";
+                    nombreCatalogoConfig = "Esika";
+                    break;
+                case Constantes.Marca.Cyzone:
+                    nombreCatalogoIssuu = "cyzone";
+                    nombreCatalogoConfig = "Cyzone";
+                    break;
+                case Constantes.Marca.Finart:
+                    nombreCatalogoIssuu = "finart";
+                    break;
+            }
+
+            string codigo = null;
+            string zonas = ConfigurationManager.AppSettings[nombreCatalogoConfig + "Piloto_Zonas_" + userData.CodigoISO + campania] ?? "";
+            bool esCatalogoPiloto = zonas.Split(new char[1] { ',' }).Select(zona => zona.Trim()).Contains(userData.CodigoZona);
+            if (esCatalogoPiloto) codigo = ConfigurationManager.AppSettings[nombreCatalogoConfig + "Piloto_Codigo_" + userData.CodigoISO + campania];
+            if (!string.IsNullOrEmpty(codigo)) return codigo;
+
+            codigo = ConfigurationManager.AppSettings["CodigoCatalogoIssuu"].ToString();
+            return string.Format(codigo, nombreCatalogoIssuu, getPaisNombreByISO(userData.CodigoISO), campania.Substring(4, 2), campania.Substring(0, 4));
+        }
+
+        protected string getPaisNombreByISO(string paisISO)
+        {
+            switch (paisISO)
+            {
+                case "AR": return "argentina";
+                case "BO": return "bolivia";
+                case "CL": return "chile";
+                case "CO": return "colombia";
+                case "CR": return "costarica";
+                case "DO": return "republicadominicana";
+                case "EC": return "ecuador";
+                case "GT": return "guatemala";
+                case "MX": return "mexico";
+                case "PA": return "panama";
+                case "PE": return "peru";
+                case "PR": return "puertorico";
+                case "SV": return "elsalvador";
+                case "VE": return "venezuela";
+                default: return "sinpais";
+            }
+        }
+
+        public String GetUrlCompartirFB()
+        {
+            //var urlWs = "";
+            string urlBase_fb = "";
+            if (System.Web.HttpContext.Current.Request.UserAgent != null)
+            {
+                var request = HttpContext.Request;
+
+                //var urlBase_wsp = request.Url.Scheme + "://" + request.Url.Authority + "/Pdto.aspx?id=" + userData.CodigoISO + "_[valor]";
+                //urlWs = urlBase_wsp; //"whatsapp://send?text=" + urlBase_wsp;
+
+                urlBase_fb = request.Url.Scheme + "://" + request.Url.Authority + "/Pdto.aspx?id=" + userData.CodigoISO + "_[valor]";
+            }
+            return urlBase_fb;
         }
     }
 }
