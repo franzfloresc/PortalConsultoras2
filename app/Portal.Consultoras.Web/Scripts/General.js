@@ -738,8 +738,7 @@ function MensajeEstadoPedido() {
     if (estaRechazado == 0)
         return false;
 
-    if (estaRechazado == 2 && estadoPedido == 202 && !validacionAbierta)
-    {
+    if (estaRechazado == 2 && estadoPedido == 202 && !validacionAbierta) {
         return false;
     }
 
@@ -773,12 +772,13 @@ function xMensajeEstadoPedido(estado) {
         if (identi) {
             $("[data-content]").animate({ "top": wtop + "px" });
             $(".footer-page").animate({ "top": wtop + "px" });
+            $(".oscurecer_animacion").css({ "display": "none" });
         }
         else {
             identi = url.indexOf("/bienvenida") > 0;
             if (identi) {
                 $(".oscurecer_animacion").css({ "top": wtop + "px", "height": wheight + "px" });
-                //$("[data-content]").animate({ "top": wtop + "px" });
+                //$("[data-content]").animate({ "top": wtop + "px" });               
                 $('.content_slider_home').css('margin-top', '126px');
                 $('.ubicacion_web ').css('margin-top', '145px');
             }
@@ -813,8 +813,6 @@ function xMensajeEstadoPedido(estado) {
                 if (cerrarRechazado == 1) {
                     $("[data-content]").animate({ "top": "0px" });
                 }
-
-
             }
             else {
                 $(".ubicacion_web").animate({ "margin-top": "83px" });

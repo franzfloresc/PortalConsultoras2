@@ -3570,6 +3570,7 @@
       <SubType>Code</SubType>
     </Content>
     <Content Include="Web References\ServiceCatalogosIssuu\MulticatalogoWebService.disco" />
+    <Content Include="WebPages\AppCatalogoTyC\BO_AppCatalogoTyC.html" />
     <Content Include="WebPages\AppCatalogoTyC\CL_AppCatalogoTyC.html" />
     <Content Include="WebPages\AppCatalogoTyC\CO_AppCatalogoTyC.HTML" />
     <Content Include="WebPages\AppCatalogoTyC\CR_AppCatalogoTyC.HTML" />
