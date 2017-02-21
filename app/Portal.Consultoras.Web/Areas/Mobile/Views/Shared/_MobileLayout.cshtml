@@ -148,16 +148,29 @@
                             </div>
                             <div class="imagen_set_oferta_mobile" style="float:right;width:78px; margin-right:20px;"><img style="width:83%;" src="@ofertaDelDia.ImagenBanner" alt="Solo Hoy" /></div>
                             <hr class="clear" />
+
+                            <input type="hidden" id="tipoestrategia-id-odd" value="@ofertaDelDia.TipoEstrategiaID" />
+                            <input type="hidden" id="marca-id-odd" value="@ofertaDelDia.MarcaID" />
+                            <input type="hidden" id="cuv2-odd" value="@ofertaDelDia.CUV2" />
+                            <input type="hidden" id="limite-venta-odd" value="@ofertaDelDia.LimiteVenta" />
+                            <input type="hidden" id="flagnueva-odd" value="@ofertaDelDia.FlagNueva" />
+                            <input type="hidden" id="precio-odd" value="@ofertaDelDia.PrecioOferta" />
+                            <input type="hidden" id="nombre-odd" value="@ofertaDelDia.NombreOferta" />
+                            <input type="hidden" id="indmonto-min-odd" value="@ofertaDelDia.IndicadorMontoMinimo" />
+                            <input type="hidden" id="teimagenmostrar-odd" value="@ofertaDelDia.TipoEstrategiaImagenMostrar" />
                         </div>
                     </div>
                     <!--FIN-->
                 </li>
                 <li>
-                    <div class="content_banner_header_showroom">
-                        <div class="faltan_dias_header">FALTAN <b>@ViewBag.DiasFaltantesLetras</b></div>
-                        <img src="@Url.Content("~/Content/Images/Mobile/img-showroom/banner_intriga_new_header.png")" alt="Solo Hoy" />
-                    </div>
-                </li>
+                    <a href="@Url.Action("Intriga", "ShowRoom", new {area = "Mobile"})">
+                        <div class="content_banner_header_showroom">
+                            <div class="faltan_dias_header">FALTAN <b>@ViewBag.DiasFaltantesLetras</b></div>
+                            <img src="@ViewBag.ImagenBannerShowroomIntriga" alt="Solo Hoy" />
+                        </div>
+                    </a>
+                        
+</li>
             </ul>
         </div>
     }
@@ -248,7 +261,7 @@
                             <a class="cantidad_mas_home" tabindex="0"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
                         </div>
                         <div class="clear"></div>
-                        <a class="boton_Agregalo_home boton_estilo_marca" href="#" onclick="addOfertaDelDiaPedido()">
+                        <a class="boton_Agregalo_home boton_estilo_marca" href="#" onclick="addOfertaDelDiaPedido(0)">
                             AGRÉGALO
                         </a>
                         <div style="padding-top:9px; height: 15px;">
@@ -333,7 +346,7 @@
                                         <a href="@Url.Action("Intriga", "ShowRoom", new {area = "Mobile"})">
                                             <div class="content_banner_new_showroom">
                                                 <div class="dias_faltantes">FALTAN <span id="spnDiasFaltantes">@ViewBag.DiasFaltantesLetras </span> </div>
-                                                <img style="width:100%;" src="@Url.Content("~/Content/Images/mobile/img-showroom/banner_intriga_new_showroom.png")" alt="-" />
+                                                <img style="width:100%;" src="@ViewBag.ImagenPopupShowroomIntriga" alt="-" />
                                             </div>
                                         </a>
                                      </div>
@@ -413,7 +426,7 @@
                             <a class="cantidad_mas_home" tabindex="0"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
                         </div>
                         <div class="clear"></div>
-                        <a class="boton_Agregalo_home boton_estilo_marca" href="#" onclick="addOfertaDelDiaPedido()">
+                        <a class="boton_Agregalo_home boton_estilo_marca" href="#" onclick="addOfertaDelDiaPedido(1)">
                             AGRÉGALO
                         </a>
                         <div style="padding-top:9px; height: 15px;">
@@ -664,7 +677,7 @@
         };
     </script>
 
-    @if (ViewBag.MostrarBannerPL20 == true)
+    @if (ViewBag.MostrarBannerPL20 == true || ViewBag.MostrarBannerOtros == true)
     {
         if (ViewBag.MostrarShowRoomBannerLateral == true)
         {
@@ -810,7 +823,7 @@
                     });
                 };
 
-                function addOfertaDelDiaPedido(){
+                function addOfertaDelDiaPedido(popup){
                     debugger;
                     var tipoEstrategiaID = $('#tipoestrategia-id-odd').val();
                     var estrategiaID = $('#estrategia-id-odd').val();
@@ -928,7 +941,12 @@
                                         var effect = 'slide';
                                         var options = {direction: 'right' };
                                         var duration = 500;
-                                        $('#pop_oferta_mobile').toggle(effect, options, duration);
+                                        if (popup == 1){
+                                            $('#pop_oferta_mobile_sw').toggle(effect, options, duration);
+                                        }
+                                        if (popup == 0){
+                                            $('#pop_oferta_mobile').toggle(effect, options, duration);
+                                        }
                                         $('#txtCantidad').val('1');
 
                                         // si es pagina de pedido, recargar el detalle

@@ -2048,6 +2048,19 @@ namespace Portal.Consultoras.Web.Controllers
             model.AnioFaltante = userData.FechaInicioCampania.Year;
             
 
+            foreach (var Item in userData.ListaShowRoomPersonalizacionConsultora)
+            {
+                if (Item.Atributo == Constantes.ShowRoomPersonalizacion.Mobile.PopupImagenIntriga && Item.TipoAplicacion == Constantes.ShowRoomPersonalizacion.TipoAplicacion.Mobile)
+                {
+                    model.ImagenPopupShowroomIntriga = Item.Valor;
+                }
+
+                if (Item.Atributo == Constantes.ShowRoomPersonalizacion.Mobile.BannerImagenIntriga && Item.TipoAplicacion == Constantes.ShowRoomPersonalizacion.TipoAplicacion.Mobile)
+                {
+                    model.ImagenBannerShowroomIntriga = Item.Valor;
+                }
+            }
+
             return model;
         }
 

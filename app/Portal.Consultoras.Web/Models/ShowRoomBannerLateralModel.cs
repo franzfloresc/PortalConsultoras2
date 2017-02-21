@@ -24,6 +24,9 @@ namespace Portal.Consultoras.Web.Models
         public string RutaShowRoomBannerLateral { get; set; }
 
         public string LetrasDias { get; set; }
+        public string ImagenPopupShowroomIntriga { get; set; }
+
+        public string ImagenBannerShowroomIntriga { get; set; }
 
     }
 }
