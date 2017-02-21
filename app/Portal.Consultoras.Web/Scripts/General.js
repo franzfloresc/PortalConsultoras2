@@ -455,7 +455,7 @@ function checkTimeout(data) {
 
     if (data) {
         if (data.responseText) {
-            if ((data.responseText.indexOf("<title>Login</title>") > -1) || (data.responseText.indexOf("<title>Object moved</title>") > -1) || (data.responseText === '"_Logon_"'))
+            if ((data.responseText.indexOf('<input type="hidden" id="PaginaLogin" />') > -1) || (data.responseText.indexOf('<input type="hidden" id="PaginaSesionExpirada" />') > -1) || (data.responseText === '"_Logon_"'))
                 thereIsStillTime = false;
         }
         else {
@@ -464,9 +464,7 @@ function checkTimeout(data) {
         }
 
         if (!thereIsStillTime) {
-            //window.location.href = "/Login/Timeout";
-            //window.location.href = "https://stsqa.somosbelcorp.com/adfs/ls/?wa=wsignout1.0";
-            //window.location.href = "/SesionExpirada.html";
+            //window.location.href = "/Login/SesionExpirada";
             var message = "Tu sesión ha finalizado por inactividad. Por favor, ingresa nuevamente.";
             $('#dialog_SesionMainLayout #mensajeSesionSB2_Error').html(message);
             $('#dialog_SesionMainLayout').show();
