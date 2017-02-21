@@ -905,116 +905,7 @@
 <!-- FIN PRODUCTOS SUGERIDOS -->
 <!-- POPUP OFERTA FINAL -->
 <div class="contenedor_popup_ofertaFinal" id="divOfertaFinal" data-popup-main="" data-popup-function-hide="PopupOfertaFinalCerrar">
-    <div class="popup_ofertaFinal">
-        <div class="btn_cerrar_ofertaFinal">
-            <a href="javascript:;" title="Cerrar" id="lnkCerrarPopupOfertaFinal">
-                <img src="@Url.Content("~/Content/Images/btn_cerrar_popup.svg")" alt="Cerrar" />
-                <span class="texto_btn_cerrar">CERRAR</span>
-            </a>
-        </div>
-        <div class="contenido_popUp">
-            <div class="content_texto_oferta">
-                <div class="icono_mensaje_alerta icono_check_alerta"></div>
-                <!--NO ALCANZA MONTO MINIMO-->
-                <div class="OF_montomin_pedidoguardado" style="display:none">
-                    <h1 class="titulo_ofertaFinal">
-                        <span><b>&nbsp;LO SENTIMOS…</b> NO PUDIMOS GUARDAR TU PEDIDO</span>
-                    </h1>
-                    @*<div id="spCabeceraMontominimo" style="display:none; margin-top: -5px;">
-                            <span style="display: block;text-align: center;font-size: 12px;">Recuerda que esta campaña el monto mínimo es de @Model.Simbolo<span id="spMontoMinimoCabecera"></span></span>
-                        </div>*@
-                    <span class="descripcion_ofertaFinal" id="of_descripcion1">
-                        Agrega @Model.Simbolo <span id="spnMontoFaltanteOfertaFinal"></span>
-                        <span id="spnMensajeOfertaFinal">&nbsp;para conseguir 30% DSCTO y gana más esta campaña.</span>
-                    </span>
-                    <div class="texto_complemento_oferta">Compra en oferta los complementos de tu pedido</div>
-
-                    <span class="descripcion_ofertaFinal" id="of_descripcion2" style="display: none;">
-                        Agrega estos productos para ganar más esta campaña
-                    </span>
-                </div>
-                <!--FIN-->
-                <!--MONTOMO MINIMO AGREGADO-->
-                <div class="OF_montomin_agregarpedido" style="display:none;">
-                    <h1 class="titulo_ofertaFinal">
-                        <span>¡FELICITACIONES GUARDASTE TU <b>PEDIDO CON ÉXITO</b>!</span>
-                    </h1>
-                    <hr class="clear" />
-                    <div class="ganancia_total_pop">
-                        <b>Ahora tu ganancia estimada total es S/. 200.00 </b><br />
-                        Monto total: S/. 601.00
-                    </div>
-                    <div class="texto_complemento_oferta">Compra en oferta los complementos de tu pedido</div>
-                </div>
-                <!--FIN-->
-                <!--OF_ganamas_agregarpedido-->
-                <div class="OF_ganamas_agregarpedido" style="display:none;">
-                    <h1 class="titulo_ofertaFinal">
-                        <span>¡FELICITACIONES AHORA TU GANANCIA ESTIMADA ES <b>S/. 300.00</b>!</span>
-                    </h1>
-                    <hr class="clear" />
-                    <div class="ganancia_total_pop" style="margin-bottom:35px;">
-                        Monto total: S/. 601.00
-                    </div>
-                    <div class="texto_complemento_oferta">Compra en oferta los complementos de tu pedido</div>
-                </div>
-                <!--FIN-->
-                <!--OF_escaladescuento_agregarpedido-->
-                <div class="OF_escaladescuento_agregarpedido" style="display:none;">
-                    <h1 class="titulo_ofertaFinal">
-                        <span>¡FELICITACIONES LLEGASTE AL <b>30% DSCTO</b>!</span>
-                    </h1>
-                    <hr class="clear" />
-                    <div class="ganancia_total_pop">
-                        <b>Ahora tu ganancia estimada total es S/. 200.00 </b><br />
-                        Monto total: S/. 601.00
-                    </div>
-                    <div class="texto_complemento_oferta">Compra en oferta los complementos de tu pedido</div>
-                </div>
-                <!--FIN-->
-                <!--OF_ganamas_pedidoguardado-->
-                <div class="OF_ganamas_pedidoguardado" style="display:none;">
-                    <h1 class="titulo_ofertaFinal">
-                        <span>¡GUARDASTE TU<b> PEDIDO CON ÉXITO</b></span>
-                    </h1>
-                    <span class="descripcion_ofertaFinal">
-                        <span>AGREGA UN PRODUCTO Y GANA MÁS EN ESTA CAMPAÑA</span>
-                    </span>
-                    <div class="texto_complemento_oferta">Compra en oferta los complementos de tu pedido</div>
-                </div>
-                <!--FIN-->
-                <!--OF_escaladescuento_pedidoguardado-->
-                <div class="OF_escaladescuento_pedidoguardado">
-                    <h1 class="titulo_ofertaFinal">
-                        <span>¡GUARDASTE TU<b> PEDIDO CON ÉXITO</b></span>
-                    </h1>
-                    <span class="descripcion_ofertaFinal">
-                        <span>AGREGA S/. 21.00 Y OBTÉN <b style="font-size:23px;">&nbsp;30% &nbsp;</b>DSCTO EN TU COMPRA</span>
-                    </span>
-                    <div class="texto_complemento_oferta">Compra en oferta los complementos de tu pedido</div>
-                </div>
-                <!--FIN-->
-            </div>
-            <div class="contenedor_bloques_agregaProductos">
-                @*<div class="bloque_descripciones">
-                        <h6 class="descripcion_principal"><b><span id="spnSubTituloOfertaFinal">Consigue más ganancias agregando uno de estos productos</span></b></h6>
-                        <span class="enlace_catalogos">
-                            También puedes buscarlo en tus
-                            <a href="#" title="Tus Catálogos">TUS CATÁLOGOS</a>
-                        </span>
-                    </div>*@
-                <div style="margin: 0 auto; width:90%;" class="bloque_carousel">
-                    <div style="margin-left: 27px; margin-right: 27px; position: relative;margin-top:-95px;">
-                        <div class="slider center" id="divCarruselOfertaFinal" style="width: 100%"></div>
-                    </div>
-                    <button name="btn_noGracias_agregarProductos icono_terminar_pedido" class="btn_noGracias_agregarProductos">
-                        TERMINAR PEDIDO
-                    </button>
-                </div>
-                <hr class="clear" />
-            </div>
-        </div>
-    </div>
+    
 </div>
 <!-- FIN POPUP OFERTA FINAL -->
 <!--POP UP ESCALA DE DESCUENTO FICHA-->
@@ -2130,7 +2021,7 @@
                             <span>ALCANZA EL <b style="font-size:23px;">{{MetaPorcentaje}}%</b> DSCTO AGREGANDO {{Simbolo}} <span data-monto="">{{MetaMontoStr}}</span> DE ESTAS OFERTAS</span>
                         {{/iff}}
                     </div>
-                    <div class="texto_complemento_oferta">Compra en oferta los complementos de tu pedido</div>
+                    @*<div class="texto_complemento_oferta">Compra en oferta los complementos de tu pedido</div>*@
                 </div>
 
             </div>

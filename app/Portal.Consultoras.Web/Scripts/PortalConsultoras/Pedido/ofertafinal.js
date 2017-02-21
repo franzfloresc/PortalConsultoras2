@@ -244,8 +244,8 @@ function MostrarPopupOfertaFinal(cumpleOferta, tipoPopupMostrar) {
     $('#divOfertaFinal').html('<div style="text-align: center;">Actualizando Productos de Oferta Final<br><img src="' + urlLoad + '" /></div>');
 
     var objOf = cumpleOferta.productosMostrar[0];
-    objOf.MetaPorcentaje = objOf.TipoMeta;
-    objOf.TipoMeta = objOf.TipoMeta == "MM" || objOf.TipoMeta == "GM" ? objOf.TipoMeta : "ME";
+    objOf.MetaPorcentaje = $.trim(objOf.TipoMeta);
+    objOf.TipoMeta = objOf.TipoMeta == "MM" || objOf.TipoMeta == "GM" ? objOf.TipoMeta : objOf.MetaPorcentaje != "" ? "ME" : "";
     objOf.Detalle = cumpleOferta.productosMostrar;
     objOf.TotalPedido = $("#hdfTotal").val();
     objOf.Simbolo = objOf.Simbolo || $("#hdSimbolo").val();
@@ -679,7 +679,7 @@ function ObtenerProductosOfertaFinal(tipoOfertaFinal) {
             if (checkTimeout(response)) {
                 if (response.success) {
                     lista = response.data;
-                    console.log(lista);
+                    //console.log(lista);
                 } else {
                     lista = null;
                 }
