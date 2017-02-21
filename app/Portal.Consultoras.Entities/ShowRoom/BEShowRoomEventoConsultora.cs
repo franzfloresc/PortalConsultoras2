@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using OpenSource.Library.DataAccess;
 using Portal.Consultoras.Common;
 
-namespace Portal.Consultoras.Entities
+namespace Portal.Consultoras.Entities.ShowRoom
 {
     [DataContract]
     public class BEShowRoomEventoConsultora

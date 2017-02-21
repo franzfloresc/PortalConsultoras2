@@ -329,6 +329,27 @@ namespace Portal.Consultoras.Common
             public const string ActualizacionDeuda = "OCC-19"; //ACTUALIZACION DE DEUDA
             public const string ValidacionMontoMinimoStock = "OCC-51"; //VALIDACION MONTO MINIMO STOCK
         }
+
+        public class ShowRoomPersonalizacion
+        {
+            public class Desktop
+            {
+                public const string PopupImagenIntriga = "PopupImagenIntriga";
+                public const string PopupImagenVenta = "PopupImagenVenta";
+                public const string BannerImagenIntriga = "BannerImagenIntriga";
+                public const string BannerImagenVenta = "BannerImagenVenta";
+                public const string UrlTerminosCondiciones = "UrlTerminosCondiciones";
+            }
+
+            public class Mobile
+            {
+                public const string PopupImagenIntriga = "PopupImagenIntriga";
+                public const string PopupImagenVenta = "PopupImagenVenta";
+                public const string BannerImagenIntriga = "BannerImagenIntriga";
+                public const string BannerImagenVenta = "BannerImagenVenta";
+                public const string UrlTerminosCondiciones = "BannerSliderImagen";
+            }
+        }
     }
 }
 

@@ -1527,7 +1527,7 @@ namespace Portal.Consultoras.Web.Controllers
                     if (beShowRoom.Estado == 1)
                     {
                         bool mostrarShowRoomProductos = false;
-                        var rutaShowRoomPopup = beShowRoom.RutaShowRoomPopup;
+                        var rutaShowRoomPopup = "";
                         var fechaHoy = DateTime.Now.AddHours(userData.ZonaHoraria).Date;
 
                         int diasAntes = beShowRoom.DiasAntes;
@@ -1540,12 +1540,17 @@ namespace Portal.Consultoras.Web.Controllers
                         }
                         if (fechaHoy > userData.FechaInicioCampania.AddDays(diasDespues).Date) beShowRoomConsultora.MostrarPopup = false;
 
+                        DateTime d1 = userData.FechaInicioCampania.Date;
+                        DateTime d2 = userData.FechaInicioCampania.AddDays(-diasAntes);
+                        TimeSpan ts = d1 - d2;
+
                         return Json(new
                         {
                             success = true,
                             data = beShowRoomConsultora,
                             diaInicio = userData.FechaInicioCampania.AddDays(-diasAntes).Day,
                             diaFin = userData.FechaInicioCampania.Day,
+                            diasFaltan = ts.Days,
                             mesFin = NombreMes(userData.FechaInicioCampania.Month),
                             nombre = string.IsNullOrEmpty(userData.Sobrenombre)
                                 ? userData.NombreConsultora
@@ -1625,7 +1630,7 @@ namespace Portal.Consultoras.Web.Controllers
                     anioFaltante = model.AnioFaltante,
                     evento = model.BEShowRoom,
                     mostrarShowRoomProductos = model.MostrarShowRoomProductos,
-                    rutaShowRoomBannerLateral = model.RutaShowRoomBannerLateral,
+                    rutaShowRoomBannerLateral = "",
                     estaActivoLateral = model.EstaActivoLateral
                 });
             }

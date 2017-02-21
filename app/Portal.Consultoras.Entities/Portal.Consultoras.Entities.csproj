@@ -166,8 +166,9 @@
     <Compile Include="BEProcesoPedidoRechazado.cs" />
     <Compile Include="BEProductoCompartido.cs" />
     <Compile Include="BEProductoSugerido.cs" />
-    <Compile Include="BEShowRoomOfertaDetalle.cs" />
-    <Compile Include="BEShowRoomOferta.cs" />
+    <Compile Include="ShowRoom\BEShowRoomNivel.cs" />
+    <Compile Include="ShowRoom\BEShowRoomOfertaDetalle.cs" />
+    <Compile Include="ShowRoom\BEShowRoomOferta.cs" />
     <Compile Include="BEOfertaWeb.cs" />
     <Compile Include="BEPaging.cs" />
     <Compile Include="BEPais.cs" />
@@ -208,10 +209,10 @@
     <Compile Include="BEServicioCampania.cs" />
     <Compile Include="BEServicioParametro.cs" />
     <Compile Include="BEServicioSegmentoZona.cs" />
-    <Compile Include="BEShowRoomEvento.cs" />
-    <Compile Include="BEShowRoomEventoConsultora.cs" />
-    <Compile Include="BEShowRoomPerfil.cs" />
-    <Compile Include="BEShowRoomPerfilOferta.cs" />
+    <Compile Include="ShowRoom\BEShowRoomEvento.cs" />
+    <Compile Include="ShowRoom\BEShowRoomEventoConsultora.cs" />
+    <Compile Include="ShowRoom\BEShowRoomPerfil.cs" />
+    <Compile Include="ShowRoom\BEShowRoomPerfilOferta.cs" />
     <Compile Include="BESolicitudClienteDetalleAppCatalogo.cs" />
     <Compile Include="BESolicitudClienteAppCatalogo.cs" />
     <Compile Include="BESolicitudCliente.cs" />
@@ -254,6 +255,8 @@
     <Compile Include="BEPopupPais.cs" />
     <Compile Include="BELogConfiguracionCronograma.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ShowRoom\BEShowRoomPersonalizacion.cs" />
+    <Compile Include="ShowRoom\BEShowRoomPersonalizacionNivel.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Portal.Consultoras.Common\Portal.Consultoras.Common.csproj">

@@ -324,7 +324,7 @@ $(document).ready(function () {
     });
 
     Scrolling();
-    MostrarShowRoomBannerLateral();
+    //MostrarShowRoomBannerLateral();
 
     /*PL20-1226*/
     setInterval(animacionFlechaScroll, 1000);

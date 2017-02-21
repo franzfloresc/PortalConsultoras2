@@ -19832,11 +19832,14 @@ float: right;
     }
 
 .check_01 {
-    float: left;
-    width: 100%;
+       position: absolute;
+    /* float: left; */
+    /* width: 100%; */
     height: 20px;
     margin-left: 10px;
     margin-top: 10px;
+    bottom: -8px;
+    color: white;
 }
 
 .caja-traslado {
@@ -20230,11 +20233,13 @@ label.checkpop {
   padding-left: 21px;
   padding-top: 2px;
   font-size: 10pt;
-  color: black;
+  color: white;
     font-family: 'lato';
   transition: .3s;
     font-weight: 300;
    background: url("/Content/Images/showroom/check_off.png") left center no-repeat;
+   margin-left:170px;
+   text-decoration:underline;
 }
 
 label.checkpop input {
@@ -34350,14 +34355,15 @@ h1#penmostreo .campana {
 }
 .texto_dias_intriga{
     position:absolute;
-    top:50px;
+    font-weight:900;
+    top:66px;
     font-family:'Lato';
-    font-size:30px;
+    font-size:38px;
     color:white;
     text-align:center;
     width:100%;
-    letter-spacing: 0.6px;
-    font-weight:300;
+    letter-spacing: 3px;  
+    text-shadow: -0.1em 0.1em black;
 }
 /*.texto_dias_intriga b{
     
@@ -34409,7 +34415,7 @@ h1#penmostreo .campana {
     background:#f0f0f0;
     padding:26px;
     min-height:100px;
-    margin-top: -35px;
+    margin-top: -52px;
         -webkit-box-shadow: 0px 15px 13px -8px rgba(204,200,204,0.7);
     -moz-box-shadow: 0px 15px 13px -8px rgba(204,200,204,0.7);
     box-shadow: 0px 15px 13px -8px rgba(204,200,204,0.7);
