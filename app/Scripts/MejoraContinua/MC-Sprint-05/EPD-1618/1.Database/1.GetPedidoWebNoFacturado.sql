@@ -16,11 +16,11 @@ CREATE PROCEDURE [dbo].[GetPedidoWebNoFacturado]
 AS
 BEGIN
 
-	SELECT PedidoID,FechaRegistro,FechaReserva,CampaniaCodigo,Seccion ,ConsultoraCodigo,ConsultoraNombre,ImporteTotal,DescuentoProl,ConsultoraSaldo,
+
+	SELECT  PedidoID,FechaRegistro,FechaReserva,CampaniaCodigo,Seccion ,ConsultoraCodigo,ConsultoraNombre,ImporteTotal,DescuentoProl,ConsultoraSaldo,
 			OrigenNombre,EstadoValidacionNombre,Zona,Region ,IndicadorEnviado,MontoMinimoPedido,ImporteTotalMM,MotivoRechazo,EstadoPedido
 	FROM(
-	SELECT  pr.idprocesopedidorechazado,
-	
+	SELECT IDPROCESORECHAZO.IDPROCESO,pr.idprocesopedidorechazado,	
 		p.PedidoID,
 		p.FechaRegistro FechaRegistro,
 		CASE WHEN p.EstadoPedido = 202 
@@ -47,41 +47,49 @@ BEGIN
 		ISNULL(dbo.fnObtenerImporteMM(p.CampaniaID,p.PedidoID,'WEB'), 0) AS ImporteTotalMM,
 		ISNULL(p.CodigoUsuarioModificacion, p.CodigoUsuarioCreacion) AS UsuarioResponsable,
 		(STUFF((SELECT CAST(', ' + 
-			CASE MR.Codigo WHEN 'OCC-16' THEN 'MÍNIMO' 
-				WHEN 'OCC-17' THEN 'MÁXIMO'
-				WHEN 'OCC-19' THEN 'DEUDA'
-				WHEN 'OCC-51' THEN 'MINIMO STOCK' END + ': ' + P1.Valor AS VARCHAR(MAX))
-		FROM GPR.PedidoRechazado  P1
+			CASE MR.Codigo 
+				WHEN 'OCC-16' THEN 'MÍNIMO: ' + CAST(C.MontoMinimoPedido AS VARCHAR(15)) 
+				WHEN 'OCC-17' THEN 'MÁXIMO: ' + CAST(C.MontoMaximoPedido AS VARCHAR(15)) 
+				WHEN 'OCC-19' THEN 'DEUDA: ' + CAST(P1.Valor AS VARCHAR(15)) 
+				WHEN 'OCC-51' THEN 'MINIMO STOCK' END   AS VARCHAR(MAX))
+		FROM GPR.PedidoRechazado P1
 		INNER JOIN GPR.MotivoRechazo MR ON P1.MotivoRechazo = MR.Codigo
-		WHERE p1.codigoconsultora=pr.codigoconsultora and p1.campania=pr.campania and p1.idprocesopedidorechazado=pr.idprocesopedidorechazado AND p.GPRSB = 2
+		WHERE pr.idprocesopedidorechazado = p1.idprocesopedidorechazado AND p1.codigoconsultora=pr.codigoconsultora and p1.campania=pr.campania and p.GPRSB = 2  AND P1.Procesado = 1
+		and p1.idprocesopedidorechazado=IDPROCESORECHAZO.IDPROCESO 
 		FOR XML PATH ('')), 1, 1, '')) AS MotivoRechazo,
-		p.EstadoPedido	
+		p.EstadoPedido		
+		
+		--pr.IdPedidoRechazado
 	FROM dbo.PedidoWeb p (NOLOCK)
 	INNER JOIN ods.Consultora c (NOLOCK) on p.consultoraid = c.consultoraid
 	INNER JOIN ods.Region r (NOLOCK) on c.regionid = r.regionid
 	INNER JOIN ods.Zona z (NOLOCK) on r.regionid = z.regionid and c.zonaid = z.zonaid
 	INNER JOIN ods.Seccion s (NOLOCK) on c.seccionid = s.seccionid and r.regionid = s.regionid and z.zonaid = s.zonaid
-	LEFT JOIN GPR.PedidoRechazado pr (NOLOCK) ON c.codigo = pr.CodigoConsultora AND CAST(pr.Campania AS INT) =@CampaniaID
-	AND PR.Campania=P.CAMPANIAID
+	LEFT JOIN GPR.PedidoRechazado pr (NOLOCK) ON c.codigo = pr.CodigoConsultora AND CAST(pr.Campania AS INT) = @CampaniaID 
+	/* mostrar solo 1 registro por consultora.*/
+	LEFT JOIN (
+	SELECT PR1.CODIGOCONSULTORA,MAX(_PR.IDPROCESOPEDIDORECHAZADO) IDPROCESO FROM GPR.PROCESOPEDIDORECHAZADO _PR INNER JOIN GPR.PEDIDORECHAZADO PR1 ON _PR.IDPROCESOPEDIDORECHAZADO=PR1.IDPROCESOPEDIDORECHAZADO
 	
+	WHERE PR1.CAMPANIA=@CampaniaID GROUP BY PR1.CODIGOCONSULTORA
+	) IDPROCESORECHAZO
+	ON PR.IDPROCESOPEDIDORECHAZADO=IDPROCESORECHAZO.IDPROCESO AND IDPROCESORECHAZO.CODIGOCONSULTORA=C.CODIGO
+	
+	AND PR.Campania=P.CAMPANIAID 	
 	WHERE 
 		(@CampaniaID is null or p.CampaniaID = @CampaniaID) and
 		p.ImporteTotal <> 0  
-		AND(@EsRechazado = 2 OR (@EsRechazado = 1 AND p.GPRSB = 2 ) OR (@EsRechazado = 0 AND p.GPRSB <> 2 ))
+		AND(@EsRechazado = 2  OR (@EsRechazado = 1 AND p.GPRSB = 2) OR (@EsRechazado = 0 AND p.GPRSB <> 2 ))
 		AND (@EstadoPedido = 0 OR @EstadoPedido = (CASE WHEN p.EstadoPedido = 202 AND p.ValidacionAbierta = 0 AND p.ModificaPedidoReservadoMovil = 0  THEN 202
 						ELSE
 							201	
 						END ))
 		and (@RegionCodigo = '0' or @RegionCodigo is null or r.Codigo = @RegionCodigo)
 		and (@ZonaCodigo = '0' or @ZonaCodigo is null or z.Codigo = @ZonaCodigo)
-		and (@CodigoConsultora = '' or c.Codigo like '%' + @CodigoConsultora + '%') 
-
+		and (@CodigoConsultora = '' or c.Codigo like '%' + @CodigoConsultora + '%')
 		AND PR.PROCESADO=1
-
-		) T
-
-		GROUP BY idprocesopedidorechazado,PedidoID,FechaRegistro,FechaReserva,CampaniaCodigo,Seccion ,ConsultoraCodigo,ConsultoraNombre,ImporteTotal,
-		DescuentoProl,ConsultoraSaldo,OrigenNombre,EstadoValidacionNombre,Zona,Region ,IndicadorEnviado,MontoMinimoPedido,ImporteTotalMM,MotivoRechazo,EstadoPedido
+		) T	WHERE MotivoRechazo IS NOT NULL
+	GROUP BY PedidoID,FechaRegistro,FechaReserva,CampaniaCodigo,Seccion ,ConsultoraCodigo,ConsultoraNombre,ImporteTotal,
+	DescuentoProl,ConsultoraSaldo,OrigenNombre,EstadoValidacionNombre,Zona,Region ,IndicadorEnviado,MontoMinimoPedido,ImporteTotalMM,MotivoRechazo,EstadoPedido
 
 END
 
@@ -106,11 +114,11 @@ CREATE PROCEDURE [dbo].[GetPedidoWebNoFacturado]
 AS
 BEGIN
 
-	SELECT PedidoID,FechaRegistro,FechaReserva,CampaniaCodigo,Seccion ,ConsultoraCodigo,ConsultoraNombre,ImporteTotal,DescuentoProl,ConsultoraSaldo,
+
+	SELECT  PedidoID,FechaRegistro,FechaReserva,CampaniaCodigo,Seccion ,ConsultoraCodigo,ConsultoraNombre,ImporteTotal,DescuentoProl,ConsultoraSaldo,
 			OrigenNombre,EstadoValidacionNombre,Zona,Region ,IndicadorEnviado,MontoMinimoPedido,ImporteTotalMM,MotivoRechazo,EstadoPedido
 	FROM(
-	SELECT  pr.idprocesopedidorechazado,
-	
+	SELECT IDPROCESORECHAZO.IDPROCESO,pr.idprocesopedidorechazado,	
 		p.PedidoID,
 		p.FechaRegistro FechaRegistro,
 		CASE WHEN p.EstadoPedido = 202 
@@ -137,41 +145,49 @@ BEGIN
 		ISNULL(dbo.fnObtenerImporteMM(p.CampaniaID,p.PedidoID,'WEB'), 0) AS ImporteTotalMM,
 		ISNULL(p.CodigoUsuarioModificacion, p.CodigoUsuarioCreacion) AS UsuarioResponsable,
 		(STUFF((SELECT CAST(', ' + 
-			CASE MR.Codigo WHEN 'OCC-16' THEN 'MÍNIMO' 
-				WHEN 'OCC-17' THEN 'MÁXIMO'
-				WHEN 'OCC-19' THEN 'DEUDA'
-				WHEN 'OCC-51' THEN 'MINIMO STOCK' END + ': ' + P1.Valor AS VARCHAR(MAX))
-		FROM GPR.PedidoRechazado  P1
+			CASE MR.Codigo 
+				WHEN 'OCC-16' THEN 'MÍNIMO: ' + CAST(C.MontoMinimoPedido AS VARCHAR(15)) 
+				WHEN 'OCC-17' THEN 'MÁXIMO: ' + CAST(C.MontoMaximoPedido AS VARCHAR(15)) 
+				WHEN 'OCC-19' THEN 'DEUDA: ' + CAST(P1.Valor AS VARCHAR(15)) 
+				WHEN 'OCC-51' THEN 'MINIMO STOCK' END   AS VARCHAR(MAX))
+		FROM GPR.PedidoRechazado P1
 		INNER JOIN GPR.MotivoRechazo MR ON P1.MotivoRechazo = MR.Codigo
-		WHERE p1.codigoconsultora=pr.codigoconsultora and p1.campania=pr.campania and p1.idprocesopedidorechazado=pr.idprocesopedidorechazado AND p.GPRSB = 2
+		WHERE pr.idprocesopedidorechazado = p1.idprocesopedidorechazado AND p1.codigoconsultora=pr.codigoconsultora and p1.campania=pr.campania and p.GPRSB = 2  AND P1.Procesado = 1
+		and p1.idprocesopedidorechazado=IDPROCESORECHAZO.IDPROCESO 
 		FOR XML PATH ('')), 1, 1, '')) AS MotivoRechazo,
-		p.EstadoPedido	
+		p.EstadoPedido		
+		
+		--pr.IdPedidoRechazado
 	FROM dbo.PedidoWeb p (NOLOCK)
 	INNER JOIN ods.Consultora c (NOLOCK) on p.consultoraid = c.consultoraid
 	INNER JOIN ods.Region r (NOLOCK) on c.regionid = r.regionid
 	INNER JOIN ods.Zona z (NOLOCK) on r.regionid = z.regionid and c.zonaid = z.zonaid
 	INNER JOIN ods.Seccion s (NOLOCK) on c.seccionid = s.seccionid and r.regionid = s.regionid and z.zonaid = s.zonaid
-	LEFT JOIN GPR.PedidoRechazado pr (NOLOCK) ON c.codigo = pr.CodigoConsultora AND CAST(pr.Campania AS INT) =@CampaniaID
-	AND PR.Campania=P.CAMPANIAID
+	LEFT JOIN GPR.PedidoRechazado pr (NOLOCK) ON c.codigo = pr.CodigoConsultora AND CAST(pr.Campania AS INT) = @CampaniaID 
+	/* mostrar solo 1 registro por consultora.*/
+	LEFT JOIN (
+	SELECT PR1.CODIGOCONSULTORA,MAX(_PR.IDPROCESOPEDIDORECHAZADO) IDPROCESO FROM GPR.PROCESOPEDIDORECHAZADO _PR INNER JOIN GPR.PEDIDORECHAZADO PR1 ON _PR.IDPROCESOPEDIDORECHAZADO=PR1.IDPROCESOPEDIDORECHAZADO
 	
+	WHERE PR1.CAMPANIA=@CampaniaID GROUP BY PR1.CODIGOCONSULTORA
+	) IDPROCESORECHAZO
+	ON PR.IDPROCESOPEDIDORECHAZADO=IDPROCESORECHAZO.IDPROCESO AND IDPROCESORECHAZO.CODIGOCONSULTORA=C.CODIGO
+	
+	AND PR.Campania=P.CAMPANIAID 	
 	WHERE 
 		(@CampaniaID is null or p.CampaniaID = @CampaniaID) and
 		p.ImporteTotal <> 0  
-		AND(@EsRechazado = 2 OR (@EsRechazado = 1 AND p.GPRSB = 2 ) OR (@EsRechazado = 0 AND p.GPRSB <> 2 ))
+		AND(@EsRechazado = 2  OR (@EsRechazado = 1 AND p.GPRSB = 2) OR (@EsRechazado = 0 AND p.GPRSB <> 2 ))
 		AND (@EstadoPedido = 0 OR @EstadoPedido = (CASE WHEN p.EstadoPedido = 202 AND p.ValidacionAbierta = 0 AND p.ModificaPedidoReservadoMovil = 0  THEN 202
 						ELSE
 							201	
 						END ))
 		and (@RegionCodigo = '0' or @RegionCodigo is null or r.Codigo = @RegionCodigo)
 		and (@ZonaCodigo = '0' or @ZonaCodigo is null or z.Codigo = @ZonaCodigo)
-		and (@CodigoConsultora = '' or c.Codigo like '%' + @CodigoConsultora + '%') 
-
+		and (@CodigoConsultora = '' or c.Codigo like '%' + @CodigoConsultora + '%')
 		AND PR.PROCESADO=1
-
-		) T
-
-		GROUP BY idprocesopedidorechazado,PedidoID,FechaRegistro,FechaReserva,CampaniaCodigo,Seccion ,ConsultoraCodigo,ConsultoraNombre,ImporteTotal,
-		DescuentoProl,ConsultoraSaldo,OrigenNombre,EstadoValidacionNombre,Zona,Region ,IndicadorEnviado,MontoMinimoPedido,ImporteTotalMM,MotivoRechazo,EstadoPedido
+		) T	WHERE MotivoRechazo IS NOT NULL
+	GROUP BY PedidoID,FechaRegistro,FechaReserva,CampaniaCodigo,Seccion ,ConsultoraCodigo,ConsultoraNombre,ImporteTotal,
+	DescuentoProl,ConsultoraSaldo,OrigenNombre,EstadoValidacionNombre,Zona,Region ,IndicadorEnviado,MontoMinimoPedido,ImporteTotalMM,MotivoRechazo,EstadoPedido
 
 END
 
@@ -196,11 +212,11 @@ CREATE PROCEDURE [dbo].[GetPedidoWebNoFacturado]
 AS
 BEGIN
 
-	SELECT PedidoID,FechaRegistro,FechaReserva,CampaniaCodigo,Seccion ,ConsultoraCodigo,ConsultoraNombre,ImporteTotal,DescuentoProl,ConsultoraSaldo,
+
+	SELECT  PedidoID,FechaRegistro,FechaReserva,CampaniaCodigo,Seccion ,ConsultoraCodigo,ConsultoraNombre,ImporteTotal,DescuentoProl,ConsultoraSaldo,
 			OrigenNombre,EstadoValidacionNombre,Zona,Region ,IndicadorEnviado,MontoMinimoPedido,ImporteTotalMM,MotivoRechazo,EstadoPedido
 	FROM(
-	SELECT  pr.idprocesopedidorechazado,
-	
+	SELECT IDPROCESORECHAZO.IDPROCESO,pr.idprocesopedidorechazado,	
 		p.PedidoID,
 		p.FechaRegistro FechaRegistro,
 		CASE WHEN p.EstadoPedido = 202 
@@ -227,41 +243,49 @@ BEGIN
 		ISNULL(dbo.fnObtenerImporteMM(p.CampaniaID,p.PedidoID,'WEB'), 0) AS ImporteTotalMM,
 		ISNULL(p.CodigoUsuarioModificacion, p.CodigoUsuarioCreacion) AS UsuarioResponsable,
 		(STUFF((SELECT CAST(', ' + 
-			CASE MR.Codigo WHEN 'OCC-16' THEN 'MÍNIMO' 
-				WHEN 'OCC-17' THEN 'MÁXIMO'
-				WHEN 'OCC-19' THEN 'DEUDA'
-				WHEN 'OCC-51' THEN 'MINIMO STOCK' END + ': ' + P1.Valor AS VARCHAR(MAX))
-		FROM GPR.PedidoRechazado  P1
+			CASE MR.Codigo 
+				WHEN 'OCC-16' THEN 'MÍNIMO: ' + CAST(C.MontoMinimoPedido AS VARCHAR(15)) 
+				WHEN 'OCC-17' THEN 'MÁXIMO: ' + CAST(C.MontoMaximoPedido AS VARCHAR(15)) 
+				WHEN 'OCC-19' THEN 'DEUDA: ' + CAST(P1.Valor AS VARCHAR(15)) 
+				WHEN 'OCC-51' THEN 'MINIMO STOCK' END   AS VARCHAR(MAX))
+		FROM GPR.PedidoRechazado P1
 		INNER JOIN GPR.MotivoRechazo MR ON P1.MotivoRechazo = MR.Codigo
-		WHERE p1.codigoconsultora=pr.codigoconsultora and p1.campania=pr.campania and p1.idprocesopedidorechazado=pr.idprocesopedidorechazado AND p.GPRSB = 2
+		WHERE pr.idprocesopedidorechazado = p1.idprocesopedidorechazado AND p1.codigoconsultora=pr.codigoconsultora and p1.campania=pr.campania and p.GPRSB = 2  AND P1.Procesado = 1
+		and p1.idprocesopedidorechazado=IDPROCESORECHAZO.IDPROCESO 
 		FOR XML PATH ('')), 1, 1, '')) AS MotivoRechazo,
-		p.EstadoPedido	
+		p.EstadoPedido		
+		
+		--pr.IdPedidoRechazado
 	FROM dbo.PedidoWeb p (NOLOCK)
 	INNER JOIN ods.Consultora c (NOLOCK) on p.consultoraid = c.consultoraid
 	INNER JOIN ods.Region r (NOLOCK) on c.regionid = r.regionid
 	INNER JOIN ods.Zona z (NOLOCK) on r.regionid = z.regionid and c.zonaid = z.zonaid
 	INNER JOIN ods.Seccion s (NOLOCK) on c.seccionid = s.seccionid and r.regionid = s.regionid and z.zonaid = s.zonaid
-	LEFT JOIN GPR.PedidoRechazado pr (NOLOCK) ON c.codigo = pr.CodigoConsultora AND CAST(pr.Campania AS INT) =@CampaniaID
-	AND PR.Campania=P.CAMPANIAID
+	LEFT JOIN GPR.PedidoRechazado pr (NOLOCK) ON c.codigo = pr.CodigoConsultora AND CAST(pr.Campania AS INT) = @CampaniaID 
+	/* mostrar solo 1 registro por consultora.*/
+	LEFT JOIN (
+	SELECT PR1.CODIGOCONSULTORA,MAX(_PR.IDPROCESOPEDIDORECHAZADO) IDPROCESO FROM GPR.PROCESOPEDIDORECHAZADO _PR INNER JOIN GPR.PEDIDORECHAZADO PR1 ON _PR.IDPROCESOPEDIDORECHAZADO=PR1.IDPROCESOPEDIDORECHAZADO
 	
+	WHERE PR1.CAMPANIA=@CampaniaID GROUP BY PR1.CODIGOCONSULTORA
+	) IDPROCESORECHAZO
+	ON PR.IDPROCESOPEDIDORECHAZADO=IDPROCESORECHAZO.IDPROCESO AND IDPROCESORECHAZO.CODIGOCONSULTORA=C.CODIGO
+	
+	AND PR.Campania=P.CAMPANIAID 	
 	WHERE 
 		(@CampaniaID is null or p.CampaniaID = @CampaniaID) and
 		p.ImporteTotal <> 0  
-		AND(@EsRechazado = 2 OR (@EsRechazado = 1 AND p.GPRSB = 2 ) OR (@EsRechazado = 0 AND p.GPRSB <> 2 ))
+		AND(@EsRechazado = 2  OR (@EsRechazado = 1 AND p.GPRSB = 2) OR (@EsRechazado = 0 AND p.GPRSB <> 2 ))
 		AND (@EstadoPedido = 0 OR @EstadoPedido = (CASE WHEN p.EstadoPedido = 202 AND p.ValidacionAbierta = 0 AND p.ModificaPedidoReservadoMovil = 0  THEN 202
 						ELSE
 							201	
 						END ))
 		and (@RegionCodigo = '0' or @RegionCodigo is null or r.Codigo = @RegionCodigo)
 		and (@ZonaCodigo = '0' or @ZonaCodigo is null or z.Codigo = @ZonaCodigo)
-		and (@CodigoConsultora = '' or c.Codigo like '%' + @CodigoConsultora + '%') 
-
+		and (@CodigoConsultora = '' or c.Codigo like '%' + @CodigoConsultora + '%')
 		AND PR.PROCESADO=1
-
-		) T
-
-		GROUP BY idprocesopedidorechazado,PedidoID,FechaRegistro,FechaReserva,CampaniaCodigo,Seccion ,ConsultoraCodigo,ConsultoraNombre,ImporteTotal,
-		DescuentoProl,ConsultoraSaldo,OrigenNombre,EstadoValidacionNombre,Zona,Region ,IndicadorEnviado,MontoMinimoPedido,ImporteTotalMM,MotivoRechazo,EstadoPedido
+		) T	WHERE MotivoRechazo IS NOT NULL
+	GROUP BY PedidoID,FechaRegistro,FechaReserva,CampaniaCodigo,Seccion ,ConsultoraCodigo,ConsultoraNombre,ImporteTotal,
+	DescuentoProl,ConsultoraSaldo,OrigenNombre,EstadoValidacionNombre,Zona,Region ,IndicadorEnviado,MontoMinimoPedido,ImporteTotalMM,MotivoRechazo,EstadoPedido
 
 END
 
@@ -286,11 +310,11 @@ CREATE PROCEDURE [dbo].[GetPedidoWebNoFacturado]
 AS
 BEGIN
 
-	SELECT PedidoID,FechaRegistro,FechaReserva,CampaniaCodigo,Seccion ,ConsultoraCodigo,ConsultoraNombre,ImporteTotal,DescuentoProl,ConsultoraSaldo,
+
+	SELECT  PedidoID,FechaRegistro,FechaReserva,CampaniaCodigo,Seccion ,ConsultoraCodigo,ConsultoraNombre,ImporteTotal,DescuentoProl,ConsultoraSaldo,
 			OrigenNombre,EstadoValidacionNombre,Zona,Region ,IndicadorEnviado,MontoMinimoPedido,ImporteTotalMM,MotivoRechazo,EstadoPedido
 	FROM(
-	SELECT  pr.idprocesopedidorechazado,
-	
+	SELECT IDPROCESORECHAZO.IDPROCESO,pr.idprocesopedidorechazado,	
 		p.PedidoID,
 		p.FechaRegistro FechaRegistro,
 		CASE WHEN p.EstadoPedido = 202 
@@ -317,41 +341,49 @@ BEGIN
 		ISNULL(dbo.fnObtenerImporteMM(p.CampaniaID,p.PedidoID,'WEB'), 0) AS ImporteTotalMM,
 		ISNULL(p.CodigoUsuarioModificacion, p.CodigoUsuarioCreacion) AS UsuarioResponsable,
 		(STUFF((SELECT CAST(', ' + 
-			CASE MR.Codigo WHEN 'OCC-16' THEN 'MÍNIMO' 
-				WHEN 'OCC-17' THEN 'MÁXIMO'
-				WHEN 'OCC-19' THEN 'DEUDA'
-				WHEN 'OCC-51' THEN 'MINIMO STOCK' END + ': ' + P1.Valor AS VARCHAR(MAX))
-		FROM GPR.PedidoRechazado  P1
+			CASE MR.Codigo 
+				WHEN 'OCC-16' THEN 'MÍNIMO: ' + CAST(C.MontoMinimoPedido AS VARCHAR(15)) 
+				WHEN 'OCC-17' THEN 'MÁXIMO: ' + CAST(C.MontoMaximoPedido AS VARCHAR(15)) 
+				WHEN 'OCC-19' THEN 'DEUDA: ' + CAST(P1.Valor AS VARCHAR(15)) 
+				WHEN 'OCC-51' THEN 'MINIMO STOCK' END   AS VARCHAR(MAX))
+		FROM GPR.PedidoRechazado P1
 		INNER JOIN GPR.MotivoRechazo MR ON P1.MotivoRechazo = MR.Codigo
-		WHERE p1.codigoconsultora=pr.codigoconsultora and p1.campania=pr.campania and p1.idprocesopedidorechazado=pr.idprocesopedidorechazado AND p.GPRSB = 2
+		WHERE pr.idprocesopedidorechazado = p1.idprocesopedidorechazado AND p1.codigoconsultora=pr.codigoconsultora and p1.campania=pr.campania and p.GPRSB = 2  AND P1.Procesado = 1
+		and p1.idprocesopedidorechazado=IDPROCESORECHAZO.IDPROCESO 
 		FOR XML PATH ('')), 1, 1, '')) AS MotivoRechazo,
-		p.EstadoPedido	
+		p.EstadoPedido		
+		
+		--pr.IdPedidoRechazado
 	FROM dbo.PedidoWeb p (NOLOCK)
 	INNER JOIN ods.Consultora c (NOLOCK) on p.consultoraid = c.consultoraid
 	INNER JOIN ods.Region r (NOLOCK) on c.regionid = r.regionid
 	INNER JOIN ods.Zona z (NOLOCK) on r.regionid = z.regionid and c.zonaid = z.zonaid
 	INNER JOIN ods.Seccion s (NOLOCK) on c.seccionid = s.seccionid and r.regionid = s.regionid and z.zonaid = s.zonaid
-	LEFT JOIN GPR.PedidoRechazado pr (NOLOCK) ON c.codigo = pr.CodigoConsultora AND CAST(pr.Campania AS INT) =@CampaniaID
-	AND PR.Campania=P.CAMPANIAID
+	LEFT JOIN GPR.PedidoRechazado pr (NOLOCK) ON c.codigo = pr.CodigoConsultora AND CAST(pr.Campania AS INT) = @CampaniaID 
+	/* mostrar solo 1 registro por consultora.*/
+	LEFT JOIN (
+	SELECT PR1.CODIGOCONSULTORA,MAX(_PR.IDPROCESOPEDIDORECHAZADO) IDPROCESO FROM GPR.PROCESOPEDIDORECHAZADO _PR INNER JOIN GPR.PEDIDORECHAZADO PR1 ON _PR.IDPROCESOPEDIDORECHAZADO=PR1.IDPROCESOPEDIDORECHAZADO
 	
+	WHERE PR1.CAMPANIA=@CampaniaID GROUP BY PR1.CODIGOCONSULTORA
+	) IDPROCESORECHAZO
+	ON PR.IDPROCESOPEDIDORECHAZADO=IDPROCESORECHAZO.IDPROCESO AND IDPROCESORECHAZO.CODIGOCONSULTORA=C.CODIGO
+	
+	AND PR.Campania=P.CAMPANIAID 	
 	WHERE 
 		(@CampaniaID is null or p.CampaniaID = @CampaniaID) and
 		p.ImporteTotal <> 0  
-		AND(@EsRechazado = 2 OR (@EsRechazado = 1 AND p.GPRSB = 2 ) OR (@EsRechazado = 0 AND p.GPRSB <> 2 ))
+		AND(@EsRechazado = 2  OR (@EsRechazado = 1 AND p.GPRSB = 2) OR (@EsRechazado = 0 AND p.GPRSB <> 2 ))
 		AND (@EstadoPedido = 0 OR @EstadoPedido = (CASE WHEN p.EstadoPedido = 202 AND p.ValidacionAbierta = 0 AND p.ModificaPedidoReservadoMovil = 0  THEN 202
 						ELSE
 							201	
 						END ))
 		and (@RegionCodigo = '0' or @RegionCodigo is null or r.Codigo = @RegionCodigo)
 		and (@ZonaCodigo = '0' or @ZonaCodigo is null or z.Codigo = @ZonaCodigo)
-		and (@CodigoConsultora = '' or c.Codigo like '%' + @CodigoConsultora + '%') 
-
+		and (@CodigoConsultora = '' or c.Codigo like '%' + @CodigoConsultora + '%')
 		AND PR.PROCESADO=1
-
-		) T
-
-		GROUP BY idprocesopedidorechazado,PedidoID,FechaRegistro,FechaReserva,CampaniaCodigo,Seccion ,ConsultoraCodigo,ConsultoraNombre,ImporteTotal,
-		DescuentoProl,ConsultoraSaldo,OrigenNombre,EstadoValidacionNombre,Zona,Region ,IndicadorEnviado,MontoMinimoPedido,ImporteTotalMM,MotivoRechazo,EstadoPedido
+		) T	WHERE MotivoRechazo IS NOT NULL
+	GROUP BY PedidoID,FechaRegistro,FechaReserva,CampaniaCodigo,Seccion ,ConsultoraCodigo,ConsultoraNombre,ImporteTotal,
+	DescuentoProl,ConsultoraSaldo,OrigenNombre,EstadoValidacionNombre,Zona,Region ,IndicadorEnviado,MontoMinimoPedido,ImporteTotalMM,MotivoRechazo,EstadoPedido
 
 END
 
@@ -376,11 +408,11 @@ CREATE PROCEDURE [dbo].[GetPedidoWebNoFacturado]
 AS
 BEGIN
 
-	SELECT PedidoID,FechaRegistro,FechaReserva,CampaniaCodigo,Seccion ,ConsultoraCodigo,ConsultoraNombre,ImporteTotal,DescuentoProl,ConsultoraSaldo,
+
+	SELECT  PedidoID,FechaRegistro,FechaReserva,CampaniaCodigo,Seccion ,ConsultoraCodigo,ConsultoraNombre,ImporteTotal,DescuentoProl,ConsultoraSaldo,
 			OrigenNombre,EstadoValidacionNombre,Zona,Region ,IndicadorEnviado,MontoMinimoPedido,ImporteTotalMM,MotivoRechazo,EstadoPedido
 	FROM(
-	SELECT  pr.idprocesopedidorechazado,
-	
+	SELECT IDPROCESORECHAZO.IDPROCESO,pr.idprocesopedidorechazado,	
 		p.PedidoID,
 		p.FechaRegistro FechaRegistro,
 		CASE WHEN p.EstadoPedido = 202 
@@ -407,41 +439,49 @@ BEGIN
 		ISNULL(dbo.fnObtenerImporteMM(p.CampaniaID,p.PedidoID,'WEB'), 0) AS ImporteTotalMM,
 		ISNULL(p.CodigoUsuarioModificacion, p.CodigoUsuarioCreacion) AS UsuarioResponsable,
 		(STUFF((SELECT CAST(', ' + 
-			CASE MR.Codigo WHEN 'OCC-16' THEN 'MÍNIMO' 
-				WHEN 'OCC-17' THEN 'MÁXIMO'
-				WHEN 'OCC-19' THEN 'DEUDA'
-				WHEN 'OCC-51' THEN 'MINIMO STOCK' END + ': ' + P1.Valor AS VARCHAR(MAX))
-		FROM GPR.PedidoRechazado  P1
+			CASE MR.Codigo 
+				WHEN 'OCC-16' THEN 'MÍNIMO: ' + CAST(C.MontoMinimoPedido AS VARCHAR(15)) 
+				WHEN 'OCC-17' THEN 'MÁXIMO: ' + CAST(C.MontoMaximoPedido AS VARCHAR(15)) 
+				WHEN 'OCC-19' THEN 'DEUDA: ' + CAST(P1.Valor AS VARCHAR(15)) 
+				WHEN 'OCC-51' THEN 'MINIMO STOCK' END   AS VARCHAR(MAX))
+		FROM GPR.PedidoRechazado P1
 		INNER JOIN GPR.MotivoRechazo MR ON P1.MotivoRechazo = MR.Codigo
-		WHERE p1.codigoconsultora=pr.codigoconsultora and p1.campania=pr.campania and p1.idprocesopedidorechazado=pr.idprocesopedidorechazado AND p.GPRSB = 2
+		WHERE pr.idprocesopedidorechazado = p1.idprocesopedidorechazado AND p1.codigoconsultora=pr.codigoconsultora and p1.campania=pr.campania and p.GPRSB = 2  AND P1.Procesado = 1
+		and p1.idprocesopedidorechazado=IDPROCESORECHAZO.IDPROCESO 
 		FOR XML PATH ('')), 1, 1, '')) AS MotivoRechazo,
-		p.EstadoPedido	
+		p.EstadoPedido		
+		
+		--pr.IdPedidoRechazado
 	FROM dbo.PedidoWeb p (NOLOCK)
 	INNER JOIN ods.Consultora c (NOLOCK) on p.consultoraid = c.consultoraid
 	INNER JOIN ods.Region r (NOLOCK) on c.regionid = r.regionid
 	INNER JOIN ods.Zona z (NOLOCK) on r.regionid = z.regionid and c.zonaid = z.zonaid
 	INNER JOIN ods.Seccion s (NOLOCK) on c.seccionid = s.seccionid and r.regionid = s.regionid and z.zonaid = s.zonaid
-	LEFT JOIN GPR.PedidoRechazado pr (NOLOCK) ON c.codigo = pr.CodigoConsultora AND CAST(pr.Campania AS INT) =@CampaniaID
-	AND PR.Campania=P.CAMPANIAID
+	LEFT JOIN GPR.PedidoRechazado pr (NOLOCK) ON c.codigo = pr.CodigoConsultora AND CAST(pr.Campania AS INT) = @CampaniaID 
+	/* mostrar solo 1 registro por consultora.*/
+	LEFT JOIN (
+	SELECT PR1.CODIGOCONSULTORA,MAX(_PR.IDPROCESOPEDIDORECHAZADO) IDPROCESO FROM GPR.PROCESOPEDIDORECHAZADO _PR INNER JOIN GPR.PEDIDORECHAZADO PR1 ON _PR.IDPROCESOPEDIDORECHAZADO=PR1.IDPROCESOPEDIDORECHAZADO
 	
+	WHERE PR1.CAMPANIA=@CampaniaID GROUP BY PR1.CODIGOCONSULTORA
+	) IDPROCESORECHAZO
+	ON PR.IDPROCESOPEDIDORECHAZADO=IDPROCESORECHAZO.IDPROCESO AND IDPROCESORECHAZO.CODIGOCONSULTORA=C.CODIGO
+	
+	AND PR.Campania=P.CAMPANIAID 	
 	WHERE 
 		(@CampaniaID is null or p.CampaniaID = @CampaniaID) and
 		p.ImporteTotal <> 0  
-		AND(@EsRechazado = 2 OR (@EsRechazado = 1 AND p.GPRSB = 2 ) OR (@EsRechazado = 0 AND p.GPRSB <> 2 ))
+		AND(@EsRechazado = 2  OR (@EsRechazado = 1 AND p.GPRSB = 2) OR (@EsRechazado = 0 AND p.GPRSB <> 2 ))
 		AND (@EstadoPedido = 0 OR @EstadoPedido = (CASE WHEN p.EstadoPedido = 202 AND p.ValidacionAbierta = 0 AND p.ModificaPedidoReservadoMovil = 0  THEN 202
 						ELSE
 							201	
 						END ))
 		and (@RegionCodigo = '0' or @RegionCodigo is null or r.Codigo = @RegionCodigo)
 		and (@ZonaCodigo = '0' or @ZonaCodigo is null or z.Codigo = @ZonaCodigo)
-		and (@CodigoConsultora = '' or c.Codigo like '%' + @CodigoConsultora + '%') 
-
+		and (@CodigoConsultora = '' or c.Codigo like '%' + @CodigoConsultora + '%')
 		AND PR.PROCESADO=1
-
-		) T
-
-		GROUP BY idprocesopedidorechazado,PedidoID,FechaRegistro,FechaReserva,CampaniaCodigo,Seccion ,ConsultoraCodigo,ConsultoraNombre,ImporteTotal,
-		DescuentoProl,ConsultoraSaldo,OrigenNombre,EstadoValidacionNombre,Zona,Region ,IndicadorEnviado,MontoMinimoPedido,ImporteTotalMM,MotivoRechazo,EstadoPedido
+		) T	WHERE MotivoRechazo IS NOT NULL
+	GROUP BY PedidoID,FechaRegistro,FechaReserva,CampaniaCodigo,Seccion ,ConsultoraCodigo,ConsultoraNombre,ImporteTotal,
+	DescuentoProl,ConsultoraSaldo,OrigenNombre,EstadoValidacionNombre,Zona,Region ,IndicadorEnviado,MontoMinimoPedido,ImporteTotalMM,MotivoRechazo,EstadoPedido
 
 END
 
@@ -466,11 +506,11 @@ CREATE PROCEDURE [dbo].[GetPedidoWebNoFacturado]
 AS
 BEGIN
 
-	SELECT PedidoID,FechaRegistro,FechaReserva,CampaniaCodigo,Seccion ,ConsultoraCodigo,ConsultoraNombre,ImporteTotal,DescuentoProl,ConsultoraSaldo,
+
+	SELECT  PedidoID,FechaRegistro,FechaReserva,CampaniaCodigo,Seccion ,ConsultoraCodigo,ConsultoraNombre,ImporteTotal,DescuentoProl,ConsultoraSaldo,
 			OrigenNombre,EstadoValidacionNombre,Zona,Region ,IndicadorEnviado,MontoMinimoPedido,ImporteTotalMM,MotivoRechazo,EstadoPedido
 	FROM(
-	SELECT  pr.idprocesopedidorechazado,
-	
+	SELECT IDPROCESORECHAZO.IDPROCESO,pr.idprocesopedidorechazado,	
 		p.PedidoID,
 		p.FechaRegistro FechaRegistro,
 		CASE WHEN p.EstadoPedido = 202 
@@ -497,41 +537,49 @@ BEGIN
 		ISNULL(dbo.fnObtenerImporteMM(p.CampaniaID,p.PedidoID,'WEB'), 0) AS ImporteTotalMM,
 		ISNULL(p.CodigoUsuarioModificacion, p.CodigoUsuarioCreacion) AS UsuarioResponsable,
 		(STUFF((SELECT CAST(', ' + 
-			CASE MR.Codigo WHEN 'OCC-16' THEN 'MÍNIMO' 
-				WHEN 'OCC-17' THEN 'MÁXIMO'
-				WHEN 'OCC-19' THEN 'DEUDA'
-				WHEN 'OCC-51' THEN 'MINIMO STOCK' END + ': ' + P1.Valor AS VARCHAR(MAX))
-		FROM GPR.PedidoRechazado  P1
+			CASE MR.Codigo 
+				WHEN 'OCC-16' THEN 'MÍNIMO: ' + CAST(C.MontoMinimoPedido AS VARCHAR(15)) 
+				WHEN 'OCC-17' THEN 'MÁXIMO: ' + CAST(C.MontoMaximoPedido AS VARCHAR(15)) 
+				WHEN 'OCC-19' THEN 'DEUDA: ' + CAST(P1.Valor AS VARCHAR(15)) 
+				WHEN 'OCC-51' THEN 'MINIMO STOCK' END   AS VARCHAR(MAX))
+		FROM GPR.PedidoRechazado P1
 		INNER JOIN GPR.MotivoRechazo MR ON P1.MotivoRechazo = MR.Codigo
-		WHERE p1.codigoconsultora=pr.codigoconsultora and p1.campania=pr.campania and p1.idprocesopedidorechazado=pr.idprocesopedidorechazado AND p.GPRSB = 2
+		WHERE pr.idprocesopedidorechazado = p1.idprocesopedidorechazado AND p1.codigoconsultora=pr.codigoconsultora and p1.campania=pr.campania and p.GPRSB = 2  AND P1.Procesado = 1
+		and p1.idprocesopedidorechazado=IDPROCESORECHAZO.IDPROCESO 
 		FOR XML PATH ('')), 1, 1, '')) AS MotivoRechazo,
-		p.EstadoPedido	
+		p.EstadoPedido		
+		
+		--pr.IdPedidoRechazado
 	FROM dbo.PedidoWeb p (NOLOCK)
 	INNER JOIN ods.Consultora c (NOLOCK) on p.consultoraid = c.consultoraid
 	INNER JOIN ods.Region r (NOLOCK) on c.regionid = r.regionid
 	INNER JOIN ods.Zona z (NOLOCK) on r.regionid = z.regionid and c.zonaid = z.zonaid
 	INNER JOIN ods.Seccion s (NOLOCK) on c.seccionid = s.seccionid and r.regionid = s.regionid and z.zonaid = s.zonaid
-	LEFT JOIN GPR.PedidoRechazado pr (NOLOCK) ON c.codigo = pr.CodigoConsultora AND CAST(pr.Campania AS INT) =@CampaniaID
-	AND PR.Campania=P.CAMPANIAID
+	LEFT JOIN GPR.PedidoRechazado pr (NOLOCK) ON c.codigo = pr.CodigoConsultora AND CAST(pr.Campania AS INT) = @CampaniaID 
+	/* mostrar solo 1 registro por consultora.*/
+	LEFT JOIN (
+	SELECT PR1.CODIGOCONSULTORA,MAX(_PR.IDPROCESOPEDIDORECHAZADO) IDPROCESO FROM GPR.PROCESOPEDIDORECHAZADO _PR INNER JOIN GPR.PEDIDORECHAZADO PR1 ON _PR.IDPROCESOPEDIDORECHAZADO=PR1.IDPROCESOPEDIDORECHAZADO
 	
+	WHERE PR1.CAMPANIA=@CampaniaID GROUP BY PR1.CODIGOCONSULTORA
+	) IDPROCESORECHAZO
+	ON PR.IDPROCESOPEDIDORECHAZADO=IDPROCESORECHAZO.IDPROCESO AND IDPROCESORECHAZO.CODIGOCONSULTORA=C.CODIGO
+	
+	AND PR.Campania=P.CAMPANIAID 	
 	WHERE 
 		(@CampaniaID is null or p.CampaniaID = @CampaniaID) and
 		p.ImporteTotal <> 0  
-		AND(@EsRechazado = 2 OR (@EsRechazado = 1 AND p.GPRSB = 2 ) OR (@EsRechazado = 0 AND p.GPRSB <> 2 ))
+		AND(@EsRechazado = 2  OR (@EsRechazado = 1 AND p.GPRSB = 2) OR (@EsRechazado = 0 AND p.GPRSB <> 2 ))
 		AND (@EstadoPedido = 0 OR @EstadoPedido = (CASE WHEN p.EstadoPedido = 202 AND p.ValidacionAbierta = 0 AND p.ModificaPedidoReservadoMovil = 0  THEN 202
 						ELSE
 							201	
 						END ))
 		and (@RegionCodigo = '0' or @RegionCodigo is null or r.Codigo = @RegionCodigo)
 		and (@ZonaCodigo = '0' or @ZonaCodigo is null or z.Codigo = @ZonaCodigo)
-		and (@CodigoConsultora = '' or c.Codigo like '%' + @CodigoConsultora + '%') 
-
+		and (@CodigoConsultora = '' or c.Codigo like '%' + @CodigoConsultora + '%')
 		AND PR.PROCESADO=1
-
-		) T
-
-		GROUP BY idprocesopedidorechazado,PedidoID,FechaRegistro,FechaReserva,CampaniaCodigo,Seccion ,ConsultoraCodigo,ConsultoraNombre,ImporteTotal,
-		DescuentoProl,ConsultoraSaldo,OrigenNombre,EstadoValidacionNombre,Zona,Region ,IndicadorEnviado,MontoMinimoPedido,ImporteTotalMM,MotivoRechazo,EstadoPedido
+		) T	WHERE MotivoRechazo IS NOT NULL
+	GROUP BY PedidoID,FechaRegistro,FechaReserva,CampaniaCodigo,Seccion ,ConsultoraCodigo,ConsultoraNombre,ImporteTotal,
+	DescuentoProl,ConsultoraSaldo,OrigenNombre,EstadoValidacionNombre,Zona,Region ,IndicadorEnviado,MontoMinimoPedido,ImporteTotalMM,MotivoRechazo,EstadoPedido
 
 END
 
@@ -556,11 +604,11 @@ CREATE PROCEDURE [dbo].[GetPedidoWebNoFacturado]
 AS
 BEGIN
 
-	SELECT PedidoID,FechaRegistro,FechaReserva,CampaniaCodigo,Seccion ,ConsultoraCodigo,ConsultoraNombre,ImporteTotal,DescuentoProl,ConsultoraSaldo,
+
+	SELECT  PedidoID,FechaRegistro,FechaReserva,CampaniaCodigo,Seccion ,ConsultoraCodigo,ConsultoraNombre,ImporteTotal,DescuentoProl,ConsultoraSaldo,
 			OrigenNombre,EstadoValidacionNombre,Zona,Region ,IndicadorEnviado,MontoMinimoPedido,ImporteTotalMM,MotivoRechazo,EstadoPedido
 	FROM(
-	SELECT  pr.idprocesopedidorechazado,
-	
+	SELECT IDPROCESORECHAZO.IDPROCESO,pr.idprocesopedidorechazado,	
 		p.PedidoID,
 		p.FechaRegistro FechaRegistro,
 		CASE WHEN p.EstadoPedido = 202 
@@ -587,41 +635,49 @@ BEGIN
 		ISNULL(dbo.fnObtenerImporteMM(p.CampaniaID,p.PedidoID,'WEB'), 0) AS ImporteTotalMM,
 		ISNULL(p.CodigoUsuarioModificacion, p.CodigoUsuarioCreacion) AS UsuarioResponsable,
 		(STUFF((SELECT CAST(', ' + 
-			CASE MR.Codigo WHEN 'OCC-16' THEN 'MÍNIMO' 
-				WHEN 'OCC-17' THEN 'MÁXIMO'
-				WHEN 'OCC-19' THEN 'DEUDA'
-				WHEN 'OCC-51' THEN 'MINIMO STOCK' END + ': ' + P1.Valor AS VARCHAR(MAX))
-		FROM GPR.PedidoRechazado  P1
+			CASE MR.Codigo 
+				WHEN 'OCC-16' THEN 'MÍNIMO: ' + CAST(C.MontoMinimoPedido AS VARCHAR(15)) 
+				WHEN 'OCC-17' THEN 'MÁXIMO: ' + CAST(C.MontoMaximoPedido AS VARCHAR(15)) 
+				WHEN 'OCC-19' THEN 'DEUDA: ' + CAST(P1.Valor AS VARCHAR(15)) 
+				WHEN 'OCC-51' THEN 'MINIMO STOCK' END   AS VARCHAR(MAX))
+		FROM GPR.PedidoRechazado P1
 		INNER JOIN GPR.MotivoRechazo MR ON P1.MotivoRechazo = MR.Codigo
-		WHERE p1.codigoconsultora=pr.codigoconsultora and p1.campania=pr.campania and p1.idprocesopedidorechazado=pr.idprocesopedidorechazado AND p.GPRSB = 2
+		WHERE pr.idprocesopedidorechazado = p1.idprocesopedidorechazado AND p1.codigoconsultora=pr.codigoconsultora and p1.campania=pr.campania and p.GPRSB = 2  AND P1.Procesado = 1
+		and p1.idprocesopedidorechazado=IDPROCESORECHAZO.IDPROCESO 
 		FOR XML PATH ('')), 1, 1, '')) AS MotivoRechazo,
-		p.EstadoPedido	
+		p.EstadoPedido		
+		
+		--pr.IdPedidoRechazado
 	FROM dbo.PedidoWeb p (NOLOCK)
 	INNER JOIN ods.Consultora c (NOLOCK) on p.consultoraid = c.consultoraid
 	INNER JOIN ods.Region r (NOLOCK) on c.regionid = r.regionid
 	INNER JOIN ods.Zona z (NOLOCK) on r.regionid = z.regionid and c.zonaid = z.zonaid
 	INNER JOIN ods.Seccion s (NOLOCK) on c.seccionid = s.seccionid and r.regionid = s.regionid and z.zonaid = s.zonaid
-	LEFT JOIN GPR.PedidoRechazado pr (NOLOCK) ON c.codigo = pr.CodigoConsultora AND CAST(pr.Campania AS INT) =@CampaniaID
-	AND PR.Campania=P.CAMPANIAID
+	LEFT JOIN GPR.PedidoRechazado pr (NOLOCK) ON c.codigo = pr.CodigoConsultora AND CAST(pr.Campania AS INT) = @CampaniaID 
+	/* mostrar solo 1 registro por consultora.*/
+	LEFT JOIN (
+	SELECT PR1.CODIGOCONSULTORA,MAX(_PR.IDPROCESOPEDIDORECHAZADO) IDPROCESO FROM GPR.PROCESOPEDIDORECHAZADO _PR INNER JOIN GPR.PEDIDORECHAZADO PR1 ON _PR.IDPROCESOPEDIDORECHAZADO=PR1.IDPROCESOPEDIDORECHAZADO
 	
+	WHERE PR1.CAMPANIA=@CampaniaID GROUP BY PR1.CODIGOCONSULTORA
+	) IDPROCESORECHAZO
+	ON PR.IDPROCESOPEDIDORECHAZADO=IDPROCESORECHAZO.IDPROCESO AND IDPROCESORECHAZO.CODIGOCONSULTORA=C.CODIGO
+	
+	AND PR.Campania=P.CAMPANIAID 	
 	WHERE 
 		(@CampaniaID is null or p.CampaniaID = @CampaniaID) and
 		p.ImporteTotal <> 0  
-		AND(@EsRechazado = 2 OR (@EsRechazado = 1 AND p.GPRSB = 2 ) OR (@EsRechazado = 0 AND p.GPRSB <> 2 ))
+		AND(@EsRechazado = 2  OR (@EsRechazado = 1 AND p.GPRSB = 2) OR (@EsRechazado = 0 AND p.GPRSB <> 2 ))
 		AND (@EstadoPedido = 0 OR @EstadoPedido = (CASE WHEN p.EstadoPedido = 202 AND p.ValidacionAbierta = 0 AND p.ModificaPedidoReservadoMovil = 0  THEN 202
 						ELSE
 							201	
 						END ))
 		and (@RegionCodigo = '0' or @RegionCodigo is null or r.Codigo = @RegionCodigo)
 		and (@ZonaCodigo = '0' or @ZonaCodigo is null or z.Codigo = @ZonaCodigo)
-		and (@CodigoConsultora = '' or c.Codigo like '%' + @CodigoConsultora + '%') 
-
+		and (@CodigoConsultora = '' or c.Codigo like '%' + @CodigoConsultora + '%')
 		AND PR.PROCESADO=1
-
-		) T
-
-		GROUP BY idprocesopedidorechazado,PedidoID,FechaRegistro,FechaReserva,CampaniaCodigo,Seccion ,ConsultoraCodigo,ConsultoraNombre,ImporteTotal,
-		DescuentoProl,ConsultoraSaldo,OrigenNombre,EstadoValidacionNombre,Zona,Region ,IndicadorEnviado,MontoMinimoPedido,ImporteTotalMM,MotivoRechazo,EstadoPedido
+		) T	WHERE MotivoRechazo IS NOT NULL
+	GROUP BY PedidoID,FechaRegistro,FechaReserva,CampaniaCodigo,Seccion ,ConsultoraCodigo,ConsultoraNombre,ImporteTotal,
+	DescuentoProl,ConsultoraSaldo,OrigenNombre,EstadoValidacionNombre,Zona,Region ,IndicadorEnviado,MontoMinimoPedido,ImporteTotalMM,MotivoRechazo,EstadoPedido
 
 END
 
@@ -646,11 +702,11 @@ CREATE PROCEDURE [dbo].[GetPedidoWebNoFacturado]
 AS
 BEGIN
 
-	SELECT PedidoID,FechaRegistro,FechaReserva,CampaniaCodigo,Seccion ,ConsultoraCodigo,ConsultoraNombre,ImporteTotal,DescuentoProl,ConsultoraSaldo,
+
+	SELECT  PedidoID,FechaRegistro,FechaReserva,CampaniaCodigo,Seccion ,ConsultoraCodigo,ConsultoraNombre,ImporteTotal,DescuentoProl,ConsultoraSaldo,
 			OrigenNombre,EstadoValidacionNombre,Zona,Region ,IndicadorEnviado,MontoMinimoPedido,ImporteTotalMM,MotivoRechazo,EstadoPedido
 	FROM(
-	SELECT  pr.idprocesopedidorechazado,
-	
+	SELECT IDPROCESORECHAZO.IDPROCESO,pr.idprocesopedidorechazado,	
 		p.PedidoID,
 		p.FechaRegistro FechaRegistro,
 		CASE WHEN p.EstadoPedido = 202 
@@ -677,41 +733,49 @@ BEGIN
 		ISNULL(dbo.fnObtenerImporteMM(p.CampaniaID,p.PedidoID,'WEB'), 0) AS ImporteTotalMM,
 		ISNULL(p.CodigoUsuarioModificacion, p.CodigoUsuarioCreacion) AS UsuarioResponsable,
 		(STUFF((SELECT CAST(', ' + 
-			CASE MR.Codigo WHEN 'OCC-16' THEN 'MÍNIMO' 
-				WHEN 'OCC-17' THEN 'MÁXIMO'
-				WHEN 'OCC-19' THEN 'DEUDA'
-				WHEN 'OCC-51' THEN 'MINIMO STOCK' END + ': ' + P1.Valor AS VARCHAR(MAX))
-		FROM GPR.PedidoRechazado  P1
+			CASE MR.Codigo 
+				WHEN 'OCC-16' THEN 'MÍNIMO: ' + CAST(C.MontoMinimoPedido AS VARCHAR(15)) 
+				WHEN 'OCC-17' THEN 'MÁXIMO: ' + CAST(C.MontoMaximoPedido AS VARCHAR(15)) 
+				WHEN 'OCC-19' THEN 'DEUDA: ' + CAST(P1.Valor AS VARCHAR(15)) 
+				WHEN 'OCC-51' THEN 'MINIMO STOCK' END   AS VARCHAR(MAX))
+		FROM GPR.PedidoRechazado P1
 		INNER JOIN GPR.MotivoRechazo MR ON P1.MotivoRechazo = MR.Codigo
-		WHERE p1.codigoconsultora=pr.codigoconsultora and p1.campania=pr.campania and p1.idprocesopedidorechazado=pr.idprocesopedidorechazado AND p.GPRSB = 2
+		WHERE pr.idprocesopedidorechazado = p1.idprocesopedidorechazado AND p1.codigoconsultora=pr.codigoconsultora and p1.campania=pr.campania and p.GPRSB = 2  AND P1.Procesado = 1
+		and p1.idprocesopedidorechazado=IDPROCESORECHAZO.IDPROCESO 
 		FOR XML PATH ('')), 1, 1, '')) AS MotivoRechazo,
-		p.EstadoPedido	
+		p.EstadoPedido		
+		
+		--pr.IdPedidoRechazado
 	FROM dbo.PedidoWeb p (NOLOCK)
 	INNER JOIN ods.Consultora c (NOLOCK) on p.consultoraid = c.consultoraid
 	INNER JOIN ods.Region r (NOLOCK) on c.regionid = r.regionid
 	INNER JOIN ods.Zona z (NOLOCK) on r.regionid = z.regionid and c.zonaid = z.zonaid
 	INNER JOIN ods.Seccion s (NOLOCK) on c.seccionid = s.seccionid and r.regionid = s.regionid and z.zonaid = s.zonaid
-	LEFT JOIN GPR.PedidoRechazado pr (NOLOCK) ON c.codigo = pr.CodigoConsultora AND CAST(pr.Campania AS INT) =@CampaniaID
-	AND PR.Campania=P.CAMPANIAID
+	LEFT JOIN GPR.PedidoRechazado pr (NOLOCK) ON c.codigo = pr.CodigoConsultora AND CAST(pr.Campania AS INT) = @CampaniaID 
+	/* mostrar solo 1 registro por consultora.*/
+	LEFT JOIN (
+	SELECT PR1.CODIGOCONSULTORA,MAX(_PR.IDPROCESOPEDIDORECHAZADO) IDPROCESO FROM GPR.PROCESOPEDIDORECHAZADO _PR INNER JOIN GPR.PEDIDORECHAZADO PR1 ON _PR.IDPROCESOPEDIDORECHAZADO=PR1.IDPROCESOPEDIDORECHAZADO
 	
+	WHERE PR1.CAMPANIA=@CampaniaID GROUP BY PR1.CODIGOCONSULTORA
+	) IDPROCESORECHAZO
+	ON PR.IDPROCESOPEDIDORECHAZADO=IDPROCESORECHAZO.IDPROCESO AND IDPROCESORECHAZO.CODIGOCONSULTORA=C.CODIGO
+	
+	AND PR.Campania=P.CAMPANIAID 	
 	WHERE 
 		(@CampaniaID is null or p.CampaniaID = @CampaniaID) and
 		p.ImporteTotal <> 0  
-		AND(@EsRechazado = 2 OR (@EsRechazado = 1 AND p.GPRSB = 2 ) OR (@EsRechazado = 0 AND p.GPRSB <> 2 ))
+		AND(@EsRechazado = 2  OR (@EsRechazado = 1 AND p.GPRSB = 2) OR (@EsRechazado = 0 AND p.GPRSB <> 2 ))
 		AND (@EstadoPedido = 0 OR @EstadoPedido = (CASE WHEN p.EstadoPedido = 202 AND p.ValidacionAbierta = 0 AND p.ModificaPedidoReservadoMovil = 0  THEN 202
 						ELSE
 							201	
 						END ))
 		and (@RegionCodigo = '0' or @RegionCodigo is null or r.Codigo = @RegionCodigo)
 		and (@ZonaCodigo = '0' or @ZonaCodigo is null or z.Codigo = @ZonaCodigo)
-		and (@CodigoConsultora = '' or c.Codigo like '%' + @CodigoConsultora + '%') 
-
+		and (@CodigoConsultora = '' or c.Codigo like '%' + @CodigoConsultora + '%')
 		AND PR.PROCESADO=1
-
-		) T
-
-		GROUP BY idprocesopedidorechazado,PedidoID,FechaRegistro,FechaReserva,CampaniaCodigo,Seccion ,ConsultoraCodigo,ConsultoraNombre,ImporteTotal,
-		DescuentoProl,ConsultoraSaldo,OrigenNombre,EstadoValidacionNombre,Zona,Region ,IndicadorEnviado,MontoMinimoPedido,ImporteTotalMM,MotivoRechazo,EstadoPedido
+		) T	WHERE MotivoRechazo IS NOT NULL
+	GROUP BY PedidoID,FechaRegistro,FechaReserva,CampaniaCodigo,Seccion ,ConsultoraCodigo,ConsultoraNombre,ImporteTotal,
+	DescuentoProl,ConsultoraSaldo,OrigenNombre,EstadoValidacionNombre,Zona,Region ,IndicadorEnviado,MontoMinimoPedido,ImporteTotalMM,MotivoRechazo,EstadoPedido
 
 END
 
@@ -736,11 +800,11 @@ CREATE PROCEDURE [dbo].[GetPedidoWebNoFacturado]
 AS
 BEGIN
 
-	SELECT PedidoID,FechaRegistro,FechaReserva,CampaniaCodigo,Seccion ,ConsultoraCodigo,ConsultoraNombre,ImporteTotal,DescuentoProl,ConsultoraSaldo,
+
+	SELECT  PedidoID,FechaRegistro,FechaReserva,CampaniaCodigo,Seccion ,ConsultoraCodigo,ConsultoraNombre,ImporteTotal,DescuentoProl,ConsultoraSaldo,
 			OrigenNombre,EstadoValidacionNombre,Zona,Region ,IndicadorEnviado,MontoMinimoPedido,ImporteTotalMM,MotivoRechazo,EstadoPedido
 	FROM(
-	SELECT  pr.idprocesopedidorechazado,
-	
+	SELECT IDPROCESORECHAZO.IDPROCESO,pr.idprocesopedidorechazado,	
 		p.PedidoID,
 		p.FechaRegistro FechaRegistro,
 		CASE WHEN p.EstadoPedido = 202 
@@ -767,41 +831,49 @@ BEGIN
 		ISNULL(dbo.fnObtenerImporteMM(p.CampaniaID,p.PedidoID,'WEB'), 0) AS ImporteTotalMM,
 		ISNULL(p.CodigoUsuarioModificacion, p.CodigoUsuarioCreacion) AS UsuarioResponsable,
 		(STUFF((SELECT CAST(', ' + 
-			CASE MR.Codigo WHEN 'OCC-16' THEN 'MÍNIMO' 
-				WHEN 'OCC-17' THEN 'MÁXIMO'
-				WHEN 'OCC-19' THEN 'DEUDA'
-				WHEN 'OCC-51' THEN 'MINIMO STOCK' END + ': ' + P1.Valor AS VARCHAR(MAX))
-		FROM GPR.PedidoRechazado  P1
+			CASE MR.Codigo 
+				WHEN 'OCC-16' THEN 'MÍNIMO: ' + CAST(C.MontoMinimoPedido AS VARCHAR(15)) 
+				WHEN 'OCC-17' THEN 'MÁXIMO: ' + CAST(C.MontoMaximoPedido AS VARCHAR(15)) 
+				WHEN 'OCC-19' THEN 'DEUDA: ' + CAST(P1.Valor AS VARCHAR(15)) 
+				WHEN 'OCC-51' THEN 'MINIMO STOCK' END   AS VARCHAR(MAX))
+		FROM GPR.PedidoRechazado P1
 		INNER JOIN GPR.MotivoRechazo MR ON P1.MotivoRechazo = MR.Codigo
-		WHERE p1.codigoconsultora=pr.codigoconsultora and p1.campania=pr.campania and p1.idprocesopedidorechazado=pr.idprocesopedidorechazado AND p.GPRSB = 2
+		WHERE pr.idprocesopedidorechazado = p1.idprocesopedidorechazado AND p1.codigoconsultora=pr.codigoconsultora and p1.campania=pr.campania and p.GPRSB = 2  AND P1.Procesado = 1
+		and p1.idprocesopedidorechazado=IDPROCESORECHAZO.IDPROCESO 
 		FOR XML PATH ('')), 1, 1, '')) AS MotivoRechazo,
-		p.EstadoPedido	
+		p.EstadoPedido		
+		
+		--pr.IdPedidoRechazado
 	FROM dbo.PedidoWeb p (NOLOCK)
 	INNER JOIN ods.Consultora c (NOLOCK) on p.consultoraid = c.consultoraid
 	INNER JOIN ods.Region r (NOLOCK) on c.regionid = r.regionid
 	INNER JOIN ods.Zona z (NOLOCK) on r.regionid = z.regionid and c.zonaid = z.zonaid
 	INNER JOIN ods.Seccion s (NOLOCK) on c.seccionid = s.seccionid and r.regionid = s.regionid and z.zonaid = s.zonaid
-	LEFT JOIN GPR.PedidoRechazado pr (NOLOCK) ON c.codigo = pr.CodigoConsultora AND CAST(pr.Campania AS INT) =@CampaniaID
-	AND PR.Campania=P.CAMPANIAID
+	LEFT JOIN GPR.PedidoRechazado pr (NOLOCK) ON c.codigo = pr.CodigoConsultora AND CAST(pr.Campania AS INT) = @CampaniaID 
+	/* mostrar solo 1 registro por consultora.*/
+	LEFT JOIN (
+	SELECT PR1.CODIGOCONSULTORA,MAX(_PR.IDPROCESOPEDIDORECHAZADO) IDPROCESO FROM GPR.PROCESOPEDIDORECHAZADO _PR INNER JOIN GPR.PEDIDORECHAZADO PR1 ON _PR.IDPROCESOPEDIDORECHAZADO=PR1.IDPROCESOPEDIDORECHAZADO
 	
+	WHERE PR1.CAMPANIA=@CampaniaID GROUP BY PR1.CODIGOCONSULTORA
+	) IDPROCESORECHAZO
+	ON PR.IDPROCESOPEDIDORECHAZADO=IDPROCESORECHAZO.IDPROCESO AND IDPROCESORECHAZO.CODIGOCONSULTORA=C.CODIGO
+	
+	AND PR.Campania=P.CAMPANIAID 	
 	WHERE 
 		(@CampaniaID is null or p.CampaniaID = @CampaniaID) and
 		p.ImporteTotal <> 0  
-		AND(@EsRechazado = 2 OR (@EsRechazado = 1 AND p.GPRSB = 2 ) OR (@EsRechazado = 0 AND p.GPRSB <> 2 ))
+		AND(@EsRechazado = 2  OR (@EsRechazado = 1 AND p.GPRSB = 2) OR (@EsRechazado = 0 AND p.GPRSB <> 2 ))
 		AND (@EstadoPedido = 0 OR @EstadoPedido = (CASE WHEN p.EstadoPedido = 202 AND p.ValidacionAbierta = 0 AND p.ModificaPedidoReservadoMovil = 0  THEN 202
 						ELSE
 							201	
 						END ))
 		and (@RegionCodigo = '0' or @RegionCodigo is null or r.Codigo = @RegionCodigo)
 		and (@ZonaCodigo = '0' or @ZonaCodigo is null or z.Codigo = @ZonaCodigo)
-		and (@CodigoConsultora = '' or c.Codigo like '%' + @CodigoConsultora + '%') 
-
+		and (@CodigoConsultora = '' or c.Codigo like '%' + @CodigoConsultora + '%')
 		AND PR.PROCESADO=1
-
-		) T
-
-		GROUP BY idprocesopedidorechazado,PedidoID,FechaRegistro,FechaReserva,CampaniaCodigo,Seccion ,ConsultoraCodigo,ConsultoraNombre,ImporteTotal,
-		DescuentoProl,ConsultoraSaldo,OrigenNombre,EstadoValidacionNombre,Zona,Region ,IndicadorEnviado,MontoMinimoPedido,ImporteTotalMM,MotivoRechazo,EstadoPedido
+		) T	WHERE MotivoRechazo IS NOT NULL
+	GROUP BY PedidoID,FechaRegistro,FechaReserva,CampaniaCodigo,Seccion ,ConsultoraCodigo,ConsultoraNombre,ImporteTotal,
+	DescuentoProl,ConsultoraSaldo,OrigenNombre,EstadoValidacionNombre,Zona,Region ,IndicadorEnviado,MontoMinimoPedido,ImporteTotalMM,MotivoRechazo,EstadoPedido
 
 END
 
@@ -826,11 +898,11 @@ CREATE PROCEDURE [dbo].[GetPedidoWebNoFacturado]
 AS
 BEGIN
 
-	SELECT PedidoID,FechaRegistro,FechaReserva,CampaniaCodigo,Seccion ,ConsultoraCodigo,ConsultoraNombre,ImporteTotal,DescuentoProl,ConsultoraSaldo,
+
+	SELECT  PedidoID,FechaRegistro,FechaReserva,CampaniaCodigo,Seccion ,ConsultoraCodigo,ConsultoraNombre,ImporteTotal,DescuentoProl,ConsultoraSaldo,
 			OrigenNombre,EstadoValidacionNombre,Zona,Region ,IndicadorEnviado,MontoMinimoPedido,ImporteTotalMM,MotivoRechazo,EstadoPedido
 	FROM(
-	SELECT  pr.idprocesopedidorechazado,
-	
+	SELECT IDPROCESORECHAZO.IDPROCESO,pr.idprocesopedidorechazado,	
 		p.PedidoID,
 		p.FechaRegistro FechaRegistro,
 		CASE WHEN p.EstadoPedido = 202 
@@ -857,41 +929,49 @@ BEGIN
 		ISNULL(dbo.fnObtenerImporteMM(p.CampaniaID,p.PedidoID,'WEB'), 0) AS ImporteTotalMM,
 		ISNULL(p.CodigoUsuarioModificacion, p.CodigoUsuarioCreacion) AS UsuarioResponsable,
 		(STUFF((SELECT CAST(', ' + 
-			CASE MR.Codigo WHEN 'OCC-16' THEN 'MÍNIMO' 
-				WHEN 'OCC-17' THEN 'MÁXIMO'
-				WHEN 'OCC-19' THEN 'DEUDA'
-				WHEN 'OCC-51' THEN 'MINIMO STOCK' END + ': ' + P1.Valor AS VARCHAR(MAX))
-		FROM GPR.PedidoRechazado  P1
+			CASE MR.Codigo 
+				WHEN 'OCC-16' THEN 'MÍNIMO: ' + CAST(C.MontoMinimoPedido AS VARCHAR(15)) 
+				WHEN 'OCC-17' THEN 'MÁXIMO: ' + CAST(C.MontoMaximoPedido AS VARCHAR(15)) 
+				WHEN 'OCC-19' THEN 'DEUDA: ' + CAST(P1.Valor AS VARCHAR(15)) 
+				WHEN 'OCC-51' THEN 'MINIMO STOCK' END   AS VARCHAR(MAX))
+		FROM GPR.PedidoRechazado P1
 		INNER JOIN GPR.MotivoRechazo MR ON P1.MotivoRechazo = MR.Codigo
-		WHERE p1.codigoconsultora=pr.codigoconsultora and p1.campania=pr.campania and p1.idprocesopedidorechazado=pr.idprocesopedidorechazado AND p.GPRSB = 2
+		WHERE pr.idprocesopedidorechazado = p1.idprocesopedidorechazado AND p1.codigoconsultora=pr.codigoconsultora and p1.campania=pr.campania and p.GPRSB = 2  AND P1.Procesado = 1
+		and p1.idprocesopedidorechazado=IDPROCESORECHAZO.IDPROCESO 
 		FOR XML PATH ('')), 1, 1, '')) AS MotivoRechazo,
-		p.EstadoPedido	
+		p.EstadoPedido		
+		
+		--pr.IdPedidoRechazado
 	FROM dbo.PedidoWeb p (NOLOCK)
 	INNER JOIN ods.Consultora c (NOLOCK) on p.consultoraid = c.consultoraid
 	INNER JOIN ods.Region r (NOLOCK) on c.regionid = r.regionid
 	INNER JOIN ods.Zona z (NOLOCK) on r.regionid = z.regionid and c.zonaid = z.zonaid
 	INNER JOIN ods.Seccion s (NOLOCK) on c.seccionid = s.seccionid and r.regionid = s.regionid and z.zonaid = s.zonaid
-	LEFT JOIN GPR.PedidoRechazado pr (NOLOCK) ON c.codigo = pr.CodigoConsultora AND CAST(pr.Campania AS INT) =@CampaniaID
-	AND PR.Campania=P.CAMPANIAID
+	LEFT JOIN GPR.PedidoRechazado pr (NOLOCK) ON c.codigo = pr.CodigoConsultora AND CAST(pr.Campania AS INT) = @CampaniaID 
+	/* mostrar solo 1 registro por consultora.*/
+	LEFT JOIN (
+	SELECT PR1.CODIGOCONSULTORA,MAX(_PR.IDPROCESOPEDIDORECHAZADO) IDPROCESO FROM GPR.PROCESOPEDIDORECHAZADO _PR INNER JOIN GPR.PEDIDORECHAZADO PR1 ON _PR.IDPROCESOPEDIDORECHAZADO=PR1.IDPROCESOPEDIDORECHAZADO
 	
+	WHERE PR1.CAMPANIA=@CampaniaID GROUP BY PR1.CODIGOCONSULTORA
+	) IDPROCESORECHAZO
+	ON PR.IDPROCESOPEDIDORECHAZADO=IDPROCESORECHAZO.IDPROCESO AND IDPROCESORECHAZO.CODIGOCONSULTORA=C.CODIGO
+	
+	AND PR.Campania=P.CAMPANIAID 	
 	WHERE 
 		(@CampaniaID is null or p.CampaniaID = @CampaniaID) and
 		p.ImporteTotal <> 0  
-		AND(@EsRechazado = 2 OR (@EsRechazado = 1 AND p.GPRSB = 2 ) OR (@EsRechazado = 0 AND p.GPRSB <> 2 ))
+		AND(@EsRechazado = 2  OR (@EsRechazado = 1 AND p.GPRSB = 2) OR (@EsRechazado = 0 AND p.GPRSB <> 2 ))
 		AND (@EstadoPedido = 0 OR @EstadoPedido = (CASE WHEN p.EstadoPedido = 202 AND p.ValidacionAbierta = 0 AND p.ModificaPedidoReservadoMovil = 0  THEN 202
 						ELSE
 							201	
 						END ))
 		and (@RegionCodigo = '0' or @RegionCodigo is null or r.Codigo = @RegionCodigo)
 		and (@ZonaCodigo = '0' or @ZonaCodigo is null or z.Codigo = @ZonaCodigo)
-		and (@CodigoConsultora = '' or c.Codigo like '%' + @CodigoConsultora + '%') 
-
+		and (@CodigoConsultora = '' or c.Codigo like '%' + @CodigoConsultora + '%')
 		AND PR.PROCESADO=1
-
-		) T
-
-		GROUP BY idprocesopedidorechazado,PedidoID,FechaRegistro,FechaReserva,CampaniaCodigo,Seccion ,ConsultoraCodigo,ConsultoraNombre,ImporteTotal,
-		DescuentoProl,ConsultoraSaldo,OrigenNombre,EstadoValidacionNombre,Zona,Region ,IndicadorEnviado,MontoMinimoPedido,ImporteTotalMM,MotivoRechazo,EstadoPedido
+		) T	WHERE MotivoRechazo IS NOT NULL
+	GROUP BY PedidoID,FechaRegistro,FechaReserva,CampaniaCodigo,Seccion ,ConsultoraCodigo,ConsultoraNombre,ImporteTotal,
+	DescuentoProl,ConsultoraSaldo,OrigenNombre,EstadoValidacionNombre,Zona,Region ,IndicadorEnviado,MontoMinimoPedido,ImporteTotalMM,MotivoRechazo,EstadoPedido
 
 END
 
@@ -916,11 +996,11 @@ CREATE PROCEDURE [dbo].[GetPedidoWebNoFacturado]
 AS
 BEGIN
 
-	SELECT PedidoID,FechaRegistro,FechaReserva,CampaniaCodigo,Seccion ,ConsultoraCodigo,ConsultoraNombre,ImporteTotal,DescuentoProl,ConsultoraSaldo,
+
+	SELECT  PedidoID,FechaRegistro,FechaReserva,CampaniaCodigo,Seccion ,ConsultoraCodigo,ConsultoraNombre,ImporteTotal,DescuentoProl,ConsultoraSaldo,
 			OrigenNombre,EstadoValidacionNombre,Zona,Region ,IndicadorEnviado,MontoMinimoPedido,ImporteTotalMM,MotivoRechazo,EstadoPedido
 	FROM(
-	SELECT  pr.idprocesopedidorechazado,
-	
+	SELECT IDPROCESORECHAZO.IDPROCESO,pr.idprocesopedidorechazado,	
 		p.PedidoID,
 		p.FechaRegistro FechaRegistro,
 		CASE WHEN p.EstadoPedido = 202 
@@ -947,41 +1027,49 @@ BEGIN
 		ISNULL(dbo.fnObtenerImporteMM(p.CampaniaID,p.PedidoID,'WEB'), 0) AS ImporteTotalMM,
 		ISNULL(p.CodigoUsuarioModificacion, p.CodigoUsuarioCreacion) AS UsuarioResponsable,
 		(STUFF((SELECT CAST(', ' + 
-			CASE MR.Codigo WHEN 'OCC-16' THEN 'MÍNIMO' 
-				WHEN 'OCC-17' THEN 'MÁXIMO'
-				WHEN 'OCC-19' THEN 'DEUDA'
-				WHEN 'OCC-51' THEN 'MINIMO STOCK' END + ': ' + P1.Valor AS VARCHAR(MAX))
-		FROM GPR.PedidoRechazado  P1
+			CASE MR.Codigo 
+				WHEN 'OCC-16' THEN 'MÍNIMO: ' + CAST(C.MontoMinimoPedido AS VARCHAR(15)) 
+				WHEN 'OCC-17' THEN 'MÁXIMO: ' + CAST(C.MontoMaximoPedido AS VARCHAR(15)) 
+				WHEN 'OCC-19' THEN 'DEUDA: ' + CAST(P1.Valor AS VARCHAR(15)) 
+				WHEN 'OCC-51' THEN 'MINIMO STOCK' END   AS VARCHAR(MAX))
+		FROM GPR.PedidoRechazado P1
 		INNER JOIN GPR.MotivoRechazo MR ON P1.MotivoRechazo = MR.Codigo
-		WHERE p1.codigoconsultora=pr.codigoconsultora and p1.campania=pr.campania and p1.idprocesopedidorechazado=pr.idprocesopedidorechazado AND p.GPRSB = 2
+		WHERE pr.idprocesopedidorechazado = p1.idprocesopedidorechazado AND p1.codigoconsultora=pr.codigoconsultora and p1.campania=pr.campania and p.GPRSB = 2  AND P1.Procesado = 1
+		and p1.idprocesopedidorechazado=IDPROCESORECHAZO.IDPROCESO 
 		FOR XML PATH ('')), 1, 1, '')) AS MotivoRechazo,
-		p.EstadoPedido	
+		p.EstadoPedido		
+		
+		--pr.IdPedidoRechazado
 	FROM dbo.PedidoWeb p (NOLOCK)
 	INNER JOIN ods.Consultora c (NOLOCK) on p.consultoraid = c.consultoraid
 	INNER JOIN ods.Region r (NOLOCK) on c.regionid = r.regionid
 	INNER JOIN ods.Zona z (NOLOCK) on r.regionid = z.regionid and c.zonaid = z.zonaid
 	INNER JOIN ods.Seccion s (NOLOCK) on c.seccionid = s.seccionid and r.regionid = s.regionid and z.zonaid = s.zonaid
-	LEFT JOIN GPR.PedidoRechazado pr (NOLOCK) ON c.codigo = pr.CodigoConsultora AND CAST(pr.Campania AS INT) =@CampaniaID
-	AND PR.Campania=P.CAMPANIAID
+	LEFT JOIN GPR.PedidoRechazado pr (NOLOCK) ON c.codigo = pr.CodigoConsultora AND CAST(pr.Campania AS INT) = @CampaniaID 
+	/* mostrar solo 1 registro por consultora.*/
+	LEFT JOIN (
+	SELECT PR1.CODIGOCONSULTORA,MAX(_PR.IDPROCESOPEDIDORECHAZADO) IDPROCESO FROM GPR.PROCESOPEDIDORECHAZADO _PR INNER JOIN GPR.PEDIDORECHAZADO PR1 ON _PR.IDPROCESOPEDIDORECHAZADO=PR1.IDPROCESOPEDIDORECHAZADO
 	
+	WHERE PR1.CAMPANIA=@CampaniaID GROUP BY PR1.CODIGOCONSULTORA
+	) IDPROCESORECHAZO
+	ON PR.IDPROCESOPEDIDORECHAZADO=IDPROCESORECHAZO.IDPROCESO AND IDPROCESORECHAZO.CODIGOCONSULTORA=C.CODIGO
+	
+	AND PR.Campania=P.CAMPANIAID 	
 	WHERE 
 		(@CampaniaID is null or p.CampaniaID = @CampaniaID) and
 		p.ImporteTotal <> 0  
-		AND(@EsRechazado = 2 OR (@EsRechazado = 1 AND p.GPRSB = 2 ) OR (@EsRechazado = 0 AND p.GPRSB <> 2 ))
+		AND(@EsRechazado = 2  OR (@EsRechazado = 1 AND p.GPRSB = 2) OR (@EsRechazado = 0 AND p.GPRSB <> 2 ))
 		AND (@EstadoPedido = 0 OR @EstadoPedido = (CASE WHEN p.EstadoPedido = 202 AND p.ValidacionAbierta = 0 AND p.ModificaPedidoReservadoMovil = 0  THEN 202
 						ELSE
 							201	
 						END ))
 		and (@RegionCodigo = '0' or @RegionCodigo is null or r.Codigo = @RegionCodigo)
 		and (@ZonaCodigo = '0' or @ZonaCodigo is null or z.Codigo = @ZonaCodigo)
-		and (@CodigoConsultora = '' or c.Codigo like '%' + @CodigoConsultora + '%') 
-
+		and (@CodigoConsultora = '' or c.Codigo like '%' + @CodigoConsultora + '%')
 		AND PR.PROCESADO=1
-
-		) T
-
-		GROUP BY idprocesopedidorechazado,PedidoID,FechaRegistro,FechaReserva,CampaniaCodigo,Seccion ,ConsultoraCodigo,ConsultoraNombre,ImporteTotal,
-		DescuentoProl,ConsultoraSaldo,OrigenNombre,EstadoValidacionNombre,Zona,Region ,IndicadorEnviado,MontoMinimoPedido,ImporteTotalMM,MotivoRechazo,EstadoPedido
+		) T	WHERE MotivoRechazo IS NOT NULL
+	GROUP BY PedidoID,FechaRegistro,FechaReserva,CampaniaCodigo,Seccion ,ConsultoraCodigo,ConsultoraNombre,ImporteTotal,
+	DescuentoProl,ConsultoraSaldo,OrigenNombre,EstadoValidacionNombre,Zona,Region ,IndicadorEnviado,MontoMinimoPedido,ImporteTotalMM,MotivoRechazo,EstadoPedido
 
 END
 
@@ -1006,11 +1094,11 @@ CREATE PROCEDURE [dbo].[GetPedidoWebNoFacturado]
 AS
 BEGIN
 
-	SELECT PedidoID,FechaRegistro,FechaReserva,CampaniaCodigo,Seccion ,ConsultoraCodigo,ConsultoraNombre,ImporteTotal,DescuentoProl,ConsultoraSaldo,
+
+	SELECT  PedidoID,FechaRegistro,FechaReserva,CampaniaCodigo,Seccion ,ConsultoraCodigo,ConsultoraNombre,ImporteTotal,DescuentoProl,ConsultoraSaldo,
 			OrigenNombre,EstadoValidacionNombre,Zona,Region ,IndicadorEnviado,MontoMinimoPedido,ImporteTotalMM,MotivoRechazo,EstadoPedido
 	FROM(
-	SELECT  pr.idprocesopedidorechazado,
-	
+	SELECT IDPROCESORECHAZO.IDPROCESO,pr.idprocesopedidorechazado,	
 		p.PedidoID,
 		p.FechaRegistro FechaRegistro,
 		CASE WHEN p.EstadoPedido = 202 
@@ -1037,41 +1125,49 @@ BEGIN
 		ISNULL(dbo.fnObtenerImporteMM(p.CampaniaID,p.PedidoID,'WEB'), 0) AS ImporteTotalMM,
 		ISNULL(p.CodigoUsuarioModificacion, p.CodigoUsuarioCreacion) AS UsuarioResponsable,
 		(STUFF((SELECT CAST(', ' + 
-			CASE MR.Codigo WHEN 'OCC-16' THEN 'MÍNIMO' 
-				WHEN 'OCC-17' THEN 'MÁXIMO'
-				WHEN 'OCC-19' THEN 'DEUDA'
-				WHEN 'OCC-51' THEN 'MINIMO STOCK' END + ': ' + P1.Valor AS VARCHAR(MAX))
-		FROM GPR.PedidoRechazado  P1
+			CASE MR.Codigo 
+				WHEN 'OCC-16' THEN 'MÍNIMO: ' + CAST(C.MontoMinimoPedido AS VARCHAR(15)) 
+				WHEN 'OCC-17' THEN 'MÁXIMO: ' + CAST(C.MontoMaximoPedido AS VARCHAR(15)) 
+				WHEN 'OCC-19' THEN 'DEUDA: ' + CAST(P1.Valor AS VARCHAR(15)) 
+				WHEN 'OCC-51' THEN 'MINIMO STOCK' END   AS VARCHAR(MAX))
+		FROM GPR.PedidoRechazado P1
 		INNER JOIN GPR.MotivoRechazo MR ON P1.MotivoRechazo = MR.Codigo
-		WHERE p1.codigoconsultora=pr.codigoconsultora and p1.campania=pr.campania and p1.idprocesopedidorechazado=pr.idprocesopedidorechazado AND p.GPRSB = 2
+		WHERE pr.idprocesopedidorechazado = p1.idprocesopedidorechazado AND p1.codigoconsultora=pr.codigoconsultora and p1.campania=pr.campania and p.GPRSB = 2  AND P1.Procesado = 1
+		and p1.idprocesopedidorechazado=IDPROCESORECHAZO.IDPROCESO 
 		FOR XML PATH ('')), 1, 1, '')) AS MotivoRechazo,
-		p.EstadoPedido	
+		p.EstadoPedido		
+		
+		--pr.IdPedidoRechazado
 	FROM dbo.PedidoWeb p (NOLOCK)
 	INNER JOIN ods.Consultora c (NOLOCK) on p.consultoraid = c.consultoraid
 	INNER JOIN ods.Region r (NOLOCK) on c.regionid = r.regionid
 	INNER JOIN ods.Zona z (NOLOCK) on r.regionid = z.regionid and c.zonaid = z.zonaid
 	INNER JOIN ods.Seccion s (NOLOCK) on c.seccionid = s.seccionid and r.regionid = s.regionid and z.zonaid = s.zonaid
-	LEFT JOIN GPR.PedidoRechazado pr (NOLOCK) ON c.codigo = pr.CodigoConsultora AND CAST(pr.Campania AS INT) =@CampaniaID
-	AND PR.Campania=P.CAMPANIAID
+	LEFT JOIN GPR.PedidoRechazado pr (NOLOCK) ON c.codigo = pr.CodigoConsultora AND CAST(pr.Campania AS INT) = @CampaniaID 
+	/* mostrar solo 1 registro por consultora.*/
+	LEFT JOIN (
+	SELECT PR1.CODIGOCONSULTORA,MAX(_PR.IDPROCESOPEDIDORECHAZADO) IDPROCESO FROM GPR.PROCESOPEDIDORECHAZADO _PR INNER JOIN GPR.PEDIDORECHAZADO PR1 ON _PR.IDPROCESOPEDIDORECHAZADO=PR1.IDPROCESOPEDIDORECHAZADO
 	
+	WHERE PR1.CAMPANIA=@CampaniaID GROUP BY PR1.CODIGOCONSULTORA
+	) IDPROCESORECHAZO
+	ON PR.IDPROCESOPEDIDORECHAZADO=IDPROCESORECHAZO.IDPROCESO AND IDPROCESORECHAZO.CODIGOCONSULTORA=C.CODIGO
+	
+	AND PR.Campania=P.CAMPANIAID 	
 	WHERE 
 		(@CampaniaID is null or p.CampaniaID = @CampaniaID) and
 		p.ImporteTotal <> 0  
-		AND(@EsRechazado = 2 OR (@EsRechazado = 1 AND p.GPRSB = 2 ) OR (@EsRechazado = 0 AND p.GPRSB <> 2 ))
+		AND(@EsRechazado = 2  OR (@EsRechazado = 1 AND p.GPRSB = 2) OR (@EsRechazado = 0 AND p.GPRSB <> 2 ))
 		AND (@EstadoPedido = 0 OR @EstadoPedido = (CASE WHEN p.EstadoPedido = 202 AND p.ValidacionAbierta = 0 AND p.ModificaPedidoReservadoMovil = 0  THEN 202
 						ELSE
 							201	
 						END ))
 		and (@RegionCodigo = '0' or @RegionCodigo is null or r.Codigo = @RegionCodigo)
 		and (@ZonaCodigo = '0' or @ZonaCodigo is null or z.Codigo = @ZonaCodigo)
-		and (@CodigoConsultora = '' or c.Codigo like '%' + @CodigoConsultora + '%') 
-
+		and (@CodigoConsultora = '' or c.Codigo like '%' + @CodigoConsultora + '%')
 		AND PR.PROCESADO=1
-
-		) T
-
-		GROUP BY idprocesopedidorechazado,PedidoID,FechaRegistro,FechaReserva,CampaniaCodigo,Seccion ,ConsultoraCodigo,ConsultoraNombre,ImporteTotal,
-		DescuentoProl,ConsultoraSaldo,OrigenNombre,EstadoValidacionNombre,Zona,Region ,IndicadorEnviado,MontoMinimoPedido,ImporteTotalMM,MotivoRechazo,EstadoPedido
+		) T	WHERE MotivoRechazo IS NOT NULL
+	GROUP BY PedidoID,FechaRegistro,FechaReserva,CampaniaCodigo,Seccion ,ConsultoraCodigo,ConsultoraNombre,ImporteTotal,
+	DescuentoProl,ConsultoraSaldo,OrigenNombre,EstadoValidacionNombre,Zona,Region ,IndicadorEnviado,MontoMinimoPedido,ImporteTotalMM,MotivoRechazo,EstadoPedido
 
 END
 
@@ -1096,11 +1192,11 @@ CREATE PROCEDURE [dbo].[GetPedidoWebNoFacturado]
 AS
 BEGIN
 
-	SELECT PedidoID,FechaRegistro,FechaReserva,CampaniaCodigo,Seccion ,ConsultoraCodigo,ConsultoraNombre,ImporteTotal,DescuentoProl,ConsultoraSaldo,
+
+	SELECT  PedidoID,FechaRegistro,FechaReserva,CampaniaCodigo,Seccion ,ConsultoraCodigo,ConsultoraNombre,ImporteTotal,DescuentoProl,ConsultoraSaldo,
 			OrigenNombre,EstadoValidacionNombre,Zona,Region ,IndicadorEnviado,MontoMinimoPedido,ImporteTotalMM,MotivoRechazo,EstadoPedido
 	FROM(
-	SELECT  pr.idprocesopedidorechazado,
-	
+	SELECT IDPROCESORECHAZO.IDPROCESO,pr.idprocesopedidorechazado,	
 		p.PedidoID,
 		p.FechaRegistro FechaRegistro,
 		CASE WHEN p.EstadoPedido = 202 
@@ -1127,41 +1223,49 @@ BEGIN
 		ISNULL(dbo.fnObtenerImporteMM(p.CampaniaID,p.PedidoID,'WEB'), 0) AS ImporteTotalMM,
 		ISNULL(p.CodigoUsuarioModificacion, p.CodigoUsuarioCreacion) AS UsuarioResponsable,
 		(STUFF((SELECT CAST(', ' + 
-			CASE MR.Codigo WHEN 'OCC-16' THEN 'MÍNIMO' 
-				WHEN 'OCC-17' THEN 'MÁXIMO'
-				WHEN 'OCC-19' THEN 'DEUDA'
-				WHEN 'OCC-51' THEN 'MINIMO STOCK' END + ': ' + P1.Valor AS VARCHAR(MAX))
-		FROM GPR.PedidoRechazado  P1
+			CASE MR.Codigo 
+				WHEN 'OCC-16' THEN 'MÍNIMO: ' + CAST(C.MontoMinimoPedido AS VARCHAR(15)) 
+				WHEN 'OCC-17' THEN 'MÁXIMO: ' + CAST(C.MontoMaximoPedido AS VARCHAR(15)) 
+				WHEN 'OCC-19' THEN 'DEUDA: ' + CAST(P1.Valor AS VARCHAR(15)) 
+				WHEN 'OCC-51' THEN 'MINIMO STOCK' END   AS VARCHAR(MAX))
+		FROM GPR.PedidoRechazado P1
 		INNER JOIN GPR.MotivoRechazo MR ON P1.MotivoRechazo = MR.Codigo
-		WHERE p1.codigoconsultora=pr.codigoconsultora and p1.campania=pr.campania and p1.idprocesopedidorechazado=pr.idprocesopedidorechazado AND p.GPRSB = 2
+		WHERE pr.idprocesopedidorechazado = p1.idprocesopedidorechazado AND p1.codigoconsultora=pr.codigoconsultora and p1.campania=pr.campania and p.GPRSB = 2  AND P1.Procesado = 1
+		and p1.idprocesopedidorechazado=IDPROCESORECHAZO.IDPROCESO 
 		FOR XML PATH ('')), 1, 1, '')) AS MotivoRechazo,
-		p.EstadoPedido	
+		p.EstadoPedido		
+		
+		--pr.IdPedidoRechazado
 	FROM dbo.PedidoWeb p (NOLOCK)
 	INNER JOIN ods.Consultora c (NOLOCK) on p.consultoraid = c.consultoraid
 	INNER JOIN ods.Region r (NOLOCK) on c.regionid = r.regionid
 	INNER JOIN ods.Zona z (NOLOCK) on r.regionid = z.regionid and c.zonaid = z.zonaid
 	INNER JOIN ods.Seccion s (NOLOCK) on c.seccionid = s.seccionid and r.regionid = s.regionid and z.zonaid = s.zonaid
-	LEFT JOIN GPR.PedidoRechazado pr (NOLOCK) ON c.codigo = pr.CodigoConsultora AND CAST(pr.Campania AS INT) =@CampaniaID
-	AND PR.Campania=P.CAMPANIAID
+	LEFT JOIN GPR.PedidoRechazado pr (NOLOCK) ON c.codigo = pr.CodigoConsultora AND CAST(pr.Campania AS INT) = @CampaniaID 
+	/* mostrar solo 1 registro por consultora.*/
+	LEFT JOIN (
+	SELECT PR1.CODIGOCONSULTORA,MAX(_PR.IDPROCESOPEDIDORECHAZADO) IDPROCESO FROM GPR.PROCESOPEDIDORECHAZADO _PR INNER JOIN GPR.PEDIDORECHAZADO PR1 ON _PR.IDPROCESOPEDIDORECHAZADO=PR1.IDPROCESOPEDIDORECHAZADO
 	
+	WHERE PR1.CAMPANIA=@CampaniaID GROUP BY PR1.CODIGOCONSULTORA
+	) IDPROCESORECHAZO
+	ON PR.IDPROCESOPEDIDORECHAZADO=IDPROCESORECHAZO.IDPROCESO AND IDPROCESORECHAZO.CODIGOCONSULTORA=C.CODIGO
+	
+	AND PR.Campania=P.CAMPANIAID 	
 	WHERE 
 		(@CampaniaID is null or p.CampaniaID = @CampaniaID) and
 		p.ImporteTotal <> 0  
-		AND(@EsRechazado = 2 OR (@EsRechazado = 1 AND p.GPRSB = 2 ) OR (@EsRechazado = 0 AND p.GPRSB <> 2 ))
+		AND(@EsRechazado = 2  OR (@EsRechazado = 1 AND p.GPRSB = 2) OR (@EsRechazado = 0 AND p.GPRSB <> 2 ))
 		AND (@EstadoPedido = 0 OR @EstadoPedido = (CASE WHEN p.EstadoPedido = 202 AND p.ValidacionAbierta = 0 AND p.ModificaPedidoReservadoMovil = 0  THEN 202
 						ELSE
 							201	
 						END ))
 		and (@RegionCodigo = '0' or @RegionCodigo is null or r.Codigo = @RegionCodigo)
 		and (@ZonaCodigo = '0' or @ZonaCodigo is null or z.Codigo = @ZonaCodigo)
-		and (@CodigoConsultora = '' or c.Codigo like '%' + @CodigoConsultora + '%') 
-
+		and (@CodigoConsultora = '' or c.Codigo like '%' + @CodigoConsultora + '%')
 		AND PR.PROCESADO=1
-
-		) T
-
-		GROUP BY idprocesopedidorechazado,PedidoID,FechaRegistro,FechaReserva,CampaniaCodigo,Seccion ,ConsultoraCodigo,ConsultoraNombre,ImporteTotal,
-		DescuentoProl,ConsultoraSaldo,OrigenNombre,EstadoValidacionNombre,Zona,Region ,IndicadorEnviado,MontoMinimoPedido,ImporteTotalMM,MotivoRechazo,EstadoPedido
+		) T	WHERE MotivoRechazo IS NOT NULL
+	GROUP BY PedidoID,FechaRegistro,FechaReserva,CampaniaCodigo,Seccion ,ConsultoraCodigo,ConsultoraNombre,ImporteTotal,
+	DescuentoProl,ConsultoraSaldo,OrigenNombre,EstadoValidacionNombre,Zona,Region ,IndicadorEnviado,MontoMinimoPedido,ImporteTotalMM,MotivoRechazo,EstadoPedido
 
 END
 
