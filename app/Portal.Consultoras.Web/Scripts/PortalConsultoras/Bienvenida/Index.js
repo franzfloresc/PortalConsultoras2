@@ -3401,9 +3401,9 @@ function CrearPopShow() {
         });
     });
 
-    $("#lnkConoceMasShowRoomPopup").click(function () {
-        AgregarTagManagerShowRoomPopupConocesMas(1);
-    });
+    //$("#lnkConoceMasShowRoomPopup").click(function () {
+    //    AgregarTagManagerShowRoomPopupConocesMas(1);
+    //});
 
     //$("#lnkConoceMasShowRoomPopupHoy").click(function () {
     //    AgregarTagManagerShowRoomPopupConocesMas(2);
@@ -3421,15 +3421,25 @@ function MostrarShowRoom() {
             success: function (response) {
                 if (checkTimeout(response)) {
                     if (response.success) {
+                        console.log(response);
                         var showroomConsultora = response.data;
                         var evento = response.evento;
+                        var personalizacion = response.personalizacion;
+                        var urlImagenPopupIntriga;
+
+                        $.each(personalizacion, function (key, obj) {
+                            if (obj.Atributo == '"PopupImagenIntriga"') {
+                                urlImagenPopupIntriga = obj.Valor;
+                                return;
+                            }
+                        });
 
                         if (showroomConsultora.EventoConsultoraID != 0) {
                             if (showroomConsultora.MostrarPopup) {
                                 $("#hdEventoIDShowRoom").val(evento.EventoID);
 
                                 if (response.mostrarShowRoomProductos) {
-                                    //$("#spnShowRoomEventoHoy").html(evento.Tema);
+                                    $("#spnShowRoomEventoHoy").html(evento.Tema);
 
                                     //$("#lnkConoceMasShowRoomPopupHoy").attr("href", response.rutaShowRoomPopup);
 
@@ -3441,12 +3451,12 @@ function MostrarShowRoom() {
 
                                     //$("#DialogoMensajeBannerShowRoomHoy").show();
 
-                                    //AgregarTagManagerShowRoomPopup(evento.Tema, true);
+                                    AgregarTagManagerShowRoomPopup(evento.Tema, true);
 
                                     //PL20-1306
                                     $('#PopShowoomIntriga').show();
                                 } else {
-                                    //$("#spnShowRoomEvento").html(evento.Tema);
+                                    $("#spnShowRoomEvento").html(evento.Tema);
                                     //$("#spnShowRoomNombreConsultora").html(response.nombre);
                                     //$("#spnShowRoomDiaInicio").html(response.diaInicio);
                                     //$("#spnShowRoomDiaFin").html(response.diaFin);
@@ -3465,11 +3475,14 @@ function MostrarShowRoom() {
 
                                     //$("#DialogoMensajeBannerShowRoom").show();
 
-                                    //AgregarTagManagerShowRoomPopup(evento.Tema, false);
+                                    AgregarTagManagerShowRoomPopup(evento.Tema, false);
 
                                     // /PL20-1306
+
+                                    
+
                                     $("#spnShowRoomDiasFaltan").text(response.diasFaltan);
-                                    //$("#imgShowRoomIntriga").attr("src", evento.Imagen2);
+                                    //$("#imgShowRoomIntriga").attr("src", urlImagenPopupIntriga);
                                     $('#PopShowroomIntriga').show();
                                 }
 
@@ -3863,4 +3876,10 @@ function PopupCerrar(idPopup) {
 
 function mostrarCatalogoPersonalizado() {
     document.location.href = urlCatalogoPersonalizado;
+}
+
+function VerShowRoomIntriga() {
+    AgregarTagManagerShowRoomPopupConocesMas(1);
+
+    document.location.href = urlShowRoomIntriga;
 }

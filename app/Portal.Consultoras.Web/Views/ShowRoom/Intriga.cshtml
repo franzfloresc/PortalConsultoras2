@@ -1,10 +1,13 @@
-﻿@{
+﻿@using Portal.Consultoras.Common
+@model Portal.Consultoras.Web.Models.ShowRoomOfertaModel
+
+@{
     ViewBag.Title = "Intriga";
 }
 
 <div class="content_banner_intriga">
     <div class="texto_dias_intriga">
-       FALTAN 5 DÍAS
+       FALTAN @ViewBag.DiasFaltan DÍAS
     </div>
     <img src="@Url.Content("~/Content/Images/showroom/banner_intriga_desktop.png")" />
 </div>
