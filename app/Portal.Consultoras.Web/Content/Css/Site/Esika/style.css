@@ -34527,7 +34527,31 @@ h1#penmostreo .campana {
     margin-top:30px;
     text-align:center;
     text-decoration:underline;
+    text-align:center;
 }
 .texto_confirmacion b{
     display:block;
+}
+.nombre_set_showroom{
+    font-family:'Lato';
+    font-size:15px;
+    font-weight:700;
+    margin-top:20px;
+    margin-bottom:5px;
+    text-align:center;
+}
+.precio_showroom_intriga{
+    font-family:'Lato';
+    font-size:16px;    
+    
+    font-weight:700;
+    text-align:center;
+   
+}
+.precio_oferta_showroom{
+    font-family:'Lato';
+    font-size:12px;   
+    text-decoration:line-through;
+    margin-bottom:10px;
+    margin-right:13px;
 }
