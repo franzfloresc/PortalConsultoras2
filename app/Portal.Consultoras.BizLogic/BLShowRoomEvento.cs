@@ -389,5 +389,19 @@ namespace Portal.Consultoras.BizLogic
             var dataAccess = new DAShowRoomEvento(paisID);
             return dataAccess.UpdateShowRoomPersonalizacionNivel(entity);
         }
+
+        public List<BEShowRoomCategoria> GetShowRoomCategorias(int paisId, int eventoId)
+        {
+            var lst = new List<BEShowRoomCategoria>();
+            var dataAccess = new DAShowRoomEvento(paisId);
+
+            using (IDataReader reader = dataAccess.GetShowRoomCategorias(eventoId))
+                while (reader.Read())
+                {
+                    var entity = new BEShowRoomCategoria(reader);
+                    lst.Add(entity);
+                }
+            return lst;
+        }
     }
 }

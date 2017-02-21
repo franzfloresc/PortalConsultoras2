@@ -65,6 +65,12 @@
   <wsdl:message name="IPedidoService_UpdateShowRoomPersonalizacionNivel_OutputMessage">
     <wsdl:part name="parameters" element="tns:UpdateShowRoomPersonalizacionNivelResponse" />
   </wsdl:message>
+  <wsdl:message name="IPedidoService_GetShowRoomCategorias_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetShowRoomCategorias" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_GetShowRoomCategorias_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetShowRoomCategoriasResponse" />
+  </wsdl:message>
   <wsdl:message name="IPedidoService_GetPaginateProductoSugerido_InputMessage">
     <wsdl:part name="parameters" element="tns:GetPaginateProductoSugerido" />
   </wsdl:message>
@@ -1784,6 +1790,10 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/UpdateShowRoomPersonalizacionNivel" message="tns:IPedidoService_UpdateShowRoomPersonalizacionNivel_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/UpdateShowRoomPersonalizacionNivelResponse" message="tns:IPedidoService_UpdateShowRoomPersonalizacionNivel_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="GetShowRoomCategorias">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetShowRoomCategorias" message="tns:IPedidoService_GetShowRoomCategorias_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/GetShowRoomCategoriasResponse" message="tns:IPedidoService_GetShowRoomCategorias_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="GetPaginateProductoSugerido">
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetPaginateProductoSugerido" message="tns:IPedidoService_GetPaginateProductoSugerido_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/GetPaginateProductoSugeridoResponse" message="tns:IPedidoService_GetPaginateProductoSugerido_OutputMessage" />
@@ -2957,6 +2967,15 @@
     </wsdl:operation>
     <wsdl:operation name="UpdateShowRoomPersonalizacionNivel">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/UpdateShowRoomPersonalizacionNivel" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetShowRoomCategorias">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/GetShowRoomCategorias" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -5553,6 +5572,15 @@
     </wsdl:operation>
     <wsdl:operation name="UpdateShowRoomPersonalizacionNivel">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/UpdateShowRoomPersonalizacionNivel" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetShowRoomCategorias">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/GetShowRoomCategorias" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

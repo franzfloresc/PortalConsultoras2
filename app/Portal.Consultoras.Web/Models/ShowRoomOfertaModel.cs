@@ -6,6 +6,7 @@ using Autofac;
 
 namespace Portal.Consultoras.Web.Models
 {
+    [Serializable]
     public class ShowRoomOfertaModel
     {
         public int OfertaShowRoomID { get; set; }

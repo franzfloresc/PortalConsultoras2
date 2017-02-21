@@ -21,6 +21,8 @@ namespace Portal.Consultoras.Entities.ShowRoom
         [DataMember]
         public int NivelId { get; set; }
         [DataMember]
+        public int CategoriaId { get; set; }
+        [DataMember]
         public string Valor { get; set; }
 
         public BEShowRoomPersonalizacionNivel(IDataRecord row)
@@ -33,6 +35,8 @@ namespace Portal.Consultoras.Entities.ShowRoom
                 PersonalizacionId = Convert.ToInt32(row["PersonalizacionId"]);
             if (row.HasColumn("NivelId") && row["NivelId"] != DBNull.Value)
                 NivelId = Convert.ToInt32(row["NivelId"]);
+            if (row.HasColumn("CategoriaId") && row["CategoriaId"] != DBNull.Value)
+                CategoriaId = Convert.ToInt32(row["CategoriaId"]);
             if (row.HasColumn("Valor") && row["Valor"] != DBNull.Value)
                 Valor = Convert.ToString(row["Valor"]);
         }

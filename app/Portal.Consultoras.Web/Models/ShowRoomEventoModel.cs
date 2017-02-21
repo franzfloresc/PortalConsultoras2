@@ -6,6 +6,7 @@ using System.Web;
 
 namespace Portal.Consultoras.Web.Models
 {
+    [Serializable]
     public class ShowRoomEventoModel
     {
         public int EventoID { get; set; }
@@ -55,6 +56,8 @@ namespace Portal.Consultoras.Web.Models
         public string RutaShowRoomBannerLateral { get; set; }
 
         public int Estado { get; set; }
+
+        public bool TieneCategoria { get; set; }
 
         public string Simbolo { get; set; }
 

@@ -47,6 +47,7 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@DiasDespues", DbType.Int32, showRoomEvento.DiasDespues);
             Context.Database.AddInParameter(command, "@NumeroPerfiles", DbType.Int32, showRoomEvento.NumeroPerfiles);
             Context.Database.AddInParameter(command, "@UsuarioCreacion", DbType.String, showRoomEvento.UsuarioCreacion);
+            Context.Database.AddInParameter(command, "@TieneCategoria", DbType.Boolean, showRoomEvento.TieneCategoria);
 
             int result = Context.ExecuteNonQuery(command);
 
@@ -75,6 +76,7 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@NumeroPerfiles", DbType.Int32, showRoomEvento.NumeroPerfiles);
             Context.Database.AddInParameter(command, "@UsuarioModificacion", DbType.String, showRoomEvento.UsuarioModificacion);
             Context.Database.AddInParameter(command, "@Estado", DbType.Int32, showRoomEvento.Estado);
+            Context.Database.AddInParameter(command, "@TieneCategoria", DbType.Boolean, showRoomEvento.TieneCategoria);
 
             Context.ExecuteNonQuery(command);
         }
@@ -538,6 +540,14 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@Valor", DbType.String, entity.Valor);
             
             return Context.ExecuteNonQuery(command);
+        }
+
+        public IDataReader GetShowRoomCategorias(int eventoId)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("ShowRoom.GetShowRoomCategorias");
+            Context.Database.AddInParameter(command, "@EventoId", DbType.Int32, eventoId);
+
+            return Context.ExecuteReader(command);
         }
     }
 }

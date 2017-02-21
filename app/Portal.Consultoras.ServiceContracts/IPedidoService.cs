@@ -878,7 +878,11 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         int UpdateShowRoomPersonalizacionNivel(int paisId, BEShowRoomPersonalizacionNivel beShowRoomPersonalizacionNivel);
-        #endregion
+
+        [OperationContract]
+        List<BEShowRoomCategoria> GetShowRoomCategorias(int paisId, int eventoId);
+
+        #endregion        
 
         #region Producto SUgerido
 

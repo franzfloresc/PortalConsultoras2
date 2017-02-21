@@ -1626,7 +1626,12 @@ namespace Portal.Consultoras.Service
         public int UpdateShowRoomPersonalizacionNivel(int paisId, BEShowRoomPersonalizacionNivel beShowRoomPersonalizacionNivel)
         {
             return BLShowRoomEvento.UpdateShowRoomPersonalizacionNivel(paisId, beShowRoomPersonalizacionNivel);
-        }        
+        }
+
+        public List<BEShowRoomCategoria> GetShowRoomCategorias(int paisId, int eventoId)
+        {
+            return BLShowRoomEvento.GetShowRoomCategorias(paisId, eventoId);
+        }
 
         #endregion
 

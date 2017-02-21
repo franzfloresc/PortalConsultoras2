@@ -306,10 +306,10 @@ namespace Portal.Consultoras.Web.Controllers
                     page = pag.CurrentPage,
                     records = pag.RecordCount,
                     rows = from a in items
-                           select new
-                           {
-                               id = a.EventoID,
-                               cell = new[]
+                        select new
+                        {
+                            id = a.EventoID,
+                            cell = new[]
                             {
                                 a.EventoID.ToString(),
                                 a.Nombre,
@@ -324,13 +324,14 @@ namespace Portal.Consultoras.Web.Controllers
                                 a.ImagenVentaTagLateral,
                                 a.ImagenPestaniaShowRoom,
                                 a.ImagenPreventaDigital,
-                                a.CampaniaID.ToString(),                                
+                                a.CampaniaID.ToString(),
                                 a.Descuento.ToString(),
                                 a.TextoEstrategia,
-                                a.OfertaEstrategia.ToString(),                                
-                                a.Estado.ToString()
+                                a.OfertaEstrategia.ToString(),
+                                a.Estado.ToString(),
+                                a.TieneCategoria.ToString()
                             }
-                           }
+                        }
                 };
 
                 return Json(data, JsonRequestBehavior.AllowGet);
@@ -384,6 +385,49 @@ namespace Portal.Consultoras.Web.Controllers
                 });
             }
         }
+
+        [HttpPost]
+        public JsonResult GetShowRoomCategorias(int eventoId)
+        {
+            try
+            {
+                var listaCategorias = new List<BEShowRoomCategoria>();
+
+                using (PedidoServiceClient ps = new PedidoServiceClient())
+                {
+                    listaCategorias = ps.GetShowRoomCategorias(userData.PaisID, eventoId).ToList();
+                }
+
+                if (listaCategorias.Count <= 0)
+                {
+                    return Json(new
+                    {
+                        success = true,
+                        message = "OK",
+                        data = ""
+                    });
+                }
+                else
+                {
+                    return Json(new
+                    {
+                        success = true,
+                        message = "OK",
+                        data = listaCategorias
+                    });
+                }
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return Json(new
+                {
+                    success = false,
+                    message = ex.Message,
+                    data = ""
+                });
+            }
+        }        
 
         [HttpPost]
         public JsonResult GetShowRoomPerfiles(int paisId, int eventoId)
@@ -445,7 +489,8 @@ namespace Portal.Consultoras.Web.Controllers
                 .ForMember(t => t.ImagenVentaTagLateral, f => f.MapFrom(c => c.ImagenVentaTagLateral))
                 .ForMember(t => t.ImagenPestaniaShowRoom, f => f.MapFrom(c => c.ImagenPestaniaShowRoom))
                 .ForMember(t => t.ImagenPreventaDigital, f => f.MapFrom(c => c.ImagenPreventaDigital))                
-                .ForMember(t => t.Estado, f => f.MapFrom(c => c.Estado));
+                .ForMember(t => t.Estado, f => f.MapFrom(c => c.Estado))
+                .ForMember(t => t.TieneCategoria, f => f.MapFrom(c => c.TieneCategoria));
 
                 BEShowRoomEvento beShowRoomEvento = Mapper.Map<ShowRoomEventoModel, BEShowRoomEvento>(showRoomEventoModel);
 
