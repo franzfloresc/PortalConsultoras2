@@ -337,7 +337,7 @@ namespace Portal.Consultoras.Web.Controllers
                     mailBody += "<td style=\"text-align:center; font-family:'Calibri'; font-size:22px; font-weight:700; color:#000; padding-bottom:15px;\">ENT&Eacute;RATE DE LAS NOVEDADES DE TUS CAT&Aacute;LOGOS</td>";
                     mailBody += "</tr>";
                     mailBody += "<tr>";
-                    mailBody += "<td style=\"text-align:center; font-family:'Calibri'; color:#000; font-weight:500; font-size:14px; padding-bottom:30px;\">" + Mensaje.Replace("Hola,", "");
+                    mailBody += "<td style=\"text-align:center; font-family:'Calibri'; color:#000; font-weight:500; font-size:14px; padding-bottom:30px;\">" + (Mensaje ?? "");
                     mailBody += "<br/><br/>Recuerda que tienes hasta el " + ffechaFact + " para enviarme tu pedido.<br/><br />Si tienes alguna consulta no dudes en contactarme:</td>";
                     mailBody += "</tr>";
                     mailBody += "<tr>";
@@ -536,7 +536,7 @@ namespace Portal.Consultoras.Web.Controllers
                     mailBody += "</html>";
 
                     if (!ValidarCorreoFormato(item.Email)) CorreosInvalidos += item.Email + "; ";
-                    else Util.EnviarMailMasivoColas("no-responder@somosbelcorp.com", item.Email, "(" + userData.CodigoISO + ") Revisa Tus Catálogos " + CampaniaID, mailBody, true, userData.NombreConsultora);
+                    else Util.EnviarMailMasivoColas("no-responder@somosbelcorp.com", item.Email, "Revisa tus catálogos de campaña " + CampaniaID.Substring(4,2), mailBody, true, userData.NombreConsultora);
 
                     #endregion
                 }
