@@ -81,15 +81,16 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
                             if (days > 1)
                                 {
-                                showRoomBannerLateral.LetrasDias = "DÍAS";
+                                showRoomBannerLateral.LetrasDias = "FALTAN " + Convert.ToInt32(showRoomBannerLateral.DiasFaltantes).ToString() + " DÍAS";
                             }
-                            else { showRoomBannerLateral.LetrasDias = "DÍA"; }
+                            else { showRoomBannerLateral.LetrasDias = "FALTA " +  Convert.ToInt32(showRoomBannerLateral.DiasFaltantes).ToString() +  " DÍA"; }
 
                     ViewBag.ImagenPopupShowroomIntriga = showRoomBannerLateral.ImagenPopupShowroomIntriga;
                     ViewBag.ImagenBannerShowroomIntriga = showRoomBannerLateral.ImagenBannerShowroomIntriga;
 
 
-            ViewBag.DiasFaltantesLetras = showRoomBannerLateral.DiasFaltantes.ToString() + " " + showRoomBannerLateral.LetrasDias.ToString();
+                    ViewBag.DiasFaltantesLetras = showRoomBannerLateral.LetrasDias;
+                    
 
                     OfertaDelDiaModel ofertaDelDia = GetOfertaDelDiaModel();
                         ViewBag.OfertaDelDia = ofertaDelDia;
