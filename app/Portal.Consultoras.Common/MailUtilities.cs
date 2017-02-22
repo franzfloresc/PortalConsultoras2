@@ -95,7 +95,14 @@ namespace Portal.Consultoras.Common
             s_html += "<table align=\"center\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\" style=\"width:50%;\">";
             s_html += "<tbody>";
             s_html += "<tr>";
-            s_html += "<td style=\"font-family:'Calibri'; width:100%; text-align:center; background:#e81c36; padding-top:10px; padding-bottom:10px; color:white; font-weight:700;\"><a href='" + url + "WebPages/MailConfirmation.aspx?data=" + param_querystring + "'  style=\"text-decoration:none; font-family:'Calibri'; color:white; font-weight:700; font-size:15px;\">CONFIRMAR CORREO</a></td>";
+            if (tipopais)
+            {
+                s_html += "<td style=\"font-family:'Calibri'; width:100%; text-align:center; background:#e81c36; padding-top:10px; padding-bottom:10px; color:white; font-weight:700;\"><a href='" + url + "WebPages/MailConfirmation.aspx?data=" + param_querystring + "'  style=\"text-decoration:none; font-family:'Calibri'; color:white; font-weight:700; font-size:15px;\">CONFIRMAR CORREO</a></td>";
+            }
+            else
+            {
+                s_html += "<td style=\"font-family:'Calibri'; width:100%; text-align:center; background:#642f80; padding-top:10px; padding-bottom:10px; color:white; font-weight:700;\"><a href='" + url + "WebPages/MailConfirmation.aspx?data=" + param_querystring + "'  style=\"text-decoration:none; font-family:'Calibri'; color:white; font-weight:700; font-size:15px;\">CONFIRMAR CORREO</a></td>";
+            }
             s_html += "</tr>";
             s_html += "</tbody>";
             s_html += "</table>";
