@@ -365,6 +365,9 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         private string SegmentoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string SegmentoAbreviaturaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string SegmentoConstanciaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -1951,6 +1954,19 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
                 if ((object.ReferenceEquals(this.SegmentoField, value) != true)) {
                     this.SegmentoField = value;
                     this.RaisePropertyChanged("Segmento");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string SegmentoAbreviatura {
+            get {
+                return this.SegmentoAbreviaturaField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.SegmentoAbreviaturaField, value) != true)) {
+                    this.SegmentoAbreviaturaField = value;
+                    this.RaisePropertyChanged("SegmentoAbreviatura");
                 }
             }
         }
