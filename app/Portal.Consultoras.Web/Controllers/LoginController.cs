@@ -56,24 +56,24 @@ namespace Portal.Consultoras.Web.Controllers
 
                     if (buscarISOPorIP == "1")
                     {
-                        IP = GetIPCliente();
-                        ISO = Util.GetISObyIPAddress(IP);
+                        try
+                        {
+                            IP = GetIPCliente();
+                            ISO = Util.GetISObyIPAddress(IP);
+                        }
+                        catch (Exception ex)
+                        {
+                            LogManager.LogManager.LogErrorWebServicesBus(ex, IP, ISO, "Login.GET.Index: GetIPCliente,GetISObyIPAddress");
+                        }
                     }
-                    else
+
+                    if (string.IsNullOrEmpty(ISO))
                     {
                         IP = "190.187.154.154";
                         ISO = "PE";
                     }
 
-                    if (IP.IndexOf(":") > 0)
-                    {
-                        IP = IP.Substring(0, IP.IndexOf(":") - 1);
-                    }
-
-                    if (ISO != "")
-                    {
-                        AsignarHojaEstilos(ISO);
-                    }
+                    AsignarHojaEstilos(ISO);
                 }
                 catch (FaultException ex)
                 {
@@ -883,6 +883,11 @@ namespace Portal.Consultoras.Web.Controllers
                     ipAddress = System.Web.HttpContext.Current.Request.UserHostName;
                 }
 
+                if (ipAddress.IndexOf(":") > 0)
+                {
+                    ipAddress = ipAddress.Substring(0, ipAddress.IndexOf(":") - 1);
+                }
+
                 return ipAddress;
             }
             catch (Exception ex)
@@ -894,6 +899,8 @@ namespace Portal.Consultoras.Web.Controllers
 
         private void AsignarHojaEstilos(string iso)
         {
+            if (string.IsNullOrEmpty(iso)) return;
+
             ViewBag.IsoPais = iso;
 
             if (iso == "BR") iso = "00";
