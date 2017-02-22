@@ -61,9 +61,9 @@ namespace Portal.Consultoras.Web.Controllers
                 model.ListaPaises = DropDowListPaises();
             }
             catch (FaultException ex)
-                    {
+            {
                 LogManager.LogManager.LogErrorWebServicesPortal(ex, IP, ISO);
-                    }
+            }
             catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, IP, ISO, "Login.GET.Index");
@@ -75,7 +75,7 @@ namespace Portal.Consultoras.Web.Controllers
         [AllowAnonymous]
         [HttpPost]
         public ActionResult Login(LoginModel model)
-                    {
+        {
             pasoLog = "Login.POST.Index";
             try
             {
@@ -83,17 +83,17 @@ namespace Portal.Consultoras.Web.Controllers
                 using (UsuarioServiceClient svc = new UsuarioServiceClient())
                 {
                     validaLogin = svc.GetValidarLoginSB2(model.PaisID, model.CodigoUsuario, model.ClaveSecreta);
-                    }
+                }
 
                 if (validaLogin.Result == 3)
                 {
                     return Redireccionar(model.PaisID, validaLogin.CodigoUsuario);
                 }
-                    else
-                    {
+                else
+                {
                     TempData["errorLogin"] = validaLogin.Mensaje;
                     return RedirectToAction("Index", "Login");
-                    }
+                }
             }
             catch (FaultException ex)
             {
@@ -112,7 +112,7 @@ namespace Portal.Consultoras.Web.Controllers
         [AllowAnonymous]
         [HttpPost]
         public ActionResult LoginAdmin(UsuarioModel model)
-                    {
+        {
             string resultado = Util.ValidarUsuarioADFS(model.CodigoUsuario, model.ClaveSecreta);
 
             string codigoResultado = resultado.Split('|')[0];
@@ -135,59 +135,59 @@ namespace Portal.Consultoras.Web.Controllers
             pasoLog = "Login.Redireccionar";
 
             UsuarioModel usuario = GetUserData(paisId, codigoUsuario, 1);
-                        if (usuario != null)
-                        {
+            if (usuario != null)
+            {
                 pasoLog = "Login.Redireccionar.SetAuthCookie";
 
                 FormsAuthentication.SetAuthCookie(usuario.CodigoUsuario, false);
 
                 if (usuario.RolID == Constantes.Rol.Consultora)
-                            {
-                                bool esMovil = Request.Browser.IsMobileDevice;
+                {
+                    bool esMovil = Request.Browser.IsMobileDevice;
 
-                                if (esMovil)
-                                {
-                                    return RedirectToAction("Index", "Bienvenida", new { area = "Mobile" });
-                                }
-                                else
-                                {
-                        if (string.IsNullOrEmpty(usuario.EMail) || usuario.EMailActivo == false)
-                                    {
-                                        Session["PrimeraVezSession"] = 0;
-                                    }
-                                    return RedirectToAction("Index", "Bienvenida");
-                                }
-                            }
-                            else
-                            {
-                                return RedirectToAction("Index", "Bienvenida");
-                            }
-                        }
-                        else
-                        {
-                            string Url = Request.Url.Scheme + "://" + Request.Url.Authority + (Request.ApplicationPath.ToString().Equals("/") ? "/" : (Request.ApplicationPath + "/")) + "WebPages/UserUnknown.aspx";
-                            return Redirect(Url);
-                        }
+                    if (esMovil)
+                    {
+                        return RedirectToAction("Index", "Bienvenida", new { area = "Mobile" });
                     }
+                    else
+                    {
+                        if (string.IsNullOrEmpty(usuario.EMail) || usuario.EMailActivo == false)
+                        {
+                            Session["PrimeraVezSession"] = 0;
+                        }
+                        return RedirectToAction("Index", "Bienvenida");
+                    }
+                }
+                else
+                {
+                    return RedirectToAction("Index", "Bienvenida");
+                }
+            }
+            else
+            {
+                string Url = Request.Url.Scheme + "://" + Request.Url.Authority + (Request.ApplicationPath.ToString().Equals("/") ? "/" : (Request.ApplicationPath + "/")) + "WebPages/UserUnknown.aspx";
+                return Redirect(Url);
+            }
+        }
 
         private IEnumerable<PaisModel> DropDowListPaises()
-                    {
+        {
             List<BEPais> lst;
 
             try
-        {
-            using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
             {
+                using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
+                {
                     lst = sv.SelectPaises().ToList();
-            }
+                }
 
                 lst.RemoveAll(p => p.CodigoISO == Constantes.CodigosISOPais.Argentina);
 
-            Mapper.CreateMap<BEPais, PaisModel>()
-                    .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID))
-                        .ForMember(t => t.CodigoISO, f => f.MapFrom(c => c.CodigoISO))
-                    .ForMember(t => t.Nombre, f => f.MapFrom(c => c.Nombre))
-                    .ForMember(t => t.NombreCorto, f => f.MapFrom(c => c.NombreCorto));
+                Mapper.CreateMap<BEPais, PaisModel>()
+                        .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID))
+                            .ForMember(t => t.CodigoISO, f => f.MapFrom(c => c.CodigoISO))
+                        .ForMember(t => t.Nombre, f => f.MapFrom(c => c.Nombre))
+                        .ForMember(t => t.NombreCorto, f => f.MapFrom(c => c.NombreCorto));
             }
             catch (Exception ex)
             {
@@ -393,6 +393,8 @@ namespace Portal.Consultoras.Web.Controllers
                                         listaMotivox = listaRechazo.Where(p => p.MotivoRechazo == Constantes.GPRMotivoRechazo.MontoMaximo).ToList(); //maximo
                                         if (listaMotivox.Any())
                                         {
+                                            bool esMovil = Request.Browser.IsMobileDevice;
+
                                             if (model.MotivoRechazo != "")
                                             {
                                                 model.MotivoRechazo = "Tienes una deuda pendiente de " + valorx;
@@ -405,6 +407,7 @@ namespace Portal.Consultoras.Web.Controllers
                                                 {
                                                     model.MotivoRechazo += ". Además, superaste tu línea de crédito de " + oBEUsuario.Simbolo + " " + oBEUsuario.MontoMaximoPedido + ". <a class='CerrarBanner' href='#' onclick=RedirectMenu('Index','Pedido',0,'Pedido'); >MODIFICA TU PEDIDO</a>";
                                                 }
+                                            }
                                             else
                                             {
                                                 valorx = valor + listaMotivox[0].Valor;
@@ -418,24 +421,40 @@ namespace Portal.Consultoras.Web.Controllers
                                                 }
                                             }
                                         }
-
+                                    }
                                     listaMotivox = listaRechazo.Where(p => p.MotivoRechazo == Constantes.GPRMotivoRechazo.ValidacionMontoMinimoStock).ToList(); //minstock
                                     if (listaMotivox.Any())
                                     {
+                                        bool esMovil = Request.Browser.IsMobileDevice;
                                         if (model.MotivoRechazo != "")
                                         {
                                             model.MotivoRechazo = "Tienes una deuda pendiente de " + valorx;
                                             valorx = valor + listaMotivox[0].Valor;
+                                            if (esMovil)
+                                            {
+                                                model.MotivoRechazo += ". Además, no llegaste al mínimo de " + valorx + ". <a class='CerrarBanner' href='" + @Url.Action("Index", "Pedido", new { area = "Mobile" }) + "' >MODIFICA TU PEDIDO</a>";
+                                            }
+                                            else
+                                            {
                                                 model.MotivoRechazo += ". Además, no llegaste al mínimo de " + valorx + ". <a class='CerrarBanner' href='#' onclick=RedirectMenu('Index','Pedido',0,'Pedido'); >MODIFICA TU PEDIDO</a>";
                                             }
+                                        }
                                         else
                                         {
                                             valorx = valor + listaMotivox[0].Valor;
+                                            if (esMovil)
+                                            {
+                                                model.MotivoRechazo = "No llegaste al mínimo de " + valorx + ". <a class='CerrarBanner' href='" + @Url.Action("Index", "Pedido", new { area = "Mobile" }) + "'>MODIFICA TU PEDIDO</a>";
+                                            }
+                                            else
+                                            {
                                                 model.MotivoRechazo = "No llegaste al mínimo de " + valorx + ". <a class='CerrarBanner' href='#' onclick=RedirectMenu('Index','Pedido',0,'Pedido');>MODIFICA TU PEDIDO</a>";
                                             }
                                         }
                                     }
+                                }
                                 // llamar al maestro de mensajes
+
                             }
                         }
                     }
@@ -839,12 +858,12 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
                 else if (System.Web.HttpContext.Current.Request.ServerVariables["HTTP_CLIENT_IP"] != null && System.Web.HttpContext.Current.Request.ServerVariables["HTTP_CLIENT_IP"].Length != 0)
-        {
+                {
                     ipAddress = System.Web.HttpContext.Current.Request.ServerVariables["HTTP_CLIENT_IP"];
-        }
+                }
 
                 else if (System.Web.HttpContext.Current.Request.UserHostAddress.Length != 0)
-        {
+                {
                     ipAddress = System.Web.HttpContext.Current.Request.UserHostName;
                 }
 
@@ -875,7 +894,7 @@ namespace Portal.Consultoras.Web.Controllers
             else
             {
                 if (ConfigurationManager.AppSettings.Get("paisesLBel").Contains(iso))
-        {
+                {
                     ViewBag.TituloPagina = " L'BEL ";
                     ViewBag.IconoPagina = "http://cdn.lbel.com/wp-content/themes/lbel2/images/icons/favicon.ico";
                     ViewBag.EsPaisEsika = false;
