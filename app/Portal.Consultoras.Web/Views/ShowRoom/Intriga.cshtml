@@ -36,9 +36,11 @@
             <div class="linea_separadora_intriga"></div>
         </div>
         <div class="set_visible_intriga">
-            <div class="content_set_imagen_intriga"><img class="set_img" src="https://S3.amazonaws.com/consultorasQAS/SomosBelcorp/Matriz/PE/PE_200042737_2017254271_03_mumegycqit.png"></div>
+            <div class="content_set_imagen_intriga">
+                @*<img class="set_img" src="https://S3.amazonaws.com/consultorasQAS/SomosBelcorp/Matriz/PE/PE_200042737_2017254271_03_mumegycqit.png">*@
+                <img class="set_img" src="@Model.ImagenProducto">
+            </div>
             
-            @*<img class="set_img" src="@Model.ImagenProducto">*@
             <div class="linea_separadora_intriga"></div>
             <div class="nombre_set_showroom">@Model.Descripcion</div>
             <div class="precio_showroom_intriga">  <span class="precio_oferta_showroom">@ViewBag.Simbolo @Model.FormatoPrecioCatalogo, </span>@ViewBag.Simbolo @Model.FormatoPrecioOferta </div>
@@ -52,7 +54,7 @@
             <a class="boton_Agregalo_home" style="width:61%;border:1px solid black;" onclick="AgregarOfertaShowRoom()">
                 AGRÉGALO
             </a>
-            <div class="agregado product-add" style="text-align:right; padding-top:10px; padding-right: 10px;">
+            <div class="agregado product-add" style="text-align:right; padding-top:10px; padding-right: 10px; display: none;">
                 AGREGADO
                 <div class="icono"></div>
             </div>
@@ -276,6 +278,8 @@
                                             AgregarTagManagerProductoAgregadoSW(CUV, nombreProducto, PrecioUnidad, cantidad, descripcionMarca, listatipo);
                                             CargarResumenCampaniaHeader(true);
                                             TrackingJetloreAdd(cantidad, $("#hdCampaniaCodigo").val(), CUV);
+
+                                            $('.agregado.product-add').show();
                                         }
                                         else messageInfoError(response.message);
                                     },

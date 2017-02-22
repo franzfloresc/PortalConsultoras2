@@ -83,15 +83,19 @@ $(document).ready(function () {
             if ($('#popupAceptacionContrato').is(':visible')) {
                 PopupCerrar('popupAceptacionContrato');
             }
-            if ($('#DialogoMensajeBannerShowRoomHoy').is(':visible')) {
-                PopupCerrar('DialogoMensajeBannerShowRoomHoy');
-            }
-            if ($('#DialogoMensajeBannerShowRoom').is(':visible')) {
-                PopupCerrar('DialogoMensajeBannerShowRoom');
-            }
+            //if ($('#DialogoMensajeBannerShowRoomHoy').is(':visible')) {
+            //    PopupCerrar('DialogoMensajeBannerShowRoomHoy');
+            //}
+            //if ($('#DialogoMensajeBannerShowRoom').is(':visible')) {
+            //    PopupCerrar('DialogoMensajeBannerShowRoom');
+            //}
             if ($('#popupDemandaAnticipada').is(':visible')) {
                 PopupCerrar('popupDemandaAnticipada');
             }
+            if ($('#PopShowroomIntriga').is(':visible')) {
+                PopupCerrar('PopShowroomIntriga');
+            }
+            
         }
     };
 
@@ -3882,8 +3886,7 @@ function mostrarCatalogoPersonalizado() {
 }
 
 function VerShowRoomIntriga() {
-    $('#PopShowroomIntriga').hide();
     AgregarTagManagerShowRoomPopupConocesMas(1);
-
     document.location.href = urlShowRoomIntriga;
+    $('#PopShowroomIntriga').hide();
 }

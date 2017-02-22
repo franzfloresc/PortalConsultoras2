@@ -1508,6 +1508,19 @@ namespace Portal.Consultoras.Web.Controllers
                             if (model.BeShowRoomConsultora != null)
                             {
                                 Session["EsShowRoom"] = "1";
+
+                                Session["MostrarShowRoomProductos"] = "0";
+                                var fechaHoy = DateTime.Now.AddHours(userData.ZonaHoraria).Date;
+
+                                if (fechaHoy >= model.FechaInicioCampania.AddDays(-model.BeShowRoom.DiasAntes).Date 
+                                    && fechaHoy <= userData.FechaInicioCampania.AddDays(model.BeShowRoom.DiasDespues).Date)
+                                {
+                                    //rutaShowRoomPopup = Url.Action("Index", "ShowRoom");
+                                    //mostrarShowRoomProductos = true;
+                                    Session["MostrarShowRoomProductos"] = "1";
+                                }
+                                //if (fechaHoy > userData.FechaInicioCampania.AddDays(model.BeShowRoom.DiasDespues).Date) //beShowRoomConsultora.MostrarPopup = false;
+                                //    Session["MostrarShowRoomProductos"] = false;
                             }
                         }
                     }
