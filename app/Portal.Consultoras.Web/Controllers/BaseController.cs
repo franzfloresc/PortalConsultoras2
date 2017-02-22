@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Newtonsoft.Json;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.ServiceContenido;
@@ -13,7 +14,6 @@ using System.Configuration;
 using System.Data;
 using System.Linq;
 using System.Net.Http;
-using System.Net.Http.Headers;
 using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Controllers
@@ -1549,6 +1549,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         protected void RegistrarLogDynamoDB(string aplicacion, string rol, string pantallaOpcion, string opcionAccion)
         {
+            var dataString = string.Empty;
             try
             {
                 var data = new
@@ -1569,6 +1570,8 @@ namespace Portal.Consultoras.Web.Controllers
                     Version = "2.0",
                 };
 
+                dataString = JsonConvert.SerializeObject(data);
+
                 var urlApi = ConfigurationManager.AppSettings.Get("UrlLogDynamo");
 
                 using (var client = new HttpClient())
@@ -1579,7 +1582,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (Exception ex)
             {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO, dataString);
             }
         }
         #endregion  

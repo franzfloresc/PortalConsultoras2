@@ -1203,20 +1203,30 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpPost]
         public JsonResult ValidarStockEstrategia(string MarcaID, string CUV, string PrecioUnidad, string Descripcion, string Cantidad, string indicadorMontoMinimo, string TipoOferta)
         {
-            // Validar la cantidad que se está ingresando compararla con la cantidad ya ingresada y el campo límite
             string mensaje = "";
-            var entidad = new BEEstrategia();
-            entidad.PaisID = userData.PaisID;
-            entidad.Cantidad = Convert.ToInt32(Cantidad);
-            entidad.CUV2 = CUV;
-            entidad.CampaniaID = userData.CampaniaID;
-            entidad.ConsultoraID = userData.ConsultoraID.ToString().Trim();
-
-            entidad.FlagCantidad = Convert.ToInt32(TipoOferta);
-
-            using (PedidoServiceClient svc = new PedidoServiceClient())
+            try
             {
-                mensaje = svc.ValidarStockEstrategia(entidad);
+                // Validar la cantidad que se está ingresando compararla con la cantidad ya ingresada y el campo límite
+                var entidad = new BEEstrategia();
+                entidad.PaisID = userData.PaisID;
+                entidad.Cantidad = Convert.ToInt32(Cantidad);
+                entidad.CUV2 = CUV;
+                entidad.CampaniaID = userData.CampaniaID;
+                entidad.ConsultoraID = userData.ConsultoraID.ToString();
+                entidad.FlagCantidad = Convert.ToInt32(TipoOferta);
+
+                using (PedidoServiceClient svc = new PedidoServiceClient())
+                {
+                    mensaje = svc.ValidarStockEstrategia(entidad);
+                }
+            }
+            catch (FaultException ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, (userData ?? new UsuarioModel()).CodigoConsultora, (userData ?? new UsuarioModel()).CodigoISO);
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, (userData ?? new UsuarioModel()).CodigoConsultora, (userData ?? new UsuarioModel()).CodigoISO);
             }
 
             if (mensaje == "OK")
