@@ -34049,7 +34049,7 @@ h1#penmostreo .campana {
 }
 .cerrar_fichaProducto{
     position:absolute;
-    right:-25px;
+    right:-40px;
     top:0;
 }
 .peso_ficha_producto {
@@ -34554,4 +34554,13 @@ h1#penmostreo .campana {
     font-size: 17px;
     margin-bottom: 40px;
     letter-spacing: 0.6px;
+}
+.agregado {
+    
+    font-family: Lato;
+    font-size: 10px;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+    text-align: center;
+    color: #a18328;
 }
