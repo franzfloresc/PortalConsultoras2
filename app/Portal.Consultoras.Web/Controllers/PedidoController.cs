@@ -221,7 +221,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 userData.PedidoID = 0;
                 if (model.PedidoWebDetalle.Count != 0)
-                {
+                {                   
                     if (userData.PedidoID == 0)
                     {
                         userData.PedidoID = model.PedidoWebDetalle[0].PedidoID;
@@ -1834,48 +1834,22 @@ namespace Portal.Consultoras.Web.Controllers
         #region Productos Faltantes
 
         [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
-        public JsonResult GetProductoFaltante()
+        public JsonResult GetProductoFaltante(string cuv, string descripcion)
         {
             try
             {
-                List<ServiceSAC.BEProductoFaltante> olstProductoFaltante = new List<BEProductoFaltante>();
-                using (ServiceSAC.SACServiceClient sv = new SACServiceClient())
+                var productosFaltantes = this.GetProductosFaltantes(cuv, descripcion);
+                var model = productosFaltantes.GroupBy(pf => pf.Categoria).Select(pfg => new ProductoFaltanteModel
                 {
-                    olstProductoFaltante = sv.GetProductoFaltanteByCampaniaAndZonaID(userData.PaisID, userData.CampaniaID, userData.ZonaID).ToList();
-                }
-
-                return Json(new
-                {
-                    result = true,
-                    data = olstProductoFaltante
-                }, JsonRequestBehavior.AllowGet);
+                    Categoria = pfg.Key,
+                    Detalle = pfg.Select(pf => pf).OrderBy(pf => pf.Catalogo).ThenBy(pf => pf.NumeroPagina).ToList()
+                });
+                return Json(new { result = true, data = model }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {
-                return Json(new
-                {
-                    result = false,
-                    data = ex.Message
-                }, JsonRequestBehavior.AllowGet);
+                return Json(new { result = false, data = ex.Message }, JsonRequestBehavior.AllowGet);
             }
-
-        }
-
-        public ActionResult ExportarExcelProductoFaltante()
-        {
-            List<ServiceSAC.BEProductoFaltante> lst = new List<ServiceSAC.BEProductoFaltante>();
-            using (ServiceSAC.SACServiceClient sv = new ServiceSAC.SACServiceClient())
-            {
-                lst = sv.GetProductoFaltanteByCampaniaAndZonaID(userData.PaisID, userData.CampaniaID, userData.ZonaID).ToList();
-            }
-
-            Dictionary<string, string> dic = new Dictionary<string, string>();
-            dic.Add("Codigo", "CUV");
-            dic.Add("Producto", "Descripcion");
-
-            Util.ExportToExcel("FaltantesAnunciadosExcel", lst, dic);
-
-            return new EmptyResult();
         }
 
         #endregion
@@ -2984,7 +2958,7 @@ namespace Portal.Consultoras.Web.Controllers
             #region GPR
 
             userData.ValidacionAbierta = oBEConfiguracionCampania.ValidacionAbierta;
-           
+
             bool MostrarBannerPedidoRechazado = false;
 
             if (userData.IndicadorGPRSB == 2)
@@ -3298,6 +3272,17 @@ namespace Portal.Consultoras.Web.Controllers
                         {
                             ValidacionAbierta = true;
                             Estado = Constantes.EstadoPedido.Procesado;
+
+                            //    if (userData.IndicadorGPRSB == 2)
+                            //    {
+                            //        if (ValidacionAbierta && userData.EstadoPedido == 202)
+                            //        {
+                            //            userData.CerrarRechazado = 0;
+                            //            userData.MostrarBannerRechazo = true;
+                            //            ViewBag.MostrarBannerRechazo = true;
+                            //            SetUserData(userData);
+                            //        }
+                            //    }
                         }
                         olstPedidoWebDetalle = ObtenerPedidoWebDetalle();
 
@@ -3308,7 +3293,7 @@ namespace Portal.Consultoras.Web.Controllers
                         }
                         //Dado que no se usa el indicador de ModificaPedidoReservado, este campo en el servicio será utilizado para enviar el campo: ValidacionAbierta
 
-                     
+
                         var CodigoUsuario = userData.UsuarioPrueba == 1 ? userData.ConsultoraAsociada : userData.CodigoUsuario.ToString();
 
                         sv.UpdPedidoWebByEstado(userData.PaisID, userData.CampaniaID, userData.PedidoID, Estado, false, true, CodigoUsuario, ValidacionAbierta);
@@ -3323,11 +3308,20 @@ namespace Portal.Consultoras.Web.Controllers
                                 sv.InsPedidoWebAccionesPROL(Reemplazos.ToArray(), 100, 103);
                             }
                         }
+
+                        BEConfiguracionCampania oBEConfiguracionCampania = null;
+                        oBEConfiguracionCampania = sv.GetEstadoPedido(userData.PaisID, userData.CampaniaID, userData.ConsultoraID, userData.ZonaID, userData.RegionID);
+
+                        if (userData.IndicadorGPRSB == 2 && oBEConfiguracionCampania.ValidacionAbierta)
+                        {
+                            userData.MostrarBannerRechazo = true;
+                            userData.CerrarRechazado = 0;
+                            SetUserData(userData);
+                        }
                     }
                 }
 
                 //Session["ProductosOfertaFinal"] = null;
-
                 return Json(new
                 {
                     success = true,
@@ -4047,7 +4041,7 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpGet]
         public JsonResult JsonConsultarEstrategias(string cuv)
         {
-            
+
             List<BEEstrategia> lst = ConsultarEstrategias(cuv ?? "");
             var listModel = Mapper.Map<List<BEEstrategia>, List<EstrategiaPedidoModel>>(lst);
 
@@ -4629,7 +4623,7 @@ namespace Portal.Consultoras.Web.Controllers
                 int limiteJetlore = int.Parse(ConfigurationManager.AppSettings.Get("LimiteJetloreOfertaFinal"));
 
                 var listaProductoModel = ObtenerListadoProductosOfertaFinal();
-                
+
                 // Si ya esta en pedido detalle no se debe mostrar
                 var pedidoDetalle = ObtenerPedidoWebDetalle();
                 var listaRetorno = new List<ProductoModel>();
@@ -4741,7 +4735,7 @@ namespace Portal.Consultoras.Web.Controllers
                 BEProducto beProducto = lstProducto.FirstOrDefault(p => p.CUV == producto.Cuv);
 
                 if (beProducto == null) continue;
-                
+
                 if (!beProducto.TieneStock)
                     continue;
 

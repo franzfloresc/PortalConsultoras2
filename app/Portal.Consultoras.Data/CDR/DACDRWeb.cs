@@ -65,5 +65,17 @@ namespace Portal.Consultoras.Data.CDR
 
             return Convert.ToInt32(command.Parameters["@RetornoID"].Value);
         }
+
+        public IDataReader GetCDRWebDetalleReporte(BECDRWeb entity)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetCDRWebDetalleReporte");
+            Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, entity.CampaniaID);
+            Context.Database.AddInParameter(command, "@RegionID", DbType.Int32, entity.RegionID);
+            Context.Database.AddInParameter(command, "@ZonaID", DbType.Int32, entity.ZonaID);
+            Context.Database.AddInParameter(command, "@ConsultoraCodigo", DbType.String, entity.ConsultoraCodigo);
+            Context.Database.AddInParameter(command, "@EstadoCDR", DbType.Int32, entity.Estado);
+
+            return Context.ExecuteReader(command);
+        }
     }
 }

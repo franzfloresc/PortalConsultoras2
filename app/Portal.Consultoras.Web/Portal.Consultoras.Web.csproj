@@ -361,6 +361,7 @@
     <Compile Include="LogManager\LogManager.cs" />
     <Compile Include="Models\AdministrarProductoSugerido.cs" />
     <Compile Include="Models\AutoMapper\AutoMapperConfiguration.cs" />
+    <Compile Include="Models\AutoMapper\ModelToDomainMappingProfile.cs" />
     <Compile Include="Models\AutoMapper\DomainToModelMappingProfile.cs" />
     <Compile Include="Models\BarraConsultoraEscalaDescuentoModel.cs" />
     <Compile Include="Models\BaseVM.cs" />
@@ -3526,6 +3527,7 @@
       <SubType>Code</SubType>
     </Content>
     <Content Include="Web References\ServiceCatalogosIssuu\MulticatalogoWebService.disco" />
+    <Content Include="WebPages\AppCatalogoTyC\BO_AppCatalogoTyC.html" />
     <Content Include="WebPages\AppCatalogoTyC\CL_AppCatalogoTyC.html" />
     <Content Include="WebPages\AppCatalogoTyC\CO_AppCatalogoTyC.HTML" />
     <Content Include="WebPages\AppCatalogoTyC\CR_AppCatalogoTyC.HTML" />
@@ -3769,6 +3771,7 @@
     </Content>
     <Content Include="Views\Unete\NivelesGeograficos.cshtml" />
     <Content Include="Views\Notificaciones\ListaDetalleCdrCulminado.cshtml" />
+    <Content Include="Views\MisReclamos\ReporteDetalle.cshtml" />
     <Content Include="Views\Login\Admin.cshtml" />
     <None Include="Web References\ServiceActualizarDatosPrueba\ProcesoMAEPortalConsultoraWebService.wsdl" />
     <Content Include="Web References\ServiceActualizarDatosPrueba\Reference.map" />
