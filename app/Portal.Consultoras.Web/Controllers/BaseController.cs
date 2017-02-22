@@ -6,6 +6,7 @@ using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.ServiceSAC;
 using Portal.Consultoras.Web.ServicesCalculosPROL;
 using Portal.Consultoras.Web.ServiceUsuario;
+using Portal.Consultoras.Web.ServiceZonificacion;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -563,7 +564,7 @@ namespace Portal.Consultoras.Web.Controllers
         public UsuarioModel UserData()
         {
             UsuarioModel model = (UsuarioModel)Session["UserData"];
-
+            string UrlEMTELCO = ConfigurationManager.AppSettings["UrlBelcorpChat"];
             if (model != null)
                     {
                 #region Cargar variables
@@ -781,7 +782,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             return this.GetProductosFaltantes("", "");
         }
-        private List<BEProductoFaltante> GetProductosFaltantes(int PaisID, int CampaniaID, int ZonaID)
+        protected List<BEProductoFaltante> GetProductosFaltantes(string cuv, string descripcion)
         {
             List<BEProductoFaltante> olstProductoFaltante = new List<BEProductoFaltante>();
             using (SACServiceClient sv = new SACServiceClient())
@@ -790,7 +791,6 @@ namespace Portal.Consultoras.Web.Controllers
             }
             return olstProductoFaltante;
         }
-
         private List<TipoLinkModel> GetLinksPorPais(int PaisID)
         {
             List<ServiceContenido.BETipoLink> listModel = new List<ServiceContenido.BETipoLink>();
@@ -1582,5 +1582,6 @@ namespace Portal.Consultoras.Web.Controllers
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
             }
         }
+        #endregion  
     }
 }
