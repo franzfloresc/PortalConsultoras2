@@ -34359,7 +34359,8 @@ h1#penmostreo .campana {
 }
 .content_set_intriga{
     width:65%;
-    float:left;
+    display:inline-block;
+    /*float:left;*/
     overflow:hidden;
     padding-top:30px;
 }
@@ -34386,19 +34387,22 @@ h1#penmostreo .campana {
     float:left;
 }
 .set_silueta_intriga img{
-    height: 213px;
+    height: 205px;
     width: auto;
     display: block;
     margin: 0 auto;
     padding-top: 16px;
 }
 .content_confirmacion_correo{
-    float:right;
-    width:28%;
+    vertical-align: top;
+    /* float: right; */
+    display: inline-block;
+    width: 28%;
     background:#f0f0f0;
     padding:26px;
     min-height:100px;
     margin-top: -52px;
+    margin-left:6%;
         -webkit-box-shadow: 0px 15px 13px -8px rgba(204,200,204,0.7);
     -moz-box-shadow: 0px 15px 13px -8px rgba(204,200,204,0.7);
     box-shadow: 0px 15px 13px -8px rgba(204,200,204,0.7);
@@ -34519,7 +34523,7 @@ h1#penmostreo .campana {
     font-size:16px;        
     font-weight:700;
     text-align:center;
-   
+    margin-bottom:5px;
 }
 .precio_oferta_showroom{
     font-family:'Lato';
@@ -34539,4 +34543,15 @@ h1#penmostreo .campana {
     width: 100%;
     text-align: center;
     font-weight: 300;
+}
+.content_set_imagen_intriga{
+    height:205px;
+    overflow:hidden;
+}
+.texto_adelanto_intriga{
+       font-family: 'Lato';
+    /* margin-top: 50px; */
+    font-size: 17px;
+    margin-bottom: 40px;
+    letter-spacing: 0.6px;
 }

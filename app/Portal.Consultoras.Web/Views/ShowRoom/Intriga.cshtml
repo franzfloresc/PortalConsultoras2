@@ -11,7 +11,7 @@
     </div>
     <img src="@Url.Content("~/Content/Images/showroom/banner_intriga_desktop.png")" />
 </div>
-<div class="content_belcorp">
+<div class="content_belcorp" style="text-align:center;">
     <div class="content_set_intriga">
 
         <input type="hidden" id="hdOfertaShowRoomID" value="@Model.OfertaShowRoomID" />
@@ -22,13 +22,14 @@
         <input type="hidden" class="DescripcionProd" value="@Model.Descripcion" />
         <input type="hidden" class="DescripcionMarca" value="@Model.DescripcionMarca" />
         <input type="hidden" class="posicionEstrategia" value="@Model.Orden" />
-
+        <div class="texto_adelanto_intriga">MIRA EL ADELANTO...</div>
         <div class="set_silueta_intriga">
             <img src="@Url.Content("~/Content/Images/showroom/intriga1.png")" />
             <div class="linea_separadora_intriga"></div>
         </div>
         <div class="set_visible_intriga">
-            <img class="set_img" src="https://S3.amazonaws.com/consultorasQAS/SomosBelcorp/Matriz/PE/PE_200042737_2017254271_03_mumegycqit.png">
+            <div class="content_set_imagen_intriga"><img class="set_img" src="https://S3.amazonaws.com/consultorasQAS/SomosBelcorp/Matriz/PE/PE_200042737_2017254271_03_mumegycqit.png"></div>
+            
             @*<img class="set_img" src="@Model.ImagenProducto">*@
             <div class="linea_separadora_intriga"></div>
             <div class="nombre_set_showroom">@Model.Descripcion</div>
