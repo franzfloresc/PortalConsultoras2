@@ -65,6 +65,8 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 }
                 ViewBag.MostrarBannerPL20 = mostrarBanner;
                 /*FIN: PL20-1289*/
+
+                ViewBag.EsMobile = 2;//EPD-1780
             }
             catch (Exception ex)
             {

@@ -465,9 +465,15 @@ function checkTimeout(data) {
 
         if (!thereIsStillTime) {
             //window.location.href = "/Login/SesionExpirada";
-            var message = "Tu sesión ha finalizado por inactividad. Por favor, ingresa nuevamente.";
-            $('#dialog_SesionMainLayout #mensajeSesionSB2_Error').html(message);
-            $('#dialog_SesionMainLayout').show();
+            
+            if (ViewBagEsMobile == 1) {
+                var message = "Tu sesión ha finalizado por inactividad. Por favor, ingresa nuevamente.";
+                $('#dialog_SesionMainLayout #mensajeSesionSB2_Error').html(message);
+                $('#dialog_SesionMainLayout').show();
+            }
+            else {
+
+            }
         }
     }
     else {

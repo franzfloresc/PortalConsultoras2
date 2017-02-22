@@ -81,6 +81,7 @@ namespace Portal.Consultoras.Web.Controllers
                     ObtenerPedidoWebDetalle();
 
                     ViewBag.TieneOfertaDelDia = userData.TieneOfertaDelDia;
+                    ViewBag.EsMobile = 1;//EPD-1780
 
                     if (userData.TieneOfertaDelDia)
                     {

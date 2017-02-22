@@ -31,7 +31,9 @@ namespace Portal.Consultoras.Web.Controllers
         {
             if (HttpContext.User.Identity.IsAuthenticated)
             {
-                if (Request.Browser.IsMobileDevice)
+                //if (Request.Browser.IsMobileDevice)
+                bool esMovil = Request.Browser.IsMobileDevice; 
+                if (esMovil)
                 {
                     return RedirectToAction("Index", "Bienvenida", new { area = "Mobile" });
                 }
@@ -1070,14 +1072,15 @@ namespace Portal.Consultoras.Web.Controllers
         [AllowAnonymous]
         public ActionResult SesionExpirada()
         {
-            if (!HttpContext.User.Identity.IsAuthenticated && Session["UserData"] != null)
-            {
-                return View();
-            }
-            else
-            {
-                return RedirectToAction("Index");
-            }            
+            return View();
+            //if (!HttpContext.User.Identity.IsAuthenticated && Session["UserData"] != null)
+            //{
+            //    return View();
+            //}
+            //else
+            //{
+            //    return RedirectToAction("Index");
+            //}            
         }
 
         [AllowAnonymous]
