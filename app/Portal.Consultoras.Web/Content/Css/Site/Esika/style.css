@@ -19834,9 +19834,9 @@ float: right;
 .check_01 {
        position: absolute;
     /* float: left; */
-    /* width: 100%; */
+     width: 100%; 
     height: 20px;
-    margin-left: 10px;
+    /*margin-left: 10px;*/
     margin-top: 10px;
     bottom: -8px;
     color: white;
@@ -20243,18 +20243,20 @@ label.checkpop {
 }
 
 label.checkpop2 {
+    /*width: 100%; */
+    text-align: center;
     display: block;
     cursor: pointer;
-    padding-left: 21px;
+    /* padding-left: 21px; */
     padding-top: 2px;
     font-size: 10pt;
     color: white;
     font-family: 'lato';
     transition: .3s;
     font-weight: 300;
-    /*background: url("/Content/Images/showroom/check_off.png") left center no-repeat;*/
-    margin-left:170px;
-    text-decoration:underline;
+    /* background: url(/Content/Images/showroom/check_off.png) left center no-repeat; */
+    /* margin-left: 170px; */
+    text-decoration: underline;
 }
 
 
