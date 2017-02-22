@@ -1286,10 +1286,10 @@
             </div>
 
             <div class="check_01">
-                <label class="checkpop">
+                @*<label class="checkpop">
                     <input type="checkbox" id="cbNoMostrarPopupShowRoom" />
                     No quiero volver a ver éste comunicado
-                </label>
+                </label>*@
             </div>
 
         </div>
@@ -2413,15 +2413,13 @@
             <img src="/Content/Images/cerrar_04_blanco.png" alt="" alternate text">            
         </a>
         <div class="saludo_consultora_showroom">Valeria prepárate para la</div>
-        <div class="dias_intriga_home">FALTAN <span id="spnShowRoomDiasFaltan">5</span> DÍAS</div>
-
+        <div class="dias_intriga_home">FALTAN 5 DÍAS</div>
         <div class="check_01">
-            <label class="checkpop">
-                <a href="javascript:;" id="cbNoMostrarPopupShowRoom">No quiero volver a ver éste comunicado</a>
+            <label class="checkpop2">
+                <a href="javascript:;" id="cbNoMostrarPopupShowRoom">NO QUIERO VOLVER A VER &Eacute;STE COMUNICADO</a>
             </label>
         </div>
-
-        <img id="imgShowRoomIntriga" src="@Url.Content("~/Content/Images/showroom/popup_intriga.png")" onclick="VerShowRoomIntriga()" style="cursor: pointer;" />
+        <img class="imagen_dias_intriga" src="@Url.Content("~/Content/Images/showroom/popup_intriga.png")" onclick="VerShowRoomIntriga()" style="cursor: pointer;" />
     </div>
   
 </div>

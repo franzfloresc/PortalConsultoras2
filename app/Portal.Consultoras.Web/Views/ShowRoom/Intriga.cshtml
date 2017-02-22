@@ -7,9 +7,17 @@
 
 <div class="content_banner_intriga">
     <div class="texto_dias_intriga">
-       FALTAN @ViewBag.DiasFaltan DÍAS
+        @if (ViewBag.DiasFaltan == 1)
+        {
+            <text>FALTA 1 DÍA</text>
+        }
+        else
+        {
+            <text>FALTAN @ViewBag.DiasFaltan DÍAS</text>
+        }
     </div>
-    <img src="@Url.Content("~/Content/Images/showroom/banner_intriga_desktop.png")" />
+    @*<img src="@Url.Content("~/Content/Images/showroom/banner_intriga_desktop.png")" />*@
+    <img src="@ViewBag.urlImagenPopupIntriga" />
 </div>
 <div class="content_belcorp">
     <div class="content_set_intriga">
@@ -50,7 +58,7 @@
         </div>
 
     </div>
-    <div class="content_confirmacion_correo">
+    <div class="content_confirmacion_correo" style="display: none;">
         <div>
             <div class="titulo_confirmacion">¡NO TE QUEDES FUERA!</div>
             <div class="texto_confirmacion">Confirma tu correo <br />y entérate primero</div>
@@ -71,23 +79,79 @@
         </div>  
     </div>
     <hr class="clear" />
-    <div class="texto_final_intriga">¿Tienes dudas sobre la Gran Venta Online?. <u>Resuélvelas aquí</u>.</div>
+    <div class="texto_final_intriga">¿Tienes dudas sobre la Gran Venta Online?.
+        <a href="@ViewBag.urlTerminosyCondiciones">Resuélvelas aquí.</a>
+    </div>
 </div>
+
+<div id="DialogMensajesBanner" style="display: none;">
+    <div class="message_text">
+        Ocurrió un error en la comunicación o la sesión ha expirado. Por favor vuelva a autenticarse.
+    </div>
+</div>
+
+<div id="divMensajeProductoAgregado" class="divAgregarShowRoom" style="display: none;">
+    <div class="titulo_producto_agregado">
+        ¡Has agregado <span id="spnNombreOfertaShowRoom">Hola</span> a tu pedido!
+    </div>
+    <div class="div_bonotes_producto">
+        <div class="child_center_botones">
+            <a class="volver_set" id="btnCerrarSet">VOLVER A SETS</a>
+            <a class="volver_set2" href="@Url.Action("Index","Pedido")" id="btnIrMipedido">VER MI PEDIDO</a>
+        </div>
+    </div>
+</div>
+
 @section scripts{
     
     <script type="text/javascript">
         $(document).ready(function () {
+
+            $('.ubicacion_web').find('span').eq(0).hide();
+            $('.ubicacion_web').find('span').eq(1).hide();
+
             $(".termino_condiciones_intriga").click(function () {              
                 $(this).toggleClass('check_intriga'); 
             });
 
+            $('#DialogMensajesBanner').dialog({
+                autoOpen: false,
+                resizable: false,
+                modal: true,
+                closeOnEscape: true,
+                width: 400,
+                draggable: true,
+                title: ":: Mensaje ::",
+                buttons:
+                {
+                    "Aceptar": function () {
+                        $(this).dialog('close');
+                    }
+                }
+            });
+
+            $('#divMensajeProductoAgregado').dialog({
+                autoOpen: false,
+                resizable: false,
+                modal: true,
+                closeOnEscape: true,
+                width: 456,
+                draggable: true,
+            });
         });
+
+        function alert_msg(message) {
+            $('#DialogMensajesBanner .message_text').html(message);
+            $('#DialogMensajesBanner').dialog('open');
+            //$('#DialogMensajesBanner').show();
+        }
 
         function AgregarOfertaShowRoom() {
             debugger;
 
             var article = $('.content_set_intriga');
-            var cantidad = $('[data-input="cantidad"]').val();
+            var cantidad = $(article).find('[data-input="cantidad"]').val();
+            var listatipo = "0";
 
             //var cantidad = $(article).find(".txtCantidad").val();
             var CUV = $(article).find(".valorCuv").val();
@@ -105,26 +169,26 @@
                 $.ajaxSetup({
                     cache: false
                 });
-                $.getJSON(baseUrl + 'ShowRoom/ValidarUnidadesPermitidasPedidoProducto', { CUV: CUV }, function (data) {
-                    if (parseInt(data.Saldo) < parseInt(cantidad)) {
-                        var Saldo = data.Saldo;
-                        var UnidadesPermitidas = data.UnidadesPermitidas;
+                //$.getJSON(baseUrl + 'ShowRoom/ValidarUnidadesPermitidasPedidoProducto', { CUV: CUV }, function (data) {
+                //    if (parseInt(data.Saldo) < parseInt(cantidad)) {
+                //        var Saldo = data.Saldo;
+                //        var UnidadesPermitidas = data.UnidadesPermitidas;
 
-                        $.getJSON(baseUrl + 'ShowRoom/ObtenerStockActualProducto', { CUV: CUV }, function (data) {
-                            //$(article).find(".claseStock").text(data.Stock);
+                //        $.getJSON(baseUrl + 'ShowRoom/ObtenerStockActualProducto', { CUV: CUV }, function (data) {
+                //            //$(article).find(".claseStock").text(data.Stock);
 
-                            closeWaitingDialog();
+                //            closeWaitingDialog();
 
-                            if (Saldo == UnidadesPermitidas)
-                                alert_msg("Lamentablemente, la cantidad solicitada sobrepasa las Unidades Permitidas de Venta (" + UnidadesPermitidas + ") del producto.");
-                            else {
-                                if (Saldo == "0")
-                                    alert_msg("Las Unidades Permitidas de Venta son solo (" + UnidadesPermitidas + "), pero Usted ya no puede adicionar más, debido a que ya agregó este producto a su pedido, verifique.");
-                                else
-                                    alert_msg("Las Unidades Permitidas de Venta son solo (" + UnidadesPermitidas + "), pero Usted solo puede adicionar (" + Saldo + ") más, debido a que ya agregó este producto a su pedido, verifique.");
-                            }
-                        });
-                    } else {
+                //            if (Saldo == UnidadesPermitidas)
+                //                alert_msg("Lamentablemente, la cantidad solicitada sobrepasa las Unidades Permitidas de Venta (" + UnidadesPermitidas + ") del producto.");
+                //            else {
+                //                if (Saldo == "0")
+                //                    alert_msg("Las Unidades Permitidas de Venta son solo (" + UnidadesPermitidas + "), pero Usted ya no puede adicionar más, debido a que ya agregó este producto a su pedido, verifique.");
+                //                else
+                //                    alert_msg("Las Unidades Permitidas de Venta son solo (" + UnidadesPermitidas + "), pero Usted solo puede adicionar (" + Saldo + ") más, debido a que ya agregó este producto a su pedido, verifique.");
+                //            }
+                //        });
+                //    } else {
                         var Item = {
                             MarcaID: MarcaID,
                             Cantidad: cantidad,
@@ -134,36 +198,37 @@
                         };
 
                         $.ajaxSetup({ cache: false });
-                        $.getJSON(baseUrl + 'ShowRoom/ObtenerStockActualProducto', { CUV: CUV }, function (data) {
-                            if (parseInt(data.Stock) < parseInt(cantidad)) {
-                                //$(article).find(".claseStock").text(data.Stock);
+                        //$.getJSON(baseUrl + 'ShowRoom/ObtenerStockActualProducto', { CUV: CUV }, function (data) {
+                        //    if (parseInt(data.Stock) < parseInt(cantidad)) {
+                        //        //$(article).find(".claseStock").text(data.Stock);
 
-                                closeWaitingDialog();
-                                alert_msg("Lamentablemente, la cantidad solicitada sobrepasa el stock actual (" + data.Stock + ") del producto, verifique.");
-                            } else {
+                        //        closeWaitingDialog();
+                        //        alert_msg("Lamentablemente, la cantidad solicitada sobrepasa el stock actual (" + data.Stock + ") del producto, verifique.");
+                        //    } else {
                                 console.log(Item);
-                                //jQuery.ajax({
-                                //    type: 'POST',
-                                //    url: baseUrl + 'ShowRoom/InsertOfertaWebPortal',
-                                //    dataType: 'json',
-                                //    contentType: 'application/json; charset=utf-8',
-                                //    data: JSON.stringify(Item),
-                                //    async: true,
-                                //    success: function (response) {
-                                //        closeWaitingDialog();
 
-                                //        if (response.success == true) {
-                                //            $("#spnNombreOfertaShowRoom").html(nombreProducto);
+                                jQuery.ajax({
+                                    type: 'POST',
+                                    url: baseUrl + 'ShowRoom/InsertOfertaWebPortal',
+                                    dataType: 'json',
+                                    contentType: 'application/json; charset=utf-8',
+                                    data: JSON.stringify(Item),
+                                    async: true,
+                                    success: function (response) {
+                                        closeWaitingDialog();
 
-                                //            $("#divMensajeProductoAgregado").parent().find(".ui-dialog-titlebar").hide();
-                                //            $("#divMensajeProductoAgregado").parent().css("overflow", "inherit");
-                                //            $("#divMensajeProductoAgregado").parent().css("border", "0");
-                                //            $("#divMensajeProductoAgregado").parent().css("border-radius", "0");
-                                //            $("#divMensajeProductoAgregado").parent().css("-webkit-border-radius", "0");
-                                //            $("#divMensajeProductoAgregado").parent().css("-moz-border-radius", "0");
-                                //            $("#divMensajeProductoAgregado").parent().css("-khtml-border-radius", "0");
-                                //            $("#divMensajeProductoAgregado").parent().css("padding", "0");
-                                //            $('#divMensajeProductoAgregado').dialog('open');
+                                        if (response.success == true) {
+                                            //$("#spnNombreOfertaShowRoom").html(nombreProducto);
+
+                                            //$("#divMensajeProductoAgregado").parent().find(".ui-dialog-titlebar").hide();
+                                            //$("#divMensajeProductoAgregado").parent().css("overflow", "inherit");
+                                            //$("#divMensajeProductoAgregado").parent().css("border", "0");
+                                            //$("#divMensajeProductoAgregado").parent().css("border-radius", "0");
+                                            //$("#divMensajeProductoAgregado").parent().css("-webkit-border-radius", "0");
+                                            //$("#divMensajeProductoAgregado").parent().css("-moz-border-radius", "0");
+                                            //$("#divMensajeProductoAgregado").parent().css("-khtml-border-radius", "0");
+                                            //$("#divMensajeProductoAgregado").parent().css("padding", "0");
+                                            //$('#divMensajeProductoAgregado').dialog('open');
 
                                 //            var stockRestante = parseInt(data.Stock) - parseInt(cantidad);
                                 //            if (stockRestante < 1) {
@@ -203,25 +268,46 @@
                                 //                $(div2).find(".txtCantidad").val("1");
                                 //            }
 
-                                //            AgregarTagManagerProductoAgregadoSW(CUV, nombreProducto, PrecioUnidad, cantidad, descripcionMarca, listatipo);
-                                //            CargarResumenCampaniaHeader(true);
-                                //            TrackingJetloreAdd(cantidad, $("#hdCampaniaCodigo").val(), CUV);
-                                //        }
-                                //        else messageInfoError(response.message);
-                                //    },
-                                //    error: function (response, error) {
-                                //        if (checkTimeout(response)) {
-                                //            closeWaitingDialog();
-                                //            console.log(response);
-                                //        }
-                                //    }
-                                //});
-                            }
-                        });
-                    }
+                                            AgregarTagManagerProductoAgregadoSW(CUV, nombreProducto, PrecioUnidad, cantidad, descripcionMarca, listatipo);
+                                            CargarResumenCampaniaHeader(true);
+                                            TrackingJetloreAdd(cantidad, $("#hdCampaniaCodigo").val(), CUV);
+                                        }
+                                        else messageInfoError(response.message);
+                                    },
+                                    error: function (response, error) {
+                                        if (checkTimeout(response)) {
+                                            closeWaitingDialog();
+                                            console.log(response);
+                                        }
+                                    }
+                                });
+                            //}
+                        //});
+                //    }
 
-                });
+                //});
             }
+        }
+
+        function AgregarTagManagerProductoAgregadoSW(CUV, nombreProducto, PrecioUnidad, cantidad, descripcionMarca, tipo) {
+            var lista = tipo == 0 ? "Ofertas Showroom" : "Ofertas Showroom popUp";
+            dataLayer.push({
+                'event': 'addToCart',
+                'ecommerce': {
+                    'add': {
+                        'actionField': { 'list': lista },
+                        'products': [{
+                            'name': nombreProducto,
+                            'id': CUV,
+                            'price': PrecioUnidad,
+                            'brand': descripcionMarca,
+                            'variant': 'Ofertas Showroom',
+                            'category': 'NO DISPONIBLE',
+                            'quantity': cantidad
+                        }]
+                    }
+                }
+            });
         }
 
     </script>

@@ -20242,6 +20242,22 @@ label.checkpop {
    text-decoration:underline;
 }
 
+label.checkpop2 {
+    display: block;
+    cursor: pointer;
+    padding-left: 21px;
+    padding-top: 2px;
+    font-size: 10pt;
+    color: white;
+    font-family: 'lato';
+    transition: .3s;
+    font-weight: 300;
+    /*background: url("/Content/Images/showroom/check_off.png") left center no-repeat;*/
+    margin-left:170px;
+    text-decoration:underline;
+}
+
+
 label.checkpop input {
   position: absolute;
   left: -9999px;

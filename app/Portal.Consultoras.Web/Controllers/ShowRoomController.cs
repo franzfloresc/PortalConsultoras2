@@ -41,9 +41,18 @@ namespace Portal.Consultoras.Web.Controllers
                 model = listaShowRoomOfertaModel.FirstOrDefault();
             }
 
+            model.CodigoISO = userData.CodigoISO;
             var fechaHoy = DateTime.Now.AddHours(userData.ZonaHoraria).Date;
             ViewBag.DiasFaltan = userData.FechaInicioCampania.AddDays(-userData.BeShowRoom.DiasAntes).Day - fechaHoy.Day;
-            model.CodigoISO = userData.CodigoISO;
+            var lstPersonalizacion = userData.ListaShowRoomPersonalizacionConsultora.Where(x => x.TipoAplicacion == "Desktop").ToList();
+            ViewBag.urlImagenPopupIntriga = string.Empty;
+            ViewBag.urlTerminosyCondiciones = string.Empty;
+
+            foreach (var item in lstPersonalizacion)
+            {
+                if (item.Atributo == "BannerImagenIntriga") ViewBag.urlImagenPopupIntriga = item.Valor;
+                if (item.Atributo == "UrlTerminosCondiciones") ViewBag.urlTerminosyCondiciones = item.Valor;
+            }
 
             return View(model);
         }
