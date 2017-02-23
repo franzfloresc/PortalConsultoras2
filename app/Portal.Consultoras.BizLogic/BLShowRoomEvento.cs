@@ -364,12 +364,12 @@ namespace Portal.Consultoras.BizLogic
         }
 
         public IList<BEShowRoomPersonalizacionNivel> GetShowRoomPersonalizacionNivel(int paisId, int eventoId,
-            int nivelId)
+            int nivelId, int categoriaId)
         {
             var lst = new List<BEShowRoomPersonalizacionNivel>();
             var dataAccess = new DAShowRoomEvento(paisId);
 
-            using (IDataReader reader = dataAccess.GetShowRoomPersonalizacionNivel(eventoId, nivelId))
+            using (IDataReader reader = dataAccess.GetShowRoomPersonalizacionNivel(eventoId, nivelId, categoriaId))
                 while (reader.Read())
                 {
                     var entity = new BEShowRoomPersonalizacionNivel(reader);
@@ -402,6 +402,25 @@ namespace Portal.Consultoras.BizLogic
                     lst.Add(entity);
                 }
             return lst;
+        }
+
+        public BEShowRoomCategoria GetShowRoomCategoriaById(int paisId, int categoriaId)
+        {
+            BEShowRoomCategoria entidad = null;
+            var DAPedidoWeb = new DAShowRoomEvento(paisId);
+
+            using (IDataReader reader = DAPedidoWeb.GetShowRoomCategoriaById(categoriaId))
+                if (reader.Read())
+                {
+                    entidad = new BEShowRoomCategoria(reader);
+                }
+            return entidad;
+        }
+
+        public void UpdateShowRoomDescripcionCategoria(int paisId, BEShowRoomCategoria categoria)
+        {
+            var dataAccess = new DAShowRoomEvento(paisId);
+            dataAccess.UpdateShowRoomDescripcionCategoria(categoria);
         }
     }
 }

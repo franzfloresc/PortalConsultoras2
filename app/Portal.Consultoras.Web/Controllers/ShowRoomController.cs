@@ -2057,12 +2057,14 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                var listaPersonalizacion = userData.ListaShowRoomPersonalizacion.Where(p => p.TipoPersonalizacion == "EVENTO").ToList();
+                var listaPersonalizacion = userData.ListaShowRoomPersonalizacion.Where(
+                        p => p.TipoPersonalizacion == Constantes.ShowRoomPersonalizacion.TipoPersonalizacion.Evento).ToList();
+
                 var listaPersonalizacionNivel = new List<BEShowRoomPersonalizacionNivel>();
 
                 using (PedidoServiceClient ps = new PedidoServiceClient())
                 {
-                    listaPersonalizacionNivel = ps.GetShowRoomPersonalizacionNivel(userData.PaisID, eventoId, nivelId).ToList();
+                    listaPersonalizacionNivel = ps.GetShowRoomPersonalizacionNivel(userData.PaisID, eventoId, nivelId, 0).ToList();
                 }
 
                 Mapper.CreateMap<BEShowRoomPersonalizacion, ShowRoomPersonalizacionModel>()
@@ -2150,6 +2152,7 @@ namespace Portal.Consultoras.Web.Controllers
                 Mapper.CreateMap<ShowRoomPersonalizacionNivelModel, BEShowRoomPersonalizacionNivel>()
                     .ForMember(t => t.PersonalizacionNivelId, f => f.MapFrom(c => c.PersonalizacionNivelId))
                     .ForMember(t => t.EventoID, f => f.MapFrom(c => c.EventoID))
+                    .ForMember(t => t.CategoriaId, f => f.MapFrom(c => c.CategoriaId))
                     .ForMember(t => t.PersonalizacionId, f => f.MapFrom(c => c.PersonalizacionId))
                     .ForMember(t => t.NivelId, f => f.MapFrom(c => c.NivelId))
                     .ForMember(t => t.Valor, f => f.MapFrom(c => c.Valor));
@@ -2177,6 +2180,146 @@ namespace Portal.Consultoras.Web.Controllers
                     success = true,
                     message = "Se insertó las personalizaciones satisfactoriamente.",
                     extra = ""
+                });
+            }
+            catch (FaultException ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return Json(new
+                {
+                    success = false,
+                    message = ex.Message,
+                    extra = ""
+                });
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return Json(new
+                {
+                    success = false,
+                    message = ex.Message,
+                    extra = ""
+                });
+            }
+        }
+
+        [HttpPost]
+        public JsonResult GetShowRoomPersonalizacionCategoria(int eventoId, int categoriaId)
+        {
+            try
+            {
+                var categoria = new BEShowRoomCategoria();
+                using (PedidoServiceClient ps = new PedidoServiceClient())
+                {
+                    categoria = ps.GetShowRoomCategoriaById(userData.PaisID, categoriaId);
+                }
+
+                categoria = categoria ?? new BEShowRoomCategoria();
+
+                var listaPersonalizacion = userData.ListaShowRoomPersonalizacion.Where(
+                        p => p.TipoPersonalizacion == Constantes.ShowRoomPersonalizacion.TipoPersonalizacion.Categoria).ToList();
+
+                var listaPersonalizacionCategoria = new List<BEShowRoomPersonalizacionNivel>();
+
+                using (PedidoServiceClient ps = new PedidoServiceClient())
+                {
+                    listaPersonalizacionCategoria = ps.GetShowRoomPersonalizacionNivel(userData.PaisID, eventoId, 0, categoriaId).ToList();
+                }
+
+                Mapper.CreateMap<BEShowRoomPersonalizacion, ShowRoomPersonalizacionModel>()
+                   .ForMember(t => t.PersonalizacionId, f => f.MapFrom(c => c.PersonalizacionId))
+                   .ForMember(t => t.TipoAplicacion, f => f.MapFrom(c => c.TipoAplicacion))
+                   .ForMember(t => t.PersonalizacionId, f => f.MapFrom(c => c.PersonalizacionId))
+                   .ForMember(t => t.Atributo, f => f.MapFrom(c => c.Atributo))
+                   .ForMember(t => t.TextoAyuda, f => f.MapFrom(c => c.TextoAyuda))
+                   .ForMember(t => t.TipoAtributo, f => f.MapFrom(c => c.TipoAtributo))
+                   .ForMember(t => t.TipoPersonalizacion, f => f.MapFrom(c => c.TipoPersonalizacion))
+                   .ForMember(t => t.Orden, f => f.MapFrom(c => c.Orden))
+                   .ForMember(t => t.Estado, f => f.MapFrom(c => c.Estado));
+
+                var listaPersonalizacionModel = Mapper.Map<IList<BEShowRoomPersonalizacion>, IList<ShowRoomPersonalizacionModel>>(listaPersonalizacion);
+
+                foreach (var item in listaPersonalizacionModel)
+                {
+                    var personalizacionnivel =
+                        listaPersonalizacionCategoria.FirstOrDefault(p => p.CategoriaId == categoriaId && p.EventoID == eventoId &&
+                                p.PersonalizacionId == item.PersonalizacionId);
+
+                    if (personalizacionnivel != null)
+                    {
+                        item.PersonalizacionNivelId = personalizacionnivel.PersonalizacionNivelId;
+                        item.Valor = personalizacionnivel.Valor;
+
+                        if (item.TipoAtributo == "IMAGEN")
+                        {
+                            string ISO = Util.GetPaisISO(userData.PaisID);
+                            var carpetaPais = Globals.UrlMatriz + "/" + ISO;
+
+                            item.Valor = string.IsNullOrEmpty(item.Valor)
+                                ? "" : ConfigS3.GetUrlFileS3(carpetaPais, item.Valor, Globals.RutaImagenesMatriz + "/" + userData.CodigoISO);
+                        }
+                    }
+                    else
+                    {
+                        item.PersonalizacionNivelId = 0;
+                        item.Valor = "";
+                    }
+                }
+
+                return Json(new
+                {
+                    success = true,
+                    message = "Ok",
+                    categoria = categoria,
+                    listaPersonalizacion = listaPersonalizacionModel,
+                });
+            }
+            catch (FaultException ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return Json(new
+                {
+                    success = false,
+                    message = ex.Message,
+                    extra = ""
+                });
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return Json(new
+                {
+                    success = false,
+                    message = ex.Message,
+                    extra = ""
+                });
+            }
+        }
+
+        [HttpPost]
+        public JsonResult UpdateShowRoomDescripcionCategoria(ShowRoomCategoriaModel model)
+        {
+            try
+            {
+                Mapper.CreateMap<ShowRoomCategoriaModel, BEShowRoomCategoria>()
+                  .ForMember(t => t.CategoriaId, f => f.MapFrom(c => c.CategoriaId))
+                  .ForMember(t => t.EventoID, f => f.MapFrom(c => c.EventoID))
+                  .ForMember(t => t.Codigo, f => f.MapFrom(c => c.Codigo))
+                  .ForMember(t => t.Descripcion, f => f.MapFrom(c => c.Descripcion));
+
+                var entidad = Mapper.Map<ShowRoomCategoriaModel, BEShowRoomCategoria>(model);
+
+                using (PedidoServiceClient ps = new PedidoServiceClient())
+                {
+                    ps.UpdateShowRoomDescripcionCategoria(userData.PaisID, entidad);
+                }
+
+                return Json(new
+                {
+                    success = true,
+                    message = "Ok",
+                    data = ""
                 });
             }
             catch (FaultException ex)

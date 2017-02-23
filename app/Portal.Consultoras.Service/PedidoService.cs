@@ -1613,9 +1613,9 @@ namespace Portal.Consultoras.Service
         }
 
         public IList<BEShowRoomPersonalizacionNivel> GetShowRoomPersonalizacionNivel(int paisId, int eventoId,
-            int nivelId)
+            int nivelId, int categoriaId)
         {
-            return BLShowRoomEvento.GetShowRoomPersonalizacionNivel(paisId, eventoId, nivelId);
+            return BLShowRoomEvento.GetShowRoomPersonalizacionNivel(paisId, eventoId, nivelId, categoriaId);
         }
 
         public int InsertShowRoomPersonalizacionNivel(int paisId, BEShowRoomPersonalizacionNivel beShowRoomPersonalizacionNivel)
@@ -1631,6 +1631,16 @@ namespace Portal.Consultoras.Service
         public List<BEShowRoomCategoria> GetShowRoomCategorias(int paisId, int eventoId)
         {
             return BLShowRoomEvento.GetShowRoomCategorias(paisId, eventoId);
+        }
+
+        public BEShowRoomCategoria GetShowRoomCategoriaById(int paisId, int categoriaId)
+        {
+            return BLShowRoomEvento.GetShowRoomCategoriaById(paisId, categoriaId);
+        }
+
+        public void UpdateShowRoomDescripcionCategoria(int paisId, BEShowRoomCategoria categoria)
+        {
+            BLShowRoomEvento.UpdateShowRoomDescripcionCategoria(paisId, categoria);
         }
 
         #endregion

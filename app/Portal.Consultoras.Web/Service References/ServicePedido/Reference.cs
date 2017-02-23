@@ -18012,10 +18012,10 @@ namespace Portal.Consultoras.Web.ServicePedido {
         System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEShowRoomPersonalizacion[]> GetShowRoomPersonalizacionAsync(int paisId);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetShowRoomPersonalizacionNivel", ReplyAction="http://tempuri.org/IPedidoService/GetShowRoomPersonalizacionNivelResponse")]
-        Portal.Consultoras.Web.ServicePedido.BEShowRoomPersonalizacionNivel[] GetShowRoomPersonalizacionNivel(int paisId, int eventoId, int nivelId);
+        Portal.Consultoras.Web.ServicePedido.BEShowRoomPersonalizacionNivel[] GetShowRoomPersonalizacionNivel(int paisId, int eventoId, int nivelId, int categoriaId);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetShowRoomPersonalizacionNivel", ReplyAction="http://tempuri.org/IPedidoService/GetShowRoomPersonalizacionNivelResponse")]
-        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEShowRoomPersonalizacionNivel[]> GetShowRoomPersonalizacionNivelAsync(int paisId, int eventoId, int nivelId);
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEShowRoomPersonalizacionNivel[]> GetShowRoomPersonalizacionNivelAsync(int paisId, int eventoId, int nivelId, int categoriaId);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/InsertShowRoomPersonalizacionNivel", ReplyAction="http://tempuri.org/IPedidoService/InsertShowRoomPersonalizacionNivelResponse")]
         int InsertShowRoomPersonalizacionNivel(int paisId, Portal.Consultoras.Web.ServicePedido.BEShowRoomPersonalizacionNivel beShowRoomPersonalizacionNivel);
@@ -18034,6 +18034,18 @@ namespace Portal.Consultoras.Web.ServicePedido {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetShowRoomCategorias", ReplyAction="http://tempuri.org/IPedidoService/GetShowRoomCategoriasResponse")]
         System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEShowRoomCategoria[]> GetShowRoomCategoriasAsync(int paisId, int eventoId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetShowRoomCategoriaById", ReplyAction="http://tempuri.org/IPedidoService/GetShowRoomCategoriaByIdResponse")]
+        Portal.Consultoras.Web.ServicePedido.BEShowRoomCategoria GetShowRoomCategoriaById(int paisId, int categoriaId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetShowRoomCategoriaById", ReplyAction="http://tempuri.org/IPedidoService/GetShowRoomCategoriaByIdResponse")]
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEShowRoomCategoria> GetShowRoomCategoriaByIdAsync(int paisId, int categoriaId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/UpdateShowRoomDescripcionCategoria", ReplyAction="http://tempuri.org/IPedidoService/UpdateShowRoomDescripcionCategoriaResponse")]
+        void UpdateShowRoomDescripcionCategoria(int paisId, Portal.Consultoras.Web.ServicePedido.BEShowRoomCategoria categoria);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/UpdateShowRoomDescripcionCategoria", ReplyAction="http://tempuri.org/IPedidoService/UpdateShowRoomDescripcionCategoriaResponse")]
+        System.Threading.Tasks.Task UpdateShowRoomDescripcionCategoriaAsync(int paisId, Portal.Consultoras.Web.ServicePedido.BEShowRoomCategoria categoria);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetPaginateProductoSugerido", ReplyAction="http://tempuri.org/IPedidoService/GetPaginateProductoSugeridoResponse")]
         Portal.Consultoras.Web.ServicePedido.BEProductoSugerido[] GetPaginateProductoSugerido(int PaisID, int CampaniaID, string CUVAgotado, string CUVSugerido);
@@ -19799,12 +19811,12 @@ namespace Portal.Consultoras.Web.ServicePedido {
             return base.Channel.GetShowRoomPersonalizacionAsync(paisId);
         }
         
-        public Portal.Consultoras.Web.ServicePedido.BEShowRoomPersonalizacionNivel[] GetShowRoomPersonalizacionNivel(int paisId, int eventoId, int nivelId) {
-            return base.Channel.GetShowRoomPersonalizacionNivel(paisId, eventoId, nivelId);
+        public Portal.Consultoras.Web.ServicePedido.BEShowRoomPersonalizacionNivel[] GetShowRoomPersonalizacionNivel(int paisId, int eventoId, int nivelId, int categoriaId) {
+            return base.Channel.GetShowRoomPersonalizacionNivel(paisId, eventoId, nivelId, categoriaId);
         }
         
-        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEShowRoomPersonalizacionNivel[]> GetShowRoomPersonalizacionNivelAsync(int paisId, int eventoId, int nivelId) {
-            return base.Channel.GetShowRoomPersonalizacionNivelAsync(paisId, eventoId, nivelId);
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEShowRoomPersonalizacionNivel[]> GetShowRoomPersonalizacionNivelAsync(int paisId, int eventoId, int nivelId, int categoriaId) {
+            return base.Channel.GetShowRoomPersonalizacionNivelAsync(paisId, eventoId, nivelId, categoriaId);
         }
         
         public int InsertShowRoomPersonalizacionNivel(int paisId, Portal.Consultoras.Web.ServicePedido.BEShowRoomPersonalizacionNivel beShowRoomPersonalizacionNivel) {
@@ -19829,6 +19841,22 @@ namespace Portal.Consultoras.Web.ServicePedido {
         
         public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEShowRoomCategoria[]> GetShowRoomCategoriasAsync(int paisId, int eventoId) {
             return base.Channel.GetShowRoomCategoriasAsync(paisId, eventoId);
+        }
+        
+        public Portal.Consultoras.Web.ServicePedido.BEShowRoomCategoria GetShowRoomCategoriaById(int paisId, int categoriaId) {
+            return base.Channel.GetShowRoomCategoriaById(paisId, categoriaId);
+        }
+        
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEShowRoomCategoria> GetShowRoomCategoriaByIdAsync(int paisId, int categoriaId) {
+            return base.Channel.GetShowRoomCategoriaByIdAsync(paisId, categoriaId);
+        }
+        
+        public void UpdateShowRoomDescripcionCategoria(int paisId, Portal.Consultoras.Web.ServicePedido.BEShowRoomCategoria categoria) {
+            base.Channel.UpdateShowRoomDescripcionCategoria(paisId, categoria);
+        }
+        
+        public System.Threading.Tasks.Task UpdateShowRoomDescripcionCategoriaAsync(int paisId, Portal.Consultoras.Web.ServicePedido.BEShowRoomCategoria categoria) {
+            return base.Channel.UpdateShowRoomDescripcionCategoriaAsync(paisId, categoria);
         }
         
         public Portal.Consultoras.Web.ServicePedido.BEProductoSugerido[] GetPaginateProductoSugerido(int PaisID, int CampaniaID, string CUVAgotado, string CUVSugerido) {

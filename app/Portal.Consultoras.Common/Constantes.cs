@@ -357,6 +357,12 @@ namespace Portal.Consultoras.Common
                 public const string Desktop = "Desktop";
                 public const string Mobile = "Mobile";
             }
+
+            public class TipoPersonalizacion
+            {
+                public const string Evento = "EVENTO";
+                public const string Categoria = "CATEGORIA";
+            }
         }
     }
 }
