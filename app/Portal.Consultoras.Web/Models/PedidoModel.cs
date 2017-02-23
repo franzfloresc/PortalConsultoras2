@@ -196,6 +196,7 @@ namespace Portal.Consultoras.Web.Models
         public string CUVPedido { get; set; }
         public string CUVPedidoNombre { get; set; }
         public string CUVPedidoImagen { get; set; }
+        public bool TipoCross { get; set; }
     }
 
     [Serializable]

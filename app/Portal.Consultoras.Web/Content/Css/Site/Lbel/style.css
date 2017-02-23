@@ -1954,7 +1954,7 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido{
     height:20px;
     top: 1px;
     margin-right: 7px;
-    background:url(../../../Images/Lbel/icono_advertencia_notificacion.svg) no-repeat center center;
+    background: url(../../../Images/Lbel/icono_advertencia_notificacion.png) no-repeat center center;
 }
 
 .caja_guardar_pedido{
@@ -4941,13 +4941,13 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
 }
 
 .btn_noGracias_agregarProductos{
-    display: block;
+        display: block;
     /* position: absolute; */
     /* margin-left: 10px; */
     /* bottom: -1px; */
     border: none;
     background: transparent;
-    width: 139px;
+    width: 152px;
     margin: 0 auto;
     height: 50px;
     text-align: center;
@@ -4965,6 +4965,11 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
     -ms-transition: all 0.3s ease;
     -webkit-transition: all 0.3s ease;
 }
+.icono_terminar_pedido{
+    background:url(https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/eFrB5kIPNXTjyJd/icono-reserva.png) no-repeat;
+    padding-left: 40px;
+    background-position: 10px 14px;
+}
 
 
 /*.btn_noGracias_agregarProductos:hover{*/
@@ -4980,7 +4985,7 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
 
 .bloque_carousel .content_item_carrusel_ofertaFinal{
     padding-bottom:20px;
-    margin-left:17px;
+     margin-left:17px;
     margin-right:17px;
     float:left;
     vertical-align:middle;
@@ -20747,7 +20752,7 @@ label.checkpop.c_on {
     letter-spacing:0.25px;
     color:black;
     margin-top:10px;
-
+   
 }
 .info_centro span{
     font-weight:400;
@@ -21491,7 +21496,7 @@ label.checkpop.c_on {
     overflow: hidden;
     }
 
-.enlaces_home:hover {
+    .enlaces_home:hover {
     /*opacity: 0.5;
     filter: alpha(opacity=50); /* For IE8 and earlier */*/
 }
@@ -30489,7 +30494,7 @@ h1#penmostreo .campana {
     .truco_bloqueo.sim1 {
     width: 100%;
         height: 470px;
-    }
+}
 
     .truco_bloqueo.sim3 {
         width: 2.9%;

@@ -901,117 +901,8 @@
 <!-- FIN PRODUCTOS SUGERIDOS -->
 <!-- POPUP OFERTA FINAL -->
 <div class="contenedor_popup_ofertaFinal" id="divOfertaFinal" data-popup-main="" data-popup-function-hide="PopupOfertaFinalCerrar">
-    <div class="popup_ofertaFinal">
-        <div class="btn_cerrar_ofertaFinal">
-            <a href="javascript:;" title="Cerrar" id="lnkCerrarPopupOfertaFinal">
-                <img src="@Url.Content("~/Content/Images/btn_cerrar_popup.svg")" alt="Cerrar" />
-                <span class="texto_btn_cerrar">CERRAR</span>
-            </a>
-        </div>
-        <div class="contenido_popUp">
-            <div class="content_texto_oferta">
-                <div class="icono_mensaje_alerta icono_check_alerta"></div>
-                <!--NO ALCANZA MONTO MINIMO-->
-                <div class="OF_montomin_pedidoguardado" style="display:none">
-                    <h1 class="titulo_ofertaFinal">
-                        <span><b>&nbsp;LO SENTIMOS…</b> NO PUDIMOS GUARDAR TU PEDIDO</span>
-                    </h1>
-                    @*<div id="spCabeceraMontominimo" style="display:none; margin-top: -5px;">
-                            <span style="display: block;text-align: center;font-size: 12px;">Recuerda que esta campaña el monto mínimo es de @Model.Simbolo<span id="spMontoMinimoCabecera"></span></span>
-                        </div>*@
-                    <span class="descripcion_ofertaFinal" id="of_descripcion1">
-                Agrega @Model.Simbolo <span id="spnMontoFaltanteOfertaFinal"></span>
-                        <span id="spnMensajeOfertaFinal">&nbsp;para conseguir 30% DSCTO y gana más esta campaña.</span>
-                    </span>
-                    <div class="texto_complemento_oferta">Compra en oferta los complementos de tu pedido</div>
 
-                    <span class="descripcion_ofertaFinal" id="of_descripcion2" style="display: none;">
-                        Agrega estos productos para ganar más esta campaña
-                    </span>
                 </div>
-                <!--FIN-->
-                <!--MONTOMO MINIMO AGREGADO-->
-                <div class="OF_montomin_agregarpedido" style="display:none;">
-                    <h1 class="titulo_ofertaFinal">
-                        <span>¡FELICITACIONES GUARDASTE TU <b>PEDIDO CON ÉXITO</b>!</span>
-                    </h1>
-                    <hr class="clear" />
-                    <div class="ganancia_total_pop">
-                        <b>Ahora tu ganancia estimada total es S/. 200.00 </b><br />
-                        Monto total: S/. 601.00
-                    </div>
-                    <div class="texto_complemento_oferta">Compra en oferta los complementos de tu pedido</div>
-                </div>
-                <!--FIN-->
-                <!--OF_ganamas_agregarpedido-->
-                <div class="OF_ganamas_agregarpedido" style="display:none;">
-                    <h1 class="titulo_ofertaFinal">
-                        <span>¡FELICITACIONES AHORA TU GANANCIA ESTIMADA ES <b>S/. 300.00</b>!</span>
-                    </h1>
-                    <hr class="clear" />
-                    <div class="ganancia_total_pop" style="margin-bottom:35px;">
-                        Monto total: S/. 601.00
-                    </div>
-                    <div class="texto_complemento_oferta">Compra en oferta los complementos de tu pedido</div>
-                </div>
-                <!--FIN-->
-                <!--OF_escaladescuento_agregarpedido-->
-                <div class="OF_escaladescuento_agregarpedido" style="display:none;">
-                    <h1 class="titulo_ofertaFinal">
-                        <span>¡FELICITACIONES LLEGASTE AL <b>30% DSCTO</b>!</span>
-                    </h1>
-                    <hr class="clear" />
-                    <div class="ganancia_total_pop">
-                        <b>Ahora tu ganancia estimada total es S/. 200.00 </b><br />
-                        Monto total: S/. 601.00
-                    </div>
-                    <div class="texto_complemento_oferta">Compra en oferta los complementos de tu pedido</div>
-                </div>
-                <!--FIN-->
-                <!--OF_ganamas_pedidoguardado-->
-                <div class="OF_ganamas_pedidoguardado" style="display:none;">
-                    <h1 class="titulo_ofertaFinal">
-                        <span>¡GUARDASTE TU<b> PEDIDO CON ÉXITO</b></span>
-                    </h1>
-                    <span class="descripcion_ofertaFinal">
-                        <span>AGREGA UN PRODUCTO Y GANA MÁS EN ESTA CAMPAÑA</span>
-                    </span>
-                    <div class="texto_complemento_oferta">Compra en oferta los complementos de tu pedido</div>
-                </div>
-                <!--FIN-->
-                <!--OF_escaladescuento_pedidoguardado-->
-                <div class="OF_escaladescuento_pedidoguardado">
-                    <h1 class="titulo_ofertaFinal">
-                        <span>¡GUARDASTE TU<b> PEDIDO CON ÉXITO</b></span>
-                    </h1>
-                    <span class="descripcion_ofertaFinal">
-                        <span>AGREGA S/. 21.00 Y OBTÉN <b style="font-size:23px;">&nbsp;30% &nbsp;</b>DSCTO EN TU COMPRA</span>
-                    </span>
-                    <div class="texto_complemento_oferta">Compra en oferta los complementos de tu pedido</div>
-                </div>
-                <!--FIN-->
-            </div>
-            <div class="contenedor_bloques_agregaProductos">
-                @*<div class="bloque_descripciones">
-                        <h6 class="descripcion_principal"><b><span id="spnSubTituloOfertaFinal">Consigue más ganancias agregando uno de estos productos</span></b></h6>
-                        <span class="enlace_catalogos">
-                            También puedes buscarlo en tus
-                            <a href="#" title="Tus Catálogos">TUS CATÁLOGOS</a>
-                        </span>
-                    </div>*@
-                <div style="margin: 0 auto; width:90%;" class="bloque_carousel">
-                    <div style="margin-left: 27px; margin-right: 27px; position: relative;margin-top:-95px;">
-                        <div class="slider center" id="divCarruselOfertaFinal" style="width: 100%"></div>
-                    </div>
-                    <button name="btn_noGracias_agregarProductos" class="btn_noGracias_agregarProductos">
-                        TERMINAR PEDIDO
-                    </button>
-                </div>
-                <hr class="clear" />
-            </div>
-        </div>
-    </div>
-</div>
 <!-- FIN POPUP OFERTA FINAL -->
 <!--POP UP ESCALA DE DESCUENTO FICHA-->
         <div class="contenedor_popup_ofertaFinal" id="contenedor_popup_ofertaFinalVerDetalle" style="display: none;">
@@ -1114,7 +1005,7 @@
                 </div>
             </div>
     <!--Popup mensaje como lo atenderas -->
-       
+
     <!--PENDIENTES PORTAL-->
             <div id="popup2_pendientes" class="contenedor_popup_percepciones popupPendientesPORTAL" style="display: none;">
                 <div class="popup_Pendientes">
@@ -1203,9 +1094,9 @@
                         <h1 class="titulo_mensajeMotivoRechazo"><b>¡CUÉNTANOS PORQUÉ LO RECHAZASTE!</b></h1>
 
                         @*<div class="optionsRechazo" data-id="1">Yo no puedo atender su pedido.</div>
-                    <div class="optionsRechazo" data-id="2">El cliente vive muy lejos.</div>
-                    <div class="optionsRechazo" data-id="3">Habían productos agotados en esta campaña.</div>
-                    <div class="optionsRechazo" data-id="4">No pasaré pedido esta campaña.</div>*@
+                            <div class="optionsRechazo" data-id="2">El cliente vive muy lejos.</div>
+                            <div class="optionsRechazo" data-id="3">Habían productos agotados en esta campaña.</div>
+                            <div class="optionsRechazo" data-id="4">No pasaré pedido esta campaña.</div>*@
 
                         @foreach (var motivoRechazo in ViewBag.MotivosRechazo)
                 {
@@ -1632,28 +1523,28 @@
                     </span>
                     {{else}}
                     {{#if_eq OrigenPedidoWeb '@Constantes.OrigenPedidoWeb.DesktopPedidoOfertaFinal'}}
-            	{{else if_eq OrigenPedidoWeb '@Constantes.OrigenPedidoWeb.MobilePedidoOfertaFinal'}}
-            	{{else if_eq ConfiguracionOfertaID '@Constantes.TipoOferta.Liquidacion'}}
-            	<span class="texto_pedidos_ofertas">
+                    {{else if_eq OrigenPedidoWeb '@Constantes.OrigenPedidoWeb.MobilePedidoOfertaFinal'}}
+                    {{else if_eq ConfiguracionOfertaID '@Constantes.TipoOferta.Liquidacion'}}
+                    <span class="texto_pedidos_ofertas">
                         <label>OFERTA LIQUIDACIÓN</label>
                     </span>
                     {{else if_eq ConfiguracionOfertaID '@Constantes.TipoOferta.Flexipago'}}
                     <span class="texto_pedidos_ofertas">
                         <label>OFERTA FLEXIPLAGO</label>
-            	</span>
-            	{{else if_eq TipoOfertaSisID '@Constantes.ConfiguracionOferta.ShowRoom'}}
-            	<span class="texto_pedidos_ofertas">
-                	<label>PRE-VENTA DIGITAL</label>
-            	</span>
+                    </span>
+                    {{else if_eq TipoOfertaSisID '@Constantes.ConfiguracionOferta.ShowRoom'}}
+                    <span class="texto_pedidos_ofertas">
+                        <label>PRE-VENTA DIGITAL</label>
+                    </span>
                     {{else}}
-            	{{#IsNullOrEmpty DescripcionOferta '!='}}
-            	<span class="texto_pedidos_ofertas">
-                	{{#iff (UpperCase DescripcionOferta) 'Contains' 'OFERTA PARA TI'}}
-                	{{else}}
-                	<label for="{{DescripcionOferta}}">{{Replace (Replace DescripcionOferta '[' '') ']' ''}}</label>
-                	{{/iff}}
-            	</span>
-            	{{/IsNullOrEmpty}}
+                    {{#IsNullOrEmpty DescripcionOferta '!='}}
+                    <span class="texto_pedidos_ofertas">
+                        {{#iff (UpperCase DescripcionOferta) 'Contains' 'OFERTA PARA TI'}}
+                        {{else}}
+                        <label for="{{DescripcionOferta}}">{{Replace (Replace DescripcionOferta '[' '') ']' ''}}</label>
+                        {{/iff}}
+                    </span>
+                    {{/IsNullOrEmpty}}
                     {{/if_eq}}
                     {{/if_eq}}
 
@@ -1791,7 +1682,7 @@
             <div class="vertical" data-item="{{EstrategiaID}}" data-tipoestrategiaimagenmostrar="{{#if_eq FlagMostrarImg '1'}}{{TipoEstrategiaImagenMostrar}}{{/if_eq}}">
                 <div class="producto_carousel" {{#iff TipoEstrategiaImagenMostrar 'ContainsArray' '[5,3,2]' }} data-estrategia="{{JSON2string item}}" style="cursor:pointer;" onclick="javascript:CargarEstrategiasEspeciales(this, event);" {{/iff}}>
                     <input type="hidden" class="PosicionEstrategia" value="{{Posicion}}" />
-            <input type="hidden" class="OrigenPedidoWeb" value="@Portal.Consultoras.Common.Constantes.OrigenPedidoWeb.DesktopPedidoOfertasParaTi" />
+                    <input type="hidden" class="OrigenPedidoWeb" value="@Portal.Consultoras.Common.Constantes.OrigenPedidoWeb.DesktopPedidoOfertasParaTi" />
                     <div class="producto_img">
                         <img src="{{FotoProducto01}}" />
                         {{#iff TipoEstrategiaImagenMostrar 'ContainsArray' '[5,3,2]' }}
@@ -1910,7 +1801,7 @@
                     </a>
                 </div>
                 <div class="contenido_popUp">
-            <input type="hidden" class="OrigenPedidoWeb" value="@Portal.Consultoras.Common.Constantes.OrigenPedidoWeb.DesktopPedidoOfertasParaTiPopUp" />
+                    <input type="hidden" class="OrigenPedidoWeb" value="@Portal.Consultoras.Common.Constantes.OrigenPedidoWeb.DesktopPedidoOfertasParaTiPopUp" />
                     <div class="bloque_producto_packNuevas">
                         <div class="content_item_carrusel">
                             {{#if_eq FlagMostrarImg '1'}}
@@ -2033,7 +1924,7 @@
                     </a>
                 </div>
                 <div data-item="" class="contenido_popUp">
-            <input type="hidden" class="OrigenPedidoWeb" value="@Portal.Consultoras.Common.Constantes.OrigenPedidoWeb.DesktopPedidoOfertasParaTiPopUp" />
+                    <input type="hidden" class="OrigenPedidoWeb" value="@Portal.Consultoras.Common.Constantes.OrigenPedidoWeb.DesktopPedidoOfertasParaTiPopUp" />
                     <div class="content_item_carrusel">
                         {{#if_eq FlagMostrarImg '1'}}
                         {{#if_eq TipoEstrategiaImagenMostrar '@Portal.Consultoras.Common.Constantes.TipoEstrategia.Lanzamiento'}}
@@ -2132,7 +2023,7 @@
                 <div>
                     <h1 class="titulo_ofertaFinal"  id="spnTituloOfertaFinal">
                         {{#iff TipoMeta '==' 'MM'}}
-                            <span><b>&nbsp;LO SENTIMOS…</b> NO PUDIMOS GUARDAR TU PEDIDO</span>
+                            <span><b>AÚN TE FALTA {{Simbolo}} <span data-monto="">{{MetaMontoStr}}</span></b> PARA LLEGAR AL MONTO MÍNIMO</span>
                         {{/iff}}
                         {{#iff TipoMeta '==' 'GM'}}
                             <span>¡GUARDASTE TU<b> PEDIDO CON ÉXITO</b>!</span>
@@ -2144,16 +2035,20 @@
                     <hr class="clear" />
                     <div class="descripcion_ofertaFinal" id="msjOfertaFinal" data-meta-porcentaje="{{MetaPorcentaje}}" data-meta-monto="{{MontoMeta}}">
                         {{#iff TipoMeta '==' 'MM'}}
-                            <span>AGREGA {{Simbolo}} <span data-monto="">{{MetaMontoStr}}</span> PARA COMPLETAR TU PEDIDO</span>
+                            <span>TE AYUDAMOS A ALCANZARLO CON ESTAS OFERTAS</span>
                         {{/iff}}
                         {{#iff TipoMeta '==' 'GM'}}
-                            <span>AGREGA UN PRODUCTO Y GANA MÁS EN ESTA CAMPAÑA</span>
+                            {{#iff Cross '==' '1'}}
+                            <span>APROVECHA ESTAS OFERTAS Y <b>GANA MÁS</b> SUMANDO LOS COMPLEMENTOS DE TU PEDIDO</span>
+                            {{else}}
+                            <span>APROVECHA ESTAS OFERTAS Y <b>GANA MÁS</b> ESTA CAMPAÑA</span>
+                            {{/iff}}
                         {{/iff}}
                         {{#iff TipoMeta '==' 'ME'}}
-                            <span>AGREGA{{Simbolo}} <span data-monto="">{{MetaMontoStr}}</span> Y OBTÉN <b style="font-size:23px;">{{MetaPorcentaje}}%</b> DSCTO EN TU COMPRA</span>
+                            <span>ALCANZA EL <b style="font-size:23px;">{{MetaPorcentaje}}%</b> DSCTO AGREGANDO {{Simbolo}} <span data-monto="">{{MetaMontoStr}}</span> DE ESTAS OFERTAS</span>
                         {{/iff}}
                     </div>
-                    <div class="texto_complemento_oferta">Compra en oferta los complementos de tu pedido</div>
+                    @*<div class="texto_complemento_oferta">Compra en oferta los complementos de tu pedido</div>*@
                 </div>
 
             </div>
@@ -2184,7 +2079,7 @@
                     <input type="hidden" class="hdOfertaFinalPrecioCatalogoString" value="{{PrecioCatalogoString}}" />
                     <input type="hidden" class="hdOfertaFinalDescripcionComercial" value="{{DescripcionComercial}}" />
                     <input type="hidden" class="hdOfertaFinalUrlCompartirFB" value="{{UrlCompartirFB}}" />
-                    <input type="hidden" class="hdOfertaFinalDescripcionRelacionado" value="{{CUVPedidoNombre}}" />
+                    <input type="hidden" class="hdOfertaFinalDescripcionRelacionado" value="{{CUVComplemento}}" />
                     <input type="hidden" class="hdOfertaFinalCUVPedidoImagen" value="{{CUVPedidoImagen}}" />
                 </div>
                 <div class="contenido_item_carrusel_ofertaFinal" style="height:295px;" >
@@ -2231,7 +2126,7 @@
                         
                         </div>
                     </div>
-                    <button name="btn_noGracias_agregarProductos" class="btn_noGracias_agregarProductos btnNoGraciasOfertaFinal" id="btnNoGraciasOfertaFinal">
+                    <button name="btn_noGracias_agregarProductos" class="btn_noGracias_agregarProductos btnNoGraciasOfertaFinal icono_terminar_pedido" id="btnNoGraciasOfertaFinal" style="display:{{#iff TipoMeta '==' 'MM'}}none;{{else}}block;{{/iff}}">
                         TERMINAR PEDIDO
                     </button>
                 </div>
@@ -2260,6 +2155,7 @@
         </div>
         <div class="content_right_ficha">
             <div style="height:130px;">
+                <div class="marca_ficha_producto">{{DescripcionMarca}}</div>
                 <div class="titulo_ficha_producto">{{NombreComercial}}</div>
                 <div class="peso_ficha_producto">{{Volumen}}</div>
                 <div class="descripcion_ficha_producto">{{DescripcionComercial}}</div>
@@ -2330,7 +2226,7 @@
                 var lanzarTabConsultoraOnline = '@ViewBag.LanzarTabConsultoraOnline';
                 var urlMisPedidosClienteOnline = '@Url.Action("", "MisPedidos")';
                 var urlPedido = '@Url.Action("Index","Pedido")';
-        var indicadorFlexiPago = '@Model.IndicadorFlexiPago';
+                var indicadorFlexiPago = '@Model.IndicadorFlexiPago';
                 /*PL20-1227*/
                 var origenPagina = 2;
 
