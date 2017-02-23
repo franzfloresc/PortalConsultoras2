@@ -753,7 +753,19 @@ function xMensajeEstadoPedido(estado) {
             else {
                 $("#bloquemensajesPedido").slideDown("slow", function () { });
                 wtop = $("header").height();
-                $(".ubicacion_web").animate({ "margin-top": (wtop + 22) + "px" });
+
+                //debugger;
+                if ($('.content_banner_intriga').length > 0) {
+                    if ($('#OfertaDelDia:visible').length > 0) {
+                        $('.ubicacion_web').css('margin-top', '162px');
+                    }
+                    else {
+                        $('.ubicacion_web').css('margin-top', '62px');
+                    }
+                }
+                else {
+                    $(".ubicacion_web").animate({ "margin-top": (wtop + 22) + "px" });
+                }
             }
         }
     }
@@ -769,7 +781,18 @@ function xMensajeEstadoPedido(estado) {
                 $("[data-content]").animate({ "top": "0px" });
             }
             else {
-                $(".ubicacion_web").animate({ "margin-top": "83px" });
+                //debugger;
+                if ($('.content_banner_intriga').length > 0) {
+                    if ($('#OfertaDelDia:visible').length > 0) {
+                        $('.ubicacion_web').css('margin-top', '162px');
+                    }
+                    else {
+                        $('.ubicacion_web').css('margin-top', '62px');
+                    }
+                }
+                else {
+                    $(".ubicacion_web").animate({ "margin-top": "83px" });
+                }
             }
         }
     }

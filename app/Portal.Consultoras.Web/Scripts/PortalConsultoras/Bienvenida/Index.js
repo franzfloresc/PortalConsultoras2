@@ -3428,7 +3428,7 @@ function MostrarShowRoom() {
             success: function (response) {
                 if (checkTimeout(response)) {
                     if (response.success) {
-                        console.log(response);
+                        //console.log(response);
                         var showroomConsultora = response.data;
                         var evento = response.evento;
                         var personalizacion = response.personalizacion;
@@ -3485,14 +3485,16 @@ function MostrarShowRoom() {
                                     AgregarTagManagerShowRoomPopup(evento.Tema, false);
 
                                     // /PL20-1306
-                                    var container = $('#PopShowroomIntriga');
-                                    var txtDiasIntriga = 'FALTAN ' + response.diasFaltan + ' DÍAS';
-                                    if (response.diasFaltan == 1) txtDiasIntriga = 'FALTA 1 DÍA';
-                                    var txtSaludoIntriga = response.nombre + ' prepárate para la';
-                                    $(container).find('.saludo_consultora_showroom').text(txtSaludoIntriga);
-                                    $(container).find('.dias_intriga_home').text(txtDiasIntriga);
-                                    $(container).find('.imagen_dias_intriga').attr('src', urlImagenPopupIntriga);
-                                    $(container).show();
+                                    if (parseInt(response.diasFaltan) > 0) {
+                                        var container = $('#PopShowroomIntriga');
+                                        var txtDiasIntriga = 'FALTAN ' + response.diasFaltan + ' DÍAS';
+                                        if (response.diasFaltan == 1) txtDiasIntriga = 'FALTA 1 DÍA';
+                                        var txtSaludoIntriga = response.nombre + ' prepárate para la';
+                                        $(container).find('.saludo_consultora_showroom').text(txtSaludoIntriga);
+                                        $(container).find('.dias_intriga_home').text(txtDiasIntriga);
+                                        $(container).find('.imagen_dias_intriga').attr('src', urlImagenPopupIntriga);
+                                        $(container).show();
+                                    }
                                 }
 
                                 //$("#imgShowRoomGif").attr("src", evento.Imagen1);

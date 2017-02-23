@@ -1533,7 +1533,8 @@ namespace Portal.Consultoras.Web.Controllers
                         int diasAntes = beShowRoom.DiasAntes;
                         int diasDespues = beShowRoom.DiasDespues;
 
-                        if (fechaHoy >= userData.FechaInicioCampania.AddDays(-diasAntes).Date && fechaHoy <= userData.FechaInicioCampania.AddDays(diasDespues).Date)
+                        if (fechaHoy >= userData.FechaInicioCampania.AddDays(-diasAntes).Date 
+                            && fechaHoy <= userData.FechaInicioCampania.AddDays(diasDespues).Date)
                         {
                             rutaShowRoomPopup = Url.Action("Index", "ShowRoom");
                             mostrarShowRoomProductos = true;
@@ -1541,7 +1542,7 @@ namespace Portal.Consultoras.Web.Controllers
                         if (fechaHoy > userData.FechaInicioCampania.AddDays(diasDespues).Date) beShowRoomConsultora.MostrarPopup = false;
 
                         int df = userData.FechaInicioCampania.AddDays(-diasAntes).Day - fechaHoy.Day;
-                        var lstPersonalizacionDesktop = userData.ListaShowRoomPersonalizacionConsultora.Where(x => x.TipoAplicacion == "Desktop").ToList();
+                        var lstPersonalizacion = userData.ListaShowRoomPersonalizacionConsultora.Where(x => x.TipoAplicacion == "Desktop").ToList();
 
                         return Json(new
                         {
@@ -1558,7 +1559,7 @@ namespace Portal.Consultoras.Web.Controllers
                             evento = beShowRoom,
                             mostrarShowRoomProductos,
                             rutaShowRoomPopup,
-                            personalizacion = lstPersonalizacionDesktop
+                            personalizacion = lstPersonalizacion
                         });
                     }
                     else
