@@ -539,6 +539,22 @@
         </div>
     </div>
     <!--FIN-->
+
+    <!--POP MENSAJE SESION FINALIZADA Error-->
+    <div id="popupInformacionSB2SesionFinalizada" class="MensajeAlertaMobile" style="display:none;">
+        <div class="content_mensajeAlerta">
+            <a class="cerrar_popMobile" href="javascript:;" onclick="javascript: $('#popupInformacionSB2SesionFinalizada').hide();">
+                <img src="/Content/Images/mobile/Esika/cerrar_04.png" alt="-">
+            </a>
+            <hr class="clear">
+            <div class="icono_alerta exclamacion_icono_mobile"></div>
+            <div class="titulo_compartir"><b>LO SENTIMOS</b></div>
+            <div id="mensajeInformacionSB2_Error" class="mensaje_alerta"></div>
+            <a href="javascript:;" onclick="$('#popupInformacionSB2SesionFinalizada').hide();" class="btn_ok_mobile"><b>OK</b></a>
+        </div>
+    </div>
+    <!--FIN-->
+
     <!--POP MENSAJE LO LOGRASTE-->
     <div id="popupInformacionSB2Bueno" class="MensajeAlertaMobile" style="display:none;">
         <div class="content_mensajeAlerta">
@@ -592,6 +608,8 @@
 
         var sesionEsShowRoom = '@Session["EsShowRoom"]';
         var MostrarBannerPL20 = '@ViewBag.MostrarBannerPL20';
+
+        var ViewBagEsMobile = '@ViewBag.EsMobile';
 
         var urlLogDynamo = '@System.Configuration.ConfigurationManager.AppSettings["UrlLogDynamo"]';
         var userData = {
@@ -728,12 +746,18 @@
                         url: urlCloseBannerPL20,
                         cache: false,
                         success: function (response) {
-                            if (response.success) {
-                                $('#content_slider_banner').hide();
-                                $('#content').css('margin-top', '');
+                            if (checkTimeout(data)) {
+                                if (response.success) {
+                                    $('#content_slider_banner').hide();
+                                    $('#content').css('margin-top', '');
+                                }
                             }
                         },
-                        error: function (err) { console.log(err); }
+                        error: function (err) { 
+                            if (checkTimeout(data)) {
+                                console.log(err); 
+                            }
+                        }
                     });
                 };
 
@@ -891,12 +915,14 @@
                         dataType: 'json',
                         contentType: 'application/json; charset=utf-8',
                         success: function (response) {
-                            if (response.success) {
-                                var _data = response.data;
-                                var tq = _data.TeQuedan;
+                            if (checkTimeout(response)) {
+                                if (response.success) {
+                                    var _data = response.data;
+                                    var tq = _data.TeQuedan;
 
-                                if (tq.TotalSeconds <= 0)
-                                    ok = false;
+                                    if (tq.TotalSeconds <= 0)
+                                        ok = false;
+                                }
                             }
                         },
                         error: function (err) {
@@ -919,8 +945,10 @@
                         dataType: 'json',
                         contentType: 'application/json; charset=utf-8',
                         success: function (response) {
-                            if (response.success) {
-                                qty = parseInt(response.cantidad);
+                            if (checkTimeout(response)) {
+                                if (response.success) {
+                                    qty = parseInt(response.cantidad);
+                                }
                             }
                         },
                         error: function (err) {

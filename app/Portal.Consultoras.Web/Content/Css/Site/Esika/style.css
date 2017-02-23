@@ -1831,10 +1831,10 @@ div.texto_encabezado_pedidos{
     color: #797979;
 }
 
-div.texto_pedidos, div.celda_cantidad_pedidos{
-    display:inline-block;
-    padding-top: 25px;
-    padding-bottom: 25px;
+div.texto_pedidos, div.celda_cantidad_pedidos {
+    display: inline-block;
+    padding-top: 12px;
+    padding-bottom: 14px;
     vertical-align: middle;
     position:relative;
 }
@@ -3126,22 +3126,22 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido{
     margin:0px;
     padding:0px;
     list-style-type:none;
-    }
+}
 .contenedor_banners ul li{
     width:31.7%;
-            /*max-width:256.2px;*/
-            /*height:249px;*/
+    /*max-width:256.2px;*/
+    /*height:249px;*/
     height:auto;
-            /*width:218px;
-            height:211px;*/
+    /*width:218px;
+    height:211px;*/
             background: white;
-            /*margin-right:24.5px;*/
+    /*margin-right:24.5px;*/
     margin-right:2.4%;
     float:left;
-        }
+}
 .contenedor_banners ul li:nth-child(3){
     margin-right:0px;
-            }
+}
 
             .contenedor_banners ul li .imagen_banner_inferior {
     overflow: hidden;
@@ -4013,7 +4013,7 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
     {
         text-align: right;
         font-weight: 400;
-}
+    }
     .tabla_productos_agotados .categoria_productoAgotado { width: 20%; }
     .tabla_productos_agotados .codigo_productoAgotado { width: 15%; }
     .tabla_productos_agotados .catalogo_productoAgotado { width: 22%; }
@@ -4981,7 +4981,7 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
 }
 
 .btn_noGracias_agregarProductos{
-        display: block;
+    display: block;
     /* position: absolute; */
     /* margin-left: 10px; */
     /* bottom: -1px; */
@@ -20270,7 +20270,7 @@ label.checkpop.c_on {
     /*font-family: 'ArialBoldMT';
     font-size: 23px;*/
     color:black;
-    
+
 }
 .cantidad_detalle {
     position: absolute;
@@ -21568,9 +21568,9 @@ label.checkpop.c_on {
     -o-transition: all 0.3s ease;
     -ms-transition: all 0.3s ease;
     -webkit-transition: all 0.3s ease;
-    }
+}
 
-    .enlaces_home:hover {
+.enlaces_home:hover {
     /*opacity: 0.5;*/
     /*filter: alpha(opacity=50);*/ /* For IE8 and earlier */
 }
@@ -24925,7 +24925,7 @@ img
 	width:100%;
 	padding-top:15px;
 	box-sizing:border-box;
-        }
+}
 .active
 /*{
 	color:#000000;
@@ -25748,7 +25748,7 @@ button
     display: block;
 	font-size:14px;
 	font-weight:bold;
-    }
+}
 @media screen and (max-height: 800px) 
 {
 	#slides_inscripcion{width:100%;height:105%;}
@@ -26602,7 +26602,7 @@ div.subir_archivo input {
     z-index: 2;
     /* display: inline-block;
     /* display: inline-block; */
-    
+
 }
 .inputfalso{
     border: 1px solid #d2dae1;   
@@ -30366,7 +30366,7 @@ h1#penmostreo .campana {
 .mensaje_horarioIngresoPedido a:hover{
     text-decoration:underline;
 }
-
+   
 /* FIN MENSAJES PEDIDO RECHAZADO */
 
 /*PEDIDO DE CLIENTES ONLINE*/
@@ -30383,7 +30383,7 @@ h1#penmostreo .campana {
 }
 .imagen_2{
     background: url("../../../Images/Esika/lugares_pago.png") no-repeat !important;
-   
+
 }
 .imagen_3{
     background: url("../../../Images/Esika/facturacion_electronica.png") no-repeat !important;    
@@ -30793,7 +30793,7 @@ h1#penmostreo .campana {
     display:inline-block;
     vertical-align:middle;
 }
-    
+
 .texto_stock {
     /*width:100%;*/
     width: 70%; /*EPD-1378*/
@@ -30977,7 +30977,7 @@ h1#penmostreo .campana {
   margin-top:-18px;
         background: #d1d1d1;
 }
-    
+
 .paso_reclamo{
     width:36px;
     height:36px;
@@ -32373,15 +32373,6 @@ h1#penmostreo .campana {
     margin: 0 auto;
     margin-top: 25px;
 }
-.respuesta_cdr {
-    text-align: center;
-    font-family: 'Lato';
-    color: #000;
-    font-weight: 700;
-    font-size: 14px;
-    padding-bottom: 30px;
-}
-
 /*SPRINT 4*/
 
 .banner_favoritos_home{
@@ -32916,7 +32907,7 @@ h1#penmostreo .campana {
 
 /*FICHA PRODUCTO FAV DESKTOP*/
 .content_left_ficha {
-        float: left;
+    float: left;
     width: 52%;
     margin-right: 5%;
 }
@@ -33314,6 +33305,76 @@ h1#penmostreo .campana {
 }
 .buscar_icono:hover{
     background: #ecebf0 url(../../../Images/Esika/lupa.png) no-repeat center right;
+}
+.content_imagen_fav{
+    width: 100%;
+    margin-left: 8%;
+    z-index: 10;
+    position: relative;
+}
+.etiqueta_guia_negocio{
+    background:#e81c36;
+    width:70px;
+    height:70px;
+    border-radius:100px;
+    position:absolute;
+    right:10px;
+    top:10px;
+    color:white;
+    font-family:'Lato';
+    font-size:11px;
+    letter-spacing:0.4px;
+    font-weight:700;
+    text-transform:uppercase;    
+    padding-top:18px;
+}
+.mod-ofer1 .boton_Agregalo_home{
+    width:139px;
+}
+.enlace_chat a{
+    display:inline;
+    font-weight:bold;
+    text-decoration:underline;
+}
+.tooltipPedido{
+    display:none;
+    position:absolute;
+        top: 6px;
+    left: 100%;
+    background: white;
+    width: 250px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    font-weight: 400;
+    z-index: 100;
+}
+.pedidoPadreToolTip:hover .tooltipPedido {
+    display:block;
+}
+.tooltipPedido:after, .tooltipPedido:before {
+	right: 100%;
+	top: 50%;
+	border: solid transparent;
+	content: " ";
+	height: 0;
+	width: 0;
+	position: absolute;
+	pointer-events: none;
+    z-index:30;
+}
+
+.tooltipPedido:after {
+	border-color: rgba(255, 255, 255, 0);
+	border-right-color: #fff;
+	border-width: 8px;
+	margin-top: -8px;
+}
+.tooltipPedido:before {
+	border-color: rgba(204, 204, 204, 0);
+	border-right-color: #ccc;
+	border-width: 9px;
+	margin-top: -9px;
 }
 .enlace_chat a{
     display:inline;

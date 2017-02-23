@@ -502,18 +502,18 @@
 
                 /*EPD-1339*/
                 if (cumpleRangoCampania == 0) {
-                    alert_msg("Lo sentimos, en estos momentos no cuentas con pedidos disponibles para reclamar. Por favor, contáctate con nuestro Call Center.");
+                    alert_msg("Lo sentimos, en estos momentos no cuentas con pedidos disponibles para reclamar. Por favor, contáctate con nuestro <span class='enlace_chat belcorpChat'><a>Chat en Línea</a></span>.");
                     return false;
                 }
                 /*EPD-1339*/
 
                 if (esZonaValida == 0) {
-                    alert_msg("Lo sentimos, por el momento tu zona no se encuentra disponible para realizar esta operación. Por favor, contáctate con el Call Center");
+                    alert_msg("Lo sentimos, por el momento tu zona no se encuentra disponible para realizar esta operación. Por favor, contáctate con nuestro <span class='enlace_chat belcorpChat'><a>Chat en Línea</a></span>.");
                 } else {
                     if (estaBloqueado == 0)
                         window.location.href = urlReclamo;
                     else {
-                        alert_msg("Lo sentimos, por el momento te encuentras bloqueada para realizar esta operación. Por favor, contáctate con el Call Center");
+                        alert_msg("Lo sentimos, por el momento te encuentras bloqueada para realizar esta operación. Por favor, contáctate con nuestro <span class='enlace_chat belcorpChat'><a>Chat en Línea</a></span>.");
                     }
                 }
             });

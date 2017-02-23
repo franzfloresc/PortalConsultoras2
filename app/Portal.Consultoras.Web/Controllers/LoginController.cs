@@ -29,37 +29,52 @@ namespace Portal.Consultoras.Web.Controllers
         [AllowAnonymous]
         public ActionResult Index()
         {
+            if (HttpContext.User.Identity.IsAuthenticated)
+            {
+                //if (Request.Browser.IsMobileDevice)
+                bool esMovil = Request.Browser.IsMobileDevice; 
+                if (esMovil)
+                {
+                    return RedirectToAction("Index", "Bienvenida", new { area = "Mobile" });
+                }
+                else
+                {
+                    return RedirectToAction("Index", "Bienvenida");
+                }
+            }
+            else
+            {
             var IP = string.Empty;
             var ISO = string.Empty;
             var model = new LoginModel();
 
             try
             {
+                    model.ListaPaises = DropDowListPaises();
+
                 var buscarISOPorIP = ConfigurationManager.AppSettings.Get("BuscarISOPorIP");
 
                 if (buscarISOPorIP == "1")
                 {
+                        try
+                        {
                     IP = GetIPCliente();
                     ISO = Util.GetISObyIPAddress(IP);
                 }
-                else
+                        catch (Exception ex)
                 {
-                    IP = "190.187.154.154";
-                    ISO = "PE";
+                            LogManager.LogManager.LogErrorWebServicesBus(ex, IP, ISO, "Login.GET.Index: GetIPCliente,GetISObyIPAddress");
+                }
+                    }
+
+                    if (string.IsNullOrEmpty(ISO))
+                {
+                        IP = "190.187.154.154";
+                        ISO = "PE";
                 }
 
-                if (IP.IndexOf(":") > 0)
-                {
-                    IP = IP.Substring(0, IP.IndexOf(":") - 1);
-                }
-
-                if (ISO != "")
-                {
                     AsignarHojaEstilos(ISO);
                 }
-
-                model.ListaPaises = DropDowListPaises();
-            }
             catch (FaultException ex)
             {
                 LogManager.LogManager.LogErrorWebServicesPortal(ex, IP, ISO);
@@ -70,6 +85,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
             return View(model);
+        }
         }
 
         [AllowAnonymous]
@@ -85,7 +101,7 @@ namespace Portal.Consultoras.Web.Controllers
                     validaLogin = svc.GetValidarLoginSB2(model.PaisID, model.CodigoUsuario, model.ClaveSecreta);
                 }
 
-                if (validaLogin.Result == 3)
+                if (validaLogin != null && validaLogin.Result == 3)
                 {
                     return Redireccionar(model.PaisID, validaLogin.CodigoUsuario);
                 }
@@ -185,7 +201,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 Mapper.CreateMap<BEPais, PaisModel>()
                         .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID))
-                            .ForMember(t => t.CodigoISO, f => f.MapFrom(c => c.CodigoISO))
+                        .ForMember(t => t.CodigoISO, f => f.MapFrom(c => c.CodigoISO))
                         .ForMember(t => t.Nombre, f => f.MapFrom(c => c.Nombre))
                         .ForMember(t => t.NombreCorto, f => f.MapFrom(c => c.NombreCorto));
             }
@@ -867,6 +883,11 @@ namespace Portal.Consultoras.Web.Controllers
                     ipAddress = System.Web.HttpContext.Current.Request.UserHostName;
                 }
 
+                if (ipAddress.IndexOf(":") > 0)
+                {
+                    ipAddress = ipAddress.Substring(0, ipAddress.IndexOf(":") - 1);
+                }
+
                 return ipAddress;
             }
             catch (Exception ex)
@@ -878,6 +899,8 @@ namespace Portal.Consultoras.Web.Controllers
 
         private void AsignarHojaEstilos(string iso)
         {
+            if (string.IsNullOrEmpty(iso)) return;
+
             ViewBag.IsoPais = iso;
 
             if (iso == "BR") iso = "00";
@@ -1097,6 +1120,14 @@ namespace Portal.Consultoras.Web.Controllers
         public ActionResult SesionExpirada()
         {
             return View();
+            //if (!HttpContext.User.Identity.IsAuthenticated && Session["UserData"] != null)
+            //{
+            //    return View();
+            //}
+            //else
+            //{
+            //    return RedirectToAction("Index");
+            //}            
         }
 
         [AllowAnonymous]

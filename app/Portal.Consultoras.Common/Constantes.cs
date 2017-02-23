@@ -290,7 +290,7 @@ namespace Portal.Consultoras.Common
             public const string Propuesta = "Propuesta";
             public const string TenerEnCuenta = "TenerEnCuenta";
             public const string Finalizado = "Finalizado";
-            public const string MensajeFinalizado = "MensajeFinalizado";
+            public const string MensajeFinalizado = "MensajeFinalizado"; 
         }
 
         public class ParametriaCDR
