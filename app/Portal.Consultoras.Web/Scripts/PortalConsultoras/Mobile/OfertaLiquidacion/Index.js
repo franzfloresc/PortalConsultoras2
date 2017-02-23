@@ -84,9 +84,11 @@ function ReservadoOEnHorarioRestringido(mostrarAlerta) {
                 }
             }
         },
-        error: function (error) {
-            console.log(error);
-            messageInfoValidado('Ocurrió un error al intentar validar el horario restringido o si el pedido está reservado. Por favor inténtelo en unos minutos.');
+        error: function (data, error) {
+            if (checkTimeout(data)) {
+                console.log(error);
+                messageInfoValidado('Ocurrió un error al intentar validar el horario restringido o si el pedido está reservado. Por favor inténtelo en unos minutos.');
+            }
         }
     });
     return restringido;
@@ -103,20 +105,24 @@ function CargarOfertasLiquidacion() {
         },
         contentType: 'application/json; charset=utf-8',
         success: function (data) {
-            ArmarCarouselLiquidaciones(data.lista);
-            if (data.verMas == true) {
-                $('#boton_vermas').show();
-            }            
-            offset += cantidadRegistros;
+            if (checkTimeout(data)) {
+                ArmarCarouselLiquidaciones(data.lista);
+                if (data.verMas == true) {
+                    $('#boton_vermas').show();
+                }
+                offset += cantidadRegistros;
+            }
         },
         complete: function (data) {
             $('#loader').hide();
             puedeCargar = true;
         },
-        error: function () {
-            puedeCargar = true;
-            $('#boton_vermas').show();
-            $('#loader').hide();
+        error: function (data) {
+            if (checkTimeout(data)) {
+                puedeCargar = true;
+                $('#boton_vermas').show();
+                $('#loader').hide();
+            }
         }
     });
 };
@@ -216,35 +222,36 @@ function AgregarOfertaProducto(article) {
                             async: true,
                             success: function (response) {
                                 CloseLoading();
+                                if (checkTimeout(response)) {
+                                    if (response.success == true) {
+                                        $("#divMensajeProductoAgregado").show();
+                                        $(divProductoAgregado).css('display', 'block');
 
-                                if (response.success == true) {
-                                    $("#divMensajeProductoAgregado").show();
-                                    $(divProductoAgregado).css('display', 'block');
+                                        var stockRestante = parseInt(data.Stock) - parseInt(cantidad);
+                                        if (stockRestante < 1) {
+                                            $(article).find(".resta").attr('disabled', 'disabled');
+                                            $(article).find(".suma").attr('disabled', 'disabled');
+                                            $(article).find(".txtCantidad").attr('disabled', 'disabled');
+                                            $(article).find(".btnAgregarOfertaProducto").attr('disabled', 'disabled');
 
-                                    var stockRestante = parseInt(data.Stock) - parseInt(cantidad);
-                                    if (stockRestante < 1) {
-                                        $(article).find(".resta").attr('disabled', 'disabled');
-                                        $(article).find(".suma").attr('disabled', 'disabled');
-                                        $(article).find(".txtCantidad").attr('disabled', 'disabled');
-                                        $(article).find(".btnAgregarOfertaProducto").attr('disabled', 'disabled');
+                                            $(article).find(".claseStock").text("0");
+                                            $(article).find(".txtCantidad").val("0");
+                                        } else {
+                                            $(article).find(".claseStock").text(stockRestante);
+                                            $(article).find(".txtCantidad").val("1");
+                                        }
 
-                                        $(article).find(".claseStock").text("0");
-                                        $(article).find(".txtCantidad").val("0");
-                                    } else {
-                                        $(article).find(".claseStock").text(stockRestante);
-                                        $(article).find(".txtCantidad").val("1");
+                                        InfoCommerceGoogle(parseFloat(cantidad * PrecioUnidad).toFixed(2), CUV, DescripcionProd, DescripcionCategoria, PrecioUnidad, cantidad, DescripcionMarca, DescripcionEstrategia, posicionEstrategia);
+                                        CargarCantidadProductosPedidos();
+
+                                        TrackingJetloreAdd(cantidad, $("#hdCampaniaCodigo").val(), CUV);
+
+                                        setTimeout(function () {
+                                            $("#divMensajeProductoAgregado").fadeOut();
+                                        }, 2000);
                                     }
-
-                                    InfoCommerceGoogle(parseFloat(cantidad * PrecioUnidad).toFixed(2), CUV, DescripcionProd, DescripcionCategoria, PrecioUnidad, cantidad, DescripcionMarca, DescripcionEstrategia, posicionEstrategia);
-                                    CargarCantidadProductosPedidos();
-
-                                    TrackingJetloreAdd(cantidad, $("#hdCampaniaCodigo").val(), CUV);
-
-                                    setTimeout(function () {
-                                        $("#divMensajeProductoAgregado").fadeOut();
-                                    }, 2000);
+                                    else messageInfoError(response.message);
                                 }
-                                else messageInfoError(response.message);
                             },
                             error: function (response, error) {
                                 if (checkTimeout(response)) {
