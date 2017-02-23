@@ -143,7 +143,6 @@
       <xs:element minOccurs="0" name="Referencia" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Region" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="RequiereAval" nillable="true" type="xs:boolean" />
-      <xs:element minOccurs="0" name="RespuestaGEO" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Seccion" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="SeccionConsultoraLider" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="SeccionOrigen" nillable="true" type="xs:string" />
@@ -172,7 +171,6 @@
       <xs:element minOccurs="0" name="TipoVinculoAval" nillable="true" type="xs:int" />
       <xs:element minOccurs="0" name="TipoVinculoFamiliar" nillable="true" type="xs:int" />
       <xs:element minOccurs="0" name="TipoVinculoNoFamiliar" nillable="true" type="xs:int" />
-      <xs:element minOccurs="0" name="UsuarioCreacion" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ZonaConsultoraLider" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ZonaGZ" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="campania1erPasePedido" nillable="true" type="xs:string" />

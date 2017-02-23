@@ -465,7 +465,7 @@
                 <div class="revision_pedidosAceptados">
                     <span class="texto_revisaPedidos">Revisa tus pedidos aceptados en:</span>
                     <span class="icono_consultoraOnline"></span>
-                    <span class="texto_misPedidosClientesOnline" style="cursor: pointer;" onclick="MostrarMisPedidosConsultoraOnline();">MIS PEDIDOS DE <b>CONSULTORA ONLINE</b></span>
+                    <span class="texto_misPedidosClientesOnline" style="cursor: pointer;" onclick="MostrarMisPedidosConsultoraOnline();">MIS PEDIDOS DEL <b>APP DE CATÁLOGOS</b></span>
                 </div>
 
                 <div style="display: none;">
@@ -537,7 +537,7 @@
 <div class="contenedor_popup_agregarCliente" id="divClientes">
     <div class="popup_agregarCliente">
         <div class="btn_cerrar_agregarUnidades">
-            <a href="javascript:;" onclick="javascript: $('#divClientes').hide();">
+            <a href="javascript:void(0);" onclick="$('#divClientes').hide();">
                 <img src="@Url.Content("~/Content/Images/btn_cerrar_popup.svg")" alt="Cerrar" />
                 <span class="texto_btn_cerrar">CERRAR</span>
             </a>
@@ -843,24 +843,21 @@
 <div class="contenedor_popup_productosAgotados" id="divProductoAgotado" style="display: none;">
     <div class="popup_productosAgotados">
         <div class="btn_cerrar_agregarUnidades">
-            <a href="javascript:;" onclick="javascript: $('#divProductoAgotado').hide()">
+            <a href="javascript:void(0);" onclick="CerrarProductoAgotados()">
                 <img src="@Url.Content("~/Content/Images/btn_cerrar_popup.svg")" alt="Cerrar" />
                 <span class="texto_btn_cerrar">CERRAR</span>
             </a>
         </div>
         <div class="contenedor_lista_productosAgotados">
-            <h6>PRODUCTOS <b>AGOTADOS</b></h6>
-            <div class="tabla_productos_agotados" id="tblProductoSugerido">
-                <table>
-                    <tr>
-                        <th class="codigo_productoAgotado">Código</th>
-                        <th class="producto_productoAgotado">Producto</th>
-                    </tr>
-                    <tr>
-                        <td>41234</td>
-                        <td>ES Kalos Black Frag Masculina 100 ml</td>
-                    </tr>
-                </table>
+            <h6>PRODUCTOS <b>AGOTADOS</b> de <b>@((string)ViewBag.Campania.ToUpper())</b></h6>
+            <div class="content_cuv">
+                CUV:
+                <input id="producto-faltante-busqueda-cuv" type="text" class="producto_faltante ValidaNumeralPedido" maxlength="5">
+                Producto:
+                <input id="producto-faltante-busqueda-descripcion" type="text"  class="producto_faltante">
+                <input type="button" onclick="CargarProductoAgotados();" class="buscar_icono">
+            </div>
+            <div class="tabla_productos_agotados" id="tblProductosFaltantes" style="overflow-y:hidden;">
             </div>
         </div>
         <div class="clear"></div>
@@ -1923,6 +1920,39 @@
         </div>
         <div class="clear"></div>
     </div>
+</script>
+
+<script id="productos-faltantes-template" type="text/x-handlebars-template">
+    <table>
+        <tr>
+            <th class="categoria_productoAgotado">Categoría</th>
+            <th class="codigo_productoAgotado">Código</th>
+            <th class="producto_productoAgotado">Producto</th>
+            <th class="catalogo_productoAgotado">Catálogo o Revista</th>
+            <th class="pagina_productoAgotado">Página</th>
+        </tr>
+        <tr>
+            <td colspan="5" style="padding-right: 0;">
+                <table style="max-height:308px; overflow-y: auto; display: block;">
+                    {{#each this}}
+                    {{#each Detalle}}
+                    <tr>
+                        @*{{#iff @@index '==' 0}}
+                                <td rowspan="{{../CantidadDetalles}}">{{../Categoria}}</td>
+                            {{/iff}}*@
+                        <td class="categoria_productoAgotado">{{../Categoria}}</td>
+                        <td class="codigo_productoAgotado">{{CUV}}</tdclass="codigo_productoAgotado">
+                        <td class="producto_productoAgotado">{{Descripcion}}</td>
+                        <td class="catalogo_productoAgotado">{{Catalogo}}</td>
+                        <td class="pagina_productoAgotado text-right">{{NumeroPagina}}</td>
+                    </tr>
+                    {{/each}}
+                    {{/each}}
+                </table>
+            </td>
+        </tr>
+
+    </table>
 </script>
 
 <script id="ofertaFinal-template" type="text/x-handlebars-template">

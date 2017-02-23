@@ -15,6 +15,12 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="BEPedidoRechazadoSicc" nillable="true" type="tns:BEPedidoRechazadoSicc" />
+  <xs:complexType name="ArrayOfBELogGPRValidacion">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="BELogGPRValidacion" nillable="true" type="tns:BELogGPRValidacion" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfBELogGPRValidacion" nillable="true" type="tns:ArrayOfBELogGPRValidacion" />
   <xs:complexType name="BELogGPRValidacion">
     <xs:sequence>
       <xs:element minOccurs="0" name="Campania" nillable="true" type="xs:string" />
