@@ -113,9 +113,9 @@
     
     <script type="text/javascript">
         $(document).ready(function () {
-
             $('.ubicacion_web').find('span').eq(0).hide();
             $('.ubicacion_web').find('span').eq(1).hide();
+            //$('.ubicacion_web').css('margin-top', '162px');
 
             $(".termino_condiciones_intriga").click(function () {              
                 $(this).toggleClass('check_intriga'); 
@@ -154,7 +154,7 @@
         }
 
         function AgregarOfertaShowRoom() {
-            debugger;
+            //debugger;
 
             var article = $('.content_set_intriga');
             var cantidad = $(article).find('[data-input="cantidad"]').val();
@@ -212,7 +212,7 @@
                         //        closeWaitingDialog();
                         //        alert_msg("Lamentablemente, la cantidad solicitada sobrepasa el stock actual (" + data.Stock + ") del producto, verifique.");
                         //    } else {
-                                console.log(Item);
+                                //console.log(Item);
 
                                 jQuery.ajax({
                                     type: 'POST',

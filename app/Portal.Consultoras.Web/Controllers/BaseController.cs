@@ -1509,6 +1509,7 @@ namespace Portal.Consultoras.Web.Controllers
                             {
                                 Session["EsShowRoom"] = "1";
 
+                                /*PL20-1306*/
                                 Session["MostrarShowRoomProductos"] = "0";
                                 var fechaHoy = DateTime.Now.AddHours(userData.ZonaHoraria).Date;
 
