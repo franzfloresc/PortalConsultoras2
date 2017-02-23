@@ -2,6 +2,13 @@
     ViewBag.Title = "Index";
     Layout = "~/Areas/Mobile/Views/Shared/_MobileLayout.cshtml";
 }
+
+
+@using Newtonsoft.Json
+@using Portal.Consultoras.Common
+@model Portal.Consultoras.Web.Models.ShowRoomOfertaModel
+
+
 @section styles{
     <style type="text/css">
         body {
@@ -15,7 +22,7 @@
     <div class="faltan_dias_header"><b>@ViewBag.DiasFaltantesLetras</b></div>
     <img src="@Url.Content("~/Content/Images/Mobile/img-showroom/banner_intriga_new_header.png")" alt="Solo Hoy" />
 </div>
-<div class="fondo_gris" style="padding-top:20px; padding-bottom:15px;">   
+<div class="fondo_gris" style="padding-top:20px; padding-bottom:15px; display:none;">   
     <div class="titulo_mensaje_landing">¡no te quedes fuera!</div>
     <div class="mensaje_landing">Confirma tu correo y entérate primero</div>
     <div class="correo_showroon"><input type="text" value="ashimabukuro@belcorp.biz"/></div>
@@ -32,11 +39,12 @@
             <div class="linea_separadora_intriga"></div>
         </div>
         <div>
-            <div class="content_imagen_intriga"><img src="https://S3.amazonaws.com/consultorasQAS/SomosBelcorp/Matriz/PE/PE_200042737_2017254271_03_mumegycqit.png"></div>
+            @*<div class="content_imagen_intriga"><img src="https://S3.amazonaws.com/consultorasQAS/SomosBelcorp/Matriz/PE/PE_200042737_2017254271_03_mumegycqit.png"></div>*@
+            <div class="content_imagen_intriga"><img src="@ViewBag.ImagenProducto"></div>
             <div class="linea_separadora_intriga"></div>
-            <div class="titulo_ficha_producto">Girlink </div>
+            <div class="titulo_ficha_producto">@ViewBag.Descripcion </div>
             <div class="precio_ficha_producto">
-                <span class="precio_tachado_ficha">S/. 60.00 </span>S/. 38.90
+                <span class="precio_tachado_ficha">S/. @ViewBag.PrecioCatalogo </span>S/. @ViewBag.PrecioOferta
             </div>
             <div class="liquidacion_rango_home">
                 <a class="cantidad_menos_home" tabindex="0"><img src="/Content/Images/Mobile/Esika/menos.png" alt=""></a>

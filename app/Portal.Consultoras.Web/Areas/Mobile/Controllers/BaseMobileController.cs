@@ -49,14 +49,10 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 bool mostrarBannerTop = false;
                 if (NuncaMostrarBannerTopPL20()) { mostrarBannerTop = false; } else { mostrarBannerTop = true; }
                 ViewBag.MostrarBannerTopPL20 = mostrarBannerTop;
-
-             
-
+                
                 if (mostrarBanner || mostrarBannerTop)
                     {
                         ViewBag.PermitirCerrarBannerPL20 = permitirCerrarBanner;
-
-                       
                             ShowRoomBannerLateralModel showRoomBannerLateral = GetShowRoomBannerLateral();
                             ViewBag.ShowRoomBannerLateral = showRoomBannerLateral;
                             ViewBag.MostrarShowRoomBannerLateral = Session["EsShowRoom"].ToString() != "0" &&
@@ -69,26 +65,26 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                             var minutes = Math.Floor(seconds / 60);
                             var hours = Math.Floor(minutes / 60);
                             var days = Math.Floor(hours / 24);
-
                            if (Convert.ToInt32(days) == 0 && hours > 0)
                             {
                                 showRoomBannerLateral.DiasFaltantes = 1;
                             }
-                            else
+                            else if (Convert.ToInt32(days) > 0)
                             {
                                 showRoomBannerLateral.DiasFaltantes = Convert.ToInt32(days);
                             }
+                            else
+                            {
+                                 ViewBag.MostrarShowRoomBannerLateral = false;
+                            }
 
-                            if (days > 1)
-                                {
+                            if (days > 1) {
                                 showRoomBannerLateral.LetrasDias = "FALTAN " + Convert.ToInt32(showRoomBannerLateral.DiasFaltantes).ToString() + " DÍAS";
                             }
                             else { showRoomBannerLateral.LetrasDias = "FALTA " +  Convert.ToInt32(showRoomBannerLateral.DiasFaltantes).ToString() +  " DÍA"; }
 
                     ViewBag.ImagenPopupShowroomIntriga = showRoomBannerLateral.ImagenPopupShowroomIntriga;
                     ViewBag.ImagenBannerShowroomIntriga = showRoomBannerLateral.ImagenBannerShowroomIntriga;
-
-
                     ViewBag.DiasFaltantesLetras = showRoomBannerLateral.LetrasDias;
                     
 
@@ -99,14 +95,10 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
                         if (userData.CloseOfertaDelDia)
                             ViewBag.MostrarOfertaDelDia = false;
-
-                    
                 }
                     ViewBag.MostrarBannerPL20 = mostrarBanner;
                     ViewBag.MostrarBannerOtros = mostrarBannerTop;
                     
-
-
                 /*FIN: PL20-1289*/
             }
             catch (Exception ex)
