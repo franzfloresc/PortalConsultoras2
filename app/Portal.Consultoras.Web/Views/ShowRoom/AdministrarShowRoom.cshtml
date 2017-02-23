@@ -621,6 +621,7 @@
 <div id="DialogCargarStock" style="display: none;">
     @using (Html.BeginForm("ActualizarStockMasivo", "ShowRoom", FormMethod.Post, new { id = "frmCargarStock", enctype = "multipart/form-data" }))
     {
+        <input type="hidden" id="hdCargaStockEventoID" name="hdCargaStockEventoID" />
         <div class="Content_modal">
             <div class="div-3">
                 <div class="titC">
@@ -641,6 +642,9 @@
                     <div>- Unidades</div>
                     <div>- PNormal</div>
                     <div>- Unidades Permitidas</div>
+                    <div>- Nombre del Set</div>
+                    <div>- Codigo de Categoria</div>
+                    <div>- Tip de Negocio</div>
                 </div>
             </div>
         </div>
@@ -667,11 +671,12 @@
                 <div class="titAuto" style="text-align:left;">
                     <div>Formato de archivo (*.csv):</div>
                     <div>- CUV</div>
-                    <div>- NombreSet</div>
+                    <div>- Posición</div>                    
                     <div>- NombreProducto</div>
                     <div>- Descripcion1</div>
                     <div>- Descripcion2</div>
                     <div>- Descripcion3</div>
+                    <div>- MarcaProducto</div>
                 </div>
             </div>
         </div>
@@ -1399,6 +1404,7 @@
                 closeWaitingDialog();
                 if (checkTimeout(response)) {
                     $("#list").setGridParam({ datatype: 'json', page: 1 }).trigger('reloadGrid');
+                    CargarCategorias();
                     alert(response);
                     $('#DialogCargarStock').dialog('close');
                 }
@@ -2083,6 +2089,8 @@
                     //Carga de Consultora
                     $("#hdCargaEventoID").val("0");
                     $("#hdCargaCampaniaID").val("");
+                    //Carga de Stock
+                    $("#hdCargaStockEventoID").val("0");
                     //Carga de Descripcion de Sets
                     $("#hdCargaDescripcionSetsEventoID").val("0");
                     $("#hdCargaDescripcionSetsCampaniaID").val("");
@@ -2430,6 +2438,8 @@
         //Carga de Consultoras
         $("#hdCargaEventoID").val(options.rowId);
         $("#hdCargaCampaniaID").val(rowObject[13]);
+        //Carga de Stock
+        $("#hdCargaStockEventoID").val(options.rowId);
         //Carga de Descripcion de Sets
         $("#hdCargaDescripcionSetsEventoID").val(options.rowId);
         $("#hdCargaDescripcionSetsCampaniaID").val(rowObject[13]);
@@ -2481,6 +2491,8 @@
                         //Cargar de Consultoras
                         $("#hdCargaEventoID").val(id);
                         $("#hdCargaCampaniaID").val(campaniaID);
+                        //Carga de Stock
+                        $("#hdCargaStockEventoID").val(id);
                         //Carga de Descripcion de Sets
                         $("#hdCargaDescripcionSetsEventoID").val(id);
                         $("#hdCargaDescripcionSetsCampaniaID").val(campaniaID);

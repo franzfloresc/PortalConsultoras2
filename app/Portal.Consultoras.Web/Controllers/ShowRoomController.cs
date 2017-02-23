@@ -8,6 +8,7 @@ using System.Text;
 using System.Web;
 using System.Web.Mvc;
 using AutoMapper;
+using Microsoft.Ajax.Utilities;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.ServicePedido;
@@ -818,7 +819,7 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         [HttpPost]
-        public string ActualizarStockMasivo(HttpPostedFileBase flStock)
+        public string ActualizarStockMasivo(HttpPostedFileBase flStock, int hdCargaStockEventoID)
         {
             string message = string.Empty;
             int registros = 0;
@@ -827,6 +828,7 @@ namespace Portal.Consultoras.Web.Controllers
                 #region Procesar Carga Masiva Archivo CSV
                 string finalPath = string.Empty;
                 List<BEShowRoomOferta> lstStock = new List<BEShowRoomOferta>();
+                List<BEShowRoomCategoria> listaCategoria = new List<BEShowRoomCategoria>();
 
                 if (flStock != null)
                 {
@@ -853,18 +855,22 @@ namespace Portal.Consultoras.Web.Controllers
                                 continue;
                             }
 
-                            values = inputLine.Split(',');
+                            values = inputLine.Split('|');
                             if (values.Length > 1)
                             {
                                 if (IsNumeric(values[1].Trim()) && IsNumeric(values[3].Trim()))
                                 {
                                     BEShowRoomOferta ent = new BEShowRoomOferta();
-                                    ent.ISOPais = values[0].Trim();
-                                    ent.CampaniaID = int.Parse(values[1]);
-                                    ent.CUV = values[2].Trim();
-                                    ent.Stock = int.Parse(values[3].Trim());
-                                    ent.PrecioOferta = decimal.Parse(values[4].Trim());
-                                    ent.UnidadesPermitidas = int.Parse(values[5].Trim());
+                                    ent.ISOPais = values[0].Trim().Replace("\"", ""); ;
+                                    ent.CampaniaID = int.Parse(values[1].Trim().Replace("\"", ""));
+                                    ent.CUV = values[2].Trim().Replace("\"", "");
+                                    ent.Stock = int.Parse(values[3].Trim().Replace("\"", ""));
+                                    ent.PrecioOferta = decimal.Parse(values[4].Trim().Replace("\"", ""));
+                                    ent.UnidadesPermitidas = int.Parse(values[5].Trim().Replace("\"", ""));
+                                    ent.Descripcion = values[6].Trim().Replace("\"", "");
+                                    ent.CodigoCategoria = values[7].Trim().Replace("\"", "");
+                                    ent.TipNegocio = values[8].Trim().Replace("\"", "");
+
                                     if (ent.Stock >= 0)
                                         lstStock.Add(ent);
                                 }
@@ -875,6 +881,21 @@ namespace Portal.Consultoras.Web.Controllers
                     {
                         lstStock.Update(x => x.TipoOfertaSisID = Constantes.ConfiguracionOferta.ShowRoom);
                         List<BEShowRoomOferta> lstPaises = lstStock.GroupBy(x => x.ISOPais).Select(g => g.First()).ToList();
+
+                        var categorias = lstStock.Select(p => p.CodigoCategoria).Distinct();
+                        foreach (var item in categorias)
+                        {
+                            var beCategoria = new BEShowRoomCategoria();
+                            beCategoria.Codigo = item;
+                            beCategoria.Descripcion = item;
+                            beCategoria.EventoID = hdCargaStockEventoID;
+                            listaCategoria.Add(beCategoria);
+                        }
+
+                        using (PedidoServiceClient sv = new PedidoServiceClient())
+                        {
+                            sv.DeleteInsertShowRoomCategoriaByEvento(userData.PaisID, hdCargaStockEventoID, listaCategoria.ToArray());
+                        }
 
                         for (int i = 0; i < lstPaises.Count; i++)
                         {
@@ -967,13 +988,13 @@ namespace Portal.Consultoras.Web.Controllers
                             {
                                 BEShowRoomOfertaDetalle ent = new BEShowRoomOfertaDetalle();
                                 ent.CUV = values[0].Trim().Replace("\"", "");
-                                ent.NombreSet = values[1].Trim().Replace("\"", "");
-                                ent.Posicion = values[2].Replace("\"", "0").ToInt();
-                                //ent.Posicion = values[2].Trim().Replace("\"", "").ToString();
-                                ent.NombreProducto = values[3].Trim().Replace("\"", "");
-                                ent.Descripcion1 = values[4].Trim().Replace("\"", "");
-                                ent.Descripcion2 = values[5].Trim().Replace("\"", "");
-                                ent.Descripcion3 = values[6].Trim().Replace("\"", "");
+                                //ent.NombreSet = values[1].Trim().Replace("\"", "");
+                                ent.Posicion = values[1].Replace("\"", "0").ToInt();                                
+                                ent.NombreProducto = values[2].Trim().Replace("\"", "");
+                                ent.Descripcion1 = values[3].Trim().Replace("\"", "");
+                                ent.Descripcion2 = values[4].Trim().Replace("\"", "");
+                                ent.Descripcion3 = values[5].Trim().Replace("\"", "");
+                                ent.MarcaProducto = values[6].Trim().Replace("\"", "");
                                 ent.FechaCreacion = DateTime.Now;
                                 ent.UsuarioCreacion = userData.CodigoConsultora;
                                 ent.FechaModificacion = DateTime.Now;

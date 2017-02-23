@@ -1643,6 +1643,10 @@ namespace Portal.Consultoras.Service
             BLShowRoomEvento.UpdateShowRoomDescripcionCategoria(paisId, categoria);
         }
 
+        public void DeleteInsertShowRoomCategoriaByEvento(int paisId, int eventoId, List<BEShowRoomCategoria> listaCategoria)
+        {
+            BLShowRoomEvento.DeleteInsertShowRoomCategoriaByEvento(paisId, eventoId, listaCategoria);
+        }
         #endregion
 
         #region Producto SUgerido

@@ -565,5 +565,23 @@ namespace Portal.Consultoras.Data
 
             Context.ExecuteNonQuery(command);
         }
+
+        public void DeleteShowRoomCategoriaByEvento(int eventoId)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("ShowRoom.DeleteShowRoomCategoriaByEvento");
+            Context.Database.AddInParameter(command, "@EventoId", DbType.Int32, eventoId);
+
+            Context.ExecuteNonQuery(command);
+        }
+
+        public void InsertShowRoomCategoria(BEShowRoomCategoria categoria)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("ShowRoom.InsertShowRoomCategoria");
+            Context.Database.AddInParameter(command, "@EventoId", DbType.Int32, categoria.EventoID);
+            Context.Database.AddInParameter(command, "@Codigo", DbType.String, categoria.Codigo);
+            Context.Database.AddInParameter(command, "@Descripcion", DbType.String, categoria.Descripcion);
+
+            Context.ExecuteNonQuery(command);
+        }        
     }
 }

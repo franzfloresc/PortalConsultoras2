@@ -888,6 +888,9 @@ namespace Portal.Consultoras.ServiceContracts
         [OperationContract]
         void UpdateShowRoomDescripcionCategoria(int paisId, BEShowRoomCategoria categoria);
 
+        [OperationContract]
+        void DeleteInsertShowRoomCategoriaByEvento(int paisId, int eventoId, List<BEShowRoomCategoria> listaCategoria);
+
         #endregion
 
         #region Producto SUgerido

@@ -83,6 +83,9 @@ namespace Portal.Consultoras.Web.Models
         public int CantidadIncrementa { get; set; }
         public int Agotado { get; set; }
 
+        public string CodigoCategoria { get; set; }
+        public string TipNegocio { get; set; }
+
         public string CodigoISO { get; set; }
 
         public string FormatoPrecioCatalogo

@@ -422,5 +422,34 @@ namespace Portal.Consultoras.BizLogic
             var dataAccess = new DAShowRoomEvento(paisId);
             dataAccess.UpdateShowRoomDescripcionCategoria(categoria);
         }
+
+        public void DeleteInsertShowRoomCategoriaByEvento(int paisId, int eventoId, List<BEShowRoomCategoria> listaCategoria)
+        {
+            try
+            {
+                var dataAccess = new DAShowRoomEvento(paisId);
+                //int resultado;
+                TransactionOptions oTransactionOptions = new TransactionOptions();
+                oTransactionOptions.IsolationLevel = System.Transactions.IsolationLevel.ReadUncommitted;
+
+                using (TransactionScope oTransactionScope = new TransactionScope(TransactionScopeOption.Required, oTransactionOptions))
+                {
+                    dataAccess.DeleteShowRoomCategoriaByEvento(eventoId);
+
+                    foreach (var beCategoria in listaCategoria)
+                    {
+                        dataAccess.InsertShowRoomCategoria(beCategoria);
+                    }                    
+
+                    oTransactionScope.Complete();
+                }
+
+                //return resultado;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message, ex);
+            }
+        }
     }
 }
