@@ -83,15 +83,19 @@ $(document).ready(function () {
             if ($('#popupAceptacionContrato').is(':visible')) {
                 PopupCerrar('popupAceptacionContrato');
             }
-            if ($('#DialogoMensajeBannerShowRoomHoy').is(':visible')) {
-                PopupCerrar('DialogoMensajeBannerShowRoomHoy');
-            }
-            if ($('#DialogoMensajeBannerShowRoom').is(':visible')) {
-                PopupCerrar('DialogoMensajeBannerShowRoom');
-            }
+            //if ($('#DialogoMensajeBannerShowRoomHoy').is(':visible')) {
+            //    PopupCerrar('DialogoMensajeBannerShowRoomHoy');
+            //}
+            //if ($('#DialogoMensajeBannerShowRoom').is(':visible')) {
+            //    PopupCerrar('DialogoMensajeBannerShowRoom');
+            //}
             if ($('#popupDemandaAnticipada').is(':visible')) {
                 PopupCerrar('popupDemandaAnticipada');
             }
+            if ($('#PopShowroomIntriga').is(':visible')) {
+                PopupCerrar('PopShowroomIntriga');
+            }
+            
         }
     };
 
@@ -3368,7 +3372,8 @@ function CrearPopShow() {
     //    $("#DialogoMensajeBannerShowRoomHoy").hide();
     //});
 
-    $("#cbNoMostrarPopupShowRoom, #cbNoMostrarPopupShowRoomHoy").click(function () {
+    //$("#cbNoMostrarPopupShowRoom, #cbNoMostrarPopupShowRoomHoy").click(function () {
+    $("#cbNoMostrarPopupShowRoom").click(function () {
         var noMostrarPopup = noMostrarShowRoom;
 
         var item = {
@@ -3388,6 +3393,8 @@ function CrearPopShow() {
                         if (noMostrarShowRoom)
                             AgregarTagManagerShowRoomCheckBox();
                         noMostrarShowRoom = noMostrarShowRoom == true ? false : true;
+
+                        $('#PopShowroomIntriga').hide();
                     }
                 }
             },
@@ -3421,15 +3428,15 @@ function MostrarShowRoom() {
             success: function (response) {
                 if (checkTimeout(response)) {
                     if (response.success) {
-                        console.log(response);
+                        //console.log(response);
                         var showroomConsultora = response.data;
                         var evento = response.evento;
                         var personalizacion = response.personalizacion;
-                        var urlImagenPopupIntriga;
+                        var urlImagenPopupIntriga = "";
 
-                        $.each(personalizacion, function (key, obj) {
-                            if (obj.Atributo == '"PopupImagenIntriga"') {
-                                urlImagenPopupIntriga = obj.Valor;
+                        $.each(personalizacion, function (k, item) {
+                            if (item.Atributo == 'PopupImagenIntriga') {
+                                urlImagenPopupIntriga = item.Valor;
                                 return;
                             }
                         });
@@ -3439,7 +3446,7 @@ function MostrarShowRoom() {
                                 $("#hdEventoIDShowRoom").val(evento.EventoID);
 
                                 if (response.mostrarShowRoomProductos) {
-                                    $("#spnShowRoomEventoHoy").html(evento.Tema);
+                                    //$("#spnShowRoomEventoHoy").html(evento.Tema);
 
                                     //$("#lnkConoceMasShowRoomPopupHoy").attr("href", response.rutaShowRoomPopup);
 
@@ -3451,10 +3458,10 @@ function MostrarShowRoom() {
 
                                     //$("#DialogoMensajeBannerShowRoomHoy").show();
 
-                                    AgregarTagManagerShowRoomPopup(evento.Tema, true);
+                                    //AgregarTagManagerShowRoomPopup(evento.Tema, true);
 
                                     //PL20-1306
-                                    $('#PopShowoomIntriga').show();
+                                    //$('#PopShowoomIntriga').show();
                                 } else {
                                     $("#spnShowRoomEvento").html(evento.Tema);
                                     //$("#spnShowRoomNombreConsultora").html(response.nombre);
@@ -3478,12 +3485,16 @@ function MostrarShowRoom() {
                                     AgregarTagManagerShowRoomPopup(evento.Tema, false);
 
                                     // /PL20-1306
-
-                                    
-
-                                    $("#spnShowRoomDiasFaltan").text(response.diasFaltan);
-                                    //$("#imgShowRoomIntriga").attr("src", urlImagenPopupIntriga);
-                                    $('#PopShowroomIntriga').show();
+                                    if (parseInt(response.diasFaltan) > 0) {
+                                        var container = $('#PopShowroomIntriga');
+                                        var txtDiasIntriga = 'FALTAN ' + response.diasFaltan + ' DÍAS';
+                                        if (response.diasFaltan == 1) txtDiasIntriga = 'FALTA 1 DÍA';
+                                        var txtSaludoIntriga = response.nombre + ' prepárate para la';
+                                        $(container).find('.saludo_consultora_showroom').text(txtSaludoIntriga);
+                                        $(container).find('.dias_intriga_home').text(txtDiasIntriga);
+                                        $(container).find('.imagen_dias_intriga').attr('src', urlImagenPopupIntriga);
+                                        $(container).show();
+                                    }
                                 }
 
                                 //$("#imgShowRoomGif").attr("src", evento.Imagen1);
@@ -3502,8 +3513,6 @@ function MostrarShowRoom() {
         });
     }
 }
-
-
 
 function AgregarTagManagerShowRoomPopup(nombreEvento, esHoy) {
     var name = 'showroom digital ' + nombreEvento;
@@ -3879,8 +3888,7 @@ function mostrarCatalogoPersonalizado() {
 }
 
 function VerShowRoomIntriga() {
-    $('#PopShowroomIntriga').hide();
     AgregarTagManagerShowRoomPopupConocesMas(1);
-
     document.location.href = urlShowRoomIntriga;
+    $('#PopShowroomIntriga').hide();
 }

@@ -1039,12 +1039,20 @@ function loadOfertaDelDia() {
                     $('#OfertaDelDia').show();
 
                     $('.content_slider_home').css('margin-top', '160px');
-                    $('.ubicacion_web ').css('margin-top', '185px');
+                    //$('.ubicacion_web ').css('margin-top', '185px');
 
-                    var int1odd = setInterval(function () {
+                    //debugger;
+                    var intv1 = setInterval(function () {
                         if ($('#OfertaDelDia:visible').length > 0) {
-                            $('.ubicacion_web ').css('margin-top', '185px');
-                            clearInterval(int1odd);
+
+                            if ($('.content_banner_intriga').length > 0) {
+                                $('.ubicacion_web ').css('margin-top', '162px');
+                            }
+                            else {
+                                $('.ubicacion_web ').css('margin-top', '185px');
+                            }
+                            
+                            clearInterval(intv1);
                         }
                     }, 300);
 
@@ -1093,7 +1101,14 @@ function closeOfertaDelDia() {
                 $('#OfertaDelDia').hide();
 
                 $('.content_slider_home ').css('margin-top', '60px');
-                $('.ubicacion_web ').css('margin-top', '83px');
+
+                //debugger;
+                if ($('.content_banner_intriga').length > 0) {
+                    $('.ubicacion_web ').css('margin-top', '62px');
+                }
+                else {
+                    $('.ubicacion_web ').css('margin-top', '83px');
+                }
             }
         },
         error: function (err) {
