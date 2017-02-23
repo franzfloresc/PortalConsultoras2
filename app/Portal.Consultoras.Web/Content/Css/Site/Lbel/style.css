@@ -34389,6 +34389,7 @@ h1#penmostreo .campana {
     height:213px;
     width:auto;
     display:block;
+    margin:0 auto;
 }
 .linea_separadora_intriga {
     width: 100%;
