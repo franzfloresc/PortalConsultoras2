@@ -39,6 +39,7 @@
             <div class="linea_separadora_intriga"></div>
         </div>
         <div>
+           
             @*<div class="content_imagen_intriga"><img src="https://S3.amazonaws.com/consultorasQAS/SomosBelcorp/Matriz/PE/PE_200042737_2017254271_03_mumegycqit.png"></div>*@
             <div class="content_imagen_intriga"><img src="@ViewBag.ImagenProducto"></div>
             <div class="linea_separadora_intriga"></div>
@@ -52,6 +53,9 @@
                 <a class="cantidad_mas_home" tabindex="0"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
             </div>
             <hr class="clear" />
+            <input id="hdCampaniaCodigo" type="hidden" value="@ViewBag.CodigoCampania" />
+            <input id="hdProductoNombre" type="hidden" value="@ViewBag.Descripcion" />
+            <input id="hdMarcaDescripcion" type="hidden" value="@ViewBag.DescripcionMarca == null ? '' : @ViewBag.DescripcionMarca" />
             <a class="boton_Agregalo_home">
                 AGRÉGALO
             </a>
@@ -69,6 +73,8 @@
 @section scripts{
     <script type="text/javascript" src="@Url.Content("~/Scripts/slick.min.js")"></script>
     <script type="text/javascript">
+        var urlInsertOfertaWebPortal = '@Url.Action("InsertOfertaWebPortal", "ShowRoom", new {area = ""})';
+        var urlObtenerStockActualProducto = '@Url.Action("ObtenerStockActualProducto", "ShowRoom", new {area = ""})';
         $(document).ready(function () {
             $(".termino_condiciones_intriga").click(function () {
                 $(this).toggleClass('check_intriga');
@@ -79,7 +85,7 @@
                     slick.slickGoTo(1);
                 }, 500);
             });
-           
+
             $('.variable-width').slick({
                 dots: true,
                 infinite: false,
@@ -94,9 +100,112 @@
                 dots: false,
             });
             //$('.variable-width').slickGoTo(2);
-            
+
+            $("body").on("click", ".boton_Agregalo_home", function(e) {
+                var cantidad = $("#txtCantidad").val();
+
+                AgregarOfertaShowRoomIntriga(cantidad);
+                e.preventDefault();
+                (this).blur();
+            });
 
         });
+
+        function AgregarOfertaShowRoomIntriga(cantidad) {
+            debugger;
+            var CUV = @ViewBag.CUV;
+            var MarcaID =@ViewBag.MarcaID;
+            var PrecioUnidad = @ViewBag.PrecioCatalogo;
+            var ConfiguracionOfertaID = @ViewBag.ConfiguracionOfertaID;
+            var nombreProducto = $("#hdProductoNombre").val();
+            var posicion = 1;
+            var descripcionMarca = $("#hdMarcaDescripcion").val();
+
+            if (cantidad == "" || cantidad == 0) {
+                messageInfo("La cantidad ingresada debe ser mayor que 0, verifique.");
+            } else {
+                var Item = {
+                    MarcaID: MarcaID,
+                    Cantidad: cantidad,
+                    PrecioUnidad: PrecioUnidad,
+                    CUV: CUV,
+                    ConfiguracionOfertaID: ConfiguracionOfertaID
+                };
+
+                $.ajaxSetup({ cache: false });
+                $.getJSON(urlObtenerStockActualProducto, { CUV: CUV }, function(data) {
+                    if (parseInt(data.Stock) < parseInt(cantidad)) {
+                        //$(article).find(".claseStock").text(data.Stock);
+
+                        CloseLoading();
+                        messageInfo("Lamentablemente, la cantidad solicitada sobrepasa el stock actual (" + data.Stock + ") del producto, verifique.");
+                    } else {
+                        jQuery.ajax({
+                            type: 'POST',
+                            url: urlInsertOfertaWebPortal,
+                            dataType: 'json',
+                            contentType: 'application/json; charset=utf-8',
+                            data: JSON.stringify(Item),
+                            async: true,
+                            success: function(response) {
+                                CloseLoading();
+
+                                if (response.success == true) {
+                                    //$("#spnNombreOfertaShowRoom").html(nombreProducto);
+
+                                    //$("#divMensajeProductoAgregado").modal("show");
+
+                                    var stockRestante = parseInt(data.Stock) - parseInt(cantidad);
+                                    if (stockRestante < 1) {
+                                        $("#txtCantidad").val("0");
+
+                                        //var htmlBotonAgotado = '<a class="btn_agregar_set">AGOTADO</a>';
+                                        //var divBotonAgotado = $(article).find(".divBotonAgotado");
+                                        //$(divBotonAgotado).html("");
+                                        //$(divBotonAgotado).html(htmlBotonAgotado);
+                                    } else {
+                                        $("#txtCantidad").val("1");
+                                    }
+
+                                    AgregarTagManagerProductoAgregado(CUV, nombreProducto, PrecioUnidad, cantidad, descripcionMarca);
+                                    //ActualizarCantidadTotalPedido();
+                                    CargarCantidadProductosPedidos();
+                                    TrackingJetloreAdd(cantidad, $("#hdCampaniaCodigo").val(), CUV);
+                                }
+                                else messageInfoError(response.message);
+                            },
+                            error: function(response, error) {
+                                if (checkTimeout(response)) {
+                                    CloseLoading();
+                                    console.log(response);
+                                }
+                            }
+                        });
+                    }
+
+                });
+            }
+        }
+
+        function AgregarTagManagerProductoAgregado(CUV, nombreProducto, PrecioUnidad, cantidad, descripcionMarca) {
+            dataLayer.push({
+                'event': 'addToCart',
+                'ecommerce': {
+                    'add': {
+                        'products': [{
+                            'name': nombreProducto,
+                            'id': CUV,
+                            'price': PrecioUnidad,
+                            'brand': descripcionMarca,
+                            'variant': 'Ofertas Showroom',
+                            'category': 'NO DISPONIBLE',
+                            'quantity': cantidad
+                        }]
+                    }
+                }
+            });
+        }
+
     </script> 
    
 }

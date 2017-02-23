@@ -31,8 +31,8 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         }
         public ActionResult Intriga()
         {
-            Session[keyFechaGetCantidadProductos] = null;
-            Session[keyCantidadGetCantidadProductos] = null;
+            //Session[keyFechaGetCantidadProductos] = null;
+            //Session[keyCantidadGetCantidadProductos] = null;
 
             var userData = UserData();
             try
@@ -61,6 +61,14 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     ViewBag.ImagenProducto = model.ImagenProducto;
                     ViewBag.PrecioOferta = model.PrecioOferta;
                     ViewBag.PrecioCatalogo = model.PrecioCatalogo;
+                    ViewBag.CUV = model.CUV;
+                    ViewBag.CategoriaID = model.CategoriaID;
+                    ViewBag.ConfiguracionOfertaID = model.ConfiguracionOfertaID;
+                    ViewBag.DescripcionMarca = model.DescripcionMarca;
+                    ViewBag.MarcaID = model.MarcaID;
+                    ViewBag.CodigoCampania = model.CodigoCampania;
+                    
+                   
 
                     var showRoomOfertaModel = model;
 
