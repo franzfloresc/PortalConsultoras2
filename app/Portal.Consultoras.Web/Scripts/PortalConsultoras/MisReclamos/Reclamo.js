@@ -37,6 +37,7 @@ $(document).ready(function () {
     });
 
     $("#IrPAso2").on("click", function () {
+        debugger;
         if (ValidarPaso1()) {
             paso2Actual = 1;
             CambioPaso();
@@ -93,7 +94,7 @@ $(document).ready(function () {
         $("#ddlCampania").attr("disabled", "disabled");
     });
 
-    $("#IrSolicitudEnviada").on("click", function () {
+    $("#IrSolicitudEnviada").on("click", function () {     
         var cantidadDetalle = $("#divDetallePaso3 .content_listado_reclamo").length || 0;
 
         if (cantidadDetalle > 0) {
@@ -175,7 +176,7 @@ $(document).ready(function () {
     }
 
 
-    $('#alertEMailDialogMensajes').dialog({
+    $('#alertEMailDialogMensajes').dialog({        
         autoOpen: false,
         resizable: false,
         modal: true,
@@ -186,7 +187,7 @@ $(document).ready(function () {
         {
             "Aceptar": function () {
                 $(this).dialog('close');
-                $("#SolicitudEnviada").show();
+                $("#SolicitudEnviada").css({ "visibility": "visible" });
             }
         }
     });
@@ -1193,7 +1194,7 @@ function SolicitudEnviar() {
 
             $("#divProcesoReclamo").hide();
             $("#divUltimasSolicitudes").hide();
-            $("#SolicitudEnviada").show();
+            $("#SolicitudEnviada").css({ "visibility": "visible" });
             $("#TituloReclamo").hide();
         },
         error: function (data, error) {
