@@ -14,6 +14,7 @@ using System.Web.Script.Serialization;
 
 using System.Globalization;
 
+
 namespace Portal.Consultoras.Web.Controllers
 {
     public class MisCatalogosRevistasController : BaseController
@@ -287,13 +288,13 @@ namespace Portal.Consultoras.Web.Controllers
                 Catalogo catalogoEsika = catalogos.FirstOrDefault(x => x.IdMarcaCatalogo == Constantes.Marca.Esika);
                 Catalogo catalogoCyZone = catalogos.FirstOrDefault(x => x.IdMarcaCatalogo == Constantes.Marca.Cyzone);
                 Catalogo catalogoFinart = catalogos.FirstOrDefault(x => x.IdMarcaCatalogo == Constantes.Marca.Finart);
+
                 /*EPD-1003*/
                 DateTime dd = DateTime.Parse(FechaFacturacion, new CultureInfo("es-ES"));
                 string fdf = dd.ToString("dd", new CultureInfo("es-ES"));
                 string fmf = dd.ToString("MMMM", new CultureInfo("es-ES"));
                 string ffechaFact = fdf + " de " + char.ToUpper(fmf[0]) + fmf.Substring(1);
                 string urlIssuCatalogo = string.Empty;
-
 
                 string urlImagenLogo = "http://www.genesis-peru.com/mailing-belcorp/logo.png";
                 string urlIconEmail = "http://www.genesis-peru.com/mailing-belcorp/mensaje_mail.png";
@@ -409,7 +410,6 @@ namespace Portal.Consultoras.Web.Controllers
                         }
 
                         mailBody += "<td style=\"width:29.3%; display: table-cell; padding-left:2%; padding-right:2%;\">";
-
                         mailBody += "<a href=\"" + urlIssuCatalogo + "\" style=\"width:100%; display:block;\">";
                         mailBody += "<img width=\"100%\" display=\"block\" style=\"width:120px;height:150px\" src=\"" + RutaPublicaImagen + "\" alt=\"Revista\" />";
                         mailBody += "</a>";
@@ -441,7 +441,6 @@ namespace Portal.Consultoras.Web.Controllers
 
                         mailBody += "<td style=\"width:29.3%; display: table-cell; padding-left:2%; padding-right:2%;\">";
                         mailBody += "<a href=\"" + urlIssuCatalogo + "\" style=\"width:100%; display:block;\">";
-
                         mailBody += "<img width=\"100%\" display=\"block\" style=\"width:120px;height:150px\" src=\"" + RutaPublicaImagen + "\" alt=\"Revista\" />";
                         mailBody += "</a>";
                         mailBody += "</td>";
@@ -532,7 +531,7 @@ namespace Portal.Consultoras.Web.Controllers
                     mailBody += "</tbody>";
                     mailBody += "</table>";
                     mailBody += "</body>";
-                    mailBody += "</html>"; 
+                    mailBody += "</html>";
 
                     if (!ValidarCorreoFormato(item.Email)) CorreosInvalidos += item.Email + "; ";
                     else Util.EnviarMailMasivoColas("no-responder@somosbelcorp.com", item.Email, "Revisa tus catálogos de campaña " + CampaniaID.Substring(4,2), mailBody, true, userData.NombreConsultora);

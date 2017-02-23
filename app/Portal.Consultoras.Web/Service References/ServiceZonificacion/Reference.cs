@@ -160,6 +160,9 @@ namespace Portal.Consultoras.Web.ServiceZonificacion {
         private string NombreCortoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int NroCampaniasField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int PaisIDField;
         
         [global::System.ComponentModel.BrowsableAttribute(false)]
@@ -220,6 +223,19 @@ namespace Portal.Consultoras.Web.ServiceZonificacion {
                 if ((object.ReferenceEquals(this.NombreCortoField, value) != true)) {
                     this.NombreCortoField = value;
                     this.RaisePropertyChanged("NombreCorto");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int NroCampanias {
+            get {
+                return this.NroCampaniasField;
+            }
+            set {
+                if ((this.NroCampaniasField.Equals(value) != true)) {
+                    this.NroCampaniasField = value;
+                    this.RaisePropertyChanged("NroCampanias");
                 }
             }
         }

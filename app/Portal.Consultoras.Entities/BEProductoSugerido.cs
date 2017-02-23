@@ -1,12 +1,8 @@
 ﻿using OpenSource.Library.DataAccess;
 using Portal.Consultoras.Common;
 using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Linq;
 using System.Runtime.Serialization;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Portal.Consultoras.Entities
 {
@@ -35,9 +31,6 @@ namespace Portal.Consultoras.Entities
         public string UsuarioModificacion { get; set; }
         [DataMember]
         public DateTime FechaModificacion { get; set; }
-        
-        [DataMember]
-        public string CodigoProducto { get; set; }
 
         public BEProductoSugerido(IDataRecord datarec)
         {
@@ -65,9 +58,6 @@ namespace Portal.Consultoras.Entities
                 FechaModificacion = DbConvert.ToDateTime(datarec["FechaModificacion"]);
             if (DataRecord.HasColumn(datarec, "UsuarioModificacion") && datarec["UsuarioModificacion"] != DBNull.Value)
                 UsuarioModificacion = DbConvert.ToString(datarec["UsuarioModificacion"]);
-
-            if (DataRecord.HasColumn(datarec, "CodigoProducto") && datarec["CodigoProducto"] != DBNull.Value)
-                CodigoProducto = DbConvert.ToString(datarec["CodigoProducto"]);
         }
     }
 }

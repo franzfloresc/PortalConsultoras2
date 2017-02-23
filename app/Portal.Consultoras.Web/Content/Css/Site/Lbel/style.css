@@ -1802,10 +1802,10 @@ div.texto_encabezado_pedidos{
     color: #797979;
 }
 
-div.texto_pedidos, div.celda_cantidad_pedidos{
-    display:inline-block;
-    padding-top: 25px;
-    padding-bottom: 25px;
+div.texto_pedidos, div.celda_cantidad_pedidos {
+    display: inline-block;
+    padding-top: 12px;
+    padding-bottom: 14px;
     vertical-align: middle;
     position:relative;
 }
@@ -3078,22 +3078,22 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido{
     margin:0px;
     padding:0px;
     list-style-type:none;
-    }
+}
 .contenedor_banners ul li{
     width:31.7%;
-            /*max-width:256.2px;*/
-            /*height:249px;*/
+    /*max-width:256.2px;*/
+    /*height:249px;*/
     height:auto;
-            /*width:218px;
-            height:211px;*/
+    /*width:218px;
+    height:211px;*/
             background: white;
-            /*margin-right:24.5px;*/
+    /*margin-right:24.5px;*/
     margin-right:2.4%;
     float:left;
-        }
+}
 .contenedor_banners ul li:nth-child(3){
     margin-right:0px;
-            }
+}
 
             .contenedor_banners ul li .imagen_banner_inferior {
     overflow: hidden;
@@ -3975,7 +3975,7 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
     {
         text-align: right;
         font-weight: 400;
-}
+    }
     .tabla_productos_agotados .categoria_productoAgotado { width: 20%; }
     .tabla_productos_agotados .codigo_productoAgotado { width: 15%; }
     .tabla_productos_agotados .catalogo_productoAgotado { width: 22%; }
@@ -4941,7 +4941,7 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
 }
 
 .btn_noGracias_agregarProductos{
-        display: block;
+    display: block;
     /* position: absolute; */
     /* margin-left: 10px; */
     /* bottom: -1px; */
@@ -18605,7 +18605,7 @@ float: right;
 }
 #paParClientes{
         /*'R2442 se cambió el FONT  a 100 regular - Cambio tamaño y font family*/
-	              
+
     font-family: 'lato-regular';
     font-size: 16px;
      line-height: 20px;
@@ -18725,7 +18725,7 @@ float: right;
 	color: #fff;
 	background: #660066!important;
    
-}
+        }
 #paImgBann .container{
 	padding-top: 49px;
 }
@@ -21494,9 +21494,9 @@ label.checkpop.c_on {
     /*background: gray;*/
     position: relative;
     overflow: hidden;
-    }
+}
 
-    .enlaces_home:hover {
+.enlaces_home:hover {
     /*opacity: 0.5;
     filter: alpha(opacity=50); /* For IE8 and earlier */*/
 }
@@ -28165,7 +28165,7 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
 }
 .foto_usuaria_desktop img{
     width:100%;
-}
+    }
 .btn_tomar_foto{
     width:50%;
     height:42px;
@@ -28176,7 +28176,7 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
     line-height:42px;
     font-size:13px;
     font-weight:700;
-   
+
     text-transform:uppercase;
     margin:auto;
 
@@ -30700,7 +30700,7 @@ h1#penmostreo .campana {
     display:inline-block;
     vertical-align:middle;
 }
-    
+
 .texto_stock {
     /*width:100%;*/
     width: 70%; /*EPD-1378*/
@@ -33320,17 +33320,48 @@ h1#penmostreo .campana {
 .mod-ofer1 .boton_Agregalo_home{
     width:139px;
 }
-.theme-green .back-bar .pointer{
-    background:#613c87 !important;
-}
-.theme-green .back-bar .selected-bar{
-    background:#613c87 !important;
-}
-.slider-container .back-bar .pointer-label{
-     color:#613c87 !important;
-}
 .enlace_chat a{
     display:inline;
     font-weight:bold;
     text-decoration:underline;
+}
+.tooltipPedido{
+    display:none;
+    position:absolute;
+        top: 6px;
+    left: 100%;
+    background: white;
+    width: 250px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    font-weight: 400;
+    z-index: 100;
+}
+.pedidoPadreToolTip:hover .tooltipPedido {
+    display:block;
+}
+.tooltipPedido:after, .tooltipPedido:before {
+	right: 100%;
+	top: 50%;
+	border: solid transparent;
+	content: " ";
+	height: 0;
+	width: 0;
+	position: absolute;
+	pointer-events: none;
+    z-index:30;
+}
+
+.tooltipPedido:after {
+	border-color: rgba(255, 255, 255, 0);
+	border-right-color: #fff;
+	border-width: 8px;
+	margin-top: -8px;
+}
+.tooltipPedido:before {
+	border-color: rgba(204, 204, 204, 0);
+	border-right-color: #ccc;
+	border-width: 9px;
+	margin-top: -9px;
 }

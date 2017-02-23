@@ -100,7 +100,6 @@ $(document).ready(function () {
                 CerrarPopupActualizacionDatos(); //EDP-1564
                 PopupCerrar('popupActualizarMisDatos');
             }
-         
             //EPD-1564
             if ($('#popupMisDatos').is(':visible')) {
                 PopupCerrar('popupMisDatos');
@@ -489,14 +488,18 @@ function CortarFoto() {
             dataType: 'Json',
             contentType: 'application/json; charset=utf-8',
             success: function (data) {
+                if (checkTimeout(data)) {
                 alert_msg(data.message);
                 if (data.success) {
                     $('#imgFotoUsuario').show();
                     $('#imgFotoUsuarioDefault').hide();
                     $('#imgFotoUsuario').attr('src', data.imagen + '?' + Math.random());
                 }
+                }
             },
             error: function (data, error) {
+                if (checkTimeout(data)) {
+                }
                 //console.log(error);
             },
             complete: closeWaitingDialog
@@ -526,14 +529,18 @@ function SubirFoto() {
         dataType: 'Json',
         contentType: 'application/json; charset=utf-8',
         success: function (data) {
+            if (checkTimeout(data)) {
             alert_msg(data.message);
             if (data.success) {
                 $('#imgFotoUsuario').show();
                 $('#imgFotoUsuarioDefault').hide();
                 $('#imgFotoUsuario').attr('src', data.imagen + '?' + Math.random());
             }
+            }
         },
         error: function (data, error) {
+            if (checkTimeout(data)) {
+            }
             //console.log(error);
         },
         complete: closeWaitingDialog
@@ -839,10 +846,14 @@ function CargarCarouselEstrategias(cuv) {
         dataType: 'json',
         contentType: 'application/json; charset=utf-8',
         success: function (data) {
+            if (checkTimeout(data)) {
             ArmarCarouselEstrategias(data);
+            }
         },
-        error: function (error) {
+        error: function (data, error) {
+            if (checkTimeout(data)) {
             $('#divCarruselHorizontal').html('<div style="text-align: center;">Ocurrio un error al cargar los productos.</div>');
+        }
         }
     });
 };
@@ -982,6 +993,7 @@ function EstructurarDataCarousel(array) {
     return array;
 };
 function CargarProductoDestacado(objParameter, objInput, popup, limite) {
+    
     if (ReservadoOEnHorarioRestringido())
         return false;
 
@@ -1021,6 +1033,7 @@ function CargarProductoDestacado(objParameter, objInput, popup, limite) {
         data: JSON.stringify(params),
         async: true,
         success: function (datos) {
+            if (checkTimeout(datos)) {
             var flagEstrella = (datos.data.FlagEstrella == 0) ? "hidden" : "visible";
             $("#imgTipoOfertaEdit").attr("src", datos.data.ImagenURL);
             $("#imgEstrellaEdit").css({ "visibility": flagEstrella });
@@ -1146,10 +1159,13 @@ function CargarProductoDestacado(objParameter, objInput, popup, limite) {
 
             //closeWaitingDialog();
             //showDialog('divVistaPrevia');
+            }
         },
         error: function (data, error) {
+            if (checkTimeout(data)) {
             alert(datos.data.message);
             closeWaitingDialog();
+        }
         }
     });
 };
@@ -1221,6 +1237,9 @@ function AgregarProductoDestacado(popup, tipoEstrategiaImagen) {
         data: JSON.stringify(param),
         async: true,
         success: function (datos) {
+            if (!checkTimeout(datos)) { //EPD-1780
+                return false;
+            }
             if (!datos.result) {
                 alert_msg_pedido(datos.message);
                 closeWaitingDialog();
@@ -1321,9 +1340,11 @@ function ReservadoOEnHorarioRestringido(mostrarAlerta) {
             else if (mostrarAlerta == true)
                 alert_msg_pedido(data.message);
         },
-        error: function (error) {
+        error: function (data, error) {
             //console.log(error);
+            if (checkTimeout(data)) {
             alert_msg_pedido('Ocurrió un error al intentar validar el horario restringido o si el pedido está reservado. Por favor inténtelo en unos minutos.');
+        }
         }
     });
     return restringido;
@@ -1415,10 +1436,14 @@ function CargarCarouselLiquidaciones() {
         dataType: 'json',
         contentType: 'application/json; charset=utf-8',
         success: function (data) {
+            if (checkTimeout(data)) {
             ArmarCarouselLiquidaciones(data);
+            }
         },
-        error: function (error) {
+        error: function (data, error) {
+            if (checkTimeout(data)) {
             $('#divCarruselLiquidaciones').html('');
+        }
         }
     });
 };
@@ -2320,6 +2345,7 @@ function CargarMisCursos() {
         dataType: 'json',
         contentType: 'application/json; charset=utf-8',
         success: function (response) {
+            if (checkTimeout(response)) {
             if (response.success) {
                 if (paisISO == 'VE') {
                     SetHandlebars("#miscursosv-template", response.data, "#divMisCursosV");
@@ -2336,11 +2362,14 @@ function CargarMisCursos() {
                 $('#divTutoriales').hide();
                 $('#divSinTutoriales').show();
             }
+            }
         },
-        error: function (error) {
+        error: function (data, error) {
+            if (checkTimeout(data)) {
             //$('#divMisCursos').html('<div style="text-align: center;">Ocurrio un error al cargar los cursos.</div>');
             $('#divTutoriales').hide();
             $('#divSinTutoriales').show();
+        }
         }
     });
 };
@@ -3615,7 +3644,7 @@ function ObtenerComunicadosPopup() {
         url: baseUrl + 'Bienvenida/ObtenerComunicadosPopUps',
         contentType: 'application/json',
         success: function (response) {
-
+            if (checkTimeout(response)) {
             armarComunicadosPopup(response);
             var images = $("#popupComunicados img.img-comunicado");
             var loadedImgNum = 0;
@@ -3631,10 +3660,13 @@ function ObtenerComunicadosPopup() {
                     }
                 });
             }
+            }
         },
         error: function (data, error) {
             //console.log(data);
+            if (checkTimeout(data)) {
             closeWaitingDialog();
+        }
         }
     });
 }

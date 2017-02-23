@@ -161,11 +161,11 @@ $(document).ready(function () {
                 //ValidarAutenticacion();
                 $('#btnLogin').focus();
             }
-            else {
-                var keyChar = String.fromCharCode(charCode);
-                var re = /[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ_.@@-]/;
-                return re.test(keyChar);
-            }
+            //else {
+            //    var keyChar = String.fromCharCode(charCode);
+            //    var re = /[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ_.@@-]/;
+            //    return re.test(keyChar);
+            //}
         });
 
     if (typeof errorLogin !== 'undefined') {        

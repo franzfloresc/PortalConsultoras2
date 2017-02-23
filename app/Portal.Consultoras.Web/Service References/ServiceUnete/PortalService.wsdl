@@ -90,6 +90,12 @@
   <wsdl:message name="IPortalService_ActualizarSolicitudPostulante_OutputMessage">
     <wsdl:part name="parameters" element="tns:ActualizarSolicitudPostulanteResponse" />
   </wsdl:message>
+  <wsdl:message name="IPortalService_ActualizarSolicitudPostulanteSAC_InputMessage">
+    <wsdl:part name="parameters" element="tns:ActualizarSolicitudPostulanteSAC" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_ActualizarSolicitudPostulanteSAC_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ActualizarSolicitudPostulanteSACResponse" />
+  </wsdl:message>
   <wsdl:message name="IPortalService_ObtenerSolicitudesPostulante_InputMessage">
     <wsdl:part name="parameters" element="tns:ObtenerSolicitudesPostulante" />
   </wsdl:message>
@@ -244,6 +250,10 @@
     <wsdl:operation name="ActualizarSolicitudPostulante">
       <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/ActualizarSolicitudPostulante" message="tns:IPortalService_ActualizarSolicitudPostulante_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/ActualizarSolicitudPostulanteResponse" message="tns:IPortalService_ActualizarSolicitudPostulante_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ActualizarSolicitudPostulanteSAC">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/ActualizarSolicitudPostulanteSAC" message="tns:IPortalService_ActualizarSolicitudPostulanteSAC_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/ActualizarSolicitudPostulanteSACResponse" message="tns:IPortalService_ActualizarSolicitudPostulanteSAC_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="ObtenerSolicitudesPostulante">
       <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/ObtenerSolicitudesPostulante" message="tns:IPortalService_ObtenerSolicitudesPostulante_InputMessage" />
@@ -426,6 +436,15 @@
     </wsdl:operation>
     <wsdl:operation name="ActualizarSolicitudPostulante">
       <soap:operation soapAction="http://tempuri.org/IPortalService/ActualizarSolicitudPostulante" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ActualizarSolicitudPostulanteSAC">
+      <soap:operation soapAction="http://tempuri.org/IPortalService/ActualizarSolicitudPostulanteSAC" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

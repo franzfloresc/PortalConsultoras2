@@ -2,6 +2,7 @@
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.ServiceUsuario;
 using System;
+using System.Configuration;
 using System.ServiceModel;
 using System.Web.Mvc;
 
@@ -89,7 +90,7 @@ namespace Portal.Consultoras.Web.Controllers
                         var message = "";
                         if (model.ActualizarClave != "")
                         {
-                            var cambio = sv.ChangePasswordUser(userData.PaisID, userData.CodigoUsuario, userData.CodigoISO + userData.CodigoUsuario, model.ConfirmarClave.ToUpper(), "", EAplicacionOrigen.BienvenidaConsultora);
+                            var cambio = sv.CambiarClaveUsuario(userData.PaisID, userData.CodigoISO, userData.CodigoUsuario, model.ConfirmarClave.ToUpper(), "", userData.CodigoUsuario, EAplicacionOrigen.BienvenidaConsultora);
 
                             if (cambio) message = "Los datos han sido actualizados correctamente.";
                             else message = "Los datos han sido actualizados correctamente.-La contraseña no ha sido modificada, intentelo mas tarde.";
@@ -105,8 +106,9 @@ namespace Portal.Consultoras.Web.Controllers
                             {
                                 var param_querystring = Util.EncriptarQueryString(new string[] { userData.CodigoUsuario, userData.PaisID.ToString(), userData.CodigoISO, model.Email });
 
-                                var cadena = "<br /><br /> Estimada consultora " + userData.NombreConsultora + " Para confirmar la dirección de correo electrónico ingresada haga click " +
-                                                  "<br /> <a href='" + Util.GetUrlHost(this.HttpContext.Request) + "WebPages/MailConfirmation.aspx?data=" + param_querystring + "'>aquí</a><br/><br/>Belcorp";
+                                //1774 
+                                    bool tipopais=ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(userData.CodigoISO);
+                                    var cadena =MailUtilities.CuerpoMensajePersonalizado(Util.GetUrlHost(this.HttpContext.Request).ToString(), userData.NombreConsultora, param_querystring, tipopais);
 
                                 Util.EnviarMail("no-responder@somosbelcorp.com", model.Email, "(" + userData.CodigoISO + ") Confimacion de Correo", cadena, true, userData.NombreConsultora);
                                 message += "-Se ha enviado un correo electrónico de verificación a la dirección ingresada.";
@@ -155,6 +157,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
+       
         //1796
         [HttpPost]
         public JsonResult RechazarInvitacionFlexipago()

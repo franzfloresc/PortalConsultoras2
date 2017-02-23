@@ -28,6 +28,7 @@
       <xs:element minOccurs="0" name="CodigoConsultora" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="CodigoConsultoraRecomienda" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="CodigoLote" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="CodigoMarcaVendeMas" nillable="true" type="xs:int" />
       <xs:element minOccurs="0" name="CodigoOtrasMarcas" nillable="true" type="xs:int" />
       <xs:element minOccurs="0" name="CodigoPostal" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="CodigoPremio" nillable="true" type="xs:string" />
@@ -61,10 +62,14 @@
       <xs:element minOccurs="0" name="FechaRegValidacionTelefonica" nillable="true" type="xs:dateTime" />
       <xs:element minOccurs="0" name="FuenteIngreso" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ImagenCDD" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ImagenConstanciaLaboralAval" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ImagenContrato" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ImagenCreditoAval" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ImagenDniAval" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ImagenIFE" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ImagenPagare" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ImagenReciboOtraMarca" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ImagenReciboPagoAval" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="IndicadorActivo" nillable="true" type="xs:boolean" />
       <xs:element minOccurs="0" name="IndicadorOptin" nillable="true" type="xs:boolean" />
       <xs:element minOccurs="0" name="Latitud" nillable="true" type="xs:decimal" />
@@ -74,8 +79,10 @@
       <xs:element minOccurs="0" name="MontoMeta" nillable="true" type="xs:decimal" />
       <xs:element minOccurs="0" name="MotivoRechazo" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="MotivoRechazoTelefonico" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="Nit" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="NivelEducativo" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="NombreConsultoraRecomienda" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NombreEmpresaAval" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="NombreFamiliar" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="NombreNoFamiliar" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="NumeroDocumento" nillable="true" type="xs:string" />
@@ -83,6 +90,7 @@
       <xs:element minOccurs="0" name="NumeroDocumentoLegal" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="NumeroPreimpreso" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ObservacionEntrega" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="OrigenIngreso" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="PaisID" nillable="true" type="xs:int" />
       <xs:element minOccurs="0" name="Paso" nillable="true" type="xs:int" />
       <xs:element minOccurs="0" name="PoblacionVilla" nillable="true" type="xs:string" />
@@ -111,6 +119,7 @@
       <xs:element minOccurs="0" name="TipoDocumentoLegal" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="TipoMeta" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="TipoNacionalidad" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TipoPersona" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="TipoRechazo" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="TipoSolicitud" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="TipoVia" nillable="true" type="xs:string" />
@@ -170,12 +179,21 @@
   </xs:complexType>
   <xs:element name="ArrayOfUbigeoCR" nillable="true" type="tns:ArrayOfUbigeoCR" />
   <xs:complexType name="UbigeoCR">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:UbigeoTemplate">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="BARRIO_COLONIA_URBANIZACION_BARRIADAS_REFERENCIAS" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="CANTON" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="DISTRITO" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="PROVINCIA" nillable="true" type="xs:string" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="UbigeoCR" nillable="true" type="tns:UbigeoCR" />
+  <xs:complexType name="UbigeoTemplate">
     <xs:sequence>
-      <xs:element minOccurs="0" name="BARRIO_COLONIA_URBANIZACION_REFERENCIAS" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="CANTON" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="DISTRITO" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Id" type="xs:int" />
-      <xs:element minOccurs="0" name="PROVINCIA" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="REG" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="SECC" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="TERRITO" nillable="true" type="xs:string" />
@@ -183,5 +201,51 @@
       <xs:element minOccurs="0" name="ZONA" nillable="true" type="xs:string" />
     </xs:sequence>
   </xs:complexType>
-  <xs:element name="UbigeoCR" nillable="true" type="tns:UbigeoCR" />
+  <xs:element name="UbigeoTemplate" nillable="true" type="tns:UbigeoTemplate" />
+  <xs:complexType name="UbigeoPA">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:UbigeoTemplate">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="BARRIO_COLONIA_URBANIZACION_REFERENCIAS" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="CORREGIMIENTO" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="DISTRITO" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="PROVINCIA" nillable="true" type="xs:string" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="UbigeoPA" nillable="true" type="tns:UbigeoPA" />
+  <xs:complexType name="UbigeoGT">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:UbigeoTemplate">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="BARRIO_COLONIA_URBANIZACION_ALDEA_REFERENCIAS" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="CENTRO_POBLADO" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="DEPARTAMENTO" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="MUNICIPIO" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="ZONA_CIUDAD" nillable="true" type="xs:string" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="UbigeoGT" nillable="true" type="tns:UbigeoGT" />
+  <xs:complexType name="UbigeoSV">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:UbigeoTemplate">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="BARRIO_COLONIA_URBANIZACION_REFERENCIAS" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="CANTON_CENTRO_POBLADO" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="DEPARTAMENTO" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="MUNICIPIO" nillable="true" type="xs:string" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="UbigeoSV" nillable="true" type="tns:UbigeoSV" />
+  <xs:complexType name="ArrayOfUbigeoTemplate">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="UbigeoTemplate" nillable="true" type="tns:UbigeoTemplate" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfUbigeoTemplate" nillable="true" type="tns:ArrayOfUbigeoTemplate" />
 </xs:schema>

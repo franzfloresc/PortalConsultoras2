@@ -459,10 +459,10 @@ function isInt(n) {
 // valida si ha ocurrido un timeout durante una llamada ajax
 function checkTimeout(data) {
     var thereIsStillTime = true
-
+    
     if (data) {
         if (data.responseText) {
-            if ((data.responseText.indexOf("<title>Login</title>") > -1) || (data.responseText.indexOf("<title>Object moved</title>") > -1) || (data.responseText === '"_Logon_"'))
+            if ((data.responseText.indexOf('<input type="hidden" id="PaginaLogin" />') > -1) || (data.responseText.indexOf('<input type="hidden" id="PaginaSesionExpirada" />') > -1) || (data.responseText === '"_Logon_"'))
                 thereIsStillTime = false;
         }
         else {
@@ -471,12 +471,16 @@ function checkTimeout(data) {
         }
 
         if (!thereIsStillTime) {
-            //window.location.href = "/Login/Timeout";
-            //window.location.href = "https://stsqa.somosbelcorp.com/adfs/ls/?wa=wsignout1.0";
-            //window.location.href = "/SesionExpirada.html";
+            //window.location.href = "/Login/SesionExpirada";
+            
+            if (ViewBagEsMobile == 1) {
             var message = "Tu sesión ha finalizado por inactividad. Por favor, ingresa nuevamente.";
             $('#dialog_SesionMainLayout #mensajeSesionSB2_Error').html(message);
             $('#dialog_SesionMainLayout').show();
+        }
+            else {
+
+    }
         }
     }
     else {
@@ -491,16 +495,16 @@ function checkUserSession() {
     //debugger;
     var res = -1;
     
-        $.ajax({
+    $.ajax({
         url: '/Login/CheckUserSession',
-            type: 'POST',
-            dataType: 'json',
-            contentType: 'application/json; charset=utf-8',
-            async: false,
+        type: 'POST',
+        dataType: 'json',
+        contentType: 'application/json; charset=utf-8',
+        async: false,
         success: function (data) {
             res = data.Exists;
-            }
-        });
+        }
+    });
 
     //alert(res);
     if (res == 0) {
@@ -690,17 +694,17 @@ function InsertarLogDymnamo(pantallaOpcion, opcionAccion, esMobile, extra) {
         'Extra': extra
     }
     if (urlLogDynamo != "") {
-    jQuery.ajax({
-        type: "POST",
-        async: true,
-        crossDomain: true,
-        url: urlLogDynamo,
-        dataType: "json",
-        data: data,
-        success: function (result) { console.log(result); },
-        error: function (x, xh, xhr) { console.log(x); }
-    });
-}
+        jQuery.ajax({
+            type: "POST",
+            async: true,
+            crossDomain: true,
+            url: urlLogDynamo,
+            dataType: "json",
+            data: data,
+            success: function (result) { console.log(result); },
+            error: function (x, xh, xhr) { console.log(x); }
+        });
+    }
 }
 
 function InfoCommerceGoogleDestacadoProductClick(name, id, category, variant, position) {

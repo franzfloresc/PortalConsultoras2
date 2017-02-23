@@ -35,7 +35,7 @@ $(document).ready(function () {
             //EPD-1780
             if ($('#dialog_SesionMainLayout').is(':visible')) {
                 $('#dialog_SesionMainLayout').hide();
-                window.location.href = "/SesionExpirada.html";
+                window.location.href = "Login";
             }
             //Fin EPD-1780
         }
@@ -46,7 +46,7 @@ $(document).ready(function () {
         if (!$(e.target).closest('.popup_agregarUnidades').length) {
             if ($('#dialog_SesionMainLayout').is(':visible')) {
                 $('#dialog_SesionMainLayout').hide();
-                window.location.href = "/SesionExpirada.html";
+                window.location.href = "Login";
             }
         }        
     });

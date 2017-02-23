@@ -6465,6 +6465,12 @@ namespace Portal.Consultoras.Web.ServiceUnete {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPortalService/ActualizarSolicitudPostulante", ReplyAction="http://tempuri.org/IPortalService/ActualizarSolicitudPostulanteResponse")]
         System.Threading.Tasks.Task ActualizarSolicitudPostulanteAsync(string codigoISO, Portal.Consultoras.Web.ServiceUnete.SolicitudPostulante solicitudPostulante);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPortalService/ActualizarSolicitudPostulanteSAC", ReplyAction="http://tempuri.org/IPortalService/ActualizarSolicitudPostulanteSACResponse")]
+        void ActualizarSolicitudPostulanteSAC(string codigoISO, Portal.Consultoras.Web.ServiceUnete.SolicitudPostulante solicitudPostulante);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPortalService/ActualizarSolicitudPostulanteSAC", ReplyAction="http://tempuri.org/IPortalService/ActualizarSolicitudPostulanteSACResponse")]
+        System.Threading.Tasks.Task ActualizarSolicitudPostulanteSACAsync(string codigoISO, Portal.Consultoras.Web.ServiceUnete.SolicitudPostulante solicitudPostulante);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPortalService/ObtenerSolicitudesPostulante", ReplyAction="http://tempuri.org/IPortalService/ObtenerSolicitudesPostulanteResponse")]
         Portal.Consultoras.Web.ServiceUnete.SolicitudPostulanteCollection ObtenerSolicitudesPostulante(Portal.Consultoras.Web.ServiceUnete.EnumsAplicacion aplicacion, string codigoISO, string codigoZona, string codigoSeccion, System.Nullable<System.DateTime> fechaDesde, System.Nullable<System.DateTime> fechaHasta, string nombreProspecto, Portal.Consultoras.Web.ServiceUnete.EnumsEstadoPostulante estadoPostulante, string documentoIdentidad);
         
@@ -6707,6 +6713,14 @@ namespace Portal.Consultoras.Web.ServiceUnete {
         
         public System.Threading.Tasks.Task ActualizarSolicitudPostulanteAsync(string codigoISO, Portal.Consultoras.Web.ServiceUnete.SolicitudPostulante solicitudPostulante) {
             return base.Channel.ActualizarSolicitudPostulanteAsync(codigoISO, solicitudPostulante);
+        }
+        
+        public void ActualizarSolicitudPostulanteSAC(string codigoISO, Portal.Consultoras.Web.ServiceUnete.SolicitudPostulante solicitudPostulante) {
+            base.Channel.ActualizarSolicitudPostulanteSAC(codigoISO, solicitudPostulante);
+        }
+        
+        public System.Threading.Tasks.Task ActualizarSolicitudPostulanteSACAsync(string codigoISO, Portal.Consultoras.Web.ServiceUnete.SolicitudPostulante solicitudPostulante) {
+            return base.Channel.ActualizarSolicitudPostulanteSACAsync(codigoISO, solicitudPostulante);
         }
         
         public Portal.Consultoras.Web.ServiceUnete.SolicitudPostulanteCollection ObtenerSolicitudesPostulante(Portal.Consultoras.Web.ServiceUnete.EnumsAplicacion aplicacion, string codigoISO, string codigoZona, string codigoSeccion, System.Nullable<System.DateTime> fechaDesde, System.Nullable<System.DateTime> fechaHasta, string nombreProspecto, Portal.Consultoras.Web.ServiceUnete.EnumsEstadoPostulante estadoPostulante, string documentoIdentidad) {
