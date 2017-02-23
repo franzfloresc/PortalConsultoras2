@@ -48,6 +48,7 @@ namespace Portal.Consultoras.Common
         {
             public const string UrlPart01 = "https://image.issuu.com/";
             public const string UrlPart02 = "/jpg/page_1_thumb_small.jpg";
+            public const string UrlPart03 = "/jpg/page_1_thumb_medium.jpg";
             public const string UrlPart02Alternativo = "/jpg/page_1.jpg";
         }
 
@@ -331,6 +332,7 @@ namespace Portal.Consultoras.Common
             public const string MontoMaximo = "OCC-17"; // MONTO MAXIMO
             public const string ActualizacionDeuda = "OCC-19"; //ACTUALIZACION DE DEUDA
             public const string ValidacionMontoMinimoStock = "OCC-51"; //VALIDACION MONTO MINIMO STOCK
+            public const string Mostrar2OpcionesNotificacion = "1"; // Flag para mostrar dos opciones en notificaciones.
         }
 
         public class LogDynamoDB

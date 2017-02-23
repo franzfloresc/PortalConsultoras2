@@ -142,20 +142,31 @@ namespace Portal.Consultoras.Data
             return Context.ExecuteReader(command);
         }
 
-        public IDataReader GetProductoFaltanteByCampaniaAndZonaID(int CampaniaID, int ZonaID)
+        public IDataReader GetProductoFaltanteByCampaniaAndZonaID(int CampaniaID, int ZonaID, string cuv, string descripcion)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetProductoFaltanteByCampaniaAndZonaID");
             Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, CampaniaID);
             Context.Database.AddInParameter(command, "@ZonaID", DbType.Int32, ZonaID);
+            Context.Database.AddInParameter(command, "@CUV", DbType.String, cuv);
+            Context.Database.AddInParameter(command, "@DescripcionProducto", DbType.String, descripcion);
 
             return Context.ExecuteReader(command);
         }
 
-        public IDataReader GetOnlyProductoFaltante(int campaniaId, int zonaId)
+        public IDataReader GetOnlyProductoFaltante(List<BEProductoFaltante> faltantesAnunciados, int campaniaId, int zonaId, string cuv, string descripcion)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetOnlyProductoFaltante");
+
+            var productosFaltantesReader = new GenericDataReader<BEProductoFaltante>(faltantesAnunciados);
+            var parameter = new SqlParameter("@FaltantesAnunciados", SqlDbType.Structured);
+            parameter.TypeName = "dbo.ProductoFaltanteType";
+            parameter.Value = productosFaltantesReader;
+            command.Parameters.Add(parameter);
+
             Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, campaniaId);
             Context.Database.AddInParameter(command, "@ZonaID", DbType.Int32, zonaId);
+            Context.Database.AddInParameter(command, "@CUV", DbType.String, cuv);
+            Context.Database.AddInParameter(command, "@DescripcionProducto", DbType.String, descripcion);
 
             return Context.ExecuteReader(command);
         }
