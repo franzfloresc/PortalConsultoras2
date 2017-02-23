@@ -3430,6 +3430,9 @@ namespace Portal.Consultoras.Web.ServiceUnete {
         private System.Nullable<bool> RequiereAvalField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string RespuestaGEOField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string SeccionField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -3512,6 +3515,9 @@ namespace Portal.Consultoras.Web.ServiceUnete {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private System.Nullable<int> TipoVinculoNoFamiliarField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string UsuarioCreacionField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string ZonaConsultoraLiderField;
@@ -4729,6 +4735,19 @@ namespace Portal.Consultoras.Web.ServiceUnete {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public string RespuestaGEO {
+            get {
+                return this.RespuestaGEOField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.RespuestaGEOField, value) != true)) {
+                    this.RespuestaGEOField = value;
+                    this.RaisePropertyChanged("RespuestaGEO");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public string Seccion {
             get {
                 return this.SeccionField;
@@ -5088,6 +5107,19 @@ namespace Portal.Consultoras.Web.ServiceUnete {
                 if ((this.TipoVinculoNoFamiliarField.Equals(value) != true)) {
                     this.TipoVinculoNoFamiliarField = value;
                     this.RaisePropertyChanged("TipoVinculoNoFamiliar");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string UsuarioCreacion {
+            get {
+                return this.UsuarioCreacionField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.UsuarioCreacionField, value) != true)) {
+                    this.UsuarioCreacionField = value;
+                    this.RaisePropertyChanged("UsuarioCreacion");
                 }
             }
         }
