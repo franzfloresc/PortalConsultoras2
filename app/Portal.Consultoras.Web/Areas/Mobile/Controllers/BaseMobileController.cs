@@ -98,6 +98,15 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 }
                     ViewBag.MostrarBannerPL20 = mostrarBanner;
                     ViewBag.MostrarBannerOtros = mostrarBannerTop;
+                    if (mostrarBannerTop)
+                    {
+                    ViewBag.EstadoActivo = "0";
+                }
+                else
+                {
+                    ViewBag.EstadoActivo = "1";
+                }
+                    
                     
                 /*FIN: PL20-1289*/
             }

@@ -67,8 +67,26 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     ViewBag.DescripcionMarca = model.DescripcionMarca;
                     ViewBag.MarcaID = model.MarcaID;
                     ViewBag.CodigoCampania = model.CodigoCampania;
-                    
-                   
+                    ViewBag.Simbolo = userData.Simbolo;
+
+                    ShowRoomBannerLateralModel showRoomBannerLateral = GetShowRoomBannerLateral();
+                    var dateFuture = new DateTime(showRoomBannerLateral.AnioFaltante, showRoomBannerLateral.MesFaltante, showRoomBannerLateral.DiasFaltantes);
+                    DateTime dateNow = DateTime.Now;
+                    var seconds = Math.Floor((dateFuture - (dateNow)).TotalSeconds);
+                    var minutes = Math.Floor(seconds / 60);
+                    var hours = Math.Floor(minutes / 60);
+                    var days = Math.Floor(hours / 24);
+
+                    showRoomBannerLateral.DiasFaltantes = Convert.ToInt32(days);
+
+                    if (days > 1)
+                    {
+                        showRoomBannerLateral.LetrasDias = "FALTAN " + Convert.ToInt32(showRoomBannerLateral.DiasFaltantes).ToString() + " DÍAS";
+                    }
+                    else { showRoomBannerLateral.LetrasDias = "FALTA " + Convert.ToInt32(showRoomBannerLateral.DiasFaltantes).ToString() + " DÍA"; }
+
+                    ViewBag.LetrasDias = showRoomBannerLateral.LetrasDias;
+                    ViewBag.ImagenBannerShowroomIntriga = showRoomBannerLateral.ImagenBannerShowroomIntriga;
 
                     var showRoomOfertaModel = model;
 

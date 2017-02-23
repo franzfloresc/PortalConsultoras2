@@ -20,8 +20,8 @@
 }
 <div class="content_banner_header_showroom">
     <div class="content_titulo"><div class="titulo_intriga">GRAN VENTA ONLINE</div></div>
-    <div class="faltan_dias_header"><b>@ViewBag.DiasFaltantesLetras</b></div>
-    <img src="@Url.Content("~/Content/Images/Mobile/img-showroom/banner_intriga_new_header.png")" alt="Solo Hoy" />
+    <div class="faltan_dias_header"><b>@ViewBag.LetrasDias</b></div>
+    <img src="@ViewBag.ImagenBannerShowroomIntriga" alt="Solo Hoy" />
 </div>
 <div class="fondo_gris" style="padding-top:20px; padding-bottom:15px; display:none;">   
     <div class="titulo_mensaje_landing">¡no te quedes fuera!</div>
@@ -46,7 +46,7 @@
             <div class="linea_separadora_intriga"></div>
             <div class="titulo_ficha_producto">@ViewBag.Descripcion </div>
             <div class="precio_ficha_producto">
-                <span class="precio_tachado_ficha">S/. @ViewBag.PrecioCatalogo </span>S/. @ViewBag.PrecioOferta
+                <span class="precio_tachado_ficha">@ViewBag.Simbolo @ViewBag.PrecioCatalogo </span>@ViewBag.Simbolo @ViewBag.PrecioOferta
             </div>
             <div class="liquidacion_rango_home">
                 <a class="cantidad_menos_home" tabindex="0"><img src="/Content/Images/Mobile/Esika/menos.png" alt=""></a>
@@ -110,10 +110,11 @@
                 (this).blur();
             });
 
+           
+
         });
 
         function AgregarOfertaShowRoomIntriga(cantidad) {
-            debugger;
             var CUV = @ViewBag.CUV;
             var MarcaID =@ViewBag.MarcaID;
             var PrecioUnidad = @ViewBag.PrecioCatalogo;
@@ -168,10 +169,13 @@
                                         $("#txtCantidad").val("1");
                                     }
 
+                                    ShowLoading();
+
                                     AgregarTagManagerProductoAgregado(CUV, nombreProducto, PrecioUnidad, cantidad, descripcionMarca);
                                     //ActualizarCantidadTotalPedido();
                                     CargarCantidadProductosPedidos();
                                     TrackingJetloreAdd(cantidad, $("#hdCampaniaCodigo").val(), CUV);
+                                    CloseLoading();
                                 }
                                 else messageInfoError(response.message);
                             },
