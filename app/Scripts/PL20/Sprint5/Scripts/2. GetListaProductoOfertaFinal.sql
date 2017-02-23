@@ -46,6 +46,7 @@ BEGIN
 
 	IF (@TipoProductoMostrar = 1)	-- ESCALA
 	BEGIN
+		PRINT 'ESCALA'
 		DECLARE @MontoHasta NUMERIC(15,2)
 
 		SELECT TOP 1 @MontoHasta = MontoHasta,
@@ -53,9 +54,36 @@ BEGIN
 		FROM ods.EscalaDescuento 
 		WHERE MontoHasta >= ISNULL(@MontoEscala,0)
 
+		--PRINT @MontoHasta
+
 		IF (ISNULL(@MontoHasta,0) > 0)
 		BEGIN
-			
+			--PRINT 'AA'
+			--IF (@MontoHasta > @MontoMinPedido)
+			--BEGIN
+			--	SELECT TOP 1
+			--		@TipoMeta = PorDescuento
+			--	FROM ods.EscalaDescuento 
+			--	WHERE PorDescuento > @TipoMeta
+			--END
+
+			--PRINT @TipoMeta
+
+			SET @MontoHasta = CEILING(@MontoHasta)
+			SET @MontoFaltante = (@MontoHasta - @MontoEscala)
+
+			--PRINT @MontoFaltante
+
+			IF (@MontoFaltante > 0)
+			BEGIN
+				--PRINT 'BB'
+				SELECT TOP 1 @PrecioMinimo = PrecioMinimo,
+					@CumpleParametria = 1
+				FROM OfertaFinalParametria 
+				WHERE Tipo = 'E' + @TipoMeta
+				AND GapMinimo <= @MontoFaltante AND GapMaximo >= @MontoFaltante
+			END
+
 			IF (@MontoHasta > @MontoMinPedido)
 			BEGIN
 				SELECT TOP 1
@@ -64,27 +92,25 @@ BEGIN
 				WHERE PorDescuento > @TipoMeta
 			END
 
-			SET @MontoHasta = CEILING(@MontoHasta)
-			SET @MontoFaltante = (@MontoHasta - @MontoEscala)
+			--PRINT @CumpleParametria
 
-			IF (@MontoFaltante > 0)
+			IF (ISNULL(@CumpleParametria,0) = 0)
 			BEGIN
-				SELECT TOP 1 @PrecioMinimo = PrecioMinimo,
-					@CumpleParametria = 1
-				FROM OfertaFinalParametria 
-				WHERE Tipo = 'E' + @TipoMeta
-				AND GapMinimo <= @MontoFaltante AND GapMaximo >= @MontoFaltante
-			END
-
-			IF (ISNULL(@PrecioMinimo,0) = 0)
-			BEGIN
+				--PRINT 'CC'
 				SELECT TOP 1 @PrecioMinimo = PrecioMinimo,
 					@CumpleParametria = 1
 				FROM OfertaFinalParametria 
 				WHERE Tipo = 'GM'
 
-				IF (ISNULL(@PrecioMinimo,0) = 0)
-					SET @TipoMeta = 'GM'
+				SET @TipoMeta = 'GM'
+
+				--PRINT @PrecioMinimo
+				--PRINT @TipoMeta
+
+				--IF (ISNULL(@CumpleParametria,0) = 1)
+				--	SET @TipoMeta = 'GM'
+
+				--PRINT @TipoMeta
 			END
 		END
 
@@ -93,9 +119,11 @@ BEGIN
 		--PRINT @MontoFaltante
 		--PRINT @PrecioMinimo
 		--PRINT @TipoMeta
+
 	END
-	ELSE	-- MONTO MIN O MAX
+	ELSE	-- MONTO MIN
 	BEGIN
+		--PRINT 'MM'
 		SET @MontoFaltante = (@MontoMinPedido - @MontoTotal)
 
 		IF (@MontoFaltante > 0)
@@ -106,8 +134,10 @@ BEGIN
 			WHERE Tipo = 'MM'
 			AND GapMinimo <= @MontoFaltante AND GapMaximo >= @MontoFaltante
 
-			IF (ISNULL(@PrecioMinimo,0) = 0)
-				SET @TipoMeta = 'MM'
+			SET @TipoMeta = 'MM'
+
+			--IF (ISNULL(@CumpleParametria,0) = 0)
+			--	SET @TipoMeta = 'MM'
 		END
 
 		--PRINT 'Monto min'
@@ -118,6 +148,7 @@ BEGIN
 	IF (@CumpleParametria = 1)
 	BEGIN
 
+		--PRINT 'DD'
 		-- PASO 3 (obtener datos OF)
 		DECLARE @tablaCuvFaltante TABLE (CUV VARCHAR(6))
 
@@ -168,7 +199,6 @@ BEGIN
 			AND pc.CUV NOT IN (	SELECT CUV FROM @tablaCuvPedido )
 			AND pc.CUV NOT IN ( SELECT CUV FROM @tablaCuvFaltante )
 
-
 		-- PASO 4 (oferta productos)
 		DECLARE @OfertaProductoTemp TABLE
 		(
@@ -186,6 +216,14 @@ BEGIN
 		FROM OfertaProducto op WITH(NOLOCK)
 		INNER JOIN @tablaCodigosCuv tc ON op.CampaniaID = tc.CampaniaID and op.CUV = tc.CUV
 
+		--PRINT @TipoMeta
+		--PRINT @PrecioMinimo
+		--PRINT @MontoFaltante
+		
+		IF (@TipoMeta = 'GM')
+		BEGIN
+			SET @MontoFaltante = 0
+		END
 
 		-- PASO 5 (completar datos)
 		SELECT DISTINCT
@@ -233,7 +271,6 @@ BEGIN
 
 	END
 END
-
 GO
 /*end*/
 
@@ -284,6 +321,7 @@ BEGIN
 
 	IF (@TipoProductoMostrar = 1)	-- ESCALA
 	BEGIN
+		PRINT 'ESCALA'
 		DECLARE @MontoHasta NUMERIC(15,2)
 
 		SELECT TOP 1 @MontoHasta = MontoHasta,
@@ -291,9 +329,36 @@ BEGIN
 		FROM ods.EscalaDescuento 
 		WHERE MontoHasta >= ISNULL(@MontoEscala,0)
 
+		--PRINT @MontoHasta
+
 		IF (ISNULL(@MontoHasta,0) > 0)
 		BEGIN
-			
+			--PRINT 'AA'
+			--IF (@MontoHasta > @MontoMinPedido)
+			--BEGIN
+			--	SELECT TOP 1
+			--		@TipoMeta = PorDescuento
+			--	FROM ods.EscalaDescuento 
+			--	WHERE PorDescuento > @TipoMeta
+			--END
+
+			--PRINT @TipoMeta
+
+			SET @MontoHasta = CEILING(@MontoHasta)
+			SET @MontoFaltante = (@MontoHasta - @MontoEscala)
+
+			--PRINT @MontoFaltante
+
+			IF (@MontoFaltante > 0)
+			BEGIN
+				--PRINT 'BB'
+				SELECT TOP 1 @PrecioMinimo = PrecioMinimo,
+					@CumpleParametria = 1
+				FROM OfertaFinalParametria 
+				WHERE Tipo = 'E' + @TipoMeta
+				AND GapMinimo <= @MontoFaltante AND GapMaximo >= @MontoFaltante
+			END
+
 			IF (@MontoHasta > @MontoMinPedido)
 			BEGIN
 				SELECT TOP 1
@@ -302,27 +367,25 @@ BEGIN
 				WHERE PorDescuento > @TipoMeta
 			END
 
-			SET @MontoHasta = CEILING(@MontoHasta)
-			SET @MontoFaltante = (@MontoHasta - @MontoEscala)
+			--PRINT @CumpleParametria
 
-			IF (@MontoFaltante > 0)
+			IF (ISNULL(@CumpleParametria,0) = 0)
 			BEGIN
-				SELECT TOP 1 @PrecioMinimo = PrecioMinimo,
-					@CumpleParametria = 1
-				FROM OfertaFinalParametria 
-				WHERE Tipo = 'E' + @TipoMeta
-				AND GapMinimo <= @MontoFaltante AND GapMaximo >= @MontoFaltante
-			END
-
-			IF (ISNULL(@PrecioMinimo,0) = 0)
-			BEGIN
+				--PRINT 'CC'
 				SELECT TOP 1 @PrecioMinimo = PrecioMinimo,
 					@CumpleParametria = 1
 				FROM OfertaFinalParametria 
 				WHERE Tipo = 'GM'
 
-				IF (ISNULL(@PrecioMinimo,0) = 0)
-					SET @TipoMeta = 'GM'
+				SET @TipoMeta = 'GM'
+
+				--PRINT @PrecioMinimo
+				--PRINT @TipoMeta
+
+				--IF (ISNULL(@CumpleParametria,0) = 1)
+				--	SET @TipoMeta = 'GM'
+
+				--PRINT @TipoMeta
 			END
 		END
 
@@ -331,9 +394,11 @@ BEGIN
 		--PRINT @MontoFaltante
 		--PRINT @PrecioMinimo
 		--PRINT @TipoMeta
+
 	END
-	ELSE	-- MONTO MIN O MAX
+	ELSE	-- MONTO MIN
 	BEGIN
+		--PRINT 'MM'
 		SET @MontoFaltante = (@MontoMinPedido - @MontoTotal)
 
 		IF (@MontoFaltante > 0)
@@ -344,8 +409,10 @@ BEGIN
 			WHERE Tipo = 'MM'
 			AND GapMinimo <= @MontoFaltante AND GapMaximo >= @MontoFaltante
 
-			IF (ISNULL(@PrecioMinimo,0) = 0)
-				SET @TipoMeta = 'MM'
+			SET @TipoMeta = 'MM'
+
+			--IF (ISNULL(@CumpleParametria,0) = 0)
+			--	SET @TipoMeta = 'MM'
 		END
 
 		--PRINT 'Monto min'
@@ -356,6 +423,7 @@ BEGIN
 	IF (@CumpleParametria = 1)
 	BEGIN
 
+		--PRINT 'DD'
 		-- PASO 3 (obtener datos OF)
 		DECLARE @tablaCuvFaltante TABLE (CUV VARCHAR(6))
 
@@ -406,7 +474,6 @@ BEGIN
 			AND pc.CUV NOT IN (	SELECT CUV FROM @tablaCuvPedido )
 			AND pc.CUV NOT IN ( SELECT CUV FROM @tablaCuvFaltante )
 
-
 		-- PASO 4 (oferta productos)
 		DECLARE @OfertaProductoTemp TABLE
 		(
@@ -424,6 +491,14 @@ BEGIN
 		FROM OfertaProducto op WITH(NOLOCK)
 		INNER JOIN @tablaCodigosCuv tc ON op.CampaniaID = tc.CampaniaID and op.CUV = tc.CUV
 
+		--PRINT @TipoMeta
+		--PRINT @PrecioMinimo
+		--PRINT @MontoFaltante
+		
+		IF (@TipoMeta = 'GM')
+		BEGIN
+			SET @MontoFaltante = 0
+		END
 
 		-- PASO 5 (completar datos)
 		SELECT DISTINCT
@@ -471,7 +546,6 @@ BEGIN
 
 	END
 END
-
 GO
 /*end*/
 
@@ -522,6 +596,7 @@ BEGIN
 
 	IF (@TipoProductoMostrar = 1)	-- ESCALA
 	BEGIN
+		PRINT 'ESCALA'
 		DECLARE @MontoHasta NUMERIC(15,2)
 
 		SELECT TOP 1 @MontoHasta = MontoHasta,
@@ -529,9 +604,36 @@ BEGIN
 		FROM ods.EscalaDescuento 
 		WHERE MontoHasta >= ISNULL(@MontoEscala,0)
 
+		--PRINT @MontoHasta
+
 		IF (ISNULL(@MontoHasta,0) > 0)
 		BEGIN
-			
+			--PRINT 'AA'
+			--IF (@MontoHasta > @MontoMinPedido)
+			--BEGIN
+			--	SELECT TOP 1
+			--		@TipoMeta = PorDescuento
+			--	FROM ods.EscalaDescuento 
+			--	WHERE PorDescuento > @TipoMeta
+			--END
+
+			--PRINT @TipoMeta
+
+			SET @MontoHasta = CEILING(@MontoHasta)
+			SET @MontoFaltante = (@MontoHasta - @MontoEscala)
+
+			--PRINT @MontoFaltante
+
+			IF (@MontoFaltante > 0)
+			BEGIN
+				--PRINT 'BB'
+				SELECT TOP 1 @PrecioMinimo = PrecioMinimo,
+					@CumpleParametria = 1
+				FROM OfertaFinalParametria 
+				WHERE Tipo = 'E' + @TipoMeta
+				AND GapMinimo <= @MontoFaltante AND GapMaximo >= @MontoFaltante
+			END
+
 			IF (@MontoHasta > @MontoMinPedido)
 			BEGIN
 				SELECT TOP 1
@@ -540,27 +642,25 @@ BEGIN
 				WHERE PorDescuento > @TipoMeta
 			END
 
-			SET @MontoHasta = CEILING(@MontoHasta)
-			SET @MontoFaltante = (@MontoHasta - @MontoEscala)
+			--PRINT @CumpleParametria
 
-			IF (@MontoFaltante > 0)
+			IF (ISNULL(@CumpleParametria,0) = 0)
 			BEGIN
-				SELECT TOP 1 @PrecioMinimo = PrecioMinimo,
-					@CumpleParametria = 1
-				FROM OfertaFinalParametria 
-				WHERE Tipo = 'E' + @TipoMeta
-				AND GapMinimo <= @MontoFaltante AND GapMaximo >= @MontoFaltante
-			END
-
-			IF (ISNULL(@PrecioMinimo,0) = 0)
-			BEGIN
+				--PRINT 'CC'
 				SELECT TOP 1 @PrecioMinimo = PrecioMinimo,
 					@CumpleParametria = 1
 				FROM OfertaFinalParametria 
 				WHERE Tipo = 'GM'
 
-				IF (ISNULL(@PrecioMinimo,0) = 0)
-					SET @TipoMeta = 'GM'
+				SET @TipoMeta = 'GM'
+
+				--PRINT @PrecioMinimo
+				--PRINT @TipoMeta
+
+				--IF (ISNULL(@CumpleParametria,0) = 1)
+				--	SET @TipoMeta = 'GM'
+
+				--PRINT @TipoMeta
 			END
 		END
 
@@ -569,9 +669,11 @@ BEGIN
 		--PRINT @MontoFaltante
 		--PRINT @PrecioMinimo
 		--PRINT @TipoMeta
+
 	END
-	ELSE	-- MONTO MIN O MAX
+	ELSE	-- MONTO MIN
 	BEGIN
+		--PRINT 'MM'
 		SET @MontoFaltante = (@MontoMinPedido - @MontoTotal)
 
 		IF (@MontoFaltante > 0)
@@ -582,8 +684,10 @@ BEGIN
 			WHERE Tipo = 'MM'
 			AND GapMinimo <= @MontoFaltante AND GapMaximo >= @MontoFaltante
 
-			IF (ISNULL(@PrecioMinimo,0) = 0)
-				SET @TipoMeta = 'MM'
+			SET @TipoMeta = 'MM'
+
+			--IF (ISNULL(@CumpleParametria,0) = 0)
+			--	SET @TipoMeta = 'MM'
 		END
 
 		--PRINT 'Monto min'
@@ -594,6 +698,7 @@ BEGIN
 	IF (@CumpleParametria = 1)
 	BEGIN
 
+		--PRINT 'DD'
 		-- PASO 3 (obtener datos OF)
 		DECLARE @tablaCuvFaltante TABLE (CUV VARCHAR(6))
 
@@ -644,7 +749,6 @@ BEGIN
 			AND pc.CUV NOT IN (	SELECT CUV FROM @tablaCuvPedido )
 			AND pc.CUV NOT IN ( SELECT CUV FROM @tablaCuvFaltante )
 
-
 		-- PASO 4 (oferta productos)
 		DECLARE @OfertaProductoTemp TABLE
 		(
@@ -662,6 +766,14 @@ BEGIN
 		FROM OfertaProducto op WITH(NOLOCK)
 		INNER JOIN @tablaCodigosCuv tc ON op.CampaniaID = tc.CampaniaID and op.CUV = tc.CUV
 
+		--PRINT @TipoMeta
+		--PRINT @PrecioMinimo
+		--PRINT @MontoFaltante
+		
+		IF (@TipoMeta = 'GM')
+		BEGIN
+			SET @MontoFaltante = 0
+		END
 
 		-- PASO 5 (completar datos)
 		SELECT DISTINCT
@@ -709,7 +821,6 @@ BEGIN
 
 	END
 END
-
 GO
 /*end*/
 
@@ -760,6 +871,7 @@ BEGIN
 
 	IF (@TipoProductoMostrar = 1)	-- ESCALA
 	BEGIN
+		PRINT 'ESCALA'
 		DECLARE @MontoHasta NUMERIC(15,2)
 
 		SELECT TOP 1 @MontoHasta = MontoHasta,
@@ -767,9 +879,36 @@ BEGIN
 		FROM ods.EscalaDescuento 
 		WHERE MontoHasta >= ISNULL(@MontoEscala,0)
 
+		--PRINT @MontoHasta
+
 		IF (ISNULL(@MontoHasta,0) > 0)
 		BEGIN
-			
+			--PRINT 'AA'
+			--IF (@MontoHasta > @MontoMinPedido)
+			--BEGIN
+			--	SELECT TOP 1
+			--		@TipoMeta = PorDescuento
+			--	FROM ods.EscalaDescuento 
+			--	WHERE PorDescuento > @TipoMeta
+			--END
+
+			--PRINT @TipoMeta
+
+			SET @MontoHasta = CEILING(@MontoHasta)
+			SET @MontoFaltante = (@MontoHasta - @MontoEscala)
+
+			--PRINT @MontoFaltante
+
+			IF (@MontoFaltante > 0)
+			BEGIN
+				--PRINT 'BB'
+				SELECT TOP 1 @PrecioMinimo = PrecioMinimo,
+					@CumpleParametria = 1
+				FROM OfertaFinalParametria 
+				WHERE Tipo = 'E' + @TipoMeta
+				AND GapMinimo <= @MontoFaltante AND GapMaximo >= @MontoFaltante
+			END
+
 			IF (@MontoHasta > @MontoMinPedido)
 			BEGIN
 				SELECT TOP 1
@@ -778,27 +917,25 @@ BEGIN
 				WHERE PorDescuento > @TipoMeta
 			END
 
-			SET @MontoHasta = CEILING(@MontoHasta)
-			SET @MontoFaltante = (@MontoHasta - @MontoEscala)
+			--PRINT @CumpleParametria
 
-			IF (@MontoFaltante > 0)
+			IF (ISNULL(@CumpleParametria,0) = 0)
 			BEGIN
-				SELECT TOP 1 @PrecioMinimo = PrecioMinimo,
-					@CumpleParametria = 1
-				FROM OfertaFinalParametria 
-				WHERE Tipo = 'E' + @TipoMeta
-				AND GapMinimo <= @MontoFaltante AND GapMaximo >= @MontoFaltante
-			END
-
-			IF (ISNULL(@PrecioMinimo,0) = 0)
-			BEGIN
+				--PRINT 'CC'
 				SELECT TOP 1 @PrecioMinimo = PrecioMinimo,
 					@CumpleParametria = 1
 				FROM OfertaFinalParametria 
 				WHERE Tipo = 'GM'
 
-				IF (ISNULL(@PrecioMinimo,0) = 0)
-					SET @TipoMeta = 'GM'
+				SET @TipoMeta = 'GM'
+
+				--PRINT @PrecioMinimo
+				--PRINT @TipoMeta
+
+				--IF (ISNULL(@CumpleParametria,0) = 1)
+				--	SET @TipoMeta = 'GM'
+
+				--PRINT @TipoMeta
 			END
 		END
 
@@ -807,9 +944,11 @@ BEGIN
 		--PRINT @MontoFaltante
 		--PRINT @PrecioMinimo
 		--PRINT @TipoMeta
+
 	END
-	ELSE	-- MONTO MIN O MAX
+	ELSE	-- MONTO MIN
 	BEGIN
+		--PRINT 'MM'
 		SET @MontoFaltante = (@MontoMinPedido - @MontoTotal)
 
 		IF (@MontoFaltante > 0)
@@ -820,8 +959,10 @@ BEGIN
 			WHERE Tipo = 'MM'
 			AND GapMinimo <= @MontoFaltante AND GapMaximo >= @MontoFaltante
 
-			IF (ISNULL(@PrecioMinimo,0) = 0)
-				SET @TipoMeta = 'MM'
+			SET @TipoMeta = 'MM'
+
+			--IF (ISNULL(@CumpleParametria,0) = 0)
+			--	SET @TipoMeta = 'MM'
 		END
 
 		--PRINT 'Monto min'
@@ -832,6 +973,7 @@ BEGIN
 	IF (@CumpleParametria = 1)
 	BEGIN
 
+		--PRINT 'DD'
 		-- PASO 3 (obtener datos OF)
 		DECLARE @tablaCuvFaltante TABLE (CUV VARCHAR(6))
 
@@ -882,7 +1024,6 @@ BEGIN
 			AND pc.CUV NOT IN (	SELECT CUV FROM @tablaCuvPedido )
 			AND pc.CUV NOT IN ( SELECT CUV FROM @tablaCuvFaltante )
 
-
 		-- PASO 4 (oferta productos)
 		DECLARE @OfertaProductoTemp TABLE
 		(
@@ -900,6 +1041,14 @@ BEGIN
 		FROM OfertaProducto op WITH(NOLOCK)
 		INNER JOIN @tablaCodigosCuv tc ON op.CampaniaID = tc.CampaniaID and op.CUV = tc.CUV
 
+		--PRINT @TipoMeta
+		--PRINT @PrecioMinimo
+		--PRINT @MontoFaltante
+		
+		IF (@TipoMeta = 'GM')
+		BEGIN
+			SET @MontoFaltante = 0
+		END
 
 		-- PASO 5 (completar datos)
 		SELECT DISTINCT
@@ -947,7 +1096,6 @@ BEGIN
 
 	END
 END
-
 GO
 /*end*/
 
@@ -998,6 +1146,7 @@ BEGIN
 
 	IF (@TipoProductoMostrar = 1)	-- ESCALA
 	BEGIN
+		PRINT 'ESCALA'
 		DECLARE @MontoHasta NUMERIC(15,2)
 
 		SELECT TOP 1 @MontoHasta = MontoHasta,
@@ -1005,9 +1154,36 @@ BEGIN
 		FROM ods.EscalaDescuento 
 		WHERE MontoHasta >= ISNULL(@MontoEscala,0)
 
+		--PRINT @MontoHasta
+
 		IF (ISNULL(@MontoHasta,0) > 0)
 		BEGIN
-			
+			--PRINT 'AA'
+			--IF (@MontoHasta > @MontoMinPedido)
+			--BEGIN
+			--	SELECT TOP 1
+			--		@TipoMeta = PorDescuento
+			--	FROM ods.EscalaDescuento 
+			--	WHERE PorDescuento > @TipoMeta
+			--END
+
+			--PRINT @TipoMeta
+
+			SET @MontoHasta = CEILING(@MontoHasta)
+			SET @MontoFaltante = (@MontoHasta - @MontoEscala)
+
+			--PRINT @MontoFaltante
+
+			IF (@MontoFaltante > 0)
+			BEGIN
+				--PRINT 'BB'
+				SELECT TOP 1 @PrecioMinimo = PrecioMinimo,
+					@CumpleParametria = 1
+				FROM OfertaFinalParametria 
+				WHERE Tipo = 'E' + @TipoMeta
+				AND GapMinimo <= @MontoFaltante AND GapMaximo >= @MontoFaltante
+			END
+
 			IF (@MontoHasta > @MontoMinPedido)
 			BEGIN
 				SELECT TOP 1
@@ -1016,27 +1192,25 @@ BEGIN
 				WHERE PorDescuento > @TipoMeta
 			END
 
-			SET @MontoHasta = CEILING(@MontoHasta)
-			SET @MontoFaltante = (@MontoHasta - @MontoEscala)
+			--PRINT @CumpleParametria
 
-			IF (@MontoFaltante > 0)
+			IF (ISNULL(@CumpleParametria,0) = 0)
 			BEGIN
-				SELECT TOP 1 @PrecioMinimo = PrecioMinimo,
-					@CumpleParametria = 1
-				FROM OfertaFinalParametria 
-				WHERE Tipo = 'E' + @TipoMeta
-				AND GapMinimo <= @MontoFaltante AND GapMaximo >= @MontoFaltante
-			END
-
-			IF (ISNULL(@PrecioMinimo,0) = 0)
-			BEGIN
+				--PRINT 'CC'
 				SELECT TOP 1 @PrecioMinimo = PrecioMinimo,
 					@CumpleParametria = 1
 				FROM OfertaFinalParametria 
 				WHERE Tipo = 'GM'
 
-				IF (ISNULL(@PrecioMinimo,0) = 0)
-					SET @TipoMeta = 'GM'
+				SET @TipoMeta = 'GM'
+
+				--PRINT @PrecioMinimo
+				--PRINT @TipoMeta
+
+				--IF (ISNULL(@CumpleParametria,0) = 1)
+				--	SET @TipoMeta = 'GM'
+
+				--PRINT @TipoMeta
 			END
 		END
 
@@ -1045,9 +1219,11 @@ BEGIN
 		--PRINT @MontoFaltante
 		--PRINT @PrecioMinimo
 		--PRINT @TipoMeta
+
 	END
-	ELSE	-- MONTO MIN O MAX
+	ELSE	-- MONTO MIN
 	BEGIN
+		--PRINT 'MM'
 		SET @MontoFaltante = (@MontoMinPedido - @MontoTotal)
 
 		IF (@MontoFaltante > 0)
@@ -1058,8 +1234,10 @@ BEGIN
 			WHERE Tipo = 'MM'
 			AND GapMinimo <= @MontoFaltante AND GapMaximo >= @MontoFaltante
 
-			IF (ISNULL(@PrecioMinimo,0) = 0)
-				SET @TipoMeta = 'MM'
+			SET @TipoMeta = 'MM'
+
+			--IF (ISNULL(@CumpleParametria,0) = 0)
+			--	SET @TipoMeta = 'MM'
 		END
 
 		--PRINT 'Monto min'
@@ -1070,6 +1248,7 @@ BEGIN
 	IF (@CumpleParametria = 1)
 	BEGIN
 
+		--PRINT 'DD'
 		-- PASO 3 (obtener datos OF)
 		DECLARE @tablaCuvFaltante TABLE (CUV VARCHAR(6))
 
@@ -1120,7 +1299,6 @@ BEGIN
 			AND pc.CUV NOT IN (	SELECT CUV FROM @tablaCuvPedido )
 			AND pc.CUV NOT IN ( SELECT CUV FROM @tablaCuvFaltante )
 
-
 		-- PASO 4 (oferta productos)
 		DECLARE @OfertaProductoTemp TABLE
 		(
@@ -1138,6 +1316,14 @@ BEGIN
 		FROM OfertaProducto op WITH(NOLOCK)
 		INNER JOIN @tablaCodigosCuv tc ON op.CampaniaID = tc.CampaniaID and op.CUV = tc.CUV
 
+		--PRINT @TipoMeta
+		--PRINT @PrecioMinimo
+		--PRINT @MontoFaltante
+		
+		IF (@TipoMeta = 'GM')
+		BEGIN
+			SET @MontoFaltante = 0
+		END
 
 		-- PASO 5 (completar datos)
 		SELECT DISTINCT
@@ -1185,7 +1371,6 @@ BEGIN
 
 	END
 END
-
 GO
 /*end*/
 
@@ -1236,6 +1421,7 @@ BEGIN
 
 	IF (@TipoProductoMostrar = 1)	-- ESCALA
 	BEGIN
+		PRINT 'ESCALA'
 		DECLARE @MontoHasta NUMERIC(15,2)
 
 		SELECT TOP 1 @MontoHasta = MontoHasta,
@@ -1243,9 +1429,36 @@ BEGIN
 		FROM ods.EscalaDescuento 
 		WHERE MontoHasta >= ISNULL(@MontoEscala,0)
 
+		--PRINT @MontoHasta
+
 		IF (ISNULL(@MontoHasta,0) > 0)
 		BEGIN
-			
+			--PRINT 'AA'
+			--IF (@MontoHasta > @MontoMinPedido)
+			--BEGIN
+			--	SELECT TOP 1
+			--		@TipoMeta = PorDescuento
+			--	FROM ods.EscalaDescuento 
+			--	WHERE PorDescuento > @TipoMeta
+			--END
+
+			--PRINT @TipoMeta
+
+			SET @MontoHasta = CEILING(@MontoHasta)
+			SET @MontoFaltante = (@MontoHasta - @MontoEscala)
+
+			--PRINT @MontoFaltante
+
+			IF (@MontoFaltante > 0)
+			BEGIN
+				--PRINT 'BB'
+				SELECT TOP 1 @PrecioMinimo = PrecioMinimo,
+					@CumpleParametria = 1
+				FROM OfertaFinalParametria 
+				WHERE Tipo = 'E' + @TipoMeta
+				AND GapMinimo <= @MontoFaltante AND GapMaximo >= @MontoFaltante
+			END
+
 			IF (@MontoHasta > @MontoMinPedido)
 			BEGIN
 				SELECT TOP 1
@@ -1254,27 +1467,25 @@ BEGIN
 				WHERE PorDescuento > @TipoMeta
 			END
 
-			SET @MontoHasta = CEILING(@MontoHasta)
-			SET @MontoFaltante = (@MontoHasta - @MontoEscala)
+			--PRINT @CumpleParametria
 
-			IF (@MontoFaltante > 0)
+			IF (ISNULL(@CumpleParametria,0) = 0)
 			BEGIN
-				SELECT TOP 1 @PrecioMinimo = PrecioMinimo,
-					@CumpleParametria = 1
-				FROM OfertaFinalParametria 
-				WHERE Tipo = 'E' + @TipoMeta
-				AND GapMinimo <= @MontoFaltante AND GapMaximo >= @MontoFaltante
-			END
-
-			IF (ISNULL(@PrecioMinimo,0) = 0)
-			BEGIN
+				--PRINT 'CC'
 				SELECT TOP 1 @PrecioMinimo = PrecioMinimo,
 					@CumpleParametria = 1
 				FROM OfertaFinalParametria 
 				WHERE Tipo = 'GM'
 
-				IF (ISNULL(@PrecioMinimo,0) = 0)
-					SET @TipoMeta = 'GM'
+				SET @TipoMeta = 'GM'
+
+				--PRINT @PrecioMinimo
+				--PRINT @TipoMeta
+
+				--IF (ISNULL(@CumpleParametria,0) = 1)
+				--	SET @TipoMeta = 'GM'
+
+				--PRINT @TipoMeta
 			END
 		END
 
@@ -1283,9 +1494,11 @@ BEGIN
 		--PRINT @MontoFaltante
 		--PRINT @PrecioMinimo
 		--PRINT @TipoMeta
+
 	END
-	ELSE	-- MONTO MIN O MAX
+	ELSE	-- MONTO MIN
 	BEGIN
+		--PRINT 'MM'
 		SET @MontoFaltante = (@MontoMinPedido - @MontoTotal)
 
 		IF (@MontoFaltante > 0)
@@ -1296,8 +1509,10 @@ BEGIN
 			WHERE Tipo = 'MM'
 			AND GapMinimo <= @MontoFaltante AND GapMaximo >= @MontoFaltante
 
-			IF (ISNULL(@PrecioMinimo,0) = 0)
-				SET @TipoMeta = 'MM'
+			SET @TipoMeta = 'MM'
+
+			--IF (ISNULL(@CumpleParametria,0) = 0)
+			--	SET @TipoMeta = 'MM'
 		END
 
 		--PRINT 'Monto min'
@@ -1308,6 +1523,7 @@ BEGIN
 	IF (@CumpleParametria = 1)
 	BEGIN
 
+		--PRINT 'DD'
 		-- PASO 3 (obtener datos OF)
 		DECLARE @tablaCuvFaltante TABLE (CUV VARCHAR(6))
 
@@ -1358,7 +1574,6 @@ BEGIN
 			AND pc.CUV NOT IN (	SELECT CUV FROM @tablaCuvPedido )
 			AND pc.CUV NOT IN ( SELECT CUV FROM @tablaCuvFaltante )
 
-
 		-- PASO 4 (oferta productos)
 		DECLARE @OfertaProductoTemp TABLE
 		(
@@ -1376,6 +1591,14 @@ BEGIN
 		FROM OfertaProducto op WITH(NOLOCK)
 		INNER JOIN @tablaCodigosCuv tc ON op.CampaniaID = tc.CampaniaID and op.CUV = tc.CUV
 
+		--PRINT @TipoMeta
+		--PRINT @PrecioMinimo
+		--PRINT @MontoFaltante
+		
+		IF (@TipoMeta = 'GM')
+		BEGIN
+			SET @MontoFaltante = 0
+		END
 
 		-- PASO 5 (completar datos)
 		SELECT DISTINCT
@@ -1423,7 +1646,6 @@ BEGIN
 
 	END
 END
-
 GO
 /*end*/
 
@@ -1474,6 +1696,7 @@ BEGIN
 
 	IF (@TipoProductoMostrar = 1)	-- ESCALA
 	BEGIN
+		PRINT 'ESCALA'
 		DECLARE @MontoHasta NUMERIC(15,2)
 
 		SELECT TOP 1 @MontoHasta = MontoHasta,
@@ -1481,9 +1704,36 @@ BEGIN
 		FROM ods.EscalaDescuento 
 		WHERE MontoHasta >= ISNULL(@MontoEscala,0)
 
+		--PRINT @MontoHasta
+
 		IF (ISNULL(@MontoHasta,0) > 0)
 		BEGIN
-			
+			--PRINT 'AA'
+			--IF (@MontoHasta > @MontoMinPedido)
+			--BEGIN
+			--	SELECT TOP 1
+			--		@TipoMeta = PorDescuento
+			--	FROM ods.EscalaDescuento 
+			--	WHERE PorDescuento > @TipoMeta
+			--END
+
+			--PRINT @TipoMeta
+
+			SET @MontoHasta = CEILING(@MontoHasta)
+			SET @MontoFaltante = (@MontoHasta - @MontoEscala)
+
+			--PRINT @MontoFaltante
+
+			IF (@MontoFaltante > 0)
+			BEGIN
+				--PRINT 'BB'
+				SELECT TOP 1 @PrecioMinimo = PrecioMinimo,
+					@CumpleParametria = 1
+				FROM OfertaFinalParametria 
+				WHERE Tipo = 'E' + @TipoMeta
+				AND GapMinimo <= @MontoFaltante AND GapMaximo >= @MontoFaltante
+			END
+
 			IF (@MontoHasta > @MontoMinPedido)
 			BEGIN
 				SELECT TOP 1
@@ -1492,27 +1742,25 @@ BEGIN
 				WHERE PorDescuento > @TipoMeta
 			END
 
-			SET @MontoHasta = CEILING(@MontoHasta)
-			SET @MontoFaltante = (@MontoHasta - @MontoEscala)
+			--PRINT @CumpleParametria
 
-			IF (@MontoFaltante > 0)
+			IF (ISNULL(@CumpleParametria,0) = 0)
 			BEGIN
-				SELECT TOP 1 @PrecioMinimo = PrecioMinimo,
-					@CumpleParametria = 1
-				FROM OfertaFinalParametria 
-				WHERE Tipo = 'E' + @TipoMeta
-				AND GapMinimo <= @MontoFaltante AND GapMaximo >= @MontoFaltante
-			END
-
-			IF (ISNULL(@PrecioMinimo,0) = 0)
-			BEGIN
+				--PRINT 'CC'
 				SELECT TOP 1 @PrecioMinimo = PrecioMinimo,
 					@CumpleParametria = 1
 				FROM OfertaFinalParametria 
 				WHERE Tipo = 'GM'
 
-				IF (ISNULL(@PrecioMinimo,0) = 0)
-					SET @TipoMeta = 'GM'
+				SET @TipoMeta = 'GM'
+
+				--PRINT @PrecioMinimo
+				--PRINT @TipoMeta
+
+				--IF (ISNULL(@CumpleParametria,0) = 1)
+				--	SET @TipoMeta = 'GM'
+
+				--PRINT @TipoMeta
 			END
 		END
 
@@ -1521,9 +1769,11 @@ BEGIN
 		--PRINT @MontoFaltante
 		--PRINT @PrecioMinimo
 		--PRINT @TipoMeta
+
 	END
-	ELSE	-- MONTO MIN O MAX
+	ELSE	-- MONTO MIN
 	BEGIN
+		--PRINT 'MM'
 		SET @MontoFaltante = (@MontoMinPedido - @MontoTotal)
 
 		IF (@MontoFaltante > 0)
@@ -1534,8 +1784,10 @@ BEGIN
 			WHERE Tipo = 'MM'
 			AND GapMinimo <= @MontoFaltante AND GapMaximo >= @MontoFaltante
 
-			IF (ISNULL(@PrecioMinimo,0) = 0)
-				SET @TipoMeta = 'MM'
+			SET @TipoMeta = 'MM'
+
+			--IF (ISNULL(@CumpleParametria,0) = 0)
+			--	SET @TipoMeta = 'MM'
 		END
 
 		--PRINT 'Monto min'
@@ -1546,6 +1798,7 @@ BEGIN
 	IF (@CumpleParametria = 1)
 	BEGIN
 
+		--PRINT 'DD'
 		-- PASO 3 (obtener datos OF)
 		DECLARE @tablaCuvFaltante TABLE (CUV VARCHAR(6))
 
@@ -1596,7 +1849,6 @@ BEGIN
 			AND pc.CUV NOT IN (	SELECT CUV FROM @tablaCuvPedido )
 			AND pc.CUV NOT IN ( SELECT CUV FROM @tablaCuvFaltante )
 
-
 		-- PASO 4 (oferta productos)
 		DECLARE @OfertaProductoTemp TABLE
 		(
@@ -1614,6 +1866,14 @@ BEGIN
 		FROM OfertaProducto op WITH(NOLOCK)
 		INNER JOIN @tablaCodigosCuv tc ON op.CampaniaID = tc.CampaniaID and op.CUV = tc.CUV
 
+		--PRINT @TipoMeta
+		--PRINT @PrecioMinimo
+		--PRINT @MontoFaltante
+		
+		IF (@TipoMeta = 'GM')
+		BEGIN
+			SET @MontoFaltante = 0
+		END
 
 		-- PASO 5 (completar datos)
 		SELECT DISTINCT
@@ -1661,7 +1921,6 @@ BEGIN
 
 	END
 END
-
 GO
 /*end*/
 
@@ -1712,6 +1971,7 @@ BEGIN
 
 	IF (@TipoProductoMostrar = 1)	-- ESCALA
 	BEGIN
+		PRINT 'ESCALA'
 		DECLARE @MontoHasta NUMERIC(15,2)
 
 		SELECT TOP 1 @MontoHasta = MontoHasta,
@@ -1719,9 +1979,36 @@ BEGIN
 		FROM ods.EscalaDescuento 
 		WHERE MontoHasta >= ISNULL(@MontoEscala,0)
 
+		--PRINT @MontoHasta
+
 		IF (ISNULL(@MontoHasta,0) > 0)
 		BEGIN
-			
+			--PRINT 'AA'
+			--IF (@MontoHasta > @MontoMinPedido)
+			--BEGIN
+			--	SELECT TOP 1
+			--		@TipoMeta = PorDescuento
+			--	FROM ods.EscalaDescuento 
+			--	WHERE PorDescuento > @TipoMeta
+			--END
+
+			--PRINT @TipoMeta
+
+			SET @MontoHasta = CEILING(@MontoHasta)
+			SET @MontoFaltante = (@MontoHasta - @MontoEscala)
+
+			--PRINT @MontoFaltante
+
+			IF (@MontoFaltante > 0)
+			BEGIN
+				--PRINT 'BB'
+				SELECT TOP 1 @PrecioMinimo = PrecioMinimo,
+					@CumpleParametria = 1
+				FROM OfertaFinalParametria 
+				WHERE Tipo = 'E' + @TipoMeta
+				AND GapMinimo <= @MontoFaltante AND GapMaximo >= @MontoFaltante
+			END
+
 			IF (@MontoHasta > @MontoMinPedido)
 			BEGIN
 				SELECT TOP 1
@@ -1730,27 +2017,25 @@ BEGIN
 				WHERE PorDescuento > @TipoMeta
 			END
 
-			SET @MontoHasta = CEILING(@MontoHasta)
-			SET @MontoFaltante = (@MontoHasta - @MontoEscala)
+			--PRINT @CumpleParametria
 
-			IF (@MontoFaltante > 0)
+			IF (ISNULL(@CumpleParametria,0) = 0)
 			BEGIN
-				SELECT TOP 1 @PrecioMinimo = PrecioMinimo,
-					@CumpleParametria = 1
-				FROM OfertaFinalParametria 
-				WHERE Tipo = 'E' + @TipoMeta
-				AND GapMinimo <= @MontoFaltante AND GapMaximo >= @MontoFaltante
-			END
-
-			IF (ISNULL(@PrecioMinimo,0) = 0)
-			BEGIN
+				--PRINT 'CC'
 				SELECT TOP 1 @PrecioMinimo = PrecioMinimo,
 					@CumpleParametria = 1
 				FROM OfertaFinalParametria 
 				WHERE Tipo = 'GM'
 
-				IF (ISNULL(@PrecioMinimo,0) = 0)
-					SET @TipoMeta = 'GM'
+				SET @TipoMeta = 'GM'
+
+				--PRINT @PrecioMinimo
+				--PRINT @TipoMeta
+
+				--IF (ISNULL(@CumpleParametria,0) = 1)
+				--	SET @TipoMeta = 'GM'
+
+				--PRINT @TipoMeta
 			END
 		END
 
@@ -1759,9 +2044,11 @@ BEGIN
 		--PRINT @MontoFaltante
 		--PRINT @PrecioMinimo
 		--PRINT @TipoMeta
+
 	END
-	ELSE	-- MONTO MIN O MAX
+	ELSE	-- MONTO MIN
 	BEGIN
+		--PRINT 'MM'
 		SET @MontoFaltante = (@MontoMinPedido - @MontoTotal)
 
 		IF (@MontoFaltante > 0)
@@ -1772,8 +2059,10 @@ BEGIN
 			WHERE Tipo = 'MM'
 			AND GapMinimo <= @MontoFaltante AND GapMaximo >= @MontoFaltante
 
-			IF (ISNULL(@PrecioMinimo,0) = 0)
-				SET @TipoMeta = 'MM'
+			SET @TipoMeta = 'MM'
+
+			--IF (ISNULL(@CumpleParametria,0) = 0)
+			--	SET @TipoMeta = 'MM'
 		END
 
 		--PRINT 'Monto min'
@@ -1784,6 +2073,7 @@ BEGIN
 	IF (@CumpleParametria = 1)
 	BEGIN
 
+		--PRINT 'DD'
 		-- PASO 3 (obtener datos OF)
 		DECLARE @tablaCuvFaltante TABLE (CUV VARCHAR(6))
 
@@ -1834,7 +2124,6 @@ BEGIN
 			AND pc.CUV NOT IN (	SELECT CUV FROM @tablaCuvPedido )
 			AND pc.CUV NOT IN ( SELECT CUV FROM @tablaCuvFaltante )
 
-
 		-- PASO 4 (oferta productos)
 		DECLARE @OfertaProductoTemp TABLE
 		(
@@ -1852,6 +2141,14 @@ BEGIN
 		FROM OfertaProducto op WITH(NOLOCK)
 		INNER JOIN @tablaCodigosCuv tc ON op.CampaniaID = tc.CampaniaID and op.CUV = tc.CUV
 
+		--PRINT @TipoMeta
+		--PRINT @PrecioMinimo
+		--PRINT @MontoFaltante
+		
+		IF (@TipoMeta = 'GM')
+		BEGIN
+			SET @MontoFaltante = 0
+		END
 
 		-- PASO 5 (completar datos)
 		SELECT DISTINCT
@@ -1899,7 +2196,6 @@ BEGIN
 
 	END
 END
-
 GO
 /*end*/
 
@@ -1950,6 +2246,7 @@ BEGIN
 
 	IF (@TipoProductoMostrar = 1)	-- ESCALA
 	BEGIN
+		PRINT 'ESCALA'
 		DECLARE @MontoHasta NUMERIC(15,2)
 
 		SELECT TOP 1 @MontoHasta = MontoHasta,
@@ -1957,9 +2254,36 @@ BEGIN
 		FROM ods.EscalaDescuento 
 		WHERE MontoHasta >= ISNULL(@MontoEscala,0)
 
+		--PRINT @MontoHasta
+
 		IF (ISNULL(@MontoHasta,0) > 0)
 		BEGIN
-			
+			--PRINT 'AA'
+			--IF (@MontoHasta > @MontoMinPedido)
+			--BEGIN
+			--	SELECT TOP 1
+			--		@TipoMeta = PorDescuento
+			--	FROM ods.EscalaDescuento 
+			--	WHERE PorDescuento > @TipoMeta
+			--END
+
+			--PRINT @TipoMeta
+
+			SET @MontoHasta = CEILING(@MontoHasta)
+			SET @MontoFaltante = (@MontoHasta - @MontoEscala)
+
+			--PRINT @MontoFaltante
+
+			IF (@MontoFaltante > 0)
+			BEGIN
+				--PRINT 'BB'
+				SELECT TOP 1 @PrecioMinimo = PrecioMinimo,
+					@CumpleParametria = 1
+				FROM OfertaFinalParametria 
+				WHERE Tipo = 'E' + @TipoMeta
+				AND GapMinimo <= @MontoFaltante AND GapMaximo >= @MontoFaltante
+			END
+
 			IF (@MontoHasta > @MontoMinPedido)
 			BEGIN
 				SELECT TOP 1
@@ -1968,27 +2292,25 @@ BEGIN
 				WHERE PorDescuento > @TipoMeta
 			END
 
-			SET @MontoHasta = CEILING(@MontoHasta)
-			SET @MontoFaltante = (@MontoHasta - @MontoEscala)
+			--PRINT @CumpleParametria
 
-			IF (@MontoFaltante > 0)
+			IF (ISNULL(@CumpleParametria,0) = 0)
 			BEGIN
-				SELECT TOP 1 @PrecioMinimo = PrecioMinimo,
-					@CumpleParametria = 1
-				FROM OfertaFinalParametria 
-				WHERE Tipo = 'E' + @TipoMeta
-				AND GapMinimo <= @MontoFaltante AND GapMaximo >= @MontoFaltante
-			END
-
-			IF (ISNULL(@PrecioMinimo,0) = 0)
-			BEGIN
+				--PRINT 'CC'
 				SELECT TOP 1 @PrecioMinimo = PrecioMinimo,
 					@CumpleParametria = 1
 				FROM OfertaFinalParametria 
 				WHERE Tipo = 'GM'
 
-				IF (ISNULL(@PrecioMinimo,0) = 0)
-					SET @TipoMeta = 'GM'
+				SET @TipoMeta = 'GM'
+
+				--PRINT @PrecioMinimo
+				--PRINT @TipoMeta
+
+				--IF (ISNULL(@CumpleParametria,0) = 1)
+				--	SET @TipoMeta = 'GM'
+
+				--PRINT @TipoMeta
 			END
 		END
 
@@ -1997,9 +2319,11 @@ BEGIN
 		--PRINT @MontoFaltante
 		--PRINT @PrecioMinimo
 		--PRINT @TipoMeta
+
 	END
-	ELSE	-- MONTO MIN O MAX
+	ELSE	-- MONTO MIN
 	BEGIN
+		--PRINT 'MM'
 		SET @MontoFaltante = (@MontoMinPedido - @MontoTotal)
 
 		IF (@MontoFaltante > 0)
@@ -2010,8 +2334,10 @@ BEGIN
 			WHERE Tipo = 'MM'
 			AND GapMinimo <= @MontoFaltante AND GapMaximo >= @MontoFaltante
 
-			IF (ISNULL(@PrecioMinimo,0) = 0)
-				SET @TipoMeta = 'MM'
+			SET @TipoMeta = 'MM'
+
+			--IF (ISNULL(@CumpleParametria,0) = 0)
+			--	SET @TipoMeta = 'MM'
 		END
 
 		--PRINT 'Monto min'
@@ -2022,6 +2348,7 @@ BEGIN
 	IF (@CumpleParametria = 1)
 	BEGIN
 
+		--PRINT 'DD'
 		-- PASO 3 (obtener datos OF)
 		DECLARE @tablaCuvFaltante TABLE (CUV VARCHAR(6))
 
@@ -2072,7 +2399,6 @@ BEGIN
 			AND pc.CUV NOT IN (	SELECT CUV FROM @tablaCuvPedido )
 			AND pc.CUV NOT IN ( SELECT CUV FROM @tablaCuvFaltante )
 
-
 		-- PASO 4 (oferta productos)
 		DECLARE @OfertaProductoTemp TABLE
 		(
@@ -2090,6 +2416,14 @@ BEGIN
 		FROM OfertaProducto op WITH(NOLOCK)
 		INNER JOIN @tablaCodigosCuv tc ON op.CampaniaID = tc.CampaniaID and op.CUV = tc.CUV
 
+		--PRINT @TipoMeta
+		--PRINT @PrecioMinimo
+		--PRINT @MontoFaltante
+		
+		IF (@TipoMeta = 'GM')
+		BEGIN
+			SET @MontoFaltante = 0
+		END
 
 		-- PASO 5 (completar datos)
 		SELECT DISTINCT
@@ -2137,7 +2471,6 @@ BEGIN
 
 	END
 END
-
 GO
 /*end*/
 
@@ -2188,6 +2521,7 @@ BEGIN
 
 	IF (@TipoProductoMostrar = 1)	-- ESCALA
 	BEGIN
+		PRINT 'ESCALA'
 		DECLARE @MontoHasta NUMERIC(15,2)
 
 		SELECT TOP 1 @MontoHasta = MontoHasta,
@@ -2195,9 +2529,36 @@ BEGIN
 		FROM ods.EscalaDescuento 
 		WHERE MontoHasta >= ISNULL(@MontoEscala,0)
 
+		--PRINT @MontoHasta
+
 		IF (ISNULL(@MontoHasta,0) > 0)
 		BEGIN
-			
+			--PRINT 'AA'
+			--IF (@MontoHasta > @MontoMinPedido)
+			--BEGIN
+			--	SELECT TOP 1
+			--		@TipoMeta = PorDescuento
+			--	FROM ods.EscalaDescuento 
+			--	WHERE PorDescuento > @TipoMeta
+			--END
+
+			--PRINT @TipoMeta
+
+			SET @MontoHasta = CEILING(@MontoHasta)
+			SET @MontoFaltante = (@MontoHasta - @MontoEscala)
+
+			--PRINT @MontoFaltante
+
+			IF (@MontoFaltante > 0)
+			BEGIN
+				--PRINT 'BB'
+				SELECT TOP 1 @PrecioMinimo = PrecioMinimo,
+					@CumpleParametria = 1
+				FROM OfertaFinalParametria 
+				WHERE Tipo = 'E' + @TipoMeta
+				AND GapMinimo <= @MontoFaltante AND GapMaximo >= @MontoFaltante
+			END
+
 			IF (@MontoHasta > @MontoMinPedido)
 			BEGIN
 				SELECT TOP 1
@@ -2206,27 +2567,25 @@ BEGIN
 				WHERE PorDescuento > @TipoMeta
 			END
 
-			SET @MontoHasta = CEILING(@MontoHasta)
-			SET @MontoFaltante = (@MontoHasta - @MontoEscala)
+			--PRINT @CumpleParametria
 
-			IF (@MontoFaltante > 0)
+			IF (ISNULL(@CumpleParametria,0) = 0)
 			BEGIN
-				SELECT TOP 1 @PrecioMinimo = PrecioMinimo,
-					@CumpleParametria = 1
-				FROM OfertaFinalParametria 
-				WHERE Tipo = 'E' + @TipoMeta
-				AND GapMinimo <= @MontoFaltante AND GapMaximo >= @MontoFaltante
-			END
-
-			IF (ISNULL(@PrecioMinimo,0) = 0)
-			BEGIN
+				--PRINT 'CC'
 				SELECT TOP 1 @PrecioMinimo = PrecioMinimo,
 					@CumpleParametria = 1
 				FROM OfertaFinalParametria 
 				WHERE Tipo = 'GM'
 
-				IF (ISNULL(@PrecioMinimo,0) = 0)
-					SET @TipoMeta = 'GM'
+				SET @TipoMeta = 'GM'
+
+				--PRINT @PrecioMinimo
+				--PRINT @TipoMeta
+
+				--IF (ISNULL(@CumpleParametria,0) = 1)
+				--	SET @TipoMeta = 'GM'
+
+				--PRINT @TipoMeta
 			END
 		END
 
@@ -2235,9 +2594,11 @@ BEGIN
 		--PRINT @MontoFaltante
 		--PRINT @PrecioMinimo
 		--PRINT @TipoMeta
+
 	END
-	ELSE	-- MONTO MIN O MAX
+	ELSE	-- MONTO MIN
 	BEGIN
+		--PRINT 'MM'
 		SET @MontoFaltante = (@MontoMinPedido - @MontoTotal)
 
 		IF (@MontoFaltante > 0)
@@ -2248,8 +2609,10 @@ BEGIN
 			WHERE Tipo = 'MM'
 			AND GapMinimo <= @MontoFaltante AND GapMaximo >= @MontoFaltante
 
-			IF (ISNULL(@PrecioMinimo,0) = 0)
-				SET @TipoMeta = 'MM'
+			SET @TipoMeta = 'MM'
+
+			--IF (ISNULL(@CumpleParametria,0) = 0)
+			--	SET @TipoMeta = 'MM'
 		END
 
 		--PRINT 'Monto min'
@@ -2260,6 +2623,7 @@ BEGIN
 	IF (@CumpleParametria = 1)
 	BEGIN
 
+		--PRINT 'DD'
 		-- PASO 3 (obtener datos OF)
 		DECLARE @tablaCuvFaltante TABLE (CUV VARCHAR(6))
 
@@ -2310,7 +2674,6 @@ BEGIN
 			AND pc.CUV NOT IN (	SELECT CUV FROM @tablaCuvPedido )
 			AND pc.CUV NOT IN ( SELECT CUV FROM @tablaCuvFaltante )
 
-
 		-- PASO 4 (oferta productos)
 		DECLARE @OfertaProductoTemp TABLE
 		(
@@ -2328,6 +2691,14 @@ BEGIN
 		FROM OfertaProducto op WITH(NOLOCK)
 		INNER JOIN @tablaCodigosCuv tc ON op.CampaniaID = tc.CampaniaID and op.CUV = tc.CUV
 
+		--PRINT @TipoMeta
+		--PRINT @PrecioMinimo
+		--PRINT @MontoFaltante
+		
+		IF (@TipoMeta = 'GM')
+		BEGIN
+			SET @MontoFaltante = 0
+		END
 
 		-- PASO 5 (completar datos)
 		SELECT DISTINCT
@@ -2375,7 +2746,6 @@ BEGIN
 
 	END
 END
-
 GO
 /*end*/
 
@@ -2426,6 +2796,7 @@ BEGIN
 
 	IF (@TipoProductoMostrar = 1)	-- ESCALA
 	BEGIN
+		PRINT 'ESCALA'
 		DECLARE @MontoHasta NUMERIC(15,2)
 
 		SELECT TOP 1 @MontoHasta = MontoHasta,
@@ -2433,9 +2804,36 @@ BEGIN
 		FROM ods.EscalaDescuento 
 		WHERE MontoHasta >= ISNULL(@MontoEscala,0)
 
+		--PRINT @MontoHasta
+
 		IF (ISNULL(@MontoHasta,0) > 0)
 		BEGIN
-			
+			--PRINT 'AA'
+			--IF (@MontoHasta > @MontoMinPedido)
+			--BEGIN
+			--	SELECT TOP 1
+			--		@TipoMeta = PorDescuento
+			--	FROM ods.EscalaDescuento 
+			--	WHERE PorDescuento > @TipoMeta
+			--END
+
+			--PRINT @TipoMeta
+
+			SET @MontoHasta = CEILING(@MontoHasta)
+			SET @MontoFaltante = (@MontoHasta - @MontoEscala)
+
+			--PRINT @MontoFaltante
+
+			IF (@MontoFaltante > 0)
+			BEGIN
+				--PRINT 'BB'
+				SELECT TOP 1 @PrecioMinimo = PrecioMinimo,
+					@CumpleParametria = 1
+				FROM OfertaFinalParametria 
+				WHERE Tipo = 'E' + @TipoMeta
+				AND GapMinimo <= @MontoFaltante AND GapMaximo >= @MontoFaltante
+			END
+
 			IF (@MontoHasta > @MontoMinPedido)
 			BEGIN
 				SELECT TOP 1
@@ -2444,27 +2842,25 @@ BEGIN
 				WHERE PorDescuento > @TipoMeta
 			END
 
-			SET @MontoHasta = CEILING(@MontoHasta)
-			SET @MontoFaltante = (@MontoHasta - @MontoEscala)
+			--PRINT @CumpleParametria
 
-			IF (@MontoFaltante > 0)
+			IF (ISNULL(@CumpleParametria,0) = 0)
 			BEGIN
-				SELECT TOP 1 @PrecioMinimo = PrecioMinimo,
-					@CumpleParametria = 1
-				FROM OfertaFinalParametria 
-				WHERE Tipo = 'E' + @TipoMeta
-				AND GapMinimo <= @MontoFaltante AND GapMaximo >= @MontoFaltante
-			END
-
-			IF (ISNULL(@PrecioMinimo,0) = 0)
-			BEGIN
+				--PRINT 'CC'
 				SELECT TOP 1 @PrecioMinimo = PrecioMinimo,
 					@CumpleParametria = 1
 				FROM OfertaFinalParametria 
 				WHERE Tipo = 'GM'
 
-				IF (ISNULL(@PrecioMinimo,0) = 0)
-					SET @TipoMeta = 'GM'
+				SET @TipoMeta = 'GM'
+
+				--PRINT @PrecioMinimo
+				--PRINT @TipoMeta
+
+				--IF (ISNULL(@CumpleParametria,0) = 1)
+				--	SET @TipoMeta = 'GM'
+
+				--PRINT @TipoMeta
 			END
 		END
 
@@ -2473,9 +2869,11 @@ BEGIN
 		--PRINT @MontoFaltante
 		--PRINT @PrecioMinimo
 		--PRINT @TipoMeta
+
 	END
-	ELSE	-- MONTO MIN O MAX
+	ELSE	-- MONTO MIN
 	BEGIN
+		--PRINT 'MM'
 		SET @MontoFaltante = (@MontoMinPedido - @MontoTotal)
 
 		IF (@MontoFaltante > 0)
@@ -2486,8 +2884,10 @@ BEGIN
 			WHERE Tipo = 'MM'
 			AND GapMinimo <= @MontoFaltante AND GapMaximo >= @MontoFaltante
 
-			IF (ISNULL(@PrecioMinimo,0) = 0)
-				SET @TipoMeta = 'MM'
+			SET @TipoMeta = 'MM'
+
+			--IF (ISNULL(@CumpleParametria,0) = 0)
+			--	SET @TipoMeta = 'MM'
 		END
 
 		--PRINT 'Monto min'
@@ -2498,6 +2898,7 @@ BEGIN
 	IF (@CumpleParametria = 1)
 	BEGIN
 
+		--PRINT 'DD'
 		-- PASO 3 (obtener datos OF)
 		DECLARE @tablaCuvFaltante TABLE (CUV VARCHAR(6))
 
@@ -2548,7 +2949,6 @@ BEGIN
 			AND pc.CUV NOT IN (	SELECT CUV FROM @tablaCuvPedido )
 			AND pc.CUV NOT IN ( SELECT CUV FROM @tablaCuvFaltante )
 
-
 		-- PASO 4 (oferta productos)
 		DECLARE @OfertaProductoTemp TABLE
 		(
@@ -2566,6 +2966,14 @@ BEGIN
 		FROM OfertaProducto op WITH(NOLOCK)
 		INNER JOIN @tablaCodigosCuv tc ON op.CampaniaID = tc.CampaniaID and op.CUV = tc.CUV
 
+		--PRINT @TipoMeta
+		--PRINT @PrecioMinimo
+		--PRINT @MontoFaltante
+		
+		IF (@TipoMeta = 'GM')
+		BEGIN
+			SET @MontoFaltante = 0
+		END
 
 		-- PASO 5 (completar datos)
 		SELECT DISTINCT
@@ -2613,7 +3021,6 @@ BEGIN
 
 	END
 END
-
 GO
 /*end*/
 
@@ -2664,6 +3071,7 @@ BEGIN
 
 	IF (@TipoProductoMostrar = 1)	-- ESCALA
 	BEGIN
+		PRINT 'ESCALA'
 		DECLARE @MontoHasta NUMERIC(15,2)
 
 		SELECT TOP 1 @MontoHasta = MontoHasta,
@@ -2671,9 +3079,36 @@ BEGIN
 		FROM ods.EscalaDescuento 
 		WHERE MontoHasta >= ISNULL(@MontoEscala,0)
 
+		--PRINT @MontoHasta
+
 		IF (ISNULL(@MontoHasta,0) > 0)
 		BEGIN
-			
+			--PRINT 'AA'
+			--IF (@MontoHasta > @MontoMinPedido)
+			--BEGIN
+			--	SELECT TOP 1
+			--		@TipoMeta = PorDescuento
+			--	FROM ods.EscalaDescuento 
+			--	WHERE PorDescuento > @TipoMeta
+			--END
+
+			--PRINT @TipoMeta
+
+			SET @MontoHasta = CEILING(@MontoHasta)
+			SET @MontoFaltante = (@MontoHasta - @MontoEscala)
+
+			--PRINT @MontoFaltante
+
+			IF (@MontoFaltante > 0)
+			BEGIN
+				--PRINT 'BB'
+				SELECT TOP 1 @PrecioMinimo = PrecioMinimo,
+					@CumpleParametria = 1
+				FROM OfertaFinalParametria 
+				WHERE Tipo = 'E' + @TipoMeta
+				AND GapMinimo <= @MontoFaltante AND GapMaximo >= @MontoFaltante
+			END
+
 			IF (@MontoHasta > @MontoMinPedido)
 			BEGIN
 				SELECT TOP 1
@@ -2682,27 +3117,25 @@ BEGIN
 				WHERE PorDescuento > @TipoMeta
 			END
 
-			SET @MontoHasta = CEILING(@MontoHasta)
-			SET @MontoFaltante = (@MontoHasta - @MontoEscala)
+			--PRINT @CumpleParametria
 
-			IF (@MontoFaltante > 0)
+			IF (ISNULL(@CumpleParametria,0) = 0)
 			BEGIN
-				SELECT TOP 1 @PrecioMinimo = PrecioMinimo,
-					@CumpleParametria = 1
-				FROM OfertaFinalParametria 
-				WHERE Tipo = 'E' + @TipoMeta
-				AND GapMinimo <= @MontoFaltante AND GapMaximo >= @MontoFaltante
-			END
-
-			IF (ISNULL(@PrecioMinimo,0) = 0)
-			BEGIN
+				--PRINT 'CC'
 				SELECT TOP 1 @PrecioMinimo = PrecioMinimo,
 					@CumpleParametria = 1
 				FROM OfertaFinalParametria 
 				WHERE Tipo = 'GM'
 
-				IF (ISNULL(@PrecioMinimo,0) = 0)
-					SET @TipoMeta = 'GM'
+				SET @TipoMeta = 'GM'
+
+				--PRINT @PrecioMinimo
+				--PRINT @TipoMeta
+
+				--IF (ISNULL(@CumpleParametria,0) = 1)
+				--	SET @TipoMeta = 'GM'
+
+				--PRINT @TipoMeta
 			END
 		END
 
@@ -2711,9 +3144,11 @@ BEGIN
 		--PRINT @MontoFaltante
 		--PRINT @PrecioMinimo
 		--PRINT @TipoMeta
+
 	END
-	ELSE	-- MONTO MIN O MAX
+	ELSE	-- MONTO MIN
 	BEGIN
+		--PRINT 'MM'
 		SET @MontoFaltante = (@MontoMinPedido - @MontoTotal)
 
 		IF (@MontoFaltante > 0)
@@ -2724,8 +3159,10 @@ BEGIN
 			WHERE Tipo = 'MM'
 			AND GapMinimo <= @MontoFaltante AND GapMaximo >= @MontoFaltante
 
-			IF (ISNULL(@PrecioMinimo,0) = 0)
-				SET @TipoMeta = 'MM'
+			SET @TipoMeta = 'MM'
+
+			--IF (ISNULL(@CumpleParametria,0) = 0)
+			--	SET @TipoMeta = 'MM'
 		END
 
 		--PRINT 'Monto min'
@@ -2736,6 +3173,7 @@ BEGIN
 	IF (@CumpleParametria = 1)
 	BEGIN
 
+		--PRINT 'DD'
 		-- PASO 3 (obtener datos OF)
 		DECLARE @tablaCuvFaltante TABLE (CUV VARCHAR(6))
 
@@ -2786,7 +3224,6 @@ BEGIN
 			AND pc.CUV NOT IN (	SELECT CUV FROM @tablaCuvPedido )
 			AND pc.CUV NOT IN ( SELECT CUV FROM @tablaCuvFaltante )
 
-
 		-- PASO 4 (oferta productos)
 		DECLARE @OfertaProductoTemp TABLE
 		(
@@ -2804,6 +3241,14 @@ BEGIN
 		FROM OfertaProducto op WITH(NOLOCK)
 		INNER JOIN @tablaCodigosCuv tc ON op.CampaniaID = tc.CampaniaID and op.CUV = tc.CUV
 
+		--PRINT @TipoMeta
+		--PRINT @PrecioMinimo
+		--PRINT @MontoFaltante
+		
+		IF (@TipoMeta = 'GM')
+		BEGIN
+			SET @MontoFaltante = 0
+		END
 
 		-- PASO 5 (completar datos)
 		SELECT DISTINCT
@@ -2851,7 +3296,6 @@ BEGIN
 
 	END
 END
-
 GO
 /*end*/
 
@@ -2902,6 +3346,7 @@ BEGIN
 
 	IF (@TipoProductoMostrar = 1)	-- ESCALA
 	BEGIN
+		PRINT 'ESCALA'
 		DECLARE @MontoHasta NUMERIC(15,2)
 
 		SELECT TOP 1 @MontoHasta = MontoHasta,
@@ -2909,9 +3354,36 @@ BEGIN
 		FROM ods.EscalaDescuento 
 		WHERE MontoHasta >= ISNULL(@MontoEscala,0)
 
+		--PRINT @MontoHasta
+
 		IF (ISNULL(@MontoHasta,0) > 0)
 		BEGIN
-			
+			--PRINT 'AA'
+			--IF (@MontoHasta > @MontoMinPedido)
+			--BEGIN
+			--	SELECT TOP 1
+			--		@TipoMeta = PorDescuento
+			--	FROM ods.EscalaDescuento 
+			--	WHERE PorDescuento > @TipoMeta
+			--END
+
+			--PRINT @TipoMeta
+
+			SET @MontoHasta = CEILING(@MontoHasta)
+			SET @MontoFaltante = (@MontoHasta - @MontoEscala)
+
+			--PRINT @MontoFaltante
+
+			IF (@MontoFaltante > 0)
+			BEGIN
+				--PRINT 'BB'
+				SELECT TOP 1 @PrecioMinimo = PrecioMinimo,
+					@CumpleParametria = 1
+				FROM OfertaFinalParametria 
+				WHERE Tipo = 'E' + @TipoMeta
+				AND GapMinimo <= @MontoFaltante AND GapMaximo >= @MontoFaltante
+			END
+
 			IF (@MontoHasta > @MontoMinPedido)
 			BEGIN
 				SELECT TOP 1
@@ -2920,27 +3392,25 @@ BEGIN
 				WHERE PorDescuento > @TipoMeta
 			END
 
-			SET @MontoHasta = CEILING(@MontoHasta)
-			SET @MontoFaltante = (@MontoHasta - @MontoEscala)
+			--PRINT @CumpleParametria
 
-			IF (@MontoFaltante > 0)
+			IF (ISNULL(@CumpleParametria,0) = 0)
 			BEGIN
-				SELECT TOP 1 @PrecioMinimo = PrecioMinimo,
-					@CumpleParametria = 1
-				FROM OfertaFinalParametria 
-				WHERE Tipo = 'E' + @TipoMeta
-				AND GapMinimo <= @MontoFaltante AND GapMaximo >= @MontoFaltante
-			END
-
-			IF (ISNULL(@PrecioMinimo,0) = 0)
-			BEGIN
+				--PRINT 'CC'
 				SELECT TOP 1 @PrecioMinimo = PrecioMinimo,
 					@CumpleParametria = 1
 				FROM OfertaFinalParametria 
 				WHERE Tipo = 'GM'
 
-				IF (ISNULL(@PrecioMinimo,0) = 0)
-					SET @TipoMeta = 'GM'
+				SET @TipoMeta = 'GM'
+
+				--PRINT @PrecioMinimo
+				--PRINT @TipoMeta
+
+				--IF (ISNULL(@CumpleParametria,0) = 1)
+				--	SET @TipoMeta = 'GM'
+
+				--PRINT @TipoMeta
 			END
 		END
 
@@ -2949,9 +3419,11 @@ BEGIN
 		--PRINT @MontoFaltante
 		--PRINT @PrecioMinimo
 		--PRINT @TipoMeta
+
 	END
-	ELSE	-- MONTO MIN O MAX
+	ELSE	-- MONTO MIN
 	BEGIN
+		--PRINT 'MM'
 		SET @MontoFaltante = (@MontoMinPedido - @MontoTotal)
 
 		IF (@MontoFaltante > 0)
@@ -2962,8 +3434,10 @@ BEGIN
 			WHERE Tipo = 'MM'
 			AND GapMinimo <= @MontoFaltante AND GapMaximo >= @MontoFaltante
 
-			IF (ISNULL(@PrecioMinimo,0) = 0)
-				SET @TipoMeta = 'MM'
+			SET @TipoMeta = 'MM'
+
+			--IF (ISNULL(@CumpleParametria,0) = 0)
+			--	SET @TipoMeta = 'MM'
 		END
 
 		--PRINT 'Monto min'
@@ -2974,6 +3448,7 @@ BEGIN
 	IF (@CumpleParametria = 1)
 	BEGIN
 
+		--PRINT 'DD'
 		-- PASO 3 (obtener datos OF)
 		DECLARE @tablaCuvFaltante TABLE (CUV VARCHAR(6))
 
@@ -3024,7 +3499,6 @@ BEGIN
 			AND pc.CUV NOT IN (	SELECT CUV FROM @tablaCuvPedido )
 			AND pc.CUV NOT IN ( SELECT CUV FROM @tablaCuvFaltante )
 
-
 		-- PASO 4 (oferta productos)
 		DECLARE @OfertaProductoTemp TABLE
 		(
@@ -3042,6 +3516,14 @@ BEGIN
 		FROM OfertaProducto op WITH(NOLOCK)
 		INNER JOIN @tablaCodigosCuv tc ON op.CampaniaID = tc.CampaniaID and op.CUV = tc.CUV
 
+		--PRINT @TipoMeta
+		--PRINT @PrecioMinimo
+		--PRINT @MontoFaltante
+		
+		IF (@TipoMeta = 'GM')
+		BEGIN
+			SET @MontoFaltante = 0
+		END
 
 		-- PASO 5 (completar datos)
 		SELECT DISTINCT
@@ -3089,8 +3571,4 @@ BEGIN
 
 	END
 END
-
 GO
-
-
-
