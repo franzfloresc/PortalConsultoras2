@@ -289,6 +289,12 @@ namespace Portal.Consultoras.Web.Controllers
                 Catalogo catalogoCyZone = catalogos.FirstOrDefault(x => x.IdMarcaCatalogo == Constantes.Marca.Cyzone);
                 Catalogo catalogoFinart = catalogos.FirstOrDefault(x => x.IdMarcaCatalogo == Constantes.Marca.Finart);
 
+                /*EPD-1003*/
+                DateTime dd = DateTime.Parse(FechaFacturacion, new CultureInfo("es-ES"));
+                string fdf = dd.ToString("dd", new CultureInfo("es-ES"));
+                string fmf = dd.ToString("MMMM", new CultureInfo("es-ES"));
+                string ffechaFact = fdf + " de " + char.ToUpper(fmf[0]) + fmf.Substring(1);
+                string urlIssuCatalogo = string.Empty;
 
                 string urlImagenLogo = "http://www.genesis-peru.com/mailing-belcorp/logo.png";
                 string urlIconEmail = "http://www.genesis-peru.com/mailing-belcorp/mensaje_mail.png";
