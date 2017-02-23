@@ -361,6 +361,7 @@
     <Compile Include="LogManager\LogManager.cs" />
     <Compile Include="Models\AdministrarProductoSugerido.cs" />
     <Compile Include="Models\AutoMapper\AutoMapperConfiguration.cs" />
+    <Compile Include="Models\AutoMapper\ModelToDomainMappingProfile.cs" />
     <Compile Include="Models\AutoMapper\DomainToModelMappingProfile.cs" />
     <Compile Include="Models\BarraConsultoraEscalaDescuentoModel.cs" />
     <Compile Include="Models\BaseVM.cs" />
@@ -3096,13 +3097,13 @@
     <Content Include="Content\Css\Site\fonts\icomoon\logo_esika.eot" />
     <Content Include="Content\Css\Site\fonts\icomoon\logo_esika.ttf" />
     <Content Include="Content\Css\Site\fonts\icomoon\logo_esika.woff" />
-    <Content Include="Service References\ServiceCDR\CDRService.disco" />
-    <Content Include="Service References\ServiceCDR\configuration91.svcinfo" />
-    <Content Include="Service References\ServiceCDR\configuration.svcinfo" />
-    <Content Include="Service References\ServiceCDR\Reference.svcmap">
+    <None Include="Service References\ServiceCDR\CDRService.disco" />
+    <None Include="Service References\ServiceCDR\configuration91.svcinfo" />
+    <None Include="Service References\ServiceCDR\configuration.svcinfo" />
+    <None Include="Service References\ServiceCDR\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
-    </Content>
+    </None>
     <Content Include="Service References\ServiceCliente\ClienteService.disco" />
     <Content Include="Service References\ServiceCliente\configuration91.svcinfo" />
     <Content Include="Service References\ServiceCliente\configuration.svcinfo" />
@@ -3110,7 +3111,7 @@
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </Content>
-    <Content Include="Service References\ServiceCDR\CDRService.wsdl" />
+    <None Include="Service References\ServiceCDR\CDRService.wsdl" />
     <None Include="Service References\ServiceCDR\CDRService.xsd">
       <SubType>Designer</SubType>
     </None>
@@ -3170,15 +3171,15 @@
     <None Include="Service References\ServiceODS\ODSService2.xsd">
       <SubType>Designer</SubType>
     </None>
-    <Content Include="Service References\ServicePedidoRechazado\PedidoRechazadoService.disco" />
-    <Content Include="Service References\ServicePedidoRechazado\configuration91.svcinfo" />
-    <Content Include="Service References\ServicePedidoRechazado\configuration.svcinfo" />
-    <Content Include="Service References\ServicePedidoRechazado\Reference.svcmap">
+    <None Include="Service References\ServicePedidoRechazado\PedidoRechazadoService.disco" />
+    <None Include="Service References\ServicePedidoRechazado\configuration91.svcinfo" />
+    <None Include="Service References\ServicePedidoRechazado\configuration.svcinfo" />
+    <None Include="Service References\ServicePedidoRechazado\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
-    </Content>
-    <Content Include="Service References\ServicePedido\PedidoService.wsdl" />
-    <Content Include="Service References\ServicePedidoRechazado\PedidoRechazadoService.wsdl" />
+    </None>
+    <None Include="Service References\ServicePedido\PedidoService.wsdl" />
+    <None Include="Service References\ServicePedidoRechazado\PedidoRechazadoService.wsdl" />
     <None Include="Service References\ServicePedidoRechazado\PedidoRechazadoService.xsd">
       <SubType>Designer</SubType>
     </None>
@@ -3231,21 +3232,21 @@
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
-    <Content Include="Service References\ServicePedido\PedidoService.disco" />
-    <Content Include="Service References\ServicePedido\configuration91.svcinfo" />
-    <Content Include="Service References\ServicePedido\configuration.svcinfo" />
-    <Content Include="Service References\ServicePedido\Reference.svcmap">
+    <None Include="Service References\ServicePedido\PedidoService.disco" />
+    <None Include="Service References\ServicePedido\configuration91.svcinfo" />
+    <None Include="Service References\ServicePedido\configuration.svcinfo" />
+    <None Include="Service References\ServicePedido\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
-    </Content>
-    <Content Include="Service References\ServiceSAC\SACService.disco" />
-    <Content Include="Service References\ServiceSAC\configuration91.svcinfo" />
-    <Content Include="Service References\ServiceSAC\configuration.svcinfo" />
-    <Content Include="Service References\ServiceSAC\Reference.svcmap">
+    </None>
+    <None Include="Service References\ServiceSAC\SACService.disco" />
+    <None Include="Service References\ServiceSAC\configuration91.svcinfo" />
+    <None Include="Service References\ServiceSAC\configuration.svcinfo" />
+    <None Include="Service References\ServiceSAC\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
-    </Content>
-    <Content Include="Service References\ServiceSAC\SACService.wsdl" />
+    </None>
+    <None Include="Service References\ServiceSAC\SACService.wsdl" />
     <None Include="Service References\ServiceSAC\SACService.xsd">
       <SubType>Designer</SubType>
     </None>
@@ -3313,14 +3314,14 @@
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </Content>
-    <Content Include="Service References\ServiceUsuario\UsuarioService.disco" />
-    <Content Include="Service References\ServiceUsuario\configuration91.svcinfo" />
-    <Content Include="Service References\ServiceUsuario\configuration.svcinfo" />
-    <Content Include="Service References\ServiceUsuario\Reference.svcmap">
+    <None Include="Service References\ServiceUsuario\UsuarioService.disco" />
+    <None Include="Service References\ServiceUsuario\configuration91.svcinfo" />
+    <None Include="Service References\ServiceUsuario\configuration.svcinfo" />
+    <None Include="Service References\ServiceUsuario\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
-    </Content>
-    <Content Include="Service References\ServiceUsuario\UsuarioService.wsdl" />
+    </None>
+    <None Include="Service References\ServiceUsuario\UsuarioService.wsdl" />
     <None Include="Service References\ServiceUsuario\UsuarioService.xsd">
       <SubType>Designer</SubType>
     </None>
@@ -3333,7 +3334,7 @@
     <None Include="Service References\ServiceUsuario\UsuarioService3.xsd">
       <SubType>Designer</SubType>
     </None>
-    <Content Include="Service References\ServiceZonificacion\ZonificacionService.wsdl" />
+    <None Include="Service References\ServiceZonificacion\ZonificacionService.wsdl" />
     <None Include="Service References\ServiceZonificacion\ZonificacionService.xsd">
       <SubType>Designer</SubType>
     </None>
@@ -3486,13 +3487,13 @@
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
-    <Content Include="Service References\ServiceZonificacion\ZonificacionService.disco" />
-    <Content Include="Service References\ServiceZonificacion\configuration91.svcinfo" />
-    <Content Include="Service References\ServiceZonificacion\configuration.svcinfo" />
-    <Content Include="Service References\ServiceZonificacion\Reference.svcmap">
+    <None Include="Service References\ServiceZonificacion\ZonificacionService.disco" />
+    <None Include="Service References\ServiceZonificacion\configuration91.svcinfo" />
+    <None Include="Service References\ServiceZonificacion\configuration.svcinfo" />
+    <None Include="Service References\ServiceZonificacion\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
-    </Content>
+    </None>
     <Content Include="Service References\ServicioGenerarLideres\configuration91.svcinfo" />
     <Content Include="Service References\ServicioGenerarLideres\configuration.svcinfo" />
     <Content Include="Service References\ServicioGenerarLideres\Reference.svcmap">
@@ -3526,6 +3527,7 @@
       <SubType>Code</SubType>
     </Content>
     <Content Include="Web References\ServiceCatalogosIssuu\MulticatalogoWebService.disco" />
+    <Content Include="WebPages\AppCatalogoTyC\BO_AppCatalogoTyC.html" />
     <Content Include="WebPages\AppCatalogoTyC\CL_AppCatalogoTyC.html" />
     <Content Include="WebPages\AppCatalogoTyC\CO_AppCatalogoTyC.HTML" />
     <Content Include="WebPages\AppCatalogoTyC\CR_AppCatalogoTyC.HTML" />
@@ -3769,6 +3771,7 @@
     </Content>
     <Content Include="Views\Unete\NivelesGeograficos.cshtml" />
     <Content Include="Views\Notificaciones\ListaDetalleCdrCulminado.cshtml" />
+    <Content Include="Views\MisReclamos\ReporteDetalle.cshtml" />
     <Content Include="Views\Login\Admin.cshtml" />
     <None Include="Web References\ServiceActualizarDatosPrueba\ProcesoMAEPortalConsultoraWebService.wsdl" />
     <Content Include="Web References\ServiceActualizarDatosPrueba\Reference.map" />
