@@ -851,7 +851,7 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                 }
 
-                sv.ActualizarSolicitudPostulante(CodigoISO, solicitudPostulante);
+                sv.ActualizarSolicitudPostulanteSAC(CodigoISO, solicitudPostulante);
                 //sv.ActualizarEstado(CodigoISO, solicitudPostulanteID, EnumsTipoParametro.EstadoGEO,
                 //    solicitudPostulante.EstadoGEO.Value);
                 solicitudPostulante = sv.ObtenerSolicitudPostulante(CodigoISO, id);
@@ -955,7 +955,7 @@ namespace Portal.Consultoras.Web.Controllers
                 solicitudPostulante.MotivoRechazoTelefonico = model.MotivoRechazoTelefonico;
                 solicitudPostulante.FechaRegValidacionTelefonica = DateTime.Now;
 
-                sv.ActualizarSolicitudPostulante(CodigoISO, solicitudPostulante);
+                sv.ActualizarSolicitudPostulanteSAC(CodigoISO, solicitudPostulante);
                 solicitudPostulante = sv.ObtenerSolicitudPostulante(CodigoISO, model.SolicitudPostulanteId);
 
                 if (solicitudPostulante.EstadoPostulante == EnumsEstadoPostulante.EnAprobacionFFVV.ToInt())
@@ -1017,9 +1017,8 @@ namespace Portal.Consultoras.Web.Controllers
                 solicitudPostulante.CodigoZona = null;
 
                 solicitudPostulante.SubEstadoPostulante = default(int?);
-                solicitudPostulante.EstadoPostulante = Enumeradores.EstadoPostulante.EnGestionServicioAlCliente.ToInt();
 
-                sv.ActualizarSolicitudPostulante(CodigoISO, solicitudPostulante);
+                sv.ActualizarSolicitudPostulanteSAC(CodigoISO, solicitudPostulante);
             }
 
             return Json(true, JsonRequestBehavior.AllowGet);
@@ -1595,7 +1594,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     solicitudPostulante.IndicadorActivo = true;
                     solicitudPostulante.IndicadorOptin = false;
-                    sv.ActualizarSolicitudPostulante(CodigoISO, solicitudPostulante);
+                    sv.ActualizarSolicitudPostulanteSAC(CodigoISO, solicitudPostulante);
                     solicitudPostulante = sv.ObtenerSolicitudPostulante(user.CodigoISO, solicitudPostulanteId);
 
                     #region Envío de correos
@@ -1713,7 +1712,7 @@ namespace Portal.Consultoras.Web.Controllers
                     //solicitudPostulante.NumeroDocumento =
                     //    AplicarFormatoNumeroDocumentoPorPais(CodigoISO, model.NumeroDocumento).ToUpper();
 
-                    sv.ActualizarSolicitudPostulante(CodigoISO, solicitudPostulante);
+                    sv.ActualizarSolicitudPostulanteSAC(CodigoISO, solicitudPostulante);
                 }
 
                 return Json(new { success = true }, JsonRequestBehavior.AllowGet);
@@ -2016,7 +2015,7 @@ namespace Portal.Consultoras.Web.Controllers
                     }
 
 
-                    sv.ActualizarSolicitudPostulante(CodigoISO, solicitudPostulante);
+                    sv.ActualizarSolicitudPostulanteSAC(CodigoISO, solicitudPostulante);
                 }
             }
 
@@ -2057,7 +2056,7 @@ namespace Portal.Consultoras.Web.Controllers
                     solicitudPostulante.CodigoTerritorio = model.CodigoTerritorio;
                     solicitudPostulante.EstadoGEO = Enumeradores.EstadoGEO.OK.ToInt();
 
-                    sv.ActualizarSolicitudPostulante(CodigoISO, solicitudPostulante);
+                    sv.ActualizarSolicitudPostulanteSAC(CodigoISO, solicitudPostulante);
 
                     solicitudPostulante = sv.ObtenerSolicitudPostulante(CodigoISO, model.SolicitudPostulanteID);
 

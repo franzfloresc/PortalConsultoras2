@@ -1087,6 +1087,7 @@
       <xs:element minOccurs="0" name="IndicadorFaltanteAnunciado" type="xs:boolean" />
       <xs:element minOccurs="0" name="IndicadorMontoMinimo" type="xs:boolean" />
       <xs:element minOccurs="0" name="IndicadorPromocion" type="xs:boolean" />
+      <xs:element minOccurs="0" name="MotivoRechazo" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="PedidoDetalleID" type="xs:int" />
       <xs:element minOccurs="0" name="PrecioTotal" type="xs:decimal" />
       <xs:element minOccurs="0" name="PrecioUnitario" type="xs:decimal" />
@@ -1410,6 +1411,7 @@
       <xs:element minOccurs="0" name="ConsultoraCodigo" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ConsultoraNombre" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ConsultoraSaldo" type="xs:decimal" />
+      <xs:element minOccurs="0" name="EsRechazado" type="xs:int" />
       <xs:element minOccurs="0" name="EstadoValidacion" type="xs:int" />
       <xs:element minOccurs="0" name="EstadoValidacionNombre" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="FechaRegistro" type="xs:dateTime" />
@@ -1419,6 +1421,7 @@
       <xs:element minOccurs="0" name="ImporteTotalMM" type="xs:decimal" />
       <xs:element minOccurs="0" name="IndicadorEnviado" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="MontoMinimoPedido" type="xs:decimal" />
+      <xs:element minOccurs="0" name="MotivoRechazo" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="NroRegistro" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Origen" type="xs:int" />
       <xs:element minOccurs="0" name="OrigenNombre" nillable="true" type="xs:string" />

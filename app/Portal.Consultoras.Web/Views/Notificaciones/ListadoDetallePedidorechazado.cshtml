@@ -7,27 +7,30 @@
     <div class="linea_separadora"></div>
     <div class="saludo_gpr">¡Hola @Model.NombreConsultora!</div>
     <div class="cuerpo_gpr">
-        <span>Tu Pedido ha sido rechazado. @Model.DescripcionRechazo</span>
+        <span>@Html.Raw( Model.DescripcionRechazo)</span>
         <div>
             @{
                 switch (Model.MotivoRechazo)
                 {
+                    case Constantes.GPRMotivoRechazo.Mostrar2OpcionesNotificacion:
+                        <a class='btnnotificacion' href="javascript:;" onclick="RedirectMenu('Index','Pedido',0,'Pedido')">MODIFICA TU PEDIDO</a>
+                        <a class='btnnotificacion' href="javascript:;" onclick="RedirectMenu('Index','MisPagos',0,'')">IR A LUGARES DE PAGO</a>                        
+                        break;
+                        
                     case Constantes.GPRMotivoRechazo.ActualizacionDeuda:
-                <a class='CerrarBanner' href="javascript:;" onclick="RedirectMenu('Index','MisPagos',0,'');cerrarMensajeEstadoPedido()">MIRA LOS LUGARES DE PAGO</a>
+                        <a class='btnnotificacion' href="javascript:;" onclick="RedirectMenu('Index','MisPagos',0,''))">IR A LUGARES DE PAGO</a>
                         break;
 
                     case Constantes.GPRMotivoRechazo.MontoMinino:
-                <a class='CerrarBanner' href="javascript:;" onclick="RedirectMenu('Index','Pedido',0,'Pedido');cerrarMensajeEstadoPedido()">MODIFICA TU PEDIDO</a>
-                        
+                        <a class='btnnotificacion' href="javascript:;" onclick="RedirectMenu('Index','Pedido',0,'Pedido')">MODIFICAR MI PEDIDO</a>                        
                         break;
 
                     case Constantes.GPRMotivoRechazo.MontoMaximo:
-                <a class='CerrarBanner' href="javascript:;" onclick="RedirectMenu('Index','Pedido',0,'Pedido');cerrarMensajeEstadoPedido()">MODIFICA TU PEDIDO</a>
-                        
+                        <a class='btnnotificacion' href="javascript:;" onclick="RedirectMenu('Index','Pedido',0,'Pedido')">MODIFICAR MI PEDIDO</a>                        
                         break;
 
                     case Constantes.GPRMotivoRechazo.ValidacionMontoMinimoStock:
-                <a class='CerrarBanner' href="javascript:;" onclick="RedirectMenu('Index','Pedido',0,'Pedido');cerrarMensajeEstadoPedido()">MODIFICA TU PEDIDO</a>
+                        <a class='btnnotificacion' href="javascript:;" onclick="RedirectMenu('Index','Pedido',0,'Pedido')">MODIFICAR MI PEDIDO</a>
                         break;
                 }
             }

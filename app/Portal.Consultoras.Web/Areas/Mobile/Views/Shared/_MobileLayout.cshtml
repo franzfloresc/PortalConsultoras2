@@ -40,6 +40,9 @@
 
     <script type="text/javascript">
         var isEsika = '@(System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(ViewBag.PaisAnalytics))' == "True";
+
+        var estadoPedido = '@ViewBag.EstadoPedido';
+        var validacionAbierta = '@ViewBag.ValidacionAbierta';
     </script>
 
     @RenderSection("styles", required: false)
@@ -48,6 +51,9 @@
 <body>
     <!-- Google Tag Manager -->
     <script type="text/javascript">
+
+        
+
         dataLayer = [{
             'campana': '@ViewBag.AnalyticsCampania',
             'segmento': '@ViewBag.AnalyticsSegmento',
