@@ -95,6 +95,7 @@
     <Compile Include="DAEscalaDescuento.cs" />
     <Compile Include="DAEstadoCuenta.cs" />
     <Compile Include="DAEstrategia.cs" />
+    <Compile Include="DAEstrategiaProducto.cs" />
     <Compile Include="DAEtiqueta.cs" />
     <Compile Include="DAFactorGanancia.cs" />
     <Compile Include="DABanner.cs" />

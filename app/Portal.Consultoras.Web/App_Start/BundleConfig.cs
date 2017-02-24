@@ -9,7 +9,7 @@ namespace Portal.Consultoras.Web
             bundles.Add(new StyleBundle("~/Content/Css/Site/CssLogin").Include(
                 "~/Content/Css/ui.jquery/jquery-ui.css",
                 "~/Content/Css/Site/style.css"));
-            
+
             bundles.Add(new ScriptBundle("~/bundles/JsLogin2").Include(
                 "~/Scripts/jquery-{version}.js",
                 "~/Scripts/jquery-ui-1.9.2.custom.js",
@@ -171,13 +171,15 @@ namespace Portal.Consultoras.Web
             bundles.Add(new ScriptBundle("~/bundles/JsSB2-Bienvenida").Include(
                 "~/Scripts/PortalConsultoras/Bienvenida/Index.js",
                 "~/Scripts/PortalConsultoras/Pedido/barra.js",
-                "~/Scripts/PortalConsultoras/CatalogoPersonalizado/CatalogoPersonalizado.js"                
+                "~/Scripts/PortalConsultoras/CatalogoPersonalizado/CatalogoPersonalizado.js",
+                "~/Scripts/PortalConsultoras/Bienvenida/Estrategia.js"
                 ));
 
             bundles.Add(new ScriptBundle("~/bundles/JsSB2-Pedido").Include(
                 "~/Scripts/PortalConsultoras/Pedido/Index.js",
                 "~/Scripts/PortalConsultoras/Pedido/barra.js",
-                "~/Scripts/PortalConsultoras/Pedido/ofertafinal.js"
+                "~/Scripts/PortalConsultoras/Pedido/ofertafinal.js",
+                "~/Scripts/PortalConsultoras/Bienvenida/Estrategia.js"
                 ));
 
             #endregion

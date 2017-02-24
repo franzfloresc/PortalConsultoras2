@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Runtime.Serialization;
+﻿using Portal.Consultoras.Common;
+using System;
 using System.Data;
-using Portal.Consultoras.Common;
-
+using System.Runtime.Serialization;
 
 namespace Portal.Consultoras.Entities
 {
@@ -151,7 +146,9 @@ namespace Portal.Consultoras.Entities
         public string CodigoSAP { get; set; }
         [DataMember]
         public int  EnMatrizComercial { get; set; }
-         
+        [DataMember]
+        public string CodigoEstrategia { get; set; }
+
         //[DataMember]
         //public string CodigoSAP { get; set; }
         
@@ -318,9 +315,12 @@ namespace Portal.Consultoras.Entities
 
             if (DataRecord.HasColumn(row, "CodigoSAP") && row["CodigoSAP"] != DBNull.Value)
                 CodigoSAP = row["CodigoSAP"].ToString().Trim();
-            
+
             if (DataRecord.HasColumn(row, "EnMatrizComercial") && row["EnMatrizComercial"] != DBNull.Value)
                 EnMatrizComercial = Convert.ToInt32(row["EnMatrizComercial"]); 
+
+            if (DataRecord.HasColumn(row, "CodigoEstrategia") && row["CodigoEstrategia"] != DBNull.Value)
+                CodigoEstrategia = Convert.ToString(row["CodigoEstrategia"]);
         }
     }
     // 1747 - Inicio

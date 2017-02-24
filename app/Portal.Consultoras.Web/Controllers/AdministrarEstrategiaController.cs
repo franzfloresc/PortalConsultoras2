@@ -1,20 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using Portal.Consultoras.Web.ServiceZonificacion;
-using Portal.Consultoras.Web.ServiceSAC;
-using Portal.Consultoras.Web.ServicePedido;
+﻿using AutoMapper;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
-using AutoMapper;
-using System.ServiceModel;
-using System.Web.Script.Serialization;
-using System.Web.UI.WebControls;
 using Portal.Consultoras.Web.ServiceGestionWebPROL;
+using Portal.Consultoras.Web.ServicePedido;
+using Portal.Consultoras.Web.ServiceSAC;
+using Portal.Consultoras.Web.ServiceZonificacion;
+using System;
+using System.Collections.Generic;
 using System.IO;
-using System.Drawing;
+using System.Linq;
+using System.ServiceModel;
+using System.Web.Mvc;
+using System.Web.UI.WebControls;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -199,6 +196,8 @@ namespace Portal.Consultoras.Web.Controllers
         public ActionResult Consultar(string sidx, string sord, int page, int rows, string CampaniaID,
             string TipoEstrategiaID, string CUV, string Consulta, int Imagen, int Activo)
         {
+            try
+            {
             if (ModelState.IsValid)
             {
                 List<BEEstrategia> lst;
@@ -270,6 +269,11 @@ namespace Portal.Consultoras.Web.Controllers
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
             return RedirectToAction("Index", "AdministrarEstrategia");
+        }
+            catch (Exception ex)
+            {
+                return RedirectToAction("Index", "AdministrarEstrategia");
+            }
         }
 
         [HttpGet]
@@ -544,7 +548,7 @@ namespace Portal.Consultoras.Web.Controllers
                     precio = lst[0].PrecioUnitario.ToString();
                     codigoSAP = lst[0].CodigoSAP.ToString();
                     enMatrizComercial = lst[0].EnMatrizComercial.ToInt();
-                    wsprecio = wspreciopack.ToString();                    
+                    wsprecio = wspreciopack.ToString();
                     imagen1 = ConfigS3.GetUrlFileS3(carpetaPais, lst[0].FotoProducto01, Globals.RutaImagenesMatriz + "/" + userData.CodigoISO);
                     imagen2 = ConfigS3.GetUrlFileS3(carpetaPais, lst[0].FotoProducto02, Globals.RutaImagenesMatriz + "/" + userData.CodigoISO);
                     imagen3 = ConfigS3.GetUrlFileS3(carpetaPais, lst[0].FotoProducto03, Globals.RutaImagenesMatriz + "/" + userData.CodigoISO);
@@ -599,22 +603,20 @@ namespace Portal.Consultoras.Web.Controllers
              string Precio, string FlagCEP, string CUV2, string EtiquetaID2,
              string Precio2, string FlagCEP2, string TextoLibre, string FlagTextoLibre,
              string Cantidad, string FlagCantidad, string Zona, string Orden,
-             string ColorFondo, string FlagEstrella
+             string ColorFondo, string FlagEstrella, string CodigoTipoEstrategia
             )
         {
             int resultado = 0;
+            int OrdenEstrategia = (!string.IsNullOrEmpty(Orden) ? Convert.ToInt32(Orden) : 0);     /* SB20-312 */
 
             try
             {
-                if (string.IsNullOrEmpty(NumeroPedido))
-                {
                     BEEstrategia entidad = new BEEstrategia();
                     entidad.PaisID = UserData().PaisID;
                     entidad.EstrategiaID = (EstrategiaID != "") ? Convert.ToInt32(EstrategiaID) : 0;
                     entidad.TipoEstrategiaID = (TipoEstrategiaID != "") ? Convert.ToInt32(TipoEstrategiaID) : 0;
                     entidad.CampaniaID = (CampaniaID != "") ? Convert.ToInt32(CampaniaID) : 0;
                     entidad.CampaniaIDFin = (CampaniaIDFin != "") ? Convert.ToInt32(CampaniaIDFin) : 0;
-                    entidad.NumeroPedido = (NumeroPedido != "") ? Convert.ToInt32(NumeroPedido) : 0;
                     entidad.Activo = Convert.ToInt32(Activo);
                     entidad.ImagenURL = ImagenURL;
                     entidad.LimiteVenta = (LimiteVenta != "") ? Convert.ToInt32(LimiteVenta) : 0;
@@ -633,64 +635,95 @@ namespace Portal.Consultoras.Web.Controllers
                     entidad.Cantidad = (Cantidad != "") ? Convert.ToInt32(Cantidad) : 0;
                     entidad.FlagCantidad = Convert.ToInt32(FlagCantidad);
                     entidad.Zona = Zona;
-                    //entidad.Orden = Convert.ToInt32(Orden);
-                    entidad.Orden = (!string.IsNullOrEmpty(Orden) ? Convert.ToInt32(Orden) : 0);     /* SB20-312 */
+                entidad.Orden = OrdenEstrategia;
                     entidad.UsuarioCreacion = UserData().CodigoUsuario;
                     entidad.UsuarioModificacion = UserData().CodigoUsuario;
                     entidad.ColorFondo = ColorFondo;
                     entidad.FlagEstrella = (FlagEstrella != "") ? Convert.ToInt32(FlagEstrella) : 0;
 
-                    using (PedidoServiceClient sv = new PedidoServiceClient())
+                var respuestaServiceCdr = new List<RptProductoEstrategia>();
+
+                if (entidad.Activo == 1 && CodigoTipoEstrategia == Constantes.TipoEstrategiaCodigo.OfertaParaTi)
                     {
-                        resultado = sv.InsertarEstrategia(entidad);
+                    try
+                    {
+                        short id = 98;
+                        var getProductosConfigura = (List<BETablaLogicaDatos>)Session[Constantes.ConstSession.TablaLogicaDatos + id.ToString()];
+                        if (getProductosConfigura == null)
+                        {
+                            getProductosConfigura = new List<BETablaLogicaDatos>();
+                            using (SACServiceClient sv = new SACServiceClient())
+                            {
+                                getProductosConfigura = sv.GetTablaLogicaDatos(userData.PaisID, id).ToList();
+                            }
+                            getProductosConfigura = getProductosConfigura ?? new List<BETablaLogicaDatos>();
+                            Session[Constantes.ConstSession.TablaLogicaDatos + id.ToString()] = getProductosConfigura;
+                        }
+
+                        if (getProductosConfigura.Any())
+                        {
+                            var valida = getProductosConfigura.Find(d => d.TablaLogicaDatosID == 9802) ?? new BETablaLogicaDatos();
+                            if (Convert.ToInt32(valida.Codigo) <= entidad.CampaniaID)
+                            {
+                                using (WsGestionWeb sv = new WsGestionWeb())
+                                {
+                                    respuestaServiceCdr = sv.GetEstrategiaProducto(entidad.CampaniaID.ToString(), userData.CodigoConsultora, entidad.CUV2, userData.CodigoISO).ToList();
+                                }
+
+                                respuestaServiceCdr = respuestaServiceCdr ?? new List<RptProductoEstrategia>();
+                            }
+                        }
+                    }
+                    catch (Exception)
+                    {
+                        respuestaServiceCdr = new List<RptProductoEstrategia>();
                     }
                 }
-                else
+
+                if (respuestaServiceCdr.Any())
                 {
+                    entidad.CodigoEstrategia = respuestaServiceCdr[0].codigo_estrategia;
+                }
+
+                if (string.IsNullOrEmpty(NumeroPedido))
+                    NumeroPedido = "0";
+
                     List<int> NumeroPedidosAsociados = NumeroPedido.Split(',').Select(Int32.Parse).ToList();
-                    //int OrdenEstrategia = Convert.ToInt32(Orden);
-                    int OrdenEstrategia = (!string.IsNullOrEmpty(Orden) ? Convert.ToInt32(Orden) : 0);     /* SB20-312 */
 
                     foreach (int item in NumeroPedidosAsociados) /*R20160301*/
                     {
-                        BEEstrategia entidad = new BEEstrategia();
-                        entidad.PaisID = UserData().PaisID;
-                        entidad.EstrategiaID = (EstrategiaID != "") ? Convert.ToInt32(EstrategiaID) : 0;
-                        entidad.TipoEstrategiaID = (TipoEstrategiaID != "") ? Convert.ToInt32(TipoEstrategiaID) : 0;
-                        entidad.CampaniaID = (CampaniaID != "") ? Convert.ToInt32(CampaniaID) : 0;
-                        entidad.CampaniaIDFin = (CampaniaIDFin != "") ? Convert.ToInt32(CampaniaIDFin) : 0;
-                        entidad.NumeroPedido = item; //(NumeroPedido != "") ? Convert.ToInt32(NumeroPedido) : 0;
-                        entidad.Activo = Convert.ToInt32(Activo);
-                        entidad.ImagenURL = ImagenURL;
-                        entidad.LimiteVenta = (LimiteVenta != "") ? Convert.ToInt32(LimiteVenta) : 0;
-                        entidad.DescripcionCUV2 = DescripcionCUV2;
-                        entidad.FlagDescripcion = Convert.ToInt32(FlagDescripcion);
-                        entidad.CUV1 = CUV;
-                        entidad.EtiquetaID = (EtiquetaID != "") ? Convert.ToInt32(EtiquetaID) : 0;
-                        entidad.Precio = (Precio != "") ? Convert.ToDecimal(Precio) : 0;
-                        entidad.FlagCEP = Convert.ToInt32(FlagCEP);
-                        entidad.CUV2 = CUV2;
-                        entidad.EtiquetaID2 = (EtiquetaID2 != "") ? Convert.ToInt32(EtiquetaID2) : 0;
-                        entidad.Precio2 = (Precio2 != "") ? Convert.ToDecimal(Precio2) : 0;
-                        entidad.FlagCEP2 = Convert.ToInt32(FlagCEP2);
-                        entidad.TextoLibre = TextoLibre;
-                        entidad.FlagTextoLibre = Convert.ToInt32(FlagTextoLibre);
-                        entidad.Cantidad = (Cantidad != "") ? Convert.ToInt32(Cantidad) : 0;
-                        entidad.FlagCantidad = Convert.ToInt32(FlagCantidad);
-                        entidad.Zona = Zona;
-                        entidad.Orden = OrdenEstrategia;
-                        entidad.UsuarioCreacion = UserData().CodigoUsuario;
-                        entidad.UsuarioModificacion = UserData().CodigoUsuario;
-                        entidad.ColorFondo = ColorFondo;
-                        entidad.FlagEstrella = (FlagEstrella != "") ? Convert.ToInt32(FlagEstrella) : 0;
+                    entidad.NumeroPedido = item;
+                    using (PedidoServiceClient sv = new PedidoServiceClient())
+                    {
+                        entidad.EstrategiaID = sv.InsertarEstrategia(entidad);
+                    }
+                }
+
+                foreach (var producto in respuestaServiceCdr)
+                {
+                    var entidadPro = new BEEstrategiaProducto();
+                    entidadPro.PaisID = entidad.PaisID;
+                    entidadPro.EstrategiaID = entidad.EstrategiaID;
+                    entidadPro.Campania = entidad.CampaniaID;
+                    entidadPro.CUV = producto.cuv;
+                    entidadPro.Grupo = producto.grupo;
+                    entidadPro.Orden = producto.orden;
+                    entidadPro.CUV2 = entidad.CUV2;
+                    entidadPro.SAP = producto.codigo_sap;
+                    entidadPro.Cantidad = producto.cantidad;
+                    entidadPro.Precio = producto.precio_unitario;
+                    entidadPro.PrecioValorizado = producto.precio_valorizado;
+                    entidadPro.Digitable = producto.digitable;
+                    entidadPro.CodigoEstrategia = producto.codigo_estrategia;
+                    entidadPro.CodigoError = producto.codigo_error;
+                    entidadPro.CodigoErrorObs = producto.obs_error;
 
                         using (PedidoServiceClient sv = new PedidoServiceClient())
                         {
-                            resultado = sv.InsertarEstrategia(entidad);
-                        }
-                        // OrdenEstrategia++;
+                        entidadPro.EstrategiaProductoID = sv.InsertarEstrategiaProducto(entidadPro);
                     }
                 }
+
                 return Json(new
                 {
                     success = true,
