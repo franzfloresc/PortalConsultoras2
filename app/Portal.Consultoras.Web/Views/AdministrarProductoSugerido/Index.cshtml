@@ -520,6 +520,11 @@
                 closeWaitingDialog();
                 return false;
             }
+            if (data.success != true) {
+                closeWaitingDialog();
+                alert(data.message);
+                return false;
+            }
             
             $(".divPanelImagen img").attr("src", imageUrlVacio);
             $(".chkImagenProducto").prop('checked', false);
@@ -678,6 +683,12 @@
                     closeWaitingDialog();
                     return false;
                 }
+                if (data.success != true) {
+                    closeWaitingDialog();
+                    alert(data.message);
+                    return false;
+                }
+
                 // cargar datos
                 $('#hdIdSugerido').val(jQuery("#list").jqGrid('getCell', rowPk, 'ProductoSugeridoID'));
                 $('#ddlCampaniaModal').val(jQuery("#list").jqGrid('getCell', rowPk, 'CampaniaID'));
