@@ -136,7 +136,7 @@
     @if (ViewBag.MostrarBannerTopPL20 == true)
     {
         <div id="flexslidertop" class="header_slider" style="overflow:hidden;">
-            <a class="btn_cerrar_oferta_mobile" href="javascript:;" onclick="javascript: $('.header_slider').slideUp();">X</a>
+            <a id="btn_cerrar_oferta_mobile" class="btn_cerrar_oferta_mobile">X</a>
             <ul class="slides">
                 <li>
                     <!--OFERTA DEL DIA HEADER-->
@@ -148,7 +148,6 @@
                             </div>
                             <div class="imagen_set_oferta_mobile" style="float:right;width:78px; margin-right:20px;"><img style="width:83%;" src="@ofertaDelDia.ImagenBanner" alt="Solo Hoy" /></div>
                             <hr class="clear" />
-
                             <input type="hidden" id="tipoestrategia-id-odd" value="@ofertaDelDia.TipoEstrategiaID" />
                             <input type="hidden" id="marca-id-odd" value="@ofertaDelDia.MarcaID" />
                             <input type="hidden" id="cuv2-odd" value="@ofertaDelDia.CUV2" />
@@ -162,20 +161,25 @@
                     </div>
                     <!--FIN-->
                 </li>
-                <li>
-                    <a href="@Url.Action("Intriga", "ShowRoom", new {area = "Mobile"})">
-                        <div class="content_banner_header_showroom">
-                            <div class="faltan_dias_header">FALTAN <b>@ViewBag.DiasFaltantesLetras</b></div>
-                            <img src="@ViewBag.ImagenBannerShowroomIntriga" alt="Solo Hoy" />
-                        </div>
-                    </a>
-                        
-</li>
+                @if (ViewBag.MostrarShowRoomBannerLateral == true)
+                {
+                    <li>
+                        <a href="@Url.Action("Intriga", "ShowRoom", new {area = "Mobile"})">
+                            <div class="content_banner_header_showroom">
+                            <div class="content_titulo"><div class="titulo_intriga">GRAN VENTA ONLINE</div></div>
+                           
+                                <div class="faltan_dias_header"><b>@ViewBag.DiasFaltantesLetras</b></div>
+                                <img src="@ViewBag.ImagenBannerShowroomIntriga" alt="Solo Hoy" />
+                            </div>
+                        </a>
+
+                    </li>
+                }
             </ul>
         </div>
     }
         
-        <div id="bloquemensajesPedido" style="display:none;">
+                <div id="bloquemensajesPedido" style="display:none;">
                     <div class="oscurecer_animacion"></div>
                     <div class="bloque_mensajesPedido">
                         <div class="icono_cerrar_mensaje">
@@ -200,7 +204,7 @@
                     </div>
                 </div>
 
-        <div class="container-fluid" style="padding-top:9px; padding-bottom:9px;">
+                <div class="container-fluid" style="padding-top:9px; padding-bottom:9px;">
                     <div class="row">
                         <div class="col-xs-4">
                             <img src="@Url.Content("~/Content/Images/mobile/Esika/icon_menu.png")" id="ic_menu" class="icon-menu" alt="Menú" />
@@ -290,40 +294,15 @@
                                 <div id="divShowRoomHoy" class="divShowRoom">
                                     <input type="hidden" id="hdEventoIDShowRoom" value="@showRoomBannerLateral.BEShowRoom.EventoID" />
                                     <input type="hidden" id="hdNombreEventoShowRoom" value="@showRoomBannerLateral.BEShowRoom.Tema" />
-                                    @*<div class="imagen_preventa">
-                                        <div class="etiqueta_2">
-                                            <img src="@Url.Content("~/Content/Images/mobile/img-showroom/etiqueta_2.png")" alt="-" />
-                                        </div>
-                                        <div class="titulo_contador_m">
-                                            <span id="spnPreventaDigitalHoy">@showRoomBannerLateral.BEShowRoom.Nombre</span>
-                                        </div>
-                                    </div>*@
                                         <div class="fondo_m">
                                             <a href="@Url.Action("Index", "ShowRoom", new {area = "Mobile"})">
                                                 <div class="content_banner_new_showroom">
-                                                    <div class="dias_faltantes">FALTAN <span id="spnDiasFaltantes">@ViewBag.DiasFaltantesLetras </span> </div>
-
+                                                    <div class="dias_faltantes"><span id="spnDiasFaltantes">@ViewBag.DiasFaltantesLetras </span> </div>
                                                     <img style="width:100%;height:100%;" src="@Url.Content("~/Content/Images/mobile/img-showroom/banner_intriga_new_showroom.png")" alt="-" />
                                                 </div>
                                             </a>
                                         </div>
-                                        @*<div class="fondo_white" style="height:80px; overflow:hidden">
-                                            <div class="content_banner_new_showroom">
-                                                <div style="text-align: center;">
-                                                    <a id="lnkConoceMasShowRoomBannerLateralImagenHoy" class="content_imagen_slider_showroom" href="@Url.Action("Index", "ShowRoom", new { area = "Mobile" })">
-                                                        
-                                                        <img id="imgVentaSetPopupBannerHoy" alt="imgVentaSetPopupBannerHoy" src="@showRoomBannerLateral.BEShowRoom.ImagenVentaSetPopup" />
-                                                        
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </div>*@
-                                        @*<div class="contenedor_encuentralos2">
-                <div class="row_contador">
-                    <a href="@Url.Action("Index", "ShowRoom", new { area = "Mobile" })" class="btn_encuentralos" id="lnkConoceMasShowRoomBannerLateralHoy">ENCUENTRALOS AQUI</a>
-                </div>
-            </div>*@
-                                    </div>
+                                </div>
                             </li>
                         }
                         else if(showRoomBannerLateral.MostrarShowRoomProductos == false)
@@ -332,29 +311,19 @@
                                 <div id="divShowRoom" class="divShowRoom">
                                     <input type="hidden" id="hdEventoIDShowRoom" value="@showRoomBannerLateral.BEShowRoom.EventoID" />
                                     <input type="hidden" id="hdNombreEventoShowRoom" value="@showRoomBannerLateral.BEShowRoom.Tema" />
-
-                                    @*<div class="imagen_preventa">
-                                        <div class="etiqueta_2">
-                                            <img src="@Url.Content("~/Content/Images/mobile/img-showroom/etiqueta_2.png")" alt="-" />
-                                        </div>
-                                        <div class="titulo_contador_m">
-                                          
-                                            <span id="spnPreventaDigital">@showRoomBannerLateral.BEShowRoom.Nombre</span>
-                                        </div>
-                                    </div>*@
                                     <div class="fondo_m">
                                         <a href="@Url.Action("Intriga", "ShowRoom", new {area = "Mobile"})">
                                             <div class="content_banner_new_showroom">
-                                                <div class="dias_faltantes">FALTAN <span id="spnDiasFaltantes">@ViewBag.DiasFaltantesLetras </span> </div>
+                                                <div class="dias_faltantes"><span id="spnDiasFaltantes">@ViewBag.DiasFaltantesLetras </span> </div>
                                                 <img style="width:100%;" src="@ViewBag.ImagenPopupShowroomIntriga" alt="-" />
                                             </div>
                                         </a>
                                      </div>
-                                        
-    </div>
+                                </div>
                             </li>
                         }
                     }
+
                     @if (ViewBag.MostrarOfertaDelDia == true)
                     {
                         <li>
@@ -370,9 +339,7 @@
                                         <div class="nombre_set_oferta_mobile">@ofertaDelDia.NombreOferta <br /><b> A SOLO @ViewBag.Simbolo @ofertaDelDia.PrecioOfertaFormat</b></div>
                                         <a class="btn_compralo_ahora" href="#">CÓMPRALO AHORA</a>
                                      </div>
-                                    
                                     <hr class="clear" />
-
                                     <input type="hidden" id="tipoestrategia-id-odd" value="@ofertaDelDia.TipoEstrategiaID" />
                                     <input type="hidden" id="marca-id-odd" value="@ofertaDelDia.MarcaID" />
                                     <input type="hidden" id="cuv2-odd" value="@ofertaDelDia.CUV2" />
@@ -665,6 +632,8 @@
 
         var sesionEsShowRoom = '@Session["EsShowRoom"]';
         var MostrarBannerPL20 = '@ViewBag.MostrarBannerPL20';
+        var MostrarBannerOtros = '@ViewBag.MostrarBannerOtros';
+        var EstadoActivo = '@ViewBag.EstadoActivo'
 
         var urlLogDynamo = '@System.Configuration.ConfigurationManager.AppSettings["UrlLogDynamo"]';
         var userData = {
@@ -688,7 +657,6 @@
                 var showRoomAnioFaltante = @showRoomBannerLateral.AnioFaltante;
                
                 function CargarShowRoom() {
-                    debugger;
                     if (mostrarShowRoomProductos == 'True') {
                         $("#lnkConoceMasShowRoomBannerLateralHoy, #lnkConoceMasShowRoomBannerLateralImagenHoy").click(function () {
                             AgregarTagManagerShowRoomBannerLateralConocesMas(true);
@@ -745,9 +713,7 @@
                 }
 
                 function AgregarTimerShowRoom(dia, mes, anio) {
-                    debugger;
                     var calcNewYear = setInterval(function () {
-                        debugger;
                         //date_future = new Date(new Date().getFullYear() + 1, 0, 1);
                         date_future = new Date(anio, mes - 1, dia);
                         date_now = new Date();
@@ -784,7 +750,6 @@
         if (ViewBag.MostrarOfertaDelDia == true)
         {
             <script type="text/javascript">
-               
                 function CargarEventosODD() {
                     $("#content_oferta_dia_mobile").click(function () {
                         $('#txtCantidad').val('1');
@@ -824,7 +789,6 @@
                 };
 
                 function addOfertaDelDiaPedido(popup){
-                    debugger;
                     var tipoEstrategiaID = $('#tipoestrategia-id-odd').val();
                     var estrategiaID = $('#estrategia-id-odd').val();
                     var flagNueva = $('#flag-nueva-odd').val();
@@ -1141,11 +1105,47 @@
                 $(popupClose).hide();
             });
 
-            if(MostrarBannerPL20) loadBannerLP20();
-            });
+            $("#btn_cerrar_oferta_mobile").click(function () {
+                $('.header_slider').slideUp();
+                $("#content").css({ 'margin-top': '63px' });
+            }); 
+
+
+            if(MostrarBannerPL20){
+                loadBannerLP20();
+            } 
+            if (EstadoActivo === '1') {
+                var URLactual = window.location.href;
+                
+
+                var urlBienvenida = URLactual.indexOf("Bienvenida");
+
+                if (urlBienvenida > 0){
+                    $("#content").css({ 'margin-top': '0px' });
+                }else{
+                    $("#content").css({ 'margin-top': '63px' });
+                    //if (urlPagina > 0){
+                    //    $("#content").css({ 'margin-top': '123px' });
+                    //}else{
+                    //    $("#content").css({ 'margin-top': '63px' });
+                    //}
+                }
+              
+                
+                
+            }else{
+                var URLactual = window.location.href;
+                var urlPagina = URLactual.indexOf("Cliente");
+                $("#content").css({ 'margin-top': '123px' });
+            }
+            
+
+           
+        });
+
+       
 
         function loadBannerLP20() {
-            debugger;
             if(typeof CargarShowRoom !== 'undefined' && $.isFunction(CargarShowRoom)) CargarShowRoom();
             if(typeof CargarEventosODD !== 'undefined' && $.isFunction(CargarEventosODD)) CargarEventosODD();
 
@@ -1172,49 +1172,10 @@
                 $('#flexslider').flexslider({ 
                     animation: "slide",
                     pauseOnAction: false,
+                    animationSpeed: 1200,
                     //pausePlay: true 
                 });
 
-
-                //var url = location.href.toLowerCase();
-                //var identi = url.indexOf("/mobile/bienvenida") > 0;
-                //if (identi){
-                //    $('#flexslidertop').css("display","none");
-                //}
-
-                //var identisegped = url.indexOf("/mobile/seguimientopedido") > 0;
-                //if (identisegped){
-                //    $('#flexslidertop').flexslider({ 
-                //        animation: "slide",
-                //        pauseOnAction: false,
-                //        //pausePlay: true 
-                //    });
-
-                //    $('#flexslider').css("display","none");
-                //}
-
-                //var indeticli = url.indexOf("/mobile/cliente") > 0;
-                //if (indeticli){
-                //    $('#flexslidertop').flexslider({ 
-                //        animation: "slide",
-                //        pauseOnAction: false,
-                //        //pausePlay: true 
-                //    });
-
-                //    $('#flexslider').css("display","none");
-                //}
-
-                //var indetiestado = url.indexOf("/mobile/estadocuenta") > 0;
-                //if (indetiestado){
-                //    $('#flexslidertop').flexslider({ 
-                //        animation: "slide",
-                //        pauseOnAction: false,
-                //        //pausePlay: true 
-                //    });
-                //    $('#flexslider').css("display","none");
-                //}
-
-             
             }else{
                 var url = location.href.toLowerCase();
                 //var identi = url.indexOf("/mobile/") > 0;
@@ -1227,6 +1188,7 @@
                 $('#flexslidertop').flexslider({ 
                     animation: "fade",
                     pauseOnAction: false,
+                    animationSpeed: 1200,
                     //pausePlay: true 
                 });
             }

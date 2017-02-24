@@ -20,32 +20,72 @@ namespace Portal.Consultoras.Web.Controllers
     {
         public ActionResult Intriga()
         {
+            var showRoomEvento = new BEShowRoomEvento();
+            var showRoomEventoConsultora = new BEShowRoomEventoConsultora();
+
+            if (!userData.CargoEntidadesShowRoom) throw new Exception("Ocurrió un error al intentar traer la información de los evento y consultora de ShowRoom.");
+            showRoomEventoConsultora = userData.BeShowRoomConsultora;
+            showRoomEvento = userData.BeShowRoom;
+
+            if (showRoomEvento == null || showRoomEventoConsultora == null)
+            {
+                return RedirectToAction("Index", "Bienvenida");
+            }
+
             var model = new ShowRoomOfertaModel();
 
-            var listaShowRoomOferta = new List<BEShowRoomOferta>();
-            var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
-
-            using (PedidoServiceClient sv = new PedidoServiceClient())
+            if (showRoomEvento.Estado == 1)
             {
-                var CodigoConsultora = userData.UsuarioPrueba == 1 ? userData.CodigoConsultora.ToString() : userData.CodigoConsultora.ToString();
-                listaShowRoomOferta = sv.GetShowRoomOfertasConsultora(userData.PaisID, userData.CampaniaID, CodigoConsultora).ToList();
-            }
+                var fechaHoy = DateTime.Now.AddHours(userData.ZonaHoraria).Date;
+                if (fechaHoy >= userData.FechaInicioCampania.AddDays(-showRoomEvento.DiasAntes).Date
+                    && fechaHoy <= userData.FechaInicioCampania.AddDays(showRoomEvento.DiasDespues).Date)
+                {
+                    return RedirectToAction("Index", "ShowRoom");
+                }
 
-            if (listaShowRoomOferta.Any())
+                ViewBag.DiasFaltan = userData.FechaInicioCampania.AddDays(-showRoomEvento.DiasAntes).Day - fechaHoy.Day;
+                if (ViewBag.DiasFaltan <= 0)
+                {
+                    return RedirectToAction("Index", "Bienvenida");
+                }
+
+                var listaShowRoomOferta = new List<BEShowRoomOferta>();
+                var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
+
+                using (PedidoServiceClient sv = new PedidoServiceClient())
+                {
+                    var CodigoConsultora = userData.UsuarioPrueba == 1 ? userData.CodigoConsultora.ToString() : userData.CodigoConsultora.ToString();
+                    listaShowRoomOferta = sv.GetShowRoomOfertasConsultora(userData.PaisID, userData.CampaniaID, CodigoConsultora).ToList();
+                }
+
+                if (listaShowRoomOferta.Any())
+                {
+                    listaShowRoomOferta.Update(x => x.ImagenProducto = string.IsNullOrEmpty(x.ImagenProducto)
+                        ? "" : ConfigS3.GetUrlFileS3(carpetaPais, x.ImagenProducto, Globals.UrlMatriz + "/" + userData.CodigoISO));
+                    listaShowRoomOferta.Update(x => x.ImagenMini = string.IsNullOrEmpty(x.ImagenMini)
+                        ? "" : ConfigS3.GetUrlFileS3(carpetaPais, x.ImagenMini, Globals.UrlMatriz + "/" + userData.CodigoISO));
+
+                    var listaShowRoomOfertaModel = Mapper.Map<List<BEShowRoomOferta>, List<ShowRoomOfertaModel>>(listaShowRoomOferta);
+                    model = listaShowRoomOfertaModel.FirstOrDefault();
+                }
+
+                model.CodigoISO = userData.CodigoISO;
+
+                var lstPersonalizacion = userData.ListaShowRoomPersonalizacionConsultora.Where(x => x.TipoAplicacion == "Desktop").ToList();
+                ViewBag.urlImagenPopupIntriga = string.Empty;
+                ViewBag.urlTerminosyCondiciones = string.Empty;
+
+                foreach (var item in lstPersonalizacion)
+                {
+                    if (item.Atributo == "BannerImagenIntriga") ViewBag.urlImagenPopupIntriga = item.Valor;
+                    if (item.Atributo == "UrlTerminosCondiciones") ViewBag.urlTerminosyCondiciones = item.Valor;
+                }
+            }
+            else
             {
-                listaShowRoomOferta.Update(x => x.ImagenProducto = string.IsNullOrEmpty(x.ImagenProducto) 
-                    ? "" : ConfigS3.GetUrlFileS3(carpetaPais, x.ImagenProducto, Globals.UrlMatriz + "/" + userData.CodigoISO));
-                listaShowRoomOferta.Update(x => x.ImagenMini = string.IsNullOrEmpty(x.ImagenMini) 
-                    ? "" : ConfigS3.GetUrlFileS3(carpetaPais, x.ImagenMini, Globals.UrlMatriz + "/" + userData.CodigoISO));
-
-                var listaShowRoomOfertaModel = Mapper.Map<List<BEShowRoomOferta>, List<ShowRoomOfertaModel>>(listaShowRoomOferta);
-                model = listaShowRoomOfertaModel.FirstOrDefault();
+                return RedirectToAction("Index", "Bienvenida");
             }
-
-            var fechaHoy = DateTime.Now.AddHours(userData.ZonaHoraria).Date;
-            ViewBag.DiasFaltan = userData.FechaInicioCampania.AddDays(-userData.BeShowRoom.DiasAntes).Day - fechaHoy.Day;
-            model.CodigoISO = userData.CodigoISO;
-
+            
             return View(model);
         }
 

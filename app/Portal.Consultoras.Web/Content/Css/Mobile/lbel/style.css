@@ -10266,3 +10266,20 @@ span.icon-advertencia{
     background-position: 5px 14px;
 
 }
+.content_titulo{
+    position:absolute;
+    top:5px;
+    width:100%;
+    text-align:center;
+}
+.titulo_intriga{    
+    color:white;
+    font-family:'LAto';
+    font-size:11px;
+    /*top:20px;*/
+    border-top:1px solid white;
+    border-bottom:1px solid white;
+    display:inline-block;
+    padding-top:1px;
+    padding-bottom:1px;
+}
