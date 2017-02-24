@@ -25,6 +25,12 @@
   <wsdl:message name="IZonificacionService_SelectPaises_OutputMessage">
     <wsdl:part name="parameters" element="tns:SelectPaisesResponse" />
   </wsdl:message>
+  <wsdl:message name="IZonificacionService_GetPaisNumeroCampaniasByPaisID_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetPaisNumeroCampaniasByPaisID" />
+  </wsdl:message>
+  <wsdl:message name="IZonificacionService_GetPaisNumeroCampaniasByPaisID_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetPaisNumeroCampaniasByPaisIDResponse" />
+  </wsdl:message>
   <wsdl:message name="IZonificacionService_SelectCampanias_InputMessage">
     <wsdl:part name="parameters" element="tns:SelectCampanias" />
   </wsdl:message>
@@ -188,6 +194,10 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IZonificacionService/SelectPaises" message="tns:IZonificacionService_SelectPaises_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IZonificacionService/SelectPaisesResponse" message="tns:IZonificacionService_SelectPaises_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="GetPaisNumeroCampaniasByPaisID">
+      <wsdl:input wsaw:Action="http://tempuri.org/IZonificacionService/GetPaisNumeroCampaniasByPaisID" message="tns:IZonificacionService_GetPaisNumeroCampaniasByPaisID_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IZonificacionService/GetPaisNumeroCampaniasByPaisIDResponse" message="tns:IZonificacionService_GetPaisNumeroCampaniasByPaisID_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="SelectCampanias">
       <wsdl:input wsaw:Action="http://tempuri.org/IZonificacionService/SelectCampanias" message="tns:IZonificacionService_SelectCampanias_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IZonificacionService/SelectCampaniasResponse" message="tns:IZonificacionService_SelectCampanias_OutputMessage" />
@@ -311,6 +321,15 @@
     </wsdl:operation>
     <wsdl:operation name="SelectPaises">
       <soap:operation soapAction="http://tempuri.org/IZonificacionService/SelectPaises" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPaisNumeroCampaniasByPaisID">
+      <soap:operation soapAction="http://tempuri.org/IZonificacionService/GetPaisNumeroCampaniasByPaisID" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

@@ -160,9 +160,6 @@ namespace Portal.Consultoras.Web.ServiceZonificacion {
         private string NombreCortoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int NroCampaniasField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int PaisIDField;
         
         [global::System.ComponentModel.BrowsableAttribute(false)]
@@ -223,19 +220,6 @@ namespace Portal.Consultoras.Web.ServiceZonificacion {
                 if ((object.ReferenceEquals(this.NombreCortoField, value) != true)) {
                     this.NombreCortoField = value;
                     this.RaisePropertyChanged("NombreCorto");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int NroCampanias {
-            get {
-                return this.NroCampaniasField;
-            }
-            set {
-                if ((this.NroCampaniasField.Equals(value) != true)) {
-                    this.NroCampaniasField = value;
-                    this.RaisePropertyChanged("NroCampanias");
                 }
             }
         }
@@ -1125,6 +1109,12 @@ namespace Portal.Consultoras.Web.ServiceZonificacion {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IZonificacionService/SelectPaises", ReplyAction="http://tempuri.org/IZonificacionService/SelectPaisesResponse")]
         System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceZonificacion.BEPais[]> SelectPaisesAsync();
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IZonificacionService/GetPaisNumeroCampaniasByPaisID", ReplyAction="http://tempuri.org/IZonificacionService/GetPaisNumeroCampaniasByPaisIDResponse")]
+        int GetPaisNumeroCampaniasByPaisID(int paisID);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IZonificacionService/GetPaisNumeroCampaniasByPaisID", ReplyAction="http://tempuri.org/IZonificacionService/GetPaisNumeroCampaniasByPaisIDResponse")]
+        System.Threading.Tasks.Task<int> GetPaisNumeroCampaniasByPaisIDAsync(int paisID);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IZonificacionService/SelectCampanias", ReplyAction="http://tempuri.org/IZonificacionService/SelectCampaniasResponse")]
         Portal.Consultoras.Web.ServiceZonificacion.BECampania[] SelectCampanias(int paisID);
         
@@ -1325,6 +1315,14 @@ namespace Portal.Consultoras.Web.ServiceZonificacion {
         
         public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceZonificacion.BEPais[]> SelectPaisesAsync() {
             return base.Channel.SelectPaisesAsync();
+        }
+        
+        public int GetPaisNumeroCampaniasByPaisID(int paisID) {
+            return base.Channel.GetPaisNumeroCampaniasByPaisID(paisID);
+        }
+        
+        public System.Threading.Tasks.Task<int> GetPaisNumeroCampaniasByPaisIDAsync(int paisID) {
+            return base.Channel.GetPaisNumeroCampaniasByPaisIDAsync(paisID);
         }
         
         public Portal.Consultoras.Web.ServiceZonificacion.BECampania[] SelectCampanias(int paisID) {
