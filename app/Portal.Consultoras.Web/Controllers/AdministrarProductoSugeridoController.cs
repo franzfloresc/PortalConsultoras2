@@ -211,20 +211,20 @@ namespace Portal.Consultoras.Web.Controllers
                        }
             };
             return Json(data, JsonRequestBehavior.AllowGet);
-
-
         }
 
         public JsonResult ObtenerImagenesByCUV(int paisID, int campaniaID, string cuv)
         {
-            var userData = UserData();
             BEPais pais = new BEPais();
-            List<BEMatrizComercial> lst = new List<BEMatrizComercial>();
-
+            int nroCampanias = -1;
             using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
             {
                 pais = sv.SelectPais(paisID);
+                nroCampanias = sv.GetPaisNumeroCampaniasByPaisID(paisID);
             }
+            if(nroCampanias == -1) return Json(new { success = false, message = "Ocurrió un error al intentar cargar las imágenes del CUV" }, JsonRequestBehavior.AllowGet);
+
+            List<BEMatrizComercial> lst = new List<BEMatrizComercial>();
             using (PedidoServiceClient sv = new PedidoServiceClient())
             {
                 lst = sv.GetImagenesByCUV(paisID, campaniaID, cuv).ToList();
@@ -233,8 +233,8 @@ namespace Portal.Consultoras.Web.Controllers
             List<MatrizComercialResultadoModel> modelList = Mapper.Map<List<MatrizComercialResultadoModel>>(lst);
             if (modelList != null && modelList.Count > 0)
             {
-                string carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
-                string carpetaAnterior = Globals.RutaImagenesMatriz + "/" + userData.CodigoISO;
+                string carpetaPais = Globals.UrlMatriz + "/" + pais.CodigoISO;
+                string carpetaAnterior = Globals.RutaImagenesMatriz + "/" + pais.CodigoISO;
 
                 modelList[0].FotoProducto01 = ConfigS3.GetUrlFileS3(carpetaPais, modelList[0].FotoProducto01, carpetaAnterior);
                 modelList[0].FotoProducto02 = ConfigS3.GetUrlFileS3(carpetaPais, modelList[0].FotoProducto02, carpetaAnterior);
@@ -248,9 +248,9 @@ namespace Portal.Consultoras.Web.Controllers
                 modelList[0].FotoProducto10 = ConfigS3.GetUrlFileS3(carpetaPais, modelList[0].FotoProducto10, carpetaAnterior);
 
                 string paisesCCC = ConfigurationManager.AppSettings["Permisos_CCC"] ?? "";
-                if(paisesCCC.Contains(pais.CodigoISO)) modelList[0].FotoProductoAppCatalogo = ImagenAppCatalogo(campaniaID, lst[0].CodigoSAP, 3, pais.NroCampanias);
+                if(paisesCCC.Contains(pais.CodigoISO)) modelList[0].FotoProductoAppCatalogo = ImagenAppCatalogo(campaniaID, lst[0].CodigoSAP, 3, nroCampanias);
             }
-            return Json(new { lista = modelList }, JsonRequestBehavior.AllowGet);
+            return Json(new { success = true, lista = modelList }, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
