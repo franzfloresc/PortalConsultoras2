@@ -32,14 +32,10 @@ namespace Portal.Consultoras.Entities.ShowRoom
 
         [DataMember]
         [ViewProperty]
-        public int ConfiguracionOfertaID { get; set; }
+        public int ConfiguracionOfertaID { get; set; }        
 
         [DataMember]
-        [ViewProperty]
-        public string Descripcion { get; set; }
-
-        [DataMember]
-        public decimal PrecioOferta { get; set; }        
+        public decimal PrecioOferta { get; set; }
 
         [DataMember]
         [ViewProperty]
@@ -59,6 +55,9 @@ namespace Portal.Consultoras.Entities.ShowRoom
 
         [DataMember]
         public int UnidadesPermitidas { get; set; }
+
+        [DataMember]
+        public string Descripcion { get; set; }
 
         [DataMember]
         [ViewProperty]
@@ -136,6 +135,12 @@ namespace Portal.Consultoras.Entities.ShowRoom
         [ViewProperty]
         public int StockResultado { get; set; }
 
+        [DataMember]
+        public string CodigoCategoria { get; set; }
+
+        [DataMember]
+        public string TipNegocio { get; set; }
+
         public BEShowRoomOferta(IDataRecord row)
         {
             if (DataRecord.HasColumn(row, "OfertaShowRoomID") && row["OfertaShowRoomID"] != DBNull.Value)
@@ -192,7 +197,11 @@ namespace Portal.Consultoras.Entities.ShowRoom
             if (DataRecord.HasColumn(row, "CodigoProducto") && row["CodigoProducto"] != DBNull.Value)
                 CodigoProducto = Convert.ToString(row["CodigoProducto"]);
             if (DataRecord.HasColumn(row, "MarcaID") && row["MarcaID"] != DBNull.Value)
-                MarcaID = Convert.ToInt32(row["MarcaID"]);            
+                MarcaID = Convert.ToInt32(row["MarcaID"]);
+            if (DataRecord.HasColumn(row, "CodigoCategoria") && row["CodigoCategoria"] != DBNull.Value)
+                CodigoCategoria = Convert.ToString(row["CodigoCategoria"]);
+            if (DataRecord.HasColumn(row, "TipNegocio") && row["TipNegocio"] != DBNull.Value)
+                TipNegocio = Convert.ToString(row["TipNegocio"]);
         }
     }
 }

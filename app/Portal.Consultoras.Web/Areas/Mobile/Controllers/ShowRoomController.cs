@@ -31,7 +31,86 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         }
         public ActionResult Intriga()
         {
-            return View();
+            //Session[keyFechaGetCantidadProductos] = null;
+            //Session[keyCantidadGetCantidadProductos] = null;
+
+            var userData = UserData();
+            try
+            {
+                var model = new ShowRoomOfertaModel();
+
+                var listaShowRoomOferta = new List<BEShowRoomOferta>();
+                var carpetaPais = Globals.UrlMatriz + "/" + UserData().CodigoISO;
+                using (PedidoServiceClient sv = new PedidoServiceClient())
+                {
+                    listaShowRoomOferta = sv.GetShowRoomOfertasConsultora(userData.PaisID, userData.CampaniaID, userData.CodigoConsultora).ToList();
+                }
+
+                if (listaShowRoomOferta.Any())
+                {
+                    listaShowRoomOferta.Update(x => x.ImagenProducto = string.IsNullOrEmpty(x.ImagenProducto)
+                                    ? "" : ConfigS3.GetUrlFileS3(carpetaPais, x.ImagenProducto, Globals.UrlMatriz + "/" + userData.CodigoISO));
+                    listaShowRoomOferta.Update(x => x.ImagenMini = string.IsNullOrEmpty(x.ImagenMini)
+                                    ? "" : ConfigS3.GetUrlFileS3(carpetaPais, x.ImagenMini, Globals.UrlMatriz + "/" + userData.CodigoISO));
+
+                    var listaShowRoomOfertaModel = Mapper.Map<List<BEShowRoomOferta>, List<ShowRoomOfertaModel>>(listaShowRoomOferta);
+                 
+                    model = listaShowRoomOfertaModel.FirstOrDefault();
+
+                    ViewBag.Descripcion = model.Descripcion;
+                    ViewBag.ImagenProducto = model.ImagenProducto;
+                    ViewBag.PrecioOferta = model.PrecioOferta;
+                    ViewBag.PrecioCatalogo = model.PrecioCatalogo;
+                    ViewBag.CUV = model.CUV;
+                    ViewBag.CategoriaID = model.CategoriaID;
+                    ViewBag.ConfiguracionOfertaID = model.ConfiguracionOfertaID;
+                    ViewBag.DescripcionMarca = model.DescripcionMarca;
+                    ViewBag.MarcaID = model.MarcaID;
+                    ViewBag.CodigoCampania = model.CodigoCampania;
+                    ViewBag.Simbolo = userData.Simbolo;
+
+                    ShowRoomBannerLateralModel showRoomBannerLateral = GetShowRoomBannerLateral();
+                    var dateFuture = new DateTime(showRoomBannerLateral.AnioFaltante, showRoomBannerLateral.MesFaltante, showRoomBannerLateral.DiasFaltantes);
+                    DateTime dateNow = DateTime.Now;
+                    var seconds = Math.Floor((dateFuture - (dateNow)).TotalSeconds);
+                    var minutes = Math.Floor(seconds / 60);
+                    var hours = Math.Floor(minutes / 60);
+                    var days = Math.Floor(hours / 24);
+
+                    if (Convert.ToInt32(days) == 0 && hours > 0)
+                    {
+                        showRoomBannerLateral.DiasFaltantes = 1;
+                    }
+                    else
+                    {
+                        showRoomBannerLateral.DiasFaltantes = Convert.ToInt32(days);
+                    }
+
+                       // showRoomBannerLateral.DiasFaltantes = Convert.ToInt32(days);
+
+                    if (days > 1)
+                    {
+                        showRoomBannerLateral.LetrasDias = "FALTAN " + Convert.ToInt32(showRoomBannerLateral.DiasFaltantes).ToString() + " DÍAS";
+                    }
+                    else { showRoomBannerLateral.LetrasDias = "FALTA " + Convert.ToInt32(showRoomBannerLateral.DiasFaltantes).ToString() + " DÍA"; }
+
+                    ViewBag.LetrasDias = showRoomBannerLateral.LetrasDias;
+                    ViewBag.ImagenBannerShowroomIntriga = showRoomBannerLateral.ImagenBannerShowroomIntriga;
+
+                    var showRoomOfertaModel = model;
+
+                }
+
+                return model == null
+               ? (ActionResult)RedirectToAction("Index", "Bienvenida", new { area = "Mobile" })
+               : View(model);
+            }
+            catch (FaultException ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
+            }
+
+            return null;
         }
 
         public ActionResult ListadoProductoShowRoom(int id = 0)
@@ -44,6 +123,8 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 ? (ActionResult) RedirectToAction("Index", "Bienvenida", new {area = "Mobile"})
                 : View("ListadoProductoShowRoom", showRoomEventoModel);
         }
+
+    
 
         private ShowRoomEventoModel OfertaShowRoom()
         {

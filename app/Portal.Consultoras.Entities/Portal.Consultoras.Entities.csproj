@@ -166,6 +166,7 @@
     <Compile Include="BEProcesoPedidoRechazado.cs" />
     <Compile Include="BEProductoCompartido.cs" />
     <Compile Include="BEProductoSugerido.cs" />
+    <Compile Include="ShowRoom\BEShowRoomCategoria.cs" />
     <Compile Include="ShowRoom\BEShowRoomNivel.cs" />
     <Compile Include="ShowRoom\BEShowRoomOfertaDetalle.cs" />
     <Compile Include="ShowRoom\BEShowRoomOferta.cs" />

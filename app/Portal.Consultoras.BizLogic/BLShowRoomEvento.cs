@@ -364,12 +364,12 @@ namespace Portal.Consultoras.BizLogic
         }
 
         public IList<BEShowRoomPersonalizacionNivel> GetShowRoomPersonalizacionNivel(int paisId, int eventoId,
-            int nivelId)
+            int nivelId, int categoriaId)
         {
             var lst = new List<BEShowRoomPersonalizacionNivel>();
             var dataAccess = new DAShowRoomEvento(paisId);
 
-            using (IDataReader reader = dataAccess.GetShowRoomPersonalizacionNivel(eventoId, nivelId))
+            using (IDataReader reader = dataAccess.GetShowRoomPersonalizacionNivel(eventoId, nivelId, categoriaId))
                 while (reader.Read())
                 {
                     var entity = new BEShowRoomPersonalizacionNivel(reader);
@@ -388,6 +388,68 @@ namespace Portal.Consultoras.BizLogic
         {
             var dataAccess = new DAShowRoomEvento(paisID);
             return dataAccess.UpdateShowRoomPersonalizacionNivel(entity);
+        }
+
+        public List<BEShowRoomCategoria> GetShowRoomCategorias(int paisId, int eventoId)
+        {
+            var lst = new List<BEShowRoomCategoria>();
+            var dataAccess = new DAShowRoomEvento(paisId);
+
+            using (IDataReader reader = dataAccess.GetShowRoomCategorias(eventoId))
+                while (reader.Read())
+                {
+                    var entity = new BEShowRoomCategoria(reader);
+                    lst.Add(entity);
+                }
+            return lst;
+        }
+
+        public BEShowRoomCategoria GetShowRoomCategoriaById(int paisId, int categoriaId)
+        {
+            BEShowRoomCategoria entidad = null;
+            var DAPedidoWeb = new DAShowRoomEvento(paisId);
+
+            using (IDataReader reader = DAPedidoWeb.GetShowRoomCategoriaById(categoriaId))
+                if (reader.Read())
+                {
+                    entidad = new BEShowRoomCategoria(reader);
+                }
+            return entidad;
+        }
+
+        public void UpdateShowRoomDescripcionCategoria(int paisId, BEShowRoomCategoria categoria)
+        {
+            var dataAccess = new DAShowRoomEvento(paisId);
+            dataAccess.UpdateShowRoomDescripcionCategoria(categoria);
+        }
+
+        public void DeleteInsertShowRoomCategoriaByEvento(int paisId, int eventoId, List<BEShowRoomCategoria> listaCategoria)
+        {
+            try
+            {
+                var dataAccess = new DAShowRoomEvento(paisId);
+                //int resultado;
+                TransactionOptions oTransactionOptions = new TransactionOptions();
+                oTransactionOptions.IsolationLevel = System.Transactions.IsolationLevel.ReadUncommitted;
+
+                using (TransactionScope oTransactionScope = new TransactionScope(TransactionScopeOption.Required, oTransactionOptions))
+                {
+                    dataAccess.DeleteShowRoomCategoriaByEvento(eventoId);
+
+                    foreach (var beCategoria in listaCategoria)
+                    {
+                        dataAccess.InsertShowRoomCategoria(beCategoria);
+                    }                    
+
+                    oTransactionScope.Complete();
+                }
+
+                //return resultado;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message, ex);
+            }
         }
     }
 }

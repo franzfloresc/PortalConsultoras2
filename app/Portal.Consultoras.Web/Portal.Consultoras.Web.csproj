@@ -27,7 +27,7 @@
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
     <DeployOnBuild Condition=" '$(DeployWEB)'!='' ">$(DeployWEB)</DeployOnBuild>
-    <UseGlobalApplicationHostFile />
+    <UseGlobalApplicationHostFile />    
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -499,6 +499,7 @@
     <Compile Include="Models\ServicioCampaniaModel.cs" />
     <Compile Include="Models\ServicioModel.cs" />
     <Compile Include="Models\ShowRoomBannerLateralModel.cs" />
+    <Compile Include="Models\ShowRoomCategoriaModel.cs" />
     <Compile Include="Models\ShowRoomEventoModel.cs" />
     <Compile Include="Models\ShowRoomOfertaDetalleModel.cs" />
     <Compile Include="Models\ShowRoomOfertaModel.cs" />

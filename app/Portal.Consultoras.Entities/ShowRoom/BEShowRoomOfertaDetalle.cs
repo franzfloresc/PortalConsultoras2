@@ -25,6 +25,7 @@ namespace Portal.Consultoras.Entities.ShowRoom
         public string CUV { get; set; }
 
         [DataMember]
+        [ViewProperty]
         public string NombreSet { get; set; }
 
         [DataMember]
@@ -62,6 +63,9 @@ namespace Portal.Consultoras.Entities.ShowRoom
         [DataMember]
         public int Posicion { get; set; }
 
+        [DataMember]
+        public string MarcaProducto { get; set; }
+
         public BEShowRoomOfertaDetalle(IDataRecord row)
         {
             if (DataRecord.HasColumn(row, "OfertaShowRoomDetalleID") && row["OfertaShowRoomDetalleID"] != DBNull.Value)
@@ -92,6 +96,10 @@ namespace Portal.Consultoras.Entities.ShowRoom
                 UsuarioModificacion = Convert.ToString(row["UsuarioModificacion"]);
             if (DataRecord.HasColumn(row, "FechaModificacion") && row["FechaModificacion"] != DBNull.Value)
                 FechaModificacion = Convert.ToDateTime(row["FechaModificacion"]);
+            if (DataRecord.HasColumn(row, "Posicion") && row["Posicion"] != DBNull.Value)
+                Posicion = Convert.ToInt32(row["Posicion"]);
+            if (DataRecord.HasColumn(row, "MarcaProducto") && row["MarcaProducto"] != DBNull.Value)
+                MarcaProducto = Convert.ToString(row["MarcaProducto"]);
         }
     }
 }
