@@ -88,7 +88,7 @@ namespace Portal.Consultoras.Common
             s_html += "<td style=\"text-align:center; font-family:'Calibri'; font-size:22px; font-weight:700; color:#000; padding-bottom:15px;\"> CONF&Iacute;RMANOS TU DIRECCIÓN DE CORREO </td>";
             s_html += "</tr>";
             s_html += "<tr>";
-            s_html += "<td style=\"text-align:center; font-family:'Calibri'; color:#000; font-weight:500; font-size:14px; padding-bottom:30px;  padding-left:14px; padding-right:14px;\">Confirma tu correo para acceder a todos nuestros beneficios: para tener la info actualizada</td>";
+            //s_html += "<td style=\"text-align:center; font-family:'Calibri'; color:#000; font-weight:500; font-size:14px; padding-bottom:30px;  padding-left:14px; padding-right:14px;\">Confirma tu correo para acceder a todos nuestros beneficios: para tener la info actualizada</td>";
             s_html += "</tr>";
             s_html += "<tr>";
             s_html += "<td>";
