@@ -223,6 +223,7 @@ function PopupOfertaFinalCerrar() {
         }, 1000);
     }
     $("#divOfertaFinal").hide();
+    $('body').css({ 'overflow-y': 'scroll' });
     $("#btnGuardarPedido").show();
 }
 
@@ -260,6 +261,9 @@ function MostrarPopupOfertaFinal(cumpleOferta, tipoPopupMostrar) {
     objOf.ofIconoSuperior = objOf.TipoMeta == "MM" ? tipoOrigen == 1 ? "icono_exclamacion" : "exclamacion_icono_mobile" : tipoOrigen == 1 ? "icono_check_alerta" : "check_icono_mobile";
     SetHandlebars("#ofertaFinal-template", objOf, "#divOfertaFinal");
     $("#btnGuardarPedido").hide();
+    $('body').css({ 'overflow-x': 'hidden' });
+    $('body').css({ 'overflow-y': 'hidden' });
+
     $("#divOfertaFinal").show();
 
     if (tipoOrigen == "2") {
