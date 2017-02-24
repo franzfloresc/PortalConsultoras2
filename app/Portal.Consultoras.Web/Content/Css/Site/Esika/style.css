@@ -33502,15 +33502,6 @@ h1#penmostreo .campana {
 }
 
 /*GPR*/
-.logo_lista_detalle {
-    width: 100px;
-    height: 38px;
-    margin: 0 auto;
-    margin-top: 20px;
-    margin-bottom: 20px;
-    background: url(http://www.genesis-peru.com/mailing-belcorp/logo.png) no-repeat center center;
-}
-
 .content_datos_gpr {
     width: 96%;
     height: auto;
