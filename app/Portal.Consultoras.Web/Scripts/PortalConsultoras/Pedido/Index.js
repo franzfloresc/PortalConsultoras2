@@ -780,8 +780,10 @@ function InsertarProducto(form) {
                 CerrarSplash();
             }
         },
-        error: function (x, xh, xhr) {
-            console.error(xh);
+        error: function (response, x, xh, xhr) {
+            if (checkTimeout(response)) {
+                console.error(xh);
+            }
         }
     });
 }

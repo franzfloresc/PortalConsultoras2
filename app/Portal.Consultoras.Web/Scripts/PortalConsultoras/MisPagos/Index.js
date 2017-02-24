@@ -99,11 +99,13 @@ function fnGrilla() {
         async: true,
         cache: false,
         success: function (data) {
-            if (data.Rows.length > 0) {
-                RenderGrilla(data);
-            }
-            else {
-                $("#dellateContenido").html("<div style='text-align: center;'><br />No hay datos para mostrar.<br/><br/></div>");
+            if (checkTimeout(data)) {
+                if (data.Rows.length > 0) {
+                    RenderGrilla(data);
+                }
+                else {
+                    $("#dellateContenido").html("<div style='text-align: center;'><br />No hay datos para mostrar.<br/><br/></div>");
+                }
             }
         },
         error: function (data, error) {
@@ -235,7 +237,9 @@ function getLugarPago() {
         async: true,
         cache: false,
         success: function (data) {
-            SetHandlebars("#js-LugaresPago", data, "#divContenidoLugarPago");
+            if (checkTimeout(data)) {
+                SetHandlebars("#js-LugaresPago", data, "#divContenidoLugarPago");
+            }
         },
         error: function (data, error) {
             $("#divContenidoLugarPago").html("");

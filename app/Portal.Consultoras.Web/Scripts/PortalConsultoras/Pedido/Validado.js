@@ -110,8 +110,8 @@ function ConfirmarModificar() {
             }
         },
         error: function (data, error) {
-            if (checkTimeout(data)) {
-                closeWaitingDialog();
+            closeWaitingDialog();
+            if (checkTimeout(data)) {                
                 alert("Ocurrió un error al ejecutar la acción. Por favor inténtelo de nuevo.");
             }
         }
@@ -215,8 +215,8 @@ function EnviarCorreo() {
             }
         },
         error: function (data, error) {
-            if (checkTimeout(data)) {
-                closeWaitingDialog();
+            closeWaitingDialog();
+            if (checkTimeout(data)) {                
                 alert("ERROR al enviar correo.");
             }
         }
@@ -252,26 +252,29 @@ function CargarListado(page, rows) {
         data: JSON.stringify(obj),
         async: true,
         success: function (response) {
-            
-            if (response.success) {
+            if (checkTimeout(response)) {
+                if (response.success) {
 
-                var data = response.data;
+                    var data = response.data;
 
-                var html = ArmarListado(data.ListaDetalle);
-                $('#divListadoPedido').html(html);
-                
-                var htmlPaginador = ArmarListadoPaginador(data);
-                $('#paginadorCab').html(htmlPaginador);
-                //$('#paginadorPie').html(htmlPaginador);
+                    var html = ArmarListado(data.ListaDetalle);
+                    $('#divListadoPedido').html(html);
 
-                $("#paginadorCab [data-paginacion='rows']").val(data.Registros || 10);
-                //$("#paginadorPie [data-paginacion='rows']").val(data.Registros || 10);
+                    var htmlPaginador = ArmarListadoPaginador(data);
+                    $('#paginadorCab').html(htmlPaginador);
+                    //$('#paginadorPie').html(htmlPaginador);
 
-                MostrarBarra(response);
+                    $("#paginadorCab [data-paginacion='rows']").val(data.Registros || 10);
+                    //$("#paginadorPie [data-paginacion='rows']").val(data.Registros || 10);
+
+                    MostrarBarra(response);
+                }
             }
         },
-        error: function (error) {
-            alert(error);
+        error: function (data, error) {
+            if (checkTimeout(data)) {
+                alert(error);
+            }
         }
     });
 }

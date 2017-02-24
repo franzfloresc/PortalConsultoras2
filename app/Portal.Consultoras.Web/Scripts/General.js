@@ -459,7 +459,7 @@ function isInt(n) {
 // valida si ha ocurrido un timeout durante una llamada ajax
 function checkTimeout(data) {
     var thereIsStillTime = true
-    
+
     if (data) {
         if (data.responseText) {
             if ((data.responseText.indexOf('<input type="hidden" id="PaginaLogin" />') > -1) || (data.responseText.indexOf('<input type="hidden" id="PaginaSesionExpirada" />') > -1) || (data.responseText === '"_Logon_"'))
@@ -473,14 +473,15 @@ function checkTimeout(data) {
         if (!thereIsStillTime) {
             //window.location.href = "/Login/SesionExpirada";
             
-            if (ViewBagEsMobile == 1) {
-            var message = "Tu sesión ha finalizado por inactividad. Por favor, ingresa nuevamente.";
-            $('#dialog_SesionMainLayout #mensajeSesionSB2_Error').html(message);
-            $('#dialog_SesionMainLayout').show();
-        }
+                var message = "Tu sesión ha finalizado por inactividad. Por favor, ingresa nuevamente.";
+            if (ViewBagEsMobile == 1) {/*1 Desktop, 2 Mobile*/
+                $('#dialog_SesionMainLayout #mensajeSesionSB2_Error').html(message);
+                $('#dialog_SesionMainLayout').show();
+            }
             else {
-
-    }
+                $('#popupInformacionSB2SesionFinalizada').find('#mensajeInformacionSB2_SesionFinalizada').text(message);
+                $('#popupInformacionSB2SesionFinalizada').show();
+            }
         }
     }
     else {
@@ -494,7 +495,7 @@ function checkTimeout(data) {
 function checkUserSession() {
     //debugger;
     var res = -1;
-    
+
     $.ajax({
         url: '/Login/CheckUserSession',
         type: 'POST',
@@ -694,17 +695,17 @@ function InsertarLogDymnamo(pantallaOpcion, opcionAccion, esMobile, extra) {
         'Extra': extra
     }
     if (urlLogDynamo != "") {
-        jQuery.ajax({
-            type: "POST",
-            async: true,
-            crossDomain: true,
-            url: urlLogDynamo,
-            dataType: "json",
-            data: data,
-            success: function (result) { console.log(result); },
-            error: function (x, xh, xhr) { console.log(x); }
-        });
-    }
+    jQuery.ajax({
+        type: "POST",
+        async: true,
+        crossDomain: true,
+        url: urlLogDynamo,
+        dataType: "json",
+        data: data,
+        success: function (result) { console.log(result); },
+        error: function (x, xh, xhr) { console.log(x); }
+    });
+}
 }
 
 function InfoCommerceGoogleDestacadoProductClick(name, id, category, variant, position) {
