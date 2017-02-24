@@ -2826,6 +2826,7 @@
     <Content Include="Scripts\jquery.easy-pie-chart.js" />
     <Content Include="Scripts\jquery.maskedinput.min.js" />
     <Content Include="Scripts\jquery.range.js" />
+    <Content Include="Scripts\jquery.tmpl.js" />
     <Content Include="Scripts\MultiSelect\css\common.css" />
     <Content Include="Scripts\MultiSelect\css\ui.multiselect.css" />
     <Content Include="Scripts\MultiSelect\js\locale\ui-multiselect-de.js" />
@@ -2845,6 +2846,7 @@
     <Content Include="Scripts\MultiSelect\js\plugins\scrollTo\jquery.scrollTo.js" />
     <Content Include="Scripts\MultiSelect\js\plugins\scrollTo\README.txt" />
     <Content Include="Scripts\MultiSelect\js\ui.multiselect.js" />
+    <Content Include="Scripts\PortalConsultoras\Bienvenida\Estrategia.js" />
     <Content Include="Scripts\PortalConsultoras\CatalogoPersonalizado\catalogoPersonalizado.js" />
     <Content Include="Scripts\PortalConsultoras\CatalogoPersonalizado\Index.js" />
     <Content Include="Scripts\PortalConsultoras\Cliente\Index.js" />
@@ -3138,6 +3140,14 @@
     <None Include="Service References\ServiceCliente\ClienteService2.xsd">
       <SubType>Designer</SubType>
     </None>
+    <Content Include="Service References\ServiceContenido\ContenidoService.disco" />
+    <Content Include="Service References\ServiceContenido\configuration91.svcinfo" />
+    <Content Include="Service References\ServiceContenido\configuration.svcinfo" />
+    <Content Include="Service References\ServiceContenido\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </Content>
+    <Content Include="Service References\ServiceODS\ODSService.wsdl" />
     <Content Include="Service References\ServiceContenido\ContenidoService.wsdl" />
     <None Include="Service References\ServiceContenido\ContenidoService.xsd">
       <SubType>Designer</SubType>
@@ -3154,7 +3164,6 @@
     <None Include="Service References\ServiceContenido\ContenidoService4.xsd">
       <SubType>Designer</SubType>
     </None>
-    <Content Include="Service References\ServiceODS\ODSService.wsdl" />
     <None Include="Service References\ServiceODS\ODSService.xsd">
       <SubType>Designer</SubType>
     </None>
@@ -3763,10 +3772,10 @@
     <Content Include="Views\Login\Index.cshtml" />
     <Content Include="Views\Login\SesionExpirada.cshtml" />
     <Content Include="Views\Login\UserUnknown.cshtml" />
-    <Content Include="Web References\ServiceGestionWebPROL\Reference.map">
+    <None Include="Web References\ServiceGestionWebPROL\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
-    </Content>
+    </None>
     <Content Include="Views\Unete\NivelesGeograficos.cshtml" />
     <Content Include="Views\Notificaciones\ListaDetalleCdrCulminado.cshtml" />
     <Content Include="Views\Login\Admin.cshtml" />

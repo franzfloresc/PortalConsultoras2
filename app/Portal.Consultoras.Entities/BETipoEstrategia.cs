@@ -60,6 +60,9 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public int CodigoGeneral { get; set; }
 
+        [DataMember]
+        public string Codigo { get; set; }
+
         public BETipoEstrategia(IDataRecord row)
         {
             if (DataRecord.HasColumn(row, "TipoEstrategiaID") && row["TipoEstrategiaID"] != DBNull.Value)
@@ -101,6 +104,9 @@ namespace Portal.Consultoras.Entities
 
             if (DataRecord.HasColumn(row, "CodigoGeneral") && row["CodigoGeneral"] != DBNull.Value)
                 CodigoGeneral = Convert.ToInt32(row["CodigoGeneral"]);
+
+            if (DataRecord.HasColumn(row, "Codigo") && row["Codigo"] != DBNull.Value)
+                Codigo = Convert.ToString(row["Codigo"]);
         }
 
     }

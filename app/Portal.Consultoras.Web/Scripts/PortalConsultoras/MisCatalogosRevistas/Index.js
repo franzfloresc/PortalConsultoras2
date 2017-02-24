@@ -234,10 +234,14 @@ function ObtenerEstadoCatalogo(campana, defered) {
         dataType: "json",
         data: { campania: campana },
         success: function (result) {
-            defered.resolve(result, campana);
+            if (checkTimeout(result)) {
+                defered.resolve(result, campana);
+            }
         },
-        error: function (x, xh, xhr) {
-            defered.resolve(null, campana);
+        error: function (data, x, xh, xhr) {
+            if (checkTimeout(data)) {
+                defered.resolve(null, campana);
+            }
         }
     });
     return defered.promise();
@@ -323,15 +327,19 @@ function ObtenerCodigoISSUU(catalogo, defered, elemItem, tagCat, campaniaX) {
         url: urlGetImg,
         dataType: "json",
         success: function (result) {
-            if (result.response.docs.length > 0) {
-                var doc = result.response.docs[result.response.docs.length - 1];
-                codigoISSUU = doc.documentId;
+            if (checkTimeout(result)) {
+                if (result.response.docs.length > 0) {
+                    var doc = result.response.docs[result.response.docs.length - 1];
+                    codigoISSUU = doc.documentId;
+                }
+                defered.resolve(codigoISSUU, elemItem, tagCat, campaniaX);
             }
-            defered.resolve(codigoISSUU, elemItem, tagCat, campaniaX);
         },
-        error: function (x, xh, xhr) {
-            codigoISSUU = '';
-            defered.resolve("", elemItem, tagCat, campaniaX);
+        error: function (data, x, xh, xhr) {
+            if (checkTimeout(data)) {
+                codigoISSUU = '';
+                defered.resolve("", elemItem, tagCat, campaniaX);
+            }
         }
     });
     return defered.promise();
@@ -467,14 +475,18 @@ function CargarTodosCorreo() {
         dataType: "json",
         async: false,
         success: function (result) {
-            $.each(result, function (ind, correo) {
-                correo.label = $.trim(correo.nombre) + " " + $.trim(correo.email);
-                correo.value = $.trim(correo.email);
-                listaCorreo.push(correo);
-            });
+            if (checkTimeout(result)) {
+                $.each(result, function (ind, correo) {
+                    correo.label = $.trim(correo.nombre) + " " + $.trim(correo.email);
+                    correo.value = $.trim(correo.email);
+                    listaCorreo.push(correo);
+                });
+            }
         },
-        error: function (x, xh, xhr) {
-            listaCorreo = new Array();
+        error: function (data, x, xh, xhr) {
+            if (checkTimeout(data)) {
+                listaCorreo = new Array();
+            }
         }
     });
 }

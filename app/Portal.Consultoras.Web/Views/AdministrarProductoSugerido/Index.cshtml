@@ -1,6 +1,8 @@
 ﻿@model Portal.Consultoras.Web.Models.AdministrarProductoSugeridoModel
 @{
     ViewBag.Title = "Administración de Producto Sugerido";
+    int cantidadImagenes = 10;
+    string indice;
 }
 
 @Html.HiddenFor(model => model.PaisIDUser)
@@ -117,6 +119,16 @@
                 <input type="text" id="txtOrdenModal" class="man" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" />
             </div>
             <span class="color_red" style="width: 5px;">*</span>
+
+            <div class="titG">Descripción:</div>
+            <div class="selectP2 borde_redondeado disabled">
+                <input type="hidden" id="hdnCodigoSAP" />
+                <input type="hidden" id="hdnIdMatrizComercial" />
+                <input type="hidden" id="hdnDescripcion" />
+                <input type="hidden" id="hdnDescripcionOriginal" />
+                <input type="text" id="txtDescripcionProductoComercial" readonly="readonly"/>
+            </div>
+
             <div class="titG" style="display: none;" >¿Habilitar Producto Sugerido?</div>
             <div class="selectCheck borde_redondeado" style="display: none;">
                 <input type="checkbox" class="check" id="chkHabilitar" />
@@ -124,56 +136,124 @@
         </div>
         <div class="div-3 divPanelImagen divAppCatalogo">
             <div class="titG">Imagen App Catálogo:</div>
-            <div class="pdr_modal borde_redondeado aligncenter" style="width: auto;">
-                <img src='@Url.Content("~/Content/Images/prod_grilla_vacio.png")' id="previewAppCatalogo" style="cursor: pointer; width: 60px;">
+            <div class="titG2">
+                <div class="pdr_modal borde_redondeado aligncenter">
+                    <img src='@Url.Content("~/Content/Images/prod_grilla_vacio.png")' id="previewAppCatalogo" class="img-matriz-preview">
             </div>
-            <div><span class="color_red" style="float: none;">*</span></div>
+                <div class="pdr_modal_check aligncenter">
+                    <input type="checkbox" id="chkImagenProductoAppCatalogo" class="chkImagenProducto">
         </div>
-        <div class="div-3 divCheckImagen divAppCatalogo">
-            <div class="titG"></div>
-            <div class="pdr_modal_check aligncenter" style="width: 80px;">
-                <input type="checkbox" id="chkImagenProductoAppCatalogo" disabled="disabled">
             </div>
         </div>
         <div class="div-3 divPanelImagen">
-            <div class="titG">Imagen:</div>
-            <div class="pdr_modal borde_redondeado aligncenter" style="width: auto;">
-                <img src='@Url.Content("~/Content/Images/prod_grilla_vacio.png")' id="preview01" style="cursor: pointer; width: 60px;">
+            <div class="titG">
+                Imagen:
+                <div id="fpUpload"></div>
+                <script src="@Url.Content("~/Scripts/fileuploader.js")" type="text/javascript"></script>
+                <script type="text/javascript">
+                    var uploader = new qq.FileUploader({
+                        allowedExtensions: ['jpg', 'png', 'jpeg'],
+                        element: document.getElementById('fpUpload'),
+                        action: '@Url.Action("ImageMatrizUpload", "FileUpload")',
+                        onComplete: function (id, fileName, responseJSON) {
+                            if (checkTimeout(responseJSON)) {
+                                //$(".qq-upload-list").css("display", "none");
+                                if (responseJSON.success) ActualizarImagenMatriz(responseJSON.name);
+                                else alert(responseJSON.message);
+                            }
+                        },
+                        onSubmit: function (id, fileName) { $(".qq-upload-list").css("display", "none"); },
+                        onProgress: function (id, fileName, loaded, total) { $(".qq-upload-list").css("display", "none"); },
+                        onCancel: function (id, fileName) { $(".qq-upload-list").css("display", "none"); }
+                    });
+
+                    function ActualizarImagenMatriz(imagenSource) {
+                        var item = {
+                            CodigoSAP: $.trim($('#hdnCodigoSAP').val()),
+                            Descripcion: $.trim($('#hdnDescripcion').val()),
+                            DescripcionOriginal: $.trim($('#hdnDescripcionOriginal').val()),
+                            PaisID: $('#ddlPais').val()
+                        };
+
+                        var idImagen, dataImagen, i = 0;
+                        $.each($('.div-img-matriz-comercial:visible'), function (ind) {
+                            i = ind + 1;
+                            idImagen = ('0' + i).substr(-2);
+                            dataImagen = $('#preview' + idImagen).attr('src');
+                            
+                            item['FotoProducto' + idImagen] = dataImagen.substr(dataImagen.lastIndexOf("/") + 1);
+                            item['FotoProductoAnterior' + idImagen] = dataImagen.substr(dataImagen.lastIndexOf("/") + 1);
+                        });
+
+                        idImagen = ('0' + ++i).substr(-2);
+                        item['FotoProducto' + idImagen] = imagenSource;
+
+                        var idMatrizComercial = $.trim($('#hdnIdMatrizComercial').val());
+                        var accion = (idMatrizComercial == "0" ? baseUrl + 'MatrizComercial/InsertMatrizComercial' : baseUrl + 'MatrizComercial/UpdateMatrizComercial');
+                        jQuery.ajax({
+                            type: 'POST',
+                            url: accion,
+                            dataType: 'json',
+                            contentType: 'application/json; charset=utf-8',
+                            data: JSON.stringify(item),
+                            async: true,
+                            success: function (data) {
+                                if (!checkTimeout(data)) return false;
+
+                                closeWaitingDialog();
+                                alert(data.message);
+                                if (data.success == true) CargarImagenSugerido();
+                            },
+                            error: function (data, error) {
+                                if (!checkTimeout(data)) return false;
+
+                                closeWaitingDialog();
+                                alert(data.message);
+                            }
+                        });
+                    }
+                </script>
             </div>
-            <div class="pdr_modal borde_redondeado aligncenter" style="width: auto;">
-                <img src='@Url.Content("~/Content/Images/prod_grilla_vacio.png")' id="preview02" style="cursor: pointer; width: 60px;">
+            <div class="div-list-img-matriz-comercial">
+                @for (int i = 1; i <= cantidadImagenes; i++)
+                {
+                    indice = "0" + i;
+                    indice = indice.Substring(indice.Length - 2);
+
+                    <div id="divImgMatrizComercial@(indice)" class="titG2 div-img-matriz-comercial">
+                        <div class="pdr_modal borde_redondeado aligncenter">
+                            <img class="img-matriz-preview" src='@Url.Content("~/Content/Images/prod_grilla_vacio.png")' id="preview@(indice)">
             </div>
-            <div class="pdr_modal borde_redondeado aligncenter" style="width: auto;">
-                <img src='@Url.Content("~/Content/Images/prod_grilla_vacio.png")' id="preview03" style="cursor: pointer; width: 60px;">
+                        <div class="pdr_modal_check aligncenter">
+                            <input type="checkbox" id="chkImagenProducto@(indice)" class="chkImagenProducto">
             </div>
-            <div><span class="color_red" style="float: none;">*</span></div>
         </div>
-        <div class="div-3 divCheckImagen">
-            <div class="titG"></div>
-            <div class="pdr_modal_check aligncenter" style="width: 80px;">
-                <input type="checkbox" id="chkImagenProducto01" disabled="disabled">
+                }
             </div>
-            <div class="pdr_modal_check aligncenter" style="width: 80px;">
-                <input type="checkbox" id="chkImagenProducto02" disabled="disabled">
             </div>
-            <div class="pdr_modal_check aligncenter" style="width: 80px;">
-                <input type="checkbox" id="chkImagenProducto03" disabled="disabled">
             </div>
         </div>
+
+<div id="divVistaPrevia" class="Content_modal_ZE" style="display: none; background-color: #fff; width: 200px; height: 330px; overflow: hidden; text-align: center">
+    <div class="Content_modal_ZE" style="margin: 5px; overflow: hidden;">
+        <img id="imgPreview" style="width: 128px; height: 161px; margin: 5px;" src="" alt="Imagen Producto">
     </div>
 </div>
+
 <div id="loadingScreen"></div>
 
 <script type="text/javascript" id="js-ready">
     var paisNombre = "";
     var paisID = $("#PaisIDUser").val();
+    var cantImg = '@cantidadImagenes';
     var imageUrlVacio = '@Url.Content("~/Content/Images/prod_grilla_vacio.png")';
     var imagen = "";
+    var siguienteIndice;
+
     jQuery(document).ready(function () {
         CargarDialog();
         CargarEventos();
     });
-
 </script>
 <script type="text/javascript" id="js-FuctReady">
     function CargarEventos() {
@@ -231,14 +311,20 @@
             CargarImagenSugerido();
         });
 
-        $(".divCheckImagen input").click(function () {
+        $(".chkImagenProducto").click(function () {
             var che = $(this).attr('checked');
-            $(".divCheckImagen input").prop('checked', false);
             imagen = "";
+
+            $(".chkImagenProducto").prop('checked', false);
             if (che) {
                 $(this).attr('checked', 'checked');
                 imagen = $(this).attr('value');
             }
+        });
+        
+        $(".img-matriz-preview").on("click", function () {
+            $("#imgPreview").attr("src", $(this).attr("src"));
+            showDialog('divVistaPrevia');
         });
     }
 
@@ -266,6 +352,17 @@
                     $(this).dialog('close');
                 }
             }
+        });
+        
+        $('#divVistaPrevia').dialog({
+            autoOpen: false,
+            resizable: false,
+            modal: true,
+            closeOnEscape: true,
+            width: 250,
+            draggable: false,
+            title: "Vista previa",
+            buttons: { "Cerrar": function () { $(this).dialog('close'); } }
         });
     }
 
@@ -359,7 +456,6 @@
 
 </script>
 <script type="text/javascript" id="js-Registro">
-
     function CargarCampaniaModal(pais, combo) {
         var paisUser = $("#PaisIDUser").val();
         pais = pais || paisUser || 0;
@@ -410,7 +506,7 @@
     }
 
     function CargarImagenSugerido() {
-        LimpiarImagen();
+        LimpiarDatosMatrizComercial();
 
         var cuv = $.trim($("#txtCUVSugeridoModal").val());
         var campaniaID = $.trim($("#ddlCampaniaModal").val());
@@ -426,7 +522,7 @@
             }
             
             $(".divPanelImagen img").attr("src", imageUrlVacio);
-            $(".divCheckImagen input").prop('checked', false);
+            $(".chkImagenProducto").prop('checked', false);
 
             data = data || new Object();
             data.lista = data.lista || new Array();
@@ -436,7 +532,7 @@
                 return false;
             }
 
-            RegistroAsignarImagenes(data);
+            CargarDatosMatrizComercial(data, imagen);
 
             closeWaitingDialog();            
         });
@@ -445,17 +541,21 @@
     function RegistroLimpiar() {
         $(".man").val("");
         $("#chkHabilitar").prop('checked', false);
-        LimpiarImagen();
+        LimpiarDatosMatrizComercial();
     }
 
-    function LimpiarImagen() {
-        $(".divPanelImagen img").attr("src", imageUrlVacio);
-        $(".divPanelImagen img").css("width", "60px");
-        $(".divCheckImagen input").attr('disabled', true);
-        $(".divCheckImagen input").prop('checked', false);
-        $(".divCheckImagen input").parent().css("width", "85px");
-        $(".divCheckImagen input").val('');
+    function LimpiarDatosMatrizComercial() {
         $(".divAppCatalogo").hide();
+        $('.div-img-matriz-comercial').hide();
+        $(".divPanelImagen img").attr("src", imageUrlVacio);
+        $(".chkImagenProducto").prop('checked', false);
+        $(".chkImagenProducto").val('');
+        $('#hdnCodigoSAP').val('');
+        $('#hdnIdMatrizComercial').val('');
+        $('#txtDescripcionProductoComercial').val('');
+        $('#hdnDescripcionOriginal').val('')
+        $('#hdnDescripcion').val('');
+        $("#fpUpload").show();
     }
 
     function RegistroValidar() {
@@ -520,34 +620,31 @@
 
     }
     
-    function RegistroAsignarImagenes(data, imgRow) {
+    function CargarDatosMatrizComercial(data, imgRow) {
         data = data || new Object();
         data.lista = data.lista || new Array();
-        LimpiarImagen();
+        LimpiarDatosMatrizComercial();
+        imagen = '';
 
-        if (data.lista.length <= 0) {
-            $(".divCheckImagen input").attr('disabled', true);
-            return false;
-        }
-        imgRow = imgRow || "";
-        var cantImg = 3;
-        var obj = data.lista[0];
-        for (var i = 0; i <= cantImg; i++) {
-            var ind = i == 0 ? 'AppCatalogo' : ('0' + i);
+        if (data.lista.length <= 0) return false;
+        var obj = data.lista[0] || new Object();
 
-            var urlImg = (obj || new Object())["FotoProducto" + ind] || "";
+        $('#hdnCodigoSAP').val(obj.CodigoSAP);
+        $('#hdnIdMatrizComercial').val(obj.IdMatrizComercial);
+        $('#hdnDescripcion').val(obj.Descripcion);
+        $('#hdnDescripcionOriginal').val(obj.DescripcionOriginal);
+        $('#txtDescripcionProductoComercial').val(obj.DescripcionProductoComercial);
+
+        var i, ind;
+        for (i = 0; i <= cantImg; i++) {
+            ind = i == 0 ? 'AppCatalogo' : ('0' + i).substr(-2);
+            var urlImg = obj["FotoProducto" + ind] || "";
             if (urlImg == "") {
-                if (i == 0) $('.divAppCatalogo').hide();
-                $("#chkImagenProducto" + ind).attr('disabled', true);
-                continue;
+                if (i == 0) continue;
+                else break;
             }
             
             $('#preview' + ind).attr('src', urlImg);
-            //var img = urlImg.replace(/^.*[\\\/]/, '');
-            //if (img.lastIndexOf("?") >= 0) {
-            //    img = img.substring(0, img.lastIndexOf("?"));
-            //}
-
             $("#chkImagenProducto" + ind).val(urlImg);
             if (urlImg == imgRow && imgRow != "") {
                 $('#chkImagenProducto' + ind).attr('checked', true);
@@ -555,11 +652,9 @@
             }
 
             if (i == 0) $('.divAppCatalogo').show();
-            $("#chkImagenProducto" + ind).removeAttr('disabled');
-            
-            $('#preview' + ind).css("width", "150px");
-            $("#chkImagenProducto" + ind).parent().css("width", "175px");
+            else $("#divImgMatrizComercial" + ind).show();
         }
+        if (i > cantImg) $("#fpUpload").hide();
     }
 
     $.jgrid.extend({
@@ -596,20 +691,19 @@
                     $('#chkHabilitar').removeAttr('checked');
 
                 // cargar imagenes
-                var imgRow = jQuery("#list").jqGrid('getCell', rowPk, 'ImagenProducto');
-                //imgRow = imgRow == imageUrlVacio ? "" : $.trim(imgRow).replace(/^.*[\\\/]/, '');
+                var imgRow = jQuery("#list").jqGrid('getCell', rowPk, 'ImagenProducto') || "";
                 imgRow = imgRow == imageUrlVacio ? "" : $.trim(imgRow);
 
                 data = data || new Object();
                 data.lista = data.lista || new Array();
                 if (data.lista.length <= 0) {
-                    $(".divCheckImagen input").attr('disabled', true);
+                    $(".chkImagenProducto").attr('disabled', true);
                     showDialog("DialogRegistroProductoSugerido");
                     closeWaitingDialog();
                     return false;
                 }
 
-                RegistroAsignarImagenes(data, imgRow);
+                CargarDatosMatrizComercial(data, imgRow);
                 showDialog("DialogRegistroProductoSugerido");
                 closeWaitingDialog();
             });

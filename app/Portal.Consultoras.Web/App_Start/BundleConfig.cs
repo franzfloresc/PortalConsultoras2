@@ -9,7 +9,7 @@ namespace Portal.Consultoras.Web
             bundles.Add(new StyleBundle("~/Content/Css/Site/CssLogin").Include(
                 "~/Content/Css/ui.jquery/jquery-ui.css",
                 "~/Content/Css/Site/style.css"));
-            
+
             bundles.Add(new ScriptBundle("~/bundles/JsLogin2").Include(
                 "~/Scripts/jquery-{version}.js",
                 "~/Scripts/jquery-ui-1.9.2.custom.js",
@@ -69,7 +69,8 @@ namespace Portal.Consultoras.Web
                            "~/Scripts/jquery.touchSwipe.min.js",
                            "~/Scripts/jquery.cycle.all.min.js",
                            "~/Scripts/respond.min.js",
-                           "~/Scripts/trans-banner.js"));
+                           "~/Scripts/trans-banner.js",
+                            "~/Scripts/jquery.tmpl.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/JsPluginsFooterSAC").Include(
                "~/Scripts/custom.js",
@@ -77,9 +78,6 @@ namespace Portal.Consultoras.Web
 
             bundles.Add(new ScriptBundle("~/bundles/JSTree").Include(
                "~/Scripts/jquery.jstree.js"));
-
-            bundles.Add(new ScriptBundle("~/bundles/Templates").Include(
-              "~/Scripts/jquery.tmpl.min.js"));
 
             #region Bundles para Web Mobile
 
@@ -171,13 +169,15 @@ namespace Portal.Consultoras.Web
             bundles.Add(new ScriptBundle("~/bundles/JsSB2-Bienvenida").Include(
                 "~/Scripts/PortalConsultoras/Bienvenida/Index.js",
                 "~/Scripts/PortalConsultoras/Pedido/barra.js",
-                "~/Scripts/PortalConsultoras/CatalogoPersonalizado/CatalogoPersonalizado.js"                
+                "~/Scripts/PortalConsultoras/CatalogoPersonalizado/CatalogoPersonalizado.js",
+                "~/Scripts/PortalConsultoras/Bienvenida/Estrategia.js"
                 ));
 
             bundles.Add(new ScriptBundle("~/bundles/JsSB2-Pedido").Include(
                 "~/Scripts/PortalConsultoras/Pedido/Index.js",
                 "~/Scripts/PortalConsultoras/Pedido/barra.js",
-                "~/Scripts/PortalConsultoras/Pedido/ofertafinal.js"
+                "~/Scripts/PortalConsultoras/Pedido/ofertafinal.js",
+                "~/Scripts/PortalConsultoras/Bienvenida/Estrategia.js"
                 ));
 
             #endregion

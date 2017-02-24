@@ -3013,7 +3013,7 @@ namespace Portal.Consultoras.Common
             return result;
         }
         
-        public static dynamic GetColumn<T>(T type, IDataRecord lector, string name)  where T : new()
+        public static dynamic GetColumn<T>(IDataRecord lector, string name, T tipoDato)
         {
             try
             {

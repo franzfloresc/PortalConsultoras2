@@ -543,14 +543,14 @@
     <!--POP MENSAJE SESION FINALIZADA Error-->
     <div id="popupInformacionSB2SesionFinalizada" class="MensajeAlertaMobile" style="display:none;">
         <div class="content_mensajeAlerta">
-            <a class="cerrar_popMobile" href="javascript:;" onclick="javascript: $('#popupInformacionSB2SesionFinalizada').hide();">
+            <a class="cerrar_popMobile" href="javascript:;" onclick="window.location.href='@Url.Action("Index", "Login", new { area = "" })'">
                 <img src="/Content/Images/mobile/Esika/cerrar_04.png" alt="-">
             </a>
             <hr class="clear">
             <div class="icono_alerta exclamacion_icono_mobile"></div>
-            <div class="titulo_compartir"><b>LO SENTIMOS</b></div>
-            <div id="mensajeInformacionSB2_Error" class="mensaje_alerta"></div>
-            <a href="javascript:;" onclick="$('#popupInformacionSB2SesionFinalizada').hide();" class="btn_ok_mobile"><b>OK</b></a>
+            <div class="titulo_compartir"><b>SESIÓN FINALIZADA</b></div>
+            <div id="mensajeInformacionSB2_SesionFinalizada" class="mensaje_alerta"></div>
+            <a href="javascript:;" onclick="window.location.href='@Url.Action("Index", "Login", new { area = "" })'" class="btn_ok_mobile"><b>OK</b></a>
         </div>
     </div>
     <!--FIN-->
@@ -862,7 +862,7 @@
                                         ShowLoading();
 
                                         ActualizarGanancia(data.DataBarra);
-                                        //CargarCarouselEstrategias(cuv);
+                                        
                                         TrackingJetloreAdd(cantidad, $("#hdCampaniaCodigo").val(), cuv);
 
                                         if (typeof origenPagina !== 'undefined') {

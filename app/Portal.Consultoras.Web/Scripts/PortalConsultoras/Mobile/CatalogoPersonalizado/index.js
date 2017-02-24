@@ -448,7 +448,6 @@ function ReservadoOEnHorarioRestringidoAsync(mostrarAlerta, fnRestringido, fnNoR
 }
 
 function CompartirFacebookSWR(Catalogo, btn) {
-    debugger;
     dataLayer.push({
         'event': 'virtualEvent',
         'category': 'Ofertas Showroom',
@@ -467,7 +466,6 @@ function CompartirFacebookSWR(Catalogo, btn) {
 }
 
 function TagManagerSWR(item) {
-    debugger;
     dataLayer.push({
         'event': 'virtualEvent',
         'category': 'Ofertas Showroom',

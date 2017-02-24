@@ -197,6 +197,15 @@ namespace Portal.Consultoras.Web.Models
         public string CUVPedidoNombre { get; set; }
         public string CUVPedidoImagen { get; set; }
         public bool TipoCross { get; set; }
+
+        public int Digitable { get; set; }
+        public int Orden { get; set; }
+        public string Grupo { get; set; }
+
+        public object Clone()
+        {
+            return this.MemberwiseClone();
+        }
     }
 
     [Serializable]
