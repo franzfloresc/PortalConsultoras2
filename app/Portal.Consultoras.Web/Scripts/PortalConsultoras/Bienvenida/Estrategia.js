@@ -33,6 +33,11 @@ $(document).ready(function () {
             .addClass("borde_seleccion_tono");
 
         $(this).parents("[data-tono]").find(".content_tono_principal img").attr("src", $(this).find("img").attr("src"));
+        var estrategia = $(this).parents("[data-estrategia]").attr("data-estrategia");
+        if (estrategia == "2003") {
+            var nombre = $(this).find("img").attr("data-tono-nombre");
+            $(this).parents("[data-estrategia]").find("[data-tono-visible]").find("[data-tono-nombre]").html(nombre);
+        }
     });
     $(document).on('change', 'select[data-tono-change]', function (e) {
         var cuv = $(this).val();

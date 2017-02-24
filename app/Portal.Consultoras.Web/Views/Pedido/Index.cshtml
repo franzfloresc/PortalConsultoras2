@@ -1836,7 +1836,9 @@
                         {{#iff TipoEstrategiaImagenMostrar 'ContainsArray' '[3,5]'}}
                         {{#if_eq EtiquetaID '1'}}
                         <div class="producto_precio">
-                            <span class="producto_precio_normal">{{Simbolo}} {{PrecioTachado}}</span>
+                            {{#iff Precio '>' 0}}
+                            <span class="producto_precio_normal">{{Simbolo}} {{PrecioTachado}}</span><br />
+                            {{/iff}}
                             <span class="producto_precio_oferta"><b>{{Simbolo}} {{PrecioString}}</b></span>
                         </div>
                         {{else}}
@@ -2048,10 +2050,10 @@
                             <input type="hidden" name="nameMarcaID" id="Estrategia_hd_MarcaID" value="{{item1.MarcaID}}" />
                             <input type="hidden" name="namePrecioCatalogo" id="Estrategia_hd_PrecioCatalogo" value="{{item1.PrecioCatalogo}}" />
                         </div>
-                        <div class="content_left_ficha" style="width:{{#iff item1.Digitable '==' '1'}}50%{{else}}100%{{/iff}}; margin-right:0">
+                        <div class="content_left_ficha" data-tono-visible="" style="width:{{#iff item1.Digitable '==' '1'}}50%{{else}}100%{{/iff}}; margin-right:0">
                             <div class="marca_producto">{{item1.DescripcionMarca}}</div>
-                            <div class="sub_nombre_producto">{{item1.DescripcionComercial}}</div>
-                            <div class="sub_precio">Precio regular: {{Simbolo}} {{item1.PrecioCatalogoString}}</div>
+                            <div class="sub_nombre_producto" data-tono-nombre="">{{item1.DescripcionComercial}}</div>
+                            @*<div class="sub_precio">Precio regular: {{Simbolo}} {{item1.PrecioCatalogoString}}</div>*@
                         </div>
                         {{#iff item1.Digitable '==' '1'}}
                         <div class="content_right_ficha" style="width:50%;">
@@ -2098,7 +2100,6 @@
         </div>
 
     </div>
-
 </script>
 
 <script id="ofertaFinal-template" type="text/x-handlebars-template">
