@@ -1619,6 +1619,19 @@ ul.tabs {
         text-align:left;
     }
 
+    .div-3 .titG2 {
+        float: left;
+        width: 95px;
+        height: auto;
+        padding: 9px;
+        background: none;
+        color: #702789;
+        font-size: 14px;
+        margin: 0;
+        border: 0;
+        text-align:left;
+    }
+
     .div-3 .titX {
         float: left;
         width: 125px;
@@ -12831,3 +12844,25 @@ margin-left:25px;
     color: #00A2E8;
     font-size: 25px;
 }
+
+/*INI: Matriz Comercial*/
+.div-list-img-matriz-comercial {
+    float: left;
+    width: 600px;
+}
+    .div-list-img-matriz-comercial > .titG { width: 180px; }
+        .div-list-img-matriz-comercial > .titG > .borde_redondeado {
+            height: 162px;
+            margin-bottom: 8px;
+        }
+
+.img-matriz-comercial {
+    width: 170px;
+    max-height: 163px;
+}
+.img-matriz-preview {
+    cursor: pointer;
+    width: 100%;
+    height: 35px;
+}
+/*FIN: Matriz Comercial*/

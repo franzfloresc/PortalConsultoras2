@@ -233,10 +233,19 @@ namespace Portal.Consultoras.Web.Controllers
             List<MatrizComercialResultadoModel> modelList = Mapper.Map<List<MatrizComercialResultadoModel>>(lst);
             if (modelList != null && modelList.Count > 0)
             {
-                var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
-                if (modelList[0].FotoProducto01 != "") modelList[0].FotoProducto01 = ConfigS3.GetUrlFileS3(carpetaPais, modelList[0].FotoProducto01, Globals.RutaImagenesMatriz + "/" + userData.CodigoISO);
-                if (modelList[0].FotoProducto02 != "") modelList[0].FotoProducto02 = ConfigS3.GetUrlFileS3(carpetaPais, modelList[0].FotoProducto02, Globals.RutaImagenesMatriz + "/" + userData.CodigoISO);
-                if (modelList[0].FotoProducto03 != "") modelList[0].FotoProducto03 = ConfigS3.GetUrlFileS3(carpetaPais, modelList[0].FotoProducto03, Globals.RutaImagenesMatriz + "/" + userData.CodigoISO);
+                string carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
+                string carpetaAnterior = Globals.RutaImagenesMatriz + "/" + userData.CodigoISO;
+
+                modelList[0].FotoProducto01 = ConfigS3.GetUrlFileS3(carpetaPais, modelList[0].FotoProducto01, carpetaAnterior);
+                modelList[0].FotoProducto02 = ConfigS3.GetUrlFileS3(carpetaPais, modelList[0].FotoProducto02, carpetaAnterior);
+                modelList[0].FotoProducto03 = ConfigS3.GetUrlFileS3(carpetaPais, modelList[0].FotoProducto03, carpetaAnterior);
+                modelList[0].FotoProducto04 = ConfigS3.GetUrlFileS3(carpetaPais, modelList[0].FotoProducto04, carpetaAnterior);
+                modelList[0].FotoProducto05 = ConfigS3.GetUrlFileS3(carpetaPais, modelList[0].FotoProducto05, carpetaAnterior);
+                modelList[0].FotoProducto06 = ConfigS3.GetUrlFileS3(carpetaPais, modelList[0].FotoProducto06, carpetaAnterior);
+                modelList[0].FotoProducto07 = ConfigS3.GetUrlFileS3(carpetaPais, modelList[0].FotoProducto07, carpetaAnterior);
+                modelList[0].FotoProducto08 = ConfigS3.GetUrlFileS3(carpetaPais, modelList[0].FotoProducto08, carpetaAnterior);
+                modelList[0].FotoProducto09 = ConfigS3.GetUrlFileS3(carpetaPais, modelList[0].FotoProducto09, carpetaAnterior);
+                modelList[0].FotoProducto10 = ConfigS3.GetUrlFileS3(carpetaPais, modelList[0].FotoProducto10, carpetaAnterior);
 
                 string paisesCCC = ConfigurationManager.AppSettings["Permisos_CCC"] ?? "";
                 if(paisesCCC.Contains(pais.CodigoISO)) modelList[0].FotoProductoAppCatalogo = ImagenAppCatalogo(campaniaID, lst[0].CodigoSAP, 3, pais.NroCampanias);
