@@ -3138,7 +3138,15 @@
     <None Include="Service References\ServiceCliente\ClienteService2.xsd">
       <SubType>Designer</SubType>
     </None>
-    <Content Include="Service References\ServiceContenido\ContenidoService.wsdl" />
+    <None Include="Service References\ServiceContenido\ContenidoService.disco" />
+    <None Include="Service References\ServiceContenido\configuration91.svcinfo" />
+    <None Include="Service References\ServiceContenido\configuration.svcinfo" />
+    <None Include="Service References\ServiceContenido\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <Content Include="Service References\ServiceODS\ODSService.wsdl" />
+    <None Include="Service References\ServiceContenido\ContenidoService.wsdl" />
     <None Include="Service References\ServiceContenido\ContenidoService.xsd">
       <SubType>Designer</SubType>
     </None>
@@ -3154,7 +3162,6 @@
     <None Include="Service References\ServiceContenido\ContenidoService4.xsd">
       <SubType>Designer</SubType>
     </None>
-    <Content Include="Service References\ServiceODS\ODSService.wsdl" />
     <None Include="Service References\ServiceODS\ODSService.xsd">
       <SubType>Designer</SubType>
     </None>
