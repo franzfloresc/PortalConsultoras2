@@ -1053,7 +1053,7 @@ function ReservadoOEnHorarioRestringido(mostrarAlerta) {
         type: 'GET',
         url: urlReservadoOEnHorarioRestringido,
         dataType: 'json',
-        async: true,
+        async: false,
         contentType: 'application/json; charset=utf-8',
         success: function (data) {
             if (!checkTimeout(data)) {
