@@ -21,10 +21,8 @@ namespace Portal.Consultoras.Common
         public static string GetUrlFileS3(string carpetaPais, string fileName, string carpetaAnterior)
         {
             if (fileName.Trim() == "") return fileName;
-
-                var url = ConfigS3.URL_S3 + "/" + ConfigS3.BUCKET_NAME + "/" + ConfigS3.ROOT_DIRECTORY + "/" + ((carpetaPais != "") ? carpetaPais + "/" : "") + fileName;
-                return url;
-            }
+            return ConfigS3.URL_S3 + "/" + ConfigS3.BUCKET_NAME + "/" + ConfigS3.ROOT_DIRECTORY + "/" + ((carpetaPais != "") ? carpetaPais + "/" : "") + fileName;
+        }
 
         public static void DeleteFileS3(string carpetaPais, string fileName)
         {

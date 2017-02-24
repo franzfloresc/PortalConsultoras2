@@ -2,6 +2,11 @@
 {
     public class MatrizComercialResultadoModel
     {
+        public string CodigoSAP { get; set; }
+        public string Descripcion { get; set; }
+        public string DescripcionOriginal { get; set; }
+        public string DescripcionProductoComercial { get; set; }
+        public int IdMatrizComercial { get; set; }
         public string FotoProductoAppCatalogo { get; set; }
         public string FotoProducto01 { get; set; }
         public string FotoProducto02 { get; set; }

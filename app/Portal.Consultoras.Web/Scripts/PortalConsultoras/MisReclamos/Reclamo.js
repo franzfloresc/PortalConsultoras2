@@ -36,8 +36,7 @@ $(document).ready(function () {
         $(this).attr("data-check", "1");
     });
 
-    $("#IrPAso2").on("click", function () {
-        debugger;
+    $("#IrPAso2").on("click", function () {        
         if (ValidarPaso1()) {
             paso2Actual = 1;
             CambioPaso();
@@ -186,8 +185,7 @@ $(document).ready(function () {
         buttons:
         {
             "Aceptar": function () {
-                $(this).dialog('close');
-                $("#SolicitudEnviada").css({ "visibility": "visible" });
+                $(this).dialog('close');              
             }
         }
     });
@@ -1193,8 +1191,9 @@ function SolicitudEnviar() {
             $("#spnSolicitudCampania").html(formatoCampania);
 
             $("#divProcesoReclamo").hide();
-            $("#divUltimasSolicitudes").hide();
-            $("#SolicitudEnviada").css({ "visibility": "visible" });
+            $("#divUltimasSolicitudes").hide();            
+            $("#SolicitudEnviada").show();
+           
             $("#TituloReclamo").hide();
         },
         error: function (data, error) {

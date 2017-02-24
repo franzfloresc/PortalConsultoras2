@@ -69,7 +69,8 @@ namespace Portal.Consultoras.Web
                            "~/Scripts/jquery.touchSwipe.min.js",
                            "~/Scripts/jquery.cycle.all.min.js",
                            "~/Scripts/respond.min.js",
-                           "~/Scripts/trans-banner.js"));
+                           "~/Scripts/trans-banner.js",
+                            "~/Scripts/jquery.tmpl.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/JsPluginsFooterSAC").Include(
                "~/Scripts/custom.js",
@@ -77,9 +78,6 @@ namespace Portal.Consultoras.Web
 
             bundles.Add(new ScriptBundle("~/bundles/JSTree").Include(
                "~/Scripts/jquery.jstree.js"));
-
-            bundles.Add(new ScriptBundle("~/bundles/Templates").Include(
-              "~/Scripts/jquery.tmpl.min.js"));
 
             #region Bundles para Web Mobile
 
