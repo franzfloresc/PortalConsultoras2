@@ -6,10 +6,12 @@
 }
 
 @section styles{
+    @*<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet" />*@
     <link href="@Url.Content("~/Content/Css/Site/slick-pedido.css")" rel="stylesheet" />
     <link href="@Url.Content("~/Content/Css/Site/style-pedido.css")" rel="stylesheet" />
 }
 
+<span id="img-tooltip" class="img-tooltip" data-toggle="tooltip" data-placement="right" title="dEMO DEMO DEMO DEM O..." data-animation="false" data-trigger="manual"></span>
 <div class="franja_negra"></div>
 <div class="envolvente_pop_up">
     <div class="pop_pedido" id="pop_liquidacion" style="display: none;">
@@ -582,7 +584,6 @@
     </div>
 </div>
 <!-- FIN POPUP MIS GANANCIAS -->
-
 <!-- POPUP TUTORIAL INGRESO DE PEDIDO -->
 <div class="contenedor_fondo_popup fondo_tutorial" id="popup_tutorial_pedido" style="display: none;">
     <div class="popup_tutorial_pedido" style="position: relative; margin: 0 auto; display: block; min-width: 900px !important;">
@@ -858,13 +859,12 @@
                 <input type="button" onclick="CargarProductoAgotados();" class="buscar_icono">
             </div>
             <div class="tabla_productos_agotados" id="tblProductosFaltantes" style="overflow-y:hidden;">
-            </div>
+        </div>
         </div>
         <div class="clear"></div>
     </div>
 </div>
 <!-- FIN PRODUCTOS AGOTADOS -->
-
 <!-- POPUP PRODUCTOS SUGERIDOS -->
 <div class="contenedor_popup_productosSugeridos1" id="divProductoAgotadoFinal" style="display:none;">
     <div class="popup_productosSugeridos" style="height:456px;">
@@ -900,64 +900,67 @@
     </div>
 </div>
 <!-- FIN PRODUCTOS SUGERIDOS -->
-
 <!-- POPUP OFERTA FINAL -->
-<div class="contenedor_popup_ofertaFinal" id="divOfertaFinal">
-    <div class="popup_ofertaFinal">
-        <div class="btn_cerrar_ofertaFinal">
-            <a href="javascript:;" title="Cerrar" id="lnkCerrarPopupOfertaFinal">
-                <img src="@Url.Content("~/Content/Images/btn_cerrar_popup.svg")" alt="Cerrar" />
-                <span class="texto_btn_cerrar">CERRAR</span>
-            </a>
+<div class="contenedor_popup_ofertaFinal" id="divOfertaFinal" data-popup-main="" data-popup-function-hide="PopupOfertaFinalCerrar">
+    
         </div>
-        <div class="contenido_popUp">
-            <div id="divIconoOfertaFinal"></div>
-            <h1 class="titulo_ofertaFinal">
-                <span id="spnTituloOfertaFinal">TODAVIA<b>&nbsp;TE FALTA UN POCO</b></span>
-            </h1>
-            <div id="spCabeceraMontominimo" style="display:none; margin-top: -5px;">
-                <span style="display: block;text-align: center;font-size: 12px;">Recuerda que esta campaña el monto mínimo es de @Model.Simbolo<span id="spMontoMinimoCabecera"></span></span>
+<!-- FIN POPUP OFERTA FINAL -->
+<!--POP UP ESCALA DE DESCUENTO FICHA-->
+        <div class="contenedor_popup_ofertaFinal" id="contenedor_popup_ofertaFinalVerDetalle" style="display: none;">
+            <div class="popup_ofertaFinal" style="padding:35px;">
+                <a class="btn_cerrar_escala" href="javascript:;" onclick="javascript: $('#contenedor_popup_ofertaFinal').hide();">REGRESAR</a>
+                <hr class="clear" />
+                <div class="content_left_ficha">
+                    <div class="content_ficha_producto" style="width:72%; height:auto; margin:0 auto;">
+                        <img id="fav_imagen_prod" class="imagen_producto" src="https://s3-sa-east-1.amazonaws.com/appcatalogo/PE/201703/L/productos/PE_200074844.jpg" alt="PRODUCTO">
             </div>
-            <span class="descripcion_ofertaFinal" id="of_descripcion1">
-                Agrega @Model.Simbolo <span id="spnMontoFaltanteOfertaFinal"></span> 
-                <span id="spnMensajeOfertaFinal">&nbsp;para conseguir 30% DSCTO y gana más esta campaña.</span>
-            </span>
-
-            <span class="descripcion_ofertaFinal" id="of_descripcion2" style="display: none;">
-                Agrega estos productos para ganar más esta campaña
-            </span>
-
-            <div class="contenedor_bloques_agregaProductos">
-                <div class="bloque_descripciones">
-                    <h6 class="descripcion_principal"><b><span id="spnSubTituloOfertaFinal">Consigue más ganancias agregando uno de estos productos</span></b></h6>
-                    @*<span class="enlace_catalogos">
-                        También puedes buscarlo en tus
-                        <a href="#" title="Tus Catálogos">TUS CATÁLOGOS</a>
-                    </span>*@
-                    <button name="btn_noGracias_agregarProductos" class="btn_noGracias_agregarProductos" id="btnNoGraciasOfertaFinal">
-                        NO, GRACIAS
-                    </button>
+                    <div class="compartir_redes_ficha">
+                        <div class="texto_compartelo">Compártelo con tus clientes</div>
+                        <a class="btn_compartir_facebook_ficha"><img src="@Url.Content("~/Content/Images/Mobile/Esika/facebook.png")" width="19" height="18" /></a>
+                        <a class="btn_compartir_facebook_ficha"><img src="@Url.Content("~/Content/Images/Esika/mensaje_ficha.png")" width="20" height="15" /></a>
+                        <hr class="clear" />
                 </div>
-                <div style="display: inline-block;" class="bloque_carousel">
-                    <div style="margin-left: 27px; margin-right: 27px; position: relative; bottom: 19px;">
-                        <div class="slider center" id="divCarruselOfertaFinal" style="width: 100%">
                         </div>
+                <div class="content_right_ficha">
+                    <div style="height:130px;">
+                        <div class="titulo_ficha_producto">Essential Limpiadora. Cutis Graso</div>
+                        <div class="peso_ficha_producto">180 ml e 6 fl. oz</div>
+                        <div class="descripcion_ficha_producto">Liso absoluto todo el día con exquisita fragancia a jazmín.</div>
+                        <div class="precio_ficha_producto">
+                            <span class="precio_tachado_ficha">S/. 70.00</span>S/. 49.00
                     </div>
                 </div>
+                    <div style="height:196px;">
+                        <div class="opcion_escala_descuento">
+                            <div class="texto_producto_relacionado">
+                                Cómpralo porque ya tienes <b>Shampoo Essens para cabello liso</b>   en tu pedido
             </div>
+                            <div class="imagen_relacionada">
+                                <img src="https://s3-sa-east-1.amazonaws.com/appcatalogo/PE/201703/L/productos/PE_200074844.jpg" alt="PRODUCTO">
         </div>
+                            <hr class="clear" />
     </div>
 </div>
-<!-- FIN POPUP OFERTA FINAL -->
-
-<!-- POPUP DETALLE CARRUSEL OFERTAS PARA TI LANZAMIENTO -->
-<div class="contenedor_popup_detalleCarousel" id="popupDetalleCarousel_lanzamiento">
+                    <div class="liquidacion_rango_home">
+                        <input type="text" value="1" size="2" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" data-input="cantidad" data-cantidad-input="-">
+                        <div class="liquidacion_rango_right_pedido">
+                            <a class="mas" data-cantidad-agregar="+"><img src="/Content/Images/Esika/mas.png" alt=""></a>
+                            <a class="menos" data-cantidad-agregar="-"><img src="/Content/Images/Esika/menos.png" alt=""></a>
 </div>
+                    </div>
+                    <a class="boton_Agregalo_home ficha_btn_agregar" style="width:238px;">
+                        AGRÉGALO
+                    </a>
+                </div>
+                <hr class="clear" /> 
+             </div>
+        </div>
+        <!--FIN-->
+        <!-- POPUP DETALLE CARRUSEL OFERTAS PARA TI LANZAMIENTO -->
+        <div class="contenedor_popup_detalleCarousel" id="popupDetalleCarousel_lanzamiento"></div>
 <!-- FIN POPUP DETALLE CARRUSEL OFERTAS PARA TI LANZAMIENTO -->
-
 <!-- POPUP DETALLE CARRUSEL OFERTAS PARA TI PACK NUEVAS -->
-<div class="contenedor_popup_detalleCarousel" id="popupDetalleCarousel_packNuevas">
-</div>
+        <div class="contenedor_popup_detalleCarousel" id="popupDetalleCarousel_packNuevas"></div>
 <!-- FIN POPUP DETALLE CARRUSEL OFERTAS PARA TI PACK NUEVAS -->
 
 @if (ViewBag.MostrarPedidosPendientes == "1")
@@ -1682,7 +1685,7 @@
     <div class="vertical" data-item="{{EstrategiaID}}" data-tipoestrategiaimagenmostrar="{{#if_eq FlagMostrarImg '1'}}{{TipoEstrategiaImagenMostrar}}{{/if_eq}}">
         <div class="producto_carousel" {{#iff TipoEstrategiaImagenMostrar 'ContainsArray' '[5,3,2]' }} data-estrategia="{{JSON2string item}}" style="cursor:pointer;" onclick="javascript:CargarEstrategiasEspeciales(this, event);" {{/iff}}>
             <input type="hidden" class="PosicionEstrategia" value="{{Posicion}}" />
-            <input type="hidden" class="OrigenPedidoWeb" value="@Portal.Consultoras.Common.Constantes.OrigenPedidoWeb.DesktopPedidoOfertasParaTi"/>            
+                    <input type="hidden" class="OrigenPedidoWeb" value="@Portal.Consultoras.Common.Constantes.OrigenPedidoWeb.DesktopPedidoOfertasParaTi" />
             <div class="producto_img">
                 <img src="{{FotoProducto01}}" />
                 {{#iff TipoEstrategiaImagenMostrar 'ContainsArray' '[5,3,2]' }}
@@ -1793,7 +1796,7 @@
 </script>
 
 <script id="packnuevas-template" type="text/x-handlebars-template">
-    <div class="popup_detalleCarousel packNuevas" data-item="packNueva" data-tipoestrategiaimagenmostrar="{{#if_eq FlagMostrarImg '1'}}{{TipoEstrategiaImagenMostrar}}{{/if_eq}}">
+            <div class="popup_detalleCarousel packNuevas" data-popup-body="" data-item="packNueva" data-tipoestrategiaimagenmostrar="{{#if_eq FlagMostrarImg '1'}}{{TipoEstrategiaImagenMostrar}}{{/if_eq}}">
         <div class="btn_cerrar_detalleCarousel">
             <a href="javascript:void()" onclick="return $('#popupDetalleCarousel_packNuevas').hide();" title="Cerrar">
                 <img src="@Url.Content("~/Content/Images/btn_cerrar_popup.svg")" alt="Cerrar" />
@@ -1801,7 +1804,7 @@
             </a>
         </div>
         <div class="contenido_popUp">
-            <input type="hidden" class="OrigenPedidoWeb" value="@Portal.Consultoras.Common.Constantes.OrigenPedidoWeb.DesktopPedidoOfertasParaTiPopUp"/>
+                    <input type="hidden" class="OrigenPedidoWeb" value="@Portal.Consultoras.Common.Constantes.OrigenPedidoWeb.DesktopPedidoOfertasParaTiPopUp" />
             <div class="bloque_producto_packNuevas">
                 <div class="content_item_carrusel">
                     {{#if_eq FlagMostrarImg '1'}}
@@ -1858,7 +1861,65 @@
 </script>
 
 <script id="lanzamiento-template" type="text/x-handlebars-template">
-    <div class="popup_detalleCarousel lanzamiento">
+    <div class="content_ficha_producto_nueva" data-popup-body="">
+        <a class="cerrar_fichaProducto" href="javascript:;" onclick="return $('#popupDetalleCarousel_lanzamiento').hide();" title="Cerrar">
+            <img src="/Content/Images/cerrar_04_blanco.png" alt="Cerrar">
+        </a>
+        <div data-item="">
+            <input type="hidden" class="OrigenPedidoWeb" value="@Constantes.OrigenPedidoWeb.DesktopPedidoOfertasParaTiPopUp" />
+            <div class="content_left_ficha">
+                {{#if_eq FlagMostrarImg '1'}}
+                {{#if_eq TipoEstrategiaImagenMostrar '@Constantes.TipoEstrategia.Lanzamiento'}}
+                <div class="etiqueta_producto">
+                    <img src="{{ImagenURL}}" alt="Etiqueta Producto" />
+                </div>
+                {{/if_eq}}
+                {{/if_eq}}
+                <div class="content_ficha_producto">
+                    <img id="fav_imagen_prod" src="{{FotoProducto01}}">
+                </div>
+                <div class="compartir_redes_ficha" style="padding-left:0;margin-left: -16px;">
+                    <div class="texto_compartelo">Compártelo con tus clientes</div>
+                    <a class="btn_compartir_facebook_ficha" onclick='javascript:CompartirFacebook("{{UrlCompartirFB}}",  {Palanca: "OPT", RutaImagen: "{{FotoProducto01}}", MarcaID:"{{MarcaID}}", MarcaDesc:"{{DescripcionMarca}}", NombrePro:"{{DescripcionCompleta}}", Cuv:"{{CUV2}}"});'>
+                        <img src="/Content/Images/Esika/facebook.png">
+                    </a>
+                    @*<a class="btn_compartir_facebook_ficha"><img src="/Content/Images/Esika/mensaje_ficha.png" width="20" height="15"></a>*@
+                    <hr class="clear">
+                </div>
+            </div>
+            <div class="content_right_ficha">
+                <h6>{{DescripcionMarca}}</h6>
+                <div id="fav_nombre_prod" class="titulo_ficha_producto" data-prod-descripcion>{{DescripcionCUV2}}</div>
+                <div class="precio_ficha_producto">
+                    {{#iff Precio '>' 0}}
+                    <span class="producto_precio_normal">{{Simbolo}} {{PrecioTachado}}</span>
+                    {{/iff}}
+                    {{Simbolo}} {{PrecioString}}
+                </div>
+                <div class="liquidacion_rango_home">
+                    <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" data-input="cantidad" data-cantidad-input="-">
+                    <div class="liquidacion_rango_right_pedido">
+                        <a class="mas" data-cantidad-agregar="+"><img src="/Content/Images/Esika/mas.png" alt=""></a>
+                        <a class="menos" data-cantidad-agregar="-"><img src="/Content/Images/Esika/menos.png" alt=""></a>
+                    </div>
+                </div>
+                <a class="boton_Agregalo_home ficha_btn_agregar" onclick="javascript:CargarProductoDestacado({ EstrategiaID: '{{EstrategiaID}}' , TipoEstrategiaID: '{{TipoEstrategiaID}}' , Posicion: {{Posicion}} , FlagNueva: '{{FlagNueva}}' }, this, true);" style="cursor: pointer;">
+                    AGRÉGALO
+                </a>
+                {{#if MostrarTextoLibre}}
+                <div class="mensaje_advertencia_detalleCarousel">
+                    <span class="icono_advertencia_notificacion"></span>
+                    <span>{{TextoLibre}}</span>
+                </div>
+                {{/if}}
+                @*<div class="notificacion_cantidad">Limitado a 5 packs por consultora</div>*@
+            </div>
+        </div>
+    </div>
+</script>
+
+        <script id="lanzamiento-templateX" type="text/x-handlebars-template">
+            <div class="popup_detalleCarousel lanzamiento" data-popup-body="">
         <div class="btn_cerrar_detalleCarousel">
             <a href="javascript:void()" onclick="return $('#popupDetalleCarousel_lanzamiento').hide();" title="Cerrar">
                 <img src="@Url.Content("~/Content/Images/btn_cerrar_popup.svg")" alt="Cerrar" />
@@ -1866,7 +1927,7 @@
             </a>
         </div>
         <div data-item="" class="contenido_popUp">
-            <input type="hidden" class="OrigenPedidoWeb" value="@Portal.Consultoras.Common.Constantes.OrigenPedidoWeb.DesktopPedidoOfertasParaTiPopUp"/>
+                    <input type="hidden" class="OrigenPedidoWeb" value="@Portal.Consultoras.Common.Constantes.OrigenPedidoWeb.DesktopPedidoOfertasParaTiPopUp" />
             <div class="content_item_carrusel">
                 {{#if_eq FlagMostrarImg '1'}}
                 {{#if_eq TipoEstrategiaImagenMostrar '@Portal.Consultoras.Common.Constantes.TipoEstrategia.Lanzamiento'}}
@@ -1951,8 +2012,56 @@
 </script>
 
 <script id="ofertaFinal-template" type="text/x-handlebars-template">
-    {{#each this}}
-    <div class="content_item_carrusel_ofertaFinal" data-item="ofertaFinal">
+    <div class="popup_ofertaFinal" data-meta="{{TipoMeta}}" data-meta-total="{{TotalPedido}}" data-popup-body="">
+        <div class="btn_cerrar_ofertaFinal">
+            <a href="javascript:;" title="Cerrar" data-popup-close="divOfertaFinal">
+                <img src="@Url.Content("~/Content/Images/btn_cerrar_popup.svg")" alt="Cerrar" />
+                <span class="texto_btn_cerrar">CERRAR</span>
+            </a>
+        </div>
+        <div class="contenido_popUp">
+            <div class="content_texto_oferta">
+                <div class="icono_mensaje_alerta icono_check_alerta"></div>
+
+                <div>
+                    <h1 class="titulo_ofertaFinal"  id="spnTituloOfertaFinal">
+                        {{#iff TipoMeta '==' 'MM'}}
+                            <span><b>AÚN TE FALTA {{Simbolo}} <span data-monto="">{{MetaMontoStr}}</span></b> PARA LLEGAR AL MONTO MÍNIMO</span>
+                        {{/iff}}
+                        {{#iff TipoMeta '==' 'GM'}}
+                            <span>¡GUARDASTE TU<b> PEDIDO CON ÉXITO</b>!</span>
+                        {{/iff}}
+                        {{#iff TipoMeta '==' 'ME'}}
+                            <span>¡GUARDASTE TU<b> PEDIDO CON ÉXITO</b>!</span>
+                        {{/iff}}
+                    </h1>
+                    <hr class="clear" />
+                    <div class="descripcion_ofertaFinal" id="msjOfertaFinal" data-meta-porcentaje="{{MetaPorcentaje}}" data-meta-monto="{{MontoMeta}}">
+                        {{#iff TipoMeta '==' 'MM'}}
+                            <span>TE AYUDAMOS A ALCANZARLO CON ESTAS OFERTAS</span>
+                        {{/iff}}
+                        {{#iff TipoMeta '==' 'GM'}}
+                            {{#iff Cross '==' '1'}}
+                            <span>APROVECHA ESTAS OFERTAS Y <b>GANA MÁS</b> SUMANDO LOS COMPLEMENTOS DE TU PEDIDO</span>
+                            {{else}}
+                            <span>APROVECHA ESTAS OFERTAS Y <b>GANA MÁS</b> ESTA CAMPAÑA</span>
+                            {{/iff}}
+                        {{/iff}}
+                        {{#iff TipoMeta '==' 'ME'}}
+                            <span>ALCANZA EL <b style="font-size:23px;">{{MetaPorcentaje}}%</b> DSCTO AGREGANDO {{Simbolo}} <span data-monto="">{{MetaMontoStr}}</span> DE ESTAS OFERTAS</span>
+                        {{/iff}}
+                    </div>
+                    @*<div class="texto_complemento_oferta">Compra en oferta los complementos de tu pedido</div>*@
+                </div>
+
+            </div>
+            <div class="contenedor_bloques_agregaProductos">
+                <div style="margin: 0 auto; width:90%;" class="bloque_carousel">
+                    <div style="margin-left: 27px; margin-right: 27px; position: relative;margin-top:-95px;">
+                        <div class="slider center" id="divCarruselOfertaFinal" style="width: 100%">
+
+            {{#each this.Detalle}}
+            <div class="content_item_carrusel_ofertaFinal" data-item="ofertaFinal" data-id="{{id}}">
         <div style="display: none;">
             <input type="hidden" class="hdOfertaFinalCuv" value="{{CUV}}" />
             <input type="hidden" class="hdOfertaFinalTipoOfertaSisID" value="{{TipoOfertaSisID}}" />
@@ -1962,22 +2071,34 @@
             <input type="hidden" class="hdOfertaFinalMarcaID" value="{{MarcaID}}" />
             <input type="hidden" class="hdOfertaFinalPrecioUnidad" value="{{PrecioCatalogo}}" />
             <input type="hidden" class="hdOfertaFinalDescripcionProd" value="{{Descripcion}}" />
+                    <input type="hidden" class="hdOfertaFinalNombreComercial" value="{{NombreComercial}}" />
+                    <input type="hidden" class="hdOfertaFinalVolumen" value="{{Volumen}}" />
             <input type="hidden" class="hdOfertaFinalPagina" value="0" />
             <input type="hidden" class="hdOfertaFinalDescripcionCategoria" value="{{DescripcionCategoria}}" />
             <input type="hidden" class="hdOfertaFinalDescripcionMarca" value="{{DescripcionMarca}}" />
             <input type="hidden" class="hdOfertaFinalDescripcionEstrategia" value="{{DescripcionEstrategia}}" />
+                    <input type="hidden" class="hdOfertaFinalImagenProductoSugerido" value="{{ImagenProductoSugerido}}" />
+                    <input type="hidden" class="hdOfertaFinalPrecioValorizadoString" value="{{PrecioValorizadoString}}" />
+                    <input type="hidden" class="hdOfertaFinalPrecioCatalogoString" value="{{PrecioCatalogoString}}" />
+                    <input type="hidden" class="hdOfertaFinalDescripcionComercial" value="{{DescripcionComercial}}" />
+                    <input type="hidden" class="hdOfertaFinalUrlCompartirFB" value="{{UrlCompartirFB}}" />
+                    <input type="hidden" class="hdOfertaFinalDescripcionRelacionado" value="{{CUVComplemento}}" />
+                    <input type="hidden" class="hdOfertaFinalCUVPedidoImagen" value="{{CUVPedidoImagen}}" />
         </div>
-        <div class="contenido_item_carrusel_ofertaFinal">
-            <div class="producto_img_home">
+                <div class="contenido_item_carrusel_ofertaFinal" style="height:295px;" >
+                    <div class="nohely producto_img_home" style="height:115px;" data-tooltip-text="{{CUVPedidoNombre}}"  onclick="javascript:CargarVerDetalleOF(this, event);">
                 <img src="{{ImagenProductoSugerido}}" style="height: 100%;">
+                        @*<i class="img-tooltip" data-toggle="tooltip" data-placement="right" title="Cómpralo porque ya tienes Shampoo Essens..." data-animation="false" data-trigger="manual" />*@
+                        <a class="ver_detalle_carrusel" style="bottom:23px;">VER DETALLE</a>
             </div>
-            <div class="etiqueta_producto">
-            </div>
+                    @*<div class="etiqueta_producto"></div>*@
             <div class="producto_nombre_descripcion">
+                        <div onclick="javascript:CargarVerDetalleOF(this, event);">
                 <h6>{{DescripcionMarca}}</h6>
                 <p class="nombre_producto">
-                    <b>{{Descripcion}}</b>
+                                <b>{{NombreComercialCorto}}</b>
                 </p>
+                        </div>
                 <div class="producto_precio">
                     {{#iff PrecioValorizadoString '!=' '0'}}
                     <span class="producto_precio_normal">{{Simbolo}} {{PrecioValorizadoString}}</span>
@@ -1994,14 +2115,87 @@
                 <a class="boton_Agregalo_home agregarOfertaFinal">
                     AGRÉGALO
                 </a>
-
                 <div class="clear"></div>
+                        <div class="content_carrusel_agregado" style="padding-top:9px; height: 15px;">
+                            <div class="agregado product-add" style="text-align:right;display:none;">
+                                AGREGADO
+                                <div class="icono"></div>
+                            </div>
+                        </div>
             </div>
         </div>
     </div>
     {{/each}}
+                        
+                        </div>
+                    </div>
+                    <button name="btn_noGracias_agregarProductos" class="btn_noGracias_agregarProductos btnNoGraciasOfertaFinal icono_terminar_pedido" id="btnNoGraciasOfertaFinal" style="display:{{#iff TipoMeta '==' 'MM'}}none;{{else}}block;{{/iff}}">
+                        TERMINAR PEDIDO
+                    </button>
+                </div>
+                <hr class="clear" />
+            </div>       
+         </div>
+    </div>
 </script>
 
+<script id="ofertaFinalVerDetalle-template" type="text/x-handlebars-template">
+    <div class="popup_ofertaFinal" style="padding:35px;">
+        <a class="btn_cerrar_escala" href="javascript:;" onclick="javascript: $('#contenedor_popup_ofertaFinalVerDetalle').hide();">REGRESAR</a>
+        <hr class="clear" />
+        <div class="content_left_ficha">
+            <div class="content_ficha_producto" style="width:72%; height:auto; margin:0 auto;">
+                <img id="fav_imagen_prod" class="imagen_producto" src="{{ImagenProductoSugerido}}" alt="PRODUCTO">
+            </div>
+            <div class="compartir_redes_ficha">
+                <div class="texto_compartelo">Compártelo con tus clientes</div>
+                <a class="btn_compartir_facebook_ficha" onclick='javascript:CompartirFacebook("{{UrlCompartirFB}}",  {Palanca: "OF", RutaImagen: "{{ImagenProductoSugerido}}", MarcaID:"{{MarcaID}}", MarcaDesc:"{{DescripcionMarca}}", NombrePro:"{{Descripcion}}", Cuv:"{{CUV}}"});'>
+                    <img src="@Url.Content("~/Content/Images/Mobile/Esika/facebook.png")" width="19" height="18" />
+                </a>
+                @*<a class="btn_compartir_facebook_ficha"><img src="@Url.Content("~/Content/Images/Esika/mensaje_ficha.png")" width="20" height="15" /></a>*@
+                <hr class="clear" />
+            </div>
+        </div>
+        <div class="content_right_ficha">
+            <div style="height:130px;">
+                <div class="marca_ficha_producto">{{DescripcionMarca}}</div>
+                <div class="titulo_ficha_producto">{{NombreComercial}}</div>
+                <div class="peso_ficha_producto">{{Volumen}}</div>
+                <div class="descripcion_ficha_producto">{{DescripcionComercial}}</div>
+                <div class="precio_ficha_producto">
+                    {{#iff PrecioValorizadoString '!=' '0'}}
+                    <span class="precio_tachado_ficha">{{Simbolo}} {{PrecioValorizadoString}}</span>
+                    {{/iff}}
+                    {{Simbolo}} {{PrecioCatalogoString}}
+                </div>
+            </div>
+            {{#iff DescripcionRelacionado '!=' ''}}
+            <div style="height:196px;">
+                <div class="opcion_escala_descuento">
+                    <div class="texto_producto_relacionado">
+                        Cómpralo porque ya tienes <b>{{DescripcionRelacionado}}</b> en tu pedido
+                    </div>
+                    <div class="imagen_relacionada">
+                        <img src="{{CUVPedidoImagen}}" alt="PRODUCTO">
+                    </div>
+                    <hr class="clear" />
+                </div>
+            </div>
+            {{/iff}}
+            <div class="liquidacion_rango_home">
+                <input type="text" value="1" size="2" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" data-input="cantidad" data-cantidad-input="-">
+                <div class="liquidacion_rango_right_pedido">
+                    <a class="mas" data-cantidad-agregar="+"><img src="/Content/Images/Esika/mas.png" alt=""></a>
+                    <a class="menos" data-cantidad-agregar="-"><img src="/Content/Images/Esika/menos.png" alt=""></a>
+                </div>
+            </div>
+            <a class="boton_Agregalo_home ficha_btn_agregar agregarOfertaFinalVerDetalle" data-popup-verdetalle="{{id}}" style="width:238px;">
+                AGRÉGALO
+            </a>
+        </div>
+        <hr class="clear" />
+    </div>
+</script>
 @section scripts{
     <script type="text/javascript" src="@Url.Content("~/Scripts/slick.min.js")"></script>
     <script type="text/javascript">
@@ -2043,6 +2237,7 @@
         
     </script>
     @System.Web.Optimization.Scripts.Render("~/bundles/JsSB2-Pedido")
+            <script type="text/javascript" src="@Url.Content("~/Scripts/bootstrap.min.js")"></script>
 
     @if (ViewBag.MostrarPedidosPendientes == "1")
     {
