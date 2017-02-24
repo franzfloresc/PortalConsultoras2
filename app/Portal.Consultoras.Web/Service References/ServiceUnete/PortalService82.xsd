@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.BL.BC.Parameter" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.BL.BC.Parameter" xmlns:xs="http://www.w3.org/2001/XMLSchema">
-  <xs:import schemaLocation="http://internal-qaselb-portalffvvservicios-1152760669.us-east-1.elb.amazonaws.com/UneteWCF/PortalService.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.Utils" />
+  <xs:import schemaLocation="http://internal-qaselb-portalffvvservicios-1152760669.us-east-1.elb.amazonaws.com/UneteWCFPPR/PortalService.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.Utils" />
   <xs:complexType name="SolicitudPostulanteParameter">
     <xs:sequence>
       <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.Utils" minOccurs="0" name="Aplicacion" type="q1:Enums.Aplicacion" />

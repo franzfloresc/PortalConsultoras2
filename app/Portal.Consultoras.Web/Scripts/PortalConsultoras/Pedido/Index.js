@@ -217,6 +217,7 @@ $(document).ready(function () {
     });
     $('#btnValidarPROL').click(function () {
         EjecutarPROL();
+        cerrarMensajeEstadoPedido();
     });
     $("body").on("mouseenter", ".info_copy", function () {
         var mar = $(this).parent().parent() || '0';
@@ -470,6 +471,9 @@ $(document).ready(function () {
             var response = $("#btnNoGraciasOfertaFinal")[0].data;
             MostrarMensajeProl(response);
         }
+    });
+    $('#producto-faltante-busqueda-cuv, #producto-faltante-busqueda-descripcion').on('keypress', function (e) {
+        if (e.which == 13) CargarProductoAgotados();
     });
 
     $(document).on('click', '#idImagenCerrar', function (e) {
@@ -843,8 +847,10 @@ function InsertarProducto(form) {
                 CerrarSplash();
             }
         },
-        error: function (x, xh, xhr) {
-            console.error(xh);
+        error: function (response, x, xh, xhr) {
+            if (checkTimeout(response)) {
+                console.error(xh);
+            }
         }
     });
 }
@@ -4078,60 +4084,42 @@ function AgregarProducto(url, model, divDialog, cerrarSplash) {
     });
 }
 
-function CargarProductoAgotados() {
-    AbrirSplash();
+function CerrarProductoAgotados() {
+    $('#divProductoAgotado').hide();
+    $('#producto-faltante-busqueda-cuv').val('');
+    $('#producto-faltante-busqueda-descripcion').val('');
+}
 
+function CargarProductoAgotados() {
+    var data = {
+        cuv: $('#producto-faltante-busqueda-cuv').val(),
+        descripcion: $('#producto-faltante-busqueda-descripcion').val()
+    }
+
+    AbrirSplash();
     jQuery.ajax({
         type: 'POST',
         url: baseUrl + 'Pedido/GetProductoFaltante',
         dataType: 'json',
-        contentType: 'application/json; charset=utf-8',
+        data: data,
         async: true,
         success: function (response) {
-            if (!checkTimeout(response)) {
-                CerrarSplash();
-                return false;
-            }
+            if (!checkTimeout(response)) return false;
 
             CerrarSplash();
             if (response.result) {
-                $("#tblProductoSugerido").html('');
-                var html = '<table>';
-                html += '<tr>';
-                html += '<th class="codigo_productoAgotado">Código</th>';
-                html += '<th class="producto_productoAgotado">Producto</th>';
-                html += '</tr>';
-
-                var lista = response.data;
-
-                $.each(lista, function (index, value) {
-                    html += '<tr>';
-                    html += '<td class="codigo_productoAgotado">' + value.CUV + '</td>';
-                    html += '<td class="producto_productoAgotado">' + value.Descripcion + '</td>';
-                    html += '</tr>';
-                });
-
-                html += '</table>';
-
-                $("#tblProductoSugerido").html(html);
+                SetHandlebars("#productos-faltantes-template", response.data, '#tblProductosFaltantes');
                 $("#divProductoAgotado").show();
-            } else {
-                alert(response.data);
             }
-
-            return true;
+            else alert(response.data);
         },
-        error: function (data, error) {
-            AjaxError(data, error);
-        }
+        error: function (data, error) { AjaxError(data, error); }
     });
 }
 
 function AjaxError(data) {
     CerrarSplash();
-    if (checkTimeout(data)) {
-        alert_msg(data.message);
-    }
+    if (checkTimeout(data)) alert_msg(data.message);
 }
 
 function CargarEstrategiasEspeciales(objInput, e) {

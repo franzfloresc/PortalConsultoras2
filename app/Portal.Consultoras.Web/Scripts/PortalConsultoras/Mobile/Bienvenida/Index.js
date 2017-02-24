@@ -453,7 +453,7 @@ function EstructurarDataCarousel(array) {
 };
 function CargarProductoDestacado(objParameter, objInput) {
     ShowLoading();
-
+    debugger
     if (ReservadoOEnHorarioRestringido())
         return false;
 
@@ -743,6 +743,7 @@ function AgregarProductoDestacado(tipoEstrategiaImagen) {
     });
 };
 function ReservadoOEnHorarioRestringido(mostrarAlerta) {
+    debugger
     mostrarAlerta = typeof mostrarAlerta !== 'undefined' ? mostrarAlerta : true;
     var restringido = true;
 
@@ -778,9 +779,12 @@ function ReservadoOEnHorarioRestringido(mostrarAlerta) {
                 messageInfo(data.message);
             }
         },
-        error: function (error) {
-            console.log(error);
-            messageInfo('Ocurrió un error al intentar validar el horario restringido o si el pedido está reservado. Por favor inténtelo en unos minutos.');
+        error: function (data, error) {
+            CloseLoading();
+            if (checkTimeout(data)) {
+                console.log(error);
+                messageInfo('Ocurrió un error al intentar validar el horario restringido o si el pedido está reservado. Por favor inténtelo en unos minutos.');
+            }
         }
     });
     return restringido;

@@ -66,7 +66,8 @@ namespace Portal.Consultoras.Web.Models
             this.EsquemaDAConsultora = false;
             this.TipoCasoPromesa = string.Empty;
             this.DiasCasoPromesa = 0;
-           
+            this.SegmentoAbreviatura = string.Empty;
+
         }
 
         public string Celular { get; set; }
@@ -142,7 +143,6 @@ namespace Portal.Consultoras.Web.Models
         public string CodigoTerritorio { get; set; }
         public string Simbolo { get; set; }
         public decimal MontoMinimo { get; set; }
-        public List<BEProductoFaltante> ListaProductoFaltante { get; set; }
         public string UrlAyuda { get; set; }
         public string UrlCapedevi { get; set; }
         public string UrlTerminos { get; set; }
@@ -219,6 +219,8 @@ namespace Portal.Consultoras.Web.Models
 
         public string TipoCasoPromesa { get; set; }
         public int DiasCasoPromesa { get; set; }
+
+        public string SegmentoAbreviatura { get; set; }
 
         /*Inicio Cambios_Landing_Comunidad*/
         public static bool HasAcces(List<PermisoModel> lista, string Action)

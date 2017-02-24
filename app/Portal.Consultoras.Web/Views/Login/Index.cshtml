@@ -25,9 +25,12 @@
                         <div class="formcontrol pais" id="cargarBandera2" style="margin-bottom: 35px;">
                             <select id="cboPaisCambioClave" class="cboPaisCambioClave" tabindex="1" style="color: black !important">
                                 <option value="0">Elige tu País</option>
-                                @foreach (var item in Model.ListaPaises)
+                                @if (Model.ListaPaises != null)
                                 {
-                                    <option value="@item.PaisID">@item.Nombre</option>
+                                    foreach (var item in Model.ListaPaises)
+                                    {
+                                        <option value="@item.PaisID">@item.Nombre</option>
+                                    }
                                 }
                             </select>
                         </div>
@@ -123,9 +126,12 @@
 
                         <select id="ddlPais" name="CodigoISO" class="DropDown" tabindex="1">
                             <option value="00">Elige tu País</option>
-                            @foreach (var item in Model.ListaPaises)
+                            @if (Model.ListaPaises != null)
                             {
-                                <option value="@item.CodigoISO" data-id="@item.PaisID">@item.Nombre</option>
+                                foreach (var item in Model.ListaPaises)
+                                {
+                                    <option value="@item.CodigoISO" data-id="@item.PaisID">@item.Nombre</option>
+                                }
                             }
                         </select>
                     </div>
@@ -154,7 +160,7 @@
 
             <div class="boxform">
                 <div class="formbtn">
-                    <div style="color: #ABEAE3; text-align: left; padding-left: 4px; margin-bottom: 5px; font-family: 'lato'; font-size: 12px; font-weight: bold;"> 
+                    <div style="color: #ABEAE3; text-align: left; padding-left: 4px; margin-bottom: 5px; font-family: 'lato'; font-size: 12px; font-weight: bold;">
                         <label id="ErrorTextLabel" class="img_error_login"></label>
                     </div>
                 </div>

@@ -26,6 +26,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             ViewBag.CodigoCampania = userData.CampaniaID.ToString();
             try
             {
+                ViewBag.EsMobile = 2;//EPD-1780
                 BuildMenuMobile(userData);
                 CargarValoresGenerales(userData);
 
@@ -58,15 +59,30 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
                     OfertaDelDiaModel ofertaDelDia = GetOfertaDelDiaModel();
                     ViewBag.OfertaDelDia = ofertaDelDia;
+
                     ViewBag.MostrarOfertaDelDia = userData.TieneOfertaDelDia && ofertaDelDia != null && ofertaDelDia.TeQuedan.TotalSeconds > 0;
 
                     if (userData.CloseOfertaDelDia)
                         ViewBag.MostrarOfertaDelDia = false;
                 }
                 ViewBag.MostrarBannerPL20 = mostrarBanner;
-                /*FIN: PL20-1289*/
+                if (mostrarBanner)
+                {
+                     if (!userData.ValidacionAbierta && userData.EstadoPedido == 202 && userData.IndicadorGPRSB == 2)
+                    {
+                        ViewBag.MostrarBannerPL20 = mostrarBanner;
+                    }else if (userData.IndicadorGPRSB == 0)
+                    {
+                        ViewBag.MostrarBannerPL20 = mostrarBanner;
+                    }
+                    else
+                    {
+                        ViewBag.MostrarBannerPL20 = false;
+                        ViewBag.MostrarOfertaDelDia = false;
+                    }
+                }
 
-                ViewBag.EsMobile = 2;//EPD-1780
+                /*FIN: PL20-1289*/
             }
             catch (Exception ex)
             {
@@ -111,8 +127,8 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
                     if (userData.CatalogoPersonalizado == 0 || !userData.EsCatalogoPersonalizadoZonaValida) lst.Remove(lst.FirstOrDefault(p => p.UrlItem.ToLower() == "mobile/catalogopersonalizado/index"));
 
-                    var menuConsultoraOnlinePadre = lst.FirstOrDefault(m => m.Descripcion.ToLower().Trim() == "consultora online" && m.MenuPadreID == 0);
-                    var menuConsultoraOnlineHijo = lst.FirstOrDefault(m => m.Descripcion.ToLower().Trim() == "consultora online" && m.MenuPadreID != 0);
+                    var menuConsultoraOnlinePadre = lst.FirstOrDefault(m => m.Descripcion.ToLower().Trim() == "app de catálogos" && m.MenuPadreID == 0);
+                    var menuConsultoraOnlineHijo = lst.FirstOrDefault(m => m.Descripcion.ToLower().Trim() == "app de catálogos" && m.MenuPadreID != 0);
                     string mostrarPedidosPendientes = ConfigurationManager.AppSettings.Get("MostrarPedidosPendientes");
                     string strpaises = ConfigurationManager.AppSettings.Get("Permisos_CCC");
                     bool mostrarClienteOnline = (mostrarPedidosPendientes == "1" && strpaises.Contains(userData.CodigoISO));
@@ -123,7 +139,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                         lst.Remove(menuConsultoraOnlineHijo);
                         ViewBag.TipoMenuConsultoraOnline = 0;
                     }
-                    else
+                    else if(menuConsultoraOnlinePadre != null || menuConsultoraOnlineHijo != null)
                     {
                         int esConsultoraOnline = -1;
                         using (var svc = new UsuarioServiceClient())
@@ -135,39 +151,23 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                                 ViewBag.TeQuedanConsultoraOnline = svc.GetSaldoHorasSolicitudesPedido(userData.PaisID, userData.ConsultoraID, userData.CampaniaID);
                             }
                         }
-                        //ViewBag.MenuPadreIDConsultoraOnline = menuConsultoraOnlinePadre.MenuMobileID;
-                        //ViewBag.MenuHijoIDConsultoraOnline = menuConsultoraOnlineHijo.MenuMobileID;
-
-                        //if (esConsultoraOnline <= 0)
-                        //{
-                        //    if (menuConsultoraOnlinePadre != null && menuConsultoraOnlineHijo != null)
-                        //    {
-                        //        var lstTmp = lst.Where(m => m.MenuPadreID != menuConsultoraOnlinePadre.MenuMobileID).ToList();
-                        //        lst = lstTmp.Where(m => m.MenuMobileID != menuConsultoraOnlinePadre.MenuMobileID).ToList();
-                        //        //lst.Where(m => m.MenuMobileID == menuh.MenuMobileID).First().Descripcion += " <b>!Afiliate¡</b>";
-                        //        ViewBag.TipoMenuConsultoraOnline = 1;
-                        //    }
-                        //}
-                        //else
-                        //{
-                        //    if (menuConsultoraOnlineHijo != null)
-                        //    {
-                        //        var lstTmp = lst.Where(m => m.MenuMobileID != menuConsultoraOnlineHijo.MenuMobileID).ToList();
-                        //        lst = lstTmp;
-                        //        ViewBag.TipoMenuConsultoraOnline = 2;
-                        //    }
-                        //}
+                        
                         if (esConsultoraOnline == -1)
                         {
                             ViewBag.TipoMenuConsultoraOnline = 1;
-                            ViewBag.MenuHijoIDConsultoraOnline = menuConsultoraOnlineHijo.MenuMobileID;
+                            ViewBag.MenuHijoIDConsultoraOnline = menuConsultoraOnlineHijo != null ? menuConsultoraOnlineHijo.MenuMobileID : 0;
                             lst.Remove(menuConsultoraOnlinePadre);
                         }
                         else
                         {
                             ViewBag.TipoMenuConsultoraOnline = 2;
-                            ViewBag.MenuPadreIDConsultoraOnline = menuConsultoraOnlinePadre.MenuMobileID;
-                            lst.Remove(menuConsultoraOnlineHijo);
+                            ViewBag.MenuPadreIDConsultoraOnline = menuConsultoraOnlinePadre != null ? menuConsultoraOnlinePadre.MenuMobileID : 0;
+                        }
+
+                        if (menuConsultoraOnlineHijo != null)
+                        {
+                            string[] arrayUrlConsultoraOnlineHijo = menuConsultoraOnlineHijo.UrlItem.Split(new string[] { "||" }, StringSplitOptions.None);
+                            menuConsultoraOnlineHijo.UrlItem = arrayUrlConsultoraOnlineHijo[esConsultoraOnline == -1 ? 0 : arrayUrlConsultoraOnlineHijo.Length - 1];
                         }
                     }
 

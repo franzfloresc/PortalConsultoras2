@@ -1,5 +1,4 @@
 ﻿$(document).ready(function () {
-
     history.pushState(null, null, document.location.href);
     window.addEventListener('popstate', function () {
         history.pushState(null, null, document.location.href);
@@ -53,6 +52,25 @@
         }
     });
 
+    $('.ValidaNumeralPedido').live('keyup', function (evt) {
+        var theEvent = evt || window.event;
+        var key = theEvent.keyCode || theEvent.which;
+        key = String.fromCharCode(key);
+        var regex = /[0-9]|\./;
+        if (!regex.test(key)) {
+            theEvent.returnValue = false;
+            if (theEvent.preventDefault) theEvent.preventDefault();
+        }
+    });
+    $('.ValidaNumeralPedido').live('keypress', function (e) {
+        if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+            return false;
+        }
+    });
+    $('#producto-faltante-busqueda-cuv, #producto-faltante-busqueda-descripcion').on('keypress', function (e) {
+        if (e.which == 13) CargarProductoAgotados();
+    });
+
     CargarListado();
 
 });
@@ -92,8 +110,8 @@ function ConfirmarModificar() {
             }
         },
         error: function (data, error) {
-            if (checkTimeout(data)) {
-                closeWaitingDialog();
+            closeWaitingDialog();
+            if (checkTimeout(data)) {                
                 alert("Ocurrió un error al ejecutar la acción. Por favor inténtelo de nuevo.");
             }
         }
@@ -101,51 +119,38 @@ function ConfirmarModificar() {
     return false;
 }
 
+function CerrarProductoAgotados() {
+    $('#divProductoAgotado').hide();
+    $('#producto-faltante-busqueda-cuv').val('');
+    $('#producto-faltante-busqueda-descripcion').val('');
+}
+
 function CargarProductoAgotados() {
+    var data = {
+        cuv: $('#producto-faltante-busqueda-cuv').val(),
+        descripcion: $('#producto-faltante-busqueda-descripcion').val()
+    }
+
     waitingDialog({});
     jQuery.ajax({
         type: 'POST',
         url: baseUrl + 'Pedido/GetProductoFaltante',
         dataType: 'json',
-        contentType: 'application/json; charset=utf-8',
+        data: data,
         async: true,
         success: function (response) {
+            if (!checkTimeout(response)) return false;
+
             closeWaitingDialog();
-
-            if (!checkTimeout(response)) {
-                return false;
-            }
-
             if (response.result) {
-                $("#tblProductoSugerido").html('');
-                var html = '<table>';
-                html += '<tr>';
-                html += '<th class="codigo_productoAgotado">Código</th>';
-                html += '<th class="producto_productoAgotado">Producto</th>';
-                html += '</tr>';
-
-                var lista = response.data;
-
-                $.each(lista, function (index, value) {
-                    html += '<tr>';
-                    html += '<td class="codigo_productoAgotado">' + value.CUV + '</td>';
-                    html += '<td class="producto_productoAgotado">' + value.Descripcion + '</td>';
-                    html += '</tr>';
-                });
-
-                html += '</table>';
-
-                $("#tblProductoSugerido").html(html);
+                SetHandlebars("#productos-faltantes-template", response.data, '#tblProductosFaltantes');
                 $("#divProductoAgotado").show();
-            } else {
-                alert_msg(response.data);
             }
-
-            return true;
+            else alert_msg(response.data);
         },
         error: function (data, error) {
+            closeWaitingDialog();
             if (checkTimeout(data)) {
-                closeWaitingDialog();
                 alert("Ocurrió un error al ejecutar la acción. Por favor inténtelo de nuevo.");
             }
         }
@@ -210,8 +215,8 @@ function EnviarCorreo() {
             }
         },
         error: function (data, error) {
-            if (checkTimeout(data)) {
-                closeWaitingDialog();
+            closeWaitingDialog();
+            if (checkTimeout(data)) {                
                 alert("ERROR al enviar correo.");
             }
         }
@@ -247,26 +252,29 @@ function CargarListado(page, rows) {
         data: JSON.stringify(obj),
         async: true,
         success: function (response) {
-            
-            if (response.success) {
+            if (checkTimeout(response)) {
+                if (response.success) {
 
-                var data = response.data;
+                    var data = response.data;
 
-                var html = ArmarListado(data.ListaDetalle);
-                $('#divListadoPedido').html(html);
-                
-                var htmlPaginador = ArmarListadoPaginador(data);
-                $('#paginadorCab').html(htmlPaginador);
-                //$('#paginadorPie').html(htmlPaginador);
+                    var html = ArmarListado(data.ListaDetalle);
+                    $('#divListadoPedido').html(html);
 
-                $("#paginadorCab [data-paginacion='rows']").val(data.Registros || 10);
-                //$("#paginadorPie [data-paginacion='rows']").val(data.Registros || 10);
+                    var htmlPaginador = ArmarListadoPaginador(data);
+                    $('#paginadorCab').html(htmlPaginador);
+                    //$('#paginadorPie').html(htmlPaginador);
 
-                MostrarBarra(response);
+                    $("#paginadorCab [data-paginacion='rows']").val(data.Registros || 10);
+                    //$("#paginadorPie [data-paginacion='rows']").val(data.Registros || 10);
+
+                    MostrarBarra(response);
+                }
             }
         },
-        error: function (error) {
-            alert(error);
+        error: function (data, error) {
+            if (checkTimeout(data)) {
+                alert(error);
+            }
         }
     });
 }

@@ -3405,6 +3405,11 @@ select.ui-pg-selbox {
     margin: 0px auto;
     width: 940px;
 }
+
+.containerReporte {
+    margin: 0px auto;
+    width:1200px;
+}
 .container_perfil {
     /*position: relative;*/
     margin: 0px auto;
