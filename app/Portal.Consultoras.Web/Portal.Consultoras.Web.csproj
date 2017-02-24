@@ -3771,10 +3771,10 @@
     <Content Include="Views\Login\Index.cshtml" />
     <Content Include="Views\Login\SesionExpirada.cshtml" />
     <Content Include="Views\Login\UserUnknown.cshtml" />
-    <Content Include="Web References\ServiceGestionWebPROL\Reference.map">
+    <None Include="Web References\ServiceGestionWebPROL\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
-    </Content>
+    </None>
     <Content Include="Views\Unete\NivelesGeograficos.cshtml" />
     <Content Include="Views\Notificaciones\ListaDetalleCdrCulminado.cshtml" />
     <Content Include="Views\Login\Admin.cshtml" />
