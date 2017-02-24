@@ -237,6 +237,9 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private string DescripcionOriginalField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string DescripcionProductoComercialField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string FotoProducto01Field;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -326,6 +329,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((object.ReferenceEquals(this.DescripcionOriginalField, value) != true)) {
                     this.DescripcionOriginalField = value;
                     this.RaisePropertyChanged("DescripcionOriginal");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string DescripcionProductoComercial {
+            get {
+                return this.DescripcionProductoComercialField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.DescripcionProductoComercialField, value) != true)) {
+                    this.DescripcionProductoComercialField = value;
+                    this.RaisePropertyChanged("DescripcionProductoComercial");
                 }
             }
         }
