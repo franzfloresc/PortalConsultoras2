@@ -77,7 +77,16 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     var hours = Math.Floor(minutes / 60);
                     var days = Math.Floor(hours / 24);
 
-                    showRoomBannerLateral.DiasFaltantes = Convert.ToInt32(days);
+                    if (Convert.ToInt32(days) == 0 && hours > 0)
+                    {
+                        showRoomBannerLateral.DiasFaltantes = 1;
+                    }
+                    else
+                    {
+                        showRoomBannerLateral.DiasFaltantes = Convert.ToInt32(days);
+                    }
+
+                       // showRoomBannerLateral.DiasFaltantes = Convert.ToInt32(days);
 
                     if (days > 1)
                     {
