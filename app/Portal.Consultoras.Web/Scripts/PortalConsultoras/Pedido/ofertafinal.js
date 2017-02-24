@@ -223,6 +223,7 @@ function PopupOfertaFinalCerrar() {
         }, 1000);
     }
     $("#divOfertaFinal").hide();
+    $("#btnGuardarPedido").show();
 }
 
 function MostrarPopupOfertaFinal(cumpleOferta, tipoPopupMostrar) {
@@ -256,8 +257,9 @@ function MostrarPopupOfertaFinal(cumpleOferta, tipoPopupMostrar) {
     //objOf.MetaPorcentaje = "30";
 
     objOf.Cross = objOf.TipoMeta == "GM" ? objOf.Detalle.Find("TipoCross", true).length > 0 ? "1" : "0" : "0";
-
+    objOf.ofIconoSuperior = objOf.TipoMeta == "MM" ? tipoOrigen == 1 ? "icono_exclamacion" : "exclamacion_icono_mobile" : tipoOrigen == 1 ? "icono_check_alerta" : "check_icono_mobile";
     SetHandlebars("#ofertaFinal-template", objOf, "#divOfertaFinal");
+    $("#btnGuardarPedido").hide();
     $("#divOfertaFinal").show();
 
     if (tipoOrigen == "2") {
@@ -335,6 +337,14 @@ function ActulizarValoresPopupOfertaFinal(data, popup) {
                 $("#msjOfertaFinal").attr("class", "ganancia_total_pop");
             }
             $("#msjOfertaFinal span").html("<b>" + msj + simbolo + " " + data.DataBarra.MontoGananciaStr + "</b><br />Monto total: " + simbolo + " " + data.formatoTotal);
+            if (tipoOrigen == 1) {
+                $("#ofIconoSuperior").removeClass("icono_exclamacion");
+                $("#ofIconoSuperior").addClass("icono_check_alerta");
+            }
+            else {
+                $("#ofIconoSuperior").removeClass("exclamacion_icono_mobile");
+                $("#ofIconoSuperior").addClass("check_icono_mobile");
+            }
             agregoOfertaFinal = 1;
             $("#btnNoGraciasOfertaFinal").show();
         }

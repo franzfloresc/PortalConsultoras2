@@ -8535,13 +8535,13 @@ span.icon-advertencia{
 
 .popup_ofertaFinal{
     display: block;
-    margin: 5% auto 5% auto;
+    margin: 1% auto 5% auto;
     position: relative;
-    background: #FFF;
+    background: #fff;
     width: 95%;
-    max-width:304px;
+    max-width: 304px;
     height: auto;
-    padding: 41px 0 0 0;
+    padding: 41px 0 38px 0;
 }
 
 .popup_ofertaFinal .cerrar_popMobile{
