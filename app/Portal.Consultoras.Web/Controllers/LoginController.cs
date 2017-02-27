@@ -171,7 +171,22 @@ namespace Portal.Consultoras.Web.Controllers
                         {
                             Session["PrimeraVezSession"] = 0;
                         }
-                        return RedirectToAction("Index", "Bienvenida");
+                        /*EPD1618: Ir a Pedidos/Mispagos en correo de PedidoRechazado.*/
+                        if (Request.UrlReferrer.ToString().Contains("Pedido"))
+                        {
+                            return RedirectToAction("Index", "Pedido");
+                        }
+                        else
+                        {
+                            if (Request.UrlReferrer.ToString().Contains("MisPagos"))
+                            {
+                                return RedirectToAction("Index", "MisPagos");
+                            }
+                            else
+                            {
+                                return RedirectToAction("Index", "Bienvenida");
+                            }
+                        }
                     }
                 }
                 else
