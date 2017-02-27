@@ -27,7 +27,7 @@
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
     <DeployOnBuild Condition=" '$(DeployWEB)'!='' ">$(DeployWEB)</DeployOnBuild>
-    <UseGlobalApplicationHostFile />    
+    <UseGlobalApplicationHostFile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -2311,6 +2311,7 @@
     <Content Include="Content\Images\sesion_icono.png" />
     <Content Include="Content\Images\showroom\banner_intriga_desktop.png" />
     <Content Include="Content\Images\showroom\banner_showroom.jpg" />
+    <Content Include="Content\Images\showroom\BARRA SUPERIOR_COMPRA.png" />
     <Content Include="Content\Images\showroom\borde_inferior.png" />
     <Content Include="Content\Images\showroom\borde_superior.png" />
     <Content Include="Content\Images\showroom\boton_hoy.png" />
@@ -2339,6 +2340,7 @@
     <Content Include="Content\Images\showroom\no_disponible.png" />
     <Content Include="Content\Images\showroom\opacity.png" />
     <Content Include="Content\Images\showroom\opacity_items.png" />
+    <Content Include="Content\Images\showroom\POPUP_COMPRAR.png" />
     <Content Include="Content\Images\showroom\popup_intriga.png" />
     <Content Include="Content\Images\showroom\precio_detalle.png" />
     <Content Include="Content\Images\showroom\precio_detalle_lbel.png" />
@@ -3699,6 +3701,7 @@
     <Content Include="Views\Unete\NivelesGeograficos.cshtml" />
     <Content Include="Views\Notificaciones\ListaDetalleCdrCulminado.cshtml" />
     <Content Include="Views\ShowRoom\Intriga.cshtml" />
+    <Content Include="Views\ShowRoom\DetalleSet.cshtml" />
     <None Include="Web References\ServiceGestionWebPROL\WsGestionWeb.wsdl" />
     <None Include="Web References\ServiceLMS\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>

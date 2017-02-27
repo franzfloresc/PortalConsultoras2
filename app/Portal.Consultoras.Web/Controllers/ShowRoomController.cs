@@ -18,6 +18,10 @@ namespace Portal.Consultoras.Web.Controllers
 {
     public class ShowRoomController : BaseController
     {
+        public ActionResult DetalleSet()
+        {
+            return View();
+        }
         public ActionResult Intriga()
         {
             var showRoomEvento = new BEShowRoomEvento();

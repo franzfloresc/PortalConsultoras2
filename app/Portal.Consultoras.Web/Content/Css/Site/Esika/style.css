@@ -20249,7 +20249,7 @@ label.checkpop2 {
     cursor: pointer;
     /* padding-left: 21px; */
     padding-top: 2px;
-    font-size: 10pt;
+    font-size: 9pt;
     color: white;
     font-family: 'lato';
     transition: .3s;
@@ -34610,4 +34610,50 @@ h1#penmostreo .campana {
     letter-spacing: 0.5px;
     text-align: center;
     color: #a18328;
+}
+/*SHOWROOM*/
+.set-productos-showroom{
+    background-color: white;
+    margin-right: 2%;
+    float: left;
+    position: relative;
+    width: 32%;
+    margin-bottom: 15px;
+    margin-top: 15px;
+    padding-bottom: 12px;
+    -webkit-box-shadow: 0px 15px 13px -8px rgba(204,200,204,1);
+    -moz-box-shadow: 0px 15px 13px -8px rgba(204,200,204,1);
+    box-shadow: 0px 15px 13px -8px rgba(204,200,204,1);
+    margin-bottom: 15px;
+    margin-top: 15px;
+}
+.set-productos-showroom:nth-child(3n){
+      margin-right:0;
+}
+.nombre-producto-set{
+    font-size: 13px;
+    margin: 0 auto;
+    width: 100%;
+    max-width: 177px;
+    overflow: hidden;
+    height: 41px;
+    margin-top: 9px;
+    font-weight:700;
+}
+.precio-oferta-venta{
+        margin: 0px;
+    padding: 0px;
+    text-align: left;
+    font-size: 18px;
+    width: 50%;
+    padding-left: 5px;
+}
+.precio-oferta-normal{
+    margin: 0px;
+    padding: 0px;
+    text-align: right;
+    text-decoration: line-through;
+    font-size: 14px;
+    width: 50%;
+    padding-right: 5px;
 }
