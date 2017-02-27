@@ -3959,7 +3959,7 @@ table > thead > tr > th {
     text-decoration:underline;
     text-align:center;
     display:block;
-}
+    }
 
     .titulo_showroom_mobile span {
         font-size: 18px;
@@ -8771,21 +8771,21 @@ span.title-app-b {
 
 .popup_ofertaFinal{
     display: block;
-    margin: 5% auto 5% auto;
+    margin: 1% auto 5% auto;
     position: relative;
-    background: #FFF;
+    background: #fff;
     width: 95%;
-    max-width:304px;
+    max-width: 304px;
     height: auto;
-    padding: 41px 0 0 0;
-}
+    padding: 41px 0 0px 0;
+    }
 
 .popup_ofertaFinal .cerrar_popMobile{
     position: absolute;
     top: 17px;
     right: 17px;
     float: none;
-}
+    }
 
 .popup_ofertaFinal .icono_aprobacion{
     width:60px;
@@ -8816,7 +8816,7 @@ span.title-app-b {
 
 .contenedor_carruselOfertaFinal{
     background: #f5f5f5;
-    padding: 22px 5px 22px 5px;
+    padding: 22px 5px 40px 5px;
 }
 
 .ofertaFinal_info {
