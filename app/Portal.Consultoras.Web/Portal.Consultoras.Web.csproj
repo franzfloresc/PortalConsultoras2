@@ -1559,6 +1559,7 @@
     <Content Include="Content\Images\catalogos.png" />
     <Content Include="Content\Images\cerrar_04.png" />
     <Content Include="Content\Images\cerrar_04_blanco.png" />
+    <Content Include="Content\Images\checkborde.gif" />
     <Content Include="Content\Images\Esika\background_pedido.png" />
     <Content Include="Content\Images\Esika\Banner_Esika.jpg" />
     <Content Include="Content\Images\Esika\banner_misBeneficios.png" />
