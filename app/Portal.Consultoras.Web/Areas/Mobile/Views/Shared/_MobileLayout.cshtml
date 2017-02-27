@@ -1139,6 +1139,12 @@
                 $("#content").css({ 'margin-top': '123px' });
             }
             
+            var URLactual = window.location.href;
+            var urlIntriga = URLactual.indexOf("Intriga");
+
+            if (urlIntriga > 0) {
+                $("#OfertaDelDia").css('display', 'none');
+            }
 
            
         });
@@ -1172,7 +1178,7 @@
                 $('#flexslider').flexslider({ 
                     animation: "slide",
                     pauseOnAction: false,
-                    animationSpeed: 1200,
+                    animationSpeed: 1600,
                     //pausePlay: true 
                 });
 
@@ -1188,7 +1194,7 @@
                 $('#flexslidertop').flexslider({ 
                     animation: "fade",
                     pauseOnAction: false,
-                    animationSpeed: 1200,
+                    animationSpeed: 1600,
                     //pausePlay: true 
                 });
             }
