@@ -304,31 +304,78 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         public ActionResult DetallePedidoRechazado(long ProcesoId)
         {
             NotificacionesModel model = new NotificacionesModel();
-            BELogGPRValidacion logGPRValidacion;
-            List<BELogGPRValidacionDetalle> lstLogGPRValidacionDetalle = new List<BELogGPRValidacionDetalle>();
-
+            List<BELogGPRValidacion> LogsGPRValidacion = new List<BELogGPRValidacion>(); ;
+          
             using (PedidoRechazadoServiceClient sv = new PedidoRechazadoServiceClient())
             {
-                logGPRValidacion = sv.GetBELogGPRValidacionByGetLogGPRValidacionId(userData.PaisID, ProcesoId, userData.ConsultoraID).ToList().FirstOrDefault();
-                lstLogGPRValidacionDetalle = sv.GetListBELogGPRValidacionDetalleBELogGPRValidacionByLogGPRValidacionId(userData.PaisID, ProcesoId).ToList();
+                LogsGPRValidacion = sv.GetBELogGPRValidacionByGetLogGPRValidacionId(userData.PaisID, ProcesoId, userData.ConsultoraID).ToList();                
             }
 
-            model = Mapper.Map<NotificacionesModel>(logGPRValidacion);
-            model.NombreConsultora = userData.NombreConsultora;
-            model.CampaniaDescripcion = model.Campania.Substring(4) + " " + model.Campania.Substring(0, 4);
-            model.FechaValidacionString = model.FechaValidacion.ToString("dd/MM/yyyy hh:mm tt");
-            model.Total = model.SubTotal + model.Descuento;
-            model.SubTotalString = userData.Simbolo + " " + Util.DecimalToStringFormat(model.SubTotal, userData.CodigoISO);
-            model.DescuentoString = userData.Simbolo + " " + Util.DecimalToStringFormat(model.Descuento, userData.CodigoISO);
-            model.TotalString = userData.Simbolo + " " + Util.DecimalToStringFormat(model.Total, userData.CodigoISO);
-            model.TieneDescuentoCuv = logGPRValidacion.EstadoSimplificacionCUV && lstLogGPRValidacionDetalle.Any(p => p.IndicadorOferta);
-
-            model.ListaNotificacionesDetallePedido = Mapper.Map<List<NotificacionesModelDetallePedido>>(lstLogGPRValidacionDetalle);
-            model.ListaNotificacionesDetallePedido.Update(detalle =>
+            StringBuilder TextoMotivoRechazo = new StringBuilder();
+            if (LogsGPRValidacion.Any())
             {
-                detalle.PrecioUnidadString = userData.Simbolo + " " + Util.DecimalToStringFormat(detalle.PrecioUnidad, userData.CodigoISO);
-                detalle.ImporteTotalString = userData.Simbolo + " " + Util.DecimalToStringFormat(detalle.ImporteTotal, userData.CodigoISO);
-            });
+                // Monto mínimo - deuda
+                var items = LogsGPRValidacion.Where(l => l.MotivoRechazo.Equals(Constantes.GPRMotivoRechazo.MontoMinino));
+                var deuda = LogsGPRValidacion.Where(x => x.MotivoRechazo.Equals(Constantes.GPRMotivoRechazo.ActualizacionDeuda));
+
+                if (items.Any() && deuda.Any())
+                {
+                    TextoMotivoRechazo.Append(string.Format("Luego de haber revisado tu pedido, te informamos que este no se ha podido facturar porque no cumple con el <b>monto mínimo</b> de {0} {1} y adicionalmente por tener una <b>deuda pendiente</b> con nosotros de {0} {2}. <br>Te invitamos a añadir más productos, cancelar el saldo pendiente y reservar tu pedido el día de hoy para que sea facturado exitosamente.", userData.Simbolo, userData.MontoMinimo, deuda.FirstOrDefault().Valor));
+                    model.MotivoRechazo = Constantes.GPRMotivoRechazo.Mostrar2OpcionesNotificacion;
+                    goto jmp;
+                }
+                else if (items.Any()) // Monto mínimo
+                {
+                    TextoMotivoRechazo.Append(string.Format("Luego de haber revisado tu pedido, te informamos que este no se ha podido facturar porque no cumple con el <b>monto mínimo</b> de {0} {1}. <br>Te invitamos a añadir más productos y reservar tu pedido el día de hoy para que sea facturado exitosamente.", userData.Simbolo, userData.MontoMinimo));
+                    model.MotivoRechazo = Constantes.GPRMotivoRechazo.MontoMinino;
+                    goto jmp;
+                }
+                //Monto máximo - deuda:
+                items = LogsGPRValidacion.Where(l => l.MotivoRechazo.Contains(Constantes.GPRMotivoRechazo.MontoMaximo));
+                if (items.Any() && deuda.Any())
+                {
+                    TextoMotivoRechazo.Append(string.Format("Luego de haber revisado tu pedido, te informamos que este no se ha podido facturar por superar el <b>monto máximo</b> permitido de {0} {1} y adicionalmente por tener una <b>deuda pendiente</b> con nosotros de {0} {2}. <br>Te invitamos a modificar tu pedido, cancelar el saldo pendiente y reservar tu pedido el día de hoy para que sea facturado exitosamente.", userData.Simbolo, userData.MontoMaximo, deuda.FirstOrDefault().Valor));
+                    model.MotivoRechazo = Constantes.GPRMotivoRechazo.Mostrar2OpcionesNotificacion;
+                    goto jmp;
+                }
+                else if (items.Any())//Monto máximo
+                {
+                    TextoMotivoRechazo.Append(string.Format("Luego de haber revisado tu pedido, te informamos que este no se ha podido facturar por superar el <b>monto máximo</b> permitido de {0} {1}. <br>Te invitamos a modificar y reservar tu pedido el día de hoy para que sea facturado exitosamente.", userData.Simbolo, userData.MontoMaximo));
+                    model.MotivoRechazo = Constantes.GPRMotivoRechazo.MontoMaximo;
+                    goto jmp;
+                }
+                //Monto mínimo stock + deuda:
+                items = LogsGPRValidacion.Where(l => l.MotivoRechazo.Contains(Constantes.GPRMotivoRechazo.ValidacionMontoMinimoStock));
+                if (items.Any() && deuda.Any())
+                {
+                    TextoMotivoRechazo.Append(string.Format("Luego de haber revisado tu pedido, te informamos que este no se ha podido facturar porque no cumple con el <b>monto mínimo</b> debido a que no contamos con stock de algunos productos, y adicionalmente por tener una <b>deuda pendiente</b> con nosotros de {0} {1}. <br>Te invitamos a añadir más productos, cancelar el saldo pendiente y reservar tu pedido el día de hoy para que sea facturado exitosamente.", userData.Simbolo, deuda.FirstOrDefault().Valor));
+                    model.MotivoRechazo = Constantes.GPRMotivoRechazo.Mostrar2OpcionesNotificacion;
+                    goto jmp;
+                }
+                else if (items.Any())//Monto mínimo stock
+                {
+                    TextoMotivoRechazo.Append("Luego de haber revisado tu pedido, te informamos que este no se ha podido facturar porque no cumple con el <b>monto mínimo</b> debido a que no contamos con stock de algunos productos. <br> Te invitamos a añadir más productos y reservar tu pedido el día de hoy para que sea facturado exitosamente.");
+                    model.MotivoRechazo = Constantes.GPRMotivoRechazo.ValidacionMontoMinimoStock;
+                    goto jmp;
+                }
+                if (deuda.Any()) //Deuda
+                {
+                    TextoMotivoRechazo.Append(string.Format("Lamentamos informarte que tu pedido no se ha podido facturar porque tiene una <b>deuda pendiente</b> con nosotros de {0} {1} <br>Te invitamos a cancelar el saldo pendiente y reservar tu pedido el día de hoy para que sea facturado exitosamente.", userData.Simbolo, deuda.FirstOrDefault().Valor));
+                    model.MotivoRechazo = Constantes.GPRMotivoRechazo.ActualizacionDeuda;
+                    goto jmp;
+                }
+            }
+        jmp:
+
+            model.DescripcionRechazo = TextoMotivoRechazo.ToString();
+            model.NombreConsultora = userData.NombreConsultora;
+            model.CampaniaDescripcion = userData.CampaniaID.ToString();// + " " + model.Campania.Substring(0, 4);
+            //model.FechaValidacionString = model.CampaniaDescripcion.ToString("dd/MM/yyyy hh:mm tt");
+            //model.Total = model.SubTotal + model.Descuento;
+            //model.SubTotalString = userData.Simbolo + " " + Util.DecimalToStringFormat(model.SubTotal, userData.CodigoISO);
+            //model.DescuentoString = userData.Simbolo + " " + Util.DecimalToStringFormat(model.Descuento, userData.CodigoISO);
+            //model.TotalString = userData.Simbolo + " " + Util.DecimalToStringFormat(model.Total, userData.CodigoISO);
+           
 
             return View("ListadoPedidoRechazadoDetalle", model);
         }

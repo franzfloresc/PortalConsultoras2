@@ -32326,15 +32326,6 @@ h1#penmostreo .campana {
 /*SB20-1198 - FIN */
 
 /*GPR*/
-.logo_lista_detalle {
-    width: 100px;
-    height: 38px;
-    margin: 0 auto;
-    margin-top: 20px;
-    margin-bottom: 20px;
-    background: url(http://www.genesis-peru.com/mailing-belcorp/logo.png) no-repeat center center;
-}
-
 .content_datos_gpr {
     width: 96%;
     height: auto;
@@ -32354,28 +32345,20 @@ h1#penmostreo .campana {
     text-align: center;
     font-family: 'Lato';
     font-size: 18px;
-    font-weight: 700;
+    font-weight: 500;
     color: #000;
     padding-bottom: 15px;
     letter-spacing: 0.2px;
 }
 
     .cuerpo_gpr div {
-        display: inline-block;
+        display: flex;
     }
 
     .cuerpo_gpr a {
-        text-decoration: underline;
+        text-decoration: none;
     }
 
-.respuesta_cdr {
-    text-align: center;
-    font-family: 'Lato';
-    color: #000;
-    font-weight: 700;
-    font-size: 14px;
-    padding-bottom: 30px;
-}
 
 /*SPRINT 4*/
 

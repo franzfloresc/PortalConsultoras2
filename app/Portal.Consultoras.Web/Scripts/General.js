@@ -796,9 +796,7 @@ function xMensajeEstadoPedido(estado) {
             identi = url.indexOf("/bienvenida") > 0;
             if (identi) {
                 $(".oscurecer_animacion").css({ "top": wtop + "px", "height": wheight + "px" });
-                //$("[data-content]").animate({ "top": wtop + "px" });               
-                $('.content_slider_home').css('margin-top', '126px');
-                $('.ubicacion_web ').css('margin-top', '145px');
+                //$("[data-content]").animate({ "top": wtop + "px" });
             }
             else {
                 $(".oscurecer_animacion").css({ "display": "none" });
@@ -834,11 +832,9 @@ function xMensajeEstadoPedido(estado) {
             }
             else {
                 $(".ubicacion_web").animate({ "margin-top": "83px" });
-                $('.content_slider_home ').css('margin-top', '60px');
             }
         }
     }
-
 }
 
 function ResizeMensajeEstadoPedido() {
