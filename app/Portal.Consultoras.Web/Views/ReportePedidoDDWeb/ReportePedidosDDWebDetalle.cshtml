@@ -45,7 +45,7 @@
             location.href = '@Url.Action("ReportePedidosDDWeb", "ReportePedidoDDWeb")';
         });
         // Si el pedido esta rechazado... mostrar el motivo.
-        var EsRechazado = $('#EsRechazado').data("tienemotivo");
+        var EsRechazado = $('#EsRechazado').data("tienemotivo").trim();
         if (EsRechazado.length > 0) {
             $('#EsRechazado').text('SI');
             $('.motivoRechazo').show();
