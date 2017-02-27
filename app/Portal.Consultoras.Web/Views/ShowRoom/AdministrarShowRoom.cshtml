@@ -419,7 +419,7 @@
                 </a>
             </div>
 
-            <div class="titC" style="width: 160px; margin-top: 6px; padding-left: 30px;">Carga de Stock/Precio de Sets/Unid. Permitidas:</div>
+            <div class="titC" style="width: 160px; margin-top: 6px; padding-left: 30px;">Carga de Sets</div>
             <div class="titC" style="padding: 0; margin-top: 15px; width: 50px;">
                 <a href="#" id="lnkStock">
                     <img title="Cargar Stock" src='@Url.Content("~/Content/Images/stok.png")' alt=""/>
@@ -447,6 +447,23 @@
 
             <div class="">
                 <input type="button" value="Buscar Personalización" id="btnBuscarPersonalizacionNivel" name=""
+                       style="border-radius: 10px; background: #00A2E8; color: white; -webkit-appearance: none; border: 0; height: 38px;">
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="elements" id="divPersonalizacionCategoria" style="display: none;">
+    <div class="container clearfix">
+        <h3>Personalización Categoria</h3>
+        <div class="div-3">
+            <div class="titC">Categoria:</div>
+            <div class="selectA borde_redondeado">
+                <select id="cbCategoriaEvento"></select>
+            </div>
+
+            <div class="">
+                <input type="button" value="Buscar Personalización Categoría" id="btnBuscarPersonalizacionCategoria" name=""
                        style="border-radius: 10px; background: #00A2E8; color: white; -webkit-appearance: none; border: 0; height: 38px;">
             </div>
         </div>
@@ -482,7 +499,10 @@
                 </div>
             </div>
             <div class="div-3">
-                <div class="titC" style="width: 300px; margin-left: -45px;">Selecciones los sets para el perfil</div>
+                <div class="titC" style="width: auto; margin-left: 45px; text-align: left;">
+                    Selecciones los sets para el perfil 
+                    <b>(El primer Set será el que aparecerá en el Landing Page de Intriga)</b>
+                </div>
             </div>
             <div class="div-3" id="divPerfilOfertaShowRoom" style="display: none; padding-left: 52px;">
             </div>
@@ -554,12 +574,20 @@
         <div class="div-3">
             <div class="titG"># de Perfiles:</div>
             <div class="selectP2 borde_redondeado">
-                <input type="text" id="txtEventoNumeroPerfiles" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" />
+                <input type="text" id="txtEventoNumeroPerfiles" onkeypress=" return FuncionesGenerales.ValidarSoloNumeros(event); "/>
             </div>
             <div id="divEventoEstado">
                 <div class="titG">Habilitar Evento</div>
+                <div class="selectCheck borde_redondeado" style="float: left; width: 170px; margin-right: 30px;">
+                    <input type="checkbox" class="check" id="chkEventoEstado"/>
+                </div>
+            </div>
+        </div>
+        <div class="div-3">
+            <div>
+                <div class="titG">Habilitar Categorías</div>
                 <div class="selectCheck borde_redondeado" style="float: left; width: 170px; margin-right: 30px; ">
-                    <input type="checkbox" class="check" id="chkEventoEstado" />
+                    <input type="checkbox" class="check" id="chkEventoTieneCategoria" />
                 </div>
             </div>
         </div>
@@ -596,6 +624,7 @@
 <div id="DialogCargarStock" style="display: none;">
     @using (Html.BeginForm("ActualizarStockMasivo", "ShowRoom", FormMethod.Post, new { id = "frmCargarStock", enctype = "multipart/form-data" }))
     {
+        <input type="hidden" id="hdCargaStockEventoID" name="hdCargaStockEventoID" />
         <div class="Content_modal">
             <div class="div-3">
                 <div class="titC">
@@ -616,6 +645,9 @@
                     <div>- Unidades</div>
                     <div>- PNormal</div>
                     <div>- Unidades Permitidas</div>
+                    <div>- Nombre del Set</div>
+                    <div>- Codigo de Categoria</div>
+                    <div>- Tip de Negocio</div>
                 </div>
             </div>
         </div>
@@ -642,11 +674,12 @@
                 <div class="titAuto" style="text-align:left;">
                     <div>Formato de archivo (*.csv):</div>
                     <div>- CUV</div>
-                    <div>- NombreSet</div>
+                    <div>- Posición</div>                    
                     <div>- NombreProducto</div>
                     <div>- Descripcion1</div>
                     <div>- Descripcion2</div>
                     <div>- Descripcion3</div>
+                    <div>- MarcaProducto</div>
                 </div>
             </div>
         </div>
@@ -922,53 +955,6 @@
             <div class="container clearfix" style="width: 750px;">
                 <h3>Mobile</h3>
                 <div id="divPersonalizacionDetalleMobile">
-                    @*<div class="div-3">
-                        <div class="titC" style="width: 250px; margin-top: 15px;">Perfil:</div>
-                        <div class="selectP2 borde_redondeado">
-                            <input type="text" id="txtPerfilTextoDemo"/>
-                        </div>
-                    </div>
-                    <div class="div-3">
-                        <div class="titC" style="width: 250px; margin-top: 15px;">Popup / Imagen Texto</div>
-                        <div class="titC" style="padding: 0; width: 230px;">
-                            <div class="input_search">
-                                <input type="hidden" id="hdImagenPreventaDigital"/>
-                                <input type="hidden" id="hdImagenPreventaDigitalAnterior"/>
-                                <div id="fpPopupImagenDemo">
-                                    <script type="text/javascript">
-
-                                        $.ajaxSetup({ cache: false });
-                                        var uploader = new qq.FileUploader({
-                                            allowedExtensions: ['jpg', 'png', 'jpeg', 'gif'],
-                                            element: document.getElementById('fpPopupImagenDemo'),
-                                            action: '@Url.Action("ImageMatrizUpload", "FileUpload")',
-                                            onComplete: function(id, fileName, responseJSON) {
-                                                if (checkTimeout(responseJSON)) {
-                                                    $(".qq-upload-list").css("display", "none");
-                                                    if (responseJSON.success) {
-                                                        var rutaImagen = '@Url.Content("~/Content/Temporales/")' + responseJSON.name;
-                                                        var nombreDiv = 'divPopupImagenPreventaDigital';
-                                                        var tipo = 7;
-                                                        $("#hdImagenPreventaDigital").val(responseJSON.name);
-                                                        //GuardarImagenEventoShowRoom(rutaImagen, responseJSON.name, nombreDiv, tipo);
-                                                    } else {
-                                                        alert(responseJSON.message);
-                                                    }
-                                                }
-                                            },
-                                            onSubmit: function(id, fileName) { $(".qq-upload-list").css("display", "none"); },
-                                            onProgress: function(id, fileName, loaded, total) { $(".qq-upload-list").css("display", "none"); },
-                                            onCancel: function(id, fileName) { $(".qq-upload-list").css("display", "none"); }
-                                        });
-                                    </script>
-                                </div>
-                            </div>
-                            <div id="divPopupImagenDemo" style="width: 100px; height: 60px; float: right;">
-                                <img src="http://S3.amazonaws.com/consultorasQAS/SomosBelcorp/Matriz/CO/CO_imagen_preventa_digital_2017232920_01_bddprudydm.png"
-                                     alt="PopupImagenDemo" style="height: 100%;">
-                            </div>
-                        </div>
-                    </div>*@
                 </div>
             </div>
         </fieldset>
@@ -977,7 +963,37 @@
             <div class="container clearfix" style="width: 750px;">
                 <h3>Desktop</h3>
                 <div id="divPersonalizacionDetalleDesktop">
-                    
+
+                </div>
+            </div>
+        </fieldset>
+    </div>
+</div>
+
+<div id="DialogPersonalizacionCategoriaDetalle">
+    <div class="wrap">
+        <div class="div-3">
+            <div class="titG" style="width: 150px;">Nombre Categoría:</div>
+            <div class="selectP2 borde_redondeado" style="width: 400px;">
+                <input type="text" id="txtDescripcionCategoria" style="width: 400px;"/>
+            </div>
+        </div>
+        <fieldset style="border: 1px black; border-style: groove; margin-bottom: 20px;">
+            <legend></legend>
+            <div class="container clearfix" style="width: 750px;">
+                <h3>Mobile</h3>
+                <p><b>Para los textos en negrita colocar antes "[" y al final "]" .Ejemplo ( MAMÁ [MODERNA] )</b></p>
+                <div id="divPersonalizacionCategoriaDetalleMobile">
+                </div>
+            </div>
+        </fieldset>
+        <fieldset style="border: 1px black; border-style: groove;">
+            <legend></legend>
+            <div class="container clearfix" style="width: 750px;">
+                <h3>Desktop</h3>
+                <p><b>Para los textos en negrita colocar antes "[" y al final "]" .Ejemplo ( MAMÁ [MODERNA] )</b></p>
+                <div id="divPersonalizacionCategoriaDetalleDesktop">
+
                 </div>
             </div>
         </fieldset>
@@ -1041,6 +1057,9 @@
     var urlImageMatrizUpload = '@Url.Action("ImageMatrizUpload", "FileUpload")';
     var rutaImagenTemporal = '@Url.Content("~/Content/Temporales/")';
     var urlGuardarPersonalizacionNivelShowRoom = baseUrl + 'ShowRoom/GuardarPersonalizacionNivelShowRoom';
+    var urlGetShowRoomCategorias = baseUrl + 'ShowRoom/GetShowRoomCategorias';
+    var urlGetShowRoomPersonalizacionCategoria = baseUrl + 'ShowRoom/GetShowRoomPersonalizacionCategoria';
+    var urlUpdateShowRoomDescripcionCategoria = baseUrl + 'ShowRoom/UpdateShowRoomDescripcionCategoria';
 
     jQuery(document).ready(function() {
         CargarDialog();
@@ -1293,6 +1312,44 @@
                 }
             }
         });
+
+        $('#DialogPersonalizacionCategoriaDetalle').dialog({
+            autoOpen: false,
+            resizable: false,
+            modal: true,
+            closeOnEscape: true,
+            width: 800,
+            draggable: true,
+            title: "Detalle de Personalizacion por Nivel",
+            buttons:
+            {
+                "Guardar": function () {
+                    var vMessage = "";
+
+                    var eventoId = $("#hdEventoID").val();
+                    var categoriaId = $("#cbCategoriaEvento").val();
+
+                    if (eventoId == "")
+                        vMessage += "- Debe seleccionar el evento.\n";
+
+                    if (categoriaId == "")
+                        vMessage += "- Debe seleccionar la categoría de la personalización.\n";
+
+                    if (vMessage != "") {
+                        alert(vMessage);
+                        return false;
+                    }
+                    else {
+                        UpdateDescripcionCategoria(categoriaId);
+                        RegistrarShowRoomPersonalizacionCategoria(eventoId, categoriaId);
+                    }
+                    return false;
+                },
+                "Cancelar": function () {
+                    $(this).dialog('close');
+                }
+            }
+        });
     }
 
     function CargarAjaxForm() {
@@ -1350,6 +1407,7 @@
                 closeWaitingDialog();
                 if (checkTimeout(response)) {
                     $("#list").setGridParam({ datatype: 'json', page: 1 }).trigger('reloadGrid');
+                    CargarCategorias();
                     alert(response);
                     $('#DialogCargarStock').dialog('close');
                 }
@@ -1438,6 +1496,7 @@
         $("#btnBuscar").click(function () {
             $("#divCargaArchivos").css("display", "none");
             $("#divPersonalizacion").css("display", "none");
+            $("#divPersonalizacionCategoria").css("display", "none");
             $("#divOfertasShowRoom").css("display", "none");
             $("#divShowRoomPerfil").css("display", "none");
 
@@ -1690,7 +1749,7 @@
                                     
                                     htmlPersonalizacion += '<div class="titC" style="width: 250px;">' + value.TextoAyuda + '</div>';
                                     htmlPersonalizacion += '<div class="selectP2 borde_redondeado" style="width: 400px;">';
-                                    htmlPersonalizacion += '<input type="text" class="txtAtributoPersonalizacion" value="' + value.Valor + '"/>';
+                                    htmlPersonalizacion += '<input type="text" class="txtAtributoPersonalizacion" value="' + value.Valor + '" style="width: 400px;"/>';
                                     htmlPersonalizacion += '</div>';
                                 }
 
@@ -1735,7 +1794,7 @@
 
                                     htmlPersonalizacion += '<div class="titC" style="width: 250px;">' + value.TextoAyuda + '</div>';
                                     htmlPersonalizacion += '<div class="selectP2 borde_redondeado" style="width: 400px;">';
-                                    htmlPersonalizacion += '<input type="text" class="txtAtributoPersonalizacion" value="' + value.Valor + '"/>';
+                                    htmlPersonalizacion += '<input type="text" class="txtAtributoPersonalizacion" value="' + value.Valor + '" style="width: 400px;"/>';
                                     htmlPersonalizacion += '</div>';
                                 }
 
@@ -1749,6 +1808,151 @@
                             });
 
                             showDialog("DialogPersonalizacionDetalle");
+                        } else {
+                            closeWaitingDialog();
+                        }
+                    }
+                },
+                error: function (response, error) {
+                    if (checkTimeout(response)) {
+                        alert_msg(response.message);
+                        closeWaitingDialog();
+                    }
+                }
+            });
+
+        });
+
+        $("#btnBuscarPersonalizacionCategoria").click(function() {
+            var eventoId = $("#hdEventoID").val();
+            var categoriaId = $("#cbCategoriaEvento").val();
+
+            if (eventoId == undefined || eventoId == 0) {
+                alert_msg("Evento no se puedo identificar");
+                return false;
+            }
+
+            if (categoriaId == undefined || categoriaId == 0) {
+                alert_msg("Debe seleccionar una Categoria");
+                return false;
+            }
+
+            var item = { eventoId: eventoId, categoriaId: categoriaId };
+
+            waitingDialog({ title: "Procesando" });
+            jQuery.ajax({
+                type: 'POST',
+                url: urlGetShowRoomPersonalizacionCategoria,
+                dataType: 'json',
+                contentType: 'application/json; charset=utf-8',
+                data: JSON.stringify(item),
+                async: true,
+                success: function (response) {
+                    if (checkTimeout(response)) {
+                        if (response.success) {
+                            closeWaitingDialog();
+
+                            var categoria = response.categoria;
+                            $("#txtDescripcionCategoria").val(categoria.Descripcion);
+
+                            $("#divPersonalizacionCategoriaDetalleDesktop").html("");
+                            $("#divPersonalizacionCategoriaDetalleMobile").html("");
+                            var listaPersonalizacion = response.listaPersonalizacion;
+
+                            var listaPersonalizacionDesktop = listaPersonalizacion.Find("TipoAplicacion", "Desktop");
+                            var listaPersonalizacionMobile = listaPersonalizacion.Find("TipoAplicacion", "Mobile");
+
+                            $.each(listaPersonalizacionMobile, function (index, value) {
+                                var htmlPersonalizacion = '';
+                                htmlPersonalizacion += '<div class="div-3" data-idpersonalizacion="' + value.PersonalizacionId + '">';
+                                htmlPersonalizacion += '<input type="hidden" class="hdPersonalizacionNivelId" value="' + value.PersonalizacionNivelId + '"/>';
+
+                                var valor = value.TipoAtributo == 'IMAGEN' ? value.Valor.replace(/^.*[\\\/]/, '') : value.Valor;
+                                htmlPersonalizacion += '<input type="hidden" class="hdValor" value="' + valor + '"/>';
+                                htmlPersonalizacion += '<input type="hidden" class="hdValorAnterior" value="' + valor + '"/>';
+
+                                htmlPersonalizacion += '<input type="hidden" class="hdAtributo" value="' + value.Atributo + '"/>';
+                                htmlPersonalizacion += '<input type="hidden" class="hdTipoAtributo" value="' + value.TipoAtributo + '"/>';
+
+                                if (value.TipoAtributo == 'IMAGEN') {
+
+                                    htmlPersonalizacion += '<div class="titC" style="width: 250px; margin-top: 15px;">' + value.TextoAyuda + '</div>';
+                                    htmlPersonalizacion += '<div class="titC" style="padding: 0; width: 230px;">';
+                                    htmlPersonalizacion += '<div class="input_search">';
+                                    htmlPersonalizacion += '<div class="fpPopupImagenPersonalizacion">';
+                                    htmlPersonalizacion += '</div>';
+                                    htmlPersonalizacion += '</div>';
+                                    htmlPersonalizacion += '<div class="divPopupImagenPersonalizacion" style="width: 100px; height: 60px; float: right;">';
+
+                                    if (value.PersonalizacionNivelId != 0 && value.Valor != "") {
+                                        htmlPersonalizacion += '<img  alt="" src="' + value.Valor + '" style="width: auto; height: 60px; max-width: 300px !important;"/>';
+                                    }
+
+                                    htmlPersonalizacion += '</div>';
+                                    htmlPersonalizacion += '</div>';
+                                } else {
+
+                                    htmlPersonalizacion += '<div class="titC" style="width: 250px;">' + value.TextoAyuda + '</div>';
+                                    htmlPersonalizacion += '<div class="selectP2 borde_redondeado" style="width: 400px;">';
+                                    htmlPersonalizacion += '<input type="text" class="txtAtributoPersonalizacion" value="' + value.Valor + '" style="width: 400px;" />';
+                                    htmlPersonalizacion += '</div>';
+                                }
+
+                                htmlPersonalizacion += '</div>';
+
+                                $("#divPersonalizacionCategoriaDetalleMobile").append(htmlPersonalizacion);
+
+                                if (value.TipoAtributo == 'IMAGEN') {
+                                    InsertarImagenPersonalizacion(value.PersonalizacionId);
+                                }
+                            });
+
+                            $.each(listaPersonalizacionDesktop, function (index, value) {
+                                var htmlPersonalizacion = '';
+                                htmlPersonalizacion += '<div class="div-3" data-idpersonalizacion="' + value.PersonalizacionId + '">';
+                                htmlPersonalizacion += '<input type="hidden" class="hdPersonalizacionNivelId" value="' + value.PersonalizacionNivelId + '"/>';
+
+                                var valor = value.TipoAtributo == 'IMAGEN' ? value.Valor.replace(/^.*[\\\/]/, '') : value.Valor;
+                                htmlPersonalizacion += '<input type="hidden" class="hdValor" value="' + valor + '"/>';
+                                htmlPersonalizacion += '<input type="hidden" class="hdValorAnterior" value="' + valor + '"/>';
+
+                                htmlPersonalizacion += '<input type="hidden" class="hdAtributo" value="' + value.Atributo + '"/>';
+                                htmlPersonalizacion += '<input type="hidden" class="hdTipoAtributo" value="' + value.TipoAtributo + '"/>';
+
+                                if (value.TipoAtributo == 'IMAGEN') {
+
+                                    htmlPersonalizacion += '<div class="titC" style="width: 250px; margin-top: 15px;">' + value.TextoAyuda + '</div>';
+                                    htmlPersonalizacion += '<div class="titC" style="padding: 0; width: 230px;">';
+                                    htmlPersonalizacion += '<div class="input_search">';
+                                    htmlPersonalizacion += '<div class="fpPopupImagenPersonalizacion">';
+                                    htmlPersonalizacion += '</div>';
+                                    htmlPersonalizacion += '</div>';
+                                    htmlPersonalizacion += '<div class="divPopupImagenPersonalizacion" style="width: 100px; height: 60px; float: right;">';
+
+                                    if (value.PersonalizacionNivelId != 0 && value.Valor != "") {
+                                        htmlPersonalizacion += '<img  alt="" src="' + value.Valor + '" style="width: auto; height: 60px; max-width: 300px !important;"/>';
+                                    }
+
+                                    htmlPersonalizacion += '</div>';
+                                    htmlPersonalizacion += '</div>';
+                                } else {
+
+                                    htmlPersonalizacion += '<div class="titC" style="width: 250px;">' + value.TextoAyuda + '</div>';
+                                    htmlPersonalizacion += '<div class="selectP2 borde_redondeado" style="width: 400px;">';
+                                    htmlPersonalizacion += '<input type="text" class="txtAtributoPersonalizacion" value="' + value.Valor + '" style="width: 400px;"/>';
+                                    htmlPersonalizacion += '</div>';
+                                }
+
+                                htmlPersonalizacion += '</div>';
+
+                                $("#divPersonalizacionCategoriaDetalleDesktop").append(htmlPersonalizacion);
+
+                                if (value.TipoAtributo == 'IMAGEN') {
+                                    InsertarImagenPersonalizacion(value.PersonalizacionId);
+                                }
+                            });
+
+                            showDialog("DialogPersonalizacionCategoriaDetalle");
                         } else {
                             closeWaitingDialog();
                         }
@@ -1888,6 +2092,8 @@
                     //Carga de Consultora
                     $("#hdCargaEventoID").val("0");
                     $("#hdCargaCampaniaID").val("");
+                    //Carga de Stock
+                    $("#hdCargaStockEventoID").val("0");
                     //Carga de Descripcion de Sets
                     $("#hdCargaDescripcionSetsEventoID").val("0");
                     $("#hdCargaDescripcionSetsCampaniaID").val("");
@@ -1904,7 +2110,9 @@
                     CargarImagenes(showroomEvento);
 
                     CargarNiveles();
-                    $("#divPersonalizacion").css("display", "");
+                    //$("#divPersonalizacion").css("display", "");
+
+                    CargarCategorias();
 
                     fnGrilla();
                     $("#divOfertasShowRoom").css("display", "");
@@ -2167,8 +2375,57 @@
         });
     }
 
+    function CargarCategorias() {
+        var item = {
+            eventoId: $("#hdEventoID").val()
+        };
+
+        jQuery.ajax({
+            type: 'POST',
+            url: urlGetShowRoomCategorias,
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            async: true,
+            data: JSON.stringify(item),
+            success: function (response) {
+                if (checkTimeout(response)) {
+                    if (response.success) {
+                        $("#cbCategoriaEvento").empty();
+
+                        if (response.data == "") {
+                            $("#divPersonalizacionCategoria").css("display", "none");
+                        } else {
+                            var listaNiveles = response.data;
+
+                            var htmlSeleccionar = '<option value="">-- Seleccionar --</option>';
+
+                            $("#cbCategoriaEvento").append(htmlSeleccionar);
+
+                            $.each(listaNiveles, function (index, value) {
+                                var html = '<option value="' + value.CategoriaId + '">' + value.Codigo + '</option>';
+
+                                $("#cbCategoriaEvento").append(html);
+                            });
+
+                            $("#divPersonalizacionCategoria").css("display", "");
+                        }
+                    } else {
+                        $("#divPersonalizacionCategoria").css("display", "none");
+                        alert_msg(response.message);
+                    }
+                }
+            },
+            error: function (response, error) {
+                if (checkTimeout(response)) {
+                    alert_msg(response.message);
+                    closeWaitingDialog();
+                }
+            }
+        });
+    }
+
     function ShowActionsEvento(cellvalue, options, rowObject) {
-        var edit = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('#listEvento').EditarEvento('" + options.rowId + "','" + rowObject[13] + "','" + rowObject[17] + "');\" >" + "<img src='" + imagenEdit + "' alt='Editar Evento ShowRoom' title='Editar Evento Show Room' border='0' /></a>";
+        var edit = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('#listEvento').EditarEvento('" + options.rowId + "','" + rowObject[13] + "','" + rowObject[17] + "','"+ rowObject[18] +"');\" >" + "<img src='" + imagenEdit + "' alt='Editar Evento ShowRoom' title='Editar Evento Show Room' border='0' /></a>";
         var del = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('#listEvento').DeshabilitarEvento('" + options.rowId + "','" + rowObject[13] + "');\" >" + "<img src='" + imagenDeshabilitar + "' alt='Deshabilitar Evento ShowRoom' title='Deshabilitar Evento ShowRoom' border='0' /></a>";
         var remove = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('#listEvento').EliminarEvento('" + options.rowId + "','" + rowObject[13] + "');\" >" + "<img src='" + imagenEliminar + "' alt='Eliminar Evento ShowRoom' title='Eliminar Evento ShowRoom' border='0' /></a>";
 
@@ -2184,6 +2441,8 @@
         //Carga de Consultoras
         $("#hdCargaEventoID").val(options.rowId);
         $("#hdCargaCampaniaID").val(rowObject[13]);
+        //Carga de Stock
+        $("#hdCargaStockEventoID").val(options.rowId);
         //Carga de Descripcion de Sets
         $("#hdCargaDescripcionSetsEventoID").val(options.rowId);
         $("#hdCargaDescripcionSetsCampaniaID").val(rowObject[13]);
@@ -2200,6 +2459,7 @@
         var diasDespues = $("#txtEventoDiasDespues").val();
         var numeroPerfiles = $("#txtEventoNumeroPerfiles").val();
         var estado = $("#chkEventoEstado").is(":checked");
+        var tieneCategoria = $("#chkEventoTieneCategoria").is(":checked");
 
         var showRoom = {
             EventoID: eventoID == "" || eventoID == undefined ? 0 : eventoID,
@@ -2209,7 +2469,8 @@
             DiasAntes: parseInt(diasAntes),
             DiasDespues: parseInt(diasDespues),
             NumeroPerfiles: parseInt(numeroPerfiles),
-            Estado: estado
+            Estado: estado,
+            TieneCategoria: tieneCategoria
         };
 
         waitingDialog({ title: "Procesando" });
@@ -2233,6 +2494,8 @@
                         //Cargar de Consultoras
                         $("#hdCargaEventoID").val(id);
                         $("#hdCargaCampaniaID").val(campaniaID);
+                        //Carga de Stock
+                        $("#hdCargaStockEventoID").val(id);
                         //Carga de Descripcion de Sets
                         $("#hdCargaDescripcionSetsEventoID").val(id);
                         $("#hdCargaDescripcionSetsCampaniaID").val(campaniaID);
@@ -2703,7 +2966,7 @@
             });
             return false;
         },
-        EditarEvento: function(ID, campaniaID, estado) {
+        EditarEvento: function(ID, campaniaID, estado, tieneCategoria) {
             $("#txtEventoPaisID").val(paisNombre);
             $("#txtEventoCampaniaID").val(campaniaID);
             $('#txtEventoNombre').val(jQuery("#listEvento").jqGrid('getCell', ID, 'Nombre'));
@@ -2718,6 +2981,11 @@
                 $("#chkEventoEstado").prop('checked', true);
             else
                 $("#chkEventoEstado").prop('checked', false);
+
+            if (tieneCategoria == "True")
+                $("#chkEventoTieneCategoria").prop('checked', true);
+            else
+                $("#chkEventoTieneCategoria").prop('checked', false);
 
             $("#divEventoEstado").css("display", "");
 
@@ -3035,7 +3303,7 @@
     }
 
     function RegistrarShowRoomPersonalizacionNivel(eventoId, nivelId) {
-        var lista = $(".div-3[data-idpersonalizacion]");
+        var lista = $("#DialogPersonalizacionDetalle .div-3[data-idpersonalizacion]");
         var array = new Array();
 
         $.each(lista, function (index, value) {
@@ -3059,6 +3327,7 @@
                 PersonalizacionId: personalizacionId,
                 EventoId: eventoId,
                 NivelId: nivelId,
+                CategoriaId: 0,
                 Atributo: atributo,
                 Valor: valor,
                 ValorAnterior: $(value).find(".hdValorAnterior").val(),
@@ -3082,6 +3351,103 @@
                         alert(data.message);
                         
                         HideDialog("DialogPersonalizacionDetalle");
+                    }
+                    else {
+                        alert(data.message);
+                    }
+                }
+            },
+            error: function (data, error) {
+                if (checkTimeout(data)) {
+                    closeWaitingDialog();
+                    alert(data.message);
+                }
+            }
+        });
+    }
+
+    function UpdateDescripcionCategoria(categoriaId) {
+        var descripcion = $("#txtDescripcionCategoria").val();
+        var item = {
+            CategoriaId: categoriaId,
+            Descripcion: descripcion
+        };
+
+        jQuery.ajax({
+            type: 'POST',
+            url: urlUpdateShowRoomDescripcionCategoria,
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify(item),
+            async: true,
+            success: function (data) {
+                if (checkTimeout(data)) {
+                    //closeWaitingDialog();
+
+                    //if (data.success == true) {
+                    //    alert(data.message);
+                    //} else
+                    //    alert(data.message);
+                }
+            },
+            error: function (data, error) {
+                if (checkTimeout(data)) {
+                    closeWaitingDialog();
+                    alert("ERROR");
+                }
+            }
+        });
+    }
+
+    function RegistrarShowRoomPersonalizacionCategoria(eventoId, categoriaId) {
+        var lista = $("#DialogPersonalizacionCategoriaDetalle .div-3[data-idpersonalizacion]");
+        var array = new Array();
+
+        $.each(lista, function (index, value) {
+            var personalizacionNivelId = $(value).find(".hdPersonalizacionNivelId").val();
+            var personalizacionId = $(value).attr("data-idpersonalizacion");
+            var atributo = $(value).find(".hdAtributo").val();
+
+            var valor = "";
+            var esImagen = false;
+            var tipoAtributo = $(value).find(".hdTipoAtributo").val();
+
+            if (tipoAtributo == "IMAGEN") {
+                valor = $(value).find(".hdValor").val();
+                esImagen = true;
+            } else {
+                valor = $(value).find(".txtAtributoPersonalizacion").val();
+            }
+
+            var item = {
+                PersonalizacionNivelId: personalizacionNivelId,
+                PersonalizacionId: personalizacionId,
+                EventoId: eventoId,
+                NivelId: 0,
+                CategoriaId: categoriaId,
+                Atributo: atributo,
+                Valor: valor,
+                ValorAnterior: $(value).find(".hdValorAnterior").val(),
+                EsImagen: esImagen
+            };
+
+            array.push(item);
+        });
+
+        jQuery.ajax({
+            type: 'POST',
+            url: urlGuardarPersonalizacionNivelShowRoom,
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify(array),
+            async: true,
+            success: function (data) {
+                if (checkTimeout(data)) {
+                    closeWaitingDialog();
+                    if (data.success == true) {
+                        alert(data.message);
+
+                        HideDialog("DialogPersonalizacionCategoriaDetalle");
                     }
                     else {
                         alert(data.message);

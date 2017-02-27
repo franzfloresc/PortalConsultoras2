@@ -79,6 +79,9 @@ namespace Portal.Consultoras.Entities.ShowRoom
         [DataMember]
         public int Estado { get; set; }
 
+        [DataMember]
+        public bool TieneCategoria { get; set; }
+
         public BEShowRoomEvento(IDataRecord datarec)
         {
             if (DataRecord.HasColumn(datarec, "EventoID") && datarec["EventoID"] != DBNull.Value)
@@ -125,6 +128,8 @@ namespace Portal.Consultoras.Entities.ShowRoom
                 ImagenPreventaDigital = DbConvert.ToString(datarec["ImagenPreventaDigital"]);            
             if (DataRecord.HasColumn(datarec, "Estado") && datarec["Estado"] != DBNull.Value)
                 Estado = DbConvert.ToInt32(datarec["Estado"]);
+            if (DataRecord.HasColumn(datarec, "TieneCategoria") && datarec["TieneCategoria"] != DBNull.Value)
+                TieneCategoria = DbConvert.ToBoolean(datarec["TieneCategoria"]);
         }
     }
 }

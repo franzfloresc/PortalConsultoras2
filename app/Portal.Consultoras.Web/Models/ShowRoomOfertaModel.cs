@@ -8,6 +8,7 @@ using Portal.Consultoras.Common;
 
 namespace Portal.Consultoras.Web.Models
 {
+    [Serializable]
     public class ShowRoomOfertaModel
     {
         public int OfertaShowRoomID { get; set; }
@@ -81,6 +82,9 @@ namespace Portal.Consultoras.Web.Models
         public int Incrementa { get; set; }
         public int CantidadIncrementa { get; set; }
         public int Agotado { get; set; }
+
+        public string CodigoCategoria { get; set; }
+        public string TipNegocio { get; set; }
 
         public string CodigoISO { get; set; }
 

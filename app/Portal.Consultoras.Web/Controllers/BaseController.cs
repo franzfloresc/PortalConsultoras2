@@ -1465,8 +1465,8 @@ namespace Portal.Consultoras.Web.Controllers
                             //model.BeShowRoom.ImagenPreventaDigital = string.IsNullOrEmpty(model.BeShowRoom.ImagenPreventaDigital)
                             //    ? "" : ConfigS3.GetUrlFileS3(carpetaPais, model.BeShowRoom.ImagenPreventaDigital, Globals.RutaImagenesMatriz + "/" + model.CodigoISO);
 
-                            var listaPersonalizacionNivel = sv.GetShowRoomPersonalizacionNivel(model.PaisID, model.BeShowRoom.EventoID,
-                                    model.ShowRoomNivelId).ToList();                            
+                            var listaPersonalizacionNivel = sv.GetShowRoomPersonalizacionNivel(model.PaisID, model.BeShowRoom.EventoID, model.ShowRoomNivelId,
+                                    0).ToList();
 
                             Mapper.CreateMap<BEShowRoomPersonalizacion, ShowRoomPersonalizacionModel>()
                                 .ForMember(t => t.PersonalizacionId, f => f.MapFrom(c => c.PersonalizacionId))

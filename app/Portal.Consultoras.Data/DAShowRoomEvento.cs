@@ -47,6 +47,7 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@DiasDespues", DbType.Int32, showRoomEvento.DiasDespues);
             Context.Database.AddInParameter(command, "@NumeroPerfiles", DbType.Int32, showRoomEvento.NumeroPerfiles);
             Context.Database.AddInParameter(command, "@UsuarioCreacion", DbType.String, showRoomEvento.UsuarioCreacion);
+            Context.Database.AddInParameter(command, "@TieneCategoria", DbType.Boolean, showRoomEvento.TieneCategoria);
 
             int result = Context.ExecuteNonQuery(command);
 
@@ -75,6 +76,7 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@NumeroPerfiles", DbType.Int32, showRoomEvento.NumeroPerfiles);
             Context.Database.AddInParameter(command, "@UsuarioModificacion", DbType.String, showRoomEvento.UsuarioModificacion);
             Context.Database.AddInParameter(command, "@Estado", DbType.Int32, showRoomEvento.Estado);
+            Context.Database.AddInParameter(command, "@TieneCategoria", DbType.Boolean, showRoomEvento.TieneCategoria);
 
             Context.ExecuteNonQuery(command);
         }
@@ -507,12 +509,13 @@ namespace Portal.Consultoras.Data
             return Context.ExecuteReader(command);
         }
 
-        public IDataReader GetShowRoomPersonalizacionNivel(int eventoId, int nivelId)
+        public IDataReader GetShowRoomPersonalizacionNivel(int eventoId, int nivelId, int categoriaId)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("ShowRoom.GetShowRoomPersonalizacionNivel");
 
             Context.Database.AddInParameter(command, "@EventoId", DbType.Int32, eventoId);
             Context.Database.AddInParameter(command, "@NivelId", DbType.Int32, nivelId);
+            Context.Database.AddInParameter(command, "@CategoriaId", DbType.Int32, categoriaId);
 
             return Context.ExecuteReader(command);
         }
@@ -523,6 +526,7 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@EventoID", DbType.Int32, entity.EventoID);
             Context.Database.AddInParameter(command, "@PersonalizacionId", DbType.Int32, entity.PersonalizacionId);
             Context.Database.AddInParameter(command, "@NivelId", DbType.Int32, entity.NivelId);
+            Context.Database.AddInParameter(command, "@CategoriaId", DbType.Int32, entity.CategoriaId);
             Context.Database.AddInParameter(command, "@Valor", DbType.String, entity.Valor);
             
             return Context.ExecuteNonQuery(command);
@@ -536,5 +540,48 @@ namespace Portal.Consultoras.Data
             
             return Context.ExecuteNonQuery(command);
         }
+
+        public IDataReader GetShowRoomCategorias(int eventoId)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("ShowRoom.GetShowRoomCategorias");
+            Context.Database.AddInParameter(command, "@EventoId", DbType.Int32, eventoId);
+
+            return Context.ExecuteReader(command);
+        }
+
+        public IDataReader GetShowRoomCategoriaById(int categoriaId)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("ShowRoom.GetShowRoomCategoriaById");
+            Context.Database.AddInParameter(command, "@CategoriaId", DbType.Int32, categoriaId);
+
+            return Context.ExecuteReader(command);
+        }
+
+        public void UpdateShowRoomDescripcionCategoria(BEShowRoomCategoria categoria)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("ShowRoom.UpdateShowRoomDescripcionCategoria");
+            Context.Database.AddInParameter(command, "@CategoriaId", DbType.Int32, categoria.CategoriaId);
+            Context.Database.AddInParameter(command, "@Descripcion", DbType.String, categoria.Descripcion);
+
+            Context.ExecuteNonQuery(command);
+        }
+
+        public void DeleteShowRoomCategoriaByEvento(int eventoId)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("ShowRoom.DeleteShowRoomCategoriaByEvento");
+            Context.Database.AddInParameter(command, "@EventoId", DbType.Int32, eventoId);
+
+            Context.ExecuteNonQuery(command);
+        }
+
+        public void InsertShowRoomCategoria(BEShowRoomCategoria categoria)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("ShowRoom.InsertShowRoomCategoria");
+            Context.Database.AddInParameter(command, "@EventoId", DbType.Int32, categoria.EventoID);
+            Context.Database.AddInParameter(command, "@Codigo", DbType.String, categoria.Codigo);
+            Context.Database.AddInParameter(command, "@Descripcion", DbType.String, categoria.Descripcion);
+
+            Context.ExecuteNonQuery(command);
+        }        
     }
 }

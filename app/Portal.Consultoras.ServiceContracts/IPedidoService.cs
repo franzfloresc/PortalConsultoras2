@@ -871,13 +871,26 @@ namespace Portal.Consultoras.ServiceContracts
         IList<BEShowRoomPersonalizacion> GetShowRoomPersonalizacion(int paisId);
 
         [OperationContract]
-        IList<BEShowRoomPersonalizacionNivel> GetShowRoomPersonalizacionNivel(int paisId, int eventoId, int nivelId);
+        IList<BEShowRoomPersonalizacionNivel> GetShowRoomPersonalizacionNivel(int paisId, int eventoId, int nivelId, int categoriaId);
 
         [OperationContract]
         int InsertShowRoomPersonalizacionNivel(int paisId, BEShowRoomPersonalizacionNivel beShowRoomPersonalizacionNivel);
 
         [OperationContract]
         int UpdateShowRoomPersonalizacionNivel(int paisId, BEShowRoomPersonalizacionNivel beShowRoomPersonalizacionNivel);
+
+        [OperationContract]
+        List<BEShowRoomCategoria> GetShowRoomCategorias(int paisId, int eventoId);
+
+        [OperationContract]
+        BEShowRoomCategoria GetShowRoomCategoriaById(int paisId, int categoriaId);
+
+        [OperationContract]
+        void UpdateShowRoomDescripcionCategoria(int paisId, BEShowRoomCategoria categoria);
+
+        [OperationContract]
+        void DeleteInsertShowRoomCategoriaByEvento(int paisId, int eventoId, List<BEShowRoomCategoria> listaCategoria);
+
         #endregion
 
         #region Producto SUgerido

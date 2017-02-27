@@ -8,6 +8,7 @@ using System.Text;
 using System.Web;
 using System.Web.Mvc;
 using AutoMapper;
+using Microsoft.Ajax.Utilities;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.ServicePedido;
@@ -372,10 +373,10 @@ namespace Portal.Consultoras.Web.Controllers
                     page = pag.CurrentPage,
                     records = pag.RecordCount,
                     rows = from a in items
-                           select new
-                           {
-                               id = a.EventoID,
-                               cell = new[]
+                        select new
+                        {
+                            id = a.EventoID,
+                            cell = new[]
                             {
                                 a.EventoID.ToString(),
                                 a.Nombre,
@@ -390,13 +391,14 @@ namespace Portal.Consultoras.Web.Controllers
                                 a.ImagenVentaTagLateral,
                                 a.ImagenPestaniaShowRoom,
                                 a.ImagenPreventaDigital,
-                                a.CampaniaID.ToString(),                                
+                                a.CampaniaID.ToString(),
                                 a.Descuento.ToString(),
                                 a.TextoEstrategia,
-                                a.OfertaEstrategia.ToString(),                                
-                                a.Estado.ToString()
+                                a.OfertaEstrategia.ToString(),
+                                a.Estado.ToString(),
+                                a.TieneCategoria.ToString()
                             }
-                           }
+                        }
                 };
 
                 return Json(data, JsonRequestBehavior.AllowGet);
@@ -450,6 +452,49 @@ namespace Portal.Consultoras.Web.Controllers
                 });
             }
         }
+
+        [HttpPost]
+        public JsonResult GetShowRoomCategorias(int eventoId)
+        {
+            try
+            {
+                var listaCategorias = new List<BEShowRoomCategoria>();
+
+                using (PedidoServiceClient ps = new PedidoServiceClient())
+                {
+                    listaCategorias = ps.GetShowRoomCategorias(userData.PaisID, eventoId).ToList();
+                }
+
+                if (listaCategorias.Count <= 0)
+                {
+                    return Json(new
+                    {
+                        success = true,
+                        message = "OK",
+                        data = ""
+                    });
+                }
+                else
+                {
+                    return Json(new
+                    {
+                        success = true,
+                        message = "OK",
+                        data = listaCategorias
+                    });
+                }
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return Json(new
+                {
+                    success = false,
+                    message = ex.Message,
+                    data = ""
+                });
+            }
+        }        
 
         [HttpPost]
         public JsonResult GetShowRoomPerfiles(int paisId, int eventoId)
@@ -511,7 +556,8 @@ namespace Portal.Consultoras.Web.Controllers
                 .ForMember(t => t.ImagenVentaTagLateral, f => f.MapFrom(c => c.ImagenVentaTagLateral))
                 .ForMember(t => t.ImagenPestaniaShowRoom, f => f.MapFrom(c => c.ImagenPestaniaShowRoom))
                 .ForMember(t => t.ImagenPreventaDigital, f => f.MapFrom(c => c.ImagenPreventaDigital))                
-                .ForMember(t => t.Estado, f => f.MapFrom(c => c.Estado));
+                .ForMember(t => t.Estado, f => f.MapFrom(c => c.Estado))
+                .ForMember(t => t.TieneCategoria, f => f.MapFrom(c => c.TieneCategoria));
 
                 BEShowRoomEvento beShowRoomEvento = Mapper.Map<ShowRoomEventoModel, BEShowRoomEvento>(showRoomEventoModel);
 
@@ -813,7 +859,7 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         [HttpPost]
-        public string ActualizarStockMasivo(HttpPostedFileBase flStock)
+        public string ActualizarStockMasivo(HttpPostedFileBase flStock, int hdCargaStockEventoID)
         {
             string message = string.Empty;
             int registros = 0;
@@ -822,6 +868,7 @@ namespace Portal.Consultoras.Web.Controllers
                 #region Procesar Carga Masiva Archivo CSV
                 string finalPath = string.Empty;
                 List<BEShowRoomOferta> lstStock = new List<BEShowRoomOferta>();
+                List<BEShowRoomCategoria> listaCategoria = new List<BEShowRoomCategoria>();
 
                 if (flStock != null)
                 {
@@ -848,18 +895,22 @@ namespace Portal.Consultoras.Web.Controllers
                                 continue;
                             }
 
-                            values = inputLine.Split(',');
+                            values = inputLine.Split('|');
                             if (values.Length > 1)
                             {
                                 if (IsNumeric(values[1].Trim()) && IsNumeric(values[3].Trim()))
                                 {
                                     BEShowRoomOferta ent = new BEShowRoomOferta();
-                                    ent.ISOPais = values[0].Trim();
-                                    ent.CampaniaID = int.Parse(values[1]);
-                                    ent.CUV = values[2].Trim();
-                                    ent.Stock = int.Parse(values[3].Trim());
-                                    ent.PrecioOferta = decimal.Parse(values[4].Trim());
-                                    ent.UnidadesPermitidas = int.Parse(values[5].Trim());
+                                    ent.ISOPais = values[0].Trim().Replace("\"", ""); ;
+                                    ent.CampaniaID = int.Parse(values[1].Trim().Replace("\"", ""));
+                                    ent.CUV = values[2].Trim().Replace("\"", "");
+                                    ent.Stock = int.Parse(values[3].Trim().Replace("\"", ""));
+                                    ent.PrecioOferta = decimal.Parse(values[4].Trim().Replace("\"", ""));
+                                    ent.UnidadesPermitidas = int.Parse(values[5].Trim().Replace("\"", ""));
+                                    ent.Descripcion = values[6].Trim().Replace("\"", "");
+                                    ent.CodigoCategoria = values[7].Trim().Replace("\"", "");
+                                    ent.TipNegocio = values[8].Trim().Replace("\"", "");
+
                                     if (ent.Stock >= 0)
                                         lstStock.Add(ent);
                                 }
@@ -870,6 +921,21 @@ namespace Portal.Consultoras.Web.Controllers
                     {
                         lstStock.Update(x => x.TipoOfertaSisID = Constantes.ConfiguracionOferta.ShowRoom);
                         List<BEShowRoomOferta> lstPaises = lstStock.GroupBy(x => x.ISOPais).Select(g => g.First()).ToList();
+
+                        var categorias = lstStock.Select(p => p.CodigoCategoria).Distinct();
+                        foreach (var item in categorias)
+                        {
+                            var beCategoria = new BEShowRoomCategoria();
+                            beCategoria.Codigo = item;
+                            beCategoria.Descripcion = item;
+                            beCategoria.EventoID = hdCargaStockEventoID;
+                            listaCategoria.Add(beCategoria);
+                        }
+
+                        using (PedidoServiceClient sv = new PedidoServiceClient())
+                        {
+                            sv.DeleteInsertShowRoomCategoriaByEvento(userData.PaisID, hdCargaStockEventoID, listaCategoria.ToArray());
+                        }
 
                         for (int i = 0; i < lstPaises.Count; i++)
                         {
@@ -962,13 +1028,13 @@ namespace Portal.Consultoras.Web.Controllers
                             {
                                 BEShowRoomOfertaDetalle ent = new BEShowRoomOfertaDetalle();
                                 ent.CUV = values[0].Trim().Replace("\"", "");
-                                ent.NombreSet = values[1].Trim().Replace("\"", "");
-                                ent.Posicion = values[2].Replace("\"", "0").ToInt();
-                                //ent.Posicion = values[2].Trim().Replace("\"", "").ToString();
-                                ent.NombreProducto = values[3].Trim().Replace("\"", "");
-                                ent.Descripcion1 = values[4].Trim().Replace("\"", "");
-                                ent.Descripcion2 = values[5].Trim().Replace("\"", "");
-                                ent.Descripcion3 = values[6].Trim().Replace("\"", "");
+                                //ent.NombreSet = values[1].Trim().Replace("\"", "");
+                                ent.Posicion = values[1].Replace("\"", "0").ToInt();                                
+                                ent.NombreProducto = values[2].Trim().Replace("\"", "");
+                                ent.Descripcion1 = values[3].Trim().Replace("\"", "");
+                                ent.Descripcion2 = values[4].Trim().Replace("\"", "");
+                                ent.Descripcion3 = values[5].Trim().Replace("\"", "");
+                                ent.MarcaProducto = values[6].Trim().Replace("\"", "");
                                 ent.FechaCreacion = DateTime.Now;
                                 ent.UsuarioCreacion = userData.CodigoConsultora;
                                 ent.FechaModificacion = DateTime.Now;
@@ -2052,12 +2118,14 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                var listaPersonalizacion = userData.ListaShowRoomPersonalizacion.Where(p => p.TipoPersonalizacion == "EVENTO").ToList();
+                var listaPersonalizacion = userData.ListaShowRoomPersonalizacion.Where(
+                        p => p.TipoPersonalizacion == Constantes.ShowRoomPersonalizacion.TipoPersonalizacion.Evento).ToList();
+
                 var listaPersonalizacionNivel = new List<BEShowRoomPersonalizacionNivel>();
 
                 using (PedidoServiceClient ps = new PedidoServiceClient())
                 {
-                    listaPersonalizacionNivel = ps.GetShowRoomPersonalizacionNivel(userData.PaisID, eventoId, nivelId).ToList();
+                    listaPersonalizacionNivel = ps.GetShowRoomPersonalizacionNivel(userData.PaisID, eventoId, nivelId, 0).ToList();
                 }
 
                 Mapper.CreateMap<BEShowRoomPersonalizacion, ShowRoomPersonalizacionModel>()
@@ -2145,6 +2213,7 @@ namespace Portal.Consultoras.Web.Controllers
                 Mapper.CreateMap<ShowRoomPersonalizacionNivelModel, BEShowRoomPersonalizacionNivel>()
                     .ForMember(t => t.PersonalizacionNivelId, f => f.MapFrom(c => c.PersonalizacionNivelId))
                     .ForMember(t => t.EventoID, f => f.MapFrom(c => c.EventoID))
+                    .ForMember(t => t.CategoriaId, f => f.MapFrom(c => c.CategoriaId))
                     .ForMember(t => t.PersonalizacionId, f => f.MapFrom(c => c.PersonalizacionId))
                     .ForMember(t => t.NivelId, f => f.MapFrom(c => c.NivelId))
                     .ForMember(t => t.Valor, f => f.MapFrom(c => c.Valor));
@@ -2172,6 +2241,146 @@ namespace Portal.Consultoras.Web.Controllers
                     success = true,
                     message = "Se insertó las personalizaciones satisfactoriamente.",
                     extra = ""
+                });
+            }
+            catch (FaultException ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return Json(new
+                {
+                    success = false,
+                    message = ex.Message,
+                    extra = ""
+                });
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return Json(new
+                {
+                    success = false,
+                    message = ex.Message,
+                    extra = ""
+                });
+            }
+        }
+
+        [HttpPost]
+        public JsonResult GetShowRoomPersonalizacionCategoria(int eventoId, int categoriaId)
+        {
+            try
+            {
+                var categoria = new BEShowRoomCategoria();
+                using (PedidoServiceClient ps = new PedidoServiceClient())
+                {
+                    categoria = ps.GetShowRoomCategoriaById(userData.PaisID, categoriaId);
+                }
+
+                categoria = categoria ?? new BEShowRoomCategoria();
+
+                var listaPersonalizacion = userData.ListaShowRoomPersonalizacion.Where(
+                        p => p.TipoPersonalizacion == Constantes.ShowRoomPersonalizacion.TipoPersonalizacion.Categoria).ToList();
+
+                var listaPersonalizacionCategoria = new List<BEShowRoomPersonalizacionNivel>();
+
+                using (PedidoServiceClient ps = new PedidoServiceClient())
+                {
+                    listaPersonalizacionCategoria = ps.GetShowRoomPersonalizacionNivel(userData.PaisID, eventoId, 0, categoriaId).ToList();
+                }
+
+                Mapper.CreateMap<BEShowRoomPersonalizacion, ShowRoomPersonalizacionModel>()
+                   .ForMember(t => t.PersonalizacionId, f => f.MapFrom(c => c.PersonalizacionId))
+                   .ForMember(t => t.TipoAplicacion, f => f.MapFrom(c => c.TipoAplicacion))
+                   .ForMember(t => t.PersonalizacionId, f => f.MapFrom(c => c.PersonalizacionId))
+                   .ForMember(t => t.Atributo, f => f.MapFrom(c => c.Atributo))
+                   .ForMember(t => t.TextoAyuda, f => f.MapFrom(c => c.TextoAyuda))
+                   .ForMember(t => t.TipoAtributo, f => f.MapFrom(c => c.TipoAtributo))
+                   .ForMember(t => t.TipoPersonalizacion, f => f.MapFrom(c => c.TipoPersonalizacion))
+                   .ForMember(t => t.Orden, f => f.MapFrom(c => c.Orden))
+                   .ForMember(t => t.Estado, f => f.MapFrom(c => c.Estado));
+
+                var listaPersonalizacionModel = Mapper.Map<IList<BEShowRoomPersonalizacion>, IList<ShowRoomPersonalizacionModel>>(listaPersonalizacion);
+
+                foreach (var item in listaPersonalizacionModel)
+                {
+                    var personalizacionnivel =
+                        listaPersonalizacionCategoria.FirstOrDefault(p => p.CategoriaId == categoriaId && p.EventoID == eventoId &&
+                                p.PersonalizacionId == item.PersonalizacionId);
+
+                    if (personalizacionnivel != null)
+                    {
+                        item.PersonalizacionNivelId = personalizacionnivel.PersonalizacionNivelId;
+                        item.Valor = personalizacionnivel.Valor;
+
+                        if (item.TipoAtributo == "IMAGEN")
+                        {
+                            string ISO = Util.GetPaisISO(userData.PaisID);
+                            var carpetaPais = Globals.UrlMatriz + "/" + ISO;
+
+                            item.Valor = string.IsNullOrEmpty(item.Valor)
+                                ? "" : ConfigS3.GetUrlFileS3(carpetaPais, item.Valor, Globals.RutaImagenesMatriz + "/" + userData.CodigoISO);
+                        }
+                    }
+                    else
+                    {
+                        item.PersonalizacionNivelId = 0;
+                        item.Valor = "";
+                    }
+                }
+
+                return Json(new
+                {
+                    success = true,
+                    message = "Ok",
+                    categoria = categoria,
+                    listaPersonalizacion = listaPersonalizacionModel,
+                });
+            }
+            catch (FaultException ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return Json(new
+                {
+                    success = false,
+                    message = ex.Message,
+                    extra = ""
+                });
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return Json(new
+                {
+                    success = false,
+                    message = ex.Message,
+                    extra = ""
+                });
+            }
+        }
+
+        [HttpPost]
+        public JsonResult UpdateShowRoomDescripcionCategoria(ShowRoomCategoriaModel model)
+        {
+            try
+            {
+                Mapper.CreateMap<ShowRoomCategoriaModel, BEShowRoomCategoria>()
+                  .ForMember(t => t.CategoriaId, f => f.MapFrom(c => c.CategoriaId))
+                  .ForMember(t => t.EventoID, f => f.MapFrom(c => c.EventoID))
+                  .ForMember(t => t.Codigo, f => f.MapFrom(c => c.Codigo))
+                  .ForMember(t => t.Descripcion, f => f.MapFrom(c => c.Descripcion));
+
+                var entidad = Mapper.Map<ShowRoomCategoriaModel, BEShowRoomCategoria>(model);
+
+                using (PedidoServiceClient ps = new PedidoServiceClient())
+                {
+                    ps.UpdateShowRoomDescripcionCategoria(userData.PaisID, entidad);
+                }
+
+                return Json(new
+                {
+                    success = true,
+                    message = "Ok",
+                    data = ""
                 });
             }
             catch (FaultException ex)

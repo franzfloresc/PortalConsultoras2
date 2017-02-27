@@ -1,7 +1,9 @@
-﻿using Portal.Consultoras.Web.ServicePedido;
+﻿using System;
+using Portal.Consultoras.Web.ServicePedido;
 
 namespace Portal.Consultoras.Web.Models
 {
+    [Serializable]
     public class ShowRoomBannerLateralModel
     {
         public bool ConsultoraNoEncontrada { get; set; }
