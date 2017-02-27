@@ -1,11 +1,14 @@
-﻿@model Portal.Consultoras.Web.Models.NotificacionesModel
+﻿@using Portal.Consultoras.Common
+@model Portal.Consultoras.Web.Models.NotificacionesModel
 @{
     Layout = "~/Areas/Mobile/Views/Shared/_MobileLayout.cshtml";
 }
 
 @section styles{
     <style type="text/css">
-        body { background: #FFF !important; }
+        body {
+            background: #FFF !important;
+        }
     </style>
 }
 
@@ -13,8 +16,10 @@
     <a href="@Request.UrlReferrer" class="enlace_regresar catalogosR" title="Regresar"></a>
     &nbsp;&nbsp;&nbsp;&nbsp;MIS NOTIFICACIONES
 </div>
-<div class="pestana_esika"></div><!--PESTANA ESIKA-->
-<div class="pestana_lbel"></div><!--PESTANA LBEL-->
+<div class="pestana_esika"></div>
+<!--PESTANA ESIKA-->
+<div class="pestana_lbel"></div>
+<!--PESTANA LBEL-->
 
 <div class="col-xs-12">
     <ul class="list-notificaciones noti-detalle">
@@ -22,9 +27,8 @@
             <div class="text-noti">
                 <div class="sub_titulo_noti">
                     <span>PEDIDO RECHAZADO DE</span>
-                    <span>CAMPAÑA @Model.CampaniaDescripcion</span>
-                </div>
-                <span>@Model.FechaValidacionString</span>
+                    <span>CAMPAÑA @Html.Raw(Model.CampaniaDescripcion)</span>
+                </div>               
             </div>
         </li>
     </ul>
@@ -33,13 +37,36 @@
 
 <div class="col-xs-12 notificaciones_detalle_mobile">
     <p class="consultora_saludo_noti"><b>Hola @Model.NombreConsultora</b></p>
-    <br /><br />
+    <br />
+    <br />
 
-    <span id="sMensajeFacturacion"> @Model.DescripcionRechazo</span>
+    <span id="sMensajeFacturacion">@Html.Raw( Model.DescripcionRechazo)</span>
+     <div>
+        @{
+            switch (Model.MotivoRechazo)
+            {
+                case Constantes.GPRMotivoRechazo.Mostrar2OpcionesNotificacion:
+                    <a class='btnnotificacion' href="javascript:;" onclick="RedirectMenu('Index','Pedido',0,'Pedido')">MODIFICA TU PEDIDO</a>                                
+                    break;
 
+                case Constantes.GPRMotivoRechazo.MontoMinino:
+                    <a class='btnnotificacion' href="javascript:;" onclick="RedirectMenu('Index','Pedido',0,'Pedido')">MODIFICAR MI PEDIDO</a>                        
+                    break;
+
+                case Constantes.GPRMotivoRechazo.MontoMaximo:
+                    <a class='btnnotificacion' href="javascript:;" onclick="RedirectMenu('Index','Pedido',0,'Pedido')">MODIFICAR MI PEDIDO</a>                        
+                    break;
+
+                case Constantes.GPRMotivoRechazo.ValidacionMontoMinimoStock:
+                    <a class='btnnotificacion' href="javascript:;" onclick="RedirectMenu('Index','Pedido',0,'Pedido')">MODIFICAR MI PEDIDO</a>
+                    break;
+            }
+        }
+    </div>
     <hr class="clear" />
     <p class="firma_notificaciones">
-        Gracias, <br />
+        Gracias,
+        <br />
         Equipo de Belcorp.
     </p>
     <br />
