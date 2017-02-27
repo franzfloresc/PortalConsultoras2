@@ -32337,18 +32337,18 @@ h1#penmostreo .campana {
     text-align: center;
     font-family: 'Lato';
     font-size: 18px;
-    font-weight: 700;
+    font-weight: 500;
     color: #000;
     padding-bottom: 15px;
     letter-spacing: 0.2px;
 }
 
     .cuerpo_gpr div {
-        display: inline-block;
+        display: flex;
     }
 
     .cuerpo_gpr a {
-        text-decoration: underline;
+        text-decoration: none;
     }
 
 .btnnotificacion {
