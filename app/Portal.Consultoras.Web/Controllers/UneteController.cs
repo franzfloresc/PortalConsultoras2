@@ -545,20 +545,81 @@ namespace Portal.Consultoras.Web.Controllers
                 if (solicitudPostulante != null)
                 {
                     model.SolicitudPostulanteID = id;
-                    var direccion = solicitudPostulante.Direccion.Split('|');
+                    var direccion = solicitudPostulante.Direccion == null ? new string[0] : solicitudPostulante.Direccion.Split('|');
 
-                    model.DireccionCadena =
-                        CodigoISO == Pais.Chile
-                            ? direccion[0] + " " + direccion[1]
-                            : CodigoISO == Pais.Colombia
-                                ? direccion[1] + " " + direccion[2] + " " + direccion[0]
-                                : CodigoISO == Pais.Mexico
-                                    ? direccion[0] + " " + direccion[1]
-                                    : CodigoISO == Pais.Peru
-                                        ? direccion[0] + " " + direccion[1] + " " + direccion[2]
-                                        : CodigoISO == Pais.Ecuador
-                                            ?  direccion[1]// + " " + direccion[2]
-                                            : solicitudPostulante.Direccion;
+                    if (CodigoISO == Pais.Chile)
+                    {
+                        switch (direccion.Length)
+                        {
+                            case 1:
+                                model.DireccionCadena = direccion[0]; break;
+                            case 2:
+                                model.DireccionCadena = direccion[0] + " " + direccion[1]; break;
+                            default:
+                                model.DireccionCadena = ""; break;
+                        }
+                    }
+                    else if (CodigoISO == Pais.Colombia)
+                    {
+                        switch (direccion.Length)
+                        {
+                            case 1:
+                                model.DireccionCadena = direccion[0]; break;
+                            case 2:
+                                model.DireccionCadena = direccion[1] + " " + " " + direccion[0]; break;
+                            case 3:
+                                model.DireccionCadena = direccion[1] + " " + direccion[2] + " " + direccion[0]; break;
+                            default:
+                                model.DireccionCadena = ""; break;
+                        }
+                    }
+                    else if (CodigoISO == Pais.Mexico)
+                    {
+                        switch (direccion.Length)
+                        {
+                            case 1:
+                                model.DireccionCadena = direccion[0]; break;
+                            case 2:
+                                model.DireccionCadena = direccion[0] + " " + direccion[1]; break;
+                            case 3:
+                                model.DireccionCadena = direccion[0] + " " + direccion[1]; break;
+                            default:
+                                model.DireccionCadena = ""; break;
+                        }
+                    }
+                    else if (CodigoISO == Pais.Peru)
+                    {
+                        switch (direccion.Length)
+                        {
+                            case 1:
+                                model.DireccionCadena = direccion[0]; break;
+                            case 2:
+                                model.DireccionCadena = direccion[0] + " " + direccion[1]; break;
+                            case 3:
+                                model.DireccionCadena = direccion[0] + " " + direccion[1] + " " + direccion[2]; break;
+                            default:
+                                model.DireccionCadena = ""; break;
+                        }
+                    }
+                    else if (CodigoISO == Pais.Ecuador)
+                    {
+                        switch (direccion.Length)
+                        {
+                            case 1:
+                                model.DireccionCadena = direccion[0]; break;
+                            case 2:
+                                model.DireccionCadena = direccion[1]; break;
+                            case 3:
+                                model.DireccionCadena = direccion[1]; break;
+                            default:
+                                model.DireccionCadena = ""; break;
+                        }
+                    }
+                    else
+                    {
+                        model.DireccionCadena = solicitudPostulante.Direccion;
+                    }
+
 
                     model.Direccion = solicitudPostulante.Direccion;
                     model.NombreRegion = solicitudPostulante.LugarPadre;
@@ -755,6 +816,8 @@ namespace Portal.Consultoras.Web.Controllers
             decimal longitud, string direccionCorrecta, string direccionCadena, string region, string comuna,
             string codregion, string codzona, string codseccion, string codterritorio, string direccion)
         {
+            int InitialStatus = 0;
+
             var solicitudPostulanteID = Convert.ToInt32(id);
 
             var actualizado = false;
@@ -763,6 +826,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 var solicitudPostulante = sv.ObtenerSolicitudPostulante(CodigoISO, id);
 
+                InitialStatus = solicitudPostulante.EstadoGEO.Value;
                 solicitudPostulante.Latitud = latitud;
                 solicitudPostulante.Longitud = longitud;
                 solicitudPostulante.Direccion = direccion.ToUpper(); // (comuna + " " + direccion).ToUpper();
@@ -851,10 +915,36 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                 }
 
+
+
+                var EstadosIniciales = new List<int>() {
+                    Enumeradores.EstadoGEO.NoEncontroTerritorioNoLatLong.ToInt() ,
+                    Enumeradores.EstadoGEO.NoEncontroTerritorioSiLatLong.ToInt(),
+                     Enumeradores.EstadoGEO.SinConsultar.ToInt() ,
+                   Enumeradores.EstadoGEO.ErrorConsumoIntegracion.ToInt() ,};
+
+                var PaisesParaRevisarEstadoCrediticioAutomatico = new List<string>()
+                {
+                   Pais.Colombia, Pais.CostaRica, Pais.Peru, Pais.Chile
+                };
+
+                if ((EstadosIniciales.Contains(InitialStatus)) && solicitudPostulante.EstadoGEO.Value == Enumeradores.EstadoGEO.OK.ToInt() &&
+                    PaisesParaRevisarEstadoCrediticioAutomatico.Contains(CodigoISO) && solicitudPostulante.EstadoBurocrediticio != Enumeradores.EstadoBurocrediticio.PuedeSerConsultora.ToInt()
+                            && solicitudPostulante.EstadoPostulante == Enumeradores.EstadoPostulante.EnGestionServicioAlCliente.ToInt())
+                {
+
+                    var evaluacionCrediticaBE = GestionPais.EvaluacionCrediticia[CodigoISO].Evaluar(CodigoISO,
+                 solicitudPostulante);
+
+                    solicitudPostulante.EstadoBurocrediticio = Convert.ToInt32(evaluacionCrediticaBE.EnumEstadoCrediticio);
+                }
+
+
                 sv.ActualizarSolicitudPostulanteSAC(CodigoISO, solicitudPostulante);
                 //sv.ActualizarEstado(CodigoISO, solicitudPostulanteID, EnumsTipoParametro.EstadoGEO,
                 //    solicitudPostulante.EstadoGEO.Value);
                 solicitudPostulante = sv.ObtenerSolicitudPostulante(CodigoISO, id);
+                
 
                 #region Envío de correos
 
@@ -2056,9 +2146,26 @@ namespace Portal.Consultoras.Web.Controllers
                     solicitudPostulante.CodigoTerritorio = model.CodigoTerritorio;
                     solicitudPostulante.EstadoGEO = Enumeradores.EstadoGEO.OK.ToInt();
 
+
+                    var PaisesParaRevisarEstadoCrediticioAutomatico = new List<string>()
+                   {
+                       Pais.Colombia, Pais.CostaRica, Pais.Peru, Pais.Chile
+                     };
+
+                    if (solicitudPostulante.EstadoGEO.Value == Enumeradores.EstadoGEO.OK.ToInt() && PaisesParaRevisarEstadoCrediticioAutomatico.Contains(CodigoISO)
+                           && solicitudPostulante.EstadoBurocrediticio != Enumeradores.EstadoBurocrediticio.PuedeSerConsultora.ToInt()
+                            && solicitudPostulante.EstadoPostulante == Enumeradores.EstadoPostulante.EnGestionServicioAlCliente.ToInt())
+                    {
+
+                        var evaluacionCrediticaBE = GestionPais.EvaluacionCrediticia[CodigoISO].Evaluar(CodigoISO, solicitudPostulante);
+
+                        solicitudPostulante.EstadoBurocrediticio = Convert.ToInt32(evaluacionCrediticaBE.EnumEstadoCrediticio);
+                    }
+
                     sv.ActualizarSolicitudPostulanteSAC(CodigoISO, solicitudPostulante);
 
                     solicitudPostulante = sv.ObtenerSolicitudPostulante(CodigoISO, model.SolicitudPostulanteID);
+                    
 
                     #region Envío de correos
 
