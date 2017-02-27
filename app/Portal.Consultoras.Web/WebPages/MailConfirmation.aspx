@@ -174,10 +174,8 @@
                     </form>
 
                 <div class="campos_actualizacionContrasenia" id="divActualizacionCorrecta" >
-                    <div class="saludoConsultora">¡Tu correo electrónico ha sido activado satisfactoriamente!</div>
-                    <div style="display:none;">
-                    <asp:Label ID="lblConfirmacion" runat="server"></asp:Label>
-                    </div>
+                    <div class="saludoConsultora"> <asp:Label ID="lblConfirmacion" runat="server"></asp:Label></div>
+                    
                  
                     <span class="cambiarContraseniaTexto"></span>
                     <div class="formulario_actualizarContrasenia">

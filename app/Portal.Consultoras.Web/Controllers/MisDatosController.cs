@@ -232,9 +232,9 @@ namespace Portal.Consultoras.Web.Controllers
 
                         //1774
                         bool tipopais = ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(userData.CodigoISO);
-                        cadena =MailUtilities.CuerpoMensajePersonalizado(Util.GetUrlHost(this.HttpContext.Request).ToString(), entidad.Nombre, param_querystring, tipopais);
+                        cadena =MailUtilities.CuerpoMensajePersonalizado(Util.GetUrlHost(this.HttpContext.Request).ToString(), entidad.Sobrenombre==null ? entidad.PrimerNombre : entidad.Sobrenombre, param_querystring, tipopais);
                         
-                        Util.EnviarMailMasivoColas("no-responder@somosbelcorp.com", entidad.EMail, "(" + userData.CodigoISO + ") Confimacion de Correo", cadena, true, entidad.Nombre);
+                        Util.EnviarMailMasivoColas("no-responder@somosbelcorp.com", entidad.EMail, "(" + userData.CodigoISO + ") Confirmación de Correo", cadena, true, entidad.Nombre);
                         //Util.EnviarMail("no-responder@somosbelcorp.com", entidad.EMail, "(" + userData.CodigoISO + ") Confimacion de Correo", cadena, true, entidad.Nombre);
 
                         return Json(new
