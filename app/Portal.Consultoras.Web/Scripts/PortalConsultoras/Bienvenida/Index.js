@@ -2118,30 +2118,33 @@ function SetGoogleAnalyticsPromotionClick(Id, Posicion, Titulo) {
 };
 
 /* Métodos Mis Datos */
-function CargarMisDatos() {
+function CargarMisDatos() {    
     $.ajax({
         type: 'GET',
         url: baseUrl + 'Bienvenida/JSONGetMisDatos',
         dataType: 'json',
         contentType: 'application/json; charset=utf-8',
         success: function (data) {
-            var temp = data.lista;
-            $('#hdn_NombreArchivoContratoMD').val(temp.NombreArchivoContrato);
-            $('#hdn_CodigoUsuarioMD').val(temp.CodigoUsuario);
-            $('#hdn_CorreoMD').val(temp.EMail);
-            $('#hdn_NombreCompletoMD').val(temp.NombreCompleto);
-            $('#codigoUsurioMD').html(temp.CodigoUsuario);
-            $('#nombresUsuarioMD').html(temp.NombreCompleto);
-            $('#nombreGerenteZonal').html($.trim(temp.NombreGerenteZonal));
-            $('#txtSobrenombreMD').val(temp.Sobrenombre);
-            $('#txtEMailMD').val(temp.EMail);
-            $('#txtTelefonoMD').val(temp.Telefono);
-            $('#txtTelefonoTrabajoMD').val(temp.TelefonoTrabajo);
-            $('#txtCelularMD').val(temp.Celular);
-            PopupMostrar('popupMisDatos');
-            closeWaitingDialog();
+            if (checkTimeout(data)) {
+                var temp = data.lista;
+                $('#hdn_NombreArchivoContratoMD').val(temp.NombreArchivoContrato);
+                $('#hdn_CodigoUsuarioMD').val(temp.CodigoUsuario);
+                $('#hdn_CorreoMD').val(temp.EMail);
+                $('#hdn_NombreCompletoMD').val(temp.NombreCompleto);
+                $('#codigoUsurioMD').html(temp.CodigoUsuario);
+                $('#nombresUsuarioMD').html(temp.NombreCompleto);
+                $('#nombreGerenteZonal').html($.trim(temp.NombreGerenteZonal));
+                $('#txtSobrenombreMD').val(temp.Sobrenombre);
+                $('#txtEMailMD').val(temp.EMail);
+                $('#txtTelefonoMD').val(temp.Telefono);
+                $('#txtTelefonoTrabajoMD').val(temp.TelefonoTrabajo);
+                $('#txtCelularMD').val(temp.Celular);
+                PopupMostrar('popupMisDatos');
+                closeWaitingDialog();
+            }
         },
-        error: function (error) {
+        error: function (data, error) {
+            if (checkTimeout(data)) { }
             //console.log(error);
         }
     });
