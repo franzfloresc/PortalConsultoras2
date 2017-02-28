@@ -30235,10 +30235,10 @@ h1#penmostreo .campana {
     font-weight: normal;
 }
 
-    .mensaje_horarioIngresoPedido a {
+.mensaje_horarioIngresoPedido a {
     display: inline-block;
     margin-left: 2px;
-        text-decoration: underline;
+    text-decoration: underline;
 }
 
         .mensaje_horarioIngresoPedido a:hover {
