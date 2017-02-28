@@ -1,11 +1,8 @@
 ﻿using Portal.Consultoras.Web.CustomFilters;
 using System;
-using System.Collections.Generic;
 using System.Configuration;
 using System.IO;
-using System.Linq;
 using System.ServiceModel;
-using System.Web;
 
 namespace Portal.Consultoras.Web.LogManager
 {

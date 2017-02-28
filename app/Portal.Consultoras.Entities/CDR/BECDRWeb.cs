@@ -33,6 +33,17 @@ namespace Portal.Consultoras.Entities.CDR
         [DataMember]
         public List<BECDRWebDetalle> CDRWebDetalle { get; set; }
 
+        [DataMember]
+        public int RegionID { get; set; }
+
+        [DataMember]
+        public int ZonaID { get; set; }
+
+        [DataMember]
+        public string ConsultoraCodigo { get; set; }
+
+      
+
         public BECDRWeb()
         { }
 

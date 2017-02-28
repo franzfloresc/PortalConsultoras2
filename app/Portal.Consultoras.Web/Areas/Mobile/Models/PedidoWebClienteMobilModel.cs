@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 namespace Portal.Consultoras.Web.Areas.Mobile.Models
 {
+    [Serializable()]
     public class PedidoWebClienteMobilModel
     {
         public PedidoWebClienteMobilModel()

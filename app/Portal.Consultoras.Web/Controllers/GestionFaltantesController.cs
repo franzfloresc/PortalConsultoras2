@@ -68,8 +68,7 @@ namespace Portal.Consultoras.Web.Controllers
                         //En caso tenga error en maximum message, habilitar el MaxReceivedMessageSize 2147483647.
                         ((BasicHttpBinding)srv.Endpoint.Binding).MaxReceivedMessageSize = int.MaxValue;
 
-                        BEProductoFaltante producto = new
-                                                        BEProductoFaltante()
+                        BEProductoFaltante producto = new BEProductoFaltante()
                         {
                             CampaniaID = campaniaID,
                             Zona = vBusqueda1,

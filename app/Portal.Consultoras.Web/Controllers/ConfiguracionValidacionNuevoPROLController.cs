@@ -13,8 +13,6 @@ namespace Portal.Consultoras.Web.Controllers
 {
     public class ConfiguracionValidacionNuevoPROLController : BaseController
     {
-        static int CampaniaID = 201301;
-
         public ActionResult Index()
         {
             try
@@ -45,7 +43,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                var listaZonas = DropDowListZonas(PaisID);
+                var listaZonas = DropDowListZonasNoProl(PaisID);
                 var listaZonasNuevoPROL = DropDowListZonasPROL(PaisID);
 
                 return Json(new
@@ -87,7 +85,7 @@ namespace Portal.Consultoras.Web.Controllers
             return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);
         }
 
-        private IEnumerable<ZonaModel> DropDowListZonas(int PaisID)
+        private IEnumerable<ZonaModel> DropDowListZonasNoProl(int PaisID)
         {
             IList<BEConfiguracionValidacionNuevoPROL> lst;
             using (SACServiceClient sv = new SACServiceClient())
