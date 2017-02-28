@@ -1,20 +1,20 @@
-﻿@{
+﻿@model Portal.Consultoras.Web.Models.ShowRoomOfertaModel
+
+@{
     ViewBag.Title = "DetalleSet";
 }
 
-@section styles{
-  
-    <link href="@Url.Content("~/Content/Css/Site/slick-pedido.css")" rel="stylesheet" />
-    
+@section styles{  
+    <link href="@Url.Content("~/Content/Css/Site/slick-pedido.css")" rel="stylesheet" />    
 }
 <div class="fondo_set">
     <div class="content_belcorp">
         <div class="content_solo_ficha_set">
             <div class="content_producto_set">
-                <img src="https://s3-sa-east-1.amazonaws.com/appcatalogo/CO/201704/C/productos/CO_200084402.jpg" style="width:100%;">
+                <img src="@Model.ImagenProducto" style="width:100%;">
                 <div class="compartir_redes_ficha" style="padding-left: 0px; margin-top:20px;">
                     <div class="texto_compartelo">Compártelo con tus clientes</div>
-                    <a class="btn_compartir_facebook_ficha" href="" onclick="">
+                    <a class="btn_compartir_facebook_ficha" href="javascript:;" data-compartir="face">
                         <img src="/Content/Images/Esika/facebook.png">
                     </a>
                     <hr class="clear">
@@ -23,16 +23,28 @@
             </div>
             <div class="content_detalle_set">
                 <div class="content_left_ficha">
-                    <div class="titulo_set">Pack x4 Ésika Delineador Kohl</div>
+                    <div class="titulo_set">@Model.Descripcion</div>
                 </div>
                 <div class="content_right_ficha" style="text-align:right">
-                    <div class="precio_valorizado_showroom">S/. 200</div>
-                    <div class="precio_oferta_venta">Precio para ti <b> S/.110</b></div>
-                    <div class="ganancia_showroom">Gana S/.90</div>
+                    <div class="precio_valorizado_showroom">@Model.Simbolo @Model.FormatoPrecioCatalogo</div>
+                    <div class="precio_oferta_venta">Precio para ti <b>@Model.Simbolo @Model.FormatoPrecioOferta</b></div>
+                    <div class="ganancia_showroom">Gana @Model.Simbolo @Model.FormatoGana</div>
                 </div>
                 <hr class="clear" />
                 <div class="titulo_separador">CONTENIDO</div>
-                <div class="nombre_marca_set">ESIKA</div>
+                @foreach (var detalle in Model.ListaDetalleOfertaShowRoom)
+                {
+                    <div class="nombre_marca_set">@detalle.MarcaProducto</div>
+                    <div class="content_detalle_showroom">
+                        <div class="cantidad_set_individual">x2</div>
+                        <div class="nombre_set_individual">@detalle.NombreProducto 
+                            <span class="detalle_set_showroom">@detalle.Descripcion1</span>
+                            <span class="detalle_set_showroom">@detalle.Descripcion3</span>
+                        </div>
+                        <div class="precio_regular_set">@detalle.Descripcion1</div>
+                    </div>
+                }
+                @*<div class="nombre_marca_set">ESIKA</div>
                 <div class="content_detalle_showroom">
                     <div class="cantidad_set_individual">x2</div>
                     <div class="nombre_set_individual">Perfume Mithyka 50 ml <span class="detalle_set_showroom">Tono: Azul Kohl </span></div>
@@ -48,7 +60,7 @@
                     <div class="cantidad_set_individual">x2</div>
                     <div class="nombre_set_individual">Perfume Mithyka 50 ml</div>
                     <div class="precio_regular_set">Precio regular: S/.150</div>
-                </div>
+                </div>*@
                 <div class="linea_separadora" style="margin-top:20px; margin-bottom:10px;"></div>
                 <div class="liquidacion_rango_home">
                     <input type="text" value="1" size="2" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" data-input="cantidad" data-cantidad-input="-">

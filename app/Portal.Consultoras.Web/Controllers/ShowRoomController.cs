@@ -2449,10 +2449,8 @@ namespace Portal.Consultoras.Web.Controllers
             var listaShowRoomOferta = new List<BEShowRoomOferta>();
             var listaShowRoomOfertaModel = new List<ShowRoomOfertaModel>();
 
-            if (Session[Constantes.ConstSession.CDRWeb] != null)
-            {
+            if (Session[Constantes.ConstSession.ListaProductoShowRoom] != null)
                 return (List<ShowRoomOfertaModel>)Session[Constantes.ConstSession.ListaProductoShowRoom];
-            }
 
             using (PedidoServiceClient sv = new PedidoServiceClient())
             {
@@ -2467,31 +2465,13 @@ namespace Portal.Consultoras.Web.Controllers
                                     ? "" : ConfigS3.GetUrlFileS3(carpetaPais, x.ImagenMini, Globals.UrlMatriz + "/" + userData.CodigoISO));
                 }
             }
-
-            Mapper.CreateMap<BEShowRoomOferta, ShowRoomOfertaModel>()
-                .ForMember(t => t.OfertaShowRoomID, f => f.MapFrom(c => c.OfertaShowRoomID))
-                .ForMember(t => t.CampaniaID, f => f.MapFrom(c => c.CampaniaID))
-                .ForMember(t => t.CUV, f => f.MapFrom(c => c.CUV))
-                .ForMember(t => t.TipoOfertaSisID, f => f.MapFrom(c => c.TipoOfertaSisID))
-                .ForMember(t => t.ConfiguracionOfertaID, f => f.MapFrom(c => c.ConfiguracionOfertaID))
-                .ForMember(t => t.Descripcion, f => f.MapFrom(c => c.Descripcion))
-                .ForMember(t => t.PrecioOferta, f => f.MapFrom(c => c.PrecioOferta))
-                .ForMember(t => t.PrecioCatalogo, f => f.MapFrom(c => c.PrecioCatalogo))
-                .ForMember(t => t.Stock, f => f.MapFrom(c => c.Stock))
-                .ForMember(t => t.StockInicial, f => f.MapFrom(c => c.StockInicial))
-                .ForMember(t => t.ImagenProducto, f => f.MapFrom(c => c.ImagenProducto))
-                .ForMember(t => t.Orden, f => f.MapFrom(c => c.Orden))
-                .ForMember(t => t.UnidadesPermitidas, f => f.MapFrom(c => c.UnidadesPermitidas))
-                .ForMember(t => t.FlagHabilitarProducto, f => f.MapFrom(c => c.FlagHabilitarProducto))
-                .ForMember(t => t.DescripcionLegal, f => f.MapFrom(c => c.DescripcionLegal))
-                .ForMember(t => t.CategoriaID, f => f.MapFrom(c => c.CategoriaID))
-                .ForMember(t => t.MarcaID, f => f.MapFrom(c => c.MarcaID))
-                .ForMember(t => t.ImagenMini, f => f.MapFrom(c => c.ImagenMini))
-                .ForMember(t => t.CodigoCategoria, f => f.MapFrom(c => c.CodigoCategoria))
-                .ForMember(t => t.TipNegocio, f => f.MapFrom(c => c.TipNegocio));
-            
+                        
             listaShowRoomOfertaModel = Mapper.Map<List<BEShowRoomOferta>, List<ShowRoomOfertaModel>>(listaShowRoomOferta);
-            listaShowRoomOfertaModel.Update(x => x.DescripcionMarca = GetDescripcionMarca(x.MarcaID));
+            listaShowRoomOfertaModel.Update(x => {
+                x.DescripcionMarca = GetDescripcionMarca(x.MarcaID);
+                x.CodigoISO = userData.CodigoISO;
+                x.Simbolo = userData.Simbolo;
+            });
 
             //using (PedidoServiceClient sv = new PedidoServiceClient())
             //{
@@ -2532,7 +2512,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         public ActionResult DetalleOferta(int id)
         {
-            var modelo = GetOfertaDetalle(id);
+            var modelo = GetOfertaYDetalle(id);
             return View("DetalleSet", modelo);
         }
 
@@ -2541,23 +2521,18 @@ namespace Portal.Consultoras.Web.Controllers
             var ofertaShowRoomModelo = new ShowRoomOfertaModel();
             try
             {
-                if (idOferta <= 0)
-                    return ofertaShowRoomModelo;
+                if (idOferta <= 0) return ofertaShowRoomModelo;
 
-                var ofertaShowRoom = new BEShowRoomOferta(); // cambiar por el metodo privado que obtiene el padre, en session
+                var listadoOfertasTodas = ObtenerListaProductoShowRoom(userData.CampaniaID, userData.CodigoConsultora);
+                ofertaShowRoomModelo = listadoOfertasTodas.Find(o => o.OfertaShowRoomID == idOferta) ?? new ShowRoomOfertaModel();
+                if (ofertaShowRoomModelo.OfertaShowRoomID <= 0) return ofertaShowRoomModelo;
+
                 var listaDetalle = new List<BEShowRoomOfertaDetalle>();
-                int paisId = userData.PaisID;
                 using (PedidoServiceClient sv = new PedidoServiceClient())
                 {
-                    ofertaShowRoom = sv.GetShowRoomOfertaById(userData.PaisID, idOferta);
+                    listaDetalle = sv.GetProductosShowRoomDetalle(userData.PaisID, userData.CampaniaID, ofertaShowRoomModelo.CUV).ToList();
                 }
 
-                using (PedidoServiceClient sv = new PedidoServiceClient())
-                {
-                    listaDetalle = sv.GetProductosShowRoomDetalle(paisId, userData.CampaniaID, ofertaShowRoom.CUV).ToList();
-                }
-
-                ofertaShowRoomModelo = Mapper.Map<BEShowRoomOferta, ShowRoomOfertaModel>(ofertaShowRoom);
                 ofertaShowRoomModelo.ListaDetalleOfertaShowRoom = Mapper.Map<List<BEShowRoomOfertaDetalle>, List<ShowRoomOfertaDetalleModel>>(listaDetalle);
             }
             catch (Exception ex)
@@ -2574,9 +2549,8 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
                 if (idOferta <= 0) return listaOferta;
-
-                // obtener listado de todos las ofertas show room excepto el idOferta(parametro)
-                var listadoOfertasTodas = new List<ShowRoomOfertaModel>(); // cambiar por el metodo de jave, en session
+                
+                var listadoOfertasTodas = ObtenerListaProductoShowRoom(userData.CampaniaID, userData.CodigoConsultora);
                 listaOferta = listadoOfertasTodas.Where(o => o.OfertaShowRoomID != idOferta).ToList();
             }
             catch (Exception ex)
