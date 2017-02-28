@@ -4419,6 +4419,9 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CodigoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int CodigoGeneralField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -4473,6 +4476,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
             }
             set {
                 this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Codigo {
+            get {
+                return this.CodigoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CodigoField, value) != true)) {
+                    this.CodigoField = value;
+                    this.RaisePropertyChanged("Codigo");
+                }
             }
         }
         
@@ -18092,6 +18108,12 @@ namespace Portal.Consultoras.Web.ServicePedido {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/InsertarEstrategiaProducto", ReplyAction="http://tempuri.org/IPedidoService/InsertarEstrategiaProductoResponse")]
         System.Threading.Tasks.Task<int> InsertarEstrategiaProductoAsync(Portal.Consultoras.Web.ServicePedido.BEEstrategiaProducto entidad);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetEstrategiaProducto", ReplyAction="http://tempuri.org/IPedidoService/GetEstrategiaProductoResponse")]
+        Portal.Consultoras.Web.ServicePedido.BEEstrategiaProducto[] GetEstrategiaProducto(Portal.Consultoras.Web.ServicePedido.BEEstrategia entidad);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetEstrategiaProducto", ReplyAction="http://tempuri.org/IPedidoService/GetEstrategiaProductoResponse")]
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEEstrategiaProducto[]> GetEstrategiaProductoAsync(Portal.Consultoras.Web.ServicePedido.BEEstrategia entidad);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/InsertarTipoEstrategia", ReplyAction="http://tempuri.org/IPedidoService/InsertarTipoEstrategiaResponse")]
         int InsertarTipoEstrategia(Portal.Consultoras.Web.ServicePedido.BETipoEstrategia entidad);
         
@@ -19896,6 +19918,14 @@ namespace Portal.Consultoras.Web.ServicePedido {
         
         public System.Threading.Tasks.Task<int> InsertarEstrategiaProductoAsync(Portal.Consultoras.Web.ServicePedido.BEEstrategiaProducto entidad) {
             return base.Channel.InsertarEstrategiaProductoAsync(entidad);
+        }
+        
+        public Portal.Consultoras.Web.ServicePedido.BEEstrategiaProducto[] GetEstrategiaProducto(Portal.Consultoras.Web.ServicePedido.BEEstrategia entidad) {
+            return base.Channel.GetEstrategiaProducto(entidad);
+        }
+        
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEEstrategiaProducto[]> GetEstrategiaProductoAsync(Portal.Consultoras.Web.ServicePedido.BEEstrategia entidad) {
+            return base.Channel.GetEstrategiaProductoAsync(entidad);
         }
         
         public int InsertarTipoEstrategia(Portal.Consultoras.Web.ServicePedido.BETipoEstrategia entidad) {
