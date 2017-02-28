@@ -18,14 +18,8 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             var model = new PedidoDetalleModel();
             try
             {
-                var lstProductoFaltante = new List<BEProductoFaltante>();
-                using (var sv = new SACServiceClient())
-                {
-                    lstProductoFaltante = sv.GetProductoFaltanteByCampaniaAndZonaID(userData.PaisID, userData.CampaniaID, userData.ZonaID).ToList();
-                }
-
+                var lstProductoFaltante = this.GetProductosFaltantes();
                 Session["ListaProductoFaltantes"] = lstProductoFaltante;
-
                 model.ListaProductoFaltante = lstProductoFaltante.Take(numeroFilas).ToList();
             }
             catch (FaultException ex)

@@ -7,6 +7,7 @@ namespace Portal.Consultoras.Service
 {
     public class CDRService : ICDRService
     {
+
         private BLCDRWeb BLCDRWeb;
         private BLCDRWebDetalle BLCDRWebDetalle;
         private BLCDRWebMotivoOperacion BLCDRWebMotivoOperacion;
@@ -147,5 +148,12 @@ namespace Portal.Consultoras.Service
         {
             return BLLogCDRWebDetalleCulminado.GetByLogCDRWebCulminadoId(PaisID, logCDRWebCulminadoId);
         }
+
+        public IList<BECDRWebDetalleReporte> GetCDRWebDetalleReporte(int PaisID, BECDRWeb entity)
+        {
+            return BLCDRWeb.GetCDRWebDetalleReporte(PaisID, entity);
+        }
+
+
     }
 }

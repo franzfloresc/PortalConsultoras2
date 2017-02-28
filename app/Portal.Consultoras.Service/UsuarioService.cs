@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Portal.Consultoras.BizLogic.CDR;
+using Portal.Consultoras.Common;
 using Portal.Consultoras.Entities.CDR;
 
 namespace Portal.Consultoras.Service
@@ -584,11 +585,66 @@ namespace Portal.Consultoras.Service
             var bLLogCDRWebCulminado = new BLLogCDRWebCulminado();
             bLLogCDRWebCulminado.UpdateVisualizado(paisID, procesoId);
         }
-
+        
         public int UpdateUsuarioEmailTelefono(int paisID, long ConsultoraID, string Email, string Telefono)
         {
             var BLUsuario = new BLUsuario();
             return BLUsuario.UpdateUsuarioEmailTelefono(paisID, ConsultoraID, Email, Telefono);
+        }
+
+        /*EPD-1012*/
+        public BEValidaLoginSB2 GetValidarLoginSB2(int paisID, string codigoUsuario, string contrasenia)
+        {
+            var BLUsuario = new BLUsuario();
+            return BLUsuario.GetValidarLoginSB2(paisID, codigoUsuario, contrasenia);
+        }
+        /*EPD-1012*/
+
+        public bool CambiarClaveUsuario(int paisId, string paisIso, string codigoUsuario, string nuevacontrasena, string correo, string codigoUsuarioAutenticado, EAplicacionOrigen origen)
+        {
+            var BLUsuario = new BLUsuario();
+            return BLUsuario.CambiarClaveUsuario(paisId, paisIso, codigoUsuario, nuevacontrasena, correo, codigoUsuarioAutenticado, origen);
+        }
+
+        ///<summary>
+        ///Verifica si existe el usuario con/sin el ingreso de la clave  
+        ///</summary>
+        ///<param name="paisId">
+        /// Id del Pais del Usuario
+        /// </param>
+        /// <param name="codigoUsuario">
+        /// Codigo de Usuario
+        /// </param>
+        /// <param name="clave">
+        /// Clave del Usuario a validar (sin encriptar) o valor vacio (no valida con la clave)
+        /// </param> 
+        /// <returns>
+        /// 0: no existe; 1: existe pero la clave es diferente; 2: existe con/sin validacion de clave
+        /// </returns>
+        public int ExisteUsuario(int paisId, string codigoUsuario, string clave)
+        {
+            var BLUsuario = new BLUsuario();
+            return BLUsuario.ExisteUsuario(paisId, codigoUsuario, clave);
+        }
+
+        ///<summary>
+        ///Verifica si el usuario existe con la clave correcta.       
+        ///</summary>
+        ///<param name="paisIso">
+        /// Prefijo del Pais del Usuario
+        /// </param>
+        /// <param name="codigoUsuario">
+        /// Codigo de Usuario o Email
+        /// </param>
+        /// <param name="clave">
+        /// Clave del Usuario a validar (sin encriptar)
+        /// </param>      
+        public bool ValidarUsuario(string paisIso, string codigoUsuario, string clave)
+        {
+            int paisId = Util.GetPaisID(paisIso);
+
+            var BLUsuario = new BLUsuario();
+            return BLUsuario.ValidarUsuario(paisId, codigoUsuario, clave);
         }
     }
 }

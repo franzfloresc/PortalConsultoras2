@@ -316,7 +316,7 @@ namespace Portal.Consultoras.Web.Controllers
                 //    if (esFacturacion)
                 //        ObtenerListadoProductosOfertaFinal();
                 //}
-                
+
                 #region Pedidos Pendientes
 
                 ViewBag.MostrarPedidosPendientes = "0";
@@ -1200,20 +1200,30 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpPost]
         public JsonResult ValidarStockEstrategia(string MarcaID, string CUV, string PrecioUnidad, string Descripcion, string Cantidad, string indicadorMontoMinimo, string TipoOferta)
         {
-            // Validar la cantidad que se está ingresando compararla con la cantidad ya ingresada y el campo límite
             string mensaje = "";
+            try
+            {
+                // Validar la cantidad que se está ingresando compararla con la cantidad ya ingresada y el campo límite
             var entidad = new BEEstrategia();
             entidad.PaisID = userData.PaisID;
             entidad.Cantidad = Convert.ToInt32(Cantidad);
             entidad.CUV2 = CUV;
             entidad.CampaniaID = userData.CampaniaID;
-            entidad.ConsultoraID = userData.ConsultoraID.ToString().Trim();
-
+                entidad.ConsultoraID = userData.ConsultoraID.ToString();
             entidad.FlagCantidad = Convert.ToInt32(TipoOferta);
 
             using (PedidoServiceClient svc = new PedidoServiceClient())
             {
                 mensaje = svc.ValidarStockEstrategia(entidad);
+            }
+            }
+            catch (FaultException ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, (userData ?? new UsuarioModel()).CodigoConsultora, (userData ?? new UsuarioModel()).CodigoISO);
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, (userData ?? new UsuarioModel()).CodigoConsultora, (userData ?? new UsuarioModel()).CodigoISO);
             }
 
             if (mensaje == "OK")
@@ -1831,48 +1841,22 @@ namespace Portal.Consultoras.Web.Controllers
         #region Productos Faltantes
 
         [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
-        public JsonResult GetProductoFaltante()
+        public JsonResult GetProductoFaltante(string cuv, string descripcion)
         {
             try
             {
-                List<ServiceSAC.BEProductoFaltante> olstProductoFaltante = new List<BEProductoFaltante>();
-                using (ServiceSAC.SACServiceClient sv = new SACServiceClient())
+                var productosFaltantes = this.GetProductosFaltantes(cuv, descripcion);
+                var model = productosFaltantes.GroupBy(pf => pf.Categoria).Select(pfg => new ProductoFaltanteModel
                 {
-                    olstProductoFaltante = sv.GetProductoFaltanteByCampaniaAndZonaID(userData.PaisID, userData.CampaniaID, userData.ZonaID).ToList();
-                }
-
-                return Json(new
-                {
-                    result = true,
-                    data = olstProductoFaltante
-                }, JsonRequestBehavior.AllowGet);
+                    Categoria = pfg.Key,
+                    Detalle = pfg.Select(pf => pf).OrderBy(pf => pf.Catalogo).ThenBy(pf => pf.NumeroPagina).ToList()
+                });
+                return Json(new { result = true, data = model }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {
-                return Json(new
-                {
-                    result = false,
-                    data = ex.Message
-                }, JsonRequestBehavior.AllowGet);
+                return Json(new { result = false, data = ex.Message }, JsonRequestBehavior.AllowGet);
             }
-
-        }
-
-        public ActionResult ExportarExcelProductoFaltante()
-        {
-            List<ServiceSAC.BEProductoFaltante> lst = new List<ServiceSAC.BEProductoFaltante>();
-            using (ServiceSAC.SACServiceClient sv = new ServiceSAC.SACServiceClient())
-            {
-                lst = sv.GetProductoFaltanteByCampaniaAndZonaID(userData.PaisID, userData.CampaniaID, userData.ZonaID).ToList();
-            }
-
-            Dictionary<string, string> dic = new Dictionary<string, string>();
-            dic.Add("Codigo", "CUV");
-            dic.Add("Producto", "Descripcion");
-
-            Util.ExportToExcel("FaltantesAnunciadosExcel", lst, dic);
-
-            return new EmptyResult();
         }
 
         #endregion
@@ -2316,21 +2300,6 @@ namespace Portal.Consultoras.Web.Controllers
             if (ds.Tables[0].Rows.Count == 0)
                 return new List<ObservacionModel>();
 
-            if (Constantes.CodigosISOPais.Peru.ToString().Equals(userData.CodigoISO.ToUpper()) ||
-                Constantes.CodigosISOPais.Chile.ToString().Equals(userData.CodigoISO.ToUpper()) ||
-                Constantes.CodigosISOPais.Ecuador.ToString().Equals(userData.CodigoISO.ToUpper()) ||
-                Constantes.CodigosISOPais.CostaRica.ToString().Equals(userData.CodigoISO.ToUpper()) ||
-                Constantes.CodigosISOPais.Salvador.ToString().Equals(userData.CodigoISO.ToUpper()) ||
-                Constantes.CodigosISOPais.Panama.ToString().Equals(userData.CodigoISO.ToUpper()) ||
-                Constantes.CodigosISOPais.Guatemala.ToString().Equals(userData.CodigoISO.ToUpper()) ||
-                Constantes.CodigosISOPais.Venezuela.ToString().Equals(userData.CodigoISO.ToUpper()) ||
-                Constantes.CodigosISOPais.Colombia.ToString().Equals(userData.CodigoISO.ToUpper()) ||
-                Constantes.CodigosISOPais.PuertoRico.ToString().Equals(userData.CodigoISO.ToUpper()) ||
-                Constantes.CodigosISOPais.Dominicana.ToString().Equals(userData.CodigoISO.ToUpper()) ||
-                Constantes.CodigosISOPais.Mexico.ToString().Equals(userData.CodigoISO.ToUpper()) ||
-                Constantes.CodigosISOPais.Bolivia.ToString().Equals(userData.CodigoISO.ToUpper())
-                )
-            {
                 using (ServicePROL.ServiceStockSsic sv = new ServicePROL.ServiceStockSsic())
                 {
                     if (userData.DiaPROL && userData.MostrarBotonValidar)
@@ -2344,51 +2313,7 @@ namespace Portal.Consultoras.Web.Controllers
                         sv.Url = ConfigurarUrlServiceProl();
                         datos = sv.wsValidarEstrategia(ds, montoenviar, userData.CodigoZona, userData.CodigoISO, userData.CampaniaID.ToString(), userData.ConsultoraNueva, userData.MontoMaximo);
                     }
-                }
-            }
-            else if (
-                /* Constantes.CodigosISOPais.Mexico.ToString().Equals(userData.CodigoISO.ToUpper()) || R2455 Se Retiro la Linea y se agrego en la condicion superior*/
-                Constantes.CodigosISOPais.Argentina.ToString().Equals(userData.CodigoISO.ToUpper()))
-            {
-                using (ServicePROLBO.ServiceStockV2 svb = new ServicePROLBO.ServiceStockV2())
-                {
-                    datos = new ServicePROL.TransferirDatos();
-                    if (userData.DiaPROL && userData.MostrarBotonValidar)
-                    {
-                        svb.Url = ConfigurarUrlServiceProl();
-                        bool valida = false;
-                        if (Constantes.CodigosISOPais.Bolivia.ToString().Equals(userData.CodigoISO.ToUpper()))
-                        {
-                            valida = svb.wsDesReservarPedido(userData.CodigoConsultora);
-                            datos.data = svb.wsValidarPedido(ds, montoenviar, userData.MontoMaximo);
                         }
-                        else
-                        {
-                            valida = svb.wsDesReservarPedidoPais(userData.CodigoConsultora, userData.CodigoISO);
-                            datos.data = svb.wsValidarPedidoPais(ds, montoenviar, userData.MontoMaximo, userData.CodigoZona, userData.CodigoISO);
-                        }
-
-                        if (datos.data != null && datos.data.Tables[0] != null && datos.data.Tables[0].Rows.Count != 0)
-                        {
-                            datos.codigoMensaje = "01";
-                        }
-                        else
-                        {
-                            datos.data = new DataSet();
-                            datos.data.Tables.Add(new DataTable());
-                            datos.codigoMensaje = "00";
-                        }
-                    }
-                    else
-                    {
-                        datos.data = new DataSet();
-                        datos.data.Tables.Add(new DataTable());
-                        datos.codigoMensaje = "00";
-                    }
-                }
-            }
-
-            //datos = Devolver2();
 
             List<ObservacionModel> olstPedidoWebDetalleObs = new List<ObservacionModel>();
 
@@ -2433,35 +2358,7 @@ namespace Portal.Consultoras.Web.Controllers
                         switch (TipoObs)
                         {
                             case 0:
-                                if (Constantes.CodigosISOPais.Peru.ToString().Equals(userData.CodigoISO.ToUpper()) ||
-                                    Constantes.CodigosISOPais.Chile.ToString().Equals(userData.CodigoISO.ToUpper()) ||
-                                    Constantes.CodigosISOPais.Ecuador.ToString().Equals(userData.CodigoISO.ToUpper()) ||
-                                    Constantes.CodigosISOPais.CostaRica.ToString().Equals(userData.CodigoISO.ToUpper()) ||
-                                    Constantes.CodigosISOPais.Salvador.ToString().Equals(userData.CodigoISO.ToUpper()) ||
-                                    Constantes.CodigosISOPais.Panama.ToString().Equals(userData.CodigoISO.ToUpper()) ||
-                                    Constantes.CodigosISOPais.Guatemala.ToString().Equals(userData.CodigoISO.ToUpper()) ||
-                                    Constantes.CodigosISOPais.Venezuela.ToString().Equals(userData.CodigoISO.ToUpper()) ||
-                                    Constantes.CodigosISOPais.Colombia.ToString().Equals(userData.CodigoISO.ToUpper()) ||
-                                    Constantes.CodigosISOPais.PuertoRico.ToString().Equals(userData.CodigoISO.ToUpper()) ||
-                                    Constantes.CodigosISOPais.Dominicana.ToString().Equals(userData.CodigoISO.ToUpper()) ||
-                                     Constantes.CodigosISOPais.Mexico.ToString().Equals(userData.CodigoISO.ToUpper()) ||
-                                    Constantes.CodigosISOPais.Bolivia.ToString().Equals(userData.CodigoISO.ToUpper())
-                                    )
-                                {
                                     olstPedidoWebDetalleObs.Add(new ObservacionModel() { Caso = 0, CUV = Convert.ToString(row.ItemArray.GetValue(1)), Tipo = 1, Descripcion = string.Format("{0}", Convert.ToString(row.ItemArray.GetValue(3)).Replace("+", "")) });
-                                }
-                                else if (/* Constantes.CodigosISOPais.Mexico.ToString().Equals(userData.CodigoISO.ToUpper()) || R2455 Se Retiro la Linea y se agrego en la condicion superior*/
-                                            Constantes.CodigosISOPais.Argentina.ToString().Equals(userData.CodigoISO.ToUpper()))
-                                {
-                                    if (Convert.ToString(row.ItemArray.GetValue(3)) == "-Reemplazo")
-                                    {
-                                        olstPedidoWebDetalleObs.Add(new ObservacionModel() { Caso = 0, CUV = Convert.ToString(row.ItemArray.GetValue(1)), Tipo = 1, Descripcion = string.Format("{0}", Convert.ToString(row.ItemArray.GetValue(2)).Replace("+", "")) });
-                                    }
-                                    else
-                                    {
-                                        olstPedidoWebDetalleObs.Add(new ObservacionModel() { Caso = 0, CUV = Convert.ToString(row.ItemArray.GetValue(1)), Tipo = 1, Descripcion = string.Format("{0} {1}", Convert.ToString(row.ItemArray.GetValue(2)).Replace("+", ""), Convert.ToString(row.ItemArray.GetValue(3)).Replace("+", "")) });
-                                    }
-                                }
                                 Informativas = true;
                                 break;
                             case 1:
@@ -3382,6 +3279,17 @@ namespace Portal.Consultoras.Web.Controllers
                         {
                             ValidacionAbierta = true;
                             Estado = Constantes.EstadoPedido.Procesado;
+
+                            //    if (userData.IndicadorGPRSB == 2)
+                            //    {
+                            //        if (ValidacionAbierta && userData.EstadoPedido == 202)
+                            //        {
+                            //            userData.CerrarRechazado = 0;
+                            //            userData.MostrarBannerRechazo = true;
+                            //            ViewBag.MostrarBannerRechazo = true;
+                            //            SetUserData(userData);
+                            //        }
+                            //    }
                         }
                         olstPedidoWebDetalle = ObtenerPedidoWebDetalle();
 
@@ -3407,11 +3315,20 @@ namespace Portal.Consultoras.Web.Controllers
                                 sv.InsPedidoWebAccionesPROL(Reemplazos.ToArray(), 100, 103);
                             }
                         }
+
+                        BEConfiguracionCampania oBEConfiguracionCampania = null;
+                        oBEConfiguracionCampania = sv.GetEstadoPedido(userData.PaisID, userData.CampaniaID, userData.ConsultoraID, userData.ZonaID, userData.RegionID);
+
+                        if (userData.IndicadorGPRSB == 2 && oBEConfiguracionCampania.ValidacionAbierta)
+                        {
+                            userData.MostrarBannerRechazo = true;
+                            userData.CerrarRechazado = 0;
+                            SetUserData(userData);
+                        }
                     }
                 }
 
                 //Session["ProductosOfertaFinal"] = null;
-
                 return Json(new
                 {
                     success = true,
@@ -4051,14 +3968,20 @@ namespace Portal.Consultoras.Web.Controllers
         // Valida si estamos en dia PROL y fuera del horario permitido (true = en horario restringido, false = en horario normal)
         public ActionResult EnHorarioRestringido()
         {
-            /* CGI(RSA) – REQ – 571 – 03/06/2015 – Invocacion de metodo para validar sesion */
-            var result = ValidarSession();
-            if (result != null) return result;
-
             try
             {
                 string mensaje = string.Empty;
-                bool estado = ValidarHorarioRestringido(out mensaje);
+                bool estado = false;
+
+                if (userData == null)
+                {
+                    mensaje = "Sesión expirada.";
+                }
+                else
+                {
+                    estado = ValidarHorarioRestringido(out mensaje);
+                }
+
                 return Json(new
                 {
                     success = estado,
@@ -4082,18 +4005,23 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                var result = ValidarSession();
-                if (result != null) return result;
-
                 string mensaje = string.Empty;
                 bool pedidoReservado = false;
+                bool estado = false;
 
-                bool estado = EstaProcesoFacturacion(out mensaje);
+                if (userData == null)
+                {
+                    mensaje = "Sesión expirada.";
+                }
+                else
+                {
+                    estado = EstaProcesoFacturacion(out mensaje);
                 if (!estado)
                 {
                     pedidoReservado = ValidarPedidoReservado(out mensaje);
                     estado = pedidoReservado;
                     if (!estado) estado = ValidarHorarioRestringido(out mensaje);
+                }
                 }
 
                 return Json(new
@@ -4827,7 +4755,7 @@ namespace Portal.Consultoras.Web.Controllers
                 var detallePedido = ObtenerPedidoWebDetalle();
                 bool TipoCross = lista[0].TipoCross;
                 listaProductoModel.Update(p =>
-                {
+            {
                     //p.ImagenProductoSugerido = p.Imagen;
                     p.PrecioCatalogoString = Util.DecimalToStringFormat(p.PrecioCatalogo, userData.CodigoISO);
                     p.PrecioValorizadoString = Util.DecimalToStringFormat(p.PrecioValorizado, userData.CodigoISO);
@@ -4840,13 +4768,14 @@ namespace Portal.Consultoras.Web.Controllers
 
                     if (!TipoCross)
                     {
-                        if (userData.OfertaFinal == Constantes.TipoOfertaFinalCatalogoPersonalizado.Arp)
-                        {
-                            string carpetapais = Globals.UrlMatriz + "/" + userData.CodigoISO;
-                            imagenUrl = ConfigS3.GetUrlFileS3(carpetapais, imagenUrl, carpetapais);
-                        }
+                if (userData.OfertaFinal == Constantes.TipoOfertaFinalCatalogoPersonalizado.Arp)
+                {
+                    string carpetapais = Globals.UrlMatriz + "/" + userData.CodigoISO;
+                    imagenUrl = ConfigS3.GetUrlFileS3(carpetapais, imagenUrl, carpetapais);
+                }
                     }
                     p.ImagenProductoSugerido = imagenUrl;
+                    p.TipoCross = TipoCross;
                 });
             }
 
