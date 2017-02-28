@@ -2060,12 +2060,12 @@
                             <div class="content_tono_principal"><img src="{{item1.ImagenBulkSelect}}" alt=""></div>
                             <div>
                                 <div class="combo_select_tono">
-                                    {{item1.NombreBulkSelect}} <span class="mas_info_tono">+</span>
+                                    <span data-tono-select-html="">{{item1.NombreBulkSelect}}</span> <span class="mas_info_tono">+</span>
                                 </div>
                                 <div class="content_tonos_ficha">
                                     {{#each item1.Hermanos as |tono|}}
                                     <div class="content_tono_combo" data-tono-change="" data-tono-cuv="{{tono.CUV}}">
-                                        <img src="{{tono.ImagenBulk}}" data-tono-nombre="{{tono.NombreBulk}}" data-tono-cuv="{{tono.CUV}}" alt="PRODUCTO">
+                                        <img src="{{tono.ImagenBulk}}" data-tono-nombre="{{tono.NombreBulk}}" data-tono-cuv="{{tono.CUV}}" data-tono-descripcionComercial="{{tono.DescripcionComercial}}" alt="PRODUCTO">
                                     </div>
                                     {{/each}}
                                 </div>

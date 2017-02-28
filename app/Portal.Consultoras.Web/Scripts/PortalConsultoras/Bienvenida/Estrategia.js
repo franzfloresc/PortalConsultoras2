@@ -1,25 +1,27 @@
 ﻿
 // 1: escritorio Home    11 : escritorio Pedido 
-// 2: mobile  Homeun       21 : mobile pedido
+// 2: mobile  Home       21 : mobile pedido
 var tipoOrigenEstrategia = tipoOrigenEstrategia || "";
 
 $(document).ready(function () {
     $(document).on('click', '.combo_select_tono', function (e) {
         var AbrirTono = $(this).attr("data-tono-show") || "0";
+        var signo = "";
         if (AbrirTono == 0) {
             $(this).parents("[data-tono]").find(".content_tonos_ficha").slideUp();
             $(this).parents("[data-tono]").find(".combo_select_tono").attr("data-tono-show", 0);
-            $(this).parents("[data-tono]").find(".combo_select_tono span").html("+");
+            $(this).parents("[data-tono]").find(".combo_select_tono span.mas_info_tono").html("+");
 
             $(this).parent().find(".content_tonos_ficha").slideDown(); //muestro mediante id 
-            $(this).find("span").html("-");
+            signo = "-";
             AbrirTono = 1;
         }
         else {
-            $(this).parent().find(".content_tonos_ficha").slideUp(); //muestro mediante id 
-            $(this).find("span").html("+");
+            $(this).parent().find(".content_tonos_ficha").slideUp(); //muestro mediante id
+            signo = "+";
             AbrirTono = 0;
         }
+        $(this).find("span[class='mas_info_tono']").html(signo);
         $(this).attr("data-tono-show", AbrirTono);
     });
 
@@ -34,20 +36,53 @@ $(document).ready(function () {
 
         $(this).parents("[data-tono]").find(".content_tono_principal img").attr("src", $(this).find("img").attr("src"));
         var estrategia = $(this).parents("[data-estrategia]").attr("data-estrategia");
-        if (estrategia == "2003") {
-            var nombre = $(this).find("img").attr("data-tono-nombre");
-            $(this).parents("[data-estrategia]").find("[data-tono-visible]").find("[data-tono-nombre]").html(nombre);
+        if (estrategia == "2003" || estrategia == "2001") {
+            var nombre = $(this).parents("[data-tono]").find("select").find("[value='" + cuv + "']").attr("data-tono-nombre");
+            var descripcionComercial = $(this).parents("[data-tono]").find("select").find("[value='" + cuv + "']").attr("data-tono-descripcionComercial");
+            nombre = nombre || $(this).find("img").attr("data-tono-nombre");
+            descripcionComercial = descripcionComercial || $(this).find("img").attr("data-tono-descripcionComercial");
+            $(this).parents("[data-tono]").find("[data-tono-visible]").find("[data-tono-nombre]").html(descripcionComercial);
+            $(this).parents("[data-tono]").find("[data-tono-select-html]").html(nombre);
         }
+
     });
     $(document).on('change', 'select[data-tono-change]', function (e) {
         var cuv = $(this).val();
         $("select[data-tono-change]").val(cuv);
         $(this).parents("[data-tono]").attr("data-tono-select", cuv);
-        $(this).parents("[data-tono]").find(".content_tonos_maquillaje [data-tono-change]")
+        $(this).parents("[data-tono]").find("[data-tono-div] [data-tono-change]")
             .removeClass("borde_seleccion_tono")
             .parent().find("[data-tono-cuv='" + cuv + "']")
             .addClass("borde_seleccion_tono");
+
+        var estrategia = $(this).parents("[data-estrategia]").attr("data-estrategia");
+        if (estrategia == "2003" && (tipoOrigenEstrategia == 2 || tipoOrigenEstrategia == 21)) {
+            var nombre = $(this).find("img").attr("data-tono-nombre");
+            var descripcionComercial = $(this).find("img").attr("data-tono-descripcionComercial");
+            nombre = nombre || $(this).find("[value='" + cuv + "']").attr("data-tono-nombre");
+            descripcionComercial = descripcionComercial || $(this).find("[value='" + cuv + "']").attr("data-tono-descripcionComercial");
+            $(this).parents("[data-tono]").find("[data-tono-visible]").find("[data-tono-nombre]").html(descripcionComercial);
+            $(this).parents("[data-tono]").find("[data-tono-select-html]").html(nombre);
+        }
     });
+    
+    $(document).on('click', '.indicador_tono', function (e) {
+        var AbrirTono = $(this).attr("data-tono-show") || "0";
+        var signo = "";
+        if (AbrirTono == 0) {
+            EstrategiaMostrarMasTonos(false);
+            signo = "-";
+            AbrirTono = 1;
+        }
+        else {
+            EstrategiaMostrarMasTonos(true);
+            signo = "+";
+            AbrirTono = 0;
+        }
+        $(this).find("p").html(" " + signo + " TONOS");
+        $(this).attr("data-tono-show", AbrirTono);
+    });
+
 });
 
 function CargarCarouselEstrategias(cuv) {
@@ -350,9 +385,17 @@ function CargarEstrategiasEspeciales(objInput, e) {
                     item.Hermanos = item.Hermanos || new Array();
                     item.CUVSelect = i == 0 ? item.CUV : "";
                     if (item.Hermanos.length > 0) {
+                        $.each(item.Hermanos, function (i, itemH) {
+                            itemH.CUVSelect = "";
+                        });
                         item.CUVSelect = item.Hermanos[0].CUV;
                         item.ImagenBulkSelect = item.Hermanos[0].ImagenBulk;
                         item.NombreBulkSelect = item.Hermanos[0].NombreBulk;
+
+                        item.Hermanos[0].CUVSelect = item.Hermanos[0].CUV;
+                        item.Hermanos[0].ImagenBulkSelect = item.Hermanos[0].ImagenBulk;
+                        item.Hermanos[0].NombreBulkSelect = item.Hermanos[0].NombreBulk;
+
                     }
                 });
                 estrategia.CUVSelect = estrategia.Detalle[0].CUVSelect;
@@ -365,13 +408,16 @@ function CargarEstrategiasEspeciales(objInput, e) {
         var html = ArmarPopupLanzamiento(estrategia);
         $('#popupDetalleCarousel_lanzamiento').html(html);
 
-        if ($('#popupDetalleCarousel_lanzamiento').find('[data-prod-descripcion]').html().length > 40) {
-            $('#popupDetalleCarousel_lanzamiento').find('[data-prod-descripcion]').addClass('nombre_producto22');
-            $('#popupDetalleCarousel_lanzamiento').find('[data-prod-descripcion]').removeClass('nombre_producto');
-            //$('#popupDetalleCarousel_lanzamiento').find('.nombre_producto22').children()[0].innerHTML = "LBel Mithyka Eau Parfum 50ml+Cyzone Love Bomb Eau de Parfum 30ml+Esika Labial Color HD Tono Pimienta Caliente+Esika Agu Shampoo Manzanilla 1L";
-        }
+        //if ($('#popupDetalleCarousel_lanzamiento').find('[data-prod-descripcion]').html().length > 40) {
+        //    $('#popupDetalleCarousel_lanzamiento').find('[data-prod-descripcion]').addClass('nombre_producto22');
+        //    $('#popupDetalleCarousel_lanzamiento').find('[data-prod-descripcion]').removeClass('nombre_producto');
+        //    //$('#popupDetalleCarousel_lanzamiento').find('.nombre_producto22').children()[0].innerHTML = "LBel Mithyka Eau Parfum 50ml+Cyzone Love Bomb Eau de Parfum 30ml+Esika Labial Color HD Tono Pimienta Caliente+Esika Agu Shampoo Manzanilla 1L";
+        //}
 
         $('#popupDetalleCarousel_lanzamiento').show();
+        $('body').css({ 'overflow-x': 'hidden' });
+        $('body').css({ 'overflow-y': 'hidden' });
+        EstrategiaMostrarMasTonos(true);
         TrackingJetloreView(estrategia.CUV2, $("#hdCampaniaCodigo").val());
     };
     dataLayer.push({
@@ -394,7 +440,17 @@ function CargarEstrategiasEspeciales(objInput, e) {
     CerrarLoad();
     return true;
 };
-
+function EstrategiaMostrarMasTonos(menos) {
+    if (tipoOrigenEstrategia == 2 || tipoOrigenEstrategia == 21) {
+        if (menos) {
+            var h = $($("#popupDetalleCarousel_lanzamiento [data-tono-div] [data-tono-change]")[0]).height();
+            $("#popupDetalleCarousel_lanzamiento [data-tono-div]").css("height", h + 5);
+        }
+        else {
+            $("#popupDetalleCarousel_lanzamiento [data-tono-div]").css("height", "auto");
+        }
+    }
+}
 function CargarEstrategiaSet(cuv) {
     AbrirLoad();
     var detalle = new Array();
@@ -449,7 +505,7 @@ function CargarProductoDestacado(objParameter, objInput, popup, limite) {
     var posicionItem = objParameter.Posicion;
     var flagNueva = objParameter.FlagNueva;
 
-    var cantidadIngresada = (limite > 0) ? limite : $(objInput).parents("[data-item]").find("input.liquidacion_rango_cantidad_pedido").val();
+    var cantidadIngresada = (limite > 0) ? limite : $(objInput).parents("[data-item]").find("input.liquidacion_rango_cantidad_pedido").val() || $(objInput).parents("[data-item]").find("[data-input='cantidad']").val();
     //origenPedidoWebEstrategia = $(objInput).parents("[data-item]").find("input.OrigenPedidoWeb").val();
     var tipoEstrategiaImagen = $(objInput).parents("[data-item]").attr("data-tipoestrategiaimagenmostrar");
 
@@ -772,6 +828,7 @@ function EstrategiaAgregarProducto(datosEst, popup, tipoEstrategiaImagen) {
                         CerrarLoad();
                         if (popup) {
                             HidePopupEstrategiasEspeciales();
+                            $('body').css({ 'overflow-y': 'scroll' });
                         }
                     },
                     error: function (data, error) {

@@ -30,6 +30,7 @@ $(document).ready(function () {
                     setTimeout(functionHide + "()", 100);
                 }
                 $('[data-popup-main]').hide();
+                $('body').css({ 'overflow-y': 'scroll' });
             }
         }
     });
@@ -65,6 +66,7 @@ $(document).ready(function () {
                     setTimeout(functionHide + "()", 100);
                 }
                 $(e.target).hide();
+                $('body').css({ 'overflow-y': 'scroll' });
             }
         }
     });
@@ -78,6 +80,7 @@ $(document).ready(function () {
             setTimeout(functionHide + "()", 100);
         }
         $(popupClose).hide();
+        $('body').css({ 'overflow-y': 'scroll' });
     });
 
     // cerrar popup ofertas 003,048

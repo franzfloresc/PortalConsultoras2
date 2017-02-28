@@ -1404,164 +1404,7 @@
         <input id="btnAgregarCUVBannerPedidoSi" type="button" value="ACEPTAR" onclick="AgregarCUVBannerPedido()" class="input_modifica_horizontal" style="width: 100px; margin-left: 20px;" />
     </div>
 </div>
-<!--NUEVO POP UP OPT-->
-<div id="PopNuevoOPT" class="Content_general_pop_up" style="display: none;">
-    <div class="content_ficha_producto_nueva" data-popup-body="">        
-        <a class="cerrar_fichaProducto" href="javascript:;" onclick="javascript: $('#PopNuevoOPT').hide();">
-            <img src="/Content/Images/cerrar_04_blanco.png" alt=" alternate text">
-        </a>
-        <div class="content_left_ficha">
-            <div class="content_ficha_producto">
-                <img id="fav_imagen_prod" src="https://s3-sa-east-1.amazonaws.com/appcatalogo/PE/201703/L/productos/PE_200083940.jpg" alt="PRODUCTO">
-            </div>
-            <div class="compartir_redes_ficha" style="padding-left:0;margin-left: -16px;">
-                <div class="texto_compartelo">Compártelo con tus clientes</div>
-                <a class="btn_compartir_facebook_ficha"><img src="/Content/Images/Esika/facebook_ficha.png" width="7" height="16"></a>
-                <a class="btn_compartir_facebook_ficha"><img src="/Content/Images/Esika/mensaje_ficha.png" width="20" height="15"></a>
-                <hr class="clear">
-            </div>
-        </div>
-        <div class="content_right_ficha">
-            <div id="fav_nombre_prod" class="titulo_ficha_producto">Devos Magnetic</div>
-            <div class="precio_ficha_producto">
-                S/. 124.00
-                <span class="producto_precio_normal"> S/. 124as.00</span>
-                S/. 124asw.00
-            </div>
-            <div class="liquidacion_rango_home">
-                <input type="text" value="1" size="2" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" data-input="cantidad" data-cantidad-input="-">
-                <div class="liquidacion_rango_right_pedido">
-                    <a class="mas" data-cantidad-agregar="+"><img src="/Content/Images/Esika/mas.png" alt=""></a>
-                    <a class="menos" data-cantidad-agregar="-"><img src="/Content/Images/Esika/menos.png" alt=""></a>
-                </div>
-            </div>
-            <a class="boton_Agregalo_home ficha_btn_agregar" onclick="agregarCuvPedidoFichaProductoFAV(1)" style="cursor: pointer;">
-                AGRÉGALO
-            </a>
-            <div class="notificacion_cantidad">Limitado a 5 packs por consultora</div>
-            <div class="mensaje_advertencia_detalleCarousel">
-                <span class="icono_advertencia_notificacion"></span>
-                <span>TextoLibre</span>
-            </div>
-        </div>
-    </div>
-</div>
-<!--FIN-->
-<!--POP UP OFERTA PARA TI VARIOS PRODUCTOS-->
-<div class="Content_general_pop_up" id="OPTVarios"  style="display:none;" data-popup-body=""> <!--DESAPARECER EL SCROLL DE BODY CUANDO APAREZCA ESTE POP UP-->
-    <div class="content_ficha_producto_nueva">
-        <a class="cerrar_fichaProducto" href="javascript:;" onclick="return $('#OPTVarios').hide();" title="Cerrar">
-            <img src="/Content/Images/cerrar_04_blanco.png" alt="Cerrar">
-        </a>
-        <div data-item="">
-            <input type="hidden" class="OrigenPedidoWeb" value="1122">
-            <div class="content_left_ficha">
-                <div class="content_ficha_producto">
-                    <img id="fav_imagen_prod" src="http://S3.amazonaws.com/consultorasQAS/SomosBelcorp/Matriz/PE/PE_200084602_2016543948_01_vmssarfdtv.png">
-                </div>
-                <div class="compartir_redes_ficha" style="padding-left:0;margin-left: -16px;">
-                    <div class="texto_compartelo">Compártelo con tus clientes</div>
-                    <a class="btn_compartir_facebook_ficha" onclick="javascript:CompartirFacebook(&quot;http://localhost:20267/Pdto.aspx?id=PE_[valor]&quot;,  {Palanca: &quot;OPT&quot;, RutaImagen: &quot;http://S3.amazonaws.com/consultorasQAS/SomosBelcorp/Matriz/PE/PE_200084602_2016543948_01_vmssarfdtv.png&quot;, MarcaID:&quot;2&quot;, MarcaDesc:&quot;Ésika&quot;, NombrePro:&quot;ES LEYENDA EDT 100 ML&quot;, Cuv:&quot;96149&quot;});">
-                        <img src="/Content/Images/Mobile/Esika/facebook.png">
-                    </a>
 
-                    <hr class="clear">
-                </div>
-            </div>
-            <div class="content_right_ficha">
-                <div class="detalle_precio_opt">
-                    <div class="content_left_ficha">
-                        <div id="fav_nombre_prod" class="titulo_ficha_producto">Pack x4 Ésika Delineador Kohl</div>
-                    </div>
-                    <div class="content_right_ficha" style="text-align:right">
-                        <div class="precio_ficha_producto" style="margin-top:-5px;">
-                            <span class="producto_precio_normal">S/. 58.00</span><br>
-                            <div style="margin-top:-5px;"><span class="texto_precio_ficha">Precio para ti:</span>S/. 58.00</div>
-                            <div class="ganancia_ficha">Gana S/.90</div>
-                        </div>
-                    </div>
-                </div>
-                <!--TONO-->
-                <div class="content_producto_tono">
-                    <div class="content_left_ficha" style="width:50%; margin-right:0">
-                        <div class="marca_producto">Ésika</div>
-                        <div class="sub_nombre_producto">Delineador Kohl 4g/.14 o.z</div>
-                        <div class="sub_precio">Precio regular: S/.150</div>
-                    </div>
-                    <div class="content_right_ficha" style="width:50%;">
-                        <div class="content_tono_principal"><img src="https://s3-sa-east-1.amazonaws.com/appcatalogo/PE/201703/C/productos/bulk/PE_200084502_B.jpg " alt="PRODUCTO"></div>
-                        <div class="combo_select_tono">
-                            Negro Kohl <span class="mas_info_tono">+</span>                           
-                        </div>
-                        <div class="content_tonos_ficha">
-                            <div class="content_tono_combo"><img src="https://s3-sa-east-1.amazonaws.com/appcatalogo/PE/201703/C/productos/bulk/PE_200084502_B.jpg " alt="PRODUCTO"></div>
-                            <div class="content_tono_combo"><img src="https://s3-sa-east-1.amazonaws.com/appcatalogo/PE/201703/C/productos/bulk/PE_200084502_B.jpg " alt="PRODUCTO"></div>
-                            <div class="content_tono_combo"><img src="https://s3-sa-east-1.amazonaws.com/appcatalogo/PE/201703/C/productos/bulk/PE_200084502_B.jpg " alt="PRODUCTO"></div>
-                            <div class="content_tono_combo"><img src="https://s3-sa-east-1.amazonaws.com/appcatalogo/PE/201703/C/productos/bulk/PE_200084502_B.jpg " alt="PRODUCTO"></div>
-                            <div class="content_tono_combo"><img src="https://s3-sa-east-1.amazonaws.com/appcatalogo/PE/201703/C/productos/bulk/PE_200084502_B.jpg " alt="PRODUCTO"></div>
-                            <div class="content_tono_combo"><img src="https://s3-sa-east-1.amazonaws.com/appcatalogo/PE/201703/C/productos/bulk/PE_200084502_B.jpg " alt="PRODUCTO"></div>
-                            <div class="content_tono_combo"><img src="https://s3-sa-east-1.amazonaws.com/appcatalogo/PE/201703/C/productos/bulk/PE_200084502_B.jpg " alt="PRODUCTO"></div>
-                            <div class="content_tono_combo"><img src="https://s3-sa-east-1.amazonaws.com/appcatalogo/PE/201703/C/productos/bulk/PE_200084502_B.jpg " alt="PRODUCTO"></div>
-                            <div class="content_tono_combo"><img src="https://s3-sa-east-1.amazonaws.com/appcatalogo/PE/201703/C/productos/bulk/PE_200084502_B.jpg " alt="PRODUCTO"></div>
-                            <div class="content_tono_combo"><img src="https://s3-sa-east-1.amazonaws.com/appcatalogo/PE/201703/C/productos/bulk/PE_200084502_B.jpg " alt="PRODUCTO"></div>
-                            <div class="content_tono_combo"><img src="https://s3-sa-east-1.amazonaws.com/appcatalogo/PE/201703/C/productos/bulk/PE_200084502_B.jpg " alt="PRODUCTO"></div>
-                        </div>
-                        
-                    </div>
-                    <hr class="clear" />
-                </div>      
-                <div class="content_producto_tono">
-                    <div class="content_left_ficha" style="width:50%; margin-right:0">
-                        <div class="marca_producto">Ésika</div>
-                        <div class="sub_nombre_producto">Delineador Kohl 4g/.14 o.z</div>
-                        <div class="sub_precio">Precio regular: S/.150</div>
-                    </div>
-                    <div class="content_right_ficha" style="width:50%;">
-                        <div class="content_tono_principal"><img src="https://s3-sa-east-1.amazonaws.com/appcatalogo/PE/201703/C/productos/bulk/PE_200084502_B.jpg " alt="PRODUCTO"></div>
-                        <div class="combo_select_tono">
-                            Negro Kohl <span class="mas_info_tono">+</span>
-                        </div>
-                        <div class="content_tonos_ficha">
-                            <div class="content_tono_combo"><img src="https://s3-sa-east-1.amazonaws.com/appcatalogo/PE/201703/C/productos/bulk/PE_200084502_B.jpg " alt="PRODUCTO"></div>
-                            <div class="content_tono_combo"><img src="https://s3-sa-east-1.amazonaws.com/appcatalogo/PE/201703/C/productos/bulk/PE_200084502_B.jpg " alt="PRODUCTO"></div>
-                            <div class="content_tono_combo"><img src="https://s3-sa-east-1.amazonaws.com/appcatalogo/PE/201703/C/productos/bulk/PE_200084502_B.jpg " alt="PRODUCTO"></div>
-                            <div class="content_tono_combo"><img src="https://s3-sa-east-1.amazonaws.com/appcatalogo/PE/201703/C/productos/bulk/PE_200084502_B.jpg " alt="PRODUCTO"></div>
-                            <div class="content_tono_combo"><img src="https://s3-sa-east-1.amazonaws.com/appcatalogo/PE/201703/C/productos/bulk/PE_200084502_B.jpg " alt="PRODUCTO"></div>
-                            <div class="content_tono_combo"><img src="https://s3-sa-east-1.amazonaws.com/appcatalogo/PE/201703/C/productos/bulk/PE_200084502_B.jpg " alt="PRODUCTO"></div>
-                            <div class="content_tono_combo"><img src="https://s3-sa-east-1.amazonaws.com/appcatalogo/PE/201703/C/productos/bulk/PE_200084502_B.jpg " alt="PRODUCTO"></div>
-                            <div class="content_tono_combo"><img src="https://s3-sa-east-1.amazonaws.com/appcatalogo/PE/201703/C/productos/bulk/PE_200084502_B.jpg " alt="PRODUCTO"></div>
-                            <div class="content_tono_combo"><img src="https://s3-sa-east-1.amazonaws.com/appcatalogo/PE/201703/C/productos/bulk/PE_200084502_B.jpg " alt="PRODUCTO"></div>
-                            <div class="content_tono_combo"><img src="https://s3-sa-east-1.amazonaws.com/appcatalogo/PE/201703/C/productos/bulk/PE_200084502_B.jpg " alt="PRODUCTO"></div>
-                            <div class="content_tono_combo"><img src="https://s3-sa-east-1.amazonaws.com/appcatalogo/PE/201703/C/productos/bulk/PE_200084502_B.jpg " alt="PRODUCTO"></div>
-                        </div>
-
-                    </div>
-                    <hr class="clear" />
-                </div> 
-                           
-                  
-                <div class="liquidacion_rango_home">
-                    <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" data-input="cantidad" data-cantidad-input="-">
-                    <div class="liquidacion_rango_right_pedido">
-                        <a class="mas" data-cantidad-agregar="+"><img src="/Content/Images/Esika/mas.png" alt=""></a>
-                        <a class="menos" data-cantidad-agregar="-"><img src="/Content/Images/Esika/menos.png" alt=""></a>
-                    </div>
-                </div>
-                <a class="boton_Agregalo_home ficha_btn_agregar" onclick="javascript:CargarProductoDestacado({ EstrategiaID: '9837' , TipoEstrategiaID: '3009' , Posicion: 1 , FlagNueva: '0' }, this, true);" style="cursor: pointer;">
-                    AGRÉGALO
-                </a>
-                <div class="mensaje_advertencia_detalleCarousel" style="margin-top:10px; margin-left:0px;">
-                    <span class="icono_advertencia_notificacion"></span>
-                    <span>Mensaje Adicional</span>
-                </div>
-
-            </div>
-            <hr class="clear">
-        </div>
-
-    </div>
-</div>
-<!--FIN-->
 <script id="estrategia-template" type="text/x-handlebars-template">
     {{#each this as |item|}}
     <div data-item="{{EstrategiaID}}" data-tipoestrategiaimagenmostrar="{{#if_eq FlagMostrarImg '1'}}{{TipoEstrategiaImagenMostrar}}{{/if_eq}}">
@@ -1868,12 +1711,12 @@
                             <div class="content_tono_principal"><img src="{{item1.ImagenBulkSelect}}" alt=""></div>
                             <div>
                                 <div class="combo_select_tono">
-                                    {{item1.NombreBulkSelect}} <span class="mas_info_tono">+</span>
+                                    <span data-tono-select-html="">{{item1.NombreBulkSelect}}</span> <span class="mas_info_tono">+</span>
                                 </div>
                                 <div class="content_tonos_ficha">
                                     {{#each item1.Hermanos as |tono|}}
                                     <div class="content_tono_combo" data-tono-change="" data-tono-cuv="{{tono.CUV}}">
-                                        <img src="{{tono.ImagenBulk}}" data-tono-nombre="{{tono.NombreBulk}}" data-tono-cuv="{{tono.CUV}}" alt="PRODUCTO">
+                                        <img src="{{tono.ImagenBulk}}" data-tono-nombre="{{tono.NombreBulk}}" data-tono-cuv="{{tono.CUV}}" data-tono-descripcionComercial="{{tono.DescripcionComercial}}" alt="PRODUCTO">
                                     </div>
                                     {{/each}}
                                 </div>

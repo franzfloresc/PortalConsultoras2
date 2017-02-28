@@ -584,67 +584,10 @@ function TagManagerCarruselSiguiente() {
 
 }
 //PL20-1265
-function mostrarFichaProductoOPT(cuv, posicion){
-    ShowLoading();
-    $('#hdPosicion').val(posicion);
-    jQuery.ajax({
-        type: 'POST',
-        url: urlGetProductoFichaOPT,
-        dataType: 'json',
-        contentType: 'application/json; charset=utf-8',
-        data: JSON.stringify({ pCuv: cuv }),
-        async: false,
-        success: function (response) {
-            if (checkTimeout(response)) {
-                if (response.success) {
-                    var datos = response.data;
-                    SetHandlebars("#PopFichaOPT-template", datos, '#PopFichaOPT');
 
-                    var IndicadorTono = 0;
-                    $(".indicador_tono").on("click", function () {
-                        if (IndicadorTono == 0) {
-                            $('.content_tonos_secundarios').slideDown(); //muestro mediante id 
-                            $(".indicador_tono p").html("- TONOS");
-                            IndicadorTono = 1;
-                        }
-                        else {
-                            $('.content_tonos_secundarios').slideUp(); //muestro mediante id 
-                            $(".indicador_tono p").html("+ TONOS");
-                            IndicadorTono = 0;
-                        }
-
-                    });
-
-                    $('#imgFichaProOPT').attr('src', datos.FotoProducto01);
-                    $('.marca_ficha_producto').text(datos.DescripcionMarca);
-                    $('.titulo_ficha_producto').text(datos.DescripcionCUV2);
-                    $('.precio_ficha_producto').text(datos.Simbolo + ' ' + datos.PrecioString);
-
-                    $('body').css({ 'overflow-x': 'hidden' });
-                    $('body').css({ 'overflow-y': 'hidden' });
-                    CloseLoading();
-                    $('#PopFichaOPT').show();
-                    
-                } else {
-                    window.messageInfo(response.message);
-                }
-            }
-        },
-        error: function (response, error) {
-            if (checkTimeout(response)) {
-                console.log(response);
-            }
-        }
-    });
-}
 $("#content_oferta_dia_mobile").click(function () {
     $('#PopOfertaDia').slideDown();
 });
-
-function CerrarFichaOPT() {
-    $('body').css({ 'overflow-y': 'scroll' });
-    $('#PopFichaOPT').hide();
-}
 
 function CompartirWsp(UrlBase, objParameter) {
     var _id = InsertarProductoCompartido(objParameter, 'W');
