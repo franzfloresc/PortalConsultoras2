@@ -671,12 +671,12 @@ FuncionesGenerales = {
 function InsertarLogDymnamo(pantallaOpcion, opcionAccion, esMobile, extra) {
     data = {
         'Fecha': '',
-        'Aplicacion': 'PORTALCONSULTORAS',
+        'Aplicacion': userData.aplicacion,
         'Pais': userData.pais,
         'Region': userData.region,
         'Zona': userData.zona,
         'Seccion': userData.seccion,
-        'Rol': 'CO',
+        'Rol': userData.rol,
         'Campania': userData.campana,
         'Usuario': userData.codigoConsultora,
         'PantallaOpcion': pantallaOpcion,
@@ -687,17 +687,17 @@ function InsertarLogDymnamo(pantallaOpcion, opcionAccion, esMobile, extra) {
         'Extra': extra
     }
     if (urlLogDynamo != "") {
-    jQuery.ajax({
-        type: "POST",
-        async: true,
-        crossDomain: true,
-        url: urlLogDynamo,
-        dataType: "json",
-        data: data,
-        success: function (result) { console.log(result); },
-        error: function (x, xh, xhr) { console.log(x); }
-    });
-}
+        jQuery.ajax({
+            type: "POST",
+            async: true,
+            crossDomain: true,
+            url: urlLogDynamo,
+            dataType: "json",
+            data: data,
+            success: function (result) { console.log(result); },
+            error: function (x, xh, xhr) { console.log(x); }
+        });
+    }
 }
 
 function InfoCommerceGoogleDestacadoProductClick(name, id, category, variant, position) {
