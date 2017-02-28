@@ -1450,21 +1450,6 @@ namespace Portal.Consultoras.Web.Controllers
                         {
                             var carpetaPais = Globals.UrlMatriz + "/" + model.CodigoISO;
 
-                            //model.BeShowRoom.Imagen1 = string.IsNullOrEmpty(model.BeShowRoom.Imagen1)
-                            //    ? "" : ConfigS3.GetUrlFileS3(carpetaPais, model.BeShowRoom.Imagen1, Globals.RutaImagenesMatriz + "/" + model.CodigoISO);
-                            //model.BeShowRoom.Imagen2 = string.IsNullOrEmpty(model.BeShowRoom.Imagen2)
-                            //    ? "" : ConfigS3.GetUrlFileS3(carpetaPais, model.BeShowRoom.Imagen2, Globals.RutaImagenesMatriz + "/" + model.CodigoISO);
-                            //model.BeShowRoom.ImagenCabeceraProducto = string.IsNullOrEmpty(model.BeShowRoom.ImagenCabeceraProducto)
-                            //    ? "" : ConfigS3.GetUrlFileS3(carpetaPais, model.BeShowRoom.ImagenCabeceraProducto, Globals.RutaImagenesMatriz + "/" + model.CodigoISO);
-                            //model.BeShowRoom.ImagenVentaSetPopup = string.IsNullOrEmpty(model.BeShowRoom.ImagenVentaSetPopup)
-                            //    ? "" : ConfigS3.GetUrlFileS3(carpetaPais, model.BeShowRoom.ImagenVentaSetPopup, Globals.RutaImagenesMatriz + "/" + model.CodigoISO);
-                            //model.BeShowRoom.ImagenVentaTagLateral = string.IsNullOrEmpty(model.BeShowRoom.ImagenVentaTagLateral)
-                            //    ? "" : ConfigS3.GetUrlFileS3(carpetaPais, model.BeShowRoom.ImagenVentaTagLateral, Globals.RutaImagenesMatriz + "/" + model.CodigoISO);
-                            //model.BeShowRoom.ImagenPestaniaShowRoom = string.IsNullOrEmpty(model.BeShowRoom.ImagenPestaniaShowRoom)
-                            //    ? "" : ConfigS3.GetUrlFileS3(carpetaPais, model.BeShowRoom.ImagenPestaniaShowRoom, Globals.RutaImagenesMatriz + "/" + model.CodigoISO);
-                            //model.BeShowRoom.ImagenPreventaDigital = string.IsNullOrEmpty(model.BeShowRoom.ImagenPreventaDigital)
-                            //    ? "" : ConfigS3.GetUrlFileS3(carpetaPais, model.BeShowRoom.ImagenPreventaDigital, Globals.RutaImagenesMatriz + "/" + model.CodigoISO);
-
                             var listaPersonalizacionNivel = sv.GetShowRoomPersonalizacionNivel(model.PaisID, model.BeShowRoom.EventoID, model.ShowRoomNivelId,
                                     0).ToList();
 

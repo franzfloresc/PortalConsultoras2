@@ -8835,6 +8835,9 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private bool MostrarPopupField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool MostrarPopupVentaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string SegmentoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -8940,6 +8943,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((this.MostrarPopupField.Equals(value) != true)) {
                     this.MostrarPopupField = value;
                     this.RaisePropertyChanged("MostrarPopup");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool MostrarPopupVenta {
+            get {
+                return this.MostrarPopupVentaField;
+            }
+            set {
+                if ((this.MostrarPopupVentaField.Equals(value) != true)) {
+                    this.MostrarPopupVentaField = value;
+                    this.RaisePropertyChanged("MostrarPopupVenta");
                 }
             }
         }
