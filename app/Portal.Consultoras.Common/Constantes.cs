@@ -371,9 +371,8 @@ namespace Portal.Consultoras.Common
                 public const string PopupImagenVenta = "PopupImagenVenta";
                 public const string BannerImagenIntriga = "BannerImagenIntriga";
                 public const string BannerImagenVenta = "BannerImagenVenta";
-                public const string UrlTerminosCondiciones = "BannerSliderImagen";
-
-               
+                public const string BannerImagenPaginaVenta = "BannerImagenPaginaVenta";
+                public const string UrlTerminosCondiciones = "BannerSliderImagen";               
             }
 
             public class TipoAplicacion
