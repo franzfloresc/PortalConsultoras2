@@ -2331,8 +2331,11 @@
     <Content Include="Content\Images\showroom\etiqueta.png" />
     <Content Include="Content\Images\showroom\etiqueta2.png" />
     <Content Include="Content\Images\showroom\exclusiva.png" />
+    <Content Include="Content\Images\showroom\FONDO_FICHADEPRODUCTO.png" />
     <Content Include="Content\Images\showroom\f_contenedor_pop.png" />
     <Content Include="Content\Images\showroom\hoy1.png" />
+    <Content Include="Content\Images\showroom\icono_tip.png" />
+    <Content Include="Content\Images\showroom\icono_tip_lbel.png" />
     <Content Include="Content\Images\showroom\intriga1.png" />
     <Content Include="Content\Images\showroom\intriga2.png" />
     <Content Include="Content\Images\showroom\lbel.png" />

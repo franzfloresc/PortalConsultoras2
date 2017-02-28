@@ -34274,14 +34274,15 @@ h1#penmostreo .campana {
     margin-top:9px;
 }
 .btn_compartir_facebook_ficha{
-    width:73px;
-    border:1px solid #cbcbcb;
-    display:block;
-    height:30px;
-    line-height:36px;
-    margin-right:5px;
-    text-align:center;
-    float:left;
+        /* width: 46px; */
+    /* border: 1px solid #cbcbcb; */
+    display: block;
+    height: 30px;
+    line-height: 36px;
+    margin-right: 5px;
+    text-align: center;
+    float: left;
+    margin-top: 5px;
 }
 .opcion_escala_descuento {
 	position: relative;
@@ -34656,4 +34657,148 @@ h1#penmostreo .campana {
     font-size: 14px;
     width: 50%;
     padding-right: 5px;
+}
+
+.fondo_set{
+    width:100%;
+    /*height:396px;*/
+    background:url(../../../Images/Showroom/FONDO_FICHADEPRODUCTO.png) no-repeat;
+    background-size: contain;
+    padding-top: 60px;
+}
+.content_producto_set{
+    float:left;
+    width:35%;
+    height:373px;
+    margin-top:60px;
+    text-align:center;
+}
+/*.content_producto_set img{
+    width:100%;
+}*/
+.content_detalle_set{
+    width:60%;
+    float:left;
+    min-height:100px;
+    background:white;
+    margin-left:5%;
+    padding:30px;
+    font-family:'Lato';
+}
+.content_solo_ficha_set{
+    width:78%;
+}
+.titulo_set{
+    font-size:20px;
+    line-height:22px;
+    color:black;
+    font-weight:700;
+    text-transform:uppercase;
+}
+.precio_valorizado_showroom{
+    text-align:right;
+    font-size:13px;
+    font-weight:300;
+    height: 16px;
+    text-decoration:line-through;
+
+}
+.precio_oferta_venta{
+    font-size:13px;
+    text-align:right;
+    height: 28px;
+
+}
+.precio_oferta_venta b{
+    font-size:20px;
+    margin-left:7px;
+}
+.ganancia_showroom{
+    font-size:13px;
+    color:#e81c36;
+    text-align:right;
+}
+.titulo_separador{
+    width:100%;
+    margin-top:20px;
+    font-size:13px;
+    padding-bottom:5px;
+    border-bottom:1px solid black;    
+}
+.nombre_marca_set{
+    margin-top:21px;
+    font-size:11px;
+    text-transform:uppercase;
+    color:black;
+    width:100%;
+    padding-left: 5%;
+    font-weight: 300;
+}
+.content_detalle_showroom{
+    width:100%;
+    margin-top: 5px;
+    overflow: hidden;
+}
+.cantidad_set_individual{
+    width:5%;
+    font-size:13px;
+    float:left;
+}
+.nombre_set_individual{
+    width:70%;
+    float:left;
+    font-size: 13px;
+    
+}
+.detalle_set_showroom{
+    font-size:13px;
+    font-weight:300;
+    display:block;
+}
+.precio_regular_set{
+    width:25%;
+    text-align:right;
+    float:left;
+    font-size:12px;
+    font-weight:300;
+}
+.btn_aregar_set{
+    width: 82%;
+    float: right;
+    /* text-align: right; */
+    background: black;
+    color: white;
+}
+@media only screen and (max-width : 1027px) {
+    .btn_aregar_set {
+        width: 81%;
+    }
+}
+.titulo_carrusel_showroom{
+    font-family:'Lato';
+    font-size:15px;
+    font-weight:300;
+    color:black;
+    text-align:center;
+    margin-top:28px;
+    margin-bottom:40px;
+}
+.content_tip_negocio{
+    margin-top:50px;
+    border-top:1px solid black;
+    padding-top:20px;
+}
+.titulo_tip{
+    text-transform:uppercase;
+    display:block;
+    font-size:16px;
+
+}
+.tip_negocio_showroom{
+    font-size:13px;
+    font-family:'Lato';
+    background:url(../../../Images/Showroom/icono_tip.png) no-repeat;
+    padding-left: 55px;
+    padding-top:15px;
+    margin-bottom:50px;
 }
