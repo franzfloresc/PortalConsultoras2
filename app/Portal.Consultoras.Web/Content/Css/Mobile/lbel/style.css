@@ -459,9 +459,9 @@ h4.re3 {
                 text-align: center;
                 float: left;
         }
-    #new-header a {
+    /*#new-header a {
         text-decoration: none;
-    }
+    }*/
 .icon-lg {
     padding-right: 3px;
     position: relative;

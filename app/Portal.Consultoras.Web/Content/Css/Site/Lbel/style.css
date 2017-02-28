@@ -3971,7 +3971,7 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
     {
     text-align:left;
     font-weight:400;
-    }
+}
     .tabla_productos_agotados .pagina_productoAgotado
     {
         text-align: right;
@@ -4942,7 +4942,7 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
 }
 
 .btn_noGracias_agregarProductos{
-        display: block;
+    display: block;
     /* position: absolute; */
     /* margin-left: 10px; */
     /* bottom: -1px; */
@@ -21495,9 +21495,9 @@ label.checkpop.c_on {
     /*background: gray;*/
     position: relative;
     overflow: hidden;
-    }
+}
 
-    .enlaces_home:hover {
+.enlaces_home:hover {
     /*opacity: 0.5;
     filter: alpha(opacity=50); /* For IE8 and earlier */*/
 }
@@ -27530,7 +27530,7 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
     background-color: white;
     margin-right:2%;
     float:left;
-    position: relative;    
+    position: relative;
     width:32%;
     margin-bottom: 15px;
     margin-top: 15px;
@@ -28166,7 +28166,7 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
 }
 .foto_usuaria_desktop img{
     width:100%;
-}
+    }
 .btn_tomar_foto{
     width:50%;
     height:42px;
@@ -28177,7 +28177,7 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
     line-height:42px;
     font-size:13px;
     font-weight:700;
-   
+
     text-transform:uppercase;
     margin:auto;
 
@@ -30296,6 +30296,7 @@ h1#penmostreo .campana {
 .mensaje_horarioIngresoPedido a{
     display: inline-block;
     margin-left: 2px;
+    text-decoration: underline;
 }
 
 .mensaje_horarioIngresoPedido a:hover{
@@ -30701,7 +30702,7 @@ h1#penmostreo .campana {
     display:inline-block;
     vertical-align:middle;
 }
-    
+
 .texto_stock {
     /*width:100%;*/
     width: 70%; /*EPD-1378*/
@@ -33245,7 +33246,7 @@ h1#penmostreo .campana {
 	content: " ";
 	height: 0;
 	width: 0;
-	position: absolute;
+    position: absolute;
 	pointer-events: none;    
 }
 
@@ -33280,7 +33281,7 @@ h1#penmostreo .campana {
     height:100%;
 }
 .btn_cerrar_escala{   
-  font-family: 'Lato';
+    font-family: 'Lato';
   font-size: 12px;
   font-weight:bold;
   float: right;

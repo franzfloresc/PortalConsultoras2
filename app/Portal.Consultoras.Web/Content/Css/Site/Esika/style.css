@@ -4008,7 +4008,7 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
     {
     text-align:left;
     font-weight:400;
-    }
+}
     .tabla_productos_agotados .pagina_productoAgotado
     {
         text-align: right;
@@ -4981,7 +4981,7 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
 }
 
 .btn_noGracias_agregarProductos{
-        display: block;
+    display: block;
     /* position: absolute; */
     /* margin-left: 10px; */
     /* bottom: -1px; */
@@ -21568,9 +21568,9 @@ label.checkpop.c_on {
     -o-transition: all 0.3s ease;
     -ms-transition: all 0.3s ease;
     -webkit-transition: all 0.3s ease;
-    }
+}
 
-    .enlaces_home:hover {
+.enlaces_home:hover {
     /*opacity: 0.5;*/
     /*filter: alpha(opacity=50);*/ /* For IE8 and earlier */
 }
@@ -24925,7 +24925,7 @@ img
 	width:100%;
 	padding-top:15px;
 	box-sizing:border-box;
-        }
+}
 .active
 /*{
 	color:#000000;
@@ -25748,7 +25748,7 @@ button
     display: block;
 	font-size:14px;
 	font-weight:bold;
-    }
+}
 @media screen and (max-height: 800px) 
 {
 	#slides_inscripcion{width:100%;height:105%;}
@@ -27550,7 +27550,7 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
     background-color: white;
     margin-right:2%;
     float:left;
-    position: relative;    
+    position: relative;
     width:32%;
     margin-bottom: 15px;
     margin-top: 15px;
@@ -30361,12 +30361,13 @@ h1#penmostreo .campana {
 .mensaje_horarioIngresoPedido a{
     display: inline-block;
     margin-left: 2px;
+    text-decoration: underline;
 }
 
 .mensaje_horarioIngresoPedido a:hover{
     text-decoration:underline;
 }
-
+   
 /* FIN MENSAJES PEDIDO RECHAZADO */
 
 /*PEDIDO DE CLIENTES ONLINE*/
@@ -30383,7 +30384,7 @@ h1#penmostreo .campana {
 }
 .imagen_2{
     background: url("../../../Images/Esika/lugares_pago.png") no-repeat !important;
-   
+
 }
 .imagen_3{
     background: url("../../../Images/Esika/facturacion_electronica.png") no-repeat !important;    
@@ -30793,7 +30794,7 @@ h1#penmostreo .campana {
     display:inline-block;
     vertical-align:middle;
 }
-    
+
 .texto_stock {
     /*width:100%;*/
     width: 70%; /*EPD-1378*/
@@ -30977,7 +30978,7 @@ h1#penmostreo .campana {
   margin-top:-18px;
         background: #d1d1d1;
 }
-    
+
 .paso_reclamo{
     width:36px;
     height:36px;
@@ -32900,7 +32901,7 @@ h1#penmostreo .campana {
 
 /*FICHA PRODUCTO FAV DESKTOP*/
 .content_left_ficha {
-        float: left;
+    float: left;
     width: 40%;
     margin-right: 5%;
 }
