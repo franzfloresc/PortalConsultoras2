@@ -303,6 +303,13 @@ namespace Portal.Consultoras.Common
         public class CdrWebDatos
         {
             public const string UnidadesPermitidasFaltante = "UnidadesPermitidasFaltante";
+            public const string ValidacionDiasFaltante = "ValidacionDiasFaltante";
+            public const string DiasAntesFacturacion = "DiasAntesFacturacion";
+        }
+
+        public class CdrWebMensajes
+        {
+            public const string FueraDeFecha = "Tu solicitud se encuentra fuera de fecha para poder ser atendida";
         }
 
         public class CodigoOperacionCDR
