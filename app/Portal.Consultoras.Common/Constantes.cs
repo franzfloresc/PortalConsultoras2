@@ -172,6 +172,9 @@ namespace Portal.Consultoras.Common
             public const string CDRWeb = "CDRWeb";
             public const string CDRParametria = "CDRParametria";
             public const string CDRWebDatos = "CDRWebDatos";
+
+            //ShowRoom
+            public const string ListaProductoShowRoom = "ListaProductoShowRoom";
         }
 
         public class TipoOfertaFinalCatalogoPersonalizado
