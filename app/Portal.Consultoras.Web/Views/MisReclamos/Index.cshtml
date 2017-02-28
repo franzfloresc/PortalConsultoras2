@@ -401,7 +401,8 @@
         var imgCheck = '@Url.Content("~/Content/Images/Esika/paso_realizado.png")';
         var imgFoco = '@Url.Content("~/Content/Images/Esika/foco1.png")';
         var imgCarta = '@Url.Content("~/Content/Images/Esika/carta1.png")';
-        var urlReclamo = '@Url.Action("Reclamo")';
+        var urlReclamo = '@Url.Action("Reclamo")';
+        var mensajePeriodoInvalido = '@Model.MensajePeriodoInvalido';
 
         $(document).ready(function() {
             $(".verDetalle").on("click", function() {
@@ -425,41 +426,41 @@
                 };
 
                 switch (estado) {
-                case "1": //Pendiente
-                    window.location.href = urlReclamo + "?pedidoId=" + pedidoId;
-                    break;
-                case "2": //Enviado
-                    ObtenerDetalleCdr(item);
+                    case "1": //Pendiente
+                        window.location.href = urlReclamo + "?pedidoId=" + pedidoId;
+                        break;
+                    case "2": //Enviado
+                        ObtenerDetalleCdr(item);
 
-                    $("#spnFechaCulminado").html(formatoFechaCulminado);
-                    $("#spnNumeroSolicitud").html(id);
-                    $("#spnFormatoCampania").html(formatoCampania);
-                    $("#spnResumenResolucion").html(resumenResolucion);
+                        $("#spnFechaCulminado").html(formatoFechaCulminado);
+                        $("#spnNumeroSolicitud").html(id);
+                        $("#spnFormatoCampania").html(formatoCampania);
+                        $("#spnResumenResolucion").html(resumenResolucion);
 
-                    $("#PopSolicitud").show();
-                    break;
-                case "3": //Aceptado
-                    ObtenerDetalleCdr(item);
+                        $("#PopSolicitud").show();
+                        break;
+                    case "3": //Aceptado
+                        ObtenerDetalleCdr(item);
 
-                    $("#spnFechaCulminado").html(formatoFechaCulminado);
-                    $("#spnNumeroSolicitud").html(id);
-                    $("#spnFormatoCampania").html(formatoCampania);
-                    $("#spnResumenResolucion").html(resumenResolucion);
+                        $("#spnFechaCulminado").html(formatoFechaCulminado);
+                        $("#spnNumeroSolicitud").html(id);
+                        $("#spnFormatoCampania").html(formatoCampania);
+                        $("#spnResumenResolucion").html(resumenResolucion);
 
-                    $("#PopSolicitud").show();
-                    break;
-                case "4": //Observado
-                    ObtenerDetalleCdr(item);
+                        $("#PopSolicitud").show();
+                        break;
+                    case "4": //Observado
+                        ObtenerDetalleCdr(item);
 
-                    $("#spnFechaCulminado2").html(formatoFechaCulminado);
-                    $("#spnNumeroSolicitud2").html(id);
-                    $("#spnFormatoCampania2").html(formatoCampania);
-                    $("#spnResumenResolucion2").html(resumenResolucion);
+                        $("#spnFechaCulminado2").html(formatoFechaCulminado);
+                        $("#spnNumeroSolicitud2").html(id);
+                        $("#spnFormatoCampania2").html(formatoCampania);
+                        $("#spnResumenResolucion2").html(resumenResolucion);
 
-                    $("#PopSolicitud2").show();
-                    break;
-                default:
-                    break;
+                        $("#PopSolicitud2").show();
+                        break;
+                    default:
+                        break;
                 }
             });
 
@@ -509,13 +510,17 @@
 
                 if (esZonaValida == 0) {
                     alert_msg("Lo sentimos, por el momento tu zona no se encuentra disponible para realizar esta operación. Por favor, contáctate con el Call Center");
-                } else {
-                    if (estaBloqueado == 0)
-                        window.location.href = urlReclamo;
-                    else {
-                        alert_msg("Lo sentimos, por el momento te encuentras bloqueada para realizar esta operación. Por favor, contáctate con el Call Center");
-                    }
+                    return false;
                 }
+                if (estaBloqueado == 1) {
+                    alert_msg("Lo sentimos, por el momento te encuentras bloqueada para realizar esta operación. Por favor, contáctate con nuestro <span class='enlace_chat belcorpChat'><a>Chat en Línea</a></span>.");
+                    return false;
+                }
+                if (mensajePeriodoInvalido != '') {
+                    alert_msg(mensajePeriodoInvalido);
+                    return false;
+                }
+                window.location.href = urlReclamo;
             });
         });
 
@@ -543,8 +548,7 @@
                         return false;
                     }
 
-                    if (item.Estado == 4) {
-                        
+                    if (item.Estado == 4) {                        
                         /*EPD-1308*/
                         if (data.cantobservado > 0) {
                             SetHandlebars("#template-detalle-2-observado", data, "#divDetallePedidoCdrObservado");
@@ -554,8 +558,8 @@
                             SetHandlebars("#template-detalle-2-aprobado", data, "#divDetallePedidoCdrAprobado");
                         }
                         /*EPD-1308*/
-
-                    } else {
+                    }
+                    else {
                         SetHandlebars("#template-detalle-1", data, "#divDetallePedidoCDR");
                     }
                 },
@@ -586,7 +590,7 @@
                         $(parent).remove();
                     }
                 };
-                messageConfirmacion("", "Se eliminará el registro seleccionado. <br/>¿Deseas continuar?", functionEliminar);                
+                messageConfirmacion("", "Se eliminará el registro seleccionado. <br/>¿Deseas continuar?", functionEliminar);
             }
         }
 
