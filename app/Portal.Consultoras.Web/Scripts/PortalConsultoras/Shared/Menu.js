@@ -1,25 +1,22 @@
 ﻿
-function RedirectMenu(ActionName, ControllerName, Flag, Descripcion) {
-    var estado = true;
+function RedirectMenu(ActionName, ControllerName, Flag, Descripcion, parametros) {
     // se valida si la URL es externa (no tiene Controladora)
     var URL = '';
-    if (ControllerName == '') {
-        URL = ActionName;
-    }
+    if (ControllerName == '') URL = ActionName;
     else // la url es interna
     {
-        if (ActionName == "Index")
-            URL = location.protocol + "//" + location.host + "/" + ControllerName;
-        else
-            URL = location.protocol + "//" + location.host + "/" + ControllerName + "/" + ActionName;
-    } 
+        if (ActionName == "Index") URL = location.protocol + "//" + location.host + "/" + ControllerName;
+        else URL = location.protocol + "//" + location.host + "/" + ControllerName + "/" + ActionName;
+    }
+
+    if (parametros != null && parametros != '') URL += "?" + parametros;
 
     if (Descripcion != "Pedidos") {
         if ($("#hdFlagOfertaWeb").val() == "1") {
             MostrarMensajeConsultora();
             return false;
         }
-        else if ($("#hdFlagOfertaLiquidacion").val() == "1") {
+        if ($("#hdFlagOfertaLiquidacion").val() == "1") {
             MostrarMensajeConsultora();
             return false;
         }
@@ -34,13 +31,11 @@ function RedirectMenu(ActionName, ControllerName, Flag, Descripcion) {
 
     if (Flag == "1") {
         window.open(URL, '_blank');
-        estado = false;
-    }
-    else {
-        location.href = URL;
+        return false;
     }
 
-    return estado;
+    location.href = URL;
+    return true;
 }
 
 function MostrarMensajeConsultora() {
