@@ -2511,5 +2511,65 @@ namespace Portal.Consultoras.Web.Controllers
 
             return result;
         }
+
+        #region PL20-1310 : Comprar desde Página de Oferta
+
+        public ActionResult DetalleOferta(int id)
+        {
+            var modelo = GetOfertaDetalle(id);
+            return View("DetalleSet", modelo);
+        }
+
+        private ShowRoomOfertaModel GetOfertaYDetalle(int idOferta)
+        {
+            var ofertaShowRoomModelo = new ShowRoomOfertaModel();
+            try
+            {
+                if (idOferta <= 0)
+                    return ofertaShowRoomModelo;
+
+                var ofertaShowRoom = new BEShowRoomOferta(); // cambiar por el metodo privado que obtiene el padre, en session
+                var listaDetalle = new List<BEShowRoomOfertaDetalle>();
+                int paisId = userData.PaisID;
+                using (PedidoServiceClient sv = new PedidoServiceClient())
+                {
+                    ofertaShowRoom = sv.GetShowRoomOfertaById(userData.PaisID, idOferta);
+                }
+
+                using (PedidoServiceClient sv = new PedidoServiceClient())
+                {
+                    listaDetalle = sv.GetProductosShowRoomDetalle(paisId, userData.CampaniaID, ofertaShowRoom.CUV).ToList();
+                }
+
+                ofertaShowRoomModelo = Mapper.Map<BEShowRoomOferta, ShowRoomOfertaModel>(ofertaShowRoom);
+                ofertaShowRoomModelo.ListaDetalleOfertaShowRoom = Mapper.Map<List<BEShowRoomOfertaDetalle>, List<ShowRoomOfertaDetalleModel>>(listaDetalle);
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            return ofertaShowRoomModelo;
+
+        }
+
+        private List<ShowRoomOfertaModel> GetOfertaListadoExcepto(int idOferta)
+        {
+            var listaOferta = new List<ShowRoomOfertaModel>();
+            try
+            {
+                if (idOferta <= 0) return listaOferta;
+
+                // obtener listado de todos las ofertas show room excepto el idOferta(parametro)
+                var listadoOfertasTodas = new List<ShowRoomOfertaModel>(); // cambiar por el metodo de jave, en session
+                listaOferta = listadoOfertasTodas.Where(o => o.OfertaShowRoomID != idOferta).ToList();
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            return listaOferta;
+        }
+
+        #endregion
     }
 }
