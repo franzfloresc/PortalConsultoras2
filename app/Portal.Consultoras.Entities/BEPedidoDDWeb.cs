@@ -79,6 +79,12 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public string Region { get; set; }
         // 2446 - Fin
+        //SB20-871
+        [DataMember]
+        public string MotivoRechazo { get; set; }
+        [DataMember]
+        public int EsRechazado { get; set; }
+        //F- SB20-871
 
         public BEPedidoDDWeb()
         { }
@@ -134,7 +140,9 @@ namespace Portal.Consultoras.Entities
 
             if (DataRecord.HasColumn(row, "DescuentoProl"))
                 this.DescuentoProl = row["DescuentoProl"] == DBNull.Value ? 0 : Convert.ToDecimal(row["DescuentoProl"]);
-
+             // SB20-871
+             if (DataRecord.HasColumn(row, "MotivoRechazo"))
+                 this.MotivoRechazo = Convert.ToString(row["MotivoRechazo"]);
             this.ImporteTotalConDescuento = this.ImporteTotal - this.DescuentoProl;
         }
     }

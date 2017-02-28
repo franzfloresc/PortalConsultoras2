@@ -140,6 +140,11 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     model.ActivacionAppCatalogoWhastUp = 0;
                 }
 
+                if (Session[Constantes.ConstSession.IngresoPortalConsultoras] == null)
+                {
+                    RegistrarLogDynamoDB(Constantes.LogDynamoDB.AplicacionPortalConsultoras, Constantes.LogDynamoDB.RolConsultora, "HOME", "INGRESAR");
+                    Session[Constantes.ConstSession.IngresoPortalConsultoras] = true;
+                }
             }
             catch (FaultException ex)
             {

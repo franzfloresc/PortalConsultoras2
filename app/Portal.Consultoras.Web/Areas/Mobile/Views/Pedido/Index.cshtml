@@ -220,7 +220,7 @@
     {
         <div class="content_320" style="padding-top:0">       
             <div style="float:left; max-width:185px;">
-                <div class="titulo_tooltip_p">Tienes @ViewBag.CantPedidosPendientes pedido(s) pendiente(s) de <span>Consultora Online</span></div>
+                <div class="titulo_tooltip_p">Tienes @ViewBag.CantPedidosPendientes pedido(s) pendiente(s) del <span>App de Catálogos</span></div>
                 <div class="hora_tooltip_p">Te quedan <b>@ViewBag.TeQuedanConsultoraOnline</b> horas</div>
             </div>
             <div style="float:right;">
@@ -583,7 +583,7 @@
     var urlValidarUnidadesPermitidasPedidoProducto = '@Url.Action("ValidarUnidadesPermitidasPedidoProducto", "Accesorizate", new {area = ""})';
     var urlObtenerStockActualProducto = '@Url.Action("ObtenerStockActualProducto", "Accesorizate", new {area = ""})';
     var urlEnHorarioRestringido = '@Url.Action("EnHorarioRestringido", "Pedido", new {area = ""})';
-    var urlSesionExperirada = '@Url.Content("~/SesionExpirada.html")';
+    var urlSesionExperirada = '@Url.Action("SesionExpirada", "Login")';
     var paisIDSesion = '@Model.PaisId';
 
     var urlValidadoPedido = '@Url.Action("Validado", "Pedido", new { area = "Mobile" })';

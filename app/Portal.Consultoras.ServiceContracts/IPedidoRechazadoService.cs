@@ -11,7 +11,7 @@ namespace Portal.Consultoras.ServiceContracts
         int SetPedidoRechazado(string PaisISO, List<BEPedidoRechazadoSicc> lista);
 
         [OperationContract]
-        BELogGPRValidacion GetBELogGPRValidacionByGetLogGPRValidacionId(int paisID, long logGPRValidacionId);
+        List<BELogGPRValidacion> GetBELogGPRValidacionByGetLogGPRValidacionId(int paisID, long logGPRValidacionId, long ConsultoraID);
 
         [OperationContract]
         List<BELogGPRValidacionDetalle> GetListBELogGPRValidacionDetalleBELogGPRValidacionByLogGPRValidacionId(int paisID, long logGPRValidacionId);
