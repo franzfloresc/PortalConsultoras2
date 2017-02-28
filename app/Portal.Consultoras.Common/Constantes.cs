@@ -176,6 +176,9 @@ namespace Portal.Consultoras.Common
             public const string CDRWeb = "CDRWeb";
             public const string CDRParametria = "CDRParametria";
             public const string CDRWebDatos = "CDRWebDatos";
+
+            //ShowRoom
+            public const string ListaProductoShowRoom = "ListaProductoShowRoom";
         }
 
         public class TipoOfertaFinalCatalogoPersonalizado
@@ -368,9 +371,8 @@ namespace Portal.Consultoras.Common
                 public const string PopupImagenVenta = "PopupImagenVenta";
                 public const string BannerImagenIntriga = "BannerImagenIntriga";
                 public const string BannerImagenVenta = "BannerImagenVenta";
-                public const string UrlTerminosCondiciones = "BannerSliderImagen";
-
-               
+                public const string BannerImagenPaginaVenta = "BannerImagenPaginaVenta";
+                public const string UrlTerminosCondiciones = "BannerSliderImagen";               
             }
 
             public class TipoAplicacion
