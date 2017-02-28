@@ -77,6 +77,11 @@ $(document).ready(function () {
     });
 
     $("#IrSolicitudInicial").on("click", function () {
+        if (mensajePeriodoInvalido != '') {
+            alert_msg(mensajePeriodoInvalido);
+            return false;
+        }
+
         $("#txtCUV").val("");
         $("#txtCUVDescripcion").val("");
         $("#txtCantidad").val("1");
@@ -84,11 +89,11 @@ $(document).ready(function () {
         $("#txtCUVPrecio2").val("");
         $("#spnImporteTotal2").html("");
         $("#hdImporteTotal2").val(0);
-        $("#txtCUVDescripcion2").val(""); 
+        $("#txtCUVDescripcion2").val("");
         $("#txtCantidad2").val("1");
         CambioPaso(-100);
         BuscarMotivo();
-        
+
         $("#divUltimasSolicitudes").show();
         $("#ddlCampania").attr("disabled", "disabled");
     });

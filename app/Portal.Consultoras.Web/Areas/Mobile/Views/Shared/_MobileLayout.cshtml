@@ -613,6 +613,8 @@
 
         var urlLogDynamo = '@System.Configuration.ConfigurationManager.AppSettings["UrlLogDynamo"]';
         var userData = {
+            'aplicacion': '@(Constantes.LogDynamoDB.AplicacionPortalConsultoras)',
+            'rol': '@(Constantes.LogDynamoDB.RolConsultora)',
             'campana': '@ViewBag.AnalyticsCampania',
             'region': '@ViewBag.AnalyticsRegion',
             'zona': '@ViewBag.AnalyticsZona',
