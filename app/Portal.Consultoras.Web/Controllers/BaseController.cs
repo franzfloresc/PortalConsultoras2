@@ -429,7 +429,7 @@ namespace Portal.Consultoras.Web.Controllers
         private List<PermisoModel> BuildMenu()
         {
             if (userData.Menu == null)
-                {
+            {
                     IList<ServiceSeguridad.BEPermiso> lst = new List<ServiceSeguridad.BEPermiso>();
                     using (ServiceSeguridad.SeguridadServiceClient sv = new ServiceSeguridad.SeguridadServiceClient())
                     {
@@ -566,7 +566,7 @@ namespace Portal.Consultoras.Web.Controllers
             UsuarioModel model = (UsuarioModel)Session["UserData"];
             string UrlEMTELCO = ConfigurationManager.AppSettings["UrlBelcorpChat"];
             if (model != null)
-                    {
+            {
                 #region Cargar variables
 
                 CargarEntidadesShowRoom(model);
@@ -779,11 +779,11 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         protected List<BEProductoFaltante> GetProductosFaltantes()
-        {
+                        {
             return this.GetProductosFaltantes("", "");
-        }
+                    }
         protected List<BEProductoFaltante> GetProductosFaltantes(string cuv, string descripcion)
-        {
+                                    {
             List<BEProductoFaltante> olstProductoFaltante = new List<BEProductoFaltante>();
             using (SACServiceClient sv = new SACServiceClient())
             {
@@ -1586,5 +1586,21 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
         #endregion  
+
+        public String GetUrlCompartirFB()
+        {
+            //var urlWs = "";
+            string urlBase_fb = "";
+            if (System.Web.HttpContext.Current.Request.UserAgent != null)
+            {
+                var request = HttpContext.Request;
+
+                //var urlBase_wsp = request.Url.Scheme + "://" + request.Url.Authority + "/Pdto.aspx?id=" + userData.CodigoISO + "_[valor]";
+                //urlWs = urlBase_wsp; //"whatsapp://send?text=" + urlBase_wsp;
+
+                urlBase_fb = request.Url.Scheme + "://" + request.Url.Authority + "/Pdto.aspx?id=" + userData.CodigoISO + "_[valor]";
+            }
+            return urlBase_fb;
+        }
     }
 }
