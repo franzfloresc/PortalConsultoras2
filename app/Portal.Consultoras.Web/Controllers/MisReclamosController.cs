@@ -1647,8 +1647,8 @@ namespace Portal.Consultoras.Web.Controllers
             if (diasFaltantes == 0) return Constantes.CdrWebMensajes.FueraDeFecha;
 
             int cDRDiasAntesFacturacion = 0;
-            BECDRWebDatos cDRWebDatos = ObtenerCdrWebDatosByCodigo(Constantes.CdrWebDatos.DiasAntesFacturacion) ?? new BECDRWebDatos();
-            Int32.TryParse(cDRWebDatos.Valor, out cDRDiasAntesFacturacion);
+            BECDRWebDatos cDRWebDatos = ObtenerCdrWebDatosByCodigo(Constantes.CdrWebDatos.DiasAntesFacturacion);
+            if(cDRWebDatos != null) Int32.TryParse(cDRWebDatos.Valor, out cDRDiasAntesFacturacion);
             if (diasFaltantes <= cDRDiasAntesFacturacion) return Constantes.CdrWebMensajes.FueraDeFecha;
 
             return string.Empty;
