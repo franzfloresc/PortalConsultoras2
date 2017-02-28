@@ -1062,6 +1062,7 @@
                             setTimeout(functionHide + "()", 100);
                         }
                         $(e.target).hide();
+                        $('body').css({ 'overflow-y': 'scroll' });
                     }
                 }
             });
@@ -1075,6 +1076,7 @@
                     setTimeout(functionHide + "()", 100);
                 }
                 $(popupClose).hide();
+                $('body').css({ 'overflow-y': 'scroll' });
             });
 
             if(MostrarBannerPL20) loadBannerLP20();

@@ -66,7 +66,7 @@ BEGIN
 			--	FROM ods.EscalaDescuento 
 			--	WHERE PorDescuento > @TipoMeta
 			--END
-			
+
 			--PRINT @TipoMeta
 
 			SET @MontoHasta = CEILING(@MontoHasta)
@@ -102,7 +102,7 @@ BEGIN
 				FROM OfertaFinalParametria 
 				WHERE Tipo = 'GM'
 
-					SET @TipoMeta = 'GM'
+				SET @TipoMeta = 'GM'
 
 				--PRINT @PrecioMinimo
 				--PRINT @TipoMeta
@@ -134,7 +134,7 @@ BEGIN
 			WHERE Tipo = 'MM'
 			AND GapMinimo <= @MontoFaltante AND GapMaximo >= @MontoFaltante
 
-				SET @TipoMeta = 'MM'
+			SET @TipoMeta = 'MM'
 
 			--IF (ISNULL(@CumpleParametria,0) = 0)
 			--	SET @TipoMeta = 'MM'
@@ -219,7 +219,7 @@ BEGIN
 		--PRINT @TipoMeta
 		--PRINT @PrecioMinimo
 		--PRINT @MontoFaltante
-
+		
 		IF (@TipoMeta = 'GM')
 		BEGIN
 			SET @MontoFaltante = 0
@@ -341,7 +341,7 @@ BEGIN
 			--	FROM ods.EscalaDescuento 
 			--	WHERE PorDescuento > @TipoMeta
 			--END
-			
+
 			--PRINT @TipoMeta
 
 			SET @MontoHasta = CEILING(@MontoHasta)
@@ -377,7 +377,7 @@ BEGIN
 				FROM OfertaFinalParametria 
 				WHERE Tipo = 'GM'
 
-					SET @TipoMeta = 'GM'
+				SET @TipoMeta = 'GM'
 
 				--PRINT @PrecioMinimo
 				--PRINT @TipoMeta
@@ -409,7 +409,7 @@ BEGIN
 			WHERE Tipo = 'MM'
 			AND GapMinimo <= @MontoFaltante AND GapMaximo >= @MontoFaltante
 
-				SET @TipoMeta = 'MM'
+			SET @TipoMeta = 'MM'
 
 			--IF (ISNULL(@CumpleParametria,0) = 0)
 			--	SET @TipoMeta = 'MM'
@@ -494,7 +494,7 @@ BEGIN
 		--PRINT @TipoMeta
 		--PRINT @PrecioMinimo
 		--PRINT @MontoFaltante
-
+		
 		IF (@TipoMeta = 'GM')
 		BEGIN
 			SET @MontoFaltante = 0
@@ -616,7 +616,7 @@ BEGIN
 			--	FROM ods.EscalaDescuento 
 			--	WHERE PorDescuento > @TipoMeta
 			--END
-			
+
 			--PRINT @TipoMeta
 
 			SET @MontoHasta = CEILING(@MontoHasta)
@@ -652,7 +652,7 @@ BEGIN
 				FROM OfertaFinalParametria 
 				WHERE Tipo = 'GM'
 
-					SET @TipoMeta = 'GM'
+				SET @TipoMeta = 'GM'
 
 				--PRINT @PrecioMinimo
 				--PRINT @TipoMeta
@@ -684,7 +684,7 @@ BEGIN
 			WHERE Tipo = 'MM'
 			AND GapMinimo <= @MontoFaltante AND GapMaximo >= @MontoFaltante
 
-				SET @TipoMeta = 'MM'
+			SET @TipoMeta = 'MM'
 
 			--IF (ISNULL(@CumpleParametria,0) = 0)
 			--	SET @TipoMeta = 'MM'
@@ -769,7 +769,7 @@ BEGIN
 		--PRINT @TipoMeta
 		--PRINT @PrecioMinimo
 		--PRINT @MontoFaltante
-
+		
 		IF (@TipoMeta = 'GM')
 		BEGIN
 			SET @MontoFaltante = 0
@@ -891,7 +891,7 @@ BEGIN
 			--	FROM ods.EscalaDescuento 
 			--	WHERE PorDescuento > @TipoMeta
 			--END
-			
+
 			--PRINT @TipoMeta
 
 			SET @MontoHasta = CEILING(@MontoHasta)
@@ -927,7 +927,7 @@ BEGIN
 				FROM OfertaFinalParametria 
 				WHERE Tipo = 'GM'
 
-					SET @TipoMeta = 'GM'
+				SET @TipoMeta = 'GM'
 
 				--PRINT @PrecioMinimo
 				--PRINT @TipoMeta
@@ -959,7 +959,7 @@ BEGIN
 			WHERE Tipo = 'MM'
 			AND GapMinimo <= @MontoFaltante AND GapMaximo >= @MontoFaltante
 
-				SET @TipoMeta = 'MM'
+			SET @TipoMeta = 'MM'
 
 			--IF (ISNULL(@CumpleParametria,0) = 0)
 			--	SET @TipoMeta = 'MM'
@@ -1044,7 +1044,7 @@ BEGIN
 		--PRINT @TipoMeta
 		--PRINT @PrecioMinimo
 		--PRINT @MontoFaltante
-
+		
 		IF (@TipoMeta = 'GM')
 		BEGIN
 			SET @MontoFaltante = 0
@@ -1166,7 +1166,7 @@ BEGIN
 			--	FROM ods.EscalaDescuento 
 			--	WHERE PorDescuento > @TipoMeta
 			--END
-			
+
 			--PRINT @TipoMeta
 
 			SET @MontoHasta = CEILING(@MontoHasta)
@@ -1202,7 +1202,7 @@ BEGIN
 				FROM OfertaFinalParametria 
 				WHERE Tipo = 'GM'
 
-					SET @TipoMeta = 'GM'
+				SET @TipoMeta = 'GM'
 
 				--PRINT @PrecioMinimo
 				--PRINT @TipoMeta
@@ -1234,7 +1234,7 @@ BEGIN
 			WHERE Tipo = 'MM'
 			AND GapMinimo <= @MontoFaltante AND GapMaximo >= @MontoFaltante
 
-				SET @TipoMeta = 'MM'
+			SET @TipoMeta = 'MM'
 
 			--IF (ISNULL(@CumpleParametria,0) = 0)
 			--	SET @TipoMeta = 'MM'
@@ -1319,7 +1319,7 @@ BEGIN
 		--PRINT @TipoMeta
 		--PRINT @PrecioMinimo
 		--PRINT @MontoFaltante
-
+		
 		IF (@TipoMeta = 'GM')
 		BEGIN
 			SET @MontoFaltante = 0
@@ -1441,7 +1441,7 @@ BEGIN
 			--	FROM ods.EscalaDescuento 
 			--	WHERE PorDescuento > @TipoMeta
 			--END
-			
+
 			--PRINT @TipoMeta
 
 			SET @MontoHasta = CEILING(@MontoHasta)
@@ -1477,7 +1477,7 @@ BEGIN
 				FROM OfertaFinalParametria 
 				WHERE Tipo = 'GM'
 
-					SET @TipoMeta = 'GM'
+				SET @TipoMeta = 'GM'
 
 				--PRINT @PrecioMinimo
 				--PRINT @TipoMeta
@@ -1509,7 +1509,7 @@ BEGIN
 			WHERE Tipo = 'MM'
 			AND GapMinimo <= @MontoFaltante AND GapMaximo >= @MontoFaltante
 
-				SET @TipoMeta = 'MM'
+			SET @TipoMeta = 'MM'
 
 			--IF (ISNULL(@CumpleParametria,0) = 0)
 			--	SET @TipoMeta = 'MM'
@@ -1594,7 +1594,7 @@ BEGIN
 		--PRINT @TipoMeta
 		--PRINT @PrecioMinimo
 		--PRINT @MontoFaltante
-
+		
 		IF (@TipoMeta = 'GM')
 		BEGIN
 			SET @MontoFaltante = 0
@@ -1716,7 +1716,7 @@ BEGIN
 			--	FROM ods.EscalaDescuento 
 			--	WHERE PorDescuento > @TipoMeta
 			--END
-			
+
 			--PRINT @TipoMeta
 
 			SET @MontoHasta = CEILING(@MontoHasta)
@@ -1752,7 +1752,7 @@ BEGIN
 				FROM OfertaFinalParametria 
 				WHERE Tipo = 'GM'
 
-					SET @TipoMeta = 'GM'
+				SET @TipoMeta = 'GM'
 
 				--PRINT @PrecioMinimo
 				--PRINT @TipoMeta
@@ -1784,7 +1784,7 @@ BEGIN
 			WHERE Tipo = 'MM'
 			AND GapMinimo <= @MontoFaltante AND GapMaximo >= @MontoFaltante
 
-				SET @TipoMeta = 'MM'
+			SET @TipoMeta = 'MM'
 
 			--IF (ISNULL(@CumpleParametria,0) = 0)
 			--	SET @TipoMeta = 'MM'
@@ -1991,7 +1991,7 @@ BEGIN
 			--	FROM ods.EscalaDescuento 
 			--	WHERE PorDescuento > @TipoMeta
 			--END
-			
+
 			--PRINT @TipoMeta
 
 			SET @MontoHasta = CEILING(@MontoHasta)
@@ -2027,7 +2027,7 @@ BEGIN
 				FROM OfertaFinalParametria 
 				WHERE Tipo = 'GM'
 
-					SET @TipoMeta = 'GM'
+				SET @TipoMeta = 'GM'
 
 				--PRINT @PrecioMinimo
 				--PRINT @TipoMeta
@@ -2059,7 +2059,7 @@ BEGIN
 			WHERE Tipo = 'MM'
 			AND GapMinimo <= @MontoFaltante AND GapMaximo >= @MontoFaltante
 
-				SET @TipoMeta = 'MM'
+			SET @TipoMeta = 'MM'
 
 			--IF (ISNULL(@CumpleParametria,0) = 0)
 			--	SET @TipoMeta = 'MM'
@@ -2266,7 +2266,7 @@ BEGIN
 			--	FROM ods.EscalaDescuento 
 			--	WHERE PorDescuento > @TipoMeta
 			--END
-			
+
 			--PRINT @TipoMeta
 
 			SET @MontoHasta = CEILING(@MontoHasta)
@@ -2302,7 +2302,7 @@ BEGIN
 				FROM OfertaFinalParametria 
 				WHERE Tipo = 'GM'
 
-					SET @TipoMeta = 'GM'
+				SET @TipoMeta = 'GM'
 
 				--PRINT @PrecioMinimo
 				--PRINT @TipoMeta
@@ -2334,7 +2334,7 @@ BEGIN
 			WHERE Tipo = 'MM'
 			AND GapMinimo <= @MontoFaltante AND GapMaximo >= @MontoFaltante
 
-				SET @TipoMeta = 'MM'
+			SET @TipoMeta = 'MM'
 
 			--IF (ISNULL(@CumpleParametria,0) = 0)
 			--	SET @TipoMeta = 'MM'
@@ -2541,7 +2541,7 @@ BEGIN
 			--	FROM ods.EscalaDescuento 
 			--	WHERE PorDescuento > @TipoMeta
 			--END
-			
+
 			--PRINT @TipoMeta
 
 			SET @MontoHasta = CEILING(@MontoHasta)
@@ -2577,7 +2577,7 @@ BEGIN
 				FROM OfertaFinalParametria 
 				WHERE Tipo = 'GM'
 
-					SET @TipoMeta = 'GM'
+				SET @TipoMeta = 'GM'
 
 				--PRINT @PrecioMinimo
 				--PRINT @TipoMeta
@@ -2609,7 +2609,7 @@ BEGIN
 			WHERE Tipo = 'MM'
 			AND GapMinimo <= @MontoFaltante AND GapMaximo >= @MontoFaltante
 
-				SET @TipoMeta = 'MM'
+			SET @TipoMeta = 'MM'
 
 			--IF (ISNULL(@CumpleParametria,0) = 0)
 			--	SET @TipoMeta = 'MM'
@@ -2816,7 +2816,7 @@ BEGIN
 			--	FROM ods.EscalaDescuento 
 			--	WHERE PorDescuento > @TipoMeta
 			--END
-			
+
 			--PRINT @TipoMeta
 
 			SET @MontoHasta = CEILING(@MontoHasta)
@@ -2852,7 +2852,7 @@ BEGIN
 				FROM OfertaFinalParametria 
 				WHERE Tipo = 'GM'
 
-					SET @TipoMeta = 'GM'
+				SET @TipoMeta = 'GM'
 
 				--PRINT @PrecioMinimo
 				--PRINT @TipoMeta
@@ -2884,7 +2884,7 @@ BEGIN
 			WHERE Tipo = 'MM'
 			AND GapMinimo <= @MontoFaltante AND GapMaximo >= @MontoFaltante
 
-				SET @TipoMeta = 'MM'
+			SET @TipoMeta = 'MM'
 
 			--IF (ISNULL(@CumpleParametria,0) = 0)
 			--	SET @TipoMeta = 'MM'
@@ -3091,7 +3091,7 @@ BEGIN
 			--	FROM ods.EscalaDescuento 
 			--	WHERE PorDescuento > @TipoMeta
 			--END
-			
+
 			--PRINT @TipoMeta
 
 			SET @MontoHasta = CEILING(@MontoHasta)
@@ -3127,7 +3127,7 @@ BEGIN
 				FROM OfertaFinalParametria 
 				WHERE Tipo = 'GM'
 
-					SET @TipoMeta = 'GM'
+				SET @TipoMeta = 'GM'
 
 				--PRINT @PrecioMinimo
 				--PRINT @TipoMeta
@@ -3159,7 +3159,7 @@ BEGIN
 			WHERE Tipo = 'MM'
 			AND GapMinimo <= @MontoFaltante AND GapMaximo >= @MontoFaltante
 
-				SET @TipoMeta = 'MM'
+			SET @TipoMeta = 'MM'
 
 			--IF (ISNULL(@CumpleParametria,0) = 0)
 			--	SET @TipoMeta = 'MM'
@@ -3366,7 +3366,7 @@ BEGIN
 			--	FROM ods.EscalaDescuento 
 			--	WHERE PorDescuento > @TipoMeta
 			--END
-			
+
 			--PRINT @TipoMeta
 
 			SET @MontoHasta = CEILING(@MontoHasta)
@@ -3402,7 +3402,7 @@ BEGIN
 				FROM OfertaFinalParametria 
 				WHERE Tipo = 'GM'
 
-					SET @TipoMeta = 'GM'
+				SET @TipoMeta = 'GM'
 
 				--PRINT @PrecioMinimo
 				--PRINT @TipoMeta
@@ -3434,7 +3434,7 @@ BEGIN
 			WHERE Tipo = 'MM'
 			AND GapMinimo <= @MontoFaltante AND GapMaximo >= @MontoFaltante
 
-				SET @TipoMeta = 'MM'
+			SET @TipoMeta = 'MM'
 
 			--IF (ISNULL(@CumpleParametria,0) = 0)
 			--	SET @TipoMeta = 'MM'
