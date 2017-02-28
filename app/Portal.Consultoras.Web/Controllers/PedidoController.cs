@@ -3001,6 +3001,8 @@ namespace Portal.Consultoras.Web.Controllers
                 decimal totalPedido = lstPedidoWebDetalle.Where(p => p.PedidoDetalleIDPadre == 0).Sum(p => p.ImporteTotal);
                 decimal totalMinimoPedido = lstPedidoWebDetalle.Where(p => p.IndicadorMontoMinimo == 1).Sum(p => p.ImporteTotal);
 
+                lstPedidoWebDetalle.Update(p => p.DescripcionCortadaProd = Util.SubStrCortarNombre(p.DescripcionProd, 93, ""));
+
                 PedidoDetalleModel PedidoModelo = new PedidoDetalleModel();
                 PedidoModelo.eMail = userData.EMail;
                 PedidoModelo.ListaDetalle = PedidoJerarquico(lstPedidoWebDetalle);
@@ -4542,7 +4544,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 pedidoWebDetalleModel.Update(p => p.Simbolo = userData.Simbolo);
                 pedidoWebDetalleModel.Update(p => p.CodigoIso = userData.CodigoISO);
-                pedidoWebDetalleModel.Update(p => p.DescripcionCortadaProd = Util.SubStrCortarNombre(p.DescripcionProd, 62, ""));
+                pedidoWebDetalleModel.Update(p => p.DescripcionCortadaProd = Util.SubStrCortarNombre(p.DescripcionProd, 73, ""));
 
                 model.ListaDetalleModel = pedidoWebDetalleModel;
                 model.Total = total;

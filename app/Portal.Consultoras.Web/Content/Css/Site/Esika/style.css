@@ -27764,16 +27764,16 @@ display: block;
     display: inline-block;
     vertical-align: middle;
     padding-left: 15px;
-    padding-top: 23px;
-    padding-bottom: 23px;
+    padding-top: 10px;
+    padding-bottom: 10px;
 }
 
 .descripcion_listado {
     width: 25%;
     display: inline-block;
     vertical-align: middle;
-    padding-top: 23px;
-    padding-bottom: 23px;
+    padding-top: 10px;
+    padding-bottom: 10px;
 }
 
 .cantidad_listado {
@@ -27781,8 +27781,8 @@ display: block;
     display: inline-block;
     vertical-align: middle;
     text-align: center;
-    padding-top: 23px;
-    padding-bottom: 23px;
+    padding-top: 10px;
+    padding-bottom: 10px;
 }
 
 .unitario_listado {
@@ -27790,8 +27790,8 @@ display: block;
     display: inline-block;
     vertical-align: middle;
     text-align: right;
-    padding-top: 23px;
-    padding-bottom: 23px;
+    padding-top: 10px;
+    padding-bottom: 10px;
 }
 
 .total_listado {
@@ -27799,8 +27799,8 @@ display: block;
     display: inline-block;
     vertical-align: middle;
     text-align: right;
-    padding-top: 23px;
-    padding-bottom: 23px;
+    padding-top: 10px;
+    padding-bottom: 10px;
 }
 
 .cliente_listado {
@@ -27808,9 +27808,9 @@ display: block;
     display: inline-block;
     vertical-align: middle;
     text-align: right;
-    padding-top: 23px;
+    padding-top: 10px;
     padding-left: 1%;
-    padding-bottom: 23px;
+    padding-bottom: 10px;
 }
 /*MENSAJES DE ALERTA*/
 .mensaje_alerta_belcorp {
