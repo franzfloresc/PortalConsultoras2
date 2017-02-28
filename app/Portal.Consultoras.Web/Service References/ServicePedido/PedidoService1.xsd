@@ -135,6 +135,7 @@
       <xs:element minOccurs="0" name="CodigoUsuarioModificacion" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ConfiguracionOfertaID" type="xs:int" />
       <xs:element minOccurs="0" name="ConsultoraID" type="xs:long" />
+      <xs:element minOccurs="0" name="DescripcionCortadaProd" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="DescripcionEstrategia" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="DescripcionLarga" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="DescripcionOferta" nillable="true" type="xs:string" />

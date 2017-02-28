@@ -241,7 +241,7 @@ function CargarListado(page, rows) {
         sidx: "",
         sord: "",
         page: page || 1,
-        rows: rows || $($('[data-paginacion="rows"]')[0]).val() || 10,
+        rows: rows || $($('[data-paginacion="rows"]')[0]).val() || 20,
     };
 
     $.ajax({
@@ -264,7 +264,7 @@ function CargarListado(page, rows) {
                     $('#paginadorCab').html(htmlPaginador);
                     //$('#paginadorPie').html(htmlPaginador);
 
-                    $("#paginadorCab [data-paginacion='rows']").val(data.Registros || 10);
+                    $("#paginadorCab [data-paginacion='rows']").val(data.Registros || 20);
                     //$("#paginadorPie [data-paginacion='rows']").val(data.Registros || 10);
 
                     MostrarBarra(response);

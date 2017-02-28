@@ -21495,9 +21495,9 @@ label.checkpop.c_on {
     /*background: gray;*/
     position: relative;
     overflow: hidden;
-}
+    }
 
-.enlaces_home:hover {
+    .enlaces_home:hover {
     /*opacity: 0.5;
     filter: alpha(opacity=50); /* For IE8 and earlier */*/
 }
@@ -26733,56 +26733,55 @@ position: relative; float: left;
      background: url("../../../Images/tippingPointActivo.png") no-repeat;
  }
 /*PEDIDO VALIDADO*/
-.cod_venta_listado{
-    width:10%;
-    display:inline-block;
-    vertical-align:middle;
-    padding-left:15px;
-    padding-top:23px;
-    padding-bottom:23px;
+.cod_venta_listado {
+    width: 10%;
+    display: inline-block;
+    vertical-align: middle;
+    padding-left: 15px;
+    padding-top: 10px;
+    padding-bottom: 10px;
 }
 
 .descripcion_listado{
     width: 25%;
     display: inline-block;
     vertical-align: middle;
-    padding-top:23px;
-    padding-bottom:23px;
+    padding-top: 10px;
+    padding-bottom: 10px;
 }
 .cantidad_listado{
     width:10%;
     display: inline-block;
     vertical-align: middle;
-    text-align:center;
-    padding-top:23px;
-    padding-bottom:23px;
+    text-align: center;
+    padding-top: 10px;
+    padding-bottom: 10px;
 }
 .unitario_listado{
     width:13%;
     display: inline-block;
     vertical-align: middle;
-    text-align:right;
-    padding-top:23px;
-    padding-bottom:23px;
+    text-align: right;
+    padding-top: 10px;
+    padding-bottom: 10px;
 }
 .total_listado{
     width:13%;
     display: inline-block;
     vertical-align: middle;
-    text-align:right;
-    padding-top:23px;
-    padding-bottom:23px;
+    text-align: right;
+    padding-top: 10px;
+    padding-bottom: 10px;
 }
 .cliente_listado{
     width:25%;
     display: inline-block;
     vertical-align: middle;
-    text-align:right;
-    padding-top:23px;
-    padding-left:1%;
-    padding-bottom:23px;
+    text-align: right;
+    padding-top: 10px;
+    padding-left: 1%;
+    padding-bottom: 10px;
 }
-
 /*MENSAJES DE ALERTA*/
 .mensaje_alerta_belcorp{
     position: fixed;
@@ -27530,7 +27529,7 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
     background-color: white;
     margin-right:2%;
     float:left;
-    position: relative;
+    position: relative;    
     width:32%;
     margin-bottom: 15px;
     margin-top: 15px;
@@ -33228,7 +33227,7 @@ h1#penmostreo .campana {
     /* float: left; */
 }
 .opcion_escala_descuento {
-	position: relative;
+    position: relative;
 	background: #e8e8e8;
 	border: 1px solid #dbdbdb;
     height:auto;
