@@ -344,6 +344,13 @@ namespace Portal.Consultoras.Common
             public const string RolSociaEmpresaria = "SE";
         }
 
+        public class ValidacionExisteUsuario
+        {
+            public const int NoExiste = 0;
+            public const int ExisteDiferenteClave = 1;
+            public const int Existe = 2;
+        }
+
         public class ShowRoomPersonalizacion
         {
             public class Desktop
