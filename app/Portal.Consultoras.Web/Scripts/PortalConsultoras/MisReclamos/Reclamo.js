@@ -186,7 +186,7 @@ $(document).ready(function () {
         {
             "Aceptar": function () {
                 $(this).dialog('close');
-                $("#SolicitudEnviada").show();
+               
             }
         }
     });
