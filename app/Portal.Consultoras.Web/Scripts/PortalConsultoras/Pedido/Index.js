@@ -204,6 +204,7 @@ $(document).ready(function () {
     });
     $('#btnValidarPROL').click(function () {
         EjecutarPROL();
+        cerrarMensajeEstadoPedido();
     });
     $("body").on("mouseenter", ".info_copy", function () {
         var mar = $(this).parent().parent() || '0';
@@ -1391,7 +1392,7 @@ function BuscarByCUV(CUV) {
                 CerrarSplash();
                 if (checkTimeout(data)) {
                     if (data.message == "" || data.message === undefined) {
-                        location.href = baseUrl + "SesionExpirada.html";
+                        location.href = baseUrl + "Login/SesionExpirada";
                     } else {
                         alert_msg(data.message);
                     }
@@ -1563,7 +1564,7 @@ function ObtenerProductosSugeridos(CUV) {
             CerrarSplash();
             if (checkTimeout(data)) {
                 if (data.message == "" || data.message === undefined) {
-                    location.href = baseUrl + "SesionExpirada.html";
+                    location.href = baseUrl + "Login/SesionExpirada";
                 } else {
                     alert_msg(data.message);
                 }
@@ -2446,8 +2447,6 @@ function RespuestaEjecutarServicioPROL(response, inicio) {
     var tooltips = response.data.ProlTooltip.split('|');
     $('.tooltip_importanteGuardarPedido')[0].children[0].innerHTML = tooltips[0];
     $('.tooltip_importanteGuardarPedido')[0].children[1].innerHTML = tooltips[1];
-
-    //$("#btnNoGraciasOfertaFinal")[0].data = response;
 }
 
 function MostrarMensajeProl(response) {
@@ -3517,52 +3516,36 @@ function AgregarProducto(url, model, divDialog, cerrarSplash, asyncX) {
     return retorno;
 }
 
-function CargarProductoAgotados() {
-    AbrirSplash();
+function CerrarProductoAgotados() {
+    $('#divProductoAgotado').hide();
+    $('#producto-faltante-busqueda-cuv').val('');
+    $('#producto-faltante-busqueda-descripcion').val('');
+}
 
+function CargarProductoAgotados() {
+    var data = {
+        cuv: $('#producto-faltante-busqueda-cuv').val(),
+        descripcion: $('#producto-faltante-busqueda-descripcion').val()
+    }
+
+    AbrirSplash();
     jQuery.ajax({
         type: 'POST',
         url: baseUrl + 'Pedido/GetProductoFaltante',
         dataType: 'json',
-        contentType: 'application/json; charset=utf-8',
+        data: data,
         async: true,
         success: function (response) {
-            if (!checkTimeout(response)) {
-                CerrarSplash();
-                return false;
-            }
+            if (!checkTimeout(response)) return false;
 
             CerrarSplash();
             if (response.result) {
-                $("#tblProductoSugerido").html('');
-                var html = '<table>';
-                html += '<tr>';
-                html += '<th class="codigo_productoAgotado">Código</th>';
-                html += '<th class="producto_productoAgotado">Producto</th>';
-                html += '</tr>';
-
-                var lista = response.data;
-
-                $.each(lista, function (index, value) {
-                    html += '<tr>';
-                    html += '<td class="codigo_productoAgotado">' + value.CUV + '</td>';
-                    html += '<td class="producto_productoAgotado">' + value.Descripcion + '</td>';
-                    html += '</tr>';
-                });
-
-                html += '</table>';
-
-                $("#tblProductoSugerido").html(html);
+                SetHandlebars("#productos-faltantes-template", response.data, '#tblProductosFaltantes');
                 $("#divProductoAgotado").show();
-            } else {
-                alert(response.data);
             }
-
-            return true;
+            else alert(response.data);
         },
-        error: function (data, error) {
-            AjaxError(data, error);
-        }
+        error: function (data, error) { AjaxError(data, error); }
     });
 }
 
@@ -3571,7 +3554,7 @@ function AjaxError(data) {
     if (checkTimeout(data)) {
         alert_msg(data.message);
     }
-}
+    }
 
 function MostrarDetalleGanancia() {
     //$('#tituloGanancia').text($('#hdeCabezaEscala').val());
