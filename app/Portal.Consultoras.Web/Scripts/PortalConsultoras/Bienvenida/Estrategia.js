@@ -417,6 +417,8 @@ function CargarEstrategiasEspeciales(objInput, e) {
         $('#popupDetalleCarousel_lanzamiento').show();
         $('body').css({ 'overflow-x': 'hidden' });
         $('body').css({ 'overflow-y': 'hidden' });
+        $(".indicador_tono").click();
+        $(".indicador_tono").click();
         EstrategiaMostrarMasTonos(true);
         TrackingJetloreView(estrategia.CUV2, $("#hdCampaniaCodigo").val());
     };
@@ -444,7 +446,8 @@ function EstrategiaMostrarMasTonos(menos) {
     if (tipoOrigenEstrategia == 2 || tipoOrigenEstrategia == 21) {
         if (menos) {
             var h = $($("#popupDetalleCarousel_lanzamiento [data-tono-div] [data-tono-change]")[0]).height();
-            $("#popupDetalleCarousel_lanzamiento [data-tono-div]").css("height", h + 5);
+            var w = $($("#popupDetalleCarousel_lanzamiento [data-tono-div] [data-tono-change]")[0]).width();
+            $("#popupDetalleCarousel_lanzamiento [data-tono-div]").css("height", Math.max(h, w) + 5);
         }
         else {
             $("#popupDetalleCarousel_lanzamiento [data-tono-div]").css("height", "auto");
