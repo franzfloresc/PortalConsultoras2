@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Amazon.SQS.Model;
 
 namespace Portal.Consultoras.Common
 {
@@ -47,6 +48,7 @@ namespace Portal.Consultoras.Common
         {
             public const string UrlPart01 = "https://image.issuu.com/";
             public const string UrlPart02 = "/jpg/page_1_thumb_small.jpg";
+            public const string UrlPart03 = "/jpg/page_1_thumb_medium.jpg";
             public const string UrlPart02Alternativo = "/jpg/page_1.jpg";
         }
 
@@ -154,6 +156,8 @@ namespace Portal.Consultoras.Common
 
         public class ConstSession
         {
+            public const string IngresoPortalLideres = "IngresoPortalLideres";
+            public const string IngresoPortalConsultoras = "IngresoPortalConsultoras";
             public const string ListaEscalaDescuento = "ListaEscalaDescuento";
             public const string ClientesByConsultora = "ClientesByConsultora";
             public const string TippingPoint = "TippingPoint";
@@ -328,6 +332,16 @@ namespace Portal.Consultoras.Common
             public const string MontoMaximo = "OCC-17"; // MONTO MAXIMO
             public const string ActualizacionDeuda = "OCC-19"; //ACTUALIZACION DE DEUDA
             public const string ValidacionMontoMinimoStock = "OCC-51"; //VALIDACION MONTO MINIMO STOCK
+            public const string Mostrar2OpcionesNotificacion = "1"; // Flag para mostrar dos opciones en notificaciones.
+        }
+
+        public class LogDynamoDB
+        {
+            public const string AplicacionPortalConsultoras = "PORTALCONSULTORAS";
+            public const string AplicacionPortalLideres = "PORTALLIDERES";
+
+            public const string RolConsultora = "CO";
+            public const string RolSociaEmpresaria = "SE";
         }
 
         public class ShowRoomPersonalizacion

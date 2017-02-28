@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="7e01d53c-e677-452a-b8f1-4bab68f30b94" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="d1085556-e59f-4e43-b0cd-7bbcf9a6c051" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
   <ClientOptions>
     <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
     <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
@@ -13,44 +13,8 @@
     <GenerateSerializableTypes>true</GenerateSerializableTypes>
     <Serializer>Auto</Serializer>
     <UseSerializerForFaults>true</UseSerializerForFaults>
-    <ReferenceAllAssemblies>false</ReferenceAllAssemblies>
-    <ReferencedAssemblies>
-      <ReferencedAssembly AssemblyName="Microsoft.CSharp" />
-      <ReferencedAssembly AssemblyName="Microsoft.Web.Infrastructure" />
-      <ReferencedAssembly AssemblyName="mscorlib" />
-      <ReferencedAssembly AssemblyName="Portal.Consultoras.Common" />
-      <ReferencedAssembly AssemblyName="System" />
-      <ReferencedAssembly AssemblyName="System.ComponentModel.DataAnnotations" />
-      <ReferencedAssembly AssemblyName="System.Configuration" />
-      <ReferencedAssembly AssemblyName="System.Core" />
-      <ReferencedAssembly AssemblyName="System.Data" />
-      <ReferencedAssembly AssemblyName="System.Data.DataSetExtensions" />
-      <ReferencedAssembly AssemblyName="System.Drawing" />
-      <ReferencedAssembly AssemblyName="System.EnterpriseServices" />
-      <ReferencedAssembly AssemblyName="System.IdentityModel.Services" />
-      <ReferencedAssembly AssemblyName="System.Net.Http" />
-      <ReferencedAssembly AssemblyName="System.Net.Http.Formatting" />
-      <ReferencedAssembly AssemblyName="System.Net.Http.WebRequest" />
-      <ReferencedAssembly AssemblyName="System.ServiceModel" />
-      <ReferencedAssembly AssemblyName="System.Web" />
-      <ReferencedAssembly AssemblyName="System.Web.Abstractions" />
-      <ReferencedAssembly AssemblyName="System.Web.ApplicationServices" />
-      <ReferencedAssembly AssemblyName="System.Web.DynamicData" />
-      <ReferencedAssembly AssemblyName="System.Web.Entity" />
-      <ReferencedAssembly AssemblyName="System.Web.Extensions" />
-      <ReferencedAssembly AssemblyName="System.Web.Helpers" />
-      <ReferencedAssembly AssemblyName="System.Web.Http" />
-      <ReferencedAssembly AssemblyName="System.Web.Http.WebHost" />
-      <ReferencedAssembly AssemblyName="System.Web.Mvc" />
-      <ReferencedAssembly AssemblyName="System.Web.Razor" />
-      <ReferencedAssembly AssemblyName="System.Web.Routing" />
-      <ReferencedAssembly AssemblyName="System.Web.Services" />
-      <ReferencedAssembly AssemblyName="System.Web.WebPages" />
-      <ReferencedAssembly AssemblyName="System.Web.WebPages.Deployment" />
-      <ReferencedAssembly AssemblyName="System.Web.WebPages.Razor" />
-      <ReferencedAssembly AssemblyName="System.Xml" />
-      <ReferencedAssembly AssemblyName="System.Xml.Linq" />
-    </ReferencedAssemblies>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
     <ReferencedDataContractTypes />
     <ServiceContractMappings />
   </ClientOptions>
@@ -58,6 +22,7 @@
     <MetadataSource Address="http://localhost:41615/PedidoService.svc" Protocol="http" SourceId="1" />
   </MetadataSources>
   <Metadata>
+<<<<<<< HEAD
     <MetadataFile FileName="PedidoService.xsd" MetadataType="Schema" ID="691025f6-2042-49b8-b4d1-0462d01a07f7" SourceId="1" SourceUrl="http://localhost:41615/PedidoService.svc?xsd=xsd1" />
     <MetadataFile FileName="PedidoService1.xsd" MetadataType="Schema" ID="cbd72d9c-310e-48ef-8f69-d74244a47f2e" SourceId="1" SourceUrl="http://localhost:41615/PedidoService.svc?xsd=xsd2" />
     <MetadataFile FileName="PedidoService2.xsd" MetadataType="Schema" ID="9ef0996c-ab0b-47d5-9304-278f7642c990" SourceId="1" SourceUrl="http://localhost:41615/PedidoService.svc?xsd=xsd3" />
@@ -66,6 +31,15 @@
     <MetadataFile FileName="PedidoService.disco" MetadataType="Disco" ID="84cc0c58-a207-4b7e-960f-065ecc215bcd" SourceId="1" SourceUrl="http://localhost:41615/PedidoService.svc?disco" />
     <MetadataFile FileName="PedidoService.wsdl" MetadataType="Wsdl" ID="359935a2-44e6-4500-9aa4-d54f8e9a500d" SourceId="1" SourceUrl="http://localhost:41615/PedidoService.svc?wsdl" />
     <MetadataFile FileName="PedidoService4.xsd" MetadataType="Schema" ID="e8de0294-a774-495d-9e14-848b2f3460a4" SourceId="1" SourceUrl="http://localhost:41615/PedidoService.svc?xsd=xsd0" />
+=======
+    <MetadataFile FileName="PedidoService.xsd" MetadataType="Schema" ID="af98d7f3-5447-4357-87bd-141ca340c39f" SourceId="1" SourceUrl="http://localhost:41615/PedidoService.svc?xsd=xsd1" />
+    <MetadataFile FileName="PedidoService1.xsd" MetadataType="Schema" ID="eaa45b3a-467c-41e8-9c6f-7239c6abb613" SourceId="1" SourceUrl="http://localhost:41615/PedidoService.svc?xsd=xsd2" />
+    <MetadataFile FileName="PedidoService2.xsd" MetadataType="Schema" ID="db8c8164-56db-42f1-82d6-570503808d5e" SourceId="1" SourceUrl="http://localhost:41615/PedidoService.svc?xsd=xsd3" />
+    <MetadataFile FileName="PedidoService3.xsd" MetadataType="Schema" ID="267387cb-fe1a-4db7-a874-088cbf9b899c" SourceId="1" SourceUrl="http://localhost:41615/PedidoService.svc?xsd=xsd4" />
+    <MetadataFile FileName="PedidoService.disco" MetadataType="Disco" ID="3af1604e-a7fb-4819-a0e3-cab40c1a3ee5" SourceId="1" SourceUrl="http://localhost:41615/PedidoService.svc?disco" />
+    <MetadataFile FileName="PedidoService.wsdl" MetadataType="Wsdl" ID="8ca6eccf-d7cb-4da2-bc62-e2c9621907ee" SourceId="1" SourceUrl="http://localhost:41615/PedidoService.svc?wsdl" />
+    <MetadataFile FileName="PedidoService4.xsd" MetadataType="Schema" ID="7a545ad0-fdd5-4307-b363-5ec9d756e0d1" SourceId="1" SourceUrl="http://localhost:41615/PedidoService.svc?xsd=xsd0" />
+>>>>>>> PPR20170227
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />

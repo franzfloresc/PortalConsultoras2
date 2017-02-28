@@ -52,10 +52,10 @@ namespace Portal.Consultoras.BizLogic
             dAPedidoRechazado.UpdatePedidoRechazadoVisualizado(logGPRValidacionId);
         }
 
-        public BELogGPRValidacion GetBELogGPRValidacionByGetLogGPRValidacionId(int paisID, long logGPRValidacionId)
+        public List<BELogGPRValidacion> GetBELogGPRValidacionByGetLogGPRValidacionId(int paisID, long logGPRValidacionId, long ConsultoraID)
         {
             DALogGPRValidacion dALogGPRValidacion = new DALogGPRValidacion(paisID);
-            return dALogGPRValidacion.GetByLogGPRValidacionId(logGPRValidacionId);
+            return dALogGPRValidacion.GetByLogGPRValidacionId(logGPRValidacionId, ConsultoraID);
         }
 
         public List<BELogGPRValidacionDetalle> GetListBELogGPRValidacionDetalleBELogGPRValidacionByLogGPRValidacionId(int paisID, long logGPRValidacionId)
