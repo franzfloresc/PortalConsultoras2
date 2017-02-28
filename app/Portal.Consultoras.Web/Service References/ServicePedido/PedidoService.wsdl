@@ -183,6 +183,12 @@
   <wsdl:message name="IPedidoService_InsertarEstrategiaProducto_OutputMessage">
     <wsdl:part name="parameters" element="tns:InsertarEstrategiaProductoResponse" />
   </wsdl:message>
+  <wsdl:message name="IPedidoService_GetEstrategiaProducto_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetEstrategiaProducto" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_GetEstrategiaProducto_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetEstrategiaProductoResponse" />
+  </wsdl:message>
   <wsdl:message name="IPedidoService_InsertarTipoEstrategia_InputMessage">
     <wsdl:part name="parameters" element="tns:InsertarTipoEstrategia" />
   </wsdl:message>
@@ -1830,6 +1836,10 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/InsertarEstrategiaProducto" message="tns:IPedidoService_InsertarEstrategiaProducto_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/InsertarEstrategiaProductoResponse" message="tns:IPedidoService_InsertarEstrategiaProducto_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="GetEstrategiaProducto">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetEstrategiaProducto" message="tns:IPedidoService_GetEstrategiaProducto_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/GetEstrategiaProductoResponse" message="tns:IPedidoService_GetEstrategiaProducto_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="InsertarTipoEstrategia">
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/InsertarTipoEstrategia" message="tns:IPedidoService_InsertarTipoEstrategia_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/InsertarTipoEstrategiaResponse" message="tns:IPedidoService_InsertarTipoEstrategia_OutputMessage" />
@@ -3107,6 +3117,15 @@
     </wsdl:operation>
     <wsdl:operation name="InsertarEstrategiaProducto">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/InsertarEstrategiaProducto" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetEstrategiaProducto">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/GetEstrategiaProducto" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -5410,60 +5429,6 @@
       </wsdl:output>
     </wsdl:operation>
   </wsdl:binding>
-    <wsdl:operation name="ActualizarIndicadorGPRPedidosRechazados">
-      <soap:operation soapAction="http://tempuri.org/IPedidoService/ActualizarIndicadorGPRPedidosRechazados" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="ActualizarIndicadorGPRPedidosFacturados">
-      <soap:operation soapAction="http://tempuri.org/IPedidoService/ActualizarIndicadorGPRPedidosFacturados" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="ObtenerUltimaDescargaPedido">
-      <soap:operation soapAction="http://tempuri.org/IPedidoService/ObtenerUltimaDescargaPedido" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="DeshacerUltimaDescargaPedido">
-      <soap:operation soapAction="http://tempuri.org/IPedidoService/DeshacerUltimaDescargaPedido" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="ActivarDesactivarEstrategias">
-      <soap:operation soapAction="http://tempuri.org/IPedidoService/ActivarDesactivarEstrategias" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="InsertarEstrategiaProducto">
-      <soap:operation soapAction="http://tempuri.org/IPedidoService/InsertarEstrategiaProducto" style="document" />
   <wsdl:service name="PedidoService">
     <wsdl:port name="BasicHttpBinding_IPedidoService" binding="tns:BasicHttpBinding_IPedidoService">
       <soap:address location="http://localhost:41615/PedidoService.svc" />

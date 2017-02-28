@@ -4419,6 +4419,9 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CodigoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int CodigoGeneralField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -4473,6 +4476,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
             }
             set {
                 this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Codigo {
+            get {
+                return this.CodigoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CodigoField, value) != true)) {
+                    this.CodigoField = value;
+                    this.RaisePropertyChanged("Codigo");
+                }
             }
         }
         
@@ -12494,6 +12510,9 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private bool IndicadorPromocionField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string MotivoRechazoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int PedidoDetalleIDField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -12628,6 +12647,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((this.IndicadorPromocionField.Equals(value) != true)) {
                     this.IndicadorPromocionField = value;
                     this.RaisePropertyChanged("IndicadorPromocion");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string MotivoRechazo {
+            get {
+                return this.MotivoRechazoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.MotivoRechazoField, value) != true)) {
+                    this.MotivoRechazoField = value;
+                    this.RaisePropertyChanged("MotivoRechazo");
                 }
             }
         }
@@ -16059,6 +16091,9 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private decimal ConsultoraSaldoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int EsRechazadoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int EstadoValidacionField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -16084,6 +16119,9 @@ namespace Portal.Consultoras.Web.ServicePedido {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private decimal MontoMinimoPedidoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string MotivoRechazoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string NroRegistroField;
@@ -16235,6 +16273,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public int EsRechazado {
+            get {
+                return this.EsRechazadoField;
+            }
+            set {
+                if ((this.EsRechazadoField.Equals(value) != true)) {
+                    this.EsRechazadoField = value;
+                    this.RaisePropertyChanged("EsRechazado");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public int EstadoValidacion {
             get {
                 return this.EstadoValidacionField;
@@ -16347,6 +16398,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((this.MontoMinimoPedidoField.Equals(value) != true)) {
                     this.MontoMinimoPedidoField = value;
                     this.RaisePropertyChanged("MontoMinimoPedido");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string MotivoRechazo {
+            get {
+                return this.MotivoRechazoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.MotivoRechazoField, value) != true)) {
+                    this.MotivoRechazoField = value;
+                    this.RaisePropertyChanged("MotivoRechazo");
                 }
             }
         }
@@ -18043,6 +18107,12 @@ namespace Portal.Consultoras.Web.ServicePedido {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/InsertarEstrategiaProducto", ReplyAction="http://tempuri.org/IPedidoService/InsertarEstrategiaProductoResponse")]
         System.Threading.Tasks.Task<int> InsertarEstrategiaProductoAsync(Portal.Consultoras.Web.ServicePedido.BEEstrategiaProducto entidad);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetEstrategiaProducto", ReplyAction="http://tempuri.org/IPedidoService/GetEstrategiaProductoResponse")]
+        Portal.Consultoras.Web.ServicePedido.BEEstrategiaProducto[] GetEstrategiaProducto(Portal.Consultoras.Web.ServicePedido.BEEstrategia entidad);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetEstrategiaProducto", ReplyAction="http://tempuri.org/IPedidoService/GetEstrategiaProductoResponse")]
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEEstrategiaProducto[]> GetEstrategiaProductoAsync(Portal.Consultoras.Web.ServicePedido.BEEstrategia entidad);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/InsertarTipoEstrategia", ReplyAction="http://tempuri.org/IPedidoService/InsertarTipoEstrategiaResponse")]
         int InsertarTipoEstrategia(Portal.Consultoras.Web.ServicePedido.BETipoEstrategia entidad);
@@ -19848,6 +19918,14 @@ namespace Portal.Consultoras.Web.ServicePedido {
         
         public System.Threading.Tasks.Task<int> InsertarEstrategiaProductoAsync(Portal.Consultoras.Web.ServicePedido.BEEstrategiaProducto entidad) {
             return base.Channel.InsertarEstrategiaProductoAsync(entidad);
+        }
+        
+        public Portal.Consultoras.Web.ServicePedido.BEEstrategiaProducto[] GetEstrategiaProducto(Portal.Consultoras.Web.ServicePedido.BEEstrategia entidad) {
+            return base.Channel.GetEstrategiaProducto(entidad);
+        }
+        
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEEstrategiaProducto[]> GetEstrategiaProductoAsync(Portal.Consultoras.Web.ServicePedido.BEEstrategia entidad) {
+            return base.Channel.GetEstrategiaProductoAsync(entidad);
         }
         
         public int InsertarTipoEstrategia(Portal.Consultoras.Web.ServicePedido.BETipoEstrategia entidad) {
