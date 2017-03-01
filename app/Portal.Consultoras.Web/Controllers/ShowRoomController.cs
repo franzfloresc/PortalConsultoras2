@@ -825,7 +825,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                     int contador = 0;
 
-                    using (StreamReader sr = new StreamReader(finalPath))
+                    using (StreamReader sr = new StreamReader(finalPath, Encoding.GetEncoding("iso-8859-1")))
                     {
                         while ((inputLine = sr.ReadLine()) != null)
                         {

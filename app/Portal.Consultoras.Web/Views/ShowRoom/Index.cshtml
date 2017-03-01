@@ -75,7 +75,7 @@
                             <img src="@item.ImagenMini" alt="" style="width: auto; height: 100%;" class="imagen_producto"/>
                         }
                         
-                        <a class="ver_detalle_carrusel">VER DETALLE</a>
+                        <a class="ver_detalle_carrusel" href="@Url.Action("DetalleOferta","ShowRoom", new {id=item.OfertaShowRoomID})">VER DETALLE</a>
                     </div>
                     <div class="producto_nombre_descripcion">
                         <p class="nombre-producto-set">@item.Descripcion</p>
