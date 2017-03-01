@@ -129,9 +129,7 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
                 .ForMember(t => t.DescripcionLegal, f => f.MapFrom(c => c.DescripcionLegal))
                 .ForMember(t => t.CategoriaID, f => f.MapFrom(c => c.CategoriaID))
                 .ForMember(t => t.MarcaID, f => f.MapFrom(c => c.MarcaID))
-                .ForMember(t => t.ImagenMini, f => f.MapFrom(c => c.ImagenMini));
-
-            Mapper.CreateMap<BEShowRoomOfertaDetalle, ShowRoomOfertaDetalleModel>();
+                .ForMember(t => t.ImagenMini, f => f.MapFrom(c => c.ImagenMini)); 
         }
     }
 }
