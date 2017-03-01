@@ -1067,6 +1067,7 @@ namespace Portal.Consultoras.Web.Controllers
                     success = resultadoUpdate > 0,
                     message = resultadoUpdate > 0 ? "" : "Error, vuelva a intentarlo",
                     cdrWeb = cDRWebMailConfirmacion
+                }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {
