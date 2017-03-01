@@ -387,12 +387,10 @@ namespace Portal.Consultoras.Web.Controllers
                                     if (listaMotivox.Any())
                                     {
                                         bool esMovil = Request.Browser.IsMobileDevice;
-
                                         valorx = valor + Util.DecimalToStringFormat(listaMotivox[0].Valor, oBEUsuario.CodigoISO);
-                                        model.MotivoRechazo = "Tienes una deuda de " + valorx + " <a class='CerrarBanner' href='#' onclick=RedirectMenu('Index','MisPagos',0,''); >MIRA LOS LUGARES DE PAGO</a>";
 
-                                        if (esMovil)
-                                            model.MotivoRechazo = "Tienes una deuda de " + valorx ;
+                                        if (esMovil) model.MotivoRechazo = "Tienes una deuda de " + valorx;
+                                        else model.MotivoRechazo = "Tienes una deuda de " + valorx + " <a class='CerrarBanner' href='#' onclick=RedirectMenu('Index','MisPagos',0,'','pestanhaInicial=" + Constantes.PestanhasMisPagos.LugaresPago + "'); >MIRA LOS LUGARES DE PAGO</a>";
                                     }
 
                                     listaMotivox = listaRechazo.Where(p => p.MotivoRechazo == Constantes.GPRMotivoRechazo.MontoMinino).ToList(); // minimo

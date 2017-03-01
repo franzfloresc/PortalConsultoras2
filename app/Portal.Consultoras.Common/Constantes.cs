@@ -369,7 +369,13 @@ namespace Portal.Consultoras.Common
             public const string RolSociaEmpresaria = "SE";
         }
         
-    }
-        }
 
+        public class PestanhasMisPagos
+        {
+            public const string EstadoCuenta = "EstadoCuenta";
+            public const string LugaresPago = "LugaresPago";
+            public const string MisPercepciones = "MisPercepciones";
+        }
+    }
+}
 
