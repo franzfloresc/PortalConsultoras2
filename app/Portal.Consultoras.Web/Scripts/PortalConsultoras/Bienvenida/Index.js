@@ -1313,11 +1313,11 @@ function CargarEstrategiasEspeciales(objInput, e) {
             var html = ArmarPopupLanzamiento(estrategia);
             $('#popupDetalleCarousel_lanzamiento').html(html);
 
-            if ($('#popupDetalleCarousel_lanzamiento').find('[data-prod-descripcion]').html().length > 40) {
-                $('#popupDetalleCarousel_lanzamiento').find('[data-prod-descripcion]').addClass('nombre_producto22');
-                $('#popupDetalleCarousel_lanzamiento').find('[data-prod-descripcion]').removeClass('nombre_producto');
-                //$('#popupDetalleCarousel_lanzamiento').find('.nombre_producto22').children()[0].innerHTML = "LBel Mithyka Eau Parfum 50ml+Cyzone Love Bomb Eau de Parfum 30ml+Esika Labial Color HD Tono Pimienta Caliente+Esika Agu Shampoo Manzanilla 1L";
-            }
+            //if ($('#popupDetalleCarousel_lanzamiento').find('[data-prod-descripcion]').html().length > 40) {
+            //    $('#popupDetalleCarousel_lanzamiento').find('[data-prod-descripcion]').addClass('nombre_producto22');
+            //    $('#popupDetalleCarousel_lanzamiento').find('[data-prod-descripcion]').removeClass('nombre_producto');
+            //    //$('#popupDetalleCarousel_lanzamiento').find('.nombre_producto22').children()[0].innerHTML = "LBel Mithyka Eau Parfum 50ml+Cyzone Love Bomb Eau de Parfum 30ml+Esika Labial Color HD Tono Pimienta Caliente+Esika Agu Shampoo Manzanilla 1L";
+            //}
 
             $('#popupDetalleCarousel_lanzamiento').show();
             TrackingJetloreView(estrategia.CUV2, $("#hdCampaniaCodigo").val());
@@ -1751,7 +1751,7 @@ function CargarBanners() {
                                 var trackingDesc = dataResult.data[count].TextoComentario;
                                 var htmlLink = dataResult.data[count].URL.length > 0 ? "onclick=\"return SetGoogleAnalyticsBannerInferiores('" + dataResult.data[count].URL + "','" + trackingText + "','0','" + dataResult.data[count].BannerID + "','" + countBajos + "','" + dataResult.data[count].Titulo + "');\" target='_blank' rel='banner-inferior' " : "";
 
-                                $('#bannerBajos').append("<a class='enlaces_home' href='javascript:void();' " + htmlLink + "><div class='div-img hidden'><img class='banner-img' src='" + fileName + "' /></div><div class='btn_enlaces'>" + trackingText + "</div></a>");
+                                $('#bannerBajos').append("<a class='enlaces_home' href='javascript:void();' " + htmlLink + "><div class='div-img hidden' style='margin-bottom: 10px;'><img class='banner-img' src='" + fileName + "' /></div><div class='btn_enlaces'>" + trackingText + "</div></a>");
                                 delaySBaja1 = dataResult.data[count].TiempoRotacion;
                                 promotionsBajos.push({
                                     id: dataResult.data[count].BannerID,

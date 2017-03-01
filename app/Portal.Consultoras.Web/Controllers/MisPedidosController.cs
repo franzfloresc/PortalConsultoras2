@@ -36,7 +36,7 @@ namespace Portal.Consultoras.Web.Controllers
                     listaPedidoFacturados = sv.GetPedidosIngresadoFacturado(userData.PaisID, Convert.ToInt32(userData.ConsultoraID), userData.CampaniaID,
                         userData.CodigoConsultora).ToList();
                 }
-                using (sc.ClienteServiceClient sv = new sc.ClienteServiceClient())
+                using (SC.ClienteServiceClient sv = new SC.ClienteServiceClient())
                 {
                     model.Clientes = sv.SelectByConsultora(userData.PaisID, userData.ConsultoraID).ToList();
                 }
@@ -141,7 +141,7 @@ namespace Portal.Consultoras.Web.Controllers
                 return Json(new
                 {
                     success = true,
-                    message = listModel.Count == 0 ? "No tiene pedidos de Consultora Online para esta campaña" : "",
+                    message = listModel.Count == 0 ? "No tiene pedidos del App de Catálogos para esta campaña" : "",
                     listaPedidosClienteOnline = listModel,
                     campaniaResultado = campaniaResultado
                 });

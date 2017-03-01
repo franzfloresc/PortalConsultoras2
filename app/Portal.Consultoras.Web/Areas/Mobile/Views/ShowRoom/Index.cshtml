@@ -12,11 +12,63 @@
         body {
             background: #FFF !important;
             padding-top: 0px;
+            overflow-x:hidden;
         }
     </style>
 
     <link href="@Url.Content("~/Content/Css/Mobile/esika/slick.css")" rel="stylesheet" />
 }
+<!--  MAQUETADO NUEVO-->
+<div class="content_banner_header_showroom">   
+    <img src="@Url.Content("~/Content/Images/mobile/img-showroom/BARRA_SUPERIOR_TEXTOJUNTO_CATEGORIA.png")" @*style="width: 100%;"*@ />
+</div>
+<div class="wrapper_resumen_mobile">
+    <div id="orderby-filter">
+        <div id="content-orderby" style="margin-top:15px;">
+            <select id="orderby-price" class="select-ffc" onchange="processFilterCatalogoPersonalizado(1);">
+                <option value="01">PRECIO | menor a mayor</option>
+                <option value="02">PRECIO | mayor a menor</option>
+                <option value="03">RELEVANCIA</option>
+            </select>
+
+            <input id="btnfltm" type="button" class="btn2-ffc" value="FILTROS" onclick="showCustomFilters();">
+        </div>
+        <hr class="clear">
+        <div id="summary-filters">
+            <div id="div-result-number" style="margin-left:0; float: left; width: 65%; font-size:13px;">
+                <span id="result-number">Mostrando 12 de 32 productos</span>
+            </div>
+
+            <div id="div-delete-filters" style="display: none; margin-right:0px;">
+                <a href="#" class="link-ffc_landing" onclick="deleteFilters();">Borrar Filtros</a>
+            </div>
+            <br><br>
+        </div>
+    </div>
+    <div class="contenedor_productos_liquidacion">
+        <div class="content_item_home landing_showroom" style="position: relative;">
+            <div class="liquidacion_item">
+                <div class="producto_img_mobile">
+                    <img src="https://s3-sa-east-1.amazonaws.com/appcatalogo/CO/201704/L/productos/CO_200083960.jpg" class="imagen_producto">
+                </div>
+                <div class="producto_nombre_descripcion">
+                    <p class="nombre_producto" style="cursor:pointer; height:20px;">
+                        <b>SET MITHYKA</b>
+                    </p>
+                    <div class="producto_precio">
+                        <span class="producto_precio_oferta" style="padding-left:0px;"><b>$ 112.900</b></span>
+                    </div>
+                    <hr class="clear">
+
+                </div>
+            </div>
+        </div>
+       
+
+    </div>    
+</div>
+<hr class="clear" />
+<!--FIN-->
 
 <input type="hidden" id="hdListaProductosEnShowRoom" value="@JsonConvert.SerializeObject(Model.ListaShowRoomOferta)" />
 <div class="wrapper_resumen_mobile">

@@ -117,6 +117,7 @@ namespace Portal.Consultoras.Web.Models
         public int OrigenPedidoWeb { get; set; }
     }
 
+    [Serializable()]
     public class ProductoModel
     {
         public string CUV { get; set; }
@@ -196,8 +197,10 @@ namespace Portal.Consultoras.Web.Models
         public string CUVPedido { get; set; }
         public string CUVPedidoNombre { get; set; }
         public string CUVPedidoImagen { get; set; }
+        public bool TipoCross { get; set; }
     }
 
+    [Serializable]
     public class ObservacionModel
     {
         public string CUV { get; set; }

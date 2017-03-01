@@ -376,6 +376,12 @@ namespace Portal.Consultoras.Web.Controllers
                 //PL20-1283
                 ViewBag.NombreConsultoraFAV = model.NombreConsultora.First().ToString().ToUpper() + model.NombreConsultora.ToLower().Substring(1);
                 ViewBag.UrlImagenFAVHome = string.Format(ConfigurationManager.AppSettings.Get("UrlImagenFAVHome"), userData.CodigoISO);
+                
+                if (Session[Constantes.ConstSession.IngresoPortalConsultoras] == null)
+                {
+                    RegistrarLogDynamoDB(Constantes.LogDynamoDB.AplicacionPortalConsultoras, Constantes.LogDynamoDB.RolConsultora, "HOME", "INGRESAR");
+                    Session[Constantes.ConstSession.IngresoPortalConsultoras] = true;
+                }
             }
             catch (FaultException ex)
             {
@@ -764,30 +770,48 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         [HttpPost]
-        public JsonResult JSONUpdateUsuarioTutoriales(int tipo)
+        public JsonResult JSONUpdateUsuarioTutoriales(string tipo)
         {
-            int retorno;
-            using (UsuarioServiceClient sv = new UsuarioServiceClient())
+            int retorno = 0;
+            try
             {
-                retorno = sv.UpdateUsuarioTutoriales(userData.PaisID, userData.CodigoUsuario, tipo);
-
-                switch (tipo)
+                if (!string.IsNullOrEmpty(tipo))
                 {
-                    case Constantes.TipoTutorial.Video:
-                        userData.VioVideoModelo = retorno;
-                        break;
-                    case Constantes.TipoTutorial.Desktop:
-                        userData.VioTutorialDesktop = retorno;
-                        break;
-                    case Constantes.TipoTutorial.Salvavidas:
-                        userData.VioTutorialSalvavidas = retorno;
-                        break;
-                    case Constantes.TipoTutorial.Mobile:
-                        userData.VioTutorialModelo = retorno;
-                        break;
+                    var tipoTutorial = Convert.ToInt32(tipo);
+
+                    using (UsuarioServiceClient sv = new UsuarioServiceClient())
+                    {
+                        retorno = sv.UpdateUsuarioTutoriales(userData.PaisID, userData.CodigoUsuario, tipoTutorial);
+                    }
+
+                    switch (tipoTutorial)
+                    {
+                        case Constantes.TipoTutorial.Video:
+                            userData.VioVideoModelo = retorno;
+                            break;
+                        case Constantes.TipoTutorial.Desktop:
+                            userData.VioTutorialDesktop = retorno;
+                            break;
+                        case Constantes.TipoTutorial.Salvavidas:
+                            userData.VioTutorialSalvavidas = retorno;
+                            break;
+                        case Constantes.TipoTutorial.Mobile:
+                            userData.VioTutorialModelo = retorno;
+                            break;
+                    }
+
+                    SetUserData(userData);
                 }
             }
-            SetUserData(userData);
+            catch (FaultException ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, (userData ?? new UsuarioModel()).CodigoConsultora, (userData ?? new UsuarioModel()).CodigoISO);
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, (userData ?? new UsuarioModel()).CodigoConsultora, (userData ?? new UsuarioModel()).CodigoISO);
+            }
+            
             return Json(new
             {
                 result = retorno

@@ -183,6 +183,12 @@ namespace Portal.Consultoras.Web.ServiceCliente {
         private short BloqueadoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int CDRWebEstadoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int CDRWebIDField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int CampaniaIDField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -276,6 +282,9 @@ namespace Portal.Consultoras.Web.ServiceCliente {
         private string NombresField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int NumeroPedidoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int PaisIDField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -309,6 +318,32 @@ namespace Portal.Consultoras.Web.ServiceCliente {
                 if ((this.BloqueadoField.Equals(value) != true)) {
                     this.BloqueadoField = value;
                     this.RaisePropertyChanged("Bloqueado");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int CDRWebEstado {
+            get {
+                return this.CDRWebEstadoField;
+            }
+            set {
+                if ((this.CDRWebEstadoField.Equals(value) != true)) {
+                    this.CDRWebEstadoField = value;
+                    this.RaisePropertyChanged("CDRWebEstado");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int CDRWebID {
+            get {
+                return this.CDRWebIDField;
+            }
+            set {
+                if ((this.CDRWebIDField.Equals(value) != true)) {
+                    this.CDRWebIDField = value;
+                    this.RaisePropertyChanged("CDRWebID");
                 }
             }
         }
@@ -717,6 +752,19 @@ namespace Portal.Consultoras.Web.ServiceCliente {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public int NumeroPedido {
+            get {
+                return this.NumeroPedidoField;
+            }
+            set {
+                if ((this.NumeroPedidoField.Equals(value) != true)) {
+                    this.NumeroPedidoField = value;
+                    this.RaisePropertyChanged("NumeroPedido");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public int PaisID {
             get {
                 return this.PaisIDField;
@@ -801,6 +849,9 @@ namespace Portal.Consultoras.Web.ServiceCliente {
         private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool AceptoBackOrderField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string CUVField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -859,6 +910,9 @@ namespace Portal.Consultoras.Web.ServiceCliente {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private bool EliminadoTemporalField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool EsBackOrderField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private bool EsKitNuevaField;
@@ -978,6 +1032,19 @@ namespace Portal.Consultoras.Web.ServiceCliente {
             }
             set {
                 this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool AceptoBackOrder {
+            get {
+                return this.AceptoBackOrderField;
+            }
+            set {
+                if ((this.AceptoBackOrderField.Equals(value) != true)) {
+                    this.AceptoBackOrderField = value;
+                    this.RaisePropertyChanged("AceptoBackOrder");
+                }
             }
         }
         
@@ -1237,6 +1304,19 @@ namespace Portal.Consultoras.Web.ServiceCliente {
                 if ((this.EliminadoTemporalField.Equals(value) != true)) {
                     this.EliminadoTemporalField = value;
                     this.RaisePropertyChanged("EliminadoTemporal");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool EsBackOrder {
+            get {
+                return this.EsBackOrderField;
+            }
+            set {
+                if ((this.EsBackOrderField.Equals(value) != true)) {
+                    this.EsBackOrderField = value;
+                    this.RaisePropertyChanged("EsBackOrder");
                 }
             }
         }

@@ -47,7 +47,7 @@ namespace Portal.Consultoras.Web.Controllers
                 return RedirectToAction("Index", "Bienvenida");
             CronogramaFICModel model = new CronogramaFICModel();
             model.listaPaises = DropDowListPaises();
-            model.listaZonas = DropDowListZonas(UserData().PaisID);
+            model.listaZonas = DropDownListZonas(UserData().PaisID);
             model.DropDownListCampania = CargarCampania();
             return View(model);
         }
@@ -495,22 +495,6 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-        private IEnumerable<ZonaModel> DropDowListZonas(int PaisID)
-        {
-            //PaisID = 11;
-            List<BEZona> lst;
-            using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
-            {
-                lst = sv.SelectAllZonas(PaisID).ToList();
-            }
-            Mapper.CreateMap<BEZona, ZonaModel>()
-                    .ForMember(t => t.ZonaID, f => f.MapFrom(c => c.ZonaID))
-                    .ForMember(t => t.Codigo, f => f.MapFrom(c => c.Codigo))
-                    .ForMember(t => t.RegionID, f => f.MapFrom(c => c.RegionID));
-
-            return Mapper.Map<IList<BEZona>, IEnumerable<ZonaModel>>(lst);
-        }
-
         private List<ZonaModel> ObtenerZonasActivas(int PaisID, int CampaniaID)
         {
             //PaisID = 11;
@@ -699,39 +683,6 @@ namespace Portal.Consultoras.Web.Controllers
                     extra = ""
                 });
             }
-        }
-
-        public string NombreMes(int Mes)
-        {
-            string Result = string.Empty;
-            switch (Mes)
-            {
-                case 1: Result = "Enero";
-                    break;
-                case 2: Result = "Febrero";
-                    break;
-                case 3: Result = "Marzo";
-                    break;
-                case 4: Result = "Abril";
-                    break;
-                case 5: Result = "Mayo";
-                    break;
-                case 6: Result = "Junio";
-                    break;
-                case 7: Result = "Julio";
-                    break;
-                case 8: Result = "Agosto";
-                    break;
-                case 9: Result = "Setiembre";
-                    break;
-                case 10: Result = "Octubre";
-                    break;
-                case 11: Result = "Noviembre";
-                    break;
-                case 12: Result = "Diciembre";
-                    break;
-            }
-            return Result;
         }
     }
 }

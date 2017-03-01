@@ -72,16 +72,18 @@ namespace Portal.Consultoras.Web.WebPages
 
                 Session["email"] = correo;
 
-                string urlportal = ConfigurationManager.AppSettings["URLSite"];
+                string urlportal = ConfigurationManager.AppSettings["UrlSiteSE"];
 
                 Dictionary<string, object> datos = serializer.Deserialize<Dictionary<string, object>>(data);
 
+                string nuevacontrasena = datos["newPassword"].ToString();
+
                 using (UsuarioServiceClient sv = new UsuarioServiceClient())
                 {
-                    string nuevacontrasena = datos["newPassword"].ToString();
-
-                    bool result = sv.ChangePasswordUser(idpais, "SISTEMA", paisiso + codigousuario, nuevacontrasena, correo, EAplicacionOrigen.RecuperarClave);
+                    //bool result = sv.ChangePasswordUser(idpais, "SISTEMA", paisiso + codigousuario, nuevacontrasena, correo, EAplicacionOrigen.RecuperarClave);
                     //bool result = true;
+
+                    bool result = sv.CambiarClaveUsuario(idpais, paisiso, codigousuario, nuevacontrasena, correo, "SISTEMA", EAplicacionOrigen.RecuperarClave);
 
                     if (result)
                     {
