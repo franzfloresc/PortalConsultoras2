@@ -34824,6 +34824,7 @@ h1#penmostreo .campana {
 }
 .content_solo_ficha_set{
     width:78%;
+    float:left;
 }
 .titulo_set{
     font-size:20px;
@@ -34998,4 +34999,12 @@ h1#penmostreo .campana {
     font-size: 11px;
     padding-left: 20px;
     margin-top: 15px;
+}
+.content_ficha_compra{
+    float:left;
+    width:20%;
+    height:496px;
+    background:white;
+    margin-left:2%;
+    padding:40px 25px 20px 25px;
 }

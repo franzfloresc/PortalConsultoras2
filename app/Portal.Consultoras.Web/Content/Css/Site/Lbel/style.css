@@ -34798,6 +34798,7 @@ h1#penmostreo .campana {
 }
 .content_solo_ficha_set{
     width:78%;
+    float:left;
 }
 .titulo_set{
     font-size:20px;
