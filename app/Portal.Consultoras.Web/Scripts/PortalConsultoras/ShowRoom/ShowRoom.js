@@ -1,6 +1,6 @@
-﻿/* 1: Escritorio    2: Mobile
-1: Index    | 11: Detalle Oferta
-2: Index    | 21: Detalle Oferta
+﻿/* 
+Escritorio  => 1: Index    | 11: Detalle Oferta
+Mobile      => 2: Index    | 21: Detalle Oferta
 */
 var tipoOrigenPantalla = tipoOrigenPantalla || "";
 
@@ -20,8 +20,7 @@ $(document).ready(function () {
             speed: 260,
             prevArrow: '<a class="previous_ofertas js-slick-prev" style="display: block;left: 0;margin-left: -5%;"><img src="' + baseUrl + 'Content/Images/Esika/previous_ofertas_home.png")" alt="" /></a>',
             nextArrow: '<a class="previous_ofertas js-slick-next" style="display: block;right: 0;margin-right: -5%;"><img src="' + baseUrl + 'Content/Images/Esika/next.png")" alt="" /></a>'
-        })
-
+        });
     }
 
     $("body").on("click", "[data-btn-agregar-sr]", function (e) {
