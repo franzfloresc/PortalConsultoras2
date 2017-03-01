@@ -35,5 +35,7 @@ namespace Portal.Consultoras.Web.Models
         public string UsuarioModificacion { get; set; }
 
         public string ImagenAnterior { get; set; }
+
+        public string MarcaProducto { get; set; }
     }
 }
