@@ -215,7 +215,8 @@ namespace Portal.Consultoras.Web.Controllers
                     PopUps = sac.ObtenerOrdenPopUpMostrar(userData.PaisID).ToList();
                 }
 
-                int TipoPopUpMostrar = 0; //= Convert.ToInt32(Session["TipoPopUpMostrar"]);
+                int TipoPopUpMostrar = Convert.ToInt32(Session["TipoPopUpMostrar"]);
+               
 
                 if (PopUps.Any())
                 {
@@ -292,6 +293,11 @@ namespace Portal.Consultoras.Web.Controllers
                                 mostrarShowRoomProductos = ValidarMostrarShowroomPopUp();
                                 //var paisesShowRoom = ConfigurationManager.AppSettings["PaisesShowRoom"];
                                 if (mostrarShowRoomProductos)
+                                {
+                                    TipoPopUpMostrar = Constantes.TipoPopUp.Showroom;
+                                    break;
+                                }
+                                else
                                 {
                                     TipoPopUpMostrar = Constantes.TipoPopUp.Showroom;
                                     break;
@@ -1510,6 +1516,46 @@ namespace Portal.Consultoras.Web.Controllers
         #region ShowRoom
 
         [HttpPost]
+        public JsonResult NoMostrarShowRoomPopup(string TipoShowRoom)
+        {
+            try
+            {
+                bool blnShowRoom = false;
+                var beShowRoom = userData.BeShowRoomConsultora;
+
+                if (TipoShowRoom == "I")
+                {
+                    userData.BeShowRoomConsultora.MostrarPopup = false;
+                    blnShowRoom = userData.BeShowRoomConsultora.MostrarPopup;
+                }
+                else
+                {
+                    userData.BeShowRoomConsultora.MostrarPopupVenta = false;
+                    blnShowRoom = userData.BeShowRoomConsultora.MostrarPopupVenta;
+                }
+
+                return Json(new
+                {
+                    success = true,
+                    data = blnShowRoom,
+                    tipo = TipoShowRoom
+                });
+
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return Json(new
+                {
+                    success = false,
+                    message = "Hubo un problema con el servicio, intente nuevamente",
+                    extra = ""
+                }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+
+        [HttpPost]
         public JsonResult MostrarShowRoomPopup()
         {
             try
@@ -1520,6 +1566,8 @@ namespace Portal.Consultoras.Web.Controllers
                     if (!userData.CargoEntidadesShowRoom) throw new Exception("Ocurrió un error al intentar traer la información de los evento y consultora de ShowRoom.");
                     var beShowRoomConsultora = userData.BeShowRoomConsultora;
                     var beShowRoom = userData.BeShowRoom;
+                    var beMostrarPopupIntriga = userData.BeShowRoomConsultora.MostrarPopup;
+                    var beMostrarPopupVenta = userData.BeShowRoomConsultora.MostrarPopupVenta;
 
                     if (beShowRoomConsultora == null) beShowRoomConsultora = new BEShowRoomEventoConsultora();
                     if (beShowRoom == null) beShowRoom = new BEShowRoomEvento();
@@ -1559,7 +1607,9 @@ namespace Portal.Consultoras.Web.Controllers
                             evento = beShowRoom,
                             mostrarShowRoomProductos,
                             rutaShowRoomPopup,
-                            personalizacion = lstPersonalizacion
+                            personalizacion = lstPersonalizacion,
+                            mostrarPopupIntriga = beMostrarPopupIntriga,
+                            mostrarPopupVenta = beMostrarPopupVenta
                         });
                     }
                     else

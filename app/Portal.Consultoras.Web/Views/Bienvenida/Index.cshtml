@@ -2416,7 +2416,7 @@
         <div class="dias_intriga_home">FALTAN 5 DÍAS</div>
         <div class="check_01">
             <label class="checkpop2">
-                <a href="javascript:;" id="cbNoMostrarPopupShowRoom">NO QUIERO VOLVER A VER &Eacute;STE COMUNICADO</a>
+                <a id="cbNoMostrarPopupShowRoomIntriga" onclick="NoMostrarPopupShowRoomIntrigaVenta('I');">NO QUIERO VOLVER A VER &Eacute;STE COMUNICADO</a>
             </label>
         </div>
         <img class="imagen_dias_intriga" src="@Url.Content("~/Content/Images/showroom/popup_intriga.png")" onclick="VerShowRoomIntriga()" style="cursor: pointer;" />
@@ -2426,7 +2426,7 @@
 <!--FIN-->
 
 <!--NUEVO POP UP DE SHOWROOM Venta-->
-<div class="Content_general_pop_up" style="display: block;" id="PopShowroomVenta" data-popup-main>
+<div class="Content_general_pop_up" style="display: none;" id="PopShowroomVenta" data-popup-main>
     <div class="content_pop_up_intriga" data-popup-body>        
         <a class="cerrar_fichaProducto" style="top:20px; right:-25px;" href="javascript:;" onclick="javascript: $('#PopShowroomVenta').hide();">
             <img src="/Content/Images/cerrar_04_blanco.png" alt="" alternate text">
@@ -2435,10 +2435,10 @@
       
         <div class="check_01">
             <label class="checkpop2">
-                <a href="javascript:;" id="cbNoMostrarPopupShowRoom">NO QUIERO VOLVER A VER &Eacute;STE ANUNCIO</a>
+                <a id="cbNoMostrarPopupShowRoomVenta" onclick="NoMostrarPopupShowRoomIntrigaVenta('V')";>NO QUIERO VOLVER A VER &Eacute;STE ANUNCIO</a>
             </label>
         </div>
-        <img class="imagen_dias_intriga" src="@Url.Content("~/Content/Images/showroom/POPUP_COMPRAR.png")" style="cursor: pointer;" />
+        <img class="imagen_dias_intriga" src="@Url.Content("~/Content/Images/showroom/POPUP_COMPRAR.png")" onclick="VerShowRoomVenta()" style="cursor: pointer;" />
     </div>
 
 </div>
@@ -2518,12 +2518,14 @@
         var mostrarPopupActualizarDatosXPais = '@Model.MostrarPopupActualizarDatosXPais';
         var mensajeFechaDA = '@Model.MensajeFechaDA';
 
-        var origenPagina = 1;   /*PL20-1227*/     
+        var origenPagina = 1;   /*PL20-1227*/
         var urlGetInfoFichaProducto = '@Url.Action("GetInfoFichaProductoFAV", "CatalogoPersonalizado")';    //PL20-1268
-        var urlCargarFiltros = '@Url.Action("CargarFiltros", "CatalogoPersonalizado", new { area = "" })'; 
+        var urlCargarFiltros = '@Url.Action("CargarFiltros", "CatalogoPersonalizado", new { area = "" })';
         var urlCatalogoPersonalizado = '@Url.Action("Index", "CatalogoPersonalizado", new { area = "" })';
 
         var urlShowRoomIntriga = '@Url.Action("Intriga","ShowRoom")';
+
+        var urlShowRoomVenta = '@Url.Action("Index","ShowRoom")';
     </script>
     @System.Web.Optimization.Scripts.Render("~/bundles/JsSB2-Bienvenida")
     @{ Session["IsContrato"] = 0; }
