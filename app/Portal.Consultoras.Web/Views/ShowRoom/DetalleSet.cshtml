@@ -234,6 +234,61 @@
     </div>
 </div>
 
+<div id="PopDetalleCompra" class="Content_general_pop_up" style="display:block;" data-popup-main>
+    <div class="content_ficha_producto_nueva" style="width:750px;" data-popup-body>
+        <a class="cerrar_fichaProducto" href="javascript:;" onclick="javascript: $('#PopDetalleCompra').fadeOut();">
+            <img src="/Content/Images/cerrar_04_blanco.png" alt=" alternate text">
+        </a>
+        <div class="titulo_compra_POP">PROMOCIÓN</div>
+        <div class="precio_set_compra">A SÓLO S/.20.00</div>
+        <div class="content_carrusel_pop_compra">
+            <div>
+                <div class="content_imagen_compra"><img src="https://s3-sa-east-1.amazonaws.com/appcatalogo/CO/201704/C/productos/CO_200084402.jpg"></div>
+                <div class="content_datos_carrusel">
+                    <div class="producto_compra">LLévate un Reloj Espheric por la compra de 2 Sets o más.</div>
+                    <div class="descripcion_producto_compra">Correa tipo cuero y pieza central plateada con 37 cristales.</div>
+                    <div class="liquidacion_rango_home">
+                        <input type="text" value="1" size="2" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" data-input="cantidad" data-cantidad-input="-">
+                        <div class="liquidacion_rango_right_pedido">
+                            <a class="mas" data-cantidad-agregar="+"><img src="/Content/Images/Esika/mas.png" alt=""></a>
+                            <a class="menos" data-cantidad-agregar="-"><img src="/Content/Images/Esika/menos.png" alt=""></a>
+                        </div>
+                    </div>
+                    <a class="boton_Agregalo_home btn_aregar_set" onclick="" style="width:72%;">
+                        AGRÉGALO
+                    </a>
+                    <hr class="clear" />
+                    <div class="notificacion_compra">Compra un set más y llévate la oferta</div>
+                </div>
+                <hr class="clear" /> 
+            </div>
+            <div>
+                <div class="content_imagen_compra"><img src="https://s3-sa-east-1.amazonaws.com/appcatalogo/CO/201704/C/productos/CO_200084402.jpg"></div>
+                <div class="content_datos_carrusel">
+                    <div class="producto_compra">LLévate un Reloj Espheric por la compra de 2 Sets o más.</div>
+                    <div class="descripcion_producto_compra">Correa tipo cuero y pieza central plateada con 37 cristales.</div>
+                    <div class="liquidacion_rango_home">
+                        <input type="text" value="1" size="2" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" data-input="cantidad" data-cantidad-input="-">
+                        <div class="liquidacion_rango_right_pedido">
+                            <a class="mas" data-cantidad-agregar="+"><img src="/Content/Images/Esika/mas.png" alt=""></a>
+                            <a class="menos" data-cantidad-agregar="-"><img src="/Content/Images/Esika/menos.png" alt=""></a>
+                        </div>
+                    </div>
+                    <a class="boton_Agregalo_home btn_aregar_set" onclick="" style="width:72%;">
+                        AGRÉGALO
+                    </a>
+                    <hr class="clear" />
+                    <div class="notificacion_compra">Compra un set más y llévate la oferta</div>
+                </div>
+                <hr class="clear" />
+            </div>
+                      
+
+        </div>
+       
+    </div>
+</div>
+
 @section scripts{
 
    <script type="text/javascript" src="@Url.Content("~/Scripts/slick.min.js")"></script>
@@ -249,6 +304,17 @@
                  // settings: "unslick"
                  // instead of a settings object
                
+           });
+           $('.content_carrusel_pop_compra').slick({
+               dots: true,
+               infinite: true,
+               speed: 300,
+               slidesToShow: 1,
+               slidesToScroll: 1,
+               // You can unslick at a given breakpoint now by adding:
+               // settings: "unslick"
+               // instead of a settings object
+
            });
 
        });
