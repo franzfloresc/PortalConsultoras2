@@ -182,13 +182,7 @@ $(document).ready(function () {
         closeOnEscape: true,
         width: 400,
         draggable: true,
-        buttons:
-        {
-            "Aceptar": function () {
-                $(this).dialog('close');
-                $("#SolicitudEnviada").show();
-            }
-        }
+        buttons: { "Aceptar": function () { $(this).dialog('close'); } }
     });
 });
 
@@ -391,7 +385,7 @@ function AsignarCUV(pedido) {
     $("#divMotivo").html("");
 
     if (pedido.CDRWebID > 0 && pedido.CDRWebEstado != 1 && pedido.CDRWebEstado != 4) {
-        alert_msg("Lo sentimos, ya cuentas con una solicitud web para este pedido. Por favor, contáctate con nuestro Call Center");
+        alert_msg("Lo sentimos, ya cuentas con una solicitud web para este pedido. Por favor, contáctate con nuestro <span class='enlace_chat belcorpChat'><a>Chat en Línea</a></span>.");
     } else {
         pedido.olstBEPedidoWebDetalle = pedido.olstBEPedidoWebDetalle || new Array();
         var detalle = pedido.olstBEPedidoWebDetalle.Find("CUV", $("#txtCUV").val() || "");
@@ -1153,32 +1147,17 @@ function SolicitudEnviar() {
                 if (data.cdrWeb.CampaniaID.toString().length == 6) {
                     formatoCampania = data.cdrWeb.CampaniaID.toString().substring(0, 4) + "-" + data.cdrWeb.CampaniaID.toString().substring(4);
                 }
-
-            }
-
-            if (data.Cantidad == 1) {
-                $("#spnSolicitudFechaCulminado").html(formatoFechaCulminado);
-                $("#spnSolicitudNumeroSolicitud").html(numeroSolicitud);
-                $("#spnSolicitudCampania").html(formatoCampania);
-                $("#divProcesoReclamo").hide();
-                $("#divUltimasSolicitudes").hide();
-
-                //$("#divAceptarEMail").show();
-                alertEMail_msg(data.message, "MENSAJE");
-
-                $("#TituloReclamo").hide();
-
-                return false;
             }
 
             $("#spnSolicitudFechaCulminado").html(formatoFechaCulminado);
             $("#spnSolicitudNumeroSolicitud").html(numeroSolicitud);
             $("#spnSolicitudCampania").html(formatoCampania);
-
             $("#divProcesoReclamo").hide();
             $("#divUltimasSolicitudes").hide();
-            $("#SolicitudEnviada").show();
             $("#TituloReclamo").hide();
+            $("#SolicitudEnviada").show();
+
+            if (data.Cantidad == 1) alertEMail_msg(data.message, "MENSAJE");
         },
         error: function (data, error) {
             closeWaitingDialog();
