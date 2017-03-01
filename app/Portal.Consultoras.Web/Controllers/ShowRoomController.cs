@@ -2532,7 +2532,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         public ActionResult DetalleOferta(int id)
         {
-            var modelo = GetOfertaDetalle(id);
+            var modelo = GetOfertaYDetalle(id);
             return View("DetalleSet", modelo);
         }
 
