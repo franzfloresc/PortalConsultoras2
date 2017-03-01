@@ -56,7 +56,7 @@ $(document).ready(function () {
             .addClass("borde_seleccion_tono");
 
         var estrategia = $(this).parents("[data-estrategia]").attr("data-estrategia");
-        if (estrategia == "2003" && (tipoOrigenEstrategia == 2 || tipoOrigenEstrategia == 21)) {
+        if ((estrategia == "2003" || estrategia == "2001") && (tipoOrigenEstrategia == 2 || tipoOrigenEstrategia == 21)) {
             var nombre = $(this).find("img").attr("data-tono-nombre");
             var descripcionComercial = $(this).find("img").attr("data-tono-descripcionComercial");
             nombre = nombre || $(this).find("[value='" + cuv + "']").attr("data-tono-nombre");
