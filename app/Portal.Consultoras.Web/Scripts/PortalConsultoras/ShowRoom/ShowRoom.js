@@ -24,6 +24,87 @@ $(document).ready(function () {
     }
 
     $("body").on("click", "[data-btn-agregar-sr]", function (e) {
-
+        var padre = $(this).parents("[data-item]");
+        var article = $(padre).find("[data-campos]").eq(0);
+        var cantidad = $(padre).find("[data-input='cantidad']").val();
+        //listatipo = "0";
+        AgregarOfertaShowRoom(article, cantidad);
+        e.preventDefault();
+        (this).blur();
     });
 });
+
+function AgregarOfertaShowRoom(article, cantidad) {
+    var CUV = $(article).find(".valorCuv").val();
+    var MarcaID = $(article).find(".claseMarcaID").val();
+    var PrecioUnidad = $(article).find(".clasePrecioUnidad").val();
+    var ConfiguracionOfertaID = $(article).find(".claseConfiguracionOfertaID").val();
+    var nombreProducto = $(article).find(".DescripcionProd").val();
+    var posicion = $(article).find(".posicionEstrategia").val();
+    var descripcionMarca = $(article).find(".DescripcionMarca").val();
+
+    if (cantidad == "" || cantidad == 0) {
+        alert_msg("La cantidad ingresada debe ser mayor que 0, verifique.");
+    } else {
+        waitingDialog({});
+        $.ajaxSetup({
+            cache: false
+        });
+        $.getJSON(baseUrl + 'ShowRoom/ValidarUnidadesPermitidasPedidoProducto', { CUV: CUV }, function (data) {
+            if (parseInt(data.Saldo) < parseInt(cantidad)) {
+                var Saldo = data.Saldo;
+                var UnidadesPermitidas = data.UnidadesPermitidas;
+
+                closeWaitingDialog();
+
+                if (Saldo == UnidadesPermitidas)
+                    alert_msg("Lamentablemente, la cantidad solicitada sobrepasa las Unidades Permitidas de Venta (" + UnidadesPermitidas + ") del producto.");
+                else {
+                    if (Saldo == "0")
+                        alert_msg("Las Unidades Permitidas de Venta son solo (" + UnidadesPermitidas + "), pero Usted ya no puede adicionar más, debido a que ya agregó este producto a su pedido, verifique.");
+                    else
+                        alert_msg("Las Unidades Permitidas de Venta son solo (" + UnidadesPermitidas + "), pero Usted solo puede adicionar (" + Saldo + ") más, debido a que ya agregó este producto a su pedido, verifique.");
+                }
+            } else {
+                var Item = {
+                    MarcaID: MarcaID,
+                    Cantidad: cantidad,
+                    PrecioUnidad: PrecioUnidad,
+                    CUV: CUV,
+                    ConfiguracionOfertaID: ConfiguracionOfertaID
+                };
+
+                $.ajaxSetup({ cache: false });
+
+                jQuery.ajax({
+                    type: 'POST',
+                    url: baseUrl + 'ShowRoom/InsertOfertaWebPortal',
+                    dataType: 'json',
+                    contentType: 'application/json; charset=utf-8',
+                    data: JSON.stringify(Item),
+                    async: true,
+                    success: function (response) {
+                        closeWaitingDialog();
+
+                        if (response.success == true) {                            
+
+                            if ($.trim(tipoOrigenPantalla)[0] == '1') {
+                                CargarResumenCampaniaHeader(true);
+                            }
+
+                            //AgregarTagManagerProductoAgregadoSW(CUV, nombreProducto, PrecioUnidad, cantidad, descripcionMarca, listatipo);
+                            //TrackingJetloreAdd(cantidad, $("#hdCampaniaCodigo").val(), CUV);
+                        }
+                        else messageInfoError(response.message);
+                    },
+                    error: function (response, error) {
+                        if (checkTimeout(response)) {
+                            closeWaitingDialog();
+                            console.log(response);
+                        }
+                    }
+                });
+            }
+        });
+    }
+}
