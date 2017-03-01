@@ -662,12 +662,12 @@ FuncionesGenerales = {
 function InsertarLogDymnamo(pantallaOpcion, opcionAccion, esMobile, extra) {
     data = {
         'Fecha': '',
-        'Aplicacion': 'PORTALCONSULTORAS',
+        'Aplicacion': userData.aplicacion,
         'Pais': userData.pais,
         'Region': userData.region,
         'Zona': userData.zona,
         'Seccion': userData.seccion,
-        'Rol': 'CO',
+        'Rol': userData.rol,
         'Campania': userData.campana,
         'Usuario': userData.codigoConsultora,
         'PantallaOpcion': pantallaOpcion,
