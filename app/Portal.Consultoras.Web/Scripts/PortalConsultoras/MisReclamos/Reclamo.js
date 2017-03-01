@@ -182,13 +182,7 @@ $(document).ready(function () {
         closeOnEscape: true,
         width: 400,
         draggable: true,
-        buttons:
-        {
-            "Aceptar": function () {
-                $(this).dialog('close');
-               
-            }
-        }
+        buttons: { "Aceptar": function () { $(this).dialog('close'); } }
     });
 });
 
@@ -1153,32 +1147,17 @@ function SolicitudEnviar() {
                 if (data.cdrWeb.CampaniaID.toString().length == 6) {
                     formatoCampania = data.cdrWeb.CampaniaID.toString().substring(0, 4) + "-" + data.cdrWeb.CampaniaID.toString().substring(4);
                 }
-
-            }
-
-            if (data.Cantidad == 1) {
-                $("#spnSolicitudFechaCulminado").html(formatoFechaCulminado);
-                $("#spnSolicitudNumeroSolicitud").html(numeroSolicitud);
-                $("#spnSolicitudCampania").html(formatoCampania);
-                $("#divProcesoReclamo").hide();
-                $("#divUltimasSolicitudes").hide();
-
-                //$("#divAceptarEMail").show();
-                alertEMail_msg(data.message, "MENSAJE");
-
-                $("#TituloReclamo").hide();
-
-                return false;
             }
 
             $("#spnSolicitudFechaCulminado").html(formatoFechaCulminado);
             $("#spnSolicitudNumeroSolicitud").html(numeroSolicitud);
             $("#spnSolicitudCampania").html(formatoCampania);
-
             $("#divProcesoReclamo").hide();
             $("#divUltimasSolicitudes").hide();
-            $("#SolicitudEnviada").show();
             $("#TituloReclamo").hide();
+            $("#SolicitudEnviada").show();
+
+            if (data.Cantidad == 1) alertEMail_msg(data.message, "MENSAJE");
         },
         error: function (data, error) {
             closeWaitingDialog();
