@@ -2512,11 +2512,14 @@ namespace Portal.Consultoras.Web.Controllers
 
         public ActionResult DetalleOferta(int id)
         {
-            var modelo = GetOfertaYDetalle(id);
+            var modelo = GetOfertaConDetalle(id);
+            modelo.ListaOfertaShowRoom = GetOfertaListadoExcepto(id);
+            var listaDetalle = ObtenerPedidoWebDetalle();
+            modelo.ListaOfertaShowRoom.Update(o=>o.Agregado = (listaDetalle.Find(p=> p.CUV == o.CUV) ?? new BEPedidoWebDetalle()).PedidoDetalleID > 0 ? "block" : "none");
             return View("DetalleSet", modelo);
         }
-
-        private ShowRoomOfertaModel GetOfertaYDetalle(int idOferta)
+        
+        private ShowRoomOfertaModel GetOfertaConDetalle(int idOferta)
         {
             var ofertaShowRoomModelo = new ShowRoomOfertaModel();
             try

@@ -1,7 +1,7 @@
 ﻿@model Portal.Consultoras.Web.Models.ShowRoomOfertaModel
 
 @{
-    ViewBag.Title = "DetalleSet";
+    ViewBag.Title = "Detalle Oferta";
 }
 
 @section styles{  
@@ -26,8 +26,8 @@
                     <div class="titulo_set">@Model.Descripcion</div>
                 </div>
                 <div class="content_right_ficha" style="text-align:right">
-                    <div class="precio_valorizado_showroom">@Model.Simbolo @Model.FormatoPrecioCatalogo</div>
-                    <div class="precio_oferta_venta">Precio para ti <b>@Model.Simbolo @Model.FormatoPrecioOferta</b></div>
+                    <div class="precio_valorizado_showroom">@Model.Simbolo @Model.FormatoPrecioOferta</div>
+                    <div class="precio_oferta_venta">Precio para ti <b>@Model.Simbolo @Model.FormatoPrecioCatalogo</b></div>
                     <div class="ganancia_showroom">Gana @Model.Simbolo @Model.FormatoGana</div>
                 </div>
                 <hr class="clear" />
@@ -44,23 +44,6 @@
                         <div class="precio_regular_set">@detalle.Descripcion1</div>
                     </div>
                 }
-                @*<div class="nombre_marca_set">ESIKA</div>
-                <div class="content_detalle_showroom">
-                    <div class="cantidad_set_individual">x2</div>
-                    <div class="nombre_set_individual">Perfume Mithyka 50 ml <span class="detalle_set_showroom">Tono: Azul Kohl </span></div>
-                    <div class="precio_regular_set">Precio regular: S/.150</div>
-                </div>
-                <div class="content_detalle_showroom">
-                    <div class="cantidad_set_individual">x2</div>
-                    <div class="nombre_set_individual">Perfume Mithyka 50 ml <span class="detalle_set_showroom">Tono: Azul Kohl </span></div>
-                    <div class="precio_regular_set">Precio regular: S/.150</div>
-                </div>
-                <div class="nombre_marca_set">LBEL</div>
-                <div class="content_detalle_showroom">
-                    <div class="cantidad_set_individual">x2</div>
-                    <div class="nombre_set_individual">Perfume Mithyka 50 ml</div>
-                    <div class="precio_regular_set">Precio regular: S/.150</div>
-                </div>*@
                 <div class="linea_separadora" style="margin-top:20px; margin-bottom:10px;"></div>
                 <div class="liquidacion_rango_home">
                     <input type="text" value="1" size="2" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" data-input="cantidad" data-cantidad-input="-">
@@ -69,9 +52,7 @@
                         <a class="menos" data-cantidad-agregar="-"><img src="/Content/Images/Esika/menos.png" alt=""></a>
                     </div>
                 </div>
-                <a class="boton_Agregalo_home btn_aregar_set" onclick="">
-                    AGRÉGALO
-                </a>
+                <a class="boton_Agregalo_home btn_aregar_set" data-btn-agregar-sr="">AGRÉGALO</a>
             </div>
             <hr class="clear" />
         </div>
@@ -83,186 +64,49 @@
        <div class="titulo_carrusel_showroom">LAS CONSULTORAS TAMBIÉN VIERON ESTOS SETS</div>
        <!--CARRUSEL-->
        <div class="responsive">
-           <div class="set-productos-showroom-carrusel">
-                <div class="producto_img_home mini" data-img="">
-                    <img src="https://s3-sa-east-1.amazonaws.com/appcatalogo/CO/201704/E/productos/CO_200084602.jpg" style="width: auto; height: 100%;" class="imagen_producto">
-                    <a class="ver_detalle_carrusel">VER DETALLE</a>
-                </div>
-                <div class="producto_nombre_descripcion">
-                    <p class="nombre-producto-set">Leyenda Christian Meier</p>
-                    <div class="producto_precio" style="margin-bottom:3px;">
-                        <span class="precio-oferta-normal">$ 130.000</span>
-                        <span class="precio-oferta-venta"><b>$ 64.900</b></span>
+           @foreach (var oferta in Model.ListaOfertaShowRoom)
+           {
+                <div class="set-productos-showroom-carrusel" data-item="@oferta.OfertaShowRoomID" >
+                    <div class="producto_img_home mini" data-img="">
+                        <img src="@oferta.ImagenProducto" style="width: auto; height: 100%;" class="imagen_producto">
+                        <a class="ver_detalle_carrusel">VER DETALLE</a>
                     </div>
-                    <div class="liquidacion_rango_home" data-cantidad-contenedor="">
-                        <input type="text" value="1" size="2" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" data-input="cantidad" data-cantidad-input="-">
-                        <div class="liquidacion_rango_right_pedido">
-                            <a class="mas" data-cantidad-agregar="+"><img src="/Content/Images/Esika/mas.png" alt=""></a>
-                            <a class="menos" data-cantidad-agregar="-"><img src="/Content/Images/Esika/menos.png" alt=""></a>
+                    <div class="producto_nombre_descripcion">
+                        <p class="nombre-producto-set">@oferta.Descripcion</p>
+                        <div class="producto_precio" style="margin-bottom:3px;">
+                            <span class="precio-oferta-normal">@oferta.Simbolo @oferta.FormatoPrecioOferta</span>
+                            <span class="precio-oferta-venta"><b>@oferta.Simbolo @oferta.FormatoPrecioCatalogo</b></span>
+                        </div>
+                        <div class="liquidacion_rango_home" data-cantidad-contenedor="">
+                            <input type="text" value="1" size="2" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" data-input="cantidad" data-cantidad-input="-">
+                            <div class="liquidacion_rango_right_pedido">
+                                <a class="mas" data-cantidad-agregar="+"><img src="/Content/Images/Esika/mas.png" alt=""></a>
+                                <a class="menos" data-cantidad-agregar="-"><img src="/Content/Images/Esika/menos.png" alt=""></a>
+                            </div>
+                        </div>
+                        <a class="boton_Agregalo_home" data-btn-agregar-sr="">AGRÉGALO</a>
+                        <div class="clear"></div>
+                        <div style="padding-top:9px; height: 15px;">
+                            <div class="agregado product-add" style="text-align: right;display:@Model.Agregado;">
+                                AGREGADO
+                                <div class="icono"></div>
+                            </div>
                         </div>
                     </div>
-                    <a class="boton_Agregalo_home" data-btn-agregar-catalogopersonalizado="">
-                        AGRÉGALO
-                    </a>
-                    <div class="clear"></div>
-                    <div style="padding-top:9px; height: 15px;">
-                        <div class="agregado product-add" style="text-align: right; display:none;">
-                            AGREGADO
-                            <div class="icono"></div>
-                        </div>
-                    </div>
                 </div>
-        </div>    
-           <div class="set-productos-showroom-carrusel">
-               <div class="producto_img_home mini" data-img="">
-                   <img src="https://s3-sa-east-1.amazonaws.com/appcatalogo/CO/201704/E/productos/CO_200084602.jpg" style="width: auto; height: 100%;" class="imagen_producto">
-                   <a class="ver_detalle_carrusel">VER DETALLE</a>
-               </div>
-               <div class="producto_nombre_descripcion">
-                   <p class="nombre-producto-set">Leyenda Christian Meier</p>
-                   <div class="producto_precio" style="margin-bottom:3px;">
-                       <span class="precio-oferta-normal">$ 130.000</span>
-                       <span class="precio-oferta-venta"><b>$ 64.900</b></span>
-                   </div>
-                   <div class="liquidacion_rango_home" data-cantidad-contenedor="">
-                       <input type="text" value="1" size="2" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" data-input="cantidad" data-cantidad-input="-">
-                       <div class="liquidacion_rango_right_pedido">
-                           <a class="mas" data-cantidad-agregar="+"><img src="/Content/Images/Esika/mas.png" alt=""></a>
-                           <a class="menos" data-cantidad-agregar="-"><img src="/Content/Images/Esika/menos.png" alt=""></a>
-                       </div>
-                   </div>
-                   <a class="boton_Agregalo_home" data-btn-agregar-catalogopersonalizado="">
-                       AGRÉGALO
-                   </a>
-                   <div class="clear"></div>
-                   <div style="padding-top:9px; height: 15px;">
-                       <div class="agregado product-add" style="text-align: right; display:none;">
-                           AGREGADO
-                           <div class="icono"></div>
-                       </div>
-                   </div>
-               </div>
-           </div>    
-           <div class="set-productos-showroom-carrusel">
-               <div class="producto_img_home mini" data-img="">
-                   <img src="https://s3-sa-east-1.amazonaws.com/appcatalogo/CO/201704/E/productos/CO_200084602.jpg" style="width: auto; height: 100%;" class="imagen_producto">
-                   <a class="ver_detalle_carrusel">VER DETALLE</a>
-               </div>
-               <div class="producto_nombre_descripcion">
-                   <p class="nombre-producto-set">Leyenda Christian Meier</p>
-                   <div class="producto_precio" style="margin-bottom:3px;">
-                       <span class="precio-oferta-normal">$ 130.000</span>
-                       <span class="precio-oferta-venta"><b>$ 64.900</b></span>
-                   </div>
-                   <div class="liquidacion_rango_home" data-cantidad-contenedor="">
-                       <input type="text" value="1" size="2" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" data-input="cantidad" data-cantidad-input="-">
-                       <div class="liquidacion_rango_right_pedido">
-                           <a class="mas" data-cantidad-agregar="+"><img src="/Content/Images/Esika/mas.png" alt=""></a>
-                           <a class="menos" data-cantidad-agregar="-"><img src="/Content/Images/Esika/menos.png" alt=""></a>
-                       </div>
-                   </div>
-                   <a class="boton_Agregalo_home" data-btn-agregar-catalogopersonalizado="">
-                       AGRÉGALO
-                   </a>
-                   <div class="clear"></div>
-                   <div style="padding-top:9px; height: 15px;">
-                       <div class="agregado product-add" style="text-align: right; display:none;">
-                           AGREGADO
-                           <div class="icono"></div>
-                       </div>
-                   </div>
-               </div>
-           </div>    
-           <div class="set-productos-showroom-carrusel">
-               <div class="producto_img_home mini" data-img="">
-                   <img src="https://s3-sa-east-1.amazonaws.com/appcatalogo/CO/201704/E/productos/CO_200084602.jpg" style="width: auto; height: 100%;" class="imagen_producto">
-                   <a class="ver_detalle_carrusel">VER DETALLE</a>
-               </div>
-               <div class="producto_nombre_descripcion">
-                   <p class="nombre-producto-set">Leyenda Christian Meier</p>
-                   <div class="producto_precio" style="margin-bottom:3px;">
-                       <span class="precio-oferta-normal">$ 130.000</span>
-                       <span class="precio-oferta-venta"><b>$ 64.900</b></span>
-                   </div>
-                   <div class="liquidacion_rango_home" data-cantidad-contenedor="">
-                       <input type="text" value="1" size="2" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" data-input="cantidad" data-cantidad-input="-">
-                       <div class="liquidacion_rango_right_pedido">
-                           <a class="mas" data-cantidad-agregar="+"><img src="/Content/Images/Esika/mas.png" alt=""></a>
-                           <a class="menos" data-cantidad-agregar="-"><img src="/Content/Images/Esika/menos.png" alt=""></a>
-                       </div>
-                   </div>
-                   <a class="boton_Agregalo_home" data-btn-agregar-catalogopersonalizado="">
-                       AGRÉGALO
-                   </a>
-                   <div class="clear"></div>
-                   <div style="padding-top:9px; height: 15px;">
-                       <div class="agregado product-add" style="text-align: right; display:none;">
-                           AGREGADO
-                           <div class="icono"></div>
-                       </div>
-                   </div>
-               </div>
-           </div>    
-           <div class="set-productos-showroom-carrusel">
-               <div class="producto_img_home mini" data-img="">
-                   <img src="https://s3-sa-east-1.amazonaws.com/appcatalogo/CO/201704/E/productos/CO_200084602.jpg" style="width: auto; height: 100%;" class="imagen_producto">
-                   <a class="ver_detalle_carrusel">VER DETALLE</a>
-               </div>
-               <div class="producto_nombre_descripcion">
-                   <p class="nombre-producto-set">Leyenda Christian Meier</p>
-                   <div class="producto_precio" style="margin-bottom:3px;">
-                       <span class="precio-oferta-normal">$ 130.000</span>
-                       <span class="precio-oferta-venta"><b>$ 64.900</b></span>
-                   </div>
-                   <div class="liquidacion_rango_home" data-cantidad-contenedor="">
-                       <input type="text" value="1" size="2" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" data-input="cantidad" data-cantidad-input="-">
-                       <div class="liquidacion_rango_right_pedido">
-                           <a class="mas" data-cantidad-agregar="+"><img src="/Content/Images/Esika/mas.png" alt=""></a>
-                           <a class="menos" data-cantidad-agregar="-"><img src="/Content/Images/Esika/menos.png" alt=""></a>
-                       </div>
-                   </div>
-                   <a class="boton_Agregalo_home" data-btn-agregar-catalogopersonalizado="">
-                       AGRÉGALO
-                   </a>
-                   <div class="clear"></div>
-                   <div style="padding-top:9px; height: 15px;">
-                       <div class="agregado product-add" style="text-align: right; display:none;">
-                           AGREGADO
-                           <div class="icono"></div>
-                       </div>
-                   </div>
-               </div>
-           </div>       </div>
+           }     
+       </div>
    </div>
 </div>
 <div class="content_belcorp">
     <div class="content_tip_negocio">
         <div class="tip_negocio_showroom">
-            <span class="titulo_tip">tip de negocio</span>
-            Cuando vendas un perfume, aprovecha para complementarlo con productos de maquillaje y lograr un look completo.
-            Usa demostradores para facilitar tus ventas y cerrarlas al instante. 
-
+            <span class="titulo_tip">tip de negocio</span>@Model.TipNegocio
         </div>
     </div>
 </div>
 
 @section scripts{
-
-   <script type="text/javascript" src="@Url.Content("~/Scripts/slick.min.js")"></script>
-   <script type="text/javascript">
-       $(document).ready(function () {
-           $('.responsive').slick({
-               dots: true,
-               infinite: true,
-               speed: 300,
-               slidesToShow: 4,
-               slidesToScroll: 4,               
-                 // You can unslick at a given breakpoint now by adding:
-                 // settings: "unslick"
-                 // instead of a settings object
-               
-           });
-
-       });
-    </script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/slick.min.js")"></script>
+   <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/ShowRoom/ShowRoom.js")"></script>
 }

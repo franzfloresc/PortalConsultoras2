@@ -2890,6 +2890,7 @@
     <Content Include="Scripts\PortalConsultoras\Pedido\ofertafinal.js" />
     <Content Include="Scripts\PortalConsultoras\Shared\LoginLayout.js" />
     <Content Include="Scripts\PortalConsultoras\Shared\TrackingJetlore.js" />
+    <Content Include="Scripts\PortalConsultoras\ShowRoom\ShowRoom.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\slick.js" />
     <Content Include="Scripts\slick.min.js" />
