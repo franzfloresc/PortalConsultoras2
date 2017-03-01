@@ -737,7 +737,7 @@ function MensajeEstadoPedido() {
         $("#bloquemensajesPedido").find(".mensaje_estadoActualPedido").html("TU PEDIDO HA SIDO RECHAZADO");
     }
     else if (estaRechazado == 1) {
-        $("#bloquemensajesPedido").find(".mensaje_estadoActualPedido").html("NOS ENCONTRAMOS FACTURANDO TU PEDIDO C" + $.trim($("#hdCampaniaCodigo").val()).substring(4, 6));
+        $("#bloquemensajesPedido").find(".mensaje_estadoActualPedido").html("ESTAMOS FACTURANDO TU PEDIDO C" + $.trim($("#hdCampaniaCodigo").val()).substring(4, 6));
     }
     else {
         return false;

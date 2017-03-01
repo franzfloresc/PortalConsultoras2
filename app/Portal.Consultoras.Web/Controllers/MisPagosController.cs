@@ -19,7 +19,7 @@ namespace Portal.Consultoras.Web.Controllers
     {
         #region Acciones
 
-        public ActionResult Index()
+        public ActionResult Index(string pestanhaInicial)
         {
             Session["ListadoEstadoCuenta"] = null;
 
@@ -44,6 +44,14 @@ namespace Portal.Consultoras.Web.Controllers
             model.CorreoConsultora = userData.EMail;
             model.FechaVencimiento = fechaVencimiento;
             model.MontoPagar = montoPagar;
+            model.PestanhaInicial = pestanhaInicial ?? "";
+
+            List<string> pestanhaMisPagosAll = new List<string> {
+                Constantes.PestanhasMisPagos.EstadoCuenta,
+                Constantes.PestanhasMisPagos.LugaresPago,
+                Constantes.PestanhasMisPagos.MisPercepciones
+            };
+            if (!pestanhaMisPagosAll.Contains(model.PestanhaInicial)) model.PestanhaInicial = Constantes.PestanhasMisPagos.EstadoCuenta;
 
             return View(model);
         }
