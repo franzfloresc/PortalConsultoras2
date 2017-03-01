@@ -2542,8 +2542,12 @@ namespace Portal.Consultoras.Web.Controllers
                     });
                 }
             }            
-
-            listaShowRoomOfertaModel.Update(x => x.DescripcionMarca = GetDescripcionMarca(x.MarcaID));            
+            
+            listaShowRoomOfertaModel.Update(x => {
+                x.DescripcionMarca = GetDescripcionMarca(x.MarcaID);
+                x.CodigoISO = userData.CodigoISO;
+                x.Simbolo = userData.Simbolo;
+            });
 
             Session[Constantes.ConstSession.ListaProductoShowRoom] = listaShowRoomOfertaModel;
             return listaShowRoomOfertaModel;
