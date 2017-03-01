@@ -4365,7 +4365,7 @@ width:100%;
 }
 .producto_nombre_descripcion .nombre_producto, .producto_nombre_descripcion .producto_gramos_onzas {
      padding: 0;
-    font-size: 80%;
+    font-size: 13px;
     font-family:'Lato';
     color:black;
     margin: 0 auto;
@@ -4407,7 +4407,7 @@ width:100%;
     margin: 0;
     padding: 0;
     text-align: left;
-    font-size: 16px;
+    font-size: 14px;
     width: 50%;
     padding-left: 5px;
 }
@@ -4510,9 +4510,9 @@ width:100%;
 }
 @media only screen and (max-width: 338px) {
     
-    header{
+    /*header{
         zoom: 93%;
-    }   
+    }*/   
     #content{
     margin-top:63px;
     }
@@ -9110,7 +9110,7 @@ span.icon-advertencia{
     font-weight: 700;
   
     height: 45px;
-    border: 1px solid black;
+    border: 1px solid #ccc;
     float:left;
     width:38%;
     /* line-height: 32px; */
@@ -10282,4 +10282,8 @@ span.icon-advertencia{
     display:inline-block;
     padding-top:1px;
     padding-bottom:1px;
+}
+.landing_showroom{
+    border:0;
+    box-shadow: none;
 }
