@@ -1034,7 +1034,6 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     SiNoEmail = us.UpdateUsuarioEmailTelefono(userData.PaisID, userData.ConsultoraID, model.Email, model.Telefono);
                 }
-
                 userData.EMail = model.Email;
                 userData.Celular = model.Telefono;
                 SetUserData(userData);
@@ -1067,8 +1066,7 @@ namespace Portal.Consultoras.Web.Controllers
                     Cantidad = 0,
                     success = resultadoUpdate > 0,
                     message = resultadoUpdate > 0 ? "" : "Error, vuelva a intentarlo",
-                    cdrWeb = cDRWebMailConfirmacion ?? new BECDRWeb()                    
-                }, JsonRequestBehavior.AllowGet);
+                    cdrWeb = cDRWebMailConfirmacion
             }
             catch (Exception ex)
             {
@@ -1646,11 +1644,13 @@ namespace Portal.Consultoras.Web.Controllers
         private string MensajePeriodoInvalidoCDR()
         {
             int diasFaltantes = GetDiasFaltantesFacturacion(userData.FechaInicioCampania, userData.ZonaHoraria);
-            if (diasFaltantes == 0) return Constantes.CdrWebMensajes.FueraDeFecha;
+            if (diasFaltantes == 0) return Constantes.CdrWebMensajes.FueraDeFecha;
+
             int cDRDiasAntesFacturacion = 0;
             BECDRWebDatos cDRWebDatos = ObtenerCdrWebDatosByCodigo(Constantes.CdrWebDatos.DiasAntesFacturacion);
             if (cDRWebDatos != null) Int32.TryParse(cDRWebDatos.Valor, out cDRDiasAntesFacturacion);
-            if (diasFaltantes <= cDRDiasAntesFacturacion) return Constantes.CdrWebMensajes.FueraDeFecha;
+            if (diasFaltantes <= cDRDiasAntesFacturacion) return Constantes.CdrWebMensajes.FueraDeFecha;
+
             return string.Empty;
         }
     }
