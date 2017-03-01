@@ -34341,3 +34341,14 @@ h1#penmostreo .campana {
 	border-width: 9px;
 	margin-top: -9px;
 }
+
+.descri_list {
+    font-size: 12px;
+    font-weight: 700;
+    width: 26%;
+}
+
+.cantidad_listado_pdd {
+    padding-top: 30px;
+    padding-bottom: 30px;
+}
