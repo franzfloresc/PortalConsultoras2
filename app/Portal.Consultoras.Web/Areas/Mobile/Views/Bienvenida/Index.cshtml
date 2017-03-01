@@ -646,94 +646,68 @@
     </div>
 </div>
 <!-- FIN POPUP VIDEO INTRODUCTORIO -->
-<!--POP UP COMPARTIR FACEBOOK Y WS EN OFERTAS PARA TI-->
-<div class="PopMobile1"  id="PopFichaOPT">
-        @*<div class="content_popMobile" style="padding-bottom:0;">
-            <a class="cerrar_popMobile" onclick="CerrarFichaOPT()">
-                <img src="/Content/Images/mobile/Esika/cerrar_04.png" alt="-">
-            </a>
-        <hr class="clear" />
-        <div class="content_imagen_ficha"><img id="imgFichaProOPT"src="https://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Matriz/PE/PE_200080472_201612367_01_pwifsvbxar.png" alt="PRODUCTO" /></div>
-        <div class="marca_ficha_producto"></div>
-        <div class="titulo_ficha_producto">Perfect Match volumen</div>
 
-        <div class="precio_ficha_producto">S/.35.00</div>
-        <div class="content_redes_ficha">
-            <a class="btn_compartir_ofertas" href="#"><img src="@Url.Content("~/Content/Images/Mobile/Esika/iconowscolor.png")" alt=""></a>
-            <a class="btn_compartir_ofertas" href="#"><img src="@Url.Content("~/Content/Images/Mobile/Esika/catalogo_facebook_color.png")" alt=""></a>
-        </div>
-        <hr class="clear" />
-        <div style="margin-left:-20px; margin-right:-20px;">
-            <div class="content_btn_agregar content_OPT">
-                <div class="content_320" style="max-width:292px; width:auto;">
-                    <div class="content_cantidad_ficha_producto">
-                        <a class="cantidad_menos_home"><img src="/Content/Images/Mobile/Esika/menos.png" alt=""></a>
-                        <input type="tel" value="1" size="2" maxlength="2" id="txtCantidad" class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);">
-                        <a class="cantidad_mas_home"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
-                    </div>
-                    <a class="btn_agregar_ficha_producto" href="#">AGRÉGALO</a>
-                    <hr class="clear" />
-                </div>
-            </div>
-        </div>
-    </div>*@   
-</div>
-
-<!--FIN-->
     <script id="estrategia-template" type="text/x-handlebars-template">
-        {{#each this}}
-        <div data-item="{{EstrategiaID}}" data-tipoestrategiaimagenmostrar="{{#if_eq FlagMostrarImg '1'}}{{TipoEstrategiaImagenMostrar}}{{/if_eq}}">
+        {{#each this as |item|}}
+        <div data-item="{{EstrategiaID}}" data-tipoestrategiaimagenmostrar="{{#if_eq FlagMostrarImg '1'}}{{TipoEstrategiaImagenMostrar}}{{/if_eq}}" 
+             {{#iff TipoEstrategiaImagenMostrar 'ContainsArray' '[5,3,2]' }} data-estrategia="{{JSON2string item}}" {{/iff}}>
             <input type="hidden" class="PosicionEstrategia" value="{{Posicion}}" />
             <div class="content_item_home">
-                <div class="producto_img_mobile" onclick="mostrarFichaProductoOPT('{{CUV2}}',{{Posicion}})">
-                    <img src="{{FotoProducto01}}" />
+                <div {{#iff TipoEstrategiaImagenMostrar 'ContainsArray' '[5,3,2]' }} style="cursor:pointer;" onclick="javascript:CargarEstrategiasEspeciales('', event);" {{/iff}}>
+                    <div class="producto_img_mobile" >
+                        <img src="{{FotoProducto01}}" />
+                    </div>
+                    {{#if_eq FlagMostrarImg '1'}}
+                    {{#if_eq TipoEstrategiaImagenMostrar '@Portal.Consultoras.Common.Constantes.TipoEstrategia.PackNuevas'}}
+                    <div class="etiqueta_producto">
+                        <img src="{{ImagenURL}}" alt="Etiqueta Producto" />
+                    </div>
+                    {{else if_eq TipoEstrategiaImagenMostrar '@Portal.Consultoras.Common.Constantes.TipoEstrategia.Lanzamiento'}}
+                    <div class="etiqueta_producto">
+                        <img src="{{ImagenURL}}" alt="Etiqueta Producto" />
+                    </div>
+                    {{else if_eq TipoEstrategiaImagenMostrar '@Portal.Consultoras.Common.Constantes.TipoEstrategia.OfertaParaTi'}}
+                    {{#if_eq FlagEstrella '1' }}
+                    <div class="etiqueta_producto">
+                        <img src="@Url.Content("~/Content/Images/oferta-ultimo-minuto.png")" alt="Etiqueta Producto" />
+                    </div>
+                    {{/if_eq}}
+                    {{/if_eq}}
+                    {{/if_eq}}
                 </div>
-                {{#if_eq FlagMostrarImg '1'}}
-                {{#if_eq TipoEstrategiaImagenMostrar '@Portal.Consultoras.Common.Constantes.TipoEstrategia.PackNuevas'}}
-                <div class="etiqueta_producto">
-                    <img src="{{ImagenURL}}" alt="Etiqueta Producto" />
-                </div>
-                {{else if_eq TipoEstrategiaImagenMostrar '@Portal.Consultoras.Common.Constantes.TipoEstrategia.Lanzamiento'}}
-                <div class="etiqueta_producto">
-                    <img src="{{ImagenURL}}" alt="Etiqueta Producto" />
-                </div>
-                {{else if_eq TipoEstrategiaImagenMostrar '@Portal.Consultoras.Common.Constantes.TipoEstrategia.OfertaParaTi'}}
-                {{#if_eq FlagEstrella '1' }}
-                <div class="etiqueta_producto">
-                    <img src="@Url.Content("~/Content/Images/oferta-ultimo-minuto.png")" alt="Etiqueta Producto" />
-                </div>
-                {{/if_eq}}
-                {{/if_eq}}
-                {{/if_eq}}
                 <div class="producto_nombre_descripcion">
-                    <h6>{{DescripcionMarca}}</h6>
-                    {{#if_eq FlagNueva '1'}}
-                    <p class="nombre_producto" style="text-decoration:underline; cursor:pointer;">
-                        {{DescripcionCUVSplit}}
-                    </p>
-                    {{else}}
-                    <p class="nombre_producto" style="text-decoration:underline; cursor:pointer;" onclick="mostrarFichaProductoOPT('{{CUV2}}',{{Posicion}})">
-                        {{DescripcionCUV2}}
-                    </p>
-                    {{/if_eq}}
+                    <div {{#iff TipoEstrategiaImagenMostrar 'ContainsArray' '[5,3,2]' }} style="cursor:pointer;" onclick="javascript:CargarEstrategiasEspeciales('', event);" {{/iff}}>
+                        <h6>{{DescripcionMarca}}</h6>
+                        {{#if_eq FlagNueva '1'}}
+                        <p class="nombre_producto" style="text-decoration:underline; cursor:pointer;">
+                            {{DescripcionCUVSplit}}
+                        </p>
+                        {{else}}
+                        <p class="nombre_producto" style="text-decoration:underline; cursor:pointer;" >
+                            {{DescripcionCUV2}}
+                        </p>
+                        {{/if_eq}}
 
-                    {{#iff TipoEstrategiaImagenMostrar 'ContainsArray' '[3,5]'}}
-                    {{#if_eq EtiquetaID '1'}}
-                    <div class="producto_precio">
-                        <span class="producto_precio_normal" style="text-decoration: line-through; font-size: 12px;">{{Simbolo}} {{PrecioTachado}}</span>
-                        <span class="producto_precio_oferta"><b>{{Simbolo}} {{PrecioString}}</b></span>
-                    </div>
-                    {{else}}
-                    <div class="producto_precio">
-                        <span class="producto_precio_oferta"><b>{{Simbolo}} {{PrecioString}}</b></span>
-                    </div>
-                    {{/if_eq}}
+                        {{#iff TipoEstrategiaImagenMostrar 'ContainsArray' '[3,5]'}}
+                        {{#if_eq EtiquetaID '1'}}
+                        <div class="producto_precio">
+                            {{#iff Precio '>' 0}}
+                            <span class="producto_precio_normal" style="text-decoration: line-through; font-size: 12px;">{{Simbolo}} {{PrecioTachado}}</span>
+                            {{/iff}}
+                            <span class="producto_precio_oferta"><b>{{Simbolo}} {{PrecioString}}</b></span>
+                        </div>
+                        {{else}}
+                        <div class="producto_precio">
+                            <span class="producto_precio_oferta"><b>{{Simbolo}} {{PrecioString}}</b></span>
+                        </div>
+                        {{/if_eq}}
 
-                    {{else}}
-                    <div class="producto_precio">
-                        <span class="producto_precio_oferta"><b>{{Simbolo}} {{PrecioString}}</b></span>
+                        {{else}}
+                        <div class="producto_precio">
+                            <span class="producto_precio_oferta"><b>{{Simbolo}} {{PrecioString}}</b></span>
+                        </div>
+                        {{/iff}}
                     </div>
-                    {{/iff}}
 
                     <div class="liquidacion_rango_home">
                         {{#if_eq FlagMostrarImg '1'}}
@@ -754,6 +728,7 @@
                     <a class="boton_Agregalo_home" onclick="javascript:CargarProductoDestacado({ EstrategiaID: '{{EstrategiaID}}' , TipoEstrategiaID: '{{TipoEstrategiaID}}' , Posicion: {{Posicion}} , FlagNueva: '{{FlagNueva}}' }, this); ">
                         AGR&Eacute;GALO
                     </a>
+                    <div class="clear"></div>
                     <div style="padding-top:9px; height: 15px;">
                         <div class="agregado product-add" style="text-align:right;display:{{#if IsAgregado }}block;{{else}}none;{{/if}}">
                             AGREGADO
@@ -829,160 +804,94 @@
     </div>
 </div>
 
-<script id="PopFichaOPT-template" type="text/x-handlebars-template">
-    <div class="content_popMobile" style="padding-bottom:0; max-width:450px;">
-        
-        <a class="btn_cerrar_escala"  onclick="CerrarFichaOPT()" style="float:left;">REGRESAR</a>
+<div class="PopMobile1" id="popupDetalleCarousel_lanzamiento" data-popup-main=""></div>
+<script id="lanzamiento-template" type="text/x-handlebars-template">
+    <div data-item="" data-tipoestrategiaimagenmostrar="{{TipoEstrategiaImagenMostrar}}" class="content_popMobile" data-popup-body="" style="padding-bottom:0; max-width:450px;">        
+        <a class="btn_cerrar_escala" data-popup-close="popupDetalleCarousel_lanzamiento" title="Cerrar" style="float:left;">REGRESAR</a>
         <hr class="clear" />
-        <div class="content_imagen_ficha"><img id="imgFichaProOPT" src="https://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Matriz/PE/PE_200080472_201612367_01_pwifsvbxar.png" alt="PRODUCTO" /></div>
-       
-        <div class="titulo_ficha_producto" style="text-align:left; font-size:19px; line-height:22px; margin-bottom:10px;">--</div>
-        <div class="precio_tachado_048">$ 4.990</div>
-        <div class="precio_para_ti_048">Precio para ti <b>$ 3.490</b></div>
-        <div class="gana_048">Gana $ 1.500</div>
-
-        @*<div class="precio_ficha_producto">--</div>*@
-        <div class="content_detalle_producto">
-            <div class="marca_ficha_producto" style="text-align:left;">--</div>
-            <div class="nombre_producto_individual">Delineador Kohl 4g/.14 o.z</div>
-            <div class="precio_regular_individual">Precio regular: S/.150</div>
-            <div id="bloque_tonos_opt">
-                <div class="nombre_tono">Azul Kohl <div class="indicador_tono"><p>+ TONOS</p></div></div>
-                <div class="content_tonos_principal">
-                    <div class="content_tono_detalle_opt borde_seleccion_tono">
-                        <img src="https://s3-sa-east-1.amazonaws.com/appcatalogo/PE/201704/E/productos/bulk/PE_200088049_B.jpg " alt="PRODUCTO">
-                    </div>
-                    <div class="content_tono_detalle_opt">
-                        <img src="https://s3-sa-east-1.amazonaws.com/appcatalogo/PE/201704/E/productos/bulk/PE_200088049_B.jpg " alt="PRODUCTO">
-                    </div>
-                    <div class="content_tono_detalle_opt">
-                        <img src="https://s3-sa-east-1.amazonaws.com/appcatalogo/PE/201704/E/productos/bulk/PE_200088049_B.jpg " alt="PRODUCTO">
-                    </div>
-                    <div class="content_tono_detalle_opt">
-                        <img src="https://s3-sa-east-1.amazonaws.com/appcatalogo/PE/201704/E/productos/bulk/PE_200088049_B.jpg " alt="PRODUCTO">
-                    </div>
-                    <div class="content_tono_detalle_opt">
-                        <img src="https://s3-sa-east-1.amazonaws.com/appcatalogo/PE/201704/E/productos/bulk/PE_200088049_B.jpg " alt="PRODUCTO">
-                    </div>
-                    <div class="content_tono_detalle_opt">
-                        <img src="https://s3-sa-east-1.amazonaws.com/appcatalogo/PE/201704/E/productos/bulk/PE_200088049_B.jpg " alt="PRODUCTO">
-                    </div>
-                </div>
-                <hr class="clear" />
-                <div class="content_tonos_secundarios">
-                    <div class="content_tono_detalle_opt">
-                        <img src="https://s3-sa-east-1.amazonaws.com/appcatalogo/PE/201704/E/productos/bulk/PE_200088049_B.jpg " alt="PRODUCTO">
-                    </div>
-                    <div class="content_tono_detalle_opt">
-                        <img src="https://s3-sa-east-1.amazonaws.com/appcatalogo/PE/201704/E/productos/bulk/PE_200088049_B.jpg " alt="PRODUCTO">
-                    </div>
-                    <div class="content_tono_detalle_opt">
-                        <img src="https://s3-sa-east-1.amazonaws.com/appcatalogo/PE/201704/E/productos/bulk/PE_200088049_B.jpg " alt="PRODUCTO">
-                    </div>
-                    <div class="content_tono_detalle_opt">
-                        <img src="https://s3-sa-east-1.amazonaws.com/appcatalogo/PE/201704/E/productos/bulk/PE_200088049_B.jpg " alt="PRODUCTO">
-                    </div>
-                    <div class="content_tono_detalle_opt">
-                        <img src="https://s3-sa-east-1.amazonaws.com/appcatalogo/PE/201704/E/productos/bulk/PE_200088049_B.jpg " alt="PRODUCTO">
-                    </div>
-                    <div class="content_tono_detalle_opt">
-                        <img src="https://s3-sa-east-1.amazonaws.com/appcatalogo/PE/201704/E/productos/bulk/PE_200088049_B.jpg " alt="PRODUCTO">
-                    </div>
-                </div>
-                <select class="tono_labial_select" style="width:100%;">
-                    <option value="12189">Rojo tropical</option>
-                    <option value="04155">Fucsia cautivante</option>
-                </select>
+        <div data-cuv="">
+            <input type="hidden" class="OrigenPedidoWeb" value="@Constantes.OrigenPedidoWeb.MobileHomeOfertasParaTi" />
+            {{#if_eq FlagMostrarImg '1'}}
+            {{#if_eq TipoEstrategiaImagenMostrar '@Constantes.TipoEstrategia.Lanzamiento'}}
+            <div class="etiqueta_producto">
+                <img src="{{ImagenURL}}" alt="Etiqueta Producto" />
             </div>
-        </div>
-        <div class="content_detalle_producto">
-            <div class="marca_ficha_producto" style="text-align:left;">--</div>
-            <div class="nombre_producto_individual">Delineador Kohl 4g/.14 o.z</div>
-            <div class="precio_regular_individual">Precio regular: S/.150</div>
-            <div id="bloque_tonos_opt">
-                <div class="nombre_tono">Azul Kohl <div class="indicador_tono"><p>+ TONOS</p></div></div>
-                <div class="content_tonos_principal">
-                    <div class="content_tono_detalle_opt borde_seleccion_tono">
-                        <img src="https://s3-sa-east-1.amazonaws.com/appcatalogo/PE/201704/E/productos/bulk/PE_200088049_B.jpg " alt="PRODUCTO">
+            {{/if_eq}}
+            {{/if_eq}}
+            <div class="content_imagen_ficha"><img src="{{FotoProducto01}}" alt="PRODUCTO" /></div>
+
+            <div class="titulo_ficha_producto" style="text-align:left; font-size:19px; line-height:22px; margin-bottom:10px;" data-prod-descripcion>{{DescripcionCompleta}}</div>
+            {{#iff Precio '>' 0}}
+            <div class="precio_tachado_048">{{Simbolo}} {{PrecioTachado}}</div>
+            {{/iff}}
+            <div class="precio_para_ti_048">Precio para ti <b>{{Simbolo}} {{PrecioString}}</b></div>
+            @*<div class="gana_048">Gana $ 1.500</div>*@
+
+            <div data-estrategia="{{CodigoEstrategia}}">
+                {{#iff CodigoEstrategia '!=' ''}}
+                {{#iff CodigoEstrategia '==' '2001'}}
+                <div class="content_detalle_producto" data-tono="" data-tono-select="{{CUVSelect}}">
+                    <div class="nombre_tono"><span data-tono-select-html="">Azul Kohl</span><div class="indicador_tono"><p> + TONOS</p></div></div>
+                    <div class="content_tonos_principal" data-tono-div=""> 
+                        {{#each this.Detalle as |item1|}}
+                        <div style="display: none;">
+                            <input type="hidden" name="nameMarcaID" id="Estrategia_hd_MarcaID" value="{{item1.MarcaID}}" />
+                            <input type="hidden" name="namePrecioCatalogo" id="Estrategia_hd_PrecioCatalogo" value="{{item1.PrecioCatalogo}}" />
+                        </div>
+                        <div id="fav_tono_{{item1.CUV}}" class="content_tono_detalle_opt {{#iff item1.CUVSelect '!=' ''}}borde_seleccion_tono{{/iff}}" data-tono-cuv="{{item1.CUV}}" data-tono-change="">
+                            <img src="{{item1.ImagenBulk}}" data-tono-nombre="{{item1.NombreBulk}}" data-tono-descripcionComercial="{{item1.DescripcionComercial}}" alt="">
+                            @*<div class="tooltip_tono">{{item1.NombreBulk}}</div>*@
+                        </div>
+                        {{/each}}
                     </div>
-                    <div class="content_tono_detalle_opt">
-                        <img src="https://s3-sa-east-1.amazonaws.com/appcatalogo/PE/201704/E/productos/bulk/PE_200088049_B.jpg " alt="PRODUCTO">
-                    </div>
-                    <div class="content_tono_detalle_opt">
-                        <img src="https://s3-sa-east-1.amazonaws.com/appcatalogo/PE/201704/E/productos/bulk/PE_200088049_B.jpg " alt="PRODUCTO">
-                    </div>
-                    <div class="content_tono_detalle_opt">
-                        <img src="https://s3-sa-east-1.amazonaws.com/appcatalogo/PE/201704/E/productos/bulk/PE_200088049_B.jpg " alt="PRODUCTO">
-                    </div>
-                    <div class="content_tono_detalle_opt">
-                        <img src="https://s3-sa-east-1.amazonaws.com/appcatalogo/PE/201704/E/productos/bulk/PE_200088049_B.jpg " alt="PRODUCTO">
-                    </div>
-                    <div class="content_tono_detalle_opt">
-                        <img src="https://s3-sa-east-1.amazonaws.com/appcatalogo/PE/201704/E/productos/bulk/PE_200088049_B.jpg " alt="PRODUCTO">
-                    </div>
+                    <select class="tono_labial_select" data-tono-change="" style="width:100%;">
+                        {{#each this.Detalle as |item2|}}
+                        <option value="{{item2.CUV}}" data-tono-nombre="{{item2.NombreBulk}}" data-tono-cuv="{{item2.CUV}}" data-tono-descripcionComercial="{{item2.DescripcionComercial}}">{{item2.NombreBulk}}</option>
+                        {{/each}}
+                    </select>
                 </div>
-                <hr class="clear" />
-                <div class="content_tonos_secundarios">
-                    <div class="content_tono_detalle_opt borde_seleccion_tono">
-                        <img src="https://s3-sa-east-1.amazonaws.com/appcatalogo/PE/201704/E/productos/bulk/PE_200088049_B.jpg " alt="PRODUCTO">
+                {{/iff}}
+                {{#iff CodigoEstrategia 'ContainsArray' '[2002,2003]'}}
+                {{#each this.Detalle as |item1|}}
+                <div class="content_detalle_producto" data-tono="" data-tono-select="{{item1.CUVSelect}}">
+                    <div style="display: none;">
+                        <input type="hidden" name="nameMarcaID" id="Estrategia_hd_MarcaID" value="{{item1.MarcaID}}" />
+                        <input type="hidden" name="namePrecioCatalogo" id="Estrategia_hd_PrecioCatalogo" value="{{item1.PrecioCatalogo}}" />
                     </div>
-                    <div class="content_tono_detalle_opt">
-                        <img src="https://s3-sa-east-1.amazonaws.com/appcatalogo/PE/201704/E/productos/bulk/PE_200088049_B.jpg " alt="PRODUCTO">
+
+                    <div data-tono-visible="" style="width:100%; margin-right:0">
+                        <div class="marca_ficha_producto" style="text-align:left;">{{item1.DescripcionMarca}}</div>
+                        <div class="nombre_producto_individual" data-tono-nombre="">{{item1.DescripcionComercial}}</div>
+                        @*<div class="precio_regular_individual">Precio regular: {{Simbolo}} {{item1.PrecioCatalogoString}}</div>*@
                     </div>
-                    <div class="content_tono_detalle_opt">
-                        <img src="https://s3-sa-east-1.amazonaws.com/appcatalogo/PE/201704/E/productos/bulk/PE_200088049_B.jpg " alt="PRODUCTO">
+
+                    {{#iff item1.Digitable '==' '1'}}
+                    <div>
+                        <div class="nombre_tono"><span data-tono-select-html="">Azul Kohl</span><div class="indicador_tono"><p> + TONOS</p></div></div>
+                        <div class="content_tonos_principal" data-tono-div="">
+                            {{#each item1.Hermanos as |tono|}}
+                            <div id="fav_tono_{{tono.CUV}}" class="content_tono_detalle_opt {{#iff tono.CUVSelect '!=' ''}}borde_seleccion_tono{{/iff}}" data-tono-cuv="{{tono.CUV}}" data-tono-change="">
+                                <img src="{{tono.ImagenBulk}}" data-tono-nombre="{{tono.NombreBulk}}" data-tono-descripcionComercial="{{tono.DescripcionComercial}}" alt="">
+                                @*<div class="tooltip_tono">{{tono.NombreBulk}}</div>*@
+                            </div>
+                            {{/each}}
+                        </div>
+                        <select class="tono_labial_select" data-tono-change="">
+                            {{#each item1.Hermanos as |tono|}}
+                            <option value="{{tono.CUV}}" data-tono-nombre="{{tono.NombreBulk}}" data-tono-cuv="{{tono.CUV}}" data-tono-descripcionComercial="{{tono.DescripcionComercial}}">{{tono.NombreBulk}}</option>
+                            {{/each}}
+                        </select>
                     </div>
-                    <div class="content_tono_detalle_opt">
-                        <img src="https://s3-sa-east-1.amazonaws.com/appcatalogo/PE/201704/E/productos/bulk/PE_200088049_B.jpg " alt="PRODUCTO">
-                    </div>
-                    <div class="content_tono_detalle_opt">
-                        <img src="https://s3-sa-east-1.amazonaws.com/appcatalogo/PE/201704/E/productos/bulk/PE_200088049_B.jpg " alt="PRODUCTO">
-                    </div>
-                    <div class="content_tono_detalle_opt">
-                        <img src="https://s3-sa-east-1.amazonaws.com/appcatalogo/PE/201704/E/productos/bulk/PE_200088049_B.jpg " alt="PRODUCTO">
-                    </div>
-                    <div class="content_tono_detalle_opt">
-                        <img src="https://s3-sa-east-1.amazonaws.com/appcatalogo/PE/201704/E/productos/bulk/PE_200088049_B.jpg " alt="PRODUCTO">
-                    </div>
-                    <div class="content_tono_detalle_opt">
-                        <img src="https://s3-sa-east-1.amazonaws.com/appcatalogo/PE/201704/E/productos/bulk/PE_200088049_B.jpg " alt="PRODUCTO">
-                    </div>
-                    <div class="content_tono_detalle_opt">
-                        <img src="https://s3-sa-east-1.amazonaws.com/appcatalogo/PE/201704/E/productos/bulk/PE_200088049_B.jpg " alt="PRODUCTO">
-                    </div>
-                    <div class="content_tono_detalle_opt">
-                        <img src="https://s3-sa-east-1.amazonaws.com/appcatalogo/PE/201704/E/productos/bulk/PE_200088049_B.jpg " alt="PRODUCTO">
-                    </div>
-                    <div class="content_tono_detalle_opt">
-                        <img src="https://s3-sa-east-1.amazonaws.com/appcatalogo/PE/201704/E/productos/bulk/PE_200088049_B.jpg " alt="PRODUCTO">
-                    </div>
-                    <div class="content_tono_detalle_opt">
-                        <img src="https://s3-sa-east-1.amazonaws.com/appcatalogo/PE/201704/E/productos/bulk/PE_200088049_B.jpg " alt="PRODUCTO">
-                    </div>
+                    {{/iff}}
                 </div>
-                <select class="tono_labial_select" style="width:100%;">
-                    <option value="12189">Rojo tropical</option>
-                    <option value="04155">Fucsia cautivante</option>
-                </select>
+                {{/each}}
+                {{/iff}}
+                {{/iff}}
             </div>
         </div>
         <div class="content_redes_ficha">
-            @{
-                var urlWs = "";
-                string urlBase_fb = "";
-                if (System.Web.HttpContext.Current.Request.UserAgent != null)
-                {
-                    var request = HttpContext.Current.Request;
-
-                    var urlBase_wsp = request.Url.Scheme + "://" + request.Url.Authority + "/Pdto.aspx?id=" + Model.CodigoISO + "_[valor]";
-
-                    urlWs = urlBase_wsp; //"whatsapp://send?text=" + urlBase_wsp;
-
-                    urlBase_fb = request.Url.Scheme + "://" + request.Url.Authority + "/Pdto.aspx?id=" + Model.CodigoISO + "_[valor]";
-                }
-            }
-            <a class="btn_compartir_ofertas" href='javascript:window.location=CompartirWsp("@urlWs", {RutaImagen: "{{FotoProducto01}}", MarcaID:"{{MarcaID}}", MarcaDesc:"{{DescripcionMarca}}", NombrePro:"{{DescripcionCUV2}}", Cuv:"{{CUV2}}"});' data-action="share/whatsapp/share"><img src="@Url.Content("~/Content/Images/Mobile/Esika/catalogo_ws.png")" alt=""></a>
-            <a class="btn_compartir_ofertas" href="javascript:void(0);" onclick='javascript:CompartirFacebook("@urlBase_fb",  {Palanca: "OPT", RutaImagen: "{{FotoProducto01}}", MarcaID:"{{MarcaID}}", MarcaDesc:"{{DescripcionMarca}}", NombrePro:"{{DescripcionCUV2}}", Cuv:"{{CUV2}}"});'><img src="@Url.Content("~/Content/Images/Mobile/Esika/facebook.png")" alt=""></a>
+            <a class="btn_compartir_ofertas" href='javascript:window.location=CompartirWsp("{{UrlCompartirFB}}", {Palanca: "OPT", RutaImagen: "{{FotoProducto01}}", MarcaID:"{{MarcaID}}", MarcaDesc:"{{DescripcionMarca}}", NombrePro:"{{DescripcionCUV2}}", Cuv:"{{CUV2}}"});' data-action="share/whatsapp/share"><img src="@Url.Content("~/Content/Images/Mobile/Esika/catalogo_ws.png")" alt=""></a>
+            <a class="btn_compartir_ofertas" href="javascript:void(0);" onclick='javascript:CompartirFacebook("{{UrlCompartirFB}}",  {Palanca: "OPT", RutaImagen: "{{FotoProducto01}}", MarcaID:"{{MarcaID}}", MarcaDesc:"{{DescripcionMarca}}", NombrePro:"{{DescripcionCUV2}}", Cuv:"{{CUV2}}"});'><img src="@Url.Content("~/Content/Images/Mobile/Esika/facebook.png")" alt=""></a>
         </div>
         <hr class="clear" />
         <div style="margin-left:-20px; margin-right:-20px;">
@@ -990,7 +899,7 @@
                 <div class="content_320" style="max-width:292px; width:auto;">
                     <div class="content_cantidad_ficha_producto">
                         <a class="cantidad_menos_home"><img src="/Content/Images/Mobile/Esika/menos.png" alt=""></a>
-                        <input type="tel" value="1" size="2" maxlength="2" id="txtCantidadFichaOPT" class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);">
+                        <input type="tel" value="1" size="2" maxlength="2" id="txtCantidadFichaOPT" class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" data-input="cantidad" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);">
                         <a class="cantidad_mas_home"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
                     </div>
                     <a class="btn_agregar_ficha_producto" href="#" onclick="javascript:CargarProductoDestacado({ EstrategiaID: '{{EstrategiaID}}' , TipoEstrategiaID: '{{TipoEstrategiaID}}' , Posicion: '{{Posicion}}' , FlagNueva: '{{FlagNueva}}' }, this, true); ">AGRÉGALO</a>

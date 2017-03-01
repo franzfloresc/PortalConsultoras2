@@ -613,6 +613,8 @@
 
         var urlLogDynamo = '@System.Configuration.ConfigurationManager.AppSettings["UrlLogDynamo"]';
         var userData = {
+            'aplicacion': '@(Constantes.LogDynamoDB.AplicacionPortalConsultoras)',
+            'rol': '@(Constantes.LogDynamoDB.RolConsultora)',
             'campana': '@ViewBag.AnalyticsCampania',
             'region': '@ViewBag.AnalyticsRegion',
             'zona': '@ViewBag.AnalyticsZona',
@@ -1060,6 +1062,7 @@
                             setTimeout(functionHide + "()", 100);
                         }
                         $(e.target).hide();
+                        $('body').css({ 'overflow-y': 'scroll' });
                     }
                 }
             });
@@ -1073,6 +1076,7 @@
                     setTimeout(functionHide + "()", 100);
                 }
                 $(popupClose).hide();
+                $('body').css({ 'overflow-y': 'scroll' });
             });
 
             if(MostrarBannerPL20) loadBannerLP20();

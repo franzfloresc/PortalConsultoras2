@@ -106,7 +106,7 @@ jQuery(document).ready(function () {
         var array = new Array();
         var campoVal = $.trim(campo);
         if (campoVal == "") {
-            $.each(this, function (index, item) {
+        $.each(this, function (index, item) {
                 if (item == valor) {
                     try {
                         array.push(Clone(item));
@@ -486,7 +486,7 @@ function checkTimeout(data) {
         if (!thereIsStillTime) {
             //window.location.href = "/Login/SesionExpirada";
             
-                var message = "Tu sesión ha finalizado por inactividad. Por favor, ingresa nuevamente.";
+            var message = "Tu sesión ha finalizado por inactividad. Por favor, ingresa nuevamente.";
             if (ViewBagEsMobile == 1) {/*1 Desktop, 2 Mobile*/
                 $('#dialog_SesionMainLayout #mensajeSesionSB2_Error').html(message);
                 $('#dialog_SesionMainLayout').show();
@@ -692,12 +692,12 @@ FuncionesGenerales = {
 function InsertarLogDymnamo(pantallaOpcion, opcionAccion, esMobile, extra) {
     data = {
         'Fecha': '',
-        'Aplicacion': 'PORTALCONSULTORAS',
+        'Aplicacion': userData.aplicacion,
         'Pais': userData.pais,
         'Region': userData.region,
         'Zona': userData.zona,
         'Seccion': userData.seccion,
-        'Rol': 'CO',
+        'Rol': userData.rol,
         'Campania': userData.campana,
         'Usuario': userData.codigoConsultora,
         'PantallaOpcion': pantallaOpcion,
@@ -767,7 +767,7 @@ function MensajeEstadoPedido() {
         $("#bloquemensajesPedido").find(".mensaje_estadoActualPedido").html("TU PEDIDO HA SIDO RECHAZADO");
     }
     else if (estaRechazado == 1) {
-        $("#bloquemensajesPedido").find(".mensaje_estadoActualPedido").html("NOS ENCONTRAMOS FACTURANDO TU PEDIDO C" + $.trim($("#hdCampaniaCodigo").val()).substring(4, 6));
+        $("#bloquemensajesPedido").find(".mensaje_estadoActualPedido").html("ESTAMOS FACTURANDO TU PEDIDO C" + $.trim($("#hdCampaniaCodigo").val()).substring(4, 6));
     }
     else {
         return false;
@@ -796,7 +796,7 @@ function xMensajeEstadoPedido(estado) {
             identi = url.indexOf("/bienvenida") > 0;
             if (identi) {
                 $(".oscurecer_animacion").css({ "top": wtop + "px", "height": wheight + "px" });
-                //$("[data-content]").animate({ "top": wtop + "px" });
+                //$("[data-content]").animate({ "top": wtop + "px" });               
             }
             else {
                 $(".oscurecer_animacion").css({ "display": "none" });

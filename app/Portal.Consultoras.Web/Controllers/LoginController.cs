@@ -345,7 +345,7 @@ namespace Portal.Consultoras.Web.Controllers
                     model = new UsuarioModel();
 
                     #region Obtener Respuesta del SSiCC
-                    model.MotivoRechazo = "A partir de mañana podrás ingresar tu pedido de C" + CalcularNroCampaniaSiguiente(oBEUsuario.CampaniaID.ToString(), oBEUsuario.NroCampanias);
+                    model.MotivoRechazo = "Te notificaremos en caso tu pedido tenga observaciones." ;
                     model.IndicadorGPRSB = oBEUsuario.IndicadorGPRSB;
 
                     bool MostrarBannerPedidoRechazado = false;
@@ -388,11 +388,11 @@ namespace Portal.Consultoras.Web.Controllers
                                     {
                                         bool esMovil = Request.Browser.IsMobileDevice;
 
-                                        valorx = valor + listaMotivox[0].Valor;
-                                        model.MotivoRechazo = "Tienes una deuda de " + valorx + " que debes regularizar. <a class='CerrarBanner' href='#' onclick=RedirectMenu('Index','MisPagos',0,''); >MIRA LOS LUGARES DE PAGO</a>";
+                                        valorx = valor + Util.DecimalToStringFormat(listaMotivox[0].Valor, oBEUsuario.CodigoISO);
+                                        model.MotivoRechazo = "Tienes una deuda de " + valorx + " <a class='CerrarBanner' href='#' onclick=RedirectMenu('Index','MisPagos',0,''); >MIRA LOS LUGARES DE PAGO</a>";
 
                                         if (esMovil)
-                                            model.MotivoRechazo = "Tienes una deuda de " + valorx + " que debes regularizar.";
+                                            model.MotivoRechazo = "Tienes una deuda de " + valorx ;
                                     }
 
                                     listaMotivox = listaRechazo.Where(p => p.MotivoRechazo == Constantes.GPRMotivoRechazo.MontoMinino).ToList(); // minimo
@@ -402,20 +402,24 @@ namespace Portal.Consultoras.Web.Controllers
 
                                         if (model.MotivoRechazo != "")
                                         {
-                                            model.MotivoRechazo = "Tienes una deuda pendiente de " + valorx;
-                                            valorx = valor + listaMotivox[0].Valor;
-                                            model.MotivoRechazo += ". Además, para pasar pedido debes alcanzar el monto mínimo de " + oBEUsuario.Simbolo + " " + oBEUsuario.MontoMinimoPedido + ". <a class='CerrarBanner' href='#' onclick=RedirectMenu('Index','Pedido',0,'Pedido'); >MODIFICA TU PEDIDO</a>";
+                                            valorx = valor + Util.DecimalToStringFormat(listaMotivox[0].Valor, oBEUsuario.CodigoISO);
+
+                                           model.MotivoRechazo = "Tienes una deuda de " + valorx;
+                                            
+                                           model.MotivoRechazo += " y no llegaste al monto mínimo de " + oBEUsuario.Simbolo + " " + oBEUsuario.MontoMinimoPedido + ". <a class='CerrarBanner' href='#' onclick=RedirectMenu('Index','Pedido',0,'Pedido'); >MODIFICA TU PEDIDO</a>";
+                                            
                                         }
                                         else
                                         {
-                                            valorx = valor + listaMotivox[0].Valor;
+
+                                            valorx = valor + Util.DecimalToStringFormat(listaMotivox[0].Valor, oBEUsuario.CodigoISO);
                                             if (esMovil)
                                             {
-                                                model.MotivoRechazo = "No llegaste al monto mínimo de " + oBEUsuario.Simbolo + " " + oBEUsuario.MontoMinimoPedido + " <a class='CerrarBanner' href='" + @Url.Action("Index", "Pedido", new { area = "Mobile" }) + "' >MODIFICA TU PEDIDO</a>";
+                                                model.MotivoRechazo = "No llegaste al monto mínimo. <a class='CerrarBanner' href='" + @Url.Action("Index", "Pedido", new { area = "Mobile" }) + "' >MODIFICA TU PEDIDO</a>";
                                             }
                                             else
                                             {
-                                                model.MotivoRechazo = "No llegaste al monto mínimo de " + oBEUsuario.Simbolo + " " + oBEUsuario.MontoMinimoPedido + " <a class='CerrarBanner' href='#' onclick=RedirectMenu('Index','Pedido',0,'Pedido'); >MODIFICA TU PEDIDO</a>";
+                                                model.MotivoRechazo = "No llegaste al monto mínimo. <a class='CerrarBanner' href='#' onclick=RedirectMenu('Index','Pedido',0,'Pedido'); >MODIFICA TU PEDIDO</a>";                                               
                                             }
                                         }
                                     }
@@ -424,24 +428,26 @@ namespace Portal.Consultoras.Web.Controllers
                                         listaMotivox = listaRechazo.Where(p => p.MotivoRechazo == Constantes.GPRMotivoRechazo.MontoMaximo).ToList(); //maximo
                                         if (listaMotivox.Any())
                                         {
-                                            bool esMovil = Request.Browser.IsMobileDevice;
+                                            bool esMovil = Request.Browser.IsMobileDevice;                                            
 
                                             if (model.MotivoRechazo != "")
                                             {
-                                                model.MotivoRechazo = "Tienes una deuda pendiente de " + valorx;
-                                                valorx = valor + listaMotivox[0].Valor;
+                                                valorx = valor + Util.DecimalToStringFormat(listaMotivox[0].Valor, oBEUsuario.CodigoISO); 
+                                                model.MotivoRechazo = "Tienes una deuda de " + valorx;                                                
+
                                                 if (esMovil)
                                                 {
-                                                    model.MotivoRechazo += ". Además, superaste tu línea de crédito de " + oBEUsuario.Simbolo + " " + oBEUsuario.MontoMaximoPedido + ". <a class='CerrarBanner' href='" + @Url.Action("Index", "Pedido", new { area = "Mobile" }) + "' >MODIFICA TU PEDIDO</a>";
+                                                    model.MotivoRechazo += " y superaste tu línea de crédito de " + oBEUsuario.Simbolo + " " + oBEUsuario.MontoMaximoPedido + ". <a class='CerrarBanner' href='" + @Url.Action("Index", "Pedido", new { area = "Mobile" }) + "' >MODIFICA TU PEDIDO</a>";
                                                 }
                                                 else
                                                 {
-                                                    model.MotivoRechazo += ". Además, superaste tu línea de crédito de " + oBEUsuario.Simbolo + " " + oBEUsuario.MontoMaximoPedido + ". <a class='CerrarBanner' href='#' onclick=RedirectMenu('Index','Pedido',0,'Pedido'); >MODIFICA TU PEDIDO</a>";
+                                                    model.MotivoRechazo += " y superaste tu línea de crédito de " + oBEUsuario.Simbolo + " " + oBEUsuario.MontoMaximoPedido + ". <a class='CerrarBanner' href='#' onclick=RedirectMenu('Index','Pedido',0,'Pedido'); >MODIFICA TU PEDIDO</a>";
                                                 }
                                             }
                                             else
                                             {
                                                 valorx = valor + listaMotivox[0].Valor;
+                                               
                                                 if (esMovil)
                                                 {
                                                     model.MotivoRechazo = "Superaste tu línea de crédito de " + oBEUsuario.Simbolo + " " + oBEUsuario.MontoMaximoPedido + ". <a class='CerrarBanner' href='" + @Url.Action("Index", "Pedido", new { area = "Mobile" }) + "'>MODIFICA TU PEDIDO</a>";
@@ -459,27 +465,30 @@ namespace Portal.Consultoras.Web.Controllers
                                         bool esMovil = Request.Browser.IsMobileDevice;
                                         if (model.MotivoRechazo != "")
                                         {
-                                            model.MotivoRechazo = "Tienes una deuda pendiente de " + valorx;
-                                            valorx = valor + listaMotivox[0].Valor;
+                                            valorx = valor + Util.DecimalToStringFormat(listaMotivox[0].Valor, oBEUsuario.CodigoISO);
+                                             model.MotivoRechazo = "Tienes una deuda de " + valorx;                                        
+
                                             if (esMovil)
                                             {
-                                                model.MotivoRechazo += ". Además, no llegaste al mínimo de " + valorx + ". <a class='CerrarBanner' href='" + @Url.Action("Index", "Pedido", new { area = "Mobile" }) + "' >MODIFICA TU PEDIDO</a>";
+                                                model.MotivoRechazo += " y no llegaste al monto mínimo. <a class='CerrarBanner' href='" + @Url.Action("Index", "Pedido", new { area = "Mobile" }) + "' >MODIFICA TU PEDIDO</a>";
                                             }
                                             else
                                             {
-                                                model.MotivoRechazo += ". Además, no llegaste al mínimo de " + valorx + ". <a class='CerrarBanner' href='#' onclick=RedirectMenu('Index','Pedido',0,'Pedido'); >MODIFICA TU PEDIDO</a>";
+                                                model.MotivoRechazo += " y no llegaste al monto mínimo. <a class='CerrarBanner' href='#' onclick=RedirectMenu('Index','Pedido',0,'Pedido'); >MODIFICA TU PEDIDO</a>";
                                             }
                                         }
                                         else
                                         {
-                                            valorx = valor + listaMotivox[0].Valor;
+
+                                            valorx = valor + Util.DecimalToStringFormat(listaMotivox[0].Valor, oBEUsuario.CodigoISO);
+
                                             if (esMovil)
                                             {
-                                                model.MotivoRechazo = "No llegaste al mínimo de " + valorx + ". <a class='CerrarBanner' href='" + @Url.Action("Index", "Pedido", new { area = "Mobile" }) + "'>MODIFICA TU PEDIDO</a>";
+                                                model.MotivoRechazo = "No llegaste al monto mínimo. <a class='CerrarBanner' href='" + @Url.Action("Index", "Pedido", new { area = "Mobile" }) + "'>MODIFICA TU PEDIDO</a>";
                                             }
                                             else
                                             {
-                                                model.MotivoRechazo = "No llegaste al mínimo de " + valorx + ". <a class='CerrarBanner' href='#' onclick=RedirectMenu('Index','Pedido',0,'Pedido');>MODIFICA TU PEDIDO</a>";
+                                                model.MotivoRechazo = "No llegaste al monto mínimo. <a class='CerrarBanner' href='#' onclick=RedirectMenu('Index','Pedido',0,'Pedido');>MODIFICA TU PEDIDO</a>";
                                             }
                                         }
                                     }

@@ -1,4 +1,11 @@
-﻿namespace Portal.Consultoras.Common
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Amazon.SQS.Model;
+
+namespace Portal.Consultoras.Common
 {
     public class Constantes
     {
@@ -306,6 +313,13 @@
         public class CdrWebDatos
         {
             public const string UnidadesPermitidasFaltante = "UnidadesPermitidasFaltante";
+            public const string ValidacionDiasFaltante = "ValidacionDiasFaltante";
+            public const string DiasAntesFacturacion = "DiasAntesFacturacion";
+        }
+
+        public class CdrWebMensajes
+        {
+            public const string FueraDeFecha = "Tu solicitud se encuentra fuera de fecha para poder ser atendida";
         }
 
         public class CodigoOperacionCDR
@@ -337,7 +351,7 @@
             public const string ValidacionMontoMinimoStock = "OCC-51"; //VALIDACION MONTO MINIMO STOCK
             public const string Mostrar2OpcionesNotificacion = "1"; // Flag para mostrar dos opciones en notificaciones.
         }
-        
+
         public class ValidacionExisteUsuario
         {
             public const int NoExiste = 0;
@@ -354,8 +368,8 @@
             public const string RolConsultora = "CO";
             public const string RolSociaEmpresaria = "SE";
         }
-
+        
     }
-}
+        }
 
 

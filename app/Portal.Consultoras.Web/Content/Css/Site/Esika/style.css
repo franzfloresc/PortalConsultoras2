@@ -4008,7 +4008,7 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
     {
     text-align:left;
     font-weight:400;
-    }
+}
     .tabla_productos_agotados .pagina_productoAgotado
     {
         text-align: right;
@@ -4981,7 +4981,7 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
 }
 
 .btn_noGracias_agregarProductos{
-        display: block;
+    display: block;
     /* position: absolute; */
     /* margin-left: 10px; */
     /* bottom: -1px; */
@@ -24925,7 +24925,7 @@ img
 	width:100%;
 	padding-top:15px;
 	box-sizing:border-box;
-        }
+}
 .active
 /*{
 	color:#000000;
@@ -25748,7 +25748,7 @@ button
     display: block;
 	font-size:14px;
 	font-weight:bold;
-    }
+}
 @media screen and (max-height: 800px) 
 {
 	#slides_inscripcion{width:100%;height:105%;}
@@ -26817,54 +26817,54 @@ position: relative; float: left;
 }
 
 /*PEDIDO VALIDADO*/
-.cod_venta_listado{
-    width:10%;
-    display:inline-block;
-    vertical-align:middle;
-    padding-left:15px;
-    padding-top:23px;
-    padding-bottom:23px;
+.cod_venta_listado {
+    width: 10%;
+    display: inline-block;
+    vertical-align: middle;
+    padding-left: 15px;
+    padding-top: 10px;
+    padding-bottom: 10px;
 }
 
 .descripcion_listado{
     width: 25%;
     display: inline-block;
     vertical-align: middle;
-    padding-top:23px;
-    padding-bottom:23px;
+    padding-top: 10px;
+    padding-bottom: 10px;
 }
 .cantidad_listado{
     width:10%;
     display: inline-block;
     vertical-align: middle;
-    text-align:center;
-    padding-top:23px;
-    padding-bottom:23px;
+    text-align: center;
+    padding-top: 10px;
+    padding-bottom: 10px;
 }
 .unitario_listado{
     width:13%;
     display: inline-block;
     vertical-align: middle;
-    text-align:right;
-    padding-top:23px;
-    padding-bottom:23px;
+    text-align: right;
+    padding-top: 10px;
+    padding-bottom: 10px;
 }
 .total_listado{
     width:13%;
     display: inline-block;
     vertical-align: middle;
-    text-align:right;
-    padding-top:23px;
-    padding-bottom:23px;
+    text-align: right;
+    padding-top: 10px;
+    padding-bottom: 10px;
 }
 .cliente_listado{
     width:25%;
     display: inline-block;
     vertical-align: middle;
-    text-align:right;
-    padding-top:23px;
-    padding-left:1%;
-    padding-bottom:23px;
+    text-align: right;
+    padding-top: 10px;
+    padding-left: 1%;
+    padding-bottom: 10px;
 }
 /*MENSAJES DE ALERTA*/
 .mensaje_alerta_belcorp{
@@ -30361,12 +30361,13 @@ h1#penmostreo .campana {
 .mensaje_horarioIngresoPedido a{
     display: inline-block;
     margin-left: 2px;
+    text-decoration: underline;
 }
 
 .mensaje_horarioIngresoPedido a:hover{
     text-decoration:underline;
 }
-
+   
 /* FIN MENSAJES PEDIDO RECHAZADO */
 
 /*PEDIDO DE CLIENTES ONLINE*/
@@ -30383,7 +30384,7 @@ h1#penmostreo .campana {
 }
 .imagen_2{
     background: url("../../../Images/Esika/lugares_pago.png") no-repeat !important;
-   
+
 }
 .imagen_3{
     background: url("../../../Images/Esika/facturacion_electronica.png") no-repeat !important;    
@@ -30793,7 +30794,7 @@ h1#penmostreo .campana {
     display:inline-block;
     vertical-align:middle;
 }
-    
+
 .texto_stock {
     /*width:100%;*/
     width: 70%; /*EPD-1378*/
@@ -30977,7 +30978,7 @@ h1#penmostreo .campana {
   margin-top:-18px;
         background: #d1d1d1;
 }
-    
+
 .paso_reclamo{
     width:36px;
     height:36px;
@@ -32900,7 +32901,7 @@ h1#penmostreo .campana {
 
 /*FICHA PRODUCTO FAV DESKTOP*/
 .content_left_ficha {
-        float: left;
+    float: left;
     width: 40%;
     margin-right: 5%;
 }

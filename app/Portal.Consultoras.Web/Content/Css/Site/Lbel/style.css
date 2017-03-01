@@ -3971,7 +3971,7 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
     {
     text-align:left;
     font-weight:400;
-    }
+}
     .tabla_productos_agotados .pagina_productoAgotado
     {
         text-align: right;
@@ -4942,7 +4942,7 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
 }
 
 .btn_noGracias_agregarProductos{
-        display: block;
+    display: block;
     /* position: absolute; */
     /* margin-left: 10px; */
     /* bottom: -1px; */
@@ -26733,56 +26733,55 @@ position: relative; float: left;
      background: url("../../../Images/tippingPointActivo.png") no-repeat;
  }
 /*PEDIDO VALIDADO*/
-.cod_venta_listado{
-    width:10%;
-    display:inline-block;
-    vertical-align:middle;
-    padding-left:15px;
-    padding-top:23px;
-    padding-bottom:23px;
+.cod_venta_listado {
+    width: 10%;
+    display: inline-block;
+    vertical-align: middle;
+    padding-left: 15px;
+    padding-top: 10px;
+    padding-bottom: 10px;
 }
 
 .descripcion_listado{
     width: 25%;
     display: inline-block;
     vertical-align: middle;
-    padding-top:23px;
-    padding-bottom:23px;
+    padding-top: 10px;
+    padding-bottom: 10px;
 }
 .cantidad_listado{
     width:10%;
     display: inline-block;
     vertical-align: middle;
-    text-align:center;
-    padding-top:23px;
-    padding-bottom:23px;
+    text-align: center;
+    padding-top: 10px;
+    padding-bottom: 10px;
 }
 .unitario_listado{
     width:13%;
     display: inline-block;
     vertical-align: middle;
-    text-align:right;
-    padding-top:23px;
-    padding-bottom:23px;
+    text-align: right;
+    padding-top: 10px;
+    padding-bottom: 10px;
 }
 .total_listado{
     width:13%;
     display: inline-block;
     vertical-align: middle;
-    text-align:right;
-    padding-top:23px;
-    padding-bottom:23px;
+    text-align: right;
+    padding-top: 10px;
+    padding-bottom: 10px;
 }
 .cliente_listado{
     width:25%;
     display: inline-block;
     vertical-align: middle;
-    text-align:right;
-    padding-top:23px;
-    padding-left:1%;
-    padding-bottom:23px;
+    text-align: right;
+    padding-top: 10px;
+    padding-left: 1%;
+    padding-bottom: 10px;
 }
-
 /*MENSAJES DE ALERTA*/
 .mensaje_alerta_belcorp{
     position: fixed;
@@ -28166,7 +28165,7 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
 }
 .foto_usuaria_desktop img{
     width:100%;
-}
+    }
 .btn_tomar_foto{
     width:50%;
     height:42px;
@@ -28177,7 +28176,7 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
     line-height:42px;
     font-size:13px;
     font-weight:700;
-   
+
     text-transform:uppercase;
     margin:auto;
 
@@ -30296,6 +30295,7 @@ h1#penmostreo .campana {
 .mensaje_horarioIngresoPedido a{
     display: inline-block;
     margin-left: 2px;
+    text-decoration: underline;
 }
 
 .mensaje_horarioIngresoPedido a:hover{
@@ -30701,7 +30701,7 @@ h1#penmostreo .campana {
     display:inline-block;
     vertical-align:middle;
 }
-    
+
 .texto_stock {
     /*width:100%;*/
     width: 70%; /*EPD-1378*/
@@ -33227,7 +33227,7 @@ h1#penmostreo .campana {
     /* float: left; */
 }
 .opcion_escala_descuento {
-	position: relative;
+    position: relative;
 	background: #e8e8e8;
 	border: 1px solid #dbdbdb;
     height:auto;
@@ -33245,7 +33245,7 @@ h1#penmostreo .campana {
 	content: " ";
 	height: 0;
 	width: 0;
-	position: absolute;
+    position: absolute;
 	pointer-events: none;    
 }
 
@@ -33280,7 +33280,7 @@ h1#penmostreo .campana {
     height:100%;
 }
 .btn_cerrar_escala{   
-  font-family: 'Lato';
+    font-family: 'Lato';
   font-size: 12px;
   font-weight:bold;
   float: right;
