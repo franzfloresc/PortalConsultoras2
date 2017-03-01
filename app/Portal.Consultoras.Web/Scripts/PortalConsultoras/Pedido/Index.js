@@ -202,9 +202,8 @@ $(document).ready(function () {
             return false;
         }
     });
-    $('#btnValidarPROL').click(function () {
+    $('#btnValidarPROL').click(function () {      
         EjecutarPROL();
-        cerrarMensajeEstadoPedido();
     });
     $("body").on("mouseenter", ".info_copy", function () {
         var mar = $(this).parent().parent() || '0';
