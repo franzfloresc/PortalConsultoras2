@@ -87,7 +87,7 @@
                         <a class="boton_Agregalo_home" data-btn-agregar-sr="">AGRÉGALO</a>
                         <div class="clear"></div>
                         <div style="padding-top:9px; height: 15px;">
-                            <div class="agregado product-add" style="text-align: right;display:@Model.Agregado;">
+                            <div class="agregado product-add" style="text-align: right;display:@oferta.Agregado;">
                                 AGREGADO
                                 <div class="icono"></div>
                             </div>
@@ -109,4 +109,7 @@
 @section scripts{
 <script type="text/javascript" src="@Url.Content("~/Scripts/slick.min.js")"></script>
    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/ShowRoom/ShowRoom.js")"></script>
+<script type="text/javascript">
+    var tipoOrigenPantalla = 11;
+</script>
 }

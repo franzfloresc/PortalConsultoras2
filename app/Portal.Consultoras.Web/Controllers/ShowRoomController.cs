@@ -2448,7 +2448,7 @@ namespace Portal.Consultoras.Web.Controllers
             return result;
         }
 
-        private List<ShowRoomOfertaModel> ObtenerListaProductoShowRoom(int campaniaId, string codigoConsultora, bool esFacturacion)
+        private List<ShowRoomOfertaModel> ObtenerListaProductoShowRoom(int campaniaId, string codigoConsultora, bool esFacturacion = false)
         {
             var listaShowRoomOferta = new List<BEShowRoomOferta>();
             var listaShowRoomOfertaModel = new List<ShowRoomOfertaModel>();
@@ -2567,12 +2567,14 @@ namespace Portal.Consultoras.Web.Controllers
         private ShowRoomOfertaModel GetOfertaConDetalle(int idOferta)
         {
             var ofertaShowRoomModelo = new ShowRoomOfertaModel();
+            ofertaShowRoomModelo.ListaDetalleOfertaShowRoom = new List<ShowRoomOfertaDetalleModel>();
             try
             {
                 if (idOferta <= 0) return ofertaShowRoomModelo;
 
                 var listadoOfertasTodas = ObtenerListaProductoShowRoom(userData.CampaniaID, userData.CodigoConsultora);
                 ofertaShowRoomModelo = listadoOfertasTodas.Find(o => o.OfertaShowRoomID == idOferta) ?? new ShowRoomOfertaModel();
+                ofertaShowRoomModelo.ListaDetalleOfertaShowRoom = ofertaShowRoomModelo.ListaDetalleOfertaShowRoom ?? new List<ShowRoomOfertaDetalleModel>();
                 if (ofertaShowRoomModelo.OfertaShowRoomID <= 0) return ofertaShowRoomModelo;
 
                 var listaDetalle = new List<BEShowRoomOfertaDetalle>();

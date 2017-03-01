@@ -97,7 +97,7 @@ namespace Portal.Consultoras.Web.Models
             }
             get
             {
-                return PrecioCatalogo - PrecioOferta;
+                return Math.Abs(PrecioCatalogo - PrecioOferta);
             }
         }
 
