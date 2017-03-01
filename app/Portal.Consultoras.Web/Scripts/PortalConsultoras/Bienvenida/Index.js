@@ -3482,6 +3482,7 @@ function MostrarShowRoom() {
                         var evento = response.evento;
                         var personalizacion = response.personalizacion;
                         var urlImagenPopupIntriga = "";
+                        var urlImagenPopupVenta = "";
                         var noMostrarShowRoomIntriga = response.mostrarPopupIntriga;
                         var noMostrarShowRoomVenta = response.mostrarPopupVenta;
 
@@ -3493,12 +3494,12 @@ function MostrarShowRoom() {
                             }
 
                             if (item.Atributo == 'PopupImagenVenta') {
-                                urlImagenPopupIntriga = item.Valor;
+                                urlImagenPopupVenta = item.Valor;
                                 //alert(urlImagenPopupIntriga)
                                 return;
                             }
                         });
-
+                        debugger;
                         if (showroomConsultora.EventoConsultoraID != 0) {
                             if (showroomConsultora.MostrarPopup) {
                                 $("#hdEventoIDShowRoom").val(evento.EventoID);
@@ -3512,7 +3513,7 @@ function MostrarShowRoom() {
                                         var container = $('#PopShowroomVenta');
                                         var txtSaludoIntriga = response.nombre + ' prepárate para la';
                                         $(container).find('.saludo_consultora_showroom').text(txtSaludoIntriga);
-                                        $(container).find('.imagen_dias_intriga').attr('src', urlImagenPopupIntriga);
+                                        $(container).find('.imagen_dias_intriga').attr('src', urlImagenPopupVenta);
                                         $(container).show();
                                     }
                                     
