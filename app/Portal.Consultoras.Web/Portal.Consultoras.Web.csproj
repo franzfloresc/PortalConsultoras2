@@ -2532,6 +2532,7 @@
     <Content Include="Content\Images\mobile\img-icon\m_ic_ingresa_pedido.png" />
     <Content Include="Content\Images\mobile\img-showroom\banner_intriga_new_header.png" />
     <Content Include="Content\Images\mobile\img-showroom\banner_intriga_new_showroom.png" />
+    <Content Include="Content\Images\mobile\img-showroom\BARRA_SUPERIOR_TEXTOJUNTO_CATEGORIA.png" />
     <Content Include="Content\Images\mobile\img-showroom\close_mobile.png" />
     <Content Include="Content\Images\mobile\img-showroom\deco_nombre.png" />
     <Content Include="Content\Images\mobile\img-showroom\etiqueta.png" />
