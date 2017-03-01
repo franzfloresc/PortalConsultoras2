@@ -41,7 +41,7 @@
                             <span class="detalle_set_showroom">@detalle.Descripcion1</span>
                             <span class="detalle_set_showroom">@detalle.Descripcion3</span>
                         </div>
-                        <div class="precio_regular_set">@detalle.Descripcion1</div>
+                        <div class="precio_regular_set">@detalle.Descripcion2</div>
                     </div>
                 }
                 <div class="linea_separadora" style="margin-top:20px; margin-bottom:10px;"></div>
@@ -69,7 +69,7 @@
                 <div class="set-productos-showroom-carrusel" data-item="@oferta.OfertaShowRoomID" >
                     <div class="producto_img_home mini" data-img="">
                         <img src="@oferta.ImagenProducto" style="width: auto; height: 100%;" class="imagen_producto">
-                        <a class="ver_detalle_carrusel">VER DETALLE</a>
+                        <a class="ver_detalle_carrusel" href="@Url.Action("DetalleOferta","ShowRoom", new {id=oferta.OfertaShowRoomID})">VER DETALLE</a>
                     </div>
                     <div class="producto_nombre_descripcion">
                         <p class="nombre-producto-set">@oferta.Descripcion</p>
@@ -98,16 +98,20 @@
        </div>
    </div>
 </div>
-<div class="content_belcorp">
-    <div class="content_tip_negocio">
-        <div class="tip_negocio_showroom">
-            <span class="titulo_tip">tip de negocio</span>@Model.TipNegocio
+@if (Model.TipNegocio != "")
+{
+    <div class="content_belcorp">
+        <div class="content_tip_negocio">
+            <div class="tip_negocio_showroom">
+                <span class="titulo_tip">tip de negocio</span>@Model.TipNegocio
+            </div>
         </div>
     </div>
-</div>
+}
 
 @section scripts{
 <script type="text/javascript" src="@Url.Content("~/Scripts/slick.min.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/jquery.easy-pie-chart.js")"></script>
    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/ShowRoom/ShowRoom.js")"></script>
 <script type="text/javascript">
     var tipoOrigenPantalla = 11;
