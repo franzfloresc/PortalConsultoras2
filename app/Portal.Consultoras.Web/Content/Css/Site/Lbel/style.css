@@ -34947,8 +34947,10 @@ h1#penmostreo .campana {
     float:left;
 }
 .content_imagen_compra img{
-    height:250px;
-    width:auto;
+    /*height: 250px;*/ 
+    width: 100%;
+    display: block;
+    margin: 0 auto;
 }
 .content_datos_carrusel{
     width:50%;
@@ -34960,7 +34962,7 @@ h1#penmostreo .campana {
 .producto_compra{
     font-size:13px;
     line-height:14.5px;
-    margin-bottom:3px;
+    margin-bottom:7px;
     /*font-weight:700;*/
 }
 .descripcion_producto_compra{
@@ -34968,6 +34970,7 @@ h1#penmostreo .campana {
     letter-spacing:0.2px;
     font-weight:300;
     margin-bottom:15px;
+    line-height:15px;
 }
 .notificacion_compra{
    margin-left: 29%;
