@@ -31,16 +31,8 @@ namespace Portal.Consultoras.Web.Controllers
         {
             if (HttpContext.User.Identity.IsAuthenticated)
             {
-                bool esMovil = Request.Browser.IsMobileDevice;
-
-                if (esMovil)
-                {
-                    return RedirectToAction("Index", "Bienvenida", new { area = "Mobile" });
-                }
-                else
-                {
-                    return RedirectToAction("Index", "Bienvenida");
-                }
+                if (Request.Browser.IsMobileDevice) return RedirectToAction("Index", "Bienvenida", new { area = "Mobile" });                
+                else return RedirectToAction("Index", "Bienvenida");
             }
             else
             {
