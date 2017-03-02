@@ -45,151 +45,74 @@
             <br><br>
         </div>
     </div>
-    <div class="contenedor_productos_liquidacion">
-        <div class="content_item_home landing_showroom" style="position: relative;">
-            <div class="liquidacion_item">
-                <div class="producto_img_mobile">
-                    <img src="https://s3-sa-east-1.amazonaws.com/appcatalogo/CO/201704/L/productos/CO_200083960.jpg" class="imagen_producto">
-                </div>
-                <div class="producto_nombre_descripcion">
-                    <p class="nombre_producto" style="cursor:pointer; height:20px;">
-                        <b>SET MITHYKA</b>
-                    </p>
-                    <div class="producto_precio">
-                        <span class="producto_precio_oferta" style="padding-left:0px;"><b>$ 112.900</b></span>
-                    </div>
-                    <hr class="clear">
 
+    <div class="contenedor_productos_liquidacion" style="position: relative;">
+
+        @{ var posicions = 1; }
+        @foreach (var item in Model.ListaShowRoomOferta)
+            {
+                var subTitulo = "";
+                var contadorDetalles = 1;
+                foreach (var detalle in item.ListaDetalleOfertaShowRoom)
+                {
+                    subTitulo += contadorDetalles == item.ListaDetalleOfertaShowRoom.Count ? detalle.NombreProducto : detalle.NombreProducto + " + ";
+                    contadorDetalles++;
+                }
+                var inhabilitar = item.Stock == 0;
+                var formatoPrecioOferta = Util.DecimalToStringFormat(item.PrecioOferta, Model.CodigoIso);
+                var formatoPrecioCatalogo = Util.DecimalToStringFormat(item.PrecioCatalogo, Model.CodigoIso);
+            <div class="content_item_home landing_showroom" style="position: relative;">
+                <div class="liquidacion_item" data-posicion="@posicions">
+                    <input type="hidden" id="hdOfertaShowRoomID" value="@item.OfertaShowRoomID" />
+                    <input type="hidden" class="valorCuv" value="@item.CUV" />
+                    <input type="hidden" class="claseMarcaID" value="@item.MarcaID" />
+                    <input type="hidden" class="clasePrecioUnidad" value="@item.PrecioCatalogo" />
+                    <input type="hidden" class="claseConfiguracionOfertaID" value="@item.ConfiguracionOfertaID" />
+                    <input type="hidden" class="DescripcionProd" value="@item.Descripcion" />
+                    <input type="hidden" class="DescripcionMarca" value="@item.DescripcionMarca" />
+                    <input type="hidden" class="posicionEstrategia" value="@posicions" />
+
+                    <div class="producto_img_mobile">
+                        <a class="btnVerDetalleOfertaShowRoom" href="@Url.Action("ListadoProductoShowRoom", new { id = posicions })">
+                            @if (string.IsNullOrEmpty(item.ImagenMini))
+                            {
+                                <img src="@Url.Content("~/Content/Images/showroom/no_disponible.png")" @*style="width: 100%;"*@ />
+                            }
+                            else
+                            {
+                                <img src="@item.ImagenProducto" alt="" />
+                            }
+                        </a>
+                    </div>
+                    <div class="producto_nombre_descripcion">
+                        <p class="nombre_producto __web-inspector-hide-shortcut__" style="cursor:pointer; height:20px;">
+                            <b>@item.Descripcion</b>
+                        </p>
+                        <div class="producto_precio">
+                            <span class="producto_precio_oferta" style="padding-left:0px;"><b>@item.Simbolo @item.PrecioCatalogo</b></span>
+                        </div>
+                    </div>
                 </div>
             </div>
+            {
+                posicions++;
+            }
+        }
         </div>
-       
+    </div>
 
-    </div>    
-</div>
 <hr class="clear" />
 <!--FIN-->
 
-<input type="hidden" id="hdListaProductosEnShowRoom" value="@JsonConvert.SerializeObject(Model.ListaShowRoomOferta)" />
-<div class="wrapper_resumen_mobile">
+@*<input type="hidden" id="hdListaProductosEnShowRoom" value="@JsonConvert.SerializeObject(Model.ListaShowRoomOferta)" />*@
+<!-- <div class="wrapper_resumen_mobile">
     <div class="titulo_showroom_mobile">
         <span>¡Oportunidad única! Sets exclusivos sólo por la Web!</span><br>
         @*Los productos no otorgan puntaje en concursos ni participan en ofertas de niveles. Precio neto Consultora.*@
     </div>
     <br />
-</div>
+</div>-->
 
-
-@{ var posicion = 1; }
-@foreach (var item in Model.ListaShowRoomOferta)
-{
-    var subTitulo = "";
-    var contadorDetalle = 1;
-    foreach (var detalle in item.ListaDetalleOfertaShowRoom)
-    {
-        subTitulo += contadorDetalle == item.ListaDetalleOfertaShowRoom.Count ? detalle.NombreProducto : detalle.NombreProducto + " + ";
-        contadorDetalle++;
-    }
-    var inhabilitar = item.Stock == 0;
-    var formatoPrecioOferta = Util.DecimalToStringFormat(item.PrecioOferta, Model.CodigoIso);
-    var formatoPrecioCatalogo = Util.DecimalToStringFormat(item.PrecioCatalogo, Model.CodigoIso);  
-    
-    <div class="listado_item" data-posicion="@posicion">
-        <input type="hidden" id="hdOfertaShowRoomID" value="@item.OfertaShowRoomID" />
-        <input type="hidden" class="valorCuv" value="@item.CUV" />
-        <input type="hidden" class="claseMarcaID" value="@item.MarcaID" />
-        <input type="hidden" class="clasePrecioUnidad" value="@item.PrecioCatalogo" />
-        <input type="hidden" class="claseConfiguracionOfertaID" value="@item.ConfiguracionOfertaID" />
-        <input type="hidden" class="DescripcionProd" value="@item.Descripcion" />
-        <input type="hidden" class="DescripcionMarca" value="@item.DescripcionMarca" />
-        <input type="hidden" class="posicionEstrategia" value="@posicion" />
-
-        <div class="listado_imagen">
-            <div class="divEstaAgotado">
-                @if (inhabilitar)
-                {
-                    <div class="producto_agotado">
-                        <div class="agotado_texto">AGOTADO</div>
-                    </div>
-                }
-            </div>
-            <a class="btnVerDetalleOfertaShowRoom" href="@Url.Action("ListadoProductoShowRoom", new { id = posicion })">
-                @if (string.IsNullOrEmpty(item.ImagenProducto))
-                {
-                    <img src="@Url.Content("~/Content/Images/showroom/no_disponible.png")" @*style="width: 100%;"*@ />
-                }
-                else
-                {
-                    <img src="@item.ImagenProducto" alt="" />
-                }
-            </a>
-        </div>
-
-        <div class="titulo_producto_mobile">@item.Descripcion</div>
-        <div class="stock_producto_m">STOCK <span class="claseStock">@item.Stock</span></div>
-        <hr class="clear" />
-        <div class="descripcion_set_m">@subTitulo</div>
-        <div class="precio_showroom_mobile"><span>@Model.Simbolo @formatoPrecioOferta</span>@Model.Simbolo @formatoPrecioCatalogo</div>
-        <a class="showroom_menos_mobile resta">-</a>
-        <input type="tel" class="showroom_cantidad_mobile txtCantidad" value="1" min="1" max="99" oninput="maxLengthCheck(this, 2)" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" />
-        <a class="showroom_mas_mobile suma">+</a>
-        <hr class="clear" />
-        <div class="divBotonAgotado">
-            @if (inhabilitar)
-            {
-                <a class="btn_agregar_mobile">AGOTADO</a>
-            }
-            else
-            {
-                <a class="btn_agregar_mobile btnAgregarOfertaShowRoom">AGREGAR A MI PEDIDO</a>
-            }
-        </div>
-        <div>
-            @{
-                var texto = item.Descripcion + ": " + subTitulo + ".";
-                var descripcionF = item.Descripcion.Replace("'", "\'");
-                var subtituloF = subTitulo.Replace("'", "\'");
-                var imagenF = item.ImagenProducto.Replace("'", "\'");
-                var urlWs = "";
-                var urlBase = "";
-                var urlBase2 = "";
-                var urlwsr = "";
-                var urlLabel = "";
-
-                if (System.Web.HttpContext.Current.Request.UserAgent != null)
-                {
-                    var request = HttpContext.Current.Request;
-                    //urlBase = request.Url.Scheme + "://" + request.Url.Authority + "/WebPages/SetVentaDigital.aspx?id=" + Model.CodigoIso + "_" + item.OfertaShowRoomID + "_" + Model.FormatoCampania + "_W";
-                    //urlBase2 = request.Url.Scheme + "://" + request.Url.Authority + "/WebPages/SetVentaDigital.aspx?id=" + Model.CodigoIso + "_" + item.OfertaShowRoomID + "_" + Model.FormatoCampania + "_F";
-
-                    urlBase = request.Url.Scheme + "://" + request.Url.Authority + "/Set.aspx?id="+ Model.CodigoIso + "_" + item.OfertaShowRoomID + "_" + Model.FormatoCampania + "_W";
-                    urlBase2 = request.Url.Scheme + "://" + request.Url.Authority + "/Set.aspx?id=" + Model.CodigoIso + "_" + item.OfertaShowRoomID + "_" + Model.FormatoCampania + "_F";
-
-                    urlwsr = urlBase;
-
-                    urlBase = urlBase.Replace("/", "%2F");
-                    urlBase = urlBase.Replace(":", "%3A");
-                    urlBase = urlBase.Replace("?", "%3F");
-                    urlBase = urlBase.Replace("=", "%3D");
-
-                    var message = Uri.EscapeDataString(texto) + " - " + urlBase;
-                    urlWs = "whatsapp://send?text=" + message;
-                    urlLabel = message;
-                    //urlWs = Uri.EscapeDataString(texto);
-                    //var urlWs = "whatsapp://sendUri.EscapeDataString(texto)text=" ;                    
-                }
-
-
-            }
-            <a class="btn_ws_showroom" onclick="TagManagerSWR('@urlLabel');" action="share/whatsapp/share" href="@urlWs"><img src="@Url.Content("~/Content/Images/mobile/Esika/iconowscolor.png")" alt="-" /></a>
-            <a class="btn_facebook_showroom" href="" data-accion="face" onclick='CompartirFacebookSWR("@urlLabel", "@urlBase2");'><img src="@Url.Content("~/Content/Images/mobile/Esika/catalogo_facebook_color.png")" alt="-" /></a>
-            <hr class="clear" />
-        </div>
-    </div>    
-            {
-                posicion++;
-            }
-}
 
 <div class="titulo_showroom_mobile">
     <a onclick="SetMarcaGoogleAnalyticsTermino();" href="@Model.RutaShowRoomPopup" target="_blank">

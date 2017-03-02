@@ -3487,7 +3487,6 @@ function MostrarShowRoom() {
                         var noMostrarShowRoomVenta = response.mostrarPopupVenta;
 
                         $.each(personalizacion, function (k, item) {
-                            debugger;
                             if (item.Atributo == 'PopupImagenIntriga') {
                                 urlImagenPopupIntriga = item.Valor;
                                 return;
@@ -3499,7 +3498,6 @@ function MostrarShowRoom() {
                                 return;
                             }
                         });
-                        debugger;
                         if (showroomConsultora.EventoConsultoraID != 0) {
                             if (showroomConsultora.MostrarPopup) {
                                 $("#hdEventoIDShowRoom").val(evento.EventoID);
@@ -3552,7 +3550,6 @@ function MostrarShowRoom() {
                                     //$("#imgShowRoomGif").attr("src", evento.Imagen1);
 
                                     //$("#DialogoMensajeBannerShowRoom").show();
-                                    debugger;
                                     if (noMostrarShowRoomIntriga) {
                                         AgregarTagManagerShowRoomPopup(evento.Tema, false);
 
@@ -3602,16 +3599,13 @@ function NoMostrarPopupShowRoomIntrigaVenta(tipo) {
         async: false,
         success: function (response) {
             if (checkTimeout(response)) {
-                debugger;
                     if (!response.data && response.tipo == "I") {
-                        debugger;
                         AgregarTagManagerShowRoomCheckBox();
                         //$('#PopShowroomVenta').hide();
                         $('#PopShowroomIntriga').hide();
                     }
 
                     if (!response.data && response.tipo == "V") {
-                        debugger;
                         AgregarTagManagerShowRoomCheckBox();
                         //$('#PopShowroomIntriga').hide();
                         $('#PopShowroomVenta').hide();

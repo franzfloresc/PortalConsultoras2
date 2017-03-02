@@ -1605,8 +1605,8 @@ namespace Portal.Consultoras.Web.Controllers
                         int diasAntes = beShowRoom.DiasAntes;
                         int diasDespues = beShowRoom.DiasDespues;
 
-                        if (fechaHoy >= userData.FechaInicioCampania.AddDays(-diasAntes).Date 
-                            && fechaHoy <= userData.FechaInicioCampania.AddDays(diasDespues).Date)
+                        if ((fechaHoy >= userData.FechaInicioCampania.AddDays(-diasAntes).Date 
+                            && fechaHoy <= userData.FechaInicioCampania.AddDays(diasDespues).Date))
                         {
                             rutaShowRoomPopup = Url.Action("Index", "ShowRoom");
                             mostrarShowRoomProductos = true;
