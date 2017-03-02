@@ -1545,8 +1545,8 @@ namespace Portal.Consultoras.Web.Controllers
             if (RegionID > -1) listaZonas = listaZonas.Where(x => x.RegionID == RegionID).ToList();
             return Json(new { success = true, listaZonas = listaZonas }, JsonRequestBehavior.AllowGet);
         }
+        #endregion
 
-       
         protected void RegistrarLogDynamoDB(string aplicacion, string rol, string pantallaOpcion, string opcionAccion)
         {
             var dataString = string.Empty;
