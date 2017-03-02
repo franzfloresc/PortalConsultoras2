@@ -5,14 +5,17 @@
 }
 <div class="fondo_set">
     <div class="content_belcorp">
-        <div class="content_solo_ficha_set"  data-posicion="0" data-item="@Model.OfertaShowRoomID">
+        <div class="content_solo_ficha_set" data-posicion="0" data-item="@Model.OfertaShowRoomID">
             <div data-compartir-campos="" style="display:none;">
                 <input type="hidden" class="rsFBMensaje" value="@Model.FBMensaje" />
                 <input type="hidden" class="rsFBRuta" value="@Model.FBRuta" />
             </div>
             <div class="content_producto_set">
-                <img src="@Model.ImagenProducto" style="width:100%;">
-                <div class="compartir_redes_ficha" style="padding-left: 0px; margin-top:20px;">
+                <div data-img="">
+                    <img src="@Model.ImagenProducto" style="width: 100%;" class="imagen_producto">
+                </div>
+                
+                <div class="compartir_redes_ficha" style="padding-left: 0px; margin-top: 20px;">
                     <div class="texto_compartelo">Compártelo con tus clientes</div>
                     <a class="btn_compartir_facebook_ficha" href="javascript:;" data-compartir="FB">
                         <img src="/Content/Images/Esika/facebook.png">
