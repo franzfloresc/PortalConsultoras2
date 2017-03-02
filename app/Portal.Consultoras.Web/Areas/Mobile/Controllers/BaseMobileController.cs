@@ -59,32 +59,34 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                         !showRoomBannerLateral.ConsultoraNoEncontrada && !showRoomBannerLateral.ConsultoraNoEncontrada &&
                         showRoomBannerLateral.BEShowRoomConsultora.EventoConsultoraID != 0 && showRoomBannerLateral.EstaActivoLateral;
 
-                            var dateFuture = new DateTime(showRoomBannerLateral.AnioFaltante, showRoomBannerLateral.MesFaltante, showRoomBannerLateral.DiasFaltantes);
-                            DateTime dateNow = DateTime.Now;
-                            var seconds = Math.Floor((dateFuture - (dateNow)).TotalSeconds);
-                            var minutes = Math.Floor(seconds / 60);
-                            var hours = Math.Floor(minutes / 60);
-                            var days = Math.Floor(hours / 24);
-                           if (Convert.ToInt32(days) == 0 && hours > 0)
+                            //var dateFuture = new DateTime(showRoomBannerLateral.AnioFaltante, showRoomBannerLateral.MesFaltante, showRoomBannerLateral.DiasFaltantes);
+                            //DateTime dateNow = DateTime.Now;
+                            //var seconds1 = Math.Floor((dateFuture - (dateNow)).TotalSeconds);
+
+                            //TimeSpan secondsTotal = dateFuture - dateNow;
+                            //double segundosTotales = secondsTotal.TotalSeconds;
+                            //int seconds = secondsTotal.Seconds;
+                            
+
+                            //var minutes = segundosTotales / 60;
+                            //var hours = minutes / 60;
+                            //var days = hours / 24;
+                   
+
+                           if (showRoomBannerLateral.DiasFalta < 1)
                             {
-                                showRoomBannerLateral.DiasFaltantes = 1;
-                            }
-                            else if (Convert.ToInt32(days) > 0)
-                            {
-                                showRoomBannerLateral.DiasFaltantes = Convert.ToInt32(days);
-                            }
-                            else
-                            {
-                                 ViewBag.MostrarShowRoomBannerLateral = false;
+                                ViewBag.MostrarShowRoomBannerLateral = false;
                             }
 
-                            if (days > 1) {
-                                showRoomBannerLateral.LetrasDias = "FALTAN " + Convert.ToInt32(showRoomBannerLateral.DiasFaltantes).ToString() + " DÍAS";
+                            if (showRoomBannerLateral.DiasFalta > 0) {
+                                showRoomBannerLateral.LetrasDias = "FALTAN " + Convert.ToInt32(showRoomBannerLateral.DiasFalta).ToString() + " DÍAS";
                             }
-                            else { showRoomBannerLateral.LetrasDias = "FALTA " +  Convert.ToInt32(showRoomBannerLateral.DiasFaltantes).ToString() +  " DÍA"; }
+                            else { showRoomBannerLateral.LetrasDias = "FALTA " +  Convert.ToInt32(showRoomBannerLateral.DiasFalta).ToString() +  " DÍA"; }
 
                     ViewBag.ImagenPopupShowroomIntriga = showRoomBannerLateral.ImagenPopupShowroomIntriga;
                     ViewBag.ImagenBannerShowroomIntriga = showRoomBannerLateral.ImagenBannerShowroomIntriga;
+                    ViewBag.ImagenPopupShowroomVenta = showRoomBannerLateral.ImagenPopupShowroomVenta;
+                    ViewBag.ImagenBannerShowroomVenta = showRoomBannerLateral.ImagenBannerShowroomVenta;
                     ViewBag.DiasFaltantesLetras = showRoomBannerLateral.LetrasDias;
                     
 

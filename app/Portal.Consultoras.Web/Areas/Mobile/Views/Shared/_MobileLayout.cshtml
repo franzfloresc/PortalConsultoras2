@@ -142,45 +142,69 @@
     @if (ViewBag.MostrarBannerTopPL20 == true)
     {
         <div id="flexslidertop" class="header_slider" style="overflow:hidden;">
-            <a id="btn_cerrar_oferta_mobile" class="btn_cerrar_oferta_mobile">X</a>
+            @if (ViewBag.MostrarOfertaDelDia == true)
+            {
+                <a id="btn_cerrar_oferta_mobile" class="btn_cerrar_oferta_mobile">X</a>
+            }
+            
             <ul class="slides">
-                <li>
-                    <!--OFERTA DEL DIA HEADER-->
-                    <div class="BloqueOfertaDiaHeader">
-                        <div class="row_contador" style="padding:0;">
-                            <div class="float_left">
-                                <div class="solo_hoy_mobile2"><img src="@ofertaDelDia.ImagenSoloHoy" alt="Solo Hoy" /></div>
-                                <div class="nombre_set_oferta_mobile" style="margin-left:10px; margin-top:0;">@ofertaDelDia.NombreOferta <b>@ViewBag.Simbolo @ofertaDelDia.PrecioOfertaFormat</b></div>
+                @if (ViewBag.MostrarOfertaDelDia == true)
+                {
+                    <li>
+                        <!--OFERTA DEL DIA HEADER-->
+                        <div class="BloqueOfertaDiaHeader">
+                            <div class="row_contador" style="padding:0;">
+                                <div class="float_left">
+                                    <div class="solo_hoy_mobile2"><img src="@ofertaDelDia.ImagenSoloHoy" alt="Solo Hoy" /></div>
+                                    <div class="nombre_set_oferta_mobile" style="margin-left:10px; margin-top:0;">@ofertaDelDia.NombreOferta <b>@ViewBag.Simbolo @ofertaDelDia.PrecioOfertaFormat</b></div>
+                                </div>
+                                <div class="imagen_set_oferta_mobile" style="float:right;width:78px; margin-right:20px;"><img style="width:83%;" src="@ofertaDelDia.ImagenBanner" alt="Solo Hoy" /></div>
+                                <hr class="clear" />
+                                <input type="hidden" id="tipoestrategia-id-odd" value="@ofertaDelDia.TipoEstrategiaID" />
+                                <input type="hidden" id="marca-id-odd" value="@ofertaDelDia.MarcaID" />
+                                <input type="hidden" id="cuv2-odd" value="@ofertaDelDia.CUV2" />
+                                <input type="hidden" id="limite-venta-odd" value="@ofertaDelDia.LimiteVenta" />
+                                <input type="hidden" id="flagnueva-odd" value="@ofertaDelDia.FlagNueva" />
+                                <input type="hidden" id="precio-odd" value="@ofertaDelDia.PrecioOferta" />
+                                <input type="hidden" id="nombre-odd" value="@ofertaDelDia.NombreOferta" />
+                                <input type="hidden" id="indmonto-min-odd" value="@ofertaDelDia.IndicadorMontoMinimo" />
+                                <input type="hidden" id="teimagenmostrar-odd" value="@ofertaDelDia.TipoEstrategiaImagenMostrar" />
                             </div>
-                            <div class="imagen_set_oferta_mobile" style="float:right;width:78px; margin-right:20px;"><img style="width:83%;" src="@ofertaDelDia.ImagenBanner" alt="Solo Hoy" /></div>
-                            <hr class="clear" />
-                            <input type="hidden" id="tipoestrategia-id-odd" value="@ofertaDelDia.TipoEstrategiaID" />
-                            <input type="hidden" id="marca-id-odd" value="@ofertaDelDia.MarcaID" />
-                            <input type="hidden" id="cuv2-odd" value="@ofertaDelDia.CUV2" />
-                            <input type="hidden" id="limite-venta-odd" value="@ofertaDelDia.LimiteVenta" />
-                            <input type="hidden" id="flagnueva-odd" value="@ofertaDelDia.FlagNueva" />
-                            <input type="hidden" id="precio-odd" value="@ofertaDelDia.PrecioOferta" />
-                            <input type="hidden" id="nombre-odd" value="@ofertaDelDia.NombreOferta" />
-                            <input type="hidden" id="indmonto-min-odd" value="@ofertaDelDia.IndicadorMontoMinimo" />
-                            <input type="hidden" id="teimagenmostrar-odd" value="@ofertaDelDia.TipoEstrategiaImagenMostrar" />
                         </div>
-                    </div>
-                    <!--FIN-->
-                </li>
-                @if (ViewBag.MostrarShowRoomBannerLateral == true)
+                        <!--FIN-->
+                    </li>
+                }
+               
+                @if (showRoomBannerLateral.MostrarShowRoomProductos == true)
+                {
+                    <li>
+                        <a href="@Url.Action("Index", "ShowRoom", new {area = "Mobile"})">
+                            <div class="content_banner_header_showroom">
+                                @*<div class="content_titulo"><div class="titulo_intriga">GRAN VENTA ONLINE</div></div>
+
+                                <div class="faltan_dias_header"><b>@ViewBag.DiasFaltantesLetras</b></div>*@
+                                <img src="@ViewBag.ImagenBannerShowroomVenta" alt="Solo Hoy" />
+                            </div>
+                        </a>
+
+                    </li>
+                }
+                else
                 {
                     <li>
                         <a href="@Url.Action("Intriga", "ShowRoom", new {area = "Mobile"})">
                             <div class="content_banner_header_showroom">
-                            <div class="content_titulo"><div class="titulo_intriga">GRAN VENTA ONLINE</div></div>
-                           
+                                <div class="content_titulo"><div class="titulo_intriga">GRAN VENTA ONLINE</div></div>
+
                                 <div class="faltan_dias_header"><b>@ViewBag.DiasFaltantesLetras</b></div>
                                 <img src="@ViewBag.ImagenBannerShowroomIntriga" alt="Solo Hoy" />
                             </div>
                         </a>
 
                     </li>
+                    
                 }
+
             </ul>
         </div>
     }
@@ -304,7 +328,7 @@
                                             <a href="@Url.Action("Index", "ShowRoom", new {area = "Mobile"})">
                                                 <div class="content_banner_new_showroom">
                                                     <div class="dias_faltantes"><span id="spnDiasFaltantes">@ViewBag.DiasFaltantesLetras </span> </div>
-                                                    <img style="width:100%;height:100%;" src="@Url.Content("~/Content/Images/mobile/img-showroom/banner_intriga_new_showroom.png")" alt="-" />
+                                                    <img style="width:100%;height:100%;" src="ViewBag.ImagenPopupShowroomVenta" alt="-" />
                                                 </div>
                                             </a>
                                         </div>

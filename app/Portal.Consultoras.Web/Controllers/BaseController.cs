@@ -1480,8 +1480,8 @@ namespace Portal.Consultoras.Web.Controllers
             model.EstaActivoLateral = true;
             var fechaHoy = DateTime.Now.AddHours(userData.ZonaHoraria).Date;
 
-            if (fechaHoy >= userData.FechaInicioCampania.AddDays(-model.BEShowRoom.DiasAntes).Date &&
-                fechaHoy <= userData.FechaInicioCampania.AddDays(model.BEShowRoom.DiasDespues).Date)
+            if ((fechaHoy >= userData.FechaInicioCampania.AddDays(-model.BEShowRoom.DiasAntes).Date &&
+                fechaHoy <= userData.FechaInicioCampania.AddDays(model.BEShowRoom.DiasDespues).Date))
             {
                 model.MostrarShowRoomProductos = true;
                 //model.RutaShowRoomBannerLateral = Url.Action("Index", "ShowRoom");
@@ -1489,6 +1489,9 @@ namespace Portal.Consultoras.Web.Controllers
             if (fechaHoy > userData.FechaInicioCampania.AddDays(model.BEShowRoom.DiasDespues).Date) model.EstaActivoLateral = false;
 
             model.DiasFaltantes = userData.FechaInicioCampania.AddDays(- model.BEShowRoom.DiasAntes).Day; // userData.FechaInicioCampania.Day - model.BEShowRoom.DiasAntes;
+
+            model.DiasFalta = model.DiasFaltantes - fechaHoy.Day;
+
             model.MesFaltante = userData.FechaInicioCampania.Month;
             model.AnioFaltante = userData.FechaInicioCampania.Year;
             
@@ -1503,6 +1506,16 @@ namespace Portal.Consultoras.Web.Controllers
                 if (Item.Atributo == Constantes.ShowRoomPersonalizacion.Mobile.BannerImagenIntriga && Item.TipoAplicacion == Constantes.ShowRoomPersonalizacion.TipoAplicacion.Mobile)
                 {
                     model.ImagenBannerShowroomIntriga = Item.Valor;
+                }
+
+                if (Item.Atributo == Constantes.ShowRoomPersonalizacion.Mobile.PopupImagenVenta && Item.TipoAplicacion == Constantes.ShowRoomPersonalizacion.TipoAplicacion.Mobile)
+                {
+                    model.ImagenPopupShowroomVenta = Item.Valor;
+                }
+
+                if (Item.Atributo == Constantes.ShowRoomPersonalizacion.Mobile.BannerImagenVenta && Item.TipoAplicacion == Constantes.ShowRoomPersonalizacion.TipoAplicacion.Mobile)
+                {
+                    model.ImagenBannerShowroomVenta = Item.Valor;
                 }
             }
 
@@ -1647,7 +1660,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
         #endregion  
-
+       
         public String GetUrlCompartirFB()
         {
             //var urlWs = "";
@@ -1662,6 +1675,18 @@ namespace Portal.Consultoras.Web.Controllers
                 urlBase_fb = request.Url.Scheme + "://" + request.Url.Authority + "/Pdto.aspx?id=" + userData.CodigoISO + "_[valor]";
             }
             return urlBase_fb;
+        }
+
+        public string GetUrlCompartirFBSR(int OfertaShowRoomID)
+        {
+            string urlBase_fb = "";
+            if (System.Web.HttpContext.Current.Request.UserAgent != null)
+            {
+                var request = HttpContext.Request;
+                urlBase_fb = request.Url.Scheme + "://" + request.Url.Authority + "/Set.aspx?id=" + userData.CodigoISO + "_" + OfertaShowRoomID.ToString() + "_" + userData.CampaniaID.ToString() + "_F";
+            }
+            return urlBase_fb;
+
         }
     }
 }

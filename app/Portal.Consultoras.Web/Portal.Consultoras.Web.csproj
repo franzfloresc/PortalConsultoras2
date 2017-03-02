@@ -252,6 +252,7 @@
     <Compile Include="Controllers\AdministrarProductoSugeridoController.cs" />
     <Compile Include="Controllers\AdministrarTipoEstrategiaController.cs" />
     <Compile Include="Controllers\BaseControllerUnete.cs" />
+    <Compile Include="Controllers\BaseShowRoomController.cs" />
     <Compile Include="Controllers\CatalogoPersonalizadoController.cs" />
     <Compile Include="Controllers\ConfiguracionTipoProcesoCargaPedidosController.cs" />
     <Compile Include="Controllers\EscalaDescuentosController.cs" />
@@ -370,6 +371,7 @@
     <Compile Include="Models\ClienteOnlineDetalleModel.cs" />
     <Compile Include="Models\ClienteSb2Model.cs" />
     <Compile Include="Models\BarraConsultoraModel.cs" />
+    <Compile Include="Models\CompartirRedesSocialesModel.cs" />
     <Compile Include="Models\ComunModel.cs" />
     <Compile Include="Models\EstrategiaPedidoModel.cs" />
     <Compile Include="Models\ConsultarValidacionTelefonicaModel.cs" />
@@ -1859,6 +1861,7 @@
     <Content Include="Content\Images\Esika\info-copy.png" />
     <Content Include="Content\Images\Esika\lapiz.png" />
     <Content Include="Content\Images\Esika\lbel_revista.png" />
+    <Content Include="Content\Images\Esika\left_compra.png" />
     <Content Include="Content\Images\Esika\liquidacionhome.png" />
     <Content Include="Content\Images\Esika\liquidacion_home.png" />
     <Content Include="Content\Images\Esika\lleva_celular.png" />
@@ -1899,6 +1902,7 @@
     <Content Include="Content\Images\Esika\regresar.png" />
     <Content Include="Content\Images\Esika\revista.png" />
     <Content Include="Content\Images\Esika\revista_c09.png" />
+    <Content Include="Content\Images\Esika\right_compra.png" />
     <Content Include="Content\Images\Esika\slider-adelante.png" />
     <Content Include="Content\Images\Esika\sombra.png" />
     <Content Include="Content\Images\Esika\star_reco.png" />
@@ -2890,6 +2894,8 @@
     <Content Include="Scripts\PortalConsultoras\Pedido\ofertafinal.js" />
     <Content Include="Scripts\PortalConsultoras\Shared\LoginLayout.js" />
     <Content Include="Scripts\PortalConsultoras\Shared\TrackingJetlore.js" />
+    <Content Include="Scripts\PortalConsultoras\ShowRoom\Index.js" />
+    <Content Include="Scripts\PortalConsultoras\ShowRoom\ShowRoom.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\slick.js" />
     <Content Include="Scripts\slick.min.js" />
@@ -3120,6 +3126,7 @@
     <Content Include="Content\Css\Site\fonts\icomoon\logo_esika.eot" />
     <Content Include="Content\Css\Site\fonts\icomoon\logo_esika.ttf" />
     <Content Include="Content\Css\Site\fonts\icomoon\logo_esika.woff" />
+    <Content Include="Areas\Mobile\Views\ShowRoom\DetalleOferta.cshtml" />
     <None Include="Service References\ServiceCDR\CDRService.disco" />
     <None Include="Service References\ServiceCDR\configuration91.svcinfo" />
     <None Include="Service References\ServiceCDR\configuration.svcinfo" />
@@ -4115,6 +4122,7 @@
     <Folder Include="Content\ArchivoNivelGeografico\" />
     <Folder Include="Content\Css\Site\Login\" />
     <Folder Include="GestionPasos\Asignaciones\" />
+    <Folder Include="Views\BaseShowRoom\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

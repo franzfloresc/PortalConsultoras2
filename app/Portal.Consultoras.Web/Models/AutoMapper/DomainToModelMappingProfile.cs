@@ -104,12 +104,7 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
                 .ForMember(t => t.MarcaID, f => f.MapFrom(c => c.IdMarca))
                 .ForMember(t => t.CUV, f => f.MapFrom(c => c.Cuv))
                 .ForMember(t => t.DescripcionMarca, f => f.MapFrom(c => c.NombreMarca));
-
-            Mapper.CreateMap<ProductoModel, Producto>()
-                .ForMember(t => t.IdMarca, f => f.MapFrom(c => c.MarcaID))
-                .ForMember(t => t.Cuv, f => f.MapFrom(c => c.CUV))
-                .ForMember(t => t.NombreMarca, f => f.MapFrom(c => c.DescripcionMarca));
-
+            
             /*PL20-1306*/
             Mapper.CreateMap<BEShowRoomOferta, ShowRoomOfertaModel>()
                 .ForMember(t => t.OfertaShowRoomID, f => f.MapFrom(c => c.OfertaShowRoomID))
@@ -129,7 +124,10 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
                 .ForMember(t => t.DescripcionLegal, f => f.MapFrom(c => c.DescripcionLegal))
                 .ForMember(t => t.CategoriaID, f => f.MapFrom(c => c.CategoriaID))
                 .ForMember(t => t.MarcaID, f => f.MapFrom(c => c.MarcaID))
-                .ForMember(t => t.ImagenMini, f => f.MapFrom(c => c.ImagenMini)); 
+                .ForMember(t => t.ImagenMini, f => f.MapFrom(c => c.ImagenMini));
+
+
+            Mapper.CreateMap<BEShowRoomOfertaDetalle, ShowRoomOfertaDetalleModel>();
         }
     }
 }
