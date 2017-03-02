@@ -4942,7 +4942,7 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
 }
 
 .btn_noGracias_agregarProductos{
-        display: block;
+    display: block;
     /* position: absolute; */
     /* margin-left: 10px; */
     /* bottom: -1px; */
@@ -28176,7 +28176,7 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
     line-height:42px;
     font-size:13px;
     font-weight:700;
-   
+
     text-transform:uppercase;
     margin:auto;
 
@@ -33453,4 +33453,10 @@ h1#penmostreo .campana {
 .cantidad_listado_pdd {
     padding-top: 30px;
     padding-bottom: 30px;
+}
+
+.enlace_chat a {
+    display: inline;
+    font-weight: bold;
+    text-decoration: underline;
 }

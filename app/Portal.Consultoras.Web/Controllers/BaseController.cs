@@ -431,7 +431,7 @@ namespace Portal.Consultoras.Web.Controllers
         private List<PermisoModel> BuildMenu()
         {
             if (userData.Menu == null)
-                {
+            {
                     IList<ServiceSeguridad.BEPermiso> lst = new List<ServiceSeguridad.BEPermiso>();
                     using (ServiceSeguridad.SeguridadServiceClient sv = new ServiceSeguridad.SeguridadServiceClient())
                     {
@@ -569,7 +569,7 @@ namespace Portal.Consultoras.Web.Controllers
             string UrlEMTELCO = ConfigurationManager.AppSettings["UrlBelcorpChat"];
 
             if (model != null)
-                    {
+            {
                 #region Cargar variables
 
                 CargarEntidadesShowRoom(model);
@@ -639,10 +639,10 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
             DateTime fechaHoy = DateTime.Now.AddHours(model.ZonaHoraria).Date;
-            model.EsDiasFacturacion = fechaHoy >= model.FechaInicioCampania.Date && fechaHoy <= model.FechaFinCampania.Date;
+                model.EsDiasFacturacion = fechaHoy >= model.FechaInicioCampania.Date && fechaHoy <= model.FechaFinCampania.Date;
 
             ViewBag.FechaActualPais = fechaHoy.ToShortDateString();
-            ViewBag.Dias = GetDiasFaltantesFacturacion(model.FechaInicioCampania, model.ZonaHoraria);
+                ViewBag.Dias = GetDiasFaltantesFacturacion(model.FechaInicioCampania, model.ZonaHoraria);
             //ViewBag.Dias = fechaHoy >= model.FechaInicioCampania.Date && fechaHoy <= model.FechaFinCampania.Date ? 0 : (model.FechaInicioCampania.Subtract(DateTime.Now.AddHours(model.ZonaHoraria)).Days + 1);
 
                 ViewBag.PeriodoAnalytics = fechaHoy >= model.FechaInicioCampania.Date && fechaHoy <= model.FechaFinCampania.Date ? "Facturacion" : "Venta";
@@ -782,11 +782,11 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         protected List<BEProductoFaltante> GetProductosFaltantes()
-        {
+                        {
             return this.GetProductosFaltantes("", "");
-        }
+                    }
         protected List<BEProductoFaltante> GetProductosFaltantes(string cuv, string descripcion)
-        {
+                                    {
             List<BEProductoFaltante> olstProductoFaltante = new List<BEProductoFaltante>();
             using (SACServiceClient sv = new SACServiceClient())
             {
@@ -1617,6 +1617,16 @@ namespace Portal.Consultoras.Web.Controllers
                 urlBase_fb = request.Url.Scheme + "://" + request.Url.Authority + "/Pdto.aspx?id=" + userData.CodigoISO + "_[valor]";
             }
             return urlBase_fb;
+        }
+        
+        protected int GetDiasFaltantesFacturacion(DateTime fechaInicioCampania, double zonaHoraria)
+        {
+            DateTime fechaHoy = DateTime.Now.AddHours(zonaHoraria).Date;
+            return fechaHoy >= fechaInicioCampania.Date ? 0 : (fechaInicioCampania.Subtract(DateTime.Now.AddHours(zonaHoraria)).Days + 1);
+        }        
+        protected JsonResult ErrorJson(string message)
+        {
+            return Json(new { success = false, message = message }, JsonRequestBehavior.AllowGet);
         }
     }
 }

@@ -32901,7 +32901,7 @@ h1#penmostreo .campana {
 
 /*FICHA PRODUCTO FAV DESKTOP*/
 .content_left_ficha {
-    float: left;
+        float: left;
     width: 40%;
     margin-right: 5%;
 }

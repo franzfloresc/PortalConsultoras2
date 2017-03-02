@@ -315,8 +315,7 @@ namespace Portal.Consultoras.Common
             public const string UnidadesPermitidasFaltante = "UnidadesPermitidasFaltante";
             public const string ValidacionDiasFaltante = "ValidacionDiasFaltante";
             public const string DiasAntesFacturacion = "DiasAntesFacturacion";
-        }
-
+        }
         public class CdrWebMensajes
         {
             public const string FueraDeFecha = "Tu solicitud se encuentra fuera de fecha para poder ser atendida";
