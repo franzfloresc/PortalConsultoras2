@@ -157,8 +157,11 @@
                 <span class="mensaje_horarioIngresoPedido">Si quieres ingresar pedido, lo puedes hacer desde mañana a las 7 a.m.</span>*@
                     <span class="mensaje_estadoActualPedido">TU PEDIDO HA SIDO RECHAZADO</span>
                     <span class="mensaje_horarioIngresoPedido">
-                        Tienes una deuda de S/. <span>200</span> que debes regularizar.
-                        <a href="#" title="MIRA LOS LUGARES DE PAGO">MIRA LOS LUGARES DE PAGO</a>
+                        @userData.MotivoRechazo
+                        @if (userData.RechazoBannerUrl == Enumeradores.RechazoBannerUrl.ModificaPedido)
+                        {
+                            <a class='CerrarBanner' title="MODIFICA TU PEDIDO" href='@Url.Action("Index", "Pedido", new { area = "Mobile" })'>MODIFICA TU PEDIDO</a>
+                        }
                     </span>
                 </div>
             </div>
@@ -582,7 +585,6 @@
         var indicadorEnviadoDescarga = '@ViewBag.IndicadorEnviado';
         var estaRechazado = '@ViewBag.IndicadorGPRSB';
         var cerrarRechazado = '@ViewBag.CerrarRechazado';
-        var motivoRechazo = '@ViewBag.MotivoRechazo';
         var mostrarBannerRechazo = '@ViewBag.MostrarBannerRechazo';
 
         var MobileShowRoom = @Constantes.OrigenPedidoWeb.MobileShowRoom;
@@ -595,6 +597,8 @@
 
         var urlLogDynamo = '@System.Configuration.ConfigurationManager.AppSettings["UrlLogDynamo"]';
         var userData = {
+            'aplicacion': '@(Constantes.LogDynamoDB.AplicacionPortalConsultoras)',
+            'rol': '@(Constantes.LogDynamoDB.RolConsultora)',
             'campana': '@ViewBag.AnalyticsCampania',
             'region': '@ViewBag.AnalyticsRegion',
             'zona': '@ViewBag.AnalyticsZona',
@@ -1019,6 +1023,32 @@
                 cantidad = cantidad < 99 ? (cantidad + 1) : 99;
 
                 $txtcantidad.val(cantidad);
+            });
+
+            
+            $("body").on("click", "[data-popup-main]", function (e) {
+                if (!$(e.target).closest('[data-popup-body]').length) {
+
+                    if ($(e.target).is(':visible')) {
+
+                        var functionHide = $('[data-popup-main]').attr("data-popup-function-hide");
+                        if (functionHide != "") {
+                            setTimeout(functionHide + "()", 100);
+                        }
+                        $(e.target).hide();
+                    }
+                }
+            });
+
+
+            $("body").on("click", "[data-popup-close]", function (e) {
+                var popupClose = $("#" + $(this).attr("data-popup-close")) || $(this).parent("[data-popup-main]");
+
+                var functionHide = $(popupClose).attr("data-popup-function-hide");
+                if (functionHide != "") {
+                    setTimeout(functionHide + "()", 100);
+                }
+                $(popupClose).hide();
             });
 
             if(MostrarBannerPL20) loadBannerLP20();
