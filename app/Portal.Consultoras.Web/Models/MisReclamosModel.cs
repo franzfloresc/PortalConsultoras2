@@ -45,5 +45,6 @@ namespace Portal.Consultoras.Web.Models
         public int CumpleRangoCampaniaCDR { get; set; }
         /*EPD-1339*/
         public string UrlPoliticaCdr { get; set; }
+        public string MensajePeriodoInvalido { get; set; }
     }
 }
