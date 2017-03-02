@@ -37,6 +37,10 @@ $(document).ready(function () {
     });
 
     $("#IrPAso2").on("click", function () {
+        $("#txtCUVDescripcion2").val('')
+        $("#txtCUV2").val('');
+        $("#txtCUVPrecio2").val('');
+        
         if (ValidarPaso1()) {
             paso2Actual = 1;
             CambioPaso();
@@ -851,6 +855,39 @@ function ValidarPaso2Trueque() {
     //    alert_msg("El monto total del producto seleccionado debe ser mayor o igual a " + vbSimbolo + formatoMontoMinimo);
     //    return false;
     //}
+
+    //------------------------------------------------------------
+    waitingDialog();
+
+    var item = {
+        PedidoID: $("#txtPedidoID").val(),
+        CUV: $.trim($("#txtCUV2").val()),
+        Cantidad: $.trim($("#txtCantidad2").val()),
+        Motivo: $.trim($("#divMotivo [data-check='1']").attr("id")),
+        CampaniaID: $("#ddlCampania").val()
+    };
+
+    jQuery.ajax({
+        type: 'POST',
+        url: baseUrl + 'MisReclamos/ValidarPaso1',
+        dataType: 'json',
+        contentType: 'application/json; charset=utf-8',
+        data: JSON.stringify(item),
+        async: false,
+        cache: false,
+        success: function (data) {
+            closeWaitingDialog();
+            ok = data.success;
+
+            if (!data.success && data.message != "") {
+                alert_msg(data.message);
+            }
+        },
+        error: function (data, error) {
+            closeWaitingDialog();
+        }
+    });
+    //------------------------------------------------------------
 
     var valorParametria = $("#hdParametriaCdr").val();
     var valorParametriaAbs = $("#hdParametriaAbsCdr").val();
