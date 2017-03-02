@@ -6,7 +6,7 @@ using Portal.Consultoras.Common;
 namespace Portal.Consultoras.Web.Models
 {
     [Serializable]
-    public class ShowRoomOfertaModel
+    public class ShowRoomOfertaModel: ICloneable
     {
         public int OfertaShowRoomID { get; set; }
 
@@ -123,6 +123,11 @@ namespace Portal.Consultoras.Web.Models
             {
                 return Util.DecimalToStringFormat(Gana, CodigoISO);
             }
+        }
+
+        public object Clone()
+        {
+            return this.MemberwiseClone();
         }
     }
 }
