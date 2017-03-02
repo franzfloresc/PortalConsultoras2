@@ -3148,7 +3148,6 @@
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
-    <Content Include="Service References\ServiceODS\ODSService.wsdl" />
     <None Include="Service References\ServiceContenido\ContenidoService.wsdl" />
     <None Include="Service References\ServiceContenido\ContenidoService.xsd">
       <SubType>Designer</SubType>
@@ -3165,6 +3164,7 @@
     <None Include="Service References\ServiceContenido\ContenidoService4.xsd">
       <SubType>Designer</SubType>
     </None>
+    <Content Include="Service References\ServiceODS\ODSService.wsdl" />
     <None Include="Service References\ServiceODS\ODSService.xsd">
       <SubType>Designer</SubType>
     </None>
@@ -3191,6 +3191,12 @@
     <None Include="Service References\ServicePedidoRechazado\PedidoRechazadoService2.xsd">
       <SubType>Designer</SubType>
     </None>
+    <Content Include="Service References\ServiceODS\configuration91.svcinfo" />
+    <Content Include="Service References\ServiceODS\configuration.svcinfo" />
+    <Content Include="Service References\ServiceODS\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </Content>
     <Content Include="Service References\ServicePedido\PedidoService.wsdl" />
     <None Include="Service References\ServicePedido\PedidoService.xsd">
       <SubType>Designer</SubType>
