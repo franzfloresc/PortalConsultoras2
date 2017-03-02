@@ -758,7 +758,6 @@ namespace Portal.Consultoras.Web.Controllers
             ViewBag.IndicadorGPRSB = model.IndicadorGPRSB;
             ViewBag.CerrarRechazado = model.CerrarRechazado;
             ViewBag.MostrarBannerRechazo = model.MostrarBannerRechazo;
-            ViewBag.MotivoRechazo = model.MotivoRechazo.Trim();
             ViewBag.Efecto_TutorialSalvavidas = ConfigurationManager.AppSettings.Get("Efecto_TutorialSalvavidas") ?? "1";
             ViewBag.EstadoPedido = model.EstadoPedido;
             ViewBag.ValidacionAbierta = model.ValidacionAbierta;

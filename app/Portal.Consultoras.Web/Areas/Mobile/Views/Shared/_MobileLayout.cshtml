@@ -157,8 +157,11 @@
                 <span class="mensaje_horarioIngresoPedido">Si quieres ingresar pedido, lo puedes hacer desde mañana a las 7 a.m.</span>*@
                     <span class="mensaje_estadoActualPedido">TU PEDIDO HA SIDO RECHAZADO</span>
                     <span class="mensaje_horarioIngresoPedido">
-                        Tienes una deuda de S/. <span>200</span> que debes regularizar.
-                        <a href="#" title="MIRA LOS LUGARES DE PAGO">MIRA LOS LUGARES DE PAGO</a>
+                        @userData.MotivoRechazo
+                        @if (userData.RechazoBannerUrl == Enumeradores.RechazoBannerUrl.ModificaPedido)
+                        {
+                            <a class='CerrarBanner' title="MODIFICA TU PEDIDO" href='@Url.Action("Index", "Pedido", new { area = "Mobile" })'>MODIFICA TU PEDIDO</a>
+                        }
                     </span>
                 </div>
             </div>
@@ -582,7 +585,6 @@
         var indicadorEnviadoDescarga = '@ViewBag.IndicadorEnviado';
         var estaRechazado = '@ViewBag.IndicadorGPRSB';
         var cerrarRechazado = '@ViewBag.CerrarRechazado';
-        var motivoRechazo = '@ViewBag.MotivoRechazo';
         var mostrarBannerRechazo = '@ViewBag.MostrarBannerRechazo';
 
         var MobileShowRoom = @Constantes.OrigenPedidoWeb.MobileShowRoom;

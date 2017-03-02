@@ -3314,7 +3314,7 @@ namespace Portal.Consultoras.Web.Controllers
                         BEConfiguracionCampania oBEConfiguracionCampania = null;
                         oBEConfiguracionCampania = sv.GetEstadoPedido(userData.PaisID, userData.CampaniaID, userData.ConsultoraID, userData.ZonaID, userData.RegionID);
 
-                        if (userData.IndicadorGPRSB == 2 && oBEConfiguracionCampania.ValidacionAbierta)
+                        if (userData.IndicadorGPRSB == 2 && oBEConfiguracionCampania.ValidacionAbierta && !string.IsNullOrEmpty(userData.MotivoRechazo))
                         {
                             userData.MostrarBannerRechazo = true;
                             userData.CerrarRechazado = 0;
