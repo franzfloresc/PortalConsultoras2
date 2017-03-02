@@ -34307,3 +34307,21 @@ h1#penmostreo .campana {
 .slider-container .back-bar .pointer-label{
      color:#613c87 !important;
 }
+
+.vineta {
+    list-style-image: url("https://www.somosbelcorp.com/Content/Images/Esika/indicador_pedido.png");
+}
+
+.btnnotificacion {
+    text-decoration: none;
+    font-family: 'Lato';
+    font-weight: 700;
+    color: black;
+    font-size: 12px;
+    border: 2px solid #979797;
+    text-align: center;
+    padding: 10px;
+    width: 40%;
+    margin: 0 auto;
+    margin-top: 25px;
+}
