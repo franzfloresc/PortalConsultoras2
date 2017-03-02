@@ -123,7 +123,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                             var fechaHoy = DateTime.Now.AddHours(userData.ZonaHoraria).Date;
 
-                            if (!(fechaHoy >= userData.FechaInicioCampania.AddDays(-diasAntes).Date && fechaHoy <= userData.FechaInicioCampania.AddDays(diasDespues).Date))
+                            if ((fechaHoy >= userData.FechaInicioCampania.AddDays(-diasAntes).Date && fechaHoy <= userData.FechaInicioCampania.AddDays(diasDespues).Date))
                             {
                                 var codigoConsultora = userData.CodigoConsultora;                                
 
