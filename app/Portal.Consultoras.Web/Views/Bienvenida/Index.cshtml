@@ -1653,12 +1653,12 @@
                 </div>
             </div>
             <div class="content_right_ficha">
-                <div {{#iff CodigoEstrategia '==' '2002'}} class="content_left_ficha" {{/iff}}>
+                <div {{#iff CodigoEstrategia '==' '2002'}} class="content_left_ficha" {{/iff}} style="width:50%; margin-right:0">
                     <div class="marca_producto">{{DescripcionMarca}}</div>
                     <div id="fav_nombre_prod" class="titulo_ficha_producto" data-prod-descripcion>{{DescripcionCompleta}}</div>
                     @*<div id="fav_descripcion_prod" class="descripcion_ficha_producto">CY STUDIO DEL 1.5 G BROWN</div>*@
                 </div>
-                <div {{#iff CodigoEstrategia '==' '2002'}} class="content_right_ficha" style="text-align:right;" {{/iff}}>
+                <div {{#iff CodigoEstrategia '==' '2002'}} class="content_right_ficha" style="text-align:right; width:50%;" {{/iff}}>
                     <div class="precio_ficha_producto">
                         {{#iff Precio '>' 0}}
                         <span class="producto_precio_normal">{{Simbolo}} {{PrecioTachado}}</span><br />
