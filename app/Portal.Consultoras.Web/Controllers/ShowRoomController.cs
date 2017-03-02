@@ -123,7 +123,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                             var fechaHoy = DateTime.Now.AddHours(userData.ZonaHoraria).Date;
 
-                            if ((fechaHoy >= userData.FechaInicioCampania.AddDays(-diasAntes).Date && fechaHoy <= userData.FechaInicioCampania.AddDays(diasDespues).Date))
+                            if (!(fechaHoy >= userData.FechaInicioCampania.AddDays(-diasAntes).Date && fechaHoy <= userData.FechaInicioCampania.AddDays(diasDespues).Date))
                             {
                                 var codigoConsultora = userData.CodigoConsultora;                                
 
@@ -2551,6 +2551,23 @@ namespace Portal.Consultoras.Web.Controllers
             modelo.ListaOfertaShowRoom = GetOfertaListadoExcepto(id);
             var listaDetalle = ObtenerPedidoWebDetalle();
             modelo.ListaOfertaShowRoom.Update(o=>o.Agregado = (listaDetalle.Find(p=> p.CUV == o.CUV) ?? new BEPedidoWebDetalle()).PedidoDetalleID > 0 ? "block" : "none");
+
+            // redes sociales
+            modelo.FBRuta = GetUrlCompartirFBSR(modelo.OfertaShowRoomID);
+            var mensaje = "";
+            modelo.ListaDetalleOfertaShowRoom.ToList().ForEach(d => mensaje += d.NombreProducto + " + ");
+            mensaje = Util.Trim(mensaje);
+            mensaje = mensaje.EndsWith("+") ? mensaje.Substring(0, mensaje.Length - 1) : mensaje;
+            modelo.FBMensaje = modelo.Descripcion + ": " + Util.Trim(mensaje);
+
+            // agrupar por marca
+            modelo.ListaDetalleOfertaShowRoom = modelo.ListaDetalleOfertaShowRoom.OrderBy(d => d.MarcaProducto).ToList();
+            var nombreMarca = "";
+            modelo.ListaDetalleOfertaShowRoom.Update(d=> {
+                d.MarcaProducto = d.MarcaProducto == nombreMarca ? "" : d.MarcaProducto;
+                nombreMarca = d.MarcaProducto == nombreMarca ? nombreMarca : d.MarcaProducto;
+            });
+
             return View("DetalleSet", modelo);
         }
         
