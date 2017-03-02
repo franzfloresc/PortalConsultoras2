@@ -21,30 +21,21 @@
         <span>@Html.Raw(Model.CuerpoMensaje2)</span>
         <br /><br />
         <div>
-            @{
-                switch (Model.MotivoRechazo)
-                {
-                    case Constantes.GPRMotivoRechazo.Mostrar2OpcionesNotificacion:
-                        <a class='btnnotificacion' href="javascript:;" onclick="RedirectMenu('Index','Pedido',0,'Pedido')">MODIFICA TU PEDIDO</a>
-                        <a class='btnnotificacion' href="javascript:;" onclick="RedirectMenu('Index','MisPagos',0,'')">MIRA LOS LUGARES DE PAGO</a>                        
-                        break;
-                        
-                    case Constantes.GPRMotivoRechazo.ActualizacionDeuda:
-                        <a class='btnnotificacion' href="javascript:;" onclick="RedirectMenu('Index','MisPagos',0,'')">MIRA LOS LUGARES DE PAGO</a>
-                        break;
-
-                    case Constantes.GPRMotivoRechazo.MontoMinino:
-                        <a class='btnnotificacion' href="javascript:;" onclick="RedirectMenu('Index','Pedido',0,'Pedido')">MODIFICA TU PEDIDO</a>                        
-                        break;
-
-                    case Constantes.GPRMotivoRechazo.MontoMaximo:
-                        <a class='btnnotificacion' href="javascript:;" onclick="RedirectMenu('Index','Pedido',0,'Pedido')">MODIFICA TU PEDIDO</a>                        
-                        break;
-
-                    case Constantes.GPRMotivoRechazo.ValidacionMontoMinimoStock:
-                        <a class='btnnotificacion' href="javascript:;" onclick="RedirectMenu('Index','Pedido',0,'Pedido')">MODIFICA TU PEDIDO</a>
-                        break;
-                }
+            @switch (Model.MotivoRechazo)
+            {
+                case Constantes.GPRMotivoRechazo.Mostrar2OpcionesNotificacion:
+                case Constantes.GPRMotivoRechazo.MontoMinino:
+                case Constantes.GPRMotivoRechazo.MontoMaximo:
+                case Constantes.GPRMotivoRechazo.ValidacionMontoMinimoStock:
+                    <a class='btnnotificacion' href='@Url.Action("Index", "Pedido")'>MODIFICA TU PEDIDO</a>
+                    break;
+            }
+            @switch (Model.MotivoRechazo)
+            {
+                case Constantes.GPRMotivoRechazo.Mostrar2OpcionesNotificacion:
+                case Constantes.GPRMotivoRechazo.ActualizacionDeuda:
+                    <a class='btnnotificacion' href='@Url.Action("Index", "MisPagos")?pestanhaInicial=@Constantes.PestanhasMisPagos.LugaresPago'>MIRA LOS LUGARES DE PAGO</a>
+                    break;
             }
         </div>
             

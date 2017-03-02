@@ -729,21 +729,22 @@ function MensajeEstadoPedido() {
 
 function xMensajeEstadoPedido(estado) {
     var url = location.href.toLowerCase();
-    var identi = url.indexOf("/mobile/") > 0;
-    var wheight = $(window).innerHeight();
+    var esMobile = url.indexOf("/mobile/") > 0;
+    var esBienvenida = url.indexOf("/bienvenida/") > 0;
+
     if (estado) {
+        var wheight = $(window).innerHeight();
         $("#bloquemensajesPedido").show();//.slideDown("slow", function () { });
         ResizeMensajeEstadoPedido();
         var wtop = $("#bloquemensajesPedido").height();
 
-        if (identi) {
+        if (esMobile) {
             $("[data-content]").animate({ "top": wtop + "px" });
             $(".footer-page").animate({ "top": wtop + "px" });
             $(".oscurecer_animacion").css({ "display": "none" });
         }
         else {
-            identi = url.indexOf("/bienvenida") > 0;
-            if (identi) {
+            if (esBienvenida) {
                 $(".oscurecer_animacion").css({ "top": wtop + "px", "height": wheight + "px" });
                 //$("[data-content]").animate({ "top": wtop + "px" });               
             }
@@ -757,31 +758,16 @@ function xMensajeEstadoPedido(estado) {
     }
     else {
         $("#bloquemensajesPedido").slideUp();
-        if (identi) {
+        if (esMobile) {
             $("[data-content]").animate({ "top": "0px" });
             $(".footer-page").animate({ "top": "0px" });
         }
         else {
-            identi = url.indexOf("/bienvenida") > 0;
-            if (identi) {
-
+            if (esBienvenida) {
                 $("[data-content]").animate({ "top": "61px" });
-
-                if (estaRechazado == "2" && estadoPedido == "202" && validacionAbierta == "False") {
-                    $("[data-content]").animate({ "top": "0px" });
-                }
-
-                if (estaRechazado === "0") {
-                    $("[data-content]").animate({ "top": "0px" });
-                }
-
-                if (cerrarRechazado == 1) {
-                    $("[data-content]").animate({ "top": "0px" });
-                }
+                if (mostrarBannerRechazo != 'True' || cerrarRechazado == '1') $("[data-content]").animate({ "top": "0px" });
             }
-            else {
-                $(".ubicacion_web").animate({ "margin-top": "83px" });
-            }
+            else $(".ubicacion_web").animate({ "margin-top": "83px" });
         }
     }
 }
