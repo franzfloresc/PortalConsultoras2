@@ -8480,6 +8480,9 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private bool TieneCategoriaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool TieneCompraXcompraField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string UsuarioCreacionField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -8764,6 +8767,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((this.TieneCategoriaField.Equals(value) != true)) {
                     this.TieneCategoriaField = value;
                     this.RaisePropertyChanged("TieneCategoria");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool TieneCompraXcompra {
+            get {
+                return this.TieneCompraXcompraField;
+            }
+            set {
+                if ((this.TieneCompraXcompraField.Equals(value) != true)) {
+                    this.TieneCompraXcompraField = value;
+                    this.RaisePropertyChanged("TieneCompraXcompra");
                 }
             }
         }

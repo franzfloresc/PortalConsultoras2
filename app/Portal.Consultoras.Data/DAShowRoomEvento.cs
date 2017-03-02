@@ -48,6 +48,7 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@NumeroPerfiles", DbType.Int32, showRoomEvento.NumeroPerfiles);
             Context.Database.AddInParameter(command, "@UsuarioCreacion", DbType.String, showRoomEvento.UsuarioCreacion);
             Context.Database.AddInParameter(command, "@TieneCategoria", DbType.Boolean, showRoomEvento.TieneCategoria);
+            Context.Database.AddInParameter(command, "@TieneCompraXcompra", DbType.Boolean, showRoomEvento.TieneCompraXcompra);
 
             int result = Context.ExecuteNonQuery(command);
 
