@@ -3393,7 +3393,9 @@
     <Content Include="WebPages\Comunidad\CondicionesServicio_7.html" />
     <Content Include="WebPages\Comunidad\CondicionesServicio_8.html" />
     <Content Include="WebPages\Comunidad\CondicionesServicio_9.html" />
+    <Content Include="WebPages\Comunidad\old.footercomunidad.html" />
     <Content Include="WebPages\Comunidad\footercomunidad.html" />
+    <Content Include="WebPages\Comunidad\old.menucomunidad.html" />
     <Content Include="WebPages\Comunidad\menucomunidad.html" />
     <Content Include="WebPages\Comunidad\PoliticasPrivacidad_10.html" />
     <Content Include="WebPages\Comunidad\PoliticasPrivacidad_11.html" />
