@@ -252,6 +252,7 @@
     <Compile Include="Controllers\AdministrarProductoSugeridoController.cs" />
     <Compile Include="Controllers\AdministrarTipoEstrategiaController.cs" />
     <Compile Include="Controllers\BaseControllerUnete.cs" />
+    <Compile Include="Controllers\BaseShowRoomController.cs" />
     <Compile Include="Controllers\CatalogoPersonalizadoController.cs" />
     <Compile Include="Controllers\ConfiguracionTipoProcesoCargaPedidosController.cs" />
     <Compile Include="Controllers\EscalaDescuentosController.cs" />
@@ -4121,6 +4122,7 @@
     <Folder Include="Content\ArchivoNivelGeografico\" />
     <Folder Include="Content\Css\Site\Login\" />
     <Folder Include="GestionPasos\Asignaciones\" />
+    <Folder Include="Views\BaseShowRoom\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
