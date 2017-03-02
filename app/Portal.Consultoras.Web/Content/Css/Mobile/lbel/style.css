@@ -10554,3 +10554,82 @@ span.icon-advertencia{
 	padding-right: 7%;
 	padding-top: 15px;
 }
+
+.content_room_product_sheet .other_consultants{
+	padding-top: 30px;
+}
+
+.content_room_product_sheet .other_consultants .oc_title{
+	text-align: center;
+}
+
+.content_room_product_sheet .other_consultants .slider .slider_item{
+	width: 155px;
+}
+
+.content_room_product_sheet .other_consultants .slider .slider_item .slider_item_content{
+	padding: 10px;
+	display: block;
+	text-align: center;
+}
+
+.content_room_product_sheet .other_consultants .slider .slider_item .slider_item_content img{
+	display: inline-block;
+}
+
+.content_room_product_sheet .other_consultants .slider .slider_item .slider_item_content .title{
+	display: block;
+	font-weight: 700;
+	font-size: 14.5px;
+}
+
+.content_room_product_sheet .other_consultants .slider .slider_item .slider_item_content .price{
+	display: block;
+	font-size: 16px;
+}
+
+.content_room_product_sheet .other_consultants .slider button{
+	display: none!important;
+}
+
+.content_room_product_sheet .business_tips{
+	padding: 40px 20px 0 20px;
+}
+
+.content_room_product_sheet .business_tips .title{
+	margin: 0;
+	font-size: 14px;
+	font-weight: 400;
+	text-transform: uppercase;
+	background: url("../../../Images/mobile/Esika/icon-tip-red.svg") no-repeat center left;
+	padding: 7px 0 7px 38px;
+}
+
+.content_room_product_sheet .business_tips .content{
+	padding-top: 12px;
+	font-size: 13px;
+}
+
+.content_room_product_sheet .share_social_nertwoks{
+	padding: 30px 0 0 0;
+}
+
+.content_room_product_sheet .share_social_nertwoks .title{
+	font-size: 13px;
+	text-align: center;
+	padding-bottom: 5px;
+}
+
+.content_room_product_sheet .share_social_nertwoks .links{
+	text-align: center;
+}
+
+.content_room_product_sheet .share_social_nertwoks .links a{
+	display: inline-block;
+	width: 40%;
+	border: 1px solid #cbcbcb;
+}
+
+.content_room_product_sheet .share_social_nertwoks .links a.icon_fb{
+	padding: 4px 0 4px 0;
+}

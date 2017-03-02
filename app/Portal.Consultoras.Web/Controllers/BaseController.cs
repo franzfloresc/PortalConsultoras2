@@ -1660,7 +1660,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
         #endregion  
-
+       
         public String GetUrlCompartirFB()
         {
             //var urlWs = "";
@@ -1675,6 +1675,18 @@ namespace Portal.Consultoras.Web.Controllers
                 urlBase_fb = request.Url.Scheme + "://" + request.Url.Authority + "/Pdto.aspx?id=" + userData.CodigoISO + "_[valor]";
             }
             return urlBase_fb;
+        }
+
+        public string GetUrlCompartirFBSR(int OfertaShowRoomID)
+        {
+            string urlBase_fb = "";
+            if (System.Web.HttpContext.Current.Request.UserAgent != null)
+            {
+                var request = HttpContext.Request;
+                urlBase_fb = request.Url.Scheme + "://" + request.Url.Authority + "/Set.aspx?id=" + userData.CodigoISO + "_" + OfertaShowRoomID.ToString() + "_" + userData.CampaniaID.ToString() + "_F";
+            }
+            return urlBase_fb;
+
         }
     }
 }

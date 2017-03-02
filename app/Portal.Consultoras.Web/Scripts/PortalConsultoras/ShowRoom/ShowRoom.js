@@ -50,9 +50,16 @@ $(document).ready(function () {
         var article = $(padre).find("[data-campos]").eq(0);
         var cantidad = $(padre).find("[data-input='cantidad']").val();
         //listatipo = "0";
+
+        AgregarProductoAlCarrito(padre);
         AgregarOfertaShowRoom(article, cantidad);
         e.preventDefault();
         (this).blur();
+    });
+
+
+    $("body").on("click", "[data-compartir]", function (e) {
+        CompartirRedesSociales(e);
     });
 });
 
@@ -115,10 +122,12 @@ function AgregarOfertaShowRoom(article, cantidad) {
 
                                 //Aparecer Agregado
                                 $(article).parents("[data-item]").find(".product-add").css("display", "block");
-                            }
+                            }                            
 
                             //AgregarTagManagerProductoAgregadoSW(CUV, nombreProducto, PrecioUnidad, cantidad, descripcionMarca, listatipo);
                             //TrackingJetloreAdd(cantidad, $("#hdCampaniaCodigo").val(), CUV);
+
+                            //AgregarProductoAlCarrito($(article).parents("[data-item]"));
                         }
                         else messageInfoError(response.message);
                     },
@@ -131,5 +140,86 @@ function AgregarOfertaShowRoom(article, cantidad) {
                 });
             }
         });
+    }
+}
+
+function AgregarProductoAlCarrito(padre) {
+    //Desktop
+    if ($.trim(tipoOrigenPantalla)[0] == '1') {
+        var contenedorImagen = $(padre).find("[data-img]");
+        var imagenProducto = $('.imagen_producto', contenedorImagen);
+
+        if (imagenProducto.length <= 0) {
+            return false;
+        }
+
+        var carrito = $('.campana');
+        if (carrito.length <= 0) {
+            return false;
+        }
+
+        $("body").prepend('<img src="' + imagenProducto.attr("src") + '" class="transicion">');
+
+        $(".transicion").css({
+            'height': imagenProducto.css("height"),
+            'width': imagenProducto.css("width"),
+            'top': imagenProducto.offset().top,
+            'left': imagenProducto.offset().left,
+        }).animate({
+            'top': carrito.offset().top - 60,
+            'left': carrito.offset().left + 100,
+            'height': carrito.css("height"),
+            'width': carrito.css("width"),
+            'opacity': 0.5
+        }, 450, 'swing', function () {
+            $(this).animate({
+                'top': carrito.offset().top,
+                'opacity': 0,
+                //}, 100, 'swing', function () {
+                //    $(".campana .info_cam").fadeIn(200);
+                //    $(".campana .info_cam").delay(2500);
+                //    $(".campana .info_cam").fadeOut(200);
+            }, 150, 'swing', function () {
+                $(this).remove();
+            });
+        });
+    }    
+}
+
+function CompartirRedesSociales(e) {
+    var obj = $(e.target);
+    var padre = obj.parents("[data-item]");
+    var tipoRedes = padre.find("[data-compartir]").attr("data-compartir");
+    var article = $(padre).find("[data-compartir-campos]").eq(0);
+    var label = "";
+    var ruta = "";
+    if (tipoRedes == "FB") {
+        label = $(article).find(".rsFBMensaje").val();
+        ruta = $(article).find(".rsFBRuta").val();
+    }
+    else if (tipoRedes == "WA") {
+        label = $(article).find(".rsWAMensaje").val(); article.rsWARuta;
+        ruta = $(article).find(".rsWARuta").val(); article.rsWARuta;
+    }
+    dataLayer.push({
+        'event': 'virtualEvent',
+        'category': 'Ofertas Showroom',
+        'action': 'Compartir ' + tipoRedes,
+        'label': label,
+        'value': 0
+    });
+    
+    if (ruta == "") return false;
+    
+    if (tipoRedes == "FB") {
+        var popWwidth = 570;
+        var popHeight = 420;
+        var left = (screen.width / 2) - (popWwidth / 2);
+        var top = (screen.height / 2) - (popHeight / 2);
+        var url = "http://www.facebook.com/sharer/sharer.php?u=" + ruta;
+        window.open(url, 'Facebook', "width=" + popWwidth + ",height=" + popHeight + ",menubar=0,toolbar=0,directories=0,scrollbars=no,resizable=no,left=" + left + ",top=" + top + "");
+    }
+    else if (tipoRedes == "WA") {
+
     }
 }
