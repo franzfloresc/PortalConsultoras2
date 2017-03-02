@@ -153,7 +153,7 @@
                     <span class="mensaje_estadoActualPedido">@ViewBag.GPRBannerTitulo</span>
                     <span class="mensaje_horarioIngresoPedido">
                         @ViewBag.GPRBannerMensaje
-                        @if (ViewBag.RechazoBannerUrl == Enumeradores.RechazoBannerUrl.ModificaPedido)
+                        @if (ViewBag.GPRBannerUrl == Enumeradores.RechazoBannerUrl.ModificaPedido)
                         {
                             <a class='CerrarBanner' title="MODIFICA TU PEDIDO" href='@Url.Action("Index", "Pedido", new { area = "Mobile" })'>MODIFICA TU PEDIDO</a>
                         }
@@ -592,6 +592,8 @@
 
         var urlLogDynamo = '@System.Configuration.ConfigurationManager.AppSettings["UrlLogDynamo"]';
         var userData = {
+            'aplicacion': '@(Constantes.LogDynamoDB.AplicacionPortalConsultoras)',
+            'rol': '@(Constantes.LogDynamoDB.RolConsultora)',
             'campana': '@ViewBag.AnalyticsCampania',
             'region': '@ViewBag.AnalyticsRegion',
             'zona': '@ViewBag.AnalyticsZona',
@@ -1016,6 +1018,32 @@
                 cantidad = cantidad < 99 ? (cantidad + 1) : 99;
 
                 $txtcantidad.val(cantidad);
+            });
+
+            
+            $("body").on("click", "[data-popup-main]", function (e) {
+                if (!$(e.target).closest('[data-popup-body]').length) {
+
+                    if ($(e.target).is(':visible')) {
+
+                        var functionHide = $('[data-popup-main]').attr("data-popup-function-hide");
+                        if (functionHide != "") {
+                            setTimeout(functionHide + "()", 100);
+                        }
+                        $(e.target).hide();
+                    }
+                }
+            });
+
+
+            $("body").on("click", "[data-popup-close]", function (e) {
+                var popupClose = $("#" + $(this).attr("data-popup-close")) || $(this).parent("[data-popup-main]");
+
+                var functionHide = $(popupClose).attr("data-popup-function-hide");
+                if (functionHide != "") {
+                    setTimeout(functionHide + "()", 100);
+                }
+                $(popupClose).hide();
             });
 
             if(MostrarBannerPL20) loadBannerLP20();

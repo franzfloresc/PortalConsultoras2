@@ -429,7 +429,7 @@ namespace Portal.Consultoras.Web.Controllers
         private List<PermisoModel> BuildMenu()
         {
             if (userData.Menu == null)
-                {
+            {
                     IList<ServiceSeguridad.BEPermiso> lst = new List<ServiceSeguridad.BEPermiso>();
                     using (ServiceSeguridad.SeguridadServiceClient sv = new ServiceSeguridad.SeguridadServiceClient())
                     {
@@ -632,10 +632,10 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
                 DateTime fechaHoy = DateTime.Now.AddHours(model.ZonaHoraria).Date;
-                    model.EsDiasFacturacion = fechaHoy >= model.FechaInicioCampania.Date && fechaHoy <= model.FechaFinCampania.Date ? true : false;
+                model.EsDiasFacturacion = fechaHoy >= model.FechaInicioCampania.Date && fechaHoy <= model.FechaFinCampania.Date;
 
                 ViewBag.FechaActualPais = fechaHoy.ToShortDateString();
-                ViewBag.Dias = ((fechaHoy >= model.FechaInicioCampania.Date && fechaHoy <= model.FechaFinCampania.Date) || (fechaHoy >= model.FechaInicioCampania.Date && fechaHoy >= model.FechaFinCampania.Date)) ? 0 : (model.FechaInicioCampania.Subtract(DateTime.Now.AddHours(model.ZonaHoraria)).Days + 1);
+                ViewBag.Dias = GetDiasFaltantesFacturacion(model.FechaInicioCampania, model.ZonaHoraria);
                 //ViewBag.Dias = fechaHoy >= model.FechaInicioCampania.Date && fechaHoy <= model.FechaFinCampania.Date ? 0 : (model.FechaInicioCampania.Subtract(DateTime.Now.AddHours(model.ZonaHoraria)).Days + 1);
 
                 ViewBag.PeriodoAnalytics = fechaHoy >= model.FechaInicioCampania.Date && fechaHoy <= model.FechaFinCampania.Date ? "Facturacion" : "Venta";
@@ -752,7 +752,7 @@ namespace Portal.Consultoras.Web.Controllers
                 ViewBag.MostrarBannerRechazo = model.MostrarBannerRechazo;
                 ViewBag.GPRBannerTitulo = model.GPRBannerTitulo ?? "";
                 ViewBag.GPRBannerMensaje = model.GPRBannerMensaje ?? "";
-                ViewBag.RechazoBannerUrl = model.GPRBannerUrl;
+                ViewBag.GPRBannerUrl = model.GPRBannerUrl;
                 ViewBag.Efecto_TutorialSalvavidas = ConfigurationManager.AppSettings.Get("Efecto_TutorialSalvavidas") ?? "1";
                 return model;
 
@@ -771,11 +771,11 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         protected List<BEProductoFaltante> GetProductosFaltantes()
-        {
+                        {
             return this.GetProductosFaltantes("", "");
-        }
+                    }
         protected List<BEProductoFaltante> GetProductosFaltantes(string cuv, string descripcion)
-        {
+                                    {
             List<BEProductoFaltante> olstProductoFaltante = new List<BEProductoFaltante>();
             using (SACServiceClient sv = new SACServiceClient())
             {
@@ -1538,6 +1538,7 @@ namespace Portal.Consultoras.Web.Controllers
             if (RegionID > -1) listaZonas = listaZonas.Where(x => x.RegionID == RegionID).ToList();
             return Json(new { success = true, listaZonas = listaZonas }, JsonRequestBehavior.AllowGet);
         }
+        #endregion
 
         protected void RegistrarLogDynamoDB(string aplicacion, string rol, string pantallaOpcion, string opcionAccion)
         {
@@ -1576,7 +1577,33 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO, dataString);
             }
+        } 
+
+        public String GetUrlCompartirFB()
+        {
+            //var urlWs = "";
+            string urlBase_fb = "";
+            if (System.Web.HttpContext.Current.Request.UserAgent != null)
+            {
+                var request = HttpContext.Request;
+
+                //var urlBase_wsp = request.Url.Scheme + "://" + request.Url.Authority + "/Pdto.aspx?id=" + userData.CodigoISO + "_[valor]";
+                //urlWs = urlBase_wsp; //"whatsapp://send?text=" + urlBase_wsp;
+
+                urlBase_fb = request.Url.Scheme + "://" + request.Url.Authority + "/Pdto.aspx?id=" + userData.CodigoISO + "_[valor]";
+            }
+            return urlBase_fb;
         }
-        #endregion  
+        
+        protected int GetDiasFaltantesFacturacion(DateTime fechaInicioCampania, double zonaHoraria)
+        {
+            DateTime fechaHoy = DateTime.Now.AddHours(zonaHoraria).Date;
+            return fechaHoy >= fechaInicioCampania.Date ? 0 : (fechaInicioCampania.Subtract(DateTime.Now.AddHours(zonaHoraria)).Days + 1);
+        }
+        
+        protected JsonResult ErrorJson(string message)
+        {
+            return Json(new { success = false, message = message }, JsonRequestBehavior.AllowGet);
+        }
     }
 }

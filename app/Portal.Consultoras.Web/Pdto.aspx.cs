@@ -56,19 +56,14 @@ namespace Portal.Consultoras.Web
                     //desconcatenar detalle
                     if (ArrayDetalle.Length > 0)
                     {
+                        RutaImagen = Convert.ToString(ArrayDetalle[0] ?? "");
+                        MarcaDesc = Convert.ToString(ArrayDetalle[2] ?? "");
+                        NomProducto = Convert.ToString(ArrayDetalle[3] ?? "");
+
                         if (ProductoCompPalanca == "FAV")
                         {
-                            RutaImagen = Convert.ToString(ArrayDetalle[0]);
-                            MarcaDesc = Convert.ToString(ArrayDetalle[2]);
-                            NomProducto = Convert.ToString(ArrayDetalle[3]);
-                            Volumen = Convert.ToString(ArrayDetalle[4]);
-                            DescProducto = Convert.ToString(ArrayDetalle[5]);
-                        }
-                        else
-                        {
-                            RutaImagen = Convert.ToString(ArrayDetalle[0]);
-                            MarcaDesc = Convert.ToString(ArrayDetalle[2]);
-                            NomProducto = Convert.ToString(ArrayDetalle[3]);
+                            Volumen = Convert.ToString(ArrayDetalle.Length > 4 ? ArrayDetalle[4] ?? "" : "");
+                            DescProducto = Convert.ToString(ArrayDetalle.Length > 5 ? ArrayDetalle[5] ?? "" : "");
                         }
                     }
 

@@ -45,6 +45,8 @@
 
         var urlLogDynamo = '@System.Configuration.ConfigurationManager.AppSettings["UrlLogDynamo"]';
         var userData = {
+            'aplicacion': '@(Constantes.LogDynamoDB.AplicacionPortalConsultoras)',
+            'rol': '@(Constantes.LogDynamoDB.RolConsultora)',
             'campana': '@ViewBag.CampaniaCodigo',
             'region': '@ViewBag.RegionAnalytics',
             'zona': '@ViewBag.ZonaAnalytics',
@@ -129,7 +131,7 @@
             case "CR":
             case "SV":
             case "GT":
-        <div class="boton_ayuda"><span id="belcorpChat" class="boton-home"><a href="#">¿Necesitas ayuda?</a> </span></div>
+        <div class="boton_ayuda"><span class="boton-home belcorpChat"><a href="#">¿Necesitas ayuda?</a> </span></div>
                 break;
         }
     }
@@ -159,11 +161,11 @@
                     <span class="mensaje_estadoActualPedido">@ViewBag.GPRBannerTitulo</span>
                     <span class="mensaje_horarioIngresoPedido">
                         @ViewBag.GPRBannerMensaje
-                        @if (ViewBag.RechazoBannerUrl == Enumeradores.RechazoBannerUrl.Deuda)
+                        @if (ViewBag.GPRBannerUrl == Enumeradores.RechazoBannerUrl.Deuda)
                         {
                             <a class='CerrarBanner' title="MIRA LOS LUGARES DE PAGO" href='@Url.Action("Index", "MisPagos")?pestanhaInicial=@Constantes.PestanhasMisPagos.LugaresPago'>MIRA LOS LUGARES DE PAGO</a>
                         }
-                        else if (ViewBag.RechazoBannerUrl == Enumeradores.RechazoBannerUrl.ModificaPedido)
+                        else if (ViewBag.GPRBannerUrl == Enumeradores.RechazoBannerUrl.ModificaPedido)
                         {
                             <a class='CerrarBanner' title="MODIFICA TU PEDIDO" href='@Url.Action("Index", "Pedido")'>MODIFICA TU PEDIDO</a>
                         }
