@@ -30,5 +30,11 @@ namespace Portal.Consultoras.Web.Models
 
         public string ImagenBannerShowroomIntriga { get; set; }
 
+        public int DiasFalta { get; set; }
+
+        public string ImagenPopupShowroomVenta { get; set; }
+
+        public string ImagenBannerShowroomVenta { get; set; }
+
     }
 }
