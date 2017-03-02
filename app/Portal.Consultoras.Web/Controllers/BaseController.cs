@@ -1660,7 +1660,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
         #endregion  
-
+       
         public String GetUrlCompartirFB()
         {
             //var urlWs = "";

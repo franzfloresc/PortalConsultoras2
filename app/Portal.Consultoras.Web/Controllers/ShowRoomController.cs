@@ -18,38 +18,13 @@ using Portal.Consultoras.Web.ServicePROLConsultas;
 
 namespace Portal.Consultoras.Web.Controllers
 {
-    public class ShowRoomController : BaseController
+    public class ShowRoomController : BaseShowRoomController
     {
         public ActionResult Intriga()
         {
-            var showRoomEvento = new BEShowRoomEvento();
-            var showRoomEventoConsultora = new BEShowRoomEventoConsultora();
-
-            if (!userData.CargoEntidadesShowRoom) throw new Exception("Ocurrió un error al intentar traer la información de los evento y consultora de ShowRoom.");
-            showRoomEventoConsultora = userData.BeShowRoomConsultora;
-            showRoomEvento = userData.BeShowRoom;
-
-            if (showRoomEvento == null || showRoomEventoConsultora == null)
+            if (ValidarIngresoShowRoom(true))
             {
-                return RedirectToAction("Index", "Bienvenida");
-            }
-
-            var model = new ShowRoomOfertaModel();
-
-            if (showRoomEvento.Estado == 1)
-            {
-                var fechaHoy = DateTime.Now.AddHours(userData.ZonaHoraria).Date;
-                if (fechaHoy >= userData.FechaInicioCampania.AddDays(-showRoomEvento.DiasAntes).Date
-                    && fechaHoy <= userData.FechaInicioCampania.AddDays(showRoomEvento.DiasDespues).Date)
-                {
-                    return RedirectToAction("Index", "ShowRoom");
-                }
-
-                ViewBag.DiasFaltan = userData.FechaInicioCampania.AddDays(-showRoomEvento.DiasAntes).Day - fechaHoy.Day;
-                if (ViewBag.DiasFaltan <= 0)
-                {
-                    return RedirectToAction("Index", "Bienvenida");
-                }
+                var model = new ShowRoomOfertaModel();
 
                 var listaShowRoomOferta = new List<BEShowRoomOferta>();
                 var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
@@ -82,13 +57,11 @@ namespace Portal.Consultoras.Web.Controllers
                     if (item.Atributo == "BannerImagenIntriga") ViewBag.urlImagenPopupIntriga = item.Valor;
                     if (item.Atributo == "UrlTerminosCondiciones") ViewBag.urlTerminosyCondiciones = item.Valor;
                 }
+
+                return View(model);
             }
-            else
-            {
-                return RedirectToAction("Index", "Bienvenida");
-            }
-            
-            return View(model);
+
+            return RedirectToAction("Index", "Bienvenida");
         }
 
         public ActionResult Index()
@@ -97,76 +70,42 @@ namespace Portal.Consultoras.Web.Controllers
             
             try
             {
-                var showRoomEvento = new BEShowRoomEvento();
-                var showRoomEventoConsultora = new BEShowRoomEventoConsultora();                
-
-                if (!userData.CargoEntidadesShowRoom) throw new Exception("Ocurrió un error al intentar traer la información de los evento y consultora de ShowRoom.");
-                showRoomEventoConsultora = userData.BeShowRoomConsultora;
-                showRoomEvento = userData.BeShowRoom;
-
-                if (showRoomEvento == null)
+                if (ValidarIngresoShowRoom(false))
                 {
-                    return RedirectToAction("Index", "Bienvenida");
-                }
-                else
-                {
-                    if (showRoomEventoConsultora == null)
+                    var showRoomEvento = userData.BeShowRoom;
+                    var codigoConsultora = userData.CodigoConsultora;
+
+                    Mapper.CreateMap<BEShowRoomEvento, ShowRoomEventoModel>()
+                        .ForMember(t => t.EventoID, f => f.MapFrom(c => c.EventoID))
+                        .ForMember(t => t.CampaniaID, f => f.MapFrom(c => c.CampaniaID))
+                        .ForMember(t => t.Tema, f => f.MapFrom(c => c.Tema))
+                        .ForMember(t => t.Nombre, f => f.MapFrom(c => c.Nombre))
+                        .ForMember(t => t.Imagen1, f => f.MapFrom(c => c.Imagen1))
+                        .ForMember(t => t.Imagen2, f => f.MapFrom(c => c.Imagen2))
+                        .ForMember(t => t.Descuento, f => f.MapFrom(c => c.Descuento));
+
+                    ShowRoomEventoModel showRoomEventoModel =
+                        Mapper.Map<BEShowRoomEvento, ShowRoomEventoModel>(showRoomEvento);
+                    showRoomEventoModel.Simbolo = userData.Simbolo;
+                    showRoomEventoModel.CodigoIso = userData.CodigoISO;
+
+                    var fechaHoy = DateTime.Now.AddHours(userData.ZonaHoraria).Date;
+                    bool esFacturacion = fechaHoy >= userData.FechaInicioCampania.Date;
+
+                    var listaShowRoomOferta = ObtenerListaProductoShowRoom(userData.CampaniaID, codigoConsultora, esFacturacion);
+                    showRoomEventoModel.ListaShowRoomOferta = Mapper.Map<List<BEShowRoomOferta>, List<ShowRoomOfertaModel>>(listaShowRoomOferta);
+                    showRoomEventoModel.ListaShowRoomOferta.Update(x =>
                     {
-                        return RedirectToAction("Index", "Bienvenida");
-                    }
-                    else
-                    {
-                        if (showRoomEvento.Estado == 1)
-                        {
-                            int diasAntes = showRoomEvento.DiasAntes;
-                            int diasDespues = showRoomEvento.DiasDespues;
+                        x.DescripcionMarca = GetDescripcionMarca(x.MarcaID);
+                        x.CodigoISO = userData.CodigoISO;
+                        x.Simbolo = userData.Simbolo;
+                    });
 
-                            var fechaHoy = DateTime.Now.AddHours(userData.ZonaHoraria).Date;
+                    var listaDetalle = ObtenerPedidoWebDetalle();
+                    showRoomEventoModel.ListaShowRoomOferta.Update(o => o.Agregado = (listaDetalle.Find(p => p.CUV == o.CUV) ?? new BEPedidoWebDetalle()).PedidoDetalleID > 0 ? "block" : "none");
 
-                            if ((fechaHoy >= userData.FechaInicioCampania.AddDays(-diasAntes).Date && fechaHoy <= userData.FechaInicioCampania.AddDays(diasDespues).Date))
-                            {
-                                var codigoConsultora = userData.CodigoConsultora;                                
-
-                                Mapper.CreateMap<BEShowRoomEvento, ShowRoomEventoModel>()
-                                    .ForMember(t => t.EventoID, f => f.MapFrom(c => c.EventoID))
-                                    .ForMember(t => t.CampaniaID, f => f.MapFrom(c => c.CampaniaID))
-                                    .ForMember(t => t.Tema, f => f.MapFrom(c => c.Tema))
-                                    .ForMember(t => t.Nombre, f => f.MapFrom(c => c.Nombre))
-                                    .ForMember(t => t.Imagen1, f => f.MapFrom(c => c.Imagen1))
-                                    .ForMember(t => t.Imagen2, f => f.MapFrom(c => c.Imagen2))
-                                    .ForMember(t => t.Descuento, f => f.MapFrom(c => c.Descuento));                                   
-
-                                ShowRoomEventoModel showRoomEventoModel = Mapper.Map<BEShowRoomEvento, ShowRoomEventoModel>(showRoomEvento);
-                                showRoomEventoModel.Simbolo = userData.Simbolo;
-                                showRoomEventoModel.CodigoIso = userData.CodigoISO;
-                                
-                                bool esFacturacion = fechaHoy >= userData.FechaInicioCampania.Date;
-
-                                var listaShowRoomOferta = ObtenerListaProductoShowRoom(userData.CampaniaID, codigoConsultora, esFacturacion);
-                                showRoomEventoModel.ListaShowRoomOferta = Mapper.Map<List<BEShowRoomOferta>, List<ShowRoomOfertaModel>>(listaShowRoomOferta);
-                                showRoomEventoModel.ListaShowRoomOferta.Update(x =>
-                                {
-                                    x.DescripcionMarca = GetDescripcionMarca(x.MarcaID);
-                                    x.CodigoISO = userData.CodigoISO;
-                                    x.Simbolo = userData.Simbolo;
-                                });
-
-                                var listaDetalle = ObtenerPedidoWebDetalle();
-                                showRoomEventoModel.ListaShowRoomOferta.Update(o => o.Agregado = (listaDetalle.Find(p => p.CUV == o.CUV) ?? new BEPedidoWebDetalle()).PedidoDetalleID > 0 ? "block" : "none");
-
-                                return View(showRoomEventoModel);
-                            }
-                            else
-                            {
-                                return RedirectToAction("Index", "Bienvenida");
-                            }
-                        }
-                        else
-                        {
-                            return RedirectToAction("Index", "Bienvenida");
-                        }
-                    }
-                }
+                    return View(showRoomEventoModel);
+                }              
             }
             catch (Exception ex)
             {
@@ -2541,12 +2480,17 @@ namespace Portal.Consultoras.Web.Controllers
 
         public ActionResult DetalleOferta(int id)
         {
-            var modelo = GetOfertaConDetalle(id);
-            
-            modelo.ListaOfertaShowRoom = GetOfertaListadoExcepto(id);
-            var listaDetalle = ObtenerPedidoWebDetalle();
-            modelo.ListaOfertaShowRoom.Update(o=>o.Agregado = (listaDetalle.Find(p=> p.CUV == o.CUV) ?? new BEPedidoWebDetalle()).PedidoDetalleID > 0 ? "block" : "none");
-            return View("DetalleSet", modelo);
+            if (ValidarIngresoShowRoom(false))
+            {
+                var modelo = GetOfertaConDetalle(id);
+
+                modelo.ListaOfertaShowRoom = GetOfertaListadoExcepto(id);
+                var listaDetalle = ObtenerPedidoWebDetalle();
+                modelo.ListaOfertaShowRoom.Update(o => o.Agregado = (listaDetalle.Find(p => p.CUV == o.CUV) ?? new BEPedidoWebDetalle()).PedidoDetalleID > 0 ? "block" : "none");
+                return View("DetalleSet", modelo);
+            }
+
+            return RedirectToAction("Index", "Bienvenida");
         }
         
         private ShowRoomOfertaModel GetOfertaConDetalle(int idOferta)
