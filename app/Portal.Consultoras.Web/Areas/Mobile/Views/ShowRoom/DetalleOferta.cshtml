@@ -3,7 +3,11 @@
     ViewBag.Title = "Detalle Oferta";
 }
 
-@section styles{
+@{
+    Layout = "~/Areas/Mobile/Views/Shared/_MobileLayout.cshtml";
+}
+@section styles
+{
     <link href="@Url.Content("~/Content/Css/Site/slick.min.css")" rel="stylesheet" />
 }
 
@@ -195,7 +199,7 @@
         </div>
     </div>
 </div>
-
+@section scripts{
 <script type="text/javascript">
 		/* Oscar */
 		var ShowRoomProduct = {
@@ -263,3 +267,4 @@
 		});
 		/* Fin Oscar */
 </script>
+}
