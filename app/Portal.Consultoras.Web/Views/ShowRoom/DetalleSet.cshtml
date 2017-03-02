@@ -21,30 +21,41 @@
                 </div>
                 <hr class="clear">
             </div>
-            <div class="content_detalle_set">
+            <div class="content_detalle_set" data-posicion="0" data-item="@Model.OfertaShowRoomID">
+                <div data-campos="">
+                    <input type="hidden" class="hdOfertaShowRoomID" value="@Model.OfertaShowRoomID" />
+                    <input type="hidden" class="valorCuv" value="@Model.CUV" />
+                    <input type="hidden" class="claseMarcaID" value="@Model.MarcaID" />
+                    <input type="hidden" class="clasePrecioUnidad" value="@Model.PrecioCatalogo" />
+                    <input type="hidden" class="claseConfiguracionOfertaID" value="@Model.ConfiguracionOfertaID" />
+                    <input type="hidden" class="DescripcionProd" value="@Model.Descripcion" />
+                    <input type="hidden" class="DescripcionMarca" value="@Model.DescripcionMarca" />
+                    <input type="hidden" class="posicionEstrategia" value="0" />
+                </div> 
                 <div class="content_left_ficha">
                     <div class="titulo_set">@Model.Descripcion</div>
                 </div>
-                <div class="content_right_ficha" style="text-align:right">
+                <div class="content_right_ficha" style="text-align: right">
                     <div class="precio_valorizado_showroom">@Model.Simbolo @Model.FormatoPrecioOferta</div>
-                    <div class="precio_oferta_venta">Precio para ti <b>@Model.Simbolo @Model.FormatoPrecioCatalogo</b></div>
+                    <div class="precio_oferta_venta">Precio para ti <b>@Model.Simbolo @Model.FormatoPrecioCatalogo</b>
+                    </div>
                     <div class="ganancia_showroom">Gana @Model.Simbolo @Model.FormatoGana</div>
                 </div>
-                <hr class="clear" />
+                <hr class="clear"/>
                 <div class="titulo_separador">CONTENIDO</div>
                 @foreach (var detalle in Model.ListaDetalleOfertaShowRoom)
                 {
                     <div class="nombre_marca_set">@detalle.MarcaProducto</div>
                     <div class="content_detalle_showroom">
                         <div class="cantidad_set_individual">x2</div>
-                        <div class="nombre_set_individual">@detalle.NombreProducto 
+                        <div class="nombre_set_individual">@detalle.NombreProducto
                             <span class="detalle_set_showroom">@detalle.Descripcion1</span>
                             <span class="detalle_set_showroom">@detalle.Descripcion3</span>
                         </div>
-                        <div class="precio_regular_set">@detalle.Descripcion1</div>
+                        <div class="precio_regular_set">@detalle.Descripcion2</div>
                     </div>
                 }
-                <div class="linea_separadora" style="margin-top:20px; margin-bottom:10px;"></div>
+                <div class="linea_separadora" style="margin-top: 20px; margin-bottom: 10px;"></div>
                 <div class="liquidacion_rango_home">
                     <input type="text" value="1" size="2" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" data-input="cantidad" data-cantidad-input="-">
                     <div class="liquidacion_rango_right_pedido">
@@ -56,6 +67,26 @@
             </div>
             <hr class="clear" />
         </div>
+        <div class="content_ficha_compra" style="margin-top:0px !important;">
+            <div>
+                <div class="titulo_compra_POP" style="font-size:18px;">PROMOCIÓN</div>
+                <div class="precio_set_compra" style="font-size:16px;">A SÓLO S/.20.00</div>
+                <div class="content_imagen_carrusel_compra"><img src="https://s3-sa-east-1.amazonaws.com/appcatalogo/CO/201704/C/productos/CO_200084402.jpg"/></div>
+                <div class="producto_compra">LLévate un Reloj Espheric por la compra de 2 Sets o más.</div>
+                <hr class="clear" />
+                <a class="btn_agrega_carrusel_compra">AGREGALO</a>
+                <div class="descripcion_producto_compra" style="text-align:center;">Correa tipo cuero y pieza central plateada con 37 cristales.</div>
+            </div>
+            <div>
+                <div class="titulo_compra_POP" style="font-size:18px;">PROMOCIÓN</div>
+                <div class="precio_set_compra" style="font-size:16px;">A SÓLO S/.20.00</div>
+                <div class="content_imagen_carrusel_compra"><img src="https://s3-sa-east-1.amazonaws.com/appcatalogo/CO/201704/C/productos/CO_200084402.jpg" /></div>
+                <div class="producto_compra">LLévate un Reloj Espheric por la compra de 2 Sets o más.</div>
+                <hr class="clear" />
+                <a class="btn_agrega_carrusel_compra">AGREGALO</a>
+                <div class="descripcion_producto_compra" style="text-align:center;">Correa tipo cuero y pieza central plateada con 37 cristales.</div>
+            </div>
+        </div>
         <hr class="clear" />
     </div>    
 </div>
@@ -64,52 +95,128 @@
        <div class="titulo_carrusel_showroom">LAS CONSULTORAS TAMBIÉN VIERON ESTOS SETS</div>
        <!--CARRUSEL-->
        <div class="responsive">
+           @{ var posicionx = 1; }
            @foreach (var oferta in Model.ListaOfertaShowRoom)
            {
-                <div class="set-productos-showroom-carrusel" data-item="@oferta.OfertaShowRoomID" >
-                    <div class="producto_img_home mini" data-img="">
-                        <img src="@oferta.ImagenProducto" style="width: auto; height: 100%;" class="imagen_producto">
-                        <a class="ver_detalle_carrusel">VER DETALLE</a>
-                    </div>
-                    <div class="producto_nombre_descripcion">
-                        <p class="nombre-producto-set">@oferta.Descripcion</p>
-                        <div class="producto_precio" style="margin-bottom:3px;">
-                            <span class="precio-oferta-normal">@oferta.Simbolo @oferta.FormatoPrecioOferta</span>
-                            <span class="precio-oferta-venta"><b>@oferta.Simbolo @oferta.FormatoPrecioCatalogo</b></span>
-                        </div>
-                        <div class="liquidacion_rango_home" data-cantidad-contenedor="">
-                            <input type="text" value="1" size="2" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" data-input="cantidad" data-cantidad-input="-">
-                            <div class="liquidacion_rango_right_pedido">
-                                <a class="mas" data-cantidad-agregar="+"><img src="/Content/Images/Esika/mas.png" alt=""></a>
-                                <a class="menos" data-cantidad-agregar="-"><img src="/Content/Images/Esika/menos.png" alt=""></a>
-                            </div>
-                        </div>
-                        <a class="boton_Agregalo_home" data-btn-agregar-sr="">AGRÉGALO</a>
-                        <div class="clear"></div>
-                        <div style="padding-top:9px; height: 15px;">
-                            <div class="agregado product-add" style="text-align: right;display:@oferta.Agregado;">
-                                AGREGADO
-                                <div class="icono"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-           }     
+               <div class="set-productos-showroom-carrusel" data-item="@oferta.OfertaShowRoomID">
+                   <div data-campos="">
+                       <input type="hidden" class="hdOfertaShowRoomID" value="@oferta.OfertaShowRoomID"/>
+                       <input type="hidden" class="valorCuv" value="@oferta.CUV"/>
+                       <input type="hidden" class="claseMarcaID" value="@oferta.MarcaID"/>
+                       <input type="hidden" class="clasePrecioUnidad" value="@oferta.PrecioCatalogo"/>
+                       <input type="hidden" class="claseConfiguracionOfertaID" value="@oferta.ConfiguracionOfertaID"/>
+                       <input type="hidden" class="DescripcionProd" value="@oferta.Descripcion"/>
+                       <input type="hidden" class="DescripcionMarca" value="@oferta.DescripcionMarca"/>
+                       <input type="hidden" class="posicionEstrategia" value="@posicionx"/>
+                   </div>
+                   <div class="producto_img_home mini" data-img="">
+                       <img src="@oferta.ImagenProducto" style="width: auto; height: 100%;" class="imagen_producto">
+                       <a class="ver_detalle_carrusel" href="@Url.Action("DetalleOferta", "ShowRoom", new {id = oferta.OfertaShowRoomID})">VER DETALLE</a>
+                   </div>
+                   <div class="producto_nombre_descripcion">
+                       <p class="nombre-producto-set">@oferta.Descripcion</p>
+                       <div class="producto_precio" style="margin-bottom: 3px;">
+                           <span class="precio-oferta-normal">@oferta.Simbolo @oferta.FormatoPrecioOferta</span>
+                           <span class="precio-oferta-venta"><b>@oferta.Simbolo @oferta.FormatoPrecioCatalogo</b></span>
+                       </div>
+                       <div class="liquidacion_rango_home" data-cantidad-contenedor="">
+                           <input type="text" value="1" size="2" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" data-input="cantidad" data-cantidad-input="-">
+                           <div class="liquidacion_rango_right_pedido">
+                               <a class="mas" data-cantidad-agregar="+"><img src="/Content/Images/Esika/mas.png" alt=""></a>
+                               <a class="menos" data-cantidad-agregar="-"><img src="/Content/Images/Esika/menos.png" alt=""></a>
+                           </div>
+                       </div>
+                       <a class="boton_Agregalo_home" data-btn-agregar-sr="">AGRÉGALO</a>
+                       <div class="clear"></div>
+                       <div style="padding-top: 9px; height: 15px;">
+                           <div class="agregado product-add" data-btn-agregar-sr="" style="text-align: right; display: @oferta.Agregado;">
+                               AGREGADO
+                               <div class="icono"></div>
+                           </div>
+                       </div>
+                   </div>
+               </div>
+               {
+                   posicionx++;
+               }
+           }
        </div>
    </div>
 </div>
-<div class="content_belcorp">
-    <div class="content_tip_negocio">
-        <div class="tip_negocio_showroom">
-            <span class="titulo_tip">tip de negocio</span>@Model.TipNegocio
+@if (Model.TipNegocio != "")
+{
+    <div class="content_belcorp">
+        <div class="content_tip_negocio">
+            <div class="tip_negocio_showroom">
+                <span class="titulo_tip">tip de negocio</span>@Model.TipNegocio
+            </div>
         </div>
+    </div>
+}
+
+<div id="PopDetalleCompra" class="Content_general_pop_up" style="display:block;" data-popup-main>
+    <div class="content_ficha_producto_nueva" style="width:750px;" data-popup-body>
+        <a class="cerrar_fichaProducto" href="javascript:;" onclick="javascript: $('#PopDetalleCompra').fadeOut();">
+            <img src="/Content/Images/cerrar_04_blanco.png" alt=" alternate text">
+        </a>
+        
+        <div class="content_carrusel_pop_compra">
+            <div>
+                <div class="titulo_compra_POP">PROMOCIÓN</div>
+                <div class="precio_set_compra">A SÓLO S/.10.00</div>
+                <div class="content_imagen_compra"><img src="https://s3-sa-east-1.amazonaws.com/appcatalogo/CO/201704/C/productos/CO_200084402.jpg"></div>
+                <div class="content_datos_carrusel">
+                    <div class="producto_compra">LLévate un Reloj Espheric por la compra de 2 Sets o más.</div>
+                    <div class="descripcion_producto_compra">Correa tipo cuero y pieza central plateada con 37 cristales.</div>
+                    <div class="liquidacion_rango_home">
+                        <input type="text" value="1" size="2" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" data-input="cantidad" data-cantidad-input="-">
+                        <div class="liquidacion_rango_right_pedido">
+                            <a class="mas" data-cantidad-agregar="+"><img src="/Content/Images/Esika/mas.png" alt=""></a>
+                            <a class="menos" data-cantidad-agregar="-"><img src="/Content/Images/Esika/menos.png" alt=""></a>
+                        </div>
+                    </div>
+                    <a class="boton_Agregalo_home btn_aregar_set" onclick="" style="width:72%;">
+                        AGRÉGALO
+                    </a>
+                    <hr class="clear" />
+                    <div class="notificacion_compra">Compra un set más y llévate la oferta</div>
+                </div>
+                <hr class="clear" />
+            </div>
+            <div>
+                <div class="titulo_compra_POP">PROMOCIÓN</div>
+                <div class="precio_set_compra">A SÓLO S/.20.00</div>
+                <div class="content_imagen_compra"><img src="https://s3-sa-east-1.amazonaws.com/appcatalogo/CO/201704/C/productos/CO_200084402.jpg"></div>
+                <div class="content_datos_carrusel">
+                    <div class="producto_compra">LLévate un Reloj Espheric por la compra de 2 Sets o más.</div>
+                    <div class="descripcion_producto_compra">Correa tipo cuero y pieza central plateada con 37 cristales.</div>
+                    <div class="liquidacion_rango_home">
+                        <input type="text" value="1" size="2" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" data-input="cantidad" data-cantidad-input="-">
+                        <div class="liquidacion_rango_right_pedido">
+                            <a class="mas" data-cantidad-agregar="+"><img src="/Content/Images/Esika/mas.png" alt=""></a>
+                            <a class="menos" data-cantidad-agregar="-"><img src="/Content/Images/Esika/menos.png" alt=""></a>
+                        </div>
+                    </div>
+                    <a class="boton_Agregalo_home btn_aregar_set" onclick="" style="width:72%;">
+                        AGRÉGALO
+                    </a>
+                    <hr class="clear" />
+                    <div class="notificacion_compra">Compra un set más y llévate la oferta</div>
+                </div>
+                <hr class="clear" />
+            </div>
+
+
+        </div>
+
     </div>
 </div>
 
 @section scripts{
-<script type="text/javascript" src="@Url.Content("~/Scripts/slick.min.js")"></script>
-   <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/ShowRoom/ShowRoom.js")"></script>
-<script type="text/javascript">
-    var tipoOrigenPantalla = 11;
-</script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/slick.min.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.easy-pie-chart.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/ShowRoom/ShowRoom.js")"></script>
+    <script type="text/javascript">
+        var tipoOrigenPantalla = 11;
+    </script>
 }

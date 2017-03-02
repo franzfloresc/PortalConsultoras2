@@ -1859,6 +1859,7 @@
     <Content Include="Content\Images\Esika\info-copy.png" />
     <Content Include="Content\Images\Esika\lapiz.png" />
     <Content Include="Content\Images\Esika\lbel_revista.png" />
+    <Content Include="Content\Images\Esika\left_compra.png" />
     <Content Include="Content\Images\Esika\liquidacionhome.png" />
     <Content Include="Content\Images\Esika\liquidacion_home.png" />
     <Content Include="Content\Images\Esika\lleva_celular.png" />
@@ -1899,6 +1900,7 @@
     <Content Include="Content\Images\Esika\regresar.png" />
     <Content Include="Content\Images\Esika\revista.png" />
     <Content Include="Content\Images\Esika\revista_c09.png" />
+    <Content Include="Content\Images\Esika\right_compra.png" />
     <Content Include="Content\Images\Esika\slider-adelante.png" />
     <Content Include="Content\Images\Esika\sombra.png" />
     <Content Include="Content\Images\Esika\star_reco.png" />
@@ -2890,6 +2892,8 @@
     <Content Include="Scripts\PortalConsultoras\Pedido\ofertafinal.js" />
     <Content Include="Scripts\PortalConsultoras\Shared\LoginLayout.js" />
     <Content Include="Scripts\PortalConsultoras\Shared\TrackingJetlore.js" />
+    <Content Include="Scripts\PortalConsultoras\ShowRoom\Index.js" />
+    <Content Include="Scripts\PortalConsultoras\ShowRoom\ShowRoom.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\slick.js" />
     <Content Include="Scripts\slick.min.js" />
