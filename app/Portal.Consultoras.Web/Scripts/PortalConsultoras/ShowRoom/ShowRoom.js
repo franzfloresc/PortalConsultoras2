@@ -102,6 +102,9 @@ function AgregarOfertaShowRoom(article, cantidad) {
 
                             if ($.trim(tipoOrigenPantalla)[0] == '1') {
                                 CargarResumenCampaniaHeader(true);
+
+                                //Aparecer Agregado
+                                $(article).parents("[data-item]").find(".product-add").css("display", "block");
                             }
 
                             //AgregarTagManagerProductoAgregadoSW(CUV, nombreProducto, PrecioUnidad, cantidad, descripcionMarca, listatipo);

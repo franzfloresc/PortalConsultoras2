@@ -98,8 +98,7 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
                 var showRoomEvento = new BEShowRoomEvento();
-                var showRoomEventoConsultora = new BEShowRoomEventoConsultora();
-                var listaShowRoomOferta = new List<BEShowRoomOferta>();
+                var showRoomEventoConsultora = new BEShowRoomEventoConsultora();                
 
                 if (!userData.CargoEntidadesShowRoom) throw new Exception("Ocurrió un error al intentar traer la información de los evento y consultora de ShowRoom.");
                 showRoomEventoConsultora = userData.BeShowRoomConsultora;
@@ -124,7 +123,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                             var fechaHoy = DateTime.Now.AddHours(userData.ZonaHoraria).Date;
 
-                            if ((fechaHoy >= userData.FechaInicioCampania.AddDays(-diasAntes).Date && fechaHoy <= userData.FechaInicioCampania.AddDays(diasDespues).Date))
+                            if (!(fechaHoy >= userData.FechaInicioCampania.AddDays(-diasAntes).Date && fechaHoy <= userData.FechaInicioCampania.AddDays(diasDespues).Date))
                             {
                                 var codigoConsultora = userData.CodigoConsultora;                                
 
@@ -143,7 +142,17 @@ namespace Portal.Consultoras.Web.Controllers
                                 
                                 bool esFacturacion = fechaHoy >= userData.FechaInicioCampania.Date;
 
-                                showRoomEventoModel.ListaShowRoomOferta = ObtenerListaProductoShowRoom(userData.CampaniaID, codigoConsultora, esFacturacion);
+                                var listaShowRoomOferta = ObtenerListaProductoShowRoom(userData.CampaniaID, codigoConsultora, esFacturacion);
+                                showRoomEventoModel.ListaShowRoomOferta = Mapper.Map<List<BEShowRoomOferta>, List<ShowRoomOfertaModel>>(listaShowRoomOferta);
+                                showRoomEventoModel.ListaShowRoomOferta.Update(x =>
+                                {
+                                    x.DescripcionMarca = GetDescripcionMarca(x.MarcaID);
+                                    x.CodigoISO = userData.CodigoISO;
+                                    x.Simbolo = userData.Simbolo;
+                                });
+
+                                var listaDetalle = ObtenerPedidoWebDetalle();
+                                showRoomEventoModel.ListaShowRoomOferta.Update(o => o.Agregado = (listaDetalle.Find(p => p.CUV == o.CUV) ?? new BEPedidoWebDetalle()).PedidoDetalleID > 0 ? "block" : "none");
 
                                 return View(showRoomEventoModel);
                             }
@@ -2444,13 +2453,14 @@ namespace Portal.Consultoras.Web.Controllers
             return result;
         }
 
-        private List<ShowRoomOfertaModel> ObtenerListaProductoShowRoom(int campaniaId, string codigoConsultora, bool esFacturacion = false)
+        private List<BEShowRoomOferta> ObtenerListaProductoShowRoom(int campaniaId, string codigoConsultora, bool esFacturacion = false)
         {
             var listaShowRoomOferta = new List<BEShowRoomOferta>();
-            var listaShowRoomOfertaModel = new List<ShowRoomOfertaModel>();
+            //var listaShowRoomOfertaModel = new List<ShowRoomOfertaModel>();
+            var listaShowRoomOfertaFinal = new List<BEShowRoomOferta>();
 
             if (Session[Constantes.ConstSession.ListaProductoShowRoom] != null)
-                return (List<ShowRoomOfertaModel>)Session[Constantes.ConstSession.ListaProductoShowRoom];
+                return (List<BEShowRoomOferta>)Session[Constantes.ConstSession.ListaProductoShowRoom];
 
             using (PedidoServiceClient sv = new PedidoServiceClient())
             {
@@ -2471,7 +2481,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 /*Obtener si tiene stock de PROL por CodigoSAP*/
                 string codigoSap = "";
-                foreach (var beProducto in listaShowRoomOfertaModel)
+                foreach (var beProducto in listaShowRoomOferta)
                 {
                     if (!string.IsNullOrEmpty(beProducto.CodigoProducto))
                     {
@@ -2512,41 +2522,19 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (tieneStockProl)
                 {
-                    listaShowRoomOfertaModel.Add(new ShowRoomOfertaModel
-                    {
-                        OfertaShowRoomID = beShowRoomOferta.OfertaShowRoomID,
-                        CampaniaID = beShowRoomOferta.CampaniaID,
-                        CUV = beShowRoomOferta.CUV,
-                        TipoOfertaSisID = beShowRoomOferta.TipoOfertaSisID,
-                        ConfiguracionOfertaID = beShowRoomOferta.ConfiguracionOfertaID,
-                        Descripcion = beShowRoomOferta.Descripcion,
-                        PrecioOferta = beShowRoomOferta.PrecioOferta,
-                        PrecioCatalogo = beShowRoomOferta.PrecioCatalogo,
-                        Stock = beShowRoomOferta.Stock,
-                        StockInicial = beShowRoomOferta.StockInicial,
-                        ImagenProducto = beShowRoomOferta.ImagenProducto,
-                        Orden = beShowRoomOferta.Orden,
-                        UnidadesPermitidas = beShowRoomOferta.UnidadesPermitidas,
-                        FlagHabilitarProducto = beShowRoomOferta.FlagHabilitarProducto,
-                        DescripcionLegal = beShowRoomOferta.DescripcionLegal,
-                        CategoriaID = beShowRoomOferta.CategoriaID,
-                        MarcaID = beShowRoomOferta.MarcaID,
-                        ImagenMini = beShowRoomOferta.ImagenMini,
-                        CodigoCategoria = beShowRoomOferta.CodigoCategoria,
-                        TipNegocio = beShowRoomOferta.TipNegocio,
-                        CodigoProducto = beShowRoomOferta.CodigoProducto
-                    });
+                    listaShowRoomOfertaFinal.Add(beShowRoomOferta);
                 }
-            }            
+            }
             
-            listaShowRoomOfertaModel.Update(x => {
-                x.DescripcionMarca = GetDescripcionMarca(x.MarcaID);
-                x.CodigoISO = userData.CodigoISO;
-                x.Simbolo = userData.Simbolo;
-            });
+            //listaShowRoomOfertaModel.Update(x => {
+            //    x.DescripcionMarca = GetDescripcionMarca(x.MarcaID);
+            //    x.CodigoISO = userData.CodigoISO;
+            //    x.Simbolo = userData.Simbolo;
+            //});
 
-            Session[Constantes.ConstSession.ListaProductoShowRoom] = listaShowRoomOfertaModel;
-            return listaShowRoomOfertaModel;
+            //Session[Constantes.ConstSession.ListaProductoShowRoom] = null;
+            Session[Constantes.ConstSession.ListaProductoShowRoom] = listaShowRoomOfertaFinal;
+            return listaShowRoomOfertaFinal;
         }
 
         #region PL20-1310 : Comprar desde Página de Oferta
@@ -2554,6 +2542,7 @@ namespace Portal.Consultoras.Web.Controllers
         public ActionResult DetalleOferta(int id)
         {
             var modelo = GetOfertaConDetalle(id);
+            
             modelo.ListaOfertaShowRoom = GetOfertaListadoExcepto(id);
             var listaDetalle = ObtenerPedidoWebDetalle();
             modelo.ListaOfertaShowRoom.Update(o=>o.Agregado = (listaDetalle.Find(p=> p.CUV == o.CUV) ?? new BEPedidoWebDetalle()).PedidoDetalleID > 0 ? "block" : "none");
@@ -2563,13 +2552,22 @@ namespace Portal.Consultoras.Web.Controllers
         private ShowRoomOfertaModel GetOfertaConDetalle(int idOferta)
         {
             var ofertaShowRoomModelo = new ShowRoomOfertaModel();
+            //var modelo = new ShowRoomOfertaModel();
             ofertaShowRoomModelo.ListaDetalleOfertaShowRoom = new List<ShowRoomOfertaDetalleModel>();
             try
             {
                 if (idOferta <= 0) return ofertaShowRoomModelo;
 
                 var listadoOfertasTodas = ObtenerListaProductoShowRoom(userData.CampaniaID, userData.CodigoConsultora);
-                ofertaShowRoomModelo = listadoOfertasTodas.Find(o => o.OfertaShowRoomID == idOferta) ?? new ShowRoomOfertaModel();
+                var listadoOfertasTodasModel = Mapper.Map<List<BEShowRoomOferta>, List<ShowRoomOfertaModel>>(listadoOfertasTodas);
+
+                ofertaShowRoomModelo = listadoOfertasTodasModel.Find(o => o.OfertaShowRoomID == idOferta) ?? new ShowRoomOfertaModel();
+                ofertaShowRoomModelo.DescripcionMarca = GetDescripcionMarca(ofertaShowRoomModelo.MarcaID);
+                ofertaShowRoomModelo.CodigoISO = userData.CodigoISO;
+                ofertaShowRoomModelo.Simbolo = userData.Simbolo;
+
+                //modelo = (ShowRoomOfertaModel) ofertaShowRoomModelo.Clone();
+
                 ofertaShowRoomModelo.ListaDetalleOfertaShowRoom = ofertaShowRoomModelo.ListaDetalleOfertaShowRoom ?? new List<ShowRoomOfertaDetalleModel>();
                 if (ofertaShowRoomModelo.OfertaShowRoomID <= 0) return ofertaShowRoomModelo;
 
@@ -2585,6 +2583,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 throw;
             }
+
             return ofertaShowRoomModelo;
 
         }
@@ -2597,7 +2596,16 @@ namespace Portal.Consultoras.Web.Controllers
                 if (idOferta <= 0) return listaOferta;
                 
                 var listadoOfertasTodas = ObtenerListaProductoShowRoom(userData.CampaniaID, userData.CodigoConsultora);
-                listaOferta = listadoOfertasTodas.Where(o => o.OfertaShowRoomID != idOferta).ToList();
+                
+                var listadoOfertasTodasModel = Mapper.Map<List<BEShowRoomOferta>, List<ShowRoomOfertaModel>>(listadoOfertasTodas);
+                listadoOfertasTodasModel.Update(x =>
+                {
+                    x.DescripcionMarca = GetDescripcionMarca(x.MarcaID);
+                    x.CodigoISO = userData.CodigoISO;
+                    x.Simbolo = userData.Simbolo;
+                });
+
+                listaOferta = listadoOfertasTodasModel.Where(o => o.OfertaShowRoomID != idOferta).ToList();
             }
             catch (Exception ex)
             {
