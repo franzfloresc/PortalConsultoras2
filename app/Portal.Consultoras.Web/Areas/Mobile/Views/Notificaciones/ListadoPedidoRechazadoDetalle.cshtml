@@ -36,38 +36,53 @@
 <br />
 
 <div class="col-xs-12 notificaciones_detalle_mobile">
-    <p class="consultora_saludo_noti"><b>Hola @Model.NombreConsultora</b></p>
-    <br />
-    <br />
+    <div style="width: 95%; margin: 0 auto;">
+        <p class="consultora_saludo_noti" style="text-align: center;"><b>¡Hola @Model.NombreConsultora!</b></p>
+        <br />
+        <span>@Html.Raw(Model.CuerpoMensaje1)</span>
+        <br />
+        <div style="width: 80%; text-align: left; margin: 0 auto;">
+            <ul class="vineta">
+                @foreach (var item in Model.CuerpoDetalles)
+                {
+                    <li class="vineta1">@Html.Raw(item)</li>
+                }
+            </ul>
+        </div>
+        <br />
+        <span>@Html.Raw(Model.CuerpoMensaje2)</span>
+        <br /><br /><br />
+        @*<span id="sMensajeFacturacion">@Html.Raw( Model.DescripcionRechazo)</span>*@
+        <div>
+            @{
+                switch (Model.MotivoRechazo)
+                {
+                    case Constantes.GPRMotivoRechazo.Mostrar2OpcionesNotificacion:
+                        <a class='btnnotificacion' href="@Url.Action("Index", "Pedido", new { area = "Mobile" })">MODIFICA TU PEDIDO</a>
+                        break;
 
-    <span id="sMensajeFacturacion">@Html.Raw( Model.DescripcionRechazo)</span>
-     <div>
-        @{
-            switch (Model.MotivoRechazo)
-            {
-                case Constantes.GPRMotivoRechazo.Mostrar2OpcionesNotificacion:
-                    <a class='btnnotificacion' href="javascript:;" onclick="RedirectMenu('Index','Pedido',0,'Pedido')">MODIFICA TU PEDIDO</a>                                
-                    break;
+                    case Constantes.GPRMotivoRechazo.MontoMinino:
+                    <a class='btnnotificacion' href="@Url.Action("Index", "Pedido", new { area = "Mobile" })">MODIFICA TU PEDIDO</a>
+                        break;
 
-                case Constantes.GPRMotivoRechazo.MontoMinino:
-                    <a class='btnnotificacion' href="javascript:;" onclick="RedirectMenu('Index','Pedido',0,'Pedido')">MODIFICAR MI PEDIDO</a>                        
-                    break;
+                    case Constantes.GPRMotivoRechazo.MontoMaximo:
+                    <a class='btnnotificacion' href="@Url.Action("Index", "Pedido", new { area = "Mobile" })">MODIFICA TU PEDIDO</a>
+                        break;
 
-                case Constantes.GPRMotivoRechazo.MontoMaximo:
-                    <a class='btnnotificacion' href="javascript:;" onclick="RedirectMenu('Index','Pedido',0,'Pedido')">MODIFICAR MI PEDIDO</a>                        
-                    break;
-
-                case Constantes.GPRMotivoRechazo.ValidacionMontoMinimoStock:
-                    <a class='btnnotificacion' href="javascript:;" onclick="RedirectMenu('Index','Pedido',0,'Pedido')">MODIFICAR MI PEDIDO</a>
-                    break;
+                    case Constantes.GPRMotivoRechazo.ValidacionMontoMinimoStock:
+                    <a class='btnnotificacion' href="@Url.Action("Index", "Pedido", new { area = "Mobile" })">MODIFICA TU PEDIDO</a>
+                        break;
+                }
             }
-        }
+        </div>
     </div>
+    
     <hr class="clear" />
-    <p class="firma_notificaciones">
+    @*<p class="firma_notificaciones">
         Gracias,
         <br />
         Equipo de Belcorp.
-    </p>
+    </p>*@
+    <br />
     <br />
 </div>
