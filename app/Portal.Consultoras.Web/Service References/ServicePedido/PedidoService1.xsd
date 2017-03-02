@@ -88,6 +88,7 @@
       <xs:element minOccurs="0" name="Tema" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="TextoEstrategia" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="TieneCategoria" type="xs:boolean" />
+      <xs:element minOccurs="0" name="TieneCompraXcompra" type="xs:boolean" />
       <xs:element minOccurs="0" name="UsuarioCreacion" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="UsuarioModificacion" nillable="true" type="xs:string" />
     </xs:sequence>

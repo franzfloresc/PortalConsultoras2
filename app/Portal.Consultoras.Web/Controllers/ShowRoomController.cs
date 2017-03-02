@@ -433,9 +433,10 @@ namespace Portal.Consultoras.Web.Controllers
                 .ForMember(t => t.ImagenVentaSetPopup, f => f.MapFrom(c => c.ImagenVentaSetPopup))
                 .ForMember(t => t.ImagenVentaTagLateral, f => f.MapFrom(c => c.ImagenVentaTagLateral))
                 .ForMember(t => t.ImagenPestaniaShowRoom, f => f.MapFrom(c => c.ImagenPestaniaShowRoom))
-                .ForMember(t => t.ImagenPreventaDigital, f => f.MapFrom(c => c.ImagenPreventaDigital))                
+                .ForMember(t => t.ImagenPreventaDigital, f => f.MapFrom(c => c.ImagenPreventaDigital))
                 .ForMember(t => t.Estado, f => f.MapFrom(c => c.Estado))
-                .ForMember(t => t.TieneCategoria, f => f.MapFrom(c => c.TieneCategoria));
+                .ForMember(t => t.TieneCategoria, f => f.MapFrom(c => c.TieneCategoria))
+                .ForMember(t => t.TieneCompraXcompra, f => f.MapFrom(c => c.TieneCompraXcompra));
 
                 BEShowRoomEvento beShowRoomEvento = Mapper.Map<ShowRoomEventoModel, BEShowRoomEvento>(showRoomEventoModel);
 

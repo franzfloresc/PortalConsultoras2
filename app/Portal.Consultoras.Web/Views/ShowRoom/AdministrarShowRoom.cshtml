@@ -590,6 +590,12 @@
                     <input type="checkbox" class="check" id="chkEventoTieneCategoria" />
                 </div>
             </div>
+            <div>
+                <div class="titG">Habilitar Compra por Compra</div>
+                <div class="selectCheck borde_redondeado" style="float: left; width: 170px; margin-right: 30px; ">
+                    <input type="checkbox" class="check" id="chkEventocompraXcompra" />
+                </div>
+            </div>
         </div>
     </div>
 </div>
@@ -2466,7 +2472,8 @@
         var numeroPerfiles = $("#txtEventoNumeroPerfiles").val();
         var estado = $("#chkEventoEstado").is(":checked");
         var tieneCategoria = $("#chkEventoTieneCategoria").is(":checked");
-
+        var tieneCompraXcompra = $("#chkEventocompraXcompra").is(":checked");
+        
         var showRoom = {
             EventoID: eventoID == "" || eventoID == undefined ? 0 : eventoID,
             CampaniaID: campaniaID,
@@ -2476,7 +2483,8 @@
             DiasDespues: parseInt(diasDespues),
             NumeroPerfiles: parseInt(numeroPerfiles),
             Estado: estado,
-            TieneCategoria: tieneCategoria
+            TieneCategoria: tieneCategoria,
+            TieneCompraXcompra: tieneCompraXcompra
         };
 
         waitingDialog({ title: "Procesando" });
