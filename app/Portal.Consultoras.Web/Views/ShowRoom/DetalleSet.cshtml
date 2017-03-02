@@ -1,15 +1,15 @@
 ﻿@model Portal.Consultoras.Web.Models.ShowRoomOfertaModel
 
-@{
-    ViewBag.Title = "Detalle Oferta";
-}
-
-@section styles{  
+@section styles{ 
     <link href="@Url.Content("~/Content/Css/Site/slick-pedido.css")" rel="stylesheet" />    
 }
 <div class="fondo_set">
     <div class="content_belcorp">
         <div class="content_solo_ficha_set" data-posicion="0" data-item="@Model.OfertaShowRoomID">
+            <div data-compartir-campos="" style="display:none;">
+                <input type="hidden" class="rsFBMensaje" value="@Model.FBMensaje" />
+                <input type="hidden" class="rsFBRuta" value="@Model.FBRuta" />
+            </div>
             <div class="content_producto_set">
                 <div data-img="">
                     <img src="@Model.ImagenProducto" style="width: 100%;" class="imagen_producto">
@@ -17,7 +17,7 @@
                 
                 <div class="compartir_redes_ficha" style="padding-left: 0px; margin-top: 20px;">
                     <div class="texto_compartelo">Compártelo con tus clientes</div>
-                    <a class="btn_compartir_facebook_ficha" href="javascript:;" data-compartir="face">
+                    <a class="btn_compartir_facebook_ficha" href="javascript:;" data-compartir="FB">
                         <img src="/Content/Images/Esika/facebook.png">
                     </a>
                     <hr class="clear">
@@ -48,14 +48,21 @@
                 <div class="titulo_separador">CONTENIDO</div>
                 @foreach (var detalle in Model.ListaDetalleOfertaShowRoom)
                 {
-                    <div class="nombre_marca_set">@detalle.MarcaProducto</div>
-                    <div class="content_detalle_showroom">
-                        <div class="cantidad_set_individual">x2</div>
-                        <div class="nombre_set_individual">@detalle.NombreProducto
-                            <span class="detalle_set_showroom">@detalle.Descripcion1</span>
-                            <span class="detalle_set_showroom">@detalle.Descripcion3</span>
-                        </div>
-                        <div class="precio_regular_set">@detalle.Descripcion2</div>
+                    <div>
+                        @if (detalle.MarcaProducto != "")
+                        {
+                            <div class="nombre_marca_set">@detalle.MarcaProducto</div>
+                        }
+                        <div class="content_detalle_showroom">
+                            @*<div class="cantidad_set_individual">x2</div>*@
+                            <div class="nombre_set_individual">
+                                @detalle.NombreProducto
+                                <span class="detalle_set_showroom">@detalle.Descripcion1</span>
+                                <span class="detalle_set_showroom">@detalle.Descripcion3</span>
+                            </div>
+                            <div class="precio_regular_set">@detalle.Descripcion2</div>
+                           
+                        </div>   
                     </div>
                 }
                 <div class="linea_separadora" style="margin-top: 20px; margin-bottom: 10px;"></div>

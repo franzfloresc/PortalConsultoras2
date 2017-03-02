@@ -301,5 +301,10 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
             return result;
         }        
+
+        public ActionResult DetalleOferta(int id)
+        {
+            return View();
+        }
     }
 }

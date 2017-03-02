@@ -56,6 +56,11 @@ $(document).ready(function () {
         e.preventDefault();
         (this).blur();
     });
+
+
+    $("body").on("click", "[data-compartir]", function (e) {
+        CompartirRedesSociales(e);
+    });
 });
 
 function AgregarOfertaShowRoom(article, cantidad) {
@@ -179,4 +184,42 @@ function AgregarProductoAlCarrito(padre) {
             });
         });
     }    
+}
+
+function CompartirRedesSociales(e) {
+    var obj = $(e.target);
+    var padre = obj.parents("[data-item]");
+    var tipoRedes = padre.find("[data-compartir]").attr("data-compartir");
+    var article = $(padre).find("[data-compartir-campos]").eq(0);
+    var label = "";
+    var ruta = "";
+    if (tipoRedes == "FB") {
+        label = $(article).find(".rsFBMensaje").val();
+        ruta = $(article).find(".rsFBRuta").val();
+    }
+    else if (tipoRedes == "WA") {
+        label = $(article).find(".rsWAMensaje").val(); article.rsWARuta;
+        ruta = $(article).find(".rsWARuta").val(); article.rsWARuta;
+    }
+    dataLayer.push({
+        'event': 'virtualEvent',
+        'category': 'Ofertas Showroom',
+        'action': 'Compartir ' + tipoRedes,
+        'label': label,
+        'value': 0
+    });
+    
+    if (ruta == "") return false;
+    
+    if (tipoRedes == "FB") {
+        var popWwidth = 570;
+        var popHeight = 420;
+        var left = (screen.width / 2) - (popWwidth / 2);
+        var top = (screen.height / 2) - (popHeight / 2);
+        var url = "http://www.facebook.com/sharer/sharer.php?u=" + ruta;
+        window.open(url, 'Facebook', "width=" + popWwidth + ",height=" + popHeight + ",menubar=0,toolbar=0,directories=0,scrollbars=no,resizable=no,left=" + left + ",top=" + top + "");
+    }
+    else if (tipoRedes == "WA") {
+
+    }
 }
