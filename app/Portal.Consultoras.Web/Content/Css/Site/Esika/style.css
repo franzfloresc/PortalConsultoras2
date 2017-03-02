@@ -4981,7 +4981,7 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
 }
 
 .btn_noGracias_agregarProductos{
-        display: block;
+    display: block;
     /* position: absolute; */
     /* margin-left: 10px; */
     /* bottom: -1px; */
@@ -32901,7 +32901,7 @@ h1#penmostreo .campana {
 
 /*FICHA PRODUCTO FAV DESKTOP*/
 .content_left_ficha {
-        float: left;
+    float: left;
     width: 40%;
     margin-right: 5%;
 }
@@ -33481,4 +33481,15 @@ h1#penmostreo .campana {
     display:inline;
     font-weight:bold;
     text-decoration:underline;
+}
+
+.descri_list {
+    font-size: 12px;
+    font-weight: 700;
+    width: 26%;
+}
+
+.cantidad_listado_pdd {
+    padding-top: 30px;
+    padding-bottom: 30px;
 }
