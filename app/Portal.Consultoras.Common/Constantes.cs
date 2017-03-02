@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Amazon.SQS.Model;
 
 namespace Portal.Consultoras.Common
 {
@@ -155,6 +156,8 @@ namespace Portal.Consultoras.Common
 
         public class ConstSession
         {
+            public const string IngresoPortalLideres = "IngresoPortalLideres";
+            public const string IngresoPortalConsultoras = "IngresoPortalConsultoras";
             public const string ListaEscalaDescuento = "ListaEscalaDescuento";
             public const string ClientesByConsultora = "ClientesByConsultora";
             public const string TippingPoint = "TippingPoint";
@@ -300,6 +303,13 @@ namespace Portal.Consultoras.Common
         public class CdrWebDatos
         {
             public const string UnidadesPermitidasFaltante = "UnidadesPermitidasFaltante";
+            public const string ValidacionDiasFaltante = "ValidacionDiasFaltante";
+            public const string DiasAntesFacturacion = "DiasAntesFacturacion";
+        }
+
+        public class CdrWebMensajes
+        {
+            public const string FueraDeFecha = "Tu solicitud se encuentra fuera de fecha para poder ser atendida";
         }
 
         public class CodigoOperacionCDR
@@ -329,7 +339,25 @@ namespace Portal.Consultoras.Common
             public const string MontoMaximo = "OCC-17"; // MONTO MAXIMO
             public const string ActualizacionDeuda = "OCC-19"; //ACTUALIZACION DE DEUDA
             public const string ValidacionMontoMinimoStock = "OCC-51"; //VALIDACION MONTO MINIMO STOCK
+            public const string Mostrar2OpcionesNotificacion = "1"; // Flag para mostrar dos opciones en notificaciones.
         }
+
+        public class LogDynamoDB
+        {
+            public const string AplicacionPortalConsultoras = "PORTALCONSULTORAS";
+            public const string AplicacionPortalLideres = "PORTALLIDERES";
+
+            public const string RolConsultora = "CO";
+            public const string RolSociaEmpresaria = "SE";
+        }
+        
+        public class ValidacionExisteUsuario
+        {
+            public const int NoExiste = 0;
+            public const int ExisteDiferenteClave = 1;
+            public const int Existe = 2;
+        }
+
     }
 }
 

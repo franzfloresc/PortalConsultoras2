@@ -158,9 +158,11 @@ function CargarPedido() {
             $(".btn_guardarPedido").show();
             $("footer").hide();
         },
-        error: function (error) {
-            console.log(error);
-            messageInfo('Ocurrió un error al intentar validar el horario restringido o si el pedido está reservado. Por favor inténtelo en unos minutos.');
+        error: function (data, error) {
+            if (checkTimeout(data)) {
+                console.log(error);
+                messageInfo('Ocurrió un error al intentar validar el horario restringido o si el pedido está reservado. Por favor inténtelo en unos minutos.');
+            }
         }
     });
 }
@@ -273,20 +275,21 @@ function UpdateLiquidacionSegunTipoOfertaSis(CampaniaID, PedidoID, PedidoDetalle
             data: JSON.stringify(param),
             async: true,
             success: function (datos) {
-                CloseLoading();
-                if (!datos.result) {
-                    /*PL20-1227*/
-                    //messageInfoMalo(datos.message);
-                    $('#popupInformacionSB2Error').find('#mensajeInformacionSB2_Error').text(datos.message);
-                    $('#popupInformacionSB2Error').show();
-                    /*PL20-1227*/
+                if (checkTimeout(datos)) {
+                    CloseLoading();
+                    if (!datos.result) {
+                        /*PL20-1227*/
+                        //messageInfoMalo(datos.message);
+                        $('#popupInformacionSB2Error').find('#mensajeInformacionSB2_Error').text(datos.message);
+                        $('#popupInformacionSB2Error').show();
+                        /*PL20-1227*/
 
-                    $('#Cantidad_' + PedidoDetalleID).val(cantidadAnterior);
-                    return false;
+                        $('#Cantidad_' + PedidoDetalleID).val(cantidadAnterior);
+                        return false;
+                    }
+
+                    Update(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion, CUV, EsBackOrder);
                 }
-
-                Update(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion, CUV, EsBackOrder);
-                
             },
             error: function (data, error) {
                 CloseLoading();
@@ -599,7 +602,11 @@ function AceptarBackOrder(campaniaId, pedidoId, pedidoDetalleId, clienteId) {
             CargarPedido();
             CloseLoading();
         },
-        error: function (data, error) { CloseLoading(); }
+        error: function (data, error) {
+            CloseLoading();
+            if (checkTimeout(data)) {
+            }
+        }
     });
 }
 
@@ -730,9 +737,11 @@ function ReservadoOEnHorarioRestringido(mostrarAlerta) {
                 }
             }
         },
-        error: function (error) {
-            console.log(error);
-            alert_msg('Ocurrió un error al intentar validar el horario restringido o si el pedido está reservado. Por favor inténtelo en unos minutos.');
+        error: function (data, error) {
+            if (checkTimeout(data)) {
+                console.log(error);
+                alert_msg('Ocurrió un error al intentar validar el horario restringido o si el pedido está reservado. Por favor inténtelo en unos minutos.');
+            }
         }
     });
     return restringido;
@@ -986,7 +995,9 @@ function EjecutarServicioPROL() {
         async: true,
         cache: false,
         success: function (response) {
-            RespuestaEjecutarServicioPROL(response);
+            if (checkTimeout(response)) {
+                RespuestaEjecutarServicioPROL(response);
+            }
         },
         error: function (data, error) {
             CloseLoading();
@@ -1013,7 +1024,9 @@ function EjecutarServicioPROLSinOfertaFinal() {
         async: true,
         cache: false,
         success: function (response) {
-            RespuestaEjecutarServicioPROL(response, false);
+            if (checkTimeout(response)) {
+                RespuestaEjecutarServicioPROL(response, false);
+            }
         },
         error: function (data, error) {
             CloseLoading();
@@ -1094,8 +1107,11 @@ function RespuestaEjecutarServicioPROL(response, inicio) {
                     CargarPedido();
                     return true;
                 }
-
+                
                 messageInfoBueno('<h3>Tu pedido fue validado con éxito</h3><p>Tus productos fueron reservados.</p>');
+                if (estaRechazado == "2") {
+                    cerrarMensajeEstadoPedido();
+                }
                 //PEDIDO VALIDADO
                 AnalyticsGuardarValidar(response);
                 AnalyticsPedidoValidado(response);
@@ -1258,9 +1274,9 @@ function AceptarObsInformativas() {
         },
         error: function (data, error) {
             CloseLoading();
-            if (checkTimeout(data))
-
+            if (checkTimeout(data)) {
                 messageInfoMalo("Ocurrió un error al ejecutar la acción. Por favor inténtelo de nuevo.");
+            } 
         }
     });
 }

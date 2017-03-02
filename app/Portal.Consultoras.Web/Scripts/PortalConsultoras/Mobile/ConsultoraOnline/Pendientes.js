@@ -151,30 +151,34 @@ function AceptarPedido(id, tipo) {
             async: true,
             success: function (response) {
                 CloseLoading();
-                if (response.success) {
-                    //alert(response.message);
+                if (checkTimeout(response)) {
+                    if (response.success) {
+                        //alert(response.message);
 
-                    if (tipo == 1) {
-                        //$('#popup_pendientes').hide();
-                        $('#detallePedidoAceptado').text('Has agregado ' + totIng + ' productos a tu pedido');
-                        //$('#dialog_aceptasPendientes').show();
+                        if (tipo == 1) {
+                            //$('#popup_pendientes').hide();
+                            $('#detallePedidoAceptado').text('Has agregado ' + totIng + ' productos a tu pedido');
+                            //$('#dialog_aceptasPendientes').show();
+                        }
+                        else {
+                            //$('#popup2_pendientes').hide();
+                            $('#detallePedidoAceptado').text('No te olvides de ingresar en tu pedido los productos de este cliente.');
+                            //$('#dialog2_aceptasPendientes').show();
+                        }
+
+                        $('#PedidoAceptado').show();
                     }
                     else {
-                        //$('#popup2_pendientes').hide();
-                        $('#detallePedidoAceptado').text('No te olvides de ingresar en tu pedido los productos de este cliente.');
-                        //$('#dialog2_aceptasPendientes').show();
+                        alert_msg(response.message);
                     }
-
-                    $('#PedidoAceptado').show();
-                }
-                else {
-                    alert_msg(response.message);
                 }
             },
-            error: function (error) {
+            error: function (data, error) {
                 CloseLoading();
                 //alert(error);
-                alert_msg("Ocurrió un error inesperado al momento de aceptar el pedido. Consulte con su administrador del sistema para obtener mayor información");
+                if (checkTimeout(data)) {
+                    alert_msg("Ocurrió un error inesperado al momento de aceptar el pedido. Consulte con su administrador del sistema para obtener mayor información");
+                }
             }
         });
     }

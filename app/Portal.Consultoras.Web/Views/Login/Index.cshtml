@@ -1,223 +1,234 @@
-﻿@model Portal.Consultoras.Web.Models.LoginModel
+﻿
+@model Portal.Consultoras.Web.Models.LoginModel
 @{
     Layout = "~/Views/Shared/_LoginLayout.cshtml";
     ViewBag.Title = "Login";
 }
 
-<div id="loadingScreen"></div>
-<div class="top_login">
-    <div class="logo_login">
-        <img src='@Url.Content("~/Content/Images/logo_intro.png")' />
-    </div>
-    <div class="logo_responde_login">
-        <img src='@Url.Content("~/Content/Images/logo_responde_login.png")' />
-    </div>
-    <div class="aniversario">
-        <img src='@Url.Content("~/Content/Images/aniversario.png")' id="imgFondoLogin" />
-    </div>
-</div>
-<div class="wrapper_login">
-    <div class="main_login">
-        <div class="bienvenida_login">
-            <span>Bienvenido a:</span>
-            <h1>somosbelcorp.com</h1>
-        </div>
-        <div class="sombra_login">
-            <div class="wrap_login">
-                <div class="div-3">
-                    <div class="titI">País:</div>
-                    <div class="selectLogin borde_redondeado">
-                        @Html.DropDownListFor(model => model.CodigoUsuario, new SelectList(Model.listaPaises, "PaisID", "Nombre"), "-- Seleccionar --", new { id = "ddlPais" })
-                    </div>
+<input type="hidden" id="PaginaLogin" />
+
+<div id="FormsSignInContentPopup">
+    <!-- OLVIDASTE TU CONTRASEÑA -->
+    <div id="popup1" style="display: none;">
+        <div id="popup_olvidasteContrasenia">
+            <div class="content_bg_olvidasteContrasenia">
+                <a id="btnCerrarContraseniaPopup" href="#" class="cerrar" onclick="$('#popup1').hide();"></a>
+
+                <div id="header">¿OLVIDASTE TU CONTRASEÑA?</div>
+                <div class="indicador_lbel"></div>
+                <div class="mensaje_pop_up2">
+                    Te enviaremos un correo con las instrucciones.
+                    <br />
                 </div>
-                <div class="div-3">
-                    <div class="titI_2">Código consultora o correo electrónico:</div>
-                    <div class="selectLogin borde_redondeado">
-                        <input type="text" id="txtUsuario" maxlength="20"/>
-                    </div>
-                    <div class="faq_campos">
-                        <div id="btn1" class="btn_detail">
-                            <a href="#">
-                                <img src='@Url.Content("~/Content/Images/faq.png")' />
-                            </a>
-                        </div>
-                        <div id="det1" class="detalle">
-                            <div class="detalle_item">Lorem impsum date were fade</div>
+                <div class="formCont popupOlvideContrasenia">
+                    <div class="boxform">
+                        <div class="formcontrol pais" id="cargarBandera2" style="margin-bottom: 35px;">
+                            <select id="cboPaisCambioClave" class="cboPaisCambioClave" tabindex="1" style="color: black !important">
+                                <option value="0">Elige tu País</option>
+                                @if (Model.ListaPaises != null)
+                                {
+                                    foreach (var item in Model.ListaPaises)
+                                    {
+                                        <option value="@item.PaisID">@item.Nombre</option>
+                                    }
+                                }
+                            </select>
                         </div>
                     </div>
-                </div>
-                <div class="div-3">
-                    <div class="titI">Clave:</div>
-                    <div class="selectLogin borde_redondeado">
-                        <input type="password" id="txtClave" maxlength="50"/>
-                    </div>
-                    <div class="faq_campos">
-                        <div id="btn2" class="btn_detail">
-                            <a href="#">
-                                <img src='@Url.Content("~/Content/Images/faq.png")' />
-                            </a>
-                        </div>
-                        <div id="det2" class="detalle">
-                            <div class="detalle_item">Were other day gate var</div>
+                    <div class="boxform">
+                        <div class="formcontrol email" style="margin-bottom: 45px; color: black;">
+                            <input type="text" class="inputForm" value="" id="txtCorreoElectronico" placeholder="Correo Electrónico" style="color: black;" />
                         </div>
                     </div>
-                </div>
-                <div class="div-3">
-                    <div class="titI"></div>
-                    <div class="btn_ingresar">
-                        <input id="btnIngresar" type="button" value="Ingresa a tu cuenta" />
-                    </div>
-                </div>
-                <div class="div-3">
-                    <div class="titI"></div>
-                    <div class="clave">
-                        ¿Olvidaste tu clave?
-                        <span>
-                            <a href="@Url.Content("~/WebPages/RecuperarClave.aspx")">Click AQUI</a>
-                        </span>
+
+                    <div id="mensajesOC" style="text-align: left; color: #CF2D3A;"></div>
+
+                    <div class="boxform">
+                        <div class="formbtn">
+                            <input type="button" id="btnRecuperarClave" class="btnCrear" value="ENVIAR" onclick="" />
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="banner_login">
-            <div class="banner_login_item">
-                <a href="#">
-                    <img src='@Url.Content("~/Content/Images/banner_1.png")' />
-                </a>
-            </div>
-            <div class="banner_login_item">
-                <a href="#">
-                    <img src='@Url.Content("~/Content/Images/banner_2.png")' />
-                </a>
-            </div>
-        </div>
     </div>
-</div>
-<div class="foot_login">
-    <div class="foot_login_content">
-        <div class="logos_login">
-            <p>Conoce más de:</p>
-            <img src='@Url.Content("~/Content/Images/ban-5.png")' />
-            <img src='@Url.Content("~/Content/Images/ban-6.png")' />
-            <img src='@Url.Content("~/Content/Images/ban-7.png")' />
-        </div>
-        <div class="copyright_login">
-            Copyright Belcorp 2012. All rights reserved.
+
+    <!-- CONTRASEÑA ENVIADA -->
+    <div id="popup2" style="display: none;">
+        <div id="popup_contraseniaEnviada">
+            <div class="content_bg_contraseniaEnviada">
+                <a id="btnCerrarContraseniaEnviadaPopup" href="#" class="cerrar" onclick="$('#popup2').hide();"></a>
+                <div class="mensaje_pop_up_contraseniaEnviada">
+                    <h1>Por favor, revisa tu correo</h1>
+                    <br />
+                    <br />
+                    <div class="icono_correo">
+                        <img src="~/Content/Images/Login2/Icons/icono_nuevo_correo.png" alt="Alternate Text" />
+                    </div>
+                    <br />
+                    <br />
+                    <p>
+                        Te hemos enviado las instrucciones a :
+                        <br />
+                    <p id="correoDestino"><strong></strong></p>
+
+                    </p>
+                </div>
+            </div>
         </div>
     </div>
 </div>
 
-@section scripts{
+@using (@Html.BeginForm("Login", "Login", FormMethod.Post, new { id = "frmLogin" }))
+{
+    <!-- webForm -->
+    <div class="webForm">
+
+        <div class="logo-esika">
+        </div>
+        <div class="text_bienvenida_esika">
+            ¡Bienvenida a tu zona para consultora!
+        </div>
+        <div class="title">
+            <img src="~/Content/Images/Login2/logo_welcome.png" alt="" />
+        </div>
+
+        <input type="hidden" id="hdfContrasenia" />
+
+        <div class="formCont">
+
+            <!--- FORM CONTROL PAIS --->
+            <div class="boxform">
+                <div class="flecha_select">
+                    <div class="formcontrol pais" id="cargarBandera">
+
+                        <input type="hidden" id="hdfPaisSelect" value="00" />
+                        <input type="hidden" id="hdfPaises" value="PE;BO;CL;SV;CR;PA;GT;EC;AR;MX;DO;PR;VE;CO" />
+                        <input type="hidden" id="hdfURL" value="https://www2.somosbelcorp.com" />
+                        @*<input type="hidden" id="hdf_AR" value="fondo_default.jpg" />*@
+                        <input type="hidden" id="hdf_BO" value="LoginLoveBomb.jpg" />
+                        <input type="hidden" id="hdf_CL" value="LoginLoveBomb.jpg" />
+                        <input type="hidden" id="hdf_CO" value="LoginLoveBomb.jpg" />
+                        <input type="hidden" id="hdf_CR" value="fondo_default.jpg" />
+                        <input type="hidden" id="hdf_EC" value="LoginLoveBomb.jpg" />
+                        <input type="hidden" id="hdf_SV" value="LoginLoveBomb.jpg" />
+                        <input type="hidden" id="hdf_GT" value="LoginLoveBomb.jpg" />
+                        <input type="hidden" id="hdf_MX" value="LoginLoveBomb.jpg" />
+                        <input type="hidden" id="hdf_PA" value="fondo_default.jpg" />
+                        <input type="hidden" id="hdf_PE" value="LoginLoveBomb.jpg" />
+                        <input type="hidden" id="hdf_PR" value="LoginLoveBomb.jpg" />
+                        <input type="hidden" id="hdf_DO" value="fondo_default.jpg" />
+                        <input type="hidden" id="hdf_VE" value="fondo_default.jpg" />
+                        <input type="hidden" id="hdeCodigoISO" name="hdeCodigoISO" />
+
+                        <input type="hidden" id="HdePaisID" name="PaisID" />
+
+
+                        <select id="ddlPais" name="CodigoISO" class="DropDown" tabindex="1">
+                            <option value="00">Elige tu País</option>
+                            @if (Model.ListaPaises != null)
+                            {
+                                foreach (var item in Model.ListaPaises)
+                                {
+                                    <option value="@item.CodigoISO" data-id="@item.PaisID">@item.Nombre</option>
+                                }
+                            }
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <!--- FORM CONTROL USUARIO --->
+            <div class="boxform">
+                <div class="formcontrol user">
+                    <input id="txtUsuario" name="CodigoUsuario" type="text" class="inputForm" value="" onfocus="" onblur="" placeholder="Usuario o Correo Electrónico" />
+                </div>
+                <div id="Div3" class="btn">
+                    <a href="javascript:void(0);" id="abrirMSJ01" onclick="AbrirMensajeLogin(1)" class="helper huno"></a>
+                </div>
+            </div>
+
+            <!--- FORM CONTROL PASSWORD -->
+            <div class="boxform">
+                <div class="formcontrol pass">
+                    <input type="password" name="ClaveSecreta" id="txtContrasenia" class="inputForm" placeholder="Contraseña" value="" />
+                </div>
+                <div id="Div5" class="btn">
+                    <a href="javascript:void(0);" id="abrirMSJ02" onclick="AbrirMensajeLogin(2)" class="helper hdos"></a>
+                </div>
+            </div>
+
+            <div class="boxform">
+                <div class="formbtn">
+                    <div style="color: #ABEAE3; text-align: left; padding-left: 4px; margin-bottom: 5px; font-family: 'lato'; font-size: 12px; font-weight: bold;">
+                        <label id="ErrorTextLabel" class="img_error_login"></label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="boxform float_r">
+                <div class="formbtn">
+                    <div style="padding-left: 4px;">
+                        <a id="AvisoASP" class="aviso_privacidad" href="javascript:void(0)" style="display: none;">Aviso de Privacidad</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- FORM OLVIDASTE TU CONTRASEÑA -->
+            <div class="boxform float_r">
+                <div class="formbtn">
+                    <label for="">
+                        <a href="javascript:void(0);" onclick="olvidasteContrasenia();" rel="formulario-login" title="Recupérala aquí" role="menu" region="Lateral" parent="Recupérala aquí">¿Olvidaste tu contraseña?</a>
+                    </label>
+                    <br />
+                </div>
+            </div>
+
+            <div class="clear"></div>
+
+            <!-- INGRESA A TU CUENTA -->
+            <div class="boxform">
+                <div class="formbtn">
+                    <input type="submit" id="btnLogin" class="btnCrear" value="INGRESA A TU CUENTA" />
+                </div>
+                <div style="display: none;">
+                    <input type="submit" id="SubmitButton" />
+                </div>
+            </div>
+
+            <!-- ADMINISTRADOR FORMULARIO -->
+            <div class="boxform">
+                <div class="admin">
+                    <a href="@Url.Action("Admin","Login")" onclick="return RedirectAdministrador();" rel="menu-superior" title="Administrador">INGRESA COMO <strong>ADMINISTRADOR</strong></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- webForm -->
+}
+
+
+
+<script type="text/javascript">
+    var paisesEsika = '@System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika")';
+    var paisesLBel = '@System.Configuration.ConfigurationManager.AppSettings.Get("PaisesLBel")';
+
+    var isoPais = '@ViewBag.IsoPais';
+    var banderaOk = '@ViewBag.BanderaOk';
+    var avisoASP = '@ViewBag.AvisoASP';
+    var urlRecuperarContrasenia = '@Url.Action("RecuperarContrasenia", "Login")';
+</script>
+
+@if (TempData["errorLogin"] != null)
+{
     <script type="text/javascript">
-        jQuery(function () {
-            $("#btnIngresar").click(function () {
-                ValidarAutenticacion();
-            });
-
-            $("#txtUsuario").keypress(
-            function (evt) {
-                var charCode = (evt.which) ? evt.which : window.event.keyCode;
-                if (charCode <= 13) {
-                    ValidarAutenticacion();
-                }
-                else {
-                    var keyChar = String.fromCharCode(charCode);
-                    var re = /[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ_.@@-]/;
-                    return re.test(keyChar);
-                }
-            });
-
-            $("#txtClave").keypress(
-            function (evt) {
-                var charCode = (evt.which) ? evt.which : window.event.keyCode;
-                if (charCode <= 13) {
-                    ValidarAutenticacion();
-                }
-                else {
-                    var keyChar = String.fromCharCode(charCode);
-                    var re = /[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ_.@@-]/;
-                    return re.test(keyChar);
-                }
-            });
-
-            waitingDialog({});
-            $.ajax({
-                type: 'GET',
-                url: baseUrl + 'GestionContenido/GetFondoLogin',
-                data: '',
-                cache: false,
-                dataType: 'Json',
-                success: function (data) {
-                    if (data.Entidad != null) {
-                        $("#imgFondoLogin").attr("src", '@Url.Content("~/Content/Images/login/")' + data.Entidad.Archivo);
-                    }
-                    closeWaitingDialog();
-                },
-                error: function (data, x, resp) {
-                    closeWaitingDialog();
-                }
-            });
-        });
-
-        function LimpiarAutenticacion() {
-            $("#txtUsuario").val("");
-            $("#txtClave").val("");
-        }
-
-        function ValidarAutenticacion() {
-
-            var PaisID = $("#ddlPais").val();
-            var CodigoUsuario = jQuery.trim($("#txtUsuario").val());
-            var Clave = jQuery.trim($("#txtClave").val());
-
-            var vMessage = "";
-            if (PaisID == "")
-                vMessage += "- Debe seleccionar el País del Usuario.\n";
-            if (CodigoUsuario == "")
-                vMessage += "- Debe ingresar el Usuario.\n";
-            if (Clave == "")
-                vMessage += "- Debe ingresar la Clave Secreta.\n";
-            if (vMessage == "") {
-
-                var item = {
-                    PaisID: PaisID,
-                    CodigoConsultora: CodigoUsuario,
-                    ClaveSecreta: Clave
-                };
-                waitingDialog({});
-                jQuery.ajax({
-                    type: 'POST',
-                    url: baseUrl + 'Login/ValidarAutenticacion',
-                    dataType: 'json',
-                    contentType: 'application/json; charset=utf-8',
-                    data: JSON.stringify(item),
-                    async: true,
-                    success: function (data) {
-                        if (data.result == true) {
-
-                            location.href = '@Url.Action("Index", "Bienvenida")';
-                        }
-                        else {
-                            alert(data.mensaje);
-                            LimpiarAutenticacion();
-                            closeWaitingDialog();
-                        }
-                    },
-                    error: function (data, error, xh) {
-                        closeWaitingDialog();
-                        console.log(data);
-                        console.log(error);
-                        console.log(xh);
-                        alert("Error en la Autenticación, ingrese nuevamente por favor.");
-                        return false;
-                    }
-                });
-            } else {
-                alert(vMessage);
-                $('#ddlPais').focus();
-                return false;
-            }
-        }
-
+        var errorLogin = '@TempData["errorLogin"]';
     </script>
 }
+
+@section scripts {
+    <script src="~/Scripts/General.js"></script>
+    <script src="~/Scripts/PortalConsultoras/Login/FormsSignIn.js"></script>
+
+}
+

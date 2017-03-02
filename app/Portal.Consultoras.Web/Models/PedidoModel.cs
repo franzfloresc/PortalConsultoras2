@@ -37,6 +37,7 @@ namespace Portal.Consultoras.Web.Models
         public string CUV { get; set; }
         [Required(ErrorMessage = "Debe ingresar el Producto")]
         public string DescripcionProd { get; set; }
+        public string DescripcionCortadaProd { get; set; }
         public int PaisID { get; set; }
         public string Nombre { get; set; }
         public string eMail { get; set; }
@@ -117,6 +118,7 @@ namespace Portal.Consultoras.Web.Models
         public int OrigenPedidoWeb { get; set; }
     }
 
+    [Serializable()]
     public class ProductoModel
     {
         public string CUV { get; set; }
@@ -184,6 +186,7 @@ namespace Portal.Consultoras.Web.Models
         public bool PaisEsikizado { get; set; }
     }
 
+    [Serializable]
     public class ObservacionModel
     {
         public string CUV { get; set; }

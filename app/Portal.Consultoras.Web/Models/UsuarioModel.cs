@@ -7,6 +7,7 @@ using System.Web;
 
 namespace Portal.Consultoras.Web.Models
 {
+    [Serializable()]
     public class UsuarioModel
     {
         public UsuarioModel()
@@ -65,7 +66,8 @@ namespace Portal.Consultoras.Web.Models
             this.EsquemaDAConsultora = false;
             this.TipoCasoPromesa = string.Empty;
             this.DiasCasoPromesa = 0;
-           
+            this.SegmentoAbreviatura = string.Empty;
+
         }
 
         public string Celular { get; set; }
@@ -78,6 +80,7 @@ namespace Portal.Consultoras.Web.Models
         public string CodigoFuente { get; set; }
         public string ClaveSecreta { get; set; }
         public int PaisID { get; set; }
+        public int HdePaisID { get; set; }
         public string CodigoISO { get; set; }
         public int RolID { get; set; }
         public int RegionID { get; set; }
@@ -140,7 +143,6 @@ namespace Portal.Consultoras.Web.Models
         public string CodigoTerritorio { get; set; }
         public string Simbolo { get; set; }
         public decimal MontoMinimo { get; set; }
-        public List<BEProductoFaltante> ListaProductoFaltante { get; set; }
         public string UrlAyuda { get; set; }
         public string UrlCapedevi { get; set; }
         public string UrlTerminos { get; set; }
@@ -217,6 +219,8 @@ namespace Portal.Consultoras.Web.Models
 
         public string TipoCasoPromesa { get; set; }
         public int DiasCasoPromesa { get; set; }
+
+        public string SegmentoAbreviatura { get; set; }
 
         /*Inicio Cambios_Landing_Comunidad*/
         public static bool HasAcces(List<PermisoModel> lista, string Action)
@@ -305,6 +309,11 @@ namespace Portal.Consultoras.Web.Models
         public decimal MontoDeuda { get; set; }
         public string MontoMinimoFlexipago { get; set; }
 
+        public IEnumerable<PaisModel> listaPaises { get; set; }
+        
+        public List<PermisoModel> Menu { get; internal set; }
+        public List<ServicioCampaniaModel> MenuService { get; internal set; }
+        
         /*PL20-1226*/
         public int EsOfertaDelDia { get; set; }
         public bool TieneOfertaDelDia { get; set; }

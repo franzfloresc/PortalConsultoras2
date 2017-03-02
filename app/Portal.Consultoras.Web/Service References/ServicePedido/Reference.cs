@@ -32,9 +32,6 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private int CampaniaIDField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string CodigoProductoField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int EstadoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -103,19 +100,6 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((this.CampaniaIDField.Equals(value) != true)) {
                     this.CampaniaIDField = value;
                     this.RaisePropertyChanged("CampaniaID");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string CodigoProducto {
-            get {
-                return this.CodigoProductoField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.CodigoProductoField, value) != true)) {
-                    this.CodigoProductoField = value;
-                    this.RaisePropertyChanged("CodigoProducto");
                 }
             }
         }
@@ -253,6 +237,9 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private string DescripcionOriginalField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string DescripcionProductoComercialField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string FotoProducto01Field;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -342,6 +329,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((object.ReferenceEquals(this.DescripcionOriginalField, value) != true)) {
                     this.DescripcionOriginalField = value;
                     this.RaisePropertyChanged("DescripcionOriginal");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string DescripcionProductoComercial {
+            get {
+                return this.DescripcionProductoComercialField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.DescripcionProductoComercialField, value) != true)) {
+                    this.DescripcionProductoComercialField = value;
+                    this.RaisePropertyChanged("DescripcionProductoComercial");
                 }
             }
         }
@@ -1448,6 +1448,9 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private long ConsultoraIDField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string DescripcionCortadaProdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string DescripcionEstrategiaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -1780,6 +1783,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((this.ConsultoraIDField.Equals(value) != true)) {
                     this.ConsultoraIDField = value;
                     this.RaisePropertyChanged("ConsultoraID");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string DescripcionCortadaProd {
+            get {
+                return this.DescripcionCortadaProdField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.DescripcionCortadaProdField, value) != true)) {
+                    this.DescripcionCortadaProdField = value;
+                    this.RaisePropertyChanged("DescripcionCortadaProd");
                 }
             }
         }
@@ -12193,6 +12209,9 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private bool IndicadorPromocionField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string MotivoRechazoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int PedidoDetalleIDField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -12327,6 +12346,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((this.IndicadorPromocionField.Equals(value) != true)) {
                     this.IndicadorPromocionField = value;
                     this.RaisePropertyChanged("IndicadorPromocion");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string MotivoRechazo {
+            get {
+                return this.MotivoRechazoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.MotivoRechazoField, value) != true)) {
+                    this.MotivoRechazoField = value;
+                    this.RaisePropertyChanged("MotivoRechazo");
                 }
             }
         }
@@ -15758,6 +15790,9 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private decimal ConsultoraSaldoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int EsRechazadoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int EstadoValidacionField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -15783,6 +15818,9 @@ namespace Portal.Consultoras.Web.ServicePedido {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private decimal MontoMinimoPedidoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string MotivoRechazoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string NroRegistroField;
@@ -15934,6 +15972,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public int EsRechazado {
+            get {
+                return this.EsRechazadoField;
+            }
+            set {
+                if ((this.EsRechazadoField.Equals(value) != true)) {
+                    this.EsRechazadoField = value;
+                    this.RaisePropertyChanged("EsRechazado");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public int EstadoValidacion {
             get {
                 return this.EstadoValidacionField;
@@ -16046,6 +16097,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((this.MontoMinimoPedidoField.Equals(value) != true)) {
                     this.MontoMinimoPedidoField = value;
                     this.RaisePropertyChanged("MontoMinimoPedido");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string MotivoRechazo {
+            get {
+                return this.MotivoRechazoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.MotivoRechazoField, value) != true)) {
+                    this.MotivoRechazoField = value;
+                    this.RaisePropertyChanged("MotivoRechazo");
                 }
             }
         }

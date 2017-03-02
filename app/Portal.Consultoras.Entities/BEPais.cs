@@ -21,10 +21,9 @@ namespace Portal.Consultoras.Entities
 	        msCodigoISO = row["CodigoISO"].ToString();
 	        msNombreSimple = row["NombreSimple"].ToString();
 	        msNombreComplejo = row["NombreComplejo"].ToString();
-            if (DataRecord.HasColumn(row, "CodigoISOProd") && row["CodigoISOProd"] != DBNull.Value)
-                msCodigoISOProd = row["CodigoISOProd"].ToString();
-            else
-                msCodigoISOProd = "";
+
+            if (DataRecord.HasColumn(row, "CodigoISOProd") && row["CodigoISOProd"] != DBNull.Value) msCodigoISOProd = row["CodigoISOProd"].ToString();
+            else msCodigoISOProd = "";
         }
 
         [DataMember]

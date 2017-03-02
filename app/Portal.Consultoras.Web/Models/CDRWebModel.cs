@@ -58,5 +58,14 @@ namespace Portal.Consultoras.Web.Models
                             : "";
             }
         }
+
+        public int ZonaID { get; set; }
+        public int PaisID { get; set; }
+        public int RegionID { get; set; }
+
+        public IEnumerable<CampaniaModel> lista { get; set; }
+        public IEnumerable<PaisModel> listaPaises { get; set; }
+        public IEnumerable<ZonaModel> listaZonas { get; set; }
+        public IEnumerable<RegionModel> listaRegiones { get; set; }
     }
 }

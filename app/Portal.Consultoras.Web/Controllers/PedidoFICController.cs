@@ -563,52 +563,7 @@ namespace Portal.Consultoras.Web.Controllers
         #endregion
 
         #region Funciones Privadas
-
-        private bool ValidarHorarioRestringido(out string mensaje)
-        {
-            bool enHorarioRestringido = false;
-            mensaje = string.Empty;
-            UsuarioModel usuario = (UsuarioModel)Session["UserData"];
-            DateTime FechaHoraActual = DateTime.Now.AddHours(usuario.ZonaHoraria);
-
-            // si no es dia prol se devuelve false sino se analiza el rango horario
-            // tambien se valida el flag de habilitacion de restriccion horaria
-            if (!usuario.DiaPROL || !usuario.HabilitarRestriccionHoraria)
-                return false;
-            else
-            {
-                // rango de dias prol
-                if (FechaHoraActual > usuario.FechaInicioCampania &&
-                    FechaHoraActual < usuario.FechaFinCampania.AddDays(1))
-                {
-                    TimeSpan HoraNow = new TimeSpan(FechaHoraActual.Hour, FechaHoraActual.Minute, 0);
-                    // si no es demanda anticipada se usa la hora de cierre normal
-                    if (usuario.EsZonaDemAnti == 0)
-                    {
-                        if (HoraNow > usuario.HoraCierreZonaNormal)
-                            enHorarioRestringido = true;
-                        else
-                            enHorarioRestringido = false;
-                    }
-                    else // sino se usa la hora de cierre de demanda anticipada
-                    {
-                        if (HoraNow > usuario.HoraCierreZonaDemAnti)
-                            enHorarioRestringido = true;
-                        else
-                            enHorarioRestringido = false;
-                    }
-                }
-                // si no es horario restringido se devuelve el resultado false , sino se prepara el mensaje correspondiente
-                if (!enHorarioRestringido)
-                    return false;
-                else
-                {
-                    mensaje = "Se encuentra en horario restringido, no podrá realizar esta funcionalidad hasta el dia siguiente";
-                    return true;
-                }
-            }
-        }
-
+        
         public List<BEPedidoFICDetalle> ObtenerPedidoFICDetalle()
         {
             List<BEPedidoFICDetalle> olstPedidoFICDetalle = new List<BEPedidoFICDetalle>();

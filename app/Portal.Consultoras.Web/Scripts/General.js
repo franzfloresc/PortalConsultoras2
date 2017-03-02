@@ -214,7 +214,7 @@ jQuery(document).ready(function () {
                 return DecimalToStringFormat(context);
             });
 
-            Handlebars.registerHelper('DateTimeToStringFormat', function(context) {
+            Handlebars.registerHelper('DateTimeToStringFormat', function (context) {
                 if (context != null && context != '') {
                     var dateString = context.substr(6);
                     var currentTime = new Date(parseInt(dateString));
@@ -451,12 +451,11 @@ function isInt(n) {
 
 // valida si ha ocurrido un timeout durante una llamada ajax
 function checkTimeout(data) {
-    //debugger;
-    var thereIsStillTime = true;
+    var thereIsStillTime = true
 
     if (data) {
         if (data.responseText) {
-            if ((data.responseText.indexOf("<title>Login</title>") > -1) || (data.responseText.indexOf("<title>Object moved</title>") > -1) || (data.responseText === '"_Logon_"'))
+            if ((data.responseText.indexOf('<input type="hidden" id="PaginaLogin" />') > -1) || (data.responseText.indexOf('<input type="hidden" id="PaginaSesionExpirada" />') > -1) || (data.responseText === '"_Logon_"'))
                 thereIsStillTime = false;
         }
         else {
@@ -465,26 +464,48 @@ function checkTimeout(data) {
         }
 
         if (!thereIsStillTime) {
-            //window.location.href = "/Login/Timeout";
-            //window.location.href = "https://stsqa.somosbelcorp.com/adfs/ls/?wa=wsignout1.0";
-            window.location.href = "/SesionExpirada.html";
+            //window.location.href = "/Login/SesionExpirada";
+            
+            var message = "Tu sesión ha finalizado por inactividad. Por favor, ingresa nuevamente.";
+            if (ViewBagEsMobile == 1) {/*1 Desktop, 2 Mobile*/
+                $('#dialog_SesionMainLayout #mensajeSesionSB2_Error').html(message);
+                $('#dialog_SesionMainLayout').show();
+            }
+            else {
+                $('#popupInformacionSB2SesionFinalizada').find('#mensajeInformacionSB2_SesionFinalizada').text(message);
+                $('#popupInformacionSB2SesionFinalizada').show();
+            }
         }
     }
     else {
-        //debugger;
-        $.ajax({
-            url: "/Dummy/",
-            type: 'POST',
-            dataType: 'json',
-            contentType: 'application/json; charset=utf-8',
-            async: false,
-            complete: function (result) {
-                thereIsStillTime = checkTimeout(result);
-            }
-        });
+        // validar si se perdio la sesion
+        checkUserSession();
     }
     return thereIsStillTime;
 }
+
+/*EPD-180*/
+function checkUserSession() {
+    //debugger;
+    var res = -1;
+
+    $.ajax({
+        url: '/Login/CheckUserSession',
+        type: 'POST',
+        dataType: 'json',
+        contentType: 'application/json; charset=utf-8',
+        async: false,
+        success: function (data) {
+            res = data.Exists;
+        }
+    });
+
+    //alert(res);
+    if (res == 0) {
+        window.location.href = '/Login/SesionExpirada';
+    }
+}
+/*EPD-180*/
 
 // paginacion
 function paginadorAccionGenerico(obj) {
@@ -650,12 +671,12 @@ FuncionesGenerales = {
 function InsertarLogDymnamo(pantallaOpcion, opcionAccion, esMobile, extra) {
     data = {
         'Fecha': '',
-        'Aplicacion': 'PORTALCONSULTORAS',
+        'Aplicacion': userData.aplicacion,
         'Pais': userData.pais,
         'Region': userData.region,
         'Zona': userData.zona,
         'Seccion': userData.seccion,
-        'Rol': 'CO',
+        'Rol': userData.rol,
         'Campania': userData.campana,
         'Usuario': userData.codigoConsultora,
         'PantallaOpcion': pantallaOpcion,
@@ -665,17 +686,18 @@ function InsertarLogDymnamo(pantallaOpcion, opcionAccion, esMobile, extra) {
         'Version': '2.0',
         'Extra': extra
     }
-
-    jQuery.ajax({
-        type: "POST",
-        async: true,
-        crossDomain: true,
-        url: urlLogDynamo,
-        dataType: "json",
-        data: data,
-        success: function (result) { console.log(result); },
-        error: function (x, xh, xhr) { console.log(x); }
-    });
+    if (urlLogDynamo != "") {
+        jQuery.ajax({
+            type: "POST",
+            async: true,
+            crossDomain: true,
+            url: urlLogDynamo,
+            dataType: "json",
+            data: data,
+            success: function (result) { console.log(result); },
+            error: function (x, xh, xhr) { console.log(x); }
+        });
+    }
 }
 
 function InfoCommerceGoogleDestacadoProductClick(name, id, category, variant, position) {
@@ -706,13 +728,17 @@ function InfoCommerceGoogleDestacadoProductClick(name, id, category, variant, po
 
 // Pedido Rechazado
 function MensajeEstadoPedido() {
-
     xMensajeEstadoPedido(false);
     if (cerrarRechazado == '1')
         return false;
 
     if (estaRechazado == 0)
         return false;
+
+    if (estaRechazado == 2 && estadoPedido == 202 && !validacionAbierta) {
+        return false;
+    }
+
 
     $("#bloquemensajesPedido").find(".mensaje_horarioIngresoPedido").html("");
     $("#bloquemensajesPedido").find(".mensaje_horarioIngresoPedido").append((motivoRechazo || "").CodificarHtmlToAnsi());
@@ -743,14 +769,18 @@ function xMensajeEstadoPedido(estado) {
         if (identi) {
             $("[data-content]").animate({ "top": wtop + "px" });
             $(".footer-page").animate({ "top": wtop + "px" });
+            $(".oscurecer_animacion").css({ "display": "none" });
         }
         else {
             identi = url.indexOf("/bienvenida") > 0;
             if (identi) {
                 $(".oscurecer_animacion").css({ "top": wtop + "px", "height": wheight + "px" });
-                //$("[data-content]").animate({ "top": wtop + "px" });
+                //$("[data-content]").animate({ "top": wtop + "px" });               
+                $('.content_slider_home').css('margin-top', '126px');
+                $('.ubicacion_web ').css('margin-top', '145px');
             }
             else {
+                $(".oscurecer_animacion").css({ "display": "none" });
                 $("#bloquemensajesPedido").slideDown("slow", function () { });
                 wtop = $("header").height();
                 $(".ubicacion_web").animate({ "margin-top": (wtop + 22) + "px" });
@@ -766,10 +796,24 @@ function xMensajeEstadoPedido(estado) {
         else {
             identi = url.indexOf("/bienvenida") > 0;
             if (identi) {
-                $("[data-content]").animate({ "top": "0px" });
+
+                $("[data-content]").animate({ "top": "61px" });
+
+                if (estaRechazado == "2" && estadoPedido == "202" && validacionAbierta == "False") {
+                    $("[data-content]").animate({ "top": "0px" });
+                }
+
+                if (estaRechazado === "0") {
+                    $("[data-content]").animate({ "top": "0px" });
+                }
+
+                if (cerrarRechazado == 1) {
+                    $("[data-content]").animate({ "top": "0px" });
+                }
             }
             else {
                 $(".ubicacion_web").animate({ "margin-top": "83px" });
+                $('.content_slider_home ').css('margin-top', '60px');
             }
         }
     }
@@ -777,6 +821,7 @@ function xMensajeEstadoPedido(estado) {
 }
 
 function ResizeMensajeEstadoPedido() {
+
     $("#bloquemensajesPedido").css("height", "");
     $("#bloquemensajesPedido > div").css("height", "");
     $("#bloquemensajesPedido .mensajes_estadoPedido").css("width", "");
@@ -798,6 +843,12 @@ function ResizeMensajeEstadoPedido() {
     else {
         $("#bloquemensajesPedido").css("height", (ht + 22) + "px");
         $("#bloquemensajesPedido > div").css("height", (ht + 22) + "px");
+    }
+
+    if (htx == 38) {
+
+        $("#bloquemensajesPedido .mensajes_estadoPedido").css("padding-top", (9) + "px");
+        $("#bloquemensajesPedido .icono_estadoPedido").css("padding-top", (5) + "px");
     }
 }
 
@@ -821,11 +872,6 @@ function cerrarMensajeEstadoPedido() {
 
 function MostrarMensajePedidoRechazado() {
     if (location.pathname.toLowerCase().indexOf("/bienvenida") >= 0) {
-        //setTimeout(function () {
-        //    $(".oscurecer_animacion").fadeOut(1500);
-        //    var elem = $(".oscurecer_animacion");
-        //    $(elem).remove();
-        //}, 3000);
 
         $(".oscurecer_animacion").delay(3000).fadeOut(1500);
     }

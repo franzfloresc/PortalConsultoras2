@@ -325,15 +325,21 @@
 <div class="contenedor_popup_productosAgotados" id="divProductoAgotado" style="display: none;">
     <div class="popup_productosAgotados">
         <div class="btn_cerrar_agregarUnidades">
-            <a href="javascript:;" onclick="javascript: $('#divProductoAgotado').hide()">
+            <a href="javascript:void(0);" onclick="CerrarProductoAgotados()">
                 <img src="@Url.Content("~/Content/Images/btn_cerrar_popup.svg")" alt="Cerrar" />
                 <span class="texto_btn_cerrar">CERRAR</span>
             </a>
         </div>
         <div class="contenedor_lista_productosAgotados">
-            <h6>PRODUCTOS <b>AGOTADOS</b></h6>
-            <div class="tabla_productos_agotados" id="tblProductoSugerido">
-                <table></table>
+            <h6>PRODUCTOS <b>AGOTADOS</b> de <b>@((string)ViewBag.Campania.ToUpper())</b></h6>
+            <div class="content_cuv">
+                CUV:
+                <input id="producto-faltante-busqueda-cuv" type="text" class="producto_faltante ValidaNumeralPedido" maxlength="5">
+                Producto:
+                <input id="producto-faltante-busqueda-descripcion" type="text" class="producto_faltante">
+                <input type="button" onclick="CargarProductoAgotados();" class="buscar_icono">
+            </div>
+            <div class="tabla_productos_agotados" id="tblProductosFaltantes">
             </div>
         </div>
         <div class="clear"></div>
@@ -412,7 +418,7 @@
     {{#each this}}
     <div class="content_listado_notificaciones">
         <div class="cod_venta_listado">{{CUV}}</div>
-        <div class="descripcion_listado">
+        <div class="descripcion_listado pedidoPadreToolTip descri_list" style="position:relative;">
             {{#if_eq ConfiguracionOfertaID '@Constantes.TipoOferta.Liquidacion'}}
             <span class="texto_pedidos_ofertas">
                 <label>OFERTA LIQUIDACIÓN</label>
@@ -435,14 +441,20 @@
                 <p class="productos_ingresados_movil">
                     <span class="icon-mobile"><img src="@Url.Content("~/Content/Images/mobile-pedido.png")" alt="Alternate Text" /></span>
                 </p>
-                <label for="{{DescripcionProd}}" id="lblLPDesProd{{PedidoDetalleID}}">{{Split DescripcionProd '|' 0}}</label>
+                <label for="{{DescripcionCortadaProd}}" id="lblLPDesProd{{PedidoDetalleID}}">{{Split DescripcionCortadaProd '|' 0}}</label>
             </span>
             {{else}}
             <span style="position:relative">
-                <label for="{{DescripcionProd}}" id="lblLPDesProd{{PedidoDetalleID}}">{{Split DescripcionProd '|' 0}}</label>
+                <label for="{{DescripcionCortadaProd}}" id="lblLPDesProd{{PedidoDetalleID}}">{{Split DescripcionCortadaProd '|' 0}}</label>
             </span>
-            {{/if_eq}}</div>
-        <div class="cantidad_listado">{{Cantidad}}</div>
+            {{/if_eq}}
+
+            <div id="tooltipDescPro" class="tooltipPedido">
+                {{Split DescripcionProd '|' 0}}
+            </div>
+
+        </div>
+        <div class="cantidad_listado cantidad_listado_pdd">{{Cantidad}}</div>
         <div class="unitario_listado"> {{PrecioUnidad}}</div>
         <div class="total_listado">{{ImporteTotal}}</div>
         <div class="cliente_listado">{{Nombre}}</div>
@@ -488,6 +500,29 @@
         </li>
         <li class="flecha_paginador_adelante" data-paginacion="next"></li>
     </ul>
+</script>
+
+<script id="productos-faltantes-template" type="text/x-handlebars-template">
+    <table>
+        <tr>
+            <th class="categoria_productoAgotado">Categoría</th>
+            <th class="codigo_productoAgotado">Código</th>
+            <th class="producto_productoAgotado">Producto</th>
+            <th class="catalogo_productoAgotado">Catálogo o Revista</th>
+            <th class="pagina_productoAgotado">Página</th>
+        </tr>
+        {{#each this}}
+        {{#each Detalle}}
+        <tr>
+            <td>{{../Categoria}}</td>
+            <td>{{CUV}}</td>
+            <td>{{Descripcion}}</td>
+            <td>{{Catalogo}}</td>
+            <td class="text-right">{{NumeroPagina}}</td>
+        </tr>
+        {{/each}}
+        {{/each}}
+    </table>
 </script>
 
 @section scripts{

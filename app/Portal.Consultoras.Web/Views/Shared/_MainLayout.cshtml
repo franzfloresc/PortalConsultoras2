@@ -42,10 +42,14 @@
         var IsoPais = '@ViewBag.CodigoISODL';
         var BelcorpFechaChat_Pais = '@(System.Configuration.ConfigurationManager.AppSettings["FechaChat_" + ViewBag.CodigoISODL])';
         var PaisesChatEMTELCO ='@(System.Configuration.ConfigurationManager.AppSettings["PaisesBelcorpChatEMTELCO"])';
-        var FechaActual = '@(System.DateTime.Now.ToString("dd/MM/yyyy"))';
+        var FechaActual = '@(DateTime.Now.ToString("dd/MM/yyyy"))';
+        var estadoPedido = '@ViewBag.EstadoPedido';
+        var validacionAbierta = '@ViewBag.ValidacionAbierta';
 
         var urlLogDynamo = '@System.Configuration.ConfigurationManager.AppSettings["UrlLogDynamo"]';
         var userData = {
+            'aplicacion': '@(Constantes.LogDynamoDB.AplicacionPortalConsultoras)',
+            'rol': '@(Constantes.LogDynamoDB.RolConsultora)',
             'campana': '@ViewBag.CampaniaCodigo',
             'region': '@ViewBag.RegionAnalytics',
             'zona': '@ViewBag.ZonaAnalytics',
@@ -138,12 +142,11 @@
     <header>
 
         <!--OFERTA DEL DIA -->
-        <div class="bloque_oferta_dia" id="OfertaDelDia" style="display:none">
-            
+        <div class="bloque_oferta_dia" id="OfertaDelDia" style="display: none">
         </div>  
         <!--OFERTA DEL DIA -->
 
-        <div id="bloquemensajesPedido" style="display:none">
+        <div id="bloquemensajesPedido" style="display: none">
             <div class="oscurecer_animacion"></div>
             <div class="bloque_mensajesPedido" style="display: block">
                 <div class="icono_cerrar_mensaje" style="top: 16px">
@@ -158,8 +161,6 @@
                     <img src="@Url.Content("~/Content/Images/icono_exclamacion_estado_pedido.png")" alt="Icono Estado Pedido" />
                 </div>
                 <div class="mensajes_estadoPedido">
-                    @*<span class="mensaje_estadoActualPedido">NOS ENCONTRAMOS FACTURANDO TU PEDIDO</span>
-            <span class="mensaje_horarioIngresoPedido">Si quieres ingresar pedido, lo puedes hacer desde mañana a las 7 a.m.</span>*@
                     <span class="mensaje_estadoActualPedido">TU PEDIDO HA SIDO RECHAZADO</span>
                     <span class="mensaje_horarioIngresoPedido">Tienes una deuda de S/. <span>200</span> que debes regularizar.
                         <a href="#" title="MIRA LOS LUGARES DE PAGO">MIRA LOS LUGARES DE PAGO</a>
@@ -218,17 +219,6 @@
                         </div>
                         <div id="carrito_items">
                         </div>
-
-                        @*<h1> RESUMEN DE CAMPAÑA</h1>
-                            <p>
-                                PEDIDO WEB ACUMULADO <br />
-                                <b>TOTAL A PAGAR</b>
-                            </p>
-                            <span>
-                                <span id="spPedidoWebAcumulado"></span>
-                                <br />
-                                <span id="spTotalMontoAPagar"></span>
-                            </span>*@
                     </div>
                 </div>
 
@@ -477,6 +467,27 @@
     </div>
     <!-- FIN POPUP MENSAJE ERROR - exclamacion -->
 
+    <!-- POPUP SESIÓN FINALIZADA - exclamacion  -->
+    <div class="contenedor_popup_agregarUnidades contenedor_popup_error" id="dialog_SesionMainLayout" style="display: none;">
+        <div class="popup_agregarUnidades">
+            <div class="btn_cerrar_agregarUnidades">
+                <a href="javascript:;" onclick="window.location.href='@Url.Action("Index", "Login", new { area = "" })'">
+                    <img src="@Url.Content("~/Content/Images/btn_cerrar_popup.png")" alt="Cerrar" />
+                    <span class="texto_btn_cerrar">CERRAR</span>
+                </a>
+            </div>
+            <div class="contenido_popUp">
+                <span class="icono_exclamacion"></span>
+                <h1 class="titulo_agregarUnidades"><b>SESIÓN FINALIZADA</b></h1>
+                <div id="mensajeSesionSB2_Error" class="mensaje_agregarUnidades"></div>
+                <button type="button" name="btn_ok" class="btn_ok" onclick="window.location.href='@Url.Action("Index", "Login", new { area = "" })'">
+                    OK
+                </button>
+            </div>
+        </div>
+    </div>
+    <!-- FIN POPUP SESIÓN FINALIZADA - exclamacion -->
+
     <div id="divMensajeConfirmacion" style="display: none;">
         <div class="terminos_title_2 divTitle">
             IMPORTANTE
@@ -502,7 +513,7 @@
             <hr class="clear" />
             @*<div class="descripcion_producto_carrito">{{DescripcionProd}}</div>*@
             <div class="descripcion_producto_carrito">{{Split DescripcionProd '|' 0}}</div>
-            <div class="marca_belcorp" style="font-size:13px;">x{{Cantidad}}</div>
+            <div class="marca_belcorp" style="font-size: 13px;">x{{Cantidad}}</div>
             <div class="precio_carrito">{{../Simbolo}}{{ImporteTotal}}</div>
         </div>
         {{/each}}
@@ -553,7 +564,7 @@
                 <div class="nombre_set_oferta">{{NombreOferta}}</div>
                 A SOLO <span>@ViewBag.Simbolo {{PrecioOfertaFormat}}</span>
             </div>
-            <div style="float:left">
+            <div style="float: left">
                 <a class="btn_agrega_set_dia" onclick="addOfertaDelDiaPedido(1);">AGRÉGALO</a>
             </div>
             <a class="btn_detalle_hoy">
@@ -574,7 +585,7 @@
 
         </div>
         <a class="btn_cerrar_ofertaDia" href="javascript:;" onclick="closeOfertaDelDia();">x</a>
-        <div class="content_pop_oferta_dia" id="PopOfertaDia" style="display:none;">
+        <div class="content_pop_oferta_dia" id="PopOfertaDia" style="display: none;">
             @*<a href="javascript:;" onclick="javascript: $('#PopOfertaDia').slideUp();" title="Cerrar" class="cerrar_pop_oferta">
                 <img src="/Content/Images/cerrar_04_blanco.png" alt="Cerrar">
             </a>*@
@@ -582,7 +593,8 @@
             @*<div class="reloj_popOferta">05:00:20</div>*@
             <hr class="clear" />
             <div class="content_set_pop_hoy">
-                <div class="imagen_set_Oferta_pop"><img src="@Url.Content("~/Content/Images/PL20/set_hoy.png")" alt="" id="img-display-odd" /></div>
+                <div class="imagen_set_Oferta_pop">
+                    <img src="@Url.Content("~/Content/Images/PL20/set_hoy.png")" alt="" id="img-display-odd" /></div>
                 <div class="right_set_hoy">
                     <div class="producto_gratis_ofertaDia">{{NombreOferta}}</div>
                     <div class="descripcion_set_ofertaDia">{{DescripcionOferta}}</div>
@@ -590,12 +602,14 @@
             </div>
             <div class="precio_valorizado_oferta">VALORIZADO EN <span>@ViewBag.Simbolo {{PrecioCatalogoFormat}}</span></div>
             <div class="precio_ofertaDia">A SOLO <span>@ViewBag.Simbolo {{PrecioOfertaFormat}}</span></div>
-            <div style="text-align:center">
+            <div style="text-align: center">
                 <div class="liquidacion_rango_home js-no-popup">
-                    <input type="text" value="1" style="color:white" size="2" maxlength="2" id="txtcantidad-odd" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral js-no-popup" tabindex="0">
+                    <input type="text" value="1" style="color: white" size="2" maxlength="2" id="txtcantidad-odd" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral js-no-popup" tabindex="0">
                     <div class="liquidacion_rango_right_pedido js-no-popup">
-                        <a class="mas js-no-popup" tabindex="0"><img class="js-no-popup" src="/Content/Images/PL20/mas.png" alt=""></a>
-                        <a class="menos js-no-popup" tabindex="0"><img class="js-no-popup" src="/Content/Images/PL20/menos.png" alt=""></a>
+                        <a class="mas js-no-popup" tabindex="0">
+                            <img class="js-no-popup" src="/Content/Images/PL20/mas.png" alt=""></a>
+                        <a class="menos js-no-popup" tabindex="0">
+                            <img class="js-no-popup" src="/Content/Images/PL20/menos.png" alt=""></a>
                     </div>
                 </div>
                 <a class="btn_pop_agregalo_oferta" onclick="addOfertaDelDiaPedido(2);">AGRÉGALO A TU PEDIDO</a>
@@ -632,6 +646,8 @@
 
         var sesionEsShowRoom = '@Session["EsShowRoom"]';
         var EfectoTutorialSalvavidas = '@ViewBag.Efecto_TutorialSalvavidas';
+
+        var ViewBagEsMobile = '@ViewBag.EsMobile';
 
         /*PL20-1226*/
         var tieneOfertaDelDia = '@ViewBag.TieneOfertaDelDia';

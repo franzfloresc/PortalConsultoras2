@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="c685ffd1-a587-4877-a170-9f365f2d0d26" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="fc79b355-7a13-496a-b9f2-9beafb0ec6fe" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
   <ClientOptions>
     <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
     <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
@@ -13,44 +13,8 @@
     <GenerateSerializableTypes>true</GenerateSerializableTypes>
     <Serializer>Auto</Serializer>
     <UseSerializerForFaults>true</UseSerializerForFaults>
-    <ReferenceAllAssemblies>false</ReferenceAllAssemblies>
-    <ReferencedAssemblies>
-      <ReferencedAssembly AssemblyName="Microsoft.CSharp" />
-      <ReferencedAssembly AssemblyName="Microsoft.Web.Infrastructure" />
-      <ReferencedAssembly AssemblyName="mscorlib" />
-      <ReferencedAssembly AssemblyName="Portal.Consultoras.Common" />
-      <ReferencedAssembly AssemblyName="System" />
-      <ReferencedAssembly AssemblyName="System.ComponentModel.DataAnnotations" />
-      <ReferencedAssembly AssemblyName="System.Configuration" />
-      <ReferencedAssembly AssemblyName="System.Core" />
-      <ReferencedAssembly AssemblyName="System.Data" />
-      <ReferencedAssembly AssemblyName="System.Data.DataSetExtensions" />
-      <ReferencedAssembly AssemblyName="System.Drawing" />
-      <ReferencedAssembly AssemblyName="System.EnterpriseServices" />
-      <ReferencedAssembly AssemblyName="System.IdentityModel.Services" />
-      <ReferencedAssembly AssemblyName="System.Net.Http" />
-      <ReferencedAssembly AssemblyName="System.Net.Http.Formatting" />
-      <ReferencedAssembly AssemblyName="System.Net.Http.WebRequest" />
-      <ReferencedAssembly AssemblyName="System.ServiceModel" />
-      <ReferencedAssembly AssemblyName="System.Web" />
-      <ReferencedAssembly AssemblyName="System.Web.Abstractions" />
-      <ReferencedAssembly AssemblyName="System.Web.ApplicationServices" />
-      <ReferencedAssembly AssemblyName="System.Web.DynamicData" />
-      <ReferencedAssembly AssemblyName="System.Web.Entity" />
-      <ReferencedAssembly AssemblyName="System.Web.Extensions" />
-      <ReferencedAssembly AssemblyName="System.Web.Helpers" />
-      <ReferencedAssembly AssemblyName="System.Web.Http" />
-      <ReferencedAssembly AssemblyName="System.Web.Http.WebHost" />
-      <ReferencedAssembly AssemblyName="System.Web.Mvc" />
-      <ReferencedAssembly AssemblyName="System.Web.Razor" />
-      <ReferencedAssembly AssemblyName="System.Web.Routing" />
-      <ReferencedAssembly AssemblyName="System.Web.Services" />
-      <ReferencedAssembly AssemblyName="System.Web.WebPages" />
-      <ReferencedAssembly AssemblyName="System.Web.WebPages.Deployment" />
-      <ReferencedAssembly AssemblyName="System.Web.WebPages.Razor" />
-      <ReferencedAssembly AssemblyName="System.Xml" />
-      <ReferencedAssembly AssemblyName="System.Xml.Linq" />
-    </ReferencedAssemblies>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
     <ReferencedDataContractTypes />
     <ServiceContractMappings />
   </ClientOptions>
@@ -58,13 +22,13 @@
     <MetadataSource Address="http://localhost:41615/SACService.svc" Protocol="http" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="SACService.wsdl" MetadataType="Wsdl" ID="fd333c2e-fc1d-47bd-9926-37edba2143aa" SourceId="1" SourceUrl="http://localhost:41615/SACService.svc?wsdl" />
-    <MetadataFile FileName="SACService.xsd" MetadataType="Schema" ID="fddb58d1-5cc7-45af-896e-8482206a8aa4" SourceId="1" SourceUrl="http://localhost:41615/SACService.svc?xsd=xsd0" />
-    <MetadataFile FileName="SACService1.xsd" MetadataType="Schema" ID="778325f6-b80a-4468-837f-fe76f65de070" SourceId="1" SourceUrl="http://localhost:41615/SACService.svc?xsd=xsd1" />
-    <MetadataFile FileName="SACService2.xsd" MetadataType="Schema" ID="38d2cbeb-7115-4cd7-8825-7804def23a94" SourceId="1" SourceUrl="http://localhost:41615/SACService.svc?xsd=xsd2" />
-    <MetadataFile FileName="SACService.disco" MetadataType="Disco" ID="98a31901-e477-44e5-8840-64622615634e" SourceId="1" SourceUrl="http://localhost:41615/SACService.svc?disco" />
-    <MetadataFile FileName="SACService4.xsd" MetadataType="Schema" ID="ab362492-90d1-413b-9d7f-d195a67e6769" SourceId="1" SourceUrl="http://localhost:41615/SACService.svc?xsd=xsd4" />
-    <MetadataFile FileName="SACService3.xsd" MetadataType="Schema" ID="5f372368-e4aa-471c-b67d-3b752df06cd6" SourceId="1" SourceUrl="http://localhost:41615/SACService.svc?xsd=xsd3" />
+    <MetadataFile FileName="SACService.wsdl" MetadataType="Wsdl" ID="4e90d698-a85c-4456-9f39-6aae770c3139" SourceId="1" SourceUrl="http://localhost:41615/SACService.svc?wsdl" />
+    <MetadataFile FileName="SACService.xsd" MetadataType="Schema" ID="b6a71272-be74-40aa-8388-4a98cb11ccf8" SourceId="1" SourceUrl="http://localhost:41615/SACService.svc?xsd=xsd0" />
+    <MetadataFile FileName="SACService1.xsd" MetadataType="Schema" ID="e8ccd44c-c445-4b6b-9a6d-ed7443f94403" SourceId="1" SourceUrl="http://localhost:41615/SACService.svc?xsd=xsd1" />
+    <MetadataFile FileName="SACService2.xsd" MetadataType="Schema" ID="59909d3d-0657-4b21-9df6-c87a9be5d30c" SourceId="1" SourceUrl="http://localhost:41615/SACService.svc?xsd=xsd2" />
+    <MetadataFile FileName="SACService.disco" MetadataType="Disco" ID="d1dd98da-4cbf-42cb-abb4-da3e2480862d" SourceId="1" SourceUrl="http://localhost:41615/SACService.svc?disco" />
+    <MetadataFile FileName="SACService3.xsd" MetadataType="Schema" ID="d07275eb-a526-455f-9802-7a4af86546ee" SourceId="1" SourceUrl="http://localhost:41615/SACService.svc?xsd=xsd4" />
+    <MetadataFile FileName="SACService4.xsd" MetadataType="Schema" ID="9e34cc0e-8e7d-4f98-a395-cc31db669f32" SourceId="1" SourceUrl="http://localhost:41615/SACService.svc?xsd=xsd3" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />

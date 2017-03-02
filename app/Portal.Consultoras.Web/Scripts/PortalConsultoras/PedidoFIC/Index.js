@@ -224,61 +224,64 @@ function CargarDetallePedido(page, rows) {
         data: JSON.stringify(obj),
         async: true,
         success: function (response) {
-            var data = response.data;
-            ActualizarMontosPedido(data.FormatoTotal, data.Total, data.TotalCliente);
-            //$("#pCantidadProductosPedido").html(data.TotalProductos);
+            if (checkTimeout(response)) {
+                var data = response.data;
+                ActualizarMontosPedido(data.FormatoTotal, data.Total, data.TotalCliente);
+                //$("#pCantidadProductosPedido").html(data.TotalProductos);
 
-            //Index
-            $("#hdnRegistrosPaginar").val(data.Registros);
-            $("#hdnRegistrosDePaginar").val(data.RegistrosDe);
-            $("#hdnRegistrosTotalPaginar").val(data.RegistrosTotal);
-            $("#hdnPaginaPaginar").val(data.Pagina);
-            $("#hdnPaginaDePaginar").val(data.PaginaDe);
+                //Index
+                $("#hdnRegistrosPaginar").val(data.Registros);
+                $("#hdnRegistrosDePaginar").val(data.RegistrosDe);
+                $("#hdnRegistrosTotalPaginar").val(data.RegistrosTotal);
+                $("#hdnPaginaPaginar").val(data.Pagina);
+                $("#hdnPaginaDePaginar").val(data.PaginaDe);
 
-            //ListadoPedido
-            $("#hdnRegistros").val(data.Registros);
-            $("#hdnRegistrosDe").val(data.RegistrosDe);
-            $("#hdnRegistrosTotal").val(data.RegistrosTotal);
-            $("#hdnPagina").val(data.Pagina);
-            $("#hdnPaginaDe").val(data.PaginaDe);
+                //ListadoPedido
+                $("#hdnRegistros").val(data.Registros);
+                $("#hdnRegistrosDe").val(data.RegistrosDe);
+                $("#hdnRegistrosTotal").val(data.RegistrosTotal);
+                $("#hdnPagina").val(data.Pagina);
+                $("#hdnPaginaDe").val(data.PaginaDe);
 
-            //Listado Cliente en la Vista ListadoPedido
-            var htmlCliente = "";
+                //Listado Cliente en la Vista ListadoPedido
+                var htmlCliente = "";
 
-            $("#ddlClientes").empty();
+                $("#ddlClientes").empty();
 
-            $.each(data.ListaCliente, function (index, value) {
-                if (value.ClienteID == -1) {
-                    htmlCliente += '<option value="-1">Cliente</option>';
-                } else {
-                    htmlCliente += '<option value="' + value.ClienteID + '">' + value.Nombre + '</option>';
-                }
-            });
+                $.each(data.ListaCliente, function (index, value) {
+                    if (value.ClienteID == -1) {
+                        htmlCliente += '<option value="-1">Cliente</option>';
+                    } else {
+                        htmlCliente += '<option value="' + value.ClienteID + '">' + value.Nombre + '</option>';
+                    }
+                });
 
-            $("#ddlClientes").append(htmlCliente);
-            $("#ddlClientes").val(clienteId);
+                $("#ddlClientes").append(htmlCliente);
+                $("#ddlClientes").val(clienteId);
 
-            data.ListaDetalleModel = data.ListaDetalleModel || new Array();
-            $.each(data.ListaDetalleModel, function (ind, item) {
-                item.EstadoSimplificacionCuv = data.EstadoSimplificacionCuv;
-            });
+                data.ListaDetalleModel = data.ListaDetalleModel || new Array();
+                $.each(data.ListaDetalleModel, function (ind, item) {
+                    item.EstadoSimplificacionCuv = data.EstadoSimplificacionCuv;
+                });
 
-            var html = ArmarDetallePedido(data.ListaDetalleModel);
-            $('#tbobyDetallePedido').html(html);
+                var html = ArmarDetallePedido(data.ListaDetalleModel);
+                $('#tbobyDetallePedido').html(html);
 
-            var htmlPaginador = ArmarDetallePedidoPaginador(data);
-            $('#paginadorCab').html(htmlPaginador);
-            $('#paginadorPie').html(htmlPaginador);
+                var htmlPaginador = ArmarDetallePedidoPaginador(data);
+                $('#paginadorCab').html(htmlPaginador);
+                $('#paginadorPie').html(htmlPaginador);
 
-            $("#paginadorCab [data-paginacion='rows']").val(data.Registros || 10);
-            $("#paginadorPie [data-paginacion='rows']").val(data.Registros || 10);
+                $("#paginadorCab [data-paginacion='rows']").val(data.Registros || 10);
+                $("#paginadorPie [data-paginacion='rows']").val(data.Registros || 10);
 
-            MostrarInformacionCliente(clienteId);
-            //if (tieneMicroefecto)
-            //MostrarMicroEfecto();
-            CargarAutocomplete();
+                MostrarInformacionCliente(clienteId);
+                //if (tieneMicroefecto)
+                //MostrarMicroEfecto();
+                CargarAutocomplete();
+            }
         },
-        error: function (error) {
+        error: function (data, error) {
+            if (checkTimeout(data)) { }
             //alert(error);
         }
     });
@@ -305,21 +308,25 @@ function InsertarProducto(form) {
         type: form.type,
         data: form.data,
         success: function (response) {
-            if (response.success == true) {
-                $("#hdErrorInsertarProducto").val(response.errorInsertarProducto);
+            if (checkTimeout(response)) {
+                if (response.success == true) {
+                    $("#hdErrorInsertarProducto").val(response.errorInsertarProducto);
 
-                tieneMicroefecto = true;
-                CargarDetallePedido();
-            } else {
-                alert(response.message);
+                    tieneMicroefecto = true;
+                    CargarDetallePedido();
+                } else {
+                    alert(response.message);
+                }
+
+                PedidoOnSuccess();
+
+                CerrarSplash();
             }
-
-            PedidoOnSuccess();
-
-            CerrarSplash();
         },
-        error: function (x, xh, xhr) {
-            console.error(xh);
+        error: function (response, x, xh, xhr) {
+            if (checkTimeout(response)) {
+                console.error(xh);
+            }
         }
     });
 }
@@ -617,7 +624,7 @@ function BuscarByCUV(CUV) {
                 CerrarSplash();
                 if (checkTimeout(data)) {
                     if (data.message == "" || data.message === undefined) {
-                        location.href = baseUrl + "SesionExpirada.html";
+                        location.href = baseUrl + "Login/SesionExpirada";
                     } else {
                         alert_msg(data.message);
                     }
@@ -779,12 +786,14 @@ function DeletePedido(campaniaId, pedidoId, pedidoDetalleId, tipoOfertaSisId, cu
         data: JSON.stringify(param),
         async: true,
         success: function (response) {
-            if (response.success) {
-                CargarDetallePedido();
-                CerrarSplash();
-            } else {
-                CerrarSplash();
-                alert(response.message);
+            if (checkTimeout(response)) {
+                if (response.success) {
+                    CargarDetallePedido();
+                    CerrarSplash();
+                } else {
+                    CerrarSplash();
+                    alert(response.message);
+                }
             }
         },
         error: function (data, error) {

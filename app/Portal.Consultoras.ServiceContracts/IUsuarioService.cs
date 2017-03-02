@@ -260,11 +260,27 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         void UpdNotificacionSolicitudCdrVisualizacion(int paisID, long procesoId);
-
+        
         [OperationContract]
         void UpdNotificacionCdrCulminadoVisualizacion(int paisID, long procesoId);
 
         [OperationContract]
         int UpdateUsuarioEmailTelefono(int paisID, long ConsultoraID, string Email, string Telefono);
+
+        /*EPD-1012*/
+        [OperationContract]
+        BEValidaLoginSB2 GetValidarLoginSB2(int paisID, string codigoUsuario, string contrasenia);
+        /*EPD-1012*/
+
+        [OperationContract]
+        bool CambiarClaveUsuario(int paisId, string paisIso, string codigoUsuario, string nuevacontrasena, string correo,
+            string codigoUsuarioAutenticado, EAplicacionOrigen origen);
+
+        
+        [OperationContract]
+        int ExisteUsuario(int paisId, string codigoUsuario, string clave);
+          
+        [OperationContract]
+        bool ValidarUsuario(string paisIso, string codigoUsuario, string clave);
     }
 }

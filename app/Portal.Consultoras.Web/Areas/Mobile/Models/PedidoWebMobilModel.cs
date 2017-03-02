@@ -1,7 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Portal.Consultoras.Web.Areas.Mobile.Models
 {
+    [Serializable()]
     public class PedidoWebMobilModel
     {
         public PedidoWebMobilModel()

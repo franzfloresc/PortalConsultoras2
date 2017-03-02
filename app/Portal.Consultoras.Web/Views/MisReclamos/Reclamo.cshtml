@@ -34,6 +34,7 @@
             <div class="paso_reclamo" id="Selector2" data-paso="2"><span><img src="@Url.Content("~/Content/Images/Esika/cdr_paso2.png")" /></span></div>
             <div class="paso_reclamo" id="Selector3" data-paso="3"><span><img src="@Url.Content("~/Content/Images/Esika/cdr_paso3.png")" /></span></div>
         </div>
+        <div class="content_pasos_linea"></div>
         <!--PASO 1-->
         <div class="content_reclamo" id="Paso1">
             <div>
@@ -261,10 +262,11 @@
         <a class="btn_ver_solicitudes" id="btn_ver_solicitudes" href="javascript:void(0);" onclick="CambioPaso(3)" style="width:100px;margin-top:30px;">IR AL FINAL</a>
     </div>
     <!--FIN SOLICITUDES-->
+
     </div>
    
-    <!--SOLICITUD ENVIADA-->
-    <div class="content_reclamo" id="SolicitudEnviada" style="display:none; margin-right: auto;">
+    <!--SOLICITUD ENVIADA--> 
+    <div class="content_reclamo" id="SolicitudEnviada" style="display:none;  margin-right: auto;">
         <br/><br/>
         <div class="icono_mensaje_alerta icono_check_alerta"></div>
         <div class="texto_mensaje_alerta" id="mensaje_exclamacion_titulo">¡SOLICITUD<b> ENVIADA</b>!</div>
@@ -328,14 +330,16 @@
         <a class="btn_ver_solicitudes" href="@Url.Action("Index")" id="IrDetalleSolicitudes">VER TUS SOLICITUDES</a>
     </div>
     <!--FIN-->
+   
+    
 </div>
 <div class="mensaje_alerta_belcorp" id="divPopupPedido" style="display: none;">
     <div class="content_mensaje_alerta">
         <a class="btn_cerrar_alerta" href="javascript:;" onclick="javascript: $('#divPopupPedido').hide();"><img src="/Content/Images/cerrar_04.png"></a>
         <hr class="clear">
         <div class="icono_mensaje_alerta icono_exclamacion_alerta"></div>
-        <div class="texto_mensaje_alerta" id="mensaje_exclamacion_titulo">ELIGE UN <b>PEDIDO</b> </div>
-        <div class="sub_texto_alerta" id="mensaje_exclamacion_texto">Selecciona el pedido en el cual deseas aplicar la solicitud</div>
+        <div class="texto_mensaje_alerta" id="mensaje_exclamacion_titulo02">ELIGE UN <b>PEDIDO</b> </div>
+        <div class="sub_texto_alerta" id="mensaje_exclamacion_texto02">Selecciona el pedido en el cual deseas aplicar la solicitud</div>
         <div class="content_botones_pedido" id="divPedido">
             @*<a class="btn_pedido_white"><b>N° 1604551919</b><br />Fecha: 08/08/2016</a>
             <a class="btn_pedido_black"><b>N° 1604551919</b><br />Fecha: 08/08/2016</a>*@
@@ -493,6 +497,8 @@
     var imgPasos = '@Url.Content("~/Content/Images/Esika/{0}.png")';
     var urlRegresar = '@Url.Action("Index","MisReclamos")';
     var urlRegresarReclamo = '@Url.Action("Reclamo","MisReclamos")';
+
+    var mensajePeriodoInvalido = '@Model.MensajePeriodoInvalido';
 </script>
 <script src="@Url.Content("~/Scripts/PortalConsultoras/MisReclamos/Reclamo.js")"></script>
 }

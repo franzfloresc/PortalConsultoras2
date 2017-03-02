@@ -21,7 +21,8 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
         public ActionResult Index()
         {
-            SessionKeys.ClearSessionCantidadNotificaciones();
+            Session["fechaGetNotificacionesSinLeer"] = null;
+            Session["cantidadGetNotificacionesSinLeer"] = null;
 
             var model = new NotificacionesModel();
             model.ListaNotificaciones = ObtenerNotificaciones();
@@ -308,7 +309,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
             using (PedidoRechazadoServiceClient sv = new PedidoRechazadoServiceClient())
             {
-                logGPRValidacion = sv.GetBELogGPRValidacionByGetLogGPRValidacionId(userData.PaisID, ProcesoId);
+                logGPRValidacion = sv.GetBELogGPRValidacionByGetLogGPRValidacionId(userData.PaisID, ProcesoId, userData.ConsultoraID).ToList().FirstOrDefault();
                 lstLogGPRValidacionDetalle = sv.GetListBELogGPRValidacionDetalleBELogGPRValidacionByLogGPRValidacionId(userData.PaisID, ProcesoId).ToList();
             }
 
