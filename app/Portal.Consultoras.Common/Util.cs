@@ -2716,6 +2716,13 @@ namespace Portal.Consultoras.Common
             return stringBuilder.ToString().Normalize(NormalizationForm.FormC);
         }
 
+        public static string Trim(string cadena)
+        {
+            cadena = cadena ?? "";
+            cadena = cadena.Trim();
+            return cadena;
+        }
+
         public static string SubStr(string cadena, int inicio, int cant = -100)
         {
             cadena = cadena ?? "";

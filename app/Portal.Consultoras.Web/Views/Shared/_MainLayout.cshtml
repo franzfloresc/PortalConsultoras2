@@ -41,12 +41,14 @@
         var IsoPais = '@ViewBag.CodigoISODL';
         var BelcorpFechaChat_Pais = '@(System.Configuration.ConfigurationManager.AppSettings["FechaChat_" + ViewBag.CodigoISODL])';
         var PaisesChatEMTELCO ='@(System.Configuration.ConfigurationManager.AppSettings["PaisesBelcorpChatEMTELCO"])';
-        var FechaActual = '@(System.DateTime.Now.ToString("dd/MM/yyyy"))';
+        var FechaActual = '@(DateTime.Now.ToString("dd/MM/yyyy"))';
         var estadoPedido = '@ViewBag.EstadoPedido';
         var validacionAbierta = '@ViewBag.ValidacionAbierta';
 
         var urlLogDynamo = '@System.Configuration.ConfigurationManager.AppSettings["UrlLogDynamo"]';
         var userData = {
+            'aplicacion': '@(Constantes.LogDynamoDB.AplicacionPortalConsultoras)',
+            'rol': '@(Constantes.LogDynamoDB.RolConsultora)',
             'campana': '@ViewBag.CampaniaCodigo',
             'region': '@ViewBag.RegionAnalytics',
             'zona': '@ViewBag.ZonaAnalytics',
@@ -131,7 +133,7 @@
             case "CR":
             case "SV":
             case "GT":
-        <div class="boton_ayuda"><span id="belcorpChat" class="boton-home"><a href="#">¿Necesitas ayuda?</a> </span></div>
+        <div class="boton_ayuda"><span class="boton-home belcorpChat"><a href="#">¿Necesitas ayuda?</a> </span></div>
                 break;
         }
     }

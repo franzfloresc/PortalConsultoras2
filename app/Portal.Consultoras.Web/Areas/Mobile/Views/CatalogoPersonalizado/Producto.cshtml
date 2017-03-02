@@ -299,10 +299,12 @@ else
             <input type="hidden" class="hdItemPackValorizado" value="{{DecimalToStringFormat pack.valorizado}}" />
             <input type="hidden" class="hdItemPackPrecio" value="{{DecimalToStringFormat pack.precio_pack}}" />
 
-            <div class="titulo_pack_detalle">{{pack.nombre_pack}}</div>
-            <div class="linea_separadora_black flecha_048"></div>
-            <div class="precio_para_ti_048">Precio para ti <b>{{../Simbolo}} {{DecimalToStringFormat pack.precio_pack}}</b></div>
-            <div class="gana_048">{{../TxtGanancia}} {{../Simbolo}} {{DecimalToStringFormat pack.ganancia_pack}}</div>
+            UrlBase = UrlBase.ReplaceAll('/', '%2F');
+            UrlBase = UrlBase.ReplaceAll(":", "%3A");
+            UrlBase = UrlBase.ReplaceAll("?", "%3F");
+            UrlBase = UrlBase.ReplaceAll("=", "%3D");
+
+            return "whatsapp://send?text=" + UrlBase;
 
             <div class="content_unidad_producto">
                 {{#each ../lista_oObjItemPack as |item|}}

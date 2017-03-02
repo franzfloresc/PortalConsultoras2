@@ -265,16 +265,16 @@
     </div>
    
     <!--SOLICITUD ENVIADA-->
-    <div class="content_reclamo" id="SolicitudEnviada" style="display:none; margin-right: auto;">
-        <br/><br/>
+    <div class="content_reclamo" id="SolicitudEnviada" style="display:none;  margin-right: auto;">
+        <br /><br />
         <div class="icono_mensaje_alerta icono_check_alerta"></div>
         <div class="texto_mensaje_alerta" id="mensaje_exclamacion_titulo">¡SOLICITUD<b> ENVIADA</b>!</div>
-        <div class="sub_texto_alerta" id="mensaje_exclamacion_texto">Vamos a evaluarla y en un plazo de 40 minutos te enviaremos una respuesta a tu correo electrónico</div>
+        <div class="sub_texto_alerta" id="mensaje_exclamacion_texto">Vamos a evaluarla y en un plazo de 30 minutos te enviaremos una respuesta a tu correo electrónico</div>
         <div class="content_btn_imprimir">
             <a class="btn_imprimir_reclamo"> <div class="icono_imprimir_reclamo"></div>IMPRIMIR SOLICITUD</a>
         </div>
         <hr class="clear" />
-        <br/>
+        <br />
         <div class="content_sombra_reclamo">
             <div class="subtitulo_reclamo" style="font-weight:400; font-size:21px;">Solicitud de Cambios y Devoluciones</div>
             <hr class="clear" />
@@ -293,38 +293,38 @@
                 </div>
                 <div id="divDetalleEnviar">
                     @*<div class="content_listado_reclamo">
-                        <div class="listado_producto_reclamo">
-                            00411<br />
-                            <b>Berrylicious shampoo rojo 375 ml.</b> <br />
-                            2 unidades<br />
-                            Costo: S/.15.00
+                            <div class="listado_producto_reclamo">
+                                00411<br />
+                                <b>Berrylicious shampoo rojo 375 ml.</b> <br />
+                                2 unidades<br />
+                                Costo: S/.15.00
+                            </div>
+                            <div class="listado_solicitud_reclamo"><b>Cambiar por</b></div>
+                            <div class="listado_solicitada_reclamo">
+                                98765 <br />
+                                <b>Máscara Full Size Negro. </b><br />
+                                2 unidades <br />
+                                Costo: S/.15.00
+                            </div>
                         </div>
-                        <div class="listado_solicitud_reclamo"><b>Cambiar por</b></div>
-                        <div class="listado_solicitada_reclamo">
-                            98765 <br />
-                            <b>Máscara Full Size Negro. </b><br />
-                            2 unidades <br />
-                            Costo: S/.15.00
-                        </div>
-                    </div>
-                    <div class="content_listado_reclamo">
-                        <div class="listado_producto_reclamo">
-                            00411<br />
-                            <b>Berrylicious shampoo rojo 375 ml.</b> <br />
-                            2 unidades<br />
-                            Costo: S/.15.00
-                        </div>
-                        <div class="listado_solicitud_reclamo"><b>Cambiar por</b></div>
-                        <div class="listado_solicitada_reclamo">
-                            98765 <br />
-                            <b>Máscara Full Size Negro. </b><br />
-                            2 unidades <br />
-                            Costo: S/.15.00
-                        </div>
-                    </div>*@
+                        <div class="content_listado_reclamo">
+                            <div class="listado_producto_reclamo">
+                                00411<br />
+                                <b>Berrylicious shampoo rojo 375 ml.</b> <br />
+                                2 unidades<br />
+                                Costo: S/.15.00
+                            </div>
+                            <div class="listado_solicitud_reclamo"><b>Cambiar por</b></div>
+                            <div class="listado_solicitada_reclamo">
+                                98765 <br />
+                                <b>Máscara Full Size Negro. </b><br />
+                                2 unidades <br />
+                                Costo: S/.15.00
+                            </div>
+                        </div>*@
                 </div>
             </div>
-            <!--FIN GRILLA-->           
+            <!--FIN GRILLA-->
         </div>
         <a class="btn_ver_solicitudes" href="@Url.Action("Index")" id="IrDetalleSolicitudes">VER TUS SOLICITUDES</a>
     </div>
@@ -335,8 +335,8 @@
         <a class="btn_cerrar_alerta" href="javascript:;" onclick="javascript: $('#divPopupPedido').hide();"><img src="/Content/Images/cerrar_04.png"></a>
         <hr class="clear">
         <div class="icono_mensaje_alerta icono_exclamacion_alerta"></div>
-        <div class="texto_mensaje_alerta" id="mensaje_exclamacion_titulo">ELIGE UN <b>PEDIDO</b> </div>
-        <div class="sub_texto_alerta" id="mensaje_exclamacion_texto">Selecciona el pedido en el cual deseas aplicar la solicitud</div>
+        <div class="texto_mensaje_alerta" id="mensaje_exclamacion_titulo02">ELIGE UN <b>PEDIDO</b> </div>
+        <div class="sub_texto_alerta" id="mensaje_exclamacion_texto02">Selecciona el pedido en el cual deseas aplicar la solicitud</div>
         <div class="content_botones_pedido" id="divPedido">
             @*<a class="btn_pedido_white"><b>N° 1604551919</b><br />Fecha: 08/08/2016</a>
             <a class="btn_pedido_black"><b>N° 1604551919</b><br />Fecha: 08/08/2016</a>*@
@@ -494,6 +494,8 @@
     var imgPasos = '@Url.Content("~/Content/Images/Esika/{0}.png")';
     var urlRegresar = '@Url.Action("Index","MisReclamos")';
     var urlRegresarReclamo = '@Url.Action("Reclamo","MisReclamos")';
+
+    var mensajePeriodoInvalido = '@Model.MensajePeriodoInvalido';
 </script>
 <script src="@Url.Content("~/Scripts/PortalConsultoras/MisReclamos/Reclamo.js")"></script>
 }
