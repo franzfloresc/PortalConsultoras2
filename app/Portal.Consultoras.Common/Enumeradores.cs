@@ -211,5 +211,12 @@ namespace Portal.Consultoras.Common
             Deuda = 1,
             ModificaPedido = 2
         }
+
+        public enum IndicadorGPR
+        {
+            SinAccion = 0,
+            Descargado = 1,
+            Rechazado = 2
+        }
     }
 }

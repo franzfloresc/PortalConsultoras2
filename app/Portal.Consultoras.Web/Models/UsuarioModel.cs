@@ -299,8 +299,9 @@ namespace Portal.Consultoras.Web.Models
         public int TieneCDR { get; set; }
         public int IndicadorEnviado { get; set; }
         public int IndicadorRechazado { get; set; }
-        public string MotivoRechazo { get; set; }
-        public Enumeradores.RechazoBannerUrl RechazoBannerUrl { get; set; }
+        public string GPRBannerTitulo { get; set; }
+        public string GPRBannerMensaje { get; set; }
+        public Enumeradores.RechazoBannerUrl GPRBannerUrl { get; set; }
         public DateTime FechaProceso { get; set; }
         public bool MostrarBannerRechazo { get; set; }
         

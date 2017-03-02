@@ -40,9 +40,6 @@
 
     <script type="text/javascript">
         var isEsika = '@(System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(ViewBag.PaisAnalytics))' == "True";
-
-        var estadoPedido = '@ViewBag.EstadoPedido';
-        var validacionAbierta = '@ViewBag.ValidacionAbierta';
     </script>
 
     @RenderSection("styles", required: false)
@@ -153,12 +150,10 @@
                     <img src="@Url.Content("~/Content/Images/icono_exclamacion_estado_pedido.png")" alt="Icono Estado Pedido" />
                 </div>
                 <div class="mensajes_estadoPedido">
-                    @*<span class="mensaje_estadoActualPedido">NOS ENCONTRAMOS FACTURANDO TU PEDIDO</span>
-                <span class="mensaje_horarioIngresoPedido">Si quieres ingresar pedido, lo puedes hacer desde mañana a las 7 a.m.</span>*@
-                    <span class="mensaje_estadoActualPedido">TU PEDIDO HA SIDO RECHAZADO</span>
+                    <span class="mensaje_estadoActualPedido">@ViewBag.GPRBannerTitulo</span>
                     <span class="mensaje_horarioIngresoPedido">
-                        @userData.MotivoRechazo
-                        @if (userData.RechazoBannerUrl == Enumeradores.RechazoBannerUrl.ModificaPedido)
+                        @ViewBag.GPRBannerMensaje
+                        @if (ViewBag.RechazoBannerUrl == Enumeradores.RechazoBannerUrl.ModificaPedido)
                         {
                             <a class='CerrarBanner' title="MODIFICA TU PEDIDO" href='@Url.Action("Index", "Pedido", new { area = "Mobile" })'>MODIFICA TU PEDIDO</a>
                         }

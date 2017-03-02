@@ -655,15 +655,10 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
                 #region GPR
-
-                model.MotivoRechazo = "Te notificaremos en caso tu pedido tenga observaciones.";
+                
                 model.IndicadorGPRSB = oBEUsuario.IndicadorGPRSB;
-
-                if (oBEUsuario.IndicadorGPRSB == 2)
-                {
-                    ObtenerMotivoRechazo(model);
-                    if(!string.IsNullOrEmpty(model.MotivoRechazo)) model.MostrarBannerRechazo = oBEUsuario.EstadoPedido == 201 || oBEUsuario.ValidacionAbierta;
-                }
+                CalcularMotivoRechazo(model);
+                if(!string.IsNullOrEmpty(model.GPRBannerMensaje)) model.MostrarBannerRechazo = oBEUsuario.EstadoPedido == 201 || oBEUsuario.ValidacionAbierta;
 
                 #endregion
 
@@ -700,10 +695,18 @@ namespace Portal.Consultoras.Web.Controllers
             return model;
         }
 
-        private void ObtenerMotivoRechazo(UsuarioModel model)
+        private void CalcularMotivoRechazo(UsuarioModel model)
         {
-            model.MotivoRechazo = "";
-            model.RechazoBannerUrl = Enumeradores.RechazoBannerUrl.Ninguna;
+            model.GPRBannerUrl = Enumeradores.RechazoBannerUrl.Ninguna;
+
+            if (model.IndicadorGPRSB == (int)Enumeradores.IndicadorGPR.SinAccion) return;
+            if (model.IndicadorGPRSB == (int)Enumeradores.IndicadorGPR.Descargado)
+            {
+                model.GPRBannerTitulo = "TU PEDIDO HA SIDO RECHAZADO";
+                model.GPRBannerMensaje = "Te notificaremos en caso tu pedido tenga observaciones.";
+                return;
+            }
+            model.GPRBannerTitulo = "ESTAMOS FACTURANDO TU PEDIDO C" + model.CampaniaNro;
 
             var procesoRechazado = new BEProcesoPedidoRechazado();
             try
@@ -724,8 +727,8 @@ namespace Portal.Consultoras.Web.Controllers
             if (pedidoRechazado != null && model.MontoDeuda > 0)
             {
                 string montoDeuda = model.Simbolo + " " + Util.DecimalToStringFormat(pedidoRechazado.Valor, model.CodigoISO);
-                model.MotivoRechazo = "Tienes una deuda de " + montoDeuda;
-                model.RechazoBannerUrl = Enumeradores.RechazoBannerUrl.Deuda;
+                model.GPRBannerMensaje = "Tienes una deuda de " + montoDeuda;
+                model.GPRBannerUrl = Enumeradores.RechazoBannerUrl.Deuda;
             }
 
             string mensajeParcial = null;            
@@ -744,11 +747,11 @@ namespace Portal.Consultoras.Web.Controllers
 
             if (!string.IsNullOrEmpty(mensajeParcial))
             {
-                model.RechazoBannerUrl = Enumeradores.RechazoBannerUrl.ModificaPedido;
-                if (string.IsNullOrEmpty(model.MotivoRechazo)) model.MotivoRechazo = mensajeParcial;
-                else model.MotivoRechazo += " y " + mensajeParcial.ToLower(1);
+                model.GPRBannerUrl = Enumeradores.RechazoBannerUrl.ModificaPedido;
+                if (string.IsNullOrEmpty(model.GPRBannerMensaje)) model.GPRBannerMensaje = mensajeParcial;
+                else model.GPRBannerMensaje += " y " + mensajeParcial.ToLower(1);
             }
-            if(!string.IsNullOrEmpty(model.MotivoRechazo)) model.MotivoRechazo += ".";
+            if(!string.IsNullOrEmpty(model.GPRBannerMensaje)) model.GPRBannerMensaje += ".";
         }
 
         public List<TipoLinkModel> GetLinksPorPais(int PaisID)

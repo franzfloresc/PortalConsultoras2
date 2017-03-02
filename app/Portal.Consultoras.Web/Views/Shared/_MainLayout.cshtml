@@ -41,9 +41,7 @@
         var IsoPais = '@ViewBag.CodigoISODL';
         var BelcorpFechaChat_Pais = '@(System.Configuration.ConfigurationManager.AppSettings["FechaChat_" + ViewBag.CodigoISODL])';
         var PaisesChatEMTELCO ='@(System.Configuration.ConfigurationManager.AppSettings["PaisesBelcorpChatEMTELCO"])';
-        var FechaActual = '@(System.DateTime.Now.ToString("dd/MM/yyyy"))';
-        var estadoPedido = '@ViewBag.EstadoPedido';
-        var validacionAbierta = '@ViewBag.ValidacionAbierta';
+        var FechaActual = '@(DateTime.Now.ToString("dd/MM/yyyy"))';
 
         var urlLogDynamo = '@System.Configuration.ConfigurationManager.AppSettings["UrlLogDynamo"]';
         var userData = {
@@ -158,14 +156,14 @@
                     <img src="@Url.Content("~/Content/Images/icono_exclamacion_estado_pedido.png")" alt="Icono Estado Pedido" />
                 </div>
                 <div class="mensajes_estadoPedido">                  
-                    <span class="mensaje_estadoActualPedido">TU PEDIDO HA SIDO RECHAZADO</span>
+                    <span class="mensaje_estadoActualPedido">@ViewBag.GPRBannerTitulo</span>
                     <span class="mensaje_horarioIngresoPedido">
-                        @userData.MotivoRechazo
-                        @if (userData.RechazoBannerUrl == Enumeradores.RechazoBannerUrl.Deuda)
+                        @ViewBag.GPRBannerMensaje
+                        @if (ViewBag.RechazoBannerUrl == Enumeradores.RechazoBannerUrl.Deuda)
                         {
                             <a class='CerrarBanner' title="MIRA LOS LUGARES DE PAGO" href='@Url.Action("Index", "MisPagos")?pestanhaInicial=@Constantes.PestanhasMisPagos.LugaresPago'>MIRA LOS LUGARES DE PAGO</a>
                         }
-                        else if (userData.RechazoBannerUrl == Enumeradores.RechazoBannerUrl.ModificaPedido)
+                        else if (ViewBag.RechazoBannerUrl == Enumeradores.RechazoBannerUrl.ModificaPedido)
                         {
                             <a class='CerrarBanner' title="MODIFICA TU PEDIDO" href='@Url.Action("Index", "Pedido")'>MODIFICA TU PEDIDO</a>
                         }

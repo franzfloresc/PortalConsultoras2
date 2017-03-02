@@ -720,20 +720,10 @@ function InfoCommerceGoogleDestacadoProductClick(name, id, category, variant, po
 // Pedido Rechazado
 function MensajeEstadoPedido() {
     xMensajeEstadoPedido(false);
-    if (cerrarRechazado == '1') return false;
-    if (estaRechazado == 0) return false;
-    if (estaRechazado == 2 && estadoPedido == 202 && !validacionAbierta) return false;
+    if (mostrarBannerRechazo != 'True' || cerrarRechazado == '1') return false;
 
-    if (mostrarBannerRechazo == 'True') { //estaRechazado == 2 && motivoRechazo != "") {
-        $("#bloquemensajesPedido").find(".mensaje_estadoActualPedido").html("TU PEDIDO HA SIDO RECHAZADO");
-    }
-    else if (estaRechazado == 1) {
-        $("#bloquemensajesPedido").find(".mensaje_estadoActualPedido").html("ESTAMOS FACTURANDO TU PEDIDO C" + $.trim($("#hdCampaniaCodigo").val()).substring(4, 6));
-    }
-    else return false;
     xMensajeEstadoPedido(true);
     MostrarMensajePedidoRechazado();
-
     return true;
 }
 
@@ -848,7 +838,6 @@ function cerrarMensajeEstadoPedido() {
 
 function MostrarMensajePedidoRechazado() {
     if (location.pathname.toLowerCase().indexOf("/bienvenida") >= 0) {
-
         $(".oscurecer_animacion").delay(3000).fadeOut(1500);
     }
     else {
