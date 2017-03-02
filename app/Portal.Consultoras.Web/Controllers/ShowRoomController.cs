@@ -1643,6 +1643,9 @@ namespace Portal.Consultoras.Web.Controllers
                         case "Descripcion3":
                             items = lst.OrderBy(x => x.Descripcion3);
                             break;
+                        case "MarcaProducto":
+                            items = lst.OrderBy(x => x.MarcaProducto);
+                            break;
                     }
                 }
                 else
@@ -1660,6 +1663,9 @@ namespace Portal.Consultoras.Web.Controllers
                             break;
                         case "Descripcion3":
                             items = lst.OrderBy(x => x.Descripcion3);
+                            break;
+                        case "MarcaProducto":
+                            items = lst.OrderBy(x => x.MarcaProducto);
                             break;
                     }
                 }
@@ -1691,8 +1697,9 @@ namespace Portal.Consultoras.Web.Controllers
                                    a.NombreProducto,
                                    a.Descripcion1,
                                    a.Descripcion2,
-                                   a.Descripcion3,
-                                   a.Imagen                                
+                                   a.Descripcion3,                                   
+                                   a.Imagen,
+                                   a.MarcaProducto,
                                 }
                            }
                 };
@@ -1714,6 +1721,7 @@ namespace Portal.Consultoras.Web.Controllers
                     .ForMember(t => t.Descripcion1, f => f.MapFrom(c => c.Descripcion1))
                     .ForMember(t => t.Descripcion2, f => f.MapFrom(c => c.Descripcion2))
                     .ForMember(t => t.Descripcion3, f => f.MapFrom(c => c.Descripcion3))
+                    .ForMember(t => t.MarcaProducto, f => f.MapFrom(c => c.MarcaProducto))
                     .ForMember(t => t.Imagen, f => f.MapFrom(c => c.Imagen))
                     .ForMember(t => t.FechaCreacion, f => f.MapFrom(c => c.FechaCreacion))
                     .ForMember(t => t.UsuarioCreacion, f => f.MapFrom(c => c.UsuarioCreacion))

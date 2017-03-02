@@ -411,6 +411,7 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@Descripcion3", DbType.AnsiString, entity.Descripcion3);
             Context.Database.AddInParameter(command, "@Imagen", DbType.AnsiString, entity.Imagen);
             Context.Database.AddInParameter(command, "@UsuarioCreacion", DbType.AnsiString, entity.UsuarioCreacion);
+            Context.Database.AddInParameter(command, "@MarcaProducto", DbType.AnsiString, entity.MarcaProducto);
 
             return Context.ExecuteNonQuery(command);
         }
@@ -427,6 +428,7 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@Descripcion3", DbType.AnsiString, entity.Descripcion3);
             Context.Database.AddInParameter(command, "@Imagen", DbType.AnsiString, entity.Imagen);
             Context.Database.AddInParameter(command, "@UsuarioModificacion", DbType.AnsiString, entity.UsuarioModificacion);
+            Context.Database.AddInParameter(command, "@MarcaProducto", DbType.AnsiString, entity.MarcaProducto);
 
             return Context.ExecuteNonQuery(command);
         }
