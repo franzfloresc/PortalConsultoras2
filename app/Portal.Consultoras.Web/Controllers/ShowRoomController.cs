@@ -2542,7 +2542,7 @@ namespace Portal.Consultoras.Web.Controllers
             return listadoOfertasTodasModel1;
         }
 
-        #region PL20-1310 : Comprar desde Página de Oferta
+        #region Comprar desde Página de Oferta
 
         public ActionResult DetalleOferta(int id)
         {
