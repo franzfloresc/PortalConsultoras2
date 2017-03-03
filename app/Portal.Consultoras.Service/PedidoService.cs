@@ -1649,9 +1649,9 @@ namespace Portal.Consultoras.Service
         }
 
         /*PL20-1330*/
-        public List<BEShowRoomCompraPorCompra> GetProductosCompraPorCompra(int paisId, int EventoID)
+        public List<BEShowRoomOferta> GetProductosCompraPorCompra(int paisId, int EventoID, int CampaniaID)
         {
-            return BLShowRoomEvento.GetProductosCompraPorCompra(paisId, EventoID);
+            return BLShowRoomEvento.GetProductosCompraPorCompra(paisId, EventoID, CampaniaID);
         }
         #endregion
 

@@ -65,20 +65,51 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="BEShowRoomCategoria" nillable="true" type="tns:BEShowRoomCategoria" />
-  <xs:complexType name="ArrayOfBEShowRoomCompraPorCompra">
+  <xs:complexType name="ArrayOfBEShowRoomOferta">
     <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="BEShowRoomCompraPorCompra" nillable="true" type="tns:BEShowRoomCompraPorCompra" />
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="BEShowRoomOferta" nillable="true" type="tns:BEShowRoomOferta" />
     </xs:sequence>
   </xs:complexType>
-  <xs:element name="ArrayOfBEShowRoomCompraPorCompra" nillable="true" type="tns:ArrayOfBEShowRoomCompraPorCompra" />
-  <xs:complexType name="BEShowRoomCompraPorCompra">
+  <xs:element name="ArrayOfBEShowRoomOferta" nillable="true" type="tns:ArrayOfBEShowRoomOferta" />
+  <xs:complexType name="BEShowRoomOferta">
     <xs:sequence>
       <xs:element minOccurs="0" name="CUV" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="MostrarPopup" type="xs:boolean" />
-      <xs:element minOccurs="0" name="SAP" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CampaniaID" type="xs:int" />
+      <xs:element minOccurs="0" name="CantidadIncrementa" type="xs:int" />
+      <xs:element minOccurs="0" name="CategoriaID" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CodigoCampania" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CodigoCategoria" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CodigoProducto" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CodigoTipoOferta" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ConfiguracionOfertaID" type="xs:int" />
+      <xs:element minOccurs="0" name="Descripcion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DescripcionLegal" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FechaModificacion" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="FechaRegistro" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="FlagAgotado" type="xs:int" />
+      <xs:element minOccurs="0" name="FlagHabilitarProducto" type="xs:boolean" />
+      <xs:element minOccurs="0" name="ISOPais" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ImagenMini" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ImagenProducto" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Incrementa" type="xs:int" />
+      <xs:element minOccurs="0" name="MarcaID" type="xs:int" />
+      <xs:element minOccurs="0" name="NroOrden" type="xs:int" />
+      <xs:element minOccurs="0" name="OfertaShowRoomID" type="xs:int" />
+      <xs:element minOccurs="0" name="Orden" type="xs:int" />
+      <xs:element minOccurs="0" name="PrecioCatalogo" type="xs:decimal" />
+      <xs:element minOccurs="0" name="PrecioOferta" type="xs:decimal" />
+      <xs:element minOccurs="0" name="Stock" type="xs:int" />
+      <xs:element minOccurs="0" name="StockInicial" type="xs:int" />
+      <xs:element minOccurs="0" name="StockResultado" type="xs:int" />
+      <xs:element minOccurs="0" name="TipNegocio" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TipoOferta" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TipoOfertaSisID" type="xs:int" />
+      <xs:element minOccurs="0" name="UnidadesPermitidas" type="xs:int" />
+      <xs:element minOccurs="0" name="UsuarioModificacion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="UsuarioRegistro" nillable="true" type="xs:string" />
     </xs:sequence>
   </xs:complexType>
-  <xs:element name="BEShowRoomCompraPorCompra" nillable="true" type="tns:BEShowRoomCompraPorCompra" />
+  <xs:element name="BEShowRoomOferta" nillable="true" type="tns:BEShowRoomOferta" />
   <xs:complexType name="BEShowRoomEvento">
     <xs:sequence>
       <xs:element minOccurs="0" name="CampaniaID" type="xs:int" />
@@ -130,51 +161,6 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="BEShowRoomEventoConsultora" nillable="true" type="tns:BEShowRoomEventoConsultora" />
-  <xs:complexType name="BEShowRoomOferta">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="CUV" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="CampaniaID" type="xs:int" />
-      <xs:element minOccurs="0" name="CantidadIncrementa" type="xs:int" />
-      <xs:element minOccurs="0" name="CategoriaID" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="CodigoCampania" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="CodigoCategoria" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="CodigoProducto" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="CodigoTipoOferta" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="ConfiguracionOfertaID" type="xs:int" />
-      <xs:element minOccurs="0" name="Descripcion" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="DescripcionLegal" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="FechaModificacion" type="xs:dateTime" />
-      <xs:element minOccurs="0" name="FechaRegistro" type="xs:dateTime" />
-      <xs:element minOccurs="0" name="FlagAgotado" type="xs:int" />
-      <xs:element minOccurs="0" name="FlagHabilitarProducto" type="xs:boolean" />
-      <xs:element minOccurs="0" name="ISOPais" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="ImagenMini" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="ImagenProducto" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="Incrementa" type="xs:int" />
-      <xs:element minOccurs="0" name="MarcaID" type="xs:int" />
-      <xs:element minOccurs="0" name="NroOrden" type="xs:int" />
-      <xs:element minOccurs="0" name="OfertaShowRoomID" type="xs:int" />
-      <xs:element minOccurs="0" name="Orden" type="xs:int" />
-      <xs:element minOccurs="0" name="PrecioCatalogo" type="xs:decimal" />
-      <xs:element minOccurs="0" name="PrecioOferta" type="xs:decimal" />
-      <xs:element minOccurs="0" name="Stock" type="xs:int" />
-      <xs:element minOccurs="0" name="StockInicial" type="xs:int" />
-      <xs:element minOccurs="0" name="StockResultado" type="xs:int" />
-      <xs:element minOccurs="0" name="TipNegocio" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="TipoOferta" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="TipoOfertaSisID" type="xs:int" />
-      <xs:element minOccurs="0" name="UnidadesPermitidas" type="xs:int" />
-      <xs:element minOccurs="0" name="UsuarioModificacion" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="UsuarioRegistro" nillable="true" type="xs:string" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="BEShowRoomOferta" nillable="true" type="tns:BEShowRoomOferta" />
-  <xs:complexType name="ArrayOfBEShowRoomOferta">
-    <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="BEShowRoomOferta" nillable="true" type="tns:BEShowRoomOferta" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="ArrayOfBEShowRoomOferta" nillable="true" type="tns:ArrayOfBEShowRoomOferta" />
   <xs:complexType name="ArrayOfBEShowRoomOfertaDetalle">
     <xs:sequence>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="BEShowRoomOfertaDetalle" nillable="true" type="tns:BEShowRoomOfertaDetalle" />

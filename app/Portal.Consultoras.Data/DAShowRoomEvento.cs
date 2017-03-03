@@ -587,10 +587,11 @@ namespace Portal.Consultoras.Data
             Context.ExecuteNonQuery(command);
         }
 
-        public IDataReader GetProductosCompraPorCompra(int EventoID)
+        public IDataReader GetProductosCompraPorCompra(int EventoID, int CampaniaID)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("ShowRoom.GetShowRoomCompraPorCompra");
             Context.Database.AddInParameter(command, "@EventoID", DbType.Int32, EventoID);
+            Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, CampaniaID);
             return Context.ExecuteReader(command);
         }
     }
