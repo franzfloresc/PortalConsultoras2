@@ -9,10 +9,11 @@ using AutoMapper;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.ServicePedido;
+using Portal.Consultoras.Web.Controllers;
 
 namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 {
-    public class ShowRoomController : BaseMobileController
+    public class ShowRoomController : BaseShowRoomController
     {
         #region Variables
 
@@ -123,9 +124,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 ? (ActionResult) RedirectToAction("Index", "Bienvenida", new {area = "Mobile"})
                 : View("ListadoProductoShowRoom", showRoomEventoModel);
         }
-
-    
-
+        
         private ShowRoomEventoModel OfertaShowRoom()
         {
             Session[keyFechaGetCantidadProductos] = null;
@@ -263,48 +262,14 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
             return null;
         }
-
-        private string GetDescripcionMarca(int marcaId)
-        {
-            string result = string.Empty;
-
-            switch (marcaId)
-            {
-                case 1:
-                    result = "Lbel";
-                    break;
-                case 2:
-                    result = "Esika";
-                    break;
-                case 3:
-                    result = "Cyzone";
-                    break;
-                case 4:
-                    result = "S&M";
-                    break;
-                case 5:
-                    result = "Home Collection";
-                    break;
-                case 6:
-                    result = "Finart";
-                    break;
-                case 7:
-                    result = "Generico";
-                    break;
-                case 8:
-                    result = "Glance";
-                    break;
-                default:
-                    result = "NO DISPONIBLE";
-                    break;
-            }
-
-            return result;
-        }        
-
+        
         public ActionResult DetalleOferta(int id)
         {
-            return View();
+            if (!ValidarIngresoShowRoom(false))
+                return RedirectToAction("Index", "Bienvenida");
+
+            var modelo = GetOfertaConDetalle(id);
+            return View( modelo);
         }
     }
 }

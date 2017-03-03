@@ -30,8 +30,6 @@ $(document).ready(function () {
             slidesToScroll: 1,
             prevArrow: '<a class="previous_ofertas js-slick-prev" style="display: block;left: 0;margin-left: -13%;"><img src="' + baseUrl + 'Content/Images/Esika/left_compra.png")" alt="" /></a>',
             nextArrow: '<a class="previous_ofertas js-slick-next" style="display: block;right: 0;margin-right: -13%; text-align:right;"><img src="' + baseUrl + 'Content/Images/Esika/right_compra.png")" alt="" /></a>'
-
-
         });
         $('.content_ficha_compra').slick({
             dots: true,
@@ -40,8 +38,34 @@ $(document).ready(function () {
             speed: 300,
             slidesToShow: 1,
             slidesToScroll: 1,
-            
-
+            prevArrow: '<a class="previous_ofertas js-slick-prev" style="display: block;left: 0;margin-left: -13%;"><img src="' + baseUrl + 'Content/Images/Esika/left_compra.png")" alt="" /></a>',
+            nextArrow: '<a class="previous_ofertas js-slick-next" style="display: block;right: 0;margin-right: -13%; text-align:right;"><img src="' + baseUrl + 'Content/Images/Esika/right_compra.png")" alt="" /></a>'
+        });
+    }
+    else if (tipoOrigenPantalla == 21) {
+        $('.slider').slick({
+            slidesToShow: 4,
+            slidesToScroll: 1,
+            autoplay: false,
+            dots: false,
+            prevArrow: '<span class="previous_ofertas_mobile" id="slick-prev"><img src="' + urlCarruselPrev + '")" alt="-"/></span>',
+            nextArrow: '<span class="previous_ofertas_mobile" id="slick-next" style="text-align:right; right:0;"><img src="' + urlCarruselNext + '" alt="-"/></span>',
+            infinite: true,
+            speed: 300,
+            responsive: [
+                {
+                    breakpoint: 960,
+                    settings: { slidesToShow: 3, slidesToScroll: 1 }
+                },
+                {
+                    breakpoint: 680,
+                    settings: { slidesToShow: 1, slidesToScroll: 1 }
+                },
+                {
+                    breakpoint: 380,
+                    settings: { slidesToShow: 1, slidesToScroll: 1 }
+                }
+            ]
         });
     }
 
@@ -188,29 +212,39 @@ function AgregarProductoAlCarrito(padre) {
 
 function CompartirRedesSociales(e) {
     var obj = $(e.target);
+    var tipoRedes = $.trim($(obj).parents("[data-compartir]").attr("data-compartir"));
+    if (tipoRedes == "") return false;
+
     var padre = obj.parents("[data-item]");
-    var tipoRedes = padre.find("[data-compartir]").attr("data-compartir");
     var article = $(padre).find("[data-compartir-campos]").eq(0);
-    var label = "";
-    var ruta = "";
-    if (tipoRedes == "FB") {
-        label = $(article).find(".rsFBMensaje").val();
-        ruta = $(article).find(".rsFBRuta").val();
+
+    var label = $(article).find(".rs" + tipoRedes + "Mensaje").val();
+    var ruta = $(article).find(".rs" + tipoRedes + "Ruta").val();
+
+    if (label != "") {
+        dataLayer.push({
+            'event': 'virtualEvent',
+            'category': 'Ofertas Showroom',
+            'action': 'Compartir ' + tipoRedes,
+            'label': label,
+            'value': 0
+        });
     }
-    else if (tipoRedes == "WA") {
-        label = $(article).find(".rsWAMensaje").val(); article.rsWARuta;
-        ruta = $(article).find(".rsWARuta").val(); article.rsWARuta;
-    }
-    dataLayer.push({
-        'event': 'virtualEvent',
-        'category': 'Ofertas Showroom',
-        'action': 'Compartir ' + tipoRedes,
-        'label': label,
-        'value': 0
-    });
     
     if (ruta == "") return false;
     
+    CompartirRedesSocialesInsertar(article, tipoRedes, ruta);
+}
+
+function CompartirRedesSocialesAbrirVentana(id, tipoRedes, ruta, texto) {
+    id = $.trim(id);
+    if (id == "0" || id == "")
+        return false;
+    ruta = $.trim(ruta);
+    if (ruta == "") return false;
+
+    ruta = ruta.replace('[valor]', id);
+
     if (tipoRedes == "FB") {
         var popWwidth = 570;
         var popHeight = 420;
@@ -220,6 +254,65 @@ function CompartirRedesSociales(e) {
         window.open(url, 'Facebook', "width=" + popWwidth + ",height=" + popHeight + ",menubar=0,toolbar=0,directories=0,scrollbars=no,resizable=no,left=" + left + ",top=" + top + "");
     }
     else if (tipoRedes == "WA") {
+        ruta = ruta.ReplaceAll('/', '%2F');
+        ruta = ruta.ReplaceAll(":", "%3A");
+        ruta = ruta.ReplaceAll("?", "%3F");
+        ruta = ruta.ReplaceAll("=", "%3D");
 
+        texto = texto.ReplaceAll('/', '%2F');
+        texto = texto.ReplaceAll(":", "%3A");
+        texto = texto.ReplaceAll("?", "%3F");
+        texto = texto.ReplaceAll("=", "%3D");
+
+        return "whatsapp://send?text=" + texto + " - " + ruta;
     }
 }
+
+function CompartirRedesSocialesInsertar(article, tipoRedes, ruta) {
+    ShowLoading();
+    //Capturando valores
+    var _rutaImagen = $.trim($(article).find(".rs" + tipoRedes + "RutaImagen").val());
+    var _nombre = $.trim($(article).find(".rs" + tipoRedes + "Mensaje").val());
+    var _marcaID = $.trim($(article).find(".MarcaID").val());
+    var _marcaDesc = $.trim($(article).find(".MarcaNombre").val());
+    var _descProd = $.trim($(article).find(".ProductoDescripcion").val());
+    var _vol = $.trim($(article).find(".Volumen").val());
+    var _palanca = $.trim($(article).find(".Palanca").val());
+
+    var pcDetalle = _rutaImagen + "|" + _marcaID + "|" + _marcaDesc + "|" + _nombre;
+    if (_palanca == "FAV") {
+        pcDetalle += "|" + _vol + "|" + _descProd;
+    }
+
+    var Item = {
+        mCUV: $(article).find(".CUV").val(),
+        mPalanca: _palanca,
+        mDetalle: pcDetalle,
+        mApplicacion: tipoRedes
+    };
+
+    jQuery.ajax({
+        type: 'POST',
+        url: "/CatalogoPersonalizado/InsertarProductoCompartido",
+        dataType: 'json',
+        contentType: 'application/json; charset=utf-8',
+        data: JSON.stringify(Item),
+        success: function (response) {
+            CloseLoading();
+            if (checkTimeout(response)) {
+                if (response.success) {
+                    CompartirRedesSocialesAbrirVentana(response.data.id, tipoRedes, ruta, _nombre);
+                } else {
+                    window.messageInfo(response.message);
+                }
+            }
+        },
+        error: function (response, error) {
+            CloseLoading();
+            if (checkTimeout(response)) {
+                console.log(response);
+            }
+        }
+    });
+}
+

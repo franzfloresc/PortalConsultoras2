@@ -1,7 +1,4 @@
-﻿
-@{
-    ViewBag.Title = "Detalle Oferta";
-}
+﻿@model Portal.Consultoras.Web.Models.ShowRoomOfertaModel
 
 @{
     Layout = "~/Areas/Mobile/Views/Shared/_MobileLayout.cshtml";
@@ -12,153 +9,119 @@
 }
 
 <div class="content_room_product_sheet">
-    <div class="product_sheet_image">
-        <img src="Content/images/Esika/esika-product-iluminas.png" width="236">
+    <div class="product_sheet_image" data-img="">
+        <img src="@Model.ImagenProducto" width="236">
     </div>
     <div class="wrapper_resumen_mobile">
-        <h1>SET ILUMINA</h1>
+        <h1>@Model.Descripcion</h1>
         <div class="price_product">
-            <s class="price_offer">S/.200</s>
-            <span class="price">Precio para ti <b>S/.110</b></span>
-            <span class="comment">Gana S/.90</span>
+            <s class="price_offer">@Model.Simbolo @Model.FormatoPrecioOferta</s>
+            <span class="price">Precio para ti <b>@Model.Simbolo @Model.FormatoPrecioCatalogo</b></span>
+            <span class="comment">Gana @Model.Simbolo @Model.FormatoGana</span>
         </div>
-        <div class="item_product">
-            <div class="description_item">
-                <div class="quantity"><br />x1</div>
-                <div class="detail">
-                    <span class="brand">Ésika</span>
-                    <span class="product_name">Labial Color HD</span>
-                    <span class="price">Precio regular: S/.150</span>
+
+        @foreach (var detalle in Model.ListaDetalleOfertaShowRoom)
+        {
+            <div class="item_product">
+                <div class="description_item">
+                    @*<div class="quantity"><br />x1</div>*@
+                    <div class="detail">
+                        @if (detalle.MarcaProducto != "")
+                        {
+                            <span class="brand">@detalle.MarcaProducto</span>
+                        }
+                        <span class="product_name">@detalle.Descripcion1</span>
+                        <span class="product_name">@detalle.Descripcion3</span>
+                        <span class="price">@detalle.Descripcion2</span>
+                    </div>
                 </div>
-            </div>
-            <div class="variants">
-                <a href="#" class="select_variant">
-                    <span class="color" style="background-color:#C31727;"></span>
-                    <span class="title_variant">
-                        Rojo Pimienta
-                    </span>
-                </a>
-                <span class="variants_items">
-                    <a href="#" data-color="#D44F82" data-title="Pimienta Caliente">
-                        <span class="color" style="background-color:#D44F82;"></span>
-                        <span class="title_variant">
-                            Pimienta Caliente
-                        </span>
-                    </a>
-                    <a href="#" data-color="#B02F48" data-title="Café Habano">
-                        <span class="color" style="background-color:#B02F48;"></span>
-                        <span class="title_variant">
-                            Café Habano
-                        </span>
-                    </a>
-                    <a href="#" data-color="#E9316D" data-title="Ciruela Glam">
-                        <span class="color" style="background-color:#E9316D;"></span>
-                        <span class="title_variant">
-                            Ciruela Glam
-                        </span>
-                    </a>
-                    <a href="#" data-color="#C31727" data-title="Coral Ensueño">
+                <div class="variants"  style="display:none;">
+                    <a href="#" class="select_variant">
                         <span class="color" style="background-color:#C31727;"></span>
                         <span class="title_variant">
-                            Coral Ensueño
+                            Rojo Pimienta
                         </span>
                     </a>
-                    <a href="#" data-color="#DB2020" data-title="Frambuesa Encanto">
-                        <span class="color" style="background-color:#DB2020;"></span>
-                        <span class="title_variant">
-                            Frambuesa Encanto
-                        </span>
-                    </a>
-                    <a href="#" data-color="#95494C" data-title="Fucsia Vibrante">
-                        <span class="color" style="background-color:#95494C;"></span>
-                        <span class="title_variant">
-                            Fucsia Vibrante
-                        </span>
-                    </a>
-                    <a href="#" data-color="#982218" data-title="Magenta Sweet">
-                        <span class="color" style="background-color:#982218;"></span>
-                        <span class="title_variant">
-                            Magenta Sweet
-                        </span>
-                    </a>
-                    <a href="#" data-color="#EE7389" data-title="Melon Intense">
-                        <span class="color" style="background-color:#EE7389;"></span>
-                        <span class="title_variant">
-                            Melon Intense
-                        </span>
-                    </a>
-                    <a href="#" data-color="#DE5C52" data-title="Pimienta Caliente">
-                        <span class="color" style="background-color:#DE5C52;"></span>
-                        <span class="title_variant">
-                            Pimienta Caliente
-                        </span>
-                    </a>
-                    <a href="#" data-color="#CE7869" data-title="Café Habano">
-                        <span class="color" style="background-color:#CE7869;"></span>
-                        <span class="title_variant">
-                            Café Habano
-                        </span>
-                    </a>
-                </span>
-                <div class="variants_colors">
-                    <a href="#" class="variant" style="background-color:#D44F82;" data-color="#D44F82" data-title="Pimienta Caliente"></a>
-                    <a href="#" class="variant" style="background-color:#B02F48;" data-color="#B02F48" data-title="Café Habano"></a>
-                    <a href="#" class="variant" style="background-color:#E9316D;" data-color="#E9316D" data-title="Ciruela Glam"></a>
-                    <a href="#" class="variant" style="background-color:#C31727;" data-color="#C31727" data-title="Coral Ensueño"></a>
-                    <a href="#" class="variant" style="background-color:#DB2020;" data-color="#DB2020" data-title="Frambuesa Encanto"></a>
-                    <a href="#" class="variant" style="background-color:#95494C;" data-color="#95494C" data-title="Fucsia Vibrante"></a>
-                    <a href="#" class="variant" style="background-color:#982218;" data-color="#982218" data-title="Magenta Sweet"></a>
-                    <a href="#" class="variant" style="background-color:#EE7389;" data-color="#EE7389" data-title="Melon Intense"></a>
-                    <a href="#" class="variant" style="background-color:#DE5C52;" data-color="#DE5C52" data-title="Pimienta Caliente"></a>
-                    <a href="#" class="variant" style="background-color:#CE7869;" data-color="#CE7869" data-title="Café Habano"></a>
-                </div>
-            </div>
-        </div>
-        <div class="item_product">
-            <div class="description_item">
-                <div class="quantity"><br />x1</div>
-                <div class="detail">
-                    <span class="brand">Ésika</span>
-                    <span class="product_name">Máscara full sizes</span>
-                    <span class="price">Precio regular: S/.150</span>
-                </div>
-            </div>
-            <div class="variants">
-                <a href="#" class="select_variant">
-                    <span class="color" style="background-color:#051342;"></span>
-                    <span class="title_variant">
-                        Azul Kohl
+                    <span class="variants_items">
+                        <a href="#" data-color="#D44F82" data-title="Pimienta Caliente">
+                            <span class="color" style="background-color:#D44F82;"></span>
+                            <span class="title_variant">
+                                Pimienta Caliente
+                            </span>
+                        </a>
+                        <a href="#" data-color="#B02F48" data-title="Café Habano">
+                            <span class="color" style="background-color:#B02F48;"></span>
+                            <span class="title_variant">
+                                Café Habano
+                            </span>
+                        </a>
+                        <a href="#" data-color="#E9316D" data-title="Ciruela Glam">
+                            <span class="color" style="background-color:#E9316D;"></span>
+                            <span class="title_variant">
+                                Ciruela Glam
+                            </span>
+                        </a>
+                        <a href="#" data-color="#C31727" data-title="Coral Ensueño">
+                            <span class="color" style="background-color:#C31727;"></span>
+                            <span class="title_variant">
+                                Coral Ensueño
+                            </span>
+                        </a>
+                        <a href="#" data-color="#DB2020" data-title="Frambuesa Encanto">
+                            <span class="color" style="background-color:#DB2020;"></span>
+                            <span class="title_variant">
+                                Frambuesa Encanto
+                            </span>
+                        </a>
+                        <a href="#" data-color="#95494C" data-title="Fucsia Vibrante">
+                            <span class="color" style="background-color:#95494C;"></span>
+                            <span class="title_variant">
+                                Fucsia Vibrante
+                            </span>
+                        </a>
+                        <a href="#" data-color="#982218" data-title="Magenta Sweet">
+                            <span class="color" style="background-color:#982218;"></span>
+                            <span class="title_variant">
+                                Magenta Sweet
+                            </span>
+                        </a>
+                        <a href="#" data-color="#EE7389" data-title="Melon Intense">
+                            <span class="color" style="background-color:#EE7389;"></span>
+                            <span class="title_variant">
+                                Melon Intense
+                            </span>
+                        </a>
+                        <a href="#" data-color="#DE5C52" data-title="Pimienta Caliente">
+                            <span class="color" style="background-color:#DE5C52;"></span>
+                            <span class="title_variant">
+                                Pimienta Caliente
+                            </span>
+                        </a>
+                        <a href="#" data-color="#CE7869" data-title="Café Habano">
+                            <span class="color" style="background-color:#CE7869;"></span>
+                            <span class="title_variant">
+                                Café Habano
+                            </span>
+                        </a>
                     </span>
-                </a>
-                <span class="variants_items">
-                    <a href="#" data-color="#051342" data-title="Azul Kohl">
-                        <span class="color" style="background-color:#051342;"></span>
-                        <span class="title_variant">
-                            Azul Kohl
-                        </span>
-                    </a>
-                    <a href="#" data-color="#051342" data-title="Negro Kohl">
-                        <span class="color" style="background-color:#051342;"></span>
-                        <span class="title_variant">
-                            Negro Kohl
-                        </span>
-                    </a>
-                    <a href="#" data-color="#051342" data-title="Marrón Kohl">
-                        <span class="color" style="background-color:#051342;"></span>
-                        <span class="title_variant">
-                            Marrón Kohl
-                        </span>
-                    </a>
-                </span>
-                <div class="variants_colors">
-                    <a href="#" class="variant" style="background-color:#051342;" data-color="#051342" data-title="Azul Kohl"></a>
-                    <a href="#" class="variant" style="background-color:#051342;" data-color="#051342" data-title="Negro Kohl"></a>
-                    <a href="#" class="variant" style="background-color:#051342;" data-color="#051342" data-title="Marrón Kohl"></a>
+                    <div class="variants_colors">
+                        <a href="#" class="variant" style="background-color:#D44F82;" data-color="#D44F82" data-title="Pimienta Caliente"></a>
+                        <a href="#" class="variant" style="background-color:#B02F48;" data-color="#B02F48" data-title="Café Habano"></a>
+                        <a href="#" class="variant" style="background-color:#E9316D;" data-color="#E9316D" data-title="Ciruela Glam"></a>
+                        <a href="#" class="variant" style="background-color:#C31727;" data-color="#C31727" data-title="Coral Ensueño"></a>
+                        <a href="#" class="variant" style="background-color:#DB2020;" data-color="#DB2020" data-title="Frambuesa Encanto"></a>
+                        <a href="#" class="variant" style="background-color:#95494C;" data-color="#95494C" data-title="Fucsia Vibrante"></a>
+                        <a href="#" class="variant" style="background-color:#982218;" data-color="#982218" data-title="Magenta Sweet"></a>
+                        <a href="#" class="variant" style="background-color:#EE7389;" data-color="#EE7389" data-title="Melon Intense"></a>
+                        <a href="#" class="variant" style="background-color:#DE5C52;" data-color="#DE5C52" data-title="Pimienta Caliente"></a>
+                        <a href="#" class="variant" style="background-color:#CE7869;" data-color="#CE7869" data-title="Café Habano"></a>
+                    </div>
                 </div>
             </div>
-        </div>
+        }
     </div>
-    <div class="box_promotions">
+
+    <div class="box_promotions" style="display:none;">
         <div class="slider">
             <div class="item-slide">
                 <span class="promo_title">PROMOCIÓN</span>
@@ -198,73 +161,103 @@
             </div>
         </div>
     </div>
+
+    <div class="other_consultants">
+        <div class="oc_title">
+            OTRAS CONSULTORAS COMPRARON
+        </div>
+        <div class="slider">
+            @{ var posicionx = 1; }
+            @foreach (var oferta in Model.ListaOfertaShowRoom)
+            {
+                <div class="slider_item"  data-posicion="@posicionx" data-item="@oferta.OfertaShowRoomID">
+                    <div data-campos="" style="display:none;">
+                        <input type="hidden" class="hdOfertaShowRoomID" value="@oferta.OfertaShowRoomID" />
+                        <input type="hidden" class="valorCuv" value="@oferta.CUV" />
+                        <input type="hidden" class="claseMarcaID" value="@oferta.MarcaID" />
+                        <input type="hidden" class="clasePrecioUnidad" value="@oferta.PrecioCatalogo" />
+                        <input type="hidden" class="claseConfiguracionOfertaID" value="@oferta.ConfiguracionOfertaID" />
+                        <input type="hidden" class="DescripcionProd" value="@oferta.Descripcion" />
+                        <input type="hidden" class="DescripcionMarca" value="@oferta.DescripcionMarca" />
+                        <input type="hidden" class="posicionEstrategia" value="@posicionx" />
+                    </div>
+                    <a href="@Url.Action("DetalleOferta", "ShowRoom", new {id = oferta.OfertaShowRoomID, area="Mobile"})" class="slider_item_content">
+                        <div data-img="">
+                            <img src="@oferta.ImagenMini" />
+                        </div>
+                        <span class="title">@oferta.Descripcion</span>
+                        <span class="price">@oferta.Simbolo @oferta.FormatoPrecioCatalogo</span>
+                    </a>
+                </div>
+                {
+                    posicionx++;
+                }
+            }
+        </div>
+    </div>
+    @if (Model.TipNegocio != "")
+    {
+        <div class="business_tips">
+            <h3 class="title">tip de negocio</h3>
+            <div class="content">@Model.TipNegocio</div>
+        </div>
+    }
+    <div class="share_social_nertwoks" data-posicion="0" data-item="@Model.OfertaShowRoomID">
+        <div data-compartir-campos="" style="display:none;">
+            <input type="hidden" class="CUV" value="@Model.CUV" />
+            <input type="hidden" class="rsFBMensaje" value="@Model.FBMensaje" />
+            <input type="hidden" class="rsFBRuta" value="@Model.FBRuta" />
+            <input type="hidden" class="rsWAMensaje" value="@Model.FBMensaje" />
+            <input type="hidden" class="rsWARuta" value="@Model.FBRuta" />
+            <input type="hidden" class="rsFBRutaImagen" value="@Model.ImagenProducto" />
+            <input type="hidden" class="rsWARutaImagen" value="@Model.ImagenMini" />
+            <input type="hidden" class="MarcaID" value="@Model.MarcaID" />
+            <input type="hidden" class="MarcaNombre" value="@Model.DescripcionMarca" />
+            <input type="hidden" class="ProductoDescripcion" value="@Model.Descripcion" />
+            <input type="hidden" class="Palanca" value="SR" />
+        </div>
+        <div class="title">Comparte este set con tus clientes</div>
+        <div class="links">
+            <a class="icon_ig" href="javascript:window.location=CompartirRedesSociales(event);" data-compartir="WA">
+                <img src="/Content/Images/Mobile/Esika/catalogo_ws.png" alt="">
+            </a>
+            <a class="icon_fb" href="javascript:;" data-compartir="FB">
+                <img src="/Content/Images/Mobile/Esika/facebook.png">
+            </a>
+        </div>
+    </div>
 </div>
+<div class="content_btn_agregar"  data-posicion="0" data-item="@Model.OfertaShowRoomID">
+    <div data-campos="" style="display:none;">
+        <input type="hidden" class="hdOfertaShowRoomID" value="@Model.OfertaShowRoomID" />
+        <input type="hidden" class="valorCuv" value="@Model.CUV" />
+        <input type="hidden" class="claseMarcaID" value="@Model.MarcaID" />
+        <input type="hidden" class="clasePrecioUnidad" value="@Model.PrecioCatalogo" />
+        <input type="hidden" class="claseConfiguracionOfertaID" value="@Model.ConfiguracionOfertaID" />
+        <input type="hidden" class="DescripcionProd" value="@Model.Descripcion" />
+        <input type="hidden" class="DescripcionMarca" value="@Model.DescripcionMarca" />
+        <input type="hidden" class="posicionEstrategia" value="0" />
+    </div> 
+    <div class="content_320">
+        <div class="content_cantidad_ficha_producto">
+            <a class="cantidad_menos_home"><img src="/Content/Images/Mobile/Esika/menos.png" alt=""></a>
+            <input type="tel" value="1" size="2" maxlength="2" id="txtCantidad" class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" data-input="cantidad">
+            <a class=" cantidad_mas_home"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
+        </div>
+        <a class="btn_agregar_ficha_producto" data-btn-agregar-sr="">AGRÉGALO</a>
+        <hr class="clear">
+    </div>
+</div>
+
+
 @section scripts{
-<script type="text/javascript">
-		/* Oscar */
-		var ShowRoomProduct = {
-			content : null,
+    <script type="text/javascript" src="@Url.Content("~/Scripts/slick.min.js")"></script>
+    <script type="text/javascript">
+        var tipoOrigenPantalla = 21;
+        
+        var urlCarruselPrev = "@Url.Content("~/Content/Images/mobile/Esika/previous_ofertas_home.png")";
+        var urlCarruselNext = "@Url.Content("~/Content/Images/mobile/Esika/next.png")";
 
-			init: function(){
-				this.content = jQuery('.content_room_product_sheet');
-				this.palette_variants();
-				this.select_variants.init();
-				this.slider();
-			},
-
-			select_variants: {
-				init: function(){
-					this.open();
-					this.selected();
-				},
-
-				open: function(){
-					jQuery('.item_product .variants .select_variant', this.content).on('click touch', function(e){
-						e.preventDefault();
-						var obj = jQuery(this);
-						var select = jQuery('.variants_items', obj.parent());
-
-						obj.toggleClass('opened');
-						select.slideToggle();
-					});
-				},
-
-				selected: function(){
-					jQuery('.item_product .variants .variants_items a', this.content).on('click touch', function(e){
-						e.preventDefault();
-						var obj = jQuery(this);
-						var parent = obj.parent().parent();
-						var selected = jQuery('.select_variant', parent);
-
-						selected.find('.color').css('background-color', obj.data('color') );
-						selected.find('.title_variant').html( obj.data('title') );
-
-						obj.parent().slideUp('fast');
-						selected.removeClass('opened');
-					});
-				}
-			},
-
-			palette_variants: function(){
-				jQuery('.item_product .variants .variants_colors .variant', this.content).on('click touch', function(e){
-					e.preventDefault();
-					var obj = jQuery(this);
-					var parent = obj.parent().parent();
-					var selected = jQuery('.select_variant', parent);
-
-					selected.find('.color').css('background-color', obj.data('color') );
-					selected.find('.title_variant').html( obj.data('title') );
-				});
-			},
-
-			slider: function(){
-				jQuery(".box_promotions .slider").slick();
-			}
-		};
-
-		jQuery(document).ready(function () {
-			ShowRoomProduct.init();
-		});
-		/* Fin Oscar */
-</script>
+    </script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/ShowRoom/ShowRoom.js")"></script>
 }
