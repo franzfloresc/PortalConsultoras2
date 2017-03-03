@@ -452,12 +452,12 @@ namespace Portal.Consultoras.BizLogic
             }
         }
 
-        public List<BEShowRoomCompraPorCompra> GetProductosCompraPorCompra(int paisId)
+        public List<BEShowRoomCompraPorCompra> GetProductosCompraPorCompra(int paisId, int EventoID)
         {
             var lst = new List<BEShowRoomCompraPorCompra>();
             var DAPedidoWeb = new DAShowRoomEvento(paisId);
 
-            using (IDataReader reader = DAPedidoWeb.GetProductosCompraPorCompra())
+            using (IDataReader reader = DAPedidoWeb.GetProductosCompraPorCompra(EventoID))
                 if (reader.Read())
                 {
                     var entidad = new BEShowRoomCompraPorCompra(reader);

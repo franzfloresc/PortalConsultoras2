@@ -1647,6 +1647,12 @@ namespace Portal.Consultoras.Service
         {
             BLShowRoomEvento.DeleteInsertShowRoomCategoriaByEvento(paisId, eventoId, listaCategoria);
         }
+
+        /*PL20-1330*/
+        public List<BEShowRoomCompraPorCompra> GetProductosCompraPorCompra(int paisId, int EventoID)
+        {
+            return BLShowRoomEvento.GetProductosCompraPorCompra(paisId, EventoID);
+        }
         #endregion
 
         #region Producto SUgerido
@@ -1808,12 +1814,6 @@ namespace Portal.Consultoras.Service
         public int ActivarDesactivarEstrategias(int PaisID, string Usuario, string EstrategiasActivas, string EstrategiasDesactivas)
         {
             return new BLEstrategia().ActivarDesactivarEstrategias(PaisID, Usuario, EstrategiasActivas, EstrategiasDesactivas);
-        }
-
-        /*PL20-1330*/
-        public List<BEShowRoomCompraPorCompra> GetProductosCompraPorCompra(int paisId)
-        {
-            return BLShowRoomEvento.GetProductosCompraPorCompra(paisId);
         }
     }
 }

@@ -89,6 +89,12 @@
   <wsdl:message name="IPedidoService_DeleteInsertShowRoomCategoriaByEvento_OutputMessage">
     <wsdl:part name="parameters" element="tns:DeleteInsertShowRoomCategoriaByEventoResponse" />
   </wsdl:message>
+  <wsdl:message name="IPedidoService_GetProductosCompraPorCompra_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetProductosCompraPorCompra" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_GetProductosCompraPorCompra_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetProductosCompraPorCompraResponse" />
+  </wsdl:message>
   <wsdl:message name="IPedidoService_GetPaginateProductoSugerido_InputMessage">
     <wsdl:part name="parameters" element="tns:GetPaginateProductoSugerido" />
   </wsdl:message>
@@ -256,12 +262,6 @@
   </wsdl:message>
   <wsdl:message name="IPedidoService_ActivarDesactivarEstrategias_OutputMessage">
     <wsdl:part name="parameters" element="tns:ActivarDesactivarEstrategiasResponse" />
-  </wsdl:message>
-  <wsdl:message name="IPedidoService_GetProductosCompraPorCompra_InputMessage">
-    <wsdl:part name="parameters" element="tns:GetProductosCompraPorCompra" />
-  </wsdl:message>
-  <wsdl:message name="IPedidoService_GetProductosCompraPorCompra_OutputMessage">
-    <wsdl:part name="parameters" element="tns:GetProductosCompraPorCompraResponse" />
   </wsdl:message>
   <wsdl:message name="IPedidoService_InsertarTipoEstrategia_InputMessage">
     <wsdl:part name="parameters" element="tns:InsertarTipoEstrategia" />
@@ -1830,6 +1830,10 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/DeleteInsertShowRoomCategoriaByEvento" message="tns:IPedidoService_DeleteInsertShowRoomCategoriaByEvento_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/DeleteInsertShowRoomCategoriaByEventoResponse" message="tns:IPedidoService_DeleteInsertShowRoomCategoriaByEvento_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="GetProductosCompraPorCompra">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetProductosCompraPorCompra" message="tns:IPedidoService_GetProductosCompraPorCompra_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/GetProductosCompraPorCompraResponse" message="tns:IPedidoService_GetProductosCompraPorCompra_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="GetPaginateProductoSugerido">
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetPaginateProductoSugerido" message="tns:IPedidoService_GetPaginateProductoSugerido_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/GetPaginateProductoSugeridoResponse" message="tns:IPedidoService_GetPaginateProductoSugerido_OutputMessage" />
@@ -1941,10 +1945,6 @@
     <wsdl:operation name="ActivarDesactivarEstrategias">
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/ActivarDesactivarEstrategias" message="tns:IPedidoService_ActivarDesactivarEstrategias_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/ActivarDesactivarEstrategiasResponse" message="tns:IPedidoService_ActivarDesactivarEstrategias_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="GetProductosCompraPorCompra">
-      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetProductosCompraPorCompra" message="tns:IPedidoService_GetProductosCompraPorCompra_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/GetProductosCompraPorCompraResponse" message="tns:IPedidoService_GetProductosCompraPorCompra_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="InsertarTipoEstrategia">
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/InsertarTipoEstrategia" message="tns:IPedidoService_InsertarTipoEstrategia_InputMessage" />
@@ -3050,6 +3050,15 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GetProductosCompraPorCompra">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/GetProductosCompraPorCompra" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetPaginateProductoSugerido">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/GetPaginateProductoSugerido" style="document" />
       <wsdl:input>
@@ -3295,15 +3304,6 @@
     </wsdl:operation>
     <wsdl:operation name="ActivarDesactivarEstrategias">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/ActivarDesactivarEstrategias" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetProductosCompraPorCompra">
-      <soap:operation soapAction="http://tempuri.org/IPedidoService/GetProductosCompraPorCompra" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -5691,6 +5691,15 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GetProductosCompraPorCompra">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/GetProductosCompraPorCompra" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetPaginateProductoSugerido">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/GetPaginateProductoSugerido" style="document" />
       <wsdl:input>
@@ -5936,15 +5945,6 @@
     </wsdl:operation>
     <wsdl:operation name="ActivarDesactivarEstrategias">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/ActivarDesactivarEstrategias" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetProductosCompraPorCompra">
-      <soap:operation soapAction="http://tempuri.org/IPedidoService/GetProductosCompraPorCompra" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
