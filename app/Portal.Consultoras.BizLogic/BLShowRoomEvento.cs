@@ -451,5 +451,19 @@ namespace Portal.Consultoras.BizLogic
                 throw new Exception(ex.Message, ex);
             }
         }
+
+        public List<BEShowRoomCompraPorCompra> GetProductosCompraPorCompra(int paisId, int EventoID)
+        {
+            var lst = new List<BEShowRoomCompraPorCompra>();
+            var DAPedidoWeb = new DAShowRoomEvento(paisId);
+
+            using (IDataReader reader = DAPedidoWeb.GetProductosCompraPorCompra(EventoID))
+                if (reader.Read())
+                {
+                    var entidad = new BEShowRoomCompraPorCompra(reader);
+                    lst.Add(entidad);
+                }
+            return lst;
+        }
     }
 }

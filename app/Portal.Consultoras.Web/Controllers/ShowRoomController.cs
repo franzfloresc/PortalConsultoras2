@@ -1,10 +1,6 @@
-﻿using AutoMapper;
-using Portal.Consultoras.Common;
-using Portal.Consultoras.Web.Models;
-using Portal.Consultoras.Web.ServicePedido;
-using Portal.Consultoras.Web.ServiceZonificacion;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data;
 using System.IO;
 using System.Linq;
@@ -12,6 +8,13 @@ using System.ServiceModel;
 using System.Text;
 using System.Web;
 using System.Web.Mvc;
+using AutoMapper;
+using Microsoft.Ajax.Utilities;
+using Portal.Consultoras.Common;
+using Portal.Consultoras.Web.Models;
+using Portal.Consultoras.Web.ServicePedido;
+using Portal.Consultoras.Web.ServiceZonificacion;
+using Portal.Consultoras.Web.ServicePROLConsultas;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -430,9 +433,10 @@ namespace Portal.Consultoras.Web.Controllers
                 .ForMember(t => t.ImagenVentaSetPopup, f => f.MapFrom(c => c.ImagenVentaSetPopup))
                 .ForMember(t => t.ImagenVentaTagLateral, f => f.MapFrom(c => c.ImagenVentaTagLateral))
                 .ForMember(t => t.ImagenPestaniaShowRoom, f => f.MapFrom(c => c.ImagenPestaniaShowRoom))
-                .ForMember(t => t.ImagenPreventaDigital, f => f.MapFrom(c => c.ImagenPreventaDigital))                
+                .ForMember(t => t.ImagenPreventaDigital, f => f.MapFrom(c => c.ImagenPreventaDigital))
                 .ForMember(t => t.Estado, f => f.MapFrom(c => c.Estado))
-                .ForMember(t => t.TieneCategoria, f => f.MapFrom(c => c.TieneCategoria));
+                .ForMember(t => t.TieneCategoria, f => f.MapFrom(c => c.TieneCategoria))
+                .ForMember(t => t.TieneCompraXcompra, f => f.MapFrom(c => c.TieneCompraXcompra));
 
                 BEShowRoomEvento beShowRoomEvento = Mapper.Map<ShowRoomEventoModel, BEShowRoomEvento>(showRoomEventoModel);
 
@@ -1640,6 +1644,9 @@ namespace Portal.Consultoras.Web.Controllers
                         case "Descripcion3":
                             items = lst.OrderBy(x => x.Descripcion3);
                             break;
+                        case "MarcaProducto":
+                            items = lst.OrderBy(x => x.MarcaProducto);
+                            break;
                     }
                 }
                 else
@@ -1657,6 +1664,9 @@ namespace Portal.Consultoras.Web.Controllers
                             break;
                         case "Descripcion3":
                             items = lst.OrderBy(x => x.Descripcion3);
+                            break;
+                        case "MarcaProducto":
+                            items = lst.OrderBy(x => x.MarcaProducto);
                             break;
                     }
                 }
@@ -1688,8 +1698,9 @@ namespace Portal.Consultoras.Web.Controllers
                                    a.NombreProducto,
                                    a.Descripcion1,
                                    a.Descripcion2,
-                                   a.Descripcion3,
-                                   a.Imagen                                
+                                   a.Descripcion3,                                   
+                                   a.Imagen,
+                                   a.MarcaProducto,
                                 }
                            }
                 };
@@ -1711,6 +1722,7 @@ namespace Portal.Consultoras.Web.Controllers
                     .ForMember(t => t.Descripcion1, f => f.MapFrom(c => c.Descripcion1))
                     .ForMember(t => t.Descripcion2, f => f.MapFrom(c => c.Descripcion2))
                     .ForMember(t => t.Descripcion3, f => f.MapFrom(c => c.Descripcion3))
+                    .ForMember(t => t.MarcaProducto, f => f.MapFrom(c => c.MarcaProducto))
                     .ForMember(t => t.Imagen, f => f.MapFrom(c => c.Imagen))
                     .ForMember(t => t.FechaCreacion, f => f.MapFrom(c => c.FechaCreacion))
                     .ForMember(t => t.UsuarioCreacion, f => f.MapFrom(c => c.UsuarioCreacion))
@@ -2357,6 +2369,85 @@ namespace Portal.Consultoras.Web.Controllers
 
         }
 
+        public List<ShowRoomOfertaModel> GetProductosCompraPorCompra(int paisID, bool esFacturacion, int EventoID)
+        {
+            //int paisID = 4;
+            //bool esFacturacion = true;
+            //int EventoID = 6;
+
+            try
+            {
+                var listaShowRoomCPC = new List<BEShowRoomCompraPorCompra>();
+                var listaShowRoomCPCFinal = new List<BEShowRoomCompraPorCompra>();
+
+                using (PedidoServiceClient sv = new PedidoServiceClient())
+                {
+                    listaShowRoomCPC = sv.GetProductosCompraPorCompra(userData.PaisID, EventoID).ToList();
+                }
+
+                var listaTieneStock = new List<Lista>();
+                if (esFacturacion)
+                {
+                    string codigoSap = "";
+                    foreach (var beProducto in listaShowRoomCPC)
+                    {
+                        if (!string.IsNullOrEmpty(beProducto.SAP))
+                        {
+                            codigoSap += beProducto.SAP + "|";
+                        }
+                    }
+
+                    codigoSap = codigoSap == "" ? "" : codigoSap.Substring(0, codigoSap.Length - 1);
+
+                    try
+                    {
+                        if (!string.IsNullOrEmpty(codigoSap))
+                        {
+                            using (var sv = new ServicePROLConsultas.wsConsulta())
+                            {
+                                sv.Url = ConfigurationManager.AppSettings["RutaServicePROLConsultas"];
+                                listaTieneStock = sv.ConsultaStock(codigoSap, userData.CodigoISO).ToList();
+                            }
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+
+                        listaTieneStock = new List<Lista>();
+                    }
+                }
+
+                foreach (var beShowRoomOferta in listaShowRoomCPC)
+                {
+                    bool tieneStockProl = true;
+                    if (esFacturacion)
+                    {
+                        var itemStockProl = listaTieneStock.FirstOrDefault(p => p.Codsap.ToString() == beShowRoomOferta.SAP);
+                        if (itemStockProl != null)
+                            tieneStockProl = itemStockProl.estado == 1;
+                    }
+
+                    if (tieneStockProl)
+                    {
+                        listaShowRoomCPCFinal.Add(beShowRoomOferta);
+                    }
+                }
+
+                //Session[Constantes.ConstSession.ListaProductoShowRoom] = listaShowRoomCPCFinal;
+                var listadoProductosCPCModel1 = Mapper.Map<List<BEShowRoomCompraPorCompra>, List<ShowRoomOfertaModel>>(listaShowRoomCPCFinal);
+
+                return listadoProductosCPCModel1;
+            }
+            catch (Exception)
+            {
+                return null;
+                throw;
+                
+            }
+
+            
+        }
         #endregion
     }
 }

@@ -467,6 +467,83 @@ namespace Portal.Consultoras.Web.ServicePedido {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="BEShowRoomCompraPorCompra", Namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.ShowRoom")]
+    [System.SerializableAttribute()]
+    public partial class BEShowRoomCompraPorCompra : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CUVField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool MostrarPopupField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string SAPField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string CUV {
+            get {
+                return this.CUVField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CUVField, value) != true)) {
+                    this.CUVField = value;
+                    this.RaisePropertyChanged("CUV");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool MostrarPopup {
+            get {
+                return this.MostrarPopupField;
+            }
+            set {
+                if ((this.MostrarPopupField.Equals(value) != true)) {
+                    this.MostrarPopupField = value;
+                    this.RaisePropertyChanged("MostrarPopup");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string SAP {
+            get {
+                return this.SAPField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.SAPField, value) != true)) {
+                    this.SAPField = value;
+                    this.RaisePropertyChanged("SAP");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="BEProductoSugerido", Namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities")]
     [System.SerializableAttribute()]
     public partial class BEProductoSugerido : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
@@ -8480,6 +8557,9 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private bool TieneCategoriaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool TieneCompraXcompraField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string UsuarioCreacionField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -8764,6 +8844,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((this.TieneCategoriaField.Equals(value) != true)) {
                     this.TieneCategoriaField = value;
                     this.RaisePropertyChanged("TieneCategoria");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool TieneCompraXcompra {
+            get {
+                return this.TieneCompraXcompraField;
+            }
+            set {
+                if ((this.TieneCompraXcompraField.Equals(value) != true)) {
+                    this.TieneCompraXcompraField = value;
+                    this.RaisePropertyChanged("TieneCompraXcompra");
                 }
             }
         }
@@ -18165,6 +18258,12 @@ namespace Portal.Consultoras.Web.ServicePedido {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/DeleteInsertShowRoomCategoriaByEvento", ReplyAction="http://tempuri.org/IPedidoService/DeleteInsertShowRoomCategoriaByEventoResponse")]
         System.Threading.Tasks.Task DeleteInsertShowRoomCategoriaByEventoAsync(int paisId, int eventoId, Portal.Consultoras.Web.ServicePedido.BEShowRoomCategoria[] listaCategoria);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetProductosCompraPorCompra", ReplyAction="http://tempuri.org/IPedidoService/GetProductosCompraPorCompraResponse")]
+        Portal.Consultoras.Web.ServicePedido.BEShowRoomCompraPorCompra[] GetProductosCompraPorCompra(int paisId, int EventoID);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetProductosCompraPorCompra", ReplyAction="http://tempuri.org/IPedidoService/GetProductosCompraPorCompraResponse")]
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEShowRoomCompraPorCompra[]> GetProductosCompraPorCompraAsync(int paisId, int EventoID);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetPaginateProductoSugerido", ReplyAction="http://tempuri.org/IPedidoService/GetPaginateProductoSugeridoResponse")]
         Portal.Consultoras.Web.ServicePedido.BEProductoSugerido[] GetPaginateProductoSugerido(int PaisID, int CampaniaID, string CUVAgotado, string CUVSugerido);
         
@@ -19983,6 +20082,14 @@ namespace Portal.Consultoras.Web.ServicePedido {
         
         public System.Threading.Tasks.Task DeleteInsertShowRoomCategoriaByEventoAsync(int paisId, int eventoId, Portal.Consultoras.Web.ServicePedido.BEShowRoomCategoria[] listaCategoria) {
             return base.Channel.DeleteInsertShowRoomCategoriaByEventoAsync(paisId, eventoId, listaCategoria);
+        }
+        
+        public Portal.Consultoras.Web.ServicePedido.BEShowRoomCompraPorCompra[] GetProductosCompraPorCompra(int paisId, int EventoID) {
+            return base.Channel.GetProductosCompraPorCompra(paisId, EventoID);
+        }
+        
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEShowRoomCompraPorCompra[]> GetProductosCompraPorCompraAsync(int paisId, int EventoID) {
+            return base.Channel.GetProductosCompraPorCompraAsync(paisId, EventoID);
         }
         
         public Portal.Consultoras.Web.ServicePedido.BEProductoSugerido[] GetPaginateProductoSugerido(int PaisID, int CampaniaID, string CUVAgotado, string CUVSugerido) {

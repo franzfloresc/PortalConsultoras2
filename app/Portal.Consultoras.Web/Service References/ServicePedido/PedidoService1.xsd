@@ -65,6 +65,20 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="BEShowRoomCategoria" nillable="true" type="tns:BEShowRoomCategoria" />
+  <xs:complexType name="ArrayOfBEShowRoomCompraPorCompra">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="BEShowRoomCompraPorCompra" nillable="true" type="tns:BEShowRoomCompraPorCompra" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfBEShowRoomCompraPorCompra" nillable="true" type="tns:ArrayOfBEShowRoomCompraPorCompra" />
+  <xs:complexType name="BEShowRoomCompraPorCompra">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CUV" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="MostrarPopup" type="xs:boolean" />
+      <xs:element minOccurs="0" name="SAP" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="BEShowRoomCompraPorCompra" nillable="true" type="tns:BEShowRoomCompraPorCompra" />
   <xs:complexType name="BEShowRoomEvento">
     <xs:sequence>
       <xs:element minOccurs="0" name="CampaniaID" type="xs:int" />
@@ -88,6 +102,7 @@
       <xs:element minOccurs="0" name="Tema" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="TextoEstrategia" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="TieneCategoria" type="xs:boolean" />
+      <xs:element minOccurs="0" name="TieneCompraXcompra" type="xs:boolean" />
       <xs:element minOccurs="0" name="UsuarioCreacion" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="UsuarioModificacion" nillable="true" type="xs:string" />
     </xs:sequence>

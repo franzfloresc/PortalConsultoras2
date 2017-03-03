@@ -590,6 +590,12 @@
                     <input type="checkbox" class="check" id="chkEventoTieneCategoria" />
                 </div>
             </div>
+            <div>
+                <div class="titG">Habilitar Compra por Compra</div>
+                <div class="selectCheck borde_redondeado" style="float: left; width: 170px; margin-right: 30px; ">
+                    <input type="checkbox" class="check" id="chkEventocompraXcompra" />
+                </div>
+            </div>
         </div>
     </div>
 </div>
@@ -905,6 +911,12 @@
             <div class="titG">Descripcion 3:</div>
             <div class="selectP2 borde_redondeado">
                 <input type="text" id="txtDescripcion3Detalle"/>
+            </div>
+        </div>
+        <div class="div-3">
+            <div class="titG">Marca Producto:</div>
+            <div class="selectP2 borde_redondeado">
+                <input type="text" id="txtMarcaProductoDetalle" />
             </div>
         </div>
         <div class="div-3">
@@ -2460,7 +2472,8 @@
         var numeroPerfiles = $("#txtEventoNumeroPerfiles").val();
         var estado = $("#chkEventoEstado").is(":checked");
         var tieneCategoria = $("#chkEventoTieneCategoria").is(":checked");
-
+        var tieneCompraXcompra = $("#chkEventocompraXcompra").is(":checked");
+        
         var showRoom = {
             EventoID: eventoID == "" || eventoID == undefined ? 0 : eventoID,
             CampaniaID: campaniaID,
@@ -2470,7 +2483,8 @@
             DiasDespues: parseInt(diasDespues),
             NumeroPerfiles: parseInt(numeroPerfiles),
             Estado: estado,
-            TieneCategoria: tieneCategoria
+            TieneCategoria: tieneCategoria,
+            TieneCompraXcompra: tieneCompraXcompra
         };
 
         waitingDialog({ title: "Procesando" });
@@ -2656,7 +2670,7 @@
             postData: (parametros),
             mtype: 'GET',
             contentType: "application/json; charset=utf-8",
-            colNames: ['OfertaShowRoomDetalleID', 'CampaniaID', 'CUV', 'Nombre', 'Descripcion1', 'Descripcion2', 'Descripcion3', 'Foto', ''],
+            colNames: ['OfertaShowRoomDetalleID', 'CampaniaID', 'CUV', 'Nombre', 'Descripcion1', 'Descripcion2', 'Descripcion3', 'MarcaProducto', 'Foto', ''],
             colModel: [
                 { name: 'OfertaShowRoomDetalleID', index: 'OfertaShowRoomDetalleID', width: 50, editable: true, resizable: false, hidden: true },
                 { name: 'CampaniaID', index: 'CampaniaID', width: 50, editable: true, resizable: false, hidden: true },
@@ -2664,8 +2678,9 @@
                 { name: 'NombreProducto', index: 'NombreProducto', width: 80, editable: true, resizable: false },
                 { name: 'Descripcion1', index: 'Descripcion1', width: 80, editable: true, resizable: false },
                 { name: 'Descripcion2', index: 'Descripcion2', width: 80, editable: true, resizable: false },
-                { name: 'Descripcion3', index: 'Descripcion3', width: 80, editable: true, resizable: false },
+                { name: 'Descripcion3', index: 'Descripcion3', width: 80, editable: true, resizable: false },                
                 { name: 'Imagen', index: 'Imagen', width: 55, editable: true, resizable: false, sortable: false, align: 'center', formatter: ShowImageDetalle },
+                { name: 'MarcaProducto', index: 'MarcaProducto', width: 80, editable: true, resizable: false, hidden: true },
                 { name: 'Options', index: 'Options', width: 40, editable: true, sortable: false, align: 'center', resizable: false, formatter: ShowActionsDetalle }
             ],
             jsonReader:
@@ -2777,6 +2792,7 @@
             Descripcion1: $("#txtDescripcion1Detalle").val(),
             Descripcion2: $("#txtDescripcion2Detalle").val(),
             Descripcion3: $("#txtDescripcion3Detalle").val(),
+            MarcaProducto: $("#txtMarcaProductoDetalle").val(),
             Imagen: $("#hdImagenDetalle").val(),
             ImagenAnterior: $("#hdImagenDetalleAnterior").val()
         };
@@ -3128,6 +3144,7 @@
             $('#txtDescripcion1Detalle').val(jQuery("#listShowRoomDetalle").jqGrid('getCell', ID, 'Descripcion1'));
             $('#txtDescripcion2Detalle').val(jQuery("#listShowRoomDetalle").jqGrid('getCell', ID, 'Descripcion2'));
             $('#txtDescripcion3Detalle').val(jQuery("#listShowRoomDetalle").jqGrid('getCell', ID, 'Descripcion3'));
+            $('#txtMarcaProductoDetalle').val(jQuery("#listShowRoomDetalle").jqGrid('getCell', ID, 'MarcaProducto'));
 
             var imagen = Imagen.replace(/^.*[\\\/]/, '');
 
@@ -3230,6 +3247,7 @@
         $("#txtDescripcion1Detalle").val("");
         $("#txtDescripcion2Detalle").val("");
         $("#txtDescripcion3Detalle").val("");
+        $("#txtMarcaProductoDetalle").val("");
         $('#imgProductoDetalle').attr('src', imagenProductoVacio);
         $("#hdImagenDetalle").val("");
         $("#hdImagenDetalleAnterior").val("");
