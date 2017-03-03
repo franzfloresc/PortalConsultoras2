@@ -82,7 +82,9 @@ namespace Portal.Consultoras.Web.Controllers
                         .ForMember(t => t.Nombre, f => f.MapFrom(c => c.Nombre))
                         .ForMember(t => t.Imagen1, f => f.MapFrom(c => c.Imagen1))
                         .ForMember(t => t.Imagen2, f => f.MapFrom(c => c.Imagen2))
-                        .ForMember(t => t.Descuento, f => f.MapFrom(c => c.Descuento));
+                        .ForMember(t => t.Descuento, f => f.MapFrom(c => c.Descuento))
+                        .ForMember(t => t.TieneCategoria, f => f.MapFrom(c => c.TieneCategoria))
+                        .ForMember(t => t.TieneCompraXcompra, f => f.MapFrom(c => c.TieneCompraXcompra));
 
                     ShowRoomEventoModel showRoomEventoModel =
                         Mapper.Map<BEShowRoomEvento, ShowRoomEventoModel>(showRoomEvento);
@@ -97,6 +99,9 @@ namespace Portal.Consultoras.Web.Controllers
 
                     var listaDetalle = ObtenerPedidoWebDetalle();
                     showRoomEventoModel.ListaShowRoomOferta.Update(o => o.Agregado = (listaDetalle.Find(p => p.CUV == o.CUV) ?? new BEPedidoWebDetalle()).PedidoDetalleID > 0 ? "block" : "none");
+
+                    var listaCompraPorCompra = GetProductosCompraPorCompra(userData.PaisID, esFacturacion, showRoomEventoModel.EventoID);
+                    showRoomEventoModel.ListaShowRoomCompraPorCompra = listaCompraPorCompra;
 
                     return View(showRoomEventoModel);
                 }              

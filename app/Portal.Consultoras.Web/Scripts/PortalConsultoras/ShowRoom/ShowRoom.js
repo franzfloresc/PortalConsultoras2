@@ -57,6 +57,17 @@ $(document).ready(function () {
         (this).blur();
     });
 
+    $("body").on("click", "[data-btn-agregar-cpc]", function (e) {
+        var padre = $(this).parents("[data-item]");
+        var article = $(padre).find("[data-campos]").eq(0);
+        var cantidad = $(padre).find("[data-input='cantidad']").val();
+        //listatipo = "0";
+
+        AgregarProductoAlCarrito(padre);
+        AgregarOfertaShowRoomCpc(article, cantidad);
+        e.preventDefault();
+        (this).blur();
+    });    
 
     $("body").on("click", "[data-compartir]", function (e) {
         CompartirRedesSociales(e);
@@ -138,6 +149,60 @@ function AgregarOfertaShowRoom(article, cantidad) {
                         }
                     }
                 });
+            }
+        });
+    }
+}
+
+function AgregarOfertaShowRoomCpc(article, cantidad) {
+    var CUV = $(article).find(".valorCuv").val();
+    var MarcaID = $(article).find(".claseMarcaID").val();
+    var PrecioUnidad = $(article).find(".clasePrecioUnidad").val();
+    var ConfiguracionOfertaID = $(article).find(".claseConfiguracionOfertaID").val();
+    var nombreProducto = $(article).find(".DescripcionProd").val();
+    var posicion = $(article).find(".posicionEstrategia").val();
+    var descripcionMarca = $(article).find(".DescripcionMarca").val();
+
+    if (cantidad == "" || cantidad == 0) {
+        alert_msg("La cantidad ingresada debe ser mayor que 0, verifique.");
+    } else {
+        waitingDialog({});
+        $.ajaxSetup({
+            cache: false
+        });
+
+        var Item = {
+            MarcaID: MarcaID,
+            Cantidad: cantidad,
+            PrecioUnidad: PrecioUnidad,
+            CUV: CUV,
+            ConfiguracionOfertaID: ConfiguracionOfertaID
+        };
+
+        $.ajaxSetup({ cache: false });
+
+        jQuery.ajax({
+            type: 'POST',
+            url: baseUrl + 'ShowRoom/InsertOfertaWebPortal',
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify(Item),
+            async: true,
+            success: function(response) {
+                closeWaitingDialog();
+
+                if (response.success == true) {
+                    if ($.trim(tipoOrigenPantalla)[0] == '1') {
+                        CargarResumenCampaniaHeader(true);
+                        $("#PopDetalleCompra").hide();
+                    }
+                } else messageInfoError(response.message);
+            },
+            error: function(response, error) {
+                if (checkTimeout(response)) {
+                    closeWaitingDialog();
+                    console.log(response);
+                }
             }
         });
     }
