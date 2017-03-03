@@ -702,7 +702,7 @@ namespace Portal.Consultoras.Web.Controllers
             if (model.IndicadorGPRSB == (int)Enumeradores.IndicadorGPR.SinAccion) return;
             if (model.IndicadorGPRSB == (int)Enumeradores.IndicadorGPR.Descargado)
             {
-                model.GPRBannerTitulo = "ESTAMOS FACTURANDO TU PEDIDO C" + model.CampaniaNro;
+                model.GPRBannerTitulo = "ESTAMOS FACTURANDO TU PEDIDO DE C" + model.CampaniaNro;
                 model.GPRBannerMensaje = "Te notificaremos en caso tu pedido tenga observaciones.";
                 return;
             }
