@@ -198,5 +198,19 @@
             IngresadoPedido = 1,
             YaTengo = 2
         }
+
+        public enum RechazoBannerUrl
+        {
+            Ninguna = 0,
+            Deuda = 1,
+            ModificaPedido = 2
+        }
+
+        public enum IndicadorGPR
+        {
+            SinAccion = 0,
+            Descargado = 1,
+            Rechazado = 2
+        }
     }
 }

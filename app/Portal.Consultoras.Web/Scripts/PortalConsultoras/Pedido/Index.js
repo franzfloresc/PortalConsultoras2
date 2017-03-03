@@ -215,8 +215,7 @@ $(document).ready(function () {
         }
     });
     $('#btnValidarPROL').click(function () {
-        EjecutarPROL();
-        cerrarMensajeEstadoPedido();
+        EjecutarPROL();        
     });
     $("body").on("mouseenter", ".info_copy", function () {
         var mar = $(this).parent().parent() || '0';
