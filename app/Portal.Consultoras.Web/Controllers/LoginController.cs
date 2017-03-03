@@ -702,11 +702,11 @@ namespace Portal.Consultoras.Web.Controllers
             if (model.IndicadorGPRSB == (int)Enumeradores.IndicadorGPR.SinAccion) return;
             if (model.IndicadorGPRSB == (int)Enumeradores.IndicadorGPR.Descargado)
             {
-                model.GPRBannerTitulo = "TU PEDIDO HA SIDO RECHAZADO";
+                model.GPRBannerTitulo = "ESTAMOS FACTURANDO TU PEDIDO C" + model.CampaniaNro;
                 model.GPRBannerMensaje = "Te notificaremos en caso tu pedido tenga observaciones.";
                 return;
             }
-            model.GPRBannerTitulo = "ESTAMOS FACTURANDO TU PEDIDO C" + model.CampaniaNro;
+            model.GPRBannerTitulo = "TU PEDIDO HA SIDO RECHAZADO";
 
             var procesoRechazado = new BEProcesoPedidoRechazado();
             try
