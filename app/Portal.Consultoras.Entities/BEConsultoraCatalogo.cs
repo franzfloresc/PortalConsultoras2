@@ -65,9 +65,12 @@ namespace Portal.Consultoras.Entities
         [DataMember(Order = 18)]
         public int CampaniaActualID { get; set; }
 
+        [DataMember(Order = 19)]
+        public int IdEstadoActividad { get; set; }
+
         public string CodigoUsuario { get; set; }
         public int RolId { get; set; }
-        public int IdEstadoActividad { get; set; }
+        //public int IdEstadoActividad { get; set; }
         public string AutorizaPedido { get; set; }
         public bool EsAfiliado { get; set; }
         public int UltimaCampania { get; set; }
@@ -153,7 +156,9 @@ namespace Portal.Consultoras.Entities
 
             if (DataRecord.HasColumn(row, "CampaniaActualID") && row["CampaniaActualID"] != DBNull.Value)
                 this.CampaniaActualID = Convert.ToInt32(row["CampaniaActualID"]);
-           
+
+            if (DataRecord.HasColumn(row, "IdEstadoActividad") && row["IdEstadoActividad"] != DBNull.Value)
+                this.IdEstadoActividad = Convert.ToInt32(row["IdEstadoActividad"]);
         }
     }
 }
