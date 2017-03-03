@@ -662,12 +662,12 @@ FuncionesGenerales = {
 function InsertarLogDymnamo(pantallaOpcion, opcionAccion, esMobile, extra) {
     data = {
         'Fecha': '',
-        'Aplicacion': 'PORTALCONSULTORAS',
+        'Aplicacion': userData.aplicacion,
         'Pais': userData.pais,
         'Region': userData.region,
         'Zona': userData.zona,
         'Seccion': userData.seccion,
-        'Rol': 'CO',
+        'Rol': userData.rol,
         'Campania': userData.campana,
         'Usuario': userData.codigoConsultora,
         'PantallaOpcion': pantallaOpcion,
@@ -720,53 +720,33 @@ function InfoCommerceGoogleDestacadoProductClick(name, id, category, variant, po
 // Pedido Rechazado
 function MensajeEstadoPedido() {
     xMensajeEstadoPedido(false);
-    if (cerrarRechazado == '1')
-        return false;
+    if (mostrarBannerRechazo != 'True' || cerrarRechazado == '1') return false;
 
-    if (estaRechazado == 0)
-        return false;
-
-    if (estaRechazado == 2 && estadoPedido == 202 && !validacionAbierta) {
-        return false;
-    }
-
-
-    $("#bloquemensajesPedido").find(".mensaje_horarioIngresoPedido").html("");
-    $("#bloquemensajesPedido").find(".mensaje_horarioIngresoPedido").append((motivoRechazo || "").CodificarHtmlToAnsi());
-    if (mostrarBannerRechazo == 'True') { //estaRechazado == 2 && motivoRechazo != "") {
-        $("#bloquemensajesPedido").find(".mensaje_estadoActualPedido").html("TU PEDIDO HA SIDO RECHAZADO");
-    }
-    else if (estaRechazado == 1) {
-        $("#bloquemensajesPedido").find(".mensaje_estadoActualPedido").html("ESTAMOS FACTURANDO TU PEDIDO C" + $.trim($("#hdCampaniaCodigo").val()).substring(4, 6));
-    }
-    else {
-        return false;
-    }
     xMensajeEstadoPedido(true);
     MostrarMensajePedidoRechazado();
-
     return true;
 }
 
 function xMensajeEstadoPedido(estado) {
     var url = location.href.toLowerCase();
-    var identi = url.indexOf("/mobile/") > 0;
-    var wheight = $(window).innerHeight();
+    var esMobile = url.indexOf("/mobile/") > 0;
+    var esBienvenida = url.indexOf("/bienvenida") > 0;
+
     if (estado) {
+        var wheight = $(window).innerHeight();
         $("#bloquemensajesPedido").show();//.slideDown("slow", function () { });
         ResizeMensajeEstadoPedido();
         var wtop = $("#bloquemensajesPedido").height();
 
-        if (identi) {
+        if (esMobile) {
             $("[data-content]").animate({ "top": wtop + "px" });
             $(".footer-page").animate({ "top": wtop + "px" });
             $(".oscurecer_animacion").css({ "display": "none" });
         }
         else {
-            identi = url.indexOf("/bienvenida") > 0;
-            if (identi) {
+            if (esBienvenida) {
                 $(".oscurecer_animacion").css({ "top": wtop + "px", "height": wheight + "px" });
-                //$("[data-content]").animate({ "top": wtop + "px" });
+                //$("[data-content]").animate({ "top": wtop + "px" });               
             }
             else {
                 $(".oscurecer_animacion").css({ "display": "none" });
@@ -778,31 +758,16 @@ function xMensajeEstadoPedido(estado) {
     }
     else {
         $("#bloquemensajesPedido").slideUp();
-        if (identi) {
+        if (esMobile) {
             $("[data-content]").animate({ "top": "0px" });
             $(".footer-page").animate({ "top": "0px" });
         }
         else {
-            identi = url.indexOf("/bienvenida") > 0;
-            if (identi) {
-
-                $("[data-content]").animate({ "top": "61px" });
-
-                if (estaRechazado == "2" && estadoPedido == "202" && validacionAbierta == "False") {
-                    $("[data-content]").animate({ "top": "0px" });
-                }
-
-                if (estaRechazado === "0") {
-                    $("[data-content]").animate({ "top": "0px" });
-                }
-
-                if (cerrarRechazado == 1) {
-                    $("[data-content]").animate({ "top": "0px" });
-                }
+            if (esBienvenida) {                
+                if (mostrarBannerRechazo != 'True' || cerrarRechazado == '1') $("[data-content]").animate({ "top": "0px" });
+                else $("[data-content]").animate({ "top": "64px" });
             }
-            else {
-                $(".ubicacion_web").animate({ "margin-top": "83px" });
-            }
+            else $(".ubicacion_web").animate({ "margin-top": "83px" });
         }
     }
 }
@@ -859,7 +824,6 @@ function cerrarMensajeEstadoPedido() {
 
 function MostrarMensajePedidoRechazado() {
     if (location.pathname.toLowerCase().indexOf("/bienvenida") >= 0) {
-
         $(".oscurecer_animacion").delay(3000).fadeOut(1500);
     }
     else {
@@ -870,3 +834,87 @@ function MostrarMensajePedidoRechazado() {
 
 // FIN Pedido Rechazado
 
+
+// Compartir Face y WS
+
+function CompartirWsp(UrlBase, objParameter) {
+    var _id = InsertarProductoCompartido(objParameter, 'W');
+    UrlBase = UrlBase.replace("[valor]", _id);
+
+    UrlBase = UrlBase.ReplaceAll('/', '%2F');
+    UrlBase = UrlBase.ReplaceAll(":", "%3A");
+    UrlBase = UrlBase.ReplaceAll("?", "%3F");
+    UrlBase = UrlBase.ReplaceAll("=", "%3D");
+
+    return "whatsapp://send?text=" + UrlBase;
+}
+
+function CompartirFacebook(urlBase, objParameter) {
+    urlBase = $.trim(urlBase);
+    if (urlBase == "") 
+        return false;
+    
+    var _id = InsertarProductoCompartido(objParameter, 'F');
+    if ($.trim(_id) == "0" || $.trim(_id) == "")
+        return false;
+    
+    urlBase = urlBase.replace('[valor]', _id);
+
+    var popWwidth = 570;
+    var popHeight = 420;
+    var left = (screen.width / 2) - (popWwidth / 2);
+    var top = (screen.height / 2) - (popHeight / 2);
+    var url = "http://www.facebook.com/sharer/sharer.php?u=" + urlBase;
+
+    window.open(url, 'Facebook', "width=" + popWwidth + ",height=" + popHeight + ",menubar=0,toolbar=0,directories=0,scrollbars=no,resizable=no,left=" + left + ",top=" + top + "");
+}
+
+function InsertarProductoCompartido(objParameter, app) {
+    //Capturando valores
+    var _rutaImagen = objParameter.RutaImagen;
+    var _marcaID = $.trim(objParameter.MarcaID);
+    var _marcaDesc = $.trim(objParameter.MarcaDesc);
+    var _nombre = $.trim(objParameter.NombrePro);
+    var _vol = $.trim(objParameter.Volumen);
+    var _descProd = $.trim(objParameter.DescProducto);
+
+    var pcDetalle = _rutaImagen + "|" + _marcaID + "|" + _marcaDesc + "|" + _nombre;
+    if (objParameter.Palanca == "FAV") {
+        pcDetalle += "|" + _vol + "|" + _descProd;
+    }
+
+    var ID = 0;
+    var Item = {
+        mCUV: objParameter.Cuv,
+        mPalanca: objParameter.Palanca,
+        mDetalle: pcDetalle,
+        mApplicacion: app
+    };
+
+    jQuery.ajax({
+        type: 'POST',
+        url: "/CatalogoPersonalizado/InsertarProductoCompartido",
+        dataType: 'json',
+        contentType: 'application/json; charset=utf-8',
+        data: JSON.stringify(Item),
+        async: false,
+        success: function (response) {
+            if (checkTimeout(response)) {
+                if (response.success) {
+                    var datos = response.data;
+                    ID = datos.id;
+                } else {
+                    window.messageInfo(response.message);
+                }
+            }
+        },
+        error: function (response, error) {
+            if (checkTimeout(response)) {
+                console.log(response);
+            }
+        }
+    });
+    return ID;
+}
+
+// Compartir Face
