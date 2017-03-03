@@ -648,6 +648,43 @@ namespace Portal.Consultoras.Web.Controllers
             }, JsonRequestBehavior.AllowGet);
         }
 
+        public JsonResult ValidarNoPack(MisReclamosModel model)
+        {
+            #region Validar Pack y Sets
+           
+
+            try
+            {
+                var respuestaServiceCdr = new RptCdr[1];
+                using (WsGestionWeb sv = new WsGestionWeb())
+                {
+                    respuestaServiceCdr = sv.GetCdrWebConsulta(userData.CodigoISO, model.CampaniaID.ToString(),
+                        userData.CodigoConsultora, model.CUV, model.Cantidad, userData.CodigoZona);
+
+                    if (respuestaServiceCdr[0].Codigo != "00")
+                        return Json(new
+                        {
+                            success = false,
+                            message = "No está permitido el cambio de Packs y Sets por este medio. Por favor, contáctate con nuestro <span class='enlace_chat belcorpChat'><a>Chat en Línea</a></span>.",
+                        }, JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+
+            #endregion
+
+            string mensajeError = "";
+            var valid = true;
+            return Json(new
+            {
+                success = valid,
+                message = mensajeError
+            }, JsonRequestBehavior.AllowGet);
+        }
+
         public JsonResult BuscarOperacion(MisReclamosModel model)
         {
             model.Operacion = "";

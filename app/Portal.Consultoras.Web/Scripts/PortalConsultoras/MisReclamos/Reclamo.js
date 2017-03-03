@@ -893,7 +893,7 @@ function ValidarPaso2Trueque() {
 
     jQuery.ajax({
         type: 'POST',
-        url: baseUrl + 'MisReclamos/ValidarPaso1',
+        url: baseUrl + 'MisReclamos/ValidarNoPack',
         dataType: 'json',
         contentType: 'application/json; charset=utf-8',
         data: JSON.stringify(item),
@@ -905,6 +905,7 @@ function ValidarPaso2Trueque() {
 
             if (!data.success && data.message != "") {
                 alert_msg(data.message);
+                return false;
             }
         },
         error: function (data, error) {
