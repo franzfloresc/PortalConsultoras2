@@ -2355,91 +2355,18 @@ namespace Portal.Consultoras.Web.Controllers
                     .ForMember(t => t.Descripcion, f => f.MapFrom(c => c.Descripcion));
 
             return Mapper.Map<IList<BEConfiguracionOferta>, IEnumerable<ConfiguracionOfertaModel>>(lst);
-        }        
+        }
 
         #region Comprar desde Página de Oferta
 
         public ActionResult DetalleOferta(int id)
         {
-            if (ValidarIngresoShowRoom(false))
-            {
-                var modelo = GetOfertaConDetalle(id);
+            if (!ValidarIngresoShowRoom(false))
+                return RedirectToAction("Index", "Bienvenida");
 
-                modelo.ListaOfertaShowRoom = GetOfertaListadoExcepto(id);
-                var listaDetalle = ObtenerPedidoWebDetalle();
-                modelo.ListaOfertaShowRoom.Update(o => o.Agregado = (listaDetalle.Find(p => p.CUV == o.CUV) ?? new BEPedidoWebDetalle()).PedidoDetalleID > 0 ? "block" : "none");
+            var modelo = ViewDetalleOferta(id);
+            return View("DetalleSet", modelo);
 
-            // redes sociales
-            modelo.FBRuta = GetUrlCompartirFBSR(modelo.OfertaShowRoomID);
-            var mensaje = "";
-            modelo.ListaDetalleOfertaShowRoom.ToList().ForEach(d => mensaje += d.NombreProducto + " + ");
-            mensaje = Util.Trim(mensaje);
-            mensaje = mensaje.EndsWith("+") ? mensaje.Substring(0, mensaje.Length - 1) : mensaje;
-            modelo.FBMensaje = modelo.Descripcion + ": " + Util.Trim(mensaje);
-
-            // agrupar por marca
-            modelo.ListaDetalleOfertaShowRoom = modelo.ListaDetalleOfertaShowRoom.OrderBy(d => d.MarcaProducto).ToList();
-            var nombreMarca = "";
-            modelo.ListaDetalleOfertaShowRoom.Update(d=> {
-                d.MarcaProducto = d.MarcaProducto == nombreMarca ? "" : d.MarcaProducto;
-                nombreMarca = d.MarcaProducto == nombreMarca ? nombreMarca : d.MarcaProducto;
-            });
-
-                return View("DetalleSet", modelo);
-            }
-
-            return RedirectToAction("Index", "Bienvenida");
-        }
-        
-        private ShowRoomOfertaModel GetOfertaConDetalle(int idOferta)
-        {
-            var ofertaShowRoomModelo = new ShowRoomOfertaModel();
-            //var modelo = new ShowRoomOfertaModel();
-            ofertaShowRoomModelo.ListaDetalleOfertaShowRoom = new List<ShowRoomOfertaDetalleModel>();
-            try
-            {
-                if (idOferta <= 0) return ofertaShowRoomModelo;
-
-                var listadoOfertasTodasModel = ObtenerListaProductoShowRoom(userData.CampaniaID, userData.CodigoConsultora);
-
-                ofertaShowRoomModelo = listadoOfertasTodasModel.Find(o => o.OfertaShowRoomID == idOferta) ?? new ShowRoomOfertaModel();                
-
-                //modelo = (ShowRoomOfertaModel) ofertaShowRoomModelo.Clone();
-
-                ofertaShowRoomModelo.ListaDetalleOfertaShowRoom = ofertaShowRoomModelo.ListaDetalleOfertaShowRoom ?? new List<ShowRoomOfertaDetalleModel>();
-                if (ofertaShowRoomModelo.OfertaShowRoomID <= 0) return ofertaShowRoomModelo;
-
-                var listaDetalle = new List<BEShowRoomOfertaDetalle>();
-                using (PedidoServiceClient sv = new PedidoServiceClient())
-                {
-                    listaDetalle = sv.GetProductosShowRoomDetalle(userData.PaisID, userData.CampaniaID, ofertaShowRoomModelo.CUV).ToList();
-                }
-
-                ofertaShowRoomModelo.ListaDetalleOfertaShowRoom = Mapper.Map<List<BEShowRoomOfertaDetalle>, List<ShowRoomOfertaDetalleModel>>(listaDetalle);
-            }
-            catch (Exception ex)
-            {
-                throw;
-            }
-
-            return ofertaShowRoomModelo;
-        }
-
-        private List<ShowRoomOfertaModel> GetOfertaListadoExcepto(int idOferta)
-        {
-            var listaOferta = new List<ShowRoomOfertaModel>();
-            try
-            {
-                if (idOferta <= 0) return listaOferta;
-                
-                var listadoOfertasTodasModel = ObtenerListaProductoShowRoom(userData.CampaniaID, userData.CodigoConsultora);
-                listaOferta = listadoOfertasTodasModel.Where(o => o.OfertaShowRoomID != idOferta).ToList();
-            }
-            catch (Exception ex)
-            {
-                throw;
-            }
-            return listaOferta;
         }
 
         public List<ShowRoomOfertaModel> GetProductosCompraPorCompra(/*int paisID, bool esFacturacion, int EventoID*/)

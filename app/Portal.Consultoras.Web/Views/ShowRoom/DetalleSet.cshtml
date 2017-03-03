@@ -7,8 +7,17 @@
     <div class="content_belcorp">
         <div class="content_solo_ficha_set" data-posicion="0" data-item="@Model.OfertaShowRoomID">
             <div data-compartir-campos="" style="display:none;">
+                <input type="hidden" class="CUV" value="@Model.CUV" />
                 <input type="hidden" class="rsFBMensaje" value="@Model.FBMensaje" />
                 <input type="hidden" class="rsFBRuta" value="@Model.FBRuta" />
+                <input type="hidden" class="rsWAMensaje" value="@Model.FBMensaje" />
+                <input type="hidden" class="rsWARuta" value="@Model.FBRuta" />
+                <input type="hidden" class="rsFBRutaImagen" value="@Model.ImagenProducto" />
+                <input type="hidden" class="rsWARutaImagen" value="@Model.ImagenMini" />
+                <input type="hidden" class="MarcaID" value="@Model.MarcaID" />
+                <input type="hidden" class="MarcaNombre" value="@Model.DescripcionMarca" />
+                <input type="hidden" class="ProductoDescripcion" value="@Model.Descripcion" />
+                <input type="hidden" class="Palanca" value="SR" />
             </div>
             <div class="content_producto_set">
                 <div data-img="">
@@ -25,7 +34,7 @@
                 <hr class="clear">
             </div>
             <div class="content_detalle_set">
-                <div data-campos="">
+                <div data-campos="" style="display:none;">
                     <input type="hidden" class="hdOfertaShowRoomID" value="@Model.OfertaShowRoomID" />
                     <input type="hidden" class="valorCuv" value="@Model.CUV" />
                     <input type="hidden" class="claseMarcaID" value="@Model.MarcaID" />
@@ -77,7 +86,7 @@
             </div>
             <hr class="clear" />
         </div>
-        <div class="content_ficha_compra" style="margin-top:0px !important;">
+        <div class="content_ficha_compra" style="margin-top:0px !important;display:none;">
             <div>
                 <div class="titulo_compra_POP" style="font-size:18px;">PROMOCIÓN</div>
                 <div class="precio_set_compra" style="font-size:16px;">A SÓLO S/.20.00</div>
@@ -164,7 +173,7 @@
     </div>
 }
 
-<div id="PopDetalleCompra" class="Content_general_pop_up" style="display:block;" data-popup-main>
+<div id="PopDetalleCompra" class="Content_general_pop_up" style="display:none;" data-popup-main>
     <div class="content_ficha_producto_nueva" style="width:750px;" data-popup-body>
         <a class="cerrar_fichaProducto" href="javascript:;" onclick="javascript: $('#PopDetalleCompra').fadeOut();">
             <img src="/Content/Images/cerrar_04_blanco.png" alt=" alternate text">
@@ -224,7 +233,6 @@
 
 @section scripts{
     <script type="text/javascript" src="@Url.Content("~/Scripts/slick.min.js")"></script>
-    <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.easy-pie-chart.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/ShowRoom/ShowRoom.js")"></script>
     <script type="text/javascript">
         var tipoOrigenPantalla = 11;
