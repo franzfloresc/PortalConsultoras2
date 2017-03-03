@@ -892,7 +892,7 @@ namespace Portal.Consultoras.ServiceContracts
         void DeleteInsertShowRoomCategoriaByEvento(int paisId, int eventoId, List<BEShowRoomCategoria> listaCategoria);
 
         [OperationContract]
-        List<BEShowRoomCompraPorCompra> GetProductosCompraPorCompra(int paisId, int EventoID);
+        List<BEShowRoomOferta> GetProductosCompraPorCompra(int paisId, int EventoID, int CampaniaID);
         #endregion
 
         #region Producto SUgerido

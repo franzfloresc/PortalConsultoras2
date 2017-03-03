@@ -14,20 +14,42 @@ namespace Portal.Consultoras.Entities.ShowRoom
     public class BEShowRoomCompraPorCompra
     {
         [DataMember]
+        public int OfertaShowRoomID { get; set; }
+
+        [DataMember]
+        public int CampaniaID { get; set; }
+
+        [DataMember]
         public string CUV { get; set; }
 
         [DataMember]
-        public string SAP { get; set; }
+        public decimal PrecioCatalogo { get; set; }
 
         [DataMember]
-        public bool MostrarPopup { get; set; }
+        public int MarcaID { get; set; }
+
+        [DataMember]
+        public int Orden { get; set; }
+
+        [DataMember]
+        public string CodigoProducto { get; set; }
 
         public BEShowRoomCompraPorCompra(IDataRecord datarec)
         {
+            if (DataRecord.HasColumn(datarec, "OfertaShowRoomID") && datarec["OfertaShowRoomID"] != DBNull.Value)
+                OfertaShowRoomID = DbConvert.ToInt32(datarec["OfertaShowRoomID"]);
+            if (DataRecord.HasColumn(datarec, "CampaniaID") && datarec["CampaniaID"] != DBNull.Value)
+                CampaniaID = DbConvert.ToInt32(datarec["CampaniaID"]);
             if (DataRecord.HasColumn(datarec, "CUV") && datarec["CUV"] != DBNull.Value)
                 CUV = DbConvert.ToString(datarec["CUV"]);
-            if (DataRecord.HasColumn(datarec, "SAP") && datarec["SAP"] != DBNull.Value)
-                SAP = DbConvert.ToString(datarec["SAP"]);
+            if (DataRecord.HasColumn(datarec, "PrecioCatalogo") && datarec["PrecioCatalogo"] != DBNull.Value)
+                PrecioCatalogo = DbConvert.ToDecimal(datarec["PrecioCatalogo"]);
+            if (DataRecord.HasColumn(datarec, "MarcaID") && datarec["MarcaID"] != DBNull.Value)
+                MarcaID = DbConvert.ToInt32(datarec["MarcaID"]);
+            if (DataRecord.HasColumn(datarec, "Orden") && datarec["Orden"] != DBNull.Value)
+                Orden = DbConvert.ToInt32(datarec["Orden"]);
+            if (DataRecord.HasColumn(datarec, "CodigoProducto") && datarec["CodigoProducto"] != DBNull.Value)
+                CodigoProducto = DbConvert.ToString(datarec["CodigoProducto"]);
         }
     }
 }

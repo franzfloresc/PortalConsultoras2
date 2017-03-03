@@ -1,14 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using AutoMapper;
+﻿using AutoMapper;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.ServicePROLConsultas;
+using System;
+using System.Collections.Generic;
+using System.Configuration;
+using System.Linq;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -188,6 +186,74 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
             return result;
+        }
+
+        public ShowRoomOfertaModel ViewDetalleOferta(int id)
+        {
+            var modelo = GetOfertaConDetalle(id);
+            modelo.ListaOfertaShowRoom = GetOfertaListadoExcepto(id);
+            var listaDetalle = ObtenerPedidoWebDetalle();
+            modelo.ListaOfertaShowRoom.Update(o => o.Agregado = (listaDetalle.Find(p => p.CUV == o.CUV) ?? new BEPedidoWebDetalle()).PedidoDetalleID > 0 ? "block" : "none");
+
+            // redes sociales
+            modelo.FBRuta = GetUrlCompartirFB();
+            var mensaje = "";
+            modelo.ListaDetalleOfertaShowRoom.ToList().ForEach(d => mensaje += d.NombreProducto + " + ");
+            mensaje = Util.Trim(mensaje);
+            mensaje = mensaje.EndsWith("+") ? mensaje.Substring(0, mensaje.Length - 1) : mensaje;
+            modelo.FBMensaje = modelo.Descripcion + ": " + Util.Trim(mensaje);
+
+            // agrupar por marca
+            modelo.ListaDetalleOfertaShowRoom = modelo.ListaDetalleOfertaShowRoom.OrderBy(d => d.MarcaProducto).ToList();
+            var nombreMarca = "";
+            modelo.ListaDetalleOfertaShowRoom.Update(d =>
+            {
+                d.MarcaProducto = d.MarcaProducto == nombreMarca ? "" : d.MarcaProducto;
+                nombreMarca = d.MarcaProducto == nombreMarca ? nombreMarca : d.MarcaProducto;
+            });
+            return modelo;
+        }
+
+        public ShowRoomOfertaModel GetOfertaConDetalle(int idOferta)
+        {
+            var ofertaShowRoomModelo = new ShowRoomOfertaModel();
+            //var modelo = new ShowRoomOfertaModel();
+            ofertaShowRoomModelo.ListaDetalleOfertaShowRoom = new List<ShowRoomOfertaDetalleModel>();
+
+            if (idOferta <= 0) return ofertaShowRoomModelo;
+
+            var listadoOfertasTodasModel = ObtenerListaProductoShowRoom(userData.CampaniaID, userData.CodigoConsultora);
+
+            ofertaShowRoomModelo = listadoOfertasTodasModel.Find(o => o.OfertaShowRoomID == idOferta) ?? new ShowRoomOfertaModel();
+
+            //modelo = (ShowRoomOfertaModel) ofertaShowRoomModelo.Clone();
+
+            ofertaShowRoomModelo.ListaDetalleOfertaShowRoom = ofertaShowRoomModelo.ListaDetalleOfertaShowRoom ?? new List<ShowRoomOfertaDetalleModel>();
+            if (ofertaShowRoomModelo.OfertaShowRoomID <= 0) return ofertaShowRoomModelo;
+
+            ofertaShowRoomModelo.ImagenProducto = Util.Trim(ofertaShowRoomModelo.ImagenProducto);
+            ofertaShowRoomModelo.ImagenProducto = ofertaShowRoomModelo.ImagenProducto == "" ? "/Content/Images/showroom/no_disponible.png" : ofertaShowRoomModelo.ImagenProducto;
+
+            var listaDetalle = new List<BEShowRoomOfertaDetalle>();
+            using (PedidoServiceClient sv = new PedidoServiceClient())
+            {
+                listaDetalle = sv.GetProductosShowRoomDetalle(userData.PaisID, userData.CampaniaID, ofertaShowRoomModelo.CUV).ToList();
+            }
+
+            ofertaShowRoomModelo.ListaDetalleOfertaShowRoom = Mapper.Map<List<BEShowRoomOfertaDetalle>, List<ShowRoomOfertaDetalleModel>>(listaDetalle);
+            
+            return ofertaShowRoomModelo;
+
+        }
+
+        public List<ShowRoomOfertaModel> GetOfertaListadoExcepto(int idOferta)
+        {
+            var listaOferta = new List<ShowRoomOfertaModel>();
+            if (idOferta <= 0) return listaOferta;
+
+            var listadoOfertasTodasModel = ObtenerListaProductoShowRoom(userData.CampaniaID, userData.CodigoConsultora);
+            listaOferta = listadoOfertasTodasModel.Where(o => o.OfertaShowRoomID != idOferta).ToList();
+            return listaOferta;
         }
     }
 }

@@ -1661,7 +1661,7 @@ namespace Portal.Consultoras.Web.Controllers
         }
         #endregion  
        
-        public String GetUrlCompartirFB()
+        public String GetUrlCompartirFB(int id = 0)
         {
             //var urlWs = "";
             string urlBase_fb = "";
@@ -1672,7 +1672,7 @@ namespace Portal.Consultoras.Web.Controllers
                 //var urlBase_wsp = request.Url.Scheme + "://" + request.Url.Authority + "/Pdto.aspx?id=" + userData.CodigoISO + "_[valor]";
                 //urlWs = urlBase_wsp; //"whatsapp://send?text=" + urlBase_wsp;
 
-                urlBase_fb = request.Url.Scheme + "://" + request.Url.Authority + "/Pdto.aspx?id=" + userData.CodigoISO + "_[valor]";
+                urlBase_fb = request.Url.Scheme + "://" + request.Url.Authority + "/Pdto.aspx?id=" + userData.CodigoISO + "_" + (id > 0 ? id.ToString() : "[valor]");
             }
             return urlBase_fb;
         }
