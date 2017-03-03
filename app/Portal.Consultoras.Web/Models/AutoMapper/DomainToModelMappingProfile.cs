@@ -106,7 +106,9 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
             Mapper.CreateMap<Producto, ProductoModel>()
                 .ForMember(t => t.MarcaID, f => f.MapFrom(c => c.IdMarca))
                 .ForMember(t => t.CUV, f => f.MapFrom(c => c.Cuv))
-                .ForMember(t => t.DescripcionMarca, f => f.MapFrom(c => c.NombreMarca));
+                .ForMember(t => t.DescripcionMarca, f => f.MapFrom(c => c.NombreMarca))
+                .ForMember(t => t.CUVPedidoImagen, f => f.MapFrom(c => c.ImagenCUVPedido))
+                .ForMember(t => t.CUVPedidoNombre, f => f.MapFrom(c => c.NombreCUVPedido));
 
             Mapper.CreateMap<ProductoModel, Producto>()
                 .ForMember(t => t.IdMarca, f => f.MapFrom(c => c.MarcaID))
