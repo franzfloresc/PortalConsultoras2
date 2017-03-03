@@ -2415,7 +2415,6 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
             return ofertaShowRoomModelo;
-
         }
 
         private List<ShowRoomOfertaModel> GetOfertaListadoExcepto(int idOferta)
@@ -2435,6 +2434,70 @@ namespace Portal.Consultoras.Web.Controllers
             return listaOferta;
         }
 
+        public List<ShowRoomOfertaModel> GetProductosCompraPorCompra(int paisID, bool esFacturacion = false)
+        {
+            var listaShowRoomCPC = new List<BEShowRoomCompraPorCompra>();
+            var listaShowRoomCPCFinal = new List<BEShowRoomCompraPorCompra>();
+
+            using (PedidoServiceClient sv = new PedidoServiceClient())
+            {
+                listaShowRoomCPC = sv.GetProductosCompraPorCompra(userData.PaisID).ToList();
+            }
+
+            var listaTieneStock = new List<Lista>();
+            if (esFacturacion)
+            {
+                string codigoSap = "";
+                foreach (var beProducto in listaShowRoomCPC)
+                {
+                    if (!string.IsNullOrEmpty(beProducto.SAP))
+                    {
+                        codigoSap += beProducto.SAP + "|";
+                    }
+                }
+
+                codigoSap = codigoSap == "" ? "" : codigoSap.Substring(0, codigoSap.Length - 1);
+
+                try
+                {
+                    if (!string.IsNullOrEmpty(codigoSap))
+                    {
+                        using (var sv = new ServicePROLConsultas.wsConsulta())
+                        {
+                            sv.Url = ConfigurationManager.AppSettings["RutaServicePROLConsultas"];
+                            listaTieneStock = sv.ConsultaStock(codigoSap, userData.CodigoISO).ToList();
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+
+                    listaTieneStock = new List<Lista>();
+                }
+            }
+
+            foreach (var beShowRoomOferta in listaShowRoomCPC)
+            {
+                bool tieneStockProl = true;
+                if (esFacturacion)
+                {
+                    var itemStockProl = listaTieneStock.FirstOrDefault(p => p.Codsap.ToString() == beShowRoomOferta.SAP);
+                    if (itemStockProl != null)
+                        tieneStockProl = itemStockProl.estado == 1;
+                }
+
+                if (tieneStockProl)
+                {
+                    listaShowRoomCPCFinal.Add(beShowRoomOferta);
+                }
+            }
+
+            //Session[Constantes.ConstSession.ListaProductoShowRoom] = listaShowRoomCPCFinal;
+            var listadoProductosCPCModel1 = Mapper.Map<List<BEShowRoomCompraPorCompra>, List<ShowRoomOfertaModel>>(listaShowRoomCPCFinal);
+
+            return listadoProductosCPCModel1;
+        }
         #endregion
     }
 }

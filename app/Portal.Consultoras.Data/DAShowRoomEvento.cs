@@ -583,6 +583,12 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@Descripcion", DbType.String, categoria.Descripcion);
 
             Context.ExecuteNonQuery(command);
-        }        
+        }
+
+        public IDataReader GetProductosCompraPorCompra()
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("ShowRoom.GetShowRoomCompraPorCompra");
+            return Context.ExecuteReader(command);
+        }
     }
 }

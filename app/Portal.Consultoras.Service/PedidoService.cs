@@ -1809,5 +1809,11 @@ namespace Portal.Consultoras.Service
         {
             return new BLEstrategia().ActivarDesactivarEstrategias(PaisID, Usuario, EstrategiasActivas, EstrategiasDesactivas);
         }
+
+        /*PL20-1330*/
+        public List<BEShowRoomCompraPorCompra> GetProductosCompraPorCompra(int paisId)
+        {
+            return BLShowRoomEvento.GetProductosCompraPorCompra(paisId);
+        }
     }
 }
