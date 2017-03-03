@@ -730,7 +730,7 @@ function MensajeEstadoPedido() {
 function xMensajeEstadoPedido(estado) {
     var url = location.href.toLowerCase();
     var esMobile = url.indexOf("/mobile/") > 0;
-    var esBienvenida = url.indexOf("/bienvenida/") > 0;
+    var esBienvenida = url.indexOf("/bienvenida") > 0;
 
     if (estado) {
         var wheight = $(window).innerHeight();
@@ -763,9 +763,9 @@ function xMensajeEstadoPedido(estado) {
             $(".footer-page").animate({ "top": "0px" });
         }
         else {
-            if (esBienvenida) {
-                $("[data-content]").animate({ "top": "61px" });
+            if (esBienvenida) {                
                 if (mostrarBannerRechazo != 'True' || cerrarRechazado == '1') $("[data-content]").animate({ "top": "0px" });
+                else $("[data-content]").animate({ "top": "64px" });
             }
             else $(".ubicacion_web").animate({ "margin-top": "83px" });
         }
