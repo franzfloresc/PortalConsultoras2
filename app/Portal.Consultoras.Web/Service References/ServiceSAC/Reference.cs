@@ -10708,10 +10708,10 @@ namespace Portal.Consultoras.Web.ServiceSAC {
         System.Threading.Tasks.Task DelConsultoraFicticiaAsync(int paisID, string CodigoConsultora);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/UpdConsultoraFicticia", ReplyAction="http://tempuri.org/ISACService/UpdConsultoraFicticiaResponse")]
-        void UpdConsultoraFicticia(string CodigoUsuario, string CodigoConsultora, int paisID, long ConsultoraID);
+        void UpdConsultoraFicticia(string CodigoUsuario, string CodigoConsultora, int paisID, long ConsultoraID, string Clave);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/UpdConsultoraFicticia", ReplyAction="http://tempuri.org/ISACService/UpdConsultoraFicticiaResponse")]
-        System.Threading.Tasks.Task UpdConsultoraFicticiaAsync(string CodigoUsuario, string CodigoConsultora, int paisID, long ConsultoraID);
+        System.Threading.Tasks.Task UpdConsultoraFicticiaAsync(string CodigoUsuario, string CodigoConsultora, int paisID, long ConsultoraID, string Clave);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/GetCodigoConsultoraAsociada", ReplyAction="http://tempuri.org/ISACService/GetCodigoConsultoraAsociadaResponse")]
         string GetCodigoConsultoraAsociada(int paisID, string CodigoUsuario);
@@ -12045,12 +12045,12 @@ namespace Portal.Consultoras.Web.ServiceSAC {
             return base.Channel.DelConsultoraFicticiaAsync(paisID, CodigoConsultora);
         }
         
-        public void UpdConsultoraFicticia(string CodigoUsuario, string CodigoConsultora, int paisID, long ConsultoraID) {
-            base.Channel.UpdConsultoraFicticia(CodigoUsuario, CodigoConsultora, paisID, ConsultoraID);
+        public void UpdConsultoraFicticia(string CodigoUsuario, string CodigoConsultora, int paisID, long ConsultoraID, string Clave) {
+            base.Channel.UpdConsultoraFicticia(CodigoUsuario, CodigoConsultora, paisID, ConsultoraID, Clave);
         }
         
-        public System.Threading.Tasks.Task UpdConsultoraFicticiaAsync(string CodigoUsuario, string CodigoConsultora, int paisID, long ConsultoraID) {
-            return base.Channel.UpdConsultoraFicticiaAsync(CodigoUsuario, CodigoConsultora, paisID, ConsultoraID);
+        public System.Threading.Tasks.Task UpdConsultoraFicticiaAsync(string CodigoUsuario, string CodigoConsultora, int paisID, long ConsultoraID, string Clave) {
+            return base.Channel.UpdConsultoraFicticiaAsync(CodigoUsuario, CodigoConsultora, paisID, ConsultoraID, Clave);
         }
         
         public string GetCodigoConsultoraAsociada(int paisID, string CodigoUsuario) {
