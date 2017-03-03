@@ -4915,7 +4915,7 @@ namespace Portal.Consultoras.Web.Controllers
                 var detallePedido = ObtenerPedidoWebDetalle();
                 bool TipoCross = lista[0].TipoCross;
                 listaProductoModel.Update(p =>
-            {
+                {
                     //p.ImagenProductoSugerido = p.Imagen;
                     p.PrecioCatalogoString = Util.DecimalToStringFormat(p.PrecioCatalogo, userData.CodigoISO);
                     p.PrecioValorizadoString = Util.DecimalToStringFormat(p.PrecioValorizado, userData.CodigoISO);
@@ -4923,16 +4923,16 @@ namespace Portal.Consultoras.Web.Controllers
                     p.Simbolo = userData.Simbolo;
                     p.UrlCompartirFB = GetUrlCompartirFB();
                     p.NombreComercialCorto = Util.SubStrCortarNombre(p.NombreComercial, 25, "...");
-                    p.CUVPedidoNombre = Util.Trim((detallePedido.Find(d => d.CUV == p.CUVPedido) ?? new BEPedidoWebDetalle()).DescripcionProd).Split('|')[0];
+                    //p.CUVPedidoNombre = Util.Trim((detallePedido.Find(d => d.CUV == p.CUVPedido) ?? new BEPedidoWebDetalle()).DescripcionProd).Split('|')[0];
                     string imagenUrl = Util.SubStr(p.Imagen, 0);
 
                     if (!TipoCross)
                     {
-                if (userData.OfertaFinal == Constantes.TipoOfertaFinalCatalogoPersonalizado.Arp)
-                {
-                    string carpetapais = Globals.UrlMatriz + "/" + userData.CodigoISO;
-                    imagenUrl = ConfigS3.GetUrlFileS3(carpetapais, imagenUrl, carpetapais);
-                }
+                        if (userData.OfertaFinal == Constantes.TipoOfertaFinalCatalogoPersonalizado.Arp)
+                        {
+                            string carpetapais = Globals.UrlMatriz + "/" + userData.CodigoISO;
+                            imagenUrl = ConfigS3.GetUrlFileS3(carpetapais, imagenUrl, carpetapais);
+                        }
                     }
                     p.ImagenProductoSugerido = imagenUrl;
                     p.TipoCross = TipoCross;
