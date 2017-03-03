@@ -259,12 +259,17 @@ function CompartirRedesSocialesAbrirVentana(id, tipoRedes, ruta, texto) {
         ruta = ruta.ReplaceAll("?", "%3F");
         ruta = ruta.ReplaceAll("=", "%3D");
 
-        texto = texto.ReplaceAll('/', '%2F');
-        texto = texto.ReplaceAll(":", "%3A");
-        texto = texto.ReplaceAll("?", "%3F");
-        texto = texto.ReplaceAll("=", "%3D");
+        if (texto != "") 
+            texto = texto + " - ";
+            texto = texto.ReplaceAll("/", '%2F');
+            texto = texto.ReplaceAll(":", "%3A");
+            texto = texto.ReplaceAll("?", "%3F");
+            texto = texto.ReplaceAll("=", "%3D");
+            texto = texto.ReplaceAll(" ", "%32");
+            texto = texto.ReplaceAll("+", "%43");
+        }
 
-        return "whatsapp://send?text=" + texto + " - " + ruta;
+        return "whatsapp://send?text=" + texto + ruta;
     }
 }
 

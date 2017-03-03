@@ -266,7 +266,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             if (!ValidarIngresoShowRoom(false))
                 return RedirectToAction("Index", "Bienvenida");
 
-            var modelo = GetOfertaConDetalle(id);
+            var modelo = ViewDetalleOferta(id);
             return View( modelo);
         }
     }
