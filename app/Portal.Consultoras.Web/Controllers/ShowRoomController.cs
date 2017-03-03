@@ -100,7 +100,8 @@ namespace Portal.Consultoras.Web.Controllers
                     var listaDetalle = ObtenerPedidoWebDetalle();
                     showRoomEventoModel.ListaShowRoomOferta.Update(o => o.Agregado = (listaDetalle.Find(p => p.CUV == o.CUV) ?? new BEPedidoWebDetalle()).PedidoDetalleID > 0 ? "block" : "none");
 
-                    var listaCompraPorCompra = GetProductosCompraPorCompra(userData.PaisID, esFacturacion, showRoomEventoModel.EventoID);
+                    var listaCompraPorCompra = GetProductosCompraPorCompra(esFacturacion, showRoomEventoModel.EventoID,
+                        showRoomEventoModel.CampaniaID);
                     showRoomEventoModel.ListaShowRoomCompraPorCompra = listaCompraPorCompra;
 
                     return View(showRoomEventoModel);
@@ -2374,12 +2375,8 @@ namespace Portal.Consultoras.Web.Controllers
 
         }
 
-        public List<ShowRoomOfertaModel> GetProductosCompraPorCompra(/*int paisID, bool esFacturacion, int EventoID*/)
+        public List<ShowRoomOfertaModel> GetProductosCompraPorCompra(bool esFacturacion, int eventoId, int campaniaId)
         {
-            int paisID = 4;
-            bool esFacturacion = true;
-            int EventoID = 6;
-
             try
             {
                 var listaShowRoomCPC = new List<BEShowRoomOferta>();
@@ -2387,7 +2384,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 using (PedidoServiceClient sv = new PedidoServiceClient())
                 {
-                    listaShowRoomCPC = sv.GetProductosCompraPorCompra(userData.PaisID, EventoID, /*userData.CampaniaID*/201704).ToList();
+                    listaShowRoomCPC = sv.GetProductosCompraPorCompra(userData.PaisID, eventoId, campaniaId).ToList();
                 }
 
                 var listaTieneStock = new List<Lista>();

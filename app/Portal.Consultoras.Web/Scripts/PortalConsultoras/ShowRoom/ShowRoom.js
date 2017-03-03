@@ -317,25 +317,23 @@ function CompartirRedesSocialesAbrirVentana(id, tipoRedes, ruta, texto) {
         var top = (screen.height / 2) - (popHeight / 2);
         var url = "http://www.facebook.com/sharer/sharer.php?u=" + ruta;
         window.open(url, 'Facebook', "width=" + popWwidth + ",height=" + popHeight + ",menubar=0,toolbar=0,directories=0,scrollbars=no,resizable=no,left=" + left + ",top=" + top + "");
-    }
-    else if (tipoRedes == "WA") {
+    } else if (tipoRedes == "WA") {
         ruta = ruta.ReplaceAll('/', '%2F');
         ruta = ruta.ReplaceAll(":", "%3A");
         ruta = ruta.ReplaceAll("?", "%3F");
         ruta = ruta.ReplaceAll("=", "%3D");
 
-        if (texto != "") 
+        if (texto != "")
             texto = texto + " - ";
-            texto = texto.ReplaceAll("/", '%2F');
-            texto = texto.ReplaceAll(":", "%3A");
-            texto = texto.ReplaceAll("?", "%3F");
-            texto = texto.ReplaceAll("=", "%3D");
-            texto = texto.ReplaceAll(" ", "%32");
-            texto = texto.ReplaceAll("+", "%43");
-        }
-
-        return "whatsapp://send?text=" + texto + ruta;
+        texto = texto.ReplaceAll("/", '%2F');
+        texto = texto.ReplaceAll(":", "%3A");
+        texto = texto.ReplaceAll("?", "%3F");
+        texto = texto.ReplaceAll("=", "%3D");
+        texto = texto.ReplaceAll(" ", "%32");
+        texto = texto.ReplaceAll("+", "%43");
     }
+
+    return "whatsapp://send?text=" + texto + ruta;
 }
 
 function CompartirRedesSocialesInsertar(article, tipoRedes, ruta) {
