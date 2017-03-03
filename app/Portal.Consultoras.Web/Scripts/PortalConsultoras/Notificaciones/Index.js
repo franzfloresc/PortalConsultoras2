@@ -130,6 +130,7 @@
         .error(function (jqXHR, textStatus, errorThrown) { closeWaitingDialog(); });
     }
 }
+
 function DescripcionFacturacion(FacturaHoy, DiaFact, MesFact) {
     Result = "el día de hoy";
     return Result;
