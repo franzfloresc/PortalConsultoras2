@@ -24,7 +24,7 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@PaisID", DbType.AnsiString, consultora.PaisID);
             Context.Database.AddInParameter(command, "@CodigoUsuario", DbType.AnsiString, consultora.CodigoUsuario);
             Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.AnsiString, consultora.CodigoConsultora);
-
+            Context.Database.AddInParameter(command, "@Clave", DbType.AnsiString, consultora.ActualizarClave);
             int result = Convert.ToInt32(Context.ExecuteScalar(command));
             return result;
         }
@@ -47,13 +47,14 @@ namespace Portal.Consultoras.Data
             return result;
         }
 
-        public int UpdConsultoraFicticia(string CodigoUsuario, string CodigoConsultora, Int64 ConsultoraID)
+        public int UpdConsultoraFicticia(string CodigoUsuario, string CodigoConsultora, Int64 ConsultoraID, string Clave)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.UpdConsultoraFicticia");
             Context.Database.AddInParameter(command, "@CodigoUsuario", DbType.AnsiString, CodigoUsuario);
             Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.AnsiString, CodigoConsultora);
             Context.Database.AddInParameter(command, "@ConsultoraID", DbType.AnsiString, ConsultoraID);
-
+            Context.Database.AddInParameter(command, "@Clave", DbType.AnsiString, Clave);
+            
             int result = Context.ExecuteNonQuery(command);
             return result;
         }

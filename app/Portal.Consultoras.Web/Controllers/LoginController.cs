@@ -31,7 +31,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             if (HttpContext.User.Identity.IsAuthenticated)
             {
-                if (Request.Browser.IsMobileDevice) return RedirectToAction("Index", "Bienvenida", new { area = "Mobile" });                
+                if (Request.Browser.IsMobileDevice) return RedirectToAction("Index", "Bienvenida", new { area = "Mobile" });
                 else return RedirectToAction("Index", "Bienvenida");
                 }
                 else
@@ -655,11 +655,15 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
                 #region GPR
-                
+
                 model.IndicadorGPRSB = oBEUsuario.IndicadorGPRSB;
                 CalcularMotivoRechazo(model);
-                if(!string.IsNullOrEmpty(model.GPRBannerMensaje)) model.MostrarBannerRechazo = oBEUsuario.EstadoPedido == 201 || oBEUsuario.ValidacionAbierta;
-
+                if (!string.IsNullOrEmpty(model.GPRBannerMensaje))
+                {
+                    model.MostrarBannerRechazo = true;
+                    if (model.IndicadorGPRSB == (int)Enumeradores.IndicadorGPR.Rechazado && !oBEUsuario.ValidacionAbierta && oBEUsuario.EstadoPedido == 202) model.MostrarBannerRechazo = false;
+                }
+                //if (!string.IsNullOrEmpty(model.GPRBannerMensaje)) model.MostrarBannerRechazo =  oBEUsuario.EstadoPedido == 201 || oBEUsuario.ValidacionAbierta;             
                 #endregion
 
                 //PL20-1234
@@ -722,7 +726,7 @@ namespace Portal.Consultoras.Web.Controllers
             List<BEPedidoRechazado> listaRechazo = procesoRechazado.olstBEPedidoRechazado != null ? procesoRechazado.olstBEPedidoRechazado.ToList() : new List<BEPedidoRechazado>();
             if (listaRechazo.Count > 0) listaRechazo = listaRechazo.Where(r => r.Rechazado && !string.IsNullOrEmpty(r.MotivoRechazo)).ToList();
             if (listaRechazo.Count == 0) return;
-            
+
             BEPedidoRechazado pedidoRechazado = listaRechazo.FirstOrDefault(p => p.MotivoRechazo == Constantes.GPRMotivoRechazo.ActualizacionDeuda);
             if (pedidoRechazado != null && model.MontoDeuda > 0)
             {
@@ -731,7 +735,7 @@ namespace Portal.Consultoras.Web.Controllers
                 model.GPRBannerUrl = Enumeradores.RechazoBannerUrl.Deuda;
             }
 
-            string mensajeParcial = null;            
+            string mensajeParcial = null;
             if (listaRechazo.FirstOrDefault(p => p.MotivoRechazo == Constantes.GPRMotivoRechazo.MontoMinino) != null)
             {
                 mensajeParcial = "No llegaste al monto mínimo de " + model.Simbolo + " " + model.MontoMinimo;
@@ -751,7 +755,7 @@ namespace Portal.Consultoras.Web.Controllers
                 if (string.IsNullOrEmpty(model.GPRBannerMensaje)) model.GPRBannerMensaje = mensajeParcial;
                 else model.GPRBannerMensaje += " y " + mensajeParcial.ToLower(1);
             }
-            if(!string.IsNullOrEmpty(model.GPRBannerMensaje)) model.GPRBannerMensaje += ".";
+            if (!string.IsNullOrEmpty(model.GPRBannerMensaje)) model.GPRBannerMensaje += ".";
         }
 
         public List<TipoLinkModel> GetLinksPorPais(int PaisID)
