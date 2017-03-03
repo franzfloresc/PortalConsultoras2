@@ -36,7 +36,11 @@ $(document).ready(function () {
         $(this).attr("data-check", "1");
     });
 
-    $("#IrPAso2").on("click", function () {        
+    $("#IrPAso2").on("click", function () {
+        $("#txtCUVDescripcion2").val('')
+        $("#txtCUV2").val('');
+        $("#txtCUVPrecio2").val('');
+        
         if (ValidarPaso1()) {
             paso2Actual = 1;
             CambioPaso();
@@ -89,16 +93,16 @@ $(document).ready(function () {
         $("#txtCUVPrecio2").val("");
         $("#spnImporteTotal2").html("");
         $("#hdImporteTotal2").val(0);
-        $("#txtCUVDescripcion2").val("");
+        $("#txtCUVDescripcion2").val(""); 
         $("#txtCantidad2").val("1");
         CambioPaso(-100);
         BuscarMotivo();
-
+        
         $("#divUltimasSolicitudes").show();
         $("#ddlCampania").attr("disabled", "disabled");
     });
 
-    $("#IrSolicitudEnviada").on("click", function () {     
+    $("#IrSolicitudEnviada").on("click", function () {
         var cantidadDetalle = $("#divDetallePaso3 .content_listado_reclamo").length || 0;
 
         if (cantidadDetalle > 0) {
@@ -180,7 +184,7 @@ $(document).ready(function () {
     }
 
 
-    $('#alertEMailDialogMensajes').dialog({        
+    $('#alertEMailDialogMensajes').dialog({
         autoOpen: false,
         resizable: false,
         modal: true,
@@ -304,7 +308,7 @@ function BuscarCUV(CUV) {
         error: function (data, error) {
             closeWaitingDialog();
             if (checkTimeout(data)) {
-            }
+        }
         }
     });
 }
@@ -500,11 +504,11 @@ function ValidarPaso1() {
         success: function (data) {
             closeWaitingDialog();
             if (checkTimeout(data)) {
-                ok = data.success;
+            ok = data.success;
 
-                if (!data.success && data.message != "") {
-                    alert_msg(data.message);
-                }
+            if (!data.success && data.message != "") {
+                alert_msg(data.message);
+            }
             }
         },
         error: function (data, error) {
@@ -876,6 +880,39 @@ function ValidarPaso2Trueque() {
     //    return false;
     //}
 
+    //------------------------------------------------------------
+    waitingDialog();
+
+    var item = {
+        PedidoID: $("#txtPedidoID").val(),
+        CUV: $.trim($("#txtCUV2").val()),
+        Cantidad: $.trim($("#txtCantidad2").val()),
+        Motivo: $.trim($("#divMotivo [data-check='1']").attr("id")),
+        CampaniaID: $("#ddlCampania").val()
+    };
+
+    jQuery.ajax({
+        type: 'POST',
+        url: baseUrl + 'MisReclamos/ValidarPaso1',
+        dataType: 'json',
+        contentType: 'application/json; charset=utf-8',
+        data: JSON.stringify(item),
+        async: false,
+        cache: false,
+        success: function (data) {
+            closeWaitingDialog();
+            ok = data.success;
+
+            if (!data.success && data.message != "") {
+                alert_msg(data.message);
+            }
+        },
+        error: function (data, error) {
+            closeWaitingDialog();
+        }
+    });
+    //------------------------------------------------------------
+
     var valorParametria = $("#hdParametriaCdr").val();
     var valorParametriaAbs = $("#hdParametriaAbsCdr").val();
 
@@ -1173,33 +1210,17 @@ function SolicitudEnviar() {
                 if (data.cdrWeb.CampaniaID.toString().length == 6) {
                     formatoCampania = data.cdrWeb.CampaniaID.toString().substring(0, 4) + "-" + data.cdrWeb.CampaniaID.toString().substring(4);
                 }
-
             }
 
-            if (data.Cantidad == 1) {
                 $("#spnSolicitudFechaCulminado").html(formatoFechaCulminado);
                 $("#spnSolicitudNumeroSolicitud").html(numeroSolicitud);
                 $("#spnSolicitudCampania").html(formatoCampania);
                 $("#divProcesoReclamo").hide();
                 $("#divUltimasSolicitudes").hide();
-
-                //$("#divAceptarEMail").show();
-                alertEMail_msg(data.message, "MENSAJE");
-
                 $("#TituloReclamo").hide();
-
-                return false;
-            }
-
-            $("#spnSolicitudFechaCulminado").html(formatoFechaCulminado);
-            $("#spnSolicitudNumeroSolicitud").html(numeroSolicitud);
-            $("#spnSolicitudCampania").html(formatoCampania);
-
-            $("#divProcesoReclamo").hide();
-            $("#divUltimasSolicitudes").hide();            
             $("#SolicitudEnviada").show();
-           
-            $("#TituloReclamo").hide();
+
+            if (data.Cantidad == 1) alertEMail_msg(data.message, "MENSAJE");
         },
         error: function (data, error) {
             closeWaitingDialog();

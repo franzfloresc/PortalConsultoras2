@@ -32887,9 +32887,9 @@ h1#penmostreo .campana {
     display: none;
 }
 
-.content_ficha_producto_nueva{
+.content_ficha_producto_nueva {
     width: 850px;
-    min-height: 450px;
+    height: 450px;
     position: relative;
     top:40px;
     margin: auto auto auto auto;
@@ -32901,7 +32901,7 @@ h1#penmostreo .campana {
 
 /*FICHA PRODUCTO FAV DESKTOP*/
 .content_left_ficha {
-    float: left;
+        float: left;
     width: 40%;
     margin-right: 5%;
 }
@@ -32922,16 +32922,16 @@ h1#penmostreo .campana {
 }
 
 .titulo_ficha_producto {
+        margin-top: 10px;
     font-family: 'Lato';
     color: black;
-    font-size: 17px;
+    font-size: 14px;
+    line-height: 16px;
     font-weight: 700;
     /* text-align: center; */
     letter-spacing: 0.3px;
-    /* margin-top: -5px; */
-    line-height: 18px;
-    padding-left:0;
-    margin-bottom:8px;
+    margin-top: 3px;
+    margin-bottom: 10px;
 }
 
 .cerrar_fichaProducto {
@@ -33091,7 +33091,7 @@ h1#penmostreo .campana {
     height: 40px;
     line-height: 40px;
     color: #999999;
-    font-family: 'Lato';    
+    font-family: 'Lato';
     border: 1px solid #ccc;
     padding-left: 10px;
     margin-left:10px;
@@ -33481,4 +33481,15 @@ h1#penmostreo .campana {
     display:inline;
     font-weight:bold;
     text-decoration:underline;
+}
+
+.descri_list {
+    font-size: 12px;
+    font-weight: 700;
+    width: 26%;
+}
+
+.cantidad_listado_pdd {
+    padding-top: 30px;
+    padding-bottom: 30px;
 }

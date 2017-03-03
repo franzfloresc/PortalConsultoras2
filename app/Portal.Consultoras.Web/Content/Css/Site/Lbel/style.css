@@ -32935,9 +32935,9 @@ h1#penmostreo .campana {
     display: none;
 }
 
-.content_ficha_producto_nueva{
-   width: 850px;
-    min-height: 450px;
+.content_ficha_producto_nueva {
+    width: 850px;
+    height: 450px;
     position: relative;
     top:40px;
     margin: auto auto auto auto;
@@ -32969,16 +32969,16 @@ h1#penmostreo .campana {
 }
 
 .titulo_ficha_producto {
+        margin-top: 10px;
     font-family: 'Lato';
     color: black;
-    font-size: 17px;
+    font-size: 14px;
+    line-height: 16px;
     font-weight: 700;
     /* text-align: center; */
     letter-spacing: 0.3px;
-    /* margin-top: -5px; */
-    line-height: 18px;
-    padding-left:0;
-    margin-bottom:8px;
+    margin-top: 3px;
+    margin-bottom: 10px;
 }
 
 .cerrar_fichaProducto {
@@ -33227,7 +33227,7 @@ h1#penmostreo .campana {
     /* float: left; */
 }
 .opcion_escala_descuento {
-    position: relative;
+	position: relative;
 	background: #e8e8e8;
 	border: 1px solid #dbdbdb;
     height:auto;
@@ -33245,7 +33245,7 @@ h1#penmostreo .campana {
 	content: " ";
 	height: 0;
 	width: 0;
-    position: absolute;
+	position: absolute;
 	pointer-events: none;    
 }
 
@@ -33280,7 +33280,7 @@ h1#penmostreo .campana {
     height:100%;
 }
 .btn_cerrar_escala{   
-    font-family: 'Lato';
+  font-family: 'Lato';
   font-size: 12px;
   font-weight:bold;
   float: right;
@@ -33442,4 +33442,21 @@ h1#penmostreo .campana {
 	border-right-color: #ccc;
 	border-width: 9px;
 	margin-top: -9px;
+}
+
+.descri_list {
+    font-size: 12px;
+    font-weight: 700;
+    width: 26%;
+}
+
+.cantidad_listado_pdd {
+    padding-top: 30px;
+    padding-bottom: 30px;
+}
+
+.enlace_chat a {
+    display: inline;
+    font-weight: bold;
+    text-decoration: underline;
 }

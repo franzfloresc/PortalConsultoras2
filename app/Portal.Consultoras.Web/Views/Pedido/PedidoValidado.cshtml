@@ -418,7 +418,7 @@
     {{#each this}}
     <div class="content_listado_notificaciones">
         <div class="cod_venta_listado">{{CUV}}</div>
-        <div class="descripcion_listado pedidoPadreToolTip" style="position:relative;">
+        <div class="descripcion_listado pedidoPadreToolTip descri_list" style="position:relative;">
             {{#if_eq ConfiguracionOfertaID '@Constantes.TipoOferta.Liquidacion'}}
             <span class="texto_pedidos_ofertas">
                 <label>OFERTA LIQUIDACIÓN</label>
@@ -454,7 +454,7 @@
             </div>
 
         </div>
-        <div class="cantidad_listado">{{Cantidad}}</div>
+        <div class="cantidad_listado cantidad_listado_pdd">{{Cantidad}}</div>
         <div class="unitario_listado"> {{PrecioUnidad}}</div>
         <div class="total_listado">{{ImporteTotal}}</div>
         <div class="cliente_listado">{{Nombre}}</div>

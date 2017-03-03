@@ -508,7 +508,7 @@ function checkTimeout(data) {
 function checkUserSession() {
     //debugger;
     var res = -1;
-
+    
     $.ajax({
         url: '/Login/CheckUserSession',
         type: 'POST',
@@ -708,17 +708,17 @@ function InsertarLogDymnamo(pantallaOpcion, opcionAccion, esMobile, extra) {
         'Extra': extra
     }
     if (urlLogDynamo != "") {
-    jQuery.ajax({
-        type: "POST",
-        async: true,
-        crossDomain: true,
-        url: urlLogDynamo,
-        dataType: "json",
-        data: data,
-        success: function (result) { console.log(result); },
-        error: function (x, xh, xhr) { console.log(x); }
-    });
-}
+        jQuery.ajax({
+            type: "POST",
+            async: true,
+            crossDomain: true,
+            url: urlLogDynamo,
+            dataType: "json",
+            data: data,
+            success: function (result) { console.log(result); },
+            error: function (x, xh, xhr) { console.log(x); }
+        });
+    }
 }
 
 function InfoCommerceGoogleDestacadoProductClick(name, id, category, variant, position) {

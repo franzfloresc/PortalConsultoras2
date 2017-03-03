@@ -566,7 +566,7 @@
             {{/if_eq}}
             {{/if_eq}}
             <div class="content_imagen_ficha"><img src="{{FotoProducto01}}" alt="PRODUCTO" /></div>
-
+            <div class="marca_ficha_producto" style="text-align:left;">{{DescripcionMarca}}</div>
             <div class="titulo_ficha_producto" style="text-align:left; font-size:19px; line-height:22px; margin-bottom:10px;" data-prod-descripcion>{{DescripcionCompleta}}</div>
             {{#iff Precio '>' 0}}
             <div class="precio_tachado_048">{{Simbolo}} {{PrecioTachado}}</div>
@@ -607,7 +607,7 @@
                     </div>
 
                     <div data-tono-visible="" style="width:100%; margin-right:0">
-                        <div class="marca_ficha_producto" style="text-align:left;">{{item1.DescripcionMarca}}</div>
+                        @*<div class="marca_ficha_producto" style="text-align:left;">{{item1.DescripcionMarca}}</div>*@
                         <div class="nombre_producto_individual" data-tono-nombre="">{{item1.DescripcionComercial}}</div>
                         @*<div class="precio_regular_individual">Precio regular: {{Simbolo}} {{item1.PrecioCatalogoString}}</div>*@
                     </div>
@@ -623,7 +623,7 @@
                             </div>
                             {{/each}}
                         </div>
-                        <select class="tono_labial_select" data-tono-change="">
+                        <select class="tono_labial_select" data-tono-change="" style="width:100%;">
                             {{#each item1.Hermanos as |tono|}}
                             <option value="{{tono.CUV}}" data-tono-nombre="{{tono.NombreBulk}}" data-tono-cuv="{{tono.CUV}}" data-tono-descripcionComercial="{{tono.DescripcionComercial}}">{{tono.NombreBulk}}</option>
                             {{/each}}
@@ -640,6 +640,13 @@
             <a class="btn_compartir_ofertas" href='javascript:window.location=CompartirWsp("{{UrlCompartirFB}}", {Palanca: "OPT", RutaImagen: "{{FotoProducto01}}", MarcaID:"{{MarcaID}}", MarcaDesc:"{{DescripcionMarca}}", NombrePro:"{{DescripcionCUV2}}", Cuv:"{{CUV2}}"});' data-action="share/whatsapp/share"><img src="@Url.Content("~/Content/Images/Mobile/Esika/catalogo_ws.png")" alt=""></a>
             <a class="btn_compartir_ofertas" href="javascript:void(0);" onclick='javascript:CompartirFacebook("{{UrlCompartirFB}}",  {Palanca: "OPT", RutaImagen: "{{FotoProducto01}}", MarcaID:"{{MarcaID}}", MarcaDesc:"{{DescripcionMarca}}", NombrePro:"{{DescripcionCUV2}}", Cuv:"{{CUV2}}"});'><img src="@Url.Content("~/Content/Images/Mobile/Esika/facebook.png")" alt=""></a>
         </div>
+        <hr class="clear" />
+        {{#if MostrarTextoLibre}}
+        <div class="mensaje_advertencia_detalleCarousel" style="margin-top:10px; margin-left:0px;">
+            <span class="icono_advertencia_notificacion2"></span>
+            <span>{{TextoLibre}}</span>
+        </div>
+        {{/if}}
         <hr class="clear" />
         <div style="margin-left:-20px; margin-right:-20px;">
             <div class="content_btn_agregar content_OPT">

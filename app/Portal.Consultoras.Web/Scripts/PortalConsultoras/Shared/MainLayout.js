@@ -49,7 +49,7 @@ $(document).ready(function () {
                 $('#dialog_SesionMainLayout').hide();
                 window.location.href = "Login";
             }
-        }        
+        }
     });
     // FIN EPD-1780
 
@@ -133,12 +133,7 @@ $(document).ready(function () {
         closeOnEscape: true,
         width: 400,
         draggable: true,
-        buttons:
-        {
-            "Aceptar": function () {
-                $(this).dialog('close');
-            }
-        }
+        buttons: { "Aceptar": function () { $(this).dialog('close'); } }
     });
 
     $('#ModalFeDeErratas').dialog({

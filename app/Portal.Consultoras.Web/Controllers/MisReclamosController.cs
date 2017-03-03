@@ -64,6 +64,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             string urlPoliticaCdr = ConfigurationManager.AppSettings.Get("UrlPoliticasCDR") ?? "{0}";
             model.UrlPoliticaCdr = string.Format(urlPoliticaCdr, userData.CodigoISO);
+            model.MensajePeriodoInvalido = MensajePeriodoInvalidoCDR();
 
             if (model.EsCDRWebZonaValida == 0)
                 return View(model);
@@ -175,7 +176,7 @@ namespace Portal.Consultoras.Web.Controllers
             if (listaMotivoOperacion.Any())
             {
                 maxDias += int.Parse(listaMotivoOperacion.Max(m => m.CDRTipoOperacion.NumeroDiasAtrasOperacion).ToString());
-            }            
+            }
 
             var listaPedidoFacturados = CargarPedidosFacturados(maxDias);
 

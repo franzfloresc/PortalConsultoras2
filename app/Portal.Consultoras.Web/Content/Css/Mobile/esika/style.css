@@ -10885,3 +10885,15 @@ a{
     display:none;
     overflow:hidden;
 }
+.icono_advertencia_notificacion2 {
+    position: relative;
+    display: block;
+    float: left;
+    width: 20px;
+    height: 20px;
+    margin-bottom:15px;
+    top: 1px;
+    margin-right: 7px;
+    background: url(../../../Images/Esika/icono_advertencia_notificacion.png) center center no-repeat;
+}
+
