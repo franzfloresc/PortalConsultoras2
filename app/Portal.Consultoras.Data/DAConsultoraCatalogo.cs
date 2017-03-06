@@ -63,5 +63,34 @@ namespace Portal.Consultoras.Data
 
             return Context.ExecuteReader(command);
         }
+
+        public int InsLogClienteRegistraConsultoraCatalogo(int consultoraId, string codigoConsultora, 
+            int campaniaId, string tipoBusqueda, int conoceConsultora, string codigoDispositivo, string soDispotivivo, 
+            string unidadGeo1, string unidadGeo2, string unidadGeo3, string nombreCliente, string emailCliente, 
+            string telefonoCliente)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("AppCatalogos.InsLogClienteRegistraConsultora");
+            command.CommandTimeout = 0;
+
+            Context.Database.AddInParameter(command, "@ConsultoraID", DbType.Int32, consultoraId);
+            Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.String, codigoConsultora);
+            Context.Database.AddInParameter(command, "@Campania", DbType.Int32, campaniaId);
+            Context.Database.AddInParameter(command, "@TipoBusqueda", DbType.String, tipoBusqueda);
+            Context.Database.AddInParameter(command, "@ConoceConsultora", DbType.Int32, conoceConsultora);
+            Context.Database.AddInParameter(command, "@CodigoDispositivo", DbType.String, codigoDispositivo);
+            Context.Database.AddInParameter(command, "@SODispositivo", DbType.String, soDispotivivo);
+            Context.Database.AddInParameter(command, "@UnidadGeo1", DbType.String, unidadGeo1);
+            Context.Database.AddInParameter(command, "@UnidadGeo2", DbType.String, unidadGeo2);
+            Context.Database.AddInParameter(command, "@UnidadGeo3", DbType.String, unidadGeo3);
+            Context.Database.AddInParameter(command, "@NombreCliente", DbType.String, nombreCliente);
+            Context.Database.AddInParameter(command, "@EmailCliente", DbType.String, emailCliente);
+            Context.Database.AddInParameter(command, "@TelefonoCliente", DbType.String, telefonoCliente);
+            Context.Database.AddOutParameter(command, "@IdRegistro", DbType.Int32, 0);
+
+            Context.ExecuteNonQuery(command);
+
+            return (int)Context.Database.GetParameterValue(command, "@IdRegistro");
+          
+        }
     }
 }

@@ -21,5 +21,9 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         BEListaConsultoraCatalogo GetConsultorasCatalogosPorUbigeoAndNombresAndApellidos(string codigoPais, string codigoUbigeo, int marcaId, string nombres, string apellidos);
+
+        [OperationContract]
+        int InsLogClienteRegistraConsultoraCatalogo(string PaisISO, int consultoraId, string codigoConsultora, int campaniaId, string tipoBusqueda, int conoceConsultora, string codigoDispositivo, string soDispotivivo, string unidadGeo1, string unidadGeo2, string unidadGeo3, string nombreCliente, string emailCliente, string telefonoCliente);
+        
     }
 }
