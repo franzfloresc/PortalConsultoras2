@@ -22713,7 +22713,7 @@ body {
  }
 
 .pestana_lbel {
-      background: white url(../../../Images/Lbel/pestana_lbel.png) no-repeat;
+    background: white url(../../../Images/Lbel/pestana_lbel.png) no-repeat top center;
     background-size: cover;
     width: 30px;
     height: 20px;
@@ -34459,7 +34459,7 @@ h1#penmostreo .campana {
 }
 
 .vineta {
-    list-style-image: url("https://www.somosbelcorp.com/Content/Images/Esika/indicador_pedido.png");
+    list-style-image: url("https://www.somosbelcorp.com/Content/Images/Lbel/indicador_pedido.png");
 }
 
 .btnnotificacion {
