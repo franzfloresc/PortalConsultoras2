@@ -35061,3 +35061,9 @@ h1#penmostreo .campana {
         margin-top: 21px;
     margin-left: 33px;
 }
+
+.enlace_chat a {
+    display: inline;
+    font-weight: bold;
+    text-decoration: underline;
+}
