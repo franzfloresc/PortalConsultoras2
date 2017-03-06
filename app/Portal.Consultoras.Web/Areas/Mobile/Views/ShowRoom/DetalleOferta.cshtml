@@ -35,7 +35,7 @@
                         <span class="price">@detalle.Descripcion2</span>
                     </div>
                 </div>
-                <div class="variants"  style="display:none;">
+                <div class="variants" style="display:none;">
                     <a href="#" class="select_variant">
                         <span class="color" style="background-color:#C31727;"></span>
                         <span class="title_variant">
@@ -170,7 +170,7 @@
             @{ var posicionx = 1; }
             @foreach (var oferta in Model.ListaOfertaShowRoom)
             {
-                <div class="slider_item"  data-posicion="@posicionx" data-item="@oferta.OfertaShowRoomID">
+                <div class="slider_item" data-posicion="@posicionx" data-item="@oferta.OfertaShowRoomID">
                     <div data-campos="" style="display:none;">
                         <input type="hidden" class="hdOfertaShowRoomID" value="@oferta.OfertaShowRoomID" />
                         <input type="hidden" class="valorCuv" value="@oferta.CUV" />
@@ -227,7 +227,7 @@
         </div>
     </div>
 </div>
-<div class="content_btn_agregar"  data-posicion="0" data-item="@Model.OfertaShowRoomID">
+<div class="content_btn_agregar" data-posicion="0" data-item="@Model.OfertaShowRoomID">
     <div data-campos="" style="display:none;">
         <input type="hidden" class="hdOfertaShowRoomID" value="@Model.OfertaShowRoomID" />
         <input type="hidden" class="valorCuv" value="@Model.CUV" />
@@ -237,7 +237,7 @@
         <input type="hidden" class="DescripcionProd" value="@Model.Descripcion" />
         <input type="hidden" class="DescripcionMarca" value="@Model.DescripcionMarca" />
         <input type="hidden" class="posicionEstrategia" value="0" />
-    </div> 
+    </div>
     <div class="content_320">
         <div class="content_cantidad_ficha_producto">
             <a class="cantidad_menos_home"><img src="/Content/Images/Mobile/Esika/menos.png" alt=""></a>
@@ -248,16 +248,54 @@
         <hr class="clear">
     </div>
 </div>
+<!--POP UP COMPRA X COMPRA / QUITAR EL SCROLL DEL BODY CUANDO SALGA ESTE POP UP-->
+<div class="PopMobile1" id="PopCompra" data-popup-main="" style="display: block;">
+    <div class="content_popMobile" data-popup-body="" style="max-width:450px;">
+        <a class="cerrar_popMobile" href="javascript:;" onclick="javascript: $('#CerrarCompra').hide();">
+             <img src="/Content/Images/mobile/Esika/cerrar_04.png" alt="-">  
+        </a>       
+         <div class="titulo_compra_POP">PROMOCIÓN</div>        
+            <div class="content_pop_compra">
+                <div> 
+                     <div class="precio_set_compra">LLévate un Reloj Espheric. Por la compra de 2 Sets o más.</div>  
+                     <div class="content_imagen_carrusel_compra"><img src="https://s3-sa-east-1.amazonaws.com/appcatalogo/CO/201704/C/productos/CO_200084402.jpg"></div>                
+                     <div class="precio_producto_compra"> A SÓLO S/5.00</div>               
+                     <div class="descripcion_compra">Correa tipo cuero y pieza central plateada con 37 cristales.</div>               
+                      <a class="btn_agrega_compra">AGRÉGALO</a>
+                </div>            
+                <div> 
+                    <div class="precio_set_compra">LLévate un Reloj Espheric. Por la compra de 2 Sets o más.</div> 
+                    <div class="content_imagen_carrusel_compra"><img src="https://s3-sa-east-1.amazonaws.com/appcatalogo/CO/201704/C/productos/CO_200084402.jpg"></div>
+                    <div class="precio_producto_compra"> A SÓLO S/5.00</div>                
+                    <div class="descripcion_compra">Correa tipo cuero y pieza central plateada con 37 cristales.</div>                
+                    <a class="btn_agrega_compra">AGRÉGALO</a>
+                </div>
+             </div>
+    </div>
+</div>
 
+            @section scripts{
+                <script type="text/javascript" src="@Url.Content("~/Scripts/slick.min.js")"></script>
+                <script type="text/javascript">
+                 var tipoOrigenPantalla = 21;
 
-@section scripts{
-    <script type="text/javascript" src="@Url.Content("~/Scripts/slick.min.js")"></script>
-    <script type="text/javascript">
-        var tipoOrigenPantalla = 21;
-        
-        var urlCarruselPrev = "@Url.Content("~/Content/Images/mobile/Esika/previous_ofertas_home.png")";
-        var urlCarruselNext = "@Url.Content("~/Content/Images/mobile/Esika/next.png")";
+                 var urlCarruselPrev = "@Url.Content("~/Content/Images/mobile/Esika/previous_ofertas_home.png")";
+                     var urlCarruselNext = "@Url.Content("~/Content/Images/mobile/Esika/next.png")";
 
-    </script>
-<script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/ShowRoom/ShowRoom.js")"></script>
-}
+                </script>
+                <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/ShowRoom/ShowRoom.js")"></script>
+                <script type="text/javascript">
+                    $(document).ready(function () {
+                        $('.content_pop_compra').slick({
+                            dots: false,
+                            infinite: true,
+                            vertical: false,
+                            speed: 300,
+                            slidesToShow: 1,
+                            slidesToScroll: 1,
+                            prevArrow: '<a class="previous_ofertas js-slick-prev" style="display: block;left: 0;margin-left: -13%;"><img src="' + baseUrl + 'Content/Images/Esika/left_compra.png")" alt="" /></a>',
+                            nextArrow: '<a class="previous_ofertas js-slick-next" style="display: block;right: 0;margin-right: -13%; text-align:right;"><img src="' + baseUrl + 'Content/Images/Esika/right_compra.png")" alt="" /></a>'
+                        });
+                    })
+                </script>
+            }

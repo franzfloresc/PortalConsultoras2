@@ -11364,3 +11364,14 @@ a{
 .content_room_product_sheet .share_social_nertwoks .links a.icon_fb{
 	padding: 4px 0 4px 0;
 }
+
+/*POP UP COMPRA X COMPRA*/
+.titulo_compra_POP {    font-family: 'LAto';    font-size: 18px;    font-weight: 700;    text-align: center;    /* margin-top: 20px; */    margin-top: 30px;    margin-bottom: 10px;}
+.precio_set_compra {    font-family: 'LAto';    font-size: 13px;    /* margin-top: 5px; */    text-align: center;}
+.content_imagen_carrusel_compra {    width: 100%;    margin: 0 auto;    margin-top: 10px;    margin-bottom: 10px;}
+.content_imagen_carrusel_compra img{     width:100%; }
+.content_pop_compra{    width:80%;    margin:0 auto;}
+.precio_producto_compra{    font-family:'Lato';    font-size:15px;    font-weight:700;    margin-top:10px;      text-align:center;}
+.descripcion_compra{    font-size:13px;    font-weight:300;    font-family:'Lato';    text-align:center;}
+.btn_agrega_compra{    display:block;    width:100%;    height:45px;    line-height:44px;    font-size:13px;    font-weight:700;    font-family:'Lato';    text-align:center;    margin-top:8px;    margin-bottom:20px;    border:1px solid black;}
+
