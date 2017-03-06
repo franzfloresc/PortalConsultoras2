@@ -188,9 +188,9 @@ function AgregarOfertaShowRoomCpc(article, cantidad) {
     var descripcionMarca = $(article).find(".DescripcionMarca").val();
 
     if (cantidad == "" || cantidad == 0) {
-        alert_msg("La cantidad ingresada debe ser mayor que 0, verifique.");
+        AbrirMensaje("La cantidad ingresada debe ser mayor que 0, verifique.");
     } else {
-        waitingDialog({});
+        AbrirLoad();
         $.ajaxSetup({
             cache: false
         });
@@ -213,7 +213,7 @@ function AgregarOfertaShowRoomCpc(article, cantidad) {
             data: JSON.stringify(Item),
             async: true,
             success: function(response) {
-                closeWaitingDialog();
+                CerrarLoad();
 
                 if (response.success == true) {
                     if ($.trim(tipoOrigenPantalla)[0] == '1') {
@@ -224,7 +224,7 @@ function AgregarOfertaShowRoomCpc(article, cantidad) {
             },
             error: function(response, error) {
                 if (checkTimeout(response)) {
-                    closeWaitingDialog();
+                    CerrarLoad();
                     console.log(response);
                 }
             }
