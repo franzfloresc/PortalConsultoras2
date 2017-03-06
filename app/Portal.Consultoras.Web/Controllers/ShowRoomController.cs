@@ -54,8 +54,8 @@ namespace Portal.Consultoras.Web.Controllers
 
                 foreach (var item in lstPersonalizacion)
                 {
-                    if (item.Atributo == "BannerImagenIntriga") ViewBag.urlImagenPopupIntriga = item.Valor;
-                    if (item.Atributo == "UrlTerminosCondiciones") ViewBag.urlTerminosyCondiciones = item.Valor;
+                    if (item.Atributo ==  Constantes.ShowRoomPersonalizacion.Desktop.BannerImagenIntriga) ViewBag.urlImagenPopupIntriga = item.Valor;
+                    if (item.Atributo == Constantes.ShowRoomPersonalizacion.Desktop.UrlTerminosCondiciones) ViewBag.urlTerminosyCondiciones = item.Valor;
                 }
 
                 return View(model);

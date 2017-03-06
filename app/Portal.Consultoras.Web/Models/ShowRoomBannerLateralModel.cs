@@ -35,6 +35,7 @@ namespace Portal.Consultoras.Web.Models
         public string ImagenPopupShowroomVenta { get; set; }
 
         public string ImagenBannerShowroomVenta { get; set; }
+        public string EstadoActivo { get; set; }
 
     }
 }

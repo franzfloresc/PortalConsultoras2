@@ -451,5 +451,11 @@ namespace Portal.Consultoras.BizLogic
                 throw new Exception(ex.Message, ex);
             }
         }
+
+        public int UpdEventoConsultoraPopup(int paisID, BEShowRoomEventoConsultora entity, string tipo)
+        {
+            var dataAccess = new DAShowRoomEvento(paisID);
+            return dataAccess.UpdUpdEventoConsultoraPopup(entity, tipo);
+        }
     }
 }

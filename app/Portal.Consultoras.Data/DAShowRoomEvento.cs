@@ -582,6 +582,17 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@Descripcion", DbType.String, categoria.Descripcion);
 
             Context.ExecuteNonQuery(command);
-        }        
+        }
+        
+        public int UpdUpdEventoConsultoraPopup(BEShowRoomEventoConsultora entity, string tipo)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("ShowRoom.UpdEventoConsultoraPopup");
+            Context.Database.AddInParameter(command, "@Tipo", DbType.String, tipo);
+            Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, entity.CampaniaID);
+            Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.String, entity.CodigoConsultora);
+            Context.Database.AddInParameter(command, "@EventoID", DbType.Int32, entity.EventoID);
+            Context.Database.AddInParameter(command, "@EventoConsultoraID", DbType.Int32, entity.EventoConsultoraID);
+            return Context.ExecuteNonQuery(command);
+        }
     }
 }

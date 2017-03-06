@@ -929,7 +929,7 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         List<BEPedidoWeb> GetPedidosIngresadoFacturado(int paisID, int consultoraID, int campaniaID, string codigoConsultora);
-        
+
         [OperationContract]
         BEConsultorasProgramaNuevas GetConsultorasProgramaNuevas(int paisID, BEConsultorasProgramaNuevas entidad);
 
@@ -938,10 +938,10 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         string GetImagenOfertaPersonalizadaOF(int paisID, int campaniaID, string cuv);
-        
+
         [OperationContract]
         BEProcesoPedidoRechazado ObtenerProcesoPedidoRechazadoGPR(int paisID, int campaniaID, long consultoraID);
-        
+
         [OperationContract]
         List<BEPedidoWeb> GetPedidosFacturadoSegunDias(int paisID, int campaniaID, long consultoraID, int maxDias);
         //GPR397
@@ -954,7 +954,7 @@ namespace Portal.Consultoras.ServiceContracts
         /*EPD-1025*/
         [OperationContract]
         BEPedidoDescarga ObtenerUltimaDescargaPedido(int PaisID);
-        
+
         [OperationContract]
         void DeshacerUltimaDescargaPedido(int PaisID);
         /*EPD-1025*/
@@ -979,11 +979,14 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         int InsertEstrategiaOfertaParaTi(int paisId, List<BEEstrategia> lista, int campaniaId, string codigoUsuario);
-        
+
         [OperationContract]
         List<BEEstrategia> GetEstrategiaODD(int paisID, int codCampania, string codConsultora, DateTime fechaInicioFact);
 
         [OperationContract]
         int ActivarDesactivarEstrategias(int PaisID, string Usuario, string EstrategiasActivas, string EstrategiasDesactivas);
+
+        [OperationContract]
+        int UpdEventoConsultoraPopup(int paisID, BEShowRoomEventoConsultora entity, string tipo);
     }
 }

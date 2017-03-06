@@ -317,7 +317,6 @@ namespace Portal.Consultoras.Web.Controllers
                 bePedidoWeb.MontoEscala = montoEscala;
 
                 sv.UpdateMontosPedidoWeb(bePedidoWeb);
-
                 // poner en Session
                 Session["PedidoWeb"] = null;
                 userData.EjecutaProl = true;
@@ -335,7 +334,6 @@ namespace Portal.Consultoras.Web.Controllers
                 HttpContext.Session.Abandon();
                 return true;
             }
-
             mensaje = "";
             if (EstaProcesoFacturacion(out mensaje)) return true;
             if (ValidarPedidoReservado(out mensaje)) return true;
@@ -361,8 +359,6 @@ namespace Portal.Consultoras.Web.Controllers
             BEConfiguracionCampania oBEConfiguracionCampania = null;
             using (PedidoServiceClient sv = new PedidoServiceClient())
             {
-                
-
                 oBEConfiguracionCampania = sv.GetEstadoPedido(userData.PaisID, userData.CampaniaID, ConsultoraID, userData.ZonaID, userData.RegionID);
             }
             if (oBEConfiguracionCampania != null && oBEConfiguracionCampania.EstadoPedido == Constantes.EstadoPedido.Procesado &&
@@ -1480,7 +1476,7 @@ namespace Portal.Consultoras.Web.Controllers
             model.EstaActivoLateral = true;
             var fechaHoy = DateTime.Now.AddHours(userData.ZonaHoraria).Date;
 
-            if ((fechaHoy >= userData.FechaInicioCampania.AddDays(-model.BEShowRoom.DiasAntes).Date &&
+            if (!(fechaHoy >= userData.FechaInicioCampania.AddDays(-model.BEShowRoom.DiasAntes).Date &&
                 fechaHoy <= userData.FechaInicioCampania.AddDays(model.BEShowRoom.DiasDespues).Date))
             {
                 model.MostrarShowRoomProductos = true;
@@ -1488,9 +1484,13 @@ namespace Portal.Consultoras.Web.Controllers
             }
             if (fechaHoy > userData.FechaInicioCampania.AddDays(model.BEShowRoom.DiasDespues).Date) model.EstaActivoLateral = false;
 
-            model.DiasFaltantes = userData.FechaInicioCampania.AddDays(- model.BEShowRoom.DiasAntes).Day; // userData.FechaInicioCampania.Day - model.BEShowRoom.DiasAntes;
+            //model.DiasFaltantes = userData.FechaInicioCampania.AddDays(- model.BEShowRoom.DiasAntes).Day; // userData.FechaInicioCampania.Day - model.BEShowRoom.DiasAntes;
 
-            model.DiasFalta = model.DiasFaltantes - fechaHoy.Day;
+            //model.DiasFalta = model.DiasFaltantes - fechaHoy.Day;
+
+            TimeSpan DiasFalta = userData.FechaInicioCampania.AddDays(-model.BEShowRoom.DiasAntes) - fechaHoy;
+            model.DiasFalta = DiasFalta.Days;
+            model.DiasFaltantes = DiasFalta.Days;
 
             model.MesFaltante = userData.FechaInicioCampania.Month;
             model.AnioFaltante = userData.FechaInicioCampania.Year;
