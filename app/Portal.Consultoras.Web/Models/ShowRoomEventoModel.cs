@@ -70,5 +70,7 @@ namespace Portal.Consultoras.Web.Models
         public string CodigoIso { get; set; }
 
         public string FormatoCampania { get; set; }
+
+        public List<ShowRoomOfertaModel> ListaShowRoomCompraPorCompra { get; set; }
     }
 }

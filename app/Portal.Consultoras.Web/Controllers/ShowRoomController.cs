@@ -83,7 +83,9 @@ namespace Portal.Consultoras.Web.Controllers
                     .ForMember(t => t.Nombre, f => f.MapFrom(c => c.Nombre))
                     .ForMember(t => t.Imagen1, f => f.MapFrom(c => c.Imagen1))
                     .ForMember(t => t.Imagen2, f => f.MapFrom(c => c.Imagen2))
-                    .ForMember(t => t.Descuento, f => f.MapFrom(c => c.Descuento));
+                    .ForMember(t => t.Descuento, f => f.MapFrom(c => c.Descuento))
+                    .ForMember(t => t.TieneCategoria, f => f.MapFrom(c => c.TieneCategoria))
+                    .ForMember(t => t.TieneCompraXcompra, f => f.MapFrom(c => c.TieneCompraXcompra));
 
                 ShowRoomEventoModel showRoomEventoModel =
                     Mapper.Map<BEShowRoomEvento, ShowRoomEventoModel>(showRoomEvento);
@@ -98,6 +100,10 @@ namespace Portal.Consultoras.Web.Controllers
 
                 var listaDetalle = ObtenerPedidoWebDetalle();
                 showRoomEventoModel.ListaShowRoomOferta.Update(o => o.Agregado = (listaDetalle.Find(p => p.CUV == o.CUV) ?? new BEPedidoWebDetalle()).PedidoDetalleID > 0 ? "block" : "none");
+
+                    var listaCompraPorCompra = GetProductosCompraPorCompra(esFacturacion, showRoomEventoModel.EventoID,
+                        showRoomEventoModel.CampaniaID);
+                    showRoomEventoModel.ListaShowRoomCompraPorCompra = listaCompraPorCompra;
 
                 return View(showRoomEventoModel);
 
@@ -2370,20 +2376,16 @@ namespace Portal.Consultoras.Web.Controllers
 
         }
 
-        public List<ShowRoomOfertaModel> GetProductosCompraPorCompra(int paisID, bool esFacturacion, int EventoID)
+        public List<ShowRoomOfertaModel> GetProductosCompraPorCompra(bool esFacturacion, int eventoId, int campaniaId)
         {
-            //int paisID = 4;
-            //bool esFacturacion = true;
-            //int EventoID = 6;
-
             try
             {
-                var listaShowRoomCPC = new List<BEShowRoomCompraPorCompra>();
-                var listaShowRoomCPCFinal = new List<BEShowRoomCompraPorCompra>();
+                var listaShowRoomCPC = new List<BEShowRoomOferta>();
+                var listaShowRoomCPCFinal = new List<BEShowRoomOferta>();
 
                 using (PedidoServiceClient sv = new PedidoServiceClient())
                 {
-                    listaShowRoomCPC = sv.GetProductosCompraPorCompra(userData.PaisID, EventoID).ToList();
+                    listaShowRoomCPC = sv.GetProductosCompraPorCompra(userData.PaisID, eventoId, campaniaId).ToList();
                 }
 
                 var listaTieneStock = new List<Lista>();
@@ -2392,9 +2394,9 @@ namespace Portal.Consultoras.Web.Controllers
                     string codigoSap = "";
                     foreach (var beProducto in listaShowRoomCPC)
                     {
-                        if (!string.IsNullOrEmpty(beProducto.SAP))
+                        if (!string.IsNullOrEmpty(beProducto.CodigoProducto))
                         {
-                            codigoSap += beProducto.SAP + "|";
+                            codigoSap += beProducto.CodigoProducto + "|";
                         }
                     }
 
@@ -2424,7 +2426,7 @@ namespace Portal.Consultoras.Web.Controllers
                     bool tieneStockProl = true;
                     if (esFacturacion)
                     {
-                        var itemStockProl = listaTieneStock.FirstOrDefault(p => p.Codsap.ToString() == beShowRoomOferta.SAP);
+                        var itemStockProl = listaTieneStock.FirstOrDefault(p => p.Codsap.ToString() == beShowRoomOferta.CodigoProducto);
                         if (itemStockProl != null)
                             tieneStockProl = itemStockProl.estado == 1;
                     }
@@ -2436,7 +2438,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
                 //Session[Constantes.ConstSession.ListaProductoShowRoom] = listaShowRoomCPCFinal;
-                var listadoProductosCPCModel1 = Mapper.Map<List<BEShowRoomCompraPorCompra>, List<ShowRoomOfertaModel>>(listaShowRoomCPCFinal);
+                var listadoProductosCPCModel1 = Mapper.Map<List<BEShowRoomOferta>, List<ShowRoomOfertaModel>>(listaShowRoomCPCFinal);
 
                 return listadoProductosCPCModel1;
             }
@@ -2446,8 +2448,6 @@ namespace Portal.Consultoras.Web.Controllers
                 throw;
                 
             }
-
-            
         }
         #endregion
     }
