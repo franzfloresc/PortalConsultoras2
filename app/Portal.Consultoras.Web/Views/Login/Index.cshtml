@@ -92,6 +92,9 @@
         </div>
 
         <input type="hidden" id="hdfContrasenia" />
+        
+        @*@Html.Hidden("returnUrl", @Request.QueryString)*@
+        <input type="hidden" id="returnUrl" name="returnUrl" value="@ViewBag.ReturnURL" />
 
         <div class="formCont">
 
