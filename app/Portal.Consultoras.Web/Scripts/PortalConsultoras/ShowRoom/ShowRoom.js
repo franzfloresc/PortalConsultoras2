@@ -108,9 +108,9 @@ function AgregarOfertaShowRoom(article, cantidad) {
     var descripcionMarca = $(article).find(".DescripcionMarca").val();
 
     if (cantidad == "" || cantidad == 0) {
-        alert_msg("La cantidad ingresada debe ser mayor que 0, verifique.");
+        AbrirMensaje("La cantidad ingresada debe ser mayor que 0, verifique.");
     } else {
-        waitingDialog({});
+        AbrirLoad();
         $.ajaxSetup({
             cache: false
         });
@@ -119,15 +119,15 @@ function AgregarOfertaShowRoom(article, cantidad) {
                 var Saldo = data.Saldo;
                 var UnidadesPermitidas = data.UnidadesPermitidas;
 
-                closeWaitingDialog();
+                CerrarLoad();
 
                 if (Saldo == UnidadesPermitidas)
-                    alert_msg("Lamentablemente, la cantidad solicitada sobrepasa las Unidades Permitidas de Venta (" + UnidadesPermitidas + ") del producto.");
+                    AbrirMensaje("Lamentablemente, la cantidad solicitada sobrepasa las Unidades Permitidas de Venta (" + UnidadesPermitidas + ") del producto.");
                 else {
                     if (Saldo == "0")
-                        alert_msg("Las Unidades Permitidas de Venta son solo (" + UnidadesPermitidas + "), pero Usted ya no puede adicionar más, debido a que ya agregó este producto a su pedido, verifique.");
+                        AbrirMensaje("Las Unidades Permitidas de Venta son solo (" + UnidadesPermitidas + "), pero Usted ya no puede adicionar más, debido a que ya agregó este producto a su pedido, verifique.");
                     else
-                        alert_msg("Las Unidades Permitidas de Venta son solo (" + UnidadesPermitidas + "), pero Usted solo puede adicionar (" + Saldo + ") más, debido a que ya agregó este producto a su pedido, verifique.");
+                        AbrirMensaje("Las Unidades Permitidas de Venta son solo (" + UnidadesPermitidas + "), pero Usted solo puede adicionar (" + Saldo + ") más, debido a que ya agregó este producto a su pedido, verifique.");
                 }
             } else {
                 var Item = {
@@ -148,7 +148,7 @@ function AgregarOfertaShowRoom(article, cantidad) {
                     data: JSON.stringify(Item),
                     async: true,
                     success: function (response) {
-                        closeWaitingDialog();
+                        CerrarLoad();
 
                         if (response.success == true) {                            
 
@@ -168,7 +168,7 @@ function AgregarOfertaShowRoom(article, cantidad) {
                     },
                     error: function (response, error) {
                         if (checkTimeout(response)) {
-                            closeWaitingDialog();
+                            CerrarLoad();
                             console.log(response);
                         }
                     }
@@ -188,9 +188,9 @@ function AgregarOfertaShowRoomCpc(article, cantidad) {
     var descripcionMarca = $(article).find(".DescripcionMarca").val();
 
     if (cantidad == "" || cantidad == 0) {
-        alert_msg("La cantidad ingresada debe ser mayor que 0, verifique.");
+        AbrirMensaje("La cantidad ingresada debe ser mayor que 0, verifique.");
     } else {
-        waitingDialog({});
+        AbrirLoad();
         $.ajaxSetup({
             cache: false
         });
@@ -213,7 +213,7 @@ function AgregarOfertaShowRoomCpc(article, cantidad) {
             data: JSON.stringify(Item),
             async: true,
             success: function(response) {
-                closeWaitingDialog();
+                CerrarLoad();
 
                 if (response.success == true) {
                     if ($.trim(tipoOrigenPantalla)[0] == '1') {
@@ -224,7 +224,7 @@ function AgregarOfertaShowRoomCpc(article, cantidad) {
             },
             error: function(response, error) {
                 if (checkTimeout(response)) {
-                    closeWaitingDialog();
+                    CerrarLoad();
                     console.log(response);
                 }
             }
@@ -337,7 +337,8 @@ function CompartirRedesSocialesAbrirVentana(id, tipoRedes, ruta, texto) {
 }
 
 function CompartirRedesSocialesInsertar(article, tipoRedes, ruta) {
-    ShowLoading();
+    AbrirLoad();
+  
     //Capturando valores
     var _rutaImagen = $.trim($(article).find(".rs" + tipoRedes + "RutaImagen").val());
     var _nombre = $.trim($(article).find(".rs" + tipoRedes + "Mensaje").val());
@@ -366,7 +367,7 @@ function CompartirRedesSocialesInsertar(article, tipoRedes, ruta) {
         contentType: 'application/json; charset=utf-8',
         data: JSON.stringify(Item),
         success: function (response) {
-            CloseLoading();
+            //CloseLoading();
             if (checkTimeout(response)) {
                 if (response.success) {
                     CompartirRedesSocialesAbrirVentana(response.data.id, tipoRedes, ruta, _nombre);
@@ -376,11 +377,10 @@ function CompartirRedesSocialesInsertar(article, tipoRedes, ruta) {
             }
         },
         error: function (response, error) {
-            CloseLoading();
+            //CloseLoading();
             if (checkTimeout(response)) {
                 console.log(response);
             }
         }
     });
 }
-
