@@ -11074,7 +11074,7 @@ a{
 
 .content_room_product_sheet .item_product:last-child{
 	margin-bottom: 20px;
-	border-bottom: 1px solid #9B9B9B;
+	/*border-bottom: 1px solid #9B9B9B;*/
 }
 
 .content_room_product_sheet .item_product .description_item{
@@ -11092,7 +11092,7 @@ a{
 
 .content_room_product_sheet .item_product .description_item .detail{
 	display: block;
-	margin-left: 40px;
+	/*margin-left: 40px;*/
 }
 
 .content_room_product_sheet .item_product .description_item .detail .brand,
@@ -11103,7 +11103,7 @@ a{
 }
 
 .content_room_product_sheet .item_product .description_item .detail .brand{
-	font-weight: 100;
+	font-weight: 300;
 	text-transform: uppercase;
 }
 
@@ -11214,9 +11214,9 @@ a{
 	margin-right: 0;
 }
 
-.content_room_product_sheet .box_promotions{
+/*.content_room_product_sheet .box_promotions{
 	padding: 0 20px;
-}
+}*/
 
 .content_room_product_sheet .box_promotions .slider{
 	background: #F4F4F4;
@@ -11294,8 +11294,11 @@ a{
 	text-align: center;
 }
 
-.content_room_product_sheet .other_consultants .slider .slider_item{
+.content_room_product_sheet .other_consultants  .slider_item{
 	width: 155px;
+    margin-left:15px;
+    margin-right:15px;
+    text-align:center;
 }
 
 .content_room_product_sheet .other_consultants .slider .slider_item .slider_item_content{
@@ -11342,7 +11345,7 @@ a{
 }
 
 .content_room_product_sheet .share_social_nertwoks{
-	padding: 30px 0 0 0;
+	padding: 30px 0 76px 0;
 }
 
 .content_room_product_sheet .share_social_nertwoks .title{
@@ -11375,3 +11378,45 @@ a{
 .descripcion_compra{    font-size:13px;    font-weight:300;    font-family:'Lato';    text-align:center;}
 .btn_agrega_compra{    display:block;    width:100%;    height:45px;    line-height:44px;    font-size:13px;    font-weight:700;    font-family:'Lato';    text-align:center;    margin-top:8px;    margin-bottom:20px;    border:1px solid black;}
 
+.slider_item_content .price {
+    display: block;
+    font-size: 16px;
+}
+.slider_item_content .title {
+    display: block;
+    font-weight: 700;
+    font-size: 14.5px;
+    height:40px;
+}
+.box_promotions{
+    background:#f4f4f4;
+     margin-left: 14px;
+    margin-right: 14px;
+    position: relative;
+    overflow: hidden;
+}
+.content_orden_carrusel{
+    position:relative;
+    margin-top:15px;
+    margin-left:14px;
+    margin-right:14px;
+}
+.orden_listado_numero{
+   font-family: 'Lato';
+    font-size: 13px;
+    color: #afafaf;
+    width: 100px;
+    margin: 0 auto;
+    background: white;
+    text-align: center;
+    position: relative;
+    z-index: 10;
+}
+.orden_flecha{
+    position:absolute;
+    top:0;
+}
+.content_compra_carrusel{
+    width:80%;
+    margin:0 auto;
+}
