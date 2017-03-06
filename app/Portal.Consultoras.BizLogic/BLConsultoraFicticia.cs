@@ -36,10 +36,10 @@ namespace Portal.Consultoras.BizLogic
             return DAConsultoraFicticia.DelConsultoraFicticia(CodigoConsultora);
         }
 
-        public int UpdConsultoraFicticia(string CodigoUsuario, string CodigoConsultora, int paisID, Int64 ConsultoraID)
+        public int UpdConsultoraFicticia(string CodigoUsuario, string CodigoConsultora, int paisID, Int64 ConsultoraID, string Clave)
         { 
             var DAConsultoraFicticia = new DAConsultoraFicticia(paisID);
-            return DAConsultoraFicticia.UpdConsultoraFicticia(CodigoUsuario, CodigoConsultora, ConsultoraID);
+            return DAConsultoraFicticia.UpdConsultoraFicticia(CodigoUsuario, CodigoConsultora, ConsultoraID, Clave);
         }
 
         public string GetCodigoConsultoraAsociada(int paisID, string CodigoUsuario)
