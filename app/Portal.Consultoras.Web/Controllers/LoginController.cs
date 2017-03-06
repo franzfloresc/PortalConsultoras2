@@ -27,7 +27,7 @@ namespace Portal.Consultoras.Web.Controllers
         private string pasoLog;
 
         [AllowAnonymous]
-        public ActionResult Index()
+        public ActionResult Index(string returnUrl = null)
         {
             if (HttpContext.User.Identity.IsAuthenticated)
             {
@@ -74,6 +74,16 @@ namespace Portal.Consultoras.Web.Controllers
                     }
 
                     AsignarHojaEstilos(ISO);
+
+                    //EPD-1968
+                    if (string.IsNullOrEmpty(returnUrl) && Request.UrlReferrer != null)
+                        returnUrl = Server.UrlEncode(Request.UrlReferrer.PathAndQuery);
+
+                    if (Url.IsLocalUrl(returnUrl) && !string.IsNullOrEmpty(returnUrl))
+                    {
+                        ViewBag.ReturnURL = returnUrl;
+                    }
+                    //EPD-1968
                 }
                 catch (FaultException ex)
                 {
@@ -90,7 +100,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         [AllowAnonymous]
         [HttpPost]
-        public ActionResult Login(LoginModel model)
+        public ActionResult Login(LoginModel model, string returnUrl = null)
         {
             pasoLog = "Login.POST.Index";
             try
@@ -103,7 +113,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (validaLogin != null && validaLogin.Result == 3)
                 {
-                    return Redireccionar(model.PaisID, validaLogin.CodigoUsuario);
+                    return Redireccionar(model.PaisID, validaLogin.CodigoUsuario, returnUrl);
                 }
                 else
                 {
@@ -146,7 +156,7 @@ namespace Portal.Consultoras.Web.Controllers
             //return RedirectToAction("Index");
         }
 
-        public ActionResult Redireccionar(int paisId, string codigoUsuario)
+        public ActionResult Redireccionar(int paisId, string codigoUsuario, string returnUrl = null)
         {
             pasoLog = "Login.Redireccionar";
 
@@ -157,13 +167,27 @@ namespace Portal.Consultoras.Web.Controllers
 
                 FormsAuthentication.SetAuthCookie(usuario.CodigoUsuario, false);
 
+                //EPD-1968
+                string decodedUrl = "";
+                if (!string.IsNullOrEmpty(returnUrl))
+                    decodedUrl = Server.UrlDecode(returnUrl);
+                //EPD-1968
+
                 if (usuario.RolID == Constantes.Rol.Consultora)
                 {
                     bool esMovil = Request.Browser.IsMobileDevice;
 
                     if (esMovil)
                     {
-                        return RedirectToAction("Index", "Bienvenida", new { area = "Mobile" });
+                        //EPD-1968
+                        if (Url.IsLocalUrl(decodedUrl))
+                        {
+                            return Redirect(decodedUrl);
+                        }
+                        else
+                        {
+                            return RedirectToAction("Index", "Bienvenida", new { area = "Mobile" });
+                        }
                     }
                     else
                     {
@@ -171,12 +195,29 @@ namespace Portal.Consultoras.Web.Controllers
                         {
                             Session["PrimeraVezSession"] = 0;
                         }
-                        return RedirectToAction("Index", "Bienvenida");
+
+                        //EPD-1968
+                        if (Url.IsLocalUrl(decodedUrl))
+                        {
+                            return Redirect(decodedUrl);
+                        }
+                        else
+                        {
+                            return RedirectToAction("Index", "Bienvenida");
+                        }
                     }
                 }
                 else
                 {
-                    return RedirectToAction("Index", "Bienvenida");
+                    //EPD-1968
+                    if (Url.IsLocalUrl(decodedUrl))
+                    {
+                        return Redirect(decodedUrl);
+                    }
+                    else
+                    {
+                        return RedirectToAction("Index", "Bienvenida");
+                    }
                 }
             }
             else
