@@ -53,14 +53,14 @@
         <span>@Html.Raw(Model.CuerpoMensaje2)</span>
         <br /><br /><br />
         @*<span id="sMensajeFacturacion">@Html.Raw( Model.DescripcionRechazo)</span>*@
-        <div>
+        <div style="display:flex;">
             @switch (Model.MotivoRechazo)
             {
                 case Constantes.GPRMotivoRechazo.Mostrar2OpcionesNotificacion:
                 case Constantes.GPRMotivoRechazo.MontoMinino:
                 case Constantes.GPRMotivoRechazo.MontoMaximo:
                 case Constantes.GPRMotivoRechazo.ValidacionMontoMinimoStock:
-                <a class='btnnotificacion' href="@Url.Action("Index", "Pedido", new { area = "Mobile" })">MODIFICA TU PEDIDO</a>
+                    <a class='btnnotificacion' href="@Url.Action("Index", "Pedido", new { area = "Mobile" })">MODIFICA TU PEDIDO</a>
                     break;
             }
         </div>
