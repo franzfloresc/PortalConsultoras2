@@ -408,6 +408,8 @@
         var urlReclamo = '@Url.Action("Reclamo")';
         var mensajePeriodoInvalido = '@Model.MensajePeriodoInvalido';
 
+        var mensajePeriodoInvalido = '@Model.MensajePeriodoInvalido';
+
         $(document).ready(function () {
             $(".verDetalle").on("click", function () {
                 var elemento = $(this);
@@ -551,7 +553,7 @@
                         return false;
                     }
 
-                    if (item.Estado == 4) {
+                    if (item.Estado == 4) {                        
 
                         /*EPD-1308*/
                         if (data.cantobservado > 0) {
@@ -562,8 +564,8 @@
                             SetHandlebars("#template-detalle-2-aprobado", data, "#divDetallePedidoCdrAprobado");
                         }
                         /*EPD-1308*/
-
-                    } else {
+                    }
+                    else {
                         SetHandlebars("#template-detalle-1", data, "#divDetallePedidoCDR");
                     }
                 },

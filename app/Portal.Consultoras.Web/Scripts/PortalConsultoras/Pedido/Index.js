@@ -403,79 +403,6 @@ $(document).ready(function () {
         }
     });
 
-    $("body").on("click", ".agregarOfertaFinal", function () {
-        AbrirSplash();
-
-        var divPadre = $(this).parents("[data-item='ofertaFinal']").eq(0);
-        var cuv = $(divPadre).find(".hdOfertaFinalCuv").val();
-        var cantidad = $(divPadre).find("[data-input='cantidad']").val();
-        var tipoOfertaSisID = $(divPadre).find(".hdOfertaFinalTipoOfertaSisID").val();
-        var configuracionOfertaID = $(divPadre).find(".hdOfertaFinalConfiguracionOfertaID").val();
-        var indicadorMontoMinimo = $(divPadre).find(".hdOfertaFinalIndicadorMontoMinimo").val();
-        var tipo = $(divPadre).find(".hdOfertaFinalTipo").val();
-        var marcaID = $(divPadre).find(".hdOfertaFinalMarcaID").val();
-        var precioUnidad = $(divPadre).find(".hdOfertaFinalPrecioUnidad").val();
-        var descripcionProd = $(divPadre).find(".hdOfertaFinalDescripcionProd").val();
-        var pagina = $(divPadre).find(".hdOfertaFinalPagina").val();
-        var descripcionCategoria = $(divPadre).find(".hdOfertaFinalDescripcionCategoria").val();
-        var descripcionMarca = $(divPadre).find(".hdOfertaFinalDescripcionMarca").val();
-        var descripcionEstrategia = $(divPadre).find(".hdOfertaFinalDescripcionEstrategia").val();
-        var OrigenPedidoWeb = DesktopPedidoOfertaFinal;
-
-        if (!isInt(cantidad)) {
-            alert_msg("La cantidad ingresada debe ser un número mayor que cero, verifique");
-            $('.liquidacion_rango_cantidad_pedido').val(1);
-            CerrarSplash();
-            return false;
-        }
-
-        if (cantidad <= 0) {
-            alert_msg("La cantidad ingresada debe ser mayor que cero, verifique");
-            $('.liquidacion_rango_cantidad_pedido').val(1);
-            CerrarSplash();
-            return false;
-        } else {
-            var model = {
-                TipoOfertaSisID: tipoOfertaSisID,
-                ConfiguracionOfertaID: configuracionOfertaID,
-                IndicadorMontoMinimo: indicadorMontoMinimo,
-                MarcaID: marcaID,
-                Cantidad: cantidad,
-                PrecioUnidad: precioUnidad,
-                CUV: cuv,
-                Tipo: tipo,
-                DescripcionProd: descripcionProd,
-                Pagina: pagina,
-                DescripcionCategoria: descripcionCategoria,
-                DescripcionMarca: descripcionMarca,
-                DescripcionEstrategia: descripcionEstrategia,
-                EsSugerido: false,
-                OrigenPedidoWeb: OrigenPedidoWeb
-            };
-
-            AgregarProducto('Insert', model, "", false);
-            AgregarOfertaFinalLog(cuv, cantidad, tipoOfertaFinal_Log, gap_Log, 1);
-            TrackingJetloreAdd(cantidad, $("#hdCampaniaCodigo").val(), cuv);
-            setTimeout(function () {
-                $("#divOfertaFinal").hide();
-                EjecutarServicioPROLSinOfertaFinal();
-            }, 1000);
-        }
-    });
-
-    $('#btnNoGraciasOfertaFinal, #lnkCerrarPopupOfertaFinal').click(function () {
-        var esMontoMinimo = $("#divIconoOfertaFinal").attr("class") == "icono_exclamacion";
-        
-        $("#divOfertaFinal").hide();
-        if (!esMontoMinimo) {
-            var response = $("#btnNoGraciasOfertaFinal")[0].data;
-            MostrarMensajeProl(response);
-        }
-    });
-    $('#producto-faltante-busqueda-cuv, #producto-faltante-busqueda-descripcion').on('keypress', function (e) {
-        if (e.which == 13) CargarProductoAgotados();
-    });
-
     $(document).on('click', '#idImagenCerrar', function (e) {
         $(this).parent().remove();
     });
@@ -3017,8 +2944,6 @@ function RespuestaEjecutarServicioPROL(response, inicio) {
     var tooltips = response.data.ProlTooltip.split('|');
     $('.tooltip_importanteGuardarPedido')[0].children[0].innerHTML = tooltips[0];
     $('.tooltip_importanteGuardarPedido')[0].children[1].innerHTML = tooltips[1];
-
-    $("#btnNoGraciasOfertaFinal")[0].data = response;
 }
 
 function MostrarMensajeProl(response) {
@@ -4034,12 +3959,14 @@ function CambioPagina(obj) {
     return true;
 }
 
-function AgregarProducto(url, model, divDialog, cerrarSplash) {
+function AgregarProducto(url, model, divDialog, cerrarSplash, asyncX) {
     AbrirSplash();
 
     tieneMicroefecto = true;
 
     divDialog = $.trim(divDialog);
+
+    var retorno = new Object();
 
     jQuery.ajax({
         type: 'POST',
@@ -4047,7 +3974,7 @@ function AgregarProducto(url, model, divDialog, cerrarSplash) {
         dataType: 'json',
         contentType: 'application/json; charset=utf-8',
         data: JSON.stringify(model),
-        async: true,
+        async: asyncX == undefined || asyncX == null ? true : asyncX,
         success: function (data) {
             if (!checkTimeout(data)) {
                 if (cerrarSplash) CerrarSplash();
@@ -4075,13 +4002,17 @@ function AgregarProducto(url, model, divDialog, cerrarSplash) {
             MostrarBarra(data);
             TrackingJetloreAdd(model.Cantidad, $("#hdCampaniaCodigo").val(), model.CUV);
             
+            retorno = data;
             return true;
         },
         error: function (data, error) {
             tieneMicroefecto = false;
             AjaxError(data, error);
+            return false;
         }
     });
+
+    return retorno;
 }
 
 function CerrarProductoAgotados() {
@@ -4135,11 +4066,11 @@ function CargarEstrategiasEspeciales(objInput, e) {
         } else if (estrategia.TipoEstrategiaImagenMostrar == '5' || estrategia.TipoEstrategiaImagenMostrar == '3') {
             var html = ArmarPopupLanzamiento(estrategia);
             $('#popupDetalleCarousel_lanzamiento').html(html);
-            if ($('#popupDetalleCarousel_lanzamiento').find('.nombre_producto').children()[0].innerHTML.length > 40) {
-                $('#popupDetalleCarousel_lanzamiento').find('.nombre_producto').addClass('nombre_producto22');
-                $('#popupDetalleCarousel_lanzamiento').find('.nombre_producto22').removeClass('nombre_producto');
-                //$('#popupDetalleCarousel_lanzamiento').find('.nombre_producto22').children()[0].innerHTML = "LBel Mithyka Eau Parfum 50ml+Cyzone Love Bomb Eau de Parfum 30ml+Esika Labial Color HD Tono Pimienta Caliente+Esika Agu Shampoo Manzanilla 1L";
-            }
+            //if ($('#popupDetalleCarousel_lanzamiento').find('[data-prod-descripcion]').html().length > 40) {
+            //    $('#popupDetalleCarousel_lanzamiento').find('[data-prod-descripcion]').addClass('nombre_producto22');
+            //    $('#popupDetalleCarousel_lanzamiento').find('.nombre_producto22').removeClass('nombre_producto');
+            //    //$('#popupDetalleCarousel_lanzamiento').find('.nombre_producto22').children()[0].innerHTML = "LBel Mithyka Eau Parfum 50ml+Cyzone Love Bomb Eau de Parfum 30ml+Esika Labial Color HD Tono Pimienta Caliente+Esika Agu Shampoo Manzanilla 1L";
+            //}
 
             $('#popupDetalleCarousel_lanzamiento').show();
             TrackingJetloreView(estrategia.CUV2, $("#hdCampaniaCodigo").val())

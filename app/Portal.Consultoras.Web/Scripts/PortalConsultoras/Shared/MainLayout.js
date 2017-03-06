@@ -24,8 +24,12 @@ $(document).ready(function () {
                 $('#popupDetalleCarousel_lanzamiento').hide();
             }
 
-            if ($('[data-oferta]').is(':visible')) {
-                $('[data-oferta]').hide();
+            if ($('[data-popup-main]').is(':visible')) {
+                var functionHide = $('[data-popup-main]').attr("data-popup-function-hide");
+                if (functionHide != "") {
+                    setTimeout(functionHide + "()", 100);
+                }
+                $('[data-popup-main]').hide();
             }
 
             //EPD-1780
@@ -61,20 +65,50 @@ $(document).ready(function () {
     });
 
     /*PL20-1226*/
-    $('.Content_general_pop_up').click(function (e) {
-        if (!$(e.target).closest('.content_ficha_producto_nueva').length) {
-            if ($('#PopFichaProductoNueva').is(':visible')) {
-                $('#PopFichaProductoNueva').hide();
+    //$('.Content_general_pop_up').click(function (e) {
+    //    if (!$(e.target).closest('.content_ficha_producto_nueva').length) {
+    //        if ($('#PopFichaProductoNueva').is(':visible')) {
+    //            $('#PopFichaProductoNueva').hide();
+    //        }
+    //    }
+    //});
+
+    $('.contenedor_popup_detalleCarousel, .Content_general_pop_up').click(function (e) {
+        if (!$(e.target).closest('[data-popup-body]').length) {
+
+            if ($(e.target).is(':visible')) {
+                $(e.target).hide();
+            }
+
+            //if ($('#popupDetalleCarousel_lanzamiento').is(':visible')) {
+            //    $('#popupDetalleCarousel_lanzamiento').hide();
+            //}
+        }
+    });
+
+    $("body").on("click", "[data-popup-main]", function (e) {
+        if (!$(e.target).closest('[data-popup-body]').length) {
+
+            if ($(e.target).is(':visible')) {
+
+                var functionHide = $('[data-popup-main]').attr("data-popup-function-hide");
+                if (functionHide != "") {
+                    setTimeout(functionHide + "()", 100);
+                }
+                $(e.target).hide();
             }
         }
     });
 
-    $('.contenedor_popup_detalleCarousel').click(function (e) {
-        if (!$(e.target).closest('.popup_detalleCarousel').length) {
-            if ($('#popupDetalleCarousel_lanzamiento').is(':visible')) {
-                $('#popupDetalleCarousel_lanzamiento').hide();
-            }
+
+    $("body").on("click", "[data-popup-close]", function (e) {
+        var popupClose = $("#" + $(this).attr("data-popup-close")) || $(this).parent("[data-popup-main]");
+
+        var functionHide = $(popupClose).attr("data-popup-function-hide");
+        if (functionHide != "") {
+            setTimeout(functionHide + "()", 100);
         }
+        $(popupClose).hide();
     });
 
     // cerrar popup ofertas 003,048
@@ -109,12 +143,7 @@ $(document).ready(function () {
         closeOnEscape: true,
         width: 400,
         draggable: true,
-        buttons:
-        {
-            "Aceptar": function () {
-                $(this).dialog('close');
-            }
-        }
+        buttons: { "Aceptar": function () { $(this).dialog('close'); } }
     });
 
     $('#ModalFeDeErratas').dialog({

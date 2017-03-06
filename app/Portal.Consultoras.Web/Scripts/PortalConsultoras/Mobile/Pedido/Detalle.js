@@ -28,76 +28,7 @@ $(document).ready(function () {
         numactual = numactual < 1 ? 1 : numactual > 99 ? 99 : numactual;
         $("#txtCantidad").val(numactual);
     });
-
-    $("body").on("click", ".agregarOfertaFinal", function () {
-        ShowLoading();
-
-        var divPadre = $(this).parents("[data-item='ofertaFinal']").eq(0);
-        var cuv = $(divPadre).find(".hdOfertaFinalCuv").val();
-        var cantidad = $(divPadre).find("[data-input='cantidad']").val();
-        var tipoOfertaSisID = $(divPadre).find(".hdOfertaFinalTipoOfertaSisID").val();
-        var configuracionOfertaID = $(divPadre).find(".hdOfertaFinalConfiguracionOfertaID").val();
-        var indicadorMontoMinimo = $(divPadre).find(".hdOfertaFinalIndicadorMontoMinimo").val();
-        var tipo = $(divPadre).find(".hdOfertaFinalTipo").val();
-        var marcaID = $(divPadre).find(".hdOfertaFinalMarcaID").val();
-        var precioUnidad = $(divPadre).find(".hdOfertaFinalPrecioUnidad").val();
-        var descripcionProd = $(divPadre).find(".hdOfertaFinalDescripcionProd").val();
-        var pagina = $(divPadre).find(".hdOfertaFinalPagina").val();
-        var descripcionCategoria = $(divPadre).find(".hdOfertaFinalDescripcionCategoria").val();
-        var descripcionMarca = $(divPadre).find(".hdOfertaFinalDescripcionMarca").val();
-        var descripcionEstrategia = $(divPadre).find(".hdOfertaFinalDescripcionEstrategia").val();
-
-        if (!isInt(cantidad)) {
-            alert_msg("La cantidad ingresada debe ser un número mayor que cero, verifique");
-            CloseLoading();
-            return false;
-        }
-
-        if (cantidad <= 0) {
-            alert_msg("La cantidad ingresada debe ser mayor que cero, verifique");
-            CloseLoading();
-            return false;
-        }
-
-        var model = {
-            TipoOfertaSisID: tipoOfertaSisID,
-            ConfiguracionOfertaID: configuracionOfertaID,
-            IndicadorMontoMinimo: indicadorMontoMinimo,
-            MarcaID: marcaID,
-            Cantidad: cantidad,
-            PrecioUnidad: precioUnidad,
-            CUV: cuv,
-            Tipo: tipo,
-            DescripcionProd: descripcionProd,
-            Pagina: pagina,
-            DescripcionCategoria: descripcionCategoria,
-            DescripcionMarca: descripcionMarca,
-            DescripcionEstrategia: descripcionEstrategia,
-            EsSugerido: false,
-            OrigenPedidoWeb: MobilePedidoOfertaFinal
-        };
-
-        InsertarProducto(model);
-        AgregarOfertaFinalLog(cuv, cantidad, tipoOfertaFinal_Log, gap_Log, 1);
-        TrackingJetloreAdd(cantidad, $("#hdCampaniaCodigo").val(), cuv);
-        
-        setTimeout(function () {
-            $("#popupOfertaFinal").hide();
-            EjecutarServicioPROLSinOfertaFinal();
-        }, 1000);
-        
-    });
-
-    $('#btnNoGraciasOfertaFinal, #lnkCerrarPopupOfertaFinal').click(function () {
-        var esMontoMinimo = $("#divIconoOfertaFinal").attr("class") == "icono_exclamacion";
-
-        $("#popupOfertaFinal").hide();
-        if (!esMontoMinimo) {
-            var data = $("#btnNoGraciasOfertaFinal")[0].data;
-            MostrarMensajeProl(data);
-        }
-    });
-
+    
     /* SB20-565 - FIN */
 });
 
@@ -187,8 +118,6 @@ function GetProductoEntidad(id) {
 // Actualizar pedido delsde el detalle => Cantidad Detalle
 
 function UpdateLiquidacionEvento(evento) {
-    debugger;
-
     var obj = $(evento.currentTarget);
     var id = $.trim(obj.attr("data-pedidodetalleid")) || "0";
     if (parseInt(id, 10) <= 0 || parseInt(id, 10) == NaN) {
@@ -1070,10 +999,8 @@ function RespuestaEjecutarServicioPROL(response, inicio) {
     var cumpleOferta = { resultado: false };
 
     if (inicio) {
-        $("#btnNoGraciasOfertaFinal")[0].data = response.data;
         codigoMensajeProl = response.data.CodigoMensajeProl;
-    }   
-
+    }
 
     if (model.Reserva != true) {
         if (inicio) {
@@ -1391,14 +1318,16 @@ function MostrarDetalleGanancia() {
 
 /* SB20-565 - INICIO */
 
-function InsertarProducto(model) {
+function InsertarProducto(model, asyncX) {
+    var retorno = new Object();
+
     jQuery.ajax({
         type: 'POST',
         url: urlPedidoInsert,
         dataType: 'json',
         contentType: 'application/json; charset=utf-8',
         data: JSON.stringify(model),
-        async: true,
+        async: asyncX == undefined || asyncX == null ? true : asyncX,
         cache: false,
         success: function (data) {
             if (!checkTimeout(data)) {
@@ -1441,6 +1370,8 @@ function InsertarProducto(model) {
             });
 
             CargarPedido();
+
+            retorno = data;
         },
         error: function (data, error) {
             CloseLoading();
@@ -1450,6 +1381,7 @@ function InsertarProducto(model) {
         }
     });
 
+    return retorno;
 };
 
 function MostrarMensajeProl(data) {
