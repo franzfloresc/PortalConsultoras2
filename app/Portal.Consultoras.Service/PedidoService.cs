@@ -1647,6 +1647,12 @@ namespace Portal.Consultoras.Service
         {
             BLShowRoomEvento.DeleteInsertShowRoomCategoriaByEvento(paisId, eventoId, listaCategoria);
         }
+
+        /*PL20-1330*/
+        public List<BEShowRoomOferta> GetProductosCompraPorCompra(int paisId, int EventoID, int CampaniaID)
+        {
+            return BLShowRoomEvento.GetProductosCompraPorCompra(paisId, EventoID, CampaniaID);
+        }
         #endregion
 
         #region Producto SUgerido

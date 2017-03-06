@@ -10,7 +10,7 @@
 @section styles{
     <style type="text/css">
         body {
-            background: #FFF !important;
+           background: #f5f5f7 !important;
             padding-top: 0px;
             overflow-x:hidden;
         }
@@ -61,7 +61,7 @@
                 var inhabilitar = item.Stock == 0;
                 var formatoPrecioOferta = Util.DecimalToStringFormat(item.PrecioOferta, Model.CodigoIso);
                 var formatoPrecioCatalogo = Util.DecimalToStringFormat(item.PrecioCatalogo, Model.CodigoIso);
-            <div class="content_item_home landing_showroom" style="position: relative;">
+            <div class="content_item_home" style="position: relative;"> @*landing_showroom*@
                 <div class="liquidacion_item" data-posicion="@posicions">
                     <input type="hidden" id="hdOfertaShowRoomID" value="@item.OfertaShowRoomID" />
                     <input type="hidden" class="valorCuv" value="@item.CUV" />
@@ -89,7 +89,8 @@
                             <b>@item.Descripcion</b>
                         </p>
                         <div class="producto_precio">
-                            <span class="producto_precio_oferta" style="padding-left:0px;"><b>@item.Simbolo @item.PrecioCatalogo</b></span>
+                            <span class="producto_precio_normal">$ 23.000</span>
+                            <span class="producto_precio_oferta"><b>@item.Simbolo @item.PrecioCatalogo</b></span>
                         </div>
                     </div>
                 </div>

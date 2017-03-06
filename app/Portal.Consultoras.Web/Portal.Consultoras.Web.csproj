@@ -1564,6 +1564,7 @@
     <Content Include="Content\Images\cerrar_04.png" />
     <Content Include="Content\Images\cerrar_04_blanco.png" />
     <Content Include="Content\Images\checkborde.gif" />
+    <Content Include="Content\Images\Esika\background-showroom-product.jpg" />
     <Content Include="Content\Images\Esika\background_pedido.png" />
     <Content Include="Content\Images\Esika\Banner_Esika.jpg" />
     <Content Include="Content\Images\Esika\banner_misBeneficios.png" />
@@ -1818,6 +1819,10 @@
     <Content Include="Content\Images\Esika\facebook_ficha.png" />
     <Content Include="Content\Images\Esika\facturacion_electronica.png" />
     <Content Include="Content\Images\Esika\flecha_abajo.png" />
+    <Content Include="Content\Images\Esika\flecha_compra_left.png" />
+    <Content Include="Content\Images\Esika\flecha_compra_right.png" />
+    <Content Include="Content\Images\Esika\flecha_orden.png" />
+    <Content Include="Content\Images\Esika\flecha_orden_right.png" />
     <Content Include="Content\Images\Esika\flechita.png" />
     <Content Include="Content\Images\Esika\flechita.svg" />
     <Content Include="Content\Images\Esika\flechita_info.png" />
@@ -1903,6 +1908,7 @@
     <Content Include="Content\Images\Esika\revista.png" />
     <Content Include="Content\Images\Esika\revista_c09.png" />
     <Content Include="Content\Images\Esika\right_compra.png" />
+    <Content Include="Content\Images\Esika\ShowRoom-Complemento.png" />
     <Content Include="Content\Images\Esika\slider-adelante.png" />
     <Content Include="Content\Images\Esika\sombra.png" />
     <Content Include="Content\Images\Esika\star_reco.png" />
@@ -2436,8 +2442,10 @@
     <Content Include="Content\Images\mobile\Esika\menu_mobile.png" />
     <Content Include="Content\Images\mobile\Esika\next.png" />
     <Content Include="Content\Images\mobile\Esika\notificaciones.png" />
+    <Content Include="Content\Images\mobile\Esika\oc_image_small.png" />
     <Content Include="Content\Images\mobile\Esika\pestana_esika.png" />
     <Content Include="Content\Images\mobile\Esika\previous_ofertas_home.png" />
+    <Content Include="Content\Images\mobile\Esika\promo_watch.png" />
     <Content Include="Content\Images\mobile\Esika\revista_c09.png" />
     <Content Include="Content\Images\mobile\Esika\tarjeta.png" />
     <Content Include="Content\Images\mobile\Esika\triangulo.png" />
@@ -3127,6 +3135,10 @@
     <Content Include="Content\Css\Site\fonts\icomoon\logo_esika.ttf" />
     <Content Include="Content\Css\Site\fonts\icomoon\logo_esika.woff" />
     <Content Include="Areas\Mobile\Views\ShowRoom\DetalleOferta.cshtml" />
+    <Content Include="Content\Images\mobile\Esika\arrow-slide-promotions-left.svg" />
+    <Content Include="Content\Images\mobile\Esika\arrow-slide-promotions-right.svg" />
+    <Content Include="Content\Images\mobile\Esika\arrow_select_variant.svg" />
+    <Content Include="Content\Images\mobile\Esika\icon-tip-red.svg" />
     <None Include="Service References\ServiceCDR\CDRService.disco" />
     <None Include="Service References\ServiceCDR\configuration91.svcinfo" />
     <None Include="Service References\ServiceCDR\configuration.svcinfo" />
@@ -3218,7 +3230,7 @@
     <None Include="Service References\ServicePedidoRechazado\PedidoRechazadoService2.xsd">
       <SubType>Designer</SubType>
     </None>
-    <Content Include="Service References\ServicePedido\PedidoService.wsdl" />
+    <None Include="Service References\ServicePedido\PedidoService.wsdl" />
     <None Include="Service References\ServicePedido\PedidoService.xsd">
       <SubType>Designer</SubType>
     </None>
@@ -3288,13 +3300,13 @@
     <None Include="Service References\ServiceSAC\SACService4.xsd">
       <SubType>Designer</SubType>
     </None>
-    <Content Include="Service References\ServicePedido\PedidoService.disco" />
-    <Content Include="Service References\ServicePedido\configuration91.svcinfo" />
-    <Content Include="Service References\ServicePedido\configuration.svcinfo" />
-    <Content Include="Service References\ServicePedido\Reference.svcmap">
+    <None Include="Service References\ServicePedido\PedidoService.disco" />
+    <None Include="Service References\ServicePedido\configuration91.svcinfo" />
+    <None Include="Service References\ServicePedido\configuration.svcinfo" />
+    <None Include="Service References\ServicePedido\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
-    </Content>
+    </None>
     <None Include="Service References\ServiceSeguridad\SeguridadService.wsdl" />
     <None Include="Service References\ServiceSeguridad\SeguridadService.xsd">
       <SubType>Designer</SubType>

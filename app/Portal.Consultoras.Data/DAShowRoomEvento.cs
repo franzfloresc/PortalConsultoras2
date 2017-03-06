@@ -48,6 +48,7 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@NumeroPerfiles", DbType.Int32, showRoomEvento.NumeroPerfiles);
             Context.Database.AddInParameter(command, "@UsuarioCreacion", DbType.String, showRoomEvento.UsuarioCreacion);
             Context.Database.AddInParameter(command, "@TieneCategoria", DbType.Boolean, showRoomEvento.TieneCategoria);
+            Context.Database.AddInParameter(command, "@TieneCompraXcompra", DbType.Boolean, showRoomEvento.TieneCompraXcompra);
 
             int result = Context.ExecuteNonQuery(command);
 
@@ -411,6 +412,7 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@Descripcion3", DbType.AnsiString, entity.Descripcion3);
             Context.Database.AddInParameter(command, "@Imagen", DbType.AnsiString, entity.Imagen);
             Context.Database.AddInParameter(command, "@UsuarioCreacion", DbType.AnsiString, entity.UsuarioCreacion);
+            Context.Database.AddInParameter(command, "@MarcaProducto", DbType.AnsiString, entity.MarcaProducto);
 
             return Context.ExecuteNonQuery(command);
         }
@@ -427,6 +429,7 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@Descripcion3", DbType.AnsiString, entity.Descripcion3);
             Context.Database.AddInParameter(command, "@Imagen", DbType.AnsiString, entity.Imagen);
             Context.Database.AddInParameter(command, "@UsuarioModificacion", DbType.AnsiString, entity.UsuarioModificacion);
+            Context.Database.AddInParameter(command, "@MarcaProducto", DbType.AnsiString, entity.MarcaProducto);
 
             return Context.ExecuteNonQuery(command);
         }
@@ -583,6 +586,14 @@ namespace Portal.Consultoras.Data
 
             Context.ExecuteNonQuery(command);
         }
+
+        public IDataReader GetProductosCompraPorCompra(int EventoID, int CampaniaID)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("ShowRoom.GetShowRoomCompraPorCompra");
+            Context.Database.AddInParameter(command, "@EventoID", DbType.Int32, EventoID);
+            Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, CampaniaID);
+            return Context.ExecuteReader(command);
+        }
         
         public int UpdUpdEventoConsultoraPopup(BEShowRoomEventoConsultora entity, string tipo)
         {
@@ -594,5 +605,6 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@EventoConsultoraID", DbType.Int32, entity.EventoConsultoraID);
             return Context.ExecuteNonQuery(command);
         }
+
     }
 }

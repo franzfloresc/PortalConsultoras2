@@ -59,6 +59,8 @@ namespace Portal.Consultoras.Web.Models
 
         public bool TieneCategoria { get; set; }
 
+        public bool TieneCompraXcompra { get; set; }
+
         public string Simbolo { get; set; }
 
         public List<ShowRoomOfertaModel> ListaShowRoomOferta { get; set; }
@@ -68,5 +70,7 @@ namespace Portal.Consultoras.Web.Models
         public string CodigoIso { get; set; }
 
         public string FormatoCampania { get; set; }
+
+        public List<ShowRoomOfertaModel> ListaShowRoomCompraPorCompra { get; set; }
     }
 }

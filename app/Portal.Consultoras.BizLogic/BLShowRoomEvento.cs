@@ -451,11 +451,26 @@ namespace Portal.Consultoras.BizLogic
                 throw new Exception(ex.Message, ex);
             }
         }
-
-        public int UpdEventoConsultoraPopup(int paisID, BEShowRoomEventoConsultora entity, string tipo)
+        
+         public int UpdEventoConsultoraPopup(int paisID, BEShowRoomEventoConsultora entity, string tipo)
         {
             var dataAccess = new DAShowRoomEvento(paisID);
             return dataAccess.UpdUpdEventoConsultoraPopup(entity, tipo);
+        }
+
+
+        public List<BEShowRoomOferta> GetProductosCompraPorCompra(int paisId, int EventoID, int CampaniaID)
+        {
+            var lst = new List<BEShowRoomOferta>();
+            var DAPedidoWeb = new DAShowRoomEvento(paisId);
+
+            using (IDataReader reader = DAPedidoWeb.GetProductosCompraPorCompra(EventoID, CampaniaID))
+                while (reader.Read())
+                {
+                    var entidad = new BEShowRoomOferta(reader);
+                    lst.Add(entidad);
+                }
+            return lst;
         }
     }
 }
