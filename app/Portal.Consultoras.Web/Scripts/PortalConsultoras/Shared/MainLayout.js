@@ -115,12 +115,7 @@ $(document).ready(function () {
         closeOnEscape: true,
         width: 400,
         draggable: true,
-        buttons:
-        {
-            "Aceptar": function () {
-                $(this).dialog('close');
-            }
-        }
+        buttons: { "Aceptar": function () { $(this).dialog('close'); } }
     });
 
     $('#ModalFeDeErratas').dialog({
@@ -239,7 +234,7 @@ $(document).ready(function () {
         window.open(url, '_blank');
     });
 
-    $("#belcorpChat").click(function () {
+    $("body").on('click', '.belcorpChat', function () {
         var FechaChatPais = BelcorpFechaChat_Pais;
         var PaisISO = IsoPais
         var fechaActual = FechaActual;
