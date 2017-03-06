@@ -370,23 +370,23 @@ function CreateLoading() {
 }
 
 function waitingDialog(waiting) {
-    if (!$("#loadingScreen")) {
-        $(document.body).append('<div id="loadingScreen"></div>');
-    }
-    else if ($("#loadingScreen").length == 0) {
-        $(document.body).append('<div id="loadingScreen"></div>');
-    }
-
-    if (!$("#loadingScreen").hasClass('ui-dialog-content')) {
-        if ($("#loadingScreen").attr("data-dialog") != "1") {
-            CreateLoading();
-            $("#loadingScreen").attr("data-dialog", "1");
-        }
-    }
-    waiting = waiting || {};
-    $("#loadingScreen").find(".loadingScreen-titulo").html(waiting.title && '' != waiting.title ? waiting.title : 'Cargando');
-    $("#loadingScreen").find(".loadingScreen-mensaje").html(waiting.message && '' != waiting.message ? waiting.message : 'Espere, por favor...');
     try {
+        if (!$("#loadingScreen")) {
+            $(document.body).append('<div id="loadingScreen"></div>');
+        }
+        else if ($("#loadingScreen").length == 0) {
+            $(document.body).append('<div id="loadingScreen"></div>');
+        }
+
+        if (!$("#loadingScreen").hasClass('ui-dialog-content')) {
+            if ($("#loadingScreen").attr("data-dialog") != "1") {
+                CreateLoading();
+                $("#loadingScreen").attr("data-dialog", "1");
+            }
+        }
+        waiting = waiting || {};
+        $("#loadingScreen").find(".loadingScreen-titulo").html(waiting.title && '' != waiting.title ? waiting.title : 'Cargando');
+        $("#loadingScreen").find(".loadingScreen-mensaje").html(waiting.message && '' != waiting.message ? waiting.message : 'Espere, por favor...');
         $("#loadingScreen").dialog("open");
     }
     catch (err) {
@@ -398,6 +398,57 @@ function closeWaitingDialog() {
     catch (err) {
     }
 
+}
+
+function AbrirLoad(opcion){
+    try {
+        var isUrlMobile = $.trim(location.href).toLowerCase().indexOf("mobile") > 0;
+        if (isUrlMobile > 0) {
+            ShowLoading(opcion);
+        }
+        else {
+            waitingDialog(opcion);
+        }
+    } catch (e) {
+    
+    }
+}
+
+function CerrarLoad(opcion){
+    try {
+        var isUrlMobile = $.trim(location.href).toLowerCase().indexOf("mobile") > 0;
+        if (isUrlMobile > 0) {
+            CloseLoading(opcion);
+        }
+        else {
+            closeWaitingDialog(opcion);
+        }
+    } catch (e) {
+    
+    }
+}
+
+function AbrirMensaje(mensaje, titulo, fnAceptar) {
+    try {
+        var isUrlMobile = $.trim(location.href).toLowerCase().indexOf("mobile") > 0;
+        if (isUrlMobile > 0) {
+            $('#mensajeInformacionvalidado').html(mensaje);
+            $('#popupInformacionValidado').show();
+            if ($.isFunction(fnAceptar)) {
+                $('#popupInformacionValidado .btn_ok_mobile').off('click');
+                $('#popupInformacionValidado .btn_ok_mobile').on('click', fnAceptar);
+            }
+        }
+        else {
+            titulo = titulo || "MENSAJE";
+            $('#alertDialogMensajes .terminos_title_2').html(titulo);
+            $('#alertDialogMensajes .pop_pedido_mensaje').html(mensaje);
+            $('#alertDialogMensajes').dialog('open');
+        }
+        CerrarLoad();
+    } catch (e) {
+
+    }
 }
 
 function compare_dates(fecha, fecha2) {
@@ -981,3 +1032,4 @@ function InsertarProductoCompartido(objParameter, app) {
 }
 
 // Compartir Face
+ 

@@ -67,39 +67,40 @@ namespace Portal.Consultoras.Web.Controllers
         public ActionResult Index()
         {
             ViewBag.TerminoMostrar = 1;
-            
+
             try
             {
-                if (ValidarIngresoShowRoom(false))
-                {
-                    var showRoomEvento = userData.BeShowRoom;
-                    var codigoConsultora = userData.CodigoConsultora;
+                if (!ValidarIngresoShowRoom(false))
+                    return RedirectToAction("Index", "Bienvenida");
 
-                    Mapper.CreateMap<BEShowRoomEvento, ShowRoomEventoModel>()
-                        .ForMember(t => t.EventoID, f => f.MapFrom(c => c.EventoID))
-                        .ForMember(t => t.CampaniaID, f => f.MapFrom(c => c.CampaniaID))
-                        .ForMember(t => t.Tema, f => f.MapFrom(c => c.Tema))
-                        .ForMember(t => t.Nombre, f => f.MapFrom(c => c.Nombre))
-                        .ForMember(t => t.Imagen1, f => f.MapFrom(c => c.Imagen1))
-                        .ForMember(t => t.Imagen2, f => f.MapFrom(c => c.Imagen2))
-                        .ForMember(t => t.Descuento, f => f.MapFrom(c => c.Descuento));
+                var showRoomEvento = userData.BeShowRoom;
+                var codigoConsultora = userData.CodigoConsultora;
 
-                    ShowRoomEventoModel showRoomEventoModel =
-                        Mapper.Map<BEShowRoomEvento, ShowRoomEventoModel>(showRoomEvento);
-                    showRoomEventoModel.Simbolo = userData.Simbolo;
-                    showRoomEventoModel.CodigoIso = userData.CodigoISO;
+                Mapper.CreateMap<BEShowRoomEvento, ShowRoomEventoModel>()
+                    .ForMember(t => t.EventoID, f => f.MapFrom(c => c.EventoID))
+                    .ForMember(t => t.CampaniaID, f => f.MapFrom(c => c.CampaniaID))
+                    .ForMember(t => t.Tema, f => f.MapFrom(c => c.Tema))
+                    .ForMember(t => t.Nombre, f => f.MapFrom(c => c.Nombre))
+                    .ForMember(t => t.Imagen1, f => f.MapFrom(c => c.Imagen1))
+                    .ForMember(t => t.Imagen2, f => f.MapFrom(c => c.Imagen2))
+                    .ForMember(t => t.Descuento, f => f.MapFrom(c => c.Descuento));
 
-                    var fechaHoy = DateTime.Now.AddHours(userData.ZonaHoraria).Date;
-                    bool esFacturacion = fechaHoy >= userData.FechaInicioCampania.Date;
+                ShowRoomEventoModel showRoomEventoModel =
+                    Mapper.Map<BEShowRoomEvento, ShowRoomEventoModel>(showRoomEvento);
+                showRoomEventoModel.Simbolo = userData.Simbolo;
+                showRoomEventoModel.CodigoIso = userData.CodigoISO;
 
-                    var listaShowRoomOferta = ObtenerListaProductoShowRoom(userData.CampaniaID, codigoConsultora, esFacturacion);
-                                showRoomEventoModel.ListaShowRoomOferta = listaShowRoomOferta;
+                var fechaHoy = DateTime.Now.AddHours(userData.ZonaHoraria).Date;
+                bool esFacturacion = fechaHoy >= userData.FechaInicioCampania.Date;
 
-                    var listaDetalle = ObtenerPedidoWebDetalle();
-                    showRoomEventoModel.ListaShowRoomOferta.Update(o => o.Agregado = (listaDetalle.Find(p => p.CUV == o.CUV) ?? new BEPedidoWebDetalle()).PedidoDetalleID > 0 ? "block" : "none");
+                var listaShowRoomOferta = ObtenerListaProductoShowRoom(userData.CampaniaID, codigoConsultora, esFacturacion);
+                showRoomEventoModel.ListaShowRoomOferta = listaShowRoomOferta;
 
-                    return View(showRoomEventoModel);
-                }              
+                var listaDetalle = ObtenerPedidoWebDetalle();
+                showRoomEventoModel.ListaShowRoomOferta.Update(o => o.Agregado = (listaDetalle.Find(p => p.CUV == o.CUV) ?? new BEPedidoWebDetalle()).PedidoDetalleID > 0 ? "block" : "none");
+
+                return View(showRoomEventoModel);
+
             }
             catch (Exception ex)
             {
