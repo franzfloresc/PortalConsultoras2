@@ -2061,14 +2061,14 @@ function HorarioRestringido(mostrarAlerta) {
                 // esta en horario restringido
                 if (data.success == true) {
                     if (mostrarAlerta == true)
-                        alert_msg(data.message);
+                        messageInfoError(data.message);
                     horarioRestringido = true;
                 }
             }
         },
         error: function (data, error) {
             if (checkTimeout(data)) {
-                alert_msg(data.message);
+                messageInfoError(data.message);
             }
         }
     });
@@ -3236,7 +3236,7 @@ function UpdateConCantidad(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion
         error: function (data, error) {
             CerrarSplash();
             if (checkTimeout(data)) {
-                alert_msg(data.message);
+                messageInfoError(data.message);
             }
         }
     });
@@ -4009,7 +4009,7 @@ function CargarProductoAgotados() {
 
 function AjaxError(data) {
     CerrarSplash();
-    if (checkTimeout(data)) alert_msg(data.message);
+    if (checkTimeout(data)) messageInfoError(data.message);
 }
 
 function CargarEstrategiasEspeciales(objInput, e) {
@@ -4206,7 +4206,7 @@ function ReservadoOEnHorarioRestringido(mostrarAlerta) {
             if (data.pedidoReservado) {
                 if (mostrarAlerta == true) {
                     CerrarSplash();
-                    alert_msg(data.message);
+                    messageInfoError(data.message);
                 }
                 else {
                     AbrirSplash();
@@ -4214,12 +4214,12 @@ function ReservadoOEnHorarioRestringido(mostrarAlerta) {
                 }
             }
             else if (mostrarAlerta == true) {
-                alert_msg(data.message);
+                messageInfoError(data.message);
             }
         },
         error: function (error, x) {
             console.log(error, x);
-            alert_msg('Ocurrió un error al intentar validar el horario restringido o si el pedido está reservado. Por favor inténtelo en unos minutos.');
+            messageInfoError('Ocurrió un error al intentar validar el horario restringido o si el pedido está reservado. Por favor inténtelo en unos minutos.');
         }
     });
     return restringido;
