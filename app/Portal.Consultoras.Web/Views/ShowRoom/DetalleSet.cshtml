@@ -104,15 +104,17 @@
                                 <input type="hidden" class="DescripcionMarca" value="@item.DescripcionMarca" />
                                 <input type="hidden" class="posicionEstrategia" value="@posicionCpcVertical" />
                             </div>
-                            <div class="titulo_compra_POP" style="font-size: 18px;">PROMOCIÓN</div>
-                            <div class="precio_set_compra" style="font-size: 16px;">A SÓLO @item.Simbolo @item.PrecioCatalogo</div>
+                            <div class="titulo_compra_POP" style="font-size: 11px;">PROMOCIÓN</div>
+                            <div class="precio_set_compra" style="font-size: 14px;"><b>A SÓLO @item.Simbolo @item.PrecioCatalogo</b> <br/> POR LA COMPRA DE 2 SETS</div>
                             <div class="content_imagen_carrusel_compra verDetalleCompraPorCompra" data-img="">
                                 <img src="@item.ImagenProducto" class="imagen_producto" />
+                                <a class="ver_detalle_carrusel" style="width: 90%;">VER DETALLE</a>
                             </div>
-                            <div class="producto_compra">LLévate un @item.Descripcion por la compra de 2 Sets o más.</div>
-                            <hr class="clear"/>
-                            <a data-btn-agregar-cpc="" class="btn_agrega_carrusel_compra">AGREGALO</a>
+                            <div class="producto_compra">@item.Descripcion</div>
                             <div class="descripcion_producto_compra" style="text-align: center;">@item.DescripcionLegal</div>
+                            <div class="descripcion_producto_compra" style="text-align: center;">Valorizado en @item.Simbolo @item.PrecioOferta</div>
+                            <hr class="clear"/>
+                            <a data-btn-agregar-cpc="" class="btn_agrega_carrusel_compra">AGRÉGALO</a>                            
                         </div>
                         {
                             posicionCpcVertical++;
@@ -213,14 +215,15 @@
                                 <input type="hidden" class="posicionEstrategia" value="@posicionCpc"/>
                             </div>
                             <div class="titulo_compra_POP">PROMOCIÓN</div>
-                            <div class="precio_set_compra">A SÓLO @item.Simbolo @item.PrecioCatalogo</div>
+                            <div class="precio_set_compra"><b>A SÓLO @item.Simbolo @item.PrecioCatalogo</b> POR LA COMPRA DE DOS SETS</div>
                             <div class="content_imagen_compra" data-img="">
                                 <img src="@item.ImagenProducto" class="imagen_producto">
                             </div>
                             <div class="content_datos_carrusel">
-                                <div class="producto_compra">LLévate un @item.Descripcion por la compra de 2 Sets o más.</div>
+                                <div class="producto_compra">@item.Descripcion</div>
                                 <div class="descripcion_producto_compra">@item.DescripcionLegal</div>
-                                <div class="liquidacion_rango_home">
+                                <div class="descripcion_producto_compra">Valorizado en @item.Simbolo @item.PrecioOferta</div>
+                                @*<div class="liquidacion_rango_home">
                                     <input type="text" value="1" min="1" max="99" size="2" maxlength="2"
                                            class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral"
                                            oninput="maxLengthCheck(this, 2)" onkeypress=" return FuncionesGenerales.ValidarSoloNumeros(event); "
@@ -229,12 +232,11 @@
                                         <a class="mas" data-cantidad-agregar="+"><img src="/Content/Images/Esika/mas.png" alt=""></a>
                                         <a class="menos" data-cantidad-agregar="-"><img src="/Content/Images/Esika/menos.png" alt=""></a>
                                     </div>
-                                </div>
-                                <a data-btn-agregar-cpc="" class="boton_Agregalo_home btn_aregar_set" onclick="" style="width: 72%;">
+                                </div>*@
+                                <a data-btn-agregar-cpc="" class="boton_Agregalo_home btn_aregar_set" onclick="" style="width: 100%;">
                                     AGRÉGALO
                                 </a>
                                 <hr class="clear"/>
-                                <div class="notificacion_compra">Compra un set más y llévate la oferta</div>
                             </div>
                             <hr class="clear"/>
                         </div>
