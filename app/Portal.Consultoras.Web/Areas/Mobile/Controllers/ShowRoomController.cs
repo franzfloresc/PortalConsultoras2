@@ -8,7 +8,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.ServiceModel;
 using System.Web.Mvc;
-using Portal.Consultoras.Web.Controllers;
+using Portal.Consultoras.Web.ServicePROLConsultas;
+using System.Configuration;
 
 namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 {
@@ -146,6 +147,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                         int diasDespues = showRoomEvento.DiasDespues;
 
                         var fechaHoy = DateTime.Now.AddHours(userData.ZonaHoraria).Date;
+                        bool esFacturacion = fechaHoy >= userData.FechaInicioCampania.Date;
 
                         if (!(fechaHoy >= userData.FechaInicioCampania.AddDays(-diasAntes).Date &&
                               fechaHoy <= userData.FechaInicioCampania.AddDays(diasDespues).Date))
@@ -234,7 +236,10 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
                             showRoomEventoModel.ListaShowRoomOferta = listaShowRoomOfertaModel;
 
-                            
+                            var listaCompraPorCompra = GetProductosCompraPorCompra(esFacturacion, showRoomEventoModel.EventoID,
+                        showRoomEventoModel.CampaniaID);
+                            showRoomEventoModel.ListaShowRoomCompraPorCompra = listaCompraPorCompra;
+
 
 
                             return showRoomEventoModel;
@@ -260,7 +265,147 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 return RedirectToAction("Index", "Bienvenida");
 
             var modelo = ViewDetalleOferta(id);
-            return View( modelo);
+
+            var fechaHoy = DateTime.Now.AddHours(userData.ZonaHoraria).Date;
+            bool esFacturacion = fechaHoy >= userData.FechaInicioCampania.Date;
+
+            var listaCompraPorCompra = GetProductosCompraPorCompra(esFacturacion, userData.BeShowRoom.EventoID,
+                        userData.BeShowRoom.CampaniaID);
+            modelo.ListaShowRoomCompraPorCompra = listaCompraPorCompra;
+            modelo.TieneCompraXcompra = userData.BeShowRoom.TieneCompraXcompra;
+
+
+            return View("DetalleSet", modelo);
         }
+
+        public List<ShowRoomOfertaModel> GetProductosCompraPorCompra(bool esFacturacion, int eventoId, int campaniaId)
+        {
+            try
+            {
+                var listaShowRoomCPC = new List<ShowRoomOfertaModel>();
+                var listaShowRoomCPCFinal = new List<ShowRoomOfertaModel>();
+
+                //using (PedidoServiceClient sv = new PedidoServiceClient())
+                //{
+                //    listaShowRoomCPC = sv.GetProductosCompraPorCompra(userData.PaisID, eventoId, campaniaId).ToList();
+                //}
+
+                //var listaTieneStock = new List<Lista>();
+                //if (esFacturacion)
+                //{
+                //    string codigoSap = "";
+                //    foreach (var beProducto in listaShowRoomCPC)
+                //    {
+                //        if (!string.IsNullOrEmpty(beProducto.CodigoProducto))
+                //        {
+                //            codigoSap += beProducto.CodigoProducto + "|";
+                //        }
+                //    }
+
+                //    codigoSap = codigoSap == "" ? "" : codigoSap.Substring(0, codigoSap.Length - 1);
+
+                //    try
+                //    {
+                //        if (!string.IsNullOrEmpty(codigoSap))
+                //        {
+                //            using (var sv = new ServicePROLConsultas.wsConsulta())
+                //            {
+                //                sv.Url = ConfigurationManager.AppSettings["RutaServicePROLConsultas"];
+                //                listaTieneStock = sv.ConsultaStock(codigoSap, userData.CodigoISO).ToList();
+                //            }
+                //        }
+                //    }
+                //    catch (Exception ex)
+                //    {
+                //        LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+
+                //        listaTieneStock = new List<Lista>();
+                //    }
+                //}
+
+                //foreach (var beShowRoomOferta in listaShowRoomCPC)
+                //{
+                //    bool tieneStockProl = true;
+                //    if (esFacturacion)
+                //    {
+                //        var itemStockProl = listaTieneStock.FirstOrDefault(p => p.Codsap.ToString() == beShowRoomOferta.CodigoProducto);
+                //        if (itemStockProl != null)
+                //            tieneStockProl = itemStockProl.estado == 1;
+                //    }
+
+                //    if (tieneStockProl)
+                //    {
+                //        listaShowRoomCPCFinal.Add(beShowRoomOferta);
+                //    }
+                //}
+
+                ////Session[Constantes.ConstSession.ListaProductoShowRoom] = listaShowRoomCPCFinal;
+                //var listadoProductosCPCModel1 = Mapper.Map<List<BEShowRoomOferta>, List<ShowRoomOfertaModel>>(listaShowRoomCPCFinal);
+
+
+                listaShowRoomCPCFinal.Add(new ShowRoomOfertaModel
+                {
+                    OfertaShowRoomID = 1,
+                    CUV = "00006",
+                    MarcaID = 1,
+                    DescripcionMarca = GetDescripcionMarca(1),
+                    PrecioCatalogo = 10000,
+                    ConfiguracionOfertaID = 0,
+                    Descripcion = "Reloj Espheric 1",
+                    DescripcionLegal = "Correa tipo cuero y pieza central plateada con 37 cristales version 1.",
+                    Simbolo = userData.Simbolo,
+                    ImagenProducto = "https://s3-sa-east-1.amazonaws.com/appcatalogo/CO/201705/L/productos/CO_210066158.jpg"
+                });
+                listaShowRoomCPCFinal.Add(new ShowRoomOfertaModel
+                {
+                    OfertaShowRoomID = 1,
+                    CUV = "00012",
+                    MarcaID = 1,
+                    DescripcionMarca = GetDescripcionMarca(1),
+                    PrecioCatalogo = 20000,
+                    ConfiguracionOfertaID = 0,
+                    Descripcion = "Reloj Espheric 2",
+                    DescripcionLegal = "Correa tipo cuero y pieza central plateada con 37 cristales version 2.",
+                    Simbolo = userData.Simbolo,
+                    ImagenProducto = "https://s3-sa-east-1.amazonaws.com/appcatalogo/CO/201705/L/productos/CO_210066158.jpg"
+                });
+                listaShowRoomCPCFinal.Add(new ShowRoomOfertaModel
+                {
+                    OfertaShowRoomID = 1,
+                    CUV = "00037",
+                    MarcaID = 1,
+                    DescripcionMarca = GetDescripcionMarca(1),
+                    PrecioCatalogo = 30000,
+                    ConfiguracionOfertaID = 0,
+                    Descripcion = "Reloj Espheric 3",
+                    DescripcionLegal = "Correa tipo cuero y pieza central plateada con 37 cristales version 3.",
+                    Simbolo = userData.Simbolo,
+                    ImagenProducto = "https://s3-sa-east-1.amazonaws.com/appcatalogo/CO/201705/L/productos/CO_210066158.jpg"
+                });
+                listaShowRoomCPCFinal.Add(new ShowRoomOfertaModel
+                {
+                    OfertaShowRoomID = 1,
+                    CUV = "00040",
+                    MarcaID = 1,
+                    DescripcionMarca = GetDescripcionMarca(1),
+                    PrecioCatalogo = 40000,
+                    ConfiguracionOfertaID = 0,
+                    Descripcion = "Reloj Espheric 4",
+                    DescripcionLegal = "Correa tipo cuero y pieza central plateada con 37 cristales version 4.",
+                    Simbolo = userData.Simbolo,
+                    ImagenProducto = "https://s3-sa-east-1.amazonaws.com/appcatalogo/CO/201705/L/productos/CO_210066158.jpg"
+                });
+
+                return listaShowRoomCPCFinal;
+            }
+            catch (Exception)
+            {
+                return null;
+                throw;
+
+            }
+        }
+
+
     }
 }
