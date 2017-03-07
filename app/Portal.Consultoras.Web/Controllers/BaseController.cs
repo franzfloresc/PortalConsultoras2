@@ -1590,7 +1590,12 @@ namespace Portal.Consultoras.Web.Controllers
         {
             DateTime fechaHoy = DateTime.Now.AddHours(zonaHoraria).Date;
             return fechaHoy >= fechaInicioCampania.Date ? 0 : (fechaInicioCampania.Subtract(DateTime.Now.AddHours(zonaHoraria)).Days + 1);
-        } 
+        }
+
+        protected JsonResult ErrorJson(string message)
+        {
+            return Json(new { success = false, message = message }, JsonRequestBehavior.AllowGet);
+        }
 
         #endregion
 
