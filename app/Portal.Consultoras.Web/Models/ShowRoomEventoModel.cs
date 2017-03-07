@@ -51,10 +51,6 @@ namespace Portal.Consultoras.Web.Models
 
         public string ImagenPreventaDigital { get; set; }
 
-        public string RutaShowRoomPopup { get; set; }
-
-        public string RutaShowRoomBannerLateral { get; set; }
-
         public int Estado { get; set; }
 
         public bool TieneCategoria { get; set; }
@@ -72,5 +68,7 @@ namespace Portal.Consultoras.Web.Models
         public string FormatoCampania { get; set; }
 
         public List<ShowRoomOfertaModel> ListaShowRoomCompraPorCompra { get; set; }
+
+        public string UrlTerminosCondiciones { get; set; }
     }
 }

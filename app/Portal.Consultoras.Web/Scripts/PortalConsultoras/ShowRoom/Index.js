@@ -68,8 +68,7 @@ $(document).ready(function () {
         });        
     });
 
-    var link = '@Model.RutaShowRoomPopup';
-    $("#linkTerminosCondicionesShowRoom").attr("href", link);
+    $("#linkTerminosCondicionesShowRoom").attr("href", urlTerminosCondiciones);
 });
 
 function maxLengthCheck(object, cantidadMaxima) {
