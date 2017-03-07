@@ -101,9 +101,9 @@ namespace Portal.Consultoras.Web.Controllers
                 var listaDetalle = ObtenerPedidoWebDetalle();
                 showRoomEventoModel.ListaShowRoomOferta.Update(o => o.Agregado = (listaDetalle.Find(p => p.CUV == o.CUV) ?? new BEPedidoWebDetalle()).PedidoDetalleID > 0 ? "block" : "none");
 
-                    var listaCompraPorCompra = GetProductosCompraPorCompra(esFacturacion, showRoomEventoModel.EventoID,
-                        showRoomEventoModel.CampaniaID);
-                    showRoomEventoModel.ListaShowRoomCompraPorCompra = listaCompraPorCompra;
+                var listaCompraPorCompra = GetProductosCompraPorCompra(esFacturacion, showRoomEventoModel.EventoID,
+                    showRoomEventoModel.CampaniaID);
+                showRoomEventoModel.ListaShowRoomCompraPorCompra = listaCompraPorCompra;
 
                 return View(showRoomEventoModel);
 
@@ -2383,15 +2383,18 @@ namespace Portal.Consultoras.Web.Controllers
                 var listaShowRoomCPC = new List<BEShowRoomOferta>();
                 var listaShowRoomCPCFinal = new List<BEShowRoomOferta>();
 
+                var NumeroCamoanias = Convert.ToInt32(ConfigurationManager.AppSettings["NumeroCampanias"]);
+                var listaShowRoomProductoCatalogo = new List<BEShowRoomCompraPorCompra>();
+
                 using (PedidoServiceClient sv = new PedidoServiceClient())
                 {
-                    listaShowRoomCPC = sv.GetProductosCompraPorCompra(userData.PaisID, eventoId, campaniaId).ToList();
+                    listaShowRoomCPC = sv.GetProductosCompraPorCompra(userData.PaisID, eventoId, campaniaId).ToList();                    
                 }
 
+                string codigoSap = "";
                 var listaTieneStock = new List<Lista>();
                 if (esFacturacion)
-                {
-                    string codigoSap = "";
+                {                    
                     foreach (var beProducto in listaShowRoomCPC)
                     {
                         if (!string.IsNullOrEmpty(beProducto.CodigoProducto))
@@ -2421,6 +2424,7 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                 }
 
+                codigoSap = "";
                 foreach (var beShowRoomOferta in listaShowRoomCPC)
                 {
                     bool tieneStockProl = true;
@@ -2433,9 +2437,17 @@ namespace Portal.Consultoras.Web.Controllers
 
                     if (tieneStockProl)
                     {
+                        codigoSap += beShowRoomOferta.CodigoProducto + "|";
                         listaShowRoomCPCFinal.Add(beShowRoomOferta);
                     }
                 }
+
+                using (PedidoServiceClient sv = new PedidoServiceClient())
+                {
+                    listaShowRoomProductoCatalogo = sv.GetProductoCatalogoPerzonalizadoXCodigoSap(userData.PaisID, userData.CodigoISO, campaniaId, codigoSap, NumeroCamoanias).ToList();
+                }
+
+
 
                 //Session[Constantes.ConstSession.ListaProductoShowRoom] = listaShowRoomCPCFinal;
                 var listadoProductosCPCModel1 = Mapper.Map<List<BEShowRoomOferta>, List<ShowRoomOfertaModel>>(listaShowRoomCPCFinal);

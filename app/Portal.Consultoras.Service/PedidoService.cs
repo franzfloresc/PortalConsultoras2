@@ -1653,6 +1653,11 @@ namespace Portal.Consultoras.Service
         {
             return BLShowRoomEvento.GetProductosCompraPorCompra(paisId, EventoID, CampaniaID);
         }
+
+        public List<BEShowRoomCompraPorCompra> GetProductoCatalogoPerzonalizadoXCodigoSap(int paisId, string CodigoIso, int CampaniaID, string CodigoSap, int CantCampanias)
+        {
+            return BLShowRoomEvento.GetProductoCatalogoPerzonalizadoXCodigoSap(paisId, CodigoIso, CampaniaID, CodigoSap, CantCampanias);
+        }
         #endregion
 
         #region Producto SUgerido

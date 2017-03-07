@@ -465,5 +465,19 @@ namespace Portal.Consultoras.BizLogic
                 }
             return lst;
         }
+
+        public List<BEShowRoomCompraPorCompra> GetProductoCatalogoPerzonalizadoXCodigoSap(int paisId, string CodigoIso, int CampaniaID, string CodigoSap, int CantCampanias)
+        {
+            var lst = new List<BEShowRoomCompraPorCompra>();
+            var DAPedidoWeb = new DAShowRoomEvento(paisId);
+
+            using (IDataReader reader = DAPedidoWeb.GetProductoCatalogoPerzonalizadoXCodigoSap(CodigoIso, CampaniaID, CodigoSap, CantCampanias))
+                while (reader.Read())
+                {
+                    var entidad = new BEShowRoomCompraPorCompra(reader);
+                    lst.Add(entidad);
+                }
+            return lst;
+        }
     }
 }

@@ -17,6 +17,7 @@ var popupListaPrioridad = popupListaPrioridad || new Array();
 //popupListaPrioridad = {Codigo, Prioridad, Activo, Hijos}
 
 $(document).ready(function () {
+    //Temporal();
     $('.contenedor_img_perfil').on('click', CargarCamara);
     $('#imgFotoUsuario').error(function () {
         $('#imgFotoUsuario').hide();
@@ -4005,3 +4006,25 @@ function VerShowRoomVenta() {
     document.location.href = urlShowRoomVenta;
     $('#PopShowroomVenta').hide();
 }
+
+//function Temporal() {
+//    $.ajax({
+//        type: 'POST',
+//        url: baseUrl + 'ShowRoom/GetProductosCompraPorCompra',
+//        data: JSON.stringify(),
+//        dataType: 'Json',
+//        contentType: 'application/json; charset=utf-8',
+//        success: function (data) {
+//            alert_msg(data.message);
+//            if (data.success) {
+//                //$('#imgFotoUsuario').show();
+//                //$('#imgFotoUsuarioDefault').hide();
+//                //$('#imgFotoUsuario').attr('src', data.imagen + '?' + Math.random());
+//            }
+//        },
+//        error: function (data, error) {
+//            //console.log(error);
+//        },
+//        complete: closeWaitingDialog
+//    });
+//}
