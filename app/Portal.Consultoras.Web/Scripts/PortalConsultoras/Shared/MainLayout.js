@@ -257,6 +257,7 @@ $(document).ready(function () {
         }
     });
 
+    $("body").on('click', '.belcorpChat', function () {
         var FechaChatPais = BelcorpFechaChat_Pais;
         var PaisISO = IsoPais
         var fechaActual = FechaActual;
