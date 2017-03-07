@@ -145,11 +145,12 @@
         <div class="oc_title">
             OTRAS CONSULTORAS COMPRARON
         </div>
-        <div class="content_carrusel_intriga">
+        <div class="content_carrusel_intriga" id="divEstrategias">
+            @{ var posicionx = 0; }
             <div class="variable-width">
-                @{ var posicionx = 1; }
                 @foreach (var oferta in Model.ListaOfertaShowRoom)
                 {
+                    posicionx++;
                     <div class="slider_item" data-posicion="@posicionx" data-item="@oferta.OfertaShowRoomID" data-position="@posicionx">
                         <div data-campos="" style="display:none;">
                             <input type="hidden" class="hdOfertaShowRoomID" value="@oferta.OfertaShowRoomID" />
@@ -169,13 +170,10 @@
                             <span class="price">@oferta.Simbolo @oferta.FormatoPrecioCatalogo</span>
                         </a>
                     </div>
-                    {
-                        posicionx++;
-                    }
                 }
             </div>
-            <div class="content_orden_carrusel">
-                <div class="orden_listado_numero">2 / 5</div>
+            <div class="content_orden_carrusel" data-posicion-set="">
+                <div class="orden_listado_numero"><span data-posicion-current=""></span> / @posicionx</div>
                 <div class="linea_separadora_mobile" style="margin-top:-7px;"></div>
                 <div class="orden_flecha"><img src="@Url.Content("~/Content/Images/Esika/flecha_orden.png")" alt="flecha" /></div>
                 <div class="orden_flecha" style="right:0;"><img src="@Url.Content("~/Content/Images/Esika/flecha_orden_right.png")" alt="flecha" /></div>

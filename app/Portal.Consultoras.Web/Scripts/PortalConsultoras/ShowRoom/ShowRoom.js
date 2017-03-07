@@ -77,20 +77,13 @@ $(document).ready(function () {
 
         $("footer").hide();
 
-        $(".slick-list").on('swipe', function (event, slick, direction) {
-
-            var posicion = $("#posicionEstrategia").val();
-            posicion = Math.max(parseInt(posicion), 0);
-
-            if (direction == 'left') {
-                TagManagerCarruselSiguiente(true);
-            } else if (direction == 'right') {
-                TagManagerCarruselPrevia(true);
-            }
-
-        });
-
-        $('.variable-width').slick({
+        $('.variable-width').on('init', function (event, slick) {
+            setTimeout(function () {
+                slick.setPosition();
+                slick.slickGoTo(1);
+                $("#divEstrategias").find("[data-posicion-set]").find(".orden_listado_numero").find("[data-posicion-current]").html(2);
+            }, 500);
+        }).slick({
             dots: true,
             infinite: false,
             speed: 300,
@@ -102,6 +95,17 @@ $(document).ready(function () {
             centerMode: true,
             arrows: false,
             dots: false,
+        }).on('swipe', function (event, slick, direction) {
+            var posicion = slick.currentSlide;
+            posicion = Math.max(parseInt(posicion), 0);
+
+            if (direction == 'left') { // dedecha a izquierda
+                posicion = posicion + 1;
+            } else if (direction == 'right') {
+                posicion = posicion + 1;
+            }
+
+            $("#divEstrategias").find("[data-posicion-set]").find(".orden_listado_numero").find("[data-posicion-current]").html(posicion);
         });
 
         $('.content_compra_carrusel').slick({
