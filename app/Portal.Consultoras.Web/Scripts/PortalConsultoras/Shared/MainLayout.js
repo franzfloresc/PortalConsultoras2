@@ -25,7 +25,7 @@ $(document).ready(function () {
             }
 
             if ($('[data-popup-main]').is(':visible')) {
-                var functionHide = $('[data-popup-main]').attr("data-popup-function-hide");
+                var functionHide = $.trim($('[data-popup-main]').attr("data-popup-function-hide"));
                 if (functionHide != "") {
                     setTimeout(functionHide + "()", 100);
                 }

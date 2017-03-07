@@ -384,6 +384,9 @@ function CargarEstrategiasEspeciales(objInput, e) {
                 $.each(estrategia.Detalle, function (i, item) {
                     item.Hermanos = item.Hermanos || new Array();
                     item.CUVSelect = i == 0 ? item.CUV : "";
+                    item.ImagenBulkSelect = i == 0 ? item.ImagenBulk : "";
+                    item.NombreBulkSelect = i == 0 ? item.NombreBulk : "";
+
                     if (item.Hermanos.length > 0) {
                         $.each(item.Hermanos, function (i, itemH) {
                             itemH.CUVSelect = "";
@@ -399,11 +402,12 @@ function CargarEstrategiasEspeciales(objInput, e) {
                     }
                 });
                 estrategia.CUVSelect = estrategia.Detalle[0].CUVSelect;
+                estrategia.ImagenBulkSelect = estrategia.Detalle[0].ImagenBulkSelect;
+                estrategia.NombreBulkSelect = estrategia.Detalle[0].NombreBulkSelect;
             }
             else {
                 estrategia.CodigoEstrategia = "";
             }
-            console.log(estrategia.Detalle);
         }
         var html = ArmarPopupLanzamiento(estrategia);
         $('#popupDetalleCarousel_lanzamiento').html(html);
@@ -418,7 +422,7 @@ function CargarEstrategiasEspeciales(objInput, e) {
         $('body').css({ 'overflow-x': 'hidden' });
         $('body').css({ 'overflow-y': 'hidden' });
         $(".indicador_tono").click();
-        $(".indicador_tono").click();
+
         EstrategiaMostrarMasTonos(true);
         TrackingJetloreView(estrategia.CUV2, $("#hdCampaniaCodigo").val());
     };
@@ -445,13 +449,25 @@ function CargarEstrategiasEspeciales(objInput, e) {
 function EstrategiaMostrarMasTonos(menos) {
     if (tipoOrigenEstrategia == 2 || tipoOrigenEstrategia == 21) {
         if (menos) {
-            var h = $($("#popupDetalleCarousel_lanzamiento [data-tono-div] [data-tono-change]")[0]).height();
-            var w = $($("#popupDetalleCarousel_lanzamiento [data-tono-div] [data-tono-change]")[0]).width();
+            var tonos = $("#popupDetalleCarousel_lanzamiento [data-tono-div] [data-tono-change]");
+            var h = $(tonos[0]).height();
+            var w = $(tonos[0]).width();
+            var total = tonos.length;
+            var t = $("#popupDetalleCarousel_lanzamiento [data-tono-div]").width();
+            if (w * total > t) {
+                $(".indicador_tono").show();
+            }
+            else {
+                $(".indicador_tono").hide();
+
+            }
             $("#popupDetalleCarousel_lanzamiento [data-tono-div]").css("height", Math.max(h, w) + 5);
         }
         else {
             $("#popupDetalleCarousel_lanzamiento [data-tono-div]").css("height", "auto");
         }
+
+
     }
 }
 function CargarEstrategiaSet(cuv) {
