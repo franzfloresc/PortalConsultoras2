@@ -281,9 +281,9 @@ namespace Portal.Consultoras.Service
             BLConsultoraFicticia.DelConsultoraFicticia(paisID, CodigoConsultora);
         }
 
-        public void UpdConsultoraFicticia(string CodigoUsuario, string CodigoConsultora, int paisID, Int64 ConsultoraID)
+        public void UpdConsultoraFicticia(string CodigoUsuario, string CodigoConsultora, int paisID, Int64 ConsultoraID, string Clave)
         {
-            BLConsultoraFicticia.UpdConsultoraFicticia(CodigoUsuario, CodigoConsultora, paisID, ConsultoraID);
+            BLConsultoraFicticia.UpdConsultoraFicticia(CodigoUsuario, CodigoConsultora, paisID, ConsultoraID, Clave);
         }
 
         public string GetCodigoConsultoraAsociada(int paisID, string CodigoUsuario)
