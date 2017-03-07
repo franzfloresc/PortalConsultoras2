@@ -464,7 +464,6 @@ function isInt(n) {
 
 // valida si ha ocurrido un timeout durante una llamada ajax
 function checkTimeout(data) {
-    //debugger;
     var thereIsStillTime = true;
 
     if (data) {
@@ -490,7 +489,6 @@ function checkTimeout(data) {
 
 /*EPD-180*/
 function checkUserSession() {
-    //debugger;
     var res = -1;
     
     $.ajax({
