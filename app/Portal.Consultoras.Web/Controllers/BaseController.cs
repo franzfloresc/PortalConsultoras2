@@ -887,9 +887,14 @@ namespace Portal.Consultoras.Web.Controllers
         protected void CargarEntidadesShowRoom(UsuarioModel model)
         {
             if (model == null) return;
-            if (model.CargoEntidadesShowRoom) return;
-
             Session["EsShowRoom"] = "0";
+            if (model.CargoEntidadesShowRoom)
+            {
+                Session["EsShowRoom"] = "1";
+                return;
+            }
+
+            
 
             var paisesShowRoom = ConfigurationManager.AppSettings["PaisesShowRoom"];
             if (paisesShowRoom.Contains(model.CodigoISO))
