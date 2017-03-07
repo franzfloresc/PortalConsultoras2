@@ -5378,7 +5378,7 @@ body{
     display:none;
 }
 .pestana_lbel{
-    background: url(../../../Images/mobile/Lbel/pestana_lbel.png) no-repeat;
+    background: url(../../../Images/mobile/Lbel/pestana_lbel.png) no-repeat top center;
     width: 290px;
     margin: 0 auto;
     height: 20px;
@@ -10070,6 +10070,10 @@ span.icon-advertencia{
        right:10px;
        top:10px;
     }
+
+.vineta {
+    list-style-image: url("https://www.somosbelcorp.com/Content/Images/Lbel/indicador_pedido.png");
+}
 
 
 /*NUEVO OF*/

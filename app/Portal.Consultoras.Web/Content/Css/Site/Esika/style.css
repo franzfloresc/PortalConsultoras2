@@ -33493,3 +33493,7 @@ h1#penmostreo .campana {
     padding-top: 30px;
     padding-bottom: 30px;
 }
+
+.vineta {
+    list-style-image: url("https://www.somosbelcorp.com/Content/Images/Esika/indicador_pedido.png");
+}

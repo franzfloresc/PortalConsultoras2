@@ -1826,14 +1826,14 @@ function HorarioRestringido(mostrarAlerta) {
                 // esta en horario restringido
                 if (data.success == true) {
                     if (mostrarAlerta == true)
-                        alert_msg(data.message);
+                        messageInfoError(data.message);
                     horarioRestringido = true;
                 }
             }
         },
         error: function (data, error) {
             if (checkTimeout(data)) {
-                alert_msg(data.message);
+                messageInfoError(data.message);
             }
         }
     });
@@ -2722,7 +2722,7 @@ function UpdateConCantidad(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion
         error: function (data, error) {
             CerrarSplash();
             if (checkTimeout(data)) {
-                alert_msg(data.message);
+                messageInfoError(data.message);
             }
         }
     });
@@ -3499,10 +3499,64 @@ function CargarProductoAgotados() {
 
 function AjaxError(data) {
     CerrarSplash();
-    if (checkTimeout(data)) {
-        alert_msg(data.message);
+    if (checkTimeout(data)) messageInfoError(data.message);
+}
+
+function CargarEstrategiasEspeciales(objInput, e) {
+    
+    if ($(e.target).attr('class') === undefined || $(e.target).attr('class').indexOf('js-no-popup') == -1) {
+        var estrategia = JSON.parse($(objInput).attr("data-estrategia"));
+        if (estrategia.TipoEstrategiaImagenMostrar == '2') {
+            var html = ArmarPopupPackNuevas(estrategia);
+            $('#popupDetalleCarousel_packNuevas').html(html);
+            $('#popupDetalleCarousel_packNuevas').show();
+            TrackingJetloreView(estrategia.CUV2, $("#hdCampaniaCodigo").val())
+
+        } else if (estrategia.TipoEstrategiaImagenMostrar == '5' || estrategia.TipoEstrategiaImagenMostrar == '3') {
+            var html = ArmarPopupLanzamiento(estrategia);
+            $('#popupDetalleCarousel_lanzamiento').html(html);
+            //if ($('#popupDetalleCarousel_lanzamiento').find('[data-prod-descripcion]').html().length > 40) {
+            //    $('#popupDetalleCarousel_lanzamiento').find('[data-prod-descripcion]').addClass('nombre_producto22');
+            //    $('#popupDetalleCarousel_lanzamiento').find('.nombre_producto22').removeClass('nombre_producto');
+            //    //$('#popupDetalleCarousel_lanzamiento').find('.nombre_producto22').children()[0].innerHTML = "LBel Mithyka Eau Parfum 50ml+Cyzone Love Bomb Eau de Parfum 30ml+Esika Labial Color HD Tono Pimienta Caliente+Esika Agu Shampoo Manzanilla 1L";
+            //}
+
+            $('#popupDetalleCarousel_lanzamiento').show();
+            TrackingJetloreView(estrategia.CUV2, $("#hdCampaniaCodigo").val())
+
+        };
+        dataLayer.push({
+            'event': 'productClick',
+            'ecommerce': {
+                'click': {
+                    'actionField': { 'list': 'Ofertas para ti – Pedidos' },
+                    'products': [{
+                        'id': estrategia.CUV2,
+                        'name': (estrategia.DescripcionCUVSplit == undefined || estrategia.DescripcionCUVSplit == '') ? estrategia.DescripcionCompleta : estrategia.DescripcionCUVSplit,
+                        'price': estrategia.Precio2.toString(),
+                        'brand': estrategia.DescripcionMarca,
+                        'category': 'NO DISPONIBLE',
+                        'variant': estrategia.DescripcionEstrategia,
+                        'position': estrategia.Posicion
+                    }]
+                }
+            }
+        });
+    } else {
+        return false;
     }
-    }
+};
+function ArmarPopupPackNuevas(obj) {
+    return SetHandlebars("#packnuevas-template", obj);
+};
+function ArmarPopupLanzamiento(obj) {
+    return SetHandlebars("#lanzamiento-template", obj);
+};
+
+function HidePopupEstrategiasEspeciales() {
+    $('#popupDetalleCarousel_lanzamiento').hide();
+    $('#popupDetalleCarousel_packNuevas').hide();
+};
 
 function MostrarDetalleGanancia() {
     //$('#tituloGanancia').text($('#hdeCabezaEscala').val());
@@ -3642,7 +3696,7 @@ function ReservadoOEnHorarioRestringido(mostrarAlerta) {
             if (data.pedidoReservado) {
                 if (mostrarAlerta == true) {
                     CerrarSplash();
-                    alert_msg(data.message);
+                    messageInfoError(data.message);
                 }
                 else {
                     AbrirSplash();
@@ -3650,12 +3704,12 @@ function ReservadoOEnHorarioRestringido(mostrarAlerta) {
                 }
             }
             else if (mostrarAlerta == true) {
-                alert_msg(data.message);
+                messageInfoError(data.message);
             }
         },
         error: function (error, x) {
             console.log(error, x);
-            alert_msg('Ocurrió un error al intentar validar el horario restringido o si el pedido está reservado. Por favor inténtelo en unos minutos.');
+            messageInfoError('Ocurrió un error al intentar validar el horario restringido o si el pedido está reservado. Por favor inténtelo en unos minutos.');
         }
     });
     return restringido;
