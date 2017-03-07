@@ -75,6 +75,8 @@ $(document).ready(function () {
     }
     else if (tipoOrigenPantalla == 21) { // Mobile Oferta Detalle
 
+        $("footer").hide();
+
         $(".slick-list").on('swipe', function (event, slick, direction) {
 
             var posicion = $("#posicionEstrategia").val();
@@ -102,7 +104,16 @@ $(document).ready(function () {
             dots: false,
         });
 
-        $("footer").hide();
+        $('.content_compra_carrusel').slick({
+            dots: false,
+            infinite: true,
+            vertical: false,
+            speed: 300,
+            slidesToShow: 1,
+            slidesToScroll: 1,
+            prevArrow: '<a class="previous_ofertas js-slick-prev" style="display: block;left: -13%; top:30%;"><img src="' + baseUrl + 'Content/Images/Esika/flecha_compra_left.png")" alt="" /></a>',
+            nextArrow: '<a class="previous_ofertas js-slick-next" style="display: block;right: -13%; top:30%; text-align:right;"><img src="' + baseUrl + 'Content/Images/Esika/flecha_compra_right.png")" alt="" /></a>'
+        });
     }
 
     $("body").on("click", "[data-btn-agregar-sr]", function (e) {
