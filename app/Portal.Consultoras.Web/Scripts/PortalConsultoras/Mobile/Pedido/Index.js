@@ -57,15 +57,15 @@ $(document).ready(function () {
     $("#btnAgregarProducto").click(function () {
         var cantidad = $.trim($("#txtCantidad").val());
         if (cantidad == "" || cantidad[0] == "-") {
-            alert_msg("Ingrese una cantidad mayor que cero.");
+            AbrirMensaje("Ingrese una cantidad mayor que cero.");
             return false;
         }
         if (!isInt(cantidad)) {
-            alert_msg("Ingrese una cantidad mayor que cero.");
+            AbrirMensaje("Ingrese una cantidad mayor que cero.");
             return false;
         }
         if (parseInt(cantidad) <= 0) {
-            alert_msg("Ingrese una cantidad mayor que cero.");
+            AbrirMensaje("Ingrese una cantidad mayor que cero.");
             return false;
         }
 
@@ -95,14 +95,14 @@ $(document).ready(function () {
         var OrigenPedidoWeb = MobilePedidoSugerido;
 
         if (!isInt(cantidad)) {
-            alert_msg("La cantidad ingresada debe ser un número mayor que cero, verifique");
+            AbrirMensaje("La cantidad ingresada debe ser un número mayor que cero, verifique");
             $(divPadre).find('.rango_cantidad_pedido').val(1);
             CloseLoading();
             //limpiarInputsPedido();
             return false;
         }
         if (cantidad <= 0) {
-            alert_msg("La cantidad ingresada debe ser mayor que cero, verifique");
+            AbrirMensaje("La cantidad ingresada debe ser mayor que cero, verifique");
             $(divPadre).find('.rango_cantidad_pedido').val(1);
             CloseLoading();
             return false;
@@ -381,7 +381,7 @@ function ObtenerProductosSugeridos(CUV) {
                 if (data.message == "" || data.message === undefined) {
                     location.href = baseUrl + "Login/SesionExpirada";
                 } else {
-                    alert_msg(data.message);
+                    AbrirMensaje(data.message);
                 }
             }
         }
@@ -429,7 +429,7 @@ function InsertarProductoSugerido(marcaID, cuv, precioUnidad, descripcion, canti
             ActualizarGanancia(data.DataBarra);
             var existeError = $(data).filter("input[id=hdErrorInsertarProducto]").val();
             if (existeError == "1") {
-                alert_msg("Ocurrió un error al ejecutar la operación.");
+                AbrirMensaje("Ocurrió un error al ejecutar la operación.");
                 CloseLoading();
                 return false;
             }
@@ -452,7 +452,7 @@ function InsertarProductoSugerido(marcaID, cuv, precioUnidad, descripcion, canti
         error: function (data, error) {
             CloseLoading();
             if (checkTimeout(data)) {
-                alert_msg(data);
+                AbrirMensaje(data);
             }
         }
     });
@@ -554,9 +554,7 @@ function ReservadoOEnHorarioRestringido(mostrarAlerta) {
     });
     return restringido;
 };
-function alert_msg(message, fnClose) {
-    messageInfoValidado('<h3>' + message + '</h3>', fnClose);
-};
+
 function InsertarProducto() {
     var esOfertaNueva = $("#hdfValorFlagNueva").val() === "1";
     var urlInsertar = esOfertaNueva ? urlPedidoInsertZe : urlPedidoInsert;
@@ -1467,7 +1465,7 @@ function AgregarMantenerCliente() {
         success: function (data) {
             if (checkTimeout(data)) {
                 if (data.success == false) {
-                    alert_msg(data.message);
+                    AbrirMensaje(data.message);
                     CloseLoading();
                     return false;
                 }

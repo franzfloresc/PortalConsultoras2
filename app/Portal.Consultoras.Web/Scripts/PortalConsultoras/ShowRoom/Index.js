@@ -72,12 +72,6 @@ $(document).ready(function () {
     $("#linkTerminosCondicionesShowRoom").attr("href", link);
 });
 
-//function alert_msg(message) {
-//    $('#DialogMensajesBanner .message_text').html(message);
-//    $('#DialogMensajesBanner').dialog('open');
-//    //$('#DialogMensajesBanner').show();
-//}
-
 function maxLengthCheck(object, cantidadMaxima) {
     if (object.value.length > cantidadMaxima)
         object.value = object.value.slice(0, cantidadMaxima);

@@ -147,12 +147,6 @@
             });
         });
 
-        function alert_msg(message) {
-            $('#DialogMensajesBanner .message_text').html(message);
-            $('#DialogMensajesBanner').dialog('open');
-            //$('#DialogMensajesBanner').show();
-        }
-
         function AgregarOfertaShowRoom() {
             //debugger;
 
@@ -170,7 +164,7 @@
             var descripcionMarca = $(article).find(".DescripcionMarca").val();
 
             if (cantidad == "" || cantidad == 0) {
-                alert_msg("La cantidad ingresada debe ser mayor que 0, verifique.");
+                AbrirMensaje("La cantidad ingresada debe ser mayor que 0, verifique.");
             } else {
                 waitingDialog({});
                 $.ajaxSetup({
@@ -187,12 +181,12 @@
                 //            closeWaitingDialog();
 
                 //            if (Saldo == UnidadesPermitidas)
-                //                alert_msg("Lamentablemente, la cantidad solicitada sobrepasa las Unidades Permitidas de Venta (" + UnidadesPermitidas + ") del producto.");
+                //                AbrirMensaje("Lamentablemente, la cantidad solicitada sobrepasa las Unidades Permitidas de Venta (" + UnidadesPermitidas + ") del producto.");
                 //            else {
                 //                if (Saldo == "0")
-                //                    alert_msg("Las Unidades Permitidas de Venta son solo (" + UnidadesPermitidas + "), pero Usted ya no puede adicionar más, debido a que ya agregó este producto a su pedido, verifique.");
+                //                    AbrirMensaje("Las Unidades Permitidas de Venta son solo (" + UnidadesPermitidas + "), pero Usted ya no puede adicionar más, debido a que ya agregó este producto a su pedido, verifique.");
                 //                else
-                //                    alert_msg("Las Unidades Permitidas de Venta son solo (" + UnidadesPermitidas + "), pero Usted solo puede adicionar (" + Saldo + ") más, debido a que ya agregó este producto a su pedido, verifique.");
+                //                    AbrirMensaje("Las Unidades Permitidas de Venta son solo (" + UnidadesPermitidas + "), pero Usted solo puede adicionar (" + Saldo + ") más, debido a que ya agregó este producto a su pedido, verifique.");
                 //            }
                 //        });
                 //    } else {
@@ -210,7 +204,7 @@
                         //        //$(article).find(".claseStock").text(data.Stock);
 
                         //        closeWaitingDialog();
-                        //        alert_msg("Lamentablemente, la cantidad solicitada sobrepasa el stock actual (" + data.Stock + ") del producto, verifique.");
+                //        AbrirMensaje("Lamentablemente, la cantidad solicitada sobrepasa el stock actual (" + data.Stock + ") del producto, verifique.");
                         //    } else {
                                 //console.log(Item);
 

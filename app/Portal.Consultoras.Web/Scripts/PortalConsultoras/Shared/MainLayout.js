@@ -328,16 +328,7 @@ $(document).ready(function () {
     /*PL20-1226*/
     setInterval(animacionFlechaScroll, 1000);
 
-    
-
 });
-
-function alert_msg(message, titulo) {
-    titulo = titulo || "MENSAJE";
-    $('#alertDialogMensajes .terminos_title_2').html(titulo);
-    $('#alertDialogMensajes .pop_pedido_mensaje').html(message);
-    $('#alertDialogMensajes').dialog('open');
-}
 
 function messageInfoError(message, titulo) {
     $('#dialog_ErrorMainLayout #mensajeInformacionSB2_Error').html(message);

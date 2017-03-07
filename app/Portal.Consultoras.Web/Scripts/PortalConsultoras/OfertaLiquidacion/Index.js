@@ -124,7 +124,7 @@ $(document).ready(function () {
         var imagenProducto = $(contenedor).find(".Content_modal_ZE img").attr("src");
 
         if (Cantidad == "" || Cantidad == 0) {
-            alert_msg("La cantidad ingresada debe ser mayor que 0, verifique.");
+            AbrirMensaje("La cantidad ingresada debe ser mayor que 0, verifique.", "LO SENTIMOS");
             $('.liquidacion_rango_cantidad_pedido').val(1);
             return false;
         } else {
@@ -149,12 +149,12 @@ $(document).ready(function () {
                         $(Stock).text(data.Stock);
                         $(Stock).val(data.Stock);
                         if (Saldo == UnidadesPermitidas)
-                            alert_msg("Lamentablemente, la cantidad solicitada sobrepasa las Unidades Permitidas de Venta (" + UnidadesPermitidas + ") del producto.");
+                            AbrirMensaje("Lamentablemente, la cantidad solicitada sobrepasa las Unidades Permitidas de Venta (" + UnidadesPermitidas + ") del producto.", "LO SENTIMOS");
                         else {
                             if (Saldo == "0")
-                                alert_msg("Las Unidades Permitidas de Venta son solo (" + UnidadesPermitidas + "), pero Usted ya no puede adicionar más, debido a que ya agregó este producto a su pedido, verifique.");
+                                AbrirMensaje("Las Unidades Permitidas de Venta son solo (" + UnidadesPermitidas + "), pero Usted ya no puede adicionar más, debido a que ya agregó este producto a su pedido, verifique.", "LO SENTIMOS");
                             else
-                                alert_msg("Las Unidades Permitidas de Venta son solo (" + UnidadesPermitidas + "), pero Usted solo puede adicionar (" + Saldo + ") más, debido a que ya agregó este producto a su pedido, verifique.");
+                                AbrirMensaje("Las Unidades Permitidas de Venta son solo (" + UnidadesPermitidas + "), pero Usted solo puede adicionar (" + Saldo + ") más, debido a que ya agregó este producto a su pedido, verifique.", "LO SENTIMOS");
                         }
                         closeWaitingDialog();
                         return false;
@@ -167,7 +167,7 @@ $(document).ready(function () {
                         $(Stock).text(data.Stock);
                         $(Stock).val(data.Stock);
                         if (parseInt(data.Stock) < parseInt(Cantidad)) {
-                            alert_msg("Lamentablemente, la cantidad solicitada sobrepasa el stock actual (" + data.Stock + ") del producto, verifique.");
+                            AbrirMensaje("Lamentablemente, la cantidad solicitada sobrepasa el stock actual (" + data.Stock + ") del producto, verifique.", "LO SENTIMOS");
                             closeWaitingDialog();
                             return false;
                         }
@@ -211,7 +211,7 @@ $(document).ready(function () {
                                 error: function (data, error) {
                                     closeWaitingDialog();
                                     if (checkTimeout(data)) {
-                                        alert_msg(data.message);
+                                        AbrirMensaje(data.message);
                                     }
                                 }
                             });
@@ -248,7 +248,7 @@ $(document).ready(function () {
         var posicion = parseInt($(this).parents('.liquidacion_item').attr('data-idposicion'));
 
         if (Cantidad == "" || Cantidad == 0) {
-            alert_msg("La cantidad ingresada debe ser mayor que 0, verifique.");
+            AbrirMensaje("La cantidad ingresada debe ser mayor que 0, verifique.", "LO SENTIMOS");
             $('.liquidacion_rango_cantidad_pedido').val(1);
             return false;
         }
@@ -275,12 +275,12 @@ $(document).ready(function () {
                         $(Stock).text(data.Stock);
                         $(Stock).val(data.Stock);
                         if (Saldo == UnidadesPermitidas)
-                            alert_msg("Lamentablemente, la cantidad solicitada sobrepasa las Unidades Permitidas de Venta (" + UnidadesPermitidas + ") del producto.");
+                            AbrirMensaje("Lamentablemente, la cantidad solicitada sobrepasa las Unidades Permitidas de Venta (" + UnidadesPermitidas + ") del producto.", "LO SENTIMOS");
                         else {
                             if (Saldo == "0")
-                                alert_msg("Las Unidades Permitidas de Venta son solo (" + UnidadesPermitidas + "), pero Usted ya no puede adicionar más, debido a que ya agregó este producto a su pedido, verifique.");
+                                AbrirMensaje("Las Unidades Permitidas de Venta son solo (" + UnidadesPermitidas + "), pero Usted ya no puede adicionar más, debido a que ya agregó este producto a su pedido, verifique.", "LO SENTIMOS");
                             else
-                                alert_msg("Las Unidades Permitidas de Venta son solo (" + UnidadesPermitidas + "), pero Usted solo puede adicionar (" + Saldo + ") más, debido a que ya agregó este producto a su pedido, verifique.");
+                                AbrirMensaje("Las Unidades Permitidas de Venta son solo (" + UnidadesPermitidas + "), pero Usted solo puede adicionar (" + Saldo + ") más, debido a que ya agregó este producto a su pedido, verifique.", "LO SENTIMOS");
                         }
                         closeWaitingDialog();
                         return false;
@@ -293,7 +293,7 @@ $(document).ready(function () {
                         $(Stock).text(data.Stock);
                         $(Stock).val(data.Stock);
                         if (parseInt(data.Stock) < parseInt(Cantidad)) {
-                            alert_msg("Lamentablemente, la cantidad solicitada sobrepasa el stock actual (" + data.Stock + ") del producto, verifique.");
+                            AbrirMensaje("Lamentablemente, la cantidad solicitada sobrepasa el stock actual (" + data.Stock + ") del producto, verifique.", "LO SENTIMOS");
                             closeWaitingDialog();
                             return false;
                         }
@@ -334,7 +334,7 @@ $(document).ready(function () {
                                 error: function (data, error) {
                                     closeWaitingDialog();
                                     if (checkTimeout(data)) {
-                                        alert_msg(data.message);
+                                        AbrirMensaje(data.message);
                                     }
                                 }
                             });
@@ -506,21 +506,6 @@ function cargarProductoPopup(objProducto, objHidden) {
     });
 };
 function IniDialog() {
-    $('#DialogMensajes').dialog({
-        autoOpen: false,
-        resizable: false,
-        modal: true,
-        closeOnEscape: true,
-        width: 400,
-        draggable: true,
-        buttons:
-        {
-            "Aceptar": function () {
-                $(this).dialog('close');
-            }
-        }
-    });
-
     $('#DialogMensajeProducto').dialog({
         autoOpen: false,
         resizable: false,
@@ -546,23 +531,6 @@ function IniDialog() {
         }
     });
 
-    $('#DialogMensajeHorario').dialog({
-        autoOpen: false,
-        resizable: false,
-        modal: true,
-        closeOnEscape: false,
-        width: 400,
-        draggable: true,
-        title: ":: Mensaje ::",
-        open: function (event, ui) { $(".ui-dialog-titlebar-close").hide(); },
-        buttons:
-        {
-            "Aceptar": function () {
-                location.href = baseUrl + 'Bienvenida/Index';
-            }
-        }
-    });
-
     $('#divVistaPrevia').dialog({
         autoOpen: false,
         resizable: false,
@@ -575,14 +543,7 @@ function IniDialog() {
         }
     });
 };
-function alert_msg(message) {
-    $('#DialogMensajes .pop_pedido_mensaje').html(message);
-    $('#DialogMensajes').dialog('open');
-}
-function alert_msgHorario(message) {
-    $('#DialogMensajeHorario .message_text').html(message);
-    $('#DialogMensajeHorario').dialog('open');
-};
+
 function InfoCommerceGoogle(ItemTotal, CUV, DescripcionProd, Categoria, Precio, Cantidad, Marca, variant, posicion) {
     if (ItemTotal >= 0 && Precio >= 0 && Cantidad > 0) {
         if (variant == null || variant == "") { variant = "Estándar"; }
@@ -638,16 +599,16 @@ function ReservadoOEnHorarioRestringido(mostrarAlerta) {
                 }
                 if (mostrarAlerta == true) {
                     closeWaitingDialog();
-                    alert_msg_pedido(data.message);
+                    AbrirMensaje(data.message, "LO SENTIMOS");
                 }
                 else fnRedireccionar();
             }
             else if (mostrarAlerta == true)
-                alert_msg_pedido(data.message);
+                AbrirMensaje(data.message, "LO SENTIMOS");
         },
         error: function (error) {
             console.log(error);
-            alert_msg_pedido('Ocurrió un error al intentar validar el horario restringido o si el pedido está reservado. Por favor inténtelo en unos minutos.');
+            AbrirMensaje('Ocurrió un error al intentar validar el horario restringido o si el pedido está reservado. Por favor inténtelo en unos minutos.', "LO SENTIMOS");
         }
     });
     return restringido;
@@ -685,14 +646,11 @@ function ReservadoOEnHorarioRestringidoAsync(mostrarAlerta, fnRestringido, fnNoR
         },
         error: function (error) {
             console.log(error);
-            alert_msg_pedido('Ocurrió un error al intentar validar el horario restringido o si el pedido está reservado. Por favor inténtelo en unos minutos.');
+            AbrirMensaje('Ocurrió un error al intentar validar el horario restringido o si el pedido está reservado. Por favor inténtelo en unos minutos.', "LO SENTIMOS");
         }
     });
 }
-function alert_msg_pedido(message) {
-    $('#DialogMensajes .pop_pedido_mensaje').html(message);
-    $('#DialogMensajes').dialog('open');
-};
+
 // Funcion de animación al agregar productos al carrito
 function agregarProductoAlCarrito(o) {
     var btnClickeado = $(o);
