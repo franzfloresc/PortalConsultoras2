@@ -68,43 +68,74 @@ CREATE PROCEDURE dbo.InsertEstrategiaProducto
 AS
 begin
 
-	INSERT INTO EstrategiaProducto(
-		EstrategiaId
-		,Campania
-		,CUV
-		,CodigoEstrategia
-		,Grupo
-		,Orden
-		,CUV2
-		,SAP
-		,Cantidad
-		,Precio
-		,PrecioValorizado
-		,Digitable
-		,CodigoError
-		,CodigoErrorObs
-	)VALUES(
-		@EstrategiaId
-		,@Campania
-		,@CUV
-		,@CodigoEstrategia
-		,@Grupo
-		,@Orden
-		,@CUV2
-		,@SAP
-		,@Cantidad
-		,@Precio
-		,@PrecioValorizado
-		,@Digitable
-		,@CodigoError
-		,@CodigoErrorObs
-	)
+	declare @existe int = 0
+	select @existe = EstrategiaProductoId
+	from EstrategiaProducto
+	where CUV2 = @CUV2 and CUV = @CUV AND EstrategiaID = @EstrategiaId
+	
+	set @existe = isnull(@existe, 0)
 
-	set @Retorno = @@IDENTITY
+	-- select * from EstrategiaProducto
+	if @existe = 0
+	begin
+			INSERT INTO EstrategiaProducto(
+				EstrategiaId
+				,Campania
+				,CUV
+				,CodigoEstrategia
+				,Grupo
+				,Orden
+				,CUV2
+				,SAP
+				,Cantidad
+				,Precio
+				,PrecioValorizado
+				,Digitable
+				,CodigoError
+				,CodigoErrorObs
+			)VALUES(
+				@EstrategiaId
+				,@Campania
+				,@CUV
+				,@CodigoEstrategia
+				,@Grupo
+				,@Orden
+				,@CUV2
+				,@SAP
+				,@Cantidad
+				,@Precio
+				,@PrecioValorizado
+				,@Digitable
+				,@CodigoError
+				,@CodigoErrorObs
+			)
+
+			set @Retorno = @@IDENTITY
+	end
+	else
+	begin
+		update EstrategiaProducto
+			set  Campania = @Campania
+				--,CUV = @CUV
+				,CodigoEstrategia = @CodigoEstrategia
+				,Grupo = @Grupo
+				,Orden = @Orden
+				--,CUV2 = @CUV2
+				,SAP = @SAP
+				,Cantidad = @Cantidad
+				,Precio = @Precio
+				,PrecioValorizado = @PrecioValorizado
+				,Digitable = @Digitable
+				,CodigoError = @CodigoError
+				,CodigoErrorObs = @CodigoErrorObs
+		where EstrategiaProductoId = @existe
+		set @Retorno = @existe
+	end
 end
 go
 
 
+GO
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[GetEstrategiaProducto]') AND type in (N'P', N'PC')) 
 	DROP PROCEDURE [dbo].GetEstrategiaProducto
 GO
@@ -141,4 +172,40 @@ if (select COUNT(*) from dbo.sysobjects inner join dbo.syscolumns on SYSOBJECTS.
 	where sysobjects.id = object_id('dbo.TipoEstrategia') and SYSCOLUMNS.NAME = N'Codigo') = 0
 	ALTER TABLE dbo.TipoEstrategia ADD Codigo varchar(100)
 go
+
+
+go
+
+
+
+ALTER PROCEDURE [dbo].[GetListBrothersByCUV]
+(
+	@CodCampania INT,
+	@CUV VARCHAR(10)
+)
+
+AS
+
+DECLARE @CodigoGenerico VARCHAR(30), 
+	@CodigoTipoOferta VARCHAR(6)
+
+SELECT TOP 1
+	@CodigoGenerico = sp.CodigoGenerico, 
+	@CodigoTipoOferta = pc.CodigoTipoOferta 
+FROM ods.ProductoComercial pc
+INNER JOIN ods.SAP_PRODUCTO sp ON sp.CodigoSap = pc.CodigoProducto
+WHERE pc.CampaniaID = (SELECT CampaniaID FROM ods.Campania WHERE Codigo = @CodCampania)
+AND pc.CUV = @CUV
+
+IF (ISNULL(@CodigoGenerico,'') <> '')
+BEGIN
+	SELECT pc.CUV, pc.Descripcion, sp.CodigoSap
+	FROM ods.ProductoComercial pc
+	INNER JOIN ods.SAP_PRODUCTO sp ON sp.CodigoSap = pc.CodigoProducto 
+		AND sp.CodigoGenerico = @CodigoGenerico
+	WHERE pc.CampaniaID = (SELECT CampaniaID FROM ods.Campania WHERE Codigo = @CodCampania)
+	AND pc.CodigoTipoOferta = @CodigoTipoOferta
+END
+
+
 
