@@ -234,6 +234,7 @@
     <Compile Include="Areas\Mobile\Models\PedidoWebMobilModel.cs" />
     <Compile Include="Areas\Mobile\Models\ProductosDestacadosMobilModel.cs" />
     <Compile Include="Areas\Mobile\Models\SeguimientoMobileModel.cs" />
+    <Compile Include="Areas\Mobile\Models\ShowRoomModel.cs" />
     <Compile Include="Controllers\ABCProductoController.cs" />
     <Compile Include="Controllers\AccesorizateController.cs" />
     <Compile Include="Controllers\ActualizarDatosController.cs" />
