@@ -1088,7 +1088,7 @@ function closeOfertaDelDia() {
 };
 
 function addOfertaDelDiaPedido(tipo) {
-    //debugger;
+    
     var tipoEstrategiaID = $('#tipoestrategia-id-odd').val();
     var estrategiaID = $('#estrategia-id-odd').val();
     var marcaID = $('#marca-id-odd').val();
