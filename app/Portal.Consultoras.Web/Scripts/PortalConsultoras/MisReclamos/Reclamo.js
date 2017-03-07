@@ -191,12 +191,6 @@ $(document).ready(function () {
         closeOnEscape: true,
         width: 400,
         draggable: true,
-        buttons:
-        {
-            "Aceptar": function () {
-                $(this).dialog('close');              
-            }
-        }
     });
 });
 
@@ -1220,7 +1214,7 @@ function SolicitudEnviar() {
                 $("#divUltimasSolicitudes").hide();
                 $("#TituloReclamo").hide();
             $("#SolicitudEnviada").show();
-
+           
             if (data.Cantidad == 1) alertEMail_msg(data.message, "MENSAJE");
         },
         error: function (data, error) {

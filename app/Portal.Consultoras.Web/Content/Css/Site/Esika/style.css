@@ -30998,7 +30998,7 @@ h1#penmostreo .campana {
     overflow:hidden;
 }
 .content_reclamo {
-    max-width: 760px;
+    max-width: 780px;
     margin:0 auto;
     position:relative;
 }
@@ -33130,7 +33130,62 @@ h1#penmostreo .campana {
 .mod-ofer1 .boton_Agregalo_home{
     width:139px;
 }
-    
+.enlace_chat a{
+    display:inline;
+    font-weight:bold;
+    text-decoration:underline;
+}
+.tooltipPedido{
+    display:none;
+    position:absolute;
+        top: 6px;
+    left: 100%;
+    background: white;
+    width: 250px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    font-weight: 400;
+    z-index: 100;
+}
+.pedidoPadreToolTip:hover .tooltipPedido {
+    display:block;
+}
+.tooltipPedido:after, .tooltipPedido:before {
+	right: 100%;
+	top: 50%;
+	border: solid transparent;
+	content: " ";
+	height: 0;
+	width: 0;
+	position: absolute;
+	pointer-events: none;
+    z-index:30;
+}
+
+.tooltipPedido:after {
+	border-color: rgba(255, 255, 255, 0);
+	border-right-color: #fff;
+	border-width: 8px;
+	margin-top: -8px;
+}
+.tooltipPedido:before {
+	border-color: rgba(204, 204, 204, 0);
+	border-right-color: #ccc;
+	border-width: 9px;
+	margin-top: -9px;
+}
+
+.descri_list {
+    font-size: 12px;
+    font-weight: 700;
+    width: 26%;
+}
+
+.cantidad_listado_pdd {
+    padding-top: 30px;
+    padding-bottom: 30px;
+}
 .etiqueta_guia_negocio span{
     display: block;
     font-size: 13.9px;
@@ -33461,37 +33516,11 @@ h1#penmostreo .campana {
 	height: 0;
 	width: 0;
 	position: absolute;
-	pointer-events: none;
-    z-index:30;
-}
-
-.tooltipPedido:after {
-	border-color: rgba(255, 255, 255, 0);
-	border-right-color: #fff;
-	border-width: 8px;
-	margin-top: -8px;
-}
-.tooltipPedido:before {
-	border-color: rgba(204, 204, 204, 0);
-	border-right-color: #ccc;
-	border-width: 9px;
-	margin-top: -9px;
 }
 .enlace_chat a{
     display:inline;
     font-weight:bold;
     text-decoration:underline;
-}
-
-.descri_list {
-    font-size: 12px;
-    font-weight: 700;
-    width: 26%;
-}
-
-.cantidad_listado_pdd {
-    padding-top: 30px;
-    padding-bottom: 30px;
 }
 
 .vineta {
