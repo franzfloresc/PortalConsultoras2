@@ -137,6 +137,8 @@ namespace Portal.Consultoras.Entities
         public bool EsBackOrder { get; set; }
         [DataMember]
         public bool AceptoBackOrder { get; set; }
+        [DataMember]
+        public bool EsCompraPorCompra { get; set; }
 
         public BEPedidoWebDetalle()
         { }
@@ -239,6 +241,8 @@ namespace Portal.Consultoras.Entities
                 this.EsBackOrder = row["EsBackOrder"] == DBNull.Value ? false : Convert.ToBoolean(row["EsBackOrder"]);
             if (DataRecord.HasColumn(row, "AceptoBackOrder"))
                 this.AceptoBackOrder = row["AceptoBackOrder"] == DBNull.Value ? false : Convert.ToBoolean(row["AceptoBackOrder"]);
+            if (DataRecord.HasColumn(row, "EsCompraPorCompra"))
+                EsCompraPorCompra = row["EsCompraPorCompra"] == DBNull.Value ? false : Convert.ToBoolean(row["EsCompraPorCompra"]);            
         }
 
         public BEPedidoWebDetalle(IDataRecord row, string Consultora)
@@ -351,6 +355,8 @@ namespace Portal.Consultoras.Entities
                 this.EsBackOrder = row["EsBackOrder"] == DBNull.Value ? false : Convert.ToBoolean(row["EsBackOrder"]);
             if (DataRecord.HasColumn(row, "AceptoBackOrder"))
                 this.AceptoBackOrder = row["AceptoBackOrder"] == DBNull.Value ? false : Convert.ToBoolean(row["AceptoBackOrder"]);
+            if (DataRecord.HasColumn(row, "EsCompraPorCompra"))
+                EsCompraPorCompra = row["EsCompraPorCompra"] == DBNull.Value ? false : Convert.ToBoolean(row["EsCompraPorCompra"]);
         }
     }
 }

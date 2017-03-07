@@ -1578,6 +1578,92 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
+        [HttpPost]
+        public JsonResult InsertOfertaWebPortalCpc(PedidoDetalleModel model)
+        {
+            try
+            {
+                var mensaje = "";
+                var noPasa = ReservadoEnHorarioRestringido(out mensaje);
+                if (noPasa)
+                {
+                    return Json(new
+                    {
+                        success = false,
+                        message = mensaje,
+                        extra = ""
+                    });
+                }
+
+                Mapper.CreateMap<PedidoDetalleModel, BEPedidoWebDetalle>()
+                    .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID))
+                    .ForMember(t => t.CampaniaID, f => f.MapFrom(c => c.CampaniaID))
+                    .ForMember(t => t.ConsultoraID, f => f.MapFrom(c => c.ConsultoraID))
+                    .ForMember(t => t.MarcaID, f => f.MapFrom(c => c.MarcaID))
+                    .ForMember(t => t.Cantidad, f => f.MapFrom(c => c.Cantidad))
+                    .ForMember(t => t.PrecioUnidad, f => f.MapFrom(c => c.PrecioUnidad))
+                    .ForMember(t => t.CUV, f => f.MapFrom(c => c.CUV))
+                    .ForMember(t => t.ConfiguracionOfertaID, f => f.MapFrom(c => c.ConfiguracionOfertaID))
+                    .ForMember(t => t.TipoOfertaSisID, f => f.MapFrom(c => c.TipoOfertaSisID));
+
+
+                BEPedidoWebDetalle entidad = Mapper.Map<PedidoDetalleModel, BEPedidoWebDetalle>(model);
+                using (PedidoServiceClient sv = new PedidoServiceClient())
+                {
+                    entidad.PaisID = userData.PaisID;
+                    entidad.ConsultoraID = userData.ConsultoraID;
+                    entidad.CampaniaID = userData.CampaniaID;                    
+                    entidad.OfertaWeb = false;
+                    entidad.ConfiguracionOfertaID = 0;
+                    entidad.TipoOfertaSisID = 0;
+                    entidad.SubTipoOfertaSisID = 0;
+                    entidad.EsSugerido = false;
+                    entidad.EsKitNueva = false;
+                    entidad.OrigenPedidoWeb = 0;
+                    entidad.IPUsuario = userData.IPUsuario;
+                    entidad.EsCompraPorCompra = true;
+
+                    entidad.CodigoUsuarioCreacion = userData.CodigoConsultora;
+                    entidad.CodigoUsuarioModificacion = entidad.CodigoUsuarioCreacion;
+
+                    sv.InsPedidoWebDetalleOferta(entidad);
+
+                    Session["PedidoWeb"] = null;
+                    Session["PedidoWebDetalle"] = null;
+                }
+
+                UpdPedidoWebMontosPROL();
+
+                return Json(new
+                {
+                    success = true,
+                    message = "Se agregó la Oferta Web satisfactoriamente.",
+                    extra = "",
+                    DataBarra = GetDataBarra()
+                });
+            }
+            catch (FaultException ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return Json(new
+                {
+                    success = false,
+                    message = ex.Message,
+                    extra = ""
+                });
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return Json(new
+                {
+                    success = false,
+                    message = ex.Message,
+                    extra = ""
+                });
+            }
+        }
+
         public string GuardarImagenAmazon(string nombreImagen, string nombreImagenAnterior, int paisId)
         {
             string nombreImagenFinal = "";
@@ -2371,6 +2457,15 @@ namespace Portal.Consultoras.Web.Controllers
                 return RedirectToAction("Index", "Bienvenida");
 
             var modelo = ViewDetalleOferta(id);
+
+            var fechaHoy = DateTime.Now.AddHours(userData.ZonaHoraria).Date;
+            bool esFacturacion = fechaHoy >= userData.FechaInicioCampania.Date;
+
+            var listaCompraPorCompra = GetProductosCompraPorCompra(esFacturacion, userData.BeShowRoom.EventoID,
+                        userData.BeShowRoom.CampaniaID);
+            modelo.ListaShowRoomCompraPorCompra = listaCompraPorCompra;
+            modelo.TieneCompraXcompra = userData.BeShowRoom.TieneCompraXcompra;
+
             return View("DetalleSet", modelo);
 
         }
