@@ -11420,3 +11420,38 @@ a{
     width:80%;
     margin:0 auto;
 }
+
+.content_banner_img{
+    width:40%;
+    float:left;
+    height:auto;
+}
+.content_banner_img img{
+    width:100%;
+}
+.content_banner_right{
+    width:60%;
+    float:left;
+    height:auto;
+    padding-left:2%;
+    /*padding-right:2%;*/
+    font-family:'Lato'; text-align:left;
+}
+.texto_banner_compra{
+    font-size:12.2px;
+    padding-top: 5px;
+}
+.texto_banner_compra b{
+    display:block;
+    font-size:16px;
+}
+.btn_ver_detalle_pop_compra{
+   text-align:center;
+    margin-top:5%;
+    width:80%;
+    border:1px solid black;
+    height:31px;
+    line-height:30px;
+    font-size:13px;
+    display:block;
+}

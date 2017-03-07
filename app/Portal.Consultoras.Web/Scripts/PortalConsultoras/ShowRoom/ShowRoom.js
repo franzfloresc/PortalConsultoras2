@@ -73,30 +73,50 @@ $(document).ready(function () {
             nextArrow: '<button type="button" data-role="none" class="slick-prev previous_compraxcompra"></button>'
         });
     }
-    else if (tipoOrigenPantalla == 21) {
-        $('.slider').slick({
-            slidesToShow: 4,
-            slidesToScroll: 1,
-            autoplay: false,
-            dots: false,
-            prevArrow: '<span class="previous_ofertas_mobile" id="slick-prev"><img src="' + urlCarruselPrev + '")" alt="-"/></span>',
-            nextArrow: '<span class="previous_ofertas_mobile" id="slick-next" style="text-align:right; right:0;"><img src="' + urlCarruselNext + '" alt="-"/></span>',
-            infinite: true,
+    else if (tipoOrigenPantalla == 21) { // Mobile Oferta Detalle
+
+        $("footer").hide();
+
+        $('.variable-width').on('init', function (event, slick) {
+            setTimeout(function () {
+                slick.setPosition();
+                slick.slickGoTo(1);
+                $("#divEstrategias").find("[data-posicion-set]").find(".orden_listado_numero").find("[data-posicion-current]").html(2);
+            }, 500);
+        }).slick({
+            dots: true,
+            infinite: false,
             speed: 300,
-            responsive: [
-                {
-                    breakpoint: 960,
-                    settings: { slidesToShow: 3, slidesToScroll: 1 }
-                },
-                {
-                    breakpoint: 680,
-                    settings: { slidesToShow: 1, slidesToScroll: 1 }
-                },
-                {
-                    breakpoint: 380,
-                    settings: { slidesToShow: 1, slidesToScroll: 1 }
-                }
-            ]
+            slidesToShow: 2,
+            centerPadding: '0px',
+            centerMode: true,
+            variableWidth: true,
+            slidesToScroll: 1,
+            centerMode: true,
+            arrows: false,
+            dots: false,
+        }).on('swipe', function (event, slick, direction) {
+            var posicion = slick.currentSlide;
+            posicion = Math.max(parseInt(posicion), 0);
+
+            if (direction == 'left') { // dedecha a izquierda
+                posicion = posicion + 1;
+            } else if (direction == 'right') {
+                posicion = posicion + 1;
+            }
+
+            $("#divEstrategias").find("[data-posicion-set]").find(".orden_listado_numero").find("[data-posicion-current]").html(posicion);
+        });
+
+        $('.content_compra_carrusel').slick({
+            dots: false,
+            infinite: true,
+            vertical: false,
+            speed: 300,
+            slidesToShow: 1,
+            slidesToScroll: 1,
+            prevArrow: '<a class="previous_ofertas js-slick-prev" style="display: block;left: -13%; top:30%;"><img src="' + baseUrl + 'Content/Images/Esika/flecha_compra_left.png")" alt="" /></a>',
+            nextArrow: '<a class="previous_ofertas js-slick-next" style="display: block;right: -13%; top:30%; text-align:right;"><img src="' + baseUrl + 'Content/Images/Esika/flecha_compra_right.png")" alt="" /></a>'
         });
     }
 

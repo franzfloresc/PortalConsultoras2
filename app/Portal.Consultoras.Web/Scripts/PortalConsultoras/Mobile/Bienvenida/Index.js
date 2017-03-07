@@ -1094,13 +1094,11 @@ function CompartirWsp(UrlBase, objParameter) {
 //function CompartirFacebook(urlBase, objParameter) {
 //    var _id = InsertarProductoCompartido(objParameter,'F');
 //    urlBase = urlBase.replace('[valor]', _id);
-
 //    var popWwidth = 570;
 //    var popHeight = 420;
 //    var left = (screen.width / 2) - (popWwidth / 2);
 //    var top = (screen.height / 2) - (popHeight / 2);
 //    var url = "http://www.facebook.com/sharer/sharer.php?u=" + urlBase;
-
 //    window.open(url, 'Facebook', "width=" + popWwidth + ",height=" + popHeight + ",menubar=0,toolbar=0,directories=0,scrollbars=no,resizable=no,left=" + left + ",top=" + top + "");
 //}
 
@@ -1110,13 +1108,10 @@ function CompartirWsp(UrlBase, objParameter) {
 //    var _marcaID = objParameter.MarcaID;
 //    var _marcaDesc = objParameter.MarcaDesc;
 //    var _nombre = objParameter.NombrePro;
-
 //    var pcCuv = objParameter.Cuv;
 //    var pcPalanca = "OPT";
 //    var pcDetalle = _rutaImagen + "|" + _marcaID + "|" + _marcaDesc + "|" + _nombre;
 //    var pcApp = app;
-
-
 //    var ID = 0;
 //    var Item = {
 //        mCUV: pcCuv,

@@ -22,12 +22,11 @@
         <div class="item_product">
             @foreach (var detalle in Model.ListaDetalleOfertaShowRoom)
             {
-
                 <div class="description_item">
                     @*<div class="quantity"><br />x1</div>*@
                     <div class="detail">
                         @if (detalle.MarcaProducto != "")
-                {
+                        {
                             <span class="brand">@detalle.MarcaProducto</span>
                         }
                         <span class="product_name">@detalle.Descripcion1</span>
@@ -146,12 +145,13 @@
         <div class="oc_title">
             OTRAS CONSULTORAS COMPRARON
         </div>
-        <div class="content_carrusel_intriga">
+        <div class="content_carrusel_intriga" id="divEstrategias">
+            @{ var posicionx = 0; }
             <div class="variable-width">
-                @{ var posicionx = 1; }
                 @foreach (var oferta in Model.ListaOfertaShowRoom)
-            {
-                    <div class="slider_item" data-posicion="@posicionx" data-item="@oferta.OfertaShowRoomID">
+                {
+                    posicionx++;
+                    <div class="slider_item" data-posicion="@posicionx" data-item="@oferta.OfertaShowRoomID" data-position="@posicionx">
                         <div data-campos="" style="display:none;">
                             <input type="hidden" class="hdOfertaShowRoomID" value="@oferta.OfertaShowRoomID" />
                             <input type="hidden" class="valorCuv" value="@oferta.CUV" />
@@ -170,13 +170,10 @@
                             <span class="price">@oferta.Simbolo @oferta.FormatoPrecioCatalogo</span>
                         </a>
                     </div>
-                    {
-                        posicionx++;
-                    }
                 }
             </div>
-            <div class="content_orden_carrusel">
-                <div class="orden_listado_numero">2 / 5</div>
+            <div class="content_orden_carrusel" data-posicion-set="">
+                <div class="orden_listado_numero"><span data-posicion-current=""></span> / @posicionx</div>
                 <div class="linea_separadora_mobile" style="margin-top:-7px;"></div>
                 <div class="orden_flecha"><img src="@Url.Content("~/Content/Images/Esika/flecha_orden.png")" alt="flecha" /></div>
                 <div class="orden_flecha" style="right:0;"><img src="@Url.Content("~/Content/Images/Esika/flecha_orden_right.png")" alt="flecha" /></div>
@@ -239,31 +236,7 @@
         <hr class="clear">
     </div>
 </div>
-<!--POP UP COMPRA X COMPRA / QUITAR EL SCROLL DEL BODY CUANDO SALGA ESTE POP UP-->
-<div class="PopMobile1" id="PopCompra" data-popup-main="" style="display: block;">
-    <div class="content_popMobile" data-popup-body="" style="max-width:450px;">
-        <a class="cerrar_popMobile" href="javascript:;" onclick="javascript: $('#PopCompra').fadeOut();">
-             <img src="/Content/Images/mobile/Esika/cerrar_04.png" alt="-">  
-        </a>       
-         <div class="titulo_compra_POP">PROMOCIÓN</div>        
-            <div class="content_pop_compra">
-                <div> 
-                     <div class="precio_set_compra">LLévate un Reloj Espheric. Por la compra de 2 Sets o más.</div>  
-                     <div class="content_imagen_carrusel_compra"><img src="https://s3-sa-east-1.amazonaws.com/appcatalogo/CO/201704/C/productos/CO_200084402.jpg"></div>                
-                     <div class="precio_producto_compra"> A SÓLO S/5.00</div>               
-                     <div class="descripcion_compra">Correa tipo cuero y pieza central plateada con 37 cristales.</div>               
-                      <a class="btn_agrega_compra">AGRÉGALO</a>
-                </div>            
-                <div> 
-                    <div class="precio_set_compra">LLévate un Reloj Espheric. Por la compra de 2 Sets o más.</div> 
-                    <div class="content_imagen_carrusel_compra"><img src="https://s3-sa-east-1.amazonaws.com/appcatalogo/CO/201704/C/productos/CO_200084402.jpg"></div>
-                    <div class="precio_producto_compra"> A SÓLO S/5.00</div>                
-                    <div class="descripcion_compra">Correa tipo cuero y pieza central plateada con 37 cristales.</div>                
-                    <a class="btn_agrega_compra">AGRÉGALO</a>
-                </div>
-             </div>
-    </div>
-</div>
+
 
             @section scripts{
                 <script type="text/javascript" src="@Url.Content("~/Scripts/slick.min.js")"></script>
@@ -275,48 +248,4 @@
 
                 </script>
                 <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/ShowRoom/ShowRoom.js")"></script>
-                <script type="text/javascript">
-                    $(document).ready(function () {
-                        $('.variable-width').on('init', function (event, slick) {
-                            setTimeout(function () {
-                                slick.setPosition();
-                                slick.slickGoTo(1);
-                            }, 500);
-                        });
-
-                        $('.variable-width').slick({
-                            dots: true,
-                            infinite: false,
-                            speed: 300,
-                            slidesToShow: 2,
-                            centerPadding: '0px',
-                            centerMode: true,
-                            variableWidth: true,
-                            slidesToScroll: 1,
-                            centerMode: true,
-                            arrows: false,
-                            dots: false,
-                        });
-                        $('.content_compra_carrusel').slick({
-                            dots: false,
-                            infinite: true,
-                            vertical: false,
-                            speed: 300,
-                            slidesToShow: 1,
-                            slidesToScroll: 1,
-                            prevArrow: '<a class="previous_ofertas js-slick-prev" style="display: block;left: -13%; top:30%;"><img src="' + baseUrl + 'Content/Images/Esika/flecha_compra_left.png")" alt="" /></a>',
-                            nextArrow: '<a class="previous_ofertas js-slick-next" style="display: block;right: -13%; top:30%; text-align:right;"><img src="' + baseUrl + 'Content/Images/Esika/flecha_compra_right.png")" alt="" /></a>'
-                        });
-                        $('.content_pop_compra').slick({
-                            dots: false,
-                            infinite: true,
-                            vertical: false,
-                            speed: 300,
-                            slidesToShow: 1,
-                            slidesToScroll: 1,
-                            prevArrow: '<a class="previous_ofertas js-slick-prev" style="display: block;left: 0;margin-left: -13%; top: 35%;"><img src="' + baseUrl + 'Content/Images/Esika/left_compra.png")" alt="" /></a>',
-                            nextArrow: '<a class="previous_ofertas js-slick-next" style="display: block;right: 0;margin-right: -13%; text-align:right;  top: 35%;"><img src="' + baseUrl + 'Content/Images/Esika/right_compra.png")" alt="" /></a>'
-                        });
-                    })
-                </script>
             }
