@@ -73,31 +73,36 @@ $(document).ready(function () {
             nextArrow: '<button type="button" data-role="none" class="slick-prev previous_compraxcompra"></button>'
         });
     }
-    else if (tipoOrigenPantalla == 21) {
-        $('.slider').slick({
-            slidesToShow: 4,
-            slidesToScroll: 1,
-            autoplay: false,
-            dots: false,
-            prevArrow: '<span class="previous_ofertas_mobile" id="slick-prev"><img src="' + urlCarruselPrev + '")" alt="-"/></span>',
-            nextArrow: '<span class="previous_ofertas_mobile" id="slick-next" style="text-align:right; right:0;"><img src="' + urlCarruselNext + '" alt="-"/></span>',
-            infinite: true,
-            speed: 300,
-            responsive: [
-                {
-                    breakpoint: 960,
-                    settings: { slidesToShow: 3, slidesToScroll: 1 }
-                },
-                {
-                    breakpoint: 680,
-                    settings: { slidesToShow: 1, slidesToScroll: 1 }
-                },
-                {
-                    breakpoint: 380,
-                    settings: { slidesToShow: 1, slidesToScroll: 1 }
-                }
-            ]
+    else if (tipoOrigenPantalla == 21) { // Mobile Oferta Detalle
+
+        $(".slick-list").on('swipe', function (event, slick, direction) {
+
+            var posicion = $("#posicionEstrategia").val();
+            posicion = Math.max(parseInt(posicion), 0);
+
+            if (direction == 'left') {
+                TagManagerCarruselSiguiente(true);
+            } else if (direction == 'right') {
+                TagManagerCarruselPrevia(true);
+            }
+
         });
+
+        $('.variable-width').slick({
+            dots: true,
+            infinite: false,
+            speed: 300,
+            slidesToShow: 2,
+            centerPadding: '0px',
+            centerMode: true,
+            variableWidth: true,
+            slidesToScroll: 1,
+            centerMode: true,
+            arrows: false,
+            dots: false,
+        });
+
+        $("footer").hide();
     }
 
     $("body").on("click", "[data-btn-agregar-sr]", function (e) {

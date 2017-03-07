@@ -22,12 +22,11 @@
         <div class="item_product">
             @foreach (var detalle in Model.ListaDetalleOfertaShowRoom)
             {
-
                 <div class="description_item">
                     @*<div class="quantity"><br />x1</div>*@
                     <div class="detail">
                         @if (detalle.MarcaProducto != "")
-                {
+                        {
                             <span class="brand">@detalle.MarcaProducto</span>
                         }
                         <span class="product_name">@detalle.Descripcion1</span>
@@ -150,8 +149,8 @@
             <div class="variable-width">
                 @{ var posicionx = 1; }
                 @foreach (var oferta in Model.ListaOfertaShowRoom)
-            {
-                    <div class="slider_item" data-posicion="@posicionx" data-item="@oferta.OfertaShowRoomID">
+                {
+                    <div class="slider_item" data-posicion="@posicionx" data-item="@oferta.OfertaShowRoomID" data-position="@posicionx">
                         <div data-campos="" style="display:none;">
                             <input type="hidden" class="hdOfertaShowRoomID" value="@oferta.OfertaShowRoomID" />
                             <input type="hidden" class="valorCuv" value="@oferta.CUV" />
@@ -277,26 +276,6 @@
                 <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/ShowRoom/ShowRoom.js")"></script>
                 <script type="text/javascript">
                     $(document).ready(function () {
-                        $('.variable-width').on('init', function (event, slick) {
-                            setTimeout(function () {
-                                slick.setPosition();
-                                slick.slickGoTo(1);
-                            }, 500);
-                        });
-
-                        $('.variable-width').slick({
-                            dots: true,
-                            infinite: false,
-                            speed: 300,
-                            slidesToShow: 2,
-                            centerPadding: '0px',
-                            centerMode: true,
-                            variableWidth: true,
-                            slidesToScroll: 1,
-                            centerMode: true,
-                            arrows: false,
-                            dots: false,
-                        });
                         $('.content_compra_carrusel').slick({
                             dots: false,
                             infinite: true,
