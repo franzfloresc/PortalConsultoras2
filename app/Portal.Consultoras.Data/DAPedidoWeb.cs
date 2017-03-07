@@ -711,6 +711,11 @@ namespace Portal.Consultoras.Data
         }
         /*EPD-1025*/
 
+        public IDataReader ObtenerUltimaDescargaExitosa() {
+            DbCommand Command = Context.Database.GetStoredProcCommand("dbo.ObtenerUltimaDescargaExitosa");
+            return Context.ExecuteReader(Command);
+        }
+
         public IDataReader GetPedidosFacturadoDetalle(int pedidoID)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetPedidosFacturadoDetalle_SB2");

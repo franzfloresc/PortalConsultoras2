@@ -1712,6 +1712,10 @@ namespace Portal.Consultoras.Service
             return BLPedidoWeb.ObtenerUltimaDescargaPedido(PaisID);
         }
 
+        public BEPedidoDescarga ObtenerUltimaDescargaExitosa(int PaisID) {
+            return BLPedidoWeb.ObtenerUltimaDescargaExitosa(PaisID);
+        }
+
         public void DeshacerUltimaDescargaPedido(int PaisID)
         {
             BLPedidoWeb.DeshacerUltimaDescargaPedido(PaisID);

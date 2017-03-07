@@ -6,6 +6,7 @@
     jQuery(function () {
         IniFecha();
         fnGrilla();
+        obtenerUltimaDescargaExitosa();
         $("#btnDescargar").click(function () {
             RealizarDescarga();
         });
@@ -143,7 +144,7 @@
                         error: function (data, error) {
                             if (checkTimeout(data)) {
                                 closeWaitingDialog();
-                                alert("Error del Sistema.");
+                                alert("Error del sistema. Por favor, volver a ejecutar el proceso de generación de líderes.");
                             }
                         }
                     });
@@ -381,6 +382,34 @@
             cache: false
         });
     }
+
+    function obtenerUltimaDescargaExitosa() {
+        $.ajax({
+            type: 'POST',
+            url: baseUrl + 'DescargaPedidos/ObtenerUltimaDescargaExitosa',
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            async: true,
+            cache: false,
+            success: function (data) {
+               
+                if (checkTimeout(data)) {
+                    if (data.success == true) {
+                        debugger;
+                        $("#FechaPedidoWeb").text(data.descarga.FechaProceso);
+                        $("#FechaPedidoDD").text(data.descarga.FechaEnvio);
+                    }
+                }
+            },
+            error: function (data, error) {
+                if (checkTimeout(data)) {
+
+                  
+                    alert("Error del Sistema.");
+                }
+            }
+        });
+    }
     function DeshacerUltimaDescargaPedidos() {
         var waiting = {
             message: 'Espere unos minutos, por favor...',
@@ -434,11 +463,32 @@
     <div class="container clearfix">
         <div class="border-wrapper_reg">
 
+            <div>
+                <span>Último proceso exitoso de descarga:</span>
+                <table>
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>Fecha/Hora</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Pedidos Web</td>
+                            <td><span id="FechaPedidoWeb"></span></td>
+                        </tr>
+                        <tr>
+                            <td>Pedidos DD</td>
+                            <td><span id="FechaPedidoDD"></span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
             <div class="div-3">
                 <div class="titF">País:</div>
                 <div class="selectP2 borde_redondeado">
                     @Html.DropDownListFor(model => model.PaisID, new SelectList(Model.listaPaises, "PaisID", "Nombre"), new { id = "ddlPais" })
-                </div>
+                </div>              
             </div>
 
             <div class="div-3">

@@ -209,7 +209,7 @@ namespace Portal.Consultoras.BizLogic
                     }
                 }
                 //----- Log Pedidos
-                
+
                 TransactionOptions transactionOptions = new TransactionOptions();
                 transactionOptions.IsolationLevel = System.Transactions.IsolationLevel.ReadUncommitted;
                 using (TransactionScope transaction = new TransactionScope(TransactionScopeOption.Required, transactionOptions))
@@ -219,7 +219,7 @@ namespace Portal.Consultoras.BizLogic
                     DAPedidoWeb.UpdLogPedidoDescargaWebDD(nroLote);
                     transaction.Complete();
                 }
-                
+
 
                 FtpConfigurationElement ftpElement = null;
                 FtpConfigurationElement ftpElementCoDat = null;
@@ -502,7 +502,7 @@ namespace Portal.Consultoras.BizLogic
                 {
                     carpetaPais = ConfigurationManager.AppSettings["S3_Pedidos"] + codigoPais;
                     if (!string.IsNullOrEmpty(headerFileS3)) ConfigS3.SetFileS3(headerFileS3, carpetaPais, Path.GetFileName(headerFileS3), false, false, true);
-                    if (!string.IsNullOrEmpty(detailFileS3)) ConfigS3.SetFileS3(detailFileS3, carpetaPais, Path.GetFileName(detailFileS3), false, false, true);                    
+                    if (!string.IsNullOrEmpty(detailFileS3)) ConfigS3.SetFileS3(detailFileS3, carpetaPais, Path.GetFileName(detailFileS3), false, false, true);
                     DAPedidoWeb.UpdPedidoDescargaGuardoS3(nroLote, true, null, null);
                 }
                 catch (Exception ex)
@@ -603,7 +603,7 @@ namespace Portal.Consultoras.BizLogic
                 }
 
                 //----- Log Pedidos
-                
+
                 TransactionOptions transactionOptions = new TransactionOptions();
                 transactionOptions.IsolationLevel = System.Transactions.IsolationLevel.ReadUncommitted;
                 using (TransactionScope transaction = new TransactionScope(TransactionScopeOption.Required, transactionOptions))
@@ -613,7 +613,7 @@ namespace Portal.Consultoras.BizLogic
                     DAPedidoWeb.UpdLogPedidoDescargaWebDD(nroLote);
                     transaction.Complete();
                 }
-                
+
                 FtpConfigurationElement ftpElement = null;
 
                 Guid fileGuid = Guid.NewGuid();
@@ -922,7 +922,7 @@ namespace Portal.Consultoras.BizLogic
                 }
             }
             catch (Exception) { throw; }
-            
+
             string[] s = null;
             if (headerFile == null && detailFile == null) s = new string[] { };
             else s = new string[] { headerFile, detailFile };
@@ -1359,7 +1359,7 @@ namespace Portal.Consultoras.BizLogic
         {
             new DAPedidoWeb(PaisID).InsertarLogPedidoWeb(CampaniaID, CodigoConsultora, PedidoId, Accion, CodigoUsuario);
         }
-        
+
         public void UpdDesbloqueoPedido(BEPedidoWeb BEPedidoWeb)
         {
             var DAPedidoWeb = new DAPedidoWeb(BEPedidoWeb.PaisID);
@@ -1958,7 +1958,7 @@ namespace Portal.Consultoras.BizLogic
             var DAPedidoWeb = new DAPedidoWeb(paisID);
 
             if (!BLPais.EsPaisHana(paisID)) // Validar si informacion de pais es de origen Normal o Hana
-            {               
+            {
                 using (IDataReader reader = DAPedidoWeb.GetPedidosIngresadoFacturado(consultoraID, campaniaID))
                     while (reader.Read())
                     {
@@ -1977,7 +1977,7 @@ namespace Portal.Consultoras.BizLogic
                     {
                         var entidad = new BEPedidoWeb(reader);
                         listaPedidoIngresado.Add(entidad);
-                    }               
+                    }
 
                 var campaniaMinima = Common.Util.ObtenerCampaniaPasada(campaniaID, 4);
 
@@ -2008,7 +2008,7 @@ namespace Portal.Consultoras.BizLogic
                 listaPedidosFacturados = listaMostrar;
             }
 
-            
+
             return listaPedidosFacturados;
         }
 
@@ -2048,12 +2048,12 @@ namespace Portal.Consultoras.BizLogic
                             var detalle = new BEPedidoWebDetalle(readerDetalle);
                             detalle.PedidoID = entidad.PedidoID;
                             listaDetalle.Add(detalle);
-                        }                        
+                        }
                     }
 
                     entidad.olstBEPedidoWebDetalle = listaDetalle;
 
-                        listaPedidosFacturados.Add(entidad);
+                    listaPedidosFacturados.Add(entidad);
 
                     //var entidad = new BEPedidoWeb(reader);
                     //var entidadDetalle = new BEPedidoWebDetalle(reader);
@@ -2071,7 +2071,7 @@ namespace Portal.Consultoras.BizLogic
                     //    entidad.olstBEPedidoWebDetalle.Add(entidadDetalle);
                     //    listaPedidosFacturados.Add(entidad);
                     //}
-                   
+
                 }
 
             return listaPedidosFacturados;
@@ -2095,8 +2095,21 @@ namespace Portal.Consultoras.BizLogic
         {
             DAPedidoWeb DAPedidoWeb = new DAPedidoWeb(PaisID);
             DAPedidoWeb.DesmarcarUltimaDescargaPedido();
-    }
+        }
         /*EPD-1025*/
+        public BEPedidoDescarga ObtenerUltimaDescargaExitosa(int PaisID)/*EPD1976*/
+        {
+            BEPedidoDescarga PedidoDescarga = new BEPedidoDescarga();
+            DAPedidoWeb DAPedidoWeb = new DAPedidoWeb(PaisID);
+            using (IDataReader reader = DAPedidoWeb.ObtenerUltimaDescargaExitosa())
+            {
+                while (reader.Read())
+                {
+                    PedidoDescarga = new BEPedidoDescarga(reader);
+                }
+            }
+            return PedidoDescarga;
+        }
     }
 
     internal class TemplateField
