@@ -348,7 +348,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (esIntriga)
                 {
-                    if (!(fechaHoy >= userData.FechaInicioCampania.AddDays(-showRoomEvento.DiasAntes).Date
+                    if ((fechaHoy >= userData.FechaInicioCampania.AddDays(-showRoomEvento.DiasAntes).Date
                     && fechaHoy <= userData.FechaInicioCampania.AddDays(showRoomEvento.DiasDespues).Date))
                     {
                         TimeSpan ts = userData.FechaInicioCampania.AddDays(-showRoomEvento.DiasAntes) - fechaHoy;
