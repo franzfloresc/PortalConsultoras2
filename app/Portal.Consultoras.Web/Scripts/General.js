@@ -430,8 +430,10 @@ function CerrarLoad(opcion){
 
 function AbrirMensaje(mensaje, titulo, fnAceptar) {
     try {
-        var isUrlMobile = $.trim(location.href).toLowerCase().indexOf("mobile") > 0;
+        titulo = titulo || "MENSAJE";
+        var isUrlMobile = $.trim(location.href).toLowerCase().indexOf("/mobile/") > 0;
         if (isUrlMobile > 0) {
+            //messageInfoValidado('<span>' + message + '</span>', fnClose);
             $('#mensajeInformacionvalidado').html(mensaje);
             $('#popupInformacionValidado').show();
             if ($.isFunction(fnAceptar)) {
@@ -440,7 +442,6 @@ function AbrirMensaje(mensaje, titulo, fnAceptar) {
             }
         }
         else {
-            titulo = titulo || "MENSAJE";
             $('#alertDialogMensajes .terminos_title_2').html(titulo);
             $('#alertDialogMensajes .pop_pedido_mensaje').html(mensaje);
             $('#alertDialogMensajes').dialog('open');

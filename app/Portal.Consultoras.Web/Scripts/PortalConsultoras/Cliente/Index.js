@@ -120,14 +120,6 @@ function CrearDialogs() {
     });
 }
 
-function alert_msg(message, titulo) {
-    titulo = titulo || "MENSAJE";
-    $('#DialogMensajes .terminos_title_2').html(titulo);
-    $('#DialogMensajes .pop_pedido_mensaje').html(message);
-    $('#DialogMensajes').dialog('open');
-    CerrarSplash();
-}
-
 function AbrirSplash() {
     waitingDialog({});
 }
@@ -312,7 +304,7 @@ function MantenerCliente(opt) {
         //$(div).find('#divValidationSummary').html(vMessage);
        // $(div).find('#divValidationSummary').show()
         
-        //alert_msg(vMessage);
+        //AbrirMensaje(vMessage);
 
         //$('#Nombres').focus();
         return false;
@@ -372,7 +364,7 @@ function MantenerCliente(opt) {
 
                     //var item = data.items;
                     //alert(data.message);
-                    alert_msg(data.message);
+                    AbrirMensaje(data.message);
                     //HideDialog("DialogClientes");
                     CerrarSplash();
 
@@ -439,7 +431,7 @@ function EliminarCliente() {
 
                 if (data.success == true) {
                     //alert(data.message);
-                    alert_msg(data.message);
+                    AbrirMensaje(data.message);
 
                     $('#divEliminarCliente').hide();
 
@@ -448,7 +440,7 @@ function EliminarCliente() {
                 }
                 else {
                     //alert(data.message);
-                    alert_msg(data.message);
+                    AbrirMensaje(data.message);
                 }
             }
         },
@@ -534,7 +526,7 @@ function validarExportarMC()
     if ($('#divListaCliente .content_listado_notificaciones').length > 0) {
         DownloadAttachExcelMC();
     } else {
-        alert_msg("No hay datos para poder generar el archivo.");
+        AbrirMensaje("No hay datos para poder generar el archivo.");
         return false;
     }
 }

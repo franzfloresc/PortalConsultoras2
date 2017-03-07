@@ -155,27 +155,24 @@
                                 }
                                 if (mostrarAlerta == true) {
                                     CloseLoading();
-                                    alert_msg(data.message, fnRedireccionar);
+                                    AbrirMensaje(data.message, "", fnRedireccionar);
                                 }
 
                                 else fnRedireccionar();
 
                             }
-                            else if (mostrarAlerta == true) alert_msg(data.message);
+                            else if (mostrarAlerta == true) AbrirMensaje(data.message);
                         }
                     }
                 },
                 error: function (error) {
                     console.log(error);
-                    alert_msg('Ocurrió un error al intentar validar el horario restringido o si el pedido está reservado. Por favor inténtelo en unos minutos.');
+                    AbrirMensaje('Ocurrió un error al intentar validar el horario restringido o si el pedido está reservado. Por favor inténtelo en unos minutos.');
                 }
             });
             return restringido;
         }
 
-        function alert_msg(message, fnClose) {
-            messageInfoValidado('<span>' + message + '</span>', fnClose);
-        }
         function alert_unidadesAgregadas(message, exito) {
             if (exito == 1) {
                 $('#dialog_AgregasteUnidades .popup_agregarUnidades .contenido_popUp .titulo_agregarUnidades').html("<b>¡FELICIDADES!</b>");

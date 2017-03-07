@@ -138,23 +138,6 @@ function Inicializar() {
     LinkCargarCatalogoToScroll();
 }
 
-function IniDialog() {
-    $('#DialogMensajes').dialog({
-        autoOpen: false,
-        resizable: false,
-        modal: true,
-        closeOnEscape: true,
-        width: 400,
-        draggable: true,
-        buttons:
-        {
-            "Aceptar": function () {
-                $(this).dialog('close');
-            }
-        }
-    });
-}
-
 function LinkCargarCatalogoToScroll() {
     if (tipoOrigen != '3') {
         $(window).scroll(CargarCatalogoScroll);
@@ -998,13 +981,8 @@ function DialogMensaje(msj, funcionRedireccionar) {
         messageInfo(msj, funcionRedireccionar);
     }
     else {
-        alert_msg_pedido(msj);
+        AbrirMensaje(msj);
     }
-}
-
-function alert_msg_pedido(message) {
-    $('#DialogMensajes .pop_pedido_mensaje').html(message);
-    $('#DialogMensajes').dialog('open');
 }
 
 function DialogLoadingCerrar() {

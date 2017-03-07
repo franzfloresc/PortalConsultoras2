@@ -519,7 +519,7 @@ function AceptarBackOrder(campaniaId, pedidoId, pedidoDetalleId, clienteId) {
             ShowLoading();
             if (!checkTimeout(data)) return false;
             if (data.success != true) {
-                alert_msg(data.message);
+                AbrirMensaje(data.message);
                 return false;
             }
 
@@ -618,7 +618,7 @@ function PedidoDetalleEliminarTodo() {
         error: function (data, error) {
             CloseLoading();
             if (checkTimeout(data)) {
-                alert_msg(data.message);
+                AbrirMensaje(data.message);
             }
         }
     });
@@ -650,18 +650,18 @@ function ReservadoOEnHorarioRestringido(mostrarAlerta) {
                             location.href = urlPedidoValidado;
                         }
                         if (mostrarAlerta == true) 
-                            alert_msg(data.message, fnRedireccionar);                        
+                            AbrirMensaje(data.message, '', fnRedireccionar);
 
                         else fnRedireccionar();
 
                     }
-                    else if (mostrarAlerta == true) alert_msg(data.message);
+                    else if (mostrarAlerta == true) AbrirMensaje(data.message);
                 }
             }
         },
         error: function (error) {
             console.log(error);
-            alert_msg('Ocurrió un error al intentar validar el horario restringido o si el pedido está reservado. Por favor inténtelo en unos minutos.');
+            AbrirMensaje('Ocurrió un error al intentar validar el horario restringido o si el pedido está reservado. Por favor inténtelo en unos minutos.');
         }
     });
     return restringido;
@@ -859,10 +859,6 @@ function TagManagerClickEliminarProducto(descripcionProd, cuv, precioUnidad, des
             }
         }
     });
-}
-
-function alert_msg(message, fnClose) {
-    messageInfoValidado('<h3>' + message + '</h3>', fnClose);
 }
 
 function SeparadorMiles(pnumero) {

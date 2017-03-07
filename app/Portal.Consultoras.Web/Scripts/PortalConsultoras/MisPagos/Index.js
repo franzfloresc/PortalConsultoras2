@@ -109,7 +109,7 @@ function fnGrilla() {
         error: function (data, error) {
             $("#dellateContenido").html("");
             if (checkTimeout(data)) {
-                alert_msg(data.message);
+                AbrirMensaje(data.message);
             }
         }
     });
@@ -161,15 +161,10 @@ function fnEnviarCorreo() {
     return false
 }
 
-function alert_msg(message) {
-    $('#DialogMensajes .pop_pedido_mensaje').html(message);
-    $('#DialogMensajes').dialog('open');
-}
-
 function validarExportar() {
     var montoPagarEstadoCuenta = $("#hdn_MontoPagar").val();
     if (montoPagarEstadoCuenta == "0") {
-        alert_msg("No hay datos para poder generar el archivo.");
+        AbrirMensaje("No hay datos para poder generar el archivo.");
         return false;
     }
 
@@ -240,7 +235,7 @@ function getLugarPago() {
         error: function (data, error) {
             $("#divContenidoLugarPago").html("");
             if (checkTimeout(data)) {
-                alert_msg(data.message);
+                AbrirMensaje(data.message);
             }
         }
     });
