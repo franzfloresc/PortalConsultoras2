@@ -4,6 +4,7 @@ using Portal.Consultoras.Web.ServicePedidoRechazado;
 using Portal.Consultoras.Web.ServiceSAC;
 using Portal.Consultoras.Web.ServiceUsuario;
 using Portal.Consultoras.Web.ServiceZonificacion;
+using Portal.Consultoras.Web.ServiceProductoCatalogoPersonalizado;
 
 namespace Portal.Consultoras.Web.Models.AutoMapper
 {
@@ -100,6 +101,17 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
             Mapper.CreateMap<BERegion, RegionModel>();
 
             Mapper.CreateMap<BEZona, ZonaModel>();
+            Mapper.CreateMap<MatrizComercialModel, BEMatrizComercial>();
+
+            Mapper.CreateMap<Producto, ProductoModel>()
+                .ForMember(t => t.MarcaID, f => f.MapFrom(c => c.IdMarca))
+                .ForMember(t => t.CUV, f => f.MapFrom(c => c.Cuv))
+                .ForMember(t => t.DescripcionMarca, f => f.MapFrom(c => c.NombreMarca));
+
+            Mapper.CreateMap<ProductoModel, Producto>()
+                .ForMember(t => t.IdMarca, f => f.MapFrom(c => c.MarcaID))
+                .ForMember(t => t.Cuv, f => f.MapFrom(c => c.CUV))
+                .ForMember(t => t.NombreMarca, f => f.MapFrom(c => c.DescripcionMarca));
         }
     }
 }

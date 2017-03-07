@@ -57,5 +57,7 @@
         public bool TieneStockProl { get; set; }
         public int FlagMostrarImg { get; set; }
         public bool IsAgregado { get; set; }
+
+        public string UrlCompartirFB { get; set; }
     }
 }
