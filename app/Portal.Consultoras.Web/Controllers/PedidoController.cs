@@ -2500,7 +2500,7 @@ namespace Portal.Consultoras.Web.Controllers
                         MontoEscala = montoEscala
                     };
                     sv.UpdateMontosPedidoWeb(BePedidoWeb);
-                    UpdateSesionProlMontos(bePedidoWeb);
+                    UpdateSesionProlMontos(BePedidoWeb);
 
                     Session["PedidoWeb"] = null;
                 }
