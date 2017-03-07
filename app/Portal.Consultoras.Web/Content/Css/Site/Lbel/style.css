@@ -234,7 +234,7 @@ header {
 
 .new_menu {
     margin-top: 21px;
-    margin-left: 4.8%;
+    margin-left: 4%;
     height: 40px;
     float: left;
     position: relative;
@@ -252,7 +252,7 @@ header {
 }
 
 .menu_socia_empresaria > .new_menu {
-    margin-left: 4.2%;
+    margin-left: 2%;
     margin-top: 21px;
     /*width: 15%;*/
 }
@@ -22887,7 +22887,7 @@ body {
 
 @media screen and (max-width: 1132px) {
     .menu_socia_empresaria > .new_menu {
-        margin-left: 2.5%;
+        margin-left: 2.4%;
     }
 
     .escala_ganancia {
@@ -29658,6 +29658,9 @@ span.datoPedidoCliente {
         font-size: 12px;
         width: 110%;
     }
+    .new_menu {    
+    margin-left: 3%;    
+    }
 }
 
 @media screen and (max-width:1100px) {
@@ -35077,4 +35080,33 @@ h1#penmostreo .campana {
     display: inline;
     font-weight: bold;
     text-decoration: underline;
+}
+.menu_socia_empresaria > .new_menu > .new_menu_a{
+    font-size:10.5px;
+    letter-spacing:0.5px;
+    height: 18px;
+}
+@media screen and (max-width: 1104px) {
+
+    .new_menu {    
+    margin-left: 2.2%;    
+    }
+    .menu_socia_empresaria > .new_menu {
+          margin-left: 1% !important;
+    }
+}
+@media screen and (max-width: 1150px) {
+
+    .menu_socia_empresaria > .new_menu {
+        margin-left: 1.8%;
+    }
+}
+
+.menu_socia_empresaria > .new_menu:first-child {
+    margin-left: 0%;
+}
+
+.etiqueta_showroom {
+     background: url(https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/JmqkvgJXcyHcBZR/etiqueta_lbel.png) no-repeat;
+    padding-left: 19px;
 }
