@@ -87,7 +87,7 @@ function RechazarPedido(id) {
                 else {
                     $('#PedidoRechazado').hide();
                     $('#PedidoRechazadoDetalle').hide();
-                    alert_msg(data.message);
+                    AbrirMensaje(data.message);
                 }
             }
         },
@@ -96,7 +96,7 @@ function RechazarPedido(id) {
                 CloseLoading();
                 $('#PedidoRechazado').hide();
                 $('#PedidoRechazadoDetalle').hide();
-                alert_msg("Ocurrió un error inesperado al momento de desafiliarte. Consulte con su administrador del sistema para obtener mayor información");
+                AbrirMensaje("Ocurrió un error inesperado al momento de desafiliarte. Consulte con su administrador del sistema para obtener mayor información");
             }
         }
     });
@@ -104,10 +104,6 @@ function RechazarPedido(id) {
     //$('#modal_cancelar_pedido').fuzemodal('close');
     //$('#dialog_confirmacionRechazo').hide();
 };
-
-function alert_msg(message, fnClose) {
-    messageInfoValidado('<h3>' + message + '</h3>', fnClose);
-}
 
 function AceptarPedido(id, tipo) {
 
@@ -191,7 +187,7 @@ function AceptarPedido(id, tipo) {
                 }
                 else {
                     if (response.code == 1) {
-                        alert_msg(response.message);
+                        AbrirMensaje(response.message);
                     }
                     else if (response.code == 2) {
                         $('#MensajePedidoReservado').text(response.message);
@@ -202,7 +198,7 @@ function AceptarPedido(id, tipo) {
             error: function (error) {
                 CloseLoading();
                 //alert(error);
-                alert_msg("Ocurrió un error inesperado al momento de aceptar el pedido. Consulte con su administrador del sistema para obtener mayor información");
+                AbrirMensaje("Ocurrió un error inesperado al momento de aceptar el pedido. Consulte con su administrador del sistema para obtener mayor información");
             }
         });
     }
@@ -240,7 +236,7 @@ function HorarioRestringido(mostrarAlerta) {
                 if (data.success == true) {
                     if (mostrarAlerta == true) {
                         CloseLoading();
-                        alert_msg(data.message);
+                        AbrirMensaje(data.message);
                     }
                     horarioRestringido = true;
                 }
@@ -249,7 +245,7 @@ function HorarioRestringido(mostrarAlerta) {
         error: function (data, error) {
             if (checkTimeout(data)) {
                 CloseLoading();
-                alert_msg(data.message);
+                AbrirMensaje(data.message);
             }
         }
     });

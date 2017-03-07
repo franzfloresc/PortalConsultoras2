@@ -73,20 +73,20 @@ function ReservadoOEnHorarioRestringido(mostrarAlerta) {
                         }
                         if (mostrarAlerta == true) {
                             CloseLoading();
-                            messageInfoValidado(data.message, fnRedireccionar);
+                            AbrirMensaje(data.message, '', fnRedireccionar);
                         }
 
                         else fnRedireccionar();
 
                     }
                     else if (mostrarAlerta == true)
-                        messageInfoValidado(data.message);
+                        AbrirMensaje(data.message);
                 }
             }
         },
         error: function (error) {
             console.log(error);
-            messageInfoValidado('Ocurrió un error al intentar validar el horario restringido o si el pedido está reservado. Por favor inténtelo en unos minutos.');
+            AbrirMensaje('Ocurrió un error al intentar validar el horario restringido o si el pedido está reservado. Por favor inténtelo en unos minutos.');
         }
     });
     return restringido;

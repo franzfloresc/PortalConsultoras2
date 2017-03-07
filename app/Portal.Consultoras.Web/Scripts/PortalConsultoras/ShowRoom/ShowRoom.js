@@ -11,6 +11,36 @@ $(document).ready(function () {
         //$('.js-slick-next').remove();
         //$('.responsive').slick('unslick');
 
+        $(".verDetalleCompraPorCompra").click(function () {
+            var padre = $(this).parents("[data-item]");
+            var article = $(padre).find("[data-campos]").eq(0);
+            var posicion = $(article).find(".posicionEstrategia").val();
+
+            $("#PopDetalleCompra").show();
+
+            $('.content_carrusel_pop_compra.slick-initialized').slick('unslick');
+
+            //$('.content_carrusel_pop_compra').on('init', function (event, slick) {
+            //    setTimeout(function () {
+            //        slick.setPosition();
+            //        slick.slickGoTo(parseInt(posicion) - 1);
+            //    }, 500);
+            //});
+
+            $('.content_carrusel_pop_compra').not('.slick-initialized').slick({
+                dots: true,
+                infinite: true,
+                vertical: false,
+                speed: 300,
+                slidesToShow: 1,
+                slidesToScroll: 1,
+                prevArrow: '<a class="previous_ofertas js-slick-prev" style="display: block;left: 0;margin-left: -13%;"><img src="' + baseUrl + 'Content/Images/Esika/left_compra.png")" alt="" /></a>',
+                nextArrow: '<a class="previous_ofertas js-slick-next" style="display: block;right: 0;margin-right: -13%; text-align:right;"><img src="' + baseUrl + 'Content/Images/Esika/right_compra.png")" alt="" /></a>'
+            });
+
+            $('.content_carrusel_pop_compra').slick('slickGoTo', parseInt(posicion) - 1);
+        });
+
         $('.responsive').not('.slick-initialized').slick({
             infinite: true,
             vertical: false,
@@ -21,16 +51,16 @@ $(document).ready(function () {
             prevArrow: '<a class="previous_ofertas js-slick-prev" style="display: block;left: 0;margin-left: -5%;"><img src="' + baseUrl + 'Content/Images/Esika/previous_ofertas_home.png")" alt="" /></a>',
             nextArrow: '<a class="previous_ofertas js-slick-next" style="display: block;right: 0;margin-right: -5%;text-align:right"><img src="' + baseUrl + 'Content/Images/Esika/next.png")" alt="" /></a>'
         });
-        $('.content_carrusel_pop_compra').slick({
-            dots: true,
-            infinite: true,
-            vertical: false,
-            speed: 300,
-            slidesToShow: 1,
-            slidesToScroll: 1,
-            prevArrow: '<a class="previous_ofertas js-slick-prev" style="display: block;left: 0;margin-left: -13%;"><img src="' + baseUrl + 'Content/Images/Esika/left_compra.png")" alt="" /></a>',
-            nextArrow: '<a class="previous_ofertas js-slick-next" style="display: block;right: 0;margin-right: -13%; text-align:right;"><img src="' + baseUrl + 'Content/Images/Esika/right_compra.png")" alt="" /></a>'
-        });
+        //$('.content_carrusel_pop_compra').slick({
+        //    dots: true,
+        //    infinite: true,
+        //    vertical: false,
+        //    speed: 300,
+        //    slidesToShow: 1,
+        //    slidesToScroll: 1,
+        //    prevArrow: '<a class="previous_ofertas js-slick-prev" style="display: block;left: 0;margin-left: -13%;"><img src="' + baseUrl + 'Content/Images/Esika/left_compra.png")" alt="" /></a>',
+        //    nextArrow: '<a class="previous_ofertas js-slick-next" style="display: block;right: 0;margin-right: -13%; text-align:right;"><img src="' + baseUrl + 'Content/Images/Esika/right_compra.png")" alt="" /></a>'
+        //});
         $('.content_ficha_compra').slick({
             dots: true,
             infinite: true,
@@ -38,34 +68,55 @@ $(document).ready(function () {
             speed: 300,
             slidesToShow: 1,
             slidesToScroll: 1,
-            prevArrow: '<a class="previous_ofertas js-slick-prev" style="display: block;left: 0;margin-left: -13%;"><img src="' + baseUrl + 'Content/Images/Esika/left_compra.png")" alt="" /></a>',
-            nextArrow: '<a class="previous_ofertas js-slick-next" style="display: block;right: 0;margin-right: -13%; text-align:right;"><img src="' + baseUrl + 'Content/Images/Esika/right_compra.png")" alt="" /></a>'
+            pantallaPedido: false,
+            prevArrow: '<button type="button" data-role="none" class="slick-next next_compraxcompra"></button>',
+            nextArrow: '<button type="button" data-role="none" class="slick-prev previous_compraxcompra"></button>'
         });
     }
-    else if (tipoOrigenPantalla == 21) {
-        $('.slider').slick({
-            slidesToShow: 4,
-            slidesToScroll: 1,
-            autoplay: false,
-            dots: false,
-            prevArrow: '<span class="previous_ofertas_mobile" id="slick-prev"><img src="' + urlCarruselPrev + '")" alt="-"/></span>',
-            nextArrow: '<span class="previous_ofertas_mobile" id="slick-next" style="text-align:right; right:0;"><img src="' + urlCarruselNext + '" alt="-"/></span>',
-            infinite: true,
+    else if (tipoOrigenPantalla == 21) { // Mobile Oferta Detalle
+
+        $("footer").hide();
+
+        $('.variable-width').on('init', function (event, slick) {
+            setTimeout(function () {
+                slick.setPosition();
+                slick.slickGoTo(1);
+                $("#divEstrategias").find("[data-posicion-set]").find(".orden_listado_numero").find("[data-posicion-current]").html(2);
+            }, 500);
+        }).slick({
+            dots: true,
+            infinite: false,
             speed: 300,
-            responsive: [
-                {
-                    breakpoint: 960,
-                    settings: { slidesToShow: 3, slidesToScroll: 1 }
-                },
-                {
-                    breakpoint: 680,
-                    settings: { slidesToShow: 1, slidesToScroll: 1 }
-                },
-                {
-                    breakpoint: 380,
-                    settings: { slidesToShow: 1, slidesToScroll: 1 }
-                }
-            ]
+            slidesToShow: 2,
+            centerPadding: '0px',
+            centerMode: true,
+            variableWidth: true,
+            slidesToScroll: 1,
+            centerMode: true,
+            arrows: false,
+            dots: false,
+        }).on('swipe', function (event, slick, direction) {
+            var posicion = slick.currentSlide;
+            posicion = Math.max(parseInt(posicion), 0);
+
+            if (direction == 'left') { // dedecha a izquierda
+                posicion = posicion + 1;
+            } else if (direction == 'right') {
+                posicion = posicion + 1;
+            }
+
+            $("#divEstrategias").find("[data-posicion-set]").find(".orden_listado_numero").find("[data-posicion-current]").html(posicion);
+        });
+
+        $('.content_compra_carrusel').slick({
+            dots: false,
+            infinite: true,
+            vertical: false,
+            speed: 300,
+            slidesToShow: 1,
+            slidesToScroll: 1,
+            prevArrow: '<a class="previous_ofertas js-slick-prev" style="display: block;left: -13%; top:30%;"><img src="' + baseUrl + 'Content/Images/Esika/flecha_compra_left.png")" alt="" /></a>',
+            nextArrow: '<a class="previous_ofertas js-slick-next" style="display: block;right: -13%; top:30%; text-align:right;"><img src="' + baseUrl + 'Content/Images/Esika/flecha_compra_right.png")" alt="" /></a>'
         });
     }
 
@@ -182,7 +233,6 @@ function AgregarOfertaShowRoomCpc(article, cantidad) {
     var CUV = $(article).find(".valorCuv").val();
     var MarcaID = $(article).find(".claseMarcaID").val();
     var PrecioUnidad = $(article).find(".clasePrecioUnidad").val();
-    var ConfiguracionOfertaID = $(article).find(".claseConfiguracionOfertaID").val();
     var nombreProducto = $(article).find(".DescripcionProd").val();
     var posicion = $(article).find(".posicionEstrategia").val();
     var descripcionMarca = $(article).find(".DescripcionMarca").val();
@@ -199,15 +249,14 @@ function AgregarOfertaShowRoomCpc(article, cantidad) {
             MarcaID: MarcaID,
             Cantidad: cantidad,
             PrecioUnidad: PrecioUnidad,
-            CUV: CUV,
-            ConfiguracionOfertaID: ConfiguracionOfertaID
+            CUV: CUV
         };
 
         $.ajaxSetup({ cache: false });
 
         jQuery.ajax({
             type: 'POST',
-            url: baseUrl + 'ShowRoom/InsertOfertaWebPortal',
+            url: baseUrl + 'ShowRoom/InsertOfertaWebPortalCpc',
             dataType: 'json',
             contentType: 'application/json; charset=utf-8',
             data: JSON.stringify(Item),

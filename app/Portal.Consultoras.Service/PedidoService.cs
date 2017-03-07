@@ -1820,5 +1820,10 @@ namespace Portal.Consultoras.Service
         {
             return new BLEstrategia().ActivarDesactivarEstrategias(PaisID, Usuario, EstrategiasActivas, EstrategiasDesactivas);
         }
+
+        public int UpdEventoConsultoraPopup(int paisID, BEShowRoomEventoConsultora entity, string tipo)
+        {
+            return new BLShowRoomEvento().UpdEventoConsultoraPopup(paisID, entity, tipo);
+        }
     }
 }

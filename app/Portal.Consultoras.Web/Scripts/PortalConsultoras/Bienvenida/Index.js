@@ -702,20 +702,6 @@ function UpdateUsuarioTutoriales(tipo) {
 }
 
 function CrearDialogs() {
-    $('#DialogMensajes').dialog({
-        autoOpen: false,
-        resizable: false,
-        modal: true,
-        closeOnEscape: true,
-        width: 400,
-        draggable: true,
-        buttons:
-        {
-            "Aceptar": function () {
-                $(this).dialog('close');
-            }
-        }
-    });
     //SB20 - 1110
     $('#divConfirmarCUVBanner').dialog({
         autoOpen: false,
@@ -1147,7 +1133,7 @@ function AgregarProductoDestacado(popup, tipoEstrategiaImagen) {
     // validar que se existan tallas
     if ($.trim($("#ddlTallaColor").html()) != "") {
         if ($.trim($("#ddlTallaColor").val()) == "") {
-            alert_msg_pedido("Por favor, seleccione la Talla/Color del producto.");
+            AbrirMensaje("Por favor, seleccione la Talla/Color del producto.");
             return false;
         }
     }
@@ -1156,19 +1142,19 @@ function AgregarProductoDestacado(popup, tipoEstrategiaImagen) {
         cantidad = cantidadLimite;
     }
     if (!$.isNumeric(cantidad)) {
-        alert_msg_pedido("Ingrese un valor numérico.");
+        AbrirMensaje("Ingrese un valor numérico.");
         $('.liquidacion_rango_cantidad_pedido').val(1);
         $("#loadingScreen").dialog('close');
         return false;
     }
     if (parseInt(cantidad) <= 0) {
-        alert_msg_pedido("La cantidad debe ser mayor a cero.");
+        AbrirMensaje("La cantidad debe ser mayor a cero.");
         $('.liquidacion_rango_cantidad_pedido').val(1);
         $("#loadingScreen").dialog('close');
         return false;
     }
     if (parseInt(cantidad) > parseInt(cantidadLimite)) {
-        alert_msg_pedido("La cantidad no debe ser mayor que la cantidad limite ( " + cantidadLimite + " ).");
+        AbrirMensaje("La cantidad no debe ser mayor que la cantidad limite ( " + cantidadLimite + " ).");
         $("#loadingScreen").dialog('close');
         return false;
     }
@@ -1195,7 +1181,7 @@ function AgregarProductoDestacado(popup, tipoEstrategiaImagen) {
         async: true,
         success: function (datos) {
             if (!datos.result) {
-                alert_msg_pedido(datos.message);
+                AbrirMensaje(datos.message);
                 closeWaitingDialog();
             } else {
                 jQuery.ajax({
@@ -1287,16 +1273,16 @@ function ReservadoOEnHorarioRestringido(mostrarAlerta) {
                 }
                 if (mostrarAlerta == true) {
                     closeWaitingDialog();
-                    alert_msg_pedido(data.message);
+                    AbrirMensaje(data.message);
                 }
                 else fnRedireccionar();
             }
             else if (mostrarAlerta == true)
-                alert_msg_pedido(data.message);
+                AbrirMensaje(data.message);
         },
         error: function (error) {
             //console.log(error);
-            alert_msg_pedido('Ocurrió un error al intentar validar el horario restringido o si el pedido está reservado. Por favor inténtelo en unos minutos.');
+            AbrirMensaje('Ocurrió un error al intentar validar el horario restringido o si el pedido está reservado. Por favor inténtelo en unos minutos.');
         }
     });
     return restringido;
@@ -1356,10 +1342,7 @@ function HidePopupEstrategiasEspeciales() {
     $('#popupDetalleCarousel_lanzamiento').hide();
     $('#popupDetalleCarousel_packNuevas').hide();
 };
-function alert_msg_pedido(message) {
-    $('#DialogMensajes .pop_pedido_mensaje').html(message);
-    $('#DialogMensajes').dialog('open');
-};
+
 function alert_unidadesAgregadas(message, exito) {
     if (exito == 1) {
         $('#dialog_AgregasteUnidades .popup_agregarUnidades .contenido_popUp .titulo_agregarUnidades').html("<b>¡FELICIDADES!</b>");
@@ -1559,12 +1542,12 @@ function AgregarProductoLiquidacion(contenedor) {
 
     var inputCantidad = $(contenedor).find("#txtCantidad").val();
     if (!$.isNumeric(inputCantidad)) {
-        alert_msg_pedido("Ingrese un valor numérico.");
+        AbrirMensaje("Ingrese un valor numérico.");
         $(contenedor).find("#txtCantidad").val(1);
         return false;
     }
     if (parseInt(inputCantidad) <= 0) {
-        alert_msg_pedido("La cantidad debe ser mayor a cero.");
+        AbrirMensaje("La cantidad debe ser mayor a cero.");
         $(contenedor).find("#txtCantidad").val(1);
         return false;
     }
@@ -1595,12 +1578,12 @@ function AgregarProductoLiquidacion(contenedor) {
             var UnidadesPermitidas = data.UnidadesPermitidas;
             $.getJSON(baseUrl + 'OfertaLiquidacion/ObtenerStockActualProducto', { CUV: item.CUV }, function (data) {
                 if (Saldo == UnidadesPermitidas)
-                    alert_msg_pedido("Lamentablemente, la cantidad solicitada sobrepasa las Unidades Permitidas de Venta (" + UnidadesPermitidas + ") del producto.");
+                    AbrirMensaje("Lamentablemente, la cantidad solicitada sobrepasa las Unidades Permitidas de Venta (" + UnidadesPermitidas + ") del producto.");
                 else {
                     if (Saldo == "0")
-                        alert_msg_pedido("Las Unidades Permitidas de Venta son solo (" + UnidadesPermitidas + "), pero Usted ya no puede adicionar más, debido a que ya agregó este producto a su pedido, verifique.");
+                        AbrirMensaje("Las Unidades Permitidas de Venta son solo (" + UnidadesPermitidas + "), pero Usted ya no puede adicionar más, debido a que ya agregó este producto a su pedido, verifique.");
                     else
-                        alert_msg_pedido("Las Unidades Permitidas de Venta son solo (" + UnidadesPermitidas + "), pero Usted solo puede adicionar (" + Saldo + ") más, debido a que ya agregó este producto a su pedido, verifique.");
+                        AbrirMensaje("Las Unidades Permitidas de Venta son solo (" + UnidadesPermitidas + "), pero Usted solo puede adicionar (" + Saldo + ") más, debido a que ya agregó este producto a su pedido, verifique.");
                 }
                 HidePopupTonosTallas();
                 closeWaitingDialog();
@@ -1612,7 +1595,7 @@ function AgregarProductoLiquidacion(contenedor) {
             });
             $.getJSON(baseUrl + 'OfertaLiquidacion/ObtenerStockActualProducto', { CUV: item.CUV }, function (data) {
                 if (parseInt(data.Stock) < parseInt(item.Cantidad)) {
-                    alert_msg_pedido("Lamentablemente, la cantidad solicitada sobrepasa el stock actual (" + data.Stock + ") del producto, verifique.");
+                    AbrirMensaje("Lamentablemente, la cantidad solicitada sobrepasa el stock actual (" + data.Stock + ") del producto, verifique.");
                     HidePopupTonosTallas();
                     closeWaitingDialog();
                     return false;
@@ -1647,7 +1630,7 @@ function AgregarProductoLiquidacion(contenedor) {
                         },
                         error: function (data, error) {
                             if (checkTimeout(data)) {
-                                alert_msg_pedido(data.message);
+                                AbrirMensaje(data.message);
                                 closeWaitingDialog();
                                 HidePopupTonosTallas();
                             }
@@ -2644,7 +2627,7 @@ function ActualizarDatosMexico() {
                     closeWaitingDialog();
                     Result = data.success;
                     if (data.success) {
-                        alert_msg_pedido(data.message)
+                        AbrirMensaje(data.message)
                         CerrarPopupActualizacionDatosMexico();
                         dataLayer.push({
                             'event': 'virtualEvent',

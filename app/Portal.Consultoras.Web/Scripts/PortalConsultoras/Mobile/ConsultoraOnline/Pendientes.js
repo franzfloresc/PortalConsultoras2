@@ -74,14 +74,14 @@ function RechazarPedido(id) {
                     $('#MensajePedidoRechazado').show();
                 }
                 else {
-                    alert_msg(data.message);
+                    AbrirMensaje(data.message);
                 }
             }
         },
         error: function (data, error) {
             if (checkTimeout(data)) {
                 CloseLoading();
-                alert_msg("Ocurrió un error inesperado al momento de desafiliarte. Consulte con su administrador del sistema para obtener mayor información");
+                AbrirMensaje("Ocurrió un error inesperado al momento de desafiliarte. Consulte con su administrador del sistema para obtener mayor información");
             }
         }
     });
@@ -89,10 +89,6 @@ function RechazarPedido(id) {
     //$('#modal_cancelar_pedido').fuzemodal('close');
     //$('#dialog_confirmacionRechazo').hide();
 };
-
-function alert_msg(message, fnClose) {
-    messageInfoValidado('<h3>' + message + '</h3>', fnClose);
-}
 
 function AceptarPedido(id, tipo) {
 
@@ -168,13 +164,13 @@ function AceptarPedido(id, tipo) {
                     $('#PedidoAceptado').show();
                 }
                 else {
-                    alert_msg(response.message);
+                    AbrirMensaje(response.message);
                 }
             },
             error: function (error) {
                 CloseLoading();
                 //alert(error);
-                alert_msg("Ocurrió un error inesperado al momento de aceptar el pedido. Consulte con su administrador del sistema para obtener mayor información");
+                AbrirMensaje("Ocurrió un error inesperado al momento de aceptar el pedido. Consulte con su administrador del sistema para obtener mayor información");
             }
         });
     }

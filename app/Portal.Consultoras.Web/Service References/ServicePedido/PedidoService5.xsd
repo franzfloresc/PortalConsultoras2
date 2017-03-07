@@ -600,6 +600,22 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+  <xs:element name="UpdEventoConsultoraPopup">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="paisID" type="xs:int" />
+        <xs:element xmlns:q34="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.ShowRoom" minOccurs="0" name="entity" nillable="true" type="q34:BEShowRoomEventoConsultora" />
+        <xs:element minOccurs="0" name="tipo" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdEventoConsultoraPopupResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="UpdEventoConsultoraPopupResult" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
   <xs:element name="InsertarTipoEstrategia">
     <xs:complexType>
       <xs:sequence>

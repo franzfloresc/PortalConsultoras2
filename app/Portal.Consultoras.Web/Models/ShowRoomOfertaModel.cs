@@ -76,6 +76,8 @@ namespace Portal.Consultoras.Web.Models
 
         public IList<ShowRoomOfertaModel> ListaOfertaShowRoom { get; set; }
 
+        public IList<ShowRoomOfertaModel> ListaShowRoomCompraPorCompra { get; set; }
+
         public string Subtitulo { get; set; }
 
         public int Incrementa { get; set; }
@@ -89,6 +91,8 @@ namespace Portal.Consultoras.Web.Models
         public string Simbolo { get; set; }
 
         public string Agregado { get; set; }
+
+        public bool TieneCompraXcompra { get; set; }
 
         public decimal Gana {
             set

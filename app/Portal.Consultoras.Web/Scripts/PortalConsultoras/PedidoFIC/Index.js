@@ -123,7 +123,7 @@
 
     $('#frmInsertPedido').on('submit', function () {
         if (!$(this).valid()) {
-            alert_msg("Argumentos no validos");
+            AbrirMensaje("Argumentos no validos");
             return false;
         }
         if (HorarioRestringido()) return false;
@@ -153,7 +153,7 @@
 
     $('#btnValidarPROL').click(function () {
         if ($('#tbobyDetallePedido>div').length > 0 && indicadorOfertaFIC) showDialog('divOfertaFIC');
-        else alert_msg("Su pedido ha sido guardado correctamente.");
+        else AbrirMensaje("Su pedido ha sido guardado correctamente.");
     });
     $('#btnAgregarOferfaFIC').click(function () {
         GuardarOfertaFICenPedido();
@@ -169,16 +169,6 @@
 });
 
 function CrearDialogs() {
-    $('#DialogMensajes').dialog({
-        autoOpen: false,
-        resizable: false,
-        modal: true,
-        closeOnEscape: true,
-        width: 400,
-        draggable: true,
-        buttons: { "Aceptar": function () { $(this).dialog('close'); } }
-    });
-
     $('#divConfirmEliminarTotal').dialog({
         autoOpen: false,
         resizable: false,
@@ -485,7 +475,7 @@ function ValidarRegistroCliente() {
     }
 
     if (vMessage != "") {
-        alert_msg(vMessage);
+        AbrirMensaje(vMessage);
         $('#Nombres').focus();
         return false;
     }
@@ -516,12 +506,12 @@ function GuardarCliente() {
                     //HideDialog("divClientes");
                     $("#divClientes").hide();
                 }
-                alert_msg(data.message);
+                AbrirMensaje(data.message);
             }
         },
         error: function (data, error) {
             if (checkTimeout(data)) {
-                alert_msg(data.message);
+                AbrirMensaje(data.message);
                 //HideDialog("divClientes");
                 $("#divClientes").hide();
             }
@@ -619,20 +609,12 @@ function BuscarByCUV(CUV) {
                     if (data.message == "" || data.message === undefined) {
                         location.href = baseUrl + "Login/SesionExpirada";
                     } else {
-                        alert_msg(data.message);
+                        AbrirMensaje(data.message);
                     }
                 }
             }
         });
     }
-}
-
-function alert_msg(message, titulo) {
-    titulo = titulo || "MENSAJE";
-    $('#DialogMensajes .terminos_title_2').html(titulo);
-    $('#DialogMensajes .pop_pedido_mensaje').html(message);
-    $('#DialogMensajes').dialog('open');
-    CerrarSplash();
 }
 
 function CambiarCliente(elem) {
@@ -683,14 +665,14 @@ function HorarioRestringido(mostrarAlerta) {
                 // esta en horario restringido
                 if (data.success == true) {
                     if (mostrarAlerta == true)
-                        alert_msg(data.message);
+                        AbrirMensaje(data.message);
                     horarioRestringido = true;
                 }
             }
         },
         error: function (data, error) {
             if (checkTimeout(data)) {
-                alert_msg(data.message);
+                AbrirMensaje(data.message);
             }
         }
     });
@@ -835,7 +817,7 @@ function EliminarPedido() {
         },
         error: function (data, error) {
             if (checkTimeout(data)) {
-                alert_msg(data.message);
+                AbrirMensaje(data.message);
                 CerrarSplash();
             }
         }
@@ -860,17 +842,17 @@ function ValidarUpdate(PedidoDetalleID, FlagValidacion) {
     }
 
     if (Cantidad.length == 0) {
-        alert_msg('Por favor ingrese una cantidad válida.');
+        AbrirMensaje('Por favor ingrese una cantidad válida.');
         return false;
     }
 
     if (Cantidad == 0) {
-        alert_msg('Por favor ingrese una cantidad mayor a cero.');
+        AbrirMensaje('Por favor ingrese una cantidad mayor a cero.');
         return false;
     }
 
     if (CliDes.length != 0 && CliDes != CliDesVal) {
-        alert_msg('Por favor ingrese un cliente válido.');
+        AbrirMensaje('Por favor ingrese un cliente válido.');
         return false;
     }
 
@@ -949,7 +931,7 @@ function Update(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion, CUV) {
         error: function (data, error) {
             CerrarSplash();
             if (checkTimeout(data)) {
-                alert_msg(data.message);
+                AbrirMensaje(data.message);
             }
         }
     });
@@ -971,7 +953,7 @@ function UpdateLiquidacion(CampaniaID, PedidoID, PedidoDetalleID, TipoOfertaSisI
     }
 
     if (cant == "" || cant == "0") {
-        alert_msg("Ingrese una cantidad mayor que cero.");
+        AbrirMensaje("Ingrese una cantidad mayor que cero.");
         $('#txtLPCant' + PedidoDetalleID).val("1");
         CerrarSplash();
         return false;
@@ -1015,7 +997,7 @@ function CambioPagina(obj) {
 function AjaxError(data) {
     CerrarSplash();
     if (checkTimeout(data)) {
-        alert_msg(data.message);
+        AbrirMensaje(data.message);
     }
 }
 
@@ -1031,16 +1013,16 @@ function GuardarOfertaFICenPedido() {
                 closeWaitingDialog();
 
                 if (data.success == true) {
-                    alert_msg(data.message);
+                    AbrirMensaje(data.message);
                 }
                 else
-                    alert_msg(data.message);
+                    AbrirMensaje(data.message);
             }
         },
         error: function (data, error) {
             if (checkTimeout(data)) {
                 closeWaitingDialog();
-                alert_msg("Ocurrió un error inesperado al momento de registrar los datos. Consulte con su administrador del sistema para obtener mayor información");
+                AbrirMensaje("Ocurrió un error inesperado al momento de registrar los datos. Consulte con su administrador del sistema para obtener mayor información");
             }
         }
     });
