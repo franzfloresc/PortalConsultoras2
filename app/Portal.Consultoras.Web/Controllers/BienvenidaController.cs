@@ -549,7 +549,6 @@ namespace Portal.Consultoras.Web.Controllers
                 string fileName = userData.CodigoISO + "-" + userData.CodigoConsultora + ".png";
                 string pathFile = Server.MapPath("~/Content/Images/temp/" + fileName);
                 System.IO.File.WriteAllBytes(pathFile, base64EncodedBytes);
-
                 ConfigS3.SetFileS3(pathFile, "ConsultoraImagen", fileName, true, true, true);
                 rutaImagen = ConfigS3.GetUrlFileS3("ConsultoraImagen", fileName, "");
             }
@@ -1542,40 +1541,61 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpPost]
         public JsonResult NoMostrarShowRoomPopup(string TipoShowRoom)
         {
+            var entidad = new BEShowRoomEventoConsultora();
+            entidad.CodigoConsultora = UserData().CodigoConsultora;
+            entidad.CampaniaID = UserData().CampaniaID;
+            entidad.EventoID = UserData().BeShowRoom.EventoID;
+            entidad.EventoConsultoraID = UserData().BeShowRoomConsultora.EventoConsultoraID;
+            bool blnEstado = false;
             try
             {
-                bool blnShowRoom = false;
-                var beShowRoom = userData.BeShowRoomConsultora;
-
-                if (TipoShowRoom == "I")
+                using (PedidoServiceClient sac = new PedidoServiceClient())
                 {
-                    userData.BeShowRoomConsultora.MostrarPopup = false;
-                    blnShowRoom = userData.BeShowRoomConsultora.MostrarPopup;
+                    sac.UpdEventoConsultoraPopup(UserData().PaisID, entidad, TipoShowRoom);
+                    blnEstado = true;
                 }
-                else
+                if (blnEstado == true && TipoShowRoom == 'I'.ToString())
                 {
+                    UserData().BeShowRoomConsultora.MostrarPopup = false;
+                    userData.BeShowRoomConsultora.MostrarPopup = false;
+                }
+
+                if (blnEstado == true && TipoShowRoom == 'V'.ToString())
+                {
+                    UserData().BeShowRoomConsultora.MostrarPopupVenta = false;
                     userData.BeShowRoomConsultora.MostrarPopupVenta = false;
-                    blnShowRoom = userData.BeShowRoomConsultora.MostrarPopupVenta;
                 }
 
                 return Json(new
                 {
                     success = true,
-                    data = blnShowRoom,
+                    message = "",
+                    extra = "",
                     tipo = TipoShowRoom
                 });
 
             }
-            catch (Exception ex)
+            catch (FaultException ex)
             {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
                 return Json(new
                 {
                     success = false,
                     message = "Hubo un problema con el servicio, intente nuevamente",
                     extra = ""
-                }, JsonRequestBehavior.AllowGet);
+                });
             }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                return Json(new
+                {
+                    success = false,
+                    message = "Hubo un problema con el servicio, intente nuevamente",
+                    extra = ""
+                });
+            }
+            
         }
 
 
@@ -1605,7 +1625,7 @@ namespace Portal.Consultoras.Web.Controllers
                         int diasAntes = beShowRoom.DiasAntes;
                         int diasDespues = beShowRoom.DiasDespues;
 
-                        if ((fechaHoy >= userData.FechaInicioCampania.AddDays(-diasAntes).Date 
+                        if (!(fechaHoy >= userData.FechaInicioCampania.AddDays(-diasAntes).Date 
                             && fechaHoy <= userData.FechaInicioCampania.AddDays(diasDespues).Date))
                         {
                             rutaShowRoomPopup = Url.Action("Index", "ShowRoom");

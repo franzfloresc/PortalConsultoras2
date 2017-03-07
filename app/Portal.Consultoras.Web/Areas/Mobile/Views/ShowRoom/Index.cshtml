@@ -73,7 +73,7 @@
                     <input type="hidden" class="posicionEstrategia" value="@posicions" />
 
                     <div class="producto_img_mobile">
-                        <a class="btnVerDetalleOfertaShowRoom" href="@Url.Action("ListadoProductoShowRoom", new { id = posicions })">
+                        <a class="btnVerDetalleOfertaShowRoom" href="@Url.Action("DetalleOferta", "ShowRoom", new {id = item.OfertaShowRoomID, area = "Mobile"})">
                             @if (string.IsNullOrEmpty(item.ImagenMini))
                             {
                                 <img src="@Url.Content("~/Content/Images/showroom/no_disponible.png")" @*style="width: 100%;"*@ />

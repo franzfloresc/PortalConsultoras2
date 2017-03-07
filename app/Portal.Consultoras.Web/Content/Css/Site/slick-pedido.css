@@ -162,3 +162,15 @@ background: url("/Content/Images/showroom/carrusel_p.png") no-repeat;
 .previous_ofertas-popup.next{
     right: 30px;
 }
+
+.previous_compraxcompra {
+            background: url(https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/rCJzgZjmUSXGf1x/border_efecto.png) no-repeat center top !important;
+            bottom: -15px;
+            height: 40px !important;
+            position: absolute !important;
+        }
+
+.next_compraxcompra {
+    background: url(https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/tyOlgnO0tLCZ8k7/flecha_arriba.png) no-repeat center top !important;
+    border-bottom: 0 !important;
+}

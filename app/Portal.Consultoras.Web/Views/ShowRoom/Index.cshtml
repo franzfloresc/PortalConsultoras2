@@ -158,15 +158,14 @@
                                 <input type="hidden" class="valorCuv" value="@item.CUV" />
                                 <input type="hidden" class="claseMarcaID" value="@item.MarcaID" />
                                 <input type="hidden" class="clasePrecioUnidad" value="@item.PrecioCatalogo" />
-                                <input type="hidden" class="claseConfiguracionOfertaID" value="@item.ConfiguracionOfertaID" />
                                 <input type="hidden" class="DescripcionProd" value="@item.Descripcion" />
                                 <input type="hidden" class="DescripcionMarca" value="@item.DescripcionMarca" />
                                 <input type="hidden" class="posicionEstrategia" value="@posicionCpc" />
                             </div>
                             <div class="titulo_compra_POP">PROMOCIÓN</div>
                             <div class="precio_set_compra">A SÓLO @item.Simbolo @item.PrecioCatalogo</div>
-                            <div class="content_imagen_compra">
-                                <img src="@item.ImagenProducto">
+                            <div class="content_imagen_compra" data-img="">
+                                <img src="@item.ImagenProducto" class="imagen_producto">
                             </div>
                             <div class="content_datos_carrusel">
                                 <div class="producto_compra">LLévate un @item.Descripcion por la compra de 2 Sets o más.</div>
