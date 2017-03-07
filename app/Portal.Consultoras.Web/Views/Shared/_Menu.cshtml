@@ -215,7 +215,7 @@
                                 {
                                     menuPadre.UrlItem = "ShowRoom/Intriga";
                                 }
-                                <a href="javascript:;" class="new_menu_a" onclick="RedirectMenu('@menuPadre.UrlItem.Split('/')[1]', '@menuPadre.UrlItem.Split('/')[0]' , @Convert.ToInt32(menuPadre.PaginaNueva) , '@menuPadre.Descripcion')" target="@pageTarget" role="menu" region="Principal" parent="@menuPadre.Descripcion" title="@menuPadre.Descripcion" id="lnk-pri-@menuPadre.DescripcionFormateada">
+                                <a href="javascript:;" class="new_menu_a etiqueta_showroom" onclick="RedirectMenu('@menuPadre.UrlItem.Split('/')[1]', '@menuPadre.UrlItem.Split('/')[0]' , @Convert.ToInt32(menuPadre.PaginaNueva) , '@menuPadre.Descripcion')" target="@pageTarget" role="menu" region="Principal" parent="@menuPadre.Descripcion" title="@menuPadre.Descripcion" id="lnk-pri-@menuPadre.DescripcionFormateada">
                                     @menuPadre.Descripcion
                                 </a>
                             </li>
