@@ -239,31 +239,7 @@
         <hr class="clear">
     </div>
 </div>
-<!--POP UP COMPRA X COMPRA / QUITAR EL SCROLL DEL BODY CUANDO SALGA ESTE POP UP-->
-<div class="PopMobile1" id="PopCompra" data-popup-main="" style="display: block;">
-    <div class="content_popMobile" data-popup-body="" style="max-width:450px;">
-        <a class="cerrar_popMobile" href="javascript:;" onclick="javascript: $('#PopCompra').fadeOut();">
-             <img src="/Content/Images/mobile/Esika/cerrar_04.png" alt="-">  
-        </a>       
-         <div class="titulo_compra_POP">PROMOCIÓN</div>        
-            <div class="content_pop_compra">
-                <div> 
-                     <div class="precio_set_compra">LLévate un Reloj Espheric. Por la compra de 2 Sets o más.</div>  
-                     <div class="content_imagen_carrusel_compra"><img src="https://s3-sa-east-1.amazonaws.com/appcatalogo/CO/201704/C/productos/CO_200084402.jpg"></div>                
-                     <div class="precio_producto_compra"> A SÓLO S/5.00</div>               
-                     <div class="descripcion_compra">Correa tipo cuero y pieza central plateada con 37 cristales.</div>               
-                      <a class="btn_agrega_compra">AGRÉGALO</a>
-                </div>            
-                <div> 
-                    <div class="precio_set_compra">LLévate un Reloj Espheric. Por la compra de 2 Sets o más.</div> 
-                    <div class="content_imagen_carrusel_compra"><img src="https://s3-sa-east-1.amazonaws.com/appcatalogo/CO/201704/C/productos/CO_200084402.jpg"></div>
-                    <div class="precio_producto_compra"> A SÓLO S/5.00</div>                
-                    <div class="descripcion_compra">Correa tipo cuero y pieza central plateada con 37 cristales.</div>                
-                    <a class="btn_agrega_compra">AGRÉGALO</a>
-                </div>
-             </div>
-    </div>
-</div>
+
 
             @section scripts{
                 <script type="text/javascript" src="@Url.Content("~/Scripts/slick.min.js")"></script>
@@ -307,16 +283,7 @@
                             prevArrow: '<a class="previous_ofertas js-slick-prev" style="display: block;left: -13%; top:30%;"><img src="' + baseUrl + 'Content/Images/Esika/flecha_compra_left.png")" alt="" /></a>',
                             nextArrow: '<a class="previous_ofertas js-slick-next" style="display: block;right: -13%; top:30%; text-align:right;"><img src="' + baseUrl + 'Content/Images/Esika/flecha_compra_right.png")" alt="" /></a>'
                         });
-                        $('.content_pop_compra').slick({
-                            dots: false,
-                            infinite: true,
-                            vertical: false,
-                            speed: 300,
-                            slidesToShow: 1,
-                            slidesToScroll: 1,
-                            prevArrow: '<a class="previous_ofertas js-slick-prev" style="display: block;left: 0;margin-left: -13%; top: 35%;"><img src="' + baseUrl + 'Content/Images/Esika/left_compra.png")" alt="" /></a>',
-                            nextArrow: '<a class="previous_ofertas js-slick-next" style="display: block;right: 0;margin-right: -13%; text-align:right;  top: 35%;"><img src="' + baseUrl + 'Content/Images/Esika/right_compra.png")" alt="" /></a>'
-                        });
+                       
                     })
                 </script>
             }
