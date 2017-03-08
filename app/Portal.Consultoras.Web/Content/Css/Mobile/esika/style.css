@@ -11056,7 +11056,7 @@ a{
 }
 
 .content_room_product_sheet .price_product .price_offer{
-	font-weight: 100;
+	font-weight: 300;
 }
 
 .content_room_product_sheet .price_product .price b{
@@ -11454,4 +11454,10 @@ a{
     line-height:30px;
     font-size:13px;
     display:block;
+}
+@media screen and (max-width: 486px) and (min-width: 0px) {
+   
+   .content_showroom .producto_precio_normal{
+       display:block;
+   }
 }

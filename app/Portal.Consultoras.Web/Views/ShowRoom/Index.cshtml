@@ -50,9 +50,6 @@
             @{ var posicionx = 1; }
             @foreach (var item in Model.ListaShowRoomOferta)
             {
-                var formatoPrecioOferta = Util.DecimalToStringFormat(item.PrecioOferta, Model.CodigoIso);
-                var formatoPrecioCatalogo = Util.DecimalToStringFormat(item.PrecioCatalogo, Model.CodigoIso);
-
                 <div class="set-productos-showroom" data-posicion="@posicionx" data-item="@item.OfertaShowRoomID">
                     <div data-campos="">
                         <input type="hidden" class="hdOfertaShowRoomID" value="@item.OfertaShowRoomID"/>
@@ -80,8 +77,8 @@
                     <div class="producto_nombre_descripcion">
                         <p class="nombre-producto-set">@item.Descripcion</p>
                         <div class="producto_precio" style="margin-bottom: 3px;">
-                            <span class="precio-oferta-normal">@Model.Simbolo @formatoPrecioOferta</span>
-                            <span class="precio-oferta-venta"><b>@Model.Simbolo @formatoPrecioCatalogo</b></span>
+                            <span class="precio-oferta-normal">@Model.Simbolo @item.FormatoPrecioOferta</span>
+                            <span class="precio-oferta-venta"><b>@Model.Simbolo @item.FormatoPrecioCatalogo</b></span>
                         </div>
                         <div class="liquidacion_rango_home" data-cantidad-contenedor="">
                             <input type="text" value="1" min="1" max="99" size="2" maxlength="2"
@@ -127,7 +124,7 @@
                     </div>
                     <div class="content_oferta">
                         <b class="content_oferta_promocion">PROMOCIÓN</b><br/>
-                        <b>A SÓLO @Model.ListaShowRoomCompraPorCompra[0].Simbolo @Model.ListaShowRoomCompraPorCompra[0].PrecioCatalogo </b>POR LA COMPRA DE 2 SETS O MÁS                        
+                        <b>A SÓLO @Model.ListaShowRoomCompraPorCompra[0].Simbolo @Model.ListaShowRoomCompraPorCompra[0].PrecioCatalogo </b>POR LA COMPRA DE 2 SETS                      
                     </div>
                     <a class="btn_ver_detalle_compra" id="btnVerDetalleCompraPorCompra">VER DETALLE</a>
                     <hr class="clear"/>

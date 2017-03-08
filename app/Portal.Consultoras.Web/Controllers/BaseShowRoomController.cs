@@ -10,6 +10,7 @@ using System.Configuration;
 using System.Linq;
 using System;
 using System.Collections.Generic;
+using Portal.Consultoras.Web.ServiceProductoCatalogoPersonalizado;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -466,6 +467,115 @@ namespace Portal.Consultoras.Web.Controllers
                 x.Simbolo = userData.Simbolo;
             });
             return listadoOfertasTodasModel1;
+        }
+
+        public List<ShowRoomOfertaModel> GetProductosCompraPorCompra(bool esFacturacion, int eventoId, int campaniaId)
+        {
+            try
+            {
+                var listaShowRoomCPC = new List<BEShowRoomOferta>();
+                var listaShowRoomCPCFinal = new List<BEShowRoomOferta>();
+
+                if (Session[Constantes.ConstSession.ListaProductoShowRoomCpc] != null)
+                {
+                    var listadoOfertasTodas = (List<BEShowRoomOferta>)Session[Constantes.ConstSession.ListaProductoShowRoomCpc];
+                    var listadoOfertasTodasModel = Mapper.Map<List<BEShowRoomOferta>, List<ShowRoomOfertaModel>>(listadoOfertasTodas);
+                    listadoOfertasTodasModel.Update(x =>
+                    {
+                        x.DescripcionMarca = GetDescripcionMarca(x.MarcaID);
+                        x.CodigoISO = userData.CodigoISO;
+                        x.Simbolo = userData.Simbolo;
+                    });
+                    return listadoOfertasTodasModel;
+                }
+
+                var NumeroCampanias = Convert.ToInt32(ConfigurationManager.AppSettings["NumeroCampanias"]);
+                var listaShowRoomProductoCatalogo = new List<Producto>();
+
+                using (PedidoServiceClient sv = new PedidoServiceClient())
+                {
+                    listaShowRoomCPC = sv.GetProductosCompraPorCompra(userData.PaisID, eventoId, campaniaId).ToList();
+                }
+
+                string codigoSap = "";
+                var listaTieneStock = new List<Lista>();
+                if (esFacturacion)
+                {
+                    foreach (var beProducto in listaShowRoomCPC)
+                    {
+                        if (!string.IsNullOrEmpty(beProducto.CodigoProducto))
+                        {
+                            codigoSap += beProducto.CodigoProducto + "|";
+                        }
+                    }
+
+                    codigoSap = codigoSap == "" ? "" : codigoSap.Substring(0, codigoSap.Length - 1);
+
+                    try
+                    {
+                        if (!string.IsNullOrEmpty(codigoSap))
+                        {
+                            using (var sv = new ServicePROLConsultas.wsConsulta())
+                            {
+                                sv.Url = ConfigurationManager.AppSettings["RutaServicePROLConsultas"];
+                                listaTieneStock = sv.ConsultaStock(codigoSap, userData.CodigoISO).ToList();
+                            }
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+
+                        listaTieneStock = new List<Lista>();
+                    }
+                }
+
+                codigoSap = "";
+                foreach (var beShowRoomOferta in listaShowRoomCPC)
+                {
+                    bool tieneStockProl = true;
+                    if (esFacturacion)
+                    {
+                        var itemStockProl = listaTieneStock.FirstOrDefault(p => p.Codsap.ToString() == beShowRoomOferta.CodigoProducto);
+                        if (itemStockProl != null)
+                            tieneStockProl = itemStockProl.estado == 1;
+                    }
+
+                    if (tieneStockProl)
+                    {
+                        codigoSap += beShowRoomOferta.CodigoProducto + "|";
+                        listaShowRoomCPCFinal.Add(beShowRoomOferta);
+                    }
+                }
+
+                codigoSap = codigoSap == "" ? "" : codigoSap.Substring(0, codigoSap.Length - 1);
+                using (ProductoServiceClient sv = new ProductoServiceClient())
+                {
+                    listaShowRoomProductoCatalogo = sv.ObtenerProductosByCodigoSap(userData.CodigoISO, campaniaId, codigoSap, NumeroCampanias).ToList();
+                }
+
+                foreach (var item in listaShowRoomCPCFinal)
+                {
+                    var beCatalogoPro = listaShowRoomProductoCatalogo.FirstOrDefault(p => p.CodigoSap == item.CodigoProducto);
+                    if (beCatalogoPro != null)
+                    {
+                        item.ImagenProducto = beCatalogoPro.Imagen;
+                        item.Descripcion = beCatalogoPro.NombreComercial;
+                        item.DescripcionLegal = beCatalogoPro.DescripcionComercial;
+                    } 
+                }
+
+                Session[Constantes.ConstSession.ListaProductoShowRoomCpc] = listaShowRoomCPCFinal;
+                var listadoProductosCPCModel1 = Mapper.Map<List<BEShowRoomOferta>, List<ShowRoomOfertaModel>>(listaShowRoomCPCFinal);
+
+                return listadoProductosCPCModel1;
+            }
+            catch (Exception)
+            {
+                return null;
+                throw;
+
+            }
         }
 
         public string GetDescripcionMarca(int marcaId)
