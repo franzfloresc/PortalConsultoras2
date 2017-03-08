@@ -551,7 +551,7 @@ namespace Portal.Consultoras.Web.Controllers
                 codigoSap = codigoSap == "" ? "" : codigoSap.Substring(0, codigoSap.Length - 1);
                 using (ProductoServiceClient sv = new ProductoServiceClient())
                 {
-                    listaShowRoomProductoCatalogo = sv.ObtenerProductosByCodigoSap(userData.CodigoISO, campaniaId, codigoSap, NumeroCampanias).ToList();
+                    listaShowRoomProductoCatalogo = sv.ObtenerProductosByCodigoSap(userData.CodigoISO, campaniaId, codigoSap/*, NumeroCampanias*/).ToList();
                 }
 
                 foreach (var item in listaShowRoomCPCFinal)
