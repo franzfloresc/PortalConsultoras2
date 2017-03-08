@@ -807,7 +807,7 @@
 <div class="PopMobile1" id="popupDetalleCarousel_lanzamiento" data-popup-main=""></div>
 <script id="lanzamiento-template" type="text/x-handlebars-template">
     <div data-item="" data-tipoestrategiaimagenmostrar="{{TipoEstrategiaImagenMostrar}}" class="content_popMobile" data-popup-body="" style="padding-bottom:0; max-width:450px;">        
-        <a class="btn_cerrar_escala" data-popup-close="popupDetalleCarousel_lanzamiento" title="Cerrar" style="float:left;">REGRESAR</a>
+        <a class="btn_cerrar_escala" data-popup-close="popupDetalleCarousel_lanzamiento" title="Cerrar" style="float:left;" href="javascript:void(0);" >REGRESAR</a>
         <hr class="clear" />
         <div data-cuv="">
             <input type="hidden" class="OrigenPedidoWeb" value="@Constantes.OrigenPedidoWeb.MobileHomeOfertasParaTi" />
@@ -831,7 +831,7 @@
                 {{#iff CodigoEstrategia '!=' ''}}
                 {{#iff CodigoEstrategia '==' '2001'}}
                 <div class="content_detalle_producto" data-tono="" data-tono-select="{{CUVSelect}}">
-                    <div class="nombre_tono"><span data-tono-select-html="">Azul Kohl</span><div class="indicador_tono"><p> + TONOS</p></div></div>
+                    <div class="nombre_tono"><span data-tono-select-html="">{{NombreBulkSelect}}</span><a class="indicador_tono" href="javascript:void(0);"><p> + TONOS</p></a></div>
                     <div class="content_tonos_principal" data-tono-div=""> 
                         {{#each this.Detalle as |item1|}}
                         <div style="display: none;">
@@ -867,7 +867,7 @@
 
                     {{#iff item1.Digitable '==' '1'}}
                     <div>
-                        <div class="nombre_tono"><span data-tono-select-html="">Azul Kohl</span><div class="indicador_tono"><p> + TONOS</p></div></div>
+                        <div class="nombre_tono"><span data-tono-select-html="">{{item1.NombreBulkSelect}}</span><a class="indicador_tono" href="javascript:void(0);"><p> + TONOS</p></a></div>
                         <div class="content_tonos_principal" data-tono-div="">
                             {{#each item1.Hermanos as |tono|}}
                             <div id="fav_tono_{{tono.CUV}}" class="content_tono_detalle_opt {{#iff tono.CUVSelect '!=' ''}}borde_seleccion_tono{{/iff}}" data-tono-cuv="{{tono.CUV}}" data-tono-change="">

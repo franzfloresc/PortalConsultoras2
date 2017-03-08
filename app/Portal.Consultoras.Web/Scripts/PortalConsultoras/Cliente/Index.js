@@ -168,70 +168,70 @@ function CargarListaCliente(page, rows) {
         async: true,
         success: function (data) {
             if (checkTimeout(data)) {
-                //var data = response.data;
+            //var data = response.data;
 
-                //ActualizarMontosPedido(data.FormatoTotal, data.Total, data.TotalCliente);
+            //ActualizarMontosPedido(data.FormatoTotal, data.Total, data.TotalCliente);
 
-                //$("#pCantidadProductosPedido").html(data.TotalProductos);
+            //$("#pCantidadProductosPedido").html(data.TotalProductos);
 
-                //Index
-                /*
-                $("#hdnRegistrosPaginar").val(data.Registros);
-                $("#hdnRegistrosDePaginar").val(data.RegistrosDe);
-                $("#hdnRegistrosTotalPaginar").val(data.RegistrosTotal);
-                $("#hdnPaginaPaginar").val(data.Pagina);
-                $("#hdnPaginaDePaginar").val(data.PaginaDe);
-                */
+            //Index
+            /*
+            $("#hdnRegistrosPaginar").val(data.Registros);
+            $("#hdnRegistrosDePaginar").val(data.RegistrosDe);
+            $("#hdnRegistrosTotalPaginar").val(data.RegistrosTotal);
+            $("#hdnPaginaPaginar").val(data.Pagina);
+            $("#hdnPaginaDePaginar").val(data.PaginaDe);
+            */
 
-                //ListadoPedido
-                /*
-                $("#hdnRegistros").val(data.Registros);
-                $("#hdnRegistrosDe").val(data.RegistrosDe);
-                $("#hdnRegistrosTotal").val(data.RegistrosTotal);
-                $("#hdnPagina").val(data.Pagina);
-                $("#hdnPaginaDe").val(data.PaginaDe);
-                */
+            //ListadoPedido
+            /*
+            $("#hdnRegistros").val(data.Registros);
+            $("#hdnRegistrosDe").val(data.RegistrosDe);
+            $("#hdnRegistrosTotal").val(data.RegistrosTotal);
+            $("#hdnPagina").val(data.Pagina);
+            $("#hdnPaginaDe").val(data.PaginaDe);
+            */
 
-                //Listado Cliente en la Vista ListadoPedido
-                //var htmlCliente = "";
+            //Listado Cliente en la Vista ListadoPedido
+            //var htmlCliente = "";
 
-                //$("#ddlClientes").empty();
+            //$("#ddlClientes").empty();
 
-                /*
-                $.each(data.ListaCliente, function (index, value) {
-                    if (value.ClienteID == -1) {
-                        htmlCliente += '<option value="-1">Cliente</option>';
-                    } else {
-                        htmlCliente += '<option value="' + value.ClienteID + '">' + value.Nombre + '</option>';
-                    }
-                });
-                */
+            /*
+            $.each(data.ListaCliente, function (index, value) {
+                if (value.ClienteID == -1) {
+                    htmlCliente += '<option value="-1">Cliente</option>';
+                } else {
+                    htmlCliente += '<option value="' + value.ClienteID + '">' + value.Nombre + '</option>';
+                }
+            });
+            */
 
-                /*
-                $("#ddlClientes").append(htmlCliente);
-                $("#ddlClientes").val(clienteId);
-                */
+            /*
+            $("#ddlClientes").append(htmlCliente);
+            $("#ddlClientes").val(clienteId);
+            */
 
-                var html = ArmarListaCliente(data.rows);
-                $('#divListaCliente').html(html);
+            var html = ArmarListaCliente(data.rows);
+            $('#divListaCliente').html(html);
 
-                var htmlPaginador = ArmarListaClientePaginador(data);
-                $('#paginadorCab').html(htmlPaginador);
-                $('#paginadorPie').html(htmlPaginador);
+            var htmlPaginador = ArmarListaClientePaginador(data);
+            $('#paginadorCab').html(htmlPaginador);
+            $('#paginadorPie').html(htmlPaginador);
 
-                $("#paginadorCab [data-paginacion='rows']").val(data.Registros || 10);
-                $("#paginadorPie [data-paginacion='rows']").val(data.Registros || 10);
+            $("#paginadorCab [data-paginacion='rows']").val(data.Registros || 10);
+            $("#paginadorPie [data-paginacion='rows']").val(data.Registros || 10);
 
-                //MostrarInformacionCliente(clienteId);
+            //MostrarInformacionCliente(clienteId);
 
-                //if (tieneMicroefecto)
-                //MostrarMicroEfecto();
+            //if (tieneMicroefecto)
+            //MostrarMicroEfecto();
             }
         },
         error: function (data, error) {
             if (checkTimeout(data)) {
-                alert(error);
-            }
+            alert(error);
+        }
         }
     });
 }
@@ -269,8 +269,6 @@ function ShowDivEliminar(id) {
 }
 
 function MantenerCliente(opt) {
-
-    debugger;
 
     var div = (opt == 1) ? $('#divAgregarCliente') : $('#divEditarCliente');
     //var vMessage = "";
@@ -349,8 +347,6 @@ function MantenerCliente(opt) {
         FlagValidate: opt
     };
 
-    //debugger;
-
     AbrirSplash();
 
     jQuery.ajax({
@@ -361,7 +357,6 @@ function MantenerCliente(opt) {
         data: JSON.stringify(item),
         async: true,
         success: function (data) {
-            //debugger;
             // valida si ha habido un timeout
             if (checkTimeout(data)) {
                 // si no ha habido timeout continua el procesamiento normal
@@ -399,7 +394,6 @@ function MantenerCliente(opt) {
             }
         },
         error: function (data, error) {
-            //debugger;
             // valida si ha habido un timeout
             if (checkTimeout(data)) {
   

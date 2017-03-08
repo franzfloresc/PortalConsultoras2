@@ -30,7 +30,7 @@
             if (Id != null && Id != '') {
                 waitingDialog({});
                 $.ajaxSetup({ cache: false });
-                //debugger;
+                
                 $.getJSON(baseUrl + 'ConfiguracionValidacion/ObtenerConfiguracionPedidosPorPais', { PaisID: Id }, function (data) {
                     var lbHas = $('#lbHas');
                     var lbHasStorage = $('#lbHasStorage');
@@ -74,7 +74,7 @@
                             return $(this).text() == data.Modelo[0].HoraCierreNoFacturable.Minutes;
                         }).attr('selected', true);
 
-                        //debugger;
+                        
                         if (data.Modelo[0].HabilitarRestriccionHoraria == 1)
                             $('#chkHabilitarRestriccionHoraria').attr('checked', true);
                         else
@@ -114,7 +114,7 @@
                                 text: data.listaZonasActivas[item].Codigo
                             }));
                         }
-                        //debugger;
+                        
                         var divac = document.getElementById("lbHasNot");
                         for (var item in data.listaZonasActivas) {
                             var lab = document.createElement("label");
@@ -180,7 +180,7 @@
                 newOptions.push(new Option(toFilterStorage[i].text, toFilterStorage[i].value));
             }
         }
-        //debugger;
+        
         if (toFilter.tagName.toLowerCase() == "div") {
             toFilter.innerHTML = "";
 
@@ -254,7 +254,6 @@
     }
 
     function MoveSelected(fromBoxID, toBoxID, sortArg, valueType) {
-        //debugger
         var fromBox = document.getElementById(fromBoxID);
         var toBoxStorage = document.getElementById(toBoxID.concat('Storage'));
         var fromBoxStorage = document.getElementById(fromBoxID.concat('Storage'));
@@ -268,7 +267,7 @@
         for (var i = 0; i < toBoxStorage.options.length; i++) {
             newToBoxOptions.push(toBoxStorage.options[i]);
         }
-        //debugger;
+        
         if (fromBox.tagName.toLowerCase() == "div") {
             var labels = fromBox.getElementsByTagName("label");
             for (i = 0; i < labels.length; i++) {
@@ -328,7 +327,6 @@
     }
 
     function MoveAll(fromBoxID, toBoxID, sortArg, valueType) {
-        //debugger
         chkId = [];
         var fromBox = document.getElementById(fromBoxID);
         if (fromBox.tagName.toLowerCase() == "div") {
@@ -404,7 +402,7 @@
         if (ProcesoDAPRDSeleccionado == -1)
             vMessage += "- Debe seleccionar la opción para el proceso de demanda anticipada PRD.\n";
 
-        //debugger;
+        
         var habilitarRestriccionHoraria = $("#chkHabilitarRestriccionHoraria").is(':checked');
         //var NroDiasDuracionCronograma = $("#txtNroDiasCronograma").val();
 
@@ -453,7 +451,7 @@
                 });
             }
 
-            //debugger;
+            
             jQuery.ajax({
                 type: 'POST',
                 url: baseUrl + 'ConfiguracionValidacion/Mantener',

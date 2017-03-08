@@ -138,7 +138,6 @@
 @if (ViewBag.ErrorDelete != null)
 {
     <script type="text/javascript">
-        //debugger;
         alert_msg(@Html.Raw(Json.Encode(ViewBag.ErrorDelete)));
         CalcularTotal();
     </script>

@@ -106,7 +106,7 @@ jQuery(document).ready(function () {
         var array = new Array();
         var campoVal = $.trim(campo);
         if (campoVal == "") {
-        $.each(this, function (index, item) {
+            $.each(this, function (index, item) {
                 if (item == valor) {
                     try {
                         array.push(Clone(item));
@@ -471,7 +471,7 @@ function isInt(n) {
 
 // valida si ha ocurrido un timeout durante una llamada ajax
 function checkTimeout(data) {
-    var thereIsStillTime = true
+    var thereIsStillTime = true;
 
     if (data) {
         if (data.responseText) {
@@ -490,11 +490,11 @@ function checkTimeout(data) {
             if (ViewBagEsMobile == 1) {/*1 Desktop, 2 Mobile*/
                 $('#dialog_SesionMainLayout #mensajeSesionSB2_Error').html(message);
                 $('#dialog_SesionMainLayout').show();
-            }
+        }
             else {
                 $('#popupInformacionSB2SesionFinalizada').find('#mensajeInformacionSB2_SesionFinalizada').text(message);
                 $('#popupInformacionSB2SesionFinalizada').show();
-            }
+    }
         }
     }
     else {
@@ -506,7 +506,6 @@ function checkTimeout(data) {
 
 /*EPD-180*/
 function checkUserSession() {
-    //debugger;
     var res = -1;
     
     $.ajax({
@@ -763,7 +762,7 @@ function xMensajeEstadoPedido(estado) {
     var esBienvenida = url.indexOf("/bienvenida") > 0;
 
     if (estado) {
-        var wheight = $(window).innerHeight();
+    var wheight = $(window).innerHeight();
         $("#bloquemensajesPedido").show();//.slideDown("slow", function () { });
         ResizeMensajeEstadoPedido();
         var wtop = $("#bloquemensajesPedido").height();

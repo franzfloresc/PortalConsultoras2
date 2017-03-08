@@ -11,7 +11,7 @@
         IniDialogRegistroLugaresPago();
 
         $("#ddlPais").change(function () {
-            //debugger;
+            
             var Id = $(this).val();
             if (Id != "") {
                 waitingDialog({});
@@ -36,7 +36,7 @@
                 //    }
                 //});
                 $.getJSON(baseUrl + 'OfertaNueva/ObtenerISOPais', { paisID: Id }, function (data) {
-                    //debugger;
+                    
                     isoPAIS = data.ISO;
                     closeWaitingDialog();
                 });
@@ -53,7 +53,7 @@
         });
 
         $("#btnBuscar").click(function () {
-            //debugger;
+            
             if ($("#ddlPais").val() == "") {
                 alert("Debe seleccionar un País, verifique");
                 return false;
@@ -69,7 +69,7 @@
 
         $('#frmLugarPago').ajaxForm({
             beforeSubmit: function () {
-                //debugger;
+                
                 var message = '';
 
                 if (jQuery.trim($('#ddlPaisDialogo').val()) == "")
@@ -108,7 +108,7 @@
         });
 
         function fnRespuestaLugarPago(responseText, statusText, xhr, $form) {
-            //debugger;
+            
             if (checkTimeout(responseText)) {
                 $("#gvwLugaresPago").setGridParam({ datatype: 'json', page: 1 }).trigger('reloadGrid');
                 if (responseText && typeof responseText === "string") {                    
@@ -133,7 +133,7 @@
             buttons:
             {
                 "Guardar": function () {
-                    //debugger;
+                    
                     var vMessage = "";
                     $('#frmLugarPago').submit();
 
@@ -150,7 +150,7 @@
     }
 
     function fnGrilla() {
-        //debugger;
+        
         jQuery("#gvwLugaresPago").jqGrid({
             url: baseUrl + "AdministrarLugaresPago/Consultar",
             hidegrid: false,
@@ -219,7 +219,7 @@
         };
 
         function ShowImage(cellvalue, options, rowObject) {
-            //debugger;
+            
             var image = "";
             if (rowObject[2] !== "")
                 // image = '<img src="' + '@Url.Content("~/Content/LugaresPago/")' + isoPAIS + "/" + rowObject[2] + '" alt="" width="160px" height="60px" title="" border="0" />';
@@ -231,7 +231,7 @@
         };
 
         function ShowUrl(cellvalue, options, rowObject) {
-            //debugger;
+            
             var contenido = cellvalue;
             var valorParcial = cellvalue.substring(0, 15);
             if (cellvalue.length > 15) {
@@ -241,7 +241,7 @@
         };
 
         function ShowFile(cellvalue, options, rowObject) {
-            //debugger;
+            
             var contenido = cellvalue;
             var valorParcial = cellvalue.substring(0, 20);
             if (cellvalue.length > 20) {
@@ -253,7 +253,7 @@
 
     $.jgrid.extend({
         Editar: function (Id) {
-            //debugger;
+            
             if (Id) {
                 $('#LugarPagoID').val(Id);
                 $('#PaisID').val(jQuery("#gvwLugaresPago").jqGrid('getCell', Id, 'PaisID'));
@@ -327,14 +327,14 @@
     });
 
     function VerMas(object, ValorCompleto, ValorParcial) {
-        //debugger;
+        
         var td = object.parentElement;
         td.innerHTML = ValorCompleto + "&nbsp;<a href='javascript:;' onclick=\"VerMenos(this,'" + ValorCompleto + "','" + ValorParcial + "');\" > ...Ver menos" + "</a>";
         return false;
     }
 
     function VerMenos(object, ValorCompleto, ValorParcial) {
-        //debugger;
+        
         var td = object.parentElement;
         td.innerHTML = ValorParcial + "&nbsp;<a href='javascript:;' onclick=\"VerMas(this,'" + ValorCompleto + "','" + ValorParcial + "');\" > ...Ver mas" + "</a>";
         return false;
@@ -352,7 +352,7 @@
     }
 
     function limpiarPopup() {
-        //debugger;
+        
         $('#PaisID').val("");
         //$('#ddlPaisDialogo').val("0");
         $('#ddlPaisDialogo').prop('disabled', false);

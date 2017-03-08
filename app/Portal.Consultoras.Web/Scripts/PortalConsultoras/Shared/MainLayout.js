@@ -25,7 +25,7 @@ $(document).ready(function () {
             }
 
             if ($('[data-popup-main]').is(':visible')) {
-                var functionHide = $('[data-popup-main]').attr("data-popup-function-hide");
+                var functionHide = $.trim($('[data-popup-main]').attr("data-popup-function-hide"));
                 if (functionHide != "") {
                     setTimeout(functionHide + "()", 100);
                 }
@@ -1113,7 +1113,7 @@ function closeOfertaDelDia() {
 };
 
 function addOfertaDelDiaPedido(tipo) {
-    //debugger;
+    
     var tipoEstrategiaID = $('#tipoestrategia-id-odd').val();
     var estrategiaID = $('#estrategia-id-odd').val();
     var marcaID = $('#marca-id-odd').val();
