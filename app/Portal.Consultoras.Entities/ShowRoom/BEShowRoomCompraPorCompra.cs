@@ -34,6 +34,12 @@ namespace Portal.Consultoras.Entities.ShowRoom
         [DataMember]
         public string CodigoProducto { get; set; }
 
+        [DataMember]
+        public string Imagen { get; set; }
+
+        [DataMember]
+        public string NombreComercial { get; set; }
+
         public BEShowRoomCompraPorCompra(IDataRecord datarec)
         {
             if (DataRecord.HasColumn(datarec, "OfertaShowRoomID") && datarec["OfertaShowRoomID"] != DBNull.Value)
@@ -50,6 +56,10 @@ namespace Portal.Consultoras.Entities.ShowRoom
                 Orden = DbConvert.ToInt32(datarec["Orden"]);
             if (DataRecord.HasColumn(datarec, "CodigoProducto") && datarec["CodigoProducto"] != DBNull.Value)
                 CodigoProducto = DbConvert.ToString(datarec["CodigoProducto"]);
+            if (DataRecord.HasColumn(datarec, "Imagen") && datarec["Imagen"] != DBNull.Value)
+                Imagen = DbConvert.ToString(datarec["Imagen"]);
+            if (DataRecord.HasColumn(datarec, "NombreComercial") && datarec["NombreComercial"] != DBNull.Value)
+                NombreComercial = DbConvert.ToString(datarec["NombreComercial"]);
         }
     }
 }

@@ -482,10 +482,11 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     listaSap = Util.SubStr(listaSap, 1, listaSap.Length - 2);
 
+                    var NumeroCampanias = Convert.ToInt32(ConfigurationManager.AppSettings["NumeroCampanias"]); //PL20-1330
                     var listaProductoBySap = new List<Producto>();
                     using (ProductoServiceClient ps = new ProductoServiceClient())
                     {
-                        listaProductoBySap = ps.ObtenerProductosByCodigoSap(userData.CodigoISO, userData.CampaniaID, listaSap).ToList();
+                        listaProductoBySap = ps.ObtenerProductosByCodigoSap(userData.CodigoISO, userData.CampaniaID, listaSap, NumeroCampanias).ToList();
                     }
                     listaProductoBySap = listaProductoBySap ?? new List<Producto>();
 
