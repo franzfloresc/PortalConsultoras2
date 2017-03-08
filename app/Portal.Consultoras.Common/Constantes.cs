@@ -305,7 +305,8 @@ namespace Portal.Consultoras.Common
             public const string UnidadesPermitidasFaltante = "UnidadesPermitidasFaltante";
             public const string ValidacionDiasFaltante = "ValidacionDiasFaltante";
             public const string DiasAntesFacturacion = "DiasAntesFacturacion";
-        }
+        }
+
         public class CdrWebMensajes
         {
             public const string FueraDeFecha = "Tu solicitud se encuentra fuera de fecha para poder ser atendida";
@@ -357,6 +358,13 @@ namespace Portal.Consultoras.Common
             public const int Existe = 2;
         }
 
+        public class OfertaEspecialMensajes
+        {
+            public const string EsikaWeb = "Producto en la Guía de Negocio Ésika con oferta especial.";
+            public const string LbelWeb = "Producto en Mi Negocio L’bel con oferta especial.";
+            public const string EsikaMobile = "Este producto está en la Guía de Negocio Ésika con oferta especial.";
+            public const string LbelMobile = "Este producto está en Mi Negocio L’bel con oferta especial.";
+        }
     }
 }
 
