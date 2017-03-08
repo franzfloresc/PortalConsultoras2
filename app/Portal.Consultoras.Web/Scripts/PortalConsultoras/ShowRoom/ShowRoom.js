@@ -210,6 +210,10 @@ function AgregarOfertaShowRoom(article, cantidad) {
                                 $(article).parents("[data-item]").find(".product-add").css("display", "block");
                             }                            
 
+                            if (tipoOrigenPantalla == 21) {
+                                CargarCantidadProductosPedidos();
+                            }
+
                             //AgregarTagManagerProductoAgregadoSW(CUV, nombreProducto, PrecioUnidad, cantidad, descripcionMarca, listatipo);
                             //TrackingJetloreAdd(cantidad, $("#hdCampaniaCodigo").val(), CUV);
 

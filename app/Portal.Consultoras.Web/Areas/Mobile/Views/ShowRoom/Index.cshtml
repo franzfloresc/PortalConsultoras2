@@ -51,46 +51,27 @@
         @{ var posicions = 1; }
         @foreach (var item in Model.ListaShowRoomOferta)
             {
-                var subTitulo = "";
-                var contadorDetalles = 1;
-                foreach (var detalle in item.ListaDetalleOfertaShowRoom)
-                {
-                    subTitulo += contadorDetalles == item.ListaDetalleOfertaShowRoom.Count ? detalle.NombreProducto : detalle.NombreProducto + " + ";
-                    contadorDetalles++;
-                }
-                var inhabilitar = item.Stock == 0;
-                var formatoPrecioOferta = Util.DecimalToStringFormat(item.PrecioOferta, Model.CodigoIso);
-                var formatoPrecioCatalogo = Util.DecimalToStringFormat(item.PrecioCatalogo, Model.CodigoIso);
             <div class="content_item_home" style="position: relative;"> @*landing_showroom*@
                 <div class="liquidacion_item" data-posicion="@posicions">
-                    <input type="hidden" id="hdOfertaShowRoomID" value="@item.OfertaShowRoomID" />
-                    <input type="hidden" class="valorCuv" value="@item.CUV" />
-                    <input type="hidden" class="claseMarcaID" value="@item.MarcaID" />
-                    <input type="hidden" class="clasePrecioUnidad" value="@item.PrecioCatalogo" />
-                    <input type="hidden" class="claseConfiguracionOfertaID" value="@item.ConfiguracionOfertaID" />
-                    <input type="hidden" class="DescripcionProd" value="@item.Descripcion" />
-                    <input type="hidden" class="DescripcionMarca" value="@item.DescripcionMarca" />
-                    <input type="hidden" class="posicionEstrategia" value="@posicions" />
-
                     <div class="producto_img_mobile">
                         <a class="btnVerDetalleOfertaShowRoom" href="@Url.Action("DetalleOferta", "ShowRoom", new {id = item.OfertaShowRoomID, area = "Mobile"})">
                             @if (string.IsNullOrEmpty(item.ImagenMini))
                             {
-                                <img src="@Url.Content("~/Content/Images/showroom/no_disponible.png")" @*style="width: 100%;"*@ />
+                                <img src="@Url.Content("~/Content/Images/showroom/no_disponible.png")" @*style="width: 100%;"*@/>
                             }
                             else
                             {
-                                <img src="@item.ImagenProducto" alt="" />
+                                <img src="@item.ImagenProducto" alt=""/>
                             }
                         </a>
                     </div>
                     <div class="producto_nombre_descripcion">
-                        <p class="nombre_producto __web-inspector-hide-shortcut__" style="cursor:pointer; height:36px;">
+                        <p class="nombre_producto" style="cursor: pointer; height: 36px;">
                             <b>@item.Descripcion</b>
                         </p>
                         <div class="producto_precio">
-                            <span class="producto_precio_normal">@item.Simbolo @formatoPrecioOferta</span>
-                            <span class="producto_precio_oferta"><b>@item.Simbolo @item.PrecioCatalogo</b></span>
+                            <span class="producto_precio_normal">@item.Simbolo @item.FormatoPrecioOferta</span>
+                            <span class="producto_precio_oferta"><b>@item.Simbolo @item.FormatoPrecioCatalogo</b></span>
                         </div>
                     </div>
                 </div>
@@ -108,7 +89,7 @@
                 <div class="content_banner_right">
                     <div class="texto_banner_compra">
                         <b>@Model.ListaShowRoomCompraPorCompra[0].Descripcion</b>
-                        <b>A SÓLO @Model.ListaShowRoomCompraPorCompra[0].Simbolo.@Model.ListaShowRoomCompraPorCompra[0].PrecioCatalogo </b>
+                        <b>A SÓLO @Model.ListaShowRoomCompraPorCompra[0].Simbolo @Model.ListaShowRoomCompraPorCompra[0].FormatoPrecioCatalogo </b>
                         <span>Por la compra de 2 Sets o más</span>
                     </div>
                     <a class="btn_ver_detalle_pop_compra">VER DETALLE</a>
