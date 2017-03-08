@@ -23,7 +23,7 @@ namespace Portal.Consultoras.Web.Controllers
     {
         public ActionResult Intriga()
         {
-            if (!ValidarIngresoShowRoom(true))
+            if (ValidarIngresoShowRoom(true))
             {
                 var model = new ShowRoomOfertaModel();
 
@@ -2547,7 +2547,7 @@ namespace Portal.Consultoras.Web.Controllers
                 codigoSap = codigoSap == "" ? "" : codigoSap.Substring(0, codigoSap.Length - 1);
                 using (ProductoServiceClient sv = new ProductoServiceClient())
                 {
-                    listaShowRoomProductoCatalogo = sv.ObtenerProductosByCodigoSap(userData.CodigoISO, campaniaId, codigoSap, NumeroCampanias).ToList();
+                    listaShowRoomProductoCatalogo = sv.ObtenerProductosByCodigoSap(userData.CodigoISO, campaniaId, codigoSap /*, NumeroCampanias*/).ToList();
                 }
 
                 foreach (var beCatalogoPro in listaShowRoomProductoCatalogo)
