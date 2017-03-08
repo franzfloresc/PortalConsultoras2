@@ -3238,7 +3238,6 @@
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
-    <Content Include="Service References\ServicePedido\PedidoService.disco" />
     <Content Include="Service References\ServicePedido\configuration91.svcinfo" />
     <Content Include="Service References\ServicePedido\configuration.svcinfo" />
     <Content Include="Service References\ServicePedido\Reference.svcmap">
