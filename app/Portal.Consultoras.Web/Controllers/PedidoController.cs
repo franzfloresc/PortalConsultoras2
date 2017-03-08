@@ -3002,13 +3002,12 @@ namespace Portal.Consultoras.Web.Controllers
                     BEPager pag = Util.PaginadorGenerico(grid, PedidoModelo.ListaDetalle);
 
                     PedidoModelo.ListaDetalle = PedidoModelo.ListaDetalle.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize).ToList();
+                    PedidoModelo.ListaDetalle.Update(detalle => { if (string.IsNullOrEmpty(detalle.Nombre)) detalle.Nombre = userData.NombreConsultora; });
 
                     PedidoModelo.Registros = grid.PageSize.ToString();
                     PedidoModelo.RegistrosTotal = pag.RecordCount.ToString();
                     PedidoModelo.Pagina = pag.CurrentPage.ToString();
                     PedidoModelo.PaginaDe = pag.PageCount.ToString();
-
-
                 }
                 else
                 {
@@ -3137,26 +3136,14 @@ namespace Portal.Consultoras.Web.Controllers
                         mailBody += "<td style='font-size:11px; width: 124px; text-align: center;'>";
                         mailBody += "" + olstPedidoWebDetalle[i].Cantidad.ToString() + "";
                         mailBody += "</td>";
-                        if (userData.PaisID == 4) // validación para colombia req. 1478
-                        {
-                            mailBody += "<td style='font-size:11px; width: 182px; text-align: center;'>";
-                            mailBody += "" + userData.Simbolo + string.Format("{0:#,##0}", olstPedidoWebDetalle[i].PrecioUnidad).Replace(',', '.') + "";
-                            mailBody += "</td>";
-                            mailBody += "<td style='font-size:11px; width: 165px; text-align: center;'>";
-                            mailBody += "" + userData.Simbolo + string.Format("{0:#,##0}", olstPedidoWebDetalle[i].ImporteTotal).Replace(',', '.') + "";
-                            mailBody += "</td>";
-                        }
-                        else
-                        {
-                            mailBody += "<td style='font-size:11px; width: 182px; text-align: center;'>";
-                            mailBody += "" + userData.Simbolo + olstPedidoWebDetalle[i].PrecioUnidad.ToString("#0.00") + "";
-                            mailBody += "</td>";
-                            mailBody += "<td style='font-size:11px; width: 165px; text-align: center;'>";
-                            mailBody += "" + userData.Simbolo + olstPedidoWebDetalle[i].ImporteTotal.ToString("#0.00") + "";
-                            mailBody += "</td>";
-                        }
+                        mailBody += "<td style='font-size:11px; width: 182px; text-align: center;'>";
+                        mailBody += userData.Simbolo + Util.DecimalToStringFormat(olstPedidoWebDetalle[i].PrecioUnidad,userData.CodigoISO);
+                        mailBody += "</td>";
                         mailBody += "<td style='font-size:11px; width: 165px; text-align: center;'>";
-                        mailBody += "" + olstPedidoWebDetalle[i].Nombre.ToString() + "";
+                        mailBody += userData.Simbolo + Util.DecimalToStringFormat(olstPedidoWebDetalle[i].ImporteTotal, userData.CodigoISO);
+                        mailBody += "</td>";
+                        mailBody += "<td style='font-size:11px; width: 165px; text-align: center;'>";
+                        mailBody += string.IsNullOrEmpty(olstPedidoWebDetalle[i].Nombre) ? userData.NombreConsultora : olstPedidoWebDetalle[i].Nombre;
                         mailBody += "</td>";
                         mailBody += "</tr>";
                         Total += olstPedidoWebDetalle[i].ImporteTotal;
@@ -3166,10 +3153,10 @@ namespace Portal.Consultoras.Web.Controllers
                         mailBody += "<tr>";
                         mailBody += "<td></td>";
                         mailBody += "<td style='font-size:11px; width: 126px; text-align: center;'>";
-                        mailBody += "" + olstPedidoWebDetalle[i].CUV.ToString() + "";
+                        mailBody += "" + olstPedidoWebDetalle[i].CUV + "";
                         mailBody += "</td>";
                         mailBody += " <td colspan='4' style='font-size:11px;'>";
-                        mailBody += "" + olstPedidoWebDetalle[i].DescripcionProd.ToString() + "";
+                        mailBody += "" + olstPedidoWebDetalle[i].DescripcionProd + "";
                         mailBody += "</td>";
                         mailBody += "</tr>";
                     }
@@ -3181,14 +3168,7 @@ namespace Portal.Consultoras.Web.Controllers
                 mailBody += "Total :";
                 mailBody += "</td>";
                 mailBody += "<td style='font-size:11px; text-align: center; font-weight: bold'>";
-                if (userData.PaisID == 4) // validación para colombia req. 1478
-                {
-                    mailBody += "" + userData.Simbolo + string.Format("{0:#,##0}", Total).Replace(',', '.') + "";
-                }
-                else
-                {
-                    mailBody += "" + userData.Simbolo + Total.ToString("#0.00") + "";
-                }
+                mailBody += "" + userData.Simbolo + Util.DecimalToStringFormat(Total, userData.CodigoISO);
                 mailBody += "</td>";
                 mailBody += "<td></td>";
                 mailBody += "</tr>";
@@ -3224,7 +3204,7 @@ namespace Portal.Consultoras.Web.Controllers
                 return Json(new
                 {
                     success = false,
-                    message = "Hubo un problema al enviar el correo eléctronico.",
+                    message = "Hubo un problema al enviar el correo electrónico.",
                     extra = ""
                 }, JsonRequestBehavior.AllowGet);
             }
