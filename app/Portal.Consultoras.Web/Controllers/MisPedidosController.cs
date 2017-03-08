@@ -16,6 +16,7 @@ using System.ServiceModel;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
+using sc = Portal.Consultoras.Web.ServiceCliente;
 using SC = Portal.Consultoras.Web.ServiceCliente;
 
 namespace Portal.Consultoras.Web.Controllers

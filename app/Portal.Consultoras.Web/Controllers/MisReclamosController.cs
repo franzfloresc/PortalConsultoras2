@@ -64,6 +64,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             string urlPoliticaCdr = ConfigurationManager.AppSettings.Get("UrlPoliticasCDR") ?? "{0}";
             model.UrlPoliticaCdr = string.Format(urlPoliticaCdr, userData.CodigoISO);
+            model.MensajePeriodoInvalido = MensajePeriodoInvalidoCDR();
 
             if (model.EsCDRWebZonaValida == 0)
                 return View(model);
@@ -426,7 +427,7 @@ namespace Portal.Consultoras.Web.Controllers
             var listaFiltro = listaMotivoOperacion.Where(mo => mo.CDRTipoOperacion.NumeroDiasAtrasOperacion >= differenceInDays).ToList();
             return listaFiltro.OrderBy(p => p.Prioridad).ToList();
         }
-
+        
         private bool TieneDetalleFueraFecha(BECDRWeb cdrWeb, MisReclamosModel model)
         {
             var operacionValidaList = CargarMotivoOperacionPorDias(model);
@@ -1022,7 +1023,7 @@ namespace Portal.Consultoras.Web.Controllers
                     var entidad = new BECDRWeb { CDRWebID = model.CDRWebID, Estado = Constantes.EstadoCDRWeb.Enviado };
                     resultadoUpdate = sv.UpdEstadoCDRWeb(userData.PaisID, entidad);
                     sv.CreateLogCDRWebCulminadoFromCDRWeb(userData.PaisID, model.CDRWebID);
-
+                    
                     cDRWebMailConfirmacion = sv.GetCDRWeb(userData.PaisID, cdrWebFiltro).ToList().FirstOrDefault() ?? new BECDRWeb();
                     cDRWebMailConfirmacion.CDRWebDetalle = sv.GetCDRWebDetalle(userData.PaisID, new BECDRWebDetalle { CDRWebID = cDRWebMailConfirmacion.CDRWebID }, cDRWebMailConfirmacion.PedidoID);
                     cDRWebMailConfirmacion.CDRWebDetalle.Update(p => p.Solicitud = ObtenerDescripcion(p.CodigoOperacion, Constantes.TipoMensajeCDR.Finalizado).Descripcion);

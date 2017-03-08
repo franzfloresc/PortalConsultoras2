@@ -1448,6 +1448,9 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private long ConsultoraIDField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string DescripcionCortadaProdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string DescripcionEstrategiaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -1780,6 +1783,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((this.ConsultoraIDField.Equals(value) != true)) {
                     this.ConsultoraIDField = value;
                     this.RaisePropertyChanged("ConsultoraID");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string DescripcionCortadaProd {
+            get {
+                return this.DescripcionCortadaProdField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.DescripcionCortadaProdField, value) != true)) {
+                    this.DescripcionCortadaProdField = value;
+                    this.RaisePropertyChanged("DescripcionCortadaProd");
                 }
             }
         }

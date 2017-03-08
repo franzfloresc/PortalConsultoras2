@@ -37,6 +37,7 @@ namespace Portal.Consultoras.Web.Models
         public string CUV { get; set; }
         [Required(ErrorMessage = "Debe ingresar el Producto")]
         public string DescripcionProd { get; set; }
+        public string DescripcionCortadaProd { get; set; }
         public int PaisID { get; set; }
         public string Nombre { get; set; }
         public string eMail { get; set; }
@@ -122,6 +123,7 @@ namespace Portal.Consultoras.Web.Models
     {
         public string CUV { get; set; }
         public string Descripcion { get; set; }
+        public string DescripcionComercial { get; set; }
         public decimal PrecioCatalogo { get; set; }
         public string PrecioCatalogoString { get; set; }
         public int MarcaID { get; set; }
@@ -148,6 +150,7 @@ namespace Portal.Consultoras.Web.Models
 
         public int LimiteVenta { get; set; }
 
+        public string Imagen { get; set; }
         public string ImagenProductoSugerido { get; set; }
 
         public int TieneSugerido { get; set; }
@@ -172,7 +175,6 @@ namespace Portal.Consultoras.Web.Models
 
         public string Volumen { get; set; }
         public bool EsMaquillaje { get; set; }
-        public string DescripcionComercial { get; set; }
         public string ImagenBulk { get; set; }
         public string NombreBulk { get; set; }
         public List<ProductoModel> Hermanos { get; set; }
@@ -183,6 +185,19 @@ namespace Portal.Consultoras.Web.Models
         public string CodigoMarca { get; set; }
         //PL20-1239
         public bool PaisEsikizado { get; set; }
+
+        public string UrlCompartirFB { get; set; }
+        
+        public string NombreComercial { get; set; }
+        public string NombreComercialCorto { get; set; }
+
+        public string TipoMeta { get; set; }
+        public string MontoMeta { get; set; }
+        public string MetaMontoStr { get; set; }
+        public string CUVPedido { get; set; }
+        public string CUVPedidoNombre { get; set; }
+        public string CUVPedidoImagen { get; set; }
+        public bool TipoCross { get; set; }
     }
 
     [Serializable]
