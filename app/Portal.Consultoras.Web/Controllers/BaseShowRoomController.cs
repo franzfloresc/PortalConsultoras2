@@ -551,13 +551,18 @@ namespace Portal.Consultoras.Web.Controllers
                 codigoSap = codigoSap == "" ? "" : codigoSap.Substring(0, codigoSap.Length - 1);
                 using (ProductoServiceClient sv = new ProductoServiceClient())
                 {
-                    listaShowRoomProductoCatalogo = sv.ObtenerProductosByCodigoSap(userData.CodigoISO, campaniaId, codigoSap).ToList();
+                    listaShowRoomProductoCatalogo = sv.ObtenerProductosByCodigoSap(userData.CodigoISO, campaniaId, codigoSap, NumeroCampanias).ToList();
                 }
 
-                foreach (var beCatalogoPro in listaShowRoomProductoCatalogo)
+                foreach (var item in listaShowRoomCPCFinal)
                 {
-                    listaShowRoomCPCFinal.Update(x => x.ImagenProducto = beCatalogoPro.Imagen);
-                    listaShowRoomCPCFinal.Update(x => x.Descripcion = beCatalogoPro.NombreComercial);
+                    var beCatalogoPro = listaShowRoomProductoCatalogo.FirstOrDefault(p => p.CodigoSap == item.CodigoProducto);
+                    if (beCatalogoPro != null)
+                    {
+                        item.ImagenProducto = beCatalogoPro.Imagen;
+                        item.Descripcion = beCatalogoPro.NombreComercial;
+                        item.DescripcionLegal = beCatalogoPro.DescripcionComercial;
+                    } 
                 }
 
                 Session[Constantes.ConstSession.ListaProductoShowRoomCpc] = listaShowRoomCPCFinal;
