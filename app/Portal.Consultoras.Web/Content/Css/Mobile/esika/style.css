@@ -11455,3 +11455,9 @@ a{
     font-size:13px;
     display:block;
 }
+@media screen and (max-width: 486px) and (min-width: 0px) {
+   
+   .content_showroom .producto_precio_normal{
+       display:block;
+   }
+}

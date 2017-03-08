@@ -34846,7 +34846,7 @@ h1#penmostreo .campana {
     text-transform:uppercase;
     color:black;
     width:100%;
-    padding-left: 5%;
+    /*padding-left: 5%;*/
     font-weight: 300;
 }
 .content_detalle_showroom{
