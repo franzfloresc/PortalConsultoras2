@@ -614,6 +614,7 @@ namespace Portal.Consultoras.Web.Controllers
         public ShowRoomOfertaModel ViewDetalleOferta(int id)
         {
             var modelo = GetOfertaConDetalle(id);
+            modelo.CodigoISO = userData.CodigoISO;
             modelo.ListaOfertaShowRoom = GetOfertaListadoExcepto(id);
             var listaDetalle = ObtenerPedidoWebDetalle();
             modelo.ListaOfertaShowRoom.Update(o => o.Agregado = (listaDetalle.Find(p => p.CUV == o.CUV) ?? new BEPedidoWebDetalle()).PedidoDetalleID > 0 ? "block" : "none");
