@@ -32,5 +32,9 @@ namespace Portal.Consultoras.Entities
         public int FlagConsultora { get; set; }
         [DataMember(Order = 12)]
         public string FlagMedio { get; set; }
+        [DataMember(Order = 13)]
+        public string CodigoDispositivo { get; set; }
+        [DataMember(Order = 14)]
+        public string SODispositivo { get; set; }
     }
 }
