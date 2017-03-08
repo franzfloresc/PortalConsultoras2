@@ -8,7 +8,9 @@
   <xs:element name="ArrayOfProducto" nillable="true" type="tns:ArrayOfProducto" />
   <xs:complexType name="Producto">
     <xs:sequence>
+      <xs:element minOccurs="0" name="CUV2" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="CUVComplemento" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CUVPedido" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="CUVRevista" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="CampaniaId" type="xs:int" />
       <xs:element minOccurs="0" name="CodigoCategoria" nillable="true" type="xs:string" />
@@ -29,9 +31,11 @@
       <xs:element minOccurs="0" name="IdMarca" type="xs:int" />
       <xs:element minOccurs="0" name="Imagen" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ImagenBulk" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ImagenCUVPedido" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="IndicadorMontoMinimo" type="xs:int" />
       <xs:element minOccurs="0" name="MontoMeta" type="xs:decimal" />
       <xs:element minOccurs="0" name="NombreBulk" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NombreCUVPedido" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="NombreComercial" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="NombreMarca" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Orden" type="xs:int" />

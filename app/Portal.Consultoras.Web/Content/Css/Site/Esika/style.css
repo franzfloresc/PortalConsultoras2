@@ -4981,7 +4981,7 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
 }
 
 .btn_noGracias_agregarProductos{
-    display: block;
+        display: block;
     /* position: absolute; */
     /* margin-left: 10px; */
     /* bottom: -1px; */
@@ -25507,13 +25507,13 @@ button
 	float:left;*/
 	margin-left:20px;
 	display:inline-block;	
-}
+    }
 .boton_linea_verde:hover
 {
 	background-color:#4d95a0;
 	color:#fff;
 
-    }
+}
 .boton_linea_morado
 {
 	background-color:#ffffff;
@@ -25528,7 +25528,7 @@ button
 {
 	background-color:#e51437;
 	color:#ffffff !important;
-    }
+}
 .text_morado{font-size:16px;color:#75308c;font-weight:700;font-family:'Museo Sans', arial, sans-serif;margin-bottom:10px;}
 .text_azul{font-size:16px;color:#415261;font-weight:600;margin-bottom:10px;}
 .text_verde{font-size:16px;color:#2bbeb3;font-weight:700;font-family:'Museo Sans', arial, sans-serif;margin-bottom:10px;}
@@ -25550,7 +25550,7 @@ button
 .font_size_11{font-size:11px;}
 .color_turquesa{font-size:20px;color:#35bdb2;}
 
-
+	
 
 
 @font-face {
@@ -25748,7 +25748,7 @@ button
     display: block;
 	font-size:14px;
 	font-weight:bold;
-}
+    }
 @media screen and (max-height: 800px) 
 {
 	#slides_inscripcion{width:100%;height:105%;}
@@ -33181,7 +33181,7 @@ h1#penmostreo .campana {
     font-weight: 700;
     width: 26%;
 }
-
+    
 .cantidad_listado_pdd {
     padding-top: 30px;
     padding-bottom: 30px;

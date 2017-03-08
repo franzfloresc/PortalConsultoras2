@@ -33,24 +33,24 @@
 
     // se refresca el arbol con el pais, region y zona seleccionadas
     function CargarArbol(pais, region, zona) {
-        //debugger;
+        
         waitingDialog({});
         $.jstree._reference($("#arbolRegionZona")).refresh(-1);
     }
 
     function Grabar() {
-        //debugger;
+        
         waitingDialog({});
         var ModificacionCronogramaModel = {
             EntradasLog: [],
             EntradasConfiguracionValidacionZona: [],
             DiasDuracionCronograma: $("#txtDiasDuracionCronograma").val()
         };
-        //debugger;
+        
         // se capturan los ids de los nodos seleccionados
         var objEntradaLog, objConfiguracionValidacionZona;
         $.jstree._reference($("#arbolRegionZona")).get_checked(null, true).each(function () {
-            //debugger;
+            
             // solo para nodos de tipo hoja (leaf)
             if (this.className.toLowerCase().indexOf("jstree-leaf") == -1) {
                 return true;
@@ -86,7 +86,7 @@
         //alert(ModificacionCronogramaModel.EntradasConfiguracionValidacionZona);
 
         // se envian los ids al servidor para ser grabados
-        //debugger;
+        
         if (ModificacionCronogramaModel.EntradasConfiguracionValidacionZona.length == 0) {
             alert("Debe seleccionar al menos una zona.");
             closeWaitingDialog();
@@ -100,7 +100,7 @@
             url: baseUrl + 'ModificacionCronograma/GrabarZonas',
             data: JSON.stringify({ EntradasLog: ModificacionCronogramaModel.EntradasLog, EntradasConfiguracionValidacionZona: ModificacionCronogramaModel.EntradasConfiguracionValidacionZona, DiasDuracionCronograma: ModificacionCronogramaModel.DiasDuracionCronograma }),
             success: function (data) {
-                //debugger;
+                
                 if (checkTimeout(data)) {
                     alert(data.message);
                     $("#txtDiasDuracionCronograma").val("1");
@@ -110,7 +110,7 @@
                 }
             },
             error: function (data, error) {
-                //debugger;
+                
                 if (checkTimeout(data)) {
                     closeWaitingDialog();
                     alert("Se produjo un error al realizar la modificación de cronograma");
@@ -120,7 +120,7 @@
     }
 
     function ExportarExcel() {
-        //debugger;
+        
         var PaisID = jQuery.trim($("#ddlPais").val());
         if (PaisID == "") {
             alert("Debe seleccionar un País.");
@@ -139,7 +139,7 @@
 
     //function DownloadAttachExcel(vPaisID, vCampania, vRegion, vZona, vCodigos) {
     function DownloadAttachExcel(PaisID) {
-        //debugger;
+        
         if (checkTimeout()) {
             //var content = baseUrl + "ModificacionCronograma/ExportarExcel?" +
             //    "vPaisID=" + vPaisID +
@@ -245,7 +245,7 @@
     }
 
     function MostrarDialogo() {
-        //debugger;
+        
         fnGrilla();
         showDialog("DialogVerLog");
     }
@@ -254,13 +254,13 @@
         IniDialogVerLog();
 
         $('#ddlPais').change(function () {
-            //debugger;
+            
             var Id = $(this).val();
             if (Id != null) {
                 waitingDialog({});
                 $.ajaxSetup({ cache: false });
                 $.getJSON(baseUrl + 'ModificacionCronograma/ObtenerRegionesPorPais', { PaisID: Id == "" ? 0 : Id }, function (data) {
-                    //debugger;
+                    
                     if (checkTimeout(data)) {
                         LimpiarDependencias(Id);
                         if (Id != "") {
@@ -294,7 +294,7 @@
         });
 
         $('#ddlRegion').change(function () {
-            //debugger;
+            
             var Id = $(this).val();
             if (Id != null) {
                 waitingDialog({});
@@ -306,7 +306,7 @@
                     cache: false,
                     dataType: 'Json',
                     success: function (data) {
-                        //debugger;
+                        
                         if (checkTimeout(data)) {
                             var ddlZona = $('#ddlZona');
                             ddlZona.empty();
@@ -355,18 +355,18 @@
                     url: baseUrl + "ModificacionCronograma/CargarArbolRegionesZonas",
                     //async: true,
                     data: function (n) {
-                        //debugger;
+                        
                         return { pais: $("#ddlPais").val(), region: $("#ddlRegion").val(), zona: $("#ddlZona").val() };
                     },
                     type: "GET",
                     error: function (XMLHttpRequest, textStatus, errorThrown) {
-                        //debugger;
+                        
                     },
                     success: function (data, textStatus, jqXHR) {
-                        //debugger;
+                        
                     },
                     complete: function () {
-                        //debugger;
+                        
                         closeWaitingDialog();
                     }
                 }
@@ -408,7 +408,7 @@
         });
 
         $("#chkSeleccionar").click(function () {
-            //debugger;
+            
             //alert(this.status);
             //$.jstree._reference($("#arbolRegionZona")).check_all();
             if (this.checked)

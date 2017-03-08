@@ -398,7 +398,6 @@
             data: JSON.stringify(item),
             async: true,
             success: function (data) {
-                //debugger;
                 // valida si ha habido un timeout
                 if (checkTimeout(data)) {
                     // si no ha habido timeout continua el procesamiento normal
@@ -415,7 +414,6 @@
                 closeWaitingDialog();
             },
             error: function (data, error) {
-                //debugger;
                 // valida si ha habido un timeout
                 if (checkTimeout(data)) {
                     // si no ha habido timeout continua el procesamiento normal
@@ -699,7 +697,6 @@
             data: JSON.stringify(item),
             async: true,
             success: function (data) {
-                //debugger;
                 // valida si ha habido un timeout
                 if (checkTimeout(data)) {
                     // si no ha habido timeout continua el procesamiento normal
@@ -715,7 +712,6 @@
                 closeWaitingDialog();
             },
             error: function (data, error) {
-                //debugger;
                 // valida si ha habido un timeout
                 if (checkTimeout(data)) {
                     // si no ha habido timeout continua el procesamiento normal

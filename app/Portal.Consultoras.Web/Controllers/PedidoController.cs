@@ -4190,9 +4190,6 @@ namespace Portal.Consultoras.Web.Controllers
             string joinCuv = "";
             if (estrategia.CodigoEstrategia == "2001")
             {
-                //listaHermanos = GetBrothers(cuv);
-                //return Json(listaHermanos, JsonRequestBehavior.AllowGet);
-
                 var listaHermanosE = new List<BEProducto>();
                 using (ODSServiceClient svc = new ODSServiceClient())
                 {
@@ -4201,7 +4198,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 foreach (var item in listaHermanosE)
                 {
-                    joinCuv += item.CUV + ",";
+                    joinCuv += item.CodigoSAP + ",";
                 }
             }
 
@@ -4216,7 +4213,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 foreach (var item in listaProducto)
                 {
-                    joinCuv += item.CUV + ",";
+                    joinCuv += item.SAP + ",";
                 }
             }
             
@@ -4228,7 +4225,7 @@ namespace Portal.Consultoras.Web.Controllers
             var listaAppCatalogo = new List<Producto>();
             using (ProductoServiceClient svc = new ProductoServiceClient())
             {
-                listaAppCatalogo = svc.ObtenerProductosAppCatalogoByListaCUV(userData.CodigoISO, userData.CampaniaID, joinCuv).ToList();
+                listaAppCatalogo = svc.ObtenerProductosByCodigoSap(userData.CodigoISO, userData.CampaniaID, joinCuv).ToList();
             }
             
             if (!listaAppCatalogo.Any())
@@ -4286,49 +4283,6 @@ namespace Portal.Consultoras.Web.Controllers
 
             }
             return Json(listaHermanos, JsonRequestBehavior.AllowGet);
-        }
-
-        private List<ProductoModel> GetBrothers(string cuv)
-        {
-            var listaHermanos = new List<ProductoModel>();
-            var listaHermanosE = new List<BEProducto>();
-            using (ODSServiceClient svc = new ODSServiceClient())
-            {
-                listaHermanosE = svc.GetListBrothersByCUV(userData.PaisID, userData.CampaniaID, cuv).ToList();
-            }
-
-            if (!listaHermanosE.Any())
-                return listaHermanos;
-
-            foreach (var item in listaHermanosE)
-            {
-                listaHermanos.Add(new ProductoModel
-                {
-                    CUV = item.CUV
-                });
-            }
-
-            string joinCuv = string.Empty;
-            foreach (var item in listaHermanos)
-            {
-                joinCuv += item.CUV + ",";
-            }
-
-            joinCuv = joinCuv.Substring(0, joinCuv.Length - 1);
-
-            var listaAppCatalogo = new List<Producto>();
-            using (ProductoServiceClient svc = new ProductoServiceClient())
-            {
-                listaAppCatalogo = svc.ObtenerProductosAppCatalogoByListaCUV(userData.CodigoISO, userData.CampaniaID, joinCuv).ToList();
-            }
-
-            listaHermanos = new List<ProductoModel>();
-            if (!listaAppCatalogo.Any())
-                return listaHermanos;
-
-            listaHermanos = Mapper.Map<List<Producto>, List<ProductoModel>>(listaAppCatalogo);
-            
-            return listaHermanos;
         }
 
         public JsonResult ObtenerProductosRecomendados(string CUV)
