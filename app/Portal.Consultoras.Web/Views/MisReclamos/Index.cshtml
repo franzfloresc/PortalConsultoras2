@@ -179,6 +179,10 @@
             <div class="sub_detalle_estado">
                 Resumen: <b><span id="spnResumenResolucion">2 productos aprobados, 1 rechazado</span></b>
             </div>
+            <div class="sub_detalle_saldo" style="display: none;">
+                <span>Tu saldo actualizado es de: <b>S/.598.45</b></span>
+                <a href="">ver estado de cuenta</a>
+            </div>
         </div>
         <div class="content_pop_grilla">
             <div class="content_listado_reclamo">
@@ -402,11 +406,12 @@
         var imgFoco = '@Url.Content("~/Content/Images/Esika/foco1.png")';
         var imgCarta = '@Url.Content("~/Content/Images/Esika/carta1.png")';
         var urlReclamo = '@Url.Action("Reclamo")';
+        var mensajePeriodoInvalido = '@Model.MensajePeriodoInvalido';
 
         var mensajePeriodoInvalido = '@Model.MensajePeriodoInvalido';
 
-        $(document).ready(function() {
-            $(".verDetalle").on("click", function() {
+        $(document).ready(function () {
+            $(".verDetalle").on("click", function () {
                 var elemento = $(this);
 
                 var parent = $(elemento).parents(".content_listado_reclamo");
@@ -465,7 +470,7 @@
                 }
             });
 
-            $(document).on('click', '[data-accion]', function() {
+            $(document).on('click', '[data-accion]', function () {
                 DetalleAccion(this);
             });
 
@@ -538,7 +543,7 @@
                 contentType: 'application/json; charset=utf-8',
                 data: JSON.stringify(item),
                 cache: false,
-                success: function(data) {
+                success: function (data) {
                     closeWaitingDialog();
                     if (!checkTimeout(data))
                         return false;
@@ -549,11 +554,12 @@
                     }
 
                     if (item.Estado == 4) {                        
+
                         /*EPD-1308*/
                         if (data.cantobservado > 0) {
                             SetHandlebars("#template-detalle-2-observado", data, "#divDetallePedidoCdrObservado");
                         }
-                        
+
                         if (data.cantaprobado > 0) {
                             SetHandlebars("#template-detalle-2-aprobado", data, "#divDetallePedidoCdrAprobado");
                         }
@@ -563,7 +569,7 @@
                         SetHandlebars("#template-detalle-1", data, "#divDetallePedidoCDR");
                     }
                 },
-                error: function(data, error) {
+                error: function (data, error) {
                     closeWaitingDialog();
                 }
             });
@@ -611,7 +617,7 @@
                 data: JSON.stringify(item),
                 async: false,
                 cache: false,
-                success: function(data) {
+                success: function (data) {
                     closeWaitingDialog();
                     if (!checkTimeout(data)) {
                         return false;
@@ -621,7 +627,7 @@
                         resultado = true;
                     }
                 },
-                error: function(data, error) {
+                error: function (data, error) {
                     closeWaitingDialog();
                 }
             });

@@ -46,8 +46,10 @@ function CargarEscalaPercepciones(page, rows) {
                 $(".js-paginador-percepciones [data-paginacion='rows']").val(data.pageSize || 10);
             };
         },
-        error: function (error) {
-            $('.js-grilla-percepciones').html("");
+        error: function (data, error) {
+            if (checkTimeout(data)) {
+                $('.js-grilla-percepciones').html("");
+            }
         }
     });
 };
@@ -84,16 +86,19 @@ function CargarDetallePercepcion(obj) {
                     data: { sidx: "FechaEmision", sord: "", page: 1, rows: 10, IdComprobantePercepcion: obj.IdComprobantePercepcion },
                     dataType: "json",
                     success: function (dataDetalle) {
-                        var data = $.extend({}, obj, response);
-                        data.ListaDetalle = dataDetalle.rows;
+                        if (checkTimeout(dataDetalle)) {
+                            var data = $.extend({}, obj, response);
+                            data.ListaDetalle = dataDetalle.rows;
 
-                        var htmlDetallePercepcion = ArmarDetallePercepcion(data);
-                        $(".popup_Percepcion").html(htmlDetallePercepcion);
-                        MostrarDetallePercepcion();
-                        closeWaitingDialog();
+                            var htmlDetallePercepcion = ArmarDetallePercepcion(data);
+                            $(".popup_Percepcion").html(htmlDetallePercepcion);
+                            MostrarDetallePercepcion();
+                            closeWaitingDialog();
+                        }
                     },
                     error: function (dataDetalle) {
                         closeWaitingDialog();
+                        if (checkTimeout(dataDetalle)) { }
                     }
                 });
             };

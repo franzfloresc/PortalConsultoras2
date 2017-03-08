@@ -305,7 +305,8 @@ namespace Portal.Consultoras.Common
             public const string UnidadesPermitidasFaltante = "UnidadesPermitidasFaltante";
             public const string ValidacionDiasFaltante = "ValidacionDiasFaltante";
             public const string DiasAntesFacturacion = "DiasAntesFacturacion";
-        }
+        }
+
         public class CdrWebMensajes
         {
             public const string FueraDeFecha = "Tu solicitud se encuentra fuera de fecha para poder ser atendida";
@@ -357,6 +358,12 @@ namespace Portal.Consultoras.Common
             public const int Existe = 2;
         }
 
+        public class PestanhasMisPagos
+        {
+            public const string EstadoCuenta = "EstadoCuenta";
+            public const string LugaresPago = "LugaresPago";
+            public const string MisPercepciones = "MisPercepciones";
+        }
     }
 }
 

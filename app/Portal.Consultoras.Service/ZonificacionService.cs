@@ -84,6 +84,11 @@ namespace Portal.Consultoras.Service
             return BLZonificacion.SelectPaises();
         }
 
+        public int GetPaisNumeroCampaniasByPaisID(int paisID)
+        {
+            return BLZonificacion.GetPaisNumeroCampaniasByPaisID(paisID);
+        }
+
         public IList<BEZona> SelectZonasActivasFIC(int paisID, int CampaniaID)
         {
             return BLZonificacion.SelectZonasActivasFIC(paisID, CampaniaID);

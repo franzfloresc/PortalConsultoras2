@@ -304,32 +304,22 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         public ActionResult DetallePedidoRechazado(long ProcesoId)
         {
             NotificacionesModel model = new NotificacionesModel();
-            BELogGPRValidacion logGPRValidacion;
-            List<BELogGPRValidacionDetalle> lstLogGPRValidacionDetalle = new List<BELogGPRValidacionDetalle>();
-
+            List<BELogGPRValidacion> LogsGPRValidacion = new List<BELogGPRValidacion>(); ;
+          
             using (PedidoRechazadoServiceClient sv = new PedidoRechazadoServiceClient())
             {
-                logGPRValidacion = sv.GetBELogGPRValidacionByGetLogGPRValidacionId(userData.PaisID, ProcesoId, userData.ConsultoraID).ToList().FirstOrDefault();
-                lstLogGPRValidacionDetalle = sv.GetListBELogGPRValidacionDetalleBELogGPRValidacionByLogGPRValidacionId(userData.PaisID, ProcesoId).ToList();
+                LogsGPRValidacion = sv.GetBELogGPRValidacionByGetLogGPRValidacionId(userData.PaisID, ProcesoId, userData.ConsultoraID).ToList();                
             }
 
-            model = Mapper.Map<NotificacionesModel>(logGPRValidacion);
-            model.NombreConsultora = userData.NombreConsultora;
-            model.CampaniaDescripcion = model.Campania.Substring(4) + " " + model.Campania.Substring(0, 4);
-            model.FechaValidacionString = model.FechaValidacion.ToString("dd/MM/yyyy hh:mm tt");
-            model.Total = model.SubTotal + model.Descuento;
-            model.SubTotalString = userData.Simbolo + " " + Util.DecimalToStringFormat(model.SubTotal, userData.CodigoISO);
-            model.DescuentoString = userData.Simbolo + " " + Util.DecimalToStringFormat(model.Descuento, userData.CodigoISO);
-            model.TotalString = userData.Simbolo + " " + Util.DecimalToStringFormat(model.Total, userData.CodigoISO);
-            model.TieneDescuentoCuv = logGPRValidacion.EstadoSimplificacionCUV && lstLogGPRValidacionDetalle.Any(p => p.IndicadorOferta);
-
-            model.ListaNotificacionesDetallePedido = Mapper.Map<List<NotificacionesModelDetallePedido>>(lstLogGPRValidacionDetalle);
-            model.ListaNotificacionesDetallePedido.Update(detalle =>
-            {
-                detalle.PrecioUnidadString = userData.Simbolo + " " + Util.DecimalToStringFormat(detalle.PrecioUnidad, userData.CodigoISO);
-                detalle.ImporteTotalString = userData.Simbolo + " " + Util.DecimalToStringFormat(detalle.ImporteTotal, userData.CodigoISO);
-            });
-
+            CargarMensajesNotificacionesGPR(model, LogsGPRValidacion);
+            model.NombreConsultora = (string.IsNullOrEmpty(userData.Sobrenombre) ? userData.NombreConsultora : userData.Sobrenombre);
+            model.CampaniaDescripcion = userData.CampaniaID.ToString();// + " " + model.Campania.Substring(0, 4);
+            //model.FechaValidacionString = model.CampaniaDescripcion.ToString("dd/MM/yyyy hh:mm tt");
+            //model.Total = model.SubTotal + model.Descuento;
+            //model.SubTotalString = userData.Simbolo + " " + Util.DecimalToStringFormat(model.SubTotal, userData.CodigoISO);
+            //model.DescuentoString = userData.Simbolo + " " + Util.DecimalToStringFormat(model.Descuento, userData.CodigoISO);
+            //model.TotalString = userData.Simbolo + " " + Util.DecimalToStringFormat(model.Total, userData.CodigoISO);
+           
             return View("ListadoPedidoRechazadoDetalle", model);
         }
 
