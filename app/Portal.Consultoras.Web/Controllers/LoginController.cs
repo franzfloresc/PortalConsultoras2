@@ -1214,16 +1214,15 @@ namespace Portal.Consultoras.Web.Controllers
         {
             var resultado = "";
             var paso = "1";
-            var esEsika = false;
 
             try
             {
                 var mailBody = "";
-                // Validamos si pertenece a Peru, Bolivia, Chile, Guatemala, El Salvador, Colombia (Paises ESIKA)
-                if (paisId == 11 || paisId == 2 || paisId == 3 || paisId == 8 || paisId == 7 || paisId == 4)
-                    esEsika = true;
+                string paisISO = Util.GetPaisISO(paisId);
+                string paisesEsika = ConfigurationManager.AppSettings["PaisesEsika"] ?? "";
+                var esEsika = paisesEsika.Contains(paisISO);
 
-                using (ServiceUsuario.UsuarioServiceClient sv = new ServiceUsuario.UsuarioServiceClient())
+                using (UsuarioServiceClient sv = new UsuarioServiceClient())
                 {
                     List<BEUsuarioCorreo> lst = sv.SelectByEmail(correo, paisId).ToList();
                     paso = "2";
