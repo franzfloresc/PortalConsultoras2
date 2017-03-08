@@ -22713,7 +22713,7 @@ body {
  }
 
 .pestana_lbel {
-      background: white url(../../../Images/Lbel/pestana_lbel.png) no-repeat;
+    background: white url(../../../Images/Lbel/pestana_lbel.png) no-repeat top center;
     background-size: cover;
     width: 30px;
     height: 20px;
@@ -31907,10 +31907,10 @@ h1#penmostreo .campana {
     font-weight: normal;
 }
 
-    .mensaje_horarioIngresoPedido a {
+.mensaje_horarioIngresoPedido a {
     display: inline-block;
     margin-left: 2px;
-        text-decoration: underline;
+    text-decoration: underline;
 }
 
         .mensaje_horarioIngresoPedido a:hover {
@@ -33256,7 +33256,7 @@ h1#penmostreo .campana {
     margin: 0 auto;
     margin-top: 20px;
     margin-bottom: 20px;
-    background: url(http://www.genesis-peru.com/mailing-belcorp/logo.png) no-repeat center center;
+     background: url(http://www.genesis-peru.com/mailing-belcorp/logo_lbel.png) no-repeat center center;
 }
 
 .content_datos_cdr {
@@ -33493,15 +33493,6 @@ h1#penmostreo .campana {
 /*SB20-1198 - FIN */
 
 /*GPR*/
-.logo_lista_detalle {
-    width: 100px;
-    height: 38px;
-    margin: 0 auto;
-    margin-top: 20px;
-    margin-bottom: 20px;
-    background: url(http://www.genesis-peru.com/mailing-belcorp/logo.png) no-repeat center center;
-}
-
 .content_datos_gpr {
     width: 96%;
     height: auto;
@@ -34465,4 +34456,22 @@ h1#penmostreo .campana {
     display: inline;
     font-weight: bold;
     text-decoration: underline;
+}
+
+.vineta {
+    list-style-image: url("https://www.somosbelcorp.com/Content/Images/Lbel/indicador_pedido.png");
+}
+
+.btnnotificacion {
+    text-decoration: none;
+    font-family: 'Lato';
+    font-weight: 700;
+    color: black;
+    font-size: 12px;
+    border: 2px solid #979797;
+    text-align: center;
+    padding: 10px;
+    width: 40%;
+    margin: 0 auto;
+    margin-top: 25px;
 }

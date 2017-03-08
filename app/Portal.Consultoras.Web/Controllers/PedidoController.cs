@@ -221,7 +221,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 userData.PedidoID = 0;
                 if (model.PedidoWebDetalle.Count != 0)
-                {
+                {                   
                     if (userData.PedidoID == 0)
                     {
                         userData.PedidoID = model.PedidoWebDetalle[0].PedidoID;
@@ -1204,18 +1204,18 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
                 // Validar la cantidad que se está ingresando compararla con la cantidad ya ingresada y el campo límite
-            var entidad = new BEEstrategia();
-            entidad.PaisID = userData.PaisID;
-            entidad.Cantidad = Convert.ToInt32(Cantidad);
-            entidad.CUV2 = CUV;
-            entidad.CampaniaID = userData.CampaniaID;
+                var entidad = new BEEstrategia();
+                entidad.PaisID = userData.PaisID;
+                entidad.Cantidad = Convert.ToInt32(Cantidad);
+                entidad.CUV2 = CUV;
+                entidad.CampaniaID = userData.CampaniaID;
                 entidad.ConsultoraID = userData.ConsultoraID.ToString();
-            entidad.FlagCantidad = Convert.ToInt32(TipoOferta);
+                entidad.FlagCantidad = Convert.ToInt32(TipoOferta);
 
-            using (PedidoServiceClient svc = new PedidoServiceClient())
-            {
-                mensaje = svc.ValidarStockEstrategia(entidad);
-            }
+                using (PedidoServiceClient svc = new PedidoServiceClient())
+                {
+                    mensaje = svc.ValidarStockEstrategia(entidad);
+                }
             }
             catch (FaultException ex)
             {
@@ -2303,20 +2303,20 @@ namespace Portal.Consultoras.Web.Controllers
             if (ds.Tables[0].Rows.Count == 0)
                 return new List<ObservacionModel>();
 
-                using (ServicePROL.ServiceStockSsic sv = new ServicePROL.ServiceStockSsic())
+            using (ServicePROL.ServiceStockSsic sv = new ServicePROL.ServiceStockSsic())
+            {
+                if (userData.DiaPROL && userData.MostrarBotonValidar)
                 {
-                    if (userData.DiaPROL && userData.MostrarBotonValidar)
-                    {
-                        sv.Url = ConfigurarUrlServiceProl();
-                        bool valida = sv.wsDesReservarPedido(userData.CodigoConsultora, userData.CodigoISO);
-                        datos = sv.wsValidarPedidoEX(ds, montoenviar, userData.CodigoZona, userData.CodigoISO, userData.CampaniaID.ToString(), userData.ConsultoraNueva, userData.MontoMaximo);
-                    }
-                    else
-                    {
-                        sv.Url = ConfigurarUrlServiceProl();
-                        datos = sv.wsValidarEstrategia(ds, montoenviar, userData.CodigoZona, userData.CodigoISO, userData.CampaniaID.ToString(), userData.ConsultoraNueva, userData.MontoMaximo);
-                    }
-                        }
+                    sv.Url = ConfigurarUrlServiceProl();
+                    bool valida = sv.wsDesReservarPedido(userData.CodigoConsultora, userData.CodigoISO);
+                    datos = sv.wsValidarPedidoEX(ds, montoenviar, userData.CodigoZona, userData.CodigoISO, userData.CampaniaID.ToString(), userData.ConsultoraNueva, userData.MontoMaximo);
+                }
+                else
+                {
+                    sv.Url = ConfigurarUrlServiceProl();
+                    datos = sv.wsValidarEstrategia(ds, montoenviar, userData.CodigoZona, userData.CodigoISO, userData.CampaniaID.ToString(), userData.ConsultoraNueva, userData.MontoMaximo);
+                }
+            }
 
             List<ObservacionModel> olstPedidoWebDetalleObs = new List<ObservacionModel>();
 
@@ -2361,7 +2361,7 @@ namespace Portal.Consultoras.Web.Controllers
                         switch (TipoObs)
                         {
                             case 0:
-                                    olstPedidoWebDetalleObs.Add(new ObservacionModel() { Caso = 0, CUV = Convert.ToString(row.ItemArray.GetValue(1)), Tipo = 1, Descripcion = string.Format("{0}", Convert.ToString(row.ItemArray.GetValue(3)).Replace("+", "")) });
+                                olstPedidoWebDetalleObs.Add(new ObservacionModel() { Caso = 0, CUV = Convert.ToString(row.ItemArray.GetValue(1)), Tipo = 1, Descripcion = string.Format("{0}", Convert.ToString(row.ItemArray.GetValue(3)).Replace("+", "")) });
                                 Informativas = true;
                                 break;
                             case 1:
@@ -2650,6 +2650,14 @@ namespace Portal.Consultoras.Web.Controllers
                     sv.InsPedidoWebDetallePROLv2(PaisID, CampaniaID, PedidoID, Constantes.EstadoPedido.Pendiente, olstPedidoReserva.ToArray(), false, userData.CodigoUsuario, MontoTotalProl, DescuentoProl);
                 else
                     sv.InsPedidoWebDetallePROLv2(PaisID, CampaniaID, PedidoID, Constantes.EstadoPedido.Procesado, olstPedidoReserva.ToArray(), false, userData.CodigoUsuario, MontoTotalProl, DescuentoProl);
+                // GPR - Si tiene GPR activo: ocultar el banner de rechazados.               
+                if (userData.IndicadorGPRSB == 2 )
+                {
+                    userData.MostrarBannerRechazo = false;
+                    userData.CerrarRechazado = 1;
+                    SetUserData(userData);
+                    //ObtenerMotivoRechazo(userData);
+                }
             }
             using (SACServiceClient sv = new SACServiceClient())
             {
@@ -2724,6 +2732,14 @@ namespace Portal.Consultoras.Web.Controllers
                 decimal totalPedido = olstPedidoWebDetalle.Sum(p => p.ImporteTotal);
                 decimal gananciaEstimada = CalcularGananciaEstimada(PaisID, CampaniaID, PedidoID, totalPedido);
                 sv.UpdatePedidoWebEstimadoGanancia(PaisID, CampaniaID, PedidoID, gananciaEstimada);
+            }
+            // GPR - Si tiene GPR activo: ocultar el banner de rechazados.
+            if (userData.IndicadorGPRSB == 2 )
+            {
+                userData.MostrarBannerRechazo = false;
+                userData.CerrarRechazado = 1;
+                SetUserData(userData);
+                //ObtenerMotivoRechazo(userData);
             }
         }
 
@@ -2968,19 +2984,6 @@ namespace Portal.Consultoras.Web.Controllers
             #region GPR
 
             userData.ValidacionAbierta = oBEConfiguracionCampania.ValidacionAbierta;
-           
-            bool MostrarBannerPedidoRechazado = false;
-
-            if (userData.IndicadorGPRSB == 2)
-            {
-                MostrarBannerPedidoRechazado = true;
-                if (!oBEConfiguracionCampania.ValidacionAbierta && userData.EstadoPedido == 202) { MostrarBannerPedidoRechazado = false; }
-            }
-            userData.MostrarBannerRechazo = MostrarBannerPedidoRechazado;
-            SetUserData(userData);
-            ViewBag.IndicadorGPRSB = userData.IndicadorGPRSB;
-            //ViewBag.EstadoPedido = userData.EstadoPedido;
-            ViewBag.MostrarBannerRechazo = MostrarBannerPedidoRechazado;
 
             #endregion
 
@@ -3282,17 +3285,6 @@ namespace Portal.Consultoras.Web.Controllers
                         {
                             ValidacionAbierta = true;
                             Estado = Constantes.EstadoPedido.Procesado;
-
-                            //    if (userData.IndicadorGPRSB == 2)
-                            //    {
-                            //        if (ValidacionAbierta && userData.EstadoPedido == 202)
-                            //        {
-                            //            userData.CerrarRechazado = 0;
-                            //            userData.MostrarBannerRechazo = true;
-                            //            ViewBag.MostrarBannerRechazo = true;
-                            //            SetUserData(userData);
-                            //        }
-                            //    }
                         }
                         olstPedidoWebDetalle = ObtenerPedidoWebDetalle();
 
@@ -3303,7 +3295,7 @@ namespace Portal.Consultoras.Web.Controllers
                         }
                         //Dado que no se usa el indicador de ModificaPedidoReservado, este campo en el servicio será utilizado para enviar el campo: ValidacionAbierta
 
-                     
+
                         var CodigoUsuario = userData.UsuarioPrueba == 1 ? userData.ConsultoraAsociada : userData.CodigoUsuario.ToString();
 
                         sv.UpdPedidoWebByEstado(userData.PaisID, userData.CampaniaID, userData.PedidoID, Estado, false, true, CodigoUsuario, ValidacionAbierta);
@@ -3322,11 +3314,12 @@ namespace Portal.Consultoras.Web.Controllers
                         BEConfiguracionCampania oBEConfiguracionCampania = null;
                         oBEConfiguracionCampania = sv.GetEstadoPedido(userData.PaisID, userData.CampaniaID, userData.ConsultoraID, userData.ZonaID, userData.RegionID);
 
-                        if (userData.IndicadorGPRSB == 2 && oBEConfiguracionCampania.ValidacionAbierta)
+                        if (userData.IndicadorGPRSB == 2 && oBEConfiguracionCampania.ValidacionAbierta && !string.IsNullOrEmpty(userData.GPRBannerMensaje))
                         {
                             userData.MostrarBannerRechazo = true;
                             userData.CerrarRechazado = 0;
                             SetUserData(userData);
+                            //ObtenerMotivoRechazo(userData);
                         }
                     }
                 }
@@ -4019,12 +4012,12 @@ namespace Portal.Consultoras.Web.Controllers
                 else
                 {
                     estado = EstaProcesoFacturacion(out mensaje);
-                if (!estado)
-                {
-                    pedidoReservado = ValidarPedidoReservado(out mensaje);
-                    estado = pedidoReservado;
-                    if (!estado) estado = ValidarHorarioRestringido(out mensaje);
-                }
+                    if (!estado)
+                    {
+                        pedidoReservado = ValidarPedidoReservado(out mensaje);
+                        estado = pedidoReservado;
+                        if (!estado) estado = ValidarHorarioRestringido(out mensaje);
+                    }
                 }
 
                 return Json(new
@@ -4051,7 +4044,7 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpGet]
         public JsonResult JsonConsultarEstrategias(string cuv)
         {
-            
+
             List<BEEstrategia> lst = ConsultarEstrategias(cuv ?? "");
             var listModel = Mapper.Map<List<BEEstrategia>, List<EstrategiaPedidoModel>>(lst);
 
@@ -4634,7 +4627,7 @@ namespace Portal.Consultoras.Web.Controllers
                 //int limiteJetlore = int.Parse(ConfigurationManager.AppSettings.Get("LimiteJetloreOfertaFinal"));
 
                 var listaProductoModel = ObtenerListadoProductosOfertaFinal(tipoOfertaFinal);
-                
+
                 // Si ya esta en pedido detalle no se debe mostrar
                 //var pedidoDetalle = ObtenerPedidoWebDetalle();
                 //var listaRetorno = new List<ProductoModel>();

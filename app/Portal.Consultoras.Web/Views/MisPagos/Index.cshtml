@@ -21,23 +21,23 @@
         <div class="titulo_tabs">
             <ul class="tabs_pagos" data-tab="tab">
                 <li class="one">
-                    <a href="javascript:;" data-tag="EstadoCuenta">
+                    <a href="javascript:;" data-tag="@Constantes.PestanhasMisPagos.EstadoCuenta">
                         <div class="icono_pagos imagen_1"></div>
                         <div class="texto_tab_pagos">ESTADO<b> DE CUENTA</b></div>
                             <div class="marcador_tab oculto"></div>
-</a>
+                    </a>
                 </li>
                 <li class="two">
-                    <a href="javascript:;" data-tag="LugaresPago">
+                    <a href="javascript:;" data-tag="@Constantes.PestanhasMisPagos.LugaresPago">
                         <div class="icono_pagos imagen_2"></div>
                         <div class="texto_tab_pagos">LUGARES <b>DE PAGO</b></div>
                             <div class="marcador_tab oculto"></div>
-</a>
+                    </a>
                 </li>
                 @if (Model.CodigoISO.Equals(Constantes.CodigosISOPais.Peru))
                 {
                     <li class="three">
-                        <a href="javascript:;" data-tag="MisPercepciones">
+                        <a href="javascript:;" data-tag="@Constantes.PestanhasMisPagos.MisPercepciones">
                             <div class="icono_pagos imagen_4"></div>
                             <div class="texto_tab_pagos">MIS <b>PERCEPCIONES<br/> HISTÓRICAS</b></div>
                             <div class="marcador_tab oculto"></div>
@@ -49,9 +49,9 @@
                         <div class="icono_pagos imagen_3"></div>
                         <div class="texto_tab_pagos">FACTURA Y <b>PERCEPCIÓN <br/>ELECTRÓNICA</b></div>
                             <div class="marcador_tab oculto"></div>
-</a>
+                    </a>
                 </li>
-                <hr id="barCursor" />
+                <hr id="barCursor" style="opacity:0;" />
             </ul>
         </div>
         <!--FIN PESTAÑAS-->
@@ -63,7 +63,7 @@
 <div class="content_belcorp">
     <div class="pestana_lbel"></div><!--PESTAÑA PARA DARLE ESTILO CON LBEL-->
     <!--INCIO TAB ESTADO DE CUENTA-->
-    <div data-tag-html="EstadoCuenta" style="display:none;">
+    <div data-tag-html="@Constantes.PestanhasMisPagos.EstadoCuenta" style="display:none;">
         <div class="EstadoCuenta">
             <div class="content_left_pagos">
                 @Html.Hidden("hdn_Correo", Model.CorreoConsultora)
@@ -145,7 +145,7 @@
     </div>
     <!--FIN TAB ESTADO DE CUENTA-->
     <!--INCIO TAB LUGARES DE PAGO-->
-    <div data-tag-html="LugaresPago" style="display:none;">
+    <div data-tag-html="@Constantes.PestanhasMisPagos.LugaresPago" style="display:none;">
         <div class="LugaresPago">
             <div class="content_left_pagos">
                 <div>
@@ -178,7 +178,7 @@
     <!--INCIO TAB PERCEPCIONES-->
     @if (Model.CodigoISO.Equals(Constantes.CodigosISOPais.Peru))
     {
-        <div class="MisPercepciones" data-tag-html="MisPercepciones" style="display:none;">
+        <div class="MisPercepciones" data-tag-html="@Constantes.PestanhasMisPagos.MisPercepciones" style="display:none;">
             <!--CONTENEDOR IZQUIERDO-->
             <div class="content_left_pagos">
                 <!--CONTENIDO DE TITULO -->
@@ -393,6 +393,7 @@
         var viewBagUrlChileEncriptada = '@Model.UrlChileEncriptada';
         var ViewBagSimbolo = '@(Html.Raw(Model.Simbolo))';
 
+        var pestanhaInicial = '@Model.PestanhaInicial';
         var CE_SNAPSHOT_NAME = "Estado_Cuenta";
     </script>
     <script src="@Url.Content("~/Scripts/PortalConsultoras/MisPagos/Index.js")"></script>

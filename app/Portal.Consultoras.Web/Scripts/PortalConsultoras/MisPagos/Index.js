@@ -13,12 +13,10 @@
         $(this).find("div.marcador_tab").removeClass("oculto");
     });
 
-    $('ul[data-tab="tab"]').mouseover(function () {
-        $("#barCursor").css("opacity", "1");
-    }).mouseout(function () {
-        $("#barCursor").css("opacity", "0");
-    });
-    $('ul[data-tab="tab"] li a')[0].click();
+    $('ul[data-tab="tab"]').mouseover(function () { $("#barCursor").css("opacity", "1"); })
+        .mouseout(function () { $("#barCursor").css("opacity", "0"); });
+
+    $('ul[data-tab="tab"] li a[data-tag="' + pestanhaInicial + '"]').click();
 
     $("#lblCorreoEnviar").click(function () {
         fnEnviarCorreo();
