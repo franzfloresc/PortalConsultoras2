@@ -95,12 +95,6 @@
   <wsdl:message name="IPedidoService_GetProductosCompraPorCompra_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetProductosCompraPorCompraResponse" />
   </wsdl:message>
-  <wsdl:message name="IPedidoService_GetProductoCatalogoPerzonalizadoXCodigoSap_InputMessage">
-    <wsdl:part name="parameters" element="tns:GetProductoCatalogoPerzonalizadoXCodigoSap" />
-  </wsdl:message>
-  <wsdl:message name="IPedidoService_GetProductoCatalogoPerzonalizadoXCodigoSap_OutputMessage">
-    <wsdl:part name="parameters" element="tns:GetProductoCatalogoPerzonalizadoXCodigoSapResponse" />
-  </wsdl:message>
   <wsdl:message name="IPedidoService_GetPaginateProductoSugerido_InputMessage">
     <wsdl:part name="parameters" element="tns:GetPaginateProductoSugerido" />
   </wsdl:message>
@@ -1846,10 +1840,6 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetProductosCompraPorCompra" message="tns:IPedidoService_GetProductosCompraPorCompra_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/GetProductosCompraPorCompraResponse" message="tns:IPedidoService_GetProductosCompraPorCompra_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="GetProductoCatalogoPerzonalizadoXCodigoSap">
-      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetProductoCatalogoPerzonalizadoXCodigoSap" message="tns:IPedidoService_GetProductoCatalogoPerzonalizadoXCodigoSap_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/GetProductoCatalogoPerzonalizadoXCodigoSapResponse" message="tns:IPedidoService_GetProductoCatalogoPerzonalizadoXCodigoSap_OutputMessage" />
-    </wsdl:operation>
     <wsdl:operation name="GetPaginateProductoSugerido">
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetPaginateProductoSugerido" message="tns:IPedidoService_GetPaginateProductoSugerido_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/GetPaginateProductoSugeridoResponse" message="tns:IPedidoService_GetPaginateProductoSugerido_OutputMessage" />
@@ -3072,15 +3062,6 @@
     </wsdl:operation>
     <wsdl:operation name="GetProductosCompraPorCompra">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/GetProductosCompraPorCompra" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetProductoCatalogoPerzonalizadoXCodigoSap">
-      <soap:operation soapAction="http://tempuri.org/IPedidoService/GetProductoCatalogoPerzonalizadoXCodigoSap" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -5731,15 +5712,6 @@
     </wsdl:operation>
     <wsdl:operation name="GetProductosCompraPorCompra">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/GetProductosCompraPorCompra" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetProductoCatalogoPerzonalizadoXCodigoSap">
-      <soap:operation soapAction="http://tempuri.org/IPedidoService/GetProductoCatalogoPerzonalizadoXCodigoSap" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

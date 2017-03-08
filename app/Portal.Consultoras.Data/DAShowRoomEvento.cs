@@ -605,17 +605,5 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@EventoConsultoraID", DbType.Int32, entity.EventoConsultoraID);
             return Context.ExecuteNonQuery(command);
         }
-        
-        public IDataReader GetProductoCatalogoPerzonalizadoXCodigoSap(string CodigoIso, int CampaniaID, string CodigoSap, int CantCampanias)
-        {
-            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetProductoCatalogoByCodigoIsoBySap2");
-            Context.Database.AddInParameter(command, "@CodigoIso", DbType.String, CodigoIso);
-            Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, CampaniaID);
-            Context.Database.AddInParameter(command, "@CodigoSap", DbType.String, CodigoSap);
-            Context.Database.AddInParameter(command, "@CantCampania", DbType.Int32, CantCampanias);
-
-            return Context.ExecuteReader(command);
-        }
-
     }
 }

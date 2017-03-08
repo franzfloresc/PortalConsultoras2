@@ -893,9 +893,6 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         List<BEShowRoomOferta> GetProductosCompraPorCompra(int paisId, int EventoID, int CampaniaID);
-
-        [OperationContract]
-        List<BEShowRoomCompraPorCompra> GetProductoCatalogoPerzonalizadoXCodigoSap(int paisId, string CodigoIso, int CampaniaID, string CodigoSap, int CantCampanias);
         #endregion
 
         #region Producto SUgerido

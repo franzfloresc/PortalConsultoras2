@@ -15,6 +15,7 @@ using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.ServiceZonificacion;
 using Portal.Consultoras.Web.ServicePROLConsultas;
+using Portal.Consultoras.Web.ServiceProductoCatalogoPersonalizado;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -2478,8 +2479,8 @@ namespace Portal.Consultoras.Web.Controllers
                 var listaShowRoomCPC = new List<BEShowRoomOferta>();
                 var listaShowRoomCPCFinal = new List<BEShowRoomOferta>();
 
-                var NumeroCamoanias = Convert.ToInt32(ConfigurationManager.AppSettings["NumeroCampanias"]);
-                var listaShowRoomProductoCatalogo = new List<BEShowRoomCompraPorCompra>();
+                var NumeroCampanias = Convert.ToInt32(ConfigurationManager.AppSettings["NumeroCampanias"]);
+                var listaShowRoomProductoCatalogo = new List<Producto>();
 
                 using (PedidoServiceClient sv = new PedidoServiceClient())
                 {
@@ -2537,14 +2538,19 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                 }
 
-                using (PedidoServiceClient sv = new PedidoServiceClient())
+                codigoSap = codigoSap == "" ? "" : codigoSap.Substring(0, codigoSap.Length - 1);
+                using (ProductoServiceClient sv = new ProductoServiceClient())
                 {
-                    listaShowRoomProductoCatalogo = sv.GetProductoCatalogoPerzonalizadoXCodigoSap(userData.PaisID, userData.CodigoISO, campaniaId, codigoSap, NumeroCamoanias).ToList();
+                    listaShowRoomProductoCatalogo = sv.ObtenerProductosByCodigoSap(userData.CodigoISO, campaniaId, codigoSap, NumeroCampanias).ToList();
                 }
 
+                foreach (var beCatalogoPro in listaShowRoomProductoCatalogo)
+                {
+                    listaShowRoomCPCFinal.Update(x => x.ImagenProducto = beCatalogoPro.Imagen);
+                    listaShowRoomCPCFinal.Update(x => x.Descripcion = beCatalogoPro.NombreComercial);
+                }                
 
-
-                //Session[Constantes.ConstSession.ListaProductoShowRoom] = listaShowRoomCPCFinal;
+                Session[Constantes.ConstSession.ListaProductoShowRoom] = listaShowRoomCPCFinal;
                 var listadoProductosCPCModel1 = Mapper.Map<List<BEShowRoomOferta>, List<ShowRoomOfertaModel>>(listaShowRoomCPCFinal);
 
                 return listadoProductosCPCModel1;
