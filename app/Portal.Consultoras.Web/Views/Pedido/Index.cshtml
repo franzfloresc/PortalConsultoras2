@@ -2231,6 +2231,9 @@
         var urlMisPedidosClienteOnline = '@Url.Action("", "MisPedidos")';
         var indicadorFlexiPago = '@Model.IndicadorFlexiPago';
         var urlPedido = '@Url.Action("Index","Pedido")';
+        
+        if (isEsika) var mensajeCUVOfertaEspecial = '@Constantes.OfertaEspecialMensajes.EsikaMobile';
+        else var mensajeCUVOfertaEspecial = '@Constantes.OfertaEspecialMensajes.LbelMobile';
 
         /*PL20-1227*/
         var origenPagina = 2;
