@@ -15,6 +15,7 @@ using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.ServiceZonificacion;
 using Portal.Consultoras.Web.ServicePROLConsultas;
+using Portal.Consultoras.Web.ServiceProductoCatalogoPersonalizado;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -22,7 +23,7 @@ namespace Portal.Consultoras.Web.Controllers
     {
         public ActionResult Intriga()
         {
-            if (ValidarIngresoShowRoom(true))
+            if (!ValidarIngresoShowRoom(true))
             {
                 var model = new ShowRoomOfertaModel();
 
@@ -101,9 +102,9 @@ namespace Portal.Consultoras.Web.Controllers
                 var listaDetalle = ObtenerPedidoWebDetalle();
                 showRoomEventoModel.ListaShowRoomOferta.Update(o => o.Agregado = (listaDetalle.Find(p => p.CUV == o.CUV) ?? new BEPedidoWebDetalle()).PedidoDetalleID > 0 ? "block" : "none");
 
-                    var listaCompraPorCompra = GetProductosCompraPorCompra(esFacturacion, showRoomEventoModel.EventoID,
-                        showRoomEventoModel.CampaniaID);
-                    showRoomEventoModel.ListaShowRoomCompraPorCompra = listaCompraPorCompra;
+                var listaCompraPorCompra = GetProductosCompraPorCompra(esFacturacion, showRoomEventoModel.EventoID,
+                    showRoomEventoModel.CampaniaID);
+                showRoomEventoModel.ListaShowRoomCompraPorCompra = listaCompraPorCompra;
 
                 var terminosCondiciones = userData.ListaShowRoomPersonalizacionConsultora.FirstOrDefault(
                         p => p.Atributo == Constantes.ShowRoomPersonalizacion.Desktop.UrlTerminosCondiciones);
@@ -2484,15 +2485,18 @@ namespace Portal.Consultoras.Web.Controllers
                 var listaShowRoomCPC = new List<BEShowRoomOferta>();
                 var listaShowRoomCPCFinal = new List<BEShowRoomOferta>();
 
+                var NumeroCampanias = Convert.ToInt32(ConfigurationManager.AppSettings["NumeroCampanias"]);
+                var listaShowRoomProductoCatalogo = new List<Producto>();
+
                 using (PedidoServiceClient sv = new PedidoServiceClient())
                 {
-                    listaShowRoomCPC = sv.GetProductosCompraPorCompra(userData.PaisID, eventoId, campaniaId).ToList();
+                    listaShowRoomCPC = sv.GetProductosCompraPorCompra(userData.PaisID, eventoId, campaniaId).ToList();                    
                 }
 
+                string codigoSap = "";
                 var listaTieneStock = new List<Lista>();
                 if (esFacturacion)
-                {
-                    string codigoSap = "";
+                {                    
                     foreach (var beProducto in listaShowRoomCPC)
                     {
                         if (!string.IsNullOrEmpty(beProducto.CodigoProducto))
@@ -2522,6 +2526,7 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                 }
 
+                codigoSap = "";
                 foreach (var beShowRoomOferta in listaShowRoomCPC)
                 {
                     bool tieneStockProl = true;
@@ -2534,11 +2539,24 @@ namespace Portal.Consultoras.Web.Controllers
 
                     if (tieneStockProl)
                     {
+                        codigoSap += beShowRoomOferta.CodigoProducto + "|";
                         listaShowRoomCPCFinal.Add(beShowRoomOferta);
                     }
                 }
 
-                //Session[Constantes.ConstSession.ListaProductoShowRoom] = listaShowRoomCPCFinal;
+                codigoSap = codigoSap == "" ? "" : codigoSap.Substring(0, codigoSap.Length - 1);
+                using (ProductoServiceClient sv = new ProductoServiceClient())
+                {
+                    listaShowRoomProductoCatalogo = sv.ObtenerProductosByCodigoSap(userData.CodigoISO, campaniaId, codigoSap, NumeroCampanias).ToList();
+                }
+
+                foreach (var beCatalogoPro in listaShowRoomProductoCatalogo)
+                {
+                    listaShowRoomCPCFinal.Update(x => x.ImagenProducto = beCatalogoPro.Imagen);
+                    listaShowRoomCPCFinal.Update(x => x.Descripcion = beCatalogoPro.NombreComercial);
+                }                
+
+                Session[Constantes.ConstSession.ListaProductoShowRoom] = listaShowRoomCPCFinal;
                 var listadoProductosCPCModel1 = Mapper.Map<List<BEShowRoomOferta>, List<ShowRoomOfertaModel>>(listaShowRoomCPCFinal);
 
                 return listadoProductosCPCModel1;
