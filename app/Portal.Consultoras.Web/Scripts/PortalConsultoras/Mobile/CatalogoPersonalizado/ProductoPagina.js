@@ -174,75 +174,78 @@ function ObtenerOfertaRevista2(item) {
             //if (tipoOrigen == '2') {
             //    $('[data-oferta]').addClass("MensajeAlertaMobile");
             //}
-            if (!response.success) {
-                DialogLoadingCerrar();
-                return false;
-            }
+            if (checkTimeout(response)) {
 
-            response.data.dataPROL.Simbolo = vbSimbolo;
-            response.data.dataPROL.TxtGanancia = response.data.txtGanancia;
-            response.data.dataPROL.TxtRecibeGratis = response.data.txtRecibeGratis;
-
-            var settings = $.extend({}, response.data.dataPROL, obj);
-            settings.productoRevista = response.data.producto;
-            TrackingJetloreView(cuv, $("#hdCampaniaCodigo").val())
-            //console.log(settings);
-
-            if (response.data.dataPROL != 'undefined' && response.data.dataPROL != null) {
-                switch (settings.tipo_oferta) {
-                    case '003':
-                        codTipoOferta = '003';
-                        //settings.precio_catalogo = DecimalToStringFormat(settings.precio_catalogo);
-                        //settings.precio_revista = DecimalToStringFormat(settings.precio_revista);
-                        //settings.ganancia = DecimalToStringFormat(settings.ganancia);
-                        //console.log(settings);
-                        SetHandlebars("#template-oferta003", settings, '#Ficha_003A');
-                        //$('[data-oferta]').addClass('mod-ofer1').show();
-                        
-                        $('#Ficha_003A').show();
-                        break;
-
-                    case '048':
-                        if (settings.lista_oObjPack.length > 0) {
-                            codTipoOferta = '048P';
-                            settings.lista_oObjPack = RemoverRepetidos(settings.lista_oObjPack);
-                            settings.lista_oObjItemPack = RemoverRepetidos(settings.lista_oObjItemPack);
-                            //settings.lista_oObjPack.splice(2, settings.lista_oObjPack.length);
-                            settings.lista_oObjPack[settings.lista_oObjPack.length - 1].EsUltimo = 1;
-                            dataOfertaEnRevista = settings;
-                            //console.log(settings);
-                            SetHandlebars("#template-oferta048P", settings, '#Ficha_048B');
-                            //$('[data-oferta]').addClass('mod-ofer3').show();
-                            
-                            $('#Ficha_048B').show();
-                        }
-                        else if (settings.lista_ObjNivel.length > 0) {
-                            codTipoOferta = '048N';
-                            settings.lista_ObjNivel = RemoverRepetidos(settings.lista_ObjNivel);
-                            settings.lista_oObjGratis = RemoverRepetidos(settings.lista_oObjGratis);
-                            var lista = Clone(settings.lista_ObjNivel);
-                            settings.lista_ObjNivel = new Array();
-                            $.each(lista, function (ind, nivel) {
-                                if (nivel.escala_nivel > 1) {
-                                    settings.lista_ObjNivel.push(nivel);
-                                }
-                            });
-                            //settings.lista_ObjNivel.splice(3, settings.lista_ObjNivel.length);
-                            dataOfertaEnRevista = settings;
-                            //console.log(settings);
-                            SetHandlebars("#template-oferta048N", settings, '#Ficha_048A');
-                            
-                            $('#Ficha_048A').show();
-                        }
-                        break;
+                if (!response.success) {
+                    DialogLoadingCerrar();
+                    return false;
                 }
+
+                response.data.dataPROL.Simbolo = vbSimbolo;
+                response.data.dataPROL.TxtGanancia = response.data.txtGanancia;
+                response.data.dataPROL.TxtRecibeGratis = response.data.txtRecibeGratis;
+
+                var settings = $.extend({}, response.data.dataPROL, obj);
+                settings.productoRevista = response.data.producto;
+                TrackingJetloreView(cuv, $("#hdCampaniaCodigo").val())
+                //console.log(settings);
+
+                if (response.data.dataPROL != 'undefined' && response.data.dataPROL != null) {
+                    switch (settings.tipo_oferta) {
+                        case '003':
+                            codTipoOferta = '003';
+                            //settings.precio_catalogo = DecimalToStringFormat(settings.precio_catalogo);
+                            //settings.precio_revista = DecimalToStringFormat(settings.precio_revista);
+                            //settings.ganancia = DecimalToStringFormat(settings.ganancia);
+                            //console.log(settings);
+                            SetHandlebars("#template-oferta003", settings, '#Ficha_003A');
+                            //$('[data-oferta]').addClass('mod-ofer1').show();
+
+                            $('#Ficha_003A').show();
+                            break;
+
+                        case '048':
+                            if (settings.lista_oObjPack.length > 0) {
+                                codTipoOferta = '048P';
+                                settings.lista_oObjPack = RemoverRepetidos(settings.lista_oObjPack);
+                                settings.lista_oObjItemPack = RemoverRepetidos(settings.lista_oObjItemPack);
+                                //settings.lista_oObjPack.splice(2, settings.lista_oObjPack.length);
+                                settings.lista_oObjPack[settings.lista_oObjPack.length - 1].EsUltimo = 1;
+                                dataOfertaEnRevista = settings;
+                                //console.log(settings);
+                                SetHandlebars("#template-oferta048P", settings, '#Ficha_048B');
+                                //$('[data-oferta]').addClass('mod-ofer3').show();
+
+                                $('#Ficha_048B').show();
+                            }
+                            else if (settings.lista_ObjNivel.length > 0) {
+                                codTipoOferta = '048N';
+                                settings.lista_ObjNivel = RemoverRepetidos(settings.lista_ObjNivel);
+                                settings.lista_oObjGratis = RemoverRepetidos(settings.lista_oObjGratis);
+                                var lista = Clone(settings.lista_ObjNivel);
+                                settings.lista_ObjNivel = new Array();
+                                $.each(lista, function (ind, nivel) {
+                                    if (nivel.escala_nivel > 1) {
+                                        settings.lista_ObjNivel.push(nivel);
+                                    }
+                                });
+                                //settings.lista_ObjNivel.splice(3, settings.lista_ObjNivel.length);
+                                dataOfertaEnRevista = settings;
+                                //console.log(settings);
+                                SetHandlebars("#template-oferta048N", settings, '#Ficha_048A');
+
+                                $('#Ficha_048A').show();
+                            }
+                            break;
+                    }
+                }
+                DialogLoadingCerrar();
             }
-
-
-            DialogLoadingCerrar();
         },
         error: function (response, error) {
-            DialogLoadingCerrar();
+            if (checkTimeout(response)) {
+                DialogLoadingCerrar();
+            }
         }
     });
 }

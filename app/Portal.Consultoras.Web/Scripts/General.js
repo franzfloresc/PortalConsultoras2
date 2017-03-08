@@ -451,12 +451,11 @@ function isInt(n) {
 
 // valida si ha ocurrido un timeout durante una llamada ajax
 function checkTimeout(data) {
-    //debugger;
-    var thereIsStillTime = true;
+    var thereIsStillTime = true
 
     if (data) {
         if (data.responseText) {
-            if ((data.responseText.indexOf("<title>Login</title>") > -1) || (data.responseText.indexOf("<title>Object moved</title>") > -1) || (data.responseText === '"_Logon_"'))
+            if ((data.responseText.indexOf('<input type="hidden" id="PaginaLogin" />') > -1) || (data.responseText.indexOf('<input type="hidden" id="PaginaSesionExpirada" />') > -1) || (data.responseText === '"_Logon_"'))
                 thereIsStillTime = false;
         }
         else {
@@ -465,7 +464,17 @@ function checkTimeout(data) {
         }
 
         if (!thereIsStillTime) {
-            window.location.href = "/Login/SesionExpirada";
+            //window.location.href = "/Login/SesionExpirada";
+            
+            var message = "Tu sesión ha finalizado por inactividad. Por favor, ingresa nuevamente.";
+            if (ViewBagEsMobile == 1) {/*1 Desktop, 2 Mobile*/
+                $('#dialog_SesionMainLayout #mensajeSesionSB2_Error').html(message);
+                $('#dialog_SesionMainLayout').show();
+            }
+            else {
+                $('#popupInformacionSB2SesionFinalizada').find('#mensajeInformacionSB2_SesionFinalizada').text(message);
+                $('#popupInformacionSB2SesionFinalizada').show();
+            }
         }
     }
     else {
@@ -479,7 +488,7 @@ function checkTimeout(data) {
 function checkUserSession() {
     //debugger;
     var res = -1;
-    
+
     $.ajax({
         url: '/Login/CheckUserSession',
         type: 'POST',

@@ -37,6 +37,8 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public string DescripcionProd { get; set; }
         [DataMember]
+        public string DescripcionCortadaProd { get; set; }
+        [DataMember]
         public int PaisID { get; set; }
         [DataMember]
         public string Nombre { get; set; }

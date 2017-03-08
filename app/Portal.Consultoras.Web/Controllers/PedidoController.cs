@@ -1509,24 +1509,11 @@ namespace Portal.Consultoras.Web.Controllers
 
                 foreach (var beProducto in listaProduto)
                 {
-                    var rutaImagenSugerido = "";
-                    if (string.IsNullOrEmpty(beProducto.ImagenProductoSugerido))
-                    {
-                        rutaImagenSugerido = "";
-                    }
-                    else
-                    {
-                        var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
-                        rutaImagenSugerido = ConfigS3.GetUrlFileS3(carpetaPais, beProducto.ImagenProductoSugerido, Globals.UrlMatriz + "/" + userData.CodigoISO);
-                    }
-
                     bool tieneStockProl = true;
-
                     if (esFacturacion)
                     {
                         var itemStockProl = listaTieneStock.FirstOrDefault(p => p.Codsap.ToString() == beProducto.CodigoProducto);
-                        if (itemStockProl != null)
-                            tieneStockProl = itemStockProl.estado == 1;
+                        if (itemStockProl != null) tieneStockProl = itemStockProl.estado == 1;
                     }
 
                     if (beProducto.TieneStock && tieneStockProl)
@@ -1553,7 +1540,7 @@ namespace Portal.Consultoras.Web.Controllers
                             DescripcionCategoria = beProducto.DescripcionCategoria,
                             FlagNueva = beProducto.FlagNueva,
                             TipoEstrategiaID = beProducto.TipoEstrategiaID,
-                            ImagenProductoSugerido = rutaImagenSugerido,
+                            ImagenProductoSugerido = beProducto.ImagenProductoSugerido ?? "",
                             CodigoProducto = beProducto.CodigoProducto,
                             TieneStockPROL = true
                         });
@@ -3003,6 +2990,8 @@ namespace Portal.Consultoras.Web.Controllers
 
                 decimal totalPedido = lstPedidoWebDetalle.Where(p => p.PedidoDetalleIDPadre == 0).Sum(p => p.ImporteTotal);
                 decimal totalMinimoPedido = lstPedidoWebDetalle.Where(p => p.IndicadorMontoMinimo == 1).Sum(p => p.ImporteTotal);
+
+                lstPedidoWebDetalle.Update(p => p.DescripcionCortadaProd = Util.SubStrCortarNombre(p.DescripcionProd, 73, ""));
 
                 PedidoDetalleModel PedidoModelo = new PedidoDetalleModel();
                 PedidoModelo.eMail = userData.EMail;
@@ -4536,6 +4525,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 pedidoWebDetalleModel.Update(p => p.Simbolo = userData.Simbolo);
                 pedidoWebDetalleModel.Update(p => p.CodigoIso = userData.CodigoISO);
+                pedidoWebDetalleModel.Update(p => p.DescripcionCortadaProd = Util.SubStrCortarNombre(p.DescripcionProd, 73, ""));
 
                 model.ListaDetalleModel = pedidoWebDetalleModel;
                 model.Total = total;

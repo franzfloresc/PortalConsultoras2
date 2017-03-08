@@ -83,6 +83,7 @@ namespace Portal.Consultoras.Web.Controllers
                     ObtenerPedidoWebDetalle();
 
                     ViewBag.TieneOfertaDelDia = userData.TieneOfertaDelDia;
+                    ViewBag.EsMobile = 1;//EPD-1780
 
                     if (userData.TieneOfertaDelDia)
                     {
@@ -639,8 +640,8 @@ namespace Portal.Consultoras.Web.Controllers
                 ViewBag.Dias = GetDiasFaltantesFacturacion(model.FechaInicioCampania, model.ZonaHoraria);
                 //ViewBag.Dias = fechaHoy >= model.FechaInicioCampania.Date && fechaHoy <= model.FechaFinCampania.Date ? 0 : (model.FechaInicioCampania.Subtract(DateTime.Now.AddHours(model.ZonaHoraria)).Days + 1);
 
-                ViewBag.PeriodoAnalytics = fechaHoy >= model.FechaInicioCampania.Date && fechaHoy <= model.FechaFinCampania.Date ? "Facturacion" : "Venta";
-                ViewBag.SemanaAnalytics = "No Disponible";
+            ViewBag.PeriodoAnalytics = fechaHoy >= model.FechaInicioCampania.Date && fechaHoy <= model.FechaFinCampania.Date ? "Facturacion" : "Venta";
+            ViewBag.SemanaAnalytics = "No Disponible";
                 DateTime FechaHoraActual = DateTime.Now.AddHours(model.ZonaHoraria);
                 TimeSpan HoraCierrePortal = model.EsZonaDemAnti == 0 ? model.HoraCierreZonaNormal : model.HoraCierreZonaDemAnti;
 
@@ -1044,18 +1045,20 @@ namespace Portal.Consultoras.Web.Controllers
 
         protected int AddCampaniaAndNumero(int campania, int numero)
         {
-            int nroCampanias = userData.NroCampanias;
-
+            return AddCampaniaAndNumero(campania, numero, userData.NroCampanias);
+        }
+        protected int AddCampaniaAndNumero(int campania, int numero, int nroCampanias)
+        {
             int anioCampania = campania / 100;
             int nroCampania = campania % 100;
             int sumNroCampania = (nroCampania + numero) - 1;
-            int anioCampaniaResult = anioCampania + (sumNroCampania / userData.NroCampanias);
-            int nroCampaniaResult = (sumNroCampania % userData.NroCampanias) + 1;
+            int anioCampaniaResult = anioCampania + (sumNroCampania / nroCampanias);
+            int nroCampaniaResult = (sumNroCampania % nroCampanias) + 1;
 
             if (nroCampaniaResult < 1)
             {
                 anioCampaniaResult = anioCampaniaResult - 1;
-                nroCampaniaResult = nroCampaniaResult + userData.NroCampanias;
+                nroCampaniaResult = nroCampaniaResult + nroCampanias;
             }
             return (anioCampaniaResult * 100) + nroCampaniaResult;
         }

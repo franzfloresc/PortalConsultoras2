@@ -126,6 +126,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             string urlPoliticaCdr = ConfigurationManager.AppSettings.Get("UrlPoliticasCDR") ?? "{0}";
             model.UrlPoliticaCdr = string.Format(urlPoliticaCdr, userData.CodigoISO);
+            model.MensajePeriodoInvalido = MensajePeriodoInvalidoCDR();
 
             return View(model);
         }
@@ -219,8 +220,8 @@ namespace Portal.Consultoras.Web.Controllers
 
                 int diasFaltantes = 0;
                 BECDRWebDatos cDRWebDatos = ObtenerCdrWebDatosByCodigo(Constantes.CdrWebDatos.ValidacionDiasFaltante);
-                if (cDRWebDatos != null) Int32.TryParse(cDRWebDatos.Valor, out diasFaltantes);
-                
+                if(cDRWebDatos != null) Int32.TryParse(cDRWebDatos.Valor, out diasFaltantes);
+
                 if (diasFaltantes > 0)
                 {
                     List<string> operacionFaltanteList = new List<string> { "F", "G" };
@@ -231,7 +232,6 @@ namespace Portal.Consultoras.Web.Controllers
                 }
                 Session[Constantes.ConstSession.CDRMotivoOperacion] = listaMotivoOperacion;
                 return listaMotivoOperacion;
-
             }
             catch (Exception ex)
             {
@@ -623,6 +623,7 @@ namespace Portal.Consultoras.Web.Controllers
                     respuestaServiceCdr = sv.GetCdrWebConsulta(userData.CodigoISO, model.CampaniaID.ToString(),
                         userData.CodigoConsultora, model.CUV, model.Cantidad, userData.CodigoZona);
 
+                    
                     if (respuestaServiceCdr[0].Codigo != "00")
                         return Json(new
                         {
@@ -1047,9 +1048,9 @@ namespace Portal.Consultoras.Web.Controllers
                 using (CDRServiceClient sv = new CDRServiceClient())
                 {
                     var cdrWeb = sv.GetCDRWeb(userData.PaisID, cdrWebFiltro).ToList().FirstOrDefault();
-                    if (cdrWeb == null) return ErrorJson("Error al buscar reclamo.");
+                    if(cdrWeb == null) return ErrorJson("Error al buscar reclamo.");
                     cdrWeb.CDRWebDetalle = sv.GetCDRWebDetalle(userData.PaisID, new BECDRWebDetalle { CDRWebID = cdrWeb.CDRWebID }, cdrWeb.PedidoID);
-                    if (TieneDetalleFueraFecha(cdrWeb, model)) return ErrorJson(Constantes.CdrWebMensajes.FueraDeFecha);
+                    if(TieneDetalleFueraFecha(cdrWeb, model)) return ErrorJson(Constantes.CdrWebMensajes.FueraDeFecha);
                 }
 
                 int resultadoUpdate = 0;
@@ -1058,7 +1059,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     var entidad = new BECDRWeb { CDRWebID = model.CDRWebID, Estado = Constantes.EstadoCDRWeb.Enviado };
                     resultadoUpdate = sv.UpdEstadoCDRWeb(userData.PaisID, entidad);
-                    sv.CreateLogCDRWebCulminadoFromCDRWeb(userData.PaisID, cDRWebMailConfirmacion.CDRWebID);
+                    sv.CreateLogCDRWebCulminadoFromCDRWeb(userData.PaisID, model.CDRWebID);
                     
                     cDRWebMailConfirmacion = sv.GetCDRWeb(userData.PaisID, cdrWebFiltro).ToList().FirstOrDefault() ?? new BECDRWeb();
                     cDRWebMailConfirmacion.CDRWebDetalle = sv.GetCDRWebDetalle(userData.PaisID, new BECDRWebDetalle { CDRWebID = cDRWebMailConfirmacion.CDRWebID }, cDRWebMailConfirmacion.PedidoID);
@@ -1083,7 +1084,6 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     string[] parametros = new string[] { userData.CodigoUsuario, userData.PaisID.ToString(), userData.CodigoISO, model.Email };
                     string param_querystring = Util.EncriptarQueryString(parametros);
-                    
                     string cadena = "<br /><br /> Estimada consultora " + userData.NombreConsultora + " Para confirmar la dirección de correo electrónico ingresada haga click " +
                                      "<br /> <a href='" + Util.GetUrlHost(HttpContext.Request) + "WebPages/MailConfirmation.aspx?data=" + param_querystring + "'>aquí</a><br/><br/>Belcorp";//2442
                     Util.EnviarMailMasivoColas("no-responder@somosbelcorp.com", model.Email, "(" + userData.CodigoISO + ") Confimacion de Correo", cadena, true, userData.NombreConsultora);
@@ -1686,7 +1686,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             int cDRDiasAntesFacturacion = 0;
             BECDRWebDatos cDRWebDatos = ObtenerCdrWebDatosByCodigo(Constantes.CdrWebDatos.DiasAntesFacturacion);
-            if (cDRWebDatos != null) Int32.TryParse(cDRWebDatos.Valor, out cDRDiasAntesFacturacion);
+            if(cDRWebDatos != null) Int32.TryParse(cDRWebDatos.Valor, out cDRDiasAntesFacturacion);
             if (diasFaltantes <= cDRDiasAntesFacturacion) return Constantes.CdrWebMensajes.FueraDeFecha;
 
             return string.Empty;

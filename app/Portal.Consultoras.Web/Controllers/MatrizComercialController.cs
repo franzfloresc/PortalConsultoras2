@@ -151,8 +151,8 @@ namespace Portal.Consultoras.Web.Controllers
 
         private string UploadFoto(string foto, string number, string preFileName, string carpetaPais)
         {
-            foto = foto ?? "";
-            if (!foto.Trim().Equals("prod_grilla_vacio.png"))
+            foto = ValidarFoto(foto);
+            if (!string.IsNullOrEmpty(foto))
             {
                 string time = DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Minute.ToString() + DateTime.Now.Millisecond.ToString();
                 var newfilename = preFileName + time + "_" + number + "_" + FileManager.RandomString() + ".png";
@@ -164,8 +164,8 @@ namespace Portal.Consultoras.Web.Controllers
 
         private string ReplaceFoto(string foto, string fotoAnterior, string number, string preFileName, string carpetaPais)
         {
-            foto = foto ?? "";
-            fotoAnterior = fotoAnterior ?? "";
+            foto = ValidarFoto(foto);
+            fotoAnterior = ValidarFoto(fotoAnterior);
 
             if (foto != fotoAnterior)
             {
@@ -175,7 +175,13 @@ namespace Portal.Consultoras.Web.Controllers
                 ConfigS3.SetFileS3(Path.Combine(Globals.RutaTemporales, foto), carpetaPais, newfilename);
                 return newfilename;
             }
-            else if (!foto.Trim().Equals("prod_grilla_vacio.png")) return foto;
+            return foto;
+        }
+
+        private string ValidarFoto(string foto)
+        {
+            foto = (foto ?? "").Trim();
+            if (!foto.Equals("prod_grilla_vacio.png")) return foto;
             return string.Empty;
         }
 
