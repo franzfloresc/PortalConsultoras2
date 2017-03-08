@@ -12,7 +12,7 @@
         IniDialogRegistroLinks();
 
         $("#btnBuscar").click(function () {
-            //debugger;
+            
             if ($("#ddlPais").val() == "") {
                 alert("Debe seleccionar un País, verifique");
                 return false;
@@ -22,7 +22,7 @@
 
     });
     function fnRespuestaLink(responseText, statusText, xhr, $form) {
-        //debugger;
+        
         if (checkTimeout(responseText)) {
             $("#gvwLinks").setGridParam({ datatype: 'json', page: 1 }).trigger('reloadGrid');
             if (responseText && typeof responseText === "string") {
@@ -122,7 +122,7 @@
     }
 
     function fnGrilla() {
-        //debugger;
+        
         jQuery("#gvwLinks").jqGrid({
             url: baseUrl + "AdministrarLinks/Consultar",
             hidegrid: false,
@@ -186,7 +186,7 @@
         };
 
         function ShowUrl(cellvalue, options, rowObject) {
-            //debugger;
+            
             var contenido = cellvalue;
             var valorParcial = cellvalue.substring(0, 40);
             if (cellvalue.length > 40) {
@@ -198,7 +198,7 @@
 
     $.jgrid.extend({
         Editar: function (Id) {
-            //debugger;
+            
             if (Id) {
                 $('#PermisoID').val(Id);
                 $('#PaisID').val(jQuery("#gvwLinks").jqGrid('getCell', Id, 'PaisID'));
@@ -219,7 +219,7 @@
             return false;
         },
         Eliminar: function (Id) {
-            //debugger;
+            
             var elimina = confirm('¿ Está seguro que desea eliminar el registro seleccionado ?');
             if (!elimina)
                 return false;
@@ -232,7 +232,7 @@
                 data: JSON.stringify({ PermisoID: Id }),
                 async: true,
                 success: function (data) {
-                    //debugger;
+                    
                     if (checkTimeout(data)) {
                         closeWaitingDialog();
                         limpiarPopup();
@@ -245,7 +245,7 @@
                     }
                 },
                 error: function (data, error) {
-                    //debugger;
+                    
                     if (checkTimeout(data)) {
                         closeWaitingDialog();
                         alert("ERROR");
@@ -257,14 +257,14 @@
     });
 
     function VerMas(object, ValorCompleto, ValorParcial) {
-        //debugger;
+        
         var td = object.parentElement;
         td.innerHTML = ValorCompleto + "&nbsp;<a href='javascript:;' onclick=\"VerMenos(this,'" + ValorCompleto + "','" + ValorParcial + "');\" > ...Ver menos" + "</a>";
         return false;
     }
 
     function VerMenos(object, ValorCompleto, ValorParcial) {
-        //debugger;
+        
         var td = object.parentElement;
         td.innerHTML = ValorParcial + "&nbsp;<a href='javascript:;' onclick=\"VerMas(this,'" + ValorCompleto + "','" + ValorParcial + "');\" > ...Ver mas" + "</a>";
         return false;
@@ -282,7 +282,7 @@
     }
 
     function limpiarPopup() {
-        //debugger;
+        
         $('#PaisID').val("");
         $('#IdPadre').val("");
         $('#ddlPaisDialogo').prop('disabled', false);

@@ -1,12 +1,10 @@
-﻿using System.Text;
-using System.Threading.Tasks;
-using System.Data;
-using System.Data.Common;
-using OpenSource.Library.DataAccess;
+﻿using OpenSource.Library.DataAccess;
 using Portal.Consultoras.Entities;
-using System.Data.SqlClient;
 using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.Common;
+using System.Data.SqlClient;
 using System.Linq;
 
 namespace Portal.Consultoras.Data
@@ -100,7 +98,10 @@ namespace Portal.Consultoras.Data
                 Context.Database.AddInParameter(command, "@UsuarioModificacion", DbType.String, entidad.UsuarioModificacion);
                 Context.Database.AddInParameter(command, "@ColorFondo", DbType.String, entidad.ColorFondo);
                 Context.Database.AddInParameter(command, "@FlagEstrella", DbType.String, entidad.FlagEstrella);
-                result = Context.ExecuteNonQuery(command);
+                Context.Database.AddInParameter(command, "@CodigoEstrategia", DbType.String, entidad.CodigoEstrategia);
+                Context.Database.AddOutParameter(command, "@Retorno", DbType.Int32, 1000);
+                Context.ExecuteNonQuery(command);
+                result = Convert.ToInt32(command.Parameters["@Retorno"].Value);
             }
             return result;
         }

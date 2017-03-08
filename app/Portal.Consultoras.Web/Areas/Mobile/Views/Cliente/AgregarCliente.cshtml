@@ -47,8 +47,6 @@
         $(document).ready(function () {
             $("#btnGuardar").on("click", function (e) {
                 e.preventDefault();
-
-                //debugger;
                 if ($('#hdNombreClienteAnterior').val().toUpperCase() == $('#Nombre').val().toUpperCase())
                     $("#FlagValidate").val("0");
                 else

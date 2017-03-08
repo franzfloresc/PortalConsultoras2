@@ -540,7 +540,6 @@ function CumpleOfertaFinal(montoPedido, montoEscala, tipoPopupMostrar, codigoMen
 
 /*EPD-991*/
 //function validarOfertaFinalGanMas() {
-//    debugger
 //    var ofertaFinal = $('#hdOfertaFinal').val();
 //    var esOfertaFinalZonaValida = $("#hdEsOfertaFinalZonaValida").val();
 //    var ofertaFinalGanaMas = $('#hdOfertaFinalGanaMas').val();
@@ -568,7 +567,6 @@ function CumpleOfertaFinal(montoPedido, montoEscala, tipoPopupMostrar, codigoMen
 /*EPD-991*/
 
 //function CumpleParametriaOfertaFinal(montoPedido, montoEscala, tipoPopupMostrar, codigoMensajeProl, listaObservacionesProl) {
-//    debugger
 //    var resultado = false;
 //    var montoFaltante = 0;
 //    var porcentajeDescuento = 0;
