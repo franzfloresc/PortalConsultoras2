@@ -22,6 +22,9 @@ namespace Portal.Consultoras.ServiceContracts
         IList<BEPais> SelectPaises();
 
         [OperationContract]
+        int GetPaisNumeroCampaniasByPaisID(int paisID);
+
+        [OperationContract]
         IList<BECampania> SelectCampanias(int paisID);
 
         [OperationContract]
