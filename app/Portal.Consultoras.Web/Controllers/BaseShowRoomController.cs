@@ -551,7 +551,7 @@ namespace Portal.Consultoras.Web.Controllers
                 codigoSap = codigoSap == "" ? "" : codigoSap.Substring(0, codigoSap.Length - 1);
                 using (ProductoServiceClient sv = new ProductoServiceClient())
                 {
-                    listaShowRoomProductoCatalogo = sv.ObtenerProductosByCodigoSap(userData.CodigoISO, campaniaId, codigoSap /*,NumeroCampanias*/).ToList();
+                    listaShowRoomProductoCatalogo = sv.ObtenerProductosByCodigoSap(userData.CodigoISO, campaniaId, codigoSap/*, NumeroCampanias*/).ToList();
                 }
 
                 foreach (var item in listaShowRoomCPCFinal)
@@ -567,6 +567,12 @@ namespace Portal.Consultoras.Web.Controllers
 
                 Session[Constantes.ConstSession.ListaProductoShowRoomCpc] = listaShowRoomCPCFinal;
                 var listadoProductosCPCModel1 = Mapper.Map<List<BEShowRoomOferta>, List<ShowRoomOfertaModel>>(listaShowRoomCPCFinal);
+                listadoProductosCPCModel1.Update(x =>
+                {
+                    x.DescripcionMarca = GetDescripcionMarca(x.MarcaID);
+                    x.CodigoISO = userData.CodigoISO;
+                    x.Simbolo = userData.Simbolo;
+                });
 
                 return listadoProductosCPCModel1;
             }
@@ -619,6 +625,7 @@ namespace Portal.Consultoras.Web.Controllers
         public ShowRoomOfertaModel ViewDetalleOferta(int id)
         {
             var modelo = GetOfertaConDetalle(id);
+            modelo.CodigoISO = userData.CodigoISO;
             modelo.ListaOfertaShowRoom = GetOfertaListadoExcepto(id);
             var listaDetalle = ObtenerPedidoWebDetalle();
             modelo.ListaOfertaShowRoom.Update(o => o.Agregado = (listaDetalle.Find(p => p.CUV == o.CUV) ?? new BEPedidoWebDetalle()).PedidoDetalleID > 0 ? "block" : "none");

@@ -890,7 +890,7 @@ namespace Portal.Consultoras.Web.Controllers
             
             if (model.CargoEntidadesShowRoom)
             {
-                //Session["EsShowRoom"] = "1";
+                Session["EsShowRoom"] = "1";
                 return;
             }
 
