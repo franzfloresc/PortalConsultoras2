@@ -209,8 +209,8 @@ function ArmarCarouselEstrategias(data) {
             slidesToShow: 4,
             slidesToScroll: 1,
             autoplay: false,
-            prevArrow: '<a class="previous_ofertas_mobile js-slick-prev" style="margin-left:-12%; text-align:left;"><img src="' + baseUrl + 'Content/Images/mobile/Esika/previous_ofertas_home.png")" alt="" /></a>',
-            nextArrow: '<a class="previous_ofertas_mobile js-slick-next" style="margin-right:-12%; text-align:right; right:0"><img src="' + baseUrl + 'Content/Images/mobile/Esika/next.png")" alt="" /></a>',
+            prevArrow: '<a class="previous_ofertas_mobile js-slick-prev" href="javascript:void(0);" style="margin-left:-12%; text-align:left;"><img src="' + baseUrl + 'Content/Images/mobile/Esika/previous_ofertas_home.png")" alt="" /></a>',
+            nextArrow: '<a class="previous_ofertas_mobile js-slick-next" href="javascript:void(0);" style="margin-right:-12%; text-align:right; right:0"><img src="' + baseUrl + 'Content/Images/mobile/Esika/next.png")" alt="" /></a>',
             responsive: [
                 {
                     breakpoint: 1200,
@@ -236,8 +236,8 @@ function ArmarCarouselEstrategias(data) {
             slidesToScroll: 1,
             autoplay: false,
             dots: false,
-            prevArrow: '<span class="previous_ofertas_mobile" id="slick-prev" style="margin-left:-13%;"><img src="' + urlCarruselPrev + '")" alt="-"/></span>',
-            nextArrow: '<span class="previous_ofertas_mobile" id="slick-next" style="margin-right:-13%; text-align:right; right:0;"><img src="' + urlCarruselNext + '" alt="-"/></span>',
+            prevArrow: '<a class="previous_ofertas_mobile js-slick-prev" href="javascript:void(0);" id="slick-prev" style="margin-left:-13%;"><img src="' + urlCarruselPrev + '")" alt="-"/></a>',
+            nextArrow: '<a class="previous_ofertas_mobile js-slick-next" href="javascript:void(0);" id="slick-next" style="margin-right:-13%; text-align:right; right:0;"><img src="' + urlCarruselNext + '" alt="-"/></a>',
             infinite: true,
             speed: 300,
             responsive: [
@@ -421,6 +421,7 @@ function CargarEstrategiasEspeciales(objInput, e) {
         $('#popupDetalleCarousel_lanzamiento').show();
         $('body').css({ 'overflow-x': 'hidden' });
         $('body').css({ 'overflow-y': 'hidden' });
+        $(".indicador_tono").click();
         $(".indicador_tono").click();
 
         EstrategiaMostrarMasTonos(true);
