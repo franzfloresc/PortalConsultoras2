@@ -1481,7 +1481,7 @@ namespace Portal.Consultoras.Web.Controllers
             model.EstaActivoLateral = true;
             var fechaHoy = DateTime.Now.AddHours(userData.ZonaHoraria).Date;
 
-            if (!(fechaHoy >= userData.FechaInicioCampania.AddDays(-model.BEShowRoom.DiasAntes).Date &&
+            if ((fechaHoy >= userData.FechaInicioCampania.AddDays(-model.BEShowRoom.DiasAntes).Date &&
                 fechaHoy <= userData.FechaInicioCampania.AddDays(model.BEShowRoom.DiasDespues).Date))
             {
                 model.MostrarShowRoomProductos = true;

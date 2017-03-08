@@ -106,6 +106,12 @@ namespace Portal.Consultoras.Web.Controllers
                     showRoomEventoModel.CampaniaID);
                 showRoomEventoModel.ListaShowRoomCompraPorCompra = listaCompraPorCompra;
 
+                var terminosCondiciones = userData.ListaShowRoomPersonalizacionConsultora.FirstOrDefault(
+                        p => p.Atributo == Constantes.ShowRoomPersonalizacion.Desktop.UrlTerminosCondiciones);
+                showRoomEventoModel.UrlTerminosCondiciones = terminosCondiciones == null
+                    ? ""
+                    : terminosCondiciones.Valor;
+
                 return View(showRoomEventoModel);
 
             }

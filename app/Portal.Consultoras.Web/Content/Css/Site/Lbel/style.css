@@ -234,7 +234,7 @@ header {
 
 .new_menu {
     margin-top: 21px;
-    margin-left: 4.8%;
+    margin-left: 4%;
     height: 40px;
     float: left;
     position: relative;
@@ -252,7 +252,7 @@ header {
 }
 
 .menu_socia_empresaria > .new_menu {
-    margin-left: 4.2%;
+    margin-left: 2%;
     margin-top: 21px;
     /*width: 15%;*/
 }
@@ -22887,7 +22887,7 @@ body {
 
 @media screen and (max-width: 1132px) {
     .menu_socia_empresaria > .new_menu {
-        margin-left: 2.5%;
+        margin-left: 2.4%;
     }
 
     .escala_ganancia {
@@ -29658,6 +29658,9 @@ span.datoPedidoCliente {
         font-size: 12px;
         width: 110%;
     }
+    .new_menu {    
+    margin-left: 3%;    
+    }
 }
 
 @media screen and (max-width:1100px) {
@@ -34924,16 +34927,17 @@ h1#penmostreo .campana {
 }
 .titulo_compra_POP{
     font-family:'LAto';
-    font-size:22px;
+    font-size:16px;
     font-weight:900;
     text-align:center;
     /*margin-top:20px;*/
 }
 .precio_set_compra{
     font-family:'LAto';
-    font-size:20px;
+    font-size:23px;
     /*margin-top:5px;*/
     text-align:center;
+    font-weight: 300;
 }
 
 .content_carrusel_pop_compra{
@@ -34999,6 +35003,10 @@ h1#penmostreo .campana {
     margin-top:10px;
     margin-bottom:10px;
     cursor: pointer;
+    position: relative;
+}
+.content_imagen_carrusel_compra:hover .ver_detalle_carrusel{
+    opacity: 1;
 }
 .content_imagen_carrusel_compra img{
     width:100%;
@@ -35017,6 +35025,7 @@ h1#penmostreo .campana {
 }
 
 .content_banner_compra{
+    background: white;
     width:100%;
     height:73px;
     position:relative;
@@ -35034,17 +35043,21 @@ h1#penmostreo .campana {
    
 }
 .content_imagen_banner_compra img{
-    height:79px;
-    width:auto;
-    margin-top: -10px;
+    height:73px;
     float:left;
 }
 .content_oferta{
     font-family:'Lato';
-    font-size:15px;
+    font-size:16.6px;
     padding-top:13px;
     margin-left:15px;
     float:left;
+    font-weight: 300;
+}
+.content_oferta_promocion {
+    font-size: 11.5px;
+    font-family: 'Lato';
+    font-weight: 900;
 }
 .solo_falta_compra{
     color:#747474;
@@ -35067,4 +35080,33 @@ h1#penmostreo .campana {
     display: inline;
     font-weight: bold;
     text-decoration: underline;
+}
+.menu_socia_empresaria > .new_menu > .new_menu_a{
+    font-size:10.5px;
+    letter-spacing:0.5px;
+    height: 18px;
+}
+@media screen and (max-width: 1104px) {
+
+    .new_menu {    
+    margin-left: 2.2%;    
+    }
+    .menu_socia_empresaria > .new_menu {
+          margin-left: 1% !important;
+    }
+}
+@media screen and (max-width: 1150px) {
+
+    .menu_socia_empresaria > .new_menu {
+        margin-left: 1.8%;
+    }
+}
+
+.menu_socia_empresaria > .new_menu:first-child {
+    margin-left: 0%;
+}
+
+.etiqueta_showroom {
+     background: url(https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/JmqkvgJXcyHcBZR/etiqueta_lbel.png) no-repeat;
+    padding-left: 19px;
 }

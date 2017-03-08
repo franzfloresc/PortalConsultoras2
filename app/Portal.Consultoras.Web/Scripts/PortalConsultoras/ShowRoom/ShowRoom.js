@@ -135,7 +135,7 @@ $(document).ready(function () {
     $("body").on("click", "[data-btn-agregar-cpc]", function (e) {
         var padre = $(this).parents("[data-item]");
         var article = $(padre).find("[data-campos]").eq(0);
-        var cantidad = $(padre).find("[data-input='cantidad']").val();
+        var cantidad = 1;//$(padre).find("[data-input='cantidad']").val();
         //listatipo = "0";
 
         AgregarProductoAlCarrito(padre);

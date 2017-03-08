@@ -89,7 +89,7 @@
                             <b>@item.Descripcion</b>
                         </p>
                         <div class="producto_precio">
-                            <span class="producto_precio_normal">$ 23.000</span>
+                            <span class="producto_precio_normal">@item.Simbolo @formatoPrecioOferta</span>
                             <span class="producto_precio_oferta"><b>@item.Simbolo @item.PrecioCatalogo</b></span>
                         </div>
                     </div>
@@ -99,19 +99,26 @@
                 posicions++;
             }
         }   <hr class="clear" />
-            
-        <div class="content_carrusel_intriga" style="background:white;" id="LlamarPopCompra">
+       @if (Model.TieneCompraXcompra)
+       {
+           if (Model.ListaShowRoomCompraPorCompra != null && Model.ListaShowRoomCompraPorCompra.Count > 0)
+           {
+            <div class="content_carrusel_intriga" style="background:white;" id="LlamarPopCompra">
                 <div class="content_banner_img"><img src="https://s3-sa-east-1.amazonaws.com/appcatalogo/CO/201704/C/productos/CO_200084402.jpg" /></div>
                 <div class="content_banner_right">
                     <div class="texto_banner_compra">
-                        <b>RELOJ ESFÉRIC</b>
-                        <b>A SÓLO S/.5 </b>
+                        <b>@Model.ListaShowRoomCompraPorCompra[0].Descripcion</b>
+                        <b>A SÓLO @Model.ListaShowRoomCompraPorCompra[0].Simbolo.@Model.ListaShowRoomCompraPorCompra[0].PrecioCatalogo </b>
                         <span>Por la compra de 2 Sets o más</span>
                     </div>
                     <a class="btn_ver_detalle_pop_compra">VER DETALLE</a>
                 </div>
                 <hr class="clear" />
             </div>
+           }
+       }
+
+        
        
         </div>
     </div>
@@ -130,7 +137,7 @@
 
 
 <div class="titulo_showroom_mobile">
-    <a onclick="SetMarcaGoogleAnalyticsTermino();" href="@Model.RutaShowRoomPopup" target="_blank">
+    <a onclick="SetMarcaGoogleAnalyticsTermino();" href="@Model.UrlTerminosCondiciones" target="_blank">
         T&eacute;rminos y condiciones de la @Model.Nombre<br />
         @Model.Tema
     </a>
@@ -155,22 +162,27 @@
             <img src="/Content/Images/mobile/Esika/cerrar_04.png" alt="-">
         </a>
         <div class="titulo_compra_POP">PROMOCIÓN</div>
-        <div class="content_pop_compra">
-            <div>
-                <div class="precio_set_compra">LLévate un Reloj Espheric. Por la compra de 2 Sets o más.</div>
-                <div class="content_imagen_carrusel_compra"><img src="https://s3-sa-east-1.amazonaws.com/appcatalogo/CO/201704/C/productos/CO_200084402.jpg"></div>
-                <div class="precio_producto_compra"> A SÓLO S/5.00</div>
-                <div class="descripcion_compra">Correa tipo cuero y pieza central plateada con 37 cristales.</div>
-                <a class="btn_agrega_compra">AGRÉGALO</a>
+
+        @if (Model.TieneCompraXcompra)
+        {
+            <div class="content_pop_compra">
+                @foreach (var item in Model.ListaShowRoomCompraPorCompra)
+                {
+
+                <div>
+                    <div class="precio_set_compra">@item.Descripcion. Por la compra de 2 Sets o más.</div>
+                    <div class="content_imagen_carrusel_compra"><img src="@item.ImagenProducto"></div>
+                    <div class="precio_producto_compra"> A SÓLO @item.Simbolo@item.PrecioCatalogo</div>
+                    <div class="descripcion_compra">@item.DescripcionLegal</div>
+                    <div class="descripcion_compra"> A SÓLO @item.Simbolo @item.PrecioOferta</div>
+                    <a class="btn_agrega_compra">AGRÉGALO</a>
+
+
+                </div>
+                }
             </div>
-            <div>
-                <div class="precio_set_compra">LLévate un Reloj Espheric. Por la compra de 2 Sets o más.</div>
-                <div class="content_imagen_carrusel_compra"><img src="https://s3-sa-east-1.amazonaws.com/appcatalogo/CO/201704/C/productos/CO_200084402.jpg"></div>
-                <div class="precio_producto_compra"> A SÓLO S/5.00</div>
-                <div class="descripcion_compra">Correa tipo cuero y pieza central plateada con 37 cristales.</div>
-                <a class="btn_agrega_compra">AGRÉGALO</a>
-            </div>
-        </div>
+        }
+        
     </div>
 </div>
 @section scripts{
@@ -183,6 +195,12 @@
         var urlActualizarCantidadTotalPedido = '@Url.Action("ObtenerResumenPedido", "OfertaLiquidacion", new { area = "Mobile" })';
 
         $(document).ready(function () {
+            $("#LlamarPopCompra").click(function () {
+                $('body').css({ 'overflow-x': 'hidden' });
+                $('body').css({ 'overflow-y': 'hidden' });
+                $('#PopCompra').show();
+            });
+
             $('.content_pop_compra').slick({
                 dots: false,
                 infinite: true,
@@ -194,11 +212,7 @@
                 nextArrow: '<a class="previous_ofertas js-slick-next" style="display: block;right: 0;margin-right: -13%; text-align:right;  top: 35%;"><img src="' + baseUrl + 'Content/Images/Esika/right_compra.png")" alt="" /></a>'
             });
 
-            $("#LlamarPopCompra").click(function () {
-                $('body').css({ 'overflow-x': 'hidden' });
-                $('body').css({ 'overflow-y': 'hidden' });
-                $('#PopCompra').show();
-            });
+            
             $("#CerrarPopCompra").click(function () {
                 $('body').css({ 'overflow-y': 'scroll' });
                 $('#PopCompra').hide();
