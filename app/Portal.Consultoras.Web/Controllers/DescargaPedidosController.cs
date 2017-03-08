@@ -372,7 +372,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
             return View();
-        }        
+        }
         /*EPD-1025*/
         public ActionResult ObtenerUltimaDescargaPedido()
         {
@@ -434,7 +434,16 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 UltimaDescarga = sv.ObtenerUltimaDescargaExitosa(userData.PaisID);
             }
-            return Json(new { success = true, descarga = UltimaDescarga });
+
+            return Json(new
+            {
+                success = true,
+                descarga = new
+                    {
+                        FechaEnvio = UltimaDescarga.FechaEnvio.ToString(),
+                        FechaProceso = UltimaDescarga.FechaProceso.ToString()
+                    }
+            });
         }
     }
 }

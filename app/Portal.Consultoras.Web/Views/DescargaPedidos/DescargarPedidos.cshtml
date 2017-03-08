@@ -394,8 +394,7 @@
             success: function (data) {
                
                 if (checkTimeout(data)) {
-                    if (data.success == true) {
-                        debugger;
+                    if (data.success == true) {                       
                         $("#FechaPedidoWeb").text(data.descarga.FechaProceso);
                         $("#FechaPedidoDD").text(data.descarga.FechaEnvio);
                     }
