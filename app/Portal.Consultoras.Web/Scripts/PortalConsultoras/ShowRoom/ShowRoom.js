@@ -76,6 +76,7 @@ $(document).ready(function () {
     else if (tipoOrigenPantalla == 21) { // Mobile Oferta Detalle
 
         $("footer").hide();
+        $("#content").css("margin-top", "63px");
 
         $('.variable-width').on('init', function (event, slick) {
             setTimeout(function () {
@@ -428,6 +429,7 @@ function CompartirRedesSocialesInsertar(article, tipoRedes, ruta) {
                     window.messageInfo(response.message);
                 }
             }
+            CerrarLoad();
         },
         error: function (response, error) {
             //CloseLoading();
