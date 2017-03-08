@@ -24,45 +24,43 @@ namespace Portal.Consultoras.Web.Controllers
         public ActionResult Intriga()
         {
             if (!ValidarIngresoShowRoom(true))
+                return RedirectToAction("Index", "Bienvenida");
+
+            var model = new ShowRoomOfertaModel();
+
+            var listaShowRoomOferta = new List<BEShowRoomOferta>();
+            var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
+
+            using (PedidoServiceClient sv = new PedidoServiceClient())
             {
-                var model = new ShowRoomOfertaModel();
-
-                var listaShowRoomOferta = new List<BEShowRoomOferta>();
-                var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
-
-                using (PedidoServiceClient sv = new PedidoServiceClient())
-                {
-                    var CodigoConsultora = userData.UsuarioPrueba == 1 ? userData.CodigoConsultora.ToString() : userData.CodigoConsultora.ToString();
-                    listaShowRoomOferta = sv.GetShowRoomOfertasConsultora(userData.PaisID, userData.CampaniaID, CodigoConsultora).ToList();
-                }
-
-                if (listaShowRoomOferta.Any())
-                {
-                    listaShowRoomOferta.Update(x => x.ImagenProducto = string.IsNullOrEmpty(x.ImagenProducto)
-                        ? "" : ConfigS3.GetUrlFileS3(carpetaPais, x.ImagenProducto, Globals.UrlMatriz + "/" + userData.CodigoISO));
-                    listaShowRoomOferta.Update(x => x.ImagenMini = string.IsNullOrEmpty(x.ImagenMini)
-                        ? "" : ConfigS3.GetUrlFileS3(carpetaPais, x.ImagenMini, Globals.UrlMatriz + "/" + userData.CodigoISO));
-
-                    var listaShowRoomOfertaModel = Mapper.Map<List<BEShowRoomOferta>, List<ShowRoomOfertaModel>>(listaShowRoomOferta);
-                    model = listaShowRoomOfertaModel.FirstOrDefault();
-                }
-
-                model.CodigoISO = userData.CodigoISO;
-
-                var lstPersonalizacion = userData.ListaShowRoomPersonalizacionConsultora.Where(x => x.TipoAplicacion == "Desktop").ToList();
-                ViewBag.urlImagenPopupIntriga = string.Empty;
-                ViewBag.urlTerminosyCondiciones = string.Empty;
-
-                foreach (var item in lstPersonalizacion)
-                {
-                    if (item.Atributo ==  Constantes.ShowRoomPersonalizacion.Desktop.BannerImagenIntriga) ViewBag.urlImagenPopupIntriga = item.Valor;
-                    if (item.Atributo == Constantes.ShowRoomPersonalizacion.Desktop.UrlTerminosCondiciones) ViewBag.urlTerminosyCondiciones = item.Valor;
-                }
-
-                return View(model);
+                var CodigoConsultora = userData.UsuarioPrueba == 1 ? userData.CodigoConsultora.ToString() : userData.CodigoConsultora.ToString();
+                listaShowRoomOferta = sv.GetShowRoomOfertasConsultora(userData.PaisID, userData.CampaniaID, CodigoConsultora).ToList();
             }
 
-            return RedirectToAction("Index", "Bienvenida");
+            if (listaShowRoomOferta.Any())
+            {
+                listaShowRoomOferta.Update(x => x.ImagenProducto = string.IsNullOrEmpty(x.ImagenProducto) ? "" : ConfigS3.GetUrlFileS3(carpetaPais, x.ImagenProducto, Globals.UrlMatriz + "/" + userData.CodigoISO));
+                listaShowRoomOferta.Update(x => x.ImagenMini = string.IsNullOrEmpty(x.ImagenMini) ? "" : ConfigS3.GetUrlFileS3(carpetaPais, x.ImagenMini, Globals.UrlMatriz + "/" + userData.CodigoISO));
+
+                var listaShowRoomOfertaModel = Mapper.Map<List<BEShowRoomOferta>, List<ShowRoomOfertaModel>>(listaShowRoomOferta);
+                model = listaShowRoomOfertaModel.FirstOrDefault();
+            }
+
+            model.CodigoISO = userData.CodigoISO;
+
+            var lstPersonalizacion = userData.ListaShowRoomPersonalizacionConsultora.Where(x => x.TipoAplicacion == "Desktop").ToList();
+            ViewBag.urlImagenPopupIntriga = string.Empty;
+            ViewBag.urlTerminosyCondiciones = string.Empty;
+
+            foreach (var item in lstPersonalizacion)
+            {
+                if (item.Atributo == Constantes.ShowRoomPersonalizacion.Desktop.BannerImagenIntriga)
+                    ViewBag.urlImagenPopupIntriga = item.Valor;
+                if (item.Atributo == Constantes.ShowRoomPersonalizacion.Desktop.UrlTerminosCondiciones)
+                    ViewBag.urlTerminosyCondiciones = item.Valor;
+            }
+
+            return View(model);
         }
 
         public ActionResult Index()
@@ -2476,98 +2474,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             return View("DetalleSet", modelo);
 
-        }
-
-        public List<ShowRoomOfertaModel> GetProductosCompraPorCompra(bool esFacturacion, int eventoId, int campaniaId)
-        {
-            try
-            {
-                var listaShowRoomCPC = new List<BEShowRoomOferta>();
-                var listaShowRoomCPCFinal = new List<BEShowRoomOferta>();
-
-                var NumeroCampanias = Convert.ToInt32(ConfigurationManager.AppSettings["NumeroCampanias"]);
-                var listaShowRoomProductoCatalogo = new List<Producto>();
-
-                using (PedidoServiceClient sv = new PedidoServiceClient())
-                {
-                    listaShowRoomCPC = sv.GetProductosCompraPorCompra(userData.PaisID, eventoId, campaniaId).ToList();                    
-                }
-
-                string codigoSap = "";
-                var listaTieneStock = new List<Lista>();
-                if (esFacturacion)
-                {                    
-                    foreach (var beProducto in listaShowRoomCPC)
-                    {
-                        if (!string.IsNullOrEmpty(beProducto.CodigoProducto))
-                        {
-                            codigoSap += beProducto.CodigoProducto + "|";
-                        }
-                    }
-
-                    codigoSap = codigoSap == "" ? "" : codigoSap.Substring(0, codigoSap.Length - 1);
-
-                    try
-                    {
-                        if (!string.IsNullOrEmpty(codigoSap))
-                        {
-                            using (var sv = new ServicePROLConsultas.wsConsulta())
-                            {
-                                sv.Url = ConfigurationManager.AppSettings["RutaServicePROLConsultas"];
-                                listaTieneStock = sv.ConsultaStock(codigoSap, userData.CodigoISO).ToList();
-                            }
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-
-                        listaTieneStock = new List<Lista>();
-                    }
-                }
-
-                codigoSap = "";
-                foreach (var beShowRoomOferta in listaShowRoomCPC)
-                {
-                    bool tieneStockProl = true;
-                    if (esFacturacion)
-                    {
-                        var itemStockProl = listaTieneStock.FirstOrDefault(p => p.Codsap.ToString() == beShowRoomOferta.CodigoProducto);
-                        if (itemStockProl != null)
-                            tieneStockProl = itemStockProl.estado == 1;
-                    }
-
-                    if (tieneStockProl)
-                    {
-                        codigoSap += beShowRoomOferta.CodigoProducto + "|";
-                        listaShowRoomCPCFinal.Add(beShowRoomOferta);
-                    }
-                }
-
-                codigoSap = codigoSap == "" ? "" : codigoSap.Substring(0, codigoSap.Length - 1);
-                using (ProductoServiceClient sv = new ProductoServiceClient())
-                {
-                    listaShowRoomProductoCatalogo = sv.ObtenerProductosByCodigoSap(userData.CodigoISO, campaniaId, codigoSap, NumeroCampanias).ToList();
-                }
-
-                foreach (var beCatalogoPro in listaShowRoomProductoCatalogo)
-                {
-                    listaShowRoomCPCFinal.Update(x => x.ImagenProducto = beCatalogoPro.Imagen);
-                    listaShowRoomCPCFinal.Update(x => x.Descripcion = beCatalogoPro.NombreComercial);
-                }                
-
-                Session[Constantes.ConstSession.ListaProductoShowRoom] = listaShowRoomCPCFinal;
-                var listadoProductosCPCModel1 = Mapper.Map<List<BEShowRoomOferta>, List<ShowRoomOfertaModel>>(listaShowRoomCPCFinal);
-
-                return listadoProductosCPCModel1;
-            }
-            catch (Exception)
-            {
-                return null;
-                throw;
-                
-            }
-        }
+        }        
         #endregion
     }
 }

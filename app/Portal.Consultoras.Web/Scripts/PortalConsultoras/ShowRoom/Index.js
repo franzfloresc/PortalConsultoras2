@@ -1,6 +1,8 @@
 ﻿var listatipo = "";
 
 $(document).ready(function () {
+    $(".footer_e").css("margin-bottom", "73px");
+
     $(".seleccion_filtro_fav").on("click", function () {
 
         $(this).toggleClass("seleccion_click_flitro");
