@@ -567,6 +567,12 @@ namespace Portal.Consultoras.Web.Controllers
 
                 Session[Constantes.ConstSession.ListaProductoShowRoomCpc] = listaShowRoomCPCFinal;
                 var listadoProductosCPCModel1 = Mapper.Map<List<BEShowRoomOferta>, List<ShowRoomOfertaModel>>(listaShowRoomCPCFinal);
+                listadoProductosCPCModel1.Update(x =>
+                {
+                    x.DescripcionMarca = GetDescripcionMarca(x.MarcaID);
+                    x.CodigoISO = userData.CodigoISO;
+                    x.Simbolo = userData.Simbolo;
+                });
 
                 return listadoProductosCPCModel1;
             }
