@@ -31,8 +31,6 @@ namespace Portal.Consultoras.Web.Controllers
         {
             if (HttpContext.User.Identity.IsAuthenticated)
             {
-                if (Request.Browser.IsMobileDevice) return RedirectToAction("Index", "Bienvenida", new { area = "Mobile" });
-                else return RedirectToAction("Index", "Bienvenida");
                 }
                 else
                 {
