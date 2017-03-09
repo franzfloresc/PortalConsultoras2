@@ -375,7 +375,6 @@
     $(function () {
 
         $('#Seccion').change(function () {
-            debugger;
             var zona = $('#Zona').val();
             if (zona.length == 0) {
                 $('#Zona').prop('required', true);
@@ -388,7 +387,6 @@
             var region = $('#Region').val();
             var zona = $('#Zona').val();
             var seccion =$('#Seccion').val();
-            debugger;
             if (fechaInicio.length > 0 && fechaFin.length > 0) {
                 if (seccion.length > 0 && zona.length ==0) {
                     alert('Debe ingresar una zona');

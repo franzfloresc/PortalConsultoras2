@@ -10,7 +10,7 @@
 
 
         $("input[name$='grupoUrlPDF']").click(function () {
-            //debugger;
+            
             var test = $(this).val();
             
             $("div.zona").hide(100);
@@ -77,7 +77,7 @@
             beforeSubmit: function () {
                 
                 //alert(document.getElementById("gvwIncentivos").rows.length);
-                //debugger;
+                
                 var fileValue = $('#flArchivoPDF').val();
 
                 var extensiones = ['pdf'];
@@ -144,7 +144,7 @@
         });
 
         function fnRespuestaIncentivo(responseText, statusText, xhr, $form) {
-            //debugger;
+            
             closeWaitingDialog();
 
             if (checkTimeout(responseText)) {
@@ -173,7 +173,7 @@
             buttons:
             {
                 "Guardar": function () {
-                    //debugger;
+                    
                     var vMessage = "";
                     $('#frmIncentivo').submit();
                 },
@@ -260,7 +260,7 @@
         };
 
         function ShowImage(cellvalue, options, rowObject) {
-            //debugger;
+            
             var image = "";
             if (rowObject[4] !== "")
                 // image = '<img src="' + '@Url.Content("~/Content/Incentivos/")' + isoPAIS + "/" + rowObject[4] + '" alt="" width="160px" height="60px" title="" border="0" />';
@@ -272,7 +272,7 @@
         };
 
         function ShowUrl(cellvalue, options, rowObject) {
-            //debugger;
+            
             var contenido = cellvalue;
             var valorParcial = cellvalue.substring(0, 15);
             if (cellvalue.length > 15) {
@@ -282,7 +282,7 @@
         };
 
         function ShowPdf(cellvalue, options, rowObject) {
-            //debugger;
+            
             var contenido = cellvalue;
             var valorParcial = cellvalue.substring(0, 20);
             if (cellvalue.length > 20) {
@@ -294,7 +294,7 @@
 
     $.jgrid.extend({
         Editar: function (Id) {
-            //debugger;            
+                        
             if (Id) {
                 $('#BannerPedidoID').val(Id);
                 $('#PaisID').val(jQuery("#gvwIncentivos").jqGrid('getCell', Id, 'PaisID'));
@@ -399,14 +399,14 @@
     });
 
     function VerMas(object, ValorCompleto, ValorParcial) {
-        //debugger;
+        
         var td = object.parentElement;
         td.innerHTML = ValorCompleto + "&nbsp;<a href='javascript:;' onclick=\"VerMenos(this,'" + ValorCompleto + "','" + ValorParcial + "');\" > ...Ver menos" + "</a>";
         return false;
     }
 
     function VerMenos(object, ValorCompleto, ValorParcial) {
-        //debugger;
+        
         var td = object.parentElement;
         td.innerHTML = ValorParcial + "&nbsp;<a href='javascript:;' onclick=\"VerMas(this,'" + ValorCompleto + "','" + ValorParcial + "');\" > ...Ver mas" + "</a>";
         return false;
@@ -424,7 +424,7 @@
     }
 
     function limpiarPopup() {
-        //debugger;
+        
         $('#PaisID').val("");
         //$('#ddlPaisDialogo').val("0");
         $('#ddlPaisDialogo').prop('disabled', false);
@@ -590,7 +590,7 @@
                                     element: document.getElementById('fpUpload'),
                                     action: '@Url.Action("ImageIncentivoUpload", "FileUpload")',
                                     onComplete: function (id, fileName, responseJSON) {
-                                        //debugger;
+                                        
                                         if (checkTimeout(responseJSON)) {
                                             $(".qq-upload-list").css("display", "none");
                                             if (responseJSON.success) {

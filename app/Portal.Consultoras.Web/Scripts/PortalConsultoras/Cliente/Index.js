@@ -273,8 +273,6 @@ function ShowDivEliminar(id) {
 
 function MantenerCliente(opt) {
 
-    debugger;
-
     var div = (opt == 1) ? $('#divAgregarCliente') : $('#divEditarCliente');
     //var vMessage = "";
     var vcont = 0;
@@ -352,8 +350,6 @@ function MantenerCliente(opt) {
         FlagValidate: opt
     };
 
-    //debugger;
-
     AbrirSplash();
 
     jQuery.ajax({
@@ -364,7 +360,6 @@ function MantenerCliente(opt) {
         data: JSON.stringify(item),
         async: true,
         success: function (data) {
-            //debugger;
             // valida si ha habido un timeout
             if (checkTimeout(data)) {
                 // si no ha habido timeout continua el procesamiento normal
@@ -402,7 +397,6 @@ function MantenerCliente(opt) {
             }
         },
         error: function (data, error) {
-            //debugger;
             // valida si ha habido un timeout
             if (checkTimeout(data)) {
   

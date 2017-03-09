@@ -24,7 +24,13 @@ namespace Portal.Consultoras.Web.ServiceProductoCatalogoPersonalizado {
         private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CUV2Field;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string CUVComplementoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CUVPedidoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string CUVRevistaField;
@@ -87,6 +93,9 @@ namespace Portal.Consultoras.Web.ServiceProductoCatalogoPersonalizado {
         private string ImagenBulkField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ImagenCUVPedidoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int IndicadorMontoMinimoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -94,6 +103,9 @@ namespace Portal.Consultoras.Web.ServiceProductoCatalogoPersonalizado {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string NombreBulkField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string NombreCUVPedidoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string NombreComercialField;
@@ -142,6 +154,19 @@ namespace Portal.Consultoras.Web.ServiceProductoCatalogoPersonalizado {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public string CUV2 {
+            get {
+                return this.CUV2Field;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CUV2Field, value) != true)) {
+                    this.CUV2Field = value;
+                    this.RaisePropertyChanged("CUV2");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public string CUVComplemento {
             get {
                 return this.CUVComplementoField;
@@ -150,6 +175,19 @@ namespace Portal.Consultoras.Web.ServiceProductoCatalogoPersonalizado {
                 if ((object.ReferenceEquals(this.CUVComplementoField, value) != true)) {
                     this.CUVComplementoField = value;
                     this.RaisePropertyChanged("CUVComplemento");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string CUVPedido {
+            get {
+                return this.CUVPedidoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CUVPedidoField, value) != true)) {
+                    this.CUVPedidoField = value;
+                    this.RaisePropertyChanged("CUVPedido");
                 }
             }
         }
@@ -415,6 +453,19 @@ namespace Portal.Consultoras.Web.ServiceProductoCatalogoPersonalizado {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public string ImagenCUVPedido {
+            get {
+                return this.ImagenCUVPedidoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ImagenCUVPedidoField, value) != true)) {
+                    this.ImagenCUVPedidoField = value;
+                    this.RaisePropertyChanged("ImagenCUVPedido");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public int IndicadorMontoMinimo {
             get {
                 return this.IndicadorMontoMinimoField;
@@ -449,6 +500,19 @@ namespace Portal.Consultoras.Web.ServiceProductoCatalogoPersonalizado {
                 if ((object.ReferenceEquals(this.NombreBulkField, value) != true)) {
                     this.NombreBulkField = value;
                     this.RaisePropertyChanged("NombreBulk");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string NombreCUVPedido {
+            get {
+                return this.NombreCUVPedidoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.NombreCUVPedidoField, value) != true)) {
+                    this.NombreCUVPedidoField = value;
+                    this.RaisePropertyChanged("NombreCUVPedido");
                 }
             }
         }
