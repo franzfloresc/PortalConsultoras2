@@ -26,14 +26,6 @@
                 @Html.TextBoxFor(model => model.Email, new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.Email)
             </div>
-
-            @*<div class="form-group">
-                @Html.LabelFor(model => model.Telefono, new { @class = "upper" })
-                <small>(opcional)</small>
-                @Html.TextBoxFor(model => model.Telefono, new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.Telefono)
-            </div>*@
-
             <div class="block-center text-center">
                 <a id="btnGuardar" type="submit" class="btn btn-line-action btn-wfijo btn-round">Guardar Cliente</a>
             </div>
@@ -48,7 +40,6 @@
             $("#btnGuardar").on("click", function (e) {
                 e.preventDefault();
 
-                //debugger;
                 if ($('#hdNombreClienteAnterior').val().toUpperCase() == $('#Nombre').val().toUpperCase())
                     $("#FlagValidate").val("0");
                 else
@@ -58,7 +49,6 @@
                     ClienteID: $("#ClienteID").val(),
                     Nombre: $('#Nombre').val(),
                     Email: $('#Email').val(),
-                    //Telefono: $('#Telefono').val(),
                     FlagValidate: $("#FlagValidate").val()
                 };
 

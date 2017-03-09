@@ -6,11 +6,6 @@ var tipoOrigenPantalla = tipoOrigenPantalla || "";
 
 $(document).ready(function () {
     if (tipoOrigenPantalla == 11) {
-
-        //$('.js-slick-prev').remove();
-        //$('.js-slick-next').remove();
-        //$('.responsive').slick('unslick');
-
         $(".verDetalleCompraPorCompra").click(function () {
             var padre = $(this).parents("[data-item]");
             var article = $(padre).find("[data-campos]").eq(0);
@@ -19,14 +14,7 @@ $(document).ready(function () {
             $("#PopDetalleCompra").show();
 
             $('.content_carrusel_pop_compra.slick-initialized').slick('unslick');
-
-            //$('.content_carrusel_pop_compra').on('init', function (event, slick) {
-            //    setTimeout(function () {
-            //        slick.setPosition();
-            //        slick.slickGoTo(parseInt(posicion) - 1);
-            //    }, 500);
-            //});
-
+            
             $('.content_carrusel_pop_compra').not('.slick-initialized').slick({
                 dots: true,
                 infinite: true,
@@ -51,16 +39,6 @@ $(document).ready(function () {
             prevArrow: '<a class="previous_ofertas js-slick-prev" style="display: block;left: 0;margin-left: -5%;"><img src="' + baseUrl + 'Content/Images/Esika/previous_ofertas_home.png")" alt="" /></a>',
             nextArrow: '<a class="previous_ofertas js-slick-next" style="display: block;right: 0;margin-right: -5%;text-align:right"><img src="' + baseUrl + 'Content/Images/Esika/next.png")" alt="" /></a>'
         });
-        //$('.content_carrusel_pop_compra').slick({
-        //    dots: true,
-        //    infinite: true,
-        //    vertical: false,
-        //    speed: 300,
-        //    slidesToShow: 1,
-        //    slidesToScroll: 1,
-        //    prevArrow: '<a class="previous_ofertas js-slick-prev" style="display: block;left: 0;margin-left: -13%;"><img src="' + baseUrl + 'Content/Images/Esika/left_compra.png")" alt="" /></a>',
-        //    nextArrow: '<a class="previous_ofertas js-slick-next" style="display: block;right: 0;margin-right: -13%; text-align:right;"><img src="' + baseUrl + 'Content/Images/Esika/right_compra.png")" alt="" /></a>'
-        //});
         $('.content_ficha_compra').slick({
             dots: true,
             infinite: true,
@@ -125,7 +103,6 @@ $(document).ready(function () {
         var padre = $(this).parents("[data-item]");
         var article = $(padre).find("[data-campos]").eq(0);
         var cantidad = $(padre).find("[data-input='cantidad']").val();
-        //listatipo = "0";
 
         AgregarProductoAlCarrito(padre);
         AgregarOfertaShowRoom(article, cantidad);
@@ -136,8 +113,7 @@ $(document).ready(function () {
     $("body").on("click", "[data-btn-agregar-cpc]", function (e) {
         var padre = $(this).parents("[data-item]");
         var article = $(padre).find("[data-campos]").eq(0);
-        var cantidad = 1;//$(padre).find("[data-input='cantidad']").val();
-        //listatipo = "0";
+        var cantidad = 1;
 
         AgregarProductoAlCarrito(padre);
         AgregarOfertaShowRoomCpc(article, cantidad);
@@ -207,7 +183,6 @@ function AgregarOfertaShowRoom(article, cantidad) {
                             if ($.trim(tipoOrigenPantalla)[0] == '1') {
                                 CargarResumenCampaniaHeader(true);
 
-                                //Aparecer Agregado
                                 $(article).parents("[data-item]").find(".product-add").css("display", "block");
                             }                            
 
@@ -215,10 +190,6 @@ function AgregarOfertaShowRoom(article, cantidad) {
                                 CargarCantidadProductosPedidos();
                             }
 
-                            //AgregarTagManagerProductoAgregadoSW(CUV, nombreProducto, PrecioUnidad, cantidad, descripcionMarca, listatipo);
-                            //TrackingJetloreAdd(cantidad, $("#hdCampaniaCodigo").val(), CUV);
-
-                            //AgregarProductoAlCarrito($(article).parents("[data-item]"));
                         }
                         else messageInfoError(response.message);
                     },
@@ -287,7 +258,6 @@ function AgregarOfertaShowRoomCpc(article, cantidad) {
 }
 
 function AgregarProductoAlCarrito(padre) {
-    //Desktop
     if ($.trim(tipoOrigenPantalla)[0] == '1') {
         var contenedorImagen = $(padre).find("[data-img]");
         var imagenProducto = $('.imagen_producto', contenedorImagen);
@@ -317,11 +287,7 @@ function AgregarProductoAlCarrito(padre) {
         }, 450, 'swing', function () {
             $(this).animate({
                 'top': carrito.offset().top,
-                'opacity': 0,
-                //}, 100, 'swing', function () {
-                //    $(".campana .info_cam").fadeIn(200);
-                //    $(".campana .info_cam").delay(2500);
-                //    $(".campana .info_cam").fadeOut(200);
+                'opacity': 0
             }, 150, 'swing', function () {
                 $(this).remove();
             });
@@ -393,7 +359,6 @@ function CompartirRedesSocialesAbrirVentana(id, tipoRedes, ruta, texto) {
 function CompartirRedesSocialesInsertar(article, tipoRedes, ruta) {
     AbrirLoad();
   
-    //Capturando valores
     var _rutaImagen = $.trim($(article).find(".rs" + tipoRedes + "RutaImagen").val());
     var _nombre = $.trim($(article).find(".rs" + tipoRedes + "Mensaje").val());
     var _marcaID = $.trim($(article).find(".MarcaID").val());
@@ -421,7 +386,6 @@ function CompartirRedesSocialesInsertar(article, tipoRedes, ruta) {
         contentType: 'application/json; charset=utf-8',
         data: JSON.stringify(Item),
         success: function (response) {
-            //CloseLoading();
             if (checkTimeout(response)) {
                 if (response.success) {
                     CompartirRedesSocialesAbrirVentana(response.data.id, tipoRedes, ruta, _nombre);
@@ -432,7 +396,6 @@ function CompartirRedesSocialesInsertar(article, tipoRedes, ruta) {
             CerrarLoad();
         },
         error: function (response, error) {
-            //CloseLoading();
             if (checkTimeout(response)) {
                 console.log(response);
             }

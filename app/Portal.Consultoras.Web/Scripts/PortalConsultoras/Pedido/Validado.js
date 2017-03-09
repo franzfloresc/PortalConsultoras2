@@ -262,10 +262,8 @@ function CargarListado(page, rows) {
                 
                 var htmlPaginador = ArmarListadoPaginador(data);
                 $('#paginadorCab').html(htmlPaginador);
-                //$('#paginadorPie').html(htmlPaginador);
 
                 $("#paginadorCab [data-paginacion='rows']").val(data.Registros || 10);
-                //$("#paginadorPie [data-paginacion='rows']").val(data.Registros || 10);
 
                 MostrarBarra(response);
             }
@@ -296,11 +294,6 @@ function CambioPagina(obj) {
 }
 
 function MostrarDetalleGanancia() {
-    //$('#tituloGanancia').text($('#hdeCabezaEscala').val());
-    //$('#lbl1DetaGanancia').text($('#hdeLbl1DetaGanancia').val());
-    //$('#lbl2DetaGanancia').text($('#hdeLbl2DetaGanancia').val());
-    //$('#pieGanancia').text($('#hdePieEscala').val());
-
     var div = $('#detalleGanancia');
     div[0].children[0].innerHTML = $('#hdeCabezaEscala').val();
     div[0].children[1].children[0].innerHTML = $('#hdeLbl1Ganancia').val();

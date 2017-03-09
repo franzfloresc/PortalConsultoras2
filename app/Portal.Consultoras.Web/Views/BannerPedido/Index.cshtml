@@ -10,7 +10,6 @@
 
 
         $("input[name$='grupoUrlPDF']").click(function () {
-            //debugger;
             var test = $(this).val();
             
             $("div.zona").hide(100);
@@ -75,9 +74,6 @@
 
         $('#frmIncentivo').ajaxForm({
             beforeSubmit: function () {
-                
-                //alert(document.getElementById("gvwIncentivos").rows.length);
-                //debugger;
                 var fileValue = $('#flArchivoPDF').val();
 
                 var extensiones = ['pdf'];
@@ -100,9 +96,7 @@
                 if (jQuery.trim($('#ArchivoPortada').val()) == "")
                     message += "- Debe ingresar el archivo del Banner.\n";
 
-                // se captura el elemento de radio seleccionado
                 var urlpdf = $('input[name=grupoUrlPDF]:checked', '#frmIncentivo').val();
-                // el campo correspondiente al boton de radio seleccionado debe estar ingresado
                 if (urlpdf == "url") {
                     if (jQuery.trim($('#Url').val()) == "") {
                         message += "- Debe ingresar la url del banner de pedido.\n";
@@ -111,15 +105,7 @@
                 if (urlpdf == "pdf") {
                     if (jQuery.trim($('#ArchivoPDF').val()) == "" && fileValue == "") {
                         message += "- Debe ingresar el archivo del banner de pedido.\n";
-                    }                   
-                        //validar la extension del archivo
-                    //else {
-                    //    get_ext = fileValue.split('.');
-                    //    get_ext = get_ext.reverse();
-
-                    //    if ($.inArray(get_ext[0].toLowerCase(), extensiones) == -1 && fileValue.length > 0)
-                    //        message += '- El tipo de archivo es inválido, asegúrese de seleccionar un documento PDF (*.pdf).'
-                    //}
+                    }
                 }
 
 
@@ -144,7 +130,6 @@
         });
 
         function fnRespuestaIncentivo(responseText, statusText, xhr, $form) {
-            //debugger;
             closeWaitingDialog();
 
             if (checkTimeout(responseText)) {
@@ -173,7 +158,6 @@
             buttons:
             {
                 "Guardar": function () {
-                    //debugger;
                     var vMessage = "";
                     $('#frmIncentivo').submit();
                 },
@@ -260,11 +244,8 @@
         };
 
         function ShowImage(cellvalue, options, rowObject) {
-            //debugger;
             var image = "";
             if (rowObject[4] !== "")
-                // image = '<img src="' + '@Url.Content("~/Content/Incentivos/")' + isoPAIS + "/" + rowObject[4] + '" alt="" width="160px" height="60px" title="" border="0" />';
-                // 1664
                 image = '<img src="' + rowObject[4] + '" alt="" width="160px" height="60px" title="" border="0" />';
             else
                 image = '<img src="@Url.Content("~/Content/Images/prod_grilla_vacio.png")" alt="" width="60px" height="60px" title="" border="0" />';
@@ -272,7 +253,6 @@
         };
 
         function ShowUrl(cellvalue, options, rowObject) {
-            //debugger;
             var contenido = cellvalue;
             var valorParcial = cellvalue.substring(0, 15);
             if (cellvalue.length > 15) {
@@ -282,7 +262,6 @@
         };
 
         function ShowPdf(cellvalue, options, rowObject) {
-            //debugger;
             var contenido = cellvalue;
             var valorParcial = cellvalue.substring(0, 20);
             if (cellvalue.length > 20) {
@@ -293,8 +272,7 @@
     }
 
     $.jgrid.extend({
-        Editar: function (Id) {
-            //debugger;            
+        Editar: function (Id) {         
             if (Id) {
                 $('#BannerPedidoID').val(Id);
                 $('#PaisID').val(jQuery("#gvwIncentivos").jqGrid('getCell', Id, 'PaisID'));
@@ -305,10 +283,8 @@
                 $('#ArchivoPortadaAnterior').val($("#gvwIncentivos").jqGrid('getCell', Id, 'ArchivoPortada'));
 
                 if ($.trim($("#ArchivoPortada").val()) != "") {
-                    // $('#imgPreviaLogo').attr('src', '@Url.Content("~/Content/Incentivos/")' + isoPAIS + "/" + $("#ArchivoPortada").val());
                     $('#imgPreviaLogo').attr('src', $("#ArchivoPortada").val());
 
-                    // 1664
                     var img01 = $('#ArchivoPortada').val().replace(/^.*[\\\/]/, '');
                     if (img01.lastIndexOf("?") >= 0) {
                         img01 = img01.substring(0, img01.lastIndexOf("?"));                        
@@ -325,20 +301,17 @@
                 $('#ArchivoPDF').val(jQuery("#gvwIncentivos").jqGrid('getCell', Id, 'ArchivoOculto'));
 
                 if ($.trim($("#ArchivoPDF").val()) != "") {
-                    // 1664
                     var img01 = $('#ArchivoPDF').val();
                     if (img01.lastIndexOf("?") >= 0) {
                         img01 = img01.substring(0, img01.lastIndexOf("?"));                        
                     }
                     $('#ArchivoPDF').val(img01);
                 }
-                // 1664
                 $('#Archivo').val($('#ArchivoPDF').val());
 
                 $('#Url').val(jQuery("#gvwIncentivos").jqGrid('getCell', Id, 'UrlOculto'));
                 $('#ddlPaisDialogo').prop('disabled', 'disabled');
 
-                // se marca la opcion de radio que corresponda
                 if ($.trim($("#Url").val()) != "")
                     $("input[name=grupoUrlPDF][value=url]").attr('checked', 'checked').click();
                 if ($.trim($("#ArchivoPDF").val()) != "")
@@ -346,7 +319,7 @@
 
                 if ($.trim($("#Url").val()) == "" && $.trim($("#ArchivoPDF").val()) == "")
                     $("input[name=grupoUrlPDF][value=ninguno]").attr('checked', 'checked').click();
-                //Se marca tipo de URL
+
                 var TipoUrl = $("#gvwIncentivos").jqGrid('getCell', Id, 'TipoUrl')
                 
                 if (TipoUrl=='_blank') {
@@ -399,14 +372,14 @@
     });
 
     function VerMas(object, ValorCompleto, ValorParcial) {
-        //debugger;
+
         var td = object.parentElement;
         td.innerHTML = ValorCompleto + "&nbsp;<a href='javascript:;' onclick=\"VerMenos(this,'" + ValorCompleto + "','" + ValorParcial + "');\" > ...Ver menos" + "</a>";
         return false;
     }
 
     function VerMenos(object, ValorCompleto, ValorParcial) {
-        //debugger;
+        
         var td = object.parentElement;
         td.innerHTML = ValorParcial + "&nbsp;<a href='javascript:;' onclick=\"VerMas(this,'" + ValorCompleto + "','" + ValorParcial + "');\" > ...Ver mas" + "</a>";
         return false;
@@ -424,9 +397,9 @@
     }
 
     function limpiarPopup() {
-        //debugger;
+        
         $('#PaisID').val("");
-        //$('#ddlPaisDialogo').val("0");
+        
         $('#ddlPaisDialogo').prop('disabled', false);
         $('#ddlPaisDialogo')[0].selectedIndex = 0;
         $('#ddlPaisDialogo').removeAttr("disabled");
@@ -437,8 +410,6 @@
         $('#ArchivoPortada').val("");
         $('#ArchivoPDF').val("");
         $('#Url').val("");
-       // $('#divMensaje').empty();
-        // se renueva el control file
         var control = $("#flArchivoPDF");
         control.replaceWith(control = control.clone(true));
 
@@ -590,13 +561,11 @@
                                     element: document.getElementById('fpUpload'),
                                     action: '@Url.Action("ImageIncentivoUpload", "FileUpload")',
                                     onComplete: function (id, fileName, responseJSON) {
-                                        //debugger;
+                                        
                                         if (checkTimeout(responseJSON)) {
                                             $(".qq-upload-list").css("display", "none");
                                             if (responseJSON.success) {
                                                 $("#ArchivoPortada").val(responseJSON.name);
-                                                // $('#imgPreviaLogo').attr('src', '@Url.Content("~/Content/TemporalesIncentivos/")' + responseJSON.name);
-                                                // 1664
                                                 $('#imgPreviaLogo').attr('src', '@Url.Content("~/Content/Temporales/")' + responseJSON.name);
                                             }
                                             else {

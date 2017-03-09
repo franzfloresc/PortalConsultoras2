@@ -20,7 +20,7 @@
 }
 <!--  MAQUETADO NUEVO-->
 <div class="content_banner_header_showroom">   
-    <img src="@Url.Content("~/Content/Images/mobile/img-showroom/BARRA_SUPERIOR_TEXTOJUNTO_CATEGORIA.png")" @*style="width: 100%;"*@ />
+    <img src="@Url.Content("~/Content/Images/mobile/img-showroom/BARRA_SUPERIOR_TEXTOJUNTO_CATEGORIA.png")" />
 </div>
 <div class="wrapper_resumen_mobile">
     <div id="orderby-filter">
@@ -51,13 +51,13 @@
         @{ var posicions = 1; }
         @foreach (var item in Model.ListaShowRoomOferta)
             {
-            <div class="content_item_home" style="position: relative;"> @*landing_showroom*@
+            <div class="content_item_home" style="position: relative;">
                 <div class="liquidacion_item" data-posicion="@posicions">
                     <div class="producto_img_mobile">
                         <a class="btnVerDetalleOfertaShowRoom" href="@Url.Action("DetalleOferta", "ShowRoom", new {id = item.OfertaShowRoomID, area = "Mobile"})">
                             @if (string.IsNullOrEmpty(item.ImagenMini))
                             {
-                                <img src="@Url.Content("~/Content/Images/showroom/no_disponible.png")" @*style="width: 100%;"*@/>
+                                <img src="@Url.Content("~/Content/Images/showroom/no_disponible.png")"/>
                             }
                             else
                             {
@@ -106,16 +106,6 @@
 
 <hr class="clear" />
 <!--FIN-->
-
-@*<input type="hidden" id="hdListaProductosEnShowRoom" value="@JsonConvert.SerializeObject(Model.ListaShowRoomOferta)" />*@
-<!-- <div class="wrapper_resumen_mobile">
-    <div class="titulo_showroom_mobile">
-        <span>¡Oportunidad única! Sets exclusivos sólo por la Web!</span><br>
-        @*Los productos no otorgan puntaje en concursos ni participan en ofertas de niveles. Precio neto Consultora.*@
-    </div>
-    <br />
-</div>-->
-
 
 <div class="titulo_showroom_mobile">
     <a onclick="SetMarcaGoogleAnalyticsTermino();" href="@Model.UrlTerminosCondiciones" target="_blank">
@@ -225,8 +215,6 @@
             $("body").on("click", ".btnVerDetalleOfertaShowRoom", function (e) {
                 var article = $(this).parents(".listado_item").eq(0);
                 AgregarTagManagerClickProducto(article);
-                //e.preventDefault();
-                //(this).blur();
             });
 
             $("body").on("click", ".btnAgregarOfertaShowRoom", function (e) {
@@ -259,7 +247,6 @@
             });
         });
 
-        //gr-1521
         function SetMarcaGoogleAnalyticsTermino() {
             dataLayer.push({ 'event': 'virtualEvent', 'category': 'Ofertas Showroom', 'action': 'Click enlace', 'label': 'Términos y Condiciones' });
 
@@ -362,7 +349,6 @@
                                             }
                                             
                                             AgregarTagManagerProductoAgregadoSWR(CUV, nombreProducto, PrecioUnidad, cantidad, descripcionMarca,0);
-                                            //ActualizarCantidadTotalPedido();
                                             CargarCantidadProductosPedidos();
                                             TrackingJetloreAdd(cantidad, $("#hdCampaniaCodigo").val(), CUV);
                                         }

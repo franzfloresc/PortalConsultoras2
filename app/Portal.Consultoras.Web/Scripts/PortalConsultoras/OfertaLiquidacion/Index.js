@@ -20,15 +20,14 @@ $(document).ready(function () {
 
         $(this).parents('.Content_modal_ZE').find('.CUV').attr("value", $("option:selected", this).attr("value"));
         $(this).parents('.Content_modal_ZE').find('.pedidos_datos_info').html($("option:selected", this).attr("desc-talla"));
-        $(this).parents('.Content_modal_ZE').find('.liquidacion_precio').html('<span>' + $("option:selected", this).attr("desc-precio") + '</span>'); //2024
-        $(this).parents('.Content_modal_ZE').find(".DescripcionProd").attr("value", $("option:selected", this).attr("desc-talla")); //2024
-        $(this).parents('.Content_modal_ZE').find(".PrecioOferta").attr("value", $("option:selected", this).attr("precio-real")); //2024
+        $(this).parents('.Content_modal_ZE').find('.liquidacion_precio').html('<span>' + $("option:selected", this).attr("desc-precio") + '</span>');
+        $(this).parents('.Content_modal_ZE').find(".DescripcionProd").attr("value", $("option:selected", this).attr("desc-talla"));
+        $(this).parents('.Content_modal_ZE').find(".PrecioOferta").attr("value", $("option:selected", this).attr("precio-real"));
 
         var spanStock = $(this).parents('.Content_modal_ZE').find('.span_stock');
         var HiddenStock = $(this).parents('.Content_modal_ZE').find(".Stock");
         var CUV = $(this).parents('.Content_modal_ZE').find(".CUV").attr("value");
-        //r20160216
-        //var Orden = $(this).parent().parent().parent().parent().find(".Oden").attr("value"); ???
+
         $.ajaxSetup({
             cache: false
         });
@@ -193,11 +192,10 @@ $(document).ready(function () {
                                     }
 
                                     $(this).attr('disabled', true);
-                                    //$(this).parent().parent().parent().parent().find(".ddlTallaColor").attr('disabled', true);
+
                                     $(this).parent().parent().parent().parent().find(".ValidaNumeralOferta").attr('disabled', true);
                                     $(div).css('display', 'block');
-                                    //$("#hdFlagOferta").val("1");
-                                    //$("#hdFlagOfertaLiquidacion").val("1");
+
                                     $(lblStock).text(parseInt(Stock - Cantidad));
                                     $(HiddenStock).val(parseInt(Stock - Cantidad));
                                     $(txtCantidad).val(1);
@@ -473,7 +471,6 @@ function cargarProductoPopup(objProducto, objHidden) {
     $(divVistaPrevia).find('.liquidacion_precio').html('<span>' + objProducto.precio + '</span>');
     $(divVistaPrevia).find('.span_stock').html(objHidden.Stock);
 
-    //Seteo valores de inputs hidden
     $(divVistaPrevia).find('.TipoOfertaSisID').val(objHidden.TipoOfertaSisID);
     $(divVistaPrevia).find('.OfertaProductoID').val(objHidden.OfertaProductoID);
     $(divVistaPrevia).find('.ConfiguracionOfertaID').val(objHidden.ConfiguracionOfertaID);
@@ -651,7 +648,6 @@ function ReservadoOEnHorarioRestringidoAsync(mostrarAlerta, fnRestringido, fnNoR
     });
 }
 
-// Funcion de animación al agregar productos al carrito
 function agregarProductoAlCarrito(o) {
     var btnClickeado = $(o);
     var contenedorItem = btnClickeado.parent();
@@ -674,11 +670,7 @@ function agregarProductoAlCarrito(o) {
     }, 450, 'swing', function () {
         $(this).animate({
             'top': carrito.offset().top,
-            'opacity': 0,
-            //}, 100, 'swing', function () {
-            //    $(".campana .info_cam").fadeIn(200);
-            //    $(".campana .info_cam").delay(2500);
-            //    $(".campana .info_cam").fadeOut(200);
+            'opacity': 0
         }, 150, 'swing', function () {
             $(this).remove();
         });

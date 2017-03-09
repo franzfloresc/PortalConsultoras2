@@ -4,20 +4,16 @@ var arrayOfertasParaTi = [];
 var arrayLiquidaciones = [];
 var numImagen = 1;
 var fnMovimientoTutorial;
-/* SB20-834 - INICIO */
 var origenPedidoWebEstrategia = 0;
 var showViewVideo = viewBagVioVideo;
 var closeComunicadosPopup = false;
-/* SB20-834 - FIN */
 var fotoCroppie;
 var tipoOrigen = '3';
 var timeoutTooltipTutorial;
 var popupCantidadInicial = popupCantidadInicial || 1;
 var popupListaPrioridad = popupListaPrioridad || new Array();
-//popupListaPrioridad = {Codigo, Prioridad, Activo, Hijos}
 
 $(document).ready(function () {
-    //Temporal();
     $('.contenedor_img_perfil').on('click', CargarCamara);
     $('#imgFotoUsuario').error(function () {
         $('#imgFotoUsuario').hide();
@@ -39,7 +35,6 @@ $(document).ready(function () {
         cerrar_popup_tutorial();
     });
 
-    // Evento para visualizar video introductorio al hacer click
     $(".ver_video_introductorio").click(function () {
         $('#fondoComunPopUp').show();
         contadorFondoPopUp++;
@@ -65,12 +60,10 @@ $(document).ready(function () {
                 PopupCerrar('videoIntroductorio');
                 return false;
             }
-            /* SB20-834 - INICIO */
             if ($('#popupComunicados').is(':visible')) {
                 PopupCerrar('popupComunicados');
                 closeComunicadosPopup = true;
             }
-            /* SB20-834 - FIN */
             if ($('#popupActualizarMisDatos').is(':visible')) {
                 PopupCerrar('popupActualizarMisDatos');
             }
@@ -83,12 +76,6 @@ $(document).ready(function () {
             if ($('#popupAceptacionContrato').is(':visible')) {
                 PopupCerrar('popupAceptacionContrato');
             }
-            //if ($('#DialogoMensajeBannerShowRoomHoy').is(':visible')) {
-            //    PopupCerrar('DialogoMensajeBannerShowRoomHoy');
-            //}
-            //if ($('#DialogoMensajeBannerShowRoom').is(':visible')) {
-            //    PopupCerrar('DialogoMensajeBannerShowRoom');
-            //}
             if ($('#popupDemandaAnticipada').is(':visible')) {
                 PopupCerrar('popupDemandaAnticipada');
             }
@@ -99,10 +86,7 @@ $(document).ready(function () {
         }
     };
 
-    // Intervalo Microefecto Flecha Scroll
     setInterval(animacionFlechaScroll, 1000);
-
-    // Funcion para cambiar background según posicion de scroll
     $(window).scroll(function () {
 
         if ($(window).scrollTop() + $(window).height() == $(document).height()) {
@@ -126,7 +110,6 @@ $(document).ready(function () {
 
     });
 
-    // Evento click que ocurre en la flecha scroll
     $(".flecha_scroll").on('click', function (e) {
 
         e.preventDefault();
@@ -146,10 +129,7 @@ $(document).ready(function () {
         }
 
     });
-
-    /* SB20-834 - INICIO */
-    //ObtenerComunicadosPopup();
-
+    
     CrearDialogs();
     CargarCarouselEstrategias("");
     CargarCarouselLiquidaciones();
@@ -157,34 +137,27 @@ $(document).ready(function () {
     CargarBanners();
     CargarCatalogoPersonalizado();
 
-    //mostrarVideoIntroductorio();
-    //CargarPopupsConsultora();
-
     switch (TipoPopUpMostrar) {
         case popupVideoIntroductorio:
             mostrarVideoIntroductorio();
             break;
 
-        case popupGPR: // GPR
+        case popupGPR:
             break;
 
         case popupDemandaAnticipada:
-            //MostrarDemandaAnticipada();
             $('#fechaHasta').text(mensajeFechaDA);
             $('#fechaLuego').text(mensajeFechaDA);
             PopupMostrar('popupDemandaAnticipada');
             break;
 
         case popupAceptacionContrato:
-            //AbrirAceptacionContrato();
             PopupMostrar('popupAceptacionContrato');
             break;
 
         case popupShowRoom:
-            //ShowRoom
             CrearPopShow();
             MostrarShowRoom();
-            //Fin ShowRoom
             break;
 
         case popupActualizarDatos:
@@ -233,14 +206,10 @@ $(document).ready(function () {
         if (primeraVezVideo) {
             mostrarUbicacionTutorial(true, true);
             primeraVezVideo = false;
-            //abrir_popup_tutorial();
-            //setInterval(AnimacionTutorial, 800);
-            //setTimeout(ocultarAnimacionTutorial, 9000);
         }
         stopVideo();
         PopupCerrar('videoIntroductorio');
         viewBagVioVideo = 1;
-        //mostrarComunicadosPopup();
         return false;
     });
 
@@ -263,11 +232,9 @@ $(document).ready(function () {
         return false;
     });
     $('#hrefTerminos').click(function () {
-        //waitingDialog({});
         DownloadAttachPDFTerminos();
     });
     $('#hrefTerminosMD').click(function () {
-        //waitingDialog({});
         DownloadAttachContratoActualizarDatos();
     });
     $('#hrefContratoMD').click(function () {
@@ -410,30 +377,18 @@ $(document).ready(function () {
         GetCursoMarquesina(id)
     });
 
-    //ShowRoom
-    //CrearPopShow();
-    //MostrarShowRoom();
-    //Fin ShowRoom
-
     MostrarBarra(null, '1');
 });
 
 function CargarCamara() {
     //https://github.com/jhuckaby/webcamjs
     Webcam.set({
-        // live preview size
         width: 300,
         height: 300,
-        // device capture size
-        //dest_width: 600,
-        //dest_height: 600,
-        // final cropped size
         crop_width: 300,
         crop_height: 300,
-        // format and quality
         image_format: 'jpeg',
         jpeg_quality: 90,
-        //force_flash: true,
         flip_horiz: true
     });
     Webcam.attach('#my_camera');
@@ -470,7 +425,6 @@ function CortarFoto() {
                 }
             },
             error: function (data, error) {
-                //console.log(error);
             },
             complete: closeWaitingDialog
         });
@@ -507,13 +461,11 @@ function SubirFoto() {
             }
         },
         error: function (data, error) {
-            //console.log(error);
         },
         complete: closeWaitingDialog
     });
 }
 
-// MICROEFECTO FLECHA HOME
 function animacionFlechaScroll() {
 
     $(".flecha_scroll").animate({
@@ -549,11 +501,7 @@ function agregarProductoAlCarrito(o) {
         }, 450, 'swing', function () {
             $(this).animate({
                 'top': carrito.offset().top,
-                'opacity': 0,
-                //}, 100, 'swing', function () {
-                //    $(".campana .info_cam").fadeIn(200);
-                //    $(".campana .info_cam").delay(2500);
-                //    $(".campana .info_cam").fadeOut(200);
+                'opacity': 0
             }, 150, 'swing', function () {
                 $(this).remove();
             });
@@ -561,14 +509,11 @@ function agregarProductoAlCarrito(o) {
     }
 }
 
-//MICROEFECTO RESALTAR ICONO TUTORIAL
-
 function mostrarUbicacionTutorial(tieneFondoNegro, mostrarPopupTutorial) {
 
     tieneFondoNegro = tieneFondoNegro == undefined ? false : tieneFondoNegro;
     mostrarPopupTutorial = mostrarPopupTutorial == undefined ? false : mostrarPopupTutorial;
 
-    //EfectoTutorialSalvavidas = ''
     if (EfectoTutorialSalvavidas == '0') {
         if (!(viewBagVioTutorial == 0 || viewBagVioVideo == 0)) {
             tieneFondoNegro = false;
@@ -581,7 +526,6 @@ function mostrarUbicacionTutorial(tieneFondoNegro, mostrarPopupTutorial) {
     if (EfectoTutorialSalvavidas != '0') {
         if (tieneFondoNegro) {
             $(".fondo_oscuro").fadeIn(300, function () {
-                //$(".mensaje_header").addClass("opcionTutorial");
                 $(".tooltip_tutorial").fadeIn();
                 $(".contenedor_circulosTutorial").fadeIn();
                 mostrarIconoTutorial();
@@ -593,24 +537,13 @@ function mostrarUbicacionTutorial(tieneFondoNegro, mostrarPopupTutorial) {
         }
     }
 
-    //UpdateUsuarioTutoriales(constanteVioTutorialSalvavidas);
     viewBagVioTutorialSalvavidas = 1;
 
     var time = EfectoTutorialSalvavidas == '0' ? 0 : 4000;
     timeoutTooltipTutorial = setTimeout(function () {
         ocultarUbicacionTutorial();
-        //if ($("#fondoComunPopUp >div[data-popup-activo='1']").length > 0) {
-        //    $("#fondoComunPopUp").show();
-        //   mostrarComunicadosPopup();
-        //}
         if (mostrarPopupTutorial)
             abrir_popup_tutorial();
-        //else
-        //{
-        //    if (viewBagVerComunicado != '-1') {
-        //        mostrarComunicadosPopup();
-        //    }
-        //}
     }, time);
 }
 
@@ -645,14 +578,11 @@ function ocultarUbicacionTutorial() {
     $("#fondoComunPopUp").attr("data-activo-salvavidas", '0');
 }
 
-// FIN MICROEFECTO RESALTAR ICONO TUTORIAL
-
 function mostrarVideoIntroductorio() {
     try {
         if (viewBagVioVideo == "0") {
             PopupMostrar('videoIntroductorio');
             setTimeout(function () { playVideo(); }, 1000);
-            //UpdateUsuarioTutoriales(constanteVioVideo);
             return true;
         }
 
@@ -694,7 +624,6 @@ function UpdateUsuarioTutoriales(tipo) {
         dataType: 'json',
         contentType: 'application/json; charset=utf-8',
         success: function (data) {
-            //viewBagVioTutorialSalvavidas = data.result;
         },
         error: function (data) {
         }
@@ -702,7 +631,7 @@ function UpdateUsuarioTutoriales(tipo) {
 }
 
 function CrearDialogs() {
-    //SB20 - 1110
+
     $('#divConfirmarCUVBanner').dialog({
         autoOpen: false,
         resizable: false,
@@ -715,45 +644,9 @@ function CrearDialogs() {
             $(this).dialog('close');
         }
     });
-    //$('#idSueniosNavidad').dialog({
-    //    autoOpen: false,
-    //    resizable: false,
-    //    modal: true,
-    //    closeOnEscape: true,
-    //    width: 710,
-    //    draggable: true,
-    //    title: "",
-    //    close: function (event, ui) {
-    //        $(this).dialog('close');
-    //    }
-    //});
-    //$("#idSueniosNavidad").siblings('div.ui-dialog-titlebar').remove();
-
-    //$('#divSuenioConfirmacion').dialog({
-    //    autoOpen: false,
-    //    resizable: false,
-    //    modal: true,
-    //    closeOnEscape: true,
-    //    width: 590,
-    //    minHeight: 83,
-    //    draggable: true,
-    //    title: "",
-    //    close: function (event, ui) {
-    //        $(this).dialog('close');
-    //    }
-    //});
-    //$("#divSuenioConfirmacion").siblings('div.ui-dialog-titlebar').remove();
-
-    //CrearPopShowRoom();
-    //CrearPopupComunicado();
-    //CrearPopupComunicadoVisualizacion();
 };
 
 function CargarPopupsConsultora() {
-    //if (viewBagPrimeraVez == "0" && viewBagPaisID == 4) { //Colombia
-    //    AbrirAceptacionContrato();
-    //}
-    //else {
     if (viewBagPaisID == 9 && viewBagValidaDatosActualizados == '1' && viewBagValidaTiempoVentana == '1' && viewBagValidaSegmento == '1') { //Mexico
         PopupMostrar('popupActualizarMisDatosMexico');
     } else {
@@ -765,19 +658,9 @@ function CargarPopupsConsultora() {
             }
             PopupMostrar('popupActualizarMisDatos');
         }
-        //else {
-        //    if (viewBagPrimeraVez == "1" && viewBagPaisID == 4) { //Colombia
-        //        AbrirAceptacionContrato();
-        //    }
-        //}
     }
-    //}
-
-    //AbrirPopupFlexipago();
-    //MostrarDemandaAnticipada();
 };
 
-//Metodos para carousel Ofertas para Tí
 function CargarCarouselEstrategias(cuv) {
     $('#divListaEstrategias').hide();
     $('.js-slick-prev').remove();
@@ -856,7 +739,7 @@ function ArmarCarouselEstrategias(data) {
         };
 
         if (accion == 'prev') {
-            //TagManager
+
             var posicionPrimerActivo = $($('#divCarruselHorizontal').find(".slick-active")[0]).find('.PosicionEstrategia').val();
             var posicionEstrategia = posicionPrimerActivo == 1 ? arrayOfertasParaTi.length - 1 : posicionPrimerActivo - 2;
             var recomendado = arrayOfertasParaTi[posicionEstrategia];
@@ -888,7 +771,7 @@ function ArmarCarouselEstrategias(data) {
                 'label': 'Ver anterior'
             });
         } else if (accion == 'next') {
-            //TagManager
+
             var posicionUltimoActivo = $($('#divCarruselHorizontal').find(".slick-active").slice(-1)[0]).find('.PosicionEstrategia').val();
             var posicionEstrategia = arrayOfertasParaTi.length == posicionUltimoActivo ? 0 : posicionUltimoActivo;
             var recomendado = arrayOfertasParaTi[posicionEstrategia];
@@ -931,7 +814,6 @@ function EstructurarDataCarousel(array) {
             item.DescripcionCUVSplit = item.DescripcionCUV2.split('|')[0];
             item.ArrayContenidoSet = item.DescripcionCUV2.split('|').slice(1);
         } else {
-            //item.DescripcionCUV2 = (item.DescripcionCUV2.length > 40 ? item.DescripcionCUV2.substring(0, 40) + "..." : item.DescripcionCUV2);
             item.DescripcionCUV2 = (item.DescripcionCUV2.length > 0 ? item.DescripcionCUV2 : "");
         };
 
@@ -1026,7 +908,6 @@ function CargarProductoDestacado(objParameter, objInput, popup, limite) {
             $("#ddlTallaColor").empty();
             $(".zona0Edit").html(datos.data.DescripcionMarca);
 
-            /*Validar Programa Ofertas Nuevas*/
             $("#hdnProgramaOfertaNuevo").val(false);
             $("#OfertasResultados li").hide();
 
@@ -1102,9 +983,6 @@ function CargarProductoDestacado(objParameter, objInput, popup, limite) {
                     closeWaitingDialog();
                 }
             }
-
-            //closeWaitingDialog();
-            //showDialog('divVistaPrevia');
         },
         error: function (data, error) {
             alert(datos.data.message);
@@ -1130,14 +1008,13 @@ function AgregarProductoDestacado(popup, tipoEstrategiaImagen) {
     var urlImagen = $("#imgZonaEstrategiaEdit").attr("src");
     var OrigenPedidoWeb = origenPedidoWebEstrategia;
 
-    // validar que se existan tallas
     if ($.trim($("#ddlTallaColor").html()) != "") {
         if ($.trim($("#ddlTallaColor").val()) == "") {
             AbrirMensaje("Por favor, seleccione la Talla/Color del producto.");
             return false;
         }
     }
-    /*Quitar estas validaciones cuando exista Programa de Ofertas nuevas */
+
     if ($("#hdnProgramaOfertaNuevo").val() == "true") {
         cantidad = cantidadLimite;
     }
@@ -1281,7 +1158,6 @@ function ReservadoOEnHorarioRestringido(mostrarAlerta) {
                 AbrirMensaje(data.message);
         },
         error: function (error) {
-            //console.log(error);
             AbrirMensaje('Ocurrió un error al intentar validar el horario restringido o si el pedido está reservado. Por favor inténtelo en unos minutos.');
         }
     });
@@ -1299,13 +1175,7 @@ function CargarEstrategiasEspeciales(objInput, e) {
         } else if (estrategia.TipoEstrategiaImagenMostrar == '5' || estrategia.TipoEstrategiaImagenMostrar == '3') {
             var html = ArmarPopupLanzamiento(estrategia);
             $('#popupDetalleCarousel_lanzamiento').html(html);
-
-            //if ($('#popupDetalleCarousel_lanzamiento').find('[data-prod-descripcion]').html().length > 40) {
-            //    $('#popupDetalleCarousel_lanzamiento').find('[data-prod-descripcion]').addClass('nombre_producto22');
-            //    $('#popupDetalleCarousel_lanzamiento').find('[data-prod-descripcion]').removeClass('nombre_producto');
-            //    //$('#popupDetalleCarousel_lanzamiento').find('.nombre_producto22').children()[0].innerHTML = "LBel Mithyka Eau Parfum 50ml+Cyzone Love Bomb Eau de Parfum 30ml+Esika Labial Color HD Tono Pimienta Caliente+Esika Agu Shampoo Manzanilla 1L";
-            //}
-
+            
             $('#popupDetalleCarousel_lanzamiento').show();
             TrackingJetloreView(estrategia.CUV2, $("#hdCampaniaCodigo").val());
         };
@@ -1356,7 +1226,6 @@ function alert_unidadesAgregadas(message, exito) {
     $('#dialog_AgregasteUnidades').show();
 }
 
-//Metodos para carousel Liquidaciones
 function CargarCarouselLiquidaciones() {
     $('.js-slick-prev-liq').remove();
     $('.js-slick-next-liq').remove();
@@ -1384,7 +1253,6 @@ function ArmarCarouselLiquidaciones(data) {
 
     var htmlDiv = SetHandlebars("#liquidacion-template", data);
 
-    //Se agrega item VER MAS
     if ($.trim(htmlDiv).length > 0) {
         htmlDiv += [
             '<div>',
@@ -1424,14 +1292,13 @@ function ArmarCarouselLiquidaciones(data) {
         var indexActive = $($('#divCarruselLiquidaciones').find('.slick-active')).attr('data-slick-index');
 
         if (accion == 'prev') {
-            //Esconder/mostrar flechas
             if (Number(indexActive) - 1 == 0) {
                 $('.js-slick-prev-liq').hide();
                 $('.js-slick-next-liq').show();
             } else {
                 $('.js-slick-next-liq').show();
             }
-            //TagManager
+
             var posicionEstrategia = $($('#divCarruselLiquidaciones').find(".slick-active")).find('#Posicion').val() - 2;
             var recomendado = arrayLiquidaciones[posicionEstrategia];
             var arrayEstrategia = new Array();
@@ -1461,14 +1328,13 @@ function ArmarCarouselLiquidaciones(data) {
             });
 
         } else if (accion == 'next') {
-            //Esconder/mostrar flechas
             if (Number(indexActive) + 1 == Number(itemsLength) - 1) {
                 $('.js-slick-next-liq').hide();
                 $('.js-slick-prev-liq').show();
             } else {
                 $('.js-slick-prev-liq').show();
             }
-            //TagManager
+
             var posicionEstrategia = $($('#divCarruselLiquidaciones').find(".slick-active")).find('#Posicion').val();
 
             if (posicionEstrategia != arrayLiquidaciones.length) {
@@ -1519,7 +1385,7 @@ function EstructurarDataCarouselLiquidaciones(array) {
     $.each(array, function (i, item) {
         item.DescripcionCompleta = item.Descripcion;
         item.Descripcion = (item.Descripcion.length > 40 ? item.Descripcion.substring(0, 40) + "..." : item.Descripcion);
-        //item.PrecioOferta = (viewBagPaisID == '4' ? Number(item.PrecioOferta.toString().replace(',', '.')).toFixed(2) : Number(item.PrecioOferta).toFixed(2));
+
         item.Simbolo = viewBagSimbolo;
         item.Posicion = i + 1;
 
@@ -1670,7 +1536,6 @@ function CargarProductoLiquidacionPopup(objProducto, objHidden) {
     $(divTonosTallas).find('.nombre_producto').html('<b>' + objProducto.descripcion + '</b>');
     $(divTonosTallas).find('.producto_precio_oferta').html('<b>' + objProducto.precio + '</b>');
 
-    //Seteo valores de inputs hidden
     $(divTonosTallas).find('#MarcaID').val(objHidden.MarcaID);
     $(divTonosTallas).find('#PrecioOferta').val(objHidden.PrecioOferta);
     $(divTonosTallas).find('#CUV').val(objHidden.CUV);
@@ -1688,7 +1553,6 @@ function CargarProductoLiquidacionPopup(objProducto, objHidden) {
     ShowPopupTonosTallas();
 };
 
-// Métodos Banners
 function CargarBanners() {
     $.ajax({
         type: 'POST',
@@ -1776,7 +1640,6 @@ function CargarBanners() {
 
                     $('#bannerBajos').find("a.enlaces_home:last-child").addClass("no_margin_right");
 
-                    /* Slides para la seccion principal */
                     if (count > 0) {
                         $('.flexslider').flexslider({
                             animation: "fade",
@@ -1789,7 +1652,6 @@ function CargarBanners() {
                                         'event': 'promotionView',
                                         'ecommerce': {
                                             'promoView': {
-                                                //'promotions': vpromotions[slider.currentSlide]
                                                 'promotions': arrProm
                                             }
                                         }
@@ -1805,7 +1667,6 @@ function CargarBanners() {
                                     'event': 'promotionView',
                                     'ecommerce': {
                                         'promoView': {
-                                            //'promotions': vpromotions[slider.currentSlide]
                                             'promotions': arrProm
                                         }
                                     }
@@ -1830,7 +1691,7 @@ function EnlaceBanner(URL, TrackText, TipoAccion, CUVpedido, CantCUVpedido, Id, 
     if (TipoAccion == 1) {
         if (ReservadoOEnHorarioRestringido())
             return false;
-        //SB20 - 1110
+
         $("#divConfirmarCUVBanner p").text("Se agregarán " + CantCUVpedido + " unidad(es) del producto a tu pedido. ¿Deseas continuar?");
 
         $("#divConfirmarCUVBanner").data({
@@ -1845,7 +1706,7 @@ function EnlaceBanner(URL, TrackText, TipoAccion, CUVpedido, CantCUVpedido, Id, 
         return false;
     }
 };
-//SB20 - 1110
+
 function AgregarCUVBannerPedido() {
 
     var Id = $("#divConfirmarCUVBanner").data().Id;
@@ -1899,8 +1760,6 @@ function InsertarPedidoCuvBanner(CUVpedido, CantCUVpedido) {
             ActualizarGanancia(result.DataBarra);
 
             CargarResumenCampaniaHeader(true);
-
-            //alert_unidadesAgregadas(result.message, 1);
 
             if (result.oPedidoDetalle.DescripcionEstrategia == null || result.oPedidoDetalle.DescripcionEstrategia == "") {
                 variantcad = "Estándar";
@@ -2043,7 +1902,6 @@ function SetGoogleAnalyticsPromotionClick(Id, Posicion, Titulo) {
     return false;
 };
 
-/* Métodos Mis Datos */
 function CargarMisDatos() {
     $.ajax({
         type: 'GET',
@@ -2068,7 +1926,6 @@ function CargarMisDatos() {
             closeWaitingDialog();
         },
         error: function (error) {
-            //console.log(error);
         }
     });
 };
@@ -2245,15 +2102,9 @@ function DownloadAttachPDFMD(requestedFile) {
     document.body.appendChild(iframe_);
 }
 function DownloadAttachContratoActualizarDatos() {
-    //var archivoMD = $('#hdn_NombreArchivoContratoMD').val();
-    //var requestedFile = "/Content/FAQ/" + archivoMD + ".pdf";
-
     $('#hrefTerminosMD').attr('href', UrlPdfTerminosyCondiciones);
-    //document.location.href = UrlPdfTerminosyCondiciones;
-    //DownloadAttachPDFMD(requestedFile);
 }
 
-/* Métodos Mis Cursos */
 function CargarMisCursos() {
 
     $(window).scroll(function () {
@@ -2288,20 +2139,17 @@ function CargarMisCursos() {
                 }
             }
             else {
-                //$('#divMisCursos').html('<div style="text-align: center;">En este momento los talleres no se encuentran disponibles. Vuelve a revisar tus talleres más tarde.</div>');
                 $('#divTutoriales').hide();
                 $('#divSinTutoriales').show();
             }
         },
         error: function (error) {
-            //$('#divMisCursos').html('<div style="text-align: center;">Ocurrio un error al cargar los cursos.</div>');
             $('#divTutoriales').hide();
             $('#divSinTutoriales').show();
         }
     });
 };
 function porcentajesCursos() {
-    // Función para animación y características de carga circular de Cursos Academia
     $(".porcentaje_curso").addClass("mostrarPorcentajes");
 
     $('.porcentaje_cursosAcademia').easyPieChart({
@@ -2324,7 +2172,6 @@ function GetCursoMarquesina(id) {
     window.open(url, '_blank');
 }
 
-// Métodos ActualizarDatos
 function ActualizarDatos() {
     var result = false;
     var ClaveSecreta = $('#txtActualizarClaveSecreta').val();
@@ -2436,38 +2283,7 @@ function ActualizarDatos() {
     return result;
 };
 function DownloadAttachPDFTerminos() {
-    //var iframe_ = document.createElement("iframe");
-    //iframe_.style.display = "none";
-    //var requestedFile = '/Content/FAQ/' + viewBagContratoActualizarDatos + '.pdf';
-    //iframe_.setAttribute("src", baseUrl + 'WebPages/DownloadPDF.aspx?file=' + requestedFile);
-
-    //if (navigator.userAgent.indexOf("MSIE") > -1 && !window.opera) { // Si es Internet Explorer
-    //    iframe_.onreadystatechange = function () {
-    //        switch (this.readyState) {
-    //            case "loading":
-    //                waitingDialog({});
-    //                break;
-    //            case "complete":
-    //            case "interactive":
-    //            case "uninitialized":
-    //                closeWaitingDialog();
-    //                break;
-    //            default:
-    //                closeWaitingDialog();
-    //                break;
-    //        }
-    //    };
-    //}
-    //else {
-    //    // Si es Firefox o Chrome
-    //    $(iframe_).ready(function () {
-    //        closeWaitingDialog();
-    //    });
-    //}
-    //document.body.appendChild(iframe_);
-
     $('#hrefTerminos').attr('href', UrlPdfTerminosyCondiciones);
-    //document.location.href = UrlPdfTerminosyCondiciones;
 };
 function CerrarPopupActualizacionDatos() {
     var ClaveSecreta = $('#txtActualizarClaveSecreta').val();
@@ -2504,7 +2320,6 @@ function ValidateOnlyNums(id) {
     return $("#" + id).val($("#" + id).val().replace(/[^\d]/g, ""));
 };
 
-// Métodos ActualizarDatos México
 function ActualizarDatosMexico() {
     var Result = false;
     var m_nombre = $('#m_txtNombre').val();
@@ -2657,7 +2472,6 @@ function CerrarPopupActualizacionDatosMexico() {
     PopupCerrar('popupActualizarMisDatosMexico');
 }
 
-// Métodos Contrato
 function AbrirAceptacionContrato() {
     if (viewBagPaisID == 4) { // Colombia
         if (viewBagIndicadorContrato == 0) {
@@ -2730,7 +2544,6 @@ function DownloadAttachPDF() {
     document.body.appendChild(iframe_);
 };
 
-// Métodos DemandaAnticipada
 function MostrarDemandaAnticipada() {
     $.ajax({
         type: "POST",
@@ -2795,7 +2608,6 @@ function InsertarDemandaAnticipada(tipo) {
     });
 };
 
-// Métodos Comunicado
 function CrearPopupComunicado() {
     $('#divComunicado').dialog({
         autoOpen: false,
@@ -2843,7 +2655,6 @@ function AceptarComunicado() {
     });
 };
 
-// Métodos Flexipago
 function AbrirPopupFlexipago() {
     if (viewBagPaisID == 4 || viewBagPaisID == 3) { // Colombia || Chile
         if (viewBagInvitacionRechazada == "False" || viewBagInvitacionRechazada == "0" || viewBagInvitacionRechazada == "") {
@@ -2909,7 +2720,6 @@ function ConoceFlex() {
     return false;
 };
 
-// Métodos Comunicado Visualización
 function CrearPopupComunicadoVisualizacion() {
     $('#divComunicadoVisualizacion').dialog({
         autoOpen: false,
@@ -2955,7 +2765,6 @@ function AceptarComunicadoVisualizacion() {
     $("#divComunicadoVisualizacion").dialog('close');
 };
 
-// Métodos de marcaciones
 function RedirectPagaEnLineaAnalytics() {
     if (ViewBagRutaChile != "") {
         window.open(ViewBagRutaChile + viewBagUrlChileEncriptada, "_blank");
@@ -2965,7 +2774,6 @@ function RedirectPagaEnLineaAnalytics() {
     }
 };
 
-// Métodos Suenios Navidad
 function MostrarCajaSuenioNavidad() {
     $("#txtSuenioNavidad").focus();
     $("#imgSuenioNavidad").fadeOut("fast", function () {
@@ -3005,7 +2813,6 @@ function AgregarSuenio() {
             if (checkTimeout(data)) {
                 closeWaitingDialog();
                 if (data.success == true) {
-                    //alert_msgPedidoBanner(data.message);
                     showDialog("divSuenioConfirmacion");
                     closeWaitingDialog();
                 } else {
@@ -3025,7 +2832,6 @@ function AgregarSuenio() {
     });
 }
 
-//Google Analytics
 function TagManagerCarruselInicio(arrayItems) {
     var cantidadRecomendados = $('#divCarruselHorizontal').find(".slick-active").length;
 
@@ -3290,7 +3096,6 @@ function EsconderFlechasCarouseLiquidaciones(accion) {
     }
 }
 
-//Video youtube
 function stopVideo() {
     try {
         if (player) {
@@ -3298,7 +3103,6 @@ function stopVideo() {
                 player.stopVideo();
             }
             else {
-                //document.getElementById("divPlayer").contentWindow.postMessage('{"event":"command","func":"pauseVideo","args":""}','*');
                 var urlVideo = $("#divPlayer").attr("src");
                 $("#divPlayer").attr("src", "");
                 $("#divPlayer").attr("src", urlVideo);
@@ -3325,87 +3129,9 @@ function playVideo() {
     } catch (e) { }
 };
 
-//ShowRoom
 function CrearPopShow() {
-    //$("body").on("click", "div.check_01 label.checkpop input", function (event) {
-    //    event.preventDefault();
-    //    if ($(this).parent().hasClass("c_on")) {
-    //        $(this).parent().removeClass("c_on");
-    //    } else {
-    //        $(this).parent().addClass("c_on");
-    //    }
-    //});
-
-    //$("body").on("click", "div.check_hoy label.checkpop input", function (event) {
-    //    event.preventDefault();
-    //    if ($(this).parent().hasClass("c_on")) {
-    //        $(this).parent().removeClass("c_on");
-    //    } else {
-    //        $(this).parent().addClass("c_on");
-    //    }
-    //});
-
     var noMostrarShowRoom = true;
-
-    //$("#btnCerrarPopShowroom").click(function () {
-    //    $("#DialogoMensajeBannerShowRoom").hide();
-    //});
-
-    //$("#btnCerrarPopShowroomHoy").click(function () {
-    //    $("#DialogoMensajeBannerShowRoomHoy").hide();
-    //});
-
-    //$("#cbNoMostrarPopupShowRoom, #cbNoMostrarPopupShowRoomHoy").click(function () {
-
-  
-
-    //$("#cbNoMostrarPopupShowRoomIntrigaVenta").click(function (tipo) {
-    //    $.ajax({
-    //        type: 'POST',
-    //        url: baseUrl + 'Bienvenida/NoMostrarShowRoomPopup',
-    //        dataType: 'json',
-    //        contentType: 'application/json; charset=utf-8',
-    //        data: { TipoShowRoom: tipo },
-    //        async: false,
-    //        success: function (response) {
-    //            if (checkTimeout(response)) {
-    //                if (response.success) {
-    //                    if (response.data && response.tipo == "I") {
-    //                        AgregarTagManagerShowRoomCheckBox();
-    //                        $('#PopShowroomVenta').hide();
-    //                        $('#PopShowroomIntriga').show();
-    //                    }
-
-    //                    if (response.data && response.tipo == "V") {
-    //                        AgregarTagManagerShowRoomCheckBox();
-    //                        $('#PopShowroomIntriga').hide();
-    //                        $('#PopShowroomVenta').show();
-    //                    }
-    //                }
-
-                    
-
-    //                //if (response.success) {
-    //                //    if (noMostrarShowRoom)
-    //                //        AgregarTagManagerShowRoomCheckBox();
-    //                //    noMostrarShowRoom = noMostrarShowRoom == true ? false : true;
-
-    //                //    $('#PopShowroomIntriga').hide();
-    //                //}
-    //            }
-    //        },
-    //        error: function (response, error) {
-    //            if (checkTimeout(response)) {
-    //                closeWaitingDialog();
-    //                //console.log("Ocurrió un error en ShowRoom");
-    //                //alert("Ocurrió un error en ShowRoom");
-    //            }
-    //        }
-    //    });
-
-    //});
-
-
+    
     $("#cbNoMostrarPopupShowRoom").click(function () {
         var noMostrarPopup = noMostrarShowRoom;
 
@@ -3434,20 +3160,10 @@ function CrearPopShow() {
             error: function (response, error) {
                 if (checkTimeout(response)) {
                     closeWaitingDialog();
-                    //console.log("Ocurrió un error en ShowRoom");
-                    //alert("Ocurrió un error en ShowRoom");
                 }
             }
         });
     });
-
-    //$("#lnkConoceMasShowRoomPopup").click(function () {
-    //    AgregarTagManagerShowRoomPopupConocesMas(1);
-    //});
-
-    //$("#lnkConoceMasShowRoomPopupHoy").click(function () {
-    //    AgregarTagManagerShowRoomPopupConocesMas(2);
-    //});
 }
 function MostrarShowRoom() {
     if (viewBagRol == 1) {
@@ -3461,7 +3177,7 @@ function MostrarShowRoom() {
             success: function (response) {
                 if (checkTimeout(response)) {
                     if (response.success) {
-                        //console.log(response);
+
                         var showroomConsultora = response.data;
                         var evento = response.evento;
                         var personalizacion = response.personalizacion;
@@ -3478,7 +3194,7 @@ function MostrarShowRoom() {
 
                             if (item.Atributo == 'PopupImagenVenta') {
                                 urlImagenPopupVenta = item.Valor;
-                                //alert(urlImagenPopupIntriga)
+
                                 return;
                             }
                         });
@@ -3498,46 +3214,12 @@ function MostrarShowRoom() {
                                         $(container).find('.imagen_dias_intriga').attr('src', urlImagenPopupVenta);
                                         $(container).show();
                                     }
-                                    
-                                    //$("#spnShowRoomEventoHoy").html(evento.Tema);
-
-                                    //$("#lnkConoceMasShowRoomPopupHoy").attr("href", response.rutaShowRoomPopup);
-
-                                    //Carga de Imagenes del Popup
-                                    //$("#imgPestaniaShowRoomHoy").attr("src", evento.ImagenPestaniaShowRoom);
-                                    //$("#imgIntrigaHoy").attr("src", evento.Imagen2);
-                                    //$("#imgPreventaDigitalHoy").attr("src", evento.ImagenPreventaDigital);
-                                    //$("#imgVentaSetPopupHoy").attr("src", evento.ImagenVentaSetPopup);
-
-                                    //$("#DialogoMensajeBannerShowRoomHoy").show();
-
-                                    //AgregarTagManagerShowRoomPopup(evento.Tema, true);
-
-                                    //PL20-1306
-                                    //$('#PopShowoomIntriga').show();
                                 } else {
                                     $("#spnShowRoomEvento").html(evento.Tema);
-                                    //$("#spnShowRoomNombreConsultora").html(response.nombre);
-                                    //$("#spnShowRoomDiaInicio").html(response.diaInicio);
-                                    //$("#spnShowRoomDiaFin").html(response.diaFin);
-                                    //$("#spnShowRoomMes").html(response.mesFin);
-                                    //if (response.mesFin.length > 6) {
-                                    //    $(".fecha_promocion_s").css("font-size", "11.5pt");
-                                    //}
 
-                                    //$("#lnkConoceMasShowRoomPopup").attr("href", response.rutaShowRoomPopup);
-
-                                    ////Carga de Imagenes del Popup
-                                    //$("#imgPestaniaShowRoom").attr("src", evento.ImagenPestaniaShowRoom);
-                                    //$("#imgIntriga").attr("src", evento.Imagen2);
-                                    //$("#imgPreventaDigital").attr("src", evento.ImagenPreventaDigital);
-                                    //$("#imgShowRoomGif").attr("src", evento.Imagen1);
-
-                                    //$("#DialogoMensajeBannerShowRoom").show();
                                     if (noMostrarShowRoomIntriga) {
                                         AgregarTagManagerShowRoomPopup(evento.Tema, false);
 
-                                        // /PL20-1306
                                         if (parseInt(response.diasFaltan) > 0) {
                                             var container = $('#PopShowroomIntriga');
                                             var txtDiasIntriga = 'FALTAN ' + response.diasFaltan + ' DÍAS';
@@ -3548,11 +3230,8 @@ function MostrarShowRoom() {
                                             $(container).find('.imagen_dias_intriga').attr('src', urlImagenPopupIntriga);
                                             $(container).show();
                                         }
-                                    }
-                                    
+                                    }                                    
                                 }
-
-                                //$("#imgShowRoomGif").attr("src", evento.Imagen1);
                             }
                         }
                     }
@@ -3561,8 +3240,6 @@ function MostrarShowRoom() {
             error: function (response, error) {
                 if (checkTimeout(response)) {
                     closeWaitingDialog();
-                    //console.log("Ocurrió un error en ShowRoom");
-                    //alert("Ocurrió un error en ShowRoom");
                 }
             }
         });
@@ -3585,13 +3262,11 @@ function NoMostrarPopupShowRoomIntrigaVenta(tipo) {
             if (checkTimeout(response)) {
                     if (!response.data && response.tipo == "I") {
                         AgregarTagManagerShowRoomCheckBox();
-                        //$('#PopShowroomVenta').hide();
                         $('#PopShowroomIntriga').hide();
                     }
 
                     if (!response.data && response.tipo == "V") {
                         AgregarTagManagerShowRoomCheckBox();
-                        //$('#PopShowroomIntriga').hide();
                         $('#PopShowroomVenta').hide();
                     }
             }
@@ -3656,7 +3331,6 @@ function AgregarTagManagerShowRoomCheckBox() {
         'label': '(not available)'
     });
 }
-//Fin ShowRoom
 
 function abrir_popup_tutorial(obligado) {
     obligado = obligado == undefined ? false : obligado;
@@ -3695,11 +3369,8 @@ function cerrar_popup_tutorial() {
     window.clearInterval(fnMovimientoTutorial);
     numImagen = 1;
     viewBagVioTutorial = 1;
-
-    //mostrarComunicadosPopup();
 }
 
-/* SB20-834 - INICIO */
 function ObtenerComunicadosPopup() {
     waitingDialog();
 
@@ -3727,42 +3398,28 @@ function ObtenerComunicadosPopup() {
             }
         },
         error: function (data, error) {
-            //console.log(data);
             closeWaitingDialog();
         }
     });
 }
 
 function armarComunicadosPopup(response) {
-    //console.log('armarComunicadosPopup');
     viewBagVerComunicado = response.comunicadoVisualizado;
-    //$('#totalComuSinMostrar').val(response.data.length);
     var item = response.data;
     if (item != null) {
-        //$.each(response.data, function (id, item) {
         dialogComunicadoID = item.CodigoConsultora + '_' + item.ComunicadoId;
         var nombreEvento = encodeURI(item.Descripcion);
-        //console.log(item);
 
         if (item.Accion == "CUV") {
-            //displayTerminos = 'float:right;display:none;';
-            //urlAccion = 'javascript:InsertarPedidoCuvBanner(' + item.DescripcionAccion + ',1);';
         }
         else if (item.Accion == "URL") {
             urlAccion = item.DescripcionAccion;
             if (urlAccion > 0) {
-                //var id = urlAccion;
                 urlAccion = baseUrl + "MiAcademia/Cursos/idcurso/" + urlAccion;
-                //urlAccion = urlAccion.replace("idcurso_", id);
             }
             displayTerminos = 'float:right;display:none;';
             target = '_blank';
         }
-        //else if (item.Accion == "DON") {
-        //    displayTerminos = '';
-        //    urlAccion = 'javascript:RealizarDonacion(' + dialogComunicadoID + ',' + item.ComunicadoId + ',"' + response.codigoISO + '",' + response.codigoConsultora + ',' + response.codigoCampania + ',"' + nombreEvento + '");';
-        //}
-
         var comunicado = {
             id: dialogComunicadoID,
             hrefUrl: urlAccion,
@@ -3775,27 +3432,6 @@ function armarComunicadosPopup(response) {
 
         var content = SetHandlebars("#template-comunicado", comunicado);
         $('#popupComunicados').append(content);
-
-        //$("#" + dialogComunicadoID + "").siblings(".ui-dialog-titlebar").hide();
-        //$("#" + dialogComunicadoID + " img").load(function () { comunicado.dialog('option', 'position', 'center'); });
-        //comunicado.dialog('open');
-
-        //// Push a promotionView cuando carga el comunicado.
-        //dataLayer.push({
-        //    'event': 'promotionView',
-        //    'ecommerce': {
-        //        'promoView': {
-        //            'promotions': [
-        //             {
-        //                 'id': item.ComunicadoId,
-        //                 'name': nombreEvento,
-        //                 'position': 'Home pop-up – 1',
-        //                 'creative': 'Banner'
-        //             }]
-        //        }
-        //    }
-        //});
-        //});
     }
 }
 
@@ -3828,10 +3464,8 @@ function centrarComunicadoPopup(ID) {
     var altoPopup = ($(window).height() - $("#" + ID).outerHeight()) / 2;
     var imagenPopup = $('#' + ID).find(".img-comunicado");
     var estadoPopup = $("#popupComunicados").css("display");
-    //if (estadoPopup == "block") {
     $("#" + ID).css({ "width": imagenPopup.width() });
     $("#" + ID).css({ "top": altoPopup });
-    //}
 }
 
 function clickCerrarComunicado(obj) {
@@ -3854,21 +3488,6 @@ function clickImagenComunicado(obj) {
     var comunicadoID = $(obj).attr('data-comunicadoid');
     var comunicadoDescripcion = $(obj).attr('data-comunicadodescripcion');
     var dialogComunicadoID = $(obj).attr('data-id');
-
-    //dataLayer.push({
-    //    'event': 'promotionClick',
-    //    'ecommerce': {
-    //        'promoClick': {
-    //            'promotions': [
-    //                {
-    //                    'id': comunicadoID,
-    //                    'name': comunicadoDescripcion,
-    //                    'position': 'Home pop-up - 1',
-    //                    'creative': 'Banner'
-    //                }]
-    //        }
-    //    }
-    //});
 
     $('#' + dialogComunicadoID).hide();
     $('#' + dialogComunicadoID).attr('data-cerrado', 1);
@@ -3905,9 +3524,7 @@ function AceptarComunicadoVisualizacion(ID, dialogComunicadoID) {
 
     $('#' + dialogComunicadoID).hide();
 }
-/* SB20-834 - FIN */
 
-// Popup
 function PopupMostrarPrioridad() {
     var mostrar = new Object();
     $.each(popupListaPrioridad, function (ind, prioridad) {
@@ -3953,7 +3570,6 @@ function PopupMostrar(idPopup) {
     }
 
     $(id).show();
-    //contadorFondoPopUp++;
 }
 function PopupCerrar(idPopup) {
     var id = "";
@@ -3967,12 +3583,8 @@ function PopupCerrar(idPopup) {
     $(id).hide();
     if ($("#fondoComunPopUp >div[data-popup-activo='1']").length == 0) {
         $("#fondoComunPopUp").hide();
-        // viewBagVioTutorialSalvavidas
     }
-    //contadorFondoPopUp--;
-    //contadorFondoPopUp = contadorFondoPopUp < 0 ? 0 : contadorFondoPopUp;
 }
-// Fin Popup
 
 function mostrarCatalogoPersonalizado() {
     document.location.href = urlCatalogoPersonalizado;
@@ -3989,25 +3601,3 @@ function VerShowRoomVenta() {
     document.location.href = urlShowRoomVenta;
     $('#PopShowroomVenta').hide();
 }
-
-//function Temporal() {
-//    $.ajax({
-//        type: 'POST',
-//        url: baseUrl + 'ShowRoom/GetProductosCompraPorCompra',
-//        data: JSON.stringify(),
-//        dataType: 'Json',
-//        contentType: 'application/json; charset=utf-8',
-//        success: function (data) {
-//            alert_msg(data.message);
-//            if (data.success) {
-//                //$('#imgFotoUsuario').show();
-//                //$('#imgFotoUsuarioDefault').hide();
-//                //$('#imgFotoUsuario').attr('src', data.imagen + '?' + Math.random());
-//            }
-//        },
-//        error: function (data, error) {
-//            //console.log(error);
-//        },
-//        complete: closeWaitingDialog
-//    });
-//}

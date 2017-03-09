@@ -80,18 +80,17 @@
                         if (checkTimeout(data)) {
                             closeWaitingDialog();
                             if (data.success == true) {
-                                $("#list").GridUnload(); //EPD-1435
-                                fnGrilla(); // EPD-1435
+                                $("#list").GridUnload();
+                                fnGrilla(); 
                                 alert(data.mensaje);
-                                //setInterval(function () { Confirmacion(JsonData) }, 10000);
                                 if (data.cabecera) {
                                     if (data.IsFox) {
-                                        $("#Aheader").text("OCWPEDCA.TXT");//data.cabecera
-                                        $("#Ddetail").text("OCWPEDDE.TXT");//data.detalle
-                                        $("#Ddetail1").text("ACTDATOS.TXT");//data.detalle CGI (VVA) 2450
+                                        $("#Aheader").text("OCWPEDCA.TXT");
+                                        $("#Ddetail").text("OCWPEDDE.TXT");
+                                        $("#Ddetail1").text("ACTDATOS.TXT");
                                         $("#hdnfileHeader").val(data.rutac);
                                         $("#hdnfileDetail").val(data.rutad);
-                                        $("#hdnfileDetailAct").val(data.rutae);//data.detalle CGI (VVA) 2450
+                                        $("#hdnfileDetailAct").val(data.rutae);
                                         $("#DivDescargas").show();
                                     }
                                 }
@@ -110,7 +109,6 @@
                 });
             }
             else {
-                // 2382 - Inicio
                 if (jQuery.trim($("#cboTipoCronograma").val()) == "5") {
                     $.ajax({
                         type: 'POST',
@@ -148,9 +146,7 @@
                         }
                     });
                 }
-                    // 2382 - Fin
                 else {
-                    // R20151003 - Inicio
                     if (jQuery.trim($("#cboTipoCronograma").val()) == "6") {
 
                         $.ajax({
@@ -167,8 +163,8 @@
                                         alert(data.mensaje);
                                         if (data.cabecera) {
                                             if (data.IsFox) {
-                                                $("#Aheader").text("OCWPEDCA.TXT");//data.cabecera
-                                                $("#Ddetail").text("OCWPEDDE.TXT");//data.detalle                                              
+                                                $("#Aheader").text("OCWPEDCA.TXT");
+                                                $("#Ddetail").text("OCWPEDDE.TXT");                                            
                                                 $("#hdnfileHeader").val(data.rutac);
                                                 $("#hdnfileDetail").val(data.rutad);
                                                 $("#DivDescargas").show();
@@ -189,7 +185,7 @@
                         });
 
 
-                    } else {  // R20151003 - Fin
+                    } else { 
 
                         $.ajax({
                             type: 'POST',
@@ -203,16 +199,16 @@
                                     closeWaitingDialog();
                                     if (data.success == true) {
                                         alert(data.mensaje);
-                                        //setInterval(function () { Confirmacion(JsonData) }, 10000);
+
                                         if (data.cabecera) {
                                             if (data.IsFox) {
                                                 if ($("#ddlPais").val() == 9) {
-                                                    $("#Aheader").text("OCWPEDFICCA.TXT");//data.cabecera
-                                                    $("#Ddetail").text("OCWPEDFICDE.TXT");//data.detalle
+                                                    $("#Aheader").text("OCWPEDFICCA.TXT");
+                                                    $("#Ddetail").text("OCWPEDFICDE.TXT");
 
                                                 } else {
-                                                    $("#Aheader").text("OCWPEDCA.TXT");//data.cabecera
-                                                    $("#Ddetail").text("OCWPEDDE.TXT");//data.detalle
+                                                    $("#Aheader").text("OCWPEDCA.TXT");
+                                                    $("#Ddetail").text("OCWPEDDE.TXT");
                                                 }
                                                 $("#hdnfileHeader").val(data.rutac);
                                                 $("#hdnfileDetail").val(data.rutad);
@@ -350,7 +346,6 @@
         document.body.appendChild(iframe_);
     }
 
-    /*EPD-1025*/
     function fnGrilla() {
         jQuery("#list").jqGrid({
             url: baseUrl + "DescargaPedidos/ObtenerUltimaDescargaPedido",
@@ -418,7 +413,7 @@
             }
         });
     }
-    /*EPD-1025*/
+
 </script>
 
 <div class="wrap_cab">
@@ -460,8 +455,7 @@
                             <option value="3">Demanda Anticipada PRD</option>
                             <option value="4">FIC</option>
                             <option value="5">Generar Líderes</option>
-                            <option value="6">Digitacion Distribuida Parcial</option> <!--  R20151003 -->                           
-                            @*2382*@
+                            <option value="6">Digitacion Distribuida Parcial</option>
                         </select>
                     }
                     else if (ViewBag.NombrePais == "Puerto Rico" || ViewBag.NombrePais == "República Dominicana")
@@ -472,8 +466,7 @@
                             <option value="2">Demanda Anticipada</option>
                             <option value="3">Demanda Anticipada PRD</option>
                             <option value="4">FIC</option>
-                            <option value="5">Generar Líderes</option>                        
-                            @*2382*@
+                            <option value="5">Generar Líderes</option>
                         </select>
                     }
                     else
@@ -484,7 +477,6 @@
                             <option value="2">Demanda Anticipada</option>
                             <option value="3">Demanda Anticipada PRD</option>                            
                             <option value="5">Generar Líderes</option>
-                            @*2382*@                     
                         </select>
                     }
                 </div>
