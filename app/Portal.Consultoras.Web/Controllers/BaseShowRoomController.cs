@@ -691,6 +691,62 @@ namespace Portal.Consultoras.Web.Controllers
             return listaOferta;
         }
 
-        
+        public ShowRoomEventoModel CargarValoresModel()
+        {
+            ShowRoomEventoModel showRoomEventoModel;
+
+            try
+            {
+                var showRoomEvento = userData.BeShowRoom;
+                var codigoConsultora = userData.CodigoConsultora;
+
+                Mapper.CreateMap<BEShowRoomEvento, ShowRoomEventoModel>()
+                    .ForMember(t => t.EventoID, f => f.MapFrom(c => c.EventoID))
+                    .ForMember(t => t.CampaniaID, f => f.MapFrom(c => c.CampaniaID))
+                    .ForMember(t => t.Tema, f => f.MapFrom(c => c.Tema))
+                    .ForMember(t => t.Nombre, f => f.MapFrom(c => c.Nombre))
+                    .ForMember(t => t.Imagen1, f => f.MapFrom(c => c.Imagen1))
+                    .ForMember(t => t.Imagen2, f => f.MapFrom(c => c.Imagen2))
+                    .ForMember(t => t.Descuento, f => f.MapFrom(c => c.Descuento))
+                    .ForMember(t => t.TieneCategoria, f => f.MapFrom(c => c.TieneCategoria))
+                    .ForMember(t => t.TieneCompraXcompra, f => f.MapFrom(c => c.TieneCompraXcompra));
+
+                showRoomEventoModel = Mapper.Map<BEShowRoomEvento, ShowRoomEventoModel>(showRoomEvento);
+                showRoomEventoModel.Simbolo = userData.Simbolo;
+                showRoomEventoModel.CodigoIso = userData.CodigoISO;
+
+                var fechaHoy = DateTime.Now.AddHours(userData.ZonaHoraria).Date;
+                bool esFacturacion = fechaHoy >= userData.FechaInicioCampania.Date;
+
+                var listaShowRoomOferta = ObtenerListaProductoShowRoom(userData.CampaniaID, codigoConsultora, esFacturacion);
+                showRoomEventoModel.ListaShowRoomOferta = listaShowRoomOferta;
+
+                var listaDetalle = ObtenerPedidoWebDetalle();
+                showRoomEventoModel.ListaShowRoomOferta.Update(o => o.Agregado = (listaDetalle.Find(p => p.CUV == o.CUV) ?? new BEPedidoWebDetalle()).PedidoDetalleID > 0 ? "block" : "none");
+
+                var listaCompraPorCompra = GetProductosCompraPorCompra(esFacturacion, showRoomEventoModel.EventoID,
+                    showRoomEventoModel.CampaniaID);
+                showRoomEventoModel.ListaShowRoomCompraPorCompra = listaCompraPorCompra;
+
+                var listaCategoria = new List<ShowRoomCategoriaModel>();
+                var categorias = listaShowRoomOferta.GroupBy(p => p.CodigoCategoria).Select(p => p.First());
+                foreach (var item in categorias)
+                {
+                    var beCategoria = new ShowRoomCategoriaModel();
+                    beCategoria.Codigo = item.CodigoCategoria;
+                    beCategoria.Descripcion = item.DescripcionCategoria;
+                    beCategoria.EventoID = showRoomEventoModel.EventoID;
+                    listaCategoria.Add(beCategoria);
+                }
+
+                showRoomEventoModel.ListaCategoria = listaCategoria;
+            }
+            catch (Exception ex)
+            {
+                showRoomEventoModel = new ShowRoomEventoModel();
+            }            
+
+            return showRoomEventoModel;
+        }
     }
 }

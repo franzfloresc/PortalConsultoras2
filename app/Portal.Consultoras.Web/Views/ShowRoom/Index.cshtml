@@ -28,14 +28,20 @@
             <!--PRIMER FILTRO-->
             <span class="titulo_filtro_fav">CATEGORÍAS</span>
             <hr class="clear">
-            <div id="div-filter-category">
 
-                <div class="seleccion_filtro_fav">MAMÁ MODERNA</div>
-                <div class="seleccion_filtro_fav">MAMÁ MODERNA</div>
-                <div class="seleccion_filtro_fav">MAMÁ MODERNA</div>
-
-            </div>
-            <div class="linea_separadora"></div>
+            @if (Model.TieneCategoria)
+            {
+                if (Model.ListaCategoria != null && Model.ListaCategoria.Count > 0)
+                {
+                    <div id="div-filter-category">
+                        @foreach (var itemCategoria in Model.ListaCategoria)
+                        {
+                            <div class="seleccion_filtro_fav" data-categoriacodigo="@itemCategoria.Codigo">@itemCategoria.Descripcion</div>
+                        }
+                    </div>
+                    <div class="linea_separadora"></div>
+                }
+            }
 
             <!--TERCER FILTRO-->
             <span class="titulo_filtro_fav">RANGO DE PRECIO</span>
@@ -247,6 +253,9 @@
         <script type="text/javascript">
             var tipoOrigenPantalla = 1;
             var urlTerminosCondiciones = '@Model.UrlTerminosCondiciones';
+            var precioMin = '@ViewBag.PrecioMin';
+            var precioMax = '@ViewBag.PrecioMax';
+            var simbolo = '@Model.Simbolo';
         </script>
         
     }
