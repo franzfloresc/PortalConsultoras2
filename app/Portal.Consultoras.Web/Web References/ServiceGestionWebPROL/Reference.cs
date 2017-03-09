@@ -33,7 +33,11 @@ namespace Portal.Consultoras.Web.ServiceGestionWebPROL {
         
         private System.Threading.SendOrPostCallback ConsultaStockBySapOperationCompleted;
         
+        private System.Threading.SendOrPostCallback ConsultaStockProlOperationCompleted;
+        
         private System.Threading.SendOrPostCallback GetConsultaPrecioValorizadoOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback GetEstrategiaProductoOperationCompleted;
         
         private bool useDefaultCredentialsSetExplicitly;
         
@@ -80,7 +84,13 @@ namespace Portal.Consultoras.Web.ServiceGestionWebPROL {
         public event ConsultaStockBySapCompletedEventHandler ConsultaStockBySapCompleted;
         
         /// <remarks/>
+        public event ConsultaStockProlCompletedEventHandler ConsultaStockProlCompleted;
+        
+        /// <remarks/>
         public event GetConsultaPrecioValorizadoCompletedEventHandler GetConsultaPrecioValorizadoCompleted;
+        
+        /// <remarks/>
+        public event GetEstrategiaProductoCompletedEventHandler GetEstrategiaProductoCompleted;
         
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/GetCdrWebConsulta", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
@@ -153,6 +163,37 @@ namespace Portal.Consultoras.Web.ServiceGestionWebPROL {
         }
         
         /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/ConsultaStockProl", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public StockProl[] ConsultaStockProl(string codsap, string pais) {
+            object[] results = this.Invoke("ConsultaStockProl", new object[] {
+                        codsap,
+                        pais});
+            return ((StockProl[])(results[0]));
+        }
+        
+        /// <remarks/>
+        public void ConsultaStockProlAsync(string codsap, string pais) {
+            this.ConsultaStockProlAsync(codsap, pais, null);
+        }
+        
+        /// <remarks/>
+        public void ConsultaStockProlAsync(string codsap, string pais, object userState) {
+            if ((this.ConsultaStockProlOperationCompleted == null)) {
+                this.ConsultaStockProlOperationCompleted = new System.Threading.SendOrPostCallback(this.OnConsultaStockProlOperationCompleted);
+            }
+            this.InvokeAsync("ConsultaStockProl", new object[] {
+                        codsap,
+                        pais}, this.ConsultaStockProlOperationCompleted, userState);
+        }
+        
+        private void OnConsultaStockProlOperationCompleted(object arg) {
+            if ((this.ConsultaStockProlCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.ConsultaStockProlCompleted(this, new ConsultaStockProlCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/GetConsultaPrecioValorizado", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
         public RptPrecioValorizado[] GetConsultaPrecioValorizado(string campania, string cuv, string pais) {
             object[] results = this.Invoke("GetConsultaPrecioValorizado", new object[] {
@@ -182,6 +223,41 @@ namespace Portal.Consultoras.Web.ServiceGestionWebPROL {
             if ((this.GetConsultaPrecioValorizadoCompleted != null)) {
                 System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
                 this.GetConsultaPrecioValorizadoCompleted(this, new GetConsultaPrecioValorizadoCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/GetEstrategiaProducto", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public RptProductoEstrategia[] GetEstrategiaProducto(string periodo, string codconsultora, string cuv, string pais) {
+            object[] results = this.Invoke("GetEstrategiaProducto", new object[] {
+                        periodo,
+                        codconsultora,
+                        cuv,
+                        pais});
+            return ((RptProductoEstrategia[])(results[0]));
+        }
+        
+        /// <remarks/>
+        public void GetEstrategiaProductoAsync(string periodo, string codconsultora, string cuv, string pais) {
+            this.GetEstrategiaProductoAsync(periodo, codconsultora, cuv, pais, null);
+        }
+        
+        /// <remarks/>
+        public void GetEstrategiaProductoAsync(string periodo, string codconsultora, string cuv, string pais, object userState) {
+            if ((this.GetEstrategiaProductoOperationCompleted == null)) {
+                this.GetEstrategiaProductoOperationCompleted = new System.Threading.SendOrPostCallback(this.OnGetEstrategiaProductoOperationCompleted);
+            }
+            this.InvokeAsync("GetEstrategiaProducto", new object[] {
+                        periodo,
+                        codconsultora,
+                        cuv,
+                        pais}, this.GetEstrategiaProductoOperationCompleted, userState);
+        }
+        
+        private void OnGetEstrategiaProductoOperationCompleted(object arg) {
+            if ((this.GetEstrategiaProductoCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.GetEstrategiaProductoCompleted(this, new GetEstrategiaProductoCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
             }
         }
         
@@ -312,6 +388,159 @@ namespace Portal.Consultoras.Web.ServiceGestionWebPROL {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
+    public partial class RptProductoEstrategia {
+        
+        private string cuvField;
+        
+        private string codigo_estrategiaField;
+        
+        private string estrategiaField;
+        
+        private string grupoField;
+        
+        private string codigo_sapField;
+        
+        private int cantidadField;
+        
+        private decimal precio_unitarioField;
+        
+        private decimal precio_valorizadoField;
+        
+        private int ordenField;
+        
+        private int digitableField;
+        
+        private string codigo_errorField;
+        
+        private string obs_errorField;
+        
+        /// <comentarios/>
+        public string cuv {
+            get {
+                return this.cuvField;
+            }
+            set {
+                this.cuvField = value;
+            }
+        }
+        
+        /// <comentarios/>
+        public string codigo_estrategia {
+            get {
+                return this.codigo_estrategiaField;
+            }
+            set {
+                this.codigo_estrategiaField = value;
+            }
+        }
+        
+        /// <comentarios/>
+        public string estrategia {
+            get {
+                return this.estrategiaField;
+            }
+            set {
+                this.estrategiaField = value;
+            }
+        }
+        
+        /// <comentarios/>
+        public string grupo {
+            get {
+                return this.grupoField;
+            }
+            set {
+                this.grupoField = value;
+            }
+        }
+        
+        /// <comentarios/>
+        public string codigo_sap {
+            get {
+                return this.codigo_sapField;
+            }
+            set {
+                this.codigo_sapField = value;
+            }
+        }
+        
+        /// <comentarios/>
+        public int cantidad {
+            get {
+                return this.cantidadField;
+            }
+            set {
+                this.cantidadField = value;
+            }
+        }
+        
+        /// <comentarios/>
+        public decimal precio_unitario {
+            get {
+                return this.precio_unitarioField;
+            }
+            set {
+                this.precio_unitarioField = value;
+            }
+        }
+        
+        /// <comentarios/>
+        public decimal precio_valorizado {
+            get {
+                return this.precio_valorizadoField;
+            }
+            set {
+                this.precio_valorizadoField = value;
+            }
+        }
+        
+        /// <comentarios/>
+        public int orden {
+            get {
+                return this.ordenField;
+            }
+            set {
+                this.ordenField = value;
+            }
+        }
+        
+        /// <comentarios/>
+        public int digitable {
+            get {
+                return this.digitableField;
+            }
+            set {
+                this.digitableField = value;
+            }
+        }
+        
+        /// <comentarios/>
+        public string codigo_error {
+            get {
+                return this.codigo_errorField;
+            }
+            set {
+                this.codigo_errorField = value;
+            }
+        }
+        
+        /// <comentarios/>
+        public string obs_error {
+            get {
+                return this.obs_errorField;
+            }
+            set {
+                this.obs_errorField = value;
+            }
+        }
+    }
+    
+    /// <comentarios/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1586.0")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
     public partial class RptPrecioValorizado {
         
         private string cuvField;
@@ -337,6 +566,63 @@ namespace Portal.Consultoras.Web.ServiceGestionWebPROL {
             }
             set {
                 this.importevalorizadoField = value;
+            }
+        }
+        
+        /// <comentarios/>
+        public string observacion {
+            get {
+                return this.observacionField;
+            }
+            set {
+                this.observacionField = value;
+            }
+        }
+    }
+    
+    /// <comentarios/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1586.0")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
+    public partial class StockProl {
+        
+        private int codsapField;
+        
+        private int estadoField;
+        
+        private int stockdisponibleField;
+        
+        private string observacionField;
+        
+        /// <comentarios/>
+        public int codsap {
+            get {
+                return this.codsapField;
+            }
+            set {
+                this.codsapField = value;
+            }
+        }
+        
+        /// <comentarios/>
+        public int estado {
+            get {
+                return this.estadoField;
+            }
+            set {
+                this.estadoField = value;
+            }
+        }
+        
+        /// <comentarios/>
+        public int stockdisponible {
+            get {
+                return this.stockdisponibleField;
+            }
+            set {
+                this.stockdisponibleField = value;
             }
         }
         
@@ -462,6 +748,32 @@ namespace Portal.Consultoras.Web.ServiceGestionWebPROL {
     
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0")]
+    public delegate void ConsultaStockProlCompletedEventHandler(object sender, ConsultaStockProlCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class ConsultaStockProlCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal ConsultaStockProlCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public StockProl[] Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((StockProl[])(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0")]
     public delegate void GetConsultaPrecioValorizadoCompletedEventHandler(object sender, GetConsultaPrecioValorizadoCompletedEventArgs e);
     
     /// <remarks/>
@@ -482,6 +794,32 @@ namespace Portal.Consultoras.Web.ServiceGestionWebPROL {
             get {
                 this.RaiseExceptionIfNecessary();
                 return ((RptPrecioValorizado[])(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0")]
+    public delegate void GetEstrategiaProductoCompletedEventHandler(object sender, GetEstrategiaProductoCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class GetEstrategiaProductoCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal GetEstrategiaProductoCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public RptProductoEstrategia[] Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((RptProductoEstrategia[])(this.results[0]));
             }
         }
     }
