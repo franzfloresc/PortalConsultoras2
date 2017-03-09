@@ -85,7 +85,7 @@
            if (Model.ListaShowRoomCompraPorCompra != null && Model.ListaShowRoomCompraPorCompra.Count > 0)
            {
             <div class="content_carrusel_intriga" style="background:white;" id="LlamarPopCompra">
-                <div class="content_banner_img"><img src="https://s3-sa-east-1.amazonaws.com/appcatalogo/CO/201704/C/productos/CO_200084402.jpg" /></div>
+                <div class="content_banner_img"><img src="@Model.ListaShowRoomCompraPorCompra[0].ImagenProducto" /></div>
                 <div class="content_banner_right">
                     <div class="texto_banner_compra">
                         <b>@Model.ListaShowRoomCompraPorCompra[0].Descripcion</b>
@@ -146,59 +146,76 @@
 
         @if (Model.TieneCompraXcompra)
         {
-            <div class="content_pop_compra">
-                @foreach (var item in Model.ListaShowRoomCompraPorCompra)
-                {
+            if (Model.ListaShowRoomCompraPorCompra != null && Model.ListaShowRoomCompraPorCompra.Count > 0)
+            {
+                <div class="content_pop_compra">
+                    @{ var posicionCpc = 1; }
+                    @foreach (var item in Model.ListaShowRoomCompraPorCompra)
+                    {
 
-                <div>
-                    <div class="precio_set_compra">@item.Descripcion. Por la compra de 2 Sets o más.</div>
-                    <div class="content_imagen_carrusel_compra"><img src="@item.ImagenProducto"></div>
-                    <div class="precio_producto_compra"> A SÓLO @item.Simbolo@item.PrecioCatalogo</div>
-                    <div class="descripcion_compra">@item.DescripcionLegal</div>
-                    <div class="descripcion_compra"> A SÓLO @item.Simbolo @item.PrecioOferta</div>
-                    <a class="btn_agrega_compra">AGRÉGALO</a>
-
-
+                        <div data-posicion="@posicionCpc" data-item="@item.OfertaShowRoomID">
+                            <div data-campos="">
+                                <input type="hidden" class="hdOfertaShowRoomID" value="@item.OfertaShowRoomID" />
+                                <input type="hidden" class="valorCuv" value="@item.CUV" />
+                                <input type="hidden" class="claseMarcaID" value="@item.MarcaID" />
+                                <input type="hidden" class="clasePrecioUnidad" value="@item.PrecioCatalogo" />
+                                <input type="hidden" class="DescripcionProd" value="@item.Descripcion" />
+                                <input type="hidden" class="DescripcionMarca" value="@item.DescripcionMarca" />
+                                <input type="hidden" class="posicionEstrategia" value="@posicionCpc" />
+                            </div>
+                            <div class="precio_set_compra"><b>A SÓLO @item.Simbolo @item.FormatoPrecioCatalogo</b><br /> POR LA COMPRA DE 2 SETS</div>
+                            <div class="content_imagen_carrusel_compra">
+                                <img src="@item.ImagenProducto">
+                            </div>
+                            <div class="precio_producto_compra">@item.Descripcion</div>
+                            <div class="descripcion_compra">@item.DescripcionLegal</div>
+                            <div class="descripcion_compra">Valorizado en @item.Simbolo @item.FormatoPrecioOferta</div>
+                            <a class="btn_agrega_compra" data-btn-agregar-cpc="">AGRÉGALO</a>
+                        </div>
+                        {
+                            posicionCpc++;
+                        }
+                    }
                 </div>
-                }
-            </div>
-        }
-        
+            }
+        }        
     </div>
 </div>
 @section scripts{
     <script src="@Url.Content("~/Scripts/slick.min.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/ShowRoom/ShowRoom.js")"></script>
     <script type="text/javascript">
         var urlEnHorarioRestringido = '@Url.Action("EnHorarioRestringido", "Pedido", new {area = ""})';
         var urlValidarUnidadesPermitidasPedidoProducto = '@Url.Action("ValidarUnidadesPermitidasPedidoProducto", "ShowRoom", new { area = "" })';
         var urlObtenerStockActualProducto = '@Url.Action("ObtenerStockActualProducto", "ShowRoom", new { area = "" })';
         var urlInsertOfertaWebPortal = '@Url.Action("InsertOfertaWebPortal", "ShowRoom", new { area = "" })';
         var urlActualizarCantidadTotalPedido = '@Url.Action("ObtenerResumenPedido", "OfertaLiquidacion", new { area = "Mobile" })';
+        var tipoOrigenPantalla = 2;
 
         $(document).ready(function () {
             $("#LlamarPopCompra").click(function () {
                 $('body').css({ 'overflow-x': 'hidden' });
                 $('body').css({ 'overflow-y': 'hidden' });
                 $('#PopCompra').show();
-            });
 
-            $('.content_pop_compra').slick({
-                dots: false,
-                infinite: true,
-                vertical: false,
-                speed: 300,
-                slidesToShow: 1,
-                slidesToScroll: 1,
-                prevArrow: '<a class="previous_ofertas js-slick-prev" style="display: block;left: 0;margin-left: -13%; top: 35%;"><img src="' + baseUrl + 'Content/Images/Esika/left_compra.png")" alt="" /></a>',
-                nextArrow: '<a class="previous_ofertas js-slick-next" style="display: block;right: 0;margin-right: -13%; text-align:right;  top: 35%;"><img src="' + baseUrl + 'Content/Images/Esika/right_compra.png")" alt="" /></a>'
-            });
+                $('.content_pop_compra').slick({
+                    dots: false,
+                    infinite: true,
+                    vertical: false,
+                    speed: 300,
+                    slidesToShow: 1,
+                    slidesToScroll: 1,
+                    prevArrow: '<a class="previous_ofertas js-slick-prev" style="display: block;left: 0;margin-left: -13%; top: 35%;"><img src="' + baseUrl + 'Content/Images/Esika/left_compra.png")" alt="" /></a>',
+                    nextArrow: '<a class="previous_ofertas js-slick-next" style="display: block;right: 0;margin-right: -13%; text-align:right;  top: 35%;"><img src="' + baseUrl + 'Content/Images/Esika/right_compra.png")" alt="" /></a>'
+                });
+            });           
 
             
             $("#CerrarPopCompra").click(function () {
                 $('body').css({ 'overflow-y': 'scroll' });
                 $('#PopCompra').hide();
             });
-            TagManagerOfertaShowRoom();
+            //TagManagerOfertaShowRoom();
 
             
             

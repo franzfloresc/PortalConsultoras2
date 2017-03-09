@@ -23,8 +23,12 @@ namespace Portal.Consultoras.Web.Controllers
     {
         public ActionResult Intriga()
         {
-            if (ValidarIngresoShowRoom(true))
+            if (!ValidarIngresoShowRoom(true))
+            {
                 return RedirectToAction("Index", "Bienvenida");
+            }
+                //if (ValidarIngresoShowRoom(true))
+                
 
             var model = new ShowRoomOfertaModel();
 
