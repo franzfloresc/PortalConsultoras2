@@ -166,7 +166,14 @@
                             </div>
                             <div class="precio_set_compra"><b>A SÓLO @item.Simbolo @item.FormatoPrecioCatalogo</b><br /> POR LA COMPRA DE 2 SETS</div>
                             <div class="content_imagen_carrusel_compra">
-                                <img src="@item.ImagenProducto">
+                                @if (item.ImagenProducto != "")
+                                {
+                                    <img src="@item.ImagenProducto" class="imagen_producto">
+                                }
+                                else
+                                {
+                                    <img src="@Url.Content("~/Content/Images/showroom/no_disponible.png")" style="width: auto; height: 100%;" class="imagen_producto" />
+                                }
                             </div>
                             <div class="precio_producto_compra">@item.Descripcion</div>
                             <div class="descripcion_compra">@item.DescripcionLegal</div>

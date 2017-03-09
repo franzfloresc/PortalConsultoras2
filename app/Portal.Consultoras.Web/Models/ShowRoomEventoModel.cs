@@ -70,5 +70,7 @@ namespace Portal.Consultoras.Web.Models
         public List<ShowRoomOfertaModel> ListaShowRoomCompraPorCompra { get; set; }
 
         public string UrlTerminosCondiciones { get; set; }
+
+        public List<ShowRoomCategoriaModel> ListaCategoria { get; set; }
     }
 }
