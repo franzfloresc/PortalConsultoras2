@@ -306,7 +306,18 @@ $(document).ready(function () {
     Scrolling();
     setInterval(animacionFlechaScroll, 1000);
 
+    OrdenarCabecera();
 });
+
+function OrdenarCabecera() {
+    var hC = $("header").innerHeight() + 2;
+    var htmlSub = $.trim($(".ubicacion_web").html());
+    if (htmlSub == "") {
+        $(".SubHeader").html("");
+    }
+    hC += $(".SubHeader").innerHeight();
+    $(".content[data-content]").css("margin-top", $.trim(hC) + "px");
+}
 
 function messageInfoError(message, titulo) {
     $('#dialog_ErrorMainLayout #mensajeInformacionSB2_Error').html(message);

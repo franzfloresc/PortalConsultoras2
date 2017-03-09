@@ -1,6 +1,10 @@
-﻿using System;
+﻿using AutoMapper;
+using Portal.Consultoras.Common;
+using Portal.Consultoras.Web.Models;
+using Portal.Consultoras.Web.ServicePedido;
+using Portal.Consultoras.Web.ServiceZonificacion;
+using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Data;
 using System.IO;
 using System.Linq;
@@ -8,14 +12,6 @@ using System.ServiceModel;
 using System.Text;
 using System.Web;
 using System.Web.Mvc;
-using AutoMapper;
-using Microsoft.Ajax.Utilities;
-using Portal.Consultoras.Common;
-using Portal.Consultoras.Web.Models;
-using Portal.Consultoras.Web.ServicePedido;
-using Portal.Consultoras.Web.ServiceZonificacion;
-using Portal.Consultoras.Web.ServicePROLConsultas;
-using Portal.Consultoras.Web.ServiceProductoCatalogoPersonalizado;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -27,8 +23,6 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 return RedirectToAction("Index", "Bienvenida");
             }
-                //if (ValidarIngresoShowRoom(true))
-                
 
             var model = new ShowRoomOfertaModel();
 
