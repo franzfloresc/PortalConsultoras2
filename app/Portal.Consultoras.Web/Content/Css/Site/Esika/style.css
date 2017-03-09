@@ -32903,6 +32903,15 @@ h1#penmostreo .campana {
     margin-bottom: 13px;
 }
 
+.sub_detalle_saldo {
+    font-family: 'LAto';
+    font-size: 14px;
+    color: black;
+    text-align: center;
+    margin-bottom: 13px;
+}
+
+
 .pop_solicitud_producto, .pop_solicitud_tipo, .pop_solicitud_solucion, .pop_solicitud_resolucion {
     float: left;
     font-family: 'Lato';
@@ -33336,6 +33345,14 @@ h1#penmostreo .campana {
     text-align: center;
     font-family: 'Lato';
      color: black;
+    padding-top: 15px;
+    font-size: 15px;
+}
+
+.saldo_aprobado_cdr {
+    text-align: center;
+    font-family: 'Lato';
+    color: black;
     padding-top: 15px;
     font-size: 15px;
 }
