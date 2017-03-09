@@ -384,6 +384,7 @@
     }
 
     function obtenerUltimaDescargaExitosa() {
+        waitingDialog({});
         $.ajax({
             type: 'POST',
             url: baseUrl + 'DescargaPedidos/ObtenerUltimaDescargaExitosa',
@@ -392,8 +393,8 @@
             async: true,
             cache: false,
             success: function (data) {
-
                 if (checkTimeout(data)) {
+                    closeWaitingDialog();
                     if (data.success == true) {
                         $("#FechaPedidoWeb").text(data.descarga.FechaProceso);
                         $("#FechaPedidoDD").text(data.descarga.FechaEnvio);
@@ -515,9 +516,12 @@
                         }
                     </div>
                 </div>
-                <div class="input_add_alert_left celda">
-                    <input type="button" name="" id="btnDescargar" value="Descargar" />
-                </div>
+                <div class="celda">
+                     <span ></span>
+                     <div class="input_add_alert_left">
+                        <input type="button" name="" id="btnDescargar" value="Descargar" />
+                    </div>
+                </div>               
             </div>
 
             <div class ="UltimaDescarga">
