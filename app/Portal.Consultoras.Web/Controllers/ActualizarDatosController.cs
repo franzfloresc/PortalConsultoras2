@@ -2,6 +2,7 @@
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.ServiceUsuario;
 using System;
+using System.Configuration;
 using System.ServiceModel;
 using System.Web.Mvc;
 
@@ -105,10 +106,21 @@ namespace Portal.Consultoras.Web.Controllers
                             {
                                 var param_querystring = Util.EncriptarQueryString(new string[] { userData.CodigoUsuario, userData.PaisID.ToString(), userData.CodigoISO, model.Email });
 
-                                var cadena = "<br /><br /> Estimada consultora " + userData.NombreConsultora + " Para confirmar la dirección de correo electrónico ingresada haga click " +
-                                                  "<br /> <a href='" + Util.GetUrlHost(this.HttpContext.Request) + "WebPages/MailConfirmation.aspx?data=" + param_querystring + "'>aquí</a><br/><br/>Belcorp";
+                                //1774 
+                                    bool tipopais=ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(userData.CodigoISO);
+                                    string nomconsultora = string.Empty;
 
-                                Util.EnviarMail("no-responder@somosbelcorp.com", model.Email, "(" + userData.CodigoISO + ") Confimacion de Correo", cadena, true, userData.NombreConsultora);
+                                        if (String.IsNullOrEmpty(userData.Sobrenombre)) {
+                                            nomconsultora = userData.PrimerNombre;
+                                                }
+                                        else
+                                        {
+                                            nomconsultora = userData.Sobrenombre;
+                                        }
+
+                                var cadena =MailUtilities.CuerpoMensajePersonalizado(Util.GetUrlHost(this.HttpContext.Request).ToString(), nomconsultora, param_querystring, tipopais);
+
+                                Util.EnviarMail("no-responder@somosbelcorp.com", model.Email, "Confirmación de Correo", cadena, true, userData.NombreConsultora);
                                 message += "-Se ha enviado un correo electrónico de verificación a la dirección ingresada.";
                             }
                             catch (Exception ex)
@@ -155,6 +167,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
+       
         //1796
         [HttpPost]
         public JsonResult RechazarInvitacionFlexipago()

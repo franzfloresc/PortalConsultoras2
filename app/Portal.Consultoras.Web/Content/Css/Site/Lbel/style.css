@@ -3655,9 +3655,10 @@ a.subir_carousel, a.bajar_carousel {
     padding: 0px;
     text-align: right;
     text-decoration: line-through;
-    font-size: 12px;
+    font-size: 13px;
     width: 50%;
     padding-right: 5px;
+    font-weight:300;
 }
 
 .producto_precio_oferta {
@@ -5096,7 +5097,7 @@ a.subir_carousel, a.bajar_carousel {
 }
 
 .btn_noGracias_agregarProductos {
-    display: block;
+        display: block;
     /* position: absolute; */
     /* margin-left: 10px; */
     /* bottom: -1px; */
@@ -19688,7 +19689,7 @@ float: right;
 .content_show_right {
     float: right;
     height: 485px;
-    width: 379px;
+    width: 343px;
     overflow: hidden;
 }
 
@@ -34074,7 +34075,7 @@ h1#penmostreo .campana {
 }
 
 .content_ficha_producto_nueva {
-    width: 686px;
+    width: 850px;
     height: 450px;
     position: relative;
     top: 50%;
@@ -34086,7 +34087,7 @@ h1#penmostreo .campana {
 /*FICHA PRODUCTO FAV DESKTOP*/
 .content_left_ficha{
     float: left;
-    width: 52%;
+    width: 40%;
     margin-right: 5%;
 }
 
@@ -34098,19 +34099,23 @@ h1#penmostreo .campana {
     .content_ficha_producto img {
         width: 100%;
    }
-.content_right_ficha{
+.content_right_ficha {
     float: RIGHT;
-    width: 41%;
+    width: 55%;
+    position: relative;
 }
 
 .titulo_ficha_producto {
+        margin-top: 10px;
     font-family: 'Lato';
     color: black;
-    font-size: 17px;
+    font-size: 14px;
+    line-height: 16px;
     font-weight: 700;
-    /*text-align: center;*/
+    /* text-align: center; */
     letter-spacing: 0.3px;
-    margin-top: -5px;
+    margin-top: 3px;
+    margin-bottom: 10px;
 }
 
 .cerrar_fichaProducto {
@@ -34133,7 +34138,7 @@ h1#penmostreo .campana {
     color: black;
     font-size: 12.5px;
     line-height: 16px;
-    margin-top: 6px;
+    /*margin-top: 6px;*/
     /*margin-bottom: 7px;*/
 }
 
@@ -34142,7 +34147,7 @@ h1#penmostreo .campana {
     color: black;
     font-weight: 900;
     font-size: 16px;    
-    margin-bottom: 7px;
+    margin-bottom: 15px;
     margin-top:7px;
 }
 
@@ -34168,11 +34173,14 @@ h1#penmostreo .campana {
 
 .content_tono_detalle {
     position: relative;
-    width: 15%;
-    height: 35px;
-    margin-right: 2%;
+    width: 10%;
+    height: 41px;
+    margin-right: 1.25%;
     float: left;    
-    margin-bottom: 5px;
+    margin-bottom: 3px;
+    box-sizing: border-box;
+    padding: 0;
+    border: 1px solid white;
 }
 
     .content_tono_detalle:nth-child(6n) {
@@ -34348,17 +34356,18 @@ h1#penmostreo .campana {
     margin-right:15px;
     font-family:'Lato';
     font-size:12.5px;
-    margin-top:9px;
+    margin-top:3px;
 }
 .btn_compartir_facebook_ficha{
-    width:73px;
-    border:1px solid #cbcbcb;
-    display:block;
-    height:30px;
-    line-height:36px;
-    margin-right:5px;
-    text-align:center;
-    float:left;
+        /* width: 73px; */
+    /* border: 1px solid #cbcbcb; */
+    display: inline-block;
+    vertical-align: -webkit-baseline-middle;
+    /* height: 30px; */
+    /* line-height: 36px; */
+    margin-right: 5px;
+    text-align: center;
+    /* float: left; */
 }
 .opcion_escala_descuento {
 	position: relative;
@@ -34436,6 +34445,98 @@ h1#penmostreo .campana {
     background:url(../../../Images/Lbel/icono_advertencia_notificacion.png) no-repeat left;
     padding-top:3px;
     margin-top:30px;
+}
+.marca_producto{
+    color:black; text-transform:uppercase; margin-bottom:0; font-weight:300;font-family:'lato';
+}
+.texto_precio_ficha{
+    font-family:'Lato';
+    font-size:13px;
+    font-weight:400;
+    margin-right:10px;
+}
+.ganancia_ficha{
+    color: #613c87;
+    font-weight: 400;
+    font-size: 13px;
+    margin-top:-3px;
+}
+
+.content_producto_tono{
+    border-top:1px solid #ccc;
+    width:100%;  
+    padding-top:15px;
+    padding-bottom:10px;
+    position:relative;
+}
+.sub_nombre_producto{
+    font-size:13px;
+    font-weight:700;
+    font-family: 'lato';
+}
+.sub_precio{
+    font-family: 'lato';
+    font-size:11px;
+}
+.content_tono_principal{
+    width: 20%;
+    height: auto;
+    float: left;
+    margin-left: 5%;
+}
+.content_tono_principal img{
+    width:100%;
+
+}
+.detalle_precio_opt{
+    overflow:hidden;
+}
+.combo_select_tono{
+    border:1px solid #b0b0b0;
+    margin-left:2%;
+    margin-top:4px;
+    width:73%;
+    float:right;
+    height:33px;
+    line-height:33px;
+    padding-left:10px;
+    font-family: 'lato';
+    font-size:13px;
+    position:relative;
+}
+.mas_info_tono{
+    display: block;
+    float: right;
+    padding-right: 7px;
+}
+.content_tonos_ficha{
+    width:73%;
+    position:absolute;
+    border:1px solid #b0b0b0;
+    border-top:0;
+    z-index:5;
+    height:auto;
+    top:35px;
+    right:0;
+    background:white;
+    padding:0 10px 10px 10px;
+    -webkit-box-shadow: 0px 12px 11px -9px rgba(173,168,173,1);
+    -moz-box-shadow: 0px 12px 11px -9px rgba(173,168,173,1);
+    box-shadow: 0px 12px 11px -9px rgba(173,168,173,1);
+    display:none;
+}
+.content_tono_combo{
+    width:15%;
+    height:23px;
+    margin-right:2%;   
+    float:left;
+}
+.content_tono_combo img{
+    width:100%;
+}
+.content_tono_combo:nth-child(6n){
+    margin-right:0;
+    
 }
 .mod-ofer1 .boton_Agregalo_home{
     width:139px;
