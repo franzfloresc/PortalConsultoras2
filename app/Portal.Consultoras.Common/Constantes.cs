@@ -365,6 +365,13 @@ namespace Portal.Consultoras.Common
             public const string EsikaMobile = "Este producto está en la Guía de Negocio Ésika con oferta especial.";
             public const string LbelMobile = "Este producto está en Mi Negocio L’bel con oferta especial.";
         }
+        
+        public class PestanhasMisPagos
+        {
+            public const string EstadoCuenta = "EstadoCuenta";
+            public const string LugaresPago = "LugaresPago";
+            public const string MisPercepciones = "MisPercepciones";
+        }
     }
 }
 

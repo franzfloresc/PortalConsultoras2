@@ -12,7 +12,6 @@
       <xs:element minOccurs="0" name="CUV" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="CUVSugerido" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="CampaniaID" type="xs:int" />
-      <xs:element minOccurs="0" name="CodigoProducto" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Estado" type="xs:int" />
       <xs:element minOccurs="0" name="FechaModificacion" type="xs:dateTime" />
       <xs:element minOccurs="0" name="FechaRegistro" type="xs:dateTime" />
@@ -35,6 +34,7 @@
       <xs:element minOccurs="0" name="CodigoSAP" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Descripcion" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="DescripcionOriginal" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DescripcionProductoComercial" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="FotoProducto01" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="FotoProducto02" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="FotoProducto03" nillable="true" type="xs:string" />
@@ -135,6 +135,7 @@
       <xs:element minOccurs="0" name="CodigoUsuarioModificacion" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ConfiguracionOfertaID" type="xs:int" />
       <xs:element minOccurs="0" name="ConsultoraID" type="xs:long" />
+      <xs:element minOccurs="0" name="DescripcionCortadaProd" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="DescripcionEstrategia" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="DescripcionLarga" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="DescripcionOferta" nillable="true" type="xs:string" />

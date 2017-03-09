@@ -95,6 +95,9 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
 
             Mapper.CreateMap<BEMisPedidosDetalle, MisPedidosDetalleModel2>();
 
+            Mapper.CreateMap<MatrizComercialModel, BEMatrizComercial>();
+
+            Mapper.CreateMap<BEMatrizComercial, MatrizComercialResultadoModel>();
             Mapper.CreateMap<BERegion, RegionModel>();
 
             Mapper.CreateMap<BEZona, ZonaModel>();
