@@ -196,5 +196,15 @@ namespace Portal.Consultoras.Common
                 yield return obj.Substring(i, Math.Min(numberOfCharacters, obj.Length - i));
             }
         }
+
+        public static string ToUpper(this string obj, int numberOfCharacters)
+        {
+            return obj.Substring(0, numberOfCharacters).ToUpper() + obj.Substring(numberOfCharacters);
+        }
+
+        public static string ToLower(this string obj, int numberOfCharacters)
+        {
+            return obj.Substring(0, numberOfCharacters).ToLower() + obj.Substring(numberOfCharacters);
+        }
     }
 }

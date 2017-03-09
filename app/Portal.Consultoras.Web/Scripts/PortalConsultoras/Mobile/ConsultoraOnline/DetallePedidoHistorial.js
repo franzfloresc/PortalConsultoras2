@@ -44,8 +44,10 @@ function CancelarSolicitud(solicitudClienteIdActual, marcaIdActual) {
                     $('#dialog_mensajeCancelado').show();
                 },
                 error: function (data) {
-                    MensajeErrorCancelado('Hubieron problemas de conexion al intentar cancelar su solicitud, inténtelo más tarde.');
-                    console.log(data);
+                    if (checkTimeout(data)) {
+                        MensajeErrorCancelado('Hubieron problemas de conexion al intentar cancelar su solicitud, inténtelo más tarde.');
+                        console.log(data);
+                    }
                 },
                 complete: CloseLoading
             });
@@ -94,10 +96,12 @@ function ReservadoOEnHorarioRestringidoAsync(mostrarAlerta, fnRestringido, fnNoR
             }
             fnRestringido();
         },
-        error: function (error) {
-            alert_msg_pedido('Ocurrió un error al intentar validar el horario restringido o si el pedido está reservado. Por favor inténtelo en unos minutos.');
+        error: function (data, error) {
             CloseLoading();
-            fnRestringido();
+            if (checkTimeout(data)) {
+                alert_msg_pedido('Ocurrió un error al intentar validar el horario restringido o si el pedido está reservado. Por favor inténtelo en unos minutos.');                
+                fnRestringido();
+            }
         }
     });
 }

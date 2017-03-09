@@ -3,7 +3,6 @@
     ViewBag.Title = "Administración de Estrategias";
     string imagenVacia = "prod_grilla_vacio.png";
     int nroImagenes = 10;
-    string idControl;
 }
 
 <input type="hidden" id="mensajeErrorCUV" />
@@ -187,7 +186,7 @@
             </div>
             <div class="titG">
                 <div class="pdr_modal borde_redondeado alignrigth">
-                    <img src='@Url.Content("~/Content/Images/" + imagenVacia)' id="imgSeleccionada" class="img-estrategia-preview" data-id="">
+                    <img src='@Url.Content("~/Content/Images/" + imagenVacia)' id="imgSeleccionada" class="img-matriz-preview" data-id="">
                 </div>
             </div>
         </div>
@@ -206,27 +205,10 @@
                 </div>
             </div>
             <div id="divImagenEstrategiaContenido" style="display: none;">
-                <style>
-                    .div-img-estrategias {
-                        float: left;
-                        width: 600px;
-                    }
-
-                        .div-img-estrategias > .titG {
-                            width: 100px;
-                        }
-
-                    .img-estrategia-preview {
-                        cursor: pointer;
-                        width: 100%;
-                        height: 35px;
-                    }
-                </style>
                 <div class="div-3">
-                    <div class="titG">
-                        
+                    <div class="titG">                        
                         <div class="input_search">
-                            @*<img src='@Url.Content("~/Content/Images/subirimagen.png")' id="imgBuscar" class="img-estrategia-preview">*@
+                            @*<img src='@Url.Content("~/Content/Images/subirimagen.png")' id="imgBuscar" class="img-matriz-preview">*@
                             <input type="hidden" id="hdnCodigoSAP" class="input-imagen-producto" />
                            <input type="hidden" id="hdnimagenProducto" class="input-imagen-producto" />
                             <input type="hidden" id="hdnDescripcion" class="input-imagen-producto" />
@@ -576,7 +558,7 @@
 <script id="ImagenCUV-template" type="text/x-jquery-tmpl">
     <div class="titG">
         <div class="pdr_modal borde_redondeado aligncenter">
-            <img src="${dataImagen}" id="preview${idImagen}" class="img-estrategia-preview" data-id="${idImagen}">
+            <img src="${dataImagen}" id="preview${idImagen}" class="img-matriz-preview" data-id="${idImagen}">
         </div>
         <div class="pdr_modal_check aligncenter">
             <input type="checkbox" id="chk-estrategia-imagen${idImagen}" class="chk-estrategia-imagen" {{if selected}} checked{{/if}} data-id="${idImagen}">
@@ -1223,7 +1205,7 @@
         }
     });
 
-    $(".img-estrategia-preview").live("click", function () {
+    $(".img-matriz-preview").live("click", function () {
         var id = $(this).attr('data-id');
         var idImagen = ('0' + id).substr(-2);
         var objChkImagen = $('#chkImagenProducto' + idImagen);
@@ -1571,7 +1553,6 @@
     }
     // 2209 - Fin
     function MostrarVistaPrevia(id) {
-
         $("#imgZonaEstrategia").attr("src", $("#" + id).attr("src"));
         if (id == "preview0") $("#imgZonaEstrategia").attr("src", rutaImagenVacia);
 
