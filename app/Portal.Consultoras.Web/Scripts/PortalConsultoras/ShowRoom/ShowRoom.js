@@ -245,6 +245,16 @@ function AgregarOfertaShowRoomCpc(article, cantidad) {
                         CargarResumenCampaniaHeader(true);
                         $("#PopDetalleCompra").hide();
                     }
+
+                    if ($.trim(tipoOrigenPantalla)[0] == '2') {
+                        CargarCantidadProductosPedidos();
+                    }
+
+                    if (tipoOrigenPantalla == 2) {
+                        $('#PopCompra').hide();
+                        $('body').css({ 'overflow-x': 'auto' });
+                        $('body').css({ 'overflow-y': 'auto' });
+                    }
                 } else messageInfoError(response.message);
             },
             error: function(response, error) {

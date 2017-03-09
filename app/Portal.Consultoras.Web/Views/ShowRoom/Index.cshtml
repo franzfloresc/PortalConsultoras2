@@ -158,14 +158,14 @@
                                 <input type="hidden" class="posicionEstrategia" value="@posicionCpc" />
                             </div>
                             <div class="titulo_compra_POP">PROMOCIÓN</div>
-                            <div class="precio_set_compra"><b>A SÓLO @item.Simbolo @item.PrecioCatalogo</b> POR LA COMPRA DE DOS SETS</div>
+                            <div class="precio_set_compra"><b>A SÓLO @item.Simbolo @item.FormatoPrecioCatalogo</b> POR LA COMPRA DE DOS SETS</div>
                             <div class="content_imagen_compra" data-img="">
                                 <img src="@item.ImagenProducto" class="imagen_producto">
                             </div>
                             <div class="content_datos_carrusel">
                                 <div class="producto_compra">@item.Descripcion</div>
                                 <div class="descripcion_producto_compra">@item.DescripcionLegal</div>
-                                <div class="descripcion_producto_compra">Valorizado en @item.Simbolo @item.PrecioOferta</div>
+                                <div class="descripcion_producto_compra">Valorizado en @item.Simbolo @item.FormatoPrecioOferta</div>
                                 <a data-btn-agregar-cpc="" class="boton_Agregalo_home btn_aregar_set" onclick="" style="width: 100%;">
                                     AGRÉGALO
                                 </a>
@@ -215,6 +215,7 @@
     <div id="loadingScreen"></div>
 
     @section scripts{
+        <script type="text/javascript" src="@Url.Content("~/Scripts/nieve.js")"></script>
         <script type="text/javascript" src="@Url.Content("~/Scripts/slick.min.js")"></script>
         <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.range.js")"></script>
         <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/ShowRoom/Index.js")"></script>
@@ -223,5 +224,5 @@
             var tipoOrigenPantalla = 1;
             var urlTerminosCondiciones = '@Model.UrlTerminosCondiciones';
         </script>
-
+        
     }

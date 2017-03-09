@@ -67,13 +67,18 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
                     if (showRoomBannerLateral.DiasFalta < 1)
                     {
-                        ViewBag.MostrarShowRoomBannerLateral = false;
+                        //ViewBag.MostrarShowRoomBannerLateral = false;
                     }
 
-                    if (showRoomBannerLateral.DiasFalta > 0) {
-                        showRoomBannerLateral.LetrasDias = "FALTAN " + Convert.ToInt32(showRoomBannerLateral.DiasFalta).ToString() + " DÍAS";
+                    if (showRoomBannerLateral.DiasFalta == 0)
+                    {
+                        if (showRoomBannerLateral.DiasFalta > 1)
+                        {
+                            showRoomBannerLateral.LetrasDias = "FALTAN " + Convert.ToInt32(showRoomBannerLateral.DiasFalta).ToString() + " DÍAS";
+                        }
+                        else { showRoomBannerLateral.LetrasDias = "FALTA " + Convert.ToInt32(showRoomBannerLateral.DiasFalta).ToString() + " DÍA"; }
                     }
-                    else { showRoomBannerLateral.LetrasDias = "FALTA " + Convert.ToInt32(showRoomBannerLateral.DiasFalta).ToString() + " DÍA"; }
+                    
 
                     ViewBag.ImagenPopupShowroomIntriga = showRoomBannerLateral.ImagenPopupShowroomIntriga;
                     ViewBag.ImagenBannerShowroomIntriga = showRoomBannerLateral.ImagenBannerShowroomIntriga;
