@@ -3251,9 +3251,6 @@
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
-      <Generator>WCF Proxy Generator</Generator>
-      <LastGenOutput>Reference.cs</LastGenOutput>
-    </None>
     <None Include="Service References\ServiceSAC\SACService.wsdl" />
     <None Include="Service References\ServiceSAC\SACService.xsd">
       <SubType>Designer</SubType>
