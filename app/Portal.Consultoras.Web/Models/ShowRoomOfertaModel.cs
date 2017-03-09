@@ -94,6 +94,8 @@ namespace Portal.Consultoras.Web.Models
 
         public bool TieneCompraXcompra { get; set; }
 
+        public string DescripcionCategoria { get; set; }
+
         public decimal Gana {
             set
             {

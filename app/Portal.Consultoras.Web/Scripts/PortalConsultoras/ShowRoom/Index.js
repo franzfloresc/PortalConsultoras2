@@ -1,4 +1,5 @@
 ﻿var listatipo = "";
+var rangoPrecios = 0;
 
 $(document).ready(function () {
     $(".footer_e").css("margin-bottom", "73px");
@@ -71,7 +72,49 @@ $(document).ready(function () {
     });
 
     $("#linkTerminosCondicionesShowRoom").attr("href", urlTerminosCondiciones);
+
+    CargarFiltroRangoPrecio();
 });
+
+function CargarFiltroRangoPrecio() {
+    precioMin = parseFloat(precioMin);
+    precioMax = parseFloat(precioMax);
+
+    var myformat = simbolo + '%s';
+    var scala1 = simbolo + precioMin;
+    var scala2 = simbolo + precioMax;
+    $('.range-slider').val(precioMin + ',' + precioMax);
+
+    $('.range-slider').show();
+    $('.range-slider').jRange({
+        from: precioMin,
+        to: precioMax,
+        step: 0.01,
+        scale: [scala1, scala2],
+        format: myformat,
+        width: '',
+        showLabels: true,
+        isRange: true,
+        //onstatechange: function () {
+
+        //},
+        ondragend: function (myvalue) {
+            rangoPrecios = myvalue;
+            $(".slider-container").addClass("disabledbutton");
+            //filterFAVDesktop();
+
+        },
+        onbarclicked: function (myvalue) {
+            rangoPrecios = myvalue;
+
+            $(".slider-container").addClass("disabledbutton");
+            //filterFAVDesktop();
+        }
+    });
+    //$('.range-slider').jRange('setValue', '0,100');
+    //$('.range-slider').jRange('updateRange', '0,100');
+    $('.slider-container').css('width', '');
+}
 
 function maxLengthCheck(object, cantidadMaxima) {
     if (object.value.length > cantidadMaxima)

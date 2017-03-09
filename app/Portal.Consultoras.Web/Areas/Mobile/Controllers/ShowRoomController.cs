@@ -127,67 +127,14 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             }
 
             try
-            {
-                var carpetaPais = Globals.UrlMatriz + "/" + UserData().CodigoISO;
-                var showRoomEvento = userData.BeShowRoom;
-                var codigoConsultora = userData.CodigoConsultora;
+            {               
+                var showRoomEventoModel = CargarValoresModel();
 
-                Mapper.CreateMap<BEShowRoomEvento, ShowRoomEventoModel>()
-                    .ForMember(t => t.EventoID, f => f.MapFrom(c => c.EventoID))
-                    .ForMember(t => t.CampaniaID, f => f.MapFrom(c => c.CampaniaID))
-                    .ForMember(t => t.Nombre, f => f.MapFrom(c => c.Nombre))
-                    .ForMember(t => t.Imagen1, f => f.MapFrom(c => c.Imagen1))
-                    .ForMember(t => t.Imagen2, f => f.MapFrom(c => c.Imagen2))
-                    .ForMember(t => t.Descuento, f => f.MapFrom(c => c.Descuento));                
-
-                var showRoomEventoModel = Mapper.Map<BEShowRoomEvento, ShowRoomEventoModel>(showRoomEvento);
-                showRoomEventoModel.Simbolo = userData.Simbolo;
-                showRoomEventoModel.CodigoIso = userData.CodigoISO;
-                showRoomEventoModel.FormatoCampania = userData.CampaniaID.ToString();
-
-                var fechaHoy = DateTime.Now.AddHours(userData.ZonaHoraria).Date;
-                bool esFacturacion = fechaHoy >= userData.FechaInicioCampania.Date;
-
-                var listaShowRoomOferta = ObtenerListaProductoShowRoom(userData.CampaniaID, codigoConsultora, esFacturacion);
-                var listaShowRoomOfertaModel = listaShowRoomOferta;
-
-                //listaShowRoomOfertaModel.Update(x => x.DescripcionMarca = GetDescripcionMarca(x.MarcaID));
-
-                using (PedidoServiceClient sv = new PedidoServiceClient())
-                {
-                    foreach (var item in listaShowRoomOfertaModel)
-                    {
-                        var listaDetalle = sv.GetProductosShowRoomDetalle(userData.PaisID, userData.CampaniaID, item.CUV).ToList();
-
-                        if (listaDetalle != null)
-                        {
-                            listaDetalle.Update(x => x.Imagen = string.IsNullOrEmpty(x.Imagen)
-                                        ? "" : ConfigS3.GetUrlFileS3(carpetaPais, x.Imagen, Globals.UrlMatriz + "/" + userData.CodigoISO));
-
-                            Mapper.CreateMap<BEShowRoomOfertaDetalle, ShowRoomOfertaDetalleModel>()
-                            .ForMember(t => t.OfertaShowRoomDetalleID, f => f.MapFrom(c => c.OfertaShowRoomDetalleID))
-                            .ForMember(t => t.CampaniaID, f => f.MapFrom(c => c.CampaniaID))
-                            .ForMember(t => t.CUV, f => f.MapFrom(c => c.CUV))
-                            .ForMember(t => t.NombreProducto, f => f.MapFrom(c => c.NombreProducto))
-                            .ForMember(t => t.Descripcion1, f => f.MapFrom(c => c.Descripcion1))
-                            .ForMember(t => t.Descripcion2, f => f.MapFrom(c => c.Descripcion2))
-                            .ForMember(t => t.Descripcion3, f => f.MapFrom(c => c.Descripcion3))
-                            .ForMember(t => t.Imagen, f => f.MapFrom(c => c.Imagen))
-                            .ForMember(t => t.FechaCreacion, f => f.MapFrom(c => c.FechaCreacion))
-                            .ForMember(t => t.UsuarioCreacion, f => f.MapFrom(c => c.UsuarioCreacion))
-                            .ForMember(t => t.FechaModificacion, f => f.MapFrom(c => c.FechaModificacion))
-                            .ForMember(t => t.UsuarioModificacion, f => f.MapFrom(c => c.UsuarioModificacion));
-
-                            var listaDetalleOfertaShowRoom = Mapper.Map<List<BEShowRoomOfertaDetalle>, List<ShowRoomOfertaDetalleModel>>(listaDetalle);
-                            item.ListaDetalleOfertaShowRoom = listaDetalleOfertaShowRoom;
-                        }
-                    }
-                }
-
-                showRoomEventoModel.ListaShowRoomOferta = listaShowRoomOfertaModel;
-
-                var listaCompraPorCompra = GetProductosCompraPorCompra(esFacturacion, showRoomEventoModel.EventoID, showRoomEventoModel.CampaniaID);
-                showRoomEventoModel.ListaShowRoomCompraPorCompra = listaCompraPorCompra;
+                var terminosCondiciones = userData.ListaShowRoomPersonalizacionConsultora.FirstOrDefault(
+                        p => p.Atributo == Constantes.ShowRoomPersonalizacion.Mobile.UrlTerminosCondiciones);
+                showRoomEventoModel.UrlTerminosCondiciones = terminosCondiciones == null
+                    ? ""
+                    : terminosCondiciones.Valor;
 
                 return showRoomEventoModel;                
             }
