@@ -36,7 +36,7 @@ $(document).ready(function () {
         $(this).attr("data-check", "1");
     });
 
-    $("#IrPAso2").on("click", function () {
+    $("#IrPAso2").on("click", function () {        
         $("#txtCUVDescripcion2").val('')
         $("#txtCUV2").val('');
         $("#txtCUVPrecio2").val('');
@@ -81,6 +81,11 @@ $(document).ready(function () {
     });
 
     $("#IrSolicitudInicial").on("click", function () {
+        if (mensajePeriodoInvalido != '') {
+            alert_msg(mensajePeriodoInvalido);
+            return false;
+        }
+
         $("#txtCUV").val("");
         $("#txtCUVDescripcion").val("");
         $("#txtCantidad").val("1");
@@ -88,16 +93,16 @@ $(document).ready(function () {
         $("#txtCUVPrecio2").val("");
         $("#spnImporteTotal2").html("");
         $("#hdImporteTotal2").val(0);
-        $("#txtCUVDescripcion2").val(""); 
+        $("#txtCUVDescripcion2").val("");
         $("#txtCantidad2").val("1");
         CambioPaso(-100);
         BuscarMotivo();
-        
+
         $("#divUltimasSolicitudes").show();
         $("#ddlCampania").attr("disabled", "disabled");
     });
 
-    $("#IrSolicitudEnviada").on("click", function () {
+    $("#IrSolicitudEnviada").on("click", function () {     
         var cantidadDetalle = $("#divDetallePaso3 .content_listado_reclamo").length || 0;
 
         if (cantidadDetalle > 0) {
@@ -179,7 +184,7 @@ $(document).ready(function () {
     }
 
 
-    $('#alertEMailDialogMensajes').dialog({
+    $('#alertEMailDialogMensajes').dialog({        
         autoOpen: false,
         resizable: false,
         modal: true,
@@ -297,6 +302,8 @@ function BuscarCUV(CUV) {
         },
         error: function (data, error) {
             closeWaitingDialog();
+            if (checkTimeout(data)) {
+            }
         }
     });
 }
@@ -351,6 +358,7 @@ function BuscarCUVCambiar(cuv) {
         },
         error: function (data, error) {
             closeWaitingDialog();
+            if (checkTimeout(data)) { }
         }
     });
 }
@@ -445,6 +453,7 @@ function BuscarMotivo() {
         },
         error: function (data, error) {
             closeWaitingDialog();
+            if (checkTimeout(data)) { }
         }
     });
 }
@@ -489,14 +498,17 @@ function ValidarPaso1() {
         cache: false,
         success: function (data) {
             closeWaitingDialog();
-            ok = data.success;
+            if (checkTimeout(data)) {
+                ok = data.success;
 
-            if (!data.success && data.message != "") {
-                alert_msg(data.message);
+                if (!data.success && data.message != "") {
+                    alert_msg(data.message);
+                }
             }
         },
         error: function (data, error) {
             closeWaitingDialog();
+            if (checkTimeout(data)) { }
         }
     });
 
@@ -536,6 +548,8 @@ function CargarOperacion() {
         },
         error: function (data, error) {
             closeWaitingDialog();
+            if (checkTimeout(data)) {
+            }
         }
     });
 }
@@ -644,6 +658,8 @@ function ObtenerValorParametria(codigoSsic) {
         },
         error: function (data, error) {
             closeWaitingDialog();
+            if (checkTimeout(data)) {
+            }
         }
     });
 }
@@ -672,6 +688,7 @@ function ObtenerValorCDRWebDatos(codigoSsic) {
         },
         error: function (data, error) {
             closeWaitingDialog();
+            if (checkTimeout(data)) { }
         }
     });
 }
@@ -717,6 +734,7 @@ function CargarPropuesta(codigoSsic) {
         },
         error: function (data, error) {
             closeWaitingDialog();
+            if (checkTimeout(data)) { }
         }
     });
 }
@@ -762,6 +780,7 @@ function DetalleGuardar() {
         },
         error: function (data, error) {
             closeWaitingDialog();
+            if (checkTimeout(data)) { }
         }
     });
     
@@ -977,6 +996,7 @@ function DetalleCargar() {
         },
         error: function(data, error) {
             closeWaitingDialog();
+            if (checkTimeout(data)) { }
         }
     });
 }
@@ -1033,6 +1053,7 @@ function DetalleEliminar(objItem) {
         },
         error: function (data, error) {
             closeWaitingDialog();
+            if (checkTimeout(data)) { }
         }
     });
 }
@@ -1194,11 +1215,12 @@ function SolicitudEnviar() {
             $("#divUltimasSolicitudes").hide();
             $("#TituloReclamo").hide();
             $("#SolicitudEnviada").show();
-
+           
             if (data.Cantidad == 1) alertEMail_msg(data.message, "MENSAJE");
         },
         error: function (data, error) {
             closeWaitingDialog();
+            if (checkTimeout(data)) { }
         }
     });
 }
@@ -1265,6 +1287,7 @@ function ObtenerMontoProductosDevolver(codigoOperacion) {
         },
         error: function (data, error) {
             closeWaitingDialog();
+            if (checkTimeout(data)) { }
         }
     });
 
@@ -1303,6 +1326,7 @@ function ObtenerCantidadProductosByCodigoSsic(codigoSsic) {
         },
         error: function (data, error) {
             closeWaitingDialog();
+            if (checkTimeout(data)) { }
         }
     });
 
@@ -1333,6 +1357,7 @@ function ValidarTelefono() {
         },
         error: function (data, error) {
             closeWaitingDialog();
+            if (checkTimeout(data)) { }
         }
     });
 
@@ -1363,6 +1388,7 @@ function ValidarCorreoDuplicado(correo) {
         },
         error: function (data, error) {
             closeWaitingDialog();
+            if (checkTimeout(data)) { }
         }
     });
 
