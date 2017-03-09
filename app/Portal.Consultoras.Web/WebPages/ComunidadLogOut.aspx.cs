@@ -3,6 +3,7 @@ using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.ServiceComunidad;
 using System;
 using System.Configuration;
+using System.Web.Security;
 
 namespace Portal.Consultoras.Web.WebPages
 {
@@ -34,11 +35,10 @@ namespace Portal.Consultoras.Web.WebPages
                     Session["UserData"] = null;
                     Session.Clear();
                     Session.Abandon();
+                    FormsAuthentication.SignOut();
 
                     Uri urlPortal = Util.GetUrlHost(Request);
-
-                    string urlLogin = string.Format("{0}/Login", urlPortal.AbsolutePath);
-
+                    string urlLogin = string.Format("{0}/Login", urlPortal.AbsoluteUri);
                     Response.Redirect(urlLogin);
                 }
                 else

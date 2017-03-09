@@ -36,7 +36,7 @@ $(document).ready(function () {
         $(this).attr("data-check", "1");
     });
 
-    $("#IrPAso2").on("click", function () {
+    $("#IrPAso2").on("click", function () {        
         $("#txtCUVDescripcion2").val('')
         $("#txtCUV2").val('');
         $("#txtCUVPrecio2").val('');
