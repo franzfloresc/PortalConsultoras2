@@ -109,7 +109,7 @@ $(document).ready(function () {
             return false;
         }
 
-        AgregarProductoAlCarrito(padre);
+        //AgregarProductoAlCarrito(padre);
         AgregarOfertaShowRoom(article, cantidad);
         e.preventDefault();
         (this).blur();
@@ -168,6 +168,8 @@ function AgregarOfertaShowRoom(article, cantidad) {
                 ConfiguracionOfertaID: ConfiguracionOfertaID
             };
 
+            AgregarProductoAlCarrito($(article).parents("[data-item]"));
+
             $.ajaxSetup({ cache: false });
 
             jQuery.ajax({
@@ -193,8 +195,7 @@ function AgregarOfertaShowRoom(article, cantidad) {
                         }
 
                         var padre = $(article).parents("[data-item]");
-                        $(padre).find("[data-input='cantidad']").val(1);
-
+                        $(padre).find("[data-input='cantidad']").val(1);                        
                     }
                     else messageInfoError(response.message);
                 },
