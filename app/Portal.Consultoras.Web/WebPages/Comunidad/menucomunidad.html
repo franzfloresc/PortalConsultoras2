@@ -308,10 +308,9 @@
 <script src="https://www.somosbelcorp.com/Scripts/Comunidad/modernizr.custom.js"></script>
 <script src="https://www.somosbelcorp.com/Scripts/Comunidad/jquery.min.js" type="text/javascript"></script>
 <script type="text/javascript">
-
     var var_comunidad = location.host;
     //var var_comunidad = 'comunidadqa.somosbelcorp.com';
-    var var_somosbelcorp = 'https://www.somosbelcorp.com/';
+    var var_somosbelcorp = var_comunidad = 'comunidadqa.somosbelcorp.com' ? 'https://sb2qa.somosbelcorp.com/' : 'https://www.somosbelcorp.com/';
     //var var_somosbelcorp = 'https://sb2qa.somosbelcorp.com'
 
     $(document).ready(function (e) {
@@ -367,13 +366,13 @@
                                 case "PR":
                                 case "DO":
                                 case "VE":
-                                    $(".logo_Esika>a").attr("href", "https://www.somosbelcorp.com/Bienvenida/");
+                                    $(".logo_Esika>a").attr("href", var_somosbelcorp + "Bienvenida/");
                                     $("#imgLogo").attr("src", "https://www.somosbelcorp.com/Content/Images/Esika/logo_esika.png");
                                     break;
                                 case "MX":
                                 case "PA":
                                 case "CR":
-                                    $(".logo_Esika>a").attr("href", "https://www.somosbelcorp.com/Bienvenida/");
+                                    $(".logo_Esika>a").attr("href", var_somosbelcorp + "Bienvenida/");
                                     $("#imgLogo").attr("src", "https://www.somosbelcorp.com/Content/Images/Lbel/logo_lbel.png");
                                     $(".pestana_marca").removeClass("pestana_esika");
                                     $(".pestana_marca").addClass("pestana_lbel");
@@ -477,10 +476,12 @@
         }
     });
 
+    function RedirectPortalConsultoras(relativeUri) { location.href = var_somosbelcorp + relativeUri; }
+
     function CerrarSesion() {
         var t = '0';
         if ($("#hEsConsultora").val() == '1') t = '1';
-        location.href = var_somosbelcorp + 'WebPages/ComunidadLogOut.aspx?C=' + LITHIUM.CommunityJsonObject.User.login + '&T=' + t;
+        RedirectPortalConsultoras('WebPages/ComunidadLogOut.aspx?C=' + LITHIUM.CommunityJsonObject.User.login + '&T=' + t);
     }
 
     function QSRedireccionEstadisticas(sParam) {
@@ -601,47 +602,47 @@
                             <li>
                                 <div class="linea_menu"> </div>
                                 <div class="content_left_menu">
-                                    <a href="https://www.somosbelcorp.com/Pedido" class="menu_titulo">
+                                    <a href="javascript:void(0);" onclick="RedirectPortalConsultoras('Pedido')" class="menu_titulo">
                                         INGRESA TU PEDIDO
                                     </a>
-                                    <a href="https://www.somosbelcorp.com/Tracking" class="menu_enlace" title="Seguimiento a tu pedido">
+                                    <a href="javascript:void(0);" onclick="RedirectPortalConsultoras('Tracking')" class="menu_enlace" title="Seguimiento a tu pedido">
                                         Seguimiento a tu pedido
                                     </a>
-                                    <a href="https://www.somosbelcorp.com/PedidoFIC/Index" class="menu_enlace" title="Pedidos FIC" id="lnk-pedidos-fic" style="display: none;">
+                                    <a href="javascript:void(0);" onclick="RedirectPortalConsultoras('PedidoFIC/Index')" class="menu_enlace" title="Pedidos FIC" id="lnk-pedidos-fic" style="display: none;">
                                         Pedidos FIC
                                     </a>
-                                    <a href="https://www.somosbelcorp.com/MisPedidos" class="menu_enlace" title="Mis pedidos">
+                                    <a href="javascript:void(0);" onclick="RedirectPortalConsultoras('MisPedidos')" class="menu_enlace" title="Mis pedidos">
                                         Mis pedidos
                                     </a>
-                                    <a href="https://www.somosbelcorp.com/MisPagos" class="menu_enlace" title="Mis pagos">
+                                    <a href="javascript:void(0);" onclick="RedirectPortalConsultoras('MisPagos')" class="menu_enlace" title="Mis pagos">
                                         Mis pagos
                                     </a>
-                                    <a href="https://www.somosbelcorp.com/MisBeneficios" class="menu_enlace" title="Mis beneficios">
+                                    <a href="javascript:void(0);" onclick="RedirectPortalConsultoras('MisBeneficios')" class="menu_enlace" title="Mis beneficios">
                                         Mis beneficios
                                     </a>
                                 </div>
                                 <div class="content_left_menu">
-                                    <a href="https://www.somosbelcorp.com/ConsultoraOnline/Index" class="menu_enlace" title="App de Catálogos" id="lnk-app-catalogos" style="display: none;">
+                                    <a href="javascript:void(0);" onclick="RedirectPortalConsultoras('ConsultoraOnline/Index')" class="menu_enlace" title="App de Catálogos" id="lnk-app-catalogos" style="display: none;">
                                         App de Catálogos
                                     </a>
-                                    <a href="https://www.somosbelcorp.com/Cliente" class="menu_enlace" title="Mis clientes">
+                                    <a href="javascript:void(0);" onclick="RedirectPortalConsultoras('Cliente')" class="menu_enlace" title="Mis clientes">
                                         Mis clientes
                                     </a>
-                                    <a href="https://www.somosbelcorp.com/OfertaLiquidacion/OfertasLiquidacion" class="menu_enlace" title="Liquidación web" id="lnk-liquidacion-web" style="display: none;">
+                                    <a href="javascript:void(0);" onclick="RedirectPortalConsultoras('OfertaLiquidacion/OfertasLiquidacion')" class="menu_enlace" title="Liquidación web" id="lnk-liquidacion-web" style="display: none;">
                                         Liquidación web
                                     </a>
-                                    <a href="https://www.somosbelcorp.com/MisReclamos/Index" class="menu_enlace" title="Cambios y Devoluciones" id="lnk-cambios-devoluciones" style="display: none;">
+                                    <a href="javascript:void(0);" onclick="RedirectPortalConsultoras('MisReclamos/Index')" class="menu_enlace" title="Cambios y Devoluciones" id="lnk-cambios-devoluciones" style="display: none;">
                                         Cambios y Devoluciones
                                     </a>
-                                    <a href="https://www.somosbelcorp.com/CatalogoPersonalizado/Index" class="menu_enlace" title="Los favoritos de mis clientes" id="lnk-fav-tus-clientes" style="display: none;">
+                                    <a href="javascript:void(0);" onclick="RedirectPortalConsultoras('CatalogoPersonalizado/Index')" class="menu_enlace" title="Los favoritos de mis clientes" id="lnk-fav-tus-clientes" style="display: none;">
                                         Los favoritos de mis clientes
                                     </a>
                                 </div>
-                                <a href="https://www.somosbelcorp.com/MisCatalogosRevistas" class="menu_imagen" title="Mis Catalogos y Revistas">
+                                <a href="javascript:void(0);" onclick="RedirectPortalConsultoras('MisCatalogosRevistas')" class="menu_imagen" title="Mis Catalogos y Revistas">
                                     <img id="imgMiNegocioCatalogoRevista" alt="Mis Catalogos y Revistas" src="https://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Menu/MiNegocio/PE/imagen_01.png">
                                     <div class="titulo_imagen">CATÁLOGOS Y REVISTAS</div>
                                 </a>
-                                <a href="https://www.somosbelcorp.com/Incentivos" class="menu_imagen no_margin_right" title="Incentivos">
+                                <a href="javascript:void(0);" onclick="RedirectPortalConsultoras('Incentivos')" class="menu_imagen no_margin_right" title="Incentivos">
                                     <img id="imgMiNegocioIncentivos" alt="Incentivos" src="https://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Menu/MiNegocio/PE/imagen_03.png">
                                     <div class="titulo_imagen">INCENTIVOS</div>
                                 </a>
