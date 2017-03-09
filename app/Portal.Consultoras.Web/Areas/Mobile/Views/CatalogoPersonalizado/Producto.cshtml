@@ -124,7 +124,22 @@ else
             </div>
 
             <div class="content_redes_ficha">
-            <div class="content_redes_ficha">
+            <div class="content_redes_ficha" data-item="">
+                <div data-compartir-campos="" style="display:none;">
+                    <input type="hidden" class="CUV" value="@Model.CUV" />
+                    <input type="hidden" class="rsFBMensaje" value="" />
+                    <input type="hidden" class="rsFBRuta" value="@Model.FBRuta" />
+                    <input type="hidden" class="rsWAMensaje" value="" />
+                    <input type="hidden" class="rsWARuta" value="@Model.FBRuta" />
+                    <input type="hidden" class="rsFBRutaImagen" value="@Model.ImagenProductoSugerido" />
+                    <input type="hidden" class="rsWARutaImagen" value="@Model.ImagenProductoSugerido" />
+                    <input type="hidden" class="MarcaID" value="@Model.MarcaID" />
+                    <input type="hidden" class="MarcaNombre" value="@Model.DescripcionMarca" />
+                    <input type="hidden" class="Nombre" value="@Model.Descripcion" />
+                    <input type="hidden" class="ProductoDescripcion" value="@Model.DescripcionComercial" />
+                    <input type="hidden" class="Volumen" value="@Model.Volumen" />
+                    <input type="hidden" class="Palanca" value="FAV" />
+                </div>
                 @{
                     var urlWs = "";
                     string urlBase_fb = "";
@@ -139,8 +154,8 @@ else
                         urlBase_fb = request.Url.Scheme + "://" + request.Url.Authority + "/Pdto.aspx?id=" + Model.CodigoIso + "_[valor]";
                     }
                 }
-                <a id="btn_wsp" class="btn_compartir_ofertas" href="javascript:window.location=CompartirWsp('@urlWs');" data-action="share/whatsapp/share"><img src="@Url.Content("~/Content/Images/Mobile/Esika/catalogo_ws.png")" alt=""></a>
-                <a id="btn_fb" class="btn_compartir_ofertas" href="javascript:void(0);" onclick='CompartirFacebook("@urlBase_fb");'><img src="@Url.Content("~/Content/Images/Mobile/Esika/facebook.png")" alt=""></a>
+                <a id="btn_wsp" class="btn_compartir_ofertas" href="javascript:window.location=CompartirRedesSociales(this);" data-compartir="WA" data-action="share/whatsapp/share"><img src="@Url.Content("~/Content/Images/Mobile/Esika/catalogo_ws.png")" alt=""></a>
+                <a id="btn_fb" class="btn_compartir_ofertas" href="javascript: void(0);" data-compartir="FB"><img src="@Url.Content("~/Content/Images/Mobile/Esika/facebook.png")" alt=""></a>
             </div>
 
             <div style="display: none;">
