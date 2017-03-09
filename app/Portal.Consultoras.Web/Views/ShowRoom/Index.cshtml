@@ -28,14 +28,20 @@
             <!--PRIMER FILTRO-->
             <span class="titulo_filtro_fav">CATEGORÍAS</span>
             <hr class="clear">
-            <div id="div-filter-category">
 
-                <div class="seleccion_filtro_fav">MAMÁ MODERNA</div>
-                <div class="seleccion_filtro_fav">MAMÁ MODERNA</div>
-                <div class="seleccion_filtro_fav">MAMÁ MODERNA</div>
-
-            </div>
-            <div class="linea_separadora"></div>
+            @if (Model.TieneCategoria)
+            {
+                if (Model.ListaCategoria != null && Model.ListaCategoria.Count > 0)
+                {
+                    <div id="div-filter-category">
+                        @foreach (var itemCategoria in Model.ListaCategoria)
+                        {
+                            <div class="seleccion_filtro_fav" data-categoriacodigo="@itemCategoria.Codigo">@itemCategoria.Descripcion</div>
+                        }
+                    </div>
+                    <div class="linea_separadora"></div>
+                }
+            }
 
             <!--TERCER FILTRO-->
             <span class="titulo_filtro_fav">RANGO DE PRECIO</span>
@@ -173,7 +179,14 @@
                             <div class="titulo_compra_POP">PROMOCIÓN</div>
                             <div class="precio_set_compra"><b>A SÓLO @item.Simbolo @item.FormatoPrecioCatalogo</b> POR LA COMPRA DE DOS SETS</div>
                             <div class="content_imagen_compra" data-img="">
-                                <img src="@item.ImagenProducto" class="imagen_producto">
+                                @if (item.ImagenProducto != "")
+                                {
+                                    <img src="@item.ImagenProducto" class="imagen_producto">
+                                }
+                                else
+                                {
+                                    <img src="@Url.Content("~/Content/Images/showroom/no_disponible.png")" style="width: auto; height: 100%;" class="imagen_producto" />
+                                }
                             </div>
                             <div class="content_datos_carrusel">
                                 <div class="producto_compra">@item.Descripcion</div>
@@ -236,6 +249,9 @@
         <script type="text/javascript">
             var tipoOrigenPantalla = 1;
             var urlTerminosCondiciones = '@Model.UrlTerminosCondiciones';
+            var precioMin = '@ViewBag.PrecioMin';
+            var precioMax = '@ViewBag.PrecioMax';
+            var simbolo = '@Model.Simbolo';
         </script>
         
     }

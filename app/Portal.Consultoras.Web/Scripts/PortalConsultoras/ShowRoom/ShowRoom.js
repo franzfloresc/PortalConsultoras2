@@ -104,6 +104,11 @@ $(document).ready(function () {
         var article = $(padre).find("[data-campos]").eq(0);
         var cantidad = $(padre).find("[data-input='cantidad']").val();
 
+        if (cantidad == "" || cantidad == 0) {
+            AbrirMensaje("La cantidad ingresada debe ser mayor que 0, verifique.");
+            return false;
+        }
+
         AgregarProductoAlCarrito(padre);
         AgregarOfertaShowRoom(article, cantidad);
         e.preventDefault();
@@ -135,74 +140,73 @@ function AgregarOfertaShowRoom(article, cantidad) {
     var posicion = $(article).find(".posicionEstrategia").val();
     var descripcionMarca = $(article).find(".DescripcionMarca").val();
 
-    if (cantidad == "" || cantidad == 0) {
-        AbrirMensaje("La cantidad ingresada debe ser mayor que 0, verifique.");
-    } else {
-        AbrirLoad();
-        $.ajaxSetup({
-            cache: false
-        });
-        $.getJSON(baseUrl + 'ShowRoom/ValidarUnidadesPermitidasPedidoProducto', { CUV: CUV }, function (data) {
-            if (parseInt(data.Saldo) < parseInt(cantidad)) {
-                var Saldo = data.Saldo;
-                var UnidadesPermitidas = data.UnidadesPermitidas;
+    AbrirLoad();
+    $.ajaxSetup({
+        cache: false
+    });
+    $.getJSON(baseUrl + 'ShowRoom/ValidarUnidadesPermitidasPedidoProducto', { CUV: CUV }, function (data) {
+        if (parseInt(data.Saldo) < parseInt(cantidad)) {
+            var Saldo = data.Saldo;
+            var UnidadesPermitidas = data.UnidadesPermitidas;
 
-                CerrarLoad();
+            CerrarLoad();
 
-                if (Saldo == UnidadesPermitidas)
-                    AbrirMensaje("Lamentablemente, la cantidad solicitada sobrepasa las Unidades Permitidas de Venta (" + UnidadesPermitidas + ") del producto.");
-                else {
-                    if (Saldo == "0")
-                        AbrirMensaje("Las Unidades Permitidas de Venta son solo (" + UnidadesPermitidas + "), pero Usted ya no puede adicionar más, debido a que ya agregó este producto a su pedido, verifique.");
-                    else
-                        AbrirMensaje("Las Unidades Permitidas de Venta son solo (" + UnidadesPermitidas + "), pero Usted solo puede adicionar (" + Saldo + ") más, debido a que ya agregó este producto a su pedido, verifique.");
-                }
-            } else {
-                var Item = {
-                    MarcaID: MarcaID,
-                    Cantidad: cantidad,
-                    PrecioUnidad: PrecioUnidad,
-                    CUV: CUV,
-                    ConfiguracionOfertaID: ConfiguracionOfertaID
-                };
-
-                $.ajaxSetup({ cache: false });
-
-                jQuery.ajax({
-                    type: 'POST',
-                    url: baseUrl + 'ShowRoom/InsertOfertaWebPortal',
-                    dataType: 'json',
-                    contentType: 'application/json; charset=utf-8',
-                    data: JSON.stringify(Item),
-                    async: true,
-                    success: function (response) {
-                        CerrarLoad();
-
-                        if (response.success == true) {                            
-
-                            if ($.trim(tipoOrigenPantalla)[0] == '1') {
-                                CargarResumenCampaniaHeader(true);
-
-                                $(article).parents("[data-item]").find(".product-add").css("display", "block");
-                            }                            
-
-                            if (tipoOrigenPantalla == 21) {
-                                CargarCantidadProductosPedidos();
-                            }
-
-                        }
-                        else messageInfoError(response.message);
-                    },
-                    error: function (response, error) {
-                        if (checkTimeout(response)) {
-                            CerrarLoad();
-                            console.log(response);
-                        }
-                    }
-                });
+            if (Saldo == UnidadesPermitidas)
+                AbrirMensaje("Lamentablemente, la cantidad solicitada sobrepasa las Unidades Permitidas de Venta (" + UnidadesPermitidas + ") del producto.");
+            else {
+                if (Saldo == "0")
+                    AbrirMensaje("Las Unidades Permitidas de Venta son solo (" + UnidadesPermitidas + "), pero Usted ya no puede adicionar más, debido a que ya agregó este producto a su pedido, verifique.");
+                else
+                    AbrirMensaje("Las Unidades Permitidas de Venta son solo (" + UnidadesPermitidas + "), pero Usted solo puede adicionar (" + Saldo + ") más, debido a que ya agregó este producto a su pedido, verifique.");
             }
-        });
-    }
+        } else {
+            var Item = {
+                MarcaID: MarcaID,
+                Cantidad: cantidad,
+                PrecioUnidad: PrecioUnidad,
+                CUV: CUV,
+                ConfiguracionOfertaID: ConfiguracionOfertaID
+            };
+
+            $.ajaxSetup({ cache: false });
+
+            jQuery.ajax({
+                type: 'POST',
+                url: baseUrl + 'ShowRoom/InsertOfertaWebPortal',
+                dataType: 'json',
+                contentType: 'application/json; charset=utf-8',
+                data: JSON.stringify(Item),
+                async: true,
+                success: function (response) {
+                    CerrarLoad();
+
+                    if (response.success == true) {
+
+                        if ($.trim(tipoOrigenPantalla)[0] == '1') {
+                            CargarResumenCampaniaHeader(true);
+
+                            $(article).parents("[data-item]").find(".product-add").css("display", "block");
+                        }
+
+                        if (tipoOrigenPantalla == 21) {
+                            CargarCantidadProductosPedidos();
+                        }
+
+                        var padre = $(article).parents("[data-item]");
+                        $(padre).find("[data-input='cantidad']").val(1);
+
+                    }
+                    else messageInfoError(response.message);
+                },
+                error: function (response, error) {
+                    if (checkTimeout(response)) {
+                        CerrarLoad();
+                        console.log(response);
+                    }
+                }
+            });
+        }
+    });
 }
 
 function AgregarOfertaShowRoomCpc(article, cantidad) {

@@ -141,6 +141,9 @@ namespace Portal.Consultoras.Entities.ShowRoom
         [DataMember]
         public string TipNegocio { get; set; }
 
+        [DataMember]
+        public string DescripcionCategoria { get; set; }
+
         public BEShowRoomOferta(IDataRecord row)
         {
             if (DataRecord.HasColumn(row, "OfertaShowRoomID") && row["OfertaShowRoomID"] != DBNull.Value)
@@ -202,6 +205,8 @@ namespace Portal.Consultoras.Entities.ShowRoom
                 CodigoCategoria = Convert.ToString(row["CodigoCategoria"]);
             if (DataRecord.HasColumn(row, "TipNegocio") && row["TipNegocio"] != DBNull.Value)
                 TipNegocio = Convert.ToString(row["TipNegocio"]);
+            if (DataRecord.HasColumn(row, "DescripcionCategoria") && row["DescripcionCategoria"] != DBNull.Value)
+                DescripcionCategoria = Convert.ToString(row["DescripcionCategoria"]);            
         }
     }
 }
