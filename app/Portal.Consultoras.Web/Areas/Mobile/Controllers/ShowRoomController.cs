@@ -201,6 +201,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         
         public ActionResult DetalleOferta(int id)
         {
+            ActionExecutingMobile();
             if (!ValidarIngresoShowRoom(false))
                 return RedirectToAction("Index", "Bienvenida");
 

@@ -1485,6 +1485,7 @@ namespace Portal.Consultoras.Web.Controllers
                 fechaHoy <= userData.FechaInicioCampania.AddDays(model.BEShowRoom.DiasDespues).Date))
             {
                 model.MostrarShowRoomProductos = true;
+                Session["MostrarShowRoomProductos"] = "1";
                 //model.RutaShowRoomBannerLateral = Url.Action("Index", "ShowRoom");
             }
             if (fechaHoy > userData.FechaInicioCampania.AddDays(model.BEShowRoom.DiasDespues).Date) model.EstaActivoLateral = false;
@@ -1523,6 +1524,8 @@ namespace Portal.Consultoras.Web.Controllers
                     model.ImagenBannerShowroomVenta = Item.Valor;
                 }
             }
+
+            
 
             return model;
         }
