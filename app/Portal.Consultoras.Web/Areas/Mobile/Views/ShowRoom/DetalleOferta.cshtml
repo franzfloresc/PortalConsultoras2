@@ -12,7 +12,7 @@
     <div class="product_sheet_image" data-img="">
         <div class="titulo_mobile" style="margin-top:-28px; margin-bottom.20px;">
             <a href="@Request.UrlReferrer" class="enlace_regresar catalogosP" title="Regresar"></a>
-            &nbsp;&nbsp;&nbsp;&nbsp;LOS FAVORITOS DE TUS CLIENTES
+            &nbsp;&nbsp;&nbsp;&nbsp;GRAN VENTA WEB
             <div class="pestana_esika"></div><!--PESTANA ESIKA-->
             <div class="pestana_lbel mobileLiquidaciones pestana_favoritos"></div><!--PESTANA LBEL-->
         </div>
@@ -131,44 +131,50 @@
     {
         if (Model.ListaShowRoomCompraPorCompra != null && Model.ListaShowRoomCompraPorCompra.Count > 0)
         {
-            <div class="box_promotions">
-                <div class="titulo_compra_POP">PROMOCIÓN</div>
-                <div class="content_compra_carrusel">
-                    @{ var posicionCpc = 1; }
-                    @foreach (var item in Model.ListaShowRoomCompraPorCompra)
+            <div style="max-width:380px; margin:0 auto;">
+                <div class="box_promotions">
+                    <div class="titulo_compra_POP">PROMOCIÓN</div>
+                    <div class="content_compra_carrusel">
+                        @{ var posicionCpc = 1; }
+                        @foreach (var item in Model.ListaShowRoomCompraPorCompra)
                     {
-                        <div data-posicion="@posicionCpc" data-item="@item.OfertaShowRoomID">
-                            <div data-campos="">
-                                <input type="hidden" class="hdOfertaShowRoomID" value="@item.OfertaShowRoomID" />
-                                <input type="hidden" class="valorCuv" value="@item.CUV" />
-                                <input type="hidden" class="claseMarcaID" value="@item.MarcaID" />
-                                <input type="hidden" class="clasePrecioUnidad" value="@item.PrecioCatalogo" />
-                                <input type="hidden" class="DescripcionProd" value="@item.Descripcion" />
-                                <input type="hidden" class="DescripcionMarca" value="@item.DescripcionMarca" />
-                                <input type="hidden" class="posicionEstrategia" value="@posicionCpc" />
+                            <div data-posicion="@posicionCpc" data-item="@item.OfertaShowRoomID">
+                                <div data-campos="">
+                                    <input type="hidden" class="hdOfertaShowRoomID" value="@item.OfertaShowRoomID" />
+                                    <input type="hidden" class="valorCuv" value="@item.CUV" />
+                                    <input type="hidden" class="claseMarcaID" value="@item.MarcaID" />
+                                    <input type="hidden" class="clasePrecioUnidad" value="@item.PrecioCatalogo" />
+                                    <input type="hidden" class="DescripcionProd" value="@item.Descripcion" />
+                                    <input type="hidden" class="DescripcionMarca" value="@item.DescripcionMarca" />
+                                    <input type="hidden" class="posicionEstrategia" value="@posicionCpc" />
+                                </div>
+                                <div class="precio_set_compra"><b>A SÓLO @item.Simbolo @item.FormatoPrecioCatalogo</b><br /> POR LA COMPRA DE 2 SETS</div>
+                                <div class="content_imagen_carrusel_compra">
+                                    @if (item.ImagenProducto != "")
+                                    {
+                                        <img src="@item.ImagenProducto" class="imagen_producto">
+                                    }
+                                    else
+                                    {
+                                        <img src="@Url.Content("~/Content/Images/showroom/no_disponible.png")" style="width: auto; height: 100%;" class="imagen_producto" />
+                                    }
+                                </div>
+                                <div style="height:78px;">
+                                    <div class="precio_producto_compra">@item.Descripcion</div>
+                                    <div class="descripcion_compra">@item.DescripcionLegal</div>
+                                    <div class="descripcion_compra">Valorizado en @item.Simbolo @item.FormatoPrecioOferta</div>
+                                </div>
+                                
+                                <a class="btn_agrega_compra" data-btn-agregar-cpc="">AGRÉGALO</a>
                             </div>
-                            <div class="precio_set_compra"><b>A SÓLO @item.Simbolo @item.FormatoPrecioCatalogo</b><br/> POR LA COMPRA DE 2 SETS</div>
-                            <div class="content_imagen_carrusel_compra">
-                                @if (item.ImagenProducto != "")
-                                {
-                                    <img src="@item.ImagenProducto" class="imagen_producto">
-                                }
-                                else
-                                {
-                                    <img src="@Url.Content("~/Content/Images/showroom/no_disponible.png")" style="width: auto; height: 100%;" class="imagen_producto" />
-                                }
-                            </div>
-                            <div class="precio_producto_compra">@item.Descripcion</div>
-                            <div class="descripcion_compra">@item.DescripcionLegal</div>
-                            <div class="descripcion_compra">Valorizado en @item.Simbolo @item.FormatoPrecioOferta</div>
-                            <a class="btn_agrega_compra" data-btn-agregar-cpc="">AGRÉGALO</a>
-                        </div>
-                        {
-                            posicionCpc++;
+                            {
+                                posicionCpc++;
+                            }
                         }
-                    }
+                    </div>
                 </div>
             </div>
+           
         }
     }
 

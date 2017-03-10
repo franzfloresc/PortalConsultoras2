@@ -34950,6 +34950,7 @@ h1#penmostreo .campana {
     height:250px;
     text-align:center;
     float:left;
+    margin-top:25px;
 }
 .content_imagen_compra img{
     /*height: 250px;*/ 
@@ -35035,6 +35036,7 @@ h1#penmostreo .campana {
     -webkit-box-shadow: -2px 1px 18px -4px rgba(0,0,0,0.5);
     -moz-box-shadow: -2px 1px 18px -4px rgba(0,0,0,0.5);
     box-shadow: -2px 1px 18px -4px rgba(0,0,0,0.5);
+    z-index:1000;
 }
 .content_interno_banner{
    width:720px;
