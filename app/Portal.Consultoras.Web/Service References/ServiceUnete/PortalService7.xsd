@@ -118,6 +118,8 @@
       <xs:element minOccurs="0" name="IndicadorActivo" nillable="true" type="xs:boolean" />
       <xs:element minOccurs="0" name="IndicadorActivoID" type="xs:int" />
       <xs:element minOccurs="0" name="IndicadorOptin" nillable="true" type="xs:boolean" />
+      <xs:element minOccurs="0" name="Latitud" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="Longitud" nillable="true" type="xs:decimal" />
       <xs:element minOccurs="0" name="LugarHijo" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="LugarPadre" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="MontoMeta" nillable="true" type="xs:decimal" />

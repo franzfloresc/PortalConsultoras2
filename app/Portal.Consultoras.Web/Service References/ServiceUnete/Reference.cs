@@ -1186,6 +1186,9 @@ namespace Portal.Consultoras.Web.ServiceUnete {
         private string ApellidoPaternoAvalField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<int> CampaniaDeRegistroField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private System.Nullable<int> CampaniaIDField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -1627,6 +1630,19 @@ namespace Portal.Consultoras.Web.ServiceUnete {
                 if ((object.ReferenceEquals(this.ApellidoPaternoAvalField, value) != true)) {
                     this.ApellidoPaternoAvalField = value;
                     this.RaisePropertyChanged("ApellidoPaternoAval");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<int> CampaniaDeRegistro {
+            get {
+                return this.CampaniaDeRegistroField;
+            }
+            set {
+                if ((this.CampaniaDeRegistroField.Equals(value) != true)) {
+                    this.CampaniaDeRegistroField = value;
+                    this.RaisePropertyChanged("CampaniaDeRegistro");
                 }
             }
         }
@@ -3355,6 +3371,12 @@ namespace Portal.Consultoras.Web.ServiceUnete {
         private System.Nullable<bool> IndicadorOptinField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<decimal> LatitudField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<decimal> LongitudField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string LugarHijoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -4405,6 +4427,32 @@ namespace Portal.Consultoras.Web.ServiceUnete {
                 if ((this.IndicadorOptinField.Equals(value) != true)) {
                     this.IndicadorOptinField = value;
                     this.RaisePropertyChanged("IndicadorOptin");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<decimal> Latitud {
+            get {
+                return this.LatitudField;
+            }
+            set {
+                if ((this.LatitudField.Equals(value) != true)) {
+                    this.LatitudField = value;
+                    this.RaisePropertyChanged("Latitud");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<decimal> Longitud {
+            get {
+                return this.LongitudField;
+            }
+            set {
+                if ((this.LongitudField.Equals(value) != true)) {
+                    this.LongitudField = value;
+                    this.RaisePropertyChanged("Longitud");
                 }
             }
         }
@@ -6435,11 +6483,27 @@ namespace Portal.Consultoras.Web.ServiceUnete {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPortalService/ActualizarSolicitudPostulantePaso", ReplyAction="http://tempuri.org/IPortalService/ActualizarSolicitudPostulantePasoResponse")]
         System.Threading.Tasks.Task<int> ActualizarSolicitudPostulantePasoAsync(string codigoISO, Portal.Consultoras.Web.ServiceUnete.SolicitudPostulante solicitudPostulante);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPortalService/ActualizarSolicitudPostulantePaso5Pasos", ReplyAction="http://tempuri.org/IPortalService/ActualizarSolicitudPostulantePaso5PasosResponse" +
+            "")]
+        int ActualizarSolicitudPostulantePaso5Pasos(string codigoISO, Portal.Consultoras.Web.ServiceUnete.SolicitudPostulante solicitudPostulante);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPortalService/ActualizarSolicitudPostulantePaso5Pasos", ReplyAction="http://tempuri.org/IPortalService/ActualizarSolicitudPostulantePaso5PasosResponse" +
+            "")]
+        System.Threading.Tasks.Task<int> ActualizarSolicitudPostulantePaso5PasosAsync(string codigoISO, Portal.Consultoras.Web.ServiceUnete.SolicitudPostulante solicitudPostulante);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPortalService/ActualizarSolicitudPostulantePasoList", ReplyAction="http://tempuri.org/IPortalService/ActualizarSolicitudPostulantePasoListResponse")]
         void ActualizarSolicitudPostulantePasoList(string codigoISO, Portal.Consultoras.Web.ServiceUnete.SolicitudPostulante[] solicitudPostulanteList);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPortalService/ActualizarSolicitudPostulantePasoList", ReplyAction="http://tempuri.org/IPortalService/ActualizarSolicitudPostulantePasoListResponse")]
         System.Threading.Tasks.Task ActualizarSolicitudPostulantePasoListAsync(string codigoISO, Portal.Consultoras.Web.ServiceUnete.SolicitudPostulante[] solicitudPostulanteList);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPortalService/ActualizarSolicitudPostulantePasoList5Pasos", ReplyAction="http://tempuri.org/IPortalService/ActualizarSolicitudPostulantePasoList5PasosResp" +
+            "onse")]
+        void ActualizarSolicitudPostulantePasoList5Pasos(string codigoISO, Portal.Consultoras.Web.ServiceUnete.SolicitudPostulante[] solicitudPostulanteList);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPortalService/ActualizarSolicitudPostulantePasoList5Pasos", ReplyAction="http://tempuri.org/IPortalService/ActualizarSolicitudPostulantePasoList5PasosResp" +
+            "onse")]
+        System.Threading.Tasks.Task ActualizarSolicitudPostulantePasoList5PasosAsync(string codigoISO, Portal.Consultoras.Web.ServiceUnete.SolicitudPostulante[] solicitudPostulanteList);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPortalService/AgregarSolicitudPostulante", ReplyAction="http://tempuri.org/IPortalService/AgregarSolicitudPostulanteResponse")]
         int AgregarSolicitudPostulante(string codigoISO, Portal.Consultoras.Web.ServiceUnete.SolicitudPostulante solicitudPostulante);
@@ -6488,6 +6552,12 @@ namespace Portal.Consultoras.Web.ServiceUnete {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPortalService/ObtenerSolicitudesPostulanteV2", ReplyAction="http://tempuri.org/IPortalService/ObtenerSolicitudesPostulanteV2Response")]
         System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUnete.SolicitudPostulanteCollection> ObtenerSolicitudesPostulanteV2Async(Portal.Consultoras.Web.ServiceUnete.SolicitudPostulanteParameter parameter);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPortalService/ObtenerSolicitudesPostulante5PasosV2", ReplyAction="http://tempuri.org/IPortalService/ObtenerSolicitudesPostulante5PasosV2Response")]
+        Portal.Consultoras.Web.ServiceUnete.SolicitudPostulanteCollection ObtenerSolicitudesPostulante5PasosV2(Portal.Consultoras.Web.ServiceUnete.SolicitudPostulanteParameter parameter);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPortalService/ObtenerSolicitudesPostulante5PasosV2", ReplyAction="http://tempuri.org/IPortalService/ObtenerSolicitudesPostulante5PasosV2Response")]
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUnete.SolicitudPostulanteCollection> ObtenerSolicitudesPostulante5PasosV2Async(Portal.Consultoras.Web.ServiceUnete.SolicitudPostulanteParameter parameter);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPortalService/ObtenerSolicitudesPostulanteV3", ReplyAction="http://tempuri.org/IPortalService/ObtenerSolicitudesPostulanteV3Response")]
         Portal.Consultoras.Web.ServiceUnete.SolicitudPostulanteCollection ObtenerSolicitudesPostulanteV3(Portal.Consultoras.Web.ServiceUnete.SolicitudPostulanteParameter parameter);
@@ -6675,12 +6745,28 @@ namespace Portal.Consultoras.Web.ServiceUnete {
             return base.Channel.ActualizarSolicitudPostulantePasoAsync(codigoISO, solicitudPostulante);
         }
         
+        public int ActualizarSolicitudPostulantePaso5Pasos(string codigoISO, Portal.Consultoras.Web.ServiceUnete.SolicitudPostulante solicitudPostulante) {
+            return base.Channel.ActualizarSolicitudPostulantePaso5Pasos(codigoISO, solicitudPostulante);
+        }
+        
+        public System.Threading.Tasks.Task<int> ActualizarSolicitudPostulantePaso5PasosAsync(string codigoISO, Portal.Consultoras.Web.ServiceUnete.SolicitudPostulante solicitudPostulante) {
+            return base.Channel.ActualizarSolicitudPostulantePaso5PasosAsync(codigoISO, solicitudPostulante);
+        }
+        
         public void ActualizarSolicitudPostulantePasoList(string codigoISO, Portal.Consultoras.Web.ServiceUnete.SolicitudPostulante[] solicitudPostulanteList) {
             base.Channel.ActualizarSolicitudPostulantePasoList(codigoISO, solicitudPostulanteList);
         }
         
         public System.Threading.Tasks.Task ActualizarSolicitudPostulantePasoListAsync(string codigoISO, Portal.Consultoras.Web.ServiceUnete.SolicitudPostulante[] solicitudPostulanteList) {
             return base.Channel.ActualizarSolicitudPostulantePasoListAsync(codigoISO, solicitudPostulanteList);
+        }
+        
+        public void ActualizarSolicitudPostulantePasoList5Pasos(string codigoISO, Portal.Consultoras.Web.ServiceUnete.SolicitudPostulante[] solicitudPostulanteList) {
+            base.Channel.ActualizarSolicitudPostulantePasoList5Pasos(codigoISO, solicitudPostulanteList);
+        }
+        
+        public System.Threading.Tasks.Task ActualizarSolicitudPostulantePasoList5PasosAsync(string codigoISO, Portal.Consultoras.Web.ServiceUnete.SolicitudPostulante[] solicitudPostulanteList) {
+            return base.Channel.ActualizarSolicitudPostulantePasoList5PasosAsync(codigoISO, solicitudPostulanteList);
         }
         
         public int AgregarSolicitudPostulante(string codigoISO, Portal.Consultoras.Web.ServiceUnete.SolicitudPostulante solicitudPostulante) {
@@ -6745,6 +6831,14 @@ namespace Portal.Consultoras.Web.ServiceUnete {
         
         public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUnete.SolicitudPostulanteCollection> ObtenerSolicitudesPostulanteV2Async(Portal.Consultoras.Web.ServiceUnete.SolicitudPostulanteParameter parameter) {
             return base.Channel.ObtenerSolicitudesPostulanteV2Async(parameter);
+        }
+        
+        public Portal.Consultoras.Web.ServiceUnete.SolicitudPostulanteCollection ObtenerSolicitudesPostulante5PasosV2(Portal.Consultoras.Web.ServiceUnete.SolicitudPostulanteParameter parameter) {
+            return base.Channel.ObtenerSolicitudesPostulante5PasosV2(parameter);
+        }
+        
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUnete.SolicitudPostulanteCollection> ObtenerSolicitudesPostulante5PasosV2Async(Portal.Consultoras.Web.ServiceUnete.SolicitudPostulanteParameter parameter) {
+            return base.Channel.ObtenerSolicitudesPostulante5PasosV2Async(parameter);
         }
         
         public Portal.Consultoras.Web.ServiceUnete.SolicitudPostulanteCollection ObtenerSolicitudesPostulanteV3(Portal.Consultoras.Web.ServiceUnete.SolicitudPostulanteParameter parameter) {

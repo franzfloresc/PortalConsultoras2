@@ -127,11 +127,26 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+  <xs:element name="ActualizarSolicitudPostulantePaso5Pasos">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="codigoISO" nillable="true" type="xs:string" />
+        <xs:element xmlns:q12="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.DL.DataModel.BelcorpPais" minOccurs="0" name="solicitudPostulante" nillable="true" type="q12:SolicitudPostulante" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ActualizarSolicitudPostulantePaso5PasosResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="ActualizarSolicitudPostulantePaso5PasosResult" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
   <xs:element name="ActualizarSolicitudPostulantePasoList">
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="0" name="codigoISO" nillable="true" type="xs:string" />
-        <xs:element xmlns:q12="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.DL.DataModel.BelcorpPais" minOccurs="0" name="solicitudPostulanteList" nillable="true" type="q12:ArrayOfSolicitudPostulante" />
+        <xs:element xmlns:q13="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.DL.DataModel.BelcorpPais" minOccurs="0" name="solicitudPostulanteList" nillable="true" type="q13:ArrayOfSolicitudPostulante" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -140,11 +155,24 @@
       <xs:sequence />
     </xs:complexType>
   </xs:element>
+  <xs:element name="ActualizarSolicitudPostulantePasoList5Pasos">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="codigoISO" nillable="true" type="xs:string" />
+        <xs:element xmlns:q14="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.DL.DataModel.BelcorpPais" minOccurs="0" name="solicitudPostulanteList" nillable="true" type="q14:ArrayOfSolicitudPostulante" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ActualizarSolicitudPostulantePasoList5PasosResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
   <xs:element name="AgregarSolicitudPostulante">
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="0" name="codigoISO" nillable="true" type="xs:string" />
-        <xs:element xmlns:q13="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.DL.DataModel.BelcorpPais" minOccurs="0" name="solicitudPostulante" nillable="true" type="q13:SolicitudPostulante" />
+        <xs:element xmlns:q15="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.DL.DataModel.BelcorpPais" minOccurs="0" name="solicitudPostulante" nillable="true" type="q15:SolicitudPostulante" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -159,7 +187,7 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="0" name="codigoISO" nillable="true" type="xs:string" />
-        <xs:element xmlns:q14="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.DL.DataModel.BelcorpPais" minOccurs="0" name="solicitudPostulanteList" nillable="true" type="q14:ArrayOfSolicitudPostulante" />
+        <xs:element xmlns:q16="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.DL.DataModel.BelcorpPais" minOccurs="0" name="solicitudPostulanteList" nillable="true" type="q16:ArrayOfSolicitudPostulante" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -175,7 +203,7 @@
       <xs:sequence>
         <xs:element minOccurs="0" name="codigoISO" nillable="true" type="xs:string" />
         <xs:element minOccurs="0" name="solicitudPostulanteID" type="xs:int" />
-        <xs:element xmlns:q15="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.Utils" minOccurs="0" name="idTipoParametro" type="q15:Enums.TipoParametro" />
+        <xs:element xmlns:q17="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.Utils" minOccurs="0" name="idTipoParametro" type="q17:Enums.TipoParametro" />
         <xs:element minOccurs="0" name="valor" type="xs:int" />
       </xs:sequence>
     </xs:complexType>
@@ -191,7 +219,7 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="0" name="codigoISO" nillable="true" type="xs:string" />
-        <xs:element xmlns:q16="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.DL.DataModel.BelcorpPais" minOccurs="0" name="solicitudPostulante" nillable="true" type="q16:SolicitudPostulante" />
+        <xs:element xmlns:q18="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.DL.DataModel.BelcorpPais" minOccurs="0" name="solicitudPostulante" nillable="true" type="q18:SolicitudPostulante" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -204,7 +232,7 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="0" name="codigoISO" nillable="true" type="xs:string" />
-        <xs:element xmlns:q17="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.DL.DataModel.BelcorpPais" minOccurs="0" name="solicitudPostulante" nillable="true" type="q17:SolicitudPostulante" />
+        <xs:element xmlns:q19="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.DL.DataModel.BelcorpPais" minOccurs="0" name="solicitudPostulante" nillable="true" type="q19:SolicitudPostulante" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -216,14 +244,14 @@
   <xs:element name="ObtenerSolicitudesPostulante">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q18="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.Utils" minOccurs="0" name="aplicacion" type="q18:Enums.Aplicacion" />
+        <xs:element xmlns:q20="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.Utils" minOccurs="0" name="aplicacion" type="q20:Enums.Aplicacion" />
         <xs:element minOccurs="0" name="codigoISO" nillable="true" type="xs:string" />
         <xs:element minOccurs="0" name="codigoZona" nillable="true" type="xs:string" />
         <xs:element minOccurs="0" name="codigoSeccion" nillable="true" type="xs:string" />
         <xs:element minOccurs="0" name="fechaDesde" nillable="true" type="xs:dateTime" />
         <xs:element minOccurs="0" name="fechaHasta" nillable="true" type="xs:dateTime" />
         <xs:element minOccurs="0" name="nombreProspecto" nillable="true" type="xs:string" />
-        <xs:element xmlns:q19="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.Utils" minOccurs="0" name="estadoPostulante" type="q19:Enums.EstadoPostulante" />
+        <xs:element xmlns:q21="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.Utils" minOccurs="0" name="estadoPostulante" type="q21:Enums.EstadoPostulante" />
         <xs:element minOccurs="0" name="documentoIdentidad" nillable="true" type="xs:string" />
       </xs:sequence>
     </xs:complexType>
@@ -231,56 +259,70 @@
   <xs:element name="ObtenerSolicitudesPostulanteResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q20="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.SI.ServiceContract.Collections" minOccurs="0" name="ObtenerSolicitudesPostulanteResult" nillable="true" type="q20:SolicitudPostulanteCollection" />
+        <xs:element xmlns:q22="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.SI.ServiceContract.Collections" minOccurs="0" name="ObtenerSolicitudesPostulanteResult" nillable="true" type="q22:SolicitudPostulanteCollection" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="ObtenerReporteConsolidado">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q21="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.BL.BC.Parameter" minOccurs="0" name="parameter" nillable="true" type="q21:ReporteConsolidadoParameter" />
+        <xs:element xmlns:q23="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.BL.BC.Parameter" minOccurs="0" name="parameter" nillable="true" type="q23:ReporteConsolidadoParameter" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="ObtenerReporteConsolidadoResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q22="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.SI.ServiceContract.Collections" minOccurs="0" name="ObtenerReporteConsolidadoResult" nillable="true" type="q22:ReporteConsolidadoCollection" />
+        <xs:element xmlns:q24="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.SI.ServiceContract.Collections" minOccurs="0" name="ObtenerReporteConsolidadoResult" nillable="true" type="q24:ReporteConsolidadoCollection" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="ObtenerSolicitudesPostulanteV2">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q23="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.BL.BC.Parameter" minOccurs="0" name="parameter" nillable="true" type="q23:SolicitudPostulanteParameter" />
+        <xs:element xmlns:q25="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.BL.BC.Parameter" minOccurs="0" name="parameter" nillable="true" type="q25:SolicitudPostulanteParameter" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="ObtenerSolicitudesPostulanteV2Response">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q24="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.SI.ServiceContract.Collections" minOccurs="0" name="ObtenerSolicitudesPostulanteV2Result" nillable="true" type="q24:SolicitudPostulanteCollection" />
+        <xs:element xmlns:q26="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.SI.ServiceContract.Collections" minOccurs="0" name="ObtenerSolicitudesPostulanteV2Result" nillable="true" type="q26:SolicitudPostulanteCollection" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ObtenerSolicitudesPostulante5PasosV2">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q27="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.BL.BC.Parameter" minOccurs="0" name="parameter" nillable="true" type="q27:SolicitudPostulanteParameter" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ObtenerSolicitudesPostulante5PasosV2Response">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q28="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.SI.ServiceContract.Collections" minOccurs="0" name="ObtenerSolicitudesPostulante5PasosV2Result" nillable="true" type="q28:SolicitudPostulanteCollection" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="ObtenerSolicitudesPostulanteV3">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q25="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.BL.BC.Parameter" minOccurs="0" name="parameter" nillable="true" type="q25:SolicitudPostulanteParameter" />
+        <xs:element xmlns:q29="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.BL.BC.Parameter" minOccurs="0" name="parameter" nillable="true" type="q29:SolicitudPostulanteParameter" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="ObtenerSolicitudesPostulanteV3Response">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q26="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.SI.ServiceContract.Collections" minOccurs="0" name="ObtenerSolicitudesPostulanteV3Result" nillable="true" type="q26:SolicitudPostulanteCollection" />
+        <xs:element xmlns:q30="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.SI.ServiceContract.Collections" minOccurs="0" name="ObtenerSolicitudesPostulanteV3Result" nillable="true" type="q30:SolicitudPostulanteCollection" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="ObtenerCantidadNuevasSolicitudesPostulante">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q27="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.Utils" minOccurs="0" name="aplicacion" type="q27:Enums.Aplicacion" />
+        <xs:element xmlns:q31="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.Utils" minOccurs="0" name="aplicacion" type="q31:Enums.Aplicacion" />
         <xs:element minOccurs="0" name="codigoISO" nillable="true" type="xs:string" />
         <xs:element minOccurs="0" name="codigoZona" nillable="true" type="xs:string" />
         <xs:element minOccurs="0" name="codigoSeccion" nillable="true" type="xs:string" />
@@ -297,7 +339,7 @@
   <xs:element name="ActualizarSolicitudPostulanteALeidas">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q28="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.Utils" minOccurs="0" name="aplicacion" type="q28:Enums.Aplicacion" />
+        <xs:element xmlns:q32="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.Utils" minOccurs="0" name="aplicacion" type="q32:Enums.Aplicacion" />
         <xs:element minOccurs="0" name="codigoISO" nillable="true" type="xs:string" />
         <xs:element minOccurs="0" name="codigoZona" nillable="true" type="xs:string" />
         <xs:element minOccurs="0" name="codigoSeccion" nillable="true" type="xs:string" />
@@ -322,7 +364,7 @@
   <xs:element name="ObtenerSolicitudPostulanteResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q29="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.DL.DataModel.BelcorpPais" minOccurs="0" name="ObtenerSolicitudPostulanteResult" nillable="true" type="q29:SolicitudPostulante" />
+        <xs:element xmlns:q33="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.DL.DataModel.BelcorpPais" minOccurs="0" name="ObtenerSolicitudPostulanteResult" nillable="true" type="q33:SolicitudPostulante" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -338,7 +380,7 @@
   <xs:element name="ObtenerSolicitudPostulanteByNumeroDocumentoResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q30="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.DL.DataModel.BelcorpPais" minOccurs="0" name="ObtenerSolicitudPostulanteByNumeroDocumentoResult" nillable="true" type="q30:SolicitudPostulante" />
+        <xs:element xmlns:q34="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.DL.DataModel.BelcorpPais" minOccurs="0" name="ObtenerSolicitudPostulanteByNumeroDocumentoResult" nillable="true" type="q34:SolicitudPostulante" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -353,7 +395,7 @@
   <xs:element name="ObtenerSolicitudPostulantePorIdResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q31="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.DL.DataModel.BelcorpPais" minOccurs="0" name="ObtenerSolicitudPostulantePorIdResult" nillable="true" type="q31:SolicitudPostulante" />
+        <xs:element xmlns:q35="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.DL.DataModel.BelcorpPais" minOccurs="0" name="ObtenerSolicitudPostulantePorIdResult" nillable="true" type="q35:SolicitudPostulante" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -416,7 +458,7 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="0" name="codigoISO" nillable="true" type="xs:string" />
-        <xs:element xmlns:q32="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.DL.DataModel.BelcorpPais" minOccurs="0" name="ParametroUneteList" nillable="true" type="q32:ArrayOfParametroUnete" />
+        <xs:element xmlns:q36="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.DL.DataModel.BelcorpPais" minOccurs="0" name="ParametroUneteList" nillable="true" type="q36:ArrayOfParametroUnete" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -429,7 +471,7 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="0" name="codigoISO" nillable="true" type="xs:string" />
-        <xs:element xmlns:q33="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.DL.DataModel.BelcorpPais" minOccurs="0" name="ubigeoCRList" nillable="true" type="q33:ArrayOfUbigeoCR" />
+        <xs:element xmlns:q37="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.DL.DataModel.BelcorpPais" minOccurs="0" name="ubigeoCRList" nillable="true" type="q37:ArrayOfUbigeoCR" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -442,7 +484,7 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="0" name="codigoISO" nillable="true" type="xs:string" />
-        <xs:element xmlns:q34="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.DL.DataModel.BelcorpPais" minOccurs="0" name="ubigeoList" nillable="true" type="q34:ArrayOfUbigeoTemplate" />
+        <xs:element xmlns:q38="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.DL.DataModel.BelcorpPais" minOccurs="0" name="ubigeoList" nillable="true" type="q38:ArrayOfUbigeoTemplate" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -461,7 +503,7 @@
   <xs:element name="ObtenerListaNivelesGeograficosCRResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q35="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.SI.ServiceContract.Collections" minOccurs="0" name="ObtenerListaNivelesGeograficosCRResult" nillable="true" type="q35:UbigeoCRCollection" />
+        <xs:element xmlns:q39="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.SI.ServiceContract.Collections" minOccurs="0" name="ObtenerListaNivelesGeograficosCRResult" nillable="true" type="q39:UbigeoCRCollection" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -475,7 +517,7 @@
   <xs:element name="ObtenerListaNivelesGeograficosGeneralResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q36="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.SI.ServiceContract.Collections" minOccurs="0" name="ObtenerListaNivelesGeograficosGeneralResult" nillable="true" type="q36:UbigeoTemplateCollection" />
+        <xs:element xmlns:q40="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.SI.ServiceContract.Collections" minOccurs="0" name="ObtenerListaNivelesGeograficosGeneralResult" nillable="true" type="q40:UbigeoTemplateCollection" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

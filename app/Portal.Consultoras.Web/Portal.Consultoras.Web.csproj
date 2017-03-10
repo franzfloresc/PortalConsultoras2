@@ -3290,7 +3290,7 @@
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
-    <Content Include="Service References\ServiceUnete\PortalService.wsdl" />
+    <None Include="Service References\ServiceUnete\PortalService.wsdl" />
     <None Include="Service References\ServiceUnete\PortalService.xsd">
       <SubType>Designer</SubType>
     </None>
@@ -3496,12 +3496,12 @@
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
-    <Content Include="Service References\ServiceUnete\configuration91.svcinfo" />
-    <Content Include="Service References\ServiceUnete\configuration.svcinfo" />
-    <Content Include="Service References\ServiceUnete\Reference.svcmap">
+    <None Include="Service References\ServiceUnete\configuration91.svcinfo" />
+    <None Include="Service References\ServiceUnete\configuration.svcinfo" />
+    <None Include="Service References\ServiceUnete\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
-    </Content>
+    </None>
     <Content Include="Service References\ServiceZonificacion\configuration91.svcinfo" />
     <Content Include="Service References\ServiceZonificacion\configuration.svcinfo" />
     <Content Include="Service References\ServiceZonificacion\Reference.svcmap">
