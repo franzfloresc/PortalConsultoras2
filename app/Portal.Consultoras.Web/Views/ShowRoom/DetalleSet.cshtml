@@ -94,7 +94,7 @@
                     @{ var posicionCpcVertical = 1; }
                     @foreach (var item in Model.ListaShowRoomCompraPorCompra)
                     {
-                        <div data-posicion="@posicionCpcVertical" data-item="@item.OfertaShowRoomID">
+                        <div data-posicion="@posicionCpcVertical" data-item="@item.OfertaShowRoomID" style="height: 420px!important;">
                             <div data-campos="">
                                 <input type="hidden" class="hdOfertaShowRoomID" value="@item.OfertaShowRoomID" />
                                 <input type="hidden" class="valorCuv" value="@item.CUV" />
