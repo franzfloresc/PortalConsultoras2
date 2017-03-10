@@ -64,7 +64,17 @@
                         }
                         <div class="content_detalle_showroom">
                             @*<div class="cantidad_set_individual">x2</div>*@
-                            <div class="content_imagen_individual"><img src="http://S3.amazonaws.com/consultorasQAS/SomosBelcorp/Matriz/CO/CO_SET4_colombia_dorsay_2017356717_01_yubljgnapp.jpg" style="width: 100%;"></div>
+                            <div class="content_imagen_individual">
+                                @if (detalle.Imagen != "")
+                                {
+                                    var rutaImagen = ViewBag.UrlRaizS3 + Session["carpetaPais"] + "/" + detalle.Imagen;
+                                    <img src= @rutaImagen style ="width: 100%;">
+                                }
+                                else
+                                {
+                                    <img src="@Url.Content("~/Content/Images/showroom/no_disponible.png")" style="width: 100%;">
+                                }
+                            </div>
                             <div class="nombre_set_individual">
                                 @detalle.NombreProducto
                                 <span class="detalle_set_showroom">@detalle.Descripcion1</span>

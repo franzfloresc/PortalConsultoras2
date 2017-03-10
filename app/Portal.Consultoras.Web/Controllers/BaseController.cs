@@ -977,6 +977,7 @@ namespace Portal.Consultoras.Web.Controllers
                                 //if (fechaHoy > userData.FechaInicioCampania.AddDays(model.BeShowRoom.DiasDespues).Date) //beShowRoomConsultora.MostrarPopup = false;
                                 //    Session["MostrarShowRoomProductos"] = false;
                             }
+                            Session["carpetaPais"] = carpetaPais;
                         }
                     }
                     model.CargoEntidadesShowRoom = true;
