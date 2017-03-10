@@ -206,7 +206,7 @@
                <input type="submit" class="btn_noEliminarCliente btnEditSolic" id="btnGuardar" value="Guardar" />
 
                     }
-                <button type="button" name="btn_noEliminarCliente" class="btn_noEliminarCliente btnEditSolic" id="btnCancelar">Cancelar </button>
+                <button type="button" name="btn_noEliminarCliente" class="btn_noEliminarCliente btnEditSolic" onclick="closeModalEditar()" id="btnCancelar">Cancelar </button>
             </div>
 
         </div>
@@ -331,6 +331,10 @@
 <script>
     var urlObtenerNombreConsultora = '@Url.Action("ObtenerNombreConsultora")';
 
+    function closeModalEditar()
+    {
+        $('#divEditarSolicitud').hide();
+    }
     $.validator.setDefaults({
         ignore: '.ignore'
     });
@@ -366,7 +370,7 @@
         {
             <text>
         var controles = $('#divEditarSolicitud input, #divEditarSolicitud select');
-        debugger;
+  
         controles.attr('disabled', true);
         controles.attr('readonly', true);
         $('#divEditarSolicitud .ui-datepicker-trigger').remove();
@@ -378,11 +382,7 @@
             $('#divEditarSolicitud').hide();
         });
 
-        $('#btnCancelar').click(function () {
-            //  modal.dialog('close');
-            $('#divEditarSolicitud').hide();
-        });
-
+    
         
         $('.numero').keydown(IntegerNumber);
         $('.texto').keydown(Text);
@@ -434,7 +434,7 @@
     });
 
     function OnSuccess(data) {
-        debugger;
+        
         if (data.success) {
             //modal.dialog('close');
             $('#divEditarSolicitud').hide();
