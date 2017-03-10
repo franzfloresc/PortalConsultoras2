@@ -545,20 +545,81 @@ namespace Portal.Consultoras.Web.Controllers
                 if (solicitudPostulante != null)
                 {
                     model.SolicitudPostulanteID = id;
-                    var direccion = solicitudPostulante.Direccion.Split('|');
+                    var direccion = solicitudPostulante.Direccion == null ? new string[0] : solicitudPostulante.Direccion.Split('|');
 
-                    model.DireccionCadena =
-                        CodigoISO == Pais.Chile
-                            ? direccion[0] + " " + direccion[1]
-                            : CodigoISO == Pais.Colombia
-                                ? direccion[1] + " " + direccion[2] + " " + direccion[0]
-                                : CodigoISO == Pais.Mexico
-                                    ? direccion[0] + " " + direccion[1]
-                                    : CodigoISO == Pais.Peru
-                                        ? direccion[0] + " " + direccion[1] + " " + direccion[2]
-                                        : CodigoISO == Pais.Ecuador
-                                            ?  direccion[1]// + " " + direccion[2]
-                                            : solicitudPostulante.Direccion;
+                    if (CodigoISO == Pais.Chile)
+                    {
+                        switch (direccion.Length)
+                        {
+                            case 1:
+                                model.DireccionCadena = direccion[0]; break;
+                            case 2:
+                                model.DireccionCadena = direccion[0] + " " + direccion[1]; break;
+                            default:
+                                model.DireccionCadena = ""; break;
+                        }
+                    }
+                    else if (CodigoISO == Pais.Colombia)
+                    {
+                        switch (direccion.Length)
+                        {
+                            case 1:
+                                model.DireccionCadena = direccion[0]; break;
+                            case 2:
+                                model.DireccionCadena = direccion[1] + " " + " " + direccion[0]; break;
+                            case 3:
+                                model.DireccionCadena = direccion[1] + " " + direccion[2] + " " + direccion[0]; break;
+                            default:
+                                model.DireccionCadena = ""; break;
+                        }
+                    }
+                    else if (CodigoISO == Pais.Mexico)
+                    {
+                        switch (direccion.Length)
+                        {
+                            case 1:
+                                model.DireccionCadena = direccion[0]; break;
+                            case 2:
+                                model.DireccionCadena = direccion[0] + " " + direccion[1]; break;
+                            case 3:
+                                model.DireccionCadena = direccion[0] + " " + direccion[1]; break;
+                            default:
+                                model.DireccionCadena = ""; break;
+                        }
+                    }
+                    else if (CodigoISO == Pais.Peru)
+                    {
+                        switch (direccion.Length)
+                        {
+                            case 1:
+                                model.DireccionCadena = direccion[0]; break;
+                            case 2:
+                                model.DireccionCadena = direccion[0] + " " + direccion[1]; break;
+                            case 3:
+                                model.DireccionCadena = direccion[0] + " " + direccion[1] + " " + direccion[2]; break;
+                            default:
+                                model.DireccionCadena = ""; break;
+                        }
+                    }
+                    else if (CodigoISO == Pais.Ecuador)
+                    {
+                        switch (direccion.Length)
+                        {
+                            case 1:
+                                model.DireccionCadena = direccion[0]; break;
+                            case 2:
+                                model.DireccionCadena = direccion[1]; break;
+                            case 3:
+                                model.DireccionCadena = direccion[1]; break;
+                            default:
+                                model.DireccionCadena = ""; break;
+                        }
+                    }
+                    else
+                    {
+                        model.DireccionCadena = solicitudPostulante.Direccion;
+                    }
+
 
                     model.Direccion = solicitudPostulante.Direccion;
                     model.NombreRegion = solicitudPostulante.LugarPadre;
@@ -938,6 +999,28 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         [HttpPost]
+        public JsonResult ConsultarAdjuntoImageSource(string nombreArchivo, int tipo)
+        {
+           
+            var Model = new Tuple<string, string, int>(CodigoISO, nombreArchivo, tipo);
+
+            var result = ConfigS3.GetUrlFileS3WithAuthentication(string.Format(
+                                ConfigurationManager.AppSettings[
+                                    Model.Item3 == 1 ? AppSettingsKeys.DocumentosIdentidadStorage :
+                                    Model.Item3 == 2 ? AppSettingsKeys.DocumentosDomicilioStorage :
+                                    Model.Item3 == 3 ? AppSettingsKeys.DocumentosContratoStorage :
+                                    Model.Item3 == 4 ? AppSettingsKeys.DocumentosPagareStorage :
+                                       Model.Item3 == 5 ? AppSettingsKeys.DocumentosAvalStorage :
+                                          Model.Item3 == 6 ? AppSettingsKeys.ContenedoraReciboOtraMarca :
+                                             Model.Item3 == 7 ? AppSettingsKeys.ContenedoraReciboPagoAval :
+                                                Model.Item3 == 8 ? AppSettingsKeys.ContenedoraCreditoAval :
+                                        AppSettingsKeys.ContenedoraConstanciaLaboralAval
+                                    ], Model.Item1, Model.Item2));
+
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
         public JsonResult ConsultarValidacionTelefonica(ConsultarValidacionTelefonicaModel model)
         {
             using (var sv = new PortalServiceClient())
@@ -1055,6 +1138,259 @@ namespace Portal.Consultoras.Web.Controllers
         {
             return View(new NivelesRiesgoModel { CodigoISO = CodigoISO /* Pais.Peru */});
         }
+
+
+
+        [HttpPost]
+        public JsonResult ConsultarSolicitudesPostulanteV2(GestionaPostulanteModel model)
+        {
+            List<SolicitudPostulanteBE> solicitudes = ObtenerSolicitudesPostulanteFiltro(model);
+            var grid = new BEGrid
+            {
+                PageSize = model.rows,
+                CurrentPage = model.page,
+                SortColumn = model.sidx,
+                SortOrder = model.sord
+            };
+            ServiceUnete.ParametroUneteCollection lstSelect;
+            ServiceUnete.ParametroUneteCollection lstSelectGZ;
+            ServiceUnete.ParametroUneteCollection lstSelectSE;
+            ServiceUnete.ParametroUneteCollection tiposDocumentos;
+
+            using (var sv = new PortalServiceClient())
+            {
+                lstSelect = sv.ObtenerParametrosUnete(CodigoISO, EnumsTipoParametro.TipoRechazoSAC, 0);
+                lstSelectSE = sv.ObtenerParametrosUnete(CodigoISO, EnumsTipoParametro.TipoRechazoSociaEmpresaria, 0);
+                lstSelectGZ = sv.ObtenerParametrosUnete(CodigoISO, EnumsTipoParametro.TipoRechazo, 0);
+                tiposDocumentos = sv.ObtenerParametrosUnete(CodigoISO, EnumsTipoParametro.TipoDocumento, 0);
+            }
+            IEnumerable<SolicitudPostulanteBE> items = solicitudes;
+            SolicitudPostulanteBE obj = new SolicitudPostulanteBE();
+
+            #region Sort Section
+
+            if (model.sord == "asc")
+            {
+                #region ascendente
+
+                switch (model.sidx)
+                {
+                    case "SolicitudPostulanteID":
+                        items = solicitudes.OrderBy(x => x.SolicitudPostulanteID);
+                        break;
+                    case "FechaCreacion":
+                        items = solicitudes.OrderBy(x => x.FechaCreacion);
+                        break;
+                    case "FuenteIngreso":
+                        items = solicitudes.OrderBy(x => x.FuenteIngreso);
+                        break;
+                    case "EstadoPostulante":
+                        items = solicitudes.OrderBy(x => x.EstadoPostulante);
+                        break;
+                    case "NombreCompleto":
+                        items = solicitudes.OrderBy(x => x.NombreCompleto);
+                        break;
+                    case "NumeroDocumento":
+                        items = solicitudes.OrderBy(x => x.NumeroDocumento);
+                        break;
+
+                    case "Zona":
+                        items = solicitudes.OrderBy(x => x.CodigoZona);
+                        break;
+                    case "Seccion":
+                        items = solicitudes.OrderBy(x => x.CodigoSeccion);
+                        break;
+                    case "Territorio":
+                        items = solicitudes.OrderBy(x => x.CodigoTerritorio);
+                        break;
+                    case "Direccion":
+                        items = solicitudes.OrderBy(x => x.Direccion);
+                        break;
+                    case "EstadoGEO":
+                        items = solicitudes.OrderBy(x => x.EstadoGEO);
+                        break;
+                    case "EstadoBuroCrediticio":
+                        items = solicitudes.OrderBy(x => x.EstadoBuroCrediticio);
+                        break;
+                    case "IndicadorActivo":
+                        items = solicitudes.OrderBy(x => x.IndicadorActivo);
+                        break;
+                    case "IndicadorOptin":
+                        items = solicitudes.OrderBy(x => x.IndicadorOptin);
+                        break;
+                    case "LugarPadre":
+                        items = solicitudes.OrderBy(x => x.LugarPadre);
+                        break;
+                    case "LugarHijo":
+                        items = solicitudes.OrderBy(x => x.LugarHijo);
+                        break;
+
+                }
+
+                #endregion
+            }
+            else
+            {
+                #region descendente
+
+                switch (model.sidx)
+                {
+                    case "SolicitudPostulanteID":
+                        items = solicitudes.OrderByDescending(x => x.SolicitudPostulanteID);
+                        break;
+                    case "FechaCreacion":
+                        items = solicitudes.OrderByDescending(x => x.FechaCreacion);
+                        break;
+                    case "FuenteIngreso":
+                        items = solicitudes.OrderBy(x => x.FuenteIngreso);
+                        break;
+                    case "EstadoPostulante":
+                        items = solicitudes.OrderByDescending(x => x.EstadoPostulante);
+                        break;
+                    case "NombreCompleto":
+                        items = solicitudes.OrderByDescending(x => x.NombreCompleto);
+                        break;
+                    case "NumeroDocumento":
+                        items = solicitudes.OrderByDescending(x => x.NumeroDocumento);
+                        break;
+                    case "Zona":
+                        items = solicitudes.OrderBy(x => x.CodigoZona);
+                        break;
+                    case "Seccion":
+                        items = solicitudes.OrderBy(x => x.CodigoSeccion);
+                        break;
+                    case "Territorio":
+                        items = solicitudes.OrderBy(x => x.CodigoTerritorio);
+                        break;
+                    case "Direccion":
+                        items = solicitudes.OrderByDescending(x => x.Direccion);
+                        break;
+                    case "EstadoGEO":
+                        items = solicitudes.OrderByDescending(x => x.EstadoGEO);
+                        break;
+
+                    case "EstadoBuroCrediticio":
+                        items = solicitudes.OrderBy(x => x.EstadoBuroCrediticio);
+                        break;
+
+                    case "IndicadorActivo":
+                        items = solicitudes.OrderByDescending(x => x.IndicadorActivo);
+                        break;
+
+                    case "IndicadorOptin":
+                        items = solicitudes.OrderBy(x => x.IndicadorOptin);
+                        break;
+                    case "LugarPadre":
+                        items = solicitudes.OrderBy(x => x.LugarPadre);
+                        break;
+                    case "LugarHijo":
+                        items = solicitudes.OrderBy(x => x.LugarHijo);
+                        break;
+
+                }
+
+                #endregion
+            }
+
+            #endregion
+
+            items = items.ToList().Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
+
+            var pag = Paginador(grid, solicitudes);
+           
+
+            var itemsRename = items.Select(i => new {
+                SolicitudPostulanteID = i.SolicitudPostulanteID,
+                FechaCreacion = i.FechaCreacion == null ? "" : i.FechaCreacion.Value.ToString("dd/MM/yyyy hh:mm:ss tt"),
+                Tipo = i.TipoSolicitud,
+                FuenteIngreso = i.FuenteIngreso,
+                NombreCompleto = i.NombreCompleto,
+                NumeroDocumento = i.NumeroDocumento,
+                CodigoZona = i.CodigoZona,
+                CodigoSeccion = i.CodigoSeccion,
+                CodigoTerritorio = i.CodigoTerritorio,
+                Direccion = string.IsNullOrWhiteSpace(i.Direccion)
+                                ? string.Empty
+                                : i.CodigoPais == Pais.Peru
+                                    ? (i.LugarPadre.ToUpper() + ", " + i.LugarHijo.ToUpper() + ", " +
+                                       i.Direccion.Replace("|", " ").ToUpper() + ", " + i.Referencia.ToUpper())
+                                    : i.LugarPadre.ToUpper() + ", " + i.LugarHijo.ToUpper() + ", " +
+                                      i.Direccion.Replace("|", " ").ToUpper(),
+                CodigoConsultora = i.CodigoConsultora,
+                FechaIngreso = i.FechaIngreso,
+                IconUbicacion = (i.EstadoGEOID == 2 ? "webtracking/si.png" : "Esika/icono_advertencia_notificacion.png"),
+                IconEvaluacionCrediticia = (i.EstadoBuroCrediticioID == 2 || i.EstadoBuroCrediticioID == 30 || i.EstadoBuroCrediticioID == 31 || i.EstadoBuroCrediticioID == 32 || i.EstadoBuroCrediticioID == 33) ? "webtracking/si.png" :
+                (i.EstadoBuroCrediticioID == 3 ? "Esika/icono-admiracion.png" : "Esika/icono_advertencia_notificacion.png"),
+                EstadoBuroCrediticioID = i.EstadoBuroCrediticioID,
+                IconEvaluacionTelefonica = i.EstadoTelefonico == "1" ? "webtracking/si.png" : i.EstadoTelefonico == "0" ? "Esika/icono_advertencia_notificacion.png" : "Esika/icono-admiracion.png",
+                EstadoTelefonico = i.EstadoTelefonico,
+                Estado = i.EstadoPostulante,
+                UrlContentImage = Url.Content("~/Content/Images/"),
+                UrlContent = Url.Content("~/Content/Images/icons/"),
+                TipoRechazo =
+                            (!string.IsNullOrEmpty(i.TipoRechazo)) ?
+                              ((i.SubEstadoPostulante == Enumeradores.TipoSubEstadoPostulanteRechazada.RechazadoSAC.ToInt()) ?
+                                  ((i.SubEstadoPostulante == Enumeradores.TipoSubEstadoPostulanteRechazada.RechazadoSAC.ToInt()) ?
+                                     lstSelect.FirstOrDefault(x => x.Valor == i.TipoRechazo.ToInt()) != null ? lstSelect.FirstOrDefault(x => x.Valor == i.TipoRechazo.ToInt()).Nombre :
+                                             ((i.SubEstadoPostulante == Enumeradores.TipoSubEstadoPostulanteRechazada.RechazadoGZ.ToInt()) ?
+                                                   lstSelectGZ.FirstOrDefault(x => x.Valor == i.TipoRechazo.ToInt()) != null ? lstSelectGZ.FirstOrDefault(x => x.Valor == i.TipoRechazo.ToInt()).Nombre :
+                                                            ((i.SubEstadoPostulante == Enumeradores.TipoSubEstadoPostulanteRechazada.RechazadoSE.ToInt()) ?
+                                                                (lstSelectSE.FirstOrDefault(x => x.Valor == i.TipoRechazo.ToInt()) != null ? lstSelectSE.FirstOrDefault(x => x.Valor == i.TipoRechazo.ToInt()).Nombre : "")
+                                                            : "")
+                                                : "")
+                                     : "")
+                                 : "")
+                               : "",
+                MotivoRechazo = i.MotivoRechazo,
+                ShowPendienteConfirmacion = i.IndicadorActivo == false ? "visible" : "hidden",
+                ShowReactivar = i.EstadoPostulante == "RECHAZADA" ? "visible" : "hidden",
+                ShowEnviarAFFVV = i.IndicadorActivo == false && i.EstadoGEOID == 2 && i.EstadoBuroCrediticioID == 2 && i.EstadoTelefonico == "1" ? "visible" : "hidden",
+                ShowRFC = i.ImagenIFE != null,
+                RFC = i.ImagenIFE,
+                DiasEnEspera = CalcularDias(i.FechaCreacion),
+                FechaCreacionCodigo = i.FechaCreacionCodigo == null ? "" : i.FechaCreacionCodigo.Value.ToString("dd/MM/yyyy hh:mm:ss tt"),
+                CampanaCreacionCodigo = i.AnoCampanaIngreso,
+                campana1Pedido = i.campania1erPasePedido,
+                NumDiasAprobadoFFVV = ((CalcularDias(i.FechaAproFVVV) == "-1") ? "-" : CalcularDias(i.FechaAproFVVV)).ToString(),
+                NumDiasRechazado = ((CalcularDias(i.FechaRechazo) == "-1") ? "-" : CalcularDias(i.FechaRechazo)).ToString(),
+                TipoDocumento = (tiposDocumentos!=null? (tiposDocumentos.FirstOrDefault(tp=>tp.Valor.Value == i.TipoDocumento.ToInt())!=null? (tiposDocumentos.FirstOrDefault(tp => tp.Valor.Value == i.TipoDocumento.ToInt()).Nombre): "") :""),
+                Correo = i.CorreoElectronico,
+                CampanaRegistro =string.Empty,// i.CampaniaDeRegistro,
+                CampanaIngreso = string.Empty,
+                DiferenciaDias = i.DiferenciaDias.ToString(),
+                ZonaOrigen = i.EsConsultora == 1 ? i.ZonaConsultoraLider : i.ZonaGZ,
+                SeccionOrigen = i.EsConsultora == 1 ? i.SeccionConsultoraLider : "-",
+                ImagenDNI = i.ImagenIFE,
+                ImagenAval = i.ImagenDniAval,
+                ImagenComprobanteDomicilio = i.ImagenCDD,
+                ImagenContrato=i.ImagenContrato,
+                ImagenPagare = i.ImagenPagare,
+                ImagenReciboOtraMarca =i.ImagenReciboOtraMarca,
+                ImagenReciboPagoAval = i.ImagenReciboPagoAval,
+                ImagenCreditoAval= i.ImagenCreditoAval,
+                ImagenConstanciaLaboralAval= i.ImagenConstanciaLaboralAval,
+                ShowDocs= (string.IsNullOrEmpty(i.ImagenIFE) && string.IsNullOrEmpty(i.ImagenDniAval) && string.IsNullOrEmpty(i.ImagenCDD) && string.IsNullOrEmpty(i.ImagenContrato) 
+                && string.IsNullOrEmpty(i.ImagenPagare) && string.IsNullOrEmpty(i.ImagenReciboOtraMarca) && string.IsNullOrEmpty(i.ImagenReciboPagoAval) && string.IsNullOrEmpty(i.ImagenCreditoAval) &&
+                 string.IsNullOrEmpty(i.ImagenConstanciaLaboralAval)) == false ? "visible" : "hidden",
+ 
+            }).ToList();
+
+ 
+
+            var data = new
+            {
+                Registros = grid.PageSize.ToString(),
+                RegistrosTotal = pag.RecordCount.ToString(),
+                Pagina = pag.CurrentPage.ToString(),
+                PaginaDe = pag.PageCount.ToString(),
+                rows = itemsRename
+            };
+
+
+
+            return Json(data, JsonRequestBehavior.AllowGet);
+        }
+
 
         [HttpPost]
         public JsonResult ConsultarNivelesRiesgo(NivelesRiesgoModel model)
@@ -1511,8 +1847,7 @@ namespace Portal.Consultoras.Web.Controllers
                             PROVINCIA = item.PROVINCIA,
                             CANTON = item.CANTON,
                             DISTRITO = item.DISTRITO,
-                            BARRIO_COLONIA_URBANIZACION_REFERENCIAS = item.BARRIO_COLONIA_URBANIZACION_REFERENCIAS
-
+                          
 
                         };
 
@@ -1629,7 +1964,7 @@ namespace Portal.Consultoras.Web.Controllers
                                                          new Portal.Consultoras.Web.ServiceUnete.SolicitudPostulante());
                 model.NumeroDocumento = AplicarFormatoNumeroDocumentoPorPaisVista(CodigoISO,
                     solicitudPostulante.NumeroDocumento);
-                model.Direccion = model.Direccion.Replace("|", " ");
+                model.Direccion = string.IsNullOrEmpty(model.Direccion)?"": model.Direccion.Replace("|", " ");
                 model.CodigoPais = CodigoISO;
             }
             model.ModoLectura = modoLectura;
@@ -2236,11 +2571,14 @@ namespace Portal.Consultoras.Web.Controllers
             ServiceUnete.ParametroUneteCollection lstSelect;
             ServiceUnete.ParametroUneteCollection lstSelectGZ;
             ServiceUnete.ParametroUneteCollection lstSelectSE;
+            ServiceUnete.ParametroUneteCollection tiposDocumentos;
+
             using (var sv = new PortalServiceClient())
             {
                 lstSelect = sv.ObtenerParametrosUnete(CodigoISO, EnumsTipoParametro.TipoRechazoSAC, 0);
                 lstSelectSE = sv.ObtenerParametrosUnete(CodigoISO, EnumsTipoParametro.TipoRechazoSociaEmpresaria, 0);
                 lstSelectGZ = sv.ObtenerParametrosUnete(CodigoISO, EnumsTipoParametro.TipoRechazo, 0);
+                tiposDocumentos = sv.ObtenerParametrosUnete(CodigoISO, EnumsTipoParametro.TipoDocumento, 0);
             }
 
            
@@ -2301,7 +2639,13 @@ namespace Portal.Consultoras.Web.Controllers
                     Campania1Pedido = string.IsNullOrWhiteSpace(c.campania1erPasePedido) ? string.Empty : c.campania1erPasePedido,
                     DiferenciaDias = c.DiferenciaDias,
                     CodigoConsultora = c.CodigoConsultora,
-                    FechaIngreso = c.FechaIngreso
+                    FechaIngreso = c.FechaIngreso,
+                    Latitud=c.Latitud,
+                    Longitud= c.Longitud,
+                   //CampaniaDeRegistro = c.CampaniaDeRegistro,
+                    TipoDocumento = (tiposDocumentos != null ? (tiposDocumentos.FirstOrDefault(tp => tp.Valor.Value == c.TipoDocumento.ToInt()) != null ? (tiposDocumentos.FirstOrDefault(tp => tp.Valor.Value == c.TipoDocumento.ToInt()).Nombre) : "") : ""),
+                    CorreoElectronico = c.CorreoElectronico
+
                 };
                 
             });
@@ -2311,9 +2655,11 @@ namespace Portal.Consultoras.Web.Controllers
             Dictionary<string, string> dic = new Dictionary<string, string>
             {
                 {"Fecha Registro", "FechaCreacion"},
+              //  {"Campaña Registro", "CampaniaDeRegistro"},
                 {"Tipo", "TipoSolicitud"},
                 {"Fuente", "FuenteIngreso"},
                 {"Nombre", "NombreCompleto"},
+                {"Tipo Documento", "TipoDocumento"},
                 {"Documento", "NumeroDocumento"},
                 {"Zona", "CodigoZona"},
                 {"Sección", "CodigoSeccion"},
@@ -2323,28 +2669,25 @@ namespace Portal.Consultoras.Web.Controllers
                 {Dictionaries.LabelLugar2[CodigoISO], "LugarHijo"},
                 {"Telefono Celular", "TelefonoCelular"},
                 {"Telefono Red Fija", "TelefonoFijo"},
-                {"Estado Postulante", "EstadoPostulante"},
-                //{"Tipo Rechazo", "TipoRechazo"},
-                //{"Motivo Rechazo", "MotivoRechazo"},
-                //{"FechaEnvio", "FechaEnvio"},
-                //{"Dias en Espera", "DiasEnEspera"},
-                //{"Zona Origen", "ZonaGZ"},
-                //{"Seccion Origen", "SeccionOrigen"},
-                //{"Num Dias Rechazados", "NumDiasRechazados"},
-                //{"Num Dias Aprobado FFVV", "NumDiasAprobadoFFVV"},
-                //{"Fecha Creacion Codigo", "FechaCreacionCodigo"},
-                //{"Codigo Campaña", "CodigoCampania"},
-                //{"Campaña 1er pedido", "Campania1Pedido"},
-                // {"Diferencia Dias", "DiferenciaDias"}
+                   {"Correo", "CorreoElectronico"},
+                
+
+
             };
 
-            if (Estado == 0)
+            if (Estado == 0) //TODOS
             {
+                dic.Add("Estado Postulante", "EstadoPostulante");
                 dic.Add("Dias en Espera", "DiasEnEspera");
                 dic.Add("Zona Origen", "ZonaGZ");
                 dic.Add("Seccion Origen", "SeccionOrigen");
+
+                dic.Add("Fecha Creacion Codigo", "FechaCreacionCodigo");
+                dic.Add("Campaña Ingreso", "CodigoCampania");
+                dic.Add("Campaña 1er pedido", "Campania1Pedido");
+                dic.Add("Diferencia Dias", "DiferenciaDias");
             }
-            else if (Estado == 3)
+            else if (Estado == 3) //EN APROBACION DE FFVV
             {
                 dic.Add("Dias en Espera", "DiasEnEspera");
                 dic.Add("Zona Origen", "ZonaGZ");
@@ -2352,36 +2695,34 @@ namespace Portal.Consultoras.Web.Controllers
                 dic.Add("Num Dias Aprobado FFVV", "NumDiasAprobadoFFVV");
 
             }
-            else if (Estado == 2)
+            else if (Estado == 2) //EN GESTION DEL SERVICIO AL CLIENTE
             {
                 dic.Add("Dias en Espera", "DiasEnEspera");
                 dic.Add("Zona Origen", "ZonaGZ");
                 dic.Add("Seccion Origen", "SeccionOrigen");
-                //dic.Add("Diferencia Dias", "DiferenciaDias");
+
             }
-            else if (Estado == 7)
+            else if (Estado == 7) // GBENERANDO CODIGO
             {
                 dic.Add("Codigo de Consultora", "CodigoConsultora");
                 dic.Add("Fecha de Ingreso", "FechaIngreso");
                 dic.Add("Fecha Envio", "FechaEnvio");
  
                 dic.Add("Dias en Espera", "DiasEnEspera");
-                dic.Add("Zona Origen", "ZonaGZ");
-                dic.Add("Seccion Origen", "SeccionOrigen");
+
             }
-            else if (Estado == 4)
+            else if (Estado == 4) // RECHAZASDA
             {
                 dic.Add("Tipo Rechazo", "TipoRechazo");
                 dic.Add("Motivo Rechazo", "MotivoRechazo");
                 dic.Add("Dias en Espera", "DiasEnEspera");
-                dic.Add("Zona Origen", "ZonaGZ");
-                dic.Add("Seccion Origen", "SeccionOrigen");
+
                 dic.Add("Num Dias Rechazados", "NumDiasRechazados");
 
            
 
             }
-            else   if (Estado == 5)
+            else   if (Estado == 5)// YA CON CODIGO
             {                 
                 dic.Add("Codigo de Consultora", "CodigoConsultora");
                 dic.Add("Fecha de Ingreso", "FechaIngreso");
@@ -2393,17 +2734,16 @@ namespace Portal.Consultoras.Web.Controllers
                 dic.Add("Diferencia Dias", "DiferenciaDias");
 
             }
-            else if (Estado == 9)
+            else if (Estado == 9) // PENDIENTE CONFIRMACION DE CODIGO
             {
                 dic.Add("Dias en Espera", "DiasEnEspera");
                 dic.Add("Zona Origen", "ZonaGZ");
                 dic.Add("Seccion Origen", "SeccionOrigen");
             }
 
-      
-            //dic.Add("Dirección", "DireccionCompleta");
-            //  dic.Add("Region", "LugarPadre");   
-            //dic.Add("Comuna", "LugarHijo");
+            dic.Add("Latitud", "Latitud");
+            dic.Add("Longitud", "Longitud");
+ 
             Util.ExportToExcel("ReportePostulantes", resultado.ToList(), dic);
             return View();            
         }
