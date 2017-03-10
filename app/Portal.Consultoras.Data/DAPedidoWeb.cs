@@ -720,5 +720,10 @@ namespace Portal.Consultoras.Data
             return Context.ExecuteReader(command);
         }
         /*EPD-1025*/
+        public IDataReader ObtenerUltimaDescargaExitosa() {
+            DbCommand Command = Context.Database.GetStoredProcCommand("dbo.ObtenerUltimaDescargaExitosa");
+            return Context.ExecuteReader(Command);
+        }
+
     }
 }

@@ -2882,6 +2882,9 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private string EstadoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.DateTime FechaEnvioField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private System.DateTime FechaFacturacionField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -2889,6 +2892,9 @@ namespace Portal.Consultoras.Web.ServicePedido {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private System.DateTime FechaHoraInicioField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.DateTime FechaProcesoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string MensajeField;
@@ -2942,6 +2948,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.DateTime FechaEnvio {
+            get {
+                return this.FechaEnvioField;
+            }
+            set {
+                if ((this.FechaEnvioField.Equals(value) != true)) {
+                    this.FechaEnvioField = value;
+                    this.RaisePropertyChanged("FechaEnvio");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public System.DateTime FechaFacturacion {
             get {
                 return this.FechaFacturacionField;
@@ -2976,6 +2995,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((this.FechaHoraInicioField.Equals(value) != true)) {
                     this.FechaHoraInicioField = value;
                     this.RaisePropertyChanged("FechaHoraInicio");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.DateTime FechaProceso {
+            get {
+                return this.FechaProcesoField;
+            }
+            set {
+                if ((this.FechaProcesoField.Equals(value) != true)) {
+                    this.FechaProcesoField = value;
+                    this.RaisePropertyChanged("FechaProceso");
                 }
             }
         }
@@ -18078,6 +18110,12 @@ namespace Portal.Consultoras.Web.ServicePedido {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/DeshacerUltimaDescargaPedido", ReplyAction="http://tempuri.org/IPedidoService/DeshacerUltimaDescargaPedidoResponse")]
         System.Threading.Tasks.Task DeshacerUltimaDescargaPedidoAsync(int PaisID);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/ObtenerUltimaDescargaExitosa", ReplyAction="http://tempuri.org/IPedidoService/ObtenerUltimaDescargaExitosaResponse")]
+        Portal.Consultoras.Web.ServicePedido.BEPedidoDescarga ObtenerUltimaDescargaExitosa(int PaisID);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/ObtenerUltimaDescargaExitosa", ReplyAction="http://tempuri.org/IPedidoService/ObtenerUltimaDescargaExitosaResponse")]
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEPedidoDescarga> ObtenerUltimaDescargaExitosaAsync(int PaisID);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetCantidadOfertasParaTi", ReplyAction="http://tempuri.org/IPedidoService/GetCantidadOfertasParaTiResponse")]
         int GetCantidadOfertasParaTi(int paisId, int campaniaId, int tipoConfigurado);
         
@@ -19870,6 +19908,14 @@ namespace Portal.Consultoras.Web.ServicePedido {
         
         public System.Threading.Tasks.Task DeshacerUltimaDescargaPedidoAsync(int PaisID) {
             return base.Channel.DeshacerUltimaDescargaPedidoAsync(PaisID);
+        }
+        
+        public Portal.Consultoras.Web.ServicePedido.BEPedidoDescarga ObtenerUltimaDescargaExitosa(int PaisID) {
+            return base.Channel.ObtenerUltimaDescargaExitosa(PaisID);
+        }
+        
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEPedidoDescarga> ObtenerUltimaDescargaExitosaAsync(int PaisID) {
+            return base.Channel.ObtenerUltimaDescargaExitosaAsync(PaisID);
         }
         
         public int GetCantidadOfertasParaTi(int paisId, int campaniaId, int tipoConfigurado) {

@@ -123,6 +123,12 @@
   <wsdl:message name="IPedidoService_DeshacerUltimaDescargaPedido_OutputMessage">
     <wsdl:part name="parameters" element="tns:DeshacerUltimaDescargaPedidoResponse" />
   </wsdl:message>
+  <wsdl:message name="IPedidoService_ObtenerUltimaDescargaExitosa_InputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenerUltimaDescargaExitosa" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_ObtenerUltimaDescargaExitosa_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenerUltimaDescargaExitosaResponse" />
+  </wsdl:message>
   <wsdl:message name="IPedidoService_GetCantidadOfertasParaTi_InputMessage">
     <wsdl:part name="parameters" element="tns:GetCantidadOfertasParaTi" />
   </wsdl:message>
@@ -1796,6 +1802,10 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/DeshacerUltimaDescargaPedido" message="tns:IPedidoService_DeshacerUltimaDescargaPedido_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/DeshacerUltimaDescargaPedidoResponse" message="tns:IPedidoService_DeshacerUltimaDescargaPedido_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="ObtenerUltimaDescargaExitosa">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/ObtenerUltimaDescargaExitosa" message="tns:IPedidoService_ObtenerUltimaDescargaExitosa_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/ObtenerUltimaDescargaExitosaResponse" message="tns:IPedidoService_ObtenerUltimaDescargaExitosa_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="GetCantidadOfertasParaTi">
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetCantidadOfertasParaTi" message="tns:IPedidoService_GetCantidadOfertasParaTi_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/GetCantidadOfertasParaTiResponse" message="tns:IPedidoService_GetCantidadOfertasParaTi_OutputMessage" />
@@ -3027,6 +3037,15 @@
     </wsdl:operation>
     <wsdl:operation name="DeshacerUltimaDescargaPedido">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/DeshacerUltimaDescargaPedido" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerUltimaDescargaExitosa">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/ObtenerUltimaDescargaExitosa" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
