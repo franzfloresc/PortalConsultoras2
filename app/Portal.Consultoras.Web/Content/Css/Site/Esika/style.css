@@ -25507,7 +25507,7 @@ button
 	float:left;*/
 	margin-left:20px;
 	display:inline-block;	
-    }
+}
 .boton_linea_verde:hover
 {
 	background-color:#4d95a0;
@@ -25537,7 +25537,7 @@ button
 .text_verde2{font-size:14px;color:#35bdb2;font-family:'Museo Sans', arial, sans-serif;font-weight:300;}
 .text_gris_azul{font-size:14px;color:#768ea3;font-family:'Museo Sans', arial, sans-serif;font-weight:300;}
 
-
+	
 
 .font_museo_sans{font-family:'Museo Sans', arial, sans-serif; font-weight:300;}
 
@@ -25550,7 +25550,7 @@ button
 .font_size_11{font-size:11px;}
 .color_turquesa{font-size:20px;color:#35bdb2;}
 
-	
+
 
 
 @font-face {
@@ -33048,8 +33048,13 @@ h1#penmostreo .campana {
     margin-top: 5px;
     display: block;
 }
-.ficha_btn_agregar{
-    width:336px; background:black; color:white; font-weight:400; letter-spacing:0.4px;
+
+.ficha_btn_agregar {
+    width: 336px;
+    background: black;
+    color: white;
+    font-weight: 400;
+    letter-spacing: 0.4px;
 }
 
 .tooltip_tono {

@@ -4942,7 +4942,7 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
 }
 
 .btn_noGracias_agregarProductos{
-    display: block;
+        display: block;
     /* position: absolute; */
     /* margin-left: 10px; */
     /* bottom: -1px; */
