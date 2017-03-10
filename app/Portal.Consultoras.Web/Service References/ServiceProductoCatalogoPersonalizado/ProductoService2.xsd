@@ -65,6 +65,7 @@
         <xs:element minOccurs="0" name="codigoIso" nillable="true" type="xs:string" />
         <xs:element minOccurs="0" name="campaniaId" type="xs:int" />
         <xs:element minOccurs="0" name="codigoSap" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="NroCampania" type="xs:int" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

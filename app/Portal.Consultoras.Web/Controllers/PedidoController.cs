@@ -4178,7 +4178,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 foreach (var item in listaHermanosE)
                 {
-                    joinCuv += item.CodigoSAP + ",";
+                    joinCuv += item.CodigoSAP + "|";
                 }
             }
 
@@ -4193,7 +4193,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 foreach (var item in listaProducto)
                 {
-                    joinCuv += item.SAP + ",";
+                    joinCuv += item.SAP + "|";
                 }
             }
             
@@ -4205,7 +4205,7 @@ namespace Portal.Consultoras.Web.Controllers
             var listaAppCatalogo = new List<Producto>();
             using (ProductoServiceClient svc = new ProductoServiceClient())
             {
-                listaAppCatalogo = svc.ObtenerProductosByCodigoSap(userData.CodigoISO, userData.CampaniaID, joinCuv).ToList();
+                listaAppCatalogo = svc.ObtenerProductosByCodigoSap(userData.CodigoISO, userData.CampaniaID, joinCuv, 3).ToList();
             }
             
             if (!listaAppCatalogo.Any())

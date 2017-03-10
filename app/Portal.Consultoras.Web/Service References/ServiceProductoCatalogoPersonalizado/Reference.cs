@@ -928,10 +928,10 @@ namespace Portal.Consultoras.Web.ServiceProductoCatalogoPersonalizado {
         System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceProductoCatalogoPersonalizado.Producto[]> ObtenerTodosProductosAsync(int lugar, string codigoIso, int campaniaId, string codigoConsultora, int zonaId, string codigoRegion, string codigoZona, int tipoProductoMostrar, int limimte, bool esFacturacion);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IProductoService/ObtenerProductosByCodigoSap", ReplyAction="http://tempuri.org/IProductoService/ObtenerProductosByCodigoSapResponse")]
-        Portal.Consultoras.Web.ServiceProductoCatalogoPersonalizado.Producto[] ObtenerProductosByCodigoSap(string codigoIso, int campaniaId, string codigoSap);
+        Portal.Consultoras.Web.ServiceProductoCatalogoPersonalizado.Producto[] ObtenerProductosByCodigoSap(string codigoIso, int campaniaId, string codigoSap, int NroCampania);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IProductoService/ObtenerProductosByCodigoSap", ReplyAction="http://tempuri.org/IProductoService/ObtenerProductosByCodigoSapResponse")]
-        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceProductoCatalogoPersonalizado.Producto[]> ObtenerProductosByCodigoSapAsync(string codigoIso, int campaniaId, string codigoSap);
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceProductoCatalogoPersonalizado.Producto[]> ObtenerProductosByCodigoSapAsync(string codigoIso, int campaniaId, string codigoSap, int NroCampania);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IProductoService/ObtenerProductosAppCatalogoByListaCUV", ReplyAction="http://tempuri.org/IProductoService/ObtenerProductosAppCatalogoByListaCUVResponse" +
             "")]
@@ -993,12 +993,12 @@ namespace Portal.Consultoras.Web.ServiceProductoCatalogoPersonalizado {
             return base.Channel.ObtenerTodosProductosAsync(lugar, codigoIso, campaniaId, codigoConsultora, zonaId, codigoRegion, codigoZona, tipoProductoMostrar, limimte, esFacturacion);
         }
         
-        public Portal.Consultoras.Web.ServiceProductoCatalogoPersonalizado.Producto[] ObtenerProductosByCodigoSap(string codigoIso, int campaniaId, string codigoSap) {
-            return base.Channel.ObtenerProductosByCodigoSap(codigoIso, campaniaId, codigoSap);
+        public Portal.Consultoras.Web.ServiceProductoCatalogoPersonalizado.Producto[] ObtenerProductosByCodigoSap(string codigoIso, int campaniaId, string codigoSap, int NroCampania) {
+            return base.Channel.ObtenerProductosByCodigoSap(codigoIso, campaniaId, codigoSap, NroCampania);
         }
         
-        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceProductoCatalogoPersonalizado.Producto[]> ObtenerProductosByCodigoSapAsync(string codigoIso, int campaniaId, string codigoSap) {
-            return base.Channel.ObtenerProductosByCodigoSapAsync(codigoIso, campaniaId, codigoSap);
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceProductoCatalogoPersonalizado.Producto[]> ObtenerProductosByCodigoSapAsync(string codigoIso, int campaniaId, string codigoSap, int NroCampania) {
+            return base.Channel.ObtenerProductosByCodigoSapAsync(codigoIso, campaniaId, codigoSap, NroCampania);
         }
         
         public Portal.Consultoras.Web.ServiceProductoCatalogoPersonalizado.Producto[] ObtenerProductosAppCatalogoByListaCUV(string codigoIso, int campaniaId, string listaCuv) {
