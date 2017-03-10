@@ -318,7 +318,7 @@ namespace Portal.Consultoras.Common
 
         public class CdrWebMensajes
         {
-            public const string FueraDeFecha = "Tu solicitud se encuentra fuera de fecha para poder ser atendida";
+            public const string FueraDeFecha = "Tu solicitud se encuentra fuera de fecha para poder ser atendida.";
         }
 
         public class CodigoOperacionCDR

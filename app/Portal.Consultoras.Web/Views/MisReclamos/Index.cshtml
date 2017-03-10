@@ -29,6 +29,10 @@
     {
         <div class="texto_reclamos_bloqueada">Lo sentimos, en estos momentos no cuentas con pedidos disponibles para reclamar. Por favor, contáctate con nuestro <span class="enlace_chat belcorpChat"><a>Chat en Línea</a></span>.</div>
     }
+    else if (!string.IsNullOrEmpty(Model.MensajePeriodoInvalido) && Model.ListaCDRWeb.Count <= 0)
+    {
+        <div class="texto_reclamos_bloqueada">@(Model.MensajePeriodoInvalido) Por favor, contáctate con nuestro <span class="enlace_chat belcorpChat"><a>Chat en Línea</a></span>.</div>
+    }
     else
     {
         <div class="texto_titulo_reclamos" id="TituloReclamo">

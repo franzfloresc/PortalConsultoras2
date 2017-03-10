@@ -22,8 +22,7 @@ namespace Portal.Consultoras.Web.Controllers
     {        
         public ActionResult Index()
         {
-            if(userData.TieneCDR == 0)
-                return RedirectToAction("Index", "Bienvenida");
+            if(userData.TieneCDR == 0) return RedirectToAction("Index", "Bienvenida");
 
             MisReclamosModel model = new MisReclamosModel();
             var listaCDRWebModel = new List<CDRWebModel>();
@@ -60,59 +59,39 @@ namespace Portal.Consultoras.Web.Controllers
             model.IndicadorBloqueoCDR = userData.IndicadorBloqueoCDR;
             model.EsCDRWebZonaValida = userData.EsCDRWebZonaValida;
             model.CumpleRangoCampaniaCDR = CumpleRangoCampaniaCDR();
-            model.MensajePeriodoInvalido = MensajePeriodoInvalidoCDR();
 
             string urlPoliticaCdr = ConfigurationManager.AppSettings.Get("UrlPoliticasCDR") ?? "{0}";
             model.UrlPoliticaCdr = string.Format(urlPoliticaCdr, userData.CodigoISO);
             model.MensajePeriodoInvalido = MensajePeriodoInvalidoCDR();
 
-            if (model.EsCDRWebZonaValida == 0)
-                return View(model);
-
-            if (model.IndicadorBloqueoCDR == 1)
-                return View(model);                       
-
-            if (model.ListaCDRWeb.Count == 0)
-            {
-                if (model.CumpleRangoCampaniaCDR == 0)
-                {
-                    return View(model);
-                }
-
-                return RedirectToAction("Reclamo");
-            }
+            if (model.EsCDRWebZonaValida == 0) return View(model);
+            if (model.IndicadorBloqueoCDR == 1) return View(model);
+            if (model.CumpleRangoCampaniaCDR == 0) return View(model);
+            if (!string.IsNullOrEmpty(model.MensajePeriodoInvalido)) return View(model);
+            if (model.ListaCDRWeb.Count == 0) return RedirectToAction("Reclamo");
 
             return View(model);
         }
 
         public ActionResult Reclamo(int pedidoId = 0)
         {
-            CargarInformacion();
-            var model = new MisReclamosModel();
-            model.ListaCampania = (List<CampaniaModel>)Session[Constantes.ConstSession.CDRCampanias];
-
-            /*EPD-1339*/
-            if (model.ListaCampania.Count <= 1)
+            var model = new MisReclamosModel { PedidoID = pedidoId };
+            if (pedidoId == 0)
             {
-                return RedirectToAction("Index");
+                model.MensajePeriodoInvalido = MensajePeriodoInvalidoCDR();
+                if(!string.IsNullOrEmpty(model.MensajePeriodoInvalido)) return RedirectToAction("Index");
             }
+
+            CargarInformacion();
+            model.ListaCampania = (List<CampaniaModel>)Session[Constantes.ConstSession.CDRCampanias];
             /*EPD-1339*/
-
-            model.Email = userData.EMail;
-            model.Telefono = userData.Celular;
-
-            model.PedidoID = pedidoId;
+            if (model.ListaCampania.Count <= 1) return RedirectToAction("Index");
+            /*EPD-1339*/
 
             if (pedidoId != 0)
             {
-                MisReclamosModel modelCdr = new MisReclamosModel();
-                modelCdr.PedidoID = pedidoId;
-                var listaCdr = CargarBECDRWeb(modelCdr);
-
-                if (listaCdr.Count == 0)
-                {
-                    return RedirectToAction("Index");
-                }
+                var listaCdr = CargarBECDRWeb(new MisReclamosModel { PedidoID = pedidoId });
+                if (listaCdr.Count == 0) return RedirectToAction("Index");
 
                 if (listaCdr.Count == 1)
                 {
@@ -122,12 +101,11 @@ namespace Portal.Consultoras.Web.Controllers
                 }
             }
 
-            model.MontoMinimo = userData.MontoMinimo;
-
             string urlPoliticaCdr = ConfigurationManager.AppSettings.Get("UrlPoliticasCDR") ?? "{0}";
             model.UrlPoliticaCdr = string.Format(urlPoliticaCdr, userData.CodigoISO);
-            model.MensajePeriodoInvalido = MensajePeriodoInvalidoCDR();
-
+            model.Email = userData.EMail;
+            model.Telefono = userData.Celular;
+            model.MontoMinimo = userData.MontoMinimo;
             return View(model);
         }
 
