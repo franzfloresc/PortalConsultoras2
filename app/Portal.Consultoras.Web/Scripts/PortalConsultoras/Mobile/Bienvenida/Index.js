@@ -1043,6 +1043,7 @@ function mostrarFichaProductoOPT(cuv, posicion){
             if (checkTimeout(response)) {
                 if (response.success) {
                     var datos = response.data;
+                    datos.FBRuta = response.FBRuta || "";
                     SetHandlebars("#PopFichaOPT-template", datos, '#PopFichaOPT');
 
                     $('#imgFichaProOPT').attr('src', datos.FotoProducto01);                    
@@ -1072,21 +1073,6 @@ function CerrarFichaOPT()
 {
     $('body').css({ 'overflow-y': 'scroll' });
     $('#PopFichaOPT').hide();
-}
-
-function CompartirWsp(UrlBase, objParameter) {
-    var _id = InsertarProductoCompartido(objParameter, 'W');
-    if (_id == 0)
-        return false;
-
-    UrlBase = UrlBase.replace("[valor]", _id);
-
-    UrlBase = UrlBase.ReplaceAll('/', '%2F');
-    UrlBase = UrlBase.ReplaceAll(":", "%3A");
-    UrlBase = UrlBase.ReplaceAll("?", "%3F");
-    UrlBase = UrlBase.ReplaceAll("=", "%3D");
-
-    return "whatsapp://send?text=" + UrlBase;
 }
 
 //function CompartirFacebook(urlBase, objParameter) {

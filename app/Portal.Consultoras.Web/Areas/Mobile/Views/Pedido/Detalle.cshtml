@@ -729,7 +729,7 @@
 
 <!-- PL20 1287 - INICIO -->
     <script id="ofertaFinalVerDetalle-template" type="text/x-handlebars-template">
-        <div class="content_popMobile" style="padding-bottom:0;">
+        <div class="content_popMobile" data-item="" style="padding-bottom:0;">
             <a class="btn_cerrar_escala" href="javascript:;" onclick="javascript: $('#contenedor_popup_ofertaFinalVerDetalle').hide();">REGRESAR</a>
             <hr class="clear">
             <div class="content_imagen_ficha" style="overflow:hidden;">
@@ -751,10 +751,25 @@
             </div>
             {{/iff}}
             <div class="content_redes_ficha">
-                <a class="btn_compartir_ofertas" href='javascript:window.location=CompartirWsp("{{UrlCompartirFB}}", {Palanca: "OF", RutaImagen: "{{ImagenProductoSugerido}}", MarcaID:"{{MarcaID}}", MarcaDesc:"{{DescripcionMarca}}", NombrePro:"{{Descripcion}}", Cuv:"{{CUV}}"});'>
+                <div data-compartir-campos="" style="display:none;">
+                    <input type="hidden" class="CUV" value="{{CUV}}" />
+                    <input type="hidden" class="rsFBMensaje" value="" />
+                    <input type="hidden" class="rsFBRuta" value="{{UrlCompartirFB}}" />
+                    <input type="hidden" class="rsWAMensaje" value="" />
+                    <input type="hidden" class="rsWARuta" value="{{UrlCompartirFB}}" />
+                    <input type="hidden" class="rsFBRutaImagen" value="{{ImagenProductoSugerido}}" />
+                    <input type="hidden" class="rsWARutaImagen" value="{{ImagenProductoSugerido}}" />
+                    <input type="hidden" class="MarcaID" value="{{MarcaID}}" />
+                    <input type="hidden" class="MarcaNombre" value="{{DescripcionMarca}}" />
+                    <input type="hidden" class="Nombre" value="{{Descripcion}}" />
+                    <input type="hidden" class="ProductoDescripcion" value="{{DescripcionComercial}}" />
+                    <input type="hidden" class="Volumen" value="{{Volumen}}" />
+                    <input type="hidden" class="Palanca" value="OF" />
+                </div>
+                <a class="btn_compartir_ofertas"href="javascript:window.location=CompartirRedesSociales(this);" data-compartir="WA" data-action="share/whatsapp/share">
                     <img src="/Content/Images/Mobile/Esika/catalogo_ws.png" alt="">
                 </a>
-                <a class="btn_compartir_ofertas" onclick='javascript:CompartirFacebook("{{UrlCompartirFB}}",  {Palanca: "OF", RutaImagen: "{{ImagenProductoSugerido}}", MarcaID:"{{MarcaID}}", MarcaDesc:"{{DescripcionMarca}}", NombrePro:"{{Descripcion}}", Cuv:"{{CUV}}"});'>
+                <a class="btn_compartir_ofertas" href="javascript: void(0);" data-compartir="FB">
                     <img src="/Content/Images/Mobile/Esika/facebook.png" alt="">
                 </a>
             </div>

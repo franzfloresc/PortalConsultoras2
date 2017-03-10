@@ -140,26 +140,12 @@ else
                     <input type="hidden" class="Volumen" value="@Model.Volumen" />
                     <input type="hidden" class="Palanca" value="FAV" />
                 </div>
-                @{
-                    var urlWs = "";
-                    string urlBase_fb = "";
-                    if (System.Web.HttpContext.Current.Request.UserAgent != null)
-                    {
-                        var request = HttpContext.Current.Request;
-
-                        var urlBase_wsp = request.Url.Scheme + "://" + request.Url.Authority + "/Pdto.aspx?id=" + Model.CodigoIso + "_[valor]";
-
-                        urlWs = urlBase_wsp;
-
-                        urlBase_fb = request.Url.Scheme + "://" + request.Url.Authority + "/Pdto.aspx?id=" + Model.CodigoIso + "_[valor]";
-                    }
-                }
                 <a id="btn_wsp" class="btn_compartir_ofertas" href="javascript:window.location=CompartirRedesSociales(this);" data-compartir="WA" data-action="share/whatsapp/share"><img src="@Url.Content("~/Content/Images/Mobile/Esika/catalogo_ws.png")" alt=""></a>
                 <a id="btn_fb" class="btn_compartir_ofertas" href="javascript: void(0);" data-compartir="FB"><img src="@Url.Content("~/Content/Images/Mobile/Esika/facebook.png")" alt=""></a>
             </div>
 
             <div style="display: none;">
-                <input type="hidden" class="urlbasewsp" value="@urlWs" />
+                <input type="hidden" class="urlbasewsp" value="@Model.FBRuta" />
             </div>
 
             <hr class="clear" />
@@ -189,7 +175,7 @@ else
 <!--FIN-->
 
 <script id="template-oferta003" type="text/x-handlebars-template">
-    <div data-oferta-popup="">
+    <div data-oferta-popup="" data-item="">
 
         <div style="display:none;" id="hiddenCatalogo">
             <input type="hidden" class="hdItemCuv" value="{{CUV}}" />
@@ -221,7 +207,21 @@ else
             <input type="hidden" class="hdItemDescripcionEstrategia" value="{{productoRevista.DescripcionEstrategia}}" />
             <input type="hidden" class="OrigenPedidoWeb" value="@Portal.Consultoras.Common.Constantes.OrigenPedidoWeb.MobileCatalogoPersonalizadoPopUp" />
         </div>
-
+        <div data-compartir-campos="" style="display:none;">
+            <input type="hidden" class="CUV" value="@Model.CUV" />
+            <input type="hidden" class="rsFBMensaje" value="" />
+            <input type="hidden" class="rsFBRuta" value="@Model.FBRuta" />
+            <input type="hidden" class="rsWAMensaje" value="" />
+            <input type="hidden" class="rsWARuta" value="@Model.FBRuta" />
+            <input type="hidden" class="rsFBRutaImagen" value="@Model.ImagenProductoSugerido" />
+            <input type="hidden" class="rsWARutaImagen" value="@Model.ImagenProductoSugerido" />
+            <input type="hidden" class="MarcaID" value="@Model.MarcaID" />
+            <input type="hidden" class="MarcaNombre" value="@Model.DescripcionMarca" />
+            <input type="hidden" class="Nombre" value="@Model.Descripcion" />
+            <input type="hidden" class="ProductoDescripcion" value="@Model.DescripcionComercial" />
+            <input type="hidden" class="Volumen" value="@Model.Volumen" />
+            <input type="hidden" class="Palanca" value="FAV" />
+        </div>
         <div class="content_oferta_guia_negocio">
             <div class="content_imagen_048">
                 <img src="{{UrlImagen}}" class="imagen_producto" />
@@ -235,8 +235,8 @@ else
             <hr class="clear" />
             <div style="overflow:hidden; margin-bottom:100px;">
                 <div class="texto_comparte">Comparte este producto con tus clientes</div>
-                <a id="btn_wsp" class="btn_compartir_ofertas" href="javascript:window.location=CompartirWsp('@urlWs');" data-action="share/whatsapp/share"><img src="/Content/Images/Mobile/Esika/catalogo_ws.png" alt=""></a>
-                <a id="btn_fb" class="btn_compartir_ofertas" href="javascript:void(0);" onclick='CompartirFacebook("@urlBase_fb");'> <img src="/Content/Images/Mobile/Esika/facebook.png" alt=""></a>
+                <a id="btn_wsp" class="btn_compartir_ofertas" href="javascript:window.location=CompartirRedesSociales(this);" data-compartir="WA" data-action="share/whatsapp/share"><img src="/Content/Images/Mobile/Esika/catalogo_ws.png" alt=""></a>
+                <a id="btn_fb" class="btn_compartir_ofertas" href="javascript: void(0);" data-compartir="FB"> <img src="/Content/Images/Mobile/Esika/facebook.png" alt=""></a>
             </div>
         </div>
         <div class="content_btn_agregar">
@@ -254,7 +254,7 @@ else
 </script>
 
 <script id="template-oferta048P" type="text/x-handlebars-template">
-    <div data-oferta-popup="">
+    <div data-oferta-popup="" data-item="">
 
         <div style="display:none;" id="hiddenCatalogo">
             <input type="hidden" class="hdItemCuv" value="{{CUV}}" />
@@ -286,7 +286,21 @@ else
             <input type="hidden" class="hdItemDescripcionEstrategia" value="{{productoRevista.DescripcionEstrategia}}" />
             <input type="hidden" class="OrigenPedidoWeb" value="@Portal.Consultoras.Common.Constantes.OrigenPedidoWeb.MobileCatalogoPersonalizadoPopUp" />
         </div>
-
+        <div data-compartir-campos="" style="display:none;">
+            <input type="hidden" class="CUV" value="@Model.CUV" />
+            <input type="hidden" class="rsFBMensaje" value="" />
+            <input type="hidden" class="rsFBRuta" value="@Model.FBRuta" />
+            <input type="hidden" class="rsWAMensaje" value="" />
+            <input type="hidden" class="rsWARuta" value="@Model.FBRuta" />
+            <input type="hidden" class="rsFBRutaImagen" value="@Model.ImagenProductoSugerido" />
+            <input type="hidden" class="rsWARutaImagen" value="@Model.ImagenProductoSugerido" />
+            <input type="hidden" class="MarcaID" value="@Model.MarcaID" />
+            <input type="hidden" class="MarcaNombre" value="@Model.DescripcionMarca" />
+            <input type="hidden" class="Nombre" value="@Model.Descripcion" />
+            <input type="hidden" class="ProductoDescripcion" value="@Model.DescripcionComercial" />
+            <input type="hidden" class="Volumen" value="@Model.Volumen" />
+            <input type="hidden" class="Palanca" value="FAV" />
+        </div>
         <div class="content_imagen_048">
             <img src="{{UrlImagen}}" class="imagen_producto" />
             <div class="etiqueta_guia_negocio"><span>OFERTA</span>GUÍA DE NEGOCIO</div>
@@ -357,8 +371,8 @@ else
 
         <div>
             <div class="texto_comparte">Comparte este producto con tus clientes</div>
-            <a id="btn_wsp" class="btn_compartir_ofertas" href="javascript:window.location=CompartirWsp('@urlWs');" data-action="share/whatsapp/share"><img src="/Content/Images/Mobile/Esika/catalogo_ws.png" alt=""></a>
-            <a id="btn_fb" class="btn_compartir_ofertas" href="javascript:void(0);" onclick='CompartirFacebook("@urlBase_fb");'> <img src="/Content/Images/Mobile/Esika/facebook.png" alt=""></a>
+            <a id="btn_wsp" class="btn_compartir_ofertas"href="javascript:window.location=CompartirRedesSociales(this);" data-compartir="WA" data-action="share/whatsapp/share"><img src="/Content/Images/Mobile/Esika/catalogo_ws.png" alt=""></a>
+            <a id="btn_fb" class="btn_compartir_ofertas" href="javascript: void(0);" data-compartir="FB"> <img src="/Content/Images/Mobile/Esika/facebook.png" alt=""></a>
         </div>
         <hr class="clear" />
         <br />
@@ -366,7 +380,7 @@ else
 </script>
 
 <script id="template-oferta048N" type="text/x-handlebars-template">
-    <div data-oferta-popup="">
+    <div data-oferta-popup="" data-item="">
 
         <div style="display:none;" id="hiddenCatalogo">
             <input type="hidden" class="hdItemCuv" value="{{CUV}}" />
@@ -397,6 +411,21 @@ else
             <input type="hidden" class="hdItemDescripcionMarca" value="{{productoRevista.DescripcionMarca}}" />
             <input type="hidden" class="hdItemDescripcionEstrategia" value="{{productoRevista.DescripcionEstrategia}}" />
             <input type="hidden" class="OrigenPedidoWeb" value="@Portal.Consultoras.Common.Constantes.OrigenPedidoWeb.MobileCatalogoPersonalizadoPopUp" />
+        </div>
+        <div data-compartir-campos="" style="display:none;">
+            <input type="hidden" class="CUV" value="@Model.CUV" />
+            <input type="hidden" class="rsFBMensaje" value="" />
+            <input type="hidden" class="rsFBRuta" value="@Model.FBRuta" />
+            <input type="hidden" class="rsWAMensaje" value="" />
+            <input type="hidden" class="rsWARuta" value="@Model.FBRuta" />
+            <input type="hidden" class="rsFBRutaImagen" value="@Model.ImagenProductoSugerido" />
+            <input type="hidden" class="rsWARutaImagen" value="@Model.ImagenProductoSugerido" />
+            <input type="hidden" class="MarcaID" value="@Model.MarcaID" />
+            <input type="hidden" class="MarcaNombre" value="@Model.DescripcionMarca" />
+            <input type="hidden" class="Nombre" value="@Model.Descripcion" />
+            <input type="hidden" class="ProductoDescripcion" value="@Model.DescripcionComercial" />
+            <input type="hidden" class="Volumen" value="@Model.Volumen" />
+            <input type="hidden" class="Palanca" value="FAV" />
         </div>
 
         <div class="content_oferta_guia_negocio">
@@ -446,8 +475,8 @@ else
 
             <div style="overflow:hidden; margin-bottom:100px;">
                 <div class="texto_comparte">Comparte este producto con tus clientes</div>
-                <a id="btn_wsp" class="btn_compartir_ofertas" href="javascript:window.location=CompartirWsp('@urlWs');" data-action="share/whatsapp/share"><img src="/Content/Images/Mobile/Esika/catalogo_ws.png" alt=""></a>
-                <a id="btn_fb" class="btn_compartir_ofertas" href="javascript:void(0);" onclick='CompartirFacebook("@urlBase_fb");'> <img src="/Content/Images/Mobile/Esika/facebook.png" alt=""></a>
+                <a id="btn_wsp" class="btn_compartir_ofertas" href="javascript:window.location=CompartirRedesSociales(this);" data-compartir="WA" data-action="share/whatsapp/share"><img src="/Content/Images/Mobile/Esika/catalogo_ws.png" alt=""></a>
+                <a id="btn_fb" class="btn_compartir_ofertas" href="javascript: void(0);" data-compartir="FB"> <img src="/Content/Images/Mobile/Esika/facebook.png" alt=""></a>
             </div>
         </div>
 

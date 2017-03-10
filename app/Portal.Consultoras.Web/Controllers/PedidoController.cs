@@ -4976,7 +4976,8 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     success = true,
                     message = "OK",
-                    data = objProOPT
+                    data = objProOPT,
+                    FBRuta = GetUrlCompartirFB()
                 });
             }
             catch (Exception ex)
