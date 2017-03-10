@@ -34860,7 +34860,7 @@ h1#penmostreo .campana {
     float:left;
 }
 .nombre_set_individual{
-    width:70%;
+    width:60%;
     float:left;
     font-size: 13px;
     
@@ -34873,7 +34873,7 @@ h1#penmostreo .campana {
 .precio_regular_set{
     width:25%;
     text-align:right;
-    float:left;
+    float:right;
     font-size:12px;
     font-weight:300;
 }
@@ -35114,4 +35114,9 @@ h1#penmostreo .campana {
 .etiqueta_showroom {
      background: url(https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/JmqkvgJXcyHcBZR/etiqueta_lbel.png) no-repeat;
     padding-left: 19px;
+}
+.content_imagen_individual{
+    width: 9%;
+    margin-right: 2%;
+    float: left;
 }
