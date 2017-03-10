@@ -894,7 +894,7 @@ namespace Portal.Consultoras.Web.Controllers
                 return;
             }
 
-
+          
             Session["EsShowRoom"] = "0";
             var paisesShowRoom = ConfigurationManager.AppSettings["PaisesShowRoom"];
             if (paisesShowRoom.Contains(model.CodigoISO))
@@ -968,7 +968,7 @@ namespace Portal.Consultoras.Web.Controllers
                                 var fechaHoy = DateTime.Now.AddHours(userData.ZonaHoraria).Date;
 
                                 if (fechaHoy >= model.FechaInicioCampania.AddDays(-model.BeShowRoom.DiasAntes).Date 
-                                    && fechaHoy <= userData.FechaInicioCampania.AddDays(model.BeShowRoom.DiasDespues).Date)
+                                    && fechaHoy <= model.FechaInicioCampania.AddDays(model.BeShowRoom.DiasDespues).Date)
                                 {
                                     //rutaShowRoomPopup = Url.Action("Index", "ShowRoom");
                                     //mostrarShowRoomProductos = true;
@@ -1460,6 +1460,8 @@ namespace Portal.Consultoras.Web.Controllers
         
         public ShowRoomBannerLateralModel GetShowRoomBannerLateral()
         {
+            var objuserData = Session["UserData"];
+
             ShowRoomBannerLateralModel model = new ShowRoomBannerLateralModel();
 
             var paisesShowRoom = ConfigurationManager.AppSettings["PaisesShowRoom"];

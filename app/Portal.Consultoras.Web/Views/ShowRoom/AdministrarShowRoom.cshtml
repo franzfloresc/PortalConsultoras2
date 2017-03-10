@@ -1820,11 +1820,9 @@
                         if (response.data == "") {
                             $("#divShowRoomPerfil").css("display", "none");
                         } else {
-                            var listaPerfiles = response.data;
+                            var listaPerfiles = response.data || new Array();
 
-                            var htmlSeleccionar = '<option value="">-- Seleccionar --</option>';
-
-                            $("#cbPerfilesEvento").append(htmlSeleccionar);
+                            $("#cbPerfilesEvento").append('<option value="">-- Seleccionar --</option>');
 
                             $.each(listaPerfiles, function (index, value) {
                                 var html = '<option value="' + value.PerfilID + '">' + value.PerfilDescripcion + '</option>';
@@ -2022,11 +2020,9 @@
                         if (response.data == "") {
                             $("#divPersonalizacion").css("display", "none");
                         } else {
-                            var listaNiveles = response.data;
-
-                            var htmlSeleccionar = '<option value="">-- Seleccionar --</option>';
-
-                            $("#cbNivelEvento").append(htmlSeleccionar);
+                            var listaNiveles = response.data || new Array();
+                            
+                            $("#cbNivelEvento").append('<option value="">-- Seleccionar --</option>');
 
                             $.each(listaNiveles, function (index, value) {
                                 var html = '<option value="' + value.NivelId + '">' + value.Descripcion + '</option>';
@@ -2071,11 +2067,8 @@
                         if (response.data == "") {
                             $("#divPersonalizacionCategoria").css("display", "none");
                         } else {
-                            var listaNiveles = response.data;
-
-                            var htmlSeleccionar = '<option value="">-- Seleccionar --</option>';
-
-                            $("#cbCategoriaEvento").append(htmlSeleccionar);
+                            var listaNiveles = response.data || new Array();
+                            $("#cbCategoriaEvento").append('<option value="">-- Seleccionar --</option>');
 
                             $.each(listaNiveles, function (index, value) {
                                 var html = '<option value="' + value.CategoriaId + '">' + value.Codigo + '</option>';

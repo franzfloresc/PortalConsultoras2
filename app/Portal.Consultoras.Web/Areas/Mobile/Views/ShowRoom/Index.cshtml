@@ -165,9 +165,12 @@
                                     <img src="@Url.Content("~/Content/Images/showroom/no_disponible.png")" style="width: auto; height: 100%;" class="imagen_producto" />
                                 }
                             </div>
-                            <div class="precio_producto_compra">@item.Descripcion</div>
-                            <div class="descripcion_compra">@item.DescripcionLegal</div>
-                            <div class="descripcion_compra">Valorizado en @item.Simbolo @item.FormatoPrecioOferta</div>
+                            <div style="height: 78px;">
+                                <div class="precio_producto_compra">@item.Descripcion</div>
+                                <div class="descripcion_compra">@item.DescripcionLegal</div>
+                                <div class="descripcion_compra">Valorizado en @item.Simbolo @item.FormatoPrecioOferta</div>
+                            </div>
+                            
                             <a class="btn_agrega_compra" data-btn-agregar-cpc="">AGRÉGALO</a>
                         </div>
                         {

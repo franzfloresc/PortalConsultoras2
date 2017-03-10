@@ -64,6 +64,7 @@
                         }
                         <div class="content_detalle_showroom">
                             @*<div class="cantidad_set_individual">x2</div>*@
+                            <div class="content_imagen_individual"><img src="http://S3.amazonaws.com/consultorasQAS/SomosBelcorp/Matriz/CO/CO_SET4_colombia_dorsay_2017356717_01_yubljgnapp.jpg" style="width: 100%;"></div>
                             <div class="nombre_set_individual">
                                 @detalle.NombreProducto
                                 <span class="detalle_set_showroom">@detalle.Descripcion1</span>
@@ -94,7 +95,7 @@
                     @{ var posicionCpcVertical = 1; }
                     @foreach (var item in Model.ListaShowRoomCompraPorCompra)
                     {
-                        <div data-posicion="@posicionCpcVertical" data-item="@item.OfertaShowRoomID">
+                        <div data-posicion="@posicionCpcVertical" data-item="@item.OfertaShowRoomID" style="height: 420px!important;">
                             <div data-campos="">
                                 <input type="hidden" class="hdOfertaShowRoomID" value="@item.OfertaShowRoomID" />
                                 <input type="hidden" class="valorCuv" value="@item.CUV" />
@@ -135,7 +136,7 @@
 </div>
 <div class="catalogoPersonalizadoBloque" style="margin-top:85px; overflow:hidden;">
    <div class="content_belcorp">
-       <div class="titulo_carrusel_showroom">LAS CONSULTORAS TAMBIÉN VIERON ESTOS SETS</div>
+       <div class="titulo_carrusel_showroom">SIGUE VIENDO ESTOS PRODUCTOS</div>
        <!--CARRUSEL-->
        <div class="responsive">
            @{ var posicionx = 1; }
