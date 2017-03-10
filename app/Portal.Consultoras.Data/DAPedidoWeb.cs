@@ -49,6 +49,7 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@IPUsuario", DbType.AnsiString, pedidoweb.IPUsuario);
             Context.Database.AddOutParameter(command, "@PedidoID", DbType.Int32, pedidoweb.PedidoID);
             Context.Database.AddInParameter(command, "@CodigoUsuarioCreacion", DbType.String, pedidoweb.CodigoUsuarioCreacion);
+            Context.Database.AddInParameter(command, "@Hostname", DbType.String, pedidoweb.HostName);
 
             Context.ExecuteNonQuery(command);
             return Convert.ToInt32(command.Parameters["@PedidoID"].Value);

@@ -2896,6 +2896,26 @@ namespace Portal.Consultoras.Common
             return ISO;
         }
 
+        public static string GetHostName(string IPAddress) {
+            if (string.IsNullOrEmpty(IPAddress)) return null;
+            try
+            {
+                IPHostEntry Entry = Dns.GetHostEntry(IPAddress);
+                if (Entry != null)
+                {
+                    return Entry.HostName;
+                }
+            }
+            catch (Exception)
+            {
+                return "Unknown host";
+                //not every IP has a name
+                //log exception (manage it)
+                throw;
+            }
+            return null;
+        }
+
         public static string ValidarUsuarioADFS(string usuario, string clave)
         {
             string resultado = "";
