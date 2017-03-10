@@ -235,7 +235,7 @@
         <div class="cellGrid " data-colName="CampanaIngreso">{{CampanaIngreso}}</div>
         <div class="cellGrid alignCenter" data-colName="Ubicacion"><a href="javascript:void(0);"><img style="height: 18px;"src="{{UrlContentImage}}{{IconUbicacion}}" onclick="consultarUbicacion('{{SolicitudPostulanteID}}');" /></a></div>
         <div class="cellGrid alignCenter" data-colName="EvaluacionCrediticia"><a href="javascript:void(0);"><img style="height: 18px;" src="{{UrlContentImage}}{{IconEvaluacionCrediticia}}" onclick="consultarEvaluacionCrediticia('{{SolicitudPostulanteID}}');" /></a></div>
-        <div class="cellGrid alignCenter" data-colName="EvaluacionTelefonica"> <img style="height: 18px;" src="{{UrlContentImage}}{{IconEvaluacionTelefonica}}" /></div>
+        <div class="cellGrid alignCenter" data-colName="EvaluacionTelefonica"> <img    style="visibility:{{ShowEvaliuacionTelefonica}}; height: 18px;" src="{{UrlContentImage}}{{IconEvaluacionTelefonica}}" /></div>
         <div class="cellGrid " data-colName="Estado">{{Estado}}</div>
         <div class="cellGrid w4" data-colName="TipoRechazo">{{TipoRechazo}}</div>
         <div class="cellGrid w4" data-colName="MotivoRechazo">{{MotivoRechazo}}</div>
@@ -326,7 +326,7 @@
 
    function loadExtraData(solicitudPostulanteID)
     {
-      
+       
        var option = $('#Estado').val();
 
        switch (option) {
@@ -459,7 +459,7 @@
 
             switch (option) {
                 case "0": // TODOS
-                    $('#blackGrid').css('width', '1500px')
+                    $('#blackGrid').css('width', '1550px')
                     showColumn('FechaCreacion'); $('[data-colname="FechaCreacion"]').css('width', '65px');
                     showColumn('CampanaRegistro'); $('[data-colname="CampanaRegistro"]').css('width', '65px');
                     showColumn('Tipo'); $('[data-colname="Tipo"]').css('width', '49px');
@@ -522,7 +522,7 @@
                     hideColumn('TipoRechazo'); $('[data-colname="TipoRechazo"]').css('width', '150px');
                     hideColumn('MotivoRechazo'); $('[data-colname="MotivoRechazo"]').css('width', '150px');
                     showColumn('Editar'); $('[data-colname="Editar"]').css('width', '70px');
-                    $('.editarBtnGrid').remove();
+             
                     hideColumn('PendienteConfirmacion'); $('[data-colname="PendienteConfirmacion"]').css('width', '70px');
                     hideColumn('Reactivar'); $('[data-colname="Reactivar"]').css('width', '70px');
                     hideColumn('Aprobar'); $('[data-colname="Aprobar"]').css('width', '70px');
@@ -541,7 +541,7 @@
                     hideColumn('SeccionOrigen'); $('[data-colname="SeccionOrigen"]').css('width', '45px');
                     break;
                 case "3": //En aprobacion FFVV
-                    $('#blackGrid').css('width', '1270px')
+                    $('#blackGrid').css('width', '1300px')
                     showColumn('FechaCreacion'); $('[data-colname="FechaCreacion"]').css('width', '65px');
                     showColumn('CampanaRegistro'); $('[data-colname="CampanaRegistro"]').css('width', '65px');
                     showColumn('Tipo'); $('[data-colname="Tipo"]').css('width', '49px');
@@ -563,6 +563,7 @@
                     hideColumn('TipoRechazo'); $('[data-colname="TipoRechazo"]').css('width', '150px');
                     hideColumn('MotivoRechazo'); $('[data-colname="MotivoRechazo"]').css('width', '150px');
                     showColumn('Editar'); $('[data-colname="Editar"]').css('width', '70px');
+                    $('.editarBtnGrid').remove();
                     hideColumn('PendienteConfirmacion'); $('[data-colname="PendienteConfirmacion"]').css('width', '70px');
                     hideColumn('Reactivar'); $('[data-colname="Reactivar"]').css('width', '70px');
                     hideColumn('Aprobar'); $('[data-colname="Aprobar"]').css('width', '70px');
@@ -938,6 +939,8 @@
 <div class="contenedor_popup_eliminarCliente" id="divEvaluacionCrediticia"> 
 </div>
 <div class="contenedor_popup_eliminarCliente" id="divConsultarUbicacion">
+</div>
+<div class="contenedor_popup_eliminarCliente" id="divReactivarPostulante">
 </div>
 <div class="contenedor_popup_eliminarCliente" id="divEditarSolicitud">
 </div>
@@ -1415,6 +1418,7 @@
         $.get('@Url.Action("ConsultarUbicacion", "Unete")', { id: solicitudPostulanteID }, function (html) {
 
             $('#divConsultarUbicacion').html(html);
+            loadExtraData(solicitudPostulanteID);
 
         }).always(function () {
 
@@ -1428,7 +1432,7 @@
 
 
     function generalLoading() {
-      
+
         $('#divGeneralLoading').empty();
         LoadSpinner('divGeneralLoading');
 
@@ -1557,16 +1561,16 @@
     }
 
     function reactivar(solicitudPostulanteID) {
-        waitingDialog({});
-        modal.dialog("option", "width", 550);
-        modal.dialog("option", "height", 220);
-
-        $.get('@Url.Action("ReactivarPostulante", "Unete")', { id: solicitudPostulanteID }, function (html) {
-            $('#modal_content').html(html);
-            modal.dialog('open');
+        $('#divReactivarPostulante').empty();
+        $('#divReactivarPostulante').show();
+        LoadSpinner('divReactivarPostulante');
+       $.get('@Url.Action("ReactivarPostulante", "Unete")', { id: solicitudPostulanteID }, function (html) {
+            $('#divReactivarPostulante').html(html);
+            $('#divReactivarPostulante').show();
         }).done(function () {
-            closeWaitingDialog({});
+
         });
+         
     }
 
     function Aprobar(solicitudPostulanteID) {
@@ -1638,7 +1642,7 @@
 
         }).always(function () { }).done(function () { });
 
-    
+
     }
 
     function ver(solicitudPostulanteID) {
@@ -1656,7 +1660,7 @@
 
         }).always(function () { }).done(function () { });
 
-       
+
     }
 
     function IntegerNumber(e) {
@@ -2330,6 +2334,10 @@
     }
 
         
+    #divReactivarPostulante {
+        display: none;
+    }
+
         #divConsultarUbicacion {
         display: none;
     }
