@@ -1,5 +1,6 @@
 ﻿var listatipo = "";
 var rangoPrecios = 0;
+//var busquedaModel = null;
 
 $(document).ready(function () {
     $(".footer_e").css("margin-bottom", "73px");
@@ -71,25 +72,112 @@ $(document).ready(function () {
         });        
     });
 
+    $("#filter-sorting").change(function() {
+        ObtenerProductosShowRoom();
+    });
+
+    $("[data-filtro-categoria]").click(function () {
+        ObtenerProductosShowRoom();
+    });
+
+    $("#divBorrarFiltros").click(function () {
+        $(".content_filtro_range").html("");
+        $(".content_filtro_range").html('<input class="range-slider" value="" style="width: 100%; display: none;" />');
+        CargarFiltroRangoPrecio();
+
+        $.each($("[data-filtro-categoria]"), function (index, value) {
+            $(value).removeClass("seleccion_click_flitro");
+        });
+
+        var busquedaModel = null;
+        var ordenamiento = null;
+
+        /*Ordenamiento*/
+        var tipoOrdenamiento = "PRECIO";
+        var valorOrdenamiento = $("#filter-sorting").val();
+
+        ordenamiento = {
+            Tipo: tipoOrdenamiento,
+            Valor: valorOrdenamiento
+        }
+
+        busquedaModel = {
+            Ordenamiento: ordenamiento
+        };
+
+        CargarProductosShowRoom(busquedaModel);
+    });
+
     $("#linkTerminosCondicionesShowRoom").attr("href", urlTerminosCondiciones);
 
     CargarFiltroRangoPrecio();
+    CargarProductosShowRoom(null);
 });
 
+function ObtenerProductosShowRoom() {
+    var busquedaModel = filterShowRoomDesktop();
+    CargarProductosShowRoom(busquedaModel);
+}
+
+function CargarProductosShowRoom(busquedaModel) {
+    //AbrirLoad();
+    $.ajaxSetup({
+        cache: false
+    });
+
+    $('#divProductosShowRoom').html('<div style="text-align: center; min-height:150px;"><br><br><br><br>Cargando Productos ShowRoom<br><img src="' + urlLoad + '" /></div>');
+
+    jQuery.ajax({
+        type: 'POST',
+        url: baseUrl + 'ShowRoom/CargarProductosShowRoom',
+        dataType: 'json',
+        contentType: 'application/json; charset=utf-8',
+        data: JSON.stringify(busquedaModel),
+        async: true,
+        success: function (response) {
+            //CerrarLoad();
+            
+            if (response.success == true) {
+                var lista = response.lista;
+
+                $.each(lista, function(index, value) {
+                    value.Posicion = index + 1;
+                    value.UrlDetalle = urlDetalleShowRoom + '/' + value.OfertaShowRoomID;
+                });
+
+                $("#divProductosShowRoom").html("");                
+
+                var htmlDiv = SetHandlebars("#template-showroom", lista);
+                $('#divProductosShowRoom').append(htmlDiv);
+
+            } else messageInfoError(response.message);
+        },
+        error: function (response, error) {
+            if (checkTimeout(response)) {
+                CerrarLoad();
+                console.log(response);
+            }
+        }
+    });
+}
+
 function CargarFiltroRangoPrecio() {
+    var precioMinFormat = DecimalToStringFormat(precioMin);
+    var precioMaxFormat = DecimalToStringFormat(precioMax);
+
     precioMin = parseFloat(precioMin);
     precioMax = parseFloat(precioMax);
 
     var myformat = simbolo + '%s';
-    var scala1 = simbolo + precioMin;
-    var scala2 = simbolo + precioMax;
+    var scala1 = simbolo + precioMinFormat;
+    var scala2 = simbolo + precioMaxFormat;
     $('.range-slider').val(precioMin + ',' + precioMax);
 
     $('.range-slider').show();
     $('.range-slider').jRange({
         from: precioMin,
         to: precioMax,
-        step: 0.01,
+        step: 1,
         scale: [scala1, scala2],
         format: myformat,
         width: '',
@@ -101,19 +189,94 @@ function CargarFiltroRangoPrecio() {
         ondragend: function (myvalue) {
             rangoPrecios = myvalue;
             $(".slider-container").addClass("disabledbutton");
-            //filterFAVDesktop();
-
+            ObtenerProductosShowRoom();
         },
         onbarclicked: function (myvalue) {
             rangoPrecios = myvalue;
-
             $(".slider-container").addClass("disabledbutton");
-            //filterFAVDesktop();
+            ObtenerProductosShowRoom();
         }
     });
     //$('.range-slider').jRange('setValue', '0,100');
     //$('.range-slider').jRange('updateRange', '0,100');
     $('.slider-container').css('width', '');
+}
+
+function filterShowRoomDesktop() {
+    var busquedaModel = null;
+   
+    var listaFiltro = null;
+    var ordenamiento = null;
+    
+    /*Ordenamiento*/
+    var tipoOrdenamiento = "PRECIO";
+    var valorOrdenamiento = $("#filter-sorting").val();
+
+    ordenamiento = {
+        Tipo: tipoOrdenamiento,
+        Valor: valorOrdenamiento
+    }
+
+    /*Filtros de Busqueda*/    
+    var filtroCategoria = null;
+    var tipoBusqueda = "CATEGORIA";
+    var valores = new Array();
+
+    var seleccionado = false;
+    $.each($("[data-filtro-categoria]"), function (index, value) {               
+        if ($(value).hasClass("seleccion_click_flitro")) {
+            seleccionado = true;
+            var valor = $(value).attr("data-categoriacodigo");
+            valores.push(valor);
+        }        
+    });
+
+    if (!seleccionado) {
+        valores = null;
+    }
+
+    if (valores != null) {
+        filtroCategoria = {
+            Tipo: tipoBusqueda,
+            Valores: valores
+        };
+    }
+    
+    var filtroRangoPrecio = null;
+    var tipoBusquedaRangoPRecio = "RANGOPRECIOS";
+    var valoresRangoPrecio = null;
+
+    if (rangoPrecios != 0) {
+        var arr = rangoPrecios.toString().split(',');
+        valoresRangoPrecio = new Array();
+        valoresRangoPrecio.push(arr[0]);
+        valoresRangoPrecio.push(arr[1]);
+    }
+
+    if (valoresRangoPrecio != null) {
+        filtroRangoPrecio = {
+            Tipo: tipoBusquedaRangoPRecio,
+            Valores: valoresRangoPrecio
+        };
+    }
+
+    if (filtroCategoria != null || filtroRangoPrecio != null) {
+        listaFiltro = new Array();
+
+        if (filtroCategoria != null)
+            listaFiltro.push(filtroCategoria);
+
+        if (filtroRangoPrecio != null)
+            listaFiltro.push(filtroRangoPrecio);
+    }           
+
+    busquedaModel = {
+        ListaFiltro: listaFiltro,
+        Ordenamiento: ordenamiento
+    };
+
+    return busquedaModel;
+    //CargarProductosShowRoom(busquedaModel);
 }
 
 function maxLengthCheck(object, cantidadMaxima) {

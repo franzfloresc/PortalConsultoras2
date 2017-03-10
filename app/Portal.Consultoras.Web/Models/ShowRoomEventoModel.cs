@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Web;
+using Portal.Consultoras.Web.ServiceSAC;
 
 namespace Portal.Consultoras.Web.Models
 {
@@ -72,5 +73,7 @@ namespace Portal.Consultoras.Web.Models
         public string UrlTerminosCondiciones { get; set; }
 
         public List<ShowRoomCategoriaModel> ListaCategoria { get; set; }
+
+        public List<BETablaLogicaDatos> FiltersBySorting { get; set; }
     }
 }

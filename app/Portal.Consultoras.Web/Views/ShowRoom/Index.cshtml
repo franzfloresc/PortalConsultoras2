@@ -8,8 +8,8 @@
 
 @section styles{
 
-    <link href="@Url.Content("~/Content/Css/Site/jquery.range.css")" rel="stylesheet"/>
-    <link href="@Url.Content("~/Content/Css/Site/slick-pedido.css")" rel="stylesheet"/>
+    <link href="@Url.Content("~/Content/Css/Site/jquery.range.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/Css/Site/slick-pedido.css")" rel="stylesheet" />
 }
 
 <input type="hidden" id="hdListaProductosEnShowRoom" value="@JsonConvert.SerializeObject(Model.ListaShowRoomOferta)" />
@@ -17,13 +17,13 @@
 <!--MAQUETADO NUEVO-->
 <div class="catalogoPersonalizadoBloque">
     <div class="content_banner_intriga">
-        <img src="@Url.Content("~/Content/Images/showroom/BARRA SUPERIOR_COMPRA.png")"/>
+        <img src="@Url.Content("~/Content/Images/showroom/BARRA SUPERIOR_COMPRA.png")" />
     </div>
     <div class="content_belcorp">
         <div class="content_filtros_left">
             <span class="titulo_filtro_fav">FILTROS</span>
             <div class="linea_separadora" style="height: 3px;"></div>
-            <div class="texto_fav_filtro" style="cursor: pointer;"> BORRAR FILTROS</div>
+            <div id="divBorrarFiltros" class="texto_fav_filtro" style="cursor: pointer;"> BORRAR FILTROS</div>
             <div id="limiteFlt" class="linea_separadora"></div>
             <!--PRIMER FILTRO-->
             <span class="titulo_filtro_fav">CATEGORÍAS</span>
@@ -36,7 +36,7 @@
                     <div id="div-filter-category">
                         @foreach (var itemCategoria in Model.ListaCategoria)
                         {
-                            <div class="seleccion_filtro_fav" data-categoriacodigo="@itemCategoria.Codigo">@itemCategoria.Descripcion</div>
+                            <div data-filtro-categoria="" class="seleccion_filtro_fav" data-categoriacodigo="@itemCategoria.Codigo">@itemCategoria.Descripcion</div>
                         }
                     </div>
                     <div class="linea_separadora"></div>
@@ -46,28 +46,33 @@
             <!--TERCER FILTRO-->
             <span class="titulo_filtro_fav">RANGO DE PRECIO</span>
             <div class="content_filtro_range">
-                <input class="range-slider" value="" style="width: 100%; display: none;"/>
+                <input class="range-slider" value="" style="width: 100%; display: none;" />
             </div>
 
-            <hr class="clear"/>
+            <hr class="clear" />
 
         </div>
         <div class="content-left-item">
-            <div class="filtros_derecha">
-                ORDENAR POR
-
-                <select id="filter-sorting" class="select_filtros_fav" onchange="filterFAVDesktop()">
-                    <option value="01">PRECIO | menor a mayor</option>
-                    <option value="02">PRECIO | mayor a menor</option>
-                    <option value="03">RELEVANCIA</option>
-                </select>
-
-            </div>
-            <hr class="clear" />
-            <div>
-                @{ var posicionx = 1; }
-                @foreach (var item in Model.ListaShowRoomOferta)
+            @if (Model.FiltersBySorting != null)
             {
+                <div class="filtros_derecha">
+                    ORDENAR POR
+
+                    <select id="filter-sorting" class="select_filtros_fav">
+                        @foreach (var item in Model.FiltersBySorting)
+                        {
+                            <option value="@item.Codigo">@item.Descripcion</option>
+                        }
+                    </select>
+
+                </div>
+            }
+
+            <hr class="clear" />
+            <div id="divProductosShowRoom">
+                @*@{ var posicionx = 1; }
+                @foreach (var item in Model.ListaShowRoomOferta)
+                {
                     <div class="set-productos-showroom" data-posicion="@posicionx" data-item="@item.OfertaShowRoomID">
                         <div data-campos="">
                             <input type="hidden" class="hdOfertaShowRoomID" value="@item.OfertaShowRoomID" />
@@ -82,13 +87,13 @@
 
                         <div class="producto_img_home mini" data-img="">
                             @if (string.IsNullOrEmpty(item.ImagenMini))
-                        {
-                        <img src="@Url.Content("~/Content/Images/showroom/no_disponible.png")" style="width: auto; height: 100%;" class="imagen_producto" />
-                        }
-                        else
-                        {
-                        <img src="@item.ImagenMini" alt="" style="width: auto; height: 100%;" class="imagen_producto" />
-                        }
+                            {
+                                <img src="@Url.Content("~/Content/Images/showroom/no_disponible.png")" style="width: auto; height: 100%;" class="imagen_producto" />
+                            }
+                            else
+                            {
+                                <img src="@item.ImagenMini" alt="" style="width: auto; height: 100%;" class="imagen_producto" />
+                            }
 
                             <a class="ver_detalle_carrusel" href="@Url.Action("DetalleOferta", "ShowRoom", new {id = item.OfertaShowRoomID})">VER DETALLE</a>
                         </div>
@@ -125,12 +130,12 @@
                     }
                 }
 
-                <hr class="clear" />
+                <hr class="clear" />*@
             </div>
         </div>
 
     </div>
-    <hr class="clear"/>
+    <hr class="clear" />
     @if (Model.TieneCompraXcompra)
     {
         if (Model.ListaShowRoomCompraPorCompra != null && Model.ListaShowRoomCompraPorCompra.Count > 0)
@@ -142,11 +147,11 @@
                         <img src="@Model.ListaShowRoomCompraPorCompra[0].ImagenProducto">
                     </div>
                     <div class="content_oferta">
-                        <b class="content_oferta_promocion">PROMOCIÓN</b><br/>
-                        <b>A SÓLO @Model.ListaShowRoomCompraPorCompra[0].Simbolo @Model.ListaShowRoomCompraPorCompra[0].PrecioCatalogo </b>POR LA COMPRA DE 2 SETS                      
+                        <b class="content_oferta_promocion">PROMOCIÓN</b><br />
+                        <b>A SÓLO @Model.ListaShowRoomCompraPorCompra[0].Simbolo @Model.ListaShowRoomCompraPorCompra[0].PrecioCatalogo </b>POR LA COMPRA DE 2 SETS
                     </div>
                     <a class="btn_ver_detalle_compra" id="btnVerDetalleCompraPorCompra">VER DETALLE</a>
-                    <hr class="clear"/>
+                    <hr class="clear" />
                 </div>
             </div>
         }
@@ -158,8 +163,8 @@
     if (Model.ListaShowRoomCompraPorCompra != null && Model.ListaShowRoomCompraPorCompra.Count > 0)
     {
         <div id="PopDetalleCompra" class="Content_general_pop_up" style="display: none;" data-popup-main>
-            <div class="content_ficha_producto_nueva" style="width:750px;" data-popup-body>
-                <a class="cerrar_fichaProducto" href="javascript:;" onclick="javascript: $('#PopDetalleCompra').fadeOut();">
+            <div class="content_ficha_producto_nueva" style="width: 750px;" data-popup-body>
+                <a class="cerrar_fichaProducto" href="javascript:;" onclick=" javascript: $('#PopDetalleCompra').fadeOut(); ">
                     <img src="/Content/Images/cerrar_04_blanco.png" alt=" alternate text">
                 </a>
 
@@ -169,16 +174,17 @@
                     {
                         <div data-posicion="@posicionCpc" data-item="@item.OfertaShowRoomID">
                             <div data-campos="">
-                                <input type="hidden" class="hdOfertaShowRoomID" value="@item.OfertaShowRoomID" />
-                                <input type="hidden" class="valorCuv" value="@item.CUV" />
-                                <input type="hidden" class="claseMarcaID" value="@item.MarcaID" />
-                                <input type="hidden" class="clasePrecioUnidad" value="@item.PrecioCatalogo" />
-                                <input type="hidden" class="DescripcionProd" value="@item.Descripcion" />
-                                <input type="hidden" class="DescripcionMarca" value="@item.DescripcionMarca" />
-                                <input type="hidden" class="posicionEstrategia" value="@posicionCpc" />
+                                <input type="hidden" class="hdOfertaShowRoomID" value="@item.OfertaShowRoomID"/>
+                                <input type="hidden" class="valorCuv" value="@item.CUV"/>
+                                <input type="hidden" class="claseMarcaID" value="@item.MarcaID"/>
+                                <input type="hidden" class="clasePrecioUnidad" value="@item.PrecioCatalogo"/>
+                                <input type="hidden" class="DescripcionProd" value="@item.Descripcion"/>
+                                <input type="hidden" class="DescripcionMarca" value="@item.DescripcionMarca"/>
+                                <input type="hidden" class="posicionEstrategia" value="@posicionCpc"/>
                             </div>
                             <div class="titulo_compra_POP">PROMOCIÓN</div>
-                            <div class="precio_set_compra"><b>A SÓLO @item.Simbolo @item.FormatoPrecioCatalogo</b> POR LA COMPRA DE DOS SETS</div>
+                            <div class="precio_set_compra"><b>A SÓLO @item.Simbolo @item.FormatoPrecioCatalogo</b> POR LA COMPRA DE DOS SETS
+                            </div>
                             <div class="content_imagen_compra" data-img="">
                                 @if (item.ImagenProducto != "")
                                 {
@@ -186,7 +192,7 @@
                                 }
                                 else
                                 {
-                                    <img src="@Url.Content("~/Content/Images/showroom/no_disponible.png")" style="width: auto; height: 100%;" class="imagen_producto" />
+                                    <img src="@Url.Content("~/Content/Images/showroom/no_disponible.png")" style="width: auto; height: 100%;" class="imagen_producto"/>
                                 }
                             </div>
                             <div class="content_datos_carrusel">
@@ -206,9 +212,9 @@
                                 <a data-btn-agregar-cpc="" class="boton_Agregalo_home btn_aregar_set" onclick="" style="width: 100%;">
                                     AGRÉGALO
                                 </a>
-                                <hr class="clear" />
+                                <hr class="clear"/>
                             </div>
-                            <hr class="clear" />
+                            <hr class="clear"/>
                         </div>
                         {
                             posicionCpc++;
@@ -220,16 +226,14 @@
         </div>
     }
 }
-    
+
 
 <!--FIN-->
+@*<div class="banner_showroom">
 
-
-    @*<div class="banner_showroom">
-     
         <img src="@Model.ImagenCabeceraProducto" alt="">
     </div>*@
-    @*<div class="wrapper_showroom">
+@*<div class="wrapper_showroom">
         <div class="titulo_buscado">
             <div class="titulo_showroom">
                 <span>¡Oportunidad única! Sets exclusivos sólo por la Web!</span><br />
@@ -237,45 +241,97 @@
         </div>
     </div>*@
 
-    <div id="divMensajeProductoAgregado" class="divAgregarShowRoom" style="display: none;">
-        <div class="titulo_producto_agregado">
-            ¡Has agregado <span id="spnNombreOfertaShowRoom">Hola</span> a tu pedido!
+<div id="divMensajeProductoAgregado" class="divAgregarShowRoom" style="display: none;">
+    <div class="titulo_producto_agregado">
+        ¡Has agregado <span id="spnNombreOfertaShowRoom">Hola</span> a tu pedido!
+    </div>
+    <div class="div_bonotes_producto">
+        <div class="child_center_botones">
+            <a class="volver_set" id="btnCerrarSet">VOLVER A SETS</a>
+            <a class="volver_set2" href="@Url.Action("Index","Pedido")" id="btnIrMipedido">VER MI PEDIDO</a>
+        </div>
+    </div>
+</div>
 
+<div id="DialogMensajesBanner" style="display: none;">
+    <div class="message_text">
+        Ocurrió un error en la comunicación o la sesión ha expirado. Por favor vuelva a autenticarse.
+    </div>
+</div>
+
+<div id="loadingScreen"></div>
+
+<script id="template-showroom" type="text/x-handlebars-template">
+    {{#each this as |item|}}
+    <div class="set-productos-showroom" data-posicion="{{Posicion}}" data-item="{{OfertaShowRoomID}}">
+        <div data-campos="">
+            <input type="hidden" class="hdOfertaShowRoomID" value="{{OfertaShowRoomID}}" />
+            <input type="hidden" class="valorCuv" value="{{CUV}}" />
+            <input type="hidden" class="claseMarcaID" value="{{MarcaID}}" />
+            <input type="hidden" class="clasePrecioUnidad" value="{{PrecioCatalogo}}" />
+            <input type="hidden" class="claseConfiguracionOfertaID" value="{{ConfiguracionOfertaID}}" />
+            <input type="hidden" class="DescripcionProd" value="{{Descripcion}}" />
+            <input type="hidden" class="DescripcionMarca" value="{{DescripcionMarca}}" />
+            <input type="hidden" class="posicionEstrategia" value="{{Posicion}}" />
         </div>
 
+        <div class="producto_img_home mini" data-img="">
+            {{#IsNullOrEmpty ImagenMini '=='}}
+            <img src="@Url.Content("~/Content/Images/showroom/no_disponible.png")" style="width: auto; height: 100%;" class="imagen_producto" />
+            {{/IsNullOrEmpty}}
 
-        <div class="div_bonotes_producto">
-            <div class="child_center_botones">
-                <a class="volver_set" id="btnCerrarSet">VOLVER A SETS</a>
-                <a class="volver_set2" href="@Url.Action("Index","Pedido")" id="btnIrMipedido">VER MI PEDIDO</a>
+            {{#IsNullOrEmpty ImagenMini '!='}}
+            <img src="{{ImagenMini}}" alt="" style="width: auto; height: 100%;" class="imagen_producto" />
+            {{/IsNullOrEmpty}}
 
+            <a class="ver_detalle_carrusel" href="{{UrlDetalle}}">VER DETALLE</a>
+        </div>
+        <div class="producto_nombre_descripcion">
+            <p class="nombre-producto-set">{{Descripcion}}</p>
+            <div class="producto_precio" style="margin-bottom: 3px;">
+                <span class="precio-oferta-normal">{{Simbolo}} {{FormatoPrecioOferta}}</span>
+                <span class="precio-oferta-venta"><b>{{Simbolo}} {{FormatoPrecioCatalogo}}</b></span>
             </div>
-
+            <div class="liquidacion_rango_home" data-cantidad-contenedor="">
+                <input type="text" value="1" min="1" max="99" size="2" maxlength="2"
+                       class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral"
+                       oninput="maxLengthCheck(this, 2)" onkeypress=" return FuncionesGenerales.ValidarSoloNumeros(event); "
+                       data-input="cantidad" data-cantidad-input="-">
+                <div class="liquidacion_rango_right_pedido">
+                    <a class="mas" data-cantidad-agregar="+" href="javascript:;"><img src="/Content/Images/Esika/mas.png" alt=""></a>
+                    <a class="menos" data-cantidad-agregar="-" href="javascript:;"><img src="/Content/Images/Esika/menos.png" alt=""></a>
+                </div>
+            </div>
+            <a class="boton_Agregalo_home" data-btn-agregar-sr="">
+                AGRÉGALO
+            </a>
+            <div class="clear"></div>
+            <div style="padding-top: 9px; height: 15px;">
+                <div class="agregado product-add" style="text-align: right; display: {{Agregado}};">
+                    AGREGADO
+                    <div class="icono"></div>
+                </div>
+            </div>
         </div>
-
-
     </div>
+    {{/each}}    
+    <hr class="clear" />
+</script>
 
-    <div id="DialogMensajesBanner" style="display: none;">
-        <div class="message_text">
-            Ocurrió un error en la comunicación o la sesión ha expirado. Por favor vuelva a autenticarse.
-        </div>
-    </div>
+@section scripts{
+    <script type="text/javascript" src="@Url.Content("~/Scripts/nieve.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/slick.min.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.range.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/ShowRoom/Index.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/ShowRoom/ShowRoom.js")"></script>
+    <script type="text/javascript">
+        var urlLoad = '@Url.Content("~/Content/Images/Loading.gif")';
+        var tipoOrigenPantalla = 1;
+        var urlTerminosCondiciones = '@Model.UrlTerminosCondiciones';
+        var precioMin = '@ViewBag.PrecioMin';
+        var precioMax = '@ViewBag.PrecioMax';
+        var simbolo = '@Model.Simbolo';
+        var urlDetalleShowRoom = '@Url.Action("DetalleOferta", "ShowRoom")';
+    </script>
 
-    <div id="loadingScreen"></div>
-
-    @section scripts{
-        <script type="text/javascript" src="@Url.Content("~/Scripts/nieve.js")"></script>
-        <script type="text/javascript" src="@Url.Content("~/Scripts/slick.min.js")"></script>
-        <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.range.js")"></script>
-        <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/ShowRoom/Index.js")"></script>
-        <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/ShowRoom/ShowRoom.js")"></script>
-        <script type="text/javascript">
-            var tipoOrigenPantalla = 1;
-            var urlTerminosCondiciones = '@Model.UrlTerminosCondiciones';
-            var precioMin = '@ViewBag.PrecioMin';
-            var precioMax = '@ViewBag.PrecioMax';
-            var simbolo = '@Model.Simbolo';
-        </script>
-        
-    }
+}

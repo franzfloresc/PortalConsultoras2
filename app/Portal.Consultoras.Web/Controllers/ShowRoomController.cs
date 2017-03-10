@@ -16,6 +16,8 @@ using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.ServiceZonificacion;
 using Portal.Consultoras.Web.ServicePROLConsultas;
 using Portal.Consultoras.Web.ServiceProductoCatalogoPersonalizado;
+using Portal.Consultoras.Web.ServiceSAC;
+using Switch = System.Diagnostics.Switch;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -83,6 +85,11 @@ namespace Portal.Consultoras.Web.Controllers
                 showRoomEventoModel.UrlTerminosCondiciones = terminosCondiciones == null
                     ? ""
                     : terminosCondiciones.Valor;
+
+                using (SACServiceClient svc = new SACServiceClient())
+                {
+                    showRoomEventoModel.FiltersBySorting = svc.GetTablaLogicaDatos(userData.PaisID, 99).ToList();
+                }
 
                 ViewBag.PrecioMin = showRoomEventoModel.ListaShowRoomOferta.Min(p => p.PrecioCatalogo);
                 ViewBag.PrecioMax = showRoomEventoModel.ListaShowRoomOferta.Max(p => p.PrecioCatalogo);
@@ -2453,5 +2460,81 @@ namespace Portal.Consultoras.Web.Controllers
 
         }        
         #endregion
+
+        [HttpPost]
+        public JsonResult CargarProductosShowRoom(BusquedaProductoModel model)
+        {
+            try
+            {
+                var listaFinal = new List<ShowRoomOfertaModel>();
+                var fechaHoy = DateTime.Now.AddHours(userData.ZonaHoraria).Date;
+                bool esFacturacion = fechaHoy >= userData.FechaInicioCampania.Date;
+                var listaProductos = ObtenerListaProductoShowRoom(userData.CampaniaID, userData.CodigoConsultora, esFacturacion);
+                int cantidadTotal = listaProductos.Count;
+
+                listaFinal = listaProductos;
+
+                if (model.ListaFiltro != null && model.ListaFiltro.Count > 0)
+                {
+                    var filtroCategoria = model.ListaFiltro.FirstOrDefault(p => p.Tipo == "CATEGORIA");
+                    if (filtroCategoria != null)
+                    {
+                        var arrayCategoria = filtroCategoria.Valores.ToArray();
+                        listaFinal = listaFinal.Where(p => arrayCategoria.Contains(p.CodigoCategoria)).ToList();
+                    }
+
+                    var filtroRangoPrecio = model.ListaFiltro.FirstOrDefault(p => p.Tipo == "RANGOPRECIOS");
+                    if (filtroRangoPrecio != null)
+                    {
+                        var valorDesde = filtroRangoPrecio.Valores[0];
+                        var valorHasta = filtroRangoPrecio.Valores[1];
+                        listaFinal = listaFinal.Where(p => p.PrecioCatalogo >= Convert.ToDecimal(valorDesde)
+                                     && p.PrecioCatalogo <= Convert.ToDecimal(valorHasta)).ToList();
+                    }
+                }                
+
+                if (model.Ordenamiento != null)
+                {
+                    if (model.Ordenamiento.Tipo == "PRECIO")
+                    {
+                        switch (model.Ordenamiento.Valor)
+                        {
+                            case "01":
+                                listaFinal = listaFinal.OrderBy(p => p.Orden).ToList();
+                                break;
+                            case "02":
+                                listaFinal = listaFinal.OrderBy(p => p.PrecioCatalogo).ToList();
+                                break;
+                            case "03":
+                                listaFinal = listaFinal.OrderByDescending(p => p.PrecioCatalogo).ToList();
+                                break;
+                            default:
+                                listaFinal = listaFinal.OrderBy(p => p.Orden).ToList();
+                                break;
+                        }
+                    }
+                    
+                }
+                
+                int cantidad = listaFinal.Count;
+
+                return Json(new
+                {
+                    success = true,
+                    message = "Ok",
+                    lista = listaFinal,
+                    cantidad = cantidad
+                });
+            }
+            catch (Exception ex)
+            {
+                return Json(new
+                {
+                    success = false,
+                    message = "Ok",
+                    data = "Error al cargar los productos"
+                });
+            }            
+        }
     }
 }
