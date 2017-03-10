@@ -239,7 +239,7 @@
         <div class="cellGrid " data-colName="Estado">{{Estado}}</div>
         <div class="cellGrid w4" data-colName="TipoRechazo">{{TipoRechazo}}</div>
         <div class="cellGrid w4" data-colName="MotivoRechazo">{{MotivoRechazo}}</div>
-        <div class="cellGrid w4 alignCenter" data-colName="Editar"><a href="javascript:void(0);"><img style="height: 18px;    margin-right: 5px;"  src="@Url.Content("~/Content/Images/Esika/editar_clientes.png")" onclick="modificar('{{SolicitudPostulanteID}}')" /></a><a href="javascript:void(0);"><img style="height: 18px;" src="@Url.Content("~/Content/Images/icono-ver-estado.png")" onclick="ver('{{SolicitudPostulanteID}}')" /></a></div>
+        <div class="cellGrid w4 alignCenter" data-colName="Editar"><a href="javascript:void(0);"><img style="height: 18px;    margin-right: 5px;"  src="@Url.Content("~/Content/Images/Esika/editar_clientes.png")" class="editarBtnGrid" onclick="modificar('{{SolicitudPostulanteID}}')" /></a><a href="javascript:void(0);"><img style="height: 18px;" src="@Url.Content("~/Content/Images/icono-ver-estado.png")" onclick="ver('{{SolicitudPostulanteID}}')" /></a></div>
         <div class="cellGrid w3 alignCenter" data-colName="Documentos"><a href="javascript:void(0);"><img src="@Url.Content("~/Content/Images/Detail.png")" onclick="consultarDocs('{{SolicitudPostulanteID}}')" style="visibility:{{ShowDocs}}" /></a></div>
         <div class="cellGrid " data-colName="PendienteConfirmacion"><span class="buttonGrid"  onclick="reenviar('{{SolicitudPostulanteID}}')"  style="visibility:{{ShowPendienteConfirmacion}}">Correo</span></div>
         <div class="cellGrid " data-colName="Reactivar"><span class="buttonGrid" onclick="reactivar('{{SolicitudPostulanteID}}')" style="visibility:{{ShowReactivar}}" >Reactivar</span></div>
@@ -481,6 +481,7 @@
                     hideColumn('TipoRechazo'); $('[data-colname="TipoRechazo"]').css('width', '150px');
                     hideColumn('MotivoRechazo'); $('[data-colname="MotivoRechazo"]').css('width', '150px');
                     showColumn('Editar'); $('[data-colname="Editar"]').css('width', '70px');
+                    $('.editarBtnGrid').remove();
                     hideColumn('PendienteConfirmacion'); $('[data-colname="PendienteConfirmacion"]').css('width', '70px');
                     hideColumn('Reactivar'); $('[data-colname="Reactivar"]').css('width', '70px');
                     hideColumn('Aprobar'); $('[data-colname="Aprobar"]').css('width', '70px');
@@ -521,6 +522,7 @@
                     hideColumn('TipoRechazo'); $('[data-colname="TipoRechazo"]').css('width', '150px');
                     hideColumn('MotivoRechazo'); $('[data-colname="MotivoRechazo"]').css('width', '150px');
                     showColumn('Editar'); $('[data-colname="Editar"]').css('width', '70px');
+                    $('.editarBtnGrid').remove();
                     hideColumn('PendienteConfirmacion'); $('[data-colname="PendienteConfirmacion"]').css('width', '70px');
                     hideColumn('Reactivar'); $('[data-colname="Reactivar"]').css('width', '70px');
                     hideColumn('Aprobar'); $('[data-colname="Aprobar"]').css('width', '70px');
@@ -602,6 +604,7 @@
                     showColumn('TipoRechazo'); $('[data-colname="TipoRechazo"]').css('width', '50px');
                     showColumn('MotivoRechazo'); $('[data-colname="MotivoRechazo"]').css('width', '150px');
                     showColumn('Editar'); $('[data-colname="Editar"]').css('width', '70px');
+                    $('.editarBtnGrid').remove();
                     hideColumn('PendienteConfirmacion'); $('[data-colname="PendienteConfirmacion"]').css('width', '70px');
                     showColumn('Reactivar'); $('[data-colname="Reactivar"]').css('width', '70px');
                     hideColumn('Aprobar'); $('[data-colname="Aprobar"]').css('width', '70px');
@@ -642,6 +645,7 @@
                     hideColumn('TipoRechazo'); $('[data-colname="TipoRechazo"]').css('width', '150px');
                     hideColumn('MotivoRechazo'); $('[data-colname="MotivoRechazo"]').css('width', '150px');
                     showColumn('Editar'); $('[data-colname="Editar"]').css('width', '70px');
+                    $('.editarBtnGrid').remove();
                     hideColumn('PendienteConfirmacion'); $('[data-colname="PendienteConfirmacion"]').css('width', '70px');
                     hideColumn('Reactivar'); $('[data-colname="Reactivar"]').css('width', '50px');
                     hideColumn('Aprobar'); $('[data-colname="Aprobar"]').css('width', '50px');
@@ -682,6 +686,7 @@
                     hideColumn('TipoRechazo'); $('[data-colname="TipoRechazo"]').css('width', '150px');
                     hideColumn('MotivoRechazo'); $('[data-colname="MotivoRechazo"]').css('width', '150px');
                     showColumn('Editar'); $('[data-colname="Editar"]').css('width', '70px');
+                    $('.editarBtnGrid').remove();
                     hideColumn('PendienteConfirmacion'); $('[data-colname="PendienteConfirmacion"]').css('width', '70px');
                     hideColumn('Reactivar'); $('[data-colname="Reactivar"]').css('width', '70px');
                     hideColumn('Aprobar'); $('[data-colname="Aprobar"]').css('width', '70px');
@@ -723,6 +728,7 @@
                     hideColumn('TipoRechazo'); $('[data-colname="TipoRechazo"]').css('width', '150px');
                     hideColumn('MotivoRechazo'); $('[data-colname="MotivoRechazo"]').css('width', '150px');
                     showColumn('Editar'); $('[data-colname="Editar"]').css('width', '70px');
+                    $('.editarBtnGrid').remove();
                     hideColumn('PendienteConfirmacion'); $('[data-colname="PendienteConfirmacion"]').css('width', '70px');
                     hideColumn('Reactivar'); $('[data-colname="Reactivar"]').css('width', '70px');
                     hideColumn('Aprobar'); $('[data-colname="Aprobar"]').css('width', '70px');
@@ -764,6 +770,7 @@
                     hideColumn('TipoRechazo'); $('[data-colname="TipoRechazo"]').css('width', '150px');
                     hideColumn('MotivoRechazo'); $('[data-colname="MotivoRechazo"]').css('width', '150px');
                     showColumn('Editar'); $('[data-colname="Editar"]').css('width', '70px');
+                    $('.editarBtnGrid').remove();
                     hideColumn('PendienteConfirmacion'); $('[data-colname="PendienteConfirmacion"]').css('width', '70px');
                     hideColumn('Reactivar'); $('[data-colname="Reactivar"]').css('width', '70px');
                     hideColumn('Aprobar'); $('[data-colname="Aprobar"]').css('width', '70px');
@@ -1438,7 +1445,7 @@
 
 
     function generalLoading() {
-        debugger;
+      
         $('#divGeneralLoading').empty();
         LoadSpinner('divGeneralLoading');
 
