@@ -1322,7 +1322,8 @@ namespace Portal.Consultoras.Web.Controllers
                 IconEvaluacionCrediticia = (i.EstadoBuroCrediticioID == 2 || i.EstadoBuroCrediticioID == 30 || i.EstadoBuroCrediticioID == 31 || i.EstadoBuroCrediticioID == 32 || i.EstadoBuroCrediticioID == 33) ? "webtracking/si.png" :
                 (i.EstadoBuroCrediticioID == 3 ? "Esika/icono-admiracion.png" : "Esika/icono_advertencia_notificacion.png"),
                 EstadoBuroCrediticioID = i.EstadoBuroCrediticioID,
-                IconEvaluacionTelefonica = i.EstadoTelefonico == "1" ? "webtracking/si.png" : i.EstadoTelefonico == "0" ? "Esika/icono_advertencia_notificacion.png" : "Esika/icono-admiracion.png",
+                IconEvaluacionTelefonica = i.EstadoTelefonico == "1" ? "webtracking/si.png" : i.EstadoTelefonico == "0" ? "Esika/icono_advertencia_notificacion.png" : i.EstadoTelefonico == "2" ? "Esika/icono-admiracion.png":"",
+                ShowEvaliuacionTelefonica = i.EstadoTelefonico == "3"?"hidden": "visible",
                 EstadoTelefonico = i.EstadoTelefonico,
                 Estado = i.EstadoPostulante,
                 UrlContentImage = Url.Content("~/Content/Images/"),
