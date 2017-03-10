@@ -426,5 +426,24 @@ namespace Portal.Consultoras.Web.Controllers
                   });
         }
         /*EPD-1025*/
+        /*EPD1973*/
+        public ActionResult ObtenerUltimaDescargaExitosa()
+        {
+            BEPedidoDescarga UltimaDescarga = new BEPedidoDescarga();
+            using (PedidoServiceClient sv = new PedidoServiceClient())
+            {
+                UltimaDescarga = sv.ObtenerUltimaDescargaExitosa(userData.PaisID);
+            }
+
+            return Json(new
+            {
+                success = true,
+                descarga = new
+                    {
+                        FechaEnvio = UltimaDescarga.FechaEnvio.ToString(),
+                        FechaProceso = UltimaDescarga.FechaProceso.ToString()
+                    }
+            });
+        }
     }
 }

@@ -101,6 +101,7 @@
                         <input type="hidden" class="cdrweb_formatoFechaCulminado" value="@formatoFechaCulminado"/>
                         <input type="hidden" class="cdrweb_formatocampania" value="@formatoCampania"/>
                         <input type="hidden" class="cdrweb_resumenresolucion" value="@item.ResumenResolucion"/>
+                        <input type="hidden" class="cdrweb_consultorasaldo" value="@item.ConsultoraSaldo" />
 
                         <div class="listado_fecha_general">
                             @item.FechaRegistro.Day.ToString().PadLeft(2, '0')/@item.FechaRegistro.Month.ToString().PadLeft(2, '0')/@item.FechaRegistro.Year
@@ -180,8 +181,8 @@
                 Resumen: <b><span id="spnResumenResolucion">2 productos aprobados, 1 rechazado</span></b>
             </div>
             <div class="sub_detalle_saldo" style="display: none;">
-                <span>Tu saldo actualizado es de: <b>S/.598.45</b></span>
-                <a href="">ver estado de cuenta</a>
+                Tu saldo actualizado es de: <b>@ViewBag.Simbolo <span id="spnConsultoraSaldo">S/. 598.45</span></b>
+                @*&nbsp;&nbsp;<a href="#" style="text-decoration: underline;">ver estado de cuenta</a>*@
             </div>
         </div>
         <div class="content_pop_grilla">
@@ -420,6 +421,7 @@
                 var formatoFechaCulminado = $(parent).find(".cdrweb_formatoFechaCulminado").val();
                 var formatoCampania = $(parent).find(".cdrweb_formatocampania").val();
                 var resumenResolucion = $(parent).find(".cdrweb_resumenresolucion").val();
+                var consultoraSaldo = $(parent).find(".cdrweb_consultorasaldo").val();
 
                 $("#hdPedidoIdActual").val(pedidoId);
 
@@ -450,6 +452,11 @@
                     $("#spnNumeroSolicitud").html(id);
                     $("#spnFormatoCampania").html(formatoCampania);
                     $("#spnResumenResolucion").html(resumenResolucion);
+
+                        // EPD-1665
+                        $('#spnConsultoraSaldo').html(consultoraSaldo);
+                        $('#PopSolicitud').find('div.sub_detalle_saldo').show();
+                        // EPD-1665
 
                     $("#PopSolicitud").show();
                     break;
