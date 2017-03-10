@@ -483,7 +483,7 @@ namespace Portal.Consultoras.Web.Controllers
                     var listaProductoBySap = new List<Producto>();
                     using (ProductoServiceClient ps = new ProductoServiceClient())
                     {
-                        listaProductoBySap = ps.ObtenerProductosByCodigoSap(userData.CodigoISO, userData.CampaniaID, listaSap).ToList();
+                        listaProductoBySap = ps.ObtenerProductosByCodigoSap(userData.CodigoISO, userData.CampaniaID, listaSap, 3).ToList();
                     }
                     listaProductoBySap = listaProductoBySap ?? new List<Producto>();
 
