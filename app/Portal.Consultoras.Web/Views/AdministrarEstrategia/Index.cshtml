@@ -46,7 +46,8 @@
                                         codigo-programa="@Model.ListaTipoEstrategia.ToList()[i].CodigoPrograma"
                                         imagen-tipo="@Model.ListaTipoEstrategia.ToList()[i].Imagen"
                                         value="@Model.ListaTipoEstrategia.ToList()[i].TipoEstrategiaID"
-                                        data-id="@Model.ListaTipoEstrategia.ToList()[i].CodigoGeneral">
+                                        data-id="@Model.ListaTipoEstrategia.ToList()[i].CodigoGeneral"
+                                        data-codigo="@Model.ListaTipoEstrategia.ToList()[i].Codigo">
                                 @Model.ListaTipoEstrategia.ToList()[i].Descripcion
                             </option>
                             }
@@ -2359,7 +2360,8 @@
                         Zona: Zona,
                         Orden: Orden,
                         ColorFondo: colorFondo,
-                        FlagEstrella: flagEstrella
+                        FlagEstrella: flagEstrella,
+                        CodigoTipoEstrategia: $('#ddlTipoEstrategia option:selected').attr('data-codigo')
                     };
                     jQuery.ajax({
                         type: 'POST',

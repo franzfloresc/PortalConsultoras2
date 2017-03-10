@@ -106,7 +106,6 @@
 
             $('#LugarNivel1')
                .change(function () {
-                   debugger;
                    var nivel1 = $(this);
                    var nivel2 = $('#LugarNivel2');
                    nivel2.attr('disabled', 'disabled');
@@ -132,7 +131,6 @@
 
             $('#LugarNivel2')
                 .change(function () {
-                    debugger;
                     var nivel2 = $(this);
                     $('#NombreLugarNivel2').val(nivel2.find('option:selected').text());
 
@@ -162,7 +160,6 @@
 
             $('#LugarNivel3')
                 .change(function () {
-                    debugger;
                     var nivel3 = $(this);
 
                     $('#NombreLugarNivel3').val($(this).find('option:selected').text());
@@ -201,7 +198,6 @@
 
             $('#LugarNivel4').change(function () {
                 //$('#NombreLugarNivel4').val($(this).find('option:selected').text());
-                debugger;
                 var nivel3 = $(this);
 
                 $('#NombreLugarNivel4').val($(this).find('option:selected').text());

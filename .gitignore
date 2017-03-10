@@ -21,7 +21,7 @@ scripts/startpool_web.bat
 scripts/startpool_ws.bat
 scripts/stoppool_web.bat
 scripts/stoppool_ws.bat
-
+*.dll
 #Ignore thumbnails created by Windows
 Thumbs.db
 #Ignore files built by Visual Studio

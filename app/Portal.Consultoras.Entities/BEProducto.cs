@@ -29,6 +29,9 @@ namespace Portal.Consultoras.Entities
         private int msIndicadorMontoMinimo;
 
         [DataMember]
+        public string CodigoSAP { get; set; }
+
+        [DataMember]
         public int ConfiguracionOfertaID { get; set; }
         [DataMember]
         public int TipoOfertaSisID { get; set; }
@@ -173,7 +176,8 @@ namespace Portal.Consultoras.Entities
         {
             //miCampaniaID = Convert.ToInt32(datarec["CampaniaID"]);
             msCUV = (datarec["CUV"] ?? "").ToString();
-            //msCodigoSAP = datarec["CodigoSAP"].ToString();
+            if (DataRecord.HasColumn(datarec, "CodigoSAP") && datarec["CodigoSAP"] != DBNull.Value)
+                CodigoSAP = DbConvert.ToString(datarec["CodigoSAP"]);
             msDescripcion = (datarec["Descripcion"] ?? "").ToString();
             if (DataRecord.HasColumn(datarec, "PrecioCatalogo") && datarec["PrecioCatalogo"] != DBNull.Value)
                 mdPrecioCatalogo = DbConvert.ToDecimal(datarec["PrecioCatalogo"]);

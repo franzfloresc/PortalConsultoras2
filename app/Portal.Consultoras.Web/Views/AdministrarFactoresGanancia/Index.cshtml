@@ -5,7 +5,7 @@
 }
 <script>
     jQuery(document).ready(function () {
-        //debugger;
+        
         if (checkTimeout()) {
             //fnGrilla();
             IniDialog();
@@ -51,7 +51,7 @@
             buttons:
             {
                 "Guardar": function () {
-                    //debugger;
+                    
                     var vMessage = "";
 
                     if (jQuery.trim($('#ddlPaisDialogo').val()) == "")
@@ -161,7 +161,7 @@
 
     $.jgrid.extend({
         Editar: function (Id) {
-            //debugger;
+            
             if (Id) {
                 $('#FactorGananciaID').val(jQuery("#list").jqGrid('getCell', Id, 'FactorGananciaID'));
                 $('#PaisID').val(jQuery("#list").jqGrid('getCell', Id, 'PaisID'));
@@ -177,7 +177,7 @@
             return false;
         },
         Eliminar: function (Id) {
-            //debugger;
+            
             var elimina = confirm('¿ Está seguro que desea eliminar el registro seleccionado?');
             if (!elimina)
                 return false;
@@ -224,7 +224,7 @@
     }
 
     function fnRegistrar() {
-        //debugger;
+        
         var valorPais;
         if (jQuery('#FactorGananciaID').val() == "0")
             valorPais = jQuery('#ddlPaisDialogo').val();
@@ -245,7 +245,7 @@
             data: JSON.stringify(item),
             async: true,
             success: function (data) {
-                //debugger;
+                
                 // valida si ha habido un timeout
                 if (checkTimeout(data)) {
                     // si no ha habido timeout continua el procesamiento normal
@@ -262,7 +262,7 @@
                 }
             },
             error: function (data, error) {
-                //debugger;
+                
                 // valida si ha habido un timeout
                 if (checkTimeout(data)) {
                     // si no ha habido timeout continua el procesamiento normal
