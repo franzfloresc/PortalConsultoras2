@@ -118,7 +118,6 @@
                 <div class="foto_usuaria_mobile">
                     <img src="/Content/Images/mobile/Esika/user.jpg" alt="-">
                 </div>
-                @*<a class="subir_foto_mobile"></a>*@
             </div>
         </div>
         <br />
@@ -142,10 +141,9 @@
     @if (ViewBag.MostrarBannerTopPL20 == true)
     {
         <div id="flexslidertop" class="header_slider" style="overflow:hidden;">
-            @if (ViewBag.MostrarOfertaDelDia == true)
-            {
+         
                 <a id="btn_cerrar_oferta_mobile" class="btn_cerrar_oferta_mobile">X</a>
-            }
+           
             
             <ul class="slides">
                 @if (ViewBag.MostrarOfertaDelDia == true)
@@ -180,9 +178,6 @@
                     <li>
                         <a href="@Url.Action("Index", "ShowRoom", new {area = "Mobile"})">
                             <div class="content_banner_header_showroom">
-                                @*<div class="content_titulo"><div class="titulo_intriga">GRAN VENTA ONLINE</div></div>
-
-                                <div class="faltan_dias_header"><b>@ViewBag.DiasFaltantesLetras</b></div>*@
                                 <img src="@ViewBag.ImagenBannerShowroomVenta" alt="Solo Hoy" />
                             </div>
                         </a>
@@ -223,8 +218,6 @@
                             <img src="@Url.Content("~/Content/Images/icono_exclamacion_estado_pedido.png")" alt="Icono Estado Pedido" />
                         </div>
                         <div class="mensajes_estadoPedido">
-                            @*<span class="mensaje_estadoActualPedido">NOS ENCONTRAMOS FACTURANDO TU PEDIDO</span>
-                                <span class="mensaje_horarioIngresoPedido">Si quieres ingresar pedido, lo puedes hacer desde mañana a las 7 a.m.</span>*@
                             <span class="mensaje_estadoActualPedido">TU PEDIDO HA SIDO RECHAZADO</span>
                             <span class="mensaje_horarioIngresoPedido">
                                 Tienes una deuda de S/. <span>200</span> que debes regularizar.
@@ -746,7 +739,6 @@
 
                 function AgregarTimerShowRoom(dia, mes, anio) {
                     var calcNewYear = setInterval(function () {
-                        //date_future = new Date(new Date().getFullYear() + 1, 0, 1);
                         date_future = new Date(anio, mes - 1, dia);
                         date_now = new Date();
 
@@ -759,20 +751,11 @@
                         minutes = minutes - (days * 24 * 60) - (hours * 60);
                         seconds = seconds - (days * 24 * 60 * 60) - (hours * 60 * 60) - (minutes * 60);
 
-                        //$("#time").text("Time until new year:\nDays: " + days + " Hours: " + hours + " Minutes: " + minutes + " Seconds: " + seconds);
-                        //$("#spnDiasFaltantes").html(days);
-                        //$("#spnHorasFaltantes").html(hours);
-                        //$("#spnMinutosFaltantes").html(minutes);
-                        //$("#spnSegundosFaltantes").html(seconds);
 
                         if (days == 0 && hours == 0 && minutes == 0 && seconds == 0) {
                             clearInterval(calcNewYear);
                         }
                         if (days < 0) {
-                            //$("#spnDiasFaltantes").html(0);
-                            //$("#spnHorasFaltantes").html(0);
-                            //$("#spnMinutosFaltantes").html(0);
-                            //$("#spnSegundosFaltantes").html(0);
                             clearInterval(calcNewYear);
                         }
                     }, 1000);
@@ -793,16 +776,7 @@
                     $(".header_pop_oferta").click(function () {
                         $('body').css({ 'overflow-y': 'scroll' });
                         $('#pop_oferta_mobile').toggle('slide', {direction: 'right' }, 500);
-                    }); 
-
-
-                    //$(".BloqueOfertaDiaHeader").click(function () {
-                    //    $('#txtCantidad').val('1');
-                    //    $('body').css({ 'overflow-x': 'hidden' });
-                    //    $('body').css({ 'overflow-y': 'hidden' });
-                    //    $('#pop_oferta_mobile').toggle('slide', {direction: 'Right' }, 500);
-                    //});
-                   
+                    });                   
                 };
 
                 function closeBannerPL20() {
@@ -834,7 +808,6 @@
                     var indicadorMontoMinimo = $('#indmonto-min-odd').val();//$("#txtCantidadZE").attr("est-montominimo");
                     var origenPedidoWeb = 0;
 
-                    //directo display
                     if (typeof origenPagina == 'undefined') origenPedidoWeb = 2991; // general
                     else if (origenPagina == 1) origenPedidoWeb = 2191// home
                     else if (origenPagina == 2) origenPedidoWeb = 2291; // pedido
@@ -844,19 +817,16 @@
                     var msg1 = 'Solo puede llevar ' + cantidadLimite + ' unidades de este producto.';
 
                     if (intCantidad > intLimiteVenta) {
-                        //messageInfoMalo('Solo puede llevar ' + cantidadLimite.toStrin + ' unidades de este producto.','');
                         $('#popupInformacionSB2Error').find('#mensajeInformacionSB2_Error').text(msg1);
                         $('#popupInformacionSB2Error').show();
                         return ;
                     }
 
-                    // validar si la oferta aun esta activa
                     if (!checkCountdownODD()) {
                         messageInfoMalo('La Oferta del Día se termino','');
                         return false;
                     }
 
-                    // validar cantidad a agregar (nuevas unidades o ya existentes)
                     var cqty = getQtyPedidoDetalleByCuvODD(cuv, tipoEstrategiaID);
                     if (cqty > 0) {
                         var tqty = parseInt(cqty) + intCantidad;
@@ -867,7 +837,6 @@
                         }
                     }
 
-                    // validar horario restringido y pedido reservado
                     if (ReservadoOEnHorarioRestringido())
                         return false;
 
@@ -878,14 +847,12 @@
                         Descripcion: descripcion,
                         Cantidad: cantidad,
                         IndicadorMontoMinimo: indicadorMontoMinimo,
-                        TipoOferta: tipoEstrategiaID, //$("#hdTipoEstrategiaID").val(),
+                        TipoOferta: tipoEstrategiaID,
                         tipoEstrategiaImagen: teImagenMostrar || 0,
                         OrigenPedidoWeb: origenPedidoWeb
                     });
 
                     ShowLoading();
-                    //console.log(param);
-                    //closeWaitingDialog();
 
                     jQuery.ajax({
                         type: 'POST',
@@ -921,7 +888,6 @@
                                         ShowLoading();
 
                                         ActualizarGanancia(data.DataBarra);
-                                        //CargarCarouselEstrategias(cuv);
                                         TrackingJetloreAdd(cantidad, $("#hdCampaniaCodigo").val(), cuv);
 
                                         if (typeof origenPagina !== 'undefined') {
@@ -932,7 +898,6 @@
 
                                         CloseLoading();
 
-                                        // ocultar display
                                         $('body').css({ 'overflow-y': 'scroll' });
                                         var effect = 'slide';
                                         var options = {direction: 'right' };
@@ -945,7 +910,6 @@
                                         }
                                         $('#txtCantidad').val('1');
 
-                                        // si es pagina de pedido, recargar el detalle
                                         if (typeof origenPagina !== 'undefined') {
                                             if (origenPagina == 2) {    // pedido
                                                 CargarPedido();
@@ -1027,8 +991,7 @@
             SetFormatDecimalPais(formatDecimalPaisMain);
             MensajeEstadoPedido();
             HandlebarsRegisterHelper();
-            //$('.header_slider').slideUp();
-          
+
             $('.menu_footer').on('click', function () {
                 var $obj = $(this);
                 if ($obj.hasClass('menu_footer')) {
@@ -1044,7 +1007,6 @@
 
             CargarCantidadProductosPedidos(true);
             CargarCantidadNotificacionesSinLeer();
-            //CargarCantidadPedidosConsultoraOnline();
 
             $("body").on("keyup", ".ValidaNumeral", function (evt) {
                 var theEvent = evt || window.event;
@@ -1156,15 +1118,7 @@
                     $("#content").css({ 'margin-top': '0px' });
                 }else{
                     $("#content").css({ 'margin-top': '63px' });
-                    //if (urlPagina > 0){
-                    //    $("#content").css({ 'margin-top': '123px' });
-                    //}else{
-                    //    $("#content").css({ 'margin-top': '63px' });
-                    //}
                 }
-              
-                
-                
             }else{
                 var URLactual = window.location.href;
                 var urlPagina = URLactual.indexOf("Cliente");
@@ -1177,11 +1131,7 @@
             if (urlIntriga > 0) {
                 $("#OfertaDelDia").css('display', 'none');
             }
-
-           
         });
-
-       
 
         function loadBannerLP20() {
             if(typeof CargarShowRoom !== 'undefined' && $.isFunction(CargarShowRoom)) CargarShowRoom();
@@ -1204,36 +1154,25 @@
             if($('#flexslider ul.slides li').length > 0){
                 $("#content").css("margin-top", "0px");
                 $('#content_slider_banner').show();
-                //$('#content_slider_banner').hide();
 
-                //Dejar esta línea al último, ya que antes de ejecutar flexslider el div ya debe de mostrarse.
                 $('#flexslider').flexslider({ 
                     animation: "slide",
                     pauseOnAction: false,
-                    animationSpeed: 1600,
-                    //pausePlay: true 
+                    animationSpeed: 1600
                 });
 
             }else{
                 var url = location.href.toLowerCase();
-                //var identi = url.indexOf("/mobile/") > 0;
-
-
-                //$('#flexslidertop').css("display","none");
             }
 
             if($('#flexslidertop ul.slides li').length > 0){
                 $('#flexslidertop').flexslider({ 
                     animation: "fade",
                     pauseOnAction: false,
-                    animationSpeed: 1600,
-                    //pausePlay: true 
+                    animationSpeed: 1600
                 });
             }
         }
-        
-        /*Inicio: ShowRoom*/
-        /*Fin: ShowRoom*/
 
         function ReservadoOEnHorarioRestringido(mostrarAlerta) {
             mostrarAlerta = typeof mostrarAlerta !== 'undefined' ? mostrarAlerta : true;
@@ -1279,9 +1218,6 @@
             return restringido;
         };
 
-        /*PL20-1233*/
-
-        /**** ****/
         function InfoCommerceGoogleDestacadoProductClick(name, id, category, variant, position) {
 
             if (variant == null || variant == "") {
@@ -1781,7 +1717,6 @@
         }
 
         function SeparadorMiles(pnumero) {
-            // Función que colocará el caracter "." como separador de miles.
 
             var resultado = "";
             var numero = pnumero.replace(/\,/g, '');
@@ -1800,7 +1735,6 @@
             else return resultado;
         };
 
-        /* Tracking Jetlore */
         function TrackingJetloreAdd(cantidad, campania, cuv) {
             var esJetlore = esPaisTrackingJetlore == "1";
             if (esJetlore) {
@@ -1826,8 +1760,8 @@
         function TrackingJetloreRemoveAll(lista) {
             var esJetlore = esPaisTrackingJetlore == "1";
             if (esJetlore) JL.tracker.removeFromCart(lista);
-            }
-        /* Fin Tracking Jetlore */
+        }
+
     </script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.flexslider.js")"></script>
     @RenderSection("scripts", required: false)

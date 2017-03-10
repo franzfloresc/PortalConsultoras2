@@ -83,8 +83,6 @@ function Percepcion() {
     });
 }
 
-/** Estado Cuenta **/
-
 function fnGrilla() {
     var obj = {
         sidx: "", sord: "", page: 1, rows: 20, vCampania: ""
@@ -217,9 +215,6 @@ function DownloadAttachExcelEC() {
 
 }
 
-/** FIN Estado Cuenta **/
-
-/** Lugar Pago **/
 function getLugarPago() {
     jQuery.ajax({
         type: 'POST',
@@ -240,4 +235,3 @@ function getLugarPago() {
         }
     });
 }
-/** FIN Lugar Pago **/

@@ -511,11 +511,9 @@ else
 }
 
 <script>
-    //PL20-1268
     var dataFichaProductoFAV = [];
     dataFichaProductoFAV = JSON.parse('@Html.Raw(Json.Encode(Model.Hermanos))');
 
-    //PL20-1239
     var cuv = '@Model.CUV';
     var tieneOfertaEnRevista = '@Model.TieneOfertaEnRevista';
     var cargarItemsFAV = false;

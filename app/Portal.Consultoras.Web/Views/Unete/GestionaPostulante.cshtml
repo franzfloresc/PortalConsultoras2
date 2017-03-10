@@ -165,11 +165,6 @@
     </div>
 </div>
 
-@*<div class="input_search">
-        <input type="button" id="btnExport" value="Exportar"  onclick="ExportExcel()"/>
-
-    </div>*@
-
 <script>
     //Nueva funcionalidad
     var colNames = [
@@ -686,14 +681,10 @@
                     jQuery("#gvwSolicitudesPostulante").jqGrid('showCol', 'Contrato');
                     jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'Pagare');
                     jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'DNI Aval');
-                   // jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'Tipo Rechazo');
-                   // jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'Motivo Rechazo');
                 } else if ('@Model.CodigoIso' === 'EC') {
                     jQuery("#gvwSolicitudesPostulante").jqGrid('showCol', 'Contrato');
                     jQuery("#gvwSolicitudesPostulante").jqGrid('showCol', 'Pagare');
                     jQuery("#gvwSolicitudesPostulante").jqGrid('showCol', 'DNI Aval');
-                    //jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'Tipo Rechazo');
-                    //jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'Motivo Rechazo');
                 }
                 else {
                     jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'Contrato');
@@ -708,8 +699,6 @@
         jQuery("#gvwSolicitudesPostulante").jqGrid('navGrid', "#pager", { edit: false, add: false, refresh: false, del: false, search: false });
         jQuery("#gvwSolicitudesPostulante").setGridParam({ datatype: 'json', page: 1 }).trigger('reloadGrid');
     }
-
-    //Exportar a Excel
 
     function ExportExcel() {
         var m = true;
@@ -726,13 +715,7 @@
         var Estado = $("#Estado").val();
         var DocumentoIdentidad = $("#DocumentoIdentidad").val();
         var codigoZonaFiltro = $("#CodigoZonaFiltro").val();
-
-        //var vmessage = "";
-        //if (Estado == "")
-        //    vmessage += "Debe seleccionar un Estado. \n";
-        ////if (vCampaniaID == "")
-        ////    vmessage += "Debe seleccionar la Campaña \n";
-
+        
         waitingDialog({});
 
         setTimeout(function () {
@@ -887,7 +870,6 @@
 
         $.get('@Url.Action("EnviarAFFVV", "Unete")', { id: solicitudPostulanteID }, function (html) {
             $('#modal_content').html(html);
-            //modal.dialog('open');
         }).done(function () {
             closeWaitingDialog({});
             fnGrilla();
@@ -921,24 +903,18 @@
     }
 
     function IntegerNumber(e) {
-        // Allow: backspace, delete, tab, escape, enter
         if ($.inArray(e.keyCode, [46, 8, 9, 27, 13]) !== -1 ||
-            // Allow: Ctrl+A
             (e.keyCode == 65 && e.ctrlKey === true) ||
-            // Allow: home, end, left, right
             (e.keyCode >= 35 && e.keyCode <= 39)) {
-            // let it happen, don't do anything
             return true;
         }
 
-        // Allow copy, cut and don't allow paste
-        var ctrlDown = e.ctrlKey || e.metaKey; // Mac support
+        var ctrlDown = e.ctrlKey || e.metaKey;
         if (ctrlDown && e.altKey) return true;
-        else if (ctrlDown && e.keyCode == 67) return true; // c
-        else if (ctrlDown && e.keyCode == 86) return false; // v
-        else if (ctrlDown && e.keyCode == 88) return true; // x
+        else if (ctrlDown && e.keyCode == 67) return true; 
+        else if (ctrlDown && e.keyCode == 86) return false;
+        else if (ctrlDown && e.keyCode == 88) return true;
 
-        // Ensure that it is a number and stop the keypress
         if ((e.shiftKey || e.altKey || e.ctrlKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
             e.preventDefault();
         }

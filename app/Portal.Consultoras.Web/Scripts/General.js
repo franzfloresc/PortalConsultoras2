@@ -168,7 +168,7 @@ jQuery(document).ready(function () {
 
             Handlebars.registerHelper('IsNullOrEmpty', function (a, operator, opts) {
                 var bool = false;
-                var optsx = opts == undefined ? operator : opts; // caso #IsNullOrEmpty campo
+                var optsx = opts == undefined ? operator : opts;
                 operator = opts == undefined ? '==' : (operator || '==');
                 opts = optsx;
                 switch (operator) {
@@ -291,7 +291,6 @@ jQuery(document).ready(function () {
         pDecimal = pDecimal.length > 1 ? pDecimal.substring(2) : "";
         pDecimal = decimalCantidad > 0 ? (decimal + pDecimal) : "";
 
-        // recorremos la parte entera para poner el separador
         var pEnteraFinal = "";
         do {
             var x = pEntera.length;
@@ -358,13 +357,7 @@ function CreateLoading() {
         minHeight: 50,
         modal: true,
         buttons: {},
-        resizable: false,
-        //create: function (event, ui) {
-        //    $("html").css({ overflow: 'hidden' })
-        //},
-        //beforeClose: function (event, ui) {
-        //    $("html").css({ overflow: 'auto' })
-        //}
+        resizable: false
     });
     $("#loadingScreen").parent().find(".ui-dialog-titlebar").hide();
 }
@@ -433,7 +426,6 @@ function AbrirMensaje(mensaje, titulo, fnAceptar) {
         titulo = titulo || "MENSAJE";
         var isUrlMobile = $.trim(location.href).toLowerCase().indexOf("/mobile/") > 0;
         if (isUrlMobile > 0) {
-            //messageInfoValidado('<span>' + message + '</span>', fnClose);
             $('#mensajeInformacionvalidado').html(mensaje);
             $('#popupInformacionValidado').show();
             if ($.isFunction(fnAceptar)) {
@@ -498,12 +490,9 @@ function isInt(n) {
     var patron = /^[0-9]+$/;
     var isn = patron.test(n);
     return isn;
-    //return +n === n && !(n % 1);
 }
 
-// valida si ha ocurrido un timeout durante una llamada ajax
 function checkTimeout(data) {
-    //debugger;
     var thereIsStillTime = true;
 
     if (data) {
@@ -521,36 +510,30 @@ function checkTimeout(data) {
         }
     }
     else {
-        // validar si se perdio la sesion
         checkUserSession();
     }
     return thereIsStillTime;
 }
 
-/*EPD-180*/
 function checkUserSession() {
-        //debugger;
     var res = -1;
-    
-        $.ajax({
+
+    $.ajax({
         url: '/Login/CheckUserSession',
-            type: 'POST',
-            dataType: 'json',
-            contentType: 'application/json; charset=utf-8',
-            async: false,
+        type: 'POST',
+        dataType: 'json',
+        contentType: 'application/json; charset=utf-8',
+        async: false,
         success: function (data) {
             res = data.Exists;
-            }
-        });
+        }
+    });
 
-    //alert(res);
     if (res == 0) {
         window.location.href = '/Login/SesionExpirada';
     }
 }
-/*EPD-180*/
 
-// paginacion
 function paginadorAccionGenerico(obj) {
     var accion = obj.attr("data-paginacion");
     var padre = obj.parents('[data-paginacion="block"]');
@@ -589,13 +572,6 @@ function paginadorAccionGenerico(obj) {
         }
     }
     else if (accion === "rows") {
-        //if (paginaActual === 1) {
-        //    var rowsInicial =padre.find("[data-paginacion='rows']").attr("data-val") || 0;
-        //    if (recordCount <= rowsInicial && rowsInicial < rows) {
-        //        padre.find("[data-paginacion='rows']").attr("data-val", rows);
-        //        return rpt;
-        //    }
-        //}
         paginaActual = 1;
     }
 
@@ -607,14 +583,12 @@ function paginadorAccionGenerico(obj) {
     rpt.page = paginaActual;
     return rpt;
 }
-//R2116-INICIO
 
 function ActualizarGanancia(data) {
     data = data || new Object();
     data.CantidadProductos = data.CantidadProductos || "";
     data.TotalPedidoStr = data.TotalPedidoStr || "";
 
-    // Los Montos resumen de pedido
     $("[data-ganancia]").html(data.MontoGananciaStr || "");
     $("[data-ganancia2]").html(vbSimbolo + " " + data.MontoGananciaStr || "");
     $("[data-pedidocondescuento]").html(DecimalToStringFormat(data.TotalPedido - data.MontoDescuento));
@@ -709,7 +683,6 @@ FuncionesGenerales = {
         return obj;
     }
 };
-//R2116-FIN
 
 function InsertarLogDymnamo(pantallaOpcion, opcionAccion, esMobile, extra) {
     data = {
@@ -769,7 +742,7 @@ function InfoCommerceGoogleDestacadoProductClick(name, id, category, variant, po
     });
 };
 
-// Pedido Rechazado
+
 function MensajeEstadoPedido() {
     xMensajeEstadoPedido(false);
     if (cerrarRechazado == '1')
@@ -785,7 +758,7 @@ function MensajeEstadoPedido() {
 
     $("#bloquemensajesPedido").find(".mensaje_horarioIngresoPedido").html("");
     $("#bloquemensajesPedido").find(".mensaje_horarioIngresoPedido").append((motivoRechazo || "").CodificarHtmlToAnsi());
-    if (mostrarBannerRechazo == 'True') { //estaRechazado == 2 && motivoRechazo != "") {
+    if (mostrarBannerRechazo == 'True') { 
         $("#bloquemensajesPedido").find(".mensaje_estadoActualPedido").html("TU PEDIDO HA SIDO RECHAZADO");
     }
     else if (estaRechazado == 1) {
@@ -805,7 +778,7 @@ function xMensajeEstadoPedido(estado) {
     var identi = url.indexOf("/mobile/") > 0;
     var wheight = $(window).innerHeight();
     if (estado) {
-        $("#bloquemensajesPedido").show();//.slideDown("slow", function () { });
+        $("#bloquemensajesPedido").show();
         ResizeMensajeEstadoPedido();
         var wtop = $("#bloquemensajesPedido").height();
 
@@ -818,7 +791,7 @@ function xMensajeEstadoPedido(estado) {
             identi = url.indexOf("/bienvenida") > 0;
             if (identi) {
                 $(".oscurecer_animacion").css({ "top": wtop + "px", "height": wheight + "px" });
-                //$("[data-content]").animate({ "top": wtop + "px" });
+
                 $('.content_slider_home').css('margin-top', '126px');
                 $('.ubicacion_web ').css('margin-top', '145px');
             }
@@ -827,7 +800,6 @@ function xMensajeEstadoPedido(estado) {
                 $("#bloquemensajesPedido").slideDown("slow", function () { });
                 wtop = $("header").height();
 
-                //debugger;
                 if ($('.content_banner_intriga').length > 0) {
                     if ($('#OfertaDelDia:visible').length > 0) {
                         $('.ubicacion_web').css('margin-top', '162px');
@@ -867,7 +839,6 @@ function xMensajeEstadoPedido(estado) {
                 }
             }
             else {
-                //debugger;
                 if ($('.content_banner_intriga').length > 0) {
                     if ($('#OfertaDelDia:visible').length > 0) {
                         $('.ubicacion_web').css('margin-top', '162px');
@@ -942,15 +913,9 @@ function MostrarMensajePedidoRechazado() {
         $(".oscurecer_animacion").delay(3000).fadeOut(1500);
     }
     else {
-        // $(".oscurecer_animacion").hide();
         $("[data-content]").removeClass("oscurecer_animacion");
     }
 }
-
-// FIN Pedido Rechazado
-
-
-// Compartir Face y WS
 
 function CompartirWsp(UrlBase, objParameter) {
     var _id = InsertarProductoCompartido(objParameter, 'W');
@@ -985,7 +950,6 @@ function CompartirFacebook(urlBase, objParameter) {
 }
 
 function InsertarProductoCompartido(objParameter, app) {
-    //Capturando valores
     var _rutaImagen = objParameter.RutaImagen;
     var _marcaID = $.trim(objParameter.MarcaID);
     var _marcaDesc = $.trim(objParameter.MarcaDesc);
@@ -1031,6 +995,3 @@ function InsertarProductoCompartido(objParameter, app) {
     });
     return ID;
 }
-
-// Compartir Face
- 

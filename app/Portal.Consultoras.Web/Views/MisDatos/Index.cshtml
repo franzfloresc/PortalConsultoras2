@@ -277,15 +277,12 @@
                             if (ViewBag.Dias == 0)
                             {
                                 <p class="azul">Hoy es el cierre de <span>@ViewBag.Campania</span></p>
-                                @*( @ViewBag.FechaActualPais )*@
                             }
                             else
                             {
                                 <p class="azul">Estás en <span>@ViewBag.Campania</span>, te quedan <strong>@ViewBag.Dias días</strong> para el cierre.</p>
-                                @*( @ViewBag.FechaActualPais )*@
                             }
                             <p>@ViewBag.MensajeCierreCampania</p>
-							<!-- R2161 -->
                             if (ViewBag.TieneFechaPromesa == 1)
                             {
                                 <span class="fcolor">@ViewBag.MensajeFechaPromesa</span>
@@ -315,7 +312,6 @@
                     @Model.CodigoUsuario " - " @Model.DigitoVerificador
                 </div>
                 <div class="input_modifica">
-                    @*<a href="#" onclick="return VerModal();">Cambiar Contraseña</a>*@
                     <input type="button" onclick="return VerModal();" value="Cambiar Contraseña" />
                 </div>
             </div>
@@ -409,12 +405,6 @@
                 </div>
             }
 
-            @*<div class="div-4">
-                    <div class="noti3">
-                        ¿Cambios o correcciones?<br />
-                        <a href="#">Haz click aqui y luego procede con las modificaciones para actualizarlos</a>
-                    </div>
-                </div>*@
             <div class="gerente_zona">Gerente de Zona</div>
 
             <div class="div-3">

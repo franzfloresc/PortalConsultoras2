@@ -41,7 +41,7 @@
 <div class="wrapper_home_interiores">
     <div class="titulo_principal"><h1 class="titulo_principal_interiores">LIQUIDACIÓN WEB</h1></div>
     <p class="liquidacion_info">
-        <strong>APROVECHA ESTOS PRODUCTOS SOLO POR WEB. Se atenderá hasta agotar stock.</strong> @*<span>Se atenderá hasta agotar stock.</span>*@<br />
+        <strong>APROVECHA ESTOS PRODUCTOS SOLO POR WEB. Se atenderá hasta agotar stock.</strong><br />
         Suman al monto mínimo del pedido. No suma la escala de comisión, ni otorga puntaje, ni comisión. Precio neto consultora. Productos vigentes en @ViewBag.CampaniaID.
     </p>
 </div>
@@ -105,7 +105,6 @@
     <br />
     <ul id="OfertasResultados" class="listaOfertas"></ul>
 
-    @* Esto no es muestra si esta activo ProgramaOfertasNuevas*@
     <div class="zona4Edit zona_estrategia_4 texto-centrado"></div>
     <div class="zonaCantidad texto-centrado">
         <table style="margin: 0 auto;" cellpadding="10" cellspacing="10">
@@ -120,10 +119,6 @@
                             <a class="menos"><img src="@Url.Content("~/Content/Images/Esika/menos.png")" alt="" /></a>
                         </div>
                     </div>
-
-                    @*<div class="liquidacion_rango_left_pedido" style="width: 35px;"><a class="js-menos_popup"><img src="@Url.Content("~/Content/Images/Esika/menos.png")" alt="" /></a></div>
-                        <input type="text" value="1" name="txtCantidadPopup" id="txtCantidadPopup" maxlength="2" class="liquidacion_rango_cantidad_pedido" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" />
-                        <div class="liquidacion_rango_right_pedido" style="width: 35px;"><a class="js-mas_popup"><img src="@Url.Content("~/Content/Images/Esika/mas.png")" alt="" /></a></div>*@
                 </td>
             </tr>
             <tr class="tallaColor">
@@ -134,7 +129,7 @@
             </tr>
         </table>
     </div>
-    @* Esto no es muestra si esta activo ProgramaOfertasNuevas*@
+
     <br />
     <div class="div-3 texto-centrado">
         <input class="btnBotonRojo js-boton_agregar_popup" type="button" value="Agregar" />

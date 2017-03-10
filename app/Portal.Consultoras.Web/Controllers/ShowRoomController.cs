@@ -1,6 +1,10 @@
-﻿using System;
+﻿using AutoMapper;
+using Portal.Consultoras.Common;
+using Portal.Consultoras.Web.Models;
+using Portal.Consultoras.Web.ServicePedido;
+using Portal.Consultoras.Web.ServiceZonificacion;
+using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Data;
 using System.IO;
 using System.Linq;
@@ -8,14 +12,6 @@ using System.ServiceModel;
 using System.Text;
 using System.Web;
 using System.Web.Mvc;
-using AutoMapper;
-using Microsoft.Ajax.Utilities;
-using Portal.Consultoras.Common;
-using Portal.Consultoras.Web.Models;
-using Portal.Consultoras.Web.ServicePedido;
-using Portal.Consultoras.Web.ServiceZonificacion;
-using Portal.Consultoras.Web.ServicePROLConsultas;
-using Portal.Consultoras.Web.ServiceProductoCatalogoPersonalizado;
 using Portal.Consultoras.Web.ServiceSAC;
 using Switch = System.Diagnostics.Switch;
 
@@ -23,14 +19,14 @@ namespace Portal.Consultoras.Web.Controllers
 {
     public class ShowRoomController : BaseShowRoomController
     {
+        static List<BEConfiguracionOferta> lstConfiguracion = new List<BEConfiguracionOferta>();
+
         public ActionResult Intriga()
         {
             if (!ValidarIngresoShowRoom(true))
             {
                 return RedirectToAction("Index", "Bienvenida");
             }
-                //if (ValidarIngresoShowRoom(true))
-                
 
             var model = new ShowRoomOfertaModel();
 
@@ -125,8 +121,6 @@ namespace Portal.Consultoras.Web.Controllers
             };
             return View(cronogramaModel);
         }
-
-        static List<BEConfiguracionOferta> lstConfiguracion = new List<BEConfiguracionOferta>();
 
         public JsonResult ObtenterCampaniasPorPais(int PaisID)
         {
@@ -296,24 +290,12 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 var listaShowRoomNivel = userData.ListaShowRoomNivel ?? new List<BEShowRoomNivel>();
 
-                if (listaShowRoomNivel.Count <= 0)
+                return Json(new
                 {
-                    return Json(new
-                    {
-                        success = true,
-                        message = "OK",
-                        data = ""
-                    });
-                }
-                else
-                {
-                    return Json(new
-                    {
-                        success = true,
-                        message = "OK",
-                        data = listaShowRoomNivel
-                    });
-                }
+                    success = true,
+                    message = "OK",
+                    data = listaShowRoomNivel
+                });
             }
             catch (Exception ex)
             {
@@ -339,24 +321,12 @@ namespace Portal.Consultoras.Web.Controllers
                     listaCategorias = ps.GetShowRoomCategorias(userData.PaisID, eventoId).ToList();
                 }
 
-                if (listaCategorias.Count <= 0)
+                return Json(new
                 {
-                    return Json(new
-                    {
-                        success = true,
-                        message = "OK",
-                        data = ""
-                    });
-                }
-                else
-                {
-                    return Json(new
-                    {
-                        success = true,
-                        message = "OK",
-                        data = listaCategorias
-                    });
-                }
+                    success = true,
+                    message = "OK",
+                    data = listaCategorias
+                });
             }
             catch (Exception ex)
             {
@@ -381,14 +351,8 @@ namespace Portal.Consultoras.Web.Controllers
                     listaShowRoomPerfil = sv.GetShowRoomPerfiles(paisId, eventoId).ToList();
                 }
 
-                if (listaShowRoomPerfil == null || listaShowRoomPerfil.Count <= 0)
-                    return Json(new
-                    {
-                        success = true,
-                        message = "OK",
-                        data = ""
-                    });
-
+                listaShowRoomPerfil = listaShowRoomPerfil ?? new List<BEShowRoomPerfil>();
+                
                 return Json(new
                 {
                     success = true,
@@ -412,28 +376,6 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                Mapper.CreateMap<ShowRoomEventoModel, BEShowRoomEvento>()
-                .ForMember(t => t.EventoID, f => f.MapFrom(c => c.EventoID))
-                .ForMember(t => t.CampaniaID, f => f.MapFrom(c => c.CampaniaID))
-                .ForMember(t => t.Nombre, f => f.MapFrom(c => c.Nombre))
-                .ForMember(t => t.Imagen1, f => f.MapFrom(c => c.Imagen1))
-                .ForMember(t => t.Imagen2, f => f.MapFrom(c => c.Imagen2))
-                .ForMember(t => t.Descuento, f => f.MapFrom(c => c.Descuento))
-                .ForMember(t => t.OfertaEstrategia, f => f.MapFrom(c => c.OfertaEstrategia))
-                .ForMember(t => t.TextoEstrategia, f => f.MapFrom(c => c.TextoEstrategia))
-                .ForMember(t => t.Tema, f => f.MapFrom(c => c.Tema))
-                .ForMember(t => t.DiasAntes, f => f.MapFrom(c => c.DiasAntes))
-                .ForMember(t => t.DiasDespues, f => f.MapFrom(c => c.DiasDespues))
-                .ForMember(t => t.NumeroPerfiles, f => f.MapFrom(c => c.NumeroPerfiles))
-                .ForMember(t => t.ImagenCabeceraProducto, f => f.MapFrom(c => c.ImagenCabeceraProducto))
-                .ForMember(t => t.ImagenVentaSetPopup, f => f.MapFrom(c => c.ImagenVentaSetPopup))
-                .ForMember(t => t.ImagenVentaTagLateral, f => f.MapFrom(c => c.ImagenVentaTagLateral))
-                .ForMember(t => t.ImagenPestaniaShowRoom, f => f.MapFrom(c => c.ImagenPestaniaShowRoom))
-                .ForMember(t => t.ImagenPreventaDigital, f => f.MapFrom(c => c.ImagenPreventaDigital))
-                .ForMember(t => t.Estado, f => f.MapFrom(c => c.Estado))
-                .ForMember(t => t.TieneCategoria, f => f.MapFrom(c => c.TieneCategoria))
-                .ForMember(t => t.TieneCompraXcompra, f => f.MapFrom(c => c.TieneCompraXcompra));
-
                 BEShowRoomEvento beShowRoomEvento = Mapper.Map<ShowRoomEventoModel, BEShowRoomEvento>(showRoomEventoModel);
 
                 if (beShowRoomEvento.EventoID == 0)

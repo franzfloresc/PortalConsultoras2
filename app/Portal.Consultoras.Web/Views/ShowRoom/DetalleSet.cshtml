@@ -64,6 +64,17 @@
                         }
                         <div class="content_detalle_showroom">
                             @*<div class="cantidad_set_individual">x2</div>*@
+                            <div class="content_imagen_individual">
+                                @if (detalle.Imagen != "")
+                                {
+                                    var rutaImagen = ViewBag.UrlRaizS3 + Session["carpetaPais"] + "/" + detalle.Imagen;
+                                    <img src= @rutaImagen style ="width: 100%;">
+                                }
+                                else
+                                {
+                                    <img src="@Url.Content("~/Content/Images/showroom/no_disponible.png")" style="width: 100%;">
+                                }
+                            </div>
                             <div class="nombre_set_individual">
                                 @detalle.NombreProducto
                                 <span class="detalle_set_showroom">@detalle.Descripcion1</span>
@@ -94,7 +105,7 @@
                     @{ var posicionCpcVertical = 1; }
                     @foreach (var item in Model.ListaShowRoomCompraPorCompra)
                     {
-                        <div data-posicion="@posicionCpcVertical" data-item="@item.OfertaShowRoomID">
+                        <div data-posicion="@posicionCpcVertical" data-item="@item.OfertaShowRoomID" style="height: 420px!important;">
                             <div data-campos="">
                                 <input type="hidden" class="hdOfertaShowRoomID" value="@item.OfertaShowRoomID" />
                                 <input type="hidden" class="valorCuv" value="@item.CUV" />
@@ -135,7 +146,7 @@
 </div>
 <div class="catalogoPersonalizadoBloque" style="margin-top:85px; overflow:hidden;">
    <div class="content_belcorp">
-       <div class="titulo_carrusel_showroom">LAS CONSULTORAS TAMBIÉN VIERON ESTOS SETS</div>
+       <div class="titulo_carrusel_showroom">SIGUE VIENDO ESTOS PRODUCTOS</div>
        <!--CARRUSEL-->
        <div class="responsive">
            @{ var posicionx = 1; }
@@ -237,16 +248,6 @@
                                 <div class="producto_compra">@item.Descripcion</div>
                                 <div class="descripcion_producto_compra">@item.DescripcionLegal</div>
                                 <div class="descripcion_producto_compra">Valorizado en @item.Simbolo @item.PrecioOferta</div>
-                                @*<div class="liquidacion_rango_home">
-                                    <input type="text" value="1" min="1" max="99" size="2" maxlength="2"
-                                           class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral"
-                                           oninput="maxLengthCheck(this, 2)" onkeypress=" return FuncionesGenerales.ValidarSoloNumeros(event); "
-                                           data-input="cantidad" data-cantidad-input="-">
-                                    <div class="liquidacion_rango_right_pedido">
-                                        <a class="mas" data-cantidad-agregar="+"><img src="/Content/Images/Esika/mas.png" alt=""></a>
-                                        <a class="menos" data-cantidad-agregar="-"><img src="/Content/Images/Esika/menos.png" alt=""></a>
-                                    </div>
-                                </div>*@
                                 <a data-btn-agregar-cpc="" class="boton_Agregalo_home btn_aregar_set" onclick="" style="width: 100%;">
                                     AGRÉGALO
                                 </a>

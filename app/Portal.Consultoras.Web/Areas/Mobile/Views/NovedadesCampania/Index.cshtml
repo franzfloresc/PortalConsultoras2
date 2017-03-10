@@ -99,7 +99,6 @@
 
         function TagManagerEnviarOfertas() {
             var arrayOfertas = new Array();
-            //debugger;
             $("figure.mb-20").each(function () {
                 var id = $(this).find(".bannerId").val();
                 var name = $(this).find(".nameBanner").val();
@@ -127,8 +126,6 @@
                 });
             }
         }
-
-        ////////
 
         function ReservadoOEnHorarioRestringido(mostrarAlerta) {
             mostrarAlerta = typeof mostrarAlerta !== 'undefined' ? mostrarAlerta : true;
@@ -185,10 +182,8 @@
             }
             $('#dialog_AgregasteUnidades').show();
         }
-        ////////
 
         function EnlaceBanner(URL, TrackText, TipoAccion, CUVpedido, CantCUVpedido, Id, Posicion, Titulo, nombre, orden) {
-            //r10260215
             dataLayer.push({
                 'event': 'promotionClick',
                 'ecommerce': {
@@ -216,7 +211,6 @@
                 else
                     InsertarPedidoCuvBanner(CUVpedido, CantCUVpedido);
 
-                //InsertarPedidoCuvBanner(CUVpedido, CantCUVpedido);
                 return false;
             }
         }

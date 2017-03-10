@@ -2,7 +2,6 @@
 var offset = 0;
 var puedeCargar = true;
 $(document).ready(function () {
-    //TagManagerOfertaLiquidacion();
     $(document).on('click', '#boton_vermas', function () {
         puedeCargar = false;
         CargarOfertasLiquidacion();

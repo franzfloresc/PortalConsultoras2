@@ -86,6 +86,8 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     ViewBag.ImagenBannerShowroomVenta = showRoomBannerLateral.ImagenBannerShowroomVenta;
                     ViewBag.DiasFaltantesLetras = showRoomBannerLateral.LetrasDias;
 
+                    ViewBag.MostrarShowRoomProductos = showRoomBannerLateral.MostrarShowRoomProductos;
+
 
                     OfertaDelDiaModel ofertaDelDia = GetOfertaDelDiaModel();
                     ViewBag.OfertaDelDia = ofertaDelDia;

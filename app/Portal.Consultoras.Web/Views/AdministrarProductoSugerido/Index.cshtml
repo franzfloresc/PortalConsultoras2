@@ -62,22 +62,6 @@
     </div>
 </div>
 
-
-@*<div class="wrap_cab">
-    <div class="filtros">
-        <div class="elements">            
-            <div class="div-3">
-                <div class="input_search titD">
-                    <input type="button" value="Buscar" id="btnBuscar" name="">
-                </div>
-                <div class="input_search titD">
-                    <input type="button" value="Nuevo" id="btnNuevo" name="">
-                </div>
-            </div>
-        </div>
-    </div>
-</div>*@
-
 <div class="wrap" id="divListado">
     <div class="container clearfix">
         <h3>Listado</h3>
@@ -269,8 +253,6 @@
             value: "",
             text: "-- Seleccionar --"
         }));
-
-        //$("#list").jqGrid("clearGridData", true).trigger("reloadGrid");
     }
 
     function fnGrilla() {
@@ -499,7 +481,6 @@
                 if (data.success == true) {
                     HideDialog("DialogRegistroProductoSugerido");
                     RegistroLimpiar();
-                    //jQuery("#list").setGridParam({ datatype: 'json', page: 1 }).trigger('reloadGrid');
                     $("#btnBuscar").click();
                 }
             },
@@ -571,7 +552,6 @@
             $.ajaxSetup({ cache: false });
             $.getJSON(baseUrl + 'ShowRoom/ObtenerImagenesByCodigoSAP', { paisID: paisID, codigoSAP: codigoSAP }, function (data) {
 
-                // cargar datos
                 $('#hdIdSugerido').val(jQuery("#list").jqGrid('getCell', rowPk, 'ProductoSugeridoID'));
                 $('#ddlCampaniaModal').val(jQuery("#list").jqGrid('getCell', rowPk, 'CampaniaID'));
                 $('#txtCUVModal').val(jQuery("#list").jqGrid('getCell', rowPk, 'CUV'));
@@ -583,7 +563,6 @@
                 else
                     $('#chkHabilitar').removeAttr('checked');
 
-                // cargar imagenes
                 var imgRow = jQuery("#list").jqGrid('getCell', rowPk, 'ImagenProducto');
                 imgRow = imgRow == imageUrlVacio ? "" : $.trim(imgRow).replace(/^.*[\\\/]/, '');
 
@@ -628,7 +607,6 @@
 
                     alert(data.message);
                     if (data.success == true) {
-                        //jQuery("#list").setGridParam({ datatype: 'json', page: 1 }).trigger('reloadGrid');
                         $("#btnBuscar").click();
                     }                    
                 },

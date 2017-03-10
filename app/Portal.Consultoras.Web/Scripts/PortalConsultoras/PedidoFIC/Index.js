@@ -216,23 +216,19 @@ function CargarDetallePedido(page, rows) {
         success: function (response) {
             var data = response.data;
             ActualizarMontosPedido(data.FormatoTotal, data.Total, data.TotalCliente);
-            //$("#pCantidadProductosPedido").html(data.TotalProductos);
 
-            //Index
             $("#hdnRegistrosPaginar").val(data.Registros);
             $("#hdnRegistrosDePaginar").val(data.RegistrosDe);
             $("#hdnRegistrosTotalPaginar").val(data.RegistrosTotal);
             $("#hdnPaginaPaginar").val(data.Pagina);
             $("#hdnPaginaDePaginar").val(data.PaginaDe);
 
-            //ListadoPedido
             $("#hdnRegistros").val(data.Registros);
             $("#hdnRegistrosDe").val(data.RegistrosDe);
             $("#hdnRegistrosTotal").val(data.RegistrosTotal);
             $("#hdnPagina").val(data.Pagina);
             $("#hdnPaginaDe").val(data.PaginaDe);
 
-            //Listado Cliente en la Vista ListadoPedido
             var htmlCliente = "";
 
             $("#ddlClientes").empty();
@@ -264,12 +260,9 @@ function CargarDetallePedido(page, rows) {
             $("#paginadorPie [data-paginacion='rows']").val(data.Registros || 10);
 
             MostrarInformacionCliente(clienteId);
-            //if (tieneMicroefecto)
-            //MostrarMicroEfecto();
             CargarAutocomplete();
         },
         error: function (error) {
-            //alert(error);
         }
     });
 }
@@ -283,7 +276,6 @@ function MostrarInformacionCliente(clienteId) {
     $(".pMontoCliente").css("display", "none");
     if ($("#hdnClienteID_").val() != "-1") {
         $(".pMontoCliente").css("display", "block");
-        //$(".caja_montos div.info_extra_Validado").css({ 'top': '31%', 'right': '53%' });
         $("#spnNombreCliente").html(nomCli + " :");
         $("#spnTotalCliente").html(simbolo + monto);
     }
@@ -339,8 +331,6 @@ function MostrarMicroEfecto() {
             $(".no_mostrar").fadeIn();
 
             trFirst.removeClass("no_mostrar");
-            //setTimeout(trFirst.removeClass("no_mostrar"), 3000);
-
             animacion = true;
             tieneMicroefecto = false;
         });
@@ -377,7 +367,6 @@ function ValidarCUV() {
         }
     } else {
         if ($("#txtCUV").val().length == 5) {
-            //BuscarByCUV($("#txtCUV").val());
         } else {
             $("#txtCantidad").val("");
             $("#hdfCUV").val("");
@@ -503,7 +492,6 @@ function GuardarCliente() {
                     $("#hdfClienteDescripcion").val($('#Nombres').val());
                     $('#Nombres').val("");
                     $('#Correo').val("");
-                    //HideDialog("divClientes");
                     $("#divClientes").hide();
                 }
                 AbrirMensaje(data.message);
@@ -512,7 +500,6 @@ function GuardarCliente() {
         error: function (data, error) {
             if (checkTimeout(data)) {
                 AbrirMensaje(data.message);
-                //HideDialog("divClientes");
                 $("#divClientes").hide();
             }
         }
@@ -574,7 +561,6 @@ function BuscarByCUV(CUV) {
         AbrirSplash();
         jQuery.ajax({
             type: 'POST',
-            //url: baseUrl + 'Pedido/FindByCUV',
             url: baseUrl + 'PedidoFIC/FindByCUV',
             dataType: 'json',
             contentType: 'application/json; charset=utf-8',
@@ -662,7 +648,6 @@ function HorarioRestringido(mostrarAlerta) {
         async: false,
         success: function (data) {
             if (checkTimeout(data)) {
-                // esta en horario restringido
                 if (data.success == true) {
                     if (mostrarAlerta == true)
                         AbrirMensaje(data.message);
@@ -683,7 +668,6 @@ function CargarAutocomplete() {
     var array = $(".classClienteNombre");
     for (var i = 0; i < array.length; i++) {
         $('#' + array[i].id).focus(function () {
-            //alert('No se puede');
             if (HorarioRestringido())
                 this.blur();
         });
@@ -691,7 +675,6 @@ function CargarAutocomplete() {
             source: baseUrl + "Pedido/AutocompleteByClienteListado",
             minLength: 4,
             select: function (event, ui) {
-                //
                 if (ui.item.ClienteID != 0) {
                     $(this).val(ui.item.Nombre);
                     var hdf = this.id.replace('txtLPCli', 'hdfLPCli');
@@ -705,7 +688,6 @@ function CargarAutocomplete() {
                 return false;
             }
         }).data("autocomplete")._renderItem = function (ul, item) {
-            //
             ul.mouseover(function () {
                 isShown = true;
             }).mouseout(function () {
@@ -723,15 +705,6 @@ function CalcularTotal() {
     $('#sSimbolo').html($('#hdfSimbolo').val());
     $('#sSimbolo_minimo').html($('#hdfSimbolo').val());
     var hdfTotal = $('#hdfTotal').val();
-    //var paisColombia = "4";
-    //if (paisColombia == viewBagPaisID) {
-    //    hdfTotal = hdfTotal.replace(/\,/g, '');
-    //    hdfTotal = parseFloat(hdfTotal).toFixed(0);
-    //    $('#sTotal').html(SeparadorMiles(hdfTotal));
-    //} else {
-    //    $('#sTotal').html(hdfTotal);
-    //}
-
     $("#divListadoPedido").find('a[class="imgIndicadorCUV"]').tooltip({
         content: "<img src='" + baseUrl + "Content/Images/aviso.png" + "' />",
         position: { my: "left bottom", at: "left top-20%", collision: "flipfit" }
@@ -923,10 +896,6 @@ function Update(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion, CUV) {
                 $("#spnTotalCliente").html(simbolo + monto);
             }
             ActualizarMontosPedido(data.FormatoTotal, data.Total, data.TotalCliente);
-
-            //var totalUnidades = parseInt($("#pCantidadProductosPedido").html());
-            //totalUnidades = totalUnidades - parseInt(CantidadAnti) + parseInt(Cantidad);
-            //$("#pCantidadProductosPedido").html(totalUnidades);
         },
         error: function (data, error) {
             CerrarSplash();
@@ -970,13 +939,9 @@ function UpdateLiquidacion(CampaniaID, PedidoID, PedidoDetalleID, TipoOfertaSisI
 function BlurF(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion, CUV) {
     if (isShown) return true;
 
-    // validar cambio de cliente
-
-    //var idPed = $("#divListadoPedido").find("input.classClienteNombre").attr('datapedido');
     var cliAnt = $("#hdfLPCliIni" + PedidoDetalleID).val();
     var cliNue = $("#hdfLPCli" + PedidoDetalleID).val();
     if (cliAnt == cliNue) {
-        //por verificar
         $("#txtLPCli" + PedidoDetalleID).val($("#hdfLPCliDes" + PedidoDetalleID).val());
         return true;
     }
@@ -1006,7 +971,6 @@ function GuardarOfertaFICenPedido() {
     $.ajax({
         type: "POST",
         url: baseUrl + "PedidoFIC/Insertar",
-        //data: JSON.stringify(),
         contentType: 'application/json',
         success: function (data) {
             if (checkTimeout(data)) {

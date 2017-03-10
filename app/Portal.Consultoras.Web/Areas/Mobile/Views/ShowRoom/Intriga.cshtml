@@ -41,7 +41,6 @@
         </div>
         <div>
            
-            @*<div class="content_imagen_intriga"><img src="https://S3.amazonaws.com/consultorasQAS/SomosBelcorp/Matriz/PE/PE_200042737_2017254271_03_mumegycqit.png"></div>*@
             <div class="content_imagen_intriga"><img src="@ViewBag.ImagenProducto"></div>
             <div class="linea_separadora_intriga"></div>
             <div class="titulo_ficha_producto">@ViewBag.Descripcion </div>
@@ -100,7 +99,6 @@
                 arrows: false,
                 dots: false,
             });
-            //$('.variable-width').slickGoTo(2);
 
             $("body").on("click", ".boton_Agregalo_home", function(e) {
                 var cantidad = $("#txtCantidad").val();
@@ -137,8 +135,6 @@
                 $.ajaxSetup({ cache: false });
                 $.getJSON(urlObtenerStockActualProducto, { CUV: CUV }, function(data) {
                     if (parseInt(data.Stock) < parseInt(cantidad)) {
-                        //$(article).find(".claseStock").text(data.Stock);
-
                         CloseLoading();
                         messageInfo("Lamentablemente, la cantidad solicitada sobrepasa el stock actual (" + data.Stock + ") del producto, verifique.");
                     } else {
@@ -153,18 +149,10 @@
                                 CloseLoading();
 
                                 if (response.success == true) {
-                                    //$("#spnNombreOfertaShowRoom").html(nombreProducto);
-
-                                    //$("#divMensajeProductoAgregado").modal("show");
 
                                     var stockRestante = parseInt(data.Stock) - parseInt(cantidad);
                                     if (stockRestante < 1) {
                                         $("#txtCantidad").val("0");
-
-                                        //var htmlBotonAgotado = '<a class="btn_agregar_set">AGOTADO</a>';
-                                        //var divBotonAgotado = $(article).find(".divBotonAgotado");
-                                        //$(divBotonAgotado).html("");
-                                        //$(divBotonAgotado).html(htmlBotonAgotado);
                                     } else {
                                         $("#txtCantidad").val("1");
                                     }
@@ -172,7 +160,6 @@
                                     ShowLoading();
 
                                     AgregarTagManagerProductoAgregado(CUV, nombreProducto, PrecioUnidad, cantidad, descripcionMarca);
-                                    //ActualizarCantidadTotalPedido();
                                     CargarCantidadProductosPedidos();
                                     TrackingJetloreAdd(cantidad, $("#hdCampaniaCodigo").val(), CUV);
                                     CloseLoading();

@@ -976,10 +976,6 @@
                         Habilitar Restricción de Horario:
                     </label>
                 </div>
-                @*<div class="titAuto">N° de Días de Cronograma:</div>
-                <div class="ndias borde_redondeado">
-                    <input type="text" id="txtNroDiasCronograma" maxlength="3" onpaste="return paste(this);" />
-                </div>*@
             </div>
             <div class="div-3">
                 <div class="titJC">Proc. Regular:</div>
@@ -1063,7 +1059,6 @@
             </div>
             <div class="zona1">
                 <input type="text" id="lbHasFilter" onkeyup="javascript:Filter('lbHas',this.value);" style="display: none" />
-                @*<select id="lbHas" multiple="multiple" style="height: 300px; width: 300px;"></select>*@
                 @Html.ListBoxFor(s => s.listaZonas, new MultiSelectList(Model.listaZonas, "ZonaID", "Codigo"), new
            {
                id = "lbHas",
@@ -1078,18 +1073,7 @@
             </div>
             <div class="zona3">
                 <input type="text" id="lbHasNotFilter" onkeyup="javascript:Filter('divactivas',this.value);" style="display: none" />
-                @*<select id="lbHasNot" multiple="multiple" style="height: 300px; width: 300px;"></select>*@
-                @*@Html.ListBoxFor(s => s.listaZonasActivas, new MultiSelectList(Model.listaZonasActivas, "ZonaID", "ZonaID"), new
-           {
-               id = "lbHasNot",
-               style = "height: 200px;width:100%;"
-           })*@
-                <div id="lbHasNot" class="list_content">
-                    @*@foreach (var mp in zonasac)
-                {
-                <label><input type="checkbox" name="option[]" value="@mp.ZonaID" />@mp.Codigo</label>
-                }*@
-                </div>
+                <div id="lbHasNot" class="list_content"></div>
             </div>
         </div>
         <div class="sep"></div>
