@@ -3284,12 +3284,12 @@
     <None Include="Service References\ServiceSeguridad\SeguridadService2.xsd">
       <SubType>Designer</SubType>
     </None>
-    <Content Include="Service References\ServicePedido\configuration91.svcinfo" />
-    <Content Include="Service References\ServicePedido\configuration.svcinfo" />
-    <Content Include="Service References\ServicePedido\Reference.svcmap">
+    <None Include="Service References\ServicePedido\configuration91.svcinfo" />
+    <None Include="Service References\ServicePedido\configuration.svcinfo" />
+    <None Include="Service References\ServicePedido\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
-    </Content>
+    </None>
     <Content Include="Service References\ServiceUnete\PortalService.wsdl" />
     <None Include="Service References\ServiceUnete\PortalService.xsd">
       <SubType>Designer</SubType>
