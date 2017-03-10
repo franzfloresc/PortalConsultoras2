@@ -60,8 +60,8 @@
     HttpMethod = "POST",
     InsertionMode = InsertionMode.Replace,
     OnSuccess = "OnSuccess",
-    OnBegin = "waitingDialog({});",
-    OnComplete = "closeWaitingDialog({});"
+    OnBegin = "generalLoading();",
+    OnComplete = "generalCloseLoading();"
 }, null))
 {
     @Html.HiddenFor(m => Model.SolicitudPostulanteID)
@@ -72,25 +72,147 @@
     @Html.HiddenFor(m => Model.NombreLugarNivel4)
     @Html.HiddenFor(m => Model.NombreLugarNivel5)
     @Html.HiddenFor(m => Model.ContaValorNivel3)
-    <div class="wrap_cab">
-        <div class="filtros2">
-            <h2>
-                Direcci&oacute;n del Solicitante
-                <img id="imgCerrarOpcion" src="@Url.Content("~/Content/Images/btnCerrar_AD.png")" class="float_rigth" style="cursor: pointer;" />
-            </h2>
+
+
+    <div class="popup_eliminarCliente popup_EditarUbi">
+        <div class="btn_cerrar_agregarUnidades">
+            <a href="javascript:;" onclick="CerrarDiv(5);">
+                <img src="@Url.Content("~/Content/Images/btn_cerrar_popup.svg")" alt="Cerrar" />
+                <span class="texto_btn_cerrar">CERRAR</span>
+            </a>
         </div>
-        <div class="elements" style="width:95% !important;padding-top:10px !important;">
-            @Html.Partial(Dictionaries.TemplateUbigeos[Model.CodigoPais], Model)
-        </div>
-        <div class="elements" style="width:100% !important; padding:10px !important;">
-            <div class="div-3">
-                <div class="input_search" style="text-align:center;">
-                    <input type="submit" style="float:initial !important;margin-right:20px;" id="btnGuardar" value="Aceptar" />
-                    <input type="button" style="float:initial !important;" id="btnCancelar" value="Cancelar" />
-                </div>
+        <h6><b>Direcci&oacute;n del Solicitante</b></h6>
+        <div class="contenido_popUp eliminarCliente">
+    
+            @Html.Partial(Dictionaries.TemplateUbigeos[Model.CodigoPais], Model);
+
+            <div class="btn_grupo_eliminarCliente" style="width:90%; margin-left:5%; display:inline-block; margin-top:10px;">
+
+                <input type="submit" class="btn_noEliminarCliente btnEditarUbic" id="btnGuardar" value="Aceptar" />
+                @*<input type="button" class="btn_noEliminarCliente btnEditarUbic" id="btnCancelar" value="Cancelar" />*@
+
+                @*<button type="button" name="btn_noEliminarCliente" class="btn_noEliminarCliente btnEditarUbic" id="btnGuardar">Aceptar</button>*@
+                <button type="button" name="btn_noEliminarCliente" class="btn_noEliminarCliente btnEditarUbic" id="btnCancelar">Cancelar </button>
+
+   
+ 
             </div>
         </div>
     </div>
+
+
+    <style>
+            .btnEditarUbic {
+                float: none !important;
+                text-align: center;
+                font-weight: normal !important;
+                width: 25% !important;
+                font-size: 13px;
+                line-height: normal !important;
+            }
+
+            button:disabled {
+                background-color: #B75D9F;
+                cursor: default;
+            }
+
+            .popup_EditarUbi h6 {
+                display: block !Important;
+                margin: 0 0 30px 0 !Important;
+                padding: 0 !Important;
+                font-family: 'Lato' !Important;
+                font-size: 20px !Important;
+                color: #000 !Important;
+                text-align: center !Important;
+                font-weight: normal !Important;
+                line-height: 1.25 !Important;
+            }
+
+            .popup_EditarUbi {
+                max-width: 600px !important;
+                margin: 30px auto 0 auto !important;
+                /*posicion*/
+            }
+
+            .elementsFont {
+                width: 100%;
+                font-family: 'lato';
+                font-size: 11pt;
+                font-weight: 300;
+                color: black;
+                margin-top: 10px;
+            }
+
+            .selectP2 select {
+                height: 24px;
+                font-family: 'Lato';
+                color: black;
+                font-size: 11.7px;
+                cursor: pointer;
+                box-sizing: border-box;
+                margin: 0;
+                padding: 0;
+                width: 300px;
+            }
+
+            .selectUbicacion {
+                width: 300px !important;
+            }
+
+                .selectUbicacion select {
+                    width: 300px !important;
+                }
+
+            keygen, select, select[size="0"], select[size="1"] {
+                border-radius: 0px;
+                border-color: rgb(169, 169, 169);
+            }
+
+            user agent stylesheet select:not(:-internal-list-box) {
+                overflow: visible !important;
+            }
+
+            user agent stylesheet select {
+                -webkit-appearance: menulist;
+                box-sizing: border-box;
+                align-items: center;
+                white-space: pre;
+                -webkit-rtl-ordering: logical;
+                color: black;
+                background-color: white;
+                cursor: default;
+                border-width: 1px;
+                border-style: solid;
+                border-color: initial;
+                border-image: initial;
+            }
+
+            user agent stylesheet keygen, select {
+                border-radius: 5px;
+            }
+
+            user agent stylesheet input, textarea, keygen, select, button {
+                text-rendering: auto;
+                color: initial;
+                letter-spacing: normal;
+                word-spacing: normal;
+                text-transform: none;
+                text-indent: 0px;
+                text-shadow: none;
+                display: inline-block;
+                text-align: start;
+                margin: 0em 0em 0em 0em;
+                font: 13.3333px Arial;
+            }
+
+            user agent stylesheet input, textarea, keygen, select, button, meter, progress {
+                -webkit-writing-mode: horizontal-tb;
+            }
+
+           
+    </style>
+
+   
 }
 
 <script>
@@ -234,15 +356,41 @@
             });
 
             $('#imgCerrarOpcion,#btnCancelar').click(function () {
-                modalOpcion.dialog('close');
+               // modalOpcion.dialog('close');
+                $('#divEditarDireccion').hide();
             });
         });
     });
 
     function OnSuccess(html) {
-        modalOpcion.dialog('close');
-        modal.dialog('close');
+        //modalOpcion.dialog('close');
+        //modal.dialog('close');
+        $('#divEditarDireccion').hide();
+        $('#divConsultarUbicacion').hide();
         document.getElementById('btnBuscar').click();
         //$('#modal_content').html(html);
     }
 </script>
+<style>
+    .textboxSB {
+        display: block;
+        width: 100% !important;
+        ;
+        max-width: 283.5px;
+        height: 44px;
+        font-family: 'Lato';
+        font-size: 13px;
+        line-height: 44px;
+        letter-spacing: 1.2px;
+        color: #6a6a6a;
+        padding-left: 15px;
+        border: 1px solid #979797;
+        color: black !important;
+    }
+
+    .textboxSB2 {
+        max-width: 283.5px !important;
+        width: 283.5px !important;
+        margin-left: 20% !important;
+    }
+</style>
