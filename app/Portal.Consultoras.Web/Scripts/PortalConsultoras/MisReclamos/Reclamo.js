@@ -81,8 +81,14 @@ $(document).ready(function () {
     });
 
     $("#IrSolicitudInicial").on("click", function () {
-        if (mensajePeriodoInvalido != '') {
-            alert_msg(mensajePeriodoInvalido);
+        if (mensajeGestionCdrInhabilitada != '') {
+            alert_msg(mensajeGestionCdrInhabilitada);
+            return false;
+        }
+
+        //El if se hizo con !() para considerar posibles valores null o undefined de $('#ddlCampania').val()
+        if (!($('#ddlCampania').val() > 0)) {
+            alert_msg(mensajeCdrFueraDeFecha);
             return false;
         }
 
@@ -102,18 +108,21 @@ $(document).ready(function () {
         $("#ddlCampania").attr("disabled", "disabled");
     });
 
-    $("#IrSolicitudEnviada").on("click", function () {     
-        var cantidadDetalle = $("#divDetallePaso3 .content_listado_reclamo").length || 0;
-
-        if (cantidadDetalle > 0) {
-            $("#ddlCampania").removeAttr("disabled");
-            SolicitudEnviar();
-        } else {
-            var functionRegresar = function() {
-                window.location = urlRegresar;
-            };
-            messageConfirmacion("", "No se puede finalizar la solicitud porque no cuenta con registros.", functionRegresar);
+    $("#IrSolicitudEnviada").on("click", function () {
+        if (mensajeGestionCdrInhabilitada != '') {
+            alert_msg(mensajeGestionCdrInhabilitada);
+            return false;
         }
+        
+        var cantidadDetalle = $("#divDetallePaso3 .content_listado_reclamo").length || 0;
+        if (cantidadDetalle == 0) {
+            var functionRegresar = function() { window.location = urlRegresar; };
+            messageConfirmacion("", "No se puede finalizar la solicitud porque no cuenta con registros.", functionRegresar);
+            return false;
+        }
+
+        $("#ddlCampania").removeAttr("disabled");
+        SolicitudEnviar();
     });
 
     $(document).on('click', '[data-accion]', function () {

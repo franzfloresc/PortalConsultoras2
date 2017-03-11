@@ -26,7 +26,6 @@ namespace Portal.Consultoras.Web.Controllers
 
             MisReclamosModel model = new MisReclamosModel();
             var listaCDRWebModel = new List<CDRWebModel>();
-
             try
             {
                 using (CDRServiceClient cdr = new CDRServiceClient())
@@ -55,32 +54,21 @@ namespace Portal.Consultoras.Web.Controllers
                 listaCDRWebModel = new List<CDRWebModel>();
             }
 
-            model.ListaCDRWeb = listaCDRWebModel.FindAll(p => p.CantidadDetalle > 0);
-            model.IndicadorBloqueoCDR = userData.IndicadorBloqueoCDR;
-            model.EsCDRWebZonaValida = userData.EsCDRWebZonaValida;
-            model.CumpleRangoCampaniaCDR = CumpleRangoCampaniaCDR();
-
             string urlPoliticaCdr = ConfigurationManager.AppSettings.Get("UrlPoliticasCDR") ?? "{0}";
             model.UrlPoliticaCdr = string.Format(urlPoliticaCdr, userData.CodigoISO);
-            model.MensajePeriodoInvalido = MensajePeriodoInvalidoCDR();
-
-            if (model.EsCDRWebZonaValida == 0) return View(model);
-            if (model.IndicadorBloqueoCDR == 1) return View(model);
-            if (model.CumpleRangoCampaniaCDR == 0) return View(model);
-            if (!string.IsNullOrEmpty(model.MensajePeriodoInvalido)) return View(model);
+            model.ListaCDRWeb = listaCDRWebModel.FindAll(p => p.CantidadDetalle > 0);
+            model.MensajeGestionCdrInhabilitada = MensajeGestionCdrInhabilitada();
+            
+            if (!string.IsNullOrEmpty(model.MensajeGestionCdrInhabilitada)) return View(model);
             if (model.ListaCDRWeb.Count == 0) return RedirectToAction("Reclamo");
-
             return View(model);
         }
 
         public ActionResult Reclamo(int pedidoId = 0)
         {
             var model = new MisReclamosModel { PedidoID = pedidoId };
-            if (pedidoId == 0)
-            {
-                model.MensajePeriodoInvalido = MensajePeriodoInvalidoCDR();
-                if(!string.IsNullOrEmpty(model.MensajePeriodoInvalido)) return RedirectToAction("Index");
-            }
+            model.MensajeGestionCdrInhabilitada = MensajeGestionCdrInhabilitada();
+            if (pedidoId == 0 && !string.IsNullOrEmpty(model.MensajeGestionCdrInhabilitada)) return RedirectToAction("Index");
 
             CargarInformacion();
             model.ListaCampania = (List<CampaniaModel>)Session[Constantes.ConstSession.CDRCampanias];
@@ -1019,8 +1007,8 @@ namespace Portal.Consultoras.Web.Controllers
                 model = model ?? new MisReclamosModel();
                 if (model.CDRWebID <= 0) return ErrorJson("Error, vuelva a intentarlo");
 
-                string mensajePeriodoInvalido = MensajePeriodoInvalidoCDR();
-                if (!string.IsNullOrEmpty(mensajePeriodoInvalido)) return ErrorJson(mensajePeriodoInvalido);
+                string mensajeGestionCdrInhabilitada = MensajeGestionCdrInhabilitada();
+                if (!string.IsNullOrEmpty(mensajeGestionCdrInhabilitada)) return ErrorJson(mensajeGestionCdrInhabilitada);
 
                 var cdrWebFiltro = new BECDRWeb { ConsultoraID = userData.ConsultoraID, PedidoID = model.PedidoID };
                 using (CDRServiceClient sv = new CDRServiceClient())
@@ -1647,7 +1635,6 @@ namespace Portal.Consultoras.Web.Controllers
                     lst = new List<BEPais>();
                     lst.Add(sv.SelectPais(UserData().PaisID));
                 }
-
             }
             Mapper.CreateMap<BEPais, PaisModel>()
                     .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID))
@@ -1657,8 +1644,12 @@ namespace Portal.Consultoras.Web.Controllers
             return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);
         }
 
-        private string MensajePeriodoInvalidoCDR()
+        private string MensajeGestionCdrInhabilitada()
         {
+            if (userData.EsCDRWebZonaValida == 0) return Constantes.CdrWebMensajes.ZonaBloqueada;
+            if(userData.IndicadorBloqueoCDR == 1) return Constantes.CdrWebMensajes.ConsultoraBloqueada;
+            if (CumpleRangoCampaniaCDR() == 0) return Constantes.CdrWebMensajes.SinPedidosDisponibles;
+
             int diasFaltantes = GetDiasFaltantesFacturacion(userData.FechaInicioCampania, userData.ZonaHoraria);
             if (diasFaltantes == 0) return Constantes.CdrWebMensajes.FueraDeFecha;
 
