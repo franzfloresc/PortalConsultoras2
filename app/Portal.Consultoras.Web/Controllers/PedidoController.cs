@@ -4205,7 +4205,7 @@ namespace Portal.Consultoras.Web.Controllers
             var listaAppCatalogo = new List<Producto>();
             using (ProductoServiceClient svc = new ProductoServiceClient())
             {
-                listaAppCatalogo = svc.ObtenerProductosByCodigoSap(userData.CodigoISO, userData.CampaniaID, joinCuv, 3).ToList();
+                listaAppCatalogo = svc.ObtenerProductosByCodigoSap(userData.CodigoISO, userData.CampaniaID, joinCuv).ToList();
             }
             
             if (!listaAppCatalogo.Any())
