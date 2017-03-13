@@ -124,6 +124,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             }
 
             ViewBag.RutaImagenNoDisponible = ConfigurationManager.AppSettings.Get("rutaImagenNotFoundAppCatalogo");
+            productoModel.FBRuta = GetUrlCompartirFB();
 
             return View(productoModel);
         }

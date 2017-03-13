@@ -903,8 +903,8 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     using (PedidoServiceClient sv = new PedidoServiceClient())
                     {
-                        model.CodigoConsultora = model.UsuarioPrueba == 1 ? model.ConsultoraAsociada.ToString() : model.CodigoConsultora;
-                        model.BeShowRoomConsultora = sv.GetShowRoomConsultora(model.PaisID, model.CampaniaID, model.CodigoConsultora);
+                        string codigoConsultora = model.UsuarioPrueba == 1 ? model.ConsultoraAsociada : model.CodigoConsultora;
+                        model.BeShowRoomConsultora = sv.GetShowRoomConsultora(model.PaisID, model.CampaniaID, codigoConsultora);
                         model.BeShowRoom = sv.GetShowRoomEventoByCampaniaID(model.PaisID, model.CampaniaID);
 
                         model.ListaShowRoomNivel = sv.GetShowRoomNivel(model.PaisID).ToList();

@@ -1935,6 +1935,7 @@ namespace Portal.Consultoras.Web.Controllers
             UsuarioModel usuario = userData;
             usuario.DiaPROL = ValidarPROL(usuario, out botonValidar);
             usuario.MostrarBotonValidar = botonValidar;
+            //usuario.CodigoConsultora = userData.UsuarioPrueba == 1 ? userData.ConsultoraID.ToString() : userData.CodigoConsultora;
             SetUserData(usuario);
 
             List<BEPedidoWebDetalle> olstPedidoWebDetalle = new List<BEPedidoWebDetalle>();
@@ -2158,6 +2159,8 @@ namespace Portal.Consultoras.Web.Controllers
                 LogManager.LogManager.LogErrorWebServicesBus(ex, usuario.CodigoConsultora, (esMovil ? "SB Mobile - " : "") + usuario.CodigoISO);
             }
 
+            //userData.CodigoConsultora = userData.UsuarioPrueba == 1 ? userData.ConsultoraAsociada : userData.CodigoConsultora;
+            SetUserData(userData);
             return Json(new
             {
                 data = model,
@@ -4972,7 +4975,8 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     success = true,
                     message = "OK",
-                    data = objProOPT
+                    data = objProOPT,
+                    FBRuta = GetUrlCompartirFB()
                 });
             }
             catch (Exception ex)
