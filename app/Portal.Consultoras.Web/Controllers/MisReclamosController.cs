@@ -57,7 +57,7 @@ namespace Portal.Consultoras.Web.Controllers
             string urlPoliticaCdr = ConfigurationManager.AppSettings.Get("UrlPoliticasCDR") ?? "{0}";
             model.UrlPoliticaCdr = string.Format(urlPoliticaCdr, userData.CodigoISO);
             model.ListaCDRWeb = listaCDRWebModel.FindAll(p => p.CantidadDetalle > 0);
-            model.MensajeGestionCdrInhabilitada = MensajeGestionCdrInhabilitada();
+            model.MensajeGestionCdrInhabilitada = MensajeGestionCdrInhabilitadaYChatEnLinea();
             
             if (!string.IsNullOrEmpty(model.MensajeGestionCdrInhabilitada)) return View(model);
             if (model.ListaCDRWeb.Count == 0) return RedirectToAction("Reclamo");
@@ -67,7 +67,7 @@ namespace Portal.Consultoras.Web.Controllers
         public ActionResult Reclamo(int pedidoId = 0)
         {
             var model = new MisReclamosModel { PedidoID = pedidoId };
-            model.MensajeGestionCdrInhabilitada = MensajeGestionCdrInhabilitada();
+            model.MensajeGestionCdrInhabilitada = MensajeGestionCdrInhabilitadaYChatEnLinea();
             if (pedidoId == 0 && !string.IsNullOrEmpty(model.MensajeGestionCdrInhabilitada)) return RedirectToAction("Index");
 
             CargarInformacion();
@@ -1007,7 +1007,7 @@ namespace Portal.Consultoras.Web.Controllers
                 model = model ?? new MisReclamosModel();
                 if (model.CDRWebID <= 0) return ErrorJson("Error, vuelva a intentarlo");
 
-                string mensajeGestionCdrInhabilitada = MensajeGestionCdrInhabilitada();
+                string mensajeGestionCdrInhabilitada = MensajeGestionCdrInhabilitadaYChatEnLinea();
                 if (!string.IsNullOrEmpty(mensajeGestionCdrInhabilitada)) return ErrorJson(mensajeGestionCdrInhabilitada);
 
                 var cdrWebFiltro = new BECDRWeb { ConsultoraID = userData.ConsultoraID, PedidoID = model.PedidoID };
@@ -1016,7 +1016,7 @@ namespace Portal.Consultoras.Web.Controllers
                     var cdrWeb = sv.GetCDRWeb(userData.PaisID, cdrWebFiltro).ToList().FirstOrDefault();
                     if(cdrWeb == null) return ErrorJson("Error al buscar reclamo.");
                     cdrWeb.CDRWebDetalle = sv.GetCDRWebDetalle(userData.PaisID, new BECDRWebDetalle { CDRWebID = cdrWeb.CDRWebID }, cdrWeb.PedidoID);
-                    if(TieneDetalleFueraFecha(cdrWeb, model)) return ErrorJson(Constantes.CdrWebMensajes.FueraDeFecha);
+                    if(TieneDetalleFueraFecha(cdrWeb, model)) return ErrorJson(Constantes.CdrWebMensajes.FueraDeFecha + " " + Constantes.CdrWebMensajes.ContactateChatEnLinea);
                 }
 
                 int resultadoUpdate = 0;
@@ -1642,6 +1642,13 @@ namespace Portal.Consultoras.Web.Controllers
                     .ForMember(t => t.NombreCorto, f => f.MapFrom(c => c.NombreCorto));
 
             return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);
+        }
+
+        private string MensajeGestionCdrInhabilitadaYChatEnLinea()
+        {
+            string mensajeGestionCdrInhabilitada = MensajeGestionCdrInhabilitada();
+            if (string.IsNullOrEmpty(mensajeGestionCdrInhabilitada)) return mensajeGestionCdrInhabilitada;
+            return mensajeGestionCdrInhabilitada + " " + Constantes.CdrWebMensajes.ContactateChatEnLinea;
         }
 
         private string MensajeGestionCdrInhabilitada()

@@ -88,7 +88,7 @@ $(document).ready(function () {
 
         //El if se hizo con !() para considerar posibles valores null o undefined de $('#ddlCampania').val()
         if (!($('#ddlCampania').val() > 0)) {
-            alert_msg(mensajeCdrFueraDeFecha);
+            alert_msg(mensajeCdrFueraDeFechaCompleto);
             return false;
         }
 

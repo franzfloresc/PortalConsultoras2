@@ -4,7 +4,6 @@
 @{
     ViewBag.Title = "Cambios y devoluciones";
     Layout = "~/Views/Shared/_MainLayout.cshtml";
-    string mensajeGestionCdrInhabilitadaCompleta = Model.MensajeGestionCdrInhabilitada + " " + Constantes.CdrWebMensajes.ContactateChatEnLinea;
 }
 
 <div class="fondo_f9f9f9">
@@ -20,7 +19,7 @@
 
     @if (!string.IsNullOrEmpty(Model.MensajeGestionCdrInhabilitada) && Model.ListaCDRWeb.Count <= 0)
     {
-        <div class="texto_reclamos_bloqueada">@Html.Raw(mensajeGestionCdrInhabilitadaCompleta)</div>
+        <div class="texto_reclamos_bloqueada">@Html.Raw(Model.MensajeGestionCdrInhabilitada)</div>
     }
     else
     {
@@ -397,8 +396,7 @@
         var imgCarta = '@Url.Content("~/Content/Images/Esika/carta1.png")';
         var urlReclamo = '@Url.Action("Reclamo")';
 
-        var mensajeGestionCdrInhabilitada = '@Model.MensajeGestionCdrInhabilitada';
-        var mensajeGestionCdrInhabilitadaCompleta = '@Html.Raw(mensajeGestionCdrInhabilitadaCompleta)';
+        var mensajeGestionCdrInhabilitada = '@Html.Raw(Model.MensajeGestionCdrInhabilitada)';
 
         $(document).ready(function () {
             $(".verDetalle").on("click", function () {
@@ -487,7 +485,7 @@
 
             $("#IrPaso1").on("click", function () {
                 if (mensajeGestionCdrInhabilitada != '') {
-                    alert_msg(mensajeGestionCdrInhabilitadaCompleta);
+                    alert_msg(mensajeGestionCdrInhabilitada);
                     return false;
                 }
                 window.location.href = urlReclamo;
