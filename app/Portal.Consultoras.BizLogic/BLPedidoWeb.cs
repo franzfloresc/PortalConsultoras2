@@ -865,12 +865,6 @@ namespace Portal.Consultoras.BizLogic
                 {
                     throw new BizLogicException("No se pudo generar los archivos de descarga de pedidos.", ex);
                 }
-                //}
-                //else
-                //{
-                //    throw new BizLogicException("No se encontraron pedidos pendientes de descarga.");
-                //}
-
                 if (headerFile != null) //Si generó algún archivo continúa
                 {
                     if (ConfigurationManager.AppSettings["OrderDownloadCompress"] == "1")
@@ -912,12 +906,6 @@ namespace Portal.Consultoras.BizLogic
                             }
                         } // Si es pais FOX, obtiene los nombres de los archivos.
                         detailFile = headerFile = null;
-                        //else
-                        //{
-                        //    string srvName = ConfigurationManager.AppSettings["GetServerName"];
-                        //    headerFile = srvName + Path.GetFileName(headerFile);
-                        //    detailFile = srvName + Path.GetFileName(detailFile);
-                        //}
                     }
                 }
             }
@@ -996,32 +984,7 @@ namespace Portal.Consultoras.BizLogic
                     col = new DataColumn("LogCodigoUsuarioProceso", typeof(System.String));
                     col.DefaultValue = usuario;
                     dtPedidosCabecera.Columns.Add(col);
-
-                    //DataTable dtPedidosDetalle = dsPedidos.Tables[1];
-
-                    //if (dtPedidosDetalle.Rows.Count > 0)
-                    //{
-                    //    Type type = dtPedidosCabecera.Columns["PedidoID"].DataType;
-
-                    //    foreach (DataRow item in dtPedidosCabecera.Rows)
-                    //    {
-                    //        if (type == typeof(System.Int32))
-                    //        {
-                    //            item.SetField<int>("LogCantidad", (from pd in dtPedidosDetalle.AsEnumerable()
-                    //                                               where item.Field<int>("PedidoID") == pd.Field<int>("PedidoID")
-                    //                                               select pd).Count());
-                    //        }
-                    //        else
-                    //        {
-                    //            item.SetField<int>("LogCantidad", (from pd in dtPedidosDetalle.AsEnumerable()
-                    //                                               where item.Field<long>("PedidoID") == pd.Field<long>("PedidoID")
-                    //                                               select pd).Count());
-                    //        }                            
-                    //    }
-
-                    //    dtPedidosCabecera.AcceptChanges();
-                    //}
-
+                  
                     ConfigurarDTCargaDetalle(dsPedidos, fechaFactura, nroLote);
                 }
             }
@@ -1064,6 +1027,7 @@ namespace Portal.Consultoras.BizLogic
                         case "VALIDADO": item = row["Validado"].ToString(); break;
                         case "COMPARTAMOS": item = (row["bitAsistenciaCompartamos"] == DBNull.Value ? string.Empty : row["bitAsistenciaCompartamos"].ToString()); break;
                         case "METODOENVIO": item = (row["chrShippingMethod"] == DBNull.Value ? string.Empty : row["chrShippingMethod"].ToString()); break;
+                        case "HOSTNAME": item = row["HostName"] == DBNull.Value ? string.Empty : row["Hostname"].ToString(); break;             
                         default: item = string.Empty; break;
                     }
                 }
@@ -1084,6 +1048,7 @@ namespace Portal.Consultoras.BizLogic
                         case "ORIGEN": item = row["ORIGEN"].ToString(); break;
                         case "METODOENVIO": item = (row["chrShippingMethod"] == DBNull.Value ? string.Empty : row["chrShippingMethod"].ToString()); break;
                         case "VALIDADO": item = row["Validado"].ToString(); break;
+                        case "HOSTNAME": item = row["HostName"] == DBNull.Value ? string.Empty : row["Hostname"].ToString(); break;                            
                         default: item = string.Empty; break;
                     }
                 }
@@ -1168,6 +1133,7 @@ namespace Portal.Consultoras.BizLogic
                         case "CANTIDAD": item = row["Cantidad"].ToString(); break;
                         case "CODIGOPRODUCTO": item = row["CodigoProducto"].ToString(); break;
                         case "LOTE": item = lote; break;
+                        case "ORIGENPEDIDOWEB": item = row["OrigenPedidoWeb"].ToString(); break;
                         default: item = string.Empty; break;
                     }
                 }
@@ -1182,6 +1148,7 @@ namespace Portal.Consultoras.BizLogic
                         case "CODIGOVENTA": item = row["CodigoVenta"].ToString(); break;
                         case "CANTIDAD": item = row["Cantidad"].ToString(); break;
                         case "CODIGOPRODUCTO": item = row["CodigoVenta"].ToString(); break;
+                        case "ORIGENPEDIDOWEB": item = row["OrigenPedidoWeb"].ToString(); break;
                         default: item = string.Empty; break;
                     }
                 }
