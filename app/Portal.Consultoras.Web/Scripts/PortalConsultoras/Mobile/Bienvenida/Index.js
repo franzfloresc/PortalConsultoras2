@@ -1,4 +1,4 @@
-﻿var arrayOfertasParaTi = [];
+var arrayOfertasParaTi = [];
 
 $(document).ready(function () {    
     $('.flexsliderTutorialMobile').flexslider({
@@ -85,7 +85,7 @@ function CrearPopShow() {
             },
             error: function (data, error) {
                 if (checkTimeout(data)) {
-                    messageInfo("Ocurrió un error al intentar no mostrar el popup de showroom.");
+                    messageInfo("Ocurri? un error al intentar no mostrar el popup de showroom.");
                 }
             }
         });
@@ -158,7 +158,7 @@ function MostrarShowRoom() {
         },
         error: function (response, error) {
             checkUserSession();
-            if (checkTimeout(response)) messageInfo("Ocurrió un error al validar showroom.");
+            if (checkTimeout(response)) messageInfo("Ocurri? un error al validar showroom.");
         }
     });
 }
@@ -354,7 +354,7 @@ function ArmarCarouselEstrategias(data) {
                     'brand': recomendado.DescripcionMarca,
                     'category': 'NO DISPONIBLE',
                     'variant': recomendado.DescripcionEstrategia,
-                    'list': 'Ofertas para ti – Home',
+                    'list': 'Ofertas para ti ? Home',
                     'position': recomendado.Posicion
                 };
 
@@ -386,7 +386,7 @@ function ArmarCarouselEstrategias(data) {
                     'brand': recomendado.DescripcionMarca,
                     'category': 'NO DISPONIBLE',
                     'variant': recomendado.DescripcionEstrategia,
-                    'list': 'Ofertas para ti – Home',
+                    'list': 'Ofertas para ti ? Home',
                     'position': recomendado.Posicion
                 };
 
@@ -620,7 +620,7 @@ function AgregarProductoDestacado(tipoEstrategiaImagen) {
         cantidad = cantidadLimite;
     }
     if (!$.isNumeric(cantidad)) {
-        messageInfo("Ingrese un valor numérico.");
+        messageInfo("Ingrese un valor num?rico.");
         $('.liquidacion_rango_cantidad_pedido').val(1);
         CloseLoading();
         return false;
@@ -743,7 +743,7 @@ function ReservadoOEnHorarioRestringido(mostrarAlerta) {
         },
         error: function (error) {
             console.log(error);
-            messageInfo('Ocurrió un error al intentar validar el horario restringido o si el pedido está reservado. Por favor inténtelo en unos minutos.');
+            messageInfo('Ocurri? un error al intentar validar el horario restringido o si el pedido est? reservado. Por favor int?ntelo en unos minutos.');
         }
     });
     return restringido;
@@ -777,9 +777,9 @@ function MostrarDemandaAnticipada() {
         error: function (data, error) {
             if (checkTimeout(data)) {
                 if (tipo == 1) {
-                    alert("Ocurrió un error al validar demanda anticipada.");
+                    alert("Ocurri? un error al validar demanda anticipada.");
                 } else {
-                    alert("Ocurrió un error al validar la demanda anticipada.");
+                    alert("Ocurri? un error al validar la demanda anticipada.");
                 }
             }
         }
@@ -815,9 +815,9 @@ function InsertarDemandaAnticipada(tipo) {
         error: function (data, error) {
             if (checkTimeout(data)) {
                 if (tipo == 1) {
-                    alert("Ocurrió un error al aceptar la demanda anticipada.");
+                    alert("Ocurri? un error al aceptar la demanda anticipada.");
                 } else {
-                    alert("Ocurrió un error al cancelar la demanda anticipada.");
+                    alert("Ocurri? un error al cancelar la demanda anticipada.");
                 }
             }
         }
@@ -854,7 +854,7 @@ function TagManagerCarruselInicio(arrayItems) {
             'brand': recomendado.DescripcionMarca,
             'category': 'NO DISPONIBLE',
             'variant': recomendado.DescripcionEstrategia,
-            'list': 'Ofertas para ti – Home',
+            'list': 'Ofertas para ti ? Home',
             'position': recomendado.Posicion
         };
 
@@ -875,7 +875,7 @@ function TagManagerClickAgregarProducto() {
         'event': 'addToCart',
         'ecommerce': {
             'add': {
-                'actionField': { 'list': 'Ofertas para ti – Home' },
+                'actionField': { 'list': 'Ofertas para ti ? Home' },
                 'products': [
                     {
                         'name': $("#txtCantidadZE").attr("est-descripcion"),
@@ -906,7 +906,7 @@ function TagManagerCarruselPrevia() {
         'brand': recomendado.DescripcionMarca,
         'category': 'NO DISPONIBLE',
         'variant': recomendado.DescripcionEstrategia,
-        'list': 'Ofertas para ti – Home',
+        'list': 'Ofertas para ti ? Home',
         'position': recomendado.Posicion
     };
 
@@ -939,7 +939,7 @@ function TagManagerCarruselSiguiente() {
         'brand': recomendado.DescripcionMarca,
         'category': 'NO DISPONIBLE',
         'variant': recomendado.DescripcionEstrategia,
-        'list': 'Ofertas para ti – Home',
+        'list': 'Ofertas para ti ? Home',
         'position': recomendado.Posicion
     };
 
@@ -974,6 +974,7 @@ function mostrarFichaProductoOPT(cuv, posicion){
             if (checkTimeout(response)) {
                 if (response.success) {
                     var datos = response.data;
+                    datos.FBRuta = response.FBRuta || "";
                     SetHandlebars("#PopFichaOPT-template", datos, '#PopFichaOPT');
 
                     $('#imgFichaProOPT').attr('src', datos.FotoProducto01);                    
@@ -1005,20 +1006,6 @@ function CerrarFichaOPT()
     $('#PopFichaOPT').hide();
 }
 
-function CompartirWsp(UrlBase, objParameter) {
-    var _id = InsertarProductoCompartido(objParameter, 'W');
-    if (_id == 0)
-        return false;
-
-    UrlBase = UrlBase.replace("[valor]", _id);
-
-    UrlBase = UrlBase.ReplaceAll('/', '%2F');
-    UrlBase = UrlBase.ReplaceAll(":", "%3A");
-    UrlBase = UrlBase.ReplaceAll("?", "%3F");
-    UrlBase = UrlBase.ReplaceAll("=", "%3D");
-
-    return "whatsapp://send?text=" + UrlBase;
-}
 
 function mostrarCatalogoPersonalizado() {
     document.location.href = urlCatalogoPersonalizado;

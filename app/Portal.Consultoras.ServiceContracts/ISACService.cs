@@ -135,7 +135,7 @@ namespace Portal.Consultoras.ServiceContracts
         void DelConsultoraFicticia(int paisID, string CodigoConsultora);
 
         [OperationContract]
-        void UpdConsultoraFicticia(string CodigoUsuario, string CodigoConsultora, int paisID, Int64 ConsultoraID);
+        void UpdConsultoraFicticia(string CodigoUsuario, string CodigoConsultora, int paisID, Int64 ConsultoraID, string Clave);
 
         [OperationContract]
         string GetCodigoConsultoraAsociada(int paisID, string CodigoUsuario);

@@ -757,6 +757,7 @@ namespace Portal.Consultoras.Web.Controllers
                 //    }// EsMaquillaje
                 //}
 
+                productoModel.FBRuta = GetUrlCompartirFB();
                 return Json(new
                 {
                     success = true,

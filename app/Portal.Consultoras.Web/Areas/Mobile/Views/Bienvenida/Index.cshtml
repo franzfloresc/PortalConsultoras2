@@ -80,7 +80,7 @@
 
             @if (Model.PortalLideres && Model.Lider == 1)
             {
-                <a href="@Url.Action("Index", "Lider", new {area = ""})" role="menu" region="Medio" parent="Socias empresarias" id="lnk-med-sociasempresarias" class="enlace_sociasEmpresarias" title="Ir A Socias Empresarias">
+                <a href="@Url.Action("Index", "Lider", new { area = "" })" role="menu" region="Medio" parent="Socias empresarias" id="lnk-med-sociasempresarias" class="enlace_sociasEmpresarias" title="Ir A Socias Empresarias">
                     @if (Model.NombrePais == "Venezuela")
                     {
                         <span class="btn_seguirp_mobile"></span><span class="texto_enlace_socias">&nbsp;Ir a Socias Empresarias</span>
@@ -128,7 +128,7 @@
             <div class="hora_tooltip_p">Te quedan <b>@ViewBag.TeQuedanConsultoraOnline</b> horas</div>
         </div>
         <div style="float:right;">
-            <a class="btn_revisalo_pendiente" href="@Url.Action("Pendientes","ConsultoraOnline")">REVÍSALO</a>
+            <a class="btn_revisalo_pendiente" href="@Url.Action("Pendientes", "ConsultoraOnline")">REVÍSALO</a>
         </div>
         <hr class="clear">
     </div> 
@@ -166,7 +166,7 @@
                     Model.CodigoISO == Constantes.CodigosISOPais.Guatemala ||
                     Model.CodigoISO == Constantes.CodigosISOPais.Salvador ||
                     Model.CodigoISO == Constantes.CodigosISOPais.Dominicana ||
-                    Model.CodigoISO == Constantes.CodigosISOPais.PuertoRico) 
+                    Model.CodigoISO == Constantes.CodigosISOPais.PuertoRico)
                 {
                     cabezaEscala = "Ganancia estimada total*";
                     pieEscala = "*Ganancia Total = Ahorro estimado proveniente de tus descuentos por compras en catálogo + ahorro estimado proveniente de compras en Guía de Negocio y Otros.";
@@ -181,7 +181,7 @@
                     cabezaEscala = "Ganancia estimada total*";
                     pieEscala = "*Ganancia Total = Ahorro estimado proveniente de tus descuentos por compras en catálogo + ahorro estimado proveniente de compras en Revista y Otros.";
                 }
-                else if (Model.CodigoISO == Constantes.CodigosISOPais.CostaRica || Model.CodigoISO == Constantes.CodigosISOPais.Venezuela) 
+                else if (Model.CodigoISO == Constantes.CodigosISOPais.CostaRica || Model.CodigoISO == Constantes.CodigosISOPais.Venezuela)
                 {
                     cabezaEscala = "Oportunidad de ahorro total";
                     pieEscala = "";
@@ -195,7 +195,7 @@
                     @Util.DecimalToStringFormat(Convert.ToDecimal(Model.MontoAhorroCatalogo + Model.MontoAhorroRevista), Model.CodigoISO)
                 </span>
             </div>
-            <div role="link" region="Central" parent="Ganancia Estimada Total" title="Pedido ingresado" class="texto_inferior" style="text-decoration:underline;"><a href="@Url.Action("Index","Pedido")">Pedido ingresado: @Model.Simbolo <span class="js-span-pedidoingresado">@Util.DecimalToStringFormat(Model.MontoPedido, Model.CodigoISO)</span></a></div>
+            <div role="link" region="Central" parent="Ganancia Estimada Total" title="Pedido ingresado" class="texto_inferior" style="text-decoration:underline;"><a href="@Url.Action("Index", "Pedido")">Pedido ingresado: @Model.Simbolo <span class="js-span-pedidoingresado">@Util.DecimalToStringFormat(Model.MontoPedido, Model.CodigoISO)</span></a></div>
 
         </div>
         <!-- FIN ITEM 1-->
@@ -252,12 +252,12 @@
             HAZ CRECER TU NEGOCIO CON<br />
             EL APP DE CATÁLOGOS
             <a role="link" region="Central" parent="App de Catálogos" title="Entérate Más"
-               class="btn_compartelos" href="@Url.Action("EnterateMas","Catalogo", new {area = "Mobile"})">ENTÉRATE MÁS</a>
+               class="btn_compartelos" href="@Url.Action("EnterateMas", "Catalogo", new { area = "Mobile" })">ENTÉRATE MÁS</a>
 
             @if (Model.IsConsultoraOnline != -1)
             {
                 string UsuarioTipo = "";
-                
+
                 switch (Model.CodigoISO)
                 {
                     case "PE":
@@ -282,7 +282,7 @@
                         UsuarioTipo = "RUT";
                         break;
                 }
-                
+
                 string urlWhatsApp = "";
                 if (System.Web.HttpContext.Current.Request.UserAgent != null)
                 {
@@ -773,10 +773,25 @@
 </div>
 
 <script id="PopFichaOPT-template" type="text/x-handlebars-template">
-    <div class="content_popMobile" style="padding-bottom:0;">
+    <div class="content_popMobile" style="padding-bottom:0;" data-item="">
         <a class="cerrar_popMobile" onclick="CerrarFichaOPT()">
             <img src="/Content/Images/mobile/Esika/cerrar_04.png" alt="-">
         </a>
+        <div data-compartir-campos="" style="display:none;">
+            <input type="hidden" class="CUV" value="{{CUV2}}" />
+            <input type="hidden" class="rsFBMensaje" value="" />
+            <input type="hidden" class="rsFBRuta" value="{{FBRuta}}" />
+            <input type="hidden" class="rsWAMensaje" value="" />
+            <input type="hidden" class="rsWARuta" value="{{FBRuta}}" />
+            <input type="hidden" class="rsFBRutaImagen" value="{{FotoProducto01}}" />
+            <input type="hidden" class="rsWARutaImagen" value="{{FotoProducto01}}" />
+            <input type="hidden" class="MarcaID" value="{{MarcaID}}" />
+            <input type="hidden" class="MarcaNombre" value="{{DescripcionMarca}}" />
+            <input type="hidden" class="Nombre" value="{{DescripcionCUV2}}" />
+            <input type="hidden" class="ProductoDescripcion" value="{{DescripcionComercial}}" />
+            <input type="hidden" class="Volumen" value="{{Volumen}}" />
+            <input type="hidden" class="Palanca" value="OPT" />
+        </div>
         <hr class="clear" />
         <div class="content_imagen_ficha"><img id="imgFichaProOPT" src="https://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Matriz/PE/PE_200080472_201612367_01_pwifsvbxar.png" alt="PRODUCTO" /></div>
         <div class="marca_ficha_producto">--</div>
@@ -784,22 +799,8 @@
 
         <div class="precio_ficha_producto">--</div>
         <div class="content_redes_ficha">
-            @{
-                var urlWs = "";
-                string urlBase_fb = "";
-                if (System.Web.HttpContext.Current.Request.UserAgent != null)
-                {
-                    var request = HttpContext.Current.Request;
-
-                    var urlBase_wsp = request.Url.Scheme + "://" + request.Url.Authority + "/Pdto.aspx?id=" + Model.CodigoISO + "_[valor]";
-
-                    urlWs = urlBase_wsp; //"whatsapp://send?text=" + urlBase_wsp;
-
-                    urlBase_fb = request.Url.Scheme + "://" + request.Url.Authority + "/Pdto.aspx?id=" + Model.CodigoISO + "_[valor]";
-                }
-            }
-            <a class="btn_compartir_ofertas" href='javascript:window.location=CompartirWsp("@urlWs", {RutaImagen: "{{FotoProducto01}}", MarcaID:"{{MarcaID}}", MarcaDesc:"{{DescripcionMarca}}", NombrePro:"{{DescripcionCUV2}}", Cuv:"{{CUV2}}"});' data-action="share/whatsapp/share"><img src="@Url.Content("~/Content/Images/Mobile/Esika/catalogo_ws.png")" alt=""></a>
-            <a class="btn_compartir_ofertas" href="javascript:void(0);" onclick='javascript:CompartirFacebook("@urlBase_fb",  {Palanca: "OPT", RutaImagen: "{{FotoProducto01}}", MarcaID:"{{MarcaID}}", MarcaDesc:"{{DescripcionMarca}}", NombrePro:"{{DescripcionCUV2}}", Cuv:"{{CUV2}}"});'><img src="@Url.Content("~/Content/Images/Mobile/Esika/facebook.png")" alt=""></a>
+            <a class="btn_compartir_ofertas" href="javascript:window.location=CompartirRedesSociales(this);" data-compartir="WA" data-action="share/whatsapp/share"><img src="@Url.Content("~/Content/Images/Mobile/Esika/catalogo_ws.png")" alt=""></a>
+            <a class="btn_compartir_ofertas" href="javascript: void(0);" data-compartir="FB"><img src="@Url.Content("~/Content/Images/Mobile/Esika/facebook.png")" alt=""></a>
         </div>
         <hr class="clear" />
         <div style="margin-left:-20px; margin-right:-20px;">
