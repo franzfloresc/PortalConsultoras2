@@ -667,9 +667,8 @@ namespace Portal.Consultoras.Web.Controllers
 
             ofertaShowRoomModelo = listadoOfertasTodasModel.Find(o => o.OfertaShowRoomID == idOferta) ?? new ShowRoomOfertaModel();
 
-            //modelo = (ShowRoomOfertaModel) ofertaShowRoomModelo.Clone();
+            //modelo = (ShowRoomOfertaModel) ofertaShowRoomModelo.Clone();            
 
-            ofertaShowRoomModelo.ListaDetalleOfertaShowRoom = ofertaShowRoomModelo.ListaDetalleOfertaShowRoom ?? new List<ShowRoomOfertaDetalleModel>();
             if (ofertaShowRoomModelo.OfertaShowRoomID <= 0) return ofertaShowRoomModelo;
 
             ofertaShowRoomModelo.ImagenProducto = Util.Trim(ofertaShowRoomModelo.ImagenProducto);
@@ -682,7 +681,17 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
             ofertaShowRoomModelo.ListaDetalleOfertaShowRoom = Mapper.Map<List<BEShowRoomOfertaDetalle>, List<ShowRoomOfertaDetalleModel>>(listaDetalle);
-            
+
+            ofertaShowRoomModelo.ListaDetalleOfertaShowRoom = ofertaShowRoomModelo.ListaDetalleOfertaShowRoom ?? new List<ShowRoomOfertaDetalleModel>();
+
+            var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
+            ofertaShowRoomModelo.ListaDetalleOfertaShowRoom.Update(p =>
+            {
+                p.Imagen = string.IsNullOrEmpty(p.Imagen)
+                    ? "/Content/Images/showroom/no_disponible.png"
+                    : ConfigS3.GetUrlFileS3(carpetaPais, p.Imagen, Globals.UrlMatriz + "/" + userData.CodigoISO);
+            });
+
             return ofertaShowRoomModelo;
 
         }
