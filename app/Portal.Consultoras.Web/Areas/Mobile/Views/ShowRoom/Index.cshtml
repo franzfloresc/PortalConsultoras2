@@ -42,7 +42,7 @@
         <hr class="clear">
         <div id="summary-filters">
             <div id="div-result-number" style="margin-left: 0; float: left; width: 65%; font-size: 13px;">
-                <span id="result-number">Mostrando <span id="spnCantidadFiltro">12</span> de <span id="spnCantidadTotal">32</span> productos</span>
+                <span id="result-number">Mostrando <span id="spnCantidadFiltro">0</span> de <span id="spnCantidadTotal">0</span> productos</span>
             </div>
 
             <div id="div-delete-filters" style="display: none; margin-right: 0px;">
@@ -169,8 +169,7 @@
                 {
                     posicions++;
                 }
-            }*@ 
-            <hr class="clear" />
+            }*@             
         </div>
                 
        @if (Model.TieneCompraXcompra)
@@ -302,7 +301,8 @@
             </div>
         </div>
     </div>
-    {{/each}}    
+    {{/each}} 
+    <hr class="clear" />   
 </script>
 
 @section scripts{
