@@ -931,6 +931,10 @@
             </div>
         </div>
     </div>
+
+</div>
+
+<div class="contenedor_popup_eliminarCliente" id="divConsultarUbicacion">
 </div>
 <div class="contenedor_popup_eliminarCliente" id="divEditarManualDireccion">
 </div>
@@ -938,9 +942,13 @@
 </div>
 <div class="contenedor_popup_eliminarCliente" id="divEvaluacionCrediticia"> 
 </div>
-<div class="contenedor_popup_eliminarCliente" id="divConsultarUbicacion">
-</div>
 <div class="contenedor_popup_eliminarCliente" id="divReactivarPostulante">
+</div>
+<div class="contenedor_popup_eliminarCliente" id="divAprobarPostulante">
+</div>
+<div class="contenedor_popup_eliminarCliente" id="divRechazarPostulante">
+</div>
+<div class="contenedor_popup_eliminarCliente" id="divReenviarPostulante">
 </div>
 <div class="contenedor_popup_eliminarCliente" id="divEditarSolicitud">
 </div>
@@ -1426,6 +1434,8 @@
 
     function consultarUbicacion(solicitudPostulanteID) {
 
+        limpiarPopUps();
+
         $('#divConsultarUbicacion').empty();
         $('#divConsultarUbicacion').show();
 
@@ -1565,6 +1575,8 @@
     }
 
     function consultarEvaluacionCrediticia(solicitudPostulanteID) {
+        limpiarPopUps();
+
         $('#divEvaluacionCrediticia').empty();
         $('#divEvaluacionCrediticia').show();
         LoadSpinner('divEvaluacionCrediticia');
@@ -1578,57 +1590,62 @@
     }
 
     function reactivar(solicitudPostulanteID) {
+
+        limpiarPopUps();
+
         $('#divReactivarPostulante').empty();
         $('#divReactivarPostulante').show();
         LoadSpinner('divReactivarPostulante');
        $.get('@Url.Action("ReactivarPostulante", "Unete")', { id: solicitudPostulanteID }, function (html) {
             $('#divReactivarPostulante').html(html);
             $('#divReactivarPostulante').show();
-        }).done(function () {
+        }).done(function () {   });
 
-        });
-         
     }
 
     function Aprobar(solicitudPostulanteID) {
-        waitingDialog({});
-        modal.dialog("option", "width", 550);
-        modal.dialog("option", "height", 300);
+        limpiarPopUps();
 
-        $.get('@Url.Action("AprobarPostulante", "Unete")', { id: solicitudPostulanteID }, function (html) {
-            $('#modal_content').html(html);
-            modal.dialog('open');
-        }).done(function () {
-            closeWaitingDialog({});
-        });
+        $('#divAprobarPostulante').empty();
+        $('#divAprobarPostulante').show();
+        LoadSpinner('divAprobarPostulante');
+      $.get('@Url.Action("AprobarPostulante", "Unete")', { id: solicitudPostulanteID }, function (html) {
+            $('#divAprobarPostulante').html(html);
+            $('#divAprobarPostulante').show();
+        }).done(function () { });
+
+
     }
 
     function Rechazar(solicitudPostulanteID) {
-        waitingDialog({});
-        modal.dialog("option", "width", 550);
-        modal.dialog("option", "height", 400);
+        limpiarPopUps();
 
-        $.get('@Url.Action("RechazarPostulante", "Unete")', { id: solicitudPostulanteID }, function (html) {
-            $('#modal_content').html(html);
-            modal.dialog('open');
-        }).done(function () {
-            closeWaitingDialog({});
-        });
+        $('#divRechazarPostulante').empty();
+        $('#divRechazarPostulante').show();
+        LoadSpinner('divRechazarPostulante');
+    $.get('@Url.Action("RechazarPostulante", "Unete")', { id: solicitudPostulanteID }, function (html) {
+            $('#divRechazarPostulante').html(html);
+            $('#divRechazarPostulante').show();
+        }).done(function () { });
+
     }
 
     function reenviar(solicitudPostulanteID) {
-        waitingDialog({});
-        modal.dialog("option", "width", 550);
-        modal.dialog("option", "height", 220);
+
+        limpiarPopUps();
+
+        $('#divReenviarPostulante').empty();
+        $('#divReenviarPostulante').show();
+        LoadSpinner('divReenviarPostulante');
 
         $.get('@Url.Action("ReEnviarCorreoNotificacion", "Unete")', { id: solicitudPostulanteID }, function (html) {
-            modalEnviado.dialog('open');
 
-        }).done(function () {
-            closeWaitingDialog({});
+            $('#divReenviarPostulante').hide();
+        }).done(function () { });
 
-        });
+
     }
+
 
     function enviarFFVV(solicitudPostulanteID) {
         waitingDialog({});
@@ -1645,7 +1662,7 @@
     }
 
     function modificar(solicitudPostulanteID) {
-
+        limpiarPopUps();
 
         $('#divEditarSolicitud').empty();
         $('#divEditarSolicitud').show();
@@ -1807,6 +1824,22 @@
             }
         });
     });
+
+
+
+    function limpiarPopUps()
+    {
+        $('#divConsultarUbicacion').empty();
+        $('#divEditarManualDireccion').empty();
+        $('#divEditarDireccion').empty();
+        $('#divEvaluacionCrediticia').empty();
+        $('#divReactivarPostulante').empty();
+        $('#divAprobarPostulante').empty();
+        $('#divRechazarPostulante').empty();
+        $('#divReenviarPostulante').empty();
+        $('#divEditarSolicitud').empty();
+
+    }
 </script>
 
 <style>
@@ -2354,6 +2387,19 @@
     #divReactivarPostulante {
         display: none;
     }
+
+       #divAprobarPostulante {
+        display: none;
+    }
+
+    #divRechazarPostulante {
+        display: none;
+    }
+
+    #divReenviarPostulante {
+        display: none;
+    }
+     
 
         #divConsultarUbicacion {
         display: none;
