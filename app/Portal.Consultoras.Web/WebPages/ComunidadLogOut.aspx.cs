@@ -38,18 +38,12 @@ namespace Portal.Consultoras.Web.WebPages
                     FormsAuthentication.SignOut();
 
                     Uri urlPortal = Util.GetUrlHost(Request);
-                    string urlLogin = string.Format("{0}/Login", urlPortal.AbsoluteUri);
-                    Response.Redirect(urlLogin);
+                    urlPortal = new Uri(urlPortal, "Login");
+                    Response.Redirect(urlPortal.AbsoluteUri);
                 }
-                else
-                {
-                    Response.Redirect(ConfigurationManager.AppSettings["URL_COM"]);
-                }
+                else Response.Redirect(ConfigurationManager.AppSettings["URL_COM"]);
             }
-            else
-            {
-                Response.Redirect(ConfigurationManager.AppSettings["URL_COM"]);
-            }
+            else Response.Redirect(ConfigurationManager.AppSettings["URL_COM"]);
         }
     }
 }
