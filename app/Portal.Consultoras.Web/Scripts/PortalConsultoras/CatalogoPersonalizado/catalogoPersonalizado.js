@@ -118,7 +118,7 @@ $(document).ready(function () {
 });
 
 function Inicializar() {
-    IniDialog();
+    //IniDialog();
     ValidarCargaCatalogoPersonalizado();
     LinkCargarCatalogoToScroll();
 }
