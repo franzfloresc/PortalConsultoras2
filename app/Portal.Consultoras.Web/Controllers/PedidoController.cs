@@ -508,6 +508,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 BEPedidoWebDetalle oBePedidoWebDetalle = new BEPedidoWebDetalle();
                 oBePedidoWebDetalle.IPUsuario = userData.IPUsuario;
+                oBePedidoWebDetalle.HostName = userData.HostName;
                 oBePedidoWebDetalle.CampaniaID = userData.CampaniaID;
                 oBePedidoWebDetalle.ConsultoraID = userData.ConsultoraID;
                 oBePedidoWebDetalle.PaisID = userData.PaisID;

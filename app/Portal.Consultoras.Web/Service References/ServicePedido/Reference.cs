@@ -800,6 +800,9 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private decimal FleteField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string HostNameField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string IPUsuarioField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -1150,6 +1153,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public string HostName {
+            get {
+                return this.HostNameField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.HostNameField, value) != true)) {
+                    this.HostNameField = value;
+                    this.RaisePropertyChanged("HostName");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public string IPUsuario {
             get {
                 return this.IPUsuarioField;
@@ -1488,6 +1504,9 @@ namespace Portal.Consultoras.Web.ServicePedido {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private bool FlagConsultoraOnlineField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string HostNameField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string IPUsuarioField;
@@ -1965,6 +1984,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((this.FlagConsultoraOnlineField.Equals(value) != true)) {
                     this.FlagConsultoraOnlineField = value;
                     this.RaisePropertyChanged("FlagConsultoraOnline");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string HostName {
+            get {
+                return this.HostNameField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.HostNameField, value) != true)) {
+                    this.HostNameField = value;
+                    this.RaisePropertyChanged("HostName");
                 }
             }
         }
