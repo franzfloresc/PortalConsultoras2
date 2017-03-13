@@ -483,6 +483,7 @@ namespace Portal.Consultoras.Web.Controllers
                     model.SobrenombreOriginal = oBEUsuario.Sobrenombre;
                     model.Direccion = oBEUsuario.Direccion;
                     model.IPUsuario = GetIPCliente();
+                    model.HostName = Util.GetHostName(model.IPUsuario);
                     model.AnoCampaniaIngreso = oBEUsuario.AnoCampaniaIngreso;
                     model.PrimerNombre = oBEUsuario.PrimerNombre;
                     model.PrimerApellido = oBEUsuario.PrimerApellido;

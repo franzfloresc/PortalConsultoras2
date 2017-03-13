@@ -508,6 +508,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 BEPedidoWebDetalle oBePedidoWebDetalle = new BEPedidoWebDetalle();
                 oBePedidoWebDetalle.IPUsuario = userData.IPUsuario;
+                oBePedidoWebDetalle.HostName = userData.HostName;
                 oBePedidoWebDetalle.CampaniaID = userData.CampaniaID;
                 oBePedidoWebDetalle.ConsultoraID = userData.ConsultoraID;
                 oBePedidoWebDetalle.PaisID = userData.PaisID;
@@ -4205,7 +4206,7 @@ namespace Portal.Consultoras.Web.Controllers
             var listaAppCatalogo = new List<Producto>();
             using (ProductoServiceClient svc = new ProductoServiceClient())
             {
-                listaAppCatalogo = svc.ObtenerProductosByCodigoSap(userData.CodigoISO, userData.CampaniaID, joinCuv, 3).ToList();
+                listaAppCatalogo = svc.ObtenerProductosByCodigoSap(userData.CodigoISO, userData.CampaniaID, joinCuv).ToList();
             }
             
             if (!listaAppCatalogo.Any())
