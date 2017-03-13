@@ -984,7 +984,7 @@ namespace Portal.Consultoras.BizLogic
                     col = new DataColumn("LogCodigoUsuarioProceso", typeof(System.String));
                     col.DefaultValue = usuario;
                     dtPedidosCabecera.Columns.Add(col);
-                  
+
                     ConfigurarDTCargaDetalle(dsPedidos, fechaFactura, nroLote);
                 }
             }
@@ -1004,53 +1004,29 @@ namespace Portal.Consultoras.BizLogic
             foreach (TemplateField field in template)
             {
                 string item;
-                if (!ConfigurationManager.AppSettings["IsFOX"].Contains(codigoPais))
+                switch (field.FieldName)
                 {
-                    switch (field.FieldName)
-                    {
-                        case "PAIS": item = codigoPais; break;
-                        case "CAMPANIA": item = row["CampaniaID"].ToString(); break;
-                        case "CONSULTORA": item = row["CodigoConsultora"].ToString(); break;
-                        case "PREIMPRESO": item = row["PedidoID"].ToString(); break;
-                        case "CLIENTES": item = row["Clientes"].ToString(); break;
-                        case "FECHAPROCESO": item = fechaProceso; break;
-                        case "FECHAFACTURA": item = fechaFactura; break;
-                        case "REGION": item = row["CodigoRegion"].ToString(); break;
-                        case "ZONA":
-                            if (!ConfigurationManager.AppSettings["IsSICCFOX"].Contains(codigoPais))
-                                item = row["CodigoZona"].ToString();
-                            else
-                                item = row["CodigoZona"].ToString().Substring(0, 4);
-                            break;
-                        case "LOTE": item = lote; break;
-                        case "ORIGEN": item = origen; break;
-                        case "VALIDADO": item = row["Validado"].ToString(); break;
-                        case "COMPARTAMOS": item = (row["bitAsistenciaCompartamos"] == DBNull.Value ? string.Empty : row["bitAsistenciaCompartamos"].ToString()); break;
-                        case "METODOENVIO": item = (row["chrShippingMethod"] == DBNull.Value ? string.Empty : row["chrShippingMethod"].ToString()); break;
-                        case "HOSTNAME": item = row["HostName"] == DBNull.Value ? string.Empty : row["Hostname"].ToString(); break;             
-                        default: item = string.Empty; break;
-                    }
-                }
-                else
-                {
-                    switch (field.FieldName)
-                    {
-                        case "PAIS": item = codigoPais; break;
-                        case "CAMPANIA": item = row["CampaniaID"].ToString(); break;
-                        case "CONSULTORA": item = row["CodigoConsultora"].ToString(); break;
-                        case "PREIMPRESO": item = row["PedidoID"].ToString(); break;
-                        case "CLIENTES": item = row["Clientes"].ToString(); break;
-                        case "FECHAPROCESO": item = fechaProceso; break;
-                        case "FECHAFACTURA": item = fechaFactura; break;
-                        case "REGION": item = row["CodigoRegion"].ToString(); break;
-                        case "ZONA": item = row["CodigoZona"].ToString(); break;
-                        case "COMPARTAMOS": item = (row["bitAsistenciaCompartamos"] == DBNull.Value ? "0" : row["bitAsistenciaCompartamos"].ToString()); break;
-                        case "ORIGEN": item = row["ORIGEN"].ToString(); break;
-                        case "METODOENVIO": item = (row["chrShippingMethod"] == DBNull.Value ? string.Empty : row["chrShippingMethod"].ToString()); break;
-                        case "VALIDADO": item = row["Validado"].ToString(); break;
-                        case "HOSTNAME": item = row["HostName"] == DBNull.Value ? string.Empty : row["Hostname"].ToString(); break;                            
-                        default: item = string.Empty; break;
-                    }
+                    case "PAIS": item = codigoPais; break;
+                    case "CAMPANIA": item = row["CampaniaID"].ToString(); break;
+                    case "CONSULTORA": item = row["CodigoConsultora"].ToString(); break;
+                    case "PREIMPRESO": item = row["PedidoID"].ToString(); break;
+                    case "CLIENTES": item = row["Clientes"].ToString(); break;
+                    case "FECHAPROCESO": item = fechaProceso; break;
+                    case "FECHAFACTURA": item = fechaFactura; break;
+                    case "REGION": item = row["CodigoRegion"].ToString(); break;
+                    case "ZONA":
+                        if (!ConfigurationManager.AppSettings["IsSICCFOX"].Contains(codigoPais))
+                            item = row["CodigoZona"].ToString();
+                        else
+                            item = row["CodigoZona"].ToString().Substring(0, 4);
+                        break;
+                    case "LOTE": item = lote; break;
+                    case "ORIGEN": item = origen; break;
+                    case "VALIDADO": item = row["Validado"].ToString(); break;
+                    case "COMPARTAMOS": item = (row["bitAsistenciaCompartamos"] == DBNull.Value ? string.Empty : row["bitAsistenciaCompartamos"].ToString()); break;
+                    case "METODOENVIO": item = (row["chrShippingMethod"] == DBNull.Value ? string.Empty : row["chrShippingMethod"].ToString()); break;
+                    case "HOSTNAME": item = row["HostName"] == DBNull.Value ? string.Empty : row["Hostname"].ToString(); break;
+                    default: item = string.Empty; break;
                 }
                 line += item.PadRight(field.Size);
             }
@@ -1062,55 +1038,30 @@ namespace Portal.Consultoras.BizLogic
             foreach (TemplateField field in template)
             {
                 string item;
-                if (!ConfigurationManager.AppSettings["IsFOX"].Contains(codigoPais))
+                switch (field.FieldName)
                 {
-                    switch (field.FieldName)
-                    {
-                        case "PAIS": item = codigoPais; break;
-                        case "CAMPANIA": item = row["CampaniaID"].ToString(); break;
-                        case "CONSULTORA": item = row["CodigoConsultora"].ToString(); break;
-                        case "PREIMPRESO": item = row["PedidoID"].ToString(); break;
-                        case "CLIENTES": item = row["Clientes"].ToString(); break;
-                        case "FECHAPROCESO": item = fechaProceso; break;
-                        case "FECHAFACTURA": item = fechaFactura; break;
-                        case "REGION": item = row["CodigoRegion"].ToString(); break;
-                        case "ZONA":
-                            if (!ConfigurationManager.AppSettings["IsSICCFOX"].Contains(codigoPais))
-                                item = row["CodigoZona"].ToString();
-                            else
-                                item = row["CodigoZona"].ToString().Substring(0, 4);
-                            break;
-                        case "LOTE": item = lote; break;
-                        case "ORIGEN": item = origen; break;
-                        case "VALIDADO": item = row["Validado"].ToString(); break;
-                        case "COMPARTAMOS": item = (row["bitAsistenciaCompartamos"] == DBNull.Value ? string.Empty : row["bitAsistenciaCompartamos"].ToString()); break;
-                        case "METODOENVIO": item = (row["chrShippingMethod"] == DBNull.Value ? string.Empty : row["chrShippingMethod"].ToString()); break;
-                        default: item = string.Empty; break;
-                    }
+                    case "PAIS": item = codigoPais; break;
+                    case "CAMPANIA": item = row["CampaniaID"].ToString(); break;
+                    case "CONSULTORA": item = row["CodigoConsultora"].ToString(); break;
+                    case "PREIMPRESO": item = row["PedidoID"].ToString(); break;
+                    case "CLIENTES": item = row["Clientes"].ToString(); break;
+                    case "FECHAPROCESO": item = fechaProceso; break;
+                    case "FECHAFACTURA": item = fechaFactura; break;
+                    case "REGION": item = row["CodigoRegion"].ToString(); break;
+                    case "ZONA":
+                        if (!ConfigurationManager.AppSettings["IsSICCFOX"].Contains(codigoPais))
+                            item = row["CodigoZona"].ToString();
+                        else
+                            item = row["CodigoZona"].ToString().Substring(0, 4);
+                        break;
+                    case "LOTE": item = lote; break;
+                    case "ORIGEN": item = origen; break;
+                    case "VALIDADO": item = row["Validado"].ToString(); break;
+                    case "COMPARTAMOS": item = (row["bitAsistenciaCompartamos"] == DBNull.Value ? string.Empty : row["bitAsistenciaCompartamos"].ToString()); break;
+                    case "METODOENVIO": item = (row["chrShippingMethod"] == DBNull.Value ? string.Empty : row["chrShippingMethod"].ToString()); break;
+                    default: item = string.Empty; break;
                 }
-                else
-                {
 
-                    switch (field.FieldName)
-                    {
-                        case "PAIS": item = codigoPais; break;
-                        case "CAMPANIA": item = row["CampaniaID"].ToString(); break;
-                        case "CONSULTORA": item = row["CodigoConsultora"].ToString(); break;
-                        case "PREIMPRESO": item = row["PedidoID"].ToString(); break;
-                        case "CLIENTES": item = row["Clientes"].ToString(); break;
-                        case "FECHAPROCESO": item = fechaProceso; break;
-                        case "FECHAFACTURA": item = fechaFactura; break;
-                        case "REGION": item = row["CodigoRegion"].ToString(); break;
-                        case "ZONA": item = row["CodigoZona"].ToString(); break;
-                        case "COMPARTAMOS": item = (row["bitAsistenciaCompartamos"] == DBNull.Value ? "0" : row["bitAsistenciaCompartamos"].ToString()); break;
-                        case "ORIGEN": item = row["ORIGEN"].ToString(); break;
-                        case "METODOENVIO": item = (row["chrShippingMethod"] == DBNull.Value ? string.Empty : row["chrShippingMethod"].ToString()); break;
-                        case "VALIDADO": item = row["Validado"].ToString(); break;
-                        default: item = string.Empty; break;
-                    }
-
-
-                }
                 line += item.PadRight(field.Size);
             }
             return line;
@@ -1121,36 +1072,18 @@ namespace Portal.Consultoras.BizLogic
             foreach (TemplateField field in template)
             {
                 string item;
-                if (!ConfigurationManager.AppSettings["IsFOX"].Contains(codigoPais))
+                switch (field.FieldName)
                 {
-                    switch (field.FieldName)
-                    {
-                        case "PAIS": item = codigoPais; break;
-                        case "CAMPANIA": item = row["CampaniaID"].ToString(); break;
-                        case "CONSULTORA": item = row["CodigoConsultora"].ToString(); break;
-                        case "PREIMPRESO": item = row["PedidoID"].ToString(); break;
-                        case "CODIGOVENTA": item = row["CodigoVenta"].ToString(); break;
-                        case "CANTIDAD": item = row["Cantidad"].ToString(); break;
-                        case "CODIGOPRODUCTO": item = row["CodigoProducto"].ToString(); break;
-                        case "LOTE": item = lote; break;
-                        case "ORIGENPEDIDOWEB": item = row["OrigenPedidoWeb"].ToString(); break;
-                        default: item = string.Empty; break;
-                    }
-                }
-                else
-                {
-                    switch (field.FieldName)
-                    {
-                        case "PAIS": item = codigoPais; break;
-                        case "CAMPANIA": item = row["CampaniaID"].ToString(); break;
-                        case "CONSULTORA": item = row["CodigoConsultora"].ToString(); break;
-                        case "PREIMPRESO": item = row["PedidoID"].ToString(); break;
-                        case "CODIGOVENTA": item = row["CodigoVenta"].ToString(); break;
-                        case "CANTIDAD": item = row["Cantidad"].ToString(); break;
-                        case "CODIGOPRODUCTO": item = row["CodigoVenta"].ToString(); break;
-                        case "ORIGENPEDIDOWEB": item = row["OrigenPedidoWeb"].ToString(); break;
-                        default: item = string.Empty; break;
-                    }
+                    case "PAIS": item = codigoPais; break;
+                    case "CAMPANIA": item = row["CampaniaID"].ToString(); break;
+                    case "CONSULTORA": item = row["CodigoConsultora"].ToString(); break;
+                    case "PREIMPRESO": item = row["PedidoID"].ToString(); break;
+                    case "CODIGOVENTA": item = row["CodigoVenta"].ToString(); break;
+                    case "CANTIDAD": item = row["Cantidad"].ToString(); break;
+                    case "CODIGOPRODUCTO": item = row["CodigoProducto"].ToString(); break;
+                    case "LOTE": item = lote; break;
+                    case "ORIGENPEDIDOWEB": item = row["OrigenPedidoWeb"].ToString(); break;
+                    default: item = string.Empty; break;
                 }
                 line += item.PadRight(field.Size);
             }
