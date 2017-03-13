@@ -389,7 +389,7 @@ namespace Portal.Consultoras.Web.Controllers
                 for (int i = 0; i < intentos; i++)
                 {
                     campanaAppCatalogo = AddCampaniaAndNumero(campaniaID, -i, nroCampanias);
-                    var arrayProducto = sv.ObtenerProductosByCodigoSap(userData.CodigoISO, campanaAppCatalogo, codigoSAP, 1);
+                    var arrayProducto = sv.ObtenerProductosByCodigoSap(userData.CodigoISO, campanaAppCatalogo, codigoSAP);
 
                     if (arrayProducto == null || arrayProducto.Length == 0) continue;
                     if (!string.IsNullOrEmpty(arrayProducto[0].Imagen)) return arrayProducto[0].Imagen;
