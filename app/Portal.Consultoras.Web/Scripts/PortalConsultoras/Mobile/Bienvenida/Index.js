@@ -590,13 +590,10 @@ function TagManagerCarruselSiguiente() {
     });
 
 }
-//PL20-1265
-                    datos.FBRuta = response.FBRuta || "";
 
 $("#content_oferta_dia_mobile").click(function () {
     $('#PopOfertaDia').slideDown();
 });
-}
 
 //function CompartirFacebook(urlBase, objParameter) {
 //    var _id = InsertarProductoCompartido(objParameter,'F');

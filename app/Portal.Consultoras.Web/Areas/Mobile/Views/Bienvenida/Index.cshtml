@@ -811,9 +811,9 @@
         <div data-compartir-campos="" style="display:none;">
             <input type="hidden" class="CUV" value="{{CUV2}}" />
             <input type="hidden" class="rsFBMensaje" value="" />
-            <input type="hidden" class="rsFBRuta" value="{{FBRuta}}" />
+            <input type="hidden" class="rsFBRuta" value="{{UrlCompartirFB}}" />
             <input type="hidden" class="rsWAMensaje" value="" />
-            <input type="hidden" class="rsWARuta" value="{{FBRuta}}" />
+            <input type="hidden" class="rsWARuta" value="{{UrlCompartirFB}}" />
             <input type="hidden" class="rsFBRutaImagen" value="{{FotoProducto01}}" />
             <input type="hidden" class="rsWARutaImagen" value="{{FotoProducto01}}" />
             <input type="hidden" class="MarcaID" value="{{MarcaID}}" />
@@ -836,8 +836,6 @@
             <div class="content_imagen_ficha"><img src="{{FotoProducto01}}" alt="PRODUCTO" /></div>
             <div class="marca_ficha_producto" style="text-align:left;">{{DescripcionMarca}}</div>
             <div class="titulo_ficha_producto" style="text-align:left; font-size:19px; line-height:22px; margin-bottom:10px;" data-prod-descripcion>{{DescripcionCompleta}}</div>
-            <a class="btn_compartir_ofertas" href="javascript:window.location=CompartirRedesSociales(this);" data-compartir="WA" data-action="share/whatsapp/share"><img src="@Url.Content("~/Content/Images/Mobile/Esika/catalogo_ws.png")" alt=""></a>
-            <a class="btn_compartir_ofertas" href="javascript: void(0);" data-compartir="FB"><img src="@Url.Content("~/Content/Images/Mobile/Esika/facebook.png")" alt=""></a>
             {{#iff Precio '>' 0}}
             <div class="precio_tachado_048">{{Simbolo}} {{PrecioTachado}}</div>
             {{/iff}}
@@ -907,9 +905,13 @@
             </div>
         </div>
         <div class="content_redes_ficha">
-            <a class="btn_compartir_ofertas" href='javascript:window.location=CompartirWsp("{{UrlCompartirFB}}", {Palanca: "OPT", RutaImagen: "{{FotoProducto01}}", MarcaID:"{{MarcaID}}", MarcaDesc:"{{DescripcionMarca}}", NombrePro:"{{DescripcionCUV2}}", Cuv:"{{CUV2}}"});' data-action="share/whatsapp/share"><img src="@Url.Content("~/Content/Images/Mobile/Esika/catalogo_ws.png")" alt=""></a>
-            <a class="btn_compartir_ofertas" href="javascript:void(0);" onclick='javascript:CompartirFacebook("{{UrlCompartirFB}}",  {Palanca: "OPT", RutaImagen: "{{FotoProducto01}}", MarcaID:"{{MarcaID}}", MarcaDesc:"{{DescripcionMarca}}", NombrePro:"{{DescripcionCUV2}}", Cuv:"{{CUV2}}"});'><img src="@Url.Content("~/Content/Images/Mobile/Esika/facebook.png")" alt=""></a>
+            <a class="btn_compartir_ofertas"href="javascript:window.location=CompartirRedesSociales(this);" data-compartir="WA" data-action="share/whatsapp/share"><img src="@Url.Content("~/Content/Images/Mobile/Esika/catalogo_ws.png")" alt=""></a>
+            <a class="btn_compartir_ofertas" href="javascript:void(0);" data-compartir="FB"><img src="@Url.Content("~/Content/Images/Mobile/Esika/facebook.png")" alt=""></a>
         </div>
+       @* <div></div>
+        <a class="btn_compartir_ofertas" href="javascript:window.location=CompartirRedesSociales(this);" data-compartir="WA" data-action="share/whatsapp/share"><img src="@Url.Content("~/Content/Images/Mobile/Esika/catalogo_ws.png")" alt=""></a>
+        <a class="btn_compartir_ofertas" href="javascript: void(0);" data-compartir="FB"><img src="@Url.Content("~/Content/Images/Mobile/Esika/facebook.png")" alt=""></a>
+            *@
         <hr class="clear" />
         {{#if MostrarTextoLibre}}
         <div class="mensaje_advertencia_detalleCarousel" style="margin-top:10px; margin-left:0px;">

@@ -969,7 +969,7 @@ function CompartirRedesSocialesInsertar(article, tipoRedes, ruta) {
                 if (response.success) {
                     CompartirRedesSocialesAbrirVentana(response.data.id, tipoRedes, ruta, _mensaje);
                 } else {
-                    window.messageInfo(response.message);
+                    AbrirMensaje(response.message);
                 }
             }
             //CerrarLoad();
