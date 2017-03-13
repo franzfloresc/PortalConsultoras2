@@ -329,13 +329,6 @@ else
             <input type="hidden" class="hdItemPackValorizado" value="{{DecimalToStringFormat pack.valorizado}}" />
             <input type="hidden" class="hdItemPackPrecio" value="{{DecimalToStringFormat pack.precio_pack}}" />
 
-            UrlBase = UrlBase.ReplaceAll('/', '%2F');
-            UrlBase = UrlBase.ReplaceAll(":", "%3A");
-            UrlBase = UrlBase.ReplaceAll("?", "%3F");
-            UrlBase = UrlBase.ReplaceAll("=", "%3D");
-
-            return "whatsapp://send?text=" + UrlBase;
-
             <div class="content_unidad_producto">
                 {{#each ../lista_oObjItemPack as |item|}}
                 {{#if_eq pack.cuv_pack item.cuv_pack_item}}
