@@ -290,7 +290,6 @@ function RedirectPagaEnLineaAnalytics() {
 };
 
 function ReservadoOEnHorarioRestringido(mostrarAlerta) {
-    debugger
     mostrarAlerta = typeof mostrarAlerta !== 'undefined' ? mostrarAlerta : true;
     var restringido = true;
 

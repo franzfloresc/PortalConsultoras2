@@ -33095,7 +33095,11 @@ h1#penmostreo .campana {
     display: block;
 }
 .ficha_btn_agregar{
-    width:336px; background:black; color:white; font-weight:400; letter-spacing:0.4px;
+    width: 336px;
+    background: black;
+    color: white;
+    font-weight: 400;
+    letter-spacing: 0.4px;
 }
 
 .tooltip_tono {
