@@ -2418,14 +2418,14 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (model.ListaFiltro != null && model.ListaFiltro.Count > 0)
                 {
-                    var filtroCategoria = model.ListaFiltro.FirstOrDefault(p => p.Tipo == "CATEGORIA");
+                    var filtroCategoria = model.ListaFiltro.FirstOrDefault(p => p.Tipo == Constantes.ShowRoomTipoFiltro.Categoria);
                     if (filtroCategoria != null)
                     {
                         var arrayCategoria = filtroCategoria.Valores.ToArray();
                         listaFinal = listaFinal.Where(p => arrayCategoria.Contains(p.CodigoCategoria)).ToList();
                     }
 
-                    var filtroRangoPrecio = model.ListaFiltro.FirstOrDefault(p => p.Tipo == "RANGOPRECIOS");
+                    var filtroRangoPrecio = model.ListaFiltro.FirstOrDefault(p => p.Tipo == Constantes.ShowRoomTipoFiltro.RangoPrecios);
                     if (filtroRangoPrecio != null)
                     {
                         var valorDesde = filtroRangoPrecio.Valores[0];
@@ -2437,17 +2437,17 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (model.Ordenamiento != null)
                 {
-                    if (model.Ordenamiento.Tipo == "PRECIO")
+                    if (model.Ordenamiento.Tipo == Constantes.ShowRoomTipoOrdenamiento.Precio)
                     {
                         switch (model.Ordenamiento.Valor)
                         {
-                            case "01":
+                            case Constantes.ShowRoomTipoOrdenamiento.ValorPrecio.Predefinido:
                                 listaFinal = listaFinal.OrderBy(p => p.Orden).ToList();
                                 break;
-                            case "02":
+                            case Constantes.ShowRoomTipoOrdenamiento.ValorPrecio.MenorAMayor:
                                 listaFinal = listaFinal.OrderBy(p => p.PrecioCatalogo).ToList();
                                 break;
-                            case "03":
+                            case Constantes.ShowRoomTipoOrdenamiento.ValorPrecio.MayorAMenor:
                                 listaFinal = listaFinal.OrderByDescending(p => p.PrecioCatalogo).ToList();
                                 break;
                             default:

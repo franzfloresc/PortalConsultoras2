@@ -119,51 +119,6 @@ function ObtenerProductosShowRoom() {
     CargarProductosShowRoom(busquedaModel);
 }
 
-function CargarProductosShowRoom(busquedaModel) {
-    //AbrirLoad();
-    $.ajaxSetup({
-        cache: false
-    });
-
-    $('#divProductosShowRoom').html('<div style="text-align: center; min-height:150px;"><br><br><br><br>Cargando Productos ShowRoom<br><img src="' + urlLoad + '" /></div>');
-
-    jQuery.ajax({
-        type: 'POST',
-        url: baseUrl + 'ShowRoom/CargarProductosShowRoom',
-        dataType: 'json',
-        contentType: 'application/json; charset=utf-8',
-        data: JSON.stringify(busquedaModel),
-        async: true,
-        success: function (response) {
-            //CerrarLoad();
-            
-            if (response.success == true) {
-                var lista = response.lista;
-
-                $.each(lista, function(index, value) {
-                    value.Posicion = index + 1;
-                    value.UrlDetalle = urlDetalleShowRoom + '/' + value.OfertaShowRoomID;
-                });
-
-                $("#divProductosShowRoom").html("");                
-
-                var htmlDiv = SetHandlebars("#template-showroom", lista);
-                $('#divProductosShowRoom').append(htmlDiv);
-
-                $("#spnCantidadFiltro").html(response.cantidad);
-                $("#spnCantidadTotal").html(response.cantidadTotal);
-
-            } else messageInfoError(response.message);
-        },
-        error: function (response, error) {
-            if (checkTimeout(response)) {
-                CerrarLoad();
-                console.log(response);
-            }
-        }
-    });
-}
-
 function CargarFiltroRangoPrecio() {
     var precioMinFormat = DecimalToStringFormat(precioMin);
     var precioMaxFormat = DecimalToStringFormat(precioMax);

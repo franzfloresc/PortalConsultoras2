@@ -10,6 +10,7 @@ using System.ServiceModel;
 using System.Web.Mvc;
 using Portal.Consultoras.Web.ServicePROLConsultas;
 using System.Configuration;
+using Portal.Consultoras.Web.ServiceSAC;
 
 namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 {
@@ -135,6 +136,14 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 showRoomEventoModel.UrlTerminosCondiciones = terminosCondiciones == null
                     ? ""
                     : terminosCondiciones.Valor;
+
+                using (SACServiceClient svc = new SACServiceClient())
+                {
+                    showRoomEventoModel.FiltersBySorting = svc.GetTablaLogicaDatos(userData.PaisID, 99).ToList();
+                }
+
+                ViewBag.PrecioMin = showRoomEventoModel.ListaShowRoomOferta.Min(p => p.PrecioCatalogo);
+                ViewBag.PrecioMax = showRoomEventoModel.ListaShowRoomOferta.Max(p => p.PrecioCatalogo);
 
                 return showRoomEventoModel;                
             }

@@ -379,7 +379,7 @@ namespace Portal.Consultoras.Common
                 public const string BannerImagenIntriga = "BannerImagenIntriga";
                 public const string BannerImagenVenta = "BannerImagenVenta";
                 public const string BannerImagenPaginaVenta = "BannerImagenPaginaVenta";
-                public const string UrlTerminosCondiciones = "BannerSliderImagen";               
+                public const string UrlTerminosCondiciones = "UrlTerminosCondiciones";               
             }
 
             public class TipoAplicacion
@@ -392,6 +392,23 @@ namespace Portal.Consultoras.Common
             {
                 public const string Evento = "EVENTO";
                 public const string Categoria = "CATEGORIA";
+            }
+        }
+
+        public class ShowRoomTipoFiltro
+        {
+            public const string Categoria = "CATEGORIA";
+            public const string RangoPrecios = "RANGOPRECIOS";
+        }
+
+        public class ShowRoomTipoOrdenamiento
+        {
+            public const string Precio = "PRECIO";
+            public class ValorPrecio
+            {
+                public const string Predefinido = "01";
+                public const string MenorAMayor = "02";
+                public const string MayorAMenor = "03";
             }
         }
     }
