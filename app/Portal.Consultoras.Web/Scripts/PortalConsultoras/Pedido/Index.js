@@ -3495,9 +3495,8 @@ function CargarProductoAgotados() {
 function AjaxError(data) {
     CerrarSplash();
     if (checkTimeout(data)) messageInfoError(data.message);
-    }
-
 };
+
 function ArmarPopupPackNuevas(obj) {
     return SetHandlebars("#packnuevas-template", obj);
 };
