@@ -568,7 +568,7 @@ namespace Portal.Consultoras.Web.Controllers
                         item.Descripcion = beCatalogoPro.NombreComercial;
                         item.DescripcionLegal = beCatalogoPro.Descripcion;
                         item.PrecioOferta = beCatalogoPro.PrecioValorizado;
-                    } 
+                    }
                 }
 
                 Session[Constantes.ConstSession.ListaProductoShowRoomCpc] = listaShowRoomCPCFinal;

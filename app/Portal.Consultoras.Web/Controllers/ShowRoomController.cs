@@ -2465,6 +2465,7 @@ namespace Portal.Consultoras.Web.Controllers
                     success = true,
                     message = "Ok",
                     lista = listaFinal,
+                    cantidadTotal = cantidadTotal,
                     cantidad = cantidad
                 });
             }

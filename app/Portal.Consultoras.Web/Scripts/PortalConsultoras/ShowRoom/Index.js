@@ -150,6 +150,9 @@ function CargarProductosShowRoom(busquedaModel) {
                 var htmlDiv = SetHandlebars("#template-showroom", lista);
                 $('#divProductosShowRoom').append(htmlDiv);
 
+                $("#spnCantidadFiltro").html(response.cantidad);
+                $("#spnCantidadTotal").html(response.cantidadTotal);
+
             } else messageInfoError(response.message);
         },
         error: function (response, error) {

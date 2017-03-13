@@ -53,6 +53,9 @@
 
         </div>
         <div class="content-left-item">
+            <div id="divCantProductos" class="cantidad_productos_fav">
+                Mostrando <span id="spnCantidadFiltro">0</span> de <span id="spnCantidadTotal">0 productos</span>
+            </div>
             @if (Model.FiltersBySorting != null)
             {
                 <div class="filtros_derecha">
@@ -68,7 +71,7 @@
                 </div>
             }
 
-            <hr class="clear" />
+            <hr class="clear"/>
             <div id="divProductosShowRoom">
                 @*@{ var posicionx = 1; }
                 @foreach (var item in Model.ListaShowRoomOferta)
