@@ -475,7 +475,6 @@ function isInt(n) {
 
 // valida si ha ocurrido un timeout durante una llamada ajax
 function checkTimeout(data) {
-    var thereIsStillTime = true;
 
     if (data) {
         if (data.responseText) {

@@ -826,7 +826,6 @@ function CargarPopupsConsultora() {
 };
 
 //Metodos para carousel Ofertas para Tí
-
 function ShowPopupTonosTallas() {
     $('.js-contenedor-popup-tonotalla').show();
 };
