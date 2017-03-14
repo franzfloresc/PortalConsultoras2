@@ -1607,18 +1607,18 @@ ul.tabs {
     text-align: left;
 }
 
-    .div-3 .titG2 {
-        float: left;
-        width: 95px;
-        height: auto;
-        padding: 9px;
-        background: none;
-        color: #702789;
-        font-size: 14px;
-        margin: 0;
-        border: 0;
-        text-align:left;
-    }
+.div-3 .titG2 {
+    float: left;
+    width: 95px;
+    height: auto;
+    padding: 9px;
+    background: none;
+    color: #702789;
+    font-size: 14px;
+    margin: 0;
+    border: 0;
+    text-align: left;
+}
 
 .div-3 .titX {
     float: left;
@@ -13014,7 +13014,11 @@ label.checkpop {
     float: left;
     width: 600px;
 }
-    .div-list-img-matriz-comercial > .titG { width: 180px; }
+
+    .div-list-img-matriz-comercial > .titG {
+        width: 180px;
+    }
+
         .div-list-img-matriz-comercial > .titG > .borde_redondeado {
             height: 162px;
             margin-bottom: 8px;
@@ -13024,6 +13028,7 @@ label.checkpop {
     width: 170px;
     max-height: 163px;
 }
+
 .img-matriz-preview {
     cursor: pointer;
     width: 100%;
@@ -13166,31 +13171,35 @@ label.checkpop {
 
         .UltimaDescarga .textoDescarga img {
             float: left;
+            margin: 3px 11px 4px 0px;
         }
 
         .UltimaDescarga .textoDescarga span {
-            padding-left: 6px;
             color: #536576;
+            word-spacing: -.6px;
+            line-height: 145%;
         }
 
             .UltimaDescarga .textoDescarga span a {
                 color: #ec1a3a;
+                font-weight: bold;
+                text-decoration: underline;
             }
 
     .UltimaDescarga span {
         margin: 0 0 5px 0;
         padding: 0 0 5px 0;
         font-size: 13px;
+        color: #000;
     }
 
     .UltimaDescarga #UltimaDescargaInfo {
         border-collapse: separate;
         border-spacing: 0;
-        padding-top:5px;
+        padding-top: 5px;
         padding-bottom: 16px;
         width: 94%;
     }
-
 
 #UltimaDescargaInfo tr th,
 #UltimaDescargaInfo tr td {
@@ -13209,6 +13218,10 @@ label.checkpop {
     background: #00A2E8;
     border-top: 1px solid #d0d0d0;
     color: #FFF;
+}
+
+#UltimaDescargaInfo span {
+    color: #6b6b6b;
 }
 
 /* top-left border-radius */
