@@ -102,7 +102,7 @@
                 </div>
                 <div style="width:25%; display:inline-block">
                     
-                    <input type="submit" name="" id="btnBuscar" style="padding:0px !important; float:left !important;width: 100px  !important; background: #642f80; color: #FFF;border: none;  font-weight:bold !important; height: 40px;   padding: 0px;    margin: 0px;" class="btnConsUbi" value="Aceptar" />
+                    <input type="submit" name="" id="btnBuscar" style="padding:0px !important; float:left !important;width: 100px  !important; background: #642f80; color: #FFF;border: none;  font-weight:bold !important; height: 40px;   padding: 0px;    margin: 0px;" class="btnbusuqeda" value="Aceptar" />
                     @*<button type="button" id="btnAceptar" data-direccion-correcta="si" disabled class="btn_noEliminarCliente btnConsUbi">Aceptar</button>*@
                 </div>
             </div>
@@ -391,7 +391,11 @@
     }
 
 
-    function fnGrilla(page, rows, defaultStatus) {       
+    function fnGrilla(page, rows, defaultStatus) {
+
+        $('#btnBuscar').attr('disabled', true);
+ 
+
 
         $('#divListaCliente').html('<div style="text-align: center;">Cargando Lista de solicitudes<br><img src="' + urlLoad + '" /></div>');
 
@@ -431,8 +435,12 @@
 
                 configureGrid();
 
+                $('#btnBuscar').removeAttr('disabled');
+
             },
             error: function (error) {
+
+                $('#btnBuscar').removeAttr('disabled');
                
             }
         });
@@ -563,7 +571,7 @@
                     hideColumn('TipoRechazo'); $('[data-colname="TipoRechazo"]').css('width', '150px');
                     hideColumn('MotivoRechazo'); $('[data-colname="MotivoRechazo"]').css('width', '150px');
                     showColumn('Editar'); $('[data-colname="Editar"]').css('width', '70px');
-                    $('.editarBtnGrid').remove();
+          
                     hideColumn('PendienteConfirmacion'); $('[data-colname="PendienteConfirmacion"]').css('width', '70px');
                     hideColumn('Reactivar'); $('[data-colname="Reactivar"]').css('width', '70px');
                     hideColumn('Aprobar'); $('[data-colname="Aprobar"]').css('width', '70px');
@@ -656,7 +664,7 @@
                     showColumn('FechaCreacionCodigo'); $('[data-colname="FechaCreacionCodigo"]').css('width', '60px');
                     showColumn('CampanaCreacionCodigo'); $('[data-colname="CampanaCreacionCodigo"]').css('width', '60px');
                     showColumn('campania1erPasePedido'); $('[data-colname="campania1erPasePedido"]').css('width', '60px');
-                    hideColumn('Documentos'); $('[data-colname="Documentos"]').css('width', '50px');
+                    showColumn('Documentos'); $('[data-colname="Documentos"]').css('width', '50px');
                     hideColumn('NumDiasAprobadoFFVV'); $('[data-colname="NumDiasAprobadoFFVV"]').css('width', '40px');
                     hideColumn('NumDiasRechazado'); $('[data-colname="NumDiasRechazado"]').css('width', '45px');
                     showColumn('DiferenciaDias'); $('[data-colname="DiferenciaDias"]').css('width', '55px');
@@ -1755,7 +1763,7 @@
 
 
             fnGrilla();
-            fnGrilla();
+
             e.preventDefault();
             console.info(e.target);
         });
@@ -2674,6 +2682,20 @@
           font-weight: normal !Important;
            line-height: 1.25 !Important;
     
+    }
+
+        .btnbusuqeda {
+        float: none !important;
+        text-align: center;
+        font-weight: normal !important;
+        width: 25% !important;
+        font-size: 13px;
+        line-height: normal !important;
+    }
+         #btnBuscar:disabled  {
+ 
+    background-color:#B75D9F !important;
+    cursor:default;
     }
 </style>
  
