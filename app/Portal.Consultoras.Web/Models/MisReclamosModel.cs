@@ -32,19 +32,14 @@ namespace Portal.Consultoras.Web.Models
         public string Email { get; set; }
         public string Telefono { get; set; }
 
-        public List<CDRWebModel> ListaCDRWeb { get; set; } 
-        
-        public int IndicadorBloqueoCDR { get; set; }
-
-        public int EsCDRWebZonaValida { get; set; }
+        public List<CDRWebModel> ListaCDRWeb { get; set; }
 
         public decimal MontoMinimo { get; set; }        
 
         /*EPD-1339*/
         public int TieneHistoricoCDR { get; set; }
-        public int CumpleRangoCampaniaCDR { get; set; }
         /*EPD-1339*/
         public string UrlPoliticaCdr { get; set; }
-        public string MensajePeriodoInvalido { get; set; }
+        public string MensajeGestionCdrInhabilitada { get; set; }
     }
 }
