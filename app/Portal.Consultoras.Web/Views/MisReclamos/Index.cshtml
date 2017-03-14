@@ -17,17 +17,9 @@
 <div class="content_belcorp" style="min-height: 600px;">
     <div class="pestana_lbel"></div><!--PESTAÑA PARA DARLE ESTILO CON LBEL-->
 
-    @if (Model.EsCDRWebZonaValida == 0 && Model.ListaCDRWeb.Count <= 0)
+    @if (!string.IsNullOrEmpty(Model.MensajeGestionCdrInhabilitada) && Model.ListaCDRWeb.Count <= 0)
     {
-        <div class="texto_reclamos_bloqueada">Lo sentimos, por el momento tu zona no se encuentra disponible para realizar esta operación. Por favor, contáctate con nuestro <span class="enlace_chat belcorpChat"><a>Chat en Línea</a></span>.</div>
-    }
-    else if (Model.IndicadorBloqueoCDR == 1 && Model.ListaCDRWeb.Count <= 0)
-    {
-        <div class="texto_reclamos_bloqueada">Lo sentimos, por el momento te encuentras bloqueada para realizar esta operación. Por favor, contáctate con nuestro <span class="enlace_chat belcorpChat"><a>Chat en Línea</a></span>.</div>
-    }
-    else if (Model.CumpleRangoCampaniaCDR == 0 && Model.ListaCDRWeb.Count <= 0)
-    {
-        <div class="texto_reclamos_bloqueada">Lo sentimos, en estos momentos no cuentas con pedidos disponibles para reclamar. Por favor, contáctate con nuestro <span class="enlace_chat belcorpChat"><a>Chat en Línea</a></span>.</div>
+        <div class="texto_reclamos_bloqueada">@Html.Raw(Model.MensajeGestionCdrInhabilitada)</div>
     }
     else
     {
@@ -148,9 +140,6 @@
 </div>
 
 <input type="hidden" id="hdPedidoIdActual"/>
-<input type="hidden" id="hdIndicadorBloqueoCDR" value="@Model.IndicadorBloqueoCDR"/>
-<input type="hidden" id="hdEsCDRWebZonaValida" value="@Model.EsCDRWebZonaValida" />
-<input type="hidden" id="hdCumpleRangoCampaniaCDR" value="@Model.CumpleRangoCampaniaCDR" />
 
 <div class="contenedor_popup_percepciones" id="PopSolicitud">
     <div class="popup_Pendientes">
@@ -406,9 +395,8 @@
         var imgFoco = '@Url.Content("~/Content/Images/Esika/foco1.png")';
         var imgCarta = '@Url.Content("~/Content/Images/Esika/carta1.png")';
         var urlReclamo = '@Url.Action("Reclamo")';
-        var mensajePeriodoInvalido = '@Model.MensajePeriodoInvalido';
 
-        var mensajePeriodoInvalido = '@Model.MensajePeriodoInvalido';
+        var mensajeGestionCdrInhabilitada = '@Html.Raw(Model.MensajeGestionCdrInhabilitada)';
 
         $(document).ready(function () {
             $(".verDetalle").on("click", function () {
@@ -476,14 +464,11 @@
 
             $("#btnFinalizar").on("click", function () {
                 var pedidoId = $("#hdPedidoIdActual").val();
-
                 var lista = new Array();
 
                 $.each($("#divDetallePedidoCdrObservado .txtCantidad"), function (index, value) {
                     var elemento = $(value);
-
                     var parent = $(elemento).parents(".content_listado_reclamo").eq(0);
-
                     var pedidoDetalleId = $(parent).attr("data-pedidodetalleid");
                     var cantidad = $(elemento).val();
 
@@ -491,38 +476,16 @@
                         CDRWebDetalleID: pedidoDetalleId,
                         Cantidad: cantidad
                     };
-
                     lista.push(item);
-
                 });
 
                 var actualizado = ActualizarDetalleObservado(lista);
-
-                if (actualizado)
-                    window.location.href = urlReclamo + "?pedidoId=" + pedidoId;
+                if (actualizado) window.location.href = urlReclamo + "?pedidoId=" + pedidoId;
             });
 
             $("#IrPaso1").on("click", function () {
-                var estaBloqueado = $("#hdIndicadorBloqueoCDR").val();
-                var cumpleRangoCampania = $("#hdCumpleRangoCampaniaCDR").val();
-                var esZonaValida = $("#hdEsCDRWebZonaValida").val();
-
-                /*EPD-1339*/
-                if (cumpleRangoCampania == 0) {
-                    alert_msg("Lo sentimos, en estos momentos no cuentas con pedidos disponibles para reclamar. Por favor, contáctate con nuestro <span class='enlace_chat belcorpChat'><a>Chat en Línea</a></span>.");
-                    return false;
-                }
-                /*EPD-1339*/
-                if (esZonaValida == 0) {
-                    alert_msg("Lo sentimos, por el momento tu zona no se encuentra disponible para realizar esta operación. Por favor, contáctate con nuestro <span class='enlace_chat belcorpChat'><a>Chat en Línea</a></span>.");
-                    return false;
-                }
-                if (estaBloqueado == 1) {
-                    alert_msg("Lo sentimos, por el momento te encuentras bloqueada para realizar esta operación. Por favor, contáctate con nuestro <span class='enlace_chat belcorpChat'><a>Chat en Línea</a></span>.");
-                    return false;
-                }
-                if (mensajePeriodoInvalido != '') {
-                    alert_msg(mensajePeriodoInvalido);
+                if (mensajeGestionCdrInhabilitada != '') {
+                    alert_msg(mensajeGestionCdrInhabilitada);
                     return false;
                 }
                 window.location.href = urlReclamo;
@@ -553,13 +516,11 @@
                         return false;
                     }
 
-                    if (item.Estado == 4) {                        
-
+                    if (item.Estado == 4) {
                         /*EPD-1308*/
                         if (data.cantobservado > 0) {
                             SetHandlebars("#template-detalle-2-observado", data, "#divDetallePedidoCdrObservado");
                         }
-
                         if (data.cantaprobado > 0) {
                             SetHandlebars("#template-detalle-2-aprobado", data, "#divDetallePedidoCdrAprobado");
                         }
