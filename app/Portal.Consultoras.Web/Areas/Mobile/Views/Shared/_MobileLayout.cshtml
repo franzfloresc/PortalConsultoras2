@@ -630,6 +630,8 @@
         var urlGetCantidadPedidos = '@Url.Action("GetCantidadPedidos", "ConsultoraOnline", new { area = "Mobile" })';
         var urlGetShowRoom = '@Url.Action("MostrarShowRoomBannerLateral", "Bienvenida", new { area = "" })';
         var urlCloseBannerPL20 = '@Url.Action("CloseBannerPL20", "Pedido", new { area = "" })';
+        var urlOcultarBannerTop = '@Url.Action("OcultarBannerTop", "Pedido", new { area = "" })';
+
         var urlValidarStockEstrategia = '@Url.Action("ValidarStockEstrategia", "Pedido", new { area = "" })';
         var urlPedidoInsertZe = '@Url.Action("AgregarProductoZE", "Pedido", new { area = "" })';
         var baseUrl = "@Url.Content("~")";
@@ -656,7 +658,8 @@
         var sesionEsShowRoom = '@Session["EsShowRoom"]';
         var MostrarBannerPL20 = '@ViewBag.MostrarBannerPL20';
         var MostrarBannerOtros = '@ViewBag.MostrarBannerOtros';
-        var EstadoActivo = '@ViewBag.EstadoActivo'
+        var EstadoActivo = '@ViewBag.EstadoActivo';
+        var ocultarBannerTop = '@Session["OcultarBannerTop"]';
 
         var urlLogDynamo = '@System.Configuration.ConfigurationManager.AppSettings["UrlLogDynamo"]';
         var userData = {
@@ -1102,8 +1105,10 @@
             $("#btn_cerrar_oferta_mobile").click(function () {
                 $('.header_slider').slideUp();
                 $("#content").css({ 'margin-top': '63px' });
-            }); 
 
+                OcultarBannerTop();
+
+            }); 
 
             if(MostrarBannerPL20){
                 loadBannerLP20();
@@ -1130,6 +1135,11 @@
 
             if (urlIntriga > 0) {
                 $("#OfertaDelDia").css('display', 'none');
+            }
+
+            if (ocultarBannerTop) {
+                $('.header_slider').slideUp();
+                $("#content").css({ 'margin-top': '63px' });
             }
         });
 
@@ -1760,6 +1770,20 @@
         function TrackingJetloreRemoveAll(lista) {
             var esJetlore = esPaisTrackingJetlore == "1";
             if (esJetlore) JL.tracker.removeFromCart(lista);
+        }
+
+        function OcultarBannerTop() {
+            $.ajax({
+                type: 'GET',
+                url: urlOcultarBannerTop,
+                cache: false,
+                success: function (response) {
+                    if (response.success) {
+                        //ocultarBannerTop = true;
+                    }
+                },
+                error: function (err) { console.log(err); }
+            });
         }
 
     </script>
