@@ -950,10 +950,15 @@ function CompartirRedesSociales(e) {
 
 function CompartirRedesSocialesAbrirVentana(id, tipoRedes, ruta, texto) {
     id = $.trim(id);
-    if (id == "0" || id == "")
+    if (id == "0" || id == "") {
+        console.log("CompartirRedesSocialesAbrirVentana Falta ID");
         return false;
+    }
     ruta = $.trim(ruta);
-    if (ruta == "") return false;
+    if (ruta == "") {
+        console.log("CompartirRedesSocialesAbrirVentana Falta Ruta");
+        return false;
+    }
 
     ruta = ruta.replace('[valor]', id);
 
