@@ -369,6 +369,7 @@ namespace Portal.Consultoras.Web.Controllers
             model.CodigoIso = userData.CodigoISO;
             model.Simbolo = userData.Simbolo;
             model.ListaDetalle = listaCdrWebDetalle;
+            model.ConsultoraSaldo = logCdrWeb.ConsultoraSaldo;
 
             return PartialView("ListaDetalleCdr", model);
         }

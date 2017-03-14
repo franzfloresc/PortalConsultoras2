@@ -8,6 +8,7 @@
       <xs:element minOccurs="0" name="CantidadDetalle" type="xs:int" />
       <xs:element minOccurs="0" name="ConsultoraCodigo" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ConsultoraID" type="xs:long" />
+      <xs:element minOccurs="0" name="ConsultoraSaldo" type="xs:decimal" />
       <xs:element minOccurs="0" name="Estado" type="xs:int" />
       <xs:element minOccurs="0" name="FechaAtencion" nillable="true" type="xs:dateTime" />
       <xs:element minOccurs="0" name="FechaCulminado" nillable="true" type="xs:dateTime" />
@@ -63,6 +64,7 @@
       <xs:element minOccurs="0" name="CampaniaId" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="CodigoConsultora" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ConsultoraId" type="xs:long" />
+      <xs:element minOccurs="0" name="ConsultoraSaldo" type="xs:decimal" />
       <xs:element minOccurs="0" name="EstadoCDR" type="xs:unsignedByte" />
       <xs:element minOccurs="0" name="FechaAtencion" type="xs:dateTime" />
       <xs:element minOccurs="0" name="FechaCulminado" type="xs:dateTime" />

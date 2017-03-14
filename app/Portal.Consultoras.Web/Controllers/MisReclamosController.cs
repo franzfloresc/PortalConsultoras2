@@ -34,6 +34,7 @@ namespace Portal.Consultoras.Web.Controllers
                     beCdrWeb.ConsultoraID = userData.ConsultoraID;
 
                     var listaReclamo = cdr.GetCDRWeb(userData.PaisID, beCdrWeb).ToList();
+                    /*
                     Mapper.CreateMap<BECDRWeb, CDRWebModel>()
                         .ForMember(t => t.CDRWebID, f => f.MapFrom(c => c.CDRWebID))
                         .ForMember(t => t.PedidoID, f => f.MapFrom(c => c.PedidoID))
@@ -46,6 +47,7 @@ namespace Portal.Consultoras.Web.Controllers
                         .ForMember(t => t.Importe, f => f.MapFrom(c => c.Importe))
                         .ForMember(t => t.FechaAtencion, f => f.MapFrom(c => c.FechaAtencion))
                         .ForMember(t => t.CantidadDetalle, f => f.MapFrom(c => c.CantidadDetalle));
+                     * */
                     listaCDRWebModel = Mapper.Map<List<BECDRWeb>, List<CDRWebModel>>(listaReclamo);
                 }
             }
