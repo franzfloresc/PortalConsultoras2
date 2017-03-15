@@ -376,9 +376,9 @@ namespace Portal.Consultoras.Common
         public class OfertaEspecialMensajes
         {
             public const string EsikaWeb = "Producto en la Guía de Negocio Ésika con oferta especial.";
-            public const string LbelWeb = "Producto en Mi Negocio L’bel con oferta especial.";
+            public const string LbelWeb = "Producto en Mi Negocio L’Bel con oferta especial.";
             public const string EsikaMobile = "Este producto está en la Guía de Negocio Ésika con oferta especial.";
-            public const string LbelMobile = "Este producto está en Mi Negocio L’bel con oferta especial.";
+            public const string LbelMobile = "Este producto está en Mi Negocio L’Bel con oferta especial.";
         }
         
         public class PestanhasMisPagos
