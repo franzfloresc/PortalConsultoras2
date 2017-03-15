@@ -956,5 +956,11 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         int ActivarDesactivarEstrategias(int PaisID, string Usuario, string EstrategiasActivas, string EstrategiasDesactivas);
+        
+        [OperationContract]
+        int InsertarEstrategiaProducto(BEEstrategiaProducto entidad);
+
+        [OperationContract]
+        List<BEEstrategiaProducto> GetEstrategiaProducto(BEEstrategia entidad);
     }
 }

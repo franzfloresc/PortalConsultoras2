@@ -6,7 +6,7 @@ $(document).ready(function () {
     /*PL20-1226*/
     if (tieneOfertaDelDia == "True") {
         loadOfertaDelDia();
-    }
+    }    
 
     $(document).keyup(function (e) {
         if (e.keyCode == 27) { // esc keycode
@@ -25,14 +25,33 @@ $(document).ready(function () {
             }
 
             if ($('[data-popup-main]').is(':visible')) {
-                var functionHide = $('[data-popup-main]').attr("data-popup-function-hide");
+                var functionHide = $.trim($('[data-popup-main]').attr("data-popup-function-hide"));
                 if (functionHide != "") {
                     setTimeout(functionHide + "()", 100);
                 }
                 $('[data-popup-main]').hide();
+                $('body').css({ 'overflow-y': 'scroll' });
+            }
+
+            //EPD-1780
+            if ($('#dialog_SesionMainLayout').is(':visible')) {
+                $('#dialog_SesionMainLayout').hide();
+                window.location.href = "Login";
+            }
+            //Fin EPD-1780
+        }
+    });
+
+    //EPD-1780    
+    $('.contenedor_popup_agregarUnidades').click(function (e) {
+        if (!$(e.target).closest('.popup_agregarUnidades').length) {
+            if ($('#dialog_SesionMainLayout').is(':visible')) {
+                $('#dialog_SesionMainLayout').hide();
+                window.location.href = "Login";
             }
         }
     });
+    // FIN EPD-1780
 
     $('body').click(function (e) {
         if (!$(e.target).closest('#OfertaDelDia').length) {
@@ -46,25 +65,12 @@ $(document).ready(function () {
         }
     });
 
-    /*PL20-1226*/
-    //$('.Content_general_pop_up').click(function (e) {
-    //    if (!$(e.target).closest('.content_ficha_producto_nueva').length) {
-    //        if ($('#PopFichaProductoNueva').is(':visible')) {
-    //            $('#PopFichaProductoNueva').hide();
-    //        }
-    //    }
-    //});
-
     $('.contenedor_popup_detalleCarousel, .Content_general_pop_up').click(function (e) {
         if (!$(e.target).closest('[data-popup-body]').length) {
 
             if ($(e.target).is(':visible')) {
                 $(e.target).hide();
             }
-
-            //if ($('#popupDetalleCarousel_lanzamiento').is(':visible')) {
-            //    $('#popupDetalleCarousel_lanzamiento').hide();
-            //}
         }
     });
 
@@ -73,11 +79,12 @@ $(document).ready(function () {
 
             if ($(e.target).is(':visible')) {
 
-                var functionHide = $('[data-popup-main]').attr("data-popup-function-hide");
+                var functionHide = $.trim($('[data-popup-main]').attr("data-popup-function-hide"));
                 if (functionHide != "") {
                     setTimeout(functionHide + "()", 100);
                 }
                 $(e.target).hide();
+                $('body').css({ 'overflow-y': 'scroll' });
             }
         }
     });
@@ -86,11 +93,12 @@ $(document).ready(function () {
     $("body").on("click", "[data-popup-close]", function (e) {
         var popupClose = $("#" + $(this).attr("data-popup-close")) || $(this).parent("[data-popup-main]");
 
-        var functionHide = $(popupClose).attr("data-popup-function-hide");
+        var functionHide = $.trim($(popupClose).attr("data-popup-function-hide"));
         if (functionHide != "") {
             setTimeout(functionHide + "()", 100);
         }
         $(popupClose).hide();
+        $('body').css({ 'overflow-y': 'scroll' });
     });
 
     // cerrar popup ofertas 003,048
@@ -243,8 +251,8 @@ $(document).ready(function () {
         var url = 'http://200.32.70.19/Belcorp/';
         window.open(url, '_blank');
     });
-
-    $("body").on('click', '.belcorpChat', function () {
+    
+    $("body").on('click','.belcorpChat', function () {
         var FechaChatPais = BelcorpFechaChat_Pais;
         var PaisISO = IsoPais
         var fechaActual = FechaActual;
@@ -316,6 +324,8 @@ $(document).ready(function () {
                 open(res2, '', 'top=0,left=0,width=400,height=500');
             }
         }
+        //cerrar Popup
+        $(".ui-button-text").trigger("click");
     });
 
     Scrolling();
@@ -1098,7 +1108,7 @@ function closeOfertaDelDia() {
 };
 
 function addOfertaDelDiaPedido(tipo) {
-    //debugger;
+    
     var tipoEstrategiaID = $('#tipoestrategia-id-odd').val();
     var estrategiaID = $('#estrategia-id-odd').val();
     var marcaID = $('#marca-id-odd').val();

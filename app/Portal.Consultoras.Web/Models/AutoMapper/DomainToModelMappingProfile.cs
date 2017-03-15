@@ -6,6 +6,8 @@ using Portal.Consultoras.Web.ServiceUsuario;
 using Portal.Consultoras.Web.ServiceZonificacion;
 using Portal.Consultoras.Web.ServiceProductoCatalogoPersonalizado;
 
+using Portal.Consultoras.Web.ServiceCDR;
+
 namespace Portal.Consultoras.Web.Models.AutoMapper
 {
     public class DomainToModelMappingProfile : Profile
@@ -95,6 +97,9 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
 
             Mapper.CreateMap<BEMisPedidosDetalle, MisPedidosDetalleModel2>();
 
+            Mapper.CreateMap<MatrizComercialModel, BEMatrizComercial>();
+
+            Mapper.CreateMap<BEMatrizComercial, MatrizComercialResultadoModel>();
             Mapper.CreateMap<BERegion, RegionModel>();
 
             Mapper.CreateMap<BEZona, ZonaModel>();
@@ -103,12 +108,28 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
             Mapper.CreateMap<Producto, ProductoModel>()
                 .ForMember(t => t.MarcaID, f => f.MapFrom(c => c.IdMarca))
                 .ForMember(t => t.CUV, f => f.MapFrom(c => c.Cuv))
-                .ForMember(t => t.DescripcionMarca, f => f.MapFrom(c => c.NombreMarca));
+                .ForMember(t => t.DescripcionMarca, f => f.MapFrom(c => c.NombreMarca))
+                .ForMember(t => t.CUVPedidoImagen, f => f.MapFrom(c => c.ImagenCUVPedido))
+                .ForMember(t => t.CUVPedidoNombre, f => f.MapFrom(c => c.NombreCUVPedido));
 
             Mapper.CreateMap<ProductoModel, Producto>()
                 .ForMember(t => t.IdMarca, f => f.MapFrom(c => c.MarcaID))
                 .ForMember(t => t.Cuv, f => f.MapFrom(c => c.CUV))
                 .ForMember(t => t.NombreMarca, f => f.MapFrom(c => c.DescripcionMarca));
+
+            Mapper.CreateMap<BECDRWeb, CDRWebModel>()
+                .ForMember(t => t.CDRWebID, f => f.MapFrom(c => c.CDRWebID))
+                .ForMember(t => t.PedidoID, f => f.MapFrom(c => c.PedidoID))
+                .ForMember(t => t.PedidoNumero, f => f.MapFrom(c => c.PedidoNumero))
+                .ForMember(t => t.CampaniaID, f => f.MapFrom(c => c.CampaniaID))
+                .ForMember(t => t.ConsultoraID, f => f.MapFrom(c => c.ConsultoraID))
+                .ForMember(t => t.FechaRegistro, f => f.MapFrom(c => c.FechaRegistro))
+                .ForMember(t => t.Estado, f => f.MapFrom(c => c.Estado))
+                .ForMember(t => t.FechaCulminado, f => f.MapFrom(c => c.FechaCulminado))
+                .ForMember(t => t.Importe, f => f.MapFrom(c => c.Importe))
+                .ForMember(t => t.FechaAtencion, f => f.MapFrom(c => c.FechaAtencion))
+                .ForMember(t => t.ConsultoraSaldo, f => f.MapFrom(c => c.ConsultoraSaldo))
+                .ForMember(t => t.CantidadDetalle, f => f.MapFrom(c => c.CantidadDetalle));
         }
     }
 }

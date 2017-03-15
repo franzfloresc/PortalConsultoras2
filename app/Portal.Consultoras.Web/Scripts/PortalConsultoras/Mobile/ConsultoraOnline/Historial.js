@@ -39,7 +39,9 @@ function LoadPedidosClienteOnlineByCampaniaId(campanias) {
             else $('#divTablaClientesOnline').html(data.message);
         },
         error: function (data) {
-            $('#divTablaClientesOnline').html('Hubieron problemas de conexion al intentar cargar los pedidos de Consultora Online, inténtelo más tarde.');
+            if (checkTimeout(data)) {
+                $('#divTablaClientesOnline').html('Hubieron problemas de conexion al intentar cargar los pedidos de Consultora Online, inténtelo más tarde.');
+            }
         },
         complete: CloseLoading
     });

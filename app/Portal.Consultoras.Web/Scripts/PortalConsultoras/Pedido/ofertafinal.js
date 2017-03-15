@@ -540,7 +540,6 @@ function CumpleOfertaFinal(montoPedido, montoEscala, tipoPopupMostrar, codigoMen
 
 /*EPD-991*/
 //function validarOfertaFinalGanMas() {
-//    debugger
 //    var ofertaFinal = $('#hdOfertaFinal').val();
 //    var esOfertaFinalZonaValida = $("#hdEsOfertaFinalZonaValida").val();
 //    var ofertaFinalGanaMas = $('#hdOfertaFinalGanaMas').val();
@@ -568,7 +567,6 @@ function CumpleOfertaFinal(montoPedido, montoEscala, tipoPopupMostrar, codigoMen
 /*EPD-991*/
 
 //function CumpleParametriaOfertaFinal(montoPedido, montoEscala, tipoPopupMostrar, codigoMensajeProl, listaObservacionesProl) {
-//    debugger
 //    var resultado = false;
 //    var montoFaltante = 0;
 //    var porcentajeDescuento = 0;
@@ -730,12 +728,16 @@ function AgregarOfertaFinalLog(cuv, cantidad, tipoOfertaFinal_log, gap_Log, tipo
         data: JSON.stringify(param),
         async: true,
         success: function (response) {
-            if (response.success == true) {
-                //console.log(response.result);
+            if (checkTimeout(response)) {
+                if (response.success == true) {
+                    //console.log(response.result);
+                }
             }
         },
         error: function (data, error) {
-            AjaxError(data, error);
+            if (checkTimeout(data)) {
+                AjaxError(data, error);
+            }
         }
     });
 }

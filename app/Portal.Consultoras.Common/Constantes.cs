@@ -154,6 +154,11 @@ namespace Portal.Consultoras.Common
             public const int Lanzamiento = 5;
         }
 
+        public class TipoEstrategiaCodigo
+        {
+            public const string OfertaParaTi = "001";
+        }
+
         public class ConstSession
         {
             public const string IngresoPortalLideres = "IngresoPortalLideres";
@@ -176,6 +181,10 @@ namespace Portal.Consultoras.Common
             public const string CDRWeb = "CDRWeb";
             public const string CDRParametria = "CDRParametria";
             public const string CDRWebDatos = "CDRWebDatos";
+
+            // Tabla LOgica
+
+            public const string TablaLogicaDatos = "TablaLogicaDatos";
         }
 
         public class TipoOfertaFinalCatalogoPersonalizado
@@ -305,10 +314,15 @@ namespace Portal.Consultoras.Common
             public const string UnidadesPermitidasFaltante = "UnidadesPermitidasFaltante";
             public const string ValidacionDiasFaltante = "ValidacionDiasFaltante";
             public const string DiasAntesFacturacion = "DiasAntesFacturacion";
-        }
+        }
+
         public class CdrWebMensajes
         {
-            public const string FueraDeFecha = "Tu solicitud se encuentra fuera de fecha para poder ser atendida";
+            public const string ZonaBloqueada = "Lo sentimos, por el momento tu zona no se encuentra disponible para realizar esta operación.";
+            public const string ConsultoraBloqueada = "Lo sentimos, por el momento te encuentras bloqueada para realizar esta operación.";
+            public const string SinPedidosDisponibles = "Lo sentimos, en estos momentos no cuentas con pedidos disponibles para reclamar.";
+            public const string FueraDeFecha = "Tu solicitud se encuentra fuera de fecha para poder ser atendida.";
+            public const string ContactateChatEnLinea = "Por favor, contáctate con nuestro <span class=\"enlace_chat belcorpChat\"><a>Chat en Línea</a></span>.";
         }
 
         public class CodigoOperacionCDR
@@ -357,6 +371,12 @@ namespace Portal.Consultoras.Common
             public const int Existe = 2;
         }
 
+        public class PestanhasMisPagos
+        {
+            public const string EstadoCuenta = "EstadoCuenta";
+            public const string LugaresPago = "LugaresPago";
+            public const string MisPercepciones = "MisPercepciones";
+        }
     }
 }
 

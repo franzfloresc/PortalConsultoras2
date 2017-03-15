@@ -1,4 +1,7 @@
-﻿namespace Portal.Consultoras.Web.Models
+﻿using Portal.Consultoras.Web.ServicePedido;
+using System.Collections.Generic;
+
+namespace Portal.Consultoras.Web.Models
 {
     public class EstrategiaPedidoModel
     {        
@@ -59,5 +62,7 @@
         public bool IsAgregado { get; set; }
 
         public string UrlCompartirFB { get; set; }
+        public string CodigoEstrategia { get; set; }
+        public List<BEEstrategiaProducto> EstrategiaProductos { get; set; }
     }
 }

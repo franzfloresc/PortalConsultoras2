@@ -1,4 +1,5 @@
-﻿function VisualizarPopup(ProcesoId, Observaciones, Estado, FacturaHoy, DiaFact, MesFact, Visualizado, Asunto, Proceso, EsMontoMinimo, obj) {
+﻿
+function VisualizarPopup(ProcesoId, Observaciones, Estado, FacturaHoy, DiaFact, MesFact, Visualizado, Asunto, Proceso, EsMontoMinimo, obj) {
     waitingDialog({});
 
     var TipoOrigen;
@@ -130,6 +131,7 @@
         .error(function (jqXHR, textStatus, errorThrown) { closeWaitingDialog(); });
     }
 }
+
 function DescripcionFacturacion(FacturaHoy, DiaFact, MesFact) {
     Result = "el día de hoy";
     return Result;

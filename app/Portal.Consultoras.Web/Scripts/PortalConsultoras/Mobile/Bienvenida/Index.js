@@ -58,7 +58,9 @@ $(document).ready(function () {
     });
 
     CrearPopShow();
-    MostrarShowRoom();    
+    MostrarShowRoom();
+
+    
 });
 
 function CrearPopShow() {
@@ -266,9 +268,13 @@ function UpdateUsuarioTutorialMobile() {
         dataType: 'Json',
         contentType: 'application/json; charset=utf-8',
         success: function (data) {
-            viewBagVioTutorial = data.result;
+            if (checkTimeout(data)) {
+                viewBagVioTutorial = data.result;
+            }
         },
         error: function (data) {
+            if (checkTimeout(data)) {
+            }
         }
     });
 };
@@ -282,454 +288,7 @@ function RedirectPagaEnLineaAnalytics() {
         window.open('https://www.belcorpchile.cl/BP_Servipag/PagoConsultora.aspx?c=' + ViewBagUrlChileEncriptada, "_blank");
     }
 };
-function CargarCarouselEstrategias(cuv) {
-    $("#divListaEstrategias").hide();
-    $('.js-slick-prev').remove();
-    $('.js-slick-next').remove();
-    $('#divCarouseHorizontalMobile.slick-initialized').slick('unslick');
-   
-    $('#divCarouseHorizontalMobile').html('<div style="text-align: center;">Cargando Productos Destacados<br><img src="' + urlLoad + '" /></div>');
 
-    $.ajax({
-        type: 'GET',
-        url: urlGetEstrategiasCarousel + '?cuv=' + cuv,
-        dataType: 'json',
-        contentType: 'application/json; charset=utf-8',
-        success: function (data) {
-            ArmarCarouselEstrategias(data);
-        },
-        error: function (error) {
-            $('#divCarouseHorizontalMobile').html('<div style="text-align: center;">Ocurrio un error al cargar los productos.</div>');
-        }
-    });
-};
-function ArmarCarouselEstrategias(data) {
-    $("#divListaEstrategias").hide();
-    data = EstructurarDataCarousel(data);
-    arrayOfertasParaTi = data;
-
-    SetHandlebars("#estrategia-template", data, '#divCarouseHorizontalMobile');
-    $('#div-linea-OPT').show();
-
-    //$("#AbrirPopOPT").click(function () {
-    //    //$('body').css({ 'overflow-x': 'hidden' });
-    //    //$('body').css({ 'overflow-y': 'hidden' });
-    //    //$('#PopFichaOPT').show();
-
-    //});    
-    //$("#CerrarFichaOPT").click(function () {
-    //    $('body').css({ 'overflow-y': 'scroll' });
-    //    $('#PopFichaOPT').hide();
-
-    //});
-
-    if ($.trim($('#divCarouseHorizontalMobile').html()).length > 0) {
-        $("#divListaEstrategias").show();
-        $('#divCarouseHorizontalMobile').slick({
-            infinite: true,
-            vertical: false,
-            slidesToShow: 4,
-            slidesToScroll: 1,
-            autoplay: false,
-            prevArrow: '<a class="previous_ofertas_mobile js-slick-prev" style="margin-left:-12%; text-align:left;"><img src="' + baseUrl + 'Content/Images/mobile/Esika/previous_ofertas_home.png")" alt="" /></a>',
-            nextArrow: '<a class="previous_ofertas_mobile js-slick-next" style="margin-right:-12%; text-align:right; right:0"><img src="' + baseUrl + 'Content/Images/mobile/Esika/next.png")" alt="" /></a>',
-            responsive: [
-                {
-                    breakpoint: 1200,
-                    settings: { slidesToShow: 3, slidesToScroll: 1 }
-                },
-                {
-                    breakpoint: 900,
-                    settings: { slidesToShow: 2, slidesToScroll: 1 }
-                },
-                {
-                    breakpoint: 600,
-                    settings: { slidesToShow: 1, slidesToScroll: 1 }
-                }
-            ]
-        }).on('beforeChange', function (event, slick, currentSlide, nextSlide) {
-            var accion;
-            if (nextSlide == 0 && currentSlide + 1 == arrayOfertasParaTi.length) {
-                accion = 'next';
-            } else if (currentSlide == 0 && nextSlide + 1 == arrayOfertasParaTi.length) {
-                accion = 'prev';
-            } else if (nextSlide > currentSlide) {
-                accion = 'next';
-            } else {
-                accion = 'prev';
-            };
-
-            if (accion == 'prev') {
-                //TagManager
-                var posicionPrimerActivo = $($('#divCarouseHorizontalMobile').find(".slick-active")[0]).find('.PosicionEstrategia').val();
-                var posicionEstrategia = posicionPrimerActivo == 1 ? arrayOfertasParaTi.length - 1 : posicionPrimerActivo - 2;
-                var recomendado = arrayOfertasParaTi[posicionEstrategia];
-                var arrayEstrategia = new Array();
-
-
-                var impresionRecomendado = {
-                    'name': recomendado.DescripcionCompleta,
-                    'id': recomendado.CUV2,
-                    'price': recomendado.Precio2.toString(),
-                    'brand': recomendado.DescripcionMarca,
-                    'category': 'NO DISPONIBLE',
-                    'variant': recomendado.DescripcionEstrategia,
-                    'list': 'Ofertas para ti – Home',
-                    'position': recomendado.Posicion
-                };
-
-                arrayEstrategia.push(impresionRecomendado);
-                                
-                dataLayer.push({
-                    'event': 'virtualEvent',
-                    'category': 'Home',
-                    'action': 'Ofertas para ti',
-                    'label': 'Ver anterior'
-                });
-                dataLayer.push({
-                    'event': 'productImpression',
-                    'ecommerce': {
-                        'impressions': arrayEstrategia
-                    }
-                });
-            } else if (accion == 'next') {
-                //TagManager
-                var posicionUltimoActivo = $($('#divCarouseHorizontalMobile').find(".slick-active").slice(-1)[0]).find('.PosicionEstrategia').val();
-                var posicionEstrategia = arrayOfertasParaTi.length == posicionUltimoActivo ? 0 : posicionUltimoActivo;
-                var recomendado = arrayOfertasParaTi[posicionEstrategia];
-                var arrayEstrategia = new Array();
-
-                var impresionRecomendado = {
-                    'name': recomendado.DescripcionCompleta,
-                    'id': recomendado.CUV2,
-                    'price': recomendado.Precio2.toString(),
-                    'brand': recomendado.DescripcionMarca,
-                    'category': 'NO DISPONIBLE',
-                    'variant': recomendado.DescripcionEstrategia,
-                    'list': 'Ofertas para ti – Home',
-                    'position': recomendado.Posicion
-                };
-
-                arrayEstrategia.push(impresionRecomendado);
-                                
-                dataLayer.push({
-                    'event': 'virtualEvent',
-                    'category': 'Home',
-                    'action': 'Ofertas para ti',
-                    'label': 'Ver siguiente'
-                });
-                dataLayer.push({
-                    'event': 'productImpression',
-                    'ecommerce': {
-                        'impressions': arrayEstrategia
-                    }
-                });
-            };
-
-        });
-        TagManagerCarruselInicio(data);
-    }
-};
-function EstructurarDataCarousel(array) {
-    $.each(array, function (i, item) {
-        item.DescripcionCompleta = item.DescripcionCUV2;
-        if (item.FlagNueva == 1) {
-            item.DescripcionCUVSplit = item.DescripcionCUV2.split('|')[0];
-        } else {
-            item.DescripcionCUV2 = (item.DescripcionCUV2.length > 40 ? item.DescripcionCUV2.substring(0, 40) + "..." : item.DescripcionCUV2);
-        };
-        item.Posicion = i + 1;
-    });
-
-    return array;
-};
-function CargarProductoDestacado(objParameter, objInput) {
-    ShowLoading();
-
-    if (ReservadoOEnHorarioRestringido())
-        return false;
-
-    var tipoEstrategiaID = objParameter.TipoEstrategiaID;
-    var estrategiaID = objParameter.EstrategiaID;
-    var posicionItem = objParameter.Posicion;
-    var flagNueva = objParameter.FlagNueva;
-    var cantidadIngresada = $(objInput).parent().find("input.rango_cantidad_pedido").val();
-    var tipoEstrategiaImagen = $(objInput).parents("[data-item]").attr("data-tipoestrategiaimagenmostrar");
-
-    //pl20-1265
-    if ($('#PopFichaOPT').is(":visible"))
-    {
-        CerrarFichaOPT();
-        posicionItem = $('#hdPosicion').val();
-    }
-
-    $("#hdTipoEstrategiaID").val(tipoEstrategiaID);
-
-    var params = {
-        EstrategiaID: estrategiaID,
-        FlagNueva: flagNueva
-    };
-
-    jQuery.ajax({
-        type: 'POST',
-        url: urlFiltrarEstrategiasPedido ,
-        dataType: 'json',
-        contentType: 'application/json; charset=utf-8',
-        data: JSON.stringify(params),
-        async: true,
-        success: function (datos) {
-            var flagEstrella = (datos.data.FlagEstrella == 0) ? "hidden" : "visible";
-            $("#imgTipoOfertaEdit").attr("src", datos.data.ImagenURL);
-            $("#imgEstrellaEdit").css({ "visibility": flagEstrella });
-            $("#imgZonaEstrategiaEdit").attr("src", datos.data.FotoProducto01);
-
-            if (datos.data.Precio != "0") {
-                $(".zona2Edit").html(datos.data.EtiquetaDescripcion + ' ' + datos.data.Simbolo + '' + datos.precio);
-            } else {
-                $(".zona2Edit").html("");
-            }
-
-            if (datos.data.Precio2 != "0") {
-                $(".zona3Edit_1").html(datos.data.EtiquetaDescripcion2);
-                $(".zona3Edit_2").html('<span>' + datos.data.Simbolo + '' + datos.precio2 + '</span>');
-            } else {
-                $(".zona3Edit_1").html("");
-                $(".zona3Edit_2").html("");
-            }
-
-            if (datos.data.TextoLibre != "") {
-                $(".zona4Edit").html(datos.data.TextoLibre);
-            } else {
-                $(".zona4Edit").html("");
-            }
-
-            if (datos.data.ColorFondo != "") {
-                $("#divVistaPrevia").css({ "background-color": datos.data.ColorFondo });
-            } else {
-                $("#divVistaPrevia").css({ "background-color": "#FFF" });
-            }
-
-            $("#txtCantidadZE").val(cantidadIngresada);
-            $("#txtCantidadZE").attr("est-cantidad", datos.data.LimiteVenta);
-            $("#txtCantidadZE").attr("est-cuv2", datos.data.CUV2);
-            $("#txtCantidadZE").attr("est-marcaID", datos.data.MarcaID);
-            $("#txtCantidadZE").attr("est-precio2", datos.data.Precio2);
-            $("#txtCantidadZE").attr("est-montominimo", datos.data.IndicadorMontoMinimo);
-            $("#txtCantidadZE").attr("est-tipooferta", datos.data.TipoOferta);
-            $("#txtCantidadZE").attr("est-descripcionMarca", datos.data.DescripcionMarca);
-            $("#txtCantidadZE").attr("est-descripcionEstrategia", datos.data.DescripcionEstrategia);
-            $("#txtCantidadZE").attr("est-descripcionCategoria", datos.data.DescripcionCategoria);
-            $("#txtCantidadZE").attr("est-posicion", posicionItem);
-
-            $("#ddlTallaColor").empty();
-            $(".zona0Edit").html(datos.data.DescripcionMarca);
-
-            /*Validar Programa Ofertas Nuevas*/
-            $("#hdnProgramaOfertaNuevo").val(false);
-            $("#OfertasResultados li").hide();
-            $("#OfertaTipoNuevo").val("");
-
-            if (datos.data.FlagNueva == 1) {
-                $(".zona4Edit").hide();
-                $(".zonaCantidad").hide();
-                $("#hdnProgramaOfertaNuevo").val(true);
-                var nroPedidos = false;
-                var pedidosData = $('#divListadoPedido').find("input[id^='hdfTipoEstrategia']");
-
-                pedidosData.each(function (indice, valor) {
-                    if (valor.value == 1) {
-                        nroPedidos = true;
-                        var OfertaTipoNuevo = "".concat($('#divListadoPedido').find("input[id^='hdfCampaniaID']")[indice].value, ";",
-                            $('#divListadoPedido').find("input[id^='hdfPedidoId']")[indice].value, ";",
-                            $('#divListadoPedido').find("input[id^='hdfPedidoDetalleID']")[indice].value, ";",
-                            $('#divListadoPedido').find("input[id^='hdfTipoOfertaSisID']")[indice].value, ";",
-                            $('#divListadoPedido').find("input[id^='hdfCUV']")[indice].value, ";",
-                            $('#divListadoPedido').find("input[id^='txtLPTempCant']")[indice].value, ";",
-                            $('#hdnPagina').val(), ";",
-                            $('#hdnClienteID2_').val());
-
-                        $("#OfertaTipoNuevo").val(OfertaTipoNuevo);
-                        return;
-                    }
-                });
-
-                if (nroPedidos) {
-                    $(".zona4Edit").text(datos.data.TextoLibre);
-                    $(".zona4Edit").show();
-                }
-
-                var ofertas = datos.data.DescripcionCUV2.split('|');
-                $(".zona1Edit").html(ofertas[0]);
-                $("#txtCantidadZE").attr("est-descripcion", ofertas[0]);
-                $("#OfertasResultados li").remove(); // Limpiar la lista.
-
-                $.each(ofertas, function (i) {
-                    if (i != 0 && $.trim(ofertas[i]) != "") {
-                        $("#OfertasResultados").append("<li>" + ofertas[i] + "</li>");
-                    }
-                });
-
-                CloseLoading();
-                AgregarProductoDestacado(tipoEstrategiaImagen);
-            } else {
-                $(".zona4Edit").show();
-                $(".zonaCantidad").show();
-                $(".zona1Edit").html(datos.data.DescripcionCUV2);
-                $("#txtCantidadZE").attr("est-descripcion", datos.data.DescripcionCUV2);
-                var option = "";
-                $(".tallaColor").hide();
-                if (datos.data.TallaColor != "") {
-                    var arrOption = datos.data.TallaColor.split('</>');
-                    if (arrOption.length > 2) {
-                        for (var i = 0; i < arrOption.length; i++) {
-                            if (arrOption[i] != "") {
-                                option = "<option ";
-                                var strOption = arrOption[i].split('|');
-                                var strCuv = strOption[0];
-                                var strDescCuv = strOption[1];
-                                var strDescTalla = strOption[2];
-                                option += " value='" + strCuv + "' desc-talla='" + strDescCuv + "' >" + strDescTalla + "</option>";
-                                $("#ddlTallaColor").append(option);
-                            }
-                        }
-
-                        $(".tallaColor").show();
-                    }
-                }
-                if (option == "") {
-                    AgregarProductoDestacado(tipoEstrategiaImagen);
-                } else {
-                    CloseLoading();
-                }
-            }
-
-            //CloseLoading();
-        },
-        error: function (data, error) {
-            alert(datos.data.message);
-            CloseLoading();
-        }
-    });
-};
-function AgregarProductoDestacado(tipoEstrategiaImagen) {
-    var cantidad = $("#txtCantidadZE").val();
-    var cantidadLimite = $("#txtCantidadZE").attr("est-cantidad");
-    var cuv = $("#txtCantidadZE").attr("est-cuv2");
-    var marcaID = $("#txtCantidadZE").attr("est-marcaID");
-    var precio = $("#txtCantidadZE").attr("est-precio2");
-    var descripcion = $("#txtCantidadZE").attr("est-descripcion");
-    var indicadorMontoMinimo = $("#txtCantidadZE").attr("est-montominimo");
-    var tipoOferta = $("#txtCantidadZE").attr("est-tipooferta");
-    var categoria = $("#txtCantidadZE").attr("est-descripcionCategoria");
-    var variant = $("#txtCantidadZE").attr("est-descripcionEstrategia");
-    var marca = $("#txtCantidadZE").attr("est-descripcionMarca");
-    var posicion = $("#txtCantidadZE").attr("est-posicion");
-    var urlImagen = $("#imgZonaEstrategiaEdit").attr("src");
-    var OrigenPedidoWeb = MobileHomeOfertasParaTi;
-
-    //Encaso la Ficha Popup sea Visible - PL20-1265
-    if ($('#PopFichaOPT').is(":visible")) {
-        cantidad = $('#txtCantidadFichaOPT').val();
-    }
-
-    // validar que se existan tallas
-    if ($.trim($("#ddlTallaColor").html()) != "") {
-        if ($.trim($("#ddlTallaColor").val()) == "") {
-            messageInfo("Por favor, seleccione la Talla/Color del producto.");
-            CloseLoading();
-            return false;
-        }
-    }
-    /*Quitar estas validaciones cuando exista Programa de Ofertas nuevas */
-    if ($("#hdnProgramaOfertaNuevo").val() == "true") {
-        cantidad = cantidadLimite;
-    }
-    if (!$.isNumeric(cantidad)) {
-        messageInfo("Ingrese un valor numérico.");
-        $('.liquidacion_rango_cantidad_pedido').val(1);
-        CloseLoading();
-        return false;
-    }
-    if (parseInt(cantidad) <= 0) {
-        messageInfo("La cantidad debe ser mayor a cero.");
-        $('.liquidacion_rango_cantidad_pedido').val(1);
-        CloseLoading();
-        return false;
-    }
-    if (parseInt(cantidad) > parseInt(cantidadLimite)) {
-        messageInfo("La cantidad no debe ser mayor que la cantidad limite ( " + cantidadLimite + " ).");
-        CloseLoading();
-        return false;
-    }
-
-    ShowLoading();
-
-    var param = ({
-        MarcaID: marcaID,
-        CUV: cuv,
-        PrecioUnidad: precio,
-        Descripcion: descripcion,
-        Cantidad: cantidad,
-        IndicadorMontoMinimo: indicadorMontoMinimo,
-        TipoOferta: $("#hdTipoEstrategiaID").val(),
-        tipoEstrategiaImagen: tipoEstrategiaImagen || 0,
-        OrigenPedidoWeb: OrigenPedidoWeb
-    });
-
-    jQuery.ajax({
-        type: 'POST',
-        url: urlValidarStockEstrategia,
-        dataType: 'json',
-        contentType: 'application/json; charset=utf-8',
-        data: JSON.stringify(param),
-        async: true,
-        success: function (datos) {
-            if (!datos.result) {
-                messageInfo(datos.message);
-                CloseLoading();
-            } else {
-                jQuery.ajax({
-                    type: 'POST',
-                    url: urlPedidoInsertZe,
-                    dataType: 'json',
-                    contentType: 'application/json; charset=utf-8',
-                    data: JSON.stringify(param),
-                    async: true,
-                    success: function (data) {
-                        if (!checkTimeout(data)) {
-                            CloseLoading();
-                            return false;
-                        }
-
-                        if (data.success != true) {
-                            messageInfoError(data.message);
-                            CloseLoading();
-                            return false;
-                        }
-
-                        ShowLoading();
-                        ActualizarGanancia(data.DataBarra);
-                        CargarCarouselEstrategias(cuv);
-                        TrackingJetloreAdd(cantidad, $("#hdCampaniaCodigo").val(), cuv);
-                        TagManagerClickAgregarProducto();
-                           
-                        CloseLoading();
-                    },
-                    error: function (data, error) {
-                        if (checkTimeout(data)) {
-                            CloseLoading();
-                        }
-                    }
-                });
-            }
-        },
-        error: function (data, error) {
-            if (checkTimeout(data)) {
-                CloseLoading();
-            }
-        }
-    });
-};
 function ReservadoOEnHorarioRestringido(mostrarAlerta) {
     mostrarAlerta = typeof mostrarAlerta !== 'undefined' ? mostrarAlerta : true;
     var restringido = true;
@@ -766,9 +325,12 @@ function ReservadoOEnHorarioRestringido(mostrarAlerta) {
                 messageInfo(data.message);
             }
         },
-        error: function (error) {
-            console.log(error);
-            messageInfo('Ocurrió un error al intentar validar el horario restringido o si el pedido está reservado. Por favor inténtelo en unos minutos.');
+        error: function (data, error) {
+            CloseLoading();
+            if (checkTimeout(data)) {
+                console.log(error);
+                messageInfo('Ocurrió un error al intentar validar el horario restringido o si el pedido está reservado. Por favor inténtelo en unos minutos.');
+            }
         }
     });
     return restringido;
@@ -911,7 +473,7 @@ function TagManagerCatalogosPersonalizados() {
 
 //Google Analytics
 function TagManagerCarruselInicio(arrayItems) {
-    var cantidadRecomendados = $('#divCarouseHorizontalMobile').find(".slick-active").length;
+    var cantidadRecomendados = $('#divListadoEstrategia').find(".slick-active").length;
 
     var arrayEstrategia = [];
     for (var i = 0; i < cantidadRecomendados; i++) {
@@ -962,7 +524,7 @@ function TagManagerClickAgregarProducto() {
     });
 }
 function TagManagerCarruselPrevia() {
-    var posicionPrimerActivo = $($('#divCarouseHorizontalMobile').find(".slick-active")[0]).find('.PosicionEstrategia').val();
+    var posicionPrimerActivo = $($('#divListadoEstrategia').find(".slick-active")[0]).find('.PosicionEstrategia').val();
     var posicionEstrategia = posicionPrimerActivo == 1 ? arrayOfertasParaTi.length - 1 : posicionPrimerActivo - 2;
     var recomendado = arrayOfertasParaTi[posicionEstrategia];
     var arrayEstrategia = new Array();
@@ -996,7 +558,7 @@ function TagManagerCarruselPrevia() {
 
 }
 function TagManagerCarruselSiguiente() {
-    var posicionUltimoActivo = $($('#divCarouseHorizontalMobile').find(".slick-active").slice(-1)[0]).find('.PosicionEstrategia').val();
+    var posicionUltimoActivo = $($('#divListadoEstrategia').find(".slick-active").slice(-1)[0]).find('.PosicionEstrategia').val();
     var posicionEstrategia = arrayOfertasParaTi.length == posicionUltimoActivo ? 0 : posicionUltimoActivo;
     var recomendado = arrayOfertasParaTi[posicionEstrategia];
     var arrayEstrategia = new Array();
@@ -1029,50 +591,10 @@ function TagManagerCarruselSiguiente() {
 
 }
 //PL20-1265
-function mostrarFichaProductoOPT(cuv, posicion){
-    ShowLoading();
-    $('#hdPosicion').val(posicion);
-    jQuery.ajax({
-        type: 'POST',
-        url: urlGetProductoFichaOPT,
-        dataType: 'json',
-        contentType: 'application/json; charset=utf-8',
-        data: JSON.stringify({ pCuv: cuv }),
-        async: false,
-        success: function (response) {
-            if (checkTimeout(response)) {
-                if (response.success) {
-                    var datos = response.data;
-                    SetHandlebars("#PopFichaOPT-template", datos, '#PopFichaOPT');
 
-                    $('#imgFichaProOPT').attr('src', datos.FotoProducto01);                    
-                    $('.marca_ficha_producto').text(datos.DescripcionMarca);
-                    $('.titulo_ficha_producto').text(datos.DescripcionCUV2);
-                    $('.precio_ficha_producto').text(datos.Simbolo + ' ' + datos.PrecioString);
-
-                    $('body').css({ 'overflow-x': 'hidden' });
-                    $('body').css({ 'overflow-y': 'hidden' });
-                    CloseLoading();
-                    $('#PopFichaOPT').show();
-                    
-                } else {
-                    window.messageInfo(response.message);
-                }
-            }
-        },
-        error: function (response, error) {
-            if (checkTimeout(response)) {
-                console.log(response);
-            }
-        }
-    });
-}
-
-function CerrarFichaOPT()
-{
-    $('body').css({ 'overflow-y': 'scroll' });
-    $('#PopFichaOPT').hide();
-}
+$("#content_oferta_dia_mobile").click(function () {
+    $('#PopOfertaDia').slideDown();
+});
 
 function CompartirWsp(UrlBase, objParameter) {
     var _id = InsertarProductoCompartido(objParameter, 'W');
@@ -1092,13 +614,11 @@ function CompartirWsp(UrlBase, objParameter) {
 //function CompartirFacebook(urlBase, objParameter) {
 //    var _id = InsertarProductoCompartido(objParameter,'F');
 //    urlBase = urlBase.replace('[valor]', _id);
-
 //    var popWwidth = 570;
 //    var popHeight = 420;
 //    var left = (screen.width / 2) - (popWwidth / 2);
 //    var top = (screen.height / 2) - (popHeight / 2);
 //    var url = "http://www.facebook.com/sharer/sharer.php?u=" + urlBase;
-
 //    window.open(url, 'Facebook', "width=" + popWwidth + ",height=" + popHeight + ",menubar=0,toolbar=0,directories=0,scrollbars=no,resizable=no,left=" + left + ",top=" + top + "");
 //}
 
@@ -1108,13 +628,10 @@ function CompartirWsp(UrlBase, objParameter) {
 //    var _marcaID = objParameter.MarcaID;
 //    var _marcaDesc = objParameter.MarcaDesc;
 //    var _nombre = objParameter.NombrePro;
-
 //    var pcCuv = objParameter.Cuv;
 //    var pcPalanca = "OPT";
 //    var pcDetalle = _rutaImagen + "|" + _marcaID + "|" + _marcaDesc + "|" + _nombre;
 //    var pcApp = app;
-
-
 //    var ID = 0;
 //    var Item = {
 //        mCUV: pcCuv,
@@ -1122,7 +639,6 @@ function CompartirWsp(UrlBase, objParameter) {
 //        mDetalle: pcDetalle,
 //        mApplicacion: pcApp
 //    };
-
 //    jQuery.ajax({
 //        type: 'POST',
 //        url: urlInsertarProductoCompartido,
