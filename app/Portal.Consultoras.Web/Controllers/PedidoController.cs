@@ -4249,7 +4249,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 listaHermanos.ForEach(h =>
                 {
-                    var prod = listaProducto.Find(p => p.CUV == h.CUV);
+                    var prod = listaProducto.Find(p => p.SAP == h.CodigoProducto) ?? new BEEstrategiaProducto();
                     h.Orden = prod.Orden;
                     h.Grupo = prod.Grupo;
                     h.PrecioCatalogoString = Util.DecimalToStringFormat(prod.Precio, userData.CodigoISO);
