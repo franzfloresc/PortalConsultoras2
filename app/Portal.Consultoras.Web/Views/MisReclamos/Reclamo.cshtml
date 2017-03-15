@@ -1,4 +1,4 @@
-﻿
+﻿@using Portal.Consultoras.Common
 @model Portal.Consultoras.Web.Models.MisReclamosModel
 
 @{
@@ -498,7 +498,8 @@
     var urlRegresar = '@Url.Action("Index","MisReclamos")';
     var urlRegresarReclamo = '@Url.Action("Reclamo","MisReclamos")';
 
-    var mensajePeriodoInvalido = '@Model.MensajePeriodoInvalido';
+    var mensajeGestionCdrInhabilitada = '@Html.Raw(Model.MensajeGestionCdrInhabilitada)';
+    var mensajeCdrFueraDeFechaCompleto = '@Html.Raw(Constantes.CdrWebMensajes.FueraDeFecha + " " + Constantes.CdrWebMensajes.ContactateChatEnLinea)';
 </script>
 <script src="@Url.Content("~/Scripts/PortalConsultoras/MisReclamos/Reclamo.js")"></script>
 }

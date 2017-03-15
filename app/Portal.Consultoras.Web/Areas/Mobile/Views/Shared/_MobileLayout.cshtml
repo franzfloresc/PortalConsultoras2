@@ -300,7 +300,7 @@
                         SÓLO FALTAN
                     </div>
                     <div class="texto_fecha_m">
-                        <span id="spnDiasFaltantes">12</span>
+                        <span id="spnDiasFaltantes" class="clsDia">12</span>
                     </div>
                     <div class="texto_dias_m">
                         DÍAS
@@ -313,11 +313,11 @@
                         <div class="text_hora_m no_margin_right">sec</div>
                     </div>
                     <div class="fondo_contador">
-                        <div class="text_numero"><span id="spnHorasFaltantes">18</span></div>
+                        <div class="text_numero"><span id="spnHorasFaltantes" class="clsHora">18</span></div>
                         <div class="text_bolita">•</div>
-                        <div class="text_numero"><span id="spnMinutosFaltantes">25</span></div>
+                        <div class="text_numero"><span id="spnMinutosFaltantes" class="clsMinuto">25</span></div>
                         <div class="text_bolita">•</div>
-                        <div class="text_numero"><span id="spnSegundosFaltantes">02</span></div>
+                        <div class="text_numero"><span id="spnSegundosFaltantes" class="clsSegundo">02</span></div>
                     </div>
                     <div style="margin-top: 6px;">
                                                     <a href="@showRoomBannerLateral.RutaShowRoomBannerLateral" class="boton_showroom" id="lnkConoceMasShowRoomBannerLateral" target="_blank">CONOCE MÁS AQUÍ</a>
@@ -695,27 +695,27 @@
 
                         seconds = Math.floor((date_future - (date_now)) / 1000);
                         minutes = Math.floor(seconds / 60);
-                        hours = Math.floor(minutes / 60);
+                        hours = Math.floor(minutes / 60);                        
                         days = Math.floor(hours / 24);
 
                         hours = hours - (days * 24);
                         minutes = minutes - (days * 24 * 60) - (hours * 60);
                         seconds = seconds - (days * 24 * 60 * 60) - (hours * 60 * 60) - (minutes * 60);
 
-                        //$("#time").text("Time until new year:\nDays: " + days + " Hours: " + hours + " Minutes: " + minutes + " Seconds: " + seconds);
-                        $("#spnDiasFaltantes").html(days);
-                        $("#spnHorasFaltantes").html(hours);
-                        $("#spnMinutosFaltantes").html(minutes);
-                        $("#spnSegundosFaltantes").html(seconds);
+                        //$("#time").text("Time until new year:\nDays: " + days + " Hours: " + hours + " Minutes: " + minutes + " Seconds: " + seconds);                        
+                        $(".clsDia").html(days);
+                        $(".clsHora").html(hours);
+                        $(".clsMinuto").html(minutes);
+                        $(".clsSegundo").html(seconds);
 
                         if (days == 0 && hours == 0 && minutes == 0 && seconds == 0) {
                             clearInterval(calcNewYear);
                         }
                         if (days < 0) {
-                            $("#spnDiasFaltantes").html(0);
-                            $("#spnHorasFaltantes").html(0);
-                            $("#spnMinutosFaltantes").html(0);
-                            $("#spnSegundosFaltantes").html(0);
+                            $(".clsDia").html(0);
+                            $(".clsHora").html(0);
+                            $(".clsMinuto").html(0);
+                            $(".clsSegundo").html(0);
                             clearInterval(calcNewYear);
                         }
                     }, 1000);
