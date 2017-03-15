@@ -938,9 +938,11 @@ function CompartirRedesSocialesAbrirVentana(id, tipoRedes, ruta, texto) {
         texto = texto.ReplaceAll("=", "%3D");
         texto = texto.ReplaceAll(" ", "%32");
         texto = texto.ReplaceAll("+", "%43");
-    }
 
-    return "whatsapp://send?text=" + texto + ruta;
+        $("#HiddenRedesSocialesWA").attr("href", "javascript:window.location=" + "whatsapp://send?text=" + texto + ruta);
+        $("#HiddenRedesSocialesWA").click();
+        //return "whatsapp://send?text=" + texto + ruta;
+    }
 }
 
 function CompartirRedesSocialesInsertar(article, tipoRedes, ruta) {
