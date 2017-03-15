@@ -65,7 +65,6 @@
         <xs:element minOccurs="0" name="codigoIso" nillable="true" type="xs:string" />
         <xs:element minOccurs="0" name="campaniaId" type="xs:int" />
         <xs:element minOccurs="0" name="codigoSap" nillable="true" type="xs:string" />
-        <xs:element minOccurs="0" name="NroCampania" type="xs:int" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -73,6 +72,23 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/Portal.Consultoras.ServiceCatalogoPersonalizado.Entities" minOccurs="0" name="ObtenerProductosByCodigoSapResult" nillable="true" type="q5:ArrayOfProducto" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ObtenerProductosPorCampaniasBySap">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="codigoIso" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="campaniaId" type="xs:int" />
+        <xs:element minOccurs="0" name="codigoSap" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="NroCampania" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ObtenerProductosPorCampaniasBySapResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q6="http://schemas.datacontract.org/2004/07/Portal.Consultoras.ServiceCatalogoPersonalizado.Entities" minOccurs="0" name="ObtenerProductosPorCampaniasBySapResult" nillable="true" type="q6:ArrayOfProducto" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -88,7 +104,7 @@
   <xs:element name="ObtenerProductosAppCatalogoByListaCUVResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q6="http://schemas.datacontract.org/2004/07/Portal.Consultoras.ServiceCatalogoPersonalizado.Entities" minOccurs="0" name="ObtenerProductosAppCatalogoByListaCUVResult" nillable="true" type="q6:ArrayOfProducto" />
+        <xs:element xmlns:q7="http://schemas.datacontract.org/2004/07/Portal.Consultoras.ServiceCatalogoPersonalizado.Entities" minOccurs="0" name="ObtenerProductosAppCatalogoByListaCUVResult" nillable="true" type="q7:ArrayOfProducto" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
