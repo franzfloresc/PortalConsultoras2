@@ -25,6 +25,7 @@ namespace Portal.Consultoras.Web.Models
         public string CodigoIso { get; set; }
 
         public string Simbolo { get; set; }
+        public decimal ConsultoraSaldo { get; set; }    //EPD-1665
 
         public List<BECDRWebDetalle> ListaDetalle { get; set; }
         public string EstadoDescripcion
