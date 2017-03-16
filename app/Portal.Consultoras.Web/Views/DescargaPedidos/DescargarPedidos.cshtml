@@ -378,7 +378,9 @@
             altclass: 'jQGridAltRowClass',
             loadComplete: function () {
             },
-            gridComplete: function () { },
+            gridComplete: function () {
+                obtenerUltimaDescargaExitosa();
+            },
             cache: false
         });
     }
@@ -403,8 +405,6 @@
             },
             error: function (data, error) {
                 if (checkTimeout(data)) {
-
-
                     alert("Error del Sistema.");
                 }
             }
