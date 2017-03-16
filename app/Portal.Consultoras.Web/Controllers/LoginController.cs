@@ -738,13 +738,13 @@ namespace Portal.Consultoras.Web.Controllers
             string Hostname = string.Empty;
             try
             {
-                if (System.Web.HttpContext.Current.Request.ServerVariables["REMOTE_ADDR"] != null)
+                if (!string.IsNullOrEmpty( System.Web.HttpContext.Current.Request.UserHostName)) //System.Web.HttpContext.Current.Request.ServerVariables["REMOTE_ADDR"] != null)
                 {
-                    Hostname = System.Net.Dns.GetHostEntry(System.Web.HttpContext.Current.Request.ServerVariables["REMOTE_ADDR"]).HostName;
-                    if (Hostname.Split('.').Count() > 1)
-                    {
-                        Hostname = Hostname.Split('.')[0];
-                    }
+                    Hostname = System.Web.HttpContext.Current.Request.UserHostName; //System.Net.Dns.GetHostEntry(System.Web.HttpContext.Current.Request.ServerVariables["REMOTE_ADDR"]).HostName;
+                    //if (Hostname.Split('.').Count() > 1)
+                    //{
+                    //    Hostname = Hostname.Split('.')[0];
+                    //}
                 }
                 return Hostname;
             }
