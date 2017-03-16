@@ -19323,10 +19323,10 @@ namespace Portal.Consultoras.Web.ServicePedido {
         System.Threading.Tasks.Task<int> ValidarCargadePedidosAsync(int paisID, int TipoCronograma, int MarcaPedido, System.DateTime FechaFactura);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/DescargaPedidosWeb", ReplyAction="http://tempuri.org/IPedidoService/DescargaPedidosWebResponse")]
-        string[] DescargaPedidosWeb(int paisID, System.DateTime fechaFacturacion, int tipoCronograma, bool marcarPedido, string usuario);
+        string[] DescargaPedidosWeb(int paisID, System.DateTime fechaFacturacion, int tipoCronograma, bool marcarPedido, string usuario, string descripcionProceso);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/DescargaPedidosWeb", ReplyAction="http://tempuri.org/IPedidoService/DescargaPedidosWebResponse")]
-        System.Threading.Tasks.Task<string[]> DescargaPedidosWebAsync(int paisID, System.DateTime fechaFacturacion, int tipoCronograma, bool marcarPedido, string usuario);
+        System.Threading.Tasks.Task<string[]> DescargaPedidosWebAsync(int paisID, System.DateTime fechaFacturacion, int tipoCronograma, bool marcarPedido, string usuario, string descripcionProceso);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/DescargaPedidosDD", ReplyAction="http://tempuri.org/IPedidoService/DescargaPedidosDDResponse")]
         string[] DescargaPedidosDD(int paisID, System.DateTime fechaFacturacion, int tipoCronograma, bool marcarPedido, string usuario);
@@ -21494,12 +21494,12 @@ namespace Portal.Consultoras.Web.ServicePedido {
             return base.Channel.ValidarCargadePedidosAsync(paisID, TipoCronograma, MarcaPedido, FechaFactura);
         }
         
-        public string[] DescargaPedidosWeb(int paisID, System.DateTime fechaFacturacion, int tipoCronograma, bool marcarPedido, string usuario) {
-            return base.Channel.DescargaPedidosWeb(paisID, fechaFacturacion, tipoCronograma, marcarPedido, usuario);
+        public string[] DescargaPedidosWeb(int paisID, System.DateTime fechaFacturacion, int tipoCronograma, bool marcarPedido, string usuario, string descripcionProceso) {
+            return base.Channel.DescargaPedidosWeb(paisID, fechaFacturacion, tipoCronograma, marcarPedido, usuario, descripcionProceso);
         }
         
-        public System.Threading.Tasks.Task<string[]> DescargaPedidosWebAsync(int paisID, System.DateTime fechaFacturacion, int tipoCronograma, bool marcarPedido, string usuario) {
-            return base.Channel.DescargaPedidosWebAsync(paisID, fechaFacturacion, tipoCronograma, marcarPedido, usuario);
+        public System.Threading.Tasks.Task<string[]> DescargaPedidosWebAsync(int paisID, System.DateTime fechaFacturacion, int tipoCronograma, bool marcarPedido, string usuario, string descripcionProceso) {
+            return base.Channel.DescargaPedidosWebAsync(paisID, fechaFacturacion, tipoCronograma, marcarPedido, usuario, descripcionProceso);
         }
         
         public string[] DescargaPedidosDD(int paisID, System.DateTime fechaFacturacion, int tipoCronograma, bool marcarPedido, string usuario) {

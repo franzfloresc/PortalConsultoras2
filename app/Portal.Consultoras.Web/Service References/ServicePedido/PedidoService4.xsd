@@ -3261,6 +3261,7 @@
         <xs:element minOccurs="0" name="tipoCronograma" type="xs:int" />
         <xs:element minOccurs="0" name="marcarPedido" type="xs:boolean" />
         <xs:element minOccurs="0" name="usuario" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="descripcionProceso" nillable="true" type="xs:string" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
