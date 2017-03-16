@@ -399,6 +399,7 @@ function CargarEstrategiasEspeciales(objInput, e) {
                         item.Hermanos[0].ImagenBulkSelect = item.Hermanos[0].ImagenBulk;
                         item.Hermanos[0].NombreBulkSelect = item.Hermanos[0].NombreBulk;
 
+                        item.NombreComercial = item.Hermanos[0].NombreComercial;
                     }
                 });
                 estrategia.CUVSelect = estrategia.Detalle[0].CUVSelect;

@@ -1890,20 +1890,20 @@
                 </div>
             </div>
             <div class="content_right_ficha">
-                <div {{#iff CodigoEstrategia '==' '2002'}} class="content_left_ficha" {{/iff}}>
+                <div style="width:50%; margin-right:0">
                     <div class="marca_producto">{{DescripcionMarca}}</div>
                     <div id="fav_nombre_prod" class="titulo_ficha_producto" data-prod-descripcion>{{DescripcionCompleta}}</div>
                     @*<div id="fav_descripcion_prod" class="descripcion_ficha_producto">CY STUDIO DEL 1.5 G BROWN</div>*@
                 </div>
-                <div {{#iff CodigoEstrategia '==' '2002'}} class="content_right_ficha" style="text-align:right;" {{/iff}}>
-                <div class="precio_ficha_producto">
-                    {{#iff Precio '>' 0}}
+                <div>
+                    <div class="precio_ficha_producto">
+                        {{#iff Precio '>' 0}}
                         <span class="producto_precio_normal">{{Simbolo}} {{PrecioTachado}}</span><br />
-                    {{/iff}}
+                        {{/iff}}
                         <div style="margin-top:-5px;"><span class="texto_precio_ficha">Precio para ti:</span>{{Simbolo}} {{PrecioString}}</div>
                         @*<div class="ganancia_ficha">Gana S/.90</div>*@
-                </div>
                     </div>
+                </div>
                 <hr class="clear">
                 <div data-estrategia="{{CodigoEstrategia}}">
                     {{#iff CodigoEstrategia '!=' ''}}
@@ -1916,7 +1916,7 @@
                             <div style="display: none;">
                                 <input type="hidden" name="nameMarcaID" id="Estrategia_hd_MarcaID" value="{{item1.MarcaID}}" />
                                 <input type="hidden" name="namePrecioCatalogo" id="Estrategia_hd_PrecioCatalogo" value="{{item1.PrecioCatalogo}}" />
-                </div>
+                            </div>
                             <div id="fav_tono_{{item1.CUV}}" class="content_tono_detalle {{#iff item1.CUVSelect '!=' ''}}borde_seleccion_tono{{/iff}}" data-tono-cuv="{{item1.CUV}}" data-tono-change="">
                                 <img src="{{item1.ImagenBulk}}" alt="">
                                 <div class="tooltip_tono">{{item1.NombreBulk}}</div>
@@ -1937,58 +1937,58 @@
                         <div style="display: none;">
                             <input type="hidden" name="nameMarcaID" id="Estrategia_hd_MarcaID" value="{{item1.MarcaID}}" />
                             <input type="hidden" name="namePrecioCatalogo" id="Estrategia_hd_PrecioCatalogo" value="{{item1.PrecioCatalogo}}" />
-                </div>
+                        </div>
                         <div class="content_left_ficha" data-tono-visible="" style="width:{{#iff item1.Digitable '==' '1'}}50%{{else}}100%{{/iff}}; margin-right:0">
-                            <div class="marca_producto">{{item1.DescripcionMarca}}</div>
-                            <div class="sub_nombre_producto" data-tono-nombre="">{{item1.DescripcionComercial}}</div>
+                            @*<div class="marca_producto">{{item1.DescripcionMarca}}</div>*@
+                            <div class="sub_nombre_producto" data-tono-nombre="">{{item1.NombreComercial}}</div>
                             @*<div class="sub_precio">Precio regular: {{Simbolo}} {{item1.PrecioCatalogoString}}</div>*@
-            </div>
+                        </div>
                         {{#iff item1.Digitable '==' '1'}}
                         <div class="content_right_ficha" style="width:50%;">
                             <div class="content_tono_principal"><img src="{{item1.ImagenBulkSelect}}" alt=""></div>
                             <div>
                                 <div class="combo_select_tono">
                                     <span data-tono-select-html="">{{item1.NombreBulkSelect}}</span> <span class="mas_info_tono">+</span>
-        </div>
+                                </div>
                                 <div class="content_tonos_ficha">
                                     {{#each item1.Hermanos as |tono|}}
                                     <div class="content_tono_combo" data-tono-change="" data-tono-cuv="{{tono.CUV}}">
-                                        <img src="{{tono.ImagenBulk}}" data-tono-nombre="{{tono.NombreBulk}}" data-tono-cuv="{{tono.CUV}}" data-tono-descripcionComercial="{{tono.DescripcionComercial}}" alt="PRODUCTO">
-    </div>
+                                        <img src="{{tono.ImagenBulk}}" data-tono-nombre="{{tono.NombreBulk}}" data-tono-cuv="{{tono.CUV}}" data-tono-descripcionComercial="{{tono.NombreComercial}}" alt="PRODUCTO">
+                                    </div>
                                     {{/each}}
-                </div>
-                        </div>
+                                </div>
+                            </div>
                         </div>
                         {{/iff}}
                         <hr class="clear" />
-                        </div>
+                    </div>
                     {{/each}}
                     {{/iff}}
-                                {{/iff}}
-                            </div>
-                            <div class="liquidacion_rango_home">
+                    {{/iff}}
+                </div>
+                <div class="liquidacion_rango_home">
                     <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" data-input="cantidad" data-cantidad-input="-">
-                                <div class="liquidacion_rango_right_pedido">
+                    <div class="liquidacion_rango_right_pedido">
                         <a class="mas" data-cantidad-agregar="+"><img src="/Content/Images/Esika/mas.png" alt=""></a>
                         <a class="menos" data-cantidad-agregar="-"><img src="/Content/Images/Esika/menos.png" alt=""></a>
-                                </div>
-                            </div>
-                <a class="boton_Agregalo_home ficha_btn_agregar" onclick="javascript:CargarProductoDestacado({ EstrategiaID: '{{EstrategiaID}}' , TipoEstrategiaID: '{{TipoEstrategiaID}}' , Posicion: {{Posicion}} , FlagNueva: '{{FlagNueva}}' }, this, true);" style="cursor: pointer;">
-                                AGRÉGALO
-                            </a>
-                        {{#if MostrarTextoLibre}}
-                <div class="mensaje_advertencia_detalleCarousel" style="margin-top:10px; margin-left:0px;">
-                            <span class="icono_advertencia_notificacion"></span>
-                            <span>{{TextoLibre}}</span>
-                        </div>
-                        {{/if}}
-                @*<div class="notificacion_cantidad">Limitado a 5 packs por consultora</div>*@
                     </div>
-            <hr class="clear" />
                 </div>
-
+                <a class="boton_Agregalo_home ficha_btn_agregar" onclick="javascript:CargarProductoDestacado({ EstrategiaID: '{{EstrategiaID}}' , TipoEstrategiaID: '{{TipoEstrategiaID}}' , Posicion: {{Posicion}} , FlagNueva: '{{FlagNueva}}' }, this, true);" style="cursor: pointer;">
+                    AGRÉGALO
+                </a>
+                {{#if MostrarTextoLibre}}
+                <div class="mensaje_advertencia_detalleCarousel" style="margin-top:10px; margin-left:0px;">
+                    <span class="icono_advertencia_notificacion"></span>
+                    <span>{{TextoLibre}}</span>
+                </div>
+                {{/if}}
+                @*<div class="notificacion_cantidad">Limitado a 5 packs por consultora</div>*@
             </div>
-        </script>
+            <hr class="clear" />
+        </div>
+
+    </div>
+</script>
 
 <script id="productos-faltantes-template" type="text/x-handlebars-template">
     <table>
