@@ -11378,12 +11378,12 @@ a{
     text-align: center;
     /* margin-top: 20px; */
     padding-top: 30px;
-    margin-bottom: 10px;
+    margin-bottom: 6px;
     background: #bda571;
     height: 62px;
 }
 .precio_set_compra { font-weight:900;   font-family: 'LAto';    font-size: 17px;    /* margin-top: 5px; */    text-align: center;}
-.content_imagen_carrusel_compra {    width: 100%;    margin: 0 auto;    margin-top: 10px;    margin-bottom: 10px;}
+.content_imagen_carrusel_compra {    width: 100%;    margin: 0 auto;    margin-top: 25px;    margin-bottom: 10px;}
 .content_imagen_carrusel_compra img{     width:100%; }
 .content_pop_compra{    width:85%;    margin:0 auto;}
 .precio_producto_compra{ 
@@ -11465,8 +11465,11 @@ a{
     /*text-align:center;*/
 }
 .texto_banner_compra b{
-    display:block;
-    /*font-size:16px;*/
+    display: block;
+    /* font-size: 16px; */
+    line-height: 16px;
+    margin-bottom: 5px;
+    text-transform: uppercase;
 }
 .btn_ver_detalle_pop_compra{
    text-align:center;
@@ -11519,11 +11522,11 @@ a{
     width:204px;
     margin: 0 auto;
     background:#c1a975 url(https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/Ww1BSCHyiH4P0Jo/promocion.png) no-repeat center right;
-    letter-spacing:1px;
+    letter-spacing:1.5px;
     padding-left:20px;
     color:white;
     font-weight:700;
-    font-size:20px;
+    font-size:19px;
     height: 36px;
     line-height: 39px;
     cursor:pointer;
@@ -11532,6 +11535,7 @@ a{
     width:100%;
     display:none;
     padding-top:10px;
+    padding-bottom:10px;
     background:white;
     -webkit-box-shadow: -2px 1px 18px -4px rgba(0,0,0,0.5);
     -moz-box-shadow: -2px 1px 18px -4px rgba(0,0,0,0.5);
@@ -11564,7 +11568,10 @@ a{
     font-weight: 300;
     margin-bottom: 20px;
     text-align: center;
-    margin-top: 15px;
+    /* margin-top: 15px; */
+    WIDTH: 83%;
+    MARGIN: 0 AUTO;
+    MARGIN-TOP: 15PX;
 }
 .titulo_compra_carrusel{
     font-size:21px;
