@@ -205,6 +205,23 @@
         @Model.Tema
     </a>
 </div>
+<div class="content_promocion">
+    <div class="pestana_promocion" id="AbrirBannerCompra">PROMOCIÓN</div>
+    <div class="content_desplegable_banner" id="BannerCompra">
+        <div class="content_carrusel_intriga" style="background:white;" id="LlamarPopCompra">
+            <div class="content_banner_img"><img src="@Model.ListaShowRoomCompraPorCompra[0].ImagenProducto" /></div>
+            <div class="content_banner_right">
+                <div class="texto_banner_compra">
+                    <b style="margin-top:10px;">@Model.ListaShowRoomCompraPorCompra[0].Descripcion</b>
+                    <b style="font-size:18px;">A SÓLO @Model.ListaShowRoomCompraPorCompra[0].Simbolo @Model.ListaShowRoomCompraPorCompra[0].FormatoPrecioCatalogo </b>
+                    <span class="set_dia_banner">POR LA COMPRA DE 2 SETS <br/>DEL DÍA DE LA MADRE</span>
+                </div>
+                @*<a class="btn_ver_detalle_pop_compra">VER DETALLE</a>*@
+            </div>
+            <hr class="clear" />
+        </div>
+    </div>
+</div>
 
 <!--MODAL AGREGAR PEDIDO-->
 <div id="divMensajeProductoAgregado" class="modal fade" data-backdrop="static" data-keyboard="false">
@@ -221,10 +238,13 @@
 <!--POP UP COMPRA X COMPRA / QUITAR EL SCROLL DEL BODY CUANDO SALGA ESTE POP UP-->
 <div class="PopMobile1" id="PopCompra" data-popup-main="">
     <div class="content_popMobile" data-popup-body="" style="max-width: 450px;">
-        <a class="cerrar_popMobile" id="CerrarPopCompra">
+        <a class="cerrar_popMobile" id="CerrarPopCompra" style=" position:absolute;right:20px;">
             <img src="/Content/Images/mobile/Esika/cerrar_04.png" alt="-">
         </a>
-        <div class="titulo_compra_POP">PROMOCIÓN</div>
+        <div style="margin:-20px -20px 0 -20px;">
+            <div class="titulo_compra_POP">PROMOCIÓN</div>
+        </div>
+       
 
         @if (Model.TieneCompraXcompra)
         {
@@ -245,8 +265,9 @@
                                 <input type="hidden" class="DescripcionMarca" value="@item.DescripcionMarca"/>
                                 <input type="hidden" class="posicionEstrategia" value="@posicionCpc"/>
                             </div>
-                            <div class="precio_set_compra"><b>A SÓLO @item.Simbolo @item.FormatoPrecioCatalogo</b><br/> POR LA COMPRA DE 2 SETS
+                            <div class="set_dia_compra_pop">POR LA COMPRA DE 2 SETS<br/> DEL DÍA DE LA MADRE
                             </div>
+                            
                             <div class="content_imagen_carrusel_compra">
                                 @if (item.ImagenProducto != "")
                                 {
@@ -257,13 +278,28 @@
                                     <img src="@Url.Content("~/Content/Images/showroom/no_disponible.png")" style="width: auto; height: 100%;" class="imagen_producto"/>
                                 }
                             </div>
-                            <div style="height: 78px;">
-                                <div class="precio_producto_compra">@item.Descripcion</div>
-                                <div class="descripcion_compra">@item.DescripcionLegal</div>
+                            <div style="height: 130px;">
+                                <div class="nombre_producto_pop_compra">Reloj Espheric</div>
+                                <div class="precio_set_compra">
+                                    A SÓLO @item.Simbolo @item.FormatoPrecioCatalogo
+                                </div>
                                 <div class="descripcion_compra">Valorizado en @item.Simbolo @item.FormatoPrecioOferta</div>
+                                <div class="precio_producto_compra">@item.Descripcion</div>
+                                
+                                
+                                @*<div class="descripcion_compra">@item.DescripcionLegal</div>*@
+                               
                             </div>
-
-                            <a class="btn_agrega_compra" data-btn-agregar-cpc="">AGRÉGALO</a>
+                            <div>
+                                <div class="content_cantidad_ficha_producto">
+                                    <a class="cantidad_menos_home"><img src="/Content/Images/Mobile/Esika/menos.png" alt=""></a>
+                                    <input type="tel" value="1" size="2" maxlength="2" id="txtCantidad" class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" data-input="cantidad">
+                                    <a class=" cantidad_mas_home"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
+                                </div>
+                                <a class="btn_agregar_ficha_producto" onclick="" style="background:black;">AGRÉGALO</a>
+                                <hr class="clear">
+                            </div>
+                            @*<a class="btn_agrega_compra" data-btn-agregar-cpc="">AGRÉGALO</a>*@
                         </div>
                         {
                             posicionCpc++;
@@ -272,6 +308,10 @@
                 </div>
             }
         }
+        <div class="legal_footer_compra">
+            La validación del cumplimiento de la condición de compra será al cerrar su facturación.
+            Promoción válida hasta agotar stock.
+        </div>
     </div>
 </div>
 

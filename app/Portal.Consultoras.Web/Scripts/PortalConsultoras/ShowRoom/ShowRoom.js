@@ -16,7 +16,7 @@ $(document).ready(function () {
             $('.content_carrusel_pop_compra.slick-initialized').slick('unslick');
             
             $('.content_carrusel_pop_compra').not('.slick-initialized').slick({
-                dots: true,
+                dots: false,
                 infinite: true,
                 vertical: false,
                 speed: 300,

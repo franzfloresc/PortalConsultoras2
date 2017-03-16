@@ -94,6 +94,7 @@
             if (Model.ListaShowRoomCompraPorCompra != null && Model.ListaShowRoomCompraPorCompra.Count > 0)
             {
                 <div class="content_ficha_compra slider center" style="margin-top: 0px !important;">
+                    
                     @{ var posicionCpcVertical = 1; }
                     @foreach (var item in Model.ListaShowRoomCompraPorCompra)
                     {
@@ -107,8 +108,10 @@
                                 <input type="hidden" class="DescripcionMarca" value="@item.DescripcionMarca" />
                                 <input type="hidden" class="posicionEstrategia" value="@posicionCpcVertical" />
                             </div>
-                            <div class="titulo_compra_POP" style="font-size: 11px;">PROMOCIÓN</div>
-                            <div class="precio_set_compra" style="font-size: 14px;"><b>A SÓLO @item.Simbolo @item.PrecioCatalogo</b> <br/> POR LA COMPRA DE 2 SETS</div>
+                            <div class="titulo_compra_POP" style="font-size: 21px; color: #bda571;">PROMOCIÓN</div>
+                            <div class="titulo_producto_compra_carrusel">Reloj Espheric</div>
+                            <div class="precio_set_compra" style="font-size: 16px;"><b>A SÓLO @item.Simbolo @item.PrecioCatalogo</b></div>
+                            <div class="descripcion_producto_compra" style="text-align: center;">Valorizado en @item.Simbolo @item.PrecioOferta</div>
                             <div class="content_imagen_carrusel_compra verDetalleCompraPorCompra" data-img="">
                                 @if (item.ImagenProducto != "")
                                 {
@@ -120,11 +123,12 @@
                                 }
                                 <a class="ver_detalle_carrusel" style="width: 90%;">VER DETALLE</a>
                             </div>
-                            <div class="producto_compra">@item.Descripcion</div>
-                            <div class="descripcion_producto_compra" style="text-align: center;">@item.DescripcionLegal</div>
-                            <div class="descripcion_producto_compra" style="text-align: center;">Valorizado en @item.Simbolo @item.PrecioOferta</div>
+                            <div class="precio_set_compra" style="font-size: 14px; line-height:17px;">POR LA COMPRA DE 2 SETS <br/>DEL DÍA DE LA MADRE</div>
+                            @*<div class="producto_compra">@item.Descripcion</div>*@
+                            @*<div class="descripcion_producto_compra" style="text-align: center;">@item.DescripcionLegal</div>*@
+                           
                             <hr class="clear"/>
-                            <a data-btn-agregar-cpc="" class="btn_agrega_carrusel_compra">AGRÉGALO</a>                            
+                            <a data-btn-agregar-cpc="" class="btn_agrega_carrusel_compra">VER PROMOCIÓN</a>                            
                         </div>
                         {
                             posicionCpcVertical++;
@@ -138,7 +142,7 @@
 </div>
 <div class="catalogoPersonalizadoBloque" style="margin-top:85px; overflow:hidden;">
    <div class="content_belcorp">
-       <div class="titulo_carrusel_showroom">SIGUE VIENDO ESTOS PRODUCTOS</div>
+       <div class="titulo_carrusel_showroom">VER MÁS SETS EXCLUSIVOS PARA TI</div>
        <!--CARRUSEL-->
        <div class="responsive">
            @{ var posicionx = 1; }
@@ -209,6 +213,15 @@
                 <a class="cerrar_fichaProducto" href="javascript:;" onclick=" javascript: $('#PopDetalleCompra').fadeOut(); ">
                     <img src="/Content/Images/cerrar_04_blanco.png" alt=" alternate text">
                 </a>
+                <div style="margin:-43px -51px 0px -51px">
+                    <div class="content_titulo_pop">
+                        <div class="precio_set_compra" style="letter-spacing: 1px; padding-top: 28px; color:white">POR LA COMPRA DE 2 SETS DEL DÍA DE LA MADRE </div>
+                        <div class="titulo_compra_POP" style="letter-spacing:4.6px; height: 65px;">PROMOCIÓN</div>
+                        
+                    </div>
+                </div>
+                
+                
 
                 <div class="content_carrusel_pop_compra">
                     @{ var posicionCpc = 1; }
@@ -224,8 +237,8 @@
                                 <input type="hidden" class="DescripcionMarca" value="@item.DescripcionMarca"/>
                                 <input type="hidden" class="posicionEstrategia" value="@posicionCpc"/>
                             </div>
-                            <div class="titulo_compra_POP">PROMOCIÓN</div>
-                            <div class="precio_set_compra"><b>A SÓLO @item.Simbolo @item.PrecioCatalogo</b> POR LA COMPRA DE DOS SETS</div>
+                           
+                            
                             <div class="content_imagen_compra" data-img="">
                                 @if (item.ImagenProducto != "")
                                 {
@@ -237,10 +250,13 @@
                                 }
                             </div>
                             <div class="content_datos_carrusel">
+                                <div class="titulo_pop_compra">Reloj Espheric</div>
+                                <div class="precio_set_compra" style="text-align:left"><b>A SÓLO @item.Simbolo @item.PrecioCatalogo</b></div>
+                                <div class="descripcion_producto_compra" style="font-weight:400;">Valorizado en @item.Simbolo @item.PrecioOferta</div>
                                 <div class="producto_compra">@item.Descripcion</div>
-                                <div class="descripcion_producto_compra">@item.DescripcionLegal</div>
-                                <div class="descripcion_producto_compra">Valorizado en @item.Simbolo @item.PrecioOferta</div>
-                                <a data-btn-agregar-cpc="" class="boton_Agregalo_home btn_aregar_set" onclick="" style="width: 100%;">
+                                @*<div class="descripcion_producto_compra">@item.DescripcionLegal</div>*@
+                                
+                                <a data-btn-agregar-cpc="" class="boton_Agregalo_home btn_aregar_set" onclick="" style="width: 100%; margin-top:20px;">
                                     AGRÉGALO
                                 </a>
                                 <hr class="clear"/>
@@ -252,6 +268,8 @@
                         }
                     }
                 </div>
+                <div class="legal_footer_compra">La validación del cumplimiento de la condición de compra será al cerrar su facturación.<br/>
+                Promoción válida hasta agotar stock.</div>
 
             </div>
         </div>

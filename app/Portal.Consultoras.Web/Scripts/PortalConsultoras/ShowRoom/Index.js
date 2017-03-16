@@ -61,7 +61,7 @@ $(document).ready(function () {
     $("#btnVerDetalleCompraPorCompra").click(function () {
         $("#PopDetalleCompra").show();
         $('.content_carrusel_pop_compra').not('.slick-initialized').slick({
-            dots: true,
+            dots: false,
             infinite: true,
             vertical: false,
             speed: 300,

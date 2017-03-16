@@ -1,6 +1,18 @@
 ﻿$(document).ready(function () {
     CargarFiltroRangoPrecio();
     CargarProductosShowRoom(null);
+    var AbrirBanner = 0;
+    $("#AbrirBannerCompra").click(function () {
+        if (AbrirBanner == 0) {
+            $('#BannerCompra').slideDown();            
+            AbrirBanner = 1;
+        }
+        else {
+            $('#BannerCompra').slideUp();
+            AbrirBanner = 0;
+        }      
+
+    });
 
     $("#LlamarPopCompra").click(function () {
         $('body').css({ 'overflow-x': 'hidden' });
@@ -14,8 +26,8 @@
             speed: 300,
             slidesToShow: 1,
             slidesToScroll: 1,
-            prevArrow: '<a class="previous_ofertas js-slick-prev" style="display: block;left: 0;margin-left: -13%; top: 35%;"><img src="' + baseUrl + 'Content/Images/Esika/left_compra.png")" alt="" /></a>',
-            nextArrow: '<a class="previous_ofertas js-slick-next" style="display: block;right: 0;margin-right: -13%; text-align:right;  top: 35%;"><img src="' + baseUrl + 'Content/Images/Esika/right_compra.png")" alt="" /></a>'
+            prevArrow: '<a class="previous_ofertas js-slick-prev" style="display: block;left: 0;margin-left: -10%; top: 35%;"><img src="' + baseUrl + 'Content/Images/Esika/left_compra.png")" alt="" /></a>',
+            nextArrow: '<a class="previous_ofertas js-slick-next" style="display: block;right: 0;margin-right: -10%; text-align:right;  top: 35%;"><img src="' + baseUrl + 'Content/Images/Esika/right_compra.png")" alt="" /></a>'
         });
     });
 
