@@ -33,9 +33,9 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 if (Request.Browser.IsMobileDevice) return RedirectToAction("Index", "Bienvenida", new { area = "Mobile" });
                 else return RedirectToAction("Index", "Bienvenida");
-                }
-                else
-                {
+            }
+            else
+            {
                 var IP = string.Empty;
                 var ISO = string.Empty;
                 var model = new LoginModel();
@@ -214,7 +214,7 @@ namespace Portal.Consultoras.Web.Controllers
                         }
                     }
                 }
-                else  
+                else
                 {
                     //EPD-1968
                     if (Url.IsLocalUrl(decodedUrl))
@@ -483,7 +483,7 @@ namespace Portal.Consultoras.Web.Controllers
                     model.SobrenombreOriginal = oBEUsuario.Sobrenombre;
                     model.Direccion = oBEUsuario.Direccion;
                     model.IPUsuario = GetIPCliente();
-                    model.HostName = Util.GetHostName(model.IPUsuario);
+                    model.HostName = GetHostname();
                     model.AnoCampaniaIngreso = oBEUsuario.AnoCampaniaIngreso;
                     model.PrimerNombre = oBEUsuario.PrimerNombre;
                     model.PrimerApellido = oBEUsuario.PrimerApellido;
@@ -739,6 +739,28 @@ namespace Portal.Consultoras.Web.Controllers
                 throw;
             }
             return model;
+        }
+
+        private string GetHostname()
+        {
+            string Hostname = string.Empty;
+            try
+            {
+                if (System.Web.HttpContext.Current.Request.ServerVariables["REMOTE_ADDR"] != null)
+                {
+                    Hostname = System.Net.Dns.GetHostEntry(System.Web.HttpContext.Current.Request.ServerVariables["REMOTE_ADDR"]).HostName;
+                    if (Hostname.Split('.').Count() > 1)
+                    {
+                        Hostname = Hostname.Split('.')[0];
+                    }
+                }
+                return Hostname;
+            }
+            catch (Exception)
+            {
+                return "Unknown host";
+                throw;
+            }
         }
 
         private void CalcularMotivoRechazo(UsuarioModel model)

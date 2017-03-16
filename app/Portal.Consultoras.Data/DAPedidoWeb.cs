@@ -204,13 +204,14 @@ namespace Portal.Consultoras.Data
             return Context.ExecuteDataSet(command);
         }
 
-        public int UpdPedidoWebIndicadorEnviado(int NroLote, bool FirmarPedido, byte Estado, string Mensaje, string NombreArchivoCabecera, string NombreArchivoDetalle, string NombreServer)
+        public int UpdPedidoWebIndicadorEnviado(int NroLote, bool FirmarPedido, byte Estado, string Mensaje, string mensajeExcepcion, string NombreArchivoCabecera, string NombreArchivoDetalle, string NombreServer)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.UpdPedidoWebIndicadorEnviado");
             Context.Database.AddInParameter(command, "@NroLote", DbType.Int32, NroLote);
             Context.Database.AddInParameter(command, "@FirmarPedido", DbType.Boolean, FirmarPedido);
             Context.Database.AddInParameter(command, "@Estado", DbType.Byte, Estado);
             Context.Database.AddInParameter(command, "@Mensaje", DbType.String, Mensaje);
+            Context.Database.AddInParameter(command, "@MensajeExcepcion", DbType.String, mensajeExcepcion);
             Context.Database.AddInParameter(command, "@NombreArchivoCabecera", DbType.String, NombreArchivoCabecera);
             Context.Database.AddInParameter(command, "@NombreArchivoDetalle", DbType.String, NombreArchivoDetalle);
             Context.Database.AddInParameter(command, "@NombreServer", DbType.String, NombreServer);
@@ -525,12 +526,13 @@ namespace Portal.Consultoras.Data
             return Context.ExecuteDataSet(command);
         }
 
-        public int UpdDatosConsultoraIndicadorEnviado(int NroLote, byte Estado, string Mensaje, string NombreArchivo, string NombreServer)
+        public int UpdDatosConsultoraIndicadorEnviado(int NroLote, byte Estado, string Mensaje, string mensajeExcepcion, string NombreArchivo, string NombreServer)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.UpdDatosConsultoraIndicadorEnviado");
             Context.Database.AddInParameter(command, "@NroLote", DbType.Int32, NroLote);
             Context.Database.AddInParameter(command, "@Estado", DbType.Byte, Estado);
             Context.Database.AddInParameter(command, "@Mensaje", DbType.String, Mensaje);
+            Context.Database.AddInParameter(command, "@MensajeExcepcion", DbType.String, mensajeExcepcion);
             Context.Database.AddInParameter(command, "@NombreArchivo", DbType.String, NombreArchivo);
             Context.Database.AddInParameter(command, "@NombreServer", DbType.String, NombreServer);
 

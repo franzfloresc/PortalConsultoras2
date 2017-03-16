@@ -121,7 +121,7 @@ namespace Portal.Consultoras.Web.Controllers
                         if (ContadorCarga == 0)
                         {
                             string usuario = UserData().NombreConsultora;
-                            file = pedidoService.DescargaPedidosWeb(model.PaisID, model.FechaFacturacion, model.TipoCronogramaID == 3 ? 2 : model.TipoCronogramaID, model.TipoCronogramaID == 1 ? true : (model.TipoCronogramaID == 3 ? true : false), usuario);
+                            file = pedidoService.DescargaPedidosWeb(model.PaisID, model.FechaFacturacion, model.TipoCronogramaID == 3 ? 2 : model.TipoCronogramaID, model.TipoCronogramaID == 1 ? true : (model.TipoCronogramaID == 3 ? true : false), usuario, ((Enumeradores.TipoDescargaPedidos)model.TipoCronogramaID).ToString());
                         }
                         else
                         {
