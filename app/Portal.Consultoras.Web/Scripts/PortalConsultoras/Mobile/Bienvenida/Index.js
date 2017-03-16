@@ -595,20 +595,6 @@ function TagManagerCarruselSiguiente() {
 $("#content_oferta_dia_mobile").click(function () {
     $('#PopOfertaDia').slideDown();
 });
-
-function CompartirWsp(UrlBase, objParameter) {
-    var _id = InsertarProductoCompartido(objParameter, 'W');
-    if (_id == 0)
-        return false;
-
-    UrlBase = UrlBase.replace("[valor]", _id);
-
-    UrlBase = UrlBase.ReplaceAll('/', '%2F');
-    UrlBase = UrlBase.ReplaceAll(":", "%3A");
-    UrlBase = UrlBase.ReplaceAll("?", "%3F");
-    UrlBase = UrlBase.ReplaceAll("=", "%3D");
-
-    return "whatsapp://send?text=" + UrlBase;
 }
 
 //function CompartirFacebook(urlBase, objParameter) {
