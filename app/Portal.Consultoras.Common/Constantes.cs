@@ -153,6 +153,13 @@ namespace Portal.Consultoras.Common
             public const int OfertaWeb = 4;
             public const int Lanzamiento = 5;
         }
+        
+        public class TipoEstrategiaSet
+        {
+            public const string IndividualConTonos = "2001";
+            public const string CompuestaFija = "2002";
+            public const string CompuestaVariable = "2003";
+        }
 
         public class TipoEstrategiaCodigo
         {
