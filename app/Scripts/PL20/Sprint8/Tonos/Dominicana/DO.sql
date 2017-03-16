@@ -32,6 +32,7 @@ ALTER PROCEDURE [dbo].[InsertarEstrategia_SB2]
 	@ColorFondo varchar(20),
 	@FlagEstrella bit,
 	@CodigoEstrategia varchar(100),
+	@TieneVariedad int,
 	@Retorno int output
 AS
 BEGIN
@@ -95,11 +96,11 @@ BEGIN
 			    INSERT INTO dbo.Estrategia
 			    (TipoEstrategiaID, CampaniaID, CampaniaIDFin, NumeroPedido, Activo, ImagenURL, LimiteVenta, DescripcionCUV2
 				,FlagDescripcion, CUV, EtiquetaID, Precio, FlagCEP, CUV2, EtiquetaID2, Precio2
-				,FlagCEP2, TextoLibre, FlagTextoLibre, Cantidad, FlagCantidad, Zona, Orden, UsuarioCreacion, FechaCreacion, ColorFondo, FlagEstrella, CodigoEstrategia )
+				,FlagCEP2, TextoLibre, FlagTextoLibre, Cantidad, FlagCantidad, Zona, Orden, UsuarioCreacion, FechaCreacion, ColorFondo, FlagEstrella, CodigoEstrategia, TieneVariedad )
 				VALUES
 			   (@TipoEstrategiaID,@CampaniaID,@CampaniaIDFin,@NumeroPedido,@Activo,@ImagenURL,@LimiteVenta,@DescripcionCUV2
 				,@FlagDescripcion,@CUV,@EtiquetaID,@Precio,@FlagCEP,@CUV2,@EtiquetaID2,@Precio2
-				,@FlagCEP2,@TextoLibre,@FlagTextoLibre,@Cantidad,@FlagCantidad,@Zona,@Orden,@UsuarioCreacion,GETDATE(), @ColorFondo, @FlagEstrella, @CodigoEstrategia)
+				,@FlagCEP2,@TextoLibre,@FlagTextoLibre,@Cantidad,@FlagCantidad,@Zona,@Orden,@UsuarioCreacion,GETDATE(), @ColorFondo, @FlagEstrella, @CodigoEstrategia, @TieneVariedad)
 
 				set @Retorno = @@IDENTITY
 
@@ -158,7 +159,8 @@ BEGIN
 					FechaModificacion	= GETDATE(),
 					ColorFondo			= @ColorFondo, 
 					FlagEstrella		= @FlagEstrella,
-					CodigoEstrategia	= @CodigoEstrategia
+					CodigoEstrategia	= @CodigoEstrategia,
+					TieneVariedad		= @TieneVariedad
 				WHERE EstrategiaID = @EstrategiaID
 				
 				set @Retorno = @EstrategiaID
@@ -230,6 +232,7 @@ BEGIN
 		, E.EtiquetaID		-- SB20-351
 		, E.EtiquetaID2		-- SB20-351
 		, E.CodigoEstrategia
+		, E.TieneVariedad
 	INTO #TEMPORAL
 	FROM Estrategia E
 	INNER JOIN TipoEstrategia TE ON E.TipoEstrategiaID = TE.TipoEstrategiaID
@@ -287,6 +290,7 @@ BEGIN
 		, E.EtiquetaID		-- SB20-351
 		, E.EtiquetaID2		-- SB20-351
 		, E.CodigoEstrategia
+		, E.TieneVariedad
 	FROM Estrategia E
 	INNER JOIN TipoEstrategia TE ON
 		E.TipoEstrategiaID = TE.TipoEstrategiaID
@@ -367,6 +371,7 @@ BEGIN
 		, E.EtiquetaID		-- SB20-351
 		, E.EtiquetaID2		-- SB20-351
 		, E.CodigoEstrategia
+		, E.TieneVariedad
 	FROM Estrategia E
 	INNER JOIN TipoEstrategia TE ON E.TipoEstrategiaID = TE.TipoEstrategiaID
 	INNER JOIN ods.Campania ca ON CA.Codigo = e.campaniaid
@@ -418,6 +423,7 @@ BEGIN
 			, E.EtiquetaID		-- SB20-351
 			, E.EtiquetaID2		-- SB20-351
 			, E.CodigoEstrategia
+			, E.TieneVariedad
 		FROM Estrategia E
 		INNER JOIN TipoEstrategia TE ON E.TipoEstrategiaID = TE.TipoEstrategiaID
 		INNER JOIN ods.Campania ca ON CA.Codigo = e.campaniaid
@@ -468,6 +474,7 @@ BEGIN
 		, E.EtiquetaID		-- SB20-351
 		, E.EtiquetaID2		-- SB20-351
 		, E.CodigoEstrategia
+		, E.TieneVariedad
 	FROM Estrategia E
 	INNER JOIN TipoEstrategia TE ON E.TipoEstrategiaID = TE.TipoEstrategiaID
 	INNER JOIN ods.Campania CA ON E.CampaniaID = CA.Codigo
@@ -518,6 +525,7 @@ SELECT
 		, T.EtiquetaID		-- SB20-351
 		, T.EtiquetaID2		-- SB20-351
 		, T.CodigoEstrategia
+		, T.TieneVariedad
 	FROM #TEMPORAL T
 	INNER JOIN TipoEstrategia TE ON TE.TipoEstrategiaID = T.TipoEstrategiaID
 	LEFT JOIN Marca M ON M.MarcaId = T.MarcaId
