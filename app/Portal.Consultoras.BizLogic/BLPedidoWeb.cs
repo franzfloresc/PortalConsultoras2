@@ -491,7 +491,7 @@ namespace Portal.Consultoras.BizLogic
                         errorExcepcion = ErrorUtilities.GetExceptionMessage(exceptionCoDat);
                         try { DAPedidoWeb.UpdDatosConsultoraIndicadorEnviado(nroLote, 99, ErrorCoDat, errorExcepcion, string.Empty, string.Empty); }
                         catch (Exception ex2) { LogManager.SaveLog(ex2, usuario, codigoPais); }
-                        MailUtilities.EnviarMailProcesoDescargaExcepcion("Descarga de pedidos", codigoPais, FechaHoraPais, descripcionProceso, ErrorCoDat, errorExcepcion);
+                        MailUtilities.EnviarMailProcesoDescargaExcepcion("Actualización Datos Consultora", codigoPais, FechaHoraPais, descripcionProceso, ErrorCoDat, errorExcepcion);
                     }
                 }
                 throw;
@@ -531,7 +531,7 @@ namespace Portal.Consultoras.BizLogic
                         string errorExcepcion = ErrorUtilities.GetExceptionMessage(ex);
                         try { DAPedidoWeb.UpdConsultoraDescargaGuardoS3(nroLote, false, error, errorExcepcion); }
                         catch (Exception ex2) { LogManager.SaveLog(ex2, usuario, codigoPais); }
-                        MailUtilities.EnviarMailProcesoDescargaExcepcion("Actualizacion Datos Consultora", codigoPais, FechaHoraPais, descripcionProceso, error, errorExcepcion);
+                        MailUtilities.EnviarMailProcesoDescargaExcepcion("Actualización Datos Consultora", codigoPais, FechaHoraPais, descripcionProceso, error, errorExcepcion);
                     }
                 }
             }
@@ -554,22 +554,16 @@ namespace Portal.Consultoras.BizLogic
             DAPedidoDD DAPedidoDD = null;
 
             string headerFile = null, detailFile = null, NombreCabecera = null, NombreDetalle = null;
+            string codigoPais = null, codigoPaisProd = null;
 
             DateTime FechaHoraPais;
+            try { FechaHoraPais = new DAPedidoWeb(paisID).GetFechaHoraPais(); }
+            catch { FechaHoraPais = DateTime.Now; }
 
             try
             {
-                FechaHoraPais = new DAPedidoWeb(paisID).GetFechaHoraPais();
-            }
-            catch
-            {
-                FechaHoraPais = DateTime.Now;
-            }
-
-            try
-            {
-                string codigoPais = new BLZonificacion().SelectPais(paisID).CodigoISO;
-                string codigoPaisProd = new BLZonificacion().SelectPais(paisID).CodigoISOProd;
+                codigoPais = new BLZonificacion().SelectPais(paisID).CodigoISO;
+                codigoPaisProd = new BLZonificacion().SelectPais(paisID).CodigoISOProd;
 
                 TemplateField[] headerTemplate, detailTemplate;
 
@@ -710,7 +704,7 @@ namespace Portal.Consultoras.BizLogic
                     // {
                     try
                     {
-                        DAPedidoDD.UpdPedidoDDIndicadorEnviadoDD(nroLote, marcarPedido, FechaHoraPais, 2, null, NombreCabecera, NombreDetalle, System.Environment.MachineName);
+                        DAPedidoDD.UpdPedidoDDIndicadorEnviadoDD(nroLote, marcarPedido, FechaHoraPais, 2, null, null, NombreCabecera, NombreDetalle, System.Environment.MachineName);
                     }
                     catch (Exception ex)
                     {
@@ -725,7 +719,11 @@ namespace Portal.Consultoras.BizLogic
                 {
                     if (dtPedidosDD != null && dtPedidosDD.Rows.Count > 0)
                     {
-                        DAPedidoDD.UpdPedidoDDIndicadorEnviadoDD(nroLote, false, FechaHoraPais, 99, "Error desconocido: " + ex.Message, string.Empty, string.Empty, string.Empty);
+                        string error = "Error desconocido: " + ex.Message;
+                        string errorExcepcion = ErrorUtilities.GetExceptionMessage(ex);
+                        try { DAPedidoDD.UpdPedidoDDIndicadorEnviadoDD(nroLote, false, FechaHoraPais, 99, error, errorExcepcion, string.Empty, string.Empty, string.Empty); }
+                        catch (Exception ex2) { LogManager.SaveLog(ex2, usuario, codigoPais); }
+                        MailUtilities.EnviarMailProcesoDescargaExcepcion("Descarga de pedidos", codigoPais, FechaHoraPais, Enumeradores.TipoDescargaPedidos.DigitacionDistribuidaParcial.ToString(), error, errorExcepcion);                        
                     }
                 }
                 throw;
