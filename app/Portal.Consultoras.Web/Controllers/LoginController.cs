@@ -31,7 +31,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             if (HttpContext.User.Identity.IsAuthenticated)
             {
-                bool esMovil = Request.Browser.IsMobileDevice; 
+                bool esMovil = Request.Browser.IsMobileDevice;
                 if (esMovil)
                 {
                     return RedirectToAction("Index", "Bienvenida", new { area = "Mobile" });
@@ -475,7 +475,7 @@ namespace Portal.Consultoras.Web.Controllers
                     model.SobrenombreOriginal = oBEUsuario.Sobrenombre;
                     model.Direccion = oBEUsuario.Direccion;
                     model.IPUsuario = GetIPCliente();
-                    model.HostName = Util.GetHostName(model.IPUsuario);
+                    model.HostName = GetHostname();
                     model.AnoCampaniaIngreso = oBEUsuario.AnoCampaniaIngreso;
                     model.PrimerNombre = oBEUsuario.PrimerNombre;
                     model.PrimerApellido = oBEUsuario.PrimerApellido;
@@ -731,6 +731,28 @@ namespace Portal.Consultoras.Web.Controllers
                 throw;
             }
             return model;
+        }
+
+        private string GetHostname()
+        {
+            string Hostname = string.Empty;
+            try
+            {
+                if (!string.IsNullOrEmpty(HttpContext.ApplicationInstance.Server.MachineName)) //System.Web.HttpContext.Current.Request.ServerVariables["REMOTE_ADDR"] != null)
+                {
+                    Hostname = HttpContext.ApplicationInstance.Server.MachineName; //System.Net.Dns.GetHostEntry(System.Web.HttpContext.Current.Request.ServerVariables["REMOTE_ADDR"]).HostName;
+                    //if (Hostname.Split('.').Count() > 1)
+                    //{
+                    //    Hostname = Hostname.Split('.')[0];
+                    //}
+                }
+                return Hostname;
+            }
+            catch (Exception)
+            {
+                return "Unknown host";
+                throw;
+            }
         }
 
         private void CalcularMotivoRechazo(UsuarioModel model)
