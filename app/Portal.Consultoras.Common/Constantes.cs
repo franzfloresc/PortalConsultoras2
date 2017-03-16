@@ -370,6 +370,8 @@ namespace Portal.Consultoras.Common
                 public const string BannerImagenIntriga = "BannerImagenIntriga";
                 public const string BannerImagenVenta = "BannerImagenVenta";
                 public const string UrlTerminosCondiciones = "UrlTerminosCondiciones";
+                public const string TextoCondicionCompraCpc = "TextoCondicionCompraCpc";
+                public const string TextoDescripcionLegalCpc = "TextoDescripcionLegalCpc";
             }
 
             public class Mobile
@@ -379,7 +381,9 @@ namespace Portal.Consultoras.Common
                 public const string BannerImagenIntriga = "BannerImagenIntriga";
                 public const string BannerImagenVenta = "BannerImagenVenta";
                 public const string BannerImagenPaginaVenta = "BannerImagenPaginaVenta";
-                public const string UrlTerminosCondiciones = "UrlTerminosCondiciones";               
+                public const string UrlTerminosCondiciones = "UrlTerminosCondiciones";
+                public const string TextoCondicionCompraCpc = "TextoCondicionCompraCpc";
+                public const string TextoDescripcionLegalCpc = "TextoDescripcionLegalCpc";
             }
 
             public class TipoAplicacion

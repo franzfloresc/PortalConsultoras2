@@ -136,6 +136,30 @@ namespace Portal.Consultoras.Data
             return Context.ExecuteNonQuery(command);
         }
 
+        public int CargarProductoCpc(int eventoId, string usuarioCreacion, List<BEShowRoomCompraPorCompra> listaShowRoomCompraPorCompra)
+        {
+            var ofertaShowRoomReader = new GenericDataReader<BEShowRoomCompraPorCompra>(listaShowRoomCompraPorCompra);
+
+            var command = new SqlCommand("ShowRoom.InsertCargarProductoCpc");
+            command.CommandType = CommandType.StoredProcedure;
+
+            var parameter = new SqlParameter("@OfertaShowRoomCompraPorCompra", SqlDbType.Structured);
+            parameter.TypeName = "ShowRoom.OfertaShowRoomCompraPorCompraType";
+            parameter.Value = ofertaShowRoomReader;
+            command.Parameters.Add(parameter);
+
+            parameter = new SqlParameter("@EventoID", SqlDbType.Int);
+            parameter.Value = eventoId;
+            command.Parameters.Add(parameter);
+
+            parameter = new SqlParameter("@UsuarioCreacion", SqlDbType.VarChar, 50);
+            parameter.Value = usuarioCreacion;
+            command.Parameters.Add(parameter);
+
+
+            return Context.ExecuteNonQuery(command);
+        }
+
         public IDataReader GetShowRoomConsultora(int campaniaID, string codigoConsultora)
         {
             try

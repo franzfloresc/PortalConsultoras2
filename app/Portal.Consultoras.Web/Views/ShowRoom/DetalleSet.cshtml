@@ -220,9 +220,7 @@
                         
                     </div>
                 </div>
-                
-                
-
+                               
                 <div class="content_carrusel_pop_compra">
                     @{ var posicionCpc = 1; }
                     @foreach (var item in Model.ListaShowRoomCompraPorCompra)
@@ -237,8 +235,7 @@
                                 <input type="hidden" class="DescripcionMarca" value="@item.DescripcionMarca"/>
                                 <input type="hidden" class="posicionEstrategia" value="@posicionCpc"/>
                             </div>
-                           
-                            
+
                             <div class="content_imagen_compra" data-img="">
                                 @if (item.ImagenProducto != "")
                                 {
@@ -250,10 +247,10 @@
                                 }
                             </div>
                             <div class="content_datos_carrusel">
-                                <div class="titulo_pop_compra">Reloj Espheric</div>
+                                <div class="titulo_pop_compra">@item.Descripcion</div>
                                 <div class="precio_set_compra" style="text-align:left"><b>A SÓLO @item.Simbolo @item.PrecioCatalogo</b></div>
                                 <div class="descripcion_producto_compra" style="font-weight:400;">Valorizado en @item.Simbolo @item.PrecioOferta</div>
-                                <div class="producto_compra">@item.Descripcion</div>
+                                <div class="producto_compra">@item.DescripcionLegal</div>
                                 @*<div class="descripcion_producto_compra">@item.DescripcionLegal</div>*@
                                 
                                 <a data-btn-agregar-cpc="" class="boton_Agregalo_home btn_aregar_set" onclick="" style="width: 100%; margin-top:20px;">

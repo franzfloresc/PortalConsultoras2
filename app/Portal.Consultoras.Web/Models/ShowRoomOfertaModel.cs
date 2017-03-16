@@ -96,6 +96,10 @@ namespace Portal.Consultoras.Web.Models
 
         public string DescripcionCategoria { get; set; }
 
+        public string TextoCondicionCompraCpc { get; set; }
+
+        public string TextoDescripcionLegalCpc { get; set; }
+
         public decimal Gana {
             set
             {
