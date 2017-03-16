@@ -2,6 +2,7 @@
 using System.Configuration;
 using System.Text;
 using Newtonsoft.Json;
+using System;
 
 namespace Portal.Consultoras.Common
 {

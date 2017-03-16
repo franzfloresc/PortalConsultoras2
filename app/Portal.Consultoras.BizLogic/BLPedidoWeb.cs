@@ -64,7 +64,7 @@ namespace Portal.Consultoras.BizLogic
             return pedidoDDWeb;
         }
 
-        public string[] DescargaPedidosWeb(int paisID, DateTime fechaFacturacion, int tipoCronograma, bool marcarPedido, string usuario)
+        public string[] DescargaPedidosWeb(int paisID, DateTime fechaFacturacion, int tipoCronograma, bool marcarPedido, string usuario, string descripcionProceso)
         {
             int nroLote = 0;
             DAPedidoWeb DAPedidoWeb = null;
@@ -73,6 +73,7 @@ namespace Portal.Consultoras.BizLogic
             DataTable dtPedidosDD = null;
             DAPedidoDD DAPedidoDD = null;
 
+            Exception exceptionCoDat = null;
             string headerFile = null, detailFile = null, NombreCabecera = null, NombreDetalle = null, dataConFile = null, NombreCoDat = null, ErrorCoDat = null;
             string detailFileAct = null, NombreDetalleAct = null; //CGI (VVA) 2450
             string headerFileS3 = null, detailFileS3 = null, dataConFileS3 = null;
@@ -205,6 +206,7 @@ namespace Portal.Consultoras.BizLogic
                     catch (SqlException ex)
                     {
                         LogManager.SaveLog(ex, usuario, codigoPais);
+                        exceptionCoDat = ex;
                         ErrorCoDat = "No se pudo acceder a la información de las Consultoras.";
                     }
                 }
@@ -356,6 +358,7 @@ namespace Portal.Consultoras.BizLogic
                         catch (Exception ex)
                         {
                             LogManager.SaveLog(ex, usuario, codigoPais);
+                            exceptionCoDat = ex;
                             ErrorCoDat = "No se pudo generar los archivos de datos de consultora.";
                         }
                     }
@@ -415,6 +418,7 @@ namespace Portal.Consultoras.BizLogic
                                     catch (Exception ex)
                                     {
                                         LogManager.SaveLog(ex, usuario, codigoPais);
+                                        exceptionCoDat = ex;
                                         ErrorCoDat = "No se pudo subir los archivos de datos de consultora al destino FTP.";
                                     }
                                 }
@@ -440,7 +444,7 @@ namespace Portal.Consultoras.BizLogic
 
                     try
                     {
-                        DAPedidoWeb.UpdPedidoWebIndicadorEnviado(nroLote, marcarPedido, 2, null, NombreCabecera, NombreDetalle, System.Environment.MachineName);
+                        DAPedidoWeb.UpdPedidoWebIndicadorEnviado(nroLote, marcarPedido, 2, null, null, NombreCabecera, NombreDetalle, System.Environment.MachineName);
                     }
                     catch (Exception ex)
                     {
@@ -454,11 +458,12 @@ namespace Portal.Consultoras.BizLogic
                         {
                             try
                             {
-                                DAPedidoWeb.UpdDatosConsultoraIndicadorEnviado(nroLote, 2, null, NombreCoDat, System.Environment.MachineName);
+                                DAPedidoWeb.UpdDatosConsultoraIndicadorEnviado(nroLote, 2, null, null, NombreCoDat, System.Environment.MachineName);
                             }
                             catch (Exception ex)
                             {
                                 LogManager.SaveLog(ex, usuario, codigoPais);
+                                exceptionCoDat = ex;
                                 ErrorCoDat = "No se pudo marcar los datos de la consultora como enviados.";
                             }
                         }
@@ -469,27 +474,24 @@ namespace Portal.Consultoras.BizLogic
             {
                 if (nroLote > 0)
                 {
-                    DAPedidoWeb.UpdPedidoWebIndicadorEnviado(nroLote, false, 99, "Error desconocido: " + ex.Message, string.Empty, string.Empty, string.Empty);
-                    try
-                    {
+                    string error = "Error desconocido: " + ex.Message;
+                    string errorExcepcion = ErrorUtilities.GetExceptionMessage(ex);
+                    try { DAPedidoWeb.UpdPedidoWebIndicadorEnviado(nroLote, false, 99, error, errorExcepcion, string.Empty, string.Empty, string.Empty); }
+                    catch (Exception ex2) { LogManager.SaveLog(ex2, usuario, codigoPais); }
+                    MailUtilities.EnviarMailProcesoDescargaExcepcion("Descarga de pedidos", codigoPais, FechaHoraPais, descripcionProceso, error, errorExcepcion);
+
                         if (dtPedidosDD != null && dtPedidosDD.Rows.Count > 0)
                         {
-                            DAPedidoDD.UpdPedidoDDIndicadorEnviado(nroLote, false, FechaHoraPais);
+                        try { DAPedidoDD.UpdPedidoDDIndicadorEnviado(nroLote, false, FechaHoraPais); }
+                        catch (Exception ex2) { LogManager.SaveLog(ex2, usuario, codigoPais); }
                         }
-                    }
-                    catch
-                    {
-                    }
+
                     if (ConfigurationManager.AppSettings["OrderDownloadIncludeDatosConsultora"] == "1" && tipoCronograma == 1) //VVA CO528
                     {
-                        try
-                        {
-                            DAPedidoWeb.UpdDatosConsultoraIndicadorEnviado(nroLote, 99, ErrorCoDat, string.Empty, string.Empty);
-                        }
-                        catch
-                        {
-
-                        }
+                        errorExcepcion = ErrorUtilities.GetExceptionMessage(exceptionCoDat);
+                        try { DAPedidoWeb.UpdDatosConsultoraIndicadorEnviado(nroLote, 99, ErrorCoDat, errorExcepcion, string.Empty, string.Empty); }
+                        catch (Exception ex2) { LogManager.SaveLog(ex2, usuario, codigoPais); }
+                        MailUtilities.EnviarMailProcesoDescargaExcepcion("Descarga de pedidos", codigoPais, FechaHoraPais, descripcionProceso, ErrorCoDat, errorExcepcion);
                     }
                 }
                 throw;
@@ -507,8 +509,11 @@ namespace Portal.Consultoras.BizLogic
                 }
                 catch (Exception ex)
                 {
-                    try { DAPedidoWeb.UpdPedidoDescargaGuardoS3(nroLote, false, "Terminado OK; pero con error al guardar backups en S3", ex.Message + "(" + ex.StackTrace + ")"); }
+                    string error = "Terminado OK; pero con error al guardar backups en S3.";
+                    string errorExcepcion = ErrorUtilities.GetExceptionMessage(ex);
+                    try { DAPedidoWeb.UpdPedidoDescargaGuardoS3(nroLote, false, error, errorExcepcion); }
                     catch (Exception ex2) { LogManager.SaveLog(ex2, usuario, codigoPais); }
+                    MailUtilities.EnviarMailProcesoDescargaExcepcion("Descarga de pedidos", codigoPais, FechaHoraPais, descripcionProceso, error, errorExcepcion);
                 }
 
                 if (ConfigurationManager.AppSettings["OrderDownloadIncludeDatosConsultora"] == "1" && !isFox && tipoCronograma == 1 &&
@@ -522,8 +527,11 @@ namespace Portal.Consultoras.BizLogic
                     }
                     catch (Exception ex)
                     {
-                        try { DAPedidoWeb.UpdConsultoraDescargaGuardoS3(nroLote, false, "Terminado OK; pero con error al guardar backups en S3", ex.Message + "(" + ex.StackTrace + ")"); }
+                        string error = "Terminado OK; pero con error al guardar backups en S3.";
+                        string errorExcepcion = ErrorUtilities.GetExceptionMessage(ex);
+                        try { DAPedidoWeb.UpdConsultoraDescargaGuardoS3(nroLote, false, error, errorExcepcion); }
                         catch (Exception ex2) { LogManager.SaveLog(ex2, usuario, codigoPais); }
+                        MailUtilities.EnviarMailProcesoDescargaExcepcion("Actualizacion Datos Consultora", codigoPais, FechaHoraPais, descripcionProceso, error, errorExcepcion);
                     }
                 }
             }
@@ -1907,7 +1915,7 @@ namespace Portal.Consultoras.BizLogic
 
                 listaPedidosFacturados = listaMostrar;
             }
-            
+
 
             return listaPedidosFacturados;
         }

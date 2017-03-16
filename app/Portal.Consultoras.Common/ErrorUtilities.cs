@@ -89,6 +89,17 @@ namespace Portal.Consultoras.Common
             sw.WriteLine(Environment.NewLine);
             sw.Close();
         }
+        
+        public static string GetExceptionMessage(Exception exception)
+        {
+            string message = exception.Message + "(" + exception.StackTrace + ")." + Environment.NewLine;
+            while (exception != null)
+            {
+                message = exception.Message + "(" + exception.StackTrace + ")." + Environment.NewLine;
+                exception = exception.InnerException;
+            }
+            return message;
+        }
     }
 
     public class Log
